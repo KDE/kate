@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
 "PO-Revision-Date: 2024-09-05 13:56+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2519,6 +2519,12 @@ msgstr "ترشيح ضبابي"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "ترشيح حرف البدل"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "كلّ المشاريع"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

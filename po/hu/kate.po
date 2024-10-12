@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2552,6 +2552,12 @@ msgstr "Fuzzy szűrés"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Helyettesítőkarakter-szűrés"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "Minden projektben"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

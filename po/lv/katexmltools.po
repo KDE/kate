@@ -3,26 +3,27 @@
 #
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2008.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-14 00:43+0000\n"
-"PO-Revision-Date: 2012-06-30 15:23+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-09 16:29+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #: plugin_katexmltools.cpp:117
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "XML rīki"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format
@@ -37,12 +38,12 @@ msgstr "&Aizvērt elementu"
 #: plugin_katexmltools.cpp:130
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Piešķirt Meta &DTD..."
+msgstr "Piešķirt meta &DTD..."
 
 #: plugin_katexmltools.cpp:441
 #, kde-format
 msgid "Assign Meta DTD in XML Format"
-msgstr "Piešķirt Meta DTD XML formātā"
+msgstr "Piešķirt meta DTD XML formātā"
 
 #: plugin_katexmltools.cpp:447
 #, kde-format
@@ -50,8 +51,8 @@ msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr ""
-"Pašreizējā datne ir tika identificēta kā dokuments ar tipu “%1”. Tiks "
-"ielādēts šī dokumenta tipa meta DTD."
+"Pašreizējā datne ir identificēta kā dokuments ar tipu „%1“. Ielādēs šī "
+"dokumenta tipu meta DTD."
 
 #: plugin_katexmltools.cpp:451
 #, kde-format
@@ -61,7 +62,7 @@ msgstr "Ielādē XML Meta DTD"
 #: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "Neizdevās atvērt datni “%1”. Serveris atgrieza kļūdu."
+msgstr "Neizdevās atvērt datni „%1“. Serveris atgrieza kļūdu."
 
 #: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
@@ -71,23 +72,22 @@ msgstr "XML spraudņa kļūda"
 #: plugin_katexmltools.cpp:984
 #, kde-format
 msgid "XML entities"
-msgstr ""
+msgstr "XML entītijas"
 
 #: plugin_katexmltools.cpp:986
 #, kde-format
 msgid "XML attribute values"
-msgstr ""
+msgstr "XML atribūtu vērtības"
 
 #: plugin_katexmltools.cpp:988
 #, kde-format
 msgid "XML attributes"
-msgstr ""
+msgstr "XML atribūti"
 
 #: plugin_katexmltools.cpp:991
-#, fuzzy, kde-format
-#| msgid "Insert XML Element"
+#, kde-format
 msgid "XML elements"
-msgstr "Ievietot XML elementu"
+msgstr "XML elementi"
 
 #: plugin_katexmltools.cpp:1030
 #, kde-format
@@ -100,17 +100,15 @@ msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "
 "supplied):"
 msgstr ""
-"Ievadiet XML birkas nosaukumu un atribūtus (\"<\", \">\" un tiks izveidots "
-"aizverošā birka):"
+"Ievadiet XML birkas nosaukumu un atribūtus (\"<\", \">\" un programma "
+"izveidos aizverošo birku):"
 
 #: pseudo_dtd.cpp:45
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
-msgstr ""
-"Neveiksmīga datnes “%1” parsēšana. Lūdzu, pārliecinieties, ka tas ir labs "
-"XML fails."
+msgstr "Neizdevās parsēt datni „%1“. Pārliecinieties, ka tā ir laba XML datne."
 
 #: pseudo_dtd.cpp:54
 #, kde-format
@@ -121,11 +119,11 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"Datnei “%1” ir negaidīts formāts. Lūdzu, pārliecinieties, ka tas atbilst "
-"vienam no šiem tipiem:\n"
+"Datnei „%1“ ir negaidīts formāts. Pārliecinieties, ka tā atbilst vienam no "
+"šiem tipiem:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
-"Šādas datnes var izveidot ar dtdparse. Vairāk informācijas lasiet Kate "
-"spraudņu dokumentācijā."
+"Šādas datnes var izveidot ar „dtdparse“. Vairāk informācijas lasiet „Kate“ "
+"spraudņa dokumentācijā."
 
 #: pseudo_dtd.cpp:70
 #, kde-format

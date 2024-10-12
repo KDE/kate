@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-07 00:42+0000\n"
-"PO-Revision-Date: 2024-08-11 11:22+0300\n"
+"PO-Revision-Date: 2024-10-10 15:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -419,7 +419,7 @@ msgstr "הצגת הבדל"
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "להסיר את הקבצים האלה?"
 
 #: gitwidget.cpp:1217
 #, kde-format
@@ -564,7 +564,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -851,10 +851,9 @@ msgid "Refresh git status"
 msgstr "רענון מצב ה־git"
 
 #: kateprojectpluginview.cpp:186
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "פתיחת תיקייה…"
+msgstr "&פתיחת תיקייה…"
 
 #: kateprojectpluginview.cpp:192
 #, kde-format
@@ -945,13 +944,12 @@ msgstr "העתקת מקום"
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File…"
-msgstr "פתיחת קובץ"
+msgstr "קובץ חדש…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "הוספת תיקייה"
+msgstr "תיקייה חדשה…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -989,16 +987,14 @@ msgid "Show Git History"
 msgstr "הצגת היסטוריית Git"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "פתיחת קובץ"
+msgstr "קובץ חדש"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "הוספת תיקייה"
+msgstr "תיקייה חדשה"
 
 #: kateprojectviewtree.cpp:159
 #, kde-format

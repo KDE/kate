@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
-"PO-Revision-Date: 2024-09-29 08:12+0200\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"PO-Revision-Date: 2024-10-11 19:34+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1288,17 +1288,14 @@ msgid "(never)"
 msgstr "(nikoli)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " dnevu"
-msgstr[1] " dnevih"
-msgstr[2] " dneh"
-msgstr[3] " dneh"
+msgstr[0] "%v dnevih"
+msgstr[1] "%v dnevu"
+msgstr[2] "%v dneh"
+msgstr[3] "%v dneh"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -2545,6 +2542,12 @@ msgstr "Ohlapno filtriranje"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtriranje z nadomestnimi znaki"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "Vsi projekti"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

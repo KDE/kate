@@ -1,0 +1,564 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"PO-Revision-Date: 2024-10-10 14:20+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Lokalize 24.08.1\n"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Clang Format Full File"
+msgstr "„Clang“ formatēt visu datni"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Tools"
+msgstr "Rīki"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Clang Format Selected Text"
+msgstr "„Clang“ formatēt atlasīto datni"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Compile and Run cpp"
+msgstr "Kompilēt un palaist „cpp“"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "git blame"
+msgstr "git blame"
+
+#. i18n: file: 4
+#. i18n: file: 3
+#, kde-format
+msgctxt "External tool category"
+msgid "Git"
+msgstr "Git"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "git-cola"
+msgstr "git-cola"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "gitk"
+msgstr "gitk"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "Go Fmt Full File"
+msgstr "„Go Fmt“ visai datnei"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Go"
+msgstr "Go"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "GoImports Full File"
+msgstr "„GoImports“ visai datnei"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Google Selected Text"
+msgstr "„Google“ atlasītajam tekstam"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Insert UUID"
+msgstr "Ievietot UUID"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "JSON Format Full File"
+msgstr "JSON formāta pilna datne"
+
+#. i18n: file: 7
+#, kde-format
+msgctxt "External tool name"
+msgid "Prettier Format Current File"
+msgstr "Skaistāku formātu pašreizējai datnei"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Qt Quick 2 Preview (qmlscene)"
+msgstr "„Qt Quick 2“ priekšskatījums („qmlscene“)"
+
+#. i18n: file: 4
+#, kde-format
+msgctxt "External tool category"
+msgid "Qt"
+msgstr "Qt"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "Run Shell Script"
+msgstr "Palaist čaulas skriptu"
+
+#. i18n: file: 9
+#, kde-format
+msgctxt "External tool name"
+msgid "Rust Fmt Full File"
+msgstr "„Rust Fmt“ visai datnei"
+
+#. i18n: file: 10
+#, kde-format
+msgctxt "External tool name"
+msgid "Search KDE API"
+msgstr "Meklēšanas KDE API"
+
+#. i18n: file: 10
+#, kde-format
+msgctxt "External tool name"
+msgid "Search Qt API"
+msgstr "Meklēšanas Qt API"
+
+#. i18n: file: 8
+#, kde-format
+msgctxt "External tool name"
+msgid "XML Format Full File"
+msgstr "XML formatēt visu datni"
+
+#. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
+#: configwidget.ui:17
+#, kde-format
+msgid ""
+"This list shows all the configured tools, represented by their menu text."
+msgstr ""
+"Sarakstā ir visi konfigurētie rīki, kurus reprezentē to izvēlnes teksts."
+
+#. i18n: ectx: property (text), widget (QPushButton, btnAdd)
+#: configwidget.ui:29
+#, kde-format
+msgid "&Add"
+msgstr "&Pievienot"
+
+#. i18n: ectx: property (text), widget (QPushButton, btnEdit)
+#: configwidget.ui:36
+#, kde-format
+msgid "&Edit..."
+msgstr "&Rediģēt..."
+
+#. i18n: ectx: property (text), widget (QPushButton, btnRemove)
+#: configwidget.ui:43
+#, kde-format
+msgid "&Remove"
+msgstr "&Noņemt"
+
+#: externaltoolsplugin.cpp:287
+#, kde-format
+msgid ""
+"Failed to find executable '%1'. Please make sure the executable file exists "
+"and that variable names, if used, are correct"
+msgstr ""
+"Neizdevās atrast izpilddatni „%1“. Pārliecinieties, ka tā pastāv un mainīgo "
+"nosaukumi ir pareizi, ja tādus izmantojat"
+
+#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
+#: kateexternaltoolsconfigwidget.cpp:276 kateexternaltoolsview.cpp:158
+#: kateexternaltoolsview.cpp:162 kateexternaltoolsview.cpp:210
+#: kateexternaltoolsview.cpp:278
+#, kde-format
+msgid "External Tools"
+msgstr "Ārējie rīki"
+
+#: externaltoolsplugin.cpp:295
+#, kde-format
+msgid "Running %1: %2 %3"
+msgstr "Darbojas „%1“: %2 %3"
+
+#: externaltoolsplugin.cpp:296
+#, kde-format
+msgid "Running %1: %2 %3 with input %4"
+msgstr "Darbojas „%1“: %2 %3 ar ievadi %4"
+
+#: externaltoolsplugin.cpp:399
+#, kde-format
+msgid "Data written to stderr:\n"
+msgstr "Dati rakstīti uz „stderr“:\n"
+
+#: externaltoolsplugin.cpp:410
+#, kde-format
+msgid "%1 crashed"
+msgstr "„%1“ avarēja"
+
+#: externaltoolsplugin.cpp:412
+#, kde-format
+msgid "%1 finished with exit code %2"
+msgstr "„%1“ pabeidza ar izejas kodu %2"
+
+#: kateexternaltoolscommand.cpp:38
+#, kde-format
+msgid "Starts the external tool '%1'"
+msgstr "Palaiž ārējo rīku „%1“"
+
+#: kateexternaltoolsconfigwidget.cpp:131
+#, kde-format
+msgid "Edit External Tool"
+msgstr "Rediģēt ārējo rīku"
+
+#: kateexternaltoolsconfigwidget.cpp:164
+#, kde-format
+msgid "Revert tool to default settings"
+msgstr "Atgriezt rīka noklusējuma iestatījumus"
+
+#: kateexternaltoolsconfigwidget.cpp:189 kateexternaltoolsconfigwidget.cpp:195
+#, kde-format
+msgid "External Tool"
+msgstr "Ārējais rīks"
+
+#: kateexternaltoolsconfigwidget.cpp:189
+#, kde-format
+msgid "You must specify at least a name and an executable"
+msgstr "Jānorāda vismaz nosaukums un izpilddatne"
+
+#: kateexternaltoolsconfigwidget.cpp:195
+#, kde-format
+msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
+msgstr "Ja ir ieslēgts „Aktivizētājs“, jānorāda vismaz viens MIME tips."
+
+#: kateexternaltoolsconfigwidget.cpp:204
+#, kde-format
+msgid "Select the MimeTypes for which to enable this tool."
+msgstr "Atlasiet MIME tipus, kuriem ieslēgt šo rīku."
+
+#: kateexternaltoolsconfigwidget.cpp:206
+#, kde-format
+msgid "Select Mime Types"
+msgstr "Atlasiet MIME tipus"
+
+#: kateexternaltoolsconfigwidget.cpp:240
+#, kde-format
+msgid "Add Tool..."
+msgstr "Pievienot rīku..."
+
+#: kateexternaltoolsconfigwidget.cpp:241
+#, kde-format
+msgid "Add Tool from Defaults"
+msgstr "Pievienot rīku no noklusējumiem"
+
+#: kateexternaltoolsconfigwidget.cpp:243
+#, kde-format
+msgid "Add Category"
+msgstr "Pievienot kategoriju"
+
+#: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:403
+#: kateexternaltoolsconfigwidget.cpp:450
+#, kde-format
+msgid "Uncategorized"
+msgstr "Bez kategorijas"
+
+#: kateexternaltoolsconfigwidget.cpp:492
+#, kde-format
+msgid "New Category"
+msgstr "Jauna kategorija"
+
+#: kateexternaltoolsconfigwidget.cpp:495
+#, kde-format
+msgid "New Category %1"
+msgstr "Jauna kategorija „%1“"
+
+#: kateexternaltoolsview.cpp:102
+#, kde-format
+msgid "Configure..."
+msgstr "Konfigurēt..."
+
+#: kateexternaltoolsview.cpp:164
+#, kde-format
+msgid "Launch external helper applications"
+msgstr "Palaist ārējas palīdzības programmas"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
+#: tooldialog.ui:14
+#, kde-format
+msgid "Edit Tool"
+msgstr "Rediģēt rīku"
+
+#. i18n: ectx: property (text), widget (QLabel, lblName)
+#: tooldialog.ui:20
+#, kde-format
+msgid "Na&me:"
+msgstr "Nosauku&ms:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtName)
+#: tooldialog.ui:32
+#, kde-format
+msgid "The name will be displayed in the 'Tools->External Tools' menu."
+msgstr "Nosaukums būs redzams izvēlnē „Rīki—>Ārējie rīki“."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
+#: tooldialog.ui:35
+#, kde-format
+msgid "Short name of the tool"
+msgstr "Rīka īsais nosaukums"
+
+#. i18n: ectx: property (text), widget (QLabel, lblExecutable)
+#: tooldialog.ui:47
+#, kde-format
+msgid "Executable:"
+msgstr "Izpilddatne:"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtExecutable)
+#: tooldialog.ui:57
+#, kde-format
+msgid "Application or interpreter"
+msgstr "Programma vai interpretators"
+
+#. i18n: ectx: property (text), widget (QLabel, lblArgs)
+#: tooldialog.ui:64
+#, kde-format
+msgid "Ar&guments:"
+msgstr "&Parametri:"
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtArgs)
+#: tooldialog.ui:74
+#, kde-format
+msgid "Command line arguments"
+msgstr "Komandrindas parametri"
+
+#. i18n: ectx: property (text), widget (QLabel, lblInput)
+#: tooldialog.ui:81
+#, kde-format
+msgid "&Input:"
+msgstr "&Ievade"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, edtInput)
+#: tooldialog.ui:91
+#, kde-format
+msgid "Optional standard input"
+msgstr "Izvēles standarta ievade"
+
+#. i18n: ectx: property (text), widget (QLabel, lblWorkingDir)
+#: tooldialog.ui:98
+#, kde-format
+msgid "Working directory:"
+msgstr "Darba mape:"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtWorkingDir)
+#: tooldialog.ui:108
+#, kde-format
+msgid "Uses current document path if empty"
+msgstr "Ja tukšs, izmanto pašreizējo dokumenta ceļu"
+
+#. i18n: ectx: property (text), widget (QLabel, lblMimeType)
+#: tooldialog.ui:115
+#, kde-format
+msgid "Mime &types:"
+msgstr "MIME &tipi:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtMimeType)
+#: tooldialog.ui:127
+#, kde-format
+msgid ""
+"A semicolon-separated list of mime types for which this tool should be "
+"available. If empty, the tool is always available."
+msgstr ""
+"Ar semikoliem dalīts MIME tipu saraksts, kuriem būs pieejams šis rīks. Ja "
+"tukšs, rīks būs pieejams vienmēr."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
+#: tooldialog.ui:130
+#, kde-format
+msgid "Show tool only for given mime types"
+msgstr "Rīku rādīt tikai dotajiem MIME tipiem"
+
+#. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
+#: tooldialog.ui:137
+#, kde-format
+msgid "Opens a dialog that helps in creating a list of mimetypes."
+msgstr "Atver lodziņu, kas palīdz veidot MIME tipu sarakstu."
+
+#. i18n: ectx: property (text), widget (QLabel, lblSave)
+#: tooldialog.ui:149
+#, kde-format
+msgid "Save:"
+msgstr "Saglabāt:"
+
+#. i18n: ectx: property (whatsThis), widget (QComboBox, cmbSave)
+#: tooldialog.ui:159
+#, kde-format
+msgid ""
+"Optionally save the current or all modified documents prior to running the "
+"command. This is helpful if you want to pass URLs to an application like, "
+"for example, an FTP client."
+msgstr ""
+"Ja vēlaties, varat saglabāt pašreizējo vai visus izmainītos dokumentus pirms "
+"komandas palaišanas. Tas ir noderīgi, ja vēlaties padot URL programmai, "
+"piemēram, FTP klientam."
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:163 tooldialog.ui:189
+#, kde-format
+msgid "None"
+msgstr "Nekam"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#: tooldialog.ui:168
+#, kde-format
+msgid "Current Document"
+msgstr "Pašreizējam dokumentam"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
+#: tooldialog.ui:173
+#, kde-format
+msgid "All Documents"
+msgstr "Visiem dokumentiem"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: tooldialog.ui:181
+#, kde-format
+msgid "Trigger"
+msgstr "Aktivizētājs"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:194
+#, kde-format
+msgid "Before Save"
+msgstr "Pirms saglabāšanas"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
+#: tooldialog.ui:199
+#, kde-format
+msgid "After Save"
+msgstr "Pēc saglabāšanas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkReload)
+#: tooldialog.ui:207
+#, kde-format
+msgid "Reload current document after execution"
+msgstr "Pārlādēt pašreizējo dokumentu pēc izpildes"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: tooldialog.ui:214
+#, kde-format
+msgid "O&utput:"
+msgstr "I&zvade:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:225
+#, kde-format
+msgid "Ignore"
+msgstr "Ignorēt"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:230
+#, kde-format
+msgid "Insert at Cursor Position"
+msgstr "Ievietot kursora pozīcijā"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:235
+#, kde-format
+msgid "Replace Selected Text"
+msgstr "Aizvietot atlasīto tekstu"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:240
+#, kde-format
+msgid "Replace Current Document"
+msgstr "Aizvietot pašreizējo dokumentu"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:245
+#, kde-format
+msgid "Append to Current Document"
+msgstr "Pievienot pašreizējam dokumentam"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:250
+#, kde-format
+msgid "Insert in New Document"
+msgstr "Ievietot jaunā dokumentā"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:255
+#, kde-format
+msgid "Copy to Clipboard"
+msgstr "Kopēt starpliktuvē"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
+#: tooldialog.ui:260
+#, kde-format
+msgid "Display in Pane"
+msgstr "Rādīt rūtī"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: tooldialog.ui:268
+#, kde-format
+msgid "Editor command:"
+msgstr "Redaktora komanda:"
+
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, edtCommand)
+#: tooldialog.ui:278
+#, kde-format
+msgid ""
+"If you specify a name here, you can invoke the command from the view command "
+"line with the_name_you_specified_here. Please do not use spaces or tabs in "
+"the name."
+msgstr ""
+"Te norādot nosaukumu, varat palaist komandu ar te_norādīto_nosaukumu no "
+"skata komandrindas. Nosaukumā nelietojiet atstarpes un tabulatorus."
+
+#. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
+#: tooldialog.ui:281
+#, kde-format
+msgid "Optional view command line name"
+msgstr "Ne obligāts skata komandrindas nosaukums"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
+#: toolview.ui:27
+#, kde-format
+msgid "Output"
+msgstr "Izvade"
+
+#. i18n: ectx: property (placeholderText), widget (QTextEdit, teOutput)
+#: toolview.ui:36
+#, kde-format
+msgid "Displays output from the external tool"
+msgstr "Parāda izvadi no ārējā rīka"
+
+#. i18n: ectx: Menu (tools)
+#: ui.rc:5
+#, kde-format
+msgid "&Tools"
+msgstr "&Rīki"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:9
+#, kde-format
+msgid "Main Toolbar"
+msgstr "Pamata rīkjosla"

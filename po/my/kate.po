@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
 "PO-Revision-Date: 2024-09-10 14:03+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -2445,6 +2445,12 @@ msgstr "အပျင်းတကြီးစစ်ထုတ်ခြင်း"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "ဝါးလုံးရှည်ဖြင့်ယမ်းသကဲ့သို့စစ်ထုတ်ခြင်း"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "ပရောဂျက် အားလုံး"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

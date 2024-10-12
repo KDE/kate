@@ -5,140 +5,137 @@
 # Einars Sprugis <einars8@gmail.com>, 2011.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
 # Maris Nartiss <maris.kde@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-04-22 00:40+0000\n"
-"PO-Revision-Date: 2012-07-05 13:00+0300\n"
-"Last-Translator: Maris Nartiss <maris.kde@gmail.com>\n"
-"Language-Team: Latvian\n"
+"PO-Revision-Date: 2024-10-08 19:11+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr "Lietošana: grep [raksts, kuru meklēt mapē]"
+msgstr "Lietošana: grep [paraugs, pēc kura meklēt mapē]"
 
 #: KateSearchCommand.cpp:82
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr "Lietošana: newGrep [raksts, kuru meklēt mapē]"
+msgstr "Lietošana: newGrep [paraugs, pēc kura meklēt mapē]"
 
 #: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr "Lietošana: search [rakts, kuru atvērtajās datnēs]"
+msgstr "Lietošana: search [paraugs, pēc kura meklēt atvērtajās datnēs]"
 
 #: KateSearchCommand.cpp:92
-#, fuzzy, kde-format
-#| msgid "Usage: grep [pattern to search for in folder]"
+#, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr "Lietošana: grep [raksts, kuru meklēt mapē]"
+msgstr "Lietošana: pgrep [paraugs, pēc kura meklēt pašreizējā projektā]"
 
 #: KateSearchCommand.cpp:94
-#, fuzzy, kde-format
-#| msgid "Usage: newGrep [pattern to search for in folder]"
+#, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr "Lietošana: newGrep [raksts, kuru meklēt mapē]"
+msgstr "Lietošana: newPGrep [paraugs, pēc kura meklēt pašreizējā projektā]"
 
 #: KateSearchCommand.cpp:98
-#, fuzzy, kde-format
-#| msgid "Usage: grep [pattern to search for in folder]"
+#, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr "Lietošana: grep [raksts, kuru meklēt mapē]"
+msgstr ""
+"Lietošana: pgrep [„regex“ paraugs, pēc kura meklēt pašreizējā projektā]"
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
-#| msgid "Search & Replace"
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "Meklēt un aizvietot"
+msgstr "Eksportēt atrastos meklēšanas rezultātus"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr ""
+msgstr "Eksportēt meklēšanas paraugu"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
 #, kde-format
 msgid "Generate"
-msgstr ""
+msgstr "Ģenerēt"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
 #: MatchExportDialog.ui:50
 #, kde-format
 msgid "Result"
-msgstr ""
+msgstr "Rezultāts"
 
 #: MatchModel.cpp:545 MatchModel.cpp:547
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr ""
+msgstr "<b><i>Ģenerē datņu sarakstu: ...%1</i></b>"
 
 #: MatchModel.cpp:555
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>Atrasta %1 atbilsme, meklē: ...%2</i></b>"
+msgstr[1] "<b><i>Atrastas %1 atbilsmes, meklē: ...%2</i></b>"
+msgstr[2] "<b><i>Atrasts %1 atbilsmju, meklē: ...%2</i></b>"
 
 #: MatchModel.cpp:560
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>Atrasta %1 atbilsme, meklē: %2</i></b>"
+msgstr[1] "<b><i>Atrastas %1 atbilsmes, meklē: %2</i></b>"
+msgstr[2] "<b><i>Atrasts %1 atbilsmju, meklē: %2</i></b>"
 
 #: MatchModel.cpp:567 MatchModel.cpp:722
-#, fuzzy, kde-format
-#| msgid "Replace checked"
+#, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] "Aizvietot atzīmēto"
-msgstr[1] "Aizvietot atzīmēto"
-msgstr[2] "Aizvietot atzīmēto"
+msgstr[0] "%1 pārbaudīta"
+msgstr[1] "%1 pārbaudītas"
+msgstr[2] "%1 pārbaudītas"
 
 #: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>Datnē ir atrasta %1 atbilstība (%2)</i></b>"
+msgstr[1] "<b><i>Datnē ir atrastas %1 atbilstības (%2)</i></b>"
+msgstr[2] "<b><i>Datnē ir atrasts %1 atbilstību (%2)</i></b>"
 
 #: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>%1 atbilsme (%2) atrasta atvērtajās datnēs</i></b>"
+msgstr[1] "<b><i>%1 atbilsmes (%2) atrastas atvērtajās datnēs</i></b>"
+msgstr[2] "<b><i>%1 atbilsmju (%2) atrasts atvērtajās datnēs</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>%1 atbilsme (%3) atrasta mapē „%2“</i></b>"
+msgstr[1] "<b><i>%1 atbilsmes (%3) atrastas mapē „%2“</i></b>"
+msgstr[2] "<b><i>%1 atbilsmju (%3) atrasts mapē „%2“</i></b>"
 
 #: MatchModel.cpp:583
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "<b><i>%1 atbilsme (%4) atrasta projektā „%2“ (%3)</i></b>"
+msgstr[1] "<b><i>%1 atbilsmes (%4) atrastas projektā „%2“ (%3)</i></b>"
+msgstr[2] "<b><i>%1 atbilsmju (%4) atrasts projektā „%2“ (%3)</i></b>"
 
 #: MatchModel.cpp:592
 #, kde-format
@@ -147,75 +144,83 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>%1 atbilsme (%3) atrasta visos atvērtajos projektos (kopīgs vecāks: "
+"„%2“)</i></b>"
 msgstr[1] ""
+"<b><i>%1 atbilsmes (%3) atrastas visos atvērtajos projektos (kopīgs vecāks: "
+"„%2“)</i></b>"
 msgstr[2] ""
+"<b><i>%1 atbilsmju (%3) atrasts visos atvērtajos projektos (kopīgs vecāks: "
+"„%2“)</i></b>"
 
 #: MatchModel.cpp:706 MatchModel.cpp:708
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr ""
+msgstr "Ģenerē datņu sarakstu: ...%1"
 
 #: MatchModel.cpp:716
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Atrasta %1 atbilsme, meklē: ...%2"
+msgstr[1] "Atrastas %1 atbilsmes, meklē: ...%2"
+msgstr[2] "Atrasts %1 atbilsmju, meklē: ...%2"
 
 #: MatchModel.cpp:718
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Atrasta %1 atbilsme, meklē: %2"
+msgstr[1] "Atrastas %1 atbilsmes, meklē: %2"
+msgstr[2] "Atrasts %1 atbilsmju, meklē: %2"
 
 #: MatchModel.cpp:726
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Datnē atrasta %1 atbilsme (%2)"
+msgstr[1] "Datnē atrastas %1 atbilsmes (%2)"
+msgstr[2] "Datnē atrasts %1 atbilsmju (%2)"
 
 #: MatchModel.cpp:728
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Atvērtajās datnēs atrasta %1 atbilsme (%2)"
+msgstr[1] "Atvērtajās datnēs atrastas %1 atbilsmes (%2)"
+msgstr[2] "Atvērtajās datnēs atrasts %1 atbilsmju (%2)"
 
 #: MatchModel.cpp:731
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Mapē „%2“ atrasta %1 atbilsme (%3)"
+msgstr[1] "Mapē „%2“ atrastas %1 atbilsmes (%3)"
+msgstr[2] "Mapē „%2“ atrasts %1 atbilsmju (%3)"
 
 #: MatchModel.cpp:734
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 atbilsme (%4) atrasta projektā „%2“ (%3)"
+msgstr[1] "%1 atbilsmes (%4) atrastas projektā „%2“ (%3)"
+msgstr[2] "%1 atbilsmju (%4) atrasts projektā „%2“ (%3)"
 
 #: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"%1 atbilsme (%3) atrasta visos atvērtajos projektos (kopīgs vecāks: „%2“)"
 msgstr[1] ""
+"%1 atbilsmes (%3) atrastas visos atvērtajos projektos (kopīgs vecāks: „%2“)"
 msgstr[2] ""
+"%1 atbilsmju (%3) atrasts visos atvērtajos projektos (kopīgs vecāks: „%2“)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Filter..."
-msgstr "Filtrs"
+msgstr "Filtrēt..."
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -226,21 +231,20 @@ msgstr "Meklēt"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Replace checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "Aizvietot atzīmēto"
+msgstr "Aizvietot atzīmētos"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
 #: search.ui:70 search.ui:73
 #, kde-format
 msgid "Next"
-msgstr ""
+msgstr "Nākamais"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
@@ -251,8 +255,7 @@ msgstr "Apturēt"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
 #: search.ui:118
-#, fuzzy, kde-format
-#| msgid "Match Case"
+#, kde-format
 msgid "Match case"
 msgstr "Reģistrjutīgs"
 
@@ -263,12 +266,15 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
+"<html><head/><body><p>Ieslēgt regulārās izteiksmes. To sintaksi varat "
+"atrast, izmantojot pogas meklēšanas un aizstāšanas teksta laukā.</p></body></"
+"html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:163
 #, kde-format
 msgid "Expand results"
-msgstr ""
+msgstr "Izvērst rezultātus"
 
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
@@ -280,31 +286,27 @@ msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:507
-#, fuzzy, kde-format
-#| msgid "Replace checked"
+#, kde-format
 msgid "Replace"
-msgstr "Aizvietot atzīmēto"
+msgstr "Aizstāt"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:218
-#, fuzzy, kde-format
-#| msgid "in Open files"
+#, kde-format
 msgid "In Current File"
-msgstr "atvērtajās datnēs"
+msgstr "Pašreizējā datnē"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:223
-#, fuzzy, kde-format
-#| msgid "in Open files"
+#, kde-format
 msgid "In Open Files"
-msgstr "atvērtajās datnēs"
+msgstr "Atvērtajās datnēs"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:228
-#, fuzzy, kde-format
-#| msgid "in Folder"
+#, kde-format
 msgid "In Folder"
-msgstr "mapē"
+msgstr "Mapē"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
 #: search.ui:236
@@ -314,23 +316,21 @@ msgstr "Lietot pašreizējo dokumenta ceļu."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:246
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Show more search options"
-msgstr "Meklēt"
+msgstr "Rādīt vairāk meklēšanas opciju"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:259
 #, kde-format
 msgid "Add new search tab"
-msgstr ""
+msgstr "Pievienot jaunu meklēšanas cilni"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:356
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "Folder:"
-msgstr "Mape"
+msgstr "Mape:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
 #: search.ui:374
@@ -340,10 +340,9 @@ msgstr "Iet vienu mapi augšup."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:383
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Filter:"
-msgstr "Filtrs"
+msgstr "Filtrs:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
 #: search.ui:405
@@ -355,7 +354,7 @@ msgstr "*"
 #: search.ui:413
 #, kde-format
 msgid "Exclude:"
-msgstr ""
+msgstr "Izlaist:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:434
@@ -385,13 +384,13 @@ msgstr "Iekļaut binārās datnes"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "Izmēra ierobežojums"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -421,7 +420,7 @@ msgstr "Jebkurš viens simbols (izņemot pārnesi jaunā rindā)"
 #: SearchPlugin.cpp:97
 #, kde-format
 msgid "Literal dot"
-msgstr ""
+msgstr "Punkts"
 
 #: SearchPlugin.cpp:99
 #, kde-format
@@ -431,12 +430,12 @@ msgstr "Viena vai vairāk reizes"
 #: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or more occurrences"
-msgstr "Nulle vai vairāk reizes"
+msgstr "Neviena vai vairāk reizes"
 
 #: SearchPlugin.cpp:101
 #, kde-format
 msgid "Zero or one occurrences"
-msgstr "Nulle vai vienu reizi"
+msgstr "Neviena vai vienu reizi"
 
 #: SearchPlugin.cpp:103
 #, kde-format
@@ -506,72 +505,67 @@ msgstr "Atstarpe (izņemot pārnesi jaunā rindā)"
 #: SearchPlugin.cpp:121
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr "Ne-atstarpe (izņemot pārnesi jaunā rindā)"
+msgstr "Nav atstarpe (izņemot pārnesi jaunā rindā)"
 
 #: SearchPlugin.cpp:122
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
-msgstr "Vārda rakstzīme (burti, cipari, '_')"
+msgstr "Vārda rakstzīme (burti, cipari un '_')"
 
 #: SearchPlugin.cpp:123
 #, kde-format
 msgid "Non-word character"
-msgstr "Ne-vārda rakstzīme"
+msgstr "Nav vārda rakstzīme"
 
 #: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
-msgstr ""
+msgstr "Regulārās izteiksmes notvērums 0 (pilna atbilsme)"
 
 #: SearchPlugin.cpp:136
-#, fuzzy, kde-format
-#| msgid "Regular Expressions"
+#, kde-format
 msgid "Regular expression capture 1-9"
-msgstr "Regulārā izteiksme"
+msgstr "Regulārās izteiksmes notvērums 1–9"
 
 #: SearchPlugin.cpp:137
-#, fuzzy, kde-format
-#| msgid "Regular Expressions"
+#, kde-format
 msgid "Regular expression capture 0-999"
-msgstr "Regulārā izteiksme"
+msgstr "Regulārās izteiksmes notvērums 0–999"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr ""
+msgstr "Lielo burtu notvērums 0–9"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr ""
+msgstr "Lielo burtu notvērums 0–999"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr ""
+msgstr "Mazo burto notvērums 0–9"
 
 #: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr ""
+msgstr "Mazo burto notvērums 0–999"
 
 #: SearchPlugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
 msgstr "Meklēt un aizvietot"
 
 #: SearchPlugin.cpp:328
-#, fuzzy, kde-format
-#| msgid "in Open files"
+#, kde-format
 msgid "Find in Files"
-msgstr "atvērtajās datnēs"
+msgstr "Atrast datnēs"
 
 #: SearchPlugin.cpp:334
-#, fuzzy, kde-format
-#| msgid "Search in Files"
+#, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr "Meklēt datnēs"
+msgstr "Atrast datnēs (jaunā cilnē)"
 
 #: SearchPlugin.cpp:340
 #, kde-format
@@ -586,7 +580,7 @@ msgstr "Iet uz iepriekšējo atbilsmi"
 #: SearchPlugin.cpp:352
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Griezt atbilstošās rindas"
 
 #: SearchPlugin.cpp:354
 #, kde-format
@@ -594,11 +588,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Šī darbība izgriezīs un starpliktuvē ievietos visas pašreizējā dokumentā "
+"izceltās meklēšanas atrastās rindas."
 
 #: SearchPlugin.cpp:359
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Kopēt atrastās rindas"
 
 #: SearchPlugin.cpp:361
 #, kde-format
@@ -606,12 +602,15 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Šī darbība izgriezīs un starpliktuvē ievietos visas pašreizējā dokumentā "
+"izceltās meklēšanas atrastās rindas."
 
 #: SearchPlugin.cpp:394
 #, kde-format
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
+"Ar komatu atdalīts datņu saraksts, kurās meklēt. Piemēram: „*.cpp,*.h“\n"
 
 #: SearchPlugin.cpp:395
 #, kde-format
@@ -619,83 +618,84 @@ msgid ""
 "Comma separated list of files and directories to exclude from the search. "
 "Example: \"build*\""
 msgstr ""
+"Ar komatu atdalīts datņu un mapju saraksts, ko izlaist meklēšanā. Piemēram, "
+"„build*“"
 
 #: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "Klikšķiniet, lai filtrētu rezultātus"
 
 #: SearchPlugin.cpp:487
 #, kde-format
 msgid "Find"
-msgstr ""
+msgstr "Meklēt"
 
 #: SearchPlugin.cpp:1327
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
+"Meklēšana rakstīšanas laikā ir pārtraukta. Tā aizņemtu pārāk ilgu laiku."
 
 #: SearchPlugin.cpp:1660
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search Match"
-msgstr "Meklēt"
+msgstr "Meklēt atbilsmi"
 
 #: SearchPlugin.cpp:1837 SearchPlugin.cpp:1913
 #, kde-format
 msgid "Next from cursor"
-msgstr ""
+msgstr "Nākamā no kursora"
 
 #: SearchPlugin.cpp:1854
 #, kde-format
 msgid "Starting from first match"
-msgstr ""
+msgstr "Sākot no pirmās atbilsmes"
 
 #: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Continuing from first match"
-msgstr ""
+msgstr "Turpina no pirmās atbilsmes"
 
 #: SearchPlugin.cpp:1930
 #, kde-format
 msgid "Starting from last match"
-msgstr ""
+msgstr "Sākot no pēdējās atbilsmes"
 
 #: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Continuing from last match"
-msgstr ""
+msgstr "Turpinot no pēdējās atbilsmes"
 
 #: SearchPlugin.cpp:2111
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Meklēt"
+msgstr "Meklēt: %1"
 
 #: SearchPlugin.cpp:2254
 #, kde-format
 msgid "Copy all"
-msgstr ""
+msgstr "Kopēt visu"
 
 #: SearchPlugin.cpp:2259
 #, kde-format
 msgid "Copy expanded"
-msgstr ""
+msgstr "Kopēt izvērsto"
 
 #: SearchPlugin.cpp:2262
 #, kde-format
 msgid "Export matches"
-msgstr ""
+msgstr "Eksportēt atbilsmes"
 
 #: SearchPlugin.cpp:2267
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Atvērt kā redaktora cilni"
 
 #: SearchPlugin.cpp:2275
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "Notīrīt"
 
 #: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
 #, kde-format
@@ -703,21 +703,19 @@ msgid "Add..."
 msgstr "Pievienot..."
 
 #: SearchPlugin.cpp:2397
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search As You Type"
-msgstr "Meklēt"
+msgstr "Meklēt rakstīšanas laikā"
 
 #: SearchPlugin.cpp:2468
-#, fuzzy, kde-format
-#| msgid "in Open files"
+#, kde-format
 msgid "In Current Project"
-msgstr "atvērtajās datnēs"
+msgstr "Pašreizējā projektā"
 
 #: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
-msgstr ""
+msgstr "Visos atvērtajos projektos"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6
@@ -729,7 +727,7 @@ msgstr "R&ediģēt"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "Meklēt datņu variantos"
 
 #, fuzzy
 #~| msgid "Search & Replace"

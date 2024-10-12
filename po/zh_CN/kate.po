@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -2456,6 +2456,12 @@ msgstr "模糊过滤"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "通配符过滤"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "所有项目"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

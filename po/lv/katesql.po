@@ -3,13 +3,14 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2011, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-10 00:41+0000\n"
-"PO-Revision-Date: 2012-06-30 15:07+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-09 16:46+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -35,7 +36,7 @@ msgstr "Datubāzes draiveris"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr "Izvēlieties datubāzes draiveri"
+msgstr "Atlasīt datubāzes draiveri"
 
 #: connectionwizard.cpp:50
 #, kde-format
@@ -53,7 +54,7 @@ msgstr "Savienojuma parametri"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
-msgstr "Lūdzu, ievadiet savienojuma parametrus"
+msgstr "Ievadiet savienojuma parametrus"
 
 #: connectionwizard.cpp:92
 #, kde-format
@@ -100,7 +101,7 @@ msgstr "Savienojuma opcijas:"
 #: connectionwizard.cpp:152
 #, kde-format
 msgid "Unable to connect to database."
-msgstr "Neizdevās savienoties ar datubāzei."
+msgstr "Neizdevās savienoties ar datubāzi."
 
 #: connectionwizard.cpp:169
 #, kde-format
@@ -109,8 +110,8 @@ msgid ""
 "Please enter the SQLite database file path.\n"
 "If the file does not exist, a new database will be created."
 msgstr ""
-"Lūdzu, ievadiet SQLite datubāzes datnes ceļu.\n"
-"Ja datne neeksistē, tiks izveidota jauna datubāze."
+"Ievadiet „SQLite“ datubāzes datnes ceļu.\n"
+"Ja datne neeksistē, programma izveidos jaunu datubāzi."
 
 #: connectionwizard.cpp:177
 #, kde-format
@@ -233,7 +234,7 @@ msgstr "Datne"
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "Ar komatiem atdalītas vērtības"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -249,7 +250,7 @@ msgid ""
 "Click on \"Finish\" button to export data."
 msgstr ""
 "Izvēlieties lauku formātu.\n"
-"Nospiediet “Pabeigt”, lai eksportētu datus."
+"Nospiediet „Pabeigt“, lai eksportētu datus."
 
 #: exportwizard.cpp:101
 #, kde-format
@@ -273,19 +274,19 @@ msgstr "Eksportēt rindu numurus"
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
-msgstr "Citāti"
+msgstr "Pēdiņas"
 
 #: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr "Citātu virknes"
+msgstr "Pēdiņas ap virknēm"
 
 #: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
-msgstr "Citātu numuri"
+msgstr "Pēdiņas ar skaitļiem"
 
 #: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
@@ -309,7 +310,7 @@ msgstr "Lauku atdalītājs:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
-msgstr "Saglabāt un atjaunot savienojumus Kate sesijā"
+msgstr "Saglabāt un atjaunot savienojumus „Kate“ sesijā"
 
 #: katesqlconfigpage.cpp:25
 #, kde-format
@@ -324,67 +325,51 @@ msgid "SQL"
 msgstr "SQL"
 
 #: katesqlconfigpage.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Plugin Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr "SQL spraudņa iestatījumi"
+msgstr "SQL „ConfigPage“ iestatījumi"
 
 #: katesqlview.cpp:43
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "SQL Schema pārlūks"
+msgstr "SQL shēma"
 
 #: katesqlview.cpp:104
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
 msgstr "Pievienot savienojumu..."
 
 #: katesqlview.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr "Izņemt savienojumu"
+msgstr "Noņemt savienojumu"
 
 #: katesqlview.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
 msgstr "Rediģēt savienojumu..."
 
 #: katesqlview.cpp:119
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
-msgstr "Izņemt savienojumu"
+msgstr "Atkārtoti savienoties"
 
 #: katesqlview.cpp:125
 #, kde-format
@@ -393,9 +378,7 @@ msgid "Connection"
 msgstr "Savienojums"
 
 #: katesqlview.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Palaist vaicājumu"
@@ -494,7 +477,7 @@ msgstr "Sistēmas tabulas"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Atlasīt datus"
 
 #: schemawidget.cpp:273
 #, kde-format
@@ -505,60 +488,52 @@ msgstr "Ģenerēt"
 #: schemawidget.cpp:275
 #, kde-format
 msgid "SELECT"
-msgstr ""
+msgstr "SELECT"
 
 #: schemawidget.cpp:276
 #, kde-format
 msgid "UPDATE"
-msgstr ""
+msgstr "UPDATE"
 
 #: schemawidget.cpp:277
 #, kde-format
 msgid "INSERT"
-msgstr ""
+msgstr "INSERT"
 
 #: schemawidget.cpp:278
 #, kde-format
 msgid "DELETE"
-msgstr ""
+msgstr "DELETE"
 
 #: schemawidget.cpp:282
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
-msgstr "Atsvaidzināt"
+msgstr "Pārlādēt"
 
 #: sqlmanager.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "Query completed successfully"
+#, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "Vaicājums izpildīts veiksmīgi"
+msgstr "Vaicājums ir izpildīts"
 
 #: sqlmanager.cpp:338
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 record selected"
-#| msgid_plural "%1 records selected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
-msgstr[0] "Izvēlēts %1 ieraksts"
-msgstr[1] "Izvēlēti %1 ieraksti"
-msgstr[2] "Izvēlēti %1 ierakstu"
+msgstr[0] "Atlasīts %1 ieraksts"
+msgstr[1] "Atlasīti %1 ieraksti"
+msgstr[2] "Atlasīts %1 ierakstu"
 
 #: sqlmanager.cpp:342
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 row affected"
-#| msgid_plural "%1 rows affected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
 msgstr[0] "Ietekmēta %1 rinda"
 msgstr[1] "Ietekmētas %1 rindas"
-msgstr[2] "Ietekmētas %1 rindas"
+msgstr[2] "Ietekmēts %1 rindu"
 
 #. i18n: ectx: Menu (SQL)
 #: ui.rc:6

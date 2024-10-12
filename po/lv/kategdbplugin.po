@@ -3,26 +3,26 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2011, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-08 00:42+0000\n"
-"PO-Revision-Date: 2012-06-30 14:39+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-10 15:05+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "GDB komanda"
 
@@ -42,13 +42,13 @@ msgstr "..."
 #: advanced_settings.ui:37
 #, kde-format
 msgid "Source file search paths"
-msgstr ""
+msgstr "Avota datnes meklēšanas ceļi"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
 #: advanced_settings.ui:92
 #, kde-format
 msgid "Local application"
-msgstr "Lokālās lietotnes"
+msgstr "Lokālās programmas"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
 #: advanced_settings.ui:97
@@ -66,7 +66,7 @@ msgstr "Attālinātais seriālais ports"
 #: advanced_settings.ui:127
 #, kde-format
 msgid "Host"
-msgstr "Dators"
+msgstr "Resursdators"
 
 #. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
 #. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
@@ -95,8 +95,7 @@ msgstr "solib-search-path"
 
 #. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
 #: advanced_settings.ui:317
-#, fuzzy, kde-format
-#| msgid "Custom Startup Commands"
+#, kde-format
 msgid "Custom Init Commands"
 msgstr "Pielāgotas palaišanas komandas"
 
@@ -106,6 +105,8 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"Notiek atkļūdošanas sesija. Palaidiet no sākuma vai apturiet pašreizējo "
+"sesiju."
 
 #: configview.cpp:92
 #, kde-format
@@ -125,7 +126,7 @@ msgstr "Dzēst mērķi"
 #: configview.cpp:105
 #, kde-format
 msgid "Executable:"
-msgstr "Izpildāmais:"
+msgstr "Izpilddatne:"
 
 #: configview.cpp:125
 #, kde-format
@@ -135,7 +136,7 @@ msgstr "Darba mape:"
 #: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "Procesa ID:"
 
 #: configview.cpp:138
 #, kde-format
@@ -172,377 +173,367 @@ msgstr "Paplašinātie iestatījumi"
 #: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
-msgstr "Mērķis %1"
+msgstr "Mērķis „%1“"
 
 #: dapbackend.cpp:175
 #, kde-format
 msgid "DAP backend failed"
-msgstr ""
+msgstr "DAP aizmugursistēma nenostrādāja"
 
 #: dapbackend.cpp:218
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "programma izbeigta"
 
 #: dapbackend.cpp:230
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "pieprasa atvienošanu"
 
 #: dapbackend.cpp:244
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "pieprasa izslēgšanu"
 
 #: dapbackend.cpp:268
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP aizmugursistēma: %1"
 
 #: dapbackend.cpp:277 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "apturēts (%1)."
 
 #: dapbackend.cpp:285 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Aktīvais pavediens: %1 (visi pavedieni ir apturēti)."
 
 #: dapbackend.cpp:287 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Aktīvais pavediens: %1."
 
 #: dapbackend.cpp:292
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "Pārtraukumpunkts"
+msgstr "Sasniegts(-i) pārtraukumpunkts(-i):"
 
 #: dapbackend.cpp:318
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(turpināts) pavediens %1"
 
 #: dapbackend.cpp:320
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "visi pavedieni ir turpināti"
 
 #: dapbackend.cpp:327
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(darbojas)"
 
 #: dapbackend.cpp:406
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** savienojums ar serveri ir slēgts ***"
 
 #: dapbackend.cpp:413
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "programma izgāja ar kodu %1"
 
 #: dapbackend.cpp:431
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** gaida lietotāja darbības ***"
 
 #: dapbackend.cpp:436
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "kļūda atbildot: %1"
 
 #: dapbackend.cpp:451
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "svarīgi"
 
 #: dapbackend.cpp:454
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "telemetrija"
 
 #: dapbackend.cpp:473
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "atkļūdošanas process [%1] %2"
 
 #: dapbackend.cpp:475
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "atkļūdošanas process %1"
 
 #: dapbackend.cpp:478
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Sākuma metode: %1"
 
 #: dapbackend.cpp:493
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
-msgstr "Pavediens %1"
+msgstr "pavediens %1"
 
 #: dapbackend.cpp:649
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "Pārtraukumpunkts"
+msgstr "pārtraukumpunkts ir iestatīts"
 
 #: dapbackend.cpp:657
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "Pārtraukumpunkts"
+msgstr "pārtraukumpunkts ir notīrīts"
 
 #: dapbackend.cpp:716
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "Pārtraukumpunkts"
+msgstr "(%1) pārtraukumpunkts"
 
 #: dapbackend.cpp:733
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<nav izvērtēts>"
 
 #: dapbackend.cpp:755
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "servera spējas"
 
 #: dapbackend.cpp:758
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "atbalstīts"
 
 #: dapbackend.cpp:758
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "neatbalstīts"
 
 #: dapbackend.cpp:761
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "Ievietot pārtraukumpunktu"
+msgstr "nosacījuma pārtraukumpunkts"
 
 #: dapbackend.cpp:762
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "Ievietot pārtraukumpunktu"
+msgstr "funkcionālie pārtraukumpunkti"
 
 #: dapbackend.cpp:763
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "atrast nosacījuma pātraukumpunktus"
 
 #: dapbackend.cpp:764
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "žurnāla punkti"
 
 #: dapbackend.cpp:764
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "moduļu pieprasījums"
 
 #: dapbackend.cpp:765
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "„iet uz“ mērķu pieprasījums"
 
 #: dapbackend.cpp:766
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "izbeigt pieprasījumu"
 
 #: dapbackend.cpp:767
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "izbeigta atkļūdotāju"
 
 #: dapbackend.cpp:995
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "sintakses kļūda: izteiksme nav atrasta"
 
 #: dapbackend.cpp:1013 dapbackend.cpp:1048 dapbackend.cpp:1086
 #: dapbackend.cpp:1120 dapbackend.cpp:1156 dapbackend.cpp:1192
 #: dapbackend.cpp:1228 dapbackend.cpp:1328 dapbackend.cpp:1390
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "sintakses kļūda: %1"
 
 #: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1335
 #: dapbackend.cpp:1398
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "nederīgs rinda: %1"
 
 #: dapbackend.cpp:1028 dapbackend.cpp:1033 dapbackend.cpp:1063
 #: dapbackend.cpp:1068 dapbackend.cpp:1359 dapbackend.cpp:1364
 #: dapbackend.cpp:1405 dapbackend.cpp:1410
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "datne nav norādīta: %1"
 
 #: dapbackend.cpp:1098 dapbackend.cpp:1132 dapbackend.cpp:1168
 #: dapbackend.cpp:1204 dapbackend.cpp:1240
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "nederīgs pavediena ID: %1"
 
 #: dapbackend.cpp:1104 dapbackend.cpp:1138 dapbackend.cpp:1174
 #: dapbackend.cpp:1210 dapbackend.cpp:1246
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "pavediena ID nav norādīts: %1"
 
 #: dapbackend.cpp:1257
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Pieejamās komandas:"
 
 #: dapbackend.cpp:1345
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "serveris neatbalsta nosacījuma pārtraukumpunktus"
 
 #: dapbackend.cpp:1353
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "serveris neatbalsta nosacījuma pārtraukumpunktu atrašanu"
 
 #: dapbackend.cpp:1373
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "%1. rindā jau ir pārtraukumpunkts"
 
 #: dapbackend.cpp:1418
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "pārtraukumpunkts nav atrasts (%1:%2)"
 
 #: dapbackend.cpp:1424
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Pašreizējais pavediens: "
 
 #: dapbackend.cpp:1429 dapbackend.cpp:1436 dapbackend.cpp:1460
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "nav"
 
 #: dapbackend.cpp:1432
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Pašreizējais ietvars: "
 
 #: dapbackend.cpp:1439
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Sesijas stāvoklis: "
 
 #: dapbackend.cpp:1442
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "inicializē"
 
 #: dapbackend.cpp:1445
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "darbojas"
 
 #: dapbackend.cpp:1448
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "apturēts"
 
 #: dapbackend.cpp:1451
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "izbeigts"
 
 #: dapbackend.cpp:1454
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "atvienots"
 
 #: dapbackend.cpp:1457
 #, kde-format
 msgid "post mortem"
-msgstr ""
+msgstr "post mortem"
 
 #: dapbackend.cpp:1513
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "komanda nav atrasta"
 
 #: dapbackend.cpp:1547
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "trūkst pavediena ID"
 
 #: dapbackend.cpp:1648
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "nogalina aizmugursistēmu"
 
 #: dapbackend.cpp:1716
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Pašreizējais ietvars [%3]: %1:%2 (%4)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Lietotāja atkļūdošana adaptera iestatījumi"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Iestatījumi"
+msgstr "Iestatījumu datne:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Noklusējuma atkļūdošanas adaptera iestatījumi"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Atkļūdot"
+msgstr "Atkļūdotājs"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Nav validējamu JSON datu."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON dati ir derīgi."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON dati ir nederīgi: nav JSON objekta"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON dati ir nederīgi: %1"
 
 #: gdbbackend.cpp:35
 #, kde-format
@@ -552,12 +543,12 @@ msgstr "Lokālie"
 #: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "CPU reģistri"
 
 #: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "Norādiet izpilddatni atkļūdošanas paneļa iestatījumu cilnē."
 
 #: gdbbackend.cpp:167
 #, kde-format
@@ -565,6 +556,8 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"Nav atlasīts atkļūdotājs. Norādiet kādu atkļūdošanas paneļa iestatījumu "
+"cilnē."
 
 #: gdbbackend.cpp:176
 #, kde-format
@@ -572,6 +565,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"Atkļūdotājs nav atrasts. Pārliecinieties, ka sistēmā tas ir instalēts. "
+"Atlasītais atkļūdotājs ir „%1“"
 
 #: gdbbackend.cpp:383
 #, kde-format
@@ -586,24 +581,22 @@ msgstr "*** gdb izgāja normāli ***"
 #: gdbbackend.cpp:647
 #, kde-format
 msgid "all threads running"
-msgstr ""
+msgstr "visi pavedieni darbojas"
 
 #: gdbbackend.cpp:649
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "Pavediens %1"
+msgstr "pavediens(-i) palaists(-i): %1"
 
 #: gdbbackend.cpp:679
 #, kde-format
 msgid "Current frame: %1:%2"
-msgstr ""
+msgstr "Pašreizējais ietvars: %1:%2"
 
 #: gdbbackend.cpp:706
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "Mērķis %1"
+msgstr "Avots: %1. Mērķis: %1"
 
 #: gdbbackend.cpp:1377
 #, kde-format
@@ -611,11 +604,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: nevarēja parsēt pēdējo atbildi: %1. Par daudz secīgu kļūdu. "
+"Izslēdzas."
 
 #: gdbbackend.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: neizdevās parsēt pēdējo atbildi: %1"
 
 #: localsview.cpp:19
 #, kde-format
@@ -630,23 +625,22 @@ msgstr "Vērtība"
 #: localsview.cpp:43
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "tips"
 
 #: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "indeksētie vienumi"
 
 #: localsview.cpp:55
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "nosauktie vienumi"
 
 #: plugin_kategdb.cpp:105
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Atkļūdot"
+msgstr "„Kate“ atkļūdošana"
 
 #: plugin_kategdb.cpp:109
 #, kde-format
@@ -659,10 +653,9 @@ msgid "Debug"
 msgstr "Atkļūdot"
 
 #: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
-#, fuzzy, kde-format
-#| msgid "Call Stack"
+#, kde-format
 msgid "Locals and Stack"
-msgstr "Izsaukumu steks"
+msgstr "Lokālie un steks"
 
 #: plugin_kategdb.cpp:167
 #, kde-format
@@ -683,6 +676,8 @@ msgid ""
 "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
 "Advanced Settings -> Source file search paths"
 msgstr ""
+"<title>neizdevās atvērt datni:</title><nl/>%1<br/>Mēģiniet pievienot "
+"meklēšanas ceļu „Papildu iestatījumi —> „Avota datnes meklēšanas ceļi“"
 
 #: plugin_kategdb.cpp:249
 #, kde-format
@@ -697,7 +692,7 @@ msgstr "Sākt atkļūdošanu"
 #: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Kill / Stop Debugging"
-msgstr "Nokaut/apturēt atkļūdošanu"
+msgstr "Nobeigt/apturēt atkļūdošanu"
 
 #: plugin_kategdb.cpp:271
 #, kde-format
@@ -710,10 +705,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Pārslēgt pārtraukumpunktu/pārtraukumu"
 
 #: plugin_kategdb.cpp:284
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Pārtraukumpunkts"
+msgstr "Notīrīt visus pārtraukumpunktus"
 
 #: plugin_kategdb.cpp:289
 #, kde-format
@@ -743,17 +737,17 @@ msgstr "Pārstartēt atkļūdošanu"
 #: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Karstā pārlādēšana"
 
 #: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Karstā pārstartēšana"
 
 #: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Saglabājot ieslēgt karsto pārlādēšanu"
 
 #: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
 #, kde-format
@@ -774,7 +768,7 @@ msgstr "Ievietot pārtraukumpunktu"
 #: plugin_kategdb.cpp:478
 #, kde-format
 msgid "Remove breakpoint"
-msgstr "Izņemt pārtraukumpunktu"
+msgstr "Noņemt pārtraukumpunktu"
 
 #: plugin_kategdb.cpp:651
 #, kde-format
@@ -787,12 +781,10 @@ msgid "Thread %1"
 msgstr "Pavediens %1"
 
 #: plugin_kategdb.cpp:923
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "GDB izvade"
+msgstr "Atkļūdošanas izvade"
 
 #: plugin_kategdb.cpp:924
 #, kde-format
@@ -818,10 +810,9 @@ msgstr "Atkļū&dot"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "GDB spraudnis"
+msgstr "Atkļūdošanas spraudnis"
 
 #~ msgid "popup_breakpoint"
 #~ msgstr "popup_breakpoint"

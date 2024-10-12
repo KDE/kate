@@ -6,19 +6,20 @@
 # Maris Nartiss <maris.kde@gmail.com>, 2008.
 # Viesturs Zariņš <viesturs.zarins@mii.lu.lv>, 2009.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2012-06-30 14:42+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-07 21:30+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -48,51 +49,45 @@ msgstr "S&inhronizēt termināli ar aktīvo dokumentu"
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
-msgstr ""
+msgstr "Palaist pašreizējo dokumentu"
 
 #: kateconsole.cpp:170 kateconsole.cpp:555
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Focus Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr "&Fokuss uz termināli"
+msgstr "&Rādīt termināļa paneli"
 
 #: kateconsole.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Focus Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr "&Fokuss uz termināli"
+msgstr "&Fokuss termināļa panelī"
 
 #: kateconsole.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Pipe to Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "&Novadīt uz komandrindu"
+msgstr "&Sadalīt termināli vertikāli"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Sadalīt termināli horizontāli"
 
 #: kateconsole.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Focus Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "&Fokuss uz termināli"
+msgstr "&Jauna termināļa cilne"
 
 #: kateconsole.cpp:354
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"„Konsole“ nav instalēta. Lai varētu izmantot termināli, ieinstalējiet "
+"„Konsole“."
 
 #: kateconsole.cpp:430
 #, kde-format
@@ -106,7 +101,7 @@ msgstr ""
 #: kateconsole.cpp:431
 #, kde-format
 msgid "Pipe to Terminal?"
-msgstr "Novadīt uz termināli?"
+msgstr "Vai novadīt uz termināli?"
 
 #: kateconsole.cpp:432
 #, kde-format
@@ -116,107 +111,94 @@ msgstr "Novadīt uz termināli"
 #: kateconsole.cpp:496
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr ""
+msgstr "Nav lokāla datne: „%1“"
 
 #: kateconsole.cpp:529
-#, fuzzy, kde-format
-#| msgid ""
-#| "Do you really want to pipe the text to the console? This will execute any "
-#| "contained commands with your user rights."
+#, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
 "This will execute the following command,\n"
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
-"Vai tiešām vēlaties novadīt tekstu uz komandrindu? Tas izpildīs visas "
-"komandas ar jūsu lietotāja tiesībām."
+"Vai tiešām vēlaties izpildīt šo dokumentu?\n"
+"Tā rezultātā programma terminālī izpildīs šo\n"
+"komandu ar jūsu lietotāja tiesībām:\n"
+"„%1“"
 
 #: kateconsole.cpp:536
-#, fuzzy, kde-format
-#| msgid "Pipe to Terminal?"
+#, kde-format
 msgid "Run in Terminal?"
-msgstr "Novadīt uz termināli?"
+msgstr "Vai izpildīt terminālī?"
 
 #: kateconsole.cpp:537
 #, kde-format
 msgid "Run"
-msgstr ""
+msgstr "Palaist"
 
 #: kateconsole.cpp:552
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Pipe to Terminal"
+#, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr "&Novadīt uz komandrindu"
+msgstr "&Slēpt termināļa paneli"
 
 #: kateconsole.cpp:563
-#, fuzzy, kde-format
-#| msgid "Defocus Terminal"
+#, kde-format
 msgid "Defocus Terminal Panel"
-msgstr "Fokuss prom no termināļa"
+msgstr "Noņemt fokusu no termināļa paneļa"
 
 #: kateconsole.cpp:564 kateconsole.cpp:565
-#, fuzzy, kde-format
-#| msgid "Focus Terminal"
+#, kde-format
 msgid "Focus Terminal Panel"
-msgstr "Fokuss uz termināli"
+msgstr "Fokuss uz termināļa paneli"
 
 #: kateconsole.cpp:676
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Termināļa sinhronizācijas režīms"
 
 #: kateconsole.cpp:679
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "S&inhronizēt termināli ar aktīvo dokumentu"
+msgstr "&Nesinhronizēt termināļa cilni ar pašreizējo dokumentu"
 
 #: kateconsole.cpp:682
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"&Automātiski sinhronizēt termināli ar aktīvo dokumentu (kad vien iespējams)"
+"&Kad iespējams, automātiski sinhronizēt pašreizējo termināļa cilni ar "
+"pašreizējo termināli."
 
 #: kateconsole.cpp:685
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"&Automātiski sinhronizēt termināli ar aktīvo dokumentu (kad vien iespējams)"
+"&Automātiski izveidot termināļa cilni pašreizējā dokumenta mapei un "
+"pārslēgties uz to"
 
 #: kateconsole.cpp:692 kateconsole.cpp:713
-#, fuzzy, kde-format
-#| msgid "Pipe to Terminal"
+#, kde-format
 msgid "Run in terminal"
-msgstr "Novadīt uz termināli"
+msgstr "Izpildīt terminālī"
 
 #: kateconsole.cpp:694
 #, kde-format
 msgid "&Remove extension"
-msgstr ""
+msgstr "&Noņemt paplašinājumu"
 
 #: kateconsole.cpp:699
 #, kde-format
 msgid "Prefix:"
-msgstr ""
+msgstr "Prefikss:"
 
 #: kateconsole.cpp:707
 #, kde-format
 msgid "&Show warning next time"
-msgstr ""
+msgstr "&Rādīt šo brīdinājumu arī nākamreiz"
 
 #: kateconsole.cpp:709
 #, kde-format
@@ -224,23 +206,26 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
+"Nodrošināt, ka nākamreiz, kad izpildāt „%1“, parādās izlecošais logs, kas "
+"pārskatīšanai parāda uz termināli sūtīto komandu."
 
 #: kateconsole.cpp:720
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
-msgstr "Iestatiet &EDITOR vides mainīgo uz 'kate -b'"
+msgstr "Iestatiet &EDITOR vides mainīgo uz „kate -b“"
 
 #: kateconsole.cpp:723
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
-msgstr "Svarīgi — dokuments ir jāaizver, lai liktu konsoles lietotnei turpināt"
+msgstr ""
+"Svarīgi — dokuments ir jāaizver, lai ļautu konsoles programmai turpināt"
 
 #: kateconsole.cpp:726
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr ""
+msgstr "Slēpt „Konsole“, nospiežot „Esc“"
 
 #: kateconsole.cpp:729
 #, kde-format
@@ -248,6 +233,9 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"Tas var radīt problēmas ar termināļa programmām, kas izmanto „Esc“ taustiņu, "
+"piemēram, „vim“. Pievienojiet šīs programmas ievadei zemāk (ar komatu "
+"atdalāms saraksts)"
 
 #: kateconsole.cpp:773
 #, kde-format

@@ -3,13 +3,14 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2011, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-05 00:42+0000\n"
-"PO-Revision-Date: 2012-06-30 13:38+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-07 16:31+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -17,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Einārs Sprūģis"
+msgstr "Einārs Sprūģis, Toms Trasūns"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "einars8@gmail.com"
+msgstr "einars8@gmail.com, toms.trasuns@posteo.net"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
 #: build.ui:36
@@ -37,65 +38,59 @@ msgstr "Izvade"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build again"
-msgstr "Būvēšanas spraudnis"
+msgstr "Būvēt vēlreiz"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #: build.ui:63
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: buildconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build & Run"
-msgstr "Būvēšanas spraudnis"
+msgstr "Būvēt un palaist"
 
 #: buildconfig.cpp:53
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Būvēšana neizdevās."
+msgstr "Būvēšanas un palaišanas iestatījumi"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Būvēšana neizdevās."
+msgstr "Dzēst atlasītos vienumus"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Dzēst visus vienumus"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Mērķa iestatījumi"
+msgstr "Pamata iestatījumi"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Pievienot diagnostikai kļūdas un brīdinājumus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "Automātiski pārslēgt izvades paneli uz atlasītā mērķa izpildi"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Atļautās un bloķētās komandas"
 
 #: plugin_katebuild.cpp:272 plugin_katebuild.cpp:279 plugin_katebuild.cpp:707
 #: plugin_katebuild.cpp:909 plugin_katebuild.cpp:922
@@ -104,32 +99,29 @@ msgid "Build"
 msgstr "Būvēt"
 
 #: plugin_katebuild.cpp:282
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Select Target..."
-msgstr "Būvēšana neizdevās."
+msgstr "Atlasiet mērķi..."
 
 #: plugin_katebuild.cpp:287
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Būvēšana neizdevās."
+msgstr "Būvēta atlasīto mērķi"
 
 #: plugin_katebuild.cpp:292
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Būvēšana neizdevās."
+msgstr "Būvēt un palaist atlasīto mērķi"
 
 #: plugin_katebuild.cpp:297
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Kompilēt pašreizējo datni"
 
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "Mēģināt kompilēt pašreizējo datni meklējot „compile_commands.json“"
 
 #: plugin_katebuild.cpp:303
 #, kde-format
@@ -139,19 +131,19 @@ msgstr "Apturēt"
 #: plugin_katebuild.cpp:308
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Ielādēt mērķus no „CMake“ „Build“ mapes"
 
 #: plugin_katebuild.cpp:312
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Pārslēgties uz cilni pa kreisi"
 
 #: plugin_katebuild.cpp:332
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Pārslēgties uz cilni pa labi"
 
 #: plugin_katebuild.cpp:354
 #, kde-format
@@ -165,23 +157,24 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Datne nav atrasta:</b> %1<br><b>Meklēšanas ceļi:</b><br>%2<br>Mēģiniet "
+"pievienot meklēšanas ceļu „Darba mapei“"
 
 #: plugin_katebuild.cpp:477
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build Information"
-msgstr "Būvēšanas spraudnis"
+msgstr "Būvējuma informācija"
 
 #: plugin_katebuild.cpp:714
 #, kde-format
 msgid "There is no file or directory specified for building."
-msgstr "Būvēšanai nav norādīts neviena datne vai mape."
+msgstr "Būvēšanai nav norādīta neviena datne vai mape."
 
 #: plugin_katebuild.cpp:718
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
-msgstr "Datne “%1” nav vietēja datne. Ne-vietējās datnes nevar kompilēt."
+msgstr "Datne „%1“ nav lokāla datne. Datnes, kas nav lokālas, kompilēt nevar."
 
 #: plugin_katebuild.cpp:780
 #, kde-format
@@ -189,48 +182,48 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"Nevar palaist komandu: %1\n"
+"Darba ceļš nepastāv: %2"
 
 #: plugin_katebuild.cpp:794
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "Neizdevās palaist “%1”. exitStatus = %2"
+msgstr "Neizdevās palaist „%1“. Iziešanas statuss = %2"
 
 #: plugin_katebuild.cpp:809
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
-msgstr ""
+msgstr "<b>%1</b> būvēšana ir atcelta"
 
 #: plugin_katebuild.cpp:908
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Neatrada „compile_commands.json“ datnei „%1“. "
 
 #: plugin_katebuild.cpp:921
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Neatrada kompilēšanas komandu datnei „%1“, kas atrodas „%2“. "
 
 #: plugin_katebuild.cpp:1029
 #, kde-format
 msgid "No target available for building."
-msgstr ""
+msgstr "Būvēšanai nav pieejams mērķis."
 
 #: plugin_katebuild.cpp:1043
-#, fuzzy, kde-format
-#| msgid "There is no file or directory specified for building."
+#, kde-format
 msgid "There is no local file or directory specified for building."
-msgstr "Būvēšanai nav norādīts neviena datne vai mape."
+msgstr "Būvēšanai nav norādīta lokālas datne vai mape."
 
 #: plugin_katebuild.cpp:1049
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "Jau būvē..."
 
 #: plugin_katebuild.cpp:1071
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr "Būvēšana neizdevās."
+msgstr "Būvē mērķi <b>%1</b>..."
 
 #: plugin_katebuild.cpp:1108
 #, kde-format
@@ -238,16 +231,18 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Nevar ielādēt mērķus, datne „%1“ nesatur pareizu „CMAKE_COMMAND“ ierakstu!"
 
 #: plugin_katebuild.cpp:1121
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Neizdevās rakstīt „CMake File API“ vaicājuma datnes būvēšanas mapei „%1“!"
 
 #: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Neizdevās palaist „CMake“ (%2) būvēšanas mapei „%1“ !"
 
 #: plugin_katebuild.cpp:1136
 #, kde-format
@@ -255,11 +250,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"„CMake File API“ atbilžu datņu ģenerēšana būvēšanas mapei „%1“ neizdevās "
+"(izmanto %2)!"
 
 #: plugin_katebuild.cpp:1255
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Būvēšanas spraudnis vēlas palaist programmu"
 
 #: plugin_katebuild.cpp:1258
 #, kde-format
@@ -269,17 +266,23 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"„Kate“ būvējuma spraudnim ir nepieciešams palaist ārēju komandu, lai "
+"nolasītu mērķus no būvēšanas koka.<br><br>Pilna komandrinda ir:<br><br><b>"
+"%1</b><br><br>Vai turpināt un ļaut tam izpildīt šo komandu?<br><br>Šo izvēli "
+"iespējams pielāgot spraudņa konfigurācijas lapā."
 
 #: plugin_katebuild.cpp:1290
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
-msgstr ""
+msgstr "<title>„Make“ rezultāti:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1326
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
+"<b>%1</b> būvēšana ir pabeigta. %2 kļūda(-as), %3 brīdinājums(-i), %4 "
+"piezīme(-es)"
 
 #: plugin_katebuild.cpp:1332
 #, kde-format
@@ -295,17 +298,15 @@ msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Atrasts %1 brīdinājums."
 msgstr[1] "Atrasti %1 brīdinājumi."
-msgstr[2] "Atrasti %1 brīdinājumu."
+msgstr[2] "Atrasts %1 brīdinājumu."
 
 #: plugin_katebuild.cpp:1339
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Atrasta %1 kļūda."
-msgstr[1] "Atrastas %1 kļūdas."
-msgstr[2] "Atrasts %1 kļūdu."
+msgstr[0] "Atrasta %1 piezīme."
+msgstr[1] "Atrastas %1 piezīmes."
+msgstr[2] "Atrasts %1 piezīmju."
 
 #: plugin_katebuild.cpp:1344
 #, kde-format
@@ -321,24 +322,22 @@ msgstr "Būvēšana pabeigta bez problēmām."
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
+"Būvēšana <b>%1 ir atcelta</b>. %2 kļūda(-as), %3 brīdinājums(-i), %4 "
+"piezīme(-es)"
 
 #: plugin_katebuild.cpp:1375
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "Nevar izpildīt: %1. Nav norādīta darba mape."
 
 #: plugin_katebuild.cpp:1601
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "kļūda"
 
 #: plugin_katebuild.cpp:1604
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "brīdinājums"
@@ -347,7 +346,7 @@ msgstr "brīdinājums"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "piezīme|informācija"
 
 #: plugin_katebuild.cpp:1610
 #, kde-format
@@ -358,27 +357,28 @@ msgstr "nedefinēta atsauce"
 #: plugin_katebuild.cpp:1786
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Nevar saglabāt būvējuma mērķus vietā: %1"
 
 #: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
-msgstr ""
+msgstr "<B>Mēr.:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "D as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr ""
+msgstr "<B>Mape:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
-#, fuzzy, kde-format
-#| msgid "Leave empty to use the directory of the current document. "
+#, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
-msgstr "Atstājiet tukšu, lai izmantotu pašreizējā dokumenta mapi. "
+msgstr ""
+"Atstājiet tukšu, lai izmantotu pašreizējā dokumenta mapi.\n"
+"Pievienojiet meklēšanas mapes, ceļus atdalot ar semikolu (;)"
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format
@@ -387,101 +387,99 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Lietojiet:\n"
+"„%B“ projekta pamatmapei\n"
+"„%b“ projekta pamatmapes nosaukumam"
 
 #: TargetHtmlDelegate.cpp:114
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
 "\"%d\" for directory of current file\n"
 "\"%n\" for current file name without suffix"
 msgstr ""
-"Lietošana:\n"
-"“%f” pašreizējai datnei\n"
-"“%d” pašreizējās datnes mapei"
+"Lietojiet:\n"
+"„%f“ pašreizējai datnei\n"
+"„%d“ pašreizējās datnes mapei\n"
+"„%n“ pašreizējās datnes nosaukumam bez sufiksa"
 
 #: TargetModel.cpp:310 TargetModel.cpp:322 targets.cpp:247
-#, fuzzy, kde-format
-#| msgid "Targets"
+#, kde-format
 msgid "Target Set"
-msgstr "Mērķi"
+msgstr "Mērķis ir norādīts"
 
 #: TargetModel.cpp:513
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "Projekts"
 
 #: TargetModel.cpp:513
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Sesija"
 
 #: TargetModel.cpp:607
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr ""
+msgstr "Norādītās komandas/mērķa nosaukums"
 
 #: TargetModel.cpp:610
-#, fuzzy, kde-format
-#| msgid "Working directory"
+#, kde-format
 msgid "Working Directory / Command"
-msgstr "Darba mape"
+msgstr "Darba mape / komanda"
 
 #: TargetModel.cpp:613
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "Palaist komandu"
 
 #: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"Filtrēt mērķus, izmantojiet bultiņu taustiņus, lai atlasītu, „Enter“, lai "
+"izpildītu"
 
 #: targets.cpp:33
 #, kde-format
 msgid "Create new set of targets"
-msgstr ""
+msgstr "Izvaidot jaunus mērķu kopu"
 
 #: targets.cpp:37
 #, kde-format
 msgid "Clone command or target set"
-msgstr ""
+msgstr "Klonēt komandu vai iestatīto mērķi"
 
 #: targets.cpp:41
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr ""
+msgstr "Dzēst pašreizējo mērķi vai pašreizējo mērķu kopu"
 
 #: targets.cpp:46
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "Pievienot jaunu mērķi"
 
 #: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
-msgstr ""
+msgstr "Būvēt atlasīto mērķi"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Būvēšana neizdevās."
+msgstr "Būvēt un palaist atlasīto mērķi"
 
 #: targets.cpp:58
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Move selected target up"
-msgstr "Būvēšana neizdevās."
+msgstr "Pārvietot atlasīto mērķi augšup"
 
 #: targets.cpp:62
 #, kde-format
 msgid "Move selected target down"
-msgstr ""
+msgstr "Pārvietot atlasīto mērķi lejup"
 
 #: targets.cpp:201
 #, kde-format
@@ -491,26 +489,24 @@ msgstr "Kopēt"
 #: targets.cpp:205
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Griezt"
 
 #: targets.cpp:209
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Ielīmēt pēc"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Būvēšanas spraudnis"
+msgstr "Būvēšanas komanda"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "Konfigurācija"
+msgstr "Konfigurēt"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -521,12 +517,12 @@ msgstr "&Būvēt"
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
-msgstr ""
+msgstr "Ievietot ceļu"
 
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr ""
+msgstr "Atlasīt mapi, ko ievietot"
 
 #~ msgid "Clean"
 #~ msgstr "Tīrīt"

@@ -1,0 +1,1093 @@
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-10-07 00:42+0000\n"
+"PO-Revision-Date: 2024-10-10 13:57+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+"X-Generator: Lokalize 24.08.1\n"
+
+#: branchcheckoutdialog.cpp:29
+#, kde-format
+msgid "Select branch to checkout. Press 'Esc' to cancel."
+msgstr "Atlasiet zaru, kuru paņemt. Spiediet „Esc“, lai atceltu."
+
+#: branchcheckoutdialog.cpp:36
+#, kde-format
+msgid "Create New Branch"
+msgstr "Izveidot jaunu zaru"
+
+#: branchcheckoutdialog.cpp:38
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Izveidot jaunu zaru no..."
+
+#: branchcheckoutdialog.cpp:53
+#, kde-format
+msgid "Branch %1 checked out"
+msgstr "„%1“ zars ir paņemts"
+
+#: branchcheckoutdialog.cpp:56
+#, kde-format
+msgid "Failed to checkout to branch %1, Error: %2"
+msgstr "Neizdevās paņemt uz zaru „%1“. Kļūda: %2"
+
+#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#, kde-format
+msgid "Enter new branch name. Press 'Esc' to cancel."
+msgstr "Ierakstiet jaunā zara nosaukumu. Spiediet „Esc“, lai atceltu."
+
+#: branchcheckoutdialog.cpp:100
+#, kde-format
+msgid "Select branch to checkout from. Press 'Esc' to cancel."
+msgstr "Atlasiet zaru, no kura paņemt. Spiediet „Esc“, lai atceltu"
+
+#: branchcheckoutdialog.cpp:121
+#, kde-format
+msgid "Checked out to new branch: %1"
+msgstr "Paņēma uz jaunu zaru: %1"
+
+#: branchcheckoutdialog.cpp:123
+#, kde-format
+msgid "Failed to create new branch. Error \"%1\""
+msgstr "Neizdevās izveidot jaunu zaru. Kļūda „%1“"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Branch"
+msgstr "Zars"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Commit"
+msgstr "Pēdējais iesūtījums"
+
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
+#, kde-format
+msgid "Delete"
+msgstr "Dzēst"
+
+#: branchdeletedialog.cpp:142
+#, kde-format
+msgid "Are you sure you want to delete the selected branch?"
+msgid_plural "Are you sure you want to delete the selected branches?"
+msgstr[0] "Vai tiešām vēlaties dzēst atlasīto zaru?"
+msgstr[1] "Vai tiešām vēlaties dzēst atlasītos zarus?"
+msgstr[2] "Vai tiešām vēlaties dzēst atlasītos zarus?"
+
+#: branchesdialog.cpp:100
+#, kde-format
+msgid "Select Branch..."
+msgstr "Atlasīt zaru..."
+
+#: branchesdialog.cpp:126 gitwidget.cpp:537 kateprojectpluginview.cpp:67
+#, kde-format
+msgid "Git"
+msgstr "Git"
+
+#: comparebranchesview.cpp:144
+#, kde-format
+msgid "Back"
+msgstr "Atpakaļ"
+
+#: currentgitbranchbutton.cpp:124
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' commit is checked out"
+msgid "HEAD at commit %1"
+msgstr "HEAD pie iesūtījuma „%1“"
+
+#: currentgitbranchbutton.cpp:126
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' tag is checked out"
+msgid "HEAD is at this tag %1"
+msgstr "HEAD atrodas šajā birkā „%1“"
+
+#: currentgitbranchbutton.cpp:128
+#, kde-format
+msgctxt "Tooltip text, describing that '%1' branch is checked out"
+msgid "Active branch: %1"
+msgstr "Aktīvais zars: „%1“"
+
+#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
+#, kde-format
+msgid "Commit Changes"
+msgstr "Iesūtīt izmaiņas"
+
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
+#: gitwidget.cpp:1056
+#, kde-format
+msgid "Commit"
+msgstr "Iesūtīt"
+
+#: gitcommitdialog.cpp:74
+#, kde-format
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: gitcommitdialog.cpp:76
+#, kde-format
+msgid "Write commit message..."
+msgstr "Rakstīt iesūtīšanas ziņojumu..."
+
+#: gitcommitdialog.cpp:83
+#, kde-format
+msgid "Extended commit description..."
+msgstr "Paplašināts iesūtīšanas apraksts..."
+
+#: gitcommitdialog.cpp:107
+#, kde-format
+msgid "Sign off"
+msgstr "Parakstīties"
+
+#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
+#, kde-format
+msgid "Amend"
+msgstr "Grozīt"
+
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1013
+#, kde-format
+msgid "Amend Last Commit"
+msgstr "Grozīt pēdējo iesūtījumu"
+
+#: gitcommitdialog.cpp:123
+#, kde-format
+msgid "Amending Commit"
+msgstr "Groza iesūtījumu"
+
+#: gitcommitdialog.cpp:207
+#, kde-format
+msgctxt "Number of characters"
+msgid "%1 / 52"
+msgstr "%1 / 52"
+
+#: gitcommitdialog.cpp:211
+#, kde-format
+msgctxt "Number of characters"
+msgid "<span style=\"color:%1;\">%2</span> / 52"
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
+
+#: gitstatusmodel.cpp:85
+#, kde-format
+msgid "Staged"
+msgstr "Pievienots"
+
+#: gitstatusmodel.cpp:87
+#, kde-format
+msgid "Untracked"
+msgstr "Neizsekots"
+
+#: gitstatusmodel.cpp:89
+#, kde-format
+msgid "Conflict"
+msgstr "Konflikts"
+
+#: gitstatusmodel.cpp:91
+#, kde-format
+msgid "Modified"
+msgstr "Mainīts"
+
+#: gitwidget.cpp:269
+#, kde-format
+msgid "Git Push"
+msgstr "Git Push"
+
+#: gitwidget.cpp:282
+#, kde-format
+msgid "Git Pull"
+msgstr "Git Pull"
+
+#: gitwidget.cpp:295
+#, kde-format
+msgid "Cancel Operation"
+msgstr "Atcelt operāciju"
+
+#: gitwidget.cpp:303
+#, kde-format
+msgid " canceled."
+msgstr " atcelts."
+
+#: gitwidget.cpp:324 kateprojectview.cpp:59
+#, kde-format
+msgid "Filter..."
+msgstr "Filtrēt..."
+
+#: gitwidget.cpp:414
+#, kde-format
+msgid "Failed to find .git directory for '%1', things may not work correctly"
+msgstr "Neizdevās atrast „%1“ '.git' mapi. Kaut kas var līdz galam nedarboties"
+
+#: gitwidget.cpp:621
+#, kde-format
+msgid " error: %1"
+msgstr " kļūda: %1"
+
+#: gitwidget.cpp:627
+#, kde-format
+msgid "\"%1\" executed successfully: %2"
+msgstr "„%1“ veiksmīgi izpildījās: %2"
+
+#: gitwidget.cpp:647
+#, kde-format
+msgid "Failed to stage file. Error:"
+msgstr "Neizdevās pievienot datni. Kļūda:"
+
+#: gitwidget.cpp:660
+#, kde-format
+msgid "Failed to unstage file. Error:"
+msgstr "Neizdevās noņemt pievienotu datni. Kļūda:"
+
+#: gitwidget.cpp:671
+#, kde-format
+msgid "Failed to discard changes. Error:"
+msgstr "Neizdevās noraidīt izmaiņas. Kļūda:"
+
+#: gitwidget.cpp:682
+#, kde-format
+msgid "Failed to remove. Error:"
+msgstr "Neizdevās noņemt. Kļūda:"
+
+#: gitwidget.cpp:698
+#, kde-format
+msgid "Failed to open file at HEAD: %1"
+msgstr "Neizdevās atvērt datni pie HEAD: %1"
+
+#: gitwidget.cpp:730
+#, kde-format
+msgid "Failed to get Diff of file: %1"
+msgstr "Neizdevās iegūt „Diff“ datnei: %1"
+
+#: gitwidget.cpp:797
+#, kde-format
+msgid "Failed to commit: %1"
+msgstr "Neizdevās iesūtīt: %1"
+
+#: gitwidget.cpp:801
+#, kde-format
+msgid "Changes committed successfully."
+msgstr "Izmaiņas ir veiksmīgi iesūtītas."
+
+#: gitwidget.cpp:811
+#, kde-format
+msgid "Nothing to commit. Please stage your changes first."
+msgstr "Nav nekā, ko iesūtīt. Vispirms pievienojiet izmaiņas."
+
+#: gitwidget.cpp:824
+#, kde-format
+msgid "Commit message cannot be empty."
+msgstr "Iesūtīšanas ziņa nevar būt tukša."
+
+#: gitwidget.cpp:945
+#, kde-format
+msgid "No diff for %1...%2"
+msgstr "„Diff“ neko neatgrieza %1...%2"
+
+#: gitwidget.cpp:951
+#, kde-format
+msgid "Failed to compare %1...%2"
+msgstr "Neizdevās salīdzināt %1...%2"
+
+#: gitwidget.cpp:966
+#, kde-format
+msgid "Failed to get numstat when diffing %1...%2"
+msgstr "„Diff“ laikā neizdevās iegūt „numstat“ %1...%2"
+
+#: gitwidget.cpp:1005
+#, kde-format
+msgid "Refresh"
+msgstr "Pārlādēt"
+
+#: gitwidget.cpp:1021
+#, kde-format
+msgid "Checkout Branch"
+msgstr "Paņemt zaru"
+
+#: gitwidget.cpp:1033
+#, kde-format
+msgid "Delete Branch"
+msgstr "Dzēst zaru"
+
+#: gitwidget.cpp:1045
+#, kde-format
+msgid "Compare Branch with..."
+msgstr "Salīdzināt zaru ar..."
+
+#: gitwidget.cpp:1050
+#, kde-format
+msgid "Show Commit"
+msgstr "Rādīt iesūtījumu"
+
+#: gitwidget.cpp:1068
+#, kde-format
+msgid "Show Last Commit"
+msgstr "Rādīt pēdējo iesūtījumu"
+
+#: gitwidget.cpp:1086
+#, kde-format
+msgid "Open Commit..."
+msgstr "Atvērt iesūtījumu..."
+
+#: gitwidget.cpp:1089 gitwidget.cpp:1128
+#, kde-format
+msgid "Stash"
+msgstr "Atlicināt"
+
+#: gitwidget.cpp:1099
+#, kde-format
+msgid "Diff - stash"
+msgstr "Diff — atlicināt"
+
+#: gitwidget.cpp:1132
+#, kde-format
+msgid "Pop Last Stash"
+msgstr "Pielietot un dzēst pēdējo atlicinājumu"
+
+#: gitwidget.cpp:1136
+#, kde-format
+msgid "Pop Stash"
+msgstr "Pielietot un dzēst atlicinājumu"
+
+#: gitwidget.cpp:1140
+#, kde-format
+msgid "Apply Last Stash"
+msgstr "Pielietot pēdējo atlicinājumu"
+
+#: gitwidget.cpp:1142
+#, kde-format
+msgid "Stash (Keep Staged)"
+msgstr "Atlicinājums (turēt pievienotu)"
+
+#: gitwidget.cpp:1146
+#, kde-format
+msgid "Stash (Include Untracked)"
+msgstr "Atlicinājums (iekļaut neizsekotu)"
+
+#: gitwidget.cpp:1150
+#, kde-format
+msgid "Apply Stash"
+msgstr "Pielietot atlicinājumu"
+
+#: gitwidget.cpp:1151
+#, kde-format
+msgid "Drop Stash"
+msgstr "Nomest atlicinājumu"
+
+#: gitwidget.cpp:1152
+#, kde-format
+msgid "Show Stash Content"
+msgstr "Rādīt atlicinājuma saturu"
+
+#: gitwidget.cpp:1189
+#, kde-format
+msgid "Stage All"
+msgstr "Atlicināt visu"
+
+#: gitwidget.cpp:1191
+#, kde-format
+msgid "Remove All"
+msgstr "Noņemt visu"
+
+#: gitwidget.cpp:1191
+#, kde-format
+msgid "Discard All"
+msgstr "Noraidīt visu"
+
+#: gitwidget.cpp:1194
+#, kde-format
+msgid "Open .gitignore"
+msgstr "Atvērt '.gitignore'"
+
+#: gitwidget.cpp:1195 gitwidget.cpp:1242 gitwidget.cpp:1290
+#: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
+#, kde-format
+msgid "Show Diff"
+msgstr "Rādīt „Diff“"
+
+#: gitwidget.cpp:1212
+#, kde-format
+msgid "Are you sure you want to remove these files?"
+msgstr "Vai tiešām vēlaties noņemt šīs datnes?"
+
+#: gitwidget.cpp:1217
+#, kde-format
+msgid "Are you sure you want to discard all changes?"
+msgstr "Vai tiešām vēlaties noraidīt visas izmaiņas?"
+
+#: gitwidget.cpp:1241
+#, kde-format
+msgid "Open File"
+msgstr "Atvērt datni"
+
+#: gitwidget.cpp:1243
+#, kde-format
+msgid "Show in External Git Diff Tool"
+msgstr "Rādīt ārējā „Git Diff“ rīkā"
+
+#: gitwidget.cpp:1244
+#, kde-format
+msgid "Open at HEAD"
+msgstr "Atvērt pie HEAD"
+
+#: gitwidget.cpp:1245
+#, kde-format
+msgid "Unstage File"
+msgstr "Noņemt datnes pievienošanu"
+
+#: gitwidget.cpp:1245
+#, kde-format
+msgid "Stage File"
+msgstr "Pievienot datni"
+
+#: gitwidget.cpp:1246
+#, kde-format
+msgid "Remove"
+msgstr "Noņemt"
+
+#: gitwidget.cpp:1246
+#, kde-format
+msgid "Discard"
+msgstr "Noraidīt"
+
+#: gitwidget.cpp:1263
+#, kde-format
+msgid "Are you sure you want to discard the changes in this file?"
+msgstr "Vai tiešām vēlaties noraidīt šajā datnē veiktās izmaiņas?"
+
+#: gitwidget.cpp:1272
+#, kde-format
+msgid "Are you sure you want to remove this file?"
+msgstr "Vai tiešām vēlaties noņemt šo datni?"
+
+#: gitwidget.cpp:1289
+#, kde-format
+msgid "Unstage All"
+msgstr "Noņemt visu datņu pievienošanu"
+
+#: gitwidget.cpp:1356
+#, kde-format
+msgid "Unstage Selected Files"
+msgstr "Noņemt atlasīto datņu pievienošanu"
+
+#: gitwidget.cpp:1356
+#, kde-format
+msgid "Stage Selected Files"
+msgstr "Pievienot atlasītās datnes"
+
+#: gitwidget.cpp:1357
+#, kde-format
+msgid "Discard Selected Files"
+msgstr "Izmest atlasītās datnes"
+
+#: gitwidget.cpp:1361
+#, kde-format
+msgid "Remove Selected Files"
+msgstr "Noņemt atlasītās datnes"
+
+#: gitwidget.cpp:1374
+#, kde-format
+msgid "Are you sure you want to discard the changes?"
+msgstr "Vai tiešām vēlaties izmest izmaiņas?"
+
+#: gitwidget.cpp:1379
+#, kde-format
+msgid "Are you sure you want to remove these untracked changes?"
+msgstr "Vai tiešām vēlaties noņemt šīs neizsekotās izmaiņas?"
+
+#: kateproject.cpp:237
+#, kde-format
+msgid "Malformed JSON file '%1': %2"
+msgstr "Slikto formatēta JSON datne „%1“: %2"
+
+#: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Project"
+msgstr "Projekts"
+
+#: kateproject.cpp:600
+#, kde-format
+msgid "<untracked>"
+msgstr "<neizsekots>"
+
+#: kateprojectcompletion.cpp:54
+#, kde-format
+msgid "Project Completion"
+msgstr "Projekta pabeigšana"
+
+#: kateprojectconfigpage.cpp:24
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Autoload Repositories && Build Trees"
+msgstr "Automātiski ielādēt repozitorijus un būvēt kokus"
+
+#: kateprojectconfigpage.cpp:26
+#, kde-format
+msgid ""
+"Project plugin is able to autoload repository working copies and build trees "
+"when there is no .kateproject file defined yet."
+msgstr ""
+"Projektu spraudnis spēj automātiski ielādēt repozitorija darba kopija un "
+"būvēt kokus, kad vēl nav definēta „.kateproject“ datne."
+
+#: kateprojectconfigpage.cpp:29
+#, kde-format
+msgid "&Git"
+msgstr "&Git"
+
+#: kateprojectconfigpage.cpp:32
+#, kde-format
+msgid "&Subversion"
+msgstr "&Subversion"
+
+#: kateprojectconfigpage.cpp:34
+#, kde-format
+msgid "&Mercurial"
+msgstr "&Mercurial"
+
+#: kateprojectconfigpage.cpp:36
+#, kde-format
+msgid "&Fossil"
+msgstr "&Fossil"
+
+#: kateprojectconfigpage.cpp:38
+#, kde-format
+msgid "&CMake"
+msgstr "&CMake"
+
+#: kateprojectconfigpage.cpp:47
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Session Behavior"
+msgstr "Sesijas uzvedība"
+
+#: kateprojectconfigpage.cpp:48
+#, kde-format
+msgid "Session settings for projects"
+msgstr "Sesijas iestatījumi projektiem"
+
+#: kateprojectconfigpage.cpp:49
+#, kde-format
+msgid "Restore Open Projects"
+msgstr "Atjaunot atvērtos projektus"
+
+#: kateprojectconfigpage.cpp:56
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Project Index"
+msgstr "Projekta indekss"
+
+#: kateprojectconfigpage.cpp:57
+#, kde-format
+msgid "Project ctags index settings"
+msgstr "Projekta „ctags“ indeksa iestatījumi"
+
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
+#, kde-format
+msgid "Enable indexing"
+msgstr "Ieslēgt indeksēšanu"
+
+#: kateprojectconfigpage.cpp:61
+#, kde-format
+msgid "Directory for index files"
+msgstr "Indeksa datņu mape"
+
+#: kateprojectconfigpage.cpp:65
+#, kde-format
+msgid ""
+"The system temporary directory is used if not specified, which may overflow "
+"for very large repositories"
+msgstr ""
+"Ja nav norādīts, izmanto sistēmas pagaidu mapi, kas var pārpildīties ļoti "
+"lielu repozitoriju gadījumā."
+
+#: kateprojectconfigpage.cpp:72
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Cross-Project Functionality"
+msgstr "Projektu šķērsfunkcionalitāte"
+
+#: kateprojectconfigpage.cpp:73
+#, kde-format
+msgid ""
+"Project plugin is able to perform some operations across multiple projects"
+msgstr ""
+"Projektu spraudnis spēj veikt atsevišķas operācijas uzreiz vairākos projektos"
+
+#: kateprojectconfigpage.cpp:74
+#, kde-format
+msgid "Cross-Project Completion"
+msgstr "Šķērsprojektu pabeigšana"
+
+#: kateprojectconfigpage.cpp:76
+#, kde-format
+msgid "Cross-Project Goto Symbol"
+msgstr "Šķērprojektu „iet uz simbolu“"
+
+#: kateprojectconfigpage.cpp:84
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Git"
+msgstr "Git"
+
+#: kateprojectconfigpage.cpp:87
+#, kde-format
+msgid "Single click action in the git status view"
+msgstr "Atsevišķs klikšķis „git“ statusa skatā"
+
+#: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
+#, kde-format
+msgid "No Action"
+msgstr "Nav darbības"
+
+#: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
+#, kde-format
+msgid "Open file"
+msgstr "Atvērt datni"
+
+#: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
+#, kde-format
+msgid "Stage / Unstage"
+msgstr "Pievienot / noņemt pievienošanu"
+
+#: kateprojectconfigpage.cpp:99
+#, kde-format
+msgid "Double click action in the git status view"
+msgstr "Dubultklikšķis „git“ statusa skatā"
+
+#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
+#, kde-format
+msgid "Projects"
+msgstr "Projekti"
+
+#: kateprojectconfigpage.cpp:177
+#, kde-format
+msgctxt "Groupbox title"
+msgid "Projects Properties"
+msgstr "Projektu īpašības"
+
+#: kateprojectinfoview.cpp:68
+#, kde-format
+msgid "Terminal (.kateproject)"
+msgstr "Terminālis (.kateproject)"
+
+#: kateprojectinfoview.cpp:77
+#, kde-format
+msgid "Terminal (Base)"
+msgstr "Terminālis (pamata)"
+
+#: kateprojectinfoview.cpp:86
+#, kde-format
+msgid "Terminal (build)"
+msgstr "Terminālis (būvējums)"
+
+#: kateprojectinfoview.cpp:93
+#, kde-format
+msgid "Code Index"
+msgstr "Koda indekss"
+
+#: kateprojectinfoview.cpp:98
+#, kde-format
+msgid "Code Analysis"
+msgstr "Koda analīze"
+
+#: kateprojectinfoview.cpp:103
+#, kde-format
+msgid "Notes"
+msgstr "Piezīmes"
+
+#: kateprojectinfoviewcodeanalysis.cpp:35
+#, kde-format
+msgid "Start Analysis..."
+msgstr "Sākt analīzi..."
+
+#: kateprojectinfoviewcodeanalysis.cpp:43
+#, kde-format
+msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
+msgid "Code Analysis - %1"
+msgstr "Koda analīze — „%1“"
+
+#: kateprojectinfoviewcodeanalysis.cpp:100
+#, kde-format
+msgid ""
+"'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
+"on all project files which match this list of file extensions:<br/><b>%4</b>"
+msgstr ""
+"„%1“ nav instalēts šajā sistēmā, %2.<br/><br/>%3. Rīku palaidīs visām "
+"projekta datnēm atbilstoši šim datņu paplašinājumu sarakstam:<br/><b>%4</b>"
+
+#: kateprojectinfoviewcodeanalysis.cpp:110
+#, kde-format
+msgid ""
+"Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
+"files which match this list of file extensions:<br/><b>%4</b>"
+msgstr ""
+"Izmanto „%1“, kas ir instalēts: %2.<br/><br/>%3. Rīku palaidīš visām "
+"projekta datnēm atbilstoši šim datņu paplašinājumu sarakstam:<br/><b>%4</b>"
+
+#: kateprojectinfoviewcodeanalysis.cpp:152
+#: kateprojectinfoviewcodeanalysis.cpp:212
+#: kateprojectinfoviewcodeanalysis.cpp:216
+#, kde-format
+msgid "CodeAnalysis"
+msgstr "Koda analīze"
+
+#: kateprojectinfoviewcodeanalysis.cpp:207
+#, kde-format
+msgctxt ""
+"Message to the user that analysis finished. %1 is the name of the program "
+"that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
+"finished"
+msgid "[%1]Analysis on %2 file finished."
+msgid_plural "[%1]Analysis on %2 files finished."
+msgstr[0] "[%1] %2 datnes analīze ir pabeigta."
+msgstr[1] "[%1] %2 datņu analīze ir pabeigta."
+msgstr[2] "[%1] %2 datņu analīze ir pabeigta."
+
+#: kateprojectinfoviewcodeanalysis.cpp:215
+#, kde-format
+msgid "Analysis failed with exit code %1, Error: %2"
+msgstr "Analīze neizdevās ar kļūdas kodu: %1. Kļūda: %2"
+
+#: kateprojectinfoviewindex.cpp:35
+#, kde-format
+msgid "Name"
+msgstr "Nosaukums"
+
+#: kateprojectinfoviewindex.cpp:35
+#, kde-format
+msgid "Kind"
+msgstr "Tips"
+
+#: kateprojectinfoviewindex.cpp:35
+#, kde-format
+msgid "File"
+msgstr "Datne"
+
+#: kateprojectinfoviewindex.cpp:35
+#, kde-format
+msgid "Line"
+msgstr "Rinda"
+
+#: kateprojectinfoviewindex.cpp:36
+#, kde-format
+msgid "Search"
+msgstr "Meklēt"
+
+#: kateprojectinfoviewindex.cpp:198
+#, kde-format
+msgid "The index could not be created. Please install 'ctags'."
+msgstr "Neizdevās izveidot indeksu. Instalējiet „ctags“."
+
+#: kateprojectinfoviewindex.cpp:208
+#, kde-format
+msgid "Indexing is not enabled"
+msgstr "Indeksēšana nav ieslēgta"
+
+#: kateprojectitem.cpp:166
+#, kde-format
+msgid "Error"
+msgstr "Kļūda"
+
+#: kateprojectitem.cpp:166
+#, kde-format
+msgid "File name already exists"
+msgstr "Datne ar šādu nosaukumu jau pastāv"
+
+#: kateprojectplugin.cpp:216
+#, kde-format
+msgid "Confirm project closing: %1"
+msgstr "Pirms aizvēršanas projektu apstipriniet: %1"
+
+#: kateprojectplugin.cpp:217
+#, kde-format
+msgid "Do you want to close the project %1 and the related %2 open documents?"
+msgstr ""
+"Vai vēlaties aizvērt projektu „%1“ un saistītos %2 atvērtos dokumentus?"
+
+#: kateprojectplugin.cpp:594
+#, kde-format
+msgid "Full path to current project excluding the file name."
+msgstr "Pilns ceļš uz pašreizējo projektu, neskaitot datnes nosaukumu."
+
+#: kateprojectplugin.cpp:611
+#, kde-format
+msgid ""
+"Full path to current project excluding the file name, with native path "
+"separator (backslash on Windows)."
+msgstr ""
+"Pilns ceļš uz pašreizējo projektu, neskaitot datnes nosaukumu, ar sistēmas "
+"ceļa atdalītāju (apgriezta slīpsvītra „Windows“ sistēmās)"
+
+#: kateprojectpluginview.cpp:56
+#, kde-format
+msgid "Project Manager"
+msgstr "Projekta vadītājs"
+
+#: kateprojectpluginview.cpp:78
+#, kde-format
+msgid "Open projects list"
+msgstr "Atvērt projektu sarakstu"
+
+#: kateprojectpluginview.cpp:83
+#, kde-format
+msgid "Reload project"
+msgstr "Pārlādēt projektu"
+
+#: kateprojectpluginview.cpp:86
+#, kde-format
+msgid "Close project"
+msgstr "Aizvērt projektu"
+
+#: kateprojectpluginview.cpp:106
+#, kde-format
+msgid "Refresh git status"
+msgstr "Pārlādēt „git“ statusu"
+
+#: kateprojectpluginview.cpp:186
+#, kde-format
+msgid "Open &Folder..."
+msgstr "Atvērt &mapi..."
+
+#: kateprojectpluginview.cpp:192
+#, kde-format
+msgid "Project TODOs"
+msgstr "Projekta uzdevumi"
+
+#: kateprojectpluginview.cpp:197
+#, kde-format
+msgid "Activate Previous Project"
+msgstr "Aktivizēt iepriekšējo projektu"
+
+#: kateprojectpluginview.cpp:203
+#, kde-format
+msgid "Activate Next Project"
+msgstr "Aktivizēt nākamo projektu"
+
+#: kateprojectpluginview.cpp:209
+#, kde-format
+msgid "Lookup"
+msgstr "Uzmeklēt"
+
+#: kateprojectpluginview.cpp:214
+#, kde-format
+msgid "Close Project"
+msgstr "Aizvērt projektu"
+
+#: kateprojectpluginview.cpp:219
+#, kde-format
+msgid "Close All Projects"
+msgstr "Aizvērt visus projektus"
+
+#: kateprojectpluginview.cpp:224
+#, kde-format
+msgid "Close Orphaned Projects"
+msgstr "Aizvērt projektus, kas vairs nav diskā"
+
+#: kateprojectpluginview.cpp:229
+#, kde-format
+msgid "Reload Project"
+msgstr "Pārlādēt projektu"
+
+#: kateprojectpluginview.cpp:240
+#, kde-format
+msgid "Checkout Git Branch"
+msgstr "Paņemt „Git“ zaru"
+
+#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
+#, kde-format
+msgid "Lookup: %1"
+msgstr "Uzmeklēt: %1"
+
+#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
+#, kde-format
+msgid "Goto: %1"
+msgstr "Iet uz: %1"
+
+#: kateprojectpluginview.cpp:321
+#, kde-format
+msgid "Projects Index"
+msgstr "Projektu indekss"
+
+#: kateprojectpluginview.cpp:855
+#, kde-format
+msgid "Choose a directory"
+msgstr "Izvēlēties mapi"
+
+#: kateprojecttreeviewcontextmenu.cpp:45
+#, kde-format
+msgid "Enter name:"
+msgstr "Ierakstiet nosaukumu:"
+
+#: kateprojecttreeviewcontextmenu.cpp:62
+#, kde-format
+msgid "Delete File"
+msgstr "Dzēst datni"
+
+#: kateprojecttreeviewcontextmenu.cpp:63
+#, kde-format
+msgid "Do you want to delete the file '%1'?"
+msgstr "Vai tiešām vēlaties dzēst datni „%1“"
+
+#: kateprojecttreeviewcontextmenu.cpp:90
+#, kde-format
+msgid "Copy Location"
+msgstr "Kopēt vietu"
+
+#: kateprojecttreeviewcontextmenu.cpp:97
+#, kde-format
+msgid "New File…"
+msgstr "Jauna datne…"
+
+#: kateprojecttreeviewcontextmenu.cpp:98
+#, kde-format
+msgid "New Folder…"
+msgstr "Jauna mape…"
+
+#: kateprojecttreeviewcontextmenu.cpp:105
+#, kde-format
+msgid "&Rename"
+msgstr "&Pārdēvēt"
+
+#: kateprojecttreeviewcontextmenu.cpp:112
+#, kde-format
+msgid "Properties"
+msgstr "Īpašības"
+
+#: kateprojecttreeviewcontextmenu.cpp:116
+#, kde-format
+msgid "Open With"
+msgstr "Atvērt ar"
+
+#: kateprojecttreeviewcontextmenu.cpp:124
+#, kde-format
+msgid "Open Internal Terminal Here"
+msgstr "Atvērt te iekšējo termināli"
+
+#: kateprojecttreeviewcontextmenu.cpp:133
+#, kde-format
+msgid "Open External Terminal Here"
+msgstr "Atvērt te ārējo termināli"
+
+#: kateprojecttreeviewcontextmenu.cpp:138
+#, kde-format
+msgid "&Open Containing Folder"
+msgstr "&Atvērt saturošo mapi"
+
+#: kateprojecttreeviewcontextmenu.cpp:147
+#, kde-format
+msgid "Show Git History"
+msgstr "Rādīt „Git“ vēsturi"
+
+#: kateprojecttreeviewcontextmenu.cpp:210
+#, kde-format
+msgid "New File"
+msgstr "Jauna datne"
+
+#: kateprojecttreeviewcontextmenu.cpp:215
+#, kde-format
+msgid "New Folder"
+msgstr "Jauna mape"
+
+#: kateprojectviewtree.cpp:159
+#, kde-format
+msgid "Failed to create file: %1, Error: %2"
+msgstr "Neizdevās izveidot datni: „%1“. Kļūda: %2"
+
+#: kateprojectviewtree.cpp:189
+#, kde-format
+msgid "Failed to create dir: %1"
+msgstr "Neizdevās izveidot mapi: „%1“"
+
+#: kateprojectworker.cpp:744
+#, kde-format
+msgid ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH environment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
+msgstr ""
+"Neizdevās ielādēt „%1“ balstītu projektu, jo „%1“ nav instalēts vai to "
+"neizdevās atrast PATH vides mainīgajā. Instalējiet „%1“ vai projekta "
+"iestatījumos izslēdziet opciju „Automātiski ielādēt repozitorijus un būvēt "
+"kokus“."
+
+#: stashdialog.cpp:36
+#, kde-format
+msgid "Stash message (optional). Enter to confirm, Esc to leave."
+msgstr ""
+"Atlicināšanas ziņa (nav obligāta). Ievadiet, lai apstiprinātu, „Esc“, lai "
+"izietu."
+
+#: stashdialog.cpp:43
+#, kde-format
+msgid "Type to filter, Enter to pop stash, Esc to leave."
+msgstr ""
+"Rakstiet, lai filtrētu, spiediet „Enter“, lai pielietotu un dzēstu "
+"atlicinājumu, vai „Esc“, lai izietu"
+
+#: stashdialog.cpp:142
+#, kde-format
+msgid "Failed to stash changes %1"
+msgstr "Neizdevās atlicināt izmaiņas „%1“"
+
+#: stashdialog.cpp:144
+#, kde-format
+msgid "Changes stashed successfully."
+msgstr "Izmaiņas ir veiksmīgi atlicinātas."
+
+#: stashdialog.cpp:163
+#, kde-format
+msgid "Failed to get stash list. Error: "
+msgstr "Neizdevās iegūt atlicināšanas sarakstu. Kļūda: "
+
+#: stashdialog.cpp:179
+#, kde-format
+msgid "Failed to apply stash. Error: "
+msgstr "Neizdevās pielietot atlicinājumu. Kļūda: "
+
+#: stashdialog.cpp:181
+#, kde-format
+msgid "Failed to drop stash. Error: "
+msgstr "Neizdevās nomest atlicinājumu. Kļūda: "
+
+#: stashdialog.cpp:183
+#, kde-format
+msgid "Failed to pop stash. Error: "
+msgstr "Neizdevās pielietot un dzēst atlicinājumu. Kļūda: "
+
+#: stashdialog.cpp:187
+#, kde-format
+msgid "Stash applied successfully."
+msgstr "Atlicinājums ir pielietots."
+
+#: stashdialog.cpp:189
+#, kde-format
+msgid "Stash dropped successfully."
+msgstr "Atlicinājums ir nomests."
+
+#: stashdialog.cpp:191
+#, kde-format
+msgid "Stash popped successfully."
+msgstr "Atlicinājums ir pielietots un dzēsts."
+
+#: stashdialog.cpp:220
+#, kde-format
+msgid "Show stash failed. Error: "
+msgstr "Atlicinājuma parādīšana neizdevās. Kļūda: "
+
+#. i18n: ectx: Menu (projects)
+#: ui.rc:9
+#, kde-format
+msgid "&Projects"
+msgstr "&Projekti"

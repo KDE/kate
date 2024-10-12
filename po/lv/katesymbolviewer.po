@@ -5,19 +5,20 @@
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2008.
 # Viesturs Zariņš <viesturs.zarins@mii.lu.lv>, 2009.
 # Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2012-06-30 15:12+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-09 17:16+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -38,7 +39,7 @@ msgstr "Funkcijas"
 #: cpp_parser.cpp:29 julia_parser.cpp:27 plugin_katesymbolviewer.cpp:82
 #, kde-format
 msgid "Show Macros"
-msgstr "Rādīt makrosus"
+msgstr "Rādīt makrokomandas"
 
 #: cpp_parser.cpp:30 julia_parser.cpp:28 plugin_katesymbolviewer.cpp:84
 #, kde-format
@@ -48,7 +49,7 @@ msgstr "Rādīt struktūras"
 #: cpp_parser.cpp:41 julia_parser.cpp:56
 #, kde-format
 msgid "Macros"
-msgstr "Makrosi"
+msgstr "Makrokomandas"
 
 #: cpp_parser.cpp:42 julia_parser.cpp:54
 #, kde-format
@@ -98,12 +99,12 @@ msgstr "Pragmas"
 #: php_parser.cpp:31
 #, kde-format
 msgid "Namespaces"
-msgstr "Vārdtelpas"
+msgstr "Nosaukumvietas"
 
 #: php_parser.cpp:32
 #, kde-format
 msgid "Defines"
-msgstr "Definē"
+msgstr "Definīcijas"
 
 #: php_parser.cpp:33 python_parser.cpp:44 ruby_parser.cpp:32
 #, kde-format
@@ -116,25 +117,22 @@ msgid "SymbolViewer"
 msgstr "Simbolu skatītājs"
 
 #: plugin_katesymbolviewer.cpp:75
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "Saraksta/koka režīms"
+msgstr "Koka režīms"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Izvērst koku"
 
 #: plugin_katesymbolviewer.cpp:79
-#, fuzzy, kde-format
-#| msgid "Show Structures"
+#, kde-format
 msgid "Show Sorted"
-msgstr "Rādīt struktūras"
+msgstr "Rādīt kārtotus"
 
 #: plugin_katesymbolviewer.cpp:88
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
 msgstr "Rādīt parametrus"
 
@@ -146,7 +144,7 @@ msgstr "Simbolu saraksts"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "Filtrēt..."
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format
@@ -161,15 +159,14 @@ msgid "Position"
 msgstr "Novietojums"
 
 #: plugin_katesymbolviewer.cpp:360
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "Atvainojiet, šī valoda vēl nav atbalstīta"
+msgstr "Diemžēl, šī valoda vēl nav atbalstīta!"
 
 #: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Datnes tips: %1"
 
 #: plugin_katesymbolviewer.cpp:477
 #, kde-format
@@ -179,22 +176,22 @@ msgstr "Rādīt funkciju parametrus"
 #: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr "Koka režīmā automātiski atvērt mapes"
+msgstr "Koka režīmā mapes atvērt automātiski"
 
 #: plugin_katesymbolviewer.cpp:479
 #, kde-format
 msgid "Always display symbols in tree mode"
-msgstr ""
+msgstr "Simbolus vienmēr rādīt koka režīmā"
 
 #: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Always sort symbols"
-msgstr ""
+msgstr "Simbolus vienmēr kārtot"
 
 #: plugin_katesymbolviewer.cpp:482
 #, kde-format
 msgid "Parser Options"
-msgstr "Analizatora opcijas"
+msgstr "Parsētāja opcijas"
 
 #: plugin_katesymbolviewer.cpp:510
 #, kde-format
@@ -228,10 +225,9 @@ msgid "&Settings"
 msgstr "Ie&statījumi"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "Rādīt pragmas"
+msgstr "Rādīt birkas"
 
 #: xslt_parser.cpp:22
 #, kde-format

@@ -3,19 +3,20 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2011, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2012-06-30 11:32+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-07 11:03+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -35,7 +36,7 @@ msgstr "Pievienot"
 #: CTagsGlobalConfig.ui:40 kate_ctags.ui:116
 #, kde-format
 msgid "Remove"
-msgstr "Izņemt"
+msgstr "Noņemt"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateDB)
 #: CTagsGlobalConfig.ui:54
@@ -48,7 +49,7 @@ msgstr "Atjaunināt"
 #: CTagsGlobalConfig.ui:66 kate_ctags.ui:172
 #, kde-format
 msgid "CTags command"
-msgstr "CTags komanda"
+msgstr "„CTags“ komanda"
 
 #: ctagskinds.cpp:23
 msgctxt "Tag Type"
@@ -96,7 +97,7 @@ msgstr "slots"
 #: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "pattern"
-msgstr "raksts"
+msgstr "modelis"
 
 #: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
 #: ctagskinds.cpp:93 ctagskinds.cpp:97
@@ -122,7 +123,7 @@ msgstr "biedrs"
 #: ctagskinds.cpp:44 ctagskinds.cpp:106
 msgctxt "Tag Type"
 msgid "namespace"
-msgstr "vārdtelpa"
+msgstr "nosaukumvieta"
 
 #: ctagskinds.cpp:45
 msgctxt "Tag Type"
@@ -250,33 +251,31 @@ msgid "set"
 msgstr "kopa"
 
 #: gotosymbolmodel.cpp:67
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable not found."
-msgstr "CTags izpildāmā datne avarēja."
+msgstr "„CTags“ izpilddatne nav atrasta."
 
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "CTags izpildāmā datne avarēja."
+msgstr "„CTags“ izpilddatni neizdevās palaist."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "CTags datubāzes datne"
+msgstr "„CTags“ neizdevās parsēt šo datni."
 
 #: gotosymbolwidget.cpp:246
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Birkas nav atrastas. Ģenerējiet kādu manuāli vai izmantojiet „CTags“ spraudni"
 
 #: gotosymbolwidget.cpp:315
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Nav atrasts „%1“ datne."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
@@ -325,13 +324,13 @@ msgstr "Datubāze"
 #: kate_ctags.ui:162
 #, kde-format
 msgid "CTags database file"
-msgstr "CTags datubāzes datne"
+msgstr "„CTags“ datubāzes datne"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr ""
+msgstr "Atgriezties pie noklusētās komandas"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208
@@ -347,12 +346,12 @@ msgstr "Pievienot mapi indeksam."
 #: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
-msgstr "Izņemt mapi."
+msgstr "Noņemt mapi."
 
 #: kate_ctags_plugin.cpp:81
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr "(Re-)ģenerēt parasto CTags datubāzi."
+msgstr "(Pār)ģenerēt parasto „CTags“ datubāzi."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
 #: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:548
@@ -364,28 +363,27 @@ msgstr "CTags"
 #: kate_ctags_plugin.cpp:105
 #, kde-format
 msgid "CTags Settings"
-msgstr "CTags iestatījumi"
+msgstr "„CTags“ iestatījumi"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:559
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Neizdevās palaist \"%1\". exitStatus = %2"
+msgstr "Neizdevās palaist. Kļūda: „%1“, iziešanas kods: %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr "CTags izpildāmā datne avarēja."
+msgstr "„CTags“ izpilddatne avarēja."
 
 #: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr "CTags komanda izgāja ar kodu %1"
+msgstr "„CTags“ komanda izgāja ar kodu %1"
 
 #: kate_ctags_view.cpp:60
 #, kde-format
 msgid "Jump back one step"
-msgstr "Pārlekt par vienu soli atpakaļ"
+msgstr "Pārlēkt par vienu soli atpakaļ"
 
 #: kate_ctags_view.cpp:64
 #, kde-format
@@ -405,14 +403,13 @@ msgstr "Atrast pašreizējo tekstu"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Konfigurēt..."
 
 #: kate_ctags_view.cpp:91
-#, fuzzy, kde-format
-#| msgid "CTags Plugin"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "CTags spraudnis"
+msgstr "Konfigurēt „CTags“ spraudni"
 
 #: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
@@ -427,27 +424,27 @@ msgstr "Iet uz definīciju: %1"
 #: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
 #, kde-format
 msgid "Lookup: %1"
-msgstr "Sameklēt: %1"
+msgstr "Uzmeklēt: %1"
 
 #: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr "(Re-)ģenerēt sesijai specifisko CTags datubāzi."
+msgstr "(Pār)ģenerēt sesijai specifisko „CTags“ datubāzi."
 
 #: kate_ctags_view.cpp:126
 #, kde-format
 msgid "Select new or existing database file."
-msgstr "Izvēlieties jaunu vai eksistējošu datubāzes datni."
+msgstr "Atlasiet jaunu vai jau pastāvošu datubāzes datni."
 
 #: kate_ctags_view.cpp:142
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Iet uz lokālo simbolu"
 
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Iet uz globālo simbolu"
 
 #: kate_ctags_view.cpp:322 kate_ctags_view.cpp:354
 #, kde-format
@@ -457,19 +454,17 @@ msgstr "Netika atrasti trāpījumi"
 #: kate_ctags_view.cpp:548
 #, kde-format
 msgid "No folders or files to index"
-msgstr ""
+msgstr "Nav indeksējamu mapju vai datņu"
 
 #: kate_ctags_view.cpp:574
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "CTags izpildāmā datne avarēja."
+msgstr "„CTags“ izpilddatne avarēja."
 
 #: kate_ctags_view.cpp:576
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "CTags programma izgāja ar kodu %1"
+msgstr "„CTags“ programma izgāja ar kodu %2: %1"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "Neizdevās palaist \"%1\". exitStatus = %2"

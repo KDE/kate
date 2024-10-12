@@ -3,13 +3,14 @@
 #
 # Einars Sprugis <einars8@gmail.com>, 2011, 2012.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasuns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2012-06-30 13:32+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-07 11:56+0300\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -73,30 +74,11 @@ msgstr "Meklēšanas mapes"
 msgid ""
 "Please add the source folders in which to search for the files in the "
 "backtrace:"
-msgstr ""
-"Lūdzu, pievienojiet avota mapes, kurās meklēt atpakaļceļā esošās datnes:"
+msgstr "Pievienojiet avota mapes, kurās meklēt atpakaļceļā esošās datnes:"
 
 #. i18n: ectx: property (whatsThis), widget (QListWidget, lstFolders)
 #: btconfigwidget.ui:39
-#, fuzzy, kde-format
-#| msgid ""
-#| "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
-#| "REC-html40/strict.dtd\">\n"
-#| "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/"
-#| "css\">\n"
-#| "p, li { white-space: pre-wrap; }\n"
-#| "</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; "
-#| "font-weight:400; font-style:normal;\">\n"
-#| "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\">Insert the source "
-#| "folders here. As example, for KDE development you have to add the Qt and "
-#| "kdelibs source folders:</p>\n"
-#| "<ul style=\"-qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-"
-#| "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
-#| "indent:0px;\">/path/to/kdelibs</li>\n"
-#| "<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-"
-#| "right:0px; -qt-block-indent:0; text-indent:0px;\">/path/to/qt/src</li></"
-#| "ul></body></html>"
+#, kde-format
 msgid ""
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
 "REC-html40/strict.dtd\">\n"
@@ -124,9 +106,9 @@ msgstr ""
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
 "weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
-"right:0px; -qt-block-indent:0; text-indent:0px;\">Ierakstiet avota mapes "
-"šeit. Piemēram, KDE izstrādei jums jāpievieno Qt un kdelibs avota mapes:</"
-"p>\n"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Te ievietojiet avota "
+"mapes. Piemēram, KDE izstrādei jums jāpievieno „Qt“ un „Frameworks“ avota "
+"mapes:</p>\n"
 "<ul style=\"-qt-list-indent: 1;\"><li style=\" margin-top:12px; margin-"
 "bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-"
 "indent:0px;\">/ceļš/uz/kdelibs</li>\n"
@@ -164,10 +146,9 @@ msgid "Indexing files..."
 msgstr "Indeksē datnes..."
 
 #: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
-#, fuzzy, kde-format
-#| msgid "Load Backtrace"
+#, kde-format
 msgid "Backtrace"
-msgstr "Ielādēt atpakaļceļu"
+msgstr "Atpakaļceļš"
 
 #: katebacktracebrowser.cpp:150
 #, kde-format
@@ -177,7 +158,7 @@ msgstr "Ielādēt atpakaļceļu"
 #: katebacktracebrowser.cpp:192
 #, kde-format
 msgid "Loading backtrace succeeded"
-msgstr "Atpakaļceļa ielāde veiksmīga"
+msgstr "Atpakaļceļš ir ielādēts"
 
 #: katebacktracebrowser.cpp:194
 #, kde-format
@@ -200,10 +181,9 @@ msgid "No debugging information available"
 msgstr "Atkļūdošanas informācija nav pieejama"
 
 #: katebacktracebrowser.cpp:284
-#, fuzzy, kde-format
-#| msgid "Backtrace Browser Settings"
+#, kde-format
 msgid "Backtrace Settings"
-msgstr "Atpakaļceļa pārlūka iestatījumi"
+msgstr "Atpakaļceļa iestatījumi"
 
 #: katebacktracebrowser.cpp:358
 #, kde-format

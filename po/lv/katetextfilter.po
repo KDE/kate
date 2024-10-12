@@ -3,19 +3,20 @@
 #
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2008, 2010.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
+# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2012-06-30 15:15+0300\n"
-"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"PO-Revision-Date: 2024-10-09 16:36+0300\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 24.08.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -26,6 +27,8 @@ msgid ""
 "<title>Result of:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 msgstr ""
+"<title>Rezultāts:</title><nl /><pre><code>$ %1\n"
+"<nl />%2</code></pre>"
 
 #: plugin_katetextfilter.cpp:152
 #, kde-format
@@ -42,15 +45,14 @@ msgid "Access Restrictions"
 msgstr "Piekļuves ierobežojumi"
 
 #: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Text Filter"
-msgstr "Filtrs"
+msgstr "Teksta filtrs"
 
 #: plugin_katetextfilter.cpp:238
 #, kde-format
 msgid "Usage: textfilter COMMAND"
-msgstr "Lietošana: textfilter KOMANDA"
+msgstr "Lietošana: „textfilter KOMANDA“"
 
 #: plugin_katetextfilter.cpp:249
 #, kde-format
@@ -58,38 +60,37 @@ msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
 "with the output of the specified shell command.</p></qt>"
 msgstr ""
-"<qt><p>Lietošana: <code>textfilter KOMANDA</code></p><p>Aizstāj iezīmēto "
+"<qt><p>Lietošana: <code>textfilter KOMANDA</code></p><p>Aizstāj atlasīto "
 "tekstu ar norādītas komandas izvadu.</p></qt>"
 
 #: plugin_katetextfilter.cpp:265
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&Filtrēt caur komandu..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Lodziņš"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilter)
 #: textfilterwidget.ui:26
-#, fuzzy, kde-format
-#| msgid "Enter command to pipe selected text through:"
+#, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "Ievadiet komandu, kurai izvadīt cauri iezīmēto tekstu:"
+msgstr "&Ievadiet komandu, kurai izvadīt cauri atlasīto tekstu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Atvērt rezultātus jaunā dokumentā"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr ""
+msgstr "Kopēt rezultātus starpliktuvē, dokumentā neveicot izmaiņas."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
@@ -105,12 +106,15 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"Ja atzīmēts, izvade no STDOUT un STDERR tiks apvienota, bet par kļūdām "
+"neinformēs.\n"
+"Pretējā gadījumā STDERR parādīsies kā pasīvs ziņojums."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr ""
+msgstr "Apvienot STDOUT un STDERR"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

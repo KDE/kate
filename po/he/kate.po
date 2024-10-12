@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
-"PO-Revision-Date: 2024-09-18 22:54+0300\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"PO-Revision-Date: 2024-10-11 16:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -340,10 +340,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "פינוי מסנן האבחון"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "הצגת/הסתרת פרטי הגשה"
+msgstr "הצגת פרטים בריחוף"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -554,6 +553,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> לא נמצא. Git נחוץ כדי לאתר הבדלים בין מסמכים. אם git כבר מותקן, "
+"נא לוודא שהוא חלק ממשתנה ה־PATH שלך. ניתן לפנות אל https://git-scm.com/"
+"downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:310
@@ -1242,12 +1244,12 @@ msgstr "מספר האבחונים המורשה בתצוגת כלי הסטטיס�
 #: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "הקשר"
 
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "הפעלת תצוגת כלי"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1273,17 +1275,14 @@ msgid "(never)"
 msgstr "(אף פעם)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " יום"
-msgstr[1] " יומיים"
-msgstr[2] " ימים"
-msgstr[3] " ימים"
+msgstr[0] "יום"
+msgstr[1] "יומיים"
+msgstr[2] "%v ימים"
+msgstr[3] "%v ימים"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1610,8 +1609,7 @@ msgid "Close all open documents."
 msgstr "שגירה של כל המסמכים הפתוחים."
 
 #: lib/katemainwindow.cpp:473
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
 msgstr "פתיחת המסמכים האחרונים ש&נסגרו"
 
@@ -2485,7 +2483,7 @@ msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי ה
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
 msgid "Quick Open Search (configure via context menu)"
-msgstr ""
+msgstr "חיפוש בפתיחה מהירה (אפשר להגדיר דרך תפריט הקשר)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
 #, kde-format
@@ -2506,6 +2504,12 @@ msgstr "סינון מעורפל"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "סינון עם תווי הכללה"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "כל המיזמים"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

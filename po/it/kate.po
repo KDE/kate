@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-09 00:42+0000\n"
-"PO-Revision-Date: 2024-10-02 16:14+0200\n"
+"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"PO-Revision-Date: 2024-10-07 16:25+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -1278,15 +1278,12 @@ msgid "(never)"
 msgstr "(mai)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " giorno"
-msgstr[1] " giorni"
+msgstr[0] "%v giorno"
+msgstr[1] "%v giorni"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -2536,6 +2533,12 @@ msgstr "Filtraggio approssimato"
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtraggio con caratteri jolly"
+
+#: lib/quickopen/katequickopenmodel.cpp:161
+#, fuzzy, kde-format
+#| msgid "All Projects"
+msgid "Project: %1"
+msgstr "Tutti i progetti"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

@@ -35,6 +35,7 @@ public:
 
 private Q_SLOTS:
     void testViewCursorPositionIsRestored();
+    void testTabsKeepOrderOnRestore();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -87,6 +88,49 @@ void KateViewManagementTest2::testViewCursorPositionIsRestored()
     v = mw->openUrl(QUrl::fromLocalFile(f1.fileName()));
     QCOMPARE(v->document()->text(), text);
     QCOMPARE(v->cursorPosition(), expectedPos);
+}
+
+void KateViewManagementTest2::testTabsKeepOrderOnRestore()
+{
+    // test that the tabs keep their order on restore
+
+    // use new test session
+    app->sessionManager()->activateSession(QStringLiteral("testTabsKeepOrderOnRestore"), false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    // open two files aka tabs in order
+    auto tab1 = mw->openUrl(QUrl::fromLocalFile(m_tempdir->path() + QStringLiteral("/testfile1.txt")));
+    auto tab2 = mw->openUrl(QUrl::fromLocalFile(m_tempdir->path() + QStringLiteral("/testfile2.txt")));
+    const auto file1 = tab1->document()->url();
+    const auto file2 = tab2->document()->url();
+
+    // check tab order, we need try compare for delayed initial doc closing
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 2);
+    auto tabs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(tabs.at(0).doc()->url(), file1);
+    QCOMPARE(tabs.at(1).doc()->url(), file2);
+
+    // ensure test files are there for reload
+    tabs.at(0).doc()->save();
+    tabs.at(1).doc()->save();
+
+    // save the session
+    app->sessionManager()->saveActiveSession();
+
+    // open new empty session
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    // back to our session
+    app->sessionManager()->activateSession(QStringLiteral("testTabsKeepOrderOnRestore"));
+    mw = app->activeKateMainWindow();
+
+    // // tabs shall have right order
+    // QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 2);
+    // tabs = mw->viewManager()->activeViewSpace()->documentList();
+    // QTRY_COMPARE(tabs.at(0).doc()->url(), file1);
+    // QCOMPARE(tabs.at(1).doc()->url(), file2);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

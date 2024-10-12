@@ -369,7 +369,8 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     if (!m_group.isEmpty()) {
         if (KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession(); as->config()) {
             // try id, fallback to url for old configs
-            QString vgroup = QStringLiteral("%1 %2").arg(m_group, KateApp::self()->documentManager()->documentInfo(v->document())->sessionConfigId);
+            QString id = QString::number(KateApp::self()->documentManager()->documentInfo(v->document())->sessionConfigId);
+            QString vgroup = QStringLiteral("%1 %2").arg(m_group, id);
             if (!as->config()->hasGroup(vgroup)) {
                 vgroup = QStringLiteral("%1 %2").arg(m_group, v->document()->url().toString());
             }
@@ -1279,7 +1280,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
             group.writeEntry(QStringLiteral("View %1").arg(idx), sessionId);
 
             // view config, group: "ViewSpace <n> id"
-            QString vgroup = QStringLiteral("%1 %2").arg(groupname, sessionId);
+            QString vgroup = QStringLiteral("%1 %2").arg(groupname, QString::number(sessionId));
             KConfigGroup viewGroup(config, vgroup);
             view->writeSessionConfig(viewGroup);
         }

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2024-08-11 11:22+0300\n"
+"PO-Revision-Date: 2024-10-10 15:21+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -418,7 +418,7 @@ msgstr "הצגת הבדל"
 #: gitwidget.cpp:1181
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "להסיר את הקבצים האלה?"
 
 #: gitwidget.cpp:1186
 #, kde-format
@@ -556,7 +556,7 @@ msgstr "&Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format

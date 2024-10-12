@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-14 02:40+0000\n"
-"PO-Revision-Date: 2024-09-18 22:54+0300\n"
+"PO-Revision-Date: 2024-10-11 16:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -548,6 +548,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"<b>git</b> לא נמצא. Git נחוץ כדי לאתר הבדלים בין מסמכים. אם git כבר מותקן, "
+"נא לוודא שהוא חלק ממשתנה ה־PATH שלך. ניתן לפנות אל https://git-scm.com/"
+"downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:308
@@ -2458,7 +2461,7 @@ msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי ה
 #: lib/quickopen/katequickopenlineedit.cpp:22
 #, kde-format
 msgid "Quick Open Search (configure via context menu)"
-msgstr ""
+msgstr "חיפוש בפתיחה מהירה (אפשר להגדיר דרך תפריט הקשר)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:61
 #, kde-format

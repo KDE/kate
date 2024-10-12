@@ -53,6 +53,8 @@ private Q_SLOTS:
                                   OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink},
                                   OpenLinkRange{(int)(22 + file.fileName().size() + 12), (int)(22 + (file.fileName().size() * 2) + 12), FileLink},
                               };
+        t = QLatin1String("text \"/");
+        QTest::addRow("5") << t << R{};
     }
 
     void test()

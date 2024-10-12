@@ -76,6 +76,9 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
                 e = e == -1 ? line.size() : e;
             } else {
                 e = line.indexOf(u'"', s);
+                if (e == -1) {
+                    break;
+                }
             }
 
             if (isRelativePath) {
@@ -114,6 +117,9 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             e = e == -1 ? line.size() : e;
         } else {
             e = line.indexOf(u'"', s);
+            if (e == -1) {
+                break;
+            }
         }
 
         if (e != -1 && QFileInfo(line.mid(s, e - s)).isFile()) {

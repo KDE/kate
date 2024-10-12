@@ -14,6 +14,7 @@
 #include <QCommandLineParser>
 #include <QPointer>
 #include <QSignalSpy>
+#include <QTemporaryFile>
 #include <QTest>
 
 QTEST_MAIN(KateViewManagementTests)
@@ -31,17 +32,6 @@ static int tabIdxForDoc(QTabBar *t, KTextEditor::Document *d)
             return i;
     }
     return -1;
-}
-
-static void clearAllDocs(KateMainWindow *mw)
-{
-    auto vm = mw->viewManager();
-    vm->slotCloseOtherViews();
-    auto vs = vm->activeViewSpace();
-    // close everything
-    for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
-        vm->slotDocumentClose();
-    }
 }
 
 KateViewManagementTests::KateViewManagementTests(QObject *)

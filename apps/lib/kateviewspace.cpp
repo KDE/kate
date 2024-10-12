@@ -368,10 +368,11 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     // restore the config of this view if possible
     if (!m_group.isEmpty()) {
         if (KateSession::Ptr as = KateApp::self()->sessionManager()->activeSession(); as->config()) {
-            // try id, fallback to url for old configs
+            // try id first
             QString id = QString::number(KateApp::self()->documentManager()->documentInfo(v->document())->sessionConfigId);
             QString vgroup = QStringLiteral("%1 %2").arg(m_group, id);
             if (!as->config()->hasGroup(vgroup)) {
+                // fallback to url, see KateViewSpace::saveViewConfig
                 vgroup = QStringLiteral("%1 %2").arg(m_group, v->document()->url().toString());
             }
             if (as->config()->hasGroup(vgroup)) {
@@ -1243,6 +1244,8 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp)
 {
     const QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
+    // Ensure that we store the group name. It is used to save config for views inside
+    // the viewspace. See KateViewSpace::saveViewConfig that is called when a view is closed
     m_group = groupname;
 
     // aggregate all registered documents & views in view space (LRU ordered)

@@ -22,6 +22,7 @@ kate_executable_tests(
     json_utils_test
     kate_doc_manager_tests
     location_history_test
-    kate_view_mgmt_tests
+    kate_view_mgmt_tests # uses kwrite for tests
+    kate_view_mgmt_test2 # uses kate for tests
     bytearraysplitter_tests
     diffwidget_tests)

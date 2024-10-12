@@ -7,6 +7,8 @@
 #pragma once
 
 #include "kateapp.h"
+#include "katemainwindow.h"
+#include "kateviewspace.h"
 
 #include <QObject>
 #include <QTemporaryDir>
@@ -16,6 +18,17 @@
 class KateApp;
 class KateViewSpace;
 class KateViewManager;
+
+inline void clearAllDocs(KateMainWindow *mw)
+{
+    auto vm = mw->viewManager();
+    vm->slotCloseOtherViews();
+    auto vs = vm->activeViewSpace();
+    // close everything
+    for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
+        vm->slotDocumentClose();
+    }
+}
 
 class KateViewManagementTests : public QObject
 {

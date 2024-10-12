@@ -1243,6 +1243,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &viewConfGrp)
 {
     const QString groupname = QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(myIndex);
+    m_group = groupname;
 
     // aggregate all registered documents & views in view space (LRU ordered)
     // we need even the documents without tabs to avoid that we later have issues with closing

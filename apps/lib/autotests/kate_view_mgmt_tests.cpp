@@ -61,6 +61,11 @@ KateViewManagementTests::KateViewManagementTests(QObject *)
     app = std::make_unique<KateApp>(parser, KateApp::ApplicationKWrite, m_tempdir->path());
 }
 
+KateViewManagementTests::~KateViewManagementTests()
+{
+    delete m_tempdir;
+}
+
 void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
 {
     app->sessionManager()->sessionNew();

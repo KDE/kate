@@ -23,6 +23,7 @@ class KateViewManagementTests : public QObject
 
 public:
     KateViewManagementTests(QObject *parent = nullptr);
+    ~KateViewManagementTests();
 
 private Q_SLOTS:
     void testSingleViewspaceDoesntCloseWhenLastViewClosed();

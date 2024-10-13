@@ -148,9 +148,6 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     }
     m_procHandle->setProcessEnvironment(env());
 
-    qCDebug(FORMATTING) << "executing" << name << args;
-    startHostProcess(*p, name, args);
-
     if (supportsStdin()) {
         connect(p, &QProcess::started, this, [this, p] {
             const auto stdinText = textForStdin();
@@ -160,6 +157,9 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
             }
         });
     }
+
+    qCDebug(FORMATTING) << "executing" << name << args;
+    startHostProcess(*p, name, args);
 }
 
 void AbstractFormatter::onResultReady(const RunOutput &o)
@@ -216,8 +216,12 @@ void PrettierFormat::setupNode()
         return;
     }
 
-    const QString path = m_config.value(QLatin1String("path")).toString();
-    const auto node = safeExecutableName(!path.isEmpty() ? path : QStringLiteral("node"));
+    m_config = m_globalConfig.value(name()).toObject();
+    const QStringList cmd = readCommandFromJson(m_config);
+    if (cmd.isEmpty()) {
+        return;
+    }
+    const auto node = safeExecutableName(cmd.first());
     if (node.isEmpty()) {
         Q_EMIT error(i18n("Please install node and prettier"));
         return;

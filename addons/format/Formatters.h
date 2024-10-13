@@ -89,14 +89,13 @@ protected:
     QJsonObject m_config;
     QPointer<QProcess> m_procHandle;
     KTextEditor::Cursor m_pos;
+    const QJsonObject m_globalConfig;
 
 private:
     QByteArray textForStdin() const
     {
         return originalText.toUtf8();
     }
-
-    const QJsonObject m_globalConfig;
 
 Q_SIGNALS:
     void textFormatted(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &text, int offset = -1);

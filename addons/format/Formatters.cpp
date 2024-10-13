@@ -135,6 +135,12 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
         deleteLater();
     });
 
+    connect(p, &QProcess::errorOccurred, this, [this, p](QProcess::ProcessError e) {
+        Q_EMIT error(QStringLiteral("%1: %2").arg(e).arg(p->errorString()));
+        p->deleteLater();
+        deleteLater();
+    });
+
     if (!workingDir().isEmpty()) {
         m_procHandle->setWorkingDirectory(workingDir());
     } else {
@@ -146,11 +152,13 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     startHostProcess(*p, name, args);
 
     if (supportsStdin()) {
-        const auto stdinText = textForStdin();
-        if (!stdinText.isEmpty()) {
-            p->write(stdinText);
-            p->closeWriteChannel();
-        }
+        connect(p, &QProcess::started, this, [this, p] {
+            const auto stdinText = textForStdin();
+            if (!stdinText.isEmpty()) {
+                p->write(stdinText);
+                p->closeWriteChannel();
+            }
+        });
     }
 }
 
@@ -238,7 +246,9 @@ void PrettierFormat::setupNode()
     s_nodeProcess->setArguments({s_tempFile->fileName()});
 
     startHostProcess(*s_nodeProcess, QProcess::ReadWrite);
-    s_nodeProcess->waitForStarted();
+    if (!s_nodeProcess->waitForStarted()) {
+        Q_EMIT error(i18n("PrettierFormat: Failed to start 'node': %1", s_nodeProcess->errorString()));
+    }
 }
 
 void PrettierFormat::onReadyReadOut()

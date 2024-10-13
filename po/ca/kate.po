@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
-"PO-Revision-Date: 2024-10-04 10:37+0200\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
+"PO-Revision-Date: 2024-10-12 11:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2459,52 +2459,52 @@ msgstr[1] ""
 "Actualment, hi ha oberts %1 documents. Per a veure tots els documents "
 "oberts, canvieu a la vista Obertura ràpida clicant aquí."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr "Tan&ca el document"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tanca els altres &documents"
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "Close &All Documents"
 msgstr "T&anca tots els documents"
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "D&etach Document"
 msgstr "S&epara el document"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Obre el document en una finestra nova i el tanca a la finestra actual"
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compara amb el document actiu"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compara amb el document actiu emprant"
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr "No s'ha pogut iniciar el programa"
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2536,10 +2536,9 @@ msgid "Wildcard Filtering"
 msgstr "Filtratge amb comodins"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Tots els projectes"
+msgstr "Projecte: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

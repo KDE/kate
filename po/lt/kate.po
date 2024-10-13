@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
 "PO-Revision-Date: 2024-02-02 16:47+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -2512,57 +2512,57 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close Tab"
 msgstr "Už&daryti viską"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr "&Užverti dokumentą"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Užverti &kitus dokumentus"
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Užverti visus dokumentus."
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "Užverti dokumentą"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Užverti dabartinį dokumentą."
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Užverti dabartinį dokumentą."
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

@@ -346,8 +346,18 @@
 <entry
 >In &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>In &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
 ></entry>
 </row>
 </tbody>
@@ -2356,8 +2366,18 @@
 <entry
 >In &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>In &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
 ></entry>
 </row>
 </tbody>
@@ -4150,6 +4170,11 @@
 > di GNOME è simile. Puoi scaricare <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
 >il pacchetto Flatpak su Flathub</ulink
 > (solo in GNU/Linux).</para>
+
+<para
+>Uno script python nel <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>deposito di evidenziazione della sintassi</ulink
+> ti permette di visualizzare tutti i colori del tema, oltre al contrasto con i vari sfondi configurati.</para>
 
 </sect3>
 

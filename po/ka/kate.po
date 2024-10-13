@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
-"PO-Revision-Date: 2024-10-04 05:39+0200\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
+"PO-Revision-Date: 2024-10-12 05:39+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2439,52 +2439,52 @@ msgstr[1] ""
 "ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Tab"
 msgstr "ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr "დოკუმენტის &დახურვა"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "სხვა &დოკუმენტების დახურვა"
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&ყველა დოკუმენტის დახურვა"
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr "პროგრამის გაშვების შეცდომა"
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "არჩეული პროგრამის გაშვება შეუძლებელია. შეიძლება, ის დაყენებული არაა."
@@ -2515,10 +2515,9 @@ msgid "Wildcard Filtering"
 msgstr "ვაილდკარდით ფილტრი"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "ყველა პროექტები"
+msgstr "პროექტი: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

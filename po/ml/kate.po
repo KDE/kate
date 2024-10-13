@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -2397,54 +2397,54 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Tab"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close &All Documents"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "Compare with Active Document"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

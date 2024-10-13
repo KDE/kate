@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -2462,52 +2462,52 @@ msgstr[0] ""
 "Hiện có %1 tài liệu nữa đang mở. Để thấy tất cả các tài liệu đang mở, chuyển "
 "sang khung xem \"Mở nhanh\" bằng cách bấm vào đây."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "Close Tab"
 msgstr "Đóng thẻ"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr "Đón&g tài liệu"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Đóng các tài liệu &khác"
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Đóng &tất cả các tài liệu"
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Tách tài liệu"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Mở tài liệu trong một cửa sổ mới và đóng nó trong cửa sổ hiện tại"
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "So sánh với tài liệu hoạt động"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "So sánh với tài liệu hoạt động bằng"
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr "Không khởi động được chương trình"
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

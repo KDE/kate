@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-12 00:41+0000\n"
+"POT-Creation-Date: 2024-10-13 00:42+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -2538,57 +2538,57 @@ msgstr[3] ""
 "Trenutno ima još jedan otvoren dokument. Kliknite ovde da ih sve vidite, "
 "prebacivši se na prikaz brzog otvaranja."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1118
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close Tab"
 msgstr "Zatvori sv&e"
 
-#: lib/kateviewspace.cpp:1134
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Document"
 msgstr "&Zatvori dokument"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Zatvori druge &dokumente"
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Zatvori sve dokumente"
 
-#: lib/kateviewspace.cpp:1140
+#: lib/kateviewspace.cpp:1142
 #, fuzzy, kde-format
 #| msgid "&Close Document"
 msgid "D&etach Document"
 msgstr "&Zatvori dokument"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1144
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1151
+#: lib/kateviewspace.cpp:1153
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Zatvori tekući dokument."
 
-#: lib/kateviewspace.cpp:1227
+#: lib/kateviewspace.cpp:1229
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1228
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

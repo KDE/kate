@@ -5,7 +5,6 @@
 #include "FormatConfig.h"
 
 #include "FormatPlugin.h"
-#include "FormattersEnum.h"
 
 #include <QCheckBox>
 #include <QComboBox>

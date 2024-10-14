@@ -4,6 +4,7 @@
 */
 #pragma once
 
+#include "hostprocess.h"
 #include <gitprocess.h>
 
 #include <QDebug>

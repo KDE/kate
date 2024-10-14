@@ -3,9 +3,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "Formatters.h"
-
-#include "FormatApply.h"
-#include "ModifiedLines.h"
+#include "FormattersEnum.h"
 
 #include <QDebug>
 #include <QElapsedTimer>
@@ -16,13 +14,14 @@
 #include <QJsonObject>
 #include <QLoggingCategory>
 
+#include <KLocalizedString>
 #include <KTextEditor/Editor>
 
 Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 
 static QStringList readCommandFromJson(const QJsonObject &o)
 {
-    const auto arr = o.value(QStringLiteral("command")).toArray();
+    const auto arr = o.value(QLatin1String("command")).toArray();
     QStringList args;
     args.reserve(arr.size());
     for (const auto &v : arr) {
@@ -101,22 +100,22 @@ static QString filenameFromMode(KTextEditor::Document *doc)
     return {};
 }
 
-void AbstractFormatter::run(KTextEditor::Document *doc)
+void FormatterRunner::run(KTextEditor::Document *doc)
 {
     // QElapsedTimer t;
     // t.start();
-    m_config = m_globalConfig.value(name()).toObject();
+    m_config = m_globalConfig.value(m_fmt.name).toObject();
     // Arguments supplied by the user are prepended
     auto command = readCommandFromJson(m_config);
     if (command.isEmpty()) {
-        Q_EMIT error(i18n("%1: Unexpected empty command!", this->name()));
+        Q_EMIT error(i18n("%1: Unexpected empty command!", m_fmt.name));
         return;
     }
     QString path = command.takeFirst();
-    const auto args = command + this->args(doc);
-    const auto name = safeExecutableName(!path.isEmpty() ? path : this->name());
+    const auto args = command + m_fmt.args;
+    const auto name = safeExecutableName(!path.isEmpty() ? path : m_fmt.name);
     if (name.isEmpty()) {
-        Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", this->name()));
+        Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", m_fmt.name));
         return;
     }
 
@@ -148,7 +147,7 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     }
     m_procHandle->setProcessEnvironment(env());
 
-    if (supportsStdin()) {
+    if (m_fmt.supportsStdin) {
         connect(p, &QProcess::started, this, [this, p] {
             const auto stdinText = textForStdin();
             if (!stdinText.isEmpty()) {
@@ -162,7 +161,7 @@ void AbstractFormatter::run(KTextEditor::Document *doc)
     startHostProcess(*p, name, args);
 }
 
-void AbstractFormatter::onResultReady(const RunOutput &o)
+void FormatterRunner::onResultReady(const RunOutput &o)
 {
     if (!o.err.isEmpty()) {
         Q_EMIT error(QString::fromUtf8(o.err));
@@ -172,51 +171,13 @@ void AbstractFormatter::onResultReady(const RunOutput &o)
     }
 }
 
-QStringList ClangFormat::args(KTextEditor::Document *doc) const
-{
-    QString file = doc->url().toLocalFile();
-    QStringList args;
-
-    args << QStringLiteral("--assume-filename=%1").arg(filenameFromMode(doc));
-
-    if (file.isEmpty()) {
-        return args;
-    }
-
-    if (!m_config.value(QStringLiteral("formatModifiedLinesOnly")).toBool()) {
-        return args;
-    }
-
-    const auto lines = getModifiedLines(file);
-    if (lines.has_value()) {
-        for (auto ll : *lines) {
-            args.push_back(QStringLiteral("--lines=%1:%2").arg(ll.startLine).arg(ll.endline));
-        }
-    }
-    return args;
-}
-
-void DartFormat::onResultReady(const RunOutput &out)
-{
-    if (out.exitCode == 0) {
-        // No change
-        return;
-    } else if (out.exitCode > 1) {
-        if (!out.err.isEmpty()) {
-            Q_EMIT error(QString::fromUtf8(out.err));
-        }
-    } else if (out.exitCode == 1) {
-        Q_EMIT textFormatted(this, m_doc, out.out);
-    }
-}
-
 void PrettierFormat::setupNode()
 {
     if (s_nodeProcess && s_nodeProcess->state() == QProcess::Running) {
         return;
     }
 
-    m_config = m_globalConfig.value(name()).toObject();
+    m_config = m_globalConfig.value(m_fmt.name).toObject();
     const QStringList cmd = readCommandFromJson(m_config);
     if (cmd.isEmpty()) {
         return;
@@ -299,6 +260,139 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     o[QStringLiteral("source")] = originalText;
     o[QStringLiteral("cursorOffset")] = doc->cursorToOffset(m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
+}
+
+static Formatter newStdinFmt(const char *name, const QStringList &args)
+{
+    return {.name = QString::fromUtf8(name), .args = args, .workingDir = {}, .supportsStdin = true};
+}
+
+inline Formatter jqFmt(KTextEditor::Document *doc)
+{
+    // Reuse doc's indent
+    bool ok = false;
+    int width = doc->configValue(QStringLiteral("indent-width")).toInt(&ok);
+    width = ok ? width : 4;
+    const QStringList args{QStringLiteral("."), QStringLiteral("--indent"), QString::number(width), QStringLiteral("-M")}; // -M => no color
+    return newStdinFmt("jq", args);
+}
+
+#define S(s) QStringLiteral(s)
+static Formatter prettier()
+{
+    return Formatter{S("prettier"), {}, {}, true};
+}
+
+static std::optional<Formatter> makeFormatter(KTextEditor::Document *doc, const QJsonObject &config)
+{
+    const auto mode = doc->highlightingMode().toLower();
+    auto is = [mode](const char *s) {
+        return mode == QLatin1String(s);
+    };
+    auto is_or_contains = [mode](const char *s) {
+        return mode == QLatin1String(s) || mode.contains(QLatin1String(s));
+    };
+
+    // NOTE: When adding a new formatter ensure that it is documented in plugins.docbook
+
+    if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
+        return newStdinFmt("clang-format", {S("--assume-filename=%1").arg(filenameFromMode(doc))});
+    } else if (is("dart")) {
+        return newStdinFmt("dart",
+                           {S("format"), S("--output=show"), S("--summary=none"), S("--stdin-name"), doc->url().toDisplayString(QUrl::PreferLocalFile)});
+    } else if (is("html")) {
+        return prettier();
+    } else if (is("javascript") || is("typescript") || is("typescript react (tsx)") || is("javascript react (jsx)") || is("css")) {
+        return prettier();
+    } else if (is("json")) {
+        const auto configValue = config.value(QLatin1String("formatterForJson")).toString();
+        Formatters f = formatterForName(configValue, Formatters::Prettier);
+        if (f == Formatters::Prettier) {
+            return prettier();
+        } else if (f == Formatters::ClangFormat) {
+            return newStdinFmt("clang-format", {S("--assume-filename=%1").arg(filenameFromMode(doc))});
+        } else if (f == Formatters::Jq) {
+            return jqFmt(doc);
+        }
+        Utils::showMessage(i18n("Unknown formatterForJson: %1", configValue), {}, i18n("Format"), MessageType::Error);
+        return jqFmt(doc);
+    } else if (is("rust")) {
+        return newStdinFmt("rustfmt", {S("--color=never"), S("--emit=stdout")});
+    } else if (is("xml")) {
+        return newStdinFmt("xmllint", {S("--format"), S("-")});
+    } else if (is("go")) {
+        return newStdinFmt("gofmt", {});
+    } else if (is("zig")) {
+        return newStdinFmt("zig", {S("fmt"), S("--stdin")});
+    } else if (is("cmake")) {
+        return newStdinFmt("cmake-format", {S("-")});
+    } else if (is("python")) {
+        const auto configValue = config.value(QLatin1String("formatterForPython")).toString();
+        Formatters f = formatterForName(configValue, Formatters::Ruff);
+        if (f == Formatters::Ruff) {
+            return newStdinFmt("ruff", {S("format"), S("-q"), S("--stdin-filename"), S("a.py")});
+        } else if (f == Formatters::Autopep8) {
+            return newStdinFmt("autopep8", {S("-")});
+        }
+        Utils::showMessage(i18n("Unknown formatterForPython: %1", configValue), {}, i18n("Format"), MessageType::Error);
+        return newStdinFmt("ruff", {S("format"), S("-q"), S("--stdin-filename"), S("a.py")});
+    } else if (is("d")) {
+        return newStdinFmt("dfmt", {});
+    } else if (is("fish")) {
+        return newStdinFmt("fish_indent", {});
+    } else if (is("bash")) {
+        int width = doc->configValue(S("indent-width")).toInt();
+        width = width == 0 ? 4 : width;
+        bool spaces = doc->configValue(S("replace-tabs")).toBool();
+        return newStdinFmt("shfmt", {S("--indent"), QString::number(spaces ? width : 0)});
+    } else if (is("nixfmt")) {
+        return newStdinFmt("nixfmt", {});
+    } else if (is("qml")) {
+        return Formatter{.name = S("qmlformat"), .args = {doc->url().toLocalFile()}, .workingDir = {}, .supportsStdin = false};
+    } else if (is("yaml")) {
+        const auto configValue = config.value(QLatin1String("formatterForYaml")).toString();
+        Formatters f = formatterForName(configValue, Formatters::YamlFmt);
+        if (f == Formatters::YamlFmt) {
+            return newStdinFmt("yamlfmt", {});
+        } else if (f == Formatters::Prettier) {
+            return prettier();
+        }
+        Utils::showMessage(i18n("Unknown formatterForYaml: %1, falling back to yamlfmt", configValue), {}, i18n("Format"), MessageType::Error);
+        return newStdinFmt("yamlfmt", {});
+    } else if (is("opsi-script")) {
+        return newStdinFmt("opsi-script-beautifier", {});
+    } else if (is("odin")) {
+        return newStdinFmt("odinfmt", {S("--stdin")});
+    }
+    return std::nullopt;
+#undef S
+}
+
+FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config)
+{
+    if (!doc) {
+        qWarning() << "Unexpected null doc";
+        return nullptr;
+    }
+
+    const std::optional<Formatter> fmtOpt = makeFormatter(doc, config);
+    if (!fmtOpt.has_value()) {
+        static QList<QString> alreadyWarned;
+        const QString mode = doc->highlightingMode();
+        if (!alreadyWarned.contains(mode)) {
+            alreadyWarned.push_back(mode);
+            Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);
+        }
+        return nullptr;
+    }
+    const Formatter fmt = fmtOpt.value();
+    if (fmt.name == QLatin1String("prettier")) {
+        return new PrettierFormat(fmt, config, doc);
+    }
+    if (fmt.name == QLatin1String("xmllint")) {
+        return new XmlLintFormat(fmt, config, doc);
+    }
+    return new FormatterRunner(fmt, config, doc);
 }
 
 #include "moc_Formatters.cpp"

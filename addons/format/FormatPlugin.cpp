@@ -6,7 +6,6 @@
 
 #include "CursorPositionRestorer.h"
 #include "FormatConfig.h"
-#include "FormatterFactory.h"
 #include "Formatters.h"
 #include <json_utils.h>
 
@@ -227,8 +226,8 @@ void FormatPluginView::format()
         formatter->setCursorPosition(m_mainWindow->activeView()->cursorPosition());
     }
 
-    connect(formatter, &AbstractFormatter::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
-    connect(formatter, &AbstractFormatter::error, this, [formatter](const QString &error) {
+    connect(formatter, &FormatterRunner::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
+    connect(formatter, &FormatterRunner::error, this, [formatter](const QString &error) {
         static QSet<QString> errors;
         if (!errors.contains(error)) {
             formatter->deleteLater();
@@ -237,14 +236,14 @@ void FormatPluginView::format()
             errors.insert(error);
         }
     });
-    connect(formatter, &AbstractFormatter::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
+    connect(formatter, &FormatterRunner::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
         formatter->deleteLater();
         onFormattedPatchReceived(doc, patch, true);
     });
     formatter->run(m_activeDoc);
 }
 
-void FormatPluginView::onFormattedTextReceived(AbstractFormatter *formatter, KTextEditor::Document *doc, const QByteArray &formattedText, int offset)
+void FormatPluginView::onFormattedTextReceived(FormatterRunner *formatter, KTextEditor::Document *doc, const QByteArray &formattedText, int offset)
 {
     formatter->deleteLater();
     if (!doc) {

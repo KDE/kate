@@ -2458,10 +2458,9 @@ msgid "Wildcard Filtering"
 msgstr "通配符过滤"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "所有项目"
+msgstr "工程：%1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

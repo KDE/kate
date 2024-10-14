@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-07 00:42+0000\n"
-"PO-Revision-Date: 2024-09-30 15:53+0200\n"
+"PO-Revision-Date: 2024-10-13 19:08+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -211,7 +211,7 @@ msgstr "Git erakarri"
 #: gitwidget.cpp:295
 #, kde-format
 msgid "Cancel Operation"
-msgstr "Utzi eragiketa bertan behera"
+msgstr "Eragiketa bertan behera utzi"
 
 #: gitwidget.cpp:303
 #, kde-format

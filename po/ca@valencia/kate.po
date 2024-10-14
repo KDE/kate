@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-13 00:42+0000\n"
-"PO-Revision-Date: 2024-10-04 10:37+0200\n"
+"PO-Revision-Date: 2024-10-12 11:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2539,10 +2539,9 @@ msgid "Wildcard Filtering"
 msgstr "Filtratge amb comodins"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Tots els projectes"
+msgstr "Projecte: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

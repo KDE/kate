@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-14 02:40+0000\n"
-"PO-Revision-Date: 2024-10-11 16:15+0300\n"
+"PO-Revision-Date: 2024-10-12 15:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -402,10 +402,9 @@ msgid "Remove Global Suppression"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1431
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "ה&פעלות"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
@@ -1019,19 +1018,12 @@ msgid "Use a separate &dialog for handling externally modified files"
 msgstr "להשתמש בחלונית &נפרדת לטיפול בקבצים שנערכו חיצונית"
 
 #: lib/kateconfigdialog.cpp:159
-#, fuzzy, kde-format
-#| msgid ""
-#| "If enabled, when Kate receives focus you will be asked what to do with "
-#| "files that have been modified on the hard disk. If not enabled, you will "
-#| "be asked what to do with a file that has been modified on the hard disk "
-#| "only when that file is tried to be saved."
+#, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"אם מופעל, כאשר kate מקבלת פוקוס אתה תתבקש מה לעשות עם קבצים ששונו בדיסק. אם "
-"לא מאופשר, אתה תישאל מה לעשות עם הקובץ ששונה רק כאשר תשמור את הקובץ לדיסק."
 
 #: lib/kateconfigdialog.cpp:164
 #, kde-format

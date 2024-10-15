@@ -401,6 +401,11 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
         }
     }
 
+    auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    if (!activeSession->isAnonymous()) {
+        KateApp::self()->stashManager()->stashDocuments(activeSession->config(), KateApp::self()->documents());
+    }
+
     sc->sync();
 
     /**

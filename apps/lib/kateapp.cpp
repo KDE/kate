@@ -105,6 +105,10 @@
 #include <unistd.h>
 #endif
 
+#if defined(Q_OS_MACOS)
+#include <sys/sysctl.h>
+#endif
+
 // remember if we were started inside a terminal
 static bool insideTerminal = false;
 
@@ -195,6 +199,21 @@ void KateApp::initPreApplicationCreation(bool detach)
         // just try it, if it doesn't work we just continue in the foreground
         const int ret = daemon(1, 0 /* close in and outputs to avoid pollution of shell */);
         (void)ret;
+    }
+#endif
+
+#if defined(Q_OS_MACOS)
+    if (!insideTerminal) {
+        int mib[2] = {CTL_USER, USER_CS_PATH};
+        size_t len = 0;
+        sysctl(mib, 2, nullptr, &len, nullptr, 0);
+        QByteArray path(len, '\0');
+        sysctl(mib, 2, &path[0], &len, nullptr, 0);
+        path.removeLast();
+        QByteArray p = qgetenv("PATH");
+        qDebug() << "Adding '" << path << "' to existing PATH:" << p;
+        path.append(':').append(p);
+        qputenv("PATH", p);
     }
 #endif
 }

@@ -370,6 +370,13 @@ bool KateApp::init()
         }
     }
 
+    // Save session now, else if the user never opens a new doc or closes one session-autosave will never trigger and
+    // the session will only get saved if Kate is properly closed and not if it gets killed.
+    // Do it delayed, don't block the startup
+    QTimer::singleShot(100, this, [this] {
+        sessionManager()->saveActiveSession(true);
+    });
+
     return true;
 }
 

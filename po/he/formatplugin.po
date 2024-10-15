@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-03 00:42+0000\n"
+"POT-Creation-Date: 2024-10-15 00:42+0000\n"
 "PO-Revision-Date: 2024-07-26 10:33+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -106,12 +106,18 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 לא מותקן, נא להתקין אותו כדי לסדר את המסמך הזה באופן תבניתי!"
 
-#: Formatters.cpp:214
+#: Formatters.cpp:226
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "נא להתקין את node ואת prettier"
 
-#: Formatters.cpp:221
+#: Formatters.cpp:233
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"
+
+#: Formatters.cpp:254
+#, fuzzy, kde-format
+#| msgid "PrettierFormat: Failed to create temporary file"
+msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"

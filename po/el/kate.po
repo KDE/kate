@@ -1638,10 +1638,9 @@ msgid "Close all open documents."
 msgstr "Κλείσιμο όλων των ανοιγμένων εγγράφων."
 
 #: lib/katemainwindow.cpp:473
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "Ε&πανάληψη ανοίγματος των πρόσφατα κλεισμένων εγγράφων."
+msgstr "Ε&πανάληψη ανοίγματος των πρόσφατα κλεισμένων εγγράφων"
 
 #: lib/katemainwindow.cpp:475
 #, kde-format

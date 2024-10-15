@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-03 00:42+0000\n"
+"POT-Creation-Date: 2024-10-15 00:42+0000\n"
 "PO-Revision-Date: 2023-12-09 09:24+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -103,12 +103,17 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 
-#: Formatters.cpp:214
+#: Formatters.cpp:226
 #, kde-format
 msgid "Please install node and prettier"
 msgstr ""
 
-#: Formatters.cpp:221
+#: Formatters.cpp:233
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
+msgstr ""
+
+#: Formatters.cpp:254
+#, kde-format
+msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr ""

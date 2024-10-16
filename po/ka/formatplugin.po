@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:42+0000\n"
-"PO-Revision-Date: 2024-05-22 04:28+0200\n"
+"POT-Creation-Date: 2024-10-16 00:44+0000\n"
+"PO-Revision-Date: 2024-10-15 20:00+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,11 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:96
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
+#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
 #, kde-format
 msgid "Format"
 msgstr "ფორმატი"
@@ -35,17 +34,17 @@ msgstr "დროებითი ფაილის ჩაწერის შე
 msgid "Failed to run git diff: %1"
 msgstr "შეცდომა git diff-ის გაშვებისას: %1"
 
-#: FormatConfig.cpp:122
+#: FormatConfig.cpp:121
 #, kde-format
 msgid "User Settings"
 msgstr "მომხმარებლის პარამეტრები"
 
-#: FormatConfig.cpp:130
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "ნაგულისხმები პარამეტრები"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "ფორმატირება"
@@ -55,52 +54,32 @@ msgstr "ფორმატირება"
 msgid "Formatting Settings"
 msgstr "დაფორმატების მორგება"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "შეცდომა settings.json ფაილის კითხვისას. შეცდომა: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "დოკუმენტი"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "ფორმატი შენახვისას"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "გამორთეთ დაფორმატება ან შეინახეთ მუდმივობის გარეშე, პარამეტრებიდან"
 
-#: FormatterFactory.h:45
-#, kde-format
-msgid "Unknown formatterForJson: %1"
-msgstr "უცნობი formatterForJson: %1"
-
-#: FormatterFactory.h:65
-#, kde-format
-msgid "Unknown formatterForPython: %1"
-msgstr "უცნობი formatterForPython: %1"
-
-#: FormatterFactory.h:85
-#, kde-format
-msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "უცნობი formatterForYaml: %1, გადართვა პროგრამაზე yamlfmt"
-
-#: FormatterFactory.h:96
-#, kde-format
-msgid "Failed to run formatter. Unsupported language %1"
-msgstr "დამფორმატებლის გაშვება ჩავარდა. მხარდაუჭერელი ენა %1"
-
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: მოულოდნელად ცარიელი ბრძანება!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -108,18 +87,37 @@ msgstr ""
 "%1 დაყენებული არაა. დააყენეთ ის, თუ გნებავთ, ამ დოკუმენტის დაფორმატება "
 "შეგეძლოთ!"
 
-#: Formatters.cpp:226
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "დააყენეთ node და prettier"
 
-#: Formatters.cpp:233
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: დროებითი ფაილის შექმნა ჩავარდა"
 
-#: Formatters.cpp:254
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#: Formatters.cpp:215
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: დროებითი ფაილის შექმნა ჩავარდა"
+msgstr "PrettierFormat: 'node'-ის გაშვება ჩავარდა: %1"
+
+#: Formatters.cpp:317
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "უცნობი formatterForJson: %1"
+
+#: Formatters.cpp:337
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "უცნობი formatterForPython: %1"
+
+#: Formatters.cpp:360
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "უცნობი formatterForYaml: %1, გადართვა პროგრამაზე yamlfmt"
+
+#: Formatters.cpp:384
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "დამფორმატებლის გაშვება ჩავარდა. მხარდაუჭერელი ენა %1"

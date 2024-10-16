@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:42+0000\n"
+"POT-Creation-Date: 2024-10-16 00:44+0000\n"
 "PO-Revision-Date: 2024-05-23 23:34+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:96
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
+#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
 #, kde-format
 msgid "Format"
 msgstr "Formato"
@@ -34,17 +33,17 @@ msgstr "Malsukcesis skribi provizoran dosieron"
 msgid "Failed to run git diff: %1"
 msgstr "Malsukcesis efektivigi git diff: %1"
 
-#: FormatConfig.cpp:122
+#: FormatConfig.cpp:121
 #, kde-format
 msgid "User Settings"
 msgstr "Uzant-Agordoj"
 
-#: FormatConfig.cpp:130
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Defaŭltaj Agordoj"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Formatado"
@@ -54,70 +53,70 @@ msgstr "Formatado"
 msgid "Formatting Settings"
 msgstr "Formatad-Agordoj"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Malsukcesis legi settings.json. Eraro: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Formati Dokumenton"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Formati je Konservado"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Malebligi formatadon je konservado sen persistigi ĝin en agordoj"
 
-#: FormatterFactory.h:45
-#, kde-format
-msgid "Unknown formatterForJson: %1"
-msgstr "Nekonata formatterForJson: %1"
-
-#: FormatterFactory.h:65
-#, kde-format
-msgid "Unknown formatterForPython: %1"
-msgstr "Nekonata formatterForPython: %1"
-
-#: FormatterFactory.h:85
-#, kde-format
-msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "Nekonata formatterForYaml: %1, retrofalante al yamlfmt"
-
-#: FormatterFactory.h:96
-#, kde-format
-msgid "Failed to run formatter. Unsupported language %1"
-msgstr "Malsukcesis efektivigi formatilon. Nesubtenata lingvo %1"
-
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Neatendita malplena komando!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 "%1 ne estas instalita, bonvolu instali ĝin por povi formati ĉi dokumenton!"
 
-#: Formatters.cpp:226
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Bonvolu instali node kaj prettier"
 
-#: Formatters.cpp:233
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Malsukcesis krei provizoran dosieron"
 
-#: Formatters.cpp:254
+#: Formatters.cpp:215
 #, fuzzy, kde-format
 #| msgid "PrettierFormat: Failed to create temporary file"
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: Malsukcesis krei provizoran dosieron"
+
+#: Formatters.cpp:317
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "Nekonata formatterForJson: %1"
+
+#: Formatters.cpp:337
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "Nekonata formatterForPython: %1"
+
+#: Formatters.cpp:360
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "Nekonata formatterForYaml: %1, retrofalante al yamlfmt"
+
+#: Formatters.cpp:384
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "Malsukcesis efektivigi formatilon. Nesubtenata lingvo %1"

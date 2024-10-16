@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:42+0000\n"
+"POT-Creation-Date: 2024-10-16 00:44+0000\n"
 "PO-Revision-Date: 2024-06-04 22:24+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.05.0\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:96
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
+#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
 #, kde-format
 msgid "Format"
 msgstr "Форматиране"
@@ -34,17 +33,17 @@ msgstr "Неуспешно записване на временен файл"
 msgid "Failed to run git diff: %1"
 msgstr "Неуспешно изпълнение на git diff: %1"
 
-#: FormatConfig.cpp:122
+#: FormatConfig.cpp:121
 #, kde-format
 msgid "User Settings"
 msgstr "Потребителски настройки"
 
-#: FormatConfig.cpp:130
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Настройки по подразбиране"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Форматиране"
@@ -54,55 +53,34 @@ msgstr "Форматиране"
 msgid "Formatting Settings"
 msgstr "Настройки за форматиране"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Неуспешно четене на settings.json. Грешка: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Форматиране на документ"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Форматиране при запазване"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Деактивиране на форматирането при запазване, без да го запазвате в "
 "настройките"
 
-#: FormatterFactory.h:45
-#, kde-format
-msgid "Unknown formatterForJson: %1"
-msgstr "Неизвестен formatterForJson: %1"
-
-#: FormatterFactory.h:65
-#, kde-format
-msgid "Unknown formatterForPython: %1"
-msgstr "Неизвестен formatterForPython: %1"
-
-#: FormatterFactory.h:85
-#, kde-format
-msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt"
-
-#: FormatterFactory.h:96
-#, kde-format
-msgid "Failed to run formatter. Unsupported language %1"
-msgstr ""
-"Неуспешно стартиране на инструмента за форматиране. Неподдържан език %1"
-
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Неочаквана празна команда!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -110,18 +88,39 @@ msgstr ""
 "%1 не е инсталиран, моля, инсталирайте го, за да можете да форматирате този "
 "документ!"
 
-#: Formatters.cpp:226
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Моля, инсталирайте node и prettier"
 
-#: Formatters.cpp:233
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Неуспешно създаване на временен файл"
 
-#: Formatters.cpp:254
+#: Formatters.cpp:215
 #, fuzzy, kde-format
 #| msgid "PrettierFormat: Failed to create temporary file"
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: Неуспешно създаване на временен файл"
+
+#: Formatters.cpp:317
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "Неизвестен formatterForJson: %1"
+
+#: Formatters.cpp:337
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "Неизвестен formatterForPython: %1"
+
+#: Formatters.cpp:360
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt"
+
+#: Formatters.cpp:384
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr ""
+"Неуспешно стартиране на инструмента за форматиране. Неподдържан език %1"

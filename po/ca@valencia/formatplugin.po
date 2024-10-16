@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2023, 2024.
+# SPDX-FileCopyrightText: 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:42+0000\n"
-"PO-Revision-Date: 2024-05-22 10:12+0200\n"
+"POT-Creation-Date: 2024-10-16 00:44+0000\n"
+"PO-Revision-Date: 2024-10-15 10:23+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -17,11 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.08.1\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:96
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
+#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
 #, kde-format
 msgid "Format"
 msgstr "Format"
@@ -36,17 +35,17 @@ msgstr "No s'ha pogut escriure un fitxer temporal"
 msgid "Failed to run git diff: %1"
 msgstr "No s'ha pogut executar «diff» de «git»: %1"
 
-#: FormatConfig.cpp:122
+#: FormatConfig.cpp:121
 #, kde-format
 msgid "User Settings"
 msgstr "Configureu l'usuari"
 
-#: FormatConfig.cpp:130
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Configuració predeterminada"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Donar format"
@@ -56,52 +55,32 @@ msgstr "Donar format"
 msgid "Formatting Settings"
 msgstr "Configuració de donar format"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "No s'ha pogut llegir «settings.json». Error: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Dona format a un document"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Format en guardar"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Desactiva donar format en guardar sense persistir en la configuració"
 
-#: FormatterFactory.h:45
-#, kde-format
-msgid "Unknown formatterForJson: %1"
-msgstr "«formatterForJson» desconegut: %1"
-
-#: FormatterFactory.h:65
-#, kde-format
-msgid "Unknown formatterForPython: %1"
-msgstr "«formatterForPython» desconegut: %1"
-
-#: FormatterFactory.h:85
-#, kde-format
-msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
-
-#: FormatterFactory.h:96
-#, kde-format
-msgid "Failed to run formatter. Unsupported language %1"
-msgstr "No s'ha pogut executar el formatador. Llenguatge %1 no implementat"
-
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Ordre buida inesperada!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -109,18 +88,37 @@ msgstr ""
 "%1 no està instal·lat. Instal·leu-lo per a poder donar format a este "
 "document!"
 
-#: Formatters.cpp:226
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Instal·leu «note» i «prettier»"
 
-#: Formatters.cpp:233
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: No s'ha pogut crear el fitxer temporal"
 
-#: Formatters.cpp:254
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#: Formatters.cpp:215
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: No s'ha pogut crear el fitxer temporal"
+msgstr "PrettierFormat: No s'ha pogut iniciar el «node»: %1"
+
+#: Formatters.cpp:317
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "«formatterForJson» desconegut: %1"
+
+#: Formatters.cpp:337
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "«formatterForPython» desconegut: %1"
+
+#: Formatters.cpp:360
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
+
+#: Formatters.cpp:384
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr "No s'ha pogut executar el formatador. Llenguatge %1 no implementat"

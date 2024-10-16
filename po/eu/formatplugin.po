@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-15 00:42+0000\n"
-"PO-Revision-Date: 2024-07-11 17:58+0200\n"
+"POT-Creation-Date: 2024-10-16 00:44+0000\n"
+"PO-Revision-Date: 2024-10-15 22:27+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,11 +18,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: FormatterFactory.h:45 FormatterFactory.h:65 FormatterFactory.h:85
-#: FormatterFactory.h:96
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
+#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
 #, kde-format
 msgid "Format"
 msgstr "Formatua"
@@ -37,17 +36,17 @@ msgstr "Aldi baterako fitxategi bat idaztea huts egin du"
 msgid "Failed to run git diff: %1"
 msgstr "« git diff » exekutatzea huts egin du: %1"
 
-#: FormatConfig.cpp:122
+#: FormatConfig.cpp:121
 #, kde-format
 msgid "User Settings"
 msgstr "Erabiltzaile-ezarpenak"
 
-#: FormatConfig.cpp:130
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Ezarpen lehenetsiak"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Formatua ematea"
@@ -57,53 +56,32 @@ msgstr "Formatua ematea"
 msgid "Formatting Settings"
 msgstr "Formatua emateko ezarpenak"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "«settings.json» irakurtzea huts egin du. Errorea: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Dokumentu bati formatua ematea"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Eman formatua gordetzean"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Ezgaitu gordetzean formatua ematea, ezarpenetan aldaketarik egin gabe"
 
-#: FormatterFactory.h:45
-#, kde-format
-msgid "Unknown formatterForJson: %1"
-msgstr "«formatterForJson» ezezaguna: %1"
-
-#: FormatterFactory.h:65
-#, kde-format
-msgid "Unknown formatterForPython: %1"
-msgstr "«formatterForPython» ezezaguna: %1"
-
-#: FormatterFactory.h:85
-#, kde-format
-msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "«formatterForYaml» ezezaguna: %1, «yamlfmt»era atzera egiten"
-
-#: FormatterFactory.h:96
-#, kde-format
-msgid "Failed to run formatter. Unsupported language %1"
-msgstr ""
-"Formatu emailea exekutatzea huts egin du. Euskarririk gabeko lengoaia, %1"
-
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Ustekabeko komando hutsa!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -111,18 +89,38 @@ msgstr ""
 "%1 ez dago instalatuta, mesedez, hura instalatu dokumentu horri formatua "
 "eman ahal izateko!"
 
-#: Formatters.cpp:226
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Mesedez, instalatu «node» eta «prettier»"
 
-#: Formatters.cpp:233
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Aldi baterako fitxategia sortzea huts egin du"
 
-#: Formatters.cpp:254
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#: Formatters.cpp:215
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: Aldi baterako fitxategia sortzea huts egin du"
+msgstr "PrettierFormat: 'node' irekitzea huts egin du: %1"
+
+#: Formatters.cpp:317
+#, kde-format
+msgid "Unknown formatterForJson: %1"
+msgstr "«formatterForJson» ezezaguna: %1"
+
+#: Formatters.cpp:337
+#, kde-format
+msgid "Unknown formatterForPython: %1"
+msgstr "«formatterForPython» ezezaguna: %1"
+
+#: Formatters.cpp:360
+#, kde-format
+msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
+msgstr "«formatterForYaml» ezezaguna: %1, «yamlfmt»era atzera egiten"
+
+#: Formatters.cpp:384
+#, kde-format
+msgid "Failed to run formatter. Unsupported language %1"
+msgstr ""
+"Formatu emailea exekutatzea huts egin du. Euskarririk gabeko lengoaia, %1"

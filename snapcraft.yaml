@@ -14,13 +14,11 @@ assumes:
 compression: lzo
 environment:
   QTWEBENGINEPROCESS_PATH: "$SNAP/usr/lib/qt6/libexec/QtWebEngineProcess"
-  XDG_CONFIG_DIRS: $SNAP_USER_DATA/.config:$XDG_CONFIG_DIRS
+  LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/usr/lib${LD_LIBRARY_PATH}
+  XDG_DATA_DIRS: "$XDG_DATA_DIRS:$SNAP/usr/share"
+  XDG_CONFIG_DIRS: "$XDG_CONFIG_DIRS:$SNAP/etc/xdg"
   __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
-  LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri"
-  LD_LIBRARY_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:/snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/core22/current/lib:/snap/core22/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/core22/current/usr/lib${LD_LIBRARY_PATH}"
-  PATH: $SNAP/usr/bin:${PATH}
-  XDG_DATA_DIRS: $SNAP/usr/share:$SNAP_USER_DATA/.local/usr/share:$SNAP/usr/share:$SNAP/data-dir
-  XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
+  LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
   QT_PLUGIN_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt6/plugins
 layout:
   /usr/share/X11:
@@ -181,9 +179,11 @@ parts:
     -   PATH: $CRAFT_STAGE/usr/bin:usr/bin${PATH:+:$PATH}
     -   XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
     -   XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
-    -   LD_LIBRARY_PATH: $CRAFT_STAGE/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+    -   LD_LIBRARY_PATH: $CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
     -   CMAKE_PREFIX_PATH: $CRAFT_STAGE;/usr${CMAKE_PREFIX_PATH:+;$CMAKE_PREFIX_PATH}
     -   CMAKE_FIND_ROOT_PATH: $CRAFT_STAGE;/usr${CMAKE_FIND_ROOT_PATH:+;$CMAKE_FIND_ROOT_PATH}
+    stage:
+      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri
     prime:
       - "-usr/lib/*/cmake/*"
       - "-usr/include/*"

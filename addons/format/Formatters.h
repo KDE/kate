@@ -10,15 +10,13 @@
 
 #include <KTextEditor/Document>
 
-#include "FormatApply.h"
 #include <ktexteditor_utils.h>
 
-struct PatchLine;
+class QTemporaryFile;
 
 struct Formatter {
     QString name;
     QStringList args;
-    QString workingDir;
     bool supportsStdin = false;
 };
 
@@ -31,7 +29,7 @@ public:
         , originalText(parent->text())
         , m_doc(parent)
         , m_globalConfig(obj)
-        , m_fmt(fmt)
+        , m_fmt(std::move(fmt))
     {
     }
 
@@ -90,7 +88,7 @@ protected:
     QPointer<QProcess> m_procHandle;
     KTextEditor::Cursor m_pos;
     const QJsonObject m_globalConfig;
-    Formatter m_fmt;
+    const Formatter m_fmt;
 
 private:
     QByteArray textForStdin() const
@@ -99,10 +97,8 @@ private:
     }
 
 Q_SIGNALS:
-    void textFormatted(FormatterRunner *formatter, KTextEditor::Document *doc, const QByteArray &text, int offset = -1);
-    void textFormattedPatch(KTextEditor::Document *doc, const std::vector<PatchLine> &);
+    void textFormatted(FormatterRunner *, KTextEditor::Document *, const QByteArray &text, int offset = -1);
     void error(const QString &error);
-    void notInstalledError(const QString &error);
 };
 
 class PrettierFormat : public FormatterRunner

@@ -16,9 +16,10 @@ public:
     {
         if (doc) {
             const auto views = m_doc->views();
+            m_viewToPosition.reserve(views.size());
             for (auto v : views) {
                 const auto off = cursorToSpaceIgnoredOffset(doc, v->cursorPosition());
-                m_viewToPosition[v] = Position{v->cursorPosition(), off};
+                m_viewToPosition.push_back({v, Position{v->cursorPosition(), off}});
             }
         }
     }
@@ -111,5 +112,5 @@ private:
         KTextEditor::Cursor cursor;
         int spaceIgnoredOffset = 0;
     };
-    std::map<KTextEditor::View *, Position> m_viewToPosition;
+    std::vector<std::pair<KTextEditor::View *, Position>> m_viewToPosition;
 };

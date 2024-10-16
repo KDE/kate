@@ -45,8 +45,6 @@ struct PatchLine {
     enum { Remove, Add } type;
     QString text;
 };
-Q_DECLARE_METATYPE(PatchLine)
-Q_DECLARE_METATYPE(std::vector<PatchLine>)
 
 [[maybe_unused]] static std::pair<uint, uint> parseRange(const QString &range)
 {

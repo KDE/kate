@@ -5,6 +5,7 @@
 #include "FormatPlugin.h"
 
 #include "CursorPositionRestorer.h"
+#include "FormatApply.h"
 #include "FormatConfig.h"
 #include "Formatters.h"
 #include <json_utils.h>
@@ -95,7 +96,7 @@ void FormatPlugin::readJsonConfig()
 
 QString FormatPlugin::userConfigPath() const
 {
-    return QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/formatting/settings.json");
+    return QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation).append(QStringLiteral("/formatting/settings.json"));
 }
 
 QJsonObject FormatPlugin::formatterConfig() const
@@ -194,7 +195,7 @@ void FormatPluginView::format()
         return;
     }
 
-    const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QStringLiteral("formatting"));
+    const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QLatin1String("formatting"));
     if (projectConfig != m_lastProjectConfig) {
         m_lastProjectConfig = projectConfig;
         if (projectConfig.isValid()) {
@@ -235,10 +236,6 @@ void FormatPluginView::format()
             Utils::showMessage(msg, {}, i18n("Format"), MessageType::Error);
             errors.insert(error);
         }
-    });
-    connect(formatter, &FormatterRunner::textFormattedPatch, this, [this, formatter](KTextEditor::Document *doc, const std::vector<PatchLine> &patch) {
-        formatter->deleteLater();
-        onFormattedPatchReceived(doc, patch, true);
     });
     formatter->run(m_activeDoc);
 }

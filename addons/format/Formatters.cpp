@@ -13,9 +13,12 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLoggingCategory>
+#include <QTemporaryFile>
 
 #include <KLocalizedString>
 #include <KTextEditor/Editor>
+
+#include <hostprocess.h>
 
 Q_LOGGING_CATEGORY(FORMATTING, "kate.formatting", QtWarningMsg)
 
@@ -34,8 +37,8 @@ static QStringList readCommandFromJson(const QJsonObject &o)
 static QString filenameFromMode(KTextEditor::Document *doc)
 {
     const QString m = doc->highlightingMode();
-    auto is = [m](const char *s) {
-        return m.compare(QLatin1String(s), Qt::CaseInsensitive) == 0;
+    auto is = [m](std::string_view s) {
+        return m.compare(QLatin1String(s.data(), s.size()), Qt::CaseInsensitive) == 0;
     };
 
     QString path = doc->url().toLocalFile();
@@ -262,9 +265,9 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
 }
 
-static Formatter newStdinFmt(const char *name, const QStringList &args)
+static Formatter newStdinFmt(const char *name, QStringList &&args)
 {
-    return {.name = QString::fromUtf8(name), .args = args, .workingDir = {}, .supportsStdin = true};
+    return {.name = QString::fromUtf8(name), .args = std::move(args), .supportsStdin = true};
 }
 
 inline Formatter jqFmt(KTextEditor::Document *doc)
@@ -273,21 +276,21 @@ inline Formatter jqFmt(KTextEditor::Document *doc)
     bool ok = false;
     int width = doc->configValue(QStringLiteral("indent-width")).toInt(&ok);
     width = ok ? width : 4;
-    const QStringList args{QStringLiteral("."), QStringLiteral("--indent"), QString::number(width), QStringLiteral("-M")}; // -M => no color
-    return newStdinFmt("jq", args);
+    QStringList args{QStringLiteral("."), QStringLiteral("--indent"), QString::number(width), QStringLiteral("-M")}; // -M => no color
+    return newStdinFmt("jq", std::move(args));
 }
 
 #define S(s) QStringLiteral(s)
 static Formatter prettier()
 {
-    return Formatter{S("prettier"), {}, {}, true};
+    return Formatter{S("prettier"), {}, true};
 }
 
-static std::optional<Formatter> makeFormatter(KTextEditor::Document *doc, const QJsonObject &config)
+static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &config)
 {
     const auto mode = doc->highlightingMode().toLower();
-    auto is = [mode](const char *s) {
-        return mode == QLatin1String(s);
+    auto is = [mode](std::string_view s) {
+        return mode == QLatin1String(s.data(), s.size());
     };
     auto is_or_contains = [mode](const char *s) {
         return mode == QLatin1String(s) || mode.contains(QLatin1String(s));
@@ -348,7 +351,7 @@ static std::optional<Formatter> makeFormatter(KTextEditor::Document *doc, const 
     } else if (is("nixfmt")) {
         return newStdinFmt("nixfmt", {});
     } else if (is("qml")) {
-        return Formatter{.name = S("qmlformat"), .args = {doc->url().toLocalFile()}, .workingDir = {}, .supportsStdin = false};
+        return Formatter{.name = S("qmlformat"), .args = {doc->url().toLocalFile()}, .supportsStdin = false};
     } else if (is("yaml")) {
         const auto configValue = config.value(QLatin1String("formatterForYaml")).toString();
         Formatters f = formatterForName(configValue, Formatters::YamlFmt);
@@ -364,7 +367,7 @@ static std::optional<Formatter> makeFormatter(KTextEditor::Document *doc, const 
     } else if (is("odin")) {
         return newStdinFmt("odinfmt", {S("--stdin")});
     }
-    return std::nullopt;
+    return {};
 #undef S
 }
 
@@ -375,8 +378,8 @@ FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &
         return nullptr;
     }
 
-    const std::optional<Formatter> fmtOpt = makeFormatter(doc, config);
-    if (!fmtOpt.has_value()) {
+    Formatter fmt = makeFormatter(doc, config);
+    if (fmt.name.isEmpty()) {
         static QList<QString> alreadyWarned;
         const QString mode = doc->highlightingMode();
         if (!alreadyWarned.contains(mode)) {
@@ -385,14 +388,13 @@ FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &
         }
         return nullptr;
     }
-    const Formatter fmt = fmtOpt.value();
     if (fmt.name == QLatin1String("prettier")) {
-        return new PrettierFormat(fmt, config, doc);
+        return new PrettierFormat(std::move(fmt), config, doc);
     }
     if (fmt.name == QLatin1String("xmllint")) {
-        return new XmlLintFormat(fmt, config, doc);
+        return new XmlLintFormat(std::move(fmt), config, doc);
     }
-    return new FormatterRunner(fmt, config, doc);
+    return new FormatterRunner(std::move(fmt), config, doc);
 }
 
 #include "moc_Formatters.cpp"

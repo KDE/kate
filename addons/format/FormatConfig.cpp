@@ -38,13 +38,13 @@ static void initTextEdit(QPlainTextEdit *edit)
     hl->setTheme(theme);
 }
 
-class UserConfigEdit : public QWidget
+class UserConfigEdit final : public QWidget
 {
-    Q_OBJECT
 public:
-    UserConfigEdit(FormatPlugin *plugin, QWidget *parent)
+    UserConfigEdit(FormatPlugin *plugin, FormatConfigPage *parent)
         : QWidget(parent)
         , m_plugin(plugin)
+        , m_parent(parent)
     {
         auto vbox = new QVBoxLayout(this);
         vbox->setContentsMargins({});
@@ -55,7 +55,7 @@ public:
         connect(m_edit.document(), &QTextDocument::contentsChange, this, [this](int, int add, int rem) {
             if (add || rem) {
                 m_timer.start();
-                Q_EMIT changed();
+                Q_EMIT m_parent->changed();
             }
         });
 
@@ -97,10 +97,9 @@ public:
         }
     }
 
-    Q_SIGNAL void changed();
-
 private:
     FormatPlugin *const m_plugin;
+    FormatConfigPage *const m_parent;
     QPlainTextEdit m_edit;
     QLabel m_errorLabel;
     QTimer m_timer;
@@ -117,7 +116,6 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     layout->addWidget(m_tabWidget);
 
     m_userConfigEdit = new UserConfigEdit(m_plugin, this);
-    connect(m_userConfigEdit, &UserConfigEdit::changed, this, &KTextEditor::ConfigPage::changed);
     m_tabWidget->addTab(m_userConfigEdit, i18n("User Settings"));
 
     m_defaultConfigEdit = new QPlainTextEdit(this);
@@ -144,5 +142,4 @@ void FormatConfigPage::reset()
     m_userConfigEdit->reset();
 }
 
-#include "FormatConfig.moc"
 #include "moc_FormatConfig.cpp"

@@ -97,7 +97,7 @@ msgstr "PrettierFormat：创建临时文件失败"
 #: Formatters.cpp:215
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr ""
+msgstr "PrettierFormat：启动“node”失败：%1"
 
 #: Formatters.cpp:317
 #, kde-format

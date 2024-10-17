@@ -39,7 +39,6 @@ enum class StashMode : uint8_t;
 
 class GitWidget : public QWidget
 {
-    Q_OBJECT
 public:
     explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
     ~GitWidget() override;
@@ -160,8 +159,4 @@ private:
     void handleClick(const QModelIndex &idx, ClickAction clickAction);
     void treeViewSingleClicked(const QModelIndex &idx);
     void treeViewDoubleClicked(const QModelIndex &idx);
-
-    // signals
-public:
-    Q_SIGNAL void checkoutBranch();
 };

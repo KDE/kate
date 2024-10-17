@@ -114,7 +114,6 @@ void BranchesDialog::slotReturnPressed(const QModelIndex &index)
         Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
 
         m_branch = branch;
-        Q_EMIT branchSelected(branch);
     }
 
     clearLineEdit();

@@ -25,7 +25,6 @@ class MainWindow;
 
 class BranchesDialog : public HUDDialog
 {
-    Q_OBJECT
 public:
     BranchesDialog(QWidget *window, QString projectPath);
     void openDialog(GitUtils::RefType r);
@@ -34,9 +33,6 @@ public:
     {
         return m_branch;
     }
-
-Q_SIGNALS:
-    void branchSelected(const QString &branch);
 
 private:
     void slotReturnPressed(const QModelIndex &index) override;

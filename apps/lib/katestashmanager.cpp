@@ -5,23 +5,19 @@
 */
 
 #include "katestashmanager.h"
-
-#include "katedebug.h"
-
 #include "kateapp.h"
-#include "kateviewmanager.h"
+#include "katedebug.h"
 
 #include <KTextEditor/Editor>
 
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-#include <QStringDecoder>
 #include <QUrl>
 
 #include <memory>
 
-void KateStashManager::clearStashForSession(const KateSession::Ptr session)
+void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
 {
     // we should avoid to kill stuff for these, they can't be stashed
     if (session->isAnonymous() || session->file().isEmpty()) {
@@ -133,7 +129,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        const auto sum = kconfig.readEntry(QStringLiteral("checksum")).toUtf8();
+        const auto sum = kconfig.readEntry("checksum").toUtf8();
         checksumOk = sum != doc->checksum();
     }
 

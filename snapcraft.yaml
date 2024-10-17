@@ -154,6 +154,7 @@ parts:
       - python3
       - libsecret-1-0
       - patchelf
+      - libffi8
     source: .
     source-type: local
     build-attributes:

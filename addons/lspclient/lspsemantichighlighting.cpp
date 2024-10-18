@@ -109,6 +109,9 @@ void SemanticHighlighter::highlightVisibleRange()
     const auto range = Utils::getVisibleRange(view);
     if (!m_currentHighlightedRange.contains(range)) {
         auto server = m_serverManager->findServer(view);
+        if (!server) {
+            return;
+        }
         if (server->capabilities().semanticTokenProvider.range) {
             // request new range from the server
             doSemanticHighlighting(view, false);

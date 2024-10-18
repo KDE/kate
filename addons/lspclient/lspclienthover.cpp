@@ -70,7 +70,7 @@ public:
         // hack: delayed handling of tooltip on our own, the API is too dumb for a-sync feedback ;=)
         if (m_server) {
             QPointer v(view);
-            auto h = [v, emitHint, this](const LSPHover &info) {
+            auto h = [v, emitHint](const LSPHover &info) {
                 if (!v) {
                     return;
                 }

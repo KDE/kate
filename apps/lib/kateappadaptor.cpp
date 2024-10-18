@@ -7,7 +7,6 @@
 #include "kateappadaptor.h"
 
 #include "kateapp.h"
-#include "katemainwindow.h"
 #include "katesessionmanager.h"
 
 #include "katedebug.h"

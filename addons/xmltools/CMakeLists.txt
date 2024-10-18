@@ -1,8 +1,3 @@
-remove_definitions(-DQT_NO_CAST_TO_ASCII)
-remove_definitions(-DQT_NO_CAST_FROM_ASCII)
-remove_definitions(-DQT_NO_URL_CAST_FROM_STRING)
-remove_definitions(-DQT_NO_CAST_FROM_BYTEARRAY)
-
 kate_add_plugin(katexmltoolsplugin)
 target_compile_definitions(katexmltoolsplugin PRIVATE TRANSLATION_DOMAIN="katexmltools")
 target_link_libraries(katexmltoolsplugin PRIVATE KF6::I18n KF6::TextEditor KF6::KIOWidgets)
@@ -14,6 +9,10 @@ target_sources(
     plugin_katexmltools.cpp
     plugin.qrc
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(katexmltoolsplugin REUSE_FROM katepch)
+endif()
 
 install(
   FILES 

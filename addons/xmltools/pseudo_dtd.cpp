@@ -318,7 +318,7 @@ bool PseudoDTD::parseAttributeValues(QDomDocument *doc, QProgressDialog *progres
                 QDomElement attributeElem = attributeNode.toElement();
                 if (!attributeElem.isNull()) {
                     QString value = attributeElem.attribute(QStringLiteral("value"));
-                    attributevaluesTmp.insert_or_assign(attributeElem.attribute(QStringLiteral("name")), value.split(QChar(' ')));
+                    attributevaluesTmp.insert_or_assign(attributeElem.attribute(QStringLiteral("name")), value.split(u' '));
                 }
             }
             m_attributevaluesList.insert_or_assign(elem.attribute(QStringLiteral("name")), attributevaluesTmp);

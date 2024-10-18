@@ -379,7 +379,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     // ### replace this with something more sane
     // Start where the supplied XML-DTDs are fed by default unless
     // user changed directory last time:
-    QString defaultDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("katexmltools")) + "/katexmltools/";
+    QString defaultDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("katexmltools")) + QStringLiteral("/katexmltools/");
     if (m_urlString.isNull()) {
         m_urlString = defaultDir;
     }
@@ -500,7 +500,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
 
 void PluginKateXMLToolsCompletionModel::slotData(KIO::Job *, const QByteArray &data)
 {
-    m_dtdString += QString(data);
+    m_dtdString += QString::fromUtf8(data);
 }
 
 void PluginKateXMLToolsCompletionModel::assignDTD(PseudoDTD *dtd, KTextEditor::View *view)
@@ -545,7 +545,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     }
 
     if (!text.isEmpty()) {
-        QStringList list = text.split(QChar(' '));
+        QStringList list = text.split(u' ');
         QString pre;
         QString post;
         // anders: use <tagname/> if the tag is required to be empty.
@@ -558,13 +558,13 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
         }
 
         if (dtd && dtd->allowedElements(list[0]).contains(QLatin1String("__EMPTY"))) {
-            pre = '<' + text + "/>";
+            pre = u'<' + text + u"/>";
             if (adjust) {
                 adjust++; // for the "/"
             }
         } else {
-            pre = '<' + text + '>';
-            post = "</" + list[0] + '>';
+            pre = QLatin1Char('<') + text + QLatin1Char('>');
+            post = QStringLiteral("</") + list[0] + u'>';
         }
 
         QString marked;
@@ -605,7 +605,7 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
     QString parentElement = getParentElement(*kv, 0);
 
     // qDebug() << "parentElement: '" << parentElement << "'";
-    QString closeTag = "</" + parentElement + '>';
+    QString closeTag = u"</" + parentElement + u'>';
     if (!parentElement.isEmpty()) {
         kv->insertText(closeTag);
     }
@@ -628,16 +628,16 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
 
     int posCorrection = 0; // where to move the cursor after completion ( >0 = move right )
     if (m_mode == entities) {
-        text = text + ';';
+        text = text + u';';
     }
 
     else if (m_mode == attributes) {
-        text = text + "=\"\"";
+        text = text + u"=\"\"";
         posCorrection = -1;
         if (!rightCh.isEmpty() && rightCh != QLatin1String(">") && rightCh != QLatin1String("/") && rightCh != QLatin1String(" ")) {
             // TODO: other whitespaces
             // add space in front of the next attribute
-            text = text + ' ';
+            text = text + u' ';
             posCorrection--;
         }
     }
@@ -674,9 +674,9 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
         QString str;
         bool isEmptyTag = m_docDtds[document]->allowedElements(text).contains(QLatin1String("__EMPTY"));
         if (isEmptyTag) {
-            str = text + "/>";
+            str = text + QStringLiteral("/>");
         } else {
-            str = text + "></" + text + '>';
+            str = text + QStringLiteral("></") + text + QLatin1Char('>');
         }
 
         // Place the cursor where it is most likely wanted:
@@ -692,7 +692,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
     }
 
     else if (m_mode == closingtag) {
-        text += '>';
+        text += u'>';
     }
 
     document->replaceText(toReplace, text);
@@ -1007,7 +1007,7 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList(QStringList list)
             // entities, but they should be sorted next to each other.
             // TODO: currently it's undefined if e.g. "A" or "a" comes first, it depends on
             // the meta DTD ( really? it seems to work okay?!? )
-            mapList[str.toLower() + '_'] = str;
+            mapList[str.toLower() + u'_'] = str;
         } else {
             mapList[str.toLower()] = str;
         }

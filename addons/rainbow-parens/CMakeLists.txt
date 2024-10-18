@@ -7,3 +7,7 @@ target_sources(
   PRIVATE
     rainbowparens_plugin.cpp
 )
+
+if (BUILD_PCH)
+    target_precompile_headers(rainbowparens REUSE_FROM katepch)
+endif()

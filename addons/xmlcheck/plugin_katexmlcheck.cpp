@@ -150,24 +150,24 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
     }
     if (!proc_stderr.isEmpty()) {
         QList<Diagnostic> diags;
-        QStringList lines = proc_stderr.split('\n', Qt::SkipEmptyParts);
+        QStringList lines = proc_stderr.split(u'\n', Qt::SkipEmptyParts);
         QString linenumber, msg;
         int line_count = 0;
         for (QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
             const QString line = *it;
             line_count++;
-            int semicolon_1 = line.indexOf(':');
-            int semicolon_2 = line.indexOf(':', semicolon_1 + 1);
-            int semicolon_3 = line.indexOf(':', semicolon_2 + 2);
-            int caret_pos = line.indexOf('^');
+            int semicolon_1 = line.indexOf(u':');
+            int semicolon_2 = line.indexOf(u':', semicolon_1 + 1);
+            int semicolon_3 = line.indexOf(u':', semicolon_2 + 2);
+            int caret_pos = line.indexOf(u'^');
             if (semicolon_1 != -1 && semicolon_2 != -1 && semicolon_3 != -1) {
                 linenumber = line.mid(semicolon_1 + 1, semicolon_2 - semicolon_1 - 1).trimmed();
-                linenumber = linenumber.rightJustified(6, ' '); // for sorting numbers
+                linenumber = linenumber.rightJustified(6, u' '); // for sorting numbers
                 msg = line.mid(semicolon_3 + 1, line.length() - semicolon_3 - 1).trimmed();
             } else if (caret_pos != -1 || line_count == lines.size()) {
                 // TODO: this fails if "^" occurs in the real text?!
                 if (line_count == lines.size() && caret_pos == -1) {
-                    msg = msg + '\n' + line;
+                    msg = msg + u'\n' + line;
                 }
                 QString col = QString::number(caret_pos);
                 if (col == QLatin1String("-1")) {
@@ -186,7 +186,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
                 d.severity = DiagnosticSeverity::Warning;
                 diags << d;
             } else {
-                msg = msg + '\n' + line;
+                msg = msg + u'\n' + line;
             }
         }
         if (!diags.empty()) {
@@ -285,7 +285,7 @@ bool PluginKateXMLCheckView::slotValidate()
     // xmllint --noout --path "/home/user/my/with:colon/" --valid "/tmp/kate.X23725"
     // As workaround we can encode ':' with %3A
     QString path = kv->document()->url().toString(QUrl::RemoveFilename | QUrl::PreferLocalFile | QUrl::EncodeSpaces);
-    path.replace(':', QLatin1String("%3A"));
+    path.replace(u':', QLatin1String("%3A"));
     // because of such inconvenience with xmllint and paths, maybe switch to xmlstarlet?
 
     qDebug() << "path=" << path;
@@ -298,9 +298,9 @@ bool PluginKateXMLCheckView::slotValidate()
     QString text_start = kv->document()->text().left(10000);
     // remove comments before looking for doctype (as a doctype might be commented out
     // and needs to be ignored then):
-    static const QRegularExpression re("<!--.*-->", QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression re(QStringLiteral("<!--.*-->"), QRegularExpression::InvertedGreedinessOption);
     text_start.remove(re);
-    static const QRegularExpression re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])",
+    static const QRegularExpression re_doctype(QStringLiteral("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])"),
                                                QRegularExpression::InvertedGreedinessOption | QRegularExpression::CaseInsensitiveOption);
 
     if (QRegularExpressionMatch match = re_doctype.match(text_start); match.hasMatch()) {

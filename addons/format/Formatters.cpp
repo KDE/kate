@@ -348,7 +348,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
         width = width == 0 ? 4 : width;
         bool spaces = doc->configValue(S("replace-tabs")).toBool();
         return newStdinFmt("shfmt", {S("--indent"), QString::number(spaces ? width : 0)});
-    } else if (is("nixfmt")) {
+    } else if (is("nix")) {
         return newStdinFmt("nixfmt", {});
     } else if (is("qml")) {
         return Formatter{.name = S("qmlformat"), .args = {doc->url().toLocalFile()}, .supportsStdin = false};

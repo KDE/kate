@@ -141,5 +141,3 @@ void FormatConfigPage::reset()
 {
     m_userConfigEdit->reset();
 }
-
-#include "moc_FormatConfig.cpp"

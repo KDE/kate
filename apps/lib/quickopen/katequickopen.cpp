@@ -555,5 +555,3 @@ void KateQuickOpen::updateViewGeometry()
     const QPoint position{boundingRect.center().x() - size.width() / 2, boundingRect.y() + 6};
     move(position);
 }
-
-#include "moc_katequickopen.cpp"

@@ -43,4 +43,3 @@ RBQLPluginView::~RBQLPluginView()
 }
 
 #include "RBQLPlugin.moc"
-#include "moc_RBQLPlugin.cpp"

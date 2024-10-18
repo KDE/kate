@@ -221,5 +221,3 @@ void LineNumArea::wheelEvent(QWheelEvent *e)
 {
     qApp->sendEvent(textEdit->viewport(), e);
 }
-
-#include "moc_difflinenumarea.cpp"

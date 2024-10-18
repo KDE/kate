@@ -551,5 +551,4 @@ void RainbowParenConfigPage::defaults()
 {
 }
 
-#include "moc_rainbowparens_plugin.cpp"
 #include "rainbowparens_plugin.moc"

@@ -1382,5 +1382,3 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
         }
     }
 }
-
-#include "moc_gitwidget.cpp"

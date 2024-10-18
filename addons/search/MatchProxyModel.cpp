@@ -32,5 +32,3 @@ bool MatchProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &parent)
 
     return matches;
 }
-
-#include "moc_MatchProxyModel.cpp"

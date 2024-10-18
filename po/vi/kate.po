@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-13 00:42+0000\n"
+"POT-Creation-Date: 2024-10-18 00:42+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -936,12 +936,12 @@ msgstr "Trợ giúp rất tốt"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Tất cả những người đã đóng góp mà tôi quên không đề cập đến"
 
-#: lib/kateapp.cpp:463
+#: lib/kateapp.cpp:470
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Chỉ có thể mở thư mục khi phần cài cắm \"Dự án\" được bật"
 
-#: lib/kateapp.cpp:553
+#: lib/kateapp.cpp:559
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1772,7 +1772,7 @@ msgstr "Đóng tất cả các tài liệu trừ cái này"
 msgid "Close Others"
 msgstr "Đóng các thẻ khác"
 
-#: lib/katemainwindow.cpp:878
+#: lib/katemainwindow.cpp:876
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1780,12 +1780,12 @@ msgstr ""
 "Việc này sẽ ẩn hoàn toàn thanh trình đơn. Bạn có thể hiện nó lại bằng cách "
 "gõ %1."
 
-#: lib/katemainwindow.cpp:881
+#: lib/katemainwindow.cpp:879
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ẩn thanh trình đơn"
 
-#: lib/katemainwindow.cpp:1054
+#: lib/katemainwindow.cpp:1052
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1793,19 +1793,19 @@ msgid ""
 msgstr ""
 "Bạn đã thả thư mục %1 vào Kate. Bạn có muốn mở tất cả các tệp ở bên trong nó?"
 
-#: lib/katemainwindow.cpp:1057
+#: lib/katemainwindow.cpp:1055
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Mở tệp đệ quy"
 
-#: lib/katemainwindow.cpp:1058
+#: lib/katemainwindow.cpp:1056
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Mở tất cả các tệp"
 
-#: lib/katemainwindow.cpp:1263
+#: lib/katemainwindow.cpp:1261
 #, kde-format
 msgid " [read only]"
 msgstr " [chỉ đọc]"
@@ -2663,12 +2663,12 @@ msgstr "Không đổi tên được phiên thành \"%1\". Ghi vào \"%2\" thất
 msgid "Session Renaming"
 msgstr "Đổi tên phiên"
 
-#: lib/session/katesessionmanager.cpp:500
+#: lib/session/katesessionmanager.cpp:505
 #, kde-format
 msgid "Session name:"
 msgstr "Tên phiên:"
 
-#: lib/session/katesessionmanager.cpp:502
+#: lib/session/katesessionmanager.cpp:507
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2677,17 +2677,17 @@ msgstr ""
 "Đã có một phiên với tên mà bạn chọn: %1\n"
 "Vui lòng chọn một tên khác."
 
-#: lib/session/katesessionmanager.cpp:504
+#: lib/session/katesessionmanager.cpp:509
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Để lưu phiên, bạn phải đưa ra một cái tên."
 
-#: lib/session/katesessionmanager.cpp:531
+#: lib/session/katesessionmanager.cpp:536
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Đưa ra một cái tên cho phiên này"
 
-#: lib/session/katesessionmanager.cpp:533
+#: lib/session/katesessionmanager.cpp:538
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Đưa ra tên mới cho phiên: %1"

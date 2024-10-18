@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-16 00:44+0000\n"
+"POT-Creation-Date: 2024-10-18 00:42+0000\n"
 "PO-Revision-Date: 2024-07-26 10:33+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -18,8 +18,8 @@ msgstr ""
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 24.05.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:81 FormatPlugin.cpp:235
-#: Formatters.cpp:317 Formatters.cpp:337 Formatters.cpp:360 Formatters.cpp:384
+#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
+#: Formatters.cpp:320 Formatters.cpp:340 Formatters.cpp:363 Formatters.cpp:387
 #, kde-format
 msgid "Format"
 msgstr "תבנית"
@@ -34,17 +34,17 @@ msgstr "הכתיבה לקובץ זמני נכשלה"
 msgid "Failed to run git diff: %1"
 msgstr "הרצת git diff‏ (הבדלים) נכשלה: %1"
 
-#: FormatConfig.cpp:121
+#: FormatConfig.cpp:119
 #, kde-format
 msgid "User Settings"
 msgstr "הגדרות משתמש"
 
-#: FormatConfig.cpp:129
+#: FormatConfig.cpp:127
 #, kde-format
 msgid "Default Settings"
 msgstr "הגדרות ברירת מחדל"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
 msgstr "סידור בתבנית"
@@ -54,69 +54,69 @@ msgstr "סידור בתבנית"
 msgid "Formatting Settings"
 msgstr "הגדרות סידור בתבנית"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "קריאת settings.json נכשלה. שגיאה: %1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
 msgstr "עיצוב מסמך"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
 msgstr "עיצוב בזמן השמירה"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:131
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "להשבית סידור בתבנית עם שמירה מבלי לקבע בהגדרות"
 
-#: Formatters.cpp:111
+#: Formatters.cpp:114
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: פקודה ריקה מפתיעה!"
 
-#: Formatters.cpp:118
+#: Formatters.cpp:121
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 לא מותקן, נא להתקין אותו כדי לסדר את המסמך הזה באופן תבניתי!"
 
-#: Formatters.cpp:187
+#: Formatters.cpp:190
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "נא להתקין את node ואת prettier"
 
-#: Formatters.cpp:194
+#: Formatters.cpp:197
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"
 
-#: Formatters.cpp:215
+#: Formatters.cpp:218
 #, fuzzy, kde-format
 #| msgid "PrettierFormat: Failed to create temporary file"
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"
 
-#: Formatters.cpp:317
+#: Formatters.cpp:320
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "FormatterForJson לא ידוע: %1"
 
-#: Formatters.cpp:337
+#: Formatters.cpp:340
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "formatterForPython לא ידוע: %1"
 
-#: Formatters.cpp:360
+#: Formatters.cpp:363
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "formatterForYaml לא ידוע: %1, ניסוג ל־yamlfmt"
 
-#: Formatters.cpp:384
+#: Formatters.cpp:387
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "הרצת המסדר בתבניות נכשלה. השפה %1 לא נתמכת"

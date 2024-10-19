@@ -1972,6 +1972,19 @@ void KatePluginSearchView::setExpandResults(bool enabled)
     m_ui.expandResults->setChecked(enabled);
 }
 
+namespace
+{
+constexpr int SearchPlace_DEFAULT = 1;
+constexpr bool Recursive_DEFAULT = true;
+constexpr bool HiddenFiles_DEFAULT = false;
+constexpr bool FollowSymLink_DEFAULT = false;
+constexpr bool BinaryFiles_DEFAULT = false;
+constexpr int SizeLimit_Default = 128;
+constexpr bool MatchCase_DEFAULT = false;
+constexpr bool UseRegExp_DEFAULT = false;
+constexpr bool ExpandSearchResults_DEFAULT = false;
+}
+
 void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
 {
     m_ui.searchCombo->clear();
@@ -1980,11 +1993,11 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.replaceCombo->clear();
     m_ui.replaceCombo->addItem(QString()); // Add empty Item
     m_ui.replaceCombo->addItems(cg.readEntry("Replaces", QStringList()));
-    m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
-    m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
-    m_ui.expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
+    m_ui.matchCase->setChecked(cg.readEntry("MatchCase", MatchCase_DEFAULT));
+    m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", UseRegExp_DEFAULT));
+    m_ui.expandResults->setChecked(cg.readEntry("ExpandSearchResults", ExpandSearchResults_DEFAULT));
 
-    int searchPlaceIndex = cg.readEntry("Place", 1);
+    int searchPlaceIndex = cg.readEntry("Place", SearchPlace_DEFAULT);
     if (searchPlaceIndex < 0) {
         searchPlaceIndex = MatchModel::Folder; // for the case we happen to read -1 as Place
     }
@@ -1995,11 +2008,11 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     }
     m_ui.searchPlaceCombo->setCurrentIndex(searchPlaceIndex);
 
-    m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", true));
-    m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", false));
-    m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
-    m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", false));
-    m_ui.sizeLimitSpinBox->setValue(cg.readEntry("SizeLimit", 128));
+    m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", Recursive_DEFAULT));
+    m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", HiddenFiles_DEFAULT));
+    m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", FollowSymLink_DEFAULT));
+    m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", BinaryFiles_DEFAULT));
+    m_ui.sizeLimitSpinBox->setValue(cg.readEntry("SizeLimit", SizeLimit_Default));
     m_ui.folderRequester->comboBox()->clear();
     m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchDiskFiless", QStringList()));
     m_ui.folderRequester->setText(cg.readEntry("SearchDiskFiles", QString()));
@@ -2021,53 +2034,93 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
 
 void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
 {
+    // Only write to config if the value is not default
     QStringList searchHistoy;
     for (int i = 1; i < m_ui.searchCombo->count(); i++) {
         searchHistoy << m_ui.searchCombo->itemText(i);
     }
-    cg.writeEntry("Search", searchHistoy);
+    if (!searchHistoy.isEmpty()) {
+        cg.writeEntry("Search", searchHistoy);
+    }
     QStringList replaceHistoy;
     for (int i = 1; i < m_ui.replaceCombo->count(); i++) {
         replaceHistoy << m_ui.replaceCombo->itemText(i);
     }
-    cg.writeEntry("Replaces", replaceHistoy);
+    if (!replaceHistoy.isEmpty()) {
+        cg.writeEntry("Replaces", replaceHistoy);
+    }
 
-    cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
-    cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
-    cg.writeEntry("ExpandSearchResults", m_ui.expandResults->isChecked());
+    if (m_ui.matchCase->isChecked() != MatchCase_DEFAULT) {
+        cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
+    }
+    if (m_ui.useRegExp->isChecked() != UseRegExp_DEFAULT) {
+        cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
+    }
+    if (m_ui.expandResults->isChecked() != ExpandSearchResults_DEFAULT) {
+        cg.writeEntry("ExpandSearchResults", m_ui.expandResults->isChecked());
+    }
 
-    cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
-    cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
-    cg.writeEntry("HiddenFiles", m_ui.hiddenCheckBox->isChecked());
-    cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
-    cg.writeEntry("BinaryFiles", m_ui.binaryCheckBox->isChecked());
-    cg.writeEntry("SizeLimit", m_ui.sizeLimitSpinBox->value());
+    if (m_ui.searchPlaceCombo->currentIndex() != SearchPlace_DEFAULT) {
+        cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
+    }
+    if (m_ui.recursiveCheckBox->isChecked() != Recursive_DEFAULT) {
+        cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
+    }
+    if (m_ui.hiddenCheckBox->isChecked() != HiddenFiles_DEFAULT) {
+        cg.writeEntry("HiddenFiles", m_ui.hiddenCheckBox->isChecked());
+    }
+    if (m_ui.symLinkCheckBox->isChecked() != FollowSymLink_DEFAULT) {
+        cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
+    }
+    if (m_ui.binaryCheckBox->isChecked() != BinaryFiles_DEFAULT) {
+        cg.writeEntry("BinaryFiles", m_ui.binaryCheckBox->isChecked());
+    }
+    if (m_ui.sizeLimitSpinBox->value() != SizeLimit_Default) {
+        cg.writeEntry("SizeLimit", m_ui.sizeLimitSpinBox->value());
+    }
     QStringList folders;
     for (int i = 0; i < qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
         folders << m_ui.folderRequester->comboBox()->itemText(i);
     }
-    cg.writeEntry("SearchDiskFiless", folders);
-    cg.writeEntry("SearchDiskFiles", m_ui.folderRequester->text());
+    if (!folders.isEmpty()) {
+        cg.writeEntry("SearchDiskFiless", folders);
+    }
+    if (QString text = m_ui.folderRequester->text(); !text.isEmpty()) {
+        cg.writeEntry("SearchDiskFiles", text);
+    }
     QStringList filterItems;
     for (int i = 0; i < qMin(m_ui.filterCombo->count(), 10); i++) {
         filterItems << m_ui.filterCombo->itemText(i);
     }
-    cg.writeEntry("Filters", filterItems);
-    cg.writeEntry("CurrentFilter", m_ui.filterCombo->findText(m_ui.filterCombo->currentText()));
+    if (!filterItems.isEmpty()) {
+        cg.writeEntry("Filters", filterItems);
+    }
+    if (int idx = m_ui.filterCombo->findText(m_ui.filterCombo->currentText()); idx != -1) {
+        cg.writeEntry("CurrentFilter", idx);
+    }
 
     QStringList excludeFilterItems;
     for (int i = 0; i < qMin(m_ui.excludeCombo->count(), 10); i++) {
         excludeFilterItems << m_ui.excludeCombo->itemText(i);
     }
-    cg.writeEntry("ExcludeFilters", excludeFilterItems);
-    cg.writeEntry("CurrentExcludeFilter", m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()));
+    if (!excludeFilterItems.isEmpty()) {
+        cg.writeEntry("ExcludeFilters", excludeFilterItems);
+    }
+    if (int idx = m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()); idx != -1) {
+        cg.writeEntry("CurrentExcludeFilter", idx);
+    }
 
-    // Search as you type
-    cg.writeEntry("SearchAsYouTypeCurrentFile", m_searchAsYouType.value(MatchModel::CurrentFile, true));
-    cg.writeEntry("SearchAsYouTypeOpenFiles", m_searchAsYouType.value(MatchModel::OpenFiles, true));
-    cg.writeEntry("SearchAsYouTypeFolder", m_searchAsYouType.value(MatchModel::Folder, true));
-    cg.writeEntry("SearchAsYouTypeProject", m_searchAsYouType.value(MatchModel::Project, true));
-    cg.writeEntry("SearchAsYouTypeAllProjects", m_searchAsYouType.value(MatchModel::AllProjects, true));
+    // Search as you type.
+    if (!m_searchAsYouType.value(MatchModel::CurrentFile, true))
+        cg.writeEntry("SearchAsYouTypeCurrentFile", false);
+    if (!m_searchAsYouType.value(MatchModel::OpenFiles, true))
+        cg.writeEntry("SearchAsYouTypeOpenFiles", false);
+    if (!m_searchAsYouType.value(MatchModel::Folder, true))
+        cg.writeEntry("SearchAsYouTypeFolder", false);
+    if (!m_searchAsYouType.value(MatchModel::Project, true))
+        cg.writeEntry("SearchAsYouTypeProject", false);
+    if (!m_searchAsYouType.value(MatchModel::AllProjects, true))
+        cg.writeEntry("SearchAsYouTypeAllProjects", false);
 }
 
 void KatePluginSearchView::addTab()

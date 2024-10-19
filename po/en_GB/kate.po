@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-18 00:42+0000\n"
-"PO-Revision-Date: 2024-09-07 12:19+0100\n"
+"PO-Revision-Date: 2024-10-18 17:03+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -331,10 +331,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Clear Diagnostics Filter"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Show/Hide Commit Info"
+msgstr "Show Hover Info"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1227,15 +1226,14 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Max number of diagnostics allowed in the Diagnostics toolview."
 
 #: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
-#, fuzzy, kde-format
-#| msgid "Continue"
+#, kde-format
 msgid "Context"
-msgstr "Continue"
+msgstr "Context"
 
 #: lib/kateconfigdialog.cpp:357
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Enable tool view"
 
 #: lib/kateconfigdialog.cpp:359
 #, kde-format
@@ -1243,6 +1241,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"A tool view to display context associated with the current cursor position "
+"(LSP hints, diagnostics)"
 
 #: lib/kateconfigdialog.cpp:374
 #, kde-format
@@ -1261,15 +1261,12 @@ msgid "(never)"
 msgstr "(never)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
 msgstr[0] " day"
-msgstr[1] " days"
+msgstr[1] "%v days"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1602,10 +1599,9 @@ msgid "Close all open documents."
 msgstr "Close all open documents."
 
 #: lib/katemainwindow.cpp:473
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr "&Reopen latest closed document(s)."
+msgstr "&Reopen latest closed document(s)"
 
 #: lib/katemainwindow.cpp:475
 #, kde-format
@@ -2512,10 +2508,9 @@ msgid "Wildcard Filtering"
 msgstr "Wildcard Filtering"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "All Projects"
+msgstr "Project: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

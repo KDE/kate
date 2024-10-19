@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-18 00:42+0000\n"
-"PO-Revision-Date: 2024-08-30 16:25+0200\n"
+"PO-Revision-Date: 2024-10-18 15:59+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -332,7 +332,7 @@ msgstr ""
 #: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
 msgid "Show Hover Info"
-msgstr ""
+msgstr "Zobrazit informace při přejetí myší"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
 #, kde-format
@@ -1238,16 +1238,13 @@ msgid "(never)"
 msgstr "(nikdy)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " den"
-msgstr[1] " dny"
-msgstr[2] " dnů"
+msgstr[0] "%v den"
+msgstr[1] "%v dny"
+msgstr[2] "%v dnů"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format
@@ -1577,7 +1574,7 @@ msgstr "Zavřít všechny otevřené dokumenty."
 #: lib/katemainwindow.cpp:473
 #, kde-format
 msgid "&Reopen latest closed document(s)"
-msgstr ""
+msgstr "Znovu otevřít nedávno uzavřené do&kumenty"
 
 #: lib/katemainwindow.cpp:475
 #, kde-format
@@ -2471,10 +2468,9 @@ msgid "Wildcard Filtering"
 msgstr ""
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Všechny projekty"
+msgstr "Projekt: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

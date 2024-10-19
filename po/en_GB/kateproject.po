@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-18 00:42+0000\n"
-"PO-Revision-Date: 2024-09-15 10:40+0100\n"
+"PO-Revision-Date: 2024-10-18 17:11+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1013,6 +1013,10 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Unable to load %1 based project because either %1 is not installed or it "
+"wasn't found in PATH environment variable. Please install %1 or "
+"alternatively disable the option 'Autoload Repositories && Build Trees' in "
+"project settings."
 
 #: stashdialog.cpp:36
 #, kde-format

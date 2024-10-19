@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-18 00:42+0000\n"
-"PO-Revision-Date: 2024-05-24 17:01+0100\n"
+"PO-Revision-Date: 2024-10-18 17:03+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
 #: Formatters.cpp:320 Formatters.cpp:340 Formatters.cpp:363 Formatters.cpp:387
@@ -96,10 +96,9 @@ msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Failed to create temporary file"
 
 #: Formatters.cpp:218
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: Failed to create temporary file"
+msgstr "PrettierFormat: Failed to start 'node': %1"
 
 #: Formatters.cpp:320
 #, kde-format

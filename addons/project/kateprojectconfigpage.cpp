@@ -113,54 +113,24 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
     layout->insertStretch(-1, 10);
 
+    for (auto cb : {m_cbAutoGit,
+                    m_cbAutoSubversion,
+                    m_cbAutoMercurial,
+                    m_cbAutoFossil,
+                    m_cbAutoCMake,
+                    m_cbSessionRestoreOpenProjects,
+                    m_cbMultiProjectCompletion,
+                    m_cbIndexEnabled,
+                    m_cbMultiProjectGoto}) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbAutoGit, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
+        connect(cb, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
 #else
-    connect(m_cbAutoGit, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
+        connect(cb, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
 #endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbAutoSubversion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbAutoSubversion, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbAutoMercurial, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbAutoMercurial, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbAutoFossil, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbAutoFossil, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbAutoCMake, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbAutoCMake, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbSessionRestoreOpenProjects, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbSessionRestoreOpenProjects, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbIndexEnabled, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbIndexEnabled, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
+    }
+
     connect(m_indexPath, &KUrlRequester::textChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbMultiProjectCompletion, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbMultiProjectCompletion, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-#if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
-    connect(m_cbMultiProjectGoto, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#else
-    connect(m_cbMultiProjectGoto, &QCheckBox::checkStateChanged, this, &KateProjectConfigPage::slotMyChanged);
-#endif
-
     connect(m_cmbSingleClick, QOverload<int>::of(&QComboBox::activated), this, &KateProjectConfigPage::slotMyChanged);
     connect(m_cmbDoubleClick, QOverload<int>::of(&QComboBox::activated), this, &KateProjectConfigPage::slotMyChanged);
 

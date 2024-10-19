@@ -496,27 +496,19 @@ QString RainbowParenConfigPage::fullName() const
 
 static QIcon ColoredBracketsIcon(const QWidget *_this)
 {
-    QPixmap p;
-    {
-        QRect r(QPoint(0, 0), _this->devicePixelRatioF() * QSize(16, 16));
-        QPixmap pix(r.size());
-        pix.fill(Qt::transparent);
-        QPainter paint(&pix);
-        if (paint.fontMetrics().height() > r.height()) {
-            auto f = paint.font();
-            f.setPixelSize(14);
-            paint.setFont(f);
-        }
-        paint.drawText(r, Qt::AlignCenter, QStringLiteral("{.}"));
-        paint.end();
-        p = pix;
+    QRect r(QPoint(0, 0), _this->devicePixelRatioF() * QSize(16, 16));
+    QPixmap pix(r.size());
+    pix.fill(Qt::transparent);
+    QPainter paint(&pix);
+    if (paint.fontMetrics().height() > r.height()) {
+        auto f = paint.font();
+        f.setPixelSize(14);
+        paint.setFont(f);
     }
-
-    QPainter paint(&p);
-    paint.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    paint.fillRect(p.rect(), QBrush(QGradient(QGradient::Preset::FruitBlend)));
+    paint.setPen(QPen(QBrush(QGradient(QGradient::Preset::PhoenixStart)), 3));
+    paint.drawText(r, Qt::AlignCenter, QStringLiteral("{.}"));
     paint.end();
-    return p;
+    return pix;
 }
 
 QIcon RainbowParenConfigPage::icon() const

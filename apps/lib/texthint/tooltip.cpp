@@ -40,7 +40,6 @@ public:
             // highlight blocks marked with BlockCodeLanguage format
             return KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
         }
-        const int headingLevel = fmt.headingLevel();
 
         const QList<QTextLayout::FormatRange> textFormats = block.textFormats();
         for (const auto &f : textFormats) {
@@ -49,13 +48,10 @@ public:
                 charFmt.setFontUnderline(true);
                 // charFmt.setForeground(linkColor);
                 setFormat(f.start, f.length, charFmt);
-            } else if (headingLevel != 0 && f.format.hasProperty(QTextFormat::FontSizeAdjustment)) {
-                QTextCharFormat charFmt = format(f.start);
-                charFmt.setProperty(QTextFormat::FontSizeAdjustment, 1);
-                setFormat(0, text.size(), charFmt);
             } else if (f.format.fontFixedPitch()) {
                 QTextCharFormat charFmt = format(f.start);
                 charFmt.setBackground(m_inlineCodeSpanColor);
+                charFmt.setFont(m_editorFont);
                 setFormat(f.start, f.length, charFmt);
             }
         }
@@ -70,6 +66,7 @@ public:
     }
 
     QBrush m_inlineCodeSpanColor;
+    QFont m_editorFont;
 };
 
 class TooltipPrivate : public QTextBrowser
@@ -106,6 +103,7 @@ public:
         document()->setDocumentMargin(5);
         setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &TooltipPrivate::hideTooltip);
+        setWordWrapMode(QTextOption::WordWrap);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -140,6 +138,7 @@ public:
                 font.setPointSize(font.pointSize() - 1);
             }
             setFont(font);
+            m_hl->m_editorFont = font;
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
@@ -220,7 +219,9 @@ public:
         size.setWidth(size.width() + wMargins);
 
         // limit the tool tip size; the resize call will respect these limits
-        setMaximumSize(m_view->width() / 2.5, m_view->height() / 3);
+
+        const auto fullWith = m_view->window() ? m_view->window()->width() : m_view->width();
+        setMaximumSize(fullWith / 2.5, m_view->height() / 3);
         resize(size);
     }
 
@@ -317,6 +318,33 @@ private:
                 setPlainText(text);
             } else {
                 setMarkdown(text);
+            }
+
+            auto block = document()->firstBlock();
+            for (int i = 0; i < document()->blockCount(); ++i) {
+                auto bfmt = block.blockFormat();
+                // Fix some things for code blocks in markdown
+                if (bfmt.hasProperty(QTextFormat::BlockCodeLanguage)) {
+                    QTextCursor c(block);
+                    // allow word wrap
+                    bfmt.setNonBreakableLines(false);
+                    // fix the font, use our own mono font
+                    c.select(QTextCursor::BlockUnderCursor);
+                    auto cfmt = block.charFormat();
+                    cfmt.setFont(this->font());
+                    c.setBlockFormat(bfmt);
+                    c.setCharFormat(cfmt);
+                } else if (bfmt.headingLevel() != 0) {
+                    // Make all headings H3
+                    QTextCursor c(block);
+                    bfmt.setHeadingLevel(3);
+                    c.select(QTextCursor::BlockUnderCursor);
+                    QTextCharFormat cfmt = block.charFormat();
+                    cfmt.setProperty(QTextFormat::FontSizeAdjustment, 1);
+                    c.setBlockFormat(bfmt);
+                    c.setCharFormat(cfmt);
+                }
+                block = block.next();
             }
 
             resizeTip();

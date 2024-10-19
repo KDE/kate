@@ -138,6 +138,10 @@ static void slipInFilter(KProcess &proc, KTextEditor::View &view, const QString 
     proc.setShellCommand(command);
 
     proc.start();
+    if (!proc.waitForStarted(4000)) {
+        KMessageBox::error(nullptr, i18n("Failed to start process"), i18n(""));
+        return;
+    }
     QByteArray encoded = inputText.toLocal8Bit();
     proc.write(encoded);
     proc.closeWriteChannel();

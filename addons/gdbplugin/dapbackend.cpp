@@ -89,15 +89,14 @@ void DapBackend::setState(State state)
             cmdShutdown();
         }
         break;
-    case State::PostMortem:
+    case State::None:
         shutdownUntil();
         if (m_restart) {
             m_restart = false;
             start();
+        } else {
+            Q_EMIT gdbEnded();
         }
-        break;
-    case State::None:
-        shutdownUntil();
         break;
     default:
         break;
@@ -157,7 +156,7 @@ dap::settings::ClientSettings &DapBackend::target2dap(const DAPTargetConf &targe
 
 void DapBackend::start()
 {
-    if ((m_state != None) && (m_state != PostMortem)) {
+    if (m_state != None) {
         KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
         return;
     }
@@ -266,7 +265,7 @@ bool DapBackend::tryTerminate()
 void DapBackend::onError(const QString &message)
 {
     Q_EMIT outputError(newLine(i18n("DAP backend: %1", message)));
-    setState(PostMortem);
+    setState(None);
 }
 
 void DapBackend::onStopped(const dap::StoppedEvent &info)
@@ -405,7 +404,7 @@ void DapBackend::onServerFinished()
 {
     Q_EMIT outputError(newLine(i18n("*** connection with server closed ***")));
 
-    setState(PostMortem);
+    setState(None);
 }
 
 void DapBackend::onProgramEnded(int exitCode)
@@ -427,7 +426,7 @@ void DapBackend::onInitialized()
     // It indicates we have initialized fully
     m_client->requestConfigurationDone();
 
-    shutdownUntil(PostMortem);
+    shutdownUntil(None);
     Q_EMIT outputText(newLine(i18n("*** waiting for user actions ***")));
 }
 
@@ -781,7 +780,7 @@ bool DapBackend::supportsRunToCursor() const
 
 bool DapBackend::isConnectedState() const
 {
-    return m_client && (m_state != None) && (m_state != Disconnected) && (m_state != PostMortem);
+    return m_client && (m_state != None) && (m_state != Disconnected);
 }
 
 bool DapBackend::isAttachedState() const
@@ -1453,9 +1452,6 @@ void DapBackend::cmdWhereami(const QString &)
     case Disconnected:
         parts << i18n("disconnected");
         break;
-    case PostMortem:
-        parts << i18n("post mortem");
-        break;
     default:
         parts << i18n("none");
         break;
@@ -1616,7 +1612,7 @@ void DapBackend::shutdownUntil(std::optional<State> state)
 
 bool DapBackend::continueShutdown() const
 {
-    return m_restart || (m_shutdown.target && (m_shutdown.target > m_state));
+    return m_restart || (m_shutdown.target && (m_shutdown.target > m_state || m_shutdown.target == None));
 }
 
 void DapBackend::slotKill()
@@ -1624,16 +1620,15 @@ void DapBackend::slotKill()
     if (!isConnectedState()) {
         setState(None);
         Q_EMIT readyForInput(false);
-        Q_EMIT gdbEnded();
         return;
     }
 
     if (!m_shutdown.userAction) {
         if (isRunningState()) {
-            shutdownUntil(PostMortem);
+            shutdownUntil(None);
             tryTerminate();
         } else {
-            shutdownUntil(PostMortem);
+            shutdownUntil(None);
             tryDisconnect();
         }
     } else {

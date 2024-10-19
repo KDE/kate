@@ -65,7 +65,7 @@ public Q_SLOTS:
     void changeScope(int scopeId) override;
 
 private:
-    enum State { None, Initializing, Running, Stopped, Terminated, Disconnected, PostMortem };
+    enum State { None, Initializing, Running, Stopped, Terminated, Disconnected };
     enum Task { Idle, Busy };
 
     void unsetClient();

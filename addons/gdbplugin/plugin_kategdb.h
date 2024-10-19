@@ -89,7 +89,6 @@ private Q_SLOTS:
     void slotSendCommand();
     void enableDebugActions(bool enable);
     void programEnded();
-    void gdbEnded();
 
     void insertStackFrame(int level, const QString &info);
     void stackFrameChanged(int level);

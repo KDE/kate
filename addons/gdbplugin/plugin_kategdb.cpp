@@ -214,8 +214,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_backend, &BackendInterface::gdbEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_backend, &BackendInterface::gdbEnded, this, &KatePluginGDBView::gdbEnded);
-
     connect(m_backend, &BackendInterface::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
 
     connect(m_backend, &BackendInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
@@ -426,6 +424,8 @@ void KatePluginGDBView::slotDebug()
     ioFifos << m_ioView->stdoutFifo();
     ioFifos << m_ioView->stderrFifo();
 #endif
+
+    m_outputArea->clear();
 
     enableDebugActions(true);
     m_mainWin->showToolView(m_toolView.get());
@@ -674,11 +674,7 @@ void KatePluginGDBView::programEnded()
     // Indicate the state change by showing the debug outputArea
     m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_configView);
-}
 
-void KatePluginGDBView::gdbEnded()
-{
-    m_outputArea->clear();
     m_localsView->clear();
     m_ioView->clearOutput();
 }

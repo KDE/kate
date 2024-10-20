@@ -179,7 +179,8 @@ void DapBackend::start()
 
     connect(m_client, &dap::Client::finished, this, &DapBackend::onServerFinished);
     connect(m_client, &dap::Client::failed, [this] {
-        onError(i18n("DAP backend failed"));
+        onError(i18n("DAP backend '%1' failed", m_debuggerName));
+        unsetClient();
     });
 
     connect(m_client, &dap::Client::serverDisconnected, this, &DapBackend::onServerDisconnected);

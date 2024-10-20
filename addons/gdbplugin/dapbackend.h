@@ -21,7 +21,7 @@ class DapBackend : public BackendInterface
     Q_OBJECT
 public:
     DapBackend(QObject *parent);
-    ~DapBackend() override = default;
+    ~DapBackend() override;
 
     void runDebugger(const DAPTargetConf &conf);
     bool debuggerRunning() const override;

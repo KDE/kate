@@ -39,6 +39,14 @@ DapBackend::DapBackend(QObject *parent)
     });
 }
 
+DapBackend::~DapBackend()
+{
+    if (m_state != None) {
+        shutdownUntil(None);
+        slotKill();
+    }
+}
+
 void DapBackend::unsetClient()
 {
     m_requestThreadsTimer.stop();

@@ -1,11 +1,13 @@
 # Malay translation.
 # FIRST AUTHOR MIMOS <opensource@mimos.my>, 2005.
 #
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: Mimos\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2005-09-23 10:34+0800\n"
 "Last-Translator: MIMOS <opensource@mimos.my>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -23,7 +25,12 @@ msgid ""
 "<nl />%2</code></pre>"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -32,23 +39,23 @@ msgstr ""
 "Anda tidak dibenarkan melakukan aplikasi luaran arbitrari. Jika anda ingin "
 "dapat melakukan hal ini, hubingi pentadbir sistem anda."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Had Akses"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "Penapis"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Kegunaan: textfilter COMMAND"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -57,7 +64,7 @@ msgstr ""
 "<qt><p>Kegunaan: <code>COMMAND penapis teks</code></p><p>Gantikan pemilihan "
 "dengan output arahan shell yang dinyatakan.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

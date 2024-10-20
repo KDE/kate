@@ -5,11 +5,13 @@
 # Michael Moroni <michael.moroni@mailoo.org>, 2012.
 # Oliver Kellogg <olivermkellogg@gmail.com>, 2023.
 #
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -30,7 +32,12 @@ msgstr ""
 "<title>Rezulto de:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -39,22 +46,22 @@ msgstr ""
 "Vi ne estas permesita ruli arbitrajn eksterajn aplikaĵojn. Se vi volas "
 "kapabli fari tion, kontaktu vian sisteman administranton."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Limigo al akiro"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Teksta Filtrilo"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Uzado: textfilter KOMANDO"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -63,7 +70,7 @@ msgstr ""
 "<qt><p>Uzado: <code>textfilter KOMANDO</code></p><p>Anstataŭigu la elekton "
 "per la eligo de la specifita ŝelkomando.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Filtri tra Komando..."

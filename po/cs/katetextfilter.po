@@ -4,11 +4,13 @@
 # Vít Pelčák <vit@pelcak.org>, 2013, 2014, 2015, 2018.
 # Vit Pelcak <vit@pelcak.org>, 2021.
 #
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2021-08-19 11:50+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -29,7 +31,12 @@ msgstr ""
 "<title>Výsledek:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -38,22 +45,22 @@ msgstr ""
 "Není vám povoleno spouštět libovolné externí aplikace. Pokud si přejete toto "
 "provádět, kontaktujte správce svého systému."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Omezení přístupu"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Textový filtr"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Použití: textfilter PŘÍKAZ"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -62,7 +69,7 @@ msgstr ""
 "<qt><p>Využití: <code>textfilter PŘÍKAZ</code></p><p>Nahradí výběr výstupem "
 "ze zadaného shellového příkazu.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

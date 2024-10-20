@@ -10,11 +10,13 @@
 # Simon Depiets <sdepiets@gmail.com>, 2018.
 # SPDX-FileCopyrightText: 2021, 2023 Xavier Besnard <xavier.besnard@kde.org>
 #
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2023-10-26 11:17+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -38,7 +40,12 @@ msgstr ""
 "<title>Résultat de :</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -48,22 +55,22 @@ msgstr ""
 "Si vous voulez être en mesure de le faire, contactez votre administrateur "
 "système."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Restrictions d'accès"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Filtre de texte"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Utilisation : « textfilter COMMANDE »"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -72,7 +79,7 @@ msgstr ""
 "<qt><p>Utilisation : <code>textfilter COMMANDE</code></p><p>Remplace la "
 "sélection par la sortie de la commande d'interpréteur spécifiée.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Filtrer à l'aide d'une commande..."

@@ -7,11 +7,13 @@
 # Rinse de Vries <rinse@kde.nl>, 2003.
 # Rinse de Vries <rinsedevries@kde.nl>, 2004, 2005, 2007.
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2013, 2015, 2018, 2021.
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2021-03-11 12:10+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -32,7 +34,12 @@ msgstr ""
 "<title>Resultaat van:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -41,22 +48,22 @@ msgstr ""
 "U hebt geen toegangsrechten voor het uitvoeren van willekeurige externe "
 "programma's. Als u dat wel wilt, neem dan contact op met uw systeembeheerder."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Toegangsrestricties"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Tekstfilter"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Gebruik: textfilter COMMAND"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -65,7 +72,7 @@ msgstr ""
 "<qt> <p>Gebruik: <code>textfilter COMMANDO</code></p> <p>Vervang de selectie "
 "met de uitvoer van het opgegeven shell-commando.</p> </qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Filteren via commando..."

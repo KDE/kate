@@ -4,11 +4,13 @@
 #
 # Ravishankar Shrivastava <raviratlami@yahoo.com>, 2008.
 # Ravishankar Shrivastava <raviratlami@aol.in>, 2009.
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2009-03-01 10:46+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -27,7 +29,12 @@ msgid ""
 "<nl />%2</code></pre>"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -36,23 +43,23 @@ msgstr ""
 "आप कोनो अउ बाहिरी अनुपरयोग मन ल चलाय बर अधिकृत नइ हे. यदि आप मन एला सक्छम करना "
 "चाहथो तहां अपन तंत्र प्रसासक से संपर्क करव."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "पहुंच मं रोक"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "फिल्टर"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "उपयोग: textfilter COMMAND"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -61,7 +68,7 @@ msgstr ""
 "<qt><p>उपयोग: <code>textfilter COMMAND</code></p><p>चयन ल निरधारित सैल कमांड के "
 "आउटपुट से बदलव.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

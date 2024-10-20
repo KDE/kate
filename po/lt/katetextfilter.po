@@ -3,11 +3,13 @@
 # Ričardas Čepas <rch@richard.eu.org>, 2003.
 # Donatas Glodenis <dgvirtual@akl.lt>, 2005.
 # Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>, 2011.
+#: plugin_katetextfilter.cpp:142
+#, fuzzy, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2024-02-02 16:41+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -27,7 +29,12 @@ msgid ""
 "<nl />%2</code></pre>"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, fuzzy, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -36,23 +43,23 @@ msgstr ""
 "Jums neleidžiama skambinti su kppp.\n"
 "Susisiekite su savos sistemos administratoriumi."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Priėjimo apribojimai"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "Filtras"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Naudojimas: textfilter KOMANDA"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -61,7 +68,7 @@ msgstr ""
 "<qt><p>Naudojimas: <code>textfilter KOMANDA</code></p><p>Pakeisti "
 "pasirinkimą su apvalkalo komandos išvestimi.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

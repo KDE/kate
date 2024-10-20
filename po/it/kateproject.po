@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-18 00:42+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2024-09-28 19:10+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -672,12 +672,12 @@ msgstr "Metti in / rimuovi da stage"
 msgid "Double click action in the git status view"
 msgstr "Azione al doppio clic nella vista di git status"
 
-#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Progetti"
 
-#: kateprojectconfigpage.cpp:177
+#: kateprojectconfigpage.cpp:147
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

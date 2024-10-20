@@ -1,5 +1,5 @@
 # translation of katetextfilter.po to Polish
-# Version: $Revision: 1681191 $
+# Version: $Revision: 1693222 $
 # translation of katetextfilter.po to
 # Copyright (C) 2002, 2005, 2007, 2010 Free Software Foundation, Inc.
 # Marcin Giedz <mgiedz@elka.pw.edu.pl>, 2002.
@@ -8,11 +8,13 @@
 # Michał Smoczyk <msmoczyk@wp.pl>, 2010.
 # Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2014, 2015, 2018, 2020, 2021.
 #
+#: plugin_katetextfilter.cpp:142
+#, fuzzy, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2021-03-20 07:18+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -33,7 +35,12 @@ msgstr ""
 "<title>Wynik:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -42,22 +49,22 @@ msgstr ""
 "Nie masz zezwolenia na wykonywanie dowolnych programów zewnętrznych. Jeśli "
 "chcesz mieć taką możliwość, skontaktuj się z administratorem systemu."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Ograniczenia dostępu"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Filtr tekstu"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Użycie: textfilter POLECENIE"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -66,7 +73,7 @@ msgstr ""
 "<qt><p>Użycie: <code>textfilter POLECENIE</code></p><p>Zastępuje zaznaczony "
 "tekst wyjściem podanego polecenia powłoki.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "Od&filtruj poprzez polecenie..."

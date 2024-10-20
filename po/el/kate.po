@@ -1290,15 +1290,12 @@ msgid "(never)"
 msgstr "(ποτέ)"
 
 #: lib/kateconfigdialog.cpp:389
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " ημέρα"
-msgstr[1] " ημέρες"
+msgstr[0] "%v ημέρα"
+msgstr[1] "%v ημέρες"
 
 #: lib/kateconfigdialog.cpp:419
 #, kde-format

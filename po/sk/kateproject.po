@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-18 00:42+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -675,12 +675,12 @@ msgstr "Označiť / Zrušiť označenie"
 msgid "Double click action in the git status view"
 msgstr "Akcia dvojitým kliknutím v zobrazení stavu git"
 
-#: kateprojectconfigpage.cpp:172 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:66
 #, kde-format
 msgid "Projects"
 msgstr "Projekty"
 
-#: kateprojectconfigpage.cpp:177
+#: kateprojectconfigpage.cpp:147
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"

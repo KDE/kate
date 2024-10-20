@@ -9,11 +9,13 @@
 # Ion Gaztañaga <igaztanaga@gmail.com>, 2005.
 # Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2022.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2022-08-24 22:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -34,7 +36,12 @@ msgstr ""
 "<title>Honen emaitza:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -43,22 +50,22 @@ msgstr ""
 "Ez daukazu baimenik kanpoko edozein aplikazio exekutatzeko. Hau egin ahal "
 "izateko, jar zaitez sistemako administratzailearekin harremanetan."
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "Atzitzeko murriztapenak"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, kde-format
 msgid "Text Filter"
 msgstr "Testu iragazkia"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "Erabilera: textfilter KOMANDOA"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -67,7 +74,7 @@ msgstr ""
 "<qt><p>Erabilera: <code>textfilter KOMANDOA</code></p><p>Ordeztu hautapena "
 "zehaztutako shell-eko komandoaren irteerarekin.</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr "&Iragazi komando bidez..."

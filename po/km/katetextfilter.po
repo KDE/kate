@@ -2,11 +2,13 @@
 # eng vannak <evannak@khmeros.info>, 2006.
 # Khoem Sokhem <khoemsokhem@khmeros.info>, 2006, 2008, 2010.
 # Auk Piseth <piseth_dv@khmeros.info>, 2008.
+#: plugin_katetextfilter.cpp:142
+#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"POT-Creation-Date: 2024-10-20 00:42+0000\n"
 "PO-Revision-Date: 2010-12-14 10:25+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -26,7 +28,12 @@ msgid ""
 "<nl />%2</code></pre>"
 msgstr ""
 
-#: plugin_katetextfilter.cpp:152
+#: plugin_katetextfilter.cpp:142
+#, kde-format
+msgid "Failed to start process"
+msgstr ""
+
+#: plugin_katetextfilter.cpp:156
 #, kde-format
 msgid ""
 "You are not allowed to execute arbitrary external applications. If you want "
@@ -35,23 +42,23 @@ msgstr ""
 "អ្នក​មិន​ត្រូវ​​បាន​​អនុញ្ញាត​ឲ្យ​ប្រតិបត្តិ​កម្មវិធី​ខាង​ក្រៅ​​ដោយ​បំពាន​​បាន​ទេ​ ។ ប្រសិន​បើ​អ្នក​ចង់​​ធ្វើ​ការងារ​នេះ ​​សូម​"
 "ទាក់ទង​អ្នក​គ្រប់គ្រង​ប្រព័ន្ធ​របស់​អ្នក ។​"
 
-#: plugin_katetextfilter.cpp:154
+#: plugin_katetextfilter.cpp:158
 #, kde-format
 msgid "Access Restrictions"
 msgstr "ដាក់​កម្រិត​កា​រចូល​ដំណើរការ"
 
-#: plugin_katetextfilter.cpp:172 plugin_katetextfilter.cpp:260
+#: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
 #, fuzzy, kde-format
 #| msgid "Filter"
 msgid "Text Filter"
 msgstr "តម្រង"
 
-#: plugin_katetextfilter.cpp:238
+#: plugin_katetextfilter.cpp:242
 #, kde-format
 msgid "Usage: textfilter COMMAND"
 msgstr "ការ​ប្រើប្រាស់ ៖ ពាក្យ​បញ្ជា textfilter"
 
-#: plugin_katetextfilter.cpp:249
+#: plugin_katetextfilter.cpp:253
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>textfilter COMMAND</code></p><p>Replace the selection "
@@ -60,7 +67,7 @@ msgstr ""
 "<qt><p>ការ​ប្រើប្រាស់ ៖ <code>ពាក្យ​បញ្ជា textfilter</code></p><p>​ជំនួស​ការ​ជ្រើស​ជា​មួយ​នឹង​​"
 "លទ្ធផល​នៃ​ពាក្យ​បញ្ជា​សែល​ដែល​បាន​បញ្ជាក់ ។</p></qt>"
 
-#: plugin_katetextfilter.cpp:265
+#: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
 msgstr ""

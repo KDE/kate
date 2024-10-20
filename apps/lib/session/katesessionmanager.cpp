@@ -157,7 +157,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
     if (closeAndSaveLast) {
         if (KateApp::self()->activeKateMainWindow()) {
             if (!KateApp::self()->activeKateMainWindow()->queryClose_internal()) {
-                return true;
+                return false;
             }
         }
 
@@ -176,7 +176,10 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         saveActiveSession();
 
         // really close last
-        KateApp::self()->documentManager()->closeAllDocuments();
+        if (!KateApp::self()->documentManager()->closeAllDocuments()) {
+            // can still fail for modified files, bug 466553
+            return false;
+        }
     }
 
     // set the new session

@@ -191,6 +191,7 @@ void DapBackend::start()
     connect(m_client, &dap::Client::debuggeeRunning, this, &DapBackend::onRunning);
     connect(m_client, &dap::Client::debuggeeContinued, this, &DapBackend::onContinuedEvent);
     connect(m_client, &dap::Client::debuggingProcess, this, &DapBackend::onDebuggingProcess);
+    connect(m_client, &dap::Client::debuggeeRequiresTerminal, this, &DapBackend::debuggeeRequiresTerminal);
 
     connect(m_client, &dap::Client::threads, this, &DapBackend::onThreads);
     connect(m_client, &dap::Client::stackTrace, this, &DapBackend::onStackTrace);

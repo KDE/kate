@@ -51,6 +51,7 @@ static const QString DAP_MODULES = QStringLiteral("modules");
 static const QString DAP_VARIABLES = QStringLiteral("variables");
 static const QString DAP_SCOPES = QStringLiteral("scopes");
 static const QString DAP_THREADS = QStringLiteral("threads");
+static const QString DAP_RUN_IN_TERMINAL = QStringLiteral("runInTerminal");
 
 // event values
 static const QString DAP_OUTPUT = QStringLiteral("output");
@@ -98,5 +99,6 @@ static const QString DAP_RESULT = QStringLiteral("result");
 static const QString DAP_TARGET_ID = QStringLiteral("targetId");
 static const QString DAP_END_LINE = QStringLiteral("endLine");
 static const QString DAP_END_COLUMN = QStringLiteral("endColumn");
-
+static const QString DAP_SUCCESS = QStringLiteral("success");
+static const QString DAP_REQUEST_SEQ = QStringLiteral("request_seq");
 }

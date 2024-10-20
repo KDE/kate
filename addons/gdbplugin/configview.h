@@ -77,6 +77,9 @@ public:
     void writeConfig(DebugPluginSessionConfig::ConfigData &config);
 
     const GDBTargetConf currentGDBTarget() const;
+    /**
+     * When `full` is true, a DAP launch request will be computed.
+     */
     const DAPTargetConf currentDAPTarget(bool full = false) const;
     bool takeFocusAlways() const;
     bool showIOTab() const;

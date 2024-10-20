@@ -11,6 +11,7 @@
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <functional>
 
 static std::optional<int> parseOptionalInt(const QJsonValue &value)
 {
@@ -45,15 +46,16 @@ static std::optional<T> parseOptionalObject(const QJsonValue &value)
     return T(value.toObject());
 }
 
-static std::optional<QHash<QString, QString>> parseOptionalStringMap(const QJsonValue &value)
+template<typename T>
+static std::optional<QHash<QString, T>> parseOptionalMap(const QJsonValue &value, const std::function<T(const QJsonValue &)> &convert)
 {
     if (value.isNull() || value.isUndefined() || !value.isObject()) {
         return std::nullopt;
     }
     const auto &dict = value.toObject();
-    QHash<QString, QString> map;
+    QHash<QString, T> map;
     for (auto it = dict.begin(); it != dict.end(); ++it) {
-        map[it.key()] = it.value().toString();
+        map[it.key()] = convert(it.value());
     }
     return map;
 }
@@ -68,7 +70,17 @@ static QList<T> parseObjectList(const QJsonArray &array)
     return out;
 }
 
-static std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
+template<>
+QStringList parseObjectList(const QJsonArray &array)
+{
+    QStringList out;
+    for (const auto &item : array) {
+        out << item.toString();
+    }
+    return out;
+}
+
+std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isArray()) {
         return std::nullopt;
@@ -90,12 +102,25 @@ static QJsonArray toJsonArray(const QList<T> &items)
     return out;
 }
 
+static QString value_as_string(const QJsonValue &x)
+{
+    return x.toString();
+}
+
+static std::optional<QString> value_as_optstring(const QJsonValue &x)
+{
+    if (x.isNull()) {
+        return std::nullopt;
+    }
+    return x.toString();
+}
+
 namespace dap
 {
 Message::Message(const QJsonObject &body)
     : id(body[DAP_ID].toInt())
     , format(body[QStringLiteral("format")].toString())
-    , variables(parseOptionalStringMap(body[QStringLiteral("variables")]))
+    , variables(parseOptionalMap<QString>(body[QStringLiteral("variables")], value_as_string))
     , sendTelemetry(parseOptionalBool(body[QStringLiteral("sendTelemetry")]))
     , showUser(parseOptionalBool(body[QStringLiteral("showUser")]))
     , url(parseOptionalString(body[QStringLiteral("url")]))
@@ -104,8 +129,8 @@ Message::Message(const QJsonObject &body)
 }
 
 Response::Response(const QJsonObject &msg)
-    : request_seq(msg[QStringLiteral("request_seq")].toInt(-1))
-    , success(msg[QStringLiteral("success")].toBool(false))
+    : request_seq(msg[DAP_REQUEST_SEQ].toInt(-1))
+    , success(msg[DAP_SUCCESS].toBool(false))
     , command(msg[DAP_COMMAND].toString())
     , message(msg[QStringLiteral("message")].toString())
     , body(msg[DAP_BODY])
@@ -519,6 +544,13 @@ QList<GotoTarget> GotoTarget::parseList(const QJsonArray &variables)
     return parseObjectList<GotoTarget>(variables);
 }
 
+RunInTerminalRequestArguments::RunInTerminalRequestArguments(const QJsonObject &body)
+    : title(parseOptionalString(body[QStringLiteral("title")]))
+    , cwd(body[QStringLiteral("cwd")].toString())
+    , args(parseObjectList<QString>(body[QStringLiteral("args")].toArray()))
+    , env(parseOptionalMap<std::optional<QString>>(body[QStringLiteral("env")].toObject(), value_as_optstring))
+{
+}
 }
 
 #include "moc_entities.cpp"

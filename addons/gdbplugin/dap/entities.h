@@ -493,4 +493,36 @@ struct GotoTarget {
     static QList<GotoTarget> parseList(const QJsonArray &variables);
 };
 
+/**
+ * This request is sent from the debug adapter to the client to run a command in a terminal.
+ */
+struct RunInTerminalRequestArguments {
+    /**
+     * Title of the terminal.
+     *
+     * title?: string;
+     */
+    std::optional<QString> title;
+    /**
+     * Working directory for the command. For non-empty, valid paths this
+     * typically results in execution of a change directory command.
+     *
+     * cwd: string;
+     */
+    QString cwd;
+    /**
+     * List of arguments. The first argument is the command to run.
+     *
+     * args: string[];
+     */
+    QStringList args;
+    /**
+     * Environment key-value pairs that are added to or removed from the default
+     * environment.
+     */
+    std::optional<QHash<QString, std::optional<QString>>> env;
+
+    RunInTerminalRequestArguments() = default;
+    RunInTerminalRequestArguments(const QJsonObject &body);
+};
 }

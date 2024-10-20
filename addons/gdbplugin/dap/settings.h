@@ -16,6 +16,10 @@ namespace dap
 {
 namespace settings
 {
+
+static const QString REQUEST = QStringLiteral("request");
+static const QString RUN_IN_TERMINAL = QStringLiteral("runInTerminal");
+
 struct Command {
     QString command;
     QStringList arguments;
@@ -56,6 +60,7 @@ struct ProtocolSettings {
     bool redirectStderr;
     bool redirectStdout;
     bool supportsSourceRequest;
+    bool runInTerminal;
     QJsonObject launchRequest;
     QString locale;
 

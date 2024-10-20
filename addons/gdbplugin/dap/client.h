@@ -92,6 +92,12 @@ public:
     static QString extractCommand(const QJsonObject &launchRequest);
 
     typedef std::function<void(const Response &, const QJsonValue &)> ResponseHandler;
+    /*
+     * - success
+     * - foreground process id
+     * - shell process id
+     */
+    typedef std::function<void(bool, const std::optional<int> &, const std::optional<int> &)> ProcessInTerminal;
 
 Q_SIGNALS:
     void finished();
@@ -123,6 +129,7 @@ Q_SIGNALS:
     void breakpointChanged(const BreakpointEvent &);
     void expressionEvaluated(const QString &expression, const std::optional<EvaluateInfo> &);
     void gotoTargets(const Source &source, const int line, const QList<GotoTarget> &targets);
+    void debuggeeRequiresTerminal(const RunInTerminalRequestArguments &args, const ProcessInTerminal &processCreated);
 
 private:
     void setState(const State &state);
@@ -164,6 +171,9 @@ private:
     void processResponseGotoTargets(const Response &response, const QJsonValue &);
     void processResponsePause(const Response &response, const QJsonValue &);
     void processResponseHotReload(const Response &response, const QJsonValue &);
+    void processRequestRunInTerminal(const QJsonObject &msg);
+    // reverse requests
+    void processReverseRequest(const QJsonObject &msg);
 
     /*
      * events
@@ -188,6 +198,7 @@ private:
      * requests
      */
     QJsonObject makeRequest(const QString &command, const QJsonValue &arguments, const ResponseHandler &handler);
+    QJsonObject makeResponse(const QJsonObject &response, bool success = false);
     void requestInitialize();
     void requestLaunchCommand();
 

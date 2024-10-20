@@ -96,6 +96,7 @@ void Backend::bind()
 
     connect(m_debugger, &BackendInterface::debuggeeOutput, this, &BackendInterface::debuggeeOutput);
     connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
+    connect(m_debugger, &BackendInterface::debuggeeRequiresTerminal, this, &BackendInterface::debuggeeRequiresTerminal);
 }
 
 void Backend::unbind()

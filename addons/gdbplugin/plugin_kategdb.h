@@ -12,6 +12,7 @@
 #include <QPointer>
 
 #include <KActionMenu>
+#include <KTerminalLauncherJob>
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -110,6 +111,7 @@ private Q_SLOTS:
     void enableBreakpointMarks(KTextEditor::Document *document) const;
     void prepareDocumentBreakpoints(KTextEditor::Document *document);
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
+    void requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;

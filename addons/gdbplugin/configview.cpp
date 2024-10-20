@@ -360,14 +360,15 @@ const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
                     // merge data from launch.json except for the fields that are already there
                     if (data.value(F_IS_LAUNCH_JSON).toBool()) {
                         auto &settings = dapSettings.settings;
-                        auto request = settings[QStringLiteral("request")].toObject();
+                        auto request = settings[dap::settings::REQUEST].toObject();
                         for (auto it = data.begin(); it != data.end(); ++it) {
                             if (!request.contains(it.key())) {
                                 request[it.key()] = it.value();
                             }
                         }
-                        settings[QStringLiteral("request")] = request;
+                        settings[dap::settings::REQUEST] = request;
                     }
+                    dapSettings.settings[dap::settings::RUN_IN_TERMINAL] = true;
                     cfg.dapSettings = dapSettings;
                 }
                 found = true;

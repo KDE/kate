@@ -12,6 +12,7 @@
 #include <ktexteditor/message.h>
 #include <optional>
 
+#include "dap/client.h"
 #include "dap/entities.h"
 
 class BackendInterface : public QObject
@@ -151,6 +152,7 @@ Q_SIGNALS:
     void gdbEnded();
     void sourceFileNotFound(const QString &fileName);
     void backendError(const QString &message, KTextEditor::Message::MessageType level);
+    void debuggeeRequiresTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyProcessCreation);
 
     void debuggerCapabilitiesChanged();
 };

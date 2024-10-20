@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QFontDatabase>
 #include <QKeyEvent>
+#include <QProcess>
 #include <QScrollBar>
 #include <QSplitter>
 #include <QTabWidget>
@@ -33,6 +34,7 @@
 #include <KXMLGUIFactory>
 
 #include "debugconfigpage.h"
+#include <KShell>
 #include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
@@ -246,6 +248,8 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     });
 
     connect(m_localsView, &LocalsView::localsVisible, m_backend, &BackendInterface::slotQueryLocals);
+
+    connect(m_backend, &BackendInterface::debuggeeRequiresTerminal, this, &KatePluginGDBView::requestRunInTerminal);
 
     // Actions
     m_targetSelectAction = actionCollection()->add<KSelectAction>(QStringLiteral("targets"));
@@ -1183,6 +1187,39 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
     }
 
     menu.exec(m_stackTree->viewport()->mapToGlobal(pos));
+}
+
+void KatePluginGDBView::requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation)
+{
+    if (!args.args.isEmpty()) {
+        auto *terminalJob = new KTerminalLauncherJob(KShell::joinArgs(args.args));
+        terminalJob->setWorkingDirectory(args.cwd);
+
+        /*
+         * Environment key-value pairs that are added to or removed from the default environment.
+         *
+         * env?: { [key: string]: string | null; };
+         */
+        QProcessEnvironment env(QProcessEnvironment::InheritFromParent);
+        if (args.env) {
+            for (auto item = args.env->cbegin(); item != args.env->cend(); ++item) {
+                const auto value = item.value();
+                if (value) {
+                    env.insert(item.key(), *value);
+                } else {
+                    env.remove(item.key());
+                }
+            }
+        }
+        terminalJob->setProcessEnvironment(env);
+        connect(terminalJob, &KJob::result, [notifyCreation](KJob *job) {
+            notifyCreation(job->error() == 0, std::nullopt, std::nullopt);
+        });
+        terminalJob->start();
+    } else {
+        // notify error
+        notifyCreation(false, std::nullopt, std::nullopt);
+    }
 }
 
 #include "moc_plugin_kategdb.cpp"

@@ -24,7 +24,6 @@ namespace settings
 {
 static const QString RUN = QStringLiteral("run");
 static const QString CONFIGURATIONS = QStringLiteral("configurations");
-static const QString REQUEST = QStringLiteral("request");
 static const QString COMMAND = QStringLiteral("command");
 static const QString COMMAND_ARGS = QStringLiteral("commandArgs");
 static const QString PORT = QStringLiteral("port");
@@ -297,6 +296,7 @@ ProtocolSettings::ProtocolSettings()
     , redirectStderr(false)
     , redirectStdout(false)
     , supportsSourceRequest(true)
+    , runInTerminal(false)
     , locale(QLocale::system().name())
 {
 }
@@ -308,6 +308,7 @@ ProtocolSettings::ProtocolSettings(const QJsonObject &configuration)
     , redirectStderr(configuration[REDIRECT_STDERR].toBool(false))
     , redirectStdout(configuration[REDIRECT_STDOUT].toBool(false))
     , supportsSourceRequest(configuration[QStringLiteral("supportsSourceRequest")].toBool(true))
+    , runInTerminal(configuration[RUN_IN_TERMINAL].toBool(false))
     , launchRequest(configuration[REQUEST].toObject())
     , locale(QLocale::system().name())
 {

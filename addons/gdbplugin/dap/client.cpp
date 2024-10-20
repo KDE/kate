@@ -9,7 +9,6 @@
 #include <limits>
 
 #include "dap/bus_selector.h"
-#include "dap/settings.h"
 #include "dapclient_debug.h"
 
 #include "messages.h"
@@ -104,6 +103,8 @@ void Client::processProtocolMessage(const QJsonObject &msg)
         processResponse(msg);
     } else if (DAP_EVENT == type) {
         processEvent(msg);
+    } else if (DAP_REQUEST == type) {
+        processReverseRequest(msg);
     } else {
         qCWarning(DAPCLIENT) << "unknown, empty or unexpected ProtocolMessage::" << DAP_TYPE << " (" << type << ")";
     }
@@ -145,6 +146,16 @@ void Client::processResponse(const QJsonObject &msg)
         Q_EMIT errorResponse(response.message, response.errorBody);
     }
     std::get<2>(request)(response, std::get<1>(request));
+}
+
+void Client::processReverseRequest(const QJsonObject &msg)
+{
+    if (!msg.contains(DAP_SEQ) || msg[DAP_COMMAND].toString() != DAP_RUN_IN_TERMINAL) {
+        // error response
+        write(makeResponse(msg, false));
+        return;
+    }
+    processRequestRunInTerminal(msg);
 }
 
 void Client::processResponseInitialize(const Response &response, const QJsonValue &)
@@ -415,6 +426,26 @@ void Client::processResponseGotoTargets(const Response &response, const QJsonVal
     }
 }
 
+void Client::processRequestRunInTerminal(const QJsonObject &msg)
+{
+    Q_EMIT debuggeeRequiresTerminal(RunInTerminalRequestArguments(msg[DAP_ARGUMENTS].toObject()),
+                                    [this, msg](bool success, const std::optional<int> &processId, const std::optional<int> &terminalId) {
+                                        auto response = makeResponse(msg, success);
+                                        // Response
+                                        if (success) {
+                                            QJsonObject message;
+                                            if (processId) {
+                                                message[QStringLiteral("processId")] = *processId;
+                                            }
+                                            if (terminalId) {
+                                                message[QStringLiteral("shellProcessId")] = *terminalId;
+                                            }
+                                            response[DAP_BODY] = message;
+                                        }
+                                        this->write(response);
+                                    });
+}
+
 void Client::setState(const State &state)
 {
     if (state != m_state) {
@@ -485,6 +516,15 @@ QJsonObject Client::makeRequest(const QString &command, const QJsonValue &argume
     return message;
 }
 
+QJsonObject Client::makeResponse(const QJsonObject &request, bool success)
+{
+    return QJsonObject{{DAP_SEQ, sequenceNumber()},
+                       {DAP_TYPE, DAP_RESPONSE},
+                       {DAP_REQUEST_SEQ, request[DAP_SEQ].toInt(-1)},
+                       {DAP_COMMAND, request[DAP_COMMAND]},
+                       {DAP_SUCCESS, success}};
+}
+
 void Client::requestInitialize()
 {
     const QJsonObject capabilities{// TODO clientID?: string
@@ -496,7 +536,7 @@ void Client::requestInitialize()
                                    {DAP_PATH, (m_protocol.pathFormatURI ? DAP_URI : DAP_PATH)},
                                    {DAP_SUPPORTS_VARIABLE_TYPE, true},
                                    {DAP_SUPPORTS_VARIABLE_PAGING, false},
-                                   {DAP_SUPPORTS_RUN_IN_TERMINAL_REQUEST, false},
+                                   {DAP_SUPPORTS_RUN_IN_TERMINAL_REQUEST, m_protocol.runInTerminal},
                                    {DAP_SUPPORTS_MEMORY_REFERENCES, false},
                                    {DAP_SUPPORTS_PROGRESS_REPORTING, false},
                                    {DAP_SUPPORTS_INVALIDATED_EVENT, false},

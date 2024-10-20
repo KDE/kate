@@ -153,8 +153,9 @@ QList<QUrl> KateDocManager::popRecentlyClosedUrls()
 
 bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> documents, bool closeUrl)
 {
+    // if we have nothing to close, that always succeeds
     if (documents.empty()) {
-        return false;
+        return true;
     }
 
     m_recentlyClosedUrls.clear();

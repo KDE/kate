@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-18 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -1335,7 +1335,7 @@ msgstr "Heiti"
 msgid "Description"
 msgstr "Lýsing"
 
-#: lib/katedocmanager.cpp:270
+#: lib/katedocmanager.cpp:271
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1344,32 +1344,32 @@ msgstr ""
 "<p>Skjalinu '%1' hefur verið breytt en er óvistað.</p><p>Viltu vista "
 "breytingarnar eða henda þeim?</p>"
 
-#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Loka skjali"
 
-#: lib/katedocmanager.cpp:282
+#: lib/katedocmanager.cpp:283
 #, kde-format
 msgid "Save As"
 msgstr "Vista sem"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Ný skrá opnuð þegar var verið að loka Kate. Hætt við lokun."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Hætt við lokun"
 
-#: lib/katedocmanager.cpp:374
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Starting Up"
 msgstr "Ræsist"
 
-#: lib/katedocmanager.cpp:375
+#: lib/katedocmanager.cpp:376
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Endurheimti skrár frá síðustu setu..."
@@ -2644,23 +2644,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Opna aftur"
 
-#: lib/session/katesessionmanager.cpp:347
+#: lib/session/katesessionmanager.cpp:350
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Ekki var hægt að endurnefna setuna sem \"%1\". Mistókst að skrifa í \"%2\""
 
-#: lib/session/katesessionmanager.cpp:348
+#: lib/session/katesessionmanager.cpp:351
 #, kde-format
 msgid "Session Renaming"
 msgstr "Seta endurnefnd"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:508
 #, kde-format
 msgid "Session name:"
 msgstr "Nafn á setu:"
 
-#: lib/session/katesessionmanager.cpp:507
+#: lib/session/katesessionmanager.cpp:510
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2669,17 +2669,17 @@ msgstr ""
 "Það er þegar til seta með nafninu sem þú valdir. %1\n"
 "Veldu frekar eitthvað annað nafn."
 
-#: lib/session/katesessionmanager.cpp:509
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Þú verður að gefa upp nafn til að vista setu."
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Gefa þessari setu nafn"
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:541
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Gefa setu nýtt nafn: %1"

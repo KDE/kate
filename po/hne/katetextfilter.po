@@ -4,13 +4,11 @@
 #
 # Ravishankar Shrivastava <raviratlami@yahoo.com>, 2008.
 # Ravishankar Shrivastava <raviratlami@aol.in>, 2009.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2009-03-01 10:46+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"

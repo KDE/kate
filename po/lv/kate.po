@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-18 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2024-10-07 10:56+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -1333,7 +1333,7 @@ msgstr "Nosaukums"
 msgid "Description"
 msgstr "Apraksts"
 
-#: lib/katedocmanager.cpp:270
+#: lib/katedocmanager.cpp:271
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1342,32 +1342,32 @@ msgstr ""
 "<p>Dokuments „%1“ ir mainīts, bet nav saglabāts.</p><p>Vai vēlaties saglabāt "
 "izmaiņas vai tās atmest?</p>"
 
-#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Aizvērt dokumentu"
 
-#: lib/katedocmanager.cpp:282
+#: lib/katedocmanager.cpp:283
 #, kde-format
 msgid "Save As"
 msgstr "Saglabāt kā"
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Aizverot „Kate“, ir atvērta jauna datne — aizvēršana pārtraukta."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Aizvēršana pārtraukta"
 
-#: lib/katedocmanager.cpp:374
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Starting Up"
 msgstr "Sagatavojas darbam"
 
-#: lib/katedocmanager.cpp:375
+#: lib/katedocmanager.cpp:376
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Atver pēdējās sesijas datnes..."
@@ -2635,22 +2635,22 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Atvērt no jauna"
 
-#: lib/session/katesessionmanager.cpp:347
+#: lib/session/katesessionmanager.cpp:350
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Neizdevās pārdēvēt sesiju par „%1“. Neizdevās rakstīt „%2“."
 
-#: lib/session/katesessionmanager.cpp:348
+#: lib/session/katesessionmanager.cpp:351
 #, kde-format
 msgid "Session Renaming"
 msgstr "Sesiju pārdēvēšana"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:508
 #, kde-format
 msgid "Session name:"
 msgstr "Sesijas nosaukums:"
 
-#: lib/session/katesessionmanager.cpp:507
+#: lib/session/katesessionmanager.cpp:510
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2659,17 +2659,17 @@ msgstr ""
 "Jau pastāv sesija ar jūsu izvēlēto nosaukumu: „%1“\n"
 "Izvēlieties citu."
 
-#: lib/session/katesessionmanager.cpp:509
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Lai saglabātu sesiju, jānorāda tās nosaukums."
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Norādiet nosaukumu šai sesijai"
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:541
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Norādiet jaunu nosaukumu sesijai: „%1“"

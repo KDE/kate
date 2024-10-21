@@ -3,13 +3,12 @@
 # Blagoj Nenovski <cyberbaze@gmail.com>, 2006.
 # Bozidar Proevski <bobibobi@freemail.com.mk>, 2006.
 #
-#: plugin_katetextfilter.cpp:142
-#, fuzzy, kde-format
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2006-05-03 00:39+0200\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"

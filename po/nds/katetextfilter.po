@@ -2,13 +2,11 @@
 # Heiko Evermann <heiko@evermann.de>, 2004.
 # Manfred Wiese <m.j.wiese@web.de>, 2006, 2011.
 # Sönke Dibbern <s_dibbern@web.de>, 2006, 2007, 2008, 2009, 2014.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2014-02-25 01:40+0100\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"

@@ -2,13 +2,11 @@
 #
 # Amanpreet Singh Alam <aalam@redhat.com>, 2005.
 # A S Alam <aalam@users.sf.net>, 2007.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2007-06-25 18:20+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi <punjabi-l10n@users.sf.net>\n"

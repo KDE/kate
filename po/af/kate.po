@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate stable\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-18 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2005-11-24 11:27+0200\n"
 "Last-Translator: Frikkie Thirion <frikkie.thirion@deneloptronics.co.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -1340,7 +1340,7 @@ msgstr "Naam"
 msgid "Description"
 msgstr "Skript:"
 
-#: lib/katedocmanager.cpp:270
+#: lib/katedocmanager.cpp:271
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1352,34 +1352,34 @@ msgstr ""
 "<p>Die dokument '%1' was verander, maar nog nie gestoor nie.<p>Wil jy jou "
 "veranderinge stoor of weggooi?"
 
-#: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
 #, kde-format
 msgid "Close Document"
 msgstr "Maak Dokument Toe"
 
-#: lib/katedocmanager.cpp:282
+#: lib/katedocmanager.cpp:283
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Stoor As..."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Nuwe lêer was oopgemaak terwyl Kate besig was om toe te maak. Toemaak "
 "gestaak."
 
-#: lib/katedocmanager.cpp:300 lib/katemainwindow.cpp:725
+#: lib/katedocmanager.cpp:301 lib/katemainwindow.cpp:725
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Toemaak gestaak"
 
-#: lib/katedocmanager.cpp:374
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Starting Up"
 msgstr "Besig om op te start"
 
-#: lib/katedocmanager.cpp:375
+#: lib/katedocmanager.cpp:376
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Maak die lêers van die vorige sessie oop..."
@@ -2727,40 +2727,40 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:347
+#: lib/session/katesessionmanager.cpp:350
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:348
+#: lib/session/katesessionmanager.cpp:351
 #, fuzzy, kde-format
 msgid "Session Renaming"
 msgstr "Sessie naam:"
 
-#: lib/session/katesessionmanager.cpp:505
+#: lib/session/katesessionmanager.cpp:508
 #, kde-format
 msgid "Session name:"
 msgstr "Sessie naam:"
 
-#: lib/session/katesessionmanager.cpp:507
+#: lib/session/katesessionmanager.cpp:510
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:509
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Jy moet 'n naam spesifiseer om 'n sessie te stoor"
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:539
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Spesifiseer 'n nuwe naam vir die sessie"
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:541
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

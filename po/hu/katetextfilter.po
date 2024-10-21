@@ -3,13 +3,11 @@
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011, 2015.
 # Balázs Úr <urbalazs@gmail.com>, 2013.
 # Kristof Kiszel <ulysses@fsf.hu>, 2021.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2021-12-07 13:01+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"

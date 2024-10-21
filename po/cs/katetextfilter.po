@@ -4,13 +4,11 @@
 # Vít Pelčák <vit@pelcak.org>, 2013, 2014, 2015, 2018.
 # Vit Pelcak <vit@pelcak.org>, 2021.
 #
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2021-08-19 11:50+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"

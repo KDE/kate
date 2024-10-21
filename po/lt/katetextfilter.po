@@ -3,13 +3,12 @@
 # Ričardas Čepas <rch@richard.eu.org>, 2003.
 # Donatas Glodenis <dgvirtual@akl.lt>, 2005.
 # Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>, 2011.
-#: plugin_katetextfilter.cpp:142
-#, fuzzy, kde-format
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2024-02-02 16:41+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"

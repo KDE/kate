@@ -5,13 +5,11 @@
 # Nasim Daniarzadeh <daniarzadeh@itland.ir>, 2006.
 # Mohamad Reza Mirdamadi <mohi@ubuntu.ir>, 2011, ۲۰۱۶.
 # ehsan <ehsan.abdolahy@gmail.com>, 2016.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: ۲۰۱۶-۰۸-۲۰ ۱۶:۴۹+0330\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Persian <kde-i18n-fa@kde.org>\n"

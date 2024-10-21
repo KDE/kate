@@ -7,13 +7,11 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2007, 2013, 2015.
 # pan93412 <pan93412@gmail.com>, 2018.
 # Kisaragi Hiu <mail@kisaragi-hiu.com>, 2023.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2023-12-22 03:20+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-18 00:42+0000\n"
-"PO-Revision-Date: 2024-07-26 10:33+0300\n"
+"PO-Revision-Date: 2024-10-19 07:32+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -96,10 +96,9 @@ msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"
 
 #: Formatters.cpp:218
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: יצירת קובץ זמני נכשלה"
+msgstr "PrettierFormat: הפעלת ‚node’ נכשלה: %1"
 
 #: Formatters.cpp:320
 #, kde-format

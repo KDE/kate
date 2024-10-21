@@ -9,13 +9,11 @@
 # Ion Gaztañaga <igaztanaga@gmail.com>, 2005.
 # Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2022.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2022-08-24 22:04+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"

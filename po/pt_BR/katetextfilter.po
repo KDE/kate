@@ -6,13 +6,11 @@
 # Marcus Gama <marcus.gama@gmail.com>, 2007.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2009, 2018, 2021.
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2013, 2015.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2021-03-23 11:19-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"

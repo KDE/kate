@@ -4,13 +4,11 @@
 #
 # Erik Kjær Pedersen <erik@binghamton.edu>, 2001, 2004, 2005.
 # Martin Schlander <mschlander@opensuse.org>, 2008, 2009, 2013, 2015.
-#: plugin_katetextfilter.cpp:142
-#, kde-format
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2015-12-08 18:36+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"

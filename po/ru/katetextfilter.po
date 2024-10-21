@@ -7,13 +7,12 @@
 # Alexander Lakhin <exclusion@gmail.com>, 2014.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
-#: plugin_katetextfilter.cpp:142
-#, fuzzy, kde-format
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-21 00:42+0000\n"
 "PO-Revision-Date: 2022-02-08 16:04+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"

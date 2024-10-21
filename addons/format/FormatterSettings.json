@@ -104,5 +104,22 @@
         "command": [
             "odinfmt"
         ]
+    },
+    "swiftformat": {
+        "command": [
+            "swiftformat"
+        ]
+    },
+    "erlfmt": {
+        "command": [
+            "erlfmt",
+            "-"
+        ]
+    },
+    "gdformat": {
+        "command": [
+            "gdformat",
+            "-"
+        ]
     }
 }

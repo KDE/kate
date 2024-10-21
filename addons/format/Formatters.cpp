@@ -99,6 +99,10 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         return prefix.append(QLatin1String(".html"));
     } else if (is("yaml")) {
         return prefix.append(QLatin1String(".yml"));
+    } else if (is("java")) {
+        return prefix.append(u".java");
+    } else if (is("glsl")) {
+        return prefix.append(u".glsl");
     }
     return {};
 }
@@ -298,7 +302,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
 
     // NOTE: When adding a new formatter ensure that it is documented in plugins.docbook
 
-    if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf")) {
+    if (is_or_contains("c++") || is("c") || is("objective-c") || is("objective-c++") || is("protobuf") || is("glsl") || is("java")) {
         return newStdinFmt("clang-format", {S("--assume-filename=%1").arg(filenameFromMode(doc))});
     } else if (is("dart")) {
         return newStdinFmt("dart",
@@ -366,6 +370,12 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
         return newStdinFmt("opsi-script-beautifier", {});
     } else if (is("odin")) {
         return newStdinFmt("odinfmt", {S("--stdin")});
+    } else if (is("swift")) {
+        return newStdinFmt("swiftformat", {});
+    } else if (is("erlang")) {
+        return newStdinFmt("erlfmt", {});
+    } else if (is("godot")) {
+        return newStdinFmt("gdformat", {});
     }
     return {};
 #undef S

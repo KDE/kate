@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 02:33+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-01-12 21:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -108,12 +108,12 @@ msgstr ""
 "A(z) %1 nincs telepítve. Kérjük, telepítse, hogy formázni lehessen ezt a "
 "dokumentumot."
 
-#: Formatters.cpp:214
+#: Formatters.cpp:222
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Telepítse a node-ot és a prettiert"
 
-#: Formatters.cpp:221
+#: Formatters.cpp:229
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: nem sikerült létrehozni az átmeneti fájlt"

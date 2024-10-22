@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-14 02:40+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-06-26 09:47+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2457,52 +2457,52 @@ msgstr[3] ""
 "Открыт ещё один документ. Нажмите здесь для просмотра списка всех открытых "
 "документов в режиме быстрого перехода."
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "&Close Document"
 msgstr "&Закрыть документ"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Закрыть др&угие документы"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Закрыть &все документы"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1123
 #, kde-format
 msgid "D&etach Document"
 msgstr "Открыть в новом окне"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Переместить документ в новое окно"
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1140
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Could not start program"
 msgstr "Невозможно запустить программу"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1211
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Не удалось запустить выбранную программу, возможно она не установлена."

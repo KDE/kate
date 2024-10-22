@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-14 02:40+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-08-30 18:03+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2434,52 +2434,52 @@ msgstr[1] ""
 "Une honetan, irekitako %1 dokumentu gehiago daude. Irekitako dokumentu "
 "guztiak ikusteko, aldatu «Bizkor ireki» ikuspegira hemen klik eginez."
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1100
 #, kde-format
 msgid "Close Tab"
 msgstr "Itxi fitxa"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "&Close Document"
 msgstr "It&xi dokumentua"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Itxi beste &dokumentuak"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1120
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Itxi dokumentu &denak"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1123
 #, kde-format
 msgid "D&etach Document"
 msgstr "B&ereizi dokumentua"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Dokumentua leiho berri batean irekitzen du eta uneko leihoan ixten du"
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1134
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Konparatu dokumentu aktiboarekin"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1140
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Konparatu dokumentu aktiboarekin hau erabiliz,"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Could not start program"
 msgstr "Ezin izan da programa abiarazi"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1211
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

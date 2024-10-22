@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-14 02:40+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -2483,57 +2483,57 @@ msgstr[1] ""
 "Saat ini, ada %1 lagi dokumen yang terbuka. Untuk melihat semua dokumen yang "
 "terbuka, ganti ke tampilan Buka Cepat dengan klik di sini."
 
-#: lib/kateviewspace.cpp:1099
+#: lib/kateviewspace.cpp:1100
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "Tutup"
 
-#: lib/kateviewspace.cpp:1117
+#: lib/kateviewspace.cpp:1118
 #, kde-format
 msgid "&Close Document"
 msgstr "&Tutup Dokumen"
 
-#: lib/kateviewspace.cpp:1118
+#: lib/kateviewspace.cpp:1119
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tutup &Dokumen Lainnya"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1120
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Tutup semua dokumen"
 
-#: lib/kateviewspace.cpp:1122
+#: lib/kateviewspace.cpp:1123
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Dokumen Selanjutnya"
 
-#: lib/kateviewspace.cpp:1124
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1134
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1140
 #, fuzzy, kde-format
 #| msgid "Compare with active document"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1209
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Could not start program"
 msgstr "Tidak bisa memulai program"
 
-#: lib/kateviewspace.cpp:1210
+#: lib/kateviewspace.cpp:1211
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."

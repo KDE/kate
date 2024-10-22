@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 02:33+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-05-22 04:28+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -108,12 +108,12 @@ msgstr ""
 "%1 დაყენებული არაა. დააყენეთ ის, თუ გნებავთ, ამ დოკუმენტის დაფორმატება "
 "შეგეძლოთ!"
 
-#: Formatters.cpp:214
+#: Formatters.cpp:222
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "დააყენეთ node და prettier"
 
-#: Formatters.cpp:221
+#: Formatters.cpp:229
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: დროებითი ფაილის შექმნა ჩავარდა"

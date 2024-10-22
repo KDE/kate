@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 02:33+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-07-11 17:58+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -111,12 +111,12 @@ msgstr ""
 "%1 ez dago instalatuta, mesedez, hura instalatu dokumentu horri formatua "
 "eman ahal izateko!"
 
-#: Formatters.cpp:214
+#: Formatters.cpp:222
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Mesedez, instalatu «node» eta «prettier»"
 
-#: Formatters.cpp:221
+#: Formatters.cpp:229
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Aldi baterako fitxategia sortzea huts egin du"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-24 02:33+0000\n"
+"POT-Creation-Date: 2024-10-22 02:31+0000\n"
 "PO-Revision-Date: 2024-04-21 21:40+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -105,12 +105,12 @@ msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 நிறுவப்படவில்லை, இந்த ஆவணத்தை வடிவமைக்க அதை நிறுவ‍வும்!"
 
-#: Formatters.cpp:214
+#: Formatters.cpp:222
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "node-ஐயும் prettier-ஐயும் நிறுவ‍வும்"
 
-#: Formatters.cpp:221
+#: Formatters.cpp:229
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: தற்காலிக‍க் கோப்பை உருவாக்க முடியவில்லை"

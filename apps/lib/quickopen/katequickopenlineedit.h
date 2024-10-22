@@ -37,6 +37,7 @@ protected:
 
 private:
     void setupMenu();
+    void updatePlaceholderText(KateQuickOpenModelList mode);
 
 private:
     std::unique_ptr<QMenu> menu;

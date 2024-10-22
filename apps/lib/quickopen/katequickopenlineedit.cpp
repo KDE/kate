@@ -13,20 +13,20 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 
-static const QString CONFIG_QUICKOPEN_LISTMODE{QStringLiteral("Quickopen List Mode")};
-static const QString CONFIG_QUICKOPEN_FILTERMODE{QStringLiteral("Quickopen Filter Mode")};
+static const char CONFIG_QUICKOPEN_LISTMODE[] = {"Quickopen List Mode"};
+static const char CONFIG_QUICKOPEN_FILTERMODE[] = {"Quickopen Filter Mode"};
 
 QuickOpenLineEdit::QuickOpenLineEdit(QWidget *parent)
     : QLineEdit(parent)
 {
-    setPlaceholderText(i18n("Quick Open Search (configure via context menu)"));
-
     // ensure config is read (menu only created upon demand)
     KSharedConfig::Ptr cfg = KSharedConfig::openConfig();
     KConfigGroup cg(cfg, QStringLiteral("General"));
 
     const bool cfgListMode = cg.readEntry(CONFIG_QUICKOPEN_LISTMODE, true);
     m_listMode = cfgListMode ? KateQuickOpenModelList::CurrentProject : KateQuickOpenModelList::AllProjects;
+
+    updatePlaceholderText(m_listMode);
 
     m_filterMode = (FilterMode)cg.readEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)Fuzzy);
 }
@@ -38,6 +38,17 @@ QuickOpenLineEdit::~QuickOpenLineEdit()
 
     cg.writeEntry(CONFIG_QUICKOPEN_LISTMODE, m_listMode == KateQuickOpenModelList::CurrentProject);
     cg.writeEntry(CONFIG_QUICKOPEN_FILTERMODE, (int)m_filterMode);
+}
+
+void QuickOpenLineEdit::updatePlaceholderText(KateQuickOpenModelList mode)
+{
+    if (mode == KateQuickOpenModelList::AllProjects) {
+        setPlaceholderText(
+            i18nc("The text is shown as a placeholder in an input line edit, keep it short", "Search files in all projects (right click to configure)"));
+    } else {
+        setPlaceholderText(
+            i18nc("The text is shown as a placeholder in an input line edit, keep it short", "Search files in current project (right click to configure)"));
+    }
 }
 
 void QuickOpenLineEdit::contextMenuEvent(QContextMenuEvent *event)
@@ -64,6 +75,7 @@ void QuickOpenLineEdit::setupMenu()
         if (checked) {
             m_listMode = AllProjects;
             Q_EMIT listModeChanged(KateQuickOpenModelList::AllProjects);
+            updatePlaceholderText(m_listMode);
         }
     });
     act->setChecked(!cfgListMode);
@@ -76,6 +88,7 @@ void QuickOpenLineEdit::setupMenu()
         if (checked) {
             m_listMode = CurrentProject;
             Q_EMIT listModeChanged(KateQuickOpenModelList::CurrentProject);
+            updatePlaceholderText(m_listMode);
         }
     });
     act->setChecked(cfgListMode);

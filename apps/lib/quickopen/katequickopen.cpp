@@ -491,6 +491,10 @@ void KateQuickOpen::slotReturnPressed()
 
 void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 {
+    if (m_model->listMode() == mode) {
+        return;
+    }
+
     m_model->setListMode(mode);
     // this changes things again, needs refresh, let's go all the way
     updateState();

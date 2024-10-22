@@ -7,7 +7,6 @@
 # Alexander Lakhin <exclusion@gmail.com>, 2014.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019.
 # Olesya Gerasimenko <translation-team@basealt.ru>, 2022.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

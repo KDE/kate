@@ -3,7 +3,6 @@
 # Ričardas Čepas <rch@richard.eu.org>, 2003.
 # Donatas Glodenis <dgvirtual@akl.lt>, 2005.
 # Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>, 2011.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

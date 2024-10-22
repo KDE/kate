@@ -3,7 +3,6 @@
 # Blagoj Nenovski <cyberbaze@gmail.com>, 2006.
 # Bozidar Proevski <bobibobi@freemail.com.mk>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

@@ -1,6 +1,5 @@
 # Translation of katetextfilter to Croatian
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

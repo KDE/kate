@@ -1,5 +1,4 @@
 # Darafei Praliaskouski <komzpa@licei2.com>, 2007.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"

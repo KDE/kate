@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-08 00:42+0000\n"
+"POT-Creation-Date: 2024-10-22 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shreekant Kalwar\n"
 "Language-Team: Sanskrit\n"
@@ -94,7 +94,7 @@ msgstr "solib-अन्वेषण-मार्गः"
 msgid "Custom Init Commands"
 msgstr "अनुकूलनीयः Init आदेशाः"
 
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:161
+#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -170,319 +170,315 @@ msgstr "उन्नत समयोजनानि"
 msgid "Target %1"
 msgstr "लक्ष्यं %1"
 
-#: dapbackend.cpp:175
-#, kde-format
-msgid "DAP backend failed"
+#: dapbackend.cpp:182
+#, fuzzy, kde-format
+#| msgid "DAP backend failed"
+msgid "DAP backend '%1' failed"
 msgstr "DAP पृष्ठभागः विफलः अभवत्"
 
-#: dapbackend.cpp:218
+#: dapbackend.cpp:226
 #, kde-format
 msgid "program terminated"
 msgstr "कार्यक्रमः समाप्तः"
 
-#: dapbackend.cpp:230
+#: dapbackend.cpp:238
 #, kde-format
 msgid "requesting disconnection"
 msgstr "विच्छेदस्य अनुरोधं कुर्वन्"
 
-#: dapbackend.cpp:244
+#: dapbackend.cpp:252
 #, kde-format
 msgid "requesting shutdown"
 msgstr "बन्दीकरणस्य अनुरोधं कुर्वन्"
 
-#: dapbackend.cpp:268
+#: dapbackend.cpp:276
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP पृष्ठभागः: %1"
 
-#: dapbackend.cpp:277 gdbbackend.cpp:654
+#: dapbackend.cpp:285 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "स्थगितम् (%1)।."
 
-#: dapbackend.cpp:285 gdbbackend.cpp:658
+#: dapbackend.cpp:293 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "सक्रियसूत्रम् : %1 (सर्वसूत्राणि स्थगितानि)।."
 
-#: dapbackend.cpp:287 gdbbackend.cpp:660
+#: dapbackend.cpp:295 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "सक्रियसूत्रम् : %1."
 
-#: dapbackend.cpp:292
+#: dapbackend.cpp:300
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "विच्छेदबिन्दु प्राप्तः :"
 
-#: dapbackend.cpp:318
+#: dapbackend.cpp:326
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(अन्तरम्) सूत्रः %1"
 
-#: dapbackend.cpp:320
+#: dapbackend.cpp:328
 #, kde-format
 msgid "all threads continued"
 msgstr "सर्वे सूत्राणि अग्रे गच्छन्ति स्म"
 
-#: dapbackend.cpp:327
+#: dapbackend.cpp:335
 #, kde-format
 msgid "(running)"
 msgstr "(चलति)"
 
-#: dapbackend.cpp:406
+#: dapbackend.cpp:414
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** वितारकेण् सह सम्पर्कः बन्दः ***"
 
-#: dapbackend.cpp:413
+#: dapbackend.cpp:421
 #, kde-format
 msgid "program exited with code %1"
 msgstr "संविधि %1 विध्यादेशेन निर्गतवान्"
 
-#: dapbackend.cpp:431
+#: dapbackend.cpp:439
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** उपयोक्तृक्रियाणां प्रतीक्षा ***"
 
-#: dapbackend.cpp:436
+#: dapbackend.cpp:444
 #, kde-format
 msgid "error on response: %1"
 msgstr "प्रतिक्रियायां त्रुटिः: %1"
 
-#: dapbackend.cpp:451
+#: dapbackend.cpp:459
 #, kde-format
 msgid "important"
 msgstr "महत्वपूर्णः"
 
-#: dapbackend.cpp:454
+#: dapbackend.cpp:462
 #, kde-format
 msgid "telemetry"
 msgstr "दूरमापनम्"
 
-#: dapbackend.cpp:473
+#: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "त्रुटिनिवारणप्रक्रिया [%1] %2"
 
-#: dapbackend.cpp:475
+#: dapbackend.cpp:483
 #, kde-format
 msgid "debugging process %1"
 msgstr "त्रुटिनिवारणप्रक्रिया %1"
 
-#: dapbackend.cpp:478
+#: dapbackend.cpp:486
 #, kde-format
 msgid "Start method: %1"
 msgstr "प्रारम्भविधिः %1"
 
-#: dapbackend.cpp:493
+#: dapbackend.cpp:501
 #, kde-format
 msgid "thread %1"
 msgstr "सूत्र %1"
 
-#: dapbackend.cpp:649
+#: dapbackend.cpp:657
 #, kde-format
 msgid "breakpoint set"
 msgstr "भङ्गबिन्दु निरूपय अभवत्"
 
-#: dapbackend.cpp:657
+#: dapbackend.cpp:665
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "भङ्गबिन्दुः स्वच्छः अभवत्"
 
-#: dapbackend.cpp:716
+#: dapbackend.cpp:724
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) भङ्गबिन्दुः"
 
-#: dapbackend.cpp:733
+#: dapbackend.cpp:741
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<not evaluated>"
 
-#: dapbackend.cpp:755
+#: dapbackend.cpp:763
 #, kde-format
 msgid "server capabilities"
 msgstr "वितारक् क्षमता"
 
-#: dapbackend.cpp:758
+#: dapbackend.cpp:766
 #, kde-format
 msgid "supported"
 msgstr "समर्थितम्"
 
-#: dapbackend.cpp:758
+#: dapbackend.cpp:766
 #, kde-format
 msgid "unsupported"
 msgstr "असमर्थितम्"
 
-#: dapbackend.cpp:761
+#: dapbackend.cpp:769
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "सशर्तविच्छेदबिन्दवः"
 
-#: dapbackend.cpp:762
+#: dapbackend.cpp:770
 #, kde-format
 msgid "function breakpoints"
 msgstr "नियोज्य विच्छेदबिन्दवः"
 
-#: dapbackend.cpp:763
+#: dapbackend.cpp:771
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "सशर्तविच्छेदबिन्दून् मारयन्तु"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:772
 #, kde-format
 msgid "log points"
 msgstr "वृत्तलेखस्य बिन्दु"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:772
 #, kde-format
 msgid "modules request"
 msgstr "विभागस्य अनुरोधः"
 
-#: dapbackend.cpp:765
+#: dapbackend.cpp:773
 #, kde-format
 msgid "goto targets request"
 msgstr "goto लक्ष्य अनुरोधः"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:774
 #, kde-format
 msgid "terminate request"
 msgstr "अनुरोधं समाप्तं कुर्वन्तु"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:775
 #, kde-format
 msgid "terminate debuggee"
 msgstr "त्रुटिनिवारणं समाप्तं कुर्वन्तु"
 
-#: dapbackend.cpp:995
+#: dapbackend.cpp:1003
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "वाक्यविन्यासदोषः अभिव्यक्तिः न प्राप्ता"
 
-#: dapbackend.cpp:1013 dapbackend.cpp:1048 dapbackend.cpp:1086
-#: dapbackend.cpp:1120 dapbackend.cpp:1156 dapbackend.cpp:1192
-#: dapbackend.cpp:1228 dapbackend.cpp:1328 dapbackend.cpp:1390
+#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1094
+#: dapbackend.cpp:1128 dapbackend.cpp:1164 dapbackend.cpp:1200
+#: dapbackend.cpp:1236 dapbackend.cpp:1336 dapbackend.cpp:1398
 #, kde-format
 msgid "syntax error: %1"
 msgstr "वाक्यविन्यासदोषः %1"
 
-#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1335
-#: dapbackend.cpp:1398
+#: dapbackend.cpp:1029 dapbackend.cpp:1064 dapbackend.cpp:1343
+#: dapbackend.cpp:1406
 #, kde-format
 msgid "invalid line: %1"
 msgstr "अमान्यपङ्क्तिः %1"
 
-#: dapbackend.cpp:1028 dapbackend.cpp:1033 dapbackend.cpp:1063
-#: dapbackend.cpp:1068 dapbackend.cpp:1359 dapbackend.cpp:1364
-#: dapbackend.cpp:1405 dapbackend.cpp:1410
+#: dapbackend.cpp:1036 dapbackend.cpp:1041 dapbackend.cpp:1071
+#: dapbackend.cpp:1076 dapbackend.cpp:1367 dapbackend.cpp:1372
+#: dapbackend.cpp:1413 dapbackend.cpp:1418
 #, kde-format
 msgid "file not specified: %1"
 msgstr "सञ्चिका न निर्दिष्टा: %1"
 
-#: dapbackend.cpp:1098 dapbackend.cpp:1132 dapbackend.cpp:1168
-#: dapbackend.cpp:1204 dapbackend.cpp:1240
+#: dapbackend.cpp:1106 dapbackend.cpp:1140 dapbackend.cpp:1176
+#: dapbackend.cpp:1212 dapbackend.cpp:1248
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "अमान्य सूत्र परिचयः : %1"
 
-#: dapbackend.cpp:1104 dapbackend.cpp:1138 dapbackend.cpp:1174
-#: dapbackend.cpp:1210 dapbackend.cpp:1246
+#: dapbackend.cpp:1112 dapbackend.cpp:1146 dapbackend.cpp:1182
+#: dapbackend.cpp:1218 dapbackend.cpp:1254
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "सूत्र परिचयः निर्दिष्टः नास्ति: %1"
 
-#: dapbackend.cpp:1257
+#: dapbackend.cpp:1265
 #, kde-format
 msgid "Available commands:"
 msgstr "उपलब्धाः आदेशाः :"
 
-#: dapbackend.cpp:1345
+#: dapbackend.cpp:1353
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "सशर्तविच्छेदबिन्दवः वितारकेन् समर्थिताः न भवन्ति"
 
-#: dapbackend.cpp:1353
+#: dapbackend.cpp:1361
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "सशर्तविच्छेदबिन्दून् मारयतु वितारकेन् समर्थिताः न सन्ति"
 
-#: dapbackend.cpp:1373
+#: dapbackend.cpp:1381
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "%1 रेखायाः पूर्वमेव विच्छेदबिन्दुः अस्ति"
 
-#: dapbackend.cpp:1418
+#: dapbackend.cpp:1426
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "भङ्गबिन्दुः न प्राप्तः (%1:%2)"
 
-#: dapbackend.cpp:1424
+#: dapbackend.cpp:1432
 #, kde-format
 msgid "Current thread: "
 msgstr "वर्तमान सूत्रम् : "
 
-#: dapbackend.cpp:1429 dapbackend.cpp:1436 dapbackend.cpp:1460
+#: dapbackend.cpp:1437 dapbackend.cpp:1444 dapbackend.cpp:1465
 #, kde-format
 msgid "none"
 msgstr "न कश्चित्"
 
-#: dapbackend.cpp:1432
+#: dapbackend.cpp:1440
 #, kde-format
 msgid "Current frame: "
 msgstr "वर्तमान खण्ड : "
 
-#: dapbackend.cpp:1439
+#: dapbackend.cpp:1447
 #, kde-format
 msgid "Session state: "
 msgstr "सत्रस्य स्थितिः : "
 
-#: dapbackend.cpp:1442
+#: dapbackend.cpp:1450
 #, kde-format
 msgid "initializing"
 msgstr "आरम्भं कुर्वन्"
 
-#: dapbackend.cpp:1445
+#: dapbackend.cpp:1453
 #, kde-format
 msgid "running"
 msgstr "चलति"
 
-#: dapbackend.cpp:1448
+#: dapbackend.cpp:1456
 #, kde-format
 msgid "stopped"
 msgstr "निवृत्तः"
 
-#: dapbackend.cpp:1451
+#: dapbackend.cpp:1459
 #, kde-format
 msgid "terminated"
 msgstr "समाप्तः"
 
-#: dapbackend.cpp:1454
+#: dapbackend.cpp:1462
 #, kde-format
 msgid "disconnected"
 msgstr "विच्छिन्नः"
 
-#: dapbackend.cpp:1457
-#, kde-format
-msgid "post mortem"
-msgstr "शवपरीक्षा"
-
-#: dapbackend.cpp:1513
+#: dapbackend.cpp:1518
 #, kde-format
 msgid "command not found"
 msgstr "आदेशः न लब्धः"
 
-#: dapbackend.cpp:1547
+#: dapbackend.cpp:1552
 #, kde-format
 msgid "missing thread id"
 msgstr "लुप्तसूत्र परिचयः"
 
-#: dapbackend.cpp:1648
+#: dapbackend.cpp:1652
 #, kde-format
 msgid "killing backend"
 msgstr "पृष्ठभागं मारयन्"
 
-#: dapbackend.cpp:1716
+#: dapbackend.cpp:1720
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "वर्तमान खण्ड [%3]: %1:%2 (%4)"
@@ -642,7 +638,7 @@ msgstr "केट त्रुटिनिवारण"
 msgid "Debug View"
 msgstr "त्रुटिनिवारणं दृश्यम्"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:357
 #, kde-format
 msgid "Debug"
 msgstr "त्रुटिनिवारणम्"
@@ -664,7 +660,7 @@ msgctxt "Column label"
 msgid "Frame"
 msgstr "खण्ड"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:234
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -674,84 +670,84 @@ msgstr ""
 "<title>सञ्चिकां उद्घाटयितुं न शक्तवती:</title><nl/>%1<br/>उन्नतसमयोजनानिस् -> "
 "स्रोतसञ्चिका अन्वेषणमार्गेषु अन्वेषणमार्गं योजयितुं प्रयतस्व"
 
-#: plugin_kategdb.cpp:249
+#: plugin_kategdb.cpp:247
 #, kde-format
 msgid "Targets"
 msgstr "लक्ष्यम्"
 
-#: plugin_kategdb.cpp:254
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Start Debugging"
 msgstr "त्रुटिनिवारणं आरभत"
 
-#: plugin_kategdb.cpp:264
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "मारयतु / त्रुटिनिवारणं स्थगयतु"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "अनुवर्तते"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "भङ्गबिन्दु विभाषयति / विरामं कुर्वन्तु"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:282
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "भङ्गबिन्दु"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Step In"
 msgstr "अन्तः पदानि स्थापयन्तु"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:294
 #, kde-format
 msgid "Step Over"
 msgstr "पदं अतिक्रम्य"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:301
 #, kde-format
 msgid "Step Out"
 msgstr "बहिः गच्छन्तु"
 
-#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:308 plugin_kategdb.cpp:364
 #, kde-format
 msgid "Run To Cursor"
 msgstr "कर्सरं प्रति धावन्तु"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:315
 #, kde-format
 msgid "Restart Debugging"
 msgstr "त्रुटिनिवारणं पुनः आरभत"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:340
+#: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PC स्थानान्तरयन्तु"
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:352
 #, kde-format
 msgid "Print Value"
 msgstr "मुद्रण मूल्य"
@@ -771,29 +767,29 @@ msgstr "भङ्गबिन्दुं निष्कासयन्तु"
 msgid "Execution point"
 msgstr "निष्पादन बिन्दु"
 
-#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:823
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 सूत्रम्"
 
-#: plugin_kategdb.cpp:923
+#: plugin_kategdb.cpp:919
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "त्रुटिनिवारणनिर्गमः"
 
-#: plugin_kategdb.cpp:924
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "समयोजनानि"
 
-#: plugin_kategdb.cpp:969
+#: plugin_kategdb.cpp:965
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1055
+#: plugin_kategdb.cpp:1051
 #, kde-format
 msgid "Breakpoint"
 msgstr "भङ्गबिन्दु"
@@ -809,6 +805,9 @@ msgstr "&त्रुटिनिवारणं"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "प्लगिन् त्रुटिनिवारणं कुर्वन्तु"
+
+#~ msgid "post mortem"
+#~ msgstr "शवपरीक्षा"
 
 #~ msgid "popup_breakpoint"
 #~ msgstr "popup_breakpoint इति"

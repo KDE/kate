@@ -6,7 +6,6 @@
 # Jure Repinc <jlp@holodeck1.com>, 2006, 2011.
 # Andrej Mernik <andrejm@ubuntu.si>, 2012, 2013, 2015.
 # Matjaž Jeran <matjaz.jeran@amis.net>, 2019, 2021.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

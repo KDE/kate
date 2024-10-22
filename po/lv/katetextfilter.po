@@ -4,7 +4,6 @@
 # Viesturs Zarins <viesturs.zarins@mii.lu.lv>, 2008, 2010.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2012.
 # SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

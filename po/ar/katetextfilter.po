@@ -6,7 +6,6 @@
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
 # Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

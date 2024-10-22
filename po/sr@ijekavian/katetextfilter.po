@@ -3,7 +3,6 @@
 # Bojan Bozovic <bole89@infosky.net>, 2003.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2005, 2007, 2009, 2013, 2015, 2017.
 # Slobodan Simic <slsimic@gmail.com>, 2005.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-08 00:42+0000\n"
+"POT-Creation-Date: 2024-10-22 00:42+0000\n"
 "PO-Revision-Date: 2024-10-01 17:31+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -100,7 +100,7 @@ msgstr "solib-bilatze-bideizena"
 msgid "Custom Init Commands"
 msgstr "Norberak finkatutako haste-komandoak"
 
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:161
+#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -176,319 +176,315 @@ msgstr "Ezarpen aurreratuak"
 msgid "Target %1"
 msgstr "Jomuga %1"
 
-#: dapbackend.cpp:175
-#, kde-format
-msgid "DAP backend failed"
+#: dapbackend.cpp:182
+#, fuzzy, kde-format
+#| msgid "DAP backend failed"
+msgid "DAP backend '%1' failed"
 msgstr "DAP bizkarraldekoak huts egin du"
 
-#: dapbackend.cpp:218
+#: dapbackend.cpp:226
 #, kde-format
 msgid "program terminated"
 msgstr "programa amaitu da"
 
-#: dapbackend.cpp:230
+#: dapbackend.cpp:238
 #, kde-format
 msgid "requesting disconnection"
 msgstr "deskonektatzeko eskaera"
 
-#: dapbackend.cpp:244
+#: dapbackend.cpp:252
 #, kde-format
 msgid "requesting shutdown"
 msgstr "itzaltzeko eskaera"
 
-#: dapbackend.cpp:268
+#: dapbackend.cpp:276
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP bizkarraldekoak: %1"
 
-#: dapbackend.cpp:277 gdbbackend.cpp:654
+#: dapbackend.cpp:285 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "geldituta (%1)."
 
-#: dapbackend.cpp:285 gdbbackend.cpp:658
+#: dapbackend.cpp:293 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Hari aktiboa: %1 (hari guztiak geldituta)."
 
-#: dapbackend.cpp:287 gdbbackend.cpp:660
+#: dapbackend.cpp:295 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Hari aktiboa: %1."
 
-#: dapbackend.cpp:292
+#: dapbackend.cpp:300
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "Eten-puntu(eta)ra iritsi da:"
 
-#: dapbackend.cpp:318
+#: dapbackend.cpp:326
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(jarraitu du) %1 haria"
 
-#: dapbackend.cpp:320
+#: dapbackend.cpp:328
 #, kde-format
 msgid "all threads continued"
 msgstr "hari guztiek jarraitu dute"
 
-#: dapbackend.cpp:327
+#: dapbackend.cpp:335
 #, kde-format
 msgid "(running)"
 msgstr "(exekutatzen)"
 
-#: dapbackend.cpp:406
+#: dapbackend.cpp:414
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** zerbitzariarekiko konexioa itxi da***"
 
-#: dapbackend.cpp:413
+#: dapbackend.cpp:421
 #, kde-format
 msgid "program exited with code %1"
 msgstr "programa %1 kodearekin irten da"
 
-#: dapbackend.cpp:431
+#: dapbackend.cpp:439
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** erabiltzailearen ekintzen zain ***"
 
-#: dapbackend.cpp:436
+#: dapbackend.cpp:444
 #, kde-format
 msgid "error on response: %1"
 msgstr "errorea erantzunean: %1"
 
-#: dapbackend.cpp:451
+#: dapbackend.cpp:459
 #, kde-format
 msgid "important"
 msgstr "garrantzitsua"
 
-#: dapbackend.cpp:454
+#: dapbackend.cpp:462
 #, kde-format
 msgid "telemetry"
 msgstr "telemetria"
 
-#: dapbackend.cpp:473
+#: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "arazteko prozesua [%1] %2"
 
-#: dapbackend.cpp:475
+#: dapbackend.cpp:483
 #, kde-format
 msgid "debugging process %1"
 msgstr "arazteko prozesua %1"
 
-#: dapbackend.cpp:478
+#: dapbackend.cpp:486
 #, kde-format
 msgid "Start method: %1"
 msgstr "Hasteko metodoa: %1"
 
-#: dapbackend.cpp:493
+#: dapbackend.cpp:501
 #, kde-format
 msgid "thread %1"
 msgstr "%1 haria"
 
-#: dapbackend.cpp:649
+#: dapbackend.cpp:657
 #, kde-format
 msgid "breakpoint set"
 msgstr "Eten-puntua ezarri da"
 
-#: dapbackend.cpp:657
+#: dapbackend.cpp:665
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "Eten-puntua garbitu da"
 
-#: dapbackend.cpp:716
+#: dapbackend.cpp:724
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) eten-puntua"
 
-#: dapbackend.cpp:733
+#: dapbackend.cpp:741
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<ebaluatu gabe>"
 
-#: dapbackend.cpp:755
+#: dapbackend.cpp:763
 #, kde-format
 msgid "server capabilities"
 msgstr "zerbitzariaren gaitasunak"
 
-#: dapbackend.cpp:758
+#: dapbackend.cpp:766
 #, kde-format
 msgid "supported"
 msgstr "euskarriduna"
 
-#: dapbackend.cpp:758
+#: dapbackend.cpp:766
 #, kde-format
 msgid "unsupported"
 msgstr "euskarrigabea"
 
-#: dapbackend.cpp:761
+#: dapbackend.cpp:769
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "baldintzazko eten-puntuak"
 
-#: dapbackend.cpp:762
+#: dapbackend.cpp:770
 #, kde-format
 msgid "function breakpoints"
 msgstr "funtzioko eten-puntuak"
 
-#: dapbackend.cpp:763
+#: dapbackend.cpp:771
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "iritsi baldintzazko eten-puntuak"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:772
 #, kde-format
 msgid "log points"
 msgstr "erregistro puntuak"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:772
 #, kde-format
 msgid "modules request"
 msgstr "moduluen eskaera"
 
-#: dapbackend.cpp:765
+#: dapbackend.cpp:773
 #, kde-format
 msgid "goto targets request"
 msgstr "joan jomugetara eskaera"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:774
 #, kde-format
 msgid "terminate request"
 msgstr "amaitzeko eskaera"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:775
 #, kde-format
 msgid "terminate debuggee"
 msgstr "amaitu araztea"
 
-#: dapbackend.cpp:995
+#: dapbackend.cpp:1003
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "sintaxi akatsa: adierazpena ez da aurkitu"
 
-#: dapbackend.cpp:1013 dapbackend.cpp:1048 dapbackend.cpp:1086
-#: dapbackend.cpp:1120 dapbackend.cpp:1156 dapbackend.cpp:1192
-#: dapbackend.cpp:1228 dapbackend.cpp:1328 dapbackend.cpp:1390
+#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1094
+#: dapbackend.cpp:1128 dapbackend.cpp:1164 dapbackend.cpp:1200
+#: dapbackend.cpp:1236 dapbackend.cpp:1336 dapbackend.cpp:1398
 #, kde-format
 msgid "syntax error: %1"
 msgstr "sintaxi akatsa: %1"
 
-#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1335
-#: dapbackend.cpp:1398
+#: dapbackend.cpp:1029 dapbackend.cpp:1064 dapbackend.cpp:1343
+#: dapbackend.cpp:1406
 #, kde-format
 msgid "invalid line: %1"
 msgstr "lerro baliogabea: %1"
 
-#: dapbackend.cpp:1028 dapbackend.cpp:1033 dapbackend.cpp:1063
-#: dapbackend.cpp:1068 dapbackend.cpp:1359 dapbackend.cpp:1364
-#: dapbackend.cpp:1405 dapbackend.cpp:1410
+#: dapbackend.cpp:1036 dapbackend.cpp:1041 dapbackend.cpp:1071
+#: dapbackend.cpp:1076 dapbackend.cpp:1367 dapbackend.cpp:1372
+#: dapbackend.cpp:1413 dapbackend.cpp:1418
 #, kde-format
 msgid "file not specified: %1"
 msgstr "zehaztu gabeko fitxategia: %1"
 
-#: dapbackend.cpp:1098 dapbackend.cpp:1132 dapbackend.cpp:1168
-#: dapbackend.cpp:1204 dapbackend.cpp:1240
+#: dapbackend.cpp:1106 dapbackend.cpp:1140 dapbackend.cpp:1176
+#: dapbackend.cpp:1212 dapbackend.cpp:1248
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "hari baliogabearen id: %1"
 
-#: dapbackend.cpp:1104 dapbackend.cpp:1138 dapbackend.cpp:1174
-#: dapbackend.cpp:1210 dapbackend.cpp:1246
+#: dapbackend.cpp:1112 dapbackend.cpp:1146 dapbackend.cpp:1182
+#: dapbackend.cpp:1218 dapbackend.cpp:1254
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "zehaztu gabeko hari id: %1"
 
-#: dapbackend.cpp:1257
+#: dapbackend.cpp:1265
 #, kde-format
 msgid "Available commands:"
 msgstr "Komando erabilgarriak:"
 
-#: dapbackend.cpp:1345
+#: dapbackend.cpp:1353
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "zerbitzariak ez ditu onartzen baldintzazko eten-puntuak"
 
-#: dapbackend.cpp:1353
+#: dapbackend.cpp:1361
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "zerbitzariak ez ditu onartzen iritsi baldintzazko eten-puntuak"
 
-#: dapbackend.cpp:1373
+#: dapbackend.cpp:1381
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "%1. lerroak badu jada eten-puntu bat"
 
-#: dapbackend.cpp:1418
+#: dapbackend.cpp:1426
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "eten-puntua ez da aurkitu (%1:%2)"
 
-#: dapbackend.cpp:1424
+#: dapbackend.cpp:1432
 #, kde-format
 msgid "Current thread: "
 msgstr "Uneko haria: "
 
-#: dapbackend.cpp:1429 dapbackend.cpp:1436 dapbackend.cpp:1460
+#: dapbackend.cpp:1437 dapbackend.cpp:1444 dapbackend.cpp:1465
 #, kde-format
 msgid "none"
 msgstr "bat ere ez"
 
-#: dapbackend.cpp:1432
+#: dapbackend.cpp:1440
 #, kde-format
 msgid "Current frame: "
 msgstr "Uneko markoa: "
 
-#: dapbackend.cpp:1439
+#: dapbackend.cpp:1447
 #, kde-format
 msgid "Session state: "
 msgstr "Saioaren egoera: "
 
-#: dapbackend.cpp:1442
+#: dapbackend.cpp:1450
 #, kde-format
 msgid "initializing"
 msgstr "hasieratzen"
 
-#: dapbackend.cpp:1445
+#: dapbackend.cpp:1453
 #, kde-format
 msgid "running"
 msgstr "exekutatzen"
 
-#: dapbackend.cpp:1448
+#: dapbackend.cpp:1456
 #, kde-format
 msgid "stopped"
 msgstr "geldirik"
 
-#: dapbackend.cpp:1451
+#: dapbackend.cpp:1459
 #, kde-format
 msgid "terminated"
 msgstr "amaituta"
 
-#: dapbackend.cpp:1454
+#: dapbackend.cpp:1462
 #, kde-format
 msgid "disconnected"
 msgstr "deskonektatuta"
 
-#: dapbackend.cpp:1457
-#, kde-format
-msgid "post mortem"
-msgstr "post mortem"
-
-#: dapbackend.cpp:1513
+#: dapbackend.cpp:1518
 #, kde-format
 msgid "command not found"
 msgstr "Komandoa ez da aurkitu"
 
-#: dapbackend.cpp:1547
+#: dapbackend.cpp:1552
 #, kde-format
 msgid "missing thread id"
 msgstr "hariaren IDa falta da"
 
-#: dapbackend.cpp:1648
+#: dapbackend.cpp:1652
 #, kde-format
 msgid "killing backend"
 msgstr "bizkarraldekoa akabatzen"
 
-#: dapbackend.cpp:1716
+#: dapbackend.cpp:1720
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Uneko markoa [%3]: %1:%2 (%4)"
@@ -649,7 +645,7 @@ msgstr "Kate araztu"
 msgid "Debug View"
 msgstr "Arazteko ikuspegia"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:359
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:357
 #, kde-format
 msgid "Debug"
 msgstr "Araztu"
@@ -671,7 +667,7 @@ msgctxt "Column label"
 msgid "Frame"
 msgstr "Markoa"
 
-#: plugin_kategdb.cpp:236
+#: plugin_kategdb.cpp:234
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -682,83 +678,83 @@ msgstr ""
 "bilaketa bide-izen bat gehitzen, Ezarpen Aurreratuak -> Sorburu fitxategiak "
 "bilatzeko bide-izenak"
 
-#: plugin_kategdb.cpp:249
+#: plugin_kategdb.cpp:247
 #, kde-format
 msgid "Targets"
 msgstr "Helburuak"
 
-#: plugin_kategdb.cpp:254
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Start Debugging"
 msgstr "Hasi arazten"
 
-#: plugin_kategdb.cpp:264
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Hil / Gelditu arazketa"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Continue"
 msgstr "Jarraitu"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:275
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Txandakatu Eten-puntua / Etena"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:282
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Garbitu eten-puntu guztiak"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Step In"
 msgstr "Urratsa barrura"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:294
 #, kde-format
 msgid "Step Over"
 msgstr "Urratsa gainetik"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:301
 #, kde-format
 msgid "Step Out"
 msgstr "Urratsa kanpora"
 
-#: plugin_kategdb.cpp:310 plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:308 plugin_kategdb.cpp:364
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Exekutatu kurtsorea arte"
 
-#: plugin_kategdb.cpp:317
+#: plugin_kategdb.cpp:315
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Berrabiarazi arazketa"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
 msgstr "Beroan birzamatzea"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
 msgstr "Beroan berrabiatzea"
 
-#: plugin_kategdb.cpp:340
+#: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Gordetzean gaitu Beroan birzamatzea"
 
-#: plugin_kategdb.cpp:349 plugin_kategdb.cpp:368
+#: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mugitu PK"
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:352
 #, kde-format
 msgid "Print Value"
 msgstr "Inprimatu balioa"
@@ -778,29 +774,29 @@ msgstr "Kendu eten-puntua"
 msgid "Execution point"
 msgstr "Exekuzio puntua"
 
-#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:827
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:823
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 haria"
 
-#: plugin_kategdb.cpp:923
+#: plugin_kategdb.cpp:919
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Araztailearen irteera"
 
-#: plugin_kategdb.cpp:924
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: plugin_kategdb.cpp:969
+#: plugin_kategdb.cpp:965
 #, kde-format
 msgid "IO"
 msgstr "SI"
 
-#: plugin_kategdb.cpp:1055
+#: plugin_kategdb.cpp:1051
 #, kde-format
 msgid "Breakpoint"
 msgstr "Eten-puntua"
@@ -816,6 +812,9 @@ msgstr "&Araztu"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Arazteko plugina"
+
+#~ msgid "post mortem"
+#~ msgstr "post mortem"
 
 #~ msgid "popup_breakpoint"
 #~ msgstr "popup_breakpoint"

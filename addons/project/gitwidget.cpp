@@ -26,6 +26,7 @@
 #include <KColorScheme>
 #include <QContextMenuEvent>
 #include <QDialog>
+#include <QDir>
 #include <QEvent>
 #include <QGuiApplication>
 #include <QHeaderView>
@@ -220,8 +221,8 @@ static QToolButton *toolButton(const QString &icon, const QString &tooltip, cons
     return tb;
 }
 
-GitWidget::GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView)
-    : m_project(project)
+GitWidget::GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent)
+    : QWidget(parent)
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
     , m_mainView(new QWidget(this))
@@ -305,14 +306,19 @@ void GitWidget::init()
         }
     });
 
+    auto gitStatusRefreshButton = new QToolButton(this);
+    gitStatusRefreshButton->setAutoRaise(true);
+    gitStatusRefreshButton->setDefaultAction(ac->action(QStringLiteral("vcs_status_refresh")));
+    gitStatusRefreshButton->setToolTip(i18n("Refresh git status"));
+
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
     QHBoxLayout *btnsLayout = new QHBoxLayout;
-    btnsLayout->setContentsMargins(0, 0, 0, 0);
+    btnsLayout->setContentsMargins(0, 4, 0, 4);
 
-    for (auto *btn : {m_commitBtn, m_cancelBtn, m_pushBtn, m_pullBtn, m_menuBtn}) {
+    for (auto *btn : {m_commitBtn, m_cancelBtn, m_pushBtn, m_pullBtn, gitStatusRefreshButton, m_menuBtn}) {
         btnsLayout->addWidget(btn);
     }
     btnsLayout->setStretch(0, 1);
@@ -408,12 +414,17 @@ GitWidget::~GitWidget()
 
 void GitWidget::setDotGitPath()
 {
-    const auto dotGitPath = getRepoBasePath(m_project->baseDir());
+    const QString baseDir = m_pluginView->projectBaseDir();
+    if (baseDir.isEmpty()) {
+        return;
+    }
+
+    const auto dotGitPath = getRepoBasePath(baseDir);
     if (!dotGitPath.has_value()) {
-        QTimer::singleShot(1, this, [this] {
-            sendMessage(i18n("Failed to find .git directory for '%1', things may not work correctly", m_project->baseDir()), false);
+        QTimer::singleShot(1, this, [this, baseDir] {
+            sendMessage(i18n("Failed to find .git directory for '%1', things may not work correctly", baseDir), false);
         });
-        m_topLevelGitPath = m_project->baseDir();
+        m_topLevelGitPath = baseDir;
         return;
     }
 
@@ -496,7 +507,7 @@ void GitWidget::selectActiveFileInStatus()
 void GitWidget::setActiveGitDir()
 {
     // No submodules
-    if (m_submodulePaths.size() <= 1) {
+    if (m_submodulePaths.empty()) {
         return;
     }
 
@@ -997,11 +1008,7 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
 void GitWidget::buildMenu(KActionCollection *ac)
 {
     m_gitMenu = new QMenu(this);
-    auto a = ac->addAction(QStringLiteral("vcs_status_refresh"), this, [this] {
-        if (m_project) {
-            updateStatus();
-        }
-    });
+    auto a = ac->addAction(QStringLiteral("vcs_status_refresh"), this, &GitWidget::updateStatus);
     a->setText(i18n("Refresh"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     m_gitMenu->addAction(a);
@@ -1015,7 +1022,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_checkout"), this, [this] {
-        BranchCheckoutDialog bd(m_mainWin->window(), m_project->baseDir());
+        BranchCheckoutDialog bd(m_mainWin->window(), m_activeGitDirPath);
         bd.openDialog();
     });
     a->setText(i18n("Checkout Branch"));
@@ -1035,7 +1042,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_diff"), this, [this] {
-        BranchesDialog bd(m_mainWin->window(), m_project->baseDir());
+        BranchesDialog bd(m_mainWin->window(), m_activeGitDirPath);
         using GitUtils::RefType;
         bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
         QString branch = bd.branch();
@@ -1219,15 +1226,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
                 clean(files);
             }
         } else if (untracked && act == ignoreAct) {
-            const auto files = m_project->files();
-            const auto it = std::find_if(files.cbegin(), files.cend(), [](const QString &s) {
-                if (s.contains(QStringLiteral(".gitignore"))) {
-                    return true;
-                }
-                return false;
-            });
-            if (it != files.cend()) {
-                m_mainWin->openUrl(QUrl::fromLocalFile(*it));
+            QDir dir(m_activeGitDirPath);
+            if (dir.exists(QStringLiteral(".gitignore"))) {
+                m_mainWin->openUrl(QUrl::fromLocalFile(dir.absoluteFilePath(QStringLiteral(".gitignore"))));
             }
         } else if (!untracked && act == diff) {
             showDiff(QString(), false);

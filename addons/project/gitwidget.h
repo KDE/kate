@@ -40,7 +40,7 @@ enum class StashMode : uint8_t;
 class GitWidget : public QWidget
 {
 public:
-    explicit GitWidget(KateProject *project, KTextEditor::MainWindow *mainWindow = nullptr, KateProjectPluginView *pluginView = nullptr);
+    explicit GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent);
     ~GitWidget() override;
 
     void init();
@@ -100,7 +100,6 @@ private:
     QToolButton *m_pushBtn;
     QToolButton *m_pullBtn;
     QToolButton *m_cancelBtn;
-    KateProject *m_project;
     GitWidgetTreeView *m_treeView;
     GitStatusModel *m_model;
     QLineEdit *m_filterLineEdit;

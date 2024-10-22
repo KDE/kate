@@ -356,11 +356,6 @@ private:
     QComboBox *m_projectsCombo;
 
     /**
-     * combo box with all loaded projects inside
-     */
-    QComboBox *m_projectsComboGit;
-
-    /**
      * Reload button
      */
     QToolButton *m_reloadButton;
@@ -369,11 +364,6 @@ private:
      * Closing button for current project
      */
     QToolButton *m_closeProjectButton;
-
-    /**
-     * Git status refresh button
-     */
-    QToolButton *m_gitStatusRefreshButton;
 
     /**
      * stacked widget will all currently created project views
@@ -385,10 +375,7 @@ private:
      */
     QStackedWidget *m_stackedProjectInfoViews;
 
-    /**
-     * stacked widget will all currently created git views
-     */
-    QStackedWidget *m_stackedGitViews;
+    GitWidget *m_gitWidget;
 
     /**
      * project => view

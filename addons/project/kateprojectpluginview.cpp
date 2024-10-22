@@ -98,41 +98,17 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     separator->setEnabled(false);
     m_toolView->layout()->addWidget(separator);
 
-    m_projectsComboGit = new QComboBox(m_gitToolView.get());
-    m_projectsComboGit->setFrame(false);
-    m_gitStatusRefreshButton = new QToolButton(m_gitToolView.get());
-    m_gitStatusRefreshButton->setAutoRaise(true);
-    m_gitStatusRefreshButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
-    m_gitStatusRefreshButton->setToolTip(i18n("Refresh git status"));
-    layout = new QHBoxLayout();
-    layout->setSpacing(0);
-    layout->addWidget(m_projectsComboGit);
-    layout->addWidget(m_gitStatusRefreshButton);
-    m_gitToolView->layout()->addItem(layout);
     m_gitToolView->layout()->setSpacing(0);
 
     m_stackedProjectViews = new QStackedWidget(m_toolView);
     m_stackedProjectInfoViews = new QStackedWidget(m_toolInfoView);
-    m_stackedGitViews = new QStackedWidget(m_gitToolView.get());
+    m_gitWidget = new GitWidget(m_mainWindow, this, m_gitToolView.get());
 
-    connect(m_projectsCombo,
-            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-            m_projectsComboGit,
-            static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged));
-    connect(m_projectsComboGit, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int index) {
-        m_projectsCombo->setCurrentIndex(index);
-    });
     connect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
     connect(m_reloadButton, &QToolButton::clicked, this, &KateProjectPluginView::slotProjectReload);
 
     connect(m_closeProjectButton, &QToolButton::clicked, this, &KateProjectPluginView::slotCloseProject);
     connect(m_plugin, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPluginView::slotHandleProjectClosing);
-
-    connect(m_gitStatusRefreshButton, &QToolButton::clicked, this, [this] {
-        if (auto widget = gitWidget()) {
-            widget->updateStatus();
-        }
-    });
 
     connect(&m_plugin->fileWatcher(), &QFileSystemWatcher::fileChanged, this, [this](const QString &path) {
         if (m_gitChangedWatcherFile == path) {
@@ -346,7 +322,6 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     KateProjectView *view = new KateProjectView(this, project);
     KateProjectInfoView *infoView = new KateProjectInfoView(this, project);
-    GitWidget *gitView = new GitWidget(project, m_mainWindow, this);
 
     /**
      * attach to toolboxes
@@ -354,9 +329,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      */
     m_stackedProjectViews->addWidget(view);
     m_stackedProjectInfoViews->addWidget(infoView);
-    m_stackedGitViews->addWidget(gitView);
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
-    m_projectsComboGit->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     connect(project, &KateProject::projectMapChanged, this, [this] {
         auto widget = m_stackedProjectViews->currentWidget();
         auto project = static_cast<KateProjectView *>(widget)->project();
@@ -529,12 +502,6 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // trigger change of stacked widgets
     m_stackedProjectViews->setCurrentIndex(index);
     m_stackedProjectInfoViews->setCurrentIndex(index);
-    m_stackedGitViews->setCurrentIndex(index);
-
-    {
-        const QSignalBlocker blocker(m_projectsComboGit);
-        m_projectsComboGit->setCurrentIndex(index);
-    }
 
     // update focus proxy + open currently selected document
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
@@ -545,11 +512,6 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // update focus proxy
     if (QWidget *current = m_stackedProjectInfoViews->currentWidget()) {
         m_stackedProjectInfoViews->setFocusProxy(current);
-    }
-
-    // update git focus proxy + update status
-    if (auto current = gitWidget()) {
-        m_stackedGitViews->setFocusProxy(current);
     }
 
     // Don't watch what nobody use, the old project...
@@ -734,12 +696,7 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
     m_stackedProjectInfoViews->removeWidget(stackedProjectInfoViewsWidget);
     delete stackedProjectInfoViewsWidget;
 
-    QWidget *stackedgitViewsWidget = m_stackedGitViews->widget(index);
-    m_stackedGitViews->removeWidget(stackedgitViewsWidget);
-    delete stackedgitViewsWidget;
-
     m_projectsCombo->removeItem(index);
-    m_projectsComboGit->removeItem(index);
 
     // Stop watching what no one is interesting anymore
     if (!m_gitChangedWatcherFile.isEmpty()) {
@@ -912,10 +869,8 @@ void KateProjectPluginView::updateActions()
     // currently some project active?
     const bool projectActive = !projectBaseDir().isEmpty();
     m_projectsCombo->setEnabled(projectActive);
-    m_projectsComboGit->setEnabled(projectActive);
     m_reloadButton->setEnabled(projectActive);
     m_closeProjectButton->setEnabled(projectActive);
-    m_gitStatusRefreshButton->setEnabled(projectActive);
     m_projectTodosAction->setEnabled(projectActive);
     m_projectPrevAction->setEnabled(projectActive && hasMultipleProjects);
     m_projectNextAction->setEnabled(projectActive && hasMultipleProjects);
@@ -958,8 +913,7 @@ void KateProjectPluginView::updateGitBranchButton(KateProject *project)
 
 GitWidget *KateProjectPluginView::gitWidget()
 {
-    // static_cast since GitWidget is the only type in m_stackedGitViews
-    return static_cast<GitWidget *>(m_stackedGitViews->currentWidget());
+    return m_gitWidget;
 }
 
 #include "kateprojectpluginview.moc"

@@ -9,6 +9,7 @@
 
 #include <KTextEditor/Document>
 
+#include "git/gitstatus.h"
 #include <QHash>
 #include <QPointer>
 #include <QStandardItemModel>
@@ -23,6 +24,9 @@ class KateProjectModel : public QStandardItemModel
 public:
     using QStandardItemModel::QStandardItemModel;
 
+    enum StatusType { Invalid, Added, Modified, None };
+    enum Role { StatusRole = Qt::UserRole + 2 };
+
     Qt::DropActions supportedDropActions() const override
     {
         return Qt::CopyAction;
@@ -31,10 +35,22 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+
+    void setStatus(const GitUtils::GitParsedStatus &status)
+    {
+        m_status = status;
+        m_cachedStatusByPath = {};
+    }
 
 private:
+    StatusType getStatusTypeForPath(const QString &) const;
+
     friend class KateProject;
     QPointer<class KateProject> m_project;
+    GitUtils::GitParsedStatus m_status;
+
+    mutable QHash<QString, StatusType> m_cachedStatusByPath;
 };
 
 /**

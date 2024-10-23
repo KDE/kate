@@ -63,6 +63,7 @@ struct GitParsedStatus {
     QList<StatusItem> staged;
     QList<StatusItem> changed;
     QSet<QString> nonUniqueFileNames;
+    QString gitRepo;
 };
 
 GitParsedStatus parseStatus(const QByteArray &raw, const QString &workingDir);

@@ -228,6 +228,24 @@ GitWidget::GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView 
     , m_mainView(new QWidget(this))
     , m_stackWidget(new QStackedWidget(this))
 {
+    // Init delayed because this is called from plugin view ctor and nothing is ready yet
+    QMetaObject::invokeMethod(
+        this,
+        [this] {
+            m_activeGitDirPath = m_pluginView->projectBaseDir();
+            if (!m_activeGitDirPath.endsWith(u"/")) {
+                m_activeGitDirPath.append(u"/");
+            }
+
+            connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
+            // Setup update protection
+            m_updateTrigger.setSingleShot(true);
+            m_updateTrigger.setInterval(500);
+            connect(&m_updateTrigger, &QTimer::timeout, this, &GitWidget::slotUpdateStatus);
+            slotUpdateStatus();
+        },
+        Qt::QueuedConnection);
+
     // We init delayed when the widget will be shown
 }
 
@@ -370,7 +388,6 @@ void GitWidget::init()
     a->setToolTip(commitText);
     a->setIcon(commitIcon);
 
-    connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
     connect(m_commitBtn, &QPushButton::clicked, this, &GitWidget::openCommitChangesDialog);
     // This may not needed anylonger, but we do it anyway, just to be on the save side, see e239cb310
     connect(m_commitBtn, &QPushButton::pressed, this, &GitWidget::slotUpdateStatus);
@@ -386,14 +403,10 @@ void GitWidget::init()
     this->layout()->addWidget(m_stackWidget);
     this->layout()->setContentsMargins(0, 0, 0, 0);
 
-    // Setup update protection
-    m_updateTrigger.setSingleShot(true);
-    m_updateTrigger.setInterval(500);
-    connect(&m_updateTrigger, &QTimer::timeout, this, &GitWidget::slotUpdateStatus);
-    slotUpdateStatus();
-
     connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::setActiveGitDir);
     connect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &GitWidget::selectActiveFileInStatus);
+
+    slotUpdateStatus();
 }
 
 GitWidget::~GitWidget()
@@ -567,17 +580,14 @@ QProcess *GitWidget::gitp(const QStringList &arguments)
 
 void GitWidget::updateStatus()
 {
-    if (m_initialized) {
-        m_updateTrigger.start();
+    m_updateTrigger.start();
+    if (m_refreshButton) {
+        m_refreshButton->setBusy(true);
     }
 }
 
 void GitWidget::slotUpdateStatus()
 {
-    if (!isVisible()) {
-        return; // No need to update
-    }
-
     const auto args = QStringList{QStringLiteral("status"), QStringLiteral("-z"), QStringLiteral("-u")};
 
     auto git = gitp(args);
@@ -889,6 +899,11 @@ void GitWidget::treeViewDoubleClicked(const QModelIndex &idx)
 
 void GitWidget::parseStatusReady()
 {
+    const GitUtils::GitParsedStatus status = m_gitStatusWatcher.result();
+    Q_EMIT statusUpdated(status);
+    if (!m_initialized) {
+        return;
+    }
     // Remember collapse/expand state
     // The default is expanded, so only add here which should be not expanded
     std::map<int, bool> nodeIsExpanded;
@@ -905,7 +920,7 @@ void GitWidget::parseStatusReady()
     }
 
     // Set new data
-    m_model->setStatusItems(m_gitStatusWatcher.result());
+    m_model->setStatusItems(status);
 
     // Restore collapse/expand state
     for (int i = 0; i < model->rowCount(); ++i) {

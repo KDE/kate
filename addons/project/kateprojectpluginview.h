@@ -122,6 +122,11 @@ public:
      */
     void openProject(KateProject *project);
 
+    /**
+     * Returns the current widget in m_stackedGitViews
+     */
+    GitWidget *gitWidget();
+
 public Q_SLOTS:
     /**
      * Create views for given project.
@@ -307,11 +312,6 @@ private:
      * find current selected or under cursor word
      */
     QString currentWord() const;
-
-    /**
-     * Returns the current widget in m_stackedGitViews
-     */
-    GitWidget *gitWidget();
 
 private:
     /**

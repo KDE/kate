@@ -39,6 +39,7 @@ enum class StashMode : uint8_t;
 
 class GitWidget : public QWidget
 {
+    Q_OBJECT
 public:
     explicit GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent);
     ~GitWidget() override;
@@ -95,23 +96,23 @@ private:
      */
     QTimer m_updateTrigger;
 
-    QToolButton *m_menuBtn;
-    QToolButton *m_commitBtn;
-    QToolButton *m_pushBtn;
-    QToolButton *m_pullBtn;
-    QToolButton *m_cancelBtn;
-    GitWidgetTreeView *m_treeView;
-    GitStatusModel *m_model;
-    QLineEdit *m_filterLineEdit;
+    QToolButton *m_menuBtn = nullptr;
+    QToolButton *m_commitBtn = nullptr;
+    QToolButton *m_pushBtn = nullptr;
+    QToolButton *m_pullBtn = nullptr;
+    QToolButton *m_cancelBtn = nullptr;
+    GitWidgetTreeView *m_treeView = nullptr;
+    GitStatusModel *m_model = nullptr;
+    QLineEdit *m_filterLineEdit = nullptr;
     QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
-    QMenu *m_gitMenu;
+    QMenu *m_gitMenu = nullptr;
     KateProjectPluginView *m_pluginView;
     bool m_initialized = false;
 
-    QWidget *m_mainView;
-    QStackedWidget *m_stackWidget;
+    QWidget *m_mainView = nullptr;
+    QStackedWidget *m_stackWidget = nullptr;
 
     using CancelHandle = QPointer<QProcess>;
     CancelHandle m_cancelHandle;
@@ -158,4 +159,7 @@ private:
     void handleClick(const QModelIndex &idx, ClickAction clickAction);
     void treeViewSingleClicked(const QModelIndex &idx);
     void treeViewDoubleClicked(const QModelIndex &idx);
+
+Q_SIGNALS:
+    void statusUpdated(const GitUtils::GitParsedStatus &status);
 };

@@ -122,6 +122,66 @@ Qt::ItemFlags KateProjectModel::flags(const QModelIndex &index) const
     return flags;
 }
 
+static bool matchesAny(QStringView path, const QList<GitUtils::StatusItem> &items)
+{
+    auto pathParent = [](QByteArrayView path) {
+        int lastSlash = path.lastIndexOf('/');
+        return lastSlash == -1 ? QByteArrayView() : path.mid(0, lastSlash);
+    };
+    for (const auto &m : items) {
+        if (path == QLatin1String(m.file)) {
+            return true;
+        } else {
+            QByteArrayView parent = pathParent(m.file);
+            while (!parent.isEmpty()) {
+                if (path == QLatin1String(parent.data(), parent.size())) {
+                    return true;
+                }
+                parent = pathParent(parent);
+            }
+        }
+    }
+    return false;
+}
+
+KateProjectModel::StatusType KateProjectModel::getStatusTypeForPath(const QString &path) const
+{
+    if (auto cached = m_cachedStatusByPath.value(path, Invalid); cached != Invalid) {
+        return cached;
+    } else {
+        QStringView pathView = QStringView(path).mid(m_project->baseDir().size() + 1);
+        if (matchesAny(pathView, m_status.changed)) {
+            m_cachedStatusByPath[path] = Modified;
+            return Modified;
+        } else if (matchesAny(pathView, m_status.staged)) {
+            m_cachedStatusByPath[path] = Added;
+            return Added;
+        } else {
+            m_cachedStatusByPath[path] = None;
+            return None;
+        }
+    }
+}
+
+QVariant KateProjectModel::data(const QModelIndex &index, int role) const
+{
+    if (role == Qt::ToolTipRole) {
+        auto type = getStatusTypeForPath(index.data(Qt::UserRole).toString());
+        if (type == None) {
+            return QString();
+        } else if (type == Modified) {
+            return tr("Modified");
+        } else if (type == Added) {
+            return tr("Staged");
+        }
+        return {};
+    } else if (role == StatusRole) {
+        return getStatusTypeForPath(index.data(Qt::UserRole).toString());
+    }
+
+    return QStandardItemModel::data(index, role);
+}
+
 KateProject::KateProject(QThreadPool &threadPool, KateProjectPlugin *plugin, const QString &fileName)
     : m_threadPool(threadPool)
     , m_plugin(plugin)

@@ -6,6 +6,7 @@
  */
 
 #include "kateprojectviewtree.h"
+#include "gitwidget.h"
 #include "kateproject.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectitem.h"
@@ -19,9 +20,57 @@
 
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QPainter>
+#include <QProcess>
 #include <QScrollBar>
+#include <QStyledItemDelegate>
+#include <QtConcurrent>
 
+#include <KColorScheme>
 #include <KLocalizedString>
+
+class KateProjectTreeDelegate : public QStyledItemDelegate
+{
+public:
+    KateProjectTreeDelegate(KateProjectViewTree *parent)
+        : QStyledItemDelegate(parent)
+    {
+        KColorScheme c;
+        red = c.foreground(KColorScheme::NegativeText).color();
+        green = c.foreground(KColorScheme::PositiveText).color();
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
+    {
+        QStyledItemDelegate::paint(painter, opt, index);
+
+        using StatusType = KateProjectModel::StatusType;
+        const auto statusType = index.data(Qt::UserRole + 2).value<StatusType>();
+        if (statusType != StatusType::None) {
+            painter->save();
+
+            QStyleOptionViewItem option = opt;
+            initStyleOption(&option, index);
+            QColor color = statusType == StatusType::Added ? green : red;
+            painter->setPen(color);
+            QRectF circle = option.rect;
+            circle.setLeft(option.rect.x() + (circle.width() - (8 + 4)));
+            circle.setHeight(8);
+            circle.setWidth(8);
+            painter->setRenderHint(QPainter::Antialiasing, true);
+            circle.moveTop(QStyle::alignedRect(Qt::LayoutDirectionAuto, Qt::AlignVCenter, circle.size().toSize(), option.rect).y());
+            painter->setBrush(color);
+            painter->drawEllipse(circle);
+
+            painter->restore();
+            return;
+        }
+    }
+
+private:
+    QColor red;
+    QColor green;
+};
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
@@ -37,6 +86,8 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
 
     setDragDropMode(QAbstractItemView::DropOnly);
     setDragDropOverwriteMode(false);
+
+    setItemDelegate(new KateProjectTreeDelegate(this));
 
     /**
      * attach view => project
@@ -76,6 +127,14 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     });
     connect(m_project, &KateProject::projectMapChanged, this, [this] {
         m_verticalScrollPosition = verticalScrollBar()->value();
+    });
+
+    connect(m_pluginView->gitWidget(), &GitWidget::statusUpdated, this, [this](const GitUtils::GitParsedStatus &status) {
+        if (status.gitRepo.startsWith(m_project->baseDir())) {
+            auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+            static_cast<KateProjectModel *>(proxyModel->sourceModel())->setStatus(status);
+            viewport()->update();
+        }
     });
 
     /**

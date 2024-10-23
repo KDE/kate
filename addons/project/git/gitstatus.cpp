@@ -144,7 +144,7 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QSt
     numStatForStatus(changed, workingDir, true);
     numStatForStatus(staged, workingDir, false);
 
-    return {.untracked = untracked, .unmerge = unmerge, .staged = staged, .changed = changed, .nonUniqueFileNames = nonUniqueFileNames};
+    return {.untracked = untracked, .unmerge = unmerge, .staged = staged, .changed = changed, .nonUniqueFileNames = nonUniqueFileNames, .gitRepo = workingDir};
 }
 
 QString GitUtils::statusString(GitUtils::GitStatus s)

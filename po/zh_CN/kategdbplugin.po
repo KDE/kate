@@ -171,10 +171,9 @@ msgid "Target %1"
 msgstr "目标 %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP 后端失败"
+msgstr ""
 
 #: dapbackend.cpp:226
 #, kde-format
@@ -798,6 +797,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "post mortem"
-#~ msgstr "事后剖析"

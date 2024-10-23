@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-01 23:42+0300\n"
+"PO-Revision-Date: 2024-10-22 17:14+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -176,10 +176,9 @@ msgid "Target %1"
 msgstr "Призначення %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "Помилка модуля обробки DAP"
+msgstr "Помилка модуля обробки DAP «%1»"
 
 #: dapbackend.cpp:226
 #, kde-format

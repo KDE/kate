@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-01 22:02+0300\n"
+"PO-Revision-Date: 2024-10-22 09:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -181,10 +181,9 @@ msgid "Target %1"
 msgstr "Hedef %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP arka ucu başarısız oldu"
+msgstr "DAP arka ucu “%1” başarısız oldu"
 
 #: dapbackend.cpp:226
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-01 07:27+0200\n"
+"PO-Revision-Date: 2024-10-22 06:43+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -176,10 +176,9 @@ msgid "Target %1"
 msgstr "Cilj %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "Ozadje DAP ni uspelo"
+msgstr "Zaledje DAP '%1' ni uspelo"
 
 #: dapbackend.cpp:226
 #, kde-format

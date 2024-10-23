@@ -6827,7 +6827,7 @@ VALUES ("<replaceable
 
 <listitem
 ><para
->C/C++/ObjectiveC/ObjectiveC++/Protobuf - <command
+>C/C++/ObjectiveC/ObjectiveC++/Protobuf/GLSL/Java – <command
 >clang-format</command
 > </para
 ></listitem>
@@ -6914,26 +6914,44 @@ VALUES ("<replaceable
 ></listitem>
 <listitem
 ><para
->Bash - <command
+>Bash – <command
 >shfmt</command
 ></para
 ></listitem>
 <listitem
 ><para
->Nix - <command
+>Nix – <command
 >nixfmt</command
 ></para
 ></listitem>
 <listitem
 ><para
->QML - <command
+>QML – <command
 >qmlformat</command
 ></para
 ></listitem>
 <listitem
 ><para
->HTML - <command
+>HTML – <command
 >prettier</command
+></para
+></listitem>
+<listitem
+><para
+>Swift – <command
+>swiftformat</command
+></para
+></listitem>
+<listitem
+><para
+>Erlang – <command
+>erlfmt</command
+></para
+></listitem>
+<listitem
+><para
+>Godot Script – <command
+>gdformat</command
 ></para
 ></listitem>
 

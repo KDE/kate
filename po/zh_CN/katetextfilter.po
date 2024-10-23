@@ -30,7 +30,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "启动进程失败。"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-10-01 06:07+0200\n"
+"PO-Revision-Date: 2024-10-22 04:32+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -174,10 +174,9 @@ msgid "Target %1"
 msgstr "სამიზნე %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP უკანაბოლოს შეცდომა"
+msgstr "DAP უკანაბოლო '%1' ჩავარდა"
 
 #: dapbackend.cpp:226
 #, kde-format

@@ -8,6 +8,7 @@
 #include "branchcheckoutdialog.h"
 #include "branchdeletedialog.h"
 #include "branchesdialog.h"
+#include "busy_wrapper_widget.h"
 #include "comparebranchesview.h"
 #include "diffparams.h"
 #include "gitcommitdialog.h"
@@ -328,6 +329,7 @@ void GitWidget::init()
     gitStatusRefreshButton->setAutoRaise(true);
     gitStatusRefreshButton->setDefaultAction(ac->action(QStringLiteral("vcs_status_refresh")));
     gitStatusRefreshButton->setToolTip(i18n("Refresh git status"));
+    m_refreshButton = new BusyWrapperWidget(gitStatusRefreshButton, this);
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->setSpacing(0);
@@ -336,13 +338,16 @@ void GitWidget::init()
     QHBoxLayout *btnsLayout = new QHBoxLayout;
     btnsLayout->setContentsMargins(0, 4, 0, 4);
 
-    for (auto *btn : {m_commitBtn, m_cancelBtn, m_pushBtn, m_pullBtn, gitStatusRefreshButton, m_menuBtn}) {
-        btnsLayout->addWidget(btn);
-    }
+    btnsLayout->addWidget(m_commitBtn);
+    btnsLayout->addWidget(m_cancelBtn);
+    btnsLayout->addWidget(m_pushBtn);
+    btnsLayout->addWidget(m_pullBtn);
+    btnsLayout->addWidget(m_refreshButton);
+    btnsLayout->addWidget(m_menuBtn);
     btnsLayout->setStretch(0, 1);
 
     layout->addLayout(btnsLayout);
-    layout->addWidget(m_treeView);
+    layout->addWidget(m_treeView, 1);
 
     m_filterLineEdit = new QLineEdit(this);
     m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
@@ -904,6 +909,8 @@ void GitWidget::parseStatusReady()
     if (!m_initialized) {
         return;
     }
+
+    m_refreshButton->setBusy(false);
     // Remember collapse/expand state
     // The default is expanded, so only add here which should be not expanded
     std::map<int, bool> nodeIsExpanded;

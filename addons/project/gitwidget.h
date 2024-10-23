@@ -110,6 +110,7 @@ private:
     QMenu *m_gitMenu = nullptr;
     KateProjectPluginView *m_pluginView;
     bool m_initialized = false;
+    class BusyWrapperWidget *m_refreshButton = nullptr;
 
     QWidget *m_mainView = nullptr;
     QStackedWidget *m_stackWidget = nullptr;

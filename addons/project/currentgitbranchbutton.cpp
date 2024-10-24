@@ -3,6 +3,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "currentgitbranchbutton.h"
+#include "kateprojectpluginview.h"
 
 #include "gitprocess.h"
 #include "hostprocess.h"
@@ -47,8 +48,9 @@ static CurrentGitBranchButton::BranchResult getCurrentBranchName(const QString &
     return {};
 }
 
-CurrentGitBranchButton::CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, QWidget *parent)
+CurrentGitBranchButton::CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent)
     : QToolButton(parent)
+    , m_pluginView(pluginView)
 {
     setVisible(false);
     setAutoRaise(true);
@@ -58,14 +60,7 @@ CurrentGitBranchButton::CurrentGitBranchButton(KTextEditor::MainWindow *mainWind
     KAcceleratorManager::setNoAccel(this);
 
     auto mw = QPointer<KTextEditor::MainWindow>(mainWindow);
-    connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *v) {
-        if (!v || v->document()->url().toLocalFile().isEmpty()) {
-            hideButton();
-            m_viewChangedTimer.stop();
-            return;
-        }
-        m_viewChangedTimer.start();
-    });
+    connect(mainWindow, &KTextEditor::MainWindow::viewChanged, &m_viewChangedTimer, qOverload<>(&QTimer::start));
     m_viewChangedTimer.callOnTimeout(this, [this, mw] {
         if (mw) {
             onViewChanged(mw->activeView());
@@ -99,15 +94,18 @@ void CurrentGitBranchButton::refresh()
 
 void CurrentGitBranchButton::onViewChanged(KTextEditor::View *v)
 {
+    QString workingDir;
     if (!v || v->document()->url().toLocalFile().isEmpty()) {
-        hideButton();
-        return;
+        workingDir = m_pluginView->projectBaseDir();
+    } else {
+        const auto fi = QFileInfo(v->document()->url().toLocalFile());
+        workingDir = fi.absolutePath();
     }
 
-    const auto fi = QFileInfo(v->document()->url().toLocalFile());
-    const auto workingDir = fi.absolutePath();
-    auto future = QtConcurrent::run(&getCurrentBranchName, workingDir);
-    m_watcher.setFuture(future);
+    if (!workingDir.isEmpty()) {
+        auto future = QtConcurrent::run(&getCurrentBranchName, workingDir);
+        m_watcher.setFuture(future);
+    }
 }
 
 void CurrentGitBranchButton::onBranchFetched()

@@ -14,6 +14,7 @@ namespace KTextEditor
 class MainWindow;
 class View;
 }
+class KateProjectPluginView;
 
 /**
  * @brief a pushbutton that shows the active git branch of the "active view"
@@ -21,7 +22,7 @@ class View;
 class CurrentGitBranchButton : public QToolButton
 {
 public:
-    explicit CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
+    explicit CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent = nullptr);
     ~CurrentGitBranchButton() override;
 
     enum BranchType { Branch = 0, Commit, Tag };
@@ -40,4 +41,5 @@ private:
     QUrl m_activeUrl;
     QFutureWatcher<BranchResult> m_watcher;
     QTimer m_viewChangedTimer;
+    KateProjectPluginView *m_pluginView;
 };

@@ -78,7 +78,11 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     }
 
     disconnect(m_verticalScrollConnection);
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+    m_verticalScrollConnection = connect(view, &KTextEditor::View::displayRangeChanged, this, &SemanticHighlighter::highlightVisibleRange);
+#else
     m_verticalScrollConnection = connect(view, SIGNAL(displayRangeChanged(KTextEditor::ViewPrivate *)), this, SLOT(highlightVisibleRange()));
+#endif
 
     //  m_semHighlightingManager.setTypes(server->capabilities().semanticTokenProvider.types);
 

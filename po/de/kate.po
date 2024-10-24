@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2023-06-25 16:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2550,27 +2550,36 @@ msgstr ""
 "Das ausgewählte Programm kann nicht gestartet werden. Vielleicht ist es "
 "nicht installiert."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Schnellöffner-Suche (Einrichten im Kontextmenü)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Alle Projekte"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Aktuelles Projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Ungenaue Filterung"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Platzhalter-Filterung"
@@ -3004,6 +3013,9 @@ msgstr "Sitzungen verwalten ..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Willkommen-Seite in neuen Fenstern anzeigen"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Schnellöffner-Suche (Einrichten im Kontextmenü)"
 
 #~ msgid "Show for new window"
 #~ msgstr "In neuen Fenstern anzeigen"

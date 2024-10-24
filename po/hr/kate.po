@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate 0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2010-03-15 15:31+0100\n"
 "Last-Translator: Andrej Dundovic <adundovi@gmail.com>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -2589,29 +2589,38 @@ msgstr ""
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, fuzzy, kde-format
 #| msgid "Projects"
 msgid "All Projects"
 msgstr "Projekti"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, fuzzy, kde-format
 #| msgid "Current Document Folder"
 msgid "Current Project"
 msgstr "Trenutna mapa s dokumentima"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr ""

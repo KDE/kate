@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -2568,27 +2568,36 @@ msgstr "Tidak bisa memulai program"
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Pencarian Buka Cepat (konfigurasi via menu konteks)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Semua Projek"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Projek Saat Ini"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr ""
@@ -3048,6 +3057,9 @@ msgstr "&Mengelola Sesi..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Ciptakan sebuah dokumen baru"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Pencarian Buka Cepat (konfigurasi via menu konteks)"
 
 #, fuzzy
 #~| msgid "Create a new document"

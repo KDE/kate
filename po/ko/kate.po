@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-08-20 23:18+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2461,27 +2461,36 @@ msgstr "프로그램을 시작할 수 없음"
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "빠른 열기 검색(상황에 맞는 메뉴로 설정 가능)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "모든 프로젝트"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "현재 프로젝트"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "퍼지 필터링"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "와일드카드 필터링"
@@ -2904,6 +2913,9 @@ msgstr "세션 관리..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "새 창에 환영 페이지 표시"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "빠른 열기 검색(상황에 맞는 메뉴로 설정 가능)"
 
 #~ msgid "Show for new window"
 #~ msgstr "새 창에 표시"

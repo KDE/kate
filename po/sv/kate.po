@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-10-12 19:10+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -2488,27 +2488,36 @@ msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "Det valda programmet kunde inte startas. Kanske är det inte installerat."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Snabböppna sökning (ställ in via sammanhangsberoende meny)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Alla projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Aktuellt projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Inexakt filtrering"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtrering med jokertecken"
@@ -2936,6 +2945,9 @@ msgstr "Hantera sessioner..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Visa välkomstsida för nya fönster"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Snabböppna sökning (ställ in via sammanhangsberoende meny)"
 
 #~ msgid "Show for new window"
 #~ msgstr "Visa för nya fönster"

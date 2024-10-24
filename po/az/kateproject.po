@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -90,7 +90,7 @@ msgstr[1] "Seçilmiş şöbələri silmək istədiyinizə əminsiniz?"
 msgid "Select Branch..."
 msgstr "Şöbəni seçin..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:537 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:125 gitwidget.cpp:548 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -123,8 +123,8 @@ msgstr "Arxiv şöbəsi: %1"
 msgid "Commit Changes"
 msgstr "Dəyişiklik etmək"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
-#: gitwidget.cpp:1056
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
+#: gitwidget.cpp:1063
 #, kde-format
 msgid "Commit"
 msgstr "Göndərmək"
@@ -154,7 +154,7 @@ msgstr "Çıxarkən imzalamaq"
 msgid "Amend"
 msgstr "Düzəltmək"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1013
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1020
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Sonuncu göndərişi düzəltmək"
@@ -196,309 +196,314 @@ msgstr "Ziddiyyət"
 msgid "Modified"
 msgstr "Dəyişdirildi"
 
-#: gitwidget.cpp:269
+#: gitwidget.cpp:270
 #, kde-format
 msgid "Git Push"
 msgstr "Git-ə yerləşdirmək"
 
-#: gitwidget.cpp:282
+#: gitwidget.cpp:283
 #, kde-format
 msgid "Git Pull"
 msgstr "Git-dən almaq"
 
-#: gitwidget.cpp:295
+#: gitwidget.cpp:296
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Əməliyyatdan imtina"
 
-#: gitwidget.cpp:303
+#: gitwidget.cpp:304
 #, kde-format
 msgid " canceled."
 msgstr " imtina edildi."
 
-#: gitwidget.cpp:324 kateprojectview.cpp:59
+#: gitwidget.cpp:312
+#, kde-format
+msgid "Refresh git status"
+msgstr "Git statusunu təzələyin"
+
+#: gitwidget.cpp:330 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "Süzgəc..."
 
-#: gitwidget.cpp:414
+#: gitwidget.cpp:425
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr "%1 üçün .git qovluğu tapıla bilmədi, bəzi şeylər düzgün işləməyə bilər"
 
-#: gitwidget.cpp:621
+#: gitwidget.cpp:632
 #, kde-format
 msgid " error: %1"
 msgstr " xəta: %1"
 
-#: gitwidget.cpp:627
+#: gitwidget.cpp:638
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" uğurla icra olundu: %2"
 
-#: gitwidget.cpp:647
+#: gitwidget.cpp:658
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Faylı qeyd etmək alınmadı, Xəta:"
 
-#: gitwidget.cpp:660
+#: gitwidget.cpp:671
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Fayl qeydə alına bilmədi. Xəta:"
 
-#: gitwidget.cpp:671
+#: gitwidget.cpp:682
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Dəyişikliklər ləğv etmək alınmadı. Xəta:"
 
-#: gitwidget.cpp:682
+#: gitwidget.cpp:693
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Silmək alınmadı. Xəta:"
 
-#: gitwidget.cpp:698
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "HEAD-də fayl açıla bilmədi. %1"
 
-#: gitwidget.cpp:730
+#: gitwidget.cpp:741
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Fayl fərqini almaq mümkün olmadı. %1"
 
-#: gitwidget.cpp:797
+#: gitwidget.cpp:808
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Dəyişiklik uğurla qeyd edildi: %1"
 
-#: gitwidget.cpp:801
+#: gitwidget.cpp:812
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Dəyişiklik uğurla qeyd edildi."
 
-#: gitwidget.cpp:811
+#: gitwidget.cpp:822
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Göndərmək üçün heç nə yoxdur. Öncə dəyişikliklərinizi qeyd edin."
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:835
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Göndəriş ismarıcı boş ola bilməz."
 
-#: gitwidget.cpp:945
+#: gitwidget.cpp:956
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "%1...%2 üçün fərq yoxdur"
 
-#: gitwidget.cpp:951
+#: gitwidget.cpp:962
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "%1 müqayisə edilə bilmədi...%2"
 
-#: gitwidget.cpp:966
+#: gitwidget.cpp:977
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "%1 fərqləri yoxlanılarkən numsat alınmadı...%2"
 
-#: gitwidget.cpp:1005
+#: gitwidget.cpp:1012
 #, kde-format
 msgid "Refresh"
 msgstr "Təzələmək"
 
-#: gitwidget.cpp:1021
+#: gitwidget.cpp:1028
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Şöbədən məlumatları almaq"
 
-#: gitwidget.cpp:1033
+#: gitwidget.cpp:1040
 #, kde-format
 msgid "Delete Branch"
 msgstr "Şöbəni silin"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1052
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Şöbəni bununla müqayisə edin ..."
 
-#: gitwidget.cpp:1050
+#: gitwidget.cpp:1057
 #, kde-format
 msgid "Show Commit"
 msgstr "Göndərişi göstərmək"
 
-#: gitwidget.cpp:1068
+#: gitwidget.cpp:1075
 #, fuzzy, kde-format
 #| msgid "Last Commit"
 msgid "Show Last Commit"
 msgstr "Sonuncu göndəriş"
 
-#: gitwidget.cpp:1086
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Open Commit..."
 msgstr "Göndərişi açın..."
 
-#: gitwidget.cpp:1089 gitwidget.cpp:1128
+#: gitwidget.cpp:1096 gitwidget.cpp:1135
 #, kde-format
 msgid "Stash"
 msgstr "Toplamaq"
 
-#: gitwidget.cpp:1099
+#: gitwidget.cpp:1106
 #, kde-format
 msgid "Diff - stash"
 msgstr "Fərq - ehtiyyat"
 
-#: gitwidget.cpp:1132
+#: gitwidget.cpp:1139
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Son toplananları çıxarın"
 
-#: gitwidget.cpp:1136
+#: gitwidget.cpp:1143
 #, kde-format
 msgid "Pop Stash"
 msgstr "Toplananları çıxarın"
 
-#: gitwidget.cpp:1140
+#: gitwidget.cpp:1147
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Sonuncu toplananları tətbiq edin"
 
-#: gitwidget.cpp:1142
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Toplanan (Qeyd tutun)"
 
-#: gitwidget.cpp:1146
+#: gitwidget.cpp:1153
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Toplanan (yeniləri daxil olmaqla)"
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1157
 #, kde-format
 msgid "Apply Stash"
 msgstr "Toplananı tətbiq edin"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Drop Stash"
 msgstr "Toplananı atın"
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1159
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Toplananın tərkibini göstərmək"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1196
 #, kde-format
 msgid "Stage All"
 msgstr "Hamısını qeyd edin"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Remove All"
 msgstr "Hamısını silin"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Discard All"
 msgstr "Hamısını ləğv edin"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore açın"
 
-#: gitwidget.cpp:1195 gitwidget.cpp:1242 gitwidget.cpp:1290
+#: gitwidget.cpp:1202 gitwidget.cpp:1243 gitwidget.cpp:1291
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Fərqləri göstərmək"
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1219
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Bu faylları silmək istədiyinizə əminsiniz?"
 
-#: gitwidget.cpp:1217
+#: gitwidget.cpp:1224
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Bütün dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Open File"
 msgstr "Fayl açın"
 
-#: gitwidget.cpp:1243
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Xarici Git fərlənməsi alətində göstərmək"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1245
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEAD-da açın"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Unstage File"
 msgstr "Faylın aralıq mərhələsini ləğv edin"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Stage File"
 msgstr "Faylın saxlanması üçün aralıq mərhələ təyin edin"
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Remove"
 msgstr "Silin"
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Discard"
 msgstr "Ləğv edin"
 
-#: gitwidget.cpp:1263
+#: gitwidget.cpp:1264
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Bu fayldakı dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1273
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Bu faylı silmək istədiyinizə əminsiniz?"
 
-#: gitwidget.cpp:1289
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Unstage All"
 msgstr "Hamısını qeyddən çıxarın"
 
-#: gitwidget.cpp:1356
+#: gitwidget.cpp:1357
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Seçilmiş faylları qeyddən çıxarın"
 
-#: gitwidget.cpp:1356
+#: gitwidget.cpp:1357
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Seçilmiş faylları qeydə alın"
 
-#: gitwidget.cpp:1357
+#: gitwidget.cpp:1358
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Seçilmiş faylları ləğv edin"
 
-#: gitwidget.cpp:1361
+#: gitwidget.cpp:1362
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Seçilmiş faylları silin"
 
-#: gitwidget.cpp:1374
+#: gitwidget.cpp:1375
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 
-#: gitwidget.cpp:1379
+#: gitwidget.cpp:1380
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Qeyddən çıxarılmış dəyişiklikləri silmək istədiyinizə əminsiniz?"
@@ -509,7 +514,7 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
 #: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:159
 #: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
@@ -860,79 +865,74 @@ msgstr "Layihəni yenidən yükləyin"
 msgid "Close project"
 msgstr "Layihəni bağlayın"
 
-#: kateprojectpluginview.cpp:106
-#, kde-format
-msgid "Refresh git status"
-msgstr "Git statusunu təzələyin"
-
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:162
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Qovluğu açın..."
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Project TODOs"
 msgstr "TODO'lar layihəsi"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Əvvəlki layihəni aktiv edin"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Sonrakı layihəni aktv edin"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Lookup"
 msgstr "Araşdırmaq"
 
-#: kateprojectpluginview.cpp:214
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Close Project"
 msgstr "Layihəni bağlayın"
 
-#: kateprojectpluginview.cpp:219
+#: kateprojectpluginview.cpp:195
 #, kde-format
 msgid "Close All Projects"
 msgstr "Bütün layihələri bağlayın"
 
-#: kateprojectpluginview.cpp:224
+#: kateprojectpluginview.cpp:200
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Sahibsiz layihələri bağlayın"
 
-#: kateprojectpluginview.cpp:229
+#: kateprojectpluginview.cpp:205
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Layihəni yenidən yükləyin"
 
-#: kateprojectpluginview.cpp:240
+#: kateprojectpluginview.cpp:216
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Git şöbəsindən məlumatları almaq"
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:767
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Araşdırmaq: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:768
 #, kde-format
 msgid "Goto: %1"
 msgstr "GOTO: %1"
 
-#: kateprojectpluginview.cpp:321
+#: kateprojectpluginview.cpp:297
 #, kde-format
 msgid "Projects Index"
 msgstr "Layihələrin indeksi"
 
-#: kateprojectpluginview.cpp:855
+#: kateprojectpluginview.cpp:812
 #, kde-format
 msgid "Choose a directory"
 msgstr "Qovluq seçin"

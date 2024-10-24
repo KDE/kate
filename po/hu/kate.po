@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2528,27 +2528,36 @@ msgstr "Nem sikerült elindítani a programot"
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "A kiválasztott program indítása sikertelen. Talán nincs is telepítve."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Keresés a gyors megnyitásban (beállítás a helyi menüben)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Minden projektben"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Az aktuális projektben"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Fuzzy szűrés"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Helyettesítőkarakter-szűrés"
@@ -2981,6 +2990,9 @@ msgstr "Munkamenetkezelő…"
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Kezdőlap megjelenítése új ablakokban"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Keresés a gyors megnyitásban (beállítás a helyi menüben)"
 
 #~ msgid "Show for new window"
 #~ msgstr "Megjelenítés új ablakhoz"

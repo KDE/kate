@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2023-07-02 02:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -2558,27 +2558,36 @@ msgstr ""
 "Não foi possível iniciar o programa seleccionado. Talvez não esteja "
 "instalado."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Pesquisa da Abertura Rápida (configurar pelo menu de contexto)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Todos os Projectos"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Projecto Actual"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Filtragem Difusa"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtragem com Caracteres Especiais"
@@ -3011,6 +3020,9 @@ msgstr "Gerir as Sessões..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Mostrar as boas-vindas nas janelas novas"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Pesquisa da Abertura Rápida (configurar pelo menu de contexto)"
 
 #~ msgid "Show for new window"
 #~ msgstr "Mostrar para uma nova janela"

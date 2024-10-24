@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2022-12-08 23:08+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[1] "Наистина ли искате да изтриете избран
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:125 gitwidget.cpp:537 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:125 gitwidget.cpp:548 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "Commit Changes"
 msgstr ""
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:261
-#: gitwidget.cpp:1056
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:262
+#: gitwidget.cpp:1063
 #, kde-format
 msgid "Commit"
 msgstr ""
@@ -155,7 +155,7 @@ msgstr ""
 msgid "Amend"
 msgstr ""
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1013
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1020
 #, kde-format
 msgid "Amend Last Commit"
 msgstr ""
@@ -197,308 +197,313 @@ msgstr ""
 msgid "Modified"
 msgstr "Променян на"
 
-#: gitwidget.cpp:269
+#: gitwidget.cpp:270
 #, kde-format
 msgid "Git Push"
 msgstr ""
 
-#: gitwidget.cpp:282
+#: gitwidget.cpp:283
 #, kde-format
 msgid "Git Pull"
 msgstr ""
 
-#: gitwidget.cpp:295
+#: gitwidget.cpp:296
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Отменяне на операцията"
 
-#: gitwidget.cpp:303
+#: gitwidget.cpp:304
 #, kde-format
 msgid " canceled."
 msgstr " отменено."
 
-#: gitwidget.cpp:324 kateprojectview.cpp:59
+#: gitwidget.cpp:312
+#, kde-format
+msgid "Refresh git status"
+msgstr ""
+
+#: gitwidget.cpp:330 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter..."
 msgstr "Филтър..."
 
-#: gitwidget.cpp:414
+#: gitwidget.cpp:425
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 
-#: gitwidget.cpp:621
+#: gitwidget.cpp:632
 #, kde-format
 msgid " error: %1"
 msgstr " грешка: %1"
 
-#: gitwidget.cpp:627
+#: gitwidget.cpp:638
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" беше успешно изпълнен: %2"
 
-#: gitwidget.cpp:647
+#: gitwidget.cpp:658
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr ""
 
-#: gitwidget.cpp:660
+#: gitwidget.cpp:671
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr ""
 
-#: gitwidget.cpp:671
+#: gitwidget.cpp:682
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr ""
 
-#: gitwidget.cpp:682
+#: gitwidget.cpp:693
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr ""
 
-#: gitwidget.cpp:698
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr ""
 
-#: gitwidget.cpp:730
+#: gitwidget.cpp:741
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr ""
 
-#: gitwidget.cpp:797
+#: gitwidget.cpp:808
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr ""
 
-#: gitwidget.cpp:801
+#: gitwidget.cpp:812
 #, kde-format
 msgid "Changes committed successfully."
 msgstr ""
 
-#: gitwidget.cpp:811
+#: gitwidget.cpp:822
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
 
-#: gitwidget.cpp:824
+#: gitwidget.cpp:835
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr ""
 
-#: gitwidget.cpp:945
+#: gitwidget.cpp:956
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr ""
 
-#: gitwidget.cpp:951
+#: gitwidget.cpp:962
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr ""
 
-#: gitwidget.cpp:966
+#: gitwidget.cpp:977
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr ""
 
-#: gitwidget.cpp:1005
+#: gitwidget.cpp:1012
 #, kde-format
 msgid "Refresh"
 msgstr "Обновяване"
 
-#: gitwidget.cpp:1021
+#: gitwidget.cpp:1028
 #, kde-format
 msgid "Checkout Branch"
 msgstr ""
 
-#: gitwidget.cpp:1033
+#: gitwidget.cpp:1040
 #, kde-format
 msgid "Delete Branch"
 msgstr "Изтриване на бранш"
 
-#: gitwidget.cpp:1045
+#: gitwidget.cpp:1052
 #, kde-format
 msgid "Compare Branch with..."
 msgstr ""
 
-#: gitwidget.cpp:1050
+#: gitwidget.cpp:1057
 #, kde-format
 msgid "Show Commit"
 msgstr ""
 
-#: gitwidget.cpp:1068
+#: gitwidget.cpp:1075
 #, kde-format
 msgid "Show Last Commit"
 msgstr ""
 
-#: gitwidget.cpp:1086
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Open Commit..."
 msgstr ""
 
-#: gitwidget.cpp:1089 gitwidget.cpp:1128
+#: gitwidget.cpp:1096 gitwidget.cpp:1135
 #, kde-format
 msgid "Stash"
 msgstr ""
 
-#: gitwidget.cpp:1099
+#: gitwidget.cpp:1106
 #, kde-format
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1132
+#: gitwidget.cpp:1139
 #, kde-format
 msgid "Pop Last Stash"
 msgstr ""
 
-#: gitwidget.cpp:1136
+#: gitwidget.cpp:1143
 #, kde-format
 msgid "Pop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1140
+#: gitwidget.cpp:1147
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Прилагане на последния сташ"
 
-#: gitwidget.cpp:1142
+#: gitwidget.cpp:1149
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr ""
 
-#: gitwidget.cpp:1146
+#: gitwidget.cpp:1153
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr ""
 
-#: gitwidget.cpp:1150
+#: gitwidget.cpp:1157
 #, kde-format
 msgid "Apply Stash"
 msgstr ""
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Drop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1152
+#: gitwidget.cpp:1159
 #, kde-format
 msgid "Show Stash Content"
 msgstr ""
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1196
 #, kde-format
 msgid "Stage All"
 msgstr ""
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Remove All"
 msgstr "Премахване на всички"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Discard All"
 msgstr "Отхвърляне на всичко"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Open .gitignore"
 msgstr ""
 
-#: gitwidget.cpp:1195 gitwidget.cpp:1242 gitwidget.cpp:1290
+#: gitwidget.cpp:1202 gitwidget.cpp:1243 gitwidget.cpp:1291
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr ""
 
-#: gitwidget.cpp:1212
+#: gitwidget.cpp:1219
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Сигурни ли сте, че желаете да премахнете тези файлове?"
 
-#: gitwidget.cpp:1217
+#: gitwidget.cpp:1224
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Сигурни ли сте, че желаете да отхвърлите всички промени?"
 
-#: gitwidget.cpp:1241
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Open File"
 msgstr "Отваряне на файл"
 
-#: gitwidget.cpp:1243
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr ""
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1245
 #, kde-format
 msgid "Open at HEAD"
 msgstr ""
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Unstage File"
 msgstr ""
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Stage File"
 msgstr ""
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Remove"
 msgstr "Премахване"
 
-#: gitwidget.cpp:1246
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Discard"
 msgstr "Отхвърляне"
 
-#: gitwidget.cpp:1263
+#: gitwidget.cpp:1264
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Сигурни ли сте, че желаете да отхвърлите всички промени в този файл?"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1273
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Сигурни ли сте, че желаете да премахнете този файл?"
 
-#: gitwidget.cpp:1289
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Unstage All"
 msgstr ""
 
-#: gitwidget.cpp:1356
+#: gitwidget.cpp:1357
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1356
+#: gitwidget.cpp:1357
 #, kde-format
 msgid "Stage Selected Files"
 msgstr ""
 
-#: gitwidget.cpp:1357
+#: gitwidget.cpp:1358
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Отхвърляне на избрани файлове"
 
-#: gitwidget.cpp:1361
+#: gitwidget.cpp:1362
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Премахване на избраните файлове"
 
-#: gitwidget.cpp:1374
+#: gitwidget.cpp:1375
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Сигурни ли сте, че желаете да отхвърлите промените?"
 
-#: gitwidget.cpp:1379
+#: gitwidget.cpp:1380
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
@@ -509,7 +514,7 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл '%1': %2"
 
 #: kateproject.cpp:304 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:243 kateprojectviewtree.cpp:159
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:159
 #: kateprojectviewtree.cpp:189
 #, kde-format
 msgid "Project"
@@ -867,79 +872,74 @@ msgstr "Повторно зареждане на проект"
 msgid "Close project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:106
-#, kde-format
-msgid "Refresh git status"
-msgstr ""
-
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:162
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Отваряне на папка..."
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Project TODOs"
 msgstr "Задачи на проекта"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Активиране на предишния проект"
 
-#: kateprojectpluginview.cpp:203
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Активиране на следващия проект"
 
-#: kateprojectpluginview.cpp:209
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Lookup"
 msgstr "Търсене"
 
-#: kateprojectpluginview.cpp:214
+#: kateprojectpluginview.cpp:190
 #, kde-format
 msgid "Close Project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:219
+#: kateprojectpluginview.cpp:195
 #, kde-format
 msgid "Close All Projects"
 msgstr "Затваряне на всички проекти"
 
-#: kateprojectpluginview.cpp:224
+#: kateprojectpluginview.cpp:200
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Затваряне на осиротелите проекти"
 
-#: kateprojectpluginview.cpp:229
+#: kateprojectpluginview.cpp:205
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Повторно зареждане на проект"
 
-#: kateprojectpluginview.cpp:240
+#: kateprojectpluginview.cpp:216
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:246 kateprojectpluginview.cpp:810
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:767
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Търсене: %1"
 
-#: kateprojectpluginview.cpp:247 kateprojectpluginview.cpp:811
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:768
 #, kde-format
 msgid "Goto: %1"
 msgstr "Отиване до: %1"
 
-#: kateprojectpluginview.cpp:321
+#: kateprojectpluginview.cpp:297
 #, kde-format
 msgid "Projects Index"
 msgstr "Индекс на проект"
 
-#: kateprojectpluginview.cpp:855
+#: kateprojectpluginview.cpp:812
 #, kde-format
 msgid "Choose a directory"
 msgstr "Избиране на директория"

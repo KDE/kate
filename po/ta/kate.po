@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-10-09 21:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2482,27 +2482,36 @@ msgstr ""
 "தேர்ந்தெடுக்கப்பட்ட செயலியை துவக்க முடியவில்லை. அது நிறுவப்படவில்லையெனில் இச்சிக்கல் "
 "நேரலாம்."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "விரைவாக திறப்பதற்கான தேடல் (வலது-க்ளிக் பட்டியின் மூலம் அமைக்கவும்)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "அனைத்து திட்டப்பணிகள்"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "தற்போதைய திட்டப்பணி"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Fuzzy வடிகட்டல்"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "குழுக்குறி வடிகட்டல்"
@@ -2929,6 +2938,9 @@ msgstr "அமர்வுகளை நிர்வகி..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "புதிய சாளரத்தில் வரவேற்புப்பக்கத்தை காட்டு"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "விரைவாக திறப்பதற்கான தேடல் (வலது-க்ளிக் பட்டியின் மூலம் அமைக்கவும்)"
 
 #~ msgid "Show for new window"
 #~ msgstr "புதிய சாளரத்திற்கு காட்டு"

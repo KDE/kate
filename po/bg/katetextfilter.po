@@ -1,21 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2022-01-02 14:17+0100\n"
-"Last-Translator: mkkDr2010 <mkondarev@yahoo.de>\n"
+"PO-Revision-Date: 2024-10-23 19:35+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -30,7 +30,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Неуспешно стартиране на процеса"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

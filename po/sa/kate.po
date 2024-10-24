@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -2495,27 +2495,36 @@ msgstr "कार्यक्रमं आरभुं न शक्तवान
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "त्वरितं उद्घाटितं अन्वेषणं (सन्दर्भविकल्पसूचिद्वारा विन्यस्तं कुर्वन्तु)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "सर्वाणि परियोजनानि"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "वर्तमान परियोजना"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "फजी फ़िल्टरिंग"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "वाइल्डकार्ड फ़िल्टरिंग"
@@ -2942,6 +2951,9 @@ msgstr "सत्रं प्रबन्धयन्तु..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "नूतनगवाक्षस्य स्वागतदृश्यं दर्शयतु"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "त्वरितं उद्घाटितं अन्वेषणं (सन्दर्भविकल्पसूचिद्वारा विन्यस्तं कुर्वन्तु)"
 
 #~ msgid "Show for new window"
 #~ msgstr "नूतनगवाक्ष कृते दर्शयतु"

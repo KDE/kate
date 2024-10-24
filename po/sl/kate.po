@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-21 00:42+0000\n"
+"POT-Creation-Date: 2024-10-24 00:42+0000\n"
 "PO-Revision-Date: 2024-10-12 08:46+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -2518,27 +2518,36 @@ msgstr "Programa ni bilo moč zagnati"
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "Izbranega programa ni bilo moč zagnati. Morda sploh ni nameščen."
 
-#: lib/quickopen/katequickopenlineedit.cpp:22
+#: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format
-msgid "Quick Open Search (configure via context menu)"
-msgstr "Hitro odprto iskanje (nastavitev v kontekstnem meniju)"
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in all projects (right click to configure)"
+msgstr ""
 
-#: lib/quickopen/katequickopenlineedit.cpp:61
+#: lib/quickopen/katequickopenlineedit.cpp:50
+#, kde-format
+msgctxt ""
+"The text is shown as a placeholder in an input line edit, keep it short"
+msgid "Search files in current project (right click to configure)"
+msgstr ""
+
+#: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
 msgid "All Projects"
 msgstr "Vsi projekti"
 
-#: lib/quickopen/katequickopenlineedit.cpp:73
+#: lib/quickopen/katequickopenlineedit.cpp:85
 #, kde-format
 msgid "Current Project"
 msgstr "Trenutni projekt"
 
-#: lib/quickopen/katequickopenlineedit.cpp:88
+#: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
 msgstr "Ohlapno filtriranje"
 
-#: lib/quickopen/katequickopenlineedit.cpp:99
+#: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
 msgstr "Filtriranje z nadomestnimi znaki"
@@ -2965,6 +2974,9 @@ msgstr "Upravljaj seje..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Pokaži stran dobrodošlice za novo okno"
+
+#~ msgid "Quick Open Search (configure via context menu)"
+#~ msgstr "Hitro odprto iskanje (nastavitev v kontekstnem meniju)"
 
 #~ msgid "Show for new window"
 #~ msgstr "Pokaži za novo okno"

@@ -173,7 +173,7 @@ msgstr "目标 %1"
 #: dapbackend.cpp:182
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "DAP 后端程序“%1”失败"
 
 #: dapbackend.cpp:226
 #, kde-format

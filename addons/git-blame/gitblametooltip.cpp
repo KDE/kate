@@ -131,12 +131,12 @@ private:
     QTextStream out;
 };
 
-class GitBlameTooltip::Private : public QTextBrowser
+class GitBlameTooltipPrivate : public QTextBrowser
 {
 public:
     QKeySequence m_ignoreKeySequence;
 
-    explicit Private(KateGitBlamePluginView *pluginView)
+    explicit GitBlameTooltipPrivate(KateGitBlamePluginView *pluginView)
         : QTextBrowser(nullptr)
     {
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
@@ -144,7 +144,7 @@ public:
         document()->setDocumentMargin(10);
         setFrameStyle(QFrame::Box | QFrame::Raised);
         setOpenLinks(false);
-        connect(&m_hideTimer, &QTimer::timeout, this, &Private::hideTooltip);
+        connect(&m_hideTimer, &QTimer::timeout, this, &GitBlameTooltipPrivate::hideTooltip);
 
         setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -338,7 +338,7 @@ void GitBlameTooltip::show(const QString &text, KTextEditor::View *view)
     }
 
     if (!d) {
-        d = std::make_unique<GitBlameTooltip::Private>(m_pluginView);
+        d = std::make_unique<GitBlameTooltipPrivate>(m_pluginView);
     }
 
     d->showTooltip(text, view);
@@ -355,7 +355,7 @@ void GitBlameTooltip::hide()
 void GitBlameTooltip::setIgnoreKeySequence(const QKeySequence &sequence)
 {
     if (!d) {
-        d = std::make_unique<GitBlameTooltip::Private>(m_pluginView);
+        d = std::make_unique<GitBlameTooltipPrivate>(m_pluginView);
     }
     d->m_ignoreKeySequence = sequence;
 }

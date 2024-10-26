@@ -17,6 +17,8 @@ namespace KTextEditor
 class View;
 }
 
+class GitBlameTooltipPrivate;
+
 class GitBlameTooltip
 {
 public:
@@ -29,7 +31,6 @@ public:
     void setIgnoreKeySequence(const QKeySequence &sequence);
 
 private:
-    class Private;
-    std::unique_ptr<Private> d;
+    std::unique_ptr<GitBlameTooltipPrivate> d;
     KateGitBlamePluginView *m_pluginView;
 };

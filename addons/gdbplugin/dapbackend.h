@@ -65,8 +65,18 @@ public Q_SLOTS:
     void changeScope(int scopeId) override;
 
 private:
-    enum State { None, Initializing, Running, Stopped, Terminated, Disconnected };
-    enum Task { Idle, Busy };
+    enum State {
+        None,
+        Initializing,
+        Running,
+        Stopped,
+        Terminated,
+        Disconnected
+    };
+    enum Task {
+        Idle,
+        Busy
+    };
 
     void unsetClient();
 
@@ -156,7 +166,10 @@ private:
     bool m_restart = false;
     bool m_queryLocals = false;
 
-    enum KillMode { Polite, Force };
+    enum KillMode {
+        Polite,
+        Force
+    };
 
     struct {
         std::optional<State> target = std::nullopt;

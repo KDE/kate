@@ -40,7 +40,11 @@ private:
 
     std::optional<std::function<void()>> m_connectionHandler;
 
-    enum { None, Terminate, Kill } m_tryClose = None;
+    enum {
+        None,
+        Terminate,
+        Kill
+    } m_tryClose = None;
 };
 
 }

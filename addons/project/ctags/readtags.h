@@ -28,7 +28,11 @@ extern "C" {
  */
 
 /* Options for tagsSetSortType() */
-typedef enum { TAG_UNSORTED, TAG_SORTED, TAG_FOLDSORTED } sortType;
+typedef enum {
+    TAG_UNSORTED,
+    TAG_SORTED,
+    TAG_FOLDSORTED
+} sortType;
 
 /* Options for tagsFind() */
 #define TAG_FULLMATCH 0x0
@@ -41,7 +45,10 @@ typedef enum { TAG_UNSORTED, TAG_SORTED, TAG_FOLDSORTED } sortType;
  *  DATA DECLARATIONS
  */
 
-typedef enum { TagFailure = 0, TagSuccess = 1 } tagResult;
+typedef enum {
+    TagFailure = 0,
+    TagSuccess = 1
+} tagResult;
 
 struct sTagFile;
 

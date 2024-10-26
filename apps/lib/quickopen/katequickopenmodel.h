@@ -26,12 +26,20 @@ struct ModelEntry {
 };
 
 // needs to be defined outside of class to support forward declaration elsewhere
-enum KateQuickOpenModelList : int { CurrentProject, AllProjects };
+enum KateQuickOpenModelList : int {
+    CurrentProject,
+    AllProjects
+};
 
 class KateQuickOpenModel : public QAbstractTableModel
 {
 public:
-    enum Role { FileName = Qt::UserRole + 1, FilePath, Score, Document };
+    enum Role {
+        FileName = Qt::UserRole + 1,
+        FilePath,
+        Score,
+        Document
+    };
     explicit KateQuickOpenModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;

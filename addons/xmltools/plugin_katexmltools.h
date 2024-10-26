@@ -105,10 +105,25 @@ protected:
 
     static QString getParentElement(KTextEditor::View &view, int skipCharacters);
 
-    enum Mode { none, entities, attributevalues, attributes, elements, closingtag };
-    enum PopupMode { noPopup, tagname, attributename, attributevalue, entityname };
+    enum Mode {
+        none,
+        entities,
+        attributevalues,
+        attributes,
+        elements,
+        closingtag
+    };
+    enum PopupMode {
+        noPopup,
+        tagname,
+        attributename,
+        attributevalue,
+        entityname
+    };
 
-    enum Level { groupNode = 1 };
+    enum Level {
+        groupNode = 1
+    };
 
     /// Assign the PseudoDTD @p dtd to the Kate::View @p view
     void assignDTD(PseudoDTD *dtd, KTextEditor::View *view);

@@ -247,7 +247,7 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
 #endif
 
         // Apply unmatched penalty
-        const int unmatched = (int)(std::distance(strBegin, strEnd)) - nextMatch;
+        const int unmatched = (int)(std::distance(strBegin, strEnd))-nextMatch;
         outScore += unmatchedLetterPenalty * unmatched;
         dbg("unmatchedLetterPenalty, unmatched count: %d, outScore: %d", unmatched, outScore);
 

@@ -35,7 +35,11 @@ public:
     {
     }
     virtual bool synchronousSave(QWidget *dialogParent) = 0;
-    enum STATE { InitialState, SaveOKState, SaveFailedState };
+    enum STATE {
+        InitialState,
+        SaveOKState,
+        SaveFailedState
+    };
     STATE state() const
     {
         return m_state;

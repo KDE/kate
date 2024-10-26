@@ -51,7 +51,11 @@ struct LSPResponseError {
     QByteArray data;
 };
 
-enum class LSPDocumentSyncKind { None = 0, Full = 1, Incremental = 2 };
+enum class LSPDocumentSyncKind {
+    None = 0,
+    Full = 1,
+    Incremental = 2
+};
 
 struct LSPSaveOptions {
     bool includeText = false;
@@ -119,7 +123,11 @@ struct LSPServerCapabilities {
     bool inlayHintProvider = false;
 };
 
-enum class LSPMarkupKind { None = 0, PlainText = 1, MarkDown = 2 };
+enum class LSPMarkupKind {
+    None = 0,
+    PlainText = 1,
+    MarkDown = 2
+};
 
 struct LSPMarkupContent {
     LSPMarkupKind kind = LSPMarkupKind::None;
@@ -151,7 +159,11 @@ struct LSPTextDocumentContentChangeEvent {
     QString text;
 };
 
-enum class LSPDocumentHighlightKind { Text = 1, Read = 2, Write = 3 };
+enum class LSPDocumentHighlightKind {
+    Text = 1,
+    Read = 2,
+    Write = 3
+};
 
 struct LSPDocumentHighlight {
     LSPRange range;
@@ -306,7 +318,12 @@ using LSPDiagnostic = Diagnostic;
 
 using LSPPublishDiagnosticsParams = FileDiagnostics;
 
-enum class LSPMessageType { Error = 1, Warning = 2, Info = 3, Log = 4 };
+enum class LSPMessageType {
+    Error = 1,
+    Warning = 2,
+    Info = 3,
+    Log = 4
+};
 
 struct LSPShowMessageParams {
     LSPMessageType type;
@@ -315,7 +332,11 @@ struct LSPShowMessageParams {
 
 using LSPLogMessageParams = LSPShowMessageParams;
 
-enum class LSPWorkDoneProgressKind { Begin, Report, End };
+enum class LSPWorkDoneProgressKind {
+    Begin,
+    Report,
+    End
+};
 
 // combines following similar interfaces
 // WorkDoneProgressBegin

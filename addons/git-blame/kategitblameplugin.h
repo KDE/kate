@@ -23,7 +23,12 @@
 #include <QUrl>
 #include <QVariant>
 
-enum class KateGitBlameMode { None, SingleLine, AllLines, Count = AllLines };
+enum class KateGitBlameMode {
+    None,
+    SingleLine,
+    AllLines,
+    Count = AllLines
+};
 
 struct CommitInfo {
     QByteArray hash;

@@ -83,7 +83,12 @@ class LSPClientServer : public QObject
     Q_OBJECT
 
 public:
-    enum class State { None, Started, Running, Shutdown };
+    enum class State {
+        None,
+        Started,
+        Running,
+        Shutdown
+    };
 
     class LSPClientServerPrivate;
     class RequestHandle

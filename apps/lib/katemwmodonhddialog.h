@@ -56,7 +56,11 @@ public Q_SLOTS:
     void removeDocument(QObject *doc);
 
 private:
-    enum Action { Ignore, Overwrite, Reload };
+    enum Action {
+        Ignore,
+        Overwrite,
+        Reload
+    };
     void handleSelected(int action);
     class QTreeWidget *docsTreeWidget;
     class QDialogButtonBox *dlgButtons;

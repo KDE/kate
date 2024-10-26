@@ -16,7 +16,12 @@
 
 #include <KTextEditor/Document>
 
-enum class Type { Function, Structure, Macro, Method };
+enum class Type {
+    Function,
+    Structure,
+    Macro,
+    Method
+};
 
 void KatePluginSymbolViewerView::parseJuliaSymbols(void)
 {

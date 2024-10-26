@@ -24,8 +24,15 @@ class KateProjectModel : public QStandardItemModel
 public:
     using QStandardItemModel::QStandardItemModel;
 
-    enum StatusType { Invalid, Added, Modified, None };
-    enum Role { StatusRole = Qt::UserRole + 2 };
+    enum StatusType {
+        Invalid,
+        Added,
+        Modified,
+        None
+    };
+    enum Role {
+        StatusRole = Qt::UserRole + 2
+    };
 
     Qt::DropActions supportedDropActions() const override
     {

@@ -25,7 +25,11 @@ public:
     explicit CurrentGitBranchButton(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent = nullptr);
     ~CurrentGitBranchButton() override;
 
-    enum BranchType { Branch = 0, Commit, Tag };
+    enum BranchType {
+        Branch = 0,
+        Commit,
+        Tag
+    };
     struct BranchResult {
         QString branch;
         BranchType type;

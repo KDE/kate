@@ -820,7 +820,15 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute(KTextEditor::View &kv
  */
 QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &kv, int skipCharacters)
 {
-    enum { parsingText, parsingElement, parsingElementBoundary, parsingNonElement, parsingAttributeDquote, parsingAttributeSquote, parsingIgnore } parseState;
+    enum {
+        parsingText,
+        parsingElement,
+        parsingElementBoundary,
+        parsingNonElement,
+        parsingAttributeDquote,
+        parsingAttributeSquote,
+        parsingIgnore
+    } parseState;
     parseState = (skipCharacters > 0) ? parsingIgnore : parsingText;
 
     int nestingLevel = 0;

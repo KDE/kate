@@ -76,7 +76,11 @@ private:
     void onError(const QByteArray &error, int code);
     void parseAndShowDiff(const QByteArray &raw);
     void parseAndShowDiffUnified(const QByteArray &raw);
-    enum ApplyFlags { None = 0, Staged = 1, Discard = 2 };
+    enum ApplyFlags {
+        None = 0,
+        Staged = 1,
+        Discard = 2
+    };
     void applyDiff(const QString &diff, ApplyFlags flags);
     void runGitDiff();
     static QStringList diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r);

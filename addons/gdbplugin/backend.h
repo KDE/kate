@@ -62,7 +62,11 @@ public Q_SLOTS:
     void changeScope(int scopeId) override;
 
 private:
-    enum DebugMode { NONE, GDB, DAP } m_mode = NONE;
+    enum DebugMode {
+        NONE,
+        GDB,
+        DAP
+    } m_mode = NONE;
 
     void bind();
     void unbind();

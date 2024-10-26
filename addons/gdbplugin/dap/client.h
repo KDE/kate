@@ -22,7 +22,14 @@ class Client : public QObject
 {
     Q_OBJECT
 public:
-    enum class State { None, Initializing, Initialized, Running, Terminated, Failed };
+    enum class State {
+        None,
+        Initializing,
+        Initialized,
+        Running,
+        Terminated,
+        Failed
+    };
     Q_ENUM(State)
 
     Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, QObject *parent = nullptr);

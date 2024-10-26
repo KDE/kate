@@ -106,7 +106,11 @@ public:
     /**
      * sync mode
      */
-    enum SyncMode { SyncNothing = 0, SyncCurrentTab = 1, SyncCreateTabPerDir = 2 };
+    enum SyncMode {
+        SyncNothing = 0,
+        SyncCurrentTab = 1,
+        SyncCreateTabPerDir = 2
+    };
 
     void readConfig();
 

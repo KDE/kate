@@ -19,7 +19,11 @@ class DataOutputWidget : public QWidget
     Q_OBJECT
 
 public:
-    enum Option { NoOptions = 0x0, ExportColumnNames = 0x1, ExportLineNumbers = 0x2 };
+    enum Option {
+        NoOptions = 0x0,
+        ExportColumnNames = 0x1,
+        ExportLineNumbers = 0x2
+    };
 
     Q_DECLARE_FLAGS(Options, Option)
 

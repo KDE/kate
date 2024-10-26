@@ -14,12 +14,22 @@ namespace gdbmi
 {
 
 struct StreamOutput {
-    enum { Console, Output, Log } channel;
+    enum {
+        Console,
+        Output,
+        Log
+    } channel;
     QString message;
 };
 
 struct Record {
-    enum { Exec, Status, Notify, Result, Prompt } category;
+    enum {
+        Exec,
+        Status,
+        Notify,
+        Result,
+        Prompt
+    } category;
     QString resultClass;
     QJsonObject value;
     std::optional<int> token;

@@ -98,8 +98,15 @@ public:
     void addTab();
 
 private:
-    enum CopyResultType { AllExpanded, All };
-    enum class MatchType { NoMatch, HasMatch, InvalidRegExp };
+    enum CopyResultType {
+        AllExpanded,
+        All
+    };
+    enum class MatchType {
+        NoMatch,
+        HasMatch,
+        InvalidRegExp
+    };
 
 private Q_SLOTS:
     void slotProjectFileNameChanged();

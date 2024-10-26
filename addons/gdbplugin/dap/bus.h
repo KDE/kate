@@ -21,7 +21,11 @@ class Bus : public QObject
 {
     Q_OBJECT
 public:
-    enum class State { None, Running, Closed };
+    enum class State {
+        None,
+        Running,
+        Closed
+    };
 
     explicit Bus(QObject *parent = nullptr);
     ~Bus() override = default;

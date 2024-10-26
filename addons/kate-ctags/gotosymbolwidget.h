@@ -36,7 +36,10 @@ public:
     void loadGlobalSymbols(const QString &text);
     void reselectFirst();
 
-    enum Mode { Global, Local };
+    enum Mode {
+        Global,
+        Local
+    };
 
 private Q_SLOTS:
     void slotReturnPressed();

@@ -14,8 +14,18 @@
 class BranchesDialogModel : public QAbstractTableModel
 {
 public:
-    enum Role { FuzzyScore = Qt::UserRole + 1, CheckoutName, RefType, Creator, ItemTypeRole };
-    enum ItemType { BranchItem, CreateBranch, CreateBranchFrom };
+    enum Role {
+        FuzzyScore = Qt::UserRole + 1,
+        CheckoutName,
+        RefType,
+        Creator,
+        ItemTypeRole
+    };
+    enum ItemType {
+        BranchItem,
+        CreateBranch,
+        CreateBranchFrom
+    };
 
     explicit BranchesDialogModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

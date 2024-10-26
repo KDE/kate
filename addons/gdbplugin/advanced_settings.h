@@ -15,7 +15,15 @@ class AdvancedGDBSettings : public QDialog, public Ui::AdvancedGDBSettings
 {
     Q_OBJECT
 public:
-    enum CustomStringOrder { GDBIndex = 0, LocalRemoteIndex, RemoteBaudIndex, SoAbsoluteIndex, SoRelativeIndex, SrcPathsIndex, CustomStartIndex };
+    enum CustomStringOrder {
+        GDBIndex = 0,
+        LocalRemoteIndex,
+        RemoteBaudIndex,
+        SoAbsoluteIndex,
+        SoRelativeIndex,
+        SrcPathsIndex,
+        CustomStartIndex
+    };
 
     explicit AdvancedGDBSettings(QWidget *parent = nullptr);
     ~AdvancedGDBSettings() override;

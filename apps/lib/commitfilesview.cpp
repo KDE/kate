@@ -49,7 +49,10 @@ struct GitFileItem {
 class FileItem : public QStandardItem
 {
 public:
-    enum Type { Directory = 1, File = 2 };
+    enum Type {
+        Directory = 1,
+        File = 2
+    };
     enum Role {
         Path = Qt::UserRole,
         TypeRole,

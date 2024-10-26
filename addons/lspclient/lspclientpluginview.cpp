@@ -177,7 +177,7 @@ class ClosableTabWidget : public QTabWidget
 {
 public:
     ClosableTabWidget(QWidget *parent = nullptr)
-        : QTabWidget(parent){};
+        : QTabWidget(parent) { };
 
     void mousePressEvent(QMouseEvent *event) override
     {

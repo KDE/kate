@@ -52,7 +52,12 @@ public:
     /// Return a list of all source files of all targets in the build tree.
     const std::set<QString> &getSourceFiles() const;
 
-    enum class TargetType { Executable = 0, Library = 1, Utility = 2, Unknown = 3 };
+    enum class TargetType {
+        Executable = 0,
+        Library = 1,
+        Utility = 2,
+        Unknown = 3
+    };
 
     struct Target {
         QString name;

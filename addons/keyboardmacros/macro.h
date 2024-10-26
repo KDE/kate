@@ -18,7 +18,7 @@ class Macro : public QList<KeyCombination>
 {
 public:
     explicit Macro()
-        : QList<KeyCombination>(){};
+        : QList<KeyCombination>() { };
 
     static const std::pair<const Macro, bool> fromJson(const QJsonValue &json)
     {

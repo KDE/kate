@@ -22,17 +22,17 @@ private:
     QString m_text;
 
 public:
-    KeyCombination(){};
+    KeyCombination() { };
 
     KeyCombination(const int key, const Qt::KeyboardModifiers modifiers, const QString &text)
         : m_key(key)
         , m_modifiers(modifiers)
-        , m_text(text){};
+        , m_text(text) { };
 
     explicit KeyCombination(const QKeyEvent *keyEvent)
         : m_key(keyEvent->key())
         , m_modifiers(keyEvent->modifiers())
-        , m_text(keyEvent->text()){};
+        , m_text(keyEvent->text()) { };
 
     static const std::pair<const KeyCombination, bool> fromJson(const QJsonArray &json)
     {

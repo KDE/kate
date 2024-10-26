@@ -56,11 +56,24 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
     Q_PROPERTY(QUrl docUrl READ docUrl)
 
 public:
-    enum ResultDetails { FullOutput, ParsedOutput, ErrorsAndWarnings, OnlyErrors };
+    enum ResultDetails {
+        FullOutput,
+        ParsedOutput,
+        ErrorsAndWarnings,
+        OnlyErrors
+    };
 
-    enum TreeWidgetRoles { ErrorRole = Qt::UserRole + 1, DataRole };
+    enum TreeWidgetRoles {
+        ErrorRole = Qt::UserRole + 1,
+        DataRole
+    };
 
-    enum class Category { Normal, Info, Warning, Error };
+    enum class Category {
+        Normal,
+        Info,
+        Warning,
+        Error
+    };
 
     KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *mw);
     ~KateBuildView() override;
@@ -162,8 +175,8 @@ private:
      */
     bool isCommandLineAllowed(const QStringList &cmdline);
 
-    QString findCompileCommands(const QString& file) const;
-    CompileCommands parseCompileCommandsFile(const QString& compileCommandsFile) const;
+    QString findCompileCommands(const QString &file) const;
+    CompileCommands parseCompileCommandsFile(const QString &compileCommandsFile) const;
 
     KateBuildPlugin *m_plugin;
     KTextEditor::MainWindow *m_win;

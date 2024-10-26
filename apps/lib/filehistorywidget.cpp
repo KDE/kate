@@ -108,7 +108,9 @@ public:
     {
     }
 
-    enum Role { CommitRole = Qt::UserRole + 1 };
+    enum Role {
+        CommitRole = Qt::UserRole + 1
+    };
 
     int rowCount(const QModelIndex &) const override
     {

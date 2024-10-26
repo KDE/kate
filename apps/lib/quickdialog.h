@@ -52,7 +52,11 @@ public:
     HUDDialog(QWidget *parent, QWidget *mainWindow);
     ~HUDDialog();
 
-    enum FilterType { Contains, Fuzzy, ScoredFuzzy };
+    enum FilterType {
+        Contains,
+        Fuzzy,
+        ScoredFuzzy
+    };
 
     void setStringList(const QStringList &);
 

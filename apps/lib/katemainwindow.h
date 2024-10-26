@@ -729,13 +729,19 @@ public:
      * The available actions for the mouse back button, used as indexing
      * for the comboboxes of the config window
      */
-    enum MouseBackButtonAction { PreviousTab = 0, HistoryBack };
+    enum MouseBackButtonAction {
+        PreviousTab = 0,
+        HistoryBack
+    };
 
     /**
      * The available actions for the mouse forward button, used as indexing
      * for the comboboxes of the config window
      */
-    enum MouseForwardButtonAction { NextTab = 0, HistoryForward };
+    enum MouseForwardButtonAction {
+        NextTab = 0,
+        HistoryForward
+    };
 
 private:
     MouseBackButtonAction m_mouseButtonBackAction = PreviousTab;

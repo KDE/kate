@@ -23,7 +23,11 @@ public:
     };
     Q_ENUM(ItemType)
 
-    enum Role { TreeItemType = Qt::UserRole + 1, FileNameRole, GitItemType };
+    enum Role {
+        TreeItemType = Qt::UserRole + 1,
+        FileNameRole,
+        GitItemType
+    };
 
 public:
     QModelIndex index(int row, int column, const QModelIndex &parent) const override;

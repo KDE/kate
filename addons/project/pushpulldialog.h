@@ -13,7 +13,10 @@ class PushPullDialog : public HUDDialog
 public:
     PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repo);
 
-    enum Mode { Push, Pull };
+    enum Mode {
+        Push,
+        Pull
+    };
     void openDialog(Mode m);
 
     Q_SIGNAL void runGitCommand(const QStringList &args);

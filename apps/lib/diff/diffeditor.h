@@ -34,7 +34,9 @@ using IntT = qsizetype;
 struct Change {
     IntT pos;
     IntT len;
-    enum { FullBlock = -2 };
+    enum {
+        FullBlock = -2
+    };
 };
 
 struct LineHighlight {
@@ -43,7 +45,11 @@ struct LineHighlight {
     bool added;
 };
 
-enum DiffStyle { SideBySide = 0, Unified, Raw };
+enum DiffStyle {
+    SideBySide = 0,
+    Unified,
+    Raw
+};
 
 class DiffEditor : public QPlainTextEdit
 {
@@ -51,7 +57,10 @@ class DiffEditor : public QPlainTextEdit
     friend class LineNumArea;
 
 public:
-    enum { Line = 0, Hunk = 1 };
+    enum {
+        Line = 0,
+        Hunk = 1
+    };
     DiffEditor(DiffParams::Flags, QWidget *parent = nullptr);
 
     void clearData()

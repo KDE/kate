@@ -12,7 +12,12 @@
 class BtInfo
 {
 public:
-    enum Type { Source = 0, Lib, Unknown, Invalid };
+    enum Type {
+        Source = 0,
+        Lib,
+        Unknown,
+        Invalid
+    };
 
     /**
      * Default constructor => invalid element

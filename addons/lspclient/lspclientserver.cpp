@@ -1907,7 +1907,7 @@ public:
     {
         auto params = executeCommandParams(command);
         // Pass an empty lambda as reply handler because executeCommand is a Request, but we ignore the result
-        send(init_request(QStringLiteral("workspace/executeCommand"), params), [](const auto &) {});
+        send(init_request(QStringLiteral("workspace/executeCommand"), params), [](const auto &) { });
     }
 
     void didOpen(const QUrl &document, int version, const QString &langId, const QString &text)

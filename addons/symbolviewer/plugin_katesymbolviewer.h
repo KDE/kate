@@ -29,7 +29,11 @@
 
 #include <KLocalizedString>
 
-enum class Symbol { Function, Class, Method };
+enum class Symbol {
+    Function,
+    Class,
+    Method
+};
 
 class KLineEdit;
 

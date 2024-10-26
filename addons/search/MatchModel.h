@@ -38,10 +38,21 @@ class MatchModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    enum SearchPlaces { CurrentFile, OpenFiles, Folder, Project, AllProjects };
+    enum SearchPlaces {
+        CurrentFile,
+        OpenFiles,
+        Folder,
+        Project,
+        AllProjects
+    };
     Q_ENUM(SearchPlaces)
 
-    enum SearchState { SearchDone, Preparing, Searching, Replacing };
+    enum SearchState {
+        SearchDone,
+        Preparing,
+        Searching,
+        Replacing
+    };
     Q_ENUM(SearchState)
 
     enum MatchDataRoles {

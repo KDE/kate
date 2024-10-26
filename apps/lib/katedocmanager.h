@@ -24,7 +24,9 @@ class KateMainWindow;
 class KateDocumentInfo
 {
 public:
-    enum CustomRoles { RestoreOpeningFailedRole };
+    enum CustomRoles {
+        RestoreOpeningFailedRole
+    };
 
 public:
     KateDocumentInfo() = default;

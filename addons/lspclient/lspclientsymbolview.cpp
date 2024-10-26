@@ -32,7 +32,11 @@
 #include <utility>
 
 // TODO: Make this globally available in shared/
-enum SymbolViewRoles { SymbolRange = Qt::UserRole, ScoreRole, IsPlaceholder };
+enum SymbolViewRoles {
+    SymbolRange = Qt::UserRole,
+    ScoreRole,
+    IsPlaceholder
+};
 
 class LSPClientViewTrackerImpl : public LSPClientViewTracker
 {

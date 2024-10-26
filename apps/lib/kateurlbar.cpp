@@ -216,7 +216,9 @@ public:
     {
     }
 
-    enum Role { FileInfo = Qt::UserRole + 1 };
+    enum Role {
+        FileInfo = Qt::UserRole + 1
+    };
 
     int rowCount(const QModelIndex & = {}) const override
     {

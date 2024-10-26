@@ -25,7 +25,14 @@ struct ConfigData {
     bool redirectTerminal = false;
 };
 
-enum TargetStringOrder { NameIndex = 0, ExecIndex, WorkDirIndex, ArgsIndex, GDBIndex, CustomStartIndex };
+enum TargetStringOrder {
+    NameIndex = 0,
+    ExecIndex,
+    WorkDirIndex,
+    ArgsIndex,
+    GDBIndex,
+    CustomStartIndex
+};
 
 inline QByteArray serialize(const QJsonObject obj)
 {

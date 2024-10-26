@@ -27,12 +27,20 @@ public:
      * Possible Types
      * We start with 1 to have 0 as invalid value!
      */
-    enum Type { LinkedProject = 1, Project = 2, Directory = 3, File = 4 };
+    enum Type {
+        LinkedProject = 1,
+        Project = 2,
+        Directory = 3,
+        File = 4
+    };
 
     /**
      * Our defined roles
      */
-    enum Role { TypeRole = Qt::UserRole + 42, ProjectRole };
+    enum Role {
+        TypeRole = Qt::UserRole + 42,
+        ProjectRole
+    };
 
     /**
      * construct new item with given text

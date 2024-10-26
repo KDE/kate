@@ -74,11 +74,9 @@ class VcsDiff
 public:
     /* Used to represent a patch or its inverse */
     enum DiffDirection {
-        Normal = 0 /**< the unchanged patch */
-        ,
-        Forward = 0 /**< the unchanged patch */
-        ,
-        Reverse = 1 /**< the inverse of the patch (i.e. a new patch which, when applied, undoes the old patch) */
+        Normal = 0, /**< the unchanged patch */
+        Forward = 0, /**< the unchanged patch */
+        Reverse = 1, /**< the inverse of the patch (i.e. a new patch which, when applied, undoes the old patch) */
     };
 
     VcsDiff();

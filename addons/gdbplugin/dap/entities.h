@@ -219,7 +219,14 @@ class Output
 {
     Q_GADGET
 public:
-    enum class Category { Console, Important, Stdout, Stderr, Telemetry, Unknown };
+    enum class Category {
+        Console,
+        Important,
+        Stdout,
+        Stderr,
+        Telemetry,
+        Unknown
+    };
 
     Q_ENUM(Category)
 
@@ -414,7 +421,11 @@ struct Scope {
 };
 
 struct Variable {
-    enum Type { Indexed = 1, Named = 2, Both = 3 };
+    enum Type {
+        Indexed = 1,
+        Named = 2,
+        Both = 3
+    };
 
     QString name;
     QString value;

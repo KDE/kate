@@ -422,7 +422,12 @@ VcsDiff VcsDiff::subDiffHunk(const uint line, DiffDirection dir) const
 VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection dir) const
 {
     // Code adapted from cola/diffparse.py
-    enum LineType { ADD = '+', DEL = '-', CTX = ' ', NO_NEWLINE = '\\' };
+    enum LineType {
+        ADD = '+',
+        DEL = '-',
+        CTX = ' ',
+        NO_NEWLINE = '\\'
+    };
 
     VcsDiff ret;
     ret.setBaseDiff(baseDiff());

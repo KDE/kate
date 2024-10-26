@@ -42,7 +42,10 @@
 struct PatchLine {
     KTextEditor::MovingCursor *pos = nullptr;
     KTextEditor::Cursor inPos;
-    enum { Remove, Add } type;
+    enum {
+        Remove,
+        Add
+    } type;
     QString text;
 };
 

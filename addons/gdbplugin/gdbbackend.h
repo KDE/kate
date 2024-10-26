@@ -119,9 +119,18 @@ private Q_SLOTS:
     void issueNextCommand();
 
 private:
-    enum State { none, ready, executingCmd };
+    enum State {
+        none,
+        ready,
+        executingCmd
+    };
 
-    enum GdbState { Disconnected, Connected, Running, Stopped };
+    enum GdbState {
+        Disconnected,
+        Connected,
+        Running,
+        Stopped
+    };
 
 private:
     QUrl resolveFileName(const QString &fileName, bool silent = false);
@@ -221,7 +230,11 @@ private:
     bool m_lastInputReady = false;
     bool m_pointerThis = false;
 
-    enum CaptureMode { Default = 0x0, CaptureConsole = 0x1, MuteLog = 0x2 };
+    enum CaptureMode {
+        Default = 0x0,
+        CaptureConsole = 0x1,
+        MuteLog = 0x2
+    };
     uint8_t m_captureOutput = Default;
     QStringList m_capturedOutput;
     bool m_inspectable = false;
@@ -231,7 +244,11 @@ private:
     std::optional<int> m_watchedScope;
     int m_errorCounter = 0;
 
-    enum DebuggerFamily { Unknown, GDB, LLDB };
+    enum DebuggerFamily {
+        Unknown,
+        GDB,
+        LLDB
+    };
     struct {
         DebuggerFamily family;
         std::optional<bool> async;

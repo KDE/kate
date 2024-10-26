@@ -33,7 +33,11 @@ private:
 
     void readError();
 
-    enum { None, Terminate, Kill } m_tryClose = None;
+    enum {
+        None,
+        Terminate,
+        Kill
+    } m_tryClose = None;
 };
 
 }

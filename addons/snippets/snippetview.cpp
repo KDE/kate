@@ -29,7 +29,7 @@ class SnippetFilterModel : public QSortFilterProxyModel
 {
 public:
     explicit SnippetFilterModel(QObject *parent = nullptr)
-        : QSortFilterProxyModel(parent){};
+        : QSortFilterProxyModel(parent) { };
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override
     {
         auto index = sourceModel()->index(sourceRow, 0, sourceParent);

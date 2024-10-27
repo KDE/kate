@@ -8,6 +8,8 @@
 #pragma once
 
 #include "doc_or_widget.h"
+#include "kateprivate_export.h"
+
 #include <QTabBar>
 
 #include <unordered_map>
@@ -24,7 +26,7 @@ class Document;
  *
  * @author Dominik Haumann
  */
-class KateTabBar : public QTabBar
+class KATE_PRIVATE_EXPORT KateTabBar : public QTabBar
 {
     Q_OBJECT
     Q_PROPERTY(bool isActive READ isActive WRITE setActive)

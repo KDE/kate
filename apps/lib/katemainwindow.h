@@ -9,6 +9,7 @@
 #pragma once
 
 #include "katemdi.h"
+#include "kateprivate_export.h"
 #include "kateviewmanager.h"
 
 #include <ktexteditor/mainwindow.h>
@@ -52,7 +53,7 @@ public:
     QSize minimumSize() const override;
 };
 
-class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
+class KATE_PRIVATE_EXPORT KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {
     Q_OBJECT
 

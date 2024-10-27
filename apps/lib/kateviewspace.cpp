@@ -1248,28 +1248,44 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     // the viewspace. See KateViewSpace::saveViewConfig that is called when a view is closed
     m_group = groupname;
 
-    // aggregate all registered documents & views in view space (LRU ordered)
+    // aggregate all registered documents & views in view space
     // we need even the documents without tabs to avoid that we later have issues with closing
     // documents and not the right ones being used as replacement if you have a limit on tabs
+    // we first store all stuff without visible tabs and then the tabs in tab order to proper restore
+    // that order
     std::vector<KTextEditor::View *> views;
-    QStringList lruList;
-    const auto docList = m_tabBar->lruSortedDocuments();
-    for (auto doc : docList) {
+    QStringList docList;
+    const auto handleDoc = [this, &views, &docList](auto doc) {
         // we can only store stuff about documents that get an id
         const int sessionId = KateApp::self()->documentManager()->documentInfo(doc)->sessionConfigId;
         if (sessionId < 0) {
-            continue;
+            return;
         }
 
-        lruList << QString::number(sessionId);
+        docList << QString::number(sessionId);
         auto it = m_docToView.find(doc);
         if (it != m_docToView.end()) {
             views.push_back(it->second);
         }
+    };
+
+    const auto lruDocList = m_tabBar->lruSortedDocuments();
+    const auto tabs = m_tabBar->documentList();
+    for (auto doc : lruDocList) {
+        // skip stuff with visible tabs
+        if (std::find(tabs.begin(), tabs.end(), DocOrWidget(doc)) == tabs.end()) {
+            handleDoc(doc);
+        }
+    }
+    for (auto docOrWidget : tabs) {
+        // only docs are of interest
+        if (auto doc = docOrWidget.doc()) {
+            handleDoc(doc);
+        }
     }
 
     KConfigGroup group(config, groupname);
-    group.writeEntry("Documents", lruList);
+    group.writeEntry("Documents", docList);
     group.writeEntry("Count", static_cast<int>(views.size()));
 
     if (currentView()) {
@@ -1306,9 +1322,9 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // set back bar status to configured variant
     tabBarToggled();
 
-    // restore Document lru list so that all tabs from the last session reappear
-    const QStringList lruList = group.readEntry("Documents", QStringList());
-    for (const auto &idOrUrl : lruList) {
+    // restore Document list so that all tabs from the last session reappear
+    const QStringList docList = group.readEntry("Documents", QStringList());
+    for (const auto &idOrUrl : docList) {
         // ignore stuff with no id or url
         if (idOrUrl.isEmpty()) {
             continue;

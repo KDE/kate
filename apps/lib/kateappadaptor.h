@@ -8,8 +8,6 @@
 
 #include <QDBusAbstractAdaptor>
 
-class KateApp;
-
 class KateAppAdaptor : public QDBusAbstractAdaptor
 {
     Q_OBJECT
@@ -17,7 +15,7 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
     Q_PROPERTY(QString activeSession READ activeSession)
     Q_PROPERTY(qint64 lastActivationChange READ lastActivationChange)
 public:
-    explicit KateAppAdaptor(KateApp *app);
+    explicit KateAppAdaptor();
 
     /**
      * emit the exiting signal
@@ -102,7 +100,4 @@ public:
      * used to determine which instance to reuse, if we have multiple
      */
     qint64 lastActivationChange() const;
-
-private:
-    KateApp *m_app;
 };

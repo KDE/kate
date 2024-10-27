@@ -36,9 +36,9 @@ class KateViewManagementTests : public QObject
 
 public:
     KateViewManagementTests(QObject *parent = nullptr);
-    ~KateViewManagementTests();
 
 private Q_SLOTS:
+    void init();
     void testSingleViewspaceDoesntCloseWhenLastViewClosed();
     void testViewspaceClosesWhenLastViewClosed();
     void testViewspaceClosesWhenThereIsWidget();
@@ -63,6 +63,6 @@ private Q_SLOTS:
     void testViewspaceWithWidgetDoesntCrashOnClose();
 
 private:
-    class QTemporaryDir *m_tempdir;
+    std::unique_ptr<QTemporaryDir> m_tempdir;
     std::unique_ptr<KateApp> app;
 };

@@ -17,33 +17,32 @@
  * add the adapter to the global application instance to have
  * it auto-register with KDBusService, see bug 410742
  */
-KateAppAdaptor::KateAppAdaptor(KateApp *app)
+KateAppAdaptor::KateAppAdaptor()
     : QDBusAbstractAdaptor(qApp)
-    , m_app(app)
 {
 }
 
 void KateAppAdaptor::activate(const QString &token)
 {
-    m_app->activate(token);
+    KateApp::self()->activate(token);
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)
 {
-    return m_app->openDocUrl(QUrl(url), encoding, false);
+    return KateApp::self()->openDocUrl(QUrl(url), encoding, false);
 }
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURL";
 
-    return m_app->openDocUrl(QUrl(url), encoding, isTempFile);
+    return KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
 }
 
 //-----------
 QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding)
 {
-    KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, false);
+    KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, false);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
@@ -53,7 +52,7 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
 QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURL";
-    KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, isTempFile);
+    KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
@@ -63,38 +62,38 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
 QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile)
 {
     qCDebug(LOG_KATE) << "openURLAt";
-    KTextEditor::Document *doc = m_app->openDocUrl(QUrl(url), encoding, isTempFile);
+    KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
     if (!doc) {
         return QStringLiteral("ERROR");
     }
-    m_app->setCursor(line, column);
+    KateApp::self()->setCursor(line, column);
     return QStringLiteral("%1").arg(reinterpret_cast<qptrdiff>(doc));
 }
 //--------
 
 bool KateAppAdaptor::setCursor(int line, int column)
 {
-    return m_app->setCursor(line, column);
+    return KateApp::self()->setCursor(line, column);
 }
 
 bool KateAppAdaptor::openInput(const QString &text, const QString &encoding)
 {
-    return m_app->openInput(text, encoding);
+    return KateApp::self()->openInput(text, encoding);
 }
 
 bool KateAppAdaptor::activateSession(const QString &session)
 {
-    return m_app->sessionManager()->activateSession(session);
+    return KateApp::self()->sessionManager()->activateSession(session);
 }
 
 qint64 KateAppAdaptor::lastActivationChange() const
 {
-    return m_app->lastActivationChange();
+    return KateApp::self()->lastActivationChange();
 }
 
 QString KateAppAdaptor::activeSession() const
 {
-    return m_app->sessionManager()->activeSession()->name();
+    return KateApp::self()->sessionManager()->activeSession()->name();
 }
 
 void KateAppAdaptor::emitExiting()

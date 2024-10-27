@@ -13,10 +13,6 @@
 #include <KUserFeedback/Provider>
 #endif
 
-#ifdef WITH_DBUS
-#include "kateappadaptor.h"
-#endif
-
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "kateprivate_export.h"
@@ -461,14 +457,6 @@ private:
      * Wrapper of application for KTextEditor
      */
     KTextEditor::Application m_wrapper;
-
-#ifdef WITH_DBUS
-    /**
-     * dbus interface, must survive longer than m_docManager
-     * e.g. the destroyed signal of the document might access this
-     */
-    KateAppAdaptor m_adaptor;
-#endif
 
     /**
      * document manager

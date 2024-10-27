@@ -39,21 +39,19 @@ KateViewManagementTests::KateViewManagementTests(QObject *)
     // ensure ui file can be found and the translation domain is set to avoid warnings
     qApp->setApplicationName(QStringLiteral("kate"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
+}
 
-    m_tempdir = new QTemporaryDir;
+void KateViewManagementTests::init()
+{
+    m_tempdir = std::make_unique<QTemporaryDir>();
     QVERIFY(m_tempdir->isValid());
 
     // ensure we use some dummy config
     KConfig::setMainConfigName(m_tempdir->path() + QStringLiteral("/testconfigfilerc"));
 
-    // create KWrite variant to avoid plugin loading!
     static QCommandLineParser parser;
+    app.reset(); // needed as KateApp mimics a singleton
     app = std::make_unique<KateApp>(parser, KateApp::ApplicationKWrite, m_tempdir->path());
-}
-
-KateViewManagementTests::~KateViewManagementTests()
-{
-    delete m_tempdir;
 }
 
 void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()

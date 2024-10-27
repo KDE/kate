@@ -12,6 +12,10 @@
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 
+#ifdef WITH_DBUS
+#include "kateappadaptor.h"
+#endif
+
 #include <KAboutData>
 #include <KConfigGui>
 #include <KCrash>
@@ -100,6 +104,16 @@
 // remember if we were started inside a terminal
 static bool insideTerminal = false;
 
+#ifdef WITH_DBUS
+/**
+ * dbus interface, must survive longer than m_docManager
+ * e.g. the destroyed signal of the document might access this
+ * global static as we register one on the qApp instance
+ * Qt docs tell one shall not delete it, it will disappear with it's parent
+ */
+static KateAppAdaptor *adaptor = nullptr;
+#endif
+
 /**
  * singleton instance pointer
  */
@@ -182,13 +196,17 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     : m_args(args)
     , m_mode(mode)
     , m_wrapper(appSelf = this)
-#ifdef WITH_DBUS
-    , m_adaptor(this)
-#endif
     , m_docManager(this)
     , m_sessionManager(this, sessionsDir)
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
 {
+#ifdef WITH_DBUS
+    // init adaptor if not already there, that can happen in tests
+    if (!adaptor) {
+        adaptor = new KateAppAdaptor;
+    }
+#endif
+
 #if HAVE_STYLE_MANAGER
     /**
      * trigger initialisation of proper application style
@@ -261,7 +279,7 @@ KateApp::~KateApp()
      * unregister from dbus before we get unusable...
      */
     if (QDBusConnection::sessionBus().interface()) {
-        m_adaptor.emitExiting();
+        adaptor->emitExiting();
         QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/MainApplication"));
     }
 #endif
@@ -588,7 +606,7 @@ void KateApp::openDocUrlDocumentDestroyed(QObject *document)
 
 #ifdef WITH_DBUS
     // emit token signal to unblock remove blocking instances
-    m_adaptor.emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(document)));
+    adaptor->emitDocumentClosed(QString::number(reinterpret_cast<qptrdiff>(document)));
 #endif
 }
 

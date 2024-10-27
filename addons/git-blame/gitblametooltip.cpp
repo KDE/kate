@@ -186,6 +186,11 @@ public:
             } else if (ke->matches(QKeySequence::SelectAll)) {
                 selectAll();
             }
+            // hide the tooltip if it does not the focus
+            if (!m_inFocus) {
+                hideTooltip();
+                return false;
+            }
             event->accept();
             return true;
         }
@@ -201,6 +206,13 @@ public:
         case QEvent::WindowActivate:
         case QEvent::WindowDeactivate:
             hideTooltip();
+            break;
+        case QEvent::MouseButtonPress:
+            // hide the tooltip if it does not the focus
+            if (!m_inFocus) {
+                hideTooltip();
+                return false;
+            }
             break;
         default:
             break;
@@ -252,6 +264,7 @@ public:
         close();
         setText(QString());
         m_inContextMenu = false;
+        m_inFocus = false;
     }
 
 protected:
@@ -264,12 +277,14 @@ protected:
     void enterEvent(QEnterEvent *event) override
     {
         m_inContextMenu = false;
+        m_inFocus = true;
         m_hideTimer.stop();
         return QTextBrowser::enterEvent(event);
     }
 
     void leaveEvent(QEvent *event) override
     {
+        m_inFocus = false;
         if (!m_hideTimer.isActive() && !m_inContextMenu && textCursor().selectionStart() == textCursor().selectionEnd()) {
             hideTooltip();
         }
@@ -290,9 +305,20 @@ protected:
         m_inContextMenu = true;
         return QTextBrowser::contextMenuEvent(event);
     }
+    
+    void focusInEvent(QFocusEvent *event) override
+    {
+        m_inFocus = true;
+    }
+    
+    void focusOutEvent(QFocusEvent *event) override
+    {
+        m_inFocus = false;
+    }
 
 private:
     bool m_inContextMenu = false;
+    bool m_inFocus = false;
     QPointer<KTextEditor::View> m_view;
     QTimer m_hideTimer;
     HtmlHl m_htmlHl;
@@ -318,6 +344,14 @@ void GitBlameTooltip::show(const QString &text, KTextEditor::View *view)
     }
 
     d->showTooltip(text, view);
+}
+
+void GitBlameTooltip::hide()
+{
+    if (!d) {
+        return;
+    }
+    d->hideTooltip();
 }
 
 void GitBlameTooltip::setIgnoreKeySequence(const QKeySequence &sequence)

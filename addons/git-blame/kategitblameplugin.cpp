@@ -208,6 +208,8 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *) {
         m_startBlameTimer.start();
+
+        m_tooltip.hide();
     });
 
     connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::blameFinished);

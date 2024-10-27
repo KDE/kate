@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-14 00:43+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -64,32 +64,32 @@ msgstr "无法打开文件“%1”，服务器返回一个错误。"
 msgid "XML Plugin Error"
 msgstr "XML 插件错误"
 
-#: plugin_katexmltools.cpp:984
+#: plugin_katexmltools.cpp:992
 #, kde-format
 msgid "XML entities"
 msgstr "XML 条目"
 
-#: plugin_katexmltools.cpp:986
+#: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML attribute values"
 msgstr "XML 属性值"
 
-#: plugin_katexmltools.cpp:988
+#: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML attributes"
 msgstr "XML 属性"
 
-#: plugin_katexmltools.cpp:991
+#: plugin_katexmltools.cpp:999
 #, kde-format
 msgid "XML elements"
 msgstr "XML 元素"
 
-#: plugin_katexmltools.cpp:1030
+#: plugin_katexmltools.cpp:1038
 #, kde-format
 msgid "Insert XML Element"
 msgstr "插入 XML 元素"
 
-#: plugin_katexmltools.cpp:1035
+#: plugin_katexmltools.cpp:1043
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

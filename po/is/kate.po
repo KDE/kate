@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -165,40 +165,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - textaritill"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:258
+#: lib/commitfilesview.cpp:357 lib/filehistorywidget.cpp:260
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Loka"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:351
+#: lib/commitfilesview.cpp:397 lib/kateviewmanager.cpp:351
 #: lib/kateviewmanager.cpp:353
 #, kde-format
 msgid "Open File"
 msgstr "Opna skrá"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:399
+#: lib/commitfilesview.cpp:403 lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Copy Location"
 msgstr "Afrita staðsetningu"
 
-#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:425 lib/commitfilesview.cpp:521
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:521
 #, kde-format
 msgid "Invalid hash"
 msgstr "Ógilt tætigildi"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 er ekki til í git-safni."
 
-#: lib/commitfilesview.cpp:539
+#: lib/commitfilesview.cpp:542
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -575,29 +575,29 @@ msgstr "Eyða skrá %1"
 msgid "No differences found"
 msgstr "Engin frávik fundust"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "Mistókst að sækja feril skráar: git-keyrsluskrá fannst ekki í PATH"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:314
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Mistókst að sækja feril skráar: %1"
 
-#: lib/filehistorywidget.cpp:323
+#: lib/filehistorywidget.cpp:325
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Afrita tætigildi innsetningar"
 
-#: lib/filehistorywidget.cpp:331
+#: lib/filehistorywidget.cpp:333
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Sýna alla innsetninguna"
 
-#: lib/filehistorywidget.cpp:390
+#: lib/filehistorywidget.cpp:392
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1344,7 +1344,7 @@ msgstr ""
 "<p>Skjalinu '%1' hefur verið breytt en er óvistað.</p><p>Viltu vista "
 "breytingarnar eða henda þeim?</p>"
 
-#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Loka skjali"
@@ -2079,17 +2079,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Annáll"
 
-#: lib/katesavemodifieddialog.cpp:78
+#: lib/katesavemodifieddialog.cpp:82
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Vista sem (%1)"
 
-#: lib/katesavemodifieddialog.cpp:130
+#: lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Save Documents"
 msgstr "Vista skjöl"
 
-#: lib/katesavemodifieddialog.cpp:154
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2097,7 +2097,7 @@ msgid ""
 msgstr ""
 "Skjalinu \"%1\" hefur verið breytt. Viltu vista breytingarnar eða henda þeim?"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:162
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2106,22 +2106,22 @@ msgstr ""
 "<qt>Eftirfarandi skjölum hefur verið breytt. Viltu vista þau áður en þú "
 "lokar?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Documents"
 msgstr "Skjöl"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Location"
 msgstr "Staðsetning"
 
-#: lib/katesavemodifieddialog.cpp:177
+#: lib/katesavemodifieddialog.cpp:181
 #, kde-format
 msgid "Se&lect All"
 msgstr "Ve&lja allt"
 
-#: lib/katesavemodifieddialog.cpp:255
+#: lib/katesavemodifieddialog.cpp:259
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
@@ -2130,13 +2130,13 @@ msgstr ""
 "Ekki tókst að skrifa gögnin sem þú baðst um að yrðu vistuð. Veldu hvað þú "
 "vilt gera."
 
-#: lib/kateurlbar.cpp:911
+#: lib/kateurlbar.cpp:913
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Afrita staðsetningu"
 
-#: lib/kateurlbar.cpp:916
+#: lib/kateurlbar.cpp:918
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

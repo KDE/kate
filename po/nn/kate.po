@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -158,40 +158,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite – skriveprogram"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:258
+#: lib/commitfilesview.cpp:357 lib/filehistorywidget.cpp:260
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Lukk"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:351
+#: lib/commitfilesview.cpp:397 lib/kateviewmanager.cpp:351
 #: lib/kateviewmanager.cpp:353
 #, kde-format
 msgid "Open File"
 msgstr "Opna fil"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:399
+#: lib/commitfilesview.cpp:403 lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopier filadressa"
 
-#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:425 lib/commitfilesview.cpp:521
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:521
 #, kde-format
 msgid "Invalid hash"
 msgstr "Ugyldig commit-ID"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 finst ikkje i eit Git-depot."
 
-#: lib/commitfilesview.cpp:539
+#: lib/commitfilesview.cpp:542
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -566,31 +566,31 @@ msgstr "Sletta fil %1"
 msgid "No differences found"
 msgstr "Fann ingen forskjellar"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Klarte ikkje henta filhistorikk: fann ikkje programfila «git» i søkjestien "
 "(PATH-variabelen)"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:314
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Klarte ikkje henta filhistorikk: %1"
 
-#: lib/filehistorywidget.cpp:323
+#: lib/filehistorywidget.cpp:325
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopiert commit-ID"
 
-#: lib/filehistorywidget.cpp:331
+#: lib/filehistorywidget.cpp:333
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Vis full commit"
 
-#: lib/filehistorywidget.cpp:390
+#: lib/filehistorywidget.cpp:392
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1341,7 +1341,7 @@ msgstr ""
 "<p>Dokumentet «%1» er endra, men ikkje lagra.</p><p>Vil du ta vare på "
 "endringane eller forkasta dei?</p>"
 
-#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
@@ -2073,17 +2073,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Logg"
 
-#: lib/katesavemodifieddialog.cpp:78
+#: lib/katesavemodifieddialog.cpp:82
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Lagra som (%1)"
 
-#: lib/katesavemodifieddialog.cpp:130
+#: lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Save Documents"
 msgstr "Lagra dokument"
 
-#: lib/katesavemodifieddialog.cpp:154
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2091,7 +2091,7 @@ msgid ""
 msgstr "Dokumentet «%1» er endra. Vil du lagra eller forkasta endringane?"
 
 # Det er hakket meir naturleg å snakka om «dokumenta nedanfor» enn «dei følgjande dokumenta». (Dei vert viste i ei liste nedanfor teksten.)
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:162
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2099,22 +2099,22 @@ msgid ""
 msgstr ""
 "<qt>Dokumenta nedanfor er endra. Vil du lagra dei før du avsluttar?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Documents"
 msgstr "Dokument"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Location"
 msgstr "Plassering"
 
-#: lib/katesavemodifieddialog.cpp:177
+#: lib/katesavemodifieddialog.cpp:181
 #, kde-format
 msgid "Se&lect All"
 msgstr "&Vel alle"
 
-#: lib/katesavemodifieddialog.cpp:255
+#: lib/katesavemodifieddialog.cpp:259
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
@@ -2123,13 +2123,13 @@ msgstr ""
 "Det du ville lagra, kunne ikkje skrivast til disken. Vel korleis du vil "
 "halda fram."
 
-#: lib/kateurlbar.cpp:911
+#: lib/kateurlbar.cpp:913
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopier filadressa"
 
-#: lib/kateurlbar.cpp:916
+#: lib/kateurlbar.cpp:918
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
@@ -2957,6 +2957,3 @@ msgstr "Handsam økter …"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "Snøggopningssøk (set opp via kontekstmenyen)"

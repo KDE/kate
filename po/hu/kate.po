@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -157,40 +157,40 @@ msgid "KWrite - Text Editor"
 msgstr "KWrite - szövegszerkesztő"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:258
+#: lib/commitfilesview.cpp:357 lib/filehistorywidget.cpp:260
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Bezárás"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:351
+#: lib/commitfilesview.cpp:397 lib/kateviewmanager.cpp:351
 #: lib/kateviewmanager.cpp:353
 #, kde-format
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:399
+#: lib/commitfilesview.cpp:403 lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Copy Location"
 msgstr "Hely másolása"
 
-#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:425 lib/commitfilesview.cpp:521
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:521
 #, kde-format
 msgid "Invalid hash"
 msgstr "Érvénytelen hash"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "A(z) %1 nem létezik a git tárolóban."
 
-#: lib/commitfilesview.cpp:539
+#: lib/commitfilesview.cpp:542
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -567,30 +567,30 @@ msgstr "Törölt fájl: %1"
 msgid "No differences found"
 msgstr "Nem találhatók különbségek"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nem sikerült lekérni a fájl előzményeit: a git nem található a PATH-ban"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:314
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nem sikerült lekérni a fájl előzményeit: %1"
 
-#: lib/filehistorywidget.cpp:323
+#: lib/filehistorywidget.cpp:325
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:331
+#: lib/filehistorywidget.cpp:333
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Teljes véglegesítő megjelenítése"
 
-#: lib/filehistorywidget.cpp:390
+#: lib/filehistorywidget.cpp:392
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1331,7 +1331,7 @@ msgstr ""
 "<p>A(z) „%1” dokumentum megváltozott, de még nincs elmentve.</p><p>El "
 "szeretné menteni a módosításokat vagy inkább eldobja azokat?</p>"
 
-#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Dokumentum bezárása"
@@ -2091,17 +2091,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Napló"
 
-#: lib/katesavemodifieddialog.cpp:78
+#: lib/katesavemodifieddialog.cpp:82
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Mentés másként (%1)"
 
-#: lib/katesavemodifieddialog.cpp:130
+#: lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Save Documents"
 msgstr "Dokumentumok mentése"
 
-#: lib/katesavemodifieddialog.cpp:154
+#: lib/katesavemodifieddialog.cpp:158
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -2113,7 +2113,7 @@ msgstr ""
 "<p>A(z) „%1” dokumentum megváltozott, de még nincs elmentve.</p><p>El "
 "szeretné menteni a módosításokat vagy inkább eldobja azokat?</p>"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:162
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2122,22 +2122,22 @@ msgstr ""
 "<qt>Az alábbi dokumentumok megváltoztak. El szeretné menteni őket bezárás "
 "előtt?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Documents"
 msgstr "Dokumentumok"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Location"
 msgstr "Hely"
 
-#: lib/katesavemodifieddialog.cpp:177
+#: lib/katesavemodifieddialog.cpp:181
 #, kde-format
 msgid "Se&lect All"
 msgstr "Összes kije&lölése"
 
-#: lib/katesavemodifieddialog.cpp:255
+#: lib/katesavemodifieddialog.cpp:259
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
@@ -2146,14 +2146,14 @@ msgstr ""
 "Az elmentésre kijelölt adatokat nem sikerült kiírni. Válassza ki, mit "
 "szeretne tenni."
 
-#: lib/kateurlbar.cpp:911
+#: lib/kateurlbar.cpp:913
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Hely másolása"
 
-#: lib/kateurlbar.cpp:916
+#: lib/kateurlbar.cpp:918
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

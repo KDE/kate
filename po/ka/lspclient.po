@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-11 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-09-16 04:22+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.1\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:260
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:264
 #, kde-format
 msgid "Filter..."
 msgstr "გაფილტვრა..."
@@ -251,12 +251,12 @@ msgstr "გადასვლა"
 msgid "More options"
 msgstr "მეტი პარამეტრი"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:296
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:300
 #, kde-format
 msgid "Expand All"
 msgstr "ყველას ამოკეცვა"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:297
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:301
 #, kde-format
 msgid "Collapse All"
 msgstr "ყველას ჩაკეცვა"
@@ -426,42 +426,42 @@ msgstr "შეცდომა სერვერის კონფიგურ�
 msgid "Failed to read server configuration: %1"
 msgstr "შეცდომა სერვერის კონფიგურაციის კითხვისას: %1"
 
-#: lspclientsymbolview.cpp:242
+#: lspclientsymbolview.cpp:246
 #, kde-format
 msgid "Symbol Outline"
 msgstr "იდენტიფიკატორის სტრუქტურა"
 
-#: lspclientsymbolview.cpp:287
+#: lspclientsymbolview.cpp:291
 #, kde-format
 msgid "Tree Mode"
 msgstr "ხის რეჟიმი"
 
-#: lspclientsymbolview.cpp:289
+#: lspclientsymbolview.cpp:293
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "ხის ავტომატური გაფართოება"
 
-#: lspclientsymbolview.cpp:291
+#: lspclientsymbolview.cpp:295
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "ანბანის მიხედვით დალაგება"
 
-#: lspclientsymbolview.cpp:293
+#: lspclientsymbolview.cpp:297
 #, kde-format
 msgid "Show Details"
 msgstr "დეტალების ჩვენება"
 
-#: lspclientsymbolview.cpp:455
+#: lspclientsymbolview.cpp:459
 #, kde-format
 msgid "Symbols"
 msgstr "სიმბოლოები"
 
-#: lspclientsymbolview.cpp:515
+#: lspclientsymbolview.cpp:519
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP სერვერს სიმბოლოს მონახაზის მხარდაჭერა არ გააჩნია."
 
-#: lspclientsymbolview.cpp:593
+#: lspclientsymbolview.cpp:597
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "ამ დოკუმენტისთვის LSP სერვერი არ არსებობს."

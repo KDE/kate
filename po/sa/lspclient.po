@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-11 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -15,7 +15,7 @@ msgstr ""
 "X-Generator: Poedit 3.3.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:260
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:264
 #, kde-format
 msgid "Filter..."
 msgstr "शोधक..."
@@ -247,12 +247,12 @@ msgstr "गच्छतु"
 msgid "More options"
 msgstr "अधिकविकल्पाः"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:296
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:300
 #, kde-format
 msgid "Expand All"
 msgstr "सर्वं विस्तारयतु"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:297
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:301
 #, kde-format
 msgid "Collapse All"
 msgstr "सर्वे ध्वस्तं कुर्वन्तु"
@@ -419,42 +419,42 @@ msgstr "वितारकविन्यासस्य विश्लेष�
 msgid "Failed to read server configuration: %1"
 msgstr "वितारकविन्यासं पठितुं असफलम्: %1"
 
-#: lspclientsymbolview.cpp:242
+#: lspclientsymbolview.cpp:246
 #, kde-format
 msgid "Symbol Outline"
 msgstr "प्रतीक रूपरेखा"
 
-#: lspclientsymbolview.cpp:287
+#: lspclientsymbolview.cpp:291
 #, kde-format
 msgid "Tree Mode"
 msgstr "वृक्षविधिः"
 
-#: lspclientsymbolview.cpp:289
+#: lspclientsymbolview.cpp:293
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "स्वयमेव वृक्षस्य विस्तारं कुर्वन्तु"
 
-#: lspclientsymbolview.cpp:291
+#: lspclientsymbolview.cpp:295
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "वर्णमालानुसार क्रमबद्ध कुर्वन्तु"
 
-#: lspclientsymbolview.cpp:293
+#: lspclientsymbolview.cpp:297
 #, kde-format
 msgid "Show Details"
 msgstr "विवरणं दर्शयतु"
 
-#: lspclientsymbolview.cpp:455
+#: lspclientsymbolview.cpp:459
 #, kde-format
 msgid "Symbols"
 msgstr "प्रतीकाः"
 
-#: lspclientsymbolview.cpp:515
+#: lspclientsymbolview.cpp:519
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:593
+#: lspclientsymbolview.cpp:597
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "अस्य दस्तावेजस्य कृते LSP वितारक् नास्ति ।."

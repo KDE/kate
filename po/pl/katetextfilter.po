@@ -1,19 +1,19 @@
 # translation of katetextfilter.po to Polish
-# Version: $Revision: 1693281 $
+# Version: $Revision: 1693640 $
 # translation of katetextfilter.po to
 # Copyright (C) 2002, 2005, 2007, 2010 Free Software Foundation, Inc.
 # Marcin Giedz <mgiedz@elka.pw.edu.pl>, 2002.
 # Krzysztof Lichota <lichota@mimuw.edu.pl>, 2005.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2007.
 # Michał Smoczyk <msmoczyk@wp.pl>, 2010.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2014, 2015, 2018, 2020, 2021.
+# SPDX-FileCopyrightText: 2014, 2015, 2018, 2020, 2021, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2021-03-20 07:18+0100\n"
+"PO-Revision-Date: 2024-10-26 12:36+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -22,6 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -36,7 +37,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Nie udało się uruchomić procesu"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

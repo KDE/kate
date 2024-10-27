@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -158,41 +158,41 @@ msgid "KWrite - Text Editor"
 msgstr "Kata - Aspougneu di tecse po spepieus"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:258
+#: lib/commitfilesview.cpp:357 lib/filehistorywidget.cpp:260
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "Clôre"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:351
+#: lib/commitfilesview.cpp:397 lib/kateviewmanager.cpp:351
 #: lib/kateviewmanager.cpp:353
 #, kde-format
 msgid "Open File"
 msgstr "Drovi fitchî"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:399
+#: lib/commitfilesview.cpp:403 lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "Eplaeçmint"
 
-#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:425 lib/commitfilesview.cpp:521
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:521
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:539
+#: lib/commitfilesview.cpp:542
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -580,30 +580,30 @@ msgstr "Disfacer fitchî ?"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:314
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:323
+#: lib/filehistorywidget.cpp:325
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:331
+#: lib/filehistorywidget.cpp:333
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Mostrer l' &tchimin"
 
-#: lib/filehistorywidget.cpp:390
+#: lib/filehistorywidget.cpp:392
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"
@@ -1344,7 +1344,7 @@ msgstr ""
 "<p>Li documint '%1' a stî candjî, mins nén schapé.</p><p>Voloz vs schaper "
 "vos candjmints ou les passer?</p>"
 
-#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Clôre li documint"
@@ -2121,17 +2121,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:78
+#: lib/katesavemodifieddialog.cpp:82
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Schaper et rlomer (%1)"
 
-#: lib/katesavemodifieddialog.cpp:130
+#: lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Save Documents"
 msgstr "Schaper documints"
 
-#: lib/katesavemodifieddialog.cpp:154
+#: lib/katesavemodifieddialog.cpp:158
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -2143,7 +2143,7 @@ msgstr ""
 "<p>Li documint '%1' a stî candjî, mins nén schapé.</p><p>Voloz vs schaper "
 "vos candjmints ou les passer?</p>"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:162
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2152,22 +2152,22 @@ msgstr ""
 "<qt>Les documints shuvants ont stî candjîs. Les voloz vs schaper divant d' "
 "les clôre?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Documents"
 msgstr "Documints"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Location"
 msgstr "Eplaeçmint"
 
-#: lib/katesavemodifieddialog.cpp:177
+#: lib/katesavemodifieddialog.cpp:181
 #, kde-format
 msgid "Se&lect All"
 msgstr "Tchoe&zi ttafwait"
 
-#: lib/katesavemodifieddialog.cpp:255
+#: lib/katesavemodifieddialog.cpp:259
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
@@ -2176,14 +2176,14 @@ msgstr ""
 "Les dnêyes ki vs avoz dmandé d' schaper n' polèt nén esse sicrîtes. "
 "Tchoezixhoz, s' i vs plait, comint vs voloz fé."
 
-#: lib/kateurlbar.cpp:911
+#: lib/kateurlbar.cpp:913
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Eplaeçmint"
 
-#: lib/kateurlbar.cpp:916
+#: lib/kateurlbar.cpp:918
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

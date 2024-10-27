@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-25 00:42+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2024-09-05 13:56+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -163,40 +163,40 @@ msgid "KWrite - Text Editor"
 msgstr "كاتبك - محرّر نصوص"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_closeButton)
-#: lib/commitfilesview.cpp:354 lib/filehistorywidget.cpp:258
+#: lib/commitfilesview.cpp:357 lib/filehistorywidget.cpp:260
 #: lib/session/katesessionmanagedialog.ui:183
 #, kde-format
 msgid "Close"
 msgstr "أغلق"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:351
+#: lib/commitfilesview.cpp:397 lib/kateviewmanager.cpp:351
 #: lib/kateviewmanager.cpp:353
 #, kde-format
 msgid "Open File"
 msgstr "افتح ملفًّا"
 
-#: lib/commitfilesview.cpp:400 lib/katemainwindow.cpp:399
+#: lib/commitfilesview.cpp:403 lib/katemainwindow.cpp:399
 #, kde-format
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:425 lib/commitfilesview.cpp:521
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "Git"
 msgstr "غت"
 
-#: lib/commitfilesview.cpp:518
+#: lib/commitfilesview.cpp:521
 #, kde-format
 msgid "Invalid hash"
 msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:381
+#: lib/commitfilesview.cpp:527 lib/filehistorywidget.cpp:383
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
 
-#: lib/commitfilesview.cpp:539
+#: lib/commitfilesview.cpp:542
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -581,29 +581,29 @@ msgstr "ملف محذوف %1"
 msgid "No differences found"
 msgstr "لم يعثر على فروقات"
 
-#: lib/filehistorywidget.cpp:299
+#: lib/filehistorywidget.cpp:301
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر على تنفيذي غت في المسار PATH"
 
-#: lib/filehistorywidget.cpp:312
+#: lib/filehistorywidget.cpp:314
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:323
+#: lib/filehistorywidget.cpp:325
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "انسخ تلبيدة الإيداع"
 
-#: lib/filehistorywidget.cpp:331
+#: lib/filehistorywidget.cpp:333
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "أظهر كامل الإيداع"
 
-#: lib/filehistorywidget.cpp:390
+#: lib/filehistorywidget.cpp:392
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1345,7 +1345,7 @@ msgid ""
 "save your changes or discard them?</p>"
 msgstr "<p>عُدّل المستند '%1' ولم يُحفظ.</p><p>أتريد حفظ التّعديلات أو رفضها؟</p>"
 
-#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:130
+#: lib/katedocmanager.cpp:274 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "أغلق المستند"
@@ -2066,59 +2066,59 @@ msgctxt "@info"
 msgid "Log"
 msgstr "سجل"
 
-#: lib/katesavemodifieddialog.cpp:78
+#: lib/katesavemodifieddialog.cpp:82
 #, kde-format
 msgid "Save As (%1)"
 msgstr "احفظ ك‍ (%1)"
 
-#: lib/katesavemodifieddialog.cpp:130
+#: lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Save Documents"
 msgstr "احفظ المستندات"
 
-#: lib/katesavemodifieddialog.cpp:154
+#: lib/katesavemodifieddialog.cpp:158
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr "عُدّل المستند '%1' ولم يُحفظ. أتريد حفظ التّعديلات أو رفضها؟"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:162
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
 "before closing?</qt>"
 msgstr "<qt>تعدّلت المستندات الآتية. أتريد حفظها قبل الإغلاق؟</qt>"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Documents"
 msgstr "المستندات"
 
-#: lib/katesavemodifieddialog.cpp:167
+#: lib/katesavemodifieddialog.cpp:171
 #, kde-format
 msgid "Location"
 msgstr "المكان"
 
-#: lib/katesavemodifieddialog.cpp:177
+#: lib/katesavemodifieddialog.cpp:181
 #, kde-format
 msgid "Se&lect All"
 msgstr "&حدّد الكلّ"
 
-#: lib/katesavemodifieddialog.cpp:255
+#: lib/katesavemodifieddialog.cpp:259
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr "تعذّرت كتابة البيانات التي طلبت حفظها. فضلًا اختر كيفيّة المتابعة."
 
-#: lib/kateurlbar.cpp:911
+#: lib/kateurlbar.cpp:913
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: lib/kateurlbar.cpp:916
+#: lib/kateurlbar.cpp:918
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-14 00:43+0000\n"
+"POT-Creation-Date: 2024-10-27 00:43+0000\n"
 "PO-Revision-Date: 2022-08-16 13:40+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -71,32 +71,32 @@ msgstr "No s'ha pogut obrir el fitxer «%1». El servidor ha retornat un error."
 msgid "XML Plugin Error"
 msgstr "Error en el connector XML"
 
-#: plugin_katexmltools.cpp:984
+#: plugin_katexmltools.cpp:992
 #, kde-format
 msgid "XML entities"
 msgstr "Entitats XML"
 
-#: plugin_katexmltools.cpp:986
+#: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML attribute values"
 msgstr "Valors de l'atribut XML"
 
-#: plugin_katexmltools.cpp:988
+#: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML attributes"
 msgstr "Atributs XML"
 
-#: plugin_katexmltools.cpp:991
+#: plugin_katexmltools.cpp:999
 #, kde-format
 msgid "XML elements"
 msgstr "Elements XML"
 
-#: plugin_katexmltools.cpp:1030
+#: plugin_katexmltools.cpp:1038
 #, kde-format
 msgid "Insert XML Element"
 msgstr "Insereix un element XML"
 
-#: plugin_katexmltools.cpp:1035
+#: plugin_katexmltools.cpp:1043
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

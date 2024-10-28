@@ -92,8 +92,7 @@ ecm_optional_add_subdirectory(apps)
 ecm_optional_add_subdirectory(doc)
 
 # Appium UI tests
-# FIXME broken with Qt 6.8
-#add_subdirectory(appiumtests)
+add_subdirectory(appiumtests)
 
 ki18n_install(po)
 if(KF6DocTools_FOUND)

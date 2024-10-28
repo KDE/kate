@@ -182,7 +182,7 @@ class SimpleTextEditorTests(unittest.TestCase):
         self.write_text(find_input, "Hello" + Keys.TAB + "Good Morning")
         self.wait.until(EC.text_to_be_present_in_element((AppiumBy.ACCESSIBILITY_ID, "PowerSearchBar.replacement"), "Good Morning"))
 
-        self.find_element_by_class_name("push button", "Replace All").click()
+        self.find_element_by_class_name("button", "Replace All").click()
         self.wait_for_text("Good Morning, World!")
         self.assertEqual(text_area.text, "Good Morning, World!")
 
@@ -198,7 +198,7 @@ class SimpleTextEditorTests(unittest.TestCase):
             text_area = self.find_text_area()
             self.assertEqual(text_area.text, "Hello, World!")
 
-            self.find_element_by_class_name("push button", "Save As…").click()
+            self.find_element_by_class_name("button", "Save As…").click()
             name_area_save = self.find_element_by_class_name("text", "")
             self.write_text(name_area_save, f"{absolute_path}/test_file")
             self.write_text(name_area_save, "" + Keys.TAB + Keys.TAB + Keys.ENTER)
@@ -222,7 +222,7 @@ class SimpleTextEditorTests(unittest.TestCase):
             self.find_element_by_class_name("menu item", "Open…").click()
             name_area_open = self.find_element_by_class_name("text", "")
             self.write_text(name_area_open, f"{absolute_path}/test_file")
-            self.find_element_by_class_name("push button", "Open").click()
+            self.find_element_by_class_name("button", "Open").click()
             text_area = self.find_text_area()
             self.assertEqual(text_area.text, "Hello, World!\n")  # There's an extra line when we open a file
 

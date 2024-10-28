@@ -25,11 +25,102 @@
 #include <QPointer>
 #include <QStandardItemModel>
 #include <QTimer>
+#include <QToolButton>
 #include <QTreeView>
 
 #include <drawing_utils.h>
 #include <memory>
 #include <utility>
+
+class MenuButtonHeaderView : public QHeaderView
+{
+    Q_OBJECT
+public:
+    explicit MenuButtonHeaderView(Qt::Orientation orientation, QWidget *parent = nullptr)
+        : QHeaderView(orientation, parent)
+    {
+    }
+
+private:
+    void paintSection(QPainter *painter, const QRect &rect, int logicalIndex) const override
+    {
+        const int w = 16 + 8;
+        const int h = 16 + 8;
+
+        QStyleOptionHeader optHeader;
+        initStyleOption(&optHeader);
+        initStyleOptionForIndex(&optHeader, logicalIndex);
+        optHeader.rect = rect;
+        painter->save();
+        style()->drawControl(QStyle::CE_Header, &optHeader, painter, this);
+        painter->restore();
+
+        if (logicalIndex == 0) {
+            QStyleOptionToolButton option;
+            option.toolButtonStyle = Qt::ToolButtonIconOnly;
+            option.rect = QRect(0, 0, w, h);
+            option.rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, option.rect.size(), rect);
+            option.rect.moveLeft(rect.left());
+            option.state = QStyle::State_Enabled;
+            option.state.setFlag(QStyle::State_AutoRaise);
+            option.state.setFlag(QStyle::State_MouseOver, m_hovered);
+            option.icon = QIcon::fromTheme(QStringLiteral("application-menu"));
+            option.iconSize = QSize(16, 16);
+            painter->save();
+            this->style()->drawComplexControl(QStyle::CC_ToolButton, &option, painter, nullptr);
+            painter->restore();
+        }
+    }
+    void mousePressEvent(QMouseEvent *event) override
+    {
+        if (!isPosOnCheckBox(event->pos())) {
+            QHeaderView::mousePressEvent(event);
+            return;
+        }
+
+        viewport()->update();
+        QPoint p(rect().left() + 4, rect().bottom() - 4);
+        Q_EMIT buttonClicked(viewport()->mapToGlobal(p));
+        event->accept();
+    }
+
+    void mouseMoveEvent(QMouseEvent *e) override
+    {
+        bool wasHovering = m_hovered;
+        m_hovered = isPosOnCheckBox(e->pos());
+        if (m_hovered) {
+            viewport()->update();
+            e->accept();
+            return;
+        } else if (wasHovering) {
+            viewport()->update();
+        }
+        QHeaderView::mouseMoveEvent(e);
+    }
+
+    void leaveEvent(QEvent *e) override
+    {
+        if (m_hovered) {
+            m_hovered = false;
+        }
+        QHeaderView::leaveEvent(e);
+    }
+
+    bool isPosOnCheckBox(QPoint p)
+    {
+        const int pos = sectionPosition(0);
+        const int w = 16 + 8;
+        const int h = 16 + 8;
+        QRect rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, {w, h}, this->rect());
+        rect.moveLeft(pos);
+        return rect.contains(p);
+    }
+
+    bool m_hovered = false;
+
+Q_SIGNALS:
+    void buttonClicked(QPoint globalPos);
+};
 
 // TODO: Make this globally available in shared/
 enum SymbolViewRoles {
@@ -248,6 +339,12 @@ public:
         m_symbols = new QTreeView(m_toolview.get());
         m_symbols->setFocusPolicy(Qt::NoFocus);
         m_symbols->setLayoutDirection(Qt::LeftToRight);
+        auto header = new MenuButtonHeaderView(Qt::Horizontal, m_symbols);
+        connect(header, &MenuButtonHeaderView::buttonClicked, this, [this](QPoint pos) {
+            m_popup->popup(pos);
+        });
+        m_symbols->setHeader(header);
+        m_symbols->header()->setSectionResizeMode(QHeaderView::Stretch);
         m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
 
         auto separator = new QFrame(m_toolview.get());

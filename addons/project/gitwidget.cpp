@@ -609,6 +609,12 @@ void GitWidget::slotUpdateStatus()
     startHostProcess(*git, QProcess::ReadOnly);
 }
 
+void GitWidget::updateGitProjectFolder()
+{
+    setDotGitPath();
+    updateStatus();
+}
+
 void GitWidget::runGitCmd(const QStringList &args, const QString &i18error)
 {
     auto git = gitp(args);

@@ -526,6 +526,10 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // project file name might have changed
     Q_EMIT projectFileNameChanged();
     Q_EMIT projectMapChanged();
+
+    if (auto widget = gitWidget()) {
+        widget->updateGitProjectFolder();
+    }
 }
 
 void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *document)

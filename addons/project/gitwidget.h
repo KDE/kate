@@ -76,6 +76,9 @@ public:
         return m_gitIndexFilePath;
     }
 
+    // Called from project view when project is changed
+    void updateGitProjectFolder();
+
 private:
     // The absolute path to the ".git/index" file
     QString m_gitIndexFilePath;

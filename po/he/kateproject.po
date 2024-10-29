@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-25 00:42+0000\n"
-"PO-Revision-Date: 2024-10-10 15:21+0300\n"
+"PO-Revision-Date: 2024-10-27 08:07+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -941,8 +941,7 @@ msgid "Copy Location"
 msgstr "העתקת מקום"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
 msgstr "קובץ חדש…"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-10-29 00:42+0000\n"
 "PO-Revision-Date: 2024-09-10 15:18+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.5\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:264
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter..."
 msgstr "စစ်ထုတ်မည်…"
@@ -246,12 +246,12 @@ msgstr "သို့သွား"
 msgid "More options"
 msgstr "နောက်ထပ်ရွေးချယ်စရာများ…"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:300
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "အားလုံးဖြန့်မည်"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:301
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "အားလုံးပိတ်မည်"
@@ -418,42 +418,42 @@ msgstr ""
 msgid "Failed to read server configuration: %1"
 msgstr "ဆာဗာပြင်ဆင်ချက်များကိုမဖတ်နိုင်ခဲ့ပါ- %1"
 
-#: lspclientsymbolview.cpp:246
+#: lspclientsymbolview.cpp:337
 #, kde-format
 msgid "Symbol Outline"
 msgstr "သင်္ကေတ ထုတ်နုတ်ချက်"
 
-#: lspclientsymbolview.cpp:291
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "သစ်ပင်ပုံစံမြင်ကွင်း"
 
-#: lspclientsymbolview.cpp:293
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "သစ်ပင်ပုံစံမြင်ကွင်းကိုအလိုအလျောက်ဖြန့်ပြမည်"
 
-#: lspclientsymbolview.cpp:295
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "အက္ခရာစဥ်ဖြင့်စီမည်"
 
-#: lspclientsymbolview.cpp:297
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "အသေးစိတ်ပြ"
 
-#: lspclientsymbolview.cpp:459
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "သင်္ကေတများ"
 
-#: lspclientsymbolview.cpp:519
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:597
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "ဤမှတ်တမ်းစာအုပ်အတွက်LSPဆာဗာမရှိပါ။"

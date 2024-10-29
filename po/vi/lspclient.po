@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-10-29 00:42+0000\n"
 "PO-Revision-Date: 2023-01-08 08:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.0\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:264
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter..."
 msgstr "Lọc..."
@@ -250,12 +250,12 @@ msgstr "Đi đến"
 msgid "More options"
 msgstr "Lựa chọn thêm"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:300
+#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Mở rộng tất cả"
 
-#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:301
+#: lspclientpluginview.cpp:832 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Thu gọn tất cả"
@@ -425,42 +425,42 @@ msgstr "Phân tách cấu hình trình chủ '%1' thất bại: %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Đọc cấu hình trình chủ thất bại: %1"
 
-#: lspclientsymbolview.cpp:246
+#: lspclientsymbolview.cpp:337
 #, kde-format
 msgid "Symbol Outline"
 msgstr "Biên dạng kí hiệu"
 
-#: lspclientsymbolview.cpp:291
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "Chế độ cây"
 
-#: lspclientsymbolview.cpp:293
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Tự động mở rộng cây"
 
-#: lspclientsymbolview.cpp:295
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Sắp xếp theo bảng chữ cái"
 
-#: lspclientsymbolview.cpp:297
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "Hiện chi tiết"
 
-#: lspclientsymbolview.cpp:459
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "Kí hiệu"
 
-#: lspclientsymbolview.cpp:519
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:597
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Không có trình chủ LSP nào cho tài liệu này."

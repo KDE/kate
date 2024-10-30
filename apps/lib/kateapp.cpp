@@ -34,6 +34,10 @@
 #include <KStyleManager>
 #endif
 
+#ifdef WITH_KUSERFEEDBACK
+#include <KUserFeedback/Provider>
+#endif
+
 // signal handler for SIGINT & SIGTERM
 #ifdef Q_OS_UNIX
 #include <KSignalHandler>
@@ -198,6 +202,7 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_wrapper(appSelf = this)
     , m_docManager(this)
     , m_sessionManager(this, sessionsDir)
+    , m_userFeedbackProvider(new KUserFeedback::Provider(this))
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
 {
 #ifdef WITH_DBUS
@@ -245,27 +250,27 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
      * defaults, inspired by plasma
      * important: choose between kate and kwrite mode here to submit the right product id
      */
-    m_userFeedbackProvider.setProductIdentifier(isKate() ? QStringLiteral("org.kde.kate") : QStringLiteral("org.kde.kwrite"));
-    m_userFeedbackProvider.setFeedbackServer(QUrl(QStringLiteral("https://telemetry.kde.org/")));
-    m_userFeedbackProvider.setSubmissionInterval(7);
-    m_userFeedbackProvider.setApplicationStartsUntilEncouragement(5);
-    m_userFeedbackProvider.setEncouragementDelay(30);
+    m_userFeedbackProvider->setProductIdentifier(isKate() ? QStringLiteral("org.kde.kate") : QStringLiteral("org.kde.kwrite"));
+    m_userFeedbackProvider->setFeedbackServer(QUrl(QStringLiteral("https://telemetry.kde.org/")));
+    m_userFeedbackProvider->setSubmissionInterval(7);
+    m_userFeedbackProvider->setApplicationStartsUntilEncouragement(5);
+    m_userFeedbackProvider->setEncouragementDelay(30);
 
     /**
      * add some feedback providers
      */
 
     // software version info
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::ApplicationVersionSource);
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::QtVersionSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::ApplicationVersionSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::QtVersionSource);
 
     // info about the machine
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::PlatformInfoSource);
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::ScreenInfoSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::PlatformInfoSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::ScreenInfoSource);
 
     // usage info
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::StartCountSource);
-    m_userFeedbackProvider.addDataSource(new KUserFeedback::UsageTimeSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::StartCountSource);
+    m_userFeedbackProvider->addDataSource(new KUserFeedback::UsageTimeSource);
 #endif
 }
 

@@ -467,7 +467,7 @@ void KateConfigDialog::addFeedbackPage()
     vlayout->setSpacing(0);
 
     m_userFeedbackWidget = new KUserFeedback::FeedbackConfigWidget(page);
-    m_userFeedbackWidget->setFeedbackProvider(&KateApp::self()->userFeedbackProvider());
+    m_userFeedbackWidget->setFeedbackProvider(KateApp::self()->userFeedbackProvider());
     connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
     vlayout->addWidget(m_userFeedbackWidget);
 
@@ -648,8 +648,8 @@ void KateConfigDialog::slotApply()
 
 #ifdef WITH_KUSERFEEDBACK
         // set current active mode + write back the config for future starts
-        KateApp::self()->userFeedbackProvider().setTelemetryMode(m_userFeedbackWidget->telemetryMode());
-        KateApp::self()->userFeedbackProvider().setSurveyInterval(m_userFeedbackWidget->surveyInterval());
+        KateApp::self()->userFeedbackProvider()->setTelemetryMode(m_userFeedbackWidget->telemetryMode());
+        KateApp::self()->userFeedbackProvider()->setSurveyInterval(m_userFeedbackWidget->surveyInterval());
 #endif
     }
 

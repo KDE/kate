@@ -9,10 +9,6 @@
 
 #include <ktexteditor/application.h>
 
-#ifdef WITH_KUSERFEEDBACK
-#include <KUserFeedback/Provider>
-#endif
-
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "kateprivate_export.h"
@@ -29,6 +25,11 @@ class KatePluginManager;
 class KateDocManager;
 class KateAppCommands;
 class QCommandLineParser;
+
+namespace KUserFeedback
+{
+class Provider;
+}
 
 /**
  * Kate Application
@@ -56,10 +57,7 @@ public:
     /**
      *  Are we full featured Kate or the simplified KWrite?
      */
-    enum ApplicationMode {
-        ApplicationKate,
-        ApplicationKWrite
-    };
+    enum ApplicationMode { ApplicationKate, ApplicationKWrite };
 
     /**
      * application constructor
@@ -130,7 +128,7 @@ public:
      * Get our global user feedback provider
      * @return user feedback provider
      */
-    KUserFeedback::Provider &userFeedbackProvider()
+    KUserFeedback::Provider *userFeedbackProvider()
     {
         return m_userFeedbackProvider;
     }
@@ -479,7 +477,7 @@ private:
     /**
      * user feedback provider
      */
-    KUserFeedback::Provider m_userFeedbackProvider;
+    KUserFeedback::Provider *m_userFeedbackProvider = nullptr;
 #endif
 
     /**

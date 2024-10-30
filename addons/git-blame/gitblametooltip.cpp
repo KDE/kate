@@ -133,8 +133,6 @@ private:
 
 class GitBlameTooltip::Private : public QTextBrowser
 {
-    Q_OBJECT
-
 public:
     QKeySequence m_ignoreKeySequence;
 
@@ -255,7 +253,7 @@ public:
         show();
     }
 
-    Q_SLOT void hideTooltip()
+    void hideTooltip()
     {
         if (m_view && m_view->focusProxy()) {
             m_view->focusProxy()->removeEventFilter(this);
@@ -361,5 +359,3 @@ void GitBlameTooltip::setIgnoreKeySequence(const QKeySequence &sequence)
     }
     d->m_ignoreKeySequence = sequence;
 }
-
-#include "gitblametooltip.moc"

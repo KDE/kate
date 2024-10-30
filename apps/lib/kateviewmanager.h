@@ -328,27 +328,7 @@ public:
      * Get a list of all views.
      * @return all views sorted by their last use, most recently used first
      */
-    QList<KTextEditor::View *> views() const
-    {
-        std::vector<std::pair<KTextEditor::View *, qint64>> sorted;
-
-        // extract into a list
-        std::transform(m_views.begin(), m_views.end(), std::back_inserter(sorted), [](const std::pair<KTextEditor::View *, ViewData> &p) {
-            return std::pair<KTextEditor::View *, qint64>{p.first, p.second.lruAge};
-        });
-        // sort the views based on lru
-        std::sort(sorted.begin(), sorted.end(), [](const std::pair<KTextEditor::View *, qint64> &l, const std::pair<KTextEditor::View *, qint64> &r) {
-            return l.second < r.second;
-        });
-
-        // extract the views only and return
-        QList<KTextEditor::View *> ret;
-        ret.reserve(sorted.size());
-        std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, qint64> &p) {
-            return p.first;
-        });
-        return ret;
-    }
+    QList<KTextEditor::View *> views() const;
 
     void onViewSpaceEmptied(KateViewSpace *vs);
 

@@ -303,13 +303,13 @@ protected:
         m_inContextMenu = true;
         return QTextBrowser::contextMenuEvent(event);
     }
-    
-    void focusInEvent(QFocusEvent *event) override
+
+    void focusInEvent(QFocusEvent *) override
     {
         m_inFocus = true;
     }
-    
-    void focusOutEvent(QFocusEvent *event) override
+
+    void focusOutEvent(QFocusEvent *) override
     {
         m_inFocus = false;
     }

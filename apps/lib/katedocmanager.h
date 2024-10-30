@@ -157,7 +157,7 @@ Q_SIGNALS:
      * note that the batch can be interrupted in the middle and only some
      * of the documents may be actually deleted. See documentsDeleted() signal.
      */
-    void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+    void aboutToDeleteDocuments();
 
     /**
      * This signal is emitted after the documents batch was deleted
@@ -165,7 +165,7 @@ Q_SIGNALS:
      * This is the batch closing signal for aboutToDeleteDocuments
      * @param documents the documents that weren't deleted after all
      */
-    void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+    void documentsDeleted();
 
 private:
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason);

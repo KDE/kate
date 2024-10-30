@@ -167,7 +167,7 @@ private:
      *
      * @param documents documents we want to delete, may not be deleted
      */
-    void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &documents);
+    void aboutToDeleteDocuments();
 
     /**
      * This signal is emitted after the documents batch was deleted
@@ -175,7 +175,7 @@ private:
      * This is the batch closing signal for aboutToDeleteDocuments
      * @param documents the documents that weren't deleted after all
      */
-    void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+    void documentsDeleted();
 
     /**
      * Read and apply the config for this view manager.

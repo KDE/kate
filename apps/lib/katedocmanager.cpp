@@ -171,9 +171,8 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
 
     saveMetaInfos(documents);
 
-    Q_EMIT aboutToDeleteDocuments(QList<KTextEditor::Document *>{documents.begin(), documents.end()});
+    Q_EMIT aboutToDeleteDocuments();
 
-    int last = 0;
     bool success = true;
     for (KTextEditor::Document *doc : documents) {
         if (closeUrl && !doc->closeUrl()) {
@@ -191,11 +190,9 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
 
         // document is gone, emit our signals
         Q_EMIT documentDeleted(doc);
-
-        last++;
     }
 
-    Q_EMIT documentsDeleted(QList<KTextEditor::Document *>{documents.begin() + last, documents.end()});
+    Q_EMIT documentsDeleted();
 
     return success;
 }

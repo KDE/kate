@@ -616,7 +616,7 @@ KateMainWindow *KateViewManager::mainWindow()
     return m_mainWindow;
 }
 
-void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *> &)
+void KateViewManager::aboutToDeleteDocuments()
 {
     /**
      * block view creation until the transaction is done
@@ -631,7 +631,7 @@ void KateViewManager::aboutToDeleteDocuments(const QList<KTextEditor::Document *
     mainWindow()->setUpdatesEnabled(false);
 }
 
-void KateViewManager::documentsDeleted(const QList<KTextEditor::Document *> &)
+void KateViewManager::documentsDeleted()
 {
     /**
      * again allow view creation

@@ -16,7 +16,6 @@ enum class DiagnosticSeverity {
     Information = 3,
     Hint = 4,
 };
-Q_DECLARE_METATYPE(DiagnosticSeverity)
 
 struct SourceLocation {
     QUrl uri;
@@ -37,16 +36,13 @@ struct Diagnostic {
     QString message;
     QList<DiagnosticRelatedInformation> relatedInformation;
 };
-Q_DECLARE_METATYPE(Diagnostic)
 
 struct FileDiagnostics {
     QUrl uri;
     QList<Diagnostic> diagnostics;
 };
-Q_DECLARE_METATYPE(FileDiagnostics)
 
 struct DiagnosticFix {
     QString fixTitle;
     std::function<void()> fixCallback;
 };
-Q_DECLARE_METATYPE(DiagnosticFix)

@@ -43,7 +43,6 @@ struct Commit {
     QString msg;
     QByteArray fileName;
 };
-Q_DECLARE_METATYPE(Commit)
 
 static std::vector<Commit> parseCommits(const QByteArray raw)
 {

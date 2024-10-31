@@ -23,7 +23,6 @@ struct DiffParams {
         ReloadOnShow = 32
     };
     Q_DECLARE_FLAGS(Flags, Flag)
-    Q_FLAGS(Flags)
 
     /**
      * The tab title that will get shown in Kate.
@@ -71,4 +70,3 @@ struct DiffParams {
      */
     std::function<void()> updateStatusCallback;
 };
-Q_DECLARE_METATYPE(DiffParams)

@@ -269,8 +269,6 @@ private:
     FilterMode m_filterMode;
 };
 
-Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
-
 KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     : QFrame(mainWindow)
     , m_mainWindow(mainWindow)

@@ -317,7 +317,6 @@ static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 
 class CommitDiffTreeView : public QWidget
 {
-    Q_OBJECT
 public:
     explicit CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent);
 
@@ -327,12 +326,10 @@ public:
      */
     void openCommit(const QString &filePath);
 
-    Q_SIGNAL void showDiffRequested(const QByteArray &diffContents, const QString &file);
-
 public:
     void createFileTreeForCommit(const QByteArray &rawNumStat);
 
-private Q_SLOTS:
+private:
     void showDiff(const QModelIndex &idx);
     void openContextMenu(QPoint pos);
 
@@ -544,5 +541,3 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
     }
     mainWindow->showToolView(toolView);
 }
-
-#include "commitfilesview.moc"

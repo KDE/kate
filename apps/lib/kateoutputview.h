@@ -21,8 +21,6 @@ class QSortFilterProxyModel;
  */
 class KateOutputView : public QWidget
 {
-    Q_OBJECT
-
 public:
     enum Column {
         Column_Time = 0,

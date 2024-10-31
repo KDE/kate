@@ -18,8 +18,6 @@ class KateSessionChooserItem;
 
 class KateSessionManageDialog : public QDialog, public Ui::KateSessionManageDialogUi
 {
-    Q_OBJECT
-
 public:
     /**
      * The normal ctor for manage mode
@@ -33,7 +31,7 @@ public:
      */
     KateSessionManageDialog(QWidget *parent, const QString &lastSession);
 
-protected Q_SLOTS:
+protected:
     /**
      * Re-implemented to save in chooser mode users choice when needed and to
      * exit the dialog with a return code of @c 0/1 fitting to the code of

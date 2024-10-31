@@ -14,7 +14,6 @@ class KateTextHintManager;
 
 class KateTextHintView : public QObject
 {
-    Q_OBJECT
 public:
     explicit KateTextHintView(KTextEditor::MainWindow *mainWindow, KateTextHintManager *parent);
     void setView(KTextEditor::View *view);

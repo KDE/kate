@@ -501,4 +501,3 @@ void KateOutputView::slotMessage(const QVariantMap &message)
 }
 
 #include "kateoutputview.moc"
-#include "moc_kateoutputview.cpp"

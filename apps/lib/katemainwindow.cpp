@@ -288,11 +288,17 @@ void KateMainWindow::setupImportantActions()
     QAction *a = ac->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));
     a->setWhatsThis(i18n("Focus the previous tab."));
+    auto prev = KStandardShortcut::tabPrev();
+    prev.removeAll(Qt::CTRL | Qt::Key_BracketLeft);
+    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << prev);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusPrevTab);
 
     a = ac->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
     a->setText(i18n("&Next Tab"));
     a->setWhatsThis(i18n("Focus the next tab."));
+    auto next = KStandardShortcut::tabNext();
+    next.removeAll(Qt::CTRL | Qt::Key_BracketRight);
+    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << next);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
 
     constexpr int switchToTabCount = 10;

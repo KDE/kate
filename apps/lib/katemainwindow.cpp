@@ -248,48 +248,49 @@ QSize KateMainWindow::sizeHint() const
 
 void KateMainWindow::setupImportantActions()
 {
-    m_paShowStatusBar = KStandardAction::showStatusbar(this, &KateMainWindow::toggleShowStatusBar, actionCollection());
+    auto ac = actionCollection();
+    m_paShowStatusBar = KStandardAction::showStatusbar(this, &KateMainWindow::toggleShowStatusBar, ac);
     m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
 #if KATE_ALLOW_MENU_BAR_HIDE
-    m_paShowMenuBar = KStandardAction::showMenubar(this, &KateMainWindow::toggleShowMenuBar, actionCollection());
+    m_paShowMenuBar = KStandardAction::showMenubar(this, &KateMainWindow::toggleShowMenuBar, ac);
 #endif
 
     m_paShowTabBar = new KToggleAction(i18n("Show &Tabs"), this);
-    actionCollection()->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
+    ac->addAction(QStringLiteral("settings_show_tab_bar"), m_paShowTabBar);
     connect(m_paShowTabBar, &QAction::toggled, this, &KateMainWindow::toggleShowTabBar);
     m_paShowTabBar->setWhatsThis(i18n("Use this command to show or hide the tabs for the views"));
 
     m_paShowPath = new KToggleAction(i18n("Sho&w Path in Titlebar"), this);
-    actionCollection()->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
+    ac->addAction(QStringLiteral("settings_show_full_path"), m_paShowPath);
     connect(m_paShowPath, &QAction::toggled, this, [this] {
         updateCaption(nullptr);
     });
     m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
     m_paShowUrlNavBar = new KToggleAction(i18n("Show Navigation Bar"), this);
-    actionCollection()->addAction(QStringLiteral("settings_show_url_nav_bar"), m_paShowUrlNavBar);
+    ac->addAction(QStringLiteral("settings_show_url_nav_bar"), m_paShowUrlNavBar);
     connect(m_paShowUrlNavBar, &QAction::toggled, this, [this](bool v) {
         m_viewManager->setShowUrlNavBar(v);
     });
 
     // style config
 #if HAVE_STYLE_MANAGER
-    actionCollection()->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
+    ac->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
 #endif
 
     // Load themes
     KColorSchemeManager *manager = new KColorSchemeManager(this);
     auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
-    actionCollection()->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
+    ac->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
-    QAction *a = actionCollection()->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
+    QAction *a = ac->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));
     a->setWhatsThis(i18n("Focus the previous tab."));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusPrevTab);
 
-    a = actionCollection()->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
+    a = ac->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
     a->setText(i18n("&Next Tab"));
     a->setWhatsThis(i18n("Focus the next tab."));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
@@ -301,30 +302,30 @@ void KateMainWindow::setupImportantActions()
         connect(action, &QAction::triggered, this, [this, i]() {
             slotSwitchToTab(i - 1);
         });
-        actionCollection()->addAction(QStringLiteral("switch_to_tab_%1").arg(i), action);
+        ac->addAction(QStringLiteral("switch_to_tab_%1").arg(i), action);
 
 #ifndef Q_OS_APPLE
         // NOTE default shortucts added for non-macOS platforms only, due to macOS input complexities.
         // Only add default shortcut bindings for the first 10 tabs, regardless of switchToTabCount.
         if (i < shortcutToKey0) {
-            actionCollection()->setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
+            ac->setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
         } else if (i == shortcutToKey0) {
-            actionCollection()->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
+            ac->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
         }
 #endif
     }
 
     // the quick open action is used by the KateViewSpace "quick open button"
-    a = actionCollection()->addAction(QStringLiteral("view_quick_open"));
+    a = ac->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
 #if KATE_ALLOW_MENU_BAR_HIDE
     // enable hamburger menu
-    auto hamburgerMenu = static_cast<KHamburgerMenu *>(actionCollection()->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
+    auto hamburgerMenu = static_cast<KHamburgerMenu *>(ac->addAction(KStandardAction::HamburgerMenu, QStringLiteral("hamburger_menu")));
     hamburgerMenu->setMenuBar(menuBar());
     hamburgerMenu->setShowMenuBarAction(m_paShowMenuBar);
     if (KateApp::isKWrite()) {
@@ -364,12 +365,11 @@ void KateMainWindow::setupMainWindow()
 void KateMainWindow::setupActions()
 {
     QAction *a;
+    auto ac = actionCollection();
 
-    actionCollection()
-        ->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, &KateViewManager::slotDocumentNew)
+    ac->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, &KateViewManager::slotDocumentNew)
         ->setWhatsThis(i18n("Create a new document"));
-    actionCollection()
-        ->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, &KateViewManager::slotDocumentOpen)
+    ac->addAction(KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, &KateViewManager::slotDocumentOpen)
         ->setWhatsThis(i18n("Open an existing document for editing"));
 
     m_fileOpenRecent = KStandardAction::openRecent(
@@ -379,22 +379,22 @@ void KateMainWindow::setupActions()
         },
         this);
     m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());
-    actionCollection()->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
+    ac->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
     m_fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_save_all"));
+    a = ac->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Sa&ve All"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::saveAll);
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_reload_all"));
+    a = ac->addAction(QStringLiteral("file_reload_all"));
     a->setText(i18n("Reload A&ll"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::reloadAll);
     a->setWhatsThis(i18n("Reload all open documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_copy_filepath"));
+    a = ac->addAction(QStringLiteral("file_copy_filepath"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
     a->setText(i18n("Copy Location"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
@@ -403,7 +403,7 @@ void KateMainWindow::setupActions()
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_open_containing_folder"));
+    a = ac->addAction(QStringLiteral("file_open_containing_folder"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
     a->setText(i18n("&Open Containing Folder"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
@@ -412,7 +412,7 @@ void KateMainWindow::setupActions()
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_rename"));
+    a = ac->addAction(QStringLiteral("file_rename"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     a->setText(i18nc("@action:inmenu", "Rename..."));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
@@ -421,7 +421,7 @@ void KateMainWindow::setupActions()
     });
     a->setWhatsThis(i18n("Renames the file belonging to the current document."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_delete"));
+    a = ac->addAction(QStringLiteral("file_delete"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     a->setText(i18nc("@action:inmenu", "Delete"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
@@ -430,7 +430,7 @@ void KateMainWindow::setupActions()
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_properties"));
+    a = ac->addAction(QStringLiteral("file_properties"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-object-properties")));
     a->setText(i18n("Properties"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
@@ -439,58 +439,58 @@ void KateMainWindow::setupActions()
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_compare"));
+    a = ac->addAction(QStringLiteral("file_compare"));
     a->setText(i18n("Compare"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
         QMessageBox::information(this, i18n("Compare"), i18n("Use the Tabbar context menu to compare two documents"));
     });
     a->setWhatsThis(i18n("Shows a hint how to compare documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_close_orphaned"));
+    a = ac->addAction(QStringLiteral("file_close_orphaned"));
     a->setText(i18n("Close Orp&haned"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::closeOrphaned);
     a->setWhatsThis(i18n("Close all documents in the file list that could not be reopened, because they are not accessible anymore."));
 
-    a = actionCollection()->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, qOverload<>(&KateViewManager::slotDocumentClose));
+    a = ac->addAction(KStandardAction::Close, QStringLiteral("file_close"), m_viewManager, qOverload<>(&KateViewManager::slotDocumentClose));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-close")));
     a->setWhatsThis(i18n("Close the current document."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_close_other"));
+    a = ac->addAction(QStringLiteral("file_close_other"));
     a->setText(i18n("Close O&ther"));
     connect(a, &QAction::triggered, this, [this] {
         slotDocumentCloseOther();
     });
     a->setWhatsThis(i18n("Close other open documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("file_close_all"));
+    a = ac->addAction(QStringLiteral("file_close_all"));
     a->setText(i18n("Clos&e All"));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotDocumentCloseAll);
     a->setWhatsThis(i18n("Close all open documents."));
 
-    a = actionCollection()->addAction(QStringLiteral("reopen_latest_closed_document"));
+    a = ac->addAction(QStringLiteral("reopen_latest_closed_document"));
     a->setText(i18n("&Reopen latest closed document(s)"));
     connect(a, &QAction::triggered, m_viewManager, &KateViewManager::slotRestoreLastClosedDocument);
     a->setWhatsThis(i18n("Reopen the document or documents that were most recently closed"));
 
-    a = actionCollection()->addAction(KStandardAction::Quit, QStringLiteral("file_quit"));
+    a = ac->addAction(KStandardAction::Quit, QStringLiteral("file_quit"));
     // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFileQuit, Qt::QueuedConnection);
     a->setWhatsThis(i18n("Close this window"));
 
-    a = actionCollection()->addAction(QStringLiteral("view_new_view"));
+    a = ac->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
     a->setText(i18n("New &Window"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
     a->setWhatsThis(i18n("Create a new window."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
-    actionCollection()->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
-    actionCollection()->setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
+    ac->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
+    ac->setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
     connect(m_showFullScreenAction, &QAction::toggled, this, &KateMainWindow::slotFullScreen);
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);
-    actionCollection()->addAction(QStringLiteral("file_open_with"), documentOpenWith);
+    ac->addAction(QStringLiteral("file_open_with"), documentOpenWith);
     documentOpenWith->setWhatsThis(i18n("Open the current document using another application registered for its file type, or an application of your choice."));
     connect(documentOpenWith->menu(), &QMenu::aboutToShow, this, &KateMainWindow::mSlotFixOpenWithMenu);
     connect(documentOpenWith->menu(), &QMenu::triggered, this, &KateMainWindow::slotOpenWithMenuAction);
@@ -498,17 +498,17 @@ void KateMainWindow::setupActions()
     // no open with for KWrite ATM
     documentOpenWith->setVisible(KateApp::isKate());
 
-    a = KStandardAction::keyBindings(this, &KateMainWindow::editKeys, actionCollection());
+    a = KStandardAction::keyBindings(this, &KateMainWindow::editKeys, ac);
     a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-    a = KStandardAction::configureToolbars(this, &KateMainWindow::slotEditToolbars, actionCollection());
+    a = KStandardAction::configureToolbars(this, &KateMainWindow::slotEditToolbars, ac);
     a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-    QAction *settingsConfigure = KStandardAction::preferences(this, &KateMainWindow::slotConfigure, actionCollection());
+    QAction *settingsConfigure = KStandardAction::preferences(this, &KateMainWindow::slotConfigure, ac);
     settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
     if (KateApp::self()->pluginManager()->pluginList().size() > 0) {
-        a = actionCollection()->addAction(QStringLiteral("help_plugins_contents"));
+        a = ac->addAction(QStringLiteral("help_plugins_contents"));
         a->setText(i18n("&Plugins Handbook"));
         connect(a, &QAction::triggered, this, &KateMainWindow::pluginHelp);
         a->setWhatsThis(i18n("This shows help files for various available plugins."));
@@ -527,11 +527,11 @@ void KateMainWindow::setupActions()
 
     // session actions, not for KWrite, create the full menu to be able to properly hide it
     if (KateApp::isKate()) {
-        auto sessionsMenu = actionCollection()->addAction(QStringLiteral("sessions"));
+        auto sessionsMenu = ac->addAction(QStringLiteral("sessions"));
         sessionsMenu->setText(i18n("Sess&ions"));
         sessionsMenu->setMenu(new QMenu(this));
 
-        a = actionCollection()->addAction(QStringLiteral("sessions_new"));
+        a = ac->addAction(QStringLiteral("sessions_new"));
         sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
         a->setText(i18nc("Menu entry Session->New Session", "&New Session"));
@@ -541,14 +541,14 @@ void KateMainWindow::setupActions()
         // recent sessions menu
         a = new KateSessionsAction(QIcon::fromTheme(QStringLiteral("document-swap")), i18n("&Recent Sessions"), this, KateApp::self()->sessionManager(), false);
         sessionsMenu->menu()->addAction(a);
-        actionCollection()->addAction(QStringLiteral("session_open_recent"), a);
+        ac->addAction(QStringLiteral("session_open_recent"), a);
 
         // session menu
         a = new KateSessionsAction(QIcon::fromTheme(QStringLiteral("document-multiple")), i18n("&All Sessions"), this, KateApp::self()->sessionManager(), true);
         sessionsMenu->menu()->addAction(a);
-        actionCollection()->addAction(QStringLiteral("session_open_session"), a);
+        ac->addAction(QStringLiteral("session_open_session"), a);
 
-        a = actionCollection()->addAction(QStringLiteral("sessions_manage"));
+        a = ac->addAction(QStringLiteral("sessions_manage"));
         sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("view-choose")));
         a->setText(i18n("&Manage Sessions..."));
@@ -557,13 +557,13 @@ void KateMainWindow::setupActions()
 
         sessionsMenu->menu()->addSeparator();
 
-        a = actionCollection()->addAction(QStringLiteral("sessions_save"));
+        a = ac->addAction(QStringLiteral("sessions_save"));
         sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
         a->setText(i18n("&Save Session"));
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSave);
 
-        a = actionCollection()->addAction(QStringLiteral("sessions_save_as"));
+        a = ac->addAction(QStringLiteral("sessions_save_as"));
         sessionsMenu->menu()->addAction(a);
         a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as")));
         a->setText(i18n("Save Session &As..."));
@@ -571,25 +571,25 @@ void KateMainWindow::setupActions()
     }
 
     // location history actions
-    a = actionCollection()->addAction(QStringLiteral("view_history_back"));
+    a = ac->addAction(QStringLiteral("view_history_back"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     a->setText(i18n("Go to Previous Location"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_1));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goBack();
     });
     connect(this->m_viewManager, &KateViewManager::historyBackEnabled, a, &QAction::setEnabled);
 
-    a = actionCollection()->addAction(QStringLiteral("view_history_forward"));
+    a = ac->addAction(QStringLiteral("view_history_forward"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     a->setText(i18n("Go to Next Location"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_1));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goForward();
     });
     connect(this->m_viewManager, &KateViewManager::historyForwardEnabled, a, &QAction::setEnabled);
 
-    a = actionCollection()->addAction(QStringLiteral("git_show_file_history"));
+    a = ac->addAction(QStringLiteral("git_show_file_history"));
     a->setText(i18n("Show File Git History"));
     connect(a, &QAction::triggered, this, [this] {
         if (activeView()) {
@@ -912,7 +912,8 @@ void KateMainWindow::ensureHamburgerBarSize()
 
 void KateMainWindow::updateHamburgerMenu()
 {
-    auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
+    auto ac = actionCollection();
+    auto *hamburgerMenu = ac->action(QStringLiteral("hamburger_menu"));
     auto menu = hamburgerMenu->menu();
 
     if (!menu) {
@@ -922,33 +923,34 @@ void KateMainWindow::updateHamburgerMenu()
         menu->clear();
     }
 
-    menu->addAction(actionCollection()->action(QStringLiteral("file_new")));
-    menu->addAction(actionCollection()->action(QStringLiteral("file_open")));
+    menu->addAction(ac->action(QStringLiteral("file_new")));
+    menu->addAction(ac->action(QStringLiteral("file_open")));
     menu->addSeparator();
 
     if (auto view = viewManager()->activeView()) {
-        menu->addAction(view->actionCollection()->action(QStringLiteral("file_save")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("file_save_as")));
+        auto vac = view->actionCollection();
+        menu->addAction(vac->action(QStringLiteral("file_save")));
+        menu->addAction(vac->action(QStringLiteral("file_save_as")));
         menu->addSeparator();
 
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_undo")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_redo")));
+        menu->addAction(vac->action(QStringLiteral("edit_undo")));
+        menu->addAction(vac->action(QStringLiteral("edit_redo")));
         menu->addSeparator();
 
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_cut")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_copy")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_paste")));
+        menu->addAction(vac->action(QStringLiteral("edit_cut")));
+        menu->addAction(vac->action(QStringLiteral("edit_copy")));
+        menu->addAction(vac->action(QStringLiteral("edit_paste")));
         menu->addSeparator();
 
-        menu->addAction(view->actionCollection()->action(QStringLiteral("file_print")));
+        menu->addAction(vac->action(QStringLiteral("file_print")));
         menu->addSeparator();
 
-        menu->addAction(view->actionCollection()->action(QStringLiteral("edit_find")));
+        menu->addAction(vac->action(QStringLiteral("edit_find")));
         menu->addSeparator();
 
-        menu->addAction(view->actionCollection()->action(QStringLiteral("view_inc_font_sizes")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("view_dec_font_sizes")));
-        menu->addAction(view->actionCollection()->action(QStringLiteral("view_reset_font_sizes")));
+        menu->addAction(vac->action(QStringLiteral("view_inc_font_sizes")));
+        menu->addAction(vac->action(QStringLiteral("view_dec_font_sizes")));
+        menu->addAction(vac->action(QStringLiteral("view_reset_font_sizes")));
         menu->addSeparator();
     }
 

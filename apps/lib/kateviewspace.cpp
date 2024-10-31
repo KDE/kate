@@ -113,10 +113,11 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     KAcceleratorManager::setNoAccel(m_quickOpen);
     hLayout->addWidget(m_quickOpen);
 
+    auto mwActionCollection = m_viewManager->mainWindow()->actionCollection();
     // forward tab bar quick open action to global quick open action
     QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("quickopen")), i18nc("indicator for more documents", "+%1", 100), this);
     m_quickOpen->setDefaultAction(bridge);
-    QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
+    QAction *quickOpen = mwActionCollection->action(QStringLiteral("view_quick_open"));
     Q_ASSERT(quickOpen);
     bridge->setToolTip(quickOpen->toolTip());
     bridge->setWhatsThis(i18n("Click here to switch to the Quick Open view."));
@@ -128,13 +129,13 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, cons
     m_split->setPopupMode(QToolButton::InstantPopup);
     m_split->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_split->setMenu(new QMenu(this));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_vert_move_doc")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_split_horiz_move_doc")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_current_space")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_close_others")));
-    m_split->menu()->addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_hide_others")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_split_vert")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_split_horiz")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_split_vert_move_doc")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_split_horiz_move_doc")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_close_current_space")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_close_others")));
+    m_split->menu()->addAction(mwActionCollection->action(QStringLiteral("view_hide_others")));
     m_split->setToolTip(i18n("Split View"));
     m_split->setWhatsThis(i18n("Control view space splitting"));
 

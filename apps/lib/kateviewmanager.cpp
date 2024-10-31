@@ -137,26 +137,27 @@ void KateViewManager::updateScrollSyncIndicatorVisibility()
 
 void KateViewManager::setupActions()
 {
+    auto mac = m_mainWindow->actionCollection();
     /**
      * view splitting
      */
-    m_splitViewVert = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert"));
+    m_splitViewVert = mac->addAction(QStringLiteral("view_split_vert"));
     m_splitViewVert->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_splitViewVert->setText(i18n("Split Ve&rtical"));
-    m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewVert, Qt::CTRL | Qt::SHIFT | Qt::Key_L);
+    mac->setDefaultShortcut(m_splitViewVert, Qt::CTRL | Qt::SHIFT | Qt::Key_L);
     connect(m_splitViewVert, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceVert);
 
     m_splitViewVert->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
-    m_splitViewHoriz = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz"));
+    m_splitViewHoriz = mac->addAction(QStringLiteral("view_split_horiz"));
     m_splitViewHoriz->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
     m_splitViewHoriz->setText(i18n("Split &Horizontal"));
-    m_mainWindow->actionCollection()->setDefaultShortcut(m_splitViewHoriz, Qt::CTRL | Qt::SHIFT | Qt::Key_T);
+    mac->setDefaultShortcut(m_splitViewHoriz, Qt::CTRL | Qt::SHIFT | Qt::Key_T);
     connect(m_splitViewHoriz, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceHoriz);
 
     m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
-    m_splitViewVertMove = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_vert_move_doc"));
+    m_splitViewVertMove = mac->addAction(QStringLiteral("view_split_vert_move_doc"));
     m_splitViewVertMove->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_splitViewVertMove->setText(i18n("Move Document to New Vertical Split"));
     connect(m_splitViewVertMove, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceVertMoveDoc);
@@ -165,7 +166,7 @@ void KateViewManager::setupActions()
         i18n("Split the currently active view vertically into two views "
              "and move the currently active document to right view."));
 
-    m_splitViewHorizMove = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_horiz_move_doc"));
+    m_splitViewHorizMove = mac->addAction(QStringLiteral("view_split_horiz_move_doc"));
     m_splitViewHorizMove->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
     m_splitViewHorizMove->setText(i18n("Move Document to New Horizontal Split"));
     connect(m_splitViewHorizMove, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceHorizMoveDoc);
@@ -174,22 +175,22 @@ void KateViewManager::setupActions()
         i18n("Split the currently active view horizontally into two views "
              "and move the currently active document to view below."));
 
-    m_closeView = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_current_space"));
+    m_closeView = mac->addAction(QStringLiteral("view_close_current_space"));
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeView->setText(i18n("Cl&ose Current View"));
-    m_mainWindow->actionCollection()->setDefaultShortcut(m_closeView, Qt::CTRL | Qt::SHIFT | Qt::Key_R);
+    mac->setDefaultShortcut(m_closeView, Qt::CTRL | Qt::SHIFT | Qt::Key_R);
     connect(m_closeView, &QAction::triggered, this, &KateViewManager::slotCloseCurrentViewSpace, Qt::QueuedConnection);
 
     m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
-    m_closeOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_close_others"));
+    m_closeOtherViews = mac->addAction(QStringLiteral("view_close_others"));
     m_closeOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeOtherViews->setText(i18n("Close Inactive Views"));
     connect(m_closeOtherViews, &QAction::triggered, this, &KateViewManager::slotCloseOtherViews, Qt::QueuedConnection);
 
     m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
 
-    m_hideOtherViews = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_hide_others"));
+    m_hideOtherViews = mac->addAction(QStringLiteral("view_hide_others"));
     m_hideOtherViews->setIcon(QIcon::fromTheme(QStringLiteral("view-fullscreen")));
     m_hideOtherViews->setText(i18n("Hide Inactive Views"));
     m_hideOtherViews->setCheckable(true);
@@ -197,93 +198,93 @@ void KateViewManager::setupActions()
 
     m_hideOtherViews->setWhatsThis(i18n("Hide every view but the active one"));
 
-    m_toggleSplitterOrientation = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_toggle"));
+    m_toggleSplitterOrientation = mac->addAction(QStringLiteral("view_split_toggle"));
     m_toggleSplitterOrientation->setText(i18n("Toggle Orientation"));
     connect(m_toggleSplitterOrientation, &QAction::triggered, this, &KateViewManager::toggleSplitterOrientation, Qt::QueuedConnection);
 
     m_toggleSplitterOrientation->setWhatsThis(i18n("Toggles the orientation of the current split view"));
 
-    goNext = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_next_split_view"));
+    goNext = mac->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
     goNext->setIcon(QIcon::fromTheme(QStringLiteral("go-next-view")));
-    m_mainWindow->actionCollection()->setDefaultShortcut(goNext, Qt::Key_F8);
+    mac->setDefaultShortcut(goNext, Qt::Key_F8);
     connect(goNext, &QAction::triggered, this, &KateViewManager::activateNextView);
 
     goNext->setWhatsThis(i18n("Make the next split view the active one."));
 
-    goPrev = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_prev_split_view"));
+    goPrev = mac->addAction(QStringLiteral("go_prev_split_view"));
     goPrev->setText(i18n("Previous Split View"));
     goPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-previous-view")));
-    m_mainWindow->actionCollection()->setDefaultShortcut(goPrev, Qt::SHIFT | Qt::Key_F8);
+    mac->setDefaultShortcut(goPrev, Qt::SHIFT | Qt::Key_F8);
     connect(goPrev, &QAction::triggered, this, &KateViewManager::activatePrevView);
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
 
-    goLeft = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_left_split_view"));
+    goLeft = mac->addAction(QStringLiteral("go_left_split_view"));
     goLeft->setText(i18n("Left Split View"));
     goLeft->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
-    // m_mainWindow->actionCollection()->setDefaultShortcut(goLeft, Qt::ALT | Qt::Key_Left);
+    // mac->setDefaultShortcut(goLeft, Qt::ALT | Qt::Key_Left);
     connect(goLeft, &QAction::triggered, this, &KateViewManager::activateLeftView);
 
     goLeft->setWhatsThis(i18n("Make the split view intuitively on the left the active one."));
 
-    goRight = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_right_split_view"));
+    goRight = mac->addAction(QStringLiteral("go_right_split_view"));
     goRight->setText(i18n("Right Split View"));
     goRight->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    // m_mainWindow->actionCollection()->setDefaultShortcut(goRight, Qt::ALT | Qt::Key_Right);
+    // mac->setDefaultShortcut(goRight, Qt::ALT | Qt::Key_Right);
     connect(goRight, &QAction::triggered, this, &KateViewManager::activateRightView);
 
     goRight->setWhatsThis(i18n("Make the split view intuitively on the right the active one."));
 
-    goUp = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_upward_split_view"));
+    goUp = mac->addAction(QStringLiteral("go_upward_split_view"));
     goUp->setText(i18n("Upward Split View"));
     goUp->setIcon(QIcon::fromTheme(QStringLiteral("arrow-up")));
-    // m_mainWindow->actionCollection()->setDefaultShortcut(goUp, Qt::ALT | Qt::Key_Up);
+    // mac->setDefaultShortcut(goUp, Qt::ALT | Qt::Key_Up);
     connect(goUp, &QAction::triggered, this, &KateViewManager::activateUpwardView);
 
     goUp->setWhatsThis(i18n("Make the split view intuitively upward the active one."));
 
-    goDown = m_mainWindow->actionCollection()->addAction(QStringLiteral("go_downward_split_view"));
+    goDown = mac->addAction(QStringLiteral("go_downward_split_view"));
     goDown->setText(i18n("Downward Split View"));
     goDown->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down")));
-    // m_mainWindow->actionCollection()->setDefaultShortcut(goDown, Qt::ALT | Qt::Key_Down);
+    // mac->setDefaultShortcut(goDown, Qt::ALT | Qt::Key_Down);
     connect(goDown, &QAction::triggered, this, &KateViewManager::activateDownwardView);
 
     goDown->setWhatsThis(i18n("Make the split view intuitively downward the active one."));
 
-    QAction *a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_right"));
+    QAction *a = mac->addAction(QStringLiteral("view_split_move_right"));
     a->setText(i18n("Move Splitter Right"));
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterRight);
 
     a->setWhatsThis(i18n("Move the splitter of the current view to the right"));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_left"));
+    a = mac->addAction(QStringLiteral("view_split_move_left"));
     a->setText(i18n("Move Splitter Left"));
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterLeft);
 
     a->setWhatsThis(i18n("Move the splitter of the current view to the left"));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_up"));
+    a = mac->addAction(QStringLiteral("view_split_move_up"));
     a->setText(i18n("Move Splitter Up"));
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterUp);
 
     a->setWhatsThis(i18n("Move the splitter of the current view up"));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("view_split_move_down"));
+    a = mac->addAction(QStringLiteral("view_split_move_down"));
     a->setText(i18n("Move Splitter Down"));
     connect(a, &QAction::triggered, this, &KateViewManager::moveSplitterDown);
 
     a->setWhatsThis(i18n("Move the splitter of the current view down"));
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("viewspace_focus_nav_bar"));
+    a = mac->addAction(QStringLiteral("viewspace_focus_nav_bar"));
     a->setText(i18n("Focus Navigation Bar"));
     a->setToolTip(i18n("Focus the navigation bar"));
-    m_mainWindow->actionCollection()->setDefaultShortcut(a, Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
+    mac->setDefaultShortcut(a, Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
     connect(a, &QAction::triggered, this, [this] {
         activeViewSpace()->focusNavigationBar();
     });
 
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("help_welcome_page"));
+    a = mac->addAction(QStringLiteral("help_welcome_page"));
     a->setText(i18n("Welcome Page"));
     a->setIcon(qApp->windowIcon());
     connect(a, &QAction::triggered, this, [this]() {
@@ -294,7 +295,7 @@ void KateViewManager::setupActions()
     /**
      * Synchronized scrolling shortcut
      */
-    a = m_mainWindow->actionCollection()->addAction(QStringLiteral("toggle_active_viewspace_scroll_sync"));
+    a = mac->addAction(QStringLiteral("toggle_active_viewspace_scroll_sync"));
     a->setText(i18n("Toggle Scroll Synchronization"));
     a->setToolTip(i18n("Toggle scroll synchronization for the current view"));
     connect(a, &QAction::triggered, this, [this]() {
@@ -1481,7 +1482,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
         // emit widget removed
         const auto widgets = viewspace->widgets();
         for (auto w : widgets) {
-            Q_EMIT mainWindow()->wrapper()->widgetRemoved(w);
+            Q_EMIT m_mainWindow->wrapper()->widgetRemoved(w);
         }
     }
 

@@ -202,7 +202,9 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
     , m_wrapper(appSelf = this)
     , m_docManager(this)
     , m_sessionManager(this, sessionsDir)
+#ifdef WITH_KUSERFEEDBACK
     , m_userFeedbackProvider(new KUserFeedback::Provider(this))
+#endif
     , m_lastActivationChange(QDateTime::currentMSecsSinceEpoch())
 {
 #ifdef WITH_DBUS

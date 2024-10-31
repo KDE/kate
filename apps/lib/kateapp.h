@@ -26,10 +26,12 @@ class KateDocManager;
 class KateAppCommands;
 class QCommandLineParser;
 
+#ifdef WITH_KUSERFEEDBACK
 namespace KUserFeedback
 {
 class Provider;
 }
+#endif
 
 /**
  * Kate Application

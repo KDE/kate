@@ -21,8 +21,6 @@ class Cursor;
 
 class LSPClientHover : public QObject
 {
-    Q_OBJECT
-
 public:
     // implementation factory method
     static LSPClientHover *new_(std::shared_ptr<LSPClientServerManager> manager, class KateTextHintProvider *provider);

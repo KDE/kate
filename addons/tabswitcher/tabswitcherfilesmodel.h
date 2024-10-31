@@ -42,8 +42,6 @@ using FilenameList = std::vector<FilenameListItem>;
 
 class TabswitcherFilesModel : public QAbstractTableModel
 {
-    Q_OBJECT
-
 public:
     explicit TabswitcherFilesModel(QObject *parent = nullptr);
     ~TabswitcherFilesModel() override = default;

@@ -394,5 +394,3 @@ void GotoSymbolWidget::reselectFirst()
         m_treeView->setCurrentIndex(index);
     }
 }
-
-#include "moc_gotosymbolwidget.cpp"

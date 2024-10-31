@@ -14,8 +14,6 @@ class DataOutputWidget;
 
 class KateSQLOutputWidget : public QTabWidget
 {
-    Q_OBJECT
-
 public:
     KateSQLOutputWidget(QWidget *parent);
 

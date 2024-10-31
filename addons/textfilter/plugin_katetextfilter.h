@@ -26,8 +26,6 @@
 
 class PluginKateTextFilter : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     /**
      * Plugin constructor.
@@ -59,8 +57,6 @@ public Q_SLOTS:
 
 class PluginKateTextFilterCommand : public KTextEditor::Command
 {
-    Q_OBJECT
-
 public:
     PluginKateTextFilterCommand(PluginKateTextFilter *plugin);
     // Kate::Command
@@ -76,8 +72,6 @@ private:
  */
 class PluginViewKateTextFilter : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     /**
      * Construct plugin view

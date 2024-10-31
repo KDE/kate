@@ -18,8 +18,6 @@ class KateSnippetsPluginView;
 
 class KateSnippetsPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
     friend class KateSnippetsPluginView;
 
 public:
@@ -34,8 +32,6 @@ private:
 
 class KateSnippetsPluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     /**
      * Constructor.
@@ -49,7 +45,7 @@ public:
 
     void readConfig();
 
-private Q_SLOTS:
+private:
     /**
      * New view got created, we need to update our connections
      * @param view new created view

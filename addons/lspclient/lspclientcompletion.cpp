@@ -100,8 +100,6 @@ struct LSPClientCompletionItem : public LSPCompletionItem {
  */
 class CompletionIcons : public QObject
 {
-    Q_OBJECT
-
 public:
     CompletionIcons()
         : QObject(KTextEditor::Editor::instance())
@@ -182,8 +180,6 @@ static bool compare_match(const LSPCompletionItem &a, const LSPCompletionItem &b
 
 class LSPClientCompletionImpl : public LSPClientCompletion
 {
-    Q_OBJECT
-
     typedef LSPClientCompletionImpl self_type;
 
     std::shared_ptr<LSPClientServerManager> m_manager;
@@ -583,6 +579,3 @@ LSPClientCompletion *LSPClientCompletion::new_(std::shared_ptr<LSPClientServerMa
 {
     return new LSPClientCompletionImpl(std::move(manager));
 }
-
-#include "lspclientcompletion.moc"
-#include "moc_lspclientcompletion.cpp"

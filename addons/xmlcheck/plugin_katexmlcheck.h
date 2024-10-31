@@ -42,15 +42,13 @@ class QTemporaryFile;
 
 class PluginKateXMLCheckView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     PluginKateXMLCheckView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainwin);
     ~PluginKateXMLCheckView() override;
 
     KTextEditor::MainWindow *m_mainWindow;
 
-public Q_SLOTS:
+public:
     bool slotValidate();
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
     static void slotUpdate();
@@ -66,8 +64,6 @@ private:
 
 class PluginKateXMLCheck : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit PluginKateXMLCheck(QObject *parent = nullptr, const QVariantList & = QVariantList());
 

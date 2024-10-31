@@ -21,5 +21,3 @@ KateSQLOutputWidget::KateSQLOutputWidget(QWidget *parent)
 KateSQLOutputWidget::~KateSQLOutputWidget()
 {
 }
-
-#include "moc_outputwidget.cpp"

@@ -42,8 +42,6 @@ class QAction;
 
 class KateFileBrowser : public QWidget
 {
-    Q_OBJECT
-
 public:
     explicit KateFileBrowser(KTextEditor::MainWindow *mainWindow = nullptr, QWidget *parent = nullptr);
     ~KateFileBrowser() override;
@@ -65,7 +63,7 @@ public:
 
     static KDirOperator::Action actionFromName(const QString &name);
 
-public Q_SLOTS:
+public:
     void slotFilterChange(const QString &);
     void setDir(const QUrl &);
     void setDir(const QString &url)
@@ -74,7 +72,7 @@ public Q_SLOTS:
     }
     static void selectorViewChanged(QAbstractItemView *);
 
-private Q_SLOTS:
+private:
     void fileSelected(const KFileItem & /*file*/);
     void updateDirOperator(const QUrl &u);
     void updateUrlNavigator(const QUrl &u);

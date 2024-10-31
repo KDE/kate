@@ -23,12 +23,7 @@
 #include <QUrl>
 #include <QVariant>
 
-enum class KateGitBlameMode {
-    None,
-    SingleLine,
-    AllLines,
-    Count = AllLines
-};
+enum class KateGitBlameMode { None, SingleLine, AllLines, Count = AllLines };
 
 struct CommitInfo {
     QByteArray hash;
@@ -47,7 +42,6 @@ class GitBlameTooltip;
 
 class GitBlameInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {
-    Q_OBJECT
 public:
     explicit GitBlameInlineNoteProvider(KateGitBlamePluginView *view);
     ~GitBlameInlineNoteProvider() override;
@@ -68,7 +62,6 @@ private:
 
 class KateGitBlamePlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
 public:
     explicit KateGitBlamePlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
@@ -77,7 +70,6 @@ public:
 
 class KateGitBlamePluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
 public:
     KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~KateGitBlamePluginView() override;

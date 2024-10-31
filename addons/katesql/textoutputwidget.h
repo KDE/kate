@@ -14,8 +14,6 @@ class QTextEdit;
 
 class TextOutputWidget : public QWidget
 {
-    Q_OBJECT
-
 public:
     explicit TextOutputWidget(QWidget *parent = nullptr);
     ~TextOutputWidget() override;

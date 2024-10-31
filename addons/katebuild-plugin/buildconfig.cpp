@@ -112,5 +112,3 @@ void KateBuildConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
 
     myMenu.exec(ui->allowedAndBlockedCommands->mapToGlobal(pos));
 }
-
-#include "moc_buildconfig.cpp"

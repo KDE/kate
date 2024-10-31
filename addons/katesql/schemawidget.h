@@ -16,8 +16,6 @@ class QMouseEvent;
 
 class SchemaWidget : public QTreeWidget
 {
-    Q_OBJECT
-
 public:
     static const int TableType = QTreeWidgetItem::UserType + 1;
     static const int SystemTableType = QTreeWidgetItem::UserType + 2;
@@ -35,7 +33,7 @@ public:
     void buildViews(QTreeWidgetItem *viewsItem);
     void buildFields(QTreeWidgetItem *tableItem);
 
-public Q_SLOTS:
+public:
     void buildTree(const QString &connection);
     void refresh();
 
@@ -49,7 +47,7 @@ public Q_SLOTS:
     void generateAndPasteStatement(QSqlDriver::StatementType statementType);
     void executeStatement(QSqlDriver::StatementType statement);
 
-private Q_SLOTS:
+private:
     void slotCustomContextMenuRequested(const QPoint &pos);
     void slotItemExpanded(QTreeWidgetItem *item);
 

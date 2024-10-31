@@ -49,7 +49,7 @@ public:
         return m_schemaBrowserWidget;
     }
 
-public Q_SLOTS:
+public:
     void slotConnectionCreate();
     void slotConnectionEdit();
     void slotConnectionRemove();

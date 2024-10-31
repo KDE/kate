@@ -131,5 +131,3 @@ void KateColorPickerConfigPage::reset()
         chkBox->setChecked(enabledHexLengths.contains(hexLength));
     }
 }
-
-#include "moc_colorpickerconfigpage.cpp"

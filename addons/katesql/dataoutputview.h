@@ -10,11 +10,9 @@
 
 class DataOutputView : public QTableView
 {
-    Q_OBJECT
-
 public:
     explicit DataOutputView(QWidget *parent = nullptr);
 
-private Q_SLOTS:
+private:
     void slotCustomContextMenuRequested(const QPoint &pos);
 };

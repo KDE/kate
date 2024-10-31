@@ -13,8 +13,6 @@ class MainWindow;
 
 class GotoSymbolTreeView : public QTreeView
 {
-    Q_OBJECT
-
 public:
     explicit GotoSymbolTreeView(KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
     int sizeHintWidth() const;

@@ -11,8 +11,6 @@
 
 class KTextEditorPreviewPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     /**
      * Default constructor, with arguments as expected by KPluginFactory

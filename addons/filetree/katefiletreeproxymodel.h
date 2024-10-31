@@ -13,14 +13,10 @@ namespace KTextEditor
 class Document;
 }
 
-enum {
-    CustomSorting = 1000
-};
+enum { CustomSorting = 1000 };
 
 class KateFileTreeProxyModel : public QSortFilterProxyModel
 {
-    Q_OBJECT
-
 public:
     explicit KateFileTreeProxyModel(QObject *p = nullptr);
     QModelIndex docIndex(const KTextEditor::Document *) const;

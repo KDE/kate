@@ -30,5 +30,4 @@ KTextEditor::ConfigPage *ReplicodePlugin::configPage(int number, QWidget *parent
     return new ReplicodeConfigPage(parent);
 }
 
-#include "moc_replicodeplugin.cpp"
 #include "replicodeplugin.moc"

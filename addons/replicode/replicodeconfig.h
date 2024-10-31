@@ -13,7 +13,6 @@ class ReplicodeSettings;
 
 class ReplicodeConfig : public QTabWidget
 {
-    Q_OBJECT
 public:
     explicit ReplicodeConfig(QWidget *parent = nullptr);
     ~ReplicodeConfig() override;

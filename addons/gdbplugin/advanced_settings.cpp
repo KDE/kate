@@ -339,5 +339,3 @@ void AdvancedGDBSettings::slotLocalRemoteChanged()
     u_setSoPrefix->setEnabled(u_localRemote->currentIndex() != 0);
     u_addDelSoPaths->setEnabled(u_localRemote->currentIndex() != 0);
 }
-
-#include "moc_advanced_settings.cpp"

@@ -105,5 +105,3 @@ void CachedSqlQueryModel::queryChange()
 {
     clearCache();
 }
-
-#include "moc_cachedsqlquerymodel.cpp"

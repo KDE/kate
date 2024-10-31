@@ -43,8 +43,6 @@ namespace KTextEditorPreview
  */
 class KPartView : public QObject
 {
-    Q_OBJECT
-
 public:
     /**
      * Constructor
@@ -112,5 +110,4 @@ private:
     QTemporaryFile *m_bufferFile = nullptr;
     QHash<QKeySequence, QAction *> m_shortcuts;
 };
-
 }

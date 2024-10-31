@@ -145,5 +145,3 @@ void ReplicodeConfig::reset()
     m_settings->setDefaults();
     load();
 }
-
-#include "moc_replicodeconfig.cpp"

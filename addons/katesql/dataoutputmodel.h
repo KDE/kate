@@ -13,8 +13,6 @@ struct OutputStyle;
 /// provide colors and styles
 class DataOutputModel : public CachedSqlQueryModel
 {
-    Q_OBJECT
-
 public:
     explicit DataOutputModel(QObject *parent = nullptr);
     ~DataOutputModel() override;

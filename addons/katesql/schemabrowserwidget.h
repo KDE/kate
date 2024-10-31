@@ -13,8 +13,6 @@ class SchemaWidget;
 
 class SchemaBrowserWidget : public QWidget
 {
-    Q_OBJECT
-
 public:
     SchemaBrowserWidget(QWidget *parent, SQLManager *manager);
     ~SchemaBrowserWidget() override;

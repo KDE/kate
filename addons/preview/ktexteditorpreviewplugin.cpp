@@ -29,5 +29,3 @@ QObject *KTextEditorPreviewPlugin::createView(KTextEditor::MainWindow *mainwindo
 
 // needed for K_PLUGIN_FACTORY_WITH_JSON
 #include <ktexteditorpreviewplugin.moc>
-
-#include "moc_ktexteditorpreviewplugin.cpp"

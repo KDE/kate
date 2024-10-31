@@ -13,7 +13,6 @@
 
 class AdvancedGDBSettings : public QDialog, public Ui::AdvancedGDBSettings
 {
-    Q_OBJECT
 public:
     enum CustomStringOrder {
         GDBIndex = 0,
@@ -22,7 +21,7 @@ public:
         SoAbsoluteIndex,
         SoRelativeIndex,
         SrcPathsIndex,
-        CustomStartIndex
+        CustomStartIndex,
     };
 
     explicit AdvancedGDBSettings(QWidget *parent = nullptr);

@@ -173,5 +173,3 @@ void DebugConfigPage::updateHighlighters()
         highlighter->rehighlight();
     }
 }
-
-#include "moc_debugconfigpage.cpp"

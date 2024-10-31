@@ -336,5 +336,3 @@ void TabSwitcherPluginView::closeView()
 
 // required for TabSwitcherPluginFactory vtable
 #include "tabswitcher.moc"
-
-#include "moc_tabswitcher.cpp"

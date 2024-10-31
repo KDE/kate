@@ -474,5 +474,3 @@ void KateSessionManageDialog::closeEvent(QCloseEvent *event)
         editDone(); // editApply() don't work, m_editByUser->text(0) will not updated from QLineEdit
     }
 }
-
-#include "moc_katesessionmanagedialog.cpp"

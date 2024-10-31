@@ -577,4 +577,3 @@ void KateGitBlamePluginView::showCommitTreeView(const QUrl &url)
 }
 
 #include "kategitblameplugin.moc"
-#include "moc_kategitblameplugin.cpp"

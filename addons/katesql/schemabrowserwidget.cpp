@@ -28,5 +28,3 @@ SchemaWidget *SchemaBrowserWidget::schemaWidget() const
 {
     return m_schemaWidget;
 }
-
-#include "moc_schemabrowserwidget.cpp"

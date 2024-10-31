@@ -341,5 +341,4 @@ bool PluginKateXMLCheckView::slotValidate()
     return true;
 }
 
-#include "moc_plugin_katexmlcheck.cpp"
 #include "plugin_katexmlcheck.moc"

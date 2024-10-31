@@ -22,7 +22,6 @@
 
 class ColorPickerInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {
-    Q_OBJECT
 public:
     explicit ColorPickerInlineNoteProvider(KTextEditor::Document *doc);
     ~ColorPickerInlineNoteProvider() override;
@@ -60,7 +59,6 @@ private:
 
 class KateColorPickerPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
 public:
     explicit KateColorPickerPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KateColorPickerPlugin() override;

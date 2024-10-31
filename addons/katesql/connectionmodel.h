@@ -15,8 +15,6 @@
 
 class ConnectionModel : public QAbstractListModel
 {
-    Q_OBJECT
-
 public:
     explicit ConnectionModel(QObject *parent = nullptr);
     ~ConnectionModel() override;

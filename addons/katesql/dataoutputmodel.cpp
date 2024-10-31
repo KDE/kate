@@ -216,5 +216,3 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
 
     return CachedSqlQueryModel::data(index, role);
 }
-
-#include "moc_dataoutputmodel.cpp"

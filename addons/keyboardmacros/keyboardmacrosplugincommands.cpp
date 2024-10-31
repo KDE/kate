@@ -95,5 +95,3 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
     }
     return false;
 }
-
-#include "moc_keyboardmacrosplugincommands.cpp"

@@ -30,8 +30,6 @@ class QLineEdit;
 
 class KateFileTreePlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit KateFileTreePlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KateFileTreePlugin() override;
@@ -53,7 +51,7 @@ public:
                      bool closeButton,
                      bool middleClickToClose);
 
-public Q_SLOTS:
+public:
     void viewDestroyed(QObject *view);
 
 private:
@@ -125,7 +123,7 @@ private:
     QTimer m_proxyInvalidateTimer;
     QList<KTextEditor::Document *> m_documentsCreated;
 
-private Q_SLOTS:
+private:
     void showToolView();
     void hideToolView();
     void showActiveDocument();

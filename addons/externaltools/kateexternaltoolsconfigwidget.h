@@ -26,7 +26,6 @@ class KateExternalTool;
  */
 class KateExternalToolsConfigWidget : public KTextEditor::ConfigPage, public Ui::ExternalToolsConfigWidget
 {
-    Q_OBJECT
 public:
     KateExternalToolsConfigWidget(QWidget *parent, KateExternalToolsPlugin *plugin);
     ~KateExternalToolsConfigWidget() override;
@@ -35,7 +34,7 @@ public:
     QString fullName() const override;
     QIcon icon() const override;
 
-public Q_SLOTS:
+public:
     void apply() override;
     void reset() override;
     void defaults() override
@@ -43,7 +42,7 @@ public Q_SLOTS:
         reset();
     }
 
-private Q_SLOTS:
+private:
     void addNewTool(KateExternalTool *tool);
     void lazyInitDefaultsMenu(QMenu *defaultsMenu);
     void slotAddDefaultTool(int defaultToolsIndex);
@@ -89,12 +88,10 @@ private:
  */
 class KateExternalToolServiceEditor : public QDialog
 {
-    Q_OBJECT
-
 public:
     explicit KateExternalToolServiceEditor(KateExternalTool *tool, KateExternalToolsPlugin *plugin, QWidget *parent = nullptr);
 
-private Q_SLOTS:
+private:
     /**
      * Run when the OK button is clicked, to ensure critical values are provided.
      */

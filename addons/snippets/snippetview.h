@@ -32,15 +32,13 @@ namespace KTextEditor
  */
 class SnippetView : public QWidget, public Ui::SnippetViewBase
 {
-    Q_OBJECT
-
 public:
     explicit SnippetView(KateSnippetGlobal *plugin, KTextEditor::MainWindow *mainWindow, QWidget *parent = nullptr);
 
 public:
     void setupActionsForWindow(QWidget *widget);
 
-private Q_SLOTS:
+private:
     /**
      * Opens the "Add Repository" dialog.
      */

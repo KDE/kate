@@ -315,4 +315,3 @@ void KateColorPickerPlugin::readConfig()
 }
 
 #include "katecolorpickerplugin.moc"
-#include "moc_katecolorpickerplugin.cpp"

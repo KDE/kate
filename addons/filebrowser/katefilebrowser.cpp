@@ -477,5 +477,3 @@ void KateFileBrowser::setupActions()
     }
 }
 // END Protected
-
-#include "moc_katefilebrowser.cpp"

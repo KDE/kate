@@ -55,4 +55,3 @@ void CMakeToolsPluginView::onViewCreated(KTextEditor::View *v)
 }
 
 #include "cmaketoolsplugin.moc"
-#include "moc_cmaketoolsplugin.cpp"

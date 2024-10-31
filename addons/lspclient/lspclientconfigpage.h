@@ -17,8 +17,6 @@ class LspConfigWidget;
 
 class LSPClientConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
-
 public:
     explicit LSPClientConfigPage(QWidget *parent = nullptr, LSPClientPlugin *plugin = nullptr);
     ~LSPClientConfigPage() override;
@@ -27,7 +25,7 @@ public:
     QString fullName() const override;
     QIcon icon() const override;
 
-public Q_SLOTS:
+public:
     void apply() override;
     void defaults() override;
     void reset() override;

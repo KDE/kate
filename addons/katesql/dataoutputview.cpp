@@ -27,5 +27,3 @@ void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 
     menu.exec(mapToGlobal(pos));
 }
-
-#include "moc_dataoutputview.cpp"

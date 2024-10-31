@@ -48,8 +48,6 @@ class KPartView;
  */
 class PreviewWidget : public QStackedWidget, public KXMLGUIBuilder
 {
-    Q_OBJECT
-
 public:
     /**
      * Constructor
@@ -113,5 +111,4 @@ private:
     QPointer<KPartView> m_partView;
     KXMLGUIFactory *m_xmlGuiFactory;
 };
-
 }

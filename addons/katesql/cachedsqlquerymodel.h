@@ -12,7 +12,6 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 class CachedSqlQueryModel : public QSqlQueryModel
 {
-    Q_OBJECT
 public:
     explicit CachedSqlQueryModel(QObject *parent = nullptr, int cacheCapacity = 1000);
 

@@ -19,7 +19,6 @@
  * It runs exactly the CMake which was used to create the build tree. */
 class QCMakeFileApi : public QObject
 {
-    Q_OBJECT
 public:
     /// \a buildDir can be either the cmake build dir or the full path of a CMakeCache.txt
     QCMakeFileApi(const QString &buildDir, bool withSourceFiles = true);
@@ -52,12 +51,7 @@ public:
     /// Return a list of all source files of all targets in the build tree.
     const std::set<QString> &getSourceFiles() const;
 
-    enum class TargetType {
-        Executable = 0,
-        Library = 1,
-        Utility = 2,
-        Unknown = 3
-    };
+    enum class TargetType { Executable = 0, Library = 1, Utility = 2, Unknown = 3 };
 
     struct Target {
         QString name;

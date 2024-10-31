@@ -28,8 +28,6 @@ namespace KTextEditor
  */
 class SnippetStore : public QStandardItemModel
 {
-    Q_OBJECT
-
 public:
     /**
      * Initialize the SnippetStore.

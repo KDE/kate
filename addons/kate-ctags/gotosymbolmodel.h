@@ -17,8 +17,6 @@ struct SymbolItem {
 
 class GotoSymbolModel : public QAbstractTableModel
 {
-    Q_OBJECT
-
 public:
     explicit GotoSymbolModel(QObject *parent = nullptr);
 

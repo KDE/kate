@@ -17,8 +17,6 @@
  */
 class KeyboardMacrosPluginCommands : public KTextEditor::Command
 {
-    Q_OBJECT
-
 public:
     explicit KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin);
     bool exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &) override;

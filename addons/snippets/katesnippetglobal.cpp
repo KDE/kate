@@ -112,5 +112,3 @@ void KateSnippetGlobal::createSnippet(KTextEditor::View *view)
         match->remove();
     }
 }
-
-#include "moc_katesnippetglobal.cpp"

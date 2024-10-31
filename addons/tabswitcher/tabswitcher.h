@@ -30,8 +30,6 @@ class TabswitcherFilesModel;
 
 class TabSwitcherPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
     friend TabSwitcherPluginView;
 
 public:
@@ -51,8 +49,6 @@ private:
 
 class TabSwitcherPluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     /**
      * View constructor.
@@ -74,8 +70,7 @@ public:
      */
     void setupModel();
 
-public Q_SLOTS:
-
+public:
     /**
      * Adds @p widget to the model.
      */

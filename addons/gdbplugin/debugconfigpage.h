@@ -18,8 +18,6 @@ class DebugConfigWidget;
 
 class DebugConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
-
 public:
     explicit DebugConfigPage(QWidget *parent = nullptr, KatePluginGDB *plugin = nullptr);
     ~DebugConfigPage() override;

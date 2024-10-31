@@ -17,8 +17,6 @@
  */
 class CMakeToolsPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit CMakeToolsPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
 
@@ -32,8 +30,6 @@ public:
  */
 class CMakeToolsPluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     CMakeToolsPluginView(CMakeToolsPlugin *plugin, KTextEditor::MainWindow *mainwindow);
 

@@ -21,8 +21,6 @@ class KateFileBrowserPluginView;
 
 class KateFileBrowserPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
-
 public:
     explicit KateFileBrowserPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~KateFileBrowserPlugin() override
@@ -34,7 +32,7 @@ public:
     int configPages() const override;
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-public Q_SLOTS:
+public:
     void viewDestroyed(QObject *view);
 
 private:

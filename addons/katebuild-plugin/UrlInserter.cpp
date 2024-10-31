@@ -62,5 +62,3 @@ void UrlInserter::setReplace(bool replace)
 {
     m_replace = replace;
 }
-
-#include "moc_UrlInserter.cpp"

@@ -68,5 +68,3 @@ void ReplicodeConfigPage::defaults()
     m_requester->setText(QString());
     m_config->reset();
 }
-
-#include "moc_replicodeconfigpage.cpp"

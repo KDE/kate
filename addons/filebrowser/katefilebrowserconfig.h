@@ -17,8 +17,6 @@ class KActionSelector;
 
 class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
-
 public:
     explicit KateFileBrowserConfigPage(QWidget *parent = nullptr, KateFileBrowser *kfb = nullptr);
     ~KateFileBrowserConfigPage() override

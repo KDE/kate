@@ -11,8 +11,6 @@ class ReplicodeConfig;
 
 class ReplicodeConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
-
 public:
     explicit ReplicodeConfigPage(QWidget *parent = nullptr);
 

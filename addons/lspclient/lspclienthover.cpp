@@ -30,8 +30,6 @@ static TextHintMarkupKind toKateMarkupKind(LSPMarkupKind kind)
 
 class LSPClientHoverImpl : public LSPClientHover
 {
-    Q_OBJECT
-
     typedef LSPClientHoverImpl self_type;
 
     std::shared_ptr<LSPClientServerManager> m_manager;
@@ -111,6 +109,3 @@ LSPClientHover *LSPClientHover::new_(std::shared_ptr<LSPClientServerManager> man
 {
     return new LSPClientHoverImpl(std::move(manager), provider);
 }
-
-#include "lspclienthover.moc"
-#include "moc_lspclienthover.cpp"

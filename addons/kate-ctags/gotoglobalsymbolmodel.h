@@ -11,7 +11,6 @@
 
 class GotoGlobalSymbolModel : public QAbstractTableModel
 {
-    Q_OBJECT
 public:
     enum Roles {
         Name = Qt::UserRole,

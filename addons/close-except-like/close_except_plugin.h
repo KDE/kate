@@ -49,7 +49,6 @@ class CloseExceptPlugin; // forward declaration
  */
 class CloseExceptPluginView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
     typedef std::map<QString, QPointer<QAction>> actions_map_type;
 
 public:
@@ -58,7 +57,7 @@ public:
     /// Destructor
     ~CloseExceptPluginView() override;
 
-private Q_SLOTS:
+private:
     void viewCreated(KTextEditor::View *);
     void documentCreated(KTextEditor::Document *);
     void updateMenuSlotStub(KTextEditor::Document *);

@@ -15,7 +15,6 @@
 
 class KateColorPickerConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
 public:
     explicit KateColorPickerConfigPage(QWidget *parent = nullptr, KateColorPickerPlugin *plugin = nullptr);
     ~KateColorPickerConfigPage() override

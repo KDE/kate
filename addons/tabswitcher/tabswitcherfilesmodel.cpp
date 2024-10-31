@@ -245,5 +245,3 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role)
     }
     return QVariant();
 }
-
-#include "moc_tabswitcherfilesmodel.cpp"

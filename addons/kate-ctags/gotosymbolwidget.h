@@ -24,8 +24,6 @@ class MainWindow;
 
 class GotoSymbolWidget : public QWidget
 {
-    Q_OBJECT
-
 public:
     explicit GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTagsView *pluginView, QWidget *parent = nullptr);
 
@@ -36,10 +34,7 @@ public:
     void loadGlobalSymbols(const QString &text);
     void reselectFirst();
 
-    enum Mode {
-        Global,
-        Local
-    };
+    enum Mode { Global, Local };
 
 private Q_SLOTS:
     void slotReturnPressed();

@@ -45,7 +45,6 @@ private:
 
 class InlayHintsManager : public QObject
 {
-    Q_OBJECT
 public:
     explicit InlayHintsManager(const std::shared_ptr<LSPClientServerManager> &manager, QObject *parent = nullptr);
     ~InlayHintsManager();

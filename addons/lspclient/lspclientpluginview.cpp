@@ -177,7 +177,7 @@ class ClosableTabWidget : public QTabWidget
 {
 public:
     ClosableTabWidget(QWidget *parent = nullptr)
-        : QTabWidget(parent) { };
+        : QTabWidget(parent) {};
 
     void mousePressEvent(QMouseEvent *event) override
     {
@@ -254,7 +254,6 @@ private:
  */
 class CtrlHoverFeedback : public QObject
 {
-    Q_OBJECT
 public:
     void highlight(KTextEditor::View *activeView)
     {
@@ -322,7 +321,7 @@ public:
     }
 
 private:
-    Q_SLOT void clearMovingRange(KTextEditor::Document *doc)
+    void clearMovingRange(KTextEditor::Document *doc)
     {
         if (doc) {
             auto it = docs.find(doc);

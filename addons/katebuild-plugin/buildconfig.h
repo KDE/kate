@@ -23,7 +23,6 @@ class KateBuildPlugin;
 
 class KateBuildConfigPage : public KTextEditor::ConfigPage
 {
-    Q_OBJECT
 public:
     explicit KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *parent = nullptr);
     ~KateBuildConfigPage() override

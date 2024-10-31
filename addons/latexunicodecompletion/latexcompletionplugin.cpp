@@ -13,7 +13,6 @@
 
 class LatexCompletionPlugin : public KTextEditor::Plugin
 {
-    Q_OBJECT
 public:
     LatexCompletionPlugin(QObject *parent, const QVariantList &)
         : KTextEditor::Plugin(parent)
@@ -30,7 +29,7 @@ public:
         return nullptr;
     }
 
-private Q_SLOTS:
+private:
     void viewCreated(KTextEditor::View *view)
     {
         view->registerCompletionModel(m_model);

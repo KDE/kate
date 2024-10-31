@@ -38,7 +38,6 @@ class ToolView;
  */
 class KateExternalToolsMenuAction : public KActionMenu
 {
-    Q_OBJECT
 public:
     KateExternalToolsMenuAction(const QString &text,
                                 KActionCollection *collection,
@@ -56,7 +55,7 @@ public:
         return m_actionCollection;
     }
 
-private Q_SLOTS:
+private:
     /**
      * Called whenever the current view changed.
      * Calls updateActionState() for the corresponding document.
@@ -100,7 +99,7 @@ public:
      */
     KTextEditor::MainWindow *mainWindow() const;
 
-public Q_SLOTS:
+public:
     /**
      * Called by the plugin view to reload the menu
      */
@@ -136,13 +135,14 @@ public Q_SLOTS:
      */
     void handleEsc(QEvent *event);
 
+public Q_SLOTS:
     /**
      * Returns an action with a menu that has all the tools that
      * match the mimetype of current document
      */
     QAction *externalToolsForDocumentAction(KTextEditor::Document *doc);
 
-private Q_SLOTS:
+private:
     void slotViewChanged(KTextEditor::View *v);
     void onDocumentSaved(KTextEditor::Document *doc);
     void onDocumentAboutToSave(KTextEditor::Document *doc);

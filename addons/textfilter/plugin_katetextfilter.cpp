@@ -282,5 +282,3 @@ PluginViewKateTextFilter::~PluginViewKateTextFilter()
 
 // required for TextFilterPluginFactory vtable
 #include "plugin_katetextfilter.moc"
-
-#include "moc_plugin_katetextfilter.cpp"

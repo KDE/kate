@@ -230,6 +230,8 @@ public:
      */
     void setScrollSyncToolButtonVisible(bool visible);
 
+    void detachDocument(KTextEditor::Document *doc);
+
 protected:
     // DND
     void dragEnterEvent(QDragEnterEvent *e) override;

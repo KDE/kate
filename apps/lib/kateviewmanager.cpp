@@ -302,6 +302,19 @@ void KateViewManager::setupActions()
         activeViewSpace()->toggleScrollSync();
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("link")));
+
+    /**
+     * Synchronized scrolling shortcut
+     */
+    a = mac->addAction(QStringLiteral("detach_active_view_doc"));
+    a->setText(i18n("Detach Active Document"));
+    a->setToolTip(i18n("Opens the active document in a new window and closes it in the current window"));
+    connect(a, &QAction::triggered, this, [this]() {
+        if (auto view = activeView()) {
+            activeViewSpace()->detachDocument(view->document());
+        }
+    });
+    a->setIcon(QIcon::fromTheme(QStringLiteral("tab-detach")));
 }
 
 void KateViewManager::updateViewSpaceActions()

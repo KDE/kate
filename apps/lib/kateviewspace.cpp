@@ -1024,6 +1024,17 @@ void KateViewSpace::setScrollSyncToolButtonVisible(bool visible)
     m_scrollSync->setHidden(!visible);
 }
 
+void KateViewSpace::detachDocument(KTextEditor::Document *doc)
+{
+    auto mainWindow = viewManager()->mainWindow()->newWindow();
+    mainWindow->viewManager()->openViewForDoc(doc);
+
+    // use single shot as this action can trigger deletion of this viewspace!
+    QTimer::singleShot(0, this, [this, doc]() {
+        closeDocument(doc);
+    });
+}
+
 void KateViewSpace::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c, bool calledExternally)
 {
     // We don't care about invalid urls (Fixed Diff View / Untitled docs)
@@ -1232,13 +1243,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
                                      QMessageBox::StandardButton::Ok);
         }
     } else if (choice == aDetachTab) {
-        auto mainWindow = viewManager()->mainWindow()->newWindow();
-        mainWindow->viewManager()->openViewForDoc(doc);
-
-        // use single shot as this action can trigger deletion of this viewspace!
-        QTimer::singleShot(0, this, [this, idx]() {
-            closeTabRequest(idx);
-        });
+        detachDocument(doc);
     }
 }
 

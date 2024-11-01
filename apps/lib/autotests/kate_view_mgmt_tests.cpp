@@ -699,4 +699,25 @@ void KateViewManagementTests::testViewspaceWithWidgetDoesntCrashOnClose()
     QVERIFY(spy.count() == 1);
 }
 
+void KateViewManagementTests::testDetachDoc()
+{
+    // two viewspaces, one with widget. Closing the space shouldn't crash us
+    app->sessionManager()->sessionNew();
+    for (auto mw : app->mainWindows()) {
+        if (mw != app->activeMainWindow()) {
+            delete mw->window();
+        }
+    }
+    KateMainWindow *mw = app->activeKateMainWindow();
+    clearAllDocs(mw);
+    QCOMPARE(app->mainWindowsCount(), 1);
+
+    auto vm = mw->viewManager();
+    auto doc = vm->createView()->document();
+    auto action = mw->action(QStringLiteral("detach_active_view_doc"));
+    action->trigger();
+    QCOMPARE(app->mainWindowsCount(), 2);
+    QVERIFY(app->activeKateMainWindow()->viewManager()->activeView()->document() == doc);
+}
+
 #include "moc_kate_view_mgmt_tests.cpp"

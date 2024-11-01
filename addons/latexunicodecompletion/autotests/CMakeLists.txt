@@ -4,3 +4,7 @@ target_include_directories(latexcompletion_test PRIVATE ${CMAKE_CURRENT_SOURCE_D
 add_test(NAME plugin-latexunicodecompletion_test COMMAND latexcompletion_test)
 target_link_libraries(latexcompletion_test Qt::Core Qt::Test)
 ecm_mark_as_test(latexcompletion_test)
+
+if(BUILD_PCH)
+    target_precompile_headers(latexcompletion_test REUSE_FROM katepch_tests)
+endif()

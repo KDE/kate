@@ -19,5 +19,9 @@ target_sources(
     ../tabswitcherfilesmodel.cpp
 )
 
+if(BUILD_PCH)
+    target_precompile_headers(tabswitcher_test REUSE_FROM katepch_tests)
+endif()
+
 add_test(NAME plugin-tabswitcher_test COMMAND tabswitcher_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(tabswitcher_test)

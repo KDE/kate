@@ -11,3 +11,7 @@ target_sources(
     tstestapp.cpp 
     ../tabswitcherfilesmodel.cpp
 )
+
+if(BUILD_PCH)
+    target_precompile_headers(tstestapp REUSE_FROM katepch_tests)
+endif()

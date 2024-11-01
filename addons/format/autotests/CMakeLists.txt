@@ -18,5 +18,9 @@ target_sources(
     test_formatapply.cpp
 )
 
+if(BUILD_PCH)
+    target_precompile_headers(test_formatapply REUSE_FROM katepch_tests)
+endif()
+
 add_test(NAME kateapp-test_formatapply COMMAND test_formatapply ${OFFSCREEN_QPA})
 ecm_mark_as_test(test_formatapply)

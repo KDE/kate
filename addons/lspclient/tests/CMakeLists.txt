@@ -12,3 +12,7 @@ target_sources(
     ../semantic_tokens_legend.cpp
     ${DEBUG_SOURCES}
 )
+
+if(BUILD_PCH)
+    target_precompile_headers(lsptestapp REUSE_FROM katepch_tests)
+endif()

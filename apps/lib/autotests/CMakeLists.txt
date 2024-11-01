@@ -11,6 +11,10 @@ macro(kate_executable_tests)
                 kateprivate Qt::Test)
         add_test(NAME kateapp-${_testname} COMMAND ${_testname} ${OFFSCREEN_QPA})
         ecm_mark_as_test(${_testname})
+
+        if(BUILD_PCH)
+            target_precompile_headers(${_testname} REUSE_FROM katepch_tests)
+        endif()
     endforeach()
 endmacro()
 

@@ -22,5 +22,9 @@ target_sources(
     document_dummy.cpp
 )
 
+if(BUILD_PCH)
+    target_precompile_headers(filetree_model_test REUSE_FROM katepch_tests)
+endif()
+
 add_test(NAME kateapp-filetree_model_test COMMAND filetree_model_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(filetree_model_test)

@@ -21,5 +21,9 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../kateprojectcodeanalysistool.cpp
 )
 
+if(BUILD_PCH)
+    target_precompile_headers(projectplugin_test REUSE_FROM katepch_tests)
+endif()
+
 add_test(NAME plugin-project_test COMMAND projectplugin_test ${OFFSCREEN_QPA})
 ecm_mark_as_test(projectplugin_test)

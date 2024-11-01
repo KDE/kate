@@ -17,4 +17,8 @@ if (BUILD_TESTING)
     add_test(NAME linkmatchtest COMMAND linkmatchtest ${OFFSCREEN_QPA})
     target_link_libraries(linkmatchtest PRIVATE kateprivate Qt::Test Qt::Core)
     ecm_mark_as_test(linkmatchtest)
+
+    if(BUILD_PCH)
+        target_precompile_headers(linkmatchtest REUSE_FROM katepch_tests)
+    endif()
 endif()

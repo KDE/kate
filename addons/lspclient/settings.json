@@ -267,10 +267,10 @@
             "highlightingModeRegex": "^TypeScript.*$"
         },
         "typst": {
-            "command": ["typst-lsp"],
+            "command": ["tinymist"],
             "path": ["%{ENV:HOME}/.cargo/bin"],
             "root": ".",
-            "url": "https://github.com/nvarner/typst-lsp",
+            "url": "https://github.com/Myriad-Dreamin/tinymist",
             "highlightingModeRegex": "^Typst$"
         },
         "vala": {

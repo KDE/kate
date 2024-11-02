@@ -159,7 +159,7 @@ void KateApp::initPreApplicationCreation(bool detach)
 #endif
 
 #if defined(Q_OS_WIN)
-    // Enable on windows to see output in console
+    // try to attach to console for terminal detection and output
     if (AttachConsole(ATTACH_PARENT_PROCESS)) {
         // we are inside a terminal
         insideTerminal = true;
@@ -170,6 +170,9 @@ void KateApp::initPreApplicationCreation(bool detach)
                 freopen("CON", "w", stdout);
             if (fileno(stderr) < 0)
                 freopen("CON", "w", stderr);
+        } else {
+            // detach again to not die on ctrl-c and Co.
+            FreeConsole();
         }
     }
 #endif

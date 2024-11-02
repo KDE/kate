@@ -56,6 +56,7 @@ void KateTabBar::readConfig()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
+    using LruCounterToDoc = std::pair<quint64, DocOrWidget>;
     // 0 == unlimited, normalized other inputs
     const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);
     if (m_tabCountLimit != tabCountLimit) {
@@ -63,10 +64,14 @@ void KateTabBar::readConfig()
         const QList<DocOrWidget> docList = documentList();
         if (m_tabCountLimit > 0 && docList.count() > m_tabCountLimit) {
             // close N least used tabs
-            std::map<quint64, DocOrWidget> lruDocs;
+            std::vector<LruCounterToDoc> lruDocs;
+            lruDocs.reserve(docList.size());
             for (const DocOrWidget &doc : docList) {
-                lruDocs[m_docToLruCounterAndHasTab[doc].first] = doc;
+                lruDocs.emplace_back(m_docToLruCounterAndHasTab[doc].first, doc);
             }
+            std::sort(lruDocs.begin(), lruDocs.end(), [](const LruCounterToDoc &l, const LruCounterToDoc &r) {
+                return l.first < r.first;
+            });
             int toRemove = docList.count() - m_tabCountLimit;
             for (const auto &[_, doc] : lruDocs) {
                 if (toRemove-- == 0) {
@@ -76,13 +81,16 @@ void KateTabBar::readConfig()
             }
         } else if (m_docToLruCounterAndHasTab.size() > (size_t)docList.size()) {
             // populate N recently user documents
-            std::map<quint64, DocOrWidget, std::greater<quint64>> mruDocs;
+            std::vector<LruCounterToDoc> mruDocs;
             for (const auto &i : m_docToLruCounterAndHasTab) {
                 DocOrWidget doc = i.first;
                 if (!docList.contains(doc)) {
-                    mruDocs[i.second.first] = doc;
+                    mruDocs.emplace_back(i.second.first, doc);
                 }
             }
+            std::sort(mruDocs.begin(), mruDocs.end(), [](const LruCounterToDoc &l, const LruCounterToDoc &r) {
+                return l.first > r.first;
+            });
             int toAdd = m_tabCountLimit - docList.count();
             for (const auto &i : mruDocs) {
                 if (toAdd-- == 0) {

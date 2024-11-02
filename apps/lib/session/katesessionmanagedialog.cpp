@@ -36,10 +36,12 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     m_filterBox->installEventFilter(this);
     connect(m_filterBox, &QLineEdit::textChanged, this, &KateSessionManageDialog::filterChanged);
 
+    m_newButton->setShortcut(QKeySequence::New);
     connect(m_newButton, &QPushButton::clicked, this, &KateSessionManageDialog::openNewSession);
 
     KGuiItem::assign(m_openButton, KStandardGuiItem::open());
     m_openButton->setDefault(true);
+    m_openButton->setShortcut(QKeySequence::Open);
     connect(m_openButton, &QPushButton::clicked, this, &KateSessionManageDialog::openSession);
 
     connect(m_templateButton, &QPushButton::clicked, this, &KateSessionManageDialog::openSessionAsTemplate);
@@ -51,6 +53,7 @@ KateSessionManageDialog::KateSessionManageDialog(QWidget *parent)
     connect(m_deleteButton, &QPushButton::clicked, this, &KateSessionManageDialog::updateDeleteList);
 
     KGuiItem::assign(m_closeButton, KStandardGuiItem::close());
+    m_closeButton->setShortcut(QKeySequence::Close);
     connect(m_closeButton, &QPushButton::clicked, this, &KateSessionManageDialog::closeDialog);
 
     connect(KateApp::self()->sessionManager(), &KateSessionManager::sessionListChanged, this, &KateSessionManageDialog::updateSessionList);

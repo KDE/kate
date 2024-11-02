@@ -173,7 +173,7 @@ public:
     KMultiTabBarTab *addTab(int id, ToolView *tv);
     int addBlankTab();
     void removeBlankTab(int id);
-    void removeTab(int id);
+    void removeTab(int id, ToolView *tv);
     void reorderTab(int id, KMultiTabBarTab *before);
 
     void showToolView(int id);
@@ -254,19 +254,17 @@ public:
 
     QWidget *tabButtonForToolview(ToolView *widget) const
     {
-        auto it = m_widgetToId.find(widget);
-        if (it == m_widgetToId.end()) {
-            return nullptr;
-        }
-        if (auto tabbar = kmTabBar(widget)) {
-            return tabbar->tab(it->second);
+        for (auto d : m_toolviews) {
+            if (d.toolview == widget) {
+                return d.tabbar->tabBar()->tab(d.id);
+            }
         }
         return nullptr;
     }
 
     int toolviewCount() const
     {
-        return (int)m_idToWidget.size();
+        return (int)m_toolviews.size();
     }
 
     ToolView *firstVisibleToolView();
@@ -357,12 +355,19 @@ private:
 
     MultiTabBar *tabBar(ToolView *tv) const
     {
-        return m_widgetToTabBar.at(tv);
+        for (auto d : m_toolviews) {
+            if (d.toolview == tv)
+                return d.tabbar;
+        }
+        return nullptr;
     }
 
     KMultiTabBar *kmTabBar(ToolView *widget) const
     {
-        return m_widgetToTabBar.at(widget)->tabBar();
+        if (auto tabbar = tabBar(widget)) {
+            return tabbar->tabBar();
+        }
+        return nullptr;
     }
 
     int tabBarCount() const
@@ -387,9 +392,21 @@ private:
     QSplitter *m_ownSplit;
     const int m_ownSplitIndex;
 
-    std::map<int, ToolView *> m_idToWidget;
-    std::map<ToolView *, int> m_widgetToId;
-    std::map<ToolView *, MultiTabBar *> m_widgetToTabBar;
+    struct ToolViewData {
+        int id = -1;
+        ToolView *toolview = nullptr;
+        MultiTabBar *tabbar = nullptr;
+    };
+    std::vector<ToolViewData> m_toolviews;
+
+    ToolViewData dataForId(int id)
+    {
+        for (const auto &d : m_toolviews) {
+            if (d.id == id)
+                return d;
+        }
+        return {};
+    }
 
     // Session restore only
     std::map<QString, int> m_tvIdToTabId;

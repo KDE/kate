@@ -391,8 +391,6 @@ KMultiTabBarTab *MultiTabBar::addTab(int id, ToolView *tv)
 
     connect(newTab, &KMultiTabBarTab::clicked, this, &MultiTabBar::tabClicked);
 
-    m_sb->m_widgetToTabBar.emplace(tv, this);
-
     return newTab;
 }
 
@@ -425,12 +423,10 @@ void MultiTabBar::removeBlankTab(int id)
     }
 }
 
-void MultiTabBar::removeTab(int id)
+void MultiTabBar::removeTab(int id, ToolView *tv)
 {
     m_tabList.erase(std::remove(m_tabList.begin(), m_tabList.end(), id), m_tabList.end());
     m_multiTabBar->removeTab(id);
-    ToolView *tv = m_sb->m_idToWidget.at(id);
-    m_sb->m_widgetToTabBar.erase(tv);
 
     bool hideView = (m_stack->currentWidget() == tv);
     m_stack->removeWidget(tv);
@@ -449,7 +445,12 @@ void MultiTabBar::removeTab(int id)
     m_activeTab = 0; // Ensure we are up to date, reporting nonsense is dangerous
     tv = static_cast<ToolView *>(m_stack->currentWidget());
     if (tv) {
-        hideToolView(m_sb->m_widgetToId.at(tv));
+        auto it = std::find_if(m_sb->m_toolviews.begin(), m_sb->m_toolviews.end(), [tv](const Sidebar::ToolViewData &d) {
+            return d.toolview == tv;
+        });
+        if (it != m_sb->m_toolviews.end()) {
+            hideToolView(it->id);
+        }
     }
 }
 
@@ -494,7 +495,7 @@ void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
     // re-add tabs
     for (size_t i = start; i < m_tabList.size(); ++i) {
         auto tabId = m_tabList[i];
-        ToolView *tv = m_sb->m_idToWidget.at(tabId);
+        ToolView *tv = m_sb->dataForId(tabId).toolview;
         m_multiTabBar->appendTab(tv->icon, tabId, tv->text);
         m_sb->appendStyledTab(tabId, this, tv);
     }
@@ -519,7 +520,7 @@ void MultiTabBar::setTabActive(int id, bool state)
     if (m_activeTab == id) {
         // Well, normally should be state always==false, but who knows...
         m_multiTabBar->setTab(id, state);
-        m_sb->m_idToWidget.at(id)->setToolVisible(state);
+        m_sb->dataForId(id).toolview->setToolVisible(state);
         m_activeTab = state ? id : 0;
         return;
     }
@@ -527,11 +528,11 @@ void MultiTabBar::setTabActive(int id, bool state)
     if (m_activeTab && state) {
         // Obviously the active tool is changed, disable the old one
         m_multiTabBar->setTab(m_activeTab, false);
-        m_sb->m_idToWidget.at(m_activeTab)->setToolVisible(false);
+        m_sb->dataForId(id).toolview->setToolVisible(false);
     }
 
     m_multiTabBar->setTab(id, state);
-    m_sb->m_idToWidget.at(id)->setToolVisible(state);
+    m_sb->dataForId(id).toolview->setToolVisible(state);
     m_activeTab = state ? id : m_activeTab;
 }
 
@@ -561,7 +562,7 @@ bool MultiTabBar::expandToolView() const
         return false;
     }
 
-    ToolView *tv = m_sb->m_idToWidget.at(m_activeTab);
+    ToolView *tv = m_sb->dataForId(m_activeTab).toolview;
     tv->setToolVisible(true);
     tv->setFocus(); // This is for some tools nice, for some other not
     m_stack->setCurrentWidget(tv);
@@ -658,7 +659,7 @@ void Sidebar::readConfig()
         return;
     }
 
-    for (const auto &[id, wid] : m_idToWidget) {
+    for (const auto &[id, wid, _] : m_toolviews) {
         updateButtonStyle(kmTabBar(wid)->tab(id));
     }
 }
@@ -666,6 +667,11 @@ void Sidebar::readConfig()
 void Sidebar::appendStyledTab(int id, MultiTabBar *bar, ToolView *widget)
 {
     auto newTab = bar->addTab(id, widget);
+    auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [id](const Sidebar::ToolViewData &d) {
+        return d.id == id;
+    });
+    Q_ASSERT(it != m_toolviews.end());
+    it->tabbar = bar;
 
     Q_ASSERT(newTab);
     newTab->installEventFilter(this);
@@ -807,16 +813,14 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QSt
     auto blankTabId = m_tvIdToTabId.find(identifier);
     if (blankTabId != m_tvIdToTabId.end()) {
         int newId = blankTabId->second;
-        m_idToWidget.emplace(newId, widget);
-        m_widgetToId.emplace(widget, newId);
+        m_toolviews.push_back({.id = newId, .toolview = widget, .tabbar = nullptr});
         appendStyledTab(newId, tabBar(m_tvIdToTabBar.at(identifier)), widget);
         // Indicate the blank tab is re-used
         m_tvIdToTabId.erase(identifier);
         m_tvIdToTabBar.erase(identifier);
     } else {
         int newId = nextId();
-        m_idToWidget.emplace(newId, widget);
-        m_widgetToId.emplace(widget, newId);
+        m_toolviews.push_back({.id = newId, .toolview = widget, .tabbar = nullptr});
         appendStyledTab(newId, tabBar(0), widget);
     }
 
@@ -827,32 +831,32 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QSt
 
 bool Sidebar::removeToolView(ToolView *widget)
 {
-    auto it = m_widgetToId.find(widget);
-    if (it == m_widgetToId.end()) {
+    auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [widget](const Sidebar::ToolViewData &d) {
+        return d.toolview == widget;
+    });
+    if (it == m_toolviews.end()) {
         return false;
     }
 
-    int id = it->second;
+    int id = it->id;
+    auto tabbar = it->tabbar;
+    m_toolviews.erase(it);
 
-    auto tbar = m_widgetToTabBar.at(widget);
-    tbar->removeTab(id);
-
-    m_idToWidget.erase(id);
-    m_widgetToId.erase(widget);
-
+    tabbar->removeTab(id, widget);
     updateSidebar();
-
     return true;
 }
 
 bool Sidebar::showToolView(ToolView *widget)
 {
-    auto it = m_widgetToId.find(widget);
-    if (it == m_widgetToId.end()) {
+    auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [widget](const Sidebar::ToolViewData &d) {
+        return d.toolview == widget;
+    });
+    if (it == m_toolviews.end()) {
         return false;
     }
 
-    tabBar(widget)->showToolView(it->second);
+    tabBar(widget)->showToolView(it->id);
     updateSidebar();
 
     return true;
@@ -860,13 +864,15 @@ bool Sidebar::showToolView(ToolView *widget)
 
 bool Sidebar::hideToolView(ToolView *widget)
 {
-    auto it = m_widgetToId.find(widget);
-    if (it == m_widgetToId.end()) {
+    auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [widget](const Sidebar::ToolViewData &d) {
+        return d.toolview == widget;
+    });
+    if (it == m_toolviews.end()) {
         return false;
     }
 
     updateLastSize();
-    tabBar(widget)->hideToolView(it->second);
+    tabBar(widget)->hideToolView(it->id);
     updateSidebar();
 
     return true;
@@ -874,12 +880,13 @@ bool Sidebar::hideToolView(ToolView *widget)
 
 void Sidebar::showToolviewTab(ToolView *widget, bool show)
 {
-    auto it = m_widgetToId.find(widget);
-    if (it == m_widgetToId.end()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected no id for widget " << widget;
+    auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [widget](const Sidebar::ToolViewData &d) {
+        return d.toolview == widget;
+    });
+    if (it == m_toolviews.end()) {
         return;
     }
-    auto *tab = kmTabBar(widget)->tab(it->second);
+    auto *tab = kmTabBar(widget)->tab(it->id);
     if (widget->tabButtonVisible() == show) {
         return;
     } else {
@@ -900,7 +907,11 @@ ToolView *Sidebar::firstVisibleToolView()
         auto tabbar = tabBar(i);
         if (tabbar->isToolActive()) {
             Q_ASSERT(tabbar->tabCount() > 0);
-            return m_idToWidget[tabbar->activeTab()];
+            int id = tabbar->activeTab();
+            auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [id](const Sidebar::ToolViewData &d) {
+                return d.id == id;
+            });
+            return it->toolview;
         }
     }
     return nullptr;
@@ -1083,7 +1094,11 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
             m_popupButton = bt->id();
 
-            ToolView *w = m_idToWidget[m_popupButton];
+            auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [id = m_popupButton](const Sidebar::ToolViewData &d) {
+                return d.id == id;
+            });
+            Q_ASSERT(it != m_toolviews.end());
+            ToolView *w = it->toolview;
 
             if (w) {
                 QMenu menu(this);
@@ -1100,7 +1115,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 
                 menu.addSection(QIcon::fromTheme(QStringLiteral("move")), i18n("Move To"));
 
-                int tabBarId = indexOf(m_widgetToTabBar.at(w));
+                int tabBarId = indexOf(it->tabbar);
 
                 if (tabBar(tabBarId)->tabCount() > 1) {
                     menu.addAction(QIcon::fromTheme(QStringLiteral("list-add")), i18n("Own Section"))->setData(ToOwnSectAction);
@@ -1182,7 +1197,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
             QPixmap pixmap = tab->grab();
             QDrag *drag = new QDrag(this);
             auto md = new QMimeData();
-            ToolView *toolView = m_idToWidget[tab->id()];
+            ToolView *toolView = dataForId(tab->id()).toolview;
             Q_ASSERT(toolView);
             md->setProperty("toolviewToMove", QVariant::fromValue(toolView));
             drag->setMimeData(md);
@@ -1277,8 +1292,11 @@ void Sidebar::dropEvent(QDropEvent *e)
         }
         // destTab might be null, which means we will just append to the end
         auto destTab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
-        auto tabbar = m_widgetToTabBar[toolview];
-        tabbar->reorderTab(sourceTab->id(), destTab);
+        auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [toolview](const Sidebar::ToolViewData &d) {
+            return d.toolview == toolview;
+        });
+        Q_ASSERT(it != m_toolviews.end());
+        it->tabbar->reorderTab(sourceTab->id(), destTab);
     } else {
         m_mainWin->moveToolView(toolview, position(), /*isDND=*/true);
         m_mainWin->showToolView(toolview);
@@ -1309,7 +1327,12 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
         if (!toolview) {
             return;
         }
-        auto tabbar = m_widgetToTabBar[toolview];
+
+        auto it = std::find_if(m_toolviews.begin(), m_toolviews.end(), [toolview](const Sidebar::ToolViewData &d) {
+            return d.toolview == toolview;
+        });
+        Q_ASSERT(it != m_toolviews.end());
+        auto tabbar = it->tabbar;
         auto lastTabId = tabbar->tabList().back();
         auto tab = tabbar->tabBar()->tab(lastTabId);
 
@@ -1334,7 +1357,7 @@ void Sidebar::dragLeaveEvent(QDragLeaveEvent *)
 void Sidebar::setVisible(bool visible)
 {
     // visible==true means show-request
-    if (visible && (m_idToWidget.empty() || !m_mainWin->sidebarsVisible())) {
+    if (visible && (m_toolviews.empty() || !m_mainWin->sidebarsVisible())) {
         return;
     }
 
@@ -1344,7 +1367,8 @@ void Sidebar::setVisible(bool visible)
 void Sidebar::buttonPopupActivate(QAction *a)
 {
     const int id = a->data().toInt();
-    ToolView *w = m_idToWidget[m_popupButton];
+    ToolViewData data = dataForId(m_popupButton);
+    auto w = data.toolview;
 
     if (!w) {
         return;
@@ -1370,20 +1394,20 @@ void Sidebar::buttonPopupActivate(QAction *a)
     }
 
     if (id == ToOwnSectAction) {
-        auto newBar = insertTabBar(indexOf(m_widgetToTabBar.at(w)) + 1);
-        tabBar(w)->removeTab(m_widgetToId.at(w));
-        appendStyledTab(m_widgetToId.at(w), newBar, w);
+        auto newBar = insertTabBar(indexOf(data.tabbar) + 1);
+        tabBar(w)->removeTab(data.id, w);
+        appendStyledTab(data.id, newBar, w);
         showToolView(w);
     }
     if (id == UpLeftAction) {
         auto newBar = tabBar(indexOf(tabBar(w)) - 1);
-        tabBar(w)->removeTab(m_widgetToId.at(w));
-        appendStyledTab(m_widgetToId.at(w), newBar, w);
+        tabBar(w)->removeTab(data.id, w);
+        appendStyledTab(data.id, newBar, w);
     }
     if (id == DownRightAction) {
         auto newBar = tabBar(indexOf(tabBar(w)) + 1);
-        tabBar(w)->removeTab(m_widgetToId.at(w));
-        appendStyledTab(m_widgetToId.at(w), newBar, w);
+        tabBar(w)->removeTab(data.id, w);
+        appendStyledTab(data.id, newBar, w);
     }
 }
 
@@ -1436,8 +1460,8 @@ void Sidebar::restoreSession(KConfigGroup &config)
     }
 
     // show only correct toolviews ;)
-    for (const auto &[id, tv] : m_idToWidget) {
-        tabBar(tv)->setTabActive(id, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
+    for (const auto &[id, tv, tabbar] : m_toolviews) {
+        tabbar->setTabActive(id, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
         showToolviewTab(tv, config.readEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), true));
     }
 
@@ -1496,7 +1520,7 @@ void Sidebar::saveSession(KConfigGroup &config)
     config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), m_lastSize);
 
     // store the data about all toolviews in this sidebar ;)
-    for (const auto &[id, tv] : m_idToWidget) {
+    for (const auto &[id, tv, _] : m_toolviews) {
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
         config.writeEntry(QStringLiteral("Kate-MDI-ToolView-%1-Show-Button-In-Sidebar").arg(tv->id), tv->tabButtonVisible());
@@ -1508,7 +1532,7 @@ void Sidebar::saveSession(KConfigGroup &config)
 
         QStringList tvList;
         for (int j : tabBar(i)->tabList()) {
-            tvList << m_idToWidget.at(j)->id;
+            tvList << dataForId(j).toolview->id;
         }
         config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), tvList);
     }

@@ -8,7 +8,6 @@
 
 #include <QDebug>
 #include <QRegularExpression>
-#include <QSharedData>
 #include <QString>
 #include <QUrl>
 
@@ -426,7 +425,7 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
         ADD = '+',
         DEL = '-',
         CTX = ' ',
-        NO_NEWLINE = '\\'
+        NO_NEWLINE = '\\',
     };
 
     VcsDiff ret;
@@ -443,7 +442,9 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
         if (hunk > endLine)
             break;
 
-        std::map<LineType, int> counts = {{ADD, 0}, {DEL, 0}, {CTX, 0}, {NO_NEWLINE, 0}};
+        int addCount = 0;
+        int delCount = 0;
+        int ctxCount = 0;
         QStringList filteredLines;
 
         // Will be set if the previous line in a hunk was
@@ -476,7 +477,7 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
                     // If we are before the range and
                     // so far we only encountered ADD (or DEL, in case of reverse) lines
                     // these will not be included in the subdiff hunk so we increase the startOffset
-                    if (lnIdx < startLine && counts[CTX] == 0)
+                    if (lnIdx < startLine && ctxCount == 0)
                         startOffset++;
                     continue;
                 }
@@ -502,12 +503,25 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
             } else {
                 filteredLines << QLatin1Char(tp) + content;
             }
-            counts[tp]++;
+
+            switch (tp) {
+            case ADD:
+                addCount++;
+                break;
+            case DEL:
+                delCount++;
+                break;
+            case CTX:
+                ctxCount++;
+                break;
+            case NO_NEWLINE:
+                break;
+            }
             prevSkipped = false;
         }
 
         // Skip hunks which have only context lines
-        if (counts[ADD] + counts[DEL] == 0)
+        if (addCount + delCount == 0)
             continue;
 
         // Compute the start & counts of the hunks
@@ -519,8 +533,8 @@ VcsDiff VcsDiff::subDiff(const uint startLine, const uint endLine, DiffDirection
             subSrcStart = hunk.srcStart + startOffset;
             subTgtStart = hunk.tgtStart + startOffset;
         }
-        uint subSrcCount = counts[CTX] + counts[DEL];
-        uint subTgtCount = counts[CTX] + counts[ADD];
+        const uint subSrcCount = ctxCount + delCount;
+        const uint subTgtCount = ctxCount + addCount;
 
         // Prepend lines identifying the source files
         lines << QStringLiteral("--- a/") + ((dir == Reverse) ? hunk.tgtFile : hunk.srcFile);

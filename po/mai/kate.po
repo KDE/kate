@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2010-09-24 20:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -162,8 +162,8 @@ msgstr "के-राइट लेखक"
 msgid "Close"
 msgstr "बन्न करू"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "फाइल खोलू"
@@ -1613,9 +1613,10 @@ msgid "Close all open documents."
 msgstr ""
 
 #: lib/katemainwindow.cpp:477
-#, kde-format
-msgid "&Reopen latest closed document(s)"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "&Reopen Latest Closed Document(s)"
+msgstr "दस्तावेज बन्न करू"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2345,7 +2346,19 @@ msgstr ""
 msgid "Toggle scroll synchronization for the current view"
 msgstr "मोजुदा विंडो बन्न करू"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "Close Document"
+msgid "Detach Active Document"
+msgstr "दस्तावेज बन्न करू"
+
+#: lib/kateviewmanager.cpp:311
+#, kde-format
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2353,42 +2366,42 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Opening Large File"
 msgstr "फाइल खोलू"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "फाइल खोलू"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
@@ -2431,59 +2444,59 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close Tab"
 msgstr "बन्न करू"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close &All Documents"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "मोजुदा विंडो बन्न करू"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "मोजुदा विंडो बन्न करू"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

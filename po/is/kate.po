@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -171,8 +171,8 @@ msgstr "KWrite - textaritill"
 msgid "Close"
 msgstr "Loka"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Opna skrá"
@@ -1622,7 +1622,7 @@ msgstr "Loka öllum opnum skjölum."
 #: lib/katemainwindow.cpp:477
 #, fuzzy, kde-format
 #| msgid "&Reopen latest closed document(s)."
-msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Opna aftur skjal/skjöl sem var nýlega lokað."
 
 #: lib/katemainwindow.cpp:479
@@ -2360,7 +2360,21 @@ msgstr "Víxla skrunsamstillingu af/á"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Víxla skrunsamstillingu af/á fyrir þetta yfirlit"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "L&osa skjal"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr "Opnar skjalið í nýjum glugga og lokar því í þessum glugga"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2371,22 +2385,22 @@ msgstr ""
 "Viltu halda áfram?</p><p><strong>Athugaðu að kate svarar hugsanlega ekki í "
 "nokkra stund á meðan það opnar stórar skrár.</strong></p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "Opna stóra skrá"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 getur ekki opnað möppur"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Viðbótin sem þarf til að opna möppur fannst ekki"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2394,19 +2408,19 @@ msgstr ""
 "Til að hægt sé að opna möppur þarf viðbótin <b>%1</b> að vera virk. Á að "
 "virkja hana?"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Opna möppu"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Virkja"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Mistókst að virkja viðbótina <b>%1</b>"
@@ -2453,52 +2467,52 @@ msgstr[1] ""
 "Það eru %1 skjöl í viðbót opin núna. Til að sjá öll opin skjöl skaltu skipta "
 "í flýtiopnunargluggann með því að smella hér."
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "Loka flipa"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "&Loka skjali"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Loka &öðrum skjölum"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Lok&a öllum skjölum"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "L&osa skjal"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Opnar skjalið í nýjum glugga og lokar því í þessum glugga"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Bera saman við skjal sem er opið"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Bera saman við skjal sem er opið með því að nota"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "Gat ekki ræst forrit"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

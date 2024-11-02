@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -167,8 +167,8 @@ msgstr "Kwrite - テキストエディタ"
 msgid "Close"
 msgstr "閉じる"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "ファイルを開く"
@@ -1603,7 +1603,7 @@ msgstr "すべての文書を閉じます。"
 #: lib/katemainwindow.cpp:477
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
-msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "開いているすべての文書を再読み込みします。"
 
 #: lib/katemainwindow.cpp:479
@@ -2373,7 +2373,19 @@ msgstr ""
 msgid "Toggle scroll synchronization for the current view"
 msgstr "次の分割ビューをアクティブにします。"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "文書を分離(&E)"
+
+#: lib/kateviewmanager.cpp:311
+#, kde-format
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr ""
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2381,40 +2393,40 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "大きなファイルを開いています"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "フォルダを開く"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "有効"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
@@ -2456,52 +2468,52 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "タブを閉じる"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "文書を閉じる(&C)"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "他の文書を閉じる(&D)"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "すべての文書を閉じる(&A)"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "文書を分離(&E)"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "アクティブな文書と比較"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "アクティブな文書と比較:"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

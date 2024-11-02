@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -162,8 +162,8 @@ msgstr "KWrite - 文本编辑器"
 msgid "Close"
 msgstr "关闭"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "打开文件"
@@ -1577,8 +1577,9 @@ msgid "Close all open documents."
 msgstr "关闭所有打开的文档。"
 
 #: lib/katemainwindow.cpp:477
-#, kde-format
-msgid "&Reopen latest closed document(s)"
+#, fuzzy, kde-format
+#| msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "重新打开最近关闭的文档(&R)"
 
 #: lib/katemainwindow.cpp:479
@@ -2296,7 +2297,21 @@ msgstr "打开/关闭滚动同步"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "打开/关闭当前视图的滚动同步"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "分离文档到新窗口(&E)"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr "移动文档到新窗口"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2306,40 +2321,40 @@ msgstr ""
 "<p>您正在尝试打开一个或多个大文件：</p><ul>%1</ul><p>您希望继续吗？</"
 "p><p><strong>请注意 Kate 可能会在打开大文件时失去响应。</strong></p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "正在打开大文件"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 无法打开文件夹"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "未找到打开文件夹所需的插件"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "要打开文件夹，必须启用 <b>%1</b> 插件。启用它？"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "打开文件夹"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "启用"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "启用插件 <b>%1</b> 失败"
@@ -2382,52 +2397,52 @@ msgid_plural ""
 msgstr[0] ""
 "当前还有 %1 个文档已打开。要查看所有打开文档，请点击此处切换到快速打开视图。"
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "关闭标签页"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "关闭文档(&C)"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "关闭其他文档(&D)"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "关闭所有文档(&A)"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "分离文档到新窗口(&E)"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "移动文档到新窗口"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "无法启动程序"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "无法启动选定的程序。也许它没有安装。"

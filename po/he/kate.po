@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-10-12 15:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -172,8 +172,8 @@ msgstr "Kate - עורך טקסט"
 msgid "Close"
 msgstr "סגירה"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "פתיחת קובץ"
@@ -1601,8 +1601,9 @@ msgid "Close all open documents."
 msgstr "שגירה של כל המסמכים הפתוחים."
 
 #: lib/katemainwindow.cpp:477
-#, kde-format
-msgid "&Reopen latest closed document(s)"
+#, fuzzy, kde-format
+#| msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "פתיחת המסמכים האחרונים ש&נסגרו"
 
 #: lib/katemainwindow.cpp:479
@@ -2325,7 +2326,21 @@ msgstr "החלפת מצב סנכרון גלילה"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "החלפת מצב סנכרון גלילה לתצוגה הנוכחית"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "&ניתוק המסמך"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr "פתיחת המסמך בחלון חדש וסגירתו בחלון הנוכחי"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2336,40 +2351,40 @@ msgstr ""
 "p><p><strong>נא לשים לב ש־kate עשוי להפסיק להגיב למשך זמן מה בעת פתיחת קבצים "
 "גדולים.</strong></p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "קובץ גדול נפתח"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 לא יכול לפתוח תיקיות"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "התוסף הנחוץ לפתיחת תיקיות לא נמצא"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "כדי לפתוח תיקיות, יש להפעיל את התוסף <b>%1</b>. להפעיל אותו?"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "פתיחת תיקייה"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "הפעלה"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "הפעלת התוסף <b>%1</b> נכשלה"
@@ -2422,52 +2437,52 @@ msgstr[3] ""
 "נכון לעכשיו, יש עוד %1 מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
 "לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "סגירת לשונית"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "&סגירת המסמך"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "סגירת &שאר המסמכים"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "סגירת &כל המסמכים"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "&ניתוק המסמך"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "פתיחת המסמך בחלון חדש וסגירתו בחלון הנוכחי"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "השוואה מול המסמך הפעיל"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "לא ניתן להתחיל את התוכנית"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי היא לא מותקנת."

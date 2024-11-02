@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-10-14 15:52+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -163,8 +163,8 @@ msgstr "KWrite - текстов редактор"
 msgid "Close"
 msgstr "Затваряне"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Отваряне на файл"
@@ -1620,8 +1620,9 @@ msgid "Close all open documents."
 msgstr "Затваряне на всички отворени документи."
 
 #: lib/katemainwindow.cpp:477
-#, kde-format
-msgid "&Reopen latest closed document(s)"
+#, fuzzy, kde-format
+#| msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Презареждане на последните затворени документи"
 
 #: lib/katemainwindow.cpp:479
@@ -2360,7 +2361,21 @@ msgstr "Превключване на синхронизация на превъ
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Превключване на синхронизация на превъртане в текущия изглед"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "Отка&чване на документ"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr "Отваря документа в нов прозорец и го затваря в текущия прозорец"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2371,22 +2386,22 @@ msgstr ""
 "<p> Искате ли да продължите?</p><p><strong> Внимавайте, че Kate може да спре "
 "да отговаря за известно време при отваряне на големи файлове. </strong> </p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "Отваряне на голям файл"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 не може да отвори папките"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Приставката, необходима за отваряне на папките не беше намерена"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2394,19 +2409,19 @@ msgstr ""
 "За да се отворят папките е необходима приставката <b>%1</b>. Да се активира "
 "ли тази приставка?"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Отваряне на папка"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Активиране"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Неуспех при активиране на приставка  <b>%1</b>"
@@ -2455,52 +2470,52 @@ msgstr[1] ""
 "В момента има %1 отворени документа. За да видите всички отворени документи, "
 "превключете към изгледа за бързо отваряне, като кликнете тук."
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "Затваряне на раздел"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "&Затваряне на документ"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Затваряне на другите документи"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Затваряне на &всички документи"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "Отка&чване на документ"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Отваря документа в нов прозорец и го затваря в текущия прозорец"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравняване с активния документ"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравняване с активния документ с помощта на"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "Неуспешно стартиране на програмата"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

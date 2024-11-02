@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-10-27 11:59+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -166,8 +166,8 @@ msgstr "கேரைட் -  உரைதொகுப்பாளர் உற�
 msgid "Close"
 msgstr "மூடு"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "கோப்பை திறத்தல்"
@@ -1603,8 +1603,9 @@ msgid "Close all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மூடும்."
 
 #: lib/katemainwindow.cpp:477
-#, kde-format
-msgid "&Reopen latest closed document(s)"
+#, fuzzy, kde-format
+#| msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "&கடைசியாக முடிய ஆவணத்தைத் திற"
 
 #: lib/katemainwindow.cpp:479
@@ -2341,7 +2342,21 @@ msgstr "உருளல் ஒத்திசைவை நிலைமாற்�
 msgid "Toggle scroll synchronization for the current view"
 msgstr "தற்போதைய காட்சிப்பகுதிக்கு உருளல் ஒத்திசைவை இயக்கும்/முடக்கும்"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "ஆவணத்தை &பிரித்தெடு"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2352,40 +2367,40 @@ msgstr ""
 "தொடர வேண்டுமா?</p><p><strong>மிகப்பெரிய கோப்புகளை திறக்கும்போது கேட் சிறிது நேரம் "
 "உங்கள் செயல்களுக்கு பதிலளிக்காமல் இருக்கலாம் என்பதை நினைவில் கொள்ளுங்கள்.</strong></p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "பெரிய கோப்பு திறக்கப்படுகிறது"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1-ஆல் அடைவுகளை திறக்க முடியாது"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "அடைவுகளை திறப்பதற்கான செருகுநிரலை காணவில்லை"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "அடைவுகளைத் திறக்க, <b>%1</b> செருகுநிரலை இயக்க வேண்டும். அதை இயக்கலாமா?"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "அடைவைத் திறப்பது"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "இயக்கு"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
@@ -2432,52 +2447,52 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "&ஆவணத்தை மூடு"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "&மற்ற ஆவணங்களை மூடு"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "செயலியை துவக்க முடியவில்லை"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

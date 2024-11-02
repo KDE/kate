@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-02 00:42+0000\n"
 "PO-Revision-Date: 2024-09-14 11:22+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -160,8 +160,8 @@ msgstr "KWrite - Tekstredaktilo"
 msgid "Close"
 msgstr "Fermi"
 
-#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:352
-#: lib/kateviewmanager.cpp:354
+#: lib/commitfilesview.cpp:394 lib/kateviewmanager.cpp:365
+#: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Malfermi dosieron"
@@ -1612,7 +1612,7 @@ msgstr "Fermas ĉiujn dokumentojn."
 #: lib/katemainwindow.cpp:477
 #, fuzzy, kde-format
 #| msgid "&Reopen latest closed document(s)."
-msgid "&Reopen latest closed document(s)"
+msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Remalfermi lastatempe malfermitajn dokumento(j)n."
 
 #: lib/katemainwindow.cpp:479
@@ -2351,7 +2351,22 @@ msgstr "Baskuligi Ruluman Sinkronigon"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Baskuligi ruluman sinkronigon por la nuna vido"
 
-#: lib/kateviewmanager.cpp:373
+#: lib/kateviewmanager.cpp:310
+#, fuzzy, kde-format
+#| msgid "D&etach Document"
+msgid "Detach Active Document"
+msgstr "Malkroĉi Dokum&enton"
+
+#: lib/kateviewmanager.cpp:311
+#, fuzzy, kde-format
+#| msgid ""
+#| "Opens the document in a new window and closes it in the current window"
+msgid ""
+"Opens the active document in a new window and closes it in the current window"
+msgstr ""
+"Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
+
+#: lib/kateviewmanager.cpp:386
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2362,22 +2377,22 @@ msgstr ""
 "vi volas daŭrigi?</p><p><strong>Atentu, ke kate povas ĉesu respondi dum "
 "kelka tempo malfermante grandajn dosierojn.</strong></p>"
 
-#: lib/kateviewmanager.cpp:376
+#: lib/kateviewmanager.cpp:389
 #, kde-format
 msgid "Opening Large File"
 msgstr "Malfermante Grandan Dosieron"
 
-#: lib/kateviewmanager.cpp:550
+#: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ne povas malfermi dosierujojn"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "La kromaĵo necesa por malfermi dosierujojn ne estis trovita"
 
-#: lib/kateviewmanager.cpp:573
+#: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2385,19 +2400,19 @@ msgstr ""
 "Por malfermi dosierujojn, la kromprogramo <b>%1</b> devas esti ebligita. Ĉu "
 "ebligi ĝin?"
 
-#: lib/kateviewmanager.cpp:576
+#: lib/kateviewmanager.cpp:589
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Malfermi Dosierujon"
 
-#: lib/kateviewmanager.cpp:577
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ebligi"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Malsukcesis aktivigi aldonaĵon <b>%1</b>"
@@ -2445,53 +2460,53 @@ msgstr[1] ""
 "Aktuale estas %1 pliaj dokumentoj malfermataj. Por vidi ĉiujn malfermajn "
 "dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 
-#: lib/kateviewspace.cpp:1119
+#: lib/kateviewspace.cpp:1130
 #, kde-format
 msgid "Close Tab"
 msgstr "Fermi Langeton"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Document"
 msgstr "&Fermi Dokumenton"
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fermi Aliajn &Dokumentojn"
 
-#: lib/kateviewspace.cpp:1139
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fermu &Ĉiujn Dokumentojn"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1154
 #, kde-format
 msgid "D&etach Document"
 msgstr "Malkroĉi Dokum&enton"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Kompari kun Aktiva Dokumento"
 
-#: lib/kateviewspace.cpp:1160
+#: lib/kateviewspace.cpp:1171
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Kompari kun Aktiva Dokumenta Uzado"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Could not start program"
 msgstr "Ne eblis komenci programon"
 
-#: lib/kateviewspace.cpp:1231
+#: lib/kateviewspace.cpp:1242
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

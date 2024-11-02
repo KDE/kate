@@ -408,7 +408,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     KComboBox *cmbUrl = m_ui.folderRequester->comboBox();
     cmbUrl->setDuplicatesEnabled(false);
     cmbUrl->setEditable(true);
-    m_ui.folderRequester->setMode(KFile::Directory | KFile::LocalOnly);
+    m_ui.folderRequester->setMode(KFile::Directory | KFile::LocalOnly | KFile::ExistingOnly);
     KUrlCompletion *cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
     cmbUrl->setCompletionObject(cmpl);
     cmbUrl->setAutoDeleteCompletionObject(true);
@@ -1162,7 +1162,7 @@ void KatePluginSearchView::startSearch()
             m_resultBaseDir += QLatin1Char('/');
         }
         m_searchingTab->matchModel.setBaseSearchPath(m_resultBaseDir);
-        m_folderFilesList.generateList(m_ui.folderRequester->text(),
+        m_folderFilesList.generateList(m_resultBaseDir,
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
                                        m_ui.symLinkCheckBox->isChecked(),

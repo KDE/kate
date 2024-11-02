@@ -409,8 +409,12 @@ private:
     }
 
     // Session restore only
-    std::map<QString, int> m_tvIdToTabId;
-    std::map<QString, int> m_tvIdToTabBar;
+    struct ToolViewToTabId {
+        QString toolview;
+        int tabId{};
+        int tabbarId{};
+    };
+    std::vector<ToolViewToTabId> m_tvIdToTabId;
     bool m_sessionRestoreRunning = false;
 
     int m_lastSize;

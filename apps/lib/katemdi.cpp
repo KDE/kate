@@ -810,14 +810,15 @@ ToolView *Sidebar::addToolView(const QIcon &icon, const QString &text, const QSt
 
     widget->m_sidebar = this;
 
-    auto blankTabId = m_tvIdToTabId.find(identifier);
+    auto blankTabId = std::find_if(m_tvIdToTabId.begin(), m_tvIdToTabId.end(), [&identifier](const ToolViewToTabId &a) {
+        return a.toolview == identifier;
+    });
     if (blankTabId != m_tvIdToTabId.end()) {
-        int newId = blankTabId->second;
+        int newId = blankTabId->tabId;
         m_toolviews.push_back({.id = newId, .toolview = widget, .tabbar = nullptr});
-        appendStyledTab(newId, tabBar(m_tvIdToTabBar.at(identifier)), widget);
+        appendStyledTab(newId, tabBar(blankTabId->tabbarId), widget);
         // Indicate the blank tab is re-used
-        m_tvIdToTabId.erase(identifier);
-        m_tvIdToTabBar.erase(identifier);
+        m_tvIdToTabId.erase(blankTabId);
     } else {
         int newId = nextId();
         m_toolviews.push_back({.id = newId, .toolview = widget, .tabbar = nullptr});
@@ -1440,13 +1441,15 @@ void Sidebar::startRestoreSession(KConfigGroup &config)
     }
     // Create for each tool we expect, in the correct order, a tab in advance, a blank one
     for (int i = 0; i < s.size(); ++i) {
-        QStringList tvList = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), QStringList());
+        const QStringList tvList = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), QStringList());
         for (int j = 0; j < tvList.size(); ++j) {
             // Don't add in case of a config mismatch blank tabs for some stuff twice
-            if (!m_tvIdToTabId.contains(tvList.at(j))) {
+            auto it = std::find_if(m_tvIdToTabId.begin(), m_tvIdToTabId.end(), [&tvList, j](const ToolViewToTabId &a) {
+                return a.toolview == tvList.at(j);
+            });
+            if (it == m_tvIdToTabId.end()) {
                 int id = tabBar(i)->addBlankTab();
-                m_tvIdToTabId.emplace(tvList.at(j), id);
-                m_tvIdToTabBar.emplace(tvList.at(j), i);
+                m_tvIdToTabId.emplace_back(ToolViewToTabId{.toolview = tvList[j], .tabId = id, .tabbarId = i});
             }
         }
     }
@@ -1466,11 +1469,10 @@ void Sidebar::restoreSession(KConfigGroup &config)
     }
 
     // In case of some config mismatch, we should remove left over blank tabs
-    for (const auto &[tv, id] : m_tvIdToTabId) {
-        tabBar(m_tvIdToTabBar.at(tv))->removeBlankTab(id);
+    for (const auto &[tv, id, tabbarId] : m_tvIdToTabId) {
+        tabBar(tabbarId)->removeBlankTab(id);
     }
     m_tvIdToTabId.clear();
-    m_tvIdToTabBar.clear();
 
     // In case of some config mismatch, we may have some ugly empty bars
     for (int i = 0; i < tabBarCount(); ++i) {

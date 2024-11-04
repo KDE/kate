@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-03 00:42+0000\n"
-"PO-Revision-Date: 2024-10-24 13:16+0300\n"
+"PO-Revision-Date: 2024-11-03 16:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1617,8 +1617,7 @@ msgid "Close all open documents."
 msgstr "Tüm açık belgeleri kapat."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Son Kapatılan Belgeleri &Yeniden Aç"
 
@@ -2361,18 +2360,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Geçerli görünüm için sarma eşzamanlamasını aç/kapat"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Bel&geyi Ayır"
+msgstr "Etkin Belgeyi Ayır"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Belgeyi yeni bir pencerede açıp geçerli pencerede kapatır"
+msgstr "Etkin belgeyi yeni bir pencerede açıp geçerli penceredekini kapatır"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

@@ -1577,10 +1577,9 @@ msgid "Close all open documents."
 msgstr "关闭所有打开的文档。"
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "重新打开最近关闭的文档(&R)"
+msgstr ""
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2298,18 +2297,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "打开/关闭当前视图的滚动同步"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "分离文档到新窗口(&E)"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "移动文档到新窗口"
+msgstr ""
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

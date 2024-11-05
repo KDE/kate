@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-03 00:42+0000\n"
-"PO-Revision-Date: 2024-10-24 11:56+0200\n"
+"PO-Revision-Date: 2024-11-04 17:42+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1616,8 +1616,7 @@ msgid "Close all open documents."
 msgstr "Claude omne documentos aperite."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Reaperi ultime documento(s) claudite"
 
@@ -2365,19 +2364,17 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Commuta synchronisation de rolar  per vista currente"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Distacca docum&ento"
+msgstr "Distacca documento active"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
-"Aperi le documento in un nove fenestra e lo claude in le fenestra currente"
+"Aperi le documento active  in un nove fenestra e lo claude in le fenestra "
+"currente"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

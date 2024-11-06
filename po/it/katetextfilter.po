@@ -3,7 +3,7 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003, 2005.
 # Marco L. Spolaore <mspolaore@e-tree.com>, 2005.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007, 2010, 2013, 2015.
-# Paolo Zamponi <feus73@gmail.com>, 2018, 2021.
+# SPDX-FileCopyrightText: 2018, 2021, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format

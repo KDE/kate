@@ -143,15 +143,21 @@ int SnippetCompletionModel::rowCount(const QModelIndex &parent) const
     }
 }
 
-bool SnippetCompletionModel::shouldStartCompletion(KTextEditor::View *view,
-                                                   const QString &insertedText,
-                                                   bool userInsertion,
-                                                   const KTextEditor::Cursor &position)
+static int minimalCompletionLength(KTextEditor::View *view)
 {
-    Q_UNUSED(view);
-    Q_UNUSED(insertedText);
-    Q_UNUSED(userInsertion);
-    Q_UNUSED(position);
+    bool valueFound = false;
+    const int length = view->configValue(QStringLiteral("word-completion-minimal-word-length")).toInt(&valueFound);
+
+    // handle bogus values or old versions that don't export that setting
+    return valueFound ? length : 3;
+}
+
+bool SnippetCompletionModel::shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &)
+{
+    if (userInsertion && QStringView(insertedText).trimmed().size() >= minimalCompletionLength(view)) {
+        // last must be a letter to avoid some annoyance
+        return insertedText.back().isLetter();
+    }
     return false;
 }
 

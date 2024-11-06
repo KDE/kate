@@ -117,6 +117,7 @@ void KateTabBar::readConfig()
     m_doubleClickNewDocument = cgGeneral.readEntry("Tab Double Click New Document", true);
     m_middleClickCloseDocument = cgGeneral.readEntry("Tab Middle Click Close Document", true);
     m_openNewTabInFrontOfCurrent = cgGeneral.readEntry("Open New Tab To The Right Of Current", false);
+    m_cycleTabs = cgGeneral.readEntry("Cycle To First Tab", true);
 }
 
 void KateTabBar::setActive(bool active)
@@ -135,14 +136,24 @@ bool KateTabBar::isActive() const
 
 int KateTabBar::prevTab() const
 {
-    return currentIndex() == 0 ? count() - 1 // first index => go to last.
-                               : currentIndex() - 1;
+    if (m_cycleTabs) {
+        return currentIndex() == 0 ? count() - 1 // first index => go to last.
+                                   : currentIndex() - 1;
+    } else {
+        return currentIndex() == 0 ? 0 // first index, keep it here.
+                                   : currentIndex() - 1;
+    }
 }
 
 int KateTabBar::nextTab() const
 {
-    return currentIndex() == count() - 1 ? 0 // last index, go to first.
-                                         : currentIndex() + 1;
+    if (m_cycleTabs) {
+        return currentIndex() == count() - 1 ? 0 // last index, go to first.
+                                             : currentIndex() + 1;
+    } else {
+        return currentIndex() == count() - 1 ? count() - 1 // last index, keep it here.
+                                             : currentIndex() + 1;
+    }
 }
 
 bool KateTabBar::containsTab(int index) const

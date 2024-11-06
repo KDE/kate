@@ -164,6 +164,11 @@ private:
     bool m_openNewTabInFrontOfCurrent = false;
 
     /**
+     * Should we go the first tab on nextTab()
+     */
+    bool m_cycleTabs = true;
+
+    /**
      * LRU counter storage, to determine which document has which age
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times

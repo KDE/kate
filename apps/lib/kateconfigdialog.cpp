@@ -276,6 +276,14 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_openNewTabInFrontOfCurrent, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_openNewTabInFrontOfCurrent);
 
+    m_cycleThroughTabs = new QCheckBox(
+        i18nc("'Next Tab'/'Previous Tab' is an existing action name. Please use the same text here as it is used in that action's translation",
+              "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous Tab' will not go to first/last tab after reaching the end"),
+        this);
+    m_cycleThroughTabs->setChecked(cgGeneral.readEntry("Cycle To First Tab", true));
+    connect(m_cycleThroughTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    vbox->addWidget(m_cycleThroughTabs);
+
     layout->addWidget(buttonGroup);
 
     buttonGroup = new QGroupBox(i18n("&Mouse"), generalFrame);
@@ -623,6 +631,7 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Allow Tab Scrolling", m_tabsScrollable->isChecked());
         cg.writeEntry("Elide Tab Text", m_tabsElided->isChecked());
         cg.writeEntry("Open New Tab To The Right Of Current", m_openNewTabInFrontOfCurrent->isChecked());
+        cg.writeEntry("Cycle To First Tab", m_cycleThroughTabs->isChecked());
 
         cg.writeEntry("Diff Show Style", m_diffStyle->currentIndex());
 

@@ -19,7 +19,6 @@
 #include <QSplitter>
 
 #include <map>
-#include <unordered_map>
 #include <vector>
 
 class KActionMenu;
@@ -58,7 +57,7 @@ private:
 private:
     MainWindow *m_mw;
     KToggleAction *m_showSidebarsAction;
-    std::unordered_map<ToolView *, std::vector<QAction *>> m_toolToActions;
+    std::vector<std::pair<ToolView *, std::vector<QAction *>>> m_toolToActions;
     KActionMenu *m_toolMenu;
     QAction *m_hideToolViews;
     KActionMenu *m_sidebarButtonsMenu;

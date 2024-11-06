@@ -166,8 +166,15 @@ void GUIClient::registerToolView(ToolView *tv)
 
     m_toolMenu->addAction(a);
 
-    auto &actionsForTool = m_toolToActions[tv];
-    actionsForTool.push_back(a);
+    Q_ASSERT(std::find_if(m_toolToActions.begin(),
+                          m_toolToActions.end(),
+                          [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
+                              return a.first == tv;
+                          })
+             == m_toolToActions.end());
+
+    m_toolToActions.push_back({tv, {a}});
+    auto &actionsForTool = m_toolToActions.back().second;
 
     /** Show Tab button in sidebar action **/
     aname = QStringLiteral("kate_mdi_show_toolview_button_") + tv->id;
@@ -212,14 +219,14 @@ void GUIClient::registerToolView(ToolView *tv)
 
 void GUIClient::unregisterToolView(ToolView *tv)
 {
-    auto &actionsForTool = m_toolToActions[tv];
-    if (actionsForTool.empty())
-        return;
-
-    for (auto *a : actionsForTool) {
-        delete a;
-    }
-    m_toolToActions.erase(tv);
+    auto pred = [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
+        if (a.first == tv) {
+            qDeleteAll(a.second);
+            return true;
+        }
+        return false;
+    };
+    m_toolToActions.erase(std::remove_if(m_toolToActions.begin(), m_toolToActions.end(), pred), m_toolToActions.end());
 
     updateActions();
 }

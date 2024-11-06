@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-03 00:42+0000\n"
-"PO-Revision-Date: 2024-10-25 08:02+0200\n"
+"PO-Revision-Date: 2024-11-03 11:17+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1662,8 +1662,7 @@ msgid "Close all open documents."
 msgstr "Ferme tous les documents ouverts."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Ré-ouvrir le ou les documents récemment fermé(s)."
 
@@ -2423,20 +2422,17 @@ msgstr ""
 "courant"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Détach&er un document"
+msgstr "Détacher un document actif"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
-"Ouvre le document dans une nouvelle fenêtre et le ferme dans la fenêtre "
-"courante"
+"Ouvre le document actif dans une nouvelle fenêtre et le ferme dans la "
+"fenêtre courante"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

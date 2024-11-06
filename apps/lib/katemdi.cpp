@@ -1694,7 +1694,8 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
     ToolView *v = m_sidebars[pos]->addToolView(icon, text, identifier, nullptr);
     v->plugin = plugin;
 
-    m_toolviews.emplace(identifier, v);
+    Q_ASSERT(toolView(identifier) == nullptr);
+    m_toolviews.emplace_back(identifier, v);
 
     // register for menu stuff
     m_guiClient->registerToolView(v);
@@ -1704,9 +1705,10 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
 
 ToolView *MainWindow::toolView(const QString &identifier) const
 {
-    auto it = m_toolviews.find(identifier);
-    if (it != m_toolviews.end()) {
-        return it->second;
+    for (auto [name, toolview] : m_toolviews) {
+        if (name == identifier) {
+            return toolview;
+        }
     }
     return nullptr;
 }
@@ -1726,7 +1728,12 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     widget->sidebar()->removeToolView(widget);
 
-    m_toolviews.erase(widget->id);
+    m_toolviews.erase(std::remove_if(m_toolviews.begin(),
+                                     m_toolviews.end(),
+                                     [widget](const std::pair<QString, ToolView *> &p) {
+                                         return p.first == widget->id;
+                                     }),
+                      m_toolviews.end());
 }
 
 void MainWindow::setSidebarsVisibleInternal(bool visible, bool hideFullySilent)

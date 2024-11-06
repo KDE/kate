@@ -18,7 +18,6 @@
 #include <QPointer>
 #include <QSplitter>
 
-#include <map>
 #include <vector>
 
 class KActionMenu;
@@ -622,7 +621,7 @@ private:
      * mapped by their constant identifier, to have some stable order
      * tool views de-register them self on destruction
      */
-    std::map<QString, ToolView *> m_toolviews;
+    std::vector<std::pair<QString, ToolView *>> m_toolviews;
 
     /**
      * widget, which is the central part of the

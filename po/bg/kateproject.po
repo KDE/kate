@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
+# SPDX-FileCopyrightText: 2022, 2024 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-24 02:28+0000\n"
-"PO-Revision-Date: 2022-12-08 23:08+0100\n"
+"PO-Revision-Date: 2024-11-06 23:19+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -234,7 +234,7 @@ msgstr " грешка: %1"
 #: gitwidget.cpp:625
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr "\"%1\" беше успешно изпълнен: %2"
+msgstr "„%1“ беше успешно изпълнен: %2"
 
 #: gitwidget.cpp:645
 #, kde-format
@@ -505,7 +505,7 @@ msgstr "Наистина ли искате да премахнете тези н
 #: kateproject.cpp:236
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "Неправилен JSON файл '%1': %2"
+msgstr "Неправилен JSON файл „%1“: %2"
 
 #: kateproject.cpp:539
 #, kde-format

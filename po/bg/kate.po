@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 02:31+0000\n"
-"PO-Revision-Date: 2024-07-03 23:29+0200\n"
+"PO-Revision-Date: 2024-11-06 23:58+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.1\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -937,7 +937,7 @@ msgstr "Папките могат да бъдат отворени само ко
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
-msgstr "Файлът \"%1\" не може да бъде отворен, защото не е файл, а директория."
+msgstr "Файлът „%1“ не може да бъде отворен, защото не е файл, а директория."
 
 #: lib/kateconfigdialog.cpp:52
 #, kde-format
@@ -1317,7 +1317,7 @@ msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
 msgstr ""
-"<p>Документът \"%1\" е променен, но не е записан.</p><p>Искате ли да бъде "
+"<p>Документът „%1“ е променен, но не е записан.</p><p>Искате ли да бъде "
 "записан или да се отхвърлят промените?</p>"
 
 #: lib/katedocmanager.cpp:273 lib/katesavemodifieddialog.cpp:130
@@ -1365,12 +1365,12 @@ msgstr "Ново име на файл"
 #: lib/katefileactions.cpp:107
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr "Файлът \"%1\" не можа да бъде преместен в \"%2\"."
+msgstr "Файлът „%1“ не можа да бъде преместен в „%2“."
 
 #: lib/katefileactions.cpp:128
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
-msgstr "Наистина ли искате да изтриете файл \"%1\"?"
+msgstr "Наистина ли искате да изтриете файл „%1“?"
 
 #: lib/katefileactions.cpp:129
 #, kde-format
@@ -1380,7 +1380,7 @@ msgstr "Изтриване на файл"
 #: lib/katefileactions.cpp:150
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr "Файлът \"%1\" не можа да бъде изтрит."
+msgstr "Файлът „%1“ не можа да бъде изтрит."
 
 #: lib/katefileactions.cpp:201
 #, kde-format
@@ -2072,8 +2072,8 @@ msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"Документът \"%1\" е променен. Искате ли промените да бъдат записани или да "
-"се отхвърлят?"
+"Документът „%1“ е променен. Искате ли промените да бъдат записани или да се "
+"отхвърлят?"
 
 #: lib/katesavemodifieddialog.cpp:158
 #, kde-format
@@ -2601,8 +2601,8 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"Сесията \"%1\" вече е отворена в друг екземпляр на kate, да се премине ли "
-"към нея, вместо да се отвори отново?"
+"Сесията „%1“ вече е отворена в друг екземпляр на kate, да се премине ли към "
+"нея, вместо да се отвори отново?"
 
 #: lib/session/katesessionmanager.cpp:143
 #, kde-format
@@ -2620,7 +2620,7 @@ msgstr "Повторно отваряне"
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
-"Сесията не можа да бъде преименувана на \"%1\". Неуспешно записване в \"%2\""
+"Сесията не можа да бъде преименувана на „%1“. Неуспешно записване в „%2“"
 
 #: lib/session/katesessionmanager.cpp:348
 #, kde-format

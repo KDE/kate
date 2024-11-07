@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-03 00:42+0000\n"
+"POT-Creation-Date: 2024-11-07 00:42+0000\n"
 "PO-Revision-Date: 2024-11-02 10:57+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -351,7 +351,7 @@ msgstr "Diagnostisch filter wissen"
 msgid "Show Hover Info"
 msgstr "Informatie bij er boven zweven tonen"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
+#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostische meldingen"
@@ -377,7 +377,7 @@ msgid "Error"
 msgstr "Fout"
 
 #: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:139
-#: lib/kateconfigdialog.cpp:714
+#: lib/kateconfigdialog.cpp:723
 #, kde-format
 msgid "Warning"
 msgstr "Waarschuwing"
@@ -443,17 +443,17 @@ msgstr "Onderdrukken inschakelen"
 msgid "Change Style"
 msgstr "Stijl wijzigen"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:316
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Side By Side"
 msgstr "Naast elkaar"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:317
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Unified"
 msgstr "Unified"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:318
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:326
 #, kde-format
 msgid "Raw"
 msgstr "Raw"
@@ -558,7 +558,7 @@ msgstr ""
 "git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:310
+#: lib/kateconfigdialog.cpp:318
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -1023,7 +1023,7 @@ msgid "&Limit output view history:"
 msgstr "Geschiedenis van uitvoerweergave &beperken"
 
 #: lib/kateconfigdialog.cpp:151 lib/kateconfigdialog.cpp:222
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Unlimited"
 msgstr "Onbeperkt"
@@ -1198,77 +1198,87 @@ msgstr "Indien niet geactiveerd zal het nieuwe tabblad aan het eind openen."
 
 #: lib/kateconfigdialog.cpp:281
 #, kde-format
+msgctxt ""
+"'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
+"text here as it is used in that action's translation"
+msgid ""
+"Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
+"Tab' will not go to first/last tab after reaching the end"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:289
+#, kde-format
 msgid "&Mouse"
 msgstr "&Muis"
 
-#: lib/kateconfigdialog.cpp:286
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Knop &achterwaarts ingedrukt:"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "Previous tab"
 msgstr "Vorig tabblad"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "History back"
 msgstr "Terug in geschiedenis"
 
-#: lib/kateconfigdialog.cpp:297
+#: lib/kateconfigdialog.cpp:305
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Knop voor &voorwaarts ingedrukt:"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "Next tab"
 msgstr "Volgend tabblad"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "History forward"
 msgstr "Verder in geschiedenis"
 
-#: lib/kateconfigdialog.cpp:319
+#: lib/kateconfigdialog.cpp:327
 #, kde-format
 msgid "Diff Style:"
 msgstr "Stijl van Diff:"
 
-#: lib/kateconfigdialog.cpp:326
+#: lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Navigatiebalk"
 
-#: lib/kateconfigdialog.cpp:331
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Huidige symbool in navigatiebalk tonen"
 
-#: lib/kateconfigdialog.cpp:341
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "Limiet aan diagnostiek"
 
-#: lib/kateconfigdialog.cpp:346
+#: lib/kateconfigdialog.cpp:354
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 "Max aantal diagnostische melden toegestaan in het hulpmiddel weergave van "
 "diagnostiek."
 
-#: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "Context"
 
-#: lib/kateconfigdialog.cpp:357
+#: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
 msgstr "Hulpmiddeloverzicht activeren"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
@@ -1277,23 +1287,23 @@ msgstr ""
 "Een hulpmiddeloverzicht om context geassocieerd met de huidige cursorpositie "
 "te tonen (LSP hints, diagnostics)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Session"
 msgstr "Sessie"
 
-#: lib/kateconfigdialog.cpp:376
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Session Management"
 msgstr "Sessiebeheer"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:395
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(nooit)"
 
-#: lib/kateconfigdialog.cpp:389
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1301,7 +1311,7 @@ msgid_plural "%v days"
 msgstr[0] "%v dag"
 msgstr[1] "%v dagen"
 
-#: lib/kateconfigdialog.cpp:419
+#: lib/kateconfigdialog.cpp:427
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1310,22 +1320,22 @@ msgstr ""
 "Wanneer een venster wordt gesloten worden de documenten alleen geopend in "
 "dit venster ook gesloten."
 
-#: lib/kateconfigdialog.cpp:454
+#: lib/kateconfigdialog.cpp:462
 #, kde-format
 msgid "Plugins"
 msgstr "Plug-ins"
 
-#: lib/kateconfigdialog.cpp:456
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Plug-inbeheer"
 
-#: lib/kateconfigdialog.cpp:474 lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:482 lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "User Feedback"
 msgstr "Terugkoppeling van gebruiker"
 
-#: lib/kateconfigdialog.cpp:713
+#: lib/kateconfigdialog.cpp:722
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1871,67 +1881,67 @@ msgstr "Knop %1 tonen"
 msgid "Focus %1"
 msgstr "Focus op %1"
 
-#: lib/katemdi.cpp:1095
+#: lib/katemdi.cpp:1110
 #, kde-format
 msgid "Configure..."
 msgstr "Configureren..."
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1114
 #, kde-format
 msgid "Hide Button"
 msgstr "Knop verbergen"
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "Move To"
 msgstr "Verplaatsen naar"
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Own Section"
 msgstr "Eigen sectie"
 
-#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1127 lib/katemdi.cpp:1135
 #, kde-format
 msgid "One Down"
 msgstr "Één naar beneden"
 
-#: lib/katemdi.cpp:1114 lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1129 lib/katemdi.cpp:1140
 #, kde-format
 msgid "One Right"
 msgstr "Eén rechts"
 
-#: lib/katemdi.cpp:1118
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "One Up"
 msgstr "Eén omhoog"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "One Left"
 msgstr "Eén links"
 
-#: lib/katemdi.cpp:1132
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Linker zijbalk"
 
-#: lib/katemdi.cpp:1136
+#: lib/katemdi.cpp:1151
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Rechter zijbalk"
 
-#: lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Bovenste zijbalk"
 
-#: lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Onderste zijbalk"
 
-#: lib/katemdi.cpp:1718
+#: lib/katemdi.cpp:1742
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

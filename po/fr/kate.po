@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-03 00:42+0000\n"
+"POT-Creation-Date: 2024-11-07 00:42+0000\n"
 "PO-Revision-Date: 2024-11-03 11:17+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -356,7 +356,7 @@ msgstr "Effacer le filtre de diagnostics"
 msgid "Show Hover Info"
 msgstr "Afficher les informations au survol"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
+#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostics"
@@ -382,7 +382,7 @@ msgid "Error"
 msgstr "Erreur"
 
 #: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:139
-#: lib/kateconfigdialog.cpp:714
+#: lib/kateconfigdialog.cpp:723
 #, kde-format
 msgid "Warning"
 msgstr "Avertissement"
@@ -448,17 +448,17 @@ msgstr "Activer une suppression"
 msgid "Change Style"
 msgstr "Modifier un style"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:316
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Side By Side"
 msgstr "Côte-à-côte"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:317
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Unified"
 msgstr "Unifié"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:318
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:326
 #, kde-format
 msgid "Raw"
 msgstr "Brut"
@@ -568,7 +568,7 @@ msgstr ""
 "Veuillez consulter le site « https://git-scm.com/downloads »."
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:310
+#: lib/kateconfigdialog.cpp:318
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -1038,7 +1038,7 @@ msgid "&Limit output view history:"
 msgstr "&Limiter l'historique sur l'affichage en sortie :"
 
 #: lib/kateconfigdialog.cpp:151 lib/kateconfigdialog.cpp:222
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Unlimited"
 msgstr "Illimité"
@@ -1220,77 +1220,87 @@ msgstr ""
 
 #: lib/kateconfigdialog.cpp:281
 #, kde-format
+msgctxt ""
+"'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
+"text here as it is used in that action's translation"
+msgid ""
+"Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
+"Tab' will not go to first/last tab after reaching the end"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:289
+#, kde-format
 msgid "&Mouse"
 msgstr "&Souris"
 
-#: lib/kateconfigdialog.cpp:286
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "Appui sur le &bouton de retour en arrière :"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "Previous tab"
 msgstr "Onglet précédent"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "History back"
 msgstr "Retour dans l'historique"
 
-#: lib/kateconfigdialog.cpp:297
+#: lib/kateconfigdialog.cpp:305
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Appui sur le &bouton d'avancement :"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "Next tab"
 msgstr "Onglet suivant"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "History forward"
 msgstr "Avancement dans l'historique"
 
-#: lib/kateconfigdialog.cpp:319
+#: lib/kateconfigdialog.cpp:327
 #, kde-format
 msgid "Diff Style:"
 msgstr "Style pour la différence :"
 
-#: lib/kateconfigdialog.cpp:326
+#: lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Barre de navigation"
 
-#: lib/kateconfigdialog.cpp:331
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Afficher le symbole courant sur la barre de navigation"
 
-#: lib/kateconfigdialog.cpp:341
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "Limite des diagnostics :"
 
-#: lib/kateconfigdialog.cpp:346
+#: lib/kateconfigdialog.cpp:354
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 "Nombre maximal de diagnostics autorisés dans la vue de l'outil "
 "« Diagnostics »."
 
-#: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "Contexte"
 
-#: lib/kateconfigdialog.cpp:357
+#: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
 msgstr "Activer la vue « Outils »"
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
@@ -1299,23 +1309,23 @@ msgstr ""
 "Une vue « Outils » pour afficher le contexte associé à la position actuelle "
 "du pointeur (Conseils pour LSP, diagnostics)"
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: lib/kateconfigdialog.cpp:376
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Session Management"
 msgstr "Gestion des sessions"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:395
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(jamais)"
 
-#: lib/kateconfigdialog.cpp:389
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1323,7 +1333,7 @@ msgid_plural "%v days"
 msgstr[0] "Jour %v"
 msgstr[1] "%v jours"
 
-#: lib/kateconfigdialog.cpp:419
+#: lib/kateconfigdialog.cpp:427
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1332,22 +1342,22 @@ msgstr ""
 "Lorsqu'une fenêtre est fermée, les documents ouverts uniquement dans cette "
 "fenêtre sont également fermés."
 
-#: lib/kateconfigdialog.cpp:454
+#: lib/kateconfigdialog.cpp:462
 #, kde-format
 msgid "Plugins"
 msgstr "Modules externes"
 
-#: lib/kateconfigdialog.cpp:456
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Gestionnaire de modules externes"
 
-#: lib/kateconfigdialog.cpp:474 lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:482 lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "User Feedback"
 msgstr "Retours des utilisateurs"
 
-#: lib/kateconfigdialog.cpp:713
+#: lib/kateconfigdialog.cpp:722
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1903,67 +1913,67 @@ msgstr "Afficher un bouton %1"
 msgid "Focus %1"
 msgstr "Faire un focus sur %1"
 
-#: lib/katemdi.cpp:1095
+#: lib/katemdi.cpp:1110
 #, kde-format
 msgid "Configure..."
 msgstr "Configurer..."
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1114
 #, kde-format
 msgid "Hide Button"
 msgstr "Masquer un bouton"
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "Move To"
 msgstr "Déplacer vers"
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Own Section"
 msgstr "Votre propre section"
 
-#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1127 lib/katemdi.cpp:1135
 #, kde-format
 msgid "One Down"
 msgstr "Un vers le bas"
 
-#: lib/katemdi.cpp:1114 lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1129 lib/katemdi.cpp:1140
 #, kde-format
 msgid "One Right"
 msgstr "Un vers la droite"
 
-#: lib/katemdi.cpp:1118
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "One Up"
 msgstr "Un vers le haut"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "One Left"
 msgstr "Un vers la gauche"
 
-#: lib/katemdi.cpp:1132
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barre latérale gauche"
 
-#: lib/katemdi.cpp:1136
+#: lib/katemdi.cpp:1151
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barre latérale droite"
 
-#: lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barre latérale en haut"
 
-#: lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1718
+#: lib/katemdi.cpp:1742
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

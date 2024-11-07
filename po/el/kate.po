@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-03 00:42+0000\n"
+"POT-Creation-Date: 2024-11-07 00:42+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -349,7 +349,7 @@ msgstr "Καθαρισμός φίλτρου διαγνωστικών"
 msgid "Show Hover Info"
 msgstr "Εμφάνιση/απόκρυψη πληροφοριών αποστολής (commit) στο αποθετήριο"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:336
+#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diagnostics"
 msgstr "Διαγνωστικά"
@@ -375,7 +375,7 @@ msgid "Error"
 msgstr "Σφάλμα"
 
 #: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:139
-#: lib/kateconfigdialog.cpp:714
+#: lib/kateconfigdialog.cpp:723
 #, kde-format
 msgid "Warning"
 msgstr "Προειδοποίηση"
@@ -441,17 +441,17 @@ msgstr "Ενεργοποίηση καταστολής"
 msgid "Change Style"
 msgstr "Αλλαγή στιλ"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:316
+#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:324
 #, kde-format
 msgid "Side By Side"
 msgstr "Το ένα δίπλα στο άλλο"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:317
+#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Unified"
 msgstr "Ενοποιημένο"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:318
+#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:326
 #, kde-format
 msgid "Raw"
 msgstr "Ακατέργαστο"
@@ -557,7 +557,7 @@ msgstr ""
 "σας. Δείτε https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
-#: lib/kateconfigdialog.cpp:310
+#: lib/kateconfigdialog.cpp:318
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -1018,7 +1018,7 @@ msgid "&Limit output view history:"
 msgstr "Όριο π&ληροφοριών ιστορικού:"
 
 #: lib/kateconfigdialog.cpp:151 lib/kateconfigdialog.cpp:222
-#: lib/kateconfigdialog.cpp:344
+#: lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Unlimited"
 msgstr "Χωρίς όριο"
@@ -1196,100 +1196,110 @@ msgstr "Μη επιλεγμένο, η νέα καρτέλα θα ανοίξει 
 
 #: lib/kateconfigdialog.cpp:281
 #, kde-format
+msgctxt ""
+"'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
+"text here as it is used in that action's translation"
+msgid ""
+"Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
+"Tab' will not go to first/last tab after reaching the end"
+msgstr ""
+
+#: lib/kateconfigdialog.cpp:289
+#, kde-format
 msgid "&Mouse"
 msgstr "&Ποντίκι"
 
-#: lib/kateconfigdialog.cpp:286
+#: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&Πατήθηκε το κουμπί οπισθοπορείας:"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "Previous tab"
 msgstr "Προηγούμενη καρτέλα"
 
-#: lib/kateconfigdialog.cpp:291
+#: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "History back"
 msgstr "Ιστορικό πίσω"
 
-#: lib/kateconfigdialog.cpp:297
+#: lib/kateconfigdialog.cpp:305
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "Πατήθηκε το κου&μπί για επόμενη:"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "Next tab"
 msgstr "Επόμενη καρτέλα"
 
-#: lib/kateconfigdialog.cpp:302
+#: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "History forward"
 msgstr "Ιστορικό εμπρός"
 
-#: lib/kateconfigdialog.cpp:319
+#: lib/kateconfigdialog.cpp:327
 #, kde-format
 msgid "Diff Style:"
 msgstr "Στιλ αναφοράς διαφορών:"
 
-#: lib/kateconfigdialog.cpp:326
+#: lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Navigation Bar"
 msgstr "Γραμμή πλοήγησης"
 
-#: lib/kateconfigdialog.cpp:331
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "Εμφάνιση επόμενου συμβόλου στη γραμμή πλοήγησης"
 
-#: lib/kateconfigdialog.cpp:341
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "Περιορισμός διαγνωστικών:"
 
-#: lib/kateconfigdialog.cpp:346
+#: lib/kateconfigdialog.cpp:354
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr ""
 "Μέγιστος αριθμός διαγνωστικών που επιτρέπονται στη προβολή διαγνωστικών."
 
-#: lib/kateconfigdialog.cpp:352 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
 #, fuzzy, kde-format
 #| msgid "Configure"
 msgid "Context"
 msgstr "Ρύθμιση"
 
-#: lib/kateconfigdialog.cpp:357
+#: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:359
+#: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:374
+#: lib/kateconfigdialog.cpp:382
 #, kde-format
 msgid "Session"
 msgstr "Συνεδρία"
 
-#: lib/kateconfigdialog.cpp:376
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Session Management"
 msgstr "Διαχείριση συνεδριών"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:395
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(ποτέ)"
 
-#: lib/kateconfigdialog.cpp:389
+#: lib/kateconfigdialog.cpp:397
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
@@ -1297,7 +1307,7 @@ msgid_plural "%v days"
 msgstr[0] "%v ημέρα"
 msgstr[1] "%v ημέρες"
 
-#: lib/kateconfigdialog.cpp:419
+#: lib/kateconfigdialog.cpp:427
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
@@ -1306,22 +1316,22 @@ msgstr ""
 "Όταν ένα παράθυρο κλείνει τα ανοικτά μόνο σε αυτό το παράθυρο έγγραφα "
 "κλείνουν και αυτά."
 
-#: lib/kateconfigdialog.cpp:454
+#: lib/kateconfigdialog.cpp:462
 #, kde-format
 msgid "Plugins"
 msgstr "Πρόσθετα"
 
-#: lib/kateconfigdialog.cpp:456
+#: lib/kateconfigdialog.cpp:464
 #, kde-format
 msgid "Plugin Manager"
 msgstr "Διαχειριστής προσθέτων"
 
-#: lib/kateconfigdialog.cpp:474 lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:482 lib/kateconfigdialog.cpp:484
 #, kde-format
 msgid "User Feedback"
 msgstr "Σχόλια χρηστών"
 
-#: lib/kateconfigdialog.cpp:713
+#: lib/kateconfigdialog.cpp:722
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"
@@ -1635,8 +1645,7 @@ msgid "Close all open documents."
 msgstr "Κλείσιμο όλων των ανοιγμένων εγγράφων."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Ε&πανάληψη ανοίγματος των πρόσφατα κλεισμένων εγγράφων"
 
@@ -1872,67 +1881,67 @@ msgstr "Εμφάνι&ση κουμπιού %1"
 msgid "Focus %1"
 msgstr "Εστίαση %1"
 
-#: lib/katemdi.cpp:1095
+#: lib/katemdi.cpp:1110
 #, kde-format
 msgid "Configure..."
 msgstr "Διαμόρφωση..."
 
-#: lib/katemdi.cpp:1099
+#: lib/katemdi.cpp:1114
 #, kde-format
 msgid "Hide Button"
 msgstr "Απόκρυψη κουμπιού"
 
-#: lib/katemdi.cpp:1101
+#: lib/katemdi.cpp:1116
 #, kde-format
 msgid "Move To"
 msgstr "Μετακίνηση στο"
 
-#: lib/katemdi.cpp:1106
+#: lib/katemdi.cpp:1121
 #, kde-format
 msgid "Own Section"
 msgstr "Δική μου ενότητα"
 
-#: lib/katemdi.cpp:1112 lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1127 lib/katemdi.cpp:1135
 #, kde-format
 msgid "One Down"
 msgstr "Μία κάτω"
 
-#: lib/katemdi.cpp:1114 lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1129 lib/katemdi.cpp:1140
 #, kde-format
 msgid "One Right"
 msgstr "Μία δεξιά"
 
-#: lib/katemdi.cpp:1118
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "One Up"
 msgstr "Μία πάνω"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1138
 #, kde-format
 msgid "One Left"
 msgstr "Μία αριστερά"
 
-#: lib/katemdi.cpp:1132
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Αριστερή πλευρική μπάρα"
 
-#: lib/katemdi.cpp:1136
+#: lib/katemdi.cpp:1151
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Δεξιά πλευρική μπάρα"
 
-#: lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Άνω πλευρική μπάρα"
 
-#: lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Κάτω πλευρική μπάρα"
 
-#: lib/katemdi.cpp:1718
+#: lib/katemdi.cpp:1742
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

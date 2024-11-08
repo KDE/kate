@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-11-02 06:34+0100\n"
+"PO-Revision-Date: 2024-11-07 05:28+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1201,6 +1201,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Dovoli kroženje med zavihki. Če ni potrjeno, dejanje »Naslednji "
+"zavihek«/»Prejšnji zavihek« ne bo prešlo na prvi/zadnji zavihek, ko dosežete "
+"konec"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format

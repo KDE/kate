@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-11-02 10:57+0100\n"
+"PO-Revision-Date: 2024-11-07 12:29+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1205,6 +1205,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Sta lopen door tabbladen toe. Indien niet geactiveerd zal de actie 'Volgend "
+"tabblad'/'Vorig tabblad' niet gaan naar het eerste/laatste tabblad na het "
+"bereiken van het einde"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format

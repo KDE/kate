@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-11-02 02:27+0100\n"
+"PO-Revision-Date: 2024-11-07 02:23+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1205,6 +1205,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Permitir que se recorran las pestañas. Si no está marcada esta opción, la "
+"acción «Pestaña siguiente/anterior» no irá la primera/última pestaña al "
+"alcanzar el final."
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format

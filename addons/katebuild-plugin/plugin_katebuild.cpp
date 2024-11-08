@@ -47,6 +47,7 @@
 #include <QRegularExpressionMatch>
 #include <QScrollBar>
 #include <QString>
+#include <QTextBlock>
 #include <QThread>
 #include <QTimer>
 
@@ -438,7 +439,8 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
                                                                                "a:link{color:%1;}\n"
                                                                                ".err-text {color:%1; background-color: %2;}"
                                                                                ".warn-text {color:%1; background-color: %3;}"
-                                                                               ".note-text {color:%1; background-color: %4;}")
+                                                                               ".note-text {color:%1; background-color: %4;}"
+                                                                               "pre{margin:0px;}")
                                                                     .arg(fg.name(QColor::HexArgb))
                                                                     .arg(errBg.name(QColor::HexArgb))
                                                                     .arg(warnBg.name(QColor::HexArgb))
@@ -729,7 +731,7 @@ void KateBuildView::clearBuildResults()
     m_buildUi.textBrowser->clear();
     m_stdOut.clear();
     m_stdErr.clear();
-    m_htmlOutput = QStringLiteral("<pre>");
+    m_pendingHtmlOutput = QStringLiteral("<pre>");
     m_scrollStopPos = -1;
     m_numOutputLines = 0;
     m_numErrors = 0;
@@ -1445,7 +1447,7 @@ QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
         break;
     }
     htmlStr += out.lineStr.toHtmlEscaped();
-    htmlStr += QStringLiteral("</span>\n");
+    htmlStr += QStringLiteral("\n</span>");
     if (!out.file.isEmpty()) {
         htmlStr += QStringLiteral("</a>");
     }
@@ -1454,6 +1456,14 @@ QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
 
 void KateBuildView::updateTextBrowser()
 {
+    if (m_pendingHtmlOutput.isEmpty()) {
+        return;
+    }
+    // move the text, effectively clearing the pending buffer
+    QString html = std::move(m_pendingHtmlOutput);
+    html += u"</pre>";
+    m_pendingHtmlOutput = QStringLiteral("<pre>");
+
     QTextBrowser *edit = m_buildUi.textBrowser;
     // Get the scroll position to restore it if not at the end
     int scrollValue = edit->verticalScrollBar()->value();
@@ -1462,7 +1472,12 @@ void KateBuildView::updateTextBrowser()
     QTextCursor cursor = edit->textCursor();
 
     // set the new document
-    edit->setHtml(m_htmlOutput);
+    cursor.movePosition(QTextCursor::End);
+    // remove the empty line at the end
+    if (cursor.block().text().isEmpty()) {
+        cursor.deletePreviousChar();
+    }
+    cursor.insertHtml(html);
 
     // Restore selection and scroll position
     edit->setTextCursor(cursor);
@@ -1497,12 +1512,9 @@ void KateBuildView::slotReadReadyStdOut()
     m_stdOut += l;
 
     // handle one line at a time
-    int end = -1;
-    while ((end = m_stdOut.indexOf(QLatin1Char('\n'))) >= 0) {
-        const QString line = m_stdOut.mid(0, end);
-
+    for (QStringView line : QStringTokenizer(m_stdOut, u"\n")) {
         // Check if this is a new directory for Make
-        QRegularExpressionMatch match = m_newDirDetector.match(line);
+        QRegularExpressionMatch match = m_newDirDetector.matchView(line);
         if (match.hasMatch()) {
             QString newDir = match.captured(1);
             if ((m_makeDirStack.size() > 1) && (m_makeDirStack.top() == newDir)) {
@@ -1515,8 +1527,8 @@ void KateBuildView::slotReadReadyStdOut()
         }
 
         // Add the new output to the output and possible error/warnings to the diagnostics output
-        KateBuildView::OutputLine out = processOutputLine(line);
-        m_htmlOutput += toOutputHtml(out);
+        KateBuildView::OutputLine out = processOutputLine(line.toString());
+        m_pendingHtmlOutput += toOutputHtml(out);
         m_numOutputLines++;
         if (out.category != Category::Normal) {
             addError(out);
@@ -1525,8 +1537,17 @@ void KateBuildView::slotReadReadyStdOut()
                 m_scrollStopPos = std::max(m_numOutputLines - 4, 0);
             }
         }
-        m_stdOut.remove(0, end + 1);
     }
+
+    if (!m_stdOut.endsWith(u"\n")) {
+        auto i = m_stdOut.lastIndexOf(u'\n');
+        if (i != -1) {
+            m_stdOut.remove(0, i + 1);
+        }
+    } else {
+        m_stdOut = QString();
+    }
+
     if (!m_outputTimer.isActive()) {
         m_outputTimer.start();
     }
@@ -1544,7 +1565,7 @@ void KateBuildView::slotReadReadyStdErr()
     while ((end = m_stdErr.indexOf(QLatin1Char('\n'))) >= 0) {
         const QString line = m_stdErr.mid(0, end);
         KateBuildView::OutputLine out = processOutputLine(line);
-        m_htmlOutput += toOutputHtml(out);
+        m_pendingHtmlOutput += toOutputHtml(out);
         m_numOutputLines++;
         if (out.category != Category::Normal) {
             addError(out);

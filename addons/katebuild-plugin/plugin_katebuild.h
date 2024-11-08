@@ -60,19 +60,19 @@ public:
         FullOutput,
         ParsedOutput,
         ErrorsAndWarnings,
-        OnlyErrors
+        OnlyErrors,
     };
 
     enum TreeWidgetRoles {
         ErrorRole = Qt::UserRole + 1,
-        DataRole
+        DataRole,
     };
 
     enum class Category {
         Normal,
         Info,
         Warning,
-        Error
+        Error,
     };
 
     KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *mw);
@@ -187,7 +187,7 @@ private:
     KProcess m_proc;
     QString m_stdOut;
     QString m_stdErr;
-    QString m_htmlOutput;
+    QString m_pendingHtmlOutput;
     int m_scrollStopPos = -1;
     int m_numOutputLines = 0;
     QTimer m_outputTimer;

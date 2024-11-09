@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-11-01 14:02+0000\n"
+"PO-Revision-Date: 2024-11-08 14:58+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -1174,6 +1174,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Allow cycling through tabs. If not ticked, the action 'Next Tab'/'Previous "
+"Tab' will not go to first/last tab after reaching the end"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1609,10 +1611,9 @@ msgid "Close all open documents."
 msgstr "Close all open documents."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "&Reopen latest closed document(s)"
+msgstr "&Reopen Latest Closed Document(s)"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2351,18 +2352,16 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Toggle scroll synchronisation for the current view"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "D&etach Document"
+msgstr "Detach Active Document"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Opens the document in a new window and closes it in the current window"
+msgstr ""
+"Opens the active document in a new window and closes it in the current window"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

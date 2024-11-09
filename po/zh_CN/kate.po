@@ -1162,6 +1162,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"允许循环切换标签页。如果不勾选此项，“上一个标签页/下一个标签页”操作在抵达第一"
+"个/最后一个标签页时将不会循环切换到另一端"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format

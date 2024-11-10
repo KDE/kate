@@ -13,15 +13,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-10-27 07:24+0100\n"
+"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"PO-Revision-Date: 2024-11-09 08:28+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -1196,6 +1196,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Fitxen arteko ibilbide ziklikoa baimendu. Markatzeke badago, bukaerara "
+"iritsita, 'Hurrengo fitxa'/'Aurreko fitxa' ekintzek ez dute eramango "
+"lehenengo/azken fitxara"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1632,8 +1635,7 @@ msgid "Close all open documents."
 msgstr "Itxi irekita dauden dokumentu guztiak."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Be&rrireki itxitako azken dokumentua(k)"
 
@@ -1858,77 +1860,77 @@ msgstr "Ezkutatu Tresna-ikuspegi guztiak"
 msgid "Show %1"
 msgstr "Erakutsi %1"
 
-#: lib/katemdi.cpp:174
+#: lib/katemdi.cpp:181
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Erakutsi %1 botoia"
 
-#: lib/katemdi.cpp:193
+#: lib/katemdi.cpp:200
 #, kde-format
 msgid "Focus %1"
 msgstr "Arreta %1(e)ra"
 
-#: lib/katemdi.cpp:1110
+#: lib/katemdi.cpp:1118
 #, kde-format
 msgid "Configure..."
 msgstr "Konfiguratu ..."
 
-#: lib/katemdi.cpp:1114
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Hide Button"
 msgstr "Ezkutatu botoia"
 
-#: lib/katemdi.cpp:1116
+#: lib/katemdi.cpp:1124
 #, kde-format
 msgid "Move To"
 msgstr "Eraman hona"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1129
 #, kde-format
 msgid "Own Section"
 msgstr "Atal propioa"
 
-#: lib/katemdi.cpp:1127 lib/katemdi.cpp:1135
+#: lib/katemdi.cpp:1135 lib/katemdi.cpp:1143
 #, kde-format
 msgid "One Down"
 msgstr "Bat behera"
 
-#: lib/katemdi.cpp:1129 lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1148
 #, kde-format
 msgid "One Right"
 msgstr "Bat eskuinera"
 
-#: lib/katemdi.cpp:1133
+#: lib/katemdi.cpp:1141
 #, kde-format
 msgid "One Up"
 msgstr "Bat gora"
 
-#: lib/katemdi.cpp:1138
+#: lib/katemdi.cpp:1146
 #, kde-format
 msgid "One Left"
 msgstr "Bat ezkerrera"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Ezkerreko alboko-barra"
 
-#: lib/katemdi.cpp:1151
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Eskuineko alboko-barra"
 
-#: lib/katemdi.cpp:1155
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Goiko alboko-barra"
 
-#: lib/katemdi.cpp:1159
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Beheko alboko-barra"
 
-#: lib/katemdi.cpp:1742
+#: lib/katemdi.cpp:1758
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2376,18 +2378,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Txandakatu kiribiltze-sinkronizazioa uneko ikuspegirako"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "B&ereizi dokumentua"
+msgstr "Bereizi dokumentu aktiboa"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Dokumentua leiho berri batean irekitzen du eta uneko leihoan ixten du"
+msgstr "Dokumentu aktiboa leiho berri batean ireki eta uneko leihoan ixten du"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

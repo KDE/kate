@@ -2,24 +2,24 @@
 # Copyright (C) 1999-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Sebastià Pla i Sanz <sps@sastia.com>, 1999, 2000, 2001, 2002, 2004, 2005, 2006.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2003, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022.
 # Albert Astals Cid <aacid@kde.org>, 2004, 2005.
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Manuel Tortosa Moreno <manutortosa@chakra-project.org>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-10-24 10:09+0200\n"
+"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"PO-Revision-Date: 2024-11-07 09:25+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -1194,6 +1194,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Permet anar a través de les pestanyes. Si no està marcada, l'acció «Pestanya "
+"següent»/«Pestanya anterior» no anirà fins a la primera/última pestanya "
+"després d'arribar fins al final"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1636,8 +1639,7 @@ msgid "Close all open documents."
 msgstr "Tanca tots els documents oberts."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "To&rna a obrir els darrers documents tancats"
 
@@ -1861,77 +1863,77 @@ msgstr "Oculta totes les vistes d'eina"
 msgid "Show %1"
 msgstr "Mostra %1"
 
-#: lib/katemdi.cpp:174
+#: lib/katemdi.cpp:181
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Mostra el botó %1"
 
-#: lib/katemdi.cpp:193
+#: lib/katemdi.cpp:200
 #, kde-format
 msgid "Focus %1"
 msgstr "Dona el focus a %1"
 
-#: lib/katemdi.cpp:1110
+#: lib/katemdi.cpp:1118
 #, kde-format
 msgid "Configure..."
 msgstr "Configura…"
 
-#: lib/katemdi.cpp:1114
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Hide Button"
 msgstr "Oculta el botó"
 
-#: lib/katemdi.cpp:1116
+#: lib/katemdi.cpp:1124
 #, kde-format
 msgid "Move To"
 msgstr "Mou cap a"
 
-#: lib/katemdi.cpp:1121
+#: lib/katemdi.cpp:1129
 #, kde-format
 msgid "Own Section"
 msgstr "Secció pròpia"
 
-#: lib/katemdi.cpp:1127 lib/katemdi.cpp:1135
+#: lib/katemdi.cpp:1135 lib/katemdi.cpp:1143
 #, kde-format
 msgid "One Down"
 msgstr "Una avall"
 
-#: lib/katemdi.cpp:1129 lib/katemdi.cpp:1140
+#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1148
 #, kde-format
 msgid "One Right"
 msgstr "Una a la dreta"
 
-#: lib/katemdi.cpp:1133
+#: lib/katemdi.cpp:1141
 #, kde-format
 msgid "One Up"
 msgstr "Una amunt"
 
-#: lib/katemdi.cpp:1138
+#: lib/katemdi.cpp:1146
 #, kde-format
 msgid "One Left"
 msgstr "Una a l'esquerra"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1155
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra lateral esquerra"
 
-#: lib/katemdi.cpp:1151
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra lateral dreta"
 
-#: lib/katemdi.cpp:1155
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barra lateral superior"
 
-#: lib/katemdi.cpp:1159
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barra lateral inferior"
 
-#: lib/katemdi.cpp:1742
+#: lib/katemdi.cpp:1758
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
@@ -2380,18 +2382,16 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Alterna la sincronització del desplaçament de la vista actual"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "S&epara el document"
+msgstr "Separa el document actiu"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Obri el document en una finestra nova i el tanca en la finestra actual"
+msgstr ""
+"Obri el document actiu en una finestra nova i el tanca en la finestra actual"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

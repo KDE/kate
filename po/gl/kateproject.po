@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2024-09-14 16:57+0200\n"
+"PO-Revision-Date: 2024-11-09 16:50+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1023,6 +1023,10 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Non é posíbel cargar o proxecto baseado en %1 porque ou non se instalou %1 "
+"ou non se atopou na variábel de contorno PATH. Instale %1 ou, se o prefire, "
+"desactive a opción «Cargar automaticamente os repositorios e as árbores de "
+"construción» na configuración do sistema."
 
 #: stashdialog.cpp:36
 #, kde-format

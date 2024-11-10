@@ -1,4 +1,4 @@
-find_package(KF6NewStuff ${KF5_DEP_VERSION} QUIET)
+find_package(KF6NewStuff ${KF6_DEP_VERSION} QUIET)
 set_package_properties(KF6NewStuff PROPERTIES PURPOSE "Required to build the snippets addon")
 
 if(NOT KF6NewStuff_FOUND)

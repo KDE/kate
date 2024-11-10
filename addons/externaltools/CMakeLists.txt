@@ -1,9 +1,9 @@
-find_package(KF6I18n ${KF5_DEP_VERSION} QUIET)
+find_package(KF6I18n ${KF6_DEP_VERSION} QUIET)
 if(NOT KF6I18n_FOUND)
     return()
 endif()
 
-find_package(KF6IconThemes ${KF5_DEP_VERSION} QUIET)
+find_package(KF6IconThemes ${KF6_DEP_VERSION} QUIET)
 if(NOT KF6IconThemes_FOUND)
     return()
 endif()

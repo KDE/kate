@@ -33,7 +33,7 @@ target_include_directories(
 )
 
 find_package(
-  KF6 ${KF5_DEP_VERSION}
+  KF6 ${KF6_DEP_VERSION}
   QUIET
   REQUIRED
   COMPONENTS
@@ -72,7 +72,7 @@ endif()
 option(USE_DBUS "Build components using DBus" ${USE_DBUS_DEFAULT})
 if(USE_DBUS)
     set(WITH_DBUS TRUE PARENT_SCOPE)
-    find_package(KF6DBusAddons ${KF5_DEP_VERSION} REQUIRED)
+    find_package(KF6DBusAddons ${KF6_DEP_VERSION} REQUIRED)
     target_compile_definitions(kateprivate PUBLIC -DWITH_DBUS)
     target_link_libraries(kateprivate PUBLIC KF6::DBusAddons)
     target_sources(
@@ -84,7 +84,7 @@ if(USE_DBUS)
 endif()
 
 # optional KUserFeedback integration
-find_package(KF6UserFeedback ${KF5_DEP_VERSION} CONFIG)
+find_package(KF6UserFeedback ${KF6_DEP_VERSION} CONFIG)
 
 if (TARGET KF6::UserFeedbackWidgets)
     target_link_libraries(kateprivate PUBLIC KF6::UserFeedbackWidgets)

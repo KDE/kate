@@ -11,7 +11,7 @@ project(kate VERSION ${RELEASE_SERVICE_VERSION})
 
 # KF6 only
 set(QT_MIN_VERSION "6.5.0")
-set(KF5_DEP_VERSION "6.0.0")
+set(KF6_DEP_VERSION "6.0.0")
 set(QT_MAJOR_VERSION "6")
 
 # use C++20 like KF6 itself
@@ -20,7 +20,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 # We need some parts of the ECM CMake helpers.
-find_package(ECM ${KF5_DEP_VERSION} QUIET REQUIRED NO_MODULE)
+find_package(ECM ${KF6_DEP_VERSION} QUIET REQUIRED NO_MODULE)
 
 # We append to the module path so modules can be overridden from the command line.
 list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
@@ -44,7 +44,7 @@ find_package(Qt6Widgets ${QT_MIN_VERSION} CONFIG REQUIRED)
 find_package(Qt6Concurrent ${QT_MIN_VERSION} CONFIG REQUIRED)
 
 # Required here so that the ki18n_install/kdoctools_install calls work.
-find_package(KF6 ${KF5_DEP_VERSION}
+find_package(KF6 ${KF6_DEP_VERSION}
     REQUIRED COMPONENTS
         I18n
         CoreAddons

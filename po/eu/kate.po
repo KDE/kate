@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-10-27 07:24+0100\n"
+"PO-Revision-Date: 2024-11-09 08:28+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -1196,6 +1196,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Fitxen arteko ibilbide ziklikoa baimendu. Markatzeke badago, bukaerara "
+"iritsita, 'Hurrengo fitxa'/'Aurreko fitxa' ekintzek ez dute eramango "
+"lehenengo/azken fitxara"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1632,8 +1635,7 @@ msgid "Close all open documents."
 msgstr "Itxi irekita dauden dokumentu guztiak."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Be&rrireki itxitako azken dokumentua(k)"
 
@@ -2376,18 +2378,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Txandakatu kiribiltze-sinkronizazioa uneko ikuspegirako"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "B&ereizi dokumentua"
+msgstr "Bereizi dokumentu aktiboa"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Dokumentua leiho berri batean irekitzen du eta uneko leihoan ixten du"
+msgstr "Dokumentu aktiboa leiho berri batean ireki eta uneko leihoan ixten du"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

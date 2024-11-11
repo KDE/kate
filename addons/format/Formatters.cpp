@@ -9,6 +9,7 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
+#include <QIcon>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -394,7 +395,7 @@ FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &
         const QString mode = doc->highlightingMode();
         if (!alreadyWarned.contains(mode)) {
             alreadyWarned.push_back(mode);
-            Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), {}, i18n("Format"), MessageType::Info);
+            Utils::showMessage(i18n("Failed to run formatter. Unsupported language %1", mode), QIcon(), i18n("Format"), MessageType::Info);
         }
         return nullptr;
     }

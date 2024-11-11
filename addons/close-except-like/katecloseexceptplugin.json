@@ -2,7 +2,7 @@
     "KPlugin": {
         "Description": "Close group of documents based on a common path or file extension",
         "Description[az]": "Ümumi yol və ya fayl uzantısına əsaslanan sənədlər qrupunu bağlayın",
-        "Description[bg]": "Затваряне на група от документи, базирани на местополжение или файлово разширение",
+        "Description[bg]": "Затваряне на група от документи, базирани на местоположение или файлово разширение",
         "Description[ca@valencia]": "Tanca un grup de documents basats en un camí comú o en l'extensió del fitxer",
         "Description[ca]": "Tanca un grup de documents basats en un camí comú o en l'extensió del fitxer",
         "Description[cs]": "Zavřít skupinu dokumentů podle společné cesty nebo přípony",

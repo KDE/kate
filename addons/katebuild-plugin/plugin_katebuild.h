@@ -104,10 +104,9 @@ private Q_SLOTS:
 
     // Parse output
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
-    void slotReadReadyStdErr();
     void slotReadReadyStdOut();
     void slotRunAfterBuild();
-    void updateTextBrowser();
+    void slotUpdateTextBrowser();
 
     void handleEsc(QEvent *e);
 
@@ -152,7 +151,7 @@ private:
 
     CompileCommands m_parsedCompileCommands;
 
-    OutputLine processOutputLine(QString line);
+    OutputLine processOutputLine(const QString &line);
     QString toOutputHtml(const KateBuildView::OutputLine &out);
     void addError(const OutputLine &err);
     void updateDiagnostics(Diagnostic diagnostic, const QUrl uri);
@@ -188,8 +187,10 @@ private:
     QString m_stdOut;
     QString m_stdErr;
     QString m_pendingHtmlOutput;
-    int m_scrollStopPos = -1;
+    int m_scrollStopLine = -1;
     int m_numOutputLines = 0;
+    int m_numNonUpdatedLines = 0;
+
     QTimer m_outputTimer;
     QString m_currentlyBuildingTarget;
     bool m_buildCancelled;

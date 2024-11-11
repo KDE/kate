@@ -414,7 +414,7 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     });
     m_outputTimer.setSingleShot(true);
     m_outputTimer.setInterval(100);
-    connect(&m_outputTimer, &QTimer::timeout, this, &KateBuildView::updateTextBrowser);
+    connect(&m_outputTimer, &QTimer::timeout, this, &KateBuildView::slotUpdateTextBrowser);
 
     auto updateEditorColors = [this](KTextEditor::Editor *e) {
         if (!e)
@@ -445,7 +445,7 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
                                                                     .arg(errBg.name(QColor::HexArgb))
                                                                     .arg(warnBg.name(QColor::HexArgb))
                                                                     .arg(noteBg.name(QColor::HexArgb)));
-        updateTextBrowser();
+        slotUpdateTextBrowser();
     };
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
 
@@ -456,9 +456,8 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     connect(m_targetsUi->runButton, &QToolButton::clicked, this, &KateBuildView::slotBuildAndRunSelectedTarget);
     connect(m_targetsUi, &TargetsUi::enterPressed, this, &KateBuildView::slotBuildAndRunSelectedTarget);
 
-    m_proc.setOutputChannelMode(KProcess::SeparateChannels);
+    m_proc.setOutputChannelMode(KProcess::MergedChannels);
     connect(&m_proc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateBuildView::slotProcExited);
-    connect(&m_proc, &KProcess::readyReadStandardError, this, &KateBuildView::slotReadReadyStdErr);
     connect(&m_proc, &KProcess::readyReadStandardOutput, this, &KateBuildView::slotReadReadyStdOut);
 
     connect(m_win, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KateBuildView::handleEsc);
@@ -731,9 +730,10 @@ void KateBuildView::clearBuildResults()
     m_buildUi.textBrowser->clear();
     m_stdOut.clear();
     m_stdErr.clear();
-    m_pendingHtmlOutput = QStringLiteral("<pre>");
-    m_scrollStopPos = -1;
+    m_pendingHtmlOutput = u"<pre>"_s;
+    m_scrollStopLine = -1;
     m_numOutputLines = 0;
+    m_numNonUpdatedLines = 0;
     m_numErrors = 0;
     m_numWarnings = 0;
     m_numNotes = 0;
@@ -1430,74 +1430,82 @@ QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
 {
     QString htmlStr;
     if (!out.file.isEmpty()) {
-        htmlStr += QStringLiteral("<a href=\"%1:%2:%3\">").arg(out.file).arg(out.lineNr).arg(out.column);
+        htmlStr += u"<a href=\"%1:%2:%3\">"_s.arg(out.file).arg(out.lineNr).arg(out.column);
     }
     switch (out.category) {
     case Category::Error:
-        htmlStr += QStringLiteral("<span class=\"err-text\">");
+        htmlStr += u"<span class=\"err-text\">"_s;
         break;
     case Category::Warning:
-        htmlStr += QStringLiteral("<span class=\"warn-text\">");
+        htmlStr += u"<span class=\"warn-text\">"_s;
         break;
     case Category::Info:
-        htmlStr += QStringLiteral("<span class=\"note-text\">");
+        htmlStr += u"<span class=\"note-text\">"_s;
         break;
     case Category::Normal:
-        htmlStr += QStringLiteral("<span>");
+        htmlStr += u"<span>"_s;
         break;
     }
     htmlStr += out.lineStr.toHtmlEscaped();
-    htmlStr += QStringLiteral("\n</span>");
+    htmlStr += u"\n</span>"_s;
     if (!out.file.isEmpty()) {
-        htmlStr += QStringLiteral("</a>");
+        htmlStr += u"</a>"_s;
     }
     return htmlStr;
 }
 
-void KateBuildView::updateTextBrowser()
+void KateBuildView::slotUpdateTextBrowser()
 {
-    if (m_pendingHtmlOutput.isEmpty()) {
-        return;
-    }
     // move the text, effectively clearing the pending buffer
     QString html = std::move(m_pendingHtmlOutput);
-    html += u"</pre>";
-    m_pendingHtmlOutput = QStringLiteral("<pre>");
+    html += u"</pre>"_s;
+    m_pendingHtmlOutput = u"<pre>"_s;
 
     QTextBrowser *edit = m_buildUi.textBrowser;
     // Get the scroll position to restore it if not at the end
-    int scrollValue = edit->verticalScrollBar()->value();
-    int scrollMax = edit->verticalScrollBar()->maximum();
-    // Save the selection and restore it after adding the text
-    QTextCursor cursor = edit->textCursor();
+    int scrollValuePx = edit->verticalScrollBar()->value();
+    int scrollMaxPx = edit->verticalScrollBar()->maximum();
+    int scrollPageStepPx = edit->verticalScrollBar()->pageStep();
 
-    // set the new document
-    cursor.movePosition(QTextCursor::End);
-    // remove the empty line at the end
-    if (cursor.block().text().isEmpty()) {
-        cursor.deletePreviousChar();
-    }
-    cursor.insertHtml(html);
+    if ((scrollMaxPx - scrollValuePx) < (scrollPageStepPx / 20)) {
+        // In case we are at the end of the output stay there
+        scrollValuePx = std::numeric_limits<int>::max();
+        // Except if we have a "stop line" (and some output)
+        double pxPerLine = 0.0;
+        if ((m_numOutputLines - m_numNonUpdatedLines) > 0) {
+            pxPerLine = (double)(scrollMaxPx + scrollPageStepPx) / (m_numOutputLines - m_numNonUpdatedLines);
+        } else {
+            // Fallback pxPerLine uses font size plus magic multiplier for line spacing
+            pxPerLine = edit->fontInfo().pixelSize() * 1.17;
+        }
 
-    // Restore selection and scroll position
-    edit->setTextCursor(cursor);
-    if (scrollValue != scrollMax) {
-        // We had stopped scrolling already
-        edit->verticalScrollBar()->setValue(scrollValue);
-        return;
-    }
-
-    // We were at the bottom before adding lines.
-    int newPos = edit->verticalScrollBar()->maximum();
-    if (m_scrollStopPos != -1) {
-        int targetPos = ((newPos + edit->verticalScrollBar()->pageStep()) * m_scrollStopPos) / m_numOutputLines;
-        if (targetPos < newPos) {
-            newPos = targetPos;
-            // if we want to continue scrolling, just scroll to the end and it will continue
-            m_scrollStopPos = -1;
+        if (m_scrollStopLine != -1) {
+            if (pxPerLine > 1) {
+                int stopLine = std::max(m_scrollStopLine - 4, 0);
+                scrollValuePx = stopLine * pxPerLine;
+            } else {
+                // Fallback add one empty line
+                qDebug() << "Have no known line height";
+            }
         }
     }
-    edit->verticalScrollBar()->setValue(newPos);
+
+    if (scrollValuePx < scrollMaxPx) {
+        m_scrollStopLine = -1;
+    }
+
+    // Save the selection and restore it after adding the text
+    QTextCursor saveCursor = edit->textCursor();
+
+    // Add the new lines
+    QTextCursor cursor = saveCursor;
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertHtml(html);
+    // Restore selection and scroll position
+    edit->setTextCursor(saveCursor);
+
+    m_numNonUpdatedLines = 0;
+    edit->verticalScrollBar()->setValue(scrollValuePx);
 }
 
 /******************************************************************/
@@ -1505,14 +1513,15 @@ void KateBuildView::slotReadReadyStdOut()
 {
     // read data from procs stdout and add
     // the text to the end of the output
-
-    // FIXME unify the parsing of stdout and stderr
     QString l = QString::fromUtf8(m_proc.readAllStandardOutput());
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
     // handle one line at a time
-    for (QStringView line : QStringTokenizer(m_stdOut, u"\n")) {
+    int end = -1;
+    int start = 0;
+    while ((end = m_stdOut.indexOf(u'\n', start)) >= 0) {
+        const QString line = m_stdOut.mid(start, end - start);
         // Check if this is a new directory for Make
         QRegularExpressionMatch match = m_newDirDetector.matchView(line);
         if (match.hasMatch()) {
@@ -1527,25 +1536,26 @@ void KateBuildView::slotReadReadyStdOut()
         }
 
         // Add the new output to the output and possible error/warnings to the diagnostics output
-        KateBuildView::OutputLine out = processOutputLine(line.toString());
+        KateBuildView::OutputLine out = processOutputLine(line);
         m_pendingHtmlOutput += toOutputHtml(out);
         m_numOutputLines++;
+        m_numNonUpdatedLines++;
         if (out.category != Category::Normal) {
             addError(out);
-            if (m_scrollStopPos == -1) {
-                // stop the scroll a couple of lines before the top of the view
-                m_scrollStopPos = std::max(m_numOutputLines - 4, 0);
+            if (m_scrollStopLine == -1) {
+                m_scrollStopLine = m_numOutputLines;
             }
         }
+        start = end + 1;
     }
 
-    if (!m_stdOut.endsWith(u"\n")) {
+    if (!m_stdOut.endsWith(u'\n')) {
         auto i = m_stdOut.lastIndexOf(u'\n');
         if (i != -1) {
             m_stdOut.remove(0, i + 1);
         }
     } else {
-        m_stdOut = QString();
+        m_stdOut.clear();
     }
 
     if (!m_outputTimer.isActive()) {
@@ -1554,36 +1564,7 @@ void KateBuildView::slotReadReadyStdOut()
 }
 
 /******************************************************************/
-void KateBuildView::slotReadReadyStdErr()
-{
-    // FIXME This works for utf8 but not for all charsets
-    QString l = QString::fromUtf8(m_proc.readAllStandardError());
-    l.remove(QLatin1Char('\r'));
-    m_stdErr += l;
-
-    int end = -1;
-    while ((end = m_stdErr.indexOf(QLatin1Char('\n'))) >= 0) {
-        const QString line = m_stdErr.mid(0, end);
-        KateBuildView::OutputLine out = processOutputLine(line);
-        m_pendingHtmlOutput += toOutputHtml(out);
-        m_numOutputLines++;
-        if (out.category != Category::Normal) {
-            addError(out);
-            if (m_scrollStopPos == -1) {
-                // stop the scroll a couple of lines before the top of the view
-                // a small improvement could be achieved by storing the number of lines added...
-                m_scrollStopPos = std::max(m_numOutputLines - 4, 0);
-            }
-        }
-        m_stdErr.remove(0, end + 1);
-    }
-    if (!m_outputTimer.isActive()) {
-        m_outputTimer.start();
-    }
-}
-
-/******************************************************************/
-KateBuildView::OutputLine KateBuildView::processOutputLine(QString line)
+KateBuildView::OutputLine KateBuildView::processOutputLine(const QString &line)
 {
     // look for a filename
     QRegularExpressionMatch match = m_filenameDetector.match(line);

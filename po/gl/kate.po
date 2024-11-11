@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-07 00:42+0000\n"
-"PO-Revision-Date: 2024-10-07 01:37+0200\n"
+"PO-Revision-Date: 2024-11-10 12:59+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1189,6 +1189,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Permitir pasar as lapelas. Se non se marca, a acción «Seguinte lapela» / "
+"«Lapela anterior» non irá á primeira ou última lapela ao chegar ao final."
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1626,10 +1628,9 @@ msgid "Close all open documents."
 msgstr "Pechar todos os documentos."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "Ab&rir de novo os últimos documentos pechados."
+msgstr "Ab&rir de novo os últimos documentos pechados"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2368,18 +2369,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Conmutar a sincronización do desprazamento da vista actual"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "S&eparar o documento"
+msgstr "Separar o documento activo"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Abre o documento nunha nova xanela e péchao na xanela actual"
+msgstr "Abre o documento activo nunha nova xanela e péchao na xanela actual"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2533,13 +2531,14 @@ msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr ""
+"Buscar nos ficheiros de todos os proxectos (clic dereito para configurar)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "Buscar nos ficheiros do proxecto actual (clic dereito para configurar)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2562,10 +2561,9 @@ msgid "Wildcard Filtering"
 msgstr "Filtro con caracteres de substitución"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Todos os proxectos"
+msgstr "Proxecto: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

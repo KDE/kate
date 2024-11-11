@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-27 00:43+0000\n"
-"PO-Revision-Date: 2024-11-09 20:04+0100\n"
+"PO-Revision-Date: 2024-11-10 20:12+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #: plugin_katexmltools.cpp:117
 #, kde-format
@@ -61,7 +61,7 @@ msgstr "Зареждане на XML meta DTD..."
 #: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "Файлът '%1' не може да се отвори. Сървърът върна грешка."
+msgstr "Файлът „%1“ не може да се отвори. Сървърът върна грешка."
 
 #: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
@@ -108,7 +108,7 @@ msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr ""
-"Файлът '%1' не може да бъде обработен. Моля, проверете дали файлът е добре "
+"Файлът „%1“ не може да бъде обработен. Моля, проверете дали файлът е добре "
 "оформен XML."
 
 #: pseudo_dtd.cpp:54
@@ -120,7 +120,7 @@ msgid ""
 "You can produce such files with dtdparse. See the Kate Plugin documentation "
 "for more information."
 msgstr ""
-"Файлът '%1' не е в очаквания формат. Моля, проверете дали файлът е от този "
+"Файлът „%1“ не е в очаквания формат. Моля, проверете дали файлът е от този "
 "тип:\n"
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
 "Такива файлове можете да създадете с dtdparse. Вижте документацията за "

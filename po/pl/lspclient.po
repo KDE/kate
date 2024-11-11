@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-01 00:42+0000\n"
-"PO-Revision-Date: 2024-09-21 11:46+0200\n"
+"PO-Revision-Date: 2024-11-10 15:41+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -172,7 +172,7 @@ msgstr "Pokaż wybraną dokumentację uzupełniania"
 #: lspclientpluginview.cpp:553
 #, kde-format
 msgid "Enable signature help with auto completion"
-msgstr "Włącz pomoc z podpisami w samo-uzupełnianiu"
+msgstr "W uzupełnianiu włącz pomoc dla argumentów funkcji"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -436,7 +436,7 @@ msgstr "Tryb drzewa"
 #: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
-msgstr "Sam rozwiń drzewo"
+msgstr "Sam rozwijaj drzewo"
 
 #: lspclientsymbolview.cpp:392
 #, kde-format
@@ -485,7 +485,7 @@ msgstr "Włącz podświetlanie semantyczne"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr "Włącz wkładane wskazówki"
+msgstr "Włącz podpowiedzi w treści"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
@@ -503,13 +503,13 @@ msgstr "Pokaż opis w wierszu dla zaznaczonego wpisu uzupełniania"
 #: lspconfigwidget.ui:89
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr "Pokaż podpis funkcji, wpisując jej wywołanie"
+msgstr "Pokaż argumenty funkcji, wpisując jej wywołanie"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:103
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr "Sam dodaje pliki importowane po dokonaniu uzupełnienia"
+msgstr "Sam dodawaj pliki importowane po dokonaniu uzupełnienia"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:110
@@ -587,7 +587,7 @@ msgstr "Przedstawiaj symbole w hierarchii zamiast na płaskiej liście"
 #: lspconfigwidget.ui:202
 #, kde-format
 msgid "Automatically expand tree"
-msgstr "Sam rozwiń drzewo"
+msgstr "Sam rozwijaj drzewo"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:227
@@ -599,7 +599,7 @@ msgstr "Dozwolone i blokowane serwery"
 #: lspconfigwidget.ui:237
 #, kde-format
 msgid "User Server Settings"
-msgstr "Ustawienia serwera użytkownika"
+msgstr "Dodatkowe ustawienia serwera"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lspconfigwidget.ui:245

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"POT-Creation-Date: 2024-11-12 00:43+0000\n"
 "PO-Revision-Date: 2024-08-25 15:41+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Allowed && Blocked Commands"
 msgstr "Ordes permitidas e bloqueadas"
 
-#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:709
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
@@ -165,17 +165,17 @@ msgstr ""
 "<b>Non se atopou o ficheiro:</b> %1<br><b>Rutas de busca:</b><br>%2<br>Probe "
 "a engadir unha ruta de busca ao «Cartafol de traballo»."
 
-#: plugin_katebuild.cpp:479
+#: plugin_katebuild.cpp:478
 #, kde-format
 msgid "Build Information"
 msgstr "Información da construción"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Non se indicou ningún ficheiro nin cartafol para construír."
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:719
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -333,31 +333,31 @@ msgstr "<b>Cancelouse a construción %1</b>. %2 erros, %3 avisos, %4 notas."
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Non é posíbel executar: %1 Non se definiu un cartafol de traballo."
 
-#: plugin_katebuild.cpp:1622
+#: plugin_katebuild.cpp:1603
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error|erro"
 
-#: plugin_katebuild.cpp:1625
+#: plugin_katebuild.cpp:1606
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning|aviso"
 
-#: plugin_katebuild.cpp:1628
+#: plugin_katebuild.cpp:1609
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info|nota|información"
 
-#: plugin_katebuild.cpp:1631
+#: plugin_katebuild.cpp:1612
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referencia non definida"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1788
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Non é posíbel gardar os obxectivos de construción en «%1»."

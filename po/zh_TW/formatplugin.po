@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:42+0000\n"
+"POT-Creation-Date: 2024-11-12 00:43+0000\n"
 "PO-Revision-Date: 2024-10-19 19:59+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 24.08.2\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:324 Formatters.cpp:344 Formatters.cpp:367 Formatters.cpp:397
+#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -73,48 +73,48 @@ msgstr "儲存時格式化"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "暫時停用儲存檔案時的格式化，不記住此設定"
 
-#: Formatters.cpp:118
+#: Formatters.cpp:119
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1：未預期的空白命令！"
 
-#: Formatters.cpp:125
+#: Formatters.cpp:126
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 未安裝，請安裝它才能格式化這個文件！"
 
-#: Formatters.cpp:194
+#: Formatters.cpp:195
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "請安裝 node 和 prettier"
 
-#: Formatters.cpp:201
+#: Formatters.cpp:202
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat：無法建立暫存檔"
 
-#: Formatters.cpp:222
+#: Formatters.cpp:223
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat：啟動「node」失敗：%1"
 
-#: Formatters.cpp:324
+#: Formatters.cpp:325
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "未知的 JSON 格式器：%1"
 
-#: Formatters.cpp:344
+#: Formatters.cpp:345
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "未知的 Python 格式器：%1"
 
-#: Formatters.cpp:367
+#: Formatters.cpp:368
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "未知的 JSON 格式器：%1，將退回改用 yamlfmt"
 
-#: Formatters.cpp:397
+#: Formatters.cpp:398
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "執行格式器時失敗。不支援的語言 %1"

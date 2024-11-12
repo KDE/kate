@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"POT-Creation-Date: 2024-11-12 00:43+0000\n"
 "PO-Revision-Date: 2024-08-20 23:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr "선택한 대상을 실행할 때 자동으로 출력 패널로 전환"
 msgid "Allowed && Blocked Commands"
 msgstr "허용 및 차단된 명령"
 
-#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:709
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
@@ -157,17 +157,17 @@ msgstr ""
 "<b>파일을 찾을 수 없음:</b>%1<br><b>검색 경로:</b><br>%2<br>\"작업 디렉터리"
 "\"에 검색 경로를 추가하십시오"
 
-#: plugin_katebuild.cpp:479
+#: plugin_katebuild.cpp:478
 #, kde-format
 msgid "Build Information"
 msgstr "빌드 정보"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "빌드할 파일이나 디렉터리가 지정되지 않았습니다."
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:719
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -313,7 +313,7 @@ msgstr "<b>%1 빌드가 취소되었습니다</b>. 오류 %2개, 경고 %3개, �
 msgid "Cannot execute: %1 No working directory set."
 msgstr "실행할 수 없음: %1 작업 디렉터리가 설정되지 않았습니다."
 
-#: plugin_katebuild.cpp:1622
+#: plugin_katebuild.cpp:1603
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -321,7 +321,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "오류"
 
-#: plugin_katebuild.cpp:1625
+#: plugin_katebuild.cpp:1606
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -329,13 +329,13 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "경고"
 
-#: plugin_katebuild.cpp:1628
+#: plugin_katebuild.cpp:1609
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1631
+#: plugin_katebuild.cpp:1612
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'ld' uses to mark an ..."
 #| msgid "undefined reference"
@@ -343,7 +343,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "정의되지 않은 참조"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1788
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "빌드 대상을 다음에 저장할 수 없음: %1"

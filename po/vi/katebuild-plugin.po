@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"POT-Creation-Date: 2024-11-12 00:43+0000\n"
 "PO-Revision-Date: 2023-02-20 11:23+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "Allowed && Blocked Commands"
 msgstr ""
 
-#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:709
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
@@ -166,18 +166,18 @@ msgstr ""
 "<title>Không mở được tệp:</title><nl/>%1<br/>Hãy thử thêm một đường dẫn tìm "
 "kiếm vào thư mục làm việc trong Thiết lập mục tiêu"
 
-#: plugin_katebuild.cpp:479
+#: plugin_katebuild.cpp:478
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build Information"
 msgstr "Xây lại"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Không có tệp hoặc thư mục nào được chỉ định cho việc xây."
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:719
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -322,7 +322,7 @@ msgstr ""
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Không thể thực thi: %1 Chưa đặt thư mục làm việc."
 
-#: plugin_katebuild.cpp:1622
+#: plugin_katebuild.cpp:1603
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -330,7 +330,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "lỗi"
 
-#: plugin_katebuild.cpp:1625
+#: plugin_katebuild.cpp:1606
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -338,19 +338,19 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "cảnh báo"
 
-#: plugin_katebuild.cpp:1628
+#: plugin_katebuild.cpp:1609
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1631
+#: plugin_katebuild.cpp:1612
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "tham chiếu không được định nghĩa"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1788
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""

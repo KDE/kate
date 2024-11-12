@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-10 00:43+0000\n"
+"POT-Creation-Date: 2024-11-12 00:43+0000\n"
 "PO-Revision-Date: 2024-08-25 01:57+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -93,7 +93,7 @@ msgstr "執行選取目標時自動切換至輸出面板"
 msgid "Allowed && Blocked Commands"
 msgstr "允許與封鎖的指令"
 
-#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:709
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
 #, kde-format
 msgid "Build"
@@ -161,17 +161,17 @@ msgstr ""
 "<b>找不到檔案：</b>%1<br><b>搜尋路徑：</b><br>%2<br>請試著新增「工作目錄」到"
 "搜尋路徑中"
 
-#: plugin_katebuild.cpp:479
+#: plugin_katebuild.cpp:478
 #, kde-format
 msgid "Build Information"
 msgstr "編譯資訊"
 
-#: plugin_katebuild.cpp:716
+#: plugin_katebuild.cpp:715
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "找不到編譯需要的檔案或目錄。"
 
-#: plugin_katebuild.cpp:720
+#: plugin_katebuild.cpp:719
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -316,31 +316,31 @@ msgstr "編譯 <b>%1 已取消</b>。 %2 個錯誤，%3 個警告，%4 個備註
 msgid "Cannot execute: %1 No working directory set."
 msgstr "無法執行：%1 未設定工作目錄。"
 
-#: plugin_katebuild.cpp:1622
+#: plugin_katebuild.cpp:1603
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "錯誤"
 
-#: plugin_katebuild.cpp:1625
+#: plugin_katebuild.cpp:1606
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:1628
+#: plugin_katebuild.cpp:1609
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "備註|資訊"
 
-#: plugin_katebuild.cpp:1631
+#: plugin_katebuild.cpp:1612
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定義的參照"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1788
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "無法儲存編譯目標於：%1"

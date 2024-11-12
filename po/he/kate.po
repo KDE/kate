@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-10 00:43+0000\n"
-"PO-Revision-Date: 2024-11-02 20:55+0200\n"
+"PO-Revision-Date: 2024-11-11 08:04+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1613,8 +1613,7 @@ msgid "Close all open documents."
 msgstr "שגירה של כל המסמכים הפתוחים."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "פתיחת המסמכים האחרונים ש&נסגרו"
 
@@ -1903,7 +1902,7 @@ msgid "Bottom Sidebar"
 msgstr "סרגל תחתון"
 
 #: lib/katemdi.cpp:1758
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "
 "possible to directly access the tool views with the mouse anymore, so if you "
@@ -1911,10 +1910,10 @@ msgid ""
 "Sidebars</b> in the menu. It is still possible to show/hide the tool views "
 "with the assigned shortcuts.</qt>"
 msgstr ""
-"<qt> אתה עומד להסתיר סרגלים. אם סרגלי הכלים מוסתרים, לא ניתן להגיע אל "
-"התצוגות הכלים באופן ישיר עם העכבר, כך שאם ברצונך להגיע אל תצוגה מסויימת בחר "
-"בתפריט <b>תצוגה -&lt; תצוגת כלים -&lt; הצג סרגלי כלים</b>.עדיין ניתן להסתיר "
-"או להציג את התצוגות עם מקשי קיצור. </qt>"
+"<qt>הפעולה הזאת תסתיר את סרגלי הצד. עם סרגלי צד מוסתרים, אי אפשר אפשר לגשת "
+"ישירות לתצוגות הכלים באמצעות העכבר, לכן כדי לקבל גישה לסרגלי הצד שוב יש לגשת "
+"אל <b>תצוגה &gt; תצוגות כלים &gt; הצגת סרגלי צד</b> בתפריט. עדיין אפשרי "
+"להציג/להסתיר את תצוגות הכלים עם קיצורי המקשים המוקצים לכך.</qt>"
 
 #: lib/katemwmodonhddialog.cpp:53
 #, kde-format
@@ -2339,18 +2338,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "החלפת מצב סנכרון גלילה לתצוגה הנוכחית"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "&ניתוק המסמך"
+msgstr "ניתוק המסמך הפעיל"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "פתיחת המסמך בחלון חדש וסגירתו בחלון הנוכחי"
+msgstr "פתיחת המסמך הפעיל בחלון חדש וסגירתו בחלון הנוכחי"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format

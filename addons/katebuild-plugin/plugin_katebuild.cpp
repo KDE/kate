@@ -1672,9 +1672,9 @@ void KateBuildView::addProjectTargets()
         // We have user modified commands
         QFile file(userOverride);
         if (file.open(QIODevice::ReadOnly)) {
-            QString jsonString = QString::fromUtf8(file.readAll());
+            const QByteArray jsonString = file.readAll();
             QJsonParseError error;
-            const QJsonDocument doc = QJsonDocument::fromJson(jsonString.toUtf8(), &error);
+            const QJsonDocument doc = QJsonDocument::fromJson(jsonString, &error);
             if (error.error != QJsonParseError::NoError) {
                 qWarning() << "Could not parse the provided Json";
             } else {

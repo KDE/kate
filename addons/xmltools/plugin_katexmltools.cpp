@@ -477,6 +477,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
     if (job->error()) {
         // qDebug() << "XML Plugin error: DTD in XML format (" << filename << " ) could not be loaded";
         static_cast<KIO::Job *>(job)->uiDelegate()->showErrorMessage();
+#if KIO_VERSION < QT_VERSION_CHECK(6, 3, 0) // Not implemented after that
     } else if (static_cast<KIO::TransferJob *>(job)->isErrorPage()) {
         // catch failed loading loading via http:
         KMessageBox::error(nullptr,
@@ -484,6 +485,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
                                 "The server returned an error.",
                                 m_urlString),
                            i18n("XML Plugin Error"));
+#endif
     } else {
         PseudoDTD *dtd = new PseudoDTD();
         dtd->analyzeDTD(m_urlString, m_dtdString);

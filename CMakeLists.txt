@@ -73,8 +73,8 @@ endif()
 
 # deprecation options
 ecm_set_disabled_deprecation_versions(
-    QT 6.5
-    KF 5.90
+    QT 6.8
+    KF 6.8
 )
 
 option(BUILD_PCH "Enable PCH support" ON)

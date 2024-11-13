@@ -280,7 +280,11 @@ void KateMainWindow::setupImportantActions()
 #endif
 
     // Load themes
-    KColorSchemeManager *manager = new KColorSchemeManager(this);
+#if KCOLORSCHEME_VERSION < QT_VERSION_CHECK(6, 6, 0)
+    auto manager = new KColorSchemeManager(this);
+#else
+    auto manager = KColorSchemeManager::instance();
+#endif
     auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
     ac->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);

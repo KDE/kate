@@ -188,6 +188,7 @@ class LSPClientCompletionImpl : public LSPClientCompletion
     bool m_signatureHelp = true;
     bool m_complParens = true;
     bool m_autoImport = true;
+    bool m_showCompletion = true;
 
     QList<QChar> m_triggersCompletion;
     QList<QChar> m_triggersSignature;
@@ -236,6 +237,11 @@ public:
     void setAutoImport(bool s) override
     {
         m_autoImport = s;
+    }
+
+    void setShowCompletion(bool s) override
+    {
+        m_showCompletion = s;
     }
 
     QVariant data(const QModelIndex &index, int role) const override
@@ -313,8 +319,11 @@ public:
 
     bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override
     {
-        qCInfo(LSPCLIENT) << "should start " << userInsertion << insertedText;
+        if (!m_showCompletion) {
+            return false;
+        }
 
+        qCInfo(LSPCLIENT) << "should start " << userInsertion << insertedText;
         if (!userInsertion || !m_server || insertedText.isEmpty()) {
             if (!insertedText.isEmpty() && m_triggersSignature.contains(insertedText.back())) {
                 m_triggerSignature = true;

@@ -48,24 +48,27 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     reset();
 
-    for (const auto &cb : {ui->chkSymbolDetails,
-                           ui->chkSymbolExpand,
-                           ui->chkSymbolSort,
-                           ui->chkSymbolTree,
-                           ui->chkComplDoc,
-                           ui->chkRefDeclaration,
-                           ui->chkComplParens,
-                           ui->chkMessages,
-                           ui->chkDiagnostics,
-                           ui->chkOnTypeFormatting,
-                           ui->chkIncrementalSync,
-                           ui->chkHighlightGoto,
-                           ui->chkSemanticHighlighting,
-                           ui->chkAutoHover,
-                           ui->chkSignatureHelp,
-                           ui->chkAutoImport,
-                           ui->chkFmtOnSave,
-                           ui->chkInlayHint}) {
+    for (const auto &cb : {
+             ui->chkSymbolDetails,
+             ui->chkSymbolExpand,
+             ui->chkSymbolSort,
+             ui->chkSymbolTree,
+             ui->chkComplDoc,
+             ui->chkRefDeclaration,
+             ui->chkComplParens,
+             ui->chkMessages,
+             ui->chkDiagnostics,
+             ui->chkOnTypeFormatting,
+             ui->chkIncrementalSync,
+             ui->chkHighlightGoto,
+             ui->chkSemanticHighlighting,
+             ui->chkAutoHover,
+             ui->chkSignatureHelp,
+             ui->chkAutoImport,
+             ui->chkFmtOnSave,
+             ui->chkInlayHint,
+             ui->chkShowCompl,
+         }) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     }
 
@@ -116,6 +119,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_symbolExpand = ui->chkSymbolExpand->isChecked();
     m_plugin->m_symbolSort = ui->chkSymbolSort->isChecked();
 
+    m_plugin->m_showCompl = ui->chkShowCompl->isChecked();
     m_plugin->m_complDoc = ui->chkComplDoc->isChecked();
     m_plugin->m_refDeclaration = ui->chkRefDeclaration->isChecked();
     m_plugin->m_complParens = ui->chkComplParens->isChecked();
@@ -160,6 +164,7 @@ void LSPClientConfigPage::reset()
     ui->chkSymbolExpand->setChecked(m_plugin->m_symbolExpand);
     ui->chkSymbolSort->setChecked(m_plugin->m_symbolSort);
 
+    ui->chkShowCompl->setChecked(m_plugin->m_showCompl);
     ui->chkComplDoc->setChecked(m_plugin->m_complDoc);
     ui->chkRefDeclaration->setChecked(m_plugin->m_refDeclaration);
     ui->chkComplParens->setChecked(m_plugin->m_complParens);

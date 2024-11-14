@@ -363,6 +363,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_triggerRename;
     QPointer<QAction> m_expandSelection;
     QPointer<QAction> m_shrinkSelection;
+    QPointer<QAction> m_showCompletion;
     QPointer<QAction> m_complDocOn;
     QPointer<QAction> m_signatureHelp;
     QPointer<QAction> m_refDeclaration;
@@ -546,6 +547,9 @@ public:
         connect(m_requestCodeAction->menu(), &QMenu::aboutToShow, this, &self_type::requestCodeAction);
 
         // general options
+        m_showCompletion = actionCollection()->addAction(QStringLiteral("lspclient_show_completion"), this, &self_type::displayOptionChanged);
+        m_showCompletion->setText(i18n("Show lsp completions"));
+        m_showCompletion->setCheckable(true);
         m_complDocOn = actionCollection()->addAction(QStringLiteral("lspclient_completion_doc"), this, &self_type::displayOptionChanged);
         m_complDocOn->setText(i18n("Show selected completion documentation"));
         m_complDocOn->setCheckable(true);
@@ -627,6 +631,7 @@ public:
         auto moreOptions = new KActionMenu(i18n("More options"), this);
         lspOther->addSeparator();
         lspOther->addAction(moreOptions);
+        moreOptions->addAction(m_showCompletion);
         moreOptions->addAction(m_complDocOn);
         moreOptions->addAction(m_signatureHelp);
         moreOptions->addAction(m_refDeclaration);
@@ -852,6 +857,9 @@ public:
 
     void configUpdated()
     {
+        if (m_showCompletion) {
+            m_showCompletion->setChecked(m_plugin->m_showCompl);
+        }
         if (m_complDocOn) {
             m_complDocOn->setChecked(m_plugin->m_complDoc);
         }
@@ -884,6 +892,7 @@ public:
         }
         if (m_completion) {
             m_completion->setAutoImport(m_plugin->m_autoImport);
+            m_completion->setShowCompletion(m_plugin->m_showCompl);
         }
         if (m_inlayHints) {
             m_inlayHints->setChecked(m_plugin->m_inlayHints);
@@ -2313,6 +2322,9 @@ public:
         if (m_complDocOn) {
             m_complDocOn->setEnabled(server != nullptr);
         }
+        if (m_showCompletion) {
+            m_showCompletion->setEnabled(server != nullptr);
+        }
         if (m_restartServer) {
             m_restartServer->setEnabled(server != nullptr);
         }
@@ -2334,6 +2346,9 @@ public:
 
         // update completion with relevant server
         m_completion->setServer(server);
+        if (m_showCompletion) {
+            m_completion->setShowCompletion(m_showCompletion->isChecked());
+        }
         if (m_complDocOn) {
             m_completion->setSelectedDocumentation(m_complDocOn->isChecked());
         }

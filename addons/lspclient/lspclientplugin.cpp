@@ -44,6 +44,7 @@ static constexpr char CONFIG_ALLOWED_COMMANDS[] = "AllowedServerCommandLines";
 static constexpr char CONFIG_BLOCKED_COMMANDS[] = "BlockedServerCommandLines";
 static constexpr char CONFIG_FORMAT_ON_SAVE[] = "FormatOnSave";
 static constexpr char CONFIG_INLAY_HINT[] = "InlayHints";
+static constexpr char CONFIG_SHOW_COMPL[] = "ShowCompletions";
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -129,6 +130,7 @@ void LSPClientPlugin::readConfig()
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
     m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, false);
     m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, false);
+    m_showCompl = config.readEntry(CONFIG_SHOW_COMPL, true);
 
     // read allow + block lists as two separate keys, let block always win
     const auto allowed = config.readEntry(CONFIG_ALLOWED_COMMANDS, QStringList());
@@ -166,6 +168,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_AUTO_IMPORT, m_autoImport);
     config.writeEntry(CONFIG_FORMAT_ON_SAVE, m_fmtOnSave);
     config.writeEntry(CONFIG_INLAY_HINT, m_inlayHints);
+    config.writeEntry(CONFIG_SHOW_COMPL, m_showCompl);
 
     // write allow + block lists as two separate keys
     QStringList allowed, blocked;

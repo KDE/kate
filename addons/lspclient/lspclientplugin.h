@@ -59,6 +59,7 @@ public:
     bool m_autoImport = true;
     bool m_fmtOnSave = false;
     bool m_inlayHints = false;
+    bool m_showCompl = true;
 
     // debug mode?
     const bool m_debugMode;

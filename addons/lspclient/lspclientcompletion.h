@@ -32,4 +32,5 @@ public:
     virtual void setSignatureHelp(bool) = 0;
     virtual void setCompleteParens(bool) = 0;
     virtual void setAutoImport(bool) = 0;
+    virtual void setShowCompletion(bool) = 0;
 };

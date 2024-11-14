@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-11-14 00:43+0000\n"
 "PO-Revision-Date: 2008-01-24 10:13+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -56,43 +56,43 @@ msgstr ""
 msgid "Loading XML Meta DTD"
 msgstr "​កំពុងផ្ទុក XML មេតា DTD"
 
-#: plugin_katexmltools.cpp:483
+#: plugin_katexmltools.cpp:484
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "​មិន​អាច​បើក​ឯកសារ '%1' បានទេ ។ ម៉ាស៊ីន​បម្រើ​បាន​ត្រឡប់​កំហុស​មួយ ។"
 
-#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "កំហុស​កម្មវិធី​ជំនួយ XML"
 
-#: plugin_katexmltools.cpp:992
+#: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML entities"
 msgstr ""
 
-#: plugin_katexmltools.cpp:994
+#: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML attribute values"
 msgstr ""
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:998
 #, kde-format
 msgid "XML attributes"
 msgstr ""
 
-#: plugin_katexmltools.cpp:999
+#: plugin_katexmltools.cpp:1001
 #, fuzzy, kde-format
 #| msgid "Insert XML Element"
 msgid "XML elements"
 msgstr "​បញ្ចូល​ធាតុ XML"
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1040
 #, kde-format
 msgid "Insert XML Element"
 msgstr "​បញ្ចូល​ធាតុ XML"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1045
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

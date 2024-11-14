@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-11-14 00:43+0000\n"
 "PO-Revision-Date: 2023-04-22 00:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -55,42 +55,42 @@ msgstr ""
 msgid "Loading XML Meta DTD"
 msgstr "XML 메타 DTD 불러오는 중"
 
-#: plugin_katexmltools.cpp:483
+#: plugin_katexmltools.cpp:484
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "파일 '%1'을(를) 불러올 수 없습니다. 서버에서 오류를 반환했습니다."
 
-#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML 플러그인 오류"
 
-#: plugin_katexmltools.cpp:992
+#: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML entities"
 msgstr "XML 엔티티"
 
-#: plugin_katexmltools.cpp:994
+#: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML attribute values"
 msgstr "XML 속성 값"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:998
 #, kde-format
 msgid "XML attributes"
 msgstr "XML 속성"
 
-#: plugin_katexmltools.cpp:999
+#: plugin_katexmltools.cpp:1001
 #, kde-format
 msgid "XML elements"
 msgstr "XML 원소"
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1040
 #, kde-format
 msgid "Insert XML Element"
 msgstr "XML 원소 삽입하기"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1045
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

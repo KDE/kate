@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-11-14 00:43+0000\n"
 "PO-Revision-Date: 2002-09-10 10:47+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -61,44 +61,44 @@ msgstr ""
 msgid "Loading XML Meta DTD"
 msgstr "Ilayisha iXML Meta DTD"
 
-#: plugin_katexmltools.cpp:483
+#: plugin_katexmltools.cpp:484
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Ifayile '%1' ayinakuvulwa. Umncedisi ubuyisele imposiso."
 
-#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:487 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Imposiso yeplagi yangaphakathi ye XML"
 
-#: plugin_katexmltools.cpp:992
+#: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML entities"
 msgstr ""
 
-#: plugin_katexmltools.cpp:994
+#: plugin_katexmltools.cpp:996
 #, fuzzy, kde-format
 #| msgid "(no attributes available)"
 msgid "XML attribute values"
 msgstr "(akukho ziphumo zikhoyo)"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:998
 #, kde-format
 msgid "XML attributes"
 msgstr ""
 
-#: plugin_katexmltools.cpp:999
+#: plugin_katexmltools.cpp:1001
 #, fuzzy, kde-format
 #| msgid "Insert XML Element"
 msgid "XML elements"
 msgstr "Faka into eyenzwe ngayo iXML"
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1040
 #, kde-format
 msgid "Insert XML Element"
 msgstr "Faka into eyenzwe ngayo iXML"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1045
 #, fuzzy, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

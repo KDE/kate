@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2024-11-15 00:42+0000\n"
 "PO-Revision-Date: 2024-09-16 12:15+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -22,48 +22,48 @@ msgstr ""
 msgid "Filter..."
 msgstr "Filter..."
 
-#: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
-#: lspclientpluginview.cpp:469 lspclientpluginview.cpp:610
+#: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
+#: lspclientpluginview.cpp:470 lspclientpluginview.cpp:614
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP-client"
 
-#: lspclientconfigpage.cpp:214
+#: lspclientconfigpage.cpp:219
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Geen JSON-gegevens om te valideren."
 
-#: lspclientconfigpage.cpp:223
+#: lspclientconfigpage.cpp:228
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON-gegevens zijn geldig."
 
-#: lspclientconfigpage.cpp:225
+#: lspclientconfigpage.cpp:230
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON-gegevens zijn ongeldig: geen JSON-object"
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:233
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON-gegevens zijn ongeldig: %1"
 
-#: lspclientconfigpage.cpp:276
+#: lspclientconfigpage.cpp:281
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Verwijder geselecteerde items"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:286
 #, kde-format
 msgid "Delete all entries"
 msgstr "Verwijder alle items"
 
-#: lspclientplugin.cpp:220
+#: lspclientplugin.cpp:223
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Start van LSP-server gevraagd"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:226
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "<br><br><b>%1</b><br><br>De keuze kan gewijzigd worden via de "
 "configuratiepagina van de plug-in."
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:239
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -84,286 +84,292 @@ msgstr ""
 "Gebruik de configuratiepagina van de plug-in om deze blokkade ongedaan te "
 "maken."
 
-#: lspclientpluginview.cpp:436 lspclientpluginview.cpp:672
+#: lspclientpluginview.cpp:437 lspclientpluginview.cpp:677
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:498
+#: lspclientpluginview.cpp:499
 #, kde-format
 msgid "Go to Definition"
 msgstr "Ga naar definitie"
 
-#: lspclientpluginview.cpp:500
+#: lspclientpluginview.cpp:501
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Ga naar declaratie"
 
-#: lspclientpluginview.cpp:502
+#: lspclientpluginview.cpp:503
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "Ga naar typedefinitie"
 
-#: lspclientpluginview.cpp:504
+#: lspclientpluginview.cpp:505
 #, kde-format
 msgid "Find References"
 msgstr "Referenties zoeken"
 
-#: lspclientpluginview.cpp:507
+#: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Find Implementations"
 msgstr "Implementaties zoeken"
 
-#: lspclientpluginview.cpp:509
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Highlight"
 msgstr "Accentuering"
 
-#: lspclientpluginview.cpp:511
+#: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Symbol Info"
 msgstr "Symboleninformatie"
 
-#: lspclientpluginview.cpp:513
+#: lspclientpluginview.cpp:514
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "Symbool Zoeken en Ga-naar"
 
-#: lspclientpluginview.cpp:518
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Format"
 msgstr "Formaat"
 
-#: lspclientpluginview.cpp:521
+#: lspclientpluginview.cpp:522
 #, kde-format
 msgid "Rename"
 msgstr "Hernoemen"
 
-#: lspclientpluginview.cpp:524
+#: lspclientpluginview.cpp:525
 #, kde-format
 msgid "Expand Selection"
 msgstr "Selectie expanderen"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:528
 #, kde-format
 msgid "Shrink Selection"
 msgstr "Selectie inkrimpen"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Switch Source Header"
 msgstr "Broncodekop omschakelen"
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:534
 #, kde-format
 msgid "Expand Macro"
 msgstr "Macro uitvouwen"
 
-#: lspclientpluginview.cpp:535
+#: lspclientpluginview.cpp:536
 #, kde-format
 msgid "Code Action"
 msgstr "Actie van code"
 
-#: lspclientpluginview.cpp:550
+#: lspclientpluginview.cpp:551
+#, fuzzy, kde-format
+#| msgid "Completions:"
+msgid "Show lsp completions"
+msgstr "Voltooiingen"
+
+#: lspclientpluginview.cpp:554
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "Geselecteerde documentatie over voltooiing tonen"
 
-#: lspclientpluginview.cpp:553
+#: lspclientpluginview.cpp:557
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "Hulp bij ondertekening inschakelen met automatisch aanvullen"
 
-#: lspclientpluginview.cpp:556
+#: lspclientpluginview.cpp:560
 #, kde-format
 msgid "Include declaration in references"
 msgstr "Declaratie in referenties opnemen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:559 lspconfigwidget.ui:96
+#: lspclientpluginview.cpp:563 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "Haakjes toevoegen bij aanvullen van functie"
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:566
 #, kde-format
 msgid "Show hover information"
 msgstr "Informatie over er boven zweven tonen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:565 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:569 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "Indelen tijdens typen"
 
-#: lspclientpluginview.cpp:568
+#: lspclientpluginview.cpp:572
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "Incrementele synchronisatie van document"
 
-#: lspclientpluginview.cpp:571
+#: lspclientpluginview.cpp:575
 #, kde-format
 msgid "Highlight goto location"
 msgstr "Locatie van ga-naar accentueren"
 
-#: lspclientpluginview.cpp:580
+#: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "Tips van inleg tonen"
 
-#: lspclientpluginview.cpp:584
+#: lspclientpluginview.cpp:588
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Diagnostische meldingen tonen"
 
-#: lspclientpluginview.cpp:589
+#: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Show Messages"
 msgstr "Berichten tonen"
 
-#: lspclientpluginview.cpp:594
+#: lspclientpluginview.cpp:598
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "Geheugengebruik van server"
 
-#: lspclientpluginview.cpp:598
+#: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Alle dynamische referentietabbladen sluiten"
 
-#: lspclientpluginview.cpp:600
+#: lspclientpluginview.cpp:604
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "LSP-server herstarten"
 
-#: lspclientpluginview.cpp:602
+#: lspclientpluginview.cpp:606
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "Alle LSP-servers herstarten"
 
-#: lspclientpluginview.cpp:604
+#: lspclientpluginview.cpp:608
 #, kde-format
 msgid "Go To"
 msgstr "Ga naar"
 
-#: lspclientpluginview.cpp:627
+#: lspclientpluginview.cpp:631
 #, kde-format
 msgid "More options"
 msgstr "Meer opties"
 
-#: lspclientpluginview.cpp:830 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:835 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Alles uitvouwen"
 
-#: lspclientpluginview.cpp:831 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:836 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Alles invouwen"
 
-#: lspclientpluginview.cpp:1034
+#: lspclientpluginview.cpp:1043
 #, kde-format
 msgid "RangeHighLight"
 msgstr "ReeksAccentuering"
 
-#: lspclientpluginview.cpp:1346
+#: lspclientpluginview.cpp:1355
 #, kde-format
 msgid "Line: %1: "
 msgstr "Regel: %1: "
 
-#: lspclientpluginview.cpp:1498 lspclientpluginview.cpp:1846
-#: lspclientpluginview.cpp:1965
+#: lspclientpluginview.cpp:1507 lspclientpluginview.cpp:1855
+#: lspclientpluginview.cpp:1974
 #, kde-format
 msgid "No results"
 msgstr "Geen resultaten"
 
-#: lspclientpluginview.cpp:1557
+#: lspclientpluginview.cpp:1566
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definitie: %1"
 
-#: lspclientpluginview.cpp:1563
+#: lspclientpluginview.cpp:1572
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Declaratie: %1"
 
-#: lspclientpluginview.cpp:1569
+#: lspclientpluginview.cpp:1578
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Typedefinitie: %1"
 
-#: lspclientpluginview.cpp:1575
+#: lspclientpluginview.cpp:1584
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referenties: %1"
 
-#: lspclientpluginview.cpp:1587
+#: lspclientpluginview.cpp:1596
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Implementatie: %1"
 
-#: lspclientpluginview.cpp:1600
+#: lspclientpluginview.cpp:1609
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Accentuering: %1"
 
-#: lspclientpluginview.cpp:1624 lspclientpluginview.cpp:1635
-#: lspclientpluginview.cpp:1648
+#: lspclientpluginview.cpp:1633 lspclientpluginview.cpp:1644
+#: lspclientpluginview.cpp:1657
 #, kde-format
 msgid "No Actions"
 msgstr "Geen acties"
 
-#: lspclientpluginview.cpp:1639
+#: lspclientpluginview.cpp:1648
 #, kde-format
 msgid "Loading..."
 msgstr "Bezig met laden..."
 
-#: lspclientpluginview.cpp:1731
+#: lspclientpluginview.cpp:1740
 #, kde-format
 msgid "No edits"
 msgstr "Geen bewerkingen"
 
-#: lspclientpluginview.cpp:1805
+#: lspclientpluginview.cpp:1814
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Hernoemen"
 
-#: lspclientpluginview.cpp:1806
+#: lspclientpluginview.cpp:1815
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Nieuwe naam (voorzichtig: niet alle referenties kunnen vervangen zijn)"
 
-#: lspclientpluginview.cpp:1852
+#: lspclientpluginview.cpp:1861
 #, kde-format
 msgid "Not enough results"
 msgstr "Niet genoeg resultaten"
 
-#: lspclientpluginview.cpp:1921
+#: lspclientpluginview.cpp:1930
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Overeenkomstige kop/bron niet gevonden"
 
-#: lspclientpluginview.cpp:2117 lspclientpluginview.cpp:2160
+#: lspclientpluginview.cpp:2126 lspclientpluginview.cpp:2169
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-server"
 
-#: lspclientpluginview.cpp:2183
+#: lspclientpluginview.cpp:2192
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-client"
 
-#: lspclientpluginview.cpp:2420
+#: lspclientpluginview.cpp:2435
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Vraag uit LSP-server"
@@ -493,123 +499,130 @@ msgstr "Tips van inleg inschakelen"
 msgid "Completions:"
 msgstr "Voltooiingen"
 
-#. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
+#. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
+#, fuzzy, kde-format
+#| msgid "Completions:"
+msgid "Show completions"
+msgstr "Voltooiingen"
+
+#. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
+#: lspconfigwidget.ui:89
 #, kde-format
 msgid "Show inline docs for selected completion"
 msgstr "Inline documentatie tonen voor geselecteerde voltooiing"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
-#: lspconfigwidget.ui:89
+#: lspconfigwidget.ui:96
 #, kde-format
 msgid "Show function signature when typing a function call"
 msgstr "Functie-ondertekening tonen bij typen van een functie-aanroep"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
-#: lspconfigwidget.ui:103
+#: lspconfigwidget.ui:110
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
 msgstr "Te importeren automatisch toevoegen indien nodig bij aanvullen"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: lspconfigwidget.ui:110
+#: lspconfigwidget.ui:117
 #, kde-format
 msgid "Navigation:"
 msgstr "Navigatie:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
-#: lspconfigwidget.ui:117
+#: lspconfigwidget.ui:124
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
 msgstr "Declaraties tellen bij zoeken naar referentiecode naar een symbool"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
-#: lspconfigwidget.ui:124
+#: lspconfigwidget.ui:131
 #, kde-format
 msgid "Show information about currently hovered symbol"
 msgstr "Informatie tonen over symbool waarboven wordt gezweefd"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
-#: lspconfigwidget.ui:131
+#: lspconfigwidget.ui:138
 #, kde-format
 msgid "Highlight target line when hopping to it"
 msgstr "Doelregel accentueren bij er naar springen"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: lspconfigwidget.ui:138
+#: lspconfigwidget.ui:145
 #, kde-format
 msgid "Server:"
 msgstr "Server:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
-#: lspconfigwidget.ui:145
+#: lspconfigwidget.ui:152
 #, kde-format
 msgid "Show program diagnostics"
 msgstr "Diagnostische meldingen van programma tonen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
-#: lspconfigwidget.ui:152
+#: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show notifications from the LSP server"
 msgstr "Meldingen van de LSP-server tonen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
-#: lspconfigwidget.ui:159
+#: lspconfigwidget.ui:166
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
 msgstr "Documenten opvolgend synchroniseren met de LSP-server"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
-#: lspconfigwidget.ui:166
+#: lspconfigwidget.ui:173
 #, kde-format
 msgid "Document outline:"
 msgstr "Uitleg van document:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
-#: lspconfigwidget.ui:173
+#: lspconfigwidget.ui:180
 #, kde-format
 msgid "Sort symbols alphabetically"
 msgstr "Symbolen alfabetisch sorteren"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
-#: lspconfigwidget.ui:180
+#: lspconfigwidget.ui:187
 #, kde-format
 msgid "Display additional details for symbols"
 msgstr "Extra details voor symbolen tonen"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
-#: lspconfigwidget.ui:187
+#: lspconfigwidget.ui:194
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
 msgstr ""
 "Symbolen in een hiërarchie presenteren in plaats van in een platte lijst"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
-#: lspconfigwidget.ui:202
+#: lspconfigwidget.ui:209
 #, kde-format
 msgid "Automatically expand tree"
 msgstr "Boomstructuur automatisch uitvouwen"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:227
+#: lspconfigwidget.ui:234
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr "Toegestane && geblokkeerde servers"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:237
+#: lspconfigwidget.ui:244
 #, kde-format
 msgid "User Server Settings"
 msgstr "Serverinstellingen van gebruiker"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:245
+#: lspconfigwidget.ui:252
 #, kde-format
 msgid "Settings File:"
 msgstr "Instellingenbestand:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:272
+#: lspconfigwidget.ui:279
 #, kde-format
 msgid "Default Server Settings"
 msgstr "Standaard serverinstellingen"

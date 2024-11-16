@@ -115,7 +115,7 @@ private Q_SLOTS:
      */
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
-    void slotProjectMapChanged();
+    void slotProjectMapEdited();
 
     /**
      * Save the project build target updates
@@ -210,6 +210,7 @@ private:
     DiagnosticsProvider m_diagnosticsProvider;
     QTimer m_saveProjTargetsTimer;
     bool m_addingProjTargets = false;
+    QSet<QString> m_saveProjectTargetDirs;
 
     /**
      * current project plugin view, if any

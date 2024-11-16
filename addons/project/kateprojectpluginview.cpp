@@ -334,7 +334,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
         auto widget = m_stackedProjectViews->currentWidget();
         auto project = static_cast<KateProjectView *>(widget)->project();
         if (widget && project == sender()) {
-            Q_EMIT projectMapChanged();
+            Q_EMIT projectMapEdited();
 
             int index = m_projectsCombo->findData(project->fileName());
             Q_ASSERT(index == m_projectsCombo->currentIndex());
@@ -447,6 +447,16 @@ QMap<QString, QString> KateProjectPluginView::allProjects() const
         projectMap[project->baseDir()] = project->name();
     }
     return projectMap;
+}
+
+ProjectNamesDirAndMap KateProjectPluginView::allProjectMaps() const
+{
+    ProjectNamesDirAndMap ret;
+    const QList<KateProject *> projectList = m_plugin->projects();
+    for (KateProject *project : projectList) {
+        ret.push_back({project->name(), project->baseDir(), project->projectMap()});
+    }
+    return ret;
 }
 
 void KateProjectPluginView::slotViewChanged()

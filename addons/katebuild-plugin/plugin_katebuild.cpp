@@ -485,8 +485,9 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     // Whenever a project target is changed, queue a saving of the targets
     m_saveProjTargetsTimer.setSingleShot(true);
     connect(&m_saveProjTargetsTimer, &QTimer::timeout, this, &KateBuildView::saveProjectTargets);
-    connect(&m_targetsUi->targetsModel, &TargetModel::projectTargetChanged, this, [this]() {
+    connect(&m_targetsUi->targetsModel, &TargetModel::projectTargetChanged, this, [this](const QString &projectBaseDir) {
         if (!m_addingProjTargets) {
+            m_saveProjectTargetDirs.insert(projectBaseDir);
             m_saveProjTargetsTimer.start(1);
         }
     });
@@ -1637,7 +1638,9 @@ void KateBuildView::slotPluginViewCreated(const QString &name, QObject *pluginVi
     if (pluginView && name == QLatin1String("kateprojectplugin")) {
         m_projectPluginView = pluginView;
         addProjectTargets();
-        connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()), Qt::UniqueConnection);
+        connect(pluginView, SIGNAL(projectMapEdited()), this, SLOT(slotProjectMapEdited()), Qt::UniqueConnection);
+        connect(pluginView, SIGNAL(pluginProjectAdded(QString, QString)), this, SLOT(slotProjectMapEdited()), Qt::UniqueConnection);
+        connect(pluginView, SIGNAL(pluginProjectRemoved(QString, QString)), this, SLOT(slotProjectMapEdited()), Qt::UniqueConnection);
     }
 }
 
@@ -1652,7 +1655,7 @@ void KateBuildView::slotPluginViewDeleted(const QString &name, QObject *)
 }
 
 /******************************************************************/
-void KateBuildView::slotProjectMapChanged()
+void KateBuildView::slotProjectMapEdited()
 {
     // only do stuff with valid project
     if (!m_projectPluginView) {
@@ -1672,91 +1675,88 @@ void KateBuildView::addProjectTargets()
 
     BoolTrueLocker locker(m_addingProjTargets);
 
+    const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     // Delete any old project plugin targets
     m_targetsUi->targetsModel.deleteProjectTargerts();
 
-    const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
-    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
-
-    // Read the targets from the override if available
-    const QString userOverride = projectsBaseDir + u"/.kateproject.build"_s;
-    if (QFile::exists(userOverride)) {
-        // We have user modified commands
-        QFile file(userOverride);
-        if (file.open(QIODevice::ReadOnly)) {
-            const QByteArray jsonString = file.readAll();
-            QJsonParseError error;
-            const QJsonDocument doc = QJsonDocument::fromJson(jsonString, &error);
-            if (error.error != QJsonParseError::NoError) {
-                qWarning() << "Could not parse the provided Json";
-            } else {
-                QJsonObject root = doc.object();
-                QJsonArray targetSets = root[u"target_sets"_s].toArray();
-                for (int i = targetSets.size() - 1; i >= 0; --i) {
-                    QJsonObject set = targetSets[i].toObject();
-                    if (set[u"loaded_via_cmake"_s].toBool()) {
-                        QString buildDir = set[u"directory"_s].toString();
-                        QTimer::singleShot(0, this, [this, buildDir]() {
-                            loadCMakeTargets(buildDir);
-                        });
-                        targetSets.removeAt(i);
+    using ProjectNamesDirAndMap = QList<std::tuple<QString, QString, QVariantMap>>;
+    const auto projects = m_projectPluginView->property("allProjectMaps").value<ProjectNamesDirAndMap>();
+    for (const auto &p : projects) {
+        const QString projectBaseDir = std::get<1>(p);
+        // Read the targets from the override if available
+        const QString userOverride = projectBaseDir + u"/.kateproject.build"_s;
+        if (QFile::exists(userOverride)) {
+            // We have user modified commands
+            QFile file(userOverride);
+            if (file.open(QIODevice::ReadOnly)) {
+                const QByteArray jsonString = file.readAll();
+                QJsonParseError error;
+                const QJsonDocument doc = QJsonDocument::fromJson(jsonString, &error);
+                if (error.error != QJsonParseError::NoError) {
+                    qWarning() << "Could not parse the provided Json";
+                } else {
+                    QJsonObject root = doc.object();
+                    QJsonArray targetSets = root[u"target_sets"_s].toArray();
+                    for (int i = targetSets.size() - 1; i >= 0; --i) {
+                        QJsonObject set = targetSets[i].toObject();
+                        if (set[u"loaded_via_cmake"_s].toBool()) {
+                            QString buildDir = set[u"directory"_s].toString();
+                            QTimer::singleShot(0, this, [this, buildDir]() {
+                                loadCMakeTargets(buildDir);
+                            });
+                            targetSets.removeAt(i);
+                        }
+                    }
+                    root[u"target_sets"_s] = targetSets;
+                    QModelIndex addedIndex = m_targetsUi->targetsModel.insertAfter(projRootIndex, root, projectBaseDir);
+                    if (addedIndex != projRootIndex) {
+                        continue;
+                        // The user file overrides the rest
+                        // TODO maybe add heuristics for when to re-read the project data
                     }
                 }
-                root[u"target_sets"_s] = targetSets;
-                QModelIndex addedIndex = m_targetsUi->targetsModel.insertAfter(projRootIndex, root);
-                if (addedIndex != projRootIndex) {
-                    return;
-                    // The user file overrides the rest
-                    // TODO maybe add heuristics for when to re-read the project data
+            }
+        }
+
+        // query new project map
+        const QVariantMap projectMap = std::get<2>(p);
+
+        // do we have a valid map for build settings?
+        // ignore it if we have no targets there
+        const QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
+        const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
+        if (targetsets.isEmpty()) {
+            return;
+        }
+
+        // handle build directory as relative to project file, if possible, see bug 413306
+        QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
+        const QString projectName = std::get<0>(p);
+        if (!projectBaseDir.isEmpty()) {
+            projectsBuildDir = QDir(projectBaseDir).absoluteFilePath(projectsBuildDir);
+        }
+
+        const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir, false, {}, projectBaseDir);
+        const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
+
+        for (const QVariant &targetVariant : targetsets) {
+            const QVariantMap targetMap = targetVariant.toMap();
+            const QString tgtName = targetMap[QStringLiteral("name")].toString();
+            const QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
+            const QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
+
+            if (tgtName.isEmpty() || buildCmd.isEmpty()) {
+                continue;
+            }
+            QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
+            if (tgtName == defaultTarget) {
+                // A bit of backwards compatibility, move the "default" target to the top
+                while (idx.row() > 0) {
+                    m_targetsUi->targetsModel.moveRowUp(idx);
                 }
             }
         }
     }
-
-    // query new project map
-    const QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
-
-    // do we have a valid map for build settings?
-    // ignore it if we have no targets there
-    const QVariantMap buildMap = projectMap.value(QStringLiteral("build")).toMap();
-    const QVariantList targetsets = buildMap.value(QStringLiteral("targets")).toList();
-    if (targetsets.isEmpty()) {
-        return;
-    }
-
-    // handle build directory as relative to project file, if possible, see bug 413306
-    QString projectsBuildDir = buildMap.value(QStringLiteral("directory")).toString();
-    QString projectName = m_projectPluginView->property("projectName").toString();
-    if (!projectsBaseDir.isEmpty()) {
-        projectsBuildDir = QDir(projectsBaseDir).absoluteFilePath(projectsBuildDir);
-    }
-
-    const QModelIndex set = m_targetsUi->targetsModel.insertTargetSetAfter(projRootIndex, projectName, projectsBuildDir);
-    const QString defaultTarget = buildMap.value(QStringLiteral("default_target")).toString();
-
-    for (const QVariant &targetVariant : targetsets) {
-        const QVariantMap targetMap = targetVariant.toMap();
-        const QString tgtName = targetMap[QStringLiteral("name")].toString();
-        const QString buildCmd = targetMap[QStringLiteral("build_cmd")].toString();
-        const QString runCmd = targetMap[QStringLiteral("run_cmd")].toString();
-
-        if (tgtName.isEmpty() || buildCmd.isEmpty()) {
-            continue;
-        }
-        QPersistentModelIndex idx = m_targetsUi->targetsModel.addCommandAfter(set, tgtName, buildCmd, runCmd);
-        if (tgtName == defaultTarget) {
-            // A bit of backwards compatibility, move the "default" target to the top
-            while (idx.row() > 0) {
-                m_targetsUi->targetsModel.moveRowUp(idx);
-            }
-        }
-    }
-
-    const auto index = m_targetsUi->proxyModel.mapFromSource(set);
-    if (index.isValid()) {
-        m_targetsUi->targetsView->expand(index);
-    }
-
     // FIXME read CMakePresets.json for more build target sets
 }
 
@@ -1767,40 +1767,50 @@ void KateBuildView::saveProjectTargets()
     if (!m_projectPluginView) {
         return;
     }
-    const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
-    const QString projectsBaseDir = m_projectPluginView->property("projectBaseDir").toString();
-    const QString userOverride = projectsBaseDir + u"/.kateproject.build"_s;
 
-    QJsonObject root = m_targetsUi->targetsModel.indexToJsonObj(projRootIndex);
-    root[u"Auto_generated"_s] = u"This file is auto-generated. Any extra tags or formatting will be lost"_s;
-    // Do not save CMake auto generated targets
-    QJsonArray targetSets = root[u"target_sets"_s].toArray();
-    for (int i = targetSets.size() - 1; i >= 0; --i) {
-        QJsonObject set = targetSets[i].toObject();
-        if (set[u"loaded_via_cmake"_s].toBool()) {
-            // These will be loaded again when loadCMakeTargets is called
-            set[u"targets"_s] = {};
-            targetSets[i] = set;
+    const QSet<QString> dirs = m_saveProjectTargetDirs;
+    m_saveProjectTargetDirs = {};
+
+    // traverse over all project directories
+    for (const auto &projectBaseDir : dirs) {
+        const QString userOverride = projectBaseDir + u"/.kateproject.build"_s;
+        // get the target sets for this project
+        QJsonObject root = m_targetsUi->targetsModel.projectTargetsToJsonObj(projectBaseDir);
+        if (root.isEmpty()) {
+            // if there are not target remove the override
+            QFile::remove(userOverride);
+            continue;
         }
-    }
+        root[u"Auto_generated"] = u"This file is auto-generated. Any extra tags or formatting will be lost"_s;
+        // Do not save CMake auto generated targets
+        QJsonArray targetSets = root[u"target_sets"_s].toArray();
+        for (int i = targetSets.size() - 1; i >= 0; --i) {
+            QJsonObject set = targetSets[i].toObject();
+            if (set[u"loaded_via_cmake"_s].toBool()) {
+                // These will be loaded again when loadCMakeTargets is called
+                set[u"targets"_s] = {};
+                targetSets[i] = set;
+            }
+        }
 
-    if (targetSets.isEmpty()) {
-        // Nothing left for the userOverride -> remove the file
-        QFile::remove(userOverride);
-        // There are no target-sets left, try reloading the original project-targets
-        addProjectTargets();
-        return;
-    }
-    root[u"target_sets"_s] = targetSets;
+        if (targetSets.isEmpty()) {
+            // Nothing left for the userOverride -> remove the file
+            QFile::remove(userOverride);
+            // There are no target-sets left, try reloading the original project-targets
+            addProjectTargets();
+            return;
+        }
+        root[u"target_sets"_s] = targetSets;
 
-    QFile file(userOverride);
-    if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-        displayMessage(i18n("Cannot save build targets in: %1", userOverride), KTextEditor::Message::Error);
-        return;
+        QFile file(userOverride);
+        if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+            displayMessage(i18n("Cannot save build targets in: %1", userOverride), KTextEditor::Message::Error);
+            return;
+        }
+        QJsonDocument doc(root);
+        file.write(doc.toJson());
+        file.close();
     }
-    QJsonDocument doc(root);
-    file.write(doc.toJson());
-    file.close();
 }
 
 /******************************************************************/

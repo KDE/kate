@@ -52,10 +52,11 @@ public:
 
     /** This function returns the menu node as a Json objekt */
     QJsonObject indexToJsonObj(const QModelIndex &modelIndex) const;
+    QJsonObject projectTargetsToJsonObj(const QString &projectBaseDir) const;
     QString indexToJson(const QModelIndex &modelIndex) const;
 
     QModelIndex insertAfter(const QModelIndex &modelIndex, const QString &jsonStr);
-    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj);
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj, const QString &projectBaseDir = {});
 
 public Q_SLOTS:
 
@@ -65,7 +66,8 @@ public Q_SLOTS:
                                      const QString &setName,
                                      const QString &workDir,
                                      bool loadedViaCMake = false,
-                                     const QString &cmakeConfig = QString());
+                                     const QString &cmakeConfig = QString(),
+                                     const QString &projectBaseDir = QString());
 
     /** This function adds a new command to a target-set and returns the model index */
     QModelIndex addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd);
@@ -84,7 +86,7 @@ public Q_SLOTS:
     void moveRowDown(const QModelIndex &index);
 
 Q_SIGNALS:
-    void projectTargetChanged();
+    void projectTargetChanged(const QString &projectBaseDir);
 
 public:
     static constexpr quintptr InvalidIndex = std::numeric_limits<quintptr>::max();
@@ -111,6 +113,7 @@ public:
         QList<Command> commands;
         bool loadedViaCMake;
         QString cmakeConfigName;
+        QString projectBaseDir;
     };
 
     struct RootNode {

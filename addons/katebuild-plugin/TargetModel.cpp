@@ -241,7 +241,8 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
                                               const QString &setName,
                                               const QString &workDir,
                                               bool loadedViaCMake,
-                                              const QString &cmakeConfig)
+                                              const QString &cmakeConfig,
+                                              const QString &projectBaseDir)
 {
     // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName <<workDir;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
@@ -286,10 +287,11 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
 
     beginInsertRows(index(bNode.rootRow, 0), bNode.targetSetRow, bNode.targetSetRow);
     TargetModel::TargetSet targetSet(newName, workDir, loadedViaCMake, cmakeConfig);
+    targetSet.projectBaseDir = projectBaseDir;
     targetSets.insert(bNode.targetSetRow, targetSet);
     endInsertRows();
     if (m_rootNodes[bNode.rootRow].isProject) {
-        Q_EMIT projectTargetChanged();
+        Q_EMIT projectTargetChanged(targetSet.projectBaseDir);
     }
     return index(bNode.targetSetRow, 0, index(bNode.rootRow, 0));
 }
@@ -349,7 +351,7 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
     commands.insert(bNode.commandRow, {.name = newName, .buildCmd = buildCmd, .runCmd = runCmd});
     endInsertRows();
     if (m_rootNodes[bNode.rootRow].isProject) {
-        Q_EMIT projectTargetChanged();
+        Q_EMIT projectTargetChanged(m_rootNodes[bNode.rootRow].targetSets[bNode.targetSetRow].projectBaseDir);
     }
     return index(bNode.commandRow, 0, targetSetIndex);
 }
@@ -373,6 +375,7 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
     }
 
     bool wasProjectNode = m_rootNodes[node.rootRow].isProject;
+    QString projectBaseDir;
 
     if (node.isRoot()) {
         beginRemoveRows(itemIndex, 0, m_rootNodes[node.rootRow].targetSets.size() - 1);
@@ -380,15 +383,17 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
         endRemoveRows();
     } else if (node.isTargetSet()) {
         beginRemoveRows(itemIndex.parent(), itemIndex.row(), itemIndex.row());
+        projectBaseDir = m_rootNodes[node.rootRow].targetSets[node.targetSetRow].projectBaseDir;
         m_rootNodes[node.rootRow].targetSets.removeAt(node.targetSetRow);
         endRemoveRows();
     } else {
         beginRemoveRows(itemIndex.parent(), itemIndex.row(), itemIndex.row());
+        projectBaseDir = m_rootNodes[node.rootRow].targetSets[node.targetSetRow].projectBaseDir;
         m_rootNodes[node.rootRow].targetSets[node.targetSetRow].commands.removeAt(node.commandRow);
         endRemoveRows();
     }
     if (wasProjectNode) {
-        Q_EMIT projectTargetChanged();
+        Q_EMIT projectTargetChanged(projectBaseDir);
     }
 }
 
@@ -430,11 +435,12 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
 
     QList<TargetSet> &targetSets = m_rootNodes[node.rootRow].targetSets;
     if (node.isTargetSet()) {
+        auto dir = m_rootNodes[node.rootRow].targetSets[row].projectBaseDir;
         beginMoveRows(parent, row, row, parent, row - 1);
         targetSets.move(row, row - 1);
         endMoveRows();
         if (m_rootNodes[node.rootRow].isProject) {
-            Q_EMIT projectTargetChanged();
+            Q_EMIT projectTargetChanged(dir);
         }
         return;
     }
@@ -445,7 +451,7 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
     commands.move(row, row - 1);
     endMoveRows();
     if (m_rootNodes[node.rootRow].isProject) {
-        Q_EMIT projectTargetChanged();
+        Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
     }
 }
 
@@ -476,11 +482,12 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
 
     QList<TargetSet> &targetSets = m_rootNodes[node.rootRow].targetSets;
     if (node.isTargetSet()) {
+        QString dir = targetSets[row].projectBaseDir;
         beginMoveRows(parent, row, row, parent, row + 2);
         targetSets.move(row, row + 1);
         endMoveRows();
         if (m_rootNodes[node.rootRow].isProject) {
-            Q_EMIT projectTargetChanged();
+            Q_EMIT projectTargetChanged(dir);
         }
         return;
     }
@@ -491,7 +498,7 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
     commands.move(row, row + 1);
     endMoveRows();
     if (m_rootNodes[node.rootRow].isProject) {
-        Q_EMIT projectTargetChanged();
+        Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
     }
 }
 
@@ -637,6 +644,7 @@ bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, i
 
     // This is either a TargetSet or a Command
     TargetSet &targetSet = m_rootNodes[node.rootRow].targetSets[node.targetSetRow];
+    QString dir = targetSet.projectBaseDir;
 
     bool editDone = false;
     if (node.isTargetSet()) {
@@ -669,7 +677,7 @@ bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, i
     if (editDone) {
         Q_EMIT dataChanged(itemIndex, itemIndex);
         if (m_rootNodes[node.rootRow].isProject) {
-            Q_EMIT projectTargetChanged();
+            Q_EMIT projectTargetChanged(dir);
         }
         return true;
     }
@@ -864,6 +872,29 @@ QJsonObject TargetModel::indexToJsonObj(const QModelIndex &modelIndex) const
     return obj;
 }
 
+QJsonObject TargetModel::projectTargetsToJsonObj(const QString &projectBaseDir) const
+{
+    const auto idx = projectRootIndex();
+    if (!idx.isValid()) {
+        qWarning() << "Unexpected invalid project root node";
+        return {};
+    }
+    const auto node = modelToNodeInfo(idx);
+    Q_ASSERT(node.isRoot());
+
+    QJsonObject obj;
+    QJsonArray sets;
+    for (const TargetSet &set : std::as_const(m_rootNodes[node.rootRow].targetSets)) {
+        if (set.projectBaseDir == projectBaseDir) {
+            sets << toJson(set);
+        }
+    }
+    if (!sets.isEmpty()) {
+        obj[QStringLiteral("target_sets")] = sets;
+    }
+    return obj;
+}
+
 QString TargetModel::indexToJson(const QModelIndex &modelIndex) const
 {
     QJsonDocument doc(indexToJsonObj(modelIndex));
@@ -881,13 +912,13 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QStrin
     return insertAfter(modelIndex, doc.object());
 }
 
-QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonObject &obj)
+QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonObject &obj, const QString &projectBaseDir)
 {
     QModelIndex currentIndex = modelIndex;
     if (obj.contains(QStringLiteral("target_sets"))) {
         const QJsonArray sets = obj[QStringLiteral("target_sets")].toArray();
         for (const auto &set : sets) {
-            currentIndex = insertAfter(currentIndex, set.toObject());
+            currentIndex = insertAfter(currentIndex, set.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
                 qWarning() << "Failed to insert targetset";
                 return QModelIndex();
@@ -896,7 +927,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
     } else if (obj.contains(QStringLiteral("targets"))) {
         QString dir = obj[QStringLiteral("directory")].toString();
         QString name = obj[QStringLiteral("name")].toString();
-        currentIndex = insertTargetSetAfter(currentIndex, name, dir);
+        currentIndex = insertTargetSetAfter(currentIndex, name, dir, false, QString(), projectBaseDir);
         QModelIndex setIndex = currentIndex;
         const QJsonArray targets = obj[QStringLiteral("targets")].toArray();
         for (const auto target : targets) {

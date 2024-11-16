@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-12 00:43+0000\n"
-"PO-Revision-Date: 2024-10-03 16:19+0300\n"
+"PO-Revision-Date: 2024-11-12 20:32+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
 #: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
@@ -97,10 +97,9 @@ msgid "PrettierFormat: Failed to create temporary file"
 msgstr "„PrettierFormat“: neizdevās izveidot pagaidu datni"
 
 #: Formatters.cpp:223
-#, fuzzy, kde-format
-#| msgid "PrettierFormat: Failed to create temporary file"
+#, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "„PrettierFormat“: neizdevās izveidot pagaidu datni"
+msgstr "„PrettierFormat“: neizdevās palaist „node“: %1"
 
 #: Formatters.cpp:325
 #, kde-format

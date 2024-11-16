@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:42+0000\n"
-"PO-Revision-Date: 2024-09-16 20:00+0300\n"
+"PO-Revision-Date: 2024-11-15 17:37+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -166,10 +166,9 @@ msgid "Code Action"
 msgstr "Дія з кодом"
 
 #: lspclientpluginview.cpp:551
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Доповнення:"
+msgstr "Показувати доповнення lsp"
 
 #: lspclientpluginview.cpp:554
 #, kde-format
@@ -504,10 +503,9 @@ msgstr "Доповнення:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Доповнення:"
+msgstr "Показувати доповнення"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

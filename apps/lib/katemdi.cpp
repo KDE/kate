@@ -535,7 +535,7 @@ void MultiTabBar::setTabActive(int id, bool state)
     if (m_activeTab && state) {
         // Obviously the active tool is changed, disable the old one
         m_multiTabBar->setTab(m_activeTab, false);
-        m_sb->dataForId(id).toolview->setToolVisible(false);
+        m_sb->dataForId(m_activeTab).toolview->setToolVisible(false);
     }
 
     m_multiTabBar->setTab(id, state);

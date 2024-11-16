@@ -1157,7 +1157,7 @@ void KatePluginSearchView::startSearch()
         const QList<KTextEditor::Document *> documents = m_kateApp->documents();
         m_searchOpenFiles.startSearch(documents, reg);
     } else if (m_ui.searchPlaceCombo->currentIndex() == MatchModel::Folder) {
-        m_resultBaseDir = m_ui.folderRequester->url().path();
+        m_resultBaseDir = m_ui.folderRequester->url().toLocalFile();
         if (!m_resultBaseDir.isEmpty() && !m_resultBaseDir.endsWith(QLatin1Char('/'))) {
             m_resultBaseDir += QLatin1Char('/');
         }

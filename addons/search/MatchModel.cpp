@@ -27,16 +27,6 @@ static const quintptr FileItemId = 0x7FFFFFFF;
 //   |    | - (0, 0, 1)
 //   |    | - (1, 0, 1)
 
-static QUrl localFileDirUp(const QUrl &url)
-{
-    if (!url.isLocalFile()) {
-        return url;
-    }
-
-    // else go up
-    return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).dir().absolutePath());
-}
-
 MatchModel::MatchModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -602,7 +592,7 @@ QString MatchModel::infoHtmlString() const
 
 QString MatchModel::matchPath(const MatchFile &matchFile) const
 {
-    QString path = matchFile.fileUrl.isLocalFile() ? localFileDirUp(matchFile.fileUrl).path() : matchFile.fileUrl.url();
+    QString path = matchFile.fileUrl.isLocalFile() ? QFileInfo(matchFile.fileUrl.toLocalFile()).dir().absolutePath() : matchFile.fileUrl.url();
     // make sure only to remove the leading part and not subsequent occurrences
     // also, if the basedir is root /, then do not strip that, as that would be more confusing
 

@@ -40,6 +40,7 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
     QPointer<QWidget> m_focusWidget;
     QKeySequence m_recordActionShortcut;
     QKeySequence m_playActionShortcut;
+    QKeySequence m_saveActionShortcut;
     Macro m_tape;
     Macro m_macro;
     QString m_storage;
@@ -59,7 +60,7 @@ private:
 
     // GUI feedback helpers
     void sendMessage(const QString &text, bool error);
-    void displayMessage(const QString &text, KTextEditor::Message::MessageType type);
+    void displayMessage(const QString &text, KTextEditor::Message::MessageType type, bool noAutoHide = false);
 
     // Events filter and focus management helpers
 public:

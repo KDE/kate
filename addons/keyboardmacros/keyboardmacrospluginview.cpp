@@ -145,6 +145,11 @@ QKeySequence KeyboardMacrosPluginView::playActionShortcut() const
     return m_playAction->shortcut();
 }
 
+QKeySequence KeyboardMacrosPluginView::saveActionShortcut() const
+{
+    return m_saveAction->shortcut();
+}
+
 void KeyboardMacrosPluginView::recordingOn()
 {
     m_recordAction->setText(i18n("End Macro &Recording"));

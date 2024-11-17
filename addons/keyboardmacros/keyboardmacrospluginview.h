@@ -42,6 +42,7 @@ public:
     // shortcut getter
     QKeySequence recordActionShortcut() const;
     QKeySequence playActionShortcut() const;
+    QKeySequence saveActionShortcut() const;
 
     // GUI update helpers
     void recordingOn();

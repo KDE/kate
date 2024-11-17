@@ -120,7 +120,7 @@ void KeyboardMacrosPlugin::sendMessage(const QString &text, bool error)
     Utils::showMessage(text, icon, i18n("Keyboard Macros"), error ? MessageType::Error : MessageType::Info);
 }
 
-void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Message::MessageType type)
+void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Message::MessageType type, bool noAutoHide)
 {
     KTextEditor::View *view = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
     if (!view) {
@@ -130,7 +130,9 @@ void KeyboardMacrosPlugin::displayMessage(const QString &text, KTextEditor::Mess
     msg->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
     msg->setWordWrap(true);
     msg->setPosition(KTextEditor::Message::BottomInView);
-    msg->setAutoHide(1500);
+    if (!noAutoHide) {
+        msg->setAutoHide(1500);
+    }
     msg->setAutoHideMode(KTextEditor::Message::Immediate);
     msg->setView(view);
     view->document()->postMessage(msg);
@@ -159,6 +161,16 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
             || m_playActionShortcut.matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
             return false;
         }
+
+        if (m_saveActionShortcut.matches(QKeySequence(keyEvent->key() | keyEvent->modifiers())) == QKeySequence::ExactMatch) {
+            // we are recording but the user tried to save the action
+            // this can result in unexpected things if this action gets recorded because when the user
+            // plays the macro -> it will try to save the macro
+            // give a hint to the user that they must end the recording first
+            displayMessage(QStringLiteral("Can't save macro during recording. Please end recoding first"), KTextEditor::Message::Warning, /*noAutoHide=*/true);
+            return false;
+        }
+
         // otherwise we add the keyboard event to the macro
         KeyCombination kc(keyEvent);
         qDebug(KM_DBG) << "key combination:" << kc;
@@ -212,6 +224,7 @@ void KeyboardMacrosPlugin::record()
     // retrieve current record and play shortcuts
     m_recordActionShortcut = m_pluginViews.first()->recordActionShortcut();
     m_playActionShortcut = m_pluginViews.first()->playActionShortcut();
+    m_saveActionShortcut = m_pluginViews.first()->saveActionShortcut();
     // install our spy on currently focused widget
     m_focusWidget = qApp->focusWidget();
     m_focusWidget->installEventFilter(this);

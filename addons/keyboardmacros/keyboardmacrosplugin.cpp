@@ -279,10 +279,17 @@ bool KeyboardMacrosPlugin::play(const QString &name)
     for (const auto &keyCombination : macro) {
         // send key press
         QKeyEvent keyPress = keyCombination.keyPress();
-        qApp->sendEvent(qApp->focusWidget(), &keyPress);
+        // cache the widget, focusWidget may change on keyPress/keyRelease
+        // we want to send the events to same widget
+        auto w = qApp->focusWidget();
+        if (!w) {
+            continue;
+        }
+
+        qApp->sendEvent(w, &keyPress);
         // send key release
         QKeyEvent keyRelease = keyCombination.keyRelease();
-        qApp->sendEvent(qApp->focusWidget(), &keyRelease);
+        qApp->sendEvent(w, &keyRelease);
         // process events immediately if a shortcut may have been triggered
         if (!keyCombination.isVisibleInput()) {
             qApp->processEvents(QEventLoop::AllEvents);

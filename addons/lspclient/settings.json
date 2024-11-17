@@ -113,7 +113,11 @@
             "command": ["typescript-language-server", "--stdio"],
             "rootIndicationFileNames": ["package.json", "package-lock.json"],
             "url": "https://github.com/theia-ide/typescript-language-server",
-            "highlightingModeRegex": "^JavaScript.*$"
+            "highlightingModeRegex": "^JavaScript$"
+        },
+        "javascriptreact": {
+            "use": "javascript",
+            "highlightingModeRegex": "^JavaScript React.*$"
         },
         "json": {
             "command": ["vscode-json-languageserver", "--stdio"],
@@ -264,7 +268,11 @@
         },
         "typescript": {
             "use": "javascript",
-            "highlightingModeRegex": "^TypeScript.*$"
+            "highlightingModeRegex": "^TypeScript$"
+        },
+        "typescriptreact": {
+            "use": "javascript",
+            "highlightingModeRegex": "^TypeScript React.*$"
         },
         "typst": {
             "command": ["tinymist"],

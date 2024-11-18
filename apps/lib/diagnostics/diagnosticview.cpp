@@ -1055,10 +1055,11 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         return;
     }
 
-    auto url = item->data(DiagnosticModelRole::FileUrlRole).toUrl();
+    const auto url = item->data(DiagnosticModelRole::FileUrlRole).toUrl().toDisplayString(QUrl::PreferLocalFile | QUrl::PrettyDecoded | QUrl::RemovePassword);
+    const auto docUrl = doc->url().toDisplayString(QUrl::PreferLocalFile | QUrl::PrettyDecoded | QUrl::RemovePassword);
     // document url could end up empty while in intermediate reload state
     // (and then it might match a parent item with no RangeData at all)
-    if (url != doc->url() || url.isEmpty()) {
+    if (url != docUrl || url.isEmpty()) {
         return;
     }
 

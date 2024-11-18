@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-22 00:40+0000\n"
+"POT-Creation-Date: 2024-11-18 00:42+0000\n"
 "PO-Revision-Date: 2024-03-15 09:33+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -74,33 +74,33 @@ msgstr "Genera"
 msgid "Result"
 msgstr "Resultat"
 
-#: MatchModel.cpp:545 MatchModel.cpp:547
+#: MatchModel.cpp:535 MatchModel.cpp:537
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>S'està generant la llista de fitxers: ...%1</i></b>"
 
-#: MatchModel.cpp:555
+#: MatchModel.cpp:545
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>S'ha trobat una coincidència, cercant: ...%2</i></b>"
 msgstr[1] "<b><i>S'han trobat %1 coincidències, cercant: ...%2</i></b>"
 
-#: MatchModel.cpp:560
+#: MatchModel.cpp:550
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>S'ha trobat una coincidència, cercant: %2</i></b>"
 msgstr[1] "<b><i>S'han trobat %1 coincidències, cercant: %2</i></b>"
 
-#: MatchModel.cpp:567 MatchModel.cpp:722
+#: MatchModel.cpp:557 MatchModel.cpp:712
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Una marcada"
 msgstr[1] "%1 marcades"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:561
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
@@ -108,7 +108,7 @@ msgstr[0] "<b><i>S'ha trobat una coincidència (%2) en el fitxer</i></b>"
 msgstr[1] ""
 "<b><i>S'han trobat %1 coincidències (%2) en el fitxer actual</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:563
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -117,14 +117,14 @@ msgstr[0] ""
 msgstr[1] ""
 "<b><i>S'han trobat %1 coincidències (%2) en els fitxers oberts</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:566
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>S'ha trobat una coincidència (%3) a la carpeta %2</i></b>"
 msgstr[1] "<b><i>S'han trobat %1 coincidències (%3) a la carpeta %2</i></b>"
 
-#: MatchModel.cpp:583
+#: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
@@ -133,7 +133,7 @@ msgstr[0] ""
 msgstr[1] ""
 "<b><i>S'han trobat %1 coincidències (%4) en el projecte %2 (%3)</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:582
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -146,54 +146,54 @@ msgstr[1] ""
 "<b><i>S'han trobat %1 coincidències (%3) en tots els projectes oberts (pare "
 "comú: %2)</i></b>"
 
-#: MatchModel.cpp:706 MatchModel.cpp:708
+#: MatchModel.cpp:696 MatchModel.cpp:698
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "S'està generant la llista de fitxers: ...%1"
 
-#: MatchModel.cpp:716
+#: MatchModel.cpp:706
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "S'ha trobat una coincidència, cercant: ...%2"
 msgstr[1] "S'han trobat %1 coincidències, cercant: ...%2"
 
-#: MatchModel.cpp:718
+#: MatchModel.cpp:708
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "S'ha trobat una coincidència, cercant: %2"
 msgstr[1] "S'han trobat %1 coincidències, cercant: %2"
 
-#: MatchModel.cpp:726
+#: MatchModel.cpp:716
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "S'ha trobat una coincidència (%2) en el fitxer"
 msgstr[1] "S'han trobat %1 coincidències (%2) en el fitxer actual"
 
-#: MatchModel.cpp:728
+#: MatchModel.cpp:718
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "S'ha trobat una coincidència (%2) en els fitxers oberts"
 msgstr[1] "S'han trobat %1 coincidències (%2) en els fitxers oberts"
 
-#: MatchModel.cpp:731
+#: MatchModel.cpp:721
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "S'ha trobat una coincidència (%3) a la carpeta %2"
 msgstr[1] "S'han trobat %1 coincidències (%3) a la carpeta %2"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:724
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "S'ha trobat una coincidència (%4) en el projecte %2 (%3)"
 msgstr[1] "S'han trobat %1 coincidències (%4) en el projecte %2 (%3)"
 
-#: MatchModel.cpp:743
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

@@ -165,7 +165,7 @@ msgstr "代码操作"
 #: lspclientpluginview.cpp:551
 #, kde-format
 msgid "Show lsp completions"
-msgstr ""
+msgstr "显示 LSP 补全"
 
 #: lspclientpluginview.cpp:554
 #, kde-format
@@ -500,7 +500,7 @@ msgstr "自动补全："
 #: lspconfigwidget.ui:82
 #, kde-format
 msgid "Show completions"
-msgstr ""
+msgstr "显示补全"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-15 00:42+0000\n"
-"PO-Revision-Date: 2024-10-18 17:16+0100\n"
+"PO-Revision-Date: 2024-11-16 12:55+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -164,10 +164,9 @@ msgid "Code Action"
 msgstr "Code Action"
 
 #: lspclientpluginview.cpp:551
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Completions:"
+msgstr "Show lsp completions"
 
 #: lspclientpluginview.cpp:554
 #, kde-format
@@ -500,10 +499,9 @@ msgstr "Completions:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Completions:"
+msgstr "Show completions"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

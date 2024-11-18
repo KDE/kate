@@ -91,7 +91,9 @@ public:
             m_movingRange.reset(doc->newMovingRange(range));
             // clang-format off
             connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &GotoLinkHover::clearMovingRange, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
             connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &GotoLinkHover::clearMovingRange, Qt::UniqueConnection);
+#endif
             // clang-format on
         } else {
             m_movingRange->setRange(range);
@@ -177,7 +179,9 @@ void OpenLinkPluginView::onActiveViewChanged(KTextEditor::View *view)
         connect(doc, &KTextEditor::Document::textRemoved, this, &OpenLinkPluginView::onTextRemoved);
 
         connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &OpenLinkPluginView::clear, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &OpenLinkPluginView::clear, Qt::UniqueConnection);
+#endif
     }
 
     if (oldView && oldView->focusProxy()) {

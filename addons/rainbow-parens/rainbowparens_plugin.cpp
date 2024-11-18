@@ -109,7 +109,9 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged);
 
         auto doc = m_activeView->document();
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         disconnect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges);
+#endif
         disconnect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges);
         disconnect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted);
         disconnect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved);
@@ -128,7 +130,9 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         }
 
         // clear ranges for this doc if it gets closed
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearSavedRangesForDoc, Qt::UniqueConnection);
+#endif
         connect(doc,
                 &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent,
                 this,
@@ -145,7 +149,9 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
     connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged, Qt::UniqueConnection);
 
     auto doc = m_activeView->document();
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
     connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges, Qt::UniqueConnection);
+#endif
     connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &RainbowParenPluginView::clearRanges, Qt::UniqueConnection);
     connect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted, Qt::UniqueConnection);
     connect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved, Qt::UniqueConnection);

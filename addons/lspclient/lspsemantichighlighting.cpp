@@ -74,7 +74,9 @@ void SemanticHighlighter::doSemanticHighlighting_impl(KTextEditor::View *view)
     auto doc = view->document();
     if (m_docResultId.count(doc) == 0) {
         connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &SemanticHighlighter::remove, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &SemanticHighlighter::remove, Qt::UniqueConnection);
+#endif
     }
 
     disconnect(m_verticalScrollConnection);

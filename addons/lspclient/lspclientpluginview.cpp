@@ -280,7 +280,9 @@ public:
         } else {
             mr.reset(doc->newMovingRange(range));
             connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
             connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &CtrlHoverFeedback::clearMovingRange, Qt::UniqueConnection);
+#endif
         }
 
         static KTextEditor::Attribute::Ptr attr;
@@ -1054,7 +1056,9 @@ public:
         }
 
         connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &self_type::clearAllMarks, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &self_type::clearAllMarks, Qt::UniqueConnection);
+#endif
 
         // reload might save/restore marks before/after above signals, so let's clear before that
         connect(doc, &KTextEditor::Document::aboutToReload, this, &self_type::clearAllMarks, Qt::UniqueConnection);

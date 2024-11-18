@@ -178,7 +178,9 @@ public:
         // make sure revision is cleared when needed and no longer used (to unlock or otherwise)
         // see e.g. implementation in katetexthistory.cpp and assert's in place there
         connect(doc, &KTextEditor::Document::aboutToInvalidateMovingInterfaceContent, this, &self_type::clearRevisions);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
         connect(doc, &KTextEditor::Document::aboutToDeleteMovingInterfaceContent, this, &self_type::clearRevisions);
+#endif
         m_guards.emplace(doc->url(), doc);
     }
 

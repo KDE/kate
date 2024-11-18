@@ -1162,7 +1162,9 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
     // ensure runtime match
     using Doc = KTextEditor::Document;
     connect(doc, &Doc::aboutToInvalidateMovingInterfaceContent, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 9, 0)
     connect(doc, &Doc::aboutToDeleteMovingInterfaceContent, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
+#endif
     // reload might save/restore marks before/after above signals, so let's clear before that
     connect(doc, &Doc::aboutToReload, this, &DiagnosticsView::clearAllMarks, Qt::UniqueConnection);
     connect(doc, &Doc::markClicked, this, &DiagnosticsView::onMarkClicked, Qt::UniqueConnection);

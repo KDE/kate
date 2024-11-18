@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-25 01:36+0000\n"
+"POT-Creation-Date: 2024-11-18 02:40+0000\n"
 "PO-Revision-Date: 2023-12-24 18:44+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:286 keyboardmacrospluginview.cpp:320 ui.rc:12
+#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Клавиатурные макросы"
@@ -46,37 +46,37 @@ msgstr "Клавиатурные макросы"
 msgid "<b>Keyboard Macros:</b> %1"
 msgstr "<b>Клавиатурные макросы:</b> %1"
 
-#: keyboardmacrosplugin.cpp:228
+#: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
 msgstr "Выполняется запись…"
 
-#: keyboardmacrosplugin.cpp:264
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "ended"
 msgstr "завершена"
 
-#: keyboardmacrosplugin.cpp:264
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "canceled"
 msgstr "отменена"
 
-#: keyboardmacrosplugin.cpp:264
+#: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "Recording %1"
 msgstr "Запись макроса «%1»"
 
-#: keyboardmacrosplugin.cpp:307
+#: keyboardmacrosplugin.cpp:327
 #, kde-format
 msgid "Saved '%1'"
 msgstr "Клавиатурный макрос «%1» сохранён"
 
-#: keyboardmacrosplugin.cpp:327
+#: keyboardmacrosplugin.cpp:347
 #, kde-format
 msgid "Loaded '%1'"
 msgstr "Клавиатурный макрос «%1» загружен"
 
-#: keyboardmacrosplugin.cpp:345
+#: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgid "Wiped '%1'"
 msgstr "Клавиатурный макрос «%1» удалён"
@@ -145,7 +145,7 @@ msgstr "&Клавиатурные макросы"
 msgid "Record and play keyboard macros."
 msgstr "Запись и воспроизведение клавиатурных макросов"
 
-#: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:158
+#: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
 msgstr "&Записать макрос…"
@@ -223,47 +223,47 @@ msgstr "&Стереть именованный макрос…"
 msgid "Wipe a named macro."
 msgstr "Стереть именованный макрос"
 
-#: keyboardmacrospluginview.cpp:150
+#: keyboardmacrospluginview.cpp:155
 #, kde-format
 msgid "End Macro &Recording"
 msgstr "&Завершить запись макроса"
 
-#: keyboardmacrospluginview.cpp:176
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load %1"
 msgstr "Загрузить %1"
 
-#: keyboardmacrospluginview.cpp:177
+#: keyboardmacrospluginview.cpp:182
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Загрузить макрос «%1» в качестве текущего"
 
-#: keyboardmacrospluginview.cpp:189
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play %1"
 msgstr "Воспроизвести %1"
 
-#: keyboardmacrospluginview.cpp:190
+#: keyboardmacrospluginview.cpp:195
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Воспроизвести макрос '%1', не загружая его"
 
-#: keyboardmacrospluginview.cpp:204
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe %1"
 msgstr "Стереть %1"
 
-#: keyboardmacrospluginview.cpp:205
+#: keyboardmacrospluginview.cpp:210
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Стереть макрос «%1»"
 
-#: keyboardmacrospluginview.cpp:286
+#: keyboardmacrospluginview.cpp:291
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Сохранить текущий макрос под другим именем?"
 
-#: keyboardmacrospluginview.cpp:320
+#: keyboardmacrospluginview.cpp:325
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Стереть макрос «%1»?"

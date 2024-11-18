@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-22 00:40+0000\n"
+"POT-Creation-Date: 2024-11-18 02:40+0000\n"
 "PO-Revision-Date: 2018-07-18 22:03+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -72,13 +72,13 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: MatchModel.cpp:545 MatchModel.cpp:547
+#: MatchModel.cpp:535 MatchModel.cpp:537
 #, fuzzy, kde-format
 #| msgid "<b>Replacing in: ...%1</b>"
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b>Erstatter i: ...%1</b>"
 
-#: MatchModel.cpp:555
+#: MatchModel.cpp:545
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3 checked) found in folder %2</i></b>"
@@ -87,7 +87,7 @@ msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>%1 fund i mappen %2</i></b>"
 msgstr[1] "<b><i>%1 fund (%3 markeret) i mappen %2</i></b>"
 
-#: MatchModel.cpp:560
+#: MatchModel.cpp:550
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3 checked) found in folder %2</i></b>"
@@ -96,7 +96,7 @@ msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>%1 fund i mappen %2</i></b>"
 msgstr[1] "<b><i>%1 fund (%3 markeret) i mappen %2</i></b>"
 
-#: MatchModel.cpp:567 MatchModel.cpp:722
+#: MatchModel.cpp:557 MatchModel.cpp:712
 #, fuzzy, kde-format
 #| msgid "Replace Checked"
 msgid "One checked"
@@ -104,7 +104,7 @@ msgid_plural "%1 checked"
 msgstr[0] "Erstat afkrydset"
 msgstr[1] "Erstat afkrydset"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:561
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -113,7 +113,7 @@ msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Et fund</i></b>"
 msgstr[1] "<b><i>%1 fund</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:563
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches (%2 checked) found in open files</i></b>"
@@ -122,7 +122,7 @@ msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>%1 fund i åbne filer</i></b>"
 msgstr[1] "<b><i>%1 fund (%2 markeret) i åbne filer</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:566
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3 checked) found in folder %2</i></b>"
@@ -131,7 +131,7 @@ msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>%1 fund i mappen %2</i></b>"
 msgstr[1] "<b><i>%1 fund (%3 markeret) i mappen %2</i></b>"
 
-#: MatchModel.cpp:583
+#: MatchModel.cpp:573
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in project %2 (%3)</i></b>"
 #| msgid_plural ""
@@ -141,7 +141,7 @@ msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>%1 fund i projektet %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 fund (%4 markeret) i projektet %2 (%3)</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:582
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b><i>%1 match found in all open projects (common parent: %2)</i></b>"
@@ -157,26 +157,26 @@ msgstr[1] ""
 "<b><i>%1 fund (%3 markeret) i alle åbne projekter (fælles forælder: %2)</i></"
 "b>"
 
-#: MatchModel.cpp:706 MatchModel.cpp:708
+#: MatchModel.cpp:696 MatchModel.cpp:698
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr ""
 
-#: MatchModel.cpp:716
+#: MatchModel.cpp:706
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: MatchModel.cpp:718
+#: MatchModel.cpp:708
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] ""
 msgstr[1] ""
 
-#: MatchModel.cpp:726
+#: MatchModel.cpp:716
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -185,7 +185,7 @@ msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "<b><i>Et fund</i></b>"
 msgstr[1] "<b><i>%1 fund</i></b>"
 
-#: MatchModel.cpp:728
+#: MatchModel.cpp:718
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches (%2 checked) found in open files</i></b>"
@@ -194,7 +194,7 @@ msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "<b><i>%1 fund i åbne filer</i></b>"
 msgstr[1] "<b><i>%1 fund (%2 markeret) i åbne filer</i></b>"
 
-#: MatchModel.cpp:731
+#: MatchModel.cpp:721
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3 checked) found in folder %2</i></b>"
@@ -203,7 +203,7 @@ msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "<b><i>%1 fund i mappen %2</i></b>"
 msgstr[1] "<b><i>%1 fund (%3 markeret) i mappen %2</i></b>"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:724
 #, fuzzy, kde-format
 #| msgid "<b><i>%1 match found in project %2 (%3)</i></b>"
 #| msgid_plural ""
@@ -213,7 +213,7 @@ msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "<b><i>%1 fund i projektet %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 fund (%4 markeret) i projektet %2 (%3)</i></b>"
 
-#: MatchModel.cpp:743
+#: MatchModel.cpp:733
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b><i>%1 match found in all open projects (common parent: %2)</i></b>"

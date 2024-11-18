@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-04-22 00:40+0000\n"
+"POT-Creation-Date: 2024-11-18 02:40+0000\n"
 "PO-Revision-Date: 2013-01-28 12:46+0000\n"
 "Last-Translator: Admir Salkanović <asalkanovi2@etf.unsa.ba>\n"
 "Language-Team: bs <bs@kde.org>\n"
@@ -75,13 +75,13 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: MatchModel.cpp:545 MatchModel.cpp:547
+#: MatchModel.cpp:535 MatchModel.cpp:537
 #, fuzzy, kde-format
 #| msgid "<b>Searching: ...%1</b>"
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b>Tražim: ...%1</b>"
 
-#: MatchModel.cpp:555
+#: MatchModel.cpp:545
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -91,7 +91,7 @@ msgstr[0] "<b><i>%1 poklapanje u direktoriju %2</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 
-#: MatchModel.cpp:560
+#: MatchModel.cpp:550
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -101,7 +101,7 @@ msgstr[0] "<b><i>%1 poklapanje u direktoriju %2</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 
-#: MatchModel.cpp:567 MatchModel.cpp:722
+#: MatchModel.cpp:557 MatchModel.cpp:712
 #, fuzzy, kde-format
 #| msgid "Replace checked"
 msgid "One checked"
@@ -110,7 +110,7 @@ msgstr[0] "Zamijeni označeno"
 msgstr[1] "Zamijeni označeno"
 msgstr[2] "Zamijeni označeno"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:561
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -120,7 +120,7 @@ msgstr[0] "<b><i>%1 poklapanje nađeno</i></b>"
 msgstr[1] "<b><i>%1 poklapanja nađena</i></b>"
 msgstr[2] "<b><i>%1 poklapanja nađeno</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:563
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches found in open files</i></b>"
@@ -130,7 +130,7 @@ msgstr[0] "<b><i>%1 poklapanje u otvorenim datotekama</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u otvorenim datotekama</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u otvorenim datotekama</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:566
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -140,7 +140,7 @@ msgstr[0] "<b><i>%1 poklapanje u direktoriju %2</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 
-#: MatchModel.cpp:583
+#: MatchModel.cpp:573
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -150,7 +150,7 @@ msgstr[0] "<b><i>%1 poklapanje u projektu %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:582
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -162,12 +162,12 @@ msgstr[0] "<b><i>%1 poklapanje u projektu %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 
-#: MatchModel.cpp:706 MatchModel.cpp:708
+#: MatchModel.cpp:696 MatchModel.cpp:698
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr ""
 
-#: MatchModel.cpp:716
+#: MatchModel.cpp:706
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -175,7 +175,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:718
+#: MatchModel.cpp:708
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -183,7 +183,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: MatchModel.cpp:726
+#: MatchModel.cpp:716
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found</i></b>"
 #| msgid_plural "<b><i>%1 matches found</i></b>"
@@ -193,7 +193,7 @@ msgstr[0] "<b><i>%1 poklapanje nađeno</i></b>"
 msgstr[1] "<b><i>%1 poklapanja nađena</i></b>"
 msgstr[2] "<b><i>%1 poklapanja nađeno</i></b>"
 
-#: MatchModel.cpp:728
+#: MatchModel.cpp:718
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches found in open files</i></b>"
@@ -203,7 +203,7 @@ msgstr[0] "<b><i>%1 poklapanje u otvorenim datotekama</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u otvorenim datotekama</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u otvorenim datotekama</i></b>"
 
-#: MatchModel.cpp:731
+#: MatchModel.cpp:721
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches found in folder %2</i></b>"
@@ -213,7 +213,7 @@ msgstr[0] "<b><i>%1 poklapanje u direktoriju %2</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u direktoriju %2</i></b>"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:724
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"
@@ -223,7 +223,7 @@ msgstr[0] "<b><i>%1 poklapanje u projektu %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 msgstr[2] "<b><i>%1 poklapanja u projektu %2 (%3)</i></b>"
 
-#: MatchModel.cpp:743
+#: MatchModel.cpp:733
 #, fuzzy, kde-format
 #| msgid "<b><i>One match found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches found in project %2 (%3)</i></b>"

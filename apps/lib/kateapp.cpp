@@ -513,7 +513,7 @@ bool KateApp::startupKate()
                 }
             }
             doc = openDocUrl(info.url, codec_name, tempfileSet, /*activateView=*/false, info.cursor);
-        } else if (!KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
+        } else if (isKate() && !KateApp::self()->pluginManager()->plugin(QStringLiteral("kateprojectplugin"))) {
             KMessageBox::error(activeKateMainWindow(), i18n("Folders can only be opened when the projects plugin is enabled"));
         }
     }

@@ -517,7 +517,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
 
     if (node.isRoot()) {
         if ((role == Qt::DisplayRole || role == Qt::ToolTipRole) && index.column() == 0) {
-            return m_rootNodes[node.rootRow].isProject ? i18n("Project") : i18n("Session");
+            return m_rootNodes[node.rootRow].isProject ? i18n("Projects") : i18n("Session");
         } else if (role == RowTypeRole) {
             return RowType::RootRow;
         } else if (role == IsProjectTargetRole) {

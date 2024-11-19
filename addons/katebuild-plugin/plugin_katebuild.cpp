@@ -423,9 +423,11 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
         auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
         auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));
         auto sel = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::TextSelection));
+        auto linkBg = fg;
         auto errBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkError));
         auto warnBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkWarning));
         auto noteBg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::MarkBookmark));
+        linkBg.setAlpha(15);
         errBg.setAlpha(30);
         warnBg.setAlpha(30);
         noteBg.setAlpha(30);
@@ -436,17 +438,19 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
         pal.setColor(QPalette::HighlightedText, fg);
         m_buildUi.textBrowser->setPalette(pal);
         m_buildUi.textBrowser->document()->setDefaultStyleSheet(QStringLiteral("a{text-decoration:none;}"
-                                                                               "a:link{color:%1;}\n"
-                                                                               ".err-text {color:%1; background-color: %2;}"
-                                                                               ".warn-text {color:%1; background-color: %3;}"
-                                                                               ".note-text {color:%1; background-color: %4;}"
+                                                                               "a:link{color:%1; background-color: %2;}\n"
+                                                                               ".err-text {color:%1; background-color: %3;}"
+                                                                               ".warn-text {color:%1; background-color: %4;}"
+                                                                               ".note-text {color:%1; background-color: %5;}"
                                                                                "pre{margin:0px;}")
                                                                     .arg(fg.name(QColor::HexArgb))
+                                                                    .arg(linkBg.name(QColor::HexArgb))
                                                                     .arg(errBg.name(QColor::HexArgb))
                                                                     .arg(warnBg.name(QColor::HexArgb))
                                                                     .arg(noteBg.name(QColor::HexArgb)));
         slotUpdateTextBrowser();
     };
+    updateEditorColors(KTextEditor::Editor::instance());
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateEditorColors);
 
     connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
@@ -730,7 +734,7 @@ void KateBuildView::clearBuildResults()
     m_buildUi.textBrowser->clear();
     m_stdOut.clear();
     m_stdErr.clear();
-    m_pendingHtmlOutput = u"<pre>"_s;
+    m_pendingHtmlOutput.clear();
     m_scrollStopLine = -1;
     m_numOutputLines = 0;
     m_numNonUpdatedLines = 0;
@@ -1428,7 +1432,7 @@ void KateBuildView::slotRunAfterBuild()
 
 QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
 {
-    QString htmlStr;
+    QString htmlStr = u"<pre>"_s;
     if (!out.file.isEmpty()) {
         htmlStr += u"<a href=\"%1:%2:%3\">"_s.arg(out.file).arg(out.lineNr).arg(out.column);
     }
@@ -1447,19 +1451,20 @@ QString KateBuildView::toOutputHtml(const KateBuildView::OutputLine &out)
         break;
     }
     htmlStr += out.lineStr.toHtmlEscaped();
-    htmlStr += u"\n</span>"_s;
+    htmlStr += u"</span>"_s;
     if (!out.file.isEmpty()) {
         htmlStr += u"</a>"_s;
     }
+    htmlStr += u"</pre>\n"_s;
+
     return htmlStr;
 }
 
 void KateBuildView::slotUpdateTextBrowser()
 {
-    // move the text, effectively clearing the pending buffer
-    QString html = std::move(m_pendingHtmlOutput);
-    html += u"</pre>"_s;
-    m_pendingHtmlOutput = u"<pre>"_s;
+    if (m_pendingHtmlOutput.isEmpty()) {
+        return;
+    }
 
     QTextBrowser *edit = m_buildUi.textBrowser;
     // Get the scroll position to restore it if not at the end
@@ -1481,7 +1486,7 @@ void KateBuildView::slotUpdateTextBrowser()
 
         if (m_scrollStopLine != -1) {
             if (pxPerLine > 1) {
-                int stopLine = std::max(m_scrollStopLine - 4, 0);
+                int stopLine = std::max(m_scrollStopLine - 6, 0);
                 scrollValuePx = stopLine * pxPerLine;
             } else {
                 // Fallback add one empty line
@@ -1500,7 +1505,12 @@ void KateBuildView::slotUpdateTextBrowser()
     // Add the new lines
     QTextCursor cursor = saveCursor;
     cursor.movePosition(QTextCursor::End);
-    cursor.insertHtml(html);
+    // NOTE: The insertHTML() is tricky as we do not have control over the internal structures.
+    // We add this <pre/> tag to add a new line for the next iteration so that we do not get two separate lines
+    // written on the same line.
+    m_pendingHtmlOutput += u"<pre/>"_s;
+    cursor.insertHtml(m_pendingHtmlOutput);
+    m_pendingHtmlOutput.clear();
     // Restore selection and scroll position
     edit->setTextCursor(saveCursor);
 

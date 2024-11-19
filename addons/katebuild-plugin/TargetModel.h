@@ -50,8 +50,9 @@ public:
 
     bool validTargetsJson(const QString &jsonStr) const;
 
-    /** This function returns the menu node as a Json objekt */
+    /** This function returns the menu node as a Json object */
     QJsonObject indexToJsonObj(const QModelIndex &modelIndex) const;
+    /** This function returns the TargetSet node for the given projectBaseDir **/
     QJsonObject projectTargetsToJsonObj(const QString &projectBaseDir) const;
     QString indexToJson(const QModelIndex &modelIndex) const;
 
@@ -108,19 +109,28 @@ public:
 
     struct TargetSet {
         TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, QString _cmakeConfigName = QString());
+        /** The name of this target set */
         QString name;
+        /** The working directory */
         QString workDir;
+        /** The list of commands in this TargetSet */
         QList<Command> commands;
-        bool loadedViaCMake;
+        /** Was this TargetSet loaded via cmake */
+        bool loadedViaCMake = false;
+        /** CMake build config name */
         QString cmakeConfigName;
+        /** If the TargetSet belongs to a project, this field will contain the project base dir */
         QString projectBaseDir;
     };
 
     struct RootNode {
+        /** Is this the Project root node? We have two root nodes, Projects and Session */
         bool isProject = false;
+        /** The TargetSet in this root node */
         QList<TargetSet> targetSets;
     };
 
 private:
+    // TODO: Make this a c array of size 2
     QList<RootNode> m_rootNodes;
 };

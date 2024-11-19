@@ -113,8 +113,7 @@
   <summary xml:lang="zh-TW">進階文字編輯器</summary>
   <description>
     <p>
-      Kate is a multi-document, multi-view text editor by KDE. It features stuff like codefolding, syntaxhighlighting,
-      dynamic word wrap, an embedded console, an extensive plugin interface and some preliminary scripting support.
+      Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integeration, folder wide search, horizontal and vertical splits, vi mode, syntaxhighlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.
     </p>
     <p xml:lang="ar">«كيت» هو محرّر نصوص بواسطة كِيدِي يدعم عدّة مستندات وعدّة عروض. يقدّم «كيت» مزايا عديدة كلفّ الأكواد، وإبراز الصّياغة، ولفّ الكلمات الحركيّ، ومعراض مضمّن، وواجهة ملحقات واسعة ودعم بسيط للسّكربتة.</p>
     <p xml:lang="az">Kate, KDE-nin təqdim etdiyi çoxsənədli, bir neçə görünüşlü mətn redaktorudur. Kod bükümü, sintaksislərin vurğulanması, dinamik sətirə keçid, daxili konsol, geniş qoşma interfeysi və bəzi əmrlər faylı dəstəkləmə imkanlarına malikdir.</p>
@@ -523,7 +522,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
       <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
-      <li>Powerful syntax highlighting and bracket matching</li>
+      <li>Syntax highlighting for 300+ languages</li>
       <li xml:lang="ar">دعم قويّ لإبراز الصّياغة ومطابقة الأقواس</li>
       <li xml:lang="az">Sintaksisin vurğulanması və qoşa nöqtə axtarışı</li>
       <li xml:lang="bg">Мощна проверка на синтаксис и съвпадение на скобите</li>
@@ -624,58 +623,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="x-test">xxCode and text foldingxx</li>
       <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
-      <li>Infinite undo/redo support</li>
-      <li xml:lang="ar">دعم عدد متناهٍ من الإعادات والتّكرارات</li>
-      <li xml:lang="az">Sonsuz sayda geri qaytarma və təkrarlama dəstəyi</li>
-      <li xml:lang="bg">Неограничено отменяне и повторение на действия</li>
-      <li xml:lang="ca">Admet desfer/refer infinits</li>
-      <li xml:lang="ca-valencia">Admet desfer/refer infinits</li>
-      <li xml:lang="cs">Nekonečná funkce Zpět/Vpřed</li>
-      <li xml:lang="da">Understøttelse af uendeligt antal fortryd/gendan</li>
-      <li xml:lang="de">Unterstützung für unbegrenztes Zurücknehmen und Wiederherstellen</li>
-      <li xml:lang="el">Υποστήριξη για απεριόριστη αναίρεση/επαναφορά</li>
-      <li xml:lang="en-GB">Infinite undo/redo support</li>
-      <li xml:lang="eo">Senfina malfari/refari subteno</li>
-      <li xml:lang="es">Función hacer y deshacer infinita</li>
-      <li xml:lang="et">Piiranguteta tagasivõtmiste ja uuestitegemiste toetus</li>
-      <li xml:lang="eu">Desegin/berregin mugagabea onartzen du</li>
-      <li xml:lang="fi">Tuki rajattomalle kumoamiselle ja uudelleen tekemiselle</li>
-      <li xml:lang="fr">Prise en charge de l'annulation / refaire à l'infini</li>
-      <li xml:lang="gl">Funcionalidade de desfacer e refacer sen limitacións.</li>
-      <li xml:lang="he">תמיכה בהסגה/ביצוע מחדש ללא הגבלה</li>
-      <li xml:lang="hu">Végtelen visszavonás/újra végrehajtás</li>
-      <li xml:lang="ia">Supporto per annullation e re-facer infinite</li>
-      <li xml:lang="id">Dukungan urung/ulang tak terbatas</li>
-      <li xml:lang="is">Stuðningur við óendanlega afturköllun og endurtekningu</li>
-      <li xml:lang="it">Supporto annulla/rifai infinito</li>
-      <li xml:lang="ka">უსასრულო გაუქმება/გამეორების მხარდაჭერა</li>
-      <li xml:lang="ko">무한 실행 취소/다시 실행 지원</li>
-      <li xml:lang="lv">Bezgalīgas atsaukšanas un atatsaukšanas atbalsts</li>
-      <li xml:lang="ml">അനന്തമായ നിഷ്‍ഫലമാക്കൽ / വീണ്ടും ചെയ്യൽ പിന്തുണ</li>
-      <li xml:lang="my">အကန့်အသတ်မရှိ ပြန်ဆုတ်/ပြန်လုပ် နိုင်ခြင်း</li>
-      <li xml:lang="nb">Ubegrenset støtte for angring/omgjøring</li>
-      <li xml:lang="nl">Ondersteuning van oneindig ongedaan maken/opnieuw</li>
-      <li xml:lang="nn">Uavgrensa støtte for angring/omgjering</li>
-      <li xml:lang="pa">ਬੇਅੰਤ ਵਾਪਸ/ਪਰਤਾਉਣ ਸਹਿਯੋਗ</li>
-      <li xml:lang="pl">Nieskończona historia cofania/przywracania</li>
-      <li xml:lang="pt">Suporte para desfazer/refazer ilimitado</li>
-      <li xml:lang="pt-BR">Suporte para desfazer/refazer sem limite de ações</li>
-      <li xml:lang="ro">Suport pentru desfacere/refacere infinită</li>
-      <li xml:lang="ru">Поддержка бесконечной глубины отмены и повтора действий;</li>
-      <li xml:lang="sk">Nekonečná podpora späť/znova</li>
-      <li xml:lang="sl">Podpora neskončno razveljavitvam/uveljavitvam</li>
-      <li xml:lang="sr">неограничено опозивање и понављање</li>
-      <li xml:lang="sr-Latn">neograničeno opozivanje i ponavljanje</li>
-      <li xml:lang="sr-ijekavian">неограничено опозивање и понављање</li>
-      <li xml:lang="sr-ijekavianlatin">neograničeno opozivanje i ponavljanje</li>
-      <li xml:lang="sv">Obegränsat stöd för ångra och gör om</li>
-      <li xml:lang="ta">வரம்பில்லா செயல்நீக்கம்/மீளச்செயல்</li>
-      <li xml:lang="tr">Sınırsız geri alma/yineleme desteği</li>
-      <li xml:lang="uk">Підтримка нескінченного буфера скасування і повторення дій.</li>
-      <li xml:lang="vi">Hỗ trợ đảo ngược / làm lại không giới hạn</li>
-      <li xml:lang="x-test">xxInfinite undo/redo supportxx</li>
-      <li xml:lang="zh-CN">无限撤销/重做支持</li>
-      <li xml:lang="zh-TW">無限的復原/重做支援</li>
+      <li>Multiple cursors and multiple selections</li>
       <li>Block selection mode</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
       <li xml:lang="az">Blok seçim rejimi</li>
@@ -922,7 +870,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.)xx</li>
       <li xml:lang="zh-CN">支持多种类型的协议 (HTTP、FTP、SSH、WebDAV 等)</li>
       <li xml:lang="zh-TW">廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
-      <li>Plugin architecture for the application and editor component</li>
+      <li>Extensible via plugins</li>
       <li xml:lang="ar">بنية ملحقات للتّطبيق ومكوّن المحرّر</li>
       <li xml:lang="az">Tətbiq və redaktor komponentləri üçün qoşma arxitekturası</li>
       <li xml:lang="bg">Приставки за приложението и компоненти на редактора</li>
@@ -972,58 +920,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="x-test">xxPlugin architecture for the application and editor componentxx</li>
       <li xml:lang="zh-CN">面向应用程序和编辑器组件设计的插件架构</li>
       <li xml:lang="zh-TW">用於應用程式與編輯器組件的外掛架構</li>
-      <li>Customizable shortcuts</li>
-      <li xml:lang="ar">اختصارات يمكن تخصيصها</li>
-      <li xml:lang="az">Ayarlanabilən qısayollar</li>
-      <li xml:lang="bg">Настройване на потребителски клавишни комбинации</li>
-      <li xml:lang="ca">Dreceres personalitzables</li>
-      <li xml:lang="ca-valencia">Dreceres personalitzables</li>
-      <li xml:lang="cs">Nastavitelné klávesové zkratky</li>
-      <li xml:lang="da">Genveje som kan tilpasses</li>
-      <li xml:lang="de">Benutzerdefinierte Kurzbefehle</li>
-      <li xml:lang="el">Προσαρμόσιμες συντομεύσεις</li>
-      <li xml:lang="en-GB">Customisable shortcuts</li>
-      <li xml:lang="eo">Agordigeblaj ŝparvojoj</li>
-      <li xml:lang="es">Atajos de teclado personalizables</li>
-      <li xml:lang="et">Kohandatavad kiirklahvid</li>
-      <li xml:lang="eu">Norbere erara egoki ditzakeen lasterbide</li>
-      <li xml:lang="fi">Mukautettavat pikanäppäimet</li>
-      <li xml:lang="fr">Raccourcis personnalisables</li>
-      <li xml:lang="gl">Atallos personalizábeis.</li>
-      <li xml:lang="he">מקשי קיצור שאפשר להגדיר</li>
-      <li xml:lang="hu">Testre szabható gyorsbillentyűk</li>
-      <li xml:lang="ia">Vias breve personalisabile</li>
-      <li xml:lang="id">Pintasan dapat dikustomisasi</li>
-      <li xml:lang="is">Stillanlegir flýtilyklar</li>
-      <li xml:lang="it">Scorciatoie personalizzabili</li>
-      <li xml:lang="ka">მორგებადი მალსახმობები</li>
-      <li xml:lang="ko">사용자 정의 가능한 단축키</li>
-      <li xml:lang="lv">Pielāgojamas saīsnes</li>
-      <li xml:lang="ml">അഭിരുചിക്കനുസൃതമാക്കാവുന്ന കുറുക്കുവഴികൾ</li>
-      <li xml:lang="my">စိတ်ကြိုက်ပြင်ဆင်နိုင်သော ဖြတ်လမ်းများ</li>
-      <li xml:lang="nb">Brukerstyrte snarveier</li>
-      <li xml:lang="nl">Aanpasbare sneltoetsen</li>
-      <li xml:lang="nn">Tilpassbare snøggtastar</li>
-      <li xml:lang="pl">Dostosowywalne skróty</li>
-      <li xml:lang="pt">Atalhos de teclado personalizados</li>
-      <li xml:lang="pt-BR">Atalhos de teclado personalizados</li>
-      <li xml:lang="ro">Scurtături personalizabile</li>
-      <li xml:lang="ru">Настраиваемые комбинации клавиш;</li>
-      <li xml:lang="sk">Prispôsobiteľné skratky</li>
-      <li xml:lang="sl">Prilagodljive bližnjice</li>
-      <li xml:lang="sr">прилагодљиве пречице</li>
-      <li xml:lang="sr-Latn">prilagodljive prečice</li>
-      <li xml:lang="sr-ijekavian">прилагодљиве пречице</li>
-      <li xml:lang="sr-ijekavianlatin">prilagodljive prečice</li>
-      <li xml:lang="sv">Anpassningsbara genvägar</li>
-      <li xml:lang="ta">மாற்றியமைக்கக்கூடிய சுருக்குவழிகள்</li>
-      <li xml:lang="tr">Özelleştirilebilir kısayollar</li>
-      <li xml:lang="uk">Придатні до налаштовування клавіатурні скорочення.</li>
-      <li xml:lang="vi">Các phím tắt có thể tuỳ biến</li>
-      <li xml:lang="x-test">xxCustomizable shortcutsxx</li>
-      <li xml:lang="zh-CN">自定义快捷键</li>
-      <li xml:lang="zh-TW">自訂快捷鍵</li>
-      <li>Integrated command line</li>
+      <li>Integrated terminal</li>
       <li xml:lang="ar">سطر أوامر مدمج</li>
       <li xml:lang="az">İnteqrasiya olunmuş əmrlər sətri</li>
       <li xml:lang="bg">Интегриран команден ред</li>
@@ -1125,6 +1022,16 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
       <li xml:lang="zh-CN">基于 JavaScript 实现的脚本编程</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
+      <li>Vi mode</li>
+      <li>Intellisense support using LSP (Language Server Protocol)</li>
+      <li>DAP (Debug Adapter Protocol) support</li>
+      <li>Vertical tabs/document list</li>
+      <li>Lightweight project support. Kate can open folders as projects</li>
+      <li>Code formatting using native formatters such as clang-format, prettier etc</li>
+      <li>Built in filesystem browser</li>
+      <li>CTags support</li>
+      <li>Project wide and folder wide search</li>
+      <li>Git integeration</li>
     </ul>
   </description>
   <launchable type="desktop-id">org.kde.kate.desktop</launchable>
@@ -1341,3 +1248,4 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <release version="23.08.5" date="2024-02-15"/>
   </releases>
 </component>
+

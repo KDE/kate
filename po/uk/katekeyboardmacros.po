@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2022, 2023.
+# Yuri Chornoivan <yurchor@ukr.net>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 00:42+0000\n"
-"PO-Revision-Date: 2023-11-25 12:21+0200\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2024-11-18 08:49+0200\n"
+"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 23.04.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -50,6 +50,8 @@ msgstr "<b>Клавіатурні макроси:</b> %1"
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
 msgstr ""
+"Неможливо зберегти макрос під час записування. Будь ласка, спочатку звершіть "
+"записування"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format

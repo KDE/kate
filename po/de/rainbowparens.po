@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rainbowparens\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-23 00:39+0000\n"
+"POT-Creation-Date: 2024-11-19 00:43+0000\n"
 "PO-Revision-Date: 2023-11-27 16:41+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: rainbowparens_plugin.cpp:469
+#: rainbowparens_plugin.cpp:475
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:489
+#: rainbowparens_plugin.cpp:495
 #, kde-format
 msgid "Colored Brackets"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:494
+#: rainbowparens_plugin.cpp:500
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr ""

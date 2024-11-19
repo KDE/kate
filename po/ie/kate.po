@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-11-19 00:43+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -348,74 +348,74 @@ msgstr "Avise"
 msgid "Filter..."
 msgstr "Filtre..."
 
-#: lib/diagnostics/diagnosticview.cpp:1141 lib/kateconfigdialog.cpp:139
+#: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:139
 #, kde-format
 msgid "Error"
 msgstr "Errore"
 
-#: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:139
+#: lib/diagnostics/diagnosticview.cpp:1146 lib/kateconfigdialog.cpp:139
 #: lib/kateconfigdialog.cpp:723
 #, kde-format
 msgid "Warning"
 msgstr "Avise"
 
-#: lib/diagnostics/diagnosticview.cpp:1149
+#: lib/diagnostics/diagnosticview.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Information"
 msgstr "Localisation"
 
-#: lib/diagnostics/diagnosticview.cpp:1275
+#: lib/diagnostics/diagnosticview.cpp:1278
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1425
+#: lib/diagnostics/diagnosticview.cpp:1428
 #, fuzzy, kde-format
 msgid "Expand All"
 msgstr "Tabulatores a spacies"
 
-#: lib/diagnostics/diagnosticview.cpp:1426
+#: lib/diagnostics/diagnosticview.cpp:1429
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "Clud&er omni"
 
-#: lib/diagnostics/diagnosticview.cpp:1432
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Copy to Clipboard"
 msgid "Copy to Clipboard"
 msgstr "Copiar al Paperiere"
 
-#: lib/diagnostics/diagnosticview.cpp:1474
+#: lib/diagnostics/diagnosticview.cpp:1477
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1476
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, fuzzy, kde-format
 #| msgid "&All Sessions"
 msgid "Add Global Suppression"
 msgstr "&Omni sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1482
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1497
+#: lib/diagnostics/diagnosticview.cpp:1500
 #, fuzzy, kde-format
 msgid "Disable Suppression"
 msgstr "Sessiones"
 
-#: lib/diagnostics/diagnosticview.cpp:1499
+#: lib/diagnostics/diagnosticview.cpp:1502
 #, fuzzy, kde-format
 msgid "Enable Suppression"
 msgstr "Sessiones"

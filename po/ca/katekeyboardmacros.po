@@ -1,15 +1,15 @@
 # Translation of katekeyboardmacros.po to Catalan
-# Copyright (C) 2022-2023 This_file_is_part_of_KDE
+# Copyright (C) 2022-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2022, 2023.
+# Josep M. Ferrer <txemaq@gmail.com>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 00:42+0000\n"
-"PO-Revision-Date: 2023-11-25 11:28+0100\n"
+"PO-Revision-Date: 2024-11-18 08:58+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -50,6 +50,8 @@ msgstr "<b>Macros de teclat:</b> %1"
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
 msgstr ""
+"No es pot desar la macro durant l'enregistrament. Finalitzeu primer la "
+"recodificació"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format

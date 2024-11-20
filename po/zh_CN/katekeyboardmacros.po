@@ -47,7 +47,7 @@ msgstr "<b>键盘宏：</b>%1"
 #: keyboardmacrosplugin.cpp:170
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
-msgstr ""
+msgstr "录制过程中无法保存宏。请先完成录制再保存"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format

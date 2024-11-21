@@ -476,6 +476,14 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
       <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
       <li>Syntax highlighting for 300+ languages</li>
+      <li xml:lang="ca">Ressaltat de sintaxi de més de 300 llenguatges</li>
+      <li xml:lang="ca-valencia">Ressaltat de sintaxi de més de 300 llenguatges</li>
+      <li xml:lang="es">Resaltado de sintaxis para más de 300 lenguajes</li>
+      <li xml:lang="ka">სინტაქსის გამოკვეთა 300+ ენისთვის</li>
+      <li xml:lang="nl">Syntaxis accentuering voor 300+ talen</li>
+      <li xml:lang="sl">Osvetljevanje skladnje za 300+ jezikov</li>
+      <li xml:lang="uk">Підсвічування синтаксису понад 300 мовами</li>
+      <li xml:lang="x-test">xxSyntax highlighting for 300+ languagesxx</li>
       <li>Code and text folding</li>
       <li xml:lang="ar">لفّ النّصوص والأكواد</li>
       <li xml:lang="az">Mənbə kodu mətninin bükülməsi</li>
@@ -529,6 +537,14 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Multiple cursors and multiple selections</li>
+      <li xml:lang="ca">Cursors múltiples i seleccions múltiples</li>
+      <li xml:lang="ca-valencia">Cursors múltiples i seleccions múltiples</li>
+      <li xml:lang="es">Múltiples cursores y selecciones</li>
+      <li xml:lang="ka">ერთზე მეტი კურსორი და მონიშნული</li>
+      <li xml:lang="nl">Meerdere cursors en meerdere selecties</li>
+      <li xml:lang="sl">Večkratne kazalke in večkratne izbire</li>
+      <li xml:lang="uk">Використання декількох курсорів і позначних областей</li>
+      <li xml:lang="x-test">xxMultiple cursors and multiple selectionsxx</li>
       <li>Block selection mode</li>
       <li xml:lang="ar">وضع التحديد الكتليّ</li>
       <li xml:lang="az">Blok seçim rejimi</li>
@@ -776,7 +792,23 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">支持多种类型的协议 (HTTP、FTP、SSH、WebDAV 等)</li>
       <li xml:lang="zh-TW">廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Extensible via plugins</li>
+      <li xml:lang="ca">Ampliable a través de connectors</li>
+      <li xml:lang="ca-valencia">Ampliable a través de connectors</li>
+      <li xml:lang="es">Se puede extender mediante complementos</li>
+      <li xml:lang="ka">გაფართოებადი დამატებების საშუალებით</li>
+      <li xml:lang="nl">Uitbreidbaar via plug-ins</li>
+      <li xml:lang="sl">Razširljiv prek vtičnikov</li>
+      <li xml:lang="uk">Можливість розширення за допомогою додатків</li>
+      <li xml:lang="x-test">xxExtensible via pluginsxx</li>
       <li>Integrated terminal</li>
+      <li xml:lang="ca">Terminal integrat</li>
+      <li xml:lang="ca-valencia">Terminal integrat</li>
+      <li xml:lang="es">Terminal integrada</li>
+      <li xml:lang="ka">ინტეგრირებული ტერმინალი</li>
+      <li xml:lang="nl">Geïntegreerde terminal</li>
+      <li xml:lang="sl">Integrirani terminal</li>
+      <li xml:lang="uk">Інтегрований термінал</li>
+      <li xml:lang="x-test">xxIntegrated terminalxx</li>
       <li>Scriptable using JavaScript</li>
       <li xml:lang="ar">يمكن سكربتته عبر جافاسكربت</li>
       <li xml:lang="az">JavaScript istifadə edən senarilər</li>
@@ -828,14 +860,86 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">基于 JavaScript 实现的脚本编程</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
       <li>Vi mode</li>
+      <li xml:lang="ca">Mode del Vi</li>
+      <li xml:lang="ca-valencia">Mode de Vi</li>
+      <li xml:lang="es">Modo vi</li>
+      <li xml:lang="ka">Vi-ის რეჟიმი</li>
+      <li xml:lang="nl">Vi-modus</li>
+      <li xml:lang="sl">Način vi</li>
+      <li xml:lang="uk">Режим vi</li>
+      <li xml:lang="x-test">xxVi modexx</li>
       <li>Intellisense support using LSP (Language Server Protocol)</li>
+      <li xml:lang="ca">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
+      <li xml:lang="ca-valencia">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
+      <li xml:lang="es">Compatibilidad con IntelliSense mediante LSP (Protocolo de servidor de lenguaje)</li>
+      <li xml:lang="ka">LSP-ის მხარდაჭერა (ენის სერვერის პროტოკოლი)</li>
+      <li xml:lang="nl">Intellisense ondersteuning met gebruik van LSP (Language Server Protocol)</li>
+      <li xml:lang="sl">Podpora za intellisense z uporabo LSP (Language Server Protocol)</li>
+      <li xml:lang="uk">Підтримка Intellisense з використанням LSP (Language Server Protocol або протоколу сервера мов)</li>
+      <li xml:lang="x-test">xxIntellisense support using LSP (Language Server Protocol)xx</li>
       <li>DAP (Debug Adapter Protocol) support</li>
+      <li xml:lang="ca">Implementació del DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="ca-valencia">Implementació del DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="es">Compatibilidad con DAP (protocolo de adaptador de depuración)</li>
+      <li xml:lang="ka">DAP-ის (გამართვის ადაპტერის პროტოკოლის) მხარდაჭერა</li>
+      <li xml:lang="nl">DAP (Debug Adapter Protocol) ondersteuning</li>
+      <li xml:lang="sl">Podpora DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="uk">Підтримка DAP (Debug Adapter Protocol або протоколу адаптації діагностики)</li>
+      <li xml:lang="x-test">xxDAP (Debug Adapter Protocol) supportxx</li>
       <li>Vertical tabs/document list</li>
+      <li xml:lang="ca">Llista vertical de pestanyes/documents</li>
+      <li xml:lang="ca-valencia">Llista vertical de pestanyes/documents</li>
+      <li xml:lang="es">Pestañas verticales/lista de documentos</li>
+      <li xml:lang="ka">ვერტიკალური ჩანართების/დოკუმენტები სია</li>
+      <li xml:lang="nl">Verticale tabbladen/documentenlijst</li>
+      <li xml:lang="sl">Navpični zavihki/seznam dokumentov</li>
+      <li xml:lang="uk">Вертикальний список вкладок або документів</li>
+      <li xml:lang="x-test">xxVertical tabs/document listxx</li>
       <li>Lightweight project support. Kate can open folders as projects</li>
+      <li xml:lang="ca">Implementació de projectes lleugers. El Kate pot obrir carpetes com a projectes</li>
+      <li xml:lang="ca-valencia">Implementació de projectes lleugers. Kate pot obrir carpetes com a projectes</li>
+      <li xml:lang="es">Implementación liviana de proyectos. Kate puede abrir carpetas como proyectos</li>
+      <li xml:lang="ka">მსუბუქი პროექტის მხარდაჭერა. Kate-ს შეუძლია, საქაღალდეები პროექტის სახით გახსნას</li>
+      <li xml:lang="nl">Lichtgewicht projectondersteuning. Kate kan mappen als projecten openen</li>
+      <li xml:lang="sl">Lahka projektna podpora. Kate lahko odpira mape kot projekte</li>
+      <li xml:lang="uk">Проста підтримка проєктів. Kate може відкривати теки як проєкти</li>
+      <li xml:lang="x-test">xxLightweight project support. Kate can open folders as projectsxx</li>
       <li>Code formatting using native formatters such as clang-format, prettier etc</li>
+      <li xml:lang="ca">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
+      <li xml:lang="ca-valencia">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
+      <li xml:lang="es">Formateo de código mediante formateadores nativos, como clang-format y prettier</li>
+      <li xml:lang="ka">კოდის დაფორმატება საკუთარი დამფორმატებლებით, როგორიცაა clang-format, prettier და ა.შ</li>
+      <li xml:lang="nl">Formattering van code met inheemse formatters zoals clang-format, mooier etc.</li>
+      <li xml:lang="sl">Oblikovanje kode z uporabo izvornih formatov, kot so clang-format, prettier itd.</li>
+      <li xml:lang="uk">Форматування коду з використанням відповідних засобів форматування, зокрема clang-format, prettier тощо</li>
+      <li xml:lang="x-test">xxCode formatting using native formatters such as clang-format, prettier etcxx</li>
       <li>Built in filesystem browser</li>
+      <li xml:lang="ca">Navegador integrat del sistema de fitxers</li>
+      <li xml:lang="ca-valencia">Navegador integrat del sistema de fitxers</li>
+      <li xml:lang="es">Navegador integrado para el sistema de archivos</li>
+      <li xml:lang="ka">ჩაშენებული ფაილური სისტემის ბრაუზერი</li>
+      <li xml:lang="nl">Ingebouwde browser van het bestandssysteem</li>
+      <li xml:lang="sl">Vgrajeni brskalnik datotečnega sistema</li>
+      <li xml:lang="uk">Вбудований навігатор файловою системою</li>
+      <li xml:lang="x-test">xxBuilt in filesystem browserxx</li>
       <li>CTags support</li>
+      <li xml:lang="ca">Implementació de CTags</li>
+      <li xml:lang="ca-valencia">Implementació de CTags</li>
+      <li xml:lang="es">Compatibilidad con CTags</li>
+      <li xml:lang="ka">CTags-ის მხარდაჭერა</li>
+      <li xml:lang="nl">CTags ondersteuning</li>
+      <li xml:lang="sl">Podpora CTags</li>
+      <li xml:lang="uk">Підтримка CTags</li>
+      <li xml:lang="x-test">xxCTags supportxx</li>
       <li>Project wide and folder wide search</li>
+      <li xml:lang="ca">Cerca ample als projectes i carpetes</li>
+      <li xml:lang="ca-valencia">Busca ample als projectes i carpetes</li>
+      <li xml:lang="es">Búsqueda en el proyecto y en la carpeta</li>
+      <li xml:lang="ka">პროექტში და საქაღალდეში ძებნა</li>
+      <li xml:lang="nl">Projectbreed en mapbreed zoeken</li>
+      <li xml:lang="sl">Iskanje po celotnem projektu in mapi</li>
+      <li xml:lang="uk">Пошук у межах проєкту та теки</li>
+      <li xml:lang="x-test">xxProject wide and folder wide searchxx</li>
       <li>Git integration</li>
     </ul>
   </description>

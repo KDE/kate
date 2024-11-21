@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2024-11-21 00:43+0000\n"
 "PO-Revision-Date: 2013-08-12 05:47+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -910,12 +910,12 @@ msgstr "Назардағы жоба"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:771
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:782
 #, kde-format
 msgid "Goto: %1"
 msgstr ""
@@ -926,7 +926,7 @@ msgstr ""
 msgid "Projects Index"
 msgstr "Жобалар"
 
-#: kateprojectpluginview.cpp:816
+#: kateprojectpluginview.cpp:826
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

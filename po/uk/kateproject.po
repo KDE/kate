@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2024-11-21 00:43+0000\n"
 "PO-Revision-Date: 2024-09-29 09:13+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -916,12 +916,12 @@ msgstr "Перезавантажити проєкт"
 msgid "Checkout Git Branch"
 msgstr "Отримати гілку git"
 
-#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:771
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Пошук: %1"
 
-#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:782
 #, kde-format
 msgid "Goto: %1"
 msgstr "Перехід: %1"
@@ -931,7 +931,7 @@ msgstr "Перехід: %1"
 msgid "Projects Index"
 msgstr "Покажчик проєктів"
 
-#: kateprojectpluginview.cpp:816
+#: kateprojectpluginview.cpp:826
 #, kde-format
 msgid "Choose a directory"
 msgstr "Виберіть каталог"

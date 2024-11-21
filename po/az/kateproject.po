@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2024-11-21 00:43+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -917,12 +917,12 @@ msgstr "Layihəni yenidən yükləyin"
 msgid "Checkout Git Branch"
 msgstr "Git şöbəsindən məlumatları almaq"
 
-#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:771
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Araşdırmaq: %1"
 
-#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:782
 #, kde-format
 msgid "Goto: %1"
 msgstr "GOTO: %1"
@@ -932,7 +932,7 @@ msgstr "GOTO: %1"
 msgid "Projects Index"
 msgstr "Layihələrin indeksi"
 
-#: kateprojectpluginview.cpp:816
+#: kateprojectpluginview.cpp:826
 #, kde-format
 msgid "Choose a directory"
 msgstr "Qovluq seçin"

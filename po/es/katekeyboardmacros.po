@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# SPDX-FileCopyrightText: 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 00:42+0000\n"
-"PO-Revision-Date: 2023-11-25 17:42+0100\n"
+"PO-Revision-Date: 2024-11-20 19:54+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -50,6 +50,7 @@ msgstr "<b>Macros de teclado:</b> %1"
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
 msgstr ""
+"No se puede guardar una macro mientras se graba. Termine de grabar primero."
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format

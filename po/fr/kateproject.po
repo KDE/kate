@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2024-11-21 00:43+0000\n"
 "PO-Revision-Date: 2024-10-02 09:14+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -925,12 +925,12 @@ msgstr "Recharger un projet"
 msgid "Checkout Git Branch"
 msgstr "Extraire une branche « git »"
 
-#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:771
+#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:781
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Rechercher : %1"
 
-#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:772
+#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:782
 #, kde-format
 msgid "Goto: %1"
 msgstr "Aller : %1"
@@ -940,7 +940,7 @@ msgstr "Aller : %1"
 msgid "Projects Index"
 msgstr "Index des projets"
 
-#: kateprojectpluginview.cpp:816
+#: kateprojectpluginview.cpp:826
 #, kde-format
 msgid "Choose a directory"
 msgstr "Sélectionnez un dossier"

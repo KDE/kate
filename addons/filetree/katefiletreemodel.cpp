@@ -1321,7 +1321,8 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
             continue;
         }
 
-        const std::vector<ProxyItem *> &rootChildren = m_root->children();
+        // iterate on copy
+        const std::vector<ProxyItem *> rootChildren = m_root->children();
         for (ProxyItem *root : rootChildren) {
             if (root == check_root || !root->flag(ProxyItem::Dir)) {
                 continue;
@@ -1344,7 +1345,8 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
                     insertItemInto(irdir, root);
 
-                    const std::vector<ProxyItem *> &children = m_root->children();
+                    // iterate on copy
+                    const std::vector<ProxyItem *> children = m_root->children();
                     for (ProxyItem *node : children) {
                         if (node == irdir || !root->flag(ProxyItem::Dir)) {
                             continue;

@@ -13,7 +13,7 @@ HintState::HintState() = default;
 
 void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMarkupKind kind)
 {
-    for (auto &hint : m_hints) {
+    for (std::pair<unsigned long, HintState::Hint> &hint : m_hints) {
         if (hint.first == instanceId) {
             hint.second = Hint{text, kind};
             return;
@@ -39,7 +39,7 @@ void HintState::remove(HintState::ID instanceId)
 
 void HintState::render(const std::function<void(const Hint &)> &callback)
 {
-    const auto nonPlainText = std::any_of(m_hints.begin(), m_hints.end(), [](const auto &entry) {
+    const bool nonPlainText = std::any_of(m_hints.begin(), m_hints.end(), [](const auto &entry) {
         const auto &kind = entry.second.m_kind;
         return kind == TextHintMarkupKind::MarkDown || kind == TextHintMarkupKind::None;
     });

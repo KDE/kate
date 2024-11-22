@@ -112,7 +112,7 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
 
 bool KateStashManager::canStash() const
 {
-    const auto activeSession = KateApp::self()->sessionManager()->activeSession();
+    const KateSession::Ptr activeSession = KateApp::self()->sessionManager()->activeSession();
     return activeSession && !activeSession->isAnonymous() && !activeSession->file().isEmpty();
 }
 
@@ -129,7 +129,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
     bool checksumOk = true;
     if (url.isValid()) {
-        const auto sum = kconfig.readEntry("checksum").toUtf8();
+        const QByteArray sum = kconfig.readEntry("checksum").toUtf8();
         checksumOk = sum != doc->checksum();
     }
 

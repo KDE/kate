@@ -487,7 +487,7 @@ void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
 
     // Remove the actual tabs
     for (size_t i = start; i < m_tabList.size(); ++i) {
-        auto oldTab = m_multiTabBar->tab(m_tabList[i]);
+        KMultiTabBarTab *oldTab = m_multiTabBar->tab(m_tabList[i]);
         oldTab->removeEventFilter(m_sb);
         m_multiTabBar->removeTab(m_tabList[i]);
     }
@@ -501,7 +501,7 @@ void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
 
     // re-add tabs
     for (size_t i = start; i < m_tabList.size(); ++i) {
-        auto tabId = m_tabList[i];
+        int tabId = m_tabList[i];
         ToolView *tv = m_sb->dataForId(tabId).toolview;
         m_multiTabBar->appendTab(tv->icon, tabId, tv->text);
         m_sb->appendStyledTab(tabId, this, tv);
@@ -742,7 +742,7 @@ MultiTabBar *Sidebar::insertTabBar(int idx /* = -1*/)
     newBar->installEventFilter(this);
     newBar->tabBar()->setStyle(tabStyle());
     // Fetch user set tabBar splitting before the new bar is inserted
-    auto sections = sizes();
+    QList<int> sections = sizes();
     insertWidget(idx, newBar);
 
     // For a halfway nice new section distribution we need to help the splitter.
@@ -847,7 +847,7 @@ bool Sidebar::removeToolView(ToolView *widget)
     }
 
     int id = it->id;
-    auto tabbar = it->tabbar;
+    MultiTabBar *tabbar = it->tabbar;
     m_toolviews.erase(it);
 
     tabbar->removeTab(id, widget);
@@ -894,7 +894,7 @@ void Sidebar::showToolviewTab(ToolView *widget, bool show)
     if (it == m_toolviews.end()) {
         return;
     }
-    auto *tab = kmTabBar(widget)->tab(it->id);
+    KMultiTabBarTab *tab = kmTabBar(widget)->tab(it->id);
     if (widget->tabButtonVisible() == show) {
         return;
     } else {
@@ -912,7 +912,7 @@ bool Sidebar::isCollapsed()
 ToolView *Sidebar::firstVisibleToolView()
 {
     for (int i = 0; i < tabBarCount(); ++i) {
-        auto tabbar = tabBar(i);
+        MultiTabBar *tabbar = tabBar(i);
         if (tabbar->isToolActive()) {
             Q_ASSERT(tabbar->tabCount() > 0);
             int id = tabbar->activeTab();
@@ -1199,7 +1199,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         }
     } else if (!dragStartPos.isNull() && ev->type() == QEvent::MouseMove) {
         QMouseEvent *e = static_cast<QMouseEvent *>(ev);
-        auto tab = qobject_cast<KMultiTabBarTab *>(obj);
+        KMultiTabBarTab *tab = qobject_cast<KMultiTabBarTab *>(obj);
         if (tab && (e->pos() - dragStartPos).manhattanLength() >= QApplication::startDragDistance()) {
             // start drag
             QPixmap pixmap = tab->grab();
@@ -1294,7 +1294,7 @@ void Sidebar::dropEvent(QDropEvent *e)
 
     if (e->source() == this) {
         // Re-ordering tabs
-        auto sourceTab = qobject_cast<KMultiTabBarTab *>(tabButtonForToolview(toolview));
+        KMultiTabBarTab *sourceTab = qobject_cast<KMultiTabBarTab *>(tabButtonForToolview(toolview));
         if (!sourceTab) {
             return;
         }
@@ -1321,7 +1321,7 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
         return;
     }
 
-    auto *tab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
+    KMultiTabBarTab *tab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
     if (tab) {
         // moving over a tab? show the indicator at tab start
         const QPoint tabPos = tab->pos();
@@ -1340,9 +1340,9 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
             return d.toolview == toolview;
         });
         Q_ASSERT(it != m_toolviews.end());
-        auto tabbar = it->tabbar;
-        auto lastTabId = tabbar->tabList().back();
-        auto tab = tabbar->tabBar()->tab(lastTabId);
+        MultiTabBar *tabbar = it->tabbar;
+        int lastTabId = tabbar->tabList().back();
+        KMultiTabBarTab *tab = tabbar->tabBar()->tab(lastTabId);
 
         QPoint tabPos = tab->pos();
         if (isVertical()) {
@@ -1376,7 +1376,7 @@ void Sidebar::buttonPopupActivate(QAction *a)
 {
     const int id = a->data().toInt();
     ToolViewData data = dataForId(m_popupButton);
-    auto w = data.toolview;
+    ToolView *w = data.toolview;
 
     if (!w) {
         return;
@@ -1402,18 +1402,18 @@ void Sidebar::buttonPopupActivate(QAction *a)
     }
 
     if (id == ToOwnSectAction) {
-        auto newBar = insertTabBar(indexOf(data.tabbar) + 1);
+        MultiTabBar *newBar = insertTabBar(indexOf(data.tabbar) + 1);
         tabBar(w)->removeTab(data.id, w);
         appendStyledTab(data.id, newBar, w);
         showToolView(w);
     }
     if (id == UpLeftAction) {
-        auto newBar = tabBar(indexOf(tabBar(w)) - 1);
+        MultiTabBar *newBar = tabBar(indexOf(tabBar(w)) - 1);
         tabBar(w)->removeTab(data.id, w);
         appendStyledTab(data.id, newBar, w);
     }
     if (id == DownRightAction) {
-        auto newBar = tabBar(indexOf(tabBar(w)) + 1);
+        MultiTabBar *newBar = tabBar(indexOf(tabBar(w)) + 1);
         tabBar(w)->removeTab(data.id, w);
         appendStyledTab(data.id, newBar, w);
     }

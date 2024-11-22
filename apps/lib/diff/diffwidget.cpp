@@ -181,8 +181,8 @@ Q_SIGNALS:
 static void syncScroll(QPlainTextEdit *src, QPlainTextEdit *tgt)
 {
     int srcValue = src->verticalScrollBar()->value();
-    const auto srcBlock = src->document()->findBlockByLineNumber(srcValue);
-    auto tgtBlock = tgt->document()->findBlockByLineNumber(srcValue);
+    const QTextBlock srcBlock = src->document()->findBlockByLineNumber(srcValue);
+    QTextBlock tgtBlock = tgt->document()->findBlockByLineNumber(srcValue);
     if (srcBlock.blockNumber() == tgtBlock.blockNumber()) {
         tgt->verticalScrollBar()->setValue(srcValue);
     } else {
@@ -232,7 +232,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
         m_stopScrollSync = false;
     });
 
-    for (auto *e : {m_left, m_right}) {
+    for (DiffEditor *e : {m_left, m_right}) {
         connect(e, &DiffEditor::switchStyle, this, &DiffWidget::handleStyleChange);
         connect(e, &DiffEditor::actionTriggered, this, &DiffWidget::handleStageUnstage);
     }
@@ -291,8 +291,8 @@ void DiffWidget::handleStyleChange(int newStyle)
         return;
     }
     m_style = (DiffStyle)newStyle;
-    const auto diff = m_rawDiff;
-    const auto params = m_params;
+    const QByteArray diff = m_rawDiff;
+    const DiffParams params = m_params;
     clearData();
     m_params = params;
 
@@ -341,7 +341,7 @@ void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int
     bool added = e == m_right;
     int diffLine = -1;
     if (actionType == DiffEditor::Line) {
-        for (auto vToD : std::as_const(m_lineToRawDiffLine)) {
+        for (DiffWidget::ViewLineToDiffLine vToD : std::as_const(m_lineToRawDiffLine)) {
             if (vToD.line == startLine && vToD.added == added) {
                 diffLine = vToD.diffLine;
                 break;
@@ -351,7 +351,7 @@ void DiffWidget::handleStageUnstage_sideBySide(DiffEditor *e, int startLine, int
         // If the selection by user isn't exact i.e.,
         // the start line isn't a changed line but just a context line
         if (diffLine == -1) {
-            for (auto vToD : std::as_const(m_lineToRawDiffLine)) {
+            for (DiffWidget::ViewLineToDiffLine vToD : std::as_const(m_lineToRawDiffLine)) {
                 // find the closes line to start line
                 if (vToD.line > startLine && vToD.added == added) {
                     // check if the found line is in selection range
@@ -391,10 +391,10 @@ void DiffWidget::handleStageUnstage_raw(int startLine, int endLine, int actionTy
 void DiffWidget::doStageUnStage(int startLine, int endLine, int actionType, DiffParams::Flag flags)
 {
     VcsDiff d;
-    const auto stageOrDiscard = flags == DiffParams::Flag::ShowDiscard || flags == DiffParams::Flag::ShowUnstage;
-    const auto dir = stageOrDiscard ? VcsDiff::Reverse : VcsDiff::Forward;
+    const bool stageOrDiscard = flags == DiffParams::Flag::ShowDiscard || flags == DiffParams::Flag::ShowUnstage;
+    const VcsDiff::DiffDirection dir = stageOrDiscard ? VcsDiff::Reverse : VcsDiff::Forward;
     d.setDiff(QString::fromUtf8(m_rawDiff));
-    const auto x = actionType == DiffEditor::Line ? d.subDiff(startLine, startLine + (endLine - startLine), dir) : d.subDiffHunk(startLine, dir);
+    const VcsDiff x = actionType == DiffEditor::Line ? d.subDiff(startLine, startLine + (endLine - startLine), dir) : d.subDiffHunk(startLine, dir);
 
     if (flags & DiffParams::Flag::ShowStage) {
         applyDiff(x.diff(), ApplyFlags::None);
@@ -460,11 +460,11 @@ void DiffWidget::runGitDiff()
     QProcess *git = new QProcess(this);
     setupGitProcess(*git, workingDir, arguments);
     connect(git, &QProcess::finished, this, [this, git, lf, rf](int, QProcess::ExitStatus) {
-        const auto params = m_params;
+        const DiffParams params = m_params;
         clearData();
         m_params = params;
-        const auto out = git->readAllStandardOutput();
-        const auto err = git->readAllStandardError();
+        const QByteArray out = git->readAllStandardOutput();
+        const QByteArray err = git->readAllStandardError();
         if (!err.isEmpty()) {
             onError(git->readAllStandardError(), git->exitCode());
         } else {
@@ -788,8 +788,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         if (!match.hasMatch())
             continue;
 
-        const auto oldRange = parseRange(match.captured(1));
-        const auto newRange = parseRange(match.captured(2));
+        const std::pair<uint, uint> oldRange = parseRange(match.captured(1));
+        const std::pair<uint, uint> newRange = parseRange(match.captured(2));
         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
@@ -988,8 +988,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         if (!match.hasMatch())
             continue;
 
-        const auto oldRange = parseRange(match.captured(1));
-        const auto newRange = parseRange(match.captured(2));
+        const std::pair<uint, uint> oldRange = parseRange(match.captured(1));
+        const std::pair<uint, uint> newRange = parseRange(match.captured(2));
         //         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         //         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
@@ -1085,7 +1085,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     m_lineToRawDiffLine.insert(m_lineToRawDiffLine.end(), lineToRawDiffLine.begin(), lineToRawDiffLine.end());
     m_linesWithFileName.insert(m_linesWithFileName.end(), linesWithFileName.begin(), linesWithFileName.end());
 
-    const auto defs = defsForFileExtensions(fileExtensions);
+    const std::vector<KSyntaxHighlighting::Definition> defs = defsForFileExtensions(fileExtensions);
     leftHl->setDefinition(defs.front());
 }
 
@@ -1190,7 +1190,7 @@ void DiffWidget::jumpToNextFile()
 {
     const int block = m_left->firstVisibleBlockNumber();
     int nextFileLineNo = 0;
-    for (const auto &i : m_linesWithFileName) {
+    for (int i : m_linesWithFileName) {
         if (i > block) {
             nextFileLineNo = i;
             break;
@@ -1231,7 +1231,7 @@ void DiffWidget::jumpToNextHunk()
         bool found = false;
         const int block = m_left->firstVisibleBlockNumber();
         int last = block;
-        for (auto i : m_lineToRawDiffLine) {
+        for (DiffWidget::ViewLineToDiffLine i : m_lineToRawDiffLine) {
             if (i.line > block && i.line != last + 1) {
                 nextHunkLineNo = i.line;
                 found = true;
@@ -1244,7 +1244,7 @@ void DiffWidget::jumpToNextHunk()
         }
     } else {
         const int block = m_left->firstVisibleBlockNumber();
-        for (const auto &i : m_lineToDiffHunkLine) {
+        for (const DiffWidget::ViewLineToDiffLine &i : m_lineToDiffHunkLine) {
             if (i.line > block) {
                 nextHunkLineNo = i.line;
                 break;
@@ -1267,7 +1267,7 @@ void DiffWidget::jumpToPrevHunk()
         bool found = false;
         const int block = m_left->firstVisibleBlockNumber();
         int last = block;
-        for (auto i : m_lineToRawDiffLine) {
+        for (DiffWidget::ViewLineToDiffLine i : m_lineToRawDiffLine) {
             if (i.line < block && i.line != last - 1) {
                 prevHunkLineNo = i.line;
                 break;

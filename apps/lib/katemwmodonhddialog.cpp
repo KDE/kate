@@ -145,7 +145,7 @@ KateMwModOnHdDialog::~KateMwModOnHdDialog()
     KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
 
     // if there are any living processes, disconnect them now before we get destroyed
-    const auto children = findChildren<QProcess *>();
+    const QList<QProcess *> children = findChildren<QProcess *>();
     for (QProcess *child : children) {
         disconnect(child, nullptr, nullptr, nullptr);
     }
@@ -175,7 +175,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
     std::vector<QTreeWidgetItem *> itemsToDelete;
     for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
         KateDocItem *item = static_cast<KateDocItem *>(*it);
-        auto docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
+        KateDocumentInfo * docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
         if (!item->document || !docInfo) {
             itemsToDelete.push_back(item);
             continue;
@@ -229,7 +229,7 @@ void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWi
 {
     KateDocItem *currentDocItem = static_cast<KateDocItem *>(current);
     if (currentDocItem && currentDocItem->document) {
-        auto *docInfo = KateApp::self()->documentManager()->documentInfo(currentDocItem->document);
+        KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(currentDocItem->document);
         // set the diff button enabled
         btnDiff->setEnabled(docInfo && docInfo->modifiedOnDiscReason != KTextEditor::Document::OnDiskDeleted);
     }
@@ -268,7 +268,7 @@ void KateMwModOnHdDialog::slotDiff()
     }
 
     QPointer<KTextEditor::Document> doc = (static_cast<KateDocItem *>(docsTreeWidget->currentItem()))->document;
-    auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    KateDocumentInfo * docInfo = KateApp::self()->documentManager()->documentInfo(doc);
     if (!doc || !docInfo) {
         return;
     }

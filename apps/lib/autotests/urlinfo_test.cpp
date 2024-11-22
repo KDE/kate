@@ -43,7 +43,7 @@ void UrlInfoTest::urlWithColonAtStart()
 
     // create test file in temporary directory, as qt sees :test..... as absolute, hack with ./:
     QTemporaryDir dir;
-    const auto oldCurrent = QDir::currentPath();
+    const QString oldCurrent = QDir::currentPath();
     QDir::setCurrent(dir.path());
     QFile test(QStringLiteral("./:test.txt"));
     QVERIFY(test.open(QFile::WriteOnly));
@@ -62,7 +62,7 @@ void UrlInfoTest::urlWithColonAtStart()
 void UrlInfoTest::nonExistingRelativePath()
 {
     QTemporaryDir dir;
-    const auto oldCurrent = QDir::currentPath();
+    const QString oldCurrent = QDir::currentPath();
     QDir::setCurrent(dir.path());
 
     const QString fileName = QStringLiteral("doesnotexist.txt");

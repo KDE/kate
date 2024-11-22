@@ -178,8 +178,8 @@ public:
         painter->drawText(r, Qt::AlignVCenter, filename);
 
         KColorScheme c;
-        const auto red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
-        const auto green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
+        const QColor red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
+        const QColor green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
 
         r.setX(r.x() + totalw);
         painter->setPen(green);
@@ -258,7 +258,7 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     const QString dirPath = dir.path() + QLatin1Char('/');
     QHash<QString, QStandardItem *> dir2Item;
     dir2Item[QString()] = parent;
-    for (const auto &file : files) {
+    for (const GitFileItem &file : files) {
         const QString filePath = QString::fromUtf8(file.file);
         /**
          * cheap file name computation
@@ -292,10 +292,10 @@ static bool getNum(const QByteArray &numBytes, int *num)
 
 static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 {
-    const auto lines = raw.split(0x00);
-    for (const auto &line : lines) {
+    const QList<QByteArray> lines = raw.split(0x00);
+    for (const QByteArray &line : lines) {
         // format: 12(adds)\t10(subs)\tFileName
-        const auto cols = line.split('\t');
+        const QList<QByteArray> cols = line.split('\t');
         if (cols.length() < 3) {
             continue;
         }
@@ -309,7 +309,7 @@ static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
             continue;
         }
 
-        const auto file = cols.at(2);
+        const QByteArray file = cols.at(2);
 
         items->push_back(GitFileItem{.file = file, .linesAdded = add, .linesRemoved = sub});
     }
@@ -423,7 +423,7 @@ void CommitDiffTreeView::openCommit(const QString &hash)
             m_backBtn.click();
             return;
         }
-        auto contents = git->readAllStandardOutput();
+        QByteArray contents = git->readAllStandardOutput();
         int firstNull = contents.indexOf(char(0x00));
         if (firstNull == -1) {
             return;
@@ -449,8 +449,8 @@ void CommitDiffTreeView::createFileTreeForCommit(const QByteArray &rawNumStat)
     // The tree will start from addons instead.
     QList<QStandardItem *> tree = root.takeColumn(0);
     while (tree.size() == 1) {
-        auto subRoot = tree.takeFirst();
-        auto subTree = subRoot->takeColumn(0);
+        QStandardItem *subRoot = tree.takeFirst();
+        QList<QStandardItem *> subTree = subRoot->takeColumn(0);
 
         // if its just one file
         if (subTree.isEmpty()) {
@@ -519,7 +519,7 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
         return;
     }
 
-    const auto repoBase = getRepoBasePath(fi.absolutePath());
+    const std::optional<QString> repoBase = getRepoBasePath(fi.absolutePath());
     if (!repoBase.has_value()) {
         Utils::showMessage(i18n("%1 doesn't exist in a git repo.", path), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;

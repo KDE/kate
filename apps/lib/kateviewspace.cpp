@@ -543,7 +543,7 @@ void KateViewSpace::changeView(int idx)
         m_viewManager->setActiveSpace(this);
     }
 
-    const auto docOrWidget = m_tabBar->tabDocument(idx);
+    const DocOrWidget docOrWidget = m_tabBar->tabDocument(idx);
 
     // tell the view manager to show the view
     m_viewManager->activateView(docOrWidget, this);
@@ -707,7 +707,7 @@ void KateViewSpace::dropEvent(QDropEvent *e)
         e->accept();
         return;
     }
-    auto droppedData = TabMimeData::data(e->mimeData());
+    std::optional<TabMimeData::DroppedData> droppedData = TabMimeData::data(e->mimeData());
     if (droppedData.has_value()) {
         auto doc = KateApp::self()->documentManager()->openUrl(droppedData.value().url);
         auto view = m_viewManager->activateView(doc, this);
@@ -1194,7 +1194,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     }
 
     if (compareUsing->isEnabled()) {
-        for (auto &&diffTool : KateFileActions::supportedDiffTools()) {
+        for (std::pair<QString, QString> &diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = compareUsing->addAction(diffTool.first);
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found
@@ -1275,17 +1275,17 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
         }
     };
 
-    const auto lruDocList = m_tabBar->lruSortedDocuments();
-    const auto tabs = m_tabBar->documentList();
+    const QList<KTextEditor::Document *> lruDocList = m_tabBar->lruSortedDocuments();
+    const QList<DocOrWidget> tabs = m_tabBar->documentList();
     for (auto doc : lruDocList) {
         // skip stuff with visible tabs
         if (std::find(tabs.begin(), tabs.end(), DocOrWidget(doc)) == tabs.end()) {
             handleDoc(doc);
         }
     }
-    for (auto docOrWidget : tabs) {
+    for (DocOrWidget docOrWidget : tabs) {
         // only docs are of interest
-        if (auto doc = docOrWidget.doc()) {
+        if (KTextEditor::Document *doc = docOrWidget.doc()) {
             handleDoc(doc);
         }
     }

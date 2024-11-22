@@ -107,7 +107,7 @@ void LineNumArea::paintEvent(QPaintEvent *event)
 
     painter.fillRect(event->rect(), palette().color(QPalette::Active, QPalette::Window));
 
-    auto block = textEdit->firstVisibleBlock();
+    QTextBlock block = textEdit->firstVisibleBlock();
     int blockNumber = block.blockNumber();
     qreal top = textEdit->blockBoundingGeometry(block).translated(textEdit->contentOffset()).top();
     // Maybe the top is not 0?
@@ -191,7 +191,7 @@ void LineNumArea::drawLineNumber(QPainter &painter, QRect rect, int blockNumber,
 
     const QString number = QString::number(num);
     QPen p = c.otherLine;
-    auto hl = textEdit->highlightingForLine(blockNumber);
+    const LineHighlight * hl = textEdit->highlightingForLine(blockNumber);
     if (hl) {
         p = hl->added ? c.added : c.removed;
     }

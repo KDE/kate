@@ -38,7 +38,7 @@ std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
 {
     // if we have no dbus, nothing to do
     std::vector<KateRunningInstanceInfo> instances;
-    auto i = QDBusConnection::sessionBus().interface();
+    QDBusConnectionInterface * i = QDBusConnection::sessionBus().interface();
     if (!i) {
         return instances;
     }

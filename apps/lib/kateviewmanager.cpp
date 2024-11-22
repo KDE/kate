@@ -376,7 +376,7 @@ void KateViewManager::slotDocumentOpen()
             continue;
         }
 
-        const auto size = QFile(url.toLocalFile()).size();
+        const qint64 size = QFile(url.toLocalFile()).size();
         if (size > FileSizeAboveToAskUserIfProceedWithOpen) {
             fileListWithTooLargeFiles += QStringLiteral("<li>%1 (%2MB)</li>").arg(url.fileName()).arg(size / 1024 / 1024);
         }
@@ -1481,7 +1481,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     //
 
     // backup list of known documents to have tab buttons
-    const auto documentList = viewspace->documentList();
+    const QList<DocOrWidget> documentList = viewspace->documentList();
 
     // avoid flicker
     KateUpdateDisabler disableUpdates(mainWindow());
@@ -1563,7 +1563,7 @@ void KateViewManager::slotCloseOtherViews()
     KateUpdateDisabler disableUpdates(mainWindow());
 
     const KateViewSpace *active = activeViewSpace();
-    const auto viewSpaces = m_viewSpaceList;
+    const std::vector<KateViewSpace *> viewSpaces = m_viewSpaceList;
     for (KateViewSpace *v : viewSpaces) {
         if (active != v) {
             removeViewSpace(v);
@@ -1666,8 +1666,8 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
     } else {
         // remove any empty viewspaces
         // use a copy, m_viewSpaceList wil be modified
-        const auto copy = m_viewSpaceList;
-        for (auto *vs : copy) {
+        const std::vector<KateViewSpace *> copy = m_viewSpaceList;
+        for (KateViewSpace *vs : copy) {
             if (vs->documentList().isEmpty()) {
                 onViewSpaceEmptied(vs);
             }

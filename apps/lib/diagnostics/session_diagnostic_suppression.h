@@ -74,8 +74,8 @@ public:
         for (const auto &entry : {QString(), file}) {
             auto it = m_suppressions.find(entry);
             if (it != m_suppressions.end()) {
-                const auto ds = it.value();
-                for (const auto &d : ds) {
+                const QSet<QString> ds = it.value();
+                for (const QString &d : ds) {
                     result.push_back(d);
                 }
             }

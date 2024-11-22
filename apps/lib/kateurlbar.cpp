@@ -60,9 +60,9 @@ public:
             return true;
         }
 
-        const auto index = sourceModel()->index(row, filterKeyColumn(), parent);
-        const auto text = index.data(filterRole()).toString();
-        const auto res = KFuzzyMatcher::matchSimple(m_pattern, text);
+        const QModelIndex index = sourceModel()->index(row, filterKeyColumn(), parent);
+        const QString text = index.data(filterRole()).toString();
+        const bool res = KFuzzyMatcher::matchSimple(m_pattern, text);
         return res;
     }
 
@@ -231,7 +231,7 @@ public:
             return {};
         }
 
-        const auto &fi = m_fileInfos.at(index.row());
+        const QFileInfo &fi = m_fileInfos.at(index.row());
         if (role == Qt::DisplayRole) {
             return fi.fileName();
         } else if (role == Qt::DecorationRole) {
@@ -367,7 +367,7 @@ public:
             ke->accept();
             return;
         } else if (ke->key() == Qt::Key_Backspace) {
-            auto dir = m_model.dir();
+            QDir dir = m_model.dir();
             if (dir.cdUp()) {
                 setDir(dir, QString());
             }
@@ -562,7 +562,7 @@ public:
         const int margin = opt.widget->style()->pixelMetric(QStyle::PM_FocusFrameHMargin);
         if (!str.isEmpty()) {
             const int hMargin = margin + 1;
-            auto size = QStyledItemDelegate::sizeHint(opt, idx);
+            QSize size = QStyledItemDelegate::sizeHint(opt, idx);
             const int w = opt.fontMetrics.horizontalAdvance(str) + (2 * hMargin);
             size.rwidth() = w;
 
@@ -641,7 +641,7 @@ public:
         }
 
         const QString s = url.toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
-        const auto &dirs = splittedUrl(baseDir, s);
+        const std::vector<DirNamePath> &dirs = splittedUrl(baseDir, s);
 
         m_model.clear();
         if (m_symbolsModel) {
@@ -651,7 +651,7 @@ public:
 
         size_t i = 0;
         QIcon separator = m_urlBar->separator();
-        for (const auto &dir : dirs) {
+        for (const DirNamePath &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
@@ -673,7 +673,7 @@ public:
             return;
         }
 
-        auto *mainWindow = m_urlBar->viewManager()->mainWindow();
+        KateMainWindow *mainWindow = m_urlBar->viewManager()->mainWindow();
         QPointer<QObject> lsp = mainWindow->pluginView(QStringLiteral("lspclientplugin"));
         if (lsp) {
             addSymbolCrumb(lsp);
@@ -703,7 +703,7 @@ public:
         std::reverse(dirs.begin(), dirs.end());
 
         QIcon separator = m_urlBar->separator();
-        for (const auto &dir : dirs) {
+        for (const BreadCrumbView::DirNamePath &dir : dirs) {
             auto item = new QStandardItem(dir.name);
             item->setData(dir.path, BreadCrumbRole::PathRole);
             m_model.appendRow(item);
@@ -868,7 +868,7 @@ public:
                 Qt::QueuedConnection);
             const QString symbolName = idx.data().toString();
             t.setSymbolsModel(m_symbolsModel, activeView, symbolName);
-            const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
+            const QPoint pos = mapToGlobal(rectForIndex(idx).bottomLeft());
             t.setFocus();
             t.exec(pos);
         }
@@ -878,7 +878,7 @@ public:
             return;
         }
 
-        const auto pos = mapToGlobal(rectForIndex(idx).bottomLeft());
+        const QPoint pos = mapToGlobal(rectForIndex(idx).bottomLeft());
 
         m_isNavigating = true;
 
@@ -1057,7 +1057,7 @@ public:
             m_ellipses->hide();
             urlBarLayout->removeWidget(m_ellipses);
             m_baseCrumbView->setDir(m_currBaseDir);
-            auto s = m_baseCrumbView->sizeHint();
+            QSize s = m_baseCrumbView->sizeHint();
             s.setHeight(height());
             int w = m_baseCrumbView->maxWidth();
             s.setWidth(w);

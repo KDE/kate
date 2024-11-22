@@ -309,7 +309,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         bool found = false;
         int tabIdx = 0;
         for (; tabIdx < count(); ++tabIdx) {
-            auto d = this->tabData(tabIdx);
+            QVariant d = this->tabData(tabIdx);
             // We only expect doc, no dnd support for widgets
             if (d.value<DocOrWidget>().qobject() == tabObject) {
                 found = true;
@@ -342,7 +342,7 @@ void KateTabBar::setTabDocument(int idx, DocOrWidget d)
 {
     setTabData(idx, QVariant::fromValue(d));
 
-    auto *doc = d.doc();
+    KTextEditor::Document *doc = d.doc();
     // BUG: 441340 We need to escape the & because it is used for accelerators/shortcut mnemonic by default
     QString tabName = d.doc() ? d.doc()->documentName() : d.widget()->windowTitle();
     tabName.replace(QLatin1Char('&'), QLatin1String("&&"));

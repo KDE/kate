@@ -167,7 +167,7 @@ public:
         }
 
         // remove the providers for which we don't have diagnostics
-        for (auto p : removedProviders) {
+        for (DiagnosticsProvider * p : removedProviders) {
             m_providers.removeOne(p);
         }
         return removedCount;

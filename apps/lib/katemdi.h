@@ -252,7 +252,7 @@ public:
 
     QWidget *tabButtonForToolview(ToolView *widget) const
     {
-        for (auto d : m_toolviews) {
+        for (KateMDI::Sidebar::ToolViewData d : m_toolviews) {
             if (d.toolview == widget) {
                 return d.tabbar->tabBar()->tab(d.id);
             }
@@ -353,7 +353,7 @@ private:
 
     MultiTabBar *tabBar(ToolView *tv) const
     {
-        for (auto d : m_toolviews) {
+        for (KateMDI::Sidebar::ToolViewData d : m_toolviews) {
             if (d.toolview == tv)
                 return d.tabbar;
         }
@@ -362,7 +362,7 @@ private:
 
     KMultiTabBar *kmTabBar(ToolView *widget) const
     {
-        if (auto tabbar = tabBar(widget)) {
+        if (MultiTabBar * tabbar = tabBar(widget)) {
             return tabbar->tabBar();
         }
         return nullptr;
@@ -399,7 +399,7 @@ private:
 
     ToolViewData dataForId(int id)
     {
-        for (const auto &d : m_toolviews) {
+        for (const KateMDI::Sidebar::ToolViewData &d : m_toolviews) {
             if (d.id == id)
                 return d;
         }

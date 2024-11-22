@@ -49,7 +49,7 @@ public:
         } else if (m_filterType == HUDDialog::Contains) {
             return text.contains(m_pattern, Qt::CaseInsensitive);
         } else if (m_filterType == HUDDialog::ScoredFuzzy) {
-            auto res = KFuzzyMatcher::match(m_pattern, text);
+            KFuzzyMatcher::Result res = KFuzzyMatcher::match(m_pattern, text);
             Q_ASSERT(m_scoreRole > -1 && m_scoreRole > Qt::UserRole);
             sourceModel()->setData(index, res.score, m_scoreRole);
             return res.matched;
@@ -94,7 +94,7 @@ void HUDStyleDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     QTextCharFormat fmt;
     fmt.setForeground(options.palette.link());
     fmt.setFontWeight(QFont::Bold);
-    auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
+    QList<KFuzzyMatcher::Range> ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
     QList<QTextLayout::FormatRange> resFmts;
     std::transform(ranges.begin(), ranges.end(), std::back_inserter(resFmts), [fmt](const KFuzzyMatcher::Range &fr) {
         return QTextLayout::FormatRange{.start = fr.start, .length = fr.length, .format = fmt};

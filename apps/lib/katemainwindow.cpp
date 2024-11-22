@@ -285,14 +285,14 @@ void KateMainWindow::setupImportantActions()
 #else
     auto manager = KColorSchemeManager::instance();
 #endif
-    auto *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
+    KActionMenu *colorSelectionMenu = KColorSchemeMenu::createMenu(manager, this);
     colorSelectionMenu->menu()->setTitle(i18n("&Window Color Scheme"));
     ac->addAction(QStringLiteral("colorscheme_menu"), colorSelectionMenu);
 
     QAction *a = ac->addAction(KStandardAction::Back, QStringLiteral("view_prev_tab"));
     a->setText(i18n("&Previous Tab"));
     a->setWhatsThis(i18n("Focus the previous tab."));
-    auto prev = KStandardShortcut::tabPrev();
+    QList<QKeySequence> prev = KStandardShortcut::tabPrev();
     prev.removeAll(Qt::CTRL | Qt::Key_BracketLeft);
     actionCollection()->setDefaultShortcuts(a, a->shortcuts() << prev);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusPrevTab);
@@ -300,7 +300,7 @@ void KateMainWindow::setupImportantActions()
     a = ac->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
     a->setText(i18n("&Next Tab"));
     a->setWhatsThis(i18n("Focus the next tab."));
-    auto next = KStandardShortcut::tabNext();
+    QList<QKeySequence> next = KStandardShortcut::tabNext();
     next.removeAll(Qt::CTRL | Qt::Key_BracketRight);
     actionCollection()->setDefaultShortcuts(a, a->shortcuts() << next);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
@@ -408,7 +408,7 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
     a->setText(i18n("Copy Location"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        auto &&view = viewManager()->activeView();
+        KTextEditor::View *view = viewManager()->activeView();
         KateFileActions::copyFilePathToClipboard(view->document());
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
@@ -417,7 +417,7 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
     a->setText(i18n("&Open Containing Folder"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        auto &&view = viewManager()->activeView();
+        KTextEditor::View *view = viewManager()->activeView();
         KateFileActions::openContainingFolder(view->document());
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
@@ -426,7 +426,7 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     a->setText(i18nc("@action:inmenu", "Rename..."));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        auto &&view = viewManager()->activeView();
+        KTextEditor::View *view = viewManager()->activeView();
         KateFileActions::renameDocumentFile(this, view->document());
     });
     a->setWhatsThis(i18n("Renames the file belonging to the current document."));
@@ -435,7 +435,7 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     a->setText(i18nc("@action:inmenu", "Delete"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        auto &&view = viewManager()->activeView();
+        KTextEditor::View *view = viewManager()->activeView();
         KateFileActions::deleteDocumentFile(this, view->document());
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
@@ -444,7 +444,7 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-object-properties")));
     a->setText(i18n("Properties"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        auto &&view = viewManager()->activeView();
+        KTextEditor::View *view = viewManager()->activeView();
         KateFileActions::openFilePropertiesDialog(this, view->document());
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
@@ -537,7 +537,7 @@ void KateMainWindow::setupActions()
 
     // session actions, not for KWrite, create the full menu to be able to properly hide it
     if (KateApp::isKate()) {
-        auto sessionsMenu = ac->addAction(QStringLiteral("sessions"));
+        QAction *sessionsMenu = ac->addAction(QStringLiteral("sessions"));
         sessionsMenu->setText(i18n("Sess&ions"));
         sessionsMenu->setMenu(new QMenu(this));
 
@@ -603,7 +603,7 @@ void KateMainWindow::setupActions()
     a->setText(i18n("Show File Git History"));
     connect(a, &QAction::triggered, this, [this] {
         if (activeView()) {
-            auto url = activeView()->document()->url();
+            QUrl url = activeView()->document()->url();
             if (url.isValid() && url.isLocalFile()) {
                 FileHistory::showFileHistory(url.toLocalFile(), m_wrapper);
             }
@@ -669,7 +669,7 @@ void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document
 
 void KateMainWindow::slotDocumentCloseOther()
 {
-    if (auto v = m_viewManager->activeView()) {
+    if (KTextEditor::View *v = m_viewManager->activeView()) {
         slotDocumentCloseOther(v->document());
     }
 }
@@ -771,7 +771,7 @@ KateMainWindow *KateMainWindow::newWindow() const
 {
     // create new window with current session
     // derive size from current one
-    auto win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config(), {}, true);
+    KateMainWindow *win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config(), {}, true);
     win->resize(size());
     return win;
 }
@@ -791,7 +791,7 @@ void KateMainWindow::reloadXmlGui()
 {
     for (KTextEditor::Document *doc : KateApp::self()->documentManager()->documentList()) {
         doc->reloadXML();
-        const auto views = doc->views();
+        const QList<KTextEditor::View *> views = doc->views();
         for (KTextEditor::View *view : views) {
             view->reloadXML();
         }
@@ -830,7 +830,7 @@ void KateMainWindow::readOptions()
     m_paShowTabBar->setChecked(generalGroup.readEntry("Show Tab Bar", true));
     m_paShowUrlNavBar->setChecked(generalGroup.readEntry("Show Url Nav Bar", KateApp::isKate()));
 
-    for (auto a : {m_paShowTabBar, m_paShowPath, m_paShowUrlNavBar, m_paShowStatusBar}) {
+    for (KToggleAction *a : {m_paShowTabBar, m_paShowPath, m_paShowUrlNavBar, m_paShowStatusBar}) {
         connect(a, &QAction::toggled, this, &KateMainWindow::saveOptions);
     }
 
@@ -898,7 +898,7 @@ void KateMainWindow::ensureHamburgerBarSize()
 {
     // Ensure the hamburger menu never gets pushed into the toolbar overflow
     // by setting a minimum size on the bar based on the button's size.
-    if (auto *hamburgerBar = toolBar(QStringLiteral("hamburgerBar"))) {
+    if (KToolBar *hamburgerBar = toolBar(QStringLiteral("hamburgerBar"))) {
         auto *hamburgerMenu = actionCollection()->action(QStringLiteral("hamburger_menu"));
         if (auto *hamburgerButton = hamburgerBar->widgetForAction(hamburgerMenu)) {
             int neededButtonWidth = hamburgerButton->minimumSizeHint().width();

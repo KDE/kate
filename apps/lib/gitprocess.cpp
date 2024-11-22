@@ -18,7 +18,7 @@
 bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments)
 {
     // only use git from PATH
-    static const auto gitExecutable = safeExecutableName(QStringLiteral("git"));
+    static const QString gitExecutable = safeExecutableName(QStringLiteral("git"));
     if (gitExecutable.isEmpty()) {
         // ensure we have no valid QProcess setup
         process.setProgram(QString());
@@ -80,7 +80,7 @@ static std::pair<int, int> getGitVersionUncached(const QString &workingDir)
 std::pair<int, int> getGitVersion(const QString &workingDir)
 {
     // cache internal result to avoid expensive recalculation
-    static const auto cachedVersion = getGitVersionUncached(workingDir);
+    static const std::pair<int, int> cachedVersion = getGitVersionUncached(workingDir);
     return cachedVersion;
 }
 

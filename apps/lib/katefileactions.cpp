@@ -118,7 +118,7 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
         return;
     }
 
-    const auto &&url = doc->url();
+    const auto url = doc->url();
 
     if (url.isEmpty()) {
         return;

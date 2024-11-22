@@ -150,7 +150,7 @@ void DiffEditor::resizeEvent(QResizeEvent *event)
 
 KTextEditor::Range DiffEditor::selectionRange() const
 {
-    const auto cursor = textCursor();
+    const QTextCursor cursor = textCursor();
     if (!cursor.hasSelection())
         return KTextEditor::Range::invalid();
 
@@ -201,7 +201,7 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
 
 void DiffEditor::addStageUnstageDiscardActions(QMenu *menu)
 {
-    const auto selection = selectionRange();
+    const KTextEditor::Range selection = selectionRange();
     const int lineCount = !selection.isValid() ? 1 : selection.numberOfLines() + 1;
 
     int startLine = textCursor().blockNumber();
@@ -294,18 +294,18 @@ void DiffEditor::paintEvent(QPaintEvent *e)
     QPainter p(viewport());
     QPointF offset(contentOffset());
     QTextBlock block = firstVisibleBlock();
-    const auto cursorBlock = textCursor().blockNumber();
-    const auto cursorPos = textCursor().positionInBlock();
-    const auto viewportRect = viewport()->rect();
+    const int cursorBlock = textCursor().blockNumber();
+    const int cursorPos = textCursor().positionInBlock();
+    const QRect viewportRect = viewport()->rect();
 
     while (block.isValid()) {
         const QRectF r = blockBoundingRect(block).translated(offset);
-        auto layout = block.layout();
+        QTextLayout * layout = block.layout();
 
-        auto hl = highlightingForLine(block.blockNumber());
+        const LineHighlight * hl = highlightingForLine(block.blockNumber());
         if (block.isVisible() && hl && layout) {
-            const auto changes = hl->changes;
-            for (auto c : changes) {
+            const std::vector<Change> changes = hl->changes;
+            for (Change c : changes) {
                 // full line background is colored
                 p.fillRect(r, hl->added ? green1 : red1);
                 if (c.len == Change::FullBlock) {
@@ -335,7 +335,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
                     rect.moveTop(offset.y() + (sl.height() * sl.lineNumber()));
                     path.addRect(rect);
                     for (; i <= end; ++i) {
-                        auto line = layout->lineAt(i);
+                        QTextLine line = layout->lineAt(i);
                         rect = line.naturalTextRect();
                         rect.moveTop(offset.y() + (p.fontMetrics().lineSpacing() * line.lineNumber()));
                         if (i == end) {
@@ -367,7 +367,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             pen.setWidthF(1.1);
             p.setPen(pen);
             p.setBrush(Qt::NoBrush);
-            auto rCopy = r;
+            QRectF rCopy = r;
             rCopy.setRight(block.layout()->lineAt(0).naturalTextRect().right() + 4);
             rCopy.setLeft(rCopy.left() - 2);
             p.drawRect(rCopy);
@@ -417,7 +417,7 @@ bool DiffEditor::isHunkLine(int line) const
 bool DiffEditor::isHunkFolded(int blockNumber)
 {
     Q_ASSERT(isHunkLine(blockNumber));
-    const auto block = document()->findBlockByNumber(blockNumber).next();
+    const QTextBlock block = document()->findBlockByNumber(blockNumber).next();
     return block.isValid() && !block.isVisible();
 }
 
@@ -435,7 +435,7 @@ void DiffEditor::toggleFoldHunk(int blockNumber)
         return;
     }
 
-    auto block = document()->findBlockByNumber(blockNumber).next();
+    QTextBlock block = document()->findBlockByNumber(blockNumber).next();
     int i = 0;
     bool visible = !block.isVisible();
     while (true) {

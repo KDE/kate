@@ -64,13 +64,13 @@ static std::vector<Commit> parseCommits(const QByteArray raw)
         QString author = lines.at(1).toString();
         QString email = lines.at(2).toString();
 
-        auto authDate = lines.at(3).to<qint64>();
+        std::optional<long long> authDate = lines.at(3).to<qint64>();
         if (!authDate.has_value()) {
             continue;
         }
         qint64 authorDate = authDate.value();
 
-        auto commtDate = lines.at(4).to<qint64>();
+        std::optional<long long> commtDate = lines.at(4).to<qint64>();
         if (!commtDate.has_value()) {
             continue;
         }
@@ -198,7 +198,7 @@ public:
 
         // draw msg
         prect.setY(prect.y() + fm.height() + lineHeight);
-        auto elidedMsg = opt.fontMetrics.elidedText(commit.msg, Qt::ElideRight, prect.width());
+        QString elidedMsg = opt.fontMetrics.elidedText(commit.msg, Qt::ElideRight, prect.width());
         painter->drawText(prect, Qt::AlignLeft, elidedMsg);
 
         // draw separator
@@ -377,7 +377,7 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
         return;
     }
 
-    const auto repoBase = getRepoBasePath(fi.absolutePath());
+    const std::optional<QString> repoBase = getRepoBasePath(fi.absolutePath());
     if (!repoBase.has_value()) {
         Utils::showMessage(i18n("%1 doesn't exist in a git repo.", file), gitIcon(), i18n("Git"), MessageType::Error, mainWindow);
         return;

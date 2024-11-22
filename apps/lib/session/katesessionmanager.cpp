@@ -133,7 +133,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
 #ifdef WITH_DBUS
     if (!session->isAnonymous()) {
         // check if the requested session is already open in another instance
-        const auto instances = fillinRunningKateAppInstances();
+        const std::vector<KateRunningInstanceInfo> instances = fillinRunningKateAppInstances();
         for (const auto &instance : instances) {
             if (session->name() == instance.sessionName) {
                 if (KMessageBox::questionTwoActions(
@@ -373,7 +373,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
 {
     if (!isAutoSave) {
         // Clear the session file to avoid to accumulate outdated entries
-        const auto groupList = sc->groupList();
+        const QStringList groupList = sc->groupList();
         for (const auto &group : groupList) {
             // Don't delete groups for loaded documents that have
             // ViewSpace config in session but do not have any views.
@@ -588,7 +588,7 @@ bool KateSessionManager::sessionIsActive(const QString &session)
 
 #ifdef WITH_DBUS
     // check if the requested session is open in another instance
-    const auto instances = fillinRunningKateAppInstances();
+    const std::vector<KateRunningInstanceInfo> instances = fillinRunningKateAppInstances();
     const auto it = std::find_if(instances.cbegin(), instances.cend(), [&session](const auto &instance) {
         return instance.sessionName == session;
     });
@@ -670,7 +670,7 @@ void KateSessionManager::updateJumpListActions()
     }
 
     // remove all Session action groups first to not leave behind any cruft
-    const auto actions = df->readActions();
+    const QStringList actions = df->readActions();
     for (const QString &action : actions) {
         if (action.startsWith(QLatin1String("Session "))) {
             // TODO is there no deleteGroup(QLatin1String(KConfigGroup))?

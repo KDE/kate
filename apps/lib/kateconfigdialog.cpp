@@ -379,7 +379,7 @@ void KateConfigDialog::addSessionPage()
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
     QWidget *sessionsPage = new QWidget(this);
-    auto item = addScrollablePage(sessionsPage, i18n("Session"));
+    KPageWidgetItem * item = addScrollablePage(sessionsPage, i18n("Session"));
     m_allPages.insert(item);
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
@@ -459,7 +459,7 @@ void KateConfigDialog::addPluginsPage()
     vlayout->addWidget(m_configPluginPage);
     connect(m_configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
-    auto item = addScrollablePage(page, i18n("Plugins"));
+    KPageWidgetItem * item = addScrollablePage(page, i18n("Plugins"));
     m_allPages.insert(item);
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
@@ -479,7 +479,7 @@ void KateConfigDialog::addFeedbackPage()
     connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
     vlayout->addWidget(m_userFeedbackWidget);
 
-    auto item = addScrollablePage(page, i18n("User Feedback"));
+    KPageWidgetItem * item = addScrollablePage(page, i18n("User Feedback"));
     m_allPages.insert(item);
     item->setHeader(i18n("User Feedback"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));

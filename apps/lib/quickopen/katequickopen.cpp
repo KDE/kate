@@ -45,7 +45,7 @@ public:
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
-        auto sm = sourceModel();
+        QAbstractItemModel * sm = sourceModel();
         if (pattern.isEmpty()) {
             const bool l = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceLeft);
             const bool r = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceRight);
@@ -66,7 +66,7 @@ protected:
             return QSortFilterProxyModel::filterAcceptsRow(sourceRow, parent);
         }
 
-        auto sm = static_cast<KateQuickOpenModel *>(sourceModel());
+        KateQuickOpenModel * sm = static_cast<KateQuickOpenModel *>(sourceModel());
         if (!sm->isValid(sourceRow)) {
             return false;
         }
@@ -128,7 +128,7 @@ public Q_SLOTS:
     bool setFilterText(const QString &text)
     {
         // we don't want to trigger filtering if the user is just entering line:col
-        const auto splitted = text.split(QLatin1Char(':')).at(0);
+         QString const splitted = text.split(QLatin1Char(':')).at(0);
         if (splitted == pattern) {
             return false;
         }
@@ -211,11 +211,11 @@ public:
             int pos = m_filterString.lastIndexOf(QLatin1Char('/'));
             if (pos > -1) {
                 ++pos;
-                auto pattern = QStringView(m_filterString).mid(pos);
-                auto nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
+                QStringView pattern = QStringView(m_filterString).mid(pos);
+                QList<QTextLayout::FormatRange> nameFormats = kfts::get_fuzzy_match_formats(pattern, name, 0, fmt);
                 formats.append(nameFormats);
             } else {
-                auto nameFormats = kfts::get_fuzzy_match_formats(m_filterString, name, 0, fmt);
+                QList<QTextLayout::FormatRange> nameFormats = kfts::get_fuzzy_match_formats(m_filterString, name, 0, fmt);
                 formats.append(nameFormats);
             }
             QTextCharFormat boldFmt;
@@ -399,7 +399,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 void KateQuickOpen::reselectFirst()
 {
     int first = 0;
-    const auto *model = m_listView->model();
+    const QAbstractItemModel *model = m_listView->model();
     if (m_mainWindow->viewManager()->views().size() > 1 && model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
         first = 1;
     }
@@ -421,15 +421,15 @@ void KateQuickOpen::updateState()
 void KateQuickOpen::slotReturnPressed()
 {
     // save current position before opening new url for location history
-    auto vm = m_mainWindow->viewManager();
-    if (auto v = vm->activeView()) {
+    KateViewManager * vm = m_mainWindow->viewManager();
+    if (KTextEditor::View * v = vm->activeView()) {
         vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
     }
 
     // either get view via document pointer or url
     const QModelIndex index = m_listView->currentIndex();
     KTextEditor::View *view = nullptr;
-    if (auto doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
+    if (KTextEditor::Document * doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
         view = m_mainWindow->activateView(doc);
     } else {
         QFileInfo file(index.data(Qt::UserRole).toUrl().toLocalFile());
@@ -439,7 +439,7 @@ void KateQuickOpen::slotReturnPressed()
             QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
             if (projectView) {
                 QMetaObject::invokeMethod(projectView, "switchToProject", Qt::DirectConnection, QDir(index.data(Qt::UserRole).toUrl().toLocalFile()));
-                auto toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
+                QWidget * toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
                 if (toolview) {
                     m_mainWindow->showToolView(toolview);
                     toolview->setFocus();
@@ -450,10 +450,10 @@ void KateQuickOpen::slotReturnPressed()
         }
     }
 
-    const auto strs = m_inputLine->text().split(QLatin1Char(':'));
+    const QStringList strs = m_inputLine->text().split(QLatin1Char(':'));
     if (view && strs.count() > 1) {
         // helper to convert String => Number
-        auto stringToInt = [](const QString &s) {
+        std::function<int (const QString &)> stringToInt = [](const QString &s) {
             bool ok = false;
             const int num = s.toInt(&ok);
             return ok ? num : -1;
@@ -500,7 +500,7 @@ void KateQuickOpen::slotListModeChanged(KateQuickOpenModel::List mode)
 
 void KateQuickOpen::setFilterMode()
 {
-    auto newMode = m_inputLine->filterMode();
+    FilterMode newMode = m_inputLine->filterMode();
     if (m_proxyModel) {
         m_proxyModel->setFilterMode(newMode);
     }

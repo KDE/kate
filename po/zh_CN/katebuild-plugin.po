@@ -392,10 +392,9 @@ msgid "Target Set"
 msgstr "目标集"
 
 #: TargetModel.cpp:520
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgid "Projects"
-msgstr "项目"
+msgstr ""
 
 #: TargetModel.cpp:520
 #, kde-format

@@ -66,7 +66,7 @@ struct PatchLine {
     const QStringList d = diff.split(QStringLiteral("\n"));
     for (int i = 0; i < d.size(); ++i) {
         const QString &l = d.at(i);
-        const auto match = HUNK_HEADER_RE.match(l);
+        const QRegularExpressionMatch match = HUNK_HEADER_RE.match(l);
         if (!match.hasMatch()) {
             continue;
         }
@@ -114,7 +114,7 @@ struct PatchLine {
 {
     // EditingTransaction scope
     KTextEditor::Document::EditingTransaction t(doc);
-    for (const auto &p : edits) {
+    for (const PatchLine &p : edits) {
         if (p.type == PatchLine::Add) {
             // qDebug() << "insert at " << p.inPos.line() << "text: " << p.text;
             doc->insertLine(p.inPos.line(), p.text /*+ QStringLiteral("\n")*/);
@@ -123,7 +123,7 @@ struct PatchLine {
             doc->removeLine(p.pos->line());
         }
     }
-    for (const auto &p : edits) {
+    for (const PatchLine &p : edits) {
         delete p.pos;
     }
 }

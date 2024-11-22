@@ -37,7 +37,7 @@ int main(){
 })";
 
     doc->setText(QString::fromUtf8(unformatted));
-    const auto edits = parseDiff(doc, QString::fromUtf8(patch));
+    const std::vector<PatchLine> edits = parseDiff(doc, QString::fromUtf8(patch));
     QVERIFY(!edits.empty());
 
     applyPatch(doc, edits);

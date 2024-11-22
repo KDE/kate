@@ -199,7 +199,7 @@ void FormatPluginView::format()
     if (projectConfig != m_lastProjectConfig) {
         m_lastProjectConfig = projectConfig;
         if (projectConfig.isValid()) {
-            const auto formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
+            const QJsonObject formattingConfig = QJsonDocument::fromVariant(projectConfig).object();
             if (!formattingConfig.isEmpty()) {
                 m_lastMergedConfig = json::merge(m_plugin->formatterConfig(), formattingConfig);
             }
@@ -213,7 +213,7 @@ void FormatPluginView::format()
         m_lastMergedConfig = m_plugin->formatterConfig();
     }
 
-    auto formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
+    FormatterRunner * formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
     if (!formatter) {
         return;
     }
@@ -286,7 +286,7 @@ void FormatPluginView::onFormattedTextReceived(FormatterRunner *formatter, KText
     const std::vector<PatchLine> edits = parseDiff(doc, patch);
     // If the edits are too many, just do "setText" as it can be very slow
     if ((int)edits.size() >= (doc->lines() / 2) && doc->lines() > 1000) {
-        for (const auto &p : edits) {
+        for (const PatchLine &p : edits) {
             delete p.pos;
         }
         doc->setText(QString::fromUtf8(formattedText));

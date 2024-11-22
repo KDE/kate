@@ -18,7 +18,7 @@ public:
             const auto views = m_doc->views();
             m_viewToPosition.reserve(views.size());
             for (auto v : views) {
-                const auto off = cursorToSpaceIgnoredOffset(doc, v->cursorPosition());
+                const int off = cursorToSpaceIgnoredOffset(doc, v->cursorPosition());
                 m_viewToPosition.push_back({v, Position{v->cursorPosition(), off}});
             }
         }
@@ -32,7 +32,7 @@ public:
         for (auto [view, position] : m_viewToPosition) {
             if (view) {
                 // Convert the offset to cursor and restore it
-                const auto pos = spaceIgnoredOffsetToCursor(m_doc, position.spaceIgnoredOffset);
+                const KTextEditor::Cursor pos = spaceIgnoredOffsetToCursor(m_doc, position.spaceIgnoredOffset);
                 if (pos.isValid()) {
                     view->setCursorPosition(pos);
                 } else if (position.cursor.isValid()) {
@@ -46,7 +46,7 @@ private:
     static int countNonSpace(const QString &l)
     {
         int count = 0;
-        for (auto c : l) {
+        for (QChar c : l) {
             count += !c.isSpace();
         }
         return count;
@@ -95,7 +95,7 @@ private:
             int nsCount = 0;
             int col = 0;
             const QString ln = doc->line(line);
-            for (auto ch : ln) {
+            for (QChar ch : ln) {
                 if (nsCount + newOff == off) {
                     break;
                 }

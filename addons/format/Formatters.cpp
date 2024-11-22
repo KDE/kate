@@ -64,7 +64,7 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         if (!prefix.isEmpty() && !prefix.endsWith(QLatin1Char('/'))) {
             prefix += QLatin1String("/");
         }
-        const auto base = fi.baseName();
+        const QString base = fi.baseName();
         if (!base.isEmpty()) {
             prefix += base + QStringLiteral("/");
         } else {
@@ -157,7 +157,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
 
     if (m_fmt.supportsStdin) {
         connect(p, &QProcess::started, this, [this, p] {
-            const auto stdinText = textForStdin();
+            const QByteArray stdinText = textForStdin();
             if (!stdinText.isEmpty()) {
                 p->write(stdinText);
                 p->closeWriteChannel();
@@ -190,7 +190,7 @@ void PrettierFormat::setupNode()
     if (cmd.isEmpty()) {
         return;
     }
-    const auto node = safeExecutableName(cmd.first());
+    const QString node = safeExecutableName(cmd.first());
     if (node.isEmpty()) {
         Q_EMIT error(i18n("Please install node and prettier"));
         return;
@@ -245,7 +245,7 @@ void PrettierFormat::onReadyReadOut()
 
 void PrettierFormat::onReadyReadErr()
 {
-    const auto err = s_nodeProcess->readAllStandardError();
+    const QByteArray err = s_nodeProcess->readAllStandardError();
     if (!err.isEmpty()) {
         Q_EMIT error(QString::fromUtf8(err));
     }
@@ -258,7 +258,7 @@ void PrettierFormat::run(KTextEditor::Document *doc)
         return;
     }
 
-    const auto path = doc->url().toLocalFile();
+    const QString path = doc->url().toLocalFile();
     connect(s_nodeProcess, &QProcess::readyReadStandardOutput, this, &PrettierFormat::onReadyReadOut);
     connect(s_nodeProcess, &QProcess::readyReadStandardError, this, &PrettierFormat::onReadyReadErr);
 

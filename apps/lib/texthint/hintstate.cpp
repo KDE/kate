@@ -13,9 +13,9 @@ HintState::HintState() = default;
 
 void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMarkupKind kind)
 {
-    for (std::pair<unsigned long, HintState::Hint> &hint : m_hints) {
-        if (hint.first == instanceId) {
-            hint.second = Hint{text, kind};
+    for (auto &[id, hint] : m_hints) {
+        if (id == instanceId) {
+            hint = Hint{text, kind};
             return;
         }
     }

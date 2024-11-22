@@ -481,7 +481,7 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
         m_root->clearFlag(ProxyItem::ShowFullPath);
     }
 
-    const auto rootChildren = m_root->children();
+    const std::vector<ProxyItem *> &rootChildren = m_root->children();
     for (ProxyItem *root : rootChildren) {
         root->updateDisplay();
     }
@@ -549,15 +549,15 @@ QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
     if (it == m_docmap.end()) {
         return {};
     }
-    auto item = it.value();
+    ProxyItem *item = it.value();
     return createIndex(item->row(), 0, item);
 }
 
 QModelIndex KateFileTreeModel::widgetIndex(QWidget *widget) const
 {
     ProxyItem *item = nullptr;
-    const auto items = m_widgetsRoot->children();
-    for (auto *it : items) {
+    const std::vector<ProxyItem *> &items = m_widgetsRoot->children();
+    for (ProxyItem *it : items) {
         if (it->widget() == widget) {
             item = it;
             break;
@@ -714,7 +714,7 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
     }
 
     auto parentItem = parent.isValid() ? static_cast<ProxyItemDir *>(parent.internalPointer()) : m_root;
-    auto &childs = parentItem->children();
+    std::vector<ProxyItem *> &childs = parentItem->children();
     int sourceRow = index.row();
 
     beginMoveRows(index.parent(), index.row(), index.row(), parent, row);
@@ -849,7 +849,7 @@ ProxyItem *KateFileTreeModel::itemForIndex(const QModelIndex &index) const
 
 bool KateFileTreeModel::isDir(const QModelIndex &index) const
 {
-    if (auto item = itemForIndex(index)) {
+    if (ProxyItem *item = itemForIndex(index)) {
         return item->flag(ProxyItem::Dir) && !item->flag(ProxyItem::Widget);
     }
     return false;
@@ -857,7 +857,7 @@ bool KateFileTreeModel::isDir(const QModelIndex &index) const
 
 bool KateFileTreeModel::isWidgetDir(const QModelIndex &index) const
 {
-    if (auto item = itemForIndex(index)) {
+    if (ProxyItem *item = itemForIndex(index)) {
         return item->flag(ProxyItem::Dir) && item->flag(ProxyItem::Widget);
     }
     return false;
@@ -1147,7 +1147,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
 {
-    const auto rootChildren = m_root->children();
+    const std::vector<ProxyItem *> &rootChildren = m_root->children();
     for (ProxyItem *item : rootChildren) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
@@ -1177,7 +1177,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
         return nullptr;
     }
 
-    const auto children = parent->children();
+    const std::vector<ProxyItem *> children = parent->children();
     for (ProxyItem *item : children) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
@@ -1275,7 +1275,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     base += QLatin1Char('/');
 
     // try and merge existing roots with the new root node (new_root.path < root.path)
-    const auto rootChildren = m_root->children();
+    const std::vector<ProxyItem *> &rootChildren = m_root->children();
     for (ProxyItem *root : rootChildren) {
         if (root == new_root || !root->flag(ProxyItem::Dir)) {
             continue;
@@ -1321,7 +1321,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
             continue;
         }
 
-        const auto rootChildren = m_root->children();
+        const std::vector<ProxyItem *> &rootChildren = m_root->children();
         for (ProxyItem *root : rootChildren) {
             if (root == check_root || !root->flag(ProxyItem::Dir)) {
                 continue;
@@ -1344,7 +1344,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 
                     insertItemInto(irdir, root);
 
-                    const auto children = m_root->children();
+                    const std::vector<ProxyItem *> &children = m_root->children();
                     for (ProxyItem *node : children) {
                         if (node == irdir || !root->flag(ProxyItem::Dir)) {
                             continue;
@@ -1486,7 +1486,7 @@ void KateFileTreeModel::addWidget(QWidget *w)
 
     const QModelIndex parentIdx = createIndex(m_widgetsRoot->row(), 0, m_widgetsRoot);
     beginInsertRows(parentIdx, m_widgetsRoot->childCount(), m_widgetsRoot->childCount());
-    auto item = new ProxyItem(w->windowTitle());
+    ProxyItem *item = new ProxyItem(w->windowTitle());
     item->setFlag(ProxyItem::Widget);
     item->setIcon(w->windowIcon());
     item->setWidget(w);
@@ -1497,8 +1497,8 @@ void KateFileTreeModel::addWidget(QWidget *w)
 void KateFileTreeModel::removeWidget(QWidget *w)
 {
     ProxyItem *item = nullptr;
-    const auto items = m_widgetsRoot->children();
-    for (auto *it : items) {
+    const std::vector<ProxyItem *> &items = m_widgetsRoot->children();
+    for (ProxyItem *it : items) {
         if (it->widget() == w) {
             item = it;
             break;

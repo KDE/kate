@@ -112,7 +112,7 @@
         "javascript": {
             "command": ["typescript-language-server", "--stdio"],
             "rootIndicationFileNames": ["package.json", "package-lock.json"],
-            "url": "https://github.com/theia-ide/typescript-language-server",
+            "url": "https://github.com/typescript-language-server/typescript-language-server",
             "highlightingModeRegex": "^JavaScript$"
         },
         "javascriptreact": {

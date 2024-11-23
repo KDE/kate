@@ -46,12 +46,11 @@ public:
     QPointer<KTextEditor::Document> document;
 };
 
-KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent, const char *name)
+KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent)
     : QDialog(parent)
     , m_blockAddDocument(false)
 {
     setWindowTitle(i18n("Documents Modified on Disk"));
-    setObjectName(QString::fromLatin1(name));
     setModal(true);
 
     QVBoxLayout *mainLayout = new QVBoxLayout;

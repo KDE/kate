@@ -27,7 +27,7 @@ class KateMwModOnHdDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent = nullptr, const char *name = nullptr);
+    explicit KateMwModOnHdDialog(const QList<KTextEditor::Document *> &docs, QWidget *parent);
     ~KateMwModOnHdDialog() override;
     void addDocument(KTextEditor::Document *doc);
 

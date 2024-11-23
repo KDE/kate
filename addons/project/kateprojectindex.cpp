@@ -32,6 +32,10 @@ KateProjectIndex::KateProjectIndex(const QString &baseDir, const QString &indexD
         }
         m_ctagsIndexFile.reset(new QFile(path));
     } else {
+        if (baseDir == QDir::homePath() || baseDir == QDir::rootPath()) {
+            // avoid dumb stuff, dont index the full home/root dir
+            return;
+        }
         // indexDir is typically QDir::tempPath() or otherwise specified in configuration
         m_ctagsIndexFile.reset(new QTemporaryFile(
             indexDir + QStringLiteral("/kate.project.ctags.%1.%2").arg(QDir(baseDir).dirName(), QString::number(QCoreApplication::applicationPid()))));

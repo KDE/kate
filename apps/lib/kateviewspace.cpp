@@ -37,12 +37,11 @@
 #include <QWhatsThis>
 
 // BEGIN KateViewSpace
-KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent, const char *name)
+KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     : QWidget(parent)
     , m_viewManager(viewManager)
     , m_isActiveSpace(false)
 {
-    setObjectName(QString::fromLatin1(name));
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);

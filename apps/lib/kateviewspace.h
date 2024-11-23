@@ -32,7 +32,7 @@ class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
     friend class KateViewManagementTests;
 
 public:
-    explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr, const char *name = nullptr);
+    explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr);
 
     ~KateViewSpace() override;
 

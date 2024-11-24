@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-19 00:43+0000\n"
-"PO-Revision-Date: 2024-10-09 16:20+0300\n"
-"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2024-11-22 12:38+0200\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -164,10 +164,9 @@ msgid "Code Action"
 msgstr "Koda darbība"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Pabeigšana:"
+msgstr "Rādīt LSP pabeigšanu:"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -496,14 +495,13 @@ msgstr "Ieslēgt ietvertos padomus"
 #: lspconfigwidget.ui:75
 #, kde-format
 msgid "Completions:"
-msgstr "Pabeigšana:"
+msgstr "Pabeigšanas:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Pabeigšana:"
+msgstr "Rādīt pabeigšanas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

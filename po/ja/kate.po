@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
+"POT-Creation-Date: 2024-11-24 00:43+0000\n"
 "PO-Revision-Date: 2024-02-23 02:55+0900\n"
 "Last-Translator: Ryuichi Yamada <ryuichi_ya220@outlook.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -239,7 +239,7 @@ msgid "&View"
 msgstr "表示(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "ビューを分割"
@@ -1715,12 +1715,12 @@ msgstr "セッションを保存する(&V)"
 msgid "Save Session &As..."
 msgstr "セッションに名前を付けて保存(&A)..."
 
-#: lib/katemainwindow.cpp:586 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:586 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "前の位置に移動"
 
-#: lib/katemainwindow.cpp:595 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:595 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "次の位置に移動"
@@ -1934,7 +1934,7 @@ msgstr ""
 msgid "Documents Modified on Disk"
 msgstr "ディスク上で変更された文書"
 
-#: lib/katemwmodonhddialog.cpp:69
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1944,37 +1944,37 @@ msgstr ""
 "文書を一つまたは複数選択して、適用するアクションのボタンを押してください。</"
 "p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "ファイル名"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "ディスク上の状態"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "変更されました"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "作成されました"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "削除されました"
 
-#: lib/katemwmodonhddialog.cpp:107
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "差分を表示(&V)"
 
-#: lib/katemwmodonhddialog.cpp:108
+#: lib/katemwmodonhddialog.cpp:107
 #, fuzzy, kde-format
 #| msgid ""
 #| "Calculates the difference between the editor contents and the disk file "
@@ -1988,17 +1988,17 @@ msgstr ""
 "し、標準のアプリケーションを使って表示します。<tt>diff(1)</tt> が必要です。</"
 "qt>"
 
-#: lib/katemwmodonhddialog.cpp:116
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "変更を無視(&I)"
 
-#: lib/katemwmodonhddialog.cpp:117
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:122
 #, fuzzy, kde-format
 #| msgid ""
 #| "Overwrite selected documents, discarding the disk changes and closes the "
@@ -2008,18 +2008,18 @@ msgstr ""
 "選択した文書を上書きし、ディスク上の変更を破棄します。未処理の文書がなくなる"
 "と、ダイアログを閉じます。"
 
-#: lib/katemwmodonhddialog.cpp:127
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "再読み込み(&R)"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:128
 #, fuzzy, kde-format
 #| msgid "All documents written to disk"
 msgid "Reload selected documents from disk"
 msgstr "ディスクに書き出されたすべての文書"
 
-#: lib/katemwmodonhddialog.cpp:193
+#: lib/katemwmodonhddialog.cpp:192
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -2028,7 +2028,7 @@ msgstr ""
 "文書を保存できませんでした\n"
 "“%1”"
 
-#: lib/katemwmodonhddialog.cpp:311
+#: lib/katemwmodonhddialog.cpp:310
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2037,17 +2037,17 @@ msgstr ""
 "diff コマンドの起動に失敗しました。git がインストールされていて、あなたの "
 "PATH に存在することを確認してください。"
 
-#: lib/katemwmodonhddialog.cpp:313
+#: lib/katemwmodonhddialog.cpp:312
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "差分計算中にエラー"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "[OLD]"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:321
+#: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[NEW]"
 msgstr ""
@@ -2441,34 +2441,34 @@ msgstr "有効"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr ""
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:250
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2478,52 +2478,52 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1130
+#: lib/kateviewspace.cpp:1129
 #, kde-format
 msgid "Close Tab"
 msgstr "タブを閉じる"
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1147
 #, kde-format
 msgid "&Close Document"
 msgstr "文書を閉じる(&C)"
 
-#: lib/kateviewspace.cpp:1149
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "他の文書を閉じる(&D)"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close &All Documents"
 msgstr "すべての文書を閉じる(&A)"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "D&etach Document"
 msgstr "文書を分離(&E)"
 
-#: lib/kateviewspace.cpp:1156
+#: lib/kateviewspace.cpp:1155
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1164
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "アクティブな文書と比較"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "アクティブな文書と比較:"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1242
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

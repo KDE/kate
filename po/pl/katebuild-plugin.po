@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-21 00:43+0000\n"
-"PO-Revision-Date: 2024-08-24 11:18+0200\n"
+"PO-Revision-Date: 2024-11-23 13:04+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -409,10 +409,9 @@ msgid "Target Set"
 msgstr "Zestaw celów"
 
 #: TargetModel.cpp:520
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgid "Projects"
-msgstr "Projekt"
+msgstr "Projekty"
 
 #: TargetModel.cpp:520
 #, kde-format

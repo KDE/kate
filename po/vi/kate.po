@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
+"POT-Creation-Date: 2024-11-24 00:43+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -237,7 +237,7 @@ msgid "&View"
 msgstr "&Xem"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "Khung xem chia"
@@ -1728,12 +1728,12 @@ msgstr "&Lưu phiên"
 msgid "Save Session &As..."
 msgstr "Lưu phiên &thành..."
 
-#: lib/katemainwindow.cpp:586 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:586 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Đi đến vị trí trước"
 
-#: lib/katemainwindow.cpp:595 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:595 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Đi đến vị trí sau"
@@ -1945,7 +1945,7 @@ msgstr ""
 msgid "Documents Modified on Disk"
 msgstr "Tài liệu đã bị chỉnh sửa trên đĩa"
 
-#: lib/katemwmodonhddialog.cpp:69
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1955,37 +1955,37 @@ msgstr ""
 "liệu và nhấn một nút thao tác cho đến khi không còn gì trong danh sách.</p></"
 "qt>"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "Tên tệp"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "Trạng thái trên đĩa"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "Đã chỉnh sửa"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "Được tạo"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "Bị xoá"
 
-#: lib/katemwmodonhddialog.cpp:107
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "&Xem phần chênh"
 
-#: lib/katemwmodonhddialog.cpp:108
+#: lib/katemwmodonhddialog.cpp:107
 #, fuzzy, kde-format
 #| msgid ""
 #| "Calculates the difference between the editor contents and the disk file "
@@ -1999,32 +1999,32 @@ msgstr ""
 "liệu đã chọn, và hiển thị phần chênh bằng ứng dụng mặc định. Cần chương "
 "trình diff(1)."
 
-#: lib/katemwmodonhddialog.cpp:116
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "Bỏ &qua các thay đổi"
 
-#: lib/katemwmodonhddialog.cpp:117
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "Xoá cờ bị chỉnh sửa khỏi các tài liệu được chọn"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "Ghi đè những tài liệu được chọn, loại bỏ các thay đổi trên đĩa"
 
-#: lib/katemwmodonhddialog.cpp:127
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "&Tải lại"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "Tải lại từ đĩa các tài liệu được chọn"
 
-#: lib/katemwmodonhddialog.cpp:193
+#: lib/katemwmodonhddialog.cpp:192
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -2033,7 +2033,7 @@ msgstr ""
 "Không lưu được tài liệu \n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:311
+#: lib/katemwmodonhddialog.cpp:310
 #, fuzzy, kde-format
 #| msgid ""
 #| "The diff command failed. Please make sure that diff(1) is installed and "
@@ -2045,17 +2045,17 @@ msgstr ""
 "Lệnh diff thất bại. Vui lòng kiểm tra rằng diff(1) được cài đặt và nằm trong "
 "biến PATH."
 
-#: lib/katemwmodonhddialog.cpp:313
+#: lib/katemwmodonhddialog.cpp:312
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Lỗi tạo phần chênh"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "[OLD]"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:321
+#: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[NEW]"
 msgstr ""
@@ -2447,34 +2447,34 @@ msgstr "Bật"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Bật phần cài cắm <b>%1</b> thất bại"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr ""
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Bấm vào đây để chuyển sang khung xem \"Mở nhanh\"."
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Điều khiển việc chia khung xem"
 
-#: lib/kateviewspace.cpp:250
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2486,52 +2486,52 @@ msgstr[0] ""
 "Hiện có %1 tài liệu nữa đang mở. Để thấy tất cả các tài liệu đang mở, chuyển "
 "sang khung xem \"Mở nhanh\" bằng cách bấm vào đây."
 
-#: lib/kateviewspace.cpp:1130
+#: lib/kateviewspace.cpp:1129
 #, kde-format
 msgid "Close Tab"
 msgstr "Đóng thẻ"
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1147
 #, kde-format
 msgid "&Close Document"
 msgstr "Đón&g tài liệu"
 
-#: lib/kateviewspace.cpp:1149
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Đóng các tài liệu &khác"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Đóng &tất cả các tài liệu"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Tách tài liệu"
 
-#: lib/kateviewspace.cpp:1156
+#: lib/kateviewspace.cpp:1155
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Mở tài liệu trong một cửa sổ mới và đóng nó trong cửa sổ hiện tại"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1164
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "So sánh với tài liệu hoạt động"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "So sánh với tài liệu hoạt động bằng"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Could not start program"
 msgstr "Không khởi động được chương trình"
 
-#: lib/kateviewspace.cpp:1242
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

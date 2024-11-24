@@ -394,7 +394,7 @@ msgstr "目标集"
 #: TargetModel.cpp:520
 #, kde-format
 msgid "Projects"
-msgstr ""
+msgstr "工程"
 
 #: TargetModel.cpp:520
 #, kde-format

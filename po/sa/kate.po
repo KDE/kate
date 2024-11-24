@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 02:40+0000\n"
+"POT-Creation-Date: 2024-11-24 02:36+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -230,7 +230,7 @@ msgid "&View"
 msgstr "&दृश्यं"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "विभक्त दृश्य"
@@ -1718,12 +1718,12 @@ msgstr "&सत्रं रक्षतु"
 msgid "Save Session &As..."
 msgstr "&यथा सत्रं रक्षन्तु..."
 
-#: lib/katemainwindow.cpp:582 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:582 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "पूर्वस्थानं गच्छन्तु"
 
-#: lib/katemainwindow.cpp:591 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:591 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "अग्रिमस्थानं गच्छन्तु"
@@ -1935,7 +1935,7 @@ msgstr ""
 msgid "Documents Modified on Disk"
 msgstr "डिस्क् इत्यत्र परिवर्तिताः दस्तावेजाः"
 
-#: lib/katemwmodonhddialog.cpp:69
+#: lib/katemwmodonhddialog.cpp:68
 #, kde-format
 msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
@@ -1944,76 +1944,76 @@ msgstr ""
 "<qt>अधः सूचीकृताः दस्तावेजाः डिस्कमध्ये परिवर्तिताः।<p>एकदा एव एकं वा अधिकं वा चिनोतु, "
 "तथा च यावत् सूची रिक्तं न भवति तावत् एकं क्रियागण्डं नुदन्तु।</p></qt>"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Filename"
 msgstr "सञ्चिकानाम"
 
-#: lib/katemwmodonhddialog.cpp:79
+#: lib/katemwmodonhddialog.cpp:78
 #, kde-format
 msgid "Status on Disk"
 msgstr "डिस्क इत्यत्र स्थितिः"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Modified"
 msgstr "परिवर्तित"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Created"
 msgstr "निर्मितम्"
 
-#: lib/katemwmodonhddialog.cpp:84
+#: lib/katemwmodonhddialog.cpp:83
 #, kde-format
 msgid "Deleted"
 msgstr "विलोपितम्"
 
-#: lib/katemwmodonhddialog.cpp:107
+#: lib/katemwmodonhddialog.cpp:106
 #, kde-format
 msgid "&View Difference"
 msgstr "&अन्तरं पश्यन्तु"
 
-#: lib/katemwmodonhddialog.cpp:108
+#: lib/katemwmodonhddialog.cpp:107
 #, kde-format
 msgid ""
 "Calculates the difference between the editor contents and the disk file for "
 "the selected document."
 msgstr "चयनितदस्तावेजस्य सम्पादकसामग्रीणां डिस्कसञ्चिकायाः च मध्ये अन्तरं गणयति ।."
 
-#: lib/katemwmodonhddialog.cpp:116
+#: lib/katemwmodonhddialog.cpp:115
 #, kde-format
 msgid "&Ignore Changes"
 msgstr "&परिवर्तनानि अवहेलयन्तु"
 
-#: lib/katemwmodonhddialog.cpp:117
+#: lib/katemwmodonhddialog.cpp:116
 #, kde-format
 msgid "Remove modified flag from selected documents"
 msgstr "चयनितदस्तावेजेभ्यः परिवर्तितं ध्वजं निष्कासयन्तु"
 
-#: lib/katemwmodonhddialog.cpp:123
+#: lib/katemwmodonhddialog.cpp:122
 #, kde-format
 msgid "Overwrite selected documents, discarding disk changes"
 msgstr "चयनितदस्तावेजान् अधिलेखयन्तु, डिस्कपरिवर्तनं परित्यजन्तु"
 
-#: lib/katemwmodonhddialog.cpp:127
+#: lib/katemwmodonhddialog.cpp:126
 #, kde-format
 msgid "&Reload"
 msgstr "&पुनः आरोपयन्तु"
 
-#: lib/katemwmodonhddialog.cpp:129
+#: lib/katemwmodonhddialog.cpp:128
 #, kde-format
 msgid "Reload selected documents from disk"
 msgstr "डिस्कतः चयनितदस्तावेजान् पुनः आरोपयन्तु"
 
-#: lib/katemwmodonhddialog.cpp:193
+#: lib/katemwmodonhddialog.cpp:192
 #, kde-format
 msgid ""
 "Could not save the document \n"
 "'%1'"
 msgstr "'%1' इति दस्तावेजं रक्षितुं न शक्यते ।"
 
-#: lib/katemwmodonhddialog.cpp:311
+#: lib/katemwmodonhddialog.cpp:310
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2022,17 +2022,17 @@ msgstr ""
 "भेद आदेशः विफलः अभवत् । कृपया सुनिश्चितं कुर्वन्तु यत् git संस्थापितम् अस्ति तथा च भवतः PATH "
 "मध्ये अस्ति ।."
 
-#: lib/katemwmodonhddialog.cpp:313
+#: lib/katemwmodonhddialog.cpp:312
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "भेद् रचने त्रुटिः"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:319
 #, kde-format
 msgid "[OLD]"
 msgstr "[वृद्धः]"
 
-#: lib/katemwmodonhddialog.cpp:321
+#: lib/katemwmodonhddialog.cpp:320
 #, kde-format
 msgid "[NEW]"
 msgstr "[नूतनम्‌]"
@@ -2423,13 +2423,13 @@ msgstr "सक्रियं करोतु"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> प्लगिन् सक्षमीकरणे असफलम्"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:93
 #, fuzzy, kde-format
 #| msgid "S&ynchronize Scrolling"
 msgid "Synchronize Scrolling"
 msgstr "&समन्वयनम् सारणं"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:95
 #, fuzzy, kde-format
 #| msgid ""
 #| "Synchronize Scrolling of this split-view with other synchronized split-"
@@ -2438,23 +2438,23 @@ msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "अन्यैः समन्वयितैः विभक्त-दृश्यैः सह अस्य विभक्त-दृश्यस्य सारणं समन्वययन्तु"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:117
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "शीघ्रं उद्घाटितम् दृश्यं प्रति गन्तुं अत्र क्लिक् कुर्वन्तु ।."
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
 msgstr "दृश्यस्थानविभाजनं नियन्त्रयन्तु"
 
-#: lib/kateviewspace.cpp:250
+#: lib/kateviewspace.cpp:249
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2469,52 +2469,52 @@ msgstr[1] ""
 "सम्प्रति %1 दस्तावेजाः अपि उद्घाटितम् सन्ति। सर्वाणि मुक्तदस्तावेजानि द्रष्टुं अत्र क्लिक् कृत्वा "
 "त्वरित उद्घाटनम् दृश्यं प्रति गच्छन्तु ।."
 
-#: lib/kateviewspace.cpp:1130
+#: lib/kateviewspace.cpp:1129
 #, kde-format
 msgid "Close Tab"
 msgstr "ट्याब् बन्दं कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1147
 #, kde-format
 msgid "&Close Document"
 msgstr "&दस्तावेज पिधाय"
 
-#: lib/kateviewspace.cpp:1149
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "अन्ये &दस्तावेजाः पिधाय"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1149
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&सर्वाणि दस्तावेजानि पिधाय"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1153
 #, kde-format
 msgid "D&etach Document"
 msgstr "दस्तावेजं &विच्छेदं कुरुत"
 
-#: lib/kateviewspace.cpp:1156
+#: lib/kateviewspace.cpp:1155
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1164
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "सक्रियदस्तावेजेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1241
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Could not start program"
 msgstr "कार्यक्रमं आरभुं न शक्तवान्"
 
-#: lib/kateviewspace.cpp:1242
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."

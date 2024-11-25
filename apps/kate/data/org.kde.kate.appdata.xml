@@ -811,7 +811,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nb">Autofullføring</li>
       <li xml:lang="nl">Ondersteuning voor automatische aanvulling</li>
       <li xml:lang="nn">Støtte for autofullføring</li>
-      <li xml:lang="pl">Obsługa samouzupełniania</li>
+      <li xml:lang="pl">Obsługa uzupełniania kodu</li>
       <li xml:lang="pt">Modo de completação automática</li>
       <li xml:lang="pt-BR">Suporte para completamento automático</li>
       <li xml:lang="ro">Suport pentru completare automată</li>
@@ -862,7 +862,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Integratie van de shell</li>
       <li xml:lang="nn">Skalintegrering</li>
       <li xml:lang="pa">ਸ਼ੈੱਲ ਨਾਲ ਜੋੜ</li>
-      <li xml:lang="pl">Integracja z powłoką</li>
+      <li xml:lang="pl">Wbudowana obsługa powłoki</li>
       <li xml:lang="pt">Integração com a consola</li>
       <li xml:lang="pt-BR">Integração com o console</li>
       <li xml:lang="ro">Integrare cu consola</li>

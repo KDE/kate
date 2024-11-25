@@ -12,14 +12,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 00:43+0000\n"
-"PO-Revision-Date: 2024-10-12 19:10+0200\n"
+"PO-Revision-Date: 2024-11-24 17:55+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1179,6 +1179,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Tillåt att gå igenom flikar cykliskt. Om avmarkerat, går inte alternativen "
+"'Nästa flik' eller 'Föregående flik' till första eller sista fliken när de "
+"når slutet eller början"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1615,8 +1618,7 @@ msgid "Close all open documents."
 msgstr "Stäng alla öppna dokument."
 
 #: lib/katemainwindow.cpp:481
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Öppna senast stän&gda dokument igen"
 
@@ -2354,19 +2356,17 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Ändra rullningssynkronisering för den nuvarande vyn"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Koppla loss dokum&ent"
+msgstr "Koppla loss aktivt dokument"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
-"Öppnar dokumentet i ett nytt fönster och stänger det i det aktuella fönstret"
+"Öppnar det aktiva dokumentet i ett nytt fönster och stänger det i det "
+"aktuella fönstret"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2519,14 +2519,14 @@ msgstr ""
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "Sök efter filer i alla projekt (högerklicka för att anpassa)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "Sök efter filer i aktuellt projekt (högerklicka för att anpassa)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format

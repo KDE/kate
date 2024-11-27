@@ -247,14 +247,14 @@ public:
 
     void place(QPoint p)
     {
-        const auto offset = QPoint(3, 21);
-        p += offset;
+        // snap the tooltip to the word we are hovering
+        auto wordRange = m_hoveredWordRange;
+        QPoint wordStart = m_view->mapToGlobal(m_view->cursorToCoordinate(wordRange.start()));
+        QPoint wordEnd = m_view->mapToGlobal(m_view->cursorToCoordinate(wordRange.end()));
 
-        // wayland automatically keeps popups on screen
-        if (KWindowSystem::isPlatformWayland()) {
-            move(p);
-            return;
-        }
+        // FIXME: need to account for line height multiplier but ktexteditor doesn't expose that apparently :/
+        auto fontConfig = m_view->configValue(QString::fromUtf8("font"));
+        int lineHeight = QFontMetrics(fontConfig.value<QFont>()).height();
 
         // try to get right screen, important: QApplication::screenAt(p) might return nullptr
         // see crash in bug 439804
@@ -262,12 +262,20 @@ public:
         if (!screenForTooltip) {
             screenForTooltip = screen();
         }
-        const QRect screen = screenForTooltip->availableGeometry();
+        QRect screen = screenForTooltip->availableGeometry();
+
+        // on wayland the tooltip can't overlap panels so it will get shifted and overlap the word we are hovering
+        // so by clipping it to the window it wont overlap the panel (assuming the kate window is not overlapping the panel) and get shifted
+        if (KWindowSystem::isPlatformWayland()) {
+            screen = m_view->window()->geometry();
+        }
+
+        p = QPoint(wordStart.x(), wordStart.y() + lineHeight);
 
         if (p.x() + width() > screen.x() + screen.width())
-            p.rx() -= 4 + width();
+            p.setX(wordEnd.x() - width());
         if (p.y() + this->height() > screen.y() + screen.height())
-            p.ry() -= 24 + this->height();
+            p.ry() -= lineHeight + this->height();
         if (p.y() < screen.y())
             p.setY(screen.y());
         if (p.x() + this->width() > screen.x() + screen.width())

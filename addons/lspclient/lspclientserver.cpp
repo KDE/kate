@@ -1081,18 +1081,21 @@ static LSPSemanticTokensDelta parseSemanticTokensDelta(const rapidjson::Value &r
         const auto &data = GetJsonArrayForKey(edit, "data");
         const auto dataArray = data.GetArray();
         e.data.reserve(dataArray.Size());
-        std::transform(dataArray.begin(), dataArray.end(), std::back_inserter(e.data), [](const rapidjson::Value &v) {
-            return v.GetInt();
-        });
-
+        for (const auto &v : dataArray) {
+            if (v.IsInt()) {
+                e.data.push_back(v.GetInt());
+            }
+        }
         ret.edits.push_back(e);
     }
 
     auto data = GetJsonArrayForKey(result, "data").GetArray();
     ret.data.reserve(data.Size());
-    std::transform(data.begin(), data.end(), std::back_inserter(ret.data), [](const rapidjson::Value &v) {
-        return v.GetInt();
-    });
+    for (const auto &v : data) {
+        if (v.IsInt()) {
+            ret.data.push_back(v.GetInt());
+        }
+    }
 
     return ret;
 }

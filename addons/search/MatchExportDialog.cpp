@@ -52,8 +52,11 @@ void MatchExportDialog::generateMatchExport()
         int matchCount = m_matchModel->rowCount(fileIndex);
         for (int j = 0; j < matchCount; ++j) {
             QModelIndex matchIndex = m_matchModel->index(j, 0, fileIndex);
-            QRegularExpressionMatch match = m_regExp->match(matchIndex.data(MatchModel::MatchRole).toString());
-            exportResult += MatchModel::generateReplaceString(match, exportPattern) + QLatin1String("\n");
+            const KTextEditor::Document* doc = matchIndex.data(MatchModel::DocumentRole).value<KTextEditor::Document*>();
+            if (doc == nullptr) { continue; }
+            const KateSearchMatch& matchItem = matchIndex.data(MatchModel::MatchItemRole).value<KateSearchMatch>();
+            QString matchLines = doc->text(matchItem.range);
+            QRegularExpressionMatch match = MatchModel::rangeTextMatches(matchLines, *m_regExp);
         }
     }
     this->exportResultText->setPlainText(exportResult);

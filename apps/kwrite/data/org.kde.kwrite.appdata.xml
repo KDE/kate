@@ -576,6 +576,6 @@
     <release version="23.08.5" date="2024-02-15"/>
   </releases>
   <custom>
-    <value key="KDE::supporters">William Herman</value>
+    <value key="KDE::supporters">William Herman;Pablo Rauzy</value>
   </custom>
 </component>

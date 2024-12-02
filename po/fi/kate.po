@@ -7,7 +7,7 @@
 # Ilpo Kantonen <ilpo@iki.fi>, 2005, 2006.
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
-# Tommi Nieminen <translator@legisign.org>, 2009.
+# SPDX-FileCopyrightText: 2009, 2024 Tommi Nieminen <translator@legisign.org>
 # Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-24 02:36+0000\n"
-"PO-Revision-Date: 2024-03-11 15:17+0200\n"
+"PO-Revision-Date: 2024-11-07 16:32+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -28,8 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2013-01-13 20:43:20+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -59,10 +58,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate – Kehittynyt tekstimuokkain"
 
 #: kate/main.cpp:106 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "© 2000–2022 Katen tekijät"
+msgstr "© 2000–2024 Katen tekijät"
 
 #: kate/main.cpp:152
 #, kde-format
@@ -226,10 +224,9 @@ msgstr "&Tiedosto"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Tiedostotoiminnot"
+msgstr "Tie&dostotoimenpiteet"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -239,8 +236,7 @@ msgstr "&Muokkaa"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&Valinta"
 
@@ -357,10 +353,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Tyhjennä diagnostiikkasuodatin"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Näytä tai piilota toimitustiedot"
+msgstr "Näytä leijuntatieto"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -1050,13 +1045,13 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Tulosta aikaleimat päivämäärällä"
 
 #: lib/kateconfigdialog.cpp:168
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
-msgstr ""
+msgstr "Jos käytössä, tulosrivin aikaleimaotsakkeita edeltää päivämäärä."
 
 # Jatketta viestille ”Move To”.
 #: lib/kateconfigdialog.cpp:176
@@ -1085,10 +1080,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "Näytä vasemman ja oikean sivupaneelin painikkeissa teksti"
 
 #: lib/kateconfigdialog.cpp:192
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "Vasemman ja oikean sivupaneelin painikkeiden kuvakekoko"
+msgstr "Vasemman ja oikean sivupaneelin painikkeiden kuvakekoko:"
 
 #: lib/kateconfigdialog.cpp:212
 #, kde-format
@@ -1185,10 +1179,9 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "Jos valittu, pitkää välilehden tekstiä lyhennetään."
 
 #: lib/kateconfigdialog.cpp:273
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
-msgstr "Avaa uusi välilehti nykyisen oikealle puolen."
+msgstr "Avaa uudet välilehdet nykyisestä oikealle"
 
 #: lib/kateconfigdialog.cpp:275
 #, kde-format
@@ -1266,15 +1259,14 @@ msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "Diagnostiikan enimmäismäärä Diagnostiikka-työkalunäkymässä."
 
 #: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
-#, fuzzy, kde-format
-#| msgid "Continue"
+#, kde-format
 msgid "Context"
-msgstr "Jatka"
+msgstr "Konteksti"
 
 #: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Käytä työkalunäkymää"
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
@@ -1282,6 +1274,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Työkalunäkymä näyttää kohdistimen nykyiseen kohdan kontekstin (LSP-vihjeet, "
+"diagnostiikan)"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -1300,15 +1294,12 @@ msgid "(never)"
 msgstr "(ei koskaan)"
 
 #: lib/kateconfigdialog.cpp:397
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " päivän kuluttua"
-msgstr[1] " päivän kuluttua"
+msgstr[0] "%v päivän kuluttua"
+msgstr[1] "%v päivän kuluttua"
 
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
@@ -1490,12 +1481,10 @@ msgid "Focus the next tab."
 msgstr "Kohdista seuraavaan välilehteen."
 
 #: lib/katemainwindow.cpp:307
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Vaihda ilmentymää"
+msgstr "Vaihda välilehteen %1"
 
 #: lib/katemainwindow.cpp:327
 #, kde-format
@@ -1532,10 +1521,9 @@ msgstr ""
 "tästä haluamasi tiedoston."
 
 #: lib/katemainwindow.cpp:393
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "Tallenna &kaikki"
+msgstr "T&allenna kaikki"
 
 #: lib/katemainwindow.cpp:396
 #, kde-format
@@ -1543,10 +1531,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Tallentaa kaikki avoimet ja tallentamattomat tiedostot."
 
 #: lib/katemainwindow.cpp:399
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "&Lataa kaikki uudelleen"
+msgstr "&Virkistä kaikki"
 
 #: lib/katemainwindow.cpp:401
 #, kde-format
@@ -1606,10 +1593,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Näyttää vihjeen, miten vertailla tiedostoja."
 
 #: lib/katemainwindow.cpp:456
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Sulje orvot"
+msgstr "Sulje &orvot"
 
 #: lib/katemainwindow.cpp:458
 #, kde-format
@@ -1626,10 +1612,9 @@ msgid "Close the current document."
 msgstr "Sulje nykyinen tiedosto."
 
 #: lib/katemainwindow.cpp:465
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Sulje muut"
+msgstr "Sulje &muut"
 
 #: lib/katemainwindow.cpp:469
 #, kde-format
@@ -1647,10 +1632,9 @@ msgid "Close all open documents."
 msgstr "Sulje kaikki avoimet tiedostot."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "Avaa &suljetut tiedostot &uudelleen."
+msgstr "Avaa v&iimeisimmät suljetut tiedostot uudelleen"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -1663,8 +1647,7 @@ msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
 msgstr "&Uusi ikkuna"
 
@@ -1770,16 +1753,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Kaikki avoimet tiedostot suljetaan. Haluatko varmasti jatkaa?"
 
 #: lib/katemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Sulje kaikki tiedostot"
+msgstr "Suljetaanko kaikki tiedostot?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "S&ulje kaikki"
+msgstr "Sulje kaikki"
 
 #: lib/katemainwindow.cpp:642
 #, kde-format
@@ -1790,14 +1771,12 @@ msgstr ""
 "Kaikki avoimet tiedostot paitsi nykyinen suljetaan. Haluatko varmasti jatkaa?"
 
 #: lib/katemainwindow.cpp:643
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Sulje kaikki tiedostot paitsi nykyinen"
+msgstr "Suljetaanko kaikki paitsi nykyinen tiedosto?"
 
 #: lib/katemainwindow.cpp:644
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Sulje muut"
 
@@ -2162,15 +2141,13 @@ msgid ""
 msgstr "Pyytämääsi tietoa ei voitu tallettaa. Valitse miten haluat jatkaa."
 
 #: lib/kateurlbar.cpp:913
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopioi sijainti"
 
 #: lib/kateurlbar.cpp:918
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Kopioi tiedostonimi"
@@ -2384,30 +2361,25 @@ msgid "Show the welcome page"
 msgstr "Näytä tervetulosivu"
 
 #: lib/kateviewmanager.cpp:299
-#, fuzzy, kde-format
-#| msgid "Auto Synchronization"
+#, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr "Automaattinen tahdistus"
+msgstr "Käytä vieritystahdistusta tai poista se käytöstä"
 
 #: lib/kateviewmanager.cpp:300
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Vaihtaa nykyisen näkymäjaon suuntaa"
+msgstr "Käytä nykyisessä näkymässä vieritystahdistusta tai poista se käytöstä"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "&Irrota tiedosto"
+msgstr "Irrota aktiivinen tiedosto"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Avaa tiedoston uuteen ikkunaan ja sulkee sen nykyisessä"
+msgstr "Avaa aktiivisen tiedoston uuteen ikkunaan ja sulkee sen nykyisestä"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2461,19 +2433,16 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 
 #: lib/kateviewspace.cpp:93
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Tahdista &vieritys"
+msgstr "Tahdista vieritys"
 
 #: lib/kateviewspace.cpp:95
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr "Tahdistaa jaetun näkymän vierityksen muiden jaettujen näkymien kanssa"
+msgstr ""
+"Tahdistaa jakonäkymän vierityksen muiden tahdistettujen jakonäkymien kanssa"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format
@@ -2561,14 +2530,14 @@ msgstr "Valittua ohjelmaa ei voitu käynnistää: sitä ei ehkä ole asennettu."
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "Etsi kaikkien projektien tiedostoja (hiiren oikea: asetukset)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "Etsi nykyisen projektin tiedostoja (hiiren oikea: asetukset)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2591,10 +2560,9 @@ msgid "Wildcard Filtering"
 msgstr "Jokerimerkkisuodatus"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Kaikki projektit"
+msgstr "Projekti: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

@@ -1,7 +1,7 @@
 # Finnish messages for katebuild-plugin.
 # Copyright © 2010, 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kdebase package.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2014, 2019, 2020, 2021, 2022, 2023, 2024.
+# SPDX-FileCopyrightText: 2010, 2014, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015.
 #
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 02:40+0000\n"
-"PO-Revision-Date: 2024-02-02 17:36+0200\n"
+"PO-Revision-Date: 2024-10-20 21:22+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -19,8 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2012-12-01 22:21:56+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -61,23 +60,20 @@ msgid "Build & Run Settings"
 msgstr "Koosta ja suorita -asetukset"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Koosta valittu kohde"
+msgstr "Poista valitut kohdat"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Poista kaikki kohdat"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Kohdeasetukset"
+msgstr "Perusasetukset"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -95,7 +91,7 @@ msgstr "Vaihda valittua kohdetta suoritettaessa automaattisesti tulospaneeliin"
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Sallitut ja estetyt komennot"
 
 #: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
 #: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
@@ -121,12 +117,13 @@ msgstr "Koosta ja suorita valittu kohde"
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Käännä nykyinen tiedosto"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Yritä kääntää nykyinen tiedosto etsimällä compile_commands.json-tiedostoa"
 
 #: plugin_katebuild.cpp:304
 #, kde-format
@@ -136,7 +133,7 @@ msgstr "Pysäytä"
 #: plugin_katebuild.cpp:309
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Lataa kohteet CMaken koostamiskansiosta"
 
 #: plugin_katebuild.cpp:313
 #, kde-format
@@ -157,17 +154,13 @@ msgid "Target Settings"
 msgstr "Kohdeasetukset"
 
 #: plugin_katebuild.cpp:395
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Tiedostoa ei voitu avata:</title><nl/>%1<br/>Yritä kohdeasetuksissa "
-"lisätä työkansioon hakupolku"
+"<b>Tiedostoa ei löytynyt:</b> %1<br><b>Hakupolut:</b><br>%2<br>Kokeile "
+"lisätä hakupolku työkansioon"
 
 #: plugin_katebuild.cpp:478
 #, kde-format
@@ -207,12 +200,12 @@ msgstr "Kohteen <b>%1</b> koostaminen peruttiin"
 #: plugin_katebuild.cpp:910
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Tiedostolle ”%1” ei löytynyt compile_commands.json-tiedostoa. "
 
 #: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Kansion ”%2” tiedostolle ”%1” ei löytynyt kääntämiskomentoa. "
 
 #: plugin_katebuild.cpp:1031
 #, kde-format
@@ -240,16 +233,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Kohteita ei voida ladata: tiedosto %1 ei sisällä kelvollista CMAKE_COMMAND-"
+"tietuetta!"
 
 #: plugin_katebuild.cpp:1123
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Koostamiskansiolle %1 ei voitu kirjoittaa CMaken tiedosto-APIn "
+"kyselytiedostoja!"
 
 #: plugin_katebuild.cpp:1129
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Koostamiskansiolle %1 ei voitu suorittaa CMakea (%2)!"
 
 #: plugin_katebuild.cpp:1138
 #, kde-format
@@ -257,11 +254,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"CMaken tiedosto-APIn vastaustiedostojen luominen (käyttäen: %2) "
+"koostamiskansiolle %1 epäonnistui!"
 
 #: plugin_katebuild.cpp:1257
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Koostamisliitännäinen haluaa suorittaa ohjelman"
 
 #: plugin_katebuild.cpp:1260
 #, kde-format
@@ -271,6 +270,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Katen koostamisliitännäisen pitää suorittaa ulkoinen ohjelma lukeakseen "
+"kohteet koostamispuusta.<br><br>Täysi komentorivi on:<br><br><b>%1</"
+"b><br><br>Jatketaanko sallien komennon suorittaminen?<br><br>Valintaa voi "
+"muuttaa liitännäisen asetussivulla."
 
 #: plugin_katebuild.cpp:1292
 #, kde-kuit-format
@@ -385,6 +388,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Käytä:\n"
+"”%B” projektin pohjakansiolle\n"
+"”%b” pelkälle projektin pohjakansion nimelle"
 
 #: TargetHtmlDelegate.cpp:114
 #, kde-format
@@ -440,10 +446,9 @@ msgid "Create new set of targets"
 msgstr "Luo uusi kohdejoukko"
 
 #: targets.cpp:37
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Kopioi komento tai kohdejoukko"
+msgstr "Monista komento tai kohdejoukko"
 
 #: targets.cpp:41
 #, kde-format
@@ -476,31 +481,28 @@ msgid "Move selected target down"
 msgstr "Siirrä valittua kohdetta alemmas"
 
 #: targets.cpp:201
-#, fuzzy, kde-format
-#| msgid "Copy"
+#, kde-format
 msgid "Copy"
 msgstr "Kopioi"
 
 #: targets.cpp:205
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Leikkaa"
 
 #: targets.cpp:209
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Liitä jälkeen"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Suorita komento"
+msgstr "Koostamiskomento"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Asetukset"

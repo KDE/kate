@@ -1326,6 +1326,10 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <value key="KDE::windows_store">https://apps.microsoft.com/detail/9NWMW7BB59HW</value>
   </custom>
   <content_rating type="oars-1.1"/>
+  <branding>
+    <color type="primary" scheme_preference="light">#cdecfc</color>
+    <color type="primary" scheme_preference="dark">#17529b</color>
+  </branding>
   <releases>
     <release version="24.08.3" date="2024-11-07"/>
     <release version="24.08.2" date="2024-10-10"/>

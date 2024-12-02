@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2014, 2015.
-# Tommi Nieminen <translator@legisign.org>, 2014, 2017, 2020.
+# SPDX-FileCopyrightText: 2014, 2017, 2020, 2024 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2020-12-22 18:47+0200\n"
+"PO-Revision-Date: 2024-10-20 21:27+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,8 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.12.0\n"
-"X-POT-Import-Date: 2012-12-01 22:22:00+0000\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -101,17 +100,14 @@ msgstr "Luo uusi leike tietokantaan %1"
 #: editsnippet.cpp:146
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "Välilyönnit leikkeiden nimissä eivät toimi täydennyksessä kunnolla"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Leikkeessä on muutoksia tallentamattta. Haluatko jatkaa menettäen muutokset?"
+"Leikkeessä on muutoksia tallentamatta. Haluatko jatkaa menettäen muutokset?"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -121,7 +117,7 @@ msgstr "Varoitus: muutoksia tallentamatta"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Jatka muokkausta"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

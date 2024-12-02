@@ -59,58 +59,6 @@
   <name xml:lang="zh-CN">Kate 文本编辑器</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced text editor</summary>
-  <summary xml:lang="ar">محرّر نصوص متقدّم</summary>
-  <summary xml:lang="az">Əlavə mətn redaktoru</summary>
-  <summary xml:lang="bg">Разширен текстов редактор Kate</summary>
-  <summary xml:lang="bs">Napredni uređivač teksta</summary>
-  <summary xml:lang="ca">Editor de text avançat</summary>
-  <summary xml:lang="ca-valencia">Editor de text avançat</summary>
-  <summary xml:lang="cs">Pokročilý textový editor</summary>
-  <summary xml:lang="da">Avanceret teksteditor</summary>
-  <summary xml:lang="de">Erweiterter Texteditor</summary>
-  <summary xml:lang="el">Προηγμένος επεξεργαστής κειμένου</summary>
-  <summary xml:lang="en-GB">Advanced Text Editor</summary>
-  <summary xml:lang="eo">Altnivela Tekstredaktilo</summary>
-  <summary xml:lang="es">Editor de texto avanzado</summary>
-  <summary xml:lang="et">Täiustatud tekstiredaktor</summary>
-  <summary xml:lang="eu">Testu editore aurreratua</summary>
-  <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
-  <summary xml:lang="fr">Éditeur de texte avancé</summary>
-  <summary xml:lang="gl">Editor avanzado de textos</summary>
-  <summary xml:lang="he">עורך טקסט מתקדם</summary>
-  <summary xml:lang="hu">Speciális szövegszerkesztő</summary>
-  <summary xml:lang="ia">Editor avantiate de texto</summary>
-  <summary xml:lang="id">Pengedit Teks Tingkat Lanjut</summary>
-  <summary xml:lang="is">Öflugur textaritill</summary>
-  <summary xml:lang="it">Editor di testi avanzato</summary>
-  <summary xml:lang="ka">გაუმჯობესებული ტექსტური რედაქტორი</summary>
-  <summary xml:lang="ko">고급 텍스트 편집기</summary>
-  <summary xml:lang="lv">Moderns teksta redaktors</summary>
-  <summary xml:lang="ml">വിസ്തൃതമായ പദാവലി എഡിറ്റർ</summary>
-  <summary xml:lang="my">အဆင့်မြင့်စာသားတည်းဖြတ်ကိရိယာ</summary>
-  <summary xml:lang="nb">Avansert skriveprogram</summary>
-  <summary xml:lang="nl">Geavanceerde tekstbewerker</summary>
-  <summary xml:lang="nn">Avansert skriveprogram</summary>
-  <summary xml:lang="pa">ਤਕਨੀਕੀ ਟੈਕਸਟ ਐਡੀਟਰ</summary>
-  <summary xml:lang="pl">Rozbudowany edytor tekstu</summary>
-  <summary xml:lang="pt">Editor de Texto Avançado</summary>
-  <summary xml:lang="pt-BR">Editor de Texto Avançado</summary>
-  <summary xml:lang="ro">Redactor de text avansat</summary>
-  <summary xml:lang="ru">Улучшенный текстовый редактор</summary>
-  <summary xml:lang="sk">Pokročilý textový editor</summary>
-  <summary xml:lang="sl">Napreden urejevalnik besedil</summary>
-  <summary xml:lang="sr">Напредни уређивач текста</summary>
-  <summary xml:lang="sr-Latn">Napredni uređivač teksta</summary>
-  <summary xml:lang="sr-ijekavian">Напредни уређивач текста</summary>
-  <summary xml:lang="sr-ijekavianlatin">Napredni uređivač teksta</summary>
-  <summary xml:lang="sv">Avancerad texteditor</summary>
-  <summary xml:lang="ta">மேம்பட்ட உரைத்திருத்தி</summary>
-  <summary xml:lang="tr">Gelişmiş Metin Düzenleyici</summary>
-  <summary xml:lang="uk">Потужний текстовий редактор</summary>
-  <summary xml:lang="vi">Trình biên tập văn bản nâng cao</summary>
-  <summary xml:lang="x-test">xxAdvanced Text Editorxx</summary>
-  <summary xml:lang="zh-CN">多功能文本编辑器</summary>
-  <summary xml:lang="zh-TW">進階文字編輯器</summary>
   <description>
     <p>
       Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.
@@ -1199,6 +1147,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate kun iu Git-bazita projekto</caption>
       <caption xml:lang="es">Kate con un proyecto basado en Git</caption>
       <caption xml:lang="eu">Kate, oinarria Git-en duen proiektu batekin</caption>
+      <caption xml:lang="fi">Kate jollakin Git-pohjaisella projektilla</caption>
       <caption xml:lang="fr">Kate avec certains projets reposant sur Git</caption>
       <caption xml:lang="gl">Kate cun proxecto baseado en Git.</caption>
       <caption xml:lang="he">Kate עם מיזם מבוסס Git</caption>
@@ -1233,6 +1182,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate kun dividita vido</caption>
       <caption xml:lang="es">Kate con una vista dividida</caption>
       <caption xml:lang="eu">Kate ikuspegi zatituarekin</caption>
+      <caption xml:lang="fi">Kate jakonäkymällä</caption>
       <caption xml:lang="fr">Kate avec vues scindées</caption>
       <caption xml:lang="gl">Kate coa vista dividida.</caption>
       <caption xml:lang="he">Kate בתצוגה מפוצלת</caption>
@@ -1267,6 +1217,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate en malhela reĝimo</caption>
       <caption xml:lang="es">Kate en modo oscuro</caption>
       <caption xml:lang="eu">Kate modu ilunean</caption>
+      <caption xml:lang="fi">Kate tummassa tilassa</caption>
       <caption xml:lang="fr">Kate en mode sombre</caption>
       <caption xml:lang="gl">Kate en modo escuro.</caption>
       <caption xml:lang="he">Kate במצב כהה</caption>
@@ -1301,6 +1252,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Krei novan Git-branĉon per Kate</caption>
       <caption xml:lang="es">Creación de una nueva rama de Git con Kate</caption>
       <caption xml:lang="eu">Sortu Git adar berri bat «Kate»rekin</caption>
+      <caption xml:lang="fi">Luo Katella uusi Git-haara</caption>
       <caption xml:lang="fr">Créer une nouvelle branche « Git » avec Kate</caption>
       <caption xml:lang="gl">Creación dunha nova rama de Git con Kate.</caption>
       <caption xml:lang="he">יצירת ענף Git חדש עם Kate</caption>

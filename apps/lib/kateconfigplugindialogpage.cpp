@@ -106,7 +106,7 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     // add filter to allow to search for plugins
     auto filter = new QLineEdit(this);
     layout->addWidget(filter);
-    filter->setPlaceholderText(QStringLiteral("Filter..."));
+    filter->setPlaceholderText(i18n("Filter..."));
     filter->setClearButtonEnabled(true);
     filter->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     connect(filter, &QLineEdit::textChanged, sortModel, [sortModel](const QString &text) {

@@ -1191,6 +1191,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate kun iu Git-bazita projekto</caption>
       <caption xml:lang="es">Kate con un proyecto basado en Git</caption>
       <caption xml:lang="eu">Kate, oinarria Git-en duen proiektu batekin</caption>
+      <caption xml:lang="fi">Kate jollakin Git-pohjaisella projektilla</caption>
       <caption xml:lang="fr">Kate avec certains projets reposant sur Git</caption>
       <caption xml:lang="gl">Kate cun proxecto baseado en Git.</caption>
       <caption xml:lang="he">Kate עם מיזם מבוסס Git</caption>
@@ -1225,6 +1226,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate kun dividita vido</caption>
       <caption xml:lang="es">Kate con una vista dividida</caption>
       <caption xml:lang="eu">Kate ikuspegi zatituarekin</caption>
+      <caption xml:lang="fi">Kate jakonäkymällä</caption>
       <caption xml:lang="fr">Kate avec vues scindées</caption>
       <caption xml:lang="gl">Kate coa vista dividida.</caption>
       <caption xml:lang="he">Kate בתצוגה מפוצלת</caption>
@@ -1259,6 +1261,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Kate en malhela reĝimo</caption>
       <caption xml:lang="es">Kate en modo oscuro</caption>
       <caption xml:lang="eu">Kate modu ilunean</caption>
+      <caption xml:lang="fi">Kate tummassa tilassa</caption>
       <caption xml:lang="fr">Kate en mode sombre</caption>
       <caption xml:lang="gl">Kate en modo escuro.</caption>
       <caption xml:lang="he">Kate במצב כהה</caption>
@@ -1293,6 +1296,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eo">Krei novan Git-branĉon per Kate</caption>
       <caption xml:lang="es">Creación de una nueva rama de Git con Kate</caption>
       <caption xml:lang="eu">Sortu Git adar berri bat «Kate»rekin</caption>
+      <caption xml:lang="fi">Luo Katella uusi Git-haara</caption>
       <caption xml:lang="fr">Créer une nouvelle branche « Git » avec Kate</caption>
       <caption xml:lang="gl">Creación dunha nova rama de Git con Kate.</caption>
       <caption xml:lang="he">יצירת ענף Git חדש עם Kate</caption>

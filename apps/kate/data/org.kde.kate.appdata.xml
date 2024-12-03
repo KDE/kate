@@ -59,6 +59,18 @@
   <name xml:lang="zh-CN">Kate 文本编辑器</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced text editor</summary>
+  <summary xml:lang="ca">Editor de text avançat</summary>
+  <summary xml:lang="ca-valencia">Editor de text avançat</summary>
+  <summary xml:lang="es">Editor de texto avanzado</summary>
+  <summary xml:lang="eu">Testu editore aurreratua</summary>
+  <summary xml:lang="it">Editor di testi avanzato</summary>
+  <summary xml:lang="ka">გაუმჯობესებული ტექსტური რედაქტორი</summary>
+  <summary xml:lang="nl">Geavanceerde tekstbewerker</summary>
+  <summary xml:lang="sl">Napredni urejevalnik besedil</summary>
+  <summary xml:lang="tr">Gelişmiş Metin Düzenleyicisi</summary>
+  <summary xml:lang="uk">Потужний текстовий редактор</summary>
+  <summary xml:lang="x-test">xxAdvanced text editorxx</summary>
+  <summary xml:lang="zh-TW">進階文字編輯器</summary>
   <description>
     <p>
       Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.

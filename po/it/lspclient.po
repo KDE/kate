@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-19 00:43+0000\n"
-"PO-Revision-Date: 2024-10-17 18:12+0200\n"
+"PO-Revision-Date: 2024-11-17 16:19+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -164,10 +164,9 @@ msgid "Code Action"
 msgstr "Azione sul codice"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Completamenti:"
+msgstr "Mostra i completamenti lsp"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -502,10 +501,9 @@ msgstr "Completamenti:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Completamenti:"
+msgstr "Mostra i completamenti"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kde5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2015-02-24 19:40+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian\n"
@@ -365,6 +365,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokument je bio izmijenjen drugim programom.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Drugi..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -407,9 +413,6 @@ msgstr "Snimi trenutni dokument"
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "&Drugi..."
 
 #~ msgid "Delete file?"
 #~ msgstr "Obrisati datoteku?"

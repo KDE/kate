@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 02:36+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2024-11-17 21:55+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -356,6 +356,7 @@ msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
 #: lib/diagnostics/diagnosticview.cpp:508
+#: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter..."
 msgstr "வடிகட்டு..."

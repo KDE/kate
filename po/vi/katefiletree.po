@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2023-01-08 08:36+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -360,6 +360,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Tài liệu đã bị chỉnh sửa bởi một ứng dụng khác.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Khác..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -406,9 +412,6 @@ msgstr "Đ&i"
 #~ msgstr ""
 #~ "Khi được bật, lựa chọn này sẽ hiển thị một nút đóng khi đảo chuột trên "
 #~ "các tài liệu đang mở."
-
-#~ msgid "&Other..."
-#~ msgstr "&Khác..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Bạn có thật sự muốn xoá tệp \"%1\" không?"

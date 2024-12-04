@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2024-02-19 21:33+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -359,6 +359,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>다른 앱에서 이 문서를 수정했습니다.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "기타(&O)..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -404,9 +410,6 @@ msgstr "이동(&G)"
 #~ "When enabled, this will show a close button for opened documents on hover."
 #~ msgstr ""
 #~ "이 옵션을 사용하면 열린 문서 위를 지나다닐 때 닫기 단추를 표시합니다."
-
-#~ msgid "&Other..."
-#~ msgstr "기타(&O)..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "저장소에서 파일 \"%1\"을(를) 삭제하시겠습니까?"

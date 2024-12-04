@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2022-12-21 11:27+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -377,6 +377,11 @@ msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Документ был изменён в другом приложении.</p>"
+
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+msgid "Filter..."
+msgstr "Файлы:"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format
@@ -2300,10 +2305,6 @@ msgstr "Пере&ход"
 #, fuzzy
 #~ msgid "Cannot go to the document"
 #~ msgstr "Создать новый документ"
-
-#, fuzzy
-#~ msgid "Filter"
-#~ msgstr "Файлы:"
 
 #~ msgid "Configure Tree View"
 #~ msgstr "Настройка дерева документов"

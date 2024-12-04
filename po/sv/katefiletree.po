@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2024-06-17 21:28+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -358,6 +358,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumentet har ändrats av ett annat program.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Annat..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -404,9 +410,6 @@ msgstr "&Gå"
 #~ msgstr ""
 #~ "När aktiverad, visas en stängningsknapp för öppnade dokument när musen "
 #~ "hålls över."
-
-#~ msgid "&Other..."
-#~ msgstr "&Annat..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Vill du verkligen ta bort filen \"%1\" från lagringsmedia?"

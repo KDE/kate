@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trunk-kf 5\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2017-10-02 10:25+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -371,6 +371,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumentas buvo pakeistas kitos programos.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Kita..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -413,9 +419,6 @@ msgstr "Įrašyti esamą dokumentą nauju pavadinimu"
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "&Kita..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Ar tikrai norite pašalinti failą „%1“ iš laikmenos?"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2024-02-08 01:16+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -364,6 +364,12 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>El documento se ha modificado desde otra aplicación.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Otro..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -410,9 +416,6 @@ msgstr "&Ir"
 #~ msgstr ""
 #~ "Cuando está activado, se mostrará un botón de cierre en los documentos "
 #~ "abiertos al situar el cursor sobre ellos."
-
-#~ msgid "&Other..."
-#~ msgstr "&Otro..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr ""

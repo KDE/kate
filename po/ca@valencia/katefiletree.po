@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 02:33+0000\n"
 "PO-Revision-Date: 2024-07-31 11:55+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -365,6 +365,11 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>El document ha sigut modificat per una altra aplicació.</"
 "p>"
+
+#: katefiletreeplugin.cpp:174
+#, kde-format
+msgid "Filter..."
+msgstr ""
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

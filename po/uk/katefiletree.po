@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 09:29+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -362,6 +362,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Цей документ було змінено іншою програмою.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Інша…"
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -408,9 +414,6 @@ msgstr "Пере&хід"
 #~ msgstr ""
 #~ "Якщо позначено, при наведенні на пункти відкритих документів буде "
 #~ "показано кнопку закриття."
-
-#~ msgid "&Other..."
-#~ msgstr "&Інша…"
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Ви справді хочете вилучити файл «%1» з носія даних?"

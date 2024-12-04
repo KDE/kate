@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2020-09-16 00:25+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -366,6 +366,12 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Documentul a fost modificat de către o altă aplicație.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Altceva..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -408,9 +414,6 @@ msgstr "Salvează documentul actual cu denumire nouă"
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "&Altceva..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Sigur doriți să ștergeți fișierul „%1” de pe stocare?"

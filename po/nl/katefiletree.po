@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 14:51+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -360,6 +360,12 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Het document is door een andere toepassing gewijzigd.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Overig..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -406,9 +412,6 @@ msgstr "&Ga naar"
 #~ msgstr ""
 #~ "Indien ingeschakeld, toont dit een sluitknop voor geopende documenten bij "
 #~ "erboven zweven."
-
-#~ msgid "&Other..."
-#~ msgstr "&Overig..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Wilt u het bestand \"%1\" uit de opslag wissen?"

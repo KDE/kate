@@ -107,8 +107,8 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
-"如果选中，STDOUT 和 STDERR 的输出会合并，不会报错.\n"
-"如果不选，STDERR 会显示成错误."
+"如果选中，STDOUT 和 STDERR 的输出会合并，不会报告错误。\n"
+"如果不选，STDERR 会显示成错误。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60

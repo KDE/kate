@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 06:49+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -361,6 +361,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokument je spremenil drug program.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Ostalo..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -407,9 +413,6 @@ msgstr "Pojdi"
 #~ msgstr ""
 #~ "Ko je omogočeno, bo prikazalo gumb Zapri za odprte dokumente če je miška "
 #~ "nad njimi."
-
-#~ msgid "&Other..."
-#~ msgstr "&Ostalo..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Ali resnično želite izbrisati datoteko \"%1\" iz shrambe?"

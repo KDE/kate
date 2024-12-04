@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:43+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-11-07 12:29+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -367,6 +367,7 @@ msgid "Warnings"
 msgstr "Waarschuwingen"
 
 #: lib/diagnostics/diagnosticview.cpp:508
+#: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter..."
 msgstr "Filteren..."

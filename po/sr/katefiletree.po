@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2016-11-28 01:31+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -387,6 +387,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Неки други програм је изменио документ.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Други..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -444,9 +450,6 @@ msgstr ""
 #~ msgctxt "@action:inmenu"
 #~ msgid "Copy File Path"
 #~ msgstr "Копирај име фајла"
-
-#~ msgid "&Other..."
-#~ msgstr "&Други..."
 
 #~ msgid "Application '%1' not found."
 #~ msgstr "Програм „%1“ није нађен.|/|Програм „$[ном %1]“ није нађен!"

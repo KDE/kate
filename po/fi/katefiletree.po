@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-23 19:45+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -371,6 +371,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Toinen sovellus on muuttanut tiedostoa.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Muu…"
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -417,9 +423,6 @@ msgstr "S&iirry"
 #~ msgstr ""
 #~ "Jos käytössä, avoimelle tiedostolle näytetään sulkemispainike hiiren "
 #~ "ollessa sen yllä."
-
-#~ msgid "&Other..."
-#~ msgstr "&Muu…"
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Haluatko varmasti poistaa tiedoston ”%1” levyltä?"

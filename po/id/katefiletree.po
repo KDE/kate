@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -365,6 +365,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumen telah dimodifikasi oleh aplikasi lain.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Lain..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -407,9 +413,6 @@ msgstr "Simpan dokumen sekarang ini dengan nama baru"
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "&Lain..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "Anda yakin ingin menghapus file \"%1\" dari penyimpanan?"

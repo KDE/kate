@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-11-28 13:46+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -359,6 +359,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>عدّل تطبيق آخر المستند.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "أ&خرى..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -403,9 +409,6 @@ msgstr "ا&ذهب"
 #~ msgid ""
 #~ "When enabled, this will show a close button for opened documents on hover."
 #~ msgstr "عند التمكين ، سيعرض هذا زر إغلاق للمستندات المفتوحة عند التمرير."
-
-#~ msgid "&Other..."
-#~ msgstr "أ&خرى..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "أمتأكّد من حذف الملفّ \"%1\" من التّخزين؟"

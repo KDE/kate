@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-07 23:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -356,6 +356,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>此文件已被其它應用程式修改。</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "其他(&O)..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -400,9 +406,6 @@ msgstr "跳至(&G)"
 #~ msgid ""
 #~ "When enabled, this will show a close button for opened documents on hover."
 #~ msgstr "啟用時，滑鼠停駐在已開啟的文件上時會顯示一個關閉按鈕。"
-
-#~ msgid "&Other..."
-#~ msgstr "其他(&O)..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "您真要刪除檔案 \"%1\" 嗎？"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2021-09-15 04:45+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -357,6 +357,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr ""
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&Oအခြား..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -399,9 +405,6 @@ msgstr "လက်ရှိမှတ်တမ်းပုံနှိပ်မူ
 #, kde-format
 msgid "&Go"
 msgstr ""
-
-#~ msgid "&Other..."
-#~ msgstr "&Oအခြား..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "မှတ်ဉာဏ်စက်မှ ဖိုင်လ် \"%1\" ကို သင်တကယ်ဖျက်တော့မည်လား။"

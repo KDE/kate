@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-01-01 12:46-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -350,6 +350,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>ਡੌਕੂਮੈਂਟ ਨੂੰ ਹੋਰ ਐਪਲੀਕੇਸ਼ਨ ਨਾਲ ਸੋਧਿਆ ਗਿਆ ਹੈ।</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "ਹੋਰ(&O)..."
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -390,9 +396,6 @@ msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਨੂੰ ਨਵੇਂ ਨ�
 #, kde-format
 msgid "&Go"
 msgstr "ਜਾਓ(&G)"
-
-#~ msgid "&Other..."
-#~ msgstr "ਹੋਰ(&O)..."
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "ਕੀ ਤੁਸੀਂ \"%1\" ਫਾਇਲ ਨੂੰ ਸਟੋਰੇਜ਼ ਤੋਂ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"

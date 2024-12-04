@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2024-02-18 15:54+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -360,6 +360,12 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>இவ்வாவணம் இன்னொரு செயலியால் மாற்றப்பட்டுள்ளது.</p>"
 
+#: katefiletreeplugin.cpp:174
+#, fuzzy, kde-format
+#| msgid "&Other..."
+msgid "Filter..."
+msgstr "&மற்ற"
+
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
@@ -406,9 +412,6 @@ msgstr "&செல்"
 #~ msgstr ""
 #~ "இத்தேர்வு இயக்கப்பட்டிருந்தால், திறந்துள்ள ஆவணமொன்றின் மீது சுட்டியை வைக்கும்போது அதை "
 #~ "மூடுவதற்கான பட்டன் காட்டப்படும்."
-
-#~ msgid "&Other..."
-#~ msgstr "&மற்ற"
 
 #~ msgid "Do you really want to delete file \"%1\" from storage?"
 #~ msgstr "\"%1\" எனும் கோப்பை உறுதியாக சேமிப்பகத்திலிருந்து நீக்க வேண்டுமா?"

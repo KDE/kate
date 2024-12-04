@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-24 00:43+0000\n"
+"POT-Creation-Date: 2024-12-04 00:42+0000\n"
 "PO-Revision-Date: 2016-03-24 14:50+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -350,6 +350,7 @@ msgid "Warnings"
 msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:508
+#: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter..."
 msgstr ""

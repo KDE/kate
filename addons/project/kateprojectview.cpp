@@ -56,7 +56,7 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     /**
      * setup filter line edit
      */
-    m_filter->setPlaceholderText(i18n("Filter..."));
+    m_filter->setPlaceholderText(i18n("Filter…"));
     m_filter->setClearButtonEnabled(true);
     m_filter->setProperty("_breeze_borders_sides", QVariant::fromValue(Qt::TopEdge | Qt::TopEdge));
     connect(m_filter, &KLineEdit::textChanged, this, [this] {

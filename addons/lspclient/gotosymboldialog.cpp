@@ -154,7 +154,7 @@ GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, st
     , mainWindow(mainWindow)
     , server(std::move(server))
 {
-    m_lineEdit.setPlaceholderText(i18n("Filter..."));
+    m_lineEdit.setPlaceholderText(i18n("Filter…"));
 
     m_treeView.setModel(model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);

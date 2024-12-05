@@ -505,7 +505,7 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
     });
 
     l->addWidget(m_filterLineEdit);
-    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
+    m_filterLineEdit->setPlaceholderText(i18n("Filter…"));
     m_filterLineEdit->setClearButtonEnabled(true);
     connect(m_filterLineEdit, &QLineEdit::textChanged, m_filterChangedTimer, [this] {
         m_filterChangedTimer->start();

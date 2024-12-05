@@ -350,7 +350,7 @@ void GitWidget::init()
     layout->addWidget(m_treeView, 1);
 
     m_filterLineEdit = new QLineEdit(this);
-    m_filterLineEdit->setPlaceholderText(i18n("Filter..."));
+    m_filterLineEdit->setPlaceholderText(i18n("Filter…"));
     m_filterLineEdit->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     layout->addWidget(m_filterLineEdit);
 

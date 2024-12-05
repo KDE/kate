@@ -4,13 +4,13 @@
 #
 # Automatically generated, 2014.
 # SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# Rocio Gallego <traducciones@rociogallego.com>, 2014.
+# SPDX-FileCopyrightText: 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 00:42+0000\n"
-"PO-Revision-Date: 2024-02-08 01:16+0100\n"
+"PO-Revision-Date: 2024-12-04 03:14+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -365,10 +365,9 @@ msgstr ""
 "<p><b>%1</b></p><p>El documento se ha modificado desde otra aplicación.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter..."
-msgstr "&Otro..."
+msgstr "Filtrar..."
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

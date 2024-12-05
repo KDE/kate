@@ -134,12 +134,10 @@ public:
                 m_hl->m_inlineCodeSpanColor = bg.darker(120);
             }
 
-            auto font = KTextEditor::Editor::instance()->font();
-            if (font.pointSize() > 11) {
-                font.setPointSize(font.pointSize() - 1);
-            }
-            setFont(font);
-            m_hl->m_editorFont = font;
+            auto newFont = KTextEditor::Editor::instance()->font();
+            newFont.setPointSize(font().pointSize());
+            setFont(newFont);
+            m_hl->m_editorFont = newFont;
         };
         updateColors(KTextEditor::Editor::instance());
         connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);

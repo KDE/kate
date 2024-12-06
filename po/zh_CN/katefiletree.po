@@ -356,7 +356,7 @@ msgstr "<p><b>%1</b></p><p>文档已被其他程序修改。</p>"
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "过滤..."
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

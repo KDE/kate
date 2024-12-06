@@ -59,6 +59,7 @@
   <name xml:lang="zh-CN">Kate 文本编辑器</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced text editor</summary>
+  <summary xml:lang="bg">Разширен текстов редактор</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
@@ -80,6 +81,7 @@
     <p>
       Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.
     </p>
+    <p xml:lang="bg">Kate е бърз текстов редактор от KDE, предназначен за програмисти, с възможности за обработка на множество документи и изгледи . Той разполага с неща като поддръжка на LSP (Language Server Protocol), проекти, множество курсори и селекции, git интеграция, широко търсене в папки, хоризонтално и вертикално разделяне, vi режим, подчертаване на синтаксиса за над 300 езика, вграден терминал, динамично пренасяне на думи и много повече. Предлага се на Linux, BSD, Windows и MacOS.</p>
     <p xml:lang="ca">El Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport del LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració del Git, cerca ampliada de carpetes, divisions horitzontals i verticals, mode del vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible al Linux, BSD, Windows i MacOS.</p>
     <p xml:lang="ca-valencia">Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport de LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració de Git, busca ampliada de carpetes, divisions horitzontals i verticals, mode de vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible en Linux, BSD, Windows i MacOS.</p>
     <p xml:lang="en-GB">Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.</p>
@@ -461,6 +463,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
       <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
       <li>Syntax highlighting for 300+ languages</li>
+      <li xml:lang="bg">Оцветяване на синтаксиса за над 300 езика</li>
       <li xml:lang="ca">Ressaltat de sintaxi de més de 300 llenguatges</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi de més de 300 llenguatges</li>
       <li xml:lang="en-GB">Syntax highlighting for 300+ languages</li>
@@ -535,6 +538,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Multiple cursors and multiple selections</li>
+      <li xml:lang="bg">Множество курсори и селекции</li>
       <li xml:lang="ca">Cursors múltiples i seleccions múltiples</li>
       <li xml:lang="ca-valencia">Cursors múltiples i seleccions múltiples</li>
       <li xml:lang="en-GB">Multiple cursors and multiple selections</li>
@@ -803,6 +807,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">支持多种类型的协议 (HTTP、FTP、SSH、WebDAV 等)</li>
       <li xml:lang="zh-TW">廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Extensible via plugins</li>
+      <li xml:lang="bg">Разширяем с приставки</li>
       <li xml:lang="ca">Ampliable a través de connectors</li>
       <li xml:lang="ca-valencia">Ampliable a través de connectors</li>
       <li xml:lang="en-GB">Extensible via plugins</li>
@@ -825,6 +830,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">可通过插件扩展</li>
       <li xml:lang="zh-TW">可透過外掛程式擴充</li>
       <li>Integrated terminal</li>
+      <li xml:lang="bg">Интегриран команден терминал</li>
       <li xml:lang="ca">Terminal integrat</li>
       <li xml:lang="ca-valencia">Terminal integrat</li>
       <li xml:lang="en-GB">Integrated terminal</li>
@@ -897,6 +903,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">基于 JavaScript 实现的脚本编程</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
       <li>Vi mode</li>
+      <li xml:lang="bg">Vi-режим</li>
       <li xml:lang="ca">Mode del Vi</li>
       <li xml:lang="ca-valencia">Mode de Vi</li>
       <li xml:lang="en-GB">Vi mode</li>
@@ -919,6 +926,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">Vi 模式</li>
       <li xml:lang="zh-TW">Vi 模式</li>
       <li>Intellisense support using LSP (Language Server Protocol)</li>
+      <li xml:lang="bg">Поддръжка на Intellisense с помощта на LSP (Language Server Protocol)</li>
       <li xml:lang="ca">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="ca-valencia">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="en-GB">Intellisense support using LSP (Language Server Protocol)</li>
@@ -940,6 +948,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">Intellisense 支持 (基于 LSP/Language Server Protocol/语言服务器协议)</li>
       <li xml:lang="zh-TW">透過 LSP（語言伺服器協定）實現的 Intellisense 支援</li>
       <li>DAP (Debug Adapter Protocol) support</li>
+      <li xml:lang="bg">Поддръжка на протокол DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca-valencia">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="en-GB">DAP (Debug Adaptor Protocol) support</li>
@@ -961,6 +970,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">DAP (Debug Adapter Protocol/调试适配器协议) 支持</li>
       <li xml:lang="zh-TW">DAP（除錯配接協定）支援</li>
       <li>Vertical tabs/document list</li>
+      <li xml:lang="bg">Вертикални раздели/списък с документи</li>
       <li xml:lang="ca">Llista vertical de pestanyes/documents</li>
       <li xml:lang="ca-valencia">Llista vertical de pestanyes/documents</li>
       <li xml:lang="en-GB">Vertical tabs/document list</li>
@@ -983,6 +993,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">垂直标签页/文档列表</li>
       <li xml:lang="zh-TW">垂直的分頁/文件列表</li>
       <li>Lightweight project support. Kate can open folders as projects</li>
+      <li xml:lang="bg">Лесна поддръжка на проекти. Kate може да отваря папки като проекти</li>
       <li xml:lang="ca">Implementació de projectes lleugers. El Kate pot obrir carpetes com a projectes</li>
       <li xml:lang="ca-valencia">Implementació de projectes lleugers. Kate pot obrir carpetes com a projectes</li>
       <li xml:lang="en-GB">Lightweight project support. Kate can open folders as projects</li>
@@ -1005,6 +1016,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">轻量级项目支持。Kate 可以将文件夹作为工程打开</li>
       <li xml:lang="zh-TW">輕量專案支援。Kate 可以把任何資料夾當作專案打開</li>
       <li>Code formatting using native formatters such as clang-format, prettier etc</li>
+      <li xml:lang="bg">Форматиране на код с помощта на собствени форматиращи програми като clang-format, prettier и др</li>
       <li xml:lang="ca">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
       <li xml:lang="ca-valencia">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
       <li xml:lang="en-GB">Code formatting using native formatters such as clang-format, prettier etc</li>
@@ -1026,6 +1038,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">使用本地格式化工具 (如clang-format、prettier等) 对代码进行格式化。</li>
       <li xml:lang="zh-TW">利用原生格式工具（如 clang-format、prettier 等等）進行程式碼格式美化</li>
       <li>Built in filesystem browser</li>
+      <li xml:lang="bg">Вграден преглед на файловата система</li>
       <li xml:lang="ca">Navegador integrat del sistema de fitxers</li>
       <li xml:lang="ca-valencia">Navegador integrat del sistema de fitxers</li>
       <li xml:lang="en-GB">Built in filesystem browser</li>
@@ -1048,6 +1061,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">内建在文件系统浏览器中</li>
       <li xml:lang="zh-TW">內建檔案系統瀏覽器</li>
       <li>CTags support</li>
+      <li xml:lang="bg">Поддръжка на CTags</li>
       <li xml:lang="ca">Implementació de CTags</li>
       <li xml:lang="ca-valencia">Implementació de CTags</li>
       <li xml:lang="en-GB">CTags support</li>
@@ -1070,6 +1084,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">CTags 支持</li>
       <li xml:lang="zh-TW">CTags 支援</li>
       <li>Project wide and folder wide search</li>
+      <li xml:lang="bg">Търсене в целия проект и в цялата папка</li>
       <li xml:lang="ca">Cerca ample als projectes i carpetes</li>
       <li xml:lang="ca-valencia">Busca ample als projectes i carpetes</li>
       <li xml:lang="en-GB">Project wide and folder wide search</li>
@@ -1092,6 +1107,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">搜索整个项目和整个文件夹的内容</li>
       <li xml:lang="zh-TW">專案內與資料夾內的搜尋</li>
       <li>Git integration</li>
+      <li xml:lang="bg">Интеграция с Git</li>
       <li xml:lang="ca">Integració del Git</li>
       <li xml:lang="ca-valencia">Integració de Git</li>
       <li xml:lang="en-GB">Git integration</li>

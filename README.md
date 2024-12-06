@@ -1,7 +1,16 @@
-# Kate
+Kate
+=========
 
 Modern text editor built on the KDE Frameworks and Qt.
 
+# Installation
+[![Flathub Link](https://flathub.org/api/badge?locale=en)](https://flathub.org/apps/org.kde.kate)
+
+[![Snap Store Link](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/kate)
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/kate.svg)](https://repology.org/project/kate/versions)
+
+## Screenshot
 ![Kate window](https://cdn.kde.org/screenshots/kate/kate.png)
 
 ## Join Us!

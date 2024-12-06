@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -356,8 +356,9 @@ msgstr "Xəbərdarlıqlar"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "Süzgəc..."
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:139

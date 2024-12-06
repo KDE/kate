@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2010-01-31 12:25+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: ਪੰਜਾਬੀ <punjabi-users@lists.sf.net>\n"
@@ -142,7 +142,7 @@ msgstr "ਨਿਸ਼ਾਨ ਲਿਸਟ"
 
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
-msgid "Filter..."
+msgid "Filter…"
 msgstr ""
 
 #: plugin_katesymbolviewer.cpp:142

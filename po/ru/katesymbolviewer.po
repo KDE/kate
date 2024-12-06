@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2022-10-12 14:50+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -153,8 +153,9 @@ msgid "Symbol List"
 msgstr "Список идентификаторов"
 
 #: plugin_katesymbolviewer.cpp:132
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "Фильтр..."
 
 #: plugin_katesymbolviewer.cpp:142

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -365,7 +365,7 @@ msgstr "Peringatan"
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "&Other..."
-msgid "Filter..."
+msgid "Filter…"
 msgstr "&Lainnya..."
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:139

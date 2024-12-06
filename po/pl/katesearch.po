@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-05-12 09:44+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -225,9 +225,10 @@ msgstr[2] ""
 "nadrzędny: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Odfiltruj..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filtr:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -738,6 +739,9 @@ msgstr "&Edytuj"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Warianty szukania w plikach"
+
+#~ msgid "Filter..."
+#~ msgstr "Odfiltruj..."
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Znajdź i zastąp - Kate"

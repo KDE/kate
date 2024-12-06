@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2022-12-23 22:32+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -196,9 +196,10 @@ msgstr[1] ""
 "%1 ocorrências (%3) encontradas em todos os projectos abertos (pai-comum: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Filtro..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filtro:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -709,3 +710,6 @@ msgstr "&Editar"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Variantes da Pesquisa nos Ficheiros"
+
+#~ msgid "Filter..."
+#~ msgstr "Filtro..."

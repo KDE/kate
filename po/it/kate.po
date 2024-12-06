@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-11-12 15:32+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -358,9 +358,10 @@ msgstr "Avvisi"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, kde-format
-msgid "Filter..."
-msgstr "Filtra..."
+#, fuzzy, kde-format
+#| msgid "&Filter:"
+msgid "Filter…"
+msgstr "&Filtro:"
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:139
 #, kde-format
@@ -2997,6 +2998,9 @@ msgstr "Gestisci le sessioni..."
 msgid "Show welcome page for new window"
 msgstr "Mostra la pagina di benvenuto per le nuove finestre"
 
+#~ msgid "Filter..."
+#~ msgstr "Filtra..."
+
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Apertura rapida (configurabile dal menu contestuale)"
 
@@ -4197,9 +4201,6 @@ msgstr "Mostra la pagina di benvenuto per le nuove finestre"
 
 #~ msgid "Document Quick Switch"
 #~ msgstr "Cambio rapido dei documenti"
-
-#~ msgid "&Filter:"
-#~ msgstr "&Filtro:"
 
 #~ msgid "Cannot go to the document"
 #~ msgstr "Impossibile andare al documento"

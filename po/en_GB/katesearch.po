@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-05-24 16:58+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -190,9 +190,10 @@ msgstr[0] "One match (%3) found in all open projects (common parent: %2)"
 msgstr[1] "%1 matches (%3) found in all open projects (common parent: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filter:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -699,6 +700,9 @@ msgstr "&Edit"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Find in Files Variants"
+
+#~ msgid "Filter..."
+#~ msgstr "Filter..."
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate Search & Replace"

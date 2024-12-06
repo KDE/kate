@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2012-06-08 16:41+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -180,7 +180,7 @@ msgstr[0] ""
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "ត្រង"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -698,6 +698,11 @@ msgstr "កែសម្រួល"
 #| msgid "Find in open files plugin"
 msgid "Find in Files Variants"
 msgstr "រក​នៅ​ក្នុង​កម្មវិធី​ជំនួយ​ឯកសារ​បើក"
+
+#, fuzzy
+#~| msgid "Filter"
+#~ msgid "Filter..."
+#~ msgstr "ត្រង"
 
 #, fuzzy
 #~| msgid "Search & Replace"

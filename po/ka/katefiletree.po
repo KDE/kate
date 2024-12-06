@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-12-04 03:23+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -360,8 +360,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>დოკუმენტი შეიცვალა სხვა აპლიკაციის მიერ.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "გაფილტვრა..."
 
 #: katefiletreeplugin.cpp:253

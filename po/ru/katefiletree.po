@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2022-12-21 11:27+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -380,8 +380,9 @@ msgstr "<p><b>%1</b></p><p>Документ был изменён в друго�
 
 #: katefiletreeplugin.cpp:174
 #, fuzzy, kde-format
-msgid "Filter..."
-msgstr "Файлы:"
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Фильтр:"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format
@@ -423,6 +424,10 @@ msgstr "Сохранить текущий документ под новым и�
 #, kde-format
 msgid "&Go"
 msgstr "Пере&ход"
+
+#, fuzzy
+#~ msgid "Filter..."
+#~ msgstr "Файлы:"
 
 #~ msgid ""
 #~ "When enabled, this will show a close button for opened documents on hover."
@@ -2133,9 +2138,6 @@ msgstr "Пере&ход"
 #~ msgid "Stack of previous locations. Activate an item to jump to it."
 #~ msgstr ""
 #~ "Список предыдущих расположений. Выберите элемент, чтобы перейти к нему."
-
-#~ msgid "Filter:"
-#~ msgstr "Фильтр:"
 
 #~ msgid "JSON config"
 #~ msgstr "Конфигурация JSON"

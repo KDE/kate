@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-08-04 10:17+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -192,9 +192,10 @@ msgstr[0] "Fann 1 treff (%3) i alle opne prosjekt (felles forelder: %2)"
 msgstr[1] "Fann %1 treff (%3) i alle opne prosjekt (felles forelder: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Filtrer …"
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filter:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -703,3 +704,6 @@ msgstr "&Rediger"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Finn i filer (variantar)"
+
+#~ msgid "Filter..."
+#~ msgstr "Filtrer …"

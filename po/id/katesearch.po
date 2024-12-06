@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2022-12-12 08:28+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -201,7 +201,7 @@ msgstr[1] ""
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter:"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "Filter:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -719,6 +719,11 @@ msgstr "&Edit"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Filter:"
+#~ msgid "Filter..."
+#~ msgstr "Filter:"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate Cari & Ganti"

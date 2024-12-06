@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2023-06-30 13:54+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -195,9 +195,10 @@ msgstr[1] ""
 "Bütün açıq layihələrdə (ümumi ana qovluq: %2) %1 uyğunluq (%3) tapıldı"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Süzgəc..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Süzgəc:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -705,6 +706,9 @@ msgstr "&Düzəliş edin"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Fayl variantlarında tapın"
+
+#~ msgid "Filter..."
+#~ msgstr "Süzgəc..."
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate-də tapın və əvəzələyin"

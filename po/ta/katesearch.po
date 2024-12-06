@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-03-17 17:45+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -200,9 +200,10 @@ msgstr[1] ""
 "திறந்துள்ள திட்டப்பணிகளில் (பொதுவான தாய்: %2) %1 பொருத்தங்கள் (%3) கண்டுபிடிக்கப்பட்டுள்ளன"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "வடிகட்டு..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "வடிகட்டி:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -706,3 +707,6 @@ msgstr "&திருத்து"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "மேம்பட்ட கோப்புக்குள்தேடல்"
+
+#~ msgid "Filter..."
+#~ msgstr "வடிகட்டு..."

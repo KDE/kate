@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-02-07 23:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -359,7 +359,7 @@ msgstr "<p><b>%1</b></p><p>此文件已被其它應用程式修改。</p>"
 #: katefiletreeplugin.cpp:174
 #, fuzzy, kde-format
 #| msgid "&Other..."
-msgid "Filter..."
+msgid "Filter…"
 msgstr "其他(&O)..."
 
 #: katefiletreeplugin.cpp:253

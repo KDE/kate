@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -173,9 +173,10 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "所有打开的项目中找到 %1 个匹配 (%3) (共同父目录：%2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "过滤..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "过滤："
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -674,3 +675,6 @@ msgstr "编辑(&E)"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "在文件变体中查找"
+
+#~ msgid "Filter..."
+#~ msgstr "过滤..."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2014-08-14 17:02+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -220,7 +220,7 @@ msgstr[1] "<b><i>%1 Övereenstimmen binnen Projekt %2 (%3) funnen</i></b>"
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "Filter"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -743,6 +743,11 @@ msgstr "&Bewerken"
 #| msgid "Find in open files plugin"
 msgid "Find in Files Variants"
 msgstr "Moduul för de Söök binnen opmaakt Dateien"
+
+#, fuzzy
+#~| msgid "Filter"
+#~ msgid "Filter..."
+#~ msgstr "Filter"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate-Söök un Utwesseln"

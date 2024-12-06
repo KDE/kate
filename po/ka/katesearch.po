@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-03-15 04:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -195,9 +195,10 @@ msgstr[1] ""
 "ყველა ღია პროექტში (საერთო მშობელი: %2) აღმოჩენილია %1 დამთხვევა (%3)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "ფილტრი..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "ფილტრი:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -706,3 +707,6 @@ msgstr "&ჩასწორება"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "ფაილების ვარიანტებსი ძებნა"
+
+#~ msgid "Filter..."
+#~ msgstr "ფილტრი..."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-02-07 14:51+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -363,7 +363,7 @@ msgstr ""
 #: katefiletreeplugin.cpp:174
 #, fuzzy, kde-format
 #| msgid "&Other..."
-msgid "Filter..."
+msgid "Filter…"
 msgstr "&Overig..."
 
 #: katefiletreeplugin.cpp:253

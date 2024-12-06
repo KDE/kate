@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecppsymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2023-12-06 21:22+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -143,8 +143,9 @@ msgid "Symbol List"
 msgstr "Táknalisti"
 
 #: plugin_katesymbolviewer.cpp:132
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "Sía..."
 
 #: plugin_katesymbolviewer.cpp:142

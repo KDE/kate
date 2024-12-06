@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2011-12-16 08:29+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -195,7 +195,7 @@ msgstr[1] ""
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "ਫਿਲਟਰ"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -712,6 +712,11 @@ msgstr "ਸੋਧ(&E)"
 #| msgid "Find in open files plugin"
 msgid "Find in Files Variants"
 msgstr "ਖੁੱਲ੍ਹੀਆਂ ਫਾਇਲਾਂ ਵਿੱਚ ਲੱਭਣ ਲਈ ਪਲੱਗਇਨ"
+
+#, fuzzy
+#~| msgid "Filter"
+#~ msgid "Filter..."
+#~ msgstr "ਫਿਲਟਰ"
 
 #, fuzzy
 #~| msgid "Search & Replace"

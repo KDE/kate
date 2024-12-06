@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-04-30 15:45+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -213,9 +213,10 @@ msgstr[1] "V otevřených projektech nalezeny %1 shody (%3) (společný rodič: 
 msgstr[2] "V otevřených projektech nalezeno %1 shod (%3) (společný rodič: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Filtr..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filtr:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -716,3 +717,6 @@ msgstr "&Upravit"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr ""
+
+#~ msgid "Filter..."
+#~ msgstr "Filtr..."

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-02-13 10:47+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -195,9 +195,10 @@ msgstr[0] "Egy találat (%3) az összes megnyitott projektben (közös szülő: 
 msgstr[1] "%1 találat (%3) az összes megnyitott projektben (közös szülő: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Szűrő…"
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Szűrő:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -705,6 +706,9 @@ msgstr "Sz&erkesztés"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Keresés fájlváltozatokban"
+
+#~ msgid "Filter..."
+#~ msgstr "Szűrő…"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate keresés és csere"

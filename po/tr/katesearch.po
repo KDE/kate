@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-10-25 19:00+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -197,9 +197,10 @@ msgstr[0] "Tüm açık projelerde bir eşleşme (%3) bulundu (ortak üst: %2)"
 msgstr[1] "Tüm açık projelerde %1 eşleşme (%3) bulundu (ortak üst: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Süz…"
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Süz:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -706,3 +707,6 @@ msgstr "Dü&zen"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Dosya Varyantlarında Bul"
+
+#~ msgid "Filter..."
+#~ msgstr "Süz…"

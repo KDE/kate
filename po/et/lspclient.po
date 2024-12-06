@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2020-10-23 11:58+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -19,8 +19,9 @@ msgstr ""
 "X-Generator: Lokalize 20.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "Filtreeri ..."
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-27 00:43+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2013-04-16 17:23+0300\n"
 "Last-Translator: Liudas Alisauskas <liudas@akmc.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -143,7 +143,7 @@ msgstr "Simbolių sąrašas"
 
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
-msgid "Filter..."
+msgid "Filter…"
 msgstr ""
 
 #: plugin_katesymbolviewer.cpp:142

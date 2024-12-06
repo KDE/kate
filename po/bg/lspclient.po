@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
-"PO-Revision-Date: 2024-11-10 20:12+0100\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"PO-Revision-Date: 2024-12-05 22:22+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,11 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, kde-format
-msgid "Filter..."
+#, fuzzy, kde-format
+#| msgid "Filter..."
+msgid "Filter…"
 msgstr "Филтър..."
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
@@ -167,10 +168,9 @@ msgid "Code Action"
 msgstr "Код Действие"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Завършвания:"
+msgstr "Показване на завършвания на lsp"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -504,10 +504,9 @@ msgstr "Завършвания:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Завършвания:"
+msgstr "Показване на завършвания"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

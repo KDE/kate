@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -186,9 +186,10 @@ msgstr[0] "सर्वेषु उद्घाटितेषु परिय�
 msgstr[1] "सर्वेषु उद्घाटितेषु परियोजनासु %1 मेलाः (%3) प्राप्ताः (सामान्यः मातापिता: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "शोधक..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "शोधक:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -694,6 +695,9 @@ msgstr "&सम्पादयतु"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "\"सञ्चिकानां रूपान्तराणि\" इत्यत्र अन्वेषणं कुर्वन्तु"
+
+#~ msgid "Filter..."
+#~ msgstr "शोधक..."
 
 #~ msgid "Message ID"
 #~ msgstr "सन्देशपरिचयः"

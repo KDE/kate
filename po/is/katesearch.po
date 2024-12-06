@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-04-06 20:37+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -197,9 +197,10 @@ msgstr[1] ""
 "%2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Sía..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Sía:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -707,6 +708,9 @@ msgstr "Br&eyta"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Finna í skráaafbrigðum"
+
+#~ msgid "Filter..."
+#~ msgstr "Sía..."
 
 #, fuzzy
 #~ msgid "Kate Search & Replace"

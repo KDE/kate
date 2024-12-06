@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-03-15 17:48+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -238,9 +238,10 @@ msgstr[3] ""
 "батьківський — %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Фільтрувати…"
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Фільтр:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -749,6 +750,9 @@ msgstr "З&міни"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Знайти у варіантах файлів"
+
+#~ msgid "Filter..."
+#~ msgstr "Фільтрувати…"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Пошук з заміною Kate"

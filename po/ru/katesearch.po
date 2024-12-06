@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2023-12-24 18:37+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -242,9 +242,10 @@ msgstr[3] ""
 
 # BUGME: add colon --aspotashev
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Фильтр…"
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Фильтр:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -751,6 +752,10 @@ msgstr "&Правка"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Варианты поиска в файлах"
+
+# BUGME: add colon --aspotashev
+#~ msgid "Filter..."
+#~ msgstr "Фильтр…"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Поиск и замена в Kate"

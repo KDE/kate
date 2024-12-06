@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2020-05-12 10:22+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -225,7 +225,7 @@ msgstr[1] ""
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter:"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "Filter:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -741,6 +741,11 @@ msgstr "&Redigeerimine"
 #| msgid "Find in open files plugin"
 msgid "Find in Files Variants"
 msgstr "Avatud failides otsimise plugin"
+
+#, fuzzy
+#~| msgid "Filter:"
+#~ msgid "Filter..."
+#~ msgstr "Filter:"
 
 #~ msgid "Kate Search & Replace"
 #~ msgstr "Kate otsimine ja asendamine"

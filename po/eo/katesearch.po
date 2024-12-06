@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2024-03-17 05:34+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -195,9 +195,10 @@ msgstr[1] ""
 "Trovis %1 kongruojn (%3) en ĉiuj malfermitaj projektoj (komuna gepatro: %2)"
 
 #: Results.cpp:32
-#, kde-format
-msgid "Filter..."
-msgstr "Filtrilo..."
+#, fuzzy, kde-format
+#| msgid "Filter:"
+msgid "Filter…"
+msgstr "Filtrilo:"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -704,3 +705,6 @@ msgstr "R&edakti"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Trovi en Dosieroj Variantoj"
+
+#~ msgid "Filter..."
+#~ msgstr "Filtrilo..."

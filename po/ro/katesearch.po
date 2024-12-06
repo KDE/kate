@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2020-10-05 23:24+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -216,7 +216,7 @@ msgstr[2] ""
 #: Results.cpp:32
 #, fuzzy, kde-format
 #| msgid "Filter"
-msgid "Filter..."
+msgid "Filter…"
 msgstr "Filtru"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
@@ -735,6 +735,11 @@ msgstr "&Editare"
 #| msgid "Find in open files plugin"
 msgid "Find in Files Variants"
 msgstr "Plugin Găsește în fișierele deschise"
+
+#, fuzzy
+#~| msgid "Filter"
+#~ msgid "Filter..."
+#~ msgstr "Filtru"
 
 #, fuzzy
 #~| msgid "Search & Replace"

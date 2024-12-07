@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-09-30 05:44+0200\n"
+"PO-Revision-Date: 2024-12-06 04:02+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -222,10 +222,9 @@ msgid "Refresh git status"
 msgstr "Git-ის სტატუსის განახლება"
 
 #: gitwidget.cpp:353 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "გაფილტვრა..."
+msgstr "ფილტრი…"
 
 #: gitwidget.cpp:443
 #, kde-format

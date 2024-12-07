@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-03-16 23:23+0100\n"
+"PO-Revision-Date: 2024-12-06 11:47+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -198,10 +198,9 @@ msgstr[1] ""
 "Atopáronse %1 aparicións (%3) en todos os proxectos abertos (pai común: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Filtro:"
+msgstr "Filtrar…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)

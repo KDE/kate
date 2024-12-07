@@ -220,10 +220,9 @@ msgid "Refresh git status"
 msgstr "刷新 git 状态"
 
 #: gitwidget.cpp:353 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "过滤..."
+msgstr ""
 
 #: gitwidget.cpp:443
 #, kde-format

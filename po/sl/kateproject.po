@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-09-30 09:38+0200\n"
+"PO-Revision-Date: 2024-12-06 06:43+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -229,10 +229,9 @@ msgid "Refresh git status"
 msgstr "Osveži stanje gif"
 
 #: gitwidget.cpp:353 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filter..."
+msgstr "Filter…"
 
 #: gitwidget.cpp:443
 #, kde-format

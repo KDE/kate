@@ -18,10 +18,9 @@ msgstr ""
 "X-Crowdin-File-ID: 44745\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "过滤..."
+msgstr ""
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
 #: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616

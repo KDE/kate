@@ -173,10 +173,9 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "所有打开的项目中找到 %1 个匹配 (%3) (共同父目录：%2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "过滤："
+msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
@@ -675,6 +674,3 @@ msgstr "编辑(&E)"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "在文件变体中查找"
-
-#~ msgid "Filter..."
-#~ msgstr "过滤..."

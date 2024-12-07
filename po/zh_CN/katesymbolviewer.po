@@ -137,10 +137,9 @@ msgid "Symbol List"
 msgstr "符号列表"
 
 #: plugin_katesymbolviewer.cpp:132
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "过滤..."
+msgstr ""
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

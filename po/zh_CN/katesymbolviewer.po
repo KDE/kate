@@ -139,7 +139,7 @@ msgstr "符号列表"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "过滤…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrej Mernik <andrejm@ubuntu.si>, 2014, 2016.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2019, 2021, 2022.
+# SPDX-FileCopyrightText: 2019, 2021, 2022, 2024 Matjaž Jeran <matjaz.jeran@amis.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-02-07 06:49+0100\n"
+"PO-Revision-Date: 2024-12-06 17:35+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -362,10 +362,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>Dokument je spremenil drug program.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter..."
-msgstr "&Ostalo..."
+msgstr "Filter..."
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

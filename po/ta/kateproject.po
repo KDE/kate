@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2024-10-09 21:24+0530\n"
+"PO-Revision-Date: 2024-12-08 12:28+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -25,12 +25,12 @@ msgstr ""
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "புதிய கிளையை உருவாக்கு:"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "புதிய கிளையை இதிலிருந்து உருவாக்கு..."
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -45,7 +45,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "புதிய கிளையின் பெயரை உள்ளிடவும். ரத்து செய்ய 'Esc' விசையை அழுத்தவும்."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
@@ -65,12 +65,12 @@ msgstr ""
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "கிளை"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "கடைசி பதிவு"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
@@ -81,13 +81,13 @@ msgstr "நீக்கு"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "கண்டிப்பாக இந்த கிளையை நீக்க வேண்டுமா?"
+msgstr[1] "கண்டிப்பாக இந்த கிளைகளை நீக்க வேண்டுமா?"
 
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "கிளையைத் தேர்ந்தெடு…"
 
 #: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
@@ -115,18 +115,18 @@ msgstr ""
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "செயலிலுள்ள கிளை: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "மாற்றங்களை பதிவிடு"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:281
 #: gitwidget.cpp:1091
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "பதிவிடு"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
@@ -136,7 +136,7 @@ msgstr "ரத்து செய்"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "பதிவுக்கான விவரணத்தை உள்ளிடவும்…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
@@ -156,18 +156,18 @@ msgstr "மாற்று"
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1048
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "கடைசிப் பதிவை மாற்று"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "பதிவு மாற்றப்படுகிறது"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:211
 #, kde-format
@@ -178,7 +178,7 @@ msgstr ""
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "ஏற்றரங்கில் உள்ளது"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
@@ -243,22 +243,22 @@ msgstr "\"%1\" வெற்றிகரமாக முடிந்த‍து:
 #: gitwidget.cpp:679
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "கோப்பை ஏற்றரங்கில் செர்க்க முடியவில்லை"
 
 #: gitwidget.cpp:692
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "கோப்பை ஏற்றரங்கிலிருந்து நீக்க முடியவில்லை"
 
 #: gitwidget.cpp:703
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "மாற்றங்களை கைவிட முடியவில்லை. சிக்கல்:"
 
 #: gitwidget.cpp:714
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "நீக்க முடியவில்லை. சிக்கல்:"
 
 #: gitwidget.cpp:730
 #, kde-format
@@ -273,22 +273,22 @@ msgstr ""
 #: gitwidget.cpp:829
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "பதிவிட முடியவில்லை: %1"
 
 #: gitwidget.cpp:833
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "மாற்றங்கள் வெற்றிகரமாக பதிவிடப்பட்டன."
 
 #: gitwidget.cpp:843
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "பதிவிட ஏதுமில்லை. மாற்றங்களை முதலில் ஏற்றரங்கில் சேர்க்கவும்."
 
 #: gitwidget.cpp:856
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "பதிவுச்செய்தி காலியாக இருக்கக்கூடாது."
 
 #: gitwidget.cpp:984
 #, kde-format
@@ -318,7 +318,7 @@ msgstr ""
 #: gitwidget.cpp:1068
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "கிழையை நீக்கு"
 
 #: gitwidget.cpp:1080
 #, kde-format
@@ -328,22 +328,22 @@ msgstr ""
 #: gitwidget.cpp:1085
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "பதிவைக் காட்டு"
 
 #: gitwidget.cpp:1103
 #, kde-format
 msgid "Show Last Commit"
-msgstr ""
+msgstr "கடைசிப் பதிவைக் காட்டு"
 
 #: gitwidget.cpp:1121
 #, kde-format
 msgid "Open Commit..."
-msgstr ""
+msgstr "பதிவைது திற"
 
 #: gitwidget.cpp:1124 gitwidget.cpp:1163
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "தற்காலிக பிடிப்புபில் இடு"
 
 #: gitwidget.cpp:1134
 #, kde-format
@@ -368,7 +368,7 @@ msgstr ""
 #: gitwidget.cpp:1177
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "தற்காலிக பிடிப்புற்கு நகர்த்து (ஏற்றரங்கில் வைத்திரு)"
 
 #: gitwidget.cpp:1181
 #, kde-format
@@ -393,7 +393,7 @@ msgstr ""
 #: gitwidget.cpp:1224
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "அனைத்தையும் ஏற்றரங்கில் செர்"
 
 #: gitwidget.cpp:1226
 #, kde-format
@@ -414,22 +414,22 @@ msgstr ""
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "மாற்றங்களைக் காட்டு"
 
 #: gitwidget.cpp:1247
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "இந்த கோப்புகளை உறுதியாக நீக்க வேண்டுமா?"
 
 #: gitwidget.cpp:1252
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "இம்மாற்றங்களை உறுதியாக கைவிட வேண்டுமா?"
 
 #: gitwidget.cpp:1270
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "கோப்பை திற"
 
 #: gitwidget.cpp:1272
 #, kde-format
@@ -444,12 +444,12 @@ msgstr ""
 #: gitwidget.cpp:1274
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "கோப்பை ஏற்றரங்கிலிருந்து நீக்கு"
 
 #: gitwidget.cpp:1274
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "கோப்பை ஏற்றரங்கில் செர்"
 
 #: gitwidget.cpp:1275
 #, kde-format
@@ -464,27 +464,27 @@ msgstr "கைவிடு"
 #: gitwidget.cpp:1292
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "இக்கோப்பிலுள்ள மாற்றங்களை உறுதியாக கைவிட வேண்டுமா?"
 
 #: gitwidget.cpp:1301
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "இக்கோப்பை உறுதியாக நீக்க வேண்டுமா?"
 
 #: gitwidget.cpp:1318
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "அனைத்தையும் ஏற்றரங்கிலிருந்து நீக்கு"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "தேர்ந்தெடுத்த கோப்புகளை ஏற்றரங்கிலிருந்து நீக்கு"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "தேர்ந்தெடுத்த கோப்புகளை ஏற்றரங்கில் செர்"
 
 #: gitwidget.cpp:1386
 #, kde-format
@@ -516,7 +516,7 @@ msgstr ""
 #: kateprojectviewtree.cpp:248
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "திட்டப்பணி"
 
 #: kateproject.cpp:660
 #, kde-format
@@ -656,7 +656,7 @@ msgstr "கோப்பை திற"
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "ஏற்றரங்கில் செர்/நீக்கு"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
@@ -755,27 +755,27 @@ msgstr ""
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Kind"
-msgstr ""
+msgstr "வகை"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "File"
-msgstr ""
+msgstr "கோப்பு"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
 msgid "Line"
-msgstr ""
+msgstr "வரி"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "தேடு"
 
 #: kateprojectinfoviewindex.cpp:198
 #, kde-format
@@ -790,12 +790,12 @@ msgstr ""
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "சிக்கல்"
 
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "இப்பெயரில் கோப்பு ஏற்கனவே உள்ளது"
 
 #: kateprojectplugin.cpp:216
 #, kde-format
@@ -837,7 +837,7 @@ msgstr ""
 #: kateprojectpluginview.cpp:86
 #, kde-format
 msgid "Close project"
-msgstr ""
+msgstr "திட்டப்பணியை மூடு"
 
 #: kateprojectpluginview.cpp:162
 #, kde-format

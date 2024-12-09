@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-11-07 16:32+0200\n"
+"PO-Revision-Date: 2024-12-01 14:41+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1198,6 +1198,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Salli välilehtien kiertäminen. Jos on valitsematta, ”Seuraava välilehti” ja "
+"”Edellinen välilehti” eivät kierrä ensimmäiseen tai viimeiseen välilehteen "
+"loppuun tai alkuun päästyään"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format

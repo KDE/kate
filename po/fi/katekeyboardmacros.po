@@ -1,6 +1,6 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Tommi Nieminen <translator@legisign.org>, 2022, 2024.
+# SPDX-FileCopyrightText: 2022, 2024 Tommi Nieminen <translator@legisign.org>
 #
 msgid ""
 msgstr ""
@@ -15,6 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format

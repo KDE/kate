@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-21 00:43+0000\n"
-"PO-Revision-Date: 2024-10-20 21:22+0300\n"
+"PO-Revision-Date: 2024-12-01 14:41+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -411,10 +411,9 @@ msgid "Target Set"
 msgstr "Kohdejoukko"
 
 #: TargetModel.cpp:520
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgid "Projects"
-msgstr "Projekti"
+msgstr "Projektit"
 
 #: TargetModel.cpp:520
 #, kde-format

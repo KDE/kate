@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-21 00:43+0000\n"
-"PO-Revision-Date: 2024-12-04 09:35+0100\n"
+"PO-Revision-Date: 2024-12-08 20:35+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -266,7 +266,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1262
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr "O complemento de construción quere executar a orde"
+msgstr "O complemento de construción quere executar o programa"
 
 #: plugin_katebuild.cpp:1265
 #, kde-format

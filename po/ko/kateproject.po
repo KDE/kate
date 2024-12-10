@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-08-20 23:26+0200\n"
+"PO-Revision-Date: 2024-12-10 00:29+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -853,10 +853,9 @@ msgid "Close project"
 msgstr "프로젝트 닫기"
 
 #: kateprojectpluginview.cpp:162
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "폴더 열기..."
+msgstr "폴더 열기(&F)..."
 
 #: kateprojectpluginview.cpp:168
 #, kde-format
@@ -944,16 +943,14 @@ msgid "Copy Location"
 msgstr "위치 복사"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "파일 열기"
+msgstr "새 파일…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "폴더 추가"
+msgstr "새 폴더…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -991,16 +988,14 @@ msgid "Show Git History"
 msgstr "Git 기록 표시"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "파일 열기"
+msgstr "새 파일"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "폴더 추가"
+msgstr "새 폴더"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1020,6 +1015,9 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"%1이(가) 설치되어 있지 않거나 PATH 환경 변수에서 찾을 수 없어서 %1 기반 프로"
+"젝트를 불러올 수 없습니다. %1을(를) 설치하거나 프로젝트 설정에서 '자동으로 저"
+"장소 불러오고 트리 빌드'를 비활성화하십시오."
 
 #: stashdialog.cpp:36
 #, kde-format

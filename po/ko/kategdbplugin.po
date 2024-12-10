@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2023-07-23 20:32+0200\n"
+"PO-Revision-Date: 2024-12-10 00:27+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -171,10 +171,9 @@ msgid "Target %1"
 msgstr "대상 %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP 백엔드 실패"
+msgstr "DAP 백엔드 '%1' 실패"
 
 #: dapbackend.cpp:226
 #, kde-format
@@ -695,10 +694,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "중단점 설정/해제"
 
 #: plugin_kategdb.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "중단점"
+msgstr "모든 중단점 지우기"
 
 #: plugin_kategdb.cpp:287
 #, kde-format
@@ -728,17 +726,17 @@ msgstr "디버깅 다시 시작"
 #: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "즉시 새로 고침"
 
 #: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "즉시 다시 시작"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "저장할 때 즉시 새로 고침 활성화"
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format

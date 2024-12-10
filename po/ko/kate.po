@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-08-20 23:18+0200\n"
+"PO-Revision-Date: 2024-12-10 00:26+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -201,10 +201,9 @@ msgstr "파일(&F)"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "파일 동작"
+msgstr "파일 동작(&I)"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -214,10 +213,9 @@ msgstr "편집(&E)"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
-msgstr "선택(&S)"
+msgstr "선택(&C)"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:57
@@ -332,10 +330,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "진단 필터 지우기"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "커밋 정보 표시/숨기기"
+msgstr "위에 있을 때 표시"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -1170,6 +1167,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"탭 목록 순환을 허용합니다. 이 옵션을 사용하지 않으면 탭 목록의 끝에서 '다음 "
+"탭'/'이전 탭' 동작을 사용했을 때 첫 탭/마지막 탭으로 이동하지 않습니다."
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1234,19 +1233,19 @@ msgstr "진단 도구 보기에 표시할 최대 진단 개수입니다."
 #: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "문맥"
 
 #: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "도구 보기 활성화"
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
-msgstr ""
+msgstr "현재 커서 위치와 연관된 문맥 정보를 표시하는 도구 보기(LSP 힌트, 진단)"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -1265,14 +1264,11 @@ msgid "(never)"
 msgstr "(하지 않음)"
 
 #: lib/kateconfigdialog.cpp:397
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] "일"
+msgstr[0] "%v일"
 
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
@@ -1490,10 +1486,9 @@ msgstr ""
 "이 목록은 최근에 열었던 파일 목록이며, 다시 쉽게 열 수 있도록 도와 줍니다."
 
 #: lib/katemainwindow.cpp:397
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
-msgstr "모두 저장(&L)"
+msgstr "모두 저장(&V)"
 
 #: lib/katemainwindow.cpp:400
 #, kde-format
@@ -1501,10 +1496,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "열려 있고 수정된 모든 문서를 저장합니다."
 
 #: lib/katemainwindow.cpp:403
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "모두 다시 불러오기(&R)"
+msgstr "모두 다시 불러오기(&L)"
 
 #: lib/katemainwindow.cpp:405
 #, kde-format
@@ -1564,10 +1558,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "문서를 비교하는 방법 정보를 표시합니다."
 
 #: lib/katemainwindow.cpp:460
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "접근 불가능한 문서 닫기"
+msgstr "접근 불가능한 문서 닫기(&H)"
 
 #: lib/katemainwindow.cpp:462
 #, kde-format
@@ -1583,10 +1576,9 @@ msgid "Close the current document."
 msgstr "현재 문서를 닫습니다."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "다른 문서 닫기"
+msgstr "다른 문서 닫기(&T)"
 
 #: lib/katemainwindow.cpp:473
 #, kde-format
@@ -1604,8 +1596,7 @@ msgid "Close all open documents."
 msgstr "모든 열린 문서를 닫습니다."
 
 #: lib/katemainwindow.cpp:481
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "마지막으로 닫았던 문서 다시 불러오기(&R)"
 
@@ -1620,10 +1611,9 @@ msgid "Close this window"
 msgstr "이 창 닫기"
 
 #: lib/katemainwindow.cpp:492
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "새 창(&N)"
+msgstr "새 창(&W)"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -2335,18 +2325,15 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "현재 보기의 스크롤 동기화 전환"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "문서 떼내기(&E)"
+msgstr "활성 문서 떼내기"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "현재 문서를 새 창으로 열고 현재 창에 열린 문서 닫기"
+msgstr "활성화된 문서를 새 창으로 열고 현재 창에 열린 문서 닫기"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2492,14 +2479,14 @@ msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 �
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "모든 프로젝트에서 파일 검색(오른쪽 클릭으로 설정)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "현재 프로젝트에서 파일 검색(오른쪽 클릭으로 설정)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2522,10 +2509,9 @@ msgid "Wildcard Filtering"
 msgstr "와일드카드 필터링"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "모든 프로젝트"
+msgstr "프로젝트: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format

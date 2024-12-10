@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2008, 2010, 2014, 2015, 2018, 2021.
+# SPDX-FileCopyrightText: 2008, 2010, 2014, 2015, 2018, 2021, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2021-05-16 20:39+0200\n"
+"PO-Revision-Date: 2024-12-10 00:29+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -30,7 +30,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "프로세스를 시작할 수 없음"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

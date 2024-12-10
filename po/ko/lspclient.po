@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Shinjo Park <kde@peremen.name>, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2023-08-25 23:43+0200\n"
+"PO-Revision-Date: 2024-12-10 00:29+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, fuzzy, kde-format
@@ -164,10 +164,9 @@ msgid "Code Action"
 msgstr "코드 동작"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "자동 완성:"
+msgstr "lsp 자동 완성 표시"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -461,7 +460,7 @@ msgstr "기호"
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "LSP 서버에서 기호 요약을 지원하지 않습니다."
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
@@ -500,10 +499,9 @@ msgstr "자동 완성:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "자동 완성:"
+msgstr "자동 완성 표시"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89
@@ -627,10 +625,9 @@ msgstr "기본 서버 설정"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
-msgstr "LSP 클라이언트"
+msgstr "LSP 클라이언트(&L)"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31

@@ -7,20 +7,20 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022, 2023.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 02:40+0000\n"
-"PO-Revision-Date: 2023-12-24 18:43+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2024-12-09 12:21+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -30,12 +30,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Артём Середа,Александр Поташев"
+msgstr "Артём Середа,Александр Поташев,Олеся Герасименко"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "overmind88@gmail.com,aspotashev@gmail.com"
+msgstr "overmind88@gmail.com,aspotashev@gmail.com,translation-team@basealt.ru"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
 #: build.ui:36
@@ -66,23 +66,20 @@ msgid "Build & Run Settings"
 msgstr "Параметры сборки и запуска"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Собрать выбранную цель"
+msgstr "Удалить выбранные записи"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Удалить все записи"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Параметры цели"
+msgstr "Основные параметры"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
@@ -101,7 +98,7 @@ msgstr ""
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Разрешённые и заблокированные команды"
 
 # BUGME: split (verb/noun) --aspotashev
 #: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
@@ -128,12 +125,13 @@ msgstr "Собрать и запустить выбранную цель"
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Скомпилировать текущий файл"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Попробовать скомпилировать текущий файл путём поиска compile_commands.json"
 
 #: plugin_katebuild.cpp:304
 #, kde-format
@@ -143,7 +141,7 @@ msgstr "Завершить"
 #: plugin_katebuild.cpp:309
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Загрузить цели из каталога сборки CMake"
 
 #: plugin_katebuild.cpp:313
 #, kde-format
@@ -164,17 +162,13 @@ msgid "Target Settings"
 msgstr "Параметры цели"
 
 #: plugin_katebuild.cpp:395
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#| "to the working directory in the Target Settings"
+#, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<title>Не удалось открыть файл:</title><nl/>%1<br/>Попробуйте добавить путь "
-"к рабочему каталогу в разделе настройки «Параметры цели»"
+"<b>Файл не найден:</b> %1<br><b>Пути поиска:</b><br>%2<br>Попробуйте "
+"добавить путь поиска в пункте «Рабочий каталог»"
 
 #: plugin_katebuild.cpp:478
 #, kde-format
@@ -216,12 +210,12 @@ msgstr "Сборка цели <b>%1</b> отменена"
 #: plugin_katebuild.cpp:910
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Не удалось найти compile_commands.json для файла «%1». "
 
 #: plugin_katebuild.cpp:923
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Не удалось найти команду компиляции для файла «%1» в «%2». "
 
 #: plugin_katebuild.cpp:1031
 #, kde-format
@@ -249,16 +243,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Не удалось загрузить цели, файл %1 не содержит корректную запись "
+"CMAKE_COMMAND!"
 
 #: plugin_katebuild.cpp:1123
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Не удалось записать файлы запроса программного интерфейса для работы с "
+"файлами CMake для каталога сборки %1!"
 
 #: plugin_katebuild.cpp:1129
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Не удалось запустить CMake (%2) для каталога сборки %1 !"
 
 #: plugin_katebuild.cpp:1138
 #, kde-format
@@ -266,11 +264,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Не удалось создать файлы ответов программного интерфейса для работы с "
+"файлами CMake для каталога сборки %1 (с помощью %2)!"
 
 #: plugin_katebuild.cpp:1257
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Модулю сборки требуется выполнить программу"
 
 #: plugin_katebuild.cpp:1260
 #, kde-format
@@ -280,6 +280,10 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Модулю сборки Kate требуется выполнить внешнюю команду для чтения целей из "
+"дерева сборки.<br><br>Строка команды полностью:<br><br><b>%1</"
+"b><br><br>Продолжить и разрешить выполнение этой команды?<br><br>Выбор можно "
+"изменить на странице настройки модуля."
 
 #: plugin_katebuild.cpp:1292
 #, kde-kuit-format
@@ -399,6 +403,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Используйте:\n"
+"«%B» для базового каталога проекта\n"
+"«%b» для имени базового каталога проекта"
 
 #: TargetHtmlDelegate.cpp:114
 #, kde-format
@@ -456,10 +463,9 @@ msgid "Create new set of targets"
 msgstr "Создать набор целей"
 
 #: targets.cpp:37
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "Скопировать команду или набор целей"
+msgstr "Клонировать команду или набор целей"
 
 #: targets.cpp:41
 #, kde-format
@@ -499,23 +505,21 @@ msgstr "Копировать"
 #: targets.cpp:205
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Вырезать"
 
 #: targets.cpp:209
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Вставить после"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Выполнить команду"
+msgstr "Команда сборки"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
 msgstr "Конфигурация"

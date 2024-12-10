@@ -15,21 +15,21 @@
 # Yury G. Kudryashov <urkud.urkud@gmail.com>, 2012.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
 # Alexander Yavorsky <kekcuha@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-06-26 09:47+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2024-12-09 11:07+0300\n"
+"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -225,10 +225,9 @@ msgstr "&Файл"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Действия c файлами"
+msgstr "Действия c &файлами"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -238,8 +237,7 @@ msgstr "&Правка"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&Выделение"
 
@@ -356,10 +354,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Очистить фильтр диагностики"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Показать или скрыть сведения о фиксации"
+msgstr "Показать сведения при наведении"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -1063,13 +1060,15 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Выводить временные метки с датой"
 
 #: lib/kateconfigdialog.cpp:168
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"При использовании этого параметра у заголовков с указанием времени в строке "
+"вывода будет префикс — дата."
 
 #: lib/kateconfigdialog.cpp:176
 #, kde-format
@@ -1214,6 +1213,9 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Разрешить циклический перебор вкладок. Если флажок снят, действие «Следующая "
+"вкладка»/«Предыдущая вкладка» не приведёт к переходу на первую/последнюю "
+"вкладку по достижении конца списка."
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1277,14 +1279,14 @@ msgstr ""
 "Максимальное количество диагностических сведений в инструменте «Диагностика»"
 
 #: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
-#, fuzzy, kde-format
+#, kde-format
 msgid "Context"
-msgstr "Настройка"
+msgstr "Контекст"
 
 #: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Включить боковую панель"
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
@@ -1292,6 +1294,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Боковая панель для просмотра контекста, связанного с текущим положением "
+"курсора (языковые подсказки, диагностика)"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -1310,17 +1314,14 @@ msgid "(never)"
 msgstr "(никогда)"
 
 #: lib/kateconfigdialog.cpp:397
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " день"
-msgstr[1] " дня"
-msgstr[2] " дней"
-msgstr[3] " день"
+msgstr[0] "%v день"
+msgstr[1] "%v дня"
+msgstr[2] "%v дней"
+msgstr[3] "%v день"
 
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
@@ -1499,12 +1500,10 @@ msgid "Focus the next tab."
 msgstr "Перейти на следующую вкладку"
 
 #: lib/katemainwindow.cpp:307
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "Переключиться на экземпляр"
+msgstr "Перейти на вкладку %1"
 
 #: lib/katemainwindow.cpp:327
 #, kde-format
@@ -1540,8 +1539,7 @@ msgstr ""
 "Список последних открывавшихся файлов, позволяющий легко открыть их снова."
 
 #: lib/katemainwindow.cpp:393
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "Сохранить &все"
 
@@ -1551,10 +1549,9 @@ msgid "Save all open, modified documents to disk."
 msgstr "Сохранить все открытые и изменённые документы."
 
 #: lib/katemainwindow.cpp:399
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
-msgstr "Обновить &все"
+msgstr "Обновить в&се"
 
 #: lib/katemainwindow.cpp:401
 #, kde-format
@@ -1615,10 +1612,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "Показывать подсказку как сравнить два документа."
 
 #: lib/katemainwindow.cpp:456
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "Закрыть недоступные"
+msgstr "Закрыть &недоступные"
 
 #: lib/katemainwindow.cpp:458
 #, kde-format
@@ -1635,10 +1631,9 @@ msgid "Close the current document."
 msgstr "Закрыть текущий документ."
 
 #: lib/katemainwindow.cpp:465
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "Закрыть остальные"
+msgstr "Закрыть оста&льные"
 
 #: lib/katemainwindow.cpp:469
 #, kde-format
@@ -1656,15 +1651,14 @@ msgid "Close all open documents."
 msgstr "Закрыть все открытые документы."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "Обновить все открытые документы."
+msgstr "Открыть последние закрытые документы &заново"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "Снова открыть документ или документы, которые были недавно закрыты."
 
 #: lib/katemainwindow.cpp:484
 #, kde-format
@@ -1672,15 +1666,14 @@ msgid "Close this window"
 msgstr "Закрыть окно"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
 msgstr "&Новое окно"
 
 #: lib/katemainwindow.cpp:491
 #, kde-format
 msgid "Create a new window."
-msgstr "&Создать окно"
+msgstr "Создать окно."
 
 #: lib/katemainwindow.cpp:498
 #, kde-format
@@ -1693,8 +1686,8 @@ msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
-"Открывает текущий документ в другом приложении, зарегистрированным для этого "
-"типа файлов или в приложении, которые вы укажете вручную."
+"Открывает текущий документ в другом приложении, зарегистрированном для этого "
+"типа файлов, или в приложении, которые вы укажете вручную."
 
 #: lib/katemainwindow.cpp:508
 #, kde-format
@@ -1779,16 +1772,14 @@ msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Будут закрыты все открытые документы. Продолжить?"
 
 #: lib/katemainwindow.cpp:627
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "Закрытие всех документов"
+msgstr "Закрыть все документы?"
 
 #: lib/katemainwindow.cpp:628
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "Закрыть вс&е"
+msgstr "Закрыть все"
 
 #: lib/katemainwindow.cpp:642
 #, kde-format
@@ -1798,14 +1789,12 @@ msgid ""
 msgstr "Будут закрыты все открытые документы кроме текущего. Продолжить?"
 
 #: lib/katemainwindow.cpp:643
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "Закрытие всех документов кроме текущего"
+msgstr "Закрыть все документы, кроме текущего?"
 
 #: lib/katemainwindow.cpp:644
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "Закрыть остальные"
 
@@ -2164,15 +2153,13 @@ msgid ""
 msgstr "Не удаётся сохранить данные."
 
 #: lib/kateurlbar.cpp:913
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
 #: lib/kateurlbar.cpp:918
-#, fuzzy, kde-format
-#| msgid "Copy Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Копировать имя файла"
@@ -2386,30 +2373,25 @@ msgid "Show the welcome page"
 msgstr "Показывать страницу приветствия"
 
 #: lib/kateviewmanager.cpp:299
-#, fuzzy, kde-format
-#| msgid "Auto Synchronization"
+#, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr "Автоматическая синхронизация"
+msgstr "Включить или отключить синхронизацию прокрутки"
 
 #: lib/kateviewmanager.cpp:300
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Меняет ориентацию створок текущего окна"
+msgstr "Включить или отключить синхронизацию прокрутки для текущего окна"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
 msgstr "Открыть в новом окне"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr "Переместить документ в новое окно"
+msgstr "Переместить активный документ в новое окно"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2464,19 +2446,15 @@ msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Не удалось включить подключаемый модуль <b>%1</b>"
 
 #: lib/kateviewspace.cpp:93
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "Синхронизировать &прокрутку"
+msgstr "Синхронизировать прокрутку"
 
 #: lib/kateviewspace.cpp:95
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
-msgstr "Синхронизация прокрутки панелей разделённого экрана"
+msgstr "Синхронизировать прокрутку панелей разделённого экрана"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format
@@ -2571,6 +2549,8 @@ msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
 msgstr ""
+"Искать файлы во всех проектах (нажмите правую кнопку мыши для выполнения "
+"настройки)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
@@ -2578,6 +2558,8 @@ msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
 msgstr ""
+"Искать файлы в текущем проекте (нажмите правую кнопку мыши для выполнения "
+"настройки)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2600,10 +2582,9 @@ msgid "Wildcard Filtering"
 msgstr "Фильтрация по подстановочным знакам"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Все проекты"
+msgstr "Проект: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2887,8 +2868,8 @@ msgid ""
 "document has not changed when reopened."
 msgstr ""
 "Включите эту опцию, чтобы сохранять параметры сеанса, такие как "
-"установленные отметки. Эти настройки будут восстановлены, если документ не "
-"изменится с момента последнего редактирования."
+"установленные отметки. Эти параметры настройки будут восстановлены, если "
+"документ не изменится с момента последнего редактирования."
 
 #. i18n: ectx: property (title), widget (QGroupBox, saveMetaInfos)
 #: lib/ui/sessionconfigwidget.ui:180
@@ -3021,8 +3002,7 @@ msgstr "Управление сеансами…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показывать страницу приветствия при открытии нового окна"
 

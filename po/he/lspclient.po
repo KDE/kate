@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-01 00:42+0000\n"
-"PO-Revision-Date: 2024-12-09 08:33+0200\n"
+"PO-Revision-Date: 2024-12-10 07:47+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -422,60 +422,60 @@ msgstr ""
 #: lspclientsymbolview.cpp:337
 #, kde-format
 msgid "Symbol Outline"
-msgstr ""
+msgstr "מתאר סמלים"
 
 #: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
-msgstr ""
+msgstr "מצב עץ"
 
 #: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
-msgstr ""
+msgstr "הרחבת העץ אוטומטית"
 
 #: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
-msgstr ""
+msgstr "מיון לפי האלפבית"
 
 #: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
-msgstr ""
+msgstr "הצגת פרטים"
 
 #: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
-msgstr ""
+msgstr "סמלים"
 
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "שרת ה־LSP לא תומך במתאר סמלים."
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
-msgstr ""
+msgstr "אין שרת LSP למסמך הזה."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: lspconfigwidget.ui:33
 #, kde-format
 msgid "Client Settings"
-msgstr ""
+msgstr "הגדרות לקוח"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Format on save"
-msgstr ""
+msgstr "עיצוב בעת השמירה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
 #, kde-format
 msgid "Enable semantic highlighting"
-msgstr ""
+msgstr "הפעלת הדגשה סמנטית"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:68
@@ -487,37 +487,37 @@ msgstr ""
 #: lspconfigwidget.ui:75
 #, kde-format
 msgid "Completions:"
-msgstr ""
+msgstr "השלמות:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:82
 #, kde-format
 msgid "Show inline docs for selected completion"
-msgstr ""
+msgstr "הצגת תיעוד כחלק מהשורה להשלמות נבחרות"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:89
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr ""
+msgstr "הצגת חתימת פונקציה בעת הקלדת קריאה לפונקציה"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:103
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "הוספת ייבוא/imports אוטומטית אם דרוש כחלק מההשלמה"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Navigation:"
-msgstr ""
+msgstr "ניווט:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "לספור הכרזות בעת חיפוש אחר הפניות לסמל"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:124
@@ -535,7 +535,7 @@ msgstr ""
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Server:"
-msgstr ""
+msgstr "שרת:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:145
@@ -559,7 +559,7 @@ msgstr ""
 #: lspconfigwidget.ui:166
 #, kde-format
 msgid "Document outline:"
-msgstr ""
+msgstr "מתאר מסמך:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:173
@@ -583,40 +583,40 @@ msgstr ""
 #: lspconfigwidget.ui:202
 #, kde-format
 msgid "Automatically expand tree"
-msgstr ""
+msgstr "הרחבת העץ אוטומטית"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:227
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "שרתים מורשים וחסומים"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:237
 #, kde-format
 msgid "User Server Settings"
-msgstr ""
+msgstr "הגדרות שרת משתמש"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lspconfigwidget.ui:245
 #, kde-format
 msgid "Settings File:"
-msgstr ""
+msgstr "קובץ הגדרות:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: lspconfigwidget.ui:272
 #, kde-format
 msgid "Default Server Settings"
-msgstr ""
+msgstr "הגדרות שרת כברירת מחדל"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
 #, kde-format
 msgid "&LSP Client"
-msgstr ""
+msgstr "&לקוח LSP"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31
 #, kde-format
 msgid "More Options"
-msgstr ""
+msgstr "אפשרויות נוספות"

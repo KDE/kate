@@ -1206,6 +1206,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
+      <caption xml:lang="ru">Kate с проектом на основе Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
       <caption xml:lang="sv">Kate med något Git-baserat projekt</caption>
       <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
@@ -1241,6 +1242,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
+      <caption xml:lang="ru">Kate с разделённым окном</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
       <caption xml:lang="sv">Kate med delad vy</caption>
       <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
@@ -1276,6 +1278,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
+      <caption xml:lang="ru">Kate в тёмном режиме</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
       <caption xml:lang="sv">Kate i mörkt läge</caption>
       <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
@@ -1311,6 +1314,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>
+      <caption xml:lang="ru">Создание новой ветви Git с помощью Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
       <caption xml:lang="sv">Skapa en ny gren i Git med Kate</caption>
       <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>

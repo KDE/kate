@@ -42,6 +42,12 @@ Q_SIGNALS:
     void errorOccurred(const QString &);
 
 private:
+    struct FileEntry {
+        QString filePath;
+        QString fullFilePath;
+        KateProjectItem *projectItem;
+    };
+
     /**
      * Load one project inside the project tree.
      * Fill data from JSON storage to model and recurse to sub-projects.
@@ -59,16 +65,16 @@ private:
      */
     void loadFilesEntry(QStandardItem *parent, const QVariantMap &filesEntry, QHash<QString, KateProjectItem *> *file2Item, const QString &baseDir);
 
-    QList<QString> findFiles(const QDir &dir, const QVariantMap &filesEntry);
+    void findFiles(const QDir &dir, const QVariantMap &filesEntry, std::vector<FileEntry> &outFiles);
 
-    QList<QString> filesFromGit(const QDir &dir, bool recursive);
-    QList<QString> filesFromMercurial(const QDir &dir, bool recursive);
-    QList<QString> filesFromSubversion(const QDir &dir, bool recursive);
-    QList<QString> filesFromDarcs(const QDir &dir, bool recursive);
-    QList<QString> filesFromFossil(const QDir &dir, bool recursive);
-    static QList<QString> filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters);
+    void filesFromGit(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
+    void filesFromMercurial(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
+    void filesFromSubversion(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
+    void filesFromDarcs(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
+    void filesFromFossil(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
+    static void filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters, std::vector<FileEntry> &outFiles);
 
-    static QList<QString> gitFiles(const QDir &dir, bool recursive, const QStringList &args);
+    static void gitFiles(const QDir &dir, bool recursive, const QStringList &args, std::vector<FileEntry> &outFiles);
 
 private:
     static QString notInstalledErrorString(const QString &program);

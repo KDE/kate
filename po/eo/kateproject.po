@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-12 00:43+0000\n"
 "PO-Revision-Date: 2024-09-14 11:22+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -1011,7 +1011,7 @@ msgstr "Malsukcesis krei dosieron: %1, Eraro: %2"
 msgid "Failed to create dir: %1"
 msgstr "Malsukcesis krei dir: %1"
 
-#: kateprojectworker.cpp:744
+#: kateprojectworker.cpp:734
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

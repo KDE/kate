@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-12 00:43+0000\n"
 "PO-Revision-Date: 2024-10-18 17:11+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1006,7 +1006,7 @@ msgstr "Failed to create file: %1, Error: %2"
 msgid "Failed to create dir: %1"
 msgstr "Failed to create dir: %1"
 
-#: kateprojectworker.cpp:744
+#: kateprojectworker.cpp:734
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-12 00:43+0000\n"
 "PO-Revision-Date: 2024-12-06 11:47+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -1015,7 +1015,7 @@ msgstr "Non foi posíbel crear o ficheiro: %1. Erro: %2"
 msgid "Failed to create dir: %1"
 msgstr "Non foi posíbel crear o cartafol: %1"
 
-#: kateprojectworker.cpp:744
+#: kateprojectworker.cpp:734
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

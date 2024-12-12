@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-12 00:43+0000\n"
 "PO-Revision-Date: 2024-09-28 19:10+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -1018,7 +1018,7 @@ msgstr "Impossibile creare il file: %1. Errore: %2"
 msgid "Failed to create dir: %1"
 msgstr "Impossibile creare la cartella: %1"
 
-#: kateprojectworker.cpp:744
+#: kateprojectworker.cpp:734
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -600,9 +600,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         }
 
         auto *layout = new QGridLayout(this);
-        layout->setContentsMargins(0, 0, 0, 0);
         layout->addWidget(m_clientCombo, 0, 0, 1, 6);
-
         layout->addWidget(m_targetCombo, 1, 0, 1, 3);
 
         layout->addWidget(m_addTarget, 2, 0);

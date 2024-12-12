@@ -86,13 +86,10 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(moveTargetUp);
     tLayout->addWidget(moveTargetDown);
     tLayout->addWidget(deleteTarget);
-    int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
-    tLayout->setContentsMargins(leftMargin, 0, 0, 0);
 
     auto *layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
-    layout->setContentsMargins(0, 0, 0, 0);
 
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
 

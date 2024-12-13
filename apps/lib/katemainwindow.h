@@ -11,6 +11,7 @@
 #include "katemdi.h"
 #include "kateprivate_export.h"
 #include "kateviewmanager.h"
+#include "mainwindow_commands.h"
 
 #include <ktexteditor/mainwindow.h>
 
@@ -772,6 +773,7 @@ public:
 
 private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
+    const MainWindowCommands m_mainWindowCommands;
 
 protected:
     bool event(QEvent *e) override;

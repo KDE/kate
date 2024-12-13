@@ -29,6 +29,7 @@
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
+#include "mainwindow_commands.h"
 #include "texthint/KateTextHintManager.h"
 
 #include <KActionCollection>
@@ -114,6 +115,7 @@ QSize KateContainerStackedLayout::minimumSize() const
 KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool userTriggered)
     : KateMDI::MainWindow(nullptr)
     , m_wrapper(new KTextEditor::MainWindow(this))
+    , m_mainWindowCommands(this)
 {
     /**
      * we don't want any flicker here

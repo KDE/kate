@@ -362,7 +362,7 @@ private:
 
     KMultiTabBar *kmTabBar(ToolView *widget) const
     {
-        if (MultiTabBar * tabbar = tabBar(widget)) {
+        if (MultiTabBar *tabbar = tabBar(widget)) {
             return tabbar->tabBar();
         }
         return nullptr;
@@ -590,6 +590,18 @@ public:
      */
     bool hideToolView(ToolView *widget);
 
+    /**
+     * returns "toolview name" -> "toolview display name" pairs
+     */
+    std::vector<QString> toolviewNames() const
+    {
+        std::vector<QString> out;
+        out.reserve(m_toolviews.size());
+        for (auto tv : m_toolviews) {
+            out.emplace_back(tv.second->id);
+        }
+        return out;
+    }
     /**
      * session saving and restore stuff
      */

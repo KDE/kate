@@ -136,6 +136,7 @@ target_sources(
     katemdi.cpp
     katemwmodonhddialog.cpp
     katepluginmanager.cpp
+    mainwindow_commands.cpp
 
     katesavemodifieddialog.cpp
     katetabbar.cpp

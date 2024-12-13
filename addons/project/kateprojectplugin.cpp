@@ -53,6 +53,7 @@ const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig
 KateProjectPlugin::KateProjectPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
+    , m_commands(this)
 {
     qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
     qRegisterMetaType<KateProjectSharedQHashStringItem>("KateProjectSharedQHashStringItem");

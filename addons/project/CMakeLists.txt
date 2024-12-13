@@ -43,6 +43,7 @@ target_sources(
     comparebranchesview.cpp
     branchdeletedialog.cpp
     currentgitbranchbutton.cpp
+    project_commands.cpp
 
     tools/codeanalysisselector.cpp
     git/gitutils.cpp

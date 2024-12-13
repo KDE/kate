@@ -49,6 +49,8 @@ public:
 
     void resetTerminal(const QString &directory);
 
+    void runCmdInTerminal(const QString &cmd);
+
 private:
     void initialize();
 

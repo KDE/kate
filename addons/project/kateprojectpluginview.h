@@ -142,6 +142,11 @@ public:
      */
     GitWidget *gitWidget();
 
+    /**
+     * Runs the given @p cmd in active project's terminal
+     */
+    void runCmdInTerminal(const QString &cmd);
+
 public Q_SLOTS:
     /**
      * Create views for given project.

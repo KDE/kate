@@ -103,4 +103,10 @@ void KateProjectInfoView::initialize()
     addTab(new KateProjectInfoViewNotes(m_project), i18n("Notes"));
 }
 
+void KateProjectInfoView::runCmdInTerminal(const QString &cmd)
+{
+    initialize();
+    m_terminal->runCommand({}, cmd);
+}
+
 #include "moc_kateprojectinfoview.cpp"

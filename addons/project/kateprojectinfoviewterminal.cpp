@@ -210,8 +210,10 @@ void KateProjectInfoViewTerminal::runCommand(const QString &workingDir, const QS
     }
     auto terminal = qobject_cast<TerminalInterface *>(m_konsolePart);
     terminal->sendInput(QStringLiteral("\x05\x15"));
-    const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
-    terminal->sendInput(changeDirCmd);
+    if (!workingDir.isEmpty()) {
+        const QString changeDirCmd = QStringLiteral("cd ") + KShell::quoteArg(workingDir) + QStringLiteral("\n");
+        terminal->sendInput(changeDirCmd);
+    }
     terminal->sendInput(cmd.trimmed() + QStringLiteral("\n"));
 }
 

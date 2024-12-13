@@ -8,6 +8,8 @@
 #include "ktexteditor_utils.h"
 #include <KLocalizedString>
 
+#include <QIcon>
+
 static QStringList commands()
 {
     return {

@@ -18,6 +18,7 @@
 #include <ktexteditor/mainwindow.h>
 
 #include "kateprojectcompletion.h"
+#include "project_commands.h"
 
 class KateProject;
 class QDir;
@@ -294,4 +295,6 @@ private:
      * thread pool for our workers
      */
     QThreadPool m_threadPool;
+
+    const ProjectPluginCommands m_commands;
 };

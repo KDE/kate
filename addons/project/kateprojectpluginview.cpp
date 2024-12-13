@@ -942,5 +942,12 @@ GitWidget *KateProjectPluginView::gitWidget()
     return m_gitWidget;
 }
 
+void KateProjectPluginView::runCmdInTerminal(const QString &cmd)
+{
+    if (auto widget = qobject_cast<KateProjectInfoView *>(m_stackedProjectInfoViews->currentWidget())) {
+        widget->runCmdInTerminal(cmd);
+    }
+}
+
 #include "kateprojectpluginview.moc"
 #include "moc_kateprojectpluginview.cpp"

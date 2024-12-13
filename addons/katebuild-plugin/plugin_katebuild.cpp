@@ -779,13 +779,33 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     QFont font = Utils::editorFont();
     m_buildUi.textBrowser->setFont(font);
 
+    QModelIndex ind = m_targetsUi->targetsView->currentIndex();
+    QString targetSet = ind.data(TargetModel::TargetSetNameRole).toString();
+
     // set working directory
     m_makeDir = dir;
     m_makeDirStack.push(m_makeDir);
 
     if (!QFile::exists(m_makeDir)) {
-        sendError(i18n("Cannot run command: %1\nWork path does not exist: %2", command, m_makeDir));
-        return false;
+        // The build directory does not exist ask if it should be created
+        QMessageBox msgBox(m_win->window());
+        msgBox.setWindowTitle(i18n("Create directory"));
+        msgBox.setTextFormat(Qt::RichText);
+        msgBox.setText(
+            i18n("The configured working directory <b>%1</b> for the targetset <b>%2</b> does not exist.<br><br>"
+                 "Create the directory?",
+                 m_makeDir,
+                 targetSet));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+
+        if (msgBox.exec() == QMessageBox::Yes && !QDir().mkpath(m_makeDir)) {
+            displayMessage(i18n("Failed to create the directory <b>%1</b>", m_makeDir), KTextEditor::Message::Error);
+        }
+
+        if (!QFile::exists(m_makeDir)) {
+            return false;
+        }
     }
 
     // chdir used by QProcess will resolve symbolic links.

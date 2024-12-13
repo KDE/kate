@@ -423,7 +423,7 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
          */
         userGivenFilesList.removeDuplicates();
         for (const auto &file : userGivenFilesList) {
-            outFiles.emplace_back(file, QString(), nullptr);
+            outFiles.push_back(FileEntry{.filePath = file});
         }
         return;
     }
@@ -503,7 +503,7 @@ void KateProjectWorker::gitFiles(const QDir &dir, bool recursive, const QStringL
         if (!recursive && (byteArray.find('/') != std::string::npos)) {
             continue;
         }
-        outFiles.emplace_back(byteArray.toString(), QString(), nullptr);
+        outFiles.push_back(FileEntry{.filePath = byteArray.toString()});
     }
 }
 
@@ -533,7 +533,7 @@ void KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive, std:
             continue;
         }
 
-        outFiles.emplace_back(relFile, QString(), nullptr);
+        outFiles.push_back(FileEntry{.filePath = relFile});
     }
 }
 
@@ -597,7 +597,7 @@ void KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive, std
          * prepend directory path
          */
         if ((line.size() > prefixLength) && line[0] != QLatin1Char('?') && line[0] != QLatin1Char('I')) {
-            outFiles.emplace_back(line.right(line.size() - prefixLength), QString(), nullptr);
+            outFiles.push_back(FileEntry{.filePath = line.right(line.size() - prefixLength)});
         }
     }
 }
@@ -659,7 +659,7 @@ void KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive, std::vec
             continue;
         }
 
-        outFiles.emplace_back(path, QString(), nullptr);
+        outFiles.push_back(FileEntry{.filePath = path});
     }
 }
 
@@ -689,7 +689,7 @@ void KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive, std::ve
             continue;
         }
 
-        outFiles.emplace_back(relFile, QString(), nullptr);
+        outFiles.push_back(FileEntry{.filePath = relFile});
     }
 }
 
@@ -724,7 +724,7 @@ void KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden
     while (dirIterator.hasNext()) {
         dirIterator.next();
         // make it relative path
-        outFiles.emplace_back(dirIterator.filePath().remove(dirPath), QString(), nullptr);
+        outFiles.push_back(FileEntry{.filePath = dirIterator.filePath().remove(dirPath)});
     }
 }
 

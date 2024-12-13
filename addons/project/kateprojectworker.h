@@ -44,8 +44,8 @@ Q_SIGNALS:
 private:
     struct FileEntry {
         QString filePath;
-        QString fullFilePath;
-        KateProjectItem *projectItem;
+        QString fullFilePath = QString(); // the explicit QString() is for clangd
+        KateProjectItem *projectItem = nullptr;
     };
 
     /**

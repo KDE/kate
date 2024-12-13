@@ -385,7 +385,7 @@ void KateMainWindow::setupActions()
     m_fileOpenRecent = KStandardAction::openRecent(
         m_viewManager,
         [this](const QUrl &url) {
-            viewManager()->openUrlOrProject(url);
+            viewManager()->openRecent(url);
         },
         this);
     m_fileOpenRecent->setMaxItems(KateConfigDialog::recentFilesMaxCount());

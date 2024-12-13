@@ -75,6 +75,7 @@ public:
 public:
     void openUrl(const QUrl &url);
     void openUrlOrProject(const QUrl &url);
+    void openRecent(const QUrl &url);
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor pos);
 
 public:

@@ -17,6 +17,7 @@
 #include <KConfigGroup>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KIconLoader>
+#include <KMessageBox>
 #include <KRecentFilesAction>
 #include <KSharedConfig>
 #include <QTimer>
@@ -82,8 +83,9 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     connect(listViewRecentItems, &QListView::activated, this, [this](const QModelIndex &index) {
         if (index.isValid()) {
             const QUrl url = m_recentItemsModel->url(index);
-            Q_ASSERT(url.isValid());
-            m_viewManager->openUrlOrProject(url);
+
+            // Check with QFile if file exists, display error message if it doesn't
+            m_viewManager->openRecent(url);
         }
     });
 

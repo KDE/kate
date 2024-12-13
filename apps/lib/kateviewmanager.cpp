@@ -607,6 +607,22 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
     QMetaObject::invokeMethod(projectPluginView, "openDirectoryOrProject", Q_ARG(const QDir &, dir));
 }
 
+void KateViewManager::openRecent(const QUrl &url)
+{
+    Q_ASSERT(url.isValid());
+
+    // Handle only local files
+    if (url.isLocalFile()) {
+        const QString localFilePath = url.toLocalFile();
+        if (!QFile::exists(localFilePath)) {
+            KMessageBox::error(mainWindow(), i18n("The file '%1' does not exist", localFilePath));
+            return;
+        }
+    }
+
+    openUrlOrProject(url);
+}
+
 KTextEditor::View *KateViewManager::openViewForDoc(KTextEditor::Document *doc)
 {
     // forward to currently active view space

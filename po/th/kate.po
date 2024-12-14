@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-14 00:57+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1544,7 +1544,7 @@ msgstr "เรียกเอกสารที่เปิดอยู่ทั
 msgid "Copies the file path of the current file to clipboard."
 msgstr "ทำให้มุมมองที่แยกออกมาตัวถัดไปเป็นตัวที่กำลังทำงานอยู่"
 
-#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:268
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
@@ -2462,6 +2462,11 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
+#: lib/kateviewmanager.cpp:618
+#, kde-format
+msgid "The file '%1' does not exist"
+msgstr ""
+
 #: lib/kateviewspace.cpp:93
 #, fuzzy, kde-format
 #| msgid "&New Window"
@@ -2900,58 +2905,58 @@ msgstr "เก็บรักษาข้อมูลกำกับของก
 msgid "Delete unused meta-information after:"
 msgstr "ลบข้อมูลกำกับออกหลังจาก:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents and Projects"
 msgstr "เปิดเอกสาร"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Recent Documents"
 msgstr "เปิดเอกสาร"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents or projects"
 msgstr "เปิดเอกสาร"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "No recent documents"
 msgstr "เปิดเอกสาร"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:118
 #, fuzzy, kde-format
 #| msgid "&Do not save session"
 msgid "No saved sessions"
 msgstr "ไม่ต้องบันทึกกลุ่มงาน"
 
-#: lib/welcomeview/welcomeview.cpp:246
+#: lib/welcomeview/welcomeview.cpp:248
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Open Selected Files..."
 msgstr "เปิดแฟ้ม"
 
-#: lib/welcomeview/welcomeview.cpp:259
+#: lib/welcomeview/welcomeview.cpp:261
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy &Location"
 msgstr "ตำแหน่ง"
 
-#: lib/welcomeview/welcomeview.cpp:274
+#: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
 msgstr ""

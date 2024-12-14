@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-11-09 16:00+0100\n"
+"PO-Revision-Date: 2024-12-13 23:06+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -744,7 +744,7 @@ msgstr "Reinicio sobre a marcha"
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr "Activar a recarga sobre a marca ao gardar."
+msgstr "Activar a recarga sobre a marcha ao gardar."
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format

@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1696930 $
+# Version: $Revision: 1697581 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-14 00:57+0000\n"
 "PO-Revision-Date: 2024-12-07 12:11+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1550,7 +1550,7 @@ msgstr "Wczytaj ponownie wszystkie otwarte dokumenty."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopiuje ścieżkę do bieżącego pliku do schowka."
 
-#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Otwórz katalog zawierający"
@@ -2438,6 +2438,11 @@ msgstr "Włącz"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nie udało się włączyć wtyczki <b>%1</b>"
 
+#: lib/kateviewmanager.cpp:618
+#, kde-format
+msgid "The file '%1' does not exist"
+msgstr ""
+
 #: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
@@ -2874,47 +2879,47 @@ msgstr "Zachowaj &metadane między posiedzeniami"
 msgid "Delete unused meta-information after:"
 msgstr "Usuń nieużywane metadane po:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Witaj w %1"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Ostatnie dokumenty i projekty"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents"
 msgstr "Ostatnie dokumenty"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Nie ma żadnych ostatnich dokumentów, ani projektów"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
 msgstr "Brak ostatnich dokumentów"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:118
 #, kde-format
 msgid "No saved sessions"
 msgstr "Nie ma żadnych zapisanych posiedzeń"
 
-#: lib/welcomeview/welcomeview.cpp:246
+#: lib/welcomeview/welcomeview.cpp:248
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "Otwórz zaznaczony plik..."
 
-#: lib/welcomeview/welcomeview.cpp:259
+#: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
 msgid "Copy &Location"
 msgstr "S&kopiuj położenie"
 
-#: lib/welcomeview/welcomeview.cpp:274
+#: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
 msgstr "&Usuń"

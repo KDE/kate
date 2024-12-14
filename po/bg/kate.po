@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-14 00:57+0000\n"
 "PO-Revision-Date: 2024-12-11 20:01+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -1545,7 +1545,7 @@ msgstr "Презареждане на всички отворени докуме
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Копиране на пътя на файл в клипборда."
 
-#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Отваряне на съдържащата папка"
@@ -2436,6 +2436,11 @@ msgstr "Активиране"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Неуспех при активиране на приставка  <b>%1</b>"
 
+#: lib/kateviewmanager.cpp:618
+#, kde-format
+msgid "The file '%1' does not exist"
+msgstr ""
+
 #: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
@@ -2872,47 +2877,47 @@ msgstr "&Запазване на мета данните при изход"
 msgid "Delete unused meta-information after:"
 msgstr "Изтриване на неизползваните мета-данни след:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Добре дошли в %1"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Скорошни документи и проекти"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents"
 msgstr "Скорошни документи"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Няма скорошни документи и проекти"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
 msgstr "Няма скорошни документи"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:118
 #, kde-format
 msgid "No saved sessions"
 msgstr "Няма записани сесии"
 
-#: lib/welcomeview/welcomeview.cpp:246
+#: lib/welcomeview/welcomeview.cpp:248
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "Отваряне на избраните файлове..."
 
-#: lib/welcomeview/welcomeview.cpp:259
+#: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
 msgid "Copy &Location"
 msgstr "Копиране на местоположението"
 
-#: lib/welcomeview/welcomeview.cpp:274
+#: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
 msgstr "П&ремахване"

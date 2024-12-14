@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-14 00:57+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -1508,7 +1508,7 @@ msgstr ""
 msgid "Copies the file path of the current file to clipboard."
 msgstr ""
 
-#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
@@ -2383,6 +2383,11 @@ msgstr ""
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
+#: lib/kateviewmanager.cpp:618
+#, kde-format
+msgid "The file '%1' does not exist"
+msgstr ""
+
 #: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
@@ -2808,53 +2813,53 @@ msgstr "കഴിഞ്ഞ സെഷനുകളിൽ മെറ്റാ-വി
 msgid "Delete unused meta-information after:"
 msgstr "ശേഷം ഉപയോഗമില്ലാത്ത മെറ്റാ-വിവരങ്ങൾ കളയുക (&D)"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Recent Documents and Projects"
 msgstr "സെഷനുകൾ"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "Recent Documents"
 msgstr "സെഷനുകൾ"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "No recent documents or projects"
 msgstr "സെഷനുകൾ"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "No recent documents"
 msgstr "സെഷനുകൾ"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:118
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "No saved sessions"
 msgstr "സെഷനുകൾ"
 
-#: lib/welcomeview/welcomeview.cpp:246
+#: lib/welcomeview/welcomeview.cpp:248
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Open Selected Files..."
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/welcomeview/welcomeview.cpp:259
+#: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
 msgid "Copy &Location"
 msgstr ""
 
-#: lib/welcomeview/welcomeview.cpp:274
+#: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
 msgstr ""

@@ -1,0 +1,136 @@
+# Sanskrit translations for kate package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Last-Translator: Kali <EMAIL@ADDRESS>\n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "स्रोतं प्रति स्क्रॉलं कुर्वन्तु"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "लेबलं प्रति कूदन्तु"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "प्रतिलिपि"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "सर्वं चिनोतु"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "संकलक एक्स्प्लोरर"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "&कम्पाइलर एक्स्प्लोरर् मध्ये वर्तमानसञ्चिकां उद्घाटयन्तु"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "न सञ्चिका उद्घाटिता"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "संकलकएक्सप्लोरर"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "किं भवान् वास्तवमेव %1 पिधातुम् इच्छति?"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "संकलनम्"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "विकल्पाः"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "Demangle Identifiers"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "पुस्तकालयस्य कार्याणि फ़िल्टर कुर्वन्तु"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "अप्रयुक्तानि लेबलानि छानयन्तु"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "टिप्पण्यानि छानयन्तु"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "Intel Syntax"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "Url परिवर्तनं कुर्वन्तु..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "Url इति प्रविष्टं कुर्वन्तु"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr ""
+"CompilerExplorer दृष्टान्तं प्रति Url प्रविष्टं कुर्वन्तु । यथा, http://localhost:10240 "
+"इति"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "संकलकः प्रत्यागतवान्: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "लिङ्क्ड् कोड् प्रकाशयन्तु"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "संकलकएक्सप्लोरर"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr "'%1' संकलकध्वजाः प्राप्ताः । आउटपुट् उपयोगी न भवेत्।"

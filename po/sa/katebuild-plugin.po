@@ -1,0 +1,513 @@
+# Sanskrit translations for kate package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-11-21 00:43+0000\n"
+"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Last-Translator: Kali <EMAIL@ADDRESS>\n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>2);\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+#. i18n: ectx: attribute (title), widget (QWidget, errs)
+#: build.ui:36
+#, kde-format
+msgid "Output"
+msgstr "उत्पादनम्"
+
+#. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
+#: build.ui:56
+#, kde-format
+msgid "Build again"
+msgstr "पुनः निर्माणं कुरुत"
+
+#. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
+#: build.ui:63
+#, kde-format
+msgid "Cancel"
+msgstr "निरसयतु"
+
+#: buildconfig.cpp:47
+#, kde-format
+msgid "Build & Run"
+msgstr "बिल्ड एण्ड रन"
+
+#: buildconfig.cpp:53
+#, kde-format
+msgid "Build & Run Settings"
+msgstr "सेटिंग्स् निर्माणं चालनं च कुर्वन्तु"
+
+#: buildconfig.cpp:103
+#, kde-format
+msgid "Delete selected entries"
+msgstr "चयनितप्रविष्टयः विलोपयन्तु"
+
+#: buildconfig.cpp:108
+#, kde-format
+msgid "Delete all entries"
+msgstr "सर्वाणि प्रविष्टयः विलोपयन्तु"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: buildconfigwidget.ui:33
+#, kde-format
+msgid "General Settings"
+msgstr "सामान्य सेटिंग्स्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
+#: buildconfigwidget.ui:50
+#, kde-format
+msgid "Add errors and warnings to Diagnostics"
+msgstr "Diagnostics इत्यत्र त्रुटयः चेतावनीश्च योजयन्तु"
+
+#. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
+#: buildconfigwidget.ui:57
+#, kde-format
+msgid "Automatically switch to output pane on executing the selected target"
+msgstr "चयनितं लक्ष्यं निष्पादयन् स्वयमेव आउटपुट् फलकं प्रति स्विच् कुर्वन्तु"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_4)
+#: buildconfigwidget.ui:96
+#, kde-format
+msgid "Allowed && Blocked Commands"
+msgstr "अनुमत && अवरुद्ध आदेश"
+
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:713
+#: plugin_katebuild.cpp:916 plugin_katebuild.cpp:929
+#, kde-format
+msgid "Build"
+msgstr "निर्मिमीते"
+
+#: plugin_katebuild.cpp:283
+#, kde-format
+msgid "Select Target..."
+msgstr "लक्ष्यं चयनं कुर्वन्तु..."
+
+#: plugin_katebuild.cpp:288
+#, kde-format
+msgid "Build Selected Target"
+msgstr "चयनितं लक्ष्यं निर्मायताम्"
+
+#: plugin_katebuild.cpp:293
+#, kde-format
+msgid "Build and Run Selected Target"
+msgstr "चयनितं लक्ष्यं निर्माय चालयन्तु"
+
+#: plugin_katebuild.cpp:298
+#, kde-format
+msgid "Compile Current File"
+msgstr "वर्तमान सञ्चिकायाः संकलनं कुर्वन्तु"
+
+#: plugin_katebuild.cpp:299
+#, kde-format
+msgid "Try to compile the current file by searching a compile_commands.json"
+msgstr "compile_commands.json इत्येतत् अन्वेष्य वर्तमानसञ्चिकां संकलितुं प्रयतध्वम्"
+
+#: plugin_katebuild.cpp:304
+#, kde-format
+msgid "Stop"
+msgstr "विरमतु"
+
+#: plugin_katebuild.cpp:309
+#, kde-format
+msgid "Load targets from CMake Build Dir"
+msgstr "CMake Build Dir इत्यस्मात् लक्ष्यं लोड् कुर्वन्तु"
+
+#: plugin_katebuild.cpp:313
+#, kde-format
+msgctxt "Left is also left in RTL mode"
+msgid "Focus Next Tab to the Left"
+msgstr ""
+
+#: plugin_katebuild.cpp:333
+#, kde-format
+msgctxt "Right is right also in RTL mode"
+msgid "Focus Next Tab to the Right"
+msgstr ""
+
+#: plugin_katebuild.cpp:355
+#, kde-format
+msgctxt "Tab label"
+msgid "Target Settings"
+msgstr ""
+
+#: plugin_katebuild.cpp:395
+#, kde-format
+msgid ""
+"<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
+"search path to the \"Working Directory\""
+msgstr ""
+"<b>सञ्चिका न प्राप्ता:</b> %1<br> <b>अन्वेषणमार्गाः : १.</b><br> %2<br> &quot;"
+"कार्यनिर्देशिका&quot; इत्यत्र अन्वेषणमार्गं योजयितुं प्रयतध्वम् ।"
+
+#: plugin_katebuild.cpp:482
+#, kde-format
+msgid "Build Information"
+msgstr "सूचनां निर्मायताम्"
+
+#: plugin_katebuild.cpp:720
+#, kde-format
+msgid "There is no file or directory specified for building."
+msgstr "निर्माणार्थं सञ्चिका निर्देशिका वा निर्दिष्टा नास्ति ।"
+
+#: plugin_katebuild.cpp:724
+#, kde-format
+msgid ""
+"The file \"%1\" is not a local file. Non-local files cannot be compiled."
+msgstr "\"%1\" इति सञ्चिका स्थानीयसञ्चिका नास्ति । अस्थानीयसञ्चिकाः संकलितुं न शक्यन्ते ।"
+
+#: plugin_katebuild.cpp:787
+#, kde-format
+msgid ""
+"Cannot run command: %1\n"
+"Work path does not exist: %2"
+msgstr ""
+"आदेशं चालयितुं न शक्यते: %1\n"
+"कार्यमार्गः नास्ति: %2"
+
+#: plugin_katebuild.cpp:801
+#, kde-format
+msgid "Failed to run \"%1\". exitStatus = %2"
+msgstr "\"%1\" चालयितुं असफलम् । exitStatus = %2"
+
+#: plugin_katebuild.cpp:816
+#, kde-format
+msgid "Building <b>%1</b> cancelled"
+msgstr "भवन <b>%1</b> रद्दः"
+
+#: plugin_katebuild.cpp:915
+#, kde-format
+msgid "Did not find a compile_commands.json for file \"%1\". "
+msgstr "\"%1\" सञ्चिकायाः कृते compile_commands.json न प्राप्तम् । "
+
+#: plugin_katebuild.cpp:928
+#, kde-format
+msgid "Did not find a compile command for file \"%1\" in \"%2\". "
+msgstr "\"%2\" मध्ये \"%1\" सञ्चिकायाः कृते संकलन आदेशः न प्राप्तः । "
+
+#: plugin_katebuild.cpp:1036
+#, kde-format
+msgid "No target available for building."
+msgstr "निर्माणार्थं लक्ष्यं उपलब्धं नास्ति।"
+
+#: plugin_katebuild.cpp:1050
+#, kde-format
+msgid "There is no local file or directory specified for building."
+msgstr "निर्माणार्थं स्थानीयसञ्चिका निर्देशिका वा निर्दिष्टा नास्ति ।"
+
+#: plugin_katebuild.cpp:1056
+#, kde-format
+msgid "Already building..."
+msgstr "पूर्वमेव निर्माणं कुर्वन्..."
+
+#: plugin_katebuild.cpp:1078
+#, kde-format
+msgid "Building target <b>%1</b> ..."
+msgstr "लक्ष्यं निर्माणं <b>%1</b> ..."
+
+#: plugin_katebuild.cpp:1115
+#, kde-format
+msgid ""
+"Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
+"entry !"
+msgstr ""
+"लक्ष्याणि लोड् कर्तुं न शक्यते, %1 सञ्चिकायां सम्यक् CMAKE_COMMAND प्रविष्टिः नास्ति !"
+
+#: plugin_katebuild.cpp:1128
+#, kde-format
+msgid "Could not write CMake File API query files for build directory %1 !"
+msgstr "%1 निर्माणनिर्देशिकायाः कृते CMake File API प्रश्नसञ्चिकाः लिखितुं न शक्तम् !"
+
+#: plugin_katebuild.cpp:1134
+#, kde-format
+msgid "Could not run CMake (%2) for build directory %1 !"
+msgstr "%1 निर्माणनिर्देशिकायाः कृते CMake (%2) चालयितुं न शक्यते !"
+
+#: plugin_katebuild.cpp:1143
+#, kde-format
+msgid ""
+"Generating CMake File API reply files for build directory %1 failed (using "
+"%2) !"
+msgstr ""
+"%1 निर्माणनिर्देशिकायाः कृते CMake File API उत्तरसञ्चिकानां जननं विफलम् (%2 इत्यस्य "
+"उपयोगेन) !"
+
+#: plugin_katebuild.cpp:1262
+#, kde-format
+msgid "Build plugin wants to execute program"
+msgstr "बिल्ड प्लगिन् प्रोग्राम् निष्पादयितुम् इच्छति"
+
+#: plugin_katebuild.cpp:1265
+#, kde-format
+msgid ""
+"The Kate build plugin needs to execute an external command to read the "
+"targets from the build tree.<br><br>The full command line is:<br><br><b>%1</"
+"b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
+"altered via the config page of the plugin."
+msgstr ""
+"Kate build plugin इत्यस्य build tree तः लक्ष्याणि पठितुं बाह्य आदेशं निष्पादयितुं आवश्यकम् "
+"अस्ति ।<br><br> पूर्णा आदेशपङ्क्तिः अस्ति : १.<br><br> <b>%1</b><br><br> अग्रे गत्वा "
+"एतत् आदेशं चालयितुं अनुमन्यताम् ?<br><br> प्लगिन् इत्यस्य config पृष्ठद्वारा विकल्पं "
+"परिवर्तयितुं शक्यते ।"
+
+#: plugin_katebuild.cpp:1297
+#, kde-kuit-format
+msgctxt "@info"
+msgid "<title>Make Results:</title><nl/>%1"
+msgstr ""
+
+#: plugin_katebuild.cpp:1333
+#, kde-format
+msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+msgstr "<b>%1</b> निर्माणं सम्पन्नम् । %2 त्रुटि(s), %3 चेतावनी(s), %4 टिप्पणी(s)"
+
+#: plugin_katebuild.cpp:1339
+#, kde-format
+msgid "Found one error."
+msgid_plural "Found %1 errors."
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugin_katebuild.cpp:1343
+#, kde-format
+msgid "Found one warning."
+msgid_plural "Found %1 warnings."
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugin_katebuild.cpp:1346
+#, kde-format
+msgid "Found one note."
+msgid_plural "Found %1 notes."
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugin_katebuild.cpp:1351
+#, kde-format
+msgid "Build failed."
+msgstr "निर्माणं विफलम् अभवत्।"
+
+#: plugin_katebuild.cpp:1353
+#, kde-format
+msgid "Build completed without problems."
+msgstr "निर्माणं समस्यां विना सम्पन्नम्।"
+
+#: plugin_katebuild.cpp:1358
+#, kde-format
+msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+msgstr "<b>%1 निर्माणं रद्दं कृतम्</b> . %2 त्रुटि(s), %3 चेतावनी(s), %4 टिप्पणी(s)"
+
+#: plugin_katebuild.cpp:1382
+#, kde-format
+msgid "Cannot execute: %1 No working directory set."
+msgstr "निष्पादयितुं न शक्यते: %1 कार्यनिर्देशिका सेट् नास्ति।"
+
+#: plugin_katebuild.cpp:1614
+#, kde-format
+msgctxt "The same word as 'gcc' uses for an error."
+msgid "error"
+msgstr ""
+
+#: plugin_katebuild.cpp:1617
+#, kde-format
+msgctxt "The same word as 'gcc' uses for a warning."
+msgid "warning"
+msgstr ""
+
+#: plugin_katebuild.cpp:1620
+#, kde-format
+msgctxt "The same words as 'gcc' uses for note or info."
+msgid "note|info"
+msgstr ""
+
+#: plugin_katebuild.cpp:1623
+#, kde-format
+msgctxt "The same word as 'ld' uses to mark an ..."
+msgid "undefined reference"
+msgstr ""
+
+#: plugin_katebuild.cpp:1807
+#, kde-format
+msgid "Cannot save build targets in: %1"
+msgstr "निर्माणलक्ष्याणि रक्षितुं न शक्यते: %1"
+
+#: TargetHtmlDelegate.cpp:51
+#, kde-format
+msgctxt "T as in Target set"
+msgid "<B>T:</B> %1"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:53
+#, kde-format
+msgctxt "D as in working Directory"
+msgid "<B>Dir:</B> %1"
+msgstr ""
+
+#: TargetHtmlDelegate.cpp:104
+#, kde-format
+msgid ""
+"Leave empty to use the directory of the current document.\n"
+"Add search directories by adding paths separated by ';'"
+msgstr ""
+"वर्तमानदस्तावेजस्य निर्देशिकायाः उपयोगाय रिक्तं त्यजन्तु ।\n"
+"';' इत्यनेन पृथक्कृतान् मार्गान् योजयित्वा अन्वेषणनिर्देशिकाः योजयन्तु।"
+
+#: TargetHtmlDelegate.cpp:111
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%B\" for project base directory\n"
+"\"%b\" for name of project base directory"
+msgstr ""
+"उपयुञ्जताम्‌:\n"
+"परियोजना आधारनिर्देशिकायाः कृते \"%B\"\n"
+"परियोजना आधारनिर्देशिकायाः नामार्थं \"%b\""
+
+#: TargetHtmlDelegate.cpp:114
+#, kde-format
+msgid ""
+"Use:\n"
+"\"%f\" for current file\n"
+"\"%d\" for directory of current file\n"
+"\"%n\" for current file name without suffix"
+msgstr ""
+"उपयुञ्जताम्‌:\n"
+"वर्तमानसञ्चिकायाः कृते \"%f\"\n"
+"वर्तमानसञ्चिकायाः निर्देशिकायाः कृते \"%d\"\n"
+"प्रत्ययरहितं वर्तमानसञ्चिकानामस्य कृते \"%n\""
+
+#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:247
+#, kde-format
+msgid "Target Set"
+msgstr "लक्ष्य सेट्"
+
+#: TargetModel.cpp:520
+#, kde-format
+msgid "Projects"
+msgstr "परियोजनाएँ"
+
+#: TargetModel.cpp:520
+#, kde-format
+msgid "Session"
+msgstr "सत्र"
+
+#: TargetModel.cpp:614
+#, kde-format
+msgid "Command/Target-set Name"
+msgstr "आदेश/लक्ष्य-सेट् नाम"
+
+#: TargetModel.cpp:617
+#, kde-format
+msgid "Working Directory / Command"
+msgstr "कार्यनिर्देशिका / आदेशः"
+
+#: TargetModel.cpp:620
+#, kde-format
+msgid "Run Command"
+msgstr "Run Command इति"
+
+#: targets.cpp:29
+#, kde-format
+msgid "Filter targets, use arrow keys to select, Enter to execute"
+msgstr ""
+"लक्ष्याणि फ़िल्टर कुर्वन्तु, चयनार्थं बाणकुंजीनां उपयोगं कुर्वन्तु, निष्पादयितुं Enter कुर्वन्तु"
+
+#: targets.cpp:33
+#, kde-format
+msgid "Create new set of targets"
+msgstr "लक्ष्यस्य नूतनसमूहं रचयन्तु"
+
+#: targets.cpp:37
+#, kde-format
+msgid "Clone command or target set"
+msgstr "आदेशं वा लक्ष्यसमूहं वा क्लोन कुर्वन्तु"
+
+#: targets.cpp:41
+#, kde-format
+msgid "Delete current target or current set of targets"
+msgstr "वर्तमान लक्ष्यं अथवा लक्ष्यस्य वर्तमानसमूहं विलोपयन्तु"
+
+#: targets.cpp:46
+#, kde-format
+msgid "Add new target"
+msgstr "नूतनं लक्ष्यं योजयन्तु"
+
+#: targets.cpp:50
+#, kde-format
+msgid "Build selected target"
+msgstr "चयनितं लक्ष्यं निर्मायताम्"
+
+#: targets.cpp:54
+#, kde-format
+msgid "Build and run selected target"
+msgstr "चयनितं लक्ष्यं निर्माय चालयन्तु"
+
+#: targets.cpp:58
+#, kde-format
+msgid "Move selected target up"
+msgstr "चयनितं लक्ष्यं उपरि चालयन्तु"
+
+#: targets.cpp:62
+#, kde-format
+msgid "Move selected target down"
+msgstr "चयनितं लक्ष्यं अधः स्थापयन्तु"
+
+#: targets.cpp:201
+#, kde-format
+msgid "Copy"
+msgstr "प्रतिलिपि"
+
+#: targets.cpp:205
+#, kde-format
+msgid "Cut"
+msgstr "छिन्न"
+
+#: targets.cpp:209
+#, kde-format
+msgid "Paste after"
+msgstr "पश्चात् चिनोतु"
+
+#: targets.cpp:227 targets.cpp:249
+#, kde-format
+msgctxt "Name/Label for a compilation or build command"
+msgid "Build Command"
+msgstr ""
+
+#: targets.cpp:248
+#, kde-format
+msgctxt "Name/Label for a command to configure a build"
+msgid "Configure"
+msgstr ""
+
+#. i18n: ectx: Menu (Build Menubar)
+#: ui.rc:6
+#, kde-format
+msgid "&Build"
+msgstr "&निर्मिमीते"
+
+#: UrlInserter.cpp:32
+#, kde-format
+msgid "Insert path"
+msgstr "मार्गं सम्मिलितं कुर्वन्तु"
+
+#: UrlInserter.cpp:51
+#, kde-format
+msgid "Select directory to insert"
+msgstr "सम्मिलितुं निर्देशिकां चिनोतु"

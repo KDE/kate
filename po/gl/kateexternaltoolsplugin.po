@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-06-21 22:59+0200\n"
+"PO-Revision-Date: 2024-12-13 21:03+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -84,6 +84,7 @@ msgctxt "External tool name"
 msgid "GoImports Full File"
 msgstr "GoImports para ficheiro completo"
 
+# skip-rule: trasno-search_reverse
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"

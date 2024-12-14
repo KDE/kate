@@ -1,0 +1,88 @@
+# Sanskrit translations for kate package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Last-Translator: Kali <EMAIL@ADDRESS>\n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ktexteditorpreviewview.cpp:31
+#, kde-format
+msgid "Preview"
+msgstr "पूर्वावलोकनम्"
+
+#: previewwidget.cpp:44
+#, kde-format
+msgid "Lock Current Document"
+msgstr "वर्तमान दस्तावेजं ताडयन्तु"
+
+#: previewwidget.cpp:45
+#, kde-format
+msgid "Lock preview to current document"
+msgstr "वर्तमानदस्तावेजस्य पूर्वावलोकनं ताडयन्तु"
+
+#: previewwidget.cpp:46
+#, kde-format
+msgid "Unlock Current View"
+msgstr "वर्तमान दृश्यं अनलॉक कुर्वन्तु"
+
+#: previewwidget.cpp:46
+#, kde-format
+msgid "Unlock current view"
+msgstr "वर्तमानदृश्यं अनलॉक कुर्वन्तु"
+
+#: previewwidget.cpp:53
+#, kde-format
+msgid "Automatically Update Preview"
+msgstr "स्वयमेव पूर्वावलोकनं अद्यतनं कुर्वन्तु"
+
+#: previewwidget.cpp:54
+#, kde-format
+msgid "Enable automatic updates of the preview to the current document content"
+msgstr "वर्तमानदस्तावेजसामग्रीणां पूर्वावलोकनस्य स्वचालितं अद्यतनीकरणं सक्षमं कुर्वन्तु"
+
+#: previewwidget.cpp:55
+#, kde-format
+msgid "Manually Update Preview"
+msgstr "पूर्वावलोकनं मैन्युअल् रूपेण अद्यतनं कुर्वन्तु"
+
+#: previewwidget.cpp:57
+#, kde-format
+msgid ""
+"Disable automatic updates of the preview to the current document content"
+msgstr "वर्तमानदस्तावेजसामग्रीणां पूर्वावलोकनस्य स्वचालितं अद्यतनं निष्क्रियं कुर्वन्तु"
+
+#: previewwidget.cpp:62
+#, kde-format
+msgid "Update Preview"
+msgstr "पूर्वावलोकनं अद्यतनं कुर्वन्तु"
+
+#: previewwidget.cpp:63
+#, kde-format
+msgid "Update the preview to the current document content"
+msgstr "पूर्वावलोकनं वर्तमानदस्तावेजसामग्रीयां अद्यतनं कुर्वन्तु"
+
+#: previewwidget.cpp:71
+#, kde-format
+msgid "View"
+msgstr "दृश्यं"
+
+#: previewwidget.cpp:96
+#, kde-format
+msgid "No preview available."
+msgstr "पूर्वावलोकनं उपलब्धं नास्ति।"
+
+#: previewwidget.cpp:232
+#, kde-format
+msgid "About %1"
+msgstr "%1 इत्यस्य विषये"

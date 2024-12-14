@@ -1,0 +1,396 @@
+# Sanskrit translations for kate package.
+# Copyright (C) 2024 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Kali <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-09-27 00:48+0000\n"
+"PO-Revision-Date: 2024-12-13 19:09+0530\n"
+"Last-Translator: Kali <EMAIL@ADDRESS>\n"
+"Language-Team: Sanskrit\n"
+"Language: sa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. i18n: ectx: attribute (title), widget (QWidget, run)
+#: config.ui:18
+#, kde-format
+msgid "Run"
+msgstr "धावनं करोतु"
+
+#. i18n: ectx: property (text), widget (QLabel, label_34)
+#: config.ui:24
+#, kde-format
+msgid "Run time (milliseconds):"
+msgstr "चालनसमयः (मिलिसेकेण्ड्) : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_35)
+#: config.ui:41
+#, kde-format
+msgid "Probe level:"
+msgstr "अन्वेषणस्तरः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
+#: config.ui:58
+#, kde-format
+msgid "User operations layout module:"
+msgstr "उपयोक्तृसञ्चालनविन्यासमॉड्यूलः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, userClassLabel)
+#: config.ui:71
+#, kde-format
+msgid "User classes file:"
+msgstr "उपयोक्तृवर्गसञ्चिकाः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: config.ui:84
+#, kde-format
+msgid "Base period:"
+msgstr "आधारकालः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: config.ui:101
+#, kde-format
+msgid "Reduction core count:"
+msgstr "न्यूनीकरण कोरगणना : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: config.ui:118
+#, kde-format
+msgid "Time core count:"
+msgstr "समयकोरगणना : १."
+
+#. i18n: ectx: attribute (title), widget (QWidget, system)
+#: config.ui:136
+#, kde-format
+msgid "System"
+msgstr "व्यवस्था"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: config.ui:142
+#, kde-format
+msgid "Model inertia success rate threshold:"
+msgstr "आदर्श जडता सफलता दर सीमा : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: config.ui:159
+#, kde-format
+msgid "Model inertia count threshold:"
+msgstr "आदर्श जडता गणना सीमा : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: config.ui:176
+#, kde-format
+msgid "Targeted pattern extractor delta success rate threshold:"
+msgstr "लक्षितप्रतिमाननिष्कासक डेल्टा सफलता दर सीमा: १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: config.ui:193
+#, kde-format
+msgid "Minimum simulation time horizon:"
+msgstr "न्यूनतम अनुकरण समय क्षितिज : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_10)
+#: config.ui:210
+#, kde-format
+msgid "Maximum simulation time horizon:"
+msgstr "अधिकतमं अनुकरणसमयक्षितिजम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: config.ui:227
+#, kde-format
+msgid "Simulation time horizon:"
+msgstr "अनुकरणकालक्षितिजम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_12)
+#: config.ui:247
+#, kde-format
+msgid "Targeted pattern extractor time horizon:"
+msgstr "लक्षितप्रतिमाननिष्कासकसमयक्षितिजम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_13)
+#: config.ui:264
+#, kde-format
+msgid "Perf sampling period:"
+msgstr "Perf नमूना अवधिः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_14)
+#: config.ui:281
+#, kde-format
+msgid "Float tolerance:"
+msgstr "प्लवक सहिष्णुता : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_15)
+#: config.ui:298
+#, kde-format
+msgid "Timer tolerance:"
+msgstr "समयनिर्धारकसहिष्णुता : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_16)
+#: config.ui:318
+#, kde-format
+msgid "Primary time horizon:"
+msgstr "प्राथमिककालक्षितिजः : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_17)
+#: config.ui:335
+#, kde-format
+msgid "Secondary time horizon:"
+msgstr "गौणकालक्षितिजम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_18)
+#: config.ui:352
+#, kde-format
+msgid "Notification marker resilience:"
+msgstr "अधिसूचना चिह्नस्य लचीलापनम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_19)
+#: config.ui:369
+#, kde-format
+msgid "Goal prediction success resilience:"
+msgstr "लक्ष्य भविष्यवाणी सफलता लचीलापन : १."
+
+#. i18n: ectx: attribute (title), widget (QWidget, debugtab)
+#: config.ui:387
+#, kde-format
+msgid "Debug"
+msgstr "त्रुटिनिवारणम्"
+
+#. i18n: ectx: property (text), widget (QLabel, label_22)
+#: config.ui:396
+#, kde-format
+msgid "Debug:"
+msgstr "त्रुटिनिवारणम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_23)
+#: config.ui:413
+#, kde-format
+msgid "Debug windows:"
+msgstr "विण्डोजः त्रुटिनिवारणम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_24)
+#: config.ui:426
+#, kde-format
+msgid "Traces:"
+msgstr "लेशाः : १."
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
+#: config.ui:433
+#, kde-format
+msgid "Composite inputs"
+msgstr "समष्टिनिवेशाः"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
+#: config.ui:440
+#, kde-format
+msgid "Composite outputs"
+msgstr "समष्टिनिर्गमाः"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
+#: config.ui:447
+#, kde-format
+msgid "Model inputs"
+msgstr "मॉडल इनपुट"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
+#: config.ui:454
+#, kde-format
+msgid "Model outputs"
+msgstr "मॉडल आउटपुट"
+
+#. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
+#: config.ui:461
+#, kde-format
+msgid "Prediction monitoring"
+msgstr "भविष्यवाणी निगरानी"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
+#: config.ui:468
+#, kde-format
+msgid "Goal monitoring"
+msgstr "लक्ष्यनिरीक्षणम्"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
+#: config.ui:475
+#, kde-format
+msgid "Model revision"
+msgstr "आदर्श पुनरीक्षण"
+
+#. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
+#: config.ui:482
+#, kde-format
+msgid "Model/composite injections"
+msgstr "मॉडल/समष्टि इन्जेक्शन"
+
+#. i18n: ectx: property (text), widget (QLabel, label_21)
+#: config.ui:489
+#, kde-format
+msgid "Decompile objects:"
+msgstr "वस्तुनः विसंकलनम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
+#: config.ui:506
+#, kde-format
+msgid "Decompile to file:"
+msgstr "सञ्चिकायां विसंकलनं कुर्वन्तु : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_26)
+#: config.ui:516
+#, kde-format
+msgid "Ignore named objects:"
+msgstr "नामकृतानां वस्तूनाम् अवहेलनां कुर्वन्तु : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_27)
+#: config.ui:533
+#, kde-format
+msgid "Dump objects to file:"
+msgstr "सञ्चिकायां वस्तुनि डम्प कुर्वन्तु:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_28)
+#: config.ui:543
+#, kde-format
+msgid "Test objects:"
+msgstr "परीक्षणवस्तूनि : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_30)
+#: config.ui:560
+#, kde-format
+msgid "Decompile models:"
+msgstr "मॉडल् विसंकलनम् : १."
+
+#. i18n: ectx: property (text), widget (QLabel, label_31)
+#: config.ui:577
+#, kde-format
+msgid "Ignore named models:"
+msgstr "नामितप्रतिमानानाम् अवहेलनां कुर्वन्तु : १."
+
+#. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
+#: config.ui:594
+#, kde-format
+msgid "Dump models to file:"
+msgstr "सञ्चिकां प्रति मॉडल् डम्प कुर्वन्तु:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_33)
+#: config.ui:604
+#, kde-format
+msgid "Test models:"
+msgstr "परीक्षणप्रतिमानाः : १."
+
+#: replicodeconfigpage.cpp:24
+#, kde-format
+msgid "Path to replicode executor:"
+msgstr "प्रतिलिकोड् निष्पादकस्य मार्गः : १."
+
+#: replicodeconfigpage.cpp:39 replicodeview.cpp:51
+#, kde-format
+msgid "Replicode"
+msgstr "प्रतिकृतिः"
+
+#: replicodeconfigpage.cpp:44
+#, kde-format
+msgid "Replicode configuration"
+msgstr "प्रतिलिपिकोड् विन्यासः"
+
+#: replicodeview.cpp:38
+#, kde-format
+msgid "Run replicode"
+msgstr "प्रतिलिपिकोड् चालयन्तु"
+
+#: replicodeview.cpp:42
+#, kde-format
+msgid "Stop replicode"
+msgstr "प्रतिलिपिकोडं स्थगयतु"
+
+#: replicodeview.cpp:61
+#, kde-format
+msgid "Replicode Config"
+msgstr "Replicode Config"
+
+#: replicodeview.cpp:64
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Run (%1)"
+msgstr ""
+
+#: replicodeview.cpp:65
+#, kde-format
+msgctxt "shortcut for action"
+msgid "Stop (%1)"
+msgstr ""
+
+#: replicodeview.cpp:100
+#, kde-format
+msgctxt "@title:window"
+msgid "Active Document Not Found"
+msgstr ""
+
+#: replicodeview.cpp:100
+#, kde-format
+msgid "Could not find an active document to run."
+msgstr "चालयितुं सक्रियदस्तावेजं न लब्धम् ।"
+
+#: replicodeview.cpp:105
+#, kde-format
+msgctxt "@title:window"
+msgid "Empty Document"
+msgstr ""
+
+#: replicodeview.cpp:105
+#, kde-format
+msgid "Cannot execute an empty document."
+msgstr "रिक्तं दस्तावेजं निष्पादयितुं न शक्यते ।"
+
+#: replicodeview.cpp:112
+#, kde-format
+msgctxt "@title:window"
+msgid "File Not Found"
+msgstr ""
+
+#: replicodeview.cpp:112
+#, kde-format
+msgid "Unable to open source file for reading."
+msgstr "पठनार्थं स्रोतसञ्चिकां उद्घाटयितुं असमर्थः।"
+
+#: replicodeview.cpp:127
+#, kde-format
+msgctxt "@title:window"
+msgid "Replicode Executable Not Found"
+msgstr ""
+
+#: replicodeview.cpp:128
+#, kde-format
+msgid ""
+"Unable to find replicode executor.\n"
+"Please go to settings and set the path to the Replicode executable."
+msgstr ""
+"replicode executor अन्वेष्टुं असमर्थः।\n"
+"कृपया सेटिङ्ग्स् मध्ये गत्वा Replicode एक्जीक्यूटिव् इत्यस्य मार्गं सेट् कुर्वन्तु ।"
+
+#: replicodeview.cpp:135
+#, kde-format
+msgctxt "@title:window"
+msgid "User Operator Library Not Found"
+msgstr ""
+
+#: replicodeview.cpp:136
+#, kde-format
+msgid ""
+"Unable to find user operator library.\n"
+"Please go to settings and set the path to the library."
+msgstr ""
+"उपयोक्तृसञ्चालकपुस्तकालयं अन्वेष्टुं असमर्थः।\n"
+"कृपया सेटिङ्ग्स् मध्ये गत्वा पुस्तकालयस्य मार्गं सेट् कुर्वन्तु ।"
+
+#: replicodeview.cpp:201
+#, kde-format
+msgid "Replicode execution failed: %1"
+msgstr "प्रतिलिकोड् निष्पादनं विफलम्: %1"
+
+#: replicodeview.cpp:211
+#, kde-format
+msgid "Replicode execution finished."
+msgstr "प्रतिलिपिकोड् निष्पादनं समाप्तम्।"

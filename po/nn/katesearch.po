@@ -704,6 +704,3 @@ msgstr "&Rediger"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Finn i filer (variantar)"
-
-#~ msgid "Filter..."
-#~ msgstr "Filtrer …"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 02:40+0000\n"
+"POT-Creation-Date: 2024-12-14 03:24+0000\n"
 "PO-Revision-Date: 2024-10-20 21:22+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -93,8 +93,8 @@ msgstr "Vaihda valittua kohdetta suoritettaessa automaattisesti tulospaneeliin"
 msgid "Allowed && Blocked Commands"
 msgstr "Sallitut ja estetyt komennot"
 
-#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:708
-#: plugin_katebuild.cpp:911 plugin_katebuild.cpp:924
+#: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:712
+#: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928
 #, kde-format
 msgid "Build"
 msgstr "Koosta"
@@ -162,23 +162,23 @@ msgstr ""
 "<b>Tiedostoa ei löytynyt:</b> %1<br><b>Hakupolut:</b><br>%2<br>Kokeile "
 "lisätä hakupolku työkansioon"
 
-#: plugin_katebuild.cpp:478
+#: plugin_katebuild.cpp:482
 #, kde-format
 msgid "Build Information"
 msgstr "Koostamistiedot"
 
-#: plugin_katebuild.cpp:715
+#: plugin_katebuild.cpp:719
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Koostettavaa tiedostoa tai kansiota ei ole määritetty."
 
-#: plugin_katebuild.cpp:719
+#: plugin_katebuild.cpp:723
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "Tiedosto ”%1” ei ole paikallinen: etätiedostoja ei voi koostaa."
 
-#: plugin_katebuild.cpp:782
+#: plugin_katebuild.cpp:786
 #, kde-format
 msgid ""
 "Cannot run command: %1\n"
@@ -187,47 +187,47 @@ msgstr ""
 "Komentoa ei voida suorittaa: %1\n"
 "Työkansiota ei ole olemassa: %2"
 
-#: plugin_katebuild.cpp:796
+#: plugin_katebuild.cpp:800
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Kohteen ”%1” suoritus epäonnistui. exitStatus = %2"
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:815
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Kohteen <b>%1</b> koostaminen peruttiin"
 
-#: plugin_katebuild.cpp:910
+#: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Tiedostolle ”%1” ei löytynyt compile_commands.json-tiedostoa. "
 
-#: plugin_katebuild.cpp:923
+#: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Kansion ”%2” tiedostolle ”%1” ei löytynyt kääntämiskomentoa. "
 
-#: plugin_katebuild.cpp:1031
+#: plugin_katebuild.cpp:1035
 #, kde-format
 msgid "No target available for building."
 msgstr "Ei koostettavaa kohdetta."
 
-#: plugin_katebuild.cpp:1045
+#: plugin_katebuild.cpp:1049
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Koostettavaa paikallista tiedostoa tai kansiota ei ole määritetty."
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:1055
 #, kde-format
 msgid "Already building..."
 msgstr "On jo koostamassa…"
 
-#: plugin_katebuild.cpp:1073
+#: plugin_katebuild.cpp:1077
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Koostetaan kohdetta <b>%1</b>…"
 
-#: plugin_katebuild.cpp:1110
+#: plugin_katebuild.cpp:1114
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -236,19 +236,19 @@ msgstr ""
 "Kohteita ei voida ladata: tiedosto %1 ei sisällä kelvollista CMAKE_COMMAND-"
 "tietuetta!"
 
-#: plugin_katebuild.cpp:1123
+#: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Koostamiskansiolle %1 ei voitu kirjoittaa CMaken tiedosto-APIn "
 "kyselytiedostoja!"
 
-#: plugin_katebuild.cpp:1129
+#: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Koostamiskansiolle %1 ei voitu suorittaa CMakea (%2)!"
 
-#: plugin_katebuild.cpp:1138
+#: plugin_katebuild.cpp:1142
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -257,12 +257,12 @@ msgstr ""
 "CMaken tiedosto-APIn vastaustiedostojen luominen (käyttäen: %2) "
 "koostamiskansiolle %1 epäonnistui!"
 
-#: plugin_katebuild.cpp:1257
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Koostamisliitännäinen haluaa suorittaa ohjelman"
 
-#: plugin_katebuild.cpp:1260
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -275,87 +275,87 @@ msgstr ""
 "b><br><br>Jatketaanko sallien komennon suorittaminen?<br><br>Valintaa voi "
 "muuttaa liitännäisen asetussivulla."
 
-#: plugin_katebuild.cpp:1292
+#: plugin_katebuild.cpp:1296
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Make Results:</title><nl/>%1"
 msgstr "<title>Maken tulokset:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1328
+#: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "<b>%1</b> – koostaminen valmis. %2 virhe(ttä), %3 varoitus(ta), %4 "
 "huomautus(ta)"
 
-#: plugin_katebuild.cpp:1334
+#: plugin_katebuild.cpp:1338
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Löytyi yksi virhe."
 msgstr[1] "Löytyi %1 virhettä."
 
-#: plugin_katebuild.cpp:1338
+#: plugin_katebuild.cpp:1342
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Löytyi yksi varoitus."
 msgstr[1] "Löytyi %1 varoitusta."
 
-#: plugin_katebuild.cpp:1341
+#: plugin_katebuild.cpp:1345
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Löytyi yksi huomautus."
 msgstr[1] "Löytyi %1 huomautusta."
 
-#: plugin_katebuild.cpp:1346
+#: plugin_katebuild.cpp:1350
 #, kde-format
 msgid "Build failed."
 msgstr "Koostaminen epäonnistui."
 
-#: plugin_katebuild.cpp:1348
+#: plugin_katebuild.cpp:1352
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Koostaminen onnistui ongelmitta."
 
-#: plugin_katebuild.cpp:1353
+#: plugin_katebuild.cpp:1357
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr ""
 "%1 – koostaminen <b>peruttu</b>. %2 virhe(ttä), %3 varoitus(ta), %4 "
 "huomautus(ta)"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Ei voida suorittaa: %1 – työkansiota ei ole asetettu."
 
-#: plugin_katebuild.cpp:1603
+#: plugin_katebuild.cpp:1613
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "virhe"
 
-#: plugin_katebuild.cpp:1606
+#: plugin_katebuild.cpp:1616
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "varoitus"
 
-#: plugin_katebuild.cpp:1609
+#: plugin_katebuild.cpp:1619
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "huomautus|tiedotus"
 
-#: plugin_katebuild.cpp:1612
+#: plugin_katebuild.cpp:1622
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "määrittämätön viite"
 
-#: plugin_katebuild.cpp:1788
+#: plugin_katebuild.cpp:1798
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Koostamiskohteita ei voi tallentaa kansioon: %1"

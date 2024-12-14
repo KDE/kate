@@ -3,7 +3,7 @@
 # Daniele Medri <madrid@linuxmeeting.net>, 2003.
 # Marco L. Spolaore <mspolaore@e-tree.com>, 2004, 2005.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2007, 2008, 2009, 2010, 2013.
-# Paolo Zamponi <feus73@gmail.com>, 2018, 2019, 2022.
+# SPDX-FileCopyrightText: 2018, 2019, 2022, 2024 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25

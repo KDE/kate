@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="TMPL_PLUGIN_LIB_NAME_TMPL" library="TMPL_PLUGIN_LIB_NAME_TMPL" version="1" translationDomain="TMPL_PLUGIN_LIB_NAME_TMPL">
+    <MenuBar>
+        <Menu name="tools">
+            <text>&amp;Tools</text>
+            <Action name="TMPL_PLUGIN_LIB_NAME_TMPL_test_action" group="test_group"/>
+        </Menu>
+    </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

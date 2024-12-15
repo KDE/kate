@@ -1,0 +1,27 @@
+{
+  "name": "TMPL_PLUGIN_CLASS_NAME_TMPL",
+  "files": [
+    { "git": 1 },
+    { "directory": "./", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "*.cmake"], "recursive": 1 }
+  ],
+  "build": {
+    "directory": "build",
+    "targets": [
+      {
+        "name": "Configure",
+        "build_cmd": "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -G Ninja ../",
+        "run_cmd": ""
+      },
+      {
+        "name": "Compile",
+        "build_cmd": "ninja",
+        "run_cmd": ""
+      },
+      {
+        "name": "Install",
+        "build_cmd": "",
+        "run_cmd": "sudo ninja install"
+      }
+    ]
+  }
+}

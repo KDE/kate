@@ -1,0 +1,7 @@
+{
+    "description": "Create a C++ simple Hellow World",
+    "replacements": [
+        { "description": "Application Name", "placeholder": "TMPL_APPLICATION_NAME_TMPL", "default": "helloworld" }
+    ],
+    "fileToOpen": "main.cpp"
+}

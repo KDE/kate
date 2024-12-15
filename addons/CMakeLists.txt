@@ -25,6 +25,7 @@ ecm_optional_add_subdirectory(search)
 ecm_optional_add_subdirectory(snippets)
 ecm_optional_add_subdirectory(symbolviewer) # List symbols and functions in a file.
 ecm_optional_add_subdirectory(tabswitcher) # ALT+Tab like tab switcher.
+ecm_optional_add_subdirectory(template) # Create files from templates.
 ecm_optional_add_subdirectory(textfilter) # Pipe text through some external command.
 ecm_optional_add_subdirectory(xmlcheck) # XML Validation plugin
 ecm_optional_add_subdirectory(xmltools) # XML completion

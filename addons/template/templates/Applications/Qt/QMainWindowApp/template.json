@@ -1,0 +1,8 @@
+{
+    "description": "Create a simple QtMainWindow application",
+    "replacements": [
+        { "description": "Application Name", "placeholder": "TMPL_Q_MAIN_WINDOW_APP_TMPL", "default": "QMainWindowApp" },
+        { "description": "Main Window Class Name", "placeholder": "TMPL_Q_MAIN_WINDOW_TMPL", "default": "MyMainWindow" }
+    ],
+    "fileToOpen": "TMPL_Q_MAIN_WINDOW_TMPL.cpp"
+}

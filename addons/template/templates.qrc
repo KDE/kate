@@ -1,0 +1,36 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>templates/Applications/Qt/QCoreApplication/CMakeLists.txt</file>
+        <file>templates/Applications/Qt/QCoreApplication/.kateproject</file>
+        <file>templates/Applications/Qt/QCoreApplication/template.json</file>
+        <file>templates/Applications/Qt/QCoreApplication/main.cpp</file>
+        <file>templates/Applications/Qt/QMainWindowApp/CMakeLists.txt</file>
+        <file>templates/Applications/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.cpp</file>
+        <file>templates/Applications/Qt/QMainWindowApp/.kateproject</file>
+        <file>templates/Applications/Qt/QMainWindowApp/template.json</file>
+        <file>templates/Applications/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.h</file>
+        <file>templates/Applications/Qt/QMainWindowApp/main.cpp</file>
+        <file>templates/Applications/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.ui</file>
+        <file>templates/Applications/Qt/QMLApplication/CMakeLists.txt</file>
+        <file>templates/Applications/Qt/QMLApplication/.kateproject</file>
+        <file>templates/Applications/Qt/QMLApplication/template.json</file>
+        <file>templates/Applications/Qt/QMLApplication/Main.qml</file>
+        <file>templates/Applications/Qt/QMLApplication/main.cpp</file>
+        <file>templates/Applications/C++/HelloWorld/CMakeLists.txt</file>
+        <file>templates/Applications/C++/HelloWorld/.kateproject</file>
+        <file>templates/Applications/C++/HelloWorld/template.json</file>
+        <file>templates/Applications/C++/HelloWorld/main.cpp</file>
+        <file>templates/Applications/KDE/KatePlugin/TMPL_PLUGIN_CLASS_NAME_TMPL.cpp</file>
+        <file>templates/Applications/KDE/KatePlugin/TMPL_PLUGIN_CLASS_NAME_TMPL.h</file>
+        <file>templates/Applications/KDE/KatePlugin/CMakeLists.txt</file>
+        <file>templates/Applications/KDE/KatePlugin/.kateproject</file>
+        <file>templates/Applications/KDE/KatePlugin/plugin.json</file>
+        <file>templates/Applications/KDE/KatePlugin/plugin.qrc</file>
+        <file>templates/Applications/KDE/KatePlugin/template.json</file>
+        <file>templates/Applications/KDE/KatePlugin/ui.rc</file>
+        <file>templates/Files/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.h</file>
+        <file>templates/Files/Qt/QObjectClass/template.json</file>
+        <file>templates/Files/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.cpp</file>
+    </qresource>
+</RCC>

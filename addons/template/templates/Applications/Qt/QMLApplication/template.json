@@ -1,0 +1,7 @@
+{
+    "description": "Create a simple QML application",
+    "replacements": [
+        { "description": "Application Name", "placeholder": "TMPL_APPLICATION_NAME_TMPL", "default": "QMLApplication" }
+    ],
+    "fileToOpen": "Main.qml"
+}

@@ -1,0 +1,7 @@
+{
+    "description": "Create a QObject derived class",
+    "replacements": [
+        { "description": "Class Name", "placeholder": "TMPL_Q_OBJECT_CLASS_TMPL", "default": "MyObject" }
+    ],
+    "fileToOpen": "TMPL_Q_OBJECT_CLASS_TMPL.h"
+}

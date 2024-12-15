@@ -1,0 +1,7 @@
+{
+    "description": "Create a simple QtCoreApplication terminal Hello World",
+    "replacements": [
+        { "description": "Application Name", "placeholder": "TEMPLATE_REPLACE_CORE_APPLICATION_NAME", "default": "coreapp" }
+    ],
+    "fileToOpen": "main.cpp"
+}

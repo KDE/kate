@@ -1,0 +1,37 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>templates/Qt/QCoreApplication/CMakeLists.txt</file>
+        <file>templates/Qt/QCoreApplication/.kateproject</file>
+        <file>templates/Qt/QCoreApplication/template.json</file>
+        <file>templates/Qt/QCoreApplication/main.cpp</file>
+        <file>templates/Qt/QMainWindowApp/CMakeLists.txt</file>
+        <file>templates/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.cpp</file>
+        <file>templates/Qt/QMainWindowApp/.kateproject</file>
+        <file>templates/Qt/QMainWindowApp/template.json</file>
+        <file>templates/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.h</file>
+        <file>templates/Qt/QMainWindowApp/main.cpp</file>
+        <file>templates/Qt/QMainWindowApp/TMPL_Q_MAIN_WINDOW_TMPL.ui</file>
+        <file>templates/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.h</file>
+        <file>templates/Qt/QObjectClass/template.json</file>
+        <file>templates/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.cpp</file>
+        <file>templates/Qt/QMLApplication/CMakeLists.txt</file>
+        <file>templates/Qt/QMLApplication/.kateproject</file>
+        <file>templates/Qt/QMLApplication/template.json</file>
+        <file>templates/Qt/QMLApplication/Main.qml</file>
+        <file>templates/Qt/QMLApplication/main.cpp</file>
+        <file>templates/C++/HelloWorld</file>
+        <file>templates/C++/HelloWorld/CMakeLists.txt</file>
+        <file>templates/C++/HelloWorld/.kateproject</file>
+        <file>templates/C++/HelloWorld/template.json</file>
+        <file>templates/C++/HelloWorld/main.cpp</file>
+        <file>templates/KDE/KatePlugin/TMPL_PLUGIN_CLASS_NAME_TMPL.cpp</file>
+        <file>templates/KDE/KatePlugin/TMPL_PLUGIN_CLASS_NAME_TMPL.h</file>
+        <file>templates/KDE/KatePlugin/CMakeLists.txt</file>
+        <file>templates/KDE/KatePlugin/.kateproject</file>
+        <file>templates/KDE/KatePlugin/plugin.json</file>
+        <file>templates/KDE/KatePlugin/plugin.qrc</file>
+        <file>templates/KDE/KatePlugin/template.json</file>
+        <file>templates/KDE/KatePlugin/ui.rc</file>
+    </qresource>
+</RCC>

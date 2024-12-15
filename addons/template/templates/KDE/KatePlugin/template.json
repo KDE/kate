@@ -1,0 +1,9 @@
+{
+    "description": "Create a simple Kate plugin",
+    "replacements": [
+        { "description": "Plugin UI Name", "placeholder": "TMPL_PLUGIN_UI_NAME_TMPL", "default": "Test Plugin" },
+        { "description": "Plugin Class Name", "placeholder": "TMPL_PLUGIN_CLASS_NAME_TMPL", "default": "TestPlugin", "genratedFiles": ["%1.moc"] },
+        { "description": "Plugin library name", "placeholder": "TMPL_PLUGIN_LIB_NAME_TMPL", "default": "testplugin", "mustBeLowercase": true }
+    ],
+    "fileToOpen": "TMPL_PLUGIN_CLASS_NAME_TMPL.h"
+}

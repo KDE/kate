@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/kxmlgui5/TMPL_PLUGIN_LIB_NAME_TMPL">
+        <file>ui.rc</file>
+    </qresource>
+</RCC>

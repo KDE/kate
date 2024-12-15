@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="templateplugin" library="templateplugin" version="1" translationDomain="templateplugin">
+    <MenuBar>
+        <Menu name="file">
+            <text>&amp;File</text>
+            <Action name="new_from_template" group="new_merge"/>
+        </Menu>
+    </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

@@ -3,18 +3,21 @@
 # This file is distributed under the same license as the kate package.
 # Kali <EMAIL@ADDRESS>, 2024.
 #
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2024-12-13 19:09+0530\n"
-"Last-Translator: Kali <EMAIL@ADDRESS>\n"
-"Language-Team: Sanskrit\n"
+"PO-Revision-Date: 2024-12-14 01:08+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -314,19 +317,19 @@ msgstr "Replicode Config"
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Run (%1)"
-msgstr ""
+msgstr "धावतु (%1) ."
 
 #: replicodeview.cpp:65
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Stop (%1)"
-msgstr ""
+msgstr "स्थगयतु (%1) २."
 
 #: replicodeview.cpp:100
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
-msgstr ""
+msgstr "सक्रियदस्तावेजं न प्राप्तम्"
 
 #: replicodeview.cpp:100
 #, kde-format
@@ -337,7 +340,7 @@ msgstr "चालयितुं सक्रियदस्तावेजं �
 #, kde-format
 msgctxt "@title:window"
 msgid "Empty Document"
-msgstr ""
+msgstr "रिक्त दस्तावेज"
 
 #: replicodeview.cpp:105
 #, kde-format
@@ -348,7 +351,7 @@ msgstr "रिक्तं दस्तावेजं निष्पादय�
 #, kde-format
 msgctxt "@title:window"
 msgid "File Not Found"
-msgstr ""
+msgstr "सञ्चिका न प्राप्ता"
 
 #: replicodeview.cpp:112
 #, kde-format
@@ -359,7 +362,7 @@ msgstr "पठनार्थं स्रोतसञ्चिकां उद�
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr ""
+msgstr "Replicode Executable न प्राप्तम्"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -374,7 +377,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "उपयोक्तृसञ्चालकपुस्तकालयः न प्राप्तः"
 
 #: replicodeview.cpp:136
 #, kde-format

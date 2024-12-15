@@ -23,6 +23,8 @@ msgid ""
 "<title>Result of:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 msgstr ""
+"<title>परिणामः : १.</title><nl /><pre> <code>$ %1 %2</code><nl /> <code>$ %1 "
+"%2</code></pre>"
 
 #: plugin_katetextfilter.cpp:142
 #, kde-format

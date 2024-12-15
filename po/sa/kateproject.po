@@ -1,18 +1,18 @@
-#
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-12 00:43+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -221,7 +221,7 @@ msgstr "\"git\" स्थितिं ताजगीं कुर्वन्�
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
-msgstr "छायांकन..."
+msgstr "छायांकन…"
 
 #: gitwidget.cpp:443
 #, kde-format
@@ -570,7 +570,7 @@ msgstr "&फोस्सिल्"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -1028,6 +1028,9 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"%1 आधारितं परियोजनां लोड् कर्तुं असमर्थम् यतः %1 संस्थापितम् अथवा PATH वातावरणचरमध्ये न "
+"प्राप्तम् । कृपया %1 संस्थापयन्तु अथवा वैकल्पिकरूपेण परियोजनासेटिंग्स् मध्ये 'Autoload "
+"Repositories && Build Trees' इति विकल्पं निष्क्रियं कुर्वन्तु ।"
 
 #: stashdialog.cpp:36
 #, kde-format
@@ -1094,15 +1097,3 @@ msgstr "संग्रहं दर्शयतु विफलम् अभव
 #, kde-format
 msgid "&Projects"
 msgstr "&परियोजना"
-
-#~ msgid "Add"
-#~ msgstr "योजयतु"
-
-#~ msgid "Add File"
-#~ msgstr "सञ्चिकां योजयतु"
-
-#~ msgid "Commit hash"
-#~ msgstr "हैशं प्रतिबद्धं कुर्वन्तु"
-
-#~ msgid "Message ID"
-#~ msgstr "सन्देशपरिचयः"

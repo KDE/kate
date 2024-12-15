@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 00:57+0000\n"
-"PO-Revision-Date: 2024-12-06 11:06+0100\n"
+"PO-Revision-Date: 2024-12-14 12:35+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2464,7 +2464,7 @@ msgstr "Inschakelen van plug-in <b>%1</b> is mislukt"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Het bestand '%1 bestaat niet"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format

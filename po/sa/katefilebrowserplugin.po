@@ -31,7 +31,7 @@ msgstr "काः सञ्चिकाः प्रदर्शिताः इ
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Open With इति"
 
 #: katefilebrowser.cpp:322
 #, kde-format
@@ -42,14 +42,14 @@ msgstr "&इतर..."
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "भवान् १ सञ्चिकां उद्घाटयितुं प्रयतते, भवान् निश्चितः वा?"
+msgstr[1] "भवान् %1 सञ्चिकाः उद्घाटयितुं प्रयतते, भवान् निश्चितः अस्ति वा?"
 
 #: katefilebrowser.cpp:352
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "All Files उद्घाटयन्तु"
 
 #: katefilebrowser.cpp:415
 #, kde-format

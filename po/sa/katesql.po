@@ -21,79 +21,79 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Connection Wizard"
-msgstr ""
+msgstr "संयोजन विजार्ड"
 
 #: connectionwizard.cpp:42
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
-msgstr ""
+msgstr "डाटाबेस चालकः"
 
 #: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr ""
+msgstr "दत्तांशकोशचालकं चिनोतु"
 
 #: connectionwizard.cpp:50
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
-msgstr ""
+msgstr "दत्तांशकोशचालकः : १."
 
 #: connectionwizard.cpp:79 connectionwizard.cpp:167
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
-msgstr ""
+msgstr "संयोजन पैरामीटर"
 
 #: connectionwizard.cpp:80
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
-msgstr ""
+msgstr "कृपया संयोजनमापदण्डान् प्रविशतु"
 
 #: connectionwizard.cpp:92
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
-msgstr ""
+msgstr "मूलभूतम्‌"
 
 #: connectionwizard.cpp:95
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Hostname:"
-msgstr ""
+msgstr "होस्टनाम : १."
 
 #: connectionwizard.cpp:96
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Username:"
-msgstr ""
+msgstr "उपयोक्तृनाम : १."
 
 #: connectionwizard.cpp:97
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
-msgstr ""
+msgstr "समाभाष्:"
 
 #: connectionwizard.cpp:98
 #, kde-format
 msgctxt "@label:spinbox"
 msgid "Port:"
-msgstr ""
+msgstr "पोताश्रय:"
 
 #: connectionwizard.cpp:99
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
-msgstr ""
+msgstr "दत्तांशकोशस्य नाम : १."
 
 #: connectionwizard.cpp:100 connectionwizard.cpp:179
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
-msgstr ""
+msgstr "संयोजनविकल्पाः : १."
 
 #: connectionwizard.cpp:152
 #, kde-format
@@ -107,6 +107,8 @@ msgid ""
 "Please enter the SQLite database file path.\n"
 "If the file does not exist, a new database will be created."
 msgstr ""
+"कृपया SQLite दत्तांशकोशसञ्चिकामार्गं प्रविशन्तु ।\n"
+"यदि सञ्चिका नास्ति तर्हि नूतनं दत्तांशकोशं निर्मीयते ।"
 
 #: connectionwizard.cpp:177
 #, kde-format
@@ -122,109 +124,109 @@ msgstr "सर्वाणि सञ्चिकानि"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
-msgstr ""
+msgstr "पथं:"
 
 #: connectionwizard.cpp:211
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
-msgstr ""
+msgstr "दत्तांशकोशेन सह संयोजितुं असमर्थः।<nl/><message>%1</message>"
 
 #: connectionwizard.cpp:226
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
-msgstr ""
+msgstr "संबन्धनाम"
 
 #: connectionwizard.cpp:227
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
-msgstr ""
+msgstr "एकं अद्वितीयं संयोजननाम प्रविष्टं कुर्वन्तु"
 
 #: connectionwizard.cpp:233
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
-msgstr ""
+msgstr "संयोजननाम : १."
 
 #: dataoutputwidget.cpp:62
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize columns to contents"
-msgstr ""
+msgstr "स्तम्भानां आकारं सामग्रीं प्रति परिवर्तयन्तु"
 
 #: dataoutputwidget.cpp:66
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Resize rows to contents"
-msgstr ""
+msgstr "पङ्क्तयः सामग्रीं प्रति आकारं परिवर्तयन्तु"
 
 #: dataoutputwidget.cpp:70
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Copy"
-msgstr ""
+msgstr "प्रतिलिपि"
 
 #: dataoutputwidget.cpp:75
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr ""
+msgstr "निर्यात..."
 
 #: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Clear"
-msgstr ""
+msgstr "स्पष्टः"
 
 #: dataoutputwidget.cpp:87
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Use system locale"
-msgstr ""
+msgstr "सिस्टम् लोकेलस्य उपयोगं कुर्वन्तु"
 
 #: dataoutputwidget.cpp:272
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
-msgstr ""
+msgstr "<filename>%1</filename> सञ्चिकां उद्घाटयितुं असमर्थः"
 
 #: exportwizard.cpp:25
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Wizard"
-msgstr ""
+msgstr "निर्यात विजार्ड"
 
 #: exportwizard.cpp:40
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
-msgstr ""
+msgstr "आउटपुट लक्ष्य"
 
 #: exportwizard.cpp:41
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
-msgstr ""
+msgstr "आउटपुट् लक्ष्यं चिनोतु ।"
 
 #: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
-msgstr ""
+msgstr "वर्तमान दस्तावेज"
 
 #: exportwizard.cpp:46
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
-msgstr ""
+msgstr "क्लिपबोर्ड"
 
 #: exportwizard.cpp:47
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
-msgstr ""
+msgstr "संचिका"
 
 #: exportwizard.cpp:54
 #, kde-format
@@ -235,7 +237,7 @@ msgstr "अल्पविरामेन पृथक्कृतानि म�
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
-msgstr ""
+msgstr "क्षेत्रस्वरूपम्"
 
 #: exportwizard.cpp:97
 #, kde-format
@@ -244,72 +246,74 @@ msgid ""
 "Select fields format.\n"
 "Click on \"Finish\" button to export data."
 msgstr ""
+"क्षेत्रस्वरूपं चिनोतु।\n"
+"दत्तांशं निर्यातयितुं \"Finish\" इति बटन् नुदन्तु ।"
 
 #: exportwizard.cpp:101
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
-msgstr ""
+msgstr "शीर्षकम्"
 
 #: exportwizard.cpp:104
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
-msgstr ""
+msgstr "स्तम्भनामानि निर्यातयन्तु"
 
 #: exportwizard.cpp:105
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
-msgstr ""
+msgstr "रेखासङ्ख्या निर्यातयन्तु"
 
 #: exportwizard.cpp:112
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
-msgstr ""
+msgstr "उद्धरण"
 
 #: exportwizard.cpp:115
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr ""
+msgstr "उद्धरण तार"
 
 #: exportwizard.cpp:116
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
-msgstr ""
+msgstr "संख्या उद्धृत करें"
 
 #: exportwizard.cpp:124 exportwizard.cpp:127
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
-msgstr ""
+msgstr "स्वभावः:"
 
 #: exportwizard.cpp:133
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
-msgstr ""
+msgstr "परिसीमकाः"
 
 #: exportwizard.cpp:139
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
-msgstr ""
+msgstr "क्षेत्रसीमाकर्ता : १."
 
 #: katesqlconfigpage.cpp:23
 #, kde-format
 msgctxt "@option:check"
 msgid "Save and restore connections in Kate session"
-msgstr ""
+msgstr "Kate सत्रे संयोजनानि रक्षन्तु पुनर्स्थापयन्तु च"
 
 #: katesqlconfigpage.cpp:25
 #, kde-format
 msgctxt "@title:group"
 msgid "Output Customization"
-msgstr ""
+msgstr "आउटपुट अनुकूलन"
 
 #: katesqlconfigpage.cpp:53
 #, kde-format
@@ -321,7 +325,7 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr ""
+msgstr "SQL ConfigPage सेटिंग्स्"
 
 #: katesqlview.cpp:43
 #, kde-format
@@ -338,145 +342,145 @@ msgstr "SQL"
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr ""
+msgstr "SQL योजना"
 
 #: katesqlview.cpp:104
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr ""
+msgstr "संयोजनं योजयतु..."
 
 #: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr ""
+msgstr "संयोजनं निष्कासयन्तु"
 
 #: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr ""
+msgstr "सम्पादन संयोजन..."
 
 #: katesqlview.cpp:119
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reconnect"
-msgstr ""
+msgstr "पुनः संयोजयन्तु"
 
 #: katesqlview.cpp:125
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Connection"
-msgstr ""
+msgstr "संबन्धः"
 
 #: katesqlview.cpp:129
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr ""
+msgstr "प्रश्नं चालयन्तु"
 
 #: outputstylewidget.cpp:29
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
-msgstr ""
+msgstr "सन्दर्भ"
 
 #: outputstylewidget.cpp:29
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
-msgstr ""
+msgstr "पाठवर्णः"
 
 #: outputstylewidget.cpp:30
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
-msgstr ""
+msgstr "पृष्ठभूमि रंग"
 
 #: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
-msgstr ""
+msgstr "पाठ"
 
 #: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
-msgstr ""
+msgstr "संख्या"
 
 #: outputstylewidget.cpp:41
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
-msgstr ""
+msgstr "बूल"
 
 #: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
-msgstr ""
+msgstr "तिथि एवं समय"
 
 #: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
-msgstr ""
+msgstr "लुप्तमूल्य"
 
 #: outputstylewidget.cpp:44
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"
-msgstr ""
+msgstr "BLOB"
 
 #: outputwidget.cpp:17
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Text Output"
-msgstr ""
+msgstr "SQL पाठ आउटपुट"
 
 #: outputwidget.cpp:18
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Data Output"
-msgstr ""
+msgstr "SQL डाटा आउटपुट"
 
 #: schemawidget.cpp:34
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
-msgstr ""
+msgstr "दत्तांशकोश योजना"
 
 #: schemawidget.cpp:91
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
-msgstr ""
+msgstr "सारणीः"
 
 #: schemawidget.cpp:96
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
-msgstr ""
+msgstr "दृश्यम्"
 
 #: schemawidget.cpp:110
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
-msgstr ""
+msgstr "प्रणाली सारणी"
 
 #: schemawidget.cpp:270
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Data इति चिनोतु"
 
 #: schemawidget.cpp:273
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
-msgstr ""
+msgstr "उद्- पद्"
 
 #: schemawidget.cpp:275
 #, kde-format
@@ -502,29 +506,29 @@ msgstr "लुप्"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
-msgstr ""
+msgstr "ताजगी"
 
 #: sqlmanager.cpp:335
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr ""
+msgstr "प्रश्नः सफलतया सम्पन्नः"
 
 #: sqlmanager.cpp:338
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 अभिलेखः चयनितः"
+msgstr[1] "%1 अभिलेखाः चयनिताः"
 
 #: sqlmanager.cpp:342
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 पङ्क्तिः प्रभाविता"
+msgstr[1] "%1 पङ्क्तयः प्रभाविताः"
 
 #. i18n: ectx: Menu (SQL)
 #: ui.rc:6

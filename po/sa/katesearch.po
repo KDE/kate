@@ -1,4 +1,3 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -353,13 +352,13 @@ msgstr "द्विचक्रीयसञ्चिकाः समावि�
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "आकारसीमा"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -695,9 +694,3 @@ msgstr "&सम्पादयतु"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "\"सञ्चिकानां रूपान्तराणि\" इत्यत्र अन्वेषणं कुर्वन्तु"
-
-#~ msgid "Filter..."
-#~ msgstr "शोधक..."
-
-#~ msgid "Message ID"
-#~ msgstr "सन्देशपरिचयः"

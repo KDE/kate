@@ -33,49 +33,49 @@ msgstr "टर्मिनल्"
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
-msgstr ""
+msgstr "&पाइप टू टर्मिनल"
 
 #: kateconsole.cpp:161
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
-msgstr ""
+msgstr "S&ynchronize टर्मिनल् वर्तमान दस्तावेजेन सह"
 
 #: kateconsole.cpp:165
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
-msgstr ""
+msgstr "वर्तमान दस्तावेजं चालयन्तु"
 
 #: kateconsole.cpp:170 kateconsole.cpp:555
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr ""
+msgstr "S&how टर्मिनल पैनल"
 
 #: kateconsole.cpp:176
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr ""
+msgstr "&फोकस टर्मिनल पैनल"
 
 #: kateconsole.cpp:182
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr ""
+msgstr "&Split टर्मिनल लंबवत"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&विभक्त टर्मिनल क्षैतिज रूप से"
 
 #: kateconsole.cpp:192
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr ""
+msgstr "&नव टर्मिनल ट्याब्"
 
 #: kateconsole.cpp:354
 #, kde-format
@@ -134,7 +134,7 @@ msgstr "धावनं करोतु"
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr ""
+msgstr "&टर्मिनल पैनल छिपाएँ"
 
 #: kateconsole.cpp:563
 #, kde-format

@@ -3,24 +3,27 @@
 # This file is distributed under the same license as the kate package.
 # Kali <EMAIL@ADDRESS>, 2024.
 #
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-12-13 19:09+0530\n"
-"Last-Translator: Kali <EMAIL@ADDRESS>\n"
-"Language-Team: Sanskrit\n"
+"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: katefiletree.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
-msgstr ""
+msgstr "रेलोआ&ड"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -31,7 +34,7 @@ msgstr "चयनितं दस्तावेजं (दस्तावेज
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr ""
+msgstr "पिधानं करोतु"
 
 #: katefiletree.cpp:126
 #, kde-format
@@ -42,7 +45,7 @@ msgstr "वर्तमानदस्तावेजं पिधाय ।"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "पुनरावर्तनीयरूपेण विस्तारं कुर्वन्तु"
 
 #: katefiletree.cpp:130
 #, kde-format
@@ -53,7 +56,7 @@ msgstr "सञ्चिकासूची उपवृक्षं पुनर�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "Collapse Recursively इति"
 
 #: katefiletree.cpp:134
 #, kde-format
@@ -64,7 +67,7 @@ msgstr "सञ्चिकासूची उपवृक्षं पुनर�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
-msgstr ""
+msgstr "अन्ये निमील्यताम्"
 
 #: katefiletree.cpp:138
 #, kde-format
@@ -75,7 +78,7 @@ msgstr "अस्मिन् पुटे अन्ये दस्तावे
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr ""
+msgstr "Containing Folder उद्घाटयन्तु"
 
 #: katefiletree.cpp:143
 #, kde-format
@@ -86,7 +89,7 @@ msgstr "यस्मिन् पुटे एषा सञ्चिका अ�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "प्रतिलिपि स्थानम्"
 
 #: katefiletree.cpp:147
 #, kde-format
@@ -97,7 +100,7 @@ msgstr "मार्गं सञ्चिकानाम च क्लिप्
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr ""
+msgstr "पुनर्नामकरणं..."
 
 #: katefiletree.cpp:151
 #, kde-format
@@ -118,7 +121,7 @@ msgstr "वर्तमानदस्तावेजस्य मुद्र�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr ""
+msgstr "लुप्"
 
 #: katefiletree.cpp:161
 #, kde-format
@@ -129,7 +132,7 @@ msgstr "भण्डारणतः चयनितसञ्चिकां प�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
-msgstr ""
+msgstr "इतिहासं स्पष्टं कुरुत"
 
 #: katefiletree.cpp:167
 #, kde-format
@@ -140,7 +143,7 @@ msgstr "सम्पादन/दृश्य इतिहास साफ क�
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
-msgstr ""
+msgstr "वृक्षविधिः"
 
 #: katefiletree.cpp:241
 #, kde-format
@@ -151,7 +154,7 @@ msgstr "दृश्यशैलीं Tree Mode इत्यत्र सेट
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
-msgstr ""
+msgstr "सूची मोड"
 
 #: katefiletree.cpp:248
 #, kde-format
@@ -173,7 +176,7 @@ msgstr "दस्तावेजनामनुसारं क्रमयन�
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
-msgstr ""
+msgstr "दस्तावेज मार्ग"
 
 #: katefiletree.cpp:261
 #, kde-format
@@ -200,7 +203,7 @@ msgstr "कस्टम क्रमवारी"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Open With इति"
 
 #: katefiletree.cpp:412
 #, kde-format
@@ -211,13 +214,13 @@ msgstr "सञ्चिका Git इतिहासं दर्शयतु"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
-msgstr ""
+msgstr "दृश्यविधिः"
 
 #: katefiletree.cpp:465
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
-msgstr ""
+msgstr "Sort By"
 
 #: katefiletreeconfigpage.cpp:43
 #, kde-format
@@ -347,19 +350,19 @@ msgstr "दस्तावेजान् विन्यस्तं कुर�
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr ""
+msgstr "विजेट् उद्घाटयन्तु"
 
 #: katefiletreemodel.cpp:645
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
+msgstr "<p><b>%1</b></p><p> दस्तावेजं अन्येन अनुप्रयोगेन परिवर्तितम् अस्ति।</p>"
 
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr "फ़िल्टर..."
+msgstr "फ़िल्टर…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

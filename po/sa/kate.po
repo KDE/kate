@@ -1,18 +1,18 @@
-#
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 00:57+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: Sanskrit\n"
+"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, kde-format
@@ -299,7 +299,7 @@ msgstr "सर्वे"
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
-msgstr ""
+msgstr "निदानसीमा प्राप्ता, अग्रे निदानस्य अवहेलना। सीमा सेटिङ्ग्स् मध्ये विन्यस्तुं शक्यते ।"
 
 #: lib/diagnostics/diagnosticview.cpp:341
 #, kde-format
@@ -353,7 +353,7 @@ msgstr "चेतावनी"
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
-msgstr "फ़िल्टर..."
+msgstr "फ़िल्टर…"
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:139
 #, kde-format
@@ -1023,13 +1023,14 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "तिथिसहितं आउटपुट् टाइमस्टैम्प्स्"
 
 #: lib/kateconfigdialog.cpp:168
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
+"यदा सक्षमं भवति तदा आउटपुट् लाइन् टाइमस्टैम्प हेडर्स् date इत्यनेन सह उपसर्गं प्राप्नुयुः ।"
 
 #: lib/kateconfigdialog.cpp:176
 #, kde-format
@@ -1176,6 +1177,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"ट्याब्स् मार्गेण सायकलयानस्य अनुमतिं ददातु। यदि अनिरीक्षितं भवति तर्हि 'Next "
+"Tab'/'Previous Tab' इति क्रिया अन्ते प्राप्त्वा प्रथम/अन्तिम ट्याब् प्रति न गमिष्यति"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1236,24 +1239,24 @@ msgstr "निदानं दृश्यम्"
 #: lib/kateconfigdialog.cpp:354
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
-msgstr ""
+msgstr "Diagnostics toolview इत्यस्मिन् निदानस्य अधिकतमसङ्ख्या अनुमतम् ।"
 
 #: lib/kateconfigdialog.cpp:360 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "सन्दर्भ"
 
 #: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "साधनदृश्यं सक्षमं कुर्वन्तु"
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
-msgstr ""
+msgstr "वर्तमान कर्सरस्थानेन सह सम्बद्धं सन्दर्भं प्रदर्शयितुं एकं साधनदृश्यं (LSP संकेताः, निदानं)"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -1626,7 +1629,7 @@ msgstr "सर्वाणि उद्घाटितानि दस्ता�
 #: lib/katemainwindow.cpp:483
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
-msgstr ""
+msgstr "यत् दस्तावेजं वा दस्तावेजं वा अद्यतनतया बन्दं कृतम् आसीत् तत् पुनः उद्घाटयन्तु"
 
 #: lib/katemainwindow.cpp:488
 #, kde-format
@@ -2354,7 +2357,7 @@ msgstr "स्वागतपृष्ठं दर्शयतु"
 #: lib/kateviewmanager.cpp:299
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "स्क्रॉल समन्वयनं टॉगल कुर्वन्तु"
 
 #: lib/kateviewmanager.cpp:300
 #, fuzzy, kde-format
@@ -2531,14 +2534,14 @@ msgstr "चयनितः कार्यक्रमः आरभ्यतु�
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr ""
+msgstr "सर्वेषु परियोजनासु सञ्चिकाः अन्वेष्टुम् (विन्यस्तुं राइट् क्लिक् कुर्वन्तु)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr ""
+msgstr "वर्तमान परियोजनायां सञ्चिकाः अन्वेष्टुम् (विन्यस्तुं राइट् क्लिक् कुर्वन्तु)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2982,16 +2985,3 @@ msgstr "सत्रं प्रबन्धयन्तु..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "नूतनगवाक्षस्य स्वागतदृश्यं दर्शयतु"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "त्वरितं उद्घाटितं अन्वेषणं (सन्दर्भविकल्पसूचिद्वारा विन्यस्तं कुर्वन्तु)"
-
-#~ msgid "Show for new window"
-#~ msgstr "नूतनगवाक्ष कृते दर्शयतु"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr "आन्तरिकदोषः : दत्तसत्रस्य कृते एकादशाधिकं उदाहरणं उद्घाटितम् अस्ति ।."
-
-#~ msgid "Message ID"
-#~ msgstr "सन्देशपरिचयः"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 00:57+0000\n"
-"PO-Revision-Date: 2024-12-06 10:01+0100\n"
+"PO-Revision-Date: 2024-12-14 08:14+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2444,7 +2444,7 @@ msgstr "Ha fallat en activar el connector <b>%1</b>"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "El fitxer «%1» no existeix"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format

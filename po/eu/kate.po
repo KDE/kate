@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-14 00:57+0000\n"
 "PO-Revision-Date: 2024-12-07 18:25+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1549,7 +1549,7 @@ msgstr "Birzamatu irekitako dokumentu guztiak."
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Uneko fitxategiren bide-izena arbelera kopiatzen du."
 
-#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:266
+#: lib/katemainwindow.cpp:418 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Ireki hau barnean duen karpeta"
@@ -2439,6 +2439,11 @@ msgstr "Gaitu"
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
+#: lib/kateviewmanager.cpp:618
+#, kde-format
+msgid "The file '%1' does not exist"
+msgstr ""
+
 #: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
@@ -2870,47 +2875,47 @@ msgstr "Eduki iragan saioetako &meta-informazioa"
 msgid "Delete unused meta-information after:"
 msgstr "Ezabatu erabili gabeko meta-informazioa hau igarotakoan:"
 
-#: lib/welcomeview/welcomeview.cpp:56
+#: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
 msgstr "Ongi etorri %1ra"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents and Projects"
 msgstr "Azken aldiko dokumentuak eta proiektuak"
 
-#: lib/welcomeview/welcomeview.cpp:60
+#: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents"
 msgstr "Azken aldiko dokumentuak"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
 msgstr "Ez dago azken aldiko dokumenturik edo proiekturik"
 
-#: lib/welcomeview/welcomeview.cpp:63
+#: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
 msgstr "Ez dago azken aldiko dokumenturik"
 
-#: lib/welcomeview/welcomeview.cpp:116
+#: lib/welcomeview/welcomeview.cpp:118
 #, kde-format
 msgid "No saved sessions"
 msgstr "Ez dago gordetako saiorik"
 
-#: lib/welcomeview/welcomeview.cpp:246
+#: lib/welcomeview/welcomeview.cpp:248
 #, kde-format
 msgid "Open Selected Files..."
 msgstr "Ireki hautatutako fitxategiak..."
 
-#: lib/welcomeview/welcomeview.cpp:259
+#: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
 msgid "Copy &Location"
 msgstr "Kopiatu koka&lekua"
 
-#: lib/welcomeview/welcomeview.cpp:274
+#: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
 msgstr "&Kendu"

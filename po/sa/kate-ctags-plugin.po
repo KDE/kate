@@ -50,17 +50,17 @@ msgstr "CTags आदेशः"
 #: ctagskinds.cpp:23
 msgctxt "Tag Type"
 msgid "define"
-msgstr ""
+msgstr "परिभाच्छसि"
 
 #: ctagskinds.cpp:24 ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "label"
-msgstr ""
+msgstr "नामपत्र"
 
 #: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
 msgctxt "Tag Type"
 msgid "macro"
-msgstr ""
+msgstr "स्थूल"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
 #: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
@@ -68,183 +68,183 @@ msgstr ""
 #: ctagskinds.cpp:110
 msgctxt "Tag Type"
 msgid "function"
-msgstr ""
+msgstr "नियोग"
 
 #: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
 msgctxt "Tag Type"
 msgid "subroutine"
-msgstr ""
+msgstr "उपनियमा"
 
 #: ctagskinds.cpp:32
 msgctxt "Tag Type"
 msgid "fragment definition"
-msgstr ""
+msgstr "खण्डपरिभाषा"
 
 #: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "any pattern"
-msgstr ""
+msgstr "any pattern"
 
 #: ctagskinds.cpp:34
 msgctxt "Tag Type"
 msgid "slot"
-msgstr ""
+msgstr "चिह्नं"
 
 #: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "pattern"
-msgstr ""
+msgstr "प्रतिमानम्‌"
 
 #: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
 #: ctagskinds.cpp:93 ctagskinds.cpp:97
 msgctxt "Tag Type"
 msgid "class"
-msgstr ""
+msgstr "श्रेणी"
 
 #: ctagskinds.cpp:40
 msgctxt "Tag Type"
 msgid "enumerator"
-msgstr ""
+msgstr "गणकम्"
 
 #: ctagskinds.cpp:42
 msgctxt "Tag Type"
 msgid "enumeration"
-msgstr ""
+msgstr "गणना"
 
 #: ctagskinds.cpp:43
 msgctxt "Tag Type"
 msgid "member"
-msgstr ""
+msgstr "सदस्य"
 
 #: ctagskinds.cpp:44 ctagskinds.cpp:106
 msgctxt "Tag Type"
 msgid "namespace"
-msgstr ""
+msgstr "नामस्थानम्"
 
 #: ctagskinds.cpp:45
 msgctxt "Tag Type"
 msgid "prototype"
-msgstr ""
+msgstr "आद्यरूपः"
 
 #: ctagskinds.cpp:46
 msgctxt "Tag Type"
 msgid "struct"
-msgstr ""
+msgstr "struct"
 
 #: ctagskinds.cpp:47
 msgctxt "Tag Type"
 msgid "typedef"
-msgstr ""
+msgstr "typedef इति प्रकारः"
 
 #: ctagskinds.cpp:48
 msgctxt "Tag Type"
 msgid "union"
-msgstr ""
+msgstr "संयोगः"
 
 #: ctagskinds.cpp:49 ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "variable"
-msgstr ""
+msgstr "चरः"
 
 #: ctagskinds.cpp:50
 msgctxt "Tag Type"
 msgid "external variable"
-msgstr ""
+msgstr "बाह्यचर"
 
 #: ctagskinds.cpp:53
 msgctxt "Tag Type"
 msgid "paragraph"
-msgstr ""
+msgstr "अनुच्छेदः"
 
 #: ctagskinds.cpp:56
 msgctxt "Tag Type"
 msgid "feature"
-msgstr ""
+msgstr "गुणः"
 
 #: ctagskinds.cpp:57
 msgctxt "Tag Type"
 msgid "local entity"
-msgstr ""
+msgstr "स्थानीय सत्ता"
 
 #: ctagskinds.cpp:60
 msgctxt "Tag Type"
 msgid "block"
-msgstr ""
+msgstr "मृदुवस्तु"
 
 #: ctagskinds.cpp:61
 msgctxt "Tag Type"
 msgid "common"
-msgstr ""
+msgstr "सुलभः"
 
 #: ctagskinds.cpp:62
 msgctxt "Tag Type"
 msgid "entry"
-msgstr ""
+msgstr "प्रवेशः"
 
 #: ctagskinds.cpp:64 ctagskinds.cpp:78
 msgctxt "Tag Type"
 msgid "interface"
-msgstr ""
+msgstr "अन्तरफलकम्"
 
 #: ctagskinds.cpp:65
 msgctxt "Tag Type"
 msgid "type component"
-msgstr ""
+msgstr "प्रकार घटक"
 
 #: ctagskinds.cpp:67
 msgctxt "Tag Type"
 msgid "local"
-msgstr ""
+msgstr "स्थानिक"
 
 #: ctagskinds.cpp:68
 msgctxt "Tag Type"
 msgid "module"
-msgstr ""
+msgstr "मॉड्यूल"
 
 #: ctagskinds.cpp:69
 msgctxt "Tag Type"
 msgid "namelist"
-msgstr ""
+msgstr "नामसूची"
 
 #: ctagskinds.cpp:70
 msgctxt "Tag Type"
 msgid "program"
-msgstr ""
+msgstr "कार्यक्रम"
 
 #: ctagskinds.cpp:72
 msgctxt "Tag Type"
 msgid "type"
-msgstr ""
+msgstr "प्रकारः"
 
 #: ctagskinds.cpp:77
 msgctxt "Tag Type"
 msgid "field"
-msgstr ""
+msgstr "क्षेत्रम्‌"
 
 #: ctagskinds.cpp:79
 msgctxt "Tag Type"
 msgid "method"
-msgstr ""
+msgstr "प्रक्रिया"
 
 #: ctagskinds.cpp:80
 msgctxt "Tag Type"
 msgid "package"
-msgstr ""
+msgstr "सम्पुट"
 
 #: ctagskinds.cpp:87 ctagskinds.cpp:108
 msgctxt "Tag Type"
 msgid "procedure"
-msgstr ""
+msgstr "प्रक्रिया"
 
 #: ctagskinds.cpp:99
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr ""
+msgstr "मिक्सिन्"
 
 #: ctagskinds.cpp:102
 msgctxt "Tag Type"
 msgid "set"
-msgstr ""
+msgstr "दृढः"
 
 #: gotosymbolmodel.cpp:67
 #, kde-format
@@ -405,7 +405,7 @@ msgstr "विन्यस्तं कुर्वन्तु ..."
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr ""
+msgstr "CTags प्लगिन् विन्यस्तं कुर्वन्तु"
 
 #: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format

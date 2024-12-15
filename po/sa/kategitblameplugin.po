@@ -20,13 +20,13 @@ msgstr ""
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
-msgstr ""
+msgstr " %1: %2 "
 
 #: kategitblameplugin.cpp:94
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
-msgstr ""
+msgstr " %1: %2: %3 "
 
 #: kategitblameplugin.cpp:182
 #, kde-format

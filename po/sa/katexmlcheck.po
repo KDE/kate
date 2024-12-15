@@ -47,7 +47,7 @@ msgstr "कोऽपि DOCTYPE न लब्धः, केवलं सुर�
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr ""
+msgstr "'%1' न प्राप्तम्, केवलं सुरूपतां परीक्षयिष्यति ।"
 
 #: plugin_katexmlcheck.cpp:233
 #, kde-format

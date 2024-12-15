@@ -1,25 +1,25 @@
-#
+# SPDX-FileCopyrightText: 2024 kali <skkalwar999@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: Sanskrit\n"
+"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"Last-Translator: kali <skkalwar999@gmail.com>\n"
+"Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Lokalize 24.08.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
-msgstr "शोधक..."
+msgstr "शोधक…"
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
 #: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616
@@ -459,7 +459,7 @@ msgstr "प्रतीकाः"
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "LSP सर्वरः प्रतीकरूपरेखायाः समर्थनं न करोति ।"
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
@@ -635,6 +635,3 @@ msgstr "LSP ग्राहिका"
 #, kde-format
 msgid "More Options"
 msgstr "अधिकविकल्पाः"
-
-#~ msgid "Message ID"
-#~ msgstr "सन्देशपरिचयः"

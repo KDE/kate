@@ -1,4 +1,3 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -729,17 +728,17 @@ msgstr "त्रुटिनिवारणं पुनः आरभत"
 #: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "हॉट रिलोड"
 
 #: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "हॉट रीस्टार्ट"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Save इत्यत्र Hot Reload सक्षमं कुर्वन्तु"
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format
@@ -805,15 +804,3 @@ msgstr "&त्रुटिनिवारणं"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "प्लगिन् त्रुटिनिवारणं कुर्वन्तु"
-
-#~ msgid "post mortem"
-#~ msgstr "शवपरीक्षा"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint इति"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cussor"
-
-#~ msgid "Message ID"
-#~ msgstr "सन्देशपरिचयः"

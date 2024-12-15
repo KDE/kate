@@ -20,134 +20,134 @@ msgstr ""
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr ""
+msgstr "Clang Format पूर्ण सञ्चिका"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Tools"
-msgstr ""
+msgstr "उपकरणाः"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr ""
+msgstr "Clang Format चयनितः पाठः"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "Compile and Run cpp"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "git blame"
-msgstr ""
+msgstr "गिट् दोषः"
 
 #. i18n: file: 4
 #. i18n: file: 3
 #, kde-format
 msgctxt "External tool category"
 msgid "Git"
-msgstr ""
+msgstr "गिट्"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "git-cola"
-msgstr ""
+msgstr "गिट्-कोला"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "gitk"
-msgstr ""
+msgstr "गित्क्"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "Fmt Full File इति गच्छतु"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Go"
-msgstr ""
+msgstr "गच्छ"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "GoImports पूर्णसञ्चिका"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr ""
+msgstr "गूगलेन चयनितः पाठः"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Insert UUID"
-msgstr ""
+msgstr "UUID सम्मिलित करें"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr ""
+msgstr "JSON प्रारूप पूर्ण सञ्चिका"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "Prettier Format वर्तमान सञ्चिका"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr ""
+msgstr "Qt Quick 2 पूर्वावलोकन (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Qt"
-msgstr ""
+msgstr "Qt"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Run Shell Script"
-msgstr ""
+msgstr "शेल् स्क्रिप्ट् चालयन्तु"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "जंग Fmt पूर्ण सञ्चिका"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr ""
+msgstr "KDE API अन्वेषणं कुर्वन्तु"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr ""
+msgstr "Qt API अन्वेषणं कुर्वन्तु"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr ""
+msgstr "XML प्रारूप पूर्ण सञ्चिका"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17

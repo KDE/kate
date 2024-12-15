@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 00:57+0000\n"
-"PO-Revision-Date: 2024-12-06 15:59+0200\n"
+"PO-Revision-Date: 2024-12-14 09:15+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2455,7 +2455,7 @@ msgstr "Не вдалося увімкнути додаток <b>%1</b>"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Файла «%1» не існує"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format

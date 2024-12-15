@@ -20,60 +20,60 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "भवतः नामानि"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "भवतः ईमेलपत्राणि"
 
 #: close_confirm_dialog.cpp:66
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr ""
+msgstr "सञ्चिकानां पुष्टिः बन्दं कुर्वन्तु"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format
 msgctxt "@label:listbox"
 msgid "You are about to close the following documents:"
-msgstr ""
+msgstr "भवान् निम्नलिखितदस्तावेजान् बन्दं कर्तुं प्रवृत्तः अस्ति।"
 
 #: close_confirm_dialog.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Document"
-msgstr ""
+msgstr "प्रलेख"
 
 #: close_confirm_dialog.cpp:75
 #, kde-format
 msgctxt "@title:column"
 msgid "Location"
-msgstr ""
+msgstr "स्थानीय"
 
 #: close_confirm_dialog.cpp:87
 #, kde-format
 msgctxt "option:check"
 msgid "Do not ask again"
-msgstr ""
+msgstr "पुनः मा पृच्छतु"
 
 #: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
-msgstr ""
+msgstr "पुष्टिः दर्शयतु"
 
 #: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
-msgstr ""
+msgstr "बन्दं व्यतिरिक्तम्"
 
 #: close_except_plugin.cpp:76
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
-msgstr ""
+msgstr "Close Like इति"
 
 #: close_except_plugin.cpp:79
 #, kde-format
@@ -84,29 +84,29 @@ msgstr "प्लगिन् व्यतिरिक्त/पसन्दं 
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
-msgstr ""
+msgstr "त्रुटि"
 
 #: close_except_plugin.cpp:248 close_except_plugin.cpp:256
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr ""
+msgstr "बन्दं कर्तुं सञ्चिकाः नास्ति ..."
 
 #: close_except_plugin.cpp:261
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
-msgstr ""
+msgstr "कृतम्‌"
 
 #: close_except_plugin.cpp:261
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 सञ्चिका निरुद्धा"
+msgstr[1] "%1 सञ्चिकाः निमीलिताः"
 
 #: close_except_plugin.cpp:274
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"
-msgstr ""
+msgstr "<title>%1</title><nl/> %2"

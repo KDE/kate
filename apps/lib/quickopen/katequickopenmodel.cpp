@@ -118,8 +118,8 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     openedDocUrls.reserve(sortedViews.size());
 
     const auto collectDoc = [&openedDocUrls, &seenDocuments, &allDocuments](KTextEditor::Document *doc) {
-        // We don't want any duplicates, beside for untitled documents
-        if (!seenDocuments.insert(doc).second) {
+        // we don't want nullptr (bug 497150) or any duplicates, beside for untitled documents
+        if (!doc || !seenDocuments.insert(doc).second) {
             return;
         }
 

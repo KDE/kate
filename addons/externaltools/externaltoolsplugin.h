@@ -152,7 +152,7 @@ private Q_SLOTS:
     /**
      * Called whenever an external tool is done.
      */
-    void handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed);
+    void handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed) const;
 };
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

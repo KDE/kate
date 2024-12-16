@@ -184,7 +184,7 @@ void KateCTagsConfigPage::delGlobalTagTarget()
 }
 
 /******************************************************************/
-bool KateCTagsConfigPage::listContains(const QString &target)
+bool KateCTagsConfigPage::listContains(const QString &target) const
 {
     for (int i = 0; i < m_confUi.targetList->count(); i++) {
         if (m_confUi.targetList->item(i)->text() == target) {

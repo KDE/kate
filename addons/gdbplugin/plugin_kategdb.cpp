@@ -1044,7 +1044,7 @@ void KatePluginGDBView::handleEsc(QEvent *e)
     }
 }
 
-void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document)
+void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document) const
 {
     if (document) {
         document->setEditableMarks(document->editableMarks() | KTextEditor::Document::BreakpointActive);

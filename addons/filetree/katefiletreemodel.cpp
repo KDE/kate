@@ -533,7 +533,7 @@ void KateFileTreeModel::clearModel()
     endResetModel();
 }
 
-void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
+void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc) const
 {
     connect(doc, &KTextEditor::Document::documentNameChanged, this, &KateFileTreeModel::documentNameChanged);
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateFileTreeModel::documentNameChanged);

@@ -114,7 +114,7 @@ private:
 
     void initModel();
     void clearModel();
-    void connectDocument(const KTextEditor::Document *);
+    void connectDocument(const KTextEditor::Document *) const;
     ProxyItem *itemForIndex(const QModelIndex &index) const;
 
 private:

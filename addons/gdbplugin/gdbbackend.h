@@ -185,7 +185,7 @@ private:
     void enqueueProtocolHandshake();
     QStringList makeInitSequence();
     void enqueueThreadInfo();
-    QStringList makeRunSequence(bool stop);
+    QStringList makeRunSequence(bool stop) const;
     void enqueue(const QString &command);
     void enqueue(const QString &command, const QJsonValue &data, uint8_t captureMode = CaptureMode::Default);
     void enqueue(const QStringList &commands, bool prepend = false);

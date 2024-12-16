@@ -73,7 +73,7 @@ private:
 
 private:
     void displayMessage(const QString &, const QString &, KTextEditor::Message::MessageType);
-    void connectToDocument(KTextEditor::Document *);
+    void connectToDocument(KTextEditor::Document *) const;
     void updateMenu();
     using CloseFunction = void (CloseExceptPluginView::*)(const QString &);
     void updateMenu(const std::set<QUrl> &, const std::set<QString> &, actions_map_type &, KActionMenu *, CloseFunction);

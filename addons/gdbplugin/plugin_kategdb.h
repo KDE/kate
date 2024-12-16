@@ -107,7 +107,7 @@ private Q_SLOTS:
     void addErrorText(QString const &text);
     void clearMarks();
     void handleEsc(QEvent *e);
-    void enableBreakpointMarks(KTextEditor::Document *document);
+    void enableBreakpointMarks(KTextEditor::Document *document) const;
     void prepareDocumentBreakpoints(KTextEditor::Document *document);
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
 

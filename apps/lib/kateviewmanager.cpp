@@ -122,7 +122,7 @@ void KateViewManager::slotScrollSynchedViews(KTextEditor::View *view)
     }
 }
 
-bool KateViewManager::hasScrollSync()
+bool KateViewManager::hasScrollSync() const
 {
     return !m_scrollSynchronisation.synchedViewSpaces.isEmpty();
 }
@@ -1933,7 +1933,7 @@ void KateViewManager::triggerActiveViewFocus()
     });
 }
 
-KateViewManager::ScrollSynchronisation::ScrollBarInfo KateViewManager::ScrollSynchronisation::getViewScrollBarInfo(KTextEditor::View *view)
+KateViewManager::ScrollSynchronisation::ScrollBarInfo KateViewManager::ScrollSynchronisation::getViewScrollBarInfo(KTextEditor::View *view) const
 {
     if (!view) {
         return ScrollBarInfo{};

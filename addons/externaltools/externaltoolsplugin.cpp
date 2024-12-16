@@ -325,7 +325,7 @@ void KateExternalToolsPlugin::blockingRunTool(const KateExternalTool &tool, KTex
     runner->waitForFinished();
 }
 
-void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed)
+void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exitCode, bool crashed) const
 {
     auto view = runner->view();
     if (view && !runner->outputData().isEmpty()) {

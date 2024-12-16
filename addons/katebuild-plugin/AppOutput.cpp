@@ -31,7 +31,7 @@ struct AppOutput::Private {
     QString terminalProcess;
     AppOutput *q = nullptr;
 
-    void addOutputText(QString const &text)
+    void addOutputText(QString const &text) const
     {
         qDebug() << text;
         if (!outputArea) {

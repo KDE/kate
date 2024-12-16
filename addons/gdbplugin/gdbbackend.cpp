@@ -295,7 +295,7 @@ void GdbBackend::enqueueThreadInfo()
     }
 }
 
-QStringList GdbBackend::makeRunSequence(bool stop)
+QStringList GdbBackend::makeRunSequence(bool stop) const
 {
     QStringList sequence;
     if (stop) {

@@ -78,7 +78,7 @@ void ReplicodeSettings::load()
     settings.endGroup();
 }
 
-void ReplicodeSettings::save()
+void ReplicodeSettings::save() const
 {
     QSettings settings(QStringLiteral("replicode"), QStringLiteral("replicode"));
 

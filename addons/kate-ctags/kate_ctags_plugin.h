@@ -81,7 +81,7 @@ private Q_SLOTS:
     void updateDone(int exitCode, QProcess::ExitStatus status);
 
 private:
-    bool listContains(const QString &target);
+    bool listContains(const QString &target) const;
 
     QProcess m_proc;
     Ui_CTagsGlobalConfig m_confUi{};

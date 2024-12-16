@@ -222,7 +222,7 @@ public:
     /**
      * Will tell you whether or not all Scroll Sync indicators are to be displayed
      */
-    bool hasScrollSync();
+    bool hasScrollSync() const;
 
     /**
      * Will iterate over all viewspaces and show/hide the Scroll Sync indicators
@@ -421,7 +421,7 @@ private:
          */
         QHash<KTextEditor::View *, ScrollBarInfo> viewScrollInfo;
 
-        ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view);
+        ScrollBarInfo getViewScrollBarInfo(KTextEditor::View *view) const;
     } m_scrollSynchronisation;
 
     /**

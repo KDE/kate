@@ -111,7 +111,7 @@ void CloseExceptPluginView::documentCreated(KTextEditor::Document *document)
     updateMenu();
 }
 
-void CloseExceptPluginView::connectToDocument(KTextEditor::Document *document)
+void CloseExceptPluginView::connectToDocument(KTextEditor::Document *document) const
 {
     // Subscribe self to document close and name changes
     connect(document, &KTextEditor::Document::aboutToClose, this, &CloseExceptPluginView::updateMenuSlotStub);

@@ -16,7 +16,7 @@ class ReplicodeSettings : public QObject
 public:
     explicit ReplicodeSettings(QObject *parent = nullptr);
     void load();
-    void save();
+    void save() const;
     void setDefaults();
 
     ///////

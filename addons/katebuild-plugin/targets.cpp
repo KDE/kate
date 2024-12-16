@@ -130,7 +130,7 @@ void TargetsUi::targetActivated(const QModelIndex &index)
     }
 }
 
-void TargetsUi::updateTargetsButtonStates()
+void TargetsUi::updateTargetsButtonStates() const
 {
     QModelIndex currentIndex = targetsView->currentIndex();
     if (!currentIndex.isValid()) {

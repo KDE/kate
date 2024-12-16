@@ -956,7 +956,7 @@ public:
         m_markModel.clear();
     }
 
-    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs)
+    void addMarks(KTextEditor::Document *doc, QStandardItem *item, RangeCollection *ranges, DocumentCollection *docs) const
     {
         Q_ASSERT(item);
 

@@ -288,7 +288,7 @@ inline static Formatter jqFmt(KTextEditor::Document *doc)
 #define S(s) QStringLiteral(s)
 static Formatter prettier()
 {
-    return Formatter{S("prettier"), {}, true};
+    return Formatter{.name = S("prettier"), .args = {}, .supportsStdin = true};
 }
 
 static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &config)

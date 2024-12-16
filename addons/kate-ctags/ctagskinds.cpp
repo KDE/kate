@@ -20,6 +20,7 @@ struct CTagsExtensionMapping {
     const CTagsKindMapping *kinds;
 };
 
+// NOLINTBEGIN(modernize-use-designated-initializers)
 static const CTagsKindMapping kindMappingAsm[] = {{'d', kli18nc("Tag Type", "define")},
                                                   {'l', kli18nc("Tag Type", "label")},
                                                   {'m', kli18nc("Tag Type", "macro")},
@@ -126,7 +127,9 @@ static CTagsExtensionMapping extensionMapping[] = {
     {"scm", kindMappingScheme},  {"sm", kindMappingScheme},     {"SCM", kindMappingScheme},  {"SM", kindMappingScheme},
     {"sh", kindMappingSh},       {"SH", kindMappingSh},         {"bsh", kindMappingSh},      {"bash", kindMappingSh},
     {"ksh", kindMappingSh},      {"zsh", kindMappingSh},        {"sl", kindMappingSlang},    {"tcl", kindMappingTcl},
-    {"wish", kindMappingTcl},    {"vim", kindMappingVim},       {nullptr, nullptr}};
+    {"wish", kindMappingTcl},    {"vim", kindMappingVim},       {nullptr, nullptr},
+};
+// NOLINTEND(modernize-use-designated-initializers)
 
 static const CTagsKindMapping *findKindMapping(const char *pextension)
 {

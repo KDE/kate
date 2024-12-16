@@ -694,7 +694,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
 ConfigView::Field &ConfigView::getDapField(const QString &fieldName)
 {
     if (!m_dapFields.contains(fieldName)) {
-        m_dapFields[fieldName] = Field{new QLabel(fieldName, this), new QLineEdit(this)};
+        m_dapFields[fieldName] = Field{.label = new QLabel(fieldName, this), .input = new QLineEdit(this)};
     }
     return m_dapFields[fieldName];
 }

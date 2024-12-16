@@ -30,8 +30,9 @@ private Q_SLOTS:
         QTest::addColumn<std::vector<OpenLinkRange>>("expected");
 
         using R = std::vector<OpenLinkRange>;
-        QTest::addRow("1") << "Line has https://google.com" << R{OpenLinkRange{9, 27, HttpLink}};
-        QTest::addRow("2") << "Line has https://google.com and https://google.com" << R{OpenLinkRange{9, 27, HttpLink}, OpenLinkRange{32, 50, HttpLink}};
+        QTest::addRow("1") << "Line has https://google.com" << R{OpenLinkRange{.start = 9, .end = 27, .type = HttpLink}};
+        QTest::addRow("2") << "Line has https://google.com and https://google.com"
+                           << R{OpenLinkRange{.start = 9, .end = 27, .type = HttpLink}, OpenLinkRange{.start = 32, .end = 50, .type = HttpLink}};
 
         QFile file(QDir::current().absoluteFilePath(QStringLiteral("testfile")));
         file.open(QFile::WriteOnly);
@@ -39,19 +40,21 @@ private Q_SLOTS:
         file.close();
 
         QString t = QLatin1String("Text has filepath: %1").arg(file.fileName());
-        QTest::addRow("3") << t << R{OpenLinkRange{19, (int)(19 + file.fileName().size()), FileLink}};
+        QTest::addRow("3") << t << R{OpenLinkRange{.start = 19, .end = (int)(19 + file.fileName().size()), .type = FileLink}};
 
         t = QLatin1String("// Text has filepath: %1").arg(file.fileName());
-        QTest::addRow("4") << t << R{OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink}};
+        QTest::addRow("4") << t << R{OpenLinkRange{.start = 22, .end = (int)(22 + file.fileName().size()), .type = FileLink}};
 
         t = QLatin1String("// Text has filepath: %1 -- /non/existent/path").arg(file.fileName());
-        QTest::addRow("4") << t << R{OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink}};
+        QTest::addRow("4") << t << R{OpenLinkRange{.start = 22, .end = (int)(22 + file.fileName().size()), .type = FileLink}};
 
         t = QLatin1String("// Text has filepath: %1 -- second: %1").arg(file.fileName());
         QTest::addRow("4") << t
                            << R{
-                                  OpenLinkRange{22, (int)(22 + file.fileName().size()), FileLink},
-                                  OpenLinkRange{(int)(22 + file.fileName().size() + 12), (int)(22 + (file.fileName().size() * 2) + 12), FileLink},
+                                  OpenLinkRange{.start = 22, .end = (int)(22 + file.fileName().size()), .type = FileLink},
+                                  OpenLinkRange{.start = (int)(22 + file.fileName().size() + 12),
+                                                .end = (int)(22 + (file.fileName().size() * 2) + 12),
+                                                .type = FileLink},
                               };
         t = QLatin1String("text \"/");
         QTest::addRow("5") << t << R{};

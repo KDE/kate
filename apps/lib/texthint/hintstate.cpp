@@ -15,11 +15,11 @@ void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMa
 {
     for (auto &[id, hint] : m_hints) {
         if (id == instanceId) {
-            hint = Hint{text, kind};
+            hint = Hint{.m_text = text, .m_kind = kind};
             return;
         }
     }
-    m_hints.emplace_back(instanceId, Hint{text, kind});
+    m_hints.emplace_back(instanceId, Hint{.m_text = text, .m_kind = kind});
 }
 
 void HintState::clear()
@@ -72,7 +72,7 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
     }
 
     if (m_rendered != contents) {
-        callback(Hint{contents, renderMode});
+        callback(Hint{.m_text = contents, .m_kind = renderMode});
         m_rendered = std::move(contents);
     }
 }

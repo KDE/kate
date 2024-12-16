@@ -911,7 +911,7 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
             qCDebug(KTEBUILD) << "parseCompileCommandsFile(): got empty entry at " << i << " !";
             continue; // should not happen
         }
-        res.commands[filename] = {dir, command};
+        res.commands[filename] = {.workingDir = dir, .command = command};
     }
 
     return res;

@@ -511,10 +511,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid ""
-#~ "Cannot run command: %1\n"
-#~ "Work path does not exist: %2"
-#~ msgstr ""
-#~ "无法运行命令：%1\n"
-#~ "工作路径不存在：%2"

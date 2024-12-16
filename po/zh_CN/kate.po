@@ -2371,7 +2371,7 @@ msgstr "启用插件 <b>%1</b> 失败"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "文件“%1”不存在。"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format

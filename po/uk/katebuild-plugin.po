@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:44+0000\n"
-"PO-Revision-Date: 2024-11-21 10:09+0200\n"
-"Last-Translator: Fracture dept <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
+"PO-Revision-Date: 2024-12-15 09:28+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -181,7 +181,7 @@ msgstr "Файл «%1» не є локальним. Нелокальні фай�
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Створити каталог"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -189,11 +189,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Налаштованого робочого каталогу <b>%1</b> для набору цілей <b>%2</b> не "
+"існує.<br><br>Створити каталог?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Не вдалося створити каталог <b>%1</b>"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

@@ -176,7 +176,7 @@ msgstr "\"%1\" इति सञ्चिका स्थानीयसञ्च
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "निर्देशिकां रचयन्तु"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -184,11 +184,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"लक्ष्यसमूहस्य <b>%2</b> विन्यस्तं कार्यनिर्देशिका <b>%1</b> नास्ति ।<br><br> निर्देशिकां "
+"रचयन्तु ?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "<b>%1</b> निर्देशिकां निर्मातुं असफलम्"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

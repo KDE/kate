@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-12 00:43+0000\n"
-"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"PO-Revision-Date: 2024-12-15 21:02+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -218,8 +218,7 @@ msgid "Refresh git status"
 msgstr "\"git\" स्थितिं ताजगीं कुर्वन्तु"
 
 #: gitwidget.cpp:353 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
 msgstr "छायांकन…"
 
@@ -329,10 +328,9 @@ msgid "Show Commit"
 msgstr "प्रतिबद्धं दर्शयतु"
 
 #: gitwidget.cpp:1103
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "अन्तिमप्रतिबद्धता"
+msgstr "अन्तिमप्रतिबद्धतां दर्शयतु"
 
 #: gitwidget.cpp:1121
 #, kde-format
@@ -528,24 +526,19 @@ msgid "Project Completion"
 msgstr "परियोजना समाप्ति"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "भण्डारः स्वतः आरोपयतु"
+msgstr "भण्डारः तथा वृक्षाः निर्माणं कर्तुं इत्येतत् स्वयमेव लोड् कुर्वन्तु"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"परियोजना प्लगिन् भण्डारस्य कार्यरतप्रतियाः स्वयमेव आरोपयतुं समर्थः भवति यदा अद्यापि ."
-"kateproject सञ्चिका परिभाषिता नास्ति ।."
+"परियोजना प्लगिन् भण्डारस्य कार्यरतप्रतियाः स्वयमेव लोड् कर्तुं वृक्षान् निर्मातुं च समर्थः भवति "
+"यदा अद्यापि .kateproject सञ्चिका परिभाषिता नास्ति ।."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -693,10 +686,9 @@ msgid "Terminal (Base)"
 msgstr "टर्मिनल् (आधार)"
 
 #: kateprojectinfoview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "टर्मिनल् (आधार)"
+msgstr "टर्मिनल् (निर्माणम्)"
 
 #: kateprojectinfoview.cpp:93
 #, kde-format
@@ -725,28 +717,22 @@ msgid "Code Analysis - %1"
 msgstr "विध्यादेश विश्लेषण - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>उपकरणं सर्वेषु परियोजनासञ्चिकासु चालितं भविष्यति ये सञ्चिकाविस्तारस्य एतस्याः "
-"सूचीयाः मेलनं कुर्वन्ति:<br/><br/><b>%2</b>"
+"'%1' भवतः प्रणाल्यां न संस्थापितम्, %2.<br/><br/>%3. साधनं सर्वेषु परियोजनासञ्चिकासु "
+"चालितं भविष्यति ये सञ्चिकाविस्तारस्य एतस्याः सूचीयाः मेलनं कुर्वन्ति:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
-#, fuzzy, kde-format
-#| msgid ""
-#| "%1<br/><br/>The tool will be run on all project files which match this "
-#| "list of file extensions:<br/><br/><b>%2</b>"
+#, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"%1<br/><br/>उपकरणं सर्वेषु परियोजनासञ्चिकासु चालितं भविष्यति ये सञ्चिकाविस्तारस्य एतस्याः "
-"सूचीयाः मेलनं कुर्वन्ति:<br/><br/><b>%2</b>"
+"%1 संस्थापितम् इत्यस्य उपयोगेन: %2.<br/><br/>%3. साधनं सर्वेषु परियोजनासञ्चिकासु चालितं "
+"भविष्यति ये सञ्चिकाविस्तारस्य एतस्याः सूचीयाः मेलनं कुर्वन्ति:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
@@ -861,10 +847,9 @@ msgid "Close project"
 msgstr "परियोजनां बन्दं कुर्वन्तु"
 
 #: kateprojectpluginview.cpp:162
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "पुटं उद्घाटयन्तु..."
+msgstr "&पुटं उद्घाटयन्तु..."
 
 #: kateprojectpluginview.cpp:168
 #, kde-format
@@ -952,16 +937,14 @@ msgid "Copy Location"
 msgstr "स्थानं प्रतिलिख्यताम्"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "सञ्चिकां उद्घाटयन्तु"
+msgstr "नवीनं सञ्चिका…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "पुटं योजयतु"
+msgstr "नवीनं पुटम्…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -999,16 +982,14 @@ msgid "Show Git History"
 msgstr "गिट् इतिहासं दर्शयतु"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "सञ्चिकां उद्घाटयन्तु"
+msgstr "नवीनं सञ्चिका"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "पुटं योजयतु"
+msgstr "नवीनं पुटम्"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:44+0000\n"
-"PO-Revision-Date: 2024-11-21 10:22+0100\n"
+"PO-Revision-Date: 2024-12-15 14:12+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -184,7 +184,7 @@ msgstr ""
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Map aanmaken"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -192,11 +192,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"De geconfigureerde werkmap <b>%1</b> voor de doelset <b>%2</b> bestaat niet."
+"<br><br>Map aanmaken?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Map <b>%1</b> aanmaken is mislukt "
 
 #: plugin_katebuild.cpp:821
 #, kde-format

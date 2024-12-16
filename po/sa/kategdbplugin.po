@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -170,10 +170,9 @@ msgid "Target %1"
 msgstr "लक्ष्यं %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP पृष्ठभागः विफलः अभवत्"
+msgstr "DAP पृष्ठभागः '%1' विफलः अभवत्"
 
 #: dapbackend.cpp:226
 #, kde-format
@@ -695,10 +694,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "भङ्गबिन्दु विभाषयति / विरामं कुर्वन्तु"
 
 #: plugin_kategdb.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "भङ्गबिन्दु"
+msgstr "सर्वे भङ्गबिन्दवः स्वच्छाः कुर्वन्तु"
 
 #: plugin_kategdb.cpp:287
 #, kde-format

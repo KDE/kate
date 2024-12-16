@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:44+0000\n"
-"PO-Revision-Date: 2024-12-08 16:48+0100\n"
+"PO-Revision-Date: 2024-12-15 18:25+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -183,7 +183,7 @@ msgstr ""
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Crea cartella"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -191,11 +191,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"La cartella di lavoro configurata <b>%1</b> per l'insieme di obiettivi <b>"
+"%2</b> non esiste.<br><br>Vuoi crearla?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Impossibile creare la cartella <b>%1</b>"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

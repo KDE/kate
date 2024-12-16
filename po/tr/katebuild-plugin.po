@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:44+0000\n"
-"PO-Revision-Date: 2024-11-21 20:39+0300\n"
+"PO-Revision-Date: 2024-12-15 12:28+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -183,7 +183,7 @@ msgstr "“%1” yerel bir dosya değil. Yerel olmayan dosyalar derlenemez."
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Dizin oluştur"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -191,11 +191,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"<b>%2</b> hedefi için ayarlanmış yapılandırılan çalışma dizini <b>%1</b> yok."
+"<br><br>Dizin oluşturulsun mu?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "<b>%1</b> dizini oluşturulamadı"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

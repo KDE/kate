@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-15 00:44+0000\n"
-"PO-Revision-Date: 2024-11-21 05:07+0100\n"
+"PO-Revision-Date: 2024-12-15 06:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -179,7 +179,7 @@ msgstr ""
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "საქაღალდის შექმნა"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -187,11 +187,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"მორგებული სამუშაო საქაღალდე <b>%1</b> სამიზნეების ნაკრებისთვის <b>%2</b> არ "
+"არსებობს.<br><br>შევქმნა საქაღალდე?"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "შექმნა ჩავარდა საქაღალდისთვის <b>%1</b>"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 00:57+0000\n"
-"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"PO-Revision-Date: 2024-12-15 20:55+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, kde-format
@@ -36,10 +36,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "केट - उन्नत पाठ्य सम्पादक"
 
 #: kate/main.cpp:106 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2022 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) २०००-२०२२ केट लेखकाः"
+msgstr "(c) २०००-२०२४ केट लेखकाः"
 
 #: kate/main.cpp:152
 #, kde-format
@@ -199,10 +198,9 @@ msgstr "&संचिका"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:30
-#, fuzzy, kde-format
-#| msgid "File Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "सञ्चिकाक्रियाः"
+msgstr "&सञ्चिकाक्रियाः"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:43
@@ -212,8 +210,7 @@ msgstr "&सम्पादयन्तु"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:54
-#, fuzzy, kde-format
-#| msgid "&Selection"
+#, kde-format
 msgid "Sele&ction"
 msgstr "&चयनम्"
 
@@ -328,10 +325,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "निदानं फ़िल्टरं स्वच्छं कुर्वन्तु"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Commit सूचना दर्शयतु/गोपयतु"
+msgstr "Hover सूचनां दर्शयतु"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -350,8 +346,7 @@ msgstr "चेतावनी"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
 msgstr "फ़िल्टर…"
 
@@ -1058,10 +1053,9 @@ msgid "Show text for left and right sidebar buttons"
 msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते पाठ्यं दर्शयतु"
 
 #: lib/kateconfigdialog.cpp:192
-#, fuzzy, kde-format
-#| msgid "Icon size for left and right sidebar buttons"
+#, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते चिह्नस्य आकारः"
+msgstr "वामदक्षिणपार्श्वपट्टिकागण्डयोः कृते चिह्नस्य आकारः:"
 
 #: lib/kateconfigdialog.cpp:212
 #, kde-format
@@ -1158,8 +1152,7 @@ msgid "When checked tab text might be elided if its too long."
 msgstr "यदा अभिवृत ट्याब् पाठ्य लुप्त भवेत् यदि तस्य अतिदीर्घः ।."
 
 #: lib/kateconfigdialog.cpp:273
-#, fuzzy, kde-format
-#| msgid "Open new tab to the right of current tab."
+#, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "वर्तमान ट्याब् इत्यस्य दक्षिणभागे नूतनं ट्याब् उद्घाटयन्तु ।."
 
@@ -1231,10 +1224,9 @@ msgid "Show current symbol in navigation bar"
 msgstr "नेविगेशन-पट्टिकायां वर्तमान-चिह्नं दर्शयतु"
 
 #: lib/kateconfigdialog.cpp:349
-#, fuzzy, kde-format
-#| msgid "Diagnostics View"
+#, kde-format
 msgid "Diagnostics limit:"
-msgstr "निदानं दृश्यम्"
+msgstr "निदानसीमा :"
 
 #: lib/kateconfigdialog.cpp:354
 #, kde-format
@@ -1275,15 +1267,12 @@ msgid "(never)"
 msgstr "(कदापि न)"
 
 #: lib/kateconfigdialog.cpp:397
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " दिनं"
-msgstr[1] " दिनानि"
+msgstr[0] "%v दिनं"
+msgstr[1] "%v दिनानि"
 
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
@@ -1464,12 +1453,10 @@ msgid "Focus the next tab."
 msgstr "अग्रिम ट्याब् केन्द्रीकुरुत।."
 
 #: lib/katemainwindow.cpp:311
-#, fuzzy, kde-format
-#| msgctxt "@action:button"
-#| msgid "Switch to Instance"
+#, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
-msgstr "उदाहरणं प्रति परिवर्तनं कुर्वन्तु"
+msgstr "%1 ट्याब् प्रति परिवर्तनं कुर्वन्तु"
 
 #: lib/katemainwindow.cpp:331
 #, kde-format
@@ -1506,8 +1493,7 @@ msgstr ""
 "शक्यते ।."
 
 #: lib/katemainwindow.cpp:397
-#, fuzzy, kde-format
-#| msgid "Save A&ll"
+#, kde-format
 msgid "Sa&ve All"
 msgstr "&सर्वे रक्षतु"
 
@@ -1517,8 +1503,7 @@ msgid "Save all open, modified documents to disk."
 msgstr "सर्वाणि उद्घाटितानि, परिवर्तितानि दस्तावेजानि डिस्कमध्ये रक्षन्तु ।."
 
 #: lib/katemainwindow.cpp:403
-#, fuzzy, kde-format
-#| msgid "&Reload All"
+#, kde-format
 msgid "Reload A&ll"
 msgstr "&सर्वाणि पुनः आरोपयन्तु"
 
@@ -1580,10 +1565,9 @@ msgid "Shows a hint how to compare documents."
 msgstr "दस्तावेजानां तुलना कथं कर्तव्या इति संकेतं दर्शयति ।."
 
 #: lib/katemainwindow.cpp:460
-#, fuzzy, kde-format
-#| msgid "Close Orphaned"
+#, kde-format
 msgid "Close Orp&haned"
-msgstr "अनाथः पिधाय"
+msgstr "&अनाथः पिधाय"
 
 #: lib/katemainwindow.cpp:462
 #, kde-format
@@ -1600,10 +1584,9 @@ msgid "Close the current document."
 msgstr "वर्तमानदस्तावेजं पिधाय ।."
 
 #: lib/katemainwindow.cpp:469
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close O&ther"
-msgstr "अन्ये पिधाय"
+msgstr "&अन्ये पिधाय"
 
 #: lib/katemainwindow.cpp:473
 #, kde-format
@@ -1621,10 +1604,9 @@ msgid "Close all open documents."
 msgstr "सर्वाणि मुक्तदस्तावेजानि पिधाय।."
 
 #: lib/katemainwindow.cpp:481
-#, fuzzy, kde-format
-#| msgid "Reload all open documents."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "सर्वाणि उद्घाटितानि दस्तावेजानि पुनः आरोपय कुर्वन्तु।."
+msgstr "सर्वाणि उद्घाटितानि दस्तावेजानि &पुनः आरोपय कुर्वन्तु।."
 
 #: lib/katemainwindow.cpp:483
 #, kde-format
@@ -1637,10 +1619,9 @@ msgid "Close this window"
 msgstr "एतत् गवाक्ष पिधाय"
 
 #: lib/katemainwindow.cpp:492
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "New &Window"
-msgstr "&नवीन गवाक्ष"
+msgstr "नवीन &गवाक्ष"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -1745,16 +1726,14 @@ msgstr ""
 "एतेन सर्वे मुक्तदस्तावेजाः बन्दाः भविष्यन्ति । किं भवन्तः निश्चयेन निरन्तरं कर्तुम् इच्छन्ति ?"
 
 #: lib/katemainwindow.cpp:631
-#, fuzzy, kde-format
-#| msgid "Close all documents"
+#, kde-format
 msgid "Close all documents?"
-msgstr "सर्वाणि दस्तावेजानि बन्दं कुर्वन्तु"
+msgstr "सर्वाणि दस्तावेजानि बन्दं कुर्वन्तु?"
 
 #: lib/katemainwindow.cpp:632
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Close All"
-msgstr "&सर्वाणि पिधाय"
+msgstr "सर्वाणि पिधाय"
 
 #: lib/katemainwindow.cpp:646
 #, kde-format
@@ -1766,14 +1745,12 @@ msgstr ""
 "कर्तुम् इच्छन्ति ?"
 
 #: lib/katemainwindow.cpp:647
-#, fuzzy, kde-format
-#| msgid "Close all documents beside current one"
+#, kde-format
 msgid "Close all documents beside current one?"
-msgstr "वर्तमानस्य पार्श्वे सर्वाणि दस्तावेजानि पिधायताम्"
+msgstr "वर्तमानस्य पार्श्वे सर्वाणि दस्तावेजानि पिधायताम्?"
 
 #: lib/katemainwindow.cpp:648
-#, fuzzy, kde-format
-#| msgid "Close Other"
+#, kde-format
 msgid "Close Others"
 msgstr "अन्ये पिधाय"
 
@@ -2133,18 +2110,16 @@ msgstr ""
 "भवता रक्षितुं याचितं दत्तांशं लिखितुं न शक्यते स्म । कृपया कथं प्रवर्तयितुम् इच्छसि इति चिनोतु।."
 
 #: lib/kateurlbar.cpp:913
-#, fuzzy, kde-format
-#| msgid "Copy Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
 #: lib/kateurlbar.cpp:918
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "सञ्चिकानाम"
+msgstr "सञ्चिकानाम प्रतिलिपि कुर्वन्तु"
 
 #: lib/kateviewmanager.cpp:146
 #, kde-format
@@ -2360,21 +2335,17 @@ msgid "Toggle Scroll Synchronization"
 msgstr "स्क्रॉल समन्वयनं टॉगल कुर्वन्तु"
 
 #: lib/kateviewmanager.cpp:300
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
 msgstr "वर्तमानस्य विभक्तदृश्यस्य अभिमुखीकरणं टॉगल करोति"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "दस्तावेजं &विच्छेदं कुरुत"
+msgstr "सक्रिय दस्तावेजं विच्छेदं कुर्वन्तु"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr "नूतने गवाक्षस्य मध्ये दस्तावेजं उद्घाटयति वर्तमानगवाक्ष मध्ये च पिधायति"
@@ -2431,19 +2402,15 @@ msgstr "<b>%1</b> प्लगिन् सक्षमीकरणे असफ
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "'%1' इति सञ्चिका नास्ति"
 
 #: lib/kateviewspace.cpp:93
-#, fuzzy, kde-format
-#| msgid "S&ynchronize Scrolling"
+#, kde-format
 msgid "Synchronize Scrolling"
-msgstr "&समन्वयनम् सारणं"
+msgstr "समन्वयनम् सारणं"
 
 #: lib/kateviewspace.cpp:95
-#, fuzzy, kde-format
-#| msgid ""
-#| "Synchronize Scrolling of this split-view with other synchronized split-"
-#| "views"
+#, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "अन्यैः समन्वयितैः विभक्त-दृश्यैः सह अस्य विभक्त-दृश्यस्य सारणं समन्वययन्तु"
@@ -2564,10 +2531,9 @@ msgid "Wildcard Filtering"
 msgstr "वाइल्डकार्ड फ़िल्टरिंग"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "सर्वाणि परियोजनानि"
+msgstr "परियोजना: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2981,7 +2947,6 @@ msgstr "सत्रं प्रबन्धयन्तु..."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Show welcome view for new windows"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "नूतनगवाक्षस्य स्वागतदृश्यं दर्शयतु"
+msgstr "नूतनगवाक्ष कृते स्वागतपृष्ठं दर्शयतु"

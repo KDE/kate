@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 03:24+0000\n"
-"PO-Revision-Date: 2024-11-24 16:09+0530\n"
+"PO-Revision-Date: 2024-12-15 15:53+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -75,7 +75,7 @@ msgstr "பொதுவான அமைப்புகள்"
 #: buildconfigwidget.ui:50
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "சிக்கல்களையும் எச்சரிக்கைகளையும் பிழைநீக்க விவரங்களில் சேர்"
 
 #. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
 #: buildconfigwidget.ui:57
@@ -87,7 +87,7 @@ msgstr ""
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "அனுமதிக்கப்பட்டுள்ள அல்லது தடுத்துள்ள கட்டளைகள்"
 
 #: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:712
 #: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928
@@ -113,7 +113,7 @@ msgstr ""
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "தற்போதைய கோப்பை இரும‍மாக்கு"
 
 #: plugin_katebuild.cpp:299
 #, kde-format

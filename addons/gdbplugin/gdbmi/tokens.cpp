@@ -157,7 +157,7 @@ Item<QString> tryString(const QByteArray &buffer, int start)
     }
     // use json to unescape c-string
     QJsonParseError error;
-    const QString finalString = unescapeString(roi, &error);
+    QString finalString = unescapeString(roi, &error);
     if (error.error != QJsonParseError::NoError) {
         return make_error_item<QString>(start, error.errorString());
     }

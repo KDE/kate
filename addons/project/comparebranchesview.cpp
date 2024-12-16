@@ -21,6 +21,7 @@
 
 #include <KColorScheme>
 #include <KLocalizedString>
+#include <utility>
 
 // TODO: this is duplicated in libkateprivate as DiffStyleDelegate
 class CompareBranchesDiffStyleDelegate : public QStyledItemDelegate
@@ -127,10 +128,10 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
     }
 }
 
-CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, const QString fromB, const QString &toBr, QList<GitUtils::StatusItem> items)
+CompareBranchesView::CompareBranchesView(QWidget *parent, const QString &gitPath, QString fromB, const QString &toBr, const QList<GitUtils::StatusItem> &items)
     : QWidget(parent)
     , m_gitDir(gitPath)
-    , m_fromBr(fromB)
+    , m_fromBr(std::move(fromB))
     , m_toBr(toBr)
 {
     setLayout(new QVBoxLayout);

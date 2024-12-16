@@ -100,7 +100,7 @@ public:
 
         const QString add = strs.at(0) + QStringLiteral(" ");
         const QString sub = strs.at(1) + QStringLiteral(" ");
-        const QString Status = strs.at(2);
+        const QString &Status = strs.at(2);
 
         int ha = option.fontMetrics.horizontalAdvance(add);
         int hs = option.fontMetrics.horizontalAdvance(sub);

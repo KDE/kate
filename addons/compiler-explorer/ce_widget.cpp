@@ -247,7 +247,7 @@ void CEWidget::setAvailableCompilers(const QByteArray &data)
 
 void CEWidget::repopulateCompilersCombo(const QString &lang)
 {
-    auto currentFileLang = lang;
+    const QString &currentFileLang = lang;
 
     auto compilersForLang = compilersForLanguage(currentFileLang);
     if (compilersForLang.empty()) {

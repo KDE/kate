@@ -78,8 +78,8 @@ public:
     void requestTerminate(bool restart = false);
     void requestDisconnect(bool restart = false);
     void requestSource(const Source &source);
-    void requestSetBreakpoints(const QString &path, const QList<dap::SourceBreakpoint> breakpoints, bool sourceModified = false);
-    void requestSetBreakpoints(const dap::Source &source, const QList<dap::SourceBreakpoint> breakpoints, bool sourceModified = false);
+    void requestSetBreakpoints(const QString &path, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
+    void requestSetBreakpoints(const dap::Source &source, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
     void requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId = std::nullopt);
     void requestWatch(const QString &expression, std::optional<int> frameId = std::nullopt);
     void requestGotoTargets(const QString &path, const int line, const std::optional<int> column = std::nullopt);

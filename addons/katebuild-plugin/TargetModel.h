@@ -108,7 +108,7 @@ public:
     };
 
     struct TargetSet {
-        TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, QString _cmakeConfigName = QString());
+        TargetSet(const QString &_name, const QString &_workDir, bool _loadedViaCMake, const QString &_cmakeConfigName = QString());
         /** The name of this target set */
         QString name;
         /** The working directory */

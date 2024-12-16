@@ -1136,7 +1136,7 @@ BreakPoint GdbBackend::parseBreakpoint(const QJsonObject &item)
 
 void GdbBackend::insertBreakpoint(const QJsonObject &item)
 {
-    const BreakPoint breakPoint = parseBreakpoint(item);
+    BreakPoint breakPoint = parseBreakpoint(item);
     Q_EMIT breakPointSet(breakPoint.file, breakPoint.line);
     m_breakpointTable[breakPoint.number] = std::move(breakPoint);
 }

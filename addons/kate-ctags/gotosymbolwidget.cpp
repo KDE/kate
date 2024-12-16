@@ -252,7 +252,7 @@ void GotoSymbolWidget::loadGlobalSymbols(const QString &text)
         return;
     }
 
-    QString currentWord = text;
+    const QString &currentWord = text;
     Tags::TagList list = Tags::getPartialMatchesNoi8n(m_tagFile, currentWord);
 
     if (list.isEmpty()) {

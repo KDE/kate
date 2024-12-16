@@ -1156,7 +1156,7 @@ public:
         goToDocumentLocation(url, start);
     }
 
-    void fixDiagnostic(const QUrl url, const Diagnostic &diagnostic, const QVariant &data)
+    void fixDiagnostic(const QUrl &url, const Diagnostic &diagnostic, const QVariant &data)
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         QPointer<KTextEditor::Document> document = activeView->document();
@@ -1165,7 +1165,7 @@ public:
             return;
         }
 
-        auto executeCodeAction = [this, server](LSPCodeAction action, std::shared_ptr<LSPClientRevisionSnapshot> snapshot) {
+        auto executeCodeAction = [this, server](const LSPCodeAction &action, std::shared_ptr<LSPClientRevisionSnapshot> snapshot) {
             // apply edit before command
             applyWorkspaceEdit(action.edit, snapshot.get());
             executeServerCommand(server, action.command);

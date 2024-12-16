@@ -1705,7 +1705,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
 
 ToolView *MainWindow::toolView(const QString &identifier) const
 {
-    for (auto [name, toolview] : m_toolviews) {
+    for (const auto &[name, toolview] : m_toolviews) {
         if (name == identifier) {
             return toolview;
         }

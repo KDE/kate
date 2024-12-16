@@ -31,7 +31,7 @@ public:
 
 private:
     void exec();
-    QStandardItemModel *execQuery(QString sep, QStringList lines, bool includeHeader);
+    QStandardItemModel *execQuery(const QString &sep, QStringList lines, bool includeHeader);
     void onQueryExecuted();
     void initEngine();
     void reportError(const QString &error);

@@ -646,12 +646,12 @@ void Client::requestSource(const Source &source)
     this->write(makeRequest(DAP_SOURCE, arguments, make_response_handler(&Client::processResponseSource, this)));
 }
 
-void Client::requestSetBreakpoints(const QString &path, const QList<SourceBreakpoint> breakpoints, bool sourceModified)
+void Client::requestSetBreakpoints(const QString &path, const QList<SourceBreakpoint> &breakpoints, bool sourceModified)
 {
     requestSetBreakpoints(Source(path), breakpoints, sourceModified);
 }
 
-void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreakpoint> breakpoints, bool sourceModified)
+void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreakpoint> &breakpoints, bool sourceModified)
 {
     QJsonArray bpoints;
     for (const auto &item : breakpoints) {

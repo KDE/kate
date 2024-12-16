@@ -328,10 +328,10 @@ void KateCTagsView::gotoResults(const QString &word, const Tags::TagList &list)
     displayHits(list);
 
     if (list.count() == 1) {
-        Tags::TagEntry tag = list.first();
+        const Tags::TagEntry &tag = list.first();
         jumpToTag(tag.file, tag.pattern, word);
     } else {
-        Tags::TagEntry tag = list.first();
+        const Tags::TagEntry &tag = list.first();
         jumpToTag(tag.file, tag.pattern, word);
         m_ctagsUi.tabWidget->setCurrentIndex(0);
         m_mWin->showToolView(m_toolView);

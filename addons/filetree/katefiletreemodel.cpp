@@ -1177,8 +1177,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const
         return nullptr;
     }
 
-    const std::vector<ProxyItem *> children = parent->children();
-    for (ProxyItem *item : children) {
+    for (ProxyItem *item : parent->children()) {
         if (!item->flag(ProxyItem::Dir)) {
             continue;
         }

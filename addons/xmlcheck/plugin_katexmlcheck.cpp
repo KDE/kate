@@ -152,7 +152,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         QString linenumber, msg;
         int line_count = 0;
         for (QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
-            const QString line = *it;
+            const QString &line = *it;
             line_count++;
             int semicolon_1 = line.indexOf(u':');
             int semicolon_2 = line.indexOf(u':', semicolon_1 + 1);

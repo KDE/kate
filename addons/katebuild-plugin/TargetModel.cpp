@@ -50,7 +50,7 @@ static QDebug operator<<(QDebug debug, const NodeInfo &node)
     return debug;
 }
 
-TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir, bool _loadedViaCMake, QString _cmakeConfigName)
+TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir, bool _loadedViaCMake, const QString &_cmakeConfigName)
     : name(_name)
     , workDir(_dir)
     , loadedViaCMake(_loadedViaCMake)

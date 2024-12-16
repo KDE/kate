@@ -608,7 +608,7 @@ QList<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Docum
     return result;
 }
 
-void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> lineNumbers)
+void KatePluginSearchView::setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> &lineNumbers)
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
     QString text;

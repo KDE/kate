@@ -82,7 +82,7 @@ KateSnippetsPluginView::KateSnippetsPluginView(KateSnippetsPlugin *plugin, KText
 KateSnippetsPluginView::~KateSnippetsPluginView()
 {
     // cleanup for all views
-    for (auto view : std::as_const(m_textViews)) {
+    for (const QPointer<KTextEditor::View> &view : std::as_const(m_textViews)) {
         if (!view) {
             continue;
         }

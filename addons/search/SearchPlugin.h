@@ -177,7 +177,7 @@ protected:
 
 private:
     QList<int> getDocumentSearchMarkedLines(KTextEditor::Document *currentDocument);
-    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> lineNumbers);
+    void setClipboardFromDocumentLines(const KTextEditor::Document *currentDocument, const QList<int> &lineNumbers);
 
     QStringList filterFiles(const QStringList &fileList) const;
     void startDiskFileSearch(const QStringList &fileList, const QRegularExpression &reg, const bool includeBinaryFiles, const int sizeLimit);

@@ -105,7 +105,7 @@ qsizetype firstIndexOf(const QStringView tail, QChar ch)
 }
 
 // Return index of first char among 'characters' in tail
-qsizetype firstIndexOf(const QStringView tail, QString characters)
+qsizetype firstIndexOf(const QStringView tail, const QString &characters)
 {
     qsizetype first = -1;
     for (auto ch : characters) {

@@ -134,7 +134,7 @@ void PreviewWidget::setTextEditorView(KTextEditor::View *view)
     resetTextEditorView(m_previewedTextEditorDocument);
 }
 
-std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList mimeTypes)
+std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList &mimeTypes)
 {
     for (const auto &mimeType : std::as_const(mimeTypes)) {
         const auto offers = KParts::PartLoader::partsForMimeType(mimeType);
@@ -143,7 +143,7 @@ std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPar
             continue;
         }
 
-        const KPluginMetaData service = offers.first();
+        const KPluginMetaData &service = offers.first();
         qCDebug(KTEPREVIEW) << "Found preferred kpart named" << service.name() << "with library" << service.fileName() << "for mimetype" << mimeType;
 
         // no interest in kparts which also just display the text (like katepart itself)

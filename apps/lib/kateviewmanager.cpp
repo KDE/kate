@@ -1708,7 +1708,7 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *config
     /**
      * create new splitter name, might be not used
      */
-    const auto grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
+    QString grp = QString(viewConfGrp + QStringLiteral("-Splitter %1")).arg(m_splitterIndex);
     ++m_splitterIndex;
 
     // a KateSplitter has two children, either KateSplitters and/or KateViewSpaces

@@ -98,7 +98,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
         return CachedSqlQueryModel::data(index, role);
     }
 
-    const QVariant value(CachedSqlQueryModel::data(index, Qt::DisplayRole));
+    QVariant value(CachedSqlQueryModel::data(index, Qt::DisplayRole));
     const auto type = value.typeId();
 
     if (value.isNull()) {

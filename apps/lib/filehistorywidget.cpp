@@ -44,7 +44,7 @@ struct Commit {
     QByteArray fileName;
 };
 
-static std::vector<Commit> parseCommits(const QByteArray raw)
+static std::vector<Commit> parseCommits(const QByteArray &raw)
 {
     std::vector<Commit> commits;
 

@@ -564,7 +564,7 @@ const CommitInfo &KateGitBlamePluginView::blameGetUpdateInfo(int lineNr)
     return m_blameInfoForHash[commitInfo.shortCommitHash];
 }
 
-void KateGitBlamePluginView::setToolTipIgnoreKeySequence(QKeySequence sequence)
+void KateGitBlamePluginView::setToolTipIgnoreKeySequence(const QKeySequence &sequence)
 {
     m_tooltip.setIgnoreKeySequence(sequence);
 }

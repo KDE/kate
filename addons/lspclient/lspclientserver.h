@@ -187,10 +187,10 @@ public:
                                      const QObject *context,
                                      const CodeActionReplyHandler &h);
 
-    RequestHandle documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
+    RequestHandle documentSemanticTokensFull(const QUrl &document, const QString &requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     RequestHandle
-    documentSemanticTokensFullDelta(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
+    documentSemanticTokensFullDelta(const QUrl &document, const QString &requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 
     RequestHandle documentSemanticTokensRange(const QUrl &document, const LSPRange &range, const QObject *context, const SemanticTokensDeltaReplyHandler &h);
 

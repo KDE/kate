@@ -116,6 +116,7 @@ static LSPClientServer::TriggerCharactersOverride parseTriggerOverride(const QJs
 }
 
 #include <memory>
+#include <utility>
 
 // helper guard to handle revision (un)lock
 struct RevisionGuard {
@@ -929,9 +930,15 @@ private:
             // TODO: Further simplify once we are Qt6
             // track document
             connect(doc, &KTextEditor::Document::documentUrlChanged, this, &self_type::untrack, Qt::UniqueConnection);
-            it = m_docs.insert(
-                doc,
-                {.server = server, .config = serverConfig, .doc = doc, .url = doc->url(), .version = 0, .open = false, .modified = false, .changes = {}});
+            it = m_docs.insert(doc,
+                               {.server = server,
+                                .config = std::move(serverConfig),
+                                .doc = doc,
+                                .url = doc->url(),
+                                .version = 0,
+                                .open = false,
+                                .modified = false,
+                                .changes = {}});
             connect(doc, &KTextEditor::Document::highlightingModeChanged, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::aboutToClose, this, &self_type::untrack, Qt::UniqueConnection);
             connect(doc, &KTextEditor::Document::destroyed, this, &self_type::untrack, Qt::UniqueConnection);

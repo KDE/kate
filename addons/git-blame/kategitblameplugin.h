@@ -88,7 +88,7 @@ public:
 
     void showCommitInfo(const QString &hash, KTextEditor::View *view);
 
-    void setToolTipIgnoreKeySequence(QKeySequence sequence);
+    void setToolTipIgnoreKeySequence(const QKeySequence &sequence);
 
     void showCommitTreeView(const QUrl &url);
 

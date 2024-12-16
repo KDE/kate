@@ -135,7 +135,7 @@ void RBQLTab::exec()
     m_queryExecutionFuture.setFuture(future);
 }
 
-QStandardItemModel *RBQLTab::execQuery(QString sep, QStringList lines, bool includeHeader)
+QStandardItemModel *RBQLTab::execQuery(const QString &sep, QStringList lines, bool includeHeader)
 {
     if (lines.isEmpty()) {
         return nullptr;

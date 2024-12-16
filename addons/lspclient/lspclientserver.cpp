@@ -133,7 +133,7 @@ static const rapidjson::Value &GetJsonArrayForKey(const rapidjson::Value &v, std
     return dummy;
 }
 
-static QJsonValue encodeUrl(const QUrl url)
+static QJsonValue encodeUrl(const QUrl &url)
 {
     return QJsonValue(QLatin1String(url.toEncoded()));
 }
@@ -1323,7 +1323,7 @@ public:
         , m_root(root)
         , m_langId(langId)
         , m_init(init)
-        , m_config(config)
+        , m_config(std::move(config))
     {
         // setup async reading
         QObject::connect(&m_sproc, &QProcess::readyReadStandardOutput, utils::mem_fun(&self_type::readStandardOutput, this));
@@ -1875,14 +1875,17 @@ public:
         return send(init_request(QStringLiteral("textDocument/rename"), params), h);
     }
 
-    RequestHandle
-    documentCodeAction(const QUrl &document, const LSPRange &range, const QList<QString> &kinds, QList<LSPDiagnostic> diagnostics, const GenericReplyHandler &h)
+    RequestHandle documentCodeAction(const QUrl &document,
+                                     const LSPRange &range,
+                                     const QList<QString> &kinds,
+                                     const QList<LSPDiagnostic> &diagnostics,
+                                     const GenericReplyHandler &h)
     {
         auto params = codeActionParams(document, range, kinds, diagnostics);
         return send(init_request(QStringLiteral("textDocument/codeAction"), params), h);
     }
 
-    RequestHandle documentSemanticTokensFull(const QUrl &document, bool delta, const QString requestId, const LSPRange &range, const GenericReplyHandler &h)
+    RequestHandle documentSemanticTokensFull(const QUrl &document, bool delta, const QString &requestId, const LSPRange &range, const GenericReplyHandler &h)
     {
         auto params = textDocumentParams(document);
         // Delta
@@ -2104,7 +2107,7 @@ make_handler(const ReplyHandler<ReplyType> &h, const QObject *context, typename 
 }
 
 LSPClientServer::LSPClientServer(const QStringList &server, const QUrl &root, const QString &langId, const QJsonValue &init, ExtraServerConfig config)
-    : d(new LSPClientServerPrivate(this, server, root, langId, init, config))
+    : d(new LSPClientServerPrivate(this, server, root, langId, init, std::move(config)))
 {
 }
 
@@ -2292,14 +2295,14 @@ LSPClientServer::RequestHandle LSPClientServer::documentCodeAction(const QUrl &d
 }
 
 LSPClientServer::RequestHandle
-LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
+LSPClientServer::documentSemanticTokensFull(const QUrl &document, const QString &requestId, const QObject *context, const SemanticTokensDeltaReplyHandler &h)
 {
     auto invalidRange = KTextEditor::Range::invalid();
     return d->documentSemanticTokensFull(document, /* delta = */ false, requestId, invalidRange, make_handler(h, context, parseSemanticTokensDelta));
 }
 
 LSPClientServer::RequestHandle LSPClientServer::documentSemanticTokensFullDelta(const QUrl &document,
-                                                                                const QString requestId,
+                                                                                const QString &requestId,
                                                                                 const QObject *context,
                                                                                 const SemanticTokensDeltaReplyHandler &h)
 {

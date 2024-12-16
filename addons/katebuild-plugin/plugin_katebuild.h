@@ -116,6 +116,7 @@ private Q_SLOTS:
     void slotPluginViewCreated(const QString &name, QObject *pluginView);
     void slotPluginViewDeleted(const QString &name, QObject *pluginView);
     void slotProjectMapEdited();
+    void slotProjectChanged();
 
     /**
      * Save the project build target updates
@@ -164,7 +165,7 @@ private:
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
 
-    void addProjectTargets();
+    void updateProjectTargets();
     QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString &name, const QCMakeFileApi &cmakeFA, const QString &cmakeConfig);
 
     /** Check if given command line is allowed to be executed.

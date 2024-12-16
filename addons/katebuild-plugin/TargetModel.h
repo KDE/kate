@@ -56,8 +56,8 @@ public:
     QJsonObject projectTargetsToJsonObj(const QString &projectBaseDir) const;
     QString indexToJson(const QModelIndex &modelIndex) const;
 
-    QModelIndex insertAfter(const QModelIndex &modelIndex, const QString &jsonStr);
-    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj, const QString &projectBaseDir = {});
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QString &jsonStr, const QString &projectBaseDir);
+    QModelIndex insertAfter(const QModelIndex &modelIndex, const QJsonObject &jsonObj, const QString &projectBaseDir);
 
 public Q_SLOTS:
 
@@ -73,15 +73,15 @@ public Q_SLOTS:
     /** This function adds a new command to a target-set and returns the model index */
     QModelIndex addCommandAfter(const QModelIndex &beforeIndex, const QString &cmdName, const QString &buildCmd, const QString &runCmd);
 
-    /** This function copies the target(-set) the model index points to and returns
-     * the model index of the copy. */
-    QModelIndex cloneTargetOrSet(const QModelIndex &index);
-
     /** This function deletes the index */
     void deleteItem(const QModelIndex &index);
 
-    /** This function deletes the target-set with the same name */
-    void deleteProjectTargerts();
+    /** This function deletes the project target-sets except the keep-list
+     * @param keep is a list of the baseDirs to keep
+     */
+    void deleteProjectTargetsExcept(const QStringList &keep = QStringList());
+
+    void deleteProjectTargets(const QString &baseDir);
 
     void moveRowUp(const QModelIndex &index);
     void moveRowDown(const QModelIndex &index);

@@ -395,6 +395,18 @@ QVariantMap KateProjectPluginView::projectMap() const
     return static_cast<KateProjectView *>(active)->project()->projectMap();
 }
 
+QVariantMap KateProjectPluginView::projectMapFor(const QString &baseDir) const
+{
+    const auto projects = m_plugin->projects();
+
+    for (const auto proj : projects) {
+        if (proj->baseDir() == baseDir) {
+            return proj->projectMap();
+        }
+    }
+    return QVariantMap();
+}
+
 QStringList KateProjectPluginView::projectFiles() const
 {
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());

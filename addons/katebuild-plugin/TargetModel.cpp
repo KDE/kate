@@ -356,12 +356,6 @@ QModelIndex TargetModel::addCommandAfter(const QModelIndex &beforeIndex, const Q
     return index(bNode.commandRow, 0, targetSetIndex);
 }
 
-QModelIndex TargetModel::cloneTargetOrSet(const QModelIndex &copyIndex)
-{
-    QJsonObject jsonCopy = indexToJsonObj(copyIndex);
-    return insertAfter(copyIndex, jsonCopy);
-}
-
 void TargetModel::deleteItem(const QModelIndex &itemIndex)
 {
     if (!itemIndex.isValid()) {
@@ -397,14 +391,37 @@ void TargetModel::deleteItem(const QModelIndex &itemIndex)
     }
 }
 
-void TargetModel::deleteProjectTargerts()
+void TargetModel::deleteProjectTargetsExcept(const QList<QString> &keep)
 {
     for (int i = 0; i < m_rootNodes.count(); ++i) {
-        if (m_rootNodes[i].isProject && m_rootNodes[i].targetSets.count() > 0) {
-            beginRemoveRows(index(i, 0), 0, m_rootNodes[i].targetSets.count() - 1);
-            m_rootNodes[i].targetSets.clear();
-            endRemoveRows();
+        if (m_rootNodes[i].isProject) {
+            auto projs = m_rootNodes[i];
+            for (int j = m_rootNodes[i].targetSets.count() - 1; j >= 0; --j) {
+                if (keep.contains(m_rootNodes[i].targetSets[j].projectBaseDir)) {
+                    continue;
+                }
+                beginRemoveRows(index(i, 0), j, j);
+                m_rootNodes[i].targetSets.removeAt(j);
+                endRemoveRows();
+            }
             return;
+        }
+    }
+}
+
+void TargetModel::deleteProjectTargets(const QString &baseDir)
+{
+    for (int i = 0; i < m_rootNodes.count(); ++i) {
+        if (m_rootNodes[i].isProject) {
+            auto projs = m_rootNodes[i];
+            for (int j = m_rootNodes[i].targetSets.count() - 1; j >= 0; --j) {
+                if (baseDir == m_rootNodes[i].targetSets[j].projectBaseDir) {
+                    beginRemoveRows(index(i, 0), j, j);
+                    m_rootNodes[i].targetSets.removeAt(j);
+                    endRemoveRows();
+                    return;
+                }
+            }
         }
     }
 }
@@ -901,7 +918,7 @@ QString TargetModel::indexToJson(const QModelIndex &modelIndex) const
     return QString::fromUtf8(doc.toJson(QJsonDocument::Indented));
 }
 
-QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QString &jsonStr)
+QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QString &jsonStr, const QString &projectBaseDir)
 {
     QJsonParseError error;
     const QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &error);
@@ -909,7 +926,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QStrin
         qWarning() << "Could not parse the provided Json";
         return QModelIndex();
     }
-    return insertAfter(modelIndex, doc.object());
+    return insertAfter(modelIndex, doc.object(), projectBaseDir);
 }
 
 QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonObject &obj, const QString &projectBaseDir)
@@ -931,7 +948,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
         QModelIndex setIndex = currentIndex;
         const QJsonArray targets = obj[QStringLiteral("targets")].toArray();
         for (const auto target : targets) {
-            currentIndex = insertAfter(currentIndex, target.toObject());
+            currentIndex = insertAfter(currentIndex, target.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
                 qWarning() << "Failed to insert target";
                 break;

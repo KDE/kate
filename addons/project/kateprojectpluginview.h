@@ -105,6 +105,11 @@ public:
     ProjectNamesDirAndMap allProjectMaps() const;
 
     /**
+     * @returns the project map of the specified base directory (base directory is unique)
+     */
+    Q_INVOKABLE QVariantMap projectMapFor(const QString &baseDir) const;
+
+    /**
      * the main window we belong to
      * @return our main window
      */

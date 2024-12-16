@@ -187,7 +187,7 @@ void TargetsUi::pasteAfterCurrentItem()
 {
     const QModelIndex treeIndex = targetsView->currentIndex();
     const QModelIndex modelIndex = proxyModel.mapToSource(treeIndex);
-    targetsModel.insertAfter(modelIndex, QApplication::clipboard()->text());
+    targetsModel.insertAfter(modelIndex, QApplication::clipboard()->text(), currentProjectBaseDir);
 }
 
 void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
@@ -256,7 +256,10 @@ void TargetsUi::targetOrSetClone()
     QModelIndex currentIndex = targetsView->currentIndex();
     currentIndex = proxyModel.mapToSource(currentIndex);
     targetFilterEdit->setText(QString());
-    QModelIndex newIndex = targetsModel.cloneTargetOrSet(currentIndex);
+
+    QString json = targetsModel.indexToJson(currentIndex);
+
+    QModelIndex newIndex = targetsModel.insertAfter(currentIndex, json, currentProjectBaseDir);
     if (targetsModel.hasChildren(newIndex)) {
         newIndex = proxyModel.mapFromSource(newIndex);
         targetsView->setCurrentIndex(newIndex.model()->index(0, 0, newIndex));

@@ -42,6 +42,8 @@ public:
     QToolButton *buildButton = nullptr;
     QToolButton *runButton = nullptr;
 
+    QString currentProjectBaseDir;
+
     void updateTargetsButtonStates() const;
 
 public Q_SLOTS:

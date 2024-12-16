@@ -63,7 +63,7 @@ Item<T> make_error_item(int position, const QString &error)
 template<typename T>
 Item<T> make_item(int position, T &&value)
 {
-    return Item<T>{position, std::forward(value), std::nullopt};
+    return Item<T>{position, std::forward<T>(value), std::nullopt};
 }
 
 /**

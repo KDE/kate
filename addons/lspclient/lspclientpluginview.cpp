@@ -1995,8 +1995,8 @@ public:
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)
     {
         // local file in custom role, Qt::DisplayRole might have additional elements
-        auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toLocalFile(), 1, Qt::MatchExactly);
-        if (l.length()) {
+        QModelIndexList l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toLocalFile(), 1, Qt::MatchExactly);
+        if (!l.empty()) {
             return model.itemFromIndex(l.at(0));
         }
         return nullptr;

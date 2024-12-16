@@ -111,7 +111,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
     m_matchNamedColors = config.readEntry("NamedColors", false);
 
     QString colorRegex;
-    if (m_matchHexLengths.size() > 0) {
+    if (!m_matchHexLengths.empty()) {
         colorRegex += QLatin1String("(#[[:xdigit:]]{3,12})");
     }
 

@@ -622,7 +622,7 @@ static DocumentDiagnosticItem *getItem(const QStandardItemModel &model, const QU
 {
     // local file in custom role, Qt::DisplayRole might have additional elements
     auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword), 1, Qt::MatchExactly);
-    if (l.length()) {
+    if (!l.empty()) {
         return static_cast<DocumentDiagnosticItem *>(model.itemFromIndex(l.at(0)));
     }
     return nullptr;
@@ -895,7 +895,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         // rendering of lines with embedded newlines does not work so well
         // so ... split message by lines
         auto lines = diag.message.split(QLatin1Char('\n'), Qt::SkipEmptyParts);
-        item->setText(source + (lines.size() > 0 ? lines[0] : QString()));
+        item->setText(source + (!lines.empty() ? lines[0] : QString()));
         fillItemRoles(item, diagnostics.uri, diag.range, diag.severity);
         item->setData(QVariant::fromValue(provider), DiagnosticModelRole::ProviderRole);
         // add subsequent lines to subitems

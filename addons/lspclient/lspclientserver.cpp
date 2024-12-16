@@ -302,7 +302,7 @@ static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
         diags.push_back(to_json(diagnostic));
     }
     context[QLatin1String(MEMBER_DIAGNOSTICS)] = diags;
-    if (kinds.length()) {
+    if (!kinds.empty()) {
         context[QStringLiteral("only")] = QJsonArray::fromStringList(kinds);
     }
     params[QStringLiteral("context")] = context;

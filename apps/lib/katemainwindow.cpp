@@ -517,7 +517,7 @@ void KateMainWindow::setupActions()
     QAction *settingsConfigure = KStandardAction::preferences(this, &KateMainWindow::slotConfigure, ac);
     settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
 
-    if (KateApp::self()->pluginManager()->pluginList().size() > 0) {
+    if (!KateApp::self()->pluginManager()->pluginList().empty()) {
         a = ac->addAction(QStringLiteral("help_plugins_contents"));
         a->setText(i18n("&Plugins Handbook"));
         connect(a, &QAction::triggered, this, &KateMainWindow::pluginHelp);

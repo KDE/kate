@@ -767,7 +767,7 @@ private:
             }
         }
 
-        if (cmdline.length() > 0) {
+        if (!cmdline.empty()) {
             // always update some info
             // (even if eventually no server found/started)
             serverinfo.settings = serverConfig.value(QStringLiteral("settings"));
@@ -815,12 +815,12 @@ private:
         }
 
         // check if allowed to start, function will query user if needed and emit messages
-        if (cmdline.length() > 0 && !m_plugin->isCommandLineAllowed(cmdline)) {
+        if (!cmdline.empty() && !m_plugin->isCommandLineAllowed(cmdline)) {
             cmdline.clear();
         }
 
         // made it here with a command line; spin up server
-        if (cmdline.length() > 0) {
+        if (!cmdline.empty()) {
             // an empty list is always passed here (or null)
             // the initial list is provided/updated using notification after start
             // since that is what a server is more aware of

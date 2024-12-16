@@ -275,7 +275,7 @@ static Formatter newStdinFmt(const char *name, QStringList &&args)
     return {.name = QString::fromUtf8(name), .args = std::move(args), .supportsStdin = true};
 }
 
-inline Formatter jqFmt(KTextEditor::Document *doc)
+inline static Formatter jqFmt(KTextEditor::Document *doc)
 {
     // Reuse doc's indent
     bool ok = false;

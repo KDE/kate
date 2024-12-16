@@ -135,7 +135,7 @@ Q_GLOBAL_STATIC_WITH_ARGS(const QRegularExpression, CONFLICT_MID_RE, (QLatin1Str
 Q_GLOBAL_STATIC_WITH_ARGS(const QRegularExpression, CONFLICT_END_RE, (QLatin1String("^>>>>>>>")))
 Q_GLOBAL_STATIC_WITH_ARGS(const QRegularExpression, CONFLICT_RE, (QLatin1String("(^>>>>>>>)|(^=======)|(^<<<<<<<)")))
 
-QString formatRange(uint start, uint count)
+static QString formatRange(uint start, uint count)
 {
     if (count == 1)
         return QString().setNum(start);
@@ -239,7 +239,7 @@ QString DiffHunk::formatHeader(uint oldStart, uint oldCount, uint newStart, uint
  * Strictly speaking, these should not appear in diffs, but git diff
  * generates them anyway for files with unresolved conflicts.
  */
-std::vector<DiffHunk> parseHunks(VcsDiff &diff)
+static std::vector<DiffHunk> parseHunks(VcsDiff &diff)
 {
     std::vector<DiffHunk> ret;
     int lineNo = -1;

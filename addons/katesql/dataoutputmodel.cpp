@@ -15,7 +15,7 @@
 #include <QFontDatabase>
 #include <QLocale>
 
-inline bool isNumeric(const int type)
+inline static bool isNumeric(const int type)
 {
     return (type > 1 && type < 7);
 }

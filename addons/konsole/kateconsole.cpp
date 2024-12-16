@@ -71,7 +71,7 @@ KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QVariantList &)
     }
 }
 
-void setEditorEnv(const QByteArray &value)
+static void setEditorEnv(const QByteArray &value)
 {
     if (value.isNull()) {
         qunsetenv("EDITOR");

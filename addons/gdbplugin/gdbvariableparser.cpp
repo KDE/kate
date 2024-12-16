@@ -71,7 +71,7 @@ enum ParsingState {
 // - bbb : "in quoted string"
 // - ccc : "in parenthesis"
 // - aaa : normal (where the comma is searched for)
-qsizetype firstIndexOf(const QStringView tail, QChar ch)
+static qsizetype firstIndexOf(const QStringView tail, QChar ch)
 {
     const QChar QUOTE((short)'"');
     const QChar BACKSLASH((short)'\\');
@@ -105,7 +105,7 @@ qsizetype firstIndexOf(const QStringView tail, QChar ch)
 }
 
 // Return index of first char among 'characters' in tail
-qsizetype firstIndexOf(const QStringView tail, const QString &characters)
+static qsizetype firstIndexOf(const QStringView tail, const QString &characters)
 {
     qsizetype first = -1;
     for (auto ch : characters) {
@@ -123,7 +123,7 @@ qsizetype firstIndexOf(const QStringView tail, const QString &characters)
 // else :
 // - let tail unchanged
 // - return empty string
-QStringView findVariableName(QStringView &tail)
+static QStringView findVariableName(QStringView &tail)
 {
     const QChar EQUAL((short)'=');
     auto closingIndex = firstIndexOf(tail, QStringLiteral("=,{}"));

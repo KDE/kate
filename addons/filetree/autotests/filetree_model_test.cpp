@@ -100,7 +100,7 @@ static const ResultNode openWidgetsNode("Open Widgets", false);
 
 namespace QTest
 {
-inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *actual, const char *expected, const char *file, int line)
+inline static bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *actual, const char *expected, const char *file, int line)
 {
     return compare_helper(t1 == t2, "Compared ResultNode trees are not the same", actual, expected, file, line);
 }

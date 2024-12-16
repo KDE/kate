@@ -36,7 +36,7 @@ static QByteArray runCMake(const QString &arg)
     return {};
 }
 
-std::vector<QByteArray> parseList(const QByteArray &ba, int reserve)
+static std::vector<QByteArray> parseList(const QByteArray &ba, int reserve)
 {
     std::vector<QByteArray> ret;
     ret.reserve(reserve);

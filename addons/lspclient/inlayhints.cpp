@@ -17,7 +17,7 @@
 
 static constexpr int textChangedDelay = 1000; // 1s
 
-size_t qHash(const LSPInlayHint &s, size_t seed = 0)
+static size_t qHash(const LSPInlayHint &s, size_t seed = 0)
 {
     return qHashMulti(seed, s.position, s.label);
 }

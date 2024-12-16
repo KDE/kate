@@ -75,7 +75,7 @@ QString longestCommonPrefix(std::vector<QString> const &strs)
     return strs.front().left(n);
 }
 
-void post_process(FilenameList &data)
+static void post_process(FilenameList &data)
 {
     // collect non-empty paths
     std::vector<QString> paths;

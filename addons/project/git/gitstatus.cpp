@@ -36,7 +36,7 @@ static void numStatForStatus(QList<GitUtils::StatusItem> &list, const QString &w
     GitUtils::parseDiffNumStat(list, git.readAllStandardOutput());
 }
 
-QByteArray fileNameFromPath(const QByteArray &path)
+static QByteArray fileNameFromPath(const QByteArray &path)
 {
     int lastSlash = path.lastIndexOf('/');
     return lastSlash == -1 ? path : path.mid(lastSlash + 1);

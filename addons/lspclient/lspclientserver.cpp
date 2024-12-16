@@ -1179,7 +1179,7 @@ static LSPShowMessageParams parseMessage(const rapidjson::Value &result)
     return ret;
 }
 
-void from_json(LSPWorkDoneProgressValue &value, const rapidjson::Value &json)
+static void from_json(LSPWorkDoneProgressValue &value, const rapidjson::Value &json)
 {
     if (!json.IsObject()) {
         return;

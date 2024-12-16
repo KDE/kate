@@ -32,11 +32,11 @@ static const QString HOST = QStringLiteral("host");
 static const QString REDIRECT_STDERR = QStringLiteral("redirectStderr");
 static const QString REDIRECT_STDOUT = QStringLiteral("redirectStdout");
 
-std::random_device rd;
-std::default_random_engine rng(rd());
-std::uniform_int_distribution<> randomPort(40000, 65535);
+static std::random_device rd;
+static std::default_random_engine rng(rd());
+static std::uniform_int_distribution<> randomPort(40000, 65535);
 
-bool checkSection(const QJsonObject &data, const QString &key)
+static bool checkSection(const QJsonObject &data, const QString &key)
 {
     if (!data.contains(key)) {
         qCWarning(DAPCLIENT) << "required section '" << key << "' not found";
@@ -49,7 +49,7 @@ bool checkSection(const QJsonObject &data, const QString &key)
     return true;
 }
 
-bool checkArray(const QJsonObject &data, const QString &key)
+static bool checkArray(const QJsonObject &data, const QString &key)
 {
     return data.contains(key) && data[key].isArray();
 }
@@ -164,7 +164,7 @@ std::optional<QJsonObject> resolveClientPort(const QJsonObject &configuration)
     return std::nullopt;
 }
 
-std::optional<QStringList> toStringList(const QJsonObject &configuration, const QString &key)
+static std::optional<QStringList> toStringList(const QJsonObject &configuration, const QString &key)
 {
     const auto &field = configuration[key];
     if (field.isNull() || field.isUndefined() || !field.isArray()) {
@@ -184,7 +184,7 @@ std::optional<QStringList> toStringList(const QJsonObject &configuration, const 
     return parts;
 }
 
-std::optional<QHash<QString, QString>> toStringHash(const QJsonObject &configuration, const QString &key)
+static std::optional<QHash<QString, QString>> toStringHash(const QJsonObject &configuration, const QString &key)
 {
     const auto &field = configuration[key];
     if (field.isNull() || field.isUndefined() || !field.isObject()) {

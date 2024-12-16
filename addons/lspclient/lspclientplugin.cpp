@@ -53,7 +53,7 @@ K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", regis
  */
 static const bool debug = (qEnvironmentVariableIntValue("LSPCLIENT_DEBUG") == 1);
 static QLoggingCategory::CategoryFilter oldCategoryFilter = nullptr;
-void myCategoryFilter(QLoggingCategory *category)
+static void myCategoryFilter(QLoggingCategory *category)
 {
     // deactivate info and debug if not debug mode
     if (qstrcmp(category->categoryName(), "katelspclientplugin") == 0) {

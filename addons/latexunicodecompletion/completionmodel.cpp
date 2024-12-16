@@ -15,7 +15,7 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-bool startsWith(const Completion &comp, const std::u16string &prefix)
+static bool startsWith(const Completion &comp, const std::u16string &prefix)
 {
     if (prefix.size() <= comp.completion_strlen)
         return std::char_traits<char16_t>::compare(prefix.data(), comp.completion, prefix.size()) == 0;

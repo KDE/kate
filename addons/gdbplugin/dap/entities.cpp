@@ -12,7 +12,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-std::optional<int> parseOptionalInt(const QJsonValue &value)
+static std::optional<int> parseOptionalInt(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isDouble()) {
         return std::nullopt;
@@ -20,7 +20,7 @@ std::optional<int> parseOptionalInt(const QJsonValue &value)
     return value.toInt();
 }
 
-std::optional<bool> parseOptionalBool(const QJsonValue &value)
+static std::optional<bool> parseOptionalBool(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isBool()) {
         return std::nullopt;
@@ -28,7 +28,7 @@ std::optional<bool> parseOptionalBool(const QJsonValue &value)
     return value.toBool();
 }
 
-std::optional<QString> parseOptionalString(const QJsonValue &value)
+static std::optional<QString> parseOptionalString(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isString()) {
         return std::nullopt;
@@ -37,7 +37,7 @@ std::optional<QString> parseOptionalString(const QJsonValue &value)
 }
 
 template<typename T>
-std::optional<T> parseOptionalObject(const QJsonValue &value)
+static std::optional<T> parseOptionalObject(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isObject()) {
         return std::nullopt;
@@ -45,7 +45,7 @@ std::optional<T> parseOptionalObject(const QJsonValue &value)
     return T(value.toObject());
 }
 
-std::optional<QHash<QString, QString>> parseOptionalStringMap(const QJsonValue &value)
+static std::optional<QHash<QString, QString>> parseOptionalStringMap(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isObject()) {
         return std::nullopt;
@@ -59,7 +59,7 @@ std::optional<QHash<QString, QString>> parseOptionalStringMap(const QJsonValue &
 }
 
 template<typename T>
-QList<T> parseObjectList(const QJsonArray &array)
+static QList<T> parseObjectList(const QJsonArray &array)
 {
     QList<T> out;
     for (const auto &item : array) {
@@ -68,7 +68,7 @@ QList<T> parseObjectList(const QJsonArray &array)
     return out;
 }
 
-std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
+static std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isArray()) {
         return std::nullopt;
@@ -81,7 +81,7 @@ std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
 }
 
 template<typename T>
-QJsonArray toJsonArray(const QList<T> &items)
+static QJsonArray toJsonArray(const QList<T> &items)
 {
     QJsonArray out;
     for (const auto &item : items) {

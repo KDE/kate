@@ -17,9 +17,9 @@ namespace json
 static const QRegularExpression rx_placeholder(QLatin1String(R"--(\$\{(#?[a-z]+(?:\.[a-z]+)*)(?:\|([a-z]+))?\})--"), QRegularExpression::CaseInsensitiveOption);
 static const QRegularExpression rx_cast(QLatin1String(R"--(^\$\{(#?[a-z]+(?:\.[a-z]+)*)\|(int|bool|list)\}$)--"), QRegularExpression::CaseInsensitiveOption);
 
-std::optional<QString> valueAsString(const QJsonValue &);
+static std::optional<QString> valueAsString(const QJsonValue &);
 
-std::optional<QString> valueAsString(const QJsonArray &array, const bool quote = false)
+static std::optional<QString> valueAsString(const QJsonArray &array, const bool quote = false)
 {
     if (array.isEmpty())
         return QString();
@@ -54,7 +54,7 @@ std::optional<QString> valueAsString(const QJsonValue &value)
     return std::nullopt;
 }
 
-std::optional<QStringList> valueAsStringList(const QJsonValue &value)
+static std::optional<QStringList> valueAsStringList(const QJsonValue &value)
 {
     if (value.isArray()) {
         QStringList listValue;
@@ -74,7 +74,7 @@ std::optional<QStringList> valueAsStringList(const QJsonValue &value)
     return std::nullopt;
 }
 
-std::optional<bool> valueAsBool(const QJsonValue &value)
+static std::optional<bool> valueAsBool(const QJsonValue &value)
 {
     if (value.isBool())
         return value.toBool();
@@ -91,7 +91,7 @@ std::optional<bool> valueAsBool(const QJsonValue &value)
     return std::nullopt;
 }
 
-std::optional<int> valueAsInt(const QJsonValue &value)
+static std::optional<int> valueAsInt(const QJsonValue &value)
 {
     if (value.isDouble()) {
         return value.toInt();
@@ -115,7 +115,7 @@ std::optional<int> valueAsInt(const QJsonValue &value)
  * @param filter
  * @return
  */
-QString apply_filter(const QJsonValue &value, const QString &filter)
+static QString apply_filter(const QJsonValue &value, const QString &filter)
 {
     const QString text = valueAsString(value).value_or(QString());
     if (filter == QStringLiteral("base")) {
@@ -133,7 +133,7 @@ QString apply_filter(const QJsonValue &value, const QString &filter)
  * @param variables
  * @return QJsonValue if the replacement is successful
  */
-std::optional<QJsonValue> cast_from_string(const QString &text, const VarMap &variables)
+static std::optional<QJsonValue> cast_from_string(const QString &text, const VarMap &variables)
 {
     const auto match = rx_cast.match(text);
 

@@ -19,7 +19,7 @@ namespace dap
 constexpr int MAX_HEADER_SIZE = 1 << 16;
 
 template<typename T>
-inline Client::ResponseHandler make_response_handler(void (T::*member)(const Response &response, const QJsonValue &request), T *object)
+inline static Client::ResponseHandler make_response_handler(void (T::*member)(const Response &response, const QJsonValue &request), T *object)
 {
     return [object, member](const Response &response, const QJsonValue &request) {
         return (object->*member)(response, request);

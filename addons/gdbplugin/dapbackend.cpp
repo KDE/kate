@@ -14,12 +14,12 @@
 #include "dapbackend.h"
 #include "json_placeholders.h"
 
-QString newLine(const QString &text)
+static QString newLine(const QString &text)
 {
     return QStringLiteral("\n") + text;
 }
 
-QString printEvent(const QString &text)
+static QString printEvent(const QString &text)
 {
     return QStringLiteral("\n--> %1").arg(text);
 }
@@ -503,7 +503,7 @@ void DapBackend::onThreadEvent(const dap::ThreadEvent &info)
     m_requestThreadsTimer.start();
 }
 
-QString printModule(const dap::Module &module)
+static QString printModule(const dap::Module &module)
 {
     QString out = QStringLiteral("module %2: %1").arg(module.name);
     if (module.id_int) {
@@ -520,7 +520,7 @@ QString printModule(const dap::Module &module)
     return out;
 }
 
-QString printBreakpoint(const QString &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
+static QString printBreakpoint(const QString &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
     QString txtId = QStringLiteral("%1.").arg(bId);
     if (!bp) {

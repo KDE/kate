@@ -111,7 +111,7 @@ private:
 static constexpr KTextEditor::Document::MarkTypes markType = KTextEditor::Document::markType31;
 }
 
-KTextEditor::Document *findDocument(KTextEditor::MainWindow *mainWindow, const QUrl &url)
+static KTextEditor::Document *findDocument(KTextEditor::MainWindow *mainWindow, const QUrl &url)
 {
     auto views = mainWindow->views();
     for (const auto v : views) {

@@ -31,7 +31,7 @@
 
 static const char s_configFile[] = "kate-snippetsrc";
 
-KTextEditor::View *createView(QWidget *tabWidget)
+static KTextEditor::View *createView(QWidget *tabWidget)
 {
     auto document = KTextEditor::Editor::instance()->createDocument(tabWidget);
     auto view = document->createView(tabWidget);

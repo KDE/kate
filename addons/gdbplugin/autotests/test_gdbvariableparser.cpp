@@ -256,7 +256,7 @@ static const int FUZZY_TESTS_COUNT = 1;
 static const int FUZZY_TESTS_MAX_BUFFER_SIZE = 100;
 const QString MEANINGFUL_CHARS = QStringLiteral("=,{}\\\"\0"); // Meaningful to variable parser
 
-QChar randomChar()
+static QChar randomChar()
 {
     // Artificially increases the probability to return a meaningful character (more likely to create problems)
     if ((rand() % 2) == 0) {

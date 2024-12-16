@@ -51,7 +51,7 @@ void ConfigView::refreshUI()
     resizeEvent(nullptr);
 }
 
-std::optional<QJsonDocument> loadJSON(const QString &path)
+static std::optional<QJsonDocument> loadJSON(const QString &path)
 {
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {

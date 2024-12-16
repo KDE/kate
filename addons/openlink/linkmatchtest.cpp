@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QTest>
 
-bool operator==(OpenLinkRange l, OpenLinkRange r)
+static bool operator==(OpenLinkRange l, OpenLinkRange r)
 {
     return l.start == r.start && l.end == r.end && l.type == r.type;
 }

@@ -249,7 +249,7 @@ void KateFileBrowser::slotFilterChange(const QString &nf)
     m_dirOperator->updateDir();
 }
 
-bool kateFileSelectorIsReadable(const QUrl &url)
+static bool kateFileSelectorIsReadable(const QUrl &url)
 {
     if (!url.isLocalFile()) {
         return true; // what else can we say?

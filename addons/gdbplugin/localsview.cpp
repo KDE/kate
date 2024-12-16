@@ -36,7 +36,7 @@ void LocalsView::hideEvent(QHideEvent *)
     Q_EMIT localsVisible(false);
 }
 
-QString nameTip(const dap::Variable &variable)
+static QString nameTip(const dap::Variable &variable)
 {
     QString text = QStringLiteral("<qt>%1<qt>").arg(variable.name);
     if (variable.type && !variable.type->isEmpty()) {
@@ -45,7 +45,7 @@ QString nameTip(const dap::Variable &variable)
     return text;
 }
 
-QString valueTip(const dap::Variable &variable)
+static QString valueTip(const dap::Variable &variable)
 {
     QString text;
     if (variable.indexedVariables.value_or(0) > 0) {

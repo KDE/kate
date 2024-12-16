@@ -71,7 +71,7 @@ KTextEditor::ConfigPage *KateFileTreePlugin::configPage(int number, QWidget *par
         return nullptr;
     }
 
-    KateFileTreeConfigPage *page = new KateFileTreeConfigPage(parent, this);
+    auto *page = new KateFileTreeConfigPage(parent, this);
     return page;
 }
 
@@ -281,7 +281,7 @@ void KateFileTreePluginView::setupActions()
     /**
      * add new & open, if hosting application has it
      */
-    if (KXmlGuiWindow *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
+    if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
         bool newOrOpen = false;
         if (auto a = parentClient->action(QStringLiteral("file_new"))) {
             m_toolbar->addAction(a);

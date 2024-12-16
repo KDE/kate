@@ -84,7 +84,7 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
                 const QString newFile = destDir + QStringLiteral("/") + url.fileName();
                 const QFileInfo fi(newFile);
                 if (fi.exists() && fi.isFile()) {
-                    KateProjectItem *i = new KateProjectItem(KateProjectItem::File, url.fileName(), fi.absoluteFilePath());
+                    auto *i = new KateProjectItem(KateProjectItem::File, url.fileName(), fi.absoluteFilePath());
                     item->appendRow(i);
                     m_project->addFile(newFile, i);
                 } else {
@@ -624,7 +624,7 @@ void KateProject::registerDocument(KTextEditor::Document *document)
             // if found, add this file to the directory
             if (dir && dir->data(KateProjectItem::TypeRole).value<int>() == KateProjectItem::Directory) {
                 QFileInfo fi(document->url().toLocalFile());
-                KateProjectItem *i = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
+                auto *i = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
                 dir->appendRow(i);
                 dir->sortChildren(0);
                 addFile(path, i);
@@ -663,7 +663,7 @@ void KateProject::registerUntrackedDocument(KTextEditor::Document *document)
 
     // create document item
     QFileInfo fileInfo(document->url().toLocalFile());
-    KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName(), document->url().toLocalFile());
+    auto *fileItem = new KateProjectItem(KateProjectItem::File, fileInfo.fileName(), document->url().toLocalFile());
     fileItem->slotModifiedChanged(document);
     connect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     connect(document, &KTextEditor::Document::modifiedOnDisk, this, &KateProject::slotModifiedOnDisk);
@@ -697,7 +697,7 @@ void KateProject::unregisterDocument(KTextEditor::Document *document)
     // ignore further updates but clear state once
     disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     const QString &file = m_documents.value(document);
-    KateProjectItem *item = static_cast<KateProjectItem *>(itemForFile(file));
+    auto *item = static_cast<KateProjectItem *>(itemForFile(file));
     if (item) {
         item->slotModifiedChanged(nullptr);
     }

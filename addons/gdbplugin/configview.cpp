@@ -106,8 +106,8 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_execLabel->setBuddy(m_targetCombo);
 
     m_executable = new QLineEdit(this);
-    QCompleter *completer1 = new QCompleter(this);
-    QFileSystemModel *model = new QFileSystemModel(this);
+    auto *completer1 = new QCompleter(this);
+    auto *model = new QFileSystemModel(this);
     model->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
     completer1->setModel(model);
     m_executable->setCompleter(completer1);
@@ -116,8 +116,8 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_browseExe->setIcon(QIcon::fromTheme(QStringLiteral("application-x-executable")));
 
     m_workingDirectory = new QLineEdit(this);
-    QCompleter *completer2 = new QCompleter(this);
-    QFileSystemModel *model2 = new QFileSystemModel(completer2);
+    auto *completer2 = new QCompleter(this);
+    auto *model2 = new QFileSystemModel(completer2);
 
     completer2->setModel(model2);
     m_workingDirectory->setCompleter(completer2);
@@ -526,7 +526,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         delete m_checBoxLayout;
         m_checBoxLayout = nullptr;
         delete layout();
-        QGridLayout *layout = new QGridLayout(this);
+        auto *layout = new QGridLayout(this);
         layout->setContentsMargins(0, 0, 0, 0);
 
         layout->addWidget(m_clientCombo, 0, 0);
@@ -599,7 +599,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
             m_checBoxLayout->addWidget(m_advancedSettings, 0);
         }
 
-        QGridLayout *layout = new QGridLayout(this);
+        auto *layout = new QGridLayout(this);
         layout->setContentsMargins(0, 0, 0, 0);
         layout->addWidget(m_clientCombo, 0, 0, 1, 6);
 

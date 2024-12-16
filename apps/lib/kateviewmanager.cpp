@@ -57,7 +57,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // important, set them up, as we use them in other methodes
     setupActions();
 
-    KateViewSpace *vs = new KateViewSpace(this, nullptr);
+    auto *vs = new KateViewSpace(this, nullptr);
     addWidget(vs);
 
     vs->setActive(true);
@@ -571,7 +571,7 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
     if (!projectPluginView) {
         // try to find and enable the Projects plugin
         KatePluginList &pluginList = KateApp::self()->pluginManager()->pluginList();
-        KatePluginList::iterator i = std::find_if(pluginList.begin(), pluginList.end(), [](const KatePluginInfo &pluginInfo) {
+        auto i = std::find_if(pluginList.begin(), pluginList.end(), [](const KatePluginInfo &pluginInfo) {
             return pluginInfo.metaData.pluginId() == projectPluginId;
         });
 
@@ -778,7 +778,7 @@ bool KateViewManager::deleteView(KTextEditor::View *view)
         return true;
     }
 
-    KateViewSpace *viewspace = static_cast<KateViewSpace *>(view->parent()->parent());
+    auto *viewspace = static_cast<KateViewSpace *>(view->parent()->parent());
     viewspace->removeView(view);
     updateViewSpaceActions();
 
@@ -867,7 +867,7 @@ void KateViewManager::activateSpace(KTextEditor::View *v)
         return;
     }
 
-    KateViewSpace *vs = static_cast<KateViewSpace *>(v->parent()->parent());
+    auto *vs = static_cast<KateViewSpace *>(v->parent()->parent());
 
     if (!vs->isActiveSpace()) {
         setActiveSpace(vs);
@@ -1042,12 +1042,12 @@ KateViewSpace *KateViewManager::findIntuitiveNeighborView(KateSplitter *splitter
         // make our move
         QWidget *target = splitter->widget(dir);
         // try to see if we are next to a view space and move to it
-        KateViewSpace *targetViewSpace = qobject_cast<KateViewSpace *>(target);
+        auto *targetViewSpace = qobject_cast<KateViewSpace *>(target);
         if (targetViewSpace) {
             return targetViewSpace;
         }
         // otherwise we found a splitter and need to go down the splitter tree to the desired view space
-        KateSplitter *targetSplitter = qobject_cast<KateSplitter *>(target);
+        auto *targetSplitter = qobject_cast<KateSplitter *>(target);
         // we already made our move so we need to go down to the opposite direction :
         // e.g.: [ active | [ [ x | y ] | z ] ] going right we find a splitter and want to go to x
         int childIndex = 1 - dir;
@@ -1160,7 +1160,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     }
 
     // get current splitter, and abort if null
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
+    auto *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
     if (!currentSplitter) {
         return;
     }
@@ -1172,7 +1172,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     const int index = currentSplitter->indexOf(vs);
 
     // create new viewspace
-    KateViewSpace *vsNew = new KateViewSpace(this);
+    auto *vsNew = new KateViewSpace(this);
 
     // only 1 children -> we are the root container. So simply set the orientation
     // and add the new view space, then correct the sizes to 50%:50%
@@ -1188,7 +1188,7 @@ void KateViewManager::splitViewSpace(KateViewSpace *vs, // = 0
     } else {
         // create a new KateSplitter and replace vs with the splitter. vs and newVS are
         // the new children of the new KateSplitter
-        KateSplitter *newContainer = new KateSplitter(o);
+        auto *newContainer = new KateSplitter(o);
 
         // we don't allow full collapse, see bug 366014
         newContainer->setChildrenCollapsible(false);
@@ -1354,7 +1354,7 @@ void KateViewManager::toggleSplitterOrientation()
     }
 
     // get current splitter, and abort if null
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
+    auto *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
     if (!currentSplitter || (currentSplitter->count() == 1)) {
         return;
     }
@@ -1446,8 +1446,8 @@ bool KateViewManager::viewsInSameViewSpace(KTextEditor::View *view1, KTextEditor
         return true;
     }
 
-    KateViewSpace *vs1 = static_cast<KateViewSpace *>(view1->parent()->parent());
-    KateViewSpace *vs2 = static_cast<KateViewSpace *>(view2->parent()->parent());
+    auto *vs1 = static_cast<KateViewSpace *>(view1->parent()->parent());
+    auto *vs2 = static_cast<KateViewSpace *>(view2->parent()->parent());
     return vs1 && (vs1 == vs2);
 }
 
@@ -1483,7 +1483,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     }
 
     // get current splitter
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(viewspace->parent());
+    auto *currentSplitter = qobject_cast<KateSplitter *>(viewspace->parent());
 
     // no splitter found, bah
     if (!currentSplitter) {
@@ -1526,7 +1526,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
     // the splitter then.
     if (currentSplitter != this) {
         // get parent splitter
-        KateSplitter *parentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parent());
+        auto *parentSplitter = qobject_cast<KateSplitter *>(currentSplitter->parent());
 
         // only do magic if found ;)
         if (parentSplitter) {
@@ -1539,7 +1539,7 @@ void KateViewManager::removeViewSpace(KateViewSpace *viewspace)
             // now restore the sizes again
             parentSplitter->setSizes(parentSizes);
         }
-    } else if (KateSplitter *splitter = qobject_cast<KateSplitter *>(currentSplitter->widget(0))) {
+    } else if (auto *splitter = qobject_cast<KateSplitter *>(currentSplitter->widget(0))) {
         // we are the root splitter and have only one child, which is also a splitter
         // -> eliminate the redundant splitter and move both children into the root splitter
         QList<int> sizes = splitter->sizes();
@@ -1675,7 +1675,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
             delete widget(0);
         }
 
-        KateViewSpace *vs = new KateViewSpace(this, nullptr);
+        auto *vs = new KateViewSpace(this, nullptr);
         addWidget(vs);
         vs->setActive(true);
         m_viewSpaceList.push_back(vs);
@@ -1758,7 +1758,7 @@ void KateViewManager::restoreSplitter(const KConfigBase *configBase, const QStri
     for (const auto &str : children) {
         // for a viewspace, create it and open all documents therein.
         if (str.startsWith(viewConfGrp + QStringLiteral("-ViewSpace"))) {
-            KateViewSpace *vs = new KateViewSpace(this, nullptr);
+            auto *vs = new KateViewSpace(this, nullptr);
             m_viewSpaceList.push_back(vs);
             // make active so that the view created in restoreConfig has this
             // new view space as parent.
@@ -1794,7 +1794,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         return;
     }
 
-    KateSplitter *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
+    auto *currentSplitter = qobject_cast<KateSplitter *>(vs->parent());
 
     if (!currentSplitter) {
         return;
@@ -1811,7 +1811,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         move = fm.height() * repeats;
     }
 
-    QWidget *currentWidget = static_cast<QWidget *>(vs);
+    auto *currentWidget = static_cast<QWidget *>(vs);
     bool foundSplitter = false;
 
     // find correct splitter to be moved

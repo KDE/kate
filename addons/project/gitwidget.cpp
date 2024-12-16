@@ -331,11 +331,11 @@ void GitWidget::init()
     gitStatusRefreshButton->setToolTip(i18n("Refresh git status"));
     m_refreshButton = new BusyWrapperWidget(gitStatusRefreshButton, this);
 
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto *layout = new QVBoxLayout;
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    QHBoxLayout *btnsLayout = new QHBoxLayout;
+    auto *btnsLayout = new QHBoxLayout;
     btnsLayout->setContentsMargins(0, 4, 0, 4);
 
     btnsLayout->addWidget(m_commitBtn);
@@ -423,7 +423,7 @@ GitWidget::~GitWidget()
 
     // if there are any living processes, disconnect them now before gitwidget get destroyed
     for (QObject *child : children()) {
-        QProcess *p = qobject_cast<QProcess *>(child);
+        auto *p = qobject_cast<QProcess *>(child);
         if (p) {
             disconnect(p, nullptr, nullptr, nullptr);
         }
@@ -843,7 +843,7 @@ void GitWidget::openCommitChangesDialog(bool amend)
         return sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
     }
 
-    GitCommitDialog *dialog = new GitCommitDialog(m_commitMessage, this);
+    auto *dialog = new GitCommitDialog(m_commitMessage, this);
 
     if (amend) {
         dialog->setAmendingCommit();
@@ -1009,7 +1009,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
 
     GitUtils::parseDiffNumStat(filesWithNameStatus, git.readAllStandardOutput());
 
-    CompareBranchesView *w = new CompareBranchesView(this, m_activeGitDirPath, from, to, filesWithNameStatus);
+    auto *w = new CompareBranchesView(this, m_activeGitDirPath, from, to, filesWithNameStatus);
     w->setPluginView(m_pluginView);
     connect(w, &CompareBranchesView::backClicked, this, [this] {
         auto x = m_stackWidget->currentWidget();
@@ -1027,7 +1027,7 @@ bool GitWidget::eventFilter(QObject *o, QEvent *e)
     if (e->type() == QEvent::ContextMenu) {
         if (o != m_treeView)
             return QWidget::eventFilter(o, e);
-        QContextMenuEvent *cme = static_cast<QContextMenuEvent *>(e);
+        auto *cme = static_cast<QContextMenuEvent *>(e);
         treeViewContextMenuEvent(cme);
     }
     return QWidget::eventFilter(o, e);
@@ -1159,7 +1159,7 @@ void GitWidget::hideCancel()
 
 QMenu *GitWidget::stashMenu(KActionCollection *ac)
 {
-    QMenu *menu = new QMenu(this);
+    auto *menu = new QMenu(this);
     auto a = stashMenuAction(ac, QStringLiteral("vcs_stash"), i18n("Stash"), StashMode::Stash);
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-stash")));
     menu->addAction(a);

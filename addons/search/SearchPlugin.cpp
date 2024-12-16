@@ -177,7 +177,7 @@ KatePluginSearch::~KatePluginSearch()
 
 QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KatePluginSearchView *view = new KatePluginSearchView(this, mainWindow, KTextEditor::Editor::instance()->application());
+    auto *view = new KatePluginSearchView(this, mainWindow, KTextEditor::Editor::instance()->application());
     connect(m_searchCommand, &KateSearchCommand::setSearchPlace, view, &KatePluginSearchView::setSearchPlace);
     connect(m_searchCommand, &KateSearchCommand::setCurrentFolder, view, &KatePluginSearchView::setCurrentFolder);
     connect(m_searchCommand, &KateSearchCommand::setSearchString, view, &KatePluginSearchView::setSearchString);
@@ -293,8 +293,8 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
                                          QIcon::fromTheme(QStringLiteral("edit-find")),
                                          i18n("Search"));
 
-    ContainerWidget *container = new ContainerWidget(m_toolView);
-    QWidget *searchUi = new QWidget(container);
+    auto *container = new ContainerWidget(m_toolView);
+    auto *searchUi = new QWidget(container);
     m_ui.setupUi(searchUi);
 
     m_tabBar = new QTabBar(container);
@@ -409,7 +409,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     cmbUrl->setDuplicatesEnabled(false);
     cmbUrl->setEditable(true);
     m_ui.folderRequester->setMode(KFile::Directory | KFile::LocalOnly | KFile::ExistingOnly);
-    KUrlCompletion *cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
+    auto *cmpl = new KUrlCompletion(KUrlCompletion::DirCompletion);
     cmbUrl->setCompletionObject(cmpl);
     cmbUrl->setAutoDeleteCompletionObject(true);
 
@@ -726,7 +726,7 @@ void KatePluginSearchView::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         static ulong lastTimeStamp;
         if (lastTimeStamp == k->timestamp()) {
@@ -2072,7 +2072,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
 
 void KatePluginSearchView::addTab()
 {
-    Results *res = new Results();
+    auto *res = new Results();
 
     res->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     res->treeView->setRootIsDecorated(false);
@@ -2249,22 +2249,22 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     if (tree == nullptr) {
         return;
     }
-    QMenu *menu = new QMenu(tree);
+    auto *menu = new QMenu(tree);
 
-    QAction *copyAll = new QAction(i18n("Copy all"), tree);
+    auto *copyAll = new QAction(i18n("Copy all"), tree);
     copyAll->setShortcut(QKeySequence::Copy);
     copyAll->setShortcutVisibleInContextMenu(true);
     menu->addAction(copyAll);
 
-    QAction *copyExpanded = new QAction(i18n("Copy expanded"), tree);
+    auto *copyExpanded = new QAction(i18n("Copy expanded"), tree);
     menu->addAction(copyExpanded);
 
-    QAction *exportMatches = new QAction(i18n("Export matches"), tree);
+    auto *exportMatches = new QAction(i18n("Export matches"), tree);
     if (res->useRegExp) {
         menu->addAction(exportMatches);
     }
 
-    QAction *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
+    auto *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
     connect(openAsEditorTab, &QAction::triggered, this, [this, res] {
         if (res) {
             detachTabToMainWindow(res);
@@ -2340,13 +2340,13 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::ShortcutOverride) {
         // Ignore copy in ShortcutOverride and handle it in the KeyPress event
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if (ke->matches(QKeySequence::Copy)) {
             event->accept();
             return true;
         }
     } else if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         QTreeView *treeView = qobject_cast<QTreeView *>(obj);
         if (treeView) {
             if (ke->matches(QKeySequence::Copy)) {
@@ -2364,7 +2364,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         }
         // NOTE: Qt::Key_Escape is handled by handleEsc
     } else if (event->type() == QEvent::Resize) {
-        QResizeEvent *re = static_cast<QResizeEvent *>(event);
+        auto *re = static_cast<QResizeEvent *>(event);
         if (obj == m_toolView) {
             onResize(re->size());
         }

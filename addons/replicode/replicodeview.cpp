@@ -65,7 +65,7 @@ ReplicodeView::ReplicodeView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_stopButton = new QPushButton(i18nc("shortcut for action", "Stop (%1)", m_stopAction->shortcut().toString(QKeySequence::NativeText)));
     m_stopButton->setEnabled(false);
 
-    QFormLayout *l = qobject_cast<QFormLayout *>(m_configView->widget(0)->layout());
+    auto *l = qobject_cast<QFormLayout *>(m_configView->widget(0)->layout());
     Q_ASSERT(l);
     l->addRow(m_runButton, m_stopButton);
     connect(m_runButton, &QPushButton::clicked, m_runAction, &QAction::trigger);
@@ -115,7 +115,7 @@ void ReplicodeView::runReplicode()
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Replicode"));
 
-    QString executorPath = config.readEntry<QString>("replicodePath", QString());
+    auto executorPath = config.readEntry<QString>("replicodePath", QString());
 
     // ensure we only call replicode from PATH if not given as absolute path already
     if (!executorPath.isEmpty() && !QFileInfo(executorPath).isAbsolute()) {
@@ -198,7 +198,7 @@ void ReplicodeView::outputClicked(QListWidgetItem *item)
 void ReplicodeView::runErrored(QProcess::ProcessError error)
 {
     Q_UNUSED(error);
-    QListWidgetItem *item = new QListWidgetItem(i18n("Replicode execution failed: %1", m_executor->errorString()));
+    auto *item = new QListWidgetItem(i18n("Replicode execution failed: %1", m_executor->errorString()));
     item->setForeground(Qt::red);
     m_replicodeOutput->addItem(item);
     m_replicodeOutput->scrollToBottom();
@@ -208,7 +208,7 @@ void ReplicodeView::runErrored(QProcess::ProcessError error)
 void ReplicodeView::replicodeFinished()
 {
     if (!m_completed) {
-        QListWidgetItem *item = new QListWidgetItem(i18n("Replicode execution finished."));
+        auto *item = new QListWidgetItem(i18n("Replicode execution finished."));
         item->setForeground(Qt::blue);
         m_replicodeOutput->addItem(item);
         m_replicodeOutput->scrollToBottom();
@@ -233,7 +233,7 @@ void ReplicodeView::gotStderr()
         if (line.isEmpty()) {
             continue;
         }
-        QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(line));
+        auto *item = new QListWidgetItem(QString::fromLocal8Bit(line));
         item->setForeground(Qt::red);
         m_replicodeOutput->addItem(item);
     }
@@ -249,7 +249,7 @@ void ReplicodeView::gotStdout()
         if (line.isEmpty()) {
             continue;
         }
-        QListWidgetItem *item = new QListWidgetItem(QString::fromLocal8Bit(' ' + line));
+        auto *item = new QListWidgetItem(QString::fromLocal8Bit(' ' + line));
         if (line[0] == '>') {
             item->setForeground(Qt::gray);
         }

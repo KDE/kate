@@ -339,7 +339,7 @@ bool SnippetView::eventFilter(QObject *obj, QEvent *e)
     if (obj == snippetTree->viewport()) {
         const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, nullptr, this);
         if ((!singleClick && e->type() == QEvent::MouseButtonDblClick) || (singleClick && e->type() == QEvent::MouseButtonRelease)) {
-            QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(e);
+            auto *mouseEvent = static_cast<QMouseEvent *>(e);
             Q_ASSERT(mouseEvent);
             QModelIndex clickedIndex = snippetTree->indexAt(mouseEvent->pos());
             if (clickedIndex.isValid() && clickedIndex.parent().isValid()) {

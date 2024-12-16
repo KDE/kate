@@ -251,7 +251,7 @@ public:
         }
 
         const auto &match = m_matches.at(index.row());
-        static CompletionIcons *icons = new CompletionIcons;
+        static auto *icons = new CompletionIcons;
 
         if (role == Qt::DisplayRole) {
             if (index.column() == KTextEditor::CodeCompletionModel::Name) {
@@ -278,7 +278,7 @@ public:
                 auto h = [this, pIndex](const LSPCompletionItem &c) {
                     if (pIndex.isValid()) {
                         auto self = const_cast<LSPClientCompletionImpl *>(this);
-                        QModelIndex i = QModelIndex(pIndex);
+                        auto i = QModelIndex(pIndex);
                         // we only support resolving additionalTextEdits and documentation so only
                         // update those fields
                         self->m_matches[i.row()].documentation.value += c.documentation.value;

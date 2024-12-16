@@ -117,17 +117,17 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     KXMLGUIClient::setComponentName(QStringLiteral("katexmltools"), i18n("XML Tools"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);
+    auto *actionInsert = new QAction(i18n("&Insert Element..."), this);
     connect(actionInsert, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotInsertElement);
     actionCollection()->addAction(QStringLiteral("xml_tool_insert_element"), actionInsert);
     actionCollection()->setDefaultShortcut(actionInsert, Qt::CTRL | Qt::Key_Greater);
 
-    QAction *actionClose = new QAction(i18n("&Close Element"), this);
+    auto *actionClose = new QAction(i18n("&Close Element"), this);
     connect(actionClose, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotCloseElement);
     actionCollection()->addAction(QStringLiteral("xml_tool_close_element"), actionClose);
     actionCollection()->setDefaultShortcut(actionClose, Qt::CTRL | Qt::Key_Less);
 
-    QAction *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
+    auto *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
     connect(actionAssignDTD, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::getDTD);
     actionCollection()->addAction(QStringLiteral("xml_tool_assign"), actionAssignDTD);
 
@@ -487,7 +487,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
                            i18n("XML Plugin Error"));
 #endif
     } else {
-        PseudoDTD *dtd = new PseudoDTD();
+        auto *dtd = new PseudoDTD();
         dtd->analyzeDTD(m_urlString, m_dtdString);
 
         m_dtds.insert(m_urlString, dtd);
@@ -1039,11 +1039,11 @@ InsertElement::InsertElement(const QStringList &completions, QWidget *parent)
 {
     setWindowTitle(i18n("Insert XML Element"));
 
-    QVBoxLayout *topLayout = new QVBoxLayout(this);
+    auto *topLayout = new QVBoxLayout(this);
 
     // label
     QString text = i18n("Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):");
-    QLabel *label = new QLabel(text, this);
+    auto *label = new QLabel(text, this);
     label->setWordWrap(true);
     // combo box
     m_cmbElements = new KHistoryComboBox(this);
@@ -1051,7 +1051,7 @@ InsertElement::InsertElement(const QStringList &completions, QWidget *parent)
     connect(m_cmbElements->lineEdit(), &QLineEdit::textChanged, this, &InsertElement::slotHistoryTextChanged);
 
     // button box
-    QDialogButtonBox *box = new QDialogButtonBox(this);
+    auto *box = new QDialogButtonBox(this);
     box->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     m_okButton = box->button(QDialogButtonBox::Ok);
     m_okButton->setDefault(true);

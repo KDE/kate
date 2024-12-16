@@ -85,7 +85,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     m_closeProjectButton->setAutoRaise(true);
     m_closeProjectButton->setToolTip(i18n("Close project"));
     m_closeProjectButton->setIcon(QIcon::fromTheme(QStringLiteral(PROJECTCLOSEICON)));
-    QHBoxLayout *layout = new QHBoxLayout();
+    auto *layout = new QHBoxLayout();
     layout->setSpacing(0);
     layout->addWidget(m_projectsCombo);
     layout->addWidget(m_reloadButton);
@@ -257,7 +257,7 @@ KateProjectPluginView::~KateProjectPluginView()
      * cleanup for all views
      */
     for (QObject *view : std::as_const(m_textViews)) {
-        KTextEditor::View *v = qobject_cast<KTextEditor::View *>(view);
+        auto *v = qobject_cast<KTextEditor::View *>(view);
         if (v) {
             v->unregisterCompletionModel(m_plugin->completion());
         }
@@ -320,8 +320,8 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     /**
      * create new views
      */
-    KateProjectView *view = new KateProjectView(this, project);
-    KateProjectInfoView *infoView = new KateProjectInfoView(this, project);
+    auto *view = new KateProjectView(this, project);
+    auto *infoView = new KateProjectInfoView(this, project);
 
     /**
      * attach to toolboxes
@@ -397,7 +397,7 @@ QVariantMap KateProjectPluginView::projectMap() const
 
 QStringList KateProjectPluginView::projectFiles() const
 {
-    KateProjectView *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
+    auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (!active) {
         return QStringList();
     }
@@ -568,7 +568,7 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
      * get active project view and switch it, if it is for a different project
      * do this AFTER file selection
      */
-    KateProjectView *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
+    auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (active != m_project2View.value(project).first) {
         int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
@@ -591,7 +591,7 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
      * get active project view and switch it, if it is for a different project
      * do this AFTER file selection
      */
-    KateProjectView *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
+    auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (active != m_project2View.value(project).first) {
         int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
@@ -788,7 +788,7 @@ void KateProjectPluginView::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         const auto infoView = qobject_cast<const KateProjectInfoView *>(m_stackedProjectInfoViews->currentWidget());
         if (m_toolInfoView->isVisible() && (!infoView || !infoView->ignoreEsc())) {

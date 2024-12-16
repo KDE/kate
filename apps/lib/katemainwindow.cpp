@@ -1043,10 +1043,10 @@ void KateMainWindow::slotDropEvent(QDropEvent *event)
 
         // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
         // view where it was dropped
-        KTextEditor::View *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
+        auto *kVsender = qobject_cast<KTextEditor::View *>(QObject::sender());
         if (kVsender != nullptr) {
             if (auto parent = kVsender->parent()) {
-                KateViewSpace *vs = qobject_cast<KateViewSpace *>(parent->parent());
+                auto *vs = qobject_cast<KateViewSpace *>(parent->parent());
                 if (vs != nullptr) {
                     m_viewManager->setActiveSpace(vs);
                 }
@@ -1182,7 +1182,7 @@ void KateMainWindow::slotFullScreen(bool t)
     KToggleFullScreenAction::setFullScreen(this, t);
     QMenuBar *mb = menuBar();
     if (t) {
-        QToolButton *b = new QToolButton(mb);
+        auto *b = new QToolButton(mb);
         b->setDefaultAction(m_showFullScreenAction);
         b->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Ignored));
         b->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
@@ -1453,7 +1453,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 bool KateMainWindow::event(QEvent *e)
 {
     if (e->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *k = static_cast<QKeyEvent *>(e);
+        auto *k = static_cast<QKeyEvent *>(e);
         Q_EMIT unhandledShortcutOverride(k);
 
         if (KateApp::isKate() && k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
@@ -1596,7 +1596,7 @@ void KateMainWindow::slotQuickOpen()
     /**
      * show quick open and pass focus to it
      */
-    KateQuickOpen *quickOpen = new KateQuickOpen(this);
+    auto *quickOpen = new KateQuickOpen(this);
     centralWidget()->setFocusProxy(quickOpen);
     quickOpen->raise();
     quickOpen->show();

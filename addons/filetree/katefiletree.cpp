@@ -233,7 +233,7 @@ void KateFileTree::setMiddleClickToClose(bool value)
 
 void KateFileTree::setupContextMenuActionGroups()
 {
-    QActionGroup *modeGroup = new QActionGroup(this);
+    auto *modeGroup = new QActionGroup(this);
 
     m_treeModeAction = setupOption(modeGroup,
                                    QIcon::fromTheme(QStringLiteral("view-list-tree")),
@@ -248,7 +248,7 @@ void KateFileTree::setupContextMenuActionGroups()
                                    i18n("Set view style to List Mode"),
                                    &KateFileTree::slotListMode);
 
-    QActionGroup *sortGroup = new QActionGroup(this);
+    auto *sortGroup = new QActionGroup(this);
 
     m_sortByFile = setupOption(sortGroup,
                                QIcon(),
@@ -281,7 +281,7 @@ QAction *KateFileTree::setupOption(QActionGroup *group,
                                    const Func &slot,
                                    Qt::CheckState checked /* = Qt::Unchecked */)
 {
-    QAction *new_action = new QAction(icon, text, this);
+    auto *new_action = new QAction(icon, text, this);
     new_action->setWhatsThis(whatsThis);
     new_action->setActionGroup(group);
     new_action->setCheckable(true);

@@ -740,7 +740,7 @@ KateMainWindow *KateApp::newMainWindow(KConfig *sconfig_, const QString &sgroup_
 
     QElapsedTimer t;
     t.start();
-    KateMainWindow *mainWindow = new KateMainWindow(sconfig, sgroup, userTriggered);
+    auto *mainWindow = new KateMainWindow(sconfig, sgroup, userTriggered);
     qCDebug(LibKateTime, "Created KateMainWindow in %lld ms", t.elapsed());
     mainWindow->show();
 
@@ -827,7 +827,7 @@ bool KateApp::eventFilter(QObject *obj, QEvent *event)
          * try to open and activate the new document, like we would do for stuff
          * opened via dbus
          */
-        QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(event);
+        auto *foe = static_cast<QFileOpenEvent *>(event);
         KTextEditor::Document *doc = openDocUrl(foe->url(), QString(), false);
         if (doc && activeKateMainWindow()) {
             activeKateMainWindow()->viewManager()->activateView(doc);

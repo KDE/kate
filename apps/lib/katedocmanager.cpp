@@ -59,7 +59,7 @@ KateDocManager::~KateDocManager()
 
 void KateDocManager::slotUrlChanged(const QUrl &newUrl)
 {
-    KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
+    auto *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (doc) {
         m_docInfos.at(doc).normalizedUrl = Utils::normalizeUrl(newUrl);
     }
@@ -511,7 +511,7 @@ void KateDocManager::slotModChanged1(KTextEditor::Document *doc)
 
 void KateDocManager::documentOpened()
 {
-    KTextEditor::Document *doc = qobject_cast<KTextEditor::Document *>(sender());
+    auto *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (!doc) {
         return; // should never happen, but who knows
     }

@@ -21,8 +21,8 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
     , m_replace(false)
 {
     m_lineEdit = new QLineEdit();
-    QCompleter *completer = new QCompleter(m_lineEdit);
-    QFileSystemModel *model = new QFileSystemModel(m_lineEdit);
+    auto *completer = new QCompleter(m_lineEdit);
+    auto *model = new QFileSystemModel(m_lineEdit);
     model->setFilter(QDir::AllEntries | QDir::NoDotAndDotDot | QDir::Executable);
     completer->setModel(model);
     m_lineEdit->setCompleter(completer);
@@ -31,7 +31,7 @@ UrlInserter::UrlInserter(const QUrl &startUrl, QWidget *parent)
     m_toolButton->setIcon(QIcon::fromTheme(QStringLiteral("archive-insert-directory")));
     m_toolButton->setToolTip(i18n("Insert path"));
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    auto *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addWidget(m_lineEdit);

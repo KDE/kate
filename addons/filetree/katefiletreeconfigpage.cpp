@@ -38,13 +38,13 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     : KTextEditor::ConfigPage(parent)
     , m_plug(fl)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
 
     gbEnableShading = new QGroupBox(i18n("Background Shading"), this);
     gbEnableShading->setCheckable(true);
     layout->addWidget(gbEnableShading);
 
-    QGridLayout *lo = new QGridLayout(gbEnableShading);
+    auto *lo = new QGridLayout(gbEnableShading);
 
     kcbViewShade = new KColorButton(gbEnableShading);
     lViewShade = new QLabel(i18n("&Viewed documents' shade:"), gbEnableShading);
@@ -59,7 +59,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     lo->addWidget(kcbEditShade, 3, 1);
 
     // sorting
-    QHBoxLayout *lo2 = new QHBoxLayout;
+    auto *lo2 = new QHBoxLayout;
     layout->addLayout(lo2);
     lSort = new QLabel(i18n("&Sort by:"), this);
     lo2->addWidget(lSort);
@@ -72,7 +72,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cmbSort->addItem(i18n("Custom Sorting"), static_cast<int>(CustomSorting));
 
     // view mode
-    QHBoxLayout *lo3 = new QHBoxLayout;
+    auto *lo3 = new QHBoxLayout;
     layout->addLayout(lo3);
     lMode = new QLabel(i18n("&View Mode:"), this);
     lo3->addWidget(lMode);
@@ -83,12 +83,12 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     cmbMode->addItem(i18n("List View"), QVariant(true));
 
     // Show Full Path on Roots?
-    QHBoxLayout *lo4 = new QHBoxLayout;
+    auto *lo4 = new QHBoxLayout;
     layout->addLayout(lo4);
     cbShowFullPath = new QCheckBox(i18n("&Show Full Path"), this);
     lo4->addWidget(cbShowFullPath);
 
-    QHBoxLayout *lo5 = new QHBoxLayout;
+    auto *lo5 = new QHBoxLayout;
     layout->addLayout(lo5);
     cbShowToolbar = new QCheckBox(i18n("Show &Toolbar"), this);
     lo5->addWidget(cbShowToolbar);

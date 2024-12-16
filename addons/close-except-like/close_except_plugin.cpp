@@ -202,9 +202,9 @@ void CloseExceptPluginView::updateMenu()
         paths_set_type paths = doc_paths;
         // qDebug() << "stage #1: Collected" << paths.size() << "paths and" << masks.size() << "masks";
         // Add common paths to the collection
-        for (paths_set_type::iterator it = doc_paths.begin(), last = doc_paths.end(); it != last; ++it) {
+        for (auto it = doc_paths.begin(), last = doc_paths.end(); it != last; ++it) {
             for (QUrl url = *it; (!url.path().isEmpty()) && url.path() != QLatin1String("/"); url = KIO::upUrl(url)) {
-                paths_set_type::iterator not_it = it;
+                auto not_it = it;
                 for (++not_it; not_it != last; ++not_it) {
                     if (!not_it->path().startsWith(url.path())) {
                         break;

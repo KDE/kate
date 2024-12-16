@@ -45,7 +45,7 @@ public:
 protected:
     bool lessThan(const QModelIndex &sourceLeft, const QModelIndex &sourceRight) const override
     {
-        QAbstractItemModel * sm = sourceModel();
+        QAbstractItemModel *sm = sourceModel();
         if (pattern.isEmpty()) {
             const bool l = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceLeft);
             const bool r = static_cast<KateQuickOpenModel *>(sm)->isOpened(sourceRight);
@@ -66,7 +66,7 @@ protected:
             return QSortFilterProxyModel::filterAcceptsRow(sourceRow, parent);
         }
 
-        KateQuickOpenModel * sm = static_cast<KateQuickOpenModel *>(sourceModel());
+        auto *sm = static_cast<KateQuickOpenModel *>(sourceModel());
         if (!sm->isValid(sourceRow)) {
             return false;
         }
@@ -128,7 +128,7 @@ public Q_SLOTS:
     bool setFilterText(const QString &text)
     {
         // we don't want to trigger filtering if the user is just entering line:col
-         QString const splitted = text.split(QLatin1Char(':')).at(0);
+        QString const splitted = text.split(QLatin1Char(':')).at(0);
         if (splitted == pattern) {
             return false;
         }
@@ -276,7 +276,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
     setProperty("_breeze_force_frame", true);
 
-    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
+    auto *e = new QGraphicsDropShadowEffect(this);
     e->setColor(palette().color(QPalette::Dark));
     e->setOffset(0, 4);
     e->setBlurRadius(8);
@@ -286,7 +286,7 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     mainWindow->installEventFilter(this);
 
     // ensure the components have some proper frame
-    QVBoxLayout *layout = new QVBoxLayout();
+    auto *layout = new QVBoxLayout();
     layout->setSpacing(0);
     layout->setContentsMargins(QMargins());
     setLayout(layout);
@@ -357,7 +357,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
 {
     // catch key presses + shortcut overrides to allow to have ESC as application wide shortcut, too, see bug 409856
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == m_inputLine) {
             const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
                 || (keyEvent->key() == Qt::Key_PageDown);
@@ -421,15 +421,15 @@ void KateQuickOpen::updateState()
 void KateQuickOpen::slotReturnPressed()
 {
     // save current position before opening new url for location history
-    KateViewManager * vm = m_mainWindow->viewManager();
-    if (KTextEditor::View * v = vm->activeView()) {
+    KateViewManager *vm = m_mainWindow->viewManager();
+    if (KTextEditor::View *v = vm->activeView()) {
         vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
     }
 
     // either get view via document pointer or url
     const QModelIndex index = m_listView->currentIndex();
     KTextEditor::View *view = nullptr;
-    if (KTextEditor::Document * doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
+    if (auto *doc = index.data(KateQuickOpenModel::Document).value<KTextEditor::Document *>()) {
         view = m_mainWindow->activateView(doc);
     } else {
         QFileInfo file(index.data(Qt::UserRole).toUrl().toLocalFile());
@@ -439,7 +439,7 @@ void KateQuickOpen::slotReturnPressed()
             QObject *projectView = m_mainWindow->pluginView(QStringLiteral("kateprojectplugin"));
             if (projectView) {
                 QMetaObject::invokeMethod(projectView, "switchToProject", Qt::DirectConnection, QDir(index.data(Qt::UserRole).toUrl().toLocalFile()));
-                QWidget * toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
+                QWidget *toolview = m_mainWindow->toolviewForName(QStringLiteral("kate_mdi_focus_toolview_projects"));
                 if (toolview) {
                     m_mainWindow->showToolView(toolview);
                     toolview->setFocus();
@@ -453,7 +453,7 @@ void KateQuickOpen::slotReturnPressed()
     const QStringList strs = m_inputLine->text().split(QLatin1Char(':'));
     if (view && strs.count() > 1) {
         // helper to convert String => Number
-        std::function<int (const QString &)> stringToInt = [](const QString &s) {
+        std::function<int(const QString &)> stringToInt = [](const QString &s) {
             bool ok = false;
             const int num = s.toInt(&ok);
             return ok ? num : -1;

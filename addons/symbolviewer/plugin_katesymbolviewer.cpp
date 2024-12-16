@@ -113,8 +113,8 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
                                               QIcon::fromTheme(QStringLiteral("class")),
                                               i18n("Symbol List"));
 
-    QWidget *container = new QWidget(m_toolview);
-    QVBoxLayout *layout = new QVBoxLayout(container);
+    auto *container = new QWidget(m_toolview);
+    auto *layout = new QVBoxLayout(container);
 
     m_symbols = new QTreeWidget();
     m_symbols->setFocusPolicy(Qt::NoFocus);
@@ -272,7 +272,7 @@ QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int 
 bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolview) && (ke->key() == Qt::Key_Escape)) {
             m_mainWindow->activeView()->setFocus();
             event->accept();
@@ -356,7 +356,7 @@ void KatePluginSymbolViewerView::parseSymbols()
     } else if (hlModeName == QLatin1String("Julia")) {
         parseJuliaSymbols();
     } else {
-        QTreeWidgetItem *node = new QTreeWidgetItem(m_symbols);
+        auto *node = new QTreeWidgetItem(m_symbols);
         node->setText(0, i18n("Sorry, not supported yet!"));
         // Setting invalid line number avoid jump to top of document when clicked
         node->setText(1, QStringLiteral("-1"));
@@ -436,7 +436,7 @@ QObject *KatePluginSymbolViewer::createView(KTextEditor::MainWindow *mainWindow)
 
 KTextEditor::ConfigPage *KatePluginSymbolViewer::configPage(int, QWidget *parent)
 {
-    KatePluginSymbolViewerConfigPage *p = new KatePluginSymbolViewerConfigPage(this, parent);
+    auto *p = new KatePluginSymbolViewerConfigPage(this, parent);
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
     p->viewReturns->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
@@ -470,7 +470,7 @@ void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage *p)
 KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(QObject * /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
     : KTextEditor::ConfigPage(parentWidget)
 {
-    QVBoxLayout *lo = new QVBoxLayout(this);
+    auto *lo = new QVBoxLayout(this);
     // int spacing = KDialog::spacingHint();
     // lo->setSpacing( spacing );
 
@@ -479,8 +479,8 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(QObject * /*p
     treeView = new QCheckBox(i18n("Always display symbols in tree mode"));
     sortSymbols = new QCheckBox(i18n("Always sort symbols"));
 
-    QGroupBox *parserGBox = new QGroupBox(i18n("Parser Options"), this);
-    QVBoxLayout *top = new QVBoxLayout(parserGBox);
+    auto *parserGBox = new QGroupBox(i18n("Parser Options"), this);
+    auto *top = new QVBoxLayout(parserGBox);
     top->addWidget(viewReturns);
     top->addWidget(expandTree);
     top->addWidget(treeView);

@@ -59,7 +59,10 @@ public:
     /**
      *  Are we full featured Kate or the simplified KWrite?
      */
-    enum ApplicationMode { ApplicationKate, ApplicationKWrite };
+    enum ApplicationMode {
+        ApplicationKate,
+        ApplicationKWrite
+    };
 
     /**
      * application constructor

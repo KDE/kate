@@ -23,7 +23,7 @@ Results::Results(QWidget *parent)
         Q_EMIT requestDetachToMainWindow(this);
     });
 
-    MatchProxyModel *proxy = new MatchProxyModel(this);
+    auto *proxy = new MatchProxyModel(this);
     proxy->setSourceModel(&matchModel);
     proxy->setRecursiveFilteringEnabled(true);
     treeView->setModel(proxy);

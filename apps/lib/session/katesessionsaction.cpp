@@ -51,7 +51,7 @@ void KateSessionsAction::slotAboutToShow()
     for (const KateSession::Ptr &session : std::as_const(slist)) {
         QString sessionName = session->name();
         sessionName.replace(QStringLiteral("&"), QStringLiteral("&&"));
-        QAction *action = new QAction(sessionName, sessionsGroup);
+        auto *action = new QAction(sessionName, sessionsGroup);
         action->setData(QVariant(session->name()));
         action->setCheckable(true);
         action->setChecked(session == m_manager->activeSession());

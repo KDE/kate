@@ -13,7 +13,9 @@ namespace KTextEditor
 class Document;
 }
 
-enum { CustomSorting = 1000 };
+enum {
+    CustomSorting = 1000
+};
 
 class KateFileTreeProxyModel : public QSortFilterProxyModel
 {

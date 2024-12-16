@@ -49,7 +49,7 @@ IOView::IOView(QWidget *parent)
     m_input = new QLineEdit();
     m_output->setFocusProxy(m_input); // take the focus from the output
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->addWidget(m_output, 10);
     layout->addWidget(m_input, 0);
     layout->setContentsMargins(0, 0, 0, 0);

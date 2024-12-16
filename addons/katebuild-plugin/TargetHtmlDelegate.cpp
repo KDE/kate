@@ -98,12 +98,12 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
 {
     QWidget *editor;
     if (index.internalId() == TargetModel::InvalidIndex && index.column() == 1) {
-        UrlInserter *requester = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
+        auto *requester = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         requester->setReplace(true);
         editor = requester;
         editor->setToolTip(i18n("Leave empty to use the directory of the current document.\nAdd search directories by adding paths separated by ';'"));
     } else if (index.column() == 1) {
-        UrlInserter *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
+        auto *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;
         int const rowtype = index.data(TargetModel::RowTypeRole).toInt();
         if (rowtype == TargetModel::TargetSetRow) {
@@ -114,9 +114,9 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
             editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
         }
     } else {
-        QLineEdit *e = new QLineEdit(dparent);
-        QCompleter *completer = new QCompleter(e);
-        QFileSystemModel *model = new QFileSystemModel(e);
+        auto *e = new QLineEdit(dparent);
+        auto *completer = new QCompleter(e);
+        auto *model = new QFileSystemModel(e);
         model->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
         completer->setModel(model);
         e->setCompleter(completer);
@@ -133,12 +133,12 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index
     QString value = index.model()->data(index, Qt::EditRole).toString();
 
     if (index.column() == 1) {
-        UrlInserter *ledit = static_cast<UrlInserter *>(editor);
+        auto *ledit = static_cast<UrlInserter *>(editor);
         if (ledit) {
             ledit->lineEdit()->setText(value);
         }
     } else {
-        QLineEdit *ledit = static_cast<QLineEdit *>(editor);
+        auto *ledit = static_cast<QLineEdit *>(editor);
         if (ledit) {
             ledit->setText(value);
         }
@@ -149,10 +149,10 @@ void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model
 {
     QString value;
     if (index.column() == 1) {
-        UrlInserter *ledit = static_cast<UrlInserter *>(editor);
+        auto *ledit = static_cast<UrlInserter *>(editor);
         value = ledit->lineEdit()->text();
     } else {
-        QLineEdit *ledit = static_cast<QLineEdit *>(editor);
+        auto *ledit = static_cast<QLineEdit *>(editor);
         value = ledit->text();
     }
     model->setData(index, value, Qt::EditRole);

@@ -87,12 +87,12 @@ void SchemaWidget::buildDatabase(QTreeWidgetItem *databaseItem)
     databaseItem->setText(0, dbname);
     databaseItem->setIcon(0, QIcon::fromTheme(QStringLiteral("server-database")));
 
-    QTreeWidgetItem *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
+    auto *tablesItem = new QTreeWidgetItem(databaseItem, TablesFolderType);
     tablesItem->setText(0, i18nc("@title Folder name", "Tables"));
     tablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
     tablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
 
-    QTreeWidgetItem *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
+    auto *viewsItem = new QTreeWidgetItem(databaseItem, ViewsFolderType);
     viewsItem->setText(0, i18nc("@title Folder name", "Views"));
     viewsItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
     viewsItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -106,7 +106,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
         return;
     }
 
-    QTreeWidgetItem *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
+    auto *systemTablesItem = new QTreeWidgetItem(tablesItem, SystemTablesFolderType);
     systemTablesItem->setText(0, i18nc("@title Folder name", "System Tables"));
     systemTablesItem->setIcon(0, QIcon::fromTheme(QStringLiteral("folder")));
     systemTablesItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -115,7 +115,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
     QStringList tables = db.tables(QSql::SystemTables);
 
     for (const QString &table : std::as_const(tables)) {
-        QTreeWidgetItem *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
+        auto *item = new QTreeWidgetItem(systemTablesItem, SystemTableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -124,7 +124,7 @@ void SchemaWidget::buildTables(QTreeWidgetItem *tablesItem)
     tables = db.tables(QSql::Tables);
 
     for (const QString &table : std::as_const(tables)) {
-        QTreeWidgetItem *item = new QTreeWidgetItem(tablesItem, TableType);
+        auto *item = new QTreeWidgetItem(tablesItem, TableType);
         item->setText(0, table);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-table.png")));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -144,7 +144,7 @@ void SchemaWidget::buildViews(QTreeWidgetItem *viewsItem)
     const QStringList views = db.tables(QSql::Views);
 
     for (const QString &view : views) {
-        QTreeWidgetItem *item = new QTreeWidgetItem(viewsItem, ViewType);
+        auto *item = new QTreeWidgetItem(viewsItem, ViewType);
         item->setText(0, view);
         item->setIcon(0, QIcon(QLatin1String(":/katesql/pics/16-actions-sql-view.png")));
         item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
@@ -171,7 +171,7 @@ void SchemaWidget::buildFields(QTreeWidgetItem *tableItem)
 
         QString fieldName = f.name();
 
-        QTreeWidgetItem *item = new QTreeWidgetItem(tableItem, FieldType);
+        auto *item = new QTreeWidgetItem(tableItem, FieldType);
         item->setText(0, fieldName);
 
         if (pk.contains(fieldName)) {
@@ -211,8 +211,8 @@ void SchemaWidget::mouseMoveEvent(QMouseEvent *event)
         return;
     }
 
-    QDrag *drag = new QDrag(this);
-    QMimeData *mimeData = new QMimeData;
+    auto *drag = new QDrag(this);
+    auto *mimeData = new QMimeData;
 
     if (item->type() == SchemaWidget::FieldType) {
         mimeData->setText(QStringLiteral("%1.%2").arg(item->parent()->text(0), item->text(0)));

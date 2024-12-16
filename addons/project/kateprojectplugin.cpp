@@ -112,7 +112,7 @@ KateProject *KateProjectPlugin::createProjectForFileName(const QString &fileName
         return project;
     }
 
-    KateProject *project = new KateProject(m_threadPool, this, fileName);
+    auto *project = new KateProject(m_threadPool, this, fileName);
     if (!project->isValid()) {
         delete project;
         return nullptr;
@@ -409,7 +409,7 @@ KateProject *KateProjectPlugin::createProjectForDirectoryWithProjectMap(const QD
         return project;
     }
 
-    KateProject *project = new KateProject(m_threadPool, this, projectMap, dir.absolutePath());
+    auto *project = new KateProject(m_threadPool, this, projectMap, dir.absolutePath());
     if (!project->isValid()) {
         delete project;
         return nullptr;

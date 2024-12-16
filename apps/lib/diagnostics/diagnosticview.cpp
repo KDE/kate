@@ -1063,7 +1063,7 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         return;
     }
 
-    const KTextEditor::Range range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
+    const auto range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
     if (!range.isValid()) {
         return;
     }

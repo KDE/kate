@@ -42,7 +42,7 @@ SnippetStore::SnippetStore()
     }
 
     for (const QString &file : std::as_const(files)) {
-        SnippetRepository *repo = new SnippetRepository(file);
+        auto *repo = new SnippetRepository(file);
         appendRow(repo);
     }
 }

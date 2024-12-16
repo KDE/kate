@@ -69,9 +69,9 @@ void KateSnippetGlobal::insertSnippet(Snippet *snippet)
 
 void KateSnippetGlobal::insertSnippetFromActionData()
 {
-    QAction *action = qobject_cast<QAction *>(sender());
+    auto *action = qobject_cast<QAction *>(sender());
     Q_ASSERT(action);
-    Snippet *snippet = action->data().value<Snippet *>();
+    auto *snippet = action->data().value<Snippet *>();
     Q_ASSERT(snippet);
     insertSnippet(snippet);
 }

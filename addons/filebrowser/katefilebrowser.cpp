@@ -42,7 +42,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     : QWidget(parent)
     , m_mainWindow(mainWindow)
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    auto *mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setSpacing(0);
 
@@ -63,7 +63,7 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     m_actionCollection = new KActionCollection(this);
     m_actionCollection->addAssociatedWidget(this);
 
-    KFilePlacesModel *model = new KFilePlacesModel(this);
+    auto *model = new KFilePlacesModel(this);
     m_urlNavigator = new KUrlNavigator(model, QUrl::fromLocalFile(QDir::homePath()), this);
     connect(m_urlNavigator, &KUrlNavigator::urlChanged, this, &KateFileBrowser::updateDirOperator);
     mainLayout->addWidget(m_urlNavigator);
@@ -302,7 +302,7 @@ void KateFileBrowser::contextMenuAboutToShow(const KFileItem &item, QMenu *menu)
 
 void KateFileBrowser::fixOpenWithMenu()
 {
-    KateFileBrowserOpenWithMenu *menu = static_cast<KateFileBrowserOpenWithMenu *>(sender());
+    auto *menu = static_cast<KateFileBrowserOpenWithMenu *>(sender());
     menu->clear();
 
     // get a list of appropriate services.
@@ -412,13 +412,13 @@ QUrl KateFileBrowser::activeDocumentUrl()
 void KateFileBrowser::setupActions()
 {
     // bookmarks action!
-    KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme(QStringLiteral("bookmarks")), i18n("Bookmarks"), this);
+    auto *acmBookmarks = new KActionMenu(QIcon::fromTheme(QStringLiteral("bookmarks")), i18n("Bookmarks"), this);
     acmBookmarks->setPopupMode(QToolButton::InstantPopup);
     m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
     acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
     // action for synchronizing the dir operator with the current document path
-    QAction *syncFolder = new QAction(this);
+    auto *syncFolder = new QAction(this);
     syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     syncFolder->setText(i18n("Current Document Folder"));
     syncFolder->setIcon(QIcon::fromTheme(QStringLiteral("system-switch-user")));
@@ -428,7 +428,7 @@ void KateFileBrowser::setupActions()
     m_actionCollection->addAction(QStringLiteral("bookmarks"), acmBookmarks);
 
     // section for settings menu
-    KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
+    auto *optionsMenu = new KActionMenu(QIcon::fromTheme(QStringLiteral("configure")), i18n("Options"), this);
     optionsMenu->setPopupMode(QToolButton::InstantPopup);
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::ShortView));
     optionsMenu->addAction(m_dirOperator->action(KDirOperator::DetailedView));

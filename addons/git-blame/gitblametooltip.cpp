@@ -178,7 +178,7 @@ public:
         switch (event->type()) {
         case QEvent::KeyPress:
         case QEvent::ShortcutOverride: {
-            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            auto *ke = static_cast<QKeyEvent *>(event);
             if (ke->matches(QKeySequence::Copy)) {
                 copy();
             } else if (ke->matches(QKeySequence::SelectAll)) {
@@ -193,7 +193,7 @@ public:
             return true;
         }
         case QEvent::KeyRelease: {
-            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            auto *ke = static_cast<QKeyEvent *>(event);
             if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll)
                 || (m_ignoreKeySequence.matches(QKeySequence(ke->key()) != QKeySequence::NoMatch)) || ke->key() == Qt::Key_Control || ke->key() == Qt::Key_Alt
                 || ke->key() == Qt::Key_Shift || ke->key() == Qt::Key_AltGr || ke->key() == Qt::Key_Meta) {

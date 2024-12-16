@@ -56,17 +56,17 @@ OutputStyleWidget::~OutputStyleWidget()
 
 QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString &name)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem(this);
+    auto *item = new QTreeWidgetItem(this);
 
     item->setText(0, name);
     item->setData(0, Qt::UserRole, key);
 
-    QCheckBox *boldCheckBox = new QCheckBox(this);
-    QCheckBox *italicCheckBox = new QCheckBox(this);
-    QCheckBox *underlineCheckBox = new QCheckBox(this);
-    QCheckBox *strikeOutCheckBox = new QCheckBox(this);
-    KColorButton *foregroundColorButton = new KColorButton(this);
-    KColorButton *backgroundColorButton = new KColorButton(this);
+    auto *boldCheckBox = new QCheckBox(this);
+    auto *italicCheckBox = new QCheckBox(this);
+    auto *underlineCheckBox = new QCheckBox(this);
+    auto *strikeOutCheckBox = new QCheckBox(this);
+    auto *foregroundColorButton = new KColorButton(this);
+    auto *backgroundColorButton = new KColorButton(this);
 
     const KColorScheme scheme(QPalette::Active, KColorScheme::View);
 
@@ -97,12 +97,12 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("KateSQLPlugin"));
     KConfigGroup g = config.group(QStringLiteral("OutputCustomization")).group(item->data(0, Qt::UserRole).toString());
 
-    QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
-    QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
-    QCheckBox *underlineCheckBox = static_cast<QCheckBox *>(itemWidget(item, 3));
-    QCheckBox *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, 4));
-    KColorButton *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, 5));
-    KColorButton *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, 6));
+    auto *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
+    auto *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
+    auto *underlineCheckBox = static_cast<QCheckBox *>(itemWidget(item, 3));
+    auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, 4));
+    auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, 5));
+    auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, 6));
 
     const QFont font = g.readEntry("font", QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
@@ -121,12 +121,12 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 
     KConfigGroup g = config.group(QStringLiteral("OutputCustomization")).group(item->data(0, Qt::UserRole).toString());
 
-    QCheckBox *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
-    QCheckBox *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
-    QCheckBox *underlineCheckBox = static_cast<QCheckBox *>(itemWidget(item, 3));
-    QCheckBox *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, 4));
-    KColorButton *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, 5));
-    KColorButton *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, 6));
+    auto *boldCheckBox = static_cast<QCheckBox *>(itemWidget(item, 1));
+    auto *italicCheckBox = static_cast<QCheckBox *>(itemWidget(item, 2));
+    auto *underlineCheckBox = static_cast<QCheckBox *>(itemWidget(item, 3));
+    auto *strikeOutCheckBox = static_cast<QCheckBox *>(itemWidget(item, 4));
+    auto *foregroundColorButton = static_cast<KColorButton *>(itemWidget(item, 5));
+    auto *backgroundColorButton = static_cast<KColorButton *>(itemWidget(item, 6));
 
     QFont f(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 

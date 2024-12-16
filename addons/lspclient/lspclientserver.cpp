@@ -728,7 +728,7 @@ static std::list<LSPSymbolInformation> parseDocumentSymbols(const rapidjson::Val
         auto list = parent ? &parent->children : &ret;
         if (isPositionValid(range.start()) && isPositionValid(range.end())) {
             QString name = GetStringValue(symbol, "name");
-            LSPSymbolKind kind = (LSPSymbolKind)GetIntValue(symbol, MEMBER_KIND);
+            auto kind = (LSPSymbolKind)GetIntValue(symbol, MEMBER_KIND);
             QString detail = GetStringValue(symbol, MEMBER_DETAIL);
 
             list->push_back({name, kind, range, detail});

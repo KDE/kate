@@ -26,7 +26,7 @@ KateSQLPlugin::~KateSQLPlugin()
 
 QObject *KateSQLPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateSQLView *view = new KateSQLView(this, mainWindow);
+    auto *view = new KateSQLView(this, mainWindow);
 
     connect(this, &KateSQLPlugin::globalSettingsChanged, view, &KateSQLView::slotGlobalSettingsChanged);
 
@@ -39,7 +39,7 @@ KTextEditor::ConfigPage *KateSQLPlugin::configPage(int number, QWidget *parent)
         return nullptr;
     }
 
-    KateSQLConfigPage *page = new KateSQLConfigPage(parent);
+    auto *page = new KateSQLConfigPage(parent);
     connect(page, &KateSQLConfigPage::settingsChanged, this, &KateSQLPlugin::globalSettingsChanged);
 
     return page;

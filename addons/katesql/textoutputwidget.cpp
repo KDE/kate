@@ -33,7 +33,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
     m_output->setCurrentFont(fixedFont);
 
-    KToolBar *toolbar = new KToolBar(this);
+    auto *toolbar = new KToolBar(this);
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
@@ -44,7 +44,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
     /// TODO: disable actions if no results are displayed
 
-    QAction *action = new QAction(QIcon::fromTheme(QStringLiteral("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
+    auto *action = new QAction(QIcon::fromTheme(QStringLiteral("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
     toolbar->addAction(action);
     connect(action, &QAction::triggered, m_output, &QTextEdit::clear);
     m_layout->addWidget(toolbar);

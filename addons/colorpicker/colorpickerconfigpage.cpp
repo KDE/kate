@@ -28,7 +28,7 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
     chkNamedColors = new QCheckBox(i18n("Show preview for known color names"), this);
@@ -50,8 +50,8 @@ KateColorPickerConfigPage::KateColorPickerConfigPage(QWidget *parent, KateColorP
     connect(chkPreviewAfterColor, &QCheckBox::checkStateChanged, this, &KateColorPickerConfigPage::changed);
 #endif
 
-    QGroupBox *hexGroup = new QGroupBox(i18n("Hex color matching"), this);
-    QVBoxLayout *hexLayout = new QVBoxLayout();
+    auto *hexGroup = new QGroupBox(i18n("Hex color matching"), this);
+    auto *hexLayout = new QVBoxLayout();
     // Hex color formats supported by QColor. See https://doc.qt.io/qt-5/qcolor.html#setNamedColor
     chkHexLengths.insert_or_assign(12, new QCheckBox(i18n("12 digits (#RRRRGGGGBBBB)"), this));
     chkHexLengths.insert_or_assign(9, new QCheckBox(i18n("9 digits (#RRRGGGBBB)"), this));

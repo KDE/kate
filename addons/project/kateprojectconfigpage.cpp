@@ -18,10 +18,10 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
 
-    QVBoxLayout *vbox = new QVBoxLayout;
-    QGroupBox *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories && Build Trees"), this);
+    auto *vbox = new QVBoxLayout;
+    auto *group = new QGroupBox(i18nc("Groupbox title", "Autoload Repositories && Build Trees"), this);
     group->setWhatsThis(
         i18n("Project plugin is able to autoload repository working copies and build trees when "
              "there is no .kateproject file defined yet."));

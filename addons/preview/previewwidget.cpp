@@ -75,7 +75,7 @@ PreviewWidget::PreviewWidget(KTextEditor::MainWindow *mainWindow, QWidget *paren
     // see KXMLGUIBuilder::createContainer => tagName == d->tagMenu
     m_kPartMenu = new QMenu;
 
-    QToolButton *toolButton = new QToolButton();
+    auto *toolButton = new QToolButton();
     toolButton->setMenu(m_kPartMenu);
     toolButton->setIcon(kPartMenuIcon);
     toolButton->setText(kPartMenuText);

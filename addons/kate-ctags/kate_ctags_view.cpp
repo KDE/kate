@@ -76,7 +76,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     updateDB->setText(i18n("Configure ..."));
     connect(updateDB, &QAction::triggered, this, [this, plugin](bool) {
         if (m_mWin) {
-            KateCTagsPlugin *p = static_cast<KateCTagsPlugin *>(plugin);
+            auto *p = static_cast<KateCTagsPlugin *>(plugin);
             QDialog *confWin = new QDialog(m_mWin->window());
             confWin->setAttribute(Qt::WA_DeleteOnClose);
             auto confPage = p->configPage(0, confWin);
@@ -626,7 +626,7 @@ bool KateCTagsView::listContains(const QString &target)
 bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_mWin->hideToolView(m_toolView);
             event->accept();
@@ -649,7 +649,7 @@ void KateCTagsView::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView->isVisible()) {
             m_mWin->hideToolView(m_toolView);

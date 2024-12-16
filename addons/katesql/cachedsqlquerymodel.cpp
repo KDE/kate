@@ -4,6 +4,8 @@ SPDX-FileCopyrightText: 2010 Marco Mentasti <marcomentasti@gmail.com>
 SPDX-License-Identifier: LGPL-2.0-only
 */
 
+#include <qminmax.h>
+
 #include "cachedsqlquerymodel.h"
 
 #include <QDebug>
@@ -45,9 +47,9 @@ QSqlRecord CachedSqlQueryModel::record(int row) const
 
     if (row > cache.lastIndex()) {
         if (row - cache.lastIndex() > lookAhead) {
-            cacheRecords(row - halfLookAhead, qMin(rowCount(), row + halfLookAhead));
+            cacheRecords(row - halfLookAhead, qMin<int>(rowCount(), row + halfLookAhead));
         } else {
-            int until = qMin(rowCount(), cache.lastIndex() + lookAhead);
+            int until = qMin<int>(rowCount(), cache.lastIndex() + lookAhead);
 
             while (cache.lastIndex() < until) {
                 cache.append(QSqlQueryModel::record(cache.lastIndex() + 1));
@@ -57,7 +59,7 @@ QSqlRecord CachedSqlQueryModel::record(int row) const
         if (cache.firstIndex() - row > lookAhead) {
             cacheRecords(qMax(0, row - halfLookAhead), row + halfLookAhead);
         } else {
-            int until = qMax(0, cache.firstIndex() - lookAhead);
+            int until = qMax<int>(0, cache.firstIndex() - lookAhead);
 
             while (cache.firstIndex() > until) {
                 cache.prepend(QSqlQueryModel::record(cache.firstIndex() - 1));

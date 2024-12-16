@@ -213,7 +213,7 @@ void FormatPluginView::format()
         m_lastMergedConfig = m_plugin->formatterConfig();
     }
 
-    FormatterRunner * formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
+    FormatterRunner *formatter = formatterForDoc(m_activeDoc, m_lastMergedConfig);
     if (!formatter) {
         return;
     }

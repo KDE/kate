@@ -300,9 +300,9 @@ void DiffEditor::paintEvent(QPaintEvent *e)
 
     while (block.isValid()) {
         const QRectF r = blockBoundingRect(block).translated(offset);
-        QTextLayout * layout = block.layout();
+        QTextLayout *layout = block.layout();
 
-        const LineHighlight * hl = highlightingForLine(block.blockNumber());
+        const LineHighlight *hl = highlightingForLine(block.blockNumber());
         if (block.isVisible() && hl && layout) {
             const std::vector<Change> changes = hl->changes;
             for (Change c : changes) {

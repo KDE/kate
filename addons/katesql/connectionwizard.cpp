@@ -42,7 +42,7 @@ ConnectionDriverPage::ConnectionDriverPage(QWidget *parent)
     setTitle(i18nc("@title Wizard page title", "Database Driver"));
     setSubTitle(i18nc("@title Wizard page subtitle", "Select the database driver"));
 
-    QFormLayout *layout = new QFormLayout();
+    auto *layout = new QFormLayout();
 
     driverComboBox = new KComboBox();
     driverComboBox->addItems(QSqlDatabase::drivers());
@@ -56,7 +56,7 @@ ConnectionDriverPage::ConnectionDriverPage(QWidget *parent)
 
 void ConnectionDriverPage::initializePage()
 {
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     if (!c->driver.isEmpty()) {
@@ -79,7 +79,7 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
     setTitle(i18nc("@title Wizard page title", "Connection Parameters"));
     setSubTitle(i18nc("@title Wizard page subtitle", "Please enter connection parameters"));
 
-    QFormLayout *layout = new QFormLayout();
+    auto *layout = new QFormLayout();
 
     hostnameLineEdit = new KLineEdit();
     usernameLineEdit = new KLineEdit();
@@ -115,7 +115,7 @@ ConnectionStandardServerPage::~ConnectionStandardServerPage()
 
 void ConnectionStandardServerPage::initializePage()
 {
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     hostnameLineEdit->setText(QStringLiteral("localhost"));
@@ -146,7 +146,7 @@ bool ConnectionStandardServerPage::validatePage()
 
     QSqlError e;
 
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
 
     if (!wiz->manager()->testConnection(c, e)) {
         KMessageBox::error(this, i18n("Unable to connect to database.") + QLatin1Char('\n') + e.text());
@@ -168,7 +168,7 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage(QWidget *parent)
     setSubTitle(
         i18nc("@title Wizard page subtitle", "Please enter the SQLite database file path.\nIf the file does not exist, a new database will be created."));
 
-    QFormLayout *layout = new QFormLayout();
+    auto *layout = new QFormLayout();
 
     pathUrlRequester = new KUrlRequester(this);
     optionsLineEdit = new KLineEdit();
@@ -186,7 +186,7 @@ ConnectionSQLiteServerPage::ConnectionSQLiteServerPage(QWidget *parent)
 
 void ConnectionSQLiteServerPage::initializePage()
 {
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     if (c->driver == field(QStringLiteral("driver")).toString()) {
@@ -205,7 +205,7 @@ bool ConnectionSQLiteServerPage::validatePage()
 
     QSqlError e;
 
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
 
     if (!wiz->manager()->testConnection(c, e)) {
         KMessageBox::error(this, xi18nc("@info", "Unable to connect to database.<nl/><message>%1</message>", e.text()));
@@ -226,7 +226,7 @@ ConnectionSavePage::ConnectionSavePage(QWidget *parent)
     setTitle(i18nc("@title Wizard page title", "Connection Name"));
     setSubTitle(i18nc("@title Wizard page subtitle", "Enter a unique connection name"));
 
-    QFormLayout *layout = new QFormLayout();
+    auto *layout = new QFormLayout();
 
     connectionNameLineEdit = new KLineEdit();
 
@@ -241,7 +241,7 @@ void ConnectionSavePage::initializePage()
 {
     QString name;
 
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     if (!c->name.isEmpty()) {
@@ -273,7 +273,7 @@ bool ConnectionSavePage::validatePage()
 {
     QString name = field(QStringLiteral("connectionName")).toString().simplified();
 
-    ConnectionWizard *wiz = static_cast<ConnectionWizard *>(wizard());
+    auto *wiz = static_cast<ConnectionWizard *>(wizard());
     Connection *c = wiz->connection();
 
     c->name = name;

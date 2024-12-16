@@ -157,7 +157,7 @@ protected:
     bool eventFilter(QObject *o, QEvent *e) override
     {
         if (e->type() == QEvent::MouseButtonPress) {
-            QMouseEvent *me = static_cast<QMouseEvent *>(e);
+            auto *me = static_cast<QMouseEvent *>(e);
             if (me->button() == Qt::LeftButton) {
                 const QModelIndex idx = m_itemView.indexAt(m_itemView.viewport()->mapFromGlobal(me->globalPosition().toPoint()));
                 if (!idx.isValid()) {
@@ -169,7 +169,7 @@ protected:
         }
 
         if (e->type() == QEvent::KeyPress) {
-            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+            auto *keyEvent = static_cast<QKeyEvent *>(e);
             if ((keyEvent->modifiers() == Qt::NoModifier || keyEvent->modifiers() == Qt::SHIFT) && !keyEvent->text().isEmpty()) {
                 QChar c = keyEvent->text().front();
                 if (c.isPrint()) {

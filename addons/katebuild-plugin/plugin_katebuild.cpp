@@ -208,7 +208,7 @@ KTextEditor::ConfigPage *KateBuildPlugin::configPage(int number, QWidget *parent
         return nullptr;
     }
 
-    KateBuildConfigPage *configPage = new KateBuildConfigPage(this, parent);
+    auto *configPage = new KateBuildConfigPage(this, parent);
     return configPage;
 }
 
@@ -1838,7 +1838,7 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
 {
     switch (event->type()) {
     case QEvent::KeyPress: {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_win->hideToolView(m_toolView);
             event->accept();
@@ -1847,7 +1847,7 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
         break;
     }
     case QEvent::ShortcutOverride: {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if (ke->matches(QKeySequence::Copy)) {
             m_buildUi.textBrowser->copy();
             event->accept();
@@ -1860,7 +1860,7 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
         break;
     }
     case QEvent::KeyRelease: {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::SelectAll)) {
             event->accept();
             return true;
@@ -1880,7 +1880,7 @@ void KateBuildView::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView->isVisible()) {
             m_win->hideToolView(m_toolView);

@@ -30,7 +30,7 @@ KateSnippetsPlugin::~KateSnippetsPlugin()
 
 QObject *KateSnippetsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateSnippetsPluginView *view = new KateSnippetsPluginView(this, mainWindow);
+    auto *view = new KateSnippetsPluginView(this, mainWindow);
     return view;
 }
 

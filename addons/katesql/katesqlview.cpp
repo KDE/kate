@@ -120,7 +120,7 @@ void KateSQLView::setupActions()
     action->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     connect(action, &QAction::triggered, this, &KateSQLView::slotConnectionReconnect);
 
-    QWidgetAction *wa = new QWidgetAction(this);
+    auto *wa = new QWidgetAction(this);
     collection->addAction(QStringLiteral("connection_chooser"), wa);
     wa->setText(i18nc("@action:intoolbar", "Connection"));
     wa->setDefaultWidget(m_connectionsComboBox);
@@ -155,7 +155,7 @@ void KateSQLView::slotSQLMenuAboutToShow()
 
         QString connectionName = index.data(Qt::DisplayRole).toString();
 
-        QAction *act = new QAction(connectionName, m_connectionsGroup);
+        auto *act = new QAction(connectionName, m_connectionsGroup);
         act->setCheckable(true);
 
         if (m_connectionsComboBox->currentText() == connectionName) {
@@ -244,7 +244,7 @@ void KateSQLView::slotConnectionEdit()
     }
 
     ConnectionModel *model = m_manager->connectionModel();
-    Connection c = model->data(model->index(i), Qt::UserRole).value<Connection>();
+    auto c = model->data(model->index(i), Qt::UserRole).value<Connection>();
 
     QString previousName = c.name;
 

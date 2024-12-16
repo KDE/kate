@@ -59,7 +59,7 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
     case KTextEditor::CodeCompletionModel::IsExpandable:
         return QVariant(true);
     case KTextEditor::CodeCompletionModel::ExpandingWidget: {
-        QTextEdit *textEdit = new QTextEdit();
+        auto *textEdit = new QTextEdit();
         /// TODO: somehow make it possible to scroll like in other expanding widgets
         // don't make it too large, only show a few lines
         textEdit->resize(textEdit->width(), 100);

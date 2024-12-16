@@ -602,7 +602,7 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
+    auto *item = static_cast<ProxyItem *>(index.internalPointer());
     if (!item) {
         return QVariant();
     }
@@ -680,14 +680,14 @@ QMimeData *KateFileTreeModel::mimeData(const QModelIndexList &indexes) const
         return nullptr;
     }
 
-    ProxyItem *item = static_cast<ProxyItem *>(indexes.at(0).internalPointer());
+    auto *item = static_cast<ProxyItem *>(indexes.at(0).internalPointer());
     QList<QUrl> urls;
     if (!item || !item->doc() || !item->doc()->url().isValid()) {
         return nullptr;
     }
     urls.append(item->doc()->url());
 
-    FileTreeMimeData *mimeData = new FileTreeMimeData(indexes.at(0));
+    auto *mimeData = new FileTreeMimeData(indexes.at(0));
     mimeData->setUrls(urls);
     return mimeData;
 }
@@ -840,7 +840,7 @@ ProxyItem *KateFileTreeModel::itemForIndex(const QModelIndex &index) const
         return m_root;
     }
 
-    ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
+    auto *item = static_cast<ProxyItem *>(index.internalPointer());
     if (!item) {
         return nullptr;
     }
@@ -880,7 +880,7 @@ void KateFileTreeModel::setListMode(bool lm)
 
 void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 {
-    ProxyItem *item = new ProxyItem(QString());
+    auto *item = new ProxyItem(QString());
     item->setDoc(doc);
 
     updateItemPathAndHost(item);
@@ -1263,7 +1263,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     QString base = item->path().section(QLatin1Char('/'), 0, -2);
 
     // create new root
-    ProxyItemDir *new_root = new ProxyItemDir(base);
+    auto *new_root = new ProxyItemDir(base);
     new_root->setHost(item->host());
 
     // add new root to m_root
@@ -1338,7 +1338,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                     m_root->removeChild(root);
                     endRemoveRows();
 
-                    ProxyItemDir *irdir = new ProxyItemDir(rdir);
+                    auto *irdir = new ProxyItemDir(rdir);
                     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
                     m_root->addChild(irdir);
                     endInsertRows();
@@ -1374,7 +1374,7 @@ void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
                         m_root->removeChild(check_root);
                         endRemoveRows();
 
-                        ProxyItemDir *irdir = new ProxyItemDir(nrdir);
+                        auto *irdir = new ProxyItemDir(nrdir);
                         beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
                         m_root->addChild(irdir);
                         endInsertRows();
@@ -1488,7 +1488,7 @@ void KateFileTreeModel::addWidget(QWidget *w)
 
     const QModelIndex parentIdx = createIndex(m_widgetsRoot->row(), 0, m_widgetsRoot);
     beginInsertRows(parentIdx, m_widgetsRoot->childCount(), m_widgetsRoot->childCount());
-    ProxyItem *item = new ProxyItem(w->windowTitle());
+    auto *item = new ProxyItem(w->windowTitle());
     item->setFlag(ProxyItem::Widget);
     item->setIcon(w->windowIcon());
     item->setWidget(w);

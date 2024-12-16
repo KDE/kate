@@ -271,7 +271,7 @@ void KateViewManagementTests::testTabLRUWithWidgets()
     QCOMPARE(vm->activeView(), view2);
 
     // Add a widget
-    QWidget *widget = new QWidget;
+    auto *widget = new QWidget;
     widget->setObjectName(QStringLiteral("widget"));
     app->activeMainWindow()->addWidget(widget);
 

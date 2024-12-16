@@ -87,7 +87,7 @@ KateKonsolePlugin::~KateKonsolePlugin()
 
 QObject *KateKonsolePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateKonsolePluginView *view = new KateKonsolePluginView(this, mainWindow);
+    auto *view = new KateKonsolePluginView(this, mainWindow);
     return view;
 }
 
@@ -302,7 +302,7 @@ bool KateConsole::eventFilter(QObject *w, QEvent *e)
     }
 
     if (e->type() == QEvent::KeyPress || e->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+        auto *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
             QMetaObject::invokeMethod(m_part, "newTab");
@@ -652,7 +652,7 @@ void KateConsole::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_part) {
             const auto app = qobject_cast<TerminalInterface *>(m_part)->foregroundProcessName();
@@ -669,10 +669,10 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     : KTextEditor::ConfigPage(parent)
     , mPlugin(plugin)
 {
-    QVBoxLayout *lo = new QVBoxLayout(this);
+    auto *lo = new QVBoxLayout(this);
     lo->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
 
-    QVBoxLayout *vboxSync = new QVBoxLayout;
+    auto *vboxSync = new QVBoxLayout;
     auto groupSync = new QGroupBox(i18n("Terminal Synchronization Mode"), this);
     m_syncMode = new QButtonGroup(this);
     m_syncMode->setExclusive(true);
@@ -688,23 +688,23 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
     groupSync->setLayout(vboxSync);
     lo->addWidget(groupSync);
 
-    QVBoxLayout *vboxRun = new QVBoxLayout;
-    QGroupBox *groupRun = new QGroupBox(i18n("Run in terminal"), this);
+    auto *vboxRun = new QVBoxLayout;
+    auto *groupRun = new QGroupBox(i18n("Run in terminal"), this);
     // Remove extension
     cbRemoveExtension = new QCheckBox(i18n("&Remove extension"), this);
     vboxRun->addWidget(cbRemoveExtension);
     // Prefix
-    QFrame *framePrefix = new QFrame(this);
-    QHBoxLayout *hboxPrefix = new QHBoxLayout(framePrefix);
-    QLabel *label = new QLabel(i18n("Prefix:"), framePrefix);
+    auto *framePrefix = new QFrame(this);
+    auto *hboxPrefix = new QHBoxLayout(framePrefix);
+    auto *label = new QLabel(i18n("Prefix:"), framePrefix);
     hboxPrefix->addWidget(label);
     lePrefix = new QLineEdit(framePrefix);
     hboxPrefix->addWidget(lePrefix);
     vboxRun->addWidget(framePrefix);
     // show warning next time
-    QFrame *frameWarn = new QFrame(this);
-    QHBoxLayout *hboxWarn = new QHBoxLayout(frameWarn);
-    QPushButton *buttonWarn = new QPushButton(i18n("&Show warning next time"), frameWarn);
+    auto *frameWarn = new QFrame(this);
+    auto *hboxWarn = new QHBoxLayout(frameWarn);
+    auto *buttonWarn = new QPushButton(i18n("&Show warning next time"), frameWarn);
     buttonWarn->setWhatsThis(
         i18n("The next time '%1' is executed, "
              "make sure a warning window will pop up, "
@@ -719,13 +719,13 @@ KateKonsoleConfigPage::KateKonsoleConfigPage(QWidget *parent, KateKonsolePlugin 
 
     cbSetEditor = new QCheckBox(i18n("Set &EDITOR environment variable to 'kate -b'"), this);
     lo->addWidget(cbSetEditor);
-    QLabel *tmp = new QLabel(this);
+    auto *tmp = new QLabel(this);
     tmp->setText(i18n("Important: The document has to be closed to make the console application continue"));
     lo->addWidget(tmp);
 
     cbSetEscHideKonsole = new QCheckBox(i18n("Hide Konsole on pressing 'Esc'"));
     lo->addWidget(cbSetEscHideKonsole);
-    QLabel *hideKonsoleLabel =
+    auto *hideKonsoleLabel =
         new QLabel(i18n("This may cause issues with terminal apps that use Esc key, for e.g., vim. Add these apps in the input below (Comma separated list)"),
                    this);
     hideKonsoleLabel->setWordWrap(true);

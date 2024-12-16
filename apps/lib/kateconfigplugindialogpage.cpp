@@ -64,11 +64,11 @@ KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *di
     : QFrame(parent)
     , myDialog(dialog)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    QTreeView *listView = new QTreeView(this);
+    auto *listView = new QTreeView(this);
     layout->addWidget(listView);
     listView->setRootIsDecorated(false);
     listView->setEditTriggers(QAbstractItemView::NoEditTriggers);

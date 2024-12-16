@@ -165,7 +165,7 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
 
 void CEWidget::createTopBar(QVBoxLayout *mainLayout)
 {
-    QHBoxLayout *topBarLayout = new QHBoxLayout;
+    auto *topBarLayout = new QHBoxLayout;
     mainLayout->addLayout(topBarLayout);
 
     topBarLayout->addWidget(m_languagesCombo);
@@ -276,7 +276,7 @@ std::vector<CEWidget::CompilerLangPair> CEWidget::compilersForLanguage(const QSt
 
 void CEWidget::initOptionsComboBox()
 {
-    QMenu *menu = new QMenu(this);
+    auto *menu = new QMenu(this);
     m_optsCombo->setMenu(menu);
     m_optsCombo->setToolButtonStyle(Qt::ToolButtonTextOnly);
     m_optsCombo->setText(i18n("Options"));
@@ -284,7 +284,7 @@ void CEWidget::initOptionsComboBox()
     m_optsCombo->setArrowType(Qt::DownArrow);
 
     auto checkableAction = [this](const QString &name, CE_Options o) {
-        QAction *action = new QAction(name, this);
+        auto *action = new QAction(name, this);
         action->setCheckable(true);
         action->setChecked(readConfigForCEOption(o));
         action->setData((int)o);
@@ -327,7 +327,7 @@ void CEWidget::createMainViews(QVBoxLayout *mainLayout)
         return;
     }
 
-    QSplitter *splitter = new QSplitter(this);
+    auto *splitter = new QSplitter(this);
 
     m_textEditor = doc->createView(this, m_mainWindow);
 
@@ -517,7 +517,7 @@ void CEWidget::addExtraActionstoTextEditor()
 
     auto m = m_textEditor->defaultContextMenu();
 
-    QMenu *menu = new QMenu(this);
+    auto *menu = new QMenu(this);
     menu->addAction(i18n("Reveal linked code"), this, [this] {
         auto line = m_textEditor->cursorPosition().line();
         SourcePos p{.file = QString(), .line = line + 1, .col = 0};

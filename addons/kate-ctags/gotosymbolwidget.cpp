@@ -173,7 +173,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTag
     connect(m_proxyModel, &QSortFilterProxyModel::rowsInserted, this, &GotoSymbolWidget::reselectFirst);
     connect(m_proxyModel, &QSortFilterProxyModel::rowsRemoved, this, &GotoSymbolWidget::reselectFirst);
 
-    QVBoxLayout *layout = new QVBoxLayout();
+    auto *layout = new QVBoxLayout();
     layout->setSpacing(0);
     layout->setContentsMargins(4, 4, 4, 4);
     layout->addWidget(m_lineEdit);
@@ -187,7 +187,7 @@ GotoSymbolWidget::GotoSymbolWidget(KTextEditor::MainWindow *mainWindow, KateCTag
 bool GotoSymbolWidget::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == m_lineEdit) {
             const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
                 || (keyEvent->key() == Qt::Key_PageDown);
@@ -379,7 +379,7 @@ void GotoSymbolWidget::updateViewGeometry()
 
     move(xPos, yPos);
 
-    QPropertyAnimation *animation = new QPropertyAnimation(this, "size");
+    auto *animation = new QPropertyAnimation(this, "size");
     animation->setDuration(150);
     animation->setStartValue(this->size());
     animation->setEndValue(viewSize);

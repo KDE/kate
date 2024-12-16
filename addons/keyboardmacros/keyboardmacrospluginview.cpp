@@ -30,7 +30,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     KXMLGUIClient::setComponentName(QStringLiteral("keyboardmacros"), i18n("Keyboard Macros"));
     setXMLFile(QStringLiteral("ui.rc"));
 
-    KActionMenu *menu = new KActionMenu(i18n("&Keyboard Macros"), this);
+    auto *menu = new KActionMenu(i18n("&Keyboard Macros"), this);
     menu->setIcon(QIcon::fromTheme(QStringLiteral("input-keyboard")));
     actionCollection()->addAction(QStringLiteral("keyboardmacros"), menu);
     menu->setToolTip(i18n("Record and play keyboard macros."));

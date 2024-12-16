@@ -288,7 +288,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     auto mime = new TabMimeData(viewSpace, tabData);
     mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
 
-    QDrag *drag = new QDrag(this);
+    auto *drag = new QDrag(this);
     drag->setMimeData(mime);
     drag->setPixmap(p);
     drag->setHotSpot(dragHotspotPos.toPoint());
@@ -388,12 +388,12 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     // replace the tab with the lowest lru counter => the least recently used
 
     // search for the right tab
-    quint64 minCounter = static_cast<quint64>(-1);
+    auto minCounter = static_cast<quint64>(-1);
     int indexToReplace = 0;
     DocOrWidget docToReplace = DocOrWidget::null();
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
-        DocOrWidget doc = data.value<DocOrWidget>();
+        auto doc = data.value<DocOrWidget>();
         const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].first;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
@@ -480,7 +480,7 @@ int KateTabBar::documentIdx(DocOrWidget doc)
 DocOrWidget KateTabBar::tabDocument(int idx)
 {
     QVariant data = ensureValidTabData(idx);
-    DocOrWidget buttonData = data.value<DocOrWidget>();
+    auto buttonData = data.value<DocOrWidget>();
 
     auto doc = DocOrWidget::null();
     // The tab got activated before the correct finalization,

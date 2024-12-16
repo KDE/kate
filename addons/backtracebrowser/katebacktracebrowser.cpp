@@ -64,7 +64,7 @@ KateBtBrowserPlugin &KateBtBrowserPlugin::self()
 
 QObject *KateBtBrowserPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateBtBrowserPluginView *view = new KateBtBrowserPluginView(this, mainWindow);
+    auto *view = new KateBtBrowserPluginView(this, mainWindow);
     return view;
 }
 
@@ -167,7 +167,7 @@ void KateBtBrowserWidget::loadBacktrace(const QString &bt)
 
     lstBacktrace->clear();
     for (const BtInfo &info : infos) {
-        QTreeWidgetItem *it = new QTreeWidgetItem(lstBacktrace);
+        auto *it = new QTreeWidgetItem(lstBacktrace);
         it->setData(0, Qt::DisplayRole, QString::number(info.step));
         it->setData(0, Qt::ToolTipRole, QString::number(info.step));
         QFileInfo fi(info.filename);
@@ -359,9 +359,9 @@ KateBtConfigDialog::KateBtConfigDialog(QWidget *parent)
 
     m_configWidget = new KateBtConfigWidget(this);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
 
-    QDialogButtonBox *box = new QDialogButtonBox(this);
+    auto *box = new QDialogButtonBox(this);
     box->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
     layout->addWidget(m_configWidget);

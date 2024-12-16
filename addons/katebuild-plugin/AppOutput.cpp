@@ -92,7 +92,7 @@ AppOutput::AppOutput(QWidget *parent)
         qDebug() << "Failed to cast the TerminalInterface";
     }
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     if (d->part) {
         layout->addWidget(d->part->widget());

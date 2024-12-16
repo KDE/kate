@@ -433,7 +433,7 @@ int main(int argc, char **argv)
 
             // connect dbus signal
             if (needToBlock) {
-                KateWaiter *waiter = new KateWaiter(serviceName, tokens);
+                auto *waiter = new KateWaiter(serviceName, tokens);
                 QDBusConnection::sessionBus().connect(serviceName,
                                                       QStringLiteral("/MainApplication"),
                                                       QStringLiteral("org.kde.Kate.Application"),

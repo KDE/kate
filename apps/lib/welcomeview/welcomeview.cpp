@@ -39,7 +39,7 @@ public:
         setMargin(20);
         setWordWrap(true);
         // Match opacity of QML placeholder label component
-        QGraphicsOpacityEffect *opacityEffect = new QGraphicsOpacityEffect;
+        auto *opacityEffect = new QGraphicsOpacityEffect;
         opacityEffect->setOpacity(0.5);
         setGraphicsEffect(opacityEffect);
     }
@@ -63,7 +63,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
     m_placeholderRecentItems = new Placeholder;
     m_placeholderRecentItems->setText(KateApp::isKate() ? i18n("No recent documents or projects") : i18n("No recent documents"));
 
-    QVBoxLayout *layoutPlaceholderRecentItems = new QVBoxLayout;
+    auto *layoutPlaceholderRecentItems = new QVBoxLayout;
     layoutPlaceholderRecentItems->addWidget(m_placeholderRecentItems);
     listViewRecentItems->setLayout(layoutPlaceholderRecentItems);
 
@@ -117,7 +117,7 @@ WelcomeView::WelcomeView(KateViewManager *viewManager, QWidget *parent)
         m_placeholderSavedSessions = new Placeholder;
         m_placeholderSavedSessions->setText(i18n("No saved sessions"));
 
-        QVBoxLayout *layoutPlaceholderSavedSessions = new QVBoxLayout;
+        auto *layoutPlaceholderSavedSessions = new QVBoxLayout;
         layoutPlaceholderSavedSessions->addWidget(m_placeholderSavedSessions);
         listViewSavedSessions->setLayout(layoutPlaceholderSavedSessions);
 
@@ -245,7 +245,7 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
         });
     };
     if (selectedIndexes.size() > 1 && allSelectedAreFiles()) {
-        QAction *action = new QAction(i18n("Open Selected Files..."), this);
+        auto *action = new QAction(i18n("Open Selected Files..."), this);
         action->setIcon(QIcon::fromTheme(QStringLiteral("document-open")));
         connect(action, &QAction::triggered, this, [this, selectedIndexes]() {
             for (const auto &index : selectedIndexes) {
@@ -258,7 +258,7 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
         contextMenu.addAction(action);
     }
 
-    QAction *action = new QAction(i18n("Copy &Location"), this);
+    auto *action = new QAction(i18n("Copy &Location"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
     connect(action, &QAction::triggered, this, [url]() {
         qApp->clipboard()->setText(url.toString(QUrl::PreferLocalFile));

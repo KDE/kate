@@ -19,7 +19,7 @@ ReplicodeConfigPage::ReplicodeConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
     , m_config(new ReplicodeConfig(this))
 {
-    QGridLayout *gridlayout = new QGridLayout;
+    auto *gridlayout = new QGridLayout;
     setLayout(gridlayout);
     gridlayout->addWidget(new QLabel(i18n("Path to replicode executor:")), 0, 0);
 

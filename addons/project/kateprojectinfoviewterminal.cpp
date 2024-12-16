@@ -189,7 +189,7 @@ bool KateProjectInfoViewTerminal::eventFilter(QObject *w, QEvent *e)
     }
 
     if (e->type() == QEvent::KeyPress || e->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
+        auto *keyEvent = static_cast<QKeyEvent *>(e);
         if (isCtrlShiftT(keyEvent)) {
             e->accept();
             auto tiface = qobject_cast<TerminalInterface *>(m_konsolePart);

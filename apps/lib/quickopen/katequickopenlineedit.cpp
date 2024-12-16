@@ -67,7 +67,7 @@ void QuickOpenLineEdit::setupMenu()
 
     menu->addSeparator();
 
-    QActionGroup *actGp = new QActionGroup(this);
+    auto *actGp = new QActionGroup(this);
 
     auto act = menu->addAction(i18n("All Projects"));
     act->setCheckable(true);

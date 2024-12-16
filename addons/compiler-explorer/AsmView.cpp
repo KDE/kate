@@ -110,7 +110,7 @@ public:
 
         option.widget->style()->drawControl(QStyle::CE_ItemViewItem, &option, painter, option.widget);
 
-        const AsmViewModel *m = static_cast<const AsmViewModel *>(index.model());
+        const auto *m = static_cast<const AsmViewModel *>(index.model());
         if (m->hasError()) {
             drawTextWithErrors(painter, option, text);
             painter->restore();

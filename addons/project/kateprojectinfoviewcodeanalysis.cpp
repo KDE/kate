@@ -59,9 +59,9 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis(KateProjectPlug
     /**
      * layout widget
      */
-    QVBoxLayout *layout = new QVBoxLayout;
+    auto *layout = new QVBoxLayout;
     // top: selector and buttons...
-    QHBoxLayout *hlayout = new QHBoxLayout;
+    auto *hlayout = new QHBoxLayout;
     layout->addLayout(hlayout);
     hlayout->addWidget(m_toolSelector);
     hlayout->addWidget(m_startStopAnalysis);

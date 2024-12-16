@@ -67,9 +67,9 @@ static void formatName(QTreeWidgetItem &item, const dap::Variable &variable)
 
 QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(variable.name));
+    auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
-    QLabel *label = new QLabel(variable.value);
+    auto *label = new QLabel(variable.value);
     label->setWordWrap(true);
     setItemWidget(item, 1, label);
     item->setData(1, Qt::UserRole, variable.value);
@@ -81,9 +81,9 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
 
 QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::Variable &variable)
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(variable.name));
+    auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
-    QLabel *label = new QLabel(variable.value);
+    auto *label = new QLabel(variable.value);
     label->setWordWrap(true);
     setItemWidget(item, 1, label);
     item->setToolTip(0, nameTip(variable));

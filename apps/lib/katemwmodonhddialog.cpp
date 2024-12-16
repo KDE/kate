@@ -53,21 +53,21 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &d
     setWindowTitle(i18n("Documents Modified on Disk"));
     setModal(true);
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
 
     // Message
-    QHBoxLayout *hb = new QHBoxLayout;
+    auto *hb = new QHBoxLayout;
     mainLayout->addLayout(hb);
 
     // dialog text
-    QLabel *icon = new QLabel(this);
+    auto *icon = new QLabel(this);
     hb->addWidget(icon);
     icon->setPixmap(QIcon::fromTheme(QStringLiteral("dialog-warning")).pixmap(style()->pixelMetric(QStyle::PM_LargeIconSize, nullptr, this)));
 
-    QLabel *t = new QLabel(i18n("<qt>The documents listed below have changed on disk.<p>Select one "
-                                "or more at once, and press an action button until the list is empty.</p></qt>"),
-                           this);
+    auto *t = new QLabel(i18n("<qt>The documents listed below have changed on disk.<p>Select one "
+                              "or more at once, and press an action button until the list is empty.</p></qt>"),
+                         this);
     hb->addWidget(t);
     hb->setStretchFactor(t, 1000);
 
@@ -112,18 +112,18 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &d
     dlgButtons = new QDialogButtonBox(this);
     mainLayout->addWidget(dlgButtons);
 
-    QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-warning")), i18n("&Ignore Changes"));
+    auto *ignoreButton = new QPushButton(QIcon::fromTheme(QStringLiteral("dialog-warning")), i18n("&Ignore Changes"));
     ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
     dlgButtons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
     connect(ignoreButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotIgnore);
 
-    QPushButton *overwriteButton = new QPushButton;
+    auto *overwriteButton = new QPushButton;
     KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
     overwriteButton->setToolTip(i18n("Overwrite selected documents, discarding disk changes"));
     dlgButtons->addButton(overwriteButton, QDialogButtonBox::DestructiveRole);
     connect(overwriteButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotOverwrite);
 
-    QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
+    auto *reloadButton = new QPushButton(QIcon::fromTheme(QStringLiteral("view-refresh")), i18n("&Reload"));
     reloadButton->setDefault(true);
     reloadButton->setToolTip(i18n("Reload selected documents from disk"));
     dlgButtons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
@@ -173,8 +173,8 @@ void KateMwModOnHdDialog::handleSelected(int action)
     // collect all items we can remove
     std::vector<QTreeWidgetItem *> itemsToDelete;
     for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
-        KateDocItem *item = static_cast<KateDocItem *>(*it);
-        KateDocumentInfo * docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
+        auto *item = static_cast<KateDocItem *>(*it);
+        KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(item->document);
         if (!item->document || !docInfo) {
             itemsToDelete.push_back(item);
             continue;
@@ -226,7 +226,7 @@ void KateMwModOnHdDialog::handleSelected(int action)
 
 void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-    KateDocItem *currentDocItem = static_cast<KateDocItem *>(current);
+    auto *currentDocItem = static_cast<KateDocItem *>(current);
     if (currentDocItem && currentDocItem->document) {
         KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(currentDocItem->document);
         // set the diff button enabled
@@ -242,7 +242,7 @@ void KateMwModOnHdDialog::slotCheckedFilesChanged(QTreeWidgetItem *, int column)
     }
 
     for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
-        KateDocItem *item = static_cast<KateDocItem *>(*it);
+        auto *item = static_cast<KateDocItem *>(*it);
         if (item->checkState(0) == Qt::Checked) {
             // at least 1 item is checked so we enable the buttons
             dlgButtons->setEnabled(true);
@@ -267,7 +267,7 @@ void KateMwModOnHdDialog::slotDiff()
     }
 
     QPointer<KTextEditor::Document> doc = (static_cast<KateDocItem *>(docsTreeWidget->currentItem()))->document;
-    KateDocumentInfo * docInfo = KateApp::self()->documentManager()->documentInfo(doc);
+    KateDocumentInfo *docInfo = KateApp::self()->documentManager()->documentInfo(doc);
     if (!doc || !docInfo) {
         return;
     }
@@ -282,7 +282,7 @@ void KateMwModOnHdDialog::slotDiff()
     f->write(doc->text().toUtf8().constData());
     f->flush();
 
-    QProcess *p = new QProcess(this);
+    auto *p = new QProcess(this);
     QStringList args = {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index")};
     args << f->fileName();
     args << doc->url().toLocalFile();
@@ -349,7 +349,7 @@ void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)
 void KateMwModOnHdDialog::removeDocument(QObject *doc)
 {
     for (QTreeWidgetItemIterator it(docsTreeWidget); *it; ++it) {
-        KateDocItem *item = static_cast<KateDocItem *>(*it);
+        auto *item = static_cast<KateDocItem *>(*it);
         if (item->document == static_cast<KTextEditor::Document *>(doc)) {
             disconnect(item->document, nullptr, this, nullptr);
             delete item;

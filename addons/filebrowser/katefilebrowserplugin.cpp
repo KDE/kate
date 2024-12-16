@@ -30,7 +30,7 @@ KateFileBrowserPlugin::KateFileBrowserPlugin(QObject *parent, const QVariantList
 
 QObject *KateFileBrowserPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateFileBrowserPluginView *view = new KateFileBrowserPluginView(this, mainWindow);
+    auto *view = new KateFileBrowserPluginView(this, mainWindow);
     connect(view, &KateFileBrowserPluginView::destroyed, this, &KateFileBrowserPlugin::viewDestroyed);
     m_views.append(view);
     return view;
@@ -89,7 +89,7 @@ void KateFileBrowserPluginView::writeSessionConfig(KConfigGroup &config)
 bool KateFileBrowserPluginView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
             m_mainWindow->hideToolView(m_toolView);
             event->accept();

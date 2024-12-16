@@ -191,7 +191,7 @@ void LineNumArea::drawLineNumber(QPainter &painter, QRect rect, int blockNumber,
 
     const QString number = QString::number(num);
     QPen p = c.otherLine;
-    const LineHighlight * hl = textEdit->highlightingForLine(blockNumber);
+    const LineHighlight *hl = textEdit->highlightingForLine(blockNumber);
     if (hl) {
         p = hl->added ? c.added : c.removed;
     }

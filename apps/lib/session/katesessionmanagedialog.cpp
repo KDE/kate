@@ -348,7 +348,7 @@ void KateSessionManageDialog::updateSessionList()
             }
         }
 
-        KateSessionChooserItem *item = new KateSessionChooserItem(m_sessionList, session);
+        auto *item = new KateSessionChooserItem(m_sessionList, session);
         if (session == currSelSession) {
             currSessionItem = item;
         } else if (session == activeSession) {
@@ -428,7 +428,7 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
             return false;
         }
         if (event->type() == QEvent::KeyPress) {
-            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            auto *ke = static_cast<QKeyEvent *>(event);
             switch (ke->key()) {
             // Avoid to apply changes with untypical keys/don't left edit field this way
             case Qt::Key_Up:
@@ -441,7 +441,7 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
             }
 
         } else if (event->type() == QEvent::KeyRelease) {
-            QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+            auto *ke = static_cast<QKeyEvent *>(event);
             switch (ke->key()) {
             case Qt::Key_Escape:
                 editDone(); // Abort edit
@@ -455,7 +455,7 @@ bool KateSessionManageDialog::eventFilter(QObject *object, QEvent *event)
         }
 
     } else if (object == m_filterBox && event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         // Catch Return key to avoid to finish the dialog
         if (ke->key() == Qt::Key_Return || ke->key() == Qt::Key_Enter) {
             // avoid crash, see bug 142127

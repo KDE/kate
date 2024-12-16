@@ -146,7 +146,7 @@ bool KeyboardMacrosPlugin::eventFilter(QObject *obj, QEvent *event)
 {
     // we only spy on keyboard events so we only need to check ShortcutOverride and return false
     if (event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
         // if only modifiers are pressed, we don't care
         switch (keyEvent->key()) {
         case Qt::Key_Shift:

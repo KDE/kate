@@ -273,7 +273,7 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
          * construct the item with right directory prefix
          * already hang in directories in tree
          */
-        FileItem *fileItem = new FileItem(FileItem::File, fileName);
+        auto *fileItem = new FileItem(FileItem::File, fileName);
         fileItem->setData(fullFilePath, FileItem::Path);
         fileItem->setData(file.linesAdded, FileItem::LinesAdded);
         fileItem->setData(file.linesRemoved, FileItem::LinesRemoved);
@@ -409,7 +409,7 @@ void CommitDiffTreeView::openCommit(const QString &hash)
 {
     m_commitHash = hash;
 
-    QProcess *git = new QProcess(this);
+    auto *git = new QProcess(this);
     if (!setupGitProcess(*git,
                          m_gitDir,
                          {QStringLiteral("show"), hash, QStringLiteral("--numstat"), QStringLiteral("--pretty=oneline"), QStringLiteral("-z")})) {

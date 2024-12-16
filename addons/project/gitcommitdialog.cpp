@@ -84,12 +84,12 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
     m_pe.setFont(font);
 
     /** Dialog's main layout **/
-    QVBoxLayout *vlayout = new QVBoxLayout(this);
+    auto *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(4, 4, 4, 4);
     setLayout(vlayout);
 
     /** Setup the label at the top **/
-    QHBoxLayout *hLayoutLine = new QHBoxLayout;
+    auto *hLayoutLine = new QHBoxLayout;
     hLayoutLine->addStretch();
     hLayoutLine->addWidget(&m_leLen);
 
@@ -133,7 +133,7 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
     vlayout->addLayout(bottomLayout);
 
     /** Setup Ok / Cancel Button **/
-    QHBoxLayout *hLayout = new QHBoxLayout;
+    auto *hLayout = new QHBoxLayout;
     hLayout->addStretch();
     hLayout->addWidget(&ok);
     hLayout->addWidget(&cancel);

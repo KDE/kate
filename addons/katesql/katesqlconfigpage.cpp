@@ -18,12 +18,12 @@
 KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
 
     m_box = new QCheckBox(i18nc("@option:check", "Save and restore connections in Kate session"), this);
 
-    QGroupBox *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
-    QVBoxLayout *stylesLayout = new QVBoxLayout(stylesGroupBox);
+    auto *stylesGroupBox = new QGroupBox(i18nc("@title:group", "Output Customization"), this);
+    auto *stylesLayout = new QVBoxLayout(stylesGroupBox);
 
     m_outputStyleWidget = new OutputStyleWidget(this);
 

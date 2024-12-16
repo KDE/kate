@@ -269,7 +269,7 @@ DiffWidget::~DiffWidget()
 {
     // if there are any living processes, disconnect them now before we get destroyed
     for (QObject *child : children()) {
-        QProcess *p = qobject_cast<QProcess *>(child);
+        auto *p = qobject_cast<QProcess *>(child);
         if (p) {
             disconnect(p, nullptr, nullptr, nullptr);
         }
@@ -412,7 +412,7 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
         return;
     }
 
-    QTemporaryFile *file = new QTemporaryFile(this);
+    auto *file = new QTemporaryFile(this);
     if (!file->open()) {
         //         sendMessage(i18n("Failed to stage selection"), true);
         return;
@@ -421,7 +421,7 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
     file->close();
 
     Q_ASSERT(!m_params.workingDir.isEmpty());
-    QProcess *git = new QProcess(this);
+    auto *git = new QProcess(this);
     QStringList args;
     if (flags & Discard) {
         args = QStringList{QStringLiteral("apply"), file->fileName()};
@@ -457,7 +457,7 @@ void DiffWidget::runGitDiff()
     const int lf = m_left->firstVisibleBlockNumber();
     const int rf = m_right->firstVisibleBlockNumber();
 
-    QProcess *git = new QProcess(this);
+    auto *git = new QProcess(this);
     setupGitProcess(*git, workingDir, arguments);
     connect(git, &QProcess::finished, this, [this, git, lf, rf](int, QProcess::ExitStatus) {
         const DiffParams params = m_params;

@@ -54,19 +54,19 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage(QWidget *parent, KateFileBr
     : KTextEditor::ConfigPage(parent)
     , fileBrowser(kfb)
 {
-    QVBoxLayout *lo = new QVBoxLayout(this);
+    auto *lo = new QVBoxLayout(this);
     int spacing = QApplication::style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing);
     lo->setSpacing(spacing);
     lo->setContentsMargins(0, 0, 0, 0);
 
     // Toolbar - a lot for a little...
-    QGroupBox *gbToolbar = new QGroupBox(i18n("Toolbar"), this);
+    auto *gbToolbar = new QGroupBox(i18n("Toolbar"), this);
     gbToolbar->setFlat(true);
     acSel = new KActionSelector(gbToolbar);
     acSel->setAvailableLabel(i18n("A&vailable actions:"));
     acSel->setSelectedLabel(i18n("S&elected actions:"));
 
-    QVBoxLayout *vbox = new QVBoxLayout;
+    auto *vbox = new QVBoxLayout;
     vbox->addWidget(acSel);
     gbToolbar->setLayout(vbox);
 

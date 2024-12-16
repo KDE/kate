@@ -111,7 +111,7 @@ CloseConfirmDialog::~CloseConfirmDialog()
 void CloseConfirmDialog::updateDocsList()
 {
     for (QTreeWidgetItemIterator it(m_docs_tree, QTreeWidgetItemIterator::NotChecked); *it; ++it) {
-        KateDocItem *item = static_cast<KateDocItem *>(*it);
+        auto *item = static_cast<KateDocItem *>(*it);
         m_docs.removeAll(item->document);
         qDebug() << "do not close the file " << item->document->url().toString();
     }

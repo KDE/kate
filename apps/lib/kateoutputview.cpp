@@ -163,7 +163,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
 {
     setFocusPolicy(Qt::NoFocus);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
 
@@ -201,7 +201,7 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
 
     // setup top horizontal layout
     // tried toolbar, has bad spacing
-    QHBoxLayout *hLayout = new QHBoxLayout();
+    auto *hLayout = new QHBoxLayout();
     hLayout->setSpacing(3);
     hLayout->addWidget(&m_filterLine);
     hLayout->addWidget(copy);

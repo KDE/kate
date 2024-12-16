@@ -177,7 +177,7 @@ class ClosableTabWidget : public QTabWidget
 {
 public:
     ClosableTabWidget(QWidget *parent = nullptr)
-        : QTabWidget(parent) {};
+        : QTabWidget(parent) { };
 
     void mousePressEvent(QMouseEvent *event) override
     {
@@ -607,15 +607,15 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
-        QAction *goToAction = new QAction(i18n("Go To"));
+        auto *goToAction = new QAction(i18n("Go To"));
         actionCollection()->addAction(QStringLiteral("lspclient_goto_menu"), goToAction);
-        QMenu *goTo = new QMenu();
+        auto *goTo = new QMenu();
         goToAction->setMenu(goTo);
         goTo->addActions({m_findDecl, m_findDef, m_findTypeDef, m_switchSourceHeader});
 
-        QAction *lspOtherAction = new QAction(i18n("LSP Client"));
+        auto *lspOtherAction = new QAction(i18n("LSP Client"));
         actionCollection()->addAction(QStringLiteral("lspclient_other_menu"), lspOtherAction);
-        QMenu *lspOther = new QMenu();
+        auto *lspOther = new QMenu();
         lspOtherAction->setMenu(lspOther);
         lspOther->addAction(m_findImpl);
         lspOther->addAction(m_triggerHighlight);
@@ -972,7 +972,7 @@ public:
             return;
         }
 
-        KTextEditor::Range range = item->data(RangeData::RangeRole).value<LSPRange>();
+        auto range = item->data(RangeData::RangeRole).value<LSPRange>();
         if (!range.isValid() || range.isEmpty()) {
             return;
         }
@@ -1432,7 +1432,7 @@ public:
             return;
         }
 
-        QKeyEvent *k = static_cast<QKeyEvent *>(e);
+        auto *k = static_cast<QKeyEvent *>(e);
         if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
             if (!m_ranges.empty()) {
                 clearAllLocationMarks();

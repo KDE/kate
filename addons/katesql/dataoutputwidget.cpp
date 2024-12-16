@@ -43,10 +43,10 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 {
     m_view->setModel(m_model);
 
-    QHBoxLayout *layout = new QHBoxLayout(this);
+    auto *layout = new QHBoxLayout(this);
     m_dataLayout = new QVBoxLayout();
 
-    KToolBar *toolbar = new KToolBar(this);
+    auto *toolbar = new KToolBar(this);
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
@@ -83,7 +83,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
     toolbar->addSeparator();
 
-    KToggleAction *toggleAction =
+    auto *toggleAction =
         new KToggleAction(QIcon::fromTheme(QStringLiteral("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
     toolbar->addAction(toggleAction);
     connect(toggleAction, &QAction::triggered, this, &DataOutputWidget::slotToggleLocale);

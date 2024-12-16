@@ -261,7 +261,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
              * construct the item with right directory prefix
              * already hang in directories in tree
              */
-            KateProjectItem *fileItem = new KateProjectItem(KateProjectItem::LinkedProject, fileName, filePath);
+            auto *fileItem = new KateProjectItem(KateProjectItem::LinkedProject, fileName, filePath);
 
             /**
              * projects are directories, register them, we walk in order over the projects

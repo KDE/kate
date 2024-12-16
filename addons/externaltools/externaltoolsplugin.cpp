@@ -106,7 +106,7 @@ void KateExternalToolsPlugin::migrateConfig()
 
 QObject *KateExternalToolsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KateExternalToolsPluginView *view = new KateExternalToolsPluginView(mainWindow, this);
+    auto *view = new KateExternalToolsPluginView(mainWindow, this);
     connect(this, &KateExternalToolsPlugin::externalToolsChanged, view, &KateExternalToolsPluginView::rebuildMenu);
     return view;
 }

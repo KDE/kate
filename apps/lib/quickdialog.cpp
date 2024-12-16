@@ -125,7 +125,7 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
 
     m_delegate = new HUDStyleDelegate(this);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(4, 4, 4, 4);
 
@@ -200,7 +200,7 @@ bool HUDDialog::eventFilter(QObject *obj, QEvent *event)
 {
     // catch key presses + shortcut overrides to allow to have ESC as application wide shortcut, too, see bug 409856
     if (event->type() == QEvent::KeyPress || event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == &m_lineEdit) {
             const bool forward2list = (keyEvent->key() == Qt::Key_Up) || (keyEvent->key() == Qt::Key_Down) || (keyEvent->key() == Qt::Key_PageUp)
                 || (keyEvent->key() == Qt::Key_PageDown);

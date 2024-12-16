@@ -74,7 +74,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
     targetsView->header()->setSectionResizeMode(2, QHeaderView::Stretch);
-    QHBoxLayout *tLayout = new QHBoxLayout();
+    auto *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
@@ -89,7 +89,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
     tLayout->setContentsMargins(leftMargin, 0, 0, 0);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -192,21 +192,21 @@ void TargetsUi::pasteAfterCurrentItem()
 
 void TargetsUi::customTargetsMenuRequested(const QPoint &pos)
 {
-    QTreeView *tree = qobject_cast<QTreeView *>(sender());
+    auto *tree = qobject_cast<QTreeView *>(sender());
     if (tree == nullptr) {
         return;
     }
-    QMenu *menu = new QMenu(tree);
+    auto *menu = new QMenu(tree);
 
-    QAction *copy = new QAction(i18n("Copy"), tree);
+    auto *copy = new QAction(i18n("Copy"), tree);
     menu->addAction(copy);
     copy->setShortcut(QKeySequence::Copy);
 
-    QAction *cut = new QAction(i18n("Cut"), tree);
+    auto *cut = new QAction(i18n("Cut"), tree);
     menu->addAction(cut);
     cut->setShortcut(QKeySequence::Cut);
 
-    QAction *paste = new QAction(i18n("Paste after"), tree);
+    auto *paste = new QAction(i18n("Paste after"), tree);
     menu->addAction(paste);
     paste->setShortcut(QKeySequence::Paste);
 
@@ -287,13 +287,13 @@ bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
     }
     if (event->type() == QEvent::ShortcutOverride) {
         // Ignore copy in ShortcutOverride and handle it in the KeyPress event
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if (ke->matches(QKeySequence::Copy) || ke->matches(QKeySequence::Cut) || ke->matches(QKeySequence::Paste)) {
             event->accept();
             return true;
         }
     } else if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
         if (obj == targetsView) {
             if (keyEvent->matches(QKeySequence::Copy)) {
                 copyCurrentItem();

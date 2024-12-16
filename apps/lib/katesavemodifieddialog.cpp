@@ -178,7 +178,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
 
     connect(m_list, &QTreeWidget::itemChanged, this, &KateSaveModifiedDialog::slotItemActivated);
 
-    QPushButton *selectAllButton = new QPushButton(i18n("Se&lect All"), this);
+    auto *selectAllButton = new QPushButton(i18n("Se&lect All"), this);
     mainLayout->addWidget(selectAllButton);
     connect(selectAllButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotSelectAll);
 
@@ -188,7 +188,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     }
 
     // dialog buttons
-    QDialogButtonBox *buttons = new QDialogButtonBox(this);
+    auto *buttons = new QDialogButtonBox(this);
     wrapperLayout->addWidget(buttons, 1, 1);
 
     m_saveButton = new QPushButton;
@@ -196,12 +196,12 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     buttons->addButton(m_saveButton, QDialogButtonBox::YesRole);
     connect(m_saveButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotSaveSelected);
 
-    QPushButton *discardButton = new QPushButton;
+    auto *discardButton = new QPushButton;
     KGuiItem::assign(discardButton, KStandardGuiItem::discard());
     buttons->addButton(discardButton, QDialogButtonBox::NoRole);
     connect(discardButton, &QPushButton::clicked, this, &KateSaveModifiedDialog::slotDoNotSave);
 
-    QPushButton *cancelButton = new QPushButton;
+    auto *cancelButton = new QPushButton;
     KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
     cancelButton->setDefault(true);
     buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
@@ -251,7 +251,7 @@ void KateSaveModifiedDialog::slotDoNotSave()
 bool KateSaveModifiedDialog::doSave()
 {
     for (int i = 0; i < m_list->topLevelItemCount(); ++i) {
-        AbstractKateSaveModifiedDialogCheckListItem *cit = static_cast<AbstractKateSaveModifiedDialogCheckListItem *>(m_list->topLevelItem(i));
+        auto *cit = static_cast<AbstractKateSaveModifiedDialogCheckListItem *>(m_list->topLevelItem(i));
 
         if (cit->checkState(0) == Qt::Checked && (cit->state() != AbstractKateSaveModifiedDialogCheckListItem::SaveOKState)) {
             if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/)) {

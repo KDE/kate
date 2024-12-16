@@ -148,7 +148,7 @@ void KateProjectItem::setData(const QVariant &value, int role)
          *  retrieve the ref to project that we stored
          *  in KateProjectTreeViewContextMenu
          */
-        KateProject *project = data(KateProjectItem::ProjectRole).value<KateProject *>();
+        auto *project = data(KateProjectItem::ProjectRole).value<KateProject *>();
         if (!project) {
             return;
         }

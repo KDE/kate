@@ -87,7 +87,7 @@ SnippetRepository *SnippetRepository::createRepoFromName(const QString &name)
     const auto &path = dir.absoluteFilePath(cleanName + QLatin1String(".xml"));
     //     qDebug() << "repo path:" << path << cleanName;
 
-    SnippetRepository *repo = new SnippetRepository(path);
+    auto *repo = new SnippetRepository(path);
     repo->setText(name);
     repo->setCheckState(Qt::Checked);
     KUser user;
@@ -315,7 +315,7 @@ void SnippetRepository::parseFile()
         if (item.tagName() != QLatin1String("item")) {
             continue;
         }
-        Snippet *snippet = new Snippet;
+        auto *snippet = new Snippet;
         const QDomNodeList &children = node.childNodes();
         for (int j = 0; j < children.size(); ++j) {
             const QDomNode &childNode = children.at(j);

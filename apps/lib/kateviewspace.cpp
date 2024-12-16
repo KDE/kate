@@ -42,12 +42,12 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     , m_viewManager(viewManager)
     , m_isActiveSpace(false)
 {
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
 
     // BEGIN tab bar
-    QHBoxLayout *hLayout = new QHBoxLayout();
+    auto *hLayout = new QHBoxLayout();
     hLayout->setSpacing(0);
     hLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -114,7 +114,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
 
     auto mwActionCollection = m_viewManager->mainWindow()->actionCollection();
     // forward tab bar quick open action to global quick open action
-    QAction *bridge = new QAction(QIcon::fromTheme(QStringLiteral("quickopen")), i18nc("indicator for more documents", "+%1", 100), this);
+    auto *bridge = new QAction(QIcon::fromTheme(QStringLiteral("quickopen")), i18nc("indicator for more documents", "+%1", 100), this);
     m_quickOpen->setDefaultAction(bridge);
     QAction *quickOpen = mwActionCollection->action(QStringLiteral("view_quick_open"));
     Q_ASSERT(quickOpen);
@@ -231,7 +231,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
     if (auto button = qobject_cast<QToolButton *>(obj)) {
         // quick open button: show tool tip with shortcut
         if (button == m_quickOpen && event->type() == QEvent::ToolTip) {
-            QHelpEvent *e = static_cast<QHelpEvent *>(event);
+            auto *e = static_cast<QHelpEvent *>(event);
             QAction *quickOpen = m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("view_quick_open"));
             Q_ASSERT(quickOpen);
             QToolTip::showText(e->globalPos(),
@@ -242,7 +242,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 
         // quick open button: What's This
         if (button == m_quickOpen && event->type() == QEvent::WhatsThis) {
-            QHelpEvent *e = static_cast<QHelpEvent *>(event);
+            auto *e = static_cast<QHelpEvent *>(event);
             const int hiddenDocs = hiddenDocuments();
             QString helpText = (hiddenDocs == 0)
                 ? i18n("Click here to switch to the Quick Open view.")
@@ -267,7 +267,7 @@ bool KateViewSpace::eventFilter(QObject *obj, QEvent *event)
 
     // keep track of new sub-widgets
     if (event->type() == QEvent::ChildAdded || event->type() == QEvent::ChildRemoved) {
-        QChildEvent *c = static_cast<QChildEvent *>(event);
+        auto *c = static_cast<QChildEvent *>(event);
         if (c->added()) {
             c->child()->installEventFilter(this);
         } else if (c->removed()) {
@@ -787,7 +787,7 @@ void KateViewSpace::documentDestroyed(QObject *doc)
      * WARNING: this pointer is half destroyed
      * only good enough to check pointer value e.g. for hashes
      */
-    KTextEditor::Document *invalidDoc = static_cast<KTextEditor::Document *>(doc);
+    auto *invalidDoc = static_cast<KTextEditor::Document *>(doc);
     if (m_registeredDocuments.removeAll(invalidDoc) == 0) {
         // do nothing if this document wasn't registered for this viewspace
         return;
@@ -1167,7 +1167,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         DiffWidgetManager::diffDocs(activeDocument, doc, m_viewManager->mainWindow()->wrapper());
     });
 
-    QMenu *compareUsing = new QMenu(i18n("Compare with Active Document Using"), &menu);
+    auto *compareUsing = new QMenu(i18n("Compare with Active Document Using"), &menu);
     compareUsing->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(compareUsing);
 

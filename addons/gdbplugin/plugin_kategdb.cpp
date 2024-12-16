@@ -140,13 +140,13 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     // input
     m_inputArea = new KHistoryComboBox(true);
     connect(m_inputArea, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), this, &KatePluginGDBView::slotSendCommand);
-    QHBoxLayout *inputLayout = new QHBoxLayout();
+    auto *inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_inputArea, 10);
     inputLayout->setContentsMargins(0, 0, 0, 0);
     m_outputArea->setFocusProxy(m_inputArea); // take the focus from the outputArea
 
     m_gdbPage = new QWidget();
-    QVBoxLayout *layout = new QVBoxLayout(m_gdbPage);
+    auto *layout = new QVBoxLayout(m_gdbPage);
     layout->addWidget(m_outputArea);
     layout->addLayout(inputLayout);
     layout->setStretch(0, 10);
@@ -154,8 +154,8 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     layout->setSpacing(0);
 
     // stack page
-    QWidget *stackContainer = new QWidget();
-    QVBoxLayout *stackLayout = new QVBoxLayout(stackContainer);
+    auto *stackContainer = new QWidget();
+    auto *stackLayout = new QVBoxLayout(stackContainer);
     m_threadCombo = new QComboBox();
     m_stackTree = new QTreeWidget();
     stackLayout->addWidget(m_threadCombo);
@@ -174,8 +174,8 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
 
-    QWidget *variableContainer = new QWidget();
-    QVBoxLayout *variableLayout = new QVBoxLayout(variableContainer);
+    auto *variableContainer = new QWidget();
+    auto *variableLayout = new QVBoxLayout(variableContainer);
     m_scopeCombo = new QComboBox();
     connect(m_scopeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::scopeSelected);
     m_localsView = new LocalsView();
@@ -185,7 +185,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     variableLayout->setContentsMargins(0, 0, 0, 0);
     variableLayout->setSpacing(0);
 
-    QSplitter *locStackSplitter = new QSplitter(m_localsStackToolView.get());
+    auto *locStackSplitter = new QSplitter(m_localsStackToolView.get());
     locStackSplitter->addWidget(variableContainer);
     locStackSplitter->addWidget(stackContainer);
     locStackSplitter->setOrientation(Qt::Vertical);
@@ -730,7 +730,7 @@ void KatePluginGDBView::insertStackFrame(int level, const QString &info)
     QString shortInfo = info.mid(lastSpace);
     columns << shortInfo;
 
-    QTreeWidgetItem *item = new QTreeWidgetItem(columns);
+    auto *item = new QTreeWidgetItem(columns);
     item->setToolTip(2, QStringLiteral("<qt>%1<qt>").arg(info));
     m_stackTree->insertTopLevelItem(level, item);
 }
@@ -1018,7 +1018,7 @@ void KatePluginGDBView::addErrorText(QString const &text)
 bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
+        auto *ke = static_cast<QKeyEvent *>(event);
         if ((obj == m_toolView.get()) && (ke->key() == Qt::Key_Escape)) {
             m_mainWin->hideToolView(m_toolView.get());
             event->accept();
@@ -1036,7 +1036,7 @@ void KatePluginGDBView::handleEsc(QEvent *e)
         return;
     }
 
-    QKeyEvent *k = static_cast<QKeyEvent *>(e);
+    auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView->isVisible()) {
             m_mainWin->hideToolView(m_toolView.get());
@@ -1109,7 +1109,7 @@ void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message:
 
 QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
 {
-    QToolButton *button = new QToolButton(m_buttonWidget);
+    auto *button = new QToolButton(m_buttonWidget);
     button->setDefaultAction(action);
     button->setAutoRaise(true);
     connect(action, &QAction::visibleChanged, button, [button, action] {

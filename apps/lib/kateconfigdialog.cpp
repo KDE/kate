@@ -104,17 +104,17 @@ void KateConfigDialog::addBehaviorPage()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
-    QFrame *generalFrame = new QFrame(this);
+    auto *generalFrame = new QFrame(this);
     KPageWidgetItem *item = addScrollablePage(generalFrame, i18n("Behavior"));
     m_allPages.insert(item);
     item->setHeader(i18n("Behavior Options"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
-    QVBoxLayout *layout = new QVBoxLayout(generalFrame);
+    auto *layout = new QVBoxLayout(generalFrame);
 
     // GROUP with the one below: "Behavior"
-    QGroupBox *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);
-    QVBoxLayout *vbox = new QVBoxLayout;
+    auto *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);
+    auto *vbox = new QVBoxLayout;
     layout->addWidget(buttonGroup);
 
     // shall we try to behave like some SDI application
@@ -173,9 +173,9 @@ void KateConfigDialog::addBehaviorPage()
     buttonGroup->setLayout(vbox);
 
     if (KateApp::isKate()) {
-        QGroupBox *buttonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
+        auto *buttonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
         layout->addWidget(buttonGroup);
-        QVBoxLayout *vbox = new QVBoxLayout;
+        auto *vbox = new QVBoxLayout;
         m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), buttonGroup);
         m_syncSectionSizeWithSidebarTabs->setChecked(cgGeneral.readEntry("Sync section size with tab positions", false));
         m_syncSectionSizeWithSidebarTabs->setToolTip(
@@ -378,8 +378,8 @@ void KateConfigDialog::addSessionPage()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
-    QWidget *sessionsPage = new QWidget(this);
-    KPageWidgetItem * item = addScrollablePage(sessionsPage, i18n("Session"));
+    auto *sessionsPage = new QWidget(this);
+    KPageWidgetItem *item = addScrollablePage(sessionsPage, i18n("Session"));
     m_allPages.insert(item);
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
@@ -450,8 +450,8 @@ void KateConfigDialog::addSessionPage()
 
 void KateConfigDialog::addPluginsPage()
 {
-    QFrame *page = new QFrame(this);
-    QVBoxLayout *vlayout = new QVBoxLayout(page);
+    auto *page = new QFrame(this);
+    auto *vlayout = new QVBoxLayout(page);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 
@@ -459,7 +459,7 @@ void KateConfigDialog::addPluginsPage()
     vlayout->addWidget(m_configPluginPage);
     connect(m_configPluginPage, &KateConfigPluginPage::changed, this, &KateConfigDialog::slotChanged);
 
-    KPageWidgetItem * item = addScrollablePage(page, i18n("Plugins"));
+    KPageWidgetItem *item = addScrollablePage(page, i18n("Plugins"));
     m_allPages.insert(item);
     item->setHeader(i18n("Plugin Manager"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-plugin")));
@@ -479,7 +479,7 @@ void KateConfigDialog::addFeedbackPage()
     connect(m_userFeedbackWidget, &KUserFeedback::FeedbackConfigWidget::configurationChanged, this, &KateConfigDialog::slotChanged);
     vlayout->addWidget(m_userFeedbackWidget);
 
-    KPageWidgetItem * item = addScrollablePage(page, i18n("User Feedback"));
+    KPageWidgetItem *item = addScrollablePage(page, i18n("User Feedback"));
     m_allPages.insert(item);
     item->setHeader(i18n("User Feedback"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-desktop-locale")));
@@ -743,12 +743,12 @@ KPageWidgetItem *KateConfigDialog::addScrollablePage(QWidget *page, const QStrin
 {
     // inspired by KPageWidgetItem *KConfigDialogPrivate::addPageInternal(QWidget *page, const QString &itemName, const QString &pixmapName, const QString
     // &header)
-    QWidget *frame = new QWidget(this);
-    QVBoxLayout *boxLayout = new QVBoxLayout(frame);
+    auto *frame = new QWidget(this);
+    auto *boxLayout = new QVBoxLayout(frame);
     boxLayout->setContentsMargins(0, 0, 0, 0);
     boxLayout->setContentsMargins(0, 0, 0, 0);
 
-    QScrollArea *scroll = new QScrollArea(frame);
+    auto *scroll = new QScrollArea(frame);
     scroll->setFrameShape(QFrame::NoFrame);
     scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);

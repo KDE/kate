@@ -112,7 +112,7 @@ GUIClient::GUIClient(MainWindow *mw)
 
     m_toolMenu->addAction(m_showSidebarsAction);
     m_toolMenu->addAction(m_hideToolViews);
-    QAction *sep_act = new QAction(this);
+    auto *sep_act = new QAction(this);
     sep_act->setSeparator(true);
     m_toolMenu->addAction(sep_act);
 
@@ -197,7 +197,7 @@ void GUIClient::registerToolView(ToolView *tv)
     actionsForTool.push_back(a);
 
     aname = QStringLiteral("kate_mdi_focus_toolview_") + tv->id;
-    QAction *act = new QAction(i18n("Focus %1", tv->text), this);
+    auto *act = new QAction(i18n("Focus %1", tv->text), this);
     s = QKeySequence::listToString(shortcutsForActionName(aname));
     if (!(s.isEmpty())) {
         act->setShortcuts(shortcutsForActionName(aname));
@@ -275,7 +275,7 @@ ToolView::ToolView(MainWindow *mainwin, Sidebar *sidebar, QWidget *parent, const
     setSizePolicy(policy);
 
     // per default vbox layout
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     setLayout(layout);
@@ -365,7 +365,7 @@ MultiTabBar::MultiTabBar(KMultiTabBar::KMultiTabBarPosition pos, Sidebar *sb, in
     , m_multiTabBar(new KMultiTabBar(pos, this))
 {
     setProperty("is-multi-tabbar", true);
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    auto *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     layout->addWidget(m_multiTabBar);
@@ -1095,8 +1095,8 @@ void Sidebar::updateSidebar()
 bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
 {
     if (ev->type() == QEvent::ContextMenu) {
-        QContextMenuEvent *e = static_cast<QContextMenuEvent *>(ev);
-        KMultiTabBarTab *bt = qobject_cast<KMultiTabBarTab *>(obj);
+        auto *e = static_cast<QContextMenuEvent *>(ev);
+        auto *bt = qobject_cast<KMultiTabBarTab *>(obj);
         if (bt) {
             // qCDebug(LOG_KATE) << "Request for popup";
 
@@ -1176,12 +1176,12 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         }
     } else if (ev->type() == QEvent::MouseButtonRelease) {
         // The sidebar's splitter handle handle was released, so we update the sidebar's size. See Sidebar::updateLastSizeOnResize
-        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
+        auto *e = static_cast<QMouseEvent *>(ev);
         if (e->button() == Qt::LeftButton) {
             updateLastSize();
         }
     } else if (ev->type() == QEvent::MouseButtonPress) {
-        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
+        auto *e = static_cast<QMouseEvent *>(ev);
         if (qobject_cast<MultiTabBar *>(obj)) {
             // The non-tab area of the sidebar is clicked (well, pressed) => toggle collapse/expand
             if (e->button() == Qt::LeftButton) {
@@ -1198,12 +1198,12 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
             dragStartPos = e->pos();
         }
     } else if (!dragStartPos.isNull() && ev->type() == QEvent::MouseMove) {
-        QMouseEvent *e = static_cast<QMouseEvent *>(ev);
-        KMultiTabBarTab *tab = qobject_cast<KMultiTabBarTab *>(obj);
+        auto *e = static_cast<QMouseEvent *>(ev);
+        auto *tab = qobject_cast<KMultiTabBarTab *>(obj);
         if (tab && (e->pos() - dragStartPos).manhattanLength() >= QApplication::startDragDistance()) {
             // start drag
             QPixmap pixmap = tab->grab();
-            QDrag *drag = new QDrag(this);
+            auto *drag = new QDrag(this);
             auto md = new QMimeData();
             ToolView *toolView = dataForId(tab->id()).toolview;
             Q_ASSERT(toolView);
@@ -1251,7 +1251,7 @@ void Sidebar::dragEnterEvent(QDragEnterEvent *e)
         }
 
         auto mimeData = e->mimeData();
-        ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+        auto *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
         QWidget *tab = tabButtonForToolview(toolview);
         if (!tab || !toolview) {
             return;
@@ -1287,14 +1287,14 @@ void Sidebar::dropEvent(QDropEvent *e)
     if (!mimeData) {
         return;
     }
-    ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+    auto *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
     if (!toolview) {
         return;
     }
 
     if (e->source() == this) {
         // Re-ordering tabs
-        KMultiTabBarTab *sourceTab = qobject_cast<KMultiTabBarTab *>(tabButtonForToolview(toolview));
+        auto *sourceTab = qobject_cast<KMultiTabBarTab *>(tabButtonForToolview(toolview));
         if (!sourceTab) {
             return;
         }
@@ -1321,7 +1321,7 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
         return;
     }
 
-    KMultiTabBarTab *tab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
+    auto *tab = qobject_cast<KMultiTabBarTab *>(childAt(e->position().toPoint()));
     if (tab) {
         // moving over a tab? show the indicator at tab start
         const QPoint tabPos = tab->pos();
@@ -1331,7 +1331,7 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
     } else {
         // Otherwise show at the end of tab list
         auto mimeData = e->mimeData();
-        ToolView *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
+        auto *toolview = mimeData->property("toolviewToMove").value<ToolView *>();
         if (!toolview) {
             return;
         }
@@ -1558,17 +1558,17 @@ MainWindow::MainWindow(QWidget *parent)
     , m_guiClient(new GUIClient(this))
 {
     // central frame for all stuff
-    QFrame *hb = new QFrame(this);
+    auto *hb = new QFrame(this);
     hb->setObjectName("KateCentralWidget");
     setCentralWidget(hb);
 
     // top level vbox for all stuff + bottom bar
-    QVBoxLayout *toplevelVBox = new QVBoxLayout(hb);
+    auto *toplevelVBox = new QVBoxLayout(hb);
     toplevelVBox->setContentsMargins(0, 0, 0, 0);
     toplevelVBox->setSpacing(0);
 
     // hbox for all splitters and other side bars
-    QHBoxLayout *hlayout = new QHBoxLayout;
+    auto *hlayout = new QHBoxLayout;
     hlayout->setContentsMargins(0, 0, 0, 0);
     hlayout->setSpacing(0);
     toplevelVBox->addLayout(hlayout);
@@ -1578,8 +1578,8 @@ MainWindow::MainWindow(QWidget *parent)
     hlayout->addWidget(m_sidebars[KMultiTabBar::Left].get());
     hlayout->addWidget(m_hSplitter);
 
-    QFrame *vb = new QFrame(m_hSplitter);
-    QVBoxLayout *vlayout = new QVBoxLayout(vb);
+    auto *vb = new QFrame(m_hSplitter);
+    auto *vlayout = new QVBoxLayout(vb);
     vlayout->setContentsMargins(0, 0, 0, 0);
     vlayout->setSpacing(0);
 

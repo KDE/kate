@@ -88,7 +88,8 @@ public:
     {
         const auto strs = index.data().toString().split(QLatin1Char(' '));
         if (strs.count() < 3) {
-            return QStyledItemDelegate::paint(painter, option, index);
+            QStyledItemDelegate::paint(painter, option, index);
+            return;
         }
 
         QStyleOptionViewItem options = option;
@@ -840,7 +841,8 @@ void GitWidget::commitChanges(const QString &msg, const QString &desc, bool sign
 void GitWidget::openCommitChangesDialog(bool amend)
 {
     if (!amend && m_model->stagedFiles().isEmpty()) {
-        return sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
+        sendMessage(i18n("Nothing to commit. Please stage your changes first."), true);
+        return;
     }
 
     auto *dialog = new GitCommitDialog(m_commitMessage, this);
@@ -853,7 +855,8 @@ void GitWidget::openCommitChangesDialog(bool amend)
         dialog->deleteLater();
         if (res == QDialog::Accepted) {
             if (dialog->subject().isEmpty()) {
-                return sendMessage(i18n("Commit message cannot be empty."), true);
+                sendMessage(i18n("Commit message cannot be empty."), true);
+                return;
             }
             m_commitMessage = dialog->subject() + QStringLiteral("[[\n\n]]") + dialog->description();
             commitChanges(dialog->subject(), dialog->description(), dialog->signoff(), dialog->amendingLastCommit());
@@ -880,9 +883,11 @@ void GitWidget::handleClick(const QModelIndex &idx, ClickAction clickAction)
 
     if (clickAction == ClickAction::StageUnstage) {
         if (staged) {
-            return unstage({file});
+            unstage({file});
+            return;
         }
-        return stage({file});
+        stage({file});
+        return;
     }
 
     if (clickAction == ClickAction::ShowDiff && statusItemType != GitStatusModel::NodeUntrack) {
@@ -1207,7 +1212,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
 {
     if (auto selModel = m_treeView->selectionModel()) {
         if (selModel->selectedRows().count() > 1) {
-            return selectedContextMenu(e);
+            selectedContextMenu(e);
+            return;
         }
     }
 
@@ -1285,9 +1291,11 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const QString file = m_activeGitDirPath + idx.data(GitStatusModel::FileNameRole).toString();
         if (act == stageAct) {
             if (staged) {
-                return unstage({file});
+                unstage({file});
+                return;
             }
-            return stage({file});
+            stage({file});
+            return;
         } else if (act == discardAct && !untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to discard the changes in this file?"), KStandardGuiItem::discard());
             if (ret == KMessageBox::PrimaryAction) {

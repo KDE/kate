@@ -269,7 +269,7 @@ protected:
     void showEvent(QShowEvent *event) override
     {
         m_hideTimer.start(3000);
-        return QTextBrowser::showEvent(event);
+        QTextBrowser::showEvent(event);
     }
 
     void enterEvent(QEnterEvent *event) override
@@ -277,7 +277,7 @@ protected:
         m_inContextMenu = false;
         m_inFocus = true;
         m_hideTimer.stop();
-        return QTextBrowser::enterEvent(event);
+        QTextBrowser::enterEvent(event);
     }
 
     void leaveEvent(QEvent *event) override
@@ -286,14 +286,15 @@ protected:
         if (!m_hideTimer.isActive() && !m_inContextMenu && textCursor().selectionStart() == textCursor().selectionEnd()) {
             hideTooltip();
         }
-        return QTextBrowser::leaveEvent(event);
+        QTextBrowser::leaveEvent(event);
     }
 
     void mouseMoveEvent(QMouseEvent *event) override
     {
         auto pos = event->pos();
         if (rect().contains(pos) || m_inContextMenu || textCursor().selectionStart() != textCursor().selectionEnd()) {
-            return QTextBrowser::mouseMoveEvent(event);
+            QTextBrowser::mouseMoveEvent(event);
+            return;
         }
         hideTooltip();
     }
@@ -301,7 +302,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event) override
     {
         m_inContextMenu = true;
-        return QTextBrowser::contextMenuEvent(event);
+        QTextBrowser::contextMenuEvent(event);
     }
 
     void focusInEvent(QFocusEvent *) override

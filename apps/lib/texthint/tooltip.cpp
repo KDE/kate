@@ -38,7 +38,8 @@ public:
         QTextBlockFormat fmt = block.blockFormat();
         if (fmt.property(QTextFormat::BlockCodeLanguage).isValid()) {
             // highlight blocks marked with BlockCodeLanguage format
-            return KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
+            KSyntaxHighlighting::SyntaxHighlighter::highlightBlock(text);
+            return;
         }
 
         const QList<QTextLayout::FormatRange> textFormats = block.textFormats();
@@ -319,7 +320,8 @@ protected:
     {
         auto pos = event->pos();
         if (rect().contains(pos)) {
-            return QTextBrowser::mouseMoveEvent(event);
+            QTextBrowser::mouseMoveEvent(event);
+            return;
         }
     }
 

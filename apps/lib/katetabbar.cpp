@@ -235,7 +235,8 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     }
 
     if (rect().contains(event->pos())) {
-        return QTabBar::mouseMoveEvent(event);
+        QTabBar::mouseMoveEvent(event);
+        return;
     }
 
     int tab = currentIndex();

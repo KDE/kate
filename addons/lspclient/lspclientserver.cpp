@@ -2148,7 +2148,7 @@ bool LSPClientServer::start(bool forwardStdError)
 
 void LSPClientServer::stop(int to_t, int to_k)
 {
-    return d->stop(to_t, to_k);
+    d->stop(to_t, to_k);
 }
 
 int LSPClientServer::cancel(int reqid)
@@ -2324,42 +2324,42 @@ LSPClientServer::documentInlayHint(const QUrl &document, const LSPRange &range, 
 
 void LSPClientServer::executeCommand(const LSPCommand &command)
 {
-    return d->executeCommand(command);
+    d->executeCommand(command);
 }
 
 void LSPClientServer::didOpen(const QUrl &document, int version, const QString &langId, const QString &text)
 {
-    return d->didOpen(document, version, langId, text);
+    d->didOpen(document, version, langId, text);
 }
 
 void LSPClientServer::didChange(const QUrl &document, int version, const QString &text, const QList<LSPTextDocumentContentChangeEvent> &changes)
 {
-    return d->didChange(document, version, text, changes);
+    d->didChange(document, version, text, changes);
 }
 
 void LSPClientServer::didSave(const QUrl &document, const QString &text)
 {
-    return d->didSave(document, text);
+    d->didSave(document, text);
 }
 
 void LSPClientServer::didClose(const QUrl &document)
 {
-    return d->didClose(document);
+    d->didClose(document);
 }
 
 void LSPClientServer::didChangeConfiguration(const QJsonValue &settings)
 {
-    return d->didChangeConfiguration(settings);
+    d->didChangeConfiguration(settings);
 }
 
 void LSPClientServer::didChangeWorkspaceFolders(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed)
 {
-    return d->didChangeWorkspaceFolders(added, removed);
+    d->didChangeWorkspaceFolders(added, removed);
 }
 
 void LSPClientServer::workspaceSymbol(const QString &symbol, const QObject *context, const WorkspaceSymbolsReplyHandler &h)
 {
-    return d->workspaceSymbol(symbol, make_handler(h, context, parseWorkspaceSymbols));
+    d->workspaceSymbol(symbol, make_handler(h, context, parseWorkspaceSymbols));
 }
 
 #include "moc_lspclientserver.cpp"

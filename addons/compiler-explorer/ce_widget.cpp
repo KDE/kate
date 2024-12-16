@@ -59,16 +59,26 @@ static void writeConfigForCEOption(CE_Options o, bool value)
 {
     KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
     switch (o) {
-    case CE_Option_FilterLabel:
-        return cg.writeEntry("FilterUnusedLabels", value);
-    case CE_Option_IntelAsm:
-        return cg.writeEntry("UseIntelAsmSyntax", value);
-    case CE_Option_FilterUnusedLibFuncs:
-        return cg.writeEntry("OptionFilterLibFuncs", value);
-    case CE_Option_FilterComments:
-        return cg.writeEntry("OptionFilterComments", value);
-    case CE_Option_Demangle:
-        return cg.writeEntry("OptionDemangle", value);
+    case CE_Option_FilterLabel: {
+        cg.writeEntry("FilterUnusedLabels", value);
+        return;
+    }
+    case CE_Option_IntelAsm: {
+        cg.writeEntry("UseIntelAsmSyntax", value);
+        return;
+    }
+    case CE_Option_FilterUnusedLibFuncs: {
+        cg.writeEntry("OptionFilterLibFuncs", value);
+        return;
+    }
+    case CE_Option_FilterComments: {
+        cg.writeEntry("OptionFilterComments", value);
+        return;
+    }
+    case CE_Option_Demangle: {
+        cg.writeEntry("OptionDemangle", value);
+        return;
+    }
     default:
         Q_UNREACHABLE();
     }

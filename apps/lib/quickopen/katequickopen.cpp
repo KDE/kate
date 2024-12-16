@@ -554,6 +554,6 @@ void KateQuickOpen::updateViewGeometry()
 
     // set the position to the top-center of the parent
     // just below the menubar/toolbar (if any)
-    const QPoint position{boundingRect.center().x() - size.width() / 2, boundingRect.y() + 6};
+    const QPoint position{boundingRect.center().x() - (size.width() / 2), boundingRect.y() + 6};
     move(position);
 }

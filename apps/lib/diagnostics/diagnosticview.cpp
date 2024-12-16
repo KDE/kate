@@ -648,7 +648,7 @@ static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor 
             int first = 0, last = count - 1;
             int target = pos.line();
             while (first + 1 < last) {
-                int middle = first + (last - first) / 2;
+                int middle = first + ((last - first) / 2);
                 Q_ASSERT(first != middle);
                 Q_ASSERT(middle != last);
                 if (getLine(middle) < target) {

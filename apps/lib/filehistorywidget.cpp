@@ -210,7 +210,7 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &) const override
     {
         auto height = opt.fontMetrics.height();
-        return QSize(0, height * 3 + (3 * 2));
+        return QSize(0, (height * 3) + (3 * 2));
     }
 };
 

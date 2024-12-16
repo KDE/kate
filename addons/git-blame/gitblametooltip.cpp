@@ -241,7 +241,7 @@ public:
         QFontMetrics fm(font());
         QSize size = fm.size(Qt::TextSingleLine, QStringLiteral("m"));
         int fontHeight = size.height();
-        size.setHeight(m_view->height() - fontHeight * 2 - scrollBarHeight);
+        size.setHeight(m_view->height() - (fontHeight * 2) - scrollBarHeight);
         size.setWidth(qRound(m_view->width() * 0.7));
         resize(size);
 

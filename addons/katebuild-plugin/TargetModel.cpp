@@ -93,7 +93,7 @@ TargetModel::TargetSet::TargetSet(const QString &_name, const QString &_dir, boo
  */
 
 // Topmost bit is used for RootRow 0 or 1
-static constexpr int RootRowShift = sizeof(quintptr) * 8 - 1;
+static constexpr int RootRowShift = (sizeof(quintptr) * 8) - 1;
 
 // One empty bit is reserved between RootRow and TargetSetRow
 static constexpr quintptr TargetSetRowMask = ~((quintptr)3 << (RootRowShift - 1));

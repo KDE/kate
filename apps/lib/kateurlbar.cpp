@@ -332,7 +332,7 @@ public:
     {
         auto rowHeight = m_list.view()->sizeHintForRow(0);
         auto c = m_model.rowCount();
-        const auto h = rowHeight * c + 4;
+        const auto h = (rowHeight * c) + 4;
         const auto vScroll = m_list.view()->verticalScrollBar();
         int w = m_list.view()->sizeHintForColumn(0) + (vScroll ? vScroll->height() / 2 : 0);
 

@@ -279,14 +279,14 @@ void TabSwitcherPluginView::updateViewGeometry()
     const int frameWidth = m_treeView->frameWidth();
     // const QSize viewSize(std::min(m_treeView->sizeHintForColumn(0) + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()), // ORIG
     // line, sizeHintForColumn was QListView but is protected for QTreeView so we introduced sizeHintWidth()
-    const QSize viewSize(std::min(m_treeView->sizeHintWidth() + 2 * frameWidth + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
-                         std::min(std::max(rowHeight * m_model->rowCount() + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
+    const QSize viewSize(std::min(m_treeView->sizeHintWidth() + (2 * frameWidth) + m_treeView->verticalScrollBar()->width(), viewMaxSize.width()),
+                         std::min(std::max((rowHeight * m_model->rowCount()) + (2 * frameWidth), rowHeight * 6), viewMaxSize.height()));
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords
     const QPoint centralWidgetPos = window->parent() ? window->mapToGlobal(window->pos()) : window->pos();
-    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
-    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) / 2);
+    const int xPos = std::max(0, centralWidgetPos.x() + ((centralSize.width() - viewSize.width()) / 2));
+    const int yPos = std::max(0, centralWidgetPos.y() + ((centralSize.height() - viewSize.height()) / 2));
 
     m_treeView->setFixedSize(viewSize);
     m_treeView->move(xPos, yPos);

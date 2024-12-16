@@ -369,13 +369,13 @@ void GotoSymbolWidget::updateViewGeometry()
 
     const int rowCount = mode == Global ? m_globalSymbolsModel->rowCount() : m_symbolsModel->rowCount();
 
-    const QSize viewSize(width, std::min(std::max(rowHeight * rowCount + 2 * frameWidth, rowHeight * 6), viewMaxSize.height()));
+    const QSize viewSize(width, std::min(std::max((rowHeight * rowCount) + (2 * frameWidth), rowHeight * 6), viewMaxSize.height()));
 
     // Position should be central over the editor area, so map to global from
     // parent of central widget since the view is positioned in global coords
     const QPoint centralWidgetPos = window->parent() ? window->mapToGlobal(window->pos()) : window->pos();
-    const int xPos = std::max(0, centralWidgetPos.x() + (centralSize.width() - viewSize.width()) / 2);
-    const int yPos = std::max(0, centralWidgetPos.y() + (centralSize.height() - viewSize.height()) * 1 / 4);
+    const int xPos = std::max(0, centralWidgetPos.x() + ((centralSize.width() - viewSize.width()) / 2));
+    const int yPos = std::max(0, centralWidgetPos.y() + ((centralSize.height() - viewSize.height()) * 1 / 4));
 
     move(xPos, yPos);
 

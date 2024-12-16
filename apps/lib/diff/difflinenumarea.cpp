@@ -49,7 +49,7 @@ int LineNumArea::lineNumAreaWidth() const
         max /= 10;
         ++digits;
     }
-    return 13 + textEdit->fontMetrics().horizontalAdvance(u'9') * digits;
+    return 13 + (textEdit->fontMetrics().horizontalAdvance(u'9') * digits);
 }
 
 void LineNumArea::setLineNumData(std::vector<int> leftLineNos, std::vector<int> rightLineNos)
@@ -85,7 +85,7 @@ static void paintTriangle(QPainter &painter, QColor c, int xOffset, int yOffset,
 
     qreal halfSize = size / 2;
     qreal halfSizeP = halfSize * 0.6;
-    QPointF middle(xOffset + (qreal)width / 2, yOffset + (qreal)height / 2);
+    QPointF middle(xOffset + ((qreal)width / 2), yOffset + ((qreal)height / 2));
 
     if (open) {
         QPointF points[3] = {middle + QPointF(-halfSize, -halfSizeP), middle + QPointF(halfSize, -halfSizeP), middle + QPointF(0, halfSizeP)};

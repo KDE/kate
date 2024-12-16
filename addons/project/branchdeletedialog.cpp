@@ -159,7 +159,7 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
     m_listView.resizeColumnToContents(0);
     m_listView.resizeColumnToContents(1);
 
-    resize(m_listView.width() * 1.5, m_listView.height() + l->contentsMargins().top() * 2);
+    resize(m_listView.width() * 1.5, m_listView.height() + (l->contentsMargins().top() * 2));
 }
 
 void BranchDeleteDialog::loadBranches(const QString &dotGitPath)

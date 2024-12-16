@@ -140,7 +140,8 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
 
     // paint the match text
     auto opts = opt;
-    opts.rect = rtl ? textRect.adjusted(0, 0, -(iconBorderRect.width() + hMargins * 2), 0) : textRect.adjusted(iconBorderRect.width() + hMargins * 2, 0, 0, 0);
+    opts.rect =
+        rtl ? textRect.adjusted(0, 0, -(iconBorderRect.width() + (hMargins * 2)), 0) : textRect.adjusted(iconBorderRect.width() + (hMargins * 2), 0, 0, 0);
     Utils::paintItemViewText(p, text, opts, formats);
 
     p->restore();

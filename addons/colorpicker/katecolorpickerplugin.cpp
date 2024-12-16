@@ -235,7 +235,7 @@ void ColorPickerInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNot
     const int inc = note.underMouse() ? 1 : 0;
     const int ascent = fm.ascent();
     const int margin = (note.lineHeight() - ascent) / 2;
-    painter.drawRect(margin - inc, margin - inc, ascent - 1 + 2 * inc, ascent - 1 + 2 * inc);
+    painter.drawRect(margin - inc, margin - inc, ascent - 1 + (2 * inc), ascent - 1 + (2 * inc));
 }
 
 void ColorPickerInlineNoteProvider::inlineNoteActivated(const KTextEditor::InlineNote &note, Qt::MouseButtons, const QPoint &)

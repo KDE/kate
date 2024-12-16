@@ -59,11 +59,9 @@
 #include <QAction>
 #include <QTemporaryFile>
 
-#include <QFile>
 #include <QPushButton>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QString>
 #include <QUrl>
 
 #include <ktexteditor/editor.h>

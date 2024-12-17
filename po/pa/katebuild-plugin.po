@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2011-12-16 08:27+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -361,7 +361,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr ""
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -415,28 +415,28 @@ msgstr ""
 msgid "Target Set"
 msgstr "ਟਾਰਗੇਟ"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, fuzzy, kde-format
 #| msgid "Working directory"
 msgid "Working Directory / Command"
 msgstr "ਵਰਕਿੰਗ ਡਾਇਰੈਕਟਰੀ"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgid "Run Command"

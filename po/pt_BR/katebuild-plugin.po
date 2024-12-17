@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-03-16 10:21-0300\n"
 "Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -360,7 +360,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Não é possível salvar os alvos de compilação em: %1"
@@ -415,28 +415,28 @@ msgstr ""
 msgid "Target Set"
 msgstr "Conjunto de alvos"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, fuzzy, kde-format
 #| msgid "Project"
 msgid "Projects"
 msgstr "Projeto"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr "Sessão"
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome do comando/conjunto de alvos"
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Pasta de trabalho / Comando"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, kde-format
 msgid "Run Command"
 msgstr "Executar comando"

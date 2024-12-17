@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-08-24 09:18+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -357,7 +357,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ne eblas konservi konstrucelojn en: %1"
@@ -412,28 +412,28 @@ msgstr ""
 msgid "Target Set"
 msgstr "Celaro"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, fuzzy, kde-format
 #| msgid "Project"
 msgid "Projects"
 msgstr "Projekto"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr "Seanco"
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komando/Cel-ara Nomo"
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Labora Dosierujo / Komando"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, kde-format
 msgid "Run Command"
 msgstr "Lanĉi Komandon"

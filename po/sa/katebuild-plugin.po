@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit\n"
@@ -353,7 +353,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "अनिर्धारितः सन्दर्भः"
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "निर्माणलक्ष्याणि रक्षितुं न शक्यते: %1"
@@ -408,27 +408,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "लक्ष्य सेट्"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Projects"
 msgstr "परियोजनाएँ"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr "सत्र"
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "आदेश/लक्ष्य-सेट् नाम"
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "कार्यनिर्देशिका / आदेशः"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, kde-format
 msgid "Run Command"
 msgstr "Run Command इति"

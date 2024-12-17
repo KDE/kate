@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-06-09 11:08+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -58,57 +58,57 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "Explorador do compilador"
 
-#: ce_widget.cpp:125
+#: ce_widget.cpp:135
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "Seguro que quere pechar %1?"
 
-#: ce_widget.cpp:185
+#: ce_widget.cpp:195
 #, kde-format
 msgid "Compile"
 msgstr "Compilar"
 
-#: ce_widget.cpp:282
+#: ce_widget.cpp:292
 #, kde-format
 msgid "Options"
 msgstr "Opcións"
 
-#: ce_widget.cpp:299
+#: ce_widget.cpp:309
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "Desmantelar os identificadores"
 
-#: ce_widget.cpp:300
+#: ce_widget.cpp:310
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "Filtrar as funcións de biblioteca"
 
-#: ce_widget.cpp:301
+#: ce_widget.cpp:311
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "Filtrar as etiquetas non usadas"
 
-#: ce_widget.cpp:302
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Filter Comments"
 msgstr "Filtrar os comentarios"
 
-#: ce_widget.cpp:303
+#: ce_widget.cpp:313
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Sintaxe de Intel"
 
-#: ce_widget.cpp:305
+#: ce_widget.cpp:315
 #, kde-format
 msgid "Change Url..."
 msgstr "Cambiar o URL…"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:321
 #, kde-format
 msgid "Enter Url"
 msgstr "Insira o URL"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:322
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
@@ -116,22 +116,22 @@ msgstr ""
 "Insira o URL na instancia do explorador do compilador. Por exemplo, «http://"
 "localhost:10240»."
 
-#: ce_widget.cpp:372
+#: ce_widget.cpp:382
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "O compilador devolveu: %1"
 
-#: ce_widget.cpp:521
+#: ce_widget.cpp:531
 #, kde-format
 msgid "Reveal linked code"
 msgstr "Revelar o código ligado"
 
-#: ce_widget.cpp:543
+#: ce_widget.cpp:553
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "Explorador do compilador"
 
-#: ce_widget.cpp:559
+#: ce_widget.cpp:569
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""

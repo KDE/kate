@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-11-23 13:04+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -361,7 +361,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nieokreślone odniesienie"
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Nie można zapisać celów do zbudowania w: %1"
@@ -416,27 +416,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "Zestaw celów"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Projects"
 msgstr "Projekty"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr "Posiedzenie"
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nazwa polecenia/zestawu celów"
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Katalog roboczy / polecenie"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, kde-format
 msgid "Run Command"
 msgstr "Wykonaj polecenie"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-15 00:44+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-08-04 18:17+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -357,7 +357,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "udefinert referanse"
 
-#: plugin_katebuild.cpp:1827
+#: plugin_katebuild.cpp:1847
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Kan ikkje lagra byggjemål i: %1"
@@ -412,28 +412,28 @@ msgstr ""
 msgid "Target Set"
 msgstr "Mål definert"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, fuzzy, kde-format
 #| msgid "Project"
 msgid "Projects"
 msgstr "Prosjekt"
 
-#: TargetModel.cpp:520
+#: TargetModel.cpp:537
 #, kde-format
 msgid "Session"
 msgstr "Økt"
 
-#: TargetModel.cpp:614
+#: TargetModel.cpp:631
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Namn på kommando/målsett"
 
-#: TargetModel.cpp:617
+#: TargetModel.cpp:634
 #, kde-format
 msgid "Working Directory / Command"
 msgstr "Arbeidsmappe/kommando"
 
-#: TargetModel.cpp:620
+#: TargetModel.cpp:637
 #, kde-format
 msgid "Run Command"
 msgstr "Køyr kommando"

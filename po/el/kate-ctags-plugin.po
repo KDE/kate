@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2022-12-30 15:00+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -51,201 +51,201 @@ msgstr "Ενημέρωση"
 msgid "CTags command"
 msgstr "Εντολή CTags"
 
-#: ctagskinds.cpp:23
+#: ctagskinds.cpp:24
 msgctxt "Tag Type"
 msgid "define"
 msgstr "ορισμός"
 
-#: ctagskinds.cpp:24 ctagskinds.cpp:66
+#: ctagskinds.cpp:25 ctagskinds.cpp:67
 msgctxt "Tag Type"
 msgid "label"
 msgstr "ετικέτα"
 
-#: ctagskinds.cpp:25 ctagskinds.cpp:39 ctagskinds.cpp:85
+#: ctagskinds.cpp:26 ctagskinds.cpp:40 ctagskinds.cpp:86
 msgctxt "Tag Type"
 msgid "macro"
 msgstr "μακροεντολή"
 
-#: ctagskinds.cpp:28 ctagskinds.cpp:30 ctagskinds.cpp:41 ctagskinds.cpp:63
-#: ctagskinds.cpp:83 ctagskinds.cpp:87 ctagskinds.cpp:91 ctagskinds.cpp:93
-#: ctagskinds.cpp:98 ctagskinds.cpp:102 ctagskinds.cpp:104 ctagskinds.cpp:106
-#: ctagskinds.cpp:110
+#: ctagskinds.cpp:29 ctagskinds.cpp:31 ctagskinds.cpp:42 ctagskinds.cpp:64
+#: ctagskinds.cpp:84 ctagskinds.cpp:88 ctagskinds.cpp:92 ctagskinds.cpp:94
+#: ctagskinds.cpp:99 ctagskinds.cpp:103 ctagskinds.cpp:105 ctagskinds.cpp:107
+#: ctagskinds.cpp:111
 msgctxt "Tag Type"
 msgid "function"
 msgstr "συνάρτηση"
 
-#: ctagskinds.cpp:28 ctagskinds.cpp:71 ctagskinds.cpp:89 ctagskinds.cpp:95
+#: ctagskinds.cpp:29 ctagskinds.cpp:72 ctagskinds.cpp:90 ctagskinds.cpp:96
 msgctxt "Tag Type"
 msgid "subroutine"
 msgstr "υπορουτίνα"
 
-#: ctagskinds.cpp:32
+#: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "fragment definition"
 msgstr "τμήμα ορισμού"
 
-#: ctagskinds.cpp:33
+#: ctagskinds.cpp:34
 msgctxt "Tag Type"
 msgid "any pattern"
 msgstr "κάθε μοτίβο"
 
-#: ctagskinds.cpp:34
+#: ctagskinds.cpp:35
 msgctxt "Tag Type"
 msgid "slot"
 msgstr "υποδοχή"
 
-#: ctagskinds.cpp:35
+#: ctagskinds.cpp:36
 msgctxt "Tag Type"
 msgid "pattern"
 msgstr "μοτίβο"
 
-#: ctagskinds.cpp:38 ctagskinds.cpp:55 ctagskinds.cpp:76 ctagskinds.cpp:91
-#: ctagskinds.cpp:93 ctagskinds.cpp:97
+#: ctagskinds.cpp:39 ctagskinds.cpp:56 ctagskinds.cpp:77 ctagskinds.cpp:92
+#: ctagskinds.cpp:94 ctagskinds.cpp:98
 msgctxt "Tag Type"
 msgid "class"
 msgstr "κλάση"
 
-#: ctagskinds.cpp:40
+#: ctagskinds.cpp:41
 msgctxt "Tag Type"
 msgid "enumerator"
 msgstr "αριθμητικό"
 
-#: ctagskinds.cpp:42
+#: ctagskinds.cpp:43
 msgctxt "Tag Type"
 msgid "enumeration"
 msgstr "αρίθμηση"
 
-#: ctagskinds.cpp:43
+#: ctagskinds.cpp:44
 msgctxt "Tag Type"
 msgid "member"
 msgstr "μέλος"
 
-#: ctagskinds.cpp:44 ctagskinds.cpp:106
+#: ctagskinds.cpp:45 ctagskinds.cpp:107
 msgctxt "Tag Type"
 msgid "namespace"
 msgstr "χώρος ονομάτων"
 
-#: ctagskinds.cpp:45
+#: ctagskinds.cpp:46
 msgctxt "Tag Type"
 msgid "prototype"
 msgstr "πρωτότυπο"
 
-#: ctagskinds.cpp:46
+#: ctagskinds.cpp:47
 msgctxt "Tag Type"
 msgid "struct"
 msgstr "δομή"
 
-#: ctagskinds.cpp:47
+#: ctagskinds.cpp:48
 msgctxt "Tag Type"
 msgid "typedef"
 msgstr "typedef"
 
-#: ctagskinds.cpp:48
+#: ctagskinds.cpp:49
 msgctxt "Tag Type"
 msgid "union"
 msgstr "ένωση"
 
-#: ctagskinds.cpp:49 ctagskinds.cpp:73
+#: ctagskinds.cpp:50 ctagskinds.cpp:74
 msgctxt "Tag Type"
 msgid "variable"
 msgstr "μεταβλητή"
 
-#: ctagskinds.cpp:50
+#: ctagskinds.cpp:51
 msgctxt "Tag Type"
 msgid "external variable"
 msgstr "εξωτερική μεταβλητή"
 
-#: ctagskinds.cpp:53
+#: ctagskinds.cpp:54
 msgctxt "Tag Type"
 msgid "paragraph"
 msgstr "παράγραφος"
 
-#: ctagskinds.cpp:56
+#: ctagskinds.cpp:57
 msgctxt "Tag Type"
 msgid "feature"
 msgstr "χαρακτηριστικό"
 
-#: ctagskinds.cpp:57
+#: ctagskinds.cpp:58
 msgctxt "Tag Type"
 msgid "local entity"
 msgstr "τοπική οντότητα"
 
-#: ctagskinds.cpp:60
+#: ctagskinds.cpp:61
 msgctxt "Tag Type"
 msgid "block"
 msgstr "τμήμα"
 
-#: ctagskinds.cpp:61
+#: ctagskinds.cpp:62
 msgctxt "Tag Type"
 msgid "common"
 msgstr "κοινό"
 
-#: ctagskinds.cpp:62
+#: ctagskinds.cpp:63
 msgctxt "Tag Type"
 msgid "entry"
 msgstr "καταχώρηση"
 
-#: ctagskinds.cpp:64 ctagskinds.cpp:78
+#: ctagskinds.cpp:65 ctagskinds.cpp:79
 msgctxt "Tag Type"
 msgid "interface"
 msgstr "διασύνδεση"
 
-#: ctagskinds.cpp:65
+#: ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "type component"
 msgstr "συστατικό τύπου"
 
-#: ctagskinds.cpp:67
+#: ctagskinds.cpp:68
 msgctxt "Tag Type"
 msgid "local"
 msgstr "τοπικό"
 
-#: ctagskinds.cpp:68
+#: ctagskinds.cpp:69
 msgctxt "Tag Type"
 msgid "module"
 msgstr "άρθρωμα"
 
-#: ctagskinds.cpp:69
+#: ctagskinds.cpp:70
 msgctxt "Tag Type"
 msgid "namelist"
 msgstr "λίστα ονομάτων"
 
-#: ctagskinds.cpp:70
+#: ctagskinds.cpp:71
 msgctxt "Tag Type"
 msgid "program"
 msgstr "πρόγραμμα"
 
-#: ctagskinds.cpp:72
+#: ctagskinds.cpp:73
 msgctxt "Tag Type"
 msgid "type"
 msgstr "τύπος"
 
-#: ctagskinds.cpp:77
+#: ctagskinds.cpp:78
 msgctxt "Tag Type"
 msgid "field"
 msgstr "πεδίο"
 
-#: ctagskinds.cpp:79
+#: ctagskinds.cpp:80
 msgctxt "Tag Type"
 msgid "method"
 msgstr "μέθοδος"
 
-#: ctagskinds.cpp:80
+#: ctagskinds.cpp:81
 msgctxt "Tag Type"
 msgid "package"
 msgstr "πακέτο"
 
-#: ctagskinds.cpp:87 ctagskinds.cpp:108
+#: ctagskinds.cpp:88 ctagskinds.cpp:109
 msgctxt "Tag Type"
 msgid "procedure"
 msgstr "διαδικασία"
 
-#: ctagskinds.cpp:99
+#: ctagskinds.cpp:100
 msgctxt "Tag Type"
 msgid "mixin"
 msgstr "ανάμειξη"
 
-#: ctagskinds.cpp:102
+#: ctagskinds.cpp:103
 msgctxt "Tag Type"
 msgid "set"
 msgstr "σύνολο"

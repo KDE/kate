@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-05-15 19:44\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -58,79 +58,79 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "编译器浏览器"
 
-#: ce_widget.cpp:125
+#: ce_widget.cpp:135
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "您确定要关闭 %1 吗？"
 
-#: ce_widget.cpp:185
+#: ce_widget.cpp:195
 #, kde-format
 msgid "Compile"
 msgstr "编译"
 
-#: ce_widget.cpp:282
+#: ce_widget.cpp:292
 #, kde-format
 msgid "Options"
 msgstr "选项"
 
-#: ce_widget.cpp:299
+#: ce_widget.cpp:309
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "识别解码标识符"
 
-#: ce_widget.cpp:300
+#: ce_widget.cpp:310
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "按函数过滤库"
 
-#: ce_widget.cpp:301
+#: ce_widget.cpp:311
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "过滤未使用的标签"
 
-#: ce_widget.cpp:302
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Filter Comments"
 msgstr "过滤注释"
 
-#: ce_widget.cpp:303
+#: ce_widget.cpp:313
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Intel 语法"
 
-#: ce_widget.cpp:305
+#: ce_widget.cpp:315
 #, kde-format
 msgid "Change Url..."
 msgstr "更改 URL..."
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:321
 #, kde-format
 msgid "Enter Url"
 msgstr "输入 URL"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:322
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr ""
 "输入 CompilerExplorer (编译器浏览器) 实例的 URL。例如：http://localhost:10240"
 
-#: ce_widget.cpp:372
+#: ce_widget.cpp:382
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "编译器返回：%1"
 
-#: ce_widget.cpp:521
+#: ce_widget.cpp:531
 #, kde-format
 msgid "Reveal linked code"
 msgstr "显示链接代码"
 
-#: ce_widget.cpp:543
+#: ce_widget.cpp:553
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "编译器浏览器"
 
-#: ce_widget.cpp:559
+#: ce_widget.cpp:569
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "找不到“%1”编译器旗标。输出可能没有意义。"

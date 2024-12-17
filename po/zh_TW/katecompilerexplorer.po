@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"POT-Creation-Date: 2024-12-17 00:43+0000\n"
 "PO-Revision-Date: 2024-05-18 16:32+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -58,78 +58,78 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:125
+#: ce_widget.cpp:135
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "您確定要關閉 %1 嗎？"
 
-#: ce_widget.cpp:185
+#: ce_widget.cpp:195
 #, kde-format
 msgid "Compile"
 msgstr "編譯"
 
-#: ce_widget.cpp:282
+#: ce_widget.cpp:292
 #, kde-format
 msgid "Options"
 msgstr "選項"
 
-#: ce_widget.cpp:299
+#: ce_widget.cpp:309
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "顯示未被改變過的識別子"
 
-#: ce_widget.cpp:300
+#: ce_widget.cpp:310
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "過濾函式庫函數"
 
-#: ce_widget.cpp:301
+#: ce_widget.cpp:311
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "過濾未使用的旗標"
 
-#: ce_widget.cpp:302
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Filter Comments"
 msgstr "過濾註解"
 
-#: ce_widget.cpp:303
+#: ce_widget.cpp:313
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Intel 語法"
 
-#: ce_widget.cpp:305
+#: ce_widget.cpp:315
 #, kde-format
 msgid "Change Url..."
 msgstr "變更 URL…"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:321
 #, kde-format
 msgid "Enter Url"
 msgstr "輸入 URL"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:322
 #, kde-format
 msgid ""
 "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgstr "輸入 CompilerExplorer 實體的網址，例如 http://localhost:10240"
 
-#: ce_widget.cpp:372
+#: ce_widget.cpp:382
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "編譯器回傳：%1"
 
-#: ce_widget.cpp:521
+#: ce_widget.cpp:531
 #, kde-format
 msgid "Reveal linked code"
 msgstr "顯示已連結的程式碼"
 
-#: ce_widget.cpp:543
+#: ce_widget.cpp:553
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:559
+#: ce_widget.cpp:569
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "找到了編譯旗標「%1」。輸出可能不是很有用。"

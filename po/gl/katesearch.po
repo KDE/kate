@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 02:40+0000\n"
-"PO-Revision-Date: 2024-03-16 23:23+0100\n"
+"PO-Revision-Date: 2024-12-17 18:20+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -568,7 +568,7 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
-"Isto cortará todas as liñas de coincidencia de busca resaltadas do documento "
+"Isto cortará todas as liñas de coincidencia de busca realzadas do documento "
 "actual no portapapeis."
 
 #: SearchPlugin.cpp:359
@@ -582,7 +582,7 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
-"Isto copiará todas as liñas de coincidencia de busca resaltadas do documento "
+"Isto copiará todas as liñas de coincidencia de busca realzadas do documento "
 "actual no portapapeis."
 
 #: SearchPlugin.cpp:394

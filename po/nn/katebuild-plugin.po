@@ -525,10 +525,3 @@ msgstr "Set inn adresse"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vel mappa som skal setjast inn"
-
-#~ msgid ""
-#~ "Cannot run command: %1\n"
-#~ "Work path does not exist: %2"
-#~ msgstr ""
-#~ "Kan ikkje køyra kommandoen: %1\n"
-#~ "Arbeidsmappa finst ikkje: %2"

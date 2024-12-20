@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2024-03-21 20:46+0300\n"
+"PO-Revision-Date: 2024-12-19 20:46+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -248,7 +248,7 @@ msgstr "En azından bir ad ve yürütülebilir belirtmelisiniz"
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr "'Tetik' etkinken, en azından bir mime türü belirtilmelidir."
+msgstr "“Tetik” etkinken, en azından bir MIME türü belirtilmelidir."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format

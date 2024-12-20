@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2024-12-16 22:32+0100\n"
+"PO-Revision-Date: 2024-12-19 22:56+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -249,6 +249,7 @@ msgstr "«%1» executouse correctamente: %2"
 msgid "Failed to stage file. Error:"
 msgstr "Non foi posíbel preseleccionar o ficheiro. Erro:"
 
+# skip-rule: trasno-remove_reverse
 #: gitwidget.cpp:692
 #, kde-format
 msgid "Failed to unstage file. Error:"
@@ -447,6 +448,7 @@ msgstr "Amosar nunha ferramenta externa de diferenza de Git"
 msgid "Open at HEAD"
 msgstr "Abrir na CABECEIRA"
 
+# skip-rule: trasno-remove_reverse
 #: gitwidget.cpp:1274
 #, kde-format
 msgid "Unstage File"
@@ -482,6 +484,7 @@ msgstr "Seguro que quere retirar o ficheiro?"
 msgid "Unstage All"
 msgstr "Baleirar a preselección"
 
+# skip-rule: trasno-remove_reverse
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Unstage Selected Files"

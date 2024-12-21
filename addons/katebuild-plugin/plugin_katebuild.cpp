@@ -340,7 +340,14 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
 
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
+    m_buildUi.u_outpTopLayout->setSpacing(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
+    m_buildUi.u_outpTopLayout->setContentsMargins(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                                  m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                                  m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                                  m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
+    m_buildUi.u_tabWidget->setDocumentMode(true);
     m_buildUi.u_tabWidget->insertTab(0, m_targetsUi, i18nc("Tab label", "Target Settings"));
     m_buildUi.u_tabWidget->setCurrentWidget(m_targetsUi);
     m_buildUi.u_tabWidget->setTabsClosable(true);

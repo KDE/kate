@@ -62,6 +62,7 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     moveTargetDown->setToolTip(i18n("Move selected target down"));
 
     targetsView = new QTreeView(this);
+    targetsView->setFrameShape(QFrame::Shape::NoFrame);
     targetsView->setAlternatingRowColors(true);
 
     targetsView->setModel(&proxyModel);
@@ -86,10 +87,15 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     tLayout->addWidget(moveTargetUp);
     tLayout->addWidget(moveTargetDown);
     tLayout->addWidget(deleteTarget);
+    int leftMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutLeftMargin);
+    int rightMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutRightMargin);
+    int topMargin = QApplication::style()->pixelMetric(QStyle::PM_LayoutTopMargin);
+    tLayout->setContentsMargins(leftMargin, topMargin, rightMargin, 0);
 
     auto *layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);
     layout->addWidget(targetsView);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     connect(targetsView->selectionModel(), &QItemSelectionModel::currentChanged, this, &TargetsUi::targetActivated);
 

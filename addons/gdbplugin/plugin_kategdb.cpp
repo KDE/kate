@@ -115,11 +115,12 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
                                                           i18n("Locals and Stack")));
 
     m_tabWidget = new QTabWidget(m_toolView.get());
+    m_tabWidget->setDocumentMode(true);
 
     // buttons widget, buttons are initialized at action connections
     m_buttonWidget = new QWidget(m_tabWidget);
     auto buttonsLayout = new QHBoxLayout(m_buttonWidget);
-    buttonsLayout->setContentsMargins(0, 1, 0, 3);
+    buttonsLayout->setContentsMargins(0, 0, 0, 0);
     m_tabWidget->setCornerWidget(m_buttonWidget);
 
     // Output

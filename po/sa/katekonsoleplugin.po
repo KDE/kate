@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2024-12-13 20:20+0530\n"
+"PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -184,7 +184,7 @@ msgstr "&विस्तारं निष्कासयतु"
 #: kateconsole.cpp:699
 #, kde-format
 msgid "Prefix:"
-msgstr "उपसर्गः : १."
+msgstr "उपसर्गः :"
 
 #: kateconsole.cpp:707
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-12-14 01:48+0530\n"
+"PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -230,7 +230,7 @@ msgstr "पृष्ठभूमि छायाकरण"
 #: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
-msgstr "&दृष्टदस्तावेजानां छायाः : १."
+msgstr "&दृष्टदस्तावेजानां छायाः :"
 
 #: katefiletreeconfigpage.cpp:56
 #, kde-format
@@ -260,7 +260,7 @@ msgstr "उर्ल्"
 #: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
-msgstr "&दृश्यविधिः : १."
+msgstr "&दृश्यविधिः :"
 
 #: katefiletreeconfigpage.cpp:82
 #, kde-format

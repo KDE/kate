@@ -484,10 +484,17 @@ void KateMainWindow::setupActions()
     connect(a, &QAction::triggered, m_viewManager, &KateViewManager::slotRestoreLastClosedDocument);
     a->setWhatsThis(i18n("Reopen the document or documents that were most recently closed"));
 
+    a = ac->addAction(QStringLiteral("file_close_window"));
+    a->setText(i18n("Close &Window"));
+    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_W));
+    // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
+    connect(a, &QAction::triggered, this, &KateMainWindow::close, Qt::QueuedConnection);
+    a->setWhatsThis(i18n("Close this window"));
+
     a = ac->addAction(KStandardAction::Quit, QStringLiteral("file_quit"));
     // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFileQuit, Qt::QueuedConnection);
-    a->setWhatsThis(i18n("Close this window"));
+    a->setWhatsThis(i18n("Quit the application"));
 
     a = ac->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));

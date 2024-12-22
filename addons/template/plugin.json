@@ -1,8 +1,6 @@
 {
     "KPlugin": {
         "Description": "Project and file templates",
-        "Description[sv]": "Projekt och fil mallar",
-        "Name": "File Templates",
-        "Name[sv]": "Fil mallar"
+        "Name": "File Templates"
     }
 }

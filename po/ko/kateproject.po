@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2024-12-22 00:43+0000\n"
 "PO-Revision-Date: 2024-12-10 00:29+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -512,7 +512,7 @@ msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
 #: kateprojectviewtree.cpp:248
 #, kde-format
@@ -808,22 +808,22 @@ msgstr "오류"
 msgid "File name already exists"
 msgstr "파일 이름이 이미 존재함"
 
-#: kateprojectplugin.cpp:216
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "프로젝트 닫기 확인: %1"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "프로젝트 %1 및 열린 문서 %2개를 닫으시겠습니까?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:595
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "파일 이름을 제외한 현재 프로젝트의 전체 경로입니다."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:612
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1018,6 +1018,22 @@ msgstr ""
 "%1이(가) 설치되어 있지 않거나 PATH 환경 변수에서 찾을 수 없어서 %1 기반 프로"
 "젝트를 불러올 수 없습니다. %1을(를) 설치하거나 프로젝트 설정에서 '자동으로 저"
 "장소 불러오고 트리 빌드'를 비활성화하십시오."
+
+#: project_commands.cpp:35
+#, kde-format
+msgid "Execute a command in the active project's terminal."
+msgstr ""
+
+#: project_commands.cpp:47
+#, kde-format
+msgid "No cmd provided"
+msgstr ""
+
+#: project_commands.cpp:60
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Command"
+msgstr "프로젝트 완성"
 
 #: stashdialog.cpp:36
 #, kde-format

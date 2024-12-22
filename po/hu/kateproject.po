@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2024-12-22 00:43+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -531,7 +531,7 @@ msgstr "Biztosan törölni szeretné ezeket a nem követett változtatásokat?"
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
 #: kateprojectviewtree.cpp:248
 #, kde-format
@@ -845,24 +845,24 @@ msgstr "Hiba"
 msgid "File name already exists"
 msgstr "A fájlnév már létezik"
 
-#: kateprojectplugin.cpp:216
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Projektbezárás megerősítése: %1"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Szeretné bezárni a(z) %1 projektet és a kapcsolódó %2 megnyitott "
 "dokumentumot?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:595
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Az aktuális projekt teljes elérési útja a fájlnév nélkül."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:612
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1067,6 +1067,22 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+
+#: project_commands.cpp:35
+#, kde-format
+msgid "Execute a command in the active project's terminal."
+msgstr ""
+
+#: project_commands.cpp:47
+#, kde-format
+msgid "No cmd provided"
+msgstr ""
+
+#: project_commands.cpp:60
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Command"
+msgstr "Projektkiegészítés"
 
 #: stashdialog.cpp:36
 #, kde-format

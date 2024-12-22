@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2024-12-22 00:43+0000\n"
 "PO-Revision-Date: 2024-12-15 21:02+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -508,7 +508,7 @@ msgstr "किं भवान् निश्चितः अस्ति य�
 msgid "Malformed JSON file '%1': %2"
 msgstr "विकृत JSON सञ्चिका '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
+#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
 #: kateprojectviewtree.cpp:248
 #, kde-format
@@ -802,22 +802,22 @@ msgstr "त्रुटि"
 msgid "File name already exists"
 msgstr "सञ्चिकानाम पूर्वमेव अस्ति"
 
-#: kateprojectplugin.cpp:216
+#: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "परियोजना समापनस्य पुष्टिं कुर्वन्तु: %1"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:218
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "किं भवान् परियोजना %1 तथा तत्सम्बद्धानि %2 उद्घाटितदस्तावेजानि पिधातुम् इच्छति?"
 
-#: kateprojectplugin.cpp:594
+#: kateprojectplugin.cpp:595
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "सञ्चिकानाम विहाय वर्तमानप्रकल्पस्य पूर्णमार्गः ।."
 
-#: kateprojectplugin.cpp:611
+#: kateprojectplugin.cpp:612
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1012,6 +1012,22 @@ msgstr ""
 "%1 आधारितं परियोजनां लोड् कर्तुं असमर्थम् यतः %1 संस्थापितम् अथवा PATH वातावरणचरमध्ये न "
 "प्राप्तम् । कृपया %1 संस्थापयन्तु अथवा वैकल्पिकरूपेण परियोजनासेटिंग्स् मध्ये 'Autoload "
 "Repositories && Build Trees' इति विकल्पं निष्क्रियं कुर्वन्तु ।"
+
+#: project_commands.cpp:35
+#, kde-format
+msgid "Execute a command in the active project's terminal."
+msgstr ""
+
+#: project_commands.cpp:47
+#, kde-format
+msgid "No cmd provided"
+msgstr ""
+
+#: project_commands.cpp:60
+#, fuzzy, kde-format
+#| msgid "Project Completion"
+msgid "Project Command"
+msgstr "परियोजना समाप्ति"
 
 #: stashdialog.cpp:36
 #, kde-format

@@ -1,6 +1,26 @@
 {
     "KPlugin": {
         "Description": "Project and file templates",
-        "Name": "File Templates"
+        "Description[ca]": "Plantilles de projectes i fitxers",
+        "Description[es]": "Plantillas de proyectos y de archivos",
+        "Description[eu]": "Proiektu- eta fitxategi-txantiloiak",
+        "Description[ka]": "პროექტისა და ფაილის შაბლონები",
+        "Description[nl]": "Project- en bestandssjablonen",
+        "Description[sa]": "परियोजना तथा सञ्चिका सारूप्य",
+        "Description[sl]": "Predloge projekta in datoteke",
+        "Description[tr]": "Proje ve dosya şablonları",
+        "Description[uk]": "Шаблони проєктів і файлів",
+        "Description[x-test]": "xxProject and file templatesxx",
+        "Name": "File Templates",
+        "Name[ca]": "Plantilles de fitxers",
+        "Name[es]": "Plantillas de archivos",
+        "Name[eu]": "Fitxategi-txantiloiak",
+        "Name[ka]": "ფაილის შაბლონები",
+        "Name[nl]": "Bestandssjablonen",
+        "Name[sa]": "सञ्चिका टेम्पलेट्स",
+        "Name[sl]": "Predloge datoteke",
+        "Name[tr]": "Dosya Şablonları",
+        "Name[uk]": "Шаблони файлів",
+        "Name[x-test]": "xxFile Templatesxx"
     }
 }

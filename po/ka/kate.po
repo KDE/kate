@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 06:10+0100\n"
+"PO-Revision-Date: 2024-12-22 05:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2524,29 +2524,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"ხელსაწყოს ხედი ვერ ვიპოვე სახელისთვის: '%1'. დამატება გათიშულია, თუ სახელი "
+"არასწორად აკრიფეთ?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "სკრიპტის შეცდომა. მოველოდი ხელსაწყოს ხედის სახელს. ხელმისაწვდომია: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "ხარისხის კონტროლი, სკრიპტები"
+msgstr "სკრიპტები"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. ხელსაწყოს ხედის პანელის ჩვენება. "
+"ხელმისაწვდომი პანელებია: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. ხელსაწყოს ხედის პანელის დამალვა. "
+"ხელმისაწვდომი პანელებია: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

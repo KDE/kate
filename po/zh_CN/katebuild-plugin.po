@@ -176,7 +176,7 @@ msgstr "“%1”不是一个本地文件，不能编译非本地的文件。"
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "创建目录"
 
 #: plugin_katebuild.cpp:795
 #, kde-format
@@ -184,11 +184,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"为目标集合 <b>%2</b> 配置的 <b>%1</b> 工作目录不存在。<br><br>您想要创建该目"
+"录吗？"
 
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "创建 <b>%1</b> 目录失败"
 
 #: plugin_katebuild.cpp:821
 #, kde-format

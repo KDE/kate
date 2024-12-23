@@ -2,17 +2,17 @@
 # Copyright (C) 1999-2024 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2 or later.
 #
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Sebastià Pla i Sanz <sps@sastia.com>, 1999, 2000, 2001, 2002, 2004, 2005, 2006.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2003, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022.
 # Albert Astals Cid <aacid@kde.org>, 2004, 2005.
 # Manuel Tortosa Moreno <manutortosa@chakra-project.org>, 2009, 2010.
+# Josep M. Ferrer <txemaq@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-12-14 08:14+0100\n"
+"PO-Revision-Date: 2024-12-22 10:23+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2547,29 +2547,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"No s'ha trobat cap vista d'eina per al nom: «%1». El connector està "
+"desactivat o el nom està mal escrit?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Error de l'script. S'esperava un nom de vista d'eina. Disponible: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "QA i creació de scripts"
+msgstr "Creació de scripts"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"«showtoolview $toolview_name». Mostra un plafó de vista d'eina. Plafons "
+"disponibles: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"«showtoolview $toolview_name». Oculta un plafó de vista d'eina. Plafons "
+"disponibles: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 10:54+0100\n"
+"PO-Revision-Date: 2024-12-22 15:10+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -2545,29 +2545,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Ez da izena duen tresna-ikuspegirik aurkitu: '%1'. Harentzako plugina "
+"ezgaituta dago edo izena gaizki idatzita dago?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Gidoi-errorea. Tresna-ikuspegi izen bat espero zen. Erabilgarri: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Kalitate-bermatze eta scriptak egitea"
+msgstr "Gidoigintza"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Erakutsi tresna-ikuspegi panel bat. Panel "
+"erabilgarriak: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Ezkutatu tresna-ikuspegi panel bat. Panel "
+"erabilgarriak: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

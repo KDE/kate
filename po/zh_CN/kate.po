@@ -2475,7 +2475,6 @@ msgstr ""
 
 #: lib/mainwindow_commands.cpp:55
 #, fuzzy, kde-format
-#| msgid "QA and Scripting"
 msgid "Scripting"
 msgstr "QA 和脚本"
 

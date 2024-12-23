@@ -1023,7 +1023,6 @@ msgstr ""
 
 #: project_commands.cpp:60
 #, fuzzy, kde-format
-#| msgid "Project Completion"
 msgid "Project Command"
 msgstr "工程补全"
 

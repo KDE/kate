@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-22 00:43+0000\n"
+"POT-Creation-Date: 2024-12-24 00:43+0000\n"
 "PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -208,52 +208,52 @@ msgid "&File"
 msgstr "&Fișier"
 
 #. i18n: ectx: Menu (file_file_actions)
-#: lib/data/kateui.rc:30
+#: lib/data/kateui.rc:31
 #, fuzzy, kde-format
 #| msgid "Actions"
 msgid "File Act&ions"
 msgstr "Acțiuni"
 
 #. i18n: ectx: Menu (edit)
-#: lib/data/kateui.rc:43
+#: lib/data/kateui.rc:44
 #, kde-format
 msgid "&Edit"
 msgstr "&Editare"
 
 #. i18n: ectx: Menu (selection)
-#: lib/data/kateui.rc:54
+#: lib/data/kateui.rc:55
 #, fuzzy, kde-format
 #| msgid "Actions"
 msgid "Sele&ction"
 msgstr "Acțiuni"
 
 #. i18n: ectx: Menu (go)
-#: lib/data/kateui.rc:57
+#: lib/data/kateui.rc:58
 #, fuzzy, kde-format
 msgid "&Go"
 msgstr "&Mergi"
 
 #. i18n: ectx: Menu (view)
-#: lib/data/kateui.rc:73
+#: lib/data/kateui.rc:74
 #, kde-format
 msgid "&View"
 msgstr "&Vizualizare"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:75 lib/kateviewspace.cpp:138
+#: lib/data/kateui.rc:76 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
 msgstr "Desparte vizualizarea"
 
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:110 lib/diagnostics/ui.rc:6
+#: lib/data/kateui.rc:111 lib/diagnostics/ui.rc:6
 #, kde-format
 msgid "&Tools"
 msgstr "Unel&te"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:125 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:126 lib/diagnostics/diagnosticview.cpp:291
 #: lib/diagnostics/ui.rc:8
 #, fuzzy, kde-format
 #| msgid "List View"
@@ -261,31 +261,31 @@ msgid "Diagnostics View"
 msgstr "Vizualizare listă"
 
 #. i18n: ectx: Menu (settings)
-#: lib/data/kateui.rc:130
+#: lib/data/kateui.rc:131
 #, kde-format
 msgid "&Settings"
 msgstr "&Configurări"
 
 #. i18n: ectx: Menu (help)
-#: lib/data/kateui.rc:139
+#: lib/data/kateui.rc:140
 #, kde-format
 msgid "&Help"
 msgstr "&Ajutor"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: lib/data/kateui.rc:144
+#: lib/data/kateui.rc:145
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Bara de unelte principală"
 
 #. i18n: ectx: ToolBar (hamburgerBar)
-#: lib/data/kateui.rc:160
+#: lib/data/kateui.rc:161
 #, kde-format
 msgid "Hamburger Menu Toolbar"
 msgstr ""
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
-#: lib/data/kateui.rc:174
+#: lib/data/kateui.rc:175
 #, kde-format
 msgid "&Status Bar Items"
 msgstr "Elemente ale barei de &stare"
@@ -1375,13 +1375,13 @@ msgstr "Închide documentul"
 msgid "Save As"
 msgstr "Salvează ca"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:735
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:742
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "A fost deschis un fișier nou în tip ce Kate se termina. Închidere anulată."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:735
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:742
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Terminare anulată"
@@ -1661,29 +1661,41 @@ msgstr "Reîncarcă toate documentele deschise."
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 
-#: lib/katemainwindow.cpp:490
+#: lib/katemainwindow.cpp:488
+#, fuzzy, kde-format
+#| msgid "&New Window"
+msgid "Close &Window"
+msgstr "Fereastră &nouă"
+
+#: lib/katemainwindow.cpp:492
 #, kde-format
 msgid "Close this window"
 msgstr "Închide această fereastră"
 
-#: lib/katemainwindow.cpp:494
+#: lib/katemainwindow.cpp:497
+#, fuzzy, kde-format
+#| msgid "Application"
+msgid "Quit the application"
+msgstr "Aplicație"
+
+#: lib/katemainwindow.cpp:501
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "New &Window"
 msgstr "Fereastră &nouă"
 
-#: lib/katemainwindow.cpp:497
+#: lib/katemainwindow.cpp:504
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Creează un document nou"
 
-#: lib/katemainwindow.cpp:504
+#: lib/katemainwindow.cpp:511
 #, kde-format
 msgid "Open W&ith"
 msgstr "&Deschide cu"
 
-#: lib/katemainwindow.cpp:506
+#: lib/katemainwindow.cpp:513
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1692,17 +1704,17 @@ msgstr ""
 "Deschide documentul curent utilizând altă aplicație înregistrată cu tipul de "
 "fișier sau cu o aplicație la alegerea dumneavoastră."
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:521
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Configurează asocierile de acceleratori de tastatură ale aplicației."
 
-#: lib/katemainwindow.cpp:517
+#: lib/katemainwindow.cpp:524
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Configurează ce elemnte trebuie să apară în barele de unelte."
 
-#: lib/katemainwindow.cpp:520
+#: lib/katemainwindow.cpp:527
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
@@ -1710,90 +1722,90 @@ msgstr ""
 "Configurează diferite aspecte ale acestei aplicații și ale componentei de "
 "editare."
 
-#: lib/katemainwindow.cpp:524
+#: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Manualul &modulelor"
 
-#: lib/katemainwindow.cpp:526
+#: lib/katemainwindow.cpp:533
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Afișează documentația de ajutor pentru modulele disponibile."
 
-#: lib/katemainwindow.cpp:543
+#: lib/katemainwindow.cpp:550
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ses&iuni"
 
-#: lib/katemainwindow.cpp:549
+#: lib/katemainwindow.cpp:556
 #, fuzzy, kde-format
 #| msgid "New Session"
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Sesiune nouă"
 
-#: lib/katemainwindow.cpp:554
+#: lib/katemainwindow.cpp:561
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "&Deschide sesiune"
 
-#: lib/katemainwindow.cpp:559
+#: lib/katemainwindow.cpp:566
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "Ses&iuni"
 
-#: lib/katemainwindow.cpp:566
+#: lib/katemainwindow.cpp:573
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Gestionare sesiuni..."
 
-#: lib/katemainwindow.cpp:575
+#: lib/katemainwindow.cpp:582
 #, kde-format
 msgid "&Save Session"
 msgstr "&Salvează sesiunea"
 
-#: lib/katemainwindow.cpp:581
+#: lib/katemainwindow.cpp:588
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Salvează sesiunea c&a..."
 
-#: lib/katemainwindow.cpp:588 lib/kateviewspace.cpp:56
+#: lib/katemainwindow.cpp:595 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:597 lib/kateviewspace.cpp:68
+#: lib/katemainwindow.cpp:604 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:605
+#: lib/katemainwindow.cpp:612
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:639
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Această operație va închide toate documentele deschise. Sigur doriți să "
 "continuați?"
 
-#: lib/katemainwindow.cpp:633
+#: lib/katemainwindow.cpp:640
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Închide toate documentele"
 
-#: lib/katemainwindow.cpp:634
+#: lib/katemainwindow.cpp:641
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "În&chide tot"
 
-#: lib/katemainwindow.cpp:648
+#: lib/katemainwindow.cpp:655
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1802,31 +1814,31 @@ msgstr ""
 "Aceasta va închide toate documentele deschise în afară de cel actual. Sigur "
 "doriți să continuați?"
 
-#: lib/katemainwindow.cpp:649
+#: lib/katemainwindow.cpp:656
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Închide toate documentele în afară de cel actual"
 
-#: lib/katemainwindow.cpp:650
+#: lib/katemainwindow.cpp:657
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "Închide celelalte"
 
-#: lib/katemainwindow.cpp:886
+#: lib/katemainwindow.cpp:893
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Aceasta va ascunde complet bara meniului. O puteți afișa din nou tastând %1."
 
-#: lib/katemainwindow.cpp:889
+#: lib/katemainwindow.cpp:896
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ascunde bara meniului"
 
-#: lib/katemainwindow.cpp:1064
+#: lib/katemainwindow.cpp:1071
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1838,21 +1850,21 @@ msgstr ""
 "Ați lăsat dosarul %1 în Kate. Doriți să încărcați toate fișierele conținute "
 "în acesta?"
 
-#: lib/katemainwindow.cpp:1067
+#: lib/katemainwindow.cpp:1074
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Încărcați fișiere recursiv?"
 
-#: lib/katemainwindow.cpp:1068
+#: lib/katemainwindow.cpp:1075
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Deschide fișier"
 
-#: lib/katemainwindow.cpp:1273
+#: lib/katemainwindow.cpp:1280
 #, kde-format
 msgid " [read only]"
 msgstr " [numai citire]"

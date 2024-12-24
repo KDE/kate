@@ -73,8 +73,8 @@ using namespace Qt::Literals::StringLiterals;
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
 static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
-static const QString ConfigAllowedCommands = QStringLiteral("AllowedCommandLines");
-static const QString ConfigBlockedCommands = QStringLiteral("BlockedCommandLines");
+static const char ConfigAllowedCommands[] = "AllowedCommandLines";
+static const char ConfigBlockedCommands[] = "BlockedCommandLines";
 
 namespace
 {

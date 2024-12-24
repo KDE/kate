@@ -72,7 +72,6 @@ using namespace Qt::Literals::StringLiterals;
 
 K_PLUGIN_FACTORY_WITH_JSON(KateBuildPluginFactory, "katebuildplugin.json", registerPlugin<KateBuildPlugin>();)
 
-static const QString DiagnosticsPrefix = QStringLiteral("katebuild");
 static const char ConfigAllowedCommands[] = "AllowedCommandLines";
 static const char ConfigBlockedCommands[] = "BlockedCommandLines";
 
@@ -630,7 +629,7 @@ static Diagnostic createDiagnostic(int line, int column, const QString &message,
 {
     Diagnostic d;
     d.message = message;
-    d.source = DiagnosticsPrefix;
+    d.source = QStringLiteral("katebuild");
     d.severity = severity;
     d.range = KTextEditor::Range(KTextEditor::Cursor(line - 1, column - 1), 0);
     return d;

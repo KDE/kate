@@ -175,13 +175,6 @@ static void terminateProcess(KProcess &proc)
 }
 #endif
 
-struct ItemData {
-    // ensure destruction, but not inadvertently so by a variant value copy
-    std::shared_ptr<KTextEditor::MovingCursor> cursor;
-};
-
-Q_DECLARE_METATYPE(ItemData)
-
 /******************************************************************/
 KateBuildPlugin::KateBuildPlugin(QObject *parent, const VariantList &)
     : KTextEditor::Plugin(parent)

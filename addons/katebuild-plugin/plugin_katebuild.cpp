@@ -239,7 +239,8 @@ void KateBuildPlugin::writeConfig() const
     config.writeEntry("AutoSwitchToOutput", m_autoSwitchToOutput);
 
     // write allow + block lists as two separate keys
-    QStringList allowed, blocked;
+    QStringList allowed;
+    QStringList blocked;
     for (const auto &it : m_commandLineToAllowedState) {
         if (it.second) {
             allowed.push_back(it.first);
@@ -256,11 +257,7 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     : QObject(mw)
     , m_plugin(plugin)
     , m_win(mw)
-    , m_buildWidget(nullptr)
     , m_proc(this)
-    , m_stdOut()
-    , m_stdErr()
-    , m_buildCancelled(false)
     // NOTE this will not allow spaces in file names.
     // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
     // e.g. from gcc: "main.cpp:14:8: error: cannot convert ‘std::string’ to ‘int’ in return"

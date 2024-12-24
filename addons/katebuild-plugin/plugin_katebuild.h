@@ -178,11 +178,11 @@ private:
     QString findCompileCommands(const QString &file) const;
     CompileCommands parseCompileCommandsFile(const QString &compileCommandsFile) const;
 
-    KateBuildPlugin *m_plugin;
-    KTextEditor::MainWindow *m_win;
+    KateBuildPlugin *const m_plugin;
+    KTextEditor::MainWindow *const m_win;
     QWidget *m_toolView;
     Ui::build m_buildUi{};
-    QWidget *m_buildWidget;
+    QWidget *m_buildWidget = nullptr;
     TargetsUi *m_targetsUi;
     KProcess m_proc;
     QString m_stdOut;
@@ -194,7 +194,7 @@ private:
 
     QTimer m_outputTimer;
     QString m_currentlyBuildingTarget;
-    bool m_buildCancelled;
+    bool m_buildCancelled = false;
     bool m_runAfterBuild = false;
     QString m_makeDir;
     QStack<QString> m_makeDirStack;

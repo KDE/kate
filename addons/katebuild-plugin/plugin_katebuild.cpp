@@ -679,11 +679,11 @@ void KateBuildView::addError(const KateBuildView::OutputLine &err)
 }
 
 /******************************************************************/
-void KateBuildView::updateDiagnostics(Diagnostic diagnostic, const QUrl uri)
+void KateBuildView::updateDiagnostics(Diagnostic diagnostic, QUrl uri)
 {
     FileDiagnostics fd;
-    fd.uri = uri;
-    fd.diagnostics.append(diagnostic);
+    fd.uri = std::move(uri);
+    fd.diagnostics.append(std::move(diagnostic));
     Q_EMIT m_diagnosticsProvider.diagnosticsAdded(fd);
 }
 

@@ -155,7 +155,7 @@ private:
     OutputLine processOutputLine(const QString &line);
     QString toOutputHtml(const KateBuildView::OutputLine &out);
     void addError(const OutputLine &err);
-    void updateDiagnostics(Diagnostic diagnostic, const QUrl uri);
+    void updateDiagnostics(Diagnostic diagnostic, QUrl uri);
     void clearDiagnostics();
     bool startProcess(const QString &dir, const QString &command);
     bool checkLocal(const QUrl &dir);

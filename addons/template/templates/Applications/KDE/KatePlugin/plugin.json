@@ -8,12 +8,14 @@
         "Description[fr]": "Description de TMPL_PLUGIN_UI_NAME_TMPL",
         "Description[ia]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Description[ka]": "TMPL_PLUGIN_UI_NAME_TMPL აღწერა",
+        "Description[ko]": "TMPL_PLUGIN_UI_NAME_TMPL 설명",
         "Description[nl]": "TMPL_PLUGIN_UI_NAME_TMPL beschrijving",
         "Description[sa]": "TMPL_PLUGIN_UI_NAME_TMPL विवरणम्",
         "Description[sl]": "TMPL_PLUGIN_UI_NAME_TMPL opis",
         "Description[tr]": "TMPL_PLUGIN_UI_NAME_TMPL açıklaması",
         "Description[uk]": "Опис TMPL_PLUGIN_UI_NAME_TMPL",
         "Description[x-test]": "xxTMPL_PLUGIN_UI_NAME_TMPL descriptionxx",
+        "Description[zh_CN]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Name": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ca@valencia]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ca]": "TMPL_PLUGIN_UI_NAME_TMPL",
@@ -22,11 +24,13 @@
         "Name[fr]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ia]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ka]": "TMPL_PLUGIN_UI_NAME_TMPL",
+        "Name[ko]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[nl]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[sa]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[sl]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[tr]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[uk]": "TMPL_PLUGIN_UI_NAME_TMPL",
-        "Name[x-test]": "xxTMPL_PLUGIN_UI_NAME_TMPLxx"
+        "Name[x-test]": "xxTMPL_PLUGIN_UI_NAME_TMPLxx",
+        "Name[zh_CN]": "TMPL_PLUGIN_UI_NAME_TMPL"
     }
 }

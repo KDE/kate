@@ -9,12 +9,14 @@
         "Description[gl]": "Modelos de proxectos e ficheiros",
         "Description[ia]": "Projecto e patronos de file",
         "Description[ka]": "პროექტისა და ფაილის შაბლონები",
+        "Description[ko]": "프로젝트와 파일 템플릿",
         "Description[nl]": "Project- en bestandssjablonen",
         "Description[sa]": "परियोजना तथा सञ्चिका सारूप्य",
         "Description[sl]": "Predloge projekta in datoteke",
         "Description[tr]": "Proje ve dosya şablonları",
         "Description[uk]": "Шаблони проєктів і файлів",
         "Description[x-test]": "xxProject and file templatesxx",
+        "Description[zh_CN]": "工程和文件模板",
         "Name": "File Templates",
         "Name[ca@valencia]": "Plantilles de fitxers",
         "Name[ca]": "Plantilles de fitxers",
@@ -24,11 +26,13 @@
         "Name[gl]": "Modelos de ficheiros",
         "Name[ia]": "Patronos de file",
         "Name[ka]": "ფაილის შაბლონები",
+        "Name[ko]": "파일 템플릿",
         "Name[nl]": "Bestandssjablonen",
         "Name[sa]": "सञ्चिका टेम्पलेट्स",
         "Name[sl]": "Predloge datoteke",
         "Name[tr]": "Dosya Şablonları",
         "Name[uk]": "Шаблони файлів",
-        "Name[x-test]": "xxFile Templatesxx"
+        "Name[x-test]": "xxFile Templatesxx",
+        "Name[zh_CN]": "文件模板"
     }
 }

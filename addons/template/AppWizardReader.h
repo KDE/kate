@@ -14,8 +14,8 @@ class AppWizardReader : public QObject
 public:
     struct Replacement {
         QString descr;
-        QString placeholder;
-        QString defaultValue;
+        QByteArray placeholder;
+        QByteArray defaultValue;
     };
 
     struct TemplateData {
@@ -24,6 +24,7 @@ public:
         QString icon; // to not copy to destination
         QString fileToOpen;
         QString packagePath;
+        QString kAppTemplateFile;
     };
 
     explicit AppWizardReader(QObject *parent = nullptr);

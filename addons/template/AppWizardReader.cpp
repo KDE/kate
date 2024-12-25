@@ -60,6 +60,7 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             if (!templateEntry || !templateEntry->isFile()) {
                 for (const auto &entryName : templateArchive->directory()->entries()) {
                     if (entryName.endsWith(u".kdevtemplate"_s)) {
+                        data.kAppTemplateFile = entryName;
                         templateEntry = templateArchive->directory()->entry(entryName);
                         break;
                     }
@@ -108,10 +109,10 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
 QList<AppWizardReader::Replacement> AppWizardReader::replacements() const
 {
     QList<Replacement> reps;
-    reps.append({i18n("Application Name"), u"%{APPNAME}"_s, u"MyApp"_s});
-    reps.append({i18n("Appication Version"), u"%{VERSION}"_s, u"0.1"_s});
-    reps.append({i18n("Author"), u"%{AUTHOR}"_s, QString()});
-    reps.append({i18n("E-Mail"), u"%{EMAIL}"_s, QString()});
+    reps.append({i18n("Application Name"), "%{APPNAME}"_ba, "MyApp"_ba});
+    reps.append({i18n("Appication Version"), "%{VERSION}"_ba, "0.1"_ba});
+    reps.append({i18n("Author"), "%{AUTHOR}"_ba, QByteArray()});
+    reps.append({i18n("E-Mail"), "%{EMAIL}"_ba, QByteArray()});
     return reps;
 }
 

@@ -101,7 +101,7 @@ bool Template::ConfigData::setData(const QVariant &value, int role, int column)
         return true;
     }
     if (column == 1) {
-        m_value = value.toString();
+        m_value = value.toByteArray();
         return true;
     }
 
@@ -199,9 +199,9 @@ bool Template::copyFile(const QString &src, const QString &trgt, const ReplaceMa
         return false;
     }
 
-    QString fileContent = QString::fromLocal8Bit(in.readAll());
+    QByteArray fileContent = in.readAll();
 
-    QString newName = trgt;
+    QByteArray newName = trgt.toLocal8Bit();
     // Replace first any file names
     for (auto it = fileReplaceMap.cbegin(); it != fileReplaceMap.cend(); ++it) {
         newName.replace(it.key(), it.value());
@@ -210,32 +210,37 @@ bool Template::copyFile(const QString &src, const QString &trgt, const ReplaceMa
 
     // Now replace non-file-name
     for (auto it = replaceMap.cbegin(); it != replaceMap.cend(); ++it) {
-        QString toReplace = it.key();
+        QByteArray toReplace = it.key();
         newName.replace(toReplace, it.value());
         fileContent.replace(toReplace, it.value());
     }
 
-    if (QFileInfo::exists(newName)) {
+    if (QFileInfo::exists(QString::fromLocal8Bit(newName))) {
         qWarning() << "File already exists:" << newName;
         return false;
     }
 
-    QFile out(newName);
+    QFile out(QString::fromLocal8Bit(newName));
     if (!out.open(QFile::WriteOnly)) {
         qWarning() << "Failed to create:" << newName;
         return false;
     }
 
-    out.write(fileContent.toLocal8Bit());
+    out.write(fileContent);
     return true;
 }
 
-bool Template::copyFolder(const QString &src, const QString &trgt, const ReplaceMap &fileReplaceMap, const ReplaceMap &replaceMap)
+bool Template::copyFolder(const QString &src,
+                          const QString &trgt,
+                          const ReplaceMap &fileReplaceMap,
+                          const ReplaceMap &replaceMap,
+                          const QStringList &fileSkipList)
 {
     QDir dir(src);
+
     // Copy files
     for (const auto &entry : dir.entryList(QDir::Files | QDir::Hidden)) {
-        if (entry == u"template.json"_s) {
+        if (fileSkipList.contains(entry)) {
             continue;
         }
         if (!copyFile(src + '/'_L1 + entry, trgt + '/'_L1 + entry, fileReplaceMap, replaceMap)) {
@@ -243,9 +248,10 @@ bool Template::copyFolder(const QString &src, const QString &trgt, const Replace
         }
     }
 
+    // Copy folders
     for (const auto &entry : dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
         QDir().mkpath(trgt + '/'_L1 + entry);
-        if (!copyFolder(src + '/'_L1 + entry, trgt + '/'_L1 + entry, fileReplaceMap, replaceMap)) {
+        if (!copyFolder(src + '/'_L1 + entry, trgt + '/'_L1 + entry, fileReplaceMap, replaceMap, fileSkipList)) {
             return false;
         }
     }
@@ -276,26 +282,27 @@ void Template::createFromTemplate()
 
     for (int i = 0; i < rows; ++i) {
         const auto index = m_configModel.index(i, 0, QModelIndex());
-        const QString plh = index.data(ConfigData::ReplacePlaceHolderRole).toString();
-        const QString val = index.data(ConfigData::ReplaceValueRole).toString();
+        const QByteArray plh = index.data(ConfigData::ReplacePlaceHolderRole).toByteArray();
+        const QByteArray val = index.data(ConfigData::ReplaceValueRole).toByteArray();
         const QStringList genFiles = index.data(ConfigData::GeneratedFilesRole).toStringList();
         replaceMap.insert(plh, val);
-        QString fileNameReplace = lcFiles ? val.toLower() : val;
+        QByteArray fileNameReplace = lcFiles ? val.toLower() : val;
 
         // Add filename replacements (lowercase of class name)
-        for (const auto &file : fNames) {
+        for (const auto &fileStr : fNames) {
+            const QByteArray file = fileStr.toLocal8Bit();
             if (file.contains(plh)) {
-                fileToOpen.replace(plh, fileNameReplace);
-                QString newName = file;
+                fileToOpen.replace(QString::fromLocal8Bit(plh), QString::fromLocal8Bit(fileNameReplace));
+                QByteArray newName = file;
                 newName.replace(plh, fileNameReplace);
                 fileReplaceMap.insert(file, newName);
             }
         }
 
         // Add file-name replacements for generated files (lowercase of class name)
-        for (QString genFile : genFiles) {
-            QString toReplace = genFile.arg(plh);
-            QString replacement = genFile.arg(fileNameReplace);
+        for (const QString &genFile : genFiles) {
+            const QByteArray toReplace = genFile.arg(QString::fromLocal8Bit(plh)).toLocal8Bit();
+            const QByteArray replacement = genFile.arg(QString::fromLocal8Bit(fileNameReplace)).toLocal8Bit();
             fileReplaceMap.insert(toReplace, replacement);
         }
     }
@@ -303,7 +310,9 @@ void Template::createFromTemplate()
     QString trgtPath = ui->u_locationLineEdit->text();
     fileToOpen = trgtPath + '/'_L1 + fileToOpen;
 
-    bool ok = copyFolder(srcPath, trgtPath, fileReplaceMap, replaceMap);
+    QStringList fileSkipList({u"template.json"_s});
+
+    bool ok = copyFolder(srcPath, trgtPath, fileReplaceMap, replaceMap, fileSkipList);
 
     if (!ok) {
         fileToOpen.clear();
@@ -363,8 +372,8 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
         const auto renObj = renameVal.toObject();
         std::unique_ptr<ConfigData> data = std::make_unique<ConfigData>();
         data->m_desc = renObj.value(u"description"_s).toString();
-        data->m_placeholder = renObj.value(u"placeholder"_s).toString();
-        data->m_value = renObj.value(u"default"_s).toString();
+        data->m_placeholder = renObj.value(u"placeholder"_s).toString().toLocal8Bit();
+        data->m_value = renObj.value(u"default"_s).toString().toLocal8Bit();
         data->m_mustBeLowercase = renObj.value(u"mustBeLowercase"_s).toBool(false);
         const auto files = renObj.value(u"genratedFiles"_s).toArray();
         for (const auto file : files) {
@@ -479,13 +488,13 @@ void Template::createFromAppWizardTemplate(const QString &category)
 {
     const auto &templ = m_appWizMap.value(category);
 
-    QMap<QString, QString> replaceMap;
+    QMap<QByteArray, QByteArray> replaceMap;
     int rows = m_configModel.rowCount(QModelIndex());
 
     for (int i = 0; i < rows; ++i) {
         const auto index = m_configModel.index(i, 0, QModelIndex());
-        const QString plh = index.data(ConfigData::ReplacePlaceHolderRole).toString();
-        const QString val = index.data(ConfigData::ReplaceValueRole).toString();
+        const QByteArray plh = index.data(ConfigData::ReplacePlaceHolderRole).toByteArray();
+        const QByteArray val = index.data(ConfigData::ReplaceValueRole).toByteArray();
         replaceMap.insert(plh, val);
     }
 
@@ -496,24 +505,26 @@ void Template::createFromAppWizardTemplate(const QString &category)
         fileToOpen = trgtPath + '/'_L1 + fileToOpen;
     }
 
-    const QRegularExpression notWord(QStringLiteral("[^\\w]"));
-    auto generateIdentifier = [&notWord](const QString &appname) {
-        return QString(appname).replace(notWord, QStringLiteral("_"));
+    const QRegularExpression notWord(u"[^\\w]"_s);
+    auto generateIdentifier = [&notWord](const QByteArray &appname) {
+        return QString::fromLocal8Bit(appname).replace(notWord, u"_"_s).toLocal8Bit();
     };
 
-    const QString appName = replaceMap.value(u"%{APPNAME}"_s);
-    replaceMap[u"%{CURRENT_YEAR}"_s] = QString().setNum(QDate::currentDate().year());
-    replaceMap[u"%{APPNAME}"_s] = appName;
-    replaceMap[u"%{APPNAMEUC}"_s] = generateIdentifier(appName.toUpper());
-    replaceMap[u"%{APPNAMELC}"_s] = appName.toLower();
-    replaceMap[u"%{APPNAMEID}"_s] = generateIdentifier(appName);
-    replaceMap[u"%{PROJECTDIR}"_s] = trgtPath;
-    replaceMap[u"%{PROJECTDIRNAME}"_s] = appName.toLower();
+    const QByteArray appName = replaceMap.value("%{APPNAME}"_ba);
+    replaceMap["%{CURRENT_YEAR}"_ba] = QByteArray().setNum(QDate::currentDate().year());
+    replaceMap["%{APPNAME}"_ba] = appName;
+    replaceMap["%{APPNAMEUC}"_ba] = generateIdentifier(appName.toUpper());
+    replaceMap["%{APPNAMELC}"_ba] = appName.toLower();
+    replaceMap["%{APPNAMEID}"_ba] = generateIdentifier(appName);
+    replaceMap["%{PROJECTDIR}"_ba] = trgtPath.toLocal8Bit();
+    replaceMap["%{PROJECTDIRNAME}"_ba] = appName.toLower();
 
     // Update the file to open
     for (const auto &key : replaceMap.keys()) {
-        fileToOpen.replace(key, replaceMap.value(key));
+        fileToOpen.replace(QString::fromLocal8Bit(key), QString::fromLocal8Bit(replaceMap.value(key)));
     }
+
+    QStringList fileSkipList({templ.kAppTemplateFile, templ.icon});
 
     QTemporaryDir tempDir;
 
@@ -521,8 +532,7 @@ void Template::createFromAppWizardTemplate(const QString &category)
     if (!ok) {
         fileToOpen.clear();
     } else {
-        qDebug() << replaceMap;
-        ok = copyFolder(tempDir.path(), trgtPath, {}, replaceMap);
+        ok = copyFolder(tempDir.path(), trgtPath, {}, replaceMap, fileSkipList);
     }
 
     if (!ok) {

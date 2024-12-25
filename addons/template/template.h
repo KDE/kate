@@ -77,8 +77,8 @@ private:
         bool setData(const QVariant &value, int role = Qt::DisplayRole, int column = 0) override;
 
         QString m_desc;
-        QString m_placeholder;
-        QString m_value;
+        QByteArray m_placeholder;
+        QByteArray m_value;
         bool m_mustBeLowercase = false;
         QStringList m_generatedFiles;
     };
@@ -87,9 +87,9 @@ private:
 
     void addEntries(const QFileInfo &info, const QModelIndex &parent);
 
-    typedef QMap<QString, QString> ReplaceMap;
+    typedef QMap<QByteArray, QByteArray> ReplaceMap;
     bool copyFile(const QString &src, const QString &trgt, const ReplaceMap &fileReplaceMap, const ReplaceMap &replaceMap);
-    bool copyFolder(const QString &src, const QString &trgt, const ReplaceMap &fileReplaceMap, const ReplaceMap &replaceMap);
+    bool copyFolder(const QString &src, const QString &trgt, const ReplaceMap &fileReplaceMap, const ReplaceMap &replaceMap, const QStringList &fileSkipList);
     QStringList fileNames(const QString &src);
     void createFromTemplate();
 

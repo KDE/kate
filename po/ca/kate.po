@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 10:23+0100\n"
+"PO-Revision-Date: 2024-12-24 08:21+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1647,10 +1647,9 @@ msgstr ""
 "Torna a obrir el darrer document o documents que s'han tancat més recentment"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&Finestra nova"
+msgstr "Tanca la &finestra"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1658,10 +1657,9 @@ msgid "Close this window"
 msgstr "Tanca aquesta finestra"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Altres aplicacions..."
+msgstr "Surt de l'aplicació"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

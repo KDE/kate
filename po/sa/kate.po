@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 20:51+0530\n"
+"PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -1614,10 +1614,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "यत् दस्तावेजं वा दस्तावेजं वा अद्यतनतया बन्दं कृतम् आसीत् तत् पुनः उद्घाटयन्तु"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "नवीन &गवाक्ष"
+msgstr "&गवाक्ष बन्दं कुरु"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1625,10 +1624,9 @@ msgid "Close this window"
 msgstr "एतत् गवाक्ष पिधाय"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&अन्य अनुप्रयोग..."
+msgstr "अनुप्रयोगं त्यज। "
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

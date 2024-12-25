@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-12-10 00:29+0100\n"
+"PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -220,10 +220,9 @@ msgid "Refresh git status"
 msgstr "Git 상태 새로 고침"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "필터..."
+msgstr "필터…"
 
 #: gitwidget.cpp:444
 #, kde-format
@@ -1022,18 +1021,17 @@ msgstr ""
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "활성 프로젝트의 터미널에서 명령을 실행합니다."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "지정한 명령이 없음"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "프로젝트 완성"
+msgstr "프로젝트 명령"
 
 #: stashdialog.cpp:36
 #, kde-format

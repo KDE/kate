@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Shinjo Park <kde@peremen.name>, 2009, 2010, 2014, 2018, 2019, 2020, 2022.
+# SPDX-FileCopyrightText: 2009, 2010, 2014, 2018, 2019, 2020, 2022, 2024 Shinjo Park <kde@peremen.name>
 # JungHee Lee <daemul72@gmail.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2022-07-13 14:18+0200\n"
+"PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
@@ -137,10 +137,9 @@ msgid "Symbol List"
 msgstr "기호 목록"
 
 #: plugin_katesymbolviewer.cpp:132
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "필터..."
+msgstr "필터…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

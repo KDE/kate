@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 14:28+0100\n"
+"PO-Revision-Date: 2024-12-24 11:12+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -1665,10 +1665,9 @@ msgstr ""
 "Het document of documenten die het meest recent is/zijn gesloten heropenen"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "Nieuw &venster"
+msgstr "&Venster sluiten"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1676,10 +1675,9 @@ msgid "Close this window"
 msgstr "Sluit dit venster"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Andere toepassing..."
+msgstr "Sluit de toepassing"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

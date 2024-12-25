@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 17:14+0200\n"
+"PO-Revision-Date: 2024-12-24 18:52+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1651,10 +1651,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Повторно відкрити документ або документи, які було закрито останніми"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&Нове вікно"
+msgstr "Закрити в&ікно"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1662,10 +1661,9 @@ msgid "Close this window"
 msgstr "Закрити це вікно"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Інша програма…"
+msgstr "Вийти з програми"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

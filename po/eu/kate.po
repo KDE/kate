@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 15:10+0100\n"
+"PO-Revision-Date: 2024-12-24 19:51+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -1646,10 +1646,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Berrireki itxitako azken dokumentua edo dokumentuak"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&Leiho berria"
+msgstr "Itxi &leihoa"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1657,10 +1656,9 @@ msgid "Close this window"
 msgstr "Itxi leiho hau"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Beste aplikazio batzuk..."
+msgstr "Irten aplikaziotik"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

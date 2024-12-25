@@ -12,17 +12,13 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-22 20:01+0100\n"
+"PO-Revision-Date: 2024-12-24 03:15+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"com>\n"
-"com>\n"
-"the.blue.valkyrie@gmail.com>\n"
-"com>\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
 "X-Generator: Lokalize 24.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -1659,10 +1655,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Volver a abrir los documentos que se han cerrado más recientemente"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "Nueva &ventana"
+msgstr "Cerrar &ventana"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1670,10 +1665,9 @@ msgid "Close this window"
 msgstr "Cerrar esta ventana"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Otra aplicación..."
+msgstr "Salir de la aplicación"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

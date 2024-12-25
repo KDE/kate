@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-08-20 23:27+0200\n"
+"PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -173,10 +173,9 @@ msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] "모든 열린 프로젝트에서 %1개(%3) 일치함(공통 부모: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "필터:"
+msgstr "필터…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)

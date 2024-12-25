@@ -539,7 +539,7 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"项目插件可以在尚未定义 .kateproject 文件的情况下自动加载代码仓库的工作副本和"
+"工程插件可以在尚未定义 .kateproject 文件的情况下自动加载代码仓库的工作副本和"
 "构建树。"
 
 #: kateprojectconfigpage.cpp:29
@@ -1008,8 +1008,8 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
-"无法加载基于 %1 的项目，因为没有安装 %1 或者没有在 PATH 环境变量中找到它。请"
-"安装 %1，或者在项目设置中禁用“自动加载代码仓库及构建树”选项。"
+"无法加载基于 %1 的工程，因为没有安装 %1 或者没有在 PATH 环境变量中找到它。请"
+"安装 %1，或者在工程设置中禁用“自动加载代码仓库及构建树”选项。"
 
 #: stashdialog.cpp:36
 #, kde-format

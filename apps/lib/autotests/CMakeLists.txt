@@ -29,4 +29,6 @@ kate_executable_tests(
     kate_view_mgmt_tests # uses kwrite for tests
     kate_view_mgmt_test2 # uses kate for tests
     bytearraysplitter_tests
-    diffwidget_tests)
+    diffwidget_tests
+    basic_ui_tests
+)

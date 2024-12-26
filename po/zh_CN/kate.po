@@ -1602,7 +1602,7 @@ msgstr "重新打开最近关闭的单个或者多个文档"
 #: lib/katemainwindow.cpp:488
 #, kde-format
 msgid "Close &Window"
-msgstr ""
+msgstr "关闭窗口(&W)"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1612,7 +1612,7 @@ msgstr "关闭该窗口"
 #: lib/katemainwindow.cpp:497
 #, kde-format
 msgid "Quit the application"
-msgstr ""
+msgstr "退出应用程序"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

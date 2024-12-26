@@ -46,3 +46,27 @@ The replace should just replace '_' with '-':
 regex: (?<!\d)(ABC)_(DEF)_(GHI)(?!\d+)
 replace: \1-\2-\3
 aaaABC_DEF_GHIaaa
+
+Complex lookahead (with nested parenthesis)
+1) xxxrr
+2) xxxgs
+3) xxxge
+4) xxxgr
+
+Find xxx followed by g, but not if g is followed by s
+regex: xxx(?=g(?!s))
+replace: yyy
+result: find & replace 3,4
+
+Complex lookbehind (with nested parenthesis)
+1) qwxxx
+2) asxxx
+3) bsxxx
+4) sxxx
+5) (sxxx
+6) )sxxx
+
+Find xxx after an 's', but not if that 's' is after a 'b' or '(' or ')'
+regex: (?<=(?<!(b|\(|[\)]))s)xxx
+replace: yyy
+result: find & replace 2,4

@@ -15,6 +15,8 @@
 #include <KTextEditor/Document>
 #include <ktexteditor/movingrange.h>
 
+using namespace Qt::Literals::StringLiterals;
+
 static const quintptr InfoItemId = 0xFFFFFFFF;
 static const quintptr FileItemId = 0x7FFFFFFF;
 
@@ -256,8 +258,8 @@ QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, Q
     QString pattern = regExp.pattern();
 
     // NOTE: Negative look-ahead/behind are not a problem as they are not part of the range
-    static const QRegularExpression lookaheadRegex(QStringLiteral("^.*(\\(\\?=[^\\)]+\\))$"));
-    static const QRegularExpression lookbehindRegex(QStringLiteral("^(\\(\\?<=[^\\)]+\\)).*$"));
+    static const QRegularExpression lookaheadRegex(QStringLiteral("^.*(\\(\\?=.+\\))$"));
+    static const QRegularExpression lookbehindStartRegex(QStringLiteral("^(\\(\\?<=).*$"));
 
     // Remove possible lookahead as we do not have the tail to compare with
     auto lookMatch = lookaheadRegex.match(pattern);
@@ -266,9 +268,35 @@ QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, Q
         regExp.setPattern(pattern);
     }
     // Remove possible lookbehind as we do not have the prefix
-    lookMatch = lookbehindRegex.match(pattern);
+    lookMatch = lookbehindStartRegex.match(pattern);
     if (lookMatch.hasMatch()) {
+        int brakets = 1;
+        bool escape = false;
+        bool inSet = false;
         pattern.remove(lookMatch.capturedStart(1), lookMatch.capturedLength(1));
+        while (brakets > 0 && !pattern.isEmpty()) {
+            const auto &ch = pattern[0];
+            if (escape) {
+                escape = false;
+            } else if (ch == '\\'_L1) {
+                escape = true;
+            } //
+            else if (ch == '['_L1) {
+                inSet = true;
+            } //
+            else if (ch == ']'_L1) {
+                inSet = false;
+            } //
+            else if (!escape && !inSet) {
+                if (ch == '('_L1) {
+                    brakets++;
+                } //
+                else if (ch == ')'_L1) {
+                    brakets--;
+                }
+            }
+            pattern.removeFirst();
+        }
         regExp.setPattern(pattern);
     }
 

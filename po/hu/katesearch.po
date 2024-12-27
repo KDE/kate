@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2024-12-27 00:44+0000\n"
 "PO-Revision-Date: 2024-02-13 10:47+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -73,61 +73,61 @@ msgstr "Létrehozás"
 msgid "Result"
 msgstr "Eredmény"
 
-#: MatchModel.cpp:535 MatchModel.cpp:537
+#: MatchModel.cpp:563 MatchModel.cpp:565
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Fájllista generálása: …%1</i></b>"
 
-#: MatchModel.cpp:545
+#: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Egy találat, keresés: …%2</i></b>"
 msgstr[1] "<b><i>%1 találat, keresés: …%2</i></b>"
 
-#: MatchModel.cpp:550
+#: MatchModel.cpp:578
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Egy találat, keresés: %2</i></b>"
 msgstr[1] "<b><i>%1 találat, keresés: %2</i></b>"
 
-#: MatchModel.cpp:557 MatchModel.cpp:712
+#: MatchModel.cpp:585 MatchModel.cpp:740
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Egy ellenőrizve"
 msgstr[1] "%1 ellenőrizve"
 
-#: MatchModel.cpp:561
+#: MatchModel.cpp:589
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Egy találat (%2) a fájlban</i></b>"
 msgstr[1] "<b><i>%1 találat (%2) a jelenlegi fájlban</i></b>"
 
-#: MatchModel.cpp:563
+#: MatchModel.cpp:591
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>Egy találat (%2) a megnyitott fájlokban</i></b>"
 msgstr[1] "<b><i>%1 találat (%2) a megnyitott fájlokban</i></b>"
 
-#: MatchModel.cpp:566
+#: MatchModel.cpp:594
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>Egy találat (%3) ebben a mappában: %2</i></b>"
 msgstr[1] "<b><i>%1 találat (%3) ebben a mappában: %2</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:601
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>Egy találat (%4) ebben a projektben: %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 találat (%4) ebben a projektben: %2 (%3)</i></b>"
 
-#: MatchModel.cpp:582
+#: MatchModel.cpp:610
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -140,54 +140,54 @@ msgstr[1] ""
 "<b><i>%1 találat (%3) az összes megnyitott projektben (közös szülő: %2)</i></"
 "b>"
 
-#: MatchModel.cpp:696 MatchModel.cpp:698
+#: MatchModel.cpp:724 MatchModel.cpp:726
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Fájllista generálása: …%1"
 
-#: MatchModel.cpp:706
+#: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Egy találat, keresés: …%2"
 msgstr[1] "%1 találat, keresés: …%2"
 
-#: MatchModel.cpp:708
+#: MatchModel.cpp:736
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Egy találat, keresés: %2"
 msgstr[1] "%1 találat, keresés: %2"
 
-#: MatchModel.cpp:716
+#: MatchModel.cpp:744
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "Egy találat (%2) a fájlban"
 msgstr[1] "%1 találat (%2) a jelenlegi fájlban"
 
-#: MatchModel.cpp:718
+#: MatchModel.cpp:746
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "Egy találat (%2) a megnyitott fájlokban"
 msgstr[1] "%1 találat (%2) a megnyitott fájlokban"
 
-#: MatchModel.cpp:721
+#: MatchModel.cpp:749
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "Egy találat (%3) ebben a mappában: %2"
 msgstr[1] "%1 találat (%3) ebben a mappában: %2"
 
-#: MatchModel.cpp:724
+#: MatchModel.cpp:752
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "Egy találat (%4) ebben a projektben: %2 (%3)"
 msgstr[1] "%1 találat (%4) ebben a projektben: %2 (%3)"
 
-#: MatchModel.cpp:733
+#: MatchModel.cpp:761
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

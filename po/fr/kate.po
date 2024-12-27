@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-23 09:23+0100\n"
+"PO-Revision-Date: 2024-12-25 09:57+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1686,10 +1686,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Ré-ouvrir le ou les documents récemment fermés"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "Nouvelle &fenêtre"
+msgstr "Fermer la &fenêtre"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1697,10 +1696,9 @@ msgid "Close this window"
 msgstr "Fermer cette fenêtre"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "Autre applicati&on"
+msgstr "Quitter l'application"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format

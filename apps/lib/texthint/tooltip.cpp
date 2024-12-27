@@ -368,7 +368,8 @@ private:
                     bfmt.setHeadingLevel(3);
                     c.select(QTextCursor::BlockUnderCursor);
                     QTextCharFormat cfmt = block.charFormat();
-                    cfmt.setProperty(QTextFormat::FontSizeAdjustment, 1);
+                    cfmt.setProperty(QTextFormat::FontSizeAdjustment, 0);
+                    cfmt.setFontWeight(QFont::Bold);
                     c.setBlockFormat(bfmt);
                     c.setCharFormat(cfmt);
                 }

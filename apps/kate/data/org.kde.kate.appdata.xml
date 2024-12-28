@@ -63,6 +63,7 @@
   <summary xml:lang="bg">Разширен текстов редактор</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
+  <summary xml:lang="eo">Altnivela tekstredaktilo</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
   <summary xml:lang="eu">Testu editore aurreratua</summary>
   <summary xml:lang="fr">Éditeur de texte avancé</summary>
@@ -869,6 +870,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Terminal integrat</li>
       <li xml:lang="ca-valencia">Terminal integrat</li>
       <li xml:lang="en-GB">Integrated terminal</li>
+      <li xml:lang="eo">Integrita terminalo</li>
       <li xml:lang="es">Terminal integrada</li>
       <li xml:lang="eu">Terminal bateratua</li>
       <li xml:lang="fi">Eheytetty pääte</li>
@@ -947,6 +949,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Mode del Vi</li>
       <li xml:lang="ca-valencia">Mode de Vi</li>
       <li xml:lang="en-GB">Vi mode</li>
+      <li xml:lang="eo">Vi-reĝimo</li>
       <li xml:lang="es">Modo vi</li>
       <li xml:lang="eu">Vi modua</li>
       <li xml:lang="fi">Vi-tila</li>
@@ -974,6 +977,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="ca-valencia">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="en-GB">Intellisense support using LSP (Language Server Protocol)</li>
+      <li xml:lang="eo">Subteno por Intellisense uzante LSP (Language Server Protocol)</li>
       <li xml:lang="es">Compatibilidad con IntelliSense mediante LSP (Protocolo de servidor de lenguaje)</li>
       <li xml:lang="eu">«Intellisense»ren euskarria LSP (Language Server Protocol / Lengoaia Zerbitzari Protokoloa) erabiliz</li>
       <li xml:lang="fi">Intellisense-tuki LSP:n (Language Server Protocol) kautta</li>
@@ -1000,6 +1004,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca-valencia">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="en-GB">DAP (Debug Adaptor Protocol) support</li>
+      <li xml:lang="eo">Subteno por DAP (Debug Adapter Protocol)</li>
       <li xml:lang="es">Compatibilidad con DAP (protocolo de adaptador de depuración)</li>
       <li xml:lang="eu">DAP (Debug Adapter Protocol) euskarria</li>
       <li xml:lang="fi">DAP-tuki (Debug Adapter Protocol)</li>
@@ -1026,6 +1031,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Llista vertical de pestanyes/documents</li>
       <li xml:lang="ca-valencia">Llista vertical de pestanyes/documents</li>
       <li xml:lang="en-GB">Vertical tabs/document list</li>
+      <li xml:lang="eo">Vertikalaj langetoj/dokumentlisto</li>
       <li xml:lang="es">Pestañas verticales/lista de documentos</li>
       <li xml:lang="eu">Fitxa bertikal/dokumentu zerrenda</li>
       <li xml:lang="fi">Pystysuuntaiset välilehdet ja asiakirjaluettelo</li>
@@ -1106,6 +1112,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Navegador integrat del sistema de fitxers</li>
       <li xml:lang="ca-valencia">Navegador integrat del sistema de fitxers</li>
       <li xml:lang="en-GB">Built in filesystem browser</li>
+      <li xml:lang="eo">Enkonstruita dosiersistem-foliumilo</li>
       <li xml:lang="es">Navegador integrado para el sistema de archivos</li>
       <li xml:lang="eu">Barnean eraikitako fitxategi-sistema arakatzailea</li>
       <li xml:lang="fi">Sisään rakennettu tiedostoselain</li>
@@ -1133,6 +1140,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Implementació de CTags</li>
       <li xml:lang="ca-valencia">Implementació de CTags</li>
       <li xml:lang="en-GB">CTags support</li>
+      <li xml:lang="eo">Subteno por CTags</li>
       <li xml:lang="es">Compatibilidad con CTags</li>
       <li xml:lang="eu">«CTags» euskarria</li>
       <li xml:lang="fi">CTags-tuki</li>
@@ -1160,6 +1168,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Cerca ample als projectes i carpetes</li>
       <li xml:lang="ca-valencia">Busca ample als projectes i carpetes</li>
       <li xml:lang="en-GB">Project wide and folder wide search</li>
+      <li xml:lang="eo">Tutprojekta kaj tutdosieruja serĉo</li>
       <li xml:lang="es">Búsqueda en el proyecto y en la carpeta</li>
       <li xml:lang="eu">Proiektuaren zabaleran eta karpetaren zabaleran bilatzea</li>
       <li xml:lang="fi">Projektin- ja kansionlaajuinen haku</li>
@@ -1187,6 +1196,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ca">Integració del Git</li>
       <li xml:lang="ca-valencia">Integració de Git</li>
       <li xml:lang="en-GB">Git integration</li>
+      <li xml:lang="eo">Git-integriĝo</li>
       <li xml:lang="es">Integración con Git</li>
       <li xml:lang="eu">Git bateratzea</li>
       <li xml:lang="fi">Git-eheytys</li>

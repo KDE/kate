@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2023-05-17 11:58+0100\n"
+"PO-Revision-Date: 2024-12-27 23:54+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -174,10 +174,9 @@ msgid "Target %1"
 msgstr "Celo %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "DAP-backend malsukcesis"
+msgstr "DAP-backend '%1' malsukcesis"
 
 #: dapbackend.cpp:226
 #, kde-format
@@ -701,10 +700,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Baskuligi Paŭzpunkton/Paŭzon"
 
 #: plugin_kategdb.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Paŭzopunkto"
+msgstr "Viŝi Ĉiujn Paŭzopunktojn"
 
 #: plugin_kategdb.cpp:287
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-17 00:43+0000\n"
-"PO-Revision-Date: 2024-09-19 21:59+0200\n"
+"PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -19,10 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtrilo..."
+msgstr "Filtrilo…"
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
 #: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616
@@ -166,10 +165,9 @@ msgid "Code Action"
 msgstr "Koda Ago"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Kompletigoj:"
+msgstr "Montri lsp-kompletigojn"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -256,7 +254,7 @@ msgstr "Iri al"
 #: lspclientpluginview.cpp:633
 #, kde-format
 msgid "More options"
-msgstr "Pliaj opcioj"
+msgstr "Pliaj elektebloj"
 
 #: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
 #, kde-format
@@ -502,10 +500,9 @@ msgstr "Kompletigoj:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "Completions:"
+#, kde-format
 msgid "Show completions"
-msgstr "Kompletigoj:"
+msgstr "Montri kompletigojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89
@@ -637,4 +634,4 @@ msgstr "&LSP-Kliento"
 #: ui.rc:31
 #, kde-format
 msgid "More Options"
-msgstr "Pli da Opcioj"
+msgstr "Pli da Elektebloj"

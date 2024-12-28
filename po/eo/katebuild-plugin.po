@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-25 00:44+0000\n"
-"PO-Revision-Date: 2024-08-24 09:18+0200\n"
+"PO-Revision-Date: 2024-12-27 23:54+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -413,10 +413,9 @@ msgid "Target Set"
 msgstr "Celaro"
 
 #: TargetModel.cpp:537
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgid "Projects"
-msgstr "Projekto"
+msgstr "Projektoj"
 
 #: TargetModel.cpp:537
 #, kde-format

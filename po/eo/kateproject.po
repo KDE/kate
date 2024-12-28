@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-09-14 11:22+0200\n"
+"PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -222,10 +222,9 @@ msgid "Refresh git status"
 msgstr "Refreŝigi git-statuson"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtrilo..."
+msgstr "Filtrilo…"
 
 #: gitwidget.cpp:444
 #, kde-format
@@ -1031,10 +1030,9 @@ msgid "No cmd provided"
 msgstr ""
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Projekto Fino"
+msgstr "Projekta Komando"
 
 #: stashdialog.cpp:36
 #, kde-format

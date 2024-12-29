@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 00:42+0000\n"
-"PO-Revision-Date: 2023-11-25 09:31+0100\n"
+"PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -49,6 +49,7 @@ msgstr "<b>Klavaraj makrooj:</b> %1"
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
 msgstr ""
+"Ne eblas konservi makroon dum registrado. Bonvolu finu registradon unue."
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format

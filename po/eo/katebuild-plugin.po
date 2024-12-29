@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-25 00:44+0000\n"
-"PO-Revision-Date: 2024-12-27 23:54+0100\n"
+"PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -180,7 +180,7 @@ msgstr ""
 #: plugin_katebuild.cpp:781
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Krei dosierujon"
 
 #: plugin_katebuild.cpp:784
 #, kde-format
@@ -188,11 +188,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"La agordita labordosierujo <b>%1</b> por la celaro <b>%2</b> ne ekzistas."
+"<br><br>Ĉu krei la dosierujon?"
 
 #: plugin_katebuild.cpp:792
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Malsukcesis krei la dosierujon <b>%1</b>"
 
 #: plugin_katebuild.cpp:810
 #, kde-format
@@ -524,16 +526,3 @@ msgstr "Enmeti vojon"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Elekti dosierujon enmetendan"
-
-#~ msgid ""
-#~ "Cannot run command: %1\n"
-#~ "Work path does not exist: %2"
-#~ msgstr ""
-#~ "Ne povas ruli komandon: %1\n"
-#~ "La laborvojo ne ekzistas: %2"
-
-#~ msgid "Clean"
-#~ msgstr "Purigi"
-
-#~ msgid "ConfigClean"
-#~ msgstr "ConfigClean"

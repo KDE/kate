@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-12-27 23:54+0100\n"
+"PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -732,17 +732,17 @@ msgstr "Rekomenci Sencimigon"
 #: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Varma Reŝargo"
 
 #: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Varma Rekomenco"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Ebligi Varman Reŝargon je Konservado"
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format
@@ -808,12 +808,3 @@ msgstr "&Sencimigi"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Sencimiga kromprogramo"
-
-#~ msgid "post mortem"
-#~ msgstr "post mortem"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"

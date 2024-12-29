@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-19 16:07+0900\n"
+"PO-Revision-Date: 2024-12-29 02:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -790,7 +790,7 @@ msgstr "Gerald Senarclens de Grancy"
 #: lib/kateapp.cpp:361
 #, kde-format
 msgid "QA and Scripting"
-msgstr "問答與文稿"
+msgstr "品質保證與文稿"
 
 #: lib/kateapp.cpp:365
 #, kde-format
@@ -1602,10 +1602,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "重新開啟最近所關閉的文件"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "新視窗(&W)"
+msgstr "關閉視窗(&W)"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1613,10 +1612,9 @@ msgid "Close this window"
 msgstr "關閉這個視窗"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "其他應用程式(&O)..."
+msgstr "離開應用程式"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format
@@ -2482,29 +2480,29 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"此名稱沒有對應的工具檢視：「%1」。它的外掛程式是否已停用，或是名稱拼錯了？"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "文稿錯誤。預期收到工具檢視的名稱。可用：%1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "問答與文稿"
+msgstr "文稿"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
-msgstr ""
+msgstr "'showtoolview $toolview_name'。顯示工具檢視面板。可用面板：%1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
-msgstr ""
+msgstr "'showtoolview $toolview_name'。隱藏工具檢視面板。可用面板：%1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

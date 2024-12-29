@@ -52,11 +52,21 @@ public:
         }
 
         /**
+         * Construct url: "path" has already been made absolute above.
+         * This should work with:
+         * - local paths, "/path/to/somefile" becomes file:///path/to/some/file
+         * - file: urls, file:///path/to/some/file
+         * - remote urls, e.g. sftp://1.2.3.4:22/path/to/some/file
+         */
+        url = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
+
+        /**
          * ok, the path as is, is no existing file, now, cut away :xx:yy stuff as cursor
          * this will make test:50 to test with line 50
+         * do that only if the url is local, we did that check only there, see bug 487151
          */
-        const auto match = QRegularExpression(QStringLiteral(":(\\d+)(?::(\\d+))?:?$")).match(path);
-        if (match.isValid()) {
+        static const QRegularExpression re(QStringLiteral(":(\\d+)(?::(\\d+))?:?$"));
+        if (const auto match = re.match(path); url.isLocalFile() && match.isValid()) {
             /**
              * cut away the line/column specification from the path
              */
@@ -79,16 +89,12 @@ public:
             const int line = match.captured(1).toInt() - 1;
             const int column = qMax(0, match.captured(2).toInt() - 1);
             cursor.setPosition(line, column);
-        }
 
-        /**
-         * Construct url: "path" has already been made absolute above.
-         * This should work with:
-         * - local paths, "/path/to/somefile" becomes file:///path/to/some/file
-         * - file: urls, file:///path/to/some/file
-         * - remote urls, e.g. sftp://1.2.3.4:22/path/to/some/file
-         */
-        url = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
+            /**
+             * we altered path, redo the url
+             */
+            url = QUrl::fromUserInput(path, currentDirPath, QUrl::AssumeLocalFile);
+        }
 
         /**
          * Set cursor position if we can extract from URL query string

@@ -50,7 +50,6 @@ public:
     void writeSessionConfig(KConfigGroup &config);
 
     void setupToolbar();
-    void setView(KFile::FileView);
     KDirOperator *dirOperator()
     {
         return m_dirOperator;

@@ -128,9 +128,6 @@ public:
     bool deleteView(KTextEditor::View *view);
 
 private:
-    void moveViewtoSplit(KTextEditor::View *view);
-    void moveViewtoStack(KTextEditor::View *view);
-
     /* Save the configuration of a single splitter.
      * If child splitters are found, it calls it self with those as the argument.
      * If a viewspace child is found, it is asked to save its filelist.

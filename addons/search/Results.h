@@ -48,7 +48,6 @@ public:
     QModelIndex lastMatch() const;
     KTextEditor::Range matchRange(const QModelIndex &matchIndex) const;
     bool replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString);
-    void itemSelected(const QModelIndex &item);
 
 Q_SIGNALS:
     void requestDetachToMainWindow(Results *);

@@ -17,6 +17,7 @@
         "Description[uk]": "Шаблони проєктів і файлів",
         "Description[x-test]": "xxProject and file templatesxx",
         "Description[zh_CN]": "工程和文件模板",
+        "Description[zh_TW]": "專案與檔案樣本",
         "Name": "File Templates",
         "Name[ca@valencia]": "Plantilles de fitxers",
         "Name[ca]": "Plantilles de fitxers",
@@ -33,6 +34,7 @@
         "Name[tr]": "Dosya Şablonları",
         "Name[uk]": "Шаблони файлів",
         "Name[x-test]": "xxFile Templatesxx",
-        "Name[zh_CN]": "文件模板"
+        "Name[zh_CN]": "文件模板",
+        "Name[zh_TW]": "檔案樣本"
     }
 }

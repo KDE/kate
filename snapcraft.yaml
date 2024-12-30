@@ -13,14 +13,12 @@ assumes:
   - snapd2.58.3
 compression: lzo
 environment:
-  QTWEBENGINEPROCESS_PATH: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/qt6/libexec/QtWebEngineProcess"
-  XDG_CONFIG_DIRS: $SNAP_USER_DATA/.config:$XDG_CONFIG_DIRS
+  QTWEBENGINEPROCESS_PATH: "$SNAP/usr/lib/qt6/libexec/QtWebEngineProcess"
+  LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/usr/lib${LD_LIBRARY_PATH}
+  XDG_DATA_DIRS: "$XDG_DATA_DIRS:$SNAP/usr/share"
+  XDG_CONFIG_DIRS: "$XDG_CONFIG_DIRS:$SNAP/etc/xdg"
   __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"
   LIBGL_DRIVERS_PATH: "$SNAP/usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
-  LD_LIBRARY_PATH: ":$SNAP/usr/lib:$SNAP/lib/:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:${LD_LIBRARY_PATH}"
-  PATH: $SNAP/usr/bin:${PATH}
-  XDG_DATA_DIRS: $SNAP/usr/share:$SNAP_USER_DATA/.local/usr/share:$SNAP/usr/share:$SNAP/data-dir
-  XDG_CONFIG_HOME: $SNAP_USER_DATA/.config
   QT_PLUGIN_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt6/plugins
 layout:
   /usr/share/X11:
@@ -39,12 +37,15 @@ package-repositories:
 parts:
   mesa-patchelf:
     plugin: nil
+    build-attributes:
+      - enable-patchelf
     stage-packages:
       - libgl1-mesa-dri
       - freeglut3
       - libglu1-mesa
+      - patchelf
     stage:
-      - "-usr/lib/${CRAFT_ARCH_TRIPLET}/dri"
+      - "-usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri"
   mesa-no-patchelf:
     plugin: nil
     stage-packages:
@@ -81,36 +82,79 @@ parts:
       - libxml2-utils
       - docbook-xml
       - docbook-xsl
-      - libglx-dev
-      - libgl-dev
-      - libglvnd-dev
       - libxkbcommon-dev
+      - cmake
+      - kf6-extra-cmake-modules
+      - kf6-kconfig-dev
+      - kf6-kcrash-dev
+      - kf6-kdbusaddons-dev
+      - kf6-kcolorscheme-dev
+      - kf6-kdoctools-dev
+      - kf6-kguiaddons-dev
+      - kf6-ki18n-dev
+      - kf6-kiconthemes-dev
+      - kf6-kitemmodels-dev
+      - kf6-kjobwidgets-dev
+      - kf6-kio-dev
+      - kf6-knewstuff-dev
+      - kf6-kparts-dev
+      - kf6-kpty-dev
+      - kf6-syntax-highlighting-dev
+      - kf6-ktexteditor-dev
+      - kf6-threadweaver-dev
+      - kf6-kwallet-dev
+      - kf6-kwindowsystem-dev
+      - kf6-kuserfeedback-dev
+      - kf6-kxmlgui-dev
+      - libplasma-dev
+      - pkgconf
+      - plasma-activities-dev
+      - qt6-base-dev
       - libpulse0
-    build-snaps:
-      - kde-qt6-core22-sdk
-      - kf6-core22-sdk
+      - python3
     stage-packages:
+      - kf6-kdeclarative
+      - kf6-ktexteditor
+      - libaudio2
+      - libpulse0
+      - libplasma6
+      - qt6-declarative
+      - kf6-kbookmarks
+      - kf6-kcolorscheme
+      - kf6-kcompletion
+      - kf6-kconfig
+      - kf6-kconfigwidgets
+      - kf6-kcoreaddons
+      - kf6-kcrash
+      - kf6-kdbusaddons
+      - kf6-kguiaddons
+      - kf6-ki18n
+      - kf6-kiconthemes
+      - kf6-kio
+      - kf6-knewstuff
+      - kf6-kparts
+      - kf6-kservice
+      - kf6-ktextwidgets
+      - kf6-kuserfeedback
+      - kf6-kwidgetsaddons
+      - kf6-kwindowsystem
+      - kf6-kxmlgui
+      - kf6-syntax-highlighting
+      - qt6-base
+      - qt6-base-dev
+      - qt6-wayland
+      - kf6-sonnet
       - darcs
       - exuberant-ctags
       - git
+      - khelpcenter
+      - konsole-kpart
       - mercurial
       - subversion
+      - python3
       - libsecret-1-0
-      - ibus
-      - ibus-wayland
-      - fcitx5
-      - fcitx5-modules
-      - fcitx-mozc
-      - libxkbcommon0
-      - libpulse0
-      - libjansson4
-      - libgif7
       - patchelf
-    stage-snaps:
-      - konsole
-      - kf6-core22
-      - qt-common-themes
-      - ffmpeg-2204
+      - libffi8
     source: .
     source-type: local
     build-attributes:
@@ -133,12 +177,14 @@ parts:
       - --log-level=STATUS
       - -DCMAKE_LIBRARY_PATH=lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
     build-environment:
-    -   PATH: /snap/kde-qt6-core22-sdk/current/usr/bin:/snap/kf6-core22-sdk/current/usr/bin${PATH:+:$PATH}
-    -   XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/snap/kde-qt6-core22-sdk/current/usr/share:/snap/kf6-core22-sdk/current/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
-    -   XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/snap/kde-qt6-core22-sdk/current/etc/xdg:/snap/kf6-core22-sdk/current/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
-    -   LD_LIBRARY_PATH: /snap/kde-qt6-core22-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:/snap/kde-qt6-core22-sdk/current/usr/lib:/snap/kf6-core22-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:/snap/kf6-core22-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/blas:/snap/kf6-core22-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/lapack:/snap/kf6-core22-sdk/current/usr/lib:$CRAFT_STAGE/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-    -   CMAKE_PREFIX_PATH: $CRAFT_STAGE;/snap/kde-qt6-core22-sdk/current;/snap/kf6-core22-sdk/current;/usr${CMAKE_PREFIX_PATH:+;$CMAKE_PREFIX_PATH}
-    -   CMAKE_FIND_ROOT_PATH: $CRAFT_STAGE;/snap/kde-qt6-core22-sdk/current;/snap/kf6-core22-sdk/current;/usr${CMAKE_FIND_ROOT_PATH:+;$CMAKE_FIND_ROOT_PATH}
+    -   PATH: $CRAFT_STAGE/usr/bin:usr/bin${PATH:+:$PATH}
+    -   XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
+    -   XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
+    -   LD_LIBRARY_PATH: $CRAFT_STAGE/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+    -   CMAKE_PREFIX_PATH: $CRAFT_STAGE;/usr${CMAKE_PREFIX_PATH:+;$CMAKE_PREFIX_PATH}
+    -   CMAKE_FIND_ROOT_PATH: $CRAFT_STAGE;/usr${CMAKE_FIND_ROOT_PATH:+;$CMAKE_FIND_ROOT_PATH}
+    stage:
+      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri
     prime:
       - "-usr/lib/*/cmake/*"
       - "-usr/include/*"
@@ -147,221 +193,22 @@ parts:
       - "-usr/bin/X11"
       - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET_BUILD_FOR/6.0.0"
       - "-usr/lib/aspell/*"
-      - "-usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri"
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsvn_auth_kwallet-1.so.1.0.0
-      - -lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libulockmgr.so.1.0.1
-      - -lib32/*
-      - -usr/lib/libhardsid-builder.so.0.0.1
-      - -usr/lib/llvm-14/lib/libLTO.so.14
-      - -usr/lib/llvm-14/lib/libRemarks.so.14
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libEGL_mesa.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libGLESv1_CM.so.1.2.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libGLX_mesa.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKDEGames6Private.so.6.0.240770
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6CalendarEvents.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6DAV.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6ModemManagerQt.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6PeopleWidgets.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6Runner.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6TextAutoCorrectionWidgets.so.1.5.45
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6TextGrammarCheck.so.1.5.45
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6ThreadWeaver.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6UnitConversion.so.6.4.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKWaylandClient.so.6.0.3
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKWaylandClient.so.6.1.3
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libOpenEXRUtil-3_1.so.30.11.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6DBus.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6Network.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6Qml.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6Quick.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6WebSockets.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6Bluetooth.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6Coap.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6HttpServer.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6Mqtt.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6MultimediaWidgets.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6NetworkAuth.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6Nfc.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6PdfWidgets.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQt6SvgWidgets.so.6.7.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_bad_any_cast_impl.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_bad_optional_access.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_bad_variant_access.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_civil_time.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_failure_signal_handler.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_hashtablez_sampler.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_log_severity.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_periodic_sampler.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_distributions.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_internal_distribution_test_util.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_seed_sequences.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_scoped_set_env.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_strerror.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libasan.so.6.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libatomic.so.1.2.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libcaca++.so.0.99.19
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libcairo-script-interpreter.so.2.11600.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libcolordprivate.so.2.0.5
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libcupsimage.so.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdbusmenu-qt6.so.2.6.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdcerpc-server-core.so.0.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdcerpc-server.so.0.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libfaad_drm.so.2.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libflite_cmu_grapheme_lang.so.2.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libflite_cmu_grapheme_lex.so.2.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libflite_cmu_indic_lex.so.2.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libflite_cmu_time_awb.so.2.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgccpp.so.1.4.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgstcheck-1.0.so.0.2003.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgstcontroller-1.0.so.0.2003.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgthread-2.0.so.0.7200.4
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libharfbuzz-gobject.so.0.20704.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libharfbuzz-icu.so.0.20704.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libheif.so.1.12.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libhwy_contrib.so.1.0.7
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libhwy_test.so.1.0.7
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libib_util.so
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libical-glib.so.3.0.14
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libicalss_cxx.so.3.0.14
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libicutest.so.70.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libigdgmm.so.12.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libitm.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjacknet.so.0.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjackserver.so.0.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjansson.so.4.13.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libjxl_extras_codec.so.0.10.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkadm5clnt_mit.so.12.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkadm5srv_mit.so.12.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkdecorations2.so.6.1.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkdecorations2private.so.6.1.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkdsoap-server-qt6.so.2.2.95
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblber-2.5.so.0.1.12
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libldap-2.5.so.0.1.12
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblsan.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-ctl.so.5.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-cyg-profile-fast.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-cyg-profile.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-dl.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-fd.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-fork.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-libc-wrapper.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-pthread-wrapper.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-python-agent.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblua5.2-c++.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libmd4c-html.so.0.4.8
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libmfx-tracer.so.1.35
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libmfxhw64.so.1.35
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libmpeg2convert.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libnetapi.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libobjc.so.4.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libobjc_gc.so.4.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libodbccr.so.2.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libodbcinst.so.2.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liborc-test-0.4.so.0.32.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liboxygenstyle6.so.6.1.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liboxygenstyleconfig6.so.6.1.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpcre16.so.3.13.3
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpcre2-32.so.0.10.4
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpcre2-posix.so.3.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpcre32.so.3.13.3
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpcrecpp.so.0.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libphonon4qt6experimental.so.4.12.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpolkit-qt6-agent-1.so.1.200.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpolkit-qt6-gui-1.so.1.200.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpresage.so.1.1.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libraw_r.so.20.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsamba-passdb.so.0.28.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsamba-policy.cpython-310-x86-64-linux-gnu.so.0.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsctp.so.1.0.19
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsmbldap.so.2.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsoup-2.4.so.1.11.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsphinxad.so.3.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsquashfuse_ll.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libssl3.so
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsvn_auth_gnome_keyring-1.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsvn_auth_kwallet-1.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libtiffxx.so.5.7.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libtsan.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libubsan.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libunwind-coredump.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libunwind-ptrace.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libunwind-x86_64.so.8.0.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-bp.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-cds.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-common.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-mb.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-memb.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-qsbr.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu-signal.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liburcu.so.8.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libva-glx.so.2.1400.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-dpms.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-record.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-screensaver.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-xf86dri.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb
-      - -usr/lib32/libstdc++.so.6.0.30
-      - -usr/lib32/libgcc_s.so.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/preloadable_libintl.so
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libzvbi-chains.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libz3.so.4
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-xvmc.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-xtest.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-xrm.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxcb-xinput.so.0.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libtinyxml.so.2.6.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpolkit-agent-1.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkdsoap-qt6.so.2.2.95
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libkdb5.so.10.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libicutest.so.70.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libical_cxx.so.3.0.14
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgif.so.7.1.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgc.so.1.4.4
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libfuseprivate.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libflite_cmu_indic_lang.so.2.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libde265.so.0.1.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_internal_pool_urbg.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_exponential_biased.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_examine_stack.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libQCoro6Core.so.0.10.80
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libOpenEXRCore-3_1.so.30.11.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libKF6TextAutoCorrectionCore.so.1.5.45
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libGLX_mesa.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libnet-keytab.so.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/qt6/plugins/multimedia
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxxhash.so.0.8.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libvulkan.so.1.3.204
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libv4l2rds.so.0.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/liblttng-ust-tracepoint.so.1.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libicutest.so.70.1
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgstgl-1.0.so.0.2001.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libgssrpc.so.4.2
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libavisynth.so.3.7.3
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_seed_gen_exception.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_internal_seed_material.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libabsl_random_internal_randen.so.20210324.0.0
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libGLX_mesa.so.0.0.0
-      - -lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libfuse.so.2.9.9
-      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri
+      - "-usr/lib/*/dri/*"
+      - "-usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsvn_auth_kwallet-1.so.1.0.0"
+      - -usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libglapi.so.0.0.0
+      - -usr/share/doc/libglapi-mesa/changelog.Debian.gz
     override-prime: |
-            craftctl default
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/process_model/standard.so
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/process_model/prefork.so
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libsys-rw.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libserver-role.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libsamdb-common.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libsamba-sockets.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libmsghdr.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libldbsamba.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libhttp.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libflag-mapping.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/x86_64-linux-gnu  usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libhttp.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libdnsserver-common.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libcmdline-contexts.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/samba/libcli-spoolss.so.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libsphinxbase.so.3.0.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libpocketsphinx.so.3.0.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libndr.so.2.0.0
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libexec/kf6/smbnotifier
-            patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libdcerpc.so.0.0.1
+      craftctl default
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/crocus_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/d3d12_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/i915_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/iris_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/kms_swrast_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/nouveau_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/r300_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/r600_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/radeonsi_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/swrast_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/virtio_gpu_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/vmwgfx_dri.so
+      patchelf --force-rpath --set-rpath /snap/core22/current/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/dri/zink_dri.so

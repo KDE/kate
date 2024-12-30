@@ -28,6 +28,7 @@
 #include <KTextEditor/View>
 #include <KWindowSystem>
 #include <QLoggingCategory>
+#include <QProcess>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER
@@ -204,16 +205,21 @@ void KateApp::initPreApplicationCreation(bool detach)
 
 #if defined(Q_OS_MACOS)
     if (!insideTerminal) {
-        int mib[2] = {CTL_USER, USER_CS_PATH};
-        size_t len = 0;
-        sysctl(mib, 2, nullptr, &len, nullptr, 0);
-        QByteArray path(len, '\0');
-        sysctl(mib, 2, &path[0], &len, nullptr, 0);
-        path.removeLast();
-        QByteArray p = qgetenv("PATH");
-        qDebug() << "Adding '" << path << "' to existing PATH:" << p;
-        path.append(':').append(p);
-        qputenv("PATH", p);
+        QProcess p;
+        p.start(QStringLiteral("/usr/libexec/path_helper"), {}, QProcess::ReadOnly);
+        if (p.waitForStarted() && p.waitForFinished()) {
+            const QByteArray output = p.readAllStandardOutput();
+            // get the 'paths' from: PATH="path1:path2";
+            if (!output.isEmpty() && output.startsWith("PATH=\"")) {
+                if (int end = output.indexOf("\";"); end != -1) {
+                    int start = strlen("PATH=\"");
+                    const QByteArray path = output.mid(start, end - start);
+                    // overwrite PATH, path_helper returns the full path
+                    qputenv("PATH", path);
+                    qCDebug(LOG_KATE) << "$PATH set to:" << path;
+                }
+            }
+        }
     }
 #endif
 }

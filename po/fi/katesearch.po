@@ -1,8 +1,9 @@
 # Copyright © 2011, 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kde-baseapps package.
-# Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2014, 2015, 2016, 2017, 2022.
 # SPDX-FileCopyrightText: 2012, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2013, 2014, 2015, 2016, 2017, 2022.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
+# Tommi Nieminen <translator@legisign.org>, 2024.
 #
 # KDE Finnish translation sprint participants:
 # Author: Artnay
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-27 00:44+0000\n"
-"PO-Revision-Date: 2024-10-20 21:26+0300\n"
+"PO-Revision-Date: 2024-12-09 21:09+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -202,10 +203,9 @@ msgstr[1] ""
 "Kaikista avoimista projekteista (yhteinen emo: %2) löytyi %1 osumaa (%3)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Suodatin:"
+msgstr "Suodata…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)

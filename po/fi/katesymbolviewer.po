@@ -5,7 +5,7 @@
 # Tapio Kautto <eleknader@phnet.fi>, 2004.
 # Ilpo Kantonen <ilpo@iki.fi>, 2004, 2005.
 # Kim Enkovaara <kim.enkovaara@iki.fi>, 2005.
-# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2020.
+# Tommi Nieminen <translator@legisign.org>, 2010, 2018, 2020, 2024.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2012, 2013, 2022.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011.
 #
@@ -24,6 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25

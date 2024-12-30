@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-02-23 19:45+0200\n"
+"PO-Revision-Date: 2024-12-09 21:08+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -28,17 +28,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: katefiletree.cpp:120
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
-msgstr "Lataa &uudelleen"
+msgstr "&Virkistä"
 
 #: katefiletree.cpp:122
 #, kde-format
 msgid "Reload selected document(s) from disk."
-msgstr "Lataa valitut tiedostot uudelleen levyltä."
+msgstr "Lataa valitut tiedostot levyltä uudelleen."
 
 #: katefiletree.cpp:124
 #, kde-format
@@ -372,10 +373,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>Toinen sovellus on muuttanut tiedostoa.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter..."
-msgstr "&Muu…"
+msgstr "Suodata…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

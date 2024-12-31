@@ -194,6 +194,9 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
 
     // trigger proper focus restore
     m_viewManager->triggerActiveViewFocus();
+
+    // log the path
+    Utils::showMessage(qEnvironmentVariable("PATH"), QIcon(), i18n("PATH"), MessageType::Info, m_wrapper);
 }
 
 KateMainWindow::~KateMainWindow()

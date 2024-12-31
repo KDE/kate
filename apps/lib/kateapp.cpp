@@ -405,6 +405,15 @@ bool KateApp::init()
     });
 #endif
 
+    if (isKate()) {
+        KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("General"));
+        const QString katePATH = cg.readEntry("Kate PATH", QString());
+        if (!katePATH.isEmpty()) {
+            QByteArray envPATH = qgetenv("PATH");
+            qputenv("PATH", katePATH.toUtf8().append(QDir::listSeparator().toLatin1()).append(envPATH));
+        }
+    }
+
     // handle restore different
     if (qApp->isSessionRestored()) {
         restoreKate();

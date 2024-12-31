@@ -103,6 +103,7 @@ private:
     QCheckBox *m_cycleThroughTabs = nullptr;
     QSpinBox *m_diagnosticsLimit = nullptr;
     QCheckBox *m_hintViewEnabled = nullptr;
+    QLineEdit *m_pathEdit = nullptr;
 
     Ui::SessionConfigWidget sessionConfigUi;
 

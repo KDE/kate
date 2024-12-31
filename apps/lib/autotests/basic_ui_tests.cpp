@@ -1,3 +1,4 @@
+#include "hostprocess.h"
 #include "kateapp.h"
 #include "katemainwindow.h"
 
@@ -6,6 +7,8 @@
 #include <KLocalizedString>
 #include <QCommandLineParser>
 #include <QDialog>
+#include <QDir>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QTest>
 
@@ -18,6 +21,7 @@ public:
 private Q_SLOTS:
     void test_windowOpenClose();
     void test_openFontDialog();
+    void test_settingPATH();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -38,7 +42,7 @@ BasicUiTests::BasicUiTests()
 
     static QCommandLineParser parser;
     app.reset(); // needed as KateApp mimics a singleton
-    app = std::make_unique<KateApp>(parser, KateApp::ApplicationKWrite, m_tempdir->path());
+    app = std::make_unique<KateApp>(parser, KateApp::ApplicationKate, m_tempdir->path());
 }
 
 void BasicUiTests::test_windowOpenClose()
@@ -94,6 +98,62 @@ void BasicUiTests::test_openFontDialog()
     };
     QMetaObject::invokeMethod(this, dialogTest, Qt::QueuedConnection);
     act->trigger();
+}
+
+void BasicUiTests::test_settingPATH()
+{
+    app->sessionManager()->sessionNew();
+    QCOMPARE(app->mainWindows().size(), 1); // expect a mainwindow to be there
+
+    auto mainWindow = app->activeKateMainWindow();
+
+    auto acceptDialog = []() {
+        auto *w = qobject_cast<QDialog *>(qApp->activeModalWidget());
+        QVERIFY(w);
+        w->accept();
+    };
+
+    // 2. Set the path in dialog
+    auto dialogTest1 = [acceptDialog] {
+        QTRY_VERIFY(qApp->activeModalWidget());
+        auto w = qApp->activeModalWidget();
+        QVERIFY(w);
+        auto pathEdit = w->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
+        QVERIFY(pathEdit);
+        pathEdit->setText(qApp->applicationDirPath());
+
+        // accept KateConfigDialog
+        acceptDialog();
+        QTRY_VERIFY(!qApp->activeModalWidget());
+    };
+
+    // 1. open config dialog
+    QMetaObject::invokeMethod(this, dialogTest1, Qt::QueuedConnection);
+    mainWindow->showPluginConfigPage(nullptr, 0);
+
+    const QString first = qEnvironmentVariable("PATH").split(QDir::listSeparator()).constFirst();
+    QCOMPARE(first, qApp->applicationDirPath());
+
+    // verify that we are now able to find the test exe because its dir is in PATH
+    QVERIFY(!safeExecutableName(QStringLiteral("basic_ui_tests")).isEmpty());
+
+    // 3. Remove the path, ensure its properly gone
+    auto dialogTest2 = [acceptDialog] {
+        QTRY_VERIFY(qApp->activeModalWidget());
+        auto w = qApp->activeModalWidget();
+        QVERIFY(w);
+        auto pathEdit = w->findChild<QLineEdit *>(QStringLiteral("katePATHedit"));
+        QVERIFY(pathEdit);
+        pathEdit->setText(QString());
+
+        // dismiss KateConfigDialog
+        acceptDialog();
+        QTRY_VERIFY(!qApp->activeModalWidget());
+    };
+    QMetaObject::invokeMethod(this, dialogTest2, Qt::QueuedConnection);
+    mainWindow->showPluginConfigPage(nullptr, 0);
+
+    QVERIFY(qEnvironmentVariable("PATH").isEmpty() || qEnvironmentVariable("PATH").split(QDir::listSeparator()).constFirst() != qApp->applicationDirPath());
 }
 
 QTEST_MAIN(BasicUiTests)

@@ -34,6 +34,9 @@
 #include <QComboBox>
 #include <QDesktopServices>
 #include <QDialogButtonBox>
+#include <QDir>
+#include <QFileInfo>
+#include <QFontDatabase>
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
@@ -111,6 +114,29 @@ void KateConfigDialog::addBehaviorPage()
     item->setIcon(QIcon::fromTheme(QStringLiteral("preferences-system-windows-behavior")));
 
     auto *layout = new QVBoxLayout(generalFrame);
+
+    // PATH setting
+    if (KateApp::isKate()) {
+        auto *buttonGroup = new QGroupBox(i18n("PATH"), generalFrame);
+        auto *vbox = new QVBoxLayout(buttonGroup);
+        layout->addWidget(buttonGroup);
+
+        auto label = new QLabel(buttonGroup);
+        label->setText(
+            i18n("List of %1 seperated directories where Kate will look for programs to run. This list will be prepended to your PATH environment variable. "
+                 "E.g '/home/USER/myapps/bin/:/home/USER/.local/bin'",
+                 QDir::listSeparator()));
+        label->setWordWrap(true);
+
+        m_pathEdit = new QLineEdit(buttonGroup);
+        m_pathEdit->setObjectName(QStringLiteral("katePATHedit"));
+        m_pathEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+        m_pathEdit->setText(cgGeneral.readEntry("Kate PATH", QString()));
+        connect(m_pathEdit, &QLineEdit::textChanged, this, &KateConfigDialog::slotChanged);
+
+        vbox->addWidget(label);
+        vbox->addWidget(m_pathEdit);
+    }
 
     // GROUP with the one below: "Behavior"
     auto *buttonGroup = new QGroupBox(i18n("&Behavior"), generalFrame);
@@ -660,6 +686,43 @@ void KateConfigDialog::slotApply()
         KateApp::self()->userFeedbackProvider()->setTelemetryMode(m_userFeedbackWidget->telemetryMode());
         KateApp::self()->userFeedbackProvider()->setSurveyInterval(m_userFeedbackWidget->surveyInterval());
 #endif
+
+        if (KateApp::isKate()) {
+            const QString existingPATH = cg.readEntry("Kate PATH", QString());
+            const QString newPATH = m_pathEdit->text();
+            const QChar seperator = QDir::listSeparator();
+            // check if it changed
+            if (existingPATH != newPATH) {
+                // validate entries, check they exist
+                const QStringList paths = newPATH.split(seperator, Qt::SkipEmptyParts);
+                QStringList validatedPaths;
+                for (const auto &p : paths) {
+                    if (!QFileInfo::exists(p)) {
+                        QMessageBox::warning(this, i18n("Bad PATH value"), i18n("The path '%1' doesn't exist", p));
+                    } else {
+                        validatedPaths.append(p);
+                    }
+                }
+
+                // Remove existing user set path
+                QString oldPATH = QString::fromUtf8(qgetenv("PATH"));
+                if (oldPATH.startsWith(existingPATH)) {
+                    oldPATH.remove(0, existingPATH.length());
+                    if (oldPATH.startsWith(seperator)) {
+                        oldPATH.remove(0, 1);
+                    }
+                }
+
+                // prepend to PATH
+                const QString p = validatedPaths.join(seperator);
+                const QString newPATH = p + seperator + oldPATH;
+                // putenv the new PATH
+                qputenv("PATH", newPATH.toUtf8());
+
+                // write out the setting
+                cg.writeEntry("Kate PATH", p);
+            }
+        }
     }
 
     for (const PluginPageListItem &plugin : std::as_const(m_pluginPages)) {

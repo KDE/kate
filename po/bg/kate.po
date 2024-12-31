@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-24 00:43+0000\n"
-"PO-Revision-Date: 2024-12-16 22:14+0100\n"
+"PO-Revision-Date: 2024-12-30 22:57+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1645,10 +1645,9 @@ msgstr ""
 "Отваря отново документа или документите, които са били затворени наскоро"
 
 #: lib/katemainwindow.cpp:488
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&Нов прозорец"
+msgstr "&Затваряне на прозореца"
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1656,10 +1655,9 @@ msgid "Close this window"
 msgstr "Затваряне на текущия прозорец"
 
 #: lib/katemainwindow.cpp:497
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Друго приложение..."
+msgstr "Изход от приложението"
 
 #: lib/katemainwindow.cpp:501
 #, kde-format
@@ -2554,29 +2552,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Не е намерен изглед с инструменти за име: „%1“. Дали плъгинът за него е "
+"деактивиран или името е неправилно изписано?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Грешка в скрипта. Очаква се име на изглед на инструменти. Налично: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "QA и скриптове"
+msgstr "Скриптове"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Показване на панел за изглед на инструменти. "
+"Налични панели: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Скриване на панел за изглед на инструменти. "
+"Налични панели: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

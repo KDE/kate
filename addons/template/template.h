@@ -112,5 +112,7 @@ private:
     void appWizardTemplateSelected(const QString &category);
     void createFromAppWizardTemplate(const QString &category);
     QMap<QString, AppWizardReader::TemplateData> m_appWizMap;
+    bool m_hasCMakeLists = false;
+    bool m_hasKateproject = false;
 #endif
 };

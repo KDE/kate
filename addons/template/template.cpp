@@ -243,6 +243,15 @@ bool Template::copyFolder(const QString &src,
         if (fileSkipList.contains(entry)) {
             continue;
         }
+
+#ifdef BUILD_APPWIZARD
+        if (entry == u"CMakeLists.txt"_s && trgt == ui->u_locationLineEdit->text()) {
+            m_hasCMakeLists = true;
+        }
+        if (entry == u".kateproject"_s && trgt == ui->u_locationLineEdit->text()) {
+            m_hasKateproject = true;
+        }
+#endif
         if (!copyFile(src + '/'_L1 + entry, trgt + '/'_L1 + entry, fileReplaceMap, replaceMap)) {
             return false;
         }
@@ -528,11 +537,27 @@ void Template::createFromAppWizardTemplate(const QString &category)
 
     QTemporaryDir tempDir;
 
+    m_hasCMakeLists = false;
+    m_hasKateproject = false;
+
     bool ok = AppWizardReader().extractTemplateTo(templ.packagePath, tempDir.path());
     if (!ok) {
         fileToOpen.clear();
     } else {
         ok = copyFolder(tempDir.path(), trgtPath, {}, replaceMap, fileSkipList);
+
+        if (m_hasCMakeLists && !m_hasKateproject && ok) {
+            copyFile(u":/templates/kateproject.in"_s, trgtPath + u"/.kateproject"_s, {}, replaceMap);
+        }
+
+        if (templ.fileToOpen.isEmpty()) {
+            // No file to open specified in the template, so try CMakeLists.txt
+            if (m_hasCMakeLists) {
+                fileToOpen += u"/CMakeLists.txt"_s;
+            } else {
+                fileToOpen.clear();
+            }
+        }
     }
 
     if (!ok) {

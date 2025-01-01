@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-22 00:42+0000\n"
+"POT-Creation-Date: 2025-01-01 00:43+0000\n"
 "PO-Revision-Date: 2024-10-24 19:19+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -639,7 +639,7 @@ msgstr "Kate 除錯"
 msgid "Debug View"
 msgstr "除錯檢視"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:357
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:358
 #, kde-format
 msgid "Debug"
 msgstr "除錯"
@@ -649,19 +649,19 @@ msgstr "除錯"
 msgid "Locals and Stack"
 msgstr "本地變數與堆疊"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:168
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "編號"
 
-#: plugin_kategdb.cpp:167
+#: plugin_kategdb.cpp:168
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "框架"
 
-#: plugin_kategdb.cpp:234
+#: plugin_kategdb.cpp:235
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -671,125 +671,125 @@ msgstr ""
 "<title>無法開啟檔案：</title><nl/>%1<br/>請試試看在進階設定 → 源碼檔搜尋路徑"
 "中新增搜尋路徑"
 
-#: plugin_kategdb.cpp:247
+#: plugin_kategdb.cpp:248
 #, kde-format
 msgid "Targets"
 msgstr "目標"
 
-#: plugin_kategdb.cpp:252
+#: plugin_kategdb.cpp:253
 #, kde-format
 msgid "Start Debugging"
 msgstr "開始除錯"
 
-#: plugin_kategdb.cpp:262
+#: plugin_kategdb.cpp:263
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "砍掉 / 停止除錯"
 
-#: plugin_kategdb.cpp:269
+#: plugin_kategdb.cpp:270
 #, kde-format
 msgid "Continue"
 msgstr "繼續"
 
-#: plugin_kategdb.cpp:275
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "切換中斷點 / 中斷"
 
-#: plugin_kategdb.cpp:282
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "清除所有中斷點"
 
-#: plugin_kategdb.cpp:287
+#: plugin_kategdb.cpp:288
 #, kde-format
 msgid "Step In"
 msgstr "單步進入"
 
-#: plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:295
 #, kde-format
 msgid "Step Over"
 msgstr "單步"
 
-#: plugin_kategdb.cpp:301
+#: plugin_kategdb.cpp:302
 #, kde-format
 msgid "Step Out"
 msgstr "單步跳出"
 
-#: plugin_kategdb.cpp:308 plugin_kategdb.cpp:364
+#: plugin_kategdb.cpp:309 plugin_kategdb.cpp:365
 #, kde-format
 msgid "Run To Cursor"
 msgstr "執行到游標處"
 
-#: plugin_kategdb.cpp:315
+#: plugin_kategdb.cpp:316
 #, kde-format
 msgid "Restart Debugging"
 msgstr "重新開始除錯"
 
-#: plugin_kategdb.cpp:322
+#: plugin_kategdb.cpp:323
 #, kde-format
 msgid "Hot Reload"
 msgstr "熱重載 (Hot Reload)"
 
-#: plugin_kategdb.cpp:329
+#: plugin_kategdb.cpp:330
 #, kde-format
 msgid "Hot Restart"
 msgstr "熱重啟 (Hot Restart)"
 
-#: plugin_kategdb.cpp:338
+#: plugin_kategdb.cpp:339
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "啟用儲存時熱重載"
 
-#: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:348 plugin_kategdb.cpp:367
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "移動程式計數器（PC）"
 
-#: plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:353
 #, kde-format
 msgid "Print Value"
 msgstr "印出數值"
 
-#: plugin_kategdb.cpp:464 plugin_kategdb.cpp:480
+#: plugin_kategdb.cpp:465 plugin_kategdb.cpp:481
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入中斷點"
 
-#: plugin_kategdb.cpp:478
+#: plugin_kategdb.cpp:479
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "移除中斷點"
 
-#: plugin_kategdb.cpp:651
+#: plugin_kategdb.cpp:652
 #, kde-format
 msgid "Execution point"
 msgstr "執行點"
 
-#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:823
+#: plugin_kategdb.cpp:793 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "執行緒 %1"
 
-#: plugin_kategdb.cpp:919
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "除錯輸出"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "設定"
 
-#: plugin_kategdb.cpp:965
+#: plugin_kategdb.cpp:966
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1051
+#: plugin_kategdb.cpp:1052
 #, kde-format
 msgid "Breakpoint"
 msgstr "中斷點"

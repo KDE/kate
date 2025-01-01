@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/">
+        <file>templates/kateproject.in</file>
         <file>templates/Applications/Qt/QCoreApplication/CMakeLists.txt</file>
         <file>templates/Applications/Qt/QCoreApplication/.kateproject</file>
         <file>templates/Applications/Qt/QCoreApplication/template.json</file>

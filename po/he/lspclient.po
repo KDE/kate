@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-01 00:42+0000\n"
-"PO-Revision-Date: 2024-12-21 19:03+0200\n"
+"PO-Revision-Date: 2024-12-31 08:11+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -80,6 +80,8 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"המשתמש חסם לצמיתות את ההתחלה של: ‚%1’\n"
+"אפשר להשתמש בעמוד ההגדרות של התוסף כדי לבטל את החסימה הזאת."
 
 #: lspclientpluginview.cpp:436 lspclientpluginview.cpp:672
 #, kde-format
@@ -204,9 +206,9 @@ msgid "Highlight goto location"
 msgstr "הדגשת מקום goto (הפניה פנימית)"
 
 #: lspclientpluginview.cpp:580
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Inlay Hints"
-msgstr "הצגת רמזים"
+msgstr "הצגת רמזים פנימיים"
 
 #: lspclientpluginview.cpp:584
 #, kde-format
@@ -482,7 +484,7 @@ msgstr "הפעלת הדגשה סמנטית"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "הפעלת רמזים פנימיים"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75

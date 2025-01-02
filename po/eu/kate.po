@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 19:51+0100\n"
+"PO-Revision-Date: 2025-01-01 08:40+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -971,7 +971,7 @@ msgstr "Jokabide-aukerak"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -980,6 +980,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Kate exekutatzeko programa bila miatuko duen bereizitako %1 direktorioren "
+"zerrenda. Zerrenda hau zure PATH ingurune aldagaiari aurretik erantsiko "
+"zaio. Adib. '/home/USER/myapps/bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1345,13 +1348,12 @@ msgstr "Erabiltzaileen erreakzioa"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "PATH balio okerra"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "'%1' fitxategia ez da existitzen"
+msgstr "'%1' bide-izena ez da existitzen"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

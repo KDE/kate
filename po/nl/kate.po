@@ -3,7 +3,7 @@
 # Nederlandse vertaling van Kwrite
 # Copyright (C) 2000 KDE-Nederlands team <i18n@kde.nl>
 # Proef gelezen 25Jan2002 Douwe van der Schaaf <dvdsch@bigfoot.com>
-# SPDX-FileCopyrightText: 2009, 2024 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2009, 2024, 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 # Rinse de Vries, 2000, 2001, 20002.
 # Niels Reedijk <n.reedijk@planet.nl>, 2000.
 # Rinse de Vries <rinse@kde.nl>, 2003, 2004.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 11:12+0100\n"
+"PO-Revision-Date: 2025-01-01 11:00+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -36,12 +36,12 @@ msgid "Your names"
 msgstr ""
 "Rinse de Vries - 2000 tot 2005; 2007,Douwe van der Schaaf - 2002,Tom Albers "
 "- 2004,Bram Schoenmakers - 2005; 2006,Wilbert Berendsen - 2003; 2004,Niels "
-"Reedijk - 2000,Freek de Kruijf - 2009 t/m 2024,Luc Castermans 2024"
+"Reedijk - 2000,Luc Castermans 2024,Freek de Kruijf - 2009 t/m 2025"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "rinsedevries@kde.nl,,,,,,freekdekruijf@kde.nl,"
+msgstr "rinsedevries@kde.nl,,,,,,,freekdekruijf@kde.nl"
 
 #: kate/main.cpp:102
 #, kde-format
@@ -981,7 +981,7 @@ msgstr "Opties voor gedrag"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -990,6 +990,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Lijst met %1 aparte mappen waar Kate zal kijken voor uit te voeren "
+"programma's. Deze lijst zal vooraf worden gegaan door uw omgevingsvariabele "
+"PATH. Bijv. '/home/GEBRUIKER/myapps/bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1355,13 +1358,12 @@ msgstr "Terugkoppeling van gebruiker"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Foute waarde van PATH"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "Het bestand '%1 bestaat niet"
+msgstr "Het pad '%1' bestaat niet"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

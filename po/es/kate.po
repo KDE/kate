@@ -4,7 +4,7 @@
 # SPDX-FileCopyrightText: 2003, 2005 Jaime Robles <jaime@kde.org>
 # SPDX-FileCopyrightText: 2003, 2004 Miguel Revilla Rodríguez <yo@miguelrevilla.com>
 # SPDX-FileCopyrightText: 2003, 2004, 2005, 2006 Pablo de Vicente <p.devicente@wanadoo.es>
-# SPDX-FileCopyrightText: 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2005, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009, 2011, 2012, 2013 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2012, 2013, 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 03:15+0100\n"
+"PO-Revision-Date: 2025-01-01 04:46+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -973,7 +973,7 @@ msgstr "Opciones de comportamiento"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -982,6 +982,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Lista de %1 directorios separados en los que Kate buscará los programas que "
+"se deben ejecutar. Esta lista se antepondrá a la variable de entorno PATH. "
+"Por ejemplo, «/home/USUARIO/misaplicaciones/bin/:/home/USUARIO/.local/bin»."
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1351,13 +1354,12 @@ msgstr "Comentarios y sugerencias del usuario"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Valor de PATH incorrecto"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "El archivo «%1» no existe"
+msgstr "La ruta «%1» no existe"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

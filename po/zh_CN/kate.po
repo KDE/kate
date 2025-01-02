@@ -1307,10 +1307,9 @@ msgid "Bad PATH value"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "文件“%1”不存在。"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

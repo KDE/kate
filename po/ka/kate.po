@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 05:26+0100\n"
+"PO-Revision-Date: 2025-01-01 09:54+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -961,7 +961,7 @@ msgstr "ქცევის მორგება"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "ბილიკი"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -970,6 +970,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"%1-ით გამოყოფილი საქაღალდეების სია, სადაც Kate გასაშვებ პროგრამებს მოძებნის. "
+"ეს სია ბოლოში მიეწერება თქვენს PATH გარემოს ცვლადს. მაგ: '/home/USER/myapps/"
+"bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1327,13 +1330,12 @@ msgstr "მომხარებლის უკუკავშირი"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "არასწორი გარემოს ცვლადის PATH მნიშვნელობა"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "ფაილი '%1' არ არსებობს"
+msgstr "ბილიკი '%1' არ არსებობს"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

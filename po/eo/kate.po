@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-09-14 11:22+0200\n"
+"PO-Revision-Date: 2024-12-27 23:54+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -330,10 +330,9 @@ msgid "Clear Diagnostics Filter"
 msgstr "Vakigi Diagnozan Filtrilon"
 
 #: lib/diagnostics/diagnosticview.cpp:376
-#, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
+#, kde-format
 msgid "Show Hover Info"
-msgstr "Montri/Kaŝi Enmet-Informojn"
+msgstr "Montri Ŝveb-Informojn"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:344
 #, kde-format
@@ -994,7 +993,7 @@ msgstr "Info"
 #: lib/kateconfigdialog.cpp:139
 #, kde-format
 msgid "Log"
-msgstr "Ensaluti"
+msgstr "Protokolo"
 
 #: lib/kateconfigdialog.cpp:145
 #, kde-format
@@ -1278,15 +1277,12 @@ msgid "(never)"
 msgstr "(neniam)"
 
 #: lib/kateconfigdialog.cpp:397
-#, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
+#, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
-msgstr[0] " tago"
-msgstr[1] " tago(j)"
+msgstr[0] "%v tago"
+msgstr[1] "%v tagoj"
 
 #: lib/kateconfigdialog.cpp:427
 #, kde-format
@@ -1621,10 +1617,9 @@ msgid "Close all open documents."
 msgstr "Fermas ĉiujn dokumentojn."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
-msgstr "&Remalfermi lastatempe malfermitajn dokumento(j)n."
+msgstr "&Remalfermi Lastatempe Fermitajn Dokumento(j)n"
 
 #: lib/katemainwindow.cpp:479
 #, kde-format
@@ -2363,19 +2358,17 @@ msgid "Toggle scroll synchronization for the current view"
 msgstr "Baskuligi ruluman sinkronigon por la nuna vido"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Malkroĉi Dokum&enton"
+msgstr "Malkroĉi Aktivan Dokumenton"
 
 #: lib/kateviewmanager.cpp:311
-#, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
+#, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
-"Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
+"Malfermas la aktivan dokumenton en nova fenestro kaj fermas ĝin en la nuna "
+"fenestro"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2558,10 +2551,9 @@ msgid "Wildcard Filtering"
 msgstr "Wildcard Filtrado"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Ĉiuj Projektoj"
+msgstr "Projekto: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2982,6 +2974,3 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Montri bonvenpaĝon por nova fenestro"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "Rapida Malferma Serĉo (agordu per kunteksta menuo)"

@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-10-10 14:47+0300\n"
-"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2024-12-30 17:26+0200\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -362,7 +362,7 @@ msgstr "<p><b>%1</b></p><p>Dokumentu ir izmainījusi cita programma.</p>"
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filtrēt…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

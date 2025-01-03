@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-11-22 12:37+0200\n"
+"PO-Revision-Date: 2024-12-30 17:26+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -179,7 +179,7 @@ msgstr "Datne „%1“ nav lokāla datne. Datnes, kas nav lokālas, kompilēt ne
 #: plugin_katebuild.cpp:788
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Izveidot mapi"
 
 #: plugin_katebuild.cpp:791
 #, kde-format
@@ -187,11 +187,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Konfigurētā darba datne <b>%1</b> mērķim <b>%2</b> nepastāv.<br><br>Vai "
+"izveidot mapi?"
 
 #: plugin_katebuild.cpp:799
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Neizdevās izveidot mapi <b>%1</b>"
 
 #: plugin_katebuild.cpp:817
 #, kde-format

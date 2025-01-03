@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-10-10 13:57+0300\n"
-"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2024-12-30 17:26+0200\n"
+"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -223,10 +223,9 @@ msgid "Refresh git status"
 msgstr "Pārlādēt „git“ statusu"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtrēt..."
+msgstr "Filtrēt…"
 
 #: gitwidget.cpp:444
 #, kde-format
@@ -1026,18 +1025,17 @@ msgstr ""
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Izpildīt programmu aktīvā projekta terminālī."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Nav norādīt komanda"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Projekta pabeigšana"
+msgstr "Projekta komanda"
 
 #: stashdialog.cpp:36
 #, kde-format

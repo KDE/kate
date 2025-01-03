@@ -950,7 +950,7 @@ msgstr "行为选项"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -959,6 +959,8 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Kate 寻找程序运行的 %1 个单独目录列表。此列表将被附加到您的 PATH 环境变量中。"
+"例如 /home/USER/myapps/bin/:/home/USER/.local/bin"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1304,12 +1306,12 @@ msgstr "用户反馈"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "错误的 PATH 值"
 
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "路径“%1”不存在"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

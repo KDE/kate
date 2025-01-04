@@ -16,7 +16,7 @@
 # Vincent Pinon <vpinon@kde.org>, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019, 2020.
 # William Oprandi <william.oprandi@gmail.com>, 2019.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
 #
 msgid ""
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-25 09:57+0100\n"
+"PO-Revision-Date: 2025-01-02 09:15+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -996,7 +996,7 @@ msgstr "Options de comportement"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -1005,6 +1005,10 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Liste des %1 répertoires avec séparateur dans lesquels Kate recherchera les "
+"programmes à exécuter. Cette liste sera ajoutée à votre variable "
+"d'environnement « PATH ». Par exemple, « /home/USER/myapps/bin/ : /home/"
+"USER/.local/bin »"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1377,13 +1381,12 @@ msgstr "Retours des utilisateurs"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Mauvaise valeur de la variable d'environnement « PATH »"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "Le fichier « %1 » n'existe pas."
+msgstr "L'emplacement « %1 » n'existe pas."
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

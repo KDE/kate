@@ -73,8 +73,17 @@ void TemplatePluginView::templateCrated(const QString &fileToOpen)
         return;
     }
 
-    QUrl fileUrl = QUrl::fromLocalFile(fileToOpen);
-    m_mainWindow->openUrl(fileUrl);
+    if (QFileInfo(fileToOpen).isFile()) {
+        QUrl fileUrl = QUrl::fromLocalFile(fileToOpen);
+        m_mainWindow->openUrl(fileUrl);
+    } else {
+        // Try to open the folder with the project plugin
+        QObject *projectPluginView = m_mainWindow->pluginView(u"kateprojectplugin"_s);
+        if (projectPluginView) {
+            QDir dir(fileToOpen);
+            QMetaObject::invokeMethod(projectPluginView, "openDirectoryOrProject", Q_ARG(const QDir &, dir));
+        }
+    }
 }
 
 #include "templateplugin.moc"

@@ -2,8 +2,9 @@
   "name": "TMPL_Q_MAIN_WINDOW_APP_TMPL",
   "files": [
     { "git": 1 },
-    { "directory": "./", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "*.cmake"], "recursive": 1 }
+    { "directory": "./", "recursive": 1 }
   ],
+  "exclude_patterns": [ "build" ],
   "build": {
     "directory": "build",
     "targets": [

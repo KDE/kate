@@ -2,8 +2,9 @@
   "name": "TEMPLATE_REPLACE_CORE_APPLICATION_NAME",
   "files": [
     { "git": 1 },
-    { "directory": "./", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "*.cmake"], "recursive": 1 }
+    { "directory": "./", "recursive": 1 }
   ],
+  "exclude_patterns": [ "build" ],
   "build": {
     "directory": "build",
     "targets": [

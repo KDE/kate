@@ -549,15 +549,6 @@ void Template::createFromAppWizardTemplate(const QString &category)
         if (m_hasCMakeLists && !m_hasKateproject && ok) {
             copyFile(u":/templates/kateproject.in"_s, trgtPath + u"/.kateproject"_s, {}, replaceMap);
         }
-
-        if (templ.fileToOpen.isEmpty()) {
-            // No file to open specified in the template, so try CMakeLists.txt
-            if (m_hasCMakeLists) {
-                fileToOpen += u"/CMakeLists.txt"_s;
-            } else {
-                fileToOpen.clear();
-            }
-        }
     }
 
     if (!ok) {

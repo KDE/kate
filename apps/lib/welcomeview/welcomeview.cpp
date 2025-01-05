@@ -275,12 +275,18 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
     action = new QAction(i18n("&Remove"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
-    connect(action, &QAction::triggered, this, [this, selectedIndexes]() {
+    connect(action, &QAction::triggered, this, [this, url, selectedIndexes]() {
         KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
-        for (const auto &index : selectedIndexes) {
-            const auto url = m_recentItemsModel->url(index);
+        if (selectedIndexes.empty()) {
             if (url.isValid()) {
                 recentFilesAction->removeUrl(url);
+            }
+        } else {
+            for (const auto &index : selectedIndexes) {
+                const auto url = m_recentItemsModel->url(index);
+                if (url.isValid()) {
+                    recentFilesAction->removeUrl(url);
+                }
             }
         }
     });

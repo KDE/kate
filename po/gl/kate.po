@@ -7,14 +7,14 @@
 # mvillarino <mvillarino@users.sourceforge.net>, 2008, 2009.
 # Marce Villarino <mvillarino@kde-espana.es>, 2009, 2011, 2012, 2013, 2014.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2016, 2017.
-# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-27 18:37+0100\n"
+"PO-Revision-Date: 2025-01-04 15:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -967,7 +967,7 @@ msgstr "Opcións de comportamento"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -976,6 +976,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Lista de cartafoles, separados por «%1», onde Kate buscará programas para "
+"executar. A lista engadirase ao principio da variábel de contorno PATH. Por "
+"exemplo, «/home/usuaria/aplicacións/bin/:/home/usuaria/.local/bin»."
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1336,13 +1339,12 @@ msgstr "Achegas de persoas usuarias"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Valor de PATH incorrecto."
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "O ficheiro «%1» non existe."
+msgstr "A ruta «%1» non existe."
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

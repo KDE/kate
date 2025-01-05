@@ -1,9 +1,9 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1699191 $
+# Version: $Revision: 1699393 $
 # Kate polish translation file.
 # Main translation work:
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Jacek Stolarczyk <jacek@mer.chemia.polsl.gliwice.pl>\n"
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2003, 2004.
 # Mikolaj Machowski <mikmach@wp.pl>, 2004, 2005.
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-21 10:56+0100\n"
+"PO-Revision-Date: 2025-01-04 07:55+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -977,7 +977,7 @@ msgstr "Ustawienia zachowania"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -986,6 +986,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Lisa katalogów oddzielonych %1, w których Kate będzie szukać programów do "
+"uruchomienia. Lista ta dołączona do zmiennej środowiskowej PATH na jej "
+"początku, np.'/home/UŻYTKOWNIK/myapps/bin/:/home/UŻYTKOWNIK/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1347,13 +1350,12 @@ msgstr "Informacja zwrotna"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Zła wartość PATH"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "Plik '%1' nie istnieje"
+msgstr "Ścieżka '%1' nie istnieje"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format
@@ -1671,10 +1673,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Otwórz dokument lub dokumenty, które zostały ostatnio zamknięte."
 
 #: lib/katemainwindow.cpp:491
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "No&we okno"
+msgstr "Zamknij &okno"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -1682,10 +1683,9 @@ msgid "Close this window"
 msgstr "Zamknij okno"
 
 #: lib/katemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "Inny pr&ogram..."
+msgstr "Zakończ aplikację"
 
 #: lib/katemainwindow.cpp:504
 #, kde-format
@@ -2582,29 +2582,32 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Nie znaleziono widoku narzędzia dla nazwy: '%1'. Czy wyłączono dla niej "
+"wtyczkę lub może nazwa została źle zapisana?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Błąd skryptu. Oczekiwano nazwy widoku narzędzia. Dostępne: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Zapewnienie jakości i skrypty"
+msgstr "Skrypty"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Pokaż okno widoku narzędzia. Dostępne okna: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Ukryj okno widoku narzędzia. Dostępne okna: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

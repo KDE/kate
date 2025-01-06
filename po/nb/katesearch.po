@@ -191,7 +191,6 @@ msgstr[1] ""
 
 #: Results.cpp:32
 #, fuzzy, kde-format
-#| msgid "Filter:"
 msgid "Filter…"
 msgstr "Filter:"
 

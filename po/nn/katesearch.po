@@ -193,7 +193,6 @@ msgstr[1] "Fann %1 treff (%3) i alle opne prosjekt (felles forelder: %2)"
 
 #: Results.cpp:32
 #, fuzzy, kde-format
-#| msgid "Filter:"
 msgid "Filter…"
 msgstr "Filter:"
 

@@ -21,7 +21,6 @@ msgstr ""
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, fuzzy, kde-format
-#| msgid "Filter..."
 msgid "Filter…"
 msgstr "Filtrer …"
 
@@ -498,7 +497,6 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
 #, fuzzy, kde-format
-#| msgid "More options"
 msgid "Show completions"
 msgstr "Fleire val"
 
@@ -625,7 +623,6 @@ msgstr "Standard tenarinnstillingar"
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
 #, fuzzy, kde-format
-#| msgid "LSP Client"
 msgid "&LSP Client"
 msgstr "LSP-klient"
 

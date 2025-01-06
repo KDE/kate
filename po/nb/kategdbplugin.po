@@ -691,7 +691,6 @@ msgstr "Slå av/på bruddpunkt/brudd"
 
 #: plugin_kategdb.cpp:283
 #, fuzzy, kde-format
-#| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Bruddpunkt"
 

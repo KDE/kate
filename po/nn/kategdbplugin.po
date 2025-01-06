@@ -692,7 +692,6 @@ msgstr "Avbrotspunkt/brot på/av"
 
 #: plugin_kategdb.cpp:283
 #, fuzzy, kde-format
-#| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Avbrotspunkt"
 

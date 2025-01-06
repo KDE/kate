@@ -414,7 +414,6 @@ msgstr "Mål definert"
 
 #: TargetModel.cpp:537
 #, fuzzy, kde-format
-#| msgid "Project"
 msgid "Projects"
 msgstr "Prosjekt"
 

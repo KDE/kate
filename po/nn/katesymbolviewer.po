@@ -139,7 +139,6 @@ msgstr "Symbolliste"
 
 #: plugin_katesymbolviewer.cpp:132
 #, fuzzy, kde-format
-#| msgid "Filter..."
 msgid "Filter…"
 msgstr "Filtrer …"
 

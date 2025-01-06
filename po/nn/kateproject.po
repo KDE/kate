@@ -223,7 +223,6 @@ msgstr "Oppdater Git-status"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
 #, fuzzy, kde-format
-#| msgid "Filter..."
 msgid "Filter…"
 msgstr "Filtrer …"
 
@@ -853,7 +852,6 @@ msgstr "Lukk prosjekt"
 
 #: kateprojectpluginview.cpp:162
 #, fuzzy, kde-format
-#| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Opna mappe …"
 
@@ -950,7 +948,6 @@ msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, fuzzy, kde-format
-#| msgid "Add Folder"
 msgid "New Folder…"
 msgstr "Legg til mappe"
 
@@ -991,13 +988,11 @@ msgstr "Vis Git-logg"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
-#| msgid "File"
 msgid "New File"
 msgstr "Fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
 #, fuzzy, kde-format
-#| msgid "Add Folder"
 msgid "New Folder"
 msgstr "Legg til mappe"
 
@@ -1032,7 +1027,6 @@ msgstr ""
 
 #: project_commands.cpp:60
 #, fuzzy, kde-format
-#| msgid "Project Completion"
 msgid "Project Command"
 msgstr "Prosjektfullføring"
 

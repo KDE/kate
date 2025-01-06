@@ -980,7 +980,6 @@ msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
-#| msgid "File"
 msgid "New File"
 msgstr "Fil"
 
@@ -1020,7 +1019,6 @@ msgstr ""
 
 #: project_commands.cpp:60
 #, fuzzy, kde-format
-#| msgid "Project Completion"
 msgid "Project Command"
 msgstr "Prosjektfullføring"
 

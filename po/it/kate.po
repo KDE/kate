@@ -1,5 +1,5 @@
 # translation of kate.po to Italian
-# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
 # Andrea Rizzi <rizzi@kde.org>, 2003, 2004, 2005.
 # Andrea RIZZI <arizzi@pi.infn.it>, 2004.
 # Andrea RIZZI <rizzi@kde.org>, 2004, 2005.
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-26 19:18+0100\n"
+"PO-Revision-Date: 2025-01-04 22:11+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -968,7 +968,7 @@ msgstr "Opzioni sul comportamento"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -977,6 +977,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Elenco delle %1 cartelle separate nelle quali Kate cercherà i programmi da "
+"eseguire. Questo elenco verrà anteposto alla variabile PATH dell'ambiente. "
+"Ad esempio «/home/USER/myapps/bin/:/home/USER/.local/bin»"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1339,13 +1342,12 @@ msgstr "Segnalazioni degli utenti"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Valore di PATH non valido"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "Il file «%1» non esiste"
+msgstr "Il percorso «%1» non esiste"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

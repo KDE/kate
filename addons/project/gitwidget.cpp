@@ -337,7 +337,7 @@ void GitWidget::init()
     layout->setContentsMargins(0, 0, 0, 0);
 
     auto *btnsLayout = new QHBoxLayout;
-    btnsLayout->setContentsMargins(0, 4, 0, 4);
+    btnsLayout->setContentsMargins(0, 0, 0, 0);
 
     btnsLayout->addWidget(m_commitBtn);
     btnsLayout->addWidget(m_cancelBtn);

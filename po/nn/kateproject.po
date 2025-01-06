@@ -852,7 +852,6 @@ msgstr "Lukk prosjekt"
 
 #: kateprojectpluginview.cpp:162
 #, fuzzy, kde-format
-#| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Opna mappe …"
 
@@ -949,7 +948,6 @@ msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, fuzzy, kde-format
-#| msgid "Add Folder"
 msgid "New Folder…"
 msgstr "Legg til mappe"
 
@@ -990,13 +988,11 @@ msgstr "Vis Git-logg"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
-#| msgid "File"
 msgid "New File"
 msgstr "Fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
 #, fuzzy, kde-format
-#| msgid "Add Folder"
 msgid "New Folder"
 msgstr "Legg til mappe"
 

@@ -980,7 +980,6 @@ msgstr ""
 
 #: kateprojecttreeviewcontextmenu.cpp:210
 #, fuzzy, kde-format
-#| msgid "File"
 msgid "New File"
 msgstr "Fil"
 

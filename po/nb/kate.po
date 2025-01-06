@@ -1247,9 +1247,6 @@ msgstr "(aldri)"
 
 #: lib/kateconfigdialog.cpp:397
 #, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
@@ -1475,7 +1472,6 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:393
 #, fuzzy, kde-format
-#| msgid "Save A&ll"
 msgid "Sa&ve All"
 msgstr "La&gre alle"
 
@@ -1486,7 +1482,6 @@ msgstr "Lagre alle åpne og endrede filer."
 
 #: lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
-#| msgid "&Reload All"
 msgid "Reload A&ll"
 msgstr "Last &inn alt på nytt"
 
@@ -1549,7 +1544,6 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:456
 #, fuzzy, kde-format
-#| msgid "Close Orphaned"
 msgid "Close Orp&haned"
 msgstr "Lukk foreldreløse"
 
@@ -1569,7 +1563,6 @@ msgstr "Lukk det gjeldende dokumentet."
 
 #: lib/katemainwindow.cpp:465
 #, fuzzy, kde-format
-#| msgid "Close Other"
 msgid "Close O&ther"
 msgstr "Lukk andre"
 
@@ -1605,7 +1598,6 @@ msgstr "Lukk dette vinduet"
 
 #: lib/katemainwindow.cpp:488
 #, fuzzy, kde-format
-#| msgid "&New Window"
 msgid "New &Window"
 msgstr "&Nytt vindu"
 
@@ -2317,7 +2309,6 @@ msgstr "Vender orienteringen for den gjeldende delte visningen"
 
 #: lib/kateviewmanager.cpp:310
 #, fuzzy, kde-format
-#| msgid "Save Documents"
 msgid "Detach Active Document"
 msgstr "Lagre dokumenter"
 

@@ -612,7 +612,6 @@ msgstr "Standard tenarinnstillingar"
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
 #, fuzzy, kde-format
-#| msgid "LSP Client"
 msgid "&LSP Client"
 msgstr "LSP-klient"
 

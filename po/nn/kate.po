@@ -335,7 +335,6 @@ msgstr "Tøm diagnostikkfilter"
 
 #: lib/diagnostics/diagnosticview.cpp:376
 #, fuzzy, kde-format
-#| msgid "Show/Hide Commit Info"
 msgid "Show Hover Info"
 msgstr "Vis/gøym commitinfo"
 
@@ -1283,9 +1282,6 @@ msgstr "(aldri)"
 
 #: lib/kateconfigdialog.cpp:397
 #, fuzzy, kde-format
-#| msgctxt "The suffix of 'Delete unused meta-information after'"
-#| msgid " day"
-#| msgid_plural " days"
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
@@ -1626,7 +1622,6 @@ msgstr "Lukk alle opne dokument."
 
 #: lib/katemainwindow.cpp:477
 #, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)."
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Opna &sist lukka dokument på nytt."
 
@@ -2366,14 +2361,11 @@ msgstr "Slå på/av rullesynkronisering for gjeldande vising"
 
 #: lib/kateviewmanager.cpp:310
 #, fuzzy, kde-format
-#| msgid "D&etach Document"
 msgid "Detach Active Document"
 msgstr "&Kopla frå dokumentet"
 
 #: lib/kateviewmanager.cpp:311
 #, fuzzy, kde-format
-#| msgid ""
-#| "Opens the document in a new window and closes it in the current window"
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr "Opna dokumentet i eit nytt vindauge, og lukk utgåva i dette vindauget"
@@ -2560,7 +2552,6 @@ msgstr "Jokerteikn-filtrering"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
 #, fuzzy, kde-format
-#| msgid "All Projects"
 msgid "Project: %1"
 msgstr "Alle prosjekta"
 

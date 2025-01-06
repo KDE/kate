@@ -1460,7 +1460,6 @@ msgstr ""
 
 #: lib/katemainwindow.cpp:393
 #, fuzzy, kde-format
-#| msgid "Save A&ll"
 msgid "Sa&ve All"
 msgstr "Vurke &visot"
 
@@ -1471,7 +1470,6 @@ msgstr "Vurke visot rabas, rievdaduvvon dokumeanttaid."
 
 #: lib/katemainwindow.cpp:399
 #, fuzzy, kde-format
-#| msgid "Save A&ll"
 msgid "Reload A&ll"
 msgstr "Vurke &visot"
 
@@ -2287,7 +2285,6 @@ msgstr ""
 
 #: lib/kateviewmanager.cpp:310
 #, fuzzy, kde-format
-#| msgid "Save Documents"
 msgid "Detach Active Document"
 msgstr "Vurke dokumeanttaid"
 

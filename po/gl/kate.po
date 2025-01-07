@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2025-01-04 15:14+0100\n"
+"PO-Revision-Date: 2025-01-06 20:48+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -131,7 +131,7 @@ msgstr "columna"
 #: kate/main.cpp:196 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
-msgstr "Ler o contido da saída estándar."
+msgstr "Ler o contido da entrada estándar."
 
 #: kate/main.cpp:201 kwrite/main.cpp:118
 #, kde-format
@@ -2494,7 +2494,7 @@ msgstr "+%1"
 #: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
-msgstr "Prema aquí para acceder á vista de apertura rápida."
+msgstr "Prema aquí para cambiar á vista de apertura rápida."
 
 #: lib/kateviewspace.cpp:139
 #, kde-format
@@ -2820,7 +2820,7 @@ msgstr "Escoller &manualmente unha sesión"
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr "Comportamento do inicio e saída da aplicación"
+msgstr "Comportamento da aplicación ao iniciar e apagar"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55

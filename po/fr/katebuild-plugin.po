@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2008, 2009, 2010, 2012, 2013.
-# SPDX-FileCopyrightText: 2013, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Sebastien Renard <renard@kde.org>, 2013, 2014.
 # Raphaël Jakse <raphael.jakse@gmail.com>, 2014.
 # Maxime Corteel <mcorteel@gmail.com>, 2014, 2015.
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 03:24+0000\n"
-"PO-Revision-Date: 2024-08-25 11:49+0200\n"
+"PO-Revision-Date: 2025-01-06 17:43+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -258,13 +258,12 @@ msgstr ""
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Impossible d'écrire les fichiers de requêtes « API » du fichier de CMake "
-"pour le répertoire de compilation %1 !"
+"pour le dossier de compilation %1 !"
 
 #: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
-"Impossible d'exécuter CMake (%2) pour le répertoire de compilation %1 !"
+msgstr "Impossible d'exécuter CMake (%2) pour le dossier de compilation %1 !"
 
 #: plugin_katebuild.cpp:1142
 #, kde-format
@@ -273,7 +272,7 @@ msgid ""
 "%2) !"
 msgstr ""
 "Échec de la génération des fichiers de réponses « API » du fichier de CMake "
-"pour le répertoire de compilation %1 (En utilisant %2) !"
+"pour le dossier de compilation %1 (En utilisant %2) !"
 
 #: plugin_katebuild.cpp:1261
 #, kde-format

@@ -102,6 +102,7 @@ public:
         setWindowFlags(Qt::FramelessWindowHint | Qt::BypassGraphicsProxyWidget | Qt::ToolTip);
         setAttribute(Qt::WA_DeleteOnClose, true);
         document()->setDocumentMargin(5);
+        document()->setTextWidth(-1);
         setFrameStyle(QFrame::Box | QFrame::Raised);
         connect(&m_hideTimer, &QTimer::timeout, this, &TooltipPrivate::hideTooltip);
         setWordWrapMode(QTextOption::WordWrap);
@@ -228,10 +229,10 @@ public:
         QSize size = document()->size().toSize();
 
         const int contentsMarginsWidth = this->contentsMargins().left() + this->contentsMargins().right();
-        const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().top();
+        const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().bottom();
         const int docMargin = 2 * document()->documentMargin();
-        const int wMargins = contentsMarginsWidth + docMargin + verticalScrollBar()->height();
-        const int hMargins = contentsMarginsHeight + docMargin + horizontalScrollBar()->width();
+        int wMargins = contentsMarginsWidth + docMargin + verticalScrollBar()->width();
+        int hMargins = contentsMarginsHeight;
 
         // add internal document padding and possible scrollbars to size
         size.setHeight(size.height() + hMargins);

@@ -228,10 +228,9 @@ msgid "Refresh git status"
 msgstr "Ανανέωση κατάστασης του git"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Φιλτράρισμα..."
+msgstr "Φιλτράρισμα…"
 
 #: gitwidget.cpp:444
 #, kde-format

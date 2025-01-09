@@ -200,10 +200,9 @@ msgstr[1] ""
 "%1 αποτελέσματα (%3) βρέθηκαν σε όλα τα ανοιχτά έργα (κοινός γονέας: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Φίλτρο:"
+msgstr "Φίλτρο…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)

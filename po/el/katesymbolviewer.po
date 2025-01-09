@@ -142,10 +142,9 @@ msgid "Symbol List"
 msgstr "Λίστα συμβόλων"
 
 #: plugin_katesymbolviewer.cpp:132
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Φίλτρο..."
+msgstr "Φίλτρο…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

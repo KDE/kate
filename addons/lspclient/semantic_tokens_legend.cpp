@@ -192,7 +192,6 @@ void SemanticTokensLegend::initialize(const std::vector<QString> &types)
             tokenTypes[i] = TokenType::Unsupported;
         i++;
     }
-    totalTokenTypes = tokenTypes.size();
     refresh(tokenTypes);
 }
 

@@ -52,22 +52,16 @@ public:
 
     KTextEditor::Attribute::Ptr attributeForTokenType(size_t idx) const
     {
-        if (idx >= totalTokenTypes) {
+        if (idx >= sharedAttrs.size()) {
             return {};
         }
         return sharedAttrs.at(idx);
-    }
-
-    size_t tokenTypeCount() const
-    {
-        return totalTokenTypes;
     }
 
 private:
     Q_SLOT void themeChange(KTextEditor::Editor *e);
     void refresh(const std::vector<TokenType> &m_tokenTypes);
 
-    size_t totalTokenTypes;
     std::vector<KTextEditor::Attribute::Ptr> sharedAttrs;
     KTextEditor::Attribute::Ptr fixedAttrs[7];
 };

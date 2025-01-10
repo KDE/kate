@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-27 00:44+0000\n"
 "PO-Revision-Date: 2024-04-30 15:45+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -213,10 +213,9 @@ msgstr[1] "V otevřených projektech nalezeny %1 shody (%3) (společný rodič: 
 msgstr[2] "V otevřených projektech nalezeno %1 shod (%3) (společný rodič: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Filtr:"
+msgstr "Filtrovat…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)

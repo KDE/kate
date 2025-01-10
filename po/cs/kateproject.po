@@ -223,10 +223,9 @@ msgid "Refresh git status"
 msgstr "Obnovit stav gitu"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtr..."
+msgstr "Filtrovat…"
 
 #: gitwidget.cpp:444
 #, kde-format

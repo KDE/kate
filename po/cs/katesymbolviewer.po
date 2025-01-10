@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
 "PO-Revision-Date: 2022-01-11 17:41+0100\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -138,10 +138,9 @@ msgid "Symbol List"
 msgstr "Seznam symbolů"
 
 #: plugin_katesymbolviewer.cpp:132
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtr..."
+msgstr "Filtrovat…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

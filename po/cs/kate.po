@@ -351,10 +351,9 @@ msgstr "Varování"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtr..."
+msgstr "Filtrovat…"
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -1629,10 +1628,9 @@ msgid "Close this window"
 msgstr "Zavřít toto okno"
 
 #: lib/katemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "Ji&ná aplikace..."
+msgstr "Ukončit program"
 
 #: lib/katemainwindow.cpp:504
 #, kde-format
@@ -2520,10 +2518,9 @@ msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "QA a skriptování"
+msgstr "Skriptování"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format

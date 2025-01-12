@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022, 2023, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2021, 2022, 2023, 2024, 2025 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-09-30 19:49+0200\n"
+"PO-Revision-Date: 2025-01-11 12:49+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -221,10 +221,9 @@ msgid "Refresh git status"
 msgstr "Uppdatera Git-status"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filter..."
+msgstr "Filter…"
 
 #: gitwidget.cpp:444
 #, kde-format
@@ -1026,18 +1025,17 @@ msgstr ""
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Kör ett kommando i det aktiva projektets terminal."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Inget kommando angivet"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Projektkomplettering"
+msgstr "Projektkommando"
 
 #: stashdialog.cpp:36
 #, kde-format

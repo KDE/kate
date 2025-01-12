@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2008, 2009, 2010, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2024, 2025 Stefan Asserhäll <stefan.asserhall@gmail.com>
 # Stefan Asserhall <stefan.asserhall@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-11-24 17:49+0100\n"
+"PO-Revision-Date: 2025-01-11 12:50+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -182,7 +182,7 @@ msgstr ""
 #: plugin_katebuild.cpp:788
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Skapa katalog"
 
 #: plugin_katebuild.cpp:791
 #, kde-format
@@ -190,11 +190,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Den inställda arbetskatalogen <b>%1</b> för måluppsättningen <b>%2</b> finns "
+"inte.<br><br>Skapa katalogen?"
 
 #: plugin_katebuild.cpp:799
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Misslyckades skapa katalogen <b>%1</b>"
 
 #: plugin_katebuild.cpp:817
 #, kde-format

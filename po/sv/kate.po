@@ -5,21 +5,21 @@
 # Anders Widell <d95-awi@nada.kth.se>, 1998.
 # Mattias Newzella <newzella@linux.nu>, 2000, 2001, 2002,2003, 2004.
 # Daniel Karlsson <chaotica@home.se>, 2001.
-# SPDX-FileCopyrightText: 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2024, 2025 Stefan Asserhäll <stefan.asserhall@gmail.com>
 # Stefan Asserhall <stefan.asserhall@gmail.com>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-11-24 17:55+0100\n"
+"PO-Revision-Date: 2025-01-11 12:55+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -357,10 +357,9 @@ msgstr "Varningar"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtrera..."
+msgstr "Filter…"
 
 #: lib/diagnostics/diagnosticview.cpp:1142 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -965,7 +964,7 @@ msgstr "Beteendealternativ"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -974,6 +973,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Lista över %1 separata kataloger där Kate söker efter program att köra. "
+"Listan läggs till din miljövariabel PATH, t.ex. '/home/USER/myapps/bin/:/"
+"home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1328,12 +1330,12 @@ msgstr "Användaråterkoppling"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Felaktigt värde på PATH"
 
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "Sökvägen '%1' finns inte"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format
@@ -1653,10 +1655,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Öppnar dokumentet eller dokumenten som senast stängdes igen"
 
 #: lib/katemainwindow.cpp:491
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "Nytt &fönster"
+msgstr "Stäng &fönster"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -1664,10 +1665,9 @@ msgid "Close this window"
 msgstr "Stänger det här fönstret"
 
 #: lib/katemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Annat program..."
+msgstr "Avsluta programmet"
 
 #: lib/katemainwindow.cpp:504
 #, kde-format
@@ -2459,7 +2459,7 @@ msgstr "Misslyckades aktivera insticksprogrammet <b>%1</b>"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Filen '%1' finns inte"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format
@@ -2562,29 +2562,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Ingen verktygsvy hittades med namn: '%1'. Är insticksprogrammet för den "
+"inaktiverad eller namnet felstavat?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Skriptfel. Förväntade namnet på en verktygsvy. Tillgängliga: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Kvalitetssäkring och skript"
+msgstr "Styrning via skript"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Visa en verktygspanel. Tillgängliga paneler: "
+"%1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. Dölj en verktygspanel. Tillgängliga paneler: "
+"%1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

@@ -361,7 +361,7 @@ private:
                     c.select(QTextCursor::BlockUnderCursor);
                     auto cfmt = block.charFormat();
                     cfmt.setFont(this->font());
-                    c.setBlockFormat(bfmt);
+                    c.mergeBlockFormat(bfmt);
                     c.setCharFormat(cfmt);
                 } else if (bfmt.headingLevel() != 0) {
                     // Make all headings H3
@@ -371,7 +371,7 @@ private:
                     QTextCharFormat cfmt = block.charFormat();
                     cfmt.setProperty(QTextFormat::FontSizeAdjustment, 0);
                     cfmt.setFontWeight(QFont::Bold);
-                    c.setBlockFormat(bfmt);
+                    c.mergeBlockFormat(bfmt);
                     c.setCharFormat(cfmt);
                 }
                 block = block.next();

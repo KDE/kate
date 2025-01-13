@@ -11,10 +11,12 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 
+#include <QApplication>
 #include <QDebug>
 #include <QEventLoop>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMessageBox>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
@@ -307,13 +309,21 @@ void SQLManager::runQuery(const QString &text, const QString &connection)
 
     if (!query.prepare(text)) {
         QSqlError err = query.lastError();
+        const int res = QMessageBox::warning(
+            qApp->activeWindow(),
+            i18n("Prepare Statement Failure"),
+            i18n("<p>Preparing the query failed with the following error: %1</p><p>Do you want to continue without preparing the query?</p>", err.text()),
+            QMessageBox::Yes,
+            QMessageBox::No);
 
-        if (err.type() == QSqlError::ConnectionError) {
-            m_model->setStatus(connection, Connection::OFFLINE);
+        if (res == QMessageBox::Rejected) {
+            if (err.type() == QSqlError::ConnectionError) {
+                m_model->setStatus(connection, Connection::OFFLINE);
+            }
+
+            Q_EMIT error(err.text());
+            return;
         }
-
-        Q_EMIT error(err.text());
-        return;
     }
 
     if (!query.exec()) {

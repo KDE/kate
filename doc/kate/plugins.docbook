@@ -584,17 +584,21 @@ When indexing is finished, open the toolview <guilabel>Backtrace Browser</guilab
 <title>Introduction</title>
 
 <para>The Build plugin allows you to run actions like build, clean and compile
-on a project.</para>
+on a project. You can also automatically run the generated applications. The plugin basically
+gives you a way to configure sets of commands to run and it can parse the output for links to
+files and specific lines and columns in those files. So even if the plugin is originally created
+for compiling C/C++ and mostly tested with it, the plugin can also be useful for other
+purposes and languages.</para>
 
 </sect2>
 
 <sect2 id="build-using">
 <title>Using the Build Plugin</title>
 
-<para>The Build plugin adds a <guilabel>Build Output</guilabel> tool view at the
-bottom and a <guimenu>Build</guimenu> menu on the menubar. The tool view can be used to configure
-build target settings, while the menu can be used to perform build, clean and
-compile actions.</para>
+<para>The Build plugin adds a <guilabel>Build</guilabel> tool view at the
+bottom and a <guimenu>Build</guimenu> menu on the menu bar. The tool view can be used to select and
+configure build targets, while the menu and it's shortcuts can be used to select and execute the
+configured shell commands.</para>
 
 <screenshot id="screenshot-build-output">
 <screeninfo>Build Output</screeninfo>
@@ -603,7 +607,7 @@ compile actions.</para>
 </mediaobject>
 </screenshot>
 
-<para>The <guilabel>Build Output</guilabel> tool view has two tabs:</para>
+<para>The <guilabel>Build</guilabel> tool view has two static tabs:</para>
 
 <itemizedlist>
 <listitem><para><guilabel>Target Settings</guilabel></para></listitem>
@@ -613,52 +617,63 @@ compile actions.</para>
 <sect3 id="build-using-target-settings">
 <title>Target Settings tab</title>
 
-<para>The target settings tab can be used to configure various build targets and define targets sets.</para>
+<para>The target settings tab can be used to configure various build targets and define target sets.</para>
 
-<para>To change the names or commands double click on the entries in the table and use the
-dropdown box to select the active target set. Use the checkbox in front of each target to define a default.</para>
+<para>A target-set is a group of commands that can be run in a specified working directory.
+Target sets can be added under either <guilabel>Projects</guilabel> or <guilabel>Session</guilabel>.
+The custom target-sets added under <guilabel>Projects</guilabel> are stored in a <guilabel>.kateproject.build</guilabel>
+file in the project root directory and are restored when the project is re-opened. The target-sets added
+under <guilabel>Session</guilabel> are stored in the current Kate session configuration.</para>
 
-<para>A new target set contains several configuration options:</para>
+<para>The first row, in a target-set, contains a name for the set in column one, and in column two we
+    have the directory where the commands should be executed. On each following row, we have
+    a name for the command in column one, a build command in column two and a run command in column three.
+    To edit one of these, double-click on the entry or use the edit shortcut (often F2).</para>
 
 <variablelist>
 <varlistentry>
 <term><guilabel>Working Directory</guilabel></term>
-<listitem><para>You can set the path to the project here. Leave this empty to
-use the directory the current document is located in.</para></listitem>
+<listitem><para>The second column of the first row in a target-set, is used to configure the
+working directory used for compiling and running commands. If the project plugin is enabled, the
+working directory string can also contain placeholders for the project base directory path:
+<guilabel>%B</guilabel> and name: <guilabel>%b</guilabel></para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Build</guilabel></term>
-<listitem><para>This option lets you define the build command. It is set to
-<command>make</command> by default.</para></listitem>
+<term><guilabel>Build Command</guilabel></term>
+<listitem><para>The second column in the "non-first rows", contain the shell command to run in
+the working directory. Note the word shell. Almost any shell command will do. The build command can
+contain placeholders. <guilabel>%f</guilabel> for current file, <guilabel>%d</guilabel> for directory
+of current file and <guilabel>%n</guilabel> for the base-name of the current (file name without
+suffix).</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Clean</guilabel></term>
-<listitem><para>The option lets you define the clean command. It is set to
-<command>make clean</command> by default.</para></listitem>
+<term><guilabel>Run Command</guilabel></term>
+<listitem><para>The third column in the "non-first rows", can contain a shell command, for execution
+in an actual terminal in the target-set working directory. The terminal is opened as a tab. The plugin
+will try to reuse the terminal tab, if the same command is executed and the previous application has
+exited.</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><guilabel>Config</guilabel></term>
-<listitem><para>This option lets you define the config command. It is set
-to <command>cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../</command>
-by default.</para></listitem>
-</varlistentry>
 </variablelist>
 
-<para>On the top this plugin has a toolbar with the following buttons :</para>
+<para>On the top of the <guilabel>Target Settings</guilabel> tab, we have a toolbar with a target
+filter and the following buttons:</para>
 
 <simplelist>
 <member>
-<guiicon><inlinemediaobject><imageobject><imagedata fileref="dialog-ok-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="run-build-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
 Build the selected target</member>
+<member>
+<guiicon><inlinemediaobject><imageobject><imagedata fileref="media-playback-start-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
+Build and run the selected target</member>
 <member>
 <guiicon><inlinemediaobject><imageobject><imagedata fileref="list-add-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
 Add a new build target</member>
 <member>
 <guiicon><inlinemediaobject><imageobject><imagedata fileref="document-new-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
-Create a new build target set</member>
+Create a new set of targets</member>
 <member>
 <guiicon><inlinemediaobject><imageobject><imagedata fileref="edit-copy-22.png" format="PNG"/></imageobject></inlinemediaobject></guiicon>
 Copy a command or target set</member>
@@ -673,19 +688,14 @@ Delete the current command or target set</member>
 <title>Output tab</title>
 
 <para>The <guilabel>Output</guilabel> tab shows the console output generated by
-the last command.</para>
-
-<para>Use the slider at the top to show or hide categories of output:</para>
-
-<para><guilabel>Full Output</guilabel>, <guilabel>Parsed Output</guilabel>,
-<guilabel>Errors and Warnings</guilabel> or <guilabel>Only Errors</guilabel>
+the running (build) command. If a line contains a file location, that line will be clickable.
+If the line in the output also shows an error or warning, the line will have a different color.
 </para>
 
-<para>Each line contains a message and the file name and line number if available.
-Clicking on the error or warning takes you to the appropriate file and places
-the cursor on the corresponding line number.</para>
+<para>If the option <guilabel>Add errors and warnings to Diagnostics</guilabel> is enabled in the
+plugin's settings page in Kate settings, the errors and warnings will also be added to the diagnostics view.
 
-<para>To navigate to the previous error, press
+To navigate to the previous error in the diagnostics view, press
 <keycombo action="simul">&Alt;&Shift;&Left;</keycombo>.
 To navigate to the next error, press
 <keycombo action="simul">&Alt;&Shift;&Right;</keycombo>.</para>
@@ -699,23 +709,36 @@ To navigate to the next error, press
 <variablelist id="build-build">
 <varlistentry>
 <term><menuchoice id="build-targets">
-<guimenu>Build</guimenu><guisubmenu>Select Target</guisubmenu>
+<guimenu>Build</guimenu><guisubmenu>Select Target...</guisubmenu>
 </menuchoice></term>
-<listitem><para>Select from a list of targets configured by the user.</para></listitem>
+<listitem><para>The target selection filter is focused in the Target Settings tab. Typing a name will filter
+out targets that do not match the typed string. It is also possible to use the arrow keys to navigate the
+tree of targets. When the wanted target is selected, pressing <guilabel>Return</guilabel> or
+<guilabel>Enter</guilabel> will execute and run the selected target.</para></listitem>
 </varlistentry>
 
-<varlistentry id="build-default">
+<varlistentry id="build-selected">
 <term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Build Default Target</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Build Selected Target</guimenuitem>
 </menuchoice></term>
-<listitem><para>Builds the target defined as default in the active target set.</para></listitem>
+<listitem><para>Builds the last selected target. If none has been selected, it works as
+<guilabel>Select Target...</guilabel></para></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous">
+<varlistentry id="build-selected-run">
 <term><menuchoice>
-<guimenu>Build</guimenu><guimenuitem>Build Previous Target</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Build and Run Selected Target</guimenuitem>
 </menuchoice></term>
-<listitem><para>Switch to the previous target configured by the user.</para></listitem>
+<listitem><para>Builds the last selected target and run the run command after the build command has
+finished successfully.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-currentfile">
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Compile Current File</guimenuitem>
+</menuchoice></term>
+<listitem><para>Try to compile the current file by searching for a command in a possible
+compile_commands.json.</para></listitem>
 </varlistentry>
 
 <varlistentry id="build-stop">
@@ -725,22 +748,27 @@ To navigate to the next error, press
 <listitem><para>Stop building a target.</para></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous-error">
+<varlistentry id="build-previous-run-tab">
 <term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;&Left;</keycombo></shortcut>
-<guimenu>Build</guimenu><guimenuitem>Previous Error</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Focus Next Tab to the Left</guimenuitem>
 </menuchoice></term>
-<listitem><para>Moves the cursor to the location of the previous error in the
-document.</para></listitem>
+<listitem><para>Focus the next build plugin tab to the left. Or open the build plugin tool-view if it is hidden.</para></listitem>
 </varlistentry>
 
-<varlistentry id="build-next-error">
+<varlistentry id="build-next-run-tab">
 <term><menuchoice>
-<shortcut><keycombo action="simul">&Ctrl;&Alt;&Right;</keycombo></shortcut>
-<guimenu>Build</guimenu><guimenuitem>Next Error</guimenuitem>
+<guimenu>Build</guimenu><guimenuitem>Focus Next Tab to the Right</guimenuitem>
 </menuchoice></term>
-<listitem><para>Moves the cursor to the location of the next error in the
-document.</para></listitem>
+<listitem><para>Focus the next build plugin tab to the right. Or open the build plugin tool-view if it is hidden.</para></listitem>
+</varlistentry>
+
+<varlistentry id="build-load-cmake-targets">
+<term><menuchoice>
+<guimenu>Build</guimenu><guimenuitem>Load targets from CMake Build Dir</guimenuitem>
+</menuchoice></term>
+<listitem><para>Opens the file dialog and let's the user select a <guilabel>CMakeCache.txt</guilabel>.
+When a file is selected, the plugin generates cmake build command targets that can be executed in
+the build directory for the CMake based project.</para></listitem>
 </varlistentry>
 
 </variablelist>

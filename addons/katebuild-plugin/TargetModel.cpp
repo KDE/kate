@@ -631,7 +631,7 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
         return i18n("Command/Target-set Name");
     }
     if (section == 1) {
-        return i18n("Working Directory / Command");
+        return i18n("Build Command / Working Directory");
     }
     if (section == 2) {
         return i18n("Run Command");

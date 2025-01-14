@@ -14,6 +14,7 @@
 
 class UrlInserter : public QWidget
 {
+    Q_OBJECT
 public:
     UrlInserter(const QUrl &startUrl, QWidget *parent);
     QLineEdit *lineEdit()

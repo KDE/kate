@@ -50,7 +50,7 @@ void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
         if (index.column() == 0) {
             str = i18nc("T as in Target set", "<B>T:</B> %1", index.data().toString().toHtmlEscaped());
         } else if (index.column() == 1) {
-            str = i18nc("D as in working Directory", "<B>Dir:</B> %1", index.data().toString().toHtmlEscaped());
+            str = i18nc("Dir as in working Directory", "<B>Dir:</B> %1", index.data().toString().toHtmlEscaped());
         }
     } else {
         str = index.data().toString().toHtmlEscaped();
@@ -102,7 +102,7 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
         requester->setReplace(true);
         editor = requester;
         editor->setToolTip(i18n("Leave empty to use the directory of the current document.\nAdd search directories by adding paths separated by ';'"));
-    } else if (index.column() == 1) {
+    } else if (index.column() == 1 || index.column() == 2) {
         auto *urlEditor = new UrlInserter(parent()->property("docUrl").toUrl(), dparent);
         editor = urlEditor;
         int const rowtype = index.data(TargetModel::RowTypeRole).toInt();
@@ -132,13 +132,13 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index
 {
     QString value = index.model()->data(index, Qt::EditRole).toString();
 
-    if (index.column() == 1) {
-        auto *ledit = static_cast<UrlInserter *>(editor);
+    if (index.column() == 1 || index.column() == 2) {
+        auto *ledit = qobject_cast<UrlInserter *>(editor);
         if (ledit) {
             ledit->lineEdit()->setText(value);
         }
     } else {
-        auto *ledit = static_cast<QLineEdit *>(editor);
+        auto *ledit = qobject_cast<QLineEdit *>(editor);
         if (ledit) {
             ledit->setText(value);
         }
@@ -148,11 +148,11 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index
 void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QString value;
-    if (index.column() == 1) {
-        auto *ledit = static_cast<UrlInserter *>(editor);
+    if (index.column() == 1 || index.column() == 2) {
+        auto *ledit = qobject_cast<UrlInserter *>(editor);
         value = ledit->lineEdit()->text();
     } else {
-        auto *ledit = static_cast<QLineEdit *>(editor);
+        auto *ledit = qobject_cast<QLineEdit *>(editor);
         value = ledit->text();
     }
     model->setData(index, value, Qt::EditRole);

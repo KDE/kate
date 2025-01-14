@@ -132,27 +132,23 @@ void TargetHtmlDelegate::setEditorData(QWidget *editor, const QModelIndex &index
 {
     QString value = index.model()->data(index, Qt::EditRole).toString();
 
-    if (index.column() == 1 || index.column() == 2) {
-        auto *ledit = qobject_cast<UrlInserter *>(editor);
-        if (ledit) {
-            ledit->lineEdit()->setText(value);
-        }
-    } else {
-        auto *ledit = qobject_cast<QLineEdit *>(editor);
-        if (ledit) {
-            ledit->setText(value);
-        }
+    UrlInserter *urlIns = qobject_cast<UrlInserter *>(editor);
+    if (urlIns) {
+        return urlIns->lineEdit()->setText(value);
+    }
+    QLineEdit *ledit = qobject_cast<QLineEdit *>(editor);
+    if (ledit) {
+        return ledit->setText(value);
     }
 }
 
 void TargetHtmlDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
     QString value;
-    if (index.column() == 1 || index.column() == 2) {
-        auto *ledit = qobject_cast<UrlInserter *>(editor);
-        value = ledit->lineEdit()->text();
-    } else {
-        auto *ledit = qobject_cast<QLineEdit *>(editor);
+    UrlInserter *urlIns = qobject_cast<UrlInserter *>(editor);
+    if (urlIns) {
+        value = urlIns->lineEdit()->text();
+    } else if (auto *ledit = qobject_cast<QLineEdit *>(editor)) {
         value = ledit->text();
     }
     model->setData(index, value, Qt::EditRole);

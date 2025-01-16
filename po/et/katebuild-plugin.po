@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2020-06-05 19:31+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -376,8 +376,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>S:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kat:</B> %1"
 
@@ -434,8 +436,8 @@ msgstr "Käsu/sihtmärgikogumi nimi"
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "Töökataloog / käsk"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, fuzzy, kde-format
@@ -537,6 +539,9 @@ msgstr "Asukoha määramine"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Lisatava kataloogi valimine"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "Töökataloog / käsk"
 
 #~ msgid ""
 #~ "Cannot run command: %1\n"

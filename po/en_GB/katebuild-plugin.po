@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2024-11-23 12:08+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -366,8 +366,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
 
@@ -426,8 +428,8 @@ msgstr "Command/Target-set Name"
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "Working Directory / Command"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -521,6 +523,9 @@ msgstr "Insert path"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Select directory to insert"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "Working Directory / Command"
 
 #~ msgid ""
 #~ "Cannot run command: %1\n"

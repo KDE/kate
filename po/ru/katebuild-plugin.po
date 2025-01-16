@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2024-12-09 12:21+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -389,8 +389,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>НЦ:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Кат.:</B> %1"
 
@@ -450,8 +452,8 @@ msgstr "Наборы целей"
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "Рабочий каталог / команда"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -547,6 +549,9 @@ msgstr "Вставить путь"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Выбор пути для вставки"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "Рабочий каталог / команда"
 
 #~ msgid ""
 #~ "Cannot run command: %1\n"

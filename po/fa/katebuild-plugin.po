@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2014-06-17 15:34+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -359,7 +359,7 @@ msgstr ""
 
 #: TargetHtmlDelegate.cpp:53
 #, kde-format
-msgctxt "D as in working Directory"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr ""
 
@@ -409,10 +409,9 @@ msgid "Command/Target-set Name"
 msgstr ""
 
 #: TargetModel.cpp:634
-#, fuzzy, kde-format
-#| msgid "Working directory"
-msgid "Working Directory / Command"
-msgstr "شاخه‌ی کاری"
+#, kde-format
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, fuzzy, kde-format
@@ -508,6 +507,11 @@ msgstr ""
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Working directory"
+#~ msgid "Working Directory / Command"
+#~ msgstr "شاخه‌ی کاری"
 
 #~ msgid "Show:"
 #~ msgstr "نشان دادن:"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2025-01-11 12:50+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -373,8 +373,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>M:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kat:</B> %1"
 
@@ -433,8 +435,8 @@ msgstr "Kommando/Måluppsättningens namn"
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "Arbetskatalog/Kommando"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -529,6 +531,9 @@ msgstr "Infoga sökväg"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Välj katalog att infoga"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "Arbetskatalog/Kommando"
 
 #~ msgid ""
 #~ "Cannot run command: %1\n"

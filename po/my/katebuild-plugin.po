@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2024-09-10 15:25+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -352,8 +352,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>ပစ်မှတ် -</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>ဒါရိုက် -</B> %1"
 
@@ -404,8 +406,8 @@ msgstr ""
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "အလုပ်လုပ်မည့်ဒါရိုက်ထရီ / အမိန့်"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -499,6 +501,9 @@ msgstr "လမ်းကြောင်းထည့်သွင်းမည်"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "ထည့်သွင်းရန် ဒါရိုက်ထရီ ရွေးမည်"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "အလုပ်လုပ်မည့်ဒါရိုက်ထရီ / အမိန့်"
 
 #~ msgid "Clean"
 #~ msgstr "ရှင်းမည်"

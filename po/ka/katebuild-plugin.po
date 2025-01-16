@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-01-16 00:43+0000\n"
 "PO-Revision-Date: 2024-12-15 06:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -371,8 +371,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>ს:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, kde-format
-msgctxt "D as in working Directory"
+#, fuzzy, kde-format
+#| msgctxt "D as in working Directory"
+#| msgid "<B>Dir:</B> %1"
+msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>საქ:</B> %1"
 
@@ -431,8 +433,8 @@ msgstr "ბრძანება/სამიზნის სახელი"
 
 #: TargetModel.cpp:634
 #, kde-format
-msgid "Working Directory / Command"
-msgstr "სამუშაო საქაღალდე / ბრძანება"
+msgid "Build Command / Working Directory"
+msgstr ""
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -528,6 +530,9 @@ msgstr "ჩასვით ბილიკი"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "აირჩიეთ ჩასასმელი საქაღალდე"
+
+#~ msgid "Working Directory / Command"
+#~ msgstr "სამუშაო საქაღალდე / ბრძანება"
 
 #~ msgid ""
 #~ "Cannot run command: %1\n"

@@ -597,7 +597,7 @@ purposes and languages.</para>
 
 <para>The Build plugin adds a <guilabel>Build</guilabel> tool view at the
 bottom and a <guimenu>Build</guimenu> menu on the menu bar. The tool view can be used to select and
-configure build targets, while the menu and it's shortcuts can be used to select and execute the
+configure build targets, while the menu and its shortcuts can be used to select and execute the
 configured shell commands.</para>
 
 <screenshot id="screenshot-build-output">
@@ -628,7 +628,7 @@ under <guilabel>Session</guilabel> are stored in the current Kate session config
 <para>The first row, in a target-set, contains a name for the set in column one, and in column two we
     have the directory where the commands should be executed. On each following row, we have
     a name for the command in column one, a build command in column two and a run command in column three.
-    To edit one of these, double-click on the entry or use the edit shortcut (often F2).</para>
+    To edit one of these, double-click on the entry or use the edit shortcut (often <keycap>F2</keycap>).</para>
 
 <variablelist>
 <varlistentry>
@@ -641,10 +641,10 @@ working directory string can also contain placeholders for the project base dire
 
 <varlistentry>
 <term><guilabel>Build Command</guilabel></term>
-<listitem><para>The second column in the "non-first rows", contain the shell command to run in
+<listitem><para>The second column in the "non-first rows", contains the shell command to run in
 the working directory. Note the word shell. Almost any shell command will do. The build command can
-contain placeholders. <guilabel>%f</guilabel> for current file, <guilabel>%d</guilabel> for directory
-of current file and <guilabel>%n</guilabel> for the base-name of the current (file name without
+contain placeholders. <guilabel>%f</guilabel> for the current file, <guilabel>%d</guilabel> for directory
+of the current file and <guilabel>%n</guilabel> for the base-name of the current file (file name without
 suffix).</para></listitem>
 </varlistentry>
 

@@ -27,7 +27,7 @@ KateBuildConfigPage::KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *paren
 
     reset();
 
-    for (const auto *item : {ui->useDiagnosticsCB, ui->autoSwitchToOutput})
+    for (const auto *item : {ui->useDiagnosticsCB, ui->autoSwitchToOutput, ui->u_showProgressCB})
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(item, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
 #else
@@ -64,6 +64,7 @@ void KateBuildConfigPage::apply()
 {
     m_plugin->m_addDiagnostics = ui->useDiagnosticsCB->isChecked();
     m_plugin->m_autoSwitchToOutput = ui->autoSwitchToOutput->isChecked();
+    m_plugin->m_showBuildProgress = ui->u_showProgressCB->isChecked();
 
     m_plugin->m_commandLineToAllowedState.clear();
     for (int i = 0; i < ui->allowedAndBlockedCommands->count(); ++i) {
@@ -79,6 +80,7 @@ void KateBuildConfigPage::reset()
 {
     ui->useDiagnosticsCB->setChecked(m_plugin->m_addDiagnostics);
     ui->autoSwitchToOutput->setChecked(m_plugin->m_autoSwitchToOutput);
+    ui->u_showProgressCB->setChecked(m_plugin->m_showBuildProgress);
 
     ui->allowedAndBlockedCommands->clear();
     for (const auto &it : m_plugin->m_commandLineToAllowedState) {
@@ -92,6 +94,7 @@ void KateBuildConfigPage::defaults()
 {
     ui->useDiagnosticsCB->setCheckState(Qt::CheckState::Checked);
     ui->autoSwitchToOutput->setCheckState(Qt::CheckState::Checked);
+    ui->u_showProgressCB->setCheckState(Qt::CheckState::Checked);
     ui->allowedAndBlockedCommands->clear();
 }
 

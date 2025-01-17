@@ -164,6 +164,7 @@ private:
 
     void displayBuildResult(const QString &message, KTextEditor::Message::MessageType level);
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
+    void displayProgress(const QString &message, KTextEditor::Message::MessageType level);
 
     void updateProjectTargets();
     QModelIndex createCMakeTargetSet(QModelIndex setIndex, const QString &name, const QCMakeFileApi &cmakeFA, const QString &cmakeConfig);
@@ -204,8 +205,11 @@ private:
     unsigned int m_numErrors = 0;
     unsigned int m_numWarnings = 0;
     unsigned int m_numNotes = 0;
+    QString m_progress;
+
     QPersistentModelIndex m_previousIndex;
     QPointer<KTextEditor::Message> m_infoMessage;
+    QPointer<KTextEditor::Message> m_progressMessage;
     int m_projectTargetsetRow = 0;
     bool m_firstBuild = true;
     DiagnosticsProvider m_diagnosticsProvider;
@@ -245,6 +249,7 @@ public:
 
     bool m_addDiagnostics = true;
     bool m_autoSwitchToOutput = true;
+    bool m_showBuildProgress = true;
 
     // hash of allowed and blacklisted command lines
     std::map<QString, bool> m_commandLineToAllowedState;

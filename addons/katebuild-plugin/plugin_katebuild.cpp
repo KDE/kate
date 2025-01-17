@@ -210,6 +210,7 @@ void KateBuildPlugin::readConfig()
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
     m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
     m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
+    m_showBuildProgress = config.readEntry("ShowBuildProgress", true);
 
     // read allow + block lists as two separate keys, let block always win
     const auto allowed = config.readEntry(ConfigAllowedCommands, QStringList());
@@ -229,6 +230,7 @@ void KateBuildPlugin::writeConfig() const
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
     config.writeEntry("UseDiagnosticsOutput", m_addDiagnostics);
     config.writeEntry("AutoSwitchToOutput", m_autoSwitchToOutput);
+    config.writeEntry("ShowBuildProgress", m_showBuildProgress);
 
     // write allow + block lists as two separate keys
     QStringList allowed;
@@ -1338,12 +1340,38 @@ void KateBuildView::displayMessage(const QString &msg, KTextEditor::Message::Mes
 }
 
 /******************************************************************/
+void KateBuildView::displayProgress(const QString &msg, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *kv = m_win->activeView();
+    if (!kv) {
+        return;
+    }
+
+    // delete the message if needed
+    if (m_progressMessage && (m_progressMessage->view() != kv || m_progressMessage->messageType() != level)) {
+        delete m_progressMessage;
+    }
+
+    if (!m_progressMessage) {
+        m_progressMessage = new KTextEditor::Message(msg, level);
+        m_progressMessage->setWordWrap(false);
+        m_progressMessage->setPosition(KTextEditor::Message::BottomInView);
+        m_progressMessage->setAutoHide(100000000);
+        m_progressMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_progressMessage->setView(kv);
+        kv->document()->postMessage(m_progressMessage);
+    } else {
+        m_progressMessage->setText(msg);
+    }
+}
+/******************************************************************/
 void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
 {
     m_targetsUi->unsetCursor();
     m_buildUi.u_tabWidget->setTabIcon(1, QIcon::fromTheme(QStringLiteral("format-justify-left")));
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);
+    delete m_progressMessage;
 
     QString buildStatus =
         i18n("Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)", m_currentlyBuildingTarget, m_numErrors, m_numWarnings, m_numNotes);
@@ -1533,6 +1561,13 @@ void KateBuildView::slotUpdateTextBrowser()
 
     m_numNonUpdatedLines = 0;
     edit->verticalScrollBar()->setValue(scrollValuePx);
+
+    if (!m_progress.isEmpty()) {
+        KTextEditor::Message::MessageType type = m_numErrors != 0 ? KTextEditor::Message::Error
+            : m_numWarnings != 0                                  ? KTextEditor::Message::Warning
+                                                                  : KTextEditor::Message::Information;
+        displayProgress(m_progress, type);
+    }
 }
 
 /******************************************************************/
@@ -1544,6 +1579,9 @@ void KateBuildView::slotReadReadyStdOut()
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
+    bool outputVisible = m_buildUi.u_tabWidget->currentIndex() == 1 && m_toolView->isVisible();
+    m_progress.clear();
+    static const QRegularExpression progressReg(u"(?<progress>\\[\\d+/\\d+\\]|\\[\\s*\\d+%\\]).*"_s);
     // handle one line at a time
     int end = -1;
     int start = 0;
@@ -1572,6 +1610,14 @@ void KateBuildView::slotReadReadyStdOut()
             if (m_scrollStopLine == -1) {
                 m_scrollStopLine = m_numOutputLines;
             }
+        }
+        if (!outputVisible && m_plugin->m_showBuildProgress) {
+            QRegularExpressionMatch match = progressReg.matchView(line);
+            if (match.hasMatch()) {
+                m_progress = match.captured(u"progress"_s);
+            }
+        } else {
+            delete m_progressMessage;
         }
         start = end + 1;
     }

@@ -7,13 +7,13 @@
 # obsoleteman <tulliana@gmail.com>, 2008-2009,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2015, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-16 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 12:28+0300\n"
+"PO-Revision-Date: 2025-01-16 15:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -372,9 +372,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>Hedef:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dizin:</B> %1"
@@ -435,7 +433,7 @@ msgstr "Komut/Hedef Kümesi Adı"
 #: TargetModel.cpp:634
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Yapı Komutu/Çalışma Dizini"
 
 #: TargetModel.cpp:637
 #, kde-format

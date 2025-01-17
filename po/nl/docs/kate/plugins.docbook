@@ -1095,7 +1095,7 @@
 >Inleiding</title>
 
 <para
->De Bouwplug-in stelt u in staat om acties op een project uit te voeren, zoals bouwen, opschonen en compileren.</para>
+>De plug-in Build biedt u het uitvoeren van acties zoals bouwen, wissen en compileren op een project. U kunt ook automatisch de gegenereerde toepassing uitvoeren. De plug-in geeft in de basis u een manier om sets van uit te voeren commando's te configureren en het kan de uitvoer doorzoeken op koppelingen naar bestanden en specifieke regels en kolommen in die bestanden. Dus zelfs als de plug-in oorspronkelijk is gemaakt voor het compileren van C/C++ en het meest daarmee is getest, kan de plug-in ook nuttig zijn voor andere doelen en talen.</para>
 
 </sect2>
 
@@ -1104,11 +1104,11 @@
 >De Bouwplug-in gebruiken</title>
 
 <para
->De Bouwplug-in voegt een weergavehulpmiddel <guilabel
->Bouwuitvoer</guilabel
-> onderaan toe en een menu <guimenu
->Bouw</guimenu
-> op de menubalk. Het weergavehulpmiddel kan worden gebruikt om de instellingen van het bouwdoel in te stellen, terwijl het menu kan worden gebruikt om de acties bouwen, opschonen en compileren te doen.</para>
+>The Build plugin adds a <guilabel
+>Build</guilabel
+> tool view at the bottom and a <guimenu
+>Build</guimenu
+> menu on the menu bar. The tool view can be used to select and configure build targets, while the menu and its shortcuts can be used to select and execute the configured shell commands.</para>
 
 <screenshot id="screenshot-build-output">
 <screeninfo
@@ -1121,8 +1121,8 @@
 
 <para
 >Het weergavehulpmiddel <guilabel
->Bouwuitvoer</guilabel
-> heeft twee tabbladen:</para>
+>Build</guilabel
+> heeft twee statische tabbladen:</para>
 
 <itemizedlist>
 <listitem
@@ -1144,13 +1144,25 @@
 >Tabblad Instellingen van doel</title>
 
 <para
->Het tabbald Instellingen van doel kan gebruikt worden om verschillende bouwdoelen in te stellen en sets doelen te definiëren.</para>
+>Het tabblad Instellingen van doel kan gebruikt worden om verschillende bouwdoelen te configureren en sets doelen te definiëren.</para>
 
 <para
->Om de namen van commando's te wijzigen dubbelklikt u op de items in de tabel en gebruikt u het afrolvak om de actieve set doelen te selecteren. Gebruik het keuzevakje voor elk doel om een standaard te definiëren.</para>
+>Een doel-set is een groep opdrachten die uitgevoerd kunnen worden in een gespecificeerde werkmap. Doel-sets kunnen toegevoegd worden onder ofwel <guilabel
+>Projecten</guilabel
+> of <guilabel
+>Sessie</guilabel
+>. De aangepaste doel-sets toegevoegd onder <guilabel
+>Projecten</guilabel
+> worden opgeslagen in een bestand <guilabel
+>.kateproject.build</guilabel
+> in de project basismap en worden hersteld wanneer het project opnieuw wordt geopend. De doel-sets toegevoegd onder <guilabel
+>Sessie</guilabel
+> worden opgeslagen in de huidige sessieconfiguratie van Kate.</para>
 
 <para
->Een nieuwe set doelen bevat verschillende instellingenopties:</para>
+>The first row, in a target-set, contains a name for the set in column one, and in column two we have the directory where the commands should be executed. On each following row, we have a name for the command in column one, a build command in column two and a run command in column three. To edit one of these, double-click on the entry or use the edit shortcut (often <keycap
+>F2</keycap
+>).</para>
 
 <variablelist>
 <varlistentry>
@@ -1160,59 +1172,63 @@
 ></term>
 <listitem
 ><para
->U kunt het pad naar het project hier instellen. Leeg laten om de map van het huidige document te gebruiken .</para
+>De tweede kolom van de eerste rij in een doel-set, wordt gebruikt om de werkmap gebruikt voor compileren en uitvoeren van opdrachten. Als de project-plug-in is ingeschakeld kan de werkmaptekenreeks ook plaatshouders voor het basismappad van het project bevatten: <guilabel
+>%B</guilabel
+> en naam: <guilabel
+>%b</guilabel
+></para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Bouwen</guilabel
+>Bouwcommando</guilabel
 ></term>
 <listitem
 ><para
->Deze optie laat u het bouwcommando instellen. Het is standaard ingesteld op <command
->make</command
->.</para
+>The second column in the "non-first rows", contains the shell command to run in the working directory. Note the word shell. Almost any shell command will do. The build command can contain placeholders. <guilabel
+>%f</guilabel
+> for the current file, <guilabel
+>%d</guilabel
+> for directory of the current file and <guilabel
+>%n</guilabel
+> for the base-name of the current file (file name without suffix).</para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Opschonen</guilabel
+>Commando uitvoeren</guilabel
 ></term>
 <listitem
 ><para
->Deze optie laat u het opschooncommando instellen. Het is standaard ingesteld op <command
->make clean</command
->.</para
+>De derde kolom in de "niet-eerste rijen" kan een shell-opdracht bevatten voor uitvoeren in een actuele terminal in de werkmap van de doel-set. De terminal is geopend als een tabblad. De plug-in zal proberen het terminal tabblad te hergebruiken, als dezelfde opdracht wordt uitgevoerd en de vorige toepassing is geëindigd.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry>
-<term
-><guilabel
->Config</guilabel
-></term>
-<listitem
-><para
->Deze optie laat u het commando config definiëren. Het is standaard ingesteld op <command
->cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../</command
->.</para
-></listitem>
-</varlistentry>
 </variablelist>
 
 <para
->Bovenaan deze plug-in is een werkbalk met de volgende knoppen:</para>
+>Bovenaan het tabblad <guilabel
+>Doelinstellingen</guilabel
+> hebben we een werkbalk met een doelfilter en de volgende knoppen:</para>
 
 <simplelist>
 <member
 ><guiicon
 ><inlinemediaobject
 ><imageobject
-><imagedata fileref="dialog-ok-22.png" format="PNG"/></imageobject
+><imagedata fileref="run-build-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Bouw het geselecteerde doel</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="media-playback-start-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 ></guiicon
 > Bouw het geselecteerde doel</member>
@@ -1231,7 +1247,7 @@
 ><imagedata fileref="document-new-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 ></guiicon
-> Een nieuwe set bouwdoelen maken</member>
+> Een nieuwe set doelen aanmaken</member>
 <member
 ><guiicon
 ><inlinemediaobject
@@ -1259,27 +1275,12 @@
 <para
 >Het tabblad <guilabel
 >Uitvoer</guilabel
-> toont de console-uitvoer die is gegenereerd door het laatste commando.</para>
+> toont de uitvoer op het console gegenereerd door de draaiende (bouw) opdracht. Als een regel een locatie van een bestand bevat, zal op die regel geklikt kunnen worden. Als de regel in de uitvoer ook een fout of waarschuwing toont, zal de regel een andere kleur hebben. </para>
 
 <para
->De schuifregelaar bovenaan gebruiken om categorieën uitvoer te tonen of te verbergen:</para>
-
-<para
-><guilabel
->Volledige uitvoer</guilabel
->, <guilabel
->Ontlede uitvoer</guilabel
->, <guilabel
->Fouten en waarschuwingen</guilabel
-> of <guilabel
->Alleen fouten</guilabel
-> </para>
-
-<para
->Elke regel bevat een bericht, de bestandsnaam en het regelnummer indien beschikbaar. Op de fout of waarschuwing klikken brengt u naar het bijbehorende bestand en zet de cursor op het bijbehorende regelnummer.</para>
-
-<para
->Om naar de vorige fout te gaan drukt u op <keycombo action="simul"
+>Als de optie <guilabel
+>Fouten en waarschuwingen aan Diagnostiek toevoegen</guilabel
+> is ingeschakeld in de instellingenpagina van de plug-in in instellingen van Kate, zullen de fouten en waarschuwingen ook toegevoegd worden aan de diagnostiekweergave. Om naar de vorige fout te gaan drukt u op <keycombo action="simul"
 >&Alt;&Shift;&Left;</keycombo
 >. Om naar de volgende fout te gaan drukt u op <keycombo action="simul"
 >&Alt;&Shift;&Right;</keycombo
@@ -1299,42 +1300,63 @@
 ><guimenu
 >Bouwen</guimenu
 ><guisubmenu
->Doel selecteren</guisubmenu
+>Doel selecteren...</guisubmenu
 > </menuchoice
 ></term>
 <listitem
 ><para
->Uit een lijst met door de gebruiker ingestelde doelen kiezen.</para
+>Het doelselectiefilter heeft focus in het tabblad Doelinstellingen. Invoeren van een naam zal doelen uitfilteren die niet overeenkomen met de ingevoerde tekenreeks. Het is ook mogelijk de pijltjestoetsen te gebruiken om te navigeren in de boomstructuur van doelen. Wanneer het gewenste doel is geselecteerd, drukken op <guilabel
+>Return</guilabel
+> of <guilabel
+>Enter</guilabel
+> zal het geselecteerde doel uitvoeren.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-default">
+<varlistentry id="build-selected">
 <term
 ><menuchoice
 ><guimenu
 >Bouwen</guimenu
 ><guimenuitem
->Standaard doel bouwen</guimenuitem
+>Geselecteerd doel bouwen</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Bouwt het doel gedefinieerd als standaard in de actieve doelset.</para
+>Bouwt het laatst geselecteerde doel. Als er niets was geselecteerd, werkt het als <guilabel
+>Doel selecteren...</guilabel
+></para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous">
+<varlistentry id="build-selected-run">
 <term
 ><menuchoice
 ><guimenu
 >Bouwen</guimenu
 ><guimenuitem
->Vorige doel bouwen</guimenuitem
+>Geselecteerd doel bouwen en uitvoeren</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Schakel om naar het vorige door de gebruiker ingestelde doel.</para
+>Bouwt het laatst geselecteerde doel en voert de uitvoeropdracht uit nadat de bouwopdracht met succes is beëindigd.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-currentfile">
+<term
+><menuchoice
+><guimenu
+>Bouwen</guimenu
+><guimenuitem
+>Huidig bestand compileren</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Probeer het huidige bestand te compileren door te zoeken naar een opdracht in een mogelijk compile_commands.json.</para
 ></listitem>
 </varlistentry>
 
@@ -1353,41 +1375,50 @@
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous-error">
+<varlistentry id="build-previous-run-tab">
 <term
 ><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;&Alt;&Left;</keycombo
-></shortcut
-> <guimenu
+><guimenu
 >Bouwen</guimenu
 ><guimenuitem
->Vorige fout</guimenuitem
+>Focusseer het volgende tabblad links</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Verplaatst de cursor naar de locatie van de vorige fout in het document.</para
+>Focusseer het volgende tabblad bouwplug-in links. Of open de hulpmiddelweergave bouwplug-in als het verborgen is.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-next-error">
+<varlistentry id="build-next-run-tab">
 <term
 ><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;&Alt;&Right;</keycombo
-></shortcut
-> <guimenu
+><guimenu
 >Bouwen</guimenu
 ><guimenuitem
->Volgende fout</guimenuitem
+>Focusseer het volgende tabblad rechts</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Verplaatst de cursor naar de locatie van de volgende fout in het document.</para
+>Focusseer het volgende tabblad bouwplug-in rechts. Of open de hulpmiddelweergave bouwplug-in als het verborgen is.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-load-cmake-targets">
+<term
+><menuchoice
+><guimenu
+>Bouwen</guimenu
+><guimenuitem
+>Doelen uit bouwmap van CMake laden</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Opent de bestandsdialoog en laat de gebruiker een <guilabel
+>CMakeCache.txt</guilabel
+> selecteren. Wanneer een bestand is geselecteerd, genereert de plug-in cmake-bouwopdrachtdoelen die uitgevoerd kunnen worden in de bouwmap voor het op CMake gebaseerde project.</para
 ></listitem>
 </varlistentry>
 

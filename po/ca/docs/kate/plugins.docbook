@@ -1095,7 +1095,7 @@
 >Introducció</title>
 
 <para
->El connector de construcció permet executar accions com la construcció, neteja i compilació d'un projecte.</para>
+>El connector Construeix permet executar accions com construir, netejar i compilar un projecte. També podeu executar automàticament les aplicacions generades. Bàsicament, el connector us dona una manera de configurar conjunts d'ordres a executar i pot analitzar la sortida per a enllaços a fitxers i línies i columnes específiques en aquests fitxers. Per tant, fins i tot si el connector es crea originalment per compilar C/C++ i es prova principalment amb ell, el connector també pot ser útil per a altres propòsits i llenguatges.</para>
 
 </sect2>
 
@@ -1104,11 +1104,11 @@
 >Ús del connector de construcció</title>
 
 <para
->El connector de construcció afegeix una vista d'eina <guilabel
->Sortida de la construcció</guilabel
-> a la part inferior i un menú <guimenu
->Construeix</guimenu
-> a la barra de menús. La vista d'eina es pot utilitzar per a configurar les opcions de l'objectiu a construir, mentre que el menú es pot utilitzar per a dur a terme les accions de construcció, neteja i compilació.</para>
+>The Build plugin adds a <guilabel
+>Build</guilabel
+> tool view at the bottom and a <guimenu
+>Build</guimenu
+> menu on the menu bar. The tool view can be used to select and configure build targets, while the menu and its shortcuts can be used to select and execute the configured shell commands.</para>
 
 <screenshot id="screenshot-build-output">
 <screeninfo
@@ -1121,8 +1121,8 @@
 
 <para
 >La vista d'eina <guilabel
->Sortida de la construcció</guilabel
-> disposa dues pestanyes:</para>
+>Construeix</guilabel
+> disposa dues pestanyes estàtiques:</para>
 
 <itemizedlist>
 <listitem
@@ -1147,10 +1147,22 @@
 >La pestanya arranjament de l'objectiu es pot utilitzar per a configurar diversos objectius de construcció i definir conjunts d'objectius.</para>
 
 <para
->Per a canviar els noms o les ordres feu doble clic sobre les entrades de la taula i utilitzeu la llista desplegable per a seleccionar l'ajust de l'objectiu actiu. Utilitzeu la casella de selecció al davant de cada objectiu per a definir un valor predeterminat.</para>
+>Un conjunt de destinació és un grup d'ordres que es poden executar en un directori de treball especificat. Els conjunts de destinació es poden afegir a <guilabel
+>Projectes</guilabel
+> o <guilabel
+>Sessió</guilabel
+>. Els conjunts de destinació personalitzats afegits a <guilabel
+>Projectes</guilabel
+> s'emmagatzemen en un fitxer <guilabel
+>.kateproject.build</guilabel
+> al directori arrel del projecte i es restauren quan el projecte es torna a obrir. Els conjunts de destinació afegits a la <guilabel
+>Sessió</guilabel
+> s'emmagatzemen a la configuració de la sessió actual del Kate.</para>
 
 <para
->Un conjunt d'objectius conté diverses opcions de configuració:</para>
+>The first row, in a target-set, contains a name for the set in column one, and in column two we have the directory where the commands should be executed. On each following row, we have a name for the command in column one, a build command in column two and a run command in column three. To edit one of these, double-click on the entry or use the edit shortcut (often <keycap
+>F2</keycap
+>).</para>
 
 <variablelist>
 <varlistentry>
@@ -1160,62 +1172,66 @@
 ></term>
 <listitem
 ><para
->Aquí podeu establir el camí cap al projecte. Deixar el camp buit per a utilitzar el directori on es troba el document actual.</para
+>La segona columna de la primera fila en un conjunt de destinació, s'utilitza per a configurar el directori de treball utilitzat per a compilar i executar ordres. Si el connector del projecte està habilitat, la cadena del directori de treball també pot contenir espais reservats per al camí del directori base del projecte: <guilabel
+>%B</guilabel
+> i nom: <guilabel
+>%b</guilabel
+></para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Construeix</guilabel
+>Ordre de construcció</guilabel
 ></term>
 <listitem
 ><para
->Aquesta opció permet definir l'ordre per a executar la construcció. De manera predeterminada s'estableix a <command
->make</command
->.</para
+>The second column in the "non-first rows", contains the shell command to run in the working directory. Note the word shell. Almost any shell command will do. The build command can contain placeholders. <guilabel
+>%f</guilabel
+> for the current file, <guilabel
+>%d</guilabel
+> for directory of the current file and <guilabel
+>%n</guilabel
+> for the base-name of the current file (file name without suffix).</para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Neteja</guilabel
+>Executa una ordre</guilabel
 ></term>
 <listitem
 ><para
->Aquesta opció permet definir l'ordre per a executar la neteja. De manera predeterminada s'estableix a <command
->make clean</command
->.</para
+>La tercera columna de les «files no primeres», pot contenir una ordre de l'intèrpret d'ordres per a l'execució en un terminal real en el directori de treball de destinació. El terminal s'obre com a pestanya. El connector intentarà reutilitzar la pestanya del terminal, si s'executa la mateixa ordre i l'aplicació anterior ha sortit.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry>
-<term
-><guilabel
->Configuració</guilabel
-></term>
-<listitem
-><para
->Aquesta opció permet definir l'ordre per a executar la configuració. De manera predeterminada s'estableix a <command
->cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../</command
->.</para
-></listitem>
-</varlistentry>
 </variablelist>
 
 <para
->A la part superior d'aquest connector hi ha una barra d'eines amb els botons següents:</para>
+>A la part superior de la pestanya <guilabel
+>Arranjament de l'objectiu</guilabel
+> hi ha una barra d'eines un filtre d'objectius i els botons següents:</para>
 
 <simplelist>
 <member
 ><guiicon
 ><inlinemediaobject
 ><imageobject
-><imagedata fileref="dialog-ok-22.png" format="PNG"/></imageobject
+><imagedata fileref="run-build-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 ></guiicon
 > Construeix l'objectiu seleccionat</member>
+<member
+><guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="media-playback-start-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+></guiicon
+> Construeix i executa l'objectiu seleccionat</member>
 <member
 ><guiicon
 ><inlinemediaobject
@@ -1231,7 +1247,7 @@
 ><imagedata fileref="document-new-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 ></guiicon
-> Crea un conjunt d'objectius de construcció nou</member>
+> Crea un conjunt nou d'objectius</member>
 <member
 ><guiicon
 ><inlinemediaobject
@@ -1259,27 +1275,12 @@
 <para
 >La pestanya <guilabel
 >Sortida</guilabel
-> mostra la sortida de consola generada per l'última ordre.</para>
+> mostra la sortida de la consola generada per l'ordre d'execució (construcció). Si una línia conté una ubicació de fitxer, es podrà fer clic en aquesta línia. Si la línia a la sortida també mostra un error o un avís, la línia tindrà un color diferent. </para>
 
 <para
->Utilitzeu el control lliscant a la part superior per a mostrar o amagar les categories de la sortida:</para>
-
-<para
-><guilabel
->Sortida completa</guilabel
->, <guilabel
->Sortida analitzada</guilabel
->, <guilabel
->Errors i avisos</guilabel
-> o <guilabel
->Només els errors</guilabel
-> </para>
-
-<para
->Cada línia conté un missatge, el nom de fitxer i el número de línia si està disponible. En fer clic sobre l'error o l'avís se us indicarà el fitxer corresponent i es col·locarà el cursor sobre el número de línia corresponent.</para>
-
-<para
->Per a navegar cap a l'error anterior, premeu <keycombo action="simul"
+>Si l'opció <guilabel
+>Afegeix errors i avisos als diagnòstics</guilabel
+> està activada a la pàgina de configuració del connector a la configuració del Kate, els errors i avisos també s'afegiran a la vista de diagnòstic. Per a navegar cap a l'error anterior a la vista de diagnòstics, premeu <keycombo action="simul"
 >&Alt;&Maj;&Left;</keycombo
 >. Per a navegar cap a l'error següent, premeu <keycombo action="simul"
 >&Alt;&Maj;&Right;</keycombo
@@ -1299,42 +1300,63 @@
 ><guimenu
 >Construeix</guimenu
 ><guimenuitem
->Selecciona l'objectiu</guimenuitem
+>Selecciona l'objectiu…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Selecciona des d'una llista d'objectius configurats per l'usuari.</para
+>El filtre de selecció de destinació està enfocat a la pestanya Configuració de destinació. En escriure un nom s'ocultaran els objectius que no coincideixin amb la cadena escrita. També és possible utilitzar les tecles de fletxa per a navegar per l'arbre d'objectius. Quan se selecciona l'objectiu desitjat, en prémer <guilabel
+>Retorn</guilabel
+> o <guilabel
+>Entrada</guilabel
+> s'executarà i executarà l'objectiu seleccionat.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-default">
+<varlistentry id="build-selected">
 <term
 ><menuchoice
 ><guimenu
 >Construeix</guimenu
 ><guimenuitem
->Construeix l'objectiu per defecte</guimenuitem
+>Construeix l'objectiu seleccionat</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Construeix l'objectiu definit com a predeterminat en el conjunt actiu d'objectius.</para
+>Construeix l'últim objectiu seleccionat. Si no se n'ha seleccionat cap, funciona com a <guilabel
+>Selecciona l'objectiu…</guilabel
+></para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous">
+<varlistentry id="build-selected-run">
 <term
 ><menuchoice
 ><guimenu
 >Construeix</guimenu
 ><guimenuitem
->Construeix l'objectiu anterior</guimenuitem
+>Construeix i executa l'objectiu seleccionat</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Canvia a l'objectiu configurat anteriorment per l'usuari.</para
+>Construeix l'últim objectiu seleccionat i executa l'ordre d'execució després que l'ordre de construcció hagi finalitzat correctament.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-currentfile">
+<term
+><menuchoice
+><guimenu
+>Construeix</guimenu
+><guimenuitem
+>Compila el fitxer actual</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Intenta compilar el fitxer actual cercant una ordre en un possible «compile_commands.json».</para
 ></listitem>
 </varlistentry>
 
@@ -1353,41 +1375,50 @@
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-previous-error">
+<varlistentry id="build-previous-run-tab">
 <term
 ><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;&Alt;&Left;</keycombo
-></shortcut
-> <guimenu
+><guimenu
 >Construeix</guimenu
 ><guimenuitem
->Error anterior</guimenuitem
+>Focus a la pestanya següent de l'esquerra</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Mou el cursor a la ubicació de l'anterior error en el document.</para
+>Enfoca la pestanya següent del connector de construcció a l'esquerra. O obre la vista d'eina del connector de construcció si està oculta.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="build-next-error">
+<varlistentry id="build-next-run-tab">
 <term
 ><menuchoice
-><shortcut
-><keycombo action="simul"
->&Ctrl;&Alt;&Right;</keycombo
-></shortcut
-> <guimenu
+><guimenu
 >Construeix</guimenu
 ><guimenuitem
->Error següent</guimenuitem
+>Focus a la pestanya següent de la dreta</guimenuitem
 > </menuchoice
 ></term>
 <listitem
 ><para
->Mou el cursor a la ubicació de l'error següent en el document.</para
+>Enfoca la pestanya següent del connector de construcció a la dreta. O obriu la vista d'eina del connector de construcció si està oculta.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="build-load-cmake-targets">
+<term
+><menuchoice
+><guimenu
+>Construeix</guimenu
+><guimenuitem
+>Carrega els objectius des del directori de construcció del CMake</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>Obre el diàleg de fitxers i permet a l'usuari seleccionar un <guilabel
+>CMakeCache.txt</guilabel
+>. Quan se selecciona un fitxer, el connector genera objectius d'ordres de construcció del CMake que es poden executar al directori de construcció del projecte basat en el CMake.</para
 ></listitem>
 </varlistentry>
 

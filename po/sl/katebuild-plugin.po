@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-16 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 08:34+0100\n"
+"PO-Revision-Date: 2025-01-16 07:34+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -380,12 +380,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>C:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr "<B>Mapa:</B> %1"
+msgstr "<B>Dir:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
 #, kde-format
@@ -443,7 +441,7 @@ msgstr "Ime ukaza/nabora ciljev"
 #: TargetModel.cpp:634
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Ukaz za gradnjo / Delovni imenik"
 
 #: TargetModel.cpp:637
 #, kde-format

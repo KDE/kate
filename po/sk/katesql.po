@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-10 00:41+0000\n"
+"POT-Creation-Date: 2025-01-17 00:44+0000\n"
 "PO-Revision-Date: 2023-02-02 18:29+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -514,13 +514,25 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: sqlmanager.cpp:335
+#: sqlmanager.cpp:314
+#, kde-format
+msgid "Prepare Statement Failure"
+msgstr ""
+
+#: sqlmanager.cpp:315
+#, kde-format
+msgid ""
+"<p>Preparing the query failed with the following error: %1</p><p>Do you want "
+"to continue without preparing the query?</p>"
+msgstr ""
+
+#: sqlmanager.cpp:345
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Dopyt bol úspešne ukončený"
 
-#: sqlmanager.cpp:338
+#: sqlmanager.cpp:348
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -529,7 +541,7 @@ msgstr[0] "Vybraná %1 položka"
 msgstr[1] "Vybrané %1 položky"
 msgstr[2] "Vybraných %1 položiek"
 
-#: sqlmanager.cpp:342
+#: sqlmanager.cpp:352
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

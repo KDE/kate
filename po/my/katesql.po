@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-10 00:41+0000\n"
+"POT-Creation-Date: 2025-01-17 00:44+0000\n"
 "PO-Revision-Date: 2024-09-10 15:37+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -509,20 +509,32 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "အသစ်တင်မည်"
 
-#: sqlmanager.cpp:335
+#: sqlmanager.cpp:314
+#, kde-format
+msgid "Prepare Statement Failure"
+msgstr ""
+
+#: sqlmanager.cpp:315
+#, kde-format
+msgid ""
+"<p>Preparing the query failed with the following error: %1</p><p>Do you want "
+"to continue without preparing the query?</p>"
+msgstr ""
+
+#: sqlmanager.cpp:345
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "ဒေတာတောင်းဆိုထားမှု အောင်မြင်စွာရရှိခဲ့သည်"
 
-#: sqlmanager.cpp:338
+#: sqlmanager.cpp:348
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
 msgstr[0] "မှတ်တမ်း %1ခု ရွေးထားသည်"
 
-#: sqlmanager.cpp:342
+#: sqlmanager.cpp:352
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

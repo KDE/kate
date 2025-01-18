@@ -112,13 +112,16 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
         const auto slot = [provider, this](bool forced) {
             return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
                 const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
-
-                if (m_lastRequestor == Requestor::CursorChange && m_hintView) {
-                    m_hintView->update(instanceId, hint, kind, m_provider->view());
-                    return;
+                const auto lastRange = getLastRange(m_lastRequestor);
+                const auto posRange = m_provider->view()->document()->wordRangeAt(pos);
+                // Ensure we're handling the range of last requestor
+                if (lastRange == posRange) {
+                    if (m_lastRequestor == Requestor::CursorChange && m_hintView) {
+                        m_hintView->update(instanceId, hint, kind, m_provider->view());
+                        return;
+                    }
+                    showTextHint(instanceId, hint, kind, pos, forced);
                 }
-
-                showTextHint(instanceId, hint, kind, pos, forced);
             };
         };
         connect(provider, &KateTextHintProvider::textHintAvailable, this, slot(false));
@@ -129,11 +132,13 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
 void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor::Cursor c, Requestor hintSource)
 {
     auto wordRange = v->document()->wordRangeAt(c);
+    auto lastRange = getLastRange(hintSource);
+
     // avoid requesting if the range is same
-    if (wordRange == m_lastRange) {
+    if (wordRange == lastRange) {
         return;
     }
-    m_lastRange = wordRange;
+    setLastRange(wordRange, hintSource);
     for (const auto &provider : m_providers) {
         Q_EMIT provider->textHintRequested(v, c);
     }
@@ -152,13 +157,40 @@ void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, T
     }
 
     QPoint p = view->cursorToCoordinate(pos);
-    auto tooltip = KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force, m_lastRange);
+    auto tooltip = KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force, getLastRange(Requestor::HintProvider));
     if (tooltip) {
         // unset the range if the tooltip is gone
         connect(tooltip, &QObject::destroyed, this, [this] {
-            m_lastRange = KTextEditor::Range::invalid();
+            setLastRange(KTextEditor::Range::invalid(), Requestor::HintProvider);
         });
     }
+}
+
+void KateTextHintManager::setLastRange(KTextEditor::Range range, Requestor requestor)
+{
+    switch (requestor) {
+    case Requestor::HintProvider:
+        m_HintProviderLastRange = range;
+        break;
+
+    case Requestor::CursorChange:
+        m_CursorChangeLastRange = range;
+        break;
+    }
+}
+
+KTextEditor::Range KateTextHintManager::getLastRange(Requestor requestor)
+{
+    switch (requestor) {
+    case Requestor::HintProvider:
+        return m_HintProviderLastRange;
+
+    case Requestor::CursorChange:
+        return m_CursorChangeLastRange;
+    }
+
+    Q_ASSERT(false);
+    return KTextEditor::Range::invalid();
 }
 
 #include "moc_KateTextHintManager.cpp"

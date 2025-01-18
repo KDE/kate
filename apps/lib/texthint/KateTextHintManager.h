@@ -63,6 +63,8 @@ public:
 
 private:
     void showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force);
+    KTextEditor::Range getLastRange(Requestor requestor);
+    void setLastRange(KTextEditor::Range range, Requestor requestor);
 
 private:
     // KTextEditor provider
@@ -73,5 +75,7 @@ private:
     // nullptr indicates absence of a hint view
     KateTextHintView *m_hintView;
     Requestor m_lastRequestor;
-    KTextEditor::Range m_lastRange = KTextEditor::Range::invalid();
+
+    KTextEditor::Range m_HintProviderLastRange = KTextEditor::Range::invalid();
+    KTextEditor::Range m_CursorChangeLastRange = KTextEditor::Range::invalid();
 };

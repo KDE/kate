@@ -1,15 +1,15 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Maciej <maciekw5@gmail.com>, 2010.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2010.
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 03:24+0000\n"
-"PO-Revision-Date: 2024-08-24 11:18+0200\n"
+"PO-Revision-Date: 2025-01-18 11:46+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -23,7 +23,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "BŁukasz Wojniłowicz"
+msgstr "Łukasz Wojniłowicz"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"

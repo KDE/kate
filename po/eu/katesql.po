@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-17 00:44+0000\n"
-"PO-Revision-Date: 2025-01-17 05:43+0100\n"
+"PO-Revision-Date: 2025-01-18 03:16+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -515,7 +515,7 @@ msgstr "Freskatu"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Adierazpena prestatze hutsegitea"
 
 #: sqlmanager.cpp:315
 #, kde-format

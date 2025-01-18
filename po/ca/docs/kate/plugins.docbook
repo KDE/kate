@@ -1104,11 +1104,11 @@
 >Ús del connector de construcció</title>
 
 <para
->The Build plugin adds a <guilabel
->Build</guilabel
-> tool view at the bottom and a <guimenu
->Build</guimenu
-> menu on the menu bar. The tool view can be used to select and configure build targets, while the menu and its shortcuts can be used to select and execute the configured shell commands.</para>
+>El connector de construcció afegeix una vista d'eina <guilabel
+>Construeix</guilabel
+> a la part inferior i un menú <guimenu
+>Construeix</guimenu
+> a la barra de menús. La vista d'eina es pot utilitzar per a seleccionar i configurar els objectius a construir, mentre que el menú i les seves dreceres es poden utilitzar per a seleccionar i executar les ordres configurades de l'intèrpret.</para>
 
 <screenshot id="screenshot-build-output">
 <screeninfo
@@ -1160,7 +1160,7 @@
 > s'emmagatzemen a la configuració de la sessió actual del Kate.</para>
 
 <para
->The first row, in a target-set, contains a name for the set in column one, and in column two we have the directory where the commands should be executed. On each following row, we have a name for the command in column one, a build command in column two and a run command in column three. To edit one of these, double-click on the entry or use the edit shortcut (often <keycap
+>La primera fila, en un conjunt de destinació, conté un nom per al conjunt a la columna u, i a la columna dos tenim el directori on s'han d'executar les ordres. A cada fila següent, tenim un nom d'ordre a la columna u, una ordre de construcció a la columna dos i una ordre d'execució a la columna tres. Per a editar-ne un, feu doble clic a l'entrada o utilitzeu la drecera d'edició (sovint <keycap
 >F2</keycap
 >).</para>
 
@@ -1187,13 +1187,13 @@
 ></term>
 <listitem
 ><para
->The second column in the "non-first rows", contains the shell command to run in the working directory. Note the word shell. Almost any shell command will do. The build command can contain placeholders. <guilabel
+>La segona columna de les «files no primeres», conté l'ordre de l'intèrpret que s'executarà al directori de treball. Fixeu-vos en la paraula intèrpret. Gairebé qualsevol ordre de l'intèrpret ho farà. L'ordre de construcció pot contenir variables de substitució. <guilabel
 >%f</guilabel
-> for the current file, <guilabel
+> per al fitxer actual, <guilabel
 >%d</guilabel
-> for directory of the current file and <guilabel
+> per al directori del fitxer actual i <guilabel
 >%n</guilabel
-> for the base-name of the current file (file name without suffix).</para
+> per al nom base del fitxer actual (nom de fitxer sense sufix).</para
 ></listitem>
 </varlistentry>
 

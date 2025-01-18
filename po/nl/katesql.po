@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2010, 2011, 2012, 2014, 2018, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2014, 2018, 2021, 2022, 2023, 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-17 00:44+0000\n"
-"PO-Revision-Date: 2023-06-28 11:15+0200\n"
+"PO-Revision-Date: 2025-01-17 11:10+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -513,7 +513,7 @@ msgstr "Vernieuwen"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Mislukken van voorbereidend statement"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -521,6 +521,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>voorbereiden van de zoekopdracht is mislukt met de volgende fout: %1</"
+"p><p>Wilt u doorgaan zonder voorbereiden van de zoekopdracht?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

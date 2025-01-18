@@ -1,17 +1,17 @@
 # Translation for katebuild-plugin.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2024 This file is copyright:
+# Copyright (C) 2011-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-16 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 11:00+0100\n"
+"PO-Revision-Date: 2025-01-17 05:42+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -375,9 +375,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
@@ -438,7 +436,7 @@ msgstr "Komandoa/jomuga-multzo izena"
 #: TargetModel.cpp:634
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Eraikitzeko komandoa / Laneko direktorioa"
 
 #: TargetModel.cpp:637
 #, kde-format

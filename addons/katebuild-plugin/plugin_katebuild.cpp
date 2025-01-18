@@ -210,7 +210,7 @@ void KateBuildPlugin::readConfig()
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
     m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
     m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
-    m_showBuildProgress = config.readEntry("ShowBuildProgress", true);
+    m_showBuildProgress = config.readEntry("ShowBuildProgress", false);
 
     // read allow + block lists as two separate keys, let block always win
     const auto allowed = config.readEntry(ConfigAllowedCommands, QStringList());

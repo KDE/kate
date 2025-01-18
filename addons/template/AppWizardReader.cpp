@@ -73,7 +73,6 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             }
             const KArchiveFile *templateFile = (KArchiveFile *)templateEntry;
 
-            qDebug() << "copy template description" << descriptionFileName;
             const QString destinationPath = localDescriptionsDir + descriptionFileName;
             if (templateFile->name() == descriptionFileName) {
                 templateFile->copyTo(localDescriptionsDir);

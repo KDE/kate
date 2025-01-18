@@ -48,6 +48,7 @@ AbstractDataModel::AbstractDataModel(std::unique_ptr<AbstractData> headerData, Q
     , m_rootNode(std::move(headerData), nullptr)
     , m_roleNames(QAbstractItemModel::roleNames())
 {
+    m_roleNames.insert(headerData->roleNames());
 }
 
 QVariant AbstractDataModel::headerData(int column, Qt::Orientation orientation, int role) const

@@ -45,8 +45,6 @@ TemplatePluginView::TemplatePluginView(TemplatePlugin *, KTextEditor::MainWindow
     connect(a, &QAction::triggered, this, &TemplatePluginView::crateNewFromTemplate);
 
     m_mainWindow->guiFactory()->addClient(this);
-
-    connect(&m_template, &Template::done, this, &TemplatePluginView::templateCrated);
 }
 
 TemplatePluginView::~TemplatePluginView()
@@ -62,13 +60,22 @@ void TemplatePluginView::crateNewFromTemplate()
         QFileInfo info(view->document()->url().path());
         currentFolder = info.absolutePath();
     }
-    m_template.setOutputFolder(currentFolder);
-    m_template.show();
+
+    if (!m_template) {
+        m_template = std::make_unique<Template>();
+        connect(m_template.get(), &Template::done, this, &TemplatePluginView::templateCrated);
+    }
+    m_template->setOutputFolder(currentFolder);
+    m_template->show();
 }
 
 void TemplatePluginView::templateCrated(const QString &fileToOpen)
 {
-    m_template.hide();
+    if (!m_template) {
+        qWarning() << "m_template not created yet!";
+        return;
+    }
+    m_template->hide();
     if (fileToOpen.isEmpty()) {
         return;
     }

@@ -212,7 +212,7 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         m_tooltip.hide();
     });
 
-    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::blameFinished);
+    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::commandFinished);
 
     connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::showFinished);
 
@@ -269,13 +269,15 @@ void KateGitBlamePluginView::startGitBlameForActiveView()
 
 void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
 {
+    const QFileInfo fi{url.toLocalFile()};
     // same document? maybe split view? => no work to do, reuse the result we already have
-    if (m_blameUrl == url) {
+    if (fi.absoluteFilePath() == m_absoluteFilePath) {
         return;
     }
+    m_parentPath = fi.absolutePath();
+    m_absoluteFilePath = fi.absoluteFilePath();
 
     // clear everything
-    m_blameUrl.clear();
     m_blamedLines.clear();
     m_blameInfoForHash.clear();
 
@@ -285,12 +287,11 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
         m_blameInfoProc.waitForFinished();
     }
 
-    const QFileInfo fi{url.toLocalFile()};
-    if (!setupGitProcess(m_blameInfoProc, fi.absolutePath(), {QStringLiteral("blame"), QStringLiteral("-p"), fi.absoluteFilePath()})) {
+    m_currentCommand = Command::RevParse;
+    if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("rev-parse"), QStringLiteral("--show-toplevel")})) {
         return;
     }
     startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
-    m_blameUrl = url;
 }
 
 void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &hash)
@@ -301,7 +302,8 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
     }
 
     const QFileInfo fi{url.toLocalFile()};
-    if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
+    m_absoluteFilePath = fi.absoluteFilePath();
+    if (!setupGitProcess(m_showProc, m_absoluteFilePath, {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
         return;
     }
     startHostProcess(m_showProc, QIODevice::ReadOnly);
@@ -333,7 +335,7 @@ void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
     Utils::showMessage(text, gitIcon(), i18n("Git"), error ? MessageType::Error : MessageType::Info, m_mainWindow);
 }
 
-void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus exitStatus)
+void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     // we ignore errors, we might just not be in a git repo, parsing errors is hard, as they are translated
     // switching to english is no good idea either, as the user will likely not understand it then anyways
@@ -341,6 +343,45 @@ void KateGitBlamePluginView::blameFinished(int exitCode, QProcess::ExitStatus ex
         return;
     }
 
+    switch (m_currentCommand) {
+    case Command::RevParse: {
+        m_root = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput().trimmed());
+
+        m_currentCommand = Command::Config;
+        if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("config"), QStringLiteral("blame.ignoreRevsFile")})) {
+            return;
+        }
+        startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
+        break;
+    }
+    case Command::Config: {
+        m_ignoreRevsFile = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput().trimmed());
+
+        auto arguments = QStringList{QStringLiteral("blame"), QStringLiteral("-p")};
+
+        // add ignore-revs-file
+        const auto ignoreRevFile = !m_ignoreRevsFile.isEmpty() ? m_ignoreRevsFile : QStringLiteral(".git-blame-ignore-revs");
+        const auto ignoreRevFilePath = QStringLiteral("%1/%2").arg(m_root, ignoreRevFile);
+        if (QFileInfo::exists(ignoreRevFilePath)) {
+            arguments.append({QStringLiteral("--ignore-revs-file"), ignoreRevFilePath});
+        }
+        arguments.append(m_absoluteFilePath);
+
+        m_currentCommand = Command::Blame;
+        if (!setupGitProcess(m_blameInfoProc, m_parentPath, arguments)) {
+            return;
+        }
+        startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
+        break;
+    }
+    case Command::Blame:
+        parseGitBlameStdOutput();
+        break;
+    }
+}
+
+void KateGitBlamePluginView::parseGitBlameStdOutput()
+{
     QByteArray out = m_blameInfoProc.readAllStandardOutput();
     out.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
     // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));

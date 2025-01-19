@@ -93,12 +93,20 @@ public:
     void showCommitTreeView(const QUrl &url);
 
 private:
+    enum Command {
+        RevParse,
+        Config,
+        Blame
+    };
+    Q_ENUM(Command)
+
     void sendMessage(const QString &text, bool error);
 
     void startGitBlameForActiveView();
 
     void startBlameProcess(const QUrl &url);
-    void blameFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void commandFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void parseGitBlameStdOutput();
 
     void startShowProcess(const QUrl &url, const QString &hash);
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
@@ -113,7 +121,6 @@ private:
     QProcess m_showProc;
     QHash<QByteArray, CommitInfo> m_blameInfoForHash;
     std::vector<BlamedLine> m_blamedLines;
-    QUrl m_blameUrl;
     QPointer<KTextEditor::View> m_lastView;
     int m_lineOffset{0};
     GitBlameTooltip m_tooltip;
@@ -121,4 +128,9 @@ private:
     class CommitDiffTreeView *m_commitFilesView;
     QPointer<KTextEditor::View> m_diffView;
     QTimer m_startBlameTimer;
+    QString m_parentPath;
+    Command m_currentCommand;
+    QString m_root;
+    QString m_ignoreRevsFile;
+    QString m_absoluteFilePath;
 };

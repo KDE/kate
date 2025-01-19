@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-11-11 08:04+0200\n"
+"PO-Revision-Date: 2025-01-18 21:37+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -363,8 +363,7 @@ msgstr "אזהרות"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
 msgstr "סינון…"
 
@@ -974,7 +973,7 @@ msgstr "אפשרויות התנהגרות"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -983,6 +982,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"רשימה של תיקיות %1 מופרדות בפסיקים בהן תחפש Kate תוכניות להרצה. הרשימה תצטרף "
+"לפני משתנה הסביבה שלך בשם PATH. כלומר: ‚‎/home/USER/myapps/bin/:/home/USER/."
+"local/bin’"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1199,6 +1201,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"לאפשר מעבר בלולאה על לשוניות. אם האפשרות לא מסומנת, הפעולה ‚הלשונית הבאה’/"
+"‚הלשונית הקודמת’ לא תעבור ללשונית הראשונה/אחרונה אחרי הגעה לסוף."
 
 #: lib/kateconfigdialog.cpp:315
 #, kde-format
@@ -1275,7 +1279,7 @@ msgstr "הפעלת תצוגת כלי"
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
-msgstr ""
+msgstr "תצוגת כלי להצגת הקשר שמשויך למקום הסמן הנוכחי (עצות LSP, אבחונים)"
 
 #: lib/kateconfigdialog.cpp:408
 #, kde-format
@@ -1328,12 +1332,12 @@ msgstr "משוב משתמש"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "ערך PATH (נתיב) שגוי"
 
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "הנתיב ‚%1’ לא קיים"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format
@@ -1648,10 +1652,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "לפתוח מחדש את המסמך או המסמכים שנסגרו בפעם האחרונה"
 
 #: lib/katemainwindow.cpp:491
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&חלון חדש"
+msgstr "&סגירת חלון"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -1659,10 +1662,9 @@ msgid "Close this window"
 msgstr "סגירת החלון הזה"
 
 #: lib/katemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "יישום &אחר…"
+msgstr "יציאה מהיישום"
 
 #: lib/katemainwindow.cpp:504
 #, kde-format
@@ -2437,7 +2439,7 @@ msgstr "הפעלת התוסף <b>%1</b> נכשלה"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "הקובץ ‚%1’ לא קיים"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format
@@ -2542,30 +2544,29 @@ msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי ה
 msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
-msgstr ""
+msgstr "לא נמצאה תצוגת כלי לשם: ‚%1’. האם התוסף מושבת או שהשם כתוב לא נכון?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "שגיאת סקריפט. אמור להיות שם של תצוגת כלי. זמינים: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "בקרת איכות ותסרוט"
+msgstr "סקריפטים"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
-msgstr ""
+msgstr "‚showtoolview $toolview_name’. הצגת לוח תצוגת כלי. לוחות זמינים: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
-msgstr ""
+msgstr "‚showtoolview $toolview_name’. הסתרת לוח תצוגת כלי. לוחות זמינים: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

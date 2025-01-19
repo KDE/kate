@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2024-12-31 08:16+0200\n"
+"PO-Revision-Date: 2025-01-18 21:57+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -63,7 +63,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "יצירת ענף חדשה נכשלה. שגיאה „%1”"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -151,7 +151,7 @@ msgstr "תיאור הגשה מורחב…"
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "אישור סופי"
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
@@ -198,27 +198,27 @@ msgstr "סתירה"
 #: gitstatusmodel.cpp:91
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "נערכו"
 
 #: gitwidget.cpp:289
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "דחיפה ב־Git"
 
 #: gitwidget.cpp:302
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "משיכה ב־Git"
 
 #: gitwidget.cpp:315
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "ביטול פעולה"
 
 #: gitwidget.cpp:323
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " בוטל."
 
 #: gitwidget.cpp:331
 #, kde-format
@@ -233,7 +233,7 @@ msgstr "סינון…"
 #: gitwidget.cpp:443
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr ""
+msgstr "לא ניתן למצוא תיקיית ‎.git עבור ‚%1’, ייתכן שדברים לא יעבדו כראוי"
 
 #: gitwidget.cpp:653
 #, kde-format
@@ -243,7 +243,7 @@ msgstr " שגיאה: %1"
 #: gitwidget.cpp:659
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "„%1” הופעל בהצלחה: %2"
 
 #: gitwidget.cpp:679
 #, kde-format
@@ -258,37 +258,37 @@ msgstr ""
 #: gitwidget.cpp:703
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "התעלמות מהשינויים נכשלה. שגיאה:"
 
 #: gitwidget.cpp:714
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "הסרה נכשלה. שגיאה:"
 
 #: gitwidget.cpp:730
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "פתיחת קובץ ב־HEAD נכשלה: %1"
 
 #: gitwidget.cpp:762
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "משיכת הבדלים לקובץ נכשלה: %1"
 
 #: gitwidget.cpp:829
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "קיבוע נכשל: %1"
 
 #: gitwidget.cpp:833
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "השינויים קובעו בהצלחה."
 
 #: gitwidget.cpp:843
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "אין מה לקבע. נא "
 
 #: gitwidget.cpp:856
 #, kde-format
@@ -648,7 +648,7 @@ msgstr "Git"
 #: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "פעולת לחיצה אחת בתצוגת מצב ה־git"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -751,10 +751,10 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "[%1]ניתוח קובץ הסתיים."
+msgstr[1] "[%1]ניתוח של שני קבצים הסתיים."
+msgstr[2] "[%1]ניתוח של %2 קבצים הסתיים."
+msgstr[3] "[%1]ניתוח של %2 קבצים הסתיים."
 
 #: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
@@ -1013,6 +1013,9 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"לא ניתן לטעון מיזמים מבוססי %s כיוון שאו ש־%1 לא מותקן או שהוא לא נמצא "
+"במשתנה הסביבה PATH. נא להתקין את %1 או לחלופין להשבית את האפשרות ‚טעינת "
+"מאגרים אוטומטית ובניית עצים’ בהגדרות המיזם"
 
 #: stashdialog.cpp:36
 #, kde-format

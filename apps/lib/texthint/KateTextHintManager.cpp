@@ -112,6 +112,10 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
         const auto slot = [provider, this](bool forced) {
             return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
                 const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
+                if (forced) { // Forced requests goes implicitly to the tooltip
+                    showTextHint(instanceId, hint, kind, pos, true);
+                    return;
+                }
                 const auto lastRange = getLastRange(m_lastRequestor);
                 const auto posRange = m_provider->view()->document()->wordRangeAt(pos);
                 // Ensure we're handling the range of last requestor
@@ -138,11 +142,13 @@ void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor:
     if (wordRange == lastRange) {
         return;
     }
+
     setLastRange(wordRange, hintSource);
+    m_lastRequestor = hintSource;
+
     for (const auto &provider : m_providers) {
         Q_EMIT provider->textHintRequested(v, c);
     }
-    m_lastRequestor = hintSource;
 }
 
 void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force)

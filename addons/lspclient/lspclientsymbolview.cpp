@@ -347,11 +347,6 @@ public:
         m_symbols->header()->setSectionResizeMode(QHeaderView::Stretch);
         m_toolview->layout()->setContentsMargins(0, 0, 0, 0);
 
-        auto separator = new QFrame(m_toolview.get());
-        separator->setFrameShape(QFrame::HLine);
-        separator->setEnabled(false);
-        m_toolview->layout()->addWidget(separator);
-
         m_toolview->layout()->addWidget(m_symbols);
         m_toolview->layout()->setSpacing(0);
 

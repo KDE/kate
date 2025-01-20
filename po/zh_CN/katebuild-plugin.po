@@ -358,9 +358,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>目标:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>目录:</B> %1"
@@ -421,7 +419,7 @@ msgstr "命令/目标集名称"
 #: TargetModel.cpp:634
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "构建命令 / 工作目录"
 
 #: TargetModel.cpp:637
 #, kde-format
@@ -515,6 +513,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "工作目录 / 命令"

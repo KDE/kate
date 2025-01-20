@@ -511,14 +511,14 @@ msgstr "刷新"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "准备语句失败"
 
 #: sqlmanager.cpp:315
 #, kde-format
 msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
-msgstr ""
+msgstr "<p>准备查询失败，返回以下错误：%1</p><p>您想要不准备查询并继续吗？</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

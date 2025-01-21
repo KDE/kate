@@ -14,6 +14,9 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QTimer>
+
+using namespace Qt::Literals::StringLiterals;
+
 namespace
 {
 struct NodeInfo {
@@ -244,7 +247,8 @@ QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
                                               const QString &cmakeConfig,
                                               const QString &projectBaseDir)
 {
-    // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName <<workDir;
+    // qDebug() << "Inserting TargetSet after:" << beforeIndex << setName << workDir
+    // << cmakeConfig << projectBaseDir;
     NodeInfo bNode = modelToNodeInfo(beforeIndex);
     if (!nodeExists(m_rootNodes, bNode)) {
         // Add the new target-set to the end of the first root node (creating the root if needed)
@@ -519,6 +523,14 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
     }
 }
 
+static QString toRitchText(const QString &str)
+{
+    if (str.isEmpty()) {
+        return QString();
+    }
+    return u"<p>%1</p>"_s.arg(str.toHtmlEscaped());
+}
+
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
@@ -551,12 +563,19 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         switch (role) {
         case Qt::DisplayRole:
         case Qt::EditRole:
-        case Qt::ToolTipRole:
             switch (index.column()) {
             case 0:
                 return targetSet.name;
             case 1:
                 return targetSet.workDir;
+            }
+            break;
+        case Qt::ToolTipRole:
+            switch (index.column()) {
+            case 0:
+                return toRitchText(targetSet.name);
+            case 1:
+                return toRitchText(targetSet.workDir);
             }
             break;
         case CommandRole:
@@ -587,7 +606,6 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         switch (role) {
         case Qt::DisplayRole:
         case Qt::EditRole:
-        case Qt::ToolTipRole:
             switch (index.column()) {
             case 0:
                 return command.name;
@@ -595,6 +613,16 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
                 return command.buildCmd;
             case 2:
                 return command.runCmd;
+            }
+            break;
+        case Qt::ToolTipRole:
+            switch (index.column()) {
+            case 0:
+                return toRitchText(command.name);
+            case 1:
+                return toRitchText(command.buildCmd);
+            case 2:
+                return toRitchText(command.runCmd);
             }
             break;
         case CommandRole:

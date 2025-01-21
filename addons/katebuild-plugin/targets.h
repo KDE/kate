@@ -44,6 +44,8 @@ public:
 
     QString currentProjectBaseDir;
 
+    double columnCommandStretch = 0.65;
+
     void updateTargetsButtonStates() const;
 
 public Q_SLOTS:

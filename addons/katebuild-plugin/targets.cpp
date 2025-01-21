@@ -73,8 +73,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView->expandAll();
     targetsView->header()->setStretchLastSection(false);
     targetsView->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    targetsView->header()->setSectionResizeMode(1, QHeaderView::Stretch);
-    targetsView->header()->setSectionResizeMode(2, QHeaderView::Stretch);
+    targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
+    targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
     auto *tLayout = new QHBoxLayout();
 
     tLayout->addWidget(targetFilterEdit);
@@ -285,11 +285,11 @@ void TargetsUi::targetDelete()
 
 bool TargetsUi::eventFilter(QObject *obj, QEvent *event)
 {
-    if (event->type() == QEvent::Show && obj == targetsView) {
-        QTimer::singleShot(100, this, [this]() {
-            targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
-            targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
-        });
+    if (event->type() == QEvent::Resize && obj == targetsView) {
+        QResizeEvent *e = static_cast<QResizeEvent *>(event);
+        double newSizeLeft = e->size().width() - targetsView->header()->sectionSize(0);
+        targetsView->header()->resizeSection(1, std::floor(columnCommandStretch * newSizeLeft));
+        targetsView->header()->resizeSection(2, std::floor((1.0 - columnCommandStretch) * newSizeLeft));
     }
     if (event->type() == QEvent::ShortcutOverride) {
         // Ignore copy in ShortcutOverride and handle it in the KeyPress event

@@ -74,7 +74,7 @@ private:
 
     // nullptr indicates absence of a hint view
     KateTextHintView *m_hintView;
-    Requestor m_lastRequestor;
+    Requestor m_lastRequestor = Requestor::HintProvider;
 
     KTextEditor::Range m_HintProviderLastRange = KTextEditor::Range::invalid();
     KTextEditor::Range m_CursorChangeLastRange = KTextEditor::Range::invalid();

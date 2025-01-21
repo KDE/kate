@@ -112,7 +112,7 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
         const auto slot = [provider, this](bool forced) {
             return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
                 const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
-                if (forced) { // Forced requests goes implicitly to the tooltip
+                if (forced) { // Forced requests go implicitly to the tooltip
                     showTextHint(instanceId, hint, kind, pos, true);
                     return;
                 }

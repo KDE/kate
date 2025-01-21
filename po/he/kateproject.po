@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2025-01-18 21:57+0200\n"
+"PO-Revision-Date: 2025-01-20 13:42+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -627,7 +627,7 @@ msgstr ""
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "תוסף מיזמים יכול לבצע כל מיני פעולות על פני כמה מיזמים שונים"
 
 #: kateprojectconfigpage.cpp:74
 #, kde-format
@@ -728,6 +728,8 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"‚%1’ לא מותקן במערכת שלך, %2.<br/><br/>%3. הכלי ירוץ על כל קובצי המיזם "
+"שעונים על סיומות הקבצים הבאות:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
 #, kde-format

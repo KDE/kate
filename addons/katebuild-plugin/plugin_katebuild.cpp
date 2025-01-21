@@ -1200,7 +1200,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
         }
     }
 
-    setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig);
+    setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, name, cmakeFA.getBuildDir(), true, cmakeConfig, cmakeFA.getSourceDir());
     const QModelIndex targetSetIndex = setIndex;
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,

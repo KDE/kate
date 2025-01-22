@@ -77,7 +77,7 @@
             <string>If the output lines start with [ # / ## ] or [ ## % ], display the latest as a message.</string>
            </property>
            <property name="text">
-            <string>Show build proggress as a message when the output pane is hidden</string>
+            <string>Show build progress as a message when the output pane is hidden</string>
            </property>
           </widget>
          </item>

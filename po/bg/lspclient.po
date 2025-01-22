@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-01-22 00:44+0000\n"
 "PO-Revision-Date: 2024-12-11 20:01+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 25.03.70\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
 #, kde-format
 msgid "Filter…"
 msgstr "Филтър..."
@@ -258,12 +258,12 @@ msgstr "Отиване до"
 msgid "More options"
 msgstr "Повече опции"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Expand All"
 msgstr "Разгъване на всички"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
 #, kde-format
 msgid "Collapse All"
 msgstr "Свиване на всички"
@@ -436,37 +436,37 @@ msgstr "Неуспешно четене на конфигурацията на �
 msgid "Symbol Outline"
 msgstr "Очертаване на символа"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:383
 #, kde-format
 msgid "Tree Mode"
 msgstr "Йерархичен преглед"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:385
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Автоматично разгъване на йерархията"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:387
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Сортиране по азбучен ред"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:389
 #, kde-format
 msgid "Show Details"
 msgstr "Показване на детайли"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:551
 #, kde-format
 msgid "Symbols"
 msgstr "Символи"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:611
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP сървърът не поддържа очертаване на символи."
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:689
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Няма LSP сървър  за този документ"

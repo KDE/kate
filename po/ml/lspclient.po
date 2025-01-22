@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-01-22 00:44+0000\n"
 "PO-Revision-Date: 2019-08-11 02:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
 #, kde-format
 msgid "Filter…"
 msgstr ""
@@ -251,12 +251,12 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
 #, kde-format
 msgid "Collapse All"
 msgstr ""
@@ -428,37 +428,37 @@ msgstr ""
 msgid "Symbol Outline"
 msgstr ""
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:383
 #, kde-format
 msgid "Tree Mode"
 msgstr ""
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:385
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr ""
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:387
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr ""
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:389
 #, kde-format
 msgid "Show Details"
 msgstr ""
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:551
 #, kde-format
 msgid "Symbols"
 msgstr ""
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:611
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:689
 #, kde-format
 msgid "No LSP server for this document."
 msgstr ""

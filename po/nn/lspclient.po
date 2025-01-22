@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-01-22 00:44+0000\n"
 "PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
 #, fuzzy, kde-format
 msgid "Filter…"
 msgstr "Filtrer …"
@@ -252,12 +252,12 @@ msgstr ""
 msgid "More options"
 msgstr "Fleire val"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Expand All"
 msgstr "Fald ut alle"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
 #, kde-format
 msgid "Collapse All"
 msgstr "Fald saman alle"
@@ -429,37 +429,37 @@ msgstr "Klart ikkje lesa tenaroppsett: %1"
 msgid "Symbol Outline"
 msgstr ""
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:383
 #, kde-format
 msgid "Tree Mode"
 msgstr "Trevising"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:385
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Fald automatisk ut trevising"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:387
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Sorter alfabetisk"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:389
 #, kde-format
 msgid "Show Details"
 msgstr "Vis detaljar"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:551
 #, kde-format
 msgid "Symbols"
 msgstr "Symbol"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:611
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:689
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Manglar LSP-tenar for dokumentet."

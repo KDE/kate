@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-01-22 00:44+0000\n"
 "PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrilo…"
@@ -256,12 +256,12 @@ msgstr "Iri al"
 msgid "More options"
 msgstr "Pliaj elektebloj"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Expand All"
 msgstr "Vastigi Ĉion"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
 #, kde-format
 msgid "Collapse All"
 msgstr "Malvastigi Ĉion"
@@ -433,37 +433,37 @@ msgstr "Malsukcesis legi servila agordo: %1"
 msgid "Symbol Outline"
 msgstr "Simbolo Skizo"
 
-#: lspclientsymbolview.cpp:388
+#: lspclientsymbolview.cpp:383
 #, kde-format
 msgid "Tree Mode"
 msgstr "Arba Reĝimo"
 
-#: lspclientsymbolview.cpp:390
+#: lspclientsymbolview.cpp:385
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Aŭtomate Vastigi Arbon"
 
-#: lspclientsymbolview.cpp:392
+#: lspclientsymbolview.cpp:387
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Ordigi Alfabete"
 
-#: lspclientsymbolview.cpp:394
+#: lspclientsymbolview.cpp:389
 #, kde-format
 msgid "Show Details"
 msgstr "Montru Detalojn"
 
-#: lspclientsymbolview.cpp:556
+#: lspclientsymbolview.cpp:551
 #, kde-format
 msgid "Symbols"
 msgstr "Simboloj"
 
-#: lspclientsymbolview.cpp:616
+#: lspclientsymbolview.cpp:611
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP-servilo ne subtenas simbol-skemon."
 
-#: lspclientsymbolview.cpp:694
+#: lspclientsymbolview.cpp:689
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Neniu LSP-servilo por ĉi tiu dokumento."

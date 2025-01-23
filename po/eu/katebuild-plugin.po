@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
-"PO-Revision-Date: 2025-01-17 05:42+0100\n"
+"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"PO-Revision-Date: 2025-01-22 08:36+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -95,12 +95,16 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Irteera-lerroak [ # / ## ] edo [ ## % ]-rekin hasten badira, azkena mezu "
+"gisa azaldu."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, kde-format
-msgid "Show build proggress as a message when the output pane is hidden"
+#, fuzzy, kde-format
+#| msgid "Show build proggress as a message when the output pane is hidden"
+msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
+"Eraikitze aurrerapena mezu gisa erakutsi irteera-panela ezkutuan dagoenean"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106

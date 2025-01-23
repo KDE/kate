@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
-"PO-Revision-Date: 2025-01-16 17:34+0100\n"
+"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"PO-Revision-Date: 2025-01-22 16:08+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -93,12 +93,15 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Om de utmatade raderna börjar med [ # / ## ] eller [ ## % ], visa det "
+"senaste som ett meddelande."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, kde-format
-msgid "Show build proggress as a message when the output pane is hidden"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Show build proggress as a message when the output pane is hidden"
+msgid "Show build progress as a message when the output pane is hidden"
+msgstr "Visa byggförlopp som ett meddelande när utmatningsrutan är dold"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106

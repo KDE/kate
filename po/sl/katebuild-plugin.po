@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
-"PO-Revision-Date: 2025-01-16 07:34+0100\n"
+"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"PO-Revision-Date: 2025-01-22 07:45+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -95,12 +95,15 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Če se izhodne vrstice začnejo z [ # / ## ] ali [ ## % ], prikaži zadnje kot "
+"sporočilo."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, kde-format
-msgid "Show build proggress as a message when the output pane is hidden"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Show build proggress as a message when the output pane is hidden"
+msgid "Show build progress as a message when the output pane is hidden"
+msgstr "Pokaži napredek gradnje kot sporočilo, ko je izhodno podokno skrito"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106

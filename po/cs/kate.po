@@ -5,31 +5,34 @@
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # SPDX-FileCopyrightText: 2021, 2023, 2024 Vit Pelcak <vit@pelcak.org>
 #
+# SPDX-FileCopyrightText: 2025 Jan Papez (honyczek)
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-10-18 15:59+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2025-01-22 22:56+0100\n"
+"Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
+"Language-Team: Czech <kde-i18n-cs@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Lukáš Tinkl,Miroslav Flídr,Klára Cihlářová,Vít Pelčák,Marián Kyral"
+msgstr ""
+"Lukáš Tinkl,Miroslav Flídr,Klára Cihlářová,Vít Pelčák,Marián Kyral;Jan Papež"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
-"lukas@kde.org,flidr@kky.zcu.cz,koty@seznam.cz,vit@pelcak.org,mkyral@email.cz"
+"lukas@kde.org,flidr@kky.zcu.cz,koty@seznam.cz,vit@pelcak.org,mkyral@email.cz,"
+"honyczek@centrum.cz"
 
 #: kate/main.cpp:102
 #, kde-format
@@ -302,6 +305,8 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"Byl dosažen diagnostický limit, ignoruji další diagnostiku. Limit můžete "
+"upravit v nastavení."
 
 #: lib/diagnostics/diagnosticview.cpp:341
 #, kde-format
@@ -327,7 +332,7 @@ msgstr "Předchozí položka"
 #: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "Vyčistit diagnostický filtr"
 
 #: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
@@ -446,40 +451,40 @@ msgstr "Raw"
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Založit řádek pro odeslání"
+msgstr[1] "Založit řádky pro odeslání"
+msgstr[2] "Založit řádky pro odeslání"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "Založit úsek pro odeslání"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zahodit řádek"
+msgstr[1] "Zahodit řádky"
+msgstr[2] "Zahodit řádky"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "Zahodit úsek"
 
 #: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zrušit založení řádku pro odeslání"
+msgstr[1] "Zrušit založení řádků pro odeslání"
+msgstr[2] "Zrušit založení řádků pro odeslání"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "Zrušit založení úseku pro odeslání"
 
 #: lib/diff/diffwidget.cpp:63
 #, kde-format
@@ -514,12 +519,12 @@ msgstr "Přejít na předchozí soubor"
 #: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "Skočit na další úsek"
 
 #: lib/diff/diffwidget.cpp:133
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "Skočit na předchozí úsek"
 
 #: lib/diff/diffwidget.cpp:137
 #, kde-format
@@ -531,7 +536,7 @@ msgstr "Znovu načíst rozdíl"
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Zobrazit rozdíl s celým kontextem, nikoliv jen změněné řádky"
 
 #: lib/diff/diffwidget.cpp:554
 #, kde-format
@@ -540,6 +545,9 @@ msgid ""
 "installed, make sure it is your PATH variable. See https://git-scm.com/"
 "downloads"
 msgstr ""
+"Nebyl nalezen <b>git</b>. Pro zobrazení rozdílu mezi dokumenty je nutné mít "
+"git. Pokud je už git nainstalován, ujistěte se, že je cesta k němu uvedena v "
+"proměnné PATH. Více na https://git-scm.com/downloads"
 
 #: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
 #: lib/kateconfigdialog.cpp:318
@@ -566,17 +574,19 @@ msgstr "Nebyly nalezeny žádné rozdíly"
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
+"Nepodařilo se získat historii souboru: spouštěč gitu nebyl nalezen v "
+"proměnné PATH"
 
 #: lib/filehistorywidget.cpp:313
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr ""
+msgstr "Nepodařilo se získat historii souboru: %1"
 
 #: lib/filehistorywidget.cpp:324
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
-msgstr ""
+msgstr "Zkopírovat hash commitu"
 
 #: lib/filehistorywidget.cpp:332
 #, kde-format
@@ -596,6 +606,10 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Spuštění tohoto editoru pomocí sudo může způsobit chyby a vystavit vás "
+"bezpečnostním zranitelnostem. Místo toho používejte editor v běžném režimu a "
+"zadání zvýšených oprávnění je v případě potřeby možné doplnit později při "
+"ukládání dokumentu."
 
 #: lib/kateapp.cpp:148
 msgid ""
@@ -603,6 +617,10 @@ msgid ""
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
+"Spuštění tohoto editoru pomocí kdesu může způsobit chyby a vystavit vás "
+"bezpečnostním zranitelnostem. Místo toho používejte editor v běžném režimu a "
+"zadání zvýšených oprávnění je v případě potřeby možné doplnit později při "
+"ukládání dokumentu."
 
 #: lib/kateapp.cpp:332
 #, kde-format
@@ -798,7 +816,7 @@ msgstr "Tyson Tan"
 #: lib/kateapp.cpp:366
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
-msgstr ""
+msgstr "Návrhář maskota pro Kate 'Kate kyber datel'"
 
 #: lib/kateapp.cpp:369
 #, kde-format
@@ -924,6 +942,8 @@ msgstr "Všichni ostatní, kteří přispěli a zapomněl jsem je se o nich zmí
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
+"Složky nyní mohou být otevřeny pouze pokud je zapnutý projektový zásuvný "
+"modul"
 
 #: lib/kateapp.cpp:606
 #, kde-format
@@ -966,7 +986,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:134
 #, kde-format
 msgid "&Switch to output view upon message type:"
-msgstr ""
+msgstr "&Přepnout na pohled s výstupem při hláškách s typem:"
 
 #: lib/kateconfigdialog.cpp:139
 #, kde-format
@@ -986,7 +1006,7 @@ msgstr "Záznam"
 #: lib/kateconfigdialog.cpp:145
 #, kde-format
 msgid "&Limit output view history:"
-msgstr ""
+msgstr "&Omezit historii pohledu výstup"
 
 #: lib/kateconfigdialog.cpp:151 lib/kateconfigdialog.cpp:222
 #: lib/kateconfigdialog.cpp:352
@@ -997,7 +1017,7 @@ msgstr "Bez omezení"
 #: lib/kateconfigdialog.cpp:158
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
-msgstr ""
+msgstr "Použít zvláštní &dialog pro práci s externě upravenými soubory"
 
 #: lib/kateconfigdialog.cpp:161
 #, kde-format
@@ -1010,7 +1030,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid "Output timestamps with date"
-msgstr ""
+msgstr "Časové značky ve výstupu s datem"
 
 #: lib/kateconfigdialog.cpp:168
 #, kde-format
@@ -1026,7 +1046,7 @@ msgstr "Postranní panely"
 #: lib/kateconfigdialog.cpp:179
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Synchronizovat velikost oblasti s umístěním karet"
 
 #: lib/kateconfigdialog.cpp:182
 #, kde-format
@@ -1039,12 +1059,12 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:187
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr ""
+msgstr "Zobrazit text tlačítek levého a pravého postranního panelu"
 
 #: lib/kateconfigdialog.cpp:192
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
-msgstr ""
+msgstr "Velikost ikon tlačítek na levém a pravém postranním panelu:"
 
 #: lib/kateconfigdialog.cpp:212
 #, kde-format
@@ -1054,7 +1074,7 @@ msgstr "&Karty"
 #: lib/kateconfigdialog.cpp:216
 #, kde-format
 msgid "&Limit number of tabs:"
-msgstr ""
+msgstr "Omezit &počet karet"
 
 #: lib/kateconfigdialog.cpp:227
 #, kde-format
@@ -1066,7 +1086,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:231
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr ""
+msgstr "&Automaticky skrývat karty"
 
 #: lib/kateconfigdialog.cpp:233
 #, kde-format
@@ -1106,7 +1126,7 @@ msgstr "Pokud zaškrtnuto, dvojklikem bude otevřen nový dokument."
 #: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid "&Middle click closes a document"
-msgstr ""
+msgstr "Kliknutí &prostředním tlačítkem myši uzavře dokument"
 
 #: lib/kateconfigdialog.cpp:257
 #, kde-format
@@ -1116,7 +1136,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "Allow tab scrolling"
-msgstr ""
+msgstr "Povolit rolování karet"
 
 #: lib/kateconfigdialog.cpp:263
 #, kde-format
@@ -1128,7 +1148,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "Elide tab text"
-msgstr ""
+msgstr "Povolit zkracování textu v kartě"
 
 #: lib/kateconfigdialog.cpp:269
 #, kde-format
@@ -1154,6 +1174,8 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
+"Povolit cyklování přes karty. Pokud není zatrženo, akce Další karta/"
+"Předchozí karta nepůjdou na první/poslední kartu poté, co dojdou na konec"
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1163,7 +1185,7 @@ msgstr "&Myš"
 #: lib/kateconfigdialog.cpp:294
 #, kde-format
 msgid "&Backward button pressed:"
-msgstr ""
+msgstr "Stisknuto tlačítko &zpět:"
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format
@@ -1173,12 +1195,12 @@ msgstr "Předchozí karta"
 #: lib/kateconfigdialog.cpp:299
 #, kde-format
 msgid "History back"
-msgstr ""
+msgstr "Zpět v historii"
 
 #: lib/kateconfigdialog.cpp:305
 #, kde-format
 msgid "&Forward button pressed:"
-msgstr ""
+msgstr "Stisknuto tlačítko &vpřed:"
 
 #: lib/kateconfigdialog.cpp:310
 #, kde-format
@@ -1188,22 +1210,22 @@ msgstr "Následující karta"
 #: lib/kateconfigdialog.cpp:310
 #, kde-format
 msgid "History forward"
-msgstr ""
+msgstr "Vpřed v historii"
 
 #: lib/kateconfigdialog.cpp:327
 #, kde-format
 msgid "Diff Style:"
-msgstr ""
+msgstr "Styl zobrazení rozdílů:"
 
 #: lib/kateconfigdialog.cpp:334
 #, kde-format
 msgid "Navigation Bar"
-msgstr ""
+msgstr "Navigační lišta"
 
 #: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "Show current symbol in navigation bar"
-msgstr ""
+msgstr "Zobrazit v navigační liště symbol aktuální"
 
 #: lib/kateconfigdialog.cpp:349
 #, kde-format
@@ -1223,7 +1245,7 @@ msgstr "Kontextový"
 #: lib/kateconfigdialog.cpp:365
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Povolit zobrazení nástroje"
 
 #: lib/kateconfigdialog.cpp:367
 #, kde-format
@@ -1231,6 +1253,8 @@ msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
+"Zobrazení nástroje pro ukázku kontextu přiřazeného s aktuálním umístěním "
+"kurzoru (LSP nápovědy, diagnostika)"
 
 #: lib/kateconfigdialog.cpp:382
 #, kde-format
@@ -1262,7 +1286,7 @@ msgstr[2] "%v dnů"
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
-msgstr ""
+msgstr "Když je okno uzavřeno, uzavřou se pouze dokumenty v tomto okně."
 
 #: lib/kateconfigdialog.cpp:462
 #, kde-format
@@ -1406,7 +1430,7 @@ msgstr "Zobrazovat úplnou cestu k dokumentu v záhlaví okna"
 #: lib/katemainwindow.cpp:271
 #, kde-format
 msgid "Show Navigation Bar"
-msgstr ""
+msgstr "Zobrazit navigační lištu"
 
 #: lib/katemainwindow.cpp:285
 #, kde-format
@@ -1496,7 +1520,7 @@ msgstr "Znovu načíst všechny otevřené dokumenty."
 #: lib/katemainwindow.cpp:410 lib/katemainwindow.cpp:419
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr ""
+msgstr "Zkopíruje cestu k současnému souboru do schránky."
 
 #: lib/katemainwindow.cpp:414 lib/welcomeview/welcomeview.cpp:266
 #, kde-format
@@ -1539,6 +1563,7 @@ msgstr "Porovnat"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
+"Použít kontextovou nabídku lišty s kartami pro porovnání dvou dokumentů"
 
 #: lib/katemainwindow.cpp:453
 #, kde-format
@@ -1583,8 +1608,7 @@ msgid "Close all open documents."
 msgstr "Zavřít všechny otevřené dokumenty."
 
 #: lib/katemainwindow.cpp:477
-#, fuzzy, kde-format
-#| msgid "&Reopen latest closed document(s)"
+#, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Znovu otevřít nedávno uzavřené do&kumenty"
 
@@ -1606,7 +1630,7 @@ msgstr "Nové &okno"
 #: lib/katemainwindow.cpp:491
 #, kde-format
 msgid "Create a new window."
-msgstr ""
+msgstr "Vytvořit nové okno."
 
 #: lib/katemainwindow.cpp:498
 #, kde-format
@@ -1662,12 +1686,12 @@ msgstr "&Nové sezení"
 #: lib/katemainwindow.cpp:548
 #, kde-format
 msgid "&Recent Sessions"
-msgstr ""
+msgstr "&Nedávná sezení"
 
 #: lib/katemainwindow.cpp:553
 #, kde-format
 msgid "&All Sessions"
-msgstr ""
+msgstr "&Všechna sezení"
 
 #: lib/katemainwindow.cpp:560
 #, kde-format
@@ -1687,12 +1711,12 @@ msgstr "Uložit sezení j&ako..."
 #: lib/katemainwindow.cpp:582 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
-msgstr ""
+msgstr "Přejít na předchozí umístění"
 
 #: lib/katemainwindow.cpp:591 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
-msgstr ""
+msgstr "Přejít na následující umístění"
 
 #: lib/katemainwindow.cpp:599
 #, kde-format
@@ -1752,12 +1776,14 @@ msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
+"Upustili jste do Kate složku %1. Chcete otevřít všechny v ní obsažené "
+"soubory?"
 
 #: lib/katemainwindow.cpp:1061
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
-msgstr ""
+msgstr "Otevřít soubory rekurzivně"
 
 #: lib/katemainwindow.cpp:1062
 #, kde-format
@@ -1773,17 +1799,17 @@ msgstr " [pouze ke čtení]"
 #: lib/katemdi.cpp:77
 #, kde-format
 msgid "Toolview Manager"
-msgstr ""
+msgstr "Správa zobrazení nástrojů"
 
 #: lib/katemdi.cpp:95
 #, kde-format
 msgid "Sidebar Buttons"
-msgstr ""
+msgstr "Tlačítka postranních panelů"
 
 #: lib/katemdi.cpp:98
 #, kde-format
 msgid "Focus Toolview"
-msgstr ""
+msgstr "Zaměřit nástrojový pohled"
 
 #: lib/katemdi.cpp:101
 #, kde-format
@@ -1798,7 +1824,7 @@ msgstr "Zobrazit &postranní panely"
 #: lib/katemdi.cpp:111
 #, kde-format
 msgid "Hide All Tool Views"
-msgstr ""
+msgstr "Skrýt všechny nástrojové pohledy"
 
 #: lib/katemdi.cpp:159
 #, kde-format
@@ -1813,7 +1839,7 @@ msgstr "Zobrazit tlačítko %1"
 #: lib/katemdi.cpp:193
 #, kde-format
 msgid "Focus %1"
-msgstr "Zaměření %1"
+msgstr "Zaměřit na %1"
 
 #: lib/katemdi.cpp:1110
 #, kde-format
@@ -2125,7 +2151,7 @@ msgstr "Rozdělit právě aktivní pohled vodorovně na dva."
 #: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr ""
+msgstr "Přesunout dokument do nového svislého rozdělení"
 
 #: lib/kateviewmanager.cpp:166
 #, kde-format
@@ -2133,11 +2159,13 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
+"Rozdělit v současnosti aktivní pohled svisle do dvou pohledů a přesunout "
+"aktivní dokument do pravého pohledu."
 
 #: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr ""
+msgstr "Přesunout dokument do nového vodorovného rozdělení"
 
 #: lib/kateviewmanager.cpp:175
 #, kde-format
@@ -2145,6 +2173,8 @@ msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
 msgstr ""
+"Rozdělit v současnosti aktivní pohled vodorovně do dvou pohledů a přesunout "
+"aktivní dokument do pohledu níže."
 
 #: lib/kateviewmanager.cpp:180
 #, kde-format
@@ -2209,42 +2239,42 @@ msgstr "Aktivovat předchozí dělený pohled."
 #: lib/kateviewmanager.cpp:224
 #, kde-format
 msgid "Left Split View"
-msgstr ""
+msgstr "Levý rozdělený pohled"
 
 #: lib/kateviewmanager.cpp:229
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
-msgstr ""
+msgstr "V rozděleném pohledu aktivuje ten nalevo."
 
 #: lib/kateviewmanager.cpp:232
 #, kde-format
 msgid "Right Split View"
-msgstr ""
+msgstr "Pravý rozdělený pohled"
 
 #: lib/kateviewmanager.cpp:237
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
-msgstr ""
+msgstr "V rozděleném pohledu aktivuje ten napravo."
 
 #: lib/kateviewmanager.cpp:240
 #, kde-format
 msgid "Upward Split View"
-msgstr ""
+msgstr "Horní rozdělený pohled"
 
 #: lib/kateviewmanager.cpp:245
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
-msgstr ""
+msgstr "V rozděleném pohledu aktivuje ten nahoře."
 
 #: lib/kateviewmanager.cpp:248
 #, kde-format
 msgid "Downward Split View"
-msgstr ""
+msgstr "Spodní rozdělený pohled"
 
 #: lib/kateviewmanager.cpp:253
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
-msgstr ""
+msgstr "V rozděleném pohledu aktivuje ten dole."
 
 #: lib/kateviewmanager.cpp:256
 #, kde-format
@@ -2289,12 +2319,12 @@ msgstr "Přesunout oddělovač současného pohledu dolů"
 #: lib/kateviewmanager.cpp:280
 #, kde-format
 msgid "Focus Navigation Bar"
-msgstr ""
+msgstr "Zaměřit navigační lištu"
 
 #: lib/kateviewmanager.cpp:281
 #, kde-format
 msgid "Focus the navigation bar"
-msgstr ""
+msgstr "Zaměří navigační lištu"
 
 #: lib/kateviewmanager.cpp:288
 #, kde-format
@@ -2309,24 +2339,23 @@ msgstr "Zobrazit uvítací stránku"
 #: lib/kateviewmanager.cpp:299
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Přepnout synchronizaci rolování"
 
 #: lib/kateviewmanager.cpp:300
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr ""
+msgstr "Přepnout synchronizaci rolování pro současný pohled"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "Compare with Active Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "Porovnat s aktivním dokumentem"
+msgstr "Odpojit aktivní dokument"
 
 #: lib/kateviewmanager.cpp:311
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
-msgstr ""
+msgstr "Otevře aktivní dokument v novém okně a zavře jej v současném okně"
 
 #: lib/kateviewmanager.cpp:386
 #, kde-format
@@ -2347,18 +2376,20 @@ msgstr "Otevírám velký soubor"
 #: lib/kateviewmanager.cpp:563
 #, kde-format
 msgid "%1 cannot open folders"
-msgstr ""
+msgstr "%1 nemůže otevřít složky"
 
 #: lib/kateviewmanager.cpp:580
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Zásuvný modul pro otevírání složek nebyl nalezen"
 
 #: lib/kateviewmanager.cpp:586
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
+"Aby bylo možné otevírat složky, musí být nainstalován zásuvný modul <b>%1</"
+"b>. Přejete si jej povolit?"
 
 #: lib/kateviewmanager.cpp:589
 #, kde-format
@@ -2375,7 +2406,7 @@ msgstr "Povolit"
 #: lib/kateviewmanager.cpp:597
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Selhalo povolení zásuvného modulu <b>%1</b>"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format
@@ -2387,6 +2418,8 @@ msgstr "Synchronizovat posun"
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
+"Synchronizovat posouvání tohoto rozděleného pohledu s ostatními "
+"synchronizovanými rozdělenými pohledy"
 
 #: lib/kateviewspace.cpp:117
 #, kde-format
@@ -2402,7 +2435,7 @@ msgstr ""
 #: lib/kateviewspace.cpp:139
 #, kde-format
 msgid "Control view space splitting"
-msgstr ""
+msgstr "Ovládání rozdělení zobrazovacího prostoru"
 
 #: lib/kateviewspace.cpp:249
 #, kde-format
@@ -2493,12 +2526,12 @@ msgstr "Současný projekt"
 #: lib/quickopen/katequickopenlineedit.cpp:101
 #, kde-format
 msgid "Fuzzy Filtering"
-msgstr ""
+msgstr "Mlhavé filtrování"
 
 #: lib/quickopen/katequickopenlineedit.cpp:112
 #, kde-format
 msgid "Wildcard Filtering"
-msgstr ""
+msgstr "Filtrování s hvězdičkou"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
 #, kde-format
@@ -2523,7 +2556,7 @@ msgstr "Obnovit"
 #: lib/session/katesessionmanagedialog.cpp:308
 #, kde-format
 msgid "Session will be deleted on dialog close"
-msgstr ""
+msgstr "Sezení bude po zavření dialogu smazáno"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, m_filterBox)
 #: lib/session/katesessionmanagedialog.ui:30
@@ -2599,12 +2632,14 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
+"Sezení %1 je již otevřeno v jiné instanci Kate. Chcete na ni přepnout nebo "
+"je chcete znovu otevřít v této instanci?"
 
 #: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr ""
+msgstr "Přepnout na instanci"
 
 #: lib/session/katesessionmanager.cpp:144
 #, kde-format
@@ -2633,6 +2668,8 @@ msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
+"Sezení s vybraným názvem %1 již existuje.\n"
+"Prosím vyberte jiný název."
 
 #: lib/session/katesessionmanager.cpp:512
 #, kde-format
@@ -2642,18 +2679,18 @@ msgstr "K uložení sezení je třeba nejprve zadat název."
 #: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "Specify a name for this session"
-msgstr ""
+msgstr "Zadejte název tohoto sezení"
 
 #: lib/session/katesessionmanager.cpp:541
 #, kde-format
 msgid "Specify a new name for session: %1"
-msgstr ""
+msgstr "Zadejte nový název sezení: %1"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbAppStartup)
 #: lib/ui/sessionconfigwidget.ui:17
 #, kde-format
 msgid "Application Startup Behavior"
-msgstr ""
+msgstr "Chování při startu aplikace"
 
 #. i18n: ectx: property (text), widget (QRadioButton, startNewSessionRadioButton)
 #: lib/ui/sessionconfigwidget.ui:23
@@ -2677,37 +2714,38 @@ msgstr "R&učně vybrat sezení"
 #: lib/ui/sessionconfigwidget.ui:47
 #, kde-format
 msgid "Application Startup/Shutdown Behavior"
-msgstr ""
+msgstr "Chování při startu/vypínání aplikace"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: lib/ui/sessionconfigwidget.ui:55
 #, kde-format
 msgid "Automatically save and restore:"
-msgstr ""
+msgstr "Automaticky uložit a obnovit:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr ""
+msgstr "Nově vytvořené neuložené soubory"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr ""
+msgstr "Soubory s neuloženými změnami"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
+"Pokud je zakázáno, nepojmenované soubory budou zobrazeny v nových oknech."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
 #, kde-format
 msgid "Show welcome view for new windows"
-msgstr ""
+msgstr "Zobrazit v nových oknech uvítací pohled"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
@@ -2716,18 +2754,20 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
+"Pokud je povoleno, aplikace se při uzavření posledního upravovaného souboru "
+"vypne, jinak se otevře prázdná stránka, takže můžete začít s novým souborem."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr ""
+msgstr "Při uzavření posledního souboru vypnout celou aplikaci"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Uzavřít dokumenty s oknem, ke kterému patří"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2759,6 +2799,8 @@ msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
+"Toto zatrhněte, pokud chcete obnovit všechny vaše pohledy a rámce pokaždé, "
+"když otevřete aplikaci,"
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167

@@ -57,6 +57,7 @@ void MatchExportDialog::generateMatchExport()
             const KateSearchMatch& matchItem = matchIndex.data(MatchModel::MatchItemRole).value<KateSearchMatch>();
             QString matchLines = doc->text(matchItem.range);
             QRegularExpressionMatch match = MatchModel::rangeTextMatches(matchLines, *m_regExp);
+            exportResult += MatchModel::generateReplaceString(match, exportPattern) + QLatin1String("\n");
         }
     }
     this->exportResultText->setPlainText(exportResult);

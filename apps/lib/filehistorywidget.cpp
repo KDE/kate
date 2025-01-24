@@ -21,6 +21,7 @@
 #include <QListView>
 #include <QMenu>
 #include <QPainter>
+#include <QPalette>
 #include <QPointer>
 #include <QProcess>
 #include <QStyledItemDelegate>
@@ -147,6 +148,9 @@ private:
 
 class CommitDelegate : public QStyledItemDelegate
 {
+    static constexpr int Margin = 5; // Is there a pixel metric for this?
+    static constexpr int LineHeight = 2;
+
 public:
     CommitDelegate(QObject *parent)
         : QStyledItemDelegate(parent)
@@ -166,19 +170,26 @@ public:
         options.text = QString();
         QStyledItemDelegate::paint(painter, options, index);
 
-        constexpr int lineHeight = 2;
         QFontMetrics fm = opt.fontMetrics;
-
         QRect prect = opt.rect;
 
         // padding
-        prect.setX(prect.x() + 5);
-        prect.setY(prect.y() + lineHeight);
+        prect.setX(prect.x() + Margin);
+        prect.setY(prect.y() + Margin);
+        prect.setWidth(prect.width() - Margin);
+
+        auto primaryColor = options.palette.color(QPalette::ColorRole::Text);
+        auto secondaryColor = QColor(Qt::gray);
+        if (options.state.testFlag(QStyle::State_Selected) && options.state.testFlag(QStyle::State_Active)) {
+            primaryColor = options.palette.color(QPalette::ColorRole::HighlightedText);
+            secondaryColor = primaryColor;
+        }
 
         // draw author on left
         QFont f = opt.font;
         f.setBold(true);
         painter->setFont(f);
+        painter->setPen(primaryColor);
         painter->drawText(prect, Qt::AlignLeft, commit.authorName);
         painter->setFont(opt.font);
 
@@ -191,13 +202,13 @@ public:
 
         // draw commit hash
         auto fg = painter->pen();
-        painter->setPen(Qt::gray);
-        prect.setY(prect.y() + fm.height() + lineHeight);
+        painter->setPen(secondaryColor);
+        prect.setY(prect.y() + fm.height() + LineHeight);
         painter->drawText(prect, Qt::AlignLeft, QString::fromUtf8(commit.hash.left(7)));
         painter->setPen(fg);
 
         // draw msg
-        prect.setY(prect.y() + fm.height() + lineHeight);
+        prect.setY(prect.y() + fm.height() + LineHeight);
         QString elidedMsg = opt.fontMetrics.elidedText(commit.msg, Qt::ElideRight, prect.width());
         painter->drawText(prect, Qt::AlignLeft, elidedMsg);
 
@@ -210,7 +221,7 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &) const override
     {
         auto height = opt.fontMetrics.height();
-        return QSize(0, (height * 3) + (3 * 2));
+        return QSize(0, (height * 3) + (Margin * 2) + LineHeight * 2);
     }
 };
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-23 00:42+0000\n"
-"PO-Revision-Date: 2025-01-22 09:20+0200\n"
+"PO-Revision-Date: 2025-01-23 11:04+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -99,8 +99,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, fuzzy, kde-format
-#| msgid "Show build proggress as a message when the output pane is hidden"
+#, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
 "Показувати поступ збирання як повідомлення, якщо панель виведення приховано"

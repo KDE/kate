@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-23 00:42+0000\n"
-"PO-Revision-Date: 2025-01-22 12:04+0300\n"
+"PO-Revision-Date: 2025-01-23 12:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -101,8 +101,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, fuzzy, kde-format
-#| msgid "Show build proggress as a message when the output pane is hidden"
+#, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr "Çıktı paneli gizliyken yapı ilerlemesini ileti olarak göster"
 

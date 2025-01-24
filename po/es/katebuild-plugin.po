@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-23 00:42+0000\n"
-"PO-Revision-Date: 2025-01-23 01:41+0100\n"
+"PO-Revision-Date: 2025-01-24 00:33+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -101,8 +101,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
-#, fuzzy, kde-format
-#| msgid "Show build proggress as a message when the output pane is hidden"
+#, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
 "Mostrar el avance de la compilación como un mensaje cuando el panel de "

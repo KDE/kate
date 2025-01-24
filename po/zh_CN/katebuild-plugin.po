@@ -89,7 +89,7 @@ msgstr "执行选定的目标时自动切换到输出窗格"
 msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
-msgstr ""
+msgstr "如果输出行以 [ # / ## ] 或者 [ ## % ] 开头，则将最新的一行显示为消息。"
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80

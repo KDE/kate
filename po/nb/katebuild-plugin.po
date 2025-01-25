@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"POT-Creation-Date: 2025-01-25 00:43+0000\n"
 "PO-Revision-Date: 2015-05-17 21:52+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -405,32 +405,32 @@ msgstr ""
 "«%d» for mappa der gjeldende fil ligger\n"
 "«%n» for gjeldende filnavn uten suffiks"
 
-#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
 #, kde-format
 msgid "Target Set"
 msgstr "Mål satt"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Navn på kommando/mål-sett"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:637
+#: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
 msgstr ""

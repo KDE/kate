@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"POT-Creation-Date: 2025-01-25 00:43+0000\n"
 "PO-Revision-Date: 2023-06-30 16:24+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -417,32 +417,32 @@ msgstr ""
 "\"%d\" cari faylın qovluğu üçün\n"
 "\"%n\" cari faylın şəkilçisiz adı üçün"
 
-#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
 #, kde-format
 msgid "Target Set"
 msgstr "Hədəf dəsti"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Əmr/Hədəf dəsti adı"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:637
+#: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
 msgstr "Əmri başladın"

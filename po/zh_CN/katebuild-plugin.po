@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"POT-Creation-Date: 2025-01-25 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -95,7 +95,7 @@ msgstr "如果输出行以 [ # / ## ] 或者 [ ## % ] 开头，则将最新的�
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
-msgstr ""
+msgstr "当输出面板被隐藏时，将构建进度作为消息显示"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -410,32 +410,32 @@ msgstr ""
 "\"%d\" 为当前文件的目录\n"
 "\"%n\" 为不包括后缀的当前文件名"
 
-#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
 #, kde-format
 msgid "Target Set"
 msgstr "目标集"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
 msgstr "工程"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "命令/目标集名称"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "构建命令 / 工作目录"
 
-#: TargetModel.cpp:637
+#: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
 msgstr "运行命令"

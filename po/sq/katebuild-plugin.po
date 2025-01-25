@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"POT-Creation-Date: 2025-01-25 00:43+0000\n"
 "PO-Revision-Date: 2010-05-24 04:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Albanian <sq@li.org>\n"
@@ -403,33 +403,33 @@ msgid ""
 "\"%n\" for current file name without suffix"
 msgstr ""
 
-#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Target Set"
 msgstr "Parametrat"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:637
+#: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
 msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-23 00:42+0000\n"
+"POT-Creation-Date: 2025-01-25 00:43+0000\n"
 "PO-Revision-Date: 2023-06-05 13:12+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -424,32 +424,32 @@ msgstr ""
 "„%d“ für den Ordner der aktuellen Datei\n"
 "\"%n\" für den aktuellen Dateinamen ohne Erweiterung"
 
-#: TargetModel.cpp:312 TargetModel.cpp:324 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
 #, kde-format
 msgid "Target Set"
 msgstr "Zielgruppe"
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:537
+#: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:631
+#: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Name von Befehl/Zielgruppe"
 
-#: TargetModel.cpp:634
+#: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:637
+#: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
 msgstr "Befehl ausführen"

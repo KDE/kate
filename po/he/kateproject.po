@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2025-01-20 13:42+0200\n"
+"PO-Revision-Date: 2025-01-24 09:27+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -223,7 +223,7 @@ msgstr " בוטל."
 #: gitwidget.cpp:332
 #, kde-format
 msgid "Refresh git status"
-msgstr "רענון מצב ה־git"
+msgstr "ריענון מצב ה־git"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
 #, kde-format
@@ -313,7 +313,7 @@ msgstr ""
 #: gitwidget.cpp:1045
 #, kde-format
 msgid "Refresh"
-msgstr "רענון"
+msgstr "ריענון"
 
 #: gitwidget.cpp:1061
 #, kde-format
@@ -845,7 +845,7 @@ msgstr "פתיחת רשימת מיזמים"
 #: kateprojectpluginview.cpp:83
 #, kde-format
 msgid "Reload project"
-msgstr "רענון המיזם"
+msgstr "ריענון המיזם"
 
 #: kateprojectpluginview.cpp:86
 #, kde-format
@@ -895,7 +895,7 @@ msgstr "סגירת מיזמים יתומים"
 #: kateprojectpluginview.cpp:205
 #, kde-format
 msgid "Reload Project"
-msgstr "רענון מיזם"
+msgstr "ריענון מיזם"
 
 #: kateprojectpluginview.cpp:216
 #, kde-format

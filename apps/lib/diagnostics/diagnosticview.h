@@ -166,6 +166,11 @@ public:
     void showToolview(DiagnosticsProvider *filterTo = nullptr);
     void filterViewTo(DiagnosticsProvider *provider);
 
+    void shutdownStarts()
+    {
+        m_inShutdown = true;
+    }
+
 protected:
     void showEvent(QShowEvent *e) override;
     void handleEsc(QEvent *e);
@@ -239,4 +244,7 @@ private:
     QTimer *const m_urlChangedTimer;
     std::unique_ptr<KateTextHintProvider> m_textHintProvider;
     int m_diagnosticLimit = 0;
+
+    // are we in main window shutdown and will soon be deleted?
+    bool m_inShutdown = false;
 };

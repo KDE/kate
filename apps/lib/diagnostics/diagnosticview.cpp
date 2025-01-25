@@ -572,10 +572,13 @@ void DiagnosticsView::unregisterDiagnosticsProvider(DiagnosticsProvider *provide
     disconnect(provider, &DiagnosticsProvider::requestClearSuppressions, this, &DiagnosticsView::clearSuppressionsFromProvider);
     m_providers.erase(it);
 
-    m_providerModel->update(m_providers);
+    // save some work during shutdown
+    if (!m_inShutdown) {
+        m_providerModel->update(m_providers);
 
-    // clear diagnostics
-    clearDiagnosticsFromProvider(provider);
+        // clear diagnostics
+        clearDiagnosticsFromProvider(provider);
+    }
 }
 
 void DiagnosticsView::readSessionConfig(const KConfigGroup &config)

@@ -224,11 +224,10 @@ KateMainWindow::~KateMainWindow()
         KateApp::self()->documentManager()->closeDocuments(docs, false);
     }
 
-    // Delete diagnostics view earlier so that destruction is faster
-    // If we delay it then each provider will get unregisted one by one
-    // and slow down the destruction as we will be clearing diagnostics
-    // for each provider individually
-    delete m_diagView;
+    // ensure we don't do too much work during destruction
+    if (m_diagView) {
+        m_diagView->shutdownStarts();
+    }
 
     // unregister mainwindow in app
     KateApp::self()->removeMainWindow(this);
@@ -240,7 +239,10 @@ KateMainWindow::~KateMainWindow()
     delete m_viewManager;
     m_viewManager = nullptr;
 
-    // kill the wrapper object, now that all views are dead
+    // delete diagnostics late, plugins and Co. need to be removed first, bug 499119
+    delete m_diagView;
+
+    // kill the wrapper object, now that all plugins/views are dead
     delete m_wrapper;
     m_wrapper = nullptr;
 }

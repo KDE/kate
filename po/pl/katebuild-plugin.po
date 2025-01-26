@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-25 00:43+0000\n"
-"PO-Revision-Date: 2025-01-18 11:46+0100\n"
+"PO-Revision-Date: 2025-01-25 11:55+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -93,12 +93,14 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Jeśli wiersze wynikowe zaczynają się od [ # / ## ] lub [ ## % ], to wyświetl "
+"ostatnią wiadomość."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
-msgstr ""
+msgstr "Pokaż postęp w budowaniu jako wiadomość, gdy panel wyniku jest ukryty"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106

@@ -104,6 +104,11 @@ void ESLintPluginView::onSaved(KTextEditor::Document *)
         // TODO: error
         return;
     }
+
+    const auto docPath = m_activeDoc->url().toLocalFile();
+    const auto workingDir = QFileInfo(docPath).absolutePath();
+    m_eslintProcess.setWorkingDirectory(workingDir);
+
     const QStringList args{QStringLiteral("eslint"), QStringLiteral("-f"), QStringLiteral("json"), {m_activeDoc->url().toLocalFile()}};
     startHostProcess(m_eslintProcess, name, args);
 }

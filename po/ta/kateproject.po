@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2024-12-08 12:28+0530\n"
+"PO-Revision-Date: 2025-01-26 18:09+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -218,7 +218,7 @@ msgstr " ரத்து செய்யப்பட்டது."
 #: gitwidget.cpp:332
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "git நிலையை புதுப்பி"
 
 #: gitwidget.cpp:354 kateprojectview.cpp:59
 #, kde-format
@@ -228,7 +228,7 @@ msgstr "வடிகட்டு…"
 #: gitwidget.cpp:444
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr ""
+msgstr "'%1' என்பதற்கான git அடைவை கண்டுபிடிக்க முடியவில்லை; சிக்கல்கள் ஏற்படலாம்."
 
 #: gitwidget.cpp:654
 #, kde-format
@@ -408,7 +408,7 @@ msgstr "அனைத்தையும் கைவிடு"
 #: gitwidget.cpp:1235
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr ".gitignore தனை திற"
 
 #: gitwidget.cpp:1236 gitwidget.cpp:1277 gitwidget.cpp:1327
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102

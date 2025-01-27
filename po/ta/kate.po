@@ -7,13 +7,13 @@
 # Vasee Vaseeharan <vasee@ieee.org>, 2004.
 # Ambalam <tamilpc@ambalam.com>, 2004.
 # root <root@localhost.localdomain>, 2004.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-01 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 15:56+0530\n"
+"PO-Revision-Date: 2025-01-26 18:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -962,7 +962,7 @@ msgstr "நடத்தை விருப்பத்தேர்வுகள�
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -971,6 +971,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"இயக்கவல்ல நிரல்களை கேட் எந்த அடைவுகளில் தேட வேண்டும் (%1-ஆல் பிரிக்கப்பட்டுள்ள பட்டியலாக). "
+"உங்கள் PATH சூழ்மாறிக்கு முன்னொட்டாக இது சேர்க்கப்படும். எ.கா. '/home/USER/myapps/"
+"bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1327,13 +1330,12 @@ msgstr "பயனர் பின்னூட்டம்"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "செல்லுபடியாகா PATH மதிப்பு"
 
 #: lib/kateconfigdialog.cpp:701
-#, fuzzy, kde-format
-#| msgid "The file '%1' does not exist"
+#, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr "'%1' எனும் கோப்பு இல்லை."
+msgstr "'%1' எனும் பாதை இல்லை."
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format
@@ -1650,10 +1652,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "கடைசியாக மூடிய ஆவணத்தை அல்லது ஆவணங்களை மீண்டும் திறக்கும்"
 
 #: lib/katemainwindow.cpp:491
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&புதிய சாளரம்"
+msgstr "சாளரத்தை மூடு"
 
 #: lib/katemainwindow.cpp:495
 #, kde-format
@@ -1661,10 +1662,9 @@ msgid "Close this window"
 msgstr "இந்த சாளரத்தை மூடு"
 
 #: lib/katemainwindow.cpp:500
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&வேறு செயலி..."
+msgstr "செயலியிலிருந்து வெளியேறு"
 
 #: lib/katemainwindow.cpp:504
 #, kde-format
@@ -2562,10 +2562,9 @@ msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "சோதனையும் சிறுநிரலாக்கமும்"
+msgstr "சிறுநிரலாக்கம்"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format

@@ -301,7 +301,7 @@ void KateMainWindow::setupImportantActions()
     a->setWhatsThis(i18n("Focus the previous tab."));
     QList<QKeySequence> prev = KStandardShortcut::tabPrev();
     prev.removeAll(Qt::CTRL | Qt::Key_BracketLeft);
-    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << prev);
+    KActionCollection::setDefaultShortcuts(a, a->shortcuts() << prev);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusPrevTab);
 
     a = ac->addAction(KStandardAction::Forward, QStringLiteral("view_next_tab"));
@@ -309,7 +309,7 @@ void KateMainWindow::setupImportantActions()
     a->setWhatsThis(i18n("Focus the next tab."));
     QList<QKeySequence> next = KStandardShortcut::tabNext();
     next.removeAll(Qt::CTRL | Qt::Key_BracketRight);
-    actionCollection()->setDefaultShortcuts(a, a->shortcuts() << next);
+    KActionCollection::setDefaultShortcuts(a, a->shortcuts() << next);
     connect(a, &QAction::triggered, this, &KateMainWindow::slotFocusNextTab);
 
     constexpr int switchToTabCount = 10;
@@ -325,9 +325,9 @@ void KateMainWindow::setupImportantActions()
         // NOTE default shortucts added for non-macOS platforms only, due to macOS input complexities.
         // Only add default shortcut bindings for the first 10 tabs, regardless of switchToTabCount.
         if (i < shortcutToKey0) {
-            ac->setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
+            KActionCollection::setDefaultShortcut(action, QStringLiteral("Alt+%1").arg(i));
         } else if (i == shortcutToKey0) {
-            ac->setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
+            KActionCollection::setDefaultShortcut(action, QKeySequence(Qt::ALT | Qt::Key_0));
         }
 #endif
     }
@@ -336,7 +336,7 @@ void KateMainWindow::setupImportantActions()
     a = ac->addAction(QStringLiteral("view_quick_open"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
     a->setText(i18n("&Quick Open"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_O));
     connect(a, &QAction::triggered, this, &KateMainWindow::slotQuickOpen);
     a->setWhatsThis(i18n("Open a form to quick open documents."));
 
@@ -402,7 +402,7 @@ void KateMainWindow::setupActions()
     a = ac->addAction(QStringLiteral("file_save_all"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-save-all")));
     a->setText(i18n("Sa&ve All"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_L));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), &KateDocManager::saveAll);
     a->setWhatsThis(i18n("Save all open, modified documents to disk."));
 
@@ -491,7 +491,7 @@ void KateMainWindow::setupActions()
 
     a = ac->addAction(QStringLiteral("file_close_window"));
     a->setText(i18n("Close &Window"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_W));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_W));
     // Qt::QueuedConnection: delay real shutdown, as we are inside menu action handling (bug #185708)
     connect(a, &QAction::triggered, this, &KateMainWindow::close, Qt::QueuedConnection);
     a->setWhatsThis(i18n("Close this window"));
@@ -504,13 +504,13 @@ void KateMainWindow::setupActions()
     a = ac->addAction(QStringLiteral("view_new_view"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("window-new")));
     a->setText(i18n("New &Window"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
     connect(a, &QAction::triggered, this, &KateMainWindow::newWindow);
     a->setWhatsThis(i18n("Create a new window."));
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     ac->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
-    ac->setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
+    KActionCollection::setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
     connect(m_showFullScreenAction, &QAction::toggled, this, &KateMainWindow::slotFullScreen);
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);
@@ -598,7 +598,7 @@ void KateMainWindow::setupActions()
     a = ac->addAction(QStringLiteral("view_history_back"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     a->setText(i18n("Go to Previous Location"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_1));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goBack();
     });
@@ -607,7 +607,7 @@ void KateMainWindow::setupActions()
     a = ac->addAction(QStringLiteral("view_history_forward"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     a->setText(i18n("Go to Next Location"));
-    ac->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_1));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_1));
     connect(a, &QAction::triggered, this, [this] {
         m_viewManager->activeViewSpace()->goForward();
     });
@@ -785,7 +785,7 @@ KateMainWindow *KateMainWindow::newWindow() const
 {
     // create new window with current session
     // derive size from current one
-    KateMainWindow *win = KateApp::self()->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config(), {}, true);
+    KateMainWindow *win = KateApp::newMainWindow(KateApp::self()->sessionManager()->activeSession()->config(), {}, true);
     win->resize(size());
     return win;
 }

@@ -853,11 +853,11 @@ private:
             } else {
                 showMessage(i18n("Started server %2: %1", cmdline.join(QLatin1Char(' ')), serverDescription(server.get())), KTextEditor::Message::Positive);
                 using namespace std::placeholders;
-                server->connect(server.get(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
-                server->connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
-                server->connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
-                server->connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
-                server->connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
+                connect(server.get(), &LSPClientServer::logMessage, this, std::bind(&self_type::onMessage, this, true, _1));
+                connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
+                connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
+                connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
             }
         }
         // set out param value

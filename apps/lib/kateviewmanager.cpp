@@ -144,7 +144,7 @@ void KateViewManager::setupActions()
     m_splitViewVert = mac->addAction(QStringLiteral("view_split_vert"));
     m_splitViewVert->setIcon(QIcon::fromTheme(QStringLiteral("view-split-left-right")));
     m_splitViewVert->setText(i18n("Split Ve&rtical"));
-    mac->setDefaultShortcut(m_splitViewVert, Qt::CTRL | Qt::SHIFT | Qt::Key_L);
+    KActionCollection::setDefaultShortcut(m_splitViewVert, Qt::CTRL | Qt::SHIFT | Qt::Key_L);
     connect(m_splitViewVert, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceVert);
 
     m_splitViewVert->setWhatsThis(i18n("Split the currently active view vertically into two views."));
@@ -152,7 +152,7 @@ void KateViewManager::setupActions()
     m_splitViewHoriz = mac->addAction(QStringLiteral("view_split_horiz"));
     m_splitViewHoriz->setIcon(QIcon::fromTheme(QStringLiteral("view-split-top-bottom")));
     m_splitViewHoriz->setText(i18n("Split &Horizontal"));
-    mac->setDefaultShortcut(m_splitViewHoriz, Qt::CTRL | Qt::SHIFT | Qt::Key_T);
+    KActionCollection::setDefaultShortcut(m_splitViewHoriz, Qt::CTRL | Qt::SHIFT | Qt::Key_T);
     connect(m_splitViewHoriz, &QAction::triggered, this, &KateViewManager::slotSplitViewSpaceHoriz);
 
     m_splitViewHoriz->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
@@ -178,7 +178,7 @@ void KateViewManager::setupActions()
     m_closeView = mac->addAction(QStringLiteral("view_close_current_space"));
     m_closeView->setIcon(QIcon::fromTheme(QStringLiteral("view-close")));
     m_closeView->setText(i18n("Cl&ose Current View"));
-    mac->setDefaultShortcut(m_closeView, Qt::CTRL | Qt::SHIFT | Qt::Key_R);
+    KActionCollection::setDefaultShortcut(m_closeView, Qt::CTRL | Qt::SHIFT | Qt::Key_R);
     connect(m_closeView, &QAction::triggered, this, &KateViewManager::slotCloseCurrentViewSpace, Qt::QueuedConnection);
 
     m_closeView->setWhatsThis(i18n("Close the currently active split view"));
@@ -207,7 +207,7 @@ void KateViewManager::setupActions()
     goNext = mac->addAction(QStringLiteral("go_next_split_view"));
     goNext->setText(i18n("Next Split View"));
     goNext->setIcon(QIcon::fromTheme(QStringLiteral("go-next-view")));
-    mac->setDefaultShortcut(goNext, Qt::Key_F8);
+    KActionCollection::setDefaultShortcut(goNext, Qt::Key_F8);
     connect(goNext, &QAction::triggered, this, &KateViewManager::activateNextView);
 
     goNext->setWhatsThis(i18n("Make the next split view the active one."));
@@ -215,7 +215,7 @@ void KateViewManager::setupActions()
     goPrev = mac->addAction(QStringLiteral("go_prev_split_view"));
     goPrev->setText(i18n("Previous Split View"));
     goPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-previous-view")));
-    mac->setDefaultShortcut(goPrev, Qt::SHIFT | Qt::Key_F8);
+    KActionCollection::setDefaultShortcut(goPrev, Qt::SHIFT | Qt::Key_F8);
     connect(goPrev, &QAction::triggered, this, &KateViewManager::activatePrevView);
 
     goPrev->setWhatsThis(i18n("Make the previous split view the active one."));
@@ -223,7 +223,7 @@ void KateViewManager::setupActions()
     goLeft = mac->addAction(QStringLiteral("go_left_split_view"));
     goLeft->setText(i18n("Left Split View"));
     goLeft->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
-    // mac->setDefaultShortcut(goLeft, Qt::ALT | Qt::Key_Left);
+    // KActionCollection::setDefaultShortcut(goLeft, Qt::ALT | Qt::Key_Left);
     connect(goLeft, &QAction::triggered, this, &KateViewManager::activateLeftView);
 
     goLeft->setWhatsThis(i18n("Make the split view intuitively on the left the active one."));
@@ -231,7 +231,7 @@ void KateViewManager::setupActions()
     goRight = mac->addAction(QStringLiteral("go_right_split_view"));
     goRight->setText(i18n("Right Split View"));
     goRight->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    // mac->setDefaultShortcut(goRight, Qt::ALT | Qt::Key_Right);
+    // KActionCollection::setDefaultShortcut(goRight, Qt::ALT | Qt::Key_Right);
     connect(goRight, &QAction::triggered, this, &KateViewManager::activateRightView);
 
     goRight->setWhatsThis(i18n("Make the split view intuitively on the right the active one."));
@@ -239,7 +239,7 @@ void KateViewManager::setupActions()
     goUp = mac->addAction(QStringLiteral("go_upward_split_view"));
     goUp->setText(i18n("Upward Split View"));
     goUp->setIcon(QIcon::fromTheme(QStringLiteral("arrow-up")));
-    // mac->setDefaultShortcut(goUp, Qt::ALT | Qt::Key_Up);
+    // KActionCollection::setDefaultShortcut(goUp, Qt::ALT | Qt::Key_Up);
     connect(goUp, &QAction::triggered, this, &KateViewManager::activateUpwardView);
 
     goUp->setWhatsThis(i18n("Make the split view intuitively upward the active one."));
@@ -247,7 +247,7 @@ void KateViewManager::setupActions()
     goDown = mac->addAction(QStringLiteral("go_downward_split_view"));
     goDown->setText(i18n("Downward Split View"));
     goDown->setIcon(QIcon::fromTheme(QStringLiteral("arrow-down")));
-    // mac->setDefaultShortcut(goDown, Qt::ALT | Qt::Key_Down);
+    // KActionCollection::setDefaultShortcut(goDown, Qt::ALT | Qt::Key_Down);
     connect(goDown, &QAction::triggered, this, &KateViewManager::activateDownwardView);
 
     goDown->setWhatsThis(i18n("Make the split view intuitively downward the active one."));
@@ -279,7 +279,7 @@ void KateViewManager::setupActions()
     a = mac->addAction(QStringLiteral("viewspace_focus_nav_bar"));
     a->setText(i18n("Focus Navigation Bar"));
     a->setToolTip(i18n("Focus the navigation bar"));
-    mac->setDefaultShortcut(a, Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
+    KActionCollection::setDefaultShortcut(a, Qt::CTRL | Qt::SHIFT | Qt::Key_Period);
     connect(a, &QAction::triggered, this, [this] {
         activeViewSpace()->focusNavigationBar();
     });
@@ -599,7 +599,7 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
             return;
         }
 
-        KateApp::self()->pluginManager()->enablePluginGUI(&projectPluginInfo);
+        KatePluginManager::enablePluginGUI(&projectPluginInfo);
         projectPluginView = mainWindow()->pluginView(projectPluginId);
     }
 

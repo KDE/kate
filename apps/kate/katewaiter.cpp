@@ -17,20 +17,20 @@ KateWaiter::KateWaiter(const QString &service, const QStringList &tokens)
 
 void KateWaiter::exiting()
 {
-    QCoreApplication::instance()->exit();
+    QCoreApplication::exit();
 }
 
 void KateWaiter::documentClosed(const QString &token)
 {
     m_tokens.removeAll(token);
     if (m_tokens.count() == 0) {
-        QCoreApplication::instance()->exit();
+        QCoreApplication::exit();
     }
 }
 
 void KateWaiter::serviceOwnerChanged(const QString &, const QString &, const QString &)
 {
-    QCoreApplication::instance()->exit();
+    QCoreApplication::exit();
 }
 
 #include "moc_katewaiter.cpp"

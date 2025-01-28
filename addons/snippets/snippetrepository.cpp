@@ -244,7 +244,7 @@ void SnippetRepository::save()
     m_file = outname;
 
     // save shortcuts
-    KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);
+    KConfigGroup config = SnippetStore::getConfig().group(QLatin1String("repository ") + m_file);
     for (int i = 0; i < rowCount(); ++i) {
         Snippet *snippet = Snippet::fromItem(child(i));
         if (!snippet) {
@@ -299,7 +299,7 @@ void SnippetRepository::parseFile()
     setCompletionNamespace(docElement.attribute(QStringLiteral("namespace")));
 
     // load shortcuts
-    KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);
+    KConfigGroup config = SnippetStore::getConfig().group(QLatin1String("repository ") + m_file);
 
     // parse children, i.e. <item>'s
     const QDomNodeList &nodes = docElement.childNodes();
@@ -372,7 +372,7 @@ void SnippetRepository::setData(const QVariant &value, int role)
     if (role == Qt::CheckStateRole) {
         const int state = value.toInt();
         if (state != checkState()) {
-            KConfigGroup config = SnippetStore::self()->getConfig();
+            KConfigGroup config = SnippetStore::getConfig();
             QStringList currentlyEnabled = config.readEntry("enabledRepositories", QStringList());
             bool shouldSave = false;
             if (state == Qt::Checked && !currentlyEnabled.contains(m_file)) {

@@ -41,7 +41,7 @@ TemplatePluginView::TemplatePluginView(TemplatePlugin *, KTextEditor::MainWindow
     QAction *a = actionCollection()->addAction(u"new_from_template"_s);
     a->setText(i18n("New From Template"));
     a->setIcon(QIcon::fromTheme(u"document-new-from-template"_s));
-    actionCollection()->setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::SHIFT | Qt::Key_N)));
+    KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::SHIFT | Qt::Key_N)));
     connect(a, &QAction::triggered, this, &TemplatePluginView::crateNewFromTemplate);
 
     m_mainWindow->guiFactory()->addClient(this);

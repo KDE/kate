@@ -140,12 +140,12 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     m_gotoSymbWidget.reset(new GotoSymbolWidget(mainWin, this));
     auto openLocal = actionCollection()->addAction(QStringLiteral("open_local_gts"));
     openLocal->setText(i18n("Go To Local Symbol"));
-    actionCollection()->setDefaultShortcut(openLocal, Qt::CTRL | Qt::ALT | Qt::Key_P);
+    KActionCollection::setDefaultShortcut(openLocal, Qt::CTRL | Qt::ALT | Qt::Key_P);
     connect(openLocal, &QAction::triggered, this, &KateCTagsView::showSymbols);
 
     auto openGlobal = actionCollection()->addAction(QStringLiteral("open_global_gts"));
     openGlobal->setText(i18n("Go To Global Symbol"));
-    actionCollection()->setDefaultShortcut(openGlobal, Qt::CTRL | Qt::SHIFT | Qt::Key_P);
+    KActionCollection::setDefaultShortcut(openGlobal, Qt::CTRL | Qt::SHIFT | Qt::Key_P);
     connect(openGlobal, &QAction::triggered, this, &KateCTagsView::showGlobalSymbols);
 
     connect(m_ctagsUi.inputEdit, &QLineEdit::textChanged, this, &KateCTagsView::startEditTmr);

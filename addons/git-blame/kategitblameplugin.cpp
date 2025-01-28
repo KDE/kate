@@ -183,7 +183,7 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     setXMLFile(QStringLiteral("ui.rc"));
     QAction *showBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_show"));
     showBlameAction->setText(i18n("Show Git Blame Details"));
-    actionCollection()->setDefaultShortcut(showBlameAction, QKeySequence(QStringLiteral("Ctrl+T, B"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(showBlameAction, QKeySequence(QStringLiteral("Ctrl+T, B"), QKeySequence::PortableText));
     QAction *toggleBlameAction = actionCollection()->addAction(QStringLiteral("git_blame_toggle"));
     toggleBlameAction->setText(i18n("Toggle Git Blame Details"));
     m_mainWindow->guiFactory()->addClient(this);

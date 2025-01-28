@@ -135,7 +135,7 @@ void KateConfigPluginPage::loadPlugin(KatePluginListItem *item)
     if (!ok) {
         return;
     }
-    KateApp::self()->pluginManager()->enablePluginGUI(item->info());
+    KatePluginManager::enablePluginGUI(item->info());
     myDialog->addPluginPage(item->info()->plugin);
 
     item->setCheckState(Qt::Checked);

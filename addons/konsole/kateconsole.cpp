@@ -168,13 +168,13 @@ KateConsole::KateConsole(KateKonsolePlugin *plugin, KTextEditor::MainWindow *mw,
     a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_visibility"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-scripts")));
     a->setText(i18nc("@action", "S&how Terminal Panel"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F4));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleVisibility);
 
     a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_toggle_focus"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("swap-panels")));
     a->setText(i18nc("@action", "&Focus Terminal Panel"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F4));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F4));
     connect(a, &QAction::triggered, this, &KateConsole::slotToggleFocus);
 
     a = actionCollection()->addAction(QStringLiteral("katekonsole_tools_split_view_vertical"));

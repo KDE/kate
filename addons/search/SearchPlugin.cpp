@@ -324,7 +324,7 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     connect(container, &ContainerWidget::nextFocus, this, &KatePluginSearchView::nextFocus);
 
     QAction *a = actionCollection()->addAction(QStringLiteral("search_in_files"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F));
     a->setText(i18n("Find in Files"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-find")));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
@@ -338,13 +338,13 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
 
     a = actionCollection()->addAction(QStringLiteral("go_to_next_match"));
     a->setText(i18n("Go to Next Match"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::Key_F6));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::Key_F6));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToNextMatch);
 
     a = actionCollection()->addAction(QStringLiteral("go_to_prev_match"));
     a->setText(i18n("Go to Previous Match"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::SHIFT | Qt::Key_F6));
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     connect(a, &QAction::triggered, this, &KatePluginSearchView::goToPreviousMatch);
 

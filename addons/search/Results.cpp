@@ -81,7 +81,7 @@ bool Results::isEmpty() const
 bool Results::isMatch(const QModelIndex &index) const
 {
     Q_ASSERT(!index.isValid() || index.model() == model());
-    return matchModel.isMatch(model()->mapToSource(index));
+    return MatchModel::isMatch(model()->mapToSource(index));
 }
 
 QModelIndex Results::firstFileMatch(KTextEditor::Document *doc) const

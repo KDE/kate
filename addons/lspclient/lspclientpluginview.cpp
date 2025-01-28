@@ -505,7 +505,7 @@ public:
         m_findTypeDef->setText(i18n("Go to Type Definition"));
         m_findRef = actionCollection()->addAction(QStringLiteral("lspclient_find_references"), this, &self_type::findReferences);
         m_findRef->setText(i18n("Find References"));
-        actionCollection()->setDefaultShortcut(m_findRef, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_L));
+        KActionCollection::setDefaultShortcut(m_findRef, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_L));
         m_findImpl = actionCollection()->addAction(QStringLiteral("lspclient_find_implementations"), this, &self_type::findImplementation);
         m_findImpl->setText(i18n("Find Implementations"));
         m_triggerHighlight = actionCollection()->addAction(QStringLiteral("lspclient_highlight"), this, &self_type::highlight);
@@ -514,31 +514,31 @@ public:
         m_triggerSymbolInfo->setText(i18n("Symbol Info"));
         m_triggerGotoSymbol = actionCollection()->addAction(QStringLiteral("lspclient_goto_workspace_symbol"), this, &self_type::gotoWorkSpaceSymbol);
         m_triggerGotoSymbol->setText(i18n("Search and Go to Symbol"));
-        actionCollection()->setDefaultShortcut(m_triggerGotoSymbol, QKeySequence(Qt::ALT | Qt::CTRL | Qt::Key_P));
+        KActionCollection::setDefaultShortcut(m_triggerGotoSymbol, QKeySequence(Qt::ALT | Qt::CTRL | Qt::Key_P));
         m_triggerFormat = actionCollection()->addAction(QStringLiteral("lspclient_format"), this, [this]() {
             format();
         });
         m_triggerFormat->setText(i18n("Format"));
-        actionCollection()->setDefaultShortcut(m_triggerFormat, QKeySequence(QStringLiteral("Ctrl+T, F"), QKeySequence::PortableText));
+        KActionCollection::setDefaultShortcut(m_triggerFormat, QKeySequence(QStringLiteral("Ctrl+T, F"), QKeySequence::PortableText));
         m_triggerRename = actionCollection()->addAction(QStringLiteral("lspclient_rename"), this, &self_type::rename);
         m_triggerRename->setText(i18n("Rename"));
-        actionCollection()->setDefaultShortcut(m_triggerRename, QKeySequence(Qt::Key_F2));
+        KActionCollection::setDefaultShortcut(m_triggerRename, QKeySequence(Qt::Key_F2));
         m_expandSelection = actionCollection()->addAction(QStringLiteral("lspclient_expand_selection"), this, &self_type::expandSelection);
         m_expandSelection->setText(i18n("Expand Selection"));
-        actionCollection()->setDefaultShortcut(m_expandSelection, QKeySequence(Qt::CTRL | Qt::Key_2));
+        KActionCollection::setDefaultShortcut(m_expandSelection, QKeySequence(Qt::CTRL | Qt::Key_2));
         m_shrinkSelection = actionCollection()->addAction(QStringLiteral("lspclient_shrink_selection"), this, &self_type::shrinkSelection);
         m_shrinkSelection->setText(i18n("Shrink Selection"));
-        actionCollection()->setDefaultShortcut(m_shrinkSelection, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_2));
+        KActionCollection::setDefaultShortcut(m_shrinkSelection, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_2));
         m_switchSourceHeader = actionCollection()->addAction(QStringLiteral("lspclient_clangd_switchheader"), this, &self_type::clangdSwitchSourceHeader);
         m_switchSourceHeader->setText(i18n("Switch Source Header"));
-        actionCollection()->setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
+        KActionCollection::setDefaultShortcut(m_switchSourceHeader, Qt::Key_F12);
         m_expandMacro = actionCollection()->addAction(QStringLiteral("lspclient_rust_analyzer_expand_macro"), this, &self_type::rustAnalyzerExpandMacro);
         m_expandMacro->setText(i18n("Expand Macro"));
         m_requestCodeAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_code_action"));
         m_requestCodeAction->setText(i18n("Code Action"));
         QList<QKeySequence> scuts;
         scuts << QKeySequence(Qt::ALT | Qt::Key_Return) << QKeySequence(Qt::ALT | Qt::Key_Enter);
-        actionCollection()->setDefaultShortcuts(m_requestCodeAction, scuts);
+        KActionCollection::setDefaultShortcuts(m_requestCodeAction, scuts);
         connect(m_requestCodeAction, &QWidgetAction::triggered, this, [this] {
             auto view = m_mainWindow->activeView();
             if (m_requestCodeAction && view) {

@@ -35,7 +35,7 @@ SemanticHighlighter::SemanticHighlighter(std::shared_ptr<LSPClientServerManager>
     , m_serverManager(std::move(serverManager))
 {
     m_requestTimer.setSingleShot(true);
-    m_requestTimer.connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
+    connect(&m_requestTimer, &QTimer::timeout, this, [this]() {
         doSemanticHighlighting_impl(m_currentView);
     });
 }

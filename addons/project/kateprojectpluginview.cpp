@@ -161,7 +161,7 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     });
     a->setText(i18n("Open &Folder..."));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(QKeySequence(QStringLiteral("Ctrl+T, O"), QKeySequence::PortableText)));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QKeySequence(QStringLiteral("Ctrl+T, O"), QKeySequence::PortableText)));
 
     m_projectTodosAction = a = actionCollection()->addAction(QStringLiteral("projects_todos"));
     connect(a, &QAction::triggered, this, &KateProjectPluginView::showProjectTodos);
@@ -172,18 +172,18 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectPrev);
     a->setText(i18n("Activate Previous Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Left));
 
     m_projectNextAction = a = actionCollection()->addAction(QStringLiteral("projects_next_project"));
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectNext);
     a->setText(i18n("Activate Next Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::ALT | Qt::Key_Right));
 
     m_projectGotoIndexAction = a = actionCollection()->addAction(QStringLiteral("projects_goto_index"));
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectIndex);
     a->setText(i18n("Lookup"));
-    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(Qt::ALT | Qt::Key_1));
 
     m_projectCloseAction = a = actionCollection()->addAction(QStringLiteral("projects_close"));
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotCloseProject);

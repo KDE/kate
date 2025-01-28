@@ -297,7 +297,7 @@ void GitWidget::init()
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-push")));
     a->setText(pushText);
     a->setToolTip(pushText);
-    ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, P"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, P"), QKeySequence::PortableText));
     m_pushBtn->setDefaultAction(a);
 
     const QString &pullText = i18n("Git Pull");
@@ -307,7 +307,7 @@ void GitWidget::init()
         connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
         ppd.openDialog(PushPullDialog::Pull);
     });
-    ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, U"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, U"), QKeySequence::PortableText));
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-pull")));
     a->setText(pullText);
     a->setToolTip(pullText);
@@ -389,7 +389,7 @@ void GitWidget::init()
         openCommitChangesDialog();
         slotUpdateStatus();
     });
-    ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, K"), QKeySequence::PortableText));
     a->setText(commitText);
     a->setToolTip(commitText);
     a->setIcon(commitIcon);
@@ -1051,7 +1051,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-edit")));
     a->setText(i18n("Amend Last Commit"));
-    ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, Ctrl+K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, Ctrl+K"), QKeySequence::PortableText));
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_checkout"), this, [this] {
@@ -1060,7 +1060,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     });
     a->setText(i18n("Checkout Branch"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
-    ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, C"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, C"), QKeySequence::PortableText));
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_delete"), this, [this] {

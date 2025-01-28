@@ -345,19 +345,19 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Quick Fix"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("quickopen")));
-    ac->setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
+    KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_Period)));
 
     a = ac->addAction(QStringLiteral("goto_next_diagnostic"), this, &DiagnosticsView::nextItem);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Next Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
-    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
+    KActionCollection::setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
 
     a = ac->addAction(QStringLiteral("goto_prev_diagnostic"), this, &DiagnosticsView::previousItem);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Previous Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
-    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
+    KActionCollection::setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
 
     a = ac->addAction(QStringLiteral("diagnostics_clear_filter"), this, [this]() {
         DiagnosticsView::filterViewTo(nullptr);
@@ -365,7 +365,7 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Clear Diagnostics Filter"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
-    ac->setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_C);
+    KActionCollection::setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_C);
 
     a = ac->addAction(QStringLiteral("diagnostics_show_hover"), this, [this]() {
         if (auto v = m_mainWindow->activeView()) {

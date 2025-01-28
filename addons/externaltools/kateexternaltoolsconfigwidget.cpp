@@ -322,7 +322,7 @@ void KateExternalToolsConfigWidget::apply()
     m_toolsToRemove.clear();
 
     for (auto &[tool, oldName] : m_changedTools) {
-        m_plugin->save(tool, oldName);
+        KateExternalToolsPlugin::save(tool, oldName);
     }
     m_changedTools.clear();
 

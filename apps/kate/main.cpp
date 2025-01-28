@@ -92,7 +92,7 @@ int main(int argc, char **argv)
      * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
-    app.setApplicationName(QStringLiteral("kate"));
+    QApplication::setApplicationName(QStringLiteral("kate"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
@@ -471,7 +471,7 @@ int main(int argc, char **argv)
             }
 
             // this will wait until exiting is emitted by the used instance, if wanted...
-            return needToBlock ? app.exec() : 0;
+            return needToBlock ? QApplication::exec() : 0;
         }
     }
 #else
@@ -544,5 +544,5 @@ int main(int argc, char **argv)
     /**
      * start main event loop for our application
      */
-    return app.exec();
+    return QApplication::exec();
 }

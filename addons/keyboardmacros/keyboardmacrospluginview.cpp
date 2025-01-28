@@ -41,7 +41,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_recordAction->setText(i18n("&Record Macro..."));
     m_recordAction->setIcon(QIcon::fromTheme(QStringLiteral("media-record")));
     m_recordAction->setToolTip(i18n("Start/stop recording a macro (i.e., keyboard action sequence)."));
-    actionCollection()->setDefaultShortcut(m_recordAction, QKeySequence(QStringLiteral("Ctrl+Shift+K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(m_recordAction, QKeySequence(QStringLiteral("Ctrl+Shift+K"), QKeySequence::PortableText));
     connect(m_recordAction, &QAction::triggered, plugin, [this] {
         slotRecord();
     });
@@ -52,7 +52,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_cancelAction->setText(i18n("&Cancel Macro Recording"));
     m_cancelAction->setIcon(QIcon::fromTheme(QStringLiteral("process-stop")));
     m_cancelAction->setToolTip(i18n("Cancel ongoing recording (and keep the previous macro as the current one)."));
-    actionCollection()->setDefaultShortcut(m_cancelAction, QKeySequence(QStringLiteral("Ctrl+Alt+Shift+K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(m_cancelAction, QKeySequence(QStringLiteral("Ctrl+Alt+Shift+K"), QKeySequence::PortableText));
     m_cancelAction->setEnabled(false);
     connect(m_cancelAction, &QAction::triggered, plugin, [this] {
         slotCancel();
@@ -64,7 +64,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_playAction->setText(i18n("&Play Macro"));
     m_playAction->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     m_playAction->setToolTip(i18n("Play current macro (i.e., execute the last recorded keyboard action sequence)."));
-    actionCollection()->setDefaultShortcut(m_playAction, QKeySequence(QStringLiteral("Ctrl+Alt+K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(m_playAction, QKeySequence(QStringLiteral("Ctrl+Alt+K"), QKeySequence::PortableText));
     m_playAction->setEnabled(false);
     connect(m_playAction, &QAction::triggered, plugin, [this] {
         slotPlay();
@@ -76,7 +76,7 @@ KeyboardMacrosPluginView::KeyboardMacrosPluginView(KeyboardMacrosPlugin *plugin,
     m_saveAction->setText(i18n("&Save Current Macro"));
     m_saveAction->setIcon(QIcon::fromTheme(QStringLiteral("media-playlist-append")));
     m_saveAction->setToolTip(i18n("Give a name to the current macro and persistently save it."));
-    actionCollection()->setDefaultShortcut(m_saveAction, QKeySequence(QStringLiteral("Alt+Shift+K"), QKeySequence::PortableText));
+    KActionCollection::setDefaultShortcut(m_saveAction, QKeySequence(QStringLiteral("Alt+Shift+K"), QKeySequence::PortableText));
     m_saveAction->setEnabled(false);
     connect(m_saveAction, &QAction::triggered, plugin, [this] {
         slotSave();

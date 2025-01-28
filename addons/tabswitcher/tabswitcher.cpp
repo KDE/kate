@@ -101,7 +101,7 @@ void TabSwitcherPluginView::setupActions()
     auto aNext = actionCollection()->addAction(QStringLiteral("view_lru_document_next"));
     aNext->setText(i18n("Last Used Views"));
     aNext->setIcon(QIcon::fromTheme(QStringLiteral("go-next-view-page")));
-    actionCollection()->setDefaultShortcut(aNext, Qt::CTRL | Qt::Key_Tab);
+    KActionCollection::setDefaultShortcut(aNext, Qt::CTRL | Qt::Key_Tab);
     aNext->setWhatsThis(i18n("Opens a list to walk through the list of last used views."));
     aNext->setStatusTip(i18n("Walk through the list of last used views"));
     connect(aNext, &QAction::triggered, this, &TabSwitcherPluginView::walkForward);
@@ -109,7 +109,7 @@ void TabSwitcherPluginView::setupActions()
     auto aPrev = actionCollection()->addAction(QStringLiteral("view_lru_document_prev"));
     aPrev->setText(i18n("Last Used Views (Reverse)"));
     aPrev->setIcon(QIcon::fromTheme(QStringLiteral("go-previous-view-page")));
-    actionCollection()->setDefaultShortcut(aPrev, Qt::CTRL | Qt::SHIFT | Qt::Key_Tab);
+    KActionCollection::setDefaultShortcut(aPrev, Qt::CTRL | Qt::SHIFT | Qt::Key_Tab);
     aPrev->setWhatsThis(i18n("Opens a list to walk through the list of last used views in reverse."));
     aPrev->setStatusTip(i18n("Walk through the list of last used views"));
     connect(aPrev, &QAction::triggered, this, &TabSwitcherPluginView::walkBackward);
@@ -117,7 +117,7 @@ void TabSwitcherPluginView::setupActions()
     auto aClose = actionCollection()->addAction(QStringLiteral("view_lru_document_close"));
     aClose->setText(i18n("Close View"));
     aClose->setShortcutContext(Qt::WidgetShortcut);
-    actionCollection()->setDefaultShortcut(aClose, Qt::CTRL | Qt::Key_W);
+    KActionCollection::setDefaultShortcut(aClose, Qt::CTRL | Qt::Key_W);
     aClose->setWhatsThis(i18n("Closes the selected view in the list of last used views."));
     aClose->setStatusTip(i18n("Closes the selected view in the list of last used views."));
     connect(aClose, &QAction::triggered, this, &TabSwitcherPluginView::closeView);

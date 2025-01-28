@@ -154,7 +154,7 @@ public:
                 fmts.append({.start = strOpen, .length = strClose - strOpen, .format = f});
             }
 
-            auto labels = this->rowLabels(index);
+            auto labels = rowLabels(index);
             if (!labels.isEmpty()) {
                 f = QTextCharFormat();
                 f.setForeground(funcColor);

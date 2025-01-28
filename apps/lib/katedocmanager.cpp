@@ -385,7 +385,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 
         doc->readSessionConfig(cg);
 
-        KateApp::self()->stashManager()->popDocument(doc, cg);
+        KateStashManager::popDocument(doc, cg);
 
         progress.setValue(i);
     }

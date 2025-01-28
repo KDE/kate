@@ -178,8 +178,8 @@ public:
         painter->drawText(r, Qt::AlignVCenter, filename);
 
         KColorScheme c;
-        const QColor red = c.shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
-        const QColor green = c.shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
+        const QColor red = KColorScheme::shade(c.foreground(KColorScheme::NegativeText).color(), KColorScheme::MidlightShade, 1);
+        const QColor green = KColorScheme::shade(c.foreground(KColorScheme::PositiveText).color(), KColorScheme::MidlightShade, 1);
 
         r.setX(r.x() + totalw);
         painter->setPen(green);

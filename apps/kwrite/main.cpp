@@ -36,7 +36,7 @@ int main(int argc, char **argv)
      * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
      */
-    app.setApplicationName(QStringLiteral("kwrite"));
+    QApplication::setApplicationName(QStringLiteral("kwrite"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));
 
     /**
@@ -159,5 +159,5 @@ int main(int argc, char **argv)
     /**
      * Run the event loop
      */
-    return app.exec();
+    return QApplication::exec();
 }

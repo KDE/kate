@@ -89,7 +89,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     doc->waitSaveComplete();
 
     KIO::CopyJob *job = KIO::move(oldFileUrl, newFileUrl);
-    parent->connect(parent, &QObject::destroyed, job, [job]() {
+    QWidget::connect(parent, &QObject::destroyed, job, [job]() {
         job->kill();
     });
 
@@ -97,7 +97,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     // is window-modal by default
     KJobWidgets::setWindow(job, parent);
 
-    parent->connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *job) {
+    QWidget::connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *job) {
         auto *copyJob = static_cast<KIO::CopyJob *>(job);
         if (!copyJob->error()) {
             doc->openUrl(copyJob->destUrl());
@@ -170,7 +170,7 @@ bool KateFileActions::compareWithExternalProgram(KTextEditor::Document *document
     QProcess process;
     QStringList arguments;
     arguments << documentA->url().toLocalFile() << documentB->url().toLocalFile();
-    return process.startDetached(diffExecutable, arguments);
+    return QProcess::startDetached(diffExecutable, arguments);
 }
 
 void KateFileActions::prepareOpenWithMenu(const QUrl &url, QMenu *menu)

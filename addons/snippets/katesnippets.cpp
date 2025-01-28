@@ -111,7 +111,7 @@ void KateSnippetsPluginView::slotViewCreated(KTextEditor::View *view)
 
 void KateSnippetsPluginView::createSnippet()
 {
-    KateSnippetGlobal::self()->createSnippet(m_mainWindow->activeView());
+    KateSnippetGlobal::createSnippet(m_mainWindow->activeView());
 }
 
 #include "katesnippets.moc"

@@ -20,6 +20,6 @@ target_sources(
     kpartview.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(ktexteditorpreviewplugin REUSE_FROM katepch)
 endif()

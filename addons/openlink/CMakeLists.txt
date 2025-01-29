@@ -5,7 +5,7 @@ target_link_libraries(openlinkplugin PRIVATE KF6::TextEditor KF6::I18n)
 
 target_sources(openlinkplugin PRIVATE OpenLinkPlugin.cpp)
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
   target_precompile_headers(openlinkplugin REUSE_FROM katepch)
 endif()
 
@@ -18,7 +18,7 @@ if (BUILD_TESTING)
     target_link_libraries(linkmatchtest PRIVATE kateprivate Qt::Test Qt::Core)
     ecm_mark_as_test(linkmatchtest)
 
-    if(BUILD_PCH)
+    if(ENABLE_PCH)
         target_precompile_headers(linkmatchtest REUSE_FROM katepch_tests)
     endif()
 endif()

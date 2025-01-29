@@ -28,6 +28,6 @@ target_sources(
     ${DEBUG_SOURCES}
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(katebuildplugin REUSE_FROM katepch)
 endif()

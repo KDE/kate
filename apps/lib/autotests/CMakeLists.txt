@@ -12,7 +12,7 @@ macro(kate_executable_tests)
         add_test(NAME kateapp-${_testname} COMMAND ${_testname} ${OFFSCREEN_QPA})
         ecm_mark_as_test(${_testname})
 
-        if(BUILD_PCH)
+        if(ENABLE_PCH)
             target_precompile_headers(${_testname} REUSE_FROM katepch_tests)
         endif()
     endforeach()

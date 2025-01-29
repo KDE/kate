@@ -16,7 +16,7 @@ target_sources(btbrowser_test PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/../btparser.cpp
 )
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(btbrowser_test REUSE_FROM katepch_tests)
 endif()
 

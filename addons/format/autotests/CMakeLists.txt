@@ -18,7 +18,7 @@ target_sources(
     test_formatapply.cpp
 )
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(test_formatapply REUSE_FROM katepch_tests)
 endif()
 

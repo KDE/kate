@@ -21,7 +21,7 @@ target_sources(
     ${CMAKE_CURRENT_SOURCE_DIR}/../kateprojectcodeanalysistool.cpp
 )
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(projectplugin_test REUSE_FROM katepch_tests)
 endif()
 

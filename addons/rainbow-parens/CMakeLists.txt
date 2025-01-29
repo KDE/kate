@@ -8,6 +8,6 @@ target_sources(
     rainbowparens_plugin.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(rainbowparens REUSE_FROM katepch)
 endif()

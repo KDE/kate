@@ -12,7 +12,7 @@ target_sources(
     btdatabase.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(katebacktracebrowserplugin REUSE_FROM katepch)
 endif()
 

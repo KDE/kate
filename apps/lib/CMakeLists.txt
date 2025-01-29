@@ -177,7 +177,7 @@ target_sources(
     ${LIB_KATE_TIME_SOURCES}
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(kateprivate REUSE_FROM katepch)
 endif()
 

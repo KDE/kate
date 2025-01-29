@@ -63,7 +63,7 @@ target_link_libraries(
 add_test(NAME plugin-gdb_test_gdbvariableparse COMMAND gdbplugin_test_gdbvariableparser ${OFFSCREEN_QPA})
 ecm_mark_as_test(gdbplugin_test_gdbvariableparser)
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(gdbplugin_test_gdbmi REUSE_FROM katepch_tests)
     target_precompile_headers(gdbplugin_test_gdbbackend REUSE_FROM katepch_tests)
     target_precompile_headers(gdbplugin_test_gdbvariableparser REUSE_FROM katepch_tests)

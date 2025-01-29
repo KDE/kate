@@ -12,7 +12,7 @@ target_sources(
     completionmodel.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(latexcompletionplugin REUSE_FROM katepch)
 endif()
 

@@ -13,6 +13,6 @@ target_sources(
     compiledbreader.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(compilerexplorer REUSE_FROM katepch)
 endif()

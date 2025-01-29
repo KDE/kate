@@ -12,6 +12,6 @@ target_sources(
     ${DEBUG_SOURCES}
 )
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(lsptestapp REUSE_FROM katepch_tests)
 endif()

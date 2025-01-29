@@ -22,7 +22,7 @@ target_sources(
     document_dummy.cpp
 )
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(filetree_model_test REUSE_FROM katepch_tests)
 endif()
 

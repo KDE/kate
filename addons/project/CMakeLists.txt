@@ -54,7 +54,7 @@ target_sources(
 
 install(FILES kateproject.example DESTINATION ${KDE_INSTALL_DATADIR}/kateproject)
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(kateprojectplugin REUSE_FROM katepch)
 endif()
 

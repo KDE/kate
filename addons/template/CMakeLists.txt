@@ -41,6 +41,6 @@ target_sources(templateplugin  PRIVATE templateplugin.h templateplugin.cpp ${PRO
 # qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} main.cpp)
 # target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(templateplugin REUSE_FROM katepch)
 endif()

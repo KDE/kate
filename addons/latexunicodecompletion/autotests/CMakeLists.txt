@@ -5,6 +5,6 @@ add_test(NAME plugin-latexunicodecompletion_test COMMAND latexcompletion_test)
 target_link_libraries(latexcompletion_test Qt::Core Qt::Test)
 ecm_mark_as_test(latexcompletion_test)
 
-if(BUILD_PCH)
+if(ENABLE_PCH)
     target_precompile_headers(latexcompletion_test REUSE_FROM katepch_tests)
 endif()

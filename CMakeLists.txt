@@ -77,8 +77,8 @@ ecm_set_disabled_deprecation_versions(
     KF 6.10
 )
 
-option(BUILD_PCH "Enable PCH support" ON)
-if (BUILD_PCH)
+option(ENABLE_PCH "Enable PCH support" ON)
+if (ENABLE_PCH)
     add_subdirectory(pch)
 endif()
 

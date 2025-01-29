@@ -22,6 +22,6 @@ target_sources(
     katefilebrowseropenwithmenu.cpp
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(katefilebrowserplugin REUSE_FROM katepch)
 endif()

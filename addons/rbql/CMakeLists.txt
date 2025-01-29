@@ -10,6 +10,6 @@ target_sources(
     plugin.qrc
 )
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(rbqlplugin REUSE_FROM katepch)
 endif()

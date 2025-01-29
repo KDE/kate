@@ -15,6 +15,6 @@ if(BUILD_TESTING)
   add_subdirectory(autotests)
 endif()
 
-if (BUILD_PCH)
+if (ENABLE_PCH)
     target_precompile_headers(formatplugin REUSE_FROM katepch)
 endif()

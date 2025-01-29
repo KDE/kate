@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-10 00:41+0000\n"
+"POT-Creation-Date: 2025-01-29 02:35+0000\n"
 "PO-Revision-Date: 2023-07-22 14:35+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -515,13 +515,25 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Обновить"
 
-#: sqlmanager.cpp:335
+#: sqlmanager.cpp:314
+#, kde-format
+msgid "Prepare Statement Failure"
+msgstr ""
+
+#: sqlmanager.cpp:315
+#, kde-format
+msgid ""
+"<p>Preparing the query failed with the following error: %1</p><p>Do you want "
+"to continue without preparing the query?</p>"
+msgstr ""
+
+#: sqlmanager.cpp:345
 #, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Запрос успешно выполнен"
 
-#: sqlmanager.cpp:338
+#: sqlmanager.cpp:348
 #, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
@@ -531,7 +543,7 @@ msgstr[1] "Выбраны %1 строки"
 msgstr[2] "Выбраны %1 строк"
 msgstr[3] "Выбрана %1 строка"
 
-#: sqlmanager.cpp:342
+#: sqlmanager.cpp:352
 #, kde-format
 msgctxt "@info"
 msgid "%1 row affected"

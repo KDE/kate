@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-10 00:41+0000\n"
+"POT-Creation-Date: 2025-01-29 02:35+0000\n"
 "PO-Revision-Date: 2011-07-07 22:17+0300\n"
 "Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -528,7 +528,19 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "Reîncarcă"
 
-#: sqlmanager.cpp:335
+#: sqlmanager.cpp:314
+#, kde-format
+msgid "Prepare Statement Failure"
+msgstr ""
+
+#: sqlmanager.cpp:315
+#, kde-format
+msgid ""
+"<p>Preparing the query failed with the following error: %1</p><p>Do you want "
+"to continue without preparing the query?</p>"
+msgstr ""
+
+#: sqlmanager.cpp:345
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "Query completed successfully"
@@ -536,7 +548,7 @@ msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "Interogarea s-a finalizat cu succes"
 
-#: sqlmanager.cpp:338
+#: sqlmanager.cpp:348
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 record selected"
@@ -548,7 +560,7 @@ msgstr[0] "%1 înregistrare selectată"
 msgstr[1] "%1 înregistrări selectate"
 msgstr[2] "%1 de înregistrări selectate"
 
-#: sqlmanager.cpp:342
+#: sqlmanager.cpp:352
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 row affected"

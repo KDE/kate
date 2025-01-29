@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-10 00:41+0000\n"
+"POT-Creation-Date: 2025-01-29 02:35+0000\n"
 "PO-Revision-Date: 2011-07-27 00:07+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -526,7 +526,19 @@ msgctxt "@action:inmenu Context menu"
 msgid "Refresh"
 msgstr "ප්‍රතිපූර්ණය"
 
-#: sqlmanager.cpp:335
+#: sqlmanager.cpp:314
+#, kde-format
+msgid "Prepare Statement Failure"
+msgstr ""
+
+#: sqlmanager.cpp:315
+#, kde-format
+msgid ""
+"<p>Preparing the query failed with the following error: %1</p><p>Do you want "
+"to continue without preparing the query?</p>"
+msgstr ""
+
+#: sqlmanager.cpp:345
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "Query completed successfully"
@@ -534,7 +546,7 @@ msgctxt "@info"
 msgid "Query completed successfully"
 msgstr "විමසීම සාර්ථකව අවසන් විය"
 
-#: sqlmanager.cpp:338
+#: sqlmanager.cpp:348
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 record selected"
@@ -545,7 +557,7 @@ msgid_plural "%1 records selected"
 msgstr[0] "%1 වාර්ථාවක් තෝරාගැනිනි"
 msgstr[1] "වාර්ථා %1 තෝරාගැනිනි"
 
-#: sqlmanager.cpp:342
+#: sqlmanager.cpp:352
 #, fuzzy, kde-format
 #| msgctxt "@info/plain"
 #| msgid "%1 row affected"

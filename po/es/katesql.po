@@ -1,27 +1,25 @@
+# Translation of katesql.po to Spanish
 # Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the kate package.
 #
-# Eloy Cuadra <ecuadra@eloihr.net>, 2010, 2020, 2021, 2022, 2023.
-# Ricardo Varas Santana <ricardoivaras@gmail.com>, 2010.
-# Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>, 2011, 2012.
-# arklad, 2011.
-# Rocio Gallego <traducciones@rociogallego.com>, 2012, 2014.
+# SPDX-FileCopyrightText: 2010, 2020, 2021, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2010 Ricardo Varas Santana <ricardoivaras@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-29 02:35+0000\n"
-"PO-Revision-Date: 2023-06-29 01:26+0200\n"
+"PO-Revision-Date: 2025-01-29 12:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"com>\n"
-"com>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -517,7 +515,7 @@ msgstr "Refrescar"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Fallo de preparación de sentencia"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -525,6 +523,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>La preparación de la consulta ha fallado con el siguiente error: %1</"
+"p><p>¿Desea continuar sin preparar la consulta?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

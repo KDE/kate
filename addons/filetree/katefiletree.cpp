@@ -24,6 +24,7 @@
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KTextEditor/MainWindow>
+#include <KXmlGuiWindow>
 
 #include <QActionGroup>
 #include <QApplication>
@@ -392,6 +393,9 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     bool isWidgetDir = m_proxyModel->isWidgetDir(m_indexContextMenu);
     bool isWidget = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>() != nullptr;
 
+    auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window());
+    auto fileOpen = parentClient ? parentClient->action(QStringLiteral("file_open")) : nullptr;
+
     QMenu menu(this);
     if (doc) {
         if (doc->url().isValid()) {
@@ -401,6 +405,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
                 slotFixOpenWithMenu(openWithMenu);
             });
             connect(openWithMenu, &QMenu::triggered, this, &KateFileTree::slotOpenWithMenuAction);
+
+            menu.addAction(fileOpen);
 
             menu.addSeparator();
             menu.addAction(m_filelistCopyFilename);
@@ -445,6 +451,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
             menu.addSeparator();
         }
     } else if (isDir || isWidgetDir || isWidget) {
+        menu.addAction(fileOpen);
+
         if (isDir) {
             menu.addAction(m_filelistReloadDocument);
         }

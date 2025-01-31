@@ -35,7 +35,7 @@ regulars de Perl, ni de <command
 >Per exemple: Posem que voleu cercar un text que és el començament d'un paràgraf que inclou els noms «Enric» o «Pere», seguits d'alguna forma del verb «dir».</para>
 
 <para
->En una cerca normal, s'hauria de començar a cercar el primer nom, «Enric» potser seguit de «di», de la següent manera: <userinput
+>En una cerca normal, s'hauria de començar a cercar el primer nom, «Enric» potser seguit de «di», de la manera següent: <userinput
 >Enric di</userinput
 >, i mentre cerca coincidències, haureu de descartar aquelles que no estiguin al començament d'un paràgraf, així com aquelles en les que la paraula que comenci per «di» que no pertanyi al verb «dir». I després tornar a repetir tot el procés amb el següent nom...</para>
 

@@ -2488,7 +2488,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <para
 >La &kappname; sempre cerca per un fitxer <filename
 >.kateconfig</filename
-> en fitxers locals (no remots). A més, és possible configurar les opcions basades en comodins (extensions de fitxer) de la següent manera:</para>
+> en fitxers locals (no remots). A més, és possible configurar les opcions basades en comodins (extensions de fitxer) de la manera següent:</para>
 
 <programlisting
 >kate: tab-width 4; indent-width 4; replace-tabs on;
@@ -2502,7 +2502,7 @@ kate-wildcard(Makefile): replace-tabs off;
 >, l'amplada del sagnat s'estableix a 2 espais. I als Makefiles es fan servir tabulacions, &ead;, que les tabulacions no se substitueixen per espais.</para>
 
 <para
->Els comodins estan separats per un punt i coma, &ead;, també podeu especificar múltiples extensions de fitxer de la següent manera: </para>
+>Els comodins estan separats per un punt i coma, &ead;, també podeu especificar múltiples extensions de fitxer de la manera següent: </para>
 
 <programlisting
 >kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>

@@ -4277,7 +4277,7 @@ function indent(line, indentWidth, ch)
 > </itemizedlist
 > El valor retornat de la funció <function
 >indent()</function
-> especifica com se sagna la línia. Si el valor retornat és un nombre enter simple, aquest s'interpreta de la següent manera: <itemizedlist
+> especifica com se sagna la línia. Si el valor retornat és un nombre enter simple, aquest s'interpreta de la manera següent: <itemizedlist
 > <listitem
 ><para
 >El valor retornat <literal
@@ -4490,7 +4490,7 @@ function &lt;nom&gt;(arg1, arg2...)
 >arg2</parameter
 >, &etc; Per tal de proveir documentació per a cada ordre, simplement implementeu la funció «<function
 >help</function
->» de la següent manera: <programlisting>
+>» de la manera següent: <programlisting>
 {
     if (cmd == "sort") {
         return i18n("Ordena el text seleccionat.");

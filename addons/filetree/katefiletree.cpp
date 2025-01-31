@@ -31,6 +31,7 @@
 #include <QClipboard>
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QFileDialog>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QLineEdit>
@@ -393,8 +394,21 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
     bool isWidgetDir = m_proxyModel->isWidgetDir(m_indexContextMenu);
     bool isWidget = m_indexContextMenu.data(KateFileTreeModel::WidgetRole).value<QWidget *>() != nullptr;
 
-    auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window());
-    auto fileOpen = parentClient ? parentClient->action(QStringLiteral("file_open")) : nullptr;
+    // File open action
+    // shown only if the current index is a directory or a doc
+    // opens the file dialog in the parent directory of the doc or the selected dir
+    QAction *fileOpen = nullptr;
+    if (isDir || doc) {
+        fileOpen = new QAction(i18n("Open..."));
+        auto path = m_indexContextMenu.data(KateFileTreeModel::PathRole).value<QString>();
+        connect(fileOpen, &QAction::triggered, this, [this, path, isDir, doc] {
+            const auto startUrl = isDir ? QUrl::fromLocalFile(QDir(path).absolutePath()) : doc->url();
+            const QList<QUrl> urls = QFileDialog::getOpenFileUrls(m_mainWindow->window(), i18n("Open File"), startUrl);
+            for (const auto &url : urls) {
+                m_mainWindow->openUrl(url);
+            }
+        });
+    }
 
     QMenu menu(this);
     if (doc) {
@@ -451,9 +465,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
             menu.addSeparator();
         }
     } else if (isDir || isWidgetDir || isWidget) {
-        menu.addAction(fileOpen);
-
         if (isDir) {
+            menu.addAction(fileOpen);
             menu.addAction(m_filelistReloadDocument);
         }
 

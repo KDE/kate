@@ -161,7 +161,7 @@ void DebugConfigPage::updateHighlighters()
         highlighter->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(QStringLiteral("dap.json")));
 
         // Use monospace font
-        textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+        textEdit->setFont(KTextEditor::Editor::instance()->font());
 
         // Use right color scheme
         const auto theme = KTextEditor::Editor::instance()->theme();

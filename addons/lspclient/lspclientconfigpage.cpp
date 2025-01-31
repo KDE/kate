@@ -260,7 +260,7 @@ void LSPClientConfigPage::updateHighlighters()
         highlighter->setDefinition(KTextEditor::Editor::instance()->repository().definitionForFileName(QStringLiteral("settings.json")));
 
         // we want mono-spaced font
-        textEdit->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+        textEdit->setFont(KTextEditor::Editor::instance()->font());
 
         // we want to have the proper theme for the current palette
         const auto theme = KTextEditor::Editor::instance()->theme();

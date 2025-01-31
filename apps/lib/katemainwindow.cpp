@@ -1236,7 +1236,9 @@ void KateMainWindow::updateCaption()
 void KateMainWindow::updateCaption(KTextEditor::Document *doc)
 {
     if (!m_viewManager->activeView()) {
-        setCaption(QString(), false);
+        QWidget *w = activeWidget();
+        QString title = w ? w->windowTitle() : QString();
+        setCaption(title, false);
         setWindowFilePath(QString());
         return;
     }

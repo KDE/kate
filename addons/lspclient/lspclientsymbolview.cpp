@@ -62,6 +62,7 @@ private:
             option.rect = QStyle::alignedRect(layoutDirection(), Qt::AlignVCenter, option.rect.size(), rect);
             option.rect.moveLeft(rect.left());
             option.state = QStyle::State_Enabled;
+            option.state.setFlag(QStyle::State_Sunken, m_clicked);
             option.state.setFlag(QStyle::State_AutoRaise);
             option.state.setFlag(QStyle::State_MouseOver, m_hovered);
             option.icon = QIcon::fromTheme(QStringLiteral("application-menu"));
@@ -80,7 +81,10 @@ private:
 
         viewport()->update();
         QPoint p(rect().left() + 4, rect().bottom() - 4);
+        m_clicked = true;
         Q_EMIT buttonClicked(viewport()->mapToGlobal(p));
+        m_clicked = false;
+        viewport()->update();
         event->accept();
     }
 
@@ -117,6 +121,7 @@ private:
     }
 
     bool m_hovered = false;
+    bool m_clicked = false;
 
 Q_SIGNALS:
     void buttonClicked(QPoint globalPos);
@@ -341,7 +346,7 @@ public:
         m_symbols->setLayoutDirection(Qt::LeftToRight);
         auto header = new MenuButtonHeaderView(Qt::Horizontal, m_symbols);
         connect(header, &MenuButtonHeaderView::buttonClicked, this, [this](QPoint pos) {
-            m_popup->popup(pos);
+            m_popup->exec(pos);
         });
         m_symbols->setHeader(header);
         m_symbols->header()->setSectionResizeMode(QHeaderView::Stretch);

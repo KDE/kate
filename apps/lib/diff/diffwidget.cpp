@@ -18,6 +18,7 @@
 #include <QRegularExpression>
 #include <QScopedValueRollback>
 #include <QScrollBar>
+#include <QStyle>
 #include <QSyntaxHighlighter>
 #include <QTemporaryFile>
 #include <QTimer>
@@ -202,8 +203,8 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     auto layout = new QVBoxLayout(this);
     layout->setSpacing(2);
     layout->setContentsMargins({});
-    layout->addWidget(m_commitInfo);
     layout->addWidget(m_toolbar);
+    layout->addWidget(m_commitInfo);
     auto diffLayout = new QHBoxLayout;
     diffLayout->setContentsMargins({});
     diffLayout->addWidget(m_left);
@@ -256,6 +257,9 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     connect(m_toolbar, &Toolbar::jumpToPrevHunk, this, &DiffWidget::jumpToPrevHunk);
     connect(m_toolbar, &Toolbar::reload, this, &DiffWidget::runGitDiff);
     connect(m_toolbar, &Toolbar::showWithFullContext, this, &DiffWidget::showWithFullContext);
+
+    const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
+    m_toolbar->setIconSize(QSize(iconSize, iconSize));
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));

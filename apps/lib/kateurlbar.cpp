@@ -1274,9 +1274,11 @@ void KateUrlBar::onViewChanged(KTextEditor::View *v)
         // no view => show nothing
         m_untitledDocLabel->setText({});
         m_stack->setCurrentWidget(m_untitledDocLabel);
+        setHidden(true);
         return;
     }
 
+    setHidden(!viewManager()->showUrlNavBar());
     updateForDocument(v->document());
 }
 

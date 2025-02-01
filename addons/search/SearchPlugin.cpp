@@ -1162,6 +1162,20 @@ void KatePluginSearchView::startSearch()
             m_resultBaseDir += QLatin1Char('/');
         }
         m_searchingTab->matchModel.setBaseSearchPath(m_resultBaseDir);
+
+        // abort search with error if the base dir is not there, bug 489581
+        if (!QDir(m_resultBaseDir).exists()) {
+            delete m_infoMessage;
+            const QString msg = i18n("Search was not stared as directory '%1' to search in doesn't exist.", m_resultBaseDir);
+            m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Error);
+            m_infoMessage->setPosition(KTextEditor::Message::TopInView);
+            m_infoMessage->setAutoHide(3000);
+            m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+            m_infoMessage->setView(m_mainWindow->activeView());
+            m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            return;
+        }
+
         m_folderFilesList.generateList(m_resultBaseDir,
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),

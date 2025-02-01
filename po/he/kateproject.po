@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2025-01-20 13:42+0200\n"
+"PO-Revision-Date: 2025-01-31 13:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -353,12 +353,12 @@ msgstr "הטמנה"
 #: gitwidget.cpp:1134
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "הבדל - הטמנה"
 
 #: gitwidget.cpp:1167
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "שליפת ההטמנה האחרונה"
 
 #: gitwidget.cpp:1171
 #, kde-format
@@ -373,12 +373,12 @@ msgstr "החלת ההטמנה (Stash) האחרונה"
 #: gitwidget.cpp:1177
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "הטמנה (להשאיר בבימוי)"
 
 #: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "הטמנה (כולל לא במעקב)"
 
 #: gitwidget.cpp:1185
 #, kde-format
@@ -449,12 +449,12 @@ msgstr "פתיחה ב־HEAD"
 #: gitwidget.cpp:1274
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "הורדת קובץ מבימוי"
 
 #: gitwidget.cpp:1274
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "העלאת קובץ לבימוי"
 
 #: gitwidget.cpp:1275
 #, kde-format
@@ -479,17 +479,17 @@ msgstr "להסיר את הקובץ הזה?"
 #: gitwidget.cpp:1318
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "הורדת הכול מבימוי"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "הורדת הנבחרים מבימוי"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "העלאת הקבצים הנבחרים לבימוי"
 
 #: gitwidget.cpp:1386
 #, kde-format
@@ -545,6 +545,8 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
+"תוסף המיזמים יכול לטעון עותקי עבודה של מאגר ועצי בנייה אוטומטית כשלא מוגדר "
+"עדיין קובץ ‎.kateproject."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -596,7 +598,7 @@ msgstr "מפתח מיזמים"
 #: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "הגדרות מפתח ctags של מיזם"
 
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
@@ -621,7 +623,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "יכולת חוצת מיזמים"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
@@ -637,7 +639,7 @@ msgstr "השלמה חוצת מיזמים"
 #: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "סמל קפיצה (Goto) חוצה מיזמים"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -663,7 +665,7 @@ msgstr "פתיחת קובץ"
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "העלאה/הורדה מבימוי"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format

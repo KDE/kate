@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2024-12-31 08:11+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -18,7 +18,7 @@ msgstr ""
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 24.12.0\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter…"
 msgstr "סינון…"
@@ -255,12 +255,12 @@ msgstr "מעבר אל"
 msgid "More options"
 msgstr "אפשרויות נוספות"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "הרחבה של הכול"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "צמצום של הכול"
@@ -427,42 +427,42 @@ msgstr "פענוח הגדרות השרת נכשל ‚%1’: ‏%2"
 msgid "Failed to read server configuration: %1"
 msgstr "קריאת הגדרות השרת נכשלה: %1"
 
-#: lspclientsymbolview.cpp:337
+#: lspclientsymbolview.cpp:342
 #, kde-format
 msgid "Symbol Outline"
 msgstr "מתאר סמלים"
 
-#: lspclientsymbolview.cpp:383
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "מצב עץ"
 
-#: lspclientsymbolview.cpp:385
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "הרחבת העץ אוטומטית"
 
-#: lspclientsymbolview.cpp:387
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "מיון לפי האלפבית"
 
-#: lspclientsymbolview.cpp:389
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "הצגת פרטים"
 
-#: lspclientsymbolview.cpp:551
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "סמלים"
 
-#: lspclientsymbolview.cpp:611
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "שרת ה־LSP לא תומך במתאר סמלים."
 
-#: lspclientsymbolview.cpp:689
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "אין שרת LSP למסמך הזה."

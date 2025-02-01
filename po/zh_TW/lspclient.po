@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2024-12-19 16:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 24.12.0\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter…"
 msgstr "過濾…"
@@ -259,12 +259,12 @@ msgstr "前往"
 msgid "More options"
 msgstr "更多選項"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "全部展開"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "全部收起"
@@ -431,42 +431,42 @@ msgstr "無法解析「%1」伺服器設定：%2"
 msgid "Failed to read server configuration: %1"
 msgstr "無法讀取伺服器設定：%1"
 
-#: lspclientsymbolview.cpp:337
+#: lspclientsymbolview.cpp:342
 #, kde-format
 msgid "Symbol Outline"
 msgstr "符號大綱"
 
-#: lspclientsymbolview.cpp:383
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "樹狀圖模式"
 
-#: lspclientsymbolview.cpp:385
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "自動展開樹狀圖"
 
-#: lspclientsymbolview.cpp:387
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "依字母排序"
 
-#: lspclientsymbolview.cpp:389
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "顯示詳細資訊"
 
-#: lspclientsymbolview.cpp:551
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "符號"
 
-#: lspclientsymbolview.cpp:611
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr "LSP 伺服器不支援符號大綱。"
 
-#: lspclientsymbolview.cpp:689
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "此文件沒有 LSP 伺服器。"

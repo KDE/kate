@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-28 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1801,7 +1801,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "打开所有文件"
 
-#: lib/katemainwindow.cpp:1285
+#: lib/katemainwindow.cpp:1287
 #, kde-format
 msgid " [read only]"
 msgstr " [只读]"

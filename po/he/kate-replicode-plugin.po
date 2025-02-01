@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2024-10-10 15:23+0300\n"
+"PO-Revision-Date: 2025-01-31 13:41+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -108,7 +108,7 @@ msgstr ""
 #: config.ui:227
 #, kde-format
 msgid "Simulation time horizon:"
-msgstr ""
+msgstr "אופק זמן הדמיה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: config.ui:247
@@ -180,19 +180,19 @@ msgstr "חלון ניפוי תקלות:"
 #: config.ui:426
 #, kde-format
 msgid "Traces:"
-msgstr ""
+msgstr "עקבות:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
 #: config.ui:433
 #, kde-format
 msgid "Composite inputs"
-msgstr ""
+msgstr "ערכי קלט מרוכבים"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
 #: config.ui:440
 #, kde-format
 msgid "Composite outputs"
-msgstr ""
+msgstr "ערכי פלט מרוכבים"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
 #: config.ui:447
@@ -216,7 +216,7 @@ msgstr ""
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr ""
+msgstr "מעקב יעדים"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475

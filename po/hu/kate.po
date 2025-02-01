@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-28 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1848,7 +1848,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Összes fájl megnyitása"
 
-#: lib/katemainwindow.cpp:1285
+#: lib/katemainwindow.cpp:1287
 #, kde-format
 msgid " [read only]"
 msgstr " [csak olvasható]"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-28 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -1836,7 +1836,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Opna alle filer"
 
-#: lib/katemainwindow.cpp:1285
+#: lib/katemainwindow.cpp:1287
 #, kde-format
 msgid " [read only]"
 msgstr " [skriveverna]"

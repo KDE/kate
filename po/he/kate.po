@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-28 00:44+0000\n"
-"PO-Revision-Date: 2025-01-24 09:27+0200\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"PO-Revision-Date: 2025-01-31 13:30+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -387,7 +387,7 @@ msgstr "פרטים"
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [הודחק: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1431
 #, kde-format
@@ -407,32 +407,32 @@ msgstr "העתקה ללוח הגזירים"
 #: lib/diagnostics/diagnosticview.cpp:1480
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "הסרת הדחקה כוללנית"
 
 #: lib/diagnostics/diagnosticview.cpp:1482
 #, kde-format
 msgid "Add Global Suppression"
-msgstr ""
+msgstr "הוספת הדחקה כוללנית"
 
 #: lib/diagnostics/diagnosticview.cpp:1486
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "הסרת הדחקה מקומית"
 
 #: lib/diagnostics/diagnosticview.cpp:1488
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "הוספת הדחקה מקומית"
 
 #: lib/diagnostics/diagnosticview.cpp:1503
 #, kde-format
 msgid "Disable Suppression"
-msgstr ""
+msgstr "השבתת הדחקה"
 
 #: lib/diagnostics/diagnosticview.cpp:1505
 #, kde-format
 msgid "Enable Suppression"
-msgstr ""
+msgstr "הפעלת הדחקה"
 
 #: lib/diff/diffeditor.cpp:182
 #, kde-format
@@ -458,43 +458,43 @@ msgstr "גולמי"
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "העלאת שורה לבימוי"
+msgstr[1] "העלאת שורות לבימוי"
+msgstr[2] "העלאת שורות לבימוי"
+msgstr[3] "העלאת שורות לבימוי"
 
 #: lib/diff/diffeditor.cpp:224
 #, kde-format
 msgid "Stage Hunk"
-msgstr ""
+msgstr "העלאת גוש לבימוי"
 
 #: lib/diff/diffeditor.cpp:231
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "התעלמות משורה"
+msgstr[1] "התעלמות משורות"
+msgstr[2] "התעלמות משורות"
+msgstr[3] "התעלמות משורות"
 
 #: lib/diff/diffeditor.cpp:236
 #, kde-format
 msgid "Discard Hunk"
-msgstr ""
+msgstr "התעלמות מגוש"
 
 #: lib/diff/diffeditor.cpp:243
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "הורדת שורה מבימוי"
+msgstr[1] "הורדת שורות מבימוי"
+msgstr[2] "הורדת שורות מבימוי"
+msgstr[3] "הורדת שורות מבימוי"
 
 #: lib/diff/diffeditor.cpp:248
 #, kde-format
 msgid "Unstage Hunk"
-msgstr ""
+msgstr "הורדת גוש מבימוי"
 
 #: lib/diff/diffwidget.cpp:63
 #, kde-format
@@ -529,12 +529,12 @@ msgstr "דילוג לקובץ הקודם"
 #: lib/diff/diffwidget.cpp:129
 #, kde-format
 msgid "Jump to Next Hunk"
-msgstr ""
+msgstr "קפיצה לגוש הבא"
 
 #: lib/diff/diffwidget.cpp:133
 #, kde-format
 msgid "Jump to Previous Hunk"
-msgstr ""
+msgstr "קפיצה לגוש הקודם"
 
 #: lib/diff/diffwidget.cpp:137
 #, kde-format
@@ -1048,6 +1048,9 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
+"אם האפשרות פעילה, חלונית חוסמת תשמש להציג את כל הקבצים שהשתנו. אם אינה "
+"פעילה, תופיע שאלה מה לעשות עם כל אחד מהקבצים שהשתנה רק כשהמיקוד עובר לתצוגת "
+"הקובץ הזה."
 
 #: lib/kateconfigdialog.cpp:192
 #, kde-format
@@ -1830,7 +1833,7 @@ msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת כל הקבצים"
 
-#: lib/katemainwindow.cpp:1285
+#: lib/katemainwindow.cpp:1287
 #, kde-format
 msgid " [read only]"
 msgstr " [קריאה בלבד]"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, fuzzy, kde-format
 msgid "Filter…"
 msgstr "Filtrer …"
@@ -252,12 +252,12 @@ msgstr ""
 msgid "More options"
 msgstr "Fleire val"
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Fald ut alle"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Fald saman alle"
@@ -424,42 +424,42 @@ msgstr "Klarte ikkje tolka tenaroppsett «%1»: %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Klart ikkje lesa tenaroppsett: %1"
 
-#: lspclientsymbolview.cpp:337
+#: lspclientsymbolview.cpp:342
 #, kde-format
 msgid "Symbol Outline"
 msgstr ""
 
-#: lspclientsymbolview.cpp:383
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "Trevising"
 
-#: lspclientsymbolview.cpp:385
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Fald automatisk ut trevising"
 
-#: lspclientsymbolview.cpp:387
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Sorter alfabetisk"
 
-#: lspclientsymbolview.cpp:389
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "Vis detaljar"
 
-#: lspclientsymbolview.cpp:551
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "Symbol"
 
-#: lspclientsymbolview.cpp:611
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:689
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Manglar LSP-tenar for dokumentet."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-01 00:44+0000\n"
 "PO-Revision-Date: 2020-10-05 22:23+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -18,7 +18,7 @@ msgstr ""
 "20)) ? 1 : 2;\n"
 "X-Generator: Lokalize 19.12.3\n"
 
-#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:356
+#: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
@@ -261,12 +261,12 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:392
+#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Desfășoară tot"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:393
+#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Restrânge tot"
@@ -442,43 +442,43 @@ msgstr "Parcurgerea configurației „%1” a serverului a eșuat: %2"
 msgid "Failed to read server configuration: %1"
 msgstr "Citirea configurației serverului a eșuat: %1"
 
-#: lspclientsymbolview.cpp:337
+#: lspclientsymbolview.cpp:342
 #, fuzzy, kde-format
 #| msgid "Symbol Outline Options"
 msgid "Symbol Outline"
 msgstr "Opțiunile schemei simbolurilor"
 
-#: lspclientsymbolview.cpp:383
+#: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
 msgstr "Regim arborescent"
 
-#: lspclientsymbolview.cpp:385
+#: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
 msgstr "Desfășoară arborele automat"
 
-#: lspclientsymbolview.cpp:387
+#: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
 msgstr "Sortează alfabetic"
 
-#: lspclientsymbolview.cpp:389
+#: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
 msgstr "Arată detalii"
 
-#: lspclientsymbolview.cpp:551
+#: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
 msgstr "Simboluri"
 
-#: lspclientsymbolview.cpp:611
+#: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
 msgstr ""
 
-#: lspclientsymbolview.cpp:689
+#: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
 msgstr "Niciun server LSP pentru acest document."

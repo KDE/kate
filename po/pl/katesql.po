@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-29 02:35+0000\n"
-"PO-Revision-Date: 2023-09-09 10:49+0200\n"
+"PO-Revision-Date: 2025-01-18 11:46+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -512,7 +512,7 @@ msgstr "Odśwież"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Niepowodzenie wyrażenia przygotowującego"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -520,6 +520,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Przygotowanie zapytania zwróciło następujący błąd: %1</p><p>Czy "
+"kontynuować przygotowywanie zapytania?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

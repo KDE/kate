@@ -1,16 +1,16 @@
 # Spanish translations for katefiletree.po package.
-# Copyright (C) 2014 This_file_is_part_of_KDE
+# Copyright (C) 2014-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2014.
-# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-06 02:40+0100\n"
+"PO-Revision-Date: 2025-02-01 12:16+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -204,14 +204,12 @@ msgstr "Orden personalizado"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Abrir..."
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Abrir con"
+msgstr "Abrir archivo"
 
 #: katefiletree.cpp:416
 #, kde-format
@@ -421,68 +419,3 @@ msgstr "Guardar el documento actual con un nuevo nombre"
 #, kde-format
 msgid "&Go"
 msgstr "&Ir"
-
-#~ msgid ""
-#~ "When enabled, this will show a close button for opened documents on hover."
-#~ msgstr ""
-#~ "Cuando está activado, se mostrará un botón de cierre en los documentos "
-#~ "abiertos al situar el cursor sobre ellos."
-
-#~ msgid "Do you really want to delete file \"%1\" from storage?"
-#~ msgstr ""
-#~ "¿Realmente quiere borrar el archivo «%1» del dispositivo de "
-#~ "almacenamiento?"
-
-#~ msgid "Delete file?"
-#~ msgstr "¿Borrar archivo?"
-
-#~ msgid "File \"%1\" could not be deleted."
-#~ msgstr "No se ha podido abrir el archivo «%1»."
-
-#~ msgid "Rename file"
-#~ msgstr "Cambiar nombre de archivo"
-
-#~ msgid "New file name"
-#~ msgstr "Nuevo nombre de archivo"
-
-#~ msgid "File \"%1\" could not be moved to \"%2\""
-#~ msgstr "No se ha podido mover el archivo «%1» a «%2»"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Rocío Gallego"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net,traducciones@rociogallego.com"
-
-#~| msgctxt "@action:inmenu"
-#~| msgid "Close Other"
-#~ msgid "Close Widget"
-#~ msgstr "Cerrar el widget"
-
-#~ msgid "Kate File Tree"
-#~ msgstr "Árbol de archivos de Kate"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy File Path"
-#~ msgstr "Copiar ruta del archivo"
-
-#~ msgid "&View"
-#~ msgstr "&Vista"
-
-#~ msgid "Save Current Document"
-#~ msgstr "Guardar documento actual"
-
-#~ msgid "Save Current Document As"
-#~ msgstr "Guardar documento actual como"
-
-#~ msgid "Application '%1' not found."
-#~ msgstr "Aplicación «%1» no encontrada."
-
-#~ msgid "Application not found"
-#~ msgstr "Aplicación no encontrada"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Delete Document"
-#~ msgstr "Borrar documento"

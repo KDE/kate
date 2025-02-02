@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-22 00:43+0000\n"
-"PO-Revision-Date: 2025-01-31 13:36+0200\n"
+"PO-Revision-Date: 2025-02-01 09:39+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -248,12 +248,12 @@ msgstr "„%1” הופעל בהצלחה: %2"
 #: gitwidget.cpp:680
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "העלאת קובץ לבימוי נכשלה. שגיאה:"
 
 #: gitwidget.cpp:693
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "הורדת קובץ מבימוי נכשלה. שגיאה:"
 
 #: gitwidget.cpp:704
 #, kde-format
@@ -739,6 +739,8 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"נעשה שימוש ב־%1 שמותקן תחת: %2.<br/><br/>%3. הכלי ירוץ על כל קובצי המיזם עם "
+"הסיומות מהרשימה הזאת:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212

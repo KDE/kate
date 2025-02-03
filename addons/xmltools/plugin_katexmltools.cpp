@@ -120,12 +120,10 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     auto *actionInsert = new QAction(i18n("&Insert Element..."), this);
     connect(actionInsert, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotInsertElement);
     actionCollection()->addAction(QStringLiteral("xml_tool_insert_element"), actionInsert);
-    KActionCollection::setDefaultShortcut(actionInsert, Qt::CTRL | Qt::Key_Greater);
 
     auto *actionClose = new QAction(i18n("&Close Element"), this);
     connect(actionClose, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::slotCloseElement);
     actionCollection()->addAction(QStringLiteral("xml_tool_close_element"), actionClose);
-    KActionCollection::setDefaultShortcut(actionClose, Qt::CTRL | Qt::Key_Less);
 
     auto *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
     connect(actionAssignDTD, &QAction::triggered, &m_model, &PluginKateXMLToolsCompletionModel::getDTD);

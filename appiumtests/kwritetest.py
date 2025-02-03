@@ -160,8 +160,8 @@ class SimpleTextEditorTests(unittest.TestCase):
         self.assertEqual(text_area.text, "Good Morning, World!")
 
     def test_g_save_file(self):
-        with tempfile.TemporaryDirectory() as temp_dir:
-            file_path = Path(temp_dir) / "test_file"
+        with tempfile.TemporaryDirectory(dir=Path.home(), prefix="appium-test") as temp_dir:
+            file_path = Path.home() / temp_dir / "test_file"
             self.new_file_button().click()
             main = self.find_main_window()
             self.write_text(main, "Hello, World!")

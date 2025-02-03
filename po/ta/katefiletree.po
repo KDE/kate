@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2022, 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2024, 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-02-18 15:54+0530\n"
+"PO-Revision-Date: 2025-02-02 15:59+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -345,13 +345,11 @@ msgid "Configure Documents"
 msgstr "ஆவணங்களை அமை"
 
 #: katefiletreemodel.cpp:494
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr "திறந்துள்ள "
+msgstr "திறந்துள்ள கருவிகள்"
 
 #: katefiletreemodel.cpp:645
 #, kde-format

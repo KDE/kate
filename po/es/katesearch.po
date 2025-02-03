@@ -1,26 +1,23 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
+# Copyright (C) 2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2011, 2012 Cristina Yenyxe González García <the.blue.valkyrie@gmail.com>
 # arklad, 2011.
-# SPDX-FileCopyrightText: 2012, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2012, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2013, 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-27 00:44+0000\n"
-"PO-Revision-Date: 2024-12-06 02:45+0100\n"
+"PO-Revision-Date: 2025-02-03 01:05+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"com>\n"
-"com>\n"
-"com>\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:80
@@ -721,88 +718,3 @@ msgstr "&Editar"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Buscar en archivos variantes"
-
-#~ msgid "Filter..."
-#~ msgstr "Filtrar..."
-
-#~ msgid "Kate Search & Replace"
-#~ msgstr "Buscar y sustituir en Kate"
-
-#~ msgid "Search in Files"
-#~ msgstr "Buscar en archivos"
-
-#~ msgid "Search More"
-#~ msgstr "Buscar más"
-
-#~ msgid "Type to filter through results..."
-#~ msgstr "Escriba para filtrar los resultados..."
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Rocío Gallego,Cristina Yenyxe González García"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr ""
-#~ "ecuadra@eloihr.net,traducciones@rociogallego.com,the.blue.valkyrie@gmail."
-#~ "com"
-
-#~ msgid "<b>Searching: ...%1</b>"
-#~ msgstr "<b>Buscando: ...%1</b>"
-
-#~ msgid "<b>Searching: %1</b>"
-#~ msgstr "<b>Buscando: %1</b>"
-
-#~ msgid "<b>Processed %1 of %2 matches in: ...%3</b>"
-#~ msgstr "<b>Se han procesado %1 de %2 coincidencias en: ...%3</b>"
-
-#~ msgid "<b>Processed %1 of %2 matches in: %3</b>"
-#~ msgstr "<b>Se han procesado %1 de %2 coincidencias en: %3</b>"
-
-#~ msgid "A total of %1 match found\n"
-#~ msgid_plural "A total of %1 matches found\n"
-#~ msgstr[0] "Se ha encontrado %1 coincidencia en total\n"
-#~ msgstr[1] "Se han encontrado %1 coincidencias en total\n"
-
-#~ msgid "\tLine: %1 column: %2: %3\n"
-#~ msgstr "\tLínea: %1 columna: %2: %3\n"
-
-#~ msgid "No matches found\n"
-#~ msgstr "No se han encontrado coincidencias\n"
-
-#~ msgid "SearchHighLight"
-#~ msgstr "SearchHighLight"
-
-#~ msgid "Line: <b>%1</b>: %2"
-#~ msgstr "Línea: <b>%1</b>: %2"
-
-#~ msgid "Line: <b>%1</b> Column: <b>%2</b>: %3"
-#~ msgstr "Línea: <b>%1</b> Columna: <b>%2</b>: %3"
-
-#~ msgid "Replace:"
-#~ msgstr "Sustituir:"
-
-#~ msgid "Use regular expressions"
-#~ msgstr "Usar expresiones regulares"
-
-#~ msgid "<b>Replacing in: %1</b>"
-#~ msgstr "<b>Sustituyendo en: %1</b>"
-
-#~ msgid "<b><i>%1 match found in current file</i></b>"
-#~ msgid_plural "<b><i>%1 matches (%2 checked) found in current file</i></b>"
-#~ msgstr[0] "<b><i>%1 coincidencia encontrada en el archivo actual</i></b>"
-#~ msgstr[1] ""
-#~ "<b><i>%1 coincidencias encontradas (%2 marcadas) en el archivo actual</"
-#~ "i></b>"
-
-#~ msgid "Folder"
-#~ msgstr "Carpeta"
-
-#~ msgid "Fi&nd:"
-#~ msgstr "E&ncontrar:"
-
-#~ msgid "F&older"
-#~ msgstr "&Carpeta"
-
-#~ msgid "Search & replace in files"
-#~ msgstr "Buscar y reemplazar en archivos"

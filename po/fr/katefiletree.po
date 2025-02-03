@@ -15,14 +15,14 @@
 # Maxime Corteel <mcorteel@gmail.com>, 2014.
 # Vincent Pinon <vpinon@kde.org>, 2017, 2019.
 # Simon Depiets <sdepiets@gmail.com>, 2018.
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-07 10:32+0100\n"
+"PO-Revision-Date: 2025-02-02 09:30+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -30,9 +30,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.11.90\n"
-"X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
+"X-Environment: kde\n"
+"X-Generator: Lokalize 24.12.1\n"
 "X-Text-Markup: kde4\n"
 
 #: katefiletree.cpp:122
@@ -218,14 +218,12 @@ msgstr "Tri personnalisé"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Ouvrir..."
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Ouvrir avec"
+msgstr "Ouvrir un fichier"
 
 #: katefiletree.cpp:416
 #, kde-format

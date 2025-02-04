@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-27 00:44+0000\n"
+"POT-Creation-Date: 2025-02-04 00:43+0000\n"
 "PO-Revision-Date: 2024-12-19 16:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -582,87 +582,92 @@ msgstr "點擊以篩選結果"
 msgid "Find"
 msgstr "尋找"
 
-#: SearchPlugin.cpp:1327
+#: SearchPlugin.cpp:1169
+#, kde-format
+msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgstr ""
+
+#: SearchPlugin.cpp:1341
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "您的輸入搜尋被中斷。它花了太長的時間。"
 
-#: SearchPlugin.cpp:1660
+#: SearchPlugin.cpp:1674
 #, kde-format
 msgid "Search Match"
 msgstr "搜尋符合"
 
-#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1913
+#: SearchPlugin.cpp:1851 SearchPlugin.cpp:1927
 #, kde-format
 msgid "Next from cursor"
 msgstr "從游標開始的下一個"
 
-#: SearchPlugin.cpp:1854
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Starting from first match"
 msgstr "從第一個符合的地方開始"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1888
 #, kde-format
 msgid "Continuing from first match"
 msgstr "從第一個符合的地方繼續"
 
-#: SearchPlugin.cpp:1930
+#: SearchPlugin.cpp:1944
 #, kde-format
 msgid "Starting from last match"
 msgstr "從最後一個符合的地方開始"
 
-#: SearchPlugin.cpp:1950
+#: SearchPlugin.cpp:1964
 #, kde-format
 msgid "Continuing from last match"
 msgstr "從最後一個符合的地方繼續"
 
-#: SearchPlugin.cpp:2111
+#: SearchPlugin.cpp:2125
 #, kde-format
 msgid "Search: %1"
 msgstr "搜尋：%1"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Copy all"
 msgstr "全部複製"
 
-#: SearchPlugin.cpp:2259
+#: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy expanded"
 msgstr "複製擴充部份"
 
-#: SearchPlugin.cpp:2262
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Export matches"
 msgstr "匯出符合"
 
-#: SearchPlugin.cpp:2267
+#: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "作為編輯器分頁開啟"
 
-#: SearchPlugin.cpp:2275
+#: SearchPlugin.cpp:2289
 #, kde-format
 msgid "Clear"
 msgstr "清除"
 
-#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
+#: SearchPlugin.cpp:2399 SearchPlugin.cpp:2433
 #, kde-format
 msgid "Add..."
 msgstr "新增..."
 
-#: SearchPlugin.cpp:2397
+#: SearchPlugin.cpp:2411
 #, kde-format
 msgid "Search As You Type"
 msgstr "打字同時搜尋"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2482
 #, kde-format
 msgid "In Current Project"
 msgstr "在目前的專案中"
 
-#: SearchPlugin.cpp:2470
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In All Open Projects"
 msgstr "在所有已開啟專案中"

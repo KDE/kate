@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-27 00:44+0000\n"
+"POT-Creation-Date: 2025-02-04 00:43+0000\n"
 "PO-Revision-Date: 2024-12-09 08:22+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -631,87 +631,92 @@ msgstr "יש ללחוץ כדי לסנן מבין התוצאות"
 msgid "Find"
 msgstr "איתור"
 
-#: SearchPlugin.cpp:1327
+#: SearchPlugin.cpp:1169
+#, kde-format
+msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgstr ""
+
+#: SearchPlugin.cpp:1341
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "חיפוש בזמן ההקלדה נקטע. הוא היה לוקח זמן רב מדי."
 
-#: SearchPlugin.cpp:1660
+#: SearchPlugin.cpp:1674
 #, kde-format
 msgid "Search Match"
 msgstr "תוצאה לחיפוש"
 
-#: SearchPlugin.cpp:1837 SearchPlugin.cpp:1913
+#: SearchPlugin.cpp:1851 SearchPlugin.cpp:1927
 #, kde-format
 msgid "Next from cursor"
 msgstr "הבא מהסמן"
 
-#: SearchPlugin.cpp:1854
+#: SearchPlugin.cpp:1868
 #, kde-format
 msgid "Starting from first match"
 msgstr "מתחיל מהתוצאה הראשונה"
 
-#: SearchPlugin.cpp:1874
+#: SearchPlugin.cpp:1888
 #, kde-format
 msgid "Continuing from first match"
 msgstr "ממשיך מהתוצאה הראשונה"
 
-#: SearchPlugin.cpp:1930
+#: SearchPlugin.cpp:1944
 #, kde-format
 msgid "Starting from last match"
 msgstr "מתחיל מהתוצאה הקודמת"
 
-#: SearchPlugin.cpp:1950
+#: SearchPlugin.cpp:1964
 #, kde-format
 msgid "Continuing from last match"
 msgstr "ממשיך מהתוצאה האחרונה"
 
-#: SearchPlugin.cpp:2111
+#: SearchPlugin.cpp:2125
 #, kde-format
 msgid "Search: %1"
 msgstr "חיפוש: %1"
 
-#: SearchPlugin.cpp:2254
+#: SearchPlugin.cpp:2268
 #, kde-format
 msgid "Copy all"
 msgstr "העתקה של הכול"
 
-#: SearchPlugin.cpp:2259
+#: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy expanded"
 msgstr "העתקה מורחבת"
 
-#: SearchPlugin.cpp:2262
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Export matches"
 msgstr "ייצוא התוצאות"
 
-#: SearchPlugin.cpp:2267
+#: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "פתיחה כלשונית עורך"
 
-#: SearchPlugin.cpp:2275
+#: SearchPlugin.cpp:2289
 #, kde-format
 msgid "Clear"
 msgstr "פינוי"
 
-#: SearchPlugin.cpp:2385 SearchPlugin.cpp:2419
+#: SearchPlugin.cpp:2399 SearchPlugin.cpp:2433
 #, kde-format
 msgid "Add..."
 msgstr "הוספה…"
 
-#: SearchPlugin.cpp:2397
+#: SearchPlugin.cpp:2411
 #, kde-format
 msgid "Search As You Type"
 msgstr "חיפוש תוך כדי הקלדה"
 
-#: SearchPlugin.cpp:2468
+#: SearchPlugin.cpp:2482
 #, kde-format
 msgid "In Current Project"
 msgstr "במיזם הנוכחי"
 
-#: SearchPlugin.cpp:2470
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In All Open Projects"
 msgstr "בכל המיזמים הפתוחים"

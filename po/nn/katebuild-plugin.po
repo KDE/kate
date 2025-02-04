@@ -540,6 +540,3 @@ msgstr "Set inn adresse"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vel mappa som skal setjast inn"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "Arbeidsmappe/kommando"

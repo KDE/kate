@@ -522,6 +522,3 @@ msgstr "Sett inn sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Velg mappe som skal settes inn"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "Arbeidsmappe/kommando"

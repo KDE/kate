@@ -1166,7 +1166,7 @@ void KatePluginSearchView::startSearch()
         // abort search with error if the base dir is not there, bug 489581
         if (!QDir(m_resultBaseDir).exists()) {
             delete m_infoMessage;
-            const QString msg = i18n("Search was not stared as directory '%1' to search in doesn't exist.", m_resultBaseDir);
+            const QString msg = i18n("Search was not started as directory '%1' to search in doesn't exist.", m_resultBaseDir);
             m_infoMessage = new KTextEditor::Message(msg, KTextEditor::Message::Error);
             m_infoMessage->setPosition(KTextEditor::Message::TopInView);
             m_infoMessage->setAutoHide(3000);

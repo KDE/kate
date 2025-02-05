@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
 "PO-Revision-Date: 2024-12-19 16:08+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -584,7 +584,7 @@ msgstr "尋找"
 
 #: SearchPlugin.cpp:1169
 #, kde-format
-msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 
 #: SearchPlugin.cpp:1341

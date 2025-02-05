@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
-"PO-Revision-Date: 2024-12-06 06:43+0100\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"PO-Revision-Date: 2025-02-04 07:34+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -648,9 +648,10 @@ msgid "Find"
 msgstr "Najdi"
 
 #: SearchPlugin.cpp:1169
-#, kde-format
-msgid "Search was not stared as directory '%1' to search in doesn't exist."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgid "Search was not started as directory '%1' to search in doesn't exist."
+msgstr "Iskanje ni bilo začeto, ker imenik '%1' za iskanje ne obstaja."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

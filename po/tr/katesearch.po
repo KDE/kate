@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
-"PO-Revision-Date: 2024-12-07 13:48+0300\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"PO-Revision-Date: 2025-02-04 11:01+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -611,9 +611,10 @@ msgid "Find"
 msgstr "Bul"
 
 #: SearchPlugin.cpp:1169
-#, kde-format
-msgid "Search was not stared as directory '%1' to search in doesn't exist."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgid "Search was not started as directory '%1' to search in doesn't exist."
+msgstr "İçinde aranılacak “%1” dizini var olmadığından arama başlatılmadı."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

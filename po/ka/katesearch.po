@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
-"PO-Revision-Date: 2024-12-06 04:03+0100\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"PO-Revision-Date: 2025-02-04 03:57+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -610,9 +610,10 @@ msgid "Find"
 msgstr "მოძებნა"
 
 #: SearchPlugin.cpp:1169
-#, kde-format
-msgid "Search was not stared as directory '%1' to search in doesn't exist."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgid "Search was not started as directory '%1' to search in doesn't exist."
+msgstr "ძებნა არ დაწყებულა, რადგან საქაღალდე '%1' მოსაძებნად არ არსებობს."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

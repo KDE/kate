@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
-"PO-Revision-Date: 2024-12-16 18:09+0100\n"
+"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"PO-Revision-Date: 2025-02-04 12:19+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -608,9 +608,10 @@ msgid "Find"
 msgstr "Trova"
 
 #: SearchPlugin.cpp:1169
-#, kde-format
-msgid "Search was not stared as directory '%1' to search in doesn't exist."
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+msgid "Search was not started as directory '%1' to search in doesn't exist."
+msgstr "Cerca non esseva startate perque directorio '%1'  a cercar non existe."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

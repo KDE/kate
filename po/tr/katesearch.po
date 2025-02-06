@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-02-04 11:01+0300\n"
+"PO-Revision-Date: 2025-02-05 11:19+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -611,8 +611,7 @@ msgid "Find"
 msgstr "Bul"
 
 #: SearchPlugin.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+#, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "İçinde aranılacak “%1” dizini var olmadığından arama başlatılmadı."
 

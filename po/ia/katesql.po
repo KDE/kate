@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-17 00:44+0000\n"
-"PO-Revision-Date: 2025-01-17 12:18+0100\n"
+"PO-Revision-Date: 2025-02-05 11:01+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -520,7 +520,7 @@ msgid ""
 "to continue without preparing the query?</p>"
 msgstr ""
 "<p>Preparante le query fallite con le sequent error: %1</p><p>Tu vole "
-"continuar sin preparr le query?</p>"
+"continuar sin preparar le query?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

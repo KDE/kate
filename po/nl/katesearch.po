@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-02-04 22:34+0100\n"
+"PO-Revision-Date: 2025-02-05 14:23+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -612,8 +612,7 @@ msgid "Find"
 msgstr "Zoeken"
 
 #: SearchPlugin.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+#, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Zoeken was niet gestart omdat map '%1' om in te zoeken niet bestaat."
 

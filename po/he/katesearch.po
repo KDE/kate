@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-02-04 08:26+0200\n"
+"PO-Revision-Date: 2025-02-05 09:10+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -632,8 +632,7 @@ msgid "Find"
 msgstr "איתור"
 
 #: SearchPlugin.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+#, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "החיפוש לא החל כיוון שהתיקייה לחיפוש ‚%1’ לא קיימת."
 

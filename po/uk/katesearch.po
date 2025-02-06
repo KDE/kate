@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-02-04 12:50+0200\n"
+"PO-Revision-Date: 2025-02-05 11:31+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -653,8 +653,7 @@ msgid "Find"
 msgstr "Знайти"
 
 #: SearchPlugin.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+#, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Пошук не було розпочато, оскільки каталогу для пошуку «%1» не існує."
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-29 00:42+0000\n"
+"POT-Creation-Date: 2025-02-06 00:43+0000\n"
 "PO-Revision-Date: 2023-06-18 19:51+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -44,17 +44,17 @@ msgstr "Amosar os detalles de Git Blame"
 msgid "Toggle Git Blame Details"
 msgstr "Conmutar os detalles de Git Blame"
 
-#: kategitblameplugin.cpp:333
+#: kategitblameplugin.cpp:335
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:470
+#: kategitblameplugin.cpp:511
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame, non se puido amosar a remisión."
 
-#: kategitblameplugin.cpp:556
+#: kategitblameplugin.cpp:597
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Aínda non se remitiu"

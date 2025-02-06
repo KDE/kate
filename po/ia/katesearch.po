@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-02-04 12:19+0100\n"
+"PO-Revision-Date: 2025-02-05 10:14+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -608,8 +608,7 @@ msgid "Find"
 msgstr "Trova"
 
 #: SearchPlugin.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Search was not stared as directory '%1' to search in doesn't exist."
+#, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Cerca non esseva startate perque directorio '%1'  a cercar non existe."
 

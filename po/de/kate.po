@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-07 00:45+0000\n"
 "PO-Revision-Date: 2023-06-25 16:57+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -495,59 +495,59 @@ msgstr[1] "Zeilen aus dem Index"
 msgid "Unstage Hunk"
 msgstr "Block aus dem Index"
 
-#: lib/diff/diffwidget.cpp:63
+#: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Diff %1"
 msgstr "%1 vergleichen"
 
-#: lib/diff/diffwidget.cpp:65
+#: lib/diff/diffwidget.cpp:66
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 vergleichen"
 
-#: lib/diff/diffwidget.cpp:86
+#: lib/diff/diffwidget.cpp:87
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:116
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Commit-Informationen anzeigen/verbergen"
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Zur nächsten Datei springen"
 
-#: lib/diff/diffwidget.cpp:125
+#: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Zur vorherigen Datei springen"
 
-#: lib/diff/diffwidget.cpp:129
+#: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Zum nächsten Block springen"
 
-#: lib/diff/diffwidget.cpp:133
+#: lib/diff/diffwidget.cpp:134
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Zum vorherigen Block springen"
 
-#: lib/diff/diffwidget.cpp:137
+#: lib/diff/diffwidget.cpp:138
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Diff neu laden"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:142
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:554
+#: lib/diff/diffwidget.cpp:558
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -555,23 +555,23 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
+#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
+#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
 #, kde-format
 msgid "New file %1"
 msgstr "Neue Datei %1"
 
-#: lib/diff/diffwidget.cpp:771 lib/diff/diffwidget.cpp:975
+#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Gelöschte Datei %1"
 
-#: lib/diff/diffwidget.cpp:1141 lib/diff/diffwidget.cpp:1142
+#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
 #, kde-format
 msgid "No differences found"
 msgstr "Es gibt keine Unterschiede"

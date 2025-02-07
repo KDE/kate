@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-07 00:45+0000\n"
 "PO-Revision-Date: 2025-01-02 19:04+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -477,59 +477,59 @@ msgstr[0] "取消暫存行"
 msgid "Unstage Hunk"
 msgstr "取消暫存區塊"
 
-#: lib/diff/diffwidget.cpp:63
+#: lib/diff/diffwidget.cpp:64
 #, kde-format
 msgid "Diff %1"
 msgstr "比對 %1 的差異"
 
-#: lib/diff/diffwidget.cpp:65
+#: lib/diff/diffwidget.cpp:66
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "比對 %1..%2 的差異"
 
-#: lib/diff/diffwidget.cpp:86
+#: lib/diff/diffwidget.cpp:87
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "比對 %1 .. %2 的差異"
 
-#: lib/diff/diffwidget.cpp:116
+#: lib/diff/diffwidget.cpp:117
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "顯示/隱藏提交資訊"
 
-#: lib/diff/diffwidget.cpp:121
+#: lib/diff/diffwidget.cpp:122
 #, kde-format
 msgid "Jump to Next File"
 msgstr "跳到下一個檔案"
 
-#: lib/diff/diffwidget.cpp:125
+#: lib/diff/diffwidget.cpp:126
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "跳到上一個檔案"
 
-#: lib/diff/diffwidget.cpp:129
+#: lib/diff/diffwidget.cpp:130
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "跳到下一個區塊"
 
-#: lib/diff/diffwidget.cpp:133
+#: lib/diff/diffwidget.cpp:134
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "跳到上一個區塊"
 
-#: lib/diff/diffwidget.cpp:137
+#: lib/diff/diffwidget.cpp:138
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "重新載入差異"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:142
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "顯示差異時也顯示完整前後文，不只是變更的行"
 
-#: lib/diff/diffwidget.cpp:554
+#: lib/diff/diffwidget.cpp:558
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -539,23 +539,23 @@ msgstr ""
 "找不到 <b>git</b>。需要 Git 才能比對文件的差異。如果 git 已安裝，請確保它在您"
 "的 PATH 環境變數中。也請參閱 https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:557 lib/diff/diffwidget.cpp:1158
+#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "比對差異"
 
-#: lib/diff/diffwidget.cpp:769 lib/diff/diffwidget.cpp:973
+#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
 #, kde-format
 msgid "New file %1"
 msgstr "新檔案 %1"
 
-#: lib/diff/diffwidget.cpp:771 lib/diff/diffwidget.cpp:975
+#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
 #, kde-format
 msgid "Deleted file %1"
 msgstr "已刪除檔案 %1"
 
-#: lib/diff/diffwidget.cpp:1141 lib/diff/diffwidget.cpp:1142
+#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
 #, kde-format
 msgid "No differences found"
 msgstr "未找到差異"

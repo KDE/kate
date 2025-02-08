@@ -78,7 +78,7 @@ endif()
 # deprecation options
 ecm_set_disabled_deprecation_versions(
     QT 6.8
-    KF 6.10
+    KF 6.11.0
 )
 
 option(ENABLE_PCH "Enable PCH support" ON)

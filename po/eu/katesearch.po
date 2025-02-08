@@ -1,17 +1,17 @@
 # Translation for katesearch.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2024 This file is copyright:
+# Copyright (C) 2011-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2022, 2023, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2022, 2023, 2024, 2025.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-05 00:44+0000\n"
-"PO-Revision-Date: 2025-01-15 17:04+0100\n"
+"PO-Revision-Date: 2025-02-08 00:15+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -621,7 +621,7 @@ msgstr "Aurkitu"
 #: SearchPlugin.cpp:1169
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
-msgstr ""
+msgstr "Bilaketa ez da hasi, bilaketa egiteko '%1' direktorioa ez dagoelako."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

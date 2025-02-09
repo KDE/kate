@@ -96,7 +96,8 @@ private:
     enum Command {
         RevParse,
         Config,
-        Blame
+        Blame,
+        IgnoreRevsFile
     };
     Q_ENUM(Command)
 

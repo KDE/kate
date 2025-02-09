@@ -339,7 +339,8 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
 {
     // we ignore errors, we might just not be in a git repo, parsing errors is hard, as they are translated
     // switching to english is no good idea either, as the user will likely not understand it then anyways
-    if (exitCode != 0 || exitStatus != QProcess::NormalExit) {
+    // Git returns error code 1 if IgnoreRevsFile is not found, so we ignore the error for it
+    if (m_currentCommand != Command::IgnoreRevsFile && (exitCode != 0 || exitStatus != QProcess::NormalExit)) {
         return;
     }
 
@@ -347,10 +348,10 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     case Command::RevParse: {
         m_root = QString::fromUtf8(m_blameInfoProc.readAllStandardOutput().trimmed());
 
-        m_currentCommand = Command::Config;
         if (!setupGitProcess(m_blameInfoProc, m_parentPath, {QStringLiteral("config"), QStringLiteral("blame.ignoreRevsFile")})) {
             return;
         }
+        m_currentCommand = Command::IgnoreRevsFile;
         startHostProcess(m_blameInfoProc, QIODevice::ReadOnly);
         break;
     }
@@ -376,6 +377,10 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     }
     case Command::Blame:
         parseGitBlameStdOutput();
+        break;
+    case Command::IgnoreRevsFile:
+        m_currentCommand = Command::Config;
+        commandFinished(0, QProcess::ExitStatus::NormalExit);
         break;
     }
 }

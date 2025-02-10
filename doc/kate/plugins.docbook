@@ -3045,8 +3045,12 @@ Replacement text that will be added to file(s) in place of the text in the
 <term><guibutton>Search</guibutton></term>
 <listitem><para>
 When you've finished configuring everything, just press the
-<guibutton>Search</guibutton> button to perform your search.  You may also press
-&Enter; in the <guilabel>Find</guilabel> text box to do the same.
+<guibutton>Search</guibutton> button to perform your search; to perform the
+search in a new tab press and hold &Ctrl; before pressing the
+<guibutton>Search</guibutton> button.  You may also press &Enter; in the
+<guilabel>Find</guilabel> text box to do the same (similarly pressing
+<keycombo action="simul">&Ctrl;&Enter;</keycombo> will perform the search in
+a new tab).
 </para></listitem>
 </varlistentry>
 

@@ -49,8 +49,10 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
 
     if (renderMode == TextHintMarkupKind::PlainText) {
         for (const auto &[_, hint] : m_hints) {
+            if (!contents.isEmpty()) {
+                contents += QStringLiteral("\n");
+            }
             contents += hint.m_text;
-            contents += QStringLiteral("\n");
         }
     } else {
         bool first = true;

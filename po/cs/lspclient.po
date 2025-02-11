@@ -496,10 +496,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "More options"
+#, kde-format
 msgid "Show completions"
-msgstr "Více možností"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

@@ -1019,10 +1019,9 @@ msgid "No cmd provided"
 msgstr ""
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Doplňování projektu"
+msgstr ""
 
 #: stashdialog.cpp:36
 #, kde-format

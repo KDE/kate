@@ -374,12 +374,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr "<B>Adr:</B> %1"
+msgstr ""
 
 #: TargetHtmlDelegate.cpp:104
 #, kde-format
@@ -528,6 +526,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "Pracovní adresář / Příkaz"

@@ -721,6 +721,3 @@ msgstr "&Upravit"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr ""
-
-#~ msgid "Filter..."
-#~ msgstr "Filtr..."

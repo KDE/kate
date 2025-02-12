@@ -111,6 +111,7 @@ private:
 
     void startShowProcess(const QUrl &url, const QString &hash);
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void onErrorOccurred(QProcess::ProcessError e);
 
     const CommitInfo &blameGetUpdateInfo(int lineNr);
 

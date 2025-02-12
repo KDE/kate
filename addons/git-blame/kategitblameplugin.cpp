@@ -213,8 +213,10 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     });
 
     connect(&m_blameInfoProc, &QProcess::finished, this, &KateGitBlamePluginView::commandFinished);
-
     connect(&m_showProc, &QProcess::finished, this, &KateGitBlamePluginView::showFinished);
+
+    connect(&m_blameInfoProc, &QProcess::errorOccurred, this, &KateGitBlamePluginView::onErrorOccurred);
+    connect(&m_showProc, &QProcess::errorOccurred, this, &KateGitBlamePluginView::onErrorOccurred);
 
     m_inlineNoteProvider.setMode(KateGitBlameMode::SingleLine);
 }
@@ -620,6 +622,15 @@ void KateGitBlamePluginView::showCommitTreeView(const QUrl &url)
     QString commitHash = url.toDisplayString();
     const auto file = m_mainWindow->activeView()->document()->url().toLocalFile();
     CommitView::openCommit(commitHash, file, m_mainWindow);
+}
+
+void KateGitBlamePluginView::onErrorOccurred(QProcess::ProcessError e)
+{
+    auto process = qobject_cast<QProcess *>(sender());
+    if (process) {
+        qWarning() << process->program() << process->arguments() << "Failed to start with error: " << e;
+        sendMessage(QStringLiteral("%1 with args %2, error occurred: %3.").arg(process->program(), process->arguments().join(QLatin1Char(' '))).arg(e), false);
+    }
 }
 
 #include "kategitblameplugin.moc"

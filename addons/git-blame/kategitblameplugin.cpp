@@ -212,9 +212,9 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
         m_tooltip.hide();
     });
 
-    connect(&m_blameInfoProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::commandFinished);
+    connect(&m_blameInfoProc, &QProcess::finished, this, &KateGitBlamePluginView::commandFinished);
 
-    connect(&m_showProc, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &KateGitBlamePluginView::showFinished);
+    connect(&m_showProc, &QProcess::finished, this, &KateGitBlamePluginView::showFinished);
 
     m_inlineNoteProvider.setMode(KateGitBlameMode::SingleLine);
 }

@@ -2930,7 +2930,7 @@ It may also be informative to examine the protocol exchange between &kate;'s
 LSP client and the LSP server.  Again, the latter usually has ways to trace
 that.  The LSP client also provides additional debug tracing (to stderr)
 when &kate; is invoked with the following
-<literal>QT_LOGGING_RULES=katelspclientplugin=true</literal> suitably
+<literal>LSPCLIENT_DEBUG=1</literal> suitably
 <literal>export</literal>'ed.
 </para>
 

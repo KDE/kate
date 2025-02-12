@@ -22,11 +22,7 @@ public:
 
     int lineNumForBlock(int block)
     {
-        auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), block);
-        if (it == m_lineToNumA.end()) {
-            return 0;
-        }
-        return *it;
+        return block < ((int)m_lineToNumA.size()) ? m_lineToNumA[block] : 0;
     }
 
     int blockForLineNum(int lineNo)

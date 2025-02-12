@@ -94,8 +94,12 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     // Stash changes
     QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
+    // create a temp doc to stash it. We dont want to change the url of the original doc
+    std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
+    tmpDoc->setText(doc->text());
+
     // save the current document changes to stash
-    if (!doc->saveAs(QUrl::fromLocalFile(stashedFile))) {
+    if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
         qCWarning(LOG_KATE) << "Could not write to stash file" << stashedFile;
         return;
     }
@@ -105,6 +109,12 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     if (doc->url().isValid()) {
         // save checksum for already-saved documents
         kconfig.writeEntry("checksum", doc->checksum());
+        // save the document if its modified otherwise we will
+        // leave behind .kate-swp files.
+        // (Can we exploit this to somehow provide better document state restoration i.e., with undo/redo etc)
+        if (doc->isModified()) {
+            doc->save();
+        }
     }
 
     kconfig.sync();

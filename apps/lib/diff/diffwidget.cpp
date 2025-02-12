@@ -140,7 +140,8 @@ public:
 
         m_fullContext = addAction(QIcon::fromTheme(QStringLiteral("view-fullscreen")), QString());
         m_fullContext->setToolTip(i18nc("Tooltip for a button", "Show diff with full context, not just the changed lines"));
-        connect(m_fullContext, &QAction::triggered, this, &Toolbar::showWithFullContext);
+        m_fullContext->setCheckable(true);
+        connect(m_fullContext, &QAction::triggered, this, &Toolbar::showWithFullContextChanged);
     }
 
     void setShowCommitActionVisible(bool vis)
@@ -150,14 +151,21 @@ public:
         }
     }
 
+    void setShowFullContextVisible(bool value)
+    {
+        if (m_fullContext->isVisible() != value) {
+            m_fullContext->setVisible(value);
+        }
+    }
+
     bool showCommitInfo()
     {
         return m_showCommitInfoAction->isChecked();
     }
 
-    void hideShowFullContext()
+    void setShowFullContext(bool fullContextEnabled)
     {
-        m_fullContext->setVisible(false);
+        m_fullContext->setChecked(fullContextEnabled);
     }
 
 private:
@@ -176,7 +184,7 @@ Q_SIGNALS:
     void jumpToNextHunk();
     void jumpToPrevHunk();
     void reload();
-    void showWithFullContext();
+    void showWithFullContextChanged(bool);
 };
 
 static void syncScroll(QPlainTextEdit *src, QPlainTextEdit *tgt)
@@ -256,7 +264,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     connect(m_toolbar, &Toolbar::jumpToNextHunk, this, &DiffWidget::jumpToNextHunk);
     connect(m_toolbar, &Toolbar::jumpToPrevHunk, this, &DiffWidget::jumpToPrevHunk);
     connect(m_toolbar, &Toolbar::reload, this, &DiffWidget::runGitDiff);
-    connect(m_toolbar, &Toolbar::showWithFullContext, this, &DiffWidget::showWithFullContext);
+    connect(m_toolbar, &Toolbar::showWithFullContextChanged, this, &DiffWidget::showWithFullContextChanged);
 
     const int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, nullptr, this);
     m_toolbar->setIconSize(QSize(iconSize, iconSize));
@@ -507,32 +515,37 @@ QStringList DiffWidget::diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::D
     return {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index"), left, right};
 }
 
-void DiffWidget::showWithFullContext()
+void DiffWidget::showWithFullContextChanged(bool fullContextEnabled)
 {
     if (m_params.arguments.size() < 1) {
         return;
     }
 
-    const int lineNo = m_left->firstVisibleLineNumber();
-
-    int idx = m_params.arguments.indexOf(QLatin1String("--"));
-    if (idx != -1) {
-        m_params.arguments.insert(idx, QLatin1String("-U5000"));
-    } else if (m_params.arguments.size() == 1) {
-        m_params.arguments << QLatin1String("-U5000");
+    if (fullContextEnabled) {
+        m_paramsNoFullContext = m_params;
+        int idx = m_params.arguments.indexOf(QLatin1String("--"));
+        if (idx != -1) {
+            m_params.arguments.insert(idx, QLatin1String("-U5000"));
+        } else if (m_params.arguments.size() == 1) {
+            m_params.arguments << QLatin1String("-U5000");
+        } else {
+            m_params.arguments.insert(2, QLatin1String("-U5000"));
+        }
     } else {
-        m_params.arguments.insert(2, QLatin1String("-U5000"));
+        m_params = m_paramsNoFullContext;
     }
+
+    const int lineNo = m_left->firstVisibleLineNumber();
     runGitDiff();
 
     // After the diff runs and we show the result, try to take the user back to where he was
     QPointer<QTimer> delayedSlotTrigger = new QTimer(this);
     delayedSlotTrigger->setSingleShot(true);
     delayedSlotTrigger->setInterval(10);
-    delayedSlotTrigger->callOnTimeout(this, [this, lineNo, delayedSlotTrigger] {
+    delayedSlotTrigger->callOnTimeout(this, [this, lineNo, delayedSlotTrigger, fullContextEnabled] {
         if (delayedSlotTrigger) {
             m_left->scrollToLineNumber(lineNo);
-            m_toolbar->hideShowFullContext();
+            m_toolbar->setShowFullContext(fullContextEnabled);
             delete delayedSlotTrigger;
         }
     });
@@ -1117,6 +1130,8 @@ void DiffWidget::openDiff(const QByteArray &raw)
         m_commitInfo->hide();
         m_toolbar->setShowCommitActionVisible(false);
     }
+
+    m_toolbar->setShowFullContextVisible(m_params.flags & DiffParams::ShowFullContext);
 
     // Fallback to raw mode if parsing fails
     auto fallback = [&] {

@@ -20,7 +20,9 @@ struct DiffParams {
         /** show commit info with diff **/
         ShowCommitInfo = 16,
         /** Reload diff view whenever its widget is shown */
-        ReloadOnShow = 32
+        ReloadOnShow = 32,
+        /** Show full context button */
+        ShowFullContext = 64
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 

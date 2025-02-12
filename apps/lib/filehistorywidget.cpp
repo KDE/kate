@@ -374,6 +374,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         const QString shortCommit = QString::fromUtf8(commit.hash.mid(0, 7));
         d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(m_file), shortCommit);
         d.flags.setFlag(DiffParams::ShowCommitInfo);
+        d.flags.setFlag(DiffParams::ShowFullContext);
         d.arguments = git.arguments();
         d.workingDir = m_gitDir;
         Utils::showDiff(contents, d, m_mainWindow);

@@ -25,10 +25,30 @@ public:
         return block < ((int)m_lineToNumA.size()) ? m_lineToNumA[block] : 0;
     }
 
+    /**
+     * Returns the block mapped to the closest line number because
+     * when switching to a diff without full context not all line numbers are available
+     */
     int blockForLineNum(int lineNo)
     {
-        auto it = std::find(m_lineToNumA.begin(), m_lineToNumA.end(), lineNo);
-        return std::distance(m_lineToNumA.begin(), it);
+        int i = 0, index = 0;
+        int distance = INT_MAX;
+
+        for (int num : m_lineToNumA) {
+            if (num > 0) { // Skip placeholder values
+                int diff = abs(lineNo - num);
+                if (diff < distance) {
+                    index = i;
+                    distance = diff;
+                }
+                if (distance == 0) {
+                    break;
+                }
+            }
+            i++;
+        }
+
+        return index;
     }
 
 protected:

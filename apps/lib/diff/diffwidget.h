@@ -84,7 +84,7 @@ private:
     void applyDiff(const QString &diff, ApplyFlags flags);
     void runGitDiff();
     static QStringList diffDocsGitArgs(KTextEditor::Document *l, KTextEditor::Document *r);
-    void showWithFullContext();
+    void showWithFullContextChanged(bool);
 
     void jumpToNextFile();
     void jumpToPrevFile();
@@ -109,6 +109,7 @@ private:
     KSyntaxHighlighting::AbstractHighlighter *rightHl;
     DiffStyle m_style = SideBySide;
     DiffParams m_params;
+    DiffParams m_paramsNoFullContext;
     QByteArray m_rawDiff; // Raw diff saved as is
     std::vector<ViewLineToDiffLine> m_lineToRawDiffLine;
     std::vector<ViewLineToDiffLine> m_lineToDiffHunkLine;

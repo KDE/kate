@@ -1674,6 +1674,19 @@ void MainWindow::insertWidgetBeforeStatusbar(QWidget *widget)
     m_bottomSidebarLayout->insertWidget(idxOfStatusbar, widget);
 }
 
+void MainWindow::setStatusBarVisible(bool visible)
+{
+    statusBarStackedWidget()->setVisible(visible);
+    // Hide everything after bottom sidebar
+    const auto idxOfItemAfterBottomSidebar = m_bottomSidebarLayout->indexOf(m_sidebars[KMultiTabBar::Bottom].get()) + 1;
+    for (int i = idxOfItemAfterBottomSidebar; i < m_bottomSidebarLayout->count(); ++i) {
+        auto item = m_bottomSidebarLayout->itemAt(i);
+        if (item && item->widget()) {
+            item->widget()->setVisible(visible);
+        }
+    }
+}
+
 ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
                                      const QString &identifier,
                                      KMultiTabBar::KMultiTabBarPosition pos,

@@ -986,8 +986,7 @@ void KateMainWindow::updateHamburgerMenu()
 
 void KateMainWindow::toggleShowStatusBar()
 {
-    // just hide or show the status bar stack
-    statusBarStackedWidget()->setVisible(showStatusBar());
+    setStatusBarVisible(showStatusBar());
 }
 
 bool KateMainWindow::showStatusBar()

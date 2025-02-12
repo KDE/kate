@@ -303,7 +303,7 @@ void KateGitBlamePluginView::startShowProcess(const QUrl &url, const QString &ha
 
     const QFileInfo fi{url.toLocalFile()};
     m_absoluteFilePath = fi.absoluteFilePath();
-    if (!setupGitProcess(m_showProc, m_absoluteFilePath, {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
+    if (!setupGitProcess(m_showProc, fi.absolutePath(), {QStringLiteral("show"), hash, QStringLiteral("--numstat")})) {
         return;
     }
     startHostProcess(m_showProc, QIODevice::ReadOnly);

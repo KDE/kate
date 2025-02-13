@@ -21,18 +21,19 @@
 
 #include <KActionCollection>
 #include <KConfigGroup>
-#include <KXMLGUIFactory>
 #include <QAction>
+#include <QClipboard>
+#include <QDir>
 #include <QMenu>
 
 #include <KColorScheme>
 #include <KHistoryComboBox>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KXMLGUIFactory>
 
 #include "debugconfigpage.h"
 #include <KTextEditor/Document>
-#include <QDir>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
@@ -172,6 +173,8 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_stackTree->resizeColumnToContents(1);
     m_stackTree->setAutoScroll(false);
     connect(m_stackTree, &QTreeWidget::itemActivated, this, &KatePluginGDBView::stackFrameSelected);
+    m_stackTree->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_stackTree, &QTreeWidget::customContextMenuRequested, this, &KatePluginGDBView::onStackTreeContextMenuRequest);
 
     connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
 
@@ -1118,6 +1121,51 @@ QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
     });
     button->setVisible(action->isVisible());
     return button;
+}
+
+void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
+{
+    QMenu menu(m_stackTree);
+
+    auto a = menu.addAction(i18n("Copy Stack Trace"));
+    connect(a, &QAction::triggered, m_stackTree, [this] {
+        Q_ASSERT(m_stackTree->columnCount() == 3);
+        auto model = m_stackTree->model();
+        QString text;
+        for (int i = 0; i < model->rowCount(); ++i) {
+            QString line = model->index(i, 2).data().toString();
+            text.append(QStringView(line).trimmed()).append(QStringLiteral("\n"));
+        }
+        qApp->clipboard()->setText(text);
+    });
+
+    auto item = m_stackTree->currentItem();
+    if (item) {
+        auto itemText = item->text(2).trimmed();
+        int firstColonPos = itemText.indexOf(QStringLiteral(":"));
+        if (firstColonPos != -1) {
+            QString path = itemText.mid(0, firstColonPos);
+            auto url = QUrl::fromLocalFile(path);
+            bool ok = false;
+            int line = itemText.mid(firstColonPos + 1).toInt(&ok) + 1;
+            if (url.isValid()) {
+                auto a = menu.addAction(i18n("Open Location"));
+                connect(a, &QAction::triggered, m_stackTree, [this, url, ok, line] {
+                    auto view = m_mainWin->openUrl(url);
+                    if (ok) {
+                        view->setCursorPosition({line, 0});
+                    }
+                });
+            }
+        }
+
+        auto a = menu.addAction(i18n("Copy Location"));
+        connect(a, &QAction::triggered, m_stackTree, [itemText] {
+            qApp->clipboard()->setText(itemText);
+        });
+    }
+
+    menu.exec(m_stackTree->viewport()->mapToGlobal(pos));
 }
 
 #include "moc_plugin_kategdb.cpp"

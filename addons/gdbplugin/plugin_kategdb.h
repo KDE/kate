@@ -121,6 +121,7 @@ private:
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
     void enableHotReloadOnSave(KTextEditor::View *view);
     QToolButton *createDebugButton(QAction *action);
+    void onStackTreeContextMenuRequest(QPoint pos);
 
     KatePluginGDB *const m_plugin;
     KTextEditor::Application *m_kateApplication;

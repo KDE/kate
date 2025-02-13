@@ -38,6 +38,7 @@ protected:
 private:
     QTreeWidgetItem *createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable);
     QTreeWidgetItem *createWrappedItem(QTreeWidget *parent, const dap::Variable &variable);
+    void onContextMenu(QPoint pos);
 
     QHash<int, QTreeWidgetItem *> m_variables;
 };

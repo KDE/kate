@@ -239,8 +239,13 @@ QString niceFileNameWithPath(const QUrl &url)
     return url.toDisplayString();
 }
 
-QUrl normalizeUrl(const QUrl &url)
+QUrl normalizeUrl(QUrl url)
 {
+    // ensure proper file:// url if in doubt because no scheme set
+    if (url.isRelative()) {
+        url.setScheme(QStringLiteral("file"));
+    }
+
     // Resolve symbolic links for local files
     if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
         QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
@@ -253,8 +258,13 @@ QUrl normalizeUrl(const QUrl &url)
     return url.adjusted(QUrl::NormalizePathSegments);
 }
 
-QUrl absoluteUrl(const QUrl &url)
+QUrl absoluteUrl(QUrl url)
 {
+    // ensure proper file:// url if in doubt because no scheme set
+    if (url.isRelative()) {
+        url.setScheme(QStringLiteral("file"));
+    }
+
     // Get absolute path if local file
     if (url.isLocalFile()) {
         return QUrl::fromLocalFile(QFileInfo(url.toLocalFile()).absoluteFilePath());

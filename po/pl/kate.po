@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1702176 $
+# Version: $Revision: 1702559 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:45+0000\n"
+"POT-Creation-Date: 2025-02-13 00:48+0000\n"
 "PO-Revision-Date: 2025-01-04 07:55+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -1835,7 +1835,7 @@ msgstr "Ukryje to całkowicie pasek menu. Możesz go przywrócić wpisując %1."
 msgid "Hide menu bar"
 msgstr "Ukryj pasek menu"
 
-#: lib/katemainwindow.cpp:1076
+#: lib/katemainwindow.cpp:1075
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1843,19 +1843,19 @@ msgid ""
 msgstr ""
 "Upuściłeś katalog %1 w Kate. Czy otworzyć wszystkie pliki, które on zawiera?"
 
-#: lib/katemainwindow.cpp:1079
+#: lib/katemainwindow.cpp:1078
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Otwieranie plików wgłąb"
 
-#: lib/katemainwindow.cpp:1080
+#: lib/katemainwindow.cpp:1079
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otwórz wszystkie pliki"
 
-#: lib/katemainwindow.cpp:1287
+#: lib/katemainwindow.cpp:1286
 #, kde-format
 msgid " [read only]"
 msgstr " [tylko do odczytu]"
@@ -1965,7 +1965,7 @@ msgstr "Górny panel"
 msgid "Bottom Sidebar"
 msgstr "Dolny panel"
 
-#: lib/katemdi.cpp:1758
+#: lib/katemdi.cpp:1771
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

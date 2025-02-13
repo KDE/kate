@@ -4481,7 +4481,13 @@ its view and place the cursor at the start of the definition.
 ><para
 >En acabar de configurar-ho tot, només haureu de prémer el botó <guibutton
 >Cerca</guibutton
-> per a realitzar la cerca. Podeu prémer la tecla &Intro; en el quadre de text de consulta per a fer el mateix. </para
+> per a realitzar la cerca; premeu i manteniu premuda la tecla &Ctrl; abans de prémer el botó <guibutton
+>Cerca</guibutton
+> per a realitzar la cerca en una pestanya nova. També podeu prémer &Intro; en el quadre de text de <guilabel
+>Cerca</guilabel
+> per fer el mateix (prement de manera similar <keycombo action="simul"
+>&Ctrl;&Enter;</keycombo
+> es realitzarà la cerca en una pestanya nova). </para
 ></listitem>
 </varlistentry>
 

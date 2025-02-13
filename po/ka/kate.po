@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:45+0000\n"
+"POT-Creation-Date: 2025-02-13 00:48+0000\n"
 "PO-Revision-Date: 2025-01-01 09:54+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -1816,7 +1816,7 @@ msgstr "ეს მენიუს ზოლს სრულად დამა�
 msgid "Hide menu bar"
 msgstr "მენიუს ზოლის დამალვა"
 
-#: lib/katemainwindow.cpp:1076
+#: lib/katemainwindow.cpp:1075
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1825,19 +1825,19 @@ msgstr ""
 "თქვენ საქაღალდე %1 შიგ Kate-ში ჩააგდეთ. გნებავთ, მასში არსებული ყველა "
 "დოკუმენტი გახსნათ?"
 
-#: lib/katemainwindow.cpp:1079
+#: lib/katemainwindow.cpp:1078
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "ფაილების რეკურსიულად გახსნა"
 
-#: lib/katemainwindow.cpp:1080
+#: lib/katemainwindow.cpp:1079
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: lib/katemainwindow.cpp:1287
+#: lib/katemainwindow.cpp:1286
 #, kde-format
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
@@ -1947,7 +1947,7 @@ msgstr "ზედა პანელი"
 msgid "Bottom Sidebar"
 msgstr "ქვედა პანელი"
 
-#: lib/katemdi.cpp:1758
+#: lib/katemdi.cpp:1771
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

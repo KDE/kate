@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-07 00:45+0000\n"
+"POT-Creation-Date: 2025-02-13 00:48+0000\n"
 "PO-Revision-Date: 2024-11-08 14:58+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1810,7 +1810,7 @@ msgstr ""
 msgid "Hide menu bar"
 msgstr "Hide menu bar"
 
-#: lib/katemainwindow.cpp:1076
+#: lib/katemainwindow.cpp:1075
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1819,19 +1819,19 @@ msgstr ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 
-#: lib/katemainwindow.cpp:1079
+#: lib/katemainwindow.cpp:1078
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Open Files Recursively"
 
-#: lib/katemainwindow.cpp:1080
+#: lib/katemainwindow.cpp:1079
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Open All Files"
 
-#: lib/katemainwindow.cpp:1287
+#: lib/katemainwindow.cpp:1286
 #, kde-format
 msgid " [read only]"
 msgstr " [read only]"
@@ -1941,7 +1941,7 @@ msgstr "Top Sidebar"
 msgid "Bottom Sidebar"
 msgstr "Bottom Sidebar"
 
-#: lib/katemdi.cpp:1758
+#: lib/katemdi.cpp:1771
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

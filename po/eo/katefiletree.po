@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-28 17:41+0100\n"
+"PO-Revision-Date: 2025-02-12 07:01+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -204,11 +204,9 @@ msgid "Open..."
 msgstr ""
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Malfermi Per"
+msgstr "Malfermi Dosieron"
 
 #: katefiletree.cpp:416
 #, kde-format

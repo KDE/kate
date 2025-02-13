@@ -45,7 +45,7 @@ msgstr "文件有文件头"
 #: RBQLWidget.cpp:113
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
-msgstr "获取当前文档的分隔符失败。它可能不是CSV/TSV 文档？"
+msgstr "获取当前文档的分隔符失败。它可能不是 CSV/TSV 文档？"
 
 #: RBQLWidget.cpp:122
 #, kde-format

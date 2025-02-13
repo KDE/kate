@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-25 00:43+0000\n"
-"PO-Revision-Date: 2024-12-28 17:41+0100\n"
+"PO-Revision-Date: 2025-02-12 07:01+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -385,12 +385,10 @@ msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr "<B>Dir.:</B> %1"
+msgstr "<B>Dir:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
 #, kde-format
@@ -542,6 +540,3 @@ msgstr "Enmeti vojon"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Elekti dosierujon enmetendan"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "Labora Dosierujo / Komando"

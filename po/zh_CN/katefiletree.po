@@ -200,14 +200,12 @@ msgstr "自定义排序"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "打开..."
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "打开方式"
+msgstr "打开文件"
 
 #: katefiletree.cpp:416
 #, kde-format

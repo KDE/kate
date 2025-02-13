@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-05 00:44+0000\n"
+"POT-Creation-Date: 2025-02-13 00:48+0000\n"
 "PO-Revision-Date: 2025-02-05 10:28+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -220,8 +220,13 @@ msgid "Filter…"
 msgstr "Filtrer…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
+#: search.ui:37
+#, kde-format
+msgid "Search in current tab; press and hold Ctrl to search in a new tab."
+msgstr ""
+
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:37 search.ui:40 SearchPlugin.cpp:294
+#: search.ui:40 SearchPlugin.cpp:294
 #, kde-format
 msgid "Search"
 msgstr "Chercher"

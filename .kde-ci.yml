@@ -14,10 +14,6 @@ Dependencies:
     'frameworks/kuserfeedback': '@latest-kf6'
     'third-party/qtkeychain': '@latest'
 
-- 'on': ['Linux']
-  'require':
-    'sdk/selenium-webdriver-at-spi': '@latest-kf6'
-
 Options:
   run-tests: True
   require-passing-tests-on: [ 'Linux', 'FreeBSD', 'Windows' ]

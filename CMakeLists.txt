@@ -95,9 +95,6 @@ ecm_optional_add_subdirectory(apps)
 # our documentation
 ecm_optional_add_subdirectory(doc)
 
-# Appium UI tests
-add_subdirectory(appiumtests)
-
 ki18n_install(po)
 if(KF6DocTools_FOUND)
     kdoctools_install(po)

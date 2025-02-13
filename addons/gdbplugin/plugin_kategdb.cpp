@@ -172,6 +172,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_stackTree->resizeColumnToContents(0);
     m_stackTree->resizeColumnToContents(1);
     m_stackTree->setAutoScroll(false);
+    m_stackTree->setUniformRowHeights(true);
     connect(m_stackTree, &QTreeWidget::itemActivated, this, &KatePluginGDBView::stackFrameSelected);
     m_stackTree->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_stackTree, &QTreeWidget::customContextMenuRequested, this, &KatePluginGDBView::onStackTreeContextMenuRequest);

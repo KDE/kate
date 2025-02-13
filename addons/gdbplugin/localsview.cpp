@@ -23,6 +23,7 @@ LocalsView::LocalsView(QWidget *parent)
     headers << i18n("Value");
     setHeaderLabels(headers);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    setUniformRowHeights(true);
     setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, &QTreeWidget::customContextMenuRequested, this, &LocalsView::onContextMenu);
 }

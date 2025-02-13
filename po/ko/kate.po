@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 02:33+0000\n"
+"POT-Creation-Date: 2025-02-13 02:45+0000\n"
 "PO-Revision-Date: 2024-12-10 00:26+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1752,7 +1752,7 @@ msgstr "메뉴 표시줄을 완전히 숨깁니다. %1 키를 눌러서 다시 �
 msgid "Hide menu bar"
 msgstr "메뉴 표시줄 숨기기"
 
-#: lib/katemainwindow.cpp:1058
+#: lib/katemainwindow.cpp:1057
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1761,19 +1761,19 @@ msgstr ""
 "Kate에 %1 디렉터리를 끌어다 놓았습니다. 디렉터리에 있는 모든 파일을 여시겠습"
 "니까?"
 
-#: lib/katemainwindow.cpp:1061
+#: lib/katemainwindow.cpp:1060
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "재귀적으로 파일 불러오기"
 
-#: lib/katemainwindow.cpp:1062
+#: lib/katemainwindow.cpp:1061
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "모든 파일 열기"
 
-#: lib/katemainwindow.cpp:1267
+#: lib/katemainwindow.cpp:1268
 #, kde-format
 msgid " [read only]"
 msgstr " [읽기 전용]"
@@ -1883,7 +1883,7 @@ msgstr "위쪽 사이드바"
 msgid "Bottom Sidebar"
 msgstr "아래쪽 사이드바"
 
-#: lib/katemdi.cpp:1742
+#: lib/katemdi.cpp:1755
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

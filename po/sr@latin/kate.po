@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-04 02:33+0000\n"
+"POT-Creation-Date: 2025-02-13 02:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -1827,7 +1827,7 @@ msgstr ""
 msgid "Hide menu bar"
 msgstr "Sakrivanje trake menija"
 
-#: lib/katemainwindow.cpp:1058
+#: lib/katemainwindow.cpp:1057
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1839,7 +1839,7 @@ msgstr ""
 "Prevukli ste fasciklu %1 na Kate. Želite li da učitate sve fajlove iz nje?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:1061
+#: lib/katemainwindow.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
@@ -1847,14 +1847,14 @@ msgid "Open Files Recursively"
 msgstr "Učitati fajlove rekurzivno?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:1062
+#: lib/katemainwindow.cpp:1061
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvaranje fajla"
 
-#: lib/katemainwindow.cpp:1267
+#: lib/katemainwindow.cpp:1268
 #, kde-format
 msgid " [read only]"
 msgstr " [samo čitanje]"
@@ -1968,7 +1968,7 @@ msgstr "gornju bočnu traku"
 msgid "Bottom Sidebar"
 msgstr "donju bočnu traku"
 
-#: lib/katemdi.cpp:1742
+#: lib/katemdi.cpp:1755
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

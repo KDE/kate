@@ -323,6 +323,14 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRestart);
     buttonsLayout->addWidget(createDebugButton(a));
 
+    a = actionCollection()->addAction(QStringLiteral("clear_debugoutput"));
+    a->setText(i18n("Clear Output"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
+    connect(a, &QAction::triggered, this, [this] {
+        m_outputArea->clear();
+    });
+    buttonsLayout->addWidget(createDebugButton(a));
+
     a = actionCollection()->addAction(QStringLiteral("debug_hot_reload"));
     a->setText(i18n("Hot Reload"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("exception")));
@@ -591,6 +599,7 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
     actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable && m_backend->canContinue());
     actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
+    actionCollection()->action(QStringLiteral("clear_debugoutput"))->setEnabled(enable);
 
     auto a = actionCollection()->action(QStringLiteral("debug_hot_reload"));
     a->setVisible(enable && m_backend->canHotReload());

@@ -75,9 +75,11 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
 {
     auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
-    auto *label = new QLabel(variable.value);
-    label->setWordWrap(true);
-    setItemWidget(item, 1, label);
+    if (!variable.value.isEmpty()) {
+        auto *label = new QLabel(variable.value);
+        label->setWordWrap(true);
+        setItemWidget(item, 1, label);
+    }
     item->setData(1, Qt::UserRole, variable.value);
     item->setToolTip(0, nameTip(variable));
     item->setToolTip(1, valueTip(variable));
@@ -89,9 +91,11 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
 {
     auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
-    auto *label = new QLabel(variable.value);
-    label->setWordWrap(true);
-    setItemWidget(item, 1, label);
+    if (!variable.value.isEmpty()) {
+        auto *label = new QLabel(variable.value);
+        label->setWordWrap(true);
+        setItemWidget(item, 1, label);
+    }
     item->setToolTip(0, nameTip(variable));
     item->setToolTip(1, valueTip(variable));
 

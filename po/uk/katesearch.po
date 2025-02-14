@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-13 00:48+0000\n"
-"PO-Revision-Date: 2025-02-05 11:31+0200\n"
+"PO-Revision-Date: 2025-02-13 09:45+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -247,6 +247,8 @@ msgstr "Фільтрувати…"
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Шукати на поточній вкладці; натисніть і утримуйте Ctrl, щоб виконати пошук у "
+"новій вкладці."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294

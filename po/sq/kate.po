@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-14 00:46+0000\n"
 "PO-Revision-Date: 2009-08-18 13:42+0000\n"
 "Last-Translator: Vilson Gjeci <vilsongjeci@gmail.com>\n"
 "Language-Team: Albanian <sq@li.org>\n"
@@ -173,7 +173,7 @@ msgid "Copy Location"
 msgstr "Vendndodhja"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -541,7 +541,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:558
+#: lib/diff/diffwidget.cpp:571
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -549,25 +549,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
+#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
+#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Emri i Skedarit"
 
-#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
+#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgid "Deleted file %1"
 msgstr "Eleminuar"
 
-#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
+#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -594,7 +594,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:402
+#: lib/filehistorywidget.cpp:403
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

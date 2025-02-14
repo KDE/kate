@@ -4324,7 +4324,7 @@ exec myserver
 >També pot ser informatiu examinar l'intercanvi de protocols entre el client LSP del &kate; i el servidor LSP. De nou, aquest últim generalment té formes per a rastrejar-ho. El client LSP també proporciona un seguiment de depuració addicional (a la sortida d'error estàndard) quan s'invoca el &kate; amb el següent <literal
 >export</literal
 > <literal
->QT_LOGGING_RULES=katelspclientplugin=true</literal
+>LSPCLIENT_DEBUG=1</literal
 > adequat. </para>
 
 </sect3>
@@ -4486,7 +4486,7 @@ its view and place the cursor at the start of the definition.
 > per a realitzar la cerca en una pestanya nova. També podeu prémer &Intro; en el quadre de text de <guilabel
 >Cerca</guilabel
 > per fer el mateix (prement de manera similar <keycombo action="simul"
->&Ctrl;&Enter;</keycombo
+>&Ctrl;&Intro;</keycombo
 > es realitzarà la cerca en una pestanya nova). </para
 ></listitem>
 </varlistentry>

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-14 00:46+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -169,7 +169,7 @@ msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
@@ -179,7 +179,7 @@ msgstr "गिट्"
 msgid "Invalid hash"
 msgstr "अमान्य हैश"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 git repo मध्ये नास्ति ।."
@@ -525,7 +525,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "पूर्णसन्दर्भेण सह भेद दर्शयन्तु, न केवलं परिवर्तितानि रेखाः"
 
-#: lib/diff/diffwidget.cpp:558
+#: lib/diff/diffwidget.cpp:571
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -536,23 +536,23 @@ msgstr ""
 "अस्ति तर्हि सुनिश्चितं कुर्वन्तु यत् एषः भवतः PATH चरः अस्ति । https://git-scm.com/"
 "downloads इति पश्यन्तु"
 
-#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
+#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "भेद्"
 
-#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
+#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
 #, kde-format
 msgid "New file %1"
 msgstr "नूतनसञ्चिका %1"
 
-#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
+#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
 #, kde-format
 msgid "Deleted file %1"
 msgstr "%1 सञ्चिका विलोपिता"
 
-#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
+#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
 #, kde-format
 msgid "No differences found"
 msgstr "न भेदाः लब्धाः"
@@ -579,7 +579,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "पूर्णप्रतिबद्धता दर्शयतु"
 
-#: lib/filehistorywidget.cpp:402
+#: lib/filehistorywidget.cpp:403
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

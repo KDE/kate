@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-14 00:46+0000\n"
 "PO-Revision-Date: 2025-01-07 23:33+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -175,7 +175,7 @@ msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -185,7 +185,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Невалиден хеш"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1s не съществува в хранилището на git."
@@ -534,7 +534,7 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Показване на пълното съдържание на diff, а не само на променените редове"
 
-#: lib/diff/diffwidget.cpp:558
+#: lib/diff/diffwidget.cpp:571
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -545,23 +545,23 @@ msgstr ""
 "git вече е инсталиран, уверете се, че е в променливата PATH. Вижте https://"
 "git-scm.com/Изтегляния"
 
-#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
+#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Разлики"
 
-#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
+#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
 #, kde-format
 msgid "New file %1"
 msgstr "Нов файл %1"
 
-#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
+#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Изтрити файлове %1"
 
-#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
+#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
 #, kde-format
 msgid "No differences found"
 msgstr "Няма разлики"
@@ -590,7 +590,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показване на целия commit"
 
-#: lib/filehistorywidget.cpp:402
+#: lib/filehistorywidget.cpp:403
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

@@ -4354,11 +4354,9 @@ exec myserver
 >Звичайним способом діагностики є додавання певних прапорців до команди запуску (сервера мови), які увімкнуть (додаткове) журналювання (до якогось файла або стандартного виведення помилок), якщо цього не зроблено типово. Якщо потім запустити &kate; з термінала, можна отримати додаткові дані щодо джерела помилки. </para>
 
 <para
->It may also be informative to examine the protocol exchange between &kate;'s LSP client and the LSP server. Again, the latter usually has ways to trace that. The LSP client also provides additional debug tracing (to stderr) when &kate; is invoked with the following <literal
+>Також дані можна отримати вивченням обміну даними між клієнтом LSP &kate; і сервером LSP. Знову ж таки, на останньому, зазвичай, є засоби трасування. Крім того, клієнт LSP надає додаткове діагностичне трасування (до stderr), якщо викликати &kate; із належним чином експортованою змінною середовища <literal
 >LSPCLIENT_DEBUG=1</literal
-> suitably <literal
->export</literal
->'ed. </para>
+>. </para>
 
 </sect3>
 

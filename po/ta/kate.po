@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-14 00:46+0000\n"
 "PO-Revision-Date: 2025-01-26 18:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -178,7 +178,7 @@ msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "Git"
 msgstr "கிட்"
@@ -188,7 +188,7 @@ msgstr "கிட்"
 msgid "Invalid hash"
 msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ஓர் கிட் கிடங்கில் இல்லை."
@@ -536,7 +536,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "மாற்றப்பட்ட வரிகளை சுற்றியுள்ளவற்றையும் காட்டும்"
 
-#: lib/diff/diffwidget.cpp:558
+#: lib/diff/diffwidget.cpp:571
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -547,23 +547,23 @@ msgstr ""
 "தேவை. கிட் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதற்கான பாதை உங்கள் PATH சூழ்மாறியில் உள்ளதா என "
 "சரிபாருங்கள். விவரங்களுக்கு https://git-scm.com/downloads என்பதைப் பாருங்கள்."
 
-#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
+#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "வித்தியாசம்"
 
-#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
+#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
 #, kde-format
 msgid "New file %1"
 msgstr "புதிய கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
+#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
 #, kde-format
 msgid "Deleted file %1"
 msgstr "நீக்கப்பட்ட கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
+#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
 #, kde-format
 msgid "No differences found"
 msgstr "வித்தியாசங்கள் இல்லை"
@@ -590,7 +590,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "முழு பதிவை காட்டு"
 
-#: lib/filehistorywidget.cpp:402
+#: lib/filehistorywidget.cpp:403
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

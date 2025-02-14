@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-14 00:46+0000\n"
 "PO-Revision-Date: 2024-03-18 16:31-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -188,7 +188,7 @@ msgid "Copy Location"
 msgstr "Copiar localização"
 
 #: lib/commitfilesview.cpp:422 lib/commitfilesview.cpp:518
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -198,7 +198,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Hash inválido"
 
-#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:393
+#: lib/commitfilesview.cpp:524 lib/filehistorywidget.cpp:394
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 não existe num repositório git."
@@ -551,7 +551,7 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Mostrar diferenças com contexto completo, não apenas com as linhas alteradas"
 
-#: lib/diff/diffwidget.cpp:558
+#: lib/diff/diffwidget.cpp:571
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -562,23 +562,23 @@ msgstr ""
 "documentos. Se o git já estiver instalado, certifique-se de que ele está na "
 "sua variável PATH. Veja https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:561 lib/diff/diffwidget.cpp:1162
+#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:773 lib/diff/diffwidget.cpp:977
+#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
 #, kde-format
 msgid "New file %1"
 msgstr "Novo arquivo %1"
 
-#: lib/diff/diffwidget.cpp:775 lib/diff/diffwidget.cpp:979
+#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Excluir arquivo %1"
 
-#: lib/diff/diffwidget.cpp:1145 lib/diff/diffwidget.cpp:1146
+#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
 #, kde-format
 msgid "No differences found"
 msgstr "Não foram encontradas diferenças"
@@ -606,7 +606,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Mostar o commit completo"
 
-#: lib/filehistorywidget.cpp:402
+#: lib/filehistorywidget.cpp:403
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

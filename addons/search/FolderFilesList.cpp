@@ -10,7 +10,7 @@
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfoList>
-#include <QtConcurrent>
+#include <QtConcurrentMap>
 
 #include <unordered_set>
 #include <vector>

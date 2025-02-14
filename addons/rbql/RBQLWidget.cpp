@@ -14,7 +14,7 @@
 #include <QStandardItemModel>
 #include <QTableView>
 #include <QVBoxLayout>
-#include <QtConcurrent/QtConcurrentRun>
+#include <QtConcurrentRun>
 
 #include <KLocalizedString>
 #include <KTextEditor/Document>

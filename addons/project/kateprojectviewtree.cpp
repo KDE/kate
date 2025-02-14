@@ -24,7 +24,6 @@
 #include <QProcess>
 #include <QScrollBar>
 #include <QStyledItemDelegate>
-#include <QtConcurrent>
 
 #include <KColorScheme>
 #include <KLocalizedString>

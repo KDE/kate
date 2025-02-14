@@ -22,12 +22,11 @@
 #include <QSet>
 #include <QStandardPaths>
 #include <QThread>
-#include <QtConcurrent>
+#include <QtConcurrentMap>
 
 #include <KLocalizedString>
 
 #include <algorithm>
-#include <tuple>
 #include <vector>
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)

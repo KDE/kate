@@ -26,7 +26,7 @@ msgstr "Marce Villarino, Adrián Chaves Fernández"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "mvillarino@users.sourceforge.net, adrian@chaves.io"
+msgstr "mvillarino@users.sourceforge.net, adrian@chaves.gal"
 
 #: close_confirm_dialog.cpp:66
 #, kde-format

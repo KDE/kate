@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2025-01-06 13:23+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -522,8 +522,8 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "O ficheiro JSON «%1» ten erros de sintaxe: %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
-#: kateprojectviewtree.cpp:248
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:217
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Project"
 msgstr "Proxecto"
@@ -1009,17 +1009,17 @@ msgstr "Novo ficheiro"
 msgid "New Folder"
 msgstr "Novo cartafol"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:217
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Non foi posíbel crear o ficheiro: %1. Erro: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Non foi posíbel crear o cartafol: %1"
 
-#: kateprojectworker.cpp:734
+#: kateprojectworker.cpp:733
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

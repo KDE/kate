@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2024-12-22 17:54+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -516,8 +516,8 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
-#: kateprojectviewtree.cpp:248
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:217
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Project"
 msgstr "Proje"
@@ -1001,17 +1001,17 @@ msgstr "Yeni Dosya"
 msgid "New Folder"
 msgstr "Yeni Klasör"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:217
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Dosya oluşturulamadı: %1, Hata: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Dizin oluşturulamadı: %1"
 
-#: kateprojectworker.cpp:734
+#: kateprojectworker.cpp:733
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

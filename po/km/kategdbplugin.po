@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2012-06-08 10:04+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -613,66 +613,78 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr ""
 
-#: localsview.cpp:19
+#: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
 msgstr "និមិត្តសញ្ញា​"
 
-#: localsview.cpp:20
+#: localsview.cpp:23
 #, kde-format
 msgid "Value"
 msgstr "តម្លៃ​"
 
-#: localsview.cpp:43
+#: localsview.cpp:49
 #, kde-format
 msgid "type"
 msgstr ""
 
-#: localsview.cpp:52
+#: localsview.cpp:58
 #, kde-format
 msgid "indexed items"
 msgstr ""
 
-#: localsview.cpp:55
+#: localsview.cpp:61
 #, kde-format
 msgid "named items"
 msgstr ""
 
-#: plugin_kategdb.cpp:105
+#: localsview.cpp:144
+#, fuzzy, kde-format
+#| msgid "Symbol"
+msgid "Copy Symbol"
+msgstr "និមិត្តសញ្ញា​"
+
+#: localsview.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Value"
+msgstr "ចម្លង​គោលដៅ"
+
+#: plugin_kategdb.cpp:106
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Kate Debug"
 msgstr "បំបាត់​កំហុស​"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Debug View"
 msgstr "ទិដ្ឋភាព​បំបាត់​កំហុស​​"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:358
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
 #, kde-format
 msgid "Debug"
 msgstr "បំបាត់​កំហុស​"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
 #, fuzzy, kde-format
 #| msgid "Call Stack"
 msgid "Locals and Stack"
 msgstr "ហៅ​ជង់​​"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "ស៊ុម​"
 
-#: plugin_kategdb.cpp:235
+#: plugin_kategdb.cpp:239
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -680,109 +692,116 @@ msgid ""
 "Advanced Settings -> Source file search paths"
 msgstr ""
 
-#: plugin_kategdb.cpp:248
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Targets"
 msgstr "គោលដៅ​ ៖​​"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Start Debugging"
 msgstr "ចាប់​ផ្ដើម​ការ​បំបាត់​កំហុស​"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "បញ្ចប់​/បញ្ឈប់​​ការ​បំបាត់​កំហុស​"
 
-#: plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "បន្ត​"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "បិទ/បើក​ ចំណុច​ឈប់​ / បញ្ឈប់"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:287
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "ចំណុច​ឈប់​"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Step In"
 msgstr "ជំហាន​ចូល​"
 
-#: plugin_kategdb.cpp:295
+#: plugin_kategdb.cpp:299
 #, kde-format
 msgid "Step Over"
 msgstr "ជំហាន​រំលង​"
 
-#: plugin_kategdb.cpp:302
+#: plugin_kategdb.cpp:306
 #, kde-format
 msgid "Step Out"
 msgstr "ជំហាន​ចេញ​"
 
-#: plugin_kategdb.cpp:309 plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Run To Cursor"
 msgstr "រត់​ទៅកាន់​ទស្សន៍ទ្រនិច​"
 
-#: plugin_kategdb.cpp:316
+#: plugin_kategdb.cpp:320
 #, kde-format
 msgid "Restart Debugging"
 msgstr "ចាប់​ផ្ដើម​ការ​បំបាត់​កំហុស​ឡើង​វិញ​"
 
-#: plugin_kategdb.cpp:323
+#: plugin_kategdb.cpp:327
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "GDB Output"
+msgid "Clear Output"
+msgstr "ទិន្នផល​របស់​ GDB "
+
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:330
+#: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:351
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:348 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "ផ្លាស់​ទី​ PC"
 
-#: plugin_kategdb.cpp:353
+#: plugin_kategdb.cpp:365
 #, kde-format
 msgid "Print Value"
 msgstr "តម្លៃ​បោះពុម្ព​"
 
-#: plugin_kategdb.cpp:465 plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "បញ្ចូល​ចំណុច​ឈប់​"
 
-#: plugin_kategdb.cpp:479
+#: plugin_kategdb.cpp:491
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "យក​​ចំណុច​ឈប់​ចេញ​"
 
-#: plugin_kategdb.cpp:652
+#: plugin_kategdb.cpp:665
 #, kde-format
 msgid "Execution point"
 msgstr "ចំណុច​ប្រតិបត្តិ​"
 
-#: plugin_kategdb.cpp:793 plugin_kategdb.cpp:824
+#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
 #, kde-format
 msgid "Thread %1"
 msgstr "សែស្រឡាយ %1"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:933
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -790,21 +809,37 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "ទិន្នផល​របស់​ GDB "
 
-#: plugin_kategdb.cpp:921
+#: plugin_kategdb.cpp:934
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "ការ​កំណត់​"
 
-#: plugin_kategdb.cpp:966
+#: plugin_kategdb.cpp:979
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1052
+#: plugin_kategdb.cpp:1065
 #, kde-format
 msgid "Breakpoint"
 msgstr "ចំណុច​ឈប់​"
+
+#: plugin_kategdb.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Stack Trace"
+msgstr "ចម្លង​គោលដៅ"
+
+#: plugin_kategdb.cpp:1162
+#, kde-format
+msgid "Open Location"
+msgstr ""
+
+#: plugin_kategdb.cpp:1172
+#, kde-format
+msgid "Copy Location"
+msgstr ""
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

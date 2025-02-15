@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2024-10-22 06:43+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -609,64 +609,76 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Ni bilo mogoče razčleniti zadnjega odziva: %1"
 
-#: localsview.cpp:19
+#: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:20
+#: localsview.cpp:23
 #, kde-format
 msgid "Value"
 msgstr "Vrednost"
 
-#: localsview.cpp:43
+#: localsview.cpp:49
 #, kde-format
 msgid "type"
 msgstr "vrsta"
 
-#: localsview.cpp:52
+#: localsview.cpp:58
 #, kde-format
 msgid "indexed items"
 msgstr "indeksirane postavke"
 
-#: localsview.cpp:55
+#: localsview.cpp:61
 #, kde-format
 msgid "named items"
 msgstr "poimenovane postavke"
 
-#: plugin_kategdb.cpp:105
+#: localsview.cpp:144
+#, fuzzy, kde-format
+#| msgid "Symbol"
+msgid "Copy Symbol"
+msgstr "Simbol"
+
+#: localsview.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Value"
+msgstr "Kopiraj cilj"
+
+#: plugin_kategdb.cpp:106
 #, kde-format
 msgid "Kate Debug"
 msgstr "Razhrošči Kate"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Debug View"
 msgstr "Razhroščevalni prikaz"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:358
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
 #, kde-format
 msgid "Debug"
 msgstr "Razhrošči"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Krajevno in skladi"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Št."
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Okvir"
 
-#: plugin_kategdb.cpp:235
+#: plugin_kategdb.cpp:239
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -676,128 +688,151 @@ msgstr ""
 "<title>Ni mogoče odpreti datoteke:</title><nl/>%1<br/>Poskusite dodati "
 "iskalno pot v Napredne nastavitve -> Iskalne poti za datoteke z izvorno kodo"
 
-#: plugin_kategdb.cpp:248
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Targets"
 msgstr "Cilji"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Start Debugging"
 msgstr "Začni z razhroščevanjem"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Ubij/zaustavi razhroščevanje"
 
-#: plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "Nadaljuj"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Preklopi prekinitveno točko/prekinitev"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Počisti vse prekinitvene točke"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Step In"
 msgstr "Vstopi"
 
-#: plugin_kategdb.cpp:295
+#: plugin_kategdb.cpp:299
 #, kde-format
 msgid "Step Over"
 msgstr "Prestopi"
 
-#: plugin_kategdb.cpp:302
+#: plugin_kategdb.cpp:306
 #, kde-format
 msgid "Step Out"
 msgstr "Izstopi"
 
-#: plugin_kategdb.cpp:309 plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Zaženi do kazalke"
 
-#: plugin_kategdb.cpp:316
+#: plugin_kategdb.cpp:320
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Znova zaženi razhroščevanje"
 
-#: plugin_kategdb.cpp:323
+#: plugin_kategdb.cpp:327
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Debug Output"
+msgid "Clear Output"
+msgstr "Razhrošči izhod"
+
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Hot Reload"
 msgstr "Vroče ponovno nalaganje"
 
-#: plugin_kategdb.cpp:330
+#: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Hot Restart"
 msgstr "Vroči ponovni zagon"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:351
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Omogoči vroče nalaganje pri shranjevanju"
 
-#: plugin_kategdb.cpp:348 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Premakni PC"
 
-#: plugin_kategdb.cpp:353
+#: plugin_kategdb.cpp:365
 #, kde-format
 msgid "Print Value"
 msgstr "Izpiši vrednost"
 
-#: plugin_kategdb.cpp:465 plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Vstavi prekinitveno točko"
 
-#: plugin_kategdb.cpp:479
+#: plugin_kategdb.cpp:491
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Odstrani prekinitveno točko"
 
-#: plugin_kategdb.cpp:652
+#: plugin_kategdb.cpp:665
 #, kde-format
 msgid "Execution point"
 msgstr "Izvajalna točka"
 
-#: plugin_kategdb.cpp:793 plugin_kategdb.cpp:824
+#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
 #, kde-format
 msgid "Thread %1"
 msgstr "Nit %1"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:933
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Razhrošči izhod"
 
-#: plugin_kategdb.cpp:921
+#: plugin_kategdb.cpp:934
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Nastavitve"
 
-#: plugin_kategdb.cpp:966
+#: plugin_kategdb.cpp:979
 #, kde-format
 msgid "IO"
 msgstr "V/I"
 
-#: plugin_kategdb.cpp:1052
+#: plugin_kategdb.cpp:1065
 #, kde-format
 msgid "Breakpoint"
 msgstr "Prekinitvena točka"
+
+#: plugin_kategdb.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Stack Trace"
+msgstr "Kopiraj cilj"
+
+#: plugin_kategdb.cpp:1162
+#, kde-format
+msgid "Open Location"
+msgstr ""
+
+#: plugin_kategdb.cpp:1172
+#, kde-format
+msgid "Copy Location"
+msgstr ""
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

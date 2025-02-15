@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Marce Villarino <mvillarino@kde-espana.es>, 2012, 2013.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2017.
-# SPDX-FileCopyrightText: 2023, 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-13 00:48+0000\n"
-"PO-Revision-Date: 2024-12-17 18:20+0100\n"
+"PO-Revision-Date: 2025-02-14 08:11+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -207,6 +207,7 @@ msgstr "Filtrar…"
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Buscar na lapela actual; manteña premida Ctrl para buscar nunha nova lapela."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294
@@ -621,6 +622,7 @@ msgstr "Atopar"
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
+"Non se iniciou a busca porque o cartafol no que buscar, «%1», non existe."
 
 #: SearchPlugin.cpp:1341
 #, kde-format

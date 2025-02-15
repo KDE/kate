@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -609,64 +609,76 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi: Sonuncu cavab həll olunmadı: %1"
 
-#: localsview.cpp:19
+#: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
 msgstr "Simvol"
 
-#: localsview.cpp:20
+#: localsview.cpp:23
 #, kde-format
 msgid "Value"
 msgstr "Dəyər"
 
-#: localsview.cpp:43
+#: localsview.cpp:49
 #, kde-format
 msgid "type"
 msgstr "növ"
 
-#: localsview.cpp:52
+#: localsview.cpp:58
 #, kde-format
 msgid "indexed items"
 msgstr "indekslənmiş elementlər"
 
-#: localsview.cpp:55
+#: localsview.cpp:61
 #, kde-format
 msgid "named items"
 msgstr "adlandırılmış elementlər"
 
-#: plugin_kategdb.cpp:105
+#: localsview.cpp:144
+#, fuzzy, kde-format
+#| msgid "Symbol"
+msgid "Copy Symbol"
+msgstr "Simvol"
+
+#: localsview.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Value"
+msgstr "Hədəfi kopyalayın"
+
+#: plugin_kategdb.cpp:106
 #, kde-format
 msgid "Kate Debug"
 msgstr "Kate sazlayıcısı"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Debug View"
 msgstr "Xəta sazlam görünüşü"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:358
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
 #, kde-format
 msgid "Debug"
 msgstr "Xəta Sazlama"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Yerlər və Qruplar"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "No"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Çərçivə"
 
-#: plugin_kategdb.cpp:235
+#: plugin_kategdb.cpp:239
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -676,129 +688,152 @@ msgstr ""
 "<title>Fayl aşıla bilmədi</title><nl/>%1<br/>Axtraış yolunu Əlavə ayarlar > "
 "Mənbə faylının axttarış yolları, yoluna əlavə etməyə cəhd edin"
 
-#: plugin_kategdb.cpp:248
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Targets"
 msgstr "Hədəflər"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Start Debugging"
 msgstr "Xəta sazlamasını başladın"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Xəta sazlamasını sonlandırmaq/Dayandırmaq"
 
-#: plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "Davam edin"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Qırılma nöqtəsini ilə qırılma arası keçid"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:287
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Qırılma nöqtəsi"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Step In"
 msgstr "Bir addım içəri"
 
-#: plugin_kategdb.cpp:295
+#: plugin_kategdb.cpp:299
 #, kde-format
 msgid "Step Over"
 msgstr "Üzərindən keçin"
 
-#: plugin_kategdb.cpp:302
+#: plugin_kategdb.cpp:306
 #, kde-format
 msgid "Step Out"
 msgstr "Bir addın bayıra"
 
-#: plugin_kategdb.cpp:309 plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Kursora qədər icra edin"
 
-#: plugin_kategdb.cpp:316
+#: plugin_kategdb.cpp:320
 #, kde-format
 msgid "Restart Debugging"
 msgstr "XƏta sazlamanı yenidən başladın"
 
-#: plugin_kategdb.cpp:323
+#: plugin_kategdb.cpp:327
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Debug Output"
+msgid "Clear Output"
+msgstr "Sazlayıcının çıxışı"
+
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:330
+#: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:351
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:348 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PCini köçürün"
 
-#: plugin_kategdb.cpp:353
+#: plugin_kategdb.cpp:365
 #, kde-format
 msgid "Print Value"
 msgstr "Dəyəri göstərin"
 
-#: plugin_kategdb.cpp:465 plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Qırılma nöqtəsi daxil edin"
 
-#: plugin_kategdb.cpp:479
+#: plugin_kategdb.cpp:491
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Qırılma nöqtəsini silin"
 
-#: plugin_kategdb.cpp:652
+#: plugin_kategdb.cpp:665
 #, kde-format
 msgid "Execution point"
 msgstr "İcra olunma nöqtəsi"
 
-#: plugin_kategdb.cpp:793 plugin_kategdb.cpp:824
+#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
 #, kde-format
 msgid "Thread %1"
 msgstr "Axın %1"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:933
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Sazlayıcının çıxışı"
 
-#: plugin_kategdb.cpp:921
+#: plugin_kategdb.cpp:934
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: plugin_kategdb.cpp:966
+#: plugin_kategdb.cpp:979
 #, kde-format
 msgid "IO"
 msgstr "GÇ"
 
-#: plugin_kategdb.cpp:1052
+#: plugin_kategdb.cpp:1065
 #, kde-format
 msgid "Breakpoint"
 msgstr "Qırılma nöqtəsi"
+
+#: plugin_kategdb.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Stack Trace"
+msgstr "Hədəfi kopyalayın"
+
+#: plugin_kategdb.cpp:1162
+#, kde-format
+msgid "Open Location"
+msgstr ""
+
+#: plugin_kategdb.cpp:1172
+#, kde-format
+msgid "Copy Location"
+msgstr ""
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

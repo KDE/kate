@@ -7,7 +7,7 @@
 # Ilpo Kantonen <ilpo@iki.fi>, 2005, 2006.
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
-# SPDX-FileCopyrightText: 2009, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2009, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 # Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-14 00:46+0000\n"
-"PO-Revision-Date: 2024-12-01 14:41+0200\n"
+"PO-Revision-Date: 2025-02-11 09:39+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -374,8 +374,7 @@ msgstr "Varoitukset"
 
 #: lib/diagnostics/diagnosticview.cpp:508
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
 msgstr "Suodata…"
 
@@ -981,7 +980,7 @@ msgstr "Toiminta-asetukset"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -990,6 +989,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
+"Luettelo %1-merkillä erotetuista kansioista, joista Kate etsii suoritettavia "
+"ohjelmia. Luettelo lisätään PATH-ympäristömuuttujasi alkuun. Esim. ”/home/"
+"KÄYTTÄJÄ/omatohjelmat/bin/:/home/KÄYTTÄJÄ/.local/bin”."
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1345,12 +1347,12 @@ msgstr "Käyttäjäpalaute"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Virheellinen PATH-arvo"
 
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "Sijaintia ”%1” ei ole olemassa"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format
@@ -1670,10 +1672,9 @@ msgid "Reopen the document or documents that were most recently closed"
 msgstr "Avaa äskettäin suljetut tiedosto(t) uudelleen"
 
 #: lib/katemainwindow.cpp:493
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "Close &Window"
-msgstr "&Uusi ikkuna"
+msgstr "Sul&je ikkuna"
 
 #: lib/katemainwindow.cpp:497
 #, kde-format
@@ -1681,10 +1682,9 @@ msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
 #: lib/katemainwindow.cpp:502
-#, fuzzy, kde-format
-#| msgid "&Other Application..."
+#, kde-format
 msgid "Quit the application"
-msgstr "&Muu sovellus…"
+msgstr "Lopeta sovellus"
 
 #: lib/katemainwindow.cpp:506
 #, kde-format
@@ -2475,7 +2475,7 @@ msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 #: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Tiedostoa ”%1” ei ole olemassa"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format
@@ -2576,29 +2576,34 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"Nimelle ”%1” ei löytynyt työkalunäkymää. Onko sen liitännäinen poistettu "
+"käytöstä vai onko nimessä virhe?"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "Skriptivirhe. Odotettiin työkalunäkymän nimeä. Käytettävissä: %1"
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Laadunvarmistus ja skriptaus"
+msgstr "Skriptaus"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"”showtoolview $työkalunäkymän_nimi”. Näytä työkalunäkymäpaneeli. "
+"Käytettävissä olevat paneelit: %1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"”showtoolview $työkalunäkymän_nimi”. Piilota työkalunäkymäpaneeli. "
+"Käytettävissä olevat paneelit: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

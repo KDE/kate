@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2025-01-11 12:49+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -514,8 +514,8 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Felaktig JSON-fil '%1': %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
-#: kateprojectviewtree.cpp:248
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:217
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
@@ -999,17 +999,17 @@ msgstr "Ny fil"
 msgid "New Folder"
 msgstr "Ny katalog"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:217
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Misslyckades skapa fil: %1, Fel: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Misslyckades skapa katalog: %1"
 
-#: kateprojectworker.cpp:734
+#: kateprojectworker.cpp:733
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

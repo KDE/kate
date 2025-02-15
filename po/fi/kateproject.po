@@ -1,6 +1,6 @@
 # Copyright © 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
 # Tommi Nieminen <translator@legisign.org>, 2024.
 #
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
-"PO-Revision-Date: 2024-12-09 21:09+0200\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
+"PO-Revision-Date: 2025-01-12 17:35+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -516,8 +516,8 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
-#: kateprojectviewtree.cpp:248
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:217
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Project"
 msgstr "Projekti"
@@ -999,17 +999,17 @@ msgstr "Uusi tiedosto"
 msgid "New Folder"
 msgstr "Uusi kansio"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:217
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ei voitu luoda tiedostoa: %1, virhe: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:247
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ei voitu luoda kansiota: %1"
 
-#: kateprojectworker.cpp:734
+#: kateprojectworker.cpp:733
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1025,18 +1025,17 @@ msgstr ""
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Suorita aktiivisen projektin päätteessä komento."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Komentoa ei annettu"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Projektikohtainen täydennys"
+msgstr "Projektikomento"
 
 #: stashdialog.cpp:36
 #, kde-format

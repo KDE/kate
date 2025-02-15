@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-01 00:43+0000\n"
+"POT-Creation-Date: 2025-02-15 00:45+0000\n"
 "PO-Revision-Date: 2024-10-23 08:07+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -618,64 +618,76 @@ msgstr ""
 msgid "gdb-mi: Could not parse last response: %1"
 msgstr "gdb-mi : impossible d'analyser la dernière réponse : %1"
 
-#: localsview.cpp:19
+#: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
 msgstr "Symbole"
 
-#: localsview.cpp:20
+#: localsview.cpp:23
 #, kde-format
 msgid "Value"
 msgstr "Valeur"
 
-#: localsview.cpp:43
+#: localsview.cpp:49
 #, kde-format
 msgid "type"
 msgstr "type"
 
-#: localsview.cpp:52
+#: localsview.cpp:58
 #, kde-format
 msgid "indexed items"
 msgstr "éléments indexés"
 
-#: localsview.cpp:55
+#: localsview.cpp:61
 #, kde-format
 msgid "named items"
 msgstr "éléments nommés"
 
-#: plugin_kategdb.cpp:105
+#: localsview.cpp:144
+#, fuzzy, kde-format
+#| msgid "Symbol"
+msgid "Copy Symbol"
+msgstr "Symbole"
+
+#: localsview.cpp:158
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Value"
+msgstr "Copier une cible"
+
+#: plugin_kategdb.cpp:106
 #, kde-format
 msgid "Kate Debug"
 msgstr "Débogueur de Kate"
 
-#: plugin_kategdb.cpp:109
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Debug View"
 msgstr "Vue du débogage"
 
-#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:358
+#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
 #, kde-format
 msgid "Debug"
 msgstr "Déboguer"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Symboles locaux et pile d'appels"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "N°"
 
-#: plugin_kategdb.cpp:168
+#: plugin_kategdb.cpp:169
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Cadre"
 
-#: plugin_kategdb.cpp:235
+#: plugin_kategdb.cpp:239
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -686,128 +698,151 @@ msgstr ""
 "d'ajouter un emplacement de recherche dans les paramètres avancés / "
 "Emplacements de recherche pour des fichiers sources"
 
-#: plugin_kategdb.cpp:248
+#: plugin_kategdb.cpp:252
 #, kde-format
 msgid "Targets"
 msgstr "Cibles"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Start Debugging"
 msgstr "Démarrer le débogage"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Interrompre / Arrêter le débogage"
 
-#: plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:274
 #, kde-format
 msgid "Continue"
 msgstr "Continuer"
 
-#: plugin_kategdb.cpp:276
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "(Dés)Activer le point d'arrêt / Interrompre"
 
-#: plugin_kategdb.cpp:283
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Effacer tous les points d'arrêt"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Step In"
 msgstr "Déplacer le débogueur dans la prochaine instruction"
 
-#: plugin_kategdb.cpp:295
+#: plugin_kategdb.cpp:299
 #, kde-format
 msgid "Step Over"
 msgstr "Avancer"
 
-#: plugin_kategdb.cpp:302
+#: plugin_kategdb.cpp:306
 #, kde-format
 msgid "Step Out"
 msgstr "Pas à pas en sortant"
 
-#: plugin_kategdb.cpp:309 plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Exécuter jusqu'au curseur"
 
-#: plugin_kategdb.cpp:316
+#: plugin_kategdb.cpp:320
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Redémarrer le débogage"
 
-#: plugin_kategdb.cpp:323
+#: plugin_kategdb.cpp:327
+#, fuzzy, kde-format
+#| msgctxt "Tab label"
+#| msgid "Debug Output"
+msgid "Clear Output"
+msgstr "Sortie du débogueur"
+
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Hot Reload"
 msgstr "Rechargement à chaud"
 
-#: plugin_kategdb.cpp:330
+#: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Hot Restart"
 msgstr "Redémarrage à chaud"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:351
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Activer le rechargement à chaud lors de l'enregistrement"
 
-#: plugin_kategdb.cpp:348 plugin_kategdb.cpp:367
+#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Modifier le compteur d'instructions"
 
-#: plugin_kategdb.cpp:353
+#: plugin_kategdb.cpp:365
 #, kde-format
 msgid "Print Value"
 msgstr "Afficher une valeur"
 
-#: plugin_kategdb.cpp:465 plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insérer un point d'arrêt"
 
-#: plugin_kategdb.cpp:479
+#: plugin_kategdb.cpp:491
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Supprimer un point d'arrêt"
 
-#: plugin_kategdb.cpp:652
+#: plugin_kategdb.cpp:665
 #, kde-format
 msgid "Execution point"
 msgstr "Point d'exécution"
 
-#: plugin_kategdb.cpp:793 plugin_kategdb.cpp:824
+#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
 #, kde-format
 msgid "Thread %1"
 msgstr "Fil d'exécution %1"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:933
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Sortie du débogueur"
 
-#: plugin_kategdb.cpp:921
+#: plugin_kategdb.cpp:934
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configuration"
 
-#: plugin_kategdb.cpp:966
+#: plugin_kategdb.cpp:979
 #, kde-format
 msgid "IO"
 msgstr "E / S"
 
-#: plugin_kategdb.cpp:1052
+#: plugin_kategdb.cpp:1065
 #, kde-format
 msgid "Breakpoint"
 msgstr "Point d'arrêt"
+
+#: plugin_kategdb.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Copy target"
+msgid "Copy Stack Trace"
+msgstr "Copier une cible"
+
+#: plugin_kategdb.cpp:1162
+#, kde-format
+msgid "Open Location"
+msgstr ""
+
+#: plugin_kategdb.cpp:1172
+#, kde-format
+msgid "Copy Location"
+msgstr ""
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Adrián Chaves Fernández <adriyetichaves@gmail.com>, 2015, 2017.
-# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-06 11:47+0100\n"
+"PO-Revision-Date: 2025-02-14 08:33+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -201,14 +201,12 @@ msgstr "Orde personalizada"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Abrir…"
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Abrir con"
+msgstr "Abrir un ficheiro"
 
 #: katefiletree.cpp:416
 #, kde-format

@@ -1104,11 +1104,11 @@
 >De Bouwplug-in gebruiken</title>
 
 <para
->The Build plugin adds a <guilabel
+>De plug-in Build voegt een weergavehulpmiddel <guilabel
 >Build</guilabel
-> tool view at the bottom and a <guimenu
+> onderaan toe en een menu <guimenu
 >Build</guimenu
-> menu on the menu bar. The tool view can be used to select and configure build targets, while the menu and its shortcuts can be used to select and execute the configured shell commands.</para>
+> op de menubalk. Het weergavehulpmiddel kan worden gebruikt om bouwdoelen te selecteren en te configureren, terwijl het menu en zijn sneltoetsen gebruikt kunnen worden om de geconfigureerde shell-opdrachten uit te voeren.</para>
 
 <screenshot id="screenshot-build-output">
 <screeninfo
@@ -1160,7 +1160,7 @@
 > worden opgeslagen in de huidige sessieconfiguratie van Kate.</para>
 
 <para
->The first row, in a target-set, contains a name for the set in column one, and in column two we have the directory where the commands should be executed. On each following row, we have a name for the command in column one, a build command in column two and a run command in column three. To edit one of these, double-click on the entry or use the edit shortcut (often <keycap
+>De eerste rij, in een doel-set, bevat een naam voor de set in kolom een en in kolom twee hebben we de map waar de opdrachten uitgevoerd zouden moeten worden. Op elke volgende rij hebben we een naam voor het commando in kolom een, een bouwopdracht in kolom twee en een uitvoeropdracht in kolom drie. Om een va deze te bewerken, dubbelklik op het item of gebruik de sneltoets bewerken (vaak <keycap
 >F2</keycap
 >).</para>
 
@@ -1187,13 +1187,13 @@
 ></term>
 <listitem
 ><para
->The second column in the "non-first rows", contains the shell command to run in the working directory. Note the word shell. Almost any shell command will do. The build command can contain placeholders. <guilabel
+>De tweede kolom in de "niet-eerste rijen", bevat de shell-opdrachten om uit te voeren in de werkmap. Let op het woord shell. Bijna elke shell-opdracht is goed. De bouwopdracht kan plaatshouders bevatten. <guilabel
 >%f</guilabel
-> for the current file, <guilabel
+> voor het huidige bestand, <guilabel
 >%d</guilabel
-> for directory of the current file and <guilabel
+> voor de map van het huidige bestand en <guilabel
 >%n</guilabel
-> for the base-name of the current file (file name without suffix).</para
+> voor de basisnaam van de huidige bestandsnaam (zonder achtervoegsel).</para
 ></listitem>
 </varlistentry>
 
@@ -4333,10 +4333,10 @@ exec myserver
 
 <para
 >Het kan ook informatief zijn om de protocoluitwisseling tussen de LSP-client van &kate; en de LSP-server. Nog eens, de laatste heeft daar gewoonlijk manieren voor. De LSP-client biedt ook extra debuguitvoer (naar stderr) wanneer &kate; is aangeroepen met het volgende <literal
->QT_LOGGING_RULES=katelspclientplugin=true</literal
->, met commando <literal
+>LSPCLIENT_DEBUG=1</literal
+>, gedefinieerd met commando <literal
 >export</literal
-> gedefinieerd. </para>
+>. </para>
 
 </sect3>
 
@@ -4492,7 +4492,9 @@ its view and place the cursor at the start of the definition.
 ><para
 >Wanneer u klaar bent met alles in te stellen drukt u gewoon op de knop <guibutton
 >Zoeken</guibutton
-> om uw zoekopdracht uit te voeren. U kunt ook op &Enter; drukken in de tekstvak voor <guilabel
+> om uw zoekopdracht uit te voeren; om de zoekopdracht in een nieuw tabblad uit te voeren, houd &Ctrl; ingedrukt alvorens de knop <guibutton
+>Zoeken</guibutton
+> in te drukken. U kunt ook op &Enter; drukken in het tekstvak voor <guilabel
 >Zoeken</guilabel
 > om hetzelfde te doen. </para
 ></listitem>

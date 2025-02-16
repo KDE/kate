@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
 # H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2011.
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2022.
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-12-19 20:48+0300\n"
+"PO-Revision-Date: 2025-02-15 09:44+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -638,16 +638,14 @@ msgid "named items"
 msgstr "adlı ögeler"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Sembol"
+msgstr "Sembolü Kopyala"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Hedefi kopyala"
+msgstr "Değeri Kopyala"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -747,11 +745,9 @@ msgid "Restart Debugging"
 msgstr "Hata Ayıklamayı Yeniden Başlat"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Hata Ayıklama Çıktısı"
+msgstr "Çıktıyı Temizle"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -822,20 +818,19 @@ msgid "Breakpoint"
 msgstr "Kesme Noktası"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Hedefi kopyala"
+msgstr "Yığın İzini Kopyala"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Konum Aç"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Konumu Kopyala"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

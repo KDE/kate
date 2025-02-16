@@ -1,20 +1,20 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2010, 2011, 2013, 2014, 2020, 2022, 2023, 2024 Stefan Asserhall <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2011, 2013, 2014, 2020, 2022, 2023, 2024, 2025 Stefan Asserhall <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-11-24 17:49+0100\n"
+"PO-Revision-Date: 2025-02-15 08:04+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
@@ -630,16 +630,14 @@ msgid "named items"
 msgstr "namngivna objekt"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symbol"
+msgstr "Kopiera symbol"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopiera mål"
+msgstr "Kopiera värde"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -739,11 +737,9 @@ msgid "Restart Debugging"
 msgstr "Starta om avlusning"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Avlusarutmatning"
+msgstr "Rensa utdata"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -814,20 +810,19 @@ msgid "Breakpoint"
 msgstr "Brytpunkt"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Kopiera mål"
+msgstr "Kopiera bakåtspårning"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Öppna plats"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopiera plats"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

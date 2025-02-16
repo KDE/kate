@@ -631,10 +631,9 @@ msgid "Copy Symbol"
 msgstr "Symbol"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Zkopírovat cíl"
+msgstr "Kopírovat hodnotu"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -732,11 +731,9 @@ msgid "Restart Debugging"
 msgstr ""
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Ladicí výstup"
+msgstr "Vyprázdnit výstup"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -815,12 +812,12 @@ msgstr "Zkopírovat cíl"
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Otevřít umístění"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopírovat umístění"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-10-22 04:32+0200\n"
+"PO-Revision-Date: 2025-02-15 04:07+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -631,16 +631,14 @@ msgid "named items"
 msgstr "სახელიანი ელემენტები"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "სიმბოლო"
+msgstr "სიმბოლოს კოპირება"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "სამიზნის კოპირება"
+msgstr "მნიშვნელობის კოპირება"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -740,11 +738,9 @@ msgid "Restart Debugging"
 msgstr "გამართვის თავიდან გაშვება"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "გამართვის გამოტანა"
+msgstr "გამოტანის გასუფთავება"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -815,20 +811,19 @@ msgid "Breakpoint"
 msgstr "გამართვის წერტილი"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "სამიზნის კოპირება"
+msgstr "სტეკის ტრეისის კოპირება"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "მდებარეობის გახსნა"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "მდებარეობის კოპირება"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

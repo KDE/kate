@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2012, 2013, 2014, 2020, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011, 2012, 2013, 2014, 2020, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-10-22 17:14+0300\n"
+"PO-Revision-Date: 2025-02-15 09:24+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -635,16 +635,14 @@ msgid "named items"
 msgstr "іменовані записи"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Символ"
+msgstr "Копіювати символ"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Копіювати призначення"
+msgstr "Копіювати значення"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -744,11 +742,9 @@ msgid "Restart Debugging"
 msgstr "Перезапустити налагоджування"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Діагностичні повідомлення"
+msgstr "Спорожнити панель виведення"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -819,20 +815,19 @@ msgid "Breakpoint"
 msgstr "Точка зупинки"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Копіювати призначення"
+msgstr "Копіювати трасування стека"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Відкрити адресу"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Копіювати адресу"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

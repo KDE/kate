@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-10-22 06:43+0200\n"
+"PO-Revision-Date: 2025-02-15 09:32+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -635,16 +635,14 @@ msgid "named items"
 msgstr "poimenovane postavke"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Simbol"
+msgstr "Kopiraj simbol"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopiraj cilj"
+msgstr "Kopiraj vrednost"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -744,11 +742,9 @@ msgid "Restart Debugging"
 msgstr "Znova zaženi razhroščevanje"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Razhrošči izhod"
+msgstr "Počisti izhod"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -819,20 +815,19 @@ msgid "Breakpoint"
 msgstr "Prekinitvena točka"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Kopiraj cilj"
+msgstr "Kopiraj sled sklada"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Odpri lokacijo"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopiraj lokacijo"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

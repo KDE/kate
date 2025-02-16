@@ -1,24 +1,24 @@
 # Translation of kategdbplugin.po to Catalan (Valencian)
-# Copyright (C) 2010-2024 This_file_is_part_of_KDE
+# Copyright (C) 2010-2025 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Manuel Tortosa Moreno <manutortosa@chakra-project.org>, 2010.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2013, 2014, 2015, 2016.
+# Josep M. Ferrer <txemaq@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-10-22 11:34+0200\n"
+"PO-Revision-Date: 2025-02-15 12:18+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -639,16 +639,14 @@ msgid "named items"
 msgstr "elements amb nom"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Símbol"
+msgstr "Copia el símbol"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Copia un objectiu"
+msgstr "Copia el valor"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -750,11 +748,9 @@ msgid "Restart Debugging"
 msgstr "Reinicia la depuració"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Eixida de depuració"
+msgstr "Neteja l'eixida"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -825,20 +821,19 @@ msgid "Breakpoint"
 msgstr "Punt d'interrupció"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Copia un objectiu"
+msgstr "Copia la traça de la pila"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Obri la ubicació"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Copia la ubicació"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

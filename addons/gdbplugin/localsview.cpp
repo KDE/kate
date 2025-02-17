@@ -20,6 +20,7 @@ LocalsView::LocalsView(QWidget *parent)
 {
     QStringList headers;
     headers << i18n("Symbol");
+    headers << i18n("Type");
     headers << i18n("Value");
     setHeaderLabels(headers);
     setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -94,6 +95,8 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
         item->setData(Column_Value, VariableReference, variable.variablesReference);
         item->addChild(pendingDataChild(item));
     }
+    item->setText(Column_Type, variable.type.value_or(QString()));
+
     item->setToolTip(Column_Symbol, nameTip(variable));
     item->setToolTip(Column_Value, valueTip(variable));
 
@@ -109,6 +112,8 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
         label->setWordWrap(true);
         setItemWidget(item, Column_Value, label);
     }
+    item->setText(Column_Type, variable.type.value_or(QString()));
+
     item->setToolTip(Column_Symbol, nameTip(variable));
     item->setToolTip(Column_Value, valueTip(variable));
 

@@ -27,7 +27,8 @@ public:
     };
     enum Column {
         Column_Symbol = 0,
-        Column_Value = 1,
+        Column_Type = 1,
+        Column_Value = 2,
     };
 
     LocalsView(QWidget *parent = nullptr);

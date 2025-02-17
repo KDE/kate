@@ -62,6 +62,7 @@ private Q_SLOTS:
     void testNewSessionClearsWindowWidgets();
     void testViewspaceWithWidgetDoesntCrashOnClose();
     void testDetachDoc();
+    void testKwriteInSDIModeWithOpenMultipleUrls();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

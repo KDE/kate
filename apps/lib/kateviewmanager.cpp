@@ -501,12 +501,16 @@ KTextEditor::Document *KateViewManager::openUrls(std::span<const QUrl> urls, con
     for (auto doc : docs) {
         // it we have a document to close, we can use this window for the first document even in SDI mode
         // try to re-use open views to avoid massive windows spawning, see bug 474775
-        if (!m_sdiMode || (first && docToClose) || m_views.empty() || activeViewSpace()->hasDocument(doc)) {
+        if (!m_sdiMode || (first && docToClose) || activeViewSpace()->numberOfRegisteredDocuments() == 0 || activeViewSpace()->hasDocument(doc)) {
             // forward to currently active view space
+            const bool wasEmpty = activeViewSpace()->numberOfRegisteredDocuments() == 0;
             activeViewSpace()->registerDocument(doc);
             connect(doc, &KTextEditor::Document::documentSavedOrUploaded, this, &KateViewManager::documentSavedOrUploaded);
             lastDocInThisViewManager = doc;
             first = false;
+            if (wasEmpty) {
+                activateView(doc);
+            }
             continue;
         }
 

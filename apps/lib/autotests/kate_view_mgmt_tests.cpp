@@ -9,6 +9,7 @@
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <KTextEditor/Editor>
 
 #include <QCommandLineParser>
@@ -718,6 +719,56 @@ void KateViewManagementTests::testDetachDoc()
     action->trigger();
     QCOMPARE(app->mainWindowsCount(), 2);
     QVERIFY(app->activeKateMainWindow()->viewManager()->activeView()->document() == doc);
+}
+
+void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
+{
+    /**
+     * In this test, we simulate opening KWrite from the terminal and passing in 2 docs
+     * - KWrite is in SDI Mode
+     * - We should get 2 windows for 2 docs
+     */
+
+    app->sessionManager()->sessionNew();
+    for (auto mw : app->mainWindows()) {
+        if (mw != app->activeMainWindow()) {
+            delete mw->window();
+        }
+    }
+
+    {
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        cgGeneral.writeEntry("SDI Mode", true);
+        app->configurationChanged();
+    }
+
+    KateMainWindow *mw = app->activeKateMainWindow();
+    QVERIFY(mw->viewManager()->m_sdiMode);
+    clearAllDocs(mw);
+    QCOMPARE(app->mainWindowsCount(), 1);
+    QCOMPARE(mw->views().size(), 0);
+
+    const QDir d = QDir::current();
+    const QUrl file1 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File1")));
+    const QUrl file2 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File2")));
+
+    app->openDocUrl(file1, QString(), false, /*activateView=*/false);
+    app->openDocUrl(file2, QString(), false, /*activateView=*/false);
+
+    QCOMPARE(app->mainWindowsCount(), 2);
+
+    for (auto mw : app->mainWindows()) {
+        QCOMPARE(mw->views().size(), 1);
+    }
+
+    // fallback to default
+    {
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        cgGeneral.deleteEntry("SDI Mode");
+        app->configurationChanged();
+    }
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

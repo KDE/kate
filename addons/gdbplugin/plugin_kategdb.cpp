@@ -807,6 +807,8 @@ void KatePluginGDBView::scopeSelected(int scope)
 
 void KatePluginGDBView::onThreads(const QList<dap::Thread> &threads)
 {
+    // We dont want to signal thread change while we are modifying the combo
+    disconnect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
     m_threadCombo->clear();
     int activeThread = m_activeThread;
     m_activeThread = -1;
@@ -826,6 +828,7 @@ void KatePluginGDBView::onThreads(const QList<dap::Thread> &threads)
         m_threadCombo->addItem(icon, name, thread.id);
     }
 
+    connect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
     // try to set an active thread
     if (m_threadCombo->count() > 0) {
         int idx = 0; // use first thread

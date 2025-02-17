@@ -143,7 +143,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     // input
     m_inputArea = new KHistoryComboBox(true);
-    connect(m_inputArea, static_cast<void (KHistoryComboBox::*)(const QString &)>(&KHistoryComboBox::returnPressed), this, &KatePluginGDBView::slotSendCommand);
+    connect(m_inputArea, &KHistoryComboBox::returnPressed, this, &KatePluginGDBView::slotSendCommand);
     auto *inputLayout = new QHBoxLayout();
     inputLayout->addWidget(m_inputArea, 10);
     inputLayout->setContentsMargins(0, 0, 0, 0);
@@ -179,7 +179,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_stackTree->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_stackTree, &QTreeWidget::customContextMenuRequested, this, &KatePluginGDBView::onStackTreeContextMenuRequest);
 
-    connect(m_threadCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::threadSelected);
+    connect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
 
     auto *variableContainer = new QWidget();
     auto *variableLayout = new QVBoxLayout(variableContainer);

@@ -67,16 +67,16 @@ static QString valueTip(const dap::Variable &variable)
 
 static void formatName(QTreeWidgetItem &item, const dap::Variable &variable)
 {
-    QFont font = item.font(0);
+    QFont font = item.font(LocalsView::Column_Symbol);
     font.setBold(variable.valueChanged.value_or(false));
-    item.setFont(0, font);
+    item.setFont(LocalsView::Column_Symbol, font);
 }
 
 static QTreeWidgetItem *pendingDataChild(QTreeWidgetItem *parent)
 {
     auto item = new QTreeWidgetItem(parent, LocalsView::PendingDataItem);
-    item->setText(0, i18n("Loading..."));
-    item->setText(1, i18n("Loading..."));
+    item->setText(LocalsView::Column_Symbol, i18n("Loading..."));
+    item->setText(LocalsView::Column_Value, i18n("Loading..."));
     return item;
 }
 
@@ -87,15 +87,15 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
     if (!variable.value.isEmpty()) {
         auto *label = new QLabel(variable.value);
         label->setWordWrap(true);
-        setItemWidget(item, 1, label);
+        setItemWidget(item, Column_Value, label);
     }
-    item->setData(1, Qt::UserRole, variable.value);
+    item->setData(Column_Value, Qt::UserRole, variable.value);
     if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
-        item->setData(1, VariableReference, variable.variablesReference);
+        item->setData(Column_Value, VariableReference, variable.variablesReference);
         item->addChild(pendingDataChild(item));
     }
-    item->setToolTip(0, nameTip(variable));
-    item->setToolTip(1, valueTip(variable));
+    item->setToolTip(Column_Symbol, nameTip(variable));
+    item->setToolTip(Column_Value, valueTip(variable));
 
     return item;
 }
@@ -107,13 +107,13 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
     if (!variable.value.isEmpty()) {
         auto *label = new QLabel(variable.value);
         label->setWordWrap(true);
-        setItemWidget(item, 1, label);
+        setItemWidget(item, Column_Value, label);
     }
-    item->setToolTip(0, nameTip(variable));
-    item->setToolTip(1, valueTip(variable));
+    item->setToolTip(Column_Symbol, nameTip(variable));
+    item->setToolTip(Column_Value, valueTip(variable));
 
     if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
-        item->setData(1, VariableReference, variable.variablesReference);
+        item->setData(Column_Value, VariableReference, variable.variablesReference);
         item->addChild(pendingDataChild(item));
     }
 
@@ -164,9 +164,9 @@ void LocalsView::onContextMenu(QPoint pos)
             qApp->clipboard()->setText(item->text(0).trimmed());
         });
 
-        QString value = item->data(1, Qt::UserRole).toString();
+        QString value = item->data(Column_Value, Qt::UserRole).toString();
         if (value.isEmpty()) {
-            if (itemWidget(item, 1)) {
+            if (itemWidget(item, Column_Value)) {
                 auto label = qobject_cast<QLabel *>(itemWidget(item, 1));
                 value = label ? label->text() : QString();
             }
@@ -189,7 +189,7 @@ void LocalsView::onItemExpanded(QTreeWidgetItem *item)
     for (int i = 0; i < childCount; ++i) {
         if (item->child(i)->type() == PendingDataItem) {
             item->removeChild(item->child(i));
-            Q_EMIT requestVariable(item->data(1, VariableReference).toInt());
+            Q_EMIT requestVariable(item->data(Column_Value, VariableReference).toInt());
             break;
         }
     }

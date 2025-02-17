@@ -25,6 +25,10 @@ public:
     enum Type {
         PendingDataItem = QTreeWidgetItem::UserType + 1
     };
+    enum Column {
+        Column_Symbol = 0,
+        Column_Value = 1,
+    };
 
     LocalsView(QWidget *parent = nullptr);
     ~LocalsView() override;

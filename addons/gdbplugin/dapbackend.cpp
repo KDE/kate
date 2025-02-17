@@ -578,6 +578,10 @@ void DapBackend::changeScope(int scopeId)
     m_currentScope = scopeId;
 
     if (m_queryLocals) {
+        // discard pending requests
+        m_pendingVariableRequest.clear();
+        m_pendingVariableRequest.push_back(scopeId);
+
         pushRequest();
         m_client->requestVariables(scopeId);
     }
@@ -596,6 +600,12 @@ void DapBackend::onVariables(const int variablesReference, const QList<dap::Vari
         return;
     }
 
+    auto it = std::find(m_pendingVariableRequest.begin(), m_pendingVariableRequest.end(), variablesReference);
+    if (it == m_pendingVariableRequest.end()) {
+        // discard responses to outdated requests
+        return;
+    }
+
     const bool rootLevel = m_currentScope && (*m_currentScope == variablesReference);
     if (rootLevel) {
         Q_EMIT variableScopeOpened();
@@ -605,6 +615,7 @@ void DapBackend::onVariables(const int variablesReference, const QList<dap::Vari
         Q_EMIT variableInfo(rootLevel ? 0 : variablesReference, variable);
 
         if (rootLevel && (variable.variablesReference > 0)) {
+            m_pendingVariableRequest.push_back(variable.variablesReference);
             // TODO don't retrieve expensive variables
             // retrieve inner info
             pushRequest();

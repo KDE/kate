@@ -19,6 +19,13 @@ class LocalsView : public QTreeWidget
 {
     Q_OBJECT
 public:
+    enum Role {
+        VariableReference = Qt::UserRole + 1,
+    };
+    enum Type {
+        PendingDataItem = QTreeWidgetItem::UserType + 1
+    };
+
     LocalsView(QWidget *parent = nullptr);
     ~LocalsView() override;
 
@@ -30,6 +37,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void localsVisible(bool visible);
+    void requestVariable(int variableReference);
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -39,6 +47,7 @@ private:
     QTreeWidgetItem *createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable);
     QTreeWidgetItem *createWrappedItem(QTreeWidget *parent, const dap::Variable &variable);
     void onContextMenu(QPoint pos);
+    void onItemExpanded(QTreeWidgetItem *);
 
     QHash<int, QTreeWidgetItem *> m_variables;
 };

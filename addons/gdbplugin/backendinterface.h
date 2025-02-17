@@ -128,6 +128,7 @@ public Q_SLOTS:
     virtual void changeStackFrame(int index) = 0;
     virtual void changeThread(int thread) = 0;
     virtual void changeScope(int scopeId) = 0;
+    virtual void requestVariable(int variablesReference) = 0;
 
 Q_SIGNALS:
     void debugLocationChanged(const QUrl &file, int lineNum);

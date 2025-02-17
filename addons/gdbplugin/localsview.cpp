@@ -26,6 +26,7 @@ LocalsView::LocalsView(QWidget *parent)
     setUniformRowHeights(true);
     setContextMenuPolicy(Qt::CustomContextMenu);
     connect(this, &QTreeWidget::customContextMenuRequested, this, &LocalsView::onContextMenu);
+    connect(this, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
 }
 
 LocalsView::~LocalsView()
@@ -71,6 +72,14 @@ static void formatName(QTreeWidgetItem &item, const dap::Variable &variable)
     item.setFont(0, font);
 }
 
+static QTreeWidgetItem *pendingDataChild(QTreeWidgetItem *parent)
+{
+    auto item = new QTreeWidgetItem(parent, LocalsView::PendingDataItem);
+    item->setText(0, i18n("Loading..."));
+    item->setText(1, i18n("Loading..."));
+    return item;
+}
+
 QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable)
 {
     auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
@@ -81,6 +90,10 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
         setItemWidget(item, 1, label);
     }
     item->setData(1, Qt::UserRole, variable.value);
+    if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
+        item->setData(1, VariableReference, variable.variablesReference);
+        item->addChild(pendingDataChild(item));
+    }
     item->setToolTip(0, nameTip(variable));
     item->setToolTip(1, valueTip(variable));
 
@@ -98,6 +111,11 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
     }
     item->setToolTip(0, nameTip(variable));
     item->setToolTip(1, valueTip(variable));
+
+    if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
+        item->setData(1, VariableReference, variable.variablesReference);
+        item->addChild(pendingDataChild(item));
+    }
 
     return item;
 }
@@ -163,6 +181,18 @@ void LocalsView::onContextMenu(QPoint pos)
     }
 
     menu.exec(viewport()->mapToGlobal(pos));
+}
+
+void LocalsView::onItemExpanded(QTreeWidgetItem *item)
+{
+    const int childCount = item->childCount();
+    for (int i = 0; i < childCount; ++i) {
+        if (item->child(i)->type() == PendingDataItem) {
+            item->removeChild(item->child(i));
+            Q_EMIT requestVariable(item->data(1, VariableReference).toInt());
+            break;
+        }
+    }
 }
 
 #include "moc_localsview.cpp"

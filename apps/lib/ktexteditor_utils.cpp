@@ -118,7 +118,11 @@ QIcon iconForDocument(KTextEditor::Document *doc)
 
     // else mime-type icon
     else {
-        icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForName(doc->mimeType()).iconName());
+        const QString mimeType = doc->mimeType();
+        // Shortcut: common case, don't initialize the mime database.
+        if (mimeType != QLatin1String("text/plain")) {
+            icon = QIcon::fromTheme(QMimeDatabase().mimeTypeForName(mimeType).iconName());
+        }
     }
 
     // ensure we always have a valid icon

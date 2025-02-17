@@ -164,7 +164,6 @@ private:
     std::optional<int> m_currentFrame;
     std::optional<int> m_currentScope;
     bool m_restart = false;
-    bool m_queryLocals = false;
 
     enum KillMode {
         Polite,

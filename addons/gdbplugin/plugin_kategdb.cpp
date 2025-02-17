@@ -781,20 +781,20 @@ void KatePluginGDBView::stackFrameChanged(int level)
 
 void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId)
 {
+    const int currentIndex = m_scopeCombo->currentIndex();
+    Q_UNUSED(activeId)
+
     m_scopeCombo->clear();
 
-    int selected = -1;
-    int index = 0;
     for (const auto &scope : scopes) {
         QString name = scope.expensive.value_or(false) ? QStringLiteral("%1!").arg(scope.name) : scope.name;
-        if (activeId && (activeId == scope.variablesReference)) {
-            selected = index;
-        }
         m_scopeCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), scope.name, scope.variablesReference);
-        ++index;
     }
-    if (selected >= 0) {
-        m_scopeCombo->setCurrentIndex(selected);
+
+    if (currentIndex >= 0 && currentIndex < scopes.size()) {
+        m_scopeCombo->setCurrentIndex(currentIndex);
+    } else if (m_scopeCombo->count() > 0) {
+        m_scopeCombo->setCurrentIndex(0);
     }
 }
 

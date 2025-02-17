@@ -351,9 +351,6 @@ void DapBackend::onThreads(const QList<dap::Thread> &threads, bool isError)
 
 void DapBackend::informStackFrame()
 {
-    if (!m_queryLocals)
-        return;
-
     int level = 0;
 
     for (const auto &frame : m_frames) {
@@ -580,47 +577,19 @@ void DapBackend::changeScope(int scopeId)
 
     m_currentScope = scopeId;
 
-    if (m_queryLocals) {
-        pushRequest();
-        m_client->requestVariables(scopeId);
-    }
+    pushRequest();
+    m_client->requestVariables(scopeId);
 }
 
 void DapBackend::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
 {
-    std::optional<int> activeScope = std::nullopt;
-
-    for (const auto &scope : scopes) {
-        if (!m_currentScope || (*m_currentScope == scope.variablesReference)) {
-            activeScope = scope.variablesReference;
-            break;
-        }
-    }
-
-    if (activeScope) {
-        m_currentScope = activeScope;
-    } else if (!scopes.isEmpty()) {
-        m_currentScope = scopes[0].variablesReference;
-    } else {
-        m_currentScope = std::nullopt;
-    }
-
-    if (m_queryLocals) {
-        // preload variables
-        pushRequest();
-        m_client->requestVariables(*m_currentScope);
-        Q_EMIT scopesInfo(scopes, m_currentScope);
-    }
+    m_currentScope = std::nullopt; // unset current scope as scopes have changed
+    Q_EMIT scopesInfo(scopes, {});
     popRequest();
 }
 
 void DapBackend::onVariables(const int variablesReference, const QList<dap::Variable> &variables)
 {
-    if (!m_queryLocals) {
-        popRequest();
-        return;
-    }
-
     const bool rootLevel = m_currentScope && (*m_currentScope == variablesReference);
     if (rootLevel) {
         Q_EMIT variableScopeOpened();
@@ -1668,21 +1637,8 @@ void DapBackend::slotReRun()
     slotKill();
 }
 
-void DapBackend::slotQueryLocals(bool display)
+void DapBackend::slotQueryLocals(bool)
 {
-    m_queryLocals = display;
-
-    if (!display)
-        return;
-
-    if (!m_client)
-        return;
-
-    if (m_currentFrame) {
-        informStackFrame();
-        pushRequest();
-        m_client->requestScopes(m_frames[*m_currentFrame].id);
-    }
 }
 
 QString DapBackend::slotPrintVariable(const QString &variable)
@@ -1725,7 +1681,7 @@ void DapBackend::changeStackFrame(int index)
 
     Q_EMIT stackFrameChanged(index);
 
-    slotQueryLocals(m_queryLocals);
+    m_client->requestScopes(m_frames[*m_currentFrame].id);
 }
 
 void DapBackend::changeThread(int index)

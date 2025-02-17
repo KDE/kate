@@ -192,4 +192,6 @@ private:
     std::map<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
     QTimer m_requestThreadsTimer;
+
+    std::vector<int> m_pendingVariableRequest;
 };

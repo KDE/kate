@@ -587,6 +587,13 @@ void DapBackend::changeScope(int scopeId)
     }
 }
 
+void DapBackend::requestVariable(int variablesReference)
+{
+    m_pendingVariableRequest.push_back(variablesReference);
+    pushRequest();
+    m_client->requestVariables(variablesReference);
+}
+
 void DapBackend::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
 {
     Q_EMIT scopesInfo(scopes, {});
@@ -613,14 +620,6 @@ void DapBackend::onVariables(const int variablesReference, const QList<dap::Vari
 
     for (const auto &variable : variables) {
         Q_EMIT variableInfo(rootLevel ? 0 : variablesReference, variable);
-
-        if (rootLevel && (variable.variablesReference > 0)) {
-            m_pendingVariableRequest.push_back(variable.variablesReference);
-            // TODO don't retrieve expensive variables
-            // retrieve inner info
-            pushRequest();
-            m_client->requestVariables(variable.variablesReference);
-        }
     }
 
     if (m_requests == 0) {

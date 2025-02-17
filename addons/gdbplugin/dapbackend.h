@@ -63,6 +63,7 @@ public Q_SLOTS:
     void changeStackFrame(int index) override;
     void changeThread(int index) override;
     void changeScope(int scopeId) override;
+    void requestVariable(int variablesReference) override;
 
 private:
     enum State {

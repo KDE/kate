@@ -1793,4 +1793,10 @@ void GdbBackend::changeScope(int scopeId)
     }
 }
 
+void GdbBackend::requestVariable(int variablesReference)
+{
+    // variables are eagerly resolved in gdbbackend
+    Q_UNUSED(variablesReference)
+}
+
 #include "moc_gdbbackend.cpp"

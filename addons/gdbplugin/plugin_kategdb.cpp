@@ -747,6 +747,13 @@ void KatePluginGDBView::insertStackFrame(int level, const QString &info)
     auto *item = new QTreeWidgetItem(columns);
     item->setToolTip(2, QStringLiteral("<qt>%1<qt>").arg(info));
     m_stackTree->insertTopLevelItem(level, item);
+
+    if (m_lastExecFrame >= 0) {
+        QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
+        if (current && current->icon(0).isNull()) {
+            current->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
+        }
+    }
 }
 
 void KatePluginGDBView::stackFrameSelected()

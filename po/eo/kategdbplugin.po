@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-15 00:45+0000\n"
-"PO-Revision-Date: 2024-12-28 17:41+0100\n"
+"PO-Revision-Date: 2025-02-16 17:10+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -633,16 +633,14 @@ msgid "named items"
 msgstr "nomitaj eroj"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Simbolo"
+msgstr "Kopii Simbolon"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopii celon"
+msgstr "Kopii Valoron"
 
 #: plugin_kategdb.cpp:106
 #, kde-format
@@ -742,11 +740,9 @@ msgid "Restart Debugging"
 msgstr "Rekomenci Sencimigon"
 
 #: plugin_kategdb.cpp:327
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Sencimiga eligo"
+msgstr "Viŝi Eligon"
 
 #: plugin_kategdb.cpp:335
 #, kde-format
@@ -817,20 +813,19 @@ msgid "Breakpoint"
 msgstr "Paŭzopunkto"
 
 #: plugin_kategdb.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Kopii celon"
+msgstr "Kopii Stakospuron"
 
 #: plugin_kategdb.cpp:1162
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Malfermi Lokon"
 
 #: plugin_kategdb.cpp:1172
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopii Lokon"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

@@ -24,6 +24,8 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
+#include <kconfigwidgets_version.h>
+
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KLocalizedString>
@@ -863,7 +865,11 @@ void KateProjectPluginView::openProject(KateProject *project)
     if (auto *parentClient = qobject_cast<KXmlGuiWindow *>(m_mainWindow->window())) {
         if (auto *openRecentAction = parentClient->action(KStandardAction::name(KStandardAction::StandardAction::OpenRecent))) {
             if (auto *recentFilesAction = qobject_cast<KRecentFilesAction *>(openRecentAction)) {
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 9, 0)
+                recentFilesAction->addUrl(QUrl::fromLocalFile(project->baseDir()), QString(), QStringLiteral("inode/directory"));
+#else
                 recentFilesAction->addUrl(QUrl::fromLocalFile(project->baseDir()));
+#endif
             }
         }
     }

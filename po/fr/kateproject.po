@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-15 00:45+0000\n"
+"POT-Creation-Date: 2025-02-18 00:43+0000\n"
 "PO-Revision-Date: 2025-01-06 11:40+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -531,8 +531,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Fichier « JSON » mal formaté « %1 » : %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:217
-#: kateprojectviewtree.cpp:247
+#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:255
 #, kde-format
 msgid "Project"
 msgstr "Projet"
@@ -1020,12 +1021,24 @@ msgstr "Nouveau fichier"
 msgid "New Folder"
 msgstr "Nouveau dossier"
 
-#: kateprojectviewtree.cpp:217
+#: kateprojectviewtree.cpp:210
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "The file already exists"
+msgstr "Le nom du fichier existe déjà."
+
+#: kateprojectviewtree.cpp:221
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Impossible de créer un fichier : %1. Erreur : %2"
 
-#: kateprojectviewtree.cpp:247
+#: kateprojectviewtree.cpp:248
+#, fuzzy, kde-format
+#| msgid "File name already exists"
+msgid "The directory already exists"
+msgstr "Le nom du fichier existe déjà."
+
+#: kateprojectviewtree.cpp:255
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Impossible de créer un dossier : %1"

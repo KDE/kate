@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
+"POT-Creation-Date: 2025-02-18 00:43+0000\n"
 "PO-Revision-Date: 2025-01-26 19:08+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -2432,17 +2432,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Abrindo un ficheiro grande"
 
-#: lib/kateviewmanager.cpp:563
+#: lib/kateviewmanager.cpp:567
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 non pode abrir cartafoles"
 
-#: lib/kateviewmanager.cpp:580
+#: lib/kateviewmanager.cpp:584
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Non se atopou o complemento necesario para abrir cartafoles"
 
-#: lib/kateviewmanager.cpp:586
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2450,24 +2450,24 @@ msgstr ""
 "Para abrir cartafoles hai que activar o complemento <b>%1</b>. Quere "
 "activalo?"
 
-#: lib/kateviewmanager.cpp:589
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Abrir o cartafol"
 
-#: lib/kateviewmanager.cpp:590
+#: lib/kateviewmanager.cpp:594
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activar"
 
-#: lib/kateviewmanager.cpp:597
+#: lib/kateviewmanager.cpp:601
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Non foi posíbel activar o complemento <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "O ficheiro «%1» non existe."

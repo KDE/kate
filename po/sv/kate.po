@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-14 00:46+0000\n"
+"POT-Creation-Date: 2025-02-18 00:43+0000\n"
 "PO-Revision-Date: 2025-01-11 12:55+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -2421,17 +2421,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Öppnar stor fil"
 
-#: lib/kateviewmanager.cpp:563
+#: lib/kateviewmanager.cpp:567
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 kan inte öppna kataloger"
 
-#: lib/kateviewmanager.cpp:580
+#: lib/kateviewmanager.cpp:584
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Insticksprogrammet som krävs för att öppna kataloger hittades inte"
 
-#: lib/kateviewmanager.cpp:586
+#: lib/kateviewmanager.cpp:590
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2439,24 +2439,24 @@ msgstr ""
 "För att öppna kataloger måste insticksprogrammet <b>%1</b> aktiveras. "
 "Aktivera det?"
 
-#: lib/kateviewmanager.cpp:589
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Öppna katalog"
 
-#: lib/kateviewmanager.cpp:590
+#: lib/kateviewmanager.cpp:594
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Aktivera"
 
-#: lib/kateviewmanager.cpp:597
+#: lib/kateviewmanager.cpp:601
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Misslyckades aktivera insticksprogrammet <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Filen '%1' finns inte"

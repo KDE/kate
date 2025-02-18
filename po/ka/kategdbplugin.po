@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-15 00:45+0000\n"
+"POT-Creation-Date: 2025-02-18 00:43+0000\n"
 "PO-Revision-Date: 2025-02-15 04:07+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -168,7 +168,7 @@ msgstr "გამართვადი პროგრამების შე�
 msgid "Advanced Settings"
 msgstr "დამატებითი პარამეტრები"
 
-#: configview.cpp:462 configview.cpp:475
+#: configview.cpp:463 configview.cpp:476
 #, kde-format
 msgid "Target %1"
 msgstr "სამიზნე %1"
@@ -178,309 +178,309 @@ msgstr "სამიზნე %1"
 msgid "DAP backend '%1' failed"
 msgstr "DAP უკანაბოლო '%1' ჩავარდა"
 
-#: dapbackend.cpp:226
+#: dapbackend.cpp:227
 #, kde-format
 msgid "program terminated"
 msgstr "პროგრამა დასრულდა"
 
-#: dapbackend.cpp:238
+#: dapbackend.cpp:239
 #, kde-format
 msgid "requesting disconnection"
 msgstr "შეერთების გათიშვის მოთხოვნა"
 
-#: dapbackend.cpp:252
+#: dapbackend.cpp:253
 #, kde-format
 msgid "requesting shutdown"
 msgstr "გამორთვის მოთხოვნა"
 
-#: dapbackend.cpp:276
+#: dapbackend.cpp:277
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "DAP უკანაბოლო: %1"
 
-#: dapbackend.cpp:285 gdbbackend.cpp:654
+#: dapbackend.cpp:286 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "გაჩერებული (%1)."
 
-#: dapbackend.cpp:293 gdbbackend.cpp:658
+#: dapbackend.cpp:294 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "აქტიური ნაკადი: %1 (ყველა ნაკადი შეჩერდა)."
 
-#: dapbackend.cpp:295 gdbbackend.cpp:660
+#: dapbackend.cpp:296 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "აქტიური ნაკადი: %1."
 
-#: dapbackend.cpp:300
+#: dapbackend.cpp:301
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "მიღწეულია გამართვის წერტილ(ებ)-ი:"
 
-#: dapbackend.cpp:326
+#: dapbackend.cpp:327
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(გაგრძელდა) ნაკადი %1"
 
-#: dapbackend.cpp:328
+#: dapbackend.cpp:329
 #, kde-format
 msgid "all threads continued"
 msgstr "ყველა ნაკადი გაგრძელდა"
 
-#: dapbackend.cpp:335
+#: dapbackend.cpp:336
 #, kde-format
 msgid "(running)"
 msgstr "[გაშვებულია]"
 
-#: dapbackend.cpp:414
+#: dapbackend.cpp:415
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** სერვერთან შეერთება დაიხურა ***"
 
-#: dapbackend.cpp:421
+#: dapbackend.cpp:422
 #, kde-format
 msgid "program exited with code %1"
 msgstr "პროგრამა დასრულდა კოდით %1"
 
-#: dapbackend.cpp:439
+#: dapbackend.cpp:440
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** მოხმარებლის ქმედების მოლოდინი ***"
 
-#: dapbackend.cpp:444
+#: dapbackend.cpp:445
 #, kde-format
 msgid "error on response: %1"
 msgstr "შეცდომა პასუხზე: %1"
 
-#: dapbackend.cpp:459
+#: dapbackend.cpp:460
 #, kde-format
 msgid "important"
 msgstr "მნიშვნელოვანი"
 
-#: dapbackend.cpp:462
+#: dapbackend.cpp:463
 #, kde-format
 msgid "telemetry"
 msgstr "ტელემეტრია"
 
-#: dapbackend.cpp:481
+#: dapbackend.cpp:482
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "პროცესის [%1] %2 გამართვა"
 
-#: dapbackend.cpp:483
+#: dapbackend.cpp:484
 #, kde-format
 msgid "debugging process %1"
 msgstr "პროცესის გამართვა %1"
 
-#: dapbackend.cpp:486
+#: dapbackend.cpp:487
 #, kde-format
 msgid "Start method: %1"
 msgstr "გაშვების მეთოდი: %1"
 
-#: dapbackend.cpp:501
+#: dapbackend.cpp:502
 #, kde-format
 msgid "thread %1"
 msgstr "ნაკადი %1"
 
-#: dapbackend.cpp:657
+#: dapbackend.cpp:658
 #, kde-format
 msgid "breakpoint set"
 msgstr "გამართვის წერტილი დაყენებულია"
 
-#: dapbackend.cpp:665
+#: dapbackend.cpp:666
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "გამართვის წერტილი გასუფთავდა"
 
-#: dapbackend.cpp:724
+#: dapbackend.cpp:725
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) გამართვის წერტილი"
 
-#: dapbackend.cpp:741
+#: dapbackend.cpp:742
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<not evaluated>"
 
-#: dapbackend.cpp:763
+#: dapbackend.cpp:764
 #, kde-format
 msgid "server capabilities"
 msgstr "სერვერის შესაძლებლობები"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:767
 #, kde-format
 msgid "supported"
 msgstr "მხარდაჭერილი"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:767
 #, kde-format
 msgid "unsupported"
 msgstr "მხარდაუჭერელი"
 
-#: dapbackend.cpp:769
+#: dapbackend.cpp:770
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "პირობითი გამართვის წერტილები"
 
-#: dapbackend.cpp:770
+#: dapbackend.cpp:771
 #, kde-format
 msgid "function breakpoints"
 msgstr "ფუნქციის გამართვის წერტილები"
 
-#: dapbackend.cpp:771
+#: dapbackend.cpp:772
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "მიღწეული გამართვის წერტილები"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:773
 #, kde-format
 msgid "log points"
 msgstr "ჟურნალში ჩასაწერი წერტილები"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:773
 #, kde-format
 msgid "modules request"
 msgstr "მოდულების მოთხოვნა"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:774
 #, kde-format
 msgid "goto targets request"
 msgstr "სამიზნის მოთხოვნაზე გადასვლა"
 
-#: dapbackend.cpp:774
+#: dapbackend.cpp:775
 #, kde-format
 msgid "terminate request"
 msgstr "მოთხოვნის შეწყვეტა"
 
-#: dapbackend.cpp:775
+#: dapbackend.cpp:776
 #, kde-format
 msgid "terminate debuggee"
 msgstr "გასამართი პროცესის მოკვლა"
 
-#: dapbackend.cpp:1003
+#: dapbackend.cpp:1004
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "სინტაქსის შეცდომა: გამოსახულება ვერ ვიპოვე"
 
-#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1094
-#: dapbackend.cpp:1128 dapbackend.cpp:1164 dapbackend.cpp:1200
-#: dapbackend.cpp:1236 dapbackend.cpp:1336 dapbackend.cpp:1398
+#: dapbackend.cpp:1022 dapbackend.cpp:1057 dapbackend.cpp:1095
+#: dapbackend.cpp:1129 dapbackend.cpp:1165 dapbackend.cpp:1201
+#: dapbackend.cpp:1237 dapbackend.cpp:1337 dapbackend.cpp:1399
 #, kde-format
 msgid "syntax error: %1"
 msgstr "სინტაქსური შეცდომა: %1"
 
-#: dapbackend.cpp:1029 dapbackend.cpp:1064 dapbackend.cpp:1343
-#: dapbackend.cpp:1406
+#: dapbackend.cpp:1030 dapbackend.cpp:1065 dapbackend.cpp:1344
+#: dapbackend.cpp:1407
 #, kde-format
 msgid "invalid line: %1"
 msgstr "არასწორი ხაზი: %1"
 
-#: dapbackend.cpp:1036 dapbackend.cpp:1041 dapbackend.cpp:1071
-#: dapbackend.cpp:1076 dapbackend.cpp:1367 dapbackend.cpp:1372
-#: dapbackend.cpp:1413 dapbackend.cpp:1418
+#: dapbackend.cpp:1037 dapbackend.cpp:1042 dapbackend.cpp:1072
+#: dapbackend.cpp:1077 dapbackend.cpp:1368 dapbackend.cpp:1373
+#: dapbackend.cpp:1414 dapbackend.cpp:1419
 #, kde-format
 msgid "file not specified: %1"
 msgstr "ფაილი მითითებული არაა: %1"
 
-#: dapbackend.cpp:1106 dapbackend.cpp:1140 dapbackend.cpp:1176
-#: dapbackend.cpp:1212 dapbackend.cpp:1248
+#: dapbackend.cpp:1107 dapbackend.cpp:1141 dapbackend.cpp:1177
+#: dapbackend.cpp:1213 dapbackend.cpp:1249
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "ნაკადის არასწორი ID: %1"
 
-#: dapbackend.cpp:1112 dapbackend.cpp:1146 dapbackend.cpp:1182
-#: dapbackend.cpp:1218 dapbackend.cpp:1254
+#: dapbackend.cpp:1113 dapbackend.cpp:1147 dapbackend.cpp:1183
+#: dapbackend.cpp:1219 dapbackend.cpp:1255
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "ნაკადი მითითებული არაა: %1"
 
-#: dapbackend.cpp:1265
+#: dapbackend.cpp:1266
 #, kde-format
 msgid "Available commands:"
 msgstr "ხელმისაწვდომი ბრძანებები:"
 
-#: dapbackend.cpp:1353
+#: dapbackend.cpp:1354
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "პირობითი გამართვის წერტილები სერვერის მიერ მხარდაჭერილი არაა"
 
-#: dapbackend.cpp:1361
+#: dapbackend.cpp:1362
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "პირობით გამართვის წერტილებამდე მიღწევა სერვერის მიერ მხარდაჭერილი არაა"
 
-#: dapbackend.cpp:1381
+#: dapbackend.cpp:1382
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
 
-#: dapbackend.cpp:1426
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "გამართვის წერტილი ვერ ვიპოვე (%1:%2)"
 
-#: dapbackend.cpp:1432
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "Current thread: "
 msgstr "მიმდინარე ნაკადი: "
 
-#: dapbackend.cpp:1437 dapbackend.cpp:1444 dapbackend.cpp:1465
+#: dapbackend.cpp:1438 dapbackend.cpp:1445 dapbackend.cpp:1466
 #, kde-format
 msgid "none"
 msgstr "არა"
 
-#: dapbackend.cpp:1440
+#: dapbackend.cpp:1441
 #, kde-format
 msgid "Current frame: "
 msgstr "მიმდინარე კადრი: "
 
-#: dapbackend.cpp:1447
+#: dapbackend.cpp:1448
 #, kde-format
 msgid "Session state: "
 msgstr "სესიის მდგომარეობა: "
 
-#: dapbackend.cpp:1450
+#: dapbackend.cpp:1451
 #, kde-format
 msgid "initializing"
 msgstr "ინიციალიზაცია"
 
-#: dapbackend.cpp:1453
+#: dapbackend.cpp:1454
 #, kde-format
 msgid "running"
 msgstr "გაშვებულია"
 
-#: dapbackend.cpp:1456
+#: dapbackend.cpp:1457
 #, kde-format
 msgid "stopped"
 msgstr "შეჩერებულია"
 
-#: dapbackend.cpp:1459
+#: dapbackend.cpp:1460
 #, kde-format
 msgid "terminated"
 msgstr "სწეყდა"
 
-#: dapbackend.cpp:1462
+#: dapbackend.cpp:1463
 #, kde-format
 msgid "disconnected"
 msgstr "გათიშულია"
 
-#: dapbackend.cpp:1518
+#: dapbackend.cpp:1519
 #, kde-format
 msgid "command not found"
 msgstr "ბრძანება ვერ ვიპოვე"
 
-#: dapbackend.cpp:1552
+#: dapbackend.cpp:1553
 #, kde-format
 msgid "missing thread id"
 msgstr "ნაკლული ნაკადის ID"
 
-#: dapbackend.cpp:1652
+#: dapbackend.cpp:1653
 #, kde-format
 msgid "killing backend"
 msgstr "უკანაბოლოს მოკვლა"
 
-#: dapbackend.cpp:1720
+#: dapbackend.cpp:1721
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "მიმდინარე კადრი [%3]: %1:%2 (%4)"
@@ -640,39 +640,39 @@ msgstr "სიმბოლოს კოპირება"
 msgid "Copy Value"
 msgstr "მნიშვნელობის კოპირება"
 
-#: plugin_kategdb.cpp:106
+#: plugin_kategdb.cpp:108
 #, kde-format
 msgid "Kate Debug"
 msgstr "Kate-ის გამართვა"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:112
 #, kde-format
 msgid "Debug View"
 msgstr "გამართვის ხედი"
 
-#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:374
 #, kde-format
 msgid "Debug"
 msgstr "პროგრამის შეცდომის პოვნა"
 
-#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
+#: plugin_kategdb.cpp:115 plugin_kategdb.cpp:118
 #, kde-format
 msgid "Locals and Stack"
 msgstr "ლოკალურები და სტეკი"
 
-#: plugin_kategdb.cpp:169
+#: plugin_kategdb.cpp:171
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: plugin_kategdb.cpp:169
+#: plugin_kategdb.cpp:171
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "კადრი"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -682,145 +682,145 @@ msgstr ""
 "<title>ფაილის გახსნის შეცდომა:</title><nl/>%1<br/>სცადეთ დამაატოთ საძებნი "
 "ბილიკი დამატებით პარამეტრებში -> კოდის ფაილების ძებნის ბილიკები"
 
-#: plugin_kategdb.cpp:252
+#: plugin_kategdb.cpp:256
 #, kde-format
 msgid "Targets"
 msgstr "სამიზნეები"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:261
 #, kde-format
 msgid "Start Debugging"
 msgstr "გამარტვის დაწყება"
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "გამართვის მოკვლა / გაჩერება"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:278
 #, kde-format
 msgid "Continue"
 msgstr "გაგრძელება"
 
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "გამართვის წერტილის გადართვა / გაჩერება"
 
-#: plugin_kategdb.cpp:287
+#: plugin_kategdb.cpp:291
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "ყველა გამართვის წერტილის გასუფთავება"
 
-#: plugin_kategdb.cpp:292
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "შებიჯება"
 
-#: plugin_kategdb.cpp:299
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "გადაბიჯება"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "გამობიჯება"
 
-#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:381
 #, kde-format
 msgid "Run To Cursor"
 msgstr "კურსორამდე გაშვება"
 
-#: plugin_kategdb.cpp:320
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "გამართვის თავიდან გაშვება"
 
-#: plugin_kategdb.cpp:327
+#: plugin_kategdb.cpp:331
 #, kde-format
 msgid "Clear Output"
 msgstr "გამოტანის გასუფთავება"
 
-#: plugin_kategdb.cpp:335
+#: plugin_kategdb.cpp:339
 #, kde-format
 msgid "Hot Reload"
 msgstr "ცხელი გადატვირთვა"
 
-#: plugin_kategdb.cpp:342
+#: plugin_kategdb.cpp:346
 #, kde-format
 msgid "Hot Restart"
 msgstr "ცხელი თავიდან გაშვება"
 
-#: plugin_kategdb.cpp:351
+#: plugin_kategdb.cpp:355
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "ცხელი გადატვირთვის ჩართვა შენახვისას"
 
-#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
+#: plugin_kategdb.cpp:364 plugin_kategdb.cpp:383
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PC-ის გადატანა"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:369
 #, kde-format
 msgid "Print Value"
 msgstr "მნიშვნელობის დაბეჭდვა"
 
-#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
+#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "გამართვის წერტილის ჩასმა"
 
-#: plugin_kategdb.cpp:491
+#: plugin_kategdb.cpp:495
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "გამართვის წერტილის წაშლა"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:669
 #, kde-format
 msgid "Execution point"
 msgstr "გაშვების წერტილი"
 
-#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
+#: plugin_kategdb.cpp:817 plugin_kategdb.cpp:848
 #, kde-format
 msgid "Thread %1"
 msgstr "ნაკადი %1"
 
-#: plugin_kategdb.cpp:933
+#: plugin_kategdb.cpp:944
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "გამართვის გამოტანა"
 
-#: plugin_kategdb.cpp:934
+#: plugin_kategdb.cpp:945
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "მორგება"
 
-#: plugin_kategdb.cpp:979
+#: plugin_kategdb.cpp:990
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1065
+#: plugin_kategdb.cpp:1076
 #, kde-format
 msgid "Breakpoint"
 msgstr "გამართვის წერტილი"
 
-#: plugin_kategdb.cpp:1140
+#: plugin_kategdb.cpp:1151
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "სტეკის ტრეისის კოპირება"
 
-#: plugin_kategdb.cpp:1162
+#: plugin_kategdb.cpp:1173
 #, kde-format
 msgid "Open Location"
 msgstr "მდებარეობის გახსნა"
 
-#: plugin_kategdb.cpp:1172
+#: plugin_kategdb.cpp:1183
 #, kde-format
 msgid "Copy Location"
 msgstr "მდებარეობის კოპირება"

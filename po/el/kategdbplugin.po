@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-15 00:45+0000\n"
+"POT-Creation-Date: 2025-02-18 00:43+0000\n"
 "PO-Revision-Date: 2023-01-02 10:17+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -169,7 +169,7 @@ msgstr "Ανακατεύθυνση των διορθωμένων προγραμ�
 msgid "Advanced Settings"
 msgstr "Προηγμένες ρυθμίσεις"
 
-#: configview.cpp:462 configview.cpp:475
+#: configview.cpp:463 configview.cpp:476
 #, kde-format
 msgid "Target %1"
 msgstr "Προορισμός %1"
@@ -180,311 +180,311 @@ msgstr "Προορισμός %1"
 msgid "DAP backend '%1' failed"
 msgstr "Αποτυχία συστήματος υποστήριξης DAP"
 
-#: dapbackend.cpp:226
+#: dapbackend.cpp:227
 #, kde-format
 msgid "program terminated"
 msgstr "το πρόγραμμα τερματίστηκε"
 
-#: dapbackend.cpp:238
+#: dapbackend.cpp:239
 #, kde-format
 msgid "requesting disconnection"
 msgstr "ζητείται αποσύνδεση"
 
-#: dapbackend.cpp:252
+#: dapbackend.cpp:253
 #, kde-format
 msgid "requesting shutdown"
 msgstr "ζητείται τερματισμός"
 
-#: dapbackend.cpp:276
+#: dapbackend.cpp:277
 #, kde-format
 msgid "DAP backend: %1"
 msgstr "Σύστημα υποστήριξης DAP: %1"
 
-#: dapbackend.cpp:285 gdbbackend.cpp:654
+#: dapbackend.cpp:286 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
 msgstr "διακόπηκαν (%1)."
 
-#: dapbackend.cpp:293 gdbbackend.cpp:658
+#: dapbackend.cpp:294 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Ενεργό νήμα: %1 (όλα τα νήματα διακόπηκαν)."
 
-#: dapbackend.cpp:295 gdbbackend.cpp:660
+#: dapbackend.cpp:296 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Ενεργό νήμα: %1."
 
-#: dapbackend.cpp:300
+#: dapbackend.cpp:301
 #, kde-format
 msgid "Breakpoint(s) reached:"
 msgstr "Σημείο διακοπής εντοπίστηκε:"
 
-#: dapbackend.cpp:326
+#: dapbackend.cpp:327
 #, kde-format
 msgid "(continued) thread %1"
 msgstr "(σε συνέχεια) νήμα %1"
 
-#: dapbackend.cpp:328
+#: dapbackend.cpp:329
 #, kde-format
 msgid "all threads continued"
 msgstr "όλα τα νήματα σε συνέχεια"
 
-#: dapbackend.cpp:335
+#: dapbackend.cpp:336
 #, kde-format
 msgid "(running)"
 msgstr "(εκτελείται)"
 
-#: dapbackend.cpp:414
+#: dapbackend.cpp:415
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** η σύνδεση με τον διακομιστή έκλεισε ***"
 
-#: dapbackend.cpp:421
+#: dapbackend.cpp:422
 #, kde-format
 msgid "program exited with code %1"
 msgstr "το πρόγραμμα τερματίστηκε με κωδικό %1"
 
-#: dapbackend.cpp:439
+#: dapbackend.cpp:440
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** αναμονή για τις ενέργειες του χρήστη ***"
 
-#: dapbackend.cpp:444
+#: dapbackend.cpp:445
 #, kde-format
 msgid "error on response: %1"
 msgstr "σφάλμα στην απάντηση: %1"
 
-#: dapbackend.cpp:459
+#: dapbackend.cpp:460
 #, kde-format
 msgid "important"
 msgstr "σημαντικό"
 
-#: dapbackend.cpp:462
+#: dapbackend.cpp:463
 #, kde-format
 msgid "telemetry"
 msgstr "τηλεμετρία"
 
-#: dapbackend.cpp:481
+#: dapbackend.cpp:482
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "διαδικασία αποσφαλμάτωσης [%1] %2"
 
-#: dapbackend.cpp:483
+#: dapbackend.cpp:484
 #, kde-format
 msgid "debugging process %1"
 msgstr "διαδικασία αποσφαλμάτωσης %1"
 
-#: dapbackend.cpp:486
+#: dapbackend.cpp:487
 #, kde-format
 msgid "Start method: %1"
 msgstr "Εκκίνηση μεθόδου: %1"
 
-#: dapbackend.cpp:501
+#: dapbackend.cpp:502
 #, kde-format
 msgid "thread %1"
 msgstr "νήμα %1"
 
-#: dapbackend.cpp:657
+#: dapbackend.cpp:658
 #, kde-format
 msgid "breakpoint set"
 msgstr "Σύνολο σημείων διακοπής"
 
-#: dapbackend.cpp:665
+#: dapbackend.cpp:666
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "Σημείο διακοπής καθαρό"
 
-#: dapbackend.cpp:724
+#: dapbackend.cpp:725
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) σημείο διακοπής"
 
-#: dapbackend.cpp:741
+#: dapbackend.cpp:742
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<not evaluated>"
 
-#: dapbackend.cpp:763
+#: dapbackend.cpp:764
 #, kde-format
 msgid "server capabilities"
 msgstr "δυνατότητες διακομιστή"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:767
 #, kde-format
 msgid "supported"
 msgstr "υποστηρίζεται"
 
-#: dapbackend.cpp:766
+#: dapbackend.cpp:767
 #, kde-format
 msgid "unsupported"
 msgstr "δεν υποστηρίζεται"
 
-#: dapbackend.cpp:769
+#: dapbackend.cpp:770
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "Σημεία διακοπής υπό συνθήκη"
 
-#: dapbackend.cpp:770
+#: dapbackend.cpp:771
 #, kde-format
 msgid "function breakpoints"
 msgstr "Σημεία διακοπής συνάρτησης"
 
-#: dapbackend.cpp:771
+#: dapbackend.cpp:772
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "στόχευση σημείων διακοπής υπό συνθήκη"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:773
 #, kde-format
 msgid "log points"
 msgstr "log points"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:773
 #, kde-format
 msgid "modules request"
 msgstr "αίτημα αρθρωμάτων"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:774
 #, kde-format
 msgid "goto targets request"
 msgstr "αίτημα μετάβασης στους προορισμούς"
 
-#: dapbackend.cpp:774
+#: dapbackend.cpp:775
 #, kde-format
 msgid "terminate request"
 msgstr "αίτημα τερματισμού"
 
-#: dapbackend.cpp:775
+#: dapbackend.cpp:776
 #, kde-format
 msgid "terminate debuggee"
 msgstr "τερματισμός προγράμματος σε αποσφαλμάτωση"
 
-#: dapbackend.cpp:1003
+#: dapbackend.cpp:1004
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "συντακτικό σφάλμα: η έκφραση δεν βρέθηκε"
 
-#: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1094
-#: dapbackend.cpp:1128 dapbackend.cpp:1164 dapbackend.cpp:1200
-#: dapbackend.cpp:1236 dapbackend.cpp:1336 dapbackend.cpp:1398
+#: dapbackend.cpp:1022 dapbackend.cpp:1057 dapbackend.cpp:1095
+#: dapbackend.cpp:1129 dapbackend.cpp:1165 dapbackend.cpp:1201
+#: dapbackend.cpp:1237 dapbackend.cpp:1337 dapbackend.cpp:1399
 #, kde-format
 msgid "syntax error: %1"
 msgstr "συντακτικό σφάλμα: %1"
 
-#: dapbackend.cpp:1029 dapbackend.cpp:1064 dapbackend.cpp:1343
-#: dapbackend.cpp:1406
+#: dapbackend.cpp:1030 dapbackend.cpp:1065 dapbackend.cpp:1344
+#: dapbackend.cpp:1407
 #, kde-format
 msgid "invalid line: %1"
 msgstr "μη έγκυρη γραμμή: %1"
 
-#: dapbackend.cpp:1036 dapbackend.cpp:1041 dapbackend.cpp:1071
-#: dapbackend.cpp:1076 dapbackend.cpp:1367 dapbackend.cpp:1372
-#: dapbackend.cpp:1413 dapbackend.cpp:1418
+#: dapbackend.cpp:1037 dapbackend.cpp:1042 dapbackend.cpp:1072
+#: dapbackend.cpp:1077 dapbackend.cpp:1368 dapbackend.cpp:1373
+#: dapbackend.cpp:1414 dapbackend.cpp:1419
 #, kde-format
 msgid "file not specified: %1"
 msgstr "δεν ορίστηκε αρχείο: %1"
 
-#: dapbackend.cpp:1106 dapbackend.cpp:1140 dapbackend.cpp:1176
-#: dapbackend.cpp:1212 dapbackend.cpp:1248
+#: dapbackend.cpp:1107 dapbackend.cpp:1141 dapbackend.cpp:1177
+#: dapbackend.cpp:1213 dapbackend.cpp:1249
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "μη έγκυρη ταυτότητα νήματος: %1"
 
-#: dapbackend.cpp:1112 dapbackend.cpp:1146 dapbackend.cpp:1182
-#: dapbackend.cpp:1218 dapbackend.cpp:1254
+#: dapbackend.cpp:1113 dapbackend.cpp:1147 dapbackend.cpp:1183
+#: dapbackend.cpp:1219 dapbackend.cpp:1255
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "δεν ορίστηκε ταυτότητα νήματος: %1"
 
-#: dapbackend.cpp:1265
+#: dapbackend.cpp:1266
 #, kde-format
 msgid "Available commands:"
 msgstr "Διαθέσιμες εντολές:"
 
-#: dapbackend.cpp:1353
+#: dapbackend.cpp:1354
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "Ο διακομιστής δεν υποστηρίζει σημεία διακοπής υπό συνθήκη"
 
-#: dapbackend.cpp:1361
+#: dapbackend.cpp:1362
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 "η στόχευση των υπό συνθήκη σημείων διακοπής δεν υποστηρίζεται από τον "
 "διακομιστή"
 
-#: dapbackend.cpp:1381
+#: dapbackend.cpp:1382
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: dapbackend.cpp:1426
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "δεν βρέθηκε σημείο διακοπής: (%1:%2)"
 
-#: dapbackend.cpp:1432
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "Current thread: "
 msgstr "Τρέχον νήμα: "
 
-#: dapbackend.cpp:1437 dapbackend.cpp:1444 dapbackend.cpp:1465
+#: dapbackend.cpp:1438 dapbackend.cpp:1445 dapbackend.cpp:1466
 #, kde-format
 msgid "none"
 msgstr "κανένα"
 
-#: dapbackend.cpp:1440
+#: dapbackend.cpp:1441
 #, kde-format
 msgid "Current frame: "
 msgstr "Τρέχον πλαίσιο: "
 
-#: dapbackend.cpp:1447
+#: dapbackend.cpp:1448
 #, kde-format
 msgid "Session state: "
 msgstr "Κατάσταση συνεδρίας: "
 
-#: dapbackend.cpp:1450
+#: dapbackend.cpp:1451
 #, kde-format
 msgid "initializing"
 msgstr "γίνεται αρχικοποίηση"
 
-#: dapbackend.cpp:1453
+#: dapbackend.cpp:1454
 #, kde-format
 msgid "running"
 msgstr "εκτελείται"
 
-#: dapbackend.cpp:1456
+#: dapbackend.cpp:1457
 #, kde-format
 msgid "stopped"
 msgstr "διακόπηκε"
 
-#: dapbackend.cpp:1459
+#: dapbackend.cpp:1460
 #, kde-format
 msgid "terminated"
 msgstr "τερματίστηκε"
 
-#: dapbackend.cpp:1462
+#: dapbackend.cpp:1463
 #, kde-format
 msgid "disconnected"
 msgstr "αποσυνδέθηκε"
 
-#: dapbackend.cpp:1518
+#: dapbackend.cpp:1519
 #, kde-format
 msgid "command not found"
 msgstr "η εντολή δεν βρέθηκε"
 
-#: dapbackend.cpp:1552
+#: dapbackend.cpp:1553
 #, kde-format
 msgid "missing thread id"
 msgstr "λείπει η ταυτότητα νήματος"
 
-#: dapbackend.cpp:1652
+#: dapbackend.cpp:1653
 #, kde-format
 msgid "killing backend"
 msgstr "τερματισμός συστήματος υποστήριξης"
 
-#: dapbackend.cpp:1720
+#: dapbackend.cpp:1721
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Τρέχον πλαίσιο [%3]: %1:%2 (%4)"
@@ -644,40 +644,40 @@ msgstr "Σύμβολο"
 msgid "Copy Value"
 msgstr "Αντιγραφή προορισμού"
 
-#: plugin_kategdb.cpp:106
+#: plugin_kategdb.cpp:108
 #, fuzzy, kde-format
 #| msgid "Kate GDB"
 msgid "Kate Debug"
 msgstr "Kate GDB"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:112
 #, kde-format
 msgid "Debug View"
 msgstr "Προβολή διόρθωσης σφαλμάτων"
 
-#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:370
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:374
 #, kde-format
 msgid "Debug"
 msgstr "Διόρθωση"
 
-#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
+#: plugin_kategdb.cpp:115 plugin_kategdb.cpp:118
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Τοπικά και στοίβα"
 
-#: plugin_kategdb.cpp:169
+#: plugin_kategdb.cpp:171
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Αρ"
 
-#: plugin_kategdb.cpp:169
+#: plugin_kategdb.cpp:171
 #, kde-format
 msgctxt "Column label"
 msgid "Frame"
 msgstr "Πλαίσιο"
 
-#: plugin_kategdb.cpp:239
+#: plugin_kategdb.cpp:241
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -688,116 +688,116 @@ msgstr ""
 "προσθέσετε μια διαδρομή αναζήτησης στο Προηγμένες ρυθμίσεις -> Διαδρομές "
 "αναζήτησης πηγαίων αρχείων"
 
-#: plugin_kategdb.cpp:252
+#: plugin_kategdb.cpp:256
 #, kde-format
 msgid "Targets"
 msgstr "Προορισμοί"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:261
 #, kde-format
 msgid "Start Debugging"
 msgstr "Έναρξη διόρθωσης σφαλμάτων"
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Διακοπή διόρθωσης σφαλμάτων"
 
-#: plugin_kategdb.cpp:274
+#: plugin_kategdb.cpp:278
 #, kde-format
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:284
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Εναλλαγή σημείου διακοπής"
 
-#: plugin_kategdb.cpp:287
+#: plugin_kategdb.cpp:291
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Σημείο διακοπής"
 
-#: plugin_kategdb.cpp:292
+#: plugin_kategdb.cpp:296
 #, kde-format
 msgid "Step In"
 msgstr "Είσοδος"
 
-#: plugin_kategdb.cpp:299
+#: plugin_kategdb.cpp:303
 #, kde-format
 msgid "Step Over"
 msgstr "Πέρασμα"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:310
 #, kde-format
 msgid "Step Out"
 msgstr "Έξοδος"
 
-#: plugin_kategdb.cpp:313 plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:381
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Εκτέλεση στο δρομέα"
 
-#: plugin_kategdb.cpp:320
+#: plugin_kategdb.cpp:324
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Επανέναρξη διόρθωσης σφαλμάτων"
 
-#: plugin_kategdb.cpp:327
+#: plugin_kategdb.cpp:331
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
 msgid "Clear Output"
 msgstr "Έξοδος GDB"
 
-#: plugin_kategdb.cpp:335
+#: plugin_kategdb.cpp:339
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:342
+#: plugin_kategdb.cpp:346
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:351
+#: plugin_kategdb.cpp:355
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:360 plugin_kategdb.cpp:379
+#: plugin_kategdb.cpp:364 plugin_kategdb.cpp:383
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Μετακίνηση μετρητή"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:369
 #, kde-format
 msgid "Print Value"
 msgstr "Εμφάνιση τιμής"
 
-#: plugin_kategdb.cpp:477 plugin_kategdb.cpp:493
+#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Εισαγωγή σημείου διακοπής"
 
-#: plugin_kategdb.cpp:491
+#: plugin_kategdb.cpp:495
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Αφαίρεση σημείου διακοπής"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:669
 #, kde-format
 msgid "Execution point"
 msgstr "Σημείο εκτέλεσης"
 
-#: plugin_kategdb.cpp:806 plugin_kategdb.cpp:837
+#: plugin_kategdb.cpp:817 plugin_kategdb.cpp:848
 #, kde-format
 msgid "Thread %1"
 msgstr "Νήμα %1"
 
-#: plugin_kategdb.cpp:933
+#: plugin_kategdb.cpp:944
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -805,34 +805,34 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Έξοδος GDB"
 
-#: plugin_kategdb.cpp:934
+#: plugin_kategdb.cpp:945
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: plugin_kategdb.cpp:979
+#: plugin_kategdb.cpp:990
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1065
+#: plugin_kategdb.cpp:1076
 #, kde-format
 msgid "Breakpoint"
 msgstr "Σημείο διακοπής"
 
-#: plugin_kategdb.cpp:1140
+#: plugin_kategdb.cpp:1151
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Αντιγραφή προορισμού"
 
-#: plugin_kategdb.cpp:1162
+#: plugin_kategdb.cpp:1173
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1172
+#: plugin_kategdb.cpp:1183
 #, kde-format
 msgid "Copy Location"
 msgstr ""

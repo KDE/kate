@@ -181,7 +181,7 @@ msgstr "过滤…"
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
-msgstr ""
+msgstr "在当前标签页中查找；按住 Ctrl 键点击以在新建标签页中查找。"
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294

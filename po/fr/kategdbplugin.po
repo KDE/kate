@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2010, 2011, 2012.
-# SPDX-FileCopyrightText: 2013, 2014, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2014, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Maxime Corteel <mcorteel@gmail.com>, 2015.
 # Xavier Besnard <xavier.besnard@kde.org>, 2020, 2021, 2022.
 # Xavier Besnard <xavier.besnard@kde.org>, 2023.
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.2\n"
 "X-Text-Markup: kde4\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)

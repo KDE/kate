@@ -1,15 +1,15 @@
 # Spanish translations for kateexternaltoolsplugin.po package.
-# Copyright (C) 2019 This file is copyright:
+# Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2019.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2019, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2019, 2021, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2023-02-21 14:08+0100\n"
+"PO-Revision-Date: 2025-02-18 02:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -171,7 +171,7 @@ msgstr "&Añadir"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Editar..."
+msgstr "&Editar…"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -265,7 +265,7 @@ msgstr "Seleccionar tipos MIME"
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
-msgstr "Añadir herramienta..."
+msgstr "Añadir herramienta…"
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
@@ -296,7 +296,7 @@ msgstr "Nueva categoría %1"
 #: kateexternaltoolsview.cpp:102
 #, kde-format
 msgid "Configure..."
-msgstr "Configurar..."
+msgstr "Configurar…"
 
 #: kateexternaltoolsview.cpp:164
 #, kde-format

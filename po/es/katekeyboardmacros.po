@@ -1,15 +1,15 @@
 # Spanish translations for katekeyboardmacros.po package.
-# Copyright (C) 2022 This file is copyright:
+# Copyright (C) 2022-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# SPDX-FileCopyrightText: 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 02:40+0000\n"
-"PO-Revision-Date: 2023-11-25 17:42+0100\n"
+"PO-Revision-Date: 2025-02-18 02:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -49,7 +49,7 @@ msgstr "<b>Macros de teclado:</b> %1"
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr "Grabando..."
+msgstr "Grabando…"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -146,7 +146,7 @@ msgstr "Guardar y reproducir macros de teclado."
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr "&Grabar macro..."
+msgstr "&Grabar macro…"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -196,7 +196,7 @@ msgstr ""
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr "&Cargar macro por nombre..."
+msgstr "&Cargar macro por nombre…"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -206,7 +206,7 @@ msgstr "Cargar una macro por su nombre y convertirla en la actual."
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr "&Reproducir macro por nombre..."
+msgstr "&Reproducir macro por nombre…"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -216,7 +216,7 @@ msgstr "Reproducir una macro por su nombre sin cargarla."
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr "&Borrar macro por nombre..."
+msgstr "&Borrar macro por nombre…"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format

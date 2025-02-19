@@ -1,14 +1,15 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Translation of katesnippetsplugin.po to Spanish
+# Copyright (C) 2013-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2013, 2014, 2016, 2020, 2024 Eloy Cuadra <ecuadra@eloihr.net>
-# Rocio Gallego <traducciones@rociogallego.com>, 2014, 2015.
+# SPDX-FileCopyrightText: 2013, 2014, 2016, 2020, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014, 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2024-06-05 01:32+0200\n"
+"PO-Revision-Date: 2025-02-18 02:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -162,12 +163,12 @@ msgstr ""
 "especificar un valor predeterminado para el campo. <tt>predeterminado</tt> "
 "puede ser cualquier expresión en JavaScript.<br>Use <tt>"
 "${nombre_de_campo=texto}</tt> para especificar una cadena como valor "
-"predeterminado.<br><tt>${func(otro_campo1, otro_campo2, ...)}</tt> se puede "
+"predeterminado.<br><tt>${func(otro_campo1, otro_campo2, …)}</tt> se puede "
 "usar para crear un campo que evalúe una función JavaScript cada vez que se "
 "edite y que contenga sus contenidos. Consulte la pestaña de «Scripts» para "
 "obtener más información.<br><tt>${cursor}</tt> se puede usar para marcar la "
-"posición final del cursor después de cumplimentar todos los campos.\">Más..."
-"</a>"
+"posición final del cursor después de cumplimentar todos los campos.\">Más…</"
+"a>"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:82
@@ -208,7 +209,7 @@ msgstr ""
 "completo, el nombre del archivo y otra información mediante los métodos "
 "oportunos de los objetos <tt>documento</tt> y <tt>vista</tt>. Consulte la "
 "documentación de la API de escritura de código para obtener más información."
-"\">Más...</a>"
+"\">Más…</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:105
@@ -368,7 +369,7 @@ msgstr "Defina un filtro aquí"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Filtro..."
+msgstr "Filtro…"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

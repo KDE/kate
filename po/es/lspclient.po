@@ -1,15 +1,15 @@
 # Spanish translations for lspclient.po package.
-# Copyright (C) 2019 This file is copyright:
+# Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2019.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-01 00:42+0000\n"
-"PO-Revision-Date: 2024-09-16 12:44+0200\n"
+"PO-Revision-Date: 2025-02-18 03:05+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter..."
-msgstr "Filtro..."
+msgstr "Filtro…"
 
 #: lspclientconfigpage.cpp:99 lspclientconfigpage.cpp:104
 #: lspclientpluginview.cpp:469 lspclientpluginview.cpp:610
@@ -323,7 +323,7 @@ msgstr "Sin acciones"
 #: lspclientpluginview.cpp:1639
 #, kde-format
 msgid "Loading..."
-msgstr "Cargando..."
+msgstr "Cargando…"
 
 #: lspclientpluginview.cpp:1731
 #, kde-format
@@ -384,8 +384,7 @@ msgstr "No reiniciando"
 #: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr ""
-"El servidor ha terminado de forma imprevista... %1 [%2] [página web: %3]"
+msgstr "El servidor ha terminado de forma imprevista… %1 [%2] [página web: %3]"
 
 #: lspclientservermanager.cpp:801
 #, kde-format

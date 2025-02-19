@@ -1,15 +1,15 @@
 # Spanish translations for katecompilerexplorer.po package.
-# Copyright (C) 2024 This file is copyright:
+# Copyright (C) 2024-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2024.
 #
-# SPDX-FileCopyrightText: 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-15 00:41+0000\n"
-"PO-Revision-Date: 2024-05-16 12:13+0200\n"
+"PO-Revision-Date: 2025-02-18 02:51+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: AsmView.cpp:299
 #, kde-format
@@ -103,7 +103,7 @@ msgstr "Sintaxis de Intel"
 #: ce_widget.cpp:305
 #, kde-format
 msgid "Change Url..."
-msgstr "Cambiar URL..."
+msgstr "Cambiar URL…"
 
 #: ce_widget.cpp:311
 #, kde-format

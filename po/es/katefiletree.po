@@ -1,16 +1,16 @@
 # Spanish translations for katefiletree.po package.
-# Copyright (C) 2014 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2014-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2014.
-# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-12-04 17:23+0100\n"
+"PO-Revision-Date: 2025-02-18 02:53+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "Copiar la ruta y el nombre del archivo en el portapapeles."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Cambiar nombre..."
+msgstr "Cambiar nombre…"
 
 #: katefiletree.cpp:151
 #, kde-format
@@ -367,7 +367,7 @@ msgstr ""
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter..."
-msgstr "Filtrar..."
+msgstr "Filtrar…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

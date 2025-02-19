@@ -1173,6 +1173,7 @@ void KatePluginSearchView::startSearch()
             m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
             m_infoMessage->setView(m_mainWindow->activeView());
             m_mainWindow->activeView()->document()->postMessage(m_infoMessage);
+            searchDone();
             return;
         }
 

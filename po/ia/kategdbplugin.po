@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-18 00:43+0000\n"
-"PO-Revision-Date: 2024-10-24 11:57+0200\n"
+"PO-Revision-Date: 2025-02-18 15:03+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -634,16 +634,14 @@ msgid "named items"
 msgstr "elemento nominate"
 
 #: localsview.cpp:144
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symbolo"
+msgstr "Copia Symbolo"
 
 #: localsview.cpp:158
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Copia objectivo"
+msgstr "Copia Valor"
 
 #: plugin_kategdb.cpp:108
 #, kde-format
@@ -743,11 +741,9 @@ msgid "Restart Debugging"
 msgstr "Re-initia cribrar"
 
 #: plugin_kategdb.cpp:331
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Exito de Debug (Cribrar)"
+msgstr "Clara Exito"
 
 #: plugin_kategdb.cpp:339
 #, kde-format
@@ -818,20 +814,19 @@ msgid "Breakpoint"
 msgstr "Puncto de interruption"
 
 #: plugin_kategdb.cpp:1151
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Copia objectivo"
+msgstr "Copia Tracia de Stack (Pila)"
 
 #: plugin_kategdb.cpp:1173
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Aperi location"
 
 #: plugin_kategdb.cpp:1183
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Copia location"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

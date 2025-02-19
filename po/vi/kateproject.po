@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-18 00:43+0000\n"
+"POT-Creation-Date: 2025-02-19 00:44+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -88,7 +88,7 @@ msgstr[0] "Bạn có chắc chắn muốn xoá những nhánh đã chọn không
 msgid "Select Branch..."
 msgstr "Chọn nhánh..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:567 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:125 gitwidget.cpp:567 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -514,8 +514,8 @@ msgstr "Bạn có chắc chắn muốn xoá những thay đổi chưa được t
 msgid "Malformed JSON file '%1': %2"
 msgstr "Tệp JSON '%1' sai dạng: %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:72
-#: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:210
+#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
 #, kde-format
@@ -676,7 +676,7 @@ msgstr "Chấp nhận / Bỏ chấp nhận"
 msgid "Double click action in the git status view"
 msgstr "Hành động bấm đúp trong khung xem trạng thái git"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:66
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Projects"
 msgstr "Dự án"
@@ -845,94 +845,94 @@ msgstr ""
 "Đường dẫn đầy đủ đến dự án hiện tại không bao gồm tên tệp, với phần phân "
 "cách đường dẫn bản địa (dấu gạch chéo ngược trên Windows)."
 
-#: kateprojectpluginview.cpp:56
+#: kateprojectpluginview.cpp:58
 #, kde-format
 msgid "Project Manager"
 msgstr "Trình quản lí dự án"
 
-#: kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:80
 #, kde-format
 msgid "Open projects list"
 msgstr "Mở danh sách các dự án"
 
-#: kateprojectpluginview.cpp:83
+#: kateprojectpluginview.cpp:85
 #, kde-format
 msgid "Reload project"
 msgstr "Tải lại dự án"
 
-#: kateprojectpluginview.cpp:86
+#: kateprojectpluginview.cpp:88
 #, kde-format
 msgid "Close project"
 msgstr "Đóng dự án"
 
-#: kateprojectpluginview.cpp:162
+#: kateprojectpluginview.cpp:164
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Mở thư mục..."
 
-#: kateprojectpluginview.cpp:168
+#: kateprojectpluginview.cpp:170
 #, kde-format
 msgid "Project TODOs"
 msgstr "TODO của dự án"
 
-#: kateprojectpluginview.cpp:173
+#: kateprojectpluginview.cpp:175
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Kích hoạt dự án trước"
 
-#: kateprojectpluginview.cpp:179
+#: kateprojectpluginview.cpp:181
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Kích hoạt dự án sau"
 
-#: kateprojectpluginview.cpp:185
+#: kateprojectpluginview.cpp:187
 #, kde-format
 msgid "Lookup"
 msgstr "Tra"
 
-#: kateprojectpluginview.cpp:190
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Close Project"
 msgstr "Đóng dự án"
 
-#: kateprojectpluginview.cpp:195
+#: kateprojectpluginview.cpp:197
 #, kde-format
 msgid "Close All Projects"
 msgstr "Đóng tất cả các dự án"
 
-#: kateprojectpluginview.cpp:200
+#: kateprojectpluginview.cpp:202
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Đóng các dự án mồ côi"
 
-#: kateprojectpluginview.cpp:205
+#: kateprojectpluginview.cpp:207
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Tải lại dự án"
 
-#: kateprojectpluginview.cpp:216
+#: kateprojectpluginview.cpp:218
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Lấy ra nhánh Git"
 
-#: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Tra: %1"
 
-#: kateprojectpluginview.cpp:223 kateprojectpluginview.cpp:794
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
 #, kde-format
 msgid "Goto: %1"
 msgstr "Đi đến: %1"
 
-#: kateprojectpluginview.cpp:297
+#: kateprojectpluginview.cpp:299
 #, kde-format
 msgid "Projects Index"
 msgstr "Chỉ mục dự án"
 
-#: kateprojectpluginview.cpp:838
+#: kateprojectpluginview.cpp:840
 #, kde-format
 msgid "Choose a directory"
 msgstr "Chọn một thư mục"

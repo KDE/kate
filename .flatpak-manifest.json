@@ -19,7 +19,6 @@
         "--system-talk-name=org.freedesktop.UDisks2",
         "--talk-name=org.freedesktop.Flatpak"
     ],
-    "separate-locales": false,
     "modules": [
         {
             "name": "markdownpart",

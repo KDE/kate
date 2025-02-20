@@ -427,21 +427,6 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 void KatePluginGDBView::slotDebug()
 {
     initDebugToolview();
-#ifndef Q_OS_WIN
-    disconnect(m_ioView.get(), &IOView::stdOutText, nullptr, nullptr);
-    disconnect(m_ioView.get(), &IOView::stdErrText, nullptr, nullptr);
-    if (m_configView->showIOTab()) {
-        connect(m_ioView.get(), &IOView::stdOutText, m_ioView.get(), &IOView::addStdOutText);
-        connect(m_ioView.get(), &IOView::stdErrText, m_ioView.get(), &IOView::addStdErrText);
-    } else {
-        connect(m_ioView.get(), &IOView::stdOutText, this, &KatePluginGDBView::addOutputText);
-        connect(m_ioView.get(), &IOView::stdErrText, this, &KatePluginGDBView::addErrorText);
-    }
-    QStringList ioFifos;
-    ioFifos << m_ioView->stdinFifo();
-    ioFifos << m_ioView->stdoutFifo();
-    ioFifos << m_ioView->stderrFifo();
-#endif
 
     m_outputArea->clear();
 
@@ -453,15 +438,7 @@ void KatePluginGDBView::slotDebug()
     m_scopeCombo->clear();
     m_localsView->clear();
 
-#ifndef Q_OS_WIN
-    if (m_configView->debuggerIsGDB()) {
-        m_backend->runDebugger(m_configView->currentGDBTarget(), ioFifos);
-    } else {
-        m_backend->runDebugger(m_configView->currentDAPTarget(true));
-    }
-#else
     m_backend->runDebugger(m_configView->currentDAPTarget(true));
-#endif
 }
 
 void KatePluginGDBView::slotRestart()
@@ -512,11 +489,6 @@ void KatePluginGDBView::slotToggleBreakpoint()
         int line = editView->cursorPosition().line() + 1;
         bool added = true;
         m_backend->toggleBreakpoint(currURL, line, &added);
-
-        // We don't support setting breakpoints for gdb when the debugger is not running'
-        if (!m_backend->debuggerRunning() && m_configView && m_configView->debuggerIsGDB()) {
-            return;
-        }
 
         if (added) {
             slotBreakpointSet(currURL, line);
@@ -948,16 +920,6 @@ void KatePluginGDBView::initDebugToolview()
     m_tabWidget->addTab(m_gdbPage, i18nc("Tab label", "Debug Output"));
     m_tabWidget->addTab(m_configView, i18nc("Tab label", "Settings"));
     m_tabWidget->setCurrentWidget(m_configView); // initially show config
-
-    connect(m_configView, &ConfigView::configChanged, this, [this]() {
-        if (!m_configView->debuggerIsGDB())
-            return;
-
-        GDBTargetConf config = m_configView->currentGDBTarget();
-        if (m_backend->targetName() == config.targetName) {
-            m_backend->setFileSearchPaths(config.srcPaths);
-        }
-    });
 
     m_configView->readConfig(m_sessionConfig);
 }

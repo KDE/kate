@@ -16,7 +16,6 @@
 
 #include <optional>
 
-class AdvancedGDBSettings;
 class QPushButton;
 class QComboBox;
 class QFrame;
@@ -83,7 +82,6 @@ public:
     const DAPTargetConf currentDAPTarget(bool full = false) const;
     bool takeFocusAlways() const;
     bool showIOTab() const;
-    bool debuggerIsGDB() const;
     QUrl dapConfigPath;
 
 Q_SIGNALS:
@@ -97,7 +95,6 @@ private Q_SLOTS:
     void slotAddTarget();
     void slotCopyTarget();
     void slotDeleteTarget();
-    void slotAdvancedClicked();
     void slotBrowseExec();
     void slotBrowseDir();
     void readTargetsFromLaunchJson();
@@ -108,7 +105,6 @@ protected:
 private:
     void saveCurrentToIndex(int index);
     int loadFromIndex(int index);
-    void setAdvancedOptions();
     struct Field {
         QLabel *label;
         QLineEdit *input;
@@ -142,7 +138,6 @@ private:
 
     QCheckBox *m_takeFocus;
     QCheckBox *m_redirectTerminal;
-    QPushButton *m_advancedSettings;
     QBoxLayout *m_checBoxLayout;
 
     bool m_useBottomLayout;
@@ -155,6 +150,5 @@ private:
     QHash<QString, Field> m_dapFields;
     QHash<QString, QHash<QString, DAPAdapterSettings>> m_dapAdapterSettings;
 
-    AdvancedGDBSettings *m_advanced;
     QUrl m_dapConfigPath;
 };

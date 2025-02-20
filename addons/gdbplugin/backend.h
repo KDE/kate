@@ -21,7 +21,6 @@ public:
     Backend(QObject *parent);
     ~Backend() override = default;
 
-    void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     void runDebugger(const DAPTargetConf &conf);
 
     bool debuggerRunning() const override;
@@ -63,12 +62,6 @@ public Q_SLOTS:
     void requestVariable(int variablesReference) override;
 
 private:
-    enum DebugMode {
-        NONE,
-        GDB,
-        DAP
-    } m_mode = NONE;
-
     void bind();
     void unbind();
 

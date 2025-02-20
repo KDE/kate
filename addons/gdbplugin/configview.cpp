@@ -12,12 +12,15 @@
 #include "configview.h"
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QCompleter>
 #include <QFileDialog>
 #include <QFileSystemModel>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QLabel>
 #include <QLayout>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QStandardPaths>
@@ -31,7 +34,6 @@
 #include <KLocalizedString>
 #include <KSelectAction>
 
-#include "advanced_settings.h"
 #include "dap/settings.h"
 #include "json_placeholders.h"
 #include "launch_json_reader.h"
@@ -73,10 +75,6 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     setTargetsAction(targetsAction);
     m_clientCombo = new QComboBox(this);
     m_clientCombo->setEditable(false);
-#ifndef WIN32
-    m_clientCombo->addItem(QStringLiteral("GDB"));
-    m_clientCombo->insertSeparator(1);
-#endif
     m_dapConfigPath = plugin->configPath();
     readDAPSettings();
 
@@ -144,15 +142,10 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_redirectTerminal = new QCheckBox(i18n("Redirect IO"), this);
     m_redirectTerminal->setToolTip(i18n("Redirect the debugged programs IO to a separate tab"));
 
-    m_advancedSettings = new QPushButton(i18n("Advanced Settings"), this);
-
     m_checBoxLayout = nullptr;
 
     // ensure layout is set
     refreshUI();
-
-    m_advanced = new AdvancedGDBSettings(this);
-    m_advanced->hide();
 
     connect(m_targetCombo, &QComboBox::editTextChanged, this, &ConfigView::slotTargetEdited);
     connect(m_targetCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &ConfigView::slotTargetSelected);
@@ -162,7 +155,6 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_browseExe, &QToolButton::clicked, this, &ConfigView::slotBrowseExec);
     connect(m_browseDir, &QToolButton::clicked, this, &ConfigView::slotBrowseDir);
     connect(m_redirectTerminal, &QCheckBox::toggled, this, &ConfigView::showIO);
-    connect(m_advancedSettings, &QPushButton::clicked, this, &ConfigView::slotAdvancedClicked);
 
     connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
 }
@@ -328,16 +320,6 @@ const GDBTargetConf ConfigView::currentGDBTarget() const
     cfg.workDir = m_workingDirectory->text();
     cfg.arguments = m_arguments->text();
 
-    const auto advancedConfig = m_advanced->configs();
-    {
-        cfg.gdbCmd = advancedConfig[AdvancedGDBSettings::F_GDB].toString(QStringLiteral("gdb"));
-        cfg.srcPaths.clear();
-        for (const auto &value : advancedConfig[AdvancedGDBSettings::F_SRC_PATHS].toArray()) {
-            cfg.srcPaths << value.toString();
-        }
-        cfg.customInit = AdvancedGDBSettings::commandList(advancedConfig);
-    }
-
     return cfg;
 }
 
@@ -445,10 +427,6 @@ void ConfigView::slotTargetSelected(int index)
 
     m_currentTarget = index;
 
-    if (clientIndex == 0) {
-        setAdvancedOptions();
-    }
-
     // Keep combo box and menu in sync
     m_targetCombo->setCurrentIndex(index);
     m_targetSelectAction->setCurrentItem(index);
@@ -495,15 +473,6 @@ void ConfigView::slotDeleteTarget()
     }
 }
 
-bool ConfigView::debuggerIsGDB() const
-{
-#ifndef WIN32
-    return m_clientCombo->currentIndex() == 0;
-#else
-    return false;
-#endif
-}
-
 void ConfigView::resizeEvent(QResizeEvent *)
 {
     const bool toVertical = m_useBottomLayout && size().height() > size().width();
@@ -512,15 +481,13 @@ void ConfigView::resizeEvent(QResizeEvent *)
     if (!toVertical && !toHorizontal)
         return;
 
-    const bool is_dbg = debuggerIsGDB();
     const QStringList debuggerVariables = m_clientCombo->currentData().toStringList();
 
     // check if preformatted inputs are required
-    m_advancedSettings->setVisible(is_dbg);
-    const bool needsExe = is_dbg || debuggerVariables.contains(F_FILE);
-    const bool needsWdir = is_dbg || debuggerVariables.contains(F_WORKDIR);
-    const bool needsArgs = is_dbg || debuggerVariables.contains(F_ARGS);
-    const bool needsPid = !is_dbg && debuggerVariables.contains(F_PID);
+    const bool needsExe = debuggerVariables.contains(F_FILE);
+    const bool needsWdir = debuggerVariables.contains(F_WORKDIR);
+    const bool needsArgs = debuggerVariables.contains(F_ARGS);
+    const bool needsPid = debuggerVariables.contains(F_PID);
 
     if (toVertical) {
         // Set layout for the side
@@ -580,9 +547,6 @@ void ConfigView::resizeEvent(QResizeEvent *)
 
         layout->addWidget(m_takeFocus, ++row, 0, 1, 4);
         layout->addWidget(m_redirectTerminal, ++row, 0, 1, 4);
-        if (is_dbg) {
-            layout->addWidget(m_advancedSettings, ++row, 0, 1, 4);
-        }
 
         layout->addItem(new QSpacerItem(1, 1), ++row, 0);
         layout->setColumnStretch(0, 1);
@@ -596,9 +560,6 @@ void ConfigView::resizeEvent(QResizeEvent *)
         m_checBoxLayout = new QHBoxLayout();
         m_checBoxLayout->addWidget(m_takeFocus, 10);
         m_checBoxLayout->addWidget(m_redirectTerminal, 10);
-        if (is_dbg) {
-            m_checBoxLayout->addWidget(m_advancedSettings, 0);
-        }
 
         auto *layout = new QGridLayout(this);
         layout->addWidget(m_clientCombo, 0, 0, 1, 6);
@@ -661,8 +622,6 @@ void ConfigView::resizeEvent(QResizeEvent *)
     }
 
     if (toVertical || toHorizontal) {
-        m_advancedSettings->setVisible(is_dbg);
-
         // exe
         m_execLabel->setVisible(needsExe);
         m_executable->setVisible(needsExe);
@@ -696,34 +655,6 @@ ConfigView::Field &ConfigView::getDapField(const QString &fieldName)
         m_dapFields[fieldName] = Field{.label = new QLabel(fieldName, this), .input = new QLineEdit(this)};
     }
     return m_dapFields[fieldName];
-}
-
-void ConfigView::setAdvancedOptions()
-{
-    const QJsonObject tmp = m_targetCombo->itemData(m_targetCombo->currentIndex()).toJsonObject();
-
-    QJsonObject advanced = tmp[QStringLiteral("advanced")].toObject();
-    const auto strGdb = advanced[QStringLiteral("gdb")].toString();
-    if (strGdb.isEmpty()) {
-        advanced[QStringLiteral("gdb")] = QStringLiteral("gdb");
-    }
-
-    m_advanced->setConfigs(advanced);
-}
-
-void ConfigView::slotAdvancedClicked()
-{
-    setAdvancedOptions();
-
-    QJsonObject conf = m_targetCombo->itemData(m_targetCombo->currentIndex()).toJsonObject();
-
-    // Remove old advanced settings
-    if (m_advanced->exec() == QDialog::Accepted) {
-        // save the new values
-        conf[QStringLiteral("advanced")] = m_advanced->configs();
-        m_targetCombo->setItemData(m_targetCombo->currentIndex(), conf);
-        Q_EMIT configChanged();
-    }
 }
 
 void ConfigView::slotBrowseExec()
@@ -768,20 +699,10 @@ void ConfigView::saveCurrentToIndex(int index)
     }
 
     tmp[F_TARGET] = m_targetCombo->itemText(index);
-    if (debuggerIsGDB()) {
-        if (tmp.contains(F_DEBUGGER))
-            tmp.remove(F_DEBUGGER);
-        if (tmp.contains(F_PROFILE))
-            tmp.remove(F_PROFILE);
-        tmp[F_FILE] = m_executable->text();
-        tmp[F_WORKDIR] = m_workingDirectory->text();
-        tmp[F_ARGS] = m_arguments->text();
-    } else {
-        const auto cfg = currentDAPTarget();
-        tmp[F_DEBUGGER] = cfg.debugger;
-        tmp[F_PROFILE] = cfg.debuggerProfile;
-        tmp[QStringLiteral("variables")] = QJsonObject::fromVariantHash(cfg.variables);
-    }
+    const auto cfg = currentDAPTarget();
+    tmp[F_DEBUGGER] = cfg.debugger;
+    tmp[F_PROFILE] = cfg.debuggerProfile;
+    tmp[QStringLiteral("variables")] = QJsonObject::fromVariantHash(cfg.variables);
 
     m_targetCombo->setItemData(index, tmp);
 }

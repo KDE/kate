@@ -8,9 +8,7 @@
 
 #include "backend.h"
 #include "dapbackend.h"
-#ifndef WIN32
-#include "gdbbackend.h"
-#endif
+
 #include <KLocalizedString>
 #include <KMessageBox>
 
@@ -18,33 +16,6 @@ Backend::Backend(QObject *parent)
     : BackendInterface(parent)
     , m_debugger(nullptr)
 {
-}
-
-void Backend::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
-{
-#ifndef WIN32
-    if (m_debugger && m_debugger->debuggerRunning()) {
-        KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
-        return;
-    }
-
-    GdbBackend *gdb;
-
-    if (m_mode != GDB) {
-        unbind();
-        m_debugger = gdb = new GdbBackend(this);
-        m_mode = GDB;
-        bind();
-    } else {
-        gdb = qobject_cast<GdbBackend *>(m_debugger);
-    }
-
-    gdb->runDebugger(conf, ioFifos);
-
-    if (m_displayQueryLocals) {
-        gdb->slotQueryLocals(*m_displayQueryLocals);
-    }
-#endif
 }
 
 void Backend::runDebugger(const DAPTargetConf &conf)
@@ -58,7 +29,6 @@ void Backend::runDebugger(const DAPTargetConf &conf)
 
     unbind();
     m_debugger = dap = new DapBackend(this);
-    m_mode = DAP;
     bind();
 
     dap->setPendingBreakpoints(m_breakpoints);

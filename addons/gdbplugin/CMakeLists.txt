@@ -2,7 +2,7 @@
 
 kate_add_plugin(kategdbplugin)
 target_compile_definitions(kategdbplugin PRIVATE TRANSLATION_DOMAIN="kategdbplugin")
-target_link_libraries(kategdbplugin PRIVATE kateprivate KF6::I18n KF6::TextEditor)
+target_link_libraries(kategdbplugin PRIVATE kateprivate KF6::I18n KF6::TextEditor KF6::KIOGui)
 
 include(ECMQtDeclareLoggingCategory)
 ecm_qt_declare_logging_category(
@@ -12,7 +12,6 @@ ecm_qt_declare_logging_category(
     CATEGORY_NAME "kategdbplugin"
 )
 
-ki18n_wrap_ui(kategdbplugin advanced_settings.ui)
 ki18n_wrap_ui(kategdbplugin debugconfig.ui)
 
 set(DAP_SOURCES
@@ -27,18 +26,6 @@ set(DAP_SOURCES
     dap/bus_selector.cpp
 )
 
-set(GDB_SOURCES "")
-if(NOT WIN32)
-    set(GDB_SOURCES
-        gdbmi/parser.cpp
-        gdbmi/records.h
-        gdbmi/tokens.cpp
-
-        gdbvariableparser.cpp
-        gdbbackend.cpp
-    )
-endif()
-
 target_sources(
   kategdbplugin
   PRIVATE
@@ -47,11 +34,9 @@ target_sources(
     configview.cpp
     ioview.cpp
     localsview.cpp
-    advanced_settings.cpp
     debugconfigpage.cpp
 
     ${DAP_SOURCES}
-    ${GDB_SOURCES}
     ${DEBUG_SOURCES}
     json_placeholders.cpp
     dapbackend.cpp
@@ -63,8 +48,4 @@ target_sources(
 
 if (ENABLE_PCH)
     target_precompile_headers(kategdbplugin REUSE_FROM katepch)
-endif()
-
-if(BUILD_TESTING)
-  add_subdirectory(autotests)
 endif()

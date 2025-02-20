@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2025-02-01 12:16+0100\n"
+"PO-Revision-Date: 2025-02-18 02:53+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "Copiar la ruta y el nombre del archivo en el portapapeles."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Cambiar nombre..."
+msgstr "Cambiar nombre…"
 
 #: katefiletree.cpp:153
 #, kde-format
@@ -204,7 +204,7 @@ msgstr "Orden personalizado"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr "Abrir..."
+msgstr "Abrir…"
 
 #: katefiletree.cpp:406
 #, kde-format
@@ -377,7 +377,7 @@ msgstr ""
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr "Filtrar..."
+msgstr "Filtrar…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

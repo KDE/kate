@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-18 00:43+0000\n"
+"POT-Creation-Date: 2025-02-20 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -230,254 +230,254 @@ msgstr "所有线程继续运行"
 msgid "(running)"
 msgstr "(运行中)"
 
-#: dapbackend.cpp:415
+#: dapbackend.cpp:412
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** 与服务器的连接已关闭 ***"
 
-#: dapbackend.cpp:422
+#: dapbackend.cpp:419
 #, kde-format
 msgid "program exited with code %1"
 msgstr "程序已退出，退出码：%1"
 
-#: dapbackend.cpp:440
+#: dapbackend.cpp:437
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** 等待用户操作 ***"
 
-#: dapbackend.cpp:445
+#: dapbackend.cpp:442
 #, kde-format
 msgid "error on response: %1"
 msgstr "响应出错：%1"
 
-#: dapbackend.cpp:460
+#: dapbackend.cpp:457
 #, kde-format
 msgid "important"
 msgstr "重要"
 
-#: dapbackend.cpp:463
+#: dapbackend.cpp:460
 #, kde-format
 msgid "telemetry"
 msgstr "监视"
 
-#: dapbackend.cpp:482
+#: dapbackend.cpp:479
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "调试进程：[%1] %2"
 
-#: dapbackend.cpp:484
+#: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process %1"
 msgstr "调试进程：%1"
 
-#: dapbackend.cpp:487
+#: dapbackend.cpp:484
 #, kde-format
 msgid "Start method: %1"
 msgstr "启动方式：%1"
 
-#: dapbackend.cpp:502
+#: dapbackend.cpp:499
 #, kde-format
 msgid "thread %1"
 msgstr "线程 %1"
 
-#: dapbackend.cpp:658
+#: dapbackend.cpp:637
 #, kde-format
 msgid "breakpoint set"
 msgstr "断点集合"
 
-#: dapbackend.cpp:666
+#: dapbackend.cpp:645
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "断点已清除"
 
-#: dapbackend.cpp:725
+#: dapbackend.cpp:704
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) 断点"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:721
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<not evaluated>"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:743
 #, kde-format
 msgid "server capabilities"
 msgstr "服务器功能"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:746
 #, kde-format
 msgid "supported"
 msgstr "支持"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:746
 #, kde-format
 msgid "unsupported"
 msgstr "不支持"
 
-#: dapbackend.cpp:770
+#: dapbackend.cpp:749
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "条件断点"
 
-#: dapbackend.cpp:771
+#: dapbackend.cpp:750
 #, kde-format
 msgid "function breakpoints"
 msgstr "函数断点"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:751
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "命中条件断点"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:752
 #, kde-format
 msgid "log points"
 msgstr "日志点"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:752
 #, kde-format
 msgid "modules request"
 msgstr "模块请求"
 
-#: dapbackend.cpp:774
+#: dapbackend.cpp:753
 #, kde-format
 msgid "goto targets request"
 msgstr "转到目标请求"
 
-#: dapbackend.cpp:775
+#: dapbackend.cpp:754
 #, kde-format
 msgid "terminate request"
 msgstr "终止请求"
 
-#: dapbackend.cpp:776
+#: dapbackend.cpp:755
 #, kde-format
 msgid "terminate debuggee"
 msgstr "终止调试"
 
-#: dapbackend.cpp:1004
+#: dapbackend.cpp:983
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "语法错误：找不到表达式"
 
-#: dapbackend.cpp:1022 dapbackend.cpp:1057 dapbackend.cpp:1095
-#: dapbackend.cpp:1129 dapbackend.cpp:1165 dapbackend.cpp:1201
-#: dapbackend.cpp:1237 dapbackend.cpp:1337 dapbackend.cpp:1399
+#: dapbackend.cpp:1001 dapbackend.cpp:1036 dapbackend.cpp:1074
+#: dapbackend.cpp:1108 dapbackend.cpp:1144 dapbackend.cpp:1180
+#: dapbackend.cpp:1216 dapbackend.cpp:1316 dapbackend.cpp:1378
 #, kde-format
 msgid "syntax error: %1"
 msgstr "语法错误：%1"
 
-#: dapbackend.cpp:1030 dapbackend.cpp:1065 dapbackend.cpp:1344
-#: dapbackend.cpp:1407
+#: dapbackend.cpp:1009 dapbackend.cpp:1044 dapbackend.cpp:1323
+#: dapbackend.cpp:1386
 #, kde-format
 msgid "invalid line: %1"
 msgstr "无效的行：%1"
 
-#: dapbackend.cpp:1037 dapbackend.cpp:1042 dapbackend.cpp:1072
-#: dapbackend.cpp:1077 dapbackend.cpp:1368 dapbackend.cpp:1373
-#: dapbackend.cpp:1414 dapbackend.cpp:1419
+#: dapbackend.cpp:1016 dapbackend.cpp:1021 dapbackend.cpp:1051
+#: dapbackend.cpp:1056 dapbackend.cpp:1347 dapbackend.cpp:1352
+#: dapbackend.cpp:1393 dapbackend.cpp:1398
 #, kde-format
 msgid "file not specified: %1"
 msgstr "文件未指定：%1"
 
-#: dapbackend.cpp:1107 dapbackend.cpp:1141 dapbackend.cpp:1177
-#: dapbackend.cpp:1213 dapbackend.cpp:1249
+#: dapbackend.cpp:1086 dapbackend.cpp:1120 dapbackend.cpp:1156
+#: dapbackend.cpp:1192 dapbackend.cpp:1228
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "无效的线程 ID: %1"
 
-#: dapbackend.cpp:1113 dapbackend.cpp:1147 dapbackend.cpp:1183
-#: dapbackend.cpp:1219 dapbackend.cpp:1255
+#: dapbackend.cpp:1092 dapbackend.cpp:1126 dapbackend.cpp:1162
+#: dapbackend.cpp:1198 dapbackend.cpp:1234
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "线程 ID 未指定：%1"
 
-#: dapbackend.cpp:1266
+#: dapbackend.cpp:1245
 #, kde-format
 msgid "Available commands:"
 msgstr "可用的命令："
 
-#: dapbackend.cpp:1354
+#: dapbackend.cpp:1333
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "服务器不支持条件断点"
 
-#: dapbackend.cpp:1362
+#: dapbackend.cpp:1341
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "服务器不支持命中条件断点"
 
-#: dapbackend.cpp:1382
+#: dapbackend.cpp:1361
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "行 %1 已经有一个断点"
 
-#: dapbackend.cpp:1427
+#: dapbackend.cpp:1406
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "找不到断点 (%1:%2)"
 
-#: dapbackend.cpp:1433
+#: dapbackend.cpp:1412
 #, kde-format
 msgid "Current thread: "
 msgstr "当前线程："
 
-#: dapbackend.cpp:1438 dapbackend.cpp:1445 dapbackend.cpp:1466
+#: dapbackend.cpp:1417 dapbackend.cpp:1424 dapbackend.cpp:1445
 #, kde-format
 msgid "none"
 msgstr "无"
 
-#: dapbackend.cpp:1441
+#: dapbackend.cpp:1420
 #, kde-format
 msgid "Current frame: "
 msgstr "当前帧："
 
-#: dapbackend.cpp:1448
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "Session state: "
 msgstr "会话状态："
 
-#: dapbackend.cpp:1451
+#: dapbackend.cpp:1430
 #, kde-format
 msgid "initializing"
 msgstr "正在初始化"
 
-#: dapbackend.cpp:1454
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "running"
 msgstr "正在运行"
 
-#: dapbackend.cpp:1457
+#: dapbackend.cpp:1436
 #, kde-format
 msgid "stopped"
 msgstr "已停止"
 
-#: dapbackend.cpp:1460
+#: dapbackend.cpp:1439
 #, kde-format
 msgid "terminated"
 msgstr "已终止"
 
-#: dapbackend.cpp:1463
+#: dapbackend.cpp:1442
 #, kde-format
 msgid "disconnected"
 msgstr "已断开"
 
-#: dapbackend.cpp:1519
+#: dapbackend.cpp:1498
 #, kde-format
 msgid "command not found"
 msgstr "找不到命令"
 
-#: dapbackend.cpp:1553
+#: dapbackend.cpp:1532
 #, kde-format
 msgid "missing thread id"
 msgstr "缺少线程 ID"
 
-#: dapbackend.cpp:1653
+#: dapbackend.cpp:1632
 #, kde-format
 msgid "killing backend"
 msgstr "杀死后端"
 
-#: dapbackend.cpp:1721
+#: dapbackend.cpp:1687
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "当前帧 [%3]：%1：%2 (%4)"
@@ -603,30 +603,40 @@ msgstr "符号"
 
 #: localsview.cpp:23
 #, kde-format
+msgid "Type"
+msgstr ""
+
+#: localsview.cpp:24
+#, kde-format
 msgid "Value"
 msgstr "值"
 
-#: localsview.cpp:49
+#: localsview.cpp:51
 #, kde-format
 msgid "type"
 msgstr "类型"
 
-#: localsview.cpp:58
+#: localsview.cpp:60
 #, kde-format
 msgid "indexed items"
 msgstr "索引项"
 
-#: localsview.cpp:61
+#: localsview.cpp:63
 #, kde-format
 msgid "named items"
 msgstr "已命名项目"
 
-#: localsview.cpp:144
+#: localsview.cpp:79 localsview.cpp:80
+#, kde-format
+msgid "Loading..."
+msgstr ""
+
+#: localsview.cpp:167
 #, kde-format
 msgid "Copy Symbol"
 msgstr "复制符号"
 
-#: localsview.cpp:158
+#: localsview.cpp:181
 #, kde-format
 msgid "Copy Value"
 msgstr "复制值"
@@ -641,7 +651,7 @@ msgstr "Kate 调试"
 msgid "Debug View"
 msgstr "调试视图"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:374
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:375
 #, kde-format
 msgid "Debug"
 msgstr "调试"
@@ -673,145 +683,145 @@ msgstr ""
 "<title>无法打开文件：</title><nl/>%1<br/>尝试添加搜索路径到高级设置 -> 源文件"
 "搜索路径"
 
-#: plugin_kategdb.cpp:256
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Targets"
 msgstr "目标"
 
-#: plugin_kategdb.cpp:261
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Start Debugging"
 msgstr "启动调试"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:272
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "杀死/停止调试"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:279
 #, kde-format
 msgid "Continue"
 msgstr "继续"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:285
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "切换断点"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "清除所有断点"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Step In"
 msgstr "单步跳入"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Step Over"
 msgstr "单步跳过"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:311
 #, kde-format
 msgid "Step Out"
 msgstr "单步跳出"
 
-#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:381
+#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:382
 #, kde-format
 msgid "Run To Cursor"
 msgstr "运行到光标处"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:325
 #, kde-format
 msgid "Restart Debugging"
 msgstr "重启调试"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:332
 #, kde-format
 msgid "Clear Output"
 msgstr "清除输出"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Hot Reload"
 msgstr "热重新加载"
 
-#: plugin_kategdb.cpp:346
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "Hot Restart"
 msgstr "热重启"
 
-#: plugin_kategdb.cpp:355
+#: plugin_kategdb.cpp:356
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "保存时启用热重新加载"
 
-#: plugin_kategdb.cpp:364 plugin_kategdb.cpp:383
+#: plugin_kategdb.cpp:365 plugin_kategdb.cpp:384
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "下条指令"
 
-#: plugin_kategdb.cpp:369
+#: plugin_kategdb.cpp:370
 #, kde-format
 msgid "Print Value"
 msgstr "打印值"
 
-#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
+#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入断点"
 
-#: plugin_kategdb.cpp:495
+#: plugin_kategdb.cpp:496
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "删除断点"
 
-#: plugin_kategdb.cpp:669
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgid "Execution point"
 msgstr "执行点"
 
-#: plugin_kategdb.cpp:817 plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
 #, kde-format
 msgid "Thread %1"
 msgstr "线程 %1"
 
-#: plugin_kategdb.cpp:944
+#: plugin_kategdb.cpp:948
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "调试输出"
 
-#: plugin_kategdb.cpp:945
+#: plugin_kategdb.cpp:949
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "设置"
 
-#: plugin_kategdb.cpp:990
+#: plugin_kategdb.cpp:994
 #, kde-format
 msgid "IO"
 msgstr "输入输出"
 
-#: plugin_kategdb.cpp:1076
+#: plugin_kategdb.cpp:1080
 #, kde-format
 msgid "Breakpoint"
 msgstr "断点"
 
-#: plugin_kategdb.cpp:1151
+#: plugin_kategdb.cpp:1155
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "复制堆栈跟踪"
 
-#: plugin_kategdb.cpp:1173
+#: plugin_kategdb.cpp:1177
 #, kde-format
 msgid "Open Location"
 msgstr "打开位置"
 
-#: plugin_kategdb.cpp:1183
+#: plugin_kategdb.cpp:1187
 #, kde-format
 msgid "Copy Location"
 msgstr "复制位置"

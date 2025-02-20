@@ -1,4 +1,5 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
+# Translation of katebuild-plugin.po to Spanish
+# Copyright (C) 2008-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2008 Ignacio Poggi <ignaciop.3@gmail.com>
@@ -10,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-25 00:43+0000\n"
-"PO-Revision-Date: 2025-01-24 00:33+0100\n"
+"PO-Revision-Date: 2025-02-18 02:45+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -122,7 +123,7 @@ msgstr "Construir"
 #: plugin_katebuild.cpp:274
 #, kde-format
 msgid "Select Target..."
-msgstr "Seleccionar objetivo..."
+msgstr "Seleccionar objetivo…"
 
 #: plugin_katebuild.cpp:279
 #, kde-format
@@ -258,7 +259,7 @@ msgstr "Ya se está compilando."
 #: plugin_katebuild.cpp:1096
 #, kde-format
 msgid "Building target <b>%1</b> ..."
-msgstr "Compilando objetivo <b>%1</b> ..."
+msgstr "Compilando objetivo <b>%1</b> …"
 
 #: plugin_katebuild.cpp:1133
 #, kde-format

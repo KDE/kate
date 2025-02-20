@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-20 00:44+0000\n"
 "PO-Revision-Date: 2025-02-13 09:45+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -664,88 +664,88 @@ msgstr "Знайти"
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Пошук не було розпочато, оскільки каталогу для пошуку «%1» не існує."
 
-#: SearchPlugin.cpp:1341
+#: SearchPlugin.cpp:1342
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Пошук під час введення даних перервано, оскільки він тривав би надто довго."
 
-#: SearchPlugin.cpp:1674
+#: SearchPlugin.cpp:1675
 #, kde-format
 msgid "Search Match"
 msgstr "Шукати відповідник"
 
-#: SearchPlugin.cpp:1851 SearchPlugin.cpp:1927
+#: SearchPlugin.cpp:1852 SearchPlugin.cpp:1928
 #, kde-format
 msgid "Next from cursor"
 msgstr "Далі за курсором"
 
-#: SearchPlugin.cpp:1868
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Starting from first match"
 msgstr "Починаючи з першого відповідника"
 
-#: SearchPlugin.cpp:1888
+#: SearchPlugin.cpp:1889
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Продовжуємо від першого відповідника"
 
-#: SearchPlugin.cpp:1944
+#: SearchPlugin.cpp:1945
 #, kde-format
 msgid "Starting from last match"
 msgstr "Починаючи з останнього відповідника"
 
-#: SearchPlugin.cpp:1964
+#: SearchPlugin.cpp:1965
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Продовжуємо від останнього відповідника"
 
-#: SearchPlugin.cpp:2125
+#: SearchPlugin.cpp:2126
 #, kde-format
 msgid "Search: %1"
 msgstr "Пошук: %1"
 
-#: SearchPlugin.cpp:2268
+#: SearchPlugin.cpp:2269
 #, kde-format
 msgid "Copy all"
 msgstr "Копіювати все"
 
-#: SearchPlugin.cpp:2273
+#: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy expanded"
 msgstr "Копіювати розгорнуте"
 
-#: SearchPlugin.cpp:2276
+#: SearchPlugin.cpp:2277
 #, kde-format
 msgid "Export matches"
 msgstr "Експортувати відповідники"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2282
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Відкрити як вкладку редактора"
 
-#: SearchPlugin.cpp:2289
+#: SearchPlugin.cpp:2290
 #, kde-format
 msgid "Clear"
 msgstr "Спорожнити"
 
-#: SearchPlugin.cpp:2399 SearchPlugin.cpp:2433
+#: SearchPlugin.cpp:2400 SearchPlugin.cpp:2434
 #, kde-format
 msgid "Add..."
 msgstr "Додати…"
 
-#: SearchPlugin.cpp:2411
+#: SearchPlugin.cpp:2412
 #, kde-format
 msgid "Search As You Type"
 msgstr "Шукати одночасно з введенням"
 
-#: SearchPlugin.cpp:2482
+#: SearchPlugin.cpp:2483
 #, kde-format
 msgid "In Current Project"
 msgstr "У поточному проєкті"
 
-#: SearchPlugin.cpp:2484
+#: SearchPlugin.cpp:2485
 #, kde-format
 msgid "In All Open Projects"
 msgstr "В усіх відкритих проєктах"

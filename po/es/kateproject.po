@@ -1,5 +1,5 @@
 # Translation of kateproject to Spanish
-# Copyright (C) 2025 This_file_is_part_of_KDE
+# Copyright (C) 2012-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2012, 2014, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-19 00:44+0000\n"
-"PO-Revision-Date: 2025-02-03 00:54+0100\n"
+"PO-Revision-Date: 2025-02-19 03:29+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -33,7 +33,7 @@ msgstr "Crear nueva rama"
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Crear nueva rama desde..."
+msgstr "Crear nueva rama desde…"
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
@@ -90,7 +90,7 @@ msgstr[1] "¿Seguro que desea borrar las ramas seleccionadas?"
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr "Seleccionar rama..."
+msgstr "Seleccionar rama…"
 
 #: branchesdialog.cpp:125 gitwidget.cpp:567 kateprojectpluginview.cpp:69
 #, kde-format
@@ -139,12 +139,12 @@ msgstr "Cancelar"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Escriba el mensaje para la confirmación..."
+msgstr "Escriba el mensaje para la confirmación…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Descripción extendida de la confirmación..."
+msgstr "Descripción extendida de la confirmación…"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -226,7 +226,7 @@ msgstr "Actualizad el estado de Git"
 #: gitwidget.cpp:354 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter…"
-msgstr "Filtro..."
+msgstr "Filtro…"
 
 #: gitwidget.cpp:444
 #, kde-format
@@ -298,17 +298,17 @@ msgstr "El mensaje de confirmación no puede estar vacío."
 #: gitwidget.cpp:990
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr "No hay diferencias para %1...%2"
+msgstr "No hay diferencias para %1…%2"
 
 #: gitwidget.cpp:996
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr "No se ha podido comparar %1...%2"
+msgstr "No se ha podido comparar %1…%2"
 
 #: gitwidget.cpp:1011
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "No se ha podido obtener «numstat» al buscar las diferencias %1...%2"
+msgstr "No se ha podido obtener «numstat» al buscar las diferencias %1…%2"
 
 #: gitwidget.cpp:1046
 #, kde-format
@@ -328,7 +328,7 @@ msgstr "Borrar rama"
 #: gitwidget.cpp:1086
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Comparar rama con..."
+msgstr "Comparar rama con…"
 
 #: gitwidget.cpp:1091
 #, kde-format
@@ -343,7 +343,7 @@ msgstr "Mostrar el último envío"
 #: gitwidget.cpp:1127
 #, kde-format
 msgid "Open Commit..."
-msgstr "Abrir confirmación..."
+msgstr "Abrir confirmación…"
 
 #: gitwidget.cpp:1130 gitwidget.cpp:1169
 #, kde-format
@@ -720,7 +720,7 @@ msgstr "Notas"
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Iniciar análisis..."
+msgstr "Iniciar análisis…"
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
@@ -863,7 +863,7 @@ msgstr "Cerrar proyecto"
 #: kateprojectpluginview.cpp:164
 #, kde-format
 msgid "Open &Folder..."
-msgstr "A&brir carpeta..."
+msgstr "A&brir carpeta…"
 
 #: kateprojectpluginview.cpp:170
 #, kde-format
@@ -953,12 +953,12 @@ msgstr "Copiar ubicación"
 #: kateprojecttreeviewcontextmenu.cpp:97
 #, kde-format
 msgid "New File…"
-msgstr "Nuevo archivo..."
+msgstr "Nuevo archivo…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New Folder…"
-msgstr "Nueva carpeta..."
+msgstr "Nueva carpeta…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -1006,10 +1006,9 @@ msgid "New Folder"
 msgstr "Nueva carpeta"
 
 #: kateprojectviewtree.cpp:210
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "El nombre del archivo ya existe"
+msgstr "El archivo ya existe"
 
 #: kateprojectviewtree.cpp:221
 #, kde-format
@@ -1017,10 +1016,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "No se ha podido crear el archivo: %1. Error: %2"
 
 #: kateprojectviewtree.cpp:248
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "El nombre del archivo ya existe"
+msgstr "El directorio ya existe"
 
 #: kateprojectviewtree.cpp:255
 #, kde-format

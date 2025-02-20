@@ -1,24 +1,23 @@
-# translation of katexmltools.po to Spanish
-# traducción de katexmltools.po a Español
-# Copyright (C) 2003, 2004, 2006, 2007 Free Software Foundation, Inc.
+# Translation of katexmltools.po to Spanish
+# Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
-# Rafael Osuna <rosuna@wol.es>, 2003, 2004.
-# Santiago Fernandez Sancho <santi@kde-es.org>, 2006.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2007, 2013, 2019, 2020, 2022.
-# Rocio Gallego <traducciones@rociogallego.com>, 2014.
+# SPDX-FileCopyrightText: 2003, 2004 Rafael Osuna <rosuna@wol.es>
+# SPDX-FileCopyrightText: 2006 Santiago Fernandez Sancho <santi@kde-es.org>
+# SPDX-FileCopyrightText: 2007, 2013, 2019, 2020, 2022, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-04 00:43+0000\n"
-"PO-Revision-Date: 2022-08-17 12:50+0200\n"
+"PO-Revision-Date: 2025-02-18 03:04+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.07.90\n"
+"X-Generator: Lokalize 24.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: plugin_katexmltools.cpp:117
@@ -29,7 +28,7 @@ msgstr "Herramientas XML"
 #: plugin_katexmltools.cpp:120
 #, kde-format
 msgid "&Insert Element..."
-msgstr "&Insertar elemento..."
+msgstr "&Insertar elemento…"
 
 #: plugin_katexmltools.cpp:124
 #, kde-format
@@ -39,7 +38,7 @@ msgstr "&Cerrar elemento"
 #: plugin_katexmltools.cpp:128
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Asignar meta &DTD..."
+msgstr "Asignar meta &DTD…"
 
 #: plugin_katexmltools.cpp:439
 #, kde-format
@@ -131,7 +130,7 @@ msgstr ""
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "Analizando meta DTD..."
+msgstr "Analizando meta DTD…"
 
 #: pseudo_dtd.cpp:70
 #, kde-format

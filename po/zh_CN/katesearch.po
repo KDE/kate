@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-02-20 00:44+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -588,87 +588,87 @@ msgstr "查找"
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "搜索没有开始，因为要搜索的目录“%1”不存在。"
 
-#: SearchPlugin.cpp:1341
+#: SearchPlugin.cpp:1342
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "输入时搜索已中断。因为耗时过长。"
 
-#: SearchPlugin.cpp:1674
+#: SearchPlugin.cpp:1675
 #, kde-format
 msgid "Search Match"
 msgstr "选择匹配"
 
-#: SearchPlugin.cpp:1851 SearchPlugin.cpp:1927
+#: SearchPlugin.cpp:1852 SearchPlugin.cpp:1928
 #, kde-format
 msgid "Next from cursor"
 msgstr "从光标处的下一个"
 
-#: SearchPlugin.cpp:1868
+#: SearchPlugin.cpp:1869
 #, kde-format
 msgid "Starting from first match"
 msgstr "从第一个匹配开始"
 
-#: SearchPlugin.cpp:1888
+#: SearchPlugin.cpp:1889
 #, kde-format
 msgid "Continuing from first match"
 msgstr "从第一个匹配继续"
 
-#: SearchPlugin.cpp:1944
+#: SearchPlugin.cpp:1945
 #, kde-format
 msgid "Starting from last match"
 msgstr "从最后一个匹配开始"
 
-#: SearchPlugin.cpp:1964
+#: SearchPlugin.cpp:1965
 #, kde-format
 msgid "Continuing from last match"
 msgstr "从最后一个匹配继续"
 
-#: SearchPlugin.cpp:2125
+#: SearchPlugin.cpp:2126
 #, kde-format
 msgid "Search: %1"
 msgstr "搜索：%1"
 
-#: SearchPlugin.cpp:2268
+#: SearchPlugin.cpp:2269
 #, kde-format
 msgid "Copy all"
 msgstr "复制全部"
 
-#: SearchPlugin.cpp:2273
+#: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy expanded"
 msgstr "复制展开内容"
 
-#: SearchPlugin.cpp:2276
+#: SearchPlugin.cpp:2277
 #, kde-format
 msgid "Export matches"
 msgstr "导出匹配项"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2282
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "打开为编辑器标签页"
 
-#: SearchPlugin.cpp:2289
+#: SearchPlugin.cpp:2290
 #, kde-format
 msgid "Clear"
 msgstr "清除"
 
-#: SearchPlugin.cpp:2399 SearchPlugin.cpp:2433
+#: SearchPlugin.cpp:2400 SearchPlugin.cpp:2434
 #, kde-format
 msgid "Add..."
 msgstr "添加..."
 
-#: SearchPlugin.cpp:2411
+#: SearchPlugin.cpp:2412
 #, kde-format
 msgid "Search As You Type"
 msgstr "即输即搜"
 
-#: SearchPlugin.cpp:2482
+#: SearchPlugin.cpp:2483
 #, kde-format
 msgid "In Current Project"
 msgstr "当前工程"
 
-#: SearchPlugin.cpp:2484
+#: SearchPlugin.cpp:2485
 #, kde-format
 msgid "In All Open Projects"
 msgstr "全部打开的工程"

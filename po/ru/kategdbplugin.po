@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-18 00:43+0000\n"
+"POT-Creation-Date: 2025-02-20 00:44+0000\n"
 "PO-Revision-Date: 2024-12-09 14:37+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -237,254 +237,254 @@ msgstr "продолжены все потоки"
 msgid "(running)"
 msgstr "(выполняется)"
 
-#: dapbackend.cpp:415
+#: dapbackend.cpp:412
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** соединение с сервером разорвано ***"
 
-#: dapbackend.cpp:422
+#: dapbackend.cpp:419
 #, kde-format
 msgid "program exited with code %1"
 msgstr "программа завершила работу с кодом %1"
 
-#: dapbackend.cpp:440
+#: dapbackend.cpp:437
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** ожидание действий пользователя ***"
 
-#: dapbackend.cpp:445
+#: dapbackend.cpp:442
 #, kde-format
 msgid "error on response: %1"
 msgstr "ошибка при ответе: %1"
 
-#: dapbackend.cpp:460
+#: dapbackend.cpp:457
 #, kde-format
 msgid "important"
 msgstr "важно"
 
-#: dapbackend.cpp:463
+#: dapbackend.cpp:460
 #, kde-format
 msgid "telemetry"
 msgstr "телеметрия"
 
-#: dapbackend.cpp:482
+#: dapbackend.cpp:479
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "отладка процесса [%1] %2"
 
-#: dapbackend.cpp:484
+#: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process %1"
 msgstr "отладка процесса %1"
 
-#: dapbackend.cpp:487
+#: dapbackend.cpp:484
 #, kde-format
 msgid "Start method: %1"
 msgstr "Метод запуска: %1"
 
-#: dapbackend.cpp:502
+#: dapbackend.cpp:499
 #, kde-format
 msgid "thread %1"
 msgstr "поток %1"
 
-#: dapbackend.cpp:658
+#: dapbackend.cpp:637
 #, kde-format
 msgid "breakpoint set"
 msgstr "точка останова задана"
 
-#: dapbackend.cpp:666
+#: dapbackend.cpp:645
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "точка останова очищена"
 
-#: dapbackend.cpp:725
+#: dapbackend.cpp:704
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "точка остановка (%1)"
 
-#: dapbackend.cpp:742
+#: dapbackend.cpp:721
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<не вычислено>"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:743
 #, kde-format
 msgid "server capabilities"
 msgstr "возможности сервера"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:746
 #, kde-format
 msgid "supported"
 msgstr "поддерживается"
 
-#: dapbackend.cpp:767
+#: dapbackend.cpp:746
 #, kde-format
 msgid "unsupported"
 msgstr "не поддерживается"
 
-#: dapbackend.cpp:770
+#: dapbackend.cpp:749
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "условные точки останова"
 
-#: dapbackend.cpp:771
+#: dapbackend.cpp:750
 #, kde-format
 msgid "function breakpoints"
 msgstr "точки останова функций"
 
-#: dapbackend.cpp:772
+#: dapbackend.cpp:751
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "точки останова по условию"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:752
 #, kde-format
 msgid "log points"
 msgstr "точки журнала"
 
-#: dapbackend.cpp:773
+#: dapbackend.cpp:752
 #, kde-format
 msgid "modules request"
 msgstr "запрос модулей"
 
-#: dapbackend.cpp:774
+#: dapbackend.cpp:753
 #, kde-format
 msgid "goto targets request"
 msgstr "запрос перехода к целям"
 
-#: dapbackend.cpp:775
+#: dapbackend.cpp:754
 #, kde-format
 msgid "terminate request"
 msgstr "запрос прерывания"
 
-#: dapbackend.cpp:776
+#: dapbackend.cpp:755
 #, kde-format
 msgid "terminate debuggee"
 msgstr "прерывание отладки"
 
-#: dapbackend.cpp:1004
+#: dapbackend.cpp:983
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "синтаксическая ошибка: выражение не найдено"
 
-#: dapbackend.cpp:1022 dapbackend.cpp:1057 dapbackend.cpp:1095
-#: dapbackend.cpp:1129 dapbackend.cpp:1165 dapbackend.cpp:1201
-#: dapbackend.cpp:1237 dapbackend.cpp:1337 dapbackend.cpp:1399
+#: dapbackend.cpp:1001 dapbackend.cpp:1036 dapbackend.cpp:1074
+#: dapbackend.cpp:1108 dapbackend.cpp:1144 dapbackend.cpp:1180
+#: dapbackend.cpp:1216 dapbackend.cpp:1316 dapbackend.cpp:1378
 #, kde-format
 msgid "syntax error: %1"
 msgstr "синтаксическая ошибка: %1"
 
-#: dapbackend.cpp:1030 dapbackend.cpp:1065 dapbackend.cpp:1344
-#: dapbackend.cpp:1407
+#: dapbackend.cpp:1009 dapbackend.cpp:1044 dapbackend.cpp:1323
+#: dapbackend.cpp:1386
 #, kde-format
 msgid "invalid line: %1"
 msgstr "некорректная строка: %1"
 
-#: dapbackend.cpp:1037 dapbackend.cpp:1042 dapbackend.cpp:1072
-#: dapbackend.cpp:1077 dapbackend.cpp:1368 dapbackend.cpp:1373
-#: dapbackend.cpp:1414 dapbackend.cpp:1419
+#: dapbackend.cpp:1016 dapbackend.cpp:1021 dapbackend.cpp:1051
+#: dapbackend.cpp:1056 dapbackend.cpp:1347 dapbackend.cpp:1352
+#: dapbackend.cpp:1393 dapbackend.cpp:1398
 #, kde-format
 msgid "file not specified: %1"
 msgstr "файл не указан: %1"
 
-#: dapbackend.cpp:1107 dapbackend.cpp:1141 dapbackend.cpp:1177
-#: dapbackend.cpp:1213 dapbackend.cpp:1249
+#: dapbackend.cpp:1086 dapbackend.cpp:1120 dapbackend.cpp:1156
+#: dapbackend.cpp:1192 dapbackend.cpp:1228
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "некорректный идентификатор потока: %1"
 
-#: dapbackend.cpp:1113 dapbackend.cpp:1147 dapbackend.cpp:1183
-#: dapbackend.cpp:1219 dapbackend.cpp:1255
+#: dapbackend.cpp:1092 dapbackend.cpp:1126 dapbackend.cpp:1162
+#: dapbackend.cpp:1198 dapbackend.cpp:1234
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "идентификатор потока не указан: %1"
 
-#: dapbackend.cpp:1266
+#: dapbackend.cpp:1245
 #, kde-format
 msgid "Available commands:"
 msgstr "Доступные команды:"
 
-#: dapbackend.cpp:1354
+#: dapbackend.cpp:1333
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "условные точки останова не поддерживаются сервером"
 
-#: dapbackend.cpp:1362
+#: dapbackend.cpp:1341
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "точки останова по условию не поддерживаются сервером"
 
-#: dapbackend.cpp:1382
+#: dapbackend.cpp:1361
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "в строке %1 уже есть точка останова"
 
-#: dapbackend.cpp:1427
+#: dapbackend.cpp:1406
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "точка останова не найдена (%1:%2)"
 
-#: dapbackend.cpp:1433
+#: dapbackend.cpp:1412
 #, kde-format
 msgid "Current thread: "
 msgstr "Текущий поток: "
 
-#: dapbackend.cpp:1438 dapbackend.cpp:1445 dapbackend.cpp:1466
+#: dapbackend.cpp:1417 dapbackend.cpp:1424 dapbackend.cpp:1445
 #, kde-format
 msgid "none"
 msgstr "нет"
 
-#: dapbackend.cpp:1441
+#: dapbackend.cpp:1420
 #, kde-format
 msgid "Current frame: "
 msgstr "Текущий вызов: "
 
-#: dapbackend.cpp:1448
+#: dapbackend.cpp:1427
 #, kde-format
 msgid "Session state: "
 msgstr "Состояние сеанса: "
 
-#: dapbackend.cpp:1451
+#: dapbackend.cpp:1430
 #, kde-format
 msgid "initializing"
 msgstr "инициализируется"
 
-#: dapbackend.cpp:1454
+#: dapbackend.cpp:1433
 #, kde-format
 msgid "running"
 msgstr "выполняется"
 
-#: dapbackend.cpp:1457
+#: dapbackend.cpp:1436
 #, kde-format
 msgid "stopped"
 msgstr "остановлен"
 
-#: dapbackend.cpp:1460
+#: dapbackend.cpp:1439
 #, kde-format
 msgid "terminated"
 msgstr "прерван"
 
-#: dapbackend.cpp:1463
+#: dapbackend.cpp:1442
 #, kde-format
 msgid "disconnected"
 msgstr "разъединён"
 
-#: dapbackend.cpp:1519
+#: dapbackend.cpp:1498
 #, kde-format
 msgid "command not found"
 msgstr "команда не найдена"
 
-#: dapbackend.cpp:1553
+#: dapbackend.cpp:1532
 #, kde-format
 msgid "missing thread id"
 msgstr "отсутствует идентификатор потока"
 
-#: dapbackend.cpp:1653
+#: dapbackend.cpp:1632
 #, kde-format
 msgid "killing backend"
 msgstr "прерывание работы внутренней службы"
 
-#: dapbackend.cpp:1721
+#: dapbackend.cpp:1687
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Текущий вызов [%3]: %1:%2 (%4)"
@@ -618,31 +618,41 @@ msgstr "Переменная"
 
 #: localsview.cpp:23
 #, kde-format
+msgid "Type"
+msgstr ""
+
+#: localsview.cpp:24
+#, kde-format
 msgid "Value"
 msgstr "Значение"
 
-#: localsview.cpp:49
+#: localsview.cpp:51
 #, kde-format
 msgid "type"
 msgstr "тип"
 
-#: localsview.cpp:58
+#: localsview.cpp:60
 #, kde-format
 msgid "indexed items"
 msgstr "проиндексированные записи"
 
-#: localsview.cpp:61
+#: localsview.cpp:63
 #, kde-format
 msgid "named items"
 msgstr "именованные записи"
 
-#: localsview.cpp:144
+#: localsview.cpp:79 localsview.cpp:80
+#, kde-format
+msgid "Loading..."
+msgstr ""
+
+#: localsview.cpp:167
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Переменная"
 
-#: localsview.cpp:158
+#: localsview.cpp:181
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"
@@ -658,7 +668,7 @@ msgstr "Отладка в Kate"
 msgid "Debug View"
 msgstr "Отладка"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:374
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:375
 #, kde-format
 msgid "Debug"
 msgstr "Отладка"
@@ -692,148 +702,148 @@ msgstr ""
 "каталоги для поиска в разделе «Дополнительные параметры → Каталоги для "
 "поиска исходного кода»."
 
-#: plugin_kategdb.cpp:256
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Targets"
 msgstr "Цели"
 
-#: plugin_kategdb.cpp:261
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Start Debugging"
 msgstr "Начать отладку"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:272
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Завершить отладку"
 
-#: plugin_kategdb.cpp:278
+#: plugin_kategdb.cpp:279
 #, kde-format
 msgid "Continue"
 msgstr "Продолжить"
 
-#: plugin_kategdb.cpp:284
+#: plugin_kategdb.cpp:285
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Поставить точку останова / Прервать"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Очистить все точки останова"
 
-#: plugin_kategdb.cpp:296
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Step In"
 msgstr "Войти"
 
-#: plugin_kategdb.cpp:303
+#: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Step Over"
 msgstr "Перейти к следующей строке"
 
-#: plugin_kategdb.cpp:310
+#: plugin_kategdb.cpp:311
 #, kde-format
 msgid "Step Out"
 msgstr "Выйти"
 
-#: plugin_kategdb.cpp:317 plugin_kategdb.cpp:381
+#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:382
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Выполнить до курсора"
 
-#: plugin_kategdb.cpp:324
+#: plugin_kategdb.cpp:325
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Начать отладку заново"
 
-#: plugin_kategdb.cpp:331
+#: plugin_kategdb.cpp:332
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "Debug Output"
 msgid "Clear Output"
 msgstr "Вывод отладки"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Hot Reload"
 msgstr "Горячая перезагрузка"
 
-#: plugin_kategdb.cpp:346
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "Hot Restart"
 msgstr "Горячий перезапуск"
 
-#: plugin_kategdb.cpp:355
+#: plugin_kategdb.cpp:356
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Разрешить горячую перезагрузку при сохранении"
 
-#: plugin_kategdb.cpp:364 plugin_kategdb.cpp:383
+#: plugin_kategdb.cpp:365 plugin_kategdb.cpp:384
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Перейти в позицию курсора"
 
-#: plugin_kategdb.cpp:369
+#: plugin_kategdb.cpp:370
 #, kde-format
 msgid "Print Value"
 msgstr "Показать значение"
 
-#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
+#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Вставить точку останова"
 
-#: plugin_kategdb.cpp:495
+#: plugin_kategdb.cpp:496
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Удалить точку останова"
 
-#: plugin_kategdb.cpp:669
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgid "Execution point"
 msgstr "Точка выполнения"
 
-#: plugin_kategdb.cpp:817 plugin_kategdb.cpp:848
+#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
 #, kde-format
 msgid "Thread %1"
 msgstr "Поток %1"
 
-#: plugin_kategdb.cpp:944
+#: plugin_kategdb.cpp:948
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Вывод отладки"
 
-#: plugin_kategdb.cpp:945
+#: plugin_kategdb.cpp:949
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Параметры"
 
-#: plugin_kategdb.cpp:990
+#: plugin_kategdb.cpp:994
 #, kde-format
 msgid "IO"
 msgstr "Ввод и вывод"
 
-#: plugin_kategdb.cpp:1076
+#: plugin_kategdb.cpp:1080
 #, kde-format
 msgid "Breakpoint"
 msgstr "Точка останова"
 
-#: plugin_kategdb.cpp:1151
+#: plugin_kategdb.cpp:1155
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Копировать цель"
 
-#: plugin_kategdb.cpp:1173
+#: plugin_kategdb.cpp:1177
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1183
+#: plugin_kategdb.cpp:1187
 #, kde-format
 msgid "Copy Location"
 msgstr ""

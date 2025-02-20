@@ -1,14 +1,15 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Translation of katecloseexceptplugin.po to Spanish
+# Copyright (C) 2013-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kate package.
 #
-# Rocio Gallego <traducciones@rociogallego.com>, 2013, 2015.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2019.
+# SPDX-FileCopyrightText: 2013, 2015 Rocio Gallego <traducciones@rociogallego.com>
+# SPDX-FileCopyrightText: 2019, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-09 01:39+0000\n"
-"PO-Revision-Date: 2019-10-05 09:14+0200\n"
+"PO-Revision-Date: 2025-02-18 02:48+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.08.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -91,7 +92,7 @@ msgstr "Error"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr "No hay archivos que cerrar..."
+msgstr "No hay archivos que cerrar…"
 
 #: close_except_plugin.cpp:261
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-18 00:43+0000\n"
-"PO-Revision-Date: 2025-01-01 04:46+0100\n"
+"PO-Revision-Date: 2025-02-18 02:42+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -151,7 +151,7 @@ msgstr "Documentos a abrir."
 #: kate/main.cpp:205 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
-msgstr "[url...]"
+msgstr "[url…]"
 
 #: kwrite/main.cpp:46
 #, kde-format
@@ -363,7 +363,7 @@ msgstr "Advertencias"
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
-msgstr "Filtrar..."
+msgstr "Filtrar…"
 
 #: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -1426,7 +1426,7 @@ msgstr "Iniciando"
 #: lib/katedocmanager.cpp:373
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "Reabriendo archivos de la última sesión..."
+msgstr "Reabriendo archivos de la última sesión…"
 
 #: lib/katefileactions.cpp:73
 #, kde-format
@@ -1461,7 +1461,7 @@ msgstr "El archivo «%1» no se puede borrar."
 #: lib/katefileactions.cpp:201
 #, kde-format
 msgid "&Other Application..."
-msgstr "&Otra aplicación..."
+msgstr "&Otra aplicación…"
 
 #: lib/katemainwindow.cpp:260
 #, kde-format
@@ -1592,7 +1592,7 @@ msgstr "A&brir la carpeta contenedora"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Cambiar nombre..."
+msgstr "Cambiar nombre…"
 
 #: lib/katemainwindow.cpp:439
 #, kde-format
@@ -1773,7 +1773,7 @@ msgstr "&Todas las sesiones"
 #: lib/katemainwindow.cpp:578
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "&Gestionar sesiones..."
+msgstr "&Gestionar sesiones…"
 
 #: lib/katemainwindow.cpp:587
 #, kde-format
@@ -1783,7 +1783,7 @@ msgstr "&Guardar sesión"
 #: lib/katemainwindow.cpp:593
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Guardar sesión &como..."
+msgstr "Guardar sesión &como…"
 
 #: lib/katemainwindow.cpp:600 lib/kateviewspace.cpp:56
 #, kde-format
@@ -1922,7 +1922,7 @@ msgstr "Foco en %1"
 #: lib/katemdi.cpp:1118
 #, kde-format
 msgid "Configure..."
-msgstr "Configurar..."
+msgstr "Configurar…"
 
 #: lib/katemdi.cpp:1122
 #, kde-format
@@ -2110,7 +2110,7 @@ msgstr "[Nuevo]"
 #: lib/kateoutputview.cpp:175
 #, kde-format
 msgid "Search..."
-msgstr "Buscar..."
+msgstr "Buscar…"
 
 #: lib/kateoutputview.cpp:192
 #, kde-format
@@ -2195,7 +2195,7 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"Los datos que usted solicitó guardar no se pudieron escribir. Elija lo que "
+"No se han podido escribir los datos que ha solicitado guardar. Elija lo que "
 "desea hacer."
 
 #: lib/kateurlbar.cpp:913
@@ -2749,13 +2749,13 @@ msgstr "No volver a preguntar"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "Duplicar..."
+msgstr "Duplicar…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "Ca&mbiar nombre..."
+msgstr "Ca&mbiar nombre…"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -3008,7 +3008,7 @@ msgstr "No hay sesiones guardadas"
 #: lib/welcomeview/welcomeview.cpp:248
 #, kde-format
 msgid "Open Selected Files..."
-msgstr "Abrir archivos seleccionados..."
+msgstr "Abrir archivos seleccionados…"
 
 #: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
@@ -3036,7 +3036,7 @@ msgstr "Nuevo archivo"
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "Abrir carpeta..."
+msgstr "Abrir carpeta…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
@@ -3048,7 +3048,7 @@ msgstr "Archivos recientes"
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr "Abrir archivo..."
+msgstr "Abrir archivo…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -3090,7 +3090,7 @@ msgstr "Sesiones guardadas"
 #: lib/welcomeview/welcomeview.ui:389
 #, kde-format
 msgid "Manage Sessions..."
-msgstr "Gestión de sesiones..."
+msgstr "Gestión de sesiones…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442

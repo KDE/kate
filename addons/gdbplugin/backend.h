@@ -14,7 +14,7 @@
 #include "backendinterface.h"
 #include "configview.h"
 
-class Backend : public BackendInterface
+class Backend final : public BackendInterface
 {
     Q_OBJECT
 public:

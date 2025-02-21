@@ -16,7 +16,7 @@
 #include <memory>
 #include <optional>
 
-class DapBackend : public BackendInterface
+class DapBackend final : public BackendInterface
 {
     Q_OBJECT
 public:

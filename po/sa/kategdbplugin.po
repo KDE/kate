@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Shreekant Kalwar\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -14,86 +14,7 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "GDB आदेशः"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "स्रोतसञ्चिका अन्वेषणमार्गाः"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "स्थानीय अनुप्रयोग"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "दूरस्थ TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "दूरस्थ क्रमिक द्वार्"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "निमन्त्रकः"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "द्वार्"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "बौड"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-शुद्ध-उपसर्गः"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-अन्वेषण-मार्गः"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "अनुकूलनीयः Init आदेशाः"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -102,69 +23,64 @@ msgstr ""
 "एकं त्रुटिनिवारणसत्रं प्रचलति । कृपया, वर्तमानसत्रं पुनः चालयन्तु अथवा स्थगयन्तु इति उपयोगं "
 "कुर्वन्तु ।."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "नूतनं लक्ष्यं योजयन्तु"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "लक्ष्यं प्रतिलिख्यताम्"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "लक्ष्यं विलोपयन्तु"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "निष्पादनीयः :"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "कार्यपुटम् :"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "प्रक्रिया परिचयः:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "तर्काः :"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ध्यानं स्थापयन्तु"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "आदेशपङ्क्तौ ध्यानं स्थापयन्तु"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "पुनर्निर्देशन IO"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "त्रुटिनिवारणं कृतानां कार्यक्रमानां IO पृथक् ट्याब् प्रति पुनः निर्देशयन्तु"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "उन्नत समयोजनानि"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "लक्ष्यं %1"
@@ -194,17 +110,17 @@ msgstr "बन्दीकरणस्य अनुरोधं कुर्व�
 msgid "DAP backend: %1"
 msgstr "DAP पृष्ठभागः: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "स्थगितम् (%1)।."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "सक्रियसूत्रम् : %1 (सर्वसूत्राणि स्थगितानि)।."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "सक्रियसूत्रम् : %1."
@@ -524,83 +440,6 @@ msgstr "JSON दत्तांशः अमान्यः अस्ति: JSO
 msgid "JSON data is invalid: %1"
 msgstr "JSON दत्तांशः अमान्यः अस्ति: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "स्थानीय"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "CPU पञ्जिकाः"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
-"कृपया 'त्रुटिनिवारणम्' फलकस्य 'समयोजनानि' ट्याब् मध्ये निष्पादनीयम् निरूपयत् कुर्वन्तु ।."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"कोऽपि त्रुटिनिवारणकः चयनितः नास्ति । कृपया 'त्रुटिनिवारणम्' फलकस्य 'समयोजनानि' ट्याब् "
-"मध्ये एकं चिनोतु ।."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"त्रुटिनिवारणकर्ता न प्राप्तः। कृपया सुनिश्चितं कुर्वन्तु यत् भवतः प्रणाल्यां संस्थापितम् अस्ति । "
-"चयनितः त्रुटिनिवारणकर्ता '%1' अस्ति ।"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "त्रुटिनिवारणप्रक्रिया आरभ्यतुं न शक्तवान्"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb सामान्यतः निर्गतवान् ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "सर्वे सूत्राः धावन्ति"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "सूत्राः चलति: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "वर्तमान खण्ड: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "निमन्त्रक %1. लक्ष्यम् : %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: अन्तिमप्रतिसादं विश्लेषणं कर्तुं न शक्तम्: %1. अत्यधिकाः क्रमिकदोषाः। निरुद्धं भवति।."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: अन्तिमप्रतिसादं विश्लेषणं कर्तुं न शक्तम्: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -778,60 +617,60 @@ msgstr "PC स्थानान्तरयन्तु"
 msgid "Print Value"
 msgstr "मुद्रण मूल्य"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "भङ्गबिन्दुं सम्मिलितं कुर्वन्तु"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "भङ्गबिन्दुं निष्कासयन्तु"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "निष्पादन बिन्दु"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "%1 सूत्रम्"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "त्रुटिनिवारणनिर्गमः"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "समयोजनानि"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "भङ्गबिन्दु"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "लक्ष्यं प्रतिलिख्यताम्"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr ""
@@ -847,3 +686,95 @@ msgstr "&त्रुटिनिवारणं"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "प्लगिन् त्रुटिनिवारणं कुर्वन्तु"
+
+#~ msgid "GDB command"
+#~ msgstr "GDB आदेशः"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "स्रोतसञ्चिका अन्वेषणमार्गाः"
+
+#~ msgid "Local application"
+#~ msgstr "स्थानीय अनुप्रयोग"
+
+#~ msgid "Remote TCP"
+#~ msgstr "दूरस्थ TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "दूरस्थ क्रमिक द्वार्"
+
+#~ msgid "Host"
+#~ msgstr "निमन्त्रकः"
+
+#~ msgid "Port"
+#~ msgstr "द्वार्"
+
+#~ msgid "Baud"
+#~ msgstr "बौड"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-शुद्ध-उपसर्गः"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-अन्वेषण-मार्गः"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "अनुकूलनीयः Init आदेशाः"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "उन्नत समयोजनानि"
+
+#~ msgid "Locals"
+#~ msgstr "स्थानीय"
+
+#~ msgid "CPU registers"
+#~ msgstr "CPU पञ्जिकाः"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "कृपया 'त्रुटिनिवारणम्' फलकस्य 'समयोजनानि' ट्याब् मध्ये निष्पादनीयम् निरूपयत् कुर्वन्तु ।."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "कोऽपि त्रुटिनिवारणकः चयनितः नास्ति । कृपया 'त्रुटिनिवारणम्' फलकस्य 'समयोजनानि' "
+#~ "ट्याब् मध्ये एकं चिनोतु ।."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "त्रुटिनिवारणकर्ता न प्राप्तः। कृपया सुनिश्चितं कुर्वन्तु यत् भवतः प्रणाल्यां संस्थापितम् अस्ति "
+#~ "। चयनितः त्रुटिनिवारणकर्ता '%1' अस्ति ।"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "त्रुटिनिवारणप्रक्रिया आरभ्यतुं न शक्तवान्"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb सामान्यतः निर्गतवान् ***"
+
+#~ msgid "all threads running"
+#~ msgstr "सर्वे सूत्राः धावन्ति"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "सूत्राः चलति: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "वर्तमान खण्ड: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "निमन्त्रक %1. लक्ष्यम् : %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: अन्तिमप्रतिसादं विश्लेषणं कर्तुं न शक्तम्: %1. अत्यधिकाः क्रमिकदोषाः। निरुद्धं "
+#~ "भवति।."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: अन्तिमप्रतिसादं विश्लेषणं कर्तुं न शक्तम्: %1"

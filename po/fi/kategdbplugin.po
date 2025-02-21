@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
 "PO-Revision-Date: 2024-11-13 16:58+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -23,86 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "Komento"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "…"
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Lähdetiedostojen hakupolut"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Paikallinen sovellus"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "Etä-TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Etäsarjaportti"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Verkkonimi"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Portti"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baudi"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absoluuttinen-etuliite"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-hakupolku"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Mukautetut alustuskomennot"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -111,71 +32,66 @@ msgstr ""
 "Virheenpaikannusistunto on käynnissä. Suorita uudelleen tai pysäytä nykyinen "
 "istunto."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Lisää uusi kohde"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Kopioi kohde"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Poista kohde"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Ohjelmatiedosto:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Työhakemisto:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "Prosessitunniste:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumentit:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Pidä kohdistus"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Pidä kohdistus komentorivillä"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Uudelleen ohjattu siirräntä"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Ohjaa virheenpaikannuksessa olevien ohjelmien siirräntä uudelleen erilliseen "
 "välilehteen"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Lisäasetukset"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Kohde %1"
@@ -205,17 +121,17 @@ msgstr "pyydetään sammutusta"
 msgid "DAP backend: %1"
 msgstr "DAP-taustajärjestelmä: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "pysäytetty (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktiivinen säie: %1 (kaikki säikeet pysäytetty)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktiivinen säie: %1."
@@ -536,84 +452,6 @@ msgstr "JSON-data on kelvotonta: ei JSON-oliota"
 msgid "JSON data is invalid: %1"
 msgstr "JSON-data on kelvotonta: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Paikalliset"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "Suoritinrekisterit"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
-"Aseta ohjelmatiedosto Virheenpaikannus-paneelin Asetukset-välilehdellä."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"Virheenjäljitintä ei ole valittu. Valitse se Virheenpaikannus-paneelin "
-"Asetukset-välilehdeltä."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"Virheenjäljitintä ei löydy. Varmista, että se on järjestelmään asennettu. "
-"Valittu vianjäljitin on ”%1”"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Ei voitu käynnistää virheenpaikanninprosessia"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb päättyi normaalisti ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "kaikki säikeet käynnissä"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "säikeitä käynnissä: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Nykyinen kehys: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Kone: %1. Kohde: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1. Liian monta peräkkäistä "
-"virhettä. Lopetetaan."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -791,60 +629,60 @@ msgstr "Siirrä ohjelmalaskuri"
 msgid "Print Value"
 msgstr "Tulosta arvo"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Lisää keskeytyskohta"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Poista keskeytyskohta"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Suorituspiste"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Säie %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Virheenpaikannustuloste"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Asetukset"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "Siirräntä"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Keskeytyskohta"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Kopioi kohde"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr ""
@@ -860,6 +698,98 @@ msgstr "&Virheenpaikannus"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Virheenpaikannusliitännäinen"
+
+#~ msgid "GDB command"
+#~ msgstr "Komento"
+
+#~ msgid "..."
+#~ msgstr "…"
+
+#~ msgid "Source file search paths"
+#~ msgstr "Lähdetiedostojen hakupolut"
+
+#~ msgid "Local application"
+#~ msgstr "Paikallinen sovellus"
+
+#~ msgid "Remote TCP"
+#~ msgstr "Etä-TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Etäsarjaportti"
+
+#~ msgid "Host"
+#~ msgstr "Verkkonimi"
+
+#~ msgid "Port"
+#~ msgstr "Portti"
+
+#~ msgid "Baud"
+#~ msgstr "Baudi"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absoluuttinen-etuliite"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-hakupolku"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Mukautetut alustuskomennot"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Lisäasetukset"
+
+#~ msgid "Locals"
+#~ msgstr "Paikalliset"
+
+#~ msgid "CPU registers"
+#~ msgstr "Suoritinrekisterit"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "Aseta ohjelmatiedosto Virheenpaikannus-paneelin Asetukset-välilehdellä."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "Virheenjäljitintä ei ole valittu. Valitse se Virheenpaikannus-paneelin "
+#~ "Asetukset-välilehdeltä."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "Virheenjäljitintä ei löydy. Varmista, että se on järjestelmään asennettu. "
+#~ "Valittu vianjäljitin on ”%1”"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Ei voitu käynnistää virheenpaikanninprosessia"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb päättyi normaalisti ***"
+
+#~ msgid "all threads running"
+#~ msgstr "kaikki säikeet käynnissä"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "säikeitä käynnissä: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Nykyinen kehys: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Kone: %1. Kohde: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1. Liian monta "
+#~ "peräkkäistä virhettä. Lopetetaan."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Ei voitu jäsentää viimeisintä vastausta: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "ruumiinavaus"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -17,87 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 22.12.3\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
-msgid "GDB command"
-msgstr "Lệnh GDB"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Đường dẫn tìm kiếm tệp nguồn"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Ứng dụng cục bộ"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "TCP ở xa"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Cổng nối tiếp ở xa"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Máy"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Cổng"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baud"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-search-path"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Lệnh bắt đầu tự chọn"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -105,70 +25,65 @@ msgid ""
 msgstr ""
 "Một phiên gỡ lỗi đang diễn ra. Vui lòng chạy lại hoặc dừng phiên hiện tại."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Thêm mục tiêu mới"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Sao chép mục tiêu"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Xoá mục tiêu"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Tệp thực thi:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Thư mục làm việc:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "Mã tiến trình:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Đối số:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Giữ nhắm"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Giữ nhắm vào dòng lệnh"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Chuyển hướng vào/ra"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Chuyển hướng đầu vào / đầu ra của chương trình được gỡ lỗi sang một thẻ riêng"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Thiết lập nâng cao"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Mục tiêu %1"
@@ -199,17 +114,17 @@ msgstr "đang yêu cầu tắt"
 msgid "DAP backend: %1"
 msgstr "Hậu phương DAP: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "đã dừng (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Luồng hoạt động: %1 (tất cả các luồng đã dừng)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Luồng hoạt động: %1."
@@ -532,83 +447,6 @@ msgstr ""
 msgid "JSON data is invalid: %1"
 msgstr ""
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Cục bộ"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "Thanh ghi CPU"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "Vui lòng đặt tệp thực thi ở thẻ 'Thiết lập' trong bảng 'Gỡ lỗi'"
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"Chưa chọn trình gỡ lỗi nào. Vui lòng chọn trong thẻ 'Thiết lập' trong bảng "
-"'Gỡ lỗi'"
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"Không tìm thấy trình gỡ lỗi. Vui lòng kiểm tra rằng nó đã được cài đặt trong "
-"hệ thống của bạn. Trình gỡ lỗi được chọn là '%1'"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Không khởi động được tiến trình gỡ lỗi"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb đã thoát một cách bình thường ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "tất cả các luồng đang chạy"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "(các) luồng đang chạy: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Khung hiện tại: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Máy: %1. Mục tiêu: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: Không phân tách được lời hồi đáp cuối: %1. Quá nhiều lỗi liên tiếp. "
-"Đang tắt."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: Không phân tách được lời hồi đáp cuối: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -788,27 +626,27 @@ msgstr "Di chuyển con trỏ lệnh"
 msgid "Print Value"
 msgstr "In giá trị"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Chèn điểm ngắt"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Xoá điểm ngắt"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Điểm thực thi"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Luồng %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -816,34 +654,34 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Đầu ra GDB"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Thiết lập"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "Vào/ra"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Điểm ngắt"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Sao chép mục tiêu"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr ""
@@ -860,6 +698,99 @@ msgstr "&Gỡ lỗi"
 #| msgid "GDB Plugin"
 msgid "Debug Plugin"
 msgstr "Phần cài cắm GDB"
+
+#, fuzzy
+#~| msgid "GDB command"
+#~ msgid "GDB command"
+#~ msgstr "Lệnh GDB"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "Đường dẫn tìm kiếm tệp nguồn"
+
+#~ msgid "Local application"
+#~ msgstr "Ứng dụng cục bộ"
+
+#~ msgid "Remote TCP"
+#~ msgstr "TCP ở xa"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Cổng nối tiếp ở xa"
+
+#~ msgid "Host"
+#~ msgstr "Máy"
+
+#~ msgid "Port"
+#~ msgstr "Cổng"
+
+#~ msgid "Baud"
+#~ msgstr "Baud"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absolute-prefix"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-search-path"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Lệnh bắt đầu tự chọn"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Thiết lập nâng cao"
+
+#~ msgid "Locals"
+#~ msgstr "Cục bộ"
+
+#~ msgid "CPU registers"
+#~ msgstr "Thanh ghi CPU"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr "Vui lòng đặt tệp thực thi ở thẻ 'Thiết lập' trong bảng 'Gỡ lỗi'"
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "Chưa chọn trình gỡ lỗi nào. Vui lòng chọn trong thẻ 'Thiết lập' trong "
+#~ "bảng 'Gỡ lỗi'"
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "Không tìm thấy trình gỡ lỗi. Vui lòng kiểm tra rằng nó đã được cài đặt "
+#~ "trong hệ thống của bạn. Trình gỡ lỗi được chọn là '%1'"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Không khởi động được tiến trình gỡ lỗi"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb đã thoát một cách bình thường ***"
+
+#~ msgid "all threads running"
+#~ msgstr "tất cả các luồng đang chạy"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "(các) luồng đang chạy: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Khung hiện tại: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Máy: %1. Mục tiêu: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Không phân tách được lời hồi đáp cuối: %1. Quá nhiều lỗi liên "
+#~ "tiếp. Đang tắt."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Không phân tách được lời hồi đáp cuối: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "tử hậu"

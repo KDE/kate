@@ -4,13 +4,13 @@
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Abdalrahim G. Fakhouri <abdilra7eem@yahoo.com>, 2014.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2023-04-27 12:09+0400\n"
+"PO-Revision-Date: 2025-02-20 11:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -61,26 +62,22 @@ msgid "&Focus Terminal Panel"
 msgstr "ركّز &على الطّرفيّة"
 
 #: kateconsole.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "اخف لوحة ال&طّرفيّة"
+msgstr "اقسم  الطرفية &رأسيًا"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "اقسم الطرفية أ&فقيًا"
 
 #: kateconsole.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "اعرض &لوحة الطرفيّة"
+msgstr "&لسان طرفية جديد"
 
 #: kateconsole.cpp:354
 #, kde-format
@@ -152,34 +149,26 @@ msgstr "ركّز على لوحة الطّرفيّة"
 #: kateconsole.cpp:676
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "وضع مزامنة الطرفية"
 
 #: kateconsole.cpp:679
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "زامن الطّرفيّة مع المستند الحاليّ"
+msgstr "لا تزامن لسان الطرفية مع المستند الحالي"
 
 #: kateconsole.cpp:682
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "زامن الطّرفيّة آليًّا مع المستند الحاليّ إن كان ممكنًا"
+msgstr "زامن لسان الطّرفيّة الحالي آليًّا مع المستند الحاليّ إن كان ممكنًا"
 
 #: kateconsole.cpp:685
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "زامن الطّرفيّة آليًّا مع المستند الحاليّ إن كان ممكنًا"
+msgstr "أنشئ &تلقائيًا لسان طرفية لدليل المستند الحالي وانتقل إليه"
 
 #: kateconsole.cpp:692 kateconsole.cpp:713
 #, kde-format

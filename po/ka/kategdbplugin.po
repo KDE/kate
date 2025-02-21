@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2025-02-15 04:07+0100\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"PO-Revision-Date: 2025-02-20 07:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -18,86 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.5\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "GDB ბრძანება"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "წყაროს ფაილების საძებნი ბილიკები"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "ლოკალური აპლიკაცია"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "დაშორებული, TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "დაშორებული სერიული პორტი"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "ჰოსტი"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "პორტი"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "ბოდი"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-search-path"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "ინიციალიზაციის ხელით მითითებული ბრძანებები"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -106,69 +27,64 @@ msgstr ""
 "მიმდინარეობს გამართვის სესია. გამოიყენეთ თავიდან გაშვება ან გააჩერეთ "
 "მიმდინარე სესია."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "ახალი სამიზნის დამატება"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "სამიზნის კოპირება"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "სამიზნის წაშლა"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "გამშვები ფაილი:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "სამუშაო საქაღალდე:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "პროცესის ID:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "არგუმენტები:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "ფოკუსის დატოვება"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "ფოკუსის შენრჩუნება ბრძანების სტრიქონზე"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "IO-ის გადამისამართება"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "გამართვადი პროგრამების შეტანა/გამოტანის ცალკე ჩანართში გადამისამართება"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "დამატებითი პარამეტრები"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "სამიზნე %1"
@@ -198,17 +114,17 @@ msgstr "გამორთვის მოთხოვნა"
 msgid "DAP backend: %1"
 msgstr "DAP უკანაბოლო: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "გაჩერებული (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "აქტიური ნაკადი: %1 (ყველა ნაკადი შეჩერდა)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "აქტიური ნაკადი: %1."
@@ -528,83 +444,6 @@ msgstr "JSON მონაცემები არასწორია: JSON �
 msgid "JSON data is invalid: %1"
 msgstr "JSON მონაცემები არასწორია: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "ლოკალურები"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "CPU-ის რეგისტრები"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "დააყენეთ გამშვები ფაილი 'გამართვის' პანელის 'მორგების' ჩანართში."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"გამმართველი მითითებული არაა. აირჩიეთ ერთ-ერთი 'გამართვის' პანელის 'მორგების "
-"ჩანართზე'."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"გამმართველი აღმოჩენილი არაა. დარწმუნდით, რომ გიყენიათ ის. არჩეულია "
-"გამმართველია '%1'"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "გამმართველის პროცესის გაშვების შეცდომა"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb ნორმალურად დასრულდა ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "ყველა ნაკადი გაშვებულია"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "გაშვებული ნაკადები: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "მიმდინარე კადრი: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "ჰოსტი: %1. სამიზნე: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1. ძალიან ბევრი ერთდროული "
-"შეცდომა. გაითიშება."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -613,7 +452,7 @@ msgstr "სიმბოლო"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "ტიპი"
 
 #: localsview.cpp:24
 #, kde-format
@@ -638,7 +477,7 @@ msgstr "სახელიანი ელემენტები"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "იტვირთება..."
 
 #: localsview.cpp:167
 #, kde-format
@@ -778,59 +617,59 @@ msgstr "PC-ის გადატანა"
 msgid "Print Value"
 msgstr "მნიშვნელობის დაბეჭდვა"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "გამართვის წერტილის ჩასმა"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "გამართვის წერტილის წაშლა"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "გაშვების წერტილი"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "ნაკადი %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "გამართვის გამოტანა"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "მორგება"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "გამართვის წერტილი"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "სტეკის ტრეისის კოპირება"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr "მდებარეობის გახსნა"
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr "მდებარეობის კოპირება"
@@ -846,6 +685,97 @@ msgstr "&გამართვა"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "გამართვის მოდული"
+
+#~ msgid "GDB command"
+#~ msgstr "GDB ბრძანება"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "წყაროს ფაილების საძებნი ბილიკები"
+
+#~ msgid "Local application"
+#~ msgstr "ლოკალური აპლიკაცია"
+
+#~ msgid "Remote TCP"
+#~ msgstr "დაშორებული, TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "დაშორებული სერიული პორტი"
+
+#~ msgid "Host"
+#~ msgstr "ჰოსტი"
+
+#~ msgid "Port"
+#~ msgstr "პორტი"
+
+#~ msgid "Baud"
+#~ msgstr "ბოდი"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absolute-prefix"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-search-path"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "ინიციალიზაციის ხელით მითითებული ბრძანებები"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "დამატებითი პარამეტრები"
+
+#~ msgid "Locals"
+#~ msgstr "ლოკალურები"
+
+#~ msgid "CPU registers"
+#~ msgstr "CPU-ის რეგისტრები"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr "დააყენეთ გამშვები ფაილი 'გამართვის' პანელის 'მორგების' ჩანართში."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "გამმართველი მითითებული არაა. აირჩიეთ ერთ-ერთი 'გამართვის' პანელის "
+#~ "'მორგების ჩანართზე'."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "გამმართველი აღმოჩენილი არაა. დარწმუნდით, რომ გიყენიათ ის. არჩეულია "
+#~ "გამმართველია '%1'"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "გამმართველის პროცესის გაშვების შეცდომა"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb ნორმალურად დასრულდა ***"
+
+#~ msgid "all threads running"
+#~ msgstr "ყველა ნაკადი გაშვებულია"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "გაშვებული ნაკადები: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "მიმდინარე კადრი: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "ჰოსტი: %1. სამიზნე: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1. ძალიან ბევრი ერთდროული "
+#~ "შეცდომა. გაითიშება."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: ბოლო პასუხის დამუშავების შეცდომა: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "სიკვდილის შემდეგ"

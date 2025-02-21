@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2025-02-15 08:04+0100\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"PO-Revision-Date: 2025-02-20 20:26+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -17,86 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 24.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "GDB-kommando"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Sökvägar för källkodsfiler"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Lokalt program"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "Fjärr-TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Fjärrserieport"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Värddator"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Port"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baud"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "Absolut prefix för so-bibliotek"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "Sökväg för so-bibliotek"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Egna initieringskommandon"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -105,70 +26,65 @@ msgstr ""
 "En avlusningssession är pågående. Använd kör igen eller stoppa den aktuella "
 "sessionen."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Lägg till nytt mål"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Kopiera mål"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Ta bort mål"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Körbar fil:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Arbetskatalog:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "Process-id: "
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argument:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Behåll fokus"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Behåll fokus på kommandoraden"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Omdirigera in- och utmatning"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Omdirigera de avlusade programmens in- och utmatning till en separat flik"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Avancerade inställningar"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Mål %1"
@@ -198,17 +114,17 @@ msgstr "begär nedstängning"
 msgid "DAP backend: %1"
 msgstr "DAP-gränssnitt: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "stoppad (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Aktiv tråd: %1 (all trådar stoppade)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Aktiv tråd: %1."
@@ -528,82 +444,6 @@ msgstr "JSON-data är ogiltig: inget JSON-objekt"
 msgid "JSON data is invalid: %1"
 msgstr "JSON-data är ogiltig: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Lokala objekt"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "Processorregister"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "Ange körbart program under inställningsfliken i panelen 'Avlusning'."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"Ingen avlusare vald. Välj en under inställningsfliken i panelen 'Avlusning'."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"Avlusare hittades inte. Säkerställ att den är installerad på systemet. Den "
-"valda avlusaren är '%1'."
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Kunde inte starta avlusningsprocess"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb avslutades normalt ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "alla trådar kör"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "tråd(ar) som kör: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Aktuell aktiveringspost: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Värd: %1. Mål: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: Kunde inte tolka senaste svar: %1. För många fel en följd. Stänger "
-"av."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: Kunde inte tolka senaste svar: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -612,7 +452,7 @@ msgstr "Symbol"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: localsview.cpp:24
 #, kde-format
@@ -637,7 +477,7 @@ msgstr "namngivna objekt"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Läser in..."
 
 #: localsview.cpp:167
 #, kde-format
@@ -777,59 +617,59 @@ msgstr "Flytta programräknare"
 msgid "Print Value"
 msgstr "Skriv ut värde"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Infoga brytpunkt"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Ta bort brytpunkt"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Körningspunkt"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Tråd %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Avlusarutmatning"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "I/O"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Brytpunkt"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Kopiera bakåtspårning"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr "Öppna plats"
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopiera plats"
@@ -845,6 +685,98 @@ msgstr "&Avlusa"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Avlusningsinsticksprogram"
+
+#~ msgid "GDB command"
+#~ msgstr "GDB-kommando"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "Sökvägar för källkodsfiler"
+
+#~ msgid "Local application"
+#~ msgstr "Lokalt program"
+
+#~ msgid "Remote TCP"
+#~ msgstr "Fjärr-TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Fjärrserieport"
+
+#~ msgid "Host"
+#~ msgstr "Värddator"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Baud"
+#~ msgstr "Baud"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "Absolut prefix för so-bibliotek"
+
+#~ msgid "solib-search-path"
+#~ msgstr "Sökväg för so-bibliotek"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Egna initieringskommandon"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Avancerade inställningar"
+
+#~ msgid "Locals"
+#~ msgstr "Lokala objekt"
+
+#~ msgid "CPU registers"
+#~ msgstr "Processorregister"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "Ange körbart program under inställningsfliken i panelen 'Avlusning'."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "Ingen avlusare vald. Välj en under inställningsfliken i panelen "
+#~ "'Avlusning'."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "Avlusare hittades inte. Säkerställ att den är installerad på systemet. "
+#~ "Den valda avlusaren är '%1'."
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Kunde inte starta avlusningsprocess"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb avslutades normalt ***"
+
+#~ msgid "all threads running"
+#~ msgstr "alla trådar kör"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "tråd(ar) som kör: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Aktuell aktiveringspost: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Värd: %1. Mål: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Kunde inte tolka senaste svar: %1. För många fel en följd. "
+#~ "Stänger av."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Kunde inte tolka senaste svar: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "post mortem"

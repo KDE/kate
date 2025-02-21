@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2025-02-15 09:44+0300\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"PO-Revision-Date: 2025-02-20 09:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -23,86 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.03.70\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "GDB komutu"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "…"
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Kaynak dosya arama yolları"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Yerel uygulama"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "Uzak TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Uzak Seri Kapı"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Makine"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Kapı"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baud"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-search-path"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Özel Init Komutları"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -111,71 +32,66 @@ msgstr ""
 "Bir hata ayıklama oturumu sürüyor. Lütfen ya geçerli oturumu durdurun ya da "
 "yeniden çalıştırın."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Yeni hedef ekle"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Hedefi kopyala"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Hedefi sil"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Yürütülebilir:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Çalışma dizini:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "Süreç kimliği:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argümanlar:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Odağı tut"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Odağı komut satırında tut"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Girdi–Çıktı’yı Yeniden Yönlendir"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "Hata ayıklaması yapılan programların girdi–çıktı’larını ayrı bir pencereye "
 "yönlendir"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Gelişmiş Ayarlar"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Hedef %1"
@@ -205,17 +121,17 @@ msgstr "kapatma isteniyor"
 msgid "DAP backend: %1"
 msgstr "DAP arka ucu: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "durduruldu (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Etkin iş parçacığı: %1 (tüm iş parçacıkları durduruldu)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Etkin iş parçacığı: %1."
@@ -535,83 +451,6 @@ msgstr "JSON verisi geçersiz: JSON nesnesi yok"
 msgid "JSON data is invalid: %1"
 msgstr "JSON verisi geçersiz: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Yereller"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "CPU yazmaçları"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
-"“Hata Ayıkla” panelindeki “Ayarlar” sekmesinden yürütülebiliri ayarlayın."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"Seçili bir hata ayıklayıcısı yok. “Hata Ayıkla” panelindeki “Ayarlar” "
-"sekmesinden bir tane seçin."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"Hata ayıklayıcı bulunamadı. Sisteminizde bir tane kurulu olduğundan lütfen "
-"emin olun. Seçili hata ayıklayıcı “%1“"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Hata ayıklayıcı süreci başlatılamadı"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "tüm iş parçacıkları çalışıyor"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "çalışan iş parçacıkları: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Geçerli kare: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Makine: %1. Hedef: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. Kapatılıyor."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -620,7 +459,7 @@ msgstr "Sembol"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Tür"
 
 #: localsview.cpp:24
 #, kde-format
@@ -645,7 +484,7 @@ msgstr "adlı ögeler"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Yükleniyor…"
 
 #: localsview.cpp:167
 #, kde-format
@@ -785,59 +624,59 @@ msgstr "Program Sayacını Taşı"
 msgid "Print Value"
 msgstr "Değeri Yazdır"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Kesme noktası ekle"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Kesme noktasını kaldır"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Yürütme noktası"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "İş Parçacığı %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Hata Ayıklama Çıktısı"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "Girdi–Çıktı"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Kesme Noktası"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Yığın İzini Kopyala"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr "Konum Aç"
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
@@ -853,6 +692,98 @@ msgstr "Hata &Ayıklama"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Hata Ayıklama Eklentisi"
+
+#~ msgid "GDB command"
+#~ msgstr "GDB komutu"
+
+#~ msgid "..."
+#~ msgstr "…"
+
+#~ msgid "Source file search paths"
+#~ msgstr "Kaynak dosya arama yolları"
+
+#~ msgid "Local application"
+#~ msgstr "Yerel uygulama"
+
+#~ msgid "Remote TCP"
+#~ msgstr "Uzak TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Uzak Seri Kapı"
+
+#~ msgid "Host"
+#~ msgstr "Makine"
+
+#~ msgid "Port"
+#~ msgstr "Kapı"
+
+#~ msgid "Baud"
+#~ msgstr "Baud"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absolute-prefix"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-search-path"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Özel Init Komutları"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Gelişmiş Ayarlar"
+
+#~ msgid "Locals"
+#~ msgstr "Yereller"
+
+#~ msgid "CPU registers"
+#~ msgstr "CPU yazmaçları"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "“Hata Ayıkla” panelindeki “Ayarlar” sekmesinden yürütülebiliri ayarlayın."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "Seçili bir hata ayıklayıcısı yok. “Hata Ayıkla” panelindeki “Ayarlar” "
+#~ "sekmesinden bir tane seçin."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "Hata ayıklayıcı bulunamadı. Sisteminizde bir tane kurulu olduğundan "
+#~ "lütfen emin olun. Seçili hata ayıklayıcı “%1“"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Hata ayıklayıcı süreci başlatılamadı"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
+
+#~ msgid "all threads running"
+#~ msgstr "tüm iş parçacıkları çalışıyor"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "çalışan iş parçacıkları: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Geçerli kare: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Makine: %1. Hedef: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. "
+#~ "Kapatılıyor."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "kapatma sonrası"

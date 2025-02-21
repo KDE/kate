@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2022-12-22 12:56+0400\n"
+"PO-Revision-Date: 2025-02-20 10:57+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -256,16 +257,15 @@ msgstr[4] "وُجدت %1 مطابقة (%3) في كلّ المشاريع المف
 msgstr[5] "وُجدت %1 مطابقة (%3) في كلّ المشاريع المفتوحة (الأبّ المشترك: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "رشّح:"
+msgstr "المرشّح…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
-msgstr ""
+msgstr "ابحث في اللسان الحالي؛ اضغط مع الاستمرار على Ctrl للبحث في لسان جديد."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294
@@ -275,14 +275,13 @@ msgstr "ابحث"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Replace Checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "استبدل المؤشّر"
+msgstr "استبدل المُعلمة"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -428,13 +427,13 @@ msgstr "ضمّن الملفّات الثّنائيّة"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "م.بايت"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "حدّ الحجم"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
@@ -673,7 +672,7 @@ msgstr "اعثر"
 #: SearchPlugin.cpp:1169
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
-msgstr ""
+msgstr "لم يبدأ البحث لأن الدليل '%1' المراد البحث فيه غير موجود."
 
 #: SearchPlugin.cpp:1342
 #, kde-format

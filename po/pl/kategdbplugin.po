@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
 "PO-Revision-Date: 2024-10-26 12:35+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -19,86 +19,7 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "Polecenie GDB"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Ścieżki wyszukiwania plików źródłowych"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Program miejscowy"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "Zdalny TCP"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Zdalny port szeregowy"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Gospodarz"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Port"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baud"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-bezwzględny-przedrostek"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-ścieżka-znajdywania"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Własne polecenia startowe"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -106,69 +27,64 @@ msgid ""
 msgstr ""
 "Trwa sesja diagnostyczna. Uruchom ponownie, aby zatrzymać bieżącą sesję."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Dodaj nowy cel"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Skopiuj cel"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Usuń cel"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Plik wykonywalny:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Katalog pracy:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "ID procesu:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumenty:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Zachowaj uaktywnienie"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Zachowaj uaktywnienie na wierszu poleceń"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Przekieruj WE/WY"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Przekieruj WE/WY diagnozowanych programów do osobnej karty"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Ustawienia rozszerzone"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Cel %1"
@@ -198,17 +114,17 @@ msgstr "żądanie zamknięcia"
 msgid "DAP backend: %1"
 msgstr "Silnik DAP: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "zatrzymany (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Bieżący wątek: %1 (zatrzymano wszystkie wątki)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Bieżący wątek: %1."
@@ -529,83 +445,6 @@ msgstr "Dane JSON są nieprawidłowe: brak obiektu JSON"
 msgid "JSON data is invalid: %1"
 msgstr "Dane JSON są nieprawidłowe: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Lokalne"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "Rejestry CPU"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "Ustaw plik wykonywalny na karcie 'Ustawienia' na pasku 'Diagnostyka'."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"Nie wybrano debuggera. Wybierz go na karcie 'Ustawienia' na pasku "
-"'Diagnostyka'."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"Nie znaleziono debuggera. Upewnij się, że masz go na swoim systemie. Wybrany "
-"debugger to '%1'"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Nie można uruchomić procesu diagnostycznego"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb zakończył zwyczajnie ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "wszystkie uruchomione wątki"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "uruchomione wątki: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Bieżąca ramka: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Gospodarz: %1. Cel: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: Nie można przetworzyć ostatniej odpowiedzi: %1. Zbyt wiele błędów z "
-"rzędu. Wyłączam."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: Nie można przetworzyć ostatniej odpowiedzi: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -784,60 +623,60 @@ msgstr "Przenieś PC"
 msgid "Print Value"
 msgstr "Wyświetl wartość"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Wstaw pułapkę"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Usuń pułapkę"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Punkt wykonania"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Wątek %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Wyjście diagnostyczne"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "WE/WY"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Pułapka"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Skopiuj cel"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr ""
@@ -853,6 +692,98 @@ msgstr "&Diagnozuj"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Wtyczka diagnostyczna"
+
+#~ msgid "GDB command"
+#~ msgstr "Polecenie GDB"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "Ścieżki wyszukiwania plików źródłowych"
+
+#~ msgid "Local application"
+#~ msgstr "Program miejscowy"
+
+#~ msgid "Remote TCP"
+#~ msgstr "Zdalny TCP"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Zdalny port szeregowy"
+
+#~ msgid "Host"
+#~ msgstr "Gospodarz"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Baud"
+#~ msgstr "Baud"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-bezwzględny-przedrostek"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-ścieżka-znajdywania"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Własne polecenia startowe"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Ustawienia rozszerzone"
+
+#~ msgid "Locals"
+#~ msgstr "Lokalne"
+
+#~ msgid "CPU registers"
+#~ msgstr "Rejestry CPU"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "Ustaw plik wykonywalny na karcie 'Ustawienia' na pasku 'Diagnostyka'."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "Nie wybrano debuggera. Wybierz go na karcie 'Ustawienia' na pasku "
+#~ "'Diagnostyka'."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "Nie znaleziono debuggera. Upewnij się, że masz go na swoim systemie. "
+#~ "Wybrany debugger to '%1'"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Nie można uruchomić procesu diagnostycznego"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb zakończył zwyczajnie ***"
+
+#~ msgid "all threads running"
+#~ msgstr "wszystkie uruchomione wątki"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "uruchomione wątki: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Bieżąca ramka: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Gospodarz: %1. Cel: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: Nie można przetworzyć ostatniej odpowiedzi: %1. Zbyt wiele błędów "
+#~ "z rzędu. Wyłączam."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: Nie można przetworzyć ostatniej odpowiedzi: %1"
 
 #~ msgid "post mortem"
 #~ msgstr "post mortem"

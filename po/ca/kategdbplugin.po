@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2025-02-15 12:18+0100\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"PO-Revision-Date: 2025-02-20 09:55+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -22,86 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "Ordre del GDB"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "Camins de cerca de fitxers de codi font"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "Aplicació local"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "TCP remot"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "Port en sèrie remot"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "Màquina"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "Port"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "Baud"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-search-path"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "Ordres d'inici personalitzades"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
@@ -110,69 +31,64 @@ msgstr ""
 "Hi ha una sessió de depuració en curs. Torneu a executar o atureu la sessió "
 "actual."
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "Afegeix un objectiu nou"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "Copia un objectiu"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "Suprimeix un objectiu"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "Executable:"
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "Directori de treball:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "ID del procés:"
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Arguments:"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Mantén el focus"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Mantén el focus a la línia d'ordres"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Redirigeix la E/S"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirigeix la E/S dels programes depurats a una pestanya separada"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "Configuració avançada"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "Objectiu %1"
@@ -202,17 +118,17 @@ msgstr "se sol·licita l'aturada"
 msgid "DAP backend: %1"
 msgstr "Dorsal DAP: %1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "aturat (%1)."
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "Fil actiu: %1 (tots els fils aturats)."
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "Fil actiu: %1."
@@ -535,84 +451,6 @@ msgstr "Les dades JSON no són vàlides: no és un objecte JSON"
 msgid "JSON data is invalid: %1"
 msgstr "Les dades JSON no són vàlides: %1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "Locals"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "Registres de la CPU"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
-"Establiu l'executable a la pestanya «Configuració» del plafó «Depuració»."
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-"No hi ha cap depurador seleccionat. Establiu l'executable a la pestanya "
-"«Configuració» del plafó «Depuració»."
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-"No s'ha trobat cap depurador. Assegureu-vos que està instal·lat en el "
-"sistema. El depurador seleccionat és «%1»"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "No s'ha pogut iniciar el procés de depuració"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** El «gdb» ha finalitzat amb normalitat ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "tots els fils en execució"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "fil/s en execució: %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "Marc actual: %1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "Màquina: %1. Objectiu: %1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-"gdb-mi: no s'ha pogut analitzar la darrera resposta: %1. Massa errors "
-"consecutius. S'aturarà."
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -621,7 +459,7 @@ msgstr "Símbol"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: localsview.cpp:24
 #, kde-format
@@ -646,7 +484,7 @@ msgstr "elements amb nom"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "S'està carregant..."
 
 #: localsview.cpp:167
 #, kde-format
@@ -788,59 +626,59 @@ msgstr "Mou el CP"
 msgid "Print Value"
 msgstr "Imprimeix el valor"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Insereix un punt d'interrupció"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Elimina el punt d'interrupció"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Punt d'execució"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Fil %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Sortida de depuració"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configuració"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Copia la traça de la pila"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr "Obre la ubicació"
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr "Copia la ubicació"
@@ -857,11 +695,94 @@ msgstr "&Depura"
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
 
-#~ msgid "post mortem"
-#~ msgstr "post mortem"
+#~ msgid "GDB command"
+#~ msgstr "Ordre del GDB"
 
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
+#~ msgid "..."
+#~ msgstr "..."
 
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"
+#~ msgid "Source file search paths"
+#~ msgstr "Camins de cerca de fitxers de codi font"
+
+#~ msgid "Local application"
+#~ msgstr "Aplicació local"
+
+#~ msgid "Remote TCP"
+#~ msgstr "TCP remot"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "Port en sèrie remot"
+
+#~ msgid "Host"
+#~ msgstr "Màquina"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Baud"
+#~ msgstr "Baud"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absolute-prefix"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-search-path"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "Ordres d'inici personalitzades"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Configuració avançada"
+
+#~ msgid "Locals"
+#~ msgstr "Locals"
+
+#~ msgid "CPU registers"
+#~ msgstr "Registres de la CPU"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr ""
+#~ "Establiu l'executable a la pestanya «Configuració» del plafó «Depuració»."
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr ""
+#~ "No hi ha cap depurador seleccionat. Establiu l'executable a la pestanya "
+#~ "«Configuració» del plafó «Depuració»."
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr ""
+#~ "No s'ha trobat cap depurador. Assegureu-vos que està instal·lat en el "
+#~ "sistema. El depurador seleccionat és «%1»"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "No s'ha pogut iniciar el procés de depuració"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** El «gdb» ha finalitzat amb normalitat ***"
+
+#~ msgid "all threads running"
+#~ msgstr "tots els fils en execució"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "fil/s en execució: %1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "Marc actual: %1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Màquina: %1. Objectiu: %1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr ""
+#~ "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1. Massa errors "
+#~ "consecutius. S'aturarà."
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1"

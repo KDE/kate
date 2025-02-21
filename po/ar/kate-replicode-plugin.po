@@ -1,27 +1,29 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
+# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2016-09-03 13:47+0300\n"
-"Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
-"Language-Team: Arabic <doc@arabeyes.org>\n"
+"PO-Revision-Date: 2025-02-20 17:29+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
 #, kde-format
 msgid "Run"
-msgstr "التّشغيل"
+msgstr "شغّل"
 
 #. i18n: ectx: property (text), widget (QLabel, label_34)
 #: config.ui:24
@@ -33,7 +35,7 @@ msgstr "زمن التّشغيل (بالملّي ثانية):"
 #: config.ui:41
 #, kde-format
 msgid "Probe level:"
-msgstr ""
+msgstr "مستوى التحقيق:"
 
 #. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
 #: config.ui:58
@@ -57,13 +59,13 @@ msgstr "فترة الأساس:"
 #: config.ui:101
 #, kde-format
 msgid "Reduction core count:"
-msgstr ""
+msgstr "عدد نوى التخفيض:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: config.ui:118
 #, kde-format
 msgid "Time core count:"
-msgstr ""
+msgstr "عدد نوى الوقت:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, system)
 #: config.ui:136
@@ -75,55 +77,55 @@ msgstr "النّظام"
 #: config.ui:142
 #, kde-format
 msgid "Model inertia success rate threshold:"
-msgstr ""
+msgstr "عتبة معدل نجاح القصور الذاتي النموذج:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: config.ui:159
 #, kde-format
 msgid "Model inertia count threshold:"
-msgstr ""
+msgstr "عتبة العد الجمود النموذجية:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr ""
+msgstr "عتبة معدل نجاح دلتا المستهدف المستهدف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
 #, kde-format
 msgid "Minimum simulation time horizon:"
-msgstr ""
+msgstr "أفق وقت المحاكاة الأدنى:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: config.ui:210
 #, kde-format
 msgid "Maximum simulation time horizon:"
-msgstr ""
+msgstr "أقصى أفق وقت المحاكاة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: config.ui:227
 #, kde-format
 msgid "Simulation time horizon:"
-msgstr ""
+msgstr "أفق وقت المحاكاة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: config.ui:247
 #, kde-format
 msgid "Targeted pattern extractor time horizon:"
-msgstr ""
+msgstr "أفق وقت مستخرج النمط المستهدف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "فترة أخذ عينات بيرف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "تسامح تعويم:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
@@ -135,31 +137,31 @@ msgstr "تحمّل المؤقّت:"
 #: config.ui:318
 #, kde-format
 msgid "Primary time horizon:"
-msgstr ""
+msgstr "أفق الوقت الأساسي:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: config.ui:335
 #, kde-format
 msgid "Secondary time horizon:"
-msgstr ""
+msgstr "أفق الوقت الثانوي:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "مرونة علامة الإخطار:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "مرونة نجاح التنبؤ بالهدف:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
 #, kde-format
 msgid "Debug"
-msgstr "التّنقيح"
+msgstr "نقّح"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: config.ui:396
@@ -177,109 +179,109 @@ msgstr "نوافذ التّنقيح:"
 #: config.ui:426
 #, kde-format
 msgid "Traces:"
-msgstr ""
+msgstr "الآثار:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
 #: config.ui:433
 #, kde-format
 msgid "Composite inputs"
-msgstr ""
+msgstr "المدخلات المركبة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
 #: config.ui:440
 #, kde-format
 msgid "Composite outputs"
-msgstr ""
+msgstr "المخرجات المركبة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr ""
+msgstr "مدخلات النموذج"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr ""
+msgstr "مخرجات النموذج"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr ""
+msgstr "مراقبة التنبؤ"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr ""
+msgstr "مراقبة الأهداف"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475
 #, kde-format
 msgid "Model revision"
-msgstr ""
+msgstr "مراجعة النموذج"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr ""
+msgstr "النموذج/الحقن المركبة"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
 #, kde-format
 msgid "Decompile objects:"
-msgstr ""
+msgstr "كائنات فكية:"
 
 #. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
 #: config.ui:506
 #, kde-format
 msgid "Decompile to file:"
-msgstr ""
+msgstr "فك الارتباط بالملف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: config.ui:516
 #, kde-format
 msgid "Ignore named objects:"
-msgstr ""
+msgstr "تجاهل الأشياء المسماة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_27)
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr ""
+msgstr "تفريغ الكائنات للملف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
 #, kde-format
 msgid "Test objects:"
-msgstr ""
+msgstr "اختبار الكائنات:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr ""
+msgstr "نماذج فك:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
 #, kde-format
 msgid "Ignore named models:"
-msgstr ""
+msgstr "تجاهل النماذج المسماة:"
 
 #. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr ""
+msgstr "تفريغ النماذج للملف:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
 #, kde-format
 msgid "Test models:"
-msgstr ""
+msgstr "نماذج الاختبار:"
 
 #: replicodeconfigpage.cpp:24
 #, kde-format
@@ -372,10 +374,10 @@ msgstr ""
 "فضلًا انتقل إلى الإعدادات واضبط مسار تنفيذيّ ريبلكود."
 
 #: replicodeview.cpp:135
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr "لم توجد مكتبة عمليّات المستخدم"
+msgstr "لم يعثر على مكتبة مشغل المستخدم"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -383,6 +385,8 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"تعذر العثور على مكتبة مشغل المستخدم.\n"
+"يرجى الانتقال إلى الإعدادات وتعيين المسار إلى المكتبة."
 
 #: replicodeview.cpp:201
 #, kde-format

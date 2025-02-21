@@ -5,13 +5,13 @@
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# SPDX-FileCopyrightText: 2021, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2021-07-26 22:41+0400\n"
+"PO-Revision-Date: 2025-02-20 11:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -20,6 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -34,7 +35,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "فشل في بدء العملية"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
-"PO-Revision-Date: 2025-02-18 15:58+0900\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"PO-Revision-Date: 2025-02-20 15:24+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,155 +19,71 @@ msgstr ""
 "X-Generator: Lokalize 25.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr "GDB 指令"
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr "..."
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr "源碼檔搜尋路徑"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr "本地端應用程式"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr "遠端 TCP 連線"
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, kde-format
-msgid "Remote Serial Port"
-msgstr "遠端序列埠"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr "主機"
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr "連接埠"
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr "鮑率"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr "solib-absolute-prefix"
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr "solib-search-path"
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr "自訂初始指令"
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr "有執行中的除錯工作階段。請使用重新執行或是停止目前的工作階段。"
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, kde-format
 msgid "Add new target"
 msgstr "新增目標"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, kde-format
 msgid "Copy target"
 msgstr "複製目標"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, kde-format
 msgid "Delete target"
 msgstr "刪除目標"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr "執行檔："
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, kde-format
 msgid "Working Directory:"
 msgstr "工作目錄："
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr "行程 ID："
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "參數："
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "保持焦點"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "保持焦點於命令列"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "重新導向 IO"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "將程式的除錯輸出入重新導向到另一個分頁"
 
-#: configview.cpp:147
-#, kde-format
-msgid "Advanced Settings"
-msgstr "進階設定"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, kde-format
 msgid "Target %1"
 msgstr "目標 %1"
@@ -197,17 +113,17 @@ msgstr "正在請求關閉"
 msgid "DAP backend: %1"
 msgstr "DAP 後端：%1"
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr "已停止 (%1)。"
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr "作用中執行緒：%1（所有執行緒皆以停止）。"
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr "作用中執行緒：%1。"
@@ -533,77 +449,6 @@ msgstr "JSON 資料是無效的：沒有 JSON 物件"
 msgid "JSON data is invalid: %1"
 msgstr "JSON 資料是無效的：%1"
 
-#: gdbbackend.cpp:35
-#, kde-format
-msgid "Locals"
-msgstr "本地變數"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr "CPU 暫存器"
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr "請在「除錯」面板「設定」分頁中設定執行檔。"
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr "未選取除錯器。請在「除錯」面板「設定」分頁中選取一個。"
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr "找不到除錯器。請確保它已安裝在您的系統上。所選的除錯器是 '%1'"
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "無法啟動除錯器行程"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb 已正常結束 ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr "所有執行緒皆為執行中"
-
-#: gdbbackend.cpp:649
-#, kde-format
-msgid "thread(s) running: %1"
-msgstr "執行中執行緒：%1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr "目前的框：%1:%2"
-
-#: gdbbackend.cpp:706
-#, kde-format
-msgid "Host: %1. Target: %1"
-msgstr "主機：%1。目標：%1"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr "gdb-mi: 無法剖析上一個回應：%1。太多連續錯誤。將停止。"
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr "gdb-mi: 無法剖析上一個回應：%1"
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -612,7 +457,7 @@ msgstr "符號"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #: localsview.cpp:24
 #, kde-format
@@ -637,7 +482,7 @@ msgstr "有名稱的項目"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "載入中..."
 
 #: localsview.cpp:167
 #, kde-format
@@ -777,59 +622,59 @@ msgstr "移動程式計數器（PC）"
 msgid "Print Value"
 msgstr "印出數值"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入中斷點"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "移除中斷點"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "執行點"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "執行緒 %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "除錯輸出"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "設定"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "中斷點"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "複製堆疊追蹤"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr "開啟位置"
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr "複製位置"
@@ -845,6 +690,91 @@ msgstr "除錯(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "除錯外掛程式"
+
+#~ msgid "GDB command"
+#~ msgstr "GDB 指令"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "Source file search paths"
+#~ msgstr "源碼檔搜尋路徑"
+
+#~ msgid "Local application"
+#~ msgstr "本地端應用程式"
+
+#~ msgid "Remote TCP"
+#~ msgstr "遠端 TCP 連線"
+
+#~ msgid "Remote Serial Port"
+#~ msgstr "遠端序列埠"
+
+#~ msgid "Host"
+#~ msgstr "主機"
+
+#~ msgid "Port"
+#~ msgstr "連接埠"
+
+#~ msgid "Baud"
+#~ msgstr "鮑率"
+
+#~ msgid "solib-absolute-prefix"
+#~ msgstr "solib-absolute-prefix"
+
+#~ msgid "solib-search-path"
+#~ msgstr "solib-search-path"
+
+#~ msgid "Custom Init Commands"
+#~ msgstr "自訂初始指令"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "進階設定"
+
+#~ msgid "Locals"
+#~ msgstr "本地變數"
+
+#~ msgid "CPU registers"
+#~ msgstr "CPU 暫存器"
+
+#~ msgid ""
+#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
+#~ msgstr "請在「除錯」面板「設定」分頁中設定執行檔。"
+
+#~ msgid ""
+#~ "No debugger selected. Please select one in the 'Settings' tab in the "
+#~ "'Debug' panel."
+#~ msgstr "未選取除錯器。請在「除錯」面板「設定」分頁中選取一個。"
+
+#~ msgid ""
+#~ "Debugger not found. Please make sure you have it installed in your "
+#~ "system. The selected debugger is '%1'"
+#~ msgstr "找不到除錯器。請確保它已安裝在您的系統上。所選的除錯器是 '%1'"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "無法啟動除錯器行程"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb 已正常結束 ***"
+
+#~ msgid "all threads running"
+#~ msgstr "所有執行緒皆為執行中"
+
+#~ msgid "thread(s) running: %1"
+#~ msgstr "執行中執行緒：%1"
+
+#~ msgid "Current frame: %1:%2"
+#~ msgstr "目前的框：%1:%2"
+
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "主機：%1。目標：%1"
+
+#~ msgid ""
+#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
+#~ "Shutting down."
+#~ msgstr "gdb-mi: 無法剖析上一個回應：%1。太多連續錯誤。將停止。"
+
+#~ msgid "gdb-mi: Could not parse last response: %1"
+#~ msgstr "gdb-mi: 無法剖析上一個回應：%1"
 
 #~ msgid "post mortem"
 #~ msgstr "結束後"

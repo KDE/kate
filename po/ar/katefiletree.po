@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2015, 2016, 2017.
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-11-28 13:46+0400\n"
+"PO-Revision-Date: 2025-02-20 11:00+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -202,14 +202,12 @@ msgstr "فرز مخصّص"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "افتح..."
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "افتح ب‍"
+msgstr "افتح ملفًّا"
 
 #: katefiletree.cpp:416
 #, kde-format
@@ -295,15 +293,14 @@ msgid "Show &Toolbar"
 msgstr "اعرض شريط الأ&دوات"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "اعرض زر الغلق"
+msgstr "أظهر رز الإغلاق عند التحويم"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "النقر الأوسط يُغلق اللسان"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -372,10 +369,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>عدّل تطبيق آخر المستند.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter…"
-msgstr "أ&خرى..."
+msgstr "رشّح…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

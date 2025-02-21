@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-02-21 00:43+0000\n"
 "PO-Revision-Date: 2012-01-21 12:41+0200\n"
 "Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -19,163 +19,76 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
 
-#. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
-#: advanced_settings.ui:17
-#, kde-format
-msgid "GDB command"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QToolButton, u_gdbBrowse)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSrcPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_setSoPrefix)
-#. i18n: ectx: property (text), widget (QToolButton, u_addSoSearchPath)
-#. i18n: ectx: property (text), widget (QToolButton, u_delSoSearchPath)
-#: advanced_settings.ui:30 advanced_settings.ui:62 advanced_settings.ui:69
-#: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
-#, kde-format
-msgid "..."
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
-#: advanced_settings.ui:37
-#, kde-format
-msgid "Source file search paths"
-msgstr ""
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:92
-#, kde-format
-msgid "Local application"
-msgstr ""
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:97
-#, kde-format
-msgid "Remote TCP"
-msgstr ""
-
-#. i18n: ectx: property (text), item, widget (QComboBox, u_localRemote)
-#: advanced_settings.ui:102
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
-msgid "Remote Serial Port"
-msgstr "Elimină punct de oprire"
-
-#. i18n: ectx: property (text), widget (QLabel, u_hostLabel)
-#: advanced_settings.ui:127
-#, kde-format
-msgid "Host"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, u_tcpPortLabel)
-#. i18n: ectx: property (text), widget (QLabel, u_ttyLabel)
-#: advanced_settings.ui:141 advanced_settings.ui:166
-#, kde-format
-msgid "Port"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, u_ttyBaudLabel)
-#: advanced_settings.ui:183
-#, kde-format
-msgid "Baud"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, u_soAbsPrefixLabel)
-#: advanced_settings.ui:231
-#, kde-format
-msgid "solib-absolute-prefix"
-msgstr ""
-
-#. i18n: ectx: property (text), widget (QLabel, u_soSearchLabel)
-#: advanced_settings.ui:248
-#, kde-format
-msgid "solib-search-path"
-msgstr ""
-
-#. i18n: ectx: property (title), widget (QGroupBox, u_customInitGB)
-#: advanced_settings.ui:317
-#, kde-format
-msgid "Custom Init Commands"
-msgstr ""
-
-#: backend.cpp:27 backend.cpp:53 dapbackend.cpp:168
+#: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
 
-#: configview.cpp:92
+#: configview.cpp:90
 #, fuzzy, kde-format
 #| msgid "Add executable target"
 msgid "Add new target"
 msgstr "Adaugă țintă pentru executabil"
 
-#: configview.cpp:96
+#: configview.cpp:94
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:100
+#: configview.cpp:98
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Delete target"
 msgstr "Elimină ținta"
 
-#: configview.cpp:105
+#: configview.cpp:103
 #, kde-format
 msgid "Executable:"
 msgstr ""
 
-#: configview.cpp:125
+#: configview.cpp:123
 #, fuzzy, kde-format
 #| msgid "&Working Directory:"
 msgid "Working Directory:"
 msgstr "&Dosar de lucru:"
 
-#: configview.cpp:133
+#: configview.cpp:131
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:138
+#: configview.cpp:136
 #, fuzzy, kde-format
 #| msgid "Add Argument List"
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Adaugă listă de argumenți"
 
-#: configview.cpp:141
+#: configview.cpp:139
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Păstrează focalizarea"
 
-#: configview.cpp:142
+#: configview.cpp:140
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Păstrează focalizarea pe linia de comandă"
 
-#: configview.cpp:144
+#: configview.cpp:142
 #, kde-format
 msgid "Redirect IO"
 msgstr "Redirectează IO"
 
-#: configview.cpp:145
+#: configview.cpp:143
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirectează IO-ul programelor depanate către o filă separată"
 
-#: configview.cpp:147
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
-msgid "Advanced Settings"
-msgstr "Configurări"
-
-#: configview.cpp:463 configview.cpp:476
+#: configview.cpp:441 configview.cpp:454
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target %1"
@@ -206,17 +119,17 @@ msgstr ""
 msgid "DAP backend: %1"
 msgstr ""
 
-#: dapbackend.cpp:286 gdbbackend.cpp:654
+#: dapbackend.cpp:286
 #, kde-format
 msgid "stopped (%1)."
 msgstr ""
 
-#: dapbackend.cpp:294 gdbbackend.cpp:658
+#: dapbackend.cpp:294
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr ""
 
-#: dapbackend.cpp:296 gdbbackend.cpp:660
+#: dapbackend.cpp:296
 #, kde-format
 msgid "Active thread: %1."
 msgstr ""
@@ -546,79 +459,6 @@ msgstr ""
 msgid "JSON data is invalid: %1"
 msgstr ""
 
-#: gdbbackend.cpp:35
-#, fuzzy, kde-format
-msgid "Locals"
-msgstr "Locale"
-
-#: gdbbackend.cpp:37
-#, kde-format
-msgid "CPU registers"
-msgstr ""
-
-#: gdbbackend.cpp:158
-#, kde-format
-msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
-
-#: gdbbackend.cpp:167
-#, kde-format
-msgid ""
-"No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
-"panel."
-msgstr ""
-
-#: gdbbackend.cpp:176
-#, kde-format
-msgid ""
-"Debugger not found. Please make sure you have it installed in your system. "
-"The selected debugger is '%1'"
-msgstr ""
-
-#: gdbbackend.cpp:383
-#, kde-format
-msgid "Could not start debugger process"
-msgstr "Nu s-a putut porni procesul de depanare"
-
-#: gdbbackend.cpp:441
-#, kde-format
-msgid "*** gdb exited normally ***"
-msgstr "*** gdb a ieșit normal ***"
-
-#: gdbbackend.cpp:647
-#, kde-format
-msgid "all threads running"
-msgstr ""
-
-#: gdbbackend.cpp:649
-#, fuzzy, kde-format
-#| msgid "Thread %1"
-msgid "thread(s) running: %1"
-msgstr "Fir de execuție %1"
-
-#: gdbbackend.cpp:679
-#, kde-format
-msgid "Current frame: %1:%2"
-msgstr ""
-
-#: gdbbackend.cpp:706
-#, fuzzy, kde-format
-#| msgid "Targets"
-msgid "Host: %1. Target: %1"
-msgstr "Ținte"
-
-#: gdbbackend.cpp:1377
-#, kde-format
-msgid ""
-"gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-"Shutting down."
-msgstr ""
-
-#: gdbbackend.cpp:1379
-#, kde-format
-msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
-
 #: localsview.cpp:22
 #, kde-format
 msgid "Symbol"
@@ -797,27 +637,27 @@ msgstr "Mută PC"
 msgid "Print Value"
 msgstr "Tipărește valoarea"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Inserează punct de oprire"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:473
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Elimină punct de oprire"
 
-#: plugin_kategdb.cpp:670
+#: plugin_kategdb.cpp:642
 #, kde-format
 msgid "Execution point"
 msgstr "Punct de execuție"
 
-#: plugin_kategdb.cpp:820 plugin_kategdb.cpp:852
+#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
 #, kde-format
 msgid "Thread %1"
 msgstr "Fir de execuție %1"
 
-#: plugin_kategdb.cpp:948
+#: plugin_kategdb.cpp:920
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -825,34 +665,34 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Ieșire GDB"
 
-#: plugin_kategdb.cpp:949
+#: plugin_kategdb.cpp:921
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configurări"
 
-#: plugin_kategdb.cpp:994
+#: plugin_kategdb.cpp:956
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1080
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punct de oprire"
 
-#: plugin_kategdb.cpp:1155
+#: plugin_kategdb.cpp:1117
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy Stack Trace"
 msgstr "Elimină ținta"
 
-#: plugin_kategdb.cpp:1177
+#: plugin_kategdb.cpp:1139
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1187
+#: plugin_kategdb.cpp:1149
 #, kde-format
 msgid "Copy Location"
 msgstr ""
@@ -869,6 +709,37 @@ msgstr "&Depanează"
 #| msgid "GDB Plugin"
 msgid "Debug Plugin"
 msgstr "Modul GDB"
+
+#, fuzzy
+#~| msgid "Remove breakpoint"
+#~ msgid "Remote Serial Port"
+#~ msgstr "Elimină punct de oprire"
+
+#, fuzzy
+#~| msgctxt "Tab label"
+#~| msgid "Settings"
+#~ msgid "Advanced Settings"
+#~ msgstr "Configurări"
+
+#, fuzzy
+#~ msgid "Locals"
+#~ msgstr "Locale"
+
+#~ msgid "Could not start debugger process"
+#~ msgstr "Nu s-a putut porni procesul de depanare"
+
+#~ msgid "*** gdb exited normally ***"
+#~ msgstr "*** gdb a ieșit normal ***"
+
+#, fuzzy
+#~| msgid "Thread %1"
+#~ msgid "thread(s) running: %1"
+#~ msgstr "Fir de execuție %1"
+
+#, fuzzy
+#~| msgid "Targets"
+#~ msgid "Host: %1. Target: %1"
+#~ msgstr "Ținte"
 
 #~ msgid "popup_breakpoint"
 #~ msgstr "popup_breakpoint"

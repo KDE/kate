@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Project and file templates",
+        "Description[ar]": "قوالب الملفات والمشروعات",
         "Description[bg]": "Шаблони за проект или файл",
         "Description[ca@valencia]": "Plantilles de projecte i fitxers",
         "Description[ca]": "Plantilles de projectes i fitxers",
@@ -18,6 +19,7 @@
         "Description[lv]": "Projektu un datņu veidnes",
         "Description[nl]": "Project- en bestandssjablonen",
         "Description[pl]": "Wzorce projektów i plików",
+        "Description[pt_BR]": "Modelos de projeto e arquivo",
         "Description[sa]": "परियोजना तथा सञ्चिका सारूप्य",
         "Description[sl]": "Predloge projekta in datoteke",
         "Description[sv]": "Projekt- och filmallar",
@@ -28,6 +30,7 @@
         "Description[zh_CN]": "工程和文件模板",
         "Description[zh_TW]": "專案與檔案樣本",
         "Name": "File Templates",
+        "Name[ar]": "قوالب الملف",
         "Name[bg]": "Файлови шаблони",
         "Name[ca@valencia]": "Plantilles de fitxers",
         "Name[ca]": "Plantilles de fitxers",
@@ -46,6 +49,7 @@
         "Name[lv]": "Datņu veidnes",
         "Name[nl]": "Bestandssjablonen",
         "Name[pl]": "Wzorce plików",
+        "Name[pt_BR]": "Modelos de arquivo",
         "Name[sa]": "सञ्चिका टेम्पलेट्स",
         "Name[sl]": "Predloge datoteke",
         "Name[sv]": "Filmallar",

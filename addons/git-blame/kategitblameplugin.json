@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Adds an inline git-blame preview at the end of the line",
+        "Description[ar]": "يضيف معاينة git-blame مضمنة في نهاية السطر",
         "Description[az]": "Git blame verilənlərinin daxili görünüşünü sətirin sonuna əlavə edir",
         "Description[bg]": "Добавя вграден преглед на git-blame в края на реда",
         "Description[ca@valencia]": "Afig una vista prèvia inclosa de «git-blame» al final de la línia",
@@ -40,6 +41,7 @@
         "Description[zh_CN]": "在行尾添加行内 git-blame 预览",
         "Description[zh_TW]": "在行尾加上行內的 git-blame 預覽",
         "Name": "Git Blame",
+        "Name[ar]": "غت بلام",
         "Name[az]": "Git Blame",
         "Name[bg]": "Git Blame",
         "Name[ca@valencia]": "Git Blame",

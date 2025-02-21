@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Manage your code snippets or download new ones",
+        "Description[ar]": "إدارة مقتطفات التعليمات البرمجية الخاصة بك أو تنزيل مقتطفات جديدة",
         "Description[az]": "Kod fraqmentlərini idarə edin və yenilərini endirin",
         "Description[bg]": "Управлявайте фрагментите си с код или изтегляйте нови",
         "Description[ca@valencia]": "Gestiona els fragments de codi o en baixa de nous",
@@ -41,6 +42,7 @@
         "Description[zh_TW]": "管理您的程式碼片段，或下載新的",
         "Icon": "document-new",
         "Name": "Snippets",
+        "Name[ar]": "القصاصات",
         "Name[az]": "Fraqmentlər",
         "Name[bg]": "Снипети",
         "Name[ca@valencia]": "Fragments",

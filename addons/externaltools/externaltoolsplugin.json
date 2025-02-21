@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "External Tools",
+        "Description[ar]": "الأدوات الخارجية",
         "Description[az]": "Xarici alətlər",
         "Description[bg]": "Външни инструменти",
         "Description[ca@valencia]": "Eines externes",

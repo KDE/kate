@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Search and replace in documents, folders, or projects",
+        "Description[ar]": "البحث والاستبدال في المستندات أو المجلدات أو المشاريع",
         "Description[az]": "SənədlərdəŞ qovluqlarda və ya layihələrdə axtarımaq və əvəzləmək",
         "Description[bg]": "Търсене и заместване в документи, папки или проекти",
         "Description[ca@valencia]": "Busca i substitució en documents, carpetes o projectes",

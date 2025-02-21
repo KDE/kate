@@ -55,6 +55,7 @@
             }
         ],
         "Description": "Preview the document in the target format",
+        "Description[ar]": "معاينة المستند بالتنسيق المستهدف",
         "Description[az]": "Sənədə hədəf formatında öncədən baxış",
         "Description[bg]": "Преглед на документа в целевия формат",
         "Description[ca@valencia]": "Vista prèvia del document en el format de destinació",
@@ -105,6 +106,7 @@
         "Description[zh_TW]": "以目標格式顯示文件預覽",
         "Icon": "document-preview",
         "Name": "Document Preview",
+        "Name[ar]": "معاينة المستند",
         "Name[az]": "Sənədə öncədən baxış",
         "Name[bg]": "Предварителен преглед на документ",
         "Name[ca@valencia]": "Vista prèvia de document",

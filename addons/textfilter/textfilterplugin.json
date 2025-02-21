@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Process text using terminal commands",
+        "Description[ar]": "معالجة النص باستخدام أوامر الطرفية",
         "Description[az]": "Mətn üzərində terminal əmrləri ilə işləyin",
         "Description[bg]": "Обработка на текст с помощта на терминални команди",
         "Description[ca@valencia]": "Processa el text utilitzant ordres de terminal",

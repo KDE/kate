@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Execute query on SQL databases",
+        "Description[ar]": "تنفيذ الاستعلامات على قواعد بيانات SQL",
         "Description[az]": "SQL verilənlər bazasında sorğu icra edin",
         "Description[bg]": "Изпълнение на заявки за бази данни SQL",
         "Description[ca@valencia]": "Executa consultes a bases de dades SQL",

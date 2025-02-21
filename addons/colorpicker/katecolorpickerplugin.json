@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Adds an inline Color preview/picker to colors in the text (e.g. #FFFFFF, white)",
+        "Description[ar]": "يضيف معاينة/اختيار لون مضمن للألوان في النص (على سبيل المثال #FFFFFF،الأبيض)",
         "Description[az]": "Mətndəki sətirdaxili rəng önizləməsi əlavə edir/mətndəki rəngləri seçə vasitəsi (məs., #FFFFFF, ağ rəng)",
         "Description[bg]": "Добавя възможност за преглед и избор на цвят в текста (напр.. #FFFFFF, бял)",
         "Description[ca@valencia]": "Afig una vista prèvia/selector de colors inclòs per als colors del text (p. ex., #FFFFFF, blanc)",

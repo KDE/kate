@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "File system browser tool view",
+        "Description[ar]": "عرض أداة متصفح نظام الملفات",
         "Description[az]": "Fayl sistemi bələdçisi aləti görünüşü",
         "Description[bg]": "Изглед на преглед на файловата система",
         "Description[ca@valencia]": "Vista d'eina del navegador pel sistema de fitxers",
@@ -41,6 +42,7 @@
         "Description[zh_CN]": "文件系统浏览器工具视图",
         "Description[zh_TW]": "檔案系統瀏覽器工作檢視",
         "Name": "File System Browser",
+        "Name[ar]": "متصفح نظام الملفات",
         "Name[az]": "Fayl sistemi bələdçisi",
         "Name[bg]": "Преглед на файловата система",
         "Name[ca@valencia]": "Navegador del sistema de fitxers",

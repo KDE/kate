@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "LaTeX syntax for unicode symbols",
+        "Description[ar]": "قواعد لغة لاتخ لرموز يونيكود",
         "Description[az]": "Unicode simvollar üçün LaTeX sintaksisi",
         "Description[bg]": "Синтаксис на LaTeX за уникод символи",
         "Description[ca@valencia]": "Sintaxi de LaTeX per a símbols unicode",

@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "TMPL_PLUGIN_UI_NAME_TMPL description",
+        "Description[ar]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Description[bg]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Description[ca@valencia]": "TMPL_PLUGIN_UI_NAME_TMPL descripció",
         "Description[ca]": "TMPL_PLUGIN_UI_NAME_TMPL descripció",
@@ -18,6 +19,7 @@
         "Description[lv]": "TMPL_PLUGIN_UI_NAME_TMPL apraksts",
         "Description[nl]": "TMPL_PLUGIN_UI_NAME_TMPL beschrijving",
         "Description[pl]": "Opis TMPL_PLUGIN_UI_NAME_TMPL",
+        "Description[pt_BR]": "Descrição TMPL_PLUGIN_UI_NAME_TMPL",
         "Description[sa]": "TMPL_PLUGIN_UI_NAME_TMPL विवरणम्",
         "Description[sl]": "TMPL_PLUGIN_UI_NAME_TMPL opis",
         "Description[sv]": "TMPL_PLUGIN_UI_NAME_TMPL beskrivning",
@@ -27,6 +29,7 @@
         "Description[zh_CN]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Description[zh_TW]": "TMPL_PLUGIN_UI_NAME_TMPL 描述",
         "Name": "TMPL_PLUGIN_UI_NAME_TMPL",
+        "Name[ar]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[bg]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ca@valencia]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[ca]": "TMPL_PLUGIN_UI_NAME_TMPL",
@@ -44,6 +47,7 @@
         "Name[lv]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[nl]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[pl]": "TMPL_PLUGIN_UI_NAME_TMPL",
+        "Name[pt_BR]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[sa]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[sl]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[sv]": "TMPL_PLUGIN_UI_NAME_TMPL",

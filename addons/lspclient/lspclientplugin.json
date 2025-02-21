@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Language Server Protocol Client",
+        "Description[ar]": "عميل ميفاق خادم اللغة",
         "Description[az]": "Language Server Protocol dəstəyi",
         "Description[bg]": "Клиент за Language Server Protocol",
         "Description[ca@valencia]": "Client del protocol de servidor de llenguatge",

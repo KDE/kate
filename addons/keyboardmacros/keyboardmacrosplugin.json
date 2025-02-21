@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Record and play keyboard macros (i.e., keyboard action sequences)",
+        "Description[ar]": "تسجيل وحدات ماكرو لوحة المفاتيح وتشغيلها (أي تسلسلات إجراءات لوحة المفاتيح)",
         "Description[az]": "Klaviatura makroslarını (məs.,klaviatura əməlləri ardıcıllıqları) yazın və oynadın",
         "Description[bg]": "Записване и възпроизвеждане на макроси на клавиатурата (т.е. последователности от действия на клавиатурата)",
         "Description[ca@valencia]": "Grava i reproduïx macros de teclat (és a dir, una seqüència d'acció de teclat)",
@@ -39,6 +40,7 @@
         "Description[zh_CN]": "录制并播放键盘宏 (即击键序列)",
         "Description[zh_TW]": "錄製並回放鍵盤巨集（即鍵盤按鍵動作）。",
         "Name": "Keyboard Macros",
+        "Name[ar]": "وحدات ماكرو لوحة المفاتيح",
         "Name[az]": "Klaviatura makrosları",
         "Name[bg]": "Клавиатурни макроси",
         "Name[ca@valencia]": "Macros de teclat",

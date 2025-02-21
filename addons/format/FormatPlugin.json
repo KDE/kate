@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Plugin for formatting code",
+        "Description[ar]": "ملحقة لتنسيق الشفرة",
         "Description[az]": "Kodu formatlamaq üçün qoşma",
         "Description[bg]": "Приставка за форматиране на код",
         "Description[ca@valencia]": "Connector per a donar format al codi",
@@ -40,6 +41,7 @@
         "Description[zh_CN]": "格式化代码插件",
         "Description[zh_TW]": "格式化程式碼用的外掛程式",
         "Name": "Formatting",
+        "Name[ar]": "التنسيق",
         "Name[az]": "Formatlama",
         "Name[bg]": "Форматиране",
         "Name[ca@valencia]": "Dona format",

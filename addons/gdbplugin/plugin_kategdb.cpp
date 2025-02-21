@@ -252,13 +252,14 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_backend, &BackendInterface::debuggeeRequiresTerminal, this, &KatePluginGDBView::requestRunInTerminal);
 
+    auto ac = actionCollection();
     // Actions
-    m_targetSelectAction = actionCollection()->add<KSelectAction>(QStringLiteral("targets"));
+    m_targetSelectAction = ac->add<KSelectAction>(QStringLiteral("targets"));
     m_targetSelectAction->setText(i18n("Targets"));
     m_targetSelectAction->setEnabled(true);
     connect(m_targetSelectAction->menu(), &QMenu::aboutToShow, this, &KatePluginGDBView::initDebugToolview);
 
-    QAction *a = actionCollection()->addAction(QStringLiteral("debug"));
+    QAction *a = ac->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::SHIFT | Qt::Key_F7)));
@@ -268,67 +269,67 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_continueButton->setAutoRaise(true);
     buttonsLayout->addWidget(m_continueButton);
 
-    a = actionCollection()->addAction(QStringLiteral("kill"));
+    a = ac->addAction(QStringLiteral("kill"));
     a->setText(i18n("Kill / Stop Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-stop")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::Key_F7)));
     connect(a, &QAction::triggered, m_backend, &BackendInterface::slotKill);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("continue"));
+    a = ac->addAction(QStringLiteral("continue"));
     a->setText(i18n("Continue"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::Key_F7)));
     connect(a, &QAction::triggered, m_backend, &BackendInterface::slotContinue);
 
-    a = actionCollection()->addAction(u"toggle_breakpoint"_s);
+    a = ac->addAction(u"toggle_breakpoint"_s);
     a->setText(i18n("Toggle Breakpoint / Break"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-pause")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F11)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotToggleBreakpoint);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(u"clear_all_breakpoints"_s);
+    a = ac->addAction(u"clear_all_breakpoints"_s);
     a->setText(i18n("Clear All Breakpoints"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::clearMarks);
 
-    a = actionCollection()->addAction(QStringLiteral("step_in"));
+    a = ac->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-into")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::Key_F10)));
     connect(a, &QAction::triggered, m_backend, &BackendInterface::slotStepInto);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("step_over"));
+    a = ac->addAction(QStringLiteral("step_over"));
     a->setText(i18n("Step Over"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-over")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::Key_F9)));
     connect(a, &QAction::triggered, m_backend, &BackendInterface::slotStepOver);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("step_out"));
+    a = ac->addAction(QStringLiteral("step_out"));
     a->setText(i18n("Step Out"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-step-out")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F10)));
     connect(a, &QAction::triggered, m_backend, &BackendInterface::slotStepOut);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("run_to_cursor"));
+    a = ac->addAction(QStringLiteral("run_to_cursor"));
     a->setText(i18n("Run To Cursor"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run-cursor")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F9)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRunToCursor);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("rerun"));
+    a = ac->addAction(QStringLiteral("rerun"));
     a->setText(i18n("Restart Debugging"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::SHIFT | Qt::Key_F7)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRestart);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("clear_debugoutput"));
+    a = ac->addAction(QStringLiteral("clear_debugoutput"));
     a->setText(i18n("Clear Output"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
     connect(a, &QAction::triggered, this, [this] {
@@ -336,14 +337,14 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     });
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("debug_hot_reload"));
+    a = ac->addAction(QStringLiteral("debug_hot_reload"));
     a->setText(i18n("Hot Reload"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("exception")));
     a->setVisible(false);
     connect(a, &QAction::triggered, m_backend, &Backend::slotHotReload);
     buttonsLayout->addWidget(createDebugButton(a));
 
-    a = actionCollection()->addAction(QStringLiteral("debug_hot_restart"));
+    a = ac->addAction(QStringLiteral("debug_hot_restart"));
     a->setText(i18n("Hot Restart"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-reset")));
     a->setVisible(false);
@@ -352,7 +353,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     buttonsLayout->addStretch();
 
-    m_hotReloadOnSaveAction = a = actionCollection()->addAction(QStringLiteral("debug_hot_reload_on_save"));
+    m_hotReloadOnSaveAction = a = ac->addAction(QStringLiteral("debug_hot_reload_on_save"));
     a->setText(i18n("Enable Hot Reload on Save"));
     a->setVisible(false);
     a->setCheckable(true);
@@ -361,19 +362,19 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
         enableHotReloadOnSave(e ? m_mainWin->activeView() : nullptr);
     });
 
-    a = actionCollection()->addAction(QStringLiteral("move_pc"));
+    a = ac->addAction(QStringLiteral("move_pc"));
     a->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotMovePC);
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::ALT | Qt::Key_F9)));
 
-    a = actionCollection()->addAction(QStringLiteral("print_value"));
+    a = ac->addAction(QStringLiteral("print_value"));
     a->setText(i18n("Print Value"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-preview")));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotValue);
 
     // popup context m_menu
     m_menu = new KActionMenu(i18n("Debug"), this);
-    actionCollection()->addAction(QStringLiteral("popup_gdb"), m_menu);
+    ac->addAction(QStringLiteral("popup_gdb"), m_menu);
     connect(m_menu->menu(), &QMenu::aboutToShow, this, &KatePluginGDBView::aboutToShowMenu);
 
     m_breakpoint = m_menu->menu()->addAction(u"popup_breakpoint"_s, this, &KatePluginGDBView::slotToggleBreakpoint);
@@ -568,17 +569,18 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
 void KatePluginGDBView::enableDebugActions(bool enable)
 {
     const bool canMove = m_backend->canMove();
-    actionCollection()->action(QStringLiteral("step_in"))->setEnabled(enable && canMove);
-    actionCollection()->action(QStringLiteral("step_over"))->setEnabled(enable && canMove);
-    actionCollection()->action(QStringLiteral("step_out"))->setEnabled(enable && canMove);
-    actionCollection()->action(QStringLiteral("move_pc"))->setEnabled(enable && m_backend->supportsMovePC());
-    actionCollection()->action(QStringLiteral("run_to_cursor"))->setEnabled(enable && m_backend->supportsRunToCursor());
-    actionCollection()->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("continue"))->setEnabled(enable && m_backend->canContinue());
-    actionCollection()->action(QStringLiteral("print_value"))->setEnabled(enable);
-    actionCollection()->action(QStringLiteral("clear_debugoutput"))->setEnabled(enable);
+    auto ac = actionCollection();
+    ac->action(QStringLiteral("step_in"))->setEnabled(enable && canMove);
+    ac->action(QStringLiteral("step_over"))->setEnabled(enable && canMove);
+    ac->action(QStringLiteral("step_out"))->setEnabled(enable && canMove);
+    ac->action(QStringLiteral("move_pc"))->setEnabled(enable && m_backend->supportsMovePC());
+    ac->action(QStringLiteral("run_to_cursor"))->setEnabled(enable && m_backend->supportsRunToCursor());
+    ac->action(QStringLiteral("popup_gdb"))->setEnabled(enable);
+    ac->action(QStringLiteral("continue"))->setEnabled(enable && m_backend->canContinue());
+    ac->action(QStringLiteral("print_value"))->setEnabled(enable);
+    ac->action(QStringLiteral("clear_debugoutput"))->setEnabled(enable);
 
-    auto a = actionCollection()->action(QStringLiteral("debug_hot_reload"));
+    auto a = ac->action(QStringLiteral("debug_hot_reload"));
     a->setVisible(enable && m_backend->canHotReload());
     a->setEnabled(enable && m_backend->canHotReload());
 
@@ -594,20 +596,20 @@ void KatePluginGDBView::enableDebugActions(bool enable)
         disconnect(m_mainWin, &KTextEditor::MainWindow::viewChanged, this, &KatePluginGDBView::enableHotReloadOnSave);
     }
 
-    a = actionCollection()->action(QStringLiteral("debug_hot_restart"));
+    a = ac->action(QStringLiteral("debug_hot_restart"));
     a->setVisible(enable && m_backend->canHotRestart());
     a->setEnabled(enable && m_backend->canHotRestart());
 
     m_breakpoint->setEnabled(m_backend->debuggerRunning());
 
     const QIcon pauseToggle = m_backend->canContinue() ? QIcon::fromTheme(u"media-record"_s) : QIcon::fromTheme(u"media-playback-pause"_s);
-    actionCollection()->action(u"toggle_breakpoint"_s)->setIcon(pauseToggle);
-    actionCollection()->action(QStringLiteral("kill"))->setEnabled(m_backend->debuggerRunning());
-    actionCollection()->action(QStringLiteral("rerun"))->setEnabled(m_backend->debuggerRunning());
+    ac->action(u"toggle_breakpoint"_s)->setIcon(pauseToggle);
+    ac->action(QStringLiteral("kill"))->setEnabled(m_backend->debuggerRunning());
+    ac->action(QStringLiteral("rerun"))->setEnabled(m_backend->debuggerRunning());
 
     // Combine start and continue button to same button
-    m_continueButton->removeAction(actionCollection()->action(!enable ? QStringLiteral("continue") : QStringLiteral("debug")));
-    m_continueButton->setDefaultAction(actionCollection()->action(enable ? QStringLiteral("continue") : QStringLiteral("debug")));
+    m_continueButton->removeAction(ac->action(!enable ? QStringLiteral("continue") : QStringLiteral("debug")));
+    m_continueButton->setDefaultAction(ac->action(enable ? QStringLiteral("continue") : QStringLiteral("debug")));
     m_continueButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
 
     m_inputArea->setEnabled(enable && !m_backend->debuggerBusy());

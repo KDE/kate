@@ -1,23 +1,24 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Abdalrahim G. Fakhouri <abdilra7eem@yahoo.com>, 2014.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# SPDX-FileCopyrightText: 2021, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-06-09 00:41+0000\n"
-"PO-Revision-Date: 2021-07-22 23:53+0400\n"
+"PO-Revision-Date: 2025-02-20 11:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
-"Language-Team: \n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -100,16 +101,13 @@ msgstr "أنشئ قصاصة جديدة في المستودع %1"
 #: editsnippet.cpp:146
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr ""
+msgstr "قد لا تعمل أسماء المقتطفات التي تحتوي على مسافات بشكل جيد في الإكمال"
 
 #: editsnippet.cpp:186
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
-msgstr "في القصاصة تعديلات غير محفوظة. أتريد المتابعة وفقدها؟"
+msgstr "يحتوي المقتطف على تغييرات غير محفوظة. هل تريد تجاهل جميع التغييرات؟"
 
 #: editsnippet.cpp:187
 #, kde-format
@@ -119,7 +117,7 @@ msgstr "تحذير - تعديلات غير محفوظة"
 #: editsnippet.cpp:189
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "تابع التحرير"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:42

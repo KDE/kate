@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 02:40+0000\n"
-"PO-Revision-Date: 2022-12-22 12:56+0400\n"
+"PO-Revision-Date: 2025-02-20 10:57+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -269,14 +270,13 @@ msgstr "ابحث"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Replace Checked"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "استبدل المؤشّر"
+msgstr "استبدل المُعلمة"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
@@ -422,13 +422,13 @@ msgstr "ضمّن الملفّات الثّنائيّة"
 #: search.ui:465
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "م.بايت"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:478
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "حدّ الحجم"
 
 #: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format

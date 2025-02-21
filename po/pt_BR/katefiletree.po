@@ -5,20 +5,21 @@
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2014.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2016, 2018, 2019, 2021, 2022, 2023.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
+# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-04 02:33+0000\n"
-"PO-Revision-Date: 2024-03-16 10:22-0300\n"
-"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
+"PO-Revision-Date: 2025-02-20 01:53-0300\n"
+"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:120
 #, kde-format
@@ -365,10 +366,9 @@ msgstr ""
 "<p><b>%1</b></p><p>O documento foi modificado por outro aplicativo.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter..."
-msgstr "&Outros..."
+msgstr "Filtro..."
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

@@ -1,0 +1,137 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-05-15 00:41+0000\n"
+"PO-Revision-Date: 2025-02-20 11:58+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: AsmView.cpp:299
+#, kde-format
+msgid "Scroll to source"
+msgstr "مرّر نحوه المصدر"
+
+#: AsmView.cpp:309
+#, kde-format
+msgid "Jump to label"
+msgstr "اقفز إلى اللصاقة"
+
+#: AsmView.cpp:335
+#, kde-format
+msgid "Copy"
+msgstr "انسخ"
+
+#: AsmView.cpp:347
+#, kde-format
+msgid "Select All"
+msgstr "حدّد الكلّ"
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr "مستعرض المُصرّف"
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr "ا&فتح الملف الحالي في مستكشف المُصرّف"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr "لا يوجد ملف لفتحه"
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr "مستعرض المُصرّف"
+
+#: ce_widget.cpp:125
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr "هل تريد حقًا إغلاق %1؟"
+
+#: ce_widget.cpp:185
+#, kde-format
+msgid "Compile"
+msgstr "صرّف"
+
+#: ce_widget.cpp:282
+#, kde-format
+msgid "Options"
+msgstr "خيارات"
+
+#: ce_widget.cpp:299
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr "فك رموز المعرفات"
+
+#: ce_widget.cpp:300
+#, kde-format
+msgid "Filter Library Functions"
+msgstr "رشّح وظائف مكتبة"
+
+#: ce_widget.cpp:301
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr "رشّح اللصائق غير المستخدمة"
+
+#: ce_widget.cpp:302
+#, kde-format
+msgid "Filter Comments"
+msgstr "رشح التعليقات"
+
+#: ce_widget.cpp:303
+#, kde-format
+msgid "Intel Syntax"
+msgstr "بناء جملة إنتل"
+
+#: ce_widget.cpp:305
+#, kde-format
+msgid "Change Url..."
+msgstr "غيّر المسار..."
+
+#: ce_widget.cpp:311
+#, kde-format
+msgid "Enter Url"
+msgstr "أدخل مسار"
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid ""
+"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+msgstr ""
+"أدخل عنوان لمثيل مستعرض المُصرّف. على سبيل المثال، http://localhost:10240"
+
+#: ce_widget.cpp:372
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr "أرجع المُصرّف: %1"
+
+#: ce_widget.cpp:521
+#, kde-format
+msgid "Reveal linked code"
+msgstr "اكشف الرمز المرتبط"
+
+#: ce_widget.cpp:543
+#, kde-format
+msgid "CompilerExplorer"
+msgstr "مستعرض المُصرّف"
+
+#: ce_widget.cpp:559
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr "عثر على علامات المُصرّف '%1'. قد لا يكون الناتج مفيدًا."

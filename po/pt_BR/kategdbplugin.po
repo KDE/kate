@@ -7,20 +7,21 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 # SPDX-FileCopyrightText: 2024 Geraldo Simiao <geraldosimiao@fedoraproject.org>
+# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2024-03-18 16:35-0300\n"
-"Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
+"PO-Revision-Date: 2025-02-20 02:05-0300\n"
+"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
@@ -178,10 +179,9 @@ msgid "Target %1"
 msgstr "Alvo %1"
 
 #: dapbackend.cpp:182
-#, fuzzy, kde-format
-#| msgid "DAP backend failed"
+#, kde-format
 msgid "DAP backend '%1' failed"
-msgstr "Falha no back-end do DAP"
+msgstr "Falha no back-end do DAP '%1'"
 
 #: dapbackend.cpp:226
 #, kde-format
@@ -705,10 +705,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Comutar o ponto de parada"
 
 #: plugin_kategdb.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Ponto de parada"
+msgstr "Limpar todos os pontos de parada"
 
 #: plugin_kategdb.cpp:287
 #, kde-format
@@ -738,17 +737,17 @@ msgstr "Reiniciar a depuração"
 #: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Recarregamento rápido"
 
 #: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Reinício rápido"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Habilitar recarregamento rápido ao salvar"
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format

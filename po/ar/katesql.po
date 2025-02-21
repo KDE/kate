@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-29 02:35+0000\n"
-"PO-Revision-Date: 2022-09-21 17:38+0400\n"
+"PO-Revision-Date: 2025-02-20 11:07+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -230,14 +231,9 @@ msgid "File"
 msgstr "ملفّ"
 
 #: exportwizard.cpp:54
-#, fuzzy, kde-format
-#| msgid ""
-#| "*.csv|Comma Separated Values\n"
-#| "*|All files"
+#, kde-format
 msgid "Comma Separated Values"
-msgstr ""
-"*.csv|القيم المفصولة بفواصل\n"
-"*|كلّ الملفّات"
+msgstr "قيم مفصولة بفواصل"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -515,7 +511,7 @@ msgstr "أنعش"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "إعداد بيان الفشل"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -523,6 +519,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>فشل إعداد الاستعلام مع الخطأ التالي: %1</p><p>هل تريد المتابعة دون إعداد "
+"الاستعلام؟ <p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

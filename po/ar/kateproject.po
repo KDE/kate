@@ -1,15 +1,15 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Abdalrahim G. Fakhouri <abdilra7eem@yahoo.com>, 2014.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021, 2022.
+# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2022-10-04 21:12+0400\n"
+"PO-Revision-Date: 2025-02-20 14:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -18,51 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "اختر فرع لتنتقل إليه. اضغط مفتاح الهروب  'Esc' لتلغي ذلك."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "أنشئ فرع جديد"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "أنشئ فرع جديد من..."
 
 #: branchcheckoutdialog.cpp:53
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "انتقل إلى الفرع %1"
 
 #: branchcheckoutdialog.cpp:56
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "فشل الانتقال إلى الفرع %1، الخطأ: %2"
 
 #: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "أدخل اسم الفرع. اضغط مفتاح الهروب  'Esc' لتلغي ذلك."
 
 #: branchcheckoutdialog.cpp:100
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "اختر فرع لتخرج منه اضغط مفتاح الهروب  'Esc' لتلغي ذلك."
 
 #: branchcheckoutdialog.cpp:121
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "انتقل إلى فرع جديد: %1"
 
 #: branchcheckoutdialog.cpp:123
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "فشل في إنشاء فرع جديد. الخطأ  \"%1\""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -83,22 +84,22 @@ msgstr "احذف"
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "هل أنت متأكد أنك تريد حذف الفرع المحدد؟"
+msgstr[1] "هل أنت متأكد أنك تريد حذف الفرع المحدد؟"
+msgstr[2] "Are you sure you want to delete the selected branches?"
+msgstr[3] "Are you sure you want to delete the selected branches?"
+msgstr[4] "Are you sure you want to delete the selected branches?"
+msgstr[5] "Are you sure you want to delete the selected branches?"
 
 #: branchesdialog.cpp:100
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "اختر الفرع..."
 
 #: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
-msgstr "Git"
+msgstr "غت"
 
 #: comparebranchesview.cpp:144
 #, kde-format
@@ -109,19 +110,19 @@ msgstr "عُد"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "الرأس عند الإيداع %1"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "الرأس عند هذا الوسم %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "الفرع النشط: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
@@ -142,49 +143,49 @@ msgstr "ألغِ"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "اكتب رسالة الإيداع..."
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "وصف مطول للإيداع..."
 
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "وقّع"
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "عدّل"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1048
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "عدّل آخر إيداع"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "يعدل إيداع"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 من 52"
 
 #: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> من 52"
 
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "مدرجة"
 
 #: gitstatusmodel.cpp:87
 #, kde-format
@@ -204,17 +205,17 @@ msgstr "عُدل"
 #: gitwidget.cpp:289
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "دفع غت"
 
 #: gitwidget.cpp:302
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "سحب غت"
 
 #: gitwidget.cpp:315
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "ألغِ العمليّة"
 
 #: gitwidget.cpp:323
 #, kde-format
@@ -224,7 +225,7 @@ msgstr " أُلغي."
 #: gitwidget.cpp:331
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "أنعش حالة غت"
 
 #: gitwidget.cpp:353 kateprojectview.cpp:59
 #, kde-format
@@ -234,7 +235,7 @@ msgstr "رشّح..."
 #: gitwidget.cpp:443
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
-msgstr ""
+msgstr "فشل في العثور على دليل .git لـ '%1'، قد لا تعمل الأشياء بشكل صحيح"
 
 #: gitwidget.cpp:653
 #, kde-format
@@ -244,72 +245,72 @@ msgstr " خطأ: %1"
 #: gitwidget.cpp:659
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "شُغّل \"%1\" بنجاح: %2"
 
 #: gitwidget.cpp:679
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "فشل في إدراج ملف. الخطأ:"
 
 #: gitwidget.cpp:692
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "فشل في إلغاء ترحيل ملف. الخطأ:"
 
 #: gitwidget.cpp:703
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "فشل في تجاهل التغييرات. خطأ:"
 
 #: gitwidget.cpp:714
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "فشل في الإزالة. خطأ:"
 
 #: gitwidget.cpp:730
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "فشل في فتح الملف عند الرأس: %1"
 
 #: gitwidget.cpp:762
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "فشل في الحصول على فرق الملف: %1"
 
 #: gitwidget.cpp:829
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "فشل في إيداع: %1"
 
 #: gitwidget.cpp:833
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "أودعت التغييرات بنجاح."
 
 #: gitwidget.cpp:843
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "لا يوجد شيء للإيداع. يجب على ترحيل التغييرات أولا."
 
 #: gitwidget.cpp:856
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "رسالة الإيداع لا يمكن أن تكون فارغ…"
 
 #: gitwidget.cpp:984
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "لا يوجد فرق لـ %1...%2"
 
 #: gitwidget.cpp:990
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "فشل في مقارنة %1...%2"
 
 #: gitwidget.cpp:1005
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "فشل الحصول على numstat عند مقارنة %1...%2"
 
 #: gitwidget.cpp:1040
 #, kde-format
@@ -319,90 +320,87 @@ msgstr "أنعش"
 #: gitwidget.cpp:1056
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "الخروج إلى فرع"
 
 #: gitwidget.cpp:1068
-#, fuzzy, kde-format
+#, kde-format
 msgid "Delete Branch"
-msgstr "احذف"
+msgstr "احذف الفرع"
 
 #: gitwidget.cpp:1080
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "قارن الفرع مع..."
 
 #: gitwidget.cpp:1085
-#, fuzzy, kde-format
-#| msgid "Commit"
+#, kde-format
 msgid "Show Commit"
-msgstr "أوْدِعْ"
+msgstr "أظهر إيداع"
 
 #: gitwidget.cpp:1103
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "آخر إيداع"
+msgstr "أظهر آخر إيداع"
 
 #: gitwidget.cpp:1121
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open Commit..."
-msgstr "افتح مجلّد..."
+msgstr "افتح إيداع..."
 
 #: gitwidget.cpp:1124 gitwidget.cpp:1163
 #, kde-format
 msgid "Stash"
-msgstr "خزن مؤقتا"
+msgstr "التخزين المؤقت"
 
 #: gitwidget.cpp:1134
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "فرق التخزين المؤقت"
 
 #: gitwidget.cpp:1167
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "أخرج أخر تخزين مؤقت"
 
 #: gitwidget.cpp:1171
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "أخرج التخزين المؤقت"
 
 #: gitwidget.cpp:1175
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "طبّق آخر تخزين مؤقت"
 
 #: gitwidget.cpp:1177
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "تخزين مؤقت (حافظ على المدرج)"
 
 #: gitwidget.cpp:1181
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "تخزين مؤقت (بما فيه غير المتعقّب)"
 
 #: gitwidget.cpp:1185
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "طبّق التخزين المؤقت"
 
 #: gitwidget.cpp:1186
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "اسقط التخزين المؤقت"
 
 #: gitwidget.cpp:1187
 #, kde-format
 msgid "Show Stash Content"
-msgstr ""
+msgstr "أظهر محتويات التخزين المؤقت"
 
 #: gitwidget.cpp:1224
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "رحّل الكل"
 
 #: gitwidget.cpp:1226
 #, kde-format
@@ -417,23 +415,23 @@ msgstr "أهمل الكلّ"
 #: gitwidget.cpp:1229
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr "افتح .gitignore"
 
 #: gitwidget.cpp:1230 gitwidget.cpp:1271 gitwidget.cpp:1319
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "أظهر الفرق"
 
 #: gitwidget.cpp:1247
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد إزالة هذه الملفات؟"
 
 #: gitwidget.cpp:1252
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "هل أنت متيقن أنك تريد إهمال كل التغييرات؟"
 
 #: gitwidget.cpp:1270
 #, kde-format
@@ -443,12 +441,12 @@ msgstr "افتح ملفًّا"
 #: gitwidget.cpp:1272
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "أظهر في أداة فرق غت خارجية"
 
 #: gitwidget.cpp:1273
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "افتح عند الرأس"
 
 #: gitwidget.cpp:1274
 #, kde-format
@@ -473,32 +471,32 @@ msgstr "أهمِل"
 #: gitwidget.cpp:1292
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد تجاهل التغييرات في هذا الملف؟"
 
 #: gitwidget.cpp:1301
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد إزالة هذا الملف؟"
 
 #: gitwidget.cpp:1318
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "ألغ كل المدرج"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "ألغ إدراج الملفّات المحدّدة"
 
 #: gitwidget.cpp:1385
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "أدرج الملفات المحددة"
 
 #: gitwidget.cpp:1386
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "أهمل الملفات المحددة"
 
 #: gitwidget.cpp:1390
 #, kde-format
@@ -508,17 +506,17 @@ msgstr "أزل الملفّات المحدّدة"
 #: gitwidget.cpp:1403
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد تجاهل التغييرات؟"
 
 #: gitwidget.cpp:1408
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "هل أنت متأكد أنك تريد إزالة هذه التغييرات غير المتعقبة؟"
 
 #: kateproject.cpp:297
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "ملف JSON مشوه '%1': %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:728 kateprojectpluginview.cpp:72
 #: kateprojectpluginview.cpp:219 kateprojectviewtree.cpp:218
@@ -538,24 +536,19 @@ msgid "Project Completion"
 msgstr "إكمال المشروع"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "المستودعات المُحمّلة آليًّا"
+msgstr "حمّل مستودعات آليًّا وابنِ الأشجار"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"يمكن لملحقة المشاريع تحميل النُّسخ المحليّة من المستودعات آليًّا عندما لم يُعرّف ملفّ"
-" ‎.kateproject بعد."
+"يمكن لملحقة المشاريع تحميل النُّسخ المحليّة من المستودعات آليًّا وبناء الأشجار "
+"عندما لا يكون هناك ملف ‎.kateproject بعد."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -580,31 +573,29 @@ msgstr "&مستحاثة"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&سي ميك"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "سلوك الجلسة"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "إعدادات الجلسة للمشاريع"
 
 #: kateprojectconfigpage.cpp:49
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Restore Open Projects"
-msgstr "المشروع الحاليّ"
+msgstr "استعادة المشاريع المفتوحة"
 
 #: kateprojectconfigpage.cpp:56
-#, fuzzy, kde-format
-#| msgid "Project"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr "مشروع"
+msgstr "فهرس المشروع"
 
 #: kateprojectconfigpage.cpp:57
 #, kde-format
@@ -627,29 +618,30 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"يستخدم الدليل المؤقت للنظام إذا لم يُحدد، مما قد يؤدي إلى تجاوز الحد الأقصى "
+"لسعة التخزين في المستودعات الكبيرة جدًا"
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "وظائف مشتركة بين المشاريع"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "يمكن لملحق المشروع من إجراء بعض العمليات عبر مشاريع متعددة"
 
 #: kateprojectconfigpage.cpp:74
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Cross-Project Completion"
-msgstr "إكمال المشروع"
+msgstr "إكمال عابر للمشاريع"
 
 #: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "رمز الانتقال بين المشاريع"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
@@ -660,7 +652,7 @@ msgstr "غت"
 #: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "إجراء النقر المفرد في عرض حالة غت"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -680,7 +672,7 @@ msgstr "مُعد / غير مُعد"
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "إجراء النقر المزدوج في عرض حالة غت"
 
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:66
 #, kde-format
@@ -696,19 +688,17 @@ msgstr "خصائص المشاريع"
 #: kateprojectinfoview.cpp:68
 #, kde-format
 msgid "Terminal (.kateproject)"
-msgstr ""
+msgstr "الطرفية (.kateproject)"
 
 #: kateprojectinfoview.cpp:77
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgid "Terminal (Base)"
-msgstr "الطّرفيّة"
+msgstr "الطّرفيّة (الأساس)"
 
 #: kateprojectinfoview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Terminal"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "الطّرفيّة"
+msgstr "الطّرفيّة (البناء)"
 
 #: kateprojectinfoview.cpp:93
 #, kde-format
@@ -731,11 +721,10 @@ msgid "Start Analysis..."
 msgstr "ابدأ التّحليل..."
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr "تحليل الكود"
+msgstr "تحليل الشفرة - %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:100
 #, kde-format
@@ -743,6 +732,8 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"لم يثبت '%1' على نظامك، %2.<br/><br/>%3. سيُشغل الأداة على جميع ملفات المشروع "
+"التي تتطابق مع قائمة ملحقات الملفات التالية:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
 #, kde-format
@@ -750,35 +741,35 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"استخدام %1 المثبت في: %2.<br/><br/>%3. سيتم تشغيل الأداة على جميع ملفات "
+"المشروع التي تتطابق مع قائمة ملحقات الملفات التالية:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
 #: kateprojectinfoviewcodeanalysis.cpp:216
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "تحليل الكود"
+msgstr "تحليل الشفرة"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
-#, fuzzy, kde-format
-#| msgid "Analysis finished."
+#, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
 "that did the analysis, %2 is a number. e.g., [clang-tidy]Analysis on 5 files "
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "انتهى التّحليل."
-msgstr[1] "انتهى التّحليل."
-msgstr[2] "انتهى التّحليل."
-msgstr[3] "انتهى التّحليل."
-msgstr[4] "انتهى التّحليل."
-msgstr[5] "انتهى التّحليل."
+msgstr[0] "انتهى تحليل [%1] على ملف %2."
+msgstr[1] "انتهى تحليل [%1] على ملف واحد."
+msgstr[2] "انتهى تحليل [%1] على ملفين."
+msgstr[3] "انتهى تحليل [%1] على %2 ملفات."
+msgstr[4] "انتهى تحليل [%1] على %2 ملفًا."
+msgstr[5] "انتهى تحليل [%1] على %2 ملف."
 
 #: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "فشل التحليل مع رمز الخروج %1، الخطأ: %2"
 
 #: kateprojectinfoviewindex.cpp:35
 #, kde-format
@@ -813,7 +804,7 @@ msgstr "لا يمكن إنشاء الفهرس. فضلًا ثبّت 'ctags'."
 #: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "الفهرسة غير مفعلة"
 
 #: kateprojectitem.cpp:166
 #, kde-format
@@ -823,22 +814,22 @@ msgstr "خطأ"
 #: kateprojectitem.cpp:166
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "اسم الملف موجود مسبقًا"
 
 #: kateprojectplugin.cpp:216
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "تأكيد إغلاق المشروع: %1"
 
 #: kateprojectplugin.cpp:217
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr ""
+msgstr "هل تريد إغلاق المشروع %1 والمستندات المفتوحة ذات الصلة %2؟"
 
 #: kateprojectplugin.cpp:594
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "المسار الكامل للمشروع الحالي باستثناء اسم الملف."
 
 #: kateprojectplugin.cpp:611
 #, kde-format
@@ -846,52 +837,48 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"المسار الكامل للمشروع الحالي باستثناء اسم الملف، مع وجود المسار الأصلي (شرطة "
+"مائلة للخلف على نظام ويندوز)."
 
 #: kateprojectpluginview.cpp:56
-#, fuzzy, kde-format
-#| msgid "Kate Project Manager"
+#, kde-format
 msgid "Project Manager"
-msgstr "مدير كيت للمشاريع"
+msgstr "مدير المشروع"
 
 #: kateprojectpluginview.cpp:78
-#, fuzzy, kde-format
-#| msgid "Current Project"
+#, kde-format
 msgid "Open projects list"
-msgstr "المشروع الحاليّ"
+msgstr "افتح قائمة مشاريع"
 
 #: kateprojectpluginview.cpp:83
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload project"
-msgstr "أغلق المشروع"
+msgstr "أعد تحميل المشروع"
 
 #: kateprojectpluginview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Close project"
 msgstr "أغلق المشروع"
 
 #: kateprojectpluginview.cpp:162
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "افتح مجلّد..."
+msgstr "افتح &مجلّدًا..."
 
 #: kateprojectpluginview.cpp:168
-#, fuzzy, kde-format
-#| msgid "Projects"
+#, kde-format
 msgid "Project TODOs"
-msgstr "المشاريع"
+msgstr "قائمة مهام المشروع"
 
 #: kateprojectpluginview.cpp:173
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "فعّل المشروع السابق"
 
 #: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "فعّل المشروع التالي"
 
 #: kateprojectpluginview.cpp:185
 #, kde-format
@@ -914,15 +901,14 @@ msgid "Close Orphaned Projects"
 msgstr "أغلق المشاريع اليتيمة"
 
 #: kateprojectpluginview.cpp:205
-#, fuzzy, kde-format
-#| msgid "Close Project"
+#, kde-format
 msgid "Reload Project"
-msgstr "أغلق المشروع"
+msgstr "أعد تحميل المشروع"
 
 #: kateprojectpluginview.cpp:216
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "الانتقال إلى فرع غت"
 
 #: kateprojectpluginview.cpp:222 kateprojectpluginview.cpp:771
 #, kde-format
@@ -957,7 +943,7 @@ msgstr "احذف الملفّ"
 #: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "هل تريد حذف الملف '%1'؟"
 
 #: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
@@ -965,16 +951,14 @@ msgid "Copy Location"
 msgstr "انسخ المكان"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "افتح ملفًّا"
+msgstr "ملفّ جديد…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "أضف مجلدًا"
+msgstr "مجلّد جديد…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -994,12 +978,12 @@ msgstr "افتح ب‍"
 #: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "افتح طرفية داخلية هنا"
 
 #: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "افتح طرفية خارجية هنا"
 
 #: kateprojecttreeviewcontextmenu.cpp:138
 #, kde-format
@@ -1009,29 +993,27 @@ msgstr "ا&فتح المجلّد الحاوي"
 #: kateprojecttreeviewcontextmenu.cpp:147
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "أظهر تاريخ غت"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "افتح ملفًّا"
+msgstr "ملفّ جديد"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "أضف مجلدًا"
+msgstr "مجلّد جديد"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "فشل إنشاء الملف: %1، الخطأ: %2"
 
 #: kateprojectviewtree.cpp:248
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "فشل إنشاء الدليل: %1"
 
 #: kateprojectworker.cpp:744
 #, kde-format
@@ -1041,66 +1023,72 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"تعذر تحميل المشروع المستند إلى %1 إما لأن %1 غير مثبت أو لم يعثر عليه في "
+"متغير بيئة PATH. يُرجى تثبيت %1 أو تعطيل خيار \"حمّل مستودعات آليًّا وابنِ الأشجار"
+"\" في إعدادات المشروع."
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
+"رسالة التخزين المؤقت (اختيارية). أدخل للتأكيد ، الضغط على زر الهروب Esc "
+"للخروج."
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
+"اكتب للتصفية، اضغط على Enter لإخراج العناصر المخبأة، اضغط على Esc للمغادرة."
 
 #: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "فشل تخزين المؤقت للتغييرات %1"
 
 #: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "خزنت التغييرات مؤقتًا بنجاح."
 
 #: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "فشل الحصول على قائمة التخزين المؤقت. خطأ:"
 
 #: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "فشل في تطبيق التخزين المؤقت. الخطأ: "
 
 #: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "فشل في إسقاط التخزين المؤقت. الخطأ: "
 
 #: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "فشل في إخراج عناصر التخزين المؤقت. الخطأ:"
 
 #: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "نجح في تطبيق التخزين المؤقت."
 
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "أسقط التخزين المؤقت بنجاح."
 
 #: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "أخرج التخزين المؤقت بنجاح."
 
 #: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "فشل في عرض التخزين المؤقت. الخطأ: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

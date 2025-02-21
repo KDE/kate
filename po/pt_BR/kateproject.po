@@ -7,20 +7,21 @@
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila de Azevedo Moura <camilaraw@gmail.com>, 2016.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
+# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-30 00:42+0000\n"
-"PO-Revision-Date: 2024-03-17 08:53-0300\n"
-"Last-Translator: Igor Moreira Padua <igorpadua@discente.ufg.br>\n"
+"PO-Revision-Date: 2025-02-20 02:11-0300\n"
+"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -339,10 +340,9 @@ msgid "Show Commit"
 msgstr "Mostrar commit"
 
 #: gitwidget.cpp:1103
-#, fuzzy, kde-format
-#| msgid "Last Commit"
+#, kde-format
 msgid "Show Last Commit"
-msgstr "Último commit"
+msgstr "Exibir último commit"
 
 #: gitwidget.cpp:1121
 #, kde-format
@@ -541,25 +541,20 @@ msgid "Project Completion"
 msgstr "Complementação do projeto"
 
 #: kateprojectconfigpage.cpp:24
-#, fuzzy, kde-format
-#| msgctxt "Groupbox title"
-#| msgid "Autoload Repositories"
+#, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr "Carregar automaticamente os repositórios"
+msgstr "Carregar automaticamente os repositórios && árvores de compilação"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
-#| msgid ""
-#| "Project plugin is able to autoload repository working copies when there "
-#| "is no .kateproject file defined yet."
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
 "O plugin de projetos é capaz de carregar automaticamente as cópias de "
-"trabalho dos repositórios quando não existir um arquivo '.kateproject' já "
-"definido."
+"trabalho e árvores de compilação dos repositórios quando não existir um "
+"arquivo .kateproject já definido."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -584,7 +579,7 @@ msgstr "%Fossil"
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
@@ -708,10 +703,9 @@ msgid "Terminal (Base)"
 msgstr "Terminal (base)"
 
 #: kateprojectinfoview.cpp:86
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgid "Terminal (build)"
-msgstr "Terminal (base)"
+msgstr "Terminal (compilação)"
 
 #: kateprojectinfoview.cpp:93
 #, kde-format
@@ -762,10 +756,9 @@ msgstr ""
 #: kateprojectinfoviewcodeanalysis.cpp:152
 #: kateprojectinfoviewcodeanalysis.cpp:212
 #: kateprojectinfoviewcodeanalysis.cpp:216
-#, fuzzy, kde-format
-#| msgid "Code Analysis"
+#, kde-format
 msgid "CodeAnalysis"
-msgstr "Análise de código"
+msgstr "AnáliseDeCódigo"
 
 #: kateprojectinfoviewcodeanalysis.cpp:207
 #, kde-format
@@ -873,10 +866,9 @@ msgid "Close project"
 msgstr "Fechar projeto"
 
 #: kateprojectpluginview.cpp:162
-#, fuzzy, kde-format
-#| msgid "Open Folder..."
+#, kde-format
 msgid "Open &Folder..."
-msgstr "Abrir pasta..."
+msgstr "Abrir &pasta..."
 
 #: kateprojectpluginview.cpp:168
 #, kde-format
@@ -914,8 +906,7 @@ msgid "Close Orphaned Projects"
 msgstr "Fechar projetos órfãos"
 
 #: kateprojectpluginview.cpp:205
-#, fuzzy, kde-format
-#| msgid "Reload project"
+#, kde-format
 msgid "Reload Project"
 msgstr "Recarregar projeto"
 
@@ -965,16 +956,14 @@ msgid "Copy Location"
 msgstr "Copiar localização"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File…"
-msgstr "Abrir arquivo"
+msgstr "Novo arquivo…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder…"
-msgstr "Adicionar pasta"
+msgstr "Nova pasta…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
@@ -1012,16 +1001,14 @@ msgid "Show Git History"
 msgstr "Mostrar histórico do GIT"
 
 #: kateprojecttreeviewcontextmenu.cpp:210
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Abrir arquivo"
+msgstr "Novo arquivo"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
-#, fuzzy, kde-format
-#| msgid "Add Folder"
+#, kde-format
 msgid "New Folder"
-msgstr "Adicionar pasta"
+msgstr "Nova pasta"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1041,6 +1028,11 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Não foi possível carregar o projeto baseado em %1 porque ou %1 não está "
+"instalado ou não foi encontrado na variável de ambiente PATH. Por favor, "
+"instale %1 ou, alternativamente, desabilite a opção 'Carregar "
+"automaticamente os repositórios && árvores de compilação' nas configurações "
+"do projeto."
 
 #: stashdialog.cpp:36
 #, kde-format

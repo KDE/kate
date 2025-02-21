@@ -1,27 +1,27 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2021.
+# SPDX-FileCopyrightText: 2021, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-22 00:42+0000\n"
-"PO-Revision-Date: 2021-07-22 23:51+0400\n"
+"PO-Revision-Date: 2025-02-20 17:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
-"Language-Team: \n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #. i18n: ectx: property (text), widget (QLabel, u_gdbLabel)
 #: advanced_settings.ui:17
-#, fuzzy, kde-format
-#| msgid "GDB command"
+#, kde-format
 msgid "GDB command"
 msgstr "أمر GDB"
 
@@ -35,7 +35,7 @@ msgstr "أمر GDB"
 #: advanced_settings.ui:241 advanced_settings.ui:274 advanced_settings.ui:281
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QLabel, u_srcPathsLabel)
 #: advanced_settings.ui:37
@@ -103,7 +103,7 @@ msgstr "أوامر التّمهيد المخصّصة"
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
-msgstr ""
+msgstr "جلسة تصحيح أخطاء جارية. يُرجى إعادة التشغيل أو إيقاف الجلسة الحالية."
 
 #: configview.cpp:92
 #, kde-format
@@ -133,7 +133,7 @@ msgstr "دليل العمل:"
 #: configview.cpp:133
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "معرّف العملية:"
 
 #: configview.cpp:138
 #, kde-format
@@ -175,382 +175,372 @@ msgstr "الهدف %1"
 #: dapbackend.cpp:182
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "فشلت خلفية DAP '%1'"
 
 #: dapbackend.cpp:226
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "توقف البرنامج"
 
 #: dapbackend.cpp:238
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "يطلب الانفصال"
 
 #: dapbackend.cpp:252
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "يطلب الإغلاق"
 
 #: dapbackend.cpp:276
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "خلفية DAP:  %1"
 
 #: dapbackend.cpp:285 gdbbackend.cpp:654
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "متوقّف (%1)."
 
 #: dapbackend.cpp:293 gdbbackend.cpp:658
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "الخيط النشط: %1 (كل الخيوط متوقفة)."
 
 #: dapbackend.cpp:295 gdbbackend.cpp:660
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "الخيط النشط: %1."
 
 #: dapbackend.cpp:300
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "نقطة مقاطعة"
+msgstr "وصلت نقطة التّوقّف:"
 
 #: dapbackend.cpp:326
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "الخيط %1 (مستمر)"
 
 #: dapbackend.cpp:328
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "جميع الخيوط مستمرة"
 
 #: dapbackend.cpp:335
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(يعمل)"
 
 #: dapbackend.cpp:414
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** اتصال مع الخادم مغلق ***"
 
 #: dapbackend.cpp:421
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "خرج البرنامج برمز %1"
 
 #: dapbackend.cpp:439
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** في انتظار إجراءات المستخدم ***"
 
 #: dapbackend.cpp:444
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "خطأ في الاستجابة: %1"
 
 #: dapbackend.cpp:459
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "مهم"
 
 #: dapbackend.cpp:462
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "القياس عن بعد"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "عملية تنقيح [%1] %2"
 
 #: dapbackend.cpp:483
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "عملية التصحيح %1"
 
 #: dapbackend.cpp:486
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "وظيفة البدء: %1"
 
 #: dapbackend.cpp:501
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
 msgstr "الخيط %1"
 
 #: dapbackend.cpp:657
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "نقطة مقاطعة"
+msgstr "مجموعة نقطة التوقف"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "نقطة مقاطعة"
+msgstr "مُسحت نقطة التوقف"
 
 #: dapbackend.cpp:724
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "نقطة مقاطعة"
+msgstr "(%1) نقطة التوقف"
 
 #: dapbackend.cpp:741
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<لم تقيم>"
 
 #: dapbackend.cpp:763
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "إمكانيات الخادم"
 
 #: dapbackend.cpp:766
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "مدعوم"
 
 #: dapbackend.cpp:766
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "غير مدعوم"
 
 #: dapbackend.cpp:769
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "أدرج نقطة مقاطعة"
+msgstr "نقاط التوقف الشرطية"
 
 #: dapbackend.cpp:770
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "أدرج نقطة مقاطعة"
+msgstr "نقاط توقف الوظيفة"
 
 #: dapbackend.cpp:771
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "نقاط التوقف الشرطية الاختيارية"
 
 #: dapbackend.cpp:772
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "نقاط السجل"
 
 #: dapbackend.cpp:772
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "طلب الوحدات"
 
 #: dapbackend.cpp:773
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "طلب أهداف goto"
 
 #: dapbackend.cpp:774
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "إنهاء الطلب"
 
 #: dapbackend.cpp:775
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "إنهاء التنقيح"
 
 #: dapbackend.cpp:1003
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "خطأ بناء الجملة: التعبير غير موجود"
 
 #: dapbackend.cpp:1021 dapbackend.cpp:1056 dapbackend.cpp:1094
 #: dapbackend.cpp:1128 dapbackend.cpp:1164 dapbackend.cpp:1200
 #: dapbackend.cpp:1236 dapbackend.cpp:1336 dapbackend.cpp:1398
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "خطأ بناء الجملة: %1"
 
 #: dapbackend.cpp:1029 dapbackend.cpp:1064 dapbackend.cpp:1343
 #: dapbackend.cpp:1406
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "سطر غير صالح: %1"
 
 #: dapbackend.cpp:1036 dapbackend.cpp:1041 dapbackend.cpp:1071
 #: dapbackend.cpp:1076 dapbackend.cpp:1367 dapbackend.cpp:1372
 #: dapbackend.cpp:1413 dapbackend.cpp:1418
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "ملف غير محدد: %1"
 
 #: dapbackend.cpp:1106 dapbackend.cpp:1140 dapbackend.cpp:1176
 #: dapbackend.cpp:1212 dapbackend.cpp:1248
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "معرف الخيط غير صالح: %1"
 
 #: dapbackend.cpp:1112 dapbackend.cpp:1146 dapbackend.cpp:1182
 #: dapbackend.cpp:1218 dapbackend.cpp:1254
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "معرف الخيط غير محدد: %1"
 
 #: dapbackend.cpp:1265
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "الأوامر المتاحة:"
 
 #: dapbackend.cpp:1353
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "لا يدعم الخادم نقاط التوقف الشرطية"
 
 #: dapbackend.cpp:1361
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "لا يدعم الخادم نقاط التوقف الشرطية الاختيارية"
 
 #: dapbackend.cpp:1381
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "السطر %1 لديه نقطة توقف مسبقًا"
 
 #: dapbackend.cpp:1426
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "نقطة التوقف غير موجودة (%1: %2)"
 
 #: dapbackend.cpp:1432
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "الخيط الحالي: "
 
 #: dapbackend.cpp:1437 dapbackend.cpp:1444 dapbackend.cpp:1465
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "لا شيء"
 
 #: dapbackend.cpp:1440
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "الإطار الحالي: "
 
 #: dapbackend.cpp:1447
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "حالة الجلسة: "
 
 #: dapbackend.cpp:1450
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "التهيئة"
 
 #: dapbackend.cpp:1453
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "يعمل"
 
 #: dapbackend.cpp:1456
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "متوقّف"
 
 #: dapbackend.cpp:1459
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "انتهى"
 
 #: dapbackend.cpp:1462
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "منفصل"
 
 #: dapbackend.cpp:1518
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "الأمر غير موجود"
 
 #: dapbackend.cpp:1552
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "معرف الخيط المفقود"
 
 #: dapbackend.cpp:1652
 #, kde-format
 msgid "killing backend"
-msgstr ""
+msgstr "يقتل الخلفية"
 
 #: dapbackend.cpp:1720
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "الإطار الحالي [%3]: %1: %2 (%4)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "إعدادات محول التنقيح للمستخدم"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "إعدادات"
+msgstr "ملف الإعدادات:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "إعدادات محول التنقيح المبدئيّة"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "نقّح"
+msgstr "المنقّح"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "لا توجد بيانات JSON للتحقق منها."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "بيانات JSON صالحة."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "بيانات JSON غير صالحة: لا كائن JSON"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "بيانات JSON غير صالحة: %1"
 
 #: gdbbackend.cpp:35
 #, kde-format
 msgid "Locals"
-msgstr ""
+msgstr "المحليات"
 
 #: gdbbackend.cpp:37
 #, kde-format
 msgid "CPU registers"
-msgstr ""
+msgstr "سجلات وحدة المعالجة المركزية"
 
 #: gdbbackend.cpp:158
 #, kde-format
 msgid "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-msgstr ""
+msgstr "يرجى تعيين ملف تنفيذي في لسان \"إعدادات\" في  لوحة \"نقّح\"."
 
 #: gdbbackend.cpp:167
 #, kde-format
@@ -558,6 +548,7 @@ msgid ""
 "No debugger selected. Please select one in the 'Settings' tab in the 'Debug' "
 "panel."
 msgstr ""
+"لم تحدد أي منقح أخطاء. يُرجى تحديد واحد في لسان \"إعدادات\" في لوحة \"نقّح\"."
 
 #: gdbbackend.cpp:176
 #, kde-format
@@ -565,6 +556,8 @@ msgid ""
 "Debugger not found. Please make sure you have it installed in your system. "
 "The selected debugger is '%1'"
 msgstr ""
+"لم يعثر على منقح الأخطاء. يرجى التأكد من تثبيته على نظامك.منقح الأخطاء "
+"المحدد هو '%1'"
 
 #: gdbbackend.cpp:383
 #, kde-format
@@ -579,24 +572,22 @@ msgstr "*** خرج gdb كما ينبغي ***"
 #: gdbbackend.cpp:647
 #, kde-format
 msgid "all threads running"
-msgstr ""
+msgstr "جميع الخيوط تعمل"
 
 #: gdbbackend.cpp:649
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread(s) running: %1"
-msgstr "الخيط %1"
+msgstr "الخيوط العاملة:  %1"
 
 #: gdbbackend.cpp:679
 #, kde-format
 msgid "Current frame: %1:%2"
-msgstr ""
+msgstr "الإطار الحالي: %1: %2"
 
 #: gdbbackend.cpp:706
-#, fuzzy, kde-format
-#| msgid "Target %1"
+#, kde-format
 msgid "Host: %1. Target: %1"
-msgstr "الهدف %1"
+msgstr "المضيف: %1. الهدف: %1"
 
 #: gdbbackend.cpp:1377
 #, kde-format
@@ -604,11 +595,13 @@ msgid ""
 "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
 "Shutting down."
 msgstr ""
+"gdb-mi: تعذر تحليل الاستجابة الأخيرة: %1. أخطاء متتالية كثيرة جدًا.إيقاف "
+"التشغيل."
 
 #: gdbbackend.cpp:1379
 #, kde-format
 msgid "gdb-mi: Could not parse last response: %1"
-msgstr ""
+msgstr "gdb-mi: لم يتمكن من تحليل الاستجابة الأخيرة: %1"
 
 #: localsview.cpp:19
 #, kde-format
@@ -623,23 +616,22 @@ msgstr "القيمة"
 #: localsview.cpp:43
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "النوع"
 
 #: localsview.cpp:52
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "العناصر المفهرسة"
 
 #: localsview.cpp:55
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "العناصر المسماة"
 
 #: plugin_kategdb.cpp:105
-#, fuzzy, kde-format
-#| msgid "Kate GDB"
+#, kde-format
 msgid "Kate Debug"
-msgstr "‏GDB لكيت"
+msgstr "منقح كيت"
 
 #: plugin_kategdb.cpp:109
 #, kde-format
@@ -704,10 +696,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "بدّل نقطة المقاطعة / قاطع"
 
 #: plugin_kategdb.cpp:282
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "نقطة مقاطعة"
+msgstr "امسح جميع نقاط التوقف"
 
 #: plugin_kategdb.cpp:287
 #, kde-format
@@ -737,17 +728,17 @@ msgstr "أعد تشغيل التّنقيح"
 #: plugin_kategdb.cpp:322
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "إعادة التحميل الساخن"
 
 #: plugin_kategdb.cpp:329
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "إعادة التشغيل الساخن"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "مكّن إعادة التحميل الساخن عند الحفظ"
 
 #: plugin_kategdb.cpp:347 plugin_kategdb.cpp:366
 #, kde-format
@@ -781,12 +772,10 @@ msgid "Thread %1"
 msgstr "الخيط %1"
 
 #: plugin_kategdb.cpp:919
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "خرج GDB"
+msgstr "ناتج التنقيح"
 
 #: plugin_kategdb.cpp:920
 #, kde-format
@@ -808,14 +797,13 @@ msgstr "نقطة مقاطعة"
 #: ui.rc:6
 #, kde-format
 msgid "&Debug"
-msgstr "تن&قيح"
+msgstr "&نقّح"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "ملحقة GDB"
+msgstr "ملحق التنقيح"
 
 #~ msgid "popup_breakpoint"
 #~ msgstr "popup_breakpoint"

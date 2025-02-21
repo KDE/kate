@@ -1,31 +1,33 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
+# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-14 03:24+0000\n"
-"PO-Revision-Date: 2016-09-03 11:14+0300\n"
-"Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
-"Language-Team: Arabic <doc@arabeyes.org>\n"
+"PO-Revision-Date: 2025-02-20 11:51+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "زايد السعيدي"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "zayed.alsaidi@gmail.com"
 
 #. i18n: ectx: attribute (title), widget (QWidget, errs)
 #: build.ui:36
@@ -37,7 +39,7 @@ msgstr "الخرج"
 #: build.ui:56
 #, kde-format
 msgid "Build again"
-msgstr "ابنِ ثانية"
+msgstr "ابنِ مرة أخرى"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #: build.ui:63
@@ -46,59 +48,54 @@ msgid "Cancel"
 msgstr "ألغِ"
 
 #: buildconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build & Run"
-msgstr "ابنِ ثانية"
+msgstr "ابنِ و شغّل"
 
 #: buildconfig.cpp:53
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "إعدادات ابنِ و شغّل"
 
 #: buildconfig.cpp:103
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Delete selected entries"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "احذف المدخلات المحددة"
 
 #: buildconfig.cpp:108
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "احذف كل المدخلات"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "إعدادات الهدف"
+msgstr "إعدادات عامة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "أضف الأخطاء والتحذيرات إلى التشخيص"
 
 #. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr ""
+msgstr "التبديل تلقائيًا إلى جزء الإخراج عند تنفيذ الهدف المحدد"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:96
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "الأوامر المسموح بها والمحظورة"
 
 #: plugin_katebuild.cpp:273 plugin_katebuild.cpp:280 plugin_katebuild.cpp:712
 #: plugin_katebuild.cpp:915 plugin_katebuild.cpp:928
 #, kde-format
 msgid "Build"
-msgstr "البناء"
+msgstr "ابنِ"
 
 #: plugin_katebuild.cpp:283
 #, kde-format
@@ -106,26 +103,24 @@ msgid "Select Target..."
 msgstr "اختر الهدف..."
 
 #: plugin_katebuild.cpp:288
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build Selected Target"
 msgstr "ابنِ الهدف المحدّد"
 
 #: plugin_katebuild.cpp:293
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "ابنِ وشغّل الهدف المحدّد"
 
 #: plugin_katebuild.cpp:298
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "صرّف الملفّ الحاليّ"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
-msgstr ""
+msgstr "حاول تصريف الملف الحالي عن طريق البحث في ملف compile_commands.json"
 
 #: plugin_katebuild.cpp:304
 #, kde-format
@@ -135,19 +130,19 @@ msgstr "أوقف"
 #: plugin_katebuild.cpp:309
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "حمّل الأهداف من CMake Build Dir"
 
 #: plugin_katebuild.cpp:313
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "التركيز على اللسان التالي على اليسار"
 
 #: plugin_katebuild.cpp:333
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "التركيز على اللسان التّالي على اليمين"
 
 #: plugin_katebuild.cpp:355
 #, kde-format
@@ -161,12 +156,13 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>لم يعثر على الملف:</b> %1<br><b>مسارات البحث:</b><br>%2<br>حاول إضافة "
+"مسار بحث إلى \"دليل العمل\""
 
 #: plugin_katebuild.cpp:482
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Information"
-msgstr "ابنِ ثانية"
+msgstr "معلومات البناء"
 
 #: plugin_katebuild.cpp:719
 #, kde-format
@@ -185,6 +181,8 @@ msgid ""
 "Cannot run command: %1\n"
 "Work path does not exist: %2"
 msgstr ""
+"لا يمكن تشغيل الأمر: %1\n"
+"مسار العمل غير موجود: %2"
 
 #: plugin_katebuild.cpp:800
 #, kde-format
@@ -199,12 +197,12 @@ msgstr "أُلغي بناء <b>%1</b>"
 #: plugin_katebuild.cpp:914
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "لم يعثر على ملف compile_commands.json للملف \"%1\". "
 
 #: plugin_katebuild.cpp:927
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "لم يعثر على أمر التصريف للملف \"%1\" في \"%2\". "
 
 #: plugin_katebuild.cpp:1035
 #, kde-format
@@ -231,17 +229,17 @@ msgstr "يبني الهدف <b>%1</b>..."
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
-msgstr ""
+msgstr "لا يمكن تحميل الأهداف، الملف %1 لا يحتوي على إدخال CMAKE_COMMAND صحيح!"
 
 #: plugin_katebuild.cpp:1127
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr ""
+msgstr "تعذر كتابة ملفات استعلام API لملف CMake لدليل البناء %1!"
 
 #: plugin_katebuild.cpp:1133
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "تعذر تشغيل CMake (%2) لدليل البناء %1!"
 
 #: plugin_katebuild.cpp:1142
 #, kde-format
@@ -249,11 +247,12 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"فشل إنشاء ملفات الرد الخاصة بـ CMake File API لدليل البناء %1 (باستخدام %2)!"
 
 #: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "يريد ملحق البناء تشغيل برنامج"
 
 #: plugin_katebuild.cpp:1264
 #, kde-format
@@ -263,6 +262,9 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"يحتاج ملحق بناء كيت إلى تنفيذ أمر خارجي لقراءة الأهداف من شجرة البناء."
+"<br><br>سطر الأوامر الكامل هو:<br><br><b>%1</b><br><br>المتابعة والسماح "
+"بتشغيل هذا الأمر؟<br><br>يمكن تغيير الاختيار عبر صفحة ضبط الملحق."
 
 #: plugin_katebuild.cpp:1296
 #, kde-kuit-format
@@ -273,7 +275,7 @@ msgstr "<title>نتائج الصناعة/Make:</title><nl/>%1"
 #: plugin_katebuild.cpp:1332
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "اكتمل بناء <b>%1 الأخطاء:%2 ، التحذيرات:%3 ، الملاحظات: %4"
 
 #: plugin_katebuild.cpp:1338
 #, kde-format
@@ -298,17 +300,15 @@ msgstr[4] "وُجد %1 تحذيرًا."
 msgstr[5] "وُجد %1 تحذير."
 
 #: plugin_katebuild.cpp:1345
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "لم توجد أخطاء."
-msgstr[1] "وُجد خطأ واحد."
-msgstr[2] "وُجد خطآن."
-msgstr[3] "وُجدت %1 أخطاء."
-msgstr[4] "وُجد %1 خطأ."
-msgstr[5] "وُجد %1 خطأ."
+msgstr[0] "لم يعثر على أي ملاحظة"
+msgstr[1] "عثر على ملاحظة واحدة"
+msgstr[2] "عثر على ملاحظتين"
+msgstr[3] "عثر على %1 ملاحظات"
+msgstr[4] "عثر على %1 ملاحظة"
+msgstr[5] "عثر على %1 ملاحظة"
 
 #: plugin_katebuild.cpp:1350
 #, kde-format
@@ -323,25 +323,21 @@ msgstr "اكتمل البناء بلا مشاكل."
 #: plugin_katebuild.cpp:1357
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
-msgstr ""
+msgstr "ألغي بناء <b>%1</b>. الأخطاء:%2 ، التحذيرات:%3 ، الملاحظات: %4"
 
 #: plugin_katebuild.cpp:1381
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
-msgstr ""
+msgstr "يتعذر التنفيذ: %1 لم يحدد دليل عمل."
 
 #: plugin_katebuild.cpp:1613
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "خطأ"
 
 #: plugin_katebuild.cpp:1616
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "تحذير"
@@ -350,7 +346,7 @@ msgstr "تحذير"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "ملاحظة|معلومة"
 
 #: plugin_katebuild.cpp:1622
 #, kde-format
@@ -361,7 +357,7 @@ msgstr "مرجع غير معرّف"
 #: plugin_katebuild.cpp:1798
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "لا يستطيع حفظ أهداف البناء في: %1"
 
 #: TargetHtmlDelegate.cpp:51
 #, kde-format
@@ -376,12 +372,13 @@ msgid "<B>Dir:</B> %1"
 msgstr "<B>الدّليل:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
-#, fuzzy, kde-format
-#| msgid "Leave empty to use the directory of the current document."
+#, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
-msgstr "اتركه فارغًا لاستخدام دليل المستند الحاليّ."
+msgstr ""
+"اتركه فارغًا لاستخدام دليل المستند الحالي.\n"
+"أضف أدلة البحث عن طريق إضافة مسارات مفصولة بعلامة \";\""
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format
@@ -390,6 +387,9 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"استخدم:\n"
+"\"%B\" لدليل قاعدة المشروع\n"
+"\"%b\" لاسم دليل قاعدة المشروع"
 
 #: TargetHtmlDelegate.cpp:114
 #, kde-format
@@ -412,12 +412,12 @@ msgstr "مجموعة الأهداف"
 #: TargetModel.cpp:513
 #, kde-format
 msgid "Project"
-msgstr ""
+msgstr "المشروع"
 
 #: TargetModel.cpp:513
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "الجلسة"
 
 #: TargetModel.cpp:607
 #, kde-format
@@ -432,12 +432,12 @@ msgstr "دليل العمل / الأمر"
 #: TargetModel.cpp:613
 #, kde-format
 msgid "Run Command"
-msgstr ""
+msgstr "شغّل أمرًا"
 
 #: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
-msgstr ""
+msgstr "تصفية الأهداف، استخدم مفاتيح الأسهم للتحديد، مفتاح الإدخال للتشغيل"
 
 #: targets.cpp:33
 #, kde-format
@@ -445,16 +445,14 @@ msgid "Create new set of targets"
 msgstr "أنشئ مجموعة أهداف جديدة"
 
 #: targets.cpp:37
-#, fuzzy, kde-format
-#| msgid "Copy command or target set"
+#, kde-format
 msgid "Clone command or target set"
-msgstr "انسخ الأمر أو مجموعة الأهداف"
+msgstr "استنسخ الأمر أو مجموعة الأهداف"
 
 #: targets.cpp:41
-#, fuzzy, kde-format
-#| msgid "Delete current set of targets"
+#, kde-format
 msgid "Delete current target or current set of targets"
-msgstr "احذف مجموعة الأهداف الحاليّة"
+msgstr "احذف الهدف الحالي أو مجموعة الأهداف الحالية"
 
 #: targets.cpp:46
 #, kde-format
@@ -467,51 +465,46 @@ msgid "Build selected target"
 msgstr "ابنِ الهدف المحدّد"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Build and run selected target"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "ابنِ وشغّل الهدف المحدّد"
 
 #: targets.cpp:58
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target up"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "انقل الهدف المحدّد لأعلى"
 
 #: targets.cpp:62
-#, fuzzy, kde-format
-#| msgid "Build selected target"
+#, kde-format
 msgid "Move selected target down"
-msgstr "ابنِ الهدف المحدّد"
+msgstr "انقل الهدف المحدّد للأسفل"
 
 #: targets.cpp:201
 #, kde-format
 msgid "Copy"
-msgstr ""
+msgstr "انسخ"
 
 #: targets.cpp:205
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "قصّ"
 
 #: targets.cpp:209
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "لصق بعد"
 
 #: targets.cpp:227 targets.cpp:249
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "ابنِ ثانية"
+msgstr "أمر البناء"
 
 #: targets.cpp:248
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "الضّبط"
+msgstr "اضبط"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6

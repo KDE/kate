@@ -7,7 +7,6 @@
 #include "settings.h"
 
 #include <QTimer>
-#include <memory>
 
 #include "dapclient_debug.h"
 #include "socketprocessbus.h"

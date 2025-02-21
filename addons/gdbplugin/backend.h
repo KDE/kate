@@ -8,7 +8,6 @@
 #pragma once
 
 #include <QObject>
-#include <memory>
 #include <optional>
 
 #include "backendinterface.h"

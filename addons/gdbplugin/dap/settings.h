@@ -8,7 +8,6 @@
 #include <QHash>
 #include <QJsonObject>
 #include <optional>
-#include <utility>
 
 class QProcess;
 

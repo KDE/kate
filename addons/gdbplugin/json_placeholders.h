@@ -8,8 +8,6 @@
 #include <QHash>
 #include <QSet>
 #include <QString>
-#include <optional>
-#include <utility>
 
 class QJsonObject;
 class QJsonArray;

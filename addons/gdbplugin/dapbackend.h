@@ -13,7 +13,6 @@
 #include "dap/client.h"
 #include "dap/entities.h"
 #include "dap/settings.h"
-#include <memory>
 #include <optional>
 
 class DapBackend final : public BackendInterface

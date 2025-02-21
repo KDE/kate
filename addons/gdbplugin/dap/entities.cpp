@@ -12,6 +12,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <functional>
+#include <utility>
 
 static std::optional<int> parseOptionalInt(const QJsonValue &value)
 {

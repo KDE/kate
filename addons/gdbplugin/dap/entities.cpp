@@ -81,7 +81,7 @@ QStringList parseObjectList(const QJsonArray &array)
     return out;
 }
 
-std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
+static std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
 {
     if (value.isNull() || value.isUndefined() || !value.isArray()) {
         return std::nullopt;
@@ -325,7 +325,6 @@ Thread::Thread(const QJsonObject &body)
 
 Thread::Thread(const int id)
     : id(id)
-    , name(QString())
 {
 }
 
@@ -392,7 +391,7 @@ Scope::Scope(const QJsonObject &body)
 }
 
 Scope::Scope(int variablesReference, QString name)
-    : name(name)
+    : name(std::move(name))
     , variablesReference(variablesReference)
 {
 }

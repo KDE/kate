@@ -84,7 +84,7 @@ private:
     void onTerminated();
     void onStopped(const dap::StoppedEvent &info);
     void onThreads(const QList<dap::Thread> &threads, bool isError);
-    void onStackTrace(const int, const dap::StackTraceInfo &info);
+    void onStackTrace(int, const dap::StackTraceInfo &info);
     void onProgramEnded(int exitCode);
     void onRunning();
     void onContinuedEvent(const dap::ContinuedEvent &info);
@@ -94,13 +94,13 @@ private:
     void onDebuggingProcess(const dap::ProcessInfo &info);
     void onThreadEvent(const dap::ThreadEvent &info);
     void onModuleEvent(const dap::ModuleEvent &info);
-    void onScopes(const int frameId, const QList<dap::Scope> &scopes);
-    void onVariables(const int variablesReference, const QList<dap::Variable> &variables);
+    void onScopes(int frameId, const QList<dap::Scope> &scopes);
+    void onVariables(int variablesReference, const QList<dap::Variable> &variables);
     void onModules(const dap::ModulesInfo &modules);
     void onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints);
     void onBreakpointEvent(const dap::BreakpointEvent &info);
     void onExpressionEvaluated(const QString &expression, const std::optional<dap::EvaluateInfo> &info);
-    void onGotoTargets(const dap::Source &, const int, const QList<dap::GotoTarget> &targets);
+    void onGotoTargets(const dap::Source &, int, const QList<dap::GotoTarget> &targets);
     void onCapabilitiesReceived(const dap::Capabilities &capabilities);
     void onServerDisconnected();
     void onServerFinished();

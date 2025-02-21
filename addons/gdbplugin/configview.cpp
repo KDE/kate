@@ -60,7 +60,7 @@ static std::optional<QJsonDocument> loadJSON(const QString &path)
         return std::nullopt;
     }
     QJsonParseError error;
-    const auto json = QJsonDocument::fromJson(file.readAll(), &error);
+    auto json = QJsonDocument::fromJson(file.readAll(), &error);
     file.close();
     if (error.error != QJsonParseError::NoError) {
         return std::nullopt;

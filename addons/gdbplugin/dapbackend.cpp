@@ -1595,7 +1595,7 @@ void DapBackend::shutdownUntil(std::optional<State> state)
         m_shutdown.userAction = std::nullopt;
     } else if (!m_shutdown.target || (*state > m_shutdown.target)) {
         // propagate until the deepest state
-        m_shutdown.target = *state;
+        m_shutdown.target = state;
     }
 }
 

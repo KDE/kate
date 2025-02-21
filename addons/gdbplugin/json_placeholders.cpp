@@ -117,7 +117,7 @@ static std::optional<int> valueAsInt(const QJsonValue &value)
  */
 static QString apply_filter(const QJsonValue &value, const QString &filter)
 {
-    const QString text = valueAsString(value).value_or(QString());
+    QString text = valueAsString(value).value_or(QString());
     if (filter == QStringLiteral("base")) {
         return QFileInfo(text).baseName();
     }

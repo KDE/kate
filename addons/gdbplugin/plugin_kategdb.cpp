@@ -1169,7 +1169,7 @@ void KatePluginGDBView::requestRunInTerminal(const dap::RunInTerminalRequestArgu
         QProcessEnvironment env(QProcessEnvironment::InheritFromParent);
         if (args.env) {
             for (auto item = args.env->cbegin(); item != args.env->cend(); ++item) {
-                const auto value = item.value();
+                const auto &value = item.value();
                 if (value) {
                     env.insert(item.key(), *value);
                 } else {

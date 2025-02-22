@@ -173,16 +173,6 @@ private:
      * events
      */
     void processEvent(const QJsonObject &msg);
-    void processEventInitialized();
-    void processEventTerminated();
-    void processEventExited(const QJsonObject &body);
-    void processEventOutput(const QJsonObject &body);
-    void processEventProcess(const QJsonObject &body);
-    void processEventThread(const QJsonObject &body);
-    void processEventStopped(const QJsonObject &body);
-    void processEventModule(const QJsonObject &body);
-    void processEventContinued(const QJsonObject &body);
-    void processEventBreakpoint(const QJsonObject &body);
 
     int sequenceNumber();
 

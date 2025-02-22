@@ -188,83 +188,33 @@ void Client::processEvent(const QJsonObject &msg)
     const auto body = msg[DAP_BODY].toObject();
 
     if (QStringLiteral("initialized") == event) {
-        processEventInitialized();
+        if ((m_state != State::Initializing)) {
+            qCWarning(DAPCLIENT) << "unexpected initialized event";
+            return;
+        }
+        setState(State::Initialized);
     } else if (QStringLiteral("terminated") == event) {
-        processEventTerminated();
+        Q_EMIT debuggeeTerminated(true);
     } else if (QStringLiteral("exited") == event) {
-        processEventExited(body);
+        const int exitCode = body[QStringLiteral("exitCode")].toInt(-1);
+        Q_EMIT debuggeeExited(exitCode);
     } else if (DAP_OUTPUT == event) {
-        processEventOutput(body);
+        Q_EMIT outputProduced(Output(body));
     } else if (QStringLiteral("process") == event) {
-        processEventProcess(body);
+        Q_EMIT debuggingProcess(ProcessInfo(body));
     } else if (QStringLiteral("thread") == event) {
-        processEventThread(body);
+        Q_EMIT threadChanged(ThreadEvent(body));
     } else if (QStringLiteral("stopped") == event) {
-        processEventStopped(body);
+        Q_EMIT debuggeeStopped(StoppedEvent(body));
     } else if (QStringLiteral("module") == event) {
-        processEventModule(body);
+        Q_EMIT moduleChanged(ModuleEvent(body));
     } else if (QStringLiteral("continued") == event) {
-        processEventContinued(body);
+        Q_EMIT debuggeeContinued(ContinuedEvent(body));
     } else if (DAP_BREAKPOINT == event) {
-        processEventBreakpoint(body);
+        Q_EMIT breakpointChanged(BreakpointEvent(body));
     } else {
         qCWarning(DAPCLIENT) << "unsupported event: " << event;
     }
-}
-
-void Client::processEventInitialized()
-{
-    if ((m_state != State::Initializing)) {
-        qCWarning(DAPCLIENT) << "unexpected initialized event";
-        return;
-    }
-    setState(State::Initialized);
-}
-
-void Client::processEventTerminated()
-{
-    Q_EMIT debuggeeTerminated(true);
-}
-
-void Client::processEventExited(const QJsonObject &body)
-{
-    const int exitCode = body[QStringLiteral("exitCode")].toInt(-1);
-    Q_EMIT debuggeeExited(exitCode);
-}
-
-void Client::processEventOutput(const QJsonObject &body)
-{
-    Q_EMIT outputProduced(Output(body));
-}
-
-void Client::processEventProcess(const QJsonObject &body)
-{
-    Q_EMIT debuggingProcess(ProcessInfo(body));
-}
-
-void Client::processEventThread(const QJsonObject &body)
-{
-    Q_EMIT threadChanged(ThreadEvent(body));
-}
-
-void Client::processEventStopped(const QJsonObject &body)
-{
-    Q_EMIT debuggeeStopped(StoppedEvent(body));
-}
-
-void Client::processEventModule(const QJsonObject &body)
-{
-    Q_EMIT moduleChanged(ModuleEvent(body));
-}
-
-void Client::processEventContinued(const QJsonObject &body)
-{
-    Q_EMIT debuggeeContinued(ContinuedEvent(body));
-}
-
-void Client::processEventBreakpoint(const QJsonObject &body)
-{
-    Q_EMIT breakpointChanged(BreakpointEvent(body));
 }
 
 void Client::processResponseConfigurationDone(const Response &response, const QJsonValue &)

@@ -1136,7 +1136,7 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
             QString path = itemText.mid(0, firstColonPos);
             auto url = QUrl::fromLocalFile(path);
             bool ok = false;
-            int line = itemText.mid(firstColonPos + 1).toInt(&ok) + 1;
+            int line = itemText.mid(firstColonPos + 1).toInt(&ok) - 1;
             if (url.isValid()) {
                 auto a = menu.addAction(i18n("Open Location"));
                 connect(a, &QAction::triggered, m_stackTree, [this, url, ok, line] {

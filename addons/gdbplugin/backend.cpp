@@ -120,21 +120,24 @@ bool Backend::canContinue() const
 void Backend::toggleBreakpoint(QUrl const &url, int line, bool *added)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
+        // let the actual debugger handle it. It will emit
+        // breakPointSet/breakPointCleared signal
         m_debugger->toggleBreakpoint(url, line);
-    }
-    // update the breakpoint in our storage
-    auto it = m_breakpoints.find(url);
-    if (it != m_breakpoints.end()) {
-        auto &lines = *it;
-        auto existing = lines.indexOf(line);
-        if (existing != -1) {
-            lines.remove(existing);
-            *added = false;
-        } else {
-            it->push_back(line);
-        }
     } else {
-        m_breakpoints[url] = {line};
+        // update the breakpoint in our storage
+        auto it = m_breakpoints.find(url);
+        if (it != m_breakpoints.end()) {
+            auto &lines = *it;
+            auto existing = lines.indexOf(line);
+            if (existing != -1) {
+                lines.remove(existing);
+                *added = false;
+            } else {
+                it->push_back(line);
+            }
+        } else {
+            m_breakpoints[url] = {line};
+        }
     }
 }
 

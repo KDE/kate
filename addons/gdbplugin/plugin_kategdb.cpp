@@ -491,10 +491,12 @@ void KatePluginGDBView::slotToggleBreakpoint()
         bool added = true;
         m_backend->toggleBreakpoint(currURL, line, &added);
 
-        if (added) {
-            slotBreakpointSet(currURL, line);
-        } else {
-            slotBreakpointCleared(currURL, line);
+        if (!m_backend->debuggerRunning()) {
+            if (added) {
+                slotBreakpointSet(currURL, line);
+            } else {
+                slotBreakpointCleared(currURL, line);
+            }
         }
     }
 }

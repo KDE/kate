@@ -994,7 +994,7 @@ msgstr "新建文件夹"
 #: kateprojectviewtree.cpp:210
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "文件已存在"
 
 #: kateprojectviewtree.cpp:221
 #, kde-format
@@ -1004,7 +1004,7 @@ msgstr "创建文件失败：%1，错误：%2"
 #: kateprojectviewtree.cpp:248
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "目录已存在"
 
 #: kateprojectviewtree.cpp:255
 #, kde-format

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-21 00:43+0000\n"
+"POT-Creation-Date: 2025-02-22 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -496,7 +496,7 @@ msgstr "Kate 调试"
 msgid "Debug View"
 msgstr "调试视图"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:375
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:376
 #, kde-format
 msgid "Debug"
 msgstr "调试"
@@ -528,145 +528,145 @@ msgstr ""
 "<title>无法打开文件：</title><nl/>%1<br/>尝试添加搜索路径到高级设置 -> 源文件"
 "搜索路径"
 
-#: plugin_kategdb.cpp:257
+#: plugin_kategdb.cpp:258
 #, kde-format
 msgid "Targets"
 msgstr "目标"
 
-#: plugin_kategdb.cpp:262
+#: plugin_kategdb.cpp:263
 #, kde-format
 msgid "Start Debugging"
 msgstr "启动调试"
 
-#: plugin_kategdb.cpp:272
+#: plugin_kategdb.cpp:273
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "杀死/停止调试"
 
-#: plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Continue"
 msgstr "继续"
 
-#: plugin_kategdb.cpp:285
+#: plugin_kategdb.cpp:286
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "切换断点"
 
-#: plugin_kategdb.cpp:292
+#: plugin_kategdb.cpp:293
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "清除所有断点"
 
-#: plugin_kategdb.cpp:297
+#: plugin_kategdb.cpp:298
 #, kde-format
 msgid "Step In"
 msgstr "单步跳入"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Step Over"
 msgstr "单步跳过"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Step Out"
 msgstr "单步跳出"
 
-#: plugin_kategdb.cpp:318 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:319 plugin_kategdb.cpp:383
 #, kde-format
 msgid "Run To Cursor"
 msgstr "运行到光标处"
 
-#: plugin_kategdb.cpp:325
+#: plugin_kategdb.cpp:326
 #, kde-format
 msgid "Restart Debugging"
 msgstr "重启调试"
 
-#: plugin_kategdb.cpp:332
+#: plugin_kategdb.cpp:333
 #, kde-format
 msgid "Clear Output"
 msgstr "清除输出"
 
-#: plugin_kategdb.cpp:340
+#: plugin_kategdb.cpp:341
 #, kde-format
 msgid "Hot Reload"
 msgstr "热重新加载"
 
-#: plugin_kategdb.cpp:347
+#: plugin_kategdb.cpp:348
 #, kde-format
 msgid "Hot Restart"
 msgstr "热重启"
 
-#: plugin_kategdb.cpp:356
+#: plugin_kategdb.cpp:357
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "保存时启用热重新加载"
 
-#: plugin_kategdb.cpp:365 plugin_kategdb.cpp:384
+#: plugin_kategdb.cpp:366 plugin_kategdb.cpp:385
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "下条指令"
 
-#: plugin_kategdb.cpp:370
+#: plugin_kategdb.cpp:371
 #, kde-format
 msgid "Print Value"
 msgstr "打印值"
 
-#: plugin_kategdb.cpp:459 plugin_kategdb.cpp:475
+#: plugin_kategdb.cpp:460 plugin_kategdb.cpp:476
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入断点"
 
-#: plugin_kategdb.cpp:473
+#: plugin_kategdb.cpp:474
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "删除断点"
 
-#: plugin_kategdb.cpp:642
+#: plugin_kategdb.cpp:644
 #, kde-format
 msgid "Execution point"
 msgstr "执行点"
 
-#: plugin_kategdb.cpp:792 plugin_kategdb.cpp:824
+#: plugin_kategdb.cpp:794 plugin_kategdb.cpp:826
 #, kde-format
 msgid "Thread %1"
 msgstr "线程 %1"
 
-#: plugin_kategdb.cpp:920
+#: plugin_kategdb.cpp:922
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "调试输出"
 
-#: plugin_kategdb.cpp:921
+#: plugin_kategdb.cpp:923
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "设置"
 
-#: plugin_kategdb.cpp:956
+#: plugin_kategdb.cpp:958
 #, kde-format
 msgid "IO"
 msgstr "输入输出"
 
-#: plugin_kategdb.cpp:1042
+#: plugin_kategdb.cpp:1044
 #, kde-format
 msgid "Breakpoint"
 msgstr "断点"
 
-#: plugin_kategdb.cpp:1117
+#: plugin_kategdb.cpp:1119
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "复制堆栈跟踪"
 
-#: plugin_kategdb.cpp:1139
+#: plugin_kategdb.cpp:1141
 #, kde-format
 msgid "Open Location"
 msgstr "打开位置"
 
-#: plugin_kategdb.cpp:1149
+#: plugin_kategdb.cpp:1151
 #, kde-format
 msgid "Copy Location"
 msgstr "复制位置"
@@ -682,88 +682,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "GDB command"
-#~ msgstr "GDB 命令"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Source file search paths"
-#~ msgstr "源文件搜索路径"
-
-#~ msgid "Local application"
-#~ msgstr "本地程序"
-
-#~ msgid "Remote TCP"
-#~ msgstr "远程 TCP"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "删除串口"
-
-#~ msgid "Host"
-#~ msgstr "主机"
-
-#~ msgid "Port"
-#~ msgstr "端口"
-
-#~ msgid "Baud"
-#~ msgstr "波特率"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "自定义初始化命令"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "高级设置"
-
-#~ msgid "Locals"
-#~ msgstr "局部变量"
-
-#~ msgid "CPU registers"
-#~ msgstr "CPU 寄存器"
-
-#~ msgid ""
-#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-#~ msgstr "请在“调试”面板的“设置”标签页中设置可执行文件。"
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr "没有选择调试器。请在“调试”面板“设置”标签页中选择一个。"
-
-#~ msgid ""
-#~ "Debugger not found. Please make sure you have it installed in your "
-#~ "system. The selected debugger is '%1'"
-#~ msgstr "调试器未找到。请确保您的系统中已经安装了它。所选调试器是‘%1’"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "无法启动调试器进程"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb 正常退出 ***"
-
-#~ msgid "all threads running"
-#~ msgstr "所有线程正在运行"
-
-#~ msgid "thread(s) running: %1"
-#~ msgstr "正在运行的线程：%1"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "当前帧：%1：%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "主机：%1 目标：%1"
-
-#~ msgid ""
-#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-#~ "Shutting down."
-#~ msgstr "gdb-mi：无法解析上次响应：%1。已经有太多连续错误。终止。"
-
-#~ msgid "gdb-mi: Could not parse last response: %1"
-#~ msgstr "gdb-mi：无法解析上次响应：%1"

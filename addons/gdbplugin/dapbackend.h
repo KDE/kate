@@ -81,7 +81,7 @@ private:
     void unsetClient();
 
     void onError(const QString &message);
-    void onTerminated();
+    void onTerminated(bool success);
     void onStopped(const dap::StoppedEvent &info);
     void onThreads(const QList<dap::Thread> &threads, bool isError);
     void onStackTrace(int, const dap::StackTraceInfo &info);

@@ -27,7 +27,6 @@ public:
         Initializing,
         Initialized,
         Running,
-        Terminated,
         Failed
     };
     Q_ENUM(State)
@@ -104,7 +103,7 @@ Q_SIGNALS:
 
     void capabilitiesReceived(const Capabilities &capabilities);
     void debuggeeRunning();
-    void debuggeeTerminated();
+    void debuggeeTerminated(bool success);
     void debuggeeExited(int exitCode);
     void debuggeeStopped(const StoppedEvent &);
     void debuggeeContinued(const ContinuedEvent &);

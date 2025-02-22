@@ -223,7 +223,7 @@ void Client::processEventInitialized()
 
 void Client::processEventTerminated()
 {
-    setState(State::Terminated);
+    Q_EMIT debuggeeTerminated(true);
 }
 
 void Client::processEventExited(const QJsonObject &body)
@@ -353,8 +353,9 @@ void Client::processResponsePause(const Response &, const QJsonValue &)
 {
 }
 
-void Client::processResponseTerminate(const Response &, const QJsonValue &)
+void Client::processResponseTerminate(const Response &r, const QJsonValue &)
 {
+    Q_EMIT debuggeeTerminated(r.success);
 }
 
 void Client::processResponseHotReload(const Response &, const QJsonValue &)
@@ -458,9 +459,6 @@ void Client::setState(const State &state)
             break;
         case State::Running:
             Q_EMIT debuggeeRunning();
-            break;
-        case State::Terminated:
-            Q_EMIT debuggeeTerminated();
             break;
         case State::Failed:
             Q_EMIT failed();

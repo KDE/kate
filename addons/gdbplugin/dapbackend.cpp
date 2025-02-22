@@ -222,10 +222,15 @@ void DapBackend::runDebugger(const DAPTargetConf &conf)
     start();
 }
 
-void DapBackend::onTerminated()
+void DapBackend::onTerminated(bool success)
 {
-    Q_EMIT outputText(printEvent(i18n("program terminated")));
-    if (m_state < Terminated) {
+    if (success) {
+        Q_EMIT outputText(printEvent(i18n("program terminated")));
+        if (m_state < Terminated) {
+            setState(Terminated);
+        }
+    } else {
+        Q_EMIT outputError(i18n("Failed to terminate. Forcing shutdown..."));
         setState(Terminated);
     }
 }

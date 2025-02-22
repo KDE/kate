@@ -86,7 +86,7 @@ public:
 
     static QString extractCommand(const QJsonObject &launchRequest);
 
-    typedef std::function<void(const Response &, const QJsonValue &)> ResponseHandler;
+    using ResponseHandler = void (Client::*)(const Response &response, const QJsonValue &request);
     /*
      * - success
      * - foreground process id
@@ -181,7 +181,7 @@ private:
     /*
      * requests
      */
-    QJsonObject makeRequest(const QString &command, const QJsonValue &arguments, const ResponseHandler &handler);
+    QJsonObject makeRequest(const QString &command, const QJsonValue &arguments, ResponseHandler handler);
     QJsonObject makeResponse(const QJsonObject &response, bool success = false);
     void requestInitialize();
     void requestLaunchCommand();

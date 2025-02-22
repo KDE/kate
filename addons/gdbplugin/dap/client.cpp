@@ -17,14 +17,6 @@ namespace dap
 {
 constexpr int MAX_HEADER_SIZE = 1 << 16;
 
-template<typename T>
-inline static Client::ResponseHandler make_response_handler(void (T::*member)(const Response &response, const QJsonValue &request), T *object)
-{
-    return [object, member](const Response &response, const QJsonValue &request) {
-        return (object->*member)(response, request);
-    };
-}
-
 Client::Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, QObject *parent)
     : QObject(parent)
     , m_bus(bus)
@@ -145,7 +137,8 @@ void Client::processResponse(const QJsonObject &msg)
     if (!response.success) {
         Q_EMIT errorResponse(response.message, response.errorBody);
     }
-    std::get<2>(request)(response, std::get<1>(request));
+    auto callback = std::get<2>(request);
+    (this->*callback)(response, std::get<1>(request));
 }
 
 void Client::processReverseRequest(const QJsonObject &msg)
@@ -446,7 +439,7 @@ void Client::write(const QJsonObject &msg)
  * command: str
  * arguments?: any
  */
-QJsonObject Client::makeRequest(const QString &command, const QJsonValue &arguments, const ResponseHandler &handler)
+QJsonObject Client::makeRequest(const QString &command, const QJsonValue &arguments, ResponseHandler handler)
 {
     const int seq = sequenceNumber();
     QJsonObject message;
@@ -490,7 +483,7 @@ void Client::requestInitialize()
                                    {DAP_SUPPORTS_MEMORY_EVENT, false}};
 
     setState(State::Initializing);
-    this->write(makeRequest(DAP_INITIALIZE, capabilities, make_response_handler(&Client::processResponseInitialize, this)));
+    this->write(makeRequest(DAP_INITIALIZE, capabilities, &Client::processResponseInitialize));
 }
 
 void Client::requestConfigurationDone()
@@ -505,26 +498,26 @@ void Client::requestConfigurationDone()
         return;
     }
 
-    this->write(makeRequest(QStringLiteral("configurationDone"), QJsonObject{}, make_response_handler(&Client::processResponseConfigurationDone, this)));
+    this->write(makeRequest(QStringLiteral("configurationDone"), QJsonObject{}, &Client::processResponseConfigurationDone));
 }
 
 void Client::requestThreads()
 {
-    this->write(makeRequest(DAP_THREADS, QJsonObject{}, make_response_handler(&Client::processResponseThreads, this)));
+    this->write(makeRequest(DAP_THREADS, QJsonObject{}, &Client::processResponseThreads));
 }
 
 void Client::requestStackTrace(int threadId, int startFrame, int levels)
 {
     const QJsonObject arguments{{DAP_THREAD_ID, threadId}, {QStringLiteral("startFrame"), startFrame}, {QStringLiteral("levels"), levels}};
 
-    this->write(makeRequest(QStringLiteral("stackTrace"), arguments, make_response_handler(&Client::processResponseStackTrace, this)));
+    this->write(makeRequest(QStringLiteral("stackTrace"), arguments, &Client::processResponseStackTrace));
 }
 
 void Client::requestScopes(int frameId)
 {
     const QJsonObject arguments{{DAP_FRAME_ID, frameId}};
 
-    this->write(makeRequest(DAP_SCOPES, arguments, make_response_handler(&Client::processResponseScopes, this)));
+    this->write(makeRequest(DAP_SCOPES, arguments, &Client::processResponseScopes));
 }
 
 void Client::requestVariables(int variablesReference, Variable::Type filter, int start, int count)
@@ -545,12 +538,12 @@ void Client::requestVariables(int variablesReference, Variable::Type filter, int
     default:;
     }
 
-    this->write(makeRequest(DAP_VARIABLES, arguments, make_response_handler(&Client::processResponseVariables, this)));
+    this->write(makeRequest(DAP_VARIABLES, arguments, &Client::processResponseVariables));
 }
 
 void Client::requestModules(int start, int count)
 {
-    this->write(makeRequest(DAP_MODULES, QJsonObject{{DAP_START, start}, {DAP_COUNT, count}}, make_response_handler(&Client::processResponseModules, this)));
+    this->write(makeRequest(DAP_MODULES, QJsonObject{{DAP_START, start}, {DAP_COUNT, count}}, &Client::processResponseModules));
 }
 
 void Client::requestNext(int threadId, bool singleThread)
@@ -559,7 +552,7 @@ void Client::requestNext(int threadId, bool singleThread)
     if (singleThread) {
         arguments[DAP_SINGLE_THREAD] = true;
     }
-    this->write(makeRequest(QStringLiteral("next"), arguments, make_response_handler(&Client::processResponseNext, this)));
+    this->write(makeRequest(QStringLiteral("next"), arguments, &Client::processResponseNext));
 }
 
 void Client::requestStepIn(int threadId, bool singleThread)
@@ -568,7 +561,7 @@ void Client::requestStepIn(int threadId, bool singleThread)
     if (singleThread) {
         arguments[DAP_SINGLE_THREAD] = true;
     }
-    this->write(makeRequest(QStringLiteral("stepIn"), arguments, make_response_handler(&Client::processResponseNext, this)));
+    this->write(makeRequest(QStringLiteral("stepIn"), arguments, &Client::processResponseNext));
 }
 
 void Client::requestStepOut(int threadId, bool singleThread)
@@ -577,14 +570,14 @@ void Client::requestStepOut(int threadId, bool singleThread)
     if (singleThread) {
         arguments[DAP_SINGLE_THREAD] = true;
     }
-    this->write(makeRequest(QStringLiteral("stepOut"), arguments, make_response_handler(&Client::processResponseNext, this)));
+    this->write(makeRequest(QStringLiteral("stepOut"), arguments, &Client::processResponseNext));
 }
 
 void Client::requestGoto(int threadId, int targetId)
 {
     const QJsonObject arguments{{DAP_THREAD_ID, threadId}, {DAP_TARGET_ID, targetId}};
 
-    this->write(makeRequest(QStringLiteral("goto"), arguments, make_response_handler(&Client::processResponseNext, this)));
+    this->write(makeRequest(QStringLiteral("goto"), arguments, &Client::processResponseNext));
 }
 
 void Client::requestContinue(int threadId, bool singleThread)
@@ -593,14 +586,14 @@ void Client::requestContinue(int threadId, bool singleThread)
     if (singleThread) {
         arguments[DAP_SINGLE_THREAD] = true;
     }
-    this->write(makeRequest(QStringLiteral("continue"), arguments, make_response_handler(&Client::processResponseContinue, this)));
+    this->write(makeRequest(QStringLiteral("continue"), arguments, &Client::processResponseContinue));
 }
 
 void Client::requestPause(int threadId)
 {
     const QJsonObject arguments{{DAP_THREAD_ID, threadId}};
 
-    this->write(makeRequest(QStringLiteral("pause"), arguments, make_response_handler(&Client::processResponsePause, this)));
+    this->write(makeRequest(QStringLiteral("pause"), arguments, &Client::processResponsePause));
 }
 
 void Client::requestTerminate(bool restart)
@@ -610,7 +603,7 @@ void Client::requestTerminate(bool restart)
         arguments[QStringLiteral("restart")] = true;
     }
 
-    this->write(makeRequest(QStringLiteral("terminate"), arguments, make_response_handler(&Client::processResponseTerminate, this)));
+    this->write(makeRequest(QStringLiteral("terminate"), arguments, &Client::processResponseTerminate));
 }
 
 void Client::requestDisconnect(bool restart)
@@ -620,7 +613,7 @@ void Client::requestDisconnect(bool restart)
         arguments[QStringLiteral("restart")] = true;
     }
 
-    this->write(makeRequest(QStringLiteral("disconnect"), arguments, make_response_handler(&Client::processResponseDisconnect, this)));
+    this->write(makeRequest(QStringLiteral("disconnect"), arguments, &Client::processResponseDisconnect));
 }
 
 void Client::requestSource(const Source &source)
@@ -630,7 +623,7 @@ void Client::requestSource(const Source &source)
 
     arguments[DAP_SOURCE] = sourceArg;
 
-    this->write(makeRequest(DAP_SOURCE, arguments, make_response_handler(&Client::processResponseSource, this)));
+    this->write(makeRequest(DAP_SOURCE, arguments, &Client::processResponseSource));
 }
 
 void Client::requestSetBreakpoints(const QString &path, const QList<SourceBreakpoint> &breakpoints, bool sourceModified)
@@ -646,7 +639,7 @@ void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreak
     }
     QJsonObject arguments{{DAP_SOURCE, source.toJson()}, {DAP_BREAKPOINTS, bpoints}, {QStringLiteral("sourceModified"), sourceModified}};
 
-    this->write(makeRequest(QStringLiteral("setBreakpoints"), arguments, make_response_handler(&Client::processResponseSetBreakpoints, this)));
+    this->write(makeRequest(QStringLiteral("setBreakpoints"), arguments, &Client::processResponseSetBreakpoints));
 }
 
 void Client::requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId)
@@ -659,7 +652,7 @@ void Client::requestEvaluate(const QString &expression, const QString &context, 
         arguments[DAP_FRAME_ID] = *frameId;
     }
 
-    this->write(makeRequest(QStringLiteral("evaluate"), arguments, make_response_handler(&Client::processResponseEvaluate, this)));
+    this->write(makeRequest(QStringLiteral("evaluate"), arguments, &Client::processResponseEvaluate));
 }
 
 void Client::requestWatch(const QString &expression, std::optional<int> frameId)
@@ -679,7 +672,7 @@ void Client::requestGotoTargets(const Source &source, const int line, const std:
         arguments[DAP_COLUMN] = *column;
     }
 
-    this->write(makeRequest(QStringLiteral("gotoTargets"), arguments, make_response_handler(&Client::processResponseGotoTargets, this)));
+    this->write(makeRequest(QStringLiteral("gotoTargets"), arguments, &Client::processResponseGotoTargets));
 }
 
 void Client::requestLaunchCommand()
@@ -691,17 +684,17 @@ void Client::requestLaunchCommand()
     if (m_launchCommand.isNull() || m_launchCommand.isEmpty())
         return;
 
-    this->write(makeRequest(m_launchCommand, m_protocol.launchRequest, make_response_handler(&Client::processResponseLaunch, this)));
+    this->write(makeRequest(m_launchCommand, m_protocol.launchRequest, &Client::processResponseLaunch));
 }
 
 void Client::requestHotReload()
 {
-    this->write(makeRequest(QStringLiteral("hotReload"), {}, make_response_handler(&Client::processResponseHotReload, this)));
+    this->write(makeRequest(QStringLiteral("hotReload"), {}, &Client::processResponseHotReload));
 }
 
 void Client::requestHotRestart()
 {
-    this->write(makeRequest(QStringLiteral("hotRestart"), {}, make_response_handler(&Client::processResponseHotReload, this)));
+    this->write(makeRequest(QStringLiteral("hotRestart"), {}, &Client::processResponseHotReload));
 }
 
 void Client::checkRunning()

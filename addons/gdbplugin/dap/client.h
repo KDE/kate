@@ -199,7 +199,13 @@ private:
     bool m_managedBus;
     QByteArray m_buffer;
     int m_seq = 0;
-    QHash<int, std::tuple<QString, QJsonValue, ResponseHandler>> m_requests;
+
+    struct Request {
+        QString command;
+        QJsonValue arguments;
+        ResponseHandler callback = nullptr;
+    };
+    QHash<int, Request> m_requests;
 
     State m_state = State::None;
     bool m_launched = false;

@@ -127,8 +127,8 @@ void Client::processResponse(const QJsonObject &msg)
     const auto request = m_requests.take(response.request_seq);
 
     // check response
-    if (response.command != std::get<0>(request)) {
-        qCWarning(DAPCLIENT) << "unexpected command in response: " << response.command << " (expected: " << std::get<0>(request) << ")";
+    if (response.command != request.command) {
+        qCWarning(DAPCLIENT) << "unexpected command in response: " << response.command << " (expected: " << request.command << ")";
     }
     if (response.isCancelled()) {
         qCWarning(DAPCLIENT) << "request cancelled: " << response.command;
@@ -137,8 +137,7 @@ void Client::processResponse(const QJsonObject &msg)
     if (!response.success) {
         Q_EMIT errorResponse(response.message, response.errorBody);
     }
-    auto callback = std::get<2>(request);
-    (this->*callback)(response, std::get<1>(request));
+    (this->*request.callback)(response, request.arguments);
 }
 
 void Client::processReverseRequest(const QJsonObject &msg)
@@ -451,7 +450,7 @@ QJsonObject Client::makeRequest(const QString &command, const QJsonValue &argume
     if (!arguments.isUndefined()) {
         message[DAP_ARGUMENTS] = arguments;
     }
-    m_requests[seq] = std::make_tuple(command, arguments, handler);
+    m_requests[seq] = Request{command, arguments, handler};
 
     return message;
 }

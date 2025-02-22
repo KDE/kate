@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Close group of documents based on a common path or file extension",
+        "Description[ar]": "إغلاق مجموعة من المستندات استنادًا إلى مسار مشترك أو ملحق ملف",
         "Description[az]": "Ümumi yol və ya fayl uzantısına əsaslanan sənədlər qrupunu bağlayın",
         "Description[bg]": "Затваряне на група от документи, базирани на местоположение или файлово разширение",
         "Description[ca@valencia]": "Tanca un grup de documents basats en un camí comú o en l'extensió del fitxer",
@@ -41,6 +42,7 @@
         "Description[zh_CN]": "根据路径或文件扩展名关闭一组文档",
         "Description[zh_TW]": "依共同的路徑或副檔名關閉一群文件",
         "Name": "Close Except/Like",
+        "Name[ar]": "إغلاق باستثناء/إعجاب",
         "Name[az]": "Istisna olunanı/İstədiyinizi bağlayın",
         "Name[bg]": "Затваряне с изключение на",
         "Name[ca@valencia]": "Tancament excepte/com",

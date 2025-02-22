@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "C/C++ Backtrace navigation tool view",
+        "Description[ar]": "عرض أداة التنقل التتبع الخلفي في لغة سي/سي++",
         "Description[az]": "C/C++ geri izləmə naviqasiya aləti görünüşü",
         "Description[bg]": "Изглед с инструменти за навигация на обратно проследяване на C/C++",
         "Description[ca@valencia]": "Vista d'eina del navegador per a la traça inversa de C/C++",

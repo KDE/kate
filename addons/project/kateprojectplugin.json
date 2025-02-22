@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Integration with Git and other source control systems",
+        "Description[ar]": "التكامل مع غت وأنظمة التحكم في المصدر الأخرى",
         "Description[az]": "Git və digər versiyaya nəzarət sistemləri ilə inteqrasiya",
         "Description[bg]": "Интеграция с Git и други системи за контрол на изходния код",
         "Description[ca@valencia]": "Integració amb Git i altres sistemes de control del codi font",
@@ -39,6 +40,7 @@
         "Description[zh_CN]": "与 Git 和其他源代码控制系统集成",
         "Description[zh_TW]": "與 Git 或其他版控系統的整合",
         "Name": "Project Plugin",
+        "Name[ar]": "ملحقة المشروع",
         "Name[az]": "Layihə modulu",
         "Name[bg]": "Приставка за проекти",
         "Name[ca@valencia]": "Connector de projecte",

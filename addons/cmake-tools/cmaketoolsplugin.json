@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "CMake plugin for kate",
+        "Description[ar]": "ملحق سي ميك لكيت",
         "Description[az]": "Kate üçün CMake əlavəsi",
         "Description[bg]": "Приставка на CMake за kate",
         "Description[ca@valencia]": "Connector de CMake per a Kate",

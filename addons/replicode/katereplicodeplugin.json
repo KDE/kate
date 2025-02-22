@@ -46,6 +46,7 @@
     "GenericName[zh_TW]": "Replicode",
     "KPlugin": {
         "Description": "Replicode (constructivist AI language and runtime)",
+        "Description[ar]": "Replicode (لغة الذكاء الاصطناعي البنائية ووقت التشغيل)",
         "Description[az]": "Replicode (konstruktivist Sİ dili və iş vaxtı)",
         "Description[bg]": "Replicode (конструктивистки език и време за изпълнение на ИИ)",
         "Description[ca@valencia]": "Replicode (llenguatge i executable constructivista d'IA)",

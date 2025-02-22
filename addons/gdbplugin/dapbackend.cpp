@@ -1597,7 +1597,6 @@ void DapBackend::shutdownUntil(std::optional<State> state)
 {
     if (!state) {
         m_shutdown.target = std::nullopt;
-        m_shutdown.userAction = std::nullopt;
     } else if (!m_shutdown.target || (*state > m_shutdown.target)) {
         // propagate until the deepest state
         m_shutdown.target = state;
@@ -1617,27 +1616,12 @@ void DapBackend::slotKill()
         return;
     }
 
-    if (!m_shutdown.userAction) {
-        if (isRunningState()) {
-            shutdownUntil(None);
-            tryTerminate();
-        } else {
-            shutdownUntil(None);
-            tryDisconnect();
-        }
+    if (isRunningState()) {
+        shutdownUntil(None);
+        tryTerminate();
     } else {
-        switch (*m_shutdown.userAction) {
-        case Polite:
-            // try and shutdown server
-            m_shutdown.userAction = Force;
-            cmdShutdown();
-            break;
-        case Force:
-            // kill server
-            Q_EMIT outputError(newLine(i18n("killing backend")));
-            unsetClient();
-            break;
-        }
+        shutdownUntil(None);
+        tryDisconnect();
     }
 }
 

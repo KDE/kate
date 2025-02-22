@@ -165,14 +165,8 @@ private:
     std::optional<int> m_currentScope;
     bool m_restart = false;
 
-    enum KillMode {
-        Polite,
-        Force
-    };
-
     struct {
         std::optional<State> target = std::nullopt;
-        std::optional<KillMode> userAction = std::nullopt;
     } m_shutdown;
 
     void shutdownUntil(std::optional<State> state = std::nullopt);

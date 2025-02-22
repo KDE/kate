@@ -1183,6 +1183,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate with some Git based project</caption>
+      <caption xml:lang="ar">كيت مع بعض المشاريع القائمة على غت</caption>
       <caption xml:lang="bg">Kate с Git базиран проект</caption>
       <caption xml:lang="ca">El Kate amb projectes basats en el Git</caption>
       <caption xml:lang="ca-valencia">Kate amb projectes basats en Git</caption>
@@ -1206,6 +1207,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
+      <caption xml:lang="pt-BR">Kate em algum projeto baseado em Git</caption>
       <caption xml:lang="ru">Kate с проектом на основе Git</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
       <caption xml:lang="sv">Kate med något Git-baserat projekt</caption>
@@ -1219,6 +1221,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate with split view</caption>
+      <caption xml:lang="ar">كيت مع منظر منقسم</caption>
       <caption xml:lang="bg">Kate с разделен вид</caption>
       <caption xml:lang="ca">El Kate amb una vista dividida</caption>
       <caption xml:lang="ca-valencia">Kate amb una vista dividida</caption>
@@ -1242,6 +1245,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
+      <caption xml:lang="pt-BR">Kate em visualização dividida</caption>
       <caption xml:lang="ru">Kate с разделённым окном</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
       <caption xml:lang="sv">Kate med delad vy</caption>
@@ -1255,6 +1259,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Kate in dark mode</caption>
+      <caption xml:lang="ar">كيت في الوضع المظلم</caption>
       <caption xml:lang="bg">Kate в тъмен режим</caption>
       <caption xml:lang="ca">El Kate en mode fosc</caption>
       <caption xml:lang="ca-valencia">Kate en mode fosc</caption>
@@ -1278,6 +1283,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
+      <caption xml:lang="pt-BR">Kate em modo escuro</caption>
       <caption xml:lang="ru">Kate в тёмном режиме</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>
       <caption xml:lang="sv">Kate i mörkt läge</caption>
@@ -1291,6 +1297,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     </screenshot>
     <screenshot environment="windows">
       <caption>Create a new Git branch with Kate</caption>
+      <caption xml:lang="ar">إنشاء فرع غت جديد مع كيت</caption>
       <caption xml:lang="bg">Създаване на нов Git бранш с Kate</caption>
       <caption xml:lang="ca">Creació d'una branca nova del Git amb el Kate</caption>
       <caption xml:lang="ca-valencia">Creeu una branca nova de Git amb Kate</caption>
@@ -1314,6 +1321,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>
+      <caption xml:lang="pt-BR">Criar um novo branch Git com o Kate</caption>
       <caption xml:lang="ru">Создание новой ветви Git с помощью Kate</caption>
       <caption xml:lang="sl">S Kate ustvari novo vejo Git</caption>
       <caption xml:lang="sv">Skapa en ny gren i Git med Kate</caption>

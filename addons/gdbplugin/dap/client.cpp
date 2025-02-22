@@ -450,7 +450,6 @@ void Client::setState(const State &state)
 {
     if (state != m_state) {
         m_state = state;
-        Q_EMIT stateChanged(m_state);
 
         switch (m_state) {
         case State::Initialized:

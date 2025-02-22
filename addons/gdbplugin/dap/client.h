@@ -44,10 +44,6 @@ public:
     }
 
     void start();
-    State state() const
-    {
-        return m_state;
-    }
     settings::ProtocolSettings protocol() const
     {
         return m_protocol;
@@ -101,7 +97,6 @@ public:
 
 Q_SIGNALS:
     void finished();
-    void stateChanged(State state);
     void initialized();
     void launched();
     void configured();

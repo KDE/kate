@@ -30,8 +30,11 @@
         <file>templates/Applications/KDE/KatePlugin/plugin.qrc</file>
         <file>templates/Applications/KDE/KatePlugin/template.json</file>
         <file>templates/Applications/KDE/KatePlugin/ui.rc</file>
-        <file>templates/Files/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.h</file>
         <file>templates/Files/Qt/QObjectClass/template.json</file>
+        <file>templates/Files/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.h</file>
         <file>templates/Files/Qt/QObjectClass/TMPL_Q_OBJECT_CLASS_TMPL.cpp</file>
+        <file>templates/Files/Qt/QAbstractListModel/template.json</file>
+        <file>templates/Files/Qt/QAbstractListModel/TMPL_QAbstractListModel.h</file>
+        <file>templates/Files/Qt/QAbstractListModel/TMPL_QAbstractListModel.cpp</file>
     </qresource>
 </RCC>

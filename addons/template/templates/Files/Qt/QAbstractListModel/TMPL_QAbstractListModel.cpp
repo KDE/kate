@@ -23,10 +23,12 @@ void TMPL_QAbstractListModel::setList(const QList<Data> &list)
         beginInsertRows(QModelIndex(), m_list.size(), list.size() - 1);
         m_list = list;
         endInsertRows();
+        dataChanged(index(0), index(list.size() - 1));
     } else {
         beginRemoveRows(QModelIndex(), list.size(), m_list.size() - 1);
         m_list = list;
         endRemoveRows();
+        dataChanged(index(0), index(m_list.size() - 1));
     }
 }
 

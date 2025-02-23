@@ -19,6 +19,7 @@ public:
 
     explicit TMPL_QAbstractListModel(QObject *parent = nullptr);
 
+    void setList(const QList<Data> &list);
     bool insertAt(int row, const Data &item);
     std::optional<Data> takeAt(int row);
     bool removeAt(int row);

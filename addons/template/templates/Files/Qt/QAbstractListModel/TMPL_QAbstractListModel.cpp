@@ -7,6 +7,29 @@ TMPL_QAbstractListModel::TMPL_QAbstractListModel(QObject *parent)
 {
 }
 
+void TMPL_QAbstractListModel::setList(const QList<Data> &list)
+{
+    if (list.isEmpty()) {
+        beginResetModel();
+        m_list.clear();
+        endResetModel();
+    }
+
+    int rowDiff = list.size() - m_list.size();
+    if (rowDiff == 0) {
+        m_list = list;
+        dataChanged(index(0), index(m_list.size() - 1));
+    } else if (rowDiff > 0) {
+        beginInsertRows(QModelIndex(), m_list.size(), list.size() - 1);
+        m_list = list;
+        endInsertRows();
+    } else {
+        beginRemoveRows(QModelIndex(), list.size(), m_list.size() - 1);
+        m_list = list;
+        endRemoveRows();
+    }
+}
+
 bool TMPL_QAbstractListModel::insertAt(int row, const Data &item)
 {
     if (row < 0 || row > m_list.size()) {

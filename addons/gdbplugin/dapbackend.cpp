@@ -224,6 +224,10 @@ void DapBackend::runDebugger(const DAPTargetConf &conf)
 
 void DapBackend::onTerminated(bool success)
 {
+    if (!isConnectedState()) {
+        return;
+    }
+
     if (success) {
         Q_EMIT outputText(printEvent(i18n("program terminated")));
         if (m_state < Terminated) {

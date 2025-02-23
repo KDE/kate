@@ -312,17 +312,6 @@ void ConfigView::writeConfig(DebugPluginSessionConfig::ConfigData &config)
     config.redirectTerminal = m_redirectTerminal->isChecked();
 }
 
-const GDBTargetConf ConfigView::currentGDBTarget() const
-{
-    GDBTargetConf cfg;
-    cfg.targetName = m_targetCombo->currentText();
-    cfg.executable = m_executable->text();
-    cfg.workDir = m_workingDirectory->text();
-    cfg.arguments = m_arguments->text();
-
-    return cfg;
-}
-
 const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
 {
     DAPTargetConf cfg;
@@ -717,47 +706,37 @@ int ConfigView::loadFromIndex(int index)
     // qDebug().noquote().nospace() << "Load from index" << QJsonDocument(tmp).toJson();
     // The custom init strings are set in slotAdvancedClicked().
 
-    const QString &debuggerKey = tmp[F_DEBUGGER].toString();
-    if (debuggerKey.isNull() || debuggerKey.isEmpty()) {
-        // GDB
-        m_executable->setText(tmp[F_FILE].toString());
-        m_workingDirectory->setText(tmp[F_WORKDIR].toString());
-        m_arguments->setText(tmp[F_ARGS].toString());
+    const QString debuggerKey = tmp[F_DEBUGGER].toString();
+    if (!m_dapAdapterSettings.contains(debuggerKey))
+        return -1;
+    const QString &debuggerProfile = tmp[F_PROFILE].toString();
+    const QHash<QString, DAPAdapterSettings> &debuggerProfiles = m_dapAdapterSettings[debuggerKey];
+    if (debuggerProfiles.size() > 1 && !debuggerProfiles.contains(debuggerProfile))
+        return -1;
 
-        return 0;
-    } else {
-        // DAP
-        if (!m_dapAdapterSettings.contains(debuggerKey))
-            return -1;
-        const QString &debuggerProfile = tmp[F_PROFILE].toString();
-        const auto &debuggerProfiles = m_dapAdapterSettings[debuggerKey];
-        if (debuggerProfiles.size() > 1 && !debuggerProfiles.contains(debuggerProfile))
-            return -1;
+    const bool isFromLaunchJson = tmp.value(F_IS_LAUNCH_JSON).toBool();
 
-        const bool isFromLaunchJson = tmp.value(F_IS_LAUNCH_JSON).toBool();
+    auto map = isFromLaunchJson ? tmp : tmp[QStringLiteral("variables")].toObject();
 
-        auto map = isFromLaunchJson ? tmp : tmp[QStringLiteral("variables")].toObject();
+    m_executable->setText(map[F_FILE].toString());
+    map.remove(F_FILE);
+    m_workingDirectory->setText(map[F_WORKDIR].toString());
+    map.remove(F_WORKDIR);
+    m_arguments->setText(map[F_ARGS].toString());
+    map.remove(F_ARGS);
+    m_processId->setValue(map[F_PID].toInt());
+    map.remove(F_PID);
 
-        m_executable->setText(map[F_FILE].toString());
-        map.remove(F_FILE);
-        m_workingDirectory->setText(map[F_WORKDIR].toString());
-        map.remove(F_WORKDIR);
-        m_arguments->setText(map[F_ARGS].toString());
-        map.remove(F_ARGS);
-        m_processId->setValue(map[F_PID].toInt());
-        map.remove(F_PID);
-
-        for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-            const auto &field = getDapField(it.key());
-            field.input->setText(it.value().toString());
-        }
-
-        if (debuggerProfiles.size() == 1) {
-            return debuggerProfiles.begin()->index;
-        }
-
-        return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;
+    for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
+        const auto &field = getDapField(it.key());
+        field.input->setText(it.value().toString());
     }
+
+    if (debuggerProfiles.size() == 1) {
+        return debuggerProfiles.begin()->index;
+    }
+
+    return m_dapAdapterSettings[debuggerKey][debuggerProfile].index;
 }
 
 void ConfigView::initProjectPlugin()

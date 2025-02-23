@@ -449,7 +449,7 @@ msgstr "符号"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: localsview.cpp:24
 #, kde-format
@@ -474,7 +474,7 @@ msgstr "已命名项目"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "正在加载..."
 
 #: localsview.cpp:167
 #, kde-format

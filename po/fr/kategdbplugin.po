@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-22 00:44+0000\n"
-"PO-Revision-Date: 2025-02-16 18:02+0100\n"
+"PO-Revision-Date: 2025-02-21 11:22+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -462,7 +462,7 @@ msgstr "Symbole"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: localsview.cpp:24
 #, kde-format
@@ -487,7 +487,7 @@ msgstr "éléments nommés"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Chargement en cours..."
 
 #: localsview.cpp:167
 #, kde-format

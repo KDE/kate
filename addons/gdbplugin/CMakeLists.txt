@@ -35,6 +35,7 @@ target_sources(
     ioview.cpp
     localsview.cpp
     debugconfigpage.cpp
+    stackframe_model.cpp
 
     ${DAP_SOURCES}
     ${DEBUG_SOURCES}

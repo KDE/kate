@@ -33,6 +33,7 @@
 class KHistoryComboBox;
 class QTextEdit;
 class QTreeWidget;
+class QTreeView;
 
 typedef QVariantList VariantList;
 
@@ -91,7 +92,7 @@ private Q_SLOTS:
     void enableDebugActions(bool enable);
     void programEnded();
 
-    void insertStackFrame(int level, const QString &info);
+    void insertStackFrame(const QList<dap::StackFrame> &frames);
     void stackFrameChanged(int level);
     void stackFrameSelected();
 
@@ -137,7 +138,7 @@ private:
     QComboBox *m_scopeCombo;
     QComboBox *m_threadCombo;
     int m_activeThread;
-    QTreeWidget *m_stackTree;
+    QTreeView *m_stackTree;
     QString m_lastCommand;
     Backend *m_backend;
     ConfigView *m_configView = nullptr;
@@ -147,7 +148,6 @@ private:
     QAction *m_breakpoint;
     QUrl m_lastExecUrl;
     int m_lastExecLine;
-    int m_lastExecFrame;
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
     KSelectAction *m_targetSelectAction = nullptr;

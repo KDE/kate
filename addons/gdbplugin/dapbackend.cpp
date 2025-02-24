@@ -360,21 +360,7 @@ void DapBackend::onThreads(const QList<dap::Thread> &threads, bool isError)
 
 void DapBackend::informStackFrame()
 {
-    int level = 0;
-
-    for (const auto &frame : m_frames) {
-        // emit stackFrameInfo
-        // name at source:line
-        QString info = frame.name;
-        if (frame.source) {
-            info = QStringLiteral("%1 at %2:%3").arg(info).arg(frame.source->path).arg(frame.line);
-        }
-
-        Q_EMIT stackFrameInfo(level, info);
-
-        ++level;
-    }
-    Q_EMIT stackFrameInfo(-1, QString());
+    Q_EMIT stackFrameInfo(m_frames);
 }
 
 void DapBackend::onStackTrace(const int /* threadId */, const dap::StackTraceInfo &info)

@@ -135,7 +135,7 @@ Q_SIGNALS:
     void breakPointSet(const QUrl &file, int lineNum);
     void breakPointCleared(const QUrl &file, int lineNum);
     void clearBreakpointMarks();
-    void stackFrameInfo(int level, QString const &info);
+    void stackFrameInfo(const QList<dap::StackFrame> &frames);
     void stackFrameChanged(int level);
     void threads(const QList<dap::Thread> &thread);
     void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);

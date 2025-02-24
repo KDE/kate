@@ -8,6 +8,7 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "plugin_kategdb.h"
+#include "stackframe_model.h"
 
 #include <QBoxLayout>
 #include <QFile>
@@ -100,7 +101,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 {
     m_lastExecUrl = QUrl();
     m_lastExecLine = -1;
-    m_lastExecFrame = 0;
     m_kateApplication = KTextEditor::Editor::instance()->application();
     m_focusOnInput = true;
     m_activeThread = -1;
@@ -161,21 +161,22 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     auto *stackContainer = new QWidget();
     auto *stackLayout = new QVBoxLayout(stackContainer);
     m_threadCombo = new QComboBox();
-    m_stackTree = new QTreeWidget();
+    m_stackTree = new QTreeView();
     stackLayout->addWidget(m_threadCombo);
     stackLayout->addWidget(m_stackTree);
     stackLayout->setStretch(0, 10);
     stackLayout->setContentsMargins(0, 0, 0, 0);
     stackLayout->setSpacing(0);
-    QStringList headers;
-    headers << QStringLiteral("  ") << i18nc("Column label (frame number)", "Nr") << i18nc("Column label", "Frame");
-    m_stackTree->setHeaderLabels(headers);
+
+    m_stackTree->setModel(new StackFrameModel(this));
+
     m_stackTree->setRootIsDecorated(false);
     m_stackTree->resizeColumnToContents(0);
     m_stackTree->resizeColumnToContents(1);
     m_stackTree->setAutoScroll(false);
     m_stackTree->setUniformRowHeights(true);
-    connect(m_stackTree, &QTreeWidget::itemActivated, this, &KatePluginGDBView::stackFrameSelected);
+
+    connect(m_stackTree, &QTreeView::activated, this, &KatePluginGDBView::stackFrameSelected);
     m_stackTree->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_stackTree, &QTreeWidget::customContextMenuRequested, this, &KatePluginGDBView::onStackTreeContextMenuRequest);
 
@@ -661,7 +662,8 @@ void KatePluginGDBView::programEnded()
 
     // don't set the execution mark on exit
     m_lastExecLine = -1;
-    m_stackTree->clear();
+    static_cast<StackFrameModel *>(m_stackTree->model())->setFrames({});
+    static_cast<StackFrameModel *>(m_stackTree->model())->setActiveFrame(-1);
     m_scopeCombo->clear();
     m_localsView->clear();
     m_threadCombo->clear();
@@ -708,33 +710,11 @@ void KatePluginGDBView::slotSendCommand()
     sb->setValue(sb->maximum());
 }
 
-void KatePluginGDBView::insertStackFrame(int level, const QString &info)
+void KatePluginGDBView::insertStackFrame(const QList<dap::StackFrame> &frames)
 {
-    if (level < 0) {
-        m_stackTree->resizeColumnToContents(2);
-        return;
-    }
-
-    if (level == 0) {
-        m_stackTree->clear();
-    }
-    QStringList columns;
-    columns << QStringLiteral("  "); // icon place holder
-    columns << QString::number(level);
-    int lastSpace = info.lastIndexOf(QLatin1Char(' '));
-    QString shortInfo = info.mid(lastSpace);
-    columns << shortInfo;
-
-    auto *item = new QTreeWidgetItem(columns);
-    item->setToolTip(2, QStringLiteral("<qt>%1<qt>").arg(info));
-    m_stackTree->insertTopLevelItem(level, item);
-
-    if (m_lastExecFrame >= 0) {
-        QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
-        if (current && current->icon(0).isNull()) {
-            current->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
-        }
-    }
+    auto model = static_cast<StackFrameModel *>(m_stackTree->model());
+    model->setFrames(frames);
+    m_stackTree->resizeColumnToContents(StackFrameModel::Column::Path);
 }
 
 void KatePluginGDBView::stackFrameSelected()
@@ -744,16 +724,8 @@ void KatePluginGDBView::stackFrameSelected()
 
 void KatePluginGDBView::stackFrameChanged(int level)
 {
-    QTreeWidgetItem *current = m_stackTree->topLevelItem(m_lastExecFrame);
-    QTreeWidgetItem *next = m_stackTree->topLevelItem(level);
-
-    if (current) {
-        current->setIcon(0, QIcon());
-    }
-    if (next) {
-        next->setIcon(0, QIcon::fromTheme(QStringLiteral("arrow-right")));
-    }
-    m_lastExecFrame = level;
+    auto model = static_cast<StackFrameModel *>(m_stackTree->model());
+    model->setActiveFrame(level);
 }
 
 void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId)
@@ -1117,33 +1089,31 @@ QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
 void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
 {
     QMenu menu(m_stackTree);
+    auto model = m_stackTree->model();
 
     auto a = menu.addAction(i18n("Copy Stack Trace"));
-    connect(a, &QAction::triggered, m_stackTree, [this] {
-        Q_ASSERT(m_stackTree->columnCount() == 3);
-        auto model = m_stackTree->model();
+    connect(a, &QAction::triggered, m_stackTree, [model] {
         QString text;
         for (int i = 0; i < model->rowCount(); ++i) {
-            QString line = model->index(i, 2).data().toString();
-            text.append(QStringView(line).trimmed()).append(QStringLiteral("\n"));
+            QString no = model->index(i, StackFrameModel::Column::Number).data().toString();
+            QString func = model->index(i, StackFrameModel::Column::Func).data().toString();
+            QString path = model->index(i, StackFrameModel::Column::Path).data().toString();
+            text.append(QStringLiteral("#%1  %2  %3\n").arg(no, func, path));
         }
         qApp->clipboard()->setText(text);
     });
 
-    auto item = m_stackTree->currentItem();
-    if (item) {
-        auto itemText = item->text(2).trimmed();
-        int firstColonPos = itemText.indexOf(QStringLiteral(":"));
-        if (firstColonPos != -1) {
-            QString path = itemText.mid(0, firstColonPos);
-            auto url = QUrl::fromLocalFile(path);
-            bool ok = false;
-            int line = itemText.mid(firstColonPos + 1).toInt(&ok) - 1;
+    auto index = m_stackTree->currentIndex();
+    if (index.isValid()) {
+        auto frame = index.data(StackFrameModel::StackFrameRole).value<dap::StackFrame>();
+        if (frame.source) {
+            auto url = QUrl::fromLocalFile(frame.source->path);
+            int line = frame.line - 1;
             if (url.isValid()) {
                 auto a = menu.addAction(i18n("Open Location"));
-                connect(a, &QAction::triggered, m_stackTree, [this, url, ok, line] {
+                connect(a, &QAction::triggered, m_stackTree, [this, url, line] {
                     auto view = m_mainWin->openUrl(url);
-                    if (ok) {
+                    if (line >= 0) {
                         view->setCursorPosition({line, 0});
                     }
                 });
@@ -1151,8 +1121,9 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
         }
 
         auto a = menu.addAction(i18n("Copy Location"));
-        connect(a, &QAction::triggered, m_stackTree, [itemText] {
-            qApp->clipboard()->setText(itemText);
+        QString location = QStringLiteral("%1:%2").arg(frame.source->path).arg(frame.line);
+        connect(a, &QAction::triggered, m_stackTree, [location] {
+            qApp->clipboard()->setText(location);
         });
     }
 

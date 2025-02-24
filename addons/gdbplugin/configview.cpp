@@ -239,8 +239,13 @@ void ConfigView::readTargetsFromLaunchJson()
     if (!project) {
         return;
     }
-    QString baseDir = project->property("projectBaseDir").toString();
-    const QJsonArray configurations = readLaunchJsonConfigs(baseDir);
+    const auto property = project->property("allProjects");
+    if (!property.isValid()) {
+        return;
+    }
+
+    const QStringList allProjectBaseDirs = property.value<QMap<QString, QString>>().keys();
+    const QList<QJsonValue> configurations = readLaunchJsonConfigs(allProjectBaseDirs);
     for (const auto &configValue : configurations) {
         QJsonObject configObject = configValue.toObject();
         const QString name = configObject.value(QLatin1String("name")).toString();

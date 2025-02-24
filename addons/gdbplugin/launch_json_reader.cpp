@@ -136,18 +136,24 @@ static void postProcessTargets(QJsonArray &configs, const QDir &projectBaseDir)
     }
 }
 
-QJsonArray readLaunchJsonConfigs(const QString &baseDir)
+QList<QJsonValue> readLaunchJsonConfigs(const QStringList &baseDirs)
 {
-    if (baseDir.isEmpty()) {
+    if (baseDirs.isEmpty()) {
         return {};
     }
 
-    QDir projectBaseDir(baseDir);
-    const QString vscodeLaunchJson = QStringLiteral(".vscode/launch.json");
-    if (!baseDir.isEmpty() && projectBaseDir.exists(vscodeLaunchJson)) {
-        QJsonArray configs = readVsCodeLaunchJson(projectBaseDir.absoluteFilePath(vscodeLaunchJson));
-        postProcessTargets(configs, projectBaseDir);
-        return configs;
+    QList<QJsonValue> configs;
+    for (const QString &baseDir : baseDirs) {
+        QDir projectBaseDir(baseDir);
+        const QString vscodeLaunchJson = QStringLiteral(".vscode/launch.json");
+        if (!baseDir.isEmpty() && projectBaseDir.exists(vscodeLaunchJson)) {
+            auto projectConfig = readVsCodeLaunchJson(projectBaseDir.absoluteFilePath(vscodeLaunchJson));
+            postProcessTargets(projectConfig, projectBaseDir);
+            configs.reserve(configs.size() + projectConfig.size());
+            for (const auto &value : projectConfig) {
+                configs.insert(configs.end(), value);
+            }
+        }
     }
-    return {};
+    return configs;
 }

@@ -13,6 +13,7 @@ void TMPL_QAbstractListModel::setList(const QList<Data> &list)
         beginResetModel();
         m_list.clear();
         endResetModel();
+        return;
     }
 
     int rowDiff = list.size() - m_list.size();
@@ -30,6 +31,18 @@ void TMPL_QAbstractListModel::setList(const QList<Data> &list)
         endRemoveRows();
         dataChanged(index(0), index(m_list.size() - 1));
     }
+}
+
+bool TMPL_QAbstractListModel::setAt(int row, const Data &item)
+{
+    if (row < 0 || row >= m_list.size()) {
+        qWarning() << "Cant set data at invalid row:" << row << m_list.size();
+        return false;
+    }
+
+    m_list[row] = item;
+    dataChanged(index(row), index(row));
+    return true;
 }
 
 bool TMPL_QAbstractListModel::insertAt(int row, const Data &item)

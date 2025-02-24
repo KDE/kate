@@ -97,6 +97,10 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     m_deleteTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     m_deleteTarget->setToolTip(i18n("Delete target"));
 
+    m_reloadLaunchJsonTargets = new QToolButton(this);
+    m_reloadLaunchJsonTargets->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    m_reloadLaunchJsonTargets->setToolTip(i18n("Reload launch.json targets"));
+
     m_line = new QFrame(this);
     m_line->setFrameShadow(QFrame::Sunken);
 
@@ -152,6 +156,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_addTarget, &QToolButton::clicked, this, &ConfigView::slotAddTarget);
     connect(m_copyTarget, &QToolButton::clicked, this, &ConfigView::slotCopyTarget);
     connect(m_deleteTarget, &QToolButton::clicked, this, &ConfigView::slotDeleteTarget);
+    connect(m_reloadLaunchJsonTargets, &QCheckBox::clicked, this, &ConfigView::readTargetsFromLaunchJson);
     connect(m_browseExe, &QToolButton::clicked, this, &ConfigView::slotBrowseExec);
     connect(m_browseDir, &QToolButton::clicked, this, &ConfigView::slotBrowseDir);
     connect(m_redirectTerminal, &QCheckBox::toggled, this, &ConfigView::showIO);
@@ -235,7 +240,7 @@ void ConfigView::readTargetsFromLaunchJson()
         return;
     }
     QString baseDir = project->property("projectBaseDir").toString();
-    QJsonArray configurations = readLaunchJsonConfigs(baseDir);
+    const QJsonArray configurations = readLaunchJsonConfigs(baseDir);
     for (const auto &configValue : configurations) {
         QJsonObject configObject = configValue.toObject();
         const QString name = configObject.value(QLatin1String("name")).toString();
@@ -243,7 +248,12 @@ void ConfigView::readTargetsFromLaunchJson()
         if (name.isEmpty() || request != QLatin1String("launch")) {
             continue;
         }
-        m_targetCombo->addItem(name, configObject);
+
+        // Add item only if such an item doesn't exist
+        int existingItemIndex = m_targetCombo->findData(configObject);
+        if (existingItemIndex == -1) {
+            m_targetCombo->addItem(name, configObject);
+        }
     }
 
     if (m_targetCombo->count() == 0) {
@@ -491,6 +501,8 @@ void ConfigView::resizeEvent(QResizeEvent *)
         layout->addWidget(m_addTarget, 1, 1);
         layout->addWidget(m_copyTarget, 1, 2);
         layout->addWidget(m_deleteTarget, 1, 3);
+        layout->addWidget(m_reloadLaunchJsonTargets, 1, 4);
+
         m_line->setFrameShape(QFrame::HLine);
         layout->addWidget(m_line, 2, 0, 1, 4);
 
@@ -552,11 +564,12 @@ void ConfigView::resizeEvent(QResizeEvent *)
 
         auto *layout = new QGridLayout(this);
         layout->addWidget(m_clientCombo, 0, 0, 1, 6);
-        layout->addWidget(m_targetCombo, 1, 0, 1, 3);
+        layout->addWidget(m_targetCombo, 1, 0, 1, 4);
 
         layout->addWidget(m_addTarget, 2, 0);
         layout->addWidget(m_copyTarget, 2, 1);
         layout->addWidget(m_deleteTarget, 2, 2);
+        layout->addWidget(m_reloadLaunchJsonTargets, 2, 3);
 
         int row = 0;
 
@@ -605,7 +618,7 @@ void ConfigView::resizeEvent(QResizeEvent *)
         layout->setRowStretch(row, 100);
 
         m_line->setFrameShape(QFrame::VLine);
-        layout->addWidget(m_line, 1, 3, row - 1, 1);
+        layout->addWidget(m_line, 1, 4, row - 1, 1);
 
         m_useBottomLayout = true;
     }

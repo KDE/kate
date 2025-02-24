@@ -125,6 +125,7 @@ private:
     QToolButton *m_addTarget;
     QToolButton *m_copyTarget;
     QToolButton *m_deleteTarget;
+    QToolButton *m_reloadLaunchJsonTargets;
     QFrame *m_line;
 
     QLineEdit *m_executable;

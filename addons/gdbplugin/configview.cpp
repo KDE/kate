@@ -266,6 +266,23 @@ void ConfigView::readTargetsFromLaunchJson()
     }
 }
 
+void ConfigView::clearClosedProjectLaunchJsonTargets(const QString &baseDir, const QString &name)
+{
+    Q_UNUSED(name)
+    // Remove all targets whose project is closed
+    for (int i = 0; i < m_targetCombo->count(); ++i) {
+        const auto targetConf = m_targetCombo->itemData(i).toJsonObject();
+        if (!targetConf.value(F_IS_LAUNCH_JSON).toBool()) {
+            continue;
+        }
+        QString projectBaseDir = targetConf[F_LAUNCH_JSON_PROJECT].toString();
+        if (projectBaseDir == baseDir) {
+            m_targetCombo->removeItem(i);
+            i--;
+        }
+    }
+}
+
 void ConfigView::setTargetsAction(KSelectAction *action)
 {
     m_targetSelectAction = action;
@@ -761,7 +778,12 @@ void ConfigView::initProjectPlugin()
 {
     auto slot = [this](const QString &pluginName, QObject *pluginView) {
         if (pluginView && pluginName == QLatin1String("kateprojectplugin")) {
-            connect(pluginView, SIGNAL(projectMapChanged()), this, SLOT(readTargetsFromLaunchJson()), Qt::UniqueConnection);
+            connect(pluginView, SIGNAL(pluginProjectAdded(QString, QString)), this, SLOT(readTargetsFromLaunchJson()), Qt::UniqueConnection);
+            connect(pluginView,
+                    SIGNAL(pluginProjectRemoved(QString, QString)),
+                    this,
+                    SLOT(clearClosedProjectLaunchJsonTargets(QString, QString)),
+                    Qt::UniqueConnection);
             readTargetsFromLaunchJson();
         }
     };

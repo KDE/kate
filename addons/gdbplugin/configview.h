@@ -98,6 +98,7 @@ private Q_SLOTS:
     void slotBrowseExec();
     void slotBrowseDir();
     void readTargetsFromLaunchJson();
+    void clearClosedProjectLaunchJsonTargets(const QString &baseDir, const QString &name);
 
 protected:
     void resizeEvent(QResizeEvent *event) override;

@@ -95,6 +95,7 @@ static QJsonObject toKateTarget(const QJsonObject &in, const QDir &baseDir)
         ret[F_FILE] = program;
     }
     ret[F_IS_LAUNCH_JSON] = true;
+    ret[F_LAUNCH_JSON_PROJECT] = baseDir.absolutePath();
     return ret;
 }
 

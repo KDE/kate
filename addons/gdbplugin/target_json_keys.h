@@ -10,4 +10,5 @@ constexpr static QLatin1String F_WORKDIR("workdir");
 constexpr static QLatin1String F_ARGS("args");
 constexpr static QLatin1String F_PID("pid");
 constexpr static QLatin1String F_IS_LAUNCH_JSON("loadedFromLaunchJson");
+constexpr static QLatin1String F_LAUNCH_JSON_PROJECT("launchJsonProject");
 }

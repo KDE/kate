@@ -193,10 +193,18 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     variableLayout->setContentsMargins(0, 0, 0, 0);
     variableLayout->setSpacing(0);
 
-    auto *locStackSplitter = new QSplitter(m_localsStackToolView.get());
+    auto *locStackSplitter = m_localsStackSplitter = new QSplitter(m_localsStackToolView.get());
     locStackSplitter->addWidget(variableContainer);
     locStackSplitter->addWidget(stackContainer);
-    locStackSplitter->setOrientation(Qt::Vertical);
+
+    const auto pos = toolviewPosition(m_localsStackToolView.get());
+    const Qt::Orientation orientation = (pos == KTextEditor::MainWindow::Bottom || pos == KTextEditor::MainWindow::Top) ? Qt::Horizontal : Qt::Vertical;
+    locStackSplitter->setOrientation(orientation);
+
+    connect(m_mainWin->window(),
+            SIGNAL(toolViewMoved(QWidget *, KTextEditor::MainWindow::ToolViewPosition)),
+            this,
+            SLOT(onToolViewMoved(QWidget *, KTextEditor::MainWindow::ToolViewPosition)));
 
     m_ioView = std::make_unique<IOView>();
 
@@ -999,14 +1007,16 @@ bool KatePluginGDBView::eventFilter(QObject *obj, QEvent *event)
 
 void KatePluginGDBView::handleEsc(QEvent *e)
 {
-    if (!m_mainWin || !m_toolView) {
+    if (!m_mainWin) {
         return;
     }
 
     auto *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
-        if (m_toolView->isVisible()) {
+        if (m_toolView && m_toolView->isVisible()) {
             m_mainWin->hideToolView(m_toolView.get());
+        } else if (m_localsStackToolView && toolviewPosition(m_localsStackToolView.get()) == KTextEditor::MainWindow::Bottom) {
+            m_mainWin->hideToolView(m_localsStackToolView.get());
         }
     }
 }
@@ -1161,6 +1171,26 @@ void KatePluginGDBView::requestRunInTerminal(const dap::RunInTerminalRequestArgu
         // notify error
         notifyCreation(false, std::nullopt, std::nullopt);
     }
+}
+
+void KatePluginGDBView::onToolViewMoved(QWidget *toolview, KTextEditor::MainWindow::ToolViewPosition newPos)
+{
+    if (toolview != m_localsStackToolView.get()) {
+        return;
+    }
+    auto orientation = m_localsStackSplitter->orientation();
+    const Qt::Orientation newOrientation =
+        (newPos == KTextEditor::MainWindow::Bottom || newPos == KTextEditor::MainWindow::Top) ? Qt::Horizontal : Qt::Vertical;
+    if (orientation != newOrientation) {
+        m_localsStackSplitter->setOrientation(newOrientation);
+    }
+}
+
+KTextEditor::MainWindow::ToolViewPosition KatePluginGDBView::toolviewPosition(QWidget *toolview) const
+{
+    KTextEditor::MainWindow::ToolViewPosition pos;
+    QMetaObject::invokeMethod(m_mainWin->window(), "toolViewPosition", qReturnArg(pos), toolview);
+    return pos;
 }
 
 #include "moc_plugin_kategdb.cpp"

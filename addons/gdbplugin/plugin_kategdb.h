@@ -34,6 +34,7 @@ class KHistoryComboBox;
 class QTextEdit;
 class QTreeWidget;
 class QTreeView;
+class QSplitter;
 
 typedef QVariantList VariantList;
 
@@ -114,6 +115,8 @@ private Q_SLOTS:
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
     void requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation);
 
+    void onToolViewMoved(QWidget *toolview, KTextEditor::MainWindow::ToolViewPosition);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
 
@@ -125,6 +128,7 @@ private:
     void enableHotReloadOnSave(KTextEditor::View *view);
     QToolButton *createDebugButton(QAction *action);
     void onStackTreeContextMenuRequest(QPoint pos);
+    KTextEditor::MainWindow::ToolViewPosition toolviewPosition(QWidget *toolview) const;
 
     KatePluginGDB *const m_plugin;
     KTextEditor::Application *m_kateApplication;
@@ -151,6 +155,7 @@ private:
     bool m_focusOnInput;
     QPointer<KTextEditor::Message> m_infoMessage;
     KSelectAction *m_targetSelectAction = nullptr;
+    QSplitter *m_localsStackSplitter;
 
     QAction *m_hotReloadOnSaveAction;
     QTimer m_hotReloadTimer;

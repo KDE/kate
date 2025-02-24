@@ -9,6 +9,7 @@
 
 #include "katemdi.h"
 #include "kateapp.h"
+#include "katedebug.h"
 
 #include <KAcceleratorManager>
 #include <KActionCollection>
@@ -1840,6 +1841,8 @@ bool MainWindow::moveToolView(ToolView *widget, KMultiTabBar::KMultiTabBarPositi
         m_sidebars[pos]->setMinimumSize({0, 0});
     }
 
+    Q_EMIT toolViewMoved(widget, static_cast<KTextEditor::MainWindow::ToolViewPosition>(pos));
+
     return true;
 }
 
@@ -1879,6 +1882,15 @@ void MainWindow::hideToolViews()
         tv.second->sidebar()->hideToolView(tv.second);
     }
     triggerFocusForCentralWidget();
+}
+
+KTextEditor::MainWindow::ToolViewPosition MainWindow::toolViewPosition(QWidget *toolview)
+{
+    if (auto tv = qobject_cast<ToolView *>(toolview)) {
+        return static_cast<KTextEditor::MainWindow::ToolViewPosition>(tv->sidebar()->position());
+    }
+    qCWarning(LOG_KATE) << "Invalid, not a toolview" << toolview;
+    return KTextEditor::MainWindow::ToolViewPosition::Bottom;
 }
 
 void MainWindow::startRestore(KConfigBase *config, const QString &group)

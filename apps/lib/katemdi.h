@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <KTextEditor/MainWindow>
 #include <KTextEditor/Plugin>
 
 #include <KParts/MainWindow>
@@ -513,6 +514,8 @@ public Q_SLOTS:
      */
     void hideToolViews();
 
+    KTextEditor::MainWindow::ToolViewPosition toolViewPosition(QWidget *toolview);
+
 protected:
     /**
      * called by toolview destructor
@@ -693,6 +696,7 @@ private:
 Q_SIGNALS:
     void sigShowPluginConfigPage(KTextEditor::Plugin *configpageinterface, int id);
     void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
+    void toolViewMoved(QWidget *toolView, KTextEditor::MainWindow::ToolViewPosition newPos);
 };
 
 }

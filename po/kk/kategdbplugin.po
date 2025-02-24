@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
 "PO-Revision-Date: 2013-06-03 02:59+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -81,7 +81,7 @@ msgstr "ЕШ-ды басқаға бағыттау"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Жөндеудегі бағдарламаның ЕШ-ын бөлек қойындыға бағыттау"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "Мақсат %1"

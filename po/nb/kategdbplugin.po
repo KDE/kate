@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
 "PO-Revision-Date: 2015-05-18 09:33+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -84,7 +84,7 @@ msgstr "Omdiriger inn/utdata"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Omdiriger det feilsøkte programmets inn/ut-data til en egen fane"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "Mål %1"
@@ -686,48 +686,3 @@ msgstr "&Feilsøk"
 #, kde-format
 msgid "Debug Plugin"
 msgstr ""
-
-#~ msgid "GDB command"
-#~ msgstr "GDB-kommando"
-
-#~ msgid "..."
-#~ msgstr "…"
-
-#~ msgid "Source file search paths"
-#~ msgstr "Søkestier til kildefil"
-
-#~ msgid "Local application"
-#~ msgstr "Lokalt program"
-
-#~ msgid "Remote TCP"
-#~ msgstr "TCP til tjener"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Serieport på tjener"
-
-#~ msgid "Host"
-#~ msgstr "Vert"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Baud"
-#~ msgstr "Baud"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Egendefinerte Init-kommandoer"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Avanserte innstillinger"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "Klarte ikke starte feilsøkerprosessen"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb avsluttet normalt ***"

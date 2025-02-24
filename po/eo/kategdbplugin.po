@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
 "PO-Revision-Date: 2025-02-16 17:10+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Alidirekti IO"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Redirektas la sencimigitajn programojn IO al aparta langeto"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "Celo %1"

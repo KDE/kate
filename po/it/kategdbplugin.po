@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
 "PO-Revision-Date: 2024-11-12 15:34+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Ridireziona I/O"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Ridireziona l'I/O dei programmi sotto debug in una scheda a parte"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "Obiettivo %1"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
 "PO-Revision-Date: 2025-02-21 13:52+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -83,7 +83,7 @@ msgstr "أعد توجيه الدّخل/الخرج"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "أعد توجيه دخل/خرج البرامج المنقّحة إلى لسان منفصل"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "الهدف %1"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-19 00:44+0000\n"
-"PO-Revision-Date: 2025-01-04 07:56+0100\n"
+"PO-Revision-Date: 2025-02-23 11:36+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1009,10 +1009,9 @@ msgid "New Folder"
 msgstr "Nowy katalog"
 
 #: kateprojectviewtree.cpp:210
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "Taka nazwa pliku już istnieje"
+msgstr "Plik już istnieje"
 
 #: kateprojectviewtree.cpp:221
 #, kde-format
@@ -1020,10 +1019,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "Nie udało się utworzyć pliku: %1, Błąd: %2"
 
 #: kateprojectviewtree.cpp:248
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "Taka nazwa pliku już istnieje"
+msgstr "Katalog już istnieje"
 
 #: kateprojectviewtree.cpp:255
 #, kde-format

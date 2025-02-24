@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2020, 2021, 2022, 2023, 2024 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-22 00:44+0000\n"
-"PO-Revision-Date: 2024-10-26 12:35+0200\n"
+"POT-Creation-Date: 2025-02-24 00:43+0000\n"
+"PO-Revision-Date: 2025-02-23 11:36+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -84,7 +84,7 @@ msgstr "Przekieruj WE/WY"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Przekieruj WE/WY diagnozowanych programów do osobnej karty"
 
-#: configview.cpp:441 configview.cpp:454
+#: configview.cpp:430 configview.cpp:443
 #, kde-format
 msgid "Target %1"
 msgstr "Cel %1"
@@ -453,7 +453,7 @@ msgstr "Symbol"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Rodzaj"
 
 #: localsview.cpp:24
 #, kde-format
@@ -478,19 +478,17 @@ msgstr "nazwane rzeczy"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Wczytywanie…"
 
 #: localsview.cpp:167
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symbol"
+msgstr "Skopiuj symbol"
 
 #: localsview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Skopiuj cel"
+msgstr "Skopiuj wartość"
 
 #: plugin_kategdb.cpp:108
 #, kde-format
@@ -591,11 +589,9 @@ msgid "Restart Debugging"
 msgstr "Zdiagnozuj ponownie"
 
 #: plugin_kategdb.cpp:333
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Wyjście diagnostyczne"
+msgstr "Wyczyść wynik"
 
 #: plugin_kategdb.cpp:341
 #, kde-format
@@ -666,20 +662,19 @@ msgid "Breakpoint"
 msgstr "Pułapka"
 
 #: plugin_kategdb.cpp:1119
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Skopiuj cel"
+msgstr "Skopiuj ślad wykonywania"
 
 #: plugin_kategdb.cpp:1141
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Otwórz miejsce"
 
 #: plugin_kategdb.cpp:1151
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Skopiuj położenie"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

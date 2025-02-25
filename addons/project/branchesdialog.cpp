@@ -16,6 +16,7 @@
 #include <KLocalizedString>
 #include <KTextEditor/Message>
 #include <KTextEditor/View>
+#include <utility>
 
 #include <drawing_utils.h>
 
@@ -89,7 +90,7 @@ public:
 BranchesDialog::BranchesDialog(QWidget *window, QString projectPath)
     : HUDDialog(window)
     , m_model(new BranchesDialogModel(this))
-    , m_projectPath(projectPath)
+    , m_projectPath(std::move(projectPath))
 {
     setModel(m_model, FilterType::ScoredFuzzy, 0, Qt::DisplayRole, BranchesDialogModel::FuzzyScore);
     setDelegate(new StyleDelegate(this));

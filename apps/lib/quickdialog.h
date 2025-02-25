@@ -5,6 +5,7 @@
 */
 #pragma once
 
+#include <QFrame>
 #include <QLineEdit>
 #include <QMenu>
 #include <QPointer>
@@ -66,6 +67,7 @@ public:
     void setFilteringEnabled(bool enabled);
 
     static QRect getQuickOpenBoundingRect(QMainWindow *mainWindow);
+    static void initHudDialog(QFrame *dialog, QWidget *mainWindow, QLineEdit *lineEdit, QTreeView *listView);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

@@ -209,8 +209,8 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotGotoSymbol);
 
     auto chckbrAct = actionCollection()->addAction(QStringLiteral("checkout_branch"), this, [this] {
-        BranchCheckoutDialog bd(mainWindow()->window(), projectBaseDir());
-        bd.openDialog();
+        auto *bd = new BranchCheckoutDialog(mainWindow()->window(), projectBaseDir());
+        bd->openDialog();
     });
     chckbrAct->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
     chckbrAct->setText(i18n("Checkout Git Branch"));

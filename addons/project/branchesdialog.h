@@ -29,13 +29,6 @@ public:
     BranchesDialog(QWidget *window, QString projectPath);
     void openDialog(GitUtils::RefType r);
     void sendMessage(const QString &message, bool warn);
-    QString branch() const
-    {
-        return m_branch;
-    }
-
-private:
-    void slotReturnPressed(const QModelIndex &index) override;
 
 protected:
     BranchesDialogModel *const m_model;

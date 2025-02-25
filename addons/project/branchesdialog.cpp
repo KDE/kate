@@ -87,7 +87,7 @@ public:
 };
 
 BranchesDialog::BranchesDialog(QWidget *window, QString projectPath)
-    : HUDDialog(nullptr, window)
+    : HUDDialog(window)
     , m_model(new BranchesDialogModel(this))
     , m_projectPath(projectPath)
 {
@@ -103,21 +103,8 @@ void BranchesDialog::openDialog(GitUtils::RefType r)
     m_model->refresh(branches);
 
     reselectFirst();
-    exec();
-}
-
-void BranchesDialog::slotReturnPressed(const QModelIndex &index)
-{
-    if (index.isValid()) {
-        const auto branch = index.data().toString();
-        const auto itemType = (BranchesDialogModel::ItemType)index.data(BranchesDialogModel::ItemTypeRole).toInt();
-        Q_ASSERT(itemType == BranchesDialogModel::BranchItem);
-
-        m_branch = branch;
-    }
-
-    clearLineEdit();
-    hide();
+    raise();
+    show();
 }
 
 void BranchesDialog::sendMessage(const QString &plainText, bool warn)

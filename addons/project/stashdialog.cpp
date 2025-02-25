@@ -19,8 +19,8 @@
 
 #include <gitprocess.h>
 
-StashDialog::StashDialog(QWidget *parent, QWidget *window, const QString &gitPath)
-    : HUDDialog(parent, window)
+StashDialog::StashDialog(QWidget *window, const QString &gitPath)
+    : HUDDialog(window)
     , m_gitPath(gitPath)
 {
 }
@@ -56,7 +56,8 @@ void StashDialog::openDialog(StashMode m)
 
     // trigger reselect first
     m_lineEdit.textChanged(QString());
-    exec();
+    raise();
+    show();
 }
 
 static QString getStashIndex(const QModelIndex &index)
@@ -109,6 +110,7 @@ void StashDialog::slotReturnPressed(const QModelIndex &index)
         break;
     }
 
+    deleteLater();
     hide();
 }
 

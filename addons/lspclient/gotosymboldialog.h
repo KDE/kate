@@ -22,8 +22,6 @@ class GotoSymbolHUDDialog : public HUDDialog
 public:
     GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, std::shared_ptr<LSPClientServer> server);
 
-    void openDialog();
-
 protected Q_SLOTS:
     void slotReturnPressed(const QModelIndex &index) override final;
 

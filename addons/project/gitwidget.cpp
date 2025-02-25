@@ -289,9 +289,9 @@ void GitWidget::init()
     const QString &pushText = i18n("Git Push");
     m_pushBtn = toolButton();
     auto a = ac->addAction(QStringLiteral("vcs_push"), this, [this]() {
-        PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
-        connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
-        ppd.openDialog(PushPullDialog::Push);
+        auto *ppd = new PushPullDialog(m_mainWin, m_activeGitDirPath);
+        connect(ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
+        ppd->openDialog(PushPullDialog::Push);
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-push")));
     a->setText(pushText);
@@ -302,9 +302,9 @@ void GitWidget::init()
     const QString &pullText = i18n("Git Pull");
     m_pullBtn = toolButton(QStringLiteral("vcs-pull"), pullText);
     a = ac->addAction(QStringLiteral("vcs_pull"), this, [this]() {
-        PushPullDialog ppd(m_mainWin, m_activeGitDirPath);
-        connect(&ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
-        ppd.openDialog(PushPullDialog::Pull);
+        auto *ppd = new PushPullDialog(m_mainWin, m_activeGitDirPath);
+        connect(ppd, &PushPullDialog::runGitCommand, this, &GitWidget::runPushPullCmd);
+        ppd->openDialog(PushPullDialog::Pull);
     });
     ac->setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, U"), QKeySequence::PortableText));
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-pull")));
@@ -1050,8 +1050,8 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_checkout"), this, [this] {
-        BranchCheckoutDialog bd(m_mainWin->window(), m_activeGitDirPath);
-        bd.openDialog();
+        auto *bd = new BranchCheckoutDialog(m_mainWin->window(), m_activeGitDirPath);
+        bd->openDialog();
     });
     a->setText(i18n("Checkout Branch"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-branch")));
@@ -1070,11 +1070,13 @@ void GitWidget::buildMenu(KActionCollection *ac)
     m_gitMenu->addAction(a);
 
     a = ac->addAction(QStringLiteral("vcs_branch_diff"), this, [this] {
-        BranchesDialog bd(m_mainWin->window(), m_activeGitDirPath);
+        auto *bd = new BranchesDialog(m_mainWin->window(), m_activeGitDirPath);
         using GitUtils::RefType;
-        bd.openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
-        QString branch = bd.branch();
-        branchCompareFiles(branch, QString());
+        bd->openDialog(static_cast<GitUtils::RefType>(RefType::Head | RefType::Remote));
+        connect(bd, &BranchesDialog::itemExecuted, this, [this](const QModelIndex &index) {
+            QString branch = index.data().toString();
+            branchCompareFiles(branch, QString());
+        });
     });
     a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     a->setText(i18n("Compare Branch with..."));
@@ -1127,7 +1129,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
 {
-    auto stashDialog = new StashDialog(this, mainWindow()->window(), gitPath);
+    auto stashDialog = new StashDialog(mainWindow()->window(), gitPath);
     connect(stashDialog, &StashDialog::message, this, &GitWidget::sendMessage);
     connect(stashDialog, &StashDialog::showStashDiff, this, [this](const QByteArray &r) {
         DiffParams d;

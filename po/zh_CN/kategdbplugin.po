@@ -687,6 +687,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "killing backend"
-#~ msgstr "杀死后端"

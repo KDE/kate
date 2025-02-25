@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-24 09:39+0000\n"
-"PO-Revision-Date: 2025-02-21 00:03+0100\n"
+"PO-Revision-Date: 2025-02-24 18:07+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -47,7 +47,7 @@ msgstr "Borrar objetivo"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Volver a cargar los objetivos launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -110,7 +110,7 @@ msgstr "programa terminado"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "No se ha podido terminar. Se fuerza el cierre…"
 
 #: dapbackend.cpp:248
 #, kde-format

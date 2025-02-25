@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-24 09:39+0000\n"
-"PO-Revision-Date: 2025-02-20 09:55+0100\n"
+"PO-Revision-Date: 2025-02-24 12:42+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -49,7 +49,7 @@ msgstr "Suprimeix un objectiu"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Torna a carregar els objectius de «launch.json»"
 
 #: configview.cpp:107
 #, kde-format
@@ -111,7 +111,7 @@ msgstr "programa terminat"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Ha fallat en terminar. Es força l'aturada..."
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -699,98 +699,3 @@ msgstr "&Depura"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
-
-#~ msgid "killing backend"
-#~ msgstr "s'està matant el dorsal"
-
-#~ msgid "GDB command"
-#~ msgstr "Ordre del GDB"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Source file search paths"
-#~ msgstr "Camins de cerca de fitxers de codi font"
-
-#~ msgid "Local application"
-#~ msgstr "Aplicació local"
-
-#~ msgid "Remote TCP"
-#~ msgstr "TCP remot"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Port en sèrie remot"
-
-#~ msgid "Host"
-#~ msgstr "Màquina"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Baud"
-#~ msgstr "Baud"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Ordres d'inici personalitzades"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Configuració avançada"
-
-#~ msgid "Locals"
-#~ msgstr "Locals"
-
-#~ msgid "CPU registers"
-#~ msgstr "Registres de la CPU"
-
-#~ msgid ""
-#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-#~ msgstr ""
-#~ "Establiu l'executable a la pestanya «Configuració» del plafó «Depuració»."
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr ""
-#~ "No hi ha cap depurador seleccionat. Establiu l'executable a la pestanya "
-#~ "«Configuració» del plafó «Depuració»."
-
-#~ msgid ""
-#~ "Debugger not found. Please make sure you have it installed in your "
-#~ "system. The selected debugger is '%1'"
-#~ msgstr ""
-#~ "No s'ha trobat cap depurador. Assegureu-vos que està instal·lat en el "
-#~ "sistema. El depurador seleccionat és «%1»"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "No s'ha pogut iniciar el procés de depuració"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** El «gdb» ha finalitzat amb normalitat ***"
-
-#~ msgid "all threads running"
-#~ msgstr "tots els fils en execució"
-
-#~ msgid "thread(s) running: %1"
-#~ msgstr "fil/s en execució: %1"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "Marc actual: %1:%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Màquina: %1. Objectiu: %1"
-
-#~ msgid ""
-#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-#~ "Shutting down."
-#~ msgstr ""
-#~ "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1. Massa errors "
-#~ "consecutius. S'aturarà."
-
-#~ msgid "gdb-mi: Could not parse last response: %1"
-#~ msgstr "gdb-mi: no s'ha pogut analitzar la darrera resposta: %1"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-24 09:39+0000\n"
-"PO-Revision-Date: 2025-02-20 07:37+0100\n"
+"PO-Revision-Date: 2025-02-24 22:24+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -47,7 +47,7 @@ msgstr "Izbriši cilj"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Ponovno naloži cilje launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -109,7 +109,7 @@ msgstr "program se je končal"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Prekinitev ni uspela. Prisilna zaustavitev..."
 
 #: dapbackend.cpp:248
 #, kde-format

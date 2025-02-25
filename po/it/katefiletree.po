@@ -1,5 +1,5 @@
 # translation of kate.po to Italian
-# SPDX-FileCopyrightText: 2016, 2018, 2019, 2021, 2022, 2024 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2018, 2019, 2021, 2022, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
 # Andrea Rizzi <rizzi@kde.org>, 2003, 2004, 2005.
 # Andrea RIZZI <arizzi@pi.infn.it>, 2004.
 # Andrea RIZZI <rizzi@kde.org>, 2004, 2005.
@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-08 16:49+0100\n"
+"PO-Revision-Date: 2025-02-11 15:27+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -207,14 +207,12 @@ msgstr "Ordinamento personalizzato"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Apri..."
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Apri con"
+msgstr "Apri file"
 
 #: katefiletree.cpp:416
 #, kde-format

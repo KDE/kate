@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-24 09:39+0000\n"
-"PO-Revision-Date: 2025-02-20 20:26+0100\n"
+"PO-Revision-Date: 2025-02-24 17:01+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -44,7 +44,7 @@ msgstr "Ta bort mål"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Läs in målen i launch.json igen"
 
 #: configview.cpp:107
 #, kde-format
@@ -107,7 +107,7 @@ msgstr "program avslutat"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Misslyckades avsluta. Tvingar avstängning..."
 
 #: dapbackend.cpp:248
 #, kde-format

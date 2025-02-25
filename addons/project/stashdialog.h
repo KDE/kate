@@ -44,7 +44,7 @@ class StashDialog : public HUDDialog
 {
     Q_OBJECT
 public:
-    StashDialog(QWidget *parent, QWidget *window, const QString &gitPath);
+    StashDialog(QWidget *window, const QString &gitPath);
 
     void openDialog(StashMode mode);
 

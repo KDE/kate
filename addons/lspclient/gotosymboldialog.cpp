@@ -149,7 +149,7 @@ private:
 };
 
 GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, std::shared_ptr<LSPClientServer> server)
-    : HUDDialog(nullptr, mainWindow->window())
+    : HUDDialog(mainWindow->window())
     , model(new QStandardItemModel(this))
     , mainWindow(mainWindow)
     , server(std::move(server))
@@ -193,12 +193,8 @@ void GotoSymbolHUDDialog::slotReturnPressed(const QModelIndex &index)
     if (v) {
         v->setCursorPosition(symbol.pos);
     }
-    close();
-}
-
-void GotoSymbolHUDDialog::openDialog()
-{
-    exec();
+    deleteLater();
+    hide();
 }
 
 QIcon GotoSymbolHUDDialog::iconForSymbolKind(LSPSymbolKind kind) const

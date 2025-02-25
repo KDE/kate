@@ -7,6 +7,7 @@
 
 #include "katequickopen.h"
 #include "katequickopenmodel.h"
+#include "quickdialog.h"
 
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
@@ -509,35 +510,9 @@ void KateQuickOpen::setFilterMode()
     m_listView->viewport()->update();
 }
 
-static QRect getQuickOpenBoundingRect(QMainWindow *mainWindow)
-{
-    QRect boundingRect = mainWindow->contentsRect();
-
-    // exclude the menu bar from the bounding rect
-    if (const QWidget *menuWidget = mainWindow->menuWidget()) {
-        if (!menuWidget->isHidden()) {
-            boundingRect.setTop(boundingRect.top() + menuWidget->height());
-        }
-    }
-
-    // exclude any undocked toolbar from the bounding rect
-    const QList<QToolBar *> toolBars = mainWindow->findChildren<QToolBar *>();
-    for (QToolBar *toolBar : toolBars) {
-        if (toolBar->isHidden() || toolBar->isFloating()) {
-            continue;
-        }
-
-        if (mainWindow->toolBarArea(toolBar) == Qt::TopToolBarArea) {
-            boundingRect.setTop(std::max(boundingRect.top(), toolBar->geometry().bottom()));
-        }
-    }
-
-    return boundingRect;
-}
-
 void KateQuickOpen::updateViewGeometry()
 {
-    const QRect boundingRect = getQuickOpenBoundingRect(m_mainWindow);
+    const QRect boundingRect = HUDDialog::getQuickOpenBoundingRect(m_mainWindow);
 
     static constexpr int minWidth = 500;
     const int maxWidth = boundingRect.width();

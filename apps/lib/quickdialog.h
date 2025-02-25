@@ -15,6 +15,7 @@
 #include "kateprivate_export.h"
 
 class QAbstractItemModel;
+class QMainWindow;
 
 namespace KTextEditor
 {
@@ -45,11 +46,11 @@ protected:
     int m_displayRole = Qt::DisplayRole;
 };
 
-class KATE_PRIVATE_EXPORT HUDDialog : public QMenu
+class KATE_PRIVATE_EXPORT HUDDialog : public QFrame
 {
     Q_OBJECT
 public:
-    HUDDialog(QWidget *parent, QWidget *mainWindow);
+    HUDDialog(QWidget *mainWindow);
     ~HUDDialog();
 
     enum FilterType {
@@ -63,6 +64,8 @@ public:
     void setModel(QAbstractItemModel *, FilterType, int filterKeyCol = 0, int filterRole = Qt::DisplayRole, int scoreRole = -1);
 
     void setFilteringEnabled(bool enabled);
+
+    static QRect getQuickOpenBoundingRect(QMainWindow *mainWindow);
 
 protected:
     bool eventFilter(QObject *obj, QEvent *event) override;

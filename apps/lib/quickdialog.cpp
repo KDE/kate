@@ -4,14 +4,17 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "quickdialog.h"
-
 #include "drawing_utils.h"
+
 #include <QCoreApplication>
 #include <QDebug>
+#include <QGraphicsDropShadowEffect>
 #include <QKeyEvent>
+#include <QMainWindow>
 #include <QPainter>
 #include <QStringListModel>
 #include <QTextLayout>
+#include <QToolBar>
 #include <QVBoxLayout>
 
 #include <KFuzzyMatcher>
@@ -113,12 +116,23 @@ void HUDStyleDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     painter->restore();
 }
 
-HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
-    : QMenu(parent)
+HUDDialog::HUDDialog(QWidget *mainWindow)
+    : QFrame(mainWindow)
     , m_mainWindow(mainWindow)
     , m_model(new QStringListModel(this))
     , m_proxy(new FuzzyFilterModel(this))
 {
+    Q_ASSERT(mainWindow);
+
+    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    setProperty("_breeze_force_frame", true);
+
+    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
+    e->setColor(palette().color(QPalette::Dark));
+    e->setOffset(0, 4);
+    e->setBlurRadius(24);
+    setGraphicsEffect(e);
+
     m_proxy->setSourceModel(m_model);
     m_proxy->setFilterRole(Qt::DisplayRole);
     m_proxy->setFilterKeyColumn(0);
@@ -127,7 +141,7 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
 
     auto *layout = new QVBoxLayout(this);
     layout->setSpacing(0);
-    layout->setContentsMargins(4, 4, 4, 4);
+    layout->setContentsMargins(QMargins());
 
     setFocusProxy(&m_lineEdit);
 
@@ -136,6 +150,7 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
     layout->addWidget(&m_treeView, 1);
 
     m_treeView.setModel(m_proxy);
+    m_treeView.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags(Qt::TopEdge)));
     m_treeView.setTextElideMode(Qt::ElideLeft);
     m_treeView.setUniformRowHeights(true);
     m_treeView.setItemDelegate(m_delegate);
@@ -156,6 +171,11 @@ HUDDialog::HUDDialog(QWidget *parent, QWidget *mainWindow)
     m_treeView.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_treeView.setSelectionMode(QTreeView::SingleSelection);
 
+    m_lineEdit.setClearButtonEnabled(true);
+    m_lineEdit.addAction(QIcon::fromTheme(QStringLiteral("search")), QLineEdit::LeadingPosition);
+    m_lineEdit.setFrame(false);
+    m_lineEdit.setTextMargins(QMargins() + style()->pixelMetric(QStyle::PM_ButtonMargin));
+
     updateViewGeometry();
     setFocus();
 }
@@ -172,6 +192,7 @@ void HUDDialog::slotReturnPressed(const QModelIndex &index)
 
     clearLineEdit();
     hide();
+    deleteLater();
 }
 
 void HUDDialog::setDelegate(HUDStyleDelegate *delegate)
@@ -223,35 +244,76 @@ bool HUDDialog::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
         }
+
+        if (keyEvent->key() == Qt::Key_Escape) {
+            hide();
+            deleteLater();
+            return true;
+        }
     }
 
     // hide on focus out, if neither input field nor list have focus!
     else if (event->type() == QEvent::FocusOut && !(m_lineEdit.hasFocus() || m_treeView.hasFocus())) {
-        clearLineEdit();
         hide();
+        deleteLater();
         return true;
+    }
+
+    // handle resizing
+    if (m_mainWindow == obj && event->type() == QEvent::Resize) {
+        updateViewGeometry();
     }
 
     return QWidget::eventFilter(obj, event);
 }
 
+QRect HUDDialog::getQuickOpenBoundingRect(QMainWindow *mainWindow)
+{
+    QRect boundingRect = mainWindow->contentsRect();
+
+    // exclude the menu bar from the bounding rect
+    if (const QWidget *menuWidget = mainWindow->menuWidget()) {
+        if (!menuWidget->isHidden()) {
+            boundingRect.setTop(boundingRect.top() + menuWidget->height());
+        }
+    }
+
+    // exclude any undocked toolbar from the bounding rect
+    const QList<QToolBar *> toolBars = mainWindow->findChildren<QToolBar *>();
+    for (QToolBar *toolBar : toolBars) {
+        if (toolBar->isHidden() || toolBar->isFloating()) {
+            continue;
+        }
+
+        if (mainWindow->toolBarArea(toolBar) == Qt::TopToolBarArea) {
+            boundingRect.setTop(std::max(boundingRect.top(), toolBar->geometry().bottom()));
+        }
+    }
+
+    return boundingRect;
+}
+
 void HUDDialog::updateViewGeometry()
 {
-    if (!m_mainWindow)
-        return;
+    const QRect boundingRect = getQuickOpenBoundingRect(qobject_cast<QMainWindow *>(m_mainWindow));
 
-    const QSize centralSize = m_mainWindow->size();
+    static constexpr int minWidth = 500;
+    const int maxWidth = boundingRect.width();
+    const int preferredWidth = maxWidth / 2.4;
 
-    // width: 2.4 of editor, height: 1/2 of editor
-    const QSize viewMaxSize(centralSize.width() / 2.4, centralSize.height() / 2);
+    static constexpr int minHeight = 250;
+    const int maxHeight = boundingRect.height();
+    const int preferredHeight = maxHeight / 2;
 
-    // Position should be central over window
-    const int xPos = std::max(0, (centralSize.width() - viewMaxSize.width()) / 2);
-    const int yPos = std::max(0, (centralSize.height() - viewMaxSize.height()) * 1 / 4);
-    const QPoint p(xPos, yPos);
-    move(p + m_mainWindow->pos());
+    const QSize size{std::min(maxWidth, std::max(preferredWidth, minWidth)), std::min(maxHeight, std::max(preferredHeight, minHeight))};
 
-    this->setFixedSize(viewMaxSize);
+    // resize() doesn't work here, so use setFixedSize() instead
+    setFixedSize(size);
+
+    // set the position to the top-center of the parent
+    // just below the menubar/toolbar (if any)
+    const QPoint position{boundingRect.center().x() - (size.width() / 2), boundingRect.y() + 6};
+    move(position);
 }
 
 void HUDDialog::clearLineEdit()

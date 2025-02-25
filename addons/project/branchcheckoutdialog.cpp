@@ -43,7 +43,8 @@ void BranchCheckoutDialog::openDialog()
     reselectFirst();
     updateViewGeometry();
     setFocus();
-    exec();
+    raise();
+    show();
 }
 
 void BranchCheckoutDialog::onCheckoutDone()
@@ -61,6 +62,7 @@ void BranchCheckoutDialog::onCheckoutDone()
 
 void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
 {
+    deleteLater();
     // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
         createNewBranch(m_lineEdit.text(), m_checkoutFromBranchName);
@@ -108,6 +110,7 @@ void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
 
 void BranchCheckoutDialog::createNewBranch(const QString &branch, const QString &fromBranch)
 {
+    deleteLater();
     if (branch.isEmpty()) {
         clearLineEdit();
         hide();

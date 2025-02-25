@@ -19,7 +19,7 @@
 #include <ktexteditor_utils.h>
 
 PushPullDialog::PushPullDialog(KTextEditor::MainWindow *mainWindow, const QString &repoPath)
-    : HUDDialog(nullptr, mainWindow->window())
+    : HUDDialog(mainWindow->window())
     , m_repo(repoPath)
 {
     m_lineEdit.setFont(Utils::editorFont());
@@ -62,7 +62,8 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
 
     reselectFirst();
 
-    exec();
+    raise();
+    show();
 }
 
 QString PushPullDialog::getLastPushPullCmd(Mode m) const
@@ -189,6 +190,7 @@ void PushPullDialog::slotReturnPressed(const QModelIndex &)
     }
 
     hide();
+    deleteLater();
 }
 
 void PushPullDialog::detectGerrit()

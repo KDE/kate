@@ -123,15 +123,7 @@ HUDDialog::HUDDialog(QWidget *mainWindow)
     , m_proxy(new FuzzyFilterModel(this))
 {
     Q_ASSERT(mainWindow);
-
-    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-    setProperty("_breeze_force_frame", true);
-
-    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
-    e->setColor(palette().color(QPalette::Dark));
-    e->setOffset(0, 4);
-    e->setBlurRadius(24);
-    setGraphicsEffect(e);
+    initHudDialog(this, mainWindow, &m_lineEdit, &m_treeView);
 
     m_proxy->setSourceModel(m_model);
     m_proxy->setFilterRole(Qt::DisplayRole);
@@ -139,20 +131,7 @@ HUDDialog::HUDDialog(QWidget *mainWindow)
 
     m_delegate = new HUDStyleDelegate(this);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setSpacing(0);
-    layout->setContentsMargins(QMargins());
-
-    setFocusProxy(&m_lineEdit);
-
-    layout->addWidget(&m_lineEdit);
-
-    layout->addWidget(&m_treeView, 1);
-
     m_treeView.setModel(m_proxy);
-    m_treeView.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags(Qt::TopEdge)));
-    m_treeView.setTextElideMode(Qt::ElideLeft);
-    m_treeView.setUniformRowHeights(true);
     m_treeView.setItemDelegate(m_delegate);
 
     connect(&m_lineEdit, &QLineEdit::returnPressed, this, [this] {
@@ -161,20 +140,7 @@ HUDDialog::HUDDialog(QWidget *mainWindow)
     // user can add this as necessary
     setFilteringEnabled(true);
     connect(&m_treeView, &QTreeView::clicked, this, &HUDDialog::slotReturnPressed);
-    m_treeView.setSortingEnabled(true);
-
-    m_treeView.installEventFilter(this);
-    m_lineEdit.installEventFilter(this);
-
-    m_treeView.setHeaderHidden(true);
-    m_treeView.setRootIsDecorated(false);
-    m_treeView.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_treeView.setSelectionMode(QTreeView::SingleSelection);
-
-    m_lineEdit.setClearButtonEnabled(true);
-    m_lineEdit.addAction(QIcon::fromTheme(QStringLiteral("search")), QLineEdit::LeadingPosition);
-    m_lineEdit.setFrame(false);
-    m_lineEdit.setTextMargins(QMargins() + style()->pixelMetric(QStyle::PM_ButtonMargin));
 
     updateViewGeometry();
     setFocus();
@@ -184,6 +150,47 @@ HUDDialog::~HUDDialog()
 {
     m_treeView.removeEventFilter(this);
     m_lineEdit.removeEventFilter(this);
+}
+
+void HUDDialog::initHudDialog(QFrame *dialog, QWidget *mainWindow, QLineEdit *lineEdit, QTreeView *listView)
+{
+    dialog->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    dialog->setProperty("_breeze_force_frame", true);
+
+    auto *e = new QGraphicsDropShadowEffect(dialog);
+    e->setColor(dialog->palette().color(QPalette::Dark));
+    e->setOffset(0, 4);
+    e->setBlurRadius(8);
+    dialog->setGraphicsEffect(e);
+
+    // handle resizing
+    mainWindow->installEventFilter(dialog);
+
+    // ensure the components have some proper frame
+    auto *layout = new QVBoxLayout();
+    layout->setSpacing(0);
+    layout->setContentsMargins(QMargins());
+    dialog->setLayout(layout);
+
+    lineEdit->setClearButtonEnabled(true);
+    lineEdit->addAction(QIcon::fromTheme(QStringLiteral("search")), QLineEdit::LeadingPosition);
+    lineEdit->setFrame(false);
+    lineEdit->setTextMargins(QMargins() + dialog->style()->pixelMetric(QStyle::PM_ButtonMargin));
+    dialog->setFocusProxy(lineEdit);
+
+    layout->addWidget(lineEdit);
+    layout->addWidget(listView, 1);
+
+    lineEdit->installEventFilter(dialog);
+    listView->installEventFilter(dialog);
+
+    listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags(Qt::TopEdge)));
+    listView->setTextElideMode(Qt::ElideLeft);
+    listView->setUniformRowHeights(true);
+    listView->setSelectionMode(QTreeView::SingleSelection);
+    listView->setHeaderHidden(true);
+    listView->setRootIsDecorated(false);
+    listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void HUDDialog::slotReturnPressed(const QModelIndex &index)
@@ -236,7 +243,7 @@ bool HUDDialog::eventFilter(QObject *obj, QEvent *event)
                 hide();
                 return true;
             }
-        } else {
+        } else if (obj == &m_treeView) {
             const bool forward2input = (keyEvent->key() != Qt::Key_Up) && (keyEvent->key() != Qt::Key_Down) && (keyEvent->key() != Qt::Key_PageUp)
                 && (keyEvent->key() != Qt::Key_PageDown) && (keyEvent->key() != Qt::Key_Tab) && (keyEvent->key() != Qt::Key_Backtab);
             if (forward2input) {

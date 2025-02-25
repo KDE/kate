@@ -274,38 +274,10 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     : QFrame(mainWindow)
     , m_mainWindow(mainWindow)
 {
-    setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-    setProperty("_breeze_force_frame", true);
-
-    QGraphicsDropShadowEffect *e = new QGraphicsDropShadowEffect(this);
-    e->setColor(palette().color(QPalette::Dark));
-    e->setOffset(0, 4);
-    e->setBlurRadius(8);
-    setGraphicsEffect(e);
-
-    // handle resizing
-    mainWindow->installEventFilter(this);
-
-    // ensure the components have some proper frame
-    QVBoxLayout *layout = new QVBoxLayout();
-    layout->setSpacing(0);
-    layout->setContentsMargins(QMargins());
-    setLayout(layout);
-
     m_inputLine = new QuickOpenLineEdit(this);
-    m_inputLine->setClearButtonEnabled(true);
-    m_inputLine->addAction(QIcon::fromTheme(QStringLiteral("search")), QLineEdit::LeadingPosition);
-    m_inputLine->setFrame(false);
-    m_inputLine->setTextMargins(QMargins() + style()->pixelMetric(QStyle::PM_ButtonMargin));
-    setFocusProxy(m_inputLine);
-
-    layout->addWidget(m_inputLine);
-
     m_listView = new QTreeView(this);
-    layout->addWidget(m_listView, 1);
-    m_listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags(Qt::TopEdge)));
-    m_listView->setTextElideMode(Qt::ElideLeft);
-    m_listView->setUniformRowHeights(true);
+
+    HUDDialog::initHudDialog(this, mainWindow, m_inputLine, m_listView);
 
     m_model = new KateQuickOpenModel(this);
     m_styleDelegate = new QuickOpenStyleDelegate(this);
@@ -318,11 +290,6 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
     connect(m_listView, &QTreeView::activated, this, &KateQuickOpen::slotReturnPressed);
     connect(m_listView, &QTreeView::clicked, this, &KateQuickOpen::slotReturnPressed); // for single click
 
-    m_inputLine->installEventFilter(this);
-    m_listView->installEventFilter(this);
-    m_listView->setHeaderHidden(true);
-    m_listView->setRootIsDecorated(false);
-    m_listView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_listView->setModel(m_model);
 
     connect(m_inputLine, &QuickOpenLineEdit::textChanged, this, [this](const QString &text) {

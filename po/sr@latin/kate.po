@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-18 00:43+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -1894,116 +1894,116 @@ msgstr "Otvaranje fajla"
 msgid " [read only]"
 msgstr " [samo čitanje]"
 
-#: lib/katemdi.cpp:77
+#: lib/katemdi.cpp:78
 #, fuzzy, kde-format
 #| msgid "Plugin Manager"
 msgid "Toolview Manager"
 msgstr "Menadžer priključaka"
 
-#: lib/katemdi.cpp:95
+#: lib/katemdi.cpp:96
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr ""
 
-#: lib/katemdi.cpp:98
+#: lib/katemdi.cpp:99
 #, kde-format
 msgid "Focus Toolview"
 msgstr ""
 
-#: lib/katemdi.cpp:101
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Tool &Views"
 msgstr "Prikazi &alatki"
 
-#: lib/katemdi.cpp:103
+#: lib/katemdi.cpp:104
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Prikaži &bočne trake"
 
-#: lib/katemdi.cpp:111
+#: lib/katemdi.cpp:112
 #, fuzzy, kde-format
 #| msgid "Tool &Views"
 msgid "Hide All Tool Views"
 msgstr "Prikazi &alatki"
 
-#: lib/katemdi.cpp:159
+#: lib/katemdi.cpp:160
 #, kde-format
 msgid "Show %1"
 msgstr "Prikaži %1|/|Prikaži $[aku %1]"
 
-#: lib/katemdi.cpp:181
+#: lib/katemdi.cpp:182
 #, fuzzy, kde-format
 #| msgid "Show %1"
 msgid "Show %1 Button"
 msgstr "Prikaži %1|/|Prikaži $[aku %1]"
 
-#: lib/katemdi.cpp:200
+#: lib/katemdi.cpp:201
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1118
+#: lib/katemdi.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "Podesi..."
 
-#: lib/katemdi.cpp:1122
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Move To"
 msgstr "Premesti u"
 
-#: lib/katemdi.cpp:1129
+#: lib/katemdi.cpp:1130
 #, kde-format
 msgid "Own Section"
 msgstr ""
 
-#: lib/katemdi.cpp:1135 lib/katemdi.cpp:1143
+#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1148
+#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1141
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1146
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1155
+#: lib/katemdi.cpp:1156
 #, kde-format
 msgid "Left Sidebar"
 msgstr "levu bočnu traku"
 
-#: lib/katemdi.cpp:1159
+#: lib/katemdi.cpp:1160
 #, kde-format
 msgid "Right Sidebar"
 msgstr "desnu bočnu traku"
 
-#: lib/katemdi.cpp:1163
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Top Sidebar"
 msgstr "gornju bočnu traku"
 
-#: lib/katemdi.cpp:1167
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "donju bočnu traku"
 
-#: lib/katemdi.cpp:1771
+#: lib/katemdi.cpp:1772
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

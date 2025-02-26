@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2024-12-06 11:06+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -356,19 +356,19 @@ msgstr "Niet genoeg resultaten"
 msgid "Corresponding Header/Source not found"
 msgstr "Overeenkomstige kop/bron niet gevonden"
 
-#: lspclientpluginview.cpp:2130 lspclientpluginview.cpp:2173
+#: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-server"
 
-#: lspclientpluginview.cpp:2196
+#: lspclientpluginview.cpp:2197
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-client"
 
-#: lspclientpluginview.cpp:2439
+#: lspclientpluginview.cpp:2440
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Vraag uit LSP-server"

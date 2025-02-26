@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2024-09-10 15:18+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -353,19 +353,19 @@ msgstr "ရလဒ်များမလုံလောက်ပါ"
 msgid "Corresponding Header/Source not found"
 msgstr "သက်ဆိုင်သော ခေါင်းစီးဖိုင်/ဇစ်မြစ်ဖိုင် ရှာမတွေ့ပါ"
 
-#: lspclientpluginview.cpp:2130 lspclientpluginview.cpp:2173
+#: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSPဆာဗာ"
 
-#: lspclientpluginview.cpp:2196
+#: lspclientpluginview.cpp:2197
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSPပရိုဂရမ်ငယ်"
 
-#: lspclientpluginview.cpp:2439
+#: lspclientpluginview.cpp:2440
 #, kde-format
 msgid "Question from LSP server"
 msgstr "LSPဆာဗာမှမေးခွန်းများ"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-19 00:44+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2024-12-09 14:52+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -40,34 +40,34 @@ msgstr "Создать ветвь"
 msgid "Create New Branch From..."
 msgstr "Создать ветвь из…"
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Ветвь %1 извлечена"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Не удалось извлечь в ветвь %1. Ошибка: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Введите имя новой ветви. Для отмены нажмите клавишу «Esc»."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Выберите ветвь, из которой следует выполнить извлечение. Для отмены нажмите "
 "клавишу «Esc»."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:124
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Извлечено в новую ветвь: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:126
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Не удалось создать ветвь. Ошибка «%1»"
@@ -96,12 +96,12 @@ msgstr[1] "Удалить выбранные ветви?"
 msgstr[2] "Удалить выбранные ветви?"
 msgstr[3] "Удалить выбранную ветвь?"
 
-#: branchesdialog.cpp:100
+#: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
 msgstr "Выберите ветвь…"
 
-#: branchesdialog.cpp:125 gitwidget.cpp:567 kateprojectpluginview.cpp:69
+#: branchesdialog.cpp:113 gitwidget.cpp:567 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -135,7 +135,7 @@ msgid "Commit Changes"
 msgstr "Зафиксировать изменения"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:282
-#: gitwidget.cpp:1097
+#: gitwidget.cpp:1099
 #, kde-format
 msgid "Commit"
 msgstr "Зафиксировать"
@@ -335,188 +335,188 @@ msgstr "Извлечь ветвь"
 msgid "Delete Branch"
 msgstr "Удалить ветвь"
 
-#: gitwidget.cpp:1086
+#: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Сравнить ветвь с…"
 
-#: gitwidget.cpp:1091
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Show Commit"
 msgstr "Показать фиксацию"
 
-#: gitwidget.cpp:1109
+#: gitwidget.cpp:1111
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Показать последнюю фиксацию"
 
-#: gitwidget.cpp:1127
+#: gitwidget.cpp:1129
 #, kde-format
 msgid "Open Commit..."
 msgstr "Открыть фиксацию…"
 
-#: gitwidget.cpp:1130 gitwidget.cpp:1169
+#: gitwidget.cpp:1132 gitwidget.cpp:1171
 #, kde-format
 msgid "Stash"
 msgstr "Поместить в запасник"
 
-#: gitwidget.cpp:1140
+#: gitwidget.cpp:1142
 #, kde-format
 msgid "Diff - stash"
 msgstr "Различия с запасником"
 
-#: gitwidget.cpp:1173
+#: gitwidget.cpp:1175
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Использовать последний запасник"
 
-#: gitwidget.cpp:1177
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Pop Stash"
 msgstr "Использовать запасник"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Применить последний запасник"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1185
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Запасник (сохранить промежуточно сохранённые)"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Запасник (включить неотслеживаемые)"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1193
 #, kde-format
 msgid "Apply Stash"
 msgstr "Применить запасник"
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Drop Stash"
 msgstr "Сбросить запасник"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Показать содержимое запасника"
 
-#: gitwidget.cpp:1231
+#: gitwidget.cpp:1233
 #, kde-format
 msgid "Stage All"
 msgstr "Применить промежуточное сохранение всех файлов"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1235
 #, kde-format
 msgid "Remove All"
 msgstr "Удалить все"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1235
 #, kde-format
 msgid "Discard All"
 msgstr "Отменить все"
 
-#: gitwidget.cpp:1236
+#: gitwidget.cpp:1238
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Открыть .gitignore"
 
-#: gitwidget.cpp:1237 gitwidget.cpp:1278 gitwidget.cpp:1328
+#: gitwidget.cpp:1239 gitwidget.cpp:1280 gitwidget.cpp:1330
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Показать различия"
 
-#: gitwidget.cpp:1254
+#: gitwidget.cpp:1256
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Действительно удалить эти файлы?"
 
-#: gitwidget.cpp:1259
+#: gitwidget.cpp:1261
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Действительно отменить все изменения?"
 
-#: gitwidget.cpp:1277
+#: gitwidget.cpp:1279
 #, kde-format
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: gitwidget.cpp:1279
+#: gitwidget.cpp:1281
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Показать во внешнем приложении для показа различий git"
 
-#: gitwidget.cpp:1280
+#: gitwidget.cpp:1282
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Открыть HEAD"
 
-#: gitwidget.cpp:1281
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Unstage File"
 msgstr "Отменить промежуточное сохранение файла"
 
-#: gitwidget.cpp:1281
+#: gitwidget.cpp:1283
 #, kde-format
 msgid "Stage File"
 msgstr "Применить промежуточное сохранение файла"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Remove"
 msgstr "Удалить"
 
-#: gitwidget.cpp:1282
+#: gitwidget.cpp:1284
 #, kde-format
 msgid "Discard"
 msgstr "Отменить"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Действительно отменить все изменения в этом файле?"
 
-#: gitwidget.cpp:1310
+#: gitwidget.cpp:1312
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Действительно удалить этот файл?"
 
-#: gitwidget.cpp:1327
+#: gitwidget.cpp:1329
 #, kde-format
 msgid "Unstage All"
 msgstr "Отменить промежуточное сохранение всех файлов"
 
-#: gitwidget.cpp:1394
+#: gitwidget.cpp:1396
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Отменить промежуточное сохранение выбранных файлов"
 
-#: gitwidget.cpp:1394
+#: gitwidget.cpp:1396
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Применить промежуточное сохранение выбранных файлов"
 
-#: gitwidget.cpp:1395
+#: gitwidget.cpp:1397
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Отменить выбранные файлы"
 
-#: gitwidget.cpp:1399
+#: gitwidget.cpp:1401
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Удалить выбранные файлы"
 
-#: gitwidget.cpp:1412
+#: gitwidget.cpp:1414
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Действительно отменить изменения?"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1419
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Действительно удалить эти неотслеживаемые изменения?"
@@ -1083,52 +1083,52 @@ msgstr ""
 "Введите текст для применения фильтра, нажмите клавишу «Enter» для "
 "использования запасника, нажмите клавишу «Esc» для выхода."
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Не удалось поместить в запасник изменения %1"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:146
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Изменения успешно помещены в запасник."
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:165
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Не удалось получить список запасника. Ошибка: "
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Не удалось применить запасник. Ошибка: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Не удалось сбросить запасник. Ошибка: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Не удалось использовать запасник. Ошибка: "
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Запасник успешно применён."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Запасник успешно сброшен."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:193
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Запасник успешно использован."
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:222
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Не удалось показать запасник. Ошибка: "

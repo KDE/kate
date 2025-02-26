@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2024-02-15 21:55+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -357,19 +357,19 @@ msgstr "Nincs elég találat"
 msgid "Corresponding Header/Source not found"
 msgstr "A megfelelő fejléc/forrás nem található"
 
-#: lspclientpluginview.cpp:2130 lspclientpluginview.cpp:2173
+#: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-kiszolgáló"
 
-#: lspclientpluginview.cpp:2196
+#: lspclientpluginview.cpp:2197
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-kliens"
 
-#: lspclientpluginview.cpp:2439
+#: lspclientpluginview.cpp:2440
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Kérdés az LSP-kiszolgálótól"

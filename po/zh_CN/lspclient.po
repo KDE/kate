@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -354,19 +354,19 @@ msgstr "结果不足"
 msgid "Corresponding Header/Source not found"
 msgstr "找不到对应的头文件/源文件"
 
-#: lspclientpluginview.cpp:2130 lspclientpluginview.cpp:2173
+#: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP 服务器"
 
-#: lspclientpluginview.cpp:2196
+#: lspclientpluginview.cpp:2197
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP 客户端"
 
-#: lspclientpluginview.cpp:2439
+#: lspclientpluginview.cpp:2440
 #, kde-format
 msgid "Question from LSP server"
 msgstr "来自 LSP 服务器的问题"

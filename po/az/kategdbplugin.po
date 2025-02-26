@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-24 09:39+0000\n"
+"POT-Creation-Date: 2025-02-26 00:44+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -161,249 +161,249 @@ msgstr "bütün axınlar davam edir"
 msgid "(running)"
 msgstr "(işə düşür)"
 
-#: dapbackend.cpp:421
+#: dapbackend.cpp:407
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr "*** server ilə bağlantı kəsilldi ***"
 
-#: dapbackend.cpp:428
+#: dapbackend.cpp:414
 #, kde-format
 msgid "program exited with code %1"
 msgstr "proqram %1 kodu ilə bağlandı"
 
-#: dapbackend.cpp:446
+#: dapbackend.cpp:432
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr "*** istifadəçinin hərəkəti gözlənilir ***"
 
-#: dapbackend.cpp:451
+#: dapbackend.cpp:437
 #, kde-format
 msgid "error on response: %1"
 msgstr "cavabdakı xəta: %1"
 
-#: dapbackend.cpp:466
+#: dapbackend.cpp:452
 #, kde-format
 msgid "important"
 msgstr "vacib"
 
-#: dapbackend.cpp:469
+#: dapbackend.cpp:455
 #, kde-format
 msgid "telemetry"
 msgstr "telemetriya"
 
-#: dapbackend.cpp:488
+#: dapbackend.cpp:474
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr "sazlama prosesi [%1] %2"
 
-#: dapbackend.cpp:490
+#: dapbackend.cpp:476
 #, kde-format
 msgid "debugging process %1"
 msgstr "sazlama prosesi %1"
 
-#: dapbackend.cpp:493
+#: dapbackend.cpp:479
 #, kde-format
 msgid "Start method: %1"
 msgstr "Başlama üsulu: %1"
 
-#: dapbackend.cpp:508
+#: dapbackend.cpp:494
 #, kde-format
 msgid "thread %1"
 msgstr "axın %1"
 
-#: dapbackend.cpp:646
+#: dapbackend.cpp:632
 #, kde-format
 msgid "breakpoint set"
 msgstr "qırılma nöqtəsi təyin olundu"
 
-#: dapbackend.cpp:654
+#: dapbackend.cpp:640
 #, kde-format
 msgid "breakpoint cleared"
 msgstr "qırılma nöqtəsi təmizləndi"
 
-#: dapbackend.cpp:713
+#: dapbackend.cpp:699
 #, kde-format
 msgid "(%1) breakpoint"
 msgstr "(%1) qırılma nöqtəsi"
 
-#: dapbackend.cpp:730
+#: dapbackend.cpp:716
 #, kde-format
 msgid "<not evaluated>"
 msgstr "<hesaba alınmayıb>"
 
-#: dapbackend.cpp:752
+#: dapbackend.cpp:738
 #, kde-format
 msgid "server capabilities"
 msgstr "serverin tutumu"
 
-#: dapbackend.cpp:755
+#: dapbackend.cpp:741
 #, kde-format
 msgid "supported"
 msgstr "dəstəklənən"
 
-#: dapbackend.cpp:755
+#: dapbackend.cpp:741
 #, kde-format
 msgid "unsupported"
 msgstr "dəstəklənməyən"
 
-#: dapbackend.cpp:758
+#: dapbackend.cpp:744
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "şərti qırılma nöqtələri"
 
-#: dapbackend.cpp:759
+#: dapbackend.cpp:745
 #, kde-format
 msgid "function breakpoints"
 msgstr "funksiyanın qırılma nöqtələri"
 
-#: dapbackend.cpp:760
+#: dapbackend.cpp:746
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "təyin edilən şərti kəslmə nöqtələri"
 
-#: dapbackend.cpp:761
+#: dapbackend.cpp:747
 #, kde-format
 msgid "log points"
 msgstr "jurnal nöqtələri"
 
-#: dapbackend.cpp:761
+#: dapbackend.cpp:747
 #, kde-format
 msgid "modules request"
 msgstr "modullar tələb olunur"
 
-#: dapbackend.cpp:762
+#: dapbackend.cpp:748
 #, kde-format
 msgid "goto targets request"
 msgstr "hədəflərə keçid tələbi"
 
-#: dapbackend.cpp:763
+#: dapbackend.cpp:749
 #, kde-format
 msgid "terminate request"
 msgstr "yarımçıq kəsmə tələbi"
 
-#: dapbackend.cpp:764
+#: dapbackend.cpp:750
 #, kde-format
 msgid "terminate debuggee"
 msgstr "sazlamanı yarımçıq kəsin"
 
-#: dapbackend.cpp:992
+#: dapbackend.cpp:978
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "sintaksis xəta: ifadə tapılmadı"
 
-#: dapbackend.cpp:1010 dapbackend.cpp:1045 dapbackend.cpp:1083
-#: dapbackend.cpp:1117 dapbackend.cpp:1153 dapbackend.cpp:1189
-#: dapbackend.cpp:1225 dapbackend.cpp:1325 dapbackend.cpp:1387
+#: dapbackend.cpp:996 dapbackend.cpp:1031 dapbackend.cpp:1069
+#: dapbackend.cpp:1103 dapbackend.cpp:1139 dapbackend.cpp:1175
+#: dapbackend.cpp:1211 dapbackend.cpp:1311 dapbackend.cpp:1373
 #, kde-format
 msgid "syntax error: %1"
 msgstr "sintaksis xətası: %1"
 
-#: dapbackend.cpp:1018 dapbackend.cpp:1053 dapbackend.cpp:1332
-#: dapbackend.cpp:1395
+#: dapbackend.cpp:1004 dapbackend.cpp:1039 dapbackend.cpp:1318
+#: dapbackend.cpp:1381
 #, kde-format
 msgid "invalid line: %1"
 msgstr "düzgün olmayan sətir: %1"
 
-#: dapbackend.cpp:1025 dapbackend.cpp:1030 dapbackend.cpp:1060
-#: dapbackend.cpp:1065 dapbackend.cpp:1356 dapbackend.cpp:1361
-#: dapbackend.cpp:1402 dapbackend.cpp:1407
+#: dapbackend.cpp:1011 dapbackend.cpp:1016 dapbackend.cpp:1046
+#: dapbackend.cpp:1051 dapbackend.cpp:1342 dapbackend.cpp:1347
+#: dapbackend.cpp:1388 dapbackend.cpp:1393
 #, kde-format
 msgid "file not specified: %1"
 msgstr "fayl göstərilməyib: %1"
 
-#: dapbackend.cpp:1095 dapbackend.cpp:1129 dapbackend.cpp:1165
-#: dapbackend.cpp:1201 dapbackend.cpp:1237
+#: dapbackend.cpp:1081 dapbackend.cpp:1115 dapbackend.cpp:1151
+#: dapbackend.cpp:1187 dapbackend.cpp:1223
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "səhv axın İD-si: %1"
 
-#: dapbackend.cpp:1101 dapbackend.cpp:1135 dapbackend.cpp:1171
-#: dapbackend.cpp:1207 dapbackend.cpp:1243
+#: dapbackend.cpp:1087 dapbackend.cpp:1121 dapbackend.cpp:1157
+#: dapbackend.cpp:1193 dapbackend.cpp:1229
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "axın id-si göstərilməyib: %1"
 
-#: dapbackend.cpp:1254
+#: dapbackend.cpp:1240
 #, kde-format
 msgid "Available commands:"
 msgstr "Əlçatan əmrlər:"
 
-#: dapbackend.cpp:1342
+#: dapbackend.cpp:1328
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "şərti qırılma nöütələri server tərəfindən dəstəklənmir"
 
-#: dapbackend.cpp:1350
+#: dapbackend.cpp:1336
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr "qırılma nöqtələrinin təyinatı server tərəfindən dəstəklənmir"
 
-#: dapbackend.cpp:1370
+#: dapbackend.cpp:1356
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr "%1 sətrində artıq dayanma nöqtəsi var"
 
-#: dapbackend.cpp:1415
+#: dapbackend.cpp:1401
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr "qırılma nöqtələri tapılmadı (%1:%2)"
 
-#: dapbackend.cpp:1421
+#: dapbackend.cpp:1407
 #, kde-format
 msgid "Current thread: "
 msgstr "Cari axın: "
 
-#: dapbackend.cpp:1426 dapbackend.cpp:1433 dapbackend.cpp:1454
+#: dapbackend.cpp:1412 dapbackend.cpp:1419 dapbackend.cpp:1440
 #, kde-format
 msgid "none"
 msgstr "heç biri"
 
-#: dapbackend.cpp:1429
+#: dapbackend.cpp:1415
 #, kde-format
 msgid "Current frame: "
 msgstr "Cari kadr: "
 
-#: dapbackend.cpp:1436
+#: dapbackend.cpp:1422
 #, kde-format
 msgid "Session state: "
 msgstr "Sesiyanın vəziyyəti: "
 
-#: dapbackend.cpp:1439
+#: dapbackend.cpp:1425
 #, kde-format
 msgid "initializing"
 msgstr "başlayır"
 
-#: dapbackend.cpp:1442
+#: dapbackend.cpp:1428
 #, kde-format
 msgid "running"
 msgstr "işə düşür"
 
-#: dapbackend.cpp:1445
+#: dapbackend.cpp:1431
 #, kde-format
 msgid "stopped"
 msgstr "dayandırıldı"
 
-#: dapbackend.cpp:1448
+#: dapbackend.cpp:1434
 #, kde-format
 msgid "terminated"
 msgstr "yarımçıq kəsildi"
 
-#: dapbackend.cpp:1451
+#: dapbackend.cpp:1437
 #, kde-format
 msgid "disconnected"
 msgstr "bağlantı kəsildi"
 
-#: dapbackend.cpp:1507
+#: dapbackend.cpp:1493
 #, kde-format
 msgid "command not found"
 msgstr "əmr tapılmadı"
 
-#: dapbackend.cpp:1541
+#: dapbackend.cpp:1527
 #, kde-format
 msgid "missing thread id"
 msgstr "axın İD-si çatışmır"
 
-#: dapbackend.cpp:1680
+#: dapbackend.cpp:1666
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Cari kadr [%3]: %1:%2 (%4)"
@@ -508,7 +508,7 @@ msgstr "Kate sazlayıcısı"
 msgid "Debug View"
 msgstr "Xəta sazlam görünüşü"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:376
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:385
 #, kde-format
 msgid "Debug"
 msgstr "Xəta Sazlama"
@@ -518,19 +518,7 @@ msgstr "Xəta Sazlama"
 msgid "Locals and Stack"
 msgstr "Yerlər və Qruplar"
 
-#: plugin_kategdb.cpp:171
-#, kde-format
-msgctxt "Column label (frame number)"
-msgid "Nr"
-msgstr "No"
-
-#: plugin_kategdb.cpp:171
-#, kde-format
-msgctxt "Column label"
-msgid "Frame"
-msgstr "Çərçivə"
-
-#: plugin_kategdb.cpp:241
+#: plugin_kategdb.cpp:250
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -540,152 +528,171 @@ msgstr ""
 "<title>Fayl aşıla bilmədi</title><nl/>%1<br/>Axtraış yolunu Əlavə ayarlar > "
 "Mənbə faylının axttarış yolları, yoluna əlavə etməyə cəhd edin"
 
-#: plugin_kategdb.cpp:258
+#: plugin_kategdb.cpp:267
 #, kde-format
 msgid "Targets"
 msgstr "Hədəflər"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:272
 #, kde-format
 msgid "Start Debugging"
 msgstr "Xəta sazlamasını başladın"
 
-#: plugin_kategdb.cpp:273
+#: plugin_kategdb.cpp:282
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Xəta sazlamasını sonlandırmaq/Dayandırmaq"
 
-#: plugin_kategdb.cpp:280
+#: plugin_kategdb.cpp:289
 #, kde-format
 msgid "Continue"
 msgstr "Davam edin"
 
-#: plugin_kategdb.cpp:286
+#: plugin_kategdb.cpp:295
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Qırılma nöqtəsini ilə qırılma arası keçid"
 
-#: plugin_kategdb.cpp:293
+#: plugin_kategdb.cpp:302
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Qırılma nöqtəsi"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:307
 #, kde-format
 msgid "Step In"
 msgstr "Bir addım içəri"
 
-#: plugin_kategdb.cpp:305
+#: plugin_kategdb.cpp:314
 #, kde-format
 msgid "Step Over"
 msgstr "Üzərindən keçin"
 
-#: plugin_kategdb.cpp:312
+#: plugin_kategdb.cpp:321
 #, kde-format
 msgid "Step Out"
 msgstr "Bir addın bayıra"
 
-#: plugin_kategdb.cpp:319 plugin_kategdb.cpp:383
+#: plugin_kategdb.cpp:328 plugin_kategdb.cpp:392
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Kursora qədər icra edin"
 
-#: plugin_kategdb.cpp:326
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Restart Debugging"
 msgstr "XƏta sazlamanı yenidən başladın"
 
-#: plugin_kategdb.cpp:333
+#: plugin_kategdb.cpp:342
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "Debug Output"
 msgid "Clear Output"
 msgstr "Sazlayıcının çıxışı"
 
-#: plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:350
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:348
+#: plugin_kategdb.cpp:357
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:357
+#: plugin_kategdb.cpp:366
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:366 plugin_kategdb.cpp:385
+#: plugin_kategdb.cpp:375 plugin_kategdb.cpp:394
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "PCini köçürün"
 
-#: plugin_kategdb.cpp:371
+#: plugin_kategdb.cpp:380
 #, kde-format
 msgid "Print Value"
 msgstr "Dəyəri göstərin"
 
-#: plugin_kategdb.cpp:460 plugin_kategdb.cpp:476
+#: plugin_kategdb.cpp:469 plugin_kategdb.cpp:485
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Qırılma nöqtəsi daxil edin"
 
-#: plugin_kategdb.cpp:474
+#: plugin_kategdb.cpp:483
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Qırılma nöqtəsini silin"
 
-#: plugin_kategdb.cpp:646
+#: plugin_kategdb.cpp:655
 #, kde-format
 msgid "Execution point"
 msgstr "İcra olunma nöqtəsi"
 
-#: plugin_kategdb.cpp:796 plugin_kategdb.cpp:828
+#: plugin_kategdb.cpp:776 plugin_kategdb.cpp:808
 #, kde-format
 msgid "Thread %1"
 msgstr "Axın %1"
 
-#: plugin_kategdb.cpp:924
+#: plugin_kategdb.cpp:904
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Sazlayıcının çıxışı"
 
-#: plugin_kategdb.cpp:925
+#: plugin_kategdb.cpp:905
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: plugin_kategdb.cpp:960
+#: plugin_kategdb.cpp:940
 #, kde-format
 msgid "IO"
 msgstr "GÇ"
 
-#: plugin_kategdb.cpp:1046
+#: plugin_kategdb.cpp:1028
 #, kde-format
 msgid "Breakpoint"
 msgstr "Qırılma nöqtəsi"
 
-#: plugin_kategdb.cpp:1121
+#: plugin_kategdb.cpp:1104
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Hədəfi kopyalayın"
 
-#: plugin_kategdb.cpp:1143
+#: plugin_kategdb.cpp:1123
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1153
+#: plugin_kategdb.cpp:1133
 #, kde-format
 msgid "Copy Location"
 msgstr ""
+
+#: stackframe_model.cpp:78
+#, kde-format
+msgctxt "Column label (frame number)"
+msgid "Nr"
+msgstr "No"
+
+#: stackframe_model.cpp:80
+#, kde-format
+msgctxt "Column label"
+msgid "Function"
+msgstr ""
+
+#: stackframe_model.cpp:82
+#, fuzzy, kde-format
+#| msgid "Local application"
+msgctxt "Column label"
+msgid "Location"
+msgstr "Yerli tətbiq"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -699,6 +706,10 @@ msgstr "&Sazlama"
 msgid "Debug Plugin"
 msgstr "Sazlayıcı plaqini"
 
+#~ msgctxt "Column label"
+#~ msgid "Frame"
+#~ msgstr "Çərçivə"
+
 #~ msgid "killing backend"
 #~ msgstr "server modulunun məhv edilməsi"
 
@@ -710,9 +721,6 @@ msgstr "Sazlayıcı plaqini"
 
 #~ msgid "Source file search paths"
 #~ msgstr "Mənbə faylının axtarış yolu"
-
-#~ msgid "Local application"
-#~ msgstr "Yerli tətbiq"
 
 #~ msgid "Remote TCP"
 #~ msgstr "Uzaq TCP"

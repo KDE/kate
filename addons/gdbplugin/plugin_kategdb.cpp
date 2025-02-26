@@ -1015,7 +1015,8 @@ void KatePluginGDBView::handleEsc(QEvent *e)
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
         if (m_toolView && m_toolView->isVisible()) {
             m_mainWin->hideToolView(m_toolView.get());
-        } else if (m_localsStackToolView && toolviewPosition(m_localsStackToolView.get()) == KTextEditor::MainWindow::Bottom) {
+        } else if (m_localsStackToolView && m_localsStackToolView->isVisible()
+                   && toolviewPosition(m_localsStackToolView.get()) == KTextEditor::MainWindow::Bottom) {
             m_mainWin->hideToolView(m_localsStackToolView.get());
         }
     }

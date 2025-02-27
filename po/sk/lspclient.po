@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2023-02-05 17:53+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -350,19 +350,19 @@ msgstr "Nedostatok výsledkov"
 msgid "Corresponding Header/Source not found"
 msgstr "Zodpovedajúca hlavička/zdroj sa nenašiel"
 
-#: lspclientpluginview.cpp:2117 lspclientpluginview.cpp:2160
+#: lspclientpluginview.cpp:2118 lspclientpluginview.cpp:2161
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP Server"
 
-#: lspclientpluginview.cpp:2183
+#: lspclientpluginview.cpp:2184
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP Klient"
 
-#: lspclientpluginview.cpp:2420
+#: lspclientpluginview.cpp:2421
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

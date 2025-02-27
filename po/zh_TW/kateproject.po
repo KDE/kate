@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2024-10-02 17:33+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -35,32 +35,32 @@ msgstr "建立新分支"
 msgid "Create New Branch From..."
 msgstr "從來源建立新分支..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "已簽出分支 %1"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "簽出至分支 %1 失敗，錯誤：%2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "請輸入新分支的名稱。按下 'Esc' 來取消。"
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "請選取要簽出的來源分支。按下 'Esc' 來取消。"
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:124
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "已簽出至新分支：%1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:126
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "建立分支失敗。錯誤 \"%1\""
@@ -86,12 +86,12 @@ msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "您確定要刪除選取的分支嗎？"
 
-#: branchesdialog.cpp:100
+#: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
 msgstr "選取分支..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:113 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -125,7 +125,7 @@ msgid "Commit Changes"
 msgstr "提交變更"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:281
-#: gitwidget.cpp:1091
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Commit"
 msgstr "提交"
@@ -322,188 +322,188 @@ msgstr "簽出分支"
 msgid "Delete Branch"
 msgstr "刪除分支"
 
-#: gitwidget.cpp:1080
+#: gitwidget.cpp:1082
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "比對分支..."
 
-#: gitwidget.cpp:1085
+#: gitwidget.cpp:1087
 #, kde-format
 msgid "Show Commit"
 msgstr "顯示提交"
 
-#: gitwidget.cpp:1103
+#: gitwidget.cpp:1105
 #, kde-format
 msgid "Show Last Commit"
 msgstr "顯示最新提交"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1123
 #, kde-format
 msgid "Open Commit..."
 msgstr "開啟提交..."
 
-#: gitwidget.cpp:1124 gitwidget.cpp:1163
+#: gitwidget.cpp:1126 gitwidget.cpp:1165
 #, kde-format
 msgid "Stash"
 msgstr "貯存"
 
-#: gitwidget.cpp:1134
+#: gitwidget.cpp:1136
 #, kde-format
 msgid "Diff - stash"
 msgstr "差異 - 貯存"
 
-#: gitwidget.cpp:1167
+#: gitwidget.cpp:1169
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "彈出上一個貯存"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Pop Stash"
 msgstr "彈出貯存"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "套用上一個貯存"
 
-#: gitwidget.cpp:1177
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "貯存（保留暫存區）"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "貯存（包含未追蹤）"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Apply Stash"
 msgstr "套用貯存"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Drop Stash"
 msgstr "捨棄貯存"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Show Stash Content"
 msgstr "顯示貯存內容"
 
-#: gitwidget.cpp:1224
+#: gitwidget.cpp:1226
 #, kde-format
 msgid "Stage All"
 msgstr "暫存全部"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Remove All"
 msgstr "全部移除"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Discard All"
 msgstr "捨棄全部"
 
-#: gitwidget.cpp:1229
+#: gitwidget.cpp:1231
 #, kde-format
 msgid "Open .gitignore"
 msgstr "開啟 .gitignore"
 
-#: gitwidget.cpp:1230 gitwidget.cpp:1271 gitwidget.cpp:1319
+#: gitwidget.cpp:1232 gitwidget.cpp:1273 gitwidget.cpp:1321
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "顯示差異"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "您確定要移除這些檔案嗎？"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "您確定要捨棄所有變更嗎？"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1274
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "在外部 Git 差異檢視工具中顯示"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1275
 #, kde-format
 msgid "Open at HEAD"
 msgstr "在 HEAD 開啟"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Unstage File"
 msgstr "取消暫存檔案"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Stage File"
 msgstr "暫存檔案"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Remove"
 msgstr "移除"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Discard"
 msgstr "捨棄"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "您確定要捨棄這個檔案的變更嗎？"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "您確定要移除這個檔案嗎？"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Unstage All"
 msgstr "取消暫存全部"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "取消暫存已選的檔案"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "暫存已選的檔案"
 
-#: gitwidget.cpp:1386
+#: gitwidget.cpp:1388
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "捨棄已選的檔案"
 
-#: gitwidget.cpp:1390
+#: gitwidget.cpp:1392
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "移除已選的檔案"
 
-#: gitwidget.cpp:1403
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "您確定要捨棄變更嗎？"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您確定要移除這些未追蹤的變更嗎？"
@@ -1024,52 +1024,52 @@ msgstr "貯存訊息（非必要）。用 Enter 來確認，Esc 來離開。"
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "輸入以過濾，Enter 來彈出貯存，Esc 來離開。"
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "無法貯存變更 %1"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:146
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "變更已成功貯存。"
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:165
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "取得貯存列表時失敗。錯誤："
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "套用貯存時失敗。錯誤："
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "捨棄貯存時失敗。錯誤："
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "彈出貯存時失敗。錯誤："
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "成功套用貯存。"
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "成功捨棄貯存。"
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:193
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "成功彈出貯存。"
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:222
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "顯示貯存時失敗。錯誤："

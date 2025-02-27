@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit\n"
@@ -347,19 +347,19 @@ msgstr "न पर्याप्तं परिणामः"
 msgid "Corresponding Header/Source not found"
 msgstr "तत्सम्बद्धं शीर्षकं/स्रोतः न प्राप्तम्"
 
-#: lspclientpluginview.cpp:2117 lspclientpluginview.cpp:2160
+#: lspclientpluginview.cpp:2118 lspclientpluginview.cpp:2161
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP वितारक्"
 
-#: lspclientpluginview.cpp:2183
+#: lspclientpluginview.cpp:2184
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP ग्राहिका"
 
-#: lspclientpluginview.cpp:2420
+#: lspclientpluginview.cpp:2421
 #, kde-format
 msgid "Question from LSP server"
 msgstr "LSP वितारकतः प्रश्नः"

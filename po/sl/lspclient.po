@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-01 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2024-09-16 07:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -352,19 +352,19 @@ msgstr "Ni dovolj rezultatov"
 msgid "Corresponding Header/Source not found"
 msgstr "Ustrezne glave/vira ni mogoče najti"
 
-#: lspclientpluginview.cpp:2117 lspclientpluginview.cpp:2160
+#: lspclientpluginview.cpp:2118 lspclientpluginview.cpp:2161
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Strešnik LSP"
 
-#: lspclientpluginview.cpp:2183
+#: lspclientpluginview.cpp:2184
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
 
-#: lspclientpluginview.cpp:2420
+#: lspclientpluginview.cpp:2421
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Vprašanje iz strežnika LSP"

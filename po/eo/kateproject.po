@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -33,32 +33,32 @@ msgstr "Krei Novan Branĉon"
 msgid "Create New Branch From..."
 msgstr "Krei novan branĉon el..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Branĉo %1 elprenita"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Malsukcesis elpreno al branĉo %1, Eraro: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Enigu nomon de nova branĉo. Premu 'Esc' por nuligi."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Elektu branĉon elprenendan. Premu 'Esc' por nuligi."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:124
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Elprenita al nova branĉo: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:126
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Malsukcesis krei novan branĉon. Eraro \"%1\""
@@ -85,12 +85,12 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "Ĉu vi certas ke vi volas forigi la elektitan branĉon?"
 msgstr[1] "Ĉu vi certas ke vi volas forigi la elektitajn branĉojn?"
 
-#: branchesdialog.cpp:100
+#: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
 msgstr "Elekti branĉon..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:113 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -124,7 +124,7 @@ msgid "Commit Changes"
 msgstr "Enmeti Ŝanĝojn"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:281
-#: gitwidget.cpp:1091
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Commit"
 msgstr "Enmeti"
@@ -322,188 +322,188 @@ msgstr "Elpreni Branĉon"
 msgid "Delete Branch"
 msgstr "Forigi Branĉon"
 
-#: gitwidget.cpp:1080
+#: gitwidget.cpp:1082
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Kompari Branĉon kun..."
 
-#: gitwidget.cpp:1085
+#: gitwidget.cpp:1087
 #, kde-format
 msgid "Show Commit"
 msgstr "Montri Enmeton"
 
-#: gitwidget.cpp:1103
+#: gitwidget.cpp:1105
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Montri Lastan Enmeton"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1123
 #, kde-format
 msgid "Open Commit..."
 msgstr "Malfermi Enmeton..."
 
-#: gitwidget.cpp:1124 gitwidget.cpp:1163
+#: gitwidget.cpp:1126 gitwidget.cpp:1165
 #, kde-format
 msgid "Stash"
 msgstr "Stash"
 
-#: gitwidget.cpp:1134
+#: gitwidget.cpp:1136
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff - stash"
 
-#: gitwidget.cpp:1167
+#: gitwidget.cpp:1169
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Pop Last Stash"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Pop Stash"
 msgstr "Pop Stash"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Apliki Last Stash"
 
-#: gitwidget.cpp:1177
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Stash (Konservi Enscenigitan)"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Stash (Inkluzivi Nespuritan)"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Apply Stash"
 msgstr "Apliki Stash"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Drop Stash"
 msgstr "Perdi Stash"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Montri Stash-Enhavon"
 
-#: gitwidget.cpp:1224
+#: gitwidget.cpp:1226
 #, kde-format
 msgid "Stage All"
 msgstr "Enscenigi Ĉion"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Remove All"
 msgstr "Forigi Ĉion"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Discard All"
 msgstr "Forĵeti Ĉion"
 
-#: gitwidget.cpp:1229
+#: gitwidget.cpp:1231
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Malfermi .gitignore"
 
-#: gitwidget.cpp:1230 gitwidget.cpp:1271 gitwidget.cpp:1319
+#: gitwidget.cpp:1232 gitwidget.cpp:1273 gitwidget.cpp:1321
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Montri Diff"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiujn dosierojn?"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Ĉu vi certas, ke vi volas forĵeti ĉiujn ŝanĝojn?"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Open File"
 msgstr "Malfermi Dosieron"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1274
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Montri en Ekstera Git Diff Tool"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1275
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Malfermi ĉe HEAD"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Unstage File"
 msgstr "Malscenigi Dosiero"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Stage File"
 msgstr "Etapa Dosiero"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Remove"
 msgstr "Forigi"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Discard"
 msgstr "Forĵeti"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Ĉu vi certas, ke vi volas forĵeti la ŝanĝojn en ĉi tiu dosiero?"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiun dosieron?"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Unstage All"
 msgstr "Malscenigi Ĉion"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Malscenigi Elektitajn Dosieron"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Stage Elektitajn Dosierojn"
 
-#: gitwidget.cpp:1386
+#: gitwidget.cpp:1388
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Forĵeti Elektitajn dosierojn"
 
-#: gitwidget.cpp:1390
+#: gitwidget.cpp:1392
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Forigi Elektitajn Dosieroj"
 
-#: gitwidget.cpp:1403
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Ĉu vi certas, ke vi volas forĵeti la ŝanĝojn?"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ĉu vi certas, ke vi volas forigi ĉi tiujn nespuritajn ŝanĝojn?"
@@ -1033,52 +1033,52 @@ msgstr "Stash-mesaĝo (laŭvola). Enigu por konfirmi, Esc por foriri."
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Tajpu por filtri, Enigu al pop stash, Esc por foriri."
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Malsukcesis stash-konservi ŝanĝojn %1"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:146
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Ŝanĝoj konservitaj sukcese en stash."
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:165
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Malsukcesis akiri stash-liston. Eraro:"
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Malsukcesis apliki stash. Eraro:"
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Malsukcesis faligi stash. Eraro:"
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Malsukcesis preni el stash. Eraro:"
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Stash aplikita sukcese."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Stash falis sukcese."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:193
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Prenado el stash sukcesa."
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:222
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Montri stash malsukcesis. Eraro:"

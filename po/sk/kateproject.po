@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -33,34 +33,34 @@ msgstr "Vytvoriť novú vetvu"
 msgid "Create New Branch From..."
 msgstr "Vytvoriť novú vetvu z..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Vetva %1 sa získala"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Nepodarilo sa prejsť na vetvu %1, Chyba: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Zadajte názov novej vetvy. Stlačením 'Esc' zrušíte zadávanie."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Vyberte vetvu, z ktorej sa má uskutočniť získanie. Stlačením 'Esc' zrušíte "
 "výber."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:124
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Prešlo sa na novú vetvu: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:126
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Nepodarilo sa vytvoriť novú vetvu. Chyba \"%1\""
@@ -88,12 +88,12 @@ msgstr[0] "Naozaj chcete vymazať vybranú vetvu?"
 msgstr[1] "Naozaj chcete vymazať vybrané vetvy?"
 msgstr[2] "Naozaj chcete vymazať vybrané vetvy?"
 
-#: branchesdialog.cpp:100
+#: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
 msgstr "Vybrať vetvu..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:113 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -127,7 +127,7 @@ msgid "Commit Changes"
 msgstr "Začleniť zmeny"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:281
-#: gitwidget.cpp:1091
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Commit"
 msgstr "Začleniť"
@@ -325,189 +325,189 @@ msgstr "Získať vetvu"
 msgid "Delete Branch"
 msgstr "Vybrať vetvu"
 
-#: gitwidget.cpp:1080
+#: gitwidget.cpp:1082
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Porovnať vetvu s..."
 
-#: gitwidget.cpp:1085
+#: gitwidget.cpp:1087
 #, kde-format
 msgid "Show Commit"
 msgstr "Zobraziť začlenenie"
 
-#: gitwidget.cpp:1103
+#: gitwidget.cpp:1105
 #, fuzzy, kde-format
 #| msgid "Last Commit"
 msgid "Show Last Commit"
 msgstr "Posledné začlenenie"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1123
 #, kde-format
 msgid "Open Commit..."
 msgstr "Otvoriť začlenenie..."
 
-#: gitwidget.cpp:1124 gitwidget.cpp:1163
+#: gitwidget.cpp:1126 gitwidget.cpp:1165
 #, kde-format
 msgid "Stash"
 msgstr "Úschovňa"
 
-#: gitwidget.cpp:1134
+#: gitwidget.cpp:1136
 #, kde-format
 msgid "Diff - stash"
 msgstr "Rozdiel - úschovňa"
 
-#: gitwidget.cpp:1167
+#: gitwidget.cpp:1169
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Aplikovať a vymazať poslednú úschovňu"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Pop Stash"
 msgstr "Aplikovať a vymazať úschovňu"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Aplikovať poslednú úschovňu"
 
-#: gitwidget.cpp:1177
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Úschovňa (Ponechať označené)"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Úschovňa (vrátane nesledovaných)"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Apply Stash"
 msgstr "Aplikovať úschovňu"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Drop Stash"
 msgstr "Vymazať úschovňu"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Zobraziť obsah úschovne"
 
-#: gitwidget.cpp:1224
+#: gitwidget.cpp:1226
 #, kde-format
 msgid "Stage All"
 msgstr "Označiť všetko"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Remove All"
 msgstr "Odobrať všetko"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Discard All"
 msgstr "Zahodiť všetko"
 
-#: gitwidget.cpp:1229
+#: gitwidget.cpp:1231
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Otvoriť .gitignore"
 
-#: gitwidget.cpp:1230 gitwidget.cpp:1271 gitwidget.cpp:1319
+#: gitwidget.cpp:1232 gitwidget.cpp:1273 gitwidget.cpp:1321
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Zobraziť rozdiel"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ste si istí, že chcete tieto súbory odstrániť?"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Naozaj chcete zahodiť všetky zmeny?"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1274
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Zobraziť v externom nástroji rozdielov git"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1275
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Otvoriť na HEAD"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Unstage File"
 msgstr "Zrušiť označenie súboru"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Stage File"
 msgstr "Označiť súbor"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Discard"
 msgstr "Zahodiť"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Naozaj chcete zahodiť zmeny v tomto súbore?"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Naozaj chcete odstrániť tento súbor?"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Unstage All"
 msgstr "Zrušiť označenie všetkého"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Zrušiť označenie vybraných súborov"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Označiť vybrané súbory"
 
-#: gitwidget.cpp:1386
+#: gitwidget.cpp:1388
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Zahodiť vybraté súbory"
 
-#: gitwidget.cpp:1390
+#: gitwidget.cpp:1392
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Odstrániť vybraté súbory"
 
-#: gitwidget.cpp:1403
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Naozaj chcete zahodiť zmeny?"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Naozaj chcete odstrániť tieto nesledované zmeny?"
@@ -1054,52 +1054,52 @@ msgstr ""
 "Napíšte, ak chcete filtrovať, Enter, ak chcete aplikovať a vymazať úschovňu, "
 "Esc, ak chcete odísť."
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Nepodarilo sa uschovať zmeny %1"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:146
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Zmeny boli úspešne uschované."
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:165
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Nepodarilo sa získať zoznam úschovne Chyba: "
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Nepodarilo sa aplikovať. Chyba: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Nepodarilo sa vymazať úschovňu. Chyba: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Nepodarilo sa aplikovať a vymazať úschovňu. Chyba: "
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Úschovňa úspešne aplikovaná."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Úschovňa úspešne vymazaná."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:193
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Úschovňa úspešne aplikovaná a vymazaná."
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:222
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Zobrazenie úschovne zlyhalo. Chyba: "

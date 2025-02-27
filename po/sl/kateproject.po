@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-30 00:42+0000\n"
+"POT-Creation-Date: 2025-02-27 02:33+0000\n"
 "PO-Revision-Date: 2024-09-30 09:38+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -38,32 +38,32 @@ msgstr "Ustvari novo vejo"
 msgid "Create New Branch From..."
 msgstr "Ustvari novo vejo iz ..."
 
-#: branchcheckoutdialog.cpp:53
+#: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Veja %1 je izdana"
 
-#: branchcheckoutdialog.cpp:56
+#: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Izdaja na vejo %1 ni uspela, napaka: %2"
 
-#: branchcheckoutdialog.cpp:83 branchcheckoutdialog.cpp:95
+#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Vnesite ime nove veje. ritisnite ubežnico (»Esc«) za preklic."
 
-#: branchcheckoutdialog.cpp:100
+#: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Izberite vejo za izdajo. Pritisnite ubežnico (»Esc«) za preklic."
 
-#: branchcheckoutdialog.cpp:121
+#: branchcheckoutdialog.cpp:124
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Izdano v novo vejo: %1"
 
-#: branchcheckoutdialog.cpp:123
+#: branchcheckoutdialog.cpp:126
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Ustvarjanje nove veje ni uspelo. Napaka \"%1\""
@@ -92,12 +92,12 @@ msgstr[1] "Ali ste prepričani, da želite izbrisati izbrani veji?"
 msgstr[2] "Ali ste prepričani, da želite izbrisati izbrane veje?"
 msgstr[3] "Ali ste prepričani, da želite izbrisati izbrane veje?"
 
-#: branchesdialog.cpp:100
+#: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
 msgstr "Izberi vejo..."
 
-#: branchesdialog.cpp:125 gitwidget.cpp:566 kateprojectpluginview.cpp:67
+#: branchesdialog.cpp:113 gitwidget.cpp:566 kateprojectpluginview.cpp:67
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -131,7 +131,7 @@ msgid "Commit Changes"
 msgstr "Potrdi spremembe"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:281
-#: gitwidget.cpp:1091
+#: gitwidget.cpp:1093
 #, kde-format
 msgid "Commit"
 msgstr "Potrdi"
@@ -330,188 +330,188 @@ msgstr "Izdaj vejo"
 msgid "Delete Branch"
 msgstr "Izbriši vejo"
 
-#: gitwidget.cpp:1080
+#: gitwidget.cpp:1082
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Primerjaj vejo z..."
 
-#: gitwidget.cpp:1085
+#: gitwidget.cpp:1087
 #, kde-format
 msgid "Show Commit"
 msgstr "Pokaži potrjevanje"
 
-#: gitwidget.cpp:1103
+#: gitwidget.cpp:1105
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Pokaži zadnjo potrditev"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1123
 #, kde-format
 msgid "Open Commit..."
 msgstr "Odpri potrjevanje..."
 
-#: gitwidget.cpp:1124 gitwidget.cpp:1163
+#: gitwidget.cpp:1126 gitwidget.cpp:1165
 #, kde-format
 msgid "Stash"
 msgstr "Zaloga"
 
-#: gitwidget.cpp:1134
+#: gitwidget.cpp:1136
 #, kde-format
 msgid "Diff - stash"
 msgstr "Razlika - zaloga"
 
-#: gitwidget.cpp:1167
+#: gitwidget.cpp:1169
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Dvigni zadnjo zalogo"
 
-#: gitwidget.cpp:1171
+#: gitwidget.cpp:1173
 #, kde-format
 msgid "Pop Stash"
 msgstr "Dvigni zalogo"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1177
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Uveljavi zadnjo zalogo"
 
-#: gitwidget.cpp:1177
+#: gitwidget.cpp:1179
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Zaloga (ohrani postavljeno)"
 
-#: gitwidget.cpp:1181
+#: gitwidget.cpp:1183
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Zaloga (vključi nesledeno)"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1187
 #, kde-format
 msgid "Apply Stash"
 msgstr "Uveljavi zalogo"
 
-#: gitwidget.cpp:1186
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Drop Stash"
 msgstr "Opusti zalogo"
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Pokaži vsebino zaloge"
 
-#: gitwidget.cpp:1224
+#: gitwidget.cpp:1226
 #, kde-format
 msgid "Stage All"
 msgstr "Postavi vse"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Remove All"
 msgstr "Odstrani vse"
 
-#: gitwidget.cpp:1226
+#: gitwidget.cpp:1228
 #, kde-format
 msgid "Discard All"
 msgstr "Zavrzi vse"
 
-#: gitwidget.cpp:1229
+#: gitwidget.cpp:1231
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Odpri .gitignore"
 
-#: gitwidget.cpp:1230 gitwidget.cpp:1271 gitwidget.cpp:1319
+#: gitwidget.cpp:1232 gitwidget.cpp:1273 gitwidget.cpp:1321
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Prikaži razlike"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ali ste prepričani, da želite odstraniti te datoteke?"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Ali ste prepričani, da želite zavreči vse spremembe?"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Open File"
 msgstr "Odpri datoteko"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1274
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Prikaži v zunanjem orodju git diff"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1275
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Odpri pri HEAD"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Unstage File"
 msgstr "Odstavi datoteko"
 
-#: gitwidget.cpp:1274
+#: gitwidget.cpp:1276
 #, kde-format
 msgid "Stage File"
 msgstr "Postavi datoteko"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Remove"
 msgstr "Odstrani"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Discard"
 msgstr "Zavrzi"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Ali ste prepričani, da želite zavreči vse spremembe v tej datoteki?"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Ali ste prepričani, da želite odstraniti to datoteko?"
 
-#: gitwidget.cpp:1318
+#: gitwidget.cpp:1320
 #, kde-format
 msgid "Unstage All"
 msgstr "Odstavi vse"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Odstavi izbrane datoteke"
 
-#: gitwidget.cpp:1385
+#: gitwidget.cpp:1387
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Postavi izbrane datoteke"
 
-#: gitwidget.cpp:1386
+#: gitwidget.cpp:1388
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Zavrzi izbrane datoteke"
 
-#: gitwidget.cpp:1390
+#: gitwidget.cpp:1392
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Odstrani izbrane datoteke"
 
-#: gitwidget.cpp:1403
+#: gitwidget.cpp:1405
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Ali ste prepričani, da želite zavreči spremembe?"
 
-#: gitwidget.cpp:1408
+#: gitwidget.cpp:1410
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
@@ -1045,52 +1045,52 @@ msgstr ""
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Vnesite za filtriranje, vnašalka za dvig zaloge, ubežnica za izhod."
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Ni uspelo založiti sprememb %1"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:146
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Spremembe so bile uspešno založene."
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:165
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Seznama zaloge ni bilo mogoče pridobiti. Napaka: "
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Uveljavitev zaloge ni uspela. Napaka: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Ni uspelo opustiti zaloge. Napaka: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Ni uspelo dvigniti zaloge. Napaka: "
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Zaloga uspešno uveljavljena."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Zaloga je uspešno opuščena."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:193
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Zaloga je uspešno dvignjena."
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:222
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Prikazovanje zaloge je bilo neuspešno. Napaka: "

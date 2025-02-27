@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-02-27 00:43+0000\n"
 "PO-Revision-Date: 2024-11-13 16:58+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -659,23 +659,23 @@ msgstr "Asetukset"
 msgid "IO"
 msgstr "Siirräntä"
 
-#: plugin_kategdb.cpp:1028
+#: plugin_kategdb.cpp:1029
 #, kde-format
 msgid "Breakpoint"
 msgstr "Keskeytyskohta"
 
-#: plugin_kategdb.cpp:1104
+#: plugin_kategdb.cpp:1105
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Kopioi kohde"
 
-#: plugin_kategdb.cpp:1123
+#: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1133
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
 msgstr ""

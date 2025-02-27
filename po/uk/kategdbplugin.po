@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
-"PO-Revision-Date: 2025-02-25 19:17+0200\n"
+"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"PO-Revision-Date: 2025-02-26 09:57+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -649,22 +649,22 @@ msgstr "Параметри"
 msgid "IO"
 msgstr "Ввід-вивід"
 
-#: plugin_kategdb.cpp:1028
+#: plugin_kategdb.cpp:1029
 #, kde-format
 msgid "Breakpoint"
 msgstr "Точка зупинки"
 
-#: plugin_kategdb.cpp:1104
+#: plugin_kategdb.cpp:1105
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Копіювати трасування стека"
 
-#: plugin_kategdb.cpp:1123
+#: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
 msgstr "Відкрити адресу"
 
-#: plugin_kategdb.cpp:1133
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
 msgstr "Копіювати адресу"
@@ -679,14 +679,13 @@ msgstr "№"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Функція"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Відкрити адресу"
+msgstr "Місце"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

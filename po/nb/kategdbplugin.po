@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-02-27 00:43+0000\n"
 "PO-Revision-Date: 2015-05-18 09:33+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -647,23 +647,23 @@ msgstr "Innstillinger"
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1028
+#: plugin_kategdb.cpp:1029
 #, kde-format
 msgid "Breakpoint"
 msgstr "Bruddpunkt"
 
-#: plugin_kategdb.cpp:1104
+#: plugin_kategdb.cpp:1105
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Kopier mål"
 
-#: plugin_kategdb.cpp:1123
+#: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1133
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
 msgstr ""

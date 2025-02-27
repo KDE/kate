@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
-"PO-Revision-Date: 2025-02-24 12:42+0100\n"
+"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"PO-Revision-Date: 2025-02-26 09:31+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -656,22 +656,22 @@ msgstr "Configuració"
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:1028
+#: plugin_kategdb.cpp:1029
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
 
-#: plugin_kategdb.cpp:1104
+#: plugin_kategdb.cpp:1105
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Copia la traça de la pila"
 
-#: plugin_kategdb.cpp:1123
+#: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
 msgstr "Obre la ubicació"
 
-#: plugin_kategdb.cpp:1133
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
 msgstr "Copia la ubicació"
@@ -686,14 +686,13 @@ msgstr "Núm"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funció"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Obre la ubicació"
+msgstr "Ubicació"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

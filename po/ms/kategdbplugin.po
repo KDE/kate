@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-02-27 00:43+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -648,23 +648,23 @@ msgstr "Seting"
 msgid "IO"
 msgstr ""
 
-#: plugin_kategdb.cpp:1028
+#: plugin_kategdb.cpp:1029
 #, kde-format
 msgid "Breakpoint"
 msgstr ""
 
-#: plugin_kategdb.cpp:1104
+#: plugin_kategdb.cpp:1105
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy Stack Trace"
 msgstr "Buang sasaran"
 
-#: plugin_kategdb.cpp:1123
+#: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1133
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
 msgstr ""

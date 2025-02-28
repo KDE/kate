@@ -196,6 +196,7 @@ void CEWidget::createTopBar(QVBoxLayout *mainLayout)
     connect(svc, &CompilerExplorerSvc::compilers, this, &CEWidget::setAvailableCompilers);
     svc->sendRequest(CompilerExplorer::Compilers);
 
+    m_compileButton->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     m_compileButton->setText(i18n("Compile"));
 
     initOptionsComboBox();

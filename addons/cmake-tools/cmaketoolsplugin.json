@@ -1,6 +1,6 @@
 {
     "KPlugin": {
-        "Description": "CMake plugin for kate",
+        "Description": "Code completion for CMake files",
         "Description[ar]": "ملحق سي ميك لكيت",
         "Description[az]": "Kate üçün CMake əlavəsi",
         "Description[bg]": "Приставка на CMake за kate",
@@ -42,7 +42,7 @@
         "Description[x-test]": "xxCMake plugin for katexx",
         "Description[zh_CN]": "Kate 的 CMake 插件",
         "Description[zh_TW]": "Kate 的 CMake 外掛程式",
-        "Name": "CMake Tools",
+        "Name": "CMake Completion",
         "Name[ar]": "أدوات سي ميك",
         "Name[az]": "CMake alətləri",
         "Name[bg]": "Инструменти на CMake",

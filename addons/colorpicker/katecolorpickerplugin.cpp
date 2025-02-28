@@ -42,17 +42,15 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
     auto lineChanged = [this](const int line) {
         if (m_startChangedLines == -1 || m_endChangedLines == -1) {
             m_startChangedLines = line;
-            // changed line is directly above/below the previous changed line, so we just update them
-        } else if (line == m_endChangedLines) { // handled below. Condition added here to avoid fallthrough
         } else if (line == m_startChangedLines - 1) {
             m_startChangedLines = line;
         } else if (line < m_startChangedLines || line > m_endChangedLines) {
-            // changed line is outside the range of previous changes. Change proably skipped lines
             updateNotes(m_startChangedLines, m_endChangedLines);
             m_startChangedLines = line;
             m_endChangedLines = -1;
         }
-
+        
+        // Update end line regardless of which condition matched above
         m_endChangedLines = line >= m_endChangedLines ? line + 1 : m_endChangedLines;
     };
 

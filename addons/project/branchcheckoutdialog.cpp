@@ -62,7 +62,6 @@ void BranchCheckoutDialog::onCheckoutDone()
 
 void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
 {
-    deleteLater();
     // we cleared the model to checkout new branch
     if (m_model->rowCount() == 0) {
         createNewBranch(m_lineEdit.text(), m_checkoutFromBranchName);
@@ -70,6 +69,7 @@ void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
     }
 
     if (!index.isValid()) {
+        deleteLater();
         clearLineEdit();
         hide();
         return;
@@ -104,6 +104,7 @@ void BranchCheckoutDialog::slotReturnPressed(const QModelIndex &index)
         return;
     }
 
+    deleteLater();
     clearLineEdit();
     hide();
 }

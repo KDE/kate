@@ -317,14 +317,16 @@ void CEWidget::initOptionsComboBox()
     menu->addAction(checkableAction(i18n("Filter Comments"), CE_Option_FilterComments));
     menu->addAction(checkableAction(i18n("Intel Syntax"), CE_Option_IntelAsm));
 
-    menu->addAction(i18n("Change Url..."), this, [this] {
+    menu->addSeparator();
+
+    menu->addAction(i18n("Change URL…"), this, [this] {
         KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
         QString url = cg.readEntry("kate_compilerexplorer_url", QStringLiteral("http://localhost:10240"));
 
         bool ok = false;
         QString newUrl = QInputDialog::getText(this,
-                                               i18n("Enter Url"),
-                                               i18n("Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"),
+                                               i18n("Enter URL"),
+                                               i18n("Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"),
                                                QLineEdit::Normal,
                                                url,
                                                &ok);

@@ -1312,7 +1312,7 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     }
 
     delete m_infoMessage;
-    m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>Make Results:</title><nl/>%1", msg), level);
+    m_infoMessage = new KTextEditor::Message(xi18nc("@info", "<title>Build Finished:</title>%1", msg), level);
     m_infoMessage->setWordWrap(false);
     m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
     m_infoMessage->setAutoHide(5000);

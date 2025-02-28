@@ -1403,6 +1403,8 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     }
     m_buildUi.buildStatusLabel->setText(buildStatus);
 
+    m_pendingHtmlOutput += buildStatus;
+
     if (buildSuccess && m_runAfterBuild) {
         m_runAfterBuild = false;
         slotRunAfterBuild();

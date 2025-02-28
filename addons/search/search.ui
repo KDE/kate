@@ -297,13 +297,7 @@
      </widget>
      <widget class="QWidget" name="optionsPage">
       <layout class="QGridLayout" name="optionsLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
        <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
         <number>0</number>
        </property>
        <property name="bottomMargin">

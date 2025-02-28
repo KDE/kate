@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-24 12:42+0100\n"
+"PO-Revision-Date: 2025-02-26 09:31+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -686,14 +686,13 @@ msgstr "Núm"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funció"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Obri la ubicació"
+msgstr "Ubicació"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -706,7 +705,3 @@ msgstr "&Depura"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Marc"

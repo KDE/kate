@@ -101,9 +101,19 @@ CEWidget::CEWidget(CEPluginView *pluginView, KTextEditor::MainWindow *mainWindow
     setWindowTitle(QStringLiteral("Compiler Explorer - ") + doc->documentName());
 
     auto mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
     createTopBar(mainLayout);
+
+    // Separator between the toolbar and the splitter
+    auto separator = new QFrame(this);
+    separator->setFrameShape(QFrame::HLine);
+    separator->setEnabled(false);
+    separator->setFixedHeight(1);
+    mainLayout->addWidget(separator);
+
     createMainViews(mainLayout);
 
     connect(m_compileButton, &QPushButton::clicked, this, &CEWidget::doCompile);
@@ -176,6 +186,11 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
 void CEWidget::createTopBar(QVBoxLayout *mainLayout)
 {
     auto *topBarLayout = new QHBoxLayout;
+    topBarLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    topBarLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     mainLayout->addLayout(topBarLayout);
 
     m_languagesCombo->setToolTip(i18nc("@info:tooltip Languages like C, C++, Rust", "Languages"));

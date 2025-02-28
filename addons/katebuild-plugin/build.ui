@@ -48,15 +48,15 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <property name="spacing">
-        <number>0</number>
-       </property>
        <item>
         <layout class="QHBoxLayout" name="u_outpTopLayout">
          <item>
           <widget class="QPushButton" name="buildAgainButton">
            <property name="text">
-            <string>Build again</string>
+            <string>Build Again</string>
+           </property>
+           <property name="icon">
+            <iconset theme="run-build"/>
            </property>
           </widget>
          </item>
@@ -64,6 +64,9 @@
           <widget class="QPushButton" name="cancelBuildButton">
            <property name="text">
             <string>Cancel</string>
+           </property>
+           <property name="icon">
+            <iconset theme="dialog-cancel"/>
            </property>
           </widget>
          </item>

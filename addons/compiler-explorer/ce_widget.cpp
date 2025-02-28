@@ -178,6 +178,10 @@ void CEWidget::createTopBar(QVBoxLayout *mainLayout)
     auto *topBarLayout = new QHBoxLayout;
     mainLayout->addLayout(topBarLayout);
 
+    m_languagesCombo->setToolTip(i18nc("@info:tooltip Languages like C, C++, Rust", "Languages"));
+    m_compilerCombo->setToolTip(i18nc("@info:tooltip Compilers like GCC, Clang", "Compilers"));
+    m_lineEdit->setPlaceholderText(i18nc("@info:placeholder", "Compiler options…"));
+
     topBarLayout->addWidget(m_languagesCombo);
     topBarLayout->addWidget(m_compilerCombo);
     topBarLayout->addWidget(m_optsCombo);

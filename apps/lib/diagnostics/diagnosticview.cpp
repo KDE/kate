@@ -514,6 +514,7 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
         m_filterChangedTimer->start();
     });
 
+    m_clearButton->setToolTip(i18nc("@info:tooltip", "Clear diagnostics"));
     m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     connect(m_clearButton, &QToolButton::clicked, this, [this] {
         std::vector<KTextEditor::Document *> docs(m_diagnosticsMarks.begin(), m_diagnosticsMarks.end());

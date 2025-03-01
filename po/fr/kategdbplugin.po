@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-25 09:02+0100\n"
+"PO-Revision-Date: 2025-02-27 09:12+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -688,14 +688,13 @@ msgstr "N°"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Fonction"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Ouvrir un emplacement"
+msgstr "Emplacement"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-01 00:54+0000\n"
 "PO-Revision-Date: 2024-12-22 15:01+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -55,12 +55,12 @@ msgstr "Sartu adar izen berria. Sakatu 'Ihes' uzteko."
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Hautatu hartatik eskuratu beharreko adarra. Sakatu 'Ihes' uzteko."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Adar berrira eskuratuta: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Adar berria sortzea huts egin du. Errorea \"%1\""

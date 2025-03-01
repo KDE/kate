@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-01 00:54+0000\n"
 "PO-Revision-Date: 2016-03-24 14:51+0100\n"
 "Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -54,12 +54,12 @@ msgstr ""
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr ""
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr ""

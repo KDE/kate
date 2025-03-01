@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-01 00:54+0000\n"
 "PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -52,12 +52,12 @@ msgstr "새 브랜치 이름을 입력하십시오. 'Esc' 키를 누르면 취�
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "체크아웃할 브랜치를 선택하십시오. 'Esc' 키를 누르면 취소합니다."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "새 브랜치 체크아웃함: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "새 브랜치를 만들 수 없습니다. 오류: \"%1\""

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-01 00:54+0000\n"
 "PO-Revision-Date: 2024-12-09 14:52+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -62,12 +62,12 @@ msgstr ""
 "Выберите ветвь, из которой следует выполнить извлечение. Для отмены нажмите "
 "клавишу «Esc»."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Извлечено в новую ветвь: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Не удалось создать ветвь. Ошибка «%1»"

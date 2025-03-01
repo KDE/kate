@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-21 07:32+0100\n"
+"PO-Revision-Date: 2025-02-28 07:13+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -46,7 +46,7 @@ msgstr "Eliminar o destino"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Recargar os obxectivos de launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -108,7 +108,7 @@ msgstr "o programa terminou"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Non foi posíbel terminar. Forzando o apagado…"
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -679,14 +679,13 @@ msgstr "N.º"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Función"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Abrir a localización"
+msgstr "Localización"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

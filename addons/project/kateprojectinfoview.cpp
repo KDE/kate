@@ -58,32 +58,53 @@ void KateProjectInfoView::initialize()
      * skip terminal toolviews if no terminal aka KonsolePart around
      */
     if (KateProjectInfoViewTerminal::isLoadable()) {
+        const QFileInfo projectInfo(QFileInfo(m_project->fileName()).path());
+        const QString projectPath = projectInfo.absoluteFilePath();
+
+        const QFileInfo baseInfo(m_project->baseDir());
+        const QString basePath = baseInfo.absoluteFilePath();
+
+        const QFileInfo buildInfo(m_project->projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
+        const QString buildPath = buildInfo.absoluteFilePath();
+
+        const bool projectTerminalAvailable = !projectPath.isEmpty() && projectInfo.exists();
+        const bool baseTerminalAvailable = !basePath.isEmpty() && projectPath != basePath && baseInfo.exists();
+        const bool buildTerminalAvailable = !buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists();
+
+        const int availableTabCount =
+            static_cast<int>(projectTerminalAvailable) + static_cast<int>(baseTerminalAvailable) + static_cast<int>(buildTerminalAvailable);
+
+        // True if there is more than one terminal tab, and we have to label what each one is for.
+        const bool tabsNeedDisambiguation = availableTabCount > 1;
+
+        const QString genericTerminalLabel = i18nc("@title:tab", "Terminal");
+
         /**
          * terminal for the directory with the .kateproject file inside
          */
-        const QFileInfo projectInfo(QFileInfo(m_project->fileName()).path());
-        const QString projectPath = projectInfo.absoluteFilePath();
-        if (!projectPath.isEmpty() && projectInfo.exists()) {
+        if (projectTerminalAvailable) {
             m_terminal = new KateProjectInfoViewTerminal(m_pluginView, projectPath);
-            addTab(m_terminal, i18n("Terminal (.kateproject)"));
+            addTab(m_terminal,
+                   QIcon::fromTheme(QStringLiteral("utilities-terminal-symbolic")),
+                   tabsNeedDisambiguation ? i18nc("@title:tab", "Terminal (Project)") : genericTerminalLabel);
         }
 
         /**
          * terminal for the base directory, if different to directory of .kateproject
          */
-        const QFileInfo baseInfo(m_project->baseDir());
-        const QString basePath = baseInfo.absoluteFilePath();
-        if (!basePath.isEmpty() && projectPath != basePath && baseInfo.exists()) {
-            addTab(new KateProjectInfoViewTerminal(m_pluginView, basePath), i18n("Terminal (Base)"));
+        if (baseTerminalAvailable) {
+            addTab(new KateProjectInfoViewTerminal(m_pluginView, basePath),
+                   QIcon::fromTheme(QStringLiteral("utilities-terminal-symbolic")),
+                   tabsNeedDisambiguation ? i18nc("@title:tab", "Terminal (Base)") : genericTerminalLabel);
         }
 
         /**
          * terminal for the build directory
          */
-        const QFileInfo buildInfo(m_project->projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
-        const QString buildPath = buildInfo.absoluteFilePath();
-        if (!buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists()) {
-            addTab(new KateProjectInfoViewTerminal(m_pluginView, buildPath), i18n("Terminal (build)"));
+        if (buildTerminalAvailable) {
+            addTab(new KateProjectInfoViewTerminal(m_pluginView, buildPath),
+                   QIcon::fromTheme(QStringLiteral("utilities-terminal-symbolic")),
+                   tabsNeedDisambiguation ? i18nc("@title:tab", "Terminal (Build)") : genericTerminalLabel);
         }
     }
 

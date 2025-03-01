@@ -72,7 +72,7 @@ private:
     void filesFromSubversion(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
     void filesFromDarcs(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
     void filesFromFossil(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles);
-    static void filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters, std::vector<FileEntry> &outFiles);
+    static void filesFromDirectory(QDir dir, bool recursive, const QVariantMap &filesEntry, std::vector<FileEntry> &outFiles);
 
     static void gitFiles(const QDir &dir, bool recursive, const QStringList &args, std::vector<FileEntry> &outFiles);
 

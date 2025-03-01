@@ -428,15 +428,10 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
     }
 
     /**
-     * shall we collect hidden files or not?
-     */
-    const bool hidden = filesEntry.contains(QLatin1String("hidden")) && filesEntry[QStringLiteral("hidden")].toBool();
-
-    /**
      * if nothing found for that, try to use filters to scan the directory
      * here we only get files
      */
-    filesFromDirectory(dir, recursive, hidden, filesEntry[QStringLiteral("filters")].toStringList(), outFiles);
+    filesFromDirectory(dir, recursive, filesEntry, outFiles);
 }
 
 void KateProjectWorker::filesFromGit(const QDir &dir, bool recursive, std::vector<FileEntry> &outFiles)
@@ -692,18 +687,17 @@ void KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive, std::ve
     }
 }
 
-void KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden, const QStringList &filters, std::vector<FileEntry> &outFiles)
+void KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, const QVariantMap &filesEntry, std::vector<FileEntry> &outFiles)
 {
     /**
      * setup our filters
      */
     QDir::Filters filterFlags = QDir::Files | QDir::Dirs | QDir::NoDot | QDir::NoDotDot;
-    if (hidden) {
+    if (filesEntry.value(QStringLiteral("hidden")).toBool()) {
         filterFlags |= QDir::Hidden;
     }
-
     dir.setFilter(filterFlags);
-    if (!filters.isEmpty()) {
+    if (const auto filters = filesEntry.value(QStringLiteral("filters")).toStringList(); !filters.isEmpty()) {
         dir.setNameFilters(filters);
     }
 
@@ -712,7 +706,10 @@ void KateProjectWorker::filesFromDirectory(QDir dir, bool recursive, bool hidden
      */
     QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
     if (recursive) {
-        flags = flags | QDirIterator::Subdirectories | QDirIterator::FollowSymlinks;
+        flags |= QDirIterator::Subdirectories;
+        if (filesEntry.value(QStringLiteral("symlinks")).toBool()) {
+            flags |= QDirIterator::FollowSymlinks;
+        }
     }
 
     /**

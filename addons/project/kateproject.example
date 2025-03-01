@@ -48,6 +48,9 @@ struct
 
       /// If "hidden" is set to 1, hidden files will be retrieved. Only affects directories not managed by version control.
       bool hidden;
+
+      /// If "symlinks" is set to 1, symlinks will be followed in recursive mode
+      bool symlinks;
    };
 
    /// The "build" structure is optional.

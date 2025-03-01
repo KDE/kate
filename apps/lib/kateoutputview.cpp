@@ -20,6 +20,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QScrollBar>
+#include <QStyle>
 #include <QTextBlock>
 #include <QTimeLine>
 #include <QToolButton>
@@ -174,7 +175,6 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // filter line edit
     m_filterLine.setPlaceholderText(i18n("Search..."));
     m_filterLine.setClearButtonEnabled(true);
-    m_filterLine.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::RightEdge}));
     connect(&m_filterLine, &QLineEdit::textChanged, this, [this]() {
         m_searchTimer.start();
     });
@@ -202,21 +202,21 @@ KateOutputView::KateOutputView(KateMainWindow *mainWindow, QWidget *parent)
     // setup top horizontal layout
     // tried toolbar, has bad spacing
     auto *hLayout = new QHBoxLayout();
-    hLayout->setSpacing(3);
+    hLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    hLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     hLayout->addWidget(&m_filterLine);
     hLayout->addWidget(copy);
     hLayout->addWidget(clear);
     hLayout->setStretch(0, 1);
 
-    // Vertical separator
-    auto separator = new QFrame(this);
-    separator->setFrameShape(QFrame::HLine);
-    separator->setEnabled(false);
-    separator->setFixedHeight(1);
-
     // tree view
     layout->addLayout(hLayout);
-    layout->addWidget(separator);
+
+    m_textEdit->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+
     layout->addWidget(m_textEdit);
 
     // handle tab button creation

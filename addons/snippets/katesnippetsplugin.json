@@ -80,5 +80,5 @@
         "Name[zh_CN]": "代码片段",
         "Name[zh_TW]": "片段"
     },
-    "LoadInKDevelop": true
+    "LoadInKDevelop": "true"
 }

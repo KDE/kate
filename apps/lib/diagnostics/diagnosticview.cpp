@@ -450,7 +450,10 @@ DiagnosticsView::~DiagnosticsView()
     }
     Q_ASSERT(m_providers.empty());
 
-    m_mainWindow->guiFactory()->removeClient(this);
+    // KDevelop's main window is destroyed before plugins are unloaded
+    if (m_mainWindow) {
+        m_mainWindow->guiFactory()->removeClient(this);
+    }
 }
 
 void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
@@ -511,6 +514,7 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
         m_filterChangedTimer->start();
     });
 
+    m_clearButton->setToolTip(i18nc("@info:tooltip", "Clear diagnostics"));
     m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     connect(m_clearButton, &QToolButton::clicked, this, [this] {
         std::vector<KTextEditor::Document *> docs(m_diagnosticsMarks.begin(), m_diagnosticsMarks.end());

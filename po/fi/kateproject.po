@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: 2024-10-20 21:26+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -56,12 +56,12 @@ msgstr "Anna uuden haaran nimi. Peru painamalla Esc."
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Valitse haara, josta noudetaan. Peru painamalla Esc."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Siirrytty uuteen haaraan: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Uutta haaraa ei voitu luoda. Virhe: ”%1”"

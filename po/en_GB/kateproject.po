@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: 2024-10-18 17:11+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -52,12 +52,12 @@ msgstr "Enter new branch name. Press 'Esc' to cancel."
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Select branch to checkout from. Press 'Esc' to cancel."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Checked out to new branch: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Failed to create new branch. Error \"%1\""

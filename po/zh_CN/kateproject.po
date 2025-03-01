@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -52,12 +52,12 @@ msgstr "输入新分支名称。按“Esc”取消。"
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "选择要检出自的分支。按“Esc”取消。"
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "已检出到新分支：%1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "创建新分支失败。错误“%1”"

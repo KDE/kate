@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: 2025-02-18 02:56+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -55,12 +55,12 @@ msgstr "Introduzca el nombre de la nueva rama. Pulse «Esc» para cancelar."
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Seleccione la rama de la que descargar. Pulse «Esc» para cancelar."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Se ha descargado la nueva rama: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "No se ha podido crear la nueva rama. Error «%1»"

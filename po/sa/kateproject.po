@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -49,12 +49,12 @@ msgstr "नूतनं शाखानाम प्रविष्टं कु
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "तः अधिक्रियतुं शाखां चिनोतु। रद्दं कर्तुं 'Esc' नुदन्तु।."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "नूतनशाखायाः कृते जाँचितम्: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "नूतनशाखायाः निर्माणे असफलः अभवत् । \"%1\" इति त्रुटिः ।"

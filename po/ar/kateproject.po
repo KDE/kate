@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 02:33+0000\n"
+"POT-Creation-Date: 2025-03-01 02:50+0000\n"
 "PO-Revision-Date: 2025-02-20 14:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -55,12 +55,12 @@ msgstr "أدخل اسم الفرع. اضغط مفتاح الهروب  'Esc' لت
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "اختر فرع لتخرج منه اضغط مفتاح الهروب  'Esc' لتلغي ذلك."
 
-#: branchcheckoutdialog.cpp:124
+#: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "انتقل إلى فرع جديد: %1"
 
-#: branchcheckoutdialog.cpp:126
+#: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "فشل في إنشاء فرع جديد. الخطأ  \"%1\""

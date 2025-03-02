@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2018-07-18 22:03+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -344,67 +344,67 @@ msgid "Add new search tab"
 msgstr "Tilføj nyt søgefaneblad"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:356
+#: search.ui:350
 #, kde-format
 msgid "Folder:"
 msgstr "Mappe:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:374
+#: search.ui:368
 #, kde-format
 msgid "Go one folder up."
 msgstr "Gå én mappe op."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:383
+#: search.ui:377
 #, kde-format
 msgid "Filter:"
 msgstr "Filter:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:405
+#: search.ui:399
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:413
+#: search.ui:407
 #, kde-format
 msgid "Exclude:"
 msgstr "Udelad:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:434
+#: search.ui:428
 #, kde-format
 msgid "Recursive"
 msgstr "Rekursiv"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:444
+#: search.ui:438
 #, kde-format
 msgid "Include hidden"
 msgstr "Inkludér skjulte filer"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:451
+#: search.ui:445
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "Følg symbolske link"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:458
+#: search.ui:452
 #, kde-format
 msgid "Include binary files"
 msgstr "Medtag binære filer"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
-#: search.ui:465
+#: search.ui:459
 #, kde-format
 msgid "MB"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: search.ui:478
+#: search.ui:472
 #, kde-format
 msgid "Size limit"
 msgstr ""

@@ -4,14 +4,14 @@
 # Nicola Ruggero <nicola@nxnt.org>, 2009, 2010, 2011, 2012, 2013.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2012.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
-"PO-Revision-Date: 2024-12-15 18:25+0100\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"PO-Revision-Date: 2025-02-27 14:54+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -38,9 +38,10 @@ msgid "Output"
 msgstr "Output"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Compila di nuovo"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -300,9 +301,11 @@ msgstr ""
 "configurazione dell'estensione."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Risultati Make:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
@@ -387,9 +390,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
@@ -548,6 +549,10 @@ msgstr "Inserisci percorso"
 msgid "Select directory to insert"
 msgstr "Seleziona la cartella da inserire"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Risultati Make:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Cartella di lavoro / Comando"
 
@@ -665,13 +670,6 @@ msgstr "Seleziona la cartella da inserire"
 
 #~ msgid "Build Output"
 #~ msgstr "Output della compilazione"
-
-#, fuzzy
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Risultati Make:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Insieme di target successivo"

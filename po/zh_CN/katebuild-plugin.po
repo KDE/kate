@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -34,9 +34,10 @@ msgid "Output"
 msgstr "输出"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "再次构建"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -288,9 +289,11 @@ msgstr ""
 "<br><br>此选择可以在插件的配置页面进行更改。"
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Make 的结果：</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377

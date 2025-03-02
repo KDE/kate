@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-02-18 15:59+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -290,67 +290,67 @@ msgid "Add new search tab"
 msgstr "新增搜尋分頁"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:356
+#: search.ui:350
 #, kde-format
 msgid "Folder:"
 msgstr "資料夾："
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:374
+#: search.ui:368
 #, kde-format
 msgid "Go one folder up."
 msgstr "往上一層資料夾。"
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:383
+#: search.ui:377
 #, kde-format
 msgid "Filter:"
 msgstr "過濾器："
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:405
+#: search.ui:399
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:413
+#: search.ui:407
 #, kde-format
 msgid "Exclude:"
 msgstr "排除："
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:434
+#: search.ui:428
 #, kde-format
 msgid "Recursive"
 msgstr "遞迴"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:444
+#: search.ui:438
 #, kde-format
 msgid "Include hidden"
 msgstr "包含隱藏檔"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:451
+#: search.ui:445
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "跟隨符號連結"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:458
+#: search.ui:452
 #, kde-format
 msgid "Include binary files"
 msgstr "包含二進位檔案"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
-#: search.ui:465
+#: search.ui:459
 #, kde-format
 msgid "MB"
 msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: search.ui:478
+#: search.ui:472
 #, kde-format
 msgid "Size limit"
 msgstr "大小限制"

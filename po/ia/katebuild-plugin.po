@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-01-23 11:25+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -34,9 +34,10 @@ msgid "Output"
 msgstr "Exito"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Construe de novo"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -304,10 +305,12 @@ msgstr ""
 "configuration del plugin."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Face Exitos:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>On non pote aperir file :</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -548,6 +551,10 @@ msgstr "Inserta percurso"
 msgid "Select directory to insert"
 msgstr "Selige directorio de insertar"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Face Exitos:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Directorio de travalio / Commando"
 
@@ -667,12 +674,6 @@ msgstr "Selige directorio de insertar"
 
 #~ msgid "Build Output"
 #~ msgstr "Exito de Build (Construe)"
-
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>On non pote aperir file :</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Proxime insimul de objectivos"

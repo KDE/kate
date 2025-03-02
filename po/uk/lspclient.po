@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-12-06 16:00+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -389,44 +389,44 @@ msgstr "НЕ перезапускаємо"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Роботу сервера несподівано перервано… %1 [%2] [домашня сторінка: %3] "
 
-#: lspclientservermanager.cpp:804
+#: lspclientservermanager.cpp:809
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Не вдалося знайти виконуваний файл сервера: %1"
 
-#: lspclientservermanager.cpp:807 lspclientservermanager.cpp:849
+#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 "Будь ласка, перевірте, чи правильно вказано PATH для виконуваного файла"
 
-#: lspclientservermanager.cpp:808 lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 "Див. також %1 для ознайомлення із правилами встановлення та подробицями"
 
-#: lspclientservermanager.cpp:846
+#: lspclientservermanager.cpp:851
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Не вдалося запустити сервер: %1"
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Запущено сервер %2: %1"
 
-#: lspclientservermanager.cpp:889
+#: lspclientservermanager.cpp:894
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Не вдалося обробити налаштування сервера «%1»: немає об'єкта JSON"
 
-#: lspclientservermanager.cpp:892
+#: lspclientservermanager.cpp:897
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Не вдалося обробити налаштування сервера «%1»: %2"
 
-#: lspclientservermanager.cpp:896
+#: lspclientservermanager.cpp:901
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Не вдалося прочитати налаштування сервера: %1"

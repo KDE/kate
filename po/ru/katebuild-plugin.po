@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-12-09 12:21+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -44,9 +44,10 @@ msgid "Output"
 msgstr "Вывод"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Собрать заново"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -308,9 +309,9 @@ msgstr ""
 "изменить на странице настройки модуля."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Результаты сборки:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
@@ -564,6 +565,10 @@ msgstr "Вставить путь"
 msgid "Select directory to insert"
 msgstr "Выбор пути для вставки"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Результаты сборки:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Рабочий каталог / команда"
 
@@ -685,11 +690,6 @@ msgstr "Выбор пути для вставки"
 
 #~ msgid "Build Output"
 #~ msgstr "Вывод сборки"
-
-#, fuzzy
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Результаты сборки:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Следующий набор целей"

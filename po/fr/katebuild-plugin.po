@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-01-24 11:16+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -45,9 +45,10 @@ msgid "Output"
 msgstr "Sortie"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Reconstruire"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -322,10 +323,12 @@ msgstr ""
 "grâce à la page de configuration du module externe."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Résultats de Make :</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>Impossible d'ouvrir le fichier :</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -568,6 +571,10 @@ msgstr "Insérer l'emplacement"
 msgid "Select directory to insert"
 msgstr "Sélectionnez le dossier à insérer"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Résultats de Make :</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Dossier de travail / Commande"
 
@@ -685,10 +692,6 @@ msgstr "Sélectionnez le dossier à insérer"
 
 #~ msgid "Build Output"
 #~ msgstr "Sortie de compilation"
-
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Impossible d'ouvrir le fichier :</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Ensemble de cibles suivant"

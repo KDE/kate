@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-09-10 15:18+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -385,42 +385,42 @@ msgstr "ပြန်မစတင်ပါ"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:804
+#: lspclientservermanager.cpp:809
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "ဆာဗာဘိုင်နရီကိုမရှာနိုင်ခဲ့ပါ- %1"
 
-#: lspclientservermanager.cpp:807 lspclientservermanager.cpp:849
+#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:808 lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:846
+#: lspclientservermanager.cpp:851
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "ဆာဗာ မစတင်နိုင်ခဲ့ပါ- %1"
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "ဆာဗာ %2: %1 စတင်ခဲ့သည်"
 
-#: lspclientservermanager.cpp:889
+#: lspclientservermanager.cpp:894
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:892
+#: lspclientservermanager.cpp:897
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:896
+#: lspclientservermanager.cpp:901
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "ဆာဗာပြင်ဆင်ချက်များကိုမဖတ်နိုင်ခဲ့ပါ- %1"

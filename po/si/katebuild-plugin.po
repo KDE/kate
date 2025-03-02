@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2011-08-09 05:54+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -34,10 +34,10 @@ msgid "Output"
 msgstr "ප්‍රථිදානය"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
+#: build.ui:56
 #, fuzzy, kde-format
 #| msgid "Build Plugin"
-msgid "Build again"
+msgid "Build Again"
 msgstr "Build ප්ලගිනය"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -295,7 +295,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1315
 #, kde-kuit-format
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr ""
 
 #: plugin_katebuild.cpp:1377

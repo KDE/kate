@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2011-05-15 23:22+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -35,9 +35,9 @@ msgid "Output"
 msgstr "Output"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
+#: build.ui:56
 #, kde-format
-msgid "Build again"
+msgid "Build Again"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -284,7 +284,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1315
 #, kde-kuit-format
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr ""
 
 #: plugin_katebuild.cpp:1377

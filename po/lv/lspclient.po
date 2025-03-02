@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-12-30 17:27+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -387,42 +387,42 @@ msgstr "NENOTIEK pārstartēšana"
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Serveris negaidīti beidza darbību... %1 [%2] [mājaslapa: %3] "
 
-#: lspclientservermanager.cpp:804
+#: lspclientservermanager.cpp:809
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Neizdevās atrast servera bināro: %1"
 
-#: lspclientservermanager.cpp:807 lspclientservermanager.cpp:849
+#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Pārbaudiet PATH vērtību binārajam"
 
-#: lspclientservermanager.cpp:808 lspclientservermanager.cpp:850
+#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Saistībā ar instalāciju un papildinformāciju skatiet arī „%1“"
 
-#: lspclientservermanager.cpp:846
+#: lspclientservermanager.cpp:851
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Neizdevās sākt serveri: %1"
 
-#: lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:859
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Sākts serveris „%2“: %1"
 
-#: lspclientservermanager.cpp:889
+#: lspclientservermanager.cpp:894
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Neizdevās parsēt servera konfigurāciju „%1“: nav JSON objekta"
 
-#: lspclientservermanager.cpp:892
+#: lspclientservermanager.cpp:897
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Neizdevās parsēt servera konfigurāciju „%1“: %2"
 
-#: lspclientservermanager.cpp:896
+#: lspclientservermanager.cpp:901
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Neizdevās nolasīt servera konfigurāciju: %1"

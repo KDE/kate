@@ -101,9 +101,19 @@ CEWidget::CEWidget(CEPluginView *pluginView, KTextEditor::MainWindow *mainWindow
     setWindowTitle(QStringLiteral("Compiler Explorer - ") + doc->documentName());
 
     auto mainLayout = new QVBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
     createTopBar(mainLayout);
+
+    // Separator between the toolbar and the splitter
+    auto separator = new QFrame(this);
+    separator->setFrameShape(QFrame::HLine);
+    separator->setEnabled(false);
+    separator->setFixedHeight(1);
+    mainLayout->addWidget(separator);
+
     createMainViews(mainLayout);
 
     connect(m_compileButton, &QPushButton::clicked, this, &CEWidget::doCompile);
@@ -176,7 +186,16 @@ bool CEWidget::eventFilter(QObject *o, QEvent *e)
 void CEWidget::createTopBar(QVBoxLayout *mainLayout)
 {
     auto *topBarLayout = new QHBoxLayout;
+    topBarLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutTopMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                     style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+    topBarLayout->setSpacing(style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     mainLayout->addLayout(topBarLayout);
+
+    m_languagesCombo->setToolTip(i18nc("@info:tooltip Languages like C, C++, Rust", "Languages"));
+    m_compilerCombo->setToolTip(i18nc("@info:tooltip Compilers like GCC, Clang", "Compilers"));
+    m_lineEdit->setPlaceholderText(i18nc("@info:placeholder", "Compiler options…"));
 
     topBarLayout->addWidget(m_languagesCombo);
     topBarLayout->addWidget(m_compilerCombo);
@@ -192,6 +211,7 @@ void CEWidget::createTopBar(QVBoxLayout *mainLayout)
     connect(svc, &CompilerExplorerSvc::compilers, this, &CEWidget::setAvailableCompilers);
     svc->sendRequest(CompilerExplorer::Compilers);
 
+    m_compileButton->setIcon(QIcon::fromTheme(QStringLiteral("run-build")));
     m_compileButton->setText(i18n("Compile"));
 
     initOptionsComboBox();
@@ -312,14 +332,16 @@ void CEWidget::initOptionsComboBox()
     menu->addAction(checkableAction(i18n("Filter Comments"), CE_Option_FilterComments));
     menu->addAction(checkableAction(i18n("Intel Syntax"), CE_Option_IntelAsm));
 
-    menu->addAction(i18n("Change Url..."), this, [this] {
+    menu->addSeparator();
+
+    menu->addAction(i18n("Change URL…"), this, [this] {
         KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("kate_compilerexplorer"));
         QString url = cg.readEntry("kate_compilerexplorer_url", QStringLiteral("http://localhost:10240"));
 
         bool ok = false;
         QString newUrl = QInputDialog::getText(this,
-                                               i18n("Enter Url"),
-                                               i18n("Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"),
+                                               i18n("Enter URL"),
+                                               i18n("Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"),
                                                QLineEdit::Normal,
                                                url,
                                                &ok);

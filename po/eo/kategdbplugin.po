@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-16 17:10+0100\n"
+"PO-Revision-Date: 2025-03-01 17:55+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -45,7 +45,7 @@ msgstr "Forigi celon"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Reŝargi celojn de launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -107,7 +107,7 @@ msgstr "programo finiĝis"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Malsukcesis fini. Devigante sistemformon..."
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -677,14 +677,13 @@ msgstr "Nr"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funkcio"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Malfermi Lokon"
+msgstr "Loko"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -697,103 +696,3 @@ msgstr "&Sencimigi"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Sencimiga kromprogramo"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Kadro"
-
-#~ msgid "killing backend"
-#~ msgstr "mortiganta backend"
-
-#~ msgid "GDB command"
-#~ msgstr "GDB-komando"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Source file search paths"
-#~ msgstr "Fontdosier-serĉvojoj"
-
-#~ msgid "Local application"
-#~ msgstr "Loka aplikaĵo"
-
-#~ msgid "Remote TCP"
-#~ msgstr "Fora TCP"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Fora Seria Konektejo"
-
-#~ msgid "Host"
-#~ msgstr "Gastiganto"
-
-#~ msgid "Port"
-#~ msgstr "Konektejo"
-
-#~ msgid "Baud"
-#~ msgstr "Baud"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absoluta-prefikso"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Propraj Init-Komandoj"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Altnivelaj Agordoj"
-
-#~ msgid "Locals"
-#~ msgstr "Lokuloj"
-
-#~ msgid "CPU registers"
-#~ msgstr "CPU-registroj"
-
-#~ msgid ""
-#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-#~ msgstr ""
-#~ "Bonvolu agordi la plenumeblan en la langeto 'Agordoj' en la panelo "
-#~ "'Sencimigi'."
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr ""
-#~ "Neniu erarserĉilo elektita. Bonvolu elekti unu en la langeto 'Agordoj' en "
-#~ "la panelo 'Sencimigi'."
-
-#~ msgid ""
-#~ "Debugger not found. Please make sure you have it installed in your "
-#~ "system. The selected debugger is '%1'"
-#~ msgstr ""
-#~ "Sencimigilo ne trovita. Bonvolu certigi, ke vi havas ĝin instalita en via "
-#~ "sistemo. La elektita erarserĉilo estas '%1'"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "Ne eblis komenci erarserĉilprocezon"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb eliris normale ***"
-
-#~ msgid "all threads running"
-#~ msgstr "ĉiuj fadenoj kurantaj"
-
-#~ msgid "thread(s) running: %1"
-#~ msgstr "fadeno(j) kuranta(j): %1"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "Nuna kadro: %1:%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Gastiganto: %1. Celo: %1"
-
-#~ msgid ""
-#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-#~ "Shutting down."
-#~ msgstr ""
-#~ "gdb-mi: Ne eblis analizi lastan respondon: %1. Tro da sinsekvaj eraroj. "
-#~ "Fermante."
-
-#~ msgid "gdb-mi: Could not parse last response: %1"
-#~ msgstr "gdb-mi: Ne eblis analizi lastan respondon: %1"

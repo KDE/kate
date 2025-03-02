@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2020-06-05 19:31+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -35,9 +35,10 @@ msgid "Output"
 msgstr "Väljund"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Ehita uuesti"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -297,10 +298,12 @@ msgid ""
 msgstr ""
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Make'i tulemused:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>Faili avamine nurjus:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -554,6 +557,10 @@ msgstr "Asukoha määramine"
 msgid "Select directory to insert"
 msgstr "Lisatava kataloogi valimine"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Make'i tulemused:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Töökataloog / käsk"
 
@@ -673,10 +680,6 @@ msgstr "Lisatava kataloogi valimine"
 
 #~ msgid "Build Output"
 #~ msgstr "Ehitamise väljund"
-
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Faili avamine nurjus:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Järgmine sihtmärgikogum"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-20 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-12-09 14:56+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -356,68 +356,68 @@ msgstr "Добавить вкладку поиска"
 
 # BUGME: add colon --aspotashev
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
-#: search.ui:356
+#: search.ui:350
 #, kde-format
 msgid "Folder:"
 msgstr "Папка:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
-#: search.ui:374
+#: search.ui:368
 #, kde-format
 msgid "Go one folder up."
 msgstr "Перейти в родительскую папку"
 
 # BUGME: add colon --aspotashev
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
-#: search.ui:383
+#: search.ui:377
 #, kde-format
 msgid "Filter:"
 msgstr "Фильтр:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
-#: search.ui:405
+#: search.ui:399
 #, kde-format
 msgid "*"
 msgstr "*"
 
 #. i18n: ectx: property (text), widget (QLabel, excludeLabel)
-#: search.ui:413
+#: search.ui:407
 #, kde-format
 msgid "Exclude:"
 msgstr "Исключить:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
-#: search.ui:434
+#: search.ui:428
 #, kde-format
 msgid "Recursive"
 msgstr "Рекурсивно"
 
 #. i18n: ectx: property (text), widget (QCheckBox, hiddenCheckBox)
-#: search.ui:444
+#: search.ui:438
 #, kde-format
 msgid "Include hidden"
 msgstr "Искать в скрытых файлах"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
-#: search.ui:451
+#: search.ui:445
 #, kde-format
 msgid "Follow symbolic links"
 msgstr "Следовать по символическим ссылкам"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
-#: search.ui:458
+#: search.ui:452
 #, kde-format
 msgid "Include binary files"
 msgstr "Искать в двоичных файлах"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
-#: search.ui:465
+#: search.ui:459
 #, kde-format
 msgid "MB"
 msgstr "МБ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: search.ui:478
+#: search.ui:472
 #, kde-format
 msgid "Size limit"
 msgstr "Ограничение размера"

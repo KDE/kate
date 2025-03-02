@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-01-25 12:06+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -38,9 +38,10 @@ msgid "Output"
 msgstr "Saída"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Construír de novo"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -310,9 +311,11 @@ msgstr ""
 "escolla pode modificarse mediante a páxina de configuración do complemento."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Resultados de Make:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
@@ -555,6 +558,10 @@ msgstr "Inserir a ruta"
 msgid "Select directory to insert"
 msgstr "Seleccione un cartafol para inserir"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Resultados de Make:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Cartafol de traballo ou orde"
 
@@ -677,13 +684,6 @@ msgstr "Seleccione un cartafol para inserir"
 
 #~ msgid "Build Output"
 #~ msgstr "Saída da compilación"
-
-#, fuzzy
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Resultados de Make:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Seguinte conxunto de obxectivos"

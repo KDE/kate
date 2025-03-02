@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-01-24 22:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -38,9 +38,10 @@ msgid "Output"
 msgstr "輸出"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "再次編譯"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -294,10 +295,12 @@ msgstr ""
 "的設定頁面修改。"
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Make 結果：</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>無法開啟檔案：</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -534,6 +537,10 @@ msgstr "插入路徑"
 msgid "Select directory to insert"
 msgstr "選擇要插入的目錄"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Make 結果：</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "工作目錄 / 指令"
 
@@ -653,9 +660,3 @@ msgstr "選擇要插入的目錄"
 
 #~ msgid "Build Output"
 #~ msgstr "編譯輸出"
-
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>無法開啟檔案：</title><nl/>%1"

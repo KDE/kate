@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-26 00:44+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -354,85 +354,92 @@ msgstr "Εμφάνιση/απόκρυψη πληροφοριών αποστολ�
 msgid "Diagnostics"
 msgstr "Διαγνωστικά"
 
-#: lib/diagnostics/diagnosticview.cpp:478
+#: lib/diagnostics/diagnosticview.cpp:481
 #, kde-format
 msgid "Errors"
 msgstr "Σφάλματα"
 
-#: lib/diagnostics/diagnosticview.cpp:494
+#: lib/diagnostics/diagnosticview.cpp:497
 #, kde-format
 msgid "Warnings"
 msgstr "Προειδοποιήσεις"
 
-#: lib/diagnostics/diagnosticview.cpp:508
+#: lib/diagnostics/diagnosticview.cpp:511
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Φιλτράρισμα…"
 
-#: lib/diagnostics/diagnosticview.cpp:1145 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:517
+#, fuzzy, kde-format
+#| msgid "Clear Diagnostics Filter"
+msgctxt "@info:tooltip"
+msgid "Clear diagnostics"
+msgstr "Καθαρισμός φίλτρου διαγνωστικών"
+
+#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
 #, kde-format
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: lib/diagnostics/diagnosticview.cpp:1153
+#: lib/diagnostics/diagnosticview.cpp:1157
 #, kde-format
 msgid "Information"
 msgstr "Πληροφορίες"
 
-#: lib/diagnostics/diagnosticview.cpp:1281
+#: lib/diagnostics/diagnosticview.cpp:1285
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [κατεσταλμένα: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1431
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Expand All"
 msgstr "Ανάπτυξη όλων"
 
-#: lib/diagnostics/diagnosticview.cpp:1432
+#: lib/diagnostics/diagnosticview.cpp:1436
 #, kde-format
 msgid "Collapse All"
 msgstr "Σύμπτυξη όλων"
 
-#: lib/diagnostics/diagnosticview.cpp:1438
+#: lib/diagnostics/diagnosticview.cpp:1442
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή στο πρόχειρο"
 
-#: lib/diagnostics/diagnosticview.cpp:1480
+#: lib/diagnostics/diagnosticview.cpp:1484
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Αφαίρεση καθολικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1482
+#: lib/diagnostics/diagnosticview.cpp:1486
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Προσθήκη καθολικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1490
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Αφαίρεση τοπικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1488
+#: lib/diagnostics/diagnosticview.cpp:1492
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Προσθήκη τοπικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1503
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Απενεργοποίηση καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1505
+#: lib/diagnostics/diagnosticview.cpp:1509
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ενεργοποίηση καταστολής"
@@ -2107,7 +2114,7 @@ msgstr "[ΠΑΛΙΟ]"
 msgid "[NEW]"
 msgstr "[ΝΕΟ]"
 
-#: lib/kateoutputview.cpp:175
+#: lib/kateoutputview.cpp:176
 #, kde-format
 msgid "Search..."
 msgstr "Αναζήτηση..."

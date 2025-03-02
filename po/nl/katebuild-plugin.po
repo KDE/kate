@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2025-01-23 16:56+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -36,9 +36,10 @@ msgid "Output"
 msgstr "Uitvoer"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Opnieuw bouwen"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -307,10 +308,12 @@ msgstr ""
 "in."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Resultaten van make:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>Kon bestand niet openen:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -556,6 +559,10 @@ msgstr "Pad invoegen"
 msgid "Select directory to insert"
 msgstr "In te voegen map selecteren"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Resultaten van make:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Werkmap / commando"
 
@@ -673,10 +680,6 @@ msgstr "In te voegen map selecteren"
 
 #~ msgid "Build Output"
 #~ msgstr "Bouwuitvoer"
-
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Kon bestand niet openen:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Volgend set doelen"

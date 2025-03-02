@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -36,9 +36,10 @@ msgid "Output"
 msgstr "Výstup"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Zostaviť znova"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -296,9 +297,11 @@ msgid ""
 msgstr ""
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Výsledky Make:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
@@ -552,6 +555,10 @@ msgstr "Vložiť cestu"
 msgid "Select directory to insert"
 msgstr "Vybrať adresár na vloženie"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Výsledky Make:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Pracovný adresár / príkaz"
 
@@ -669,13 +676,6 @@ msgstr "Vybrať adresár na vloženie"
 
 #~ msgid "Build Output"
 #~ msgstr "Výstup budovania"
-
-#, fuzzy
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Výsledky Make:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Ďalšia sada cieľov"

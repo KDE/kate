@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-09-19 15:20+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -38,9 +38,10 @@ msgid "Output"
 msgstr "Έξοδος"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "Κατασκευή ξανά"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -299,10 +300,12 @@ msgid ""
 msgstr ""
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Could not open file:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
-msgstr "<title>Αποτελέσματα Make:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
+msgstr "<title>Αδυναμία ανοίγματος αρχείου:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -545,6 +548,10 @@ msgstr "Εισαγωγή διαδρομής"
 msgid "Select directory to insert"
 msgstr "Επιλογή καταλόγου για εισαγωγή"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Αποτελέσματα Make:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "Κατάλογος εργασίας / Εντολή"
 
@@ -666,10 +673,6 @@ msgstr "Επιλογή καταλόγου για εισαγωγή"
 
 #~ msgid "Build Output"
 #~ msgstr "Έξοδος κατασκευής"
-
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Αδυναμία ανοίγματος αρχείου:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "Επόμενο σύνολο προορισμών"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-25 00:43+0000\n"
+"POT-Creation-Date: 2025-03-02 00:43+0000\n"
 "PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -34,9 +34,10 @@ msgid "Output"
 msgstr "출력"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
-#: build.ui:59
-#, kde-format
-msgid "Build again"
+#: build.ui:56
+#, fuzzy, kde-format
+#| msgid "Build again"
+msgid "Build Again"
 msgstr "다시 빌드"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
@@ -289,9 +290,11 @@ msgstr ""
 "니까?<br><br>플러그인 설정 페이지에서 선택 사항을 나중에 변경할 수 있습니다."
 
 #: plugin_katebuild.cpp:1315
-#, kde-kuit-format
+#, fuzzy, kde-kuit-format
+#| msgctxt "@info"
+#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
-msgid "<title>Make Results:</title><nl/>%1"
+msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Make 결과:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1377
@@ -537,6 +540,10 @@ msgstr "삽입 경로"
 msgid "Select directory to insert"
 msgstr "삽입할 디렉터리 선택"
 
+#~ msgctxt "@info"
+#~ msgid "<title>Make Results:</title><nl/>%1"
+#~ msgstr "<title>Make 결과:</title><nl/>%1"
+
 #~ msgid "Working Directory / Command"
 #~ msgstr "작업 디렉터리/명령"
 
@@ -654,13 +661,6 @@ msgstr "삽입할 디렉터리 선택"
 
 #~ msgid "Build Output"
 #~ msgstr "빌드 출력"
-
-#, fuzzy
-#~| msgctxt "@info"
-#~| msgid "<title>Make Results:</title><nl/>%1"
-#~ msgctxt "@info"
-#~ msgid "<title>Could not open file:</title><nl/>%1"
-#~ msgstr "<title>Make 결과:</title><nl/>%1"
 
 #~ msgid "Next Set of Targets"
 #~ msgstr "다음 대상 집합"

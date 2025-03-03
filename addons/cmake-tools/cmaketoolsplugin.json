@@ -1,6 +1,22 @@
 {
     "KPlugin": {
         "Description": "Code completion for CMake files",
-        "Name": "CMake Completion"
+        "Description[ca]": "Compleció de codi de fitxers CMake",
+        "Description[es]": "Terminación de código para archivos de CMake",
+        "Description[ka]": "კოდის დასრულება CMake-ის ფაილებისთვის",
+        "Description[nl]": "Code-aanvulling voor CMake-bestanden",
+        "Description[sl]": "Dokončanje kode za datoteke CMake",
+        "Description[tr]": "CMake dosyaları için kod tamamlama",
+        "Description[uk]": "Автодоповнення коду для файлів CMake",
+        "Description[x-test]": "xxCode completion for CMake filesxx",
+        "Name": "CMake Completion",
+        "Name[ca]": "Compleció CMake",
+        "Name[es]": "Terminación de CMake",
+        "Name[ka]": "CMake-ის დასრულება",
+        "Name[nl]": "CMake-aanvulling",
+        "Name[sl]": "Kompletiranje CMake",
+        "Name[tr]": "CMake Tamamlama",
+        "Name[uk]": "Автодоповнення CMake",
+        "Name[x-test]": "xxCMake Completionxx"
     }
 }

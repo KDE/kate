@@ -272,7 +272,7 @@ msgstr "A&xuda"
 #: lib/data/kateui.rc:144
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra de ferramentas Principal"
+msgstr "Barra de ferramentas principal"
 
 #. i18n: ectx: ToolBar (hamburgerBar)
 #: lib/data/kateui.rc:160
@@ -1157,8 +1157,8 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"Se se marca, permitirá o desprazamento na barra de lapelas cando o número de "
-"lapelas sexa grande."
+"Se se marca, permitirá o desprazamento na barra de separadores cando o "
+"número de lapelas sexa grande."
 
 #: lib/kateconfigdialog.cpp:267
 #, kde-format
@@ -1582,7 +1582,8 @@ msgstr "Comparar"
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
-"Usar o menú de contexto da barra de lapelas para comparar dous documentos."
+"Usar o menú de contexto da barra de separadores para comparar dous "
+"documentos."
 
 #: lib/katemainwindow.cpp:453
 #, kde-format

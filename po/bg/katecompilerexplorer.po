@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-03 00:43+0000\n"
 "PO-Revision-Date: 2024-06-04 22:15+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -58,78 +58,100 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr ""
 
-#: ce_widget.cpp:135
+#: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr ""
 
-#: ce_widget.cpp:195
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, fuzzy, kde-format
+#| msgid "Compile"
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr "Компилиране"
+
+#: ce_widget.cpp:198
+#, fuzzy, kde-format
+#| msgid "Compiler Explorer"
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr "Преглед на компилатор"
+
+#: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
 msgstr "Компилиране"
 
-#: ce_widget.cpp:292
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
 msgstr "Настройки"
 
-#: ce_widget.cpp:309
+#: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr ""
 
-#: ce_widget.cpp:310
+#: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
 msgstr ""
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr ""
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
 msgstr ""
 
-#: ce_widget.cpp:313
+#: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
 msgstr ""
 
-#: ce_widget.cpp:315
-#, kde-format
-msgid "Change Url..."
+#: ce_widget.cpp:337
+#, fuzzy, kde-format
+#| msgid "Change Url..."
+msgid "Change URL…"
 msgstr "Промяна на URL…"
 
-#: ce_widget.cpp:321
-#, kde-format
-msgid "Enter Url"
+#: ce_widget.cpp:343
+#, fuzzy, kde-format
+#| msgid "Enter Url"
+msgid "Enter URL"
 msgstr "Въведете адрес"
 
-#: ce_widget.cpp:322
+#: ce_widget.cpp:344
 #, kde-format
 msgid ""
-"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
 
-#: ce_widget.cpp:382
+#: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "Компилаторът върна: %1"
 
-#: ce_widget.cpp:531
+#: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
 msgstr ""
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:569
+#: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""

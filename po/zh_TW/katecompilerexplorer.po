@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-03 00:43+0000\n"
 "PO-Revision-Date: 2024-05-18 16:32+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -58,78 +58,102 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:135
+#: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "您確定要關閉 %1 嗎？"
 
-#: ce_widget.cpp:195
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, fuzzy, kde-format
+#| msgid "Compile"
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr "編譯"
+
+#: ce_widget.cpp:198
+#, fuzzy, kde-format
+#| msgid "Compiler Explorer"
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr "編譯器探索工具"
+
+#: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
 msgstr "編譯"
 
-#: ce_widget.cpp:292
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
 msgstr "選項"
 
-#: ce_widget.cpp:309
+#: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "顯示未被改變過的識別子"
 
-#: ce_widget.cpp:310
+#: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "過濾函式庫函數"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "過濾未使用的旗標"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
 msgstr "過濾註解"
 
-#: ce_widget.cpp:313
+#: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Intel 語法"
 
-#: ce_widget.cpp:315
-#, kde-format
-msgid "Change Url..."
+#: ce_widget.cpp:337
+#, fuzzy, kde-format
+#| msgid "Change Url..."
+msgid "Change URL…"
 msgstr "變更 URL…"
 
-#: ce_widget.cpp:321
-#, kde-format
-msgid "Enter Url"
+#: ce_widget.cpp:343
+#, fuzzy, kde-format
+#| msgid "Enter Url"
+msgid "Enter URL"
 msgstr "輸入 URL"
 
-#: ce_widget.cpp:322
-#, kde-format
+#: ce_widget.cpp:344
+#, fuzzy, kde-format
+#| msgid ""
+#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgid ""
-"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr "輸入 CompilerExplorer 實體的網址，例如 http://localhost:10240"
 
-#: ce_widget.cpp:382
+#: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "編譯器回傳：%1"
 
-#: ce_widget.cpp:531
+#: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
 msgstr "顯示已連結的程式碼"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:569
+#: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "找到了編譯旗標「%1」。輸出可能不是很有用。"

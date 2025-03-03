@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-03 00:43+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -58,80 +58,104 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "संकलकएक्सप्लोरर"
 
-#: ce_widget.cpp:135
+#: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "किं भवान् वास्तवमेव %1 पिधातुम् इच्छति?"
 
-#: ce_widget.cpp:195
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, fuzzy, kde-format
+#| msgid "Compile"
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr "संकलनम्"
+
+#: ce_widget.cpp:198
+#, fuzzy, kde-format
+#| msgid "Compiler Explorer"
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr "संकलक एक्स्प्लोरर"
+
+#: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
 msgstr "संकलनम्"
 
-#: ce_widget.cpp:292
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
 msgstr "विकल्पाः"
 
-#: ce_widget.cpp:309
+#: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "Demangle Identifiers"
 
-#: ce_widget.cpp:310
+#: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "पुस्तकालयस्य कार्याणि फ़िल्टर कुर्वन्तु"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "अप्रयुक्तानि लेबलानि छानयन्तु"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
 msgstr "टिप्पण्यानि छानयन्तु"
 
-#: ce_widget.cpp:313
+#: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Intel Syntax"
 
-#: ce_widget.cpp:315
-#, kde-format
-msgid "Change Url..."
+#: ce_widget.cpp:337
+#, fuzzy, kde-format
+#| msgid "Change Url..."
+msgid "Change URL…"
 msgstr "Url परिवर्तनं कुर्वन्तु..."
 
-#: ce_widget.cpp:321
-#, kde-format
-msgid "Enter Url"
+#: ce_widget.cpp:343
+#, fuzzy, kde-format
+#| msgid "Enter Url"
+msgid "Enter URL"
 msgstr "Url इति प्रविष्टं कुर्वन्तु"
 
-#: ce_widget.cpp:322
-#, kde-format
+#: ce_widget.cpp:344
+#, fuzzy, kde-format
+#| msgid ""
+#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgid ""
-"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
 "CompilerExplorer दृष्टान्तं प्रति Url प्रविष्टं कुर्वन्तु । यथा, http://localhost:10240 "
 "इति"
 
-#: ce_widget.cpp:382
+#: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "संकलकः प्रत्यागतवान्: %1"
 
-#: ce_widget.cpp:531
+#: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
 msgstr "लिङ्क्ड् कोड् प्रकाशयन्तु"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "संकलकएक्सप्लोरर"
 
-#: ce_widget.cpp:569
+#: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "'%1' संकलकध्वजाः प्राप्ताः । आउटपुट् उपयोगी न भवेत्।"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-03 00:43+0000\n"
 "PO-Revision-Date: 2024-05-16 14:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -58,79 +58,103 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "Derleyici Gezgini"
 
-#: ce_widget.cpp:135
+#: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "%1 ögesini kapatmayı gerçekten istiyor musunuz?"
 
-#: ce_widget.cpp:195
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, fuzzy, kde-format
+#| msgid "Compile"
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr "Derle"
+
+#: ce_widget.cpp:198
+#, fuzzy, kde-format
+#| msgid "Compiler Explorer"
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr "Derleyici Gezgini"
+
+#: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
 msgstr "Derle"
 
-#: ce_widget.cpp:292
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
 msgstr "Seçenekler"
 
-#: ce_widget.cpp:309
+#: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "Tanımlayıcıları Ser"
 
-#: ce_widget.cpp:310
+#: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "Kitaplık İşlevlerini Süz"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "Kullanılmayan Etiketleri Süz"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
 msgstr "Yorumları Süz"
 
-#: ce_widget.cpp:313
+#: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
 msgstr "Akıllı Sözdizim"
 
-#: ce_widget.cpp:315
-#, kde-format
-msgid "Change Url..."
+#: ce_widget.cpp:337
+#, fuzzy, kde-format
+#| msgid "Change Url..."
+msgid "Change URL…"
 msgstr "URL’yi Değiştir…"
 
-#: ce_widget.cpp:321
-#, kde-format
-msgid "Enter Url"
+#: ce_widget.cpp:343
+#, fuzzy, kde-format
+#| msgid "Enter Url"
+msgid "Enter URL"
 msgstr "URL Gir"
 
-#: ce_widget.cpp:322
-#, kde-format
+#: ce_widget.cpp:344
+#, fuzzy, kde-format
+#| msgid ""
+#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgid ""
-"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
 "Derleyici Gezgini örneğine bir URL girin. Örneğin, http://localhost:10240"
 
-#: ce_widget.cpp:382
+#: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "Derleyici şunu döndürdü: %1"
 
-#: ce_widget.cpp:531
+#: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
 msgstr "Bağlantılı Kodu Ortaya Çıkar"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "Derleyici Gezgini"
 
-#: ce_widget.cpp:569
+#: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "“%1” derleyici bayrağı bulundu. Çıktı yararlı olabilir."

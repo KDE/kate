@@ -1,4 +1,6 @@
-# Translation of kate to Spanish
+# Translation of kate.po to Spanish
+# Copyright (C) 2000-2025 This_file_is_part_of_KDE
+# This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2000, 2001, 2002 Pablo de Vicente <vicente@oan.es>
 # SPDX-FileCopyrightText: 2003, 2005 Jaime Robles <jaime@kde.org>
@@ -12,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-02-18 02:42+0100\n"
+"PO-Revision-Date: 2025-03-02 03:24+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -366,11 +368,10 @@ msgid "Filter…"
 msgstr "Filtrar…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Borrar filtro de diagnósticos"
+msgstr "Borrar diagnósticos"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -3104,95 +3105,3 @@ msgstr "Gestión de sesiones…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar la página de bienvenida en las ventanas nuevas"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "Búsqueda de apertura rápida (configurar usando el menú de contexto)"
-
-#~ msgid "Show for new window"
-#~ msgstr "Mostrar para nueva ventana"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr ""
-#~ "Error interno: hay más de una instancia abierta para una sesión dada."
-
-#~ msgid "This view may have unsaved work. Do you really want to close it?"
-#~ msgstr ""
-#~ "Esta vista puede contener trabajo sin guardar. ¿Realmente desea cerrarla?"
-
-#~ msgid "Ignoring amount of white space changed, the files are identical."
-#~ msgstr ""
-#~ "Los archivos son idénticos, excepto por la cantidad de cambios realizados "
-#~ "en los espacios en blanco."
-
-#~ msgid "Diff Output"
-#~ msgstr "Salida de «diff»"
-
-#~ msgid ""
-#~ "Running KWrite with sudo can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "La ejecución de KWrite con «sudo» puede causar fallos y exponerlo a "
-#~ "vulnerabilidades de seguridad. En lugar de ello, use KWrite normalmente y "
-#~ "se le solicitarán privilegios elevados al guardar documentos cuando sea "
-#~ "necesario."
-
-#~ msgid ""
-#~ "Running KWrite with kdesu can cause bugs and expose you to security "
-#~ "vulnerabilities. Instead use KWrite normally and you will be prompted for "
-#~ "elevated privileges when saving documents if needed."
-#~ msgstr ""
-#~ "La ejecución de KWrite con «kdesu» puede causar fallos y exponerlo a "
-#~ "vulnerabilidades de seguridad. En lugar de ello, use KWrite normalmente y "
-#~ "se le solicitarán privilegios elevados al guardar documentos cuando sea "
-#~ "necesario."
-
-#~ msgid "Save"
-#~ msgstr "Guardar"
-
-#~ msgid "Open new window with fresh untitled document"
-#~ msgstr "Abrir una nueva ventana con un documento vacío y sin título"
-
-#~ msgid "Untitled"
-#~ msgstr "Sin título"
-
-#~ msgid "Please enable the project plugin to load directories"
-#~ msgstr "Active el complemento de proyectos para cargar directorios"
-
-#~ msgid "No recent files"
-#~ msgstr "No hay archivos recientes"
-
-#~ msgid "&Copy Location"
-#~ msgstr "&Copiar ubicación"
-
-#~ msgctxt "recent items context menu"
-#~ msgid "&Forget This Item"
-#~ msgstr "Ol&vidar este elemento"
-
-#~ msgid "Welcome to KWrite"
-#~ msgstr "Bienvenido a KWrite"
-
-#~ msgid "Form"
-#~ msgstr "Formulario"
-
-#~ msgctxt "on welcome screen"
-#~ msgid "New Document"
-#~ msgstr "Nuevo documento"
-
-#~ msgctxt "on welcome screen"
-#~ msgid "Open Document..."
-#~ msgstr "Abrir documento..."
-
-#~ msgctxt "on welcome screen (recent document list)"
-#~ msgid "Forget All"
-#~ msgstr "Olvidar todos"
-
-#~ msgid "Make Non-Persistent"
-#~ msgstr "Hacer no persistente"
-
-#~ msgid "Make Persistent"
-#~ msgstr "Hacer persistente"
-
-#~ msgid "Copy File &Path"
-#~ msgstr "Co&piar ruta del archivo"

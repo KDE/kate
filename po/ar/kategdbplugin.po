@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-21 13:52+0400\n"
+"PO-Revision-Date: 2025-03-02 10:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -44,7 +44,7 @@ msgstr "احذف الهدف"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "إعادة تحميل أهداف launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -106,7 +106,7 @@ msgstr "توقف البرنامج"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "فشل في الإنهاء. إجبار على الإغلاق…"
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -676,14 +676,13 @@ msgstr "الرّقم"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "الوظيفة"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "افتح موقعًا"
+msgstr "الموقع"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

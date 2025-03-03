@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-01-23 11:04+0200\n"
+"PO-Revision-Date: 2025-03-02 09:34+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -38,8 +38,7 @@ msgstr "Вивід"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Зібрати знову"
 
@@ -304,12 +303,10 @@ msgstr ""
 "змінити за допомогою сторінки налаштовування додатка."
 
 #: plugin_katebuild.cpp:1315
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Could not open file:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Не вдалося відкрити файл:</title><nl/>%1"
+msgstr "<title>Збирання завершено:</title>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format

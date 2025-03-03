@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-03 00:43+0000\n"
 "PO-Revision-Date: 2025-02-20 11:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -59,79 +59,103 @@ msgctxt "error category title"
 msgid "CompilerExplorer"
 msgstr "مستعرض المُصرّف"
 
-#: ce_widget.cpp:135
+#: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
 msgstr "هل تريد حقًا إغلاق %1؟"
 
-#: ce_widget.cpp:195
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, fuzzy, kde-format
+#| msgid "Compile"
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr "صرّف"
+
+#: ce_widget.cpp:198
+#, fuzzy, kde-format
+#| msgid "Compiler Explorer"
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr "مستعرض المُصرّف"
+
+#: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
 msgstr "صرّف"
 
-#: ce_widget.cpp:292
+#: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
 msgstr "خيارات"
 
-#: ce_widget.cpp:309
+#: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
 msgstr "فك رموز المعرفات"
 
-#: ce_widget.cpp:310
+#: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
 msgstr "رشّح وظائف مكتبة"
 
-#: ce_widget.cpp:311
+#: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
 msgstr "رشّح اللصائق غير المستخدمة"
 
-#: ce_widget.cpp:312
+#: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
 msgstr "رشح التعليقات"
 
-#: ce_widget.cpp:313
+#: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
 msgstr "بناء جملة إنتل"
 
-#: ce_widget.cpp:315
-#, kde-format
-msgid "Change Url..."
+#: ce_widget.cpp:337
+#, fuzzy, kde-format
+#| msgid "Change Url..."
+msgid "Change URL…"
 msgstr "غيّر المسار..."
 
-#: ce_widget.cpp:321
-#, kde-format
-msgid "Enter Url"
+#: ce_widget.cpp:343
+#, fuzzy, kde-format
+#| msgid "Enter Url"
+msgid "Enter URL"
 msgstr "أدخل مسار"
 
-#: ce_widget.cpp:322
-#, kde-format
+#: ce_widget.cpp:344
+#, fuzzy, kde-format
+#| msgid ""
+#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgid ""
-"Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
 "أدخل عنوان لمثيل مستعرض المُصرّف. على سبيل المثال، http://localhost:10240"
 
-#: ce_widget.cpp:382
+#: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
 msgstr "أرجع المُصرّف: %1"
 
-#: ce_widget.cpp:531
+#: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
 msgstr "اكشف الرمز المرتبط"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "مستعرض المُصرّف"
 
-#: ce_widget.cpp:569
+#: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "عثر على علامات المُصرّف '%1'. قد لا يكون الناتج مفيدًا."

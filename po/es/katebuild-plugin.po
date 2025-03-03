@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-02-18 02:45+0100\n"
+"PO-Revision-Date: 2025-03-02 03:25+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -40,8 +40,7 @@ msgstr "Salida"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Compilar de nuevo"
 
@@ -313,12 +312,10 @@ msgstr ""
 "página de configuración del complemento."
 
 #: plugin_katebuild.cpp:1315
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Could not open file:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>No se ha podido abrir el archivo:</title><nl/>%1"
+msgstr "<title>Compilación terminada:</title>%1"
 
 #: plugin_katebuild.cpp:1377
 #, kde-format
@@ -560,182 +557,3 @@ msgstr "Insertar ruta"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccionar el directorio a insertar"
-
-#~ msgctxt "@info"
-#~ msgid "<title>Make Results:</title><nl/>%1"
-#~ msgstr "<title>Resultados de la compilación:</title><nl/>%1"
-
-#~ msgid "Working Directory / Command"
-#~ msgstr "Orden o directorio de trabajo"
-
-#~ msgid ""
-#~ "Cannot run command: %1\n"
-#~ "Work path does not exist: %2"
-#~ msgstr ""
-#~ "No se puede ejecutar la orden: %1\n"
-#~ "La ruta de trabajo no existe: %2"
-
-#~ msgid "Clean"
-#~ msgstr "Limpiar"
-
-#~ msgid "ConfigClean"
-#~ msgstr "ConfigClean"
-
-#~ msgid "Project Plugin Targets"
-#~ msgstr "Objetivos del complemento de proyecto"
-
-#~ msgid "build"
-#~ msgstr "compilar"
-
-#~ msgid "clean"
-#~ msgstr "limpiar"
-
-#~ msgid "quick"
-#~ msgstr "rápido"
-
-#~ msgid "Building <b>%1</b> completed."
-#~ msgstr "Compilación de <b>%1</b> completa."
-
-#~ msgid "Building <b>%1</b> had errors."
-#~ msgstr "La compilación de <b>%1</b> tuvo errores."
-
-#~ msgid "Building <b>%1</b> had warnings."
-#~ msgstr "La compilación de <b>%1</b> tuvo advertencias."
-
-#~ msgid "Show:"
-#~ msgstr "Mostrar:"
-
-#~ msgctxt "Header for the file name column"
-#~ msgid "File"
-#~ msgstr "Archivo"
-
-#~ msgctxt "Header for the line number column"
-#~ msgid "Line"
-#~ msgstr "Línea"
-
-#~ msgctxt "Header for the error message column"
-#~ msgid "Message"
-#~ msgstr "Mensaje"
-
-#~ msgid "Next Error"
-#~ msgstr "Error siguiente"
-
-#~ msgid "Previous Error"
-#~ msgstr "Error anterior"
-
-#~ msgid "Show Marks"
-#~ msgstr "Mostrar marcas"
-
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgid "Warning"
-#~ msgstr "Advertencia"
-
-#~ msgid "Only Errors"
-#~ msgstr "Solo errores"
-
-#~ msgid "Errors and Warnings"
-#~ msgstr "Errores y advertencias"
-
-#~ msgid "Parsed Output"
-#~ msgstr "Salida del análisis"
-
-#~ msgid "Full Output"
-#~ msgstr "Salida completa"
-
-#~ msgid ""
-#~ "Check the check-box to make the command the default for the target-set."
-#~ msgstr ""
-#~ "Marque la casilla para hacer que la orden sea la predeterminada para el "
-#~ "conjunto de objetivos."
-
-#~ msgid "Select active target set"
-#~ msgstr "Seleccionar el conjunto de objetivos activo"
-
-#~ msgid "Filter targets"
-#~ msgstr "Filtrar objetivos"
-
-#~ msgid "Build Default Target"
-#~ msgstr "Compilar el objetivo por omisión"
-
-#~ msgid "Build and Run Default Target"
-#~ msgstr "Compilar y ejecutar el objetivo por omisión"
-
-#~ msgid "Build Previous Target"
-#~ msgstr "Compilar el objetivo anterior"
-
-#~ msgid "Active target-set:"
-#~ msgstr "Conjunto de objetivos activo:"
-
-#~ msgid "config"
-#~ msgstr "configurar"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Complemento de compilación para Kate"
-
-#~ msgid "Select build target"
-#~ msgstr "Seleccionar objetivo a compilar"
-
-#~ msgid "Filter"
-#~ msgstr "Filtro"
-
-#~ msgid "Build Output"
-#~ msgstr "Salida de la compilación"
-
-#~ msgid "Next Set of Targets"
-#~ msgstr "Siguiente conjunto de destinos"
-
-#~ msgid "No previous target to build."
-#~ msgstr "No había destino anterior para compilar."
-
-#~ msgid "No target set as default target."
-#~ msgstr "No se ha establecido ningún destino como predeterminado."
-
-#~ msgid "No target set as clean target."
-#~ msgstr "No se ha establecido ningún destino como limpio."
-
-#~ msgid "Target \"%1\" not found for building."
-#~ msgstr "No se ha encontrado el destino «%1» que se iba a compilar."
-
-#~ msgid "Really delete target %1?"
-#~ msgstr "¿Realmente desea borrar el destino %1?"
-
-#~ msgid "Nothing built yet."
-#~ msgstr "Aún no se ha compilado nada."
-
-#~ msgid "Target Set %1"
-#~ msgstr "Conjunto de destinos %1"
-
-#~ msgid "Target"
-#~ msgstr "Destino"
-
-#~ msgid "Target:"
-#~ msgstr "Destino:"
-
-#~ msgid "from"
-#~ msgstr "de"
-
-#~ msgid "Sets of Targets"
-#~ msgstr "Conjuntos de destinos"
-
-#~ msgid "Make Results"
-#~ msgstr "Resultados de Make"
-
-#~ msgid "Others"
-#~ msgstr "Otros"
-
-#~ msgid "Quick Compile"
-#~ msgstr "Compilación rápida"
-
-#~ msgid "The custom command is empty."
-#~ msgstr "La orden personalizada está vacía."
-
-#~ msgid "New"
-#~ msgstr "Nuevo"
-
-#~ msgid "Delete"
-#~ msgstr "Eliminar"
-
-#~ msgid "Quick compile"
-#~ msgstr "Compilación rápida"

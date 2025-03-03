@@ -698,7 +698,3 @@ msgstr "&Feilsøk"
 #, kde-format
 msgid "Debug Plugin"
 msgstr ""
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Ramme"

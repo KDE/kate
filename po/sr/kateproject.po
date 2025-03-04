@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:54+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -694,38 +694,51 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Својства пројеката"
 
-#: kateprojectinfoview.cpp:68
-#, kde-format
-msgid "Terminal (.kateproject)"
-msgstr ""
-
 # >> @title:tab
-#: kateprojectinfoview.cpp:77
+#: kateprojectinfoview.cpp:80
 #, fuzzy, kde-format
 #| msgid "Terminal"
+msgctxt "@title:tab"
+msgid "Terminal"
+msgstr "Терминал"
+
+# >> @title:tab
+#: kateprojectinfoview.cpp:89
+#, fuzzy, kde-format
+#| msgid "Terminal"
+msgctxt "@title:tab"
+msgid "Terminal (Project)"
+msgstr "Терминал"
+
+# >> @title:tab
+#: kateprojectinfoview.cpp:98
+#, fuzzy, kde-format
+#| msgid "Terminal"
+msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:86
+#: kateprojectinfoview.cpp:107
 #, fuzzy, kde-format
 #| msgid "Terminal"
-msgid "Terminal (build)"
+msgctxt "@title:tab"
+msgid "Terminal (Build)"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:93
+#: kateprojectinfoview.cpp:114
 #, kde-format
 msgid "Code Index"
 msgstr "Индекс кода"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:119
 #, kde-format
 msgid "Code Analysis"
 msgstr "Анализа кода"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:103
+#: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
 msgstr "Белешке"
@@ -1054,7 +1067,7 @@ msgstr ""
 msgid "Failed to create dir: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:733
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:54+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2025-01-26 18:09+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -675,32 +675,41 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr ""
 
-#: kateprojectinfoview.cpp:68
+#: kateprojectinfoview.cpp:80
 #, kde-format
-msgid "Terminal (.kateproject)"
+msgctxt "@title:tab"
+msgid "Terminal"
 msgstr ""
 
-#: kateprojectinfoview.cpp:77
+#: kateprojectinfoview.cpp:89
 #, kde-format
-msgid "Terminal (Base)"
-msgstr ""
-
-#: kateprojectinfoview.cpp:86
-#, kde-format
-msgid "Terminal (build)"
-msgstr ""
-
-#: kateprojectinfoview.cpp:93
-#, kde-format
-msgid "Code Index"
+msgctxt "@title:tab"
+msgid "Terminal (Project)"
 msgstr ""
 
 #: kateprojectinfoview.cpp:98
 #, kde-format
+msgctxt "@title:tab"
+msgid "Terminal (Base)"
+msgstr ""
+
+#: kateprojectinfoview.cpp:107
+#, kde-format
+msgctxt "@title:tab"
+msgid "Terminal (Build)"
+msgstr ""
+
+#: kateprojectinfoview.cpp:114
+#, kde-format
+msgid "Code Index"
+msgstr ""
+
+#: kateprojectinfoview.cpp:119
+#, kde-format
 msgid "Code Analysis"
 msgstr ""
 
-#: kateprojectinfoview.cpp:103
+#: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
 msgstr ""
@@ -1007,7 +1016,7 @@ msgstr "இப்பெயரில் கோப்பு ஏற்கனவே 
 msgid "Failed to create dir: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:733
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:54+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2024-12-22 15:01+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -688,32 +688,45 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Proiektuaren propietateak"
 
-#: kateprojectinfoview.cpp:68
-#, kde-format
-msgid "Terminal (.kateproject)"
+#: kateprojectinfoview.cpp:80
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgctxt "@title:tab"
+msgid "Terminal"
+msgstr "Terminala (oinarria)"
+
+#: kateprojectinfoview.cpp:89
+#, fuzzy, kde-format
+#| msgid "Terminal (.kateproject)"
+msgctxt "@title:tab"
+msgid "Terminal (Project)"
 msgstr "Terminala (.kateproject)"
 
-#: kateprojectinfoview.cpp:77
-#, kde-format
+#: kateprojectinfoview.cpp:98
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Terminala (oinarria)"
 
-#: kateprojectinfoview.cpp:86
-#, kde-format
-msgid "Terminal (build)"
+#: kateprojectinfoview.cpp:107
+#, fuzzy, kde-format
+#| msgid "Terminal (build)"
+msgctxt "@title:tab"
+msgid "Terminal (Build)"
 msgstr "Terminala (eraiki)"
 
-#: kateprojectinfoview.cpp:93
+#: kateprojectinfoview.cpp:114
 #, kde-format
 msgid "Code Index"
 msgstr "Kodearen indizea"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:119
 #, kde-format
 msgid "Code Analysis"
 msgstr "Kodearen analisia"
 
-#: kateprojectinfoview.cpp:103
+#: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
 msgstr "Oharrak"
@@ -1030,7 +1043,7 @@ msgstr "Fitxategi-izena aurretik dago"
 msgid "Failed to create dir: %1"
 msgstr "Karpeta sortzea huts egin du: %1"
 
-#: kateprojectworker.cpp:733
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:54+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2024-12-30 17:26+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -682,32 +682,45 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Projektu īpašības"
 
-#: kateprojectinfoview.cpp:68
-#, kde-format
-msgid "Terminal (.kateproject)"
+#: kateprojectinfoview.cpp:80
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgctxt "@title:tab"
+msgid "Terminal"
+msgstr "Terminālis (pamata)"
+
+#: kateprojectinfoview.cpp:89
+#, fuzzy, kde-format
+#| msgid "Terminal (.kateproject)"
+msgctxt "@title:tab"
+msgid "Terminal (Project)"
 msgstr "Terminālis (.kateproject)"
 
-#: kateprojectinfoview.cpp:77
-#, kde-format
+#: kateprojectinfoview.cpp:98
+#, fuzzy, kde-format
+#| msgid "Terminal (Base)"
+msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Terminālis (pamata)"
 
-#: kateprojectinfoview.cpp:86
-#, kde-format
-msgid "Terminal (build)"
+#: kateprojectinfoview.cpp:107
+#, fuzzy, kde-format
+#| msgid "Terminal (build)"
+msgctxt "@title:tab"
+msgid "Terminal (Build)"
 msgstr "Terminālis (būvējums)"
 
-#: kateprojectinfoview.cpp:93
+#: kateprojectinfoview.cpp:114
 #, kde-format
 msgid "Code Index"
 msgstr "Koda indekss"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:119
 #, kde-format
 msgid "Code Analysis"
 msgstr "Koda analīze"
 
-#: kateprojectinfoview.cpp:103
+#: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
 msgstr "Piezīmes"
@@ -1022,7 +1035,7 @@ msgstr "Datne ar šādu nosaukumu jau pastāv"
 msgid "Failed to create dir: %1"
 msgstr "Neizdevās izveidot mapi: „%1“"
 
-#: kateprojectworker.cpp:733
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

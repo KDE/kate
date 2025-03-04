@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:54+0000\n"
+"POT-Creation-Date: 2025-03-04 00:43+0000\n"
 "PO-Revision-Date: 2012-09-21 16:01-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -683,35 +683,46 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr ""
 
-#: kateprojectinfoview.cpp:68
-#, kde-format
-msgid "Terminal (.kateproject)"
-msgstr ""
-
-#: kateprojectinfoview.cpp:77
+#: kateprojectinfoview.cpp:80
 #, fuzzy, kde-format
 #| msgid "Terminal"
+msgctxt "@title:tab"
+msgid "Terminal"
+msgstr "Teirminéal"
+
+#: kateprojectinfoview.cpp:89
+#, fuzzy, kde-format
+#| msgid "Terminal"
+msgctxt "@title:tab"
+msgid "Terminal (Project)"
+msgstr "Teirminéal"
+
+#: kateprojectinfoview.cpp:98
+#, fuzzy, kde-format
+#| msgid "Terminal"
+msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Teirminéal"
 
-#: kateprojectinfoview.cpp:86
+#: kateprojectinfoview.cpp:107
 #, fuzzy, kde-format
 #| msgid "Terminal"
-msgid "Terminal (build)"
+msgctxt "@title:tab"
+msgid "Terminal (Build)"
 msgstr "Teirminéal"
 
-#: kateprojectinfoview.cpp:93
+#: kateprojectinfoview.cpp:114
 #, fuzzy, kde-format
 #| msgid "Index"
 msgid "Code Index"
 msgstr "Innéacs"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:119
 #, kde-format
 msgid "Code Analysis"
 msgstr ""
 
-#: kateprojectinfoview.cpp:103
+#: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
 msgstr "Nótaí"
@@ -1032,7 +1043,7 @@ msgstr ""
 msgid "Failed to create dir: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:733
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

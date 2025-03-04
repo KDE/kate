@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2025-02-20 11:58+0400\n"
+"PO-Revision-Date: 2025-03-03 22:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -68,21 +68,19 @@ msgstr "هل تريد حقًا إغلاق %1؟"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "اللغات"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "صرّف"
+msgstr "المصرفات"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "مستعرض المُصرّف"
+msgstr "خيارات المُصرّف…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -120,25 +118,20 @@ msgid "Intel Syntax"
 msgstr "بناء جملة إنتل"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
-msgstr "غيّر المسار..."
+msgstr "غيّر المسار…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "أدخل مسار"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
-msgstr ""
-"أدخل عنوان لمثيل مستعرض المُصرّف. على سبيل المثال، http://localhost:10240"
+msgstr "أدخل عنوان لمستعرض المُصرّف. على سبيل المثال، “http://localhost:10240”"
 
 #: ce_widget.cpp:404
 #, kde-format

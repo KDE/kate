@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2024-05-16 08:12+0200\n"
+"PO-Revision-Date: 2025-03-03 04:27+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: AsmView.cpp:299
 #, kde-format
@@ -68,21 +68,19 @@ msgstr "მართლა გნებავთ, %1 დახუროთ?"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "ენები"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "კომპილაცია"
+msgstr "კომპილატორები"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Compiler Explorer"
+msgstr "კომპილატორის პარამეტრები…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -120,26 +118,22 @@ msgid "Intel Syntax"
 msgstr "Intel-ის სინტაქსი"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
-msgstr "URL-ის შეცვლა..."
+msgstr "URL-ის შეცვლა…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "შეიყვანეთ URL"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"შეიყვანეთ URL CompileExplorer-ის გაშვებული ასლისთვის. მაგ: http://"
-"localhost:10240"
+"შეიყვანეთ URL CompileExplorer-ის გაშვებული ასლისთვის. მაგ: \"http://"
+"localhost:10240\""
 
 #: ce_widget.cpp:404
 #, kde-format

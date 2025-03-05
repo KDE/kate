@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-04 00:43+0000\n"
-"PO-Revision-Date: 2025-02-18 03:58+0100\n"
+"PO-Revision-Date: 2025-03-04 05:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -684,29 +684,25 @@ msgid "Projects Properties"
 msgstr "პროექტის თვისებები"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "ტერმინალი (ძირითადი)"
+msgstr "ტერმინალი"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "ტერმინალი (.kateproject)"
+msgstr "ტერმინალი (პროექტი)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "ტერმინალი (ძირითადი)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "ტერმინალი (აგება)"

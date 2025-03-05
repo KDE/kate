@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-01-08 15:06+0100\n"
+"PO-Revision-Date: 2025-03-04 12:54+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -328,7 +328,7 @@ msgstr "Previe elemento"
 #: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "Clara Filtro d Diagnostica"
+msgstr "Clara Filtro de Diagnostica"
 
 #: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
@@ -357,11 +357,10 @@ msgid "Filter…"
 msgstr "Filtro…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Clara Filtro d Diagnostica"
+msgstr "Clara Diagnostica"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format

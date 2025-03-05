@@ -1,15 +1,15 @@
 # Translation of katecompilerexplorer.po to Catalan (Valencian)
-# Copyright (C) 2024 This_file_is_part_of_KDE
+# Copyright (C) 2024-2025 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2024.
+# Josep M. Ferrer <txemaq@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2024-05-15 10:21+0200\n"
+"PO-Revision-Date: 2025-03-03 09:01+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -69,21 +69,19 @@ msgstr "Segur que voleu tancar %1?"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "Llenguatges"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Compila"
+msgstr "Compiladors"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Explorador del compilador"
+msgstr "Opcions del compilador…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -121,26 +119,22 @@ msgid "Intel Syntax"
 msgstr "Sintaxi d'Intel"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
 msgstr "Canvia l'URL…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "Introduïu un URL"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"Introduïu l'URL cap a la instància de CompilerExplorer. Per exemple, http://"
-"localhost:10240"
+"Introduïu l'URL de la instància de CompilerExplorer. Per exemple, «http://"
+"localhost:10240»"
 
 #: ce_widget.cpp:404
 #, kde-format

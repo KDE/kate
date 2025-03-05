@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2025-02-18 02:51+0100\n"
+"PO-Revision-Date: 2025-03-04 17:34+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -69,21 +69,19 @@ msgstr "¿Realmente quiere cerrar %1?"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "Lenguajes"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Compilar"
+msgstr "Compiladores"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Compiler Explorer"
+msgstr "Opciones del compilador…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -121,26 +119,22 @@ msgid "Intel Syntax"
 msgstr "Sintaxis de Intel"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
 msgstr "Cambiar URL…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "Introducir URL"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"Introduzca URL a la instancia de CompilerExplorer (por ejemplo, http://"
-"localhost:10240)."
+"Introduzca URL para la instancia de CompilerExplorer (por ejemplo, «http://"
+"localhost:10240»)."
 
 #: ce_widget.cpp:404
 #, kde-format

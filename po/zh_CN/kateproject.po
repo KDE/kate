@@ -516,7 +516,7 @@ msgstr "错误格式的 JSON 文件“%1”：%2"
 #: kateprojectviewtree.cpp:255
 #, kde-format
 msgid "Project"
-msgstr "工程"
+msgstr "项目"
 
 #: kateproject.cpp:660
 #, kde-format
@@ -526,7 +526,7 @@ msgstr "<未跟踪>"
 #: kateprojectcompletion.cpp:54
 #, kde-format
 msgid "Project Completion"
-msgstr "工程补全"
+msgstr "项目补全"
 
 #: kateprojectconfigpage.cpp:24
 #, kde-format
@@ -540,7 +540,7 @@ msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"工程插件可以在尚未定义 .kateproject 文件的情况下自动加载代码仓库的工作副本和"
+"项目插件可以在尚未定义 .kateproject 文件的情况下自动加载代码仓库的工作副本和"
 "构建树。"
 
 #: kateprojectconfigpage.cpp:29
@@ -616,18 +616,18 @@ msgstr "如果未指定，则会使用系统临时目录，这可能导致大的
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr "跨工程功能"
+msgstr "跨项目功能"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr "工程插件可以在多个工程中执行一些操作"
+msgstr "项目插件可以跨多个项目执行某些操作"
 
 #: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr "跨工程补全"
+msgstr "跨项目补全"
 
 #: kateprojectconfigpage.cpp:76
 #, kde-format
@@ -668,38 +668,34 @@ msgstr "Git 状态视图中的双击操作"
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:68
 #, kde-format
 msgid "Projects"
-msgstr "工程"
+msgstr "项目"
 
 #: kateprojectconfigpage.cpp:147
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr "工程属性"
+msgstr "项目属性"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "终端 (基础)"
+msgstr "终端"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "终端 (.kateproject)"
+msgstr "终端 (项目)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "终端 (基础)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "终端 (构建)"
@@ -737,7 +733,7 @@ msgid ""
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
 "“%1”没有安装在本机系统中，%2。<br/><br/>%3。工具将运行于匹配此文件扩展名列表"
-"的所有工程文件：<br/><b>%4</b>"
+"的所有项目文件：<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:110
 #, kde-format
@@ -745,7 +741,7 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
-"使用安装在 %2 的 %1。<br/><br/>%3。工具将运行于匹配此文件扩展名列表的所有工程"
+"使用安装在 %2 的 %1。<br/><br/>%3。工具将运行于匹配此文件扩展名列表的所有项目"
 "文件：<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:152
@@ -828,7 +824,7 @@ msgstr "您想要关闭项目 %1 和相关的 %2 个打开的文档吗？"
 #: kateprojectplugin.cpp:595
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr "当前工程的完整路径，不包含文件名。"
+msgstr "当前项目的完整路径，不包含文件名。"
 
 #: kateprojectplugin.cpp:612
 #, kde-format
@@ -836,7 +832,7 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
-"当前工程的完整路径，不包含文件名，使用原生路径分隔符 (在 Windows 中是反斜"
+"当前项目的完整路径，不包含文件名，使用原生路径分隔符 (在 Windows 中是反斜"
 "线)。"
 
 #: kateprojectpluginview.cpp:58
@@ -867,7 +863,7 @@ msgstr "打开文件夹(&F)..."
 #: kateprojectpluginview.cpp:170
 #, kde-format
 msgid "Project TODOs"
-msgstr "工程 TODO"
+msgstr "项目任务列表"
 
 #: kateprojectpluginview.cpp:175
 #, kde-format
@@ -1032,13 +1028,13 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
-"无法加载基于 %1 的工程，因为没有安装 %1 或者没有在 PATH 环境变量中找到它。请"
-"安装 %1，或者在工程设置中禁用“自动加载代码仓库及构建树”选项。"
+"无法加载基于 %1 的项目，因为没有安装 %1 或者没有在 PATH 环境变量中找到它。请"
+"安装 %1，或者在项目设置中禁用“自动加载代码仓库及构建树”选项。"
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr "在当前工程的终端执行一个命令。"
+msgstr "在当前项目的终端中执行一个命令。"
 
 #: project_commands.cpp:47
 #, kde-format
@@ -1048,7 +1044,7 @@ msgstr "没有提供 cmd"
 #: project_commands.cpp:60
 #, kde-format
 msgid "Project Command"
-msgstr "工程命令"
+msgstr "项目命令"
 
 #: stashdialog.cpp:36
 #, kde-format
@@ -1114,4 +1110,4 @@ msgstr "显示储藏失败。错误："
 #: ui.rc:9
 #, kde-format
 msgid "&Projects"
-msgstr "工程(&P)"
+msgstr "项目(&P)"

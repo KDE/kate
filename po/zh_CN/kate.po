@@ -356,11 +356,10 @@ msgid "Filter…"
 msgstr "过滤…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "清除诊断信息过滤器"
+msgstr "清除诊断信息"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -977,7 +976,7 @@ msgstr "行为(&B)"
 #: lib/kateconfigdialog.cpp:147
 #, kde-format
 msgid "Open each document in its own window"
-msgstr "在单独的窗口中打开每个文件夹"
+msgstr "在单独的窗口中打开每个文档"
 
 #: lib/kateconfigdialog.cpp:150
 #, kde-format
@@ -2538,14 +2537,14 @@ msgstr "“showtoolview $toolview_name”。隐藏一个 toolview 面板。可�
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in all projects (right click to configure)"
-msgstr "搜索所有工程中的文件 (右键点击以配置)"
+msgstr "查找所有项目中的文件 (右键点击以配置)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:50
 #, kde-format
 msgctxt ""
 "The text is shown as a placeholder in an input line edit, keep it short"
 msgid "Search files in current project (right click to configure)"
-msgstr "搜索当前工程中的文件 (右键点击以配置)"
+msgstr "查找当前项目中的文件 (右键点击以配置)"
 
 #: lib/quickopen/katequickopenlineedit.cpp:72
 #, kde-format
@@ -2570,7 +2569,7 @@ msgstr "通配符过滤"
 #: lib/quickopen/katequickopenmodel.cpp:161
 #, kde-format
 msgid "Project: %1"
-msgstr "工程：%1"
+msgstr "项目：%1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2870,22 +2869,22 @@ msgstr "欢迎使用 %1"
 #: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents and Projects"
-msgstr "最近文件和工程"
+msgstr "最近文档和项目"
 
 #: lib/welcomeview/welcomeview.cpp:61
 #, kde-format
 msgid "Recent Documents"
-msgstr "最近文件"
+msgstr "最近文档"
 
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents or projects"
-msgstr "没有最近文件或者工程"
+msgstr "没有最近文档或项目"
 
 #: lib/welcomeview/welcomeview.cpp:64
 #, kde-format
 msgid "No recent documents"
-msgstr "无最近文件"
+msgstr "没有最近文档"
 
 #: lib/welcomeview/welcomeview.cpp:118
 #, kde-format

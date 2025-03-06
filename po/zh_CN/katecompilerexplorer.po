@@ -67,21 +67,19 @@ msgstr "您确定要关闭 %1 吗？"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "语言"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "编译"
+msgstr "编译器"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "编译器浏览器"
+msgstr "编译器选项…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -119,25 +117,22 @@ msgid "Intel Syntax"
 msgstr "Intel 语法"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
-msgstr "更改 URL..."
+msgstr "更改 URL…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "输入 URL"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"输入 CompilerExplorer (编译器浏览器) 实例的 URL。例如：http://localhost:10240"
+"输入 CompilerExplorer (编译器浏览器) 实例的 URL。例如：http://"
+"localhost:10240”"
 
 #: ce_widget.cpp:404
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-02-20 15:24+0900\n"
+"PO-Revision-Date: 2025-03-05 19:38+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -44,7 +44,7 @@ msgstr "刪除目標"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "重新載入 launch.json 的目標"
 
 #: configview.cpp:107
 #, kde-format
@@ -106,7 +106,7 @@ msgstr "程式已終止"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "終止失敗。將強制停止…"
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -682,14 +682,13 @@ msgstr "編號"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "函式"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "開啟位置"
+msgstr "位置"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

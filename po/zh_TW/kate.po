@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-01-02 19:04+0900\n"
+"PO-Revision-Date: 2025-03-05 19:34+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -358,11 +358,10 @@ msgid "Filter…"
 msgstr "過濾…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "清除診斷過濾器"
+msgstr "清除診斷"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -1188,7 +1187,7 @@ msgid ""
 "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
 "Tab' will not go to first/last tab after reaching the end"
 msgstr ""
-"允許循環切換分頁。若未勾選，則「下一個分頁」「前一個分頁」動作在抵達最後一個"
+"允許循環切換分頁。若未勾選，則「下一個分頁」「上一個分頁」動作在抵達最後一個"
 "或第一個分頁的時候不會跳到另外一端"
 
 #: lib/kateconfigdialog.cpp:315
@@ -1204,7 +1203,7 @@ msgstr "按下返回按鈕時(&B)："
 #: lib/kateconfigdialog.cpp:325
 #, kde-format
 msgid "Previous tab"
-msgstr "前一個分頁"
+msgstr "上一個分頁"
 
 #: lib/kateconfigdialog.cpp:325
 #, kde-format
@@ -1459,12 +1458,12 @@ msgstr "視窗配色(&W)"
 #: lib/katemainwindow.cpp:300
 #, kde-format
 msgid "&Previous Tab"
-msgstr "前一個分頁(&P)"
+msgstr "上一個分頁(&P)"
 
 #: lib/katemainwindow.cpp:301
 #, kde-format
 msgid "Focus the previous tab."
-msgstr "焦點置於前一個分頁"
+msgstr "焦點置於上一個分頁"
 
 #: lib/katemainwindow.cpp:308
 #, kde-format

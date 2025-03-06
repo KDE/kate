@@ -42,7 +42,7 @@ msgstr "删除目标"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "重新加载启动 .json 目标"
 
 #: configview.cpp:107
 #, kde-format
@@ -104,7 +104,7 @@ msgstr "程序终止"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "终止失败。正在强制关闭..."
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -674,14 +674,13 @@ msgstr "编号"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "功能"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "打开位置"
+msgstr "位置"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -694,7 +693,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "框架"

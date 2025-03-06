@@ -1098,7 +1098,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Hafif proje desteği. Kate, klasörleri proje olarak açabilir</li>
       <li xml:lang="uk">Проста підтримка проєктів. Kate може відкривати теки як проєкти</li>
       <li xml:lang="x-test">xxLightweight project support. Kate can open folders as projectsxx</li>
-      <li xml:lang="zh-CN">轻量级项目支持。Kate 可以将文件夹作为工程打开</li>
+      <li xml:lang="zh-CN">轻量级项目支持。Kate 能够将文件夹作为项目打开</li>
       <li xml:lang="zh-TW">輕量專案支援。Kate 可以把任何資料夾當作專案打開</li>
       <li>Code formatting using native formatters such as clang-format, prettier etc</li>
       <li xml:lang="ar">تنسيق الكود باستخدام برامج التنسيق الأصلية مثل clang-format وprettier وما إلى ذلك</li>
@@ -1213,7 +1213,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Proje çapı ve klasör çapı arama</li>
       <li xml:lang="uk">Пошук у межах проєкту та теки</li>
       <li xml:lang="x-test">xxProject wide and folder wide searchxx</li>
-      <li xml:lang="zh-CN">搜索整个项目和整个文件夹的内容</li>
+      <li xml:lang="zh-CN">查找整个项目和整个文件夹中的内容</li>
       <li xml:lang="zh-TW">專案內與資料夾內的搜尋</li>
       <li>Git integration</li>
       <li xml:lang="ar">تكامل مع غت</li>

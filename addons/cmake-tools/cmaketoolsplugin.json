@@ -9,11 +9,14 @@
         "Description[gl]": "Completado de código para ficheiros de CMake.",
         "Description[ia]": "Completion de codice perfilesde CMake",
         "Description[ka]": "კოდის დასრულება CMake-ის ფაილებისთვის",
+        "Description[lv]": "Koda pabeigšana „CMake“ datnēm",
         "Description[nl]": "Code-aanvulling voor CMake-bestanden",
         "Description[sl]": "Dokončanje kode za datoteke CMake",
         "Description[tr]": "CMake dosyaları için kod tamamlama",
         "Description[uk]": "Автодоповнення коду для файлів CMake",
         "Description[x-test]": "xxCode completion for CMake filesxx",
+        "Description[zh_CN]": "CMake 文件的代码补全",
+        "Description[zh_TW]": "CMake 檔案用的程式碼補完",
         "Name": "CMake Completion",
         "Name[ar]": "إكمال سي ميك",
         "Name[ca@valencia]": "Compleció CMake",
@@ -23,10 +26,13 @@
         "Name[gl]": "Completado de CMake",
         "Name[ia]": "Completion de CMAke",
         "Name[ka]": "CMake-ის დასრულება",
+        "Name[lv]": "„CMake“ pabeigšana",
         "Name[nl]": "CMake-aanvulling",
         "Name[sl]": "Kompletiranje CMake",
         "Name[tr]": "CMake Tamamlama",
         "Name[uk]": "Автодоповнення CMake",
-        "Name[x-test]": "xxCMake Completionxx"
+        "Name[x-test]": "xxCMake Completionxx",
+        "Name[zh_CN]": "CMake 代码补全",
+        "Name[zh_TW]": "CMake 補完"
     }
 }

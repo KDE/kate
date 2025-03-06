@@ -35,17 +35,17 @@ msgstr "用法： search [在打开文件中查找的模式]"
 #: KateSearchCommand.cpp:92
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr "用法： pgrep [在当前工程中查找的模式]"
+msgstr "用法：pgrep [要在当前项目中查找的模式字符串]"
 
 #: KateSearchCommand.cpp:94
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr "用法： newPGrep [在当前工程中查找的模式]"
+msgstr "用法：newPGrep  [要在当前项目中查找的模式字符串]"
 
 #: KateSearchCommand.cpp:98
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr "用法：preg [要在当前工程中查找的 regex 模式字串]"
+msgstr "用法：preg [要在当前项目中查找的 regex 模式字符串]"
 
 #: MatchExportDialog.cpp:20
 #, kde-format
@@ -115,7 +115,7 @@ msgstr[0] "<b><i>在文件夹“%2”中找到 %1 个匹配 (%3)</i></b>"
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] "<b><i>在项目 %2 (%3) 中找到 %1 个匹配 (%4)</i></b>"
+msgstr[0] "<b><i>在项目 %2 (%3) 中找到 %1 个匹配项 (%4)</i></b>"
 
 #: MatchModel.cpp:582
 #, kde-format
@@ -123,7 +123,8 @@ msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
-msgstr[0] "<b><i>所有打开的项目中找到 %1 个匹配 (%3) (共同父目录：%2)</i></b>"
+msgstr[0] ""
+"<b><i>在所有打开的项目中找到 %1 个匹配项 (%3) (共同父目录：%2)</i></b>"
 
 #: MatchModel.cpp:696 MatchModel.cpp:698
 #, kde-format
@@ -164,13 +165,13 @@ msgstr[0] "在文件夹“%2”中找到 %1 个匹配 (%3)"
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] "在项目 %2 (%3) 中找到 %1 个匹配 (%4)"
+msgstr[0] "在项目 %2 (%3) 中找到 %1 个匹配项 (%4)"
 
 #: MatchModel.cpp:733
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
-msgstr[0] "所有打开的项目中找到 %1 个匹配 (%3) (共同父目录：%2)"
+msgstr[0] "在所有打开的项目中找到 %1 个匹配项 (%3) (共同父目录：%2)"
 
 #: Results.cpp:32
 #, kde-format
@@ -656,12 +657,12 @@ msgstr "即输即搜"
 #: SearchPlugin.cpp:2468
 #, kde-format
 msgid "In Current Project"
-msgstr "当前工程"
+msgstr "当前项目"
 
 #: SearchPlugin.cpp:2470
 #, kde-format
 msgid "In All Open Projects"
-msgstr "全部打开的工程"
+msgstr "所有打开的项目"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6

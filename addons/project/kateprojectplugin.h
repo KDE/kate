@@ -183,7 +183,6 @@ public:
     Q_INVOKABLE QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 
 Q_SIGNALS:
-
     /**
      * Signal that for view to clean up
      * @param project to close

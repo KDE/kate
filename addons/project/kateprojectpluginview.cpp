@@ -713,16 +713,18 @@ void KateProjectPluginView::slotCloseAllProjectsWithoutDocuments()
 
 void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
 {
-    const int index = m_plugin->projects().indexOf(project);
-    m_project2View.erase(m_project2View.find(project));
+    const auto viewIt = m_project2View.find(project);
+    Q_ASSERT(viewIt != m_project2View.end());
 
-    QWidget *stackedProjectViewsWidget = m_stackedProjectViews->widget(index);
-    m_stackedProjectViews->removeWidget(stackedProjectViewsWidget);
-    delete stackedProjectViewsWidget;
+    const int index = m_stackedProjectViews->indexOf(viewIt->first);
 
-    QWidget *stackedProjectInfoViewsWidget = m_stackedProjectInfoViews->widget(index);
-    m_stackedProjectInfoViews->removeWidget(stackedProjectInfoViewsWidget);
-    delete stackedProjectInfoViewsWidget;
+    m_stackedProjectViews->removeWidget(viewIt->first);
+    delete viewIt->first;
+
+    m_stackedProjectInfoViews->removeWidget(viewIt->second);
+    delete viewIt->second;
+
+    m_project2View.erase(viewIt);
 
     m_projectsCombo->removeItem(index);
 

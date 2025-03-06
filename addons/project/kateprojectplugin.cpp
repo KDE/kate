@@ -226,8 +226,13 @@ void KateProjectPlugin::closeProject(KateProject *project)
 
     // check: did all documents of the project go away? if not we shall not close it
     if (!projectHasOpenDocuments(project)) {
-        Q_EMIT pluginViewProjectClosing(project);
+        // ensure we no longer can look up this projects in stuff triggered by pluginViewProjectClosing, bug 501103
         m_projects.removeOne(project);
+
+        // cleanup views and Co.
+        Q_EMIT pluginViewProjectClosing(project);
+
+        // purge the project, now there shall be no references left
         delete project;
     }
 }

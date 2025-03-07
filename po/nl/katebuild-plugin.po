@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-03-02 14:03+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -357,36 +357,36 @@ msgstr ""
 "Bouwen van <b>%1 geannuleerd</b>. %2 fout(en), %3 waarschuwing(en), %4 "
 "notitie(s)"
 
-#: plugin_katebuild.cpp:1426
+#: plugin_katebuild.cpp:1428
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Kan niet uitvoeren: %1 Geen werkmap ingesteld."
 
-#: plugin_katebuild.cpp:1676
+#: plugin_katebuild.cpp:1678
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "fout"
 
-#: plugin_katebuild.cpp:1679
+#: plugin_katebuild.cpp:1681
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "waarschuwing"
 
-#: plugin_katebuild.cpp:1682
+#: plugin_katebuild.cpp:1684
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "notitie|informatie"
 
-#: plugin_katebuild.cpp:1685
+#: plugin_katebuild.cpp:1687
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "ongedefinieerde referentie"
 
-#: plugin_katebuild.cpp:1889
+#: plugin_katebuild.cpp:1891
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Kan bouwdoelen niet opslaan in: %1"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2023-06-25 16:56+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-doc@kde.org>\n"
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
@@ -865,12 +865,12 @@ msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Möchten Sie das Projekt %1 die zugehörigen %2 geöffneten Dokumente schließen?"
 
-#: kateprojectplugin.cpp:595
+#: kateprojectplugin.cpp:600
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Vollständiger Pfad des aktuellen Projekts ohne den Dateinamen."
 
-#: kateprojectplugin.cpp:612
+#: kateprojectplugin.cpp:617
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -958,12 +958,12 @@ msgstr "Projekt schließen"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Suchen: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Goto: %1"
 msgstr "Gehe zu: %1"
@@ -973,7 +973,7 @@ msgstr "Gehe zu: %1"
 msgid "Projects Index"
 msgstr "Projektindex"
 
-#: kateprojectpluginview.cpp:840
+#: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
 msgstr "Wählen Sie einen Ordner"

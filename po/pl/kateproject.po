@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-02-23 11:36+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -520,7 +520,7 @@ msgstr "Czy na pewno usunąć te nieśledzone zmiany?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Zniekształcony plik JSON '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
@@ -842,12 +842,12 @@ msgstr "Potwierdź zamknięcie projektu: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Czy zamknąć projekt %1 i powiązane %2 otwarte dokumenty?"
 
-#: kateprojectplugin.cpp:595
+#: kateprojectplugin.cpp:600
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Pełna ścieżka do bieżącego projektu wyłączając nazwę pliku."
 
-#: kateprojectplugin.cpp:612
+#: kateprojectplugin.cpp:617
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -926,12 +926,12 @@ msgstr "Wczytaj projekt ponownie"
 msgid "Checkout Git Branch"
 msgstr "Pobierz wersję wyjściową gałęzi Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Wyszukaj: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Goto: %1"
 msgstr "Idź do: %1"
@@ -941,7 +941,7 @@ msgstr "Idź do: %1"
 msgid "Projects Index"
 msgstr "Indeks projektu"
 
-#: kateprojectpluginview.cpp:840
+#: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
 msgstr "Wybierz katalog"

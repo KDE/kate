@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-03-05 19:35+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -337,36 +337,36 @@ msgstr "編譯已順利完成。"
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "編譯 <b>%1 已取消</b>。 %2 個錯誤，%3 個警告，%4 個備註"
 
-#: plugin_katebuild.cpp:1426
+#: plugin_katebuild.cpp:1428
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "無法執行：%1 未設定工作目錄。"
 
-#: plugin_katebuild.cpp:1676
+#: plugin_katebuild.cpp:1678
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "錯誤"
 
-#: plugin_katebuild.cpp:1679
+#: plugin_katebuild.cpp:1681
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:1682
+#: plugin_katebuild.cpp:1684
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "備註|資訊"
 
-#: plugin_katebuild.cpp:1685
+#: plugin_katebuild.cpp:1687
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定義的參照"
 
-#: plugin_katebuild.cpp:1889
+#: plugin_katebuild.cpp:1891
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "無法儲存編譯目標於：%1"

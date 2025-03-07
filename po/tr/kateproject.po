@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-03-04 12:15+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -515,7 +515,7 @@ msgstr "Bu izlenmeyen değişiklikleri kaldırmak istediğinizden emin misiniz?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Hatalı oluşturulmuş JSON dosyası “%1“: %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
@@ -832,12 +832,12 @@ msgstr "Projeyi kapatmayı onayla: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "%1 projesini ve ilgili %2 dosyayı kapatmak istiyor musunuz?"
 
-#: kateprojectplugin.cpp:595
+#: kateprojectplugin.cpp:600
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Dosya adı hariç geçerli projenin tam yolu."
 
-#: kateprojectplugin.cpp:612
+#: kateprojectplugin.cpp:617
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -916,12 +916,12 @@ msgstr "Projeyi Yeniden Yükle"
 msgid "Checkout Git Branch"
 msgstr "Git Dalını Çıkış Yap"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Ara: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Goto: %1"
 msgstr "Git: %1"
@@ -931,7 +931,7 @@ msgstr "Git: %1"
 msgid "Projects Index"
 msgstr "Projeler İndeksi"
 
-#: kateprojectpluginview.cpp:840
+#: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
 msgstr "Bir dizin seç"

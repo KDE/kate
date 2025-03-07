@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-01-12 17:31+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -353,36 +353,36 @@ msgstr ""
 "%1 – koostaminen <b>peruttu</b>. %2 virhe(ttä), %3 varoitus(ta), %4 "
 "huomautus(ta)"
 
-#: plugin_katebuild.cpp:1426
+#: plugin_katebuild.cpp:1428
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Ei voida suorittaa: %1 – työkansiota ei ole asetettu."
 
-#: plugin_katebuild.cpp:1676
+#: plugin_katebuild.cpp:1678
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "virhe"
 
-#: plugin_katebuild.cpp:1679
+#: plugin_katebuild.cpp:1681
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "varoitus"
 
-#: plugin_katebuild.cpp:1682
+#: plugin_katebuild.cpp:1684
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "huomautus|tiedotus"
 
-#: plugin_katebuild.cpp:1685
+#: plugin_katebuild.cpp:1687
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "määrittämätön viite"
 
-#: plugin_katebuild.cpp:1889
+#: plugin_katebuild.cpp:1891
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Koostamiskohteita ei voi tallentaa kansioon: %1"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
 "PO-Revision-Date: 2025-03-04 17:35+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -516,7 +516,7 @@ msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
@@ -835,12 +835,12 @@ msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "¿Desea cerrar el proyecto %1 y los %2 documentos abiertos relacionados?"
 
-#: kateprojectplugin.cpp:595
+#: kateprojectplugin.cpp:600
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Ruta completa al proyecto actual, excluyendo el nombre de archivo."
 
-#: kateprojectplugin.cpp:612
+#: kateprojectplugin.cpp:617
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -919,12 +919,12 @@ msgstr "Volver a cargar el proyecto"
 msgid "Checkout Git Branch"
 msgstr "Cambiar a rama de Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Buscar: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir a: %1"
@@ -934,7 +934,7 @@ msgstr "Ir a: %1"
 msgid "Projects Index"
 msgstr "Índice de proyectos"
 
-#: kateprojectpluginview.cpp:840
+#: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escoja un directorio"

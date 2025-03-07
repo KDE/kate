@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-04 00:43+0000\n"
-"PO-Revision-Date: 2025-02-20 14:49+0400\n"
+"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"PO-Revision-Date: 2025-03-06 09:02+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -518,7 +518,7 @@ msgstr "هل أنت متأكد أنك تريد إزالة هذه التغيير�
 msgid "Malformed JSON file '%1': %2"
 msgstr "ملف JSON مشوه '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:729 kateprojectpluginview.cpp:74
+#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
 #: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
 #: kateprojectviewtree.cpp:255
@@ -687,32 +687,28 @@ msgid "Projects Properties"
 msgstr "خصائص المشاريع"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "الطّرفيّة (الأساس)"
+msgstr "الطرفيّة"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "الطرفية (.kateproject)"
+msgstr "طرفية (المشروع)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr "الطّرفيّة (الأساس)"
+msgstr "طرفيّة (الأساس)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr "الطّرفيّة (البناء)"
+msgstr "طرفيّة (البناء)"
 
 #: kateprojectinfoview.cpp:114
 #, kde-format
@@ -840,12 +836,12 @@ msgstr "تأكيد إغلاق المشروع: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "هل تريد إغلاق المشروع %1 والمستندات المفتوحة ذات الصلة %2؟"
 
-#: kateprojectplugin.cpp:595
+#: kateprojectplugin.cpp:600
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "المسار الكامل للمشروع الحالي باستثناء اسم الملف."
 
-#: kateprojectplugin.cpp:612
+#: kateprojectplugin.cpp:617
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -924,12 +920,12 @@ msgstr "أعد تحميل المشروع"
 msgid "Checkout Git Branch"
 msgstr "الانتقال إلى فرع غت"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:795
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
 #, kde-format
 msgid "Lookup: %1"
 msgstr "ابحث عن: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:796
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
 #, kde-format
 msgid "Goto: %1"
 msgstr "اذهب إلى: %1"
@@ -939,7 +935,7 @@ msgstr "اذهب إلى: %1"
 msgid "Projects Index"
 msgstr "فهرس مشروع"
 
-#: kateprojectpluginview.cpp:840
+#: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
 msgstr "اختر مجلدًا"

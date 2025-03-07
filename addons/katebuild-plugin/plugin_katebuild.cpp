@@ -1084,6 +1084,7 @@ bool KateBuildView::buildCurrentTarget()
     // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
     if (buildCmd.contains(QLatin1String("%f")) || buildCmd.contains(QLatin1String("%d")) || buildCmd.contains(QLatin1String("%n"))) {
         if (docFInfo.absoluteFilePath().isEmpty()) {
+            sendError(i18n("Cannot make substitution. No open file or the current file is untitled!"));
             return false;
         }
 

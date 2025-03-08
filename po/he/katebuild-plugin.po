@@ -3,13 +3,13 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
-"PO-Revision-Date: 2025-01-23 10:32+0200\n"
+"POT-Creation-Date: 2025-03-08 00:46+0000\n"
+"PO-Revision-Date: 2025-03-05 07:57+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -38,8 +38,7 @@ msgstr "פלט"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "בנייה חוזרת"
 
@@ -247,41 +246,46 @@ msgstr "לא הוגדרו קובץ או תיקייה מקומיים לבנייה
 msgid "Already building..."
 msgstr "כבר מתבצעת בנייה…"
 
-#: plugin_katebuild.cpp:1096
+#: plugin_katebuild.cpp:1087
+#, kde-format
+msgid "Cannot make substitution. No open file or the current file is untitled!"
+msgstr ""
+
+#: plugin_katebuild.cpp:1097
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "המטרה <b>%1</b> נבנית…"
 
-#: plugin_katebuild.cpp:1133
+#: plugin_katebuild.cpp:1134
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr "לא ניתן לטעון יעדים, הקובץ %1 לא מכיל רשומת CMAKE_COMMAND הולמת!"
 
-#: plugin_katebuild.cpp:1146
+#: plugin_katebuild.cpp:1147
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr "לא ניתן לכתובת קובצי שאילתת API לקובץ CMake לתיקיית הבנייה %1!"
 
-#: plugin_katebuild.cpp:1152
+#: plugin_katebuild.cpp:1153
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "לא ניתן להריץ את CMake (%2) לתיקיית הבנייה %1!"
 
-#: plugin_katebuild.cpp:1161
+#: plugin_katebuild.cpp:1162
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr "יצירת קובצי תגובת API לקובץ CMake לתיקיית הבנייה %1 נכשלה (דרך %2)!"
 
-#: plugin_katebuild.cpp:1280
+#: plugin_katebuild.cpp:1281
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "תוסף הבנייה רוצה להריץ תוכנית"
 
-#: plugin_katebuild.cpp:1283
+#: plugin_katebuild.cpp:1284
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -293,20 +297,18 @@ msgstr ""
 "<br><br> שורת הפקודה המלאה היא:<br><br><b>%1</b><br><br>להמשיך ולהתיר את "
 "הרצת הפקודה הזאת?<br><br>אפשר לשנות את הבחירה הזאת דרך עמוד ההגדרות של התוסף."
 
-#: plugin_katebuild.cpp:1315
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#: plugin_katebuild.cpp:1316
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>תוצאות ה־Make (הכנה):</title><nl/>%1"
+msgstr "<title>הבנייה הסתיימה:</title>%1"
 
-#: plugin_katebuild.cpp:1377
+#: plugin_katebuild.cpp:1378
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "בניית <b>%1</b> הושלמה. %2 שגיאות, %3 אזהרות, %4 הערות"
 
-#: plugin_katebuild.cpp:1383
+#: plugin_katebuild.cpp:1384
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -315,7 +317,7 @@ msgstr[1] "נמצאו שתי שגיאות."
 msgstr[2] "נמצאו %1 שגיאות."
 msgstr[3] "נמצאו %1 שגיאות."
 
-#: plugin_katebuild.cpp:1387
+#: plugin_katebuild.cpp:1388
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -324,7 +326,7 @@ msgstr[1] "נמצאו שתי אזהרות."
 msgstr[2] "נמצאו %1 אזהרות."
 msgstr[3] "נמצאו %1 אזהרות."
 
-#: plugin_katebuild.cpp:1390
+#: plugin_katebuild.cpp:1391
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
@@ -333,51 +335,51 @@ msgstr[1] "נמצאו שתי הערות."
 msgstr[2] "נמצאו %1 הערות."
 msgstr[3] "נמצאו %1 הערות."
 
-#: plugin_katebuild.cpp:1395
+#: plugin_katebuild.cpp:1396
 #, kde-format
 msgid "Build failed."
 msgstr "הבנייה נכשלה"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1398
 #, kde-format
 msgid "Build completed without problems."
 msgstr "הבנייה הסתיימה ללא בעיות"
 
-#: plugin_katebuild.cpp:1402
+#: plugin_katebuild.cpp:1403
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "בניית <b>%1 נכשלה</b>. %2 שגיאות, %3 אזהרות %4 הערות"
 
-#: plugin_katebuild.cpp:1428
+#: plugin_katebuild.cpp:1429
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "לא ניתן להריץ: %1 לא הוגדרה תיקיית עבודה."
 
-#: plugin_katebuild.cpp:1678
+#: plugin_katebuild.cpp:1679
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:1681
+#: plugin_katebuild.cpp:1682
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning"
 
-#: plugin_katebuild.cpp:1684
+#: plugin_katebuild.cpp:1685
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info"
 
-#: plugin_katebuild.cpp:1687
+#: plugin_katebuild.cpp:1688
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:1891
+#: plugin_katebuild.cpp:1892
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "לא ניתן לשמור את יעדי הבנייה תחת: %1"

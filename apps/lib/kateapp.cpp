@@ -478,7 +478,12 @@ bool KateApp::startupKate()
             sessionManager()->activateSession(m_args.value(QStringLiteral("start")), false);
         } else if (m_args.isSet(QStringLiteral("startanon"))) {
             sessionManager()->activateAnonymousSession();
-        } else if (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0)) { // only start session if no files specified
+        }
+
+        // only start session if we are not started from the terminal or if no are files specified
+        // we added the !isInsideTerminal() case to allow e.g. session start on use of Dolphin to open a file
+        // see bug 446852
+        else if (!isInsideTerminal() || (!m_args.isSet(QStringLiteral("stdin")) && (m_args.positionalArguments().count() == 0))) {
             // let the user choose session if possible
             if (!sessionManager()->chooseSession()) {
 #if HAVE_X11

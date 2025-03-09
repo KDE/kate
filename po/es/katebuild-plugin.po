@@ -1,4 +1,4 @@
-# Translation of katebuild-plugin.po to Spanish
+# Spanish translations for katebuild-plugin.po package.
 # Copyright (C) 2008-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-03-02 03:25+0100\n"
+"PO-Revision-Date: 2025-03-09 00:47+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -260,6 +260,8 @@ msgstr "Ya se está compilando."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"No se puede realizar la sustitución. No hay ningún archivo abierto o el "
+"archivo actual no tiene título."
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

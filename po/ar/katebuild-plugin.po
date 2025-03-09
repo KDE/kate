@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-03-03 22:33+0400\n"
+"PO-Revision-Date: 2025-03-08 21:34+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -247,6 +247,7 @@ msgstr "يبني بالفعل..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"لا يمكن إجراء الاستبدال. لا يوجد ملف مفتوح أو الملف الحالي ليس له عنوان!"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

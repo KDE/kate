@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-03-02 04:31+0100\n"
+"PO-Revision-Date: 2025-03-08 06:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -252,6 +252,8 @@ msgstr "აგება უკვე მიმდინარეობს..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"ჩანაცვლება შეუძლებელია. გახსნილი ფაილი არ არსებობს ან მიმდინარე ფაილს სახელი "
+"არ აქვს!"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

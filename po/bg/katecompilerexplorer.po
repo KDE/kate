@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2024, 2025 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2024-06-04 22:15+0200\n"
+"PO-Revision-Date: 2025-03-08 18:18+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 25.03.70\n"
 
 #: AsmView.cpp:299
 #, kde-format
 msgid "Scroll to source"
-msgstr ""
+msgstr "Превъртане до изходния код"
 
 #: AsmView.cpp:309
 #, kde-format
@@ -45,43 +45,41 @@ msgstr "Преглед на компилатор"
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr ""
+msgstr "&Отваряне на текущия файл в Compiler Explorer"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr ""
+msgstr "Няма отворен файл"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr ""
+msgstr "CompilerExplorer"
 
 #: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr ""
+msgstr "Наистина ли искате да затворите %1?"
 
 #: ce_widget.cpp:196
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "Езици"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Компилиране"
+msgstr "Компилатори"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Преглед на компилатор"
+msgstr "Настройки на компилатор…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -96,37 +94,35 @@ msgstr "Настройки"
 #: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr ""
+msgstr "Demangle идентификатори"
 
 #: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
-msgstr ""
+msgstr "Филтриране на библиотечните функции"
 
 #: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr ""
+msgstr "Филтриране на неизползваните етикети"
 
 #: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
-msgstr ""
+msgstr "Филтриране на коментарите"
 
 #: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
-msgstr ""
+msgstr "Синтаксис на Intel"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
 msgstr "Промяна на URL…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "Въведете адрес"
 
@@ -135,6 +131,8 @@ msgstr "Въведете адрес"
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
+"Въведете URL работна сесия на CompilerExplorer, напр. “http://"
+"localhost:10240”"
 
 #: ce_widget.cpp:404
 #, kde-format
@@ -144,7 +142,7 @@ msgstr "Компилаторът върна: %1"
 #: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
-msgstr ""
+msgstr "Разкриване на свързания код"
 
 #: ce_widget.cpp:575
 #, kde-format
@@ -155,3 +153,5 @@ msgstr "CompilerExplorer"
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""
+"Намерени са флагове на компилатор \"%1\". Изходният резултат може да не е "
+"полезен."

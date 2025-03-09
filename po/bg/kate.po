@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-01-07 23:33+0100\n"
+"PO-Revision-Date: 2025-03-08 18:07+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -359,11 +359,10 @@ msgid "Filter…"
 msgstr "Филтър..."
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Изчистване на диагностичния филтър"
+msgstr "Изчистване на диагностиката"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format

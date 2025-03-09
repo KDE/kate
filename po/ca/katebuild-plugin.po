@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-03-02 09:59+0100\n"
+"PO-Revision-Date: 2025-03-08 10:26+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -258,6 +258,8 @@ msgstr "Ja està construint-se..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"No s'ha pogut fer la substitució. No hi ha cap fitxer obert o el fitxer "
+"actual no té títol!"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

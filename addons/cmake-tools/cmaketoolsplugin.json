@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Code completion for CMake files",
         "Description[ar]": "إكمال شفرة لملفات سي ميك",
+        "Description[bg]": "Завършване на код за CMake файлове",
         "Description[ca@valencia]": "Compleció de codi de fitxers CMake",
         "Description[ca]": "Compleció de codi de fitxers CMake",
         "Description[es]": "Terminación de código para archivos de CMake",
@@ -20,6 +21,7 @@
         "Description[zh_TW]": "CMake 檔案用的程式碼補完",
         "Name": "CMake Completion",
         "Name[ar]": "إكمال سي ميك",
+        "Name[bg]": "Завършване на код за CMake",
         "Name[ca@valencia]": "Compleció CMake",
         "Name[ca]": "Compleció CMake",
         "Name[es]": "Terminación de CMake",

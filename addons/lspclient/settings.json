@@ -45,6 +45,13 @@
             "useWorkspace": true,
             "rootIndicationFileNames": ["pubspec.yaml", "pubspec.lock"]
         },
+        "debputy": {
+            "command": ["debputy", "lsp", "server"],
+            "url": "https://salsa.debian.org/debian/debputy-lsp",
+            "highlightingModeRegex": "^(Debian .+|Debputy .+)$",
+            "documentLanguageId": false,
+            "useWorkspace": true
+        },
         "docker": {
             "command": ["docker-langserver", "--stdio"],
             "url": "https://github.com/rcjsuen/dockerfile-language-server-nodejs",

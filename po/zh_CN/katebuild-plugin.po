@@ -244,7 +244,7 @@ msgstr "已经在构建..."
 #: plugin_katebuild.cpp:1087
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
-msgstr ""
+msgstr "无法替换。没有打开的文件或当前文件未命名！"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

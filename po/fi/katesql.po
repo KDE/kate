@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kdebase package.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014.
-# Tommi Nieminen <translator@legisign.org>, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2025 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 # Author: Artnay
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-17 00:44+0000\n"
-"PO-Revision-Date: 2023-07-25 19:55+0300\n"
+"PO-Revision-Date: 2025-02-15 19:39+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -21,6 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -516,7 +517,7 @@ msgstr "Päivitä"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Lausekkeen valmistelu epäonnistui"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -524,6 +525,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Kyselyn valmistelu epäonnistui virheeseen: %1</p><p>Haluatko jatkaa "
+"valmistelematta kyselyä?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

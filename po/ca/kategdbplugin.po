@@ -705,7 +705,3 @@ msgstr "&Depura"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Marc"

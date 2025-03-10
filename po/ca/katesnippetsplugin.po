@@ -368,6 +368,3 @@ msgstr "Filtre..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "Snippet name cannot contain spaces"
-#~ msgstr "El nom del retall no pot contenir espais"

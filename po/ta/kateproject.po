@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-07 00:45+0000\n"
-"PO-Revision-Date: 2025-01-26 18:09+0530\n"
+"PO-Revision-Date: 2025-03-09 16:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -173,7 +173,7 @@ msgstr "%1 / 52"
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:85
 #, kde-format
@@ -499,7 +499,7 @@ msgstr ""
 #: gitwidget.cpp:1414
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "இம்மாற்றங்களை உறுதியாக கைவிட வேண்டுமா?"
 
 #: gitwidget.cpp:1419
 #, kde-format
@@ -509,7 +509,7 @@ msgstr ""
 #: kateproject.cpp:297
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "முறையற்ற JSON கோப்பு '%1': %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
@@ -571,7 +571,7 @@ msgstr ""
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "அமர்வு நடத்தை"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
@@ -597,12 +597,12 @@ msgstr ""
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "அட்டவணையாக்கத்தை இயக்கு"
 
 #: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "அட்டவணைக்கோப்புகளுக்கான அடைவு"
 
 #: kateprojectconfigpage.cpp:65
 #, kde-format
@@ -679,7 +679,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr ""
+msgstr "முனையம்"
 
 #: kateprojectinfoview.cpp:89
 #, kde-format
@@ -712,7 +712,7 @@ msgstr ""
 #: kateprojectinfoview.cpp:124
 #, kde-format
 msgid "Notes"
-msgstr ""
+msgstr "குறிப்புகள்"
 
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
@@ -795,7 +795,7 @@ msgstr ""
 #: kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "அட்டவணையாக்கம் முடக்கப்பட்டுள்ளது"
 
 #: kateprojectitem.cpp:166
 #, kde-format
@@ -917,67 +917,67 @@ msgstr ""
 #: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "அடைவைத் தேர்ந்தெடுப்பது"
 
 #: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "பெயரை உள்ளிடவும்:"
 
 #: kateprojecttreeviewcontextmenu.cpp:62
 #, kde-format
 msgid "Delete File"
-msgstr ""
+msgstr "கோப்பை நீக்குவது"
 
 #: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "\"%1\" என்பதை உறுதியாக நீக்க வேண்டுமா?"
 
 #: kateprojecttreeviewcontextmenu.cpp:90
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "இருப்பிடத்தை நகலெடு"
 
 #: kateprojecttreeviewcontextmenu.cpp:97
 #, kde-format
 msgid "New File…"
-msgstr ""
+msgstr "புதிய கோப்பு…"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New Folder…"
-msgstr ""
+msgstr "புதிய அடைவு…"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "&மறுபெயரிடு"
 
 #: kateprojecttreeviewcontextmenu.cpp:112
 #, kde-format
 msgid "Properties"
-msgstr ""
+msgstr "பண்புகள்"
 
 #: kateprojecttreeviewcontextmenu.cpp:116
 #, kde-format
 msgid "Open With"
-msgstr ""
+msgstr "இதனால் திற"
 
 #: kateprojecttreeviewcontextmenu.cpp:124
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "உள்ளமை முனையத்தை இங்கு திற"
 
 #: kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "வெளி முனையத்தை இங்கு திற"
 
 #: kateprojecttreeviewcontextmenu.cpp:138
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "&கொண்டுள்ள அடைவைத் திற"
 
 #: kateprojecttreeviewcontextmenu.cpp:147
 #, kde-format
@@ -987,34 +987,32 @@ msgstr ""
 #: kateprojecttreeviewcontextmenu.cpp:210
 #, kde-format
 msgid "New File"
-msgstr ""
+msgstr "புதிய கோப்பு"
 
 #: kateprojecttreeviewcontextmenu.cpp:215
 #, kde-format
 msgid "New Folder"
-msgstr ""
+msgstr "புதிய அடைவு"
 
 #: kateprojectviewtree.cpp:210
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "இப்பெயரில் கோப்பு ஏற்கனவே உள்ளது"
+msgstr "இக்கோப்பு ஏற்கனவே உள்ளது"
 
 #: kateprojectviewtree.cpp:221
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "%1 எனும் கோப்பை உருவாக்க முடியவில்லை. சிக்கல்: %2"
 
 #: kateprojectviewtree.cpp:248
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "இப்பெயரில் கோப்பு ஏற்கனவே உள்ளது"
+msgstr "இவ்வடைவு ஏற்கனவே உள்ளது"
 
 #: kateprojectviewtree.cpp:255
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "அடைவை உருவாக்க முடியவில்லை: %1"
 
 #: kateprojectworker.cpp:730
 #, kde-format

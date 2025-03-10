@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-01-12 17:31+0200\n"
+"PO-Revision-Date: 2025-02-15 19:37+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -94,13 +94,14 @@ msgstr "Vaihda valittua kohdetta suoritettaessa automaattisesti tulospaneeliin"
 msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
-msgstr ""
+msgstr "Jos tulosrivi alkaa [# / ##] tai [## %], näytä viimeisin viestinä."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
+"Näytä koostamisen eteneminen viestinä tulostepaneelin ollessa piilotettu"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -399,9 +400,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>KJ:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kansio:</B> %1"
@@ -462,7 +461,7 @@ msgstr "Komennon/kohdejoukon nimi"
 #: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Koostamiskomento / työkansio"
 
 #: TargetModel.cpp:665
 #, kde-format

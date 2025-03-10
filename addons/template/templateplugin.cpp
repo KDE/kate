@@ -7,6 +7,7 @@
 #include <KPluginFactory>
 
 #include <QAction>
+#include <QDir>
 #include <QFileInfo>
 #include <QIcon>
 #include <QLayout>

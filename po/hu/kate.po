@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-03-11 00:43+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -935,13 +935,13 @@ msgstr "A szépséges súgófájlok"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Mindenki, aki segített valamiben, de nincs név szerint megemlítve"
 
-#: lib/kateapp.cpp:526
+#: lib/kateapp.cpp:531
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "Mappák csak akkor nyithatók meg, ha a Projekt bővítmény engedélyezve van"
 
-#: lib/kateapp.cpp:615
+#: lib/kateapp.cpp:620
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

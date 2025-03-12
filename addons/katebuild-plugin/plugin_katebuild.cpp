@@ -67,6 +67,10 @@
 
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
+#include <qpalette.h>
+#include <qtextbrowser.h>
+#include <qtextcursor.h>
+#include <qtextedit.h>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -453,6 +457,15 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
 
     connect(m_buildUi.buildAgainButton, &QPushButton::clicked, this, &KateBuildView::slotBuildPreviousTarget);
     connect(m_buildUi.cancelBuildButton, &QPushButton::clicked, this, &KateBuildView::slotStop);
+
+    connect(m_buildUi.searchPattern, &QLineEdit::editingFinished, this, &KateBuildView::slotSearchBuildOutput);
+    connect(m_buildUi.searchPattern, &QLineEdit::textChanged, this, &KateBuildView::slotSearchPatternChanged);
+    connect(m_buildUi.searchNext, &QToolButton::clicked, this, [this]() {
+        gotoNthFound(m_currentFound + 1);
+    });
+    connect(m_buildUi.searchPrev, &QToolButton::clicked, this, [this]() {
+        gotoNthFound(m_currentFound - 1);
+    });
 
     connect(m_targetsUi->buildButton, &QToolButton::clicked, this, &KateBuildView::slotBuildSelectedTarget);
     connect(m_targetsUi->runButton, &QToolButton::clicked, this, &KateBuildView::slotBuildAndRunSelectedTarget);
@@ -1694,6 +1707,102 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(const QString &line)
     }
     // Now we have the data we need show the error/warning
     return {.category = category, .lineStr = line, .message = msg, .file = filename, .lineNr = line_n.toInt(), .column = col_n.toInt()};
+}
+
+/******************************************************************/
+
+/** Build a list of search results */
+void KateBuildView::doSearchAll(QString text)
+{
+    auto buildOutput = m_buildUi.textBrowser;
+
+    if (buildOutput->document()->isEmpty() || text.isEmpty()) {
+        return;
+    }
+
+    m_searchFound.clear();
+
+    auto saveCursor = buildOutput->textCursor();
+    auto cursor = saveCursor;
+    cursor.movePosition(QTextCursor::Start);
+    buildOutput->setTextCursor(cursor);
+
+    while (buildOutput->find(text)) {
+        m_searchFound.append(buildOutput->textCursor());
+    }
+
+    buildOutput->setTextCursor(saveCursor);
+}
+
+/** Change the "Base" color of a widget. */
+/** For QLineEdit this is the background color. */
+void setBaseColor(QWidget *w, const QColor &color)
+{
+    if (w == nullptr) {
+        return;
+    }
+
+    auto palette = w->palette();
+    palette.setColor(QPalette::Base, color);
+    w->setPalette(palette);
+}
+
+/** Highlights the Nth search result. */
+void KateBuildView::gotoNthFound(qsizetype n)
+{
+    auto buildOutput = m_buildUi.textBrowser;
+    auto searchText = m_buildUi.searchPattern->text();
+
+    if (buildOutput->document()->isEmpty() || searchText.isEmpty()) {
+        m_buildUi.searchStatus->clear();
+        return;
+    }
+
+    if (m_searchFound.empty()) {
+        doSearchAll(searchText);
+        if (m_searchFound.empty()) {
+            m_buildUi.searchStatus->clear();
+            setBaseColor(m_buildUi.searchPattern, Qt::red);
+            return;
+        }
+        n = 0;
+    }
+
+    if (n < 0)
+        n = m_searchFound.size() - 1;
+    if (n >= m_searchFound.size())
+        n = 0;
+
+    m_buildUi.searchStatus->setText(QStringLiteral("%1/%2").arg(n + 1).arg(m_searchFound.size()));
+    buildOutput->setTextCursor(m_searchFound.at(n));
+    m_currentFound = n;
+}
+
+/** The user has entered a search pattern. */
+void KateBuildView::slotSearchBuildOutput()
+{
+    auto input = qobject_cast<QLineEdit *>(sender());
+    if (input == nullptr) {
+        return;
+    }
+
+    doSearchAll(input->text());
+    setBaseColor(input, m_searchFound.size() > 0 ? Qt::white : Qt::red);
+    gotoNthFound(0);
+}
+
+/** The user is changing the search pattern. */
+void KateBuildView::slotSearchPatternChanged()
+{
+    m_searchFound = {};
+    m_currentFound = 0;
+
+    auto cursor = m_buildUi.textBrowser->textCursor();
+    cursor.clearSelection();
+    m_buildUi.textBrowser->setTextCursor(cursor);
+
+    setBaseColor(m_buildUi.searchPattern, Qt::white);
+    m_buildUi.searchStatus->clear();
 }
 
 /******************************************************************/

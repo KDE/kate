@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>407</width>
+    <width>480</width>
     <height>308</height>
    </rect>
   </property>
@@ -90,7 +90,71 @@
            </property>
           </spacer>
          </item>
+         <item>
+          <widget class="QPushButton" name="openSearchPanel">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset theme="edit-find"/>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="search" native="true">
+         <property name="visible">
+          <bool>false</bool>
+         </property>
+         <layout class="QHBoxLayout">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="searchPattern"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="searchStatus">
+            <property name="minimumSize">
+             <size>
+              <width>150</width>
+              <height>0</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="searchPrev">
+            <property name="icon">
+             <iconset theme="go-previous"/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="searchNext">
+            <property name="icon">
+             <iconset theme="go-next"/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <widget class="QTextBrowser" name="textBrowser">
@@ -109,5 +173,24 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>openSearchPanel</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>search</receiver>
+   <slot>setVisible(bool)</slot>
+  </connection>
+  <connection>
+   <sender>openSearchPanel</sender>
+   <signal>clicked()</signal>
+   <receiver>searchPattern</receiver>
+   <slot>clear()</slot>
+  </connection>
+  <connection>
+   <sender>openSearchPanel</sender>
+   <signal>clicked()</signal>
+   <receiver>searchPattern</receiver>
+   <slot>setFocus()</slot>
+  </connection>
+ </connections>
 </ui>

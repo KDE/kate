@@ -39,6 +39,7 @@
 
 #include <KConfigGroup>
 #include <KXMLGUIClient>
+#include <qtextdocument.h>
 
 #include "diagnostics/diagnosticview.h"
 #include "targets.h"
@@ -108,6 +109,9 @@ private Q_SLOTS:
     void slotRunAfterBuild();
     void slotUpdateTextBrowser();
 
+    void slotSearchBuildOutput();
+    void slotSearchPatternChanged();
+
     void handleEsc(QEvent *e);
 
     /**
@@ -127,6 +131,8 @@ private Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev) override;
+    void doSearchAll(QString text);
+    void gotoNthFound(qsizetype n);
 
 private:
     struct OutputLine {
@@ -216,6 +222,9 @@ private:
     QTimer m_saveProjTargetsTimer;
     bool m_addingProjTargets = false;
     QSet<QString> m_saveProjectTargetDirs;
+
+    QList<QTextCursor> m_searchFound;
+    qsizetype m_currentFound;
 
     /**
      * current project plugin view, if any

@@ -61,7 +61,7 @@ bool TMPL_QAbstractListModel::insertAt(int row, const Data &item)
 std::optional<TMPL_QAbstractListModel::Data> TMPL_QAbstractListModel::takeAt(int row)
 {
     if (row < 0 || row >= m_list.size()) {
-        qWarning() << "Cant take a card at invalid row:" << row << m_list.size();
+        qWarning() << "Cant take at invalid row:" << row << m_list.size();
         return std::nullopt;
     }
     beginRemoveRows(QModelIndex(), row, row);
@@ -73,7 +73,7 @@ std::optional<TMPL_QAbstractListModel::Data> TMPL_QAbstractListModel::takeAt(int
 bool TMPL_QAbstractListModel::removeAt(int row)
 {
     if (row < 0 || row >= m_list.size()) {
-        qWarning() << "Cant take a card at invalid row:" << row << m_list.size();
+        qWarning() << "Cant take at invalid row:" << row << m_list.size();
         return false;
     }
     beginRemoveRows(QModelIndex(), row, row);

@@ -3,6 +3,8 @@
 #include <QAbstractListModel>
 #include <QObject>
 
+#include <optional>
+
 class TMPL_QAbstractListModel : public QAbstractListModel
 {
     Q_OBJECT

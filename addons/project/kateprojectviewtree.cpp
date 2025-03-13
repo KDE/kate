@@ -82,6 +82,7 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setAllColumnsShowFocus(true);
     setIndentation(12);
+    setSelectionMode(QAbstractItemView::SingleSelection);
 
     setDragDropMode(QAbstractItemView::DropOnly);
     setDragDropOverwriteMode(false);
@@ -305,7 +306,6 @@ void KateProjectViewTree::slotClicked(const QModelIndex &index)
          */
         if (index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::File) {
             m_pluginView->mainWindow()->openUrl(QUrl::fromLocalFile(filePath));
-            selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
             return;
         }
 

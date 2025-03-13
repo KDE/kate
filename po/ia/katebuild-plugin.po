@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-03-04 12:54+0100\n"
+"PO-Revision-Date: 2025-03-12 14:41+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -253,6 +253,8 @@ msgstr "Ja construente"
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"Non pote facer substitutiones. Necun files aperite o le file currente es sin "
+"titulo!"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format

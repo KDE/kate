@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-08 00:46+0000\n"
+"POT-Creation-Date: 2025-03-13 00:44+0000\n"
 "PO-Revision-Date: 2025-02-12 07:01+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -106,66 +106,66 @@ msgstr ""
 msgid "Allowed && Blocked Commands"
 msgstr "Permesitaj && Blokitaj Komandoj"
 
-#: plugin_katebuild.cpp:264 plugin_katebuild.cpp:271 plugin_katebuild.cpp:711
-#: plugin_katebuild.cpp:934 plugin_katebuild.cpp:947
+#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:724
+#: plugin_katebuild.cpp:947 plugin_katebuild.cpp:960
 #, kde-format
 msgid "Build"
 msgstr "Konstrui"
 
-#: plugin_katebuild.cpp:274
+#: plugin_katebuild.cpp:278
 #, kde-format
 msgid "Select Target..."
 msgstr "Elekti Celon..."
 
-#: plugin_katebuild.cpp:279
+#: plugin_katebuild.cpp:283
 #, kde-format
 msgid "Build Selected Target"
 msgstr "Konstrui Elektitan Celon"
 
-#: plugin_katebuild.cpp:284
+#: plugin_katebuild.cpp:288
 #, kde-format
 msgid "Build and Run Selected Target"
 msgstr "Konstrui kaj Lanĉi Elektitan Celon"
 
-#: plugin_katebuild.cpp:289
+#: plugin_katebuild.cpp:293
 #, kde-format
 msgid "Compile Current File"
 msgstr "Kompili Aktualan Dosieron"
 
-#: plugin_katebuild.cpp:290
+#: plugin_katebuild.cpp:294
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr "Provi kompili la aktualan dosieron per serĉo de compile_commands.json"
 
-#: plugin_katebuild.cpp:295
+#: plugin_katebuild.cpp:299
 #, kde-format
 msgid "Stop"
 msgstr "Halti"
 
-#: plugin_katebuild.cpp:300
+#: plugin_katebuild.cpp:304
 #, kde-format
 msgid "Load targets from CMake Build Dir"
 msgstr "Ŝargi celojn el CMake-Konstrudosierujo"
 
-#: plugin_katebuild.cpp:304
+#: plugin_katebuild.cpp:308
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
 msgstr "Fokusi Sekvan Langeton maldekstre"
 
-#: plugin_katebuild.cpp:324
+#: plugin_katebuild.cpp:328
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
 msgstr "Fokusi Sekvan Langeton dekstre"
 
-#: plugin_katebuild.cpp:353
+#: plugin_katebuild.cpp:357
 #, kde-format
 msgctxt "Tab label"
 msgid "Target Settings"
 msgstr "Celaj Agordoj"
 
-#: plugin_katebuild.cpp:393
+#: plugin_katebuild.cpp:397
 #, kde-format
 msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
@@ -174,17 +174,17 @@ msgstr ""
 "<b>Ne trovis dosieron:</b> %1<br><b>Serĉvojoj:</b><br>%2<br>Provu aldoni "
 "serĉvojon al la \"Working Directory\""
 
-#: plugin_katebuild.cpp:480
+#: plugin_katebuild.cpp:493
 #, kde-format
 msgid "Build Information"
 msgstr "Konstruinformo"
 
-#: plugin_katebuild.cpp:718
+#: plugin_katebuild.cpp:731
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Ne estas dosiero aŭ dosierujo specifita por konstruado."
 
-#: plugin_katebuild.cpp:722
+#: plugin_katebuild.cpp:735
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
@@ -192,12 +192,12 @@ msgstr ""
 "La dosiero \"%1\" ne estas loka dosiero. Ne-lokaj dosieroj ne povas esti "
 "kompilitaj."
 
-#: plugin_katebuild.cpp:790
+#: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Create directory"
 msgstr "Krei dosierujon"
 
-#: plugin_katebuild.cpp:793
+#: plugin_katebuild.cpp:806
 #, kde-format
 msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
@@ -206,57 +206,57 @@ msgstr ""
 "La agordita labordosierujo <b>%1</b> por la celaro <b>%2</b> ne ekzistas."
 "<br><br>Ĉu krei la dosierujon?"
 
-#: plugin_katebuild.cpp:801
+#: plugin_katebuild.cpp:814
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
 msgstr "Malsukcesis krei la dosierujon <b>%1</b>"
 
-#: plugin_katebuild.cpp:819
+#: plugin_katebuild.cpp:832
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Malsukcesis ruli \"%1\". exitStatus = %2"
 
-#: plugin_katebuild.cpp:834
+#: plugin_katebuild.cpp:847
 #, kde-format
 msgid "Building <b>%1</b> cancelled"
 msgstr "Konstruado de <b>%1</b> nuligita"
 
-#: plugin_katebuild.cpp:933
+#: plugin_katebuild.cpp:946
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Ne trovis compile_commands.json por dosiero \"%1\". "
 
-#: plugin_katebuild.cpp:946
+#: plugin_katebuild.cpp:959
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Ne trovis kompilkomandon por dosiero \"%1\" en \"%2\". "
 
-#: plugin_katebuild.cpp:1054
+#: plugin_katebuild.cpp:1067
 #, kde-format
 msgid "No target available for building."
 msgstr "Neniu celo disponebla por konstruado."
 
-#: plugin_katebuild.cpp:1068
+#: plugin_katebuild.cpp:1081
 #, kde-format
 msgid "There is no local file or directory specified for building."
 msgstr "Ne estas loka dosiero aŭ dosierujo specifita por konstruado."
 
-#: plugin_katebuild.cpp:1074
+#: plugin_katebuild.cpp:1087
 #, kde-format
 msgid "Already building..."
 msgstr "Jam konstruas..."
 
-#: plugin_katebuild.cpp:1087
+#: plugin_katebuild.cpp:1100
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
 
-#: plugin_katebuild.cpp:1097
+#: plugin_katebuild.cpp:1110
 #, kde-format
 msgid "Building target <b>%1</b> ..."
 msgstr "Konstruanta celon <b>%1</b>..."
 
-#: plugin_katebuild.cpp:1134
+#: plugin_katebuild.cpp:1147
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -264,19 +264,19 @@ msgid ""
 msgstr ""
 "Ne eblas ŝargi celojn, la dosierujo %1 ne enhavas taŭgan eron CMAKE_COMMAND"
 
-#: plugin_katebuild.cpp:1147
+#: plugin_katebuild.cpp:1160
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Ne eblis skribi alpetodosierojn laŭ CMake Dosier-API por konstrudosierujo "
 "%1 !"
 
-#: plugin_katebuild.cpp:1153
+#: plugin_katebuild.cpp:1166
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Ne eblis ruli CMake (%2) por konstrudosierujo %1 !"
 
-#: plugin_katebuild.cpp:1162
+#: plugin_katebuild.cpp:1175
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -285,12 +285,12 @@ msgstr ""
 "Generado de responddosieroj laŭ CMake File API por konstrua dosierujo %1 "
 "malsukcesis (uzante %2) !"
 
-#: plugin_katebuild.cpp:1281
+#: plugin_katebuild.cpp:1294
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Konstrua kromprogramo volas ruli programon"
 
-#: plugin_katebuild.cpp:1284
+#: plugin_katebuild.cpp:1297
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -303,7 +303,7 @@ msgstr ""
 "b><br><br>Ĉu daŭrigi kaj permesi ruli ĉi tiun komandon ?<br><br>La elekto "
 "povas esti ŝanĝita per la agorda paĝo de la kromprogramo."
 
-#: plugin_katebuild.cpp:1316
+#: plugin_katebuild.cpp:1329
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "<title>Make Results:</title><nl/>%1"
@@ -311,77 +311,77 @@ msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Fari Rezultojn:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1378
+#: plugin_katebuild.cpp:1391
 #, kde-format
 msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Konstruo <b>%1</b> finruliĝis. %2 eraro(j), %3 avorto(j), %4 noto(j)"
 
-#: plugin_katebuild.cpp:1384
+#: plugin_katebuild.cpp:1397
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Trovis unu eraron."
 msgstr[1] "Trovis %1 erarojn."
 
-#: plugin_katebuild.cpp:1388
+#: plugin_katebuild.cpp:1401
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Trovis unu averton."
 msgstr[1] "Trovis %1 avertojn."
 
-#: plugin_katebuild.cpp:1391
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Trovis unu noton."
 msgstr[1] "Trovis %1 notojn."
 
-#: plugin_katebuild.cpp:1396
+#: plugin_katebuild.cpp:1409
 #, kde-format
 msgid "Build failed."
 msgstr "Konstruo malsukcesis."
 
-#: plugin_katebuild.cpp:1398
+#: plugin_katebuild.cpp:1411
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Konstruo plenumita sen problemoj."
 
-#: plugin_katebuild.cpp:1403
+#: plugin_katebuild.cpp:1416
 #, kde-format
 msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgstr "Konstruo <b>%1 nuligita</b>. %2 eraro(j), %3 avorto(j), %4 noto(j)"
 
-#: plugin_katebuild.cpp:1429
+#: plugin_katebuild.cpp:1442
 #, kde-format
 msgid "Cannot execute: %1 No working directory set."
 msgstr "Ne povas plenumi: %1 Neniu labordosierujo metita."
 
-#: plugin_katebuild.cpp:1679
+#: plugin_katebuild.cpp:1692
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:1682
+#: plugin_katebuild.cpp:1695
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning"
 
-#: plugin_katebuild.cpp:1685
+#: plugin_katebuild.cpp:1698
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info"
 
-#: plugin_katebuild.cpp:1688
+#: plugin_katebuild.cpp:1701
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:1892
+#: plugin_katebuild.cpp:2001
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ne eblas konservi konstrucelojn en: %1"

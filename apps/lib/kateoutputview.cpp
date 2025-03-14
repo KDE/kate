@@ -359,6 +359,10 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         return;
     }
 
+    // ensure for later step we did escape stuff that might mess up our
+    // use of rich text for displaying, bug 501256
+    text = text.toHtmlEscaped();
+
     /*
      * subsequent message might replace a former one (e.g. for progress)
      */

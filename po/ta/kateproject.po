@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-14 00:46+0000\n"
 "PO-Revision-Date: 2025-03-09 16:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -512,9 +512,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "முறையற்ற JSON கோப்பு '%1': %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:211
+#: kateprojectviewtree.cpp:222 kateprojectviewtree.cpp:249
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Project"
 msgstr "திட்டப்பணி"
@@ -994,22 +994,22 @@ msgstr "புதிய கோப்பு"
 msgid "New Folder"
 msgstr "புதிய அடைவு"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:211
 #, kde-format
 msgid "The file already exists"
 msgstr "இக்கோப்பு ஏற்கனவே உள்ளது"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:222
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "%1 எனும் கோப்பை உருவாக்க முடியவில்லை. சிக்கல்: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:249
 #, kde-format
 msgid "The directory already exists"
 msgstr "இவ்வடைவு ஏற்கனவே உள்ளது"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "அடைவை உருவாக்க முடியவில்லை: %1"

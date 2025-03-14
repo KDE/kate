@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-14 00:46+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -520,9 +520,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:211
+#: kateprojectviewtree.cpp:222 kateprojectviewtree.cpp:249
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Project"
 msgstr "Έργο"
@@ -1036,24 +1036,24 @@ msgstr "Νέο αρχείο"
 msgid "New Folder"
 msgstr "Προσθήκη φακέλου"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:211
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:222
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Αποτυχία δημιουργίας αρχείου: %1, Σφάλμα: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:249
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Αποτυχία δημιουργίας καταλόγου: %1"

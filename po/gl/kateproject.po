@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-14 00:46+0000\n"
 "PO-Revision-Date: 2025-03-05 07:00+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -522,9 +522,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "O ficheiro JSON «%1» ten erros de sintaxe: %2"
 
 #: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:211
+#: kateprojectviewtree.cpp:222 kateprojectviewtree.cpp:249
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Project"
 msgstr "Proxecto"
@@ -1019,22 +1019,22 @@ msgstr "Novo ficheiro"
 msgid "New Folder"
 msgstr "Novo cartafol"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:211
 #, kde-format
 msgid "The file already exists"
 msgstr "O ficheiro xa existe."
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:222
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Non foi posíbel crear o ficheiro: %1. Erro: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:249
 #, kde-format
 msgid "The directory already exists"
 msgstr "O cartafol xa existe."
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:256
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Non foi posíbel crear o cartafol: %1"

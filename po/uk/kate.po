@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-15 00:45+0000\n"
 "PO-Revision-Date: 2025-03-02 09:34+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2124,25 +2124,25 @@ msgstr "Копіювати увесь текст до буфера"
 msgid "Clear all messages"
 msgstr "Спорожнити журнал повідомлень"
 
-#: lib/kateoutputview.cpp:405
+#: lib/kateoutputview.cpp:409
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:413
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Попередження"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:417
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Інформація"
 
-#: lib/kateoutputview.cpp:418
+#: lib/kateoutputview.cpp:422
 #, kde-format
 msgctxt "@info"
 msgid "Log"

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-11 00:43+0000\n"
+"POT-Creation-Date: 2025-03-15 00:45+0000\n"
 "PO-Revision-Date: 2025-03-05 07:56+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2085,25 +2085,25 @@ msgstr "העתקת כל הטקסט ללוח הגזירים"
 msgid "Clear all messages"
 msgstr "פינוי כל ההודעות"
 
-#: lib/kateoutputview.cpp:405
+#: lib/kateoutputview.cpp:409
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "שגיאה"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:413
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "אזהרה"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:417
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "מידע"
 
-#: lib/kateoutputview.cpp:418
+#: lib/kateoutputview.cpp:422
 #, kde-format
 msgctxt "@info"
 msgid "Log"

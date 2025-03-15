@@ -508,22 +508,24 @@ bool KateApp::startupKate()
     KTextEditor::Document *doc = nullptr;
     const QString codec_name = m_args.isSet(QStringLiteral("encoding")) ? m_args.value(QStringLiteral("encoding")) : QString();
 
-    const auto args = m_args.positionalArguments();
+    auto args = m_args.positionalArguments();
 
-    for (const auto &positionalArgument : args) {
-        UrlInfo info(positionalArgument);
+    // support +xyz line number as first argument
+    KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(args);
 
+    for (UrlInfo info : std::as_const(args)) {
         // this file is no local dir, open it, else warn
-        bool noDir = !info.url.isLocalFile()
-            || KNetworkMounts::self()->isOptionEnabledForPath(info.url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
-            || !QFileInfo(info.url.toLocalFile()).isDir();
-
-        if (noDir) {
+        if (!info.url.isLocalFile() || KNetworkMounts::self()->isOptionEnabledForPath(info.url.toLocalFile(), KNetworkMounts::LowSideEffectsOptimizations)
+            || !QFileInfo(info.url.toLocalFile()).isDir()) {
             if (!info.cursor.isValid()) {
                 if (hasCursorInArgs()) {
                     info.cursor = cursorFromArgs();
                 } else if (info.url.hasQuery()) {
                     info.cursor = cursorFromQueryString(info.url);
+                } else if (firstLineNumberArgument.isValid()) {
+                    // same semantics as e.g. in mcedit, just use for the first file
+                    info.cursor = firstLineNumberArgument;
+                    firstLineNumberArgument = KTextEditor::Cursor::invalid();
                 }
             }
             doc = openDocUrl(info.url, codec_name, tempfileSet, /*activateView=*/false, info.cursor);

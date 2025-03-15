@@ -217,7 +217,7 @@ int main(int argc, char **argv)
     /**
      * remember the urls we shall open
      */
-    const QStringList urls = parser.positionalArguments();
+    QStringList urls = parser.positionalArguments();
 
     /**
      * compute if we shall start a new instance or reuse
@@ -331,15 +331,22 @@ int main(int argc, char **argv)
 
             QStringList tokens;
 
+            // support +xyz line number as first argument
+            KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
+
             // open given files...
-            for (int i = 0; i < urls.size(); ++i) {
-                const QString &url = urls[i];
+            for (UrlInfo info : std::as_const(urls)) {
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                                                 QStringLiteral("/MainApplication"),
                                                                 QStringLiteral("org.kde.Kate.Application"),
                                                                 QStringLiteral("tokenOpenUrlAt"));
 
-                UrlInfo info(url);
+                if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
+                    // same semantics as e.g. in mcedit, just use for the first file
+                    info.cursor = firstLineNumberArgument;
+                    firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                }
+
                 QVariantList dbusargs;
 
                 // convert to an url
@@ -480,17 +487,25 @@ int main(int argc, char **argv)
      * only try to reuse existing kate instances if not already forbidden by arguments
      */
     if (!force_new && app.isSecondary()) {
+        // support +xyz line number as first argument
+        KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
+
         /**
          * construct one big message with all urls to open
          * later we will add additional data to this
          */
         QVariantMap message;
         QVariantList messageUrls;
-        for (const QString &url : urls) {
+        for (UrlInfo info : std::as_const(urls)) {
+            if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
+                // same semantics as e.g. in mcedit, just use for the first file
+                info.cursor = firstLineNumberArgument;
+                firstLineNumberArgument = KTextEditor::Cursor::invalid();
+            }
+
             /**
-             * get url info and pack them into the message as extra element in urls list
+             * pack info into the message as extra element in urls list
              */
-            UrlInfo info(url);
             QVariantMap urlMessagePart;
             urlMessagePart[QLatin1String("url")] = info.url;
             urlMessagePart[QLatin1String("line")] = info.cursor.line();

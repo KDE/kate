@@ -127,6 +127,29 @@ public:
     }
 
     /**
+     * Parse +xyz line number to cursor
+     * @param args argumests to check for +xyz as first argument, will be removed from args
+     */
+    static KTextEditor::Cursor parseLineNumberArgumentAndRemoveIt(QStringList &args)
+    {
+        // check for +... ...
+        // we need at least one more file given, just kate '+123' makes no sense
+        if (args.size() < 2 || !args[0].startsWith(QLatin1Char('+'))) {
+            return KTextEditor::Cursor::invalid();
+        }
+
+        // try to parse '+123'
+        bool ok = false;
+        const int line = QStringView(args[0]).mid(1).toInt(&ok, 10) - 1;
+        if (ok && line >= 0) {
+            args.pop_front();
+            return KTextEditor::Cursor(line, 0);
+        }
+
+        return KTextEditor::Cursor::invalid();
+    }
+
+    /**
      * url computed out of the passed path
      */
     QUrl url;

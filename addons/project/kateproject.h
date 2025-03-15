@@ -209,11 +209,13 @@ public:
     /**
      * add a new file to the project
      */
-    void addFile(const QString &file, KateProjectItem *item)
+    bool addFile(const QString &file, KateProjectItem *item)
     {
-        if (m_file2Item && item) {
+        if (m_file2Item && item && !m_file2Item->contains(file)) {
             (*m_file2Item)[file] = item;
+            return true;
         }
+        return false;
     }
 
     /**

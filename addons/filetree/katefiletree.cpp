@@ -491,7 +491,9 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
 
     m_filelistCloseDocument->setEnabled(m_indexContextMenu.isValid());
 
-    menu.addAction(m_resetHistory);
+    if (m_sourceModel->shadingEnabled()) {
+        menu.addAction(m_resetHistory);
+    }
 
     menu.exec(viewport()->mapToGlobal(event->pos()));
 

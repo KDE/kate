@@ -68,6 +68,7 @@ public:
     bool listMode() const;
     void setListMode(bool);
 
+    bool shadingEnabled();
     void setShadingEnabled(bool);
 
     void setEditShade(const QColor &);

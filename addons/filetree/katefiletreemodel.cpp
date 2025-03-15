@@ -444,6 +444,11 @@ KateFileTreeModel::~KateFileTreeModel()
     delete m_root;
 }
 
+bool KateFileTreeModel::shadingEnabled()
+{
+    return m_shadingEnabled;
+}
+
 void KateFileTreeModel::setShadingEnabled(bool se)
 {
     if (m_shadingEnabled != se) {

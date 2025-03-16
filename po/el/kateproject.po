@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-15 00:45+0000\n"
+"POT-Creation-Date: 2025-03-16 00:44+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -514,12 +514,12 @@ msgstr "Θέλετε πράγματι να απορρίψετε τις αλλα�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Θέλετε πράγματι να διαγράψετε αυτές τις μη παρακολουθούμενες αλλαγές;"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
 #: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
 #: kateprojectviewtree.cpp:252
@@ -527,7 +527,7 @@ msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 msgid "Project"
 msgstr "Έργο"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<δεν παρακολουθείται>"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-13 00:44+0000\n"
-"PO-Revision-Date: 2025-01-25 11:55+0100\n"
+"PO-Revision-Date: 2025-03-15 10:30+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -38,8 +38,7 @@ msgstr "Dane wyjściowe"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Zbuduj ponownie"
 
@@ -252,6 +251,8 @@ msgstr "Już w trakcie budowy..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"Nie można wykonać podmiany. Żaden plik nie jest otwarty lub bieżący plik "
+"jest nienazwany!"
 
 #: plugin_katebuild.cpp:1110
 #, kde-format
@@ -307,12 +308,10 @@ msgstr ""
 "później zmienić na stronie ustawień wtyczki."
 
 #: plugin_katebuild.cpp:1329
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Wyniki Make:</title><nl/>%1"
+msgstr "<title>Ukończono budowanie:</title>%1"
 
 #: plugin_katebuild.cpp:1391
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-13 00:44+0000\n"
-"PO-Revision-Date: 2025-02-12 07:01+0100\n"
+"PO-Revision-Date: 2025-03-15 10:38+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -37,10 +37,9 @@ msgstr "Eligo"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
-msgstr "Konstrui denove"
+msgstr "Konstrui Denove"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #: build.ui:66
@@ -304,12 +303,10 @@ msgstr ""
 "povas esti ŝanĝita per la agorda paĝo de la kromprogramo."
 
 #: plugin_katebuild.cpp:1329
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Fari Rezultojn:</title><nl/>%1"
+msgstr "<title>Konstruo Finiĝis:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1391
 #, kde-format

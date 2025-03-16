@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-15 00:45+0000\n"
+"POT-Creation-Date: 2025-03-16 00:44+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -526,12 +526,12 @@ msgstr "Biztosan el szeretné dobni a változtatásokat?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Biztosan törölni szeretné ezeket a nem követett változtatásokat?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
 #: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
 #: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
 #: kateprojectviewtree.cpp:252
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<nem követett>"

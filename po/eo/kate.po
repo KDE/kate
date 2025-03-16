@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-15 00:45+0000\n"
-"PO-Revision-Date: 2024-12-27 23:54+0100\n"
+"PO-Revision-Date: 2025-03-15 10:38+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -356,11 +356,10 @@ msgid "Filter…"
 msgstr "Filtrilo…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Vakigi Diagnozan Filtrilon"
+msgstr "Vakigi diagnozojn"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -965,7 +964,7 @@ msgstr "Kondutaj Elektebloj"
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:199
 #, kde-format
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
 #, kde-format
@@ -1266,12 +1265,12 @@ msgstr "Maks. nombro da diagnozaĵoj permesitaj en la ilvido Diagnozo."
 #: lib/kateconfigdialog.cpp:386 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
-msgstr ""
+msgstr "Kunteksto"
 
 #: lib/kateconfigdialog.cpp:391
 #, kde-format
 msgid "Enable tool view"
-msgstr ""
+msgstr "Ebligi ilovidon"
 
 #: lib/kateconfigdialog.cpp:393
 #, kde-format
@@ -1331,12 +1330,12 @@ msgstr "Uzanto-Reago"
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "Bad PATH value"
-msgstr ""
+msgstr "Malbona PATH-valoro"
 
 #: lib/kateconfigdialog.cpp:701
 #, kde-format
 msgid "The path '%1' doesn't exist"
-msgstr ""
+msgstr "La vojo '%1' ne ekzistas"
 
 #: lib/kateconfigdialog.cpp:785
 #, kde-format

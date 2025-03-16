@@ -145,6 +145,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (GitUtils::isGitRepo(QFileInfo(filename).absolutePath())) {
         menu.addSeparator();
         fileHistory = menu.addAction(i18n("Show Git History"));
+        fileHistory->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
     }
 
     auto externaltoolsplugin = parent->mainWindow()->pluginView(QStringLiteral("externaltoolsplugin"));

@@ -429,7 +429,8 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
             menu.addAction(m_filelistReloadDocument);
 
             if (doc->url().isLocalFile()) {
-                auto a = menu.addAction(i18n("Show File Git History"));
+                auto a = menu.addAction(i18n("Show Git History"));
+                a->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
                 connect(a, &QAction::triggered, this, [doc] {
                     auto url = doc->url();
                     if (url.isValid() && url.isLocalFile()) {

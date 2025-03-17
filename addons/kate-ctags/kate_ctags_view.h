@@ -101,6 +101,7 @@ private:
     QPointer<QWidget> m_toolView;
     Ui::kateCtags m_ctagsUi{};
     std::unique_ptr<GotoSymbolWidget> m_gotoSymbWidget;
+    QFileInfo m_ctagsFile;
 
     QPointer<KActionMenu> m_menu;
     QAction *m_gotoDef;

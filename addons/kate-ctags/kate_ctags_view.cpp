@@ -349,6 +349,7 @@ void KateCTagsView::setNewLookupText(const QString &newString)
 /******************************************************************/
 void KateCTagsView::displayHits(const Tags::TagList &list)
 {
+    m_ctagsFile = QFileInfo(m_ctagsUi.tagsFile->text());
     m_ctagsUi.tagTreeWidget->clear();
     if (list.isEmpty()) {
         new QTreeWidgetItem(m_ctagsUi.tagTreeWidget, QStringList(i18n("No hits found")));
@@ -482,7 +483,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
     m_jumpStack.push(from);
 
     // open/activate the new file
-    QFileInfo fInfo(file);
+    QFileInfo fInfo(m_ctagsFile.dir(), file);
     // qCDebug(KTECTAGS) << pattern << file << fInfo.absoluteFilePath();
     m_mWin->openUrl(QUrl::fromLocalFile(fInfo.absoluteFilePath()));
 

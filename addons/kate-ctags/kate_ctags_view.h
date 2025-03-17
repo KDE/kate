@@ -39,7 +39,7 @@
 
 #include "gotosymbolwidget.h"
 
-const static QString DEFAULT_CTAGS_CMD = QStringLiteral("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
+const static QString DEFAULT_CTAGS_CMD = QStringLiteral("ctags -R --c++-types=+px --extras=+q --excmd=pattern --exclude=Makefile --exclude=.");
 
 typedef struct {
     QUrl url;

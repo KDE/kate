@@ -11,6 +11,7 @@
 #include "busy_wrapper_widget.h"
 #include "comparebranchesview.h"
 #include "diffparams.h"
+#include "filehistorywidget.h"
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "hostprocess.h"
@@ -1055,6 +1056,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     KActionCollection::setDefaultShortcut(a, QKeySequence(QStringLiteral("Ctrl+T, Ctrl+K"), QKeySequence::PortableText));
     m_gitMenu->addAction(a);
 
+    m_gitMenu->addSeparator();
     a = ac->addAction(QStringLiteral("vcs_branch_checkout"), this, [this] {
         auto *bd = new BranchCheckoutDialog(m_mainWin->window(), m_activeGitDirPath);
         bd->openDialog();
@@ -1088,6 +1090,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     a->setText(i18n("Compare Branch with..."));
     m_gitMenu->addAction(a);
 
+    m_gitMenu->addSeparator();
     a = ac->addAction(QStringLiteral("git_show_commit"), this, [this] {
         QDialog dialog(this);
         dialog.setWindowTitle(i18n("Show Commit"));
@@ -1131,6 +1134,12 @@ void GitWidget::buildMenu(KActionCollection *ac)
 
     auto stashMenu = m_gitMenu->addAction(QIcon::fromTheme(QStringLiteral("vcs-stash")), i18n("Stash"));
     stashMenu->setMenu(this->stashMenu(ac));
+
+    m_gitMenu->addSeparator();
+    QAction *historyAction = m_gitMenu->addAction(i18n("Show history"), [this] {
+        FileHistory::showFileHistory(m_activeGitDirPath);
+    });
+    historyAction->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 }
 
 void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
@@ -1277,14 +1286,21 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const bool untracked = statusItemType == GitStatusModel::NodeUntrack;
 
         auto openFile = menu.addAction(i18n("Open File"));
-        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Diff"));
-        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in External Git Diff Tool"));
-        auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
         auto stageAct = staged ? menu.addAction(i18n("Unstage File")) : menu.addAction(i18n("Stage File"));
         auto discardAct = staged ? nullptr : untracked ? menu.addAction(i18n("Remove")) : menu.addAction(i18n("Discard"));
         if (discardAct) {
             discardAct->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete-remove")));
         }
+        if (!untracked) {
+            menu.addSeparator();
+        }
+        auto showDiffAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("vcs-diff")), i18n("Show Diff"));
+        auto launchDifftoolAct = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("kdiff3")), i18n("Show in External Git Diff Tool"));
+        auto openAtHead = untracked ? nullptr : menu.addAction(i18n("Open at HEAD"));
+        if (!untracked) {
+            menu.addSeparator();
+        }
+        auto historyAction = untracked ? nullptr : menu.addAction(QIcon::fromTheme(QStringLiteral("view-history")), i18n("Show History"));
 
         auto act = menu.exec(m_treeView->viewport()->mapToGlobal(e->pos()));
         if (!act || !idx.isValid()) {
@@ -1308,6 +1324,8 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             openAtHEAD(idx.data(GitStatusModel::FileNameRole).toString());
         } else if (showDiffAct && act == showDiffAct && !untracked) {
             showDiff(file, staged);
+        } else if (historyAction && act == historyAction && !untracked) {
+            FileHistory::showFileHistory(file);
         } else if (act == discardAct && untracked) {
             auto ret = confirm(this, i18n("Are you sure you want to remove this file?"), KStandardGuiItem::remove());
             if (ret == KMessageBox::PrimaryAction) {

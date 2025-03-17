@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-15 00:45+0000\n"
-"PO-Revision-Date: 2025-01-26 18:31+0530\n"
+"PO-Revision-Date: 2025-03-16 15:31+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -362,11 +362,10 @@ msgid "Filter…"
 msgstr "வடிகட்டு…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "பிழைநீக்க விவர வடிகட்டியை காலியாக்கு"
+msgstr "பிழைநீக்க விவரங்களை காலியாக்கு"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format

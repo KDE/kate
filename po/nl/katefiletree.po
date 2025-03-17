@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-03-17 00:43+0000\n"
 "PO-Revision-Date: 2025-02-01 17:14+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -355,14 +355,14 @@ msgstr "Documenten"
 msgid "Configure Documents"
 msgstr "Documenten instellen"
 
-#: katefiletreemodel.cpp:494
+#: katefiletreemodel.cpp:499
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "Widgets openen"
 
-#: katefiletreemodel.cpp:645
+#: katefiletreemodel.cpp:650
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

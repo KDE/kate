@@ -109,12 +109,6 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
     if (doc->url().isValid()) {
         // save checksum for already-saved documents
         kconfig.writeEntry("checksum", doc->checksum());
-        // save the document if its modified otherwise we will
-        // leave behind .kate-swp files.
-        // (Can we exploit this to somehow provide better document state restoration i.e., with undo/redo etc)
-        if (doc->isModified()) {
-            doc->save();
-        }
     }
 
     kconfig.sync();

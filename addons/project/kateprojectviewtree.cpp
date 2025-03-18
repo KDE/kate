@@ -94,12 +94,8 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
      * kill selection model
      * create sort proxy model
      */
-    QItemSelectionModel *m = selectionModel();
-
-    auto *sortModel = new KateProjectFilterProxyModel(this);
-
-    // sortModel->setFilterRole(SortFilterRole);
-    // sortModel->setSortRole(SortFilterRole);
+    auto m = selectionModel();
+    auto sortModel = new KateProjectFilterProxyModel(this);
     sortModel->setRecursiveFilteringEnabled(true);
     sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     sortModel->setSortCaseSensitivity(Qt::CaseInsensitive);

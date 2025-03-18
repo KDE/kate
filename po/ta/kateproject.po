@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2025-03-09 16:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -984,12 +984,12 @@ msgstr "&கொண்டுள்ள அடைவைத் திற"
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, kde-format
 msgid "New File"
 msgstr "புதிய கோப்பு"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, kde-format
 msgid "New Folder"
 msgstr "புதிய அடைவு"

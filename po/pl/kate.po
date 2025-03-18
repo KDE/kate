@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1705201 $
+# Version: $Revision: 1705358 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-15 00:45+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2025-03-15 10:29+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -953,12 +953,12 @@ msgstr "Przyjemna pomoc"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Wszyscy, którzy pomogli i o których zapomniałem wspomnieć"
 
-#: lib/kateapp.cpp:531
+#: lib/kateapp.cpp:533
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Katalogi można otwierać dopiero po włączeniu wtyczki projektów"
 
-#: lib/kateapp.cpp:620
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

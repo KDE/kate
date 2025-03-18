@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -218,17 +218,18 @@ msgid "Open With"
 msgstr "Open With इति"
 
 #: katefiletree.cpp:432
-#, kde-format
-msgid "Show File Git History"
+#, fuzzy, kde-format
+#| msgid "Show File Git History"
+msgid "Show Git History"
 msgstr "सञ्चिका Git इतिहासं दर्शयतु"
 
-#: katefiletree.cpp:482
+#: katefiletree.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "दृश्यविधिः"
 
-#: katefiletree.cpp:486
+#: katefiletree.cpp:487
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-17 00:43+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2025-02-02 09:30+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -232,17 +232,18 @@ msgid "Open With"
 msgstr "Ouvrir avec"
 
 #: katefiletree.cpp:432
-#, kde-format
-msgid "Show File Git History"
+#, fuzzy, kde-format
+#| msgid "Show File Git History"
+msgid "Show Git History"
 msgstr "Afficher l'historique des fichiers avec Git"
 
-#: katefiletree.cpp:482
+#: katefiletree.cpp:483
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Mode d'affichage"
 
-#: katefiletree.cpp:486
+#: katefiletree.cpp:487
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

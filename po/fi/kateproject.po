@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2025-01-12 17:35+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1003,12 +1003,12 @@ msgstr "Avaa &yläkansio"
 msgid "Show Git History"
 msgstr "Näytä Git-historia"
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, kde-format
 msgid "New File"
 msgstr "Uusi tiedosto"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, kde-format
 msgid "New Folder"
 msgstr "Uusi kansio"

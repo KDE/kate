@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: l 10n\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2014-03-15 01:53+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@aksioma.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -1020,13 +1020,13 @@ msgstr ""
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New File"
 msgstr "Atverti su"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New Folder"

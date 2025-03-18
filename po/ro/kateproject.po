@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2021-05-15 17:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -1042,13 +1042,13 @@ msgstr "Deschide d&osarul conținător"
 msgid "Show Git History"
 msgstr "Arată istoricul fișierului"
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New File"
 msgstr "Deschide cu"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"

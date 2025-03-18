@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2024-10-18 17:11+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1000,12 +1000,12 @@ msgstr "&Open Containing Folder"
 msgid "Show Git History"
 msgstr "Show Git History"
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, kde-format
 msgid "New File"
 msgstr "New File"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, kde-format
 msgid "New Folder"
 msgstr "New Folder"

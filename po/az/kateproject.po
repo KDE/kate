@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-16 00:44+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1018,13 +1018,13 @@ msgstr "&Fayldan ibarət qovluğu açın"
 msgid "Show Git History"
 msgstr "Git tarixçəsini göstərmək"
 
-#: kateprojecttreeviewcontextmenu.cpp:210
+#: kateprojecttreeviewcontextmenu.cpp:211
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "New File"
 msgstr "Fayl açın"
 
-#: kateprojecttreeviewcontextmenu.cpp:215
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, fuzzy, kde-format
 #| msgid "Add Folder"
 msgid "New Folder"

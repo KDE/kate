@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-15 00:45+0000\n"
+"POT-Creation-Date: 2025-03-18 00:45+0000\n"
 "PO-Revision-Date: 2024-09-10 14:03+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -917,12 +917,12 @@ msgstr "အလွန်ကောင်းတဲ့အကူအညီ"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "ပါဝင်ကူညီပေးသော လူများအားလုံး နှင့် ကျွန်ုပ်ဖော်ပြဖို့ကျန်ခဲ့သော လူများ"
 
-#: lib/kateapp.cpp:531
+#: lib/kateapp.cpp:533
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "ပရောဂျက်များပလပ်ဂင်သုံးထားမှသာ ဖိုလ်ဒါများကို ဖွင့်နိုင်သည်"
 
-#: lib/kateapp.cpp:620
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

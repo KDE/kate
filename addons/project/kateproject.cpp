@@ -85,8 +85,11 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
                 const QFileInfo fi(newFile);
                 if (fi.exists() && fi.isFile()) {
                     auto *i = new KateProjectItem(KateProjectItem::File, url.fileName(), fi.absoluteFilePath());
-                    item->appendRow(i);
-                    m_project->addFile(newFile, i);
+                    if (m_project->addFile(newFile, i)) {
+                        item->appendRow(i);
+                    } else {
+                        delete i;
+                    }
                 } else {
                     // not a file? Just do a reload of the project on finish
                     needsReload = true;
@@ -625,10 +628,13 @@ void KateProject::registerDocument(KTextEditor::Document *document)
             if (dir && dir->data(KateProjectItem::TypeRole).value<int>() == KateProjectItem::Directory) {
                 QFileInfo fi(document->url().toLocalFile());
                 auto *i = new KateProjectItem(KateProjectItem::File, fi.fileName(), fi.absoluteFilePath());
-                dir->appendRow(i);
-                dir->sortChildren(0);
-                addFile(path, i);
-                item = i;
+                if (addFile(path, i)) {
+                    dir->appendRow(i);
+                    dir->sortChildren(0);
+                    item = i;
+                } else {
+                    delete i;
+                }
             }
         }
     }

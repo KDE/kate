@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-18 00:45+0000\n"
-"PO-Revision-Date: 2025-02-01 07:13+0100\n"
+"PO-Revision-Date: 2025-03-18 07:29+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -217,10 +217,9 @@ msgid "Open With"
 msgstr "Odpri z"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Prikaži zgodovino datoteke Git"
+msgstr "Prikaži zgodovino Git"
 
 #: katefiletree.cpp:483
 #, kde-format

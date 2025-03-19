@@ -214,10 +214,9 @@ msgid "Open With"
 msgstr "打开方式"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "显示文件 Git 历史"
+msgstr ""
 
 #: katefiletree.cpp:483
 #, kde-format

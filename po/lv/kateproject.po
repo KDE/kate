@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 00:44+0000\n"
 "PO-Revision-Date: 2025-03-04 19:06+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[2] "Vai tiešām vēlaties dzēst atlasītos zarus?"
 msgid "Select Branch..."
 msgstr "Atlasīt zaru..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:567 kateprojectpluginview.cpp:69
+#: branchesdialog.cpp:113 gitwidget.cpp:568 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -124,8 +124,8 @@ msgstr "Aktīvais zars: „%1“"
 msgid "Commit Changes"
 msgstr "Iesūtīt izmaiņas"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:282
-#: gitwidget.cpp:1099
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:283
+#: gitwidget.cpp:1102
 #, kde-format
 msgid "Commit"
 msgstr "Iesūtīt"
@@ -155,7 +155,7 @@ msgstr "Parakstīties"
 msgid "Amend"
 msgstr "Grozīt"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1054
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1055
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Grozīt pēdējo iesūtījumu"
@@ -197,313 +197,325 @@ msgstr "Konflikts"
 msgid "Modified"
 msgstr "Mainīts"
 
-#: gitwidget.cpp:290
+#: gitwidget.cpp:291
 #, kde-format
 msgid "Git Push"
 msgstr "Git Push"
 
-#: gitwidget.cpp:303
+#: gitwidget.cpp:304
 #, kde-format
 msgid "Git Pull"
 msgstr "Git Pull"
 
-#: gitwidget.cpp:316
+#: gitwidget.cpp:317
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Atcelt operāciju"
 
-#: gitwidget.cpp:324
+#: gitwidget.cpp:325
 #, kde-format
 msgid " canceled."
 msgstr " atcelts."
 
-#: gitwidget.cpp:332
+#: gitwidget.cpp:333
 #, kde-format
 msgid "Refresh git status"
 msgstr "Pārlādēt „git“ statusu"
 
-#: gitwidget.cpp:354 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrēt…"
 
-#: gitwidget.cpp:444
+#: gitwidget.cpp:445
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr "Neizdevās atrast „%1“ '.git' mapi. Kaut kas var līdz galam nedarboties"
 
-#: gitwidget.cpp:654
+#: gitwidget.cpp:655
 #, kde-format
 msgid " error: %1"
 msgstr " kļūda: %1"
 
-#: gitwidget.cpp:660
+#: gitwidget.cpp:661
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "„%1“ veiksmīgi izpildījās: %2"
 
-#: gitwidget.cpp:680
+#: gitwidget.cpp:681
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Neizdevās pievienot datni. Kļūda:"
 
-#: gitwidget.cpp:693
+#: gitwidget.cpp:694
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Neizdevās noņemt pievienotu datni. Kļūda:"
 
-#: gitwidget.cpp:704
+#: gitwidget.cpp:705
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Neizdevās noraidīt izmaiņas. Kļūda:"
 
-#: gitwidget.cpp:715
+#: gitwidget.cpp:716
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Neizdevās noņemt. Kļūda:"
 
-#: gitwidget.cpp:731
+#: gitwidget.cpp:732
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Neizdevās atvērt datni pie HEAD: %1"
 
-#: gitwidget.cpp:763
+#: gitwidget.cpp:764
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Neizdevās iegūt „Diff“ datnei: %1"
 
-#: gitwidget.cpp:831
+#: gitwidget.cpp:832
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Neizdevās iesūtīt: %1"
 
-#: gitwidget.cpp:835
+#: gitwidget.cpp:836
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Izmaiņas ir veiksmīgi iesūtītas."
 
-#: gitwidget.cpp:845
+#: gitwidget.cpp:846
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Nav nekā, ko iesūtīt. Vispirms pievienojiet izmaiņas."
 
-#: gitwidget.cpp:859
+#: gitwidget.cpp:860
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Iesūtīšanas ziņa nevar būt tukša."
 
-#: gitwidget.cpp:990
+#: gitwidget.cpp:991
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "„Diff“ neko neatgrieza %1...%2"
 
-#: gitwidget.cpp:996
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Neizdevās salīdzināt %1...%2"
 
-#: gitwidget.cpp:1011
+#: gitwidget.cpp:1012
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "„Diff“ laikā neizdevās iegūt „numstat“ %1...%2"
 
-#: gitwidget.cpp:1046
+#: gitwidget.cpp:1047
 #, kde-format
 msgid "Refresh"
 msgstr "Pārlādēt"
 
-#: gitwidget.cpp:1062
+#: gitwidget.cpp:1064
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Paņemt zaru"
 
-#: gitwidget.cpp:1074
+#: gitwidget.cpp:1076
 #, kde-format
 msgid "Delete Branch"
 msgstr "Dzēst zaru"
 
-#: gitwidget.cpp:1088
+#: gitwidget.cpp:1090
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Salīdzināt zaru ar..."
 
-#: gitwidget.cpp:1093
+#: gitwidget.cpp:1096
 #, kde-format
 msgid "Show Commit"
 msgstr "Rādīt iesūtījumu"
 
-#: gitwidget.cpp:1111
+#: gitwidget.cpp:1114
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Rādīt pēdējo iesūtījumu"
 
-#: gitwidget.cpp:1129
+#: gitwidget.cpp:1132
 #, kde-format
 msgid "Open Commit..."
 msgstr "Atvērt iesūtījumu..."
 
-#: gitwidget.cpp:1132 gitwidget.cpp:1171
+#: gitwidget.cpp:1135 gitwidget.cpp:1180
 #, kde-format
 msgid "Stash"
 msgstr "Atlicināt"
 
-#: gitwidget.cpp:1142
+#: gitwidget.cpp:1139
+#, fuzzy, kde-format
+#| msgid "Show Git History"
+msgid "Show history"
+msgstr "Rādīt „Git“ vēsturi"
+
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff — atlicināt"
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1184
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Pielietot un dzēst pēdējo atlicinājumu"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Pop Stash"
 msgstr "Pielietot un dzēst atlicinājumu"
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Pielietot pēdējo atlicinājumu"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Atlicinājums (turēt pievienotu)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Atlicinājums (iekļaut neizsekotu)"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1202
 #, kde-format
 msgid "Apply Stash"
 msgstr "Pielietot atlicinājumu"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Drop Stash"
 msgstr "Nomest atlicinājumu"
 
-#: gitwidget.cpp:1195
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Rādīt atlicinājuma saturu"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Stage All"
 msgstr "Atlicināt visu"
 
-#: gitwidget.cpp:1235
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Remove All"
 msgstr "Noņemt visu"
 
-#: gitwidget.cpp:1235
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Discard All"
 msgstr "Noraidīt visu"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Atvērt '.gitignore'"
 
-#: gitwidget.cpp:1239 gitwidget.cpp:1280 gitwidget.cpp:1330
+#: gitwidget.cpp:1248 gitwidget.cpp:1297 gitwidget.cpp:1348
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Rādīt „Diff“"
 
-#: gitwidget.cpp:1256
+#: gitwidget.cpp:1265
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Vai tiešām vēlaties noņemt šīs datnes?"
 
-#: gitwidget.cpp:1261
+#: gitwidget.cpp:1270
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Vai tiešām vēlaties noraidīt visas izmaiņas?"
 
-#: gitwidget.cpp:1279
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Open File"
 msgstr "Atvērt datni"
 
-#: gitwidget.cpp:1281
-#, kde-format
-msgid "Show in External Git Diff Tool"
-msgstr "Rādīt ārējā „Git Diff“ rīkā"
-
-#: gitwidget.cpp:1282
-#, kde-format
-msgid "Open at HEAD"
-msgstr "Atvērt pie HEAD"
-
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Unstage File"
 msgstr "Noņemt datnes pievienošanu"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Stage File"
 msgstr "Pievienot datni"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove"
 msgstr "Noņemt"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Discard"
 msgstr "Noraidīt"
 
+#: gitwidget.cpp:1298
+#, kde-format
+msgid "Show in External Git Diff Tool"
+msgstr "Rādīt ārējā „Git Diff“ rīkā"
+
+#: gitwidget.cpp:1299
+#, kde-format
+msgid "Open at HEAD"
+msgstr "Atvērt pie HEAD"
+
 #: gitwidget.cpp:1303
+#, fuzzy, kde-format
+#| msgid "Show Git History"
+msgid "Show History"
+msgstr "Rādīt „Git“ vēsturi"
+
+#: gitwidget.cpp:1319
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Vai tiešām vēlaties noraidīt šajā datnē veiktās izmaiņas?"
 
-#: gitwidget.cpp:1312
+#: gitwidget.cpp:1330
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Vai tiešām vēlaties noņemt šo datni?"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1347
 #, kde-format
 msgid "Unstage All"
 msgstr "Noņemt visu datņu pievienošanu"
 
-#: gitwidget.cpp:1396
+#: gitwidget.cpp:1414
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Noņemt atlasīto datņu pievienošanu"
 
-#: gitwidget.cpp:1396
+#: gitwidget.cpp:1414
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Pievienot atlasītās datnes"
 
-#: gitwidget.cpp:1397
+#: gitwidget.cpp:1415
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Izmest atlasītās datnes"
 
-#: gitwidget.cpp:1401
+#: gitwidget.cpp:1419
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Noņemt atlasītās datnes"
 
-#: gitwidget.cpp:1414
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Vai tiešām vēlaties izmest izmaiņas?"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Vai tiešām vēlaties noņemt šīs neizsekotās izmaiņas?"

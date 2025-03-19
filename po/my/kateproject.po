@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 00:44+0000\n"
 "PO-Revision-Date: 2024-09-10 14:36+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -89,7 +89,7 @@ msgstr[0] "ရွေးထားသောကုဒ်အခွဲကိုဖျ
 msgid "Select Branch..."
 msgstr "ကုဒ်အခွဲ ရွေးမည်…"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:567 kateprojectpluginview.cpp:69
+#: branchesdialog.cpp:113 gitwidget.cpp:568 kateprojectpluginview.cpp:69
 #, kde-format
 msgid "Git"
 msgstr "ဂစ်"
@@ -122,8 +122,8 @@ msgstr "သက်ဝင် ကုဒ်အခွဲ - %1"
 msgid "Commit Changes"
 msgstr "ပြောင်းလဲမှုများပေးပို့မည်"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:282
-#: gitwidget.cpp:1099
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:283
+#: gitwidget.cpp:1102
 #, kde-format
 msgid "Commit"
 msgstr "ပေးပို့မည်"
@@ -153,7 +153,7 @@ msgstr ""
 msgid "Amend"
 msgstr "မွမ်းမံ"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1054
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1055
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "နောက်ဆုံးအပ်နှံချက်ကိုမွမ်းမံမည်"
@@ -195,314 +195,326 @@ msgstr "အငြင်းပွားဖွယ်"
 msgid "Modified"
 msgstr "မွမ်းမံခဲ့သည်"
 
-#: gitwidget.cpp:290
+#: gitwidget.cpp:291
 #, kde-format
 msgid "Git Push"
 msgstr "Git Push"
 
-#: gitwidget.cpp:303
+#: gitwidget.cpp:304
 #, kde-format
 msgid "Git Pull"
 msgstr "Git Pull"
 
-#: gitwidget.cpp:316
+#: gitwidget.cpp:317
 #, kde-format
 msgid "Cancel Operation"
 msgstr "လုပ်ဆောင်မှုပယ်ဖျက်မည်"
 
-#: gitwidget.cpp:324
+#: gitwidget.cpp:325
 #, kde-format
 msgid " canceled."
 msgstr " ပယ်ဖျက်ခဲ့သည်။"
 
-#: gitwidget.cpp:332
+#: gitwidget.cpp:333
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: gitwidget.cpp:354 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:59
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "စစ်ထုတ်မည်…"
 
-#: gitwidget.cpp:444
+#: gitwidget.cpp:445
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 
-#: gitwidget.cpp:654
+#: gitwidget.cpp:655
 #, kde-format
 msgid " error: %1"
 msgstr " အမှား - %1"
 
-#: gitwidget.cpp:660
+#: gitwidget.cpp:661
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" ကိုအောင်မြင်စွာလုပ်ဆောင်နိုင်ခဲ့သည် - %2"
 
-#: gitwidget.cpp:680
+#: gitwidget.cpp:681
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "ဖိုင်လ်ကို ပေးပို့မှုတွင် ပါဝင်အောင် မလုပ်နိုင်ခဲ့ပါ။ အမှား -"
 
-#: gitwidget.cpp:693
+#: gitwidget.cpp:694
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "ဖိုင်လ်ကို ပေးပို့မှုတွင် မပါဝင်အောင် မလုပ်နိုင်ခဲ့ပါ။ အမှား -"
 
-#: gitwidget.cpp:704
+#: gitwidget.cpp:705
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "ပြောင်းလဲမှုများ ပစ်ပယ်မှုမအောင်မြင်ပါ။ အမှား -"
 
-#: gitwidget.cpp:715
+#: gitwidget.cpp:716
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "ဖယ်ရှားမှု မအောင်မြင်ပါ။ အမှား -"
 
-#: gitwidget.cpp:731
+#: gitwidget.cpp:732
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "%1ကိုမဖွင့်နိုင်ခဲ့ပါ"
 
-#: gitwidget.cpp:763
+#: gitwidget.cpp:764
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr ""
 
-#: gitwidget.cpp:831
+#: gitwidget.cpp:832
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "မပေးပို့နိုင်ခဲ့ပါ - %1"
 
-#: gitwidget.cpp:835
+#: gitwidget.cpp:836
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "ပြောင်းလဲမှုများကို အောင်မြင်စွာပေးပို့နိုင်ခဲ့သည်"
 
-#: gitwidget.cpp:845
+#: gitwidget.cpp:846
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
 
-#: gitwidget.cpp:859
+#: gitwidget.cpp:860
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "ပေးပို့မှုဆိုင်ရာမှတ်စာကို ဗလာထားမရပါ။"
 
-#: gitwidget.cpp:990
+#: gitwidget.cpp:991
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "%1…%2အတွက်diffမရှိပါ"
 
-#: gitwidget.cpp:996
+#: gitwidget.cpp:997
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "မနှိုင်းယှဥ်နိုင်ခဲ့ပါ %1…%2"
 
-#: gitwidget.cpp:1011
+#: gitwidget.cpp:1012
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr ""
 
-#: gitwidget.cpp:1046
+#: gitwidget.cpp:1047
 #, kde-format
 msgid "Refresh"
 msgstr "အသစ်တင်မည်"
 
-#: gitwidget.cpp:1062
+#: gitwidget.cpp:1064
 #, kde-format
 msgid "Checkout Branch"
 msgstr "ကုဒ်အခွဲ ပြောင်းလဲမည်"
 
-#: gitwidget.cpp:1074
+#: gitwidget.cpp:1076
 #, kde-format
 msgid "Delete Branch"
 msgstr "ကုဒ်အခွဲ ဖျက်မည်"
 
-#: gitwidget.cpp:1088
+#: gitwidget.cpp:1090
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "ဖြင့် ကုဒ်အခွဲ နှိုင်းယှဥ်မည်…"
 
-#: gitwidget.cpp:1093
+#: gitwidget.cpp:1096
 #, kde-format
 msgid "Show Commit"
 msgstr "အပ်နှံချက်ပြ"
 
-#: gitwidget.cpp:1111
+#: gitwidget.cpp:1114
 #, kde-format
 msgid "Show Last Commit"
 msgstr "နောက်ဆုံးအပ်နှံချက်ပြ"
 
-#: gitwidget.cpp:1129
+#: gitwidget.cpp:1132
 #, kde-format
 msgid "Open Commit..."
 msgstr "အပ်နှံချက်ဖွင့်…"
 
-#: gitwidget.cpp:1132 gitwidget.cpp:1171
+#: gitwidget.cpp:1135 gitwidget.cpp:1180
 #, kde-format
 msgid "Stash"
 msgstr "သိုလှောင်နေရာ"
 
-#: gitwidget.cpp:1142
+#: gitwidget.cpp:1139
+#, fuzzy, kde-format
+#| msgid "Show Git History"
+msgid "Show history"
+msgstr "Gitမှတ်တမ်းပြမည်"
+
+#: gitwidget.cpp:1151
 #, kde-format
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1175
+#: gitwidget.cpp:1184
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "နောက်ဆုံးသိုလှောင်မှု ထုတ်မည်"
 
-#: gitwidget.cpp:1179
+#: gitwidget.cpp:1188
 #, kde-format
 msgid "Pop Stash"
 msgstr ""
 
-#: gitwidget.cpp:1183
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "နောက်ဆုံးသိုလှောင်မှု သုံးမည်"
 
-#: gitwidget.cpp:1185
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "သိုလှောင်နေရာ (ပေးပို့မှုတွင် ပါဝင်သည်များ)"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1198
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "သိုလှောင်နေရာ (မစောင့်ကြည့်ထားသောဖိုင်လ်များအပါအဝင်)"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1202
 #, kde-format
 msgid "Apply Stash"
 msgstr "သိုလှောင်မှုသုံးမည်"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Drop Stash"
 msgstr "သိုလှောင်နေရာ ပစ်ချမည်"
 
-#: gitwidget.cpp:1195
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Show Stash Content"
 msgstr "သိုလှောင်နေရာ၏ ပါဝင်ဒေတာများ ပြမည်"
 
-#: gitwidget.cpp:1233
+#: gitwidget.cpp:1242
 #, kde-format
 msgid "Stage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1235
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Remove All"
 msgstr "အကုန်ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1235
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Discard All"
 msgstr "အကုန် ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1238
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore ဖွင့်မည်"
 
-#: gitwidget.cpp:1239 gitwidget.cpp:1280 gitwidget.cpp:1330
+#: gitwidget.cpp:1248 gitwidget.cpp:1297 gitwidget.cpp:1348
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Diff ပြ"
 
-#: gitwidget.cpp:1256
+#: gitwidget.cpp:1265
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr ""
 
-#: gitwidget.cpp:1261
+#: gitwidget.cpp:1270
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr ""
 
-#: gitwidget.cpp:1279
+#: gitwidget.cpp:1288
 #, kde-format
 msgid "Open File"
 msgstr "ဖိုင်ဖွင့်"
 
-#: gitwidget.cpp:1281
-#, kde-format
-msgid "Show in External Git Diff Tool"
-msgstr ""
-
-#: gitwidget.cpp:1282
-#, kde-format
-msgid "Open at HEAD"
-msgstr "HEADတွင် ဖွင့်မည်"
-
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Unstage File"
 msgstr "ဖိုင်ခြေတစ်လှမ်းဆုတ်မည်"
 
-#: gitwidget.cpp:1283
+#: gitwidget.cpp:1289
 #, kde-format
 msgid "Stage File"
 msgstr "ဖိုင်ခြေတစ်လှမ်းတိုးမည်"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Remove"
 msgstr "ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1284
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Discard"
 msgstr "ပစ်ပယ်မည်"
 
+#: gitwidget.cpp:1298
+#, kde-format
+msgid "Show in External Git Diff Tool"
+msgstr ""
+
+#: gitwidget.cpp:1299
+#, kde-format
+msgid "Open at HEAD"
+msgstr "HEADတွင် ဖွင့်မည်"
+
 #: gitwidget.cpp:1303
+#, fuzzy, kde-format
+#| msgid "Show Git History"
+msgid "Show History"
+msgstr "Gitမှတ်တမ်းပြမည်"
+
+#: gitwidget.cpp:1319
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr ""
 
-#: gitwidget.cpp:1312
+#: gitwidget.cpp:1330
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "ဤဖိုင်လ်ကို သင်တကယ်ဖျက်တော့မည်လား။"
 
-#: gitwidget.cpp:1329
+#: gitwidget.cpp:1347
 #, kde-format
 msgid "Unstage All"
 msgstr "အားလုံးကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1396
+#: gitwidget.cpp:1414
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် မပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1396
+#: gitwidget.cpp:1414
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "ရွေးထားသောဖိုင်လ်များကို ပေးပို့မှုတွင် ပါဝင်အောင် လုပ်မည်"
 
-#: gitwidget.cpp:1397
+#: gitwidget.cpp:1415
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ပစ်ပယ်မည်"
 
-#: gitwidget.cpp:1401
+#: gitwidget.cpp:1419
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "ရွေးထားသော ဖိုင်လ်များ ဖယ်ရှားမည်"
 
-#: gitwidget.cpp:1414
+#: gitwidget.cpp:1432
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr ""
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""

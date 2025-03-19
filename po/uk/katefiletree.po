@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-18 00:45+0000\n"
-"PO-Revision-Date: 2025-02-01 09:47+0200\n"
+"PO-Revision-Date: 2025-03-18 08:29+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -217,10 +217,9 @@ msgid "Open With"
 msgstr "Відкрити за допомогою"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Показати журнал файла git"
+msgstr "Показати журнал git"
 
 #: katefiletree.cpp:483
 #, kde-format

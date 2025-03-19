@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-18 00:45+0000\n"
-"PO-Revision-Date: 2025-02-01 17:14+0100\n"
+"PO-Revision-Date: 2025-03-18 23:15+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -214,10 +214,9 @@ msgid "Open With"
 msgstr "Openen met"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Geschiedenis van git van bestand tonen"
+msgstr "Geschiedenis van git tonen"
 
 #: katefiletree.cpp:483
 #, kde-format

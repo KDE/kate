@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
 "PO-Revision-Date: 2025-03-04 10:05+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -516,20 +516,20 @@ msgstr "Segur que voleu descartar els canvis?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Project"
 msgstr "Projecte"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<sense seguiment>"
@@ -1020,22 +1020,22 @@ msgstr "Fitxer nou"
 msgid "New Folder"
 msgstr "Carpeta nova"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:207
 #, kde-format
 msgid "The file already exists"
 msgstr "El fitxer ja existix"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "No s'ha pogut crear el fitxer: %1, Error: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:245
 #, kde-format
 msgid "The directory already exists"
 msgstr "El directori ja existix"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "No s'ha pogut crear el directori: %1"

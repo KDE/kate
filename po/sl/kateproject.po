@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
 "PO-Revision-Date: 2025-03-04 07:45+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -516,20 +516,20 @@ msgstr "Ali ste prepričani, da želite zavreči spremembe?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<ni sledeno>"
@@ -1021,22 +1021,22 @@ msgstr "Nova datoteka"
 msgid "New Folder"
 msgstr "Nova mapa"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:207
 #, kde-format
 msgid "The file already exists"
 msgstr "Ta datoteka že obstaja"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ustvarjanje datoteke ni uspelo: %1, Napaka: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:245
 #, kde-format
 msgid "The directory already exists"
 msgstr "Ta imenik že obstaja"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ustvarjanje imenika ni uspelo: %1"

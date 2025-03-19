@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
 "PO-Revision-Date: 2025-03-04 17:35+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -511,20 +511,20 @@ msgstr "¿Seguro que desea descartar los cambios?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Project"
 msgstr "Proyecto"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<no seguido>"
@@ -1014,22 +1014,22 @@ msgstr "Nuevo archivo"
 msgid "New Folder"
 msgstr "Nueva carpeta"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:207
 #, kde-format
 msgid "The file already exists"
 msgstr "El archivo ya existe"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "No se ha podido crear el archivo: %1. Error: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:245
 #, kde-format
 msgid "The directory already exists"
 msgstr "El directorio ya existe"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "No se ha podido crear el directorio: %1"

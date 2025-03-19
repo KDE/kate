@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -509,20 +509,20 @@ msgstr "Dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Qeyddən çıxarılmış dəyişiklikləri silmək istədiyinizə əminsiniz?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Project"
 msgstr "Layihə"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<qeydə alınmamış>"
@@ -1030,24 +1030,24 @@ msgstr "Fayl açın"
 msgid "New Folder"
 msgstr "Qovluq əlavə edin"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:207
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "Fayl adı artıq mövcuddur"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Fayl yaradıla bilmədi: %1, Xəta: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:245
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "Fayl adı artıq mövcuddur"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Qovluq yaradıla bilmədi: %1"

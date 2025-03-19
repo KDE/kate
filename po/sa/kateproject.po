@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-07 00:45+0000\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -503,20 +503,20 @@ msgstr "किं भवन्तः परिवर्तनं परित्
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "किं भवान् निश्चितः अस्ति यत् भवान् एतान् अनिरीक्षितपरिवर्तनानि दूरीकर्तुं इच्छति?"
 
-#: kateproject.cpp:297
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "विकृत JSON सञ्चिका '%1': %2"
 
-#: kateproject.cpp:364 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:210
-#: kateprojectviewtree.cpp:221 kateprojectviewtree.cpp:248
-#: kateprojectviewtree.cpp:255
+#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Project"
 msgstr "प्रकल्प"
 
-#: kateproject.cpp:660
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"
@@ -1005,24 +1005,24 @@ msgstr "नवीनं सञ्चिका"
 msgid "New Folder"
 msgstr "नवीनं पुटम्"
 
-#: kateprojectviewtree.cpp:210
+#: kateprojectviewtree.cpp:207
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "सञ्चिकानाम पूर्वमेव अस्ति"
 
-#: kateprojectviewtree.cpp:221
+#: kateprojectviewtree.cpp:218
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "सञ्चिकां निर्मातुं असफलम्: %1, त्रुटिः: %2"
 
-#: kateprojectviewtree.cpp:248
+#: kateprojectviewtree.cpp:245
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "सञ्चिकानाम पूर्वमेव अस्ति"
 
-#: kateprojectviewtree.cpp:255
+#: kateprojectviewtree.cpp:252
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "पुटं निर्मातुं असफलम्: %1"

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-13 02:35+0000\n"
-"PO-Revision-Date: 2025-03-13 21:46+0300\n"
+"POT-Creation-Date: 2025-03-19 02:34+0000\n"
+"PO-Revision-Date: 2025-03-18 13:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1454,7 +1454,7 @@ msgstr "“%1” dosyası silinemedi."
 #: lib/katefileactions.cpp:201
 #, kde-format
 msgid "&Other Application..."
-msgstr "&​Başka Uygulama…"
+msgstr "&Başka Uygulama…"
 
 #: lib/katemainwindow.cpp:260
 #, kde-format
@@ -2109,25 +2109,25 @@ msgstr "Tüm metni panoya kopyala"
 msgid "Clear all messages"
 msgstr "Tüm iletileri temizle"
 
-#: lib/kateoutputview.cpp:405
+#: lib/kateoutputview.cpp:409
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Hata"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:413
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:417
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Bilgi"
 
-#: lib/kateoutputview.cpp:418
+#: lib/kateoutputview.cpp:422
 #, kde-format
 msgctxt "@info"
 msgid "Log"

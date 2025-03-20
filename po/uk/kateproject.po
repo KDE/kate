@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-04 08:47+0200\n"
+"PO-Revision-Date: 2025-03-19 08:50+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -354,10 +354,9 @@ msgid "Stash"
 msgstr "Накопичити"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Показати журнал git"
+msgstr "Показати журнал"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -476,10 +475,9 @@ msgid "Open at HEAD"
 msgstr "Відкрити на HEAD"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Показати журнал git"
+msgstr "Показати журнал"
 
 #: gitwidget.cpp:1319
 #, kde-format

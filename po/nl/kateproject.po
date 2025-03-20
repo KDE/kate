@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-04 16:12+0100\n"
+"PO-Revision-Date: 2025-03-19 14:38+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -350,10 +350,9 @@ msgid "Stash"
 msgstr "Stapel"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Geschiedenis van git tonen"
+msgstr "Geschiedenis tonen"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -472,10 +471,9 @@ msgid "Open at HEAD"
 msgstr "In HEAD openen"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Geschiedenis van git tonen"
+msgstr "Geschiedenis tonen"
 
 #: gitwidget.cpp:1319
 #, kde-format

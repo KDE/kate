@@ -348,10 +348,9 @@ msgid "Stash"
 msgstr "Uschovat"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Zobrazit historii Gitu"
+msgstr "Zobrazit historii"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -470,10 +469,9 @@ msgid "Open at HEAD"
 msgstr ""
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Zobrazit historii Gitu"
+msgstr "Zobrazit historii"
 
 #: gitwidget.cpp:1319
 #, kde-format

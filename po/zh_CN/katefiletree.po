@@ -216,7 +216,7 @@ msgstr "打开方式"
 #: katefiletree.cpp:432
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "显示 Git 历史"
 
 #: katefiletree.cpp:483
 #, kde-format

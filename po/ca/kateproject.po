@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-04 10:05+0100\n"
+"PO-Revision-Date: 2025-03-19 08:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -352,10 +352,9 @@ msgid "Stash"
 msgstr "Modificació temporal"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Mostra l'historial del Git"
+msgstr "Mostra l'historial"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -475,10 +474,9 @@ msgid "Open at HEAD"
 msgstr "Obre a HEAD"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Mostra l'historial del Git"
+msgstr "Mostra l'historial"
 
 #: gitwidget.cpp:1319
 #, kde-format

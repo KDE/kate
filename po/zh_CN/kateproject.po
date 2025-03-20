@@ -345,10 +345,9 @@ msgid "Stash"
 msgstr "储藏"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "显示 Git 历史"
+msgstr ""
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -467,10 +466,9 @@ msgid "Open at HEAD"
 msgstr "在 HEAD 打开"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "显示 Git 历史"
+msgstr ""
 
 #: gitwidget.cpp:1319
 #, kde-format

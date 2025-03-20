@@ -455,7 +455,7 @@ msgstr "Symbol"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: localsview.cpp:24
 #, kde-format
@@ -480,7 +480,7 @@ msgstr ""
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Probíhá načítání..."
 
 #: localsview.cpp:167
 #, fuzzy, kde-format

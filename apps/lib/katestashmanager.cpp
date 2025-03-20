@@ -51,17 +51,34 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
     const QString stashName = QFileInfo(KateApp::self()->sessionManager()->activeSession()->file()).fileName();
     dir.mkdir(stashName);
     dir.cd(stashName);
+    const QString path = dir.path();
 
-    int i = 0;
-    for (KTextEditor::Document *doc : documents) {
+    for (int i = 0; i < (int)documents.size(); ++i) {
+        auto doc = documents[i];
         // stash the file content
-        if (doc->isModified()) {
-            const QString entryName = QStringLiteral("Document %1").arg(i);
-            KConfigGroup cg(config, entryName);
-            stashDocument(doc, entryName, cg, dir.path());
-        }
+        if (doc->isModified() && willStashDoc(doc)) {
+            const QString stashfileName = QStringLiteral("Document %1").arg(i);
+            // Stash changes
+            QString stashedFile = path + QStringLiteral("/") + stashfileName;
 
-        i++;
+            // create a temp doc to stash it. We dont want to change the url of the original doc
+            std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
+            tmpDoc->setText(doc->text());
+
+            // save the current document changes to stash
+            if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
+                qCWarning(LOG_KATE) << "Could not write to stash file" << stashedFile;
+                continue;
+            }
+
+            KConfigGroup cg(config, stashfileName);
+            // write stash metadata to config
+            cg.writeEntry("stashedFile", stashedFile);
+            if (doc->url().isValid()) {
+                // save checksum for already-saved documents
+                cg.writeEntry("checksum", doc->checksum());
+            }
+        }
     }
 }
 
@@ -83,33 +100,6 @@ bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
         return stashUnsavedChanges;
     }
     return false;
-}
-
-void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path) const
-{
-    if (!willStashDoc(doc)) {
-        return;
-    }
-
-    // Stash changes
-    QString stashedFile = path + QStringLiteral("/") + stashfileName;
-
-    // create a temp doc to stash it. We dont want to change the url of the original doc
-    std::unique_ptr<KTextEditor::Document> tmpDoc(KTextEditor::Editor::instance()->createDocument(nullptr));
-    tmpDoc->setText(doc->text());
-
-    // save the current document changes to stash
-    if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
-        qCWarning(LOG_KATE) << "Could not write to stash file" << stashedFile;
-        return;
-    }
-
-    // write stash metadata to config
-    kconfig.writeEntry("stashedFile", stashedFile);
-    if (doc->url().isValid()) {
-        // save checksum for already-saved documents
-        kconfig.writeEntry("checksum", doc->checksum());
-    }
 }
 
 bool KateStashManager::canStash() const

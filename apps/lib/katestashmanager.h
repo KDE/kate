@@ -32,7 +32,6 @@ public:
 
     bool willStashDoc(KTextEditor::Document *doc) const;
 
-    void stashDocument(KTextEditor::Document *doc, const QString &stashfileName, KConfigGroup &kconfig, const QString &path) const;
     static void popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
 
     static void clearStashForSession(const KateSession::Ptr &session);

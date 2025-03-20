@@ -110,8 +110,6 @@ void KateStashManager::stashDocument(KTextEditor::Document *doc, const QString &
         // save checksum for already-saved documents
         kconfig.writeEntry("checksum", doc->checksum());
     }
-
-    kconfig.sync();
 }
 
 bool KateStashManager::canStash() const

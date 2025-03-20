@@ -73,14 +73,14 @@ bool KateStashManager::willStashDoc(KTextEditor::Document *doc) const
         return false;
     }
     if (doc->url().isEmpty()) {
-        return m_stashNewUnsavedFiles;
+        return stashNewUnsavedFiles;
     }
     if (doc->isModified() && doc->url().isLocalFile()) {
         const QString path = doc->url().toLocalFile();
         if (path.startsWith(QDir::tempPath())) {
             return false; // inside tmp resource, do not stash
         }
-        return m_stashUnsavedChanges;
+        return stashUnsavedChanges;
     }
     return false;
 }

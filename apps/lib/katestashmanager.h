@@ -23,25 +23,8 @@ class KateStashManager
 public:
     KateStashManager() = default;
 
-    bool stashUnsavedChanges() const
-    {
-        return m_stashUnsavedChanges;
-    }
-
-    void setStashUnsavedChanges(bool stashUnsavedChanges)
-    {
-        m_stashUnsavedChanges = stashUnsavedChanges;
-    }
-
-    bool stashNewUnsavedFiles() const
-    {
-        return m_stashNewUnsavedFiles;
-    }
-
-    void setStashNewUnsavedFiles(bool stashNewUnsavedFiles)
-    {
-        m_stashNewUnsavedFiles = stashNewUnsavedFiles;
-    }
+    bool stashUnsavedChanges = false;
+    bool stashNewUnsavedFiles = true;
 
     bool canStash() const;
 
@@ -53,8 +36,4 @@ public:
     static void popDocument(KTextEditor::Document *doc, const KConfigGroup &kconfig);
 
     static void clearStashForSession(const KateSession::Ptr &session);
-
-private:
-    bool m_stashUnsavedChanges = false;
-    bool m_stashNewUnsavedFiles = true;
 };

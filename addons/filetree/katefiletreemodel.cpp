@@ -1274,7 +1274,8 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     base += QLatin1Char('/');
 
     // try and merge existing roots with the new root node (new_root.path < root.path)
-    const std::vector<ProxyItem *> &rootChildren = m_root->children();
+    // Iterate over a copy as the list is updated
+    const std::vector<ProxyItem *> rootChildren = m_root->children();
     for (ProxyItem *root : rootChildren) {
         if (root == new_root || !root->flag(ProxyItem::Dir)) {
             continue;

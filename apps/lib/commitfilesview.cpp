@@ -17,6 +17,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
+#include <QLabel>
 #include <QMenu>
 #include <QMimeDatabase>
 #include <QPainter>
@@ -340,6 +341,8 @@ private:
     QStandardItemModel m_model;
     QString m_gitDir;
     QString m_commitHash;
+    QLabel m_icon;
+    QLabel m_label;
 };
 
 CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent)
@@ -347,13 +350,12 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
     , m_mainWindow(mainWindow)
     , m_gitDir(repoBase)
 {
-    setLayout(new QVBoxLayout);
+    auto vLayout = new QVBoxLayout;
+    setLayout(vLayout);
     layout()->setContentsMargins({});
     layout()->setSpacing(0);
 
-    m_backBtn.setText(i18n("Close"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
-    m_backBtn.setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_backBtn.setAutoRaise(true);
     m_backBtn.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     connect(&m_backBtn, &QAbstractButton::clicked, this, [parent, mainWindow] {
@@ -361,7 +363,21 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
         parent->deleteLater();
         mainWindow->hideToolView(parent);
     });
-    layout()->addWidget(&m_backBtn);
+
+    // Label
+    m_label.setText(hash.left(7));
+    m_label.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    m_icon.setPixmap(QIcon::fromTheme(QStringLiteral("vcs-commit")).pixmap(style()->pixelMetric(QStyle::PM_SmallIconSize)));
+
+    // Horiz layout
+    auto *hLayout = new QHBoxLayout();
+    hLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin), 0, 0, 0);
+    hLayout->addWidget(&m_icon);
+    hLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutLeftMargin) / 2);
+    hLayout->addWidget(&m_label);
+    hLayout->addWidget(&m_backBtn);
+
+    vLayout->addLayout(hLayout);
 
     m_tree.setModel(&m_model);
     layout()->addWidget(&m_tree);

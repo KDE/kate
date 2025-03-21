@@ -18,6 +18,7 @@
 #include <QDate>
 #include <QDebug>
 #include <QFileInfo>
+#include <QLabel>
 #include <QListView>
 #include <QMenu>
 #include <QPainter>
@@ -236,6 +237,9 @@ public:
     explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
     ~FileHistoryWidget() override;
 
+    QLabel m_icon;
+    QLabel m_label;
+
     QToolButton m_backBtn;
     QListView *m_listView;
     QProcess m_git;
@@ -263,13 +267,12 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     m_listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     getFileHistory(file);
 
-    setLayout(new QVBoxLayout);
+    auto vLayout = new QVBoxLayout;
+    setLayout(vLayout);
     layout()->setContentsMargins({});
     layout()->setSpacing(0);
 
-    m_backBtn.setText(i18n("Close"));
     m_backBtn.setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
-    m_backBtn.setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_backBtn.setAutoRaise(true);
     m_backBtn.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
     connect(&m_backBtn, &QAbstractButton::clicked, this, [this] {
@@ -287,8 +290,22 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
 
-    layout()->addWidget(&m_backBtn);
-    layout()->addWidget(m_listView);
+    // Label
+    QFileInfo fi(file);
+    m_label.setText(fi.fileName());
+    m_label.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    m_icon.setPixmap(QIcon::fromTheme(QStringLiteral("view-history")).pixmap(style()->pixelMetric(QStyle::PM_SmallIconSize)));
+
+    // Horiz layout
+    auto *hLayout = new QHBoxLayout();
+    hLayout->setContentsMargins(style()->pixelMetric(QStyle::PM_LayoutLeftMargin), 0, 0, 0);
+    hLayout->addWidget(&m_icon);
+    hLayout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutLeftMargin) / 2);
+    hLayout->addWidget(&m_label);
+    hLayout->addWidget(&m_backBtn);
+
+    vLayout->addLayout(hLayout);
+    vLayout->addWidget(m_listView);
 }
 
 FileHistoryWidget::~FileHistoryWidget()

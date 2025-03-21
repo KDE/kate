@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-04 05:17+0100\n"
+"PO-Revision-Date: 2025-03-20 03:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -349,10 +349,9 @@ msgid "Stash"
 msgstr "შენახვა საკუჭნაოში"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Git ისტორიის ჩვენება"
+msgstr "ისტორიის ჩვენება"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -471,10 +470,9 @@ msgid "Open at HEAD"
 msgstr "HEAD-თან გახსნა"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Git ისტორიის ჩვენება"
+msgstr "ისტორიის ჩვენება"
 
 #: gitwidget.cpp:1319
 #, kde-format

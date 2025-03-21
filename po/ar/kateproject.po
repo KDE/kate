@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-06 09:02+0400\n"
+"PO-Revision-Date: 2025-03-20 09:50+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -353,10 +353,9 @@ msgid "Stash"
 msgstr "التخزين المؤقت"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "أظهر تاريخ غت"
+msgstr "اعرض التّاريخ"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -475,10 +474,9 @@ msgid "Open at HEAD"
 msgstr "افتح عند الرأس"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "أظهر تاريخ غت"
+msgstr "اعرض التّاريخ"
 
 #: gitwidget.cpp:1319
 #, kde-format

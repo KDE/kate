@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-18 00:45+0000\n"
-"PO-Revision-Date: 2025-02-04 12:18+0100\n"
+"PO-Revision-Date: 2025-03-20 18:25+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -214,10 +214,9 @@ msgid "Open With"
 msgstr "Aperi con"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Monstra chronologia de file de Git"
+msgstr "Monstra chronologia de Git"
 
 #: katefiletree.cpp:483
 #, kde-format

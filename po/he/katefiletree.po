@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-18 00:45+0000\n"
-"PO-Revision-Date: 2025-02-01 09:20+0200\n"
+"PO-Revision-Date: 2025-03-18 08:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -215,10 +215,9 @@ msgid "Open With"
 msgstr "פתיחה עם"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "הצגת היסטוריית Git של הקובץ"
+msgstr "הצגת היסטוריית Git"
 
 #: katefiletree.cpp:483
 #, kde-format

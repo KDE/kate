@@ -292,7 +292,7 @@ void KateConfigDialog::addBehaviorPage()
 
     m_tabsElided = new QCheckBox(i18n("Elide tab text"), this);
     m_tabsElided->setChecked(cgGeneral.readEntry("Elide Tab Text", false));
-    m_tabsElided->setToolTip(i18n("When checked tab text might be elided if its too long."));
+    m_tabsElided->setToolTip(i18n("When checked tab text might be elided if it is too long."));
     connect(m_tabsElided, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_tabsElided);
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 02:34+0000\n"
-"PO-Revision-Date: 2025-02-18 08:34+0200\n"
+"PO-Revision-Date: 2025-03-21 06:47+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -48,7 +48,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "נא למלא שם חדש לענף. ‚Esc’ לביטול."
 
 #: branchcheckoutdialog.cpp:102
 #, kde-format
@@ -156,17 +156,17 @@ msgstr "אישור סופי"
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "שילוב"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1054
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "שילוב הקיבוע האחרון"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "הקיבוע משתלב"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -308,7 +308,7 @@ msgstr "ההשוואה %1…%2 נכשלה"
 #: gitwidget.cpp:1011
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "קבלת numstat נכשלה בעת בחינת ההבדלים %1...%2"
 
 #: gitwidget.cpp:1046
 #, kde-format
@@ -685,29 +685,25 @@ msgid "Projects Properties"
 msgstr "מאפייני מיזמים"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "מסוף (בסיס)"
+msgstr "מסוף"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "מסוף (‎.kateproject)"
+msgstr "מסוף (מיזם)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "מסוף (בסיס)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "מסוף (בנייה)"

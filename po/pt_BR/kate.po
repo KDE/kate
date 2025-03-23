@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-23 00:44+0000\n"
 "PO-Revision-Date: 2024-03-18 16:31-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1197,8 +1197,9 @@ msgid "Elide tab text"
 msgstr "Encurtar texto da aba"
 
 #: lib/kateconfigdialog.cpp:295
-#, kde-format
-msgid "When checked tab text might be elided if its too long."
+#, fuzzy, kde-format
+#| msgid "When checked tab text might be elided if its too long."
+msgid "When checked tab text might be elided if it is too long."
 msgstr "Quando marcado o texto da aba pode ser encurtado se for muito longo."
 
 #: lib/kateconfigdialog.cpp:299

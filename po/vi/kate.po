@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-23 00:44+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1183,8 +1183,9 @@ msgid "Elide tab text"
 msgstr "Lược bớt tiêu đề thẻ"
 
 #: lib/kateconfigdialog.cpp:295
-#, kde-format
-msgid "When checked tab text might be elided if its too long."
+#, fuzzy, kde-format
+#| msgid "When checked tab text might be elided if its too long."
+msgid "When checked tab text might be elided if it is too long."
 msgstr "Khi được chọn, tiêu đề thẻ có thể bị lược bớt nếu quá dài."
 
 #: lib/kateconfigdialog.cpp:299

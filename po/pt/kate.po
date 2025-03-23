@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-23 00:44+0000\n"
 "PO-Revision-Date: 2023-07-02 02:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -1214,8 +1214,9 @@ msgid "Elide tab text"
 msgstr "Texto da página em reticências"
 
 #: lib/kateconfigdialog.cpp:295
-#, kde-format
-msgid "When checked tab text might be elided if its too long."
+#, fuzzy, kde-format
+#| msgid "When checked tab text might be elided if its too long."
+msgid "When checked tab text might be elided if it is too long."
 msgstr ""
 "Quando assinalada, o texto da página poderá ficar com reticências se for "
 "demasiado longo."

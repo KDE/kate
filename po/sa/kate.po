@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-23 00:44+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1167,8 +1167,9 @@ msgid "Elide tab text"
 msgstr "ट्याब् पाठ्यः लुम्पते"
 
 #: lib/kateconfigdialog.cpp:295
-#, kde-format
-msgid "When checked tab text might be elided if its too long."
+#, fuzzy, kde-format
+#| msgid "When checked tab text might be elided if its too long."
+msgid "When checked tab text might be elided if it is too long."
 msgstr "यदा अभिवृत ट्याब् पाठ्य लुप्त भवेत् यदि तस्य अतिदीर्घः ।."
 
 #: lib/kateconfigdialog.cpp:299

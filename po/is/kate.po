@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-18 00:45+0000\n"
+"POT-Creation-Date: 2025-03-23 00:44+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -1190,8 +1190,9 @@ msgid "Elide tab text"
 msgstr "Rúlla flipatexta"
 
 #: lib/kateconfigdialog.cpp:295
-#, kde-format
-msgid "When checked tab text might be elided if its too long."
+#, fuzzy, kde-format
+#| msgid "When checked tab text might be elided if its too long."
+msgid "When checked tab text might be elided if it is too long."
 msgstr "Þegar hakað er hér getur texti á flipa rúllað ef hann er of langur"
 
 #: lib/kateconfigdialog.cpp:299

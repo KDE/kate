@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-15 10:34+0100\n"
+"PO-Revision-Date: 2025-03-22 12:40+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -355,10 +355,9 @@ msgid "Stash"
 msgstr "Schowek"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Pokaż historię w Git"
+msgstr "Pokaż historię"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -477,10 +476,9 @@ msgid "Open at HEAD"
 msgstr "Otwórz na znaczniku HEAD"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Pokaż historię w Git"
+msgstr "Pokaż historię"
 
 #: gitwidget.cpp:1319
 #, kde-format

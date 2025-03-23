@@ -33,6 +33,8 @@
 
 #ifndef Q_OS_WIN
 #include <unistd.h>
+#else
+#include <io.h>
 #endif
 
 namespace
@@ -418,6 +420,8 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
 #else
         fsync(fileToSync.handle());
 #endif
+#else
+        _commit(fileToSync.handle());
 #endif
     }
 }

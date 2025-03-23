@@ -63,6 +63,11 @@
             "url": "https://github.com/elm-tooling/elm-language-server",
             "highlightingModeRegex": "^Elm$"
         },
+        "fish": {
+                    "command": ["fish-lsp", "start"],
+                    "url": "https://github.com/ndonfris/fish-lsp",
+                    "highlightingModeRegex": "^fish$"
+        },
         "fortran": {
             "command": ["fortls"],
             "rootIndicationFileNames": [".fortls"],

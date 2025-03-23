@@ -623,6 +623,24 @@ void KateMainWindow::setupActions()
             }
         }
     });
+
+    // add menu to get quick access to all open Kate windows
+    auto windows = new KActionMenu(i18n("&Windows"), this);
+    ac->addAction(QStringLiteral("view_windows"), windows);
+    connect(windows->menu(), &QMenu::aboutToShow, this, [windows]() {
+        windows->menu()->clear();
+        const auto windowList = KateApp::self()->mainWindows();
+        for (const auto win : windowList) {
+            auto a = windows->menu()->addAction(win->window()->windowTitle());
+            a->setData(QVariant::fromValue(win->window()));
+        }
+    });
+    connect(windows->menu(), &QMenu::triggered, this, [](QAction *a) {
+        if (auto win = a->data().value<QWidget *>()) {
+            win->raise();
+            win->activateWindow();
+        }
+    });
 }
 
 void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)

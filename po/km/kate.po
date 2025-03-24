@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 02:34+0000\n"
+"POT-Creation-Date: 2025-03-24 02:34+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2804,7 +2804,7 @@ msgstr "ប្តូរឈ្មោះ..."
 msgid "Delete"
 msgstr "បាន​លុប"
 
-#: lib/session/katesessionmanager.cpp:141
+#: lib/session/katesessionmanager.cpp:143
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2814,19 +2814,19 @@ msgid ""
 "reopen in this instance?"
 msgstr "សម័យ '%1' ត្រូវ​បានបើក​រួច​ហើយ​នៅ​​ក្នុង​ធាតុ kate ផ្សេង ផ្លាស់ប្ដូរ​វា​​ជំនួស​ឲ្យ​បើក​ឡើង​វិញ ?"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:144
+#: lib/session/katesessionmanager.cpp:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:350
+#: lib/session/katesessionmanager.cpp:352
 #, fuzzy, kde-format
 #| msgid ""
 #| "The session could not be renamed to \"%1\", there already exists another "
@@ -2834,17 +2834,17 @@ msgstr ""
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "មិនអាច​ប្ដូរ​ឈ្មោះ​សម័យ​ទៅ \"%1\" បានទេ ព្រោះ​មាន​សម័យ​ផ្សេងមាន​ឈ្មោះ​នេះ​រួចហើយ"
 
-#: lib/session/katesessionmanager.cpp:351
+#: lib/session/katesessionmanager.cpp:353
 #, kde-format
 msgid "Session Renaming"
 msgstr "ការ​ប្ដូរ​ឈ្មោះ​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:508
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "Session name:"
 msgstr "ឈ្មោះ​សម័យ ៖"
 
-#: lib/session/katesessionmanager.cpp:510
+#: lib/session/katesessionmanager.cpp:514
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2858,18 +2858,18 @@ msgstr ""
 "សូម​ជ្រើស​ឈ្មោះ​សម័យ\n"
 "ផ្សេង ៖"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ដើម្បី​រក្សាទុកសម័យ​មួយ អ្នក​ត្រូវ​តែ​បញ្ជាក់​ឈ្មោះ​មួយ​ ។"
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:543
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "បញ្ជាក់​ឈ្មោះ​ថ្មី​សម្រាប់​សម័យ"
 
-#: lib/session/katesessionmanager.cpp:541
+#: lib/session/katesessionmanager.cpp:545
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

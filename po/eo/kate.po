@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:44+0000\n"
-"PO-Revision-Date: 2025-03-15 10:38+0100\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1176,11 +1176,10 @@ msgid "Elide tab text"
 msgstr "Elizii langetotekston"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
-"Kiam ĝi estas ŝaltita, langeta teksto povus esti kaŝita se ĝi estas tro "
+"Kiam ĉi tiu estas markita, langeta teksto povus esti kaŝita se ĝi estas tro "
 "longa."
 
 #: lib/kateconfigdialog.cpp:299
@@ -2717,7 +2716,7 @@ msgstr "&Renomi..."
 msgid "Delete"
 msgstr "Forigi"
 
-#: lib/session/katesessionmanager.cpp:141
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2726,35 +2725,35 @@ msgstr ""
 "Seanco '%1' jam estas malfermita en alia Kate-instanco. Ĉu ŝanĝi al tio aŭ "
 "remalfermi ĉi-okaze?"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Ŝanĝi al Instanco"
 
-#: lib/session/katesessionmanager.cpp:144
+#: lib/session/katesessionmanager.cpp:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Remalfermi"
 
-#: lib/session/katesessionmanager.cpp:350
+#: lib/session/katesessionmanager.cpp:352
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "La seanco ne povis esti renomita al \"%1\". Malsukcesis skribi al \"%2\""
 
-#: lib/session/katesessionmanager.cpp:351
+#: lib/session/katesessionmanager.cpp:353
 #, kde-format
 msgid "Session Renaming"
 msgstr "Renomado de Seanco"
 
-#: lib/session/katesessionmanager.cpp:508
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "Session name:"
 msgstr "Seanca nomo:"
 
-#: lib/session/katesessionmanager.cpp:510
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2763,17 +2762,17 @@ msgstr ""
 "Jam ekzistas seanco kun via elektita nomo: %1\n"
 "Bonvolu elekti alian."
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Por konservi seancon, vi devas elekti nomon"
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Indiki nomon por ĉi tiu seanco"
 
-#: lib/session/katesessionmanager.cpp:541
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Specifu novan nomon por seanco: %1"

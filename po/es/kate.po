@@ -1,4 +1,4 @@
-# Translation of kate.po to Spanish
+# Spanish translations for kate.po package.
 # Copyright (C) 2000-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:44+0000\n"
-"PO-Revision-Date: 2025-03-02 03:24+0100\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"PO-Revision-Date: 2025-03-23 02:54+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1201,8 +1201,7 @@ msgid "Elide tab text"
 msgstr "Elidir el texto de las pestañas"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
 "Si está marcada, el texto de las pestañas se puede elidir si es demasiado "
@@ -2772,7 +2771,7 @@ msgstr "Ca&mbiar nombre…"
 msgid "Delete"
 msgstr "Borrar"
 
-#: lib/session/katesessionmanager.cpp:141
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2781,36 +2780,36 @@ msgstr ""
 "La sesión «%1» ya está abierta en otra instancia de Kate. ¿Desea cambiar a "
 "ella o volver a abrir en esta instancia?"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Cambiar a la instancia"
 
-#: lib/session/katesessionmanager.cpp:144
+#: lib/session/katesessionmanager.cpp:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Volver a abrir"
 
-#: lib/session/katesessionmanager.cpp:350
+#: lib/session/katesessionmanager.cpp:352
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "No se puede cambiar el nombre de la sesión a «%1». Ha fallado la escritura "
 "en «%2»"
 
-#: lib/session/katesessionmanager.cpp:351
+#: lib/session/katesessionmanager.cpp:353
 #, kde-format
 msgid "Session Renaming"
 msgstr "Cambiar nombre de sesión"
 
-#: lib/session/katesessionmanager.cpp:508
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "Session name:"
 msgstr "Nombre de la sesión:"
 
-#: lib/session/katesessionmanager.cpp:510
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2819,17 +2818,17 @@ msgstr ""
 "Ya existe una sesión con el nombre que ha elegido: %1\n"
 "Seleccione otro distinto."
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Debe especificar un nombre para guardar una sesión."
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Indique un nombre para esta sesión"
 
-#: lib/session/katesessionmanager.cpp:541
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Indique un nuevo nombre para la sesión: %1"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:44+0000\n"
-"PO-Revision-Date: 2025-03-02 09:34+0200\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
+"PO-Revision-Date: 2025-03-23 10:46+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1192,8 +1192,7 @@ msgid "Elide tab text"
 msgstr "Обривати текст вкладок трьома крапками"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
 "Якщо позначено, текст заголовка вкладки може бути обірвано трьома крапками, "
@@ -2770,7 +2769,7 @@ msgstr "&Перейменувати…"
 msgid "Delete"
 msgstr "Вилучити"
 
-#: lib/session/katesessionmanager.cpp:141
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2779,35 +2778,35 @@ msgstr ""
 "Сеанс «%1» вже відкрито у іншому екземплярі Kate. Перемкнутися на той "
 "екземпляр чи повторно відкрити файл у цьому екземплярі?"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "Перемкнутися на екземпляр"
 
-#: lib/session/katesessionmanager.cpp:144
+#: lib/session/katesessionmanager.cpp:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Повторно відкрити"
 
-#: lib/session/katesessionmanager.cpp:350
+#: lib/session/katesessionmanager.cpp:352
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Сеанс не можна перейменовувати на «%1». Не вдалося виконати запис до «%2»."
 
-#: lib/session/katesessionmanager.cpp:351
+#: lib/session/katesessionmanager.cpp:353
 #, kde-format
 msgid "Session Renaming"
 msgstr "Перейменування сеансу"
 
-#: lib/session/katesessionmanager.cpp:508
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "Session name:"
 msgstr "Назва сеансу:"
 
-#: lib/session/katesessionmanager.cpp:510
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2816,17 +2815,17 @@ msgstr ""
 "Вже існує сеанс з такою назвою: %1.\n"
 "Будь ласка, виберіть іншу назву."
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Щоб зберегти сеанс, потрібно вказати назву."
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Вкажіть назву цього сеансу"
 
-#: lib/session/katesessionmanager.cpp:541
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Вкажіть нову назву сеансу: %1"

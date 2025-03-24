@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:44+0000\n"
+"POT-Creation-Date: 2025-03-24 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -273,7 +273,7 @@ msgstr "主工具栏"
 #: lib/data/kateui.rc:161
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr "多级菜单工具栏"
+msgstr "多层菜单工具栏"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:175
@@ -1161,10 +1161,9 @@ msgid "Elide tab text"
 msgstr "省略标签页文字"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
-msgstr "勾选此项后，标签页文字过长时将被省略。"
+msgstr ""
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format
@@ -1782,7 +1781,7 @@ msgstr "关闭其他文档"
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
-msgstr "这将完全隐藏菜单栏。按下 %1 可以重新显示。"
+msgstr "这将完全隐藏菜单栏。按 %1 可以重新显示。"
 
 #: lib/katemainwindow.cpp:901
 #, kde-format
@@ -2660,7 +2659,7 @@ msgstr "重命名(&R)..."
 msgid "Delete"
 msgstr "删除"
 
-#: lib/session/katesessionmanager.cpp:141
+#: lib/session/katesessionmanager.cpp:143
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2669,34 +2668,34 @@ msgstr ""
 "会话“%1”已在另一个 Kate 实例中打开。您想要切换到该实例，还是要在当前实例中重"
 "新打开会话？"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "切换到该实例"
 
-#: lib/session/katesessionmanager.cpp:144
+#: lib/session/katesessionmanager.cpp:146
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "重新打开会话"
 
-#: lib/session/katesessionmanager.cpp:350
+#: lib/session/katesessionmanager.cpp:352
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "此会话无法被重命名为“%1”，无法写入“%2”"
 
-#: lib/session/katesessionmanager.cpp:351
+#: lib/session/katesessionmanager.cpp:353
 #, kde-format
 msgid "Session Renaming"
 msgstr "会话重命名"
 
-#: lib/session/katesessionmanager.cpp:508
+#: lib/session/katesessionmanager.cpp:512
 #, kde-format
 msgid "Session name:"
 msgstr "会话名称："
 
-#: lib/session/katesessionmanager.cpp:510
+#: lib/session/katesessionmanager.cpp:514
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2705,17 +2704,17 @@ msgstr ""
 "已经有了一个和您选择的同名的会话：%1\n"
 "请选择其他会话名称。"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:516
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要保存会话，您必须指定名称。"
 
-#: lib/session/katesessionmanager.cpp:539
+#: lib/session/katesessionmanager.cpp:543
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "指定此会话的名称"
 
-#: lib/session/katesessionmanager.cpp:541
+#: lib/session/katesessionmanager.cpp:545
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "为会话指定新名称：%1"

@@ -1163,7 +1163,7 @@ msgstr "省略标签页文字"
 #: lib/kateconfigdialog.cpp:295
 #, kde-format
 msgid "When checked tab text might be elided if it is too long."
-msgstr ""
+msgstr "勾选此项后，标签页文字过长时将被省略。"
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format

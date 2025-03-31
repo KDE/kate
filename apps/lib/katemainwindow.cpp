@@ -64,6 +64,7 @@
 #include <QDir>
 #include <QDragEnterEvent>
 #include <QDropEvent>
+#include <QElapsedTimer>
 #include <QEvent>
 #include <QFontDatabase>
 #include <QKeySequence>

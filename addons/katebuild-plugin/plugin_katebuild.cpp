@@ -350,7 +350,7 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     m_buildUi.u_outpTopLayout->setContentsMargins(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
                                                   m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutTopMargin),
                                                   m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutRightMargin),
-                                                  m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutBottomMargin));
+                                                  0);
 
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->setDocumentMode(true);

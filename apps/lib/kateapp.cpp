@@ -64,6 +64,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QElapsedTimer>
 #include <QFileInfo>
 #include <QFileOpenEvent>
 #include <QJsonArray>

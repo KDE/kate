@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:44+0000\n"
-"PO-Revision-Date: 2025-03-03 09:57+0100\n"
+"PO-Revision-Date: 2025-03-24 09:49+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -1225,12 +1225,11 @@ msgid "Elide tab text"
 msgstr "Ignorer le texte de l'onglet"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
-"Quand cette option est cochée, le texte de l'onglet pourrait être ignoré "
-"s'il est trop long."
+"Quand cette option est sélectionnée, le texte de l'onglet pourrait être "
+"ignoré s'il est trop long."
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format

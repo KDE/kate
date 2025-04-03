@@ -1,16 +1,16 @@
 # Translation for kateproject.po to Euskara/Basque (eu).
-# Copyright (C) 2018-2024 This file is copyright:
+# Copyright (C) 2018-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2024-12-22 15:01+0100\n"
+"PO-Revision-Date: 2025-04-02 15:20+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -352,10 +352,9 @@ msgid "Stash"
 msgstr "Gordelekua"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Erakutsi Git historia"
+msgstr "Erakutsi historia"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -474,10 +473,9 @@ msgid "Open at HEAD"
 msgstr "Ireki «HEAD»en"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Erakutsi Git historia"
+msgstr "Erakutsi historia"
 
 #: gitwidget.cpp:1319
 #, kde-format
@@ -701,32 +699,28 @@ msgid "Projects Properties"
 msgstr "Proiektuaren propietateak"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "Terminala (oinarria)"
+msgstr "Terminala"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "Terminala (.kateproject)"
+msgstr "Terminala (Proiektua)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr "Terminala (oinarria)"
+msgstr "Terminala (Oinarria)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr "Terminala (eraiki)"
+msgstr "Terminala (Eraiki)"
 
 #: kateprojectinfoview.cpp:114
 #, kde-format
@@ -1034,10 +1028,9 @@ msgid "New Folder"
 msgstr "Karpeta berria"
 
 #: kateprojectviewtree.cpp:207
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "Fitxategi-izena aurretik dago"
+msgstr "Fitxategia lehendik ere badago"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1045,10 +1038,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "Fitxategia sortzea huts egin du: %1, Errorea: %2"
 
 #: kateprojectviewtree.cpp:245
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "Fitxategi-izena aurretik dago"
+msgstr "Direktorioa lehendik ere badago"
 
 #: kateprojectviewtree.cpp:252
 #, kde-format

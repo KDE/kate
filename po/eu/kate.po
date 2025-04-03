@@ -1,11 +1,11 @@
 # Translation for kate.po to Euskara/Basque (eu).
-# Copyright (C) 2002-2024 This file is copyright:
+# Copyright (C) 2002-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Marcos  <marcos@euskalgnu.org>, 2002, 2003, 2004, 2005, 2006.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 # Juan Irigoien <juanirigoien@irakasle.net>, 2004.
 # Juan Irigoien <juanirigoien@yahoo.es>, 2004.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-01 00:44+0000\n"
-"PO-Revision-Date: 2025-01-01 08:40+0100\n"
+"PO-Revision-Date: 2025-04-02 15:30+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -360,11 +360,10 @@ msgid "Filter…"
 msgstr "...iragazi"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Garbitu diagnostikoaen eragazkia"
+msgstr "Garbitu diagnostikoak"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -1190,10 +1189,9 @@ msgid "Elide tab text"
 msgstr "Elisioa fitxako testuari"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
-msgstr "Markatuta dagoenean fitxako testua luzeegia bada elisioa jasan dezake."
+msgstr "Markatuta dagoenean, fitxako testua luzeegia bada moztu egin daiteke."
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format
@@ -1830,7 +1828,7 @@ msgstr "Itxi besteak"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"Honek menu-barra erabat ezkutatuk du. Berriz erakutsi dezakezu %1 tekleatuz."
+"Horrek menu-barra erabat ezkutatuko du. %1 tekleatuz berriz erakuts dezakezu."
 
 #: lib/katemainwindow.cpp:902
 #, kde-format

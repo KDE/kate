@@ -498,3 +498,5 @@ void KateFileTreePluginView::slotWidgetRemoved(QWidget *w)
 // END KateFileTreePluginView
 
 #include "katefiletreeplugin.moc"
+
+#include "moc_katefiletreeplugin.cpp"

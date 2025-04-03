@@ -588,3 +588,5 @@ LSPClientCompletion *LSPClientCompletion::new_(std::shared_ptr<LSPClientServerMa
 {
     return new LSPClientCompletionImpl(std::move(manager));
 }
+
+#include "moc_lspclientcompletion.cpp"

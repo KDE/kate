@@ -59,3 +59,5 @@ void ProjectPluginCommands::error(const QString &error)
 {
     Utils::showMessage(error, QIcon::fromTheme(QStringLiteral("text-x-script")), i18n("Project Command"), MessageType::Error);
 }
+
+#include "moc_project_commands.cpp"

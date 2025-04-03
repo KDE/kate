@@ -80,3 +80,5 @@ bool MainWindowCommands::help(KTextEditor::View *, const QString &cmd, QString &
     }
     return res;
 }
+
+#include "moc_mainwindow_commands.cpp"

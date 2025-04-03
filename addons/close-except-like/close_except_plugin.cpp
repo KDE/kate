@@ -286,3 +286,5 @@ void CloseExceptPluginView::displayMessage(const QString &title, const QString &
 #include "close_except_plugin.moc"
 
 // kate: hl C++11/Qt4;
+
+#include "moc_close_except_plugin.cpp"

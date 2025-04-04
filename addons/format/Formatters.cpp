@@ -370,7 +370,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
     } else if (is("opsi-script")) {
         return newStdinFmt("opsi-script-beautifier", {});
     } else if (is("odin")) {
-        return newStdinFmt("odinfmt", {S("--stdin")});
+        return newStdinFmt("odinfmt", {S("-stdin")});
     } else if (is("swift")) {
         return newStdinFmt("swiftformat", {});
     } else if (is("erlang")) {

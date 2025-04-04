@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 02:34+0000\n"
-"PO-Revision-Date: 2025-02-11 09:39+0200\n"
+"PO-Revision-Date: 2025-04-03 17:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -379,11 +379,10 @@ msgid "Filter…"
 msgstr "Suodata…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Tyhjennä diagnostiikkasuodatin"
+msgstr "Tyhjennä diagnostiikka"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format

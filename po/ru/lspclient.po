@@ -3,13 +3,13 @@
 #
 # Alexander Potashev <aspotashev@gmail.com>, 2019.
 # SPDX-FileCopyrightText: 2020, 2022, 2024 Alexander Yavorsky <kekcuha@gmail.com>
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2024-12-09 15:11+0300\n"
+"PO-Revision-Date: 2025-04-03 12:04+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -21,9 +21,9 @@ msgstr ""
 "X-Generator: Lokalize 23.08.5\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter…"
-msgstr "Фильтр..."
+msgstr "Фильтр…"
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
 #: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616
@@ -166,9 +166,9 @@ msgid "Code Action"
 msgstr "Действие над кодом"
 
 #: lspclientpluginview.cpp:553
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Дополнения:"
+msgstr "Показать дополнения LSP"
 
 #: lspclientpluginview.cpp:556
 #, kde-format
@@ -502,9 +502,9 @@ msgstr "Дополнения:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show completions"
-msgstr "Дополнения:"
+msgstr "Показывать дополнения"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89

@@ -5,13 +5,13 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2018, 2019, 2020, 2021, 2022, 2023.
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2024-12-09 14:56+0300\n"
+"PO-Revision-Date: 2025-04-03 11:49+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -240,17 +240,18 @@ msgstr[3] ""
 "Во всех открытых проектах (общая родительская папка: «%2») найдено одно "
 "совпадение (%3)"
 
-# BUGME: add colon --aspotashev
 #: Results.cpp:32
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter…"
-msgstr "Фильтр:"
+msgstr "Фильтр…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Поиск в текущей вкладке; нажмите и удерживайте клавишу Ctrl для выполнения "
+"поиска в новой вкладке."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294
@@ -662,7 +663,7 @@ msgstr "Поиск"
 #: SearchPlugin.cpp:1169
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
-msgstr ""
+msgstr "Поиск не был начат, так как указанный каталог «%1» не существует."
 
 #: SearchPlugin.cpp:1342
 #, kde-format

@@ -15,13 +15,13 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2022.
-# SPDX-FileCopyrightText: 2022, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2022, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-01 00:44+0000\n"
-"PO-Revision-Date: 2024-12-09 14:18+0300\n"
+"PO-Revision-Date: 2025-04-03 12:05+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -216,17 +216,14 @@ msgid "Custom Sorting"
 msgstr "Пользовательская сортировка"
 
 #: katefiletree.cpp:402
-#, fuzzy, kde-format
-#| msgid "&Open..."
+#, kde-format
 msgid "Open..."
-msgstr "&Открыть..."
+msgstr "Открыть…"
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename File"
+#, kde-format
 msgid "Open File"
-msgstr "Переименовать файл"
+msgstr "Открыть файл"
 
 #: katefiletree.cpp:416
 #, kde-format
@@ -390,9 +387,9 @@ msgid ""
 msgstr "<p><b>%1</b></p><p>Документ был изменён в другом приложении.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter…"
-msgstr "Фильтр:"
+msgstr "Фильтр…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

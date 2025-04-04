@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2025-02-27 14:54+0100\n"
+"PO-Revision-Date: 2025-03-27 15:49+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -39,8 +39,7 @@ msgstr "Output"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Compila di nuovo"
 
@@ -97,12 +96,16 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Se le righe di output iniziano con [ # / ## ] o [ ## % ], visualizza "
+"l'ultima come messaggio."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
+"Mostra il progresso della compilazione quando il pannello di output è "
+"nascosto"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -254,6 +257,8 @@ msgstr "Compilazione già in corso..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"Impossibile fare sostituzione: nessun file aperto, oppure quello corrente è "
+"senza titolo."
 
 #: plugin_katebuild.cpp:1097
 #, kde-format
@@ -306,12 +311,10 @@ msgstr ""
 "configurazione dell'estensione."
 
 #: plugin_katebuild.cpp:1316
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Risultati Make:</title><nl/>%1"
+msgstr "<title>Compilazione terminata :</title>%1"
 
 #: plugin_katebuild.cpp:1378
 #, kde-format
@@ -456,7 +459,7 @@ msgstr "Nome comando/insieme di obiettivi"
 #: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Comando di compilazione / cartella di lavoro"
 
 #: TargetModel.cpp:665
 #, kde-format
@@ -526,11 +529,10 @@ msgid "Paste after"
 msgstr "Incolla dopo"
 
 #: targets.cpp:230 targets.cpp:252
-#, fuzzy, kde-format
-#| msgid "Run Command"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Esegui comando"
+msgstr "Comando di compilazione"
 
 #: targets.cpp:251
 #, kde-format

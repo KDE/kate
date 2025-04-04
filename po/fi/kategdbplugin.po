@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kdebase package.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 # Author: Lliehu
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2024-11-13 16:58+0200\n"
+"PO-Revision-Date: 2025-04-03 17:28+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -50,7 +50,7 @@ msgstr "Poista kohde"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Virkistä launch.json-kohteet"
 
 #: configview.cpp:107
 #, kde-format
@@ -114,7 +114,7 @@ msgstr "ohjelma päätettiin"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Päättäminen epäonnistui. Pakotetaan sulkeminen…"
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -465,7 +465,7 @@ msgstr "Symboli"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Tyyppi"
 
 #: localsview.cpp:24
 #, kde-format
@@ -490,19 +490,17 @@ msgstr "nimetyt kohteet"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Ladataan…"
 
 #: localsview.cpp:167
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symboli"
+msgstr "Kopioi symboli"
 
 #: localsview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopioi kohde"
+msgstr "Kopioi arvo"
 
 #: plugin_kategdb.cpp:108
 #, kde-format
@@ -590,11 +588,9 @@ msgid "Restart Debugging"
 msgstr "Käynnistä virheenpaikannus uudelleen"
 
 #: plugin_kategdb.cpp:342
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Debug Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Virheenpaikannustuloste"
+msgstr "Tyhjennä tuloste"
 
 #: plugin_kategdb.cpp:350
 #, kde-format
@@ -665,20 +661,19 @@ msgid "Breakpoint"
 msgstr "Keskeytyskohta"
 
 #: plugin_kategdb.cpp:1105
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Kopioi kohde"
+msgstr "Kopioi pinolistaus"
 
 #: plugin_kategdb.cpp:1124
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Avaa sijainti"
 
 #: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopioi sijainti"
 
 #: stackframe_model.cpp:78
 #, kde-format
@@ -690,14 +685,13 @@ msgstr "Nro"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funktio"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Local application"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Paikallinen sovellus"
+msgstr "Sijainti"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

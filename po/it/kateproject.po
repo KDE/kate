@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-03-12 17:43+0100\n"
+"PO-Revision-Date: 2025-03-30 14:15+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -350,10 +350,9 @@ msgid "Stash"
 msgstr "Stash"
 
 #: gitwidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Mostra la cronologia di Git"
+msgstr "Mostra la cronologia"
 
 #: gitwidget.cpp:1151
 #, kde-format
@@ -472,10 +471,9 @@ msgid "Open at HEAD"
 msgstr "Apri su HEAD"
 
 #: gitwidget.cpp:1303
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Mostra la cronologia di Git"
+msgstr "Mostra la cronologia"
 
 #: gitwidget.cpp:1319
 #, kde-format

@@ -7,13 +7,13 @@
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
 # Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022, 2023.
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-13 00:44+0000\n"
-"PO-Revision-Date: 2024-12-09 12:21+0300\n"
+"PO-Revision-Date: 2025-04-03 14:33+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -45,8 +45,7 @@ msgstr "Вывод"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "Собрать заново"
 
@@ -102,12 +101,14 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Если строки вывода начинаются с [ # / ## ] или [ ## % ], показывать "
+"последний как сообщение."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
-msgstr ""
+msgstr "Показывать ход сборки в виде сообщения, когда панель вывода скрыта"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -206,7 +207,7 @@ msgstr ""
 #: plugin_katebuild.cpp:803
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Создать каталог"
 
 #: plugin_katebuild.cpp:806
 #, kde-format
@@ -214,11 +215,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Настроенный рабочий каталог <b>%1</b> для наборе целей <b>%2</b> не "
+"существует.<br><br>Создать его?"
 
 #: plugin_katebuild.cpp:814
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Не удалось создать каталог <b>%1</b>"
 
 #: plugin_katebuild.cpp:832
 #, kde-format
@@ -259,6 +262,8 @@ msgstr "Сборка уже выполняется..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"Не удалось выполнить замену. Нет открытых файлов, или текущий файл не имеет "
+"названия!"
 
 #: plugin_katebuild.cpp:1110
 #, kde-format
@@ -314,10 +319,10 @@ msgstr ""
 "изменить на странице настройки модуля."
 
 #: plugin_katebuild.cpp:1329
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Результаты сборки:</title><nl/>%1"
+msgstr "<title>Сборка завершена:</title>%1"
 
 #: plugin_katebuild.cpp:1391
 #, kde-format
@@ -409,9 +414,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>НЦ:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Кат.:</B> %1"
@@ -456,9 +459,9 @@ msgid "Target Set"
 msgstr "Набор целей"
 
 #: TargetModel.cpp:549
-#, fuzzy, kde-format
+#, kde-format
 msgid "Projects"
-msgstr "Проект"
+msgstr "Проекты"
 
 #: TargetModel.cpp:549
 #, kde-format
@@ -468,12 +471,12 @@ msgstr "Сеанс"
 #: TargetModel.cpp:659
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr "Наборы целей"
+msgstr "Имя команды/набора целей"
 
 #: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Команда сборки / Рабочий каталог"
 
 #: TargetModel.cpp:665
 #, kde-format

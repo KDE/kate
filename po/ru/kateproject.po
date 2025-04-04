@@ -5,13 +5,13 @@
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Alexander Potashev <aspotashev@gmail.com>, 2015, 2016.
 # SPDX-FileCopyrightText: 2019, 2020, 2022, 2023, 2024 Alexander Yavorsky <kekcuha@gmail.com>
-# SPDX-FileCopyrightText: 2021, 2022, 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2021, 2022, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2024-12-09 14:52+0300\n"
+"PO-Revision-Date: 2025-04-03 14:40+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -233,9 +233,9 @@ msgid "Refresh git status"
 msgstr "Обновить состояние Git"
 
 #: gitwidget.cpp:355 kateprojectview.cpp:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "Filter…"
-msgstr "Фильтр..."
+msgstr "Фильтр…"
 
 #: gitwidget.cpp:445
 #, kde-format
@@ -362,7 +362,6 @@ msgstr "Поместить в запасник"
 
 #: gitwidget.cpp:1139
 #, fuzzy, kde-format
-#| msgid "Show Git History"
 msgid "Show history"
 msgstr "Показать журнал Git"
 
@@ -484,7 +483,6 @@ msgstr "Открыть HEAD"
 
 #: gitwidget.cpp:1303
 #, fuzzy, kde-format
-#| msgid "Show Git History"
 msgid "Show History"
 msgstr "Показать журнал Git"
 
@@ -710,29 +708,25 @@ msgid "Projects Properties"
 msgstr "Управление проектами"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "Терминал (основной)"
+msgstr "Терминал"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "Терминал (.kateproject)"
+msgstr "Терминал (проект)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Терминал (основной)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "Терминал (сборка)"
@@ -1044,10 +1038,9 @@ msgid "New Folder"
 msgstr "Создать папку"
 
 #: kateprojectviewtree.cpp:207
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "Файл с таким именем уже существует"
+msgstr "Файл уже существует"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1055,10 +1048,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "Не удалось создать файл: %1. Ошибка: %2"
 
 #: kateprojectviewtree.cpp:245
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "Файл с таким именем уже существует"
+msgstr "Каталог уже существует"
 
 #: kateprojectviewtree.cpp:252
 #, kde-format
@@ -1081,18 +1073,17 @@ msgstr ""
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Выполнить команду в терминале активного проекта."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Не указана команда"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
-#| msgid "Project Completion"
+#, kde-format
 msgid "Project Command"
-msgstr "Завершение проекта"
+msgstr "Команда в проекте"
 
 #: stashdialog.cpp:36
 #, kde-format

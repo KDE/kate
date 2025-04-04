@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2025-01-12 17:35+0200\n"
+"PO-Revision-Date: 2025-04-03 17:25+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -696,29 +696,25 @@ msgid "Projects Properties"
 msgstr "Projektin ominaisuudet"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "Pääte (pohja)"
+msgstr "Pääte"
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "Pääte (.kateproject)"
+msgstr "Pääte (projekti)"
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Pääte (pohja)"
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "Pääte (kooste)"
@@ -1026,10 +1022,9 @@ msgid "New Folder"
 msgstr "Uusi kansio"
 
 #: kateprojectviewtree.cpp:207
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "Tiedostonimi on jo olemassa"
+msgstr "Tiedosto on jo olemassa"
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1037,10 +1032,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "Ei voitu luoda tiedostoa: %1, virhe: %2"
 
 #: kateprojectviewtree.cpp:245
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "Tiedostonimi on jo olemassa"
+msgstr "Kansio on jo olemassa"
 
 #: kateprojectviewtree.cpp:252
 #, kde-format

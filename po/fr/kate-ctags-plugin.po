@@ -3,7 +3,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2008, 2010, 2012.
-# Xavier Besnard <xavier.besnard@kde.org>, 2013, 2014.
+# SPDX-FileCopyrightText: 2013, 2014, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Maxime Corteel <mcorteel@gmail.com>, 2014, 2015.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2020.
 # SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
@@ -14,15 +14,15 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2023-10-26 12:18+0200\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
-"Language-Team: French <kde-francophone@kde.org>\n"
+"PO-Revision-Date: 2025-04-02 20:37+0200\n"
+"Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
+"Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 24.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -250,7 +250,7 @@ msgstr "procédure"
 #: ctagskinds.cpp:100
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr "mixin"
+msgstr "mélange"
 
 #: ctagskinds.cpp:103
 msgctxt "Tag Type"

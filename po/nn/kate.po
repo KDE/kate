@@ -361,7 +361,6 @@ msgstr "Filtrer …"
 
 #: lib/diagnostics/diagnosticview.cpp:517
 #, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Tøm diagnostikkfilter"

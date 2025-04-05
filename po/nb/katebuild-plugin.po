@@ -38,7 +38,6 @@ msgstr "Utdata"
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
 #, fuzzy, kde-format
-#| msgid "Build again"
 msgid "Build Again"
 msgstr "Bygg igjen"
 
@@ -290,8 +289,6 @@ msgstr ""
 
 #: plugin_katebuild.cpp:1316
 #, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Resultater fra make:</title> <nl/>%1"
@@ -379,8 +376,6 @@ msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
 #, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Mappe:</B> %1"

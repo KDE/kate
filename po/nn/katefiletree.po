@@ -207,8 +207,6 @@ msgstr ""
 
 #: katefiletree.cpp:406
 #, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
 msgid "Open File"
 msgstr "Opna med"
 

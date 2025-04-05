@@ -72,14 +72,12 @@ msgstr ""
 
 #: ce_widget.cpp:197
 #, fuzzy, kde-format
-#| msgid "Compile"
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
 msgstr "Kompiler"
 
 #: ce_widget.cpp:198
 #, fuzzy, kde-format
-#| msgid "Compiler Explorer"
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
 msgstr "Kompilatorutforskar"
@@ -121,20 +119,16 @@ msgstr "Intel-syntaks"
 
 #: ce_widget.cpp:337
 #, fuzzy, kde-format
-#| msgid "Change Url..."
 msgid "Change URL…"
 msgstr "Byt nettadresse …"
 
 #: ce_widget.cpp:343
 #, fuzzy, kde-format
-#| msgid "Enter Url"
 msgid "Enter URL"
 msgstr "Skriv inn nettadresse"
 
 #: ce_widget.cpp:344
 #, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""

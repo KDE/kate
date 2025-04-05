@@ -348,7 +348,6 @@ msgstr ""
 
 #: gitwidget.cpp:1139
 #, fuzzy, kde-format
-#| msgid "Show Git History"
 msgid "Show history"
 msgstr "Vis Git-logg"
 
@@ -470,7 +469,6 @@ msgstr ""
 
 #: gitwidget.cpp:1303
 #, fuzzy, kde-format
-#| msgid "Show Git History"
 msgid "Show History"
 msgstr "Vis Git-logg"
 
@@ -694,21 +692,18 @@ msgstr "Prosjekteigenskapar"
 
 #: kateprojectinfoview.cpp:80
 #, fuzzy, kde-format
-#| msgid "Terminal (Base)"
 msgctxt "@title:tab"
 msgid "Terminal"
 msgstr "Terminal (base)"
 
 #: kateprojectinfoview.cpp:89
 #, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
 msgstr "Terminal (.kateproject)"
 
 #: kateprojectinfoview.cpp:98
 #, fuzzy, kde-format
-#| msgid "Terminal (Base)"
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Terminal (base)"

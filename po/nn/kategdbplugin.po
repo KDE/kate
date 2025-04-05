@@ -485,13 +485,11 @@ msgstr ""
 
 #: localsview.cpp:167
 #, fuzzy, kde-format
-#| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Symbol"
 
 #: localsview.cpp:181
 #, fuzzy, kde-format
-#| msgid "Copy target"
 msgid "Copy Value"
 msgstr "Kopier mål"
 
@@ -655,7 +653,6 @@ msgstr "Avbrotspunkt"
 
 #: plugin_kategdb.cpp:1105
 #, fuzzy, kde-format
-#| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Kopier mål"
 

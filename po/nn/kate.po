@@ -354,7 +354,6 @@ msgstr "Filtrer …"
 
 #: lib/diagnostics/diagnosticview.cpp:517
 #, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Tøm diagnostikkfilter"
@@ -1176,7 +1175,6 @@ msgstr "Forkort fanenamn"
 
 #: lib/kateconfigdialog.cpp:295
 #, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
 msgid "When checked tab text might be elided if it is too long."
 msgstr "Viss det er kryssa av her, vert lange fanenamn forkorta."
 

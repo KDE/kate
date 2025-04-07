@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2008, 2011, 2012, 2013, 2014, 2015, 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2008, 2011, 2012, 2013, 2014, 2015, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-08 00:46+0000\n"
-"PO-Revision-Date: 2024-12-24 16:38+0100\n"
+"PO-Revision-Date: 2025-04-06 22:24+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -35,8 +35,7 @@ msgstr "출력"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
 msgstr "다시 빌드"
 
@@ -91,12 +90,14 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"출력 줄이 [ # / ##] 또는 [ ## % ] 문자열로 시작하면 맨 마지막 출력을 메시지"
+"로 표시합니다."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
-msgstr ""
+msgstr "출력 패널을 숨겼을 때 빌드 진행 상황을 메시지로 표시"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
@@ -247,6 +248,8 @@ msgstr "이미 빌드 중..."
 #, kde-format
 msgid "Cannot make substitution. No open file or the current file is untitled!"
 msgstr ""
+"대체 빌드를 수행할 수 없습니다. 열린 파일이 없거나 현재 파일이 아직 저장되지 "
+"않았습니다!"
 
 #: plugin_katebuild.cpp:1097
 #, kde-format
@@ -295,12 +298,10 @@ msgstr ""
 "니까?<br><br>플러그인 설정 페이지에서 선택 사항을 나중에 변경할 수 있습니다."
 
 #: plugin_katebuild.cpp:1316
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid "<title>Make Results:</title><nl/>%1"
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr "<title>Make 결과:</title><nl/>%1"
+msgstr "<title>빌드 완료됨:</title>%1"
 
 #: plugin_katebuild.cpp:1378
 #, kde-format
@@ -387,9 +388,7 @@ msgid "<B>T:</B> %1"
 msgstr "<B>대상:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
-#, fuzzy, kde-format
-#| msgctxt "D as in working Directory"
-#| msgid "<B>Dir:</B> %1"
+#, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>디렉터리:</B> %1"
@@ -450,12 +449,12 @@ msgstr "명령/대상 집합 이름"
 #: TargetModel.cpp:662
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "빌드 명령/작업 디렉터리"
 
 #: TargetModel.cpp:665
 #, kde-format
 msgid "Run Command"
-msgstr "명령 실행"
+msgstr "실행 명령"
 
 #: targets.cpp:29
 #, kde-format

@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-03 00:43+0000\n"
-"PO-Revision-Date: 2024-08-20 23:25+0200\n"
+"PO-Revision-Date: 2025-04-06 22:24+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -67,21 +67,19 @@ msgstr "%1을(를) 닫으시겠습니까?"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "언어"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "컴파일"
+msgstr "컴파일러"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "컴파일러 탐색기"
+msgstr "컴파일러 옵션…"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -119,25 +117,21 @@ msgid "Intel Syntax"
 msgstr "인텔 문법"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
-msgstr "URL 변경..."
+msgstr "URL 변경…"
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
 msgstr "URL 입력"
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"CompilerExplorer 인스턴스 URL을 입력하십시오. 예: http://localhost:10240"
+"CompilerExplorer 인스턴스 URL을 입력하십시오. 예: “http://localhost:10240”"
 
 #: ce_widget.cpp:404
 #, kde-format

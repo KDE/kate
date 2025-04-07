@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2024-12-24 16:38+0100\n"
+"PO-Revision-Date: 2025-04-06 22:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -181,7 +181,7 @@ msgstr "필터…"
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
-msgstr ""
+msgstr "현재 탭에서 검색합니다. Ctrl 키를 누르고 있으면 새 탭에서 검색합니다."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294
@@ -590,7 +590,7 @@ msgstr "찾기"
 #: SearchPlugin.cpp:1169
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
-msgstr ""
+msgstr "검색할 디렉터리 '%1'이(가) 없어서 검색이 시작되지 않았습니다."
 
 #: SearchPlugin.cpp:1342
 #, kde-format

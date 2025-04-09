@@ -748,7 +748,9 @@ void GitWidget::openAtHEAD(const QString &file)
 
 void GitWidget::showDiff(const QString &file, bool staged)
 {
-    auto args = QStringList{QStringLiteral("diff")};
+    // Disable mnemonicPrefix since it breaks diff parsing
+    auto args = QStringList{QStringLiteral("-c"), QStringLiteral("diff.mnemonicPrefix=false")};
+    args.append(QStringLiteral("diff"));
     if (staged) {
         args.append(QStringLiteral("--staged"));
     }

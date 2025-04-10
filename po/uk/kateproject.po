@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 00:44+0000\n"
+"POT-Creation-Date: 2025-04-10 00:44+0000\n"
 "PO-Revision-Date: 2025-03-19 08:50+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -131,7 +131,7 @@ msgid "Commit Changes"
 msgstr "Внести зміни"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:283
-#: gitwidget.cpp:1102
+#: gitwidget.cpp:1104
 #, kde-format
 msgid "Commit"
 msgstr "Внести"
@@ -161,7 +161,7 @@ msgstr "Підписати"
 msgid "Amend"
 msgstr "Змінити"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1055
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1057
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Змінити останній внесок"
@@ -273,253 +273,253 @@ msgstr "Не вдалося вилучити. Повідомлення про п
 msgid "Failed to open file at HEAD: %1"
 msgstr "Не вдалося відкрити файл у HEAD: %1"
 
-#: gitwidget.cpp:764
+#: gitwidget.cpp:766
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Не вдалося отримати дані Diff для файла: %1"
 
-#: gitwidget.cpp:832
+#: gitwidget.cpp:834
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Не вдалося внести: %1"
 
-#: gitwidget.cpp:836
+#: gitwidget.cpp:838
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Зміни успішно внесено."
 
-#: gitwidget.cpp:846
+#: gitwidget.cpp:848
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Нічого вносити. Будь ласка, спочатку позначте ваші зміни."
 
-#: gitwidget.cpp:860
+#: gitwidget.cpp:862
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Повідомлення щодо внеску не може бути порожнім."
 
-#: gitwidget.cpp:991
+#: gitwidget.cpp:993
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Немає відмінностей між %1 і %2"
 
-#: gitwidget.cpp:997
+#: gitwidget.cpp:999
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Не вдалося порівняти %1...%2"
 
-#: gitwidget.cpp:1012
+#: gitwidget.cpp:1014
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Не вдалося отримати числові статистичні дані при порівнянні %1...%2"
 
-#: gitwidget.cpp:1047
+#: gitwidget.cpp:1049
 #, kde-format
 msgid "Refresh"
 msgstr "Освіжити"
 
-#: gitwidget.cpp:1064
+#: gitwidget.cpp:1066
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Отримати гілку"
 
-#: gitwidget.cpp:1076
+#: gitwidget.cpp:1078
 #, kde-format
 msgid "Delete Branch"
 msgstr "Вилучити гілку"
 
-#: gitwidget.cpp:1090
+#: gitwidget.cpp:1092
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Порівняти гілку з…"
 
-#: gitwidget.cpp:1096
+#: gitwidget.cpp:1098
 #, kde-format
 msgid "Show Commit"
 msgstr "Показати внесок"
 
-#: gitwidget.cpp:1114
+#: gitwidget.cpp:1116
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Показати останній внесок"
 
-#: gitwidget.cpp:1132
+#: gitwidget.cpp:1134
 #, kde-format
 msgid "Open Commit..."
 msgstr "Відкрити внесок…"
 
-#: gitwidget.cpp:1135 gitwidget.cpp:1180
+#: gitwidget.cpp:1137 gitwidget.cpp:1182
 #, kde-format
 msgid "Stash"
 msgstr "Накопичити"
 
-#: gitwidget.cpp:1139
+#: gitwidget.cpp:1141
 #, kde-format
 msgid "Show history"
 msgstr "Показати журнал"
 
-#: gitwidget.cpp:1151
+#: gitwidget.cpp:1153
 #, kde-format
 msgid "Diff - stash"
 msgstr "Різниця — накопичення"
 
-#: gitwidget.cpp:1184
+#: gitwidget.cpp:1186
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Виштовхнути останні накопичення"
 
-#: gitwidget.cpp:1188
+#: gitwidget.cpp:1190
 #, kde-format
 msgid "Pop Stash"
 msgstr "Виштовхнути накопичення"
 
-#: gitwidget.cpp:1192
+#: gitwidget.cpp:1194
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Застосувати останні накопичення"
 
-#: gitwidget.cpp:1194
+#: gitwidget.cpp:1196
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Накопичити (зберегти позначеним)"
 
-#: gitwidget.cpp:1198
+#: gitwidget.cpp:1200
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Накопичити (включно із новими)"
 
-#: gitwidget.cpp:1202
+#: gitwidget.cpp:1204
 #, kde-format
 msgid "Apply Stash"
 msgstr "Застосувати накопичення"
 
-#: gitwidget.cpp:1203
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Drop Stash"
 msgstr "Відкинути накопичення"
 
-#: gitwidget.cpp:1204
+#: gitwidget.cpp:1206
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Показати вміст накопичення"
 
-#: gitwidget.cpp:1242
+#: gitwidget.cpp:1244
 #, kde-format
 msgid "Stage All"
 msgstr "Позначити все"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Remove All"
 msgstr "Вилучити всі"
 
-#: gitwidget.cpp:1244
+#: gitwidget.cpp:1246
 #, kde-format
 msgid "Discard All"
 msgstr "Відкинути усе"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Відкрити .gitignore"
 
-#: gitwidget.cpp:1248 gitwidget.cpp:1297 gitwidget.cpp:1348
+#: gitwidget.cpp:1250 gitwidget.cpp:1299 gitwidget.cpp:1350
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Показати відмінності"
 
-#: gitwidget.cpp:1265
+#: gitwidget.cpp:1267
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Ви справді хочете вилучити ці файли?"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Ви справді хочете відкинути усі зміни?"
 
-#: gitwidget.cpp:1288
+#: gitwidget.cpp:1290
 #, kde-format
 msgid "Open File"
 msgstr "Відкрити файл"
 
-#: gitwidget.cpp:1289
+#: gitwidget.cpp:1291
 #, kde-format
 msgid "Unstage File"
 msgstr "Скасувати позначення файла"
 
-#: gitwidget.cpp:1289
+#: gitwidget.cpp:1291
 #, kde-format
 msgid "Stage File"
 msgstr "Позначити файл"
 
-#: gitwidget.cpp:1290
+#: gitwidget.cpp:1292
 #, kde-format
 msgid "Remove"
 msgstr "Вилучити"
 
-#: gitwidget.cpp:1290
+#: gitwidget.cpp:1292
 #, kde-format
 msgid "Discard"
 msgstr "Відкинути"
 
-#: gitwidget.cpp:1298
+#: gitwidget.cpp:1300
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Показати у зовнішній програмі для показу різниць git"
 
-#: gitwidget.cpp:1299
+#: gitwidget.cpp:1301
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Відкрити на HEAD"
 
-#: gitwidget.cpp:1303
+#: gitwidget.cpp:1305
 #, kde-format
 msgid "Show History"
 msgstr "Показати журнал"
 
-#: gitwidget.cpp:1319
+#: gitwidget.cpp:1321
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Ви справді хочете відкинути усі зміни у цьому файлі?"
 
-#: gitwidget.cpp:1330
+#: gitwidget.cpp:1332
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Ви справді бажаєте вилучити цей файл?"
 
-#: gitwidget.cpp:1347
+#: gitwidget.cpp:1349
 #, kde-format
 msgid "Unstage All"
 msgstr "Скасувати позначення усього"
 
-#: gitwidget.cpp:1414
+#: gitwidget.cpp:1416
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Скасувати позначення вибраних файлів"
 
-#: gitwidget.cpp:1414
+#: gitwidget.cpp:1416
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Позначити вибрані файли"
 
-#: gitwidget.cpp:1415
+#: gitwidget.cpp:1417
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Відкинути позначені файли"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1421
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Вилучити позначені файли"
 
-#: gitwidget.cpp:1432
+#: gitwidget.cpp:1434
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Ви справді хочете відкинути зміни?"
 
-#: gitwidget.cpp:1437
+#: gitwidget.cpp:1439
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""

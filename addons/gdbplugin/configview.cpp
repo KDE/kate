@@ -691,7 +691,7 @@ void ConfigView::slotBrowseExec()
             exe = QFileInfo(view->document()->url().toLocalFile()).absolutePath();
         }
     }
-    m_executable->setText(QFileDialog::getOpenFileName(this, QString(), exe));
+    m_executable->setText(QFileDialog::getOpenFileName(this, i18n("Select Executable"), exe));
 }
 
 void ConfigView::slotBrowseDir()
@@ -704,7 +704,7 @@ void ConfigView::slotBrowseDir()
             dir = QFileInfo(view->document()->url().toLocalFile()).absolutePath();
         }
     }
-    m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));
+    m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, i18n("Select Working Directory"), dir));
 }
 
 void ConfigView::saveCurrentToIndex(int index)

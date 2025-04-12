@@ -687,10 +687,8 @@ void ConfigView::slotBrowseExec()
 
     if (m_executable->text().isEmpty()) {
         // try current document dir
-        KTextEditor::View *view = m_mainWindow->activeView();
-
-        if (view != nullptr) {
-            exe = view->document()->url().toLocalFile();
+        if (KTextEditor::View *view = m_mainWindow->activeView(); view && view->document()->url().isLocalFile()) {
+            exe = QFileInfo(view->document()->url().toLocalFile()).absolutePath();
         }
     }
     m_executable->setText(QFileDialog::getOpenFileName(nullptr, QString(), exe, QStringLiteral("application/x-executable")));
@@ -702,10 +700,8 @@ void ConfigView::slotBrowseDir()
 
     if (m_workingDirectory->text().isEmpty()) {
         // try current document dir
-        KTextEditor::View *view = m_mainWindow->activeView();
-
-        if (view != nullptr) {
-            dir = view->document()->url().toLocalFile();
+        if (KTextEditor::View *view = m_mainWindow->activeView(); view && view->document()->url().isLocalFile()) {
+            dir = QFileInfo(view->document()->url().toLocalFile()).absolutePath();
         }
     }
     m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));

@@ -931,25 +931,9 @@ qint64 KateApp::lastActivationChange() const
 void KateApp::activate(const QString &token)
 {
     KateMainWindow *win = activeKateMainWindow();
-    if (!win) {
-        return;
+    if (win) {
+        win->activate(token);
     }
-
-    // like QtSingleApplication
-    win->setWindowState(win->windowState() & ~Qt::WindowMinimized);
-    win->raise();
-    win->activateWindow();
-
-    // try to raise window, see bug 407288
-    if (KWindowSystem::isPlatformX11()) {
-#if HAVE_X11
-        KStartupInfo::setNewStartupId(win->windowHandle(), token.toUtf8());
-#endif
-    } else if (KWindowSystem::isPlatformWayland()) {
-        KWindowSystem::setCurrentXdgActivationToken(token);
-    }
-
-    KWindowSystem::activateWindow(win->windowHandle());
 }
 
 #include "moc_kateapp.cpp"

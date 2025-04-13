@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="107" translationDomain="kate">
+<gui name="kate" version="109" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -101,6 +101,7 @@
       </Menu>
       <Separator/>
       <Merge name="kate_mdi_view_actions"/>
+      <Action name="view_windows"/>
       <Separator/>
       <DefineGroup name="view_operations"/>
     </Menu>

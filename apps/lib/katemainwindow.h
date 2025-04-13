@@ -335,6 +335,12 @@ public:
         return m_fileOpenRecent;
     }
 
+    /**
+     * activate this kate window
+     * @param token activation token, needed for X11 or wayland
+     */
+    void activate(const QString &token = QString());
+
     //
     // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
     //

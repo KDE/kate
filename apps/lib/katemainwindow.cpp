@@ -53,6 +53,7 @@
 #include <KToggleFullScreenAction>
 #include <KToolBar>
 #include <KWindowConfig>
+#include <KWindowSystem>
 #include <KXMLGUIFactory>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
@@ -60,6 +61,21 @@
 #include <KStyleManager>
 #endif
 
+// X11 startup handling
+#define HAVE_X11 __has_include(<KStartupInfo>)
+#if HAVE_X11
+#include <KStartupInfo>
+#include <KWindowInfo>
+#include <KX11Extras>
+#endif
+
+// wayland window activation
+#define HAVE_WAYLAND __has_include(<KWaylandExtras>)
+#if HAVE_WAYLAND
+#include <KWaylandExtras>
+#endif
+
+#include <QActionGroup>
 #include <QApplication>
 #include <QDir>
 #include <QDragEnterEvent>
@@ -622,6 +638,49 @@ void KateMainWindow::setupActions()
             if (url.isValid() && url.isLocalFile()) {
                 FileHistory::showFileHistory(url.toLocalFile(), m_wrapper);
             }
+        }
+    });
+
+    // add menu to get quick access to all open Kate windows
+    auto windows = new KActionMenu(i18n("&Windows"), this);
+    ac->addAction(QStringLiteral("view_windows"), windows);
+    QActionGroup *windowsGroup = new QActionGroup(windows);
+    connect(windows->menu(), &QMenu::aboutToShow, this, [this, windows, windowsGroup]() {
+        windows->menu()->clear();
+        const auto windowList = KateApp::self()->kateMainWindows();
+        for (auto win : windowList) {
+            auto a = windows->menu()->addAction(win->window()->windowTitle());
+            a->setData(QVariant::fromValue(win));
+            a->setCheckable(true);
+            a->setActionGroup(windowsGroup);
+            if (win == this) {
+                a->setChecked(true);
+            }
+        }
+    });
+    connect(windows->menu(), &QMenu::triggered, this, [this](QAction *a) {
+        if (auto win = a->data().value<KateMainWindow *>()) {
+#if HAVE_WAYLAND
+            // on wayland we need to get an activation token
+            if (KWindowSystem::isPlatformWayland()) {
+                const int launchedSerial = KWaylandExtras::self()->lastInputSerial(this->windowHandle());
+                QObject::connect(
+                    KWaylandExtras::self(),
+                    &KWaylandExtras::xdgActivationTokenArrived,
+                    win,
+                    [launchedSerial, win](int serial, const QString &token) {
+                        if (serial == launchedSerial) {
+                            win->activate(token);
+                        }
+                    },
+                    Qt::SingleShotConnection);
+                KWaylandExtras::requestXdgActivationToken(this->windowHandle(), launchedSerial, {});
+                return;
+            }
+#endif
+
+            // else: normal activate without a token
+            win->activate();
         }
     });
 }
@@ -1687,6 +1746,25 @@ void KateMainWindow::onApplicationStateChanged(Qt::ApplicationState)
             delete s_modOnHdDialog;
         });
     }
+}
+
+void KateMainWindow::activate(const QString &token)
+{
+    // try to raise window, see bug 407288
+    if (KWindowSystem::isPlatformX11()) {
+#if HAVE_X11
+        KStartupInfo::setNewStartupId(windowHandle(), token.toUtf8());
+#endif
+    } else if (KWindowSystem::isPlatformWayland()) {
+        KWindowSystem::setCurrentXdgActivationToken(token);
+    }
+
+    KWindowSystem::activateWindow(windowHandle());
+
+    // like QtSingleApplication
+    setWindowState(windowState() & ~Qt::WindowMinimized);
+    raise();
+    activateWindow();
 }
 
 #include "moc_katemainwindow.cpp"

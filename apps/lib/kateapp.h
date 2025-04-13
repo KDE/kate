@@ -251,6 +251,14 @@ public:
     bool documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMainWindow *window) const;
 
     /**
+     * known main windows
+     */
+    QList<KateMainWindow *> kateMainWindows() const
+    {
+        return m_mainWindows;
+    }
+
+    /**
      * some stuff for the DBus API
      */
 public:
@@ -409,6 +417,7 @@ public Q_SLOTS:
 
     /**
      * activate this kate instance
+     * @param token activation token, needed for X11 or wayland
      */
     void activate(const QString &token = QString());
 

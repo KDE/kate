@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -95,6 +95,16 @@ msgstr "ke  a"
 #| msgid "&Target:"
 msgid "Target %1"
 msgstr "&Sasaran:"
+
+#: configview.cpp:694
+#, kde-format
+msgid "Select Executable"
+msgstr ""
+
+#: configview.cpp:707
+#, kde-format
+msgid "Select Working Directory"
+msgstr ""
 
 #: dapbackend.cpp:182
 #, kde-format

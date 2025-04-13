@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2025-02-26 09:31+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -97,6 +97,18 @@ msgstr "Redirigix l'E/S dels programes depurats a una pestanya separada"
 #, kde-format
 msgid "Target %1"
 msgstr "Objectiu %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Executable:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Working Directory:"
+msgid "Select Working Directory"
+msgstr "Directori de treball:"
 
 #: dapbackend.cpp:182
 #, kde-format

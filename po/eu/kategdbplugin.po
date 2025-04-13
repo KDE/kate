@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2025-04-02 15:14+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -96,6 +96,18 @@ msgstr "Birbideratu araztutako programaren SI banatutako fitxa batera"
 #, kde-format
 msgid "Target %1"
 msgstr "Jomuga %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Exekutagarria:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Working Directory:"
+msgid "Select Working Directory"
+msgstr "Laneko direktorioa:"
 
 #: dapbackend.cpp:182
 #, kde-format

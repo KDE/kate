@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2023-11-07 21:26+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -89,6 +89,16 @@ msgstr ""
 #: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
+msgstr ""
+
+#: configview.cpp:694
+#, kde-format
+msgid "Select Executable"
+msgstr ""
+
+#: configview.cpp:707
+#, kde-format
+msgid "Select Working Directory"
 msgstr ""
 
 #: dapbackend.cpp:182

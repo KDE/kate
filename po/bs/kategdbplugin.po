@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2013-01-28 12:58+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -95,6 +95,18 @@ msgstr "Preusmjeri ulaz i izlaz programa koji se prate u posebnu karticu"
 #, kde-format
 msgid "Target %1"
 msgstr "Odredište %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Izvršni program:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Working Directory:"
+msgid "Select Working Directory"
+msgstr "Radni direktorij:"
 
 #: dapbackend.cpp:182
 #, kde-format

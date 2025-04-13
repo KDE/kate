@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2025-02-27 09:12+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -100,6 +100,18 @@ msgstr "Re-dirige une E / S des programmes débogués dans un onglet séparé"
 #, kde-format
 msgid "Target %1"
 msgstr "Cible %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Exécutable :"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Working Directory:"
+msgid "Select Working Directory"
+msgstr "Dossier de travail :"
 
 #: dapbackend.cpp:182
 #, kde-format

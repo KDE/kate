@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2013-04-06 12:26+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -90,6 +90,17 @@ msgstr ""
 #, kde-format
 msgid "Target %1"
 msgstr "लक्ष्य %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "एक्जीक्यूटेबल :"
+
+#: configview.cpp:707
+#, kde-format
+msgid "Select Working Directory"
+msgstr ""
 
 #: dapbackend.cpp:182
 #, kde-format

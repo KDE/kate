@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2020-10-23 11:56+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -91,6 +91,18 @@ msgstr "Silutud programmide sisendi/väljundi suunamine eraldi kaardile"
 #, kde-format
 msgid "Target %1"
 msgstr "Sihtmärk %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Täitmisfail:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Eemalda töökataloog"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -812,6 +824,3 @@ msgstr "GDB plugin"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Lisa töökataloog"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Eemalda töökataloog"

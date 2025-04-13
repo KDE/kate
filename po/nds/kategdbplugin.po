@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2014-08-14 16:55+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -92,6 +92,18 @@ msgstr "In-/Utgaven vun ünnersöcht Programmen na enkel Paneel ümledden"
 #, kde-format
 msgid "Target %1"
 msgstr "Teel %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Utföhrbor Datei:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Arbeitorner wegmaken"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -810,6 +822,3 @@ msgstr "GDB-Moduul"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Arbeitorner tofögen"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Arbeitorner wegmaken"

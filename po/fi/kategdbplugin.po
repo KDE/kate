@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2025-04-03 17:28+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -100,6 +100,18 @@ msgstr ""
 #, kde-format
 msgid "Target %1"
 msgstr "Kohde %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Ohjelmatiedosto:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Working Directory:"
+msgid "Select Working Directory"
+msgstr "Työhakemisto:"
 
 #: dapbackend.cpp:182
 #, kde-format

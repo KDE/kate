@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2015-02-19 20:27+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -90,6 +90,18 @@ msgstr "Omdirigér IO fra programmet der fejlsøges til et andet faneblad"
 #, kde-format
 msgid "Target %1"
 msgstr "Mål %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Kørbar fil:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Fjern arbejdsmappe"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -809,6 +821,3 @@ msgstr "GDB-plugin"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Tilføj arbejdsmappe"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Fjern arbejdsmappe"

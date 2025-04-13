@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2012-01-21 12:41+0200\n"
 "Last-Translator: Cristian Oneț <onet.cristian@gmail.com>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -98,6 +98,17 @@ msgstr "Redirectează IO-ul programelor depanate către o filă separată"
 #| msgid "Targets"
 msgid "Target %1"
 msgstr "Ținte"
+
+#: configview.cpp:694
+#, kde-format
+msgid "Select Executable"
+msgstr ""
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "&Working Directory:"
+msgid "Select Working Directory"
+msgstr "&Dosar de lucru:"
 
 #: dapbackend.cpp:182
 #, kde-format

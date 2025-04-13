@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2025-03-30 14:18+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -93,6 +93,18 @@ msgstr "Ridireziona l'I/O dei programmi sotto debug in una scheda a parte"
 #, kde-format
 msgid "Target %1"
 msgstr "Obiettivo %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Eseguibile:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Rimuovi cartella di lavoro"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -835,6 +847,3 @@ msgstr "Estensione di debug"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Aggiungi cartella di lavoro"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Rimuovi cartella di lavoro"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2024-11-01 14:03+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -93,6 +93,18 @@ msgstr "Redirect the debugged programs IO to a separate tab"
 #, kde-format
 msgid "Target %1"
 msgstr "Target %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Executable:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Remove Working Directory"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -837,6 +849,3 @@ msgstr "Debug Plugin"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Add Working Directory"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Remove Working Directory"

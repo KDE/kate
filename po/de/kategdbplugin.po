@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-27 00:43+0000\n"
+"POT-Creation-Date: 2025-04-13 00:43+0000\n"
 "PO-Revision-Date: 2023-07-09 13:40+0200\n"
 "Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -92,6 +92,18 @@ msgstr ""
 #, kde-format
 msgid "Target %1"
 msgstr "Ziel %1"
+
+#: configview.cpp:694
+#, fuzzy, kde-format
+#| msgid "Executable:"
+msgid "Select Executable"
+msgstr "Programmdatei:"
+
+#: configview.cpp:707
+#, fuzzy, kde-format
+#| msgid "Remove Working Directory"
+msgid "Select Working Directory"
+msgstr "Arbeitsordner entfernen"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -825,6 +837,3 @@ msgstr "GDB-Modul"
 
 #~ msgid "Add Working Directory"
 #~ msgstr "Arbeitsordner hinzufügen"
-
-#~ msgid "Remove Working Directory"
-#~ msgstr "Arbeitsordner entfernen"

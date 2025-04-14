@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 02:34+0000\n"
-"PO-Revision-Date: 2025-03-16 15:31+0530\n"
+"PO-Revision-Date: 2025-04-13 16:58+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -2561,11 +2561,13 @@ msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
 msgstr ""
+"'%1' எனும் பெயரில் எந்த கருவிக்காட்சியும் இல்லை. அதற்கான செருகுநிரல் "
+"முடக்கப்பட்டிருக்கலாம், அல்லது பெயர் தவறாக இருக்கலாம்."
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
 msgid "Script error. Expected a toolview name. Available: %1"
-msgstr ""
+msgstr "சிறுநிரலில் சிக்கல். கருவிக்காட்சியின் பெயர் எதிர்பார்க்கப்பட்டது. கிடைக்கின்றவை: %1"
 
 #: lib/mainwindow_commands.cpp:55
 #, kde-format
@@ -2577,12 +2579,16 @@ msgstr "சிறுநிரலாக்கம்"
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. கருவிக்காட்சி பலகையைக் காட்டும். கிடைக்கின்ற பலகைகள்: "
+"%1"
 
 #: lib/mainwindow_commands.cpp:78
 #, kde-format
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
+"'showtoolview $toolview_name'. கருவிக்காட்சி பலகையை மறைக்கும். கிடைக்கின்ற பலகைகள்: "
+"%1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 02:34+0000\n"
-"PO-Revision-Date: 2025-03-09 16:58+0530\n"
+"PO-Revision-Date: 2025-04-13 16:55+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -188,7 +188,7 @@ msgstr ""
 #: gitstatusmodel.cpp:89
 #, kde-format
 msgid "Conflict"
-msgstr " முரண்பாடு"
+msgstr "முரண்பாடு"
 
 #: gitstatusmodel.cpp:91
 #, kde-format
@@ -323,7 +323,7 @@ msgstr "கிழையை நீக்கு"
 #: gitwidget.cpp:1088
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "கிளையை இத்துடன் ஒப்பிடு..."
 
 #: gitwidget.cpp:1093
 #, kde-format
@@ -489,12 +489,12 @@ msgstr "தேர்ந்தெடுத்த கோப்புகளை ஏ�
 #: gitwidget.cpp:1397
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "தேர்ந்தெடுத்துள்ள கோப்புகளை கைவிடு"
 
 #: gitwidget.cpp:1401
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "தேர்ந்தெடுத்துள்ள கோப்புகளை நீக்கு"
 
 #: gitwidget.cpp:1414
 #, kde-format

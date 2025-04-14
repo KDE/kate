@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Kishore G <kishore96@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Kishore G <kishore96@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2024-03-10 11:41+0530\n"
+"PO-Revision-Date: 2025-04-13 16:59+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "Language: ta\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -27,17 +27,17 @@ msgstr ""
 #: configview.cpp:90
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "புதிய இலக்கை சேர்"
 
 #: configview.cpp:94
 #, kde-format
 msgid "Copy target"
-msgstr ""
+msgstr "இலக்கை நகலெடு"
 
 #: configview.cpp:98
 #, kde-format
 msgid "Delete target"
-msgstr ""
+msgstr "இலக்கை நீக்கு"
 
 #: configview.cpp:102
 #, kde-format
@@ -89,7 +89,7 @@ msgstr ""
 #: configview.cpp:462 configview.cpp:475
 #, kde-format
 msgid "Target %1"
-msgstr ""
+msgstr "இலக்கு %1"
 
 #: configview.cpp:694
 #, fuzzy, kde-format

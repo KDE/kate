@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-02-26 08:10+0100\n"
+"PO-Revision-Date: 2025-04-13 03:42+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -95,16 +95,14 @@ msgid "Target %1"
 msgstr "სამიზნე %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "გამშვები ფაილი:"
+msgstr "აირჩიეთ გამშვები ფაილი"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "სამუშაო საქაღალდე:"
+msgstr "აირჩიეთ სამუშაო საქაღალდე"
 
 #: dapbackend.cpp:182
 #, kde-format

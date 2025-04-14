@@ -1,4 +1,4 @@
-# Translation of kategdbplugin to Spanish
+# Spanish translations for kategdbplugin.po package.
 # Copyright (C) 2011-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
 #
@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-02-27 00:17+0100\n"
+"PO-Revision-Date: 2025-04-13 18:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
@@ -98,16 +98,14 @@ msgid "Target %1"
 msgstr "Objetivo %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Ejecutable:"
+msgstr "Seleccionar ejecutable"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Directorio de trabajo:"
+msgstr "Seleccionar directorio de trabajo"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -712,125 +710,3 @@ msgstr "&Depurar"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Complemento de depuración"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Marco"
-
-#~ msgid "killing backend"
-#~ msgstr "matando el motor"
-
-#~ msgid "GDB command"
-#~ msgstr "Orden GDB"
-
-#~ msgid "..."
-#~ msgstr "…"
-
-#~ msgid "Source file search paths"
-#~ msgstr "Rutas de búsqueda de archivos de código fuente"
-
-#~ msgid "Local application"
-#~ msgstr "Aplicación local"
-
-#~ msgid "Remote TCP"
-#~ msgstr "TCP remoto"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Puerto serie remoto"
-
-#~ msgid "Host"
-#~ msgstr "Servidor"
-
-#~ msgid "Port"
-#~ msgstr "Puerto"
-
-#~ msgid "Baud"
-#~ msgstr "Baudios"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Órdenes de inicio personalizadas"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Preferencias avanzadas"
-
-#~ msgid "Locals"
-#~ msgstr "Locales"
-
-#~ msgid "CPU registers"
-#~ msgstr "Registros de la CPU"
-
-#~ msgid ""
-#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-#~ msgstr ""
-#~ "Defina el ejecutable en la pestaña «Preferencias» del panel «Depuración»."
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr ""
-#~ "No se ha seleccionado ningún depurador. Seleccione uno en la pestaña "
-#~ "«Preferencias» del panel «Depuración»."
-
-#~ msgid ""
-#~ "Debugger not found. Please make sure you have it installed in your "
-#~ "system. The selected debugger is '%1'"
-#~ msgstr ""
-#~ "No se ha encontrado el depurador. Asegúrese de que está instalado en el "
-#~ "sistema. El depurador seleccionado es «%1»."
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "No se puede iniciar el proceso del depurador"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb ha terminado normalmente ***"
-
-#~ msgid "all threads running"
-#~ msgstr "todos los hilos en ejecución"
-
-#~ msgid "thread(s) running: %1"
-#~ msgstr "hilo(s) en ejecución: %1"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "Marco actual: %1:%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Máquina: %1. Objetivo: %1"
-
-#~ msgid ""
-#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-#~ "Shutting down."
-#~ msgstr ""
-#~ "gdb-mi: No se ha podido analizar la última respuesta: %1. Demasiados "
-#~ "errores consecutivos. Apagando…"
-
-#~ msgid "gdb-mi: Could not parse last response: %1"
-#~ msgstr "gdb-mi: No se ha podido analizar la última respuesta: %1"
-
-#~ msgid "post mortem"
-#~ msgstr "post mortem"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Rocío Gallego,Eloy Cuadra"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "traducciones@rociogallego.com,ecuadra@eloihr.net"
-
-#~ msgid "GDB Integration"
-#~ msgstr "Integración de GDB"
-
-#~ msgid "Kate GDB Integration"
-#~ msgstr "Integración de GDB en Kate"

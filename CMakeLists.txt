@@ -69,7 +69,11 @@ if (NOT WIN32 AND NOT HAIKU)
 endif()
 
 # define which offscreen platform plugin to use for tests
-set(OFFSCREEN_QPA "-platform" "offscreen")
+# windows has issues with offscreen tests in the CI
+set(OFFSCREEN_QPA)
+if(NOT WIN32)
+    set(OFFSCREEN_QPA "-platform" "offscreen")
+endif()
 
 # deprecation options
 ecm_set_disabled_deprecation_versions(

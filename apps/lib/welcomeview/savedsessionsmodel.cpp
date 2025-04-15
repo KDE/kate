@@ -37,11 +37,9 @@ QVariant SavedSessionsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-int SavedSessionsModel::rowCount(const QModelIndex &parent) const
+int SavedSessionsModel::rowCount(const QModelIndex &) const
 {
-    Q_UNUSED(parent);
-
-    return m_sessions.size();
+    return int(m_sessions.size());
 }
 
 void SavedSessionsModel::refresh(const KateSessionList &sessionList)

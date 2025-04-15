@@ -23,7 +23,6 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 
-#include "katefiletreedebug.h"
 #include "ktexteditor_utils.h"
 
 #include <variant>
@@ -229,7 +228,7 @@ int ProxyItem::addChild(ProxyItem *item)
         item->m_parent->removeChild(item);
     }
 
-    const int item_row = m_children.size();
+    const int item_row = int(m_children.size());
     item->m_row = item_row;
     m_children.push_back(item);
     item->m_parent = static_cast<ProxyItemDir *>(this);
@@ -247,7 +246,7 @@ void ProxyItem::removeChild(ProxyItem *item)
 
     auto idx = std::distance(m_children.begin(), it);
     for (size_t i = idx; i < m_children.size(); i++) {
-        m_children[i]->m_row = i;
+        m_children[i]->m_row = int(i);
     }
 
     item->m_parent = nullptr;
@@ -265,7 +264,7 @@ ProxyItem *ProxyItem::child(int idx) const
 
 int ProxyItem::childCount() const
 {
-    return m_children.size();
+    return int(m_children.size());
 }
 
 int ProxyItem::row() const
@@ -730,7 +729,7 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
     childs.erase(childs.begin() + sourceRow);
     // update row number of children
     for (size_t i = 0; i < childs.size(); i++) {
-        childs[i]->m_row = i;
+        childs[i]->m_row = int(i);
     }
 
     endMoveRows();

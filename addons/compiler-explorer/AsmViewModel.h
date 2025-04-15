@@ -57,7 +57,7 @@ public:
 
     int rowCount(const QModelIndex &p) const override
     {
-        return p.isValid() ? 0 : m_rows.size();
+        return p.isValid() ? 0 : int(m_rows.size());
     }
 
     int columnCount(const QModelIndex &) const override

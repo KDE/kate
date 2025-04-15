@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-10 00:44+0000\n"
-"PO-Revision-Date: 2025-03-21 06:47+0200\n"
+"PO-Revision-Date: 2025-04-14 08:15+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ לביטול."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -38,12 +38,12 @@ msgstr "יצירת ענף חדש מתוך…"
 #: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "הענף %1 נשלף"
 
 #: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "שליפת הענף %1 נכשלה, שגיאה: %2"
 
 #: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
@@ -53,12 +53,12 @@ msgstr "נא למלא שם חדש לענף. ‚Esc’ לביטול."
 #: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "נא לבחור ענף לשליפה ממנו. לחיצה על ‚Esc’ לביטול."
 
 #: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "שליפה לענף חדש: %1"
 
 #: branchcheckoutdialog.cpp:127
 #, kde-format
@@ -183,7 +183,7 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:85
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "בימוי"
 
 #: gitstatusmodel.cpp:87
 #, kde-format

@@ -102,16 +102,14 @@ msgid "Target %1"
 msgstr "Hedef %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Yürütülebilir:"
+msgstr "Yürütülebilir Seç"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Çalışma dizini:"
+msgstr "Çalışma Dizini Seç"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -715,125 +713,3 @@ msgstr "Hata &Ayıklama"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Hata Ayıklama Eklentisi"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Çerçeve"
-
-#~ msgid "killing backend"
-#~ msgstr "arka uç öldürülüyor"
-
-#~ msgid "GDB command"
-#~ msgstr "GDB komutu"
-
-#~ msgid "..."
-#~ msgstr "…"
-
-#~ msgid "Source file search paths"
-#~ msgstr "Kaynak dosya arama yolları"
-
-#~ msgid "Local application"
-#~ msgstr "Yerel uygulama"
-
-#~ msgid "Remote TCP"
-#~ msgstr "Uzak TCP"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Uzak Seri Kapı"
-
-#~ msgid "Host"
-#~ msgstr "Makine"
-
-#~ msgid "Port"
-#~ msgstr "Kapı"
-
-#~ msgid "Baud"
-#~ msgstr "Baud"
-
-#~ msgid "solib-absolute-prefix"
-#~ msgstr "solib-absolute-prefix"
-
-#~ msgid "solib-search-path"
-#~ msgstr "solib-search-path"
-
-#~ msgid "Custom Init Commands"
-#~ msgstr "Özel Init Komutları"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Gelişmiş Ayarlar"
-
-#~ msgid "Locals"
-#~ msgstr "Yereller"
-
-#~ msgid "CPU registers"
-#~ msgstr "CPU yazmaçları"
-
-#~ msgid ""
-#~ "Please set the executable in the 'Settings' tab in the 'Debug' panel."
-#~ msgstr ""
-#~ "“Hata Ayıkla” panelindeki “Ayarlar” sekmesinden yürütülebiliri ayarlayın."
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr ""
-#~ "Seçili bir hata ayıklayıcısı yok. “Hata Ayıkla” panelindeki “Ayarlar” "
-#~ "sekmesinden bir tane seçin."
-
-#~ msgid ""
-#~ "Debugger not found. Please make sure you have it installed in your "
-#~ "system. The selected debugger is '%1'"
-#~ msgstr ""
-#~ "Hata ayıklayıcı bulunamadı. Sisteminizde bir tane kurulu olduğundan "
-#~ "lütfen emin olun. Seçili hata ayıklayıcı “%1“"
-
-#~ msgid "Could not start debugger process"
-#~ msgstr "Hata ayıklayıcı süreci başlatılamadı"
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb uygulamasından normal olarak çıkıldı ***"
-
-#~ msgid "all threads running"
-#~ msgstr "tüm iş parçacıkları çalışıyor"
-
-#~ msgid "thread(s) running: %1"
-#~ msgstr "çalışan iş parçacıkları: %1"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "Geçerli kare: %1:%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Makine: %1. Hedef: %1"
-
-#~ msgid ""
-#~ "gdb-mi: Could not parse last response: %1. Too many consecutive errors. "
-#~ "Shutting down."
-#~ msgstr ""
-#~ "gdb-mi: Son yanıt ayrıştırılamadı: %1. Çok fazla art arda hata. "
-#~ "Kapatılıyor."
-
-#~ msgid "gdb-mi: Could not parse last response: %1"
-#~ msgstr "gdb-mi: Son yanıt ayrıştırılamadı: %1"
-
-#~ msgid "post mortem"
-#~ msgstr "kapatma sonrası"
-
-#~ msgid "popup_breakpoint"
-#~ msgstr "popup_breakpoint"
-
-#~ msgid "popup_run_to_cursor"
-#~ msgstr "popup_run_to_cursor"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Serdar Soytetir, Emir SARI"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "tulliana@gmail.com, emir_sari@icloud.com"
-
-#~ msgid "GDB Integration"
-#~ msgstr "GDB Bütünleşmesi"
-
-#~ msgid "Kate GDB Integration"
-#~ msgstr "Kate GDB Bütünleşmesi"

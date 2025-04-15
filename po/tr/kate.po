@@ -1782,10 +1782,9 @@ msgid "Show File Git History"
 msgstr "Dosya Git Geçmişini Göster"
 
 #: lib/katemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "Yeni &Pencere"
+msgstr "&Pencereler"
 
 #: lib/katemainwindow.cpp:704
 #, kde-format
@@ -3075,13 +3074,3 @@ msgstr "Oturumları Yönet…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Yeni pencerelerde karşılama ekranını göster"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "Tez Aç Arama (bağlam menüsü ile yapılandır)"
-
-#~ msgid "Show for new window"
-#~ msgstr "Yeni pencerelerde göster"
-
-#~ msgid ""
-#~ "Internal error: there is more than one instance open for a given session."
-#~ msgstr "İçsel hata: Verilen bir oturum için açık birden fazla örnek var."

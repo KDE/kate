@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-14 00:43+0000\n"
-"PO-Revision-Date: 2025-03-23 05:27+0100\n"
+"PO-Revision-Date: 2025-04-14 03:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1772,10 +1772,9 @@ msgid "Show File Git History"
 msgstr "ფაილის Git ისტორიის ჩვენება"
 
 #: lib/katemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "&ახალი ფანჯარა"
+msgstr "&ფანჯრები"
 
 #: lib/katemainwindow.cpp:704
 #, kde-format

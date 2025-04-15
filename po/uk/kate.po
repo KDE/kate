@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-14 00:43+0000\n"
-"PO-Revision-Date: 2025-03-23 10:46+0200\n"
+"PO-Revision-Date: 2025-04-14 10:05+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -1792,10 +1792,9 @@ msgid "Show File Git History"
 msgstr "Показати журнал файла git"
 
 #: lib/katemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "&Нове вікно"
+msgstr "&Вікна"
 
 #: lib/katemainwindow.cpp:704
 #, kde-format

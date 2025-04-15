@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-14 00:43+0000\n"
-"PO-Revision-Date: 2025-04-02 15:30+0200\n"
+"PO-Revision-Date: 2025-04-14 23:00+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -1788,10 +1788,9 @@ msgid "Show File Git History"
 msgstr "Erakutsi fitxategien Git historia"
 
 #: lib/katemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "&Leiho berria"
+msgstr "&Leihoak"
 
 #: lib/katemainwindow.cpp:704
 #, kde-format

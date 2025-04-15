@@ -92,16 +92,14 @@ msgid "Target %1"
 msgstr "目标 %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "可执行文件"
+msgstr ""
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "工作目录："
+msgstr ""
 
 #: dapbackend.cpp:182
 #, kde-format

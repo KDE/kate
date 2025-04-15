@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-14 00:43+0000\n"
-"PO-Revision-Date: 2025-03-23 02:54+0100\n"
+"PO-Revision-Date: 2025-04-15 01:24+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -1802,10 +1802,9 @@ msgid "Show File Git History"
 msgstr "Mostrar el historial Git del archivo"
 
 #: lib/katemainwindow.cpp:645
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "Nueva &ventana"
+msgstr "Venta&nas"
 
 #: lib/katemainwindow.cpp:704
 #, kde-format

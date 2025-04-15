@@ -180,5 +180,5 @@ private:
     SearchDiskFilesWorkList &m_worklist;
     const QRegularExpression m_regExp;
     const bool m_includeBinaryFiles;
-    const bool m_sizeLimit;
+    const int m_sizeLimit;
 };

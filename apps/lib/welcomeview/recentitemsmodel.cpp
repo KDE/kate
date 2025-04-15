@@ -38,11 +38,9 @@ QVariant RecentItemsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-int RecentItemsModel::rowCount(const QModelIndex &parent) const
+int RecentItemsModel::rowCount(const QModelIndex &) const
 {
-    Q_UNUSED(parent);
-
-    return m_recentItems.size();
+    return int(m_recentItems.size());
 }
 
 void RecentItemsModel::refresh(const QList<QUrl> &urls)

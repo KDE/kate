@@ -469,19 +469,20 @@ void MultiTabBar::reorderTab(int id, KMultiTabBarTab *before)
     if (it == m_tabList.end()) {
         return;
     }
-    int idIdx = std::distance(m_tabList.begin(), it);
+
+    const qsizetype idIdx = std::distance(m_tabList.begin(), it);
     it = before ? std::find(m_tabList.begin(), m_tabList.end(), before->id()) : m_tabList.end();
     if (before && it == m_tabList.end()) {
         // can't find before id?
         return;
     }
     // before == null, idx will be the last idx
-    int beforeIdx = it == m_tabList.end() ? m_tabList.size() - 1 : std::distance(m_tabList.begin(), it);
+    const qsizetype beforeIdx = it == m_tabList.end() ? m_tabList.size() - 1 : std::distance(m_tabList.begin(), it);
     if (idIdx == beforeIdx) {
         return;
     }
 
-    int start = std::min(idIdx, beforeIdx);
+    const qsizetype start = std::min(idIdx, beforeIdx);
 
     // copy because after removeTab `before` will be invalid
     const int beforeId = before ? before->id() : -1;

@@ -1,19 +1,18 @@
 # Kate application
-if(WITH_DBUS)
-    add_executable(kate-bin
-        katewaiter.cpp
-        main.cpp
-        data/kate.qrc)
-else()
-    add_executable(kate-bin
-        ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication.cpp
-        ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication_p.cpp
-        main.cpp
-        data/kate.qrc)
+add_executable(kate-bin
+    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication.cpp
+    ${CMAKE_SOURCE_DIR}/3rdparty/SingleApplication/singleapplication_p.cpp
+    main.cpp
+    data/kate.qrc)
 
-    # ensure consistent SingleApplication usage
-    target_compile_definitions(kate-bin PRIVATE -DQAPPLICATION_CLASS=QApplication)
+# we use SingleApplication without letting it inherit from QApplication
+target_compile_definitions(kate-bin PRIVATE -DQAPPLICATION_CLASS=FreeStandingSingleApplication)
+
+# add dbus support class if needed
+if(WITH_DBUS)
+    target_sources(kate-bin PRIVATE katewaiter.cpp)
 endif()
+
 target_link_libraries(kate-bin PRIVATE kateprivate)
 
 # X11 startup handling

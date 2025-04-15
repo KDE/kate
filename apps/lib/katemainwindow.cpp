@@ -93,8 +93,13 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QToolButton>
+#include <QWindow>
 
 #include <ktexteditor/sessionconfiginterface.h>
+
+#ifdef Q_OS_WIN
+#include <windows.h>
+#endif
 
 // END
 
@@ -1750,16 +1755,31 @@ void KateMainWindow::onApplicationStateChanged(Qt::ApplicationState)
 
 void KateMainWindow::activate(const QString &token)
 {
-    // try to raise window, see bug 407288
-    if (KWindowSystem::isPlatformX11()) {
+    // if we got a token, use it
+    if (!token.isEmpty()) {
+        // try to raise window, see bug 407288
+        if (KWindowSystem::isPlatformWayland()) {
+            KWindowSystem::setCurrentXdgActivationToken(token);
+        }
+
 #if HAVE_X11
-        KStartupInfo::setNewStartupId(windowHandle(), token.toUtf8());
+        if (KWindowSystem::isPlatformX11()) {
+            KStartupInfo::setNewStartupId(windowHandle(), token.toUtf8());
+        }
 #endif
-    } else if (KWindowSystem::isPlatformWayland()) {
-        KWindowSystem::setCurrentXdgActivationToken(token);
     }
 
     KWindowSystem::activateWindow(windowHandle());
+
+#if defined(Q_OS_WIN)
+    // more work on Windows to raise the window
+    // in main.cpp we allow that for the secondary app in Kate
+    const auto winHandle = (HWND)windowHandle()->winId();
+    if (::IsIconic(winHandle)) {
+        ::ShowWindow(winHandle, SW_RESTORE);
+    }
+    ::SetForegroundWindow(winHandle);
+#endif
 
     // like QtSingleApplication
     setWindowState(windowState() & ~Qt::WindowMinimized);

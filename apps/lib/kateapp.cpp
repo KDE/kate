@@ -888,7 +888,7 @@ void KateApp::remoteMessageReceived(quint32, QByteArray message)
     }
 
     // try to activate current window
-    activate();
+    activate(jsonMessage.object().value(QLatin1String("activationToken")).toString());
     if (doc && activeMainWindow()) {
         activeMainWindow()->activateView(doc);
     }

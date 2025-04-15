@@ -47,16 +47,37 @@
 #include <KDBusService>
 #include <QDBusMessage>
 #include <QDBusReply>
-#else
+#endif
+
 #include "SingleApplication/SingleApplication"
+
+#ifdef Q_OS_WIN
+#include <windows.h>
 #endif
 
 Q_LOGGING_CATEGORY(KateTime, "kate.time", QtDebugMsg)
+
+// helper to get activation token for second instance
+static QString activationToken()
+{
+    if (KWindowSystem::isPlatformWayland()) {
+        return qEnvironmentVariable("XDG_ACTIVATION_TOKEN");
+    }
+
+#if HAVE_X11
+    if (KWindowSystem::isPlatformX11()) {
+        return QString::fromUtf8(QX11Info::nextStartupId());
+    }
+#endif
+
+    return QString();
+}
 
 int main(int argc, char **argv)
 {
     QElapsedTimer timer;
     timer.start();
+
     /**
      * fork into the background if we don't need to be blocking
      * we need to do that early
@@ -80,14 +101,10 @@ int main(int argc, char **argv)
      * Create application first
      * For DBus just a normal application
      */
-#ifdef WITH_DBUS
     QApplication app(argc, argv);
-#else
-    SingleApplication app(argc, argv, true);
-#endif
-
     qCDebug(KateTime, "QApplication initialized in %lld ms", timer.elapsed());
     timer.restart();
+
     /**
      * Enforce application name even if the executable is renamed
      * Connect application with translation catalogs, Kate & KWrite share the same one
@@ -243,12 +260,20 @@ int main(int argc, char **argv)
      */
     const bool needToBlock = parser.isSet(startBlockingOption) && !urls.isEmpty();
 
+    /**
+     * we will later try SingleApplication if dbus is no option
+     */
+    bool dbusNotThere = true;
+
 #ifdef WITH_DBUS
     /**
      * use dbus, if available for linux and co.
      * allows for reuse of running Kate instances
      */
     if (const auto sessionBusInterface = QDBusConnection::sessionBus().interface()) {
+        // we have dbus, don't try single application
+        dbusNotThere = false;
+
         /**
          * try to get the current running kate instances
          */
@@ -429,13 +454,7 @@ int main(int argc, char **argv)
                                                                       QStringLiteral("/MainApplication"),
                                                                       QStringLiteral("org.kde.Kate.Application"),
                                                                       QStringLiteral("activate"));
-            if (KWindowSystem::isPlatformWayland()) {
-                activateMsg.setArguments({qEnvironmentVariable("XDG_ACTIVATION_TOKEN")});
-            } else if (KWindowSystem::isPlatformX11()) {
-#if HAVE_X11
-                activateMsg.setArguments({QString::fromUtf8(QX11Info::nextStartupId())});
-#endif
-            }
+            activateMsg.setArguments({activationToken()});
             QDBusConnection::sessionBus().call(activateMsg);
 
             // connect dbus signal
@@ -481,47 +500,59 @@ int main(int argc, char **argv)
             return needToBlock ? QApplication::exec() : 0;
         }
     }
-#else
+#endif
+
     /**
      * if we had no DBus session bus, we can try to use the SingleApplication communication.
      * only try to reuse existing kate instances if not already forbidden by arguments
      */
-    if (!force_new && app.isSecondary()) {
-        // support +xyz line number as first argument
-        KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
+    std::unique_ptr<SingleApplication> singleApplicationInstance;
+    if (dbusNotThere) {
+        singleApplicationInstance.reset(new SingleApplication(argc, argv, true));
+        if (!force_new && singleApplicationInstance->isSecondary()) {
+#if defined(Q_OS_WIN)
+            // allow primary instance to raise its window
+            AllowSetForegroundWindow(singleApplicationInstance->primaryPid());
+#endif
 
-        /**
-         * construct one big message with all urls to open
-         * later we will add additional data to this
-         */
-        QVariantMap message;
-        QVariantList messageUrls;
-        for (UrlInfo info : std::as_const(urls)) {
-            if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
-                // same semantics as e.g. in mcedit, just use for the first file
-                info.cursor = firstLineNumberArgument;
-                firstLineNumberArgument = KTextEditor::Cursor::invalid();
-            }
+            // support +xyz line number as first argument
+            KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
 
             /**
-             * pack info into the message as extra element in urls list
+             * construct one big message with all urls to open
+             * later we will add additional data to this
              */
-            QVariantMap urlMessagePart;
-            urlMessagePart[QLatin1String("url")] = info.url;
-            urlMessagePart[QLatin1String("line")] = info.cursor.line();
-            urlMessagePart[QLatin1String("column")] = info.cursor.column();
-            messageUrls.append(urlMessagePart);
-        }
-        message[QLatin1String("urls")] = messageUrls;
+            QVariantMap message;
+            QVariantList messageUrls;
+            for (UrlInfo info : std::as_const(urls)) {
+                if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
+                    // same semantics as e.g. in mcedit, just use for the first file
+                    info.cursor = firstLineNumberArgument;
+                    firstLineNumberArgument = KTextEditor::Cursor::invalid();
+                }
 
-        /**
-         * try to send message, return success
-         */
-        return !app.sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(),
-                                1000,
-                                needToBlock ? SingleApplication::BlockUntilPrimaryExit : SingleApplication::NonBlocking);
+                /**
+                 * pack info into the message as extra element in urls list
+                 */
+                QVariantMap urlMessagePart;
+                urlMessagePart[QLatin1String("url")] = info.url;
+                urlMessagePart[QLatin1String("line")] = info.cursor.line();
+                urlMessagePart[QLatin1String("column")] = info.cursor.column();
+                messageUrls.append(urlMessagePart);
+            }
+            message[QLatin1String("urls")] = messageUrls;
+
+            // add activation token
+            message[QLatin1String("activationToken")] = activationToken();
+
+            /**
+             * try to send message, return success
+             */
+            return !singleApplicationInstance->sendMessage(QJsonDocument::fromVariant(QVariant(message)).toJson(),
+                                                           1000,
+                                                           needToBlock ? SingleApplication::BlockUntilPrimaryExit : SingleApplication::NonBlocking);
+        }
     }
-#endif
 
     /**
      * if we arrive here, we need to start a new kate instance!
@@ -549,12 +580,14 @@ int main(int argc, char **argv)
      * finally register this kate instance for dbus, don't die if no dbus is around!
      */
     const KDBusService dbusService(KDBusService::Multiple | KDBusService::NoExitOnFailure);
-#else
+#endif
+
     /**
      * listen to single application messages if no DBus
      */
-    QObject::connect(&app, &SingleApplication::receivedMessage, &kateApp, &KateApp::remoteMessageReceived);
-#endif
+    if (singleApplicationInstance) {
+        QObject::connect(singleApplicationInstance.get(), &SingleApplication::receivedMessage, &kateApp, &KateApp::remoteMessageReceived);
+    }
 
     /**
      * start main event loop for our application

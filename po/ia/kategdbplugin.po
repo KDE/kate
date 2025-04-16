@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-02-26 10:03+0100\n"
+"PO-Revision-Date: 2025-04-15 15:13+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -94,16 +94,14 @@ msgid "Target %1"
 msgstr "Objectivo %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Executabile:"
+msgstr "Selectiona  executabile"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Remove Working Directory"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "remove directorio de travalio"
+msgstr "Selectiona directorio de travalio"
 
 #: dapbackend.cpp:182
 #, kde-format

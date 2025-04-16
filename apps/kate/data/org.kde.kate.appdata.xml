@@ -1003,7 +1003,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="es">Compatibilidad con IntelliSense mediante LSP (Protocolo de servidor de lenguaje)</li>
       <li xml:lang="eu">«Intellisense»ren euskarria LSP (Language Server Protocol / Lengoaia Zerbitzari Protokoloa) erabiliz</li>
       <li xml:lang="fi">Intellisense-tuki LSP:n (Language Server Protocol) kautta</li>
-      <li xml:lang="fr">Prise en charge de Intellisense à l'aide d'un module « LSP » (Language Server Protocol)</li>
+      <li xml:lang="fr">Prise en charge de IntelliSense à l'aide d'un module « LSP » (Language Server Protocol)</li>
       <li xml:lang="gl">Permite completación automática mediante LSP (protocolo de servidor de linguaxes).</li>
       <li xml:lang="he">תמיכה ב־Intellisense באמצעות LSP (פרוטוקול שרת שפה)</li>
       <li xml:lang="ia">Supporto de Intellisense usante LSP (LKanguage Server Protocol)</li>

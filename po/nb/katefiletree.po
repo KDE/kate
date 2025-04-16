@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-04-16 02:33+0000\n"
 "PO-Revision-Date: 2014-11-11 22:20+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -359,14 +359,14 @@ msgstr "Dokumenter"
 msgid "Configure Documents"
 msgstr "Sett opp dokumenter"
 
-#: katefiletreemodel.cpp:494
+#: katefiletreemodel.cpp:493
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr ""
 
-#: katefiletreemodel.cpp:645
+#: katefiletreemodel.cpp:644
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

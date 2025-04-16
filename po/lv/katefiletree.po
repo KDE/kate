@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-01 00:44+0000\n"
+"POT-Creation-Date: 2025-04-16 02:33+0000\n"
 "PO-Revision-Date: 2025-03-04 19:04+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -355,14 +355,14 @@ msgstr "Dokumenti"
 msgid "Configure Documents"
 msgstr "Konfigurēt dokumentus"
 
-#: katefiletreemodel.cpp:494
+#: katefiletreemodel.cpp:493
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "Atvērt logdaļas"
 
-#: katefiletreemodel.cpp:645
+#: katefiletreemodel.cpp:644
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

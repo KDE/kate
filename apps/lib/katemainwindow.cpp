@@ -437,8 +437,17 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
     a->setText(i18n("Copy Location"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        KTextEditor::View *view = viewManager()->activeView();
-        KateFileActions::copyFilePathToClipboard(view->document());
+        if (auto view = viewManager()->activeView())
+            KateFileActions::copyFilePathToClipboard(view->document());
+    });
+    a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
+
+    a = ac->addAction(QStringLiteral("file_copy_filename"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
+    a->setText(i18n("Copy Filename"));
+    connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
+        if (auto view = viewManager()->activeView())
+            KateFileActions::copyFileNameToClipboard(view->document());
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
 
@@ -446,8 +455,8 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
     a->setText(i18n("&Open Containing Folder"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        KTextEditor::View *view = viewManager()->activeView();
-        KateFileActions::openContainingFolder(view->document());
+        if (auto view = viewManager()->activeView())
+            KateFileActions::openContainingFolder(view->document());
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
 
@@ -455,8 +464,8 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-rename")));
     a->setText(i18nc("@action:inmenu", "Rename..."));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        KTextEditor::View *view = viewManager()->activeView();
-        KateFileActions::renameDocumentFile(this, view->document());
+        if (auto view = viewManager()->activeView())
+            KateFileActions::renameDocumentFile(this, view->document());
     });
     a->setWhatsThis(i18n("Renames the file belonging to the current document."));
 
@@ -464,8 +473,8 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     a->setText(i18nc("@action:inmenu", "Delete"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        KTextEditor::View *view = viewManager()->activeView();
-        KateFileActions::deleteDocumentFile(this, view->document());
+        if (auto view = viewManager()->activeView())
+            KateFileActions::deleteDocumentFile(this, view->document());
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
 
@@ -473,8 +482,8 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("dialog-object-properties")));
     a->setText(i18n("Properties"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        KTextEditor::View *view = viewManager()->activeView();
-        KateFileActions::openFilePropertiesDialog(this, view->document());
+        if (auto view = viewManager()->activeView())
+            KateFileActions::openFilePropertiesDialog(this, view->document());
     });
     a->setWhatsThis(i18n("Deletes the file belonging to the current document."));
 
@@ -1085,6 +1094,7 @@ void KateMainWindow::slotUpdateActionsNeedingUrl()
     const bool hasUrl = view && !view->document()->url().isEmpty();
 
     action(QStringLiteral("file_copy_filepath"))->setEnabled(hasUrl);
+    action(QStringLiteral("file_copy_filename"))->setEnabled(hasUrl);
     action(QStringLiteral("file_open_containing_folder"))->setEnabled(hasUrl);
     action(QStringLiteral("file_rename"))->setEnabled(hasUrl);
     action(QStringLiteral("file_delete"))->setEnabled(hasUrl);

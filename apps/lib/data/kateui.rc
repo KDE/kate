@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kate" version="109" translationDomain="kate">
+<gui name="kate" version="110" translationDomain="kate">
   <MenuBar>
     <Menu name="file" noMerge="1">
       <text>&amp;File</text>
@@ -34,6 +34,7 @@
         <Action name="file_compare"/>
         <Separator/>
         <Action name="file_copy_filepath"/>
+        <Action name="file_copy_filename"/>
         <Action name="file_open_containing_folder"/>
         <Action name="file_properties"/>
       </Menu>

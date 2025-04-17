@@ -44,6 +44,11 @@ void KateFileActions::copyFilePathToClipboard(KTextEditor::Document *doc)
     QApplication::clipboard()->setText(url.isLocalFile() ? QDir::toNativeSeparators(url.toLocalFile()) : url.url());
 }
 
+void KateFileActions::copyFileNameToClipboard(KTextEditor::Document *doc)
+{
+    QApplication::clipboard()->setText(doc->url().fileName());
+}
+
 void KateFileActions::openContainingFolder(KTextEditor::Document *doc)
 {
     KIO::highlightInFileManager({doc->url()});

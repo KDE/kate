@@ -1155,6 +1155,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     aDetachTab->setWhatsThis(i18n("Opens the document in a new window and closes it in the current window"));
     menu.addSeparator();
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
+    QAction *aCopyFilename = addActionFromCollection(&menu, "file_copy_filename");
     QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
     QAction *aFileProperties = addActionFromCollection(&menu, "file_properties");
     menu.addSeparator();
@@ -1179,6 +1180,7 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 
     if (doc->url().isEmpty()) {
         aCopyPath->setEnabled(false);
+        aCopyFilename->setEnabled(false);
         aOpenFolder->setEnabled(false);
         aRenameFile->setEnabled(false);
         aDeleteFile->setEnabled(false);
@@ -1222,6 +1224,8 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         });
     } else if (choice == aCopyPath) {
         KateFileActions::copyFilePathToClipboard(doc);
+    } else if (choice == aCopyFilename) {
+        KateFileActions::copyFileNameToClipboard(doc);
     } else if (choice == aOpenFolder) {
         KateFileActions::openContainingFolder(doc);
     } else if (choice == aFileProperties) {

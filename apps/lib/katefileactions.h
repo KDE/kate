@@ -31,6 +31,12 @@ namespace KateFileActions
 KATE_PRIVATE_EXPORT void copyFilePathToClipboard(KTextEditor::Document *document);
 
 /**
+ * Copies the file name to clipboard.
+ * If the document has no file, the clipboard will be emptied.
+ */
+KATE_PRIVATE_EXPORT void copyFileNameToClipboard(KTextEditor::Document *document);
+
+/**
  * Tries to open and highlight the underlying url in the filemanager
  */
 KATE_PRIVATE_EXPORT void openContainingFolder(KTextEditor::Document *document);

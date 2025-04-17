@@ -1757,10 +1757,9 @@ msgid "Show File Git History"
 msgstr "Zobrazit Git historii souboru"
 
 #: lib/katemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "Nové &okno"
+msgstr "O&kna"
 
 #: lib/katemainwindow.cpp:709
 #, kde-format

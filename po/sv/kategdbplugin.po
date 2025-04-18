@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-02-26 18:01+0100\n"
+"PO-Revision-Date: 2025-04-17 12:16+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
@@ -95,16 +95,14 @@ msgid "Target %1"
 msgstr "Mål %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Körbar fil:"
+msgstr "Välj körbar fil"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Remove Working Directory"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Ta bort arbetskatalog"
+msgstr "Välj arbetskatalog"
 
 #: dapbackend.cpp:182
 #, kde-format

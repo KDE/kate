@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-03-02 10:39+0400\n"
+"PO-Revision-Date: 2025-04-17 08:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -94,16 +94,14 @@ msgid "Target %1"
 msgstr "الهدف %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "تنفيذيّ:"
+msgstr "حدد ملفا قابلا للتنفيذ"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "دليل العمل:"
+msgstr "حدد دليل العمل"
 
 #: dapbackend.cpp:182
 #, kde-format

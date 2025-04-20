@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-10 00:44+0000\n"
-"PO-Revision-Date: 2025-03-20 07:14+0100\n"
+"PO-Revision-Date: 2025-04-18 16:17+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -213,7 +213,7 @@ msgstr "Modifié"
 #: gitwidget.cpp:291
 #, kde-format
 msgid "Git Push"
-msgstr "Git push"
+msgstr "git push"
 
 #: gitwidget.cpp:304
 #, kde-format

@@ -1547,11 +1547,9 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "Zkopíruje cestu k současnému souboru do schránky."
 
 #: lib/katemainwindow.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
-msgstr "Zkopírovat název souboru"
+msgstr "Kopírovat název souboru"
 
 #: lib/katemainwindow.cpp:456 lib/welcomeview/welcomeview.cpp:268
 #, kde-format

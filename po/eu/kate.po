@@ -14,14 +14,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-21 02:34+0000\n"
-"PO-Revision-Date: 2025-04-02 15:30+0200\n"
+"PO-Revision-Date: 2025-04-25 22:10+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, kde-format
@@ -282,7 +282,7 @@ msgstr "Tresna-barra nagusia"
 #: lib/data/kateui.rc:161
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr "Hamburger menu tresna-barra"
+msgstr "Hanburger menu tresna-barra"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:175

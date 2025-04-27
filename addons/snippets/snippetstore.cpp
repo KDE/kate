@@ -10,7 +10,6 @@
 
 #include "snippetstore.h"
 
-#include "katesnippetglobal.h"
 #include "snippetrepository.h"
 
 #include <QDir>

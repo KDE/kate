@@ -10,8 +10,6 @@
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
-#include "ktexteditor/application.h"
-#include "ktexteditor/editor.h"
 #include "ktexteditor/mainwindow.h"
 
 #include <KLocalizedString>

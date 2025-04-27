@@ -14,10 +14,10 @@
 #include "ktexteditor/editor.h"
 #include "ktexteditor/mainwindow.h"
 
-#include <KColorScheme>
 #include <KLocalizedString>
 
 #include <QAction>
+#include <QApplication>
 
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>"))
@@ -68,11 +68,10 @@ QVariant Snippet::data(int role) const
         return m_snippet;
     } else if ((role == Qt::ForegroundRole || role == Qt::BackgroundRole) && parent()->checkState() != Qt::Checked) {
         /// TODO: make the selected items also "disalbed" so the toggle action is seen directly
-        KColorScheme scheme(QPalette::Disabled, KColorScheme::View);
         if (role == Qt::ForegroundRole) {
-            return scheme.foreground(KColorScheme::NormalText).color();
+            return qApp->palette().color(QPalette::Disabled, QPalette::Text);
         } else {
-            return scheme.background(KColorScheme::NormalBackground).color();
+            return qApp->palette().color(QPalette::Disabled, QPalette::Base);
         }
     }
     return QStandardItem::data(role);

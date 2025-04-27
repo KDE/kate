@@ -13,21 +13,18 @@
 #include "snippet.h"
 
 #include <QAction>
-#include <QFile>
-#include <QFileInfo>
-#include <QTimer>
-
+#include <QApplication>
+#include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QDomElement>
+#include <QFile>
+#include <QFileInfo>
+#include <QStandardPaths>
+#include <QTimer>
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <QApplication>
-#include <QDebug>
-
-#include <KColorScheme>
-
 #include <KUser>
 
 #include "snippetstore.h"
@@ -360,8 +357,7 @@ QVariant SnippetRepository::data(int role) const
         }
     } else if (role == Qt::ForegroundRole && checkState() != Qt::Checked) {
         /// TODO: make the selected items also "disalbed" so the toggle action is seen directly
-        KColorScheme scheme(QPalette::Disabled, KColorScheme::View);
-        QColor c = scheme.foreground(KColorScheme::NormalText).color();
+        QColor c = qApp->palette().color(QPalette::Disabled, QPalette::Text);
         return QVariant(c);
     }
     return QStandardItem::data(role);

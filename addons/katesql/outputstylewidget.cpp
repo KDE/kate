@@ -13,7 +13,6 @@
 #include <QIcon>
 
 #include <KColorButton>
-#include <KColorScheme>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -68,10 +67,8 @@ QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString
     auto *foregroundColorButton = new KColorButton(this);
     auto *backgroundColorButton = new KColorButton(this);
 
-    const KColorScheme scheme(QPalette::Active, KColorScheme::View);
-
-    foregroundColorButton->setDefaultColor(scheme.foreground().color());
-    backgroundColorButton->setDefaultColor(scheme.background().color());
+    foregroundColorButton->setDefaultColor(palette().text().color());
+    backgroundColorButton->setDefaultColor(palette().base().color());
 
     setItemWidget(item, 1, boldCheckBox);
     setItemWidget(item, 2, italicCheckBox);

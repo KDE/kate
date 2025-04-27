@@ -7,11 +7,11 @@
 #include "dataoutputmodel.h"
 #include "outputstyle.h"
 
-#include <KColorScheme>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
 
+#include <QApplication>
 #include <QFontDatabase>
 #include <QLocale>
 
@@ -55,16 +55,14 @@ void DataOutputModel::readConfig()
 
     KConfigGroup group = config.group(QStringLiteral("OutputCustomization"));
 
-    KColorScheme scheme(QPalette::Active, KColorScheme::View);
-
     const auto styleKeys = m_styles.keys();
     for (const QString &k : styleKeys) {
         OutputStyle *s = m_styles[k];
 
         KConfigGroup g = group.group(k);
 
-        s->foreground = scheme.foreground();
-        s->background = scheme.background();
+        s->foreground = qApp->palette().text();
+        s->background = qApp->palette().base();
         s->font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
         QFont dummy = g.readEntry("font", QFontDatabase::systemFont(QFontDatabase::GeneralFont));

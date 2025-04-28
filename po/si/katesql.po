@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-17 00:44+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2011-07-27 00:07+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -398,55 +398,55 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "විමසුම ක්‍රියාත්මක කරන්න"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "සන්දර්භය"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "පෙළ වර්ණය"
 
-#: outputstylewidget.cpp:30
+#: outputstylewidget.cpp:29
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "පසුබිම් වර්ණය"
 
-#: outputstylewidget.cpp:39
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "පෙළ"
 
-#: outputstylewidget.cpp:40
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "අංකය"
 
-#: outputstylewidget.cpp:41
+#: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bool"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:41
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "දිනය හා වේලාව"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:44
+#: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"

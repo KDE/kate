@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-17 00:44+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2025-04-06 22:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -380,55 +380,55 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "쿼리 실행"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Context"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "텍스트 색상"
 
-#: outputstylewidget.cpp:30
+#: outputstylewidget.cpp:29
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "배경 색상"
 
-#: outputstylewidget.cpp:39
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "텍스트"
 
-#: outputstylewidget.cpp:40
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "숫자"
 
-#: outputstylewidget.cpp:41
+#: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "참/거짓"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:41
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "날짜와 시간"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:44
+#: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"

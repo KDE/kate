@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-17 00:44+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2013-01-28 12:51+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -399,55 +399,55 @@ msgctxt "@action:inmenu"
 msgid "Run Query"
 msgstr "Pokreni upit"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Context"
 msgstr "Kontekst"
 
-#: outputstylewidget.cpp:29
+#: outputstylewidget.cpp:28
 #, kde-format
 msgctxt "@title:column"
 msgid "Text Color"
 msgstr "Boja teksta"
 
-#: outputstylewidget.cpp:30
+#: outputstylewidget.cpp:29
 #, kde-format
 msgctxt "@title:column"
 msgid "Background Color"
 msgstr "Boja pozadine"
 
-#: outputstylewidget.cpp:39
+#: outputstylewidget.cpp:38
 #, kde-format
 msgctxt "@item:intable"
 msgid "Text"
 msgstr "Tekst"
 
-#: outputstylewidget.cpp:40
+#: outputstylewidget.cpp:39
 #, kde-format
 msgctxt "@item:intable"
 msgid "Number"
 msgstr "Broj"
 
-#: outputstylewidget.cpp:41
+#: outputstylewidget.cpp:40
 #, kde-format
 msgctxt "@item:intable"
 msgid "Bool"
 msgstr "Bulov"
 
-#: outputstylewidget.cpp:42
+#: outputstylewidget.cpp:41
 #, kde-format
 msgctxt "@item:intable"
 msgid "Date & Time"
 msgstr "Datum i vrijeme"
 
-#: outputstylewidget.cpp:43
+#: outputstylewidget.cpp:42
 #, kde-format
 msgctxt "@item:intable"
 msgid "NULL"
 msgstr "NULL"
 
-#: outputstylewidget.cpp:44
+#: outputstylewidget.cpp:43
 #, kde-format
 msgctxt "@item:intable"
 msgid "BLOB"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2024-08-04 09:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -225,22 +225,22 @@ msgstr "Tekstbitar"
 msgid "Create Snippet"
 msgstr "Lag tekstbit"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<tom tekstbit>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "set inn tekstbit %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<tomt lager>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -250,28 +250,28 @@ msgstr ""
 "Du har redigert ei tekstbitlager-fil som ikkje ligg i den personlege mappa "
 "di. Derfor vart det lagra ein kopi av fila med nytt namn der."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Klarte ikkje opna fila «%1» for lagring"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Klarte ikkje opna tekstbitlageret %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Oppdaga feilen <b>%4</b><br /> i fila %1 ved %2/%3.</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Ugyldig XML-tekstbitfil: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -280,12 +280,12 @@ msgstr ""
 "Lageret er slått av. Tekstbitane i lageret vert ikkje viste under "
 "kodefullføring."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Gjeld alle filtypar"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Gjeld desse filtypane: %1"

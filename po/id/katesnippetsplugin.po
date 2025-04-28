@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2020-03-05 07:54+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -231,22 +231,22 @@ msgstr "Cuplikan"
 msgid "Create Snippet"
 msgstr "Ciptakan Cuplikan"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<cuplikan kosong>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "sisipkan cuplikan %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<repositori kosong>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, fuzzy, kde-format
 #| msgid ""
 #| "You have edited a data file not located in your personal data directory; "
@@ -261,28 +261,28 @@ msgstr ""
 "peribadimu; dengan demikian, klona dari file data asli yang diganti namanya "
 "telah diciptakan dalam direktori data peribadimu."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Output file '%1' tidak bisa dibuka untuk ditulis"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Tidak bisa membuka repositori cuplikan %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Error <b>%4</b><br /> dideteksi dalam file %1 pada %2/%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "File cuplikan XML yang tidak absah: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -291,12 +291,12 @@ msgstr ""
 "Repositori tidak difungsikan, cuplikan yang berisi tidak akan ditampilkan "
 "selamat penyempurnaan kode."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Terapkan untuk semua tipe file"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Terapkan pada tipe file berikut: %1"

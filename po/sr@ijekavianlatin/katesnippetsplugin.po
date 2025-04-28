@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -235,22 +235,22 @@ msgstr "Isečci"
 msgid "Create Snippet"
 msgstr "Napravi isečak"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "(prazan isečak)"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "umetni isečak %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "(prazna riznica)"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, fuzzy, kde-format
 #| msgid ""
 #| "You have edited a data file not located in your personal data directory; "
@@ -264,29 +264,29 @@ msgstr ""
 "Uredili ste fajl izvan svoje korisničke fascikle. Zato je preimenovana "
 "kopija izvornog fajla napravljena u vašoj korisničkoj fascikli."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Izlazni fajl ‘%1’ ne može da se otvori za pisanje."
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Ne mogu da otvorim riznicu isečaka %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Otkrivena je greška <b>%4</b><br />u fajlu <tt>%1</tt> kod %2:%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Loš XML fajl isečaka: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -294,12 +294,12 @@ msgid ""
 msgstr ""
 "Riznica je isključena, sadržani isečci neće biti nuđeni tokom dopune kode."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Važi za sve tipove fajlova"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Važi za sledeće tipove fajlova: %1"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2020-10-23 11:48+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -226,22 +226,22 @@ msgstr "Koodijupid"
 msgid "Create Snippet"
 msgstr "Loo koodijupp"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<tühi koodijupp>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "lisa koodijupp %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<tühi hoidla>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -251,28 +251,28 @@ msgstr ""
 "Sa oled muutnud koodijuppide hoidla faili, mis ei asu sinu isiklikus "
 "kataloogis; seega loodi sinu isiklikku andmete kataloogi algse faili koopia."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Väljundfaili \"%1\" avamine kirjutamiseks nurjus"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Koodijuppide hoidla %1 avamine nurjus."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Viga <b>%4</b><br /> avastati failis %1 asukohas %2/%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Vigane XML-koodijupifail: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -280,12 +280,12 @@ msgid ""
 msgstr ""
 "Hoidla on keelatud, selles leiduvaid koodijuppe koodi lõpetamisel ei näidata."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Kehtib kõigile failitüüpidele"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Kehtib järgmistele failitüüpidele: %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2021-03-09 11:08+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -228,22 +228,22 @@ msgstr "Kod fraqmentləri"
 msgid "Create Snippet"
 msgstr "Kod fraqmenti yaradın"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<empty snippet>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "%1 kod fraqmenti əlavə edin"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<empty repository>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -254,28 +254,28 @@ msgstr ""
 "Beləliklə, orijinal məlumatların bir nüsxəsi şəxsi məlumat qovluğunuzda "
 "yaradılmışdır."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "\"%1\" çıxış sənədi yazmaq üçün açıla bilmədi"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "%1 kod fraqmentləri toplusunu açmaq mümkün deyil."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Xəta<b>%4</b><br /> %2/%3 daxilindəki %1 faylında aşkarlandı</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Səhv XML kod fraqmenti faylı: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -284,12 +284,12 @@ msgstr ""
 "Rapzitoriya söndürülüb, Kodun avtomatik tamamlanmasında tərkib hissələri "
 "göstərilməyəcək."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Bütün fayl növlərinə tətbiq edilir"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Aşağıdakı fayl növlərinə tətbiq edilir: %1"

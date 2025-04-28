@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2021-12-17 11:38+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -230,22 +230,22 @@ msgstr "Kódrészletek"
 msgid "Create Snippet"
 msgstr "Kódrészlet létrehozása"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<üres kódrészlet>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "%1. kódrészlet beszúrása"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<üres tároló>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -256,29 +256,29 @@ msgstr ""
 "található, ezért az eredeti fájl másolata került létrehozásra a saját "
 "mappájában."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "A(z) „%1” kimenetfájl nem nyitható meg írásra"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Nem nyitható meg a kódrészlet-tároló: %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>A(z) <b>%4</b><br /> hiba található a(z) %1 fájlban itt: %2/%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Érvénytelen XML kódrészletfájl: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -287,12 +287,12 @@ msgstr ""
 "A tároló le van tiltva, a tartalmazott kódrészletek nem lesznek láthatók a "
 "kódkiegészítés során."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Alkalmazás minden fájltípusra"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Alkalmazás a következő fájltípusokra: %1"

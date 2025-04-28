@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2024-06-19 18:55+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -230,22 +230,22 @@ msgstr "Frammenti"
 msgid "Create Snippet"
 msgstr "Crea frammento"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<frammento vuoto>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "inserisci frammento %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<deposito vuoto>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -256,28 +256,28 @@ msgstr ""
 "personale; perciò è stata creata una copia del file originale all'interno "
 "della tua cartella personale."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Il file di destinazione «%1» non può essere aperto in scrittura"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Impossibile aprire il deposito di frammenti %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>L'errore <b>%4</b><br /> è stato rilevato nel file %1 a %2/%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "File di frammento XML non valido: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -286,12 +286,12 @@ msgstr ""
 "Il deposito è disabilitato, i frammenti contenuti non saranno mostrati "
 "durante il completamento del codice."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Si applica a tutti i tipi di file"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Si applica ai seguenti tipi di file: %1"

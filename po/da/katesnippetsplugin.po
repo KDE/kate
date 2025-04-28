@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-06-09 00:41+0000\n"
+"POT-Creation-Date: 2025-04-28 00:44+0000\n"
 "PO-Revision-Date: 2016-05-28 16:18+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -200,22 +200,22 @@ msgstr "Tekststumper"
 msgid "Create Snippet"
 msgstr "Opret tekststump"
 
-#: snippet.cpp:23
+#: snippet.cpp:21
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<tom tekststump>"
 
-#: snippet.cpp:61
+#: snippet.cpp:59
 #, kde-format
 msgid "insert snippet %1"
 msgstr "indsæt tekststump %1"
 
-#: snippetrepository.cpp:46
+#: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<tomt depot>"
 
-#: snippetrepository.cpp:233
+#: snippetrepository.cpp:230
 #, fuzzy, kde-format
 #| msgid ""
 #| "You have edited a data file not located in your personal data directory; "
@@ -230,28 +230,28 @@ msgstr ""
 "Derfor er der blevet oprettet en omdøbt klon af den oprindelige datafil i "
 "din personlige datamappe."
 
-#: snippetrepository.cpp:239
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Outputfilen \"%1\" kunne ikke åbnes til skrivning"
 
-#: snippetrepository.cpp:274
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Kan ikke åbne tekststumpdepot %1."
 
-#: snippetrepository.cpp:281
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Fejlen <b>%4</b><br /> er detekteret i filen %1 ved %2/%3</qt>"
 
-#: snippetrepository.cpp:292
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Ugyldig XML-tekststumpfil: %1"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:351
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -260,12 +260,12 @@ msgstr ""
 "Depotet er deaktiveret. De indeholdte tekststumper vil ikke blive vist under "
 "kodefuldførelse."
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Anvendes på alle filtyper"
 
-#: snippetrepository.cpp:359
+#: snippetrepository.cpp:356
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Anvende på følgende filtyper: %1"

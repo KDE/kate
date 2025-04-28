@@ -14,7 +14,7 @@ assumes:
 compression: lzo
 environment:
   QTWEBENGINEPROCESS_PATH: "$SNAP/usr/lib/qt6/libexec/QtWebEngineProcess"
-  LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/usr/lib${LD_LIBRARY_PATH}
+  LD_LIBRARY_PATH: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libproxy:$SNAP/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/usr/lib${LD_LIBRARY_PATH}
   XDG_DATA_DIRS: "$XDG_DATA_DIRS:$SNAP/usr/share"
   XDG_CONFIG_DIRS: "$XDG_CONFIG_DIRS:$SNAP/etc/xdg"
   __EGL_VENDOR_LIBRARY_DIRS: "$SNAP/etc/glvnd/egl_vendor.d:$SNAP/usr/share/glvnd/egl_vendor.d"

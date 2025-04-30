@@ -14,6 +14,7 @@
 #include <QApplication>
 #include <QFontDatabase>
 #include <QLocale>
+#include <QPalette>
 
 inline static bool isNumeric(const int type)
 {

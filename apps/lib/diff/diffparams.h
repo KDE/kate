@@ -22,7 +22,11 @@ struct DiffParams {
         /** Reload diff view whenever its widget is shown */
         ReloadOnShow = 32,
         /** Show full context button */
-        ShowFullContext = 64
+        ShowFullContext = 64,
+        /** Show Edit line action on left side context menu */
+        ShowEditLeftSide = 128,
+        /** Show Edit line action on right side context menu */
+        ShowEditRightSide = 256
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 

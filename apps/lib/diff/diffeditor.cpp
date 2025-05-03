@@ -4,6 +4,7 @@
 */
 #include "diffeditor.h"
 #include "difflinenumarea.h"
+#include "diffparams.h"
 #include "diffwidget.h"
 #include "ktexteditor_utils.h"
 
@@ -51,6 +52,8 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
     , m_lineNumArea(new LineNumArea(this))
     , m_diffWidget(static_cast<DiffWidget *>(parent))
     , m_flags(f)
+    , m_openLineNumAEnabled(false)
+    , m_openLineNumBEnabled(false)
 {
     setFrameStyle(QFrame::NoFrame);
 
@@ -166,6 +169,16 @@ KTextEditor::Range DiffEditor::selectionRange() const
     return {startLine, startColumn, endLine, endColumn};
 }
 
+void DiffEditor::setOpenLineNumAEnabled(bool enabled)
+{
+    m_openLineNumAEnabled = enabled;
+}
+
+void DiffEditor::setOpenLineNumBEnabled(bool enabled)
+{
+    m_openLineNumBEnabled = enabled;
+}
+
 void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
 {
     // Follow KTextEditor behaviour
@@ -192,6 +205,27 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
         });
         a->setMenu(styleMenu);
         menu->insertAction(before, a);
+
+        // Edit line Action
+        if (m_flags.testFlag(DiffParams::ShowEditLeftSide) || m_flags.testFlag(DiffParams::ShowEditRightSide)) {
+            int blockNumber = textCursor().blockNumber();
+            int lineNumA = m_lineNumArea->lineNumForBlock(blockNumber);
+            int lineNumB = m_lineNumArea->lineNumForBlockB(blockNumber);
+            auto openFileAction = new QAction(i18n("Edit Line"), this);
+            connect(openFileAction, &QAction::triggered, this, [this, lineNumA, lineNumB] {
+                if (m_openLineNumAEnabled && lineNumA != -1) {
+                    Q_EMIT openLineNumARequested(lineNumA, textCursor().columnNumber());
+                } else if (m_openLineNumBEnabled && lineNumB != -1) {
+                    Q_EMIT openLineNumBRequested(lineNumB, textCursor().columnNumber());
+                }
+            });
+            menu->insertAction(before, openFileAction);
+            bool aDisabled = !m_openLineNumAEnabled || lineNumA == -1;
+            bool bDisabled = !m_openLineNumBEnabled || lineNumB == -1;
+            if (aDisabled && bDisabled) {
+                openFileAction->setDisabled(true);
+            }
+        }
     }
 
     addStageUnstageDiscardActions(menu);

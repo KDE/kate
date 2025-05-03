@@ -31,9 +31,12 @@
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Format>
 #include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/Cursor>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/View>
+#include <ktexteditor/cursor.h>
 
 DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KTextEditor::MainWindow *mw, const DiffParams &p)
 {
@@ -57,6 +60,10 @@ void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KTe
     DiffWidget *existing = existingDiffWidgetForParams(mw, p);
     if (!existing) {
         existing = new DiffWidget(p);
+        mw->connect(existing, &DiffWidget::openFileRequested, mw, [mw](QString path, int line, int columnNumber) {
+            auto view = mw->openUrl(QUrl(path));
+            view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+        });
         if (!p.tabTitle.isEmpty()) {
             existing->setWindowTitle(p.tabTitle);
         } else {
@@ -80,9 +87,17 @@ void DiffWidgetManager::diffDocs(KTextEditor::Document *l, KTextEditor::Document
 {
     DiffParams p;
     p.arguments = DiffWidget::diffDocsGitArgs(l, r);
+    p.flags.setFlag(DiffParams::Flag::ShowEditLeftSide, true);
+    p.flags.setFlag(DiffParams::Flag::ShowEditRightSide, true);
+    p.srcFile = l->url().toLocalFile();
+    p.destFile = r->url().toLocalFile();
     DiffWidget *existing = existingDiffWidgetForParams(mw, p);
     if (!existing) {
         existing = new DiffWidget(p);
+        mw->connect(existing, &DiffWidget::openFileRequested, mw, [mw](QString path, int line, int columnNumber) {
+            auto view = mw->openUrl(QUrl(path));
+            view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
+        });
         existing->diffDocs(l, r);
         existing->setWindowTitle(i18n("Diff %1 .. %2", l->documentName(), r->documentName()));
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
@@ -246,13 +261,26 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
         connect(e, &DiffEditor::actionTriggered, this, &DiffWidget::handleStageUnstage);
     }
 
+    // Connect both left and right editors to open line requests
+    connect(m_left, &DiffEditor::openLineNumARequested, this, [this, p](int line, int columnNumber) {
+        Q_EMIT openFileRequested(p.srcFile, line, columnNumber);
+    });
+    connect(m_left, &DiffEditor::openLineNumBRequested, this, [this, p](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    });
+    connect(m_right, &DiffEditor::openLineNumARequested, this, [this, p](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    });
+    connect(m_right, &DiffEditor::openLineNumBRequested, this, [this, p](int line, int columnNumber) {
+        Q_EMIT openFileRequested(!p.destFile.isEmpty() ? p.destFile : p.srcFile, line, columnNumber);
+    });
+
     m_commitInfo->hide();
     m_commitInfo->setWordWrapMode(QTextOption::WordWrap);
     m_commitInfo->setFont(Utils::editorFont());
     m_commitInfo->setReadOnly(true);
     m_commitInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
     m_commitInfo->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-    m_commitInfo->setMaximumHeight(250);
 
     connect(m_toolbar, &Toolbar::showCommitInfoChanged, this, [this](bool v) {
         m_commitInfo->setVisible(v);
@@ -271,7 +299,13 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
 
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+
+    // DiffStyle::SideBySide defaults
+    m_left->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditLeftSide));
+    m_right->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditRightSide));
+
     handleStyleChange(cgGeneral.readEntry("Diff Show Style", (int)SideBySide));
+
     // clear, after handleStyleChange there might be "no differences found" text
     m_left->clear();
     m_right->clear();
@@ -310,14 +344,22 @@ void DiffWidget::handleStyleChange(int newStyle)
 
     if (m_style == SideBySide) {
         m_left->setVisible(true);
+        m_left->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditLeftSide));
+        m_left->setOpenLineNumBEnabled(false);
         m_right->setVisible(true);
+        m_right->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditRightSide));
+        m_right->setOpenLineNumBEnabled(false);
         openDiff(diff);
     } else if (m_style == Unified) {
         m_left->setVisible(true);
+        m_left->setOpenLineNumAEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditLeftSide));
+        m_left->setOpenLineNumBEnabled(m_params.flags.testFlag(DiffParams::Flag::ShowEditRightSide));
         m_right->setVisible(false);
         openDiff(diff);
     } else if (m_style == Raw) {
         m_left->setVisible(true);
+        m_left->setOpenLineNumAEnabled(false);
+        m_left->setOpenLineNumBEnabled(false);
         m_right->setVisible(false);
         openDiff(diff);
     } else {

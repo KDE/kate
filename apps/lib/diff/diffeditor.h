@@ -103,6 +103,9 @@ public:
     int firstVisibleLineNumber() const;
     void scrollToLineNumber(int lineNo);
 
+    void setOpenLineNumAEnabled(bool enabled);
+    void setOpenLineNumBEnabled(bool enabled);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
     void paintEvent(QPaintEvent *e) override;
@@ -129,7 +132,12 @@ private:
     QTimeLine m_timeLine;
     QRect m_animateTextRect;
 
+    bool m_openLineNumAEnabled;
+    bool m_openLineNumBEnabled;
+
 Q_SIGNALS:
     void switchStyle(int);
     void actionTriggered(DiffEditor *e, int startLine, int endLine, int actionType, DiffParams::Flag);
+    void openLineNumARequested(int line, int columnNumber);
+    void openLineNumBRequested(int line, int columnNumber);
 };

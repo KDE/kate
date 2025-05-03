@@ -116,4 +116,7 @@ private:
     std::vector<int> m_linesWithFileName;
     bool m_stopScrollSync = false;
     bool m_blockShowEvent = true;
+
+Q_SIGNALS:
+    void openFileRequested(QString path, int line, int columnNumber);
 };

@@ -25,6 +25,11 @@ public:
         return block < ((int)m_lineToNumA.size()) ? m_lineToNumA[block] : 0;
     }
 
+    int lineNumForBlockB(int block)
+    {
+        return block < ((int)m_lineToNumB.size()) ? m_lineToNumB[block] : 0;
+    }
+
     /**
      * Returns the block mapped to the closest line number because
      * when switching to a diff without full context not all line numbers are available

@@ -281,6 +281,7 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     m_commitInfo->setReadOnly(true);
     m_commitInfo->setTextInteractionFlags(Qt::TextSelectableByMouse);
     m_commitInfo->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    m_commitInfo->setMaximumHeight(250);
 
     connect(m_toolbar, &Toolbar::showCommitInfoChanged, this, [this](bool v) {
         m_commitInfo->setVisible(v);

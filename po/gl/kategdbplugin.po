@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-13 00:43+0000\n"
-"PO-Revision-Date: 2025-02-28 07:13+0100\n"
+"PO-Revision-Date: 2025-05-03 07:04+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -96,16 +96,14 @@ msgid "Target %1"
 msgstr "Destino %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Executábel:"
+msgstr "Seleccionar o executábel"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Cartafol de traballo:"
+msgstr "Seleccionar o cartafol de traballo"
 
 #: dapbackend.cpp:182
 #, kde-format

@@ -21,7 +21,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Marce Villarino, Adrián Chaves Fernández"
+msgstr "Marce Villarino, Adrián Chaves"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"

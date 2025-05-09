@@ -70,7 +70,7 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
                                                  QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression function_regexp(
-        QLatin1String("^( *)def\\s+([\\w]+)\\s*(\\([\\w,;.:*=\\/\\[\\]\\s\"\']*\\)?)?\\s*(-> [\\w.,\\s\\[\\]]+)?\\s*(:$)?"),
+        QLatin1String("^([\t ]*)def\\s+([\\w]+)\\s*(\\([\\w,;.:*=\\/\\[\\]\\s\"\']*\\)?)?\\s*(-> [\\w.,\\s\\[\\]]+)?\\s*(:$)?"),
         QRegularExpression::UseUnicodePropertiesOption);
 
     QRegularExpressionMatch match;

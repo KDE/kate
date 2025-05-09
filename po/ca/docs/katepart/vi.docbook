@@ -1944,9 +1944,9 @@
 ></entry>
 <entry
 ><para
->Accent anterior (<userinput
+>Accent greu anterior (<userinput
 >`</userinput
->) al següent accent, inclosos els accents oberts</para
+>) a l'accent greu següent, inclosos els accents greus</para
 ></entry>
 </row>
 <row
@@ -1958,9 +1958,9 @@
 ></entry>
 <entry
 ><para
->Accent anterior (<userinput
+>Accent greu anterior (<userinput
 >`</userinput
->) al següent accent, excloent els accents oberts</para
+>) a l'accent greu següent, excloent els accents greus</para
 ></entry>
 </row>
 </tbody>

@@ -280,11 +280,13 @@ void LSPClientConfigPage::showContextMenuAllowedBlocked(const QPoint &pos)
 
     auto currentDelete = myMenu.addAction(i18n("Delete selected entries"), this, [this]() {
         qDeleteAll(ui->allowedAndBlockedServers->selectedItems());
+        Q_EMIT changed();
     });
     currentDelete->setEnabled(!ui->allowedAndBlockedServers->selectedItems().isEmpty());
 
     auto allDelete = myMenu.addAction(i18n("Delete all entries"), this, [this]() {
         ui->allowedAndBlockedServers->clear();
+        Q_EMIT changed();
     });
     allDelete->setEnabled(ui->allowedAndBlockedServers->count() > 0);
 

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-18 00:44+0000\n"
+"POT-Creation-Date: 2025-05-10 00:45+0000\n"
 "PO-Revision-Date: 2025-04-18 10:50+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -427,117 +427,124 @@ msgstr "Desactiva la supressió"
 msgid "Enable Suppression"
 msgstr "Activa la supressió"
 
-#: lib/diff/diffeditor.cpp:182
+#: lib/diff/diffeditor.cpp:195
 #, kde-format
 msgid "Change Style"
 msgstr "Canvia l'estil"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:350
+#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Side By Side"
 msgstr "En paral·lel"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Unified"
 msgstr "Unificat"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Raw"
 msgstr "En brut"
 
-#: lib/diff/diffeditor.cpp:219
+#: lib/diff/diffeditor.cpp:214
+#, fuzzy, kde-format
+#| msgid "Stage Line"
+#| msgid_plural "Stage Lines"
+msgid "Edit Line"
+msgstr "Marca la línia"
+
+#: lib/diff/diffeditor.cpp:253
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "Marca la línia"
 msgstr[1] "Marca les línies"
 
-#: lib/diff/diffeditor.cpp:224
+#: lib/diff/diffeditor.cpp:258
 #, kde-format
 msgid "Stage Hunk"
 msgstr "Marca el bloc"
 
-#: lib/diff/diffeditor.cpp:231
+#: lib/diff/diffeditor.cpp:265
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "Descarta la línia"
 msgstr[1] "Descarta les línies"
 
-#: lib/diff/diffeditor.cpp:236
+#: lib/diff/diffeditor.cpp:270
 #, kde-format
 msgid "Discard Hunk"
 msgstr "Descarta un bloc"
 
-#: lib/diff/diffeditor.cpp:243
+#: lib/diff/diffeditor.cpp:277
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "Desmarca la línia"
 msgstr[1] "Desmarca les línies"
 
-#: lib/diff/diffeditor.cpp:248
+#: lib/diff/diffeditor.cpp:282
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "Desmarca el bloc"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:71
 #, kde-format
 msgid "Diff %1"
 msgstr "Diff %1"
 
-#: lib/diff/diffwidget.cpp:66
+#: lib/diff/diffwidget.cpp:73
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "Diff %1..%2"
 
 # skip-rule: t-sp_pu
-#: lib/diff/diffwidget.cpp:87
+#: lib/diff/diffwidget.cpp:102
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:132
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Mostra o oculta la informació de la comissió"
 
-#: lib/diff/diffwidget.cpp:122
+#: lib/diff/diffwidget.cpp:137
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Salta fins al fitxer següent"
 
-#: lib/diff/diffwidget.cpp:126
+#: lib/diff/diffwidget.cpp:141
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Salta fins al fitxer anterior"
 
-#: lib/diff/diffwidget.cpp:130
+#: lib/diff/diffwidget.cpp:145
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Salta fins al bloc següent"
 
-#: lib/diff/diffwidget.cpp:134
+#: lib/diff/diffwidget.cpp:149
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Salta fins al bloc anterior"
 
-#: lib/diff/diffwidget.cpp:138
+#: lib/diff/diffwidget.cpp:153
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Actualitza «diff»"
 
-#: lib/diff/diffwidget.cpp:142
+#: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Mostra les diferències amb el context complet, no només les línies canviades"
 
-#: lib/diff/diffwidget.cpp:571
+#: lib/diff/diffwidget.cpp:614
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -548,23 +555,23 @@ msgstr ""
 "documents. Si «git» ja està instal·lat, comproveu que estiga a la variable "
 "PATH. Vegeu https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
+#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
+#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
 #, kde-format
 msgid "New file %1"
 msgstr "Fitxer nou %1"
 
-#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
+#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Fitxer suprimit %1"
 
-#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
+#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
 #, kde-format
 msgid "No differences found"
 msgstr "No s'ha trobat cap diferència"

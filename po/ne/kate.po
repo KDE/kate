@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-18 00:44+0000\n"
+"POT-Creation-Date: 2025-05-10 00:45+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -442,28 +442,34 @@ msgstr "सत्र"
 msgid "Enable Suppression"
 msgstr "सत्र व्यवस्थापन गर्नुहोस्"
 
-#: lib/diff/diffeditor.cpp:182
+#: lib/diff/diffeditor.cpp:195
 #, kde-format
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:350
+#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:351
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "परिमार्जित"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Raw"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:219
+#: lib/diff/diffeditor.cpp:214
+#, fuzzy, kde-format
+#| msgid "Line"
+msgid "Edit Line"
+msgstr "रेखा"
+
+#: lib/diff/diffeditor.cpp:253
 #, fuzzy, kde-format
 #| msgid "Line"
 msgid "Stage Line"
@@ -471,24 +477,24 @@ msgid_plural "Stage Lines"
 msgstr[0] "रेखा"
 msgstr[1] "रेखा"
 
-#: lib/diff/diffeditor.cpp:224
+#: lib/diff/diffeditor.cpp:258
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:231
+#: lib/diff/diffeditor.cpp:265
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/diff/diffeditor.cpp:236
+#: lib/diff/diffeditor.cpp:270
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:243
+#: lib/diff/diffeditor.cpp:277
 #, fuzzy, kde-format
 #| msgid "Line"
 msgid "Unstage Line"
@@ -496,67 +502,67 @@ msgid_plural "Unstage Lines"
 msgstr[0] "रेखा"
 msgstr[1] "रेखा"
 
-#: lib/diff/diffeditor.cpp:248
+#: lib/diff/diffeditor.cpp:282
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:71
 #, kde-format
 msgid "Diff %1"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:66
+#: lib/diff/diffwidget.cpp:73
 #, kde-format
 msgid "Diff %1..%2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:87
+#: lib/diff/diffwidget.cpp:102
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:132
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:122
+#: lib/diff/diffwidget.cpp:137
 #, kde-format
 msgid "Jump to Next File"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:126
+#: lib/diff/diffwidget.cpp:141
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous File"
 msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
 
-#: lib/diff/diffwidget.cpp:130
+#: lib/diff/diffwidget.cpp:145
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:134
+#: lib/diff/diffwidget.cpp:149
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Jump to Previous Hunk"
 msgstr "स्थान पूर्वावस्थामा लैजानुहोस्"
 
-#: lib/diff/diffwidget.cpp:138
+#: lib/diff/diffwidget.cpp:153
 #, fuzzy, kde-format
 #| msgid "&Reload"
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "पुन: लोड गर्नुहोस्"
 
-#: lib/diff/diffwidget.cpp:142
+#: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:571
+#: lib/diff/diffwidget.cpp:614
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -564,25 +570,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
+#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
+#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "फाइल नाम"
 
-#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
+#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "फाइल मेट्नुहुन्छ?"
 
-#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
+#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
 #, kde-format
 msgid "No differences found"
 msgstr ""

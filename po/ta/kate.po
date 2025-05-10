@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-18 00:44+0000\n"
+"POT-Creation-Date: 2025-05-10 00:45+0000\n"
 "PO-Revision-Date: 2025-04-20 18:08+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -427,115 +427,122 @@ msgstr "அடக்கலை முடக்கு"
 msgid "Enable Suppression"
 msgstr "அடக்கலை இயக்கு"
 
-#: lib/diff/diffeditor.cpp:182
+#: lib/diff/diffeditor.cpp:195
 #, kde-format
 msgid "Change Style"
 msgstr "தோற்றமுறையை மாற்று"
 
-#: lib/diff/diffeditor.cpp:184 lib/kateconfigdialog.cpp:350
+#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:350
 #, kde-format
 msgid "Side By Side"
 msgstr "பக்கத்துப்பக்கத்தில்"
 
-#: lib/diff/diffeditor.cpp:187 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Unified"
 msgstr "ஒருங்கே"
 
-#: lib/diff/diffeditor.cpp:190 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Raw"
 msgstr "வடிவூட்டாமல்"
 
-#: lib/diff/diffeditor.cpp:219
+#: lib/diff/diffeditor.cpp:214
+#, fuzzy, kde-format
+#| msgid "Stage Line"
+#| msgid_plural "Stage Lines"
+msgid "Edit Line"
+msgstr "வரியை ஏற்றரங்கில் செர்"
+
+#: lib/diff/diffeditor.cpp:253
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "வரியை ஏற்றரங்கில் செர்"
 msgstr[1] "வரிகளை ஏற்றரங்கில் செர்"
 
-#: lib/diff/diffeditor.cpp:224
+#: lib/diff/diffeditor.cpp:258
 #, kde-format
 msgid "Stage Hunk"
 msgstr "இப்பகுதியை ஏற்றரங்கில் செர்"
 
-#: lib/diff/diffeditor.cpp:231
+#: lib/diff/diffeditor.cpp:265
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "வரியை பழைய நிலைக்கு மீட்டமை"
 msgstr[1] "வரிகளை பழைய நிலைக்கு மீட்டமை"
 
-#: lib/diff/diffeditor.cpp:236
+#: lib/diff/diffeditor.cpp:270
 #, kde-format
 msgid "Discard Hunk"
 msgstr "இப்பகுதியை பழைய நிலைக்கு மீட்டமை"
 
-#: lib/diff/diffeditor.cpp:243
+#: lib/diff/diffeditor.cpp:277
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "வரியை ஏற்றரங்கிலிருந்து நீக்கு"
 msgstr[1] "வரிகளை ஏற்றரங்கிலிருந்து நீக்கு"
 
-#: lib/diff/diffeditor.cpp:248
+#: lib/diff/diffeditor.cpp:282
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "பகுதியை ஏற்றரங்கிலிருந்து நீக்கு"
 
-#: lib/diff/diffwidget.cpp:64
+#: lib/diff/diffwidget.cpp:71
 #, kde-format
 msgid "Diff %1"
 msgstr "%1-இல் வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:66
+#: lib/diff/diffwidget.cpp:73
 #, kde-format
 msgid "Diff %1..%2"
 msgstr "%1..%2 இடையே வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:87
+#: lib/diff/diffwidget.cpp:102
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "%1 .. %2 இடையே வித்தியாசங்காண்"
 
-#: lib/diff/diffwidget.cpp:117
+#: lib/diff/diffwidget.cpp:132
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "பதிவின் விவரங்களை காட்டு/மறை"
 
-#: lib/diff/diffwidget.cpp:122
+#: lib/diff/diffwidget.cpp:137
 #, kde-format
 msgid "Jump to Next File"
 msgstr "அடுத்த கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:126
+#: lib/diff/diffwidget.cpp:141
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "முந்தைய கோப்புக்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:130
+#: lib/diff/diffwidget.cpp:145
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "அடுத்த பாளத்திற்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:134
+#: lib/diff/diffwidget.cpp:149
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "முந்தைய பாளத்திற்கு தாவு"
 
-#: lib/diff/diffwidget.cpp:138
+#: lib/diff/diffwidget.cpp:153
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "மாற்றக்காட்சியை மீளேற்று"
 
-#: lib/diff/diffwidget.cpp:142
+#: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "மாற்றப்பட்ட வரிகளை சுற்றியுள்ளவற்றையும் காட்டும்"
 
-#: lib/diff/diffwidget.cpp:571
+#: lib/diff/diffwidget.cpp:614
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -546,23 +553,23 @@ msgstr ""
 "தேவை. கிட் ஏற்கனவே நிறுவப்பட்டிருந்தால், அதற்கான பாதை உங்கள் PATH சூழ்மாறியில் உள்ளதா என "
 "சரிபாருங்கள். விவரங்களுக்கு https://git-scm.com/downloads என்பதைப் பாருங்கள்."
 
-#: lib/diff/diffwidget.cpp:574 lib/diff/diffwidget.cpp:1177
+#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "வித்தியாசம்"
 
-#: lib/diff/diffwidget.cpp:786 lib/diff/diffwidget.cpp:990
+#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
 #, kde-format
 msgid "New file %1"
 msgstr "புதிய கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:788 lib/diff/diffwidget.cpp:992
+#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
 #, kde-format
 msgid "Deleted file %1"
 msgstr "நீக்கப்பட்ட கோப்பு %1"
 
-#: lib/diff/diffwidget.cpp:1160 lib/diff/diffwidget.cpp:1161
+#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
 #, kde-format
 msgid "No differences found"
 msgstr "வித்தியாசங்கள் இல்லை"

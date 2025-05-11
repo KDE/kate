@@ -110,27 +110,36 @@ KTextEditor::ConfigPage *LSPClientPlugin::configPage(int number, QWidget *parent
 
 void LSPClientPlugin::readConfig()
 {
+    // the indirection allows to make this function reusable by simply replacing
+    // the reference `defaults` with `const LSPClientPluginOptions defaults`.
+    const auto &defaults = *this;
+
     KConfigGroup config(KSharedConfig::openConfig(), CONFIG_LSPCLIENT);
-    m_symbolDetails = config.readEntry(CONFIG_SYMBOL_DETAILS, false);
-    m_symbolTree = config.readEntry(CONFIG_SYMBOL_TREE, true);
-    m_symbolExpand = config.readEntry(CONFIG_SYMBOL_EXPAND, true);
-    m_symbolSort = config.readEntry(CONFIG_SYMBOL_SORT, false);
-    m_complDoc = config.readEntry(CONFIG_COMPLETION_DOC, true);
-    m_refDeclaration = config.readEntry(CONFIG_REFERENCES_DECLARATION, true);
-    m_complParens = config.readEntry(CONFIG_COMPLETION_PARENS, true);
-    m_autoHover = config.readEntry(CONFIG_AUTO_HOVER, true);
-    m_onTypeFormatting = config.readEntry(CONFIG_TYPE_FORMATTING, false);
-    m_incrementalSync = config.readEntry(CONFIG_INCREMENTAL_SYNC, false);
-    m_highlightGoto = config.readEntry(CONFIG_HIGHLIGHT_GOTO, true);
-    m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, true);
-    m_messages = config.readEntry(CONFIG_MESSAGES, true);
+
+    m_symbolDetails = config.readEntry(CONFIG_SYMBOL_DETAILS, defaults.m_symbolDetails);
+    m_symbolTree = config.readEntry(CONFIG_SYMBOL_TREE, defaults.m_symbolTree);
+    m_symbolExpand = config.readEntry(CONFIG_SYMBOL_EXPAND, defaults.m_symbolExpand);
+    m_symbolSort = config.readEntry(CONFIG_SYMBOL_SORT, defaults.m_symbolSort);
+
+    m_showCompl = config.readEntry(CONFIG_SHOW_COMPL, defaults.m_showCompl);
+    m_complDoc = config.readEntry(CONFIG_COMPLETION_DOC, defaults.m_complDoc);
+    m_refDeclaration = config.readEntry(CONFIG_REFERENCES_DECLARATION, defaults.m_refDeclaration);
+    m_complParens = config.readEntry(CONFIG_COMPLETION_PARENS, defaults.m_complParens);
+
+    m_autoHover = config.readEntry(CONFIG_AUTO_HOVER, defaults.m_autoHover);
+    m_onTypeFormatting = config.readEntry(CONFIG_TYPE_FORMATTING, defaults.m_onTypeFormatting);
+    m_incrementalSync = config.readEntry(CONFIG_INCREMENTAL_SYNC, defaults.m_incrementalSync);
+    m_highlightGoto = config.readEntry(CONFIG_HIGHLIGHT_GOTO, defaults.m_highlightGoto);
+    m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, defaults.m_semanticHighlighting);
+    m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, defaults.m_signatureHelp);
+    m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, defaults.m_autoImport);
+    m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, defaults.m_fmtOnSave);
+    m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, defaults.m_inlayHints);
+
+    m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, defaults.m_diagnostics);
+    m_messages = config.readEntry(CONFIG_MESSAGES, defaults.m_messages);
+
     m_configPath = config.readEntry(CONFIG_SERVER_CONFIG, QUrl());
-    m_semanticHighlighting = config.readEntry(CONFIG_SEMANTIC_HIGHLIGHTING, true);
-    m_signatureHelp = config.readEntry(CONFIG_SIGNATURE_HELP, true);
-    m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, true);
-    m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, false);
-    m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, false);
-    m_showCompl = config.readEntry(CONFIG_SHOW_COMPL, true);
 
     // read allow + block lists as two separate keys, let block always win
     const auto allowed = config.readEntry(CONFIG_ALLOWED_COMMANDS, QStringList());

@@ -17,7 +17,38 @@
 
 class LSPClientServerManager;
 
-class LSPClientPlugin : public KTextEditor::Plugin
+/**
+ * This struct aggregates the options that are reset to their
+ * default values when the user clicks the Restore Defaults button.
+ *
+ * @see LSPClientConfigPage::defaults()
+ */
+struct LSPClientPluginOptions {
+    bool m_symbolDetails = false;
+    bool m_symbolTree = true;
+    bool m_symbolExpand = true;
+    bool m_symbolSort = false;
+
+    bool m_showCompl = true;
+    bool m_complDoc = true;
+    bool m_refDeclaration = true;
+    bool m_complParens = true;
+
+    bool m_autoHover = true;
+    bool m_onTypeFormatting = false;
+    bool m_incrementalSync = false;
+    bool m_highlightGoto = true;
+    bool m_semanticHighlighting = true;
+    bool m_signatureHelp = true;
+    bool m_autoImport = true;
+    bool m_fmtOnSave = false;
+    bool m_inlayHints = false;
+
+    bool m_diagnostics = true;
+    bool m_messages = true;
+};
+
+class LSPClientPlugin : public KTextEditor::Plugin, public LSPClientPluginOptions
 {
     Q_OBJECT
 
@@ -38,7 +69,6 @@ public:
     int configPages() const override;
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-    void readConfig();
     void writeConfig() const;
 
     // path for local setting files, auto-created on load
@@ -49,27 +79,7 @@ public:
 
     QStringList m_alwaysDisabledLanguages;
 
-    // settings
-    bool m_symbolDetails = false;
-    bool m_symbolExpand = false;
-    bool m_symbolTree = false;
-    bool m_symbolSort = false;
-    bool m_complDoc = false;
-    bool m_refDeclaration = false;
-    bool m_complParens = false;
-    bool m_diagnostics = false;
-    bool m_messages = false;
-    bool m_autoHover = false;
-    bool m_onTypeFormatting = false;
-    bool m_incrementalSync = false;
-    bool m_highlightGoto = true;
     QUrl m_configPath;
-    bool m_semanticHighlighting = false;
-    bool m_signatureHelp = true;
-    bool m_autoImport = true;
-    bool m_fmtOnSave = false;
-    bool m_inlayHints = false;
-    bool m_showCompl = true;
 
     // debug mode?
     const bool m_debugMode;
@@ -110,6 +120,14 @@ private Q_SLOTS:
     void askForCommandLinePermission(const QString &fullCommandLineString);
 
 private:
+    /**
+     * Read from config and assign to data members.
+     *
+     * This function may be called only from the constructor because it assumes
+     * that the LSPClientPluginOptions base of this object is default-initialized.
+     */
+    void readConfig();
+
     // server manager to pass along
     std::shared_ptr<LSPClientServerManager> m_serverManager;
 };

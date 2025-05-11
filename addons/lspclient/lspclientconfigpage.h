@@ -9,6 +9,7 @@
 #include <KTextEditor/ConfigPage>
 
 class LSPClientPlugin;
+struct LSPClientPluginOptions;
 
 namespace Ui
 {
@@ -35,6 +36,8 @@ public:
     void showContextMenuAllowedBlocked(const QPoint &pos);
 
 private:
+    void resetUiTo(const LSPClientPluginOptions &options);
+
     void readUserConfig(const QString &fileName);
     void updateConfigTextErrorState();
 

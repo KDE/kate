@@ -157,30 +157,35 @@ void LSPClientConfigPage::apply()
     m_plugin->writeConfig();
 }
 
+void LSPClientConfigPage::resetUiTo(const LSPClientPluginOptions &options)
+{
+    ui->chkSymbolDetails->setChecked(options.m_symbolDetails);
+    ui->chkSymbolTree->setChecked(options.m_symbolTree);
+    ui->chkSymbolExpand->setChecked(options.m_symbolExpand);
+    ui->chkSymbolSort->setChecked(options.m_symbolSort);
+
+    ui->chkShowCompl->setChecked(options.m_showCompl);
+    ui->chkComplDoc->setChecked(options.m_complDoc);
+    ui->chkRefDeclaration->setChecked(options.m_refDeclaration);
+    ui->chkComplParens->setChecked(options.m_complParens);
+
+    ui->chkAutoHover->setChecked(options.m_autoHover);
+    ui->chkOnTypeFormatting->setChecked(options.m_onTypeFormatting);
+    ui->chkIncrementalSync->setChecked(options.m_incrementalSync);
+    ui->chkHighlightGoto->setChecked(options.m_highlightGoto);
+    ui->chkSemanticHighlighting->setChecked(options.m_semanticHighlighting);
+    ui->chkSignatureHelp->setChecked(options.m_signatureHelp);
+    ui->chkAutoImport->setChecked(options.m_autoImport);
+    ui->chkFmtOnSave->setChecked(options.m_fmtOnSave);
+    ui->chkInlayHint->setChecked(options.m_inlayHints);
+
+    ui->chkDiagnostics->setChecked(options.m_diagnostics);
+    ui->chkMessages->setChecked(options.m_messages);
+}
+
 void LSPClientConfigPage::reset()
 {
-    ui->chkSymbolDetails->setChecked(m_plugin->m_symbolDetails);
-    ui->chkSymbolTree->setChecked(m_plugin->m_symbolTree);
-    ui->chkSymbolExpand->setChecked(m_plugin->m_symbolExpand);
-    ui->chkSymbolSort->setChecked(m_plugin->m_symbolSort);
-
-    ui->chkShowCompl->setChecked(m_plugin->m_showCompl);
-    ui->chkComplDoc->setChecked(m_plugin->m_complDoc);
-    ui->chkRefDeclaration->setChecked(m_plugin->m_refDeclaration);
-    ui->chkComplParens->setChecked(m_plugin->m_complParens);
-
-    ui->chkAutoHover->setChecked(m_plugin->m_autoHover);
-    ui->chkOnTypeFormatting->setChecked(m_plugin->m_onTypeFormatting);
-    ui->chkIncrementalSync->setChecked(m_plugin->m_incrementalSync);
-    ui->chkHighlightGoto->setChecked(m_plugin->m_highlightGoto);
-    ui->chkSemanticHighlighting->setChecked(m_plugin->m_semanticHighlighting);
-    ui->chkSignatureHelp->setChecked(m_plugin->m_signatureHelp);
-    ui->chkAutoImport->setChecked(m_plugin->m_autoImport);
-    ui->chkFmtOnSave->setChecked(m_plugin->m_fmtOnSave);
-    ui->chkInlayHint->setChecked(m_plugin->m_inlayHints);
-
-    ui->chkDiagnostics->setChecked(m_plugin->m_diagnostics);
-    ui->chkMessages->setChecked(m_plugin->m_messages);
+    resetUiTo(*m_plugin);
 
     ui->edtConfigPath->setUrl(m_plugin->m_configPath);
 
@@ -196,7 +201,10 @@ void LSPClientConfigPage::reset()
 
 void LSPClientConfigPage::defaults()
 {
-    reset();
+    resetUiTo(LSPClientPluginOptions{});
+
+    // The user can easily manually revert the list of Allowed & Blocked Servers and the User Server Settings
+    // to their empty defaults. So do not automatically clear the possibly valuable user data on the other tabs.
 }
 
 void LSPClientConfigPage::readUserConfig(const QString &fileName)

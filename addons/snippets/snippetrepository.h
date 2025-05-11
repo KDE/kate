@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <QObject>
 #include <QStandardItem>
 #include <QStringList>
 
@@ -29,7 +30,7 @@ class QDir;
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  * @author Milian Wolff <mail@milianw.de>
  */
-class SnippetRepository : public QStandardItem
+class SnippetRepository : public QObject, public QStandardItem
 {
 public:
     /**

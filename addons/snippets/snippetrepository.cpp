@@ -20,8 +20,8 @@
 #include <QDomElement>
 #include <QFile>
 #include <QFileInfo>
+#include <QMetaObject>
 #include <QStandardPaths>
-#include <QTimer>
 
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -51,9 +51,7 @@ SnippetRepository::SnippetRepository(const QString &file)
 
     if (QFile::exists(file)) {
         // Tell the new repository to load it's snippets
-        QTimer::singleShot(0, model(), [this] {
-            parseFile();
-        });
+        QMetaObject::invokeMethod(this, &SnippetRepository::parseFile, Qt::QueuedConnection);
     }
 
     // qDebug() << "created new snippet repo" << file << this;

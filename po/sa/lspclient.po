@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-05-12 00:44+0000\n"
 "PO-Revision-Date: 2024-12-15 21:04+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -51,7 +51,7 @@ msgstr "JSON दत्तांशः अमान्यः अस्ति: %1"
 msgid "Delete selected entries"
 msgstr "चयनितप्रविष्टयः विलोपयन्तु"
 
-#: lspclientconfigpage.cpp:286
+#: lspclientconfigpage.cpp:287
 #, kde-format
 msgid "Delete all entries"
 msgstr "सर्वाणि प्रविष्टयः विलोपयन्तु"

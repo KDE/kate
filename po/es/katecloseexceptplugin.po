@@ -1,5 +1,5 @@
-# Translation of katecloseexceptplugin.po to Spanish
-# Copyright (C) 2013-2025 This_file_is_part_of_KDE
+# Spanish translations for katecloseexceptplugin.po package.
+# Copyright (C) 2013-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2013, 2015 Rocio Gallego <traducciones@rociogallego.com>
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-09 01:39+0000\n"
-"PO-Revision-Date: 2025-02-18 02:48+0100\n"
+"PO-Revision-Date: 2025-05-11 21:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -112,6 +112,3 @@ msgstr[1] "%1 archivos cerrados"
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"
 msgstr "<title>%1</title><nl/>%2"
-
-#~ msgid "Close all documents started from specified path"
-#~ msgstr "Cerrar todos los documentos iniciados desde una ruta determinada"

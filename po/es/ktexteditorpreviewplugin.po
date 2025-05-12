@@ -1,14 +1,15 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for ktexteditorpreviewplugin.po package.
+# Copyright (C) 2017-2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
 #
-# Víctor Rodrigo Córdoba <vrcordoba@gmail.com>, 2017.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2019, 2020.
+# SPDX-FileCopyrightText: 2017 Víctor Rodrigo Córdoba <vrcordoba@gmail.com>
+# SPDX-FileCopyrightText: 2019, 2020, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-08 01:19+0000\n"
-"PO-Revision-Date: 2020-11-21 09:51+0100\n"
+"PO-Revision-Date: 2025-05-11 21:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -92,11 +93,3 @@ msgstr "No hay vista previa disponible."
 #, kde-format
 msgid "About %1"
 msgstr "Acerca de %1"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Víctor Rodrigo"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net,vrcordoba@gmail.com"

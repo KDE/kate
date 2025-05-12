@@ -1,15 +1,15 @@
 # Spanish translations for kateexternaltoolsplugin.po package.
 # Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-#
 # Automatically generated, 2019.
+#
 # SPDX-FileCopyrightText: 2019, 2021, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2025-02-18 02:52+0100\n"
+"PO-Revision-Date: 2025-05-11 21:53+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -567,35 +567,3 @@ msgstr "&Herramientas"
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra de herramientas principal"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net"
-
-#~ msgid "Running external tool: %1"
-#~ msgstr "Ejecutando herramienta externa: %1"
-
-#~ msgid "- Executable: %1"
-#~ msgstr "- Ejecutable: %1"
-
-#~ msgid "- Arguments : %1"
-#~ msgstr "- Argumentos: %1"
-
-#~ msgid "- Input     : %1"
-#~ msgstr "- Entrada: %1"
-
-#~ msgid "Warning: External tool crashed."
-#~ msgstr "Advertencia: la herramienta externa ha fallado."
-
-#~ msgid "Status"
-#~ msgstr "Estado"
-
-#~ msgid "No errors detected"
-#~ msgstr "No se han detectado errores"
-
-#~ msgid "&File"
-#~ msgstr "&Archivo"

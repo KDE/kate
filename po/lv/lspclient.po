@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-05-12 00:44+0000\n"
 "PO-Revision-Date: 2024-12-30 17:27+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -54,7 +54,7 @@ msgstr "JSON dati ir nederīgi: %1"
 msgid "Delete selected entries"
 msgstr "Dzēst atlasītos ierakstus"
 
-#: lspclientconfigpage.cpp:286
+#: lspclientconfigpage.cpp:287
 #, kde-format
 msgid "Delete all entries"
 msgstr "Dzēst visus ierakstus"

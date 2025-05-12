@@ -1,5 +1,5 @@
 # Spanish translations for katebuild-plugin.po package.
-# Copyright (C) 2008-2025 This_file_is_part_of_KDE
+# Copyright (C) 2008-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2008 Ignacio Poggi <ignaciop.3@gmail.com>
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-13 00:44+0000\n"
-"PO-Revision-Date: 2025-03-09 00:47+0100\n"
+"PO-Revision-Date: 2025-05-11 21:52+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"

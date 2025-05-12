@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-05-12 00:44+0000\n"
 "PO-Revision-Date: 2024-12-08 16:54+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -53,7 +53,7 @@ msgstr "Il dato JSON non è valido: %1"
 msgid "Delete selected entries"
 msgstr "Elimina le voci selezionate"
 
-#: lspclientconfigpage.cpp:286
+#: lspclientconfigpage.cpp:287
 #, kde-format
 msgid "Delete all entries"
 msgstr "Elimina tutte le voci"

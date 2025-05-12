@@ -1,5 +1,5 @@
-# Translation of katesnippetsplugin.po to Spanish
-# Copyright (C) 2013-2025 This_file_is_part_of_KDE
+# Spanish translations for katesnippetsplugin.po package.
+# Copyright (C) 2013-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2013, 2014, 2016, 2020, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-28 00:44+0000\n"
-"PO-Revision-Date: 2025-02-18 02:59+0100\n"
+"PO-Revision-Date: 2025-05-11 21:56+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -376,15 +376,3 @@ msgstr "Filtro…"
 #, kde-format
 msgid "&Tools"
 msgstr "&Herramientas"
-
-#~ msgid "Snippet name cannot contain spaces"
-#~ msgstr "El nombre del fragmento de código no puede contener espacios"
-
-#~ msgid "Snippets tool view"
-#~ msgstr "Vista de la herramienta de fragmentos de código"
-
-#~ msgid "Publish Repository"
-#~ msgstr "Publicar repositorio"
-
-#~ msgid "Snippets..."
-#~ msgstr "Fragmentos de código..."

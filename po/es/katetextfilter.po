@@ -1,5 +1,6 @@
-# Translation of katetextfilter to Spanish
-# Copyright (C) 2004-2025 Free Software Foundation, Inc.
+# Spanish translations for katetextfilter.po package.
+# Copyright (C) 2004-2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2004, 2005, 2006 Santiago Fernandez Sancho <santi@kde-es.org>
 # SPDX-FileCopyrightText: 2007, 2009, 2013, 2015, 2018, 2020, 2021, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2025-02-18 03:03+0100\n"
+"PO-Revision-Date: 2025-05-11 21:58+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -125,6 +126,3 @@ msgstr "Fusionar STDOUT y STDERR"
 #, kde-format
 msgid "&Tools"
 msgstr "&Herramientas"
-
-#~ msgid "Filter Te&xt..."
-#~ msgstr "Filtrar te&xto..."

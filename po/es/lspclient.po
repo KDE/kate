@@ -1,15 +1,15 @@
 # Spanish translations for lspclient.po package.
-# Copyright (C) 2019 This file is copyright:
+# Copyright (C) 2019-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-#
 # Automatically generated, 2019.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+#
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2024-12-06 02:47+0100\n"
+"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"PO-Revision-Date: 2025-05-11 22:00+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter…"
-msgstr "Filtrar..."
+msgstr "Filtrar…"
 
 #: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
 #: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616
@@ -55,7 +55,7 @@ msgstr "Los datos JSON no son válidos: %1"
 msgid "Delete selected entries"
 msgstr "Borrar las entradas seleccionadas"
 
-#: lspclientconfigpage.cpp:286
+#: lspclientconfigpage.cpp:287
 #, kde-format
 msgid "Delete all entries"
 msgstr "Borrar todas las entradas"
@@ -328,7 +328,7 @@ msgstr "Sin acciones"
 #: lspclientpluginview.cpp:1652
 #, kde-format
 msgid "Loading..."
-msgstr "Cargando..."
+msgstr "Cargando…"
 
 #: lspclientpluginview.cpp:1744
 #, kde-format
@@ -389,8 +389,7 @@ msgstr "No reiniciando"
 #: lspclientservermanager.cpp:608
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr ""
-"El servidor ha terminado de forma imprevista... %1 [%2] [página web: %3]"
+msgstr "El servidor ha terminado de forma imprevista… %1 [%2] [página web: %3]"
 
 #: lspclientservermanager.cpp:809
 #, kde-format
@@ -642,174 +641,3 @@ msgstr "Cliente &LSP"
 #, kde-format
 msgid "More Options"
 msgstr "Más opciones"
-
-#~ msgid "Quick Fix"
-#~ msgstr "Corrección rápida"
-
-#~ msgid "Show Diagnostics Highlights"
-#~ msgstr "Mostrar resaltado de diagnósticos"
-
-#~ msgid "Show Diagnostics Marks"
-#~ msgstr "Mostrar marcas de diagnósticos"
-
-#~ msgid "Show Diagnostics on Hover"
-#~ msgstr "Mostrar diagnósticos al pasar por encima"
-
-#~ msgid "Switch to Diagnostics Tab"
-#~ msgstr "Cambiar a la pestaña de diagnósticos"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Diagnostics"
-#~ msgstr "Diagnósticos"
-
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgid "Warning"
-#~ msgstr "Advertencia"
-
-#~ msgid "Information"
-#~ msgstr "Información"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Error in regular expression: %1\n"
-#~ "offset %2: %3"
-#~ msgstr ""
-#~ "Error en expresión regular: %1\n"
-#~ "desplazamiento %2: %3"
-
-#~ msgid "Copy to Clipboard"
-#~ msgstr "Copiar en el portapapeles"
-
-#~ msgid "Remove Global Suppression"
-#~ msgstr "Eliminar supresión global"
-
-#~ msgid "Add Global Suppression"
-#~ msgstr "Añadir supresión global"
-
-#~ msgid "Remove Local Suppression"
-#~ msgstr "Eliminar supresión local"
-
-#~ msgid "Add Local Suppression"
-#~ msgstr "Añadir supresión local"
-
-#~ msgid "Disable Suppression"
-#~ msgstr "Desactivar supresión"
-
-#~ msgid "Enable Suppression"
-#~ msgstr "Activar supresión"
-
-#~ msgctxt "@info"
-#~ msgid "%1 [suppressed: %2]"
-#~ msgstr "%1 [suprimido: %2]"
-
-#~ msgid "Diagnostics:"
-#~ msgstr "Diagnósticos:"
-
-#~ msgid "Highlight lines with diagnostics"
-#~ msgstr "Resaltar líneas con diagnóstico"
-
-#~ msgid "Show markers in the margins for lines with diagnostics"
-#~ msgstr "Mostrar marcas en el margen para las líneas con diagnóstico"
-
-#~ msgid "Show diagnostics on hover"
-#~ msgstr "Mostrar diagnósticos al pasar por encima"
-
-#~ msgid "max diagnostics tooltip size"
-#~ msgstr "Tamaño máximo de mensaje emergente de diagnóstico"
-
-#~ msgid "Type to filter through symbols in your project..."
-#~ msgstr "Escriba para filtrar por símbolos en el proyecto..."
-
-#~ msgid "LSP Client Symbol Outline"
-#~ msgstr "Esquema de símbolos del cliente LSP"
-
-#~ msgid "General Options"
-#~ msgstr "Opciones generales"
-
-#~ msgid "Add highlights"
-#~ msgstr "Añadir resaltados"
-
-#~ msgid "Add markers"
-#~ msgstr "Añadir marcadores"
-
-#~ msgid "On hover"
-#~ msgstr "Al pasar por encima"
-
-#~ msgid "Tree mode outline"
-#~ msgstr "Esquema en modo árbol"
-
-#~ msgid "Automatically expand nodes in tree mode"
-#~ msgstr "Expandir nodos del modo árbol automáticamente"
-
-#~ msgid "Switch to messages tab upon message level"
-#~ msgstr "Cambiar a la pestaña de mensajes bajo el nivel de mensajes"
-
-#~ msgctxt "@info"
-#~ msgid "Never"
-#~ msgstr "Nunca"
-
-#~ msgctxt "@info"
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgctxt "@info"
-#~ msgid "Warning"
-#~ msgstr "Advertencia"
-
-#~ msgctxt "@info"
-#~ msgid "Information"
-#~ msgstr "Información"
-
-#~ msgctxt "@info"
-#~ msgid "Log"
-#~ msgstr "Registro"
-
-#~ msgid "Switch to messages tab"
-#~ msgstr "Cambiar a la pestaña de mensajes"
-
-#~ msgctxt "@title:tab"
-#~ msgid "Messages"
-#~ msgstr "Mensajes"
-
-#~ msgctxt "@info"
-#~ msgid "Unknown"
-#~ msgstr "Desconocido"
-
-#~ msgid "Switch to messages tab upon level"
-#~ msgstr "Cambiar a la pestaña de mensajes bajo el nivel"
-
-#~ msgid "Never"
-#~ msgstr "Nunca"
-
-#~ msgid "Log"
-#~ msgstr "Registro"
-
-#~ msgid "Hover"
-#~ msgstr "Cursor encima"
-
-#~ msgctxt "@info"
-#~ msgid "<b>LSP Client:</b> %1"
-#~ msgstr "<b>Cliente LSP:</b> %1"
-
-#~ msgid "Server Configuration"
-#~ msgstr "Configuración del servidor"
-
-#, fuzzy
-#~| msgid "Format"
-#~ msgid "Form"
-#~ msgstr "Formato"
-
-#~ msgid "No Hover Info"
-#~ msgstr "Sin información sobre el cursor"
-
-#~ msgctxt "@title:column"
-#~ msgid "Position"
-#~ msgstr "Posición"
-
-#~ msgid "No outline items"
-#~ msgstr "No hay elementos en el esquema"
-
-#~ msgid "No server available"
-#~ msgstr "Ningún servidor disponible"

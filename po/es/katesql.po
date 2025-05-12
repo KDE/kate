@@ -1,5 +1,5 @@
-# Translation of katesql.po to Spanish
-# Copyright (C) 2010-2025 This_file_is_part_of_KDE
+# Spanish translations for katesql.po package.
+# Copyright (C) 2010-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2010, 2020, 2021, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-28 00:44+0000\n"
-"PO-Revision-Date: 2025-02-18 03:01+0100\n"
+"PO-Revision-Date: 2025-05-11 21:57+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -565,21 +565,3 @@ msgstr "Barra de herramientas de conexiones SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Barra de herramientas SQL"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Rocío Gallego"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net,traducciones@rociogallego.com"
-
-#~ msgid "Kate SQL Plugin"
-#~ msgstr "Complemento SQL para Kate"
-
-#~ msgctxt "@title:window"
-#~ msgid "SQL Results"
-#~ msgstr "Resultados de SQL"
-
-#~ msgid "Execute query on SQL databases"
-#~ msgstr "Ejecutar consulta en bases de datos SQL"

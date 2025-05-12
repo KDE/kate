@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-05-12 00:44+0000\n"
 "PO-Revision-Date: 2024-09-10 15:18+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -55,7 +55,7 @@ msgstr "JSONဒေတာမမှန်ပါ - %1"
 msgid "Delete selected entries"
 msgstr "ရွေးထားသည်များဖျက်မည်"
 
-#: lspclientconfigpage.cpp:286
+#: lspclientconfigpage.cpp:287
 #, kde-format
 msgid "Delete all entries"
 msgstr "အားလုံးဖျက်မည်"

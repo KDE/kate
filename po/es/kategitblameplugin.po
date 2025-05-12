@@ -1,15 +1,15 @@
 # Spanish translations for kategitblameplugin.po package.
-# Copyright (C) 2021 This file is copyright:
+# Copyright (C) 2021-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-#
 # Automatically generated, 2021.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2021, 2022.
+#
+# SPDX-FileCopyrightText: 2021, 2022, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-13 00:48+0000\n"
-"PO-Revision-Date: 2022-05-05 00:20+0200\n"
+"PO-Revision-Date: 2025-05-11 21:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -66,22 +66,3 @@ msgstr "Todavía sin confirmar"
 #, kde-format
 msgid "&Tools"
 msgstr "&Herramientas"
-
-#~ msgid "Close"
-#~ msgstr "Cerrar"
-
-#~ msgid "Commit"
-#~ msgstr "Enviar"
-
-#~ msgid "&View"
-#~ msgstr "&Ver"
-
-#~ msgid "Git blame failed."
-#~ msgstr "Git Blame ha fallado."
-
-#~ msgid ""
-#~ "\n"
-#~ "--- Output truncated ---\n"
-#~ msgstr ""
-#~ "\n"
-#~ "--- Salida truncada ---\n"

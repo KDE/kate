@@ -1,15 +1,15 @@
-# translation of katesymbolviewer.po to Spanish
-# Copyright (C) YEAR This_file_is_part_of_KDE
+# Spanish translations for katesymbolviewer.po package.
+# Copyright (C) 2007-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2018, 2019, 2020, 2022, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2018, 2019, 2020, 2022, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2013 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2024-12-06 02:45+0100\n"
+"PO-Revision-Date: 2025-05-11 22:19+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -141,7 +141,7 @@ msgstr "Lista de símbolos"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter…"
-msgstr "Filtrar..."
+msgstr "Filtrar…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format
@@ -255,28 +255,3 @@ msgstr "Variables"
 #, kde-format
 msgid "Templates"
 msgstr "Plantillas"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Rocío Gallego"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net,traducciones@rociogallego.com"
-
-#~ msgid "Show Globals"
-#~ msgstr "Mostrar globales"
-
-#~ msgid "Refresh List"
-#~ msgstr "Actualizar la lista"
-
-#~ msgid "Enable Sorting"
-#~ msgstr "Activar ordenación"
-
-#~ msgid "View symbols"
-#~ msgstr "Ver símbolos"
-
-#, fuzzy
-#~| msgid "Show Functions"
-#~ msgid "Show Clojure Functions"
-#~ msgstr "Mostrar funciones"

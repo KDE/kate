@@ -1,5 +1,5 @@
-# Translation of katekonsoleplugin.po to Spanish
-# Copyright (C) 2007-2025 This_file_is_part_of_KDE
+# Spanish translations for katekonsoleplugin.po package.
+# Copyright (C) 2007-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2007, 2008, 2009, 2013, 2017, 2019, 2021, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2025-02-03 00:28+0100\n"
+"PO-Revision-Date: 2025-05-11 21:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"

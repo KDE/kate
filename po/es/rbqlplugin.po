@@ -1,15 +1,15 @@
 # Spanish translations for rbqlplugin.po package.
-# Copyright (C) 2024 This file is copyright:
+# Copyright (C) 2024-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Automatically generated, 2024.
 #
-# SPDX-FileCopyrightText: 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: rbqlplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 00:39+0000\n"
-"PO-Revision-Date: 2024-03-30 03:01+0100\n"
+"PO-Revision-Date: 2025-05-11 22:02+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"

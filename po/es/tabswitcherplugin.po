@@ -1,15 +1,15 @@
 # Spanish translations for tabswitcherplugin.po package.
-# Copyright (C) 2014 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
-#
+# Copyright (C) 2014-2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
 # Automatically generated, 2014.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2014, 2020, 2022.
+#
+# SPDX-FileCopyrightText: 2014, 2020, 2022, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: tabswitcherplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-23 00:40+0000\n"
-"PO-Revision-Date: 2022-05-05 00:22+0200\n"
+"PO-Revision-Date: 2025-05-11 22:03+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -65,6 +65,3 @@ msgstr "Cierra la vista seleccionada en la lista de últimas vistas usadas."
 #, kde-format
 msgid "&Go"
 msgstr "&Ir"
-
-#~ msgid "&View"
-#~ msgstr "&Ver"

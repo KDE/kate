@@ -1,16 +1,16 @@
 # Spanish translations for kate-replicode-plugin.po package.
-# Copyright (C) 2015 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
-#
+# Copyright (C) 2015-2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
 # Automatically generated, 2015.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2015, 2018, 2020.
-# Rocio Gallego <traducciones@rociogallego.com>, 2015.
+#
+# SPDX-FileCopyrightText: 2015, 2018, 2020, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2015 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2020-11-21 09:30+0100\n"
+"PO-Revision-Date: 2025-05-11 21:50+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -399,26 +399,3 @@ msgstr "La ejecución de Replicode ha fallado: %1"
 #, kde-format
 msgid "Replicode execution finished."
 msgstr "La ejecución de Replicode ha terminado."
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Eloy Cuadra,Rocío Gallego"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "ecuadra@eloihr.net,traducciones@rociogallego.com"
-
-#~ msgid "Replicode Output"
-#~ msgstr "Salida de Replicode"
-
-#~ msgid "Unable to find active file"
-#~ msgstr "No ha sido posible encontrar el archivo activo"
-
-#~ msgid "No file"
-#~ msgstr "Ningún archivo"
-
-#~ msgid "Can't find replicode executor"
-#~ msgstr "No ha sido posible encontrar el lanzador de replicode"
-
-#~ msgid "Can't find user operator library"
-#~ msgstr "No se puede encontrar la biblioteca de operadores del usuario"

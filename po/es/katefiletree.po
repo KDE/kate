@@ -1,8 +1,8 @@
 # Spanish translations for katefiletree.po package.
-# Copyright (C) 2014-2025 This_file_is_part_of_KDE
+# Copyright (C) 2014-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-#
 # Automatically generated, 2014.
+#
 # SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021, 2022, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-16 00:44+0000\n"
-"PO-Revision-Date: 2025-03-18 12:23+0100\n"
+"PO-Revision-Date: 2025-05-11 21:54+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"

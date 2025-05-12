@@ -1,15 +1,15 @@
 # Spanish translations for katexmlcheck.po package.
-# Copyright (C) 2016 This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
-#
+# Copyright (C) 2016-2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
 # Automatically generated, 2016.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2016, 2020, 2022, 2023.
+#
+# SPDX-FileCopyrightText: 2016, 2020, 2022, 2023, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-17 00:43+0000\n"
-"PO-Revision-Date: 2023-01-15 11:58+0100\n"
+"PO-Revision-Date: 2025-05-11 21:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -80,21 +80,3 @@ msgstr ""
 #, kde-format
 msgid "&XML"
 msgstr "&XML"
-
-#~ msgid "XML Checker"
-#~ msgstr "Verificador XML"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid "Line"
-#~ msgstr "Línea"
-
-#~ msgid "Column"
-#~ msgstr "Columna"
-
-#~ msgid "Message"
-#~ msgstr "Mensaje"
-
-#~ msgid "Kate XML check"
-#~ msgstr "Verificación XML de Kate"

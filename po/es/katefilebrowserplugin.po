@@ -1,5 +1,5 @@
-# Translation of katefilebrowserplugin.po to Spanish
-# Copyright (C) 2007-2025 This_file_is_part_of_KDE
+# Spanish translations for katefilebrowserplugin.po package.
+# Copyright (C) 2007-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2007, 2008, 2009, 2014, 2020, 2022, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-05-13 00:40+0000\n"
-"PO-Revision-Date: 2025-02-18 02:53+0100\n"
+"PO-Revision-Date: 2025-05-11 21:54+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"

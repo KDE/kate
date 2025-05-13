@@ -442,11 +442,9 @@ msgid "Raw"
 msgstr "原始"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "暂存行"
+msgstr "编辑行"
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format
@@ -1538,9 +1536,7 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "复制当前文件的路径到剪贴板。"
 
 #: lib/katemainwindow.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
 msgstr "复制文件名"
 

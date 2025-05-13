@@ -690,32 +690,28 @@ msgid "Projects Properties"
 msgstr "Vlastnosti projektu"
 
 #: kateprojectinfoview.cpp:80
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr "Terminál (Základ)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:89
-#, fuzzy, kde-format
-#| msgid "Terminal (.kateproject)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr "Terminál (.kateproject)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:98
-#, fuzzy, kde-format
-#| msgid "Terminal (Base)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr "Terminál (Základ)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:107
-#, fuzzy, kde-format
-#| msgid "Terminal (build)"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr "Terminál (sestavení)"
+msgstr ""
 
 #: kateprojectinfoview.cpp:114
 #, kde-format
@@ -1014,10 +1010,9 @@ msgid "New Folder"
 msgstr "Nová složka"
 
 #: kateprojectviewtree.cpp:207
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The file already exists"
-msgstr "Název souboru již existuje."
+msgstr ""
 
 #: kateprojectviewtree.cpp:218
 #, kde-format
@@ -1025,10 +1020,9 @@ msgid "Failed to create file: %1, Error: %2"
 msgstr "Nelze vytvořit soubor: %1, Chyba: %2"
 
 #: kateprojectviewtree.cpp:245
-#, fuzzy, kde-format
-#| msgid "File name already exists"
+#, kde-format
 msgid "The directory already exists"
-msgstr "Název souboru již existuje."
+msgstr ""
 
 #: kateprojectviewtree.cpp:252
 #, kde-format

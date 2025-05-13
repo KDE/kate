@@ -70,11 +70,10 @@ msgid "Languages"
 msgstr ""
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Přeložit"
+msgstr ""
 
 #: ce_widget.cpp:198
 #, kde-format
@@ -118,16 +117,14 @@ msgid "Intel Syntax"
 msgstr ""
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
-msgstr "Změnit URL..."
+msgstr ""
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
-msgstr "Zadejte URL"
+msgstr ""
 
 #: ce_widget.cpp:344
 #, kde-format

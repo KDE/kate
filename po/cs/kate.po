@@ -354,11 +354,10 @@ msgid "Filter…"
 msgstr "Filtrovat…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "Clear Diagnostics Filter"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Vyčistit diagnostický filtr"
+msgstr ""
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -448,11 +447,9 @@ msgid "Raw"
 msgstr "Raw"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "Založit řádek pro odeslání"
+msgstr ""
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format

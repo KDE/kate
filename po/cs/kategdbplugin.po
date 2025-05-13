@@ -93,16 +93,14 @@ msgid "Target %1"
 msgstr "Cíl %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Program:"
+msgstr ""
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Pracovní adresář:"
+msgstr ""
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -495,10 +493,9 @@ msgid "Loading..."
 msgstr "Probíhá načítání..."
 
 #: localsview.cpp:167
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symbol"
+msgstr ""
 
 #: localsview.cpp:181
 #, kde-format
@@ -662,10 +659,9 @@ msgid "Breakpoint"
 msgstr "Bod přerušení"
 
 #: plugin_kategdb.cpp:1105
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Zkopírovat cíl"
+msgstr ""
 
 #: plugin_kategdb.cpp:1124
 #, kde-format
@@ -690,11 +686,10 @@ msgid "Function"
 msgstr ""
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Otevřít umístění"
+msgstr ""
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -707,59 +702,3 @@ msgstr "La&dit"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Ladicí modul"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Rámec"
-
-#~ msgid "GDB command"
-#~ msgstr "Příkaz GDB"
-
-#~ msgid "..."
-#~ msgstr "..."
-
-#~ msgid "Local application"
-#~ msgstr "Lokální aplikace"
-
-#~ msgid "Remote TCP"
-#~ msgstr "Vzdálené TCP"
-
-#~ msgid "Remote Serial Port"
-#~ msgstr "Vzdálený sériový port"
-
-#~ msgid "Host"
-#~ msgstr "Hostitel"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Baud"
-#~ msgstr "Baud"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Pokročilá nastavení"
-
-#~ msgid "Locals"
-#~ msgstr "Místní"
-
-#~ msgid "CPU registers"
-#~ msgstr "Registry CPU"
-
-#~ msgid ""
-#~ "No debugger selected. Please select one in the 'Settings' tab in the "
-#~ "'Debug' panel."
-#~ msgstr ""
-#~ "Nebyl vybrán žádný ladicí nástroj. Prosím vyberte jeden v kartě "
-#~ "'Nastavení' v panelu 'Ladit'."
-
-#~ msgid "*** gdb exited normally ***"
-#~ msgstr "*** gdb bylo ukončeno normálně ***"
-
-#~ msgid "all threads running"
-#~ msgstr "všechna běžící vlákna"
-
-#~ msgid "Current frame: %1:%2"
-#~ msgstr "Současný rámec: %1:%2"
-
-#~ msgid "Host: %1. Target: %1"
-#~ msgstr "Hostitel: %1. Cíl: %1"

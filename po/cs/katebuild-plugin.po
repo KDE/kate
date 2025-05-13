@@ -37,10 +37,9 @@ msgstr "Výstup"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build again"
+#, kde-format
 msgid "Build Again"
-msgstr "Znovu sestavit"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #: build.ui:66

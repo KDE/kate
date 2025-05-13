@@ -94,12 +94,12 @@ msgstr "目标 %1"
 #: configview.cpp:694
 #, kde-format
 msgid "Select Executable"
-msgstr ""
+msgstr "选择可执行文件"
 
 #: configview.cpp:707
 #, kde-format
 msgid "Select Working Directory"
-msgstr ""
+msgstr "选择工作目录"
 
 #: dapbackend.cpp:182
 #, kde-format

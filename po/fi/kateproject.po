@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-10 00:44+0000\n"
-"PO-Revision-Date: 2025-04-03 17:25+0300\n"
+"PO-Revision-Date: 2025-04-20 10:31+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -350,10 +350,9 @@ msgid "Stash"
 msgstr "Kätkö"
 
 #: gitwidget.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Näytä Git-historia"
+msgstr "Näytä historia"
 
 #: gitwidget.cpp:1153
 #, kde-format
@@ -472,10 +471,9 @@ msgid "Open at HEAD"
 msgstr "Avaa HEADistä"
 
 #: gitwidget.cpp:1305
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Näytä Git-historia"
+msgstr "Näytä historia"
 
 #: gitwidget.cpp:1321
 #, kde-format

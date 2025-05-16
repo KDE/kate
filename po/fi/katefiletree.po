@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-16 00:44+0000\n"
-"PO-Revision-Date: 2025-02-15 19:37+0200\n"
+"PO-Revision-Date: 2025-04-20 10:31+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -227,10 +227,9 @@ msgid "Open With"
 msgstr "Avaa ohjelmalla"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Näytä tiedoston git-historia"
+msgstr "Näytä Git-historia"
 
 #: katefiletree.cpp:483
 #, kde-format

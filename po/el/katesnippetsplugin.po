@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:44+0000\n"
+"POT-Creation-Date: 2025-05-17 00:44+0000\n"
 "PO-Revision-Date: 2020-09-14 13:39+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -246,7 +246,7 @@ msgstr "εισαγωγή τμήματος κώδικα %1"
 msgid "<empty repository>"
 msgstr "<κενό αποθετήριο>"
 
-#: snippetrepository.cpp:230
+#: snippetrepository.cpp:228
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -257,29 +257,29 @@ msgstr ""
 "στον προσωπικό σας κατάλογο· έτσι ένα αντίγραφο του αρχικού αρχείου έχει "
 "δημιουργηθεί στον προσωπικό σας κατάλογο δεδομένων."
 
-#: snippetrepository.cpp:236
+#: snippetrepository.cpp:234
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Αδυναμία ανοίγματος του αρχείου '%1' για εγγραφή"
 
-#: snippetrepository.cpp:271
+#: snippetrepository.cpp:269
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Αδυναμία ανοίγματος του αποθετηρίου τμημάτων κώδικα %1."
 
-#: snippetrepository.cpp:278
+#: snippetrepository.cpp:276
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Το σφάλμα <b>%4</b><br /> έχει εντοπιστεί στο αρχείο %1 στο %2/%3</qt>"
 
-#: snippetrepository.cpp:289
+#: snippetrepository.cpp:287
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Μη έγκυρο XML αρχείο τμημάτων κώδικα: %1"
 
-#: snippetrepository.cpp:351
+#: snippetrepository.cpp:349
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -288,12 +288,12 @@ msgstr ""
 "Το αποθετήριο είναι ανενεργό, τα τμήματα κώδικα που περιέχει δεν θα "
 "εμφανίζονται κατά τη συμπλήρωση κώδικα."
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:352
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Ισχύει για όλους τους τύπους αρχείων"
 
-#: snippetrepository.cpp:356
+#: snippetrepository.cpp:354
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Ισχύει για τους ακόλουθους τύπους αρχείων: %1"

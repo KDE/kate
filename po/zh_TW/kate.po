@@ -445,8 +445,6 @@ msgstr "原始"
 
 #: lib/diff/diffeditor.cpp:214
 #, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
 msgid "Edit Line"
 msgstr "編輯行"
 
@@ -1352,7 +1350,8 @@ msgstr "描述"
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
-msgstr "<p>此文件「%1」已被修改，但尚未儲存。</p><p>您想要儲存變更還是放棄變更？</p>"
+msgstr ""
+"<p>此文件「%1」已被修改，但尚未儲存。</p><p>您想要儲存變更還是放棄變更？</p>"
 
 #: lib/katedocmanager.cpp:271 lib/katesavemodifieddialog.cpp:134
 #, kde-format
@@ -2175,7 +2174,8 @@ msgstr "移動文件到新的垂直分割"
 msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
-msgstr "將目前作用中的檢視垂直分割為兩個檢視，並將目前作用中文件放在右方分割檢視。"
+msgstr ""
+"將目前作用中的檢視垂直分割為兩個檢視，並將目前作用中文件放在右方分割檢視。"
 
 #: lib/kateviewmanager.cpp:171
 #, kde-format
@@ -2187,7 +2187,8 @@ msgstr "移動文件到新的水平分割"
 msgid ""
 "Split the currently active view horizontally into two views and move the "
 "currently active document to view below."
-msgstr "將目前作用中的檢視水平分割為兩個檢視，並將目前作用中文件放在下方分割檢視。"
+msgstr ""
+"將目前作用中的檢視水平分割為兩個檢視，並將目前作用中文件放在下方分割檢視。"
 
 #: lib/kateviewmanager.cpp:180
 #, kde-format
@@ -2518,7 +2519,8 @@ msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"
 msgid ""
 "No toolview found for name: '%1'. Is the plugin for it disabled or the name "
 "is misspelled?"
-msgstr "此名稱沒有對應的工具檢視：「%1」。它的外掛程式是否已停用，或是名稱拼錯了？"
+msgstr ""
+"此名稱沒有對應的工具檢視：「%1」。它的外掛程式是否已停用，或是名稱拼錯了？"
 
 #: lib/mainwindow_commands.cpp:47
 #, kde-format
@@ -2680,7 +2682,8 @@ msgstr "關閉"
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
-msgstr "工作階段 '%1' 已在另一個 Kate 實體開啟。要切換過去還是要在這個實體重新開啟？"
+msgstr ""
+"工作階段 '%1' 已在另一個 Kate 實體開啟。要切換過去還是要在這個實體重新開啟？"
 
 #: lib/session/katesessionmanager.cpp:145
 #, kde-format

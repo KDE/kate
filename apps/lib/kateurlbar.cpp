@@ -906,17 +906,24 @@ public:
             return;
         }
         QMenu menu = QMenu(viewport());
+        const QModelIndex lastIndex = m_model.index(m_model.rowCount() - 1, 0);
+        const bool lastIsSymbolCrumb = lastIndex.data(BreadCrumbRole::IsSymbolCrumb).toBool();
+
         QModelIndex selectedIndex = selectedIndexes().constFirst();
-        bool last = selectedIndex == m_model.index(m_model.rowCount() - 1, 0);
         auto path = selectedIndex.data(BreadCrumbRole::PathRole).toString();
+        // -2 will be separator
+        int lastUrlItem = lastIsSymbolCrumb ? m_model.rowCount() - 3 : m_model.rowCount() - 1;
+        const bool last = selectedIndex == m_model.index(lastUrlItem, 0);
+
         if (!path.isEmpty()) {
             menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18nc("@menu:action", "Copy Location"), this, [path] {
                 QGuiApplication::clipboard()->setText(path);
             });
         }
         if (last) {
-            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [selectedIndex] {
-                QGuiApplication::clipboard()->setText(selectedIndex.data().toString());
+            const QString fileName = selectedIndex.data().toString();
+            menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@menu:action", "Copy Filename"), this, [fileName] {
+                QGuiApplication::clipboard()->setText(fileName);
             });
         }
         menu.exec(mapToGlobal(pos));

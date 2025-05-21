@@ -22,24 +22,73 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(BookmarksPluginFactory, "bookmarksplugin.json", registerPlugin<BookmarksPlugin>();)
 
+BookmarksPlugin::~BookmarksPlugin() = default;
+
 BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
+    , m_metaInfos(QStringLiteral("katemetainfos"))
+    , m_model() // TODO: Use custom model?
 {
-}
+    QStringList labels = {i18n("Line Number"), i18n("File Location"), QStringLiteral("Id")};
+    m_model.setHorizontalHeaderLabels(labels);
 
-BookmarksPlugin::~BookmarksPlugin() = default;
+    // Read meta infos and add bookmarks
+    for (auto groupName : m_metaInfos.groupList()) {
+        KConfigGroup kgroup(&m_metaInfos, groupName);
+        QUrl url(kgroup.readEntry("URL"));
+        if (!url.isEmpty() && url.isValid()) {
+            const QList<int> marks = kgroup.readEntry("Bookmarks", QList<int>());
+            for (int i = 0; i < marks.count(); i++) {
+                appendBookmark(marks.at(i), url.path());
+            }
+        }
+    }
+}
 
 QObject *BookmarksPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return new BookmarksPluginView(this, mainWindow);
+    return new BookmarksPluginView(this, mainWindow, &m_model);
 }
 
-BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::MainWindow *mainWindow)
+void BookmarksPlugin::appendBookmark(int line, QString filepath)
+{
+    line = line + 1;
+    int id = getBookmarkId(line, filepath);
+    if (!m_marks.contains(id)) {
+        QList<QStandardItem *> items;
+        items.append(new QStandardItem(QIcon::fromTheme(QStringLiteral("bookmarks")), QString::number(line)));
+        items.append(new QStandardItem(filepath));
+        items.append(new QStandardItem(QString::number(id)));
+        m_model.invisibleRootItem()->appendRow(items);
+        m_marks.insert(id);
+    }
+}
+
+void BookmarksPlugin::removeBookmark(int line, QString filepath)
+{
+    line = line + 1;
+    int id = getBookmarkId(line, filepath);
+    if (m_marks.contains(id)) {
+        auto items = m_model.findItems(QString::number(id), Qt::MatchExactly, 2);
+        if (!items.empty()) {
+            auto row = items.first()->index().row();
+            m_model.removeRow(row);
+            m_marks.remove(id);
+        }
+    }
+}
+
+int BookmarksPlugin::getBookmarkId(int line, QString filepath)
+{
+    return std::hash<QString>()(filepath) ^ std::hash<int>()(line);
+}
+
+BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::MainWindow *mainWindow, QAbstractItemModel *model)
     : QObject(plugin)
-    , m_metaInfos(QStringLiteral("katemetainfos"))
-    , m_model()
-    , m_selectionModel(&m_model)
+    , m_model(model)
+    , m_selectionModel(model)
     , m_mainWindow(mainWindow)
+    , m_plugin(plugin)
 {
     m_toolView.reset(m_mainWindow->createToolView(plugin,
                                                   QStringLiteral("bookmarks"),
@@ -49,15 +98,12 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
 
     auto root = new QWidget(m_toolView.get());
 
-    QStringList labels = {i18n("Line Number"), i18n("File Location"), QStringLiteral("Id")};
-    m_model.setHorizontalHeaderLabels(labels);
-
     m_treeView = new QTreeView(root);
     m_treeView->setFocusPolicy(Qt::FocusPolicy::NoFocus);
     m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeView->setFrameShape(QFrame::NoFrame);
     m_treeView->setSortingEnabled(true);
-    m_treeView->setModel(&m_model); // TODO: Use custom model?
+    m_treeView->setModel(model);
     m_treeView->setSelectionModel(&m_selectionModel);
     m_treeView->setColumnHidden(2, true);
 
@@ -102,25 +148,13 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
         }
     });
 
-    auto onRowsChanged = [this, backBtn, nextBtn](const QModelIndex &parent) {
-        bool enabled = m_model.rowCount(parent) > 0;
+    auto onRowsChanged = [model, backBtn, nextBtn](const QModelIndex &parent) {
+        bool enabled = model->rowCount(parent) > 0;
         backBtn->setEnabled(enabled);
         nextBtn->setEnabled(enabled);
     };
-    connect(&m_model, &QAbstractItemModel::rowsInserted, root, onRowsChanged);
-    connect(&m_model, &QAbstractItemModel::rowsRemoved, root, onRowsChanged);
-
-    // Read meta infos and add bookmarks
-    for (auto groupName : m_metaInfos.groupList()) {
-        KConfigGroup kgroup(&m_metaInfos, groupName);
-        QUrl url(kgroup.readEntry("URL"));
-        if (!url.isEmpty() && url.isValid()) {
-            const QList<int> marks = kgroup.readEntry("Bookmarks", QList<int>());
-            for (int i = 0; i < marks.count(); i++) {
-                appendBookmark(marks.at(i), url.path());
-            }
-        }
-    }
+    connect(model, &QAbstractItemModel::rowsInserted, root, onRowsChanged);
+    connect(model, &QAbstractItemModel::rowsRemoved, root, onRowsChanged);
 }
 
 KTextEditor::View *BookmarksPluginView::openBookmark(QModelIndex index)
@@ -137,7 +171,7 @@ void BookmarksPluginView::appendDocumentMarks(KTextEditor::Document *document)
     auto marks = document->marks();
     for (auto i = marks.cbegin(); i != marks.cend(); ++i) {
         if (i.value()->type == KTextEditor::Document::Bookmark) {
-            appendBookmark(i.value()->line, document->url().path());
+            m_plugin->appendBookmark(i.value()->line, document->url().path());
         }
     }
 }
@@ -156,9 +190,9 @@ void BookmarksPluginView::onMarkChanged(KTextEditor::Document *document, KTextEd
 {
     if (mark.type == KTextEditor::Document::Bookmark) {
         if (action == KTextEditor::Document::MarkChangeAction::MarkAdded) {
-            appendBookmark(mark.line, document->url().path());
+            m_plugin->appendBookmark(mark.line, document->url().path());
         } else if (action == KTextEditor::Document::MarkChangeAction::MarkRemoved) {
-            removeBookmark(mark.line, document->url().path());
+            m_plugin->removeBookmark(mark.line, document->url().path());
         }
     }
 }
@@ -166,7 +200,7 @@ void BookmarksPluginView::onMarkChanged(KTextEditor::Document *document, KTextEd
 void BookmarksPluginView::onBackBtnClicked()
 {
     QModelIndex index = m_treeView->currentIndex();
-    int rowCount = m_model.rowCount(index.parent());
+    int rowCount = m_model->rowCount(index.parent());
 
     if (rowCount > 0) {
         int prevRow = index.row() - 1;
@@ -174,7 +208,7 @@ void BookmarksPluginView::onBackBtnClicked()
             prevRow = rowCount - 1;
         }
 
-        auto prevIndex = m_model.index(prevRow, 0, index.parent());
+        auto prevIndex = m_model->index(prevRow, 0, index.parent());
         m_treeView->setCurrentIndex(prevIndex);
         openBookmark(prevIndex);
     }
@@ -183,14 +217,14 @@ void BookmarksPluginView::onBackBtnClicked()
 void BookmarksPluginView::onNextBtnClicked()
 {
     QModelIndex index = m_treeView->currentIndex();
-    int rowCount = m_model.rowCount(index.parent());
+    int rowCount = m_model->rowCount(index.parent());
 
     int nextRow = index.row() + 1;
     if (nextRow >= rowCount) {
         nextRow = 0;
     }
 
-    auto nextIndex = m_model.index(nextRow, 0, index.parent());
+    auto nextIndex = m_model->index(nextRow, 0, index.parent());
     m_treeView->setCurrentIndex(nextIndex);
     openBookmark(nextIndex);
 }
@@ -206,39 +240,6 @@ void BookmarksPluginView::onRemoveBtnClicked()
     }
 
     view->document()->removeMark(line - 1, KTextEditor::Document::Bookmark);
-}
-
-void BookmarksPluginView::appendBookmark(int line, QString filepath)
-{
-    line = line + 1;
-    int id = getBookmarkId(line, filepath);
-    if (!m_marks.contains(id)) {
-        QList<QStandardItem *> items;
-        items.append(new QStandardItem(QIcon::fromTheme(QStringLiteral("bookmarks")), QString::number(line)));
-        items.append(new QStandardItem(filepath));
-        items.append(new QStandardItem(QString::number(id)));
-        m_model.invisibleRootItem()->appendRow(items);
-        m_marks.insert(id);
-    }
-}
-
-void BookmarksPluginView::removeBookmark(int line, QString filepath)
-{
-    line = line + 1;
-    int id = getBookmarkId(line, filepath);
-    if (m_marks.contains(id)) {
-        auto items = m_model.findItems(QString::number(id), Qt::MatchExactly, 2);
-        if (!items.empty()) {
-            auto row = items.first()->index().row();
-            m_model.removeRow(row);
-            m_marks.remove(id);
-        }
-    }
-}
-
-int BookmarksPluginView::getBookmarkId(int line, QString filepath)
-{
-    return std::hash<QString>()(filepath) ^ std::hash<int>()(line);
 }
 
 BookmarksPluginView::~BookmarksPluginView()

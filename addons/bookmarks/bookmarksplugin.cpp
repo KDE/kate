@@ -116,13 +116,13 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     hLayout->setContentsMargins({});
 
     auto backBtn = new QToolButton(m_treeView);
-    backBtn->setEnabled(false);
+    backBtn->setEnabled(model->rowCount() > 0);
     backBtn->setToolTip(i18n("Go to Previous Bookmark"));
     backBtn->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     backBtn->setAutoRaise(true);
     connect(backBtn, &QToolButton::clicked, this, &BookmarksPluginView::onBackBtnClicked);
     auto nextBtn = new QToolButton(m_treeView);
-    nextBtn->setEnabled(false);
+    nextBtn->setEnabled(model->rowCount() > 0);
     nextBtn->setToolTip(i18n("Go to Next Bookmark"));
     nextBtn->setIcon(QIcon::fromTheme(QStringLiteral("arrow-right")));
     nextBtn->setAutoRaise(true);
@@ -141,10 +141,14 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     hLayout->addWidget(removeBtn);
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &BookmarksPluginView::onViewChanged);
-    connect(&m_selectionModel, &QItemSelectionModel::currentChanged, root, [this, removeBtn](const QModelIndex &current) {
-        removeBtn->setEnabled(current.isValid());
-        if (current.isValid()) {
-            openBookmark(current);
+    connect(&m_selectionModel, &QItemSelectionModel::selectionChanged, root, [this, removeBtn](const QItemSelection &selected) {
+        auto indexes = selected.indexes();
+        removeBtn->setEnabled(!indexes.empty());
+        if (!indexes.empty()) {
+            auto current = indexes.first();
+            if (current.isValid()) {
+                openBookmark(current);
+            }
         }
     });
 

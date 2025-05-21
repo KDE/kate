@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -2251,14 +2251,14 @@ msgid ""
 "want to proceed."
 msgstr "មិន​អាច​សរសេរ​ទិន្នន័យ​ដែល​អ្នក​បាន​ស្នើសុំ​ដើម្បី​រក្សាទុក ។ សូម​ជ្រើស​ថា​តើ​អ្នក​ចង់​បន្ត​យ៉ាង​ដូចម្ដេច ។"
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "ទីតាំង"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

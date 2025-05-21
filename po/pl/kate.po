@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1708586 $
+# Version: $Revision: 1709374 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2025-03-15 10:29+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -2203,13 +2203,13 @@ msgstr ""
 "Dane, jakie chciałeś zapisać, nie mogły być zapisane. Proszę zdecydować co "
 "dalej."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Skopiuj położenie"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2025-05-18 20:22+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2175,13 +2175,13 @@ msgstr ""
 "நீங்கள் சேமிக்க விரும்பியவற்றை எழுத முடியவில்லை. எப்படி தொடர வேண்டும் என்பதை "
 "தேர்ந்தெடுக்கவும்."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

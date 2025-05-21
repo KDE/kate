@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2025-05-12 17:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2166,13 +2166,13 @@ msgid ""
 "want to proceed."
 msgstr "تعذّرت كتابة البيانات التي طلبت حفظها. فضلًا اختر كيفيّة المتابعة."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

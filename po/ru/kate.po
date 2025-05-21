@@ -3,7 +3,7 @@
 # KDE3 - kdebase/kate.po Russian translation.
 # Copyright (C) 2005, KDE Russian translation team.
 #
-# SPDX-FileCopyrightText: 2018, 2019, 2020, 2021, 2022, 2023, 2024 Alexander Yavorsky <kekcuha@gmail.com>
+# SPDX-FileCopyrightText: 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Alexander Yavorsky <kekcuha@gmail.com>
 # Gregory Mokhin <mokhin@bog.msu.ru>, 2001.
 # Andrey Cherepanov <sibskull@mail.ru>, 2001-2005.
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2005.
@@ -21,15 +21,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
-"PO-Revision-Date: 2025-04-03 13:02+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
-"Language-Team: Basealt Translation Team\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"PO-Revision-Date: 2025-05-20 16:20+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.1\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -466,11 +466,9 @@ msgid "Raw"
 msgstr "Исходный"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "Применить промежуточное состояние строк"
+msgstr "Редактировать строку"
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format
@@ -1211,7 +1209,7 @@ msgid "Elide tab text"
 msgstr "Сокращать текст вкладок"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr "Текст вкладок может быть сокращён, если его длина слишком велика."
 
@@ -1597,9 +1595,7 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "Скопировать в буфер обмена путь к текущему файлу."
 
 #: lib/katemainwindow.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
 msgstr "Копировать имя файла"
 
@@ -1817,10 +1813,9 @@ msgid "Show File Git History"
 msgstr "Показать историю файла Git"
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "&Новое окно"
+msgstr "&Окна"
 
 #: lib/katemainwindow.cpp:718
 #, kde-format
@@ -2208,13 +2203,13 @@ msgid ""
 "want to proceed."
 msgstr "Не удаётся сохранить данные."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

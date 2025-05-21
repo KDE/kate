@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -2274,13 +2274,13 @@ msgstr ""
 "Податоците кои баравте да се зачуваат не можеа да се запишат. Изберете како "
 "сакате да продолжите."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Локација"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

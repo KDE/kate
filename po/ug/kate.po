@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -2207,14 +2207,14 @@ msgstr ""
 "ساقلاشنى تەلەپ قىلغان سانلىق-مەلۇمات يېزىلمىدى. قانداق قىلىش كېرەكلىكىنى "
 "تاللاڭ."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "ئورنى"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

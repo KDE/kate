@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
-"PO-Revision-Date: 2025-04-19 12:05+0200\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
+"PO-Revision-Date: 2025-05-20 19:33+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -445,11 +445,9 @@ msgid "Raw"
 msgstr "Необработен"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "Представяне на ред"
+msgstr "Редактиране на ред"
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format
@@ -2197,13 +2195,13 @@ msgid ""
 "want to proceed."
 msgstr "Данните, не могат да бъдат записани. Моля, изберете как да продължите."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

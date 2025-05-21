@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -2161,14 +2161,14 @@ msgid ""
 msgstr ""
 "ਡਾਟਾ, ਜੋ ਤੁਸੀਂ ਸੰਭਾਲਣ ਲਈ ਚੁਣਿਆ ਹੈ, ਨੂੰ ਲਿਖਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ। ਚੁਣੋ ਕਿ ਕਿਵੇਂ ਜਾਰੀ ਰੱਖਿਆ ਜਾਵੇ।"
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 #| msgid "Copy Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "ਟਿਕਾਣੇ ਨੂੰ ਕਾਪੀ ਕਰੋ"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, fuzzy, kde-format
 #| msgid "Copy Filename"
 msgctxt "@menu:action"

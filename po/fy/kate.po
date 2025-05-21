@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-10 00:45+0000\n"
+"POT-Creation-Date: 2025-05-21 00:45+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -2262,13 +2262,13 @@ msgstr ""
 "Data wêrfan jo frege ha it te bewarjen koe net skreaun wurde. Kies hoe't jo "
 "fierder wolle."
 
-#: lib/kateurlbar.cpp:913
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Lokaasje"
 
-#: lib/kateurlbar.cpp:918
+#: lib/kateurlbar.cpp:925
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

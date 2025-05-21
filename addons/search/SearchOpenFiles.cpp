@@ -57,6 +57,7 @@ void SearchOpenFiles::doSearchNextFile(int startLine)
         m_nextFileIndex = -1;
         m_cancelSearch = true;
         m_nextLine = -1;
+        Q_EMIT searchDone();
         return;
     }
 

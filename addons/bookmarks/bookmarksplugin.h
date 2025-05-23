@@ -5,15 +5,14 @@
 
 #pragma once
 
-#include <KConfig>
+#include "bookmarksmodel.h"
+
 #include <KTextEditor/Document>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 
-#include <QAbstractItemModel>
 #include <QItemSelectionModel>
-#include <QStandardItemModel>
-#include <QVariant>
+#include <QSortFilterProxyModel>
 
 class BookmarksPlugin : public KTextEditor::Plugin
 {
@@ -21,29 +20,22 @@ public:
     explicit BookmarksPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~BookmarksPlugin() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
-    void appendBookmark(int line, QString filepath);
-    void removeBookmark(int line, QString filepath);
 
 private:
-    int getBookmarkId(int line, QString filepath);
-
-private:
-    KConfig m_metaInfos;
-    QStandardItemModel m_model;
-    QSet<int> m_marks;
+    BookmarksModel m_model;
 };
 
 class BookmarksPluginView : public QObject, public KXMLGUIClient
 {
 public:
-    BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::MainWindow *mainWindow, QAbstractItemModel *model);
+    BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::MainWindow *mainWindow, BookmarksModel *model);
     ~BookmarksPluginView() override;
 
 private:
     void appendDocumentMarks(KTextEditor::Document *document);
-    KTextEditor::View *openBookmark(QModelIndex index);
+    KTextEditor::View *openBookmark(const Bookmark &bookmark);
 
-private Q_SLOTS:
+private:
     void onViewChanged(KTextEditor::View *view);
     void onMarkChanged(KTextEditor::Document *document, KTextEditor::Mark mark, KTextEditor::Document::MarkChangeAction action);
     void onBackBtnClicked();
@@ -51,10 +43,10 @@ private Q_SLOTS:
     void onRemoveBtnClicked();
 
 private:
-    class QTreeView *m_treeView;
-    QAbstractItemModel *m_model;
+    BookmarksModel *m_model;
+    QSortFilterProxyModel m_proxyModel;
     QItemSelectionModel m_selectionModel;
     KTextEditor::MainWindow *m_mainWindow;
     std::unique_ptr<QWidget> m_toolView;
-    class BookmarksPlugin *m_plugin;
+    class QTreeView *m_treeView;
 };

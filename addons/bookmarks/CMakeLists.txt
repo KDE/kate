@@ -6,4 +6,5 @@ target_sources(
   bookmarksplugin
   PRIVATE
     bookmarksplugin.cpp
+    bookmarksmodel.cpp
 )

@@ -1,0 +1,46 @@
+/*
+    SPDX-FileCopyrightText: 2025 Leo Ruggeri <leo5t@yahoo.it>
+    SPDX-License-Identifier: LGPL-2.0-or-later
+*/
+
+#pragma once
+
+#include <QAbstractItemModel>
+#include <QHash>
+#include <QString>
+#include <QUrl>
+#include <QVector>
+
+struct Bookmark {
+    QUrl url;
+    int lineNumber;
+};
+
+class BookmarksModel : public QAbstractItemModel
+{
+    Q_OBJECT
+
+public:
+    explicit BookmarksModel(QObject *parent = nullptr);
+    ~BookmarksModel() override;
+
+    // Required model interface methods
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+
+    // Bookmarks operations
+    void addBookmark(const QUrl &url, int lineNumber);
+    void removeBookmark(const QUrl &url, int lineNumber);
+    const Bookmark &getBookmark(const QModelIndex &index);
+
+private:
+    int getBookmarkId(const QUrl &url, int lineNumber);
+
+private:
+    QList<int> m_keys;
+    QHash<int, Bookmark> m_bookmarks;
+};

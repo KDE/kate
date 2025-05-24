@@ -159,11 +159,12 @@ void SnippetRepository::remove()
 
 /// copied code from snippets_tng/lib/completionmodel.cpp
 ///@copyright 2009 Joseph Wenninger <jowenn@kde.org>
-static void addAndCreateElement(QDomDocument &doc, QDomElement &item, const QString &name, const QString &content)
+static QDomElement addAndCreateElement(QDomDocument &doc, QDomElement &item, const QString &name, const QString &content)
 {
     QDomElement element = doc.createElement(name);
     element.appendChild(doc.createTextNode(content));
     item.appendChild(element);
+    return element;
 }
 
 void SnippetRepository::save()
@@ -209,7 +210,8 @@ void SnippetRepository::save()
         }
         QDomElement item = doc.createElement(QStringLiteral("item"));
         addAndCreateElement(doc, item, QStringLiteral("match"), snippet->text());
-        addAndCreateElement(doc, item, QStringLiteral("fillin"), snippet->snippet());
+        auto e = addAndCreateElement(doc, item, QStringLiteral("fillin"), snippet->snippet());
+        e.setAttribute(QStringLiteral("type"), snippet->snippetType() == Snippet::TextTemplate ? QStringLiteral("template") : QStringLiteral("script"));
         root.appendChild(item);
     }
     // KMessageBox::information(0,doc.toString());
@@ -321,7 +323,10 @@ void SnippetRepository::parseFile()
             if (child.tagName() == QLatin1String("match")) {
                 snippet->setText(child.text());
             } else if (child.tagName() == QLatin1String("fillin")) {
-                snippet->setSnippet(child.text());
+                const auto e = child.toElement();
+                snippet->setSnippet(child.text(),
+                                    e.attribute(QLatin1String("type"), QLatin1String("template")) == QLatin1String("template") ? Snippet::TextTemplate
+                                                                                                                               : Snippet::Script);
             }
         }
         // require at least a non-empty name and snippet

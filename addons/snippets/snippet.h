@@ -48,14 +48,25 @@ public:
         return nullptr;
     }
 
+    enum SnippetType {
+        TextTemplate,
+        Script
+    };
+
     /**
      * Returns the actual contents of this snippet.
      */
     QString snippet() const;
+
+    /**
+     * Returns the type (template or script) of this snippet.
+     */
+    SnippetType snippetType() const;
+
     /**
      * Sets the actual contents of this snippet.
      */
-    void setSnippet(const QString &snippet);
+    void setSnippet(const QString &snippet, SnippetType type);
 
     /**
      * Action to trigger insertion of this snippet.
@@ -69,6 +80,8 @@ public:
 private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
+    /// the type of this snippet
+    SnippetType m_type;
     /// the insertion action for this snippet.
     QAction *m_action = nullptr;
 };

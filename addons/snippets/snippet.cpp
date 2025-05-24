@@ -20,7 +20,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>"))
 {
-    setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
+    setSnippet(QString(), TextTemplate);
 }
 
 Snippet::~Snippet()
@@ -33,9 +33,20 @@ QString Snippet::snippet() const
     return m_snippet;
 }
 
-void Snippet::setSnippet(const QString &snippet)
+Snippet::SnippetType Snippet::snippetType() const
+{
+    return m_type;
+}
+
+void Snippet::setSnippet(const QString &snippet, SnippetType type)
 {
     m_snippet = snippet;
+    m_type = type;
+    if (type == TextTemplate) {
+        setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
+    } else {
+        setIcon(QIcon::fromTheme(QStringLiteral("code-function")));
+    }
 }
 
 void Snippet::registerActionForView(QWidget *view)

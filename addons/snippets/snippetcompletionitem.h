@@ -37,6 +37,6 @@ public:
 private:
     // we copy since the snippet itself can be deleted at any time
     QString m_name;
-    QString m_snippet;
+    Snippet *m_snippet;
     SnippetRepository *m_repo;
 };

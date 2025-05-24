@@ -22,7 +22,7 @@
 
 SnippetCompletionItem::SnippetCompletionItem(Snippet *snippet, SnippetRepository *repo)
     : m_name(snippet->text())
-    , m_snippet(snippet->snippet())
+    , m_snippet(snippet)
     , m_repo(repo)
 {
     Q_ASSERT(m_repo);
@@ -63,7 +63,7 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
         /// TODO: somehow make it possible to scroll like in other expanding widgets
         // don't make it too large, only show a few lines
         textEdit->resize(textEdit->width(), 100);
-        textEdit->setPlainText(m_snippet);
+        textEdit->setPlainText(m_snippet->snippet());
         textEdit->setReadOnly(true);
         textEdit->setLineWrapMode(QTextEdit::NoWrap);
 
@@ -80,5 +80,5 @@ void SnippetCompletionItem::execute(KTextEditor::View *view, const KTextEditor::
 {
     // insert snippet content
     view->document()->removeText(word);
-    view->insertTemplate(view->cursorPosition(), m_snippet, m_repo->script());
+    m_snippet->apply(view, m_repo->script());
 }

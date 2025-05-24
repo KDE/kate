@@ -4,8 +4,10 @@
 */
 
 #include "bookmarksmodel.h"
+
+#include <KLocalizedString>
 #include <QIcon>
-#include <qurl.h>
+#include <QUrl>
 
 BookmarksModel::BookmarksModel(QObject *parent)
     : QAbstractItemModel(parent)
@@ -70,9 +72,9 @@ QVariant BookmarksModel::headerData(int section, Qt::Orientation orientation, in
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
         case 0:
-            return QStringLiteral("Line Number");
+            return i18n("Line Number");
         case 1:
-            return QStringLiteral("File Path");
+            return i18n("File Path");
         default:
             return QVariant();
         }

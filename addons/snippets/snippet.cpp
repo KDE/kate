@@ -10,6 +10,7 @@
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
+#include "ktexteditor/document.h"
 #include "ktexteditor/mainwindow.h"
 
 #include <KLocalizedString>
@@ -20,7 +21,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>"))
 {
-    setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
+    setSnippet(QString(), TextTemplate);
 }
 
 Snippet::~Snippet()
@@ -33,9 +34,39 @@ QString Snippet::snippet() const
     return m_snippet;
 }
 
-void Snippet::setSnippet(const QString &snippet)
+Snippet::SnippetType Snippet::snippetType() const
+{
+    return m_type;
+}
+
+// static
+QString Snippet::typeToString(const SnippetType type)
+{
+    if (type == Script) {
+        return QStringLiteral("script");
+    }
+    return QStringLiteral("template");
+}
+
+// static
+Snippet::SnippetType Snippet::stringToType(const QString &string)
+{
+    if (string == QStringLiteral("script")) {
+        return Script;
+    }
+    // this must be the default for backwards compatibility!
+    return TextTemplate;
+}
+
+void Snippet::setSnippet(const QString &snippet, SnippetType type)
 {
     m_snippet = snippet;
+    m_type = type;
+    if (type == TextTemplate) {
+        setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
+    } else {
+        setIcon(QIcon::fromTheme(QStringLiteral("code-function")));
+    }
 }
 
 void Snippet::registerActionForView(QWidget *view)
@@ -58,6 +89,20 @@ QAction *Snippet::action()
     }
     m_action->setText(i18n("insert snippet %1", text()));
     return m_action;
+}
+
+void Snippet::apply(KTextEditor::View *view, const QString &repoScript) const
+{
+    if (snippetType() == TextTemplate) {
+        view->insertTemplate(view->cursorPosition(), snippet(), repoScript);
+    } else {
+        QVariant res;
+        auto ok = view->evaluateScript(repoScript + u'\n' + snippet(), &res);
+        if (!ok) {
+            // show error message, by simply inserting it
+            view->document()->insertText(view->cursorPosition(), res.toString());
+        }
+    }
 }
 
 QVariant Snippet::data(int role) const

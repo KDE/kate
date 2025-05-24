@@ -14,6 +14,11 @@
 
 class QAction;
 
+namespace KTextEditor
+{
+class View;
+}
+
 /**
  * One object of this class represents a single snippet.
  * Multiple snippets are stored in one repository (XML-file).
@@ -48,19 +53,45 @@ public:
         return nullptr;
     }
 
+    enum SnippetType {
+        TextTemplate,
+        Script
+    };
+
+    /**
+     * Returns the type (template or script) of this snippet.
+     */
+    SnippetType snippetType() const;
+
+    /**
+     * Map snippet type to string (for storage).
+     */
+    static QString typeToString(const SnippetType type);
+
+    /**
+     * Map stored string back to snippet type.
+     */
+    static SnippetType stringToType(const QString &string);
+
+    /**
+     * Sets the actual contents of this snippet.
+     */
+    void setSnippet(const QString &snippet, SnippetType type);
+
     /**
      * Returns the actual contents of this snippet.
      */
     QString snippet() const;
-    /**
-     * Sets the actual contents of this snippet.
-     */
-    void setSnippet(const QString &snippet);
 
     /**
      * Action to trigger insertion of this snippet.
      */
     QAction *action();
+
+    /**
+     * Insert/run this snippet in the given view
+     */
+    void apply(KTextEditor::View *view, const QString &repoScript) const;
 
     void registerActionForView(QWidget *view);
 
@@ -69,6 +100,8 @@ public:
 private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
+    /// the type of this snippet
+    SnippetType m_type;
     /// the insertion action for this snippet.
     QAction *m_action = nullptr;
 };

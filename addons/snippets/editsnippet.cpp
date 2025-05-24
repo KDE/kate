@@ -69,10 +69,52 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
         m_snippetView->document()->setMode(m_repo->fileTypes().first());
     }
 
+    connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, [this]() {
+        if (m_ui->modeComboBox->currentData().toInt() == Snippet::TextTemplate) {
+            m_ui->snippetLabel->setText(
+                i18n("The text your snippet will insert into the document. "
+                     "<a href=\"A template snippet can contain editable fields. They can be "
+                     "cycled by pressing Tab. The following expressions can be used "
+                     "in the template text to create fields: <br><tt>${field_name}</tt> "
+                     "creates a simple, editable field. All subsequent occurrences of the "
+                     "same field_name will mirror the contents of the first "
+                     "during editing.<br><tt>${field_name=default}</tt> can be used to "
+                     "specify a default value for the field, where <tt>default</tt> can be any "
+                     "JavaScript expression (use quotatio marks to specify "
+                     "a fixed string as default value).<br><tt>${func(other_field1, "
+                     "other_field2, ...)</tt> evaluates a JavaScript function defined in the "
+                     "'Scripts Library' tab on each edit, and is replaced by the value returned "
+                     "by that function.<br><tt>${cursor}</tt> "
+                     "can be used to mark the end position of the cursor after everything "
+                     "else was filled in.\">More...</a>"));
+            m_snippetView->document()->setMode(QStringLiteral("None")); // TODO
+        } else {
+            // TODO
+            m_ui->snippetLabel->setText(i18n("Explanation for script. Individual portion vs Script Library"));
+            m_snippetView->document()->setMode(QStringLiteral("JavaScript"));
+        }
+    });
+    m_ui->modeComboBox->addItem(i18n("Text template"), QVariant(Snippet::TextTemplate));
+    m_ui->modeComboBox->addItem(i18n("Script"), QVariant(Snippet::Script));
+
     m_scriptsView = createView(m_ui->scriptTab);
     m_scriptsView->document()->setMode(QStringLiteral("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
+
+    // TODO: link to handbook
+    m_ui->scriptLabel->setText(
+        i18n("Write down JavaScript helper functions to use in your snippets here. "
+             "<a href=\"Editable template fields are accessible as local variables. "
+             "For example in a template snippet containing <tt>${field}</tt>, a "
+             "variable called <tt>field</tt> will be present which contains the "
+             "up-to-date contents of the template field. Those variables can either "
+             "be used in the function statically or passed as arguments, by using the "
+             "<tt>${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+             "snippet string.<br>You can use the kate scripting API to get the "
+             "selected text, full text, file name and more by using the appropriate "
+             "methods of the <tt>document</tt> and <tt>view</tt> objects. Refer to "
+             "the scripting API documentation for more information.\">More...</a>"));
 
     // view for testing the snippet
     m_testView = createView(m_ui->testWidget);
@@ -83,6 +125,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     // modified notification stuff
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
+    connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, &EditSnippet::validate);
     connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
@@ -98,6 +141,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
 
         m_snippetView->document()->setText(m_snippet->snippet());
         m_ui->snippetNameEdit->setText(m_snippet->text());
+        m_ui->modeComboBox->setCurrentIndex(m_ui->modeComboBox->findData(QVariant(snippet->snippetType())));
         m_ui->snippetShortcut->setKeySequence(m_snippet->action()->shortcut());
 
         // unset modified flags
@@ -123,8 +167,12 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
 
 void EditSnippet::test()
 {
-    m_testView->document()->clear();
-    m_testView->insertTemplate(KTextEditor::Cursor(0, 0), m_snippetView->document()->text(), m_scriptsView->document()->text());
+    if (m_ui->modeComboBox->currentIndex() == 0) {
+        m_testView->document()->clear();
+    }
+    Snippet snippet;
+    snippet.setSnippet(m_snippetView->document()->text(), (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt());
+    snippet.apply(m_testView, m_scriptsView->document()->text());
     m_testView->setFocus();
 }
 
@@ -162,7 +210,7 @@ void EditSnippet::save()
         m_snippet->action(); // ensure that the snippet's QAction is created before it is added to a widget by the rowsInserted() signal
         m_repo->appendRow(m_snippet);
     }
-    m_snippet->setSnippet(m_snippetView->document()->text());
+    m_snippet->setSnippet(m_snippetView->document()->text(), (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt());
     m_snippetView->document()->setModified(false);
     m_snippet->setText(m_ui->snippetNameEdit->text());
     m_snippet->action()->setShortcut(m_ui->snippetShortcut->keySequence());

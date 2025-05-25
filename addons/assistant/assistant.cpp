@@ -99,10 +99,9 @@ AssistantView::AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwin
     KXMLGUIClient::setComponentName(u"assistant"_s, i18n("Assistant"));
     setXMLFile(u"ui.rc"_s);
 
-    QAction *a = actionCollection()->addAction(u"assistant_test_action"_s);
-    a->setText(i18n("Test Action"));
-    a->setIcon(QIcon::fromTheme(u"document-new-from-template"_s));
-    connect(a, &QAction::triggered, this, &AssistantView::openTestDialog);
+    QAction *a = actionCollection()->addAction(u"assistant_prompt"_s);
+    a->setText(i18n("Send current line as prompt"));
+    connect(a, &QAction::triggered, this, &AssistantView::sendCurrentLineAsPrompt);
 
     m_mainWindow->guiFactory()->addClient(this);
 }
@@ -112,41 +111,25 @@ AssistantView::~AssistantView()
     m_mainWindow->guiFactory()->removeClient(this);
 }
 
-void AssistantView::openTestDialog()
+void AssistantView::sendCurrentLineAsPrompt()
 {
-    // trigger some prompt
-    m_assistant->sendPrompt(u"Why is the sky blue?"_s, this, [](const QString &answer) {
-        printf("%s\n", qPrintable(answer));
-    });
-
-    QMessageBox msgBox(m_mainWindow->window());
-    msgBox.setWindowTitle(i18n("Test Dialog"));
-    msgBox.setText(i18n("Test Dialog"));
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-
-    if (msgBox.exec() == QMessageBox::Yes) {
-        displayMessage(i18n("You clicked Yes"), KTextEditor::Message::Information);
-    } else {
-        displayMessage(i18n("You clicked No"), KTextEditor::Message::Information);
-    }
-}
-
-void AssistantView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)
-{
-    KTextEditor::View *kv = m_mainWindow->activeView();
-    if (!kv) {
+    // get current view, can't do anything if not there
+    auto view = m_mainWindow->activeView();
+    if (!view) {
         return;
     }
 
-    delete m_infoMessage;
-    m_infoMessage = new KTextEditor::Message(msg, level);
-    m_infoMessage->setWordWrap(false);
-    m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
-    m_infoMessage->setAutoHide(8000);
-    m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
-    m_infoMessage->setView(kv);
-    kv->document()->postMessage(m_infoMessage);
+    // we will just use the current line as prompt, if empty we do nothing
+    const auto line = view->cursorPosition().line();
+    const auto lineText = view->document()->line(line).trimmed();
+    if (lineText.isEmpty()) {
+        return;
+    }
+
+    // send prompt, insert result in line below the request line
+    m_assistant->sendPrompt(lineText, view, [view, line](const QString &answer) {
+        view->document()->insertText(KTextEditor::Cursor(line + 1, 0), answer);
+    });
 }
 
 #include "assistant.moc"

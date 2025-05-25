@@ -2,6 +2,7 @@ function (kate_add_plugin name)
 kcoreaddons_add_plugin(${name} INSTALL_NAMESPACE "kf6/ktexteditor")
 endfunction()
 
+ecm_optional_add_subdirectory(assistant)
 ecm_optional_add_subdirectory(backtracebrowser)
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).
 ecm_optional_add_subdirectory(colorpicker) # Inline color preview/picker

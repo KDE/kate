@@ -313,6 +313,8 @@ void SnippetRepository::parseFile()
             continue;
         }
         auto *snippet = new Snippet;
+        QString script, description;
+        Snippet::SnippetType type;
         const QDomNodeList &children = node.childNodes();
         for (int j = 0; j < children.size(); ++j) {
             const QDomNode &childNode = children.at(j);
@@ -324,9 +326,13 @@ void SnippetRepository::parseFile()
                 snippet->setText(child.text());
             } else if (child.tagName() == QLatin1String("fillin")) {
                 const auto e = child.toElement();
-                snippet->setSnippet(child.text(), Snippet::stringToType(e.attribute(QLatin1String("type"))));
+                script = child.text();
+                type = Snippet::stringToType(e.attribute(QLatin1String("type")));
+            } else if (child.tagName() == QLatin1String("description")) {
+                description = child.text();
             }
         }
+        snippet->setSnippet(script, description, type);
         // require at least a non-empty name and snippet
         if (snippet->text().isEmpty() || snippet->snippet().isEmpty()) {
             delete snippet;

@@ -21,7 +21,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>"))
 {
-    setSnippet(QString(), TextTemplate);
+    setSnippet(QString(), QString(), TextTemplate);
 }
 
 Snippet::~Snippet()
@@ -58,9 +58,10 @@ Snippet::SnippetType Snippet::stringToType(const QString &string)
     return TextTemplate;
 }
 
-void Snippet::setSnippet(const QString &snippet, SnippetType type)
+void Snippet::setSnippet(const QString &snippet, const QString &description, SnippetType type)
 {
     m_snippet = snippet;
+    m_description = description;
     m_type = type;
     if (type == TextTemplate) {
         setIcon(QIcon::fromTheme(QStringLiteral("text-plain")));
@@ -105,10 +106,15 @@ void Snippet::apply(KTextEditor::View *view, const QString &repoScript) const
     }
 }
 
+QString Snippet::description() const
+{
+    return m_description;
+}
+
 QVariant Snippet::data(int role) const
 {
     if (role == Qt::ToolTipRole) {
-        return m_snippet;
+        return m_description.isEmpty() ? m_snippet : m_description;
     } else if ((role == Qt::ForegroundRole || role == Qt::BackgroundRole) && parent()->checkState() != Qt::Checked) {
         /// TODO: make the selected items also "disalbed" so the toggle action is seen directly
         if (role == Qt::ForegroundRole) {

@@ -116,6 +116,11 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
              "methods of the <tt>document</tt> and <tt>view</tt> objects. Refer to "
              "the scripting API documentation for more information.\">More...</a>"));
 
+    m_ui->descriptionLabel->setText(i18n("(Optional) description to show in tooltips. May contain HTML formatting."));
+    m_descriptionView = createView(m_ui->descriptionTab);
+    m_descriptionView->document()->setText(m_snippet->description());
+    m_descriptionView->document()->setModified(false);
+
     // view for testing the snippet
     m_testView = createView(m_ui->testWidget);
     // splitter default size ratio
@@ -125,7 +130,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     // modified notification stuff
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetNameEdit, &QLineEdit::textEdited, this, &EditSnippet::validate);
-    connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, &EditSnippet::validate);
+    connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
 
@@ -167,11 +172,13 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
 
 void EditSnippet::test()
 {
-    if (m_ui->modeComboBox->currentIndex() == 0) {
+    auto type = (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt();
+    // NOTE: script snippets will typically want to work with existing text
+    if (type != Snippet::Script) {
         m_testView->document()->clear();
     }
     Snippet snippet;
-    snippet.setSnippet(m_snippetView->document()->text(), (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt());
+    snippet.setSnippet(m_snippetView->document()->text(), m_descriptionView->document()->text(), type);
     snippet.apply(m_testView, m_scriptsView->document()->text());
     m_testView->setFocus();
 }
@@ -210,7 +217,9 @@ void EditSnippet::save()
         m_snippet->action(); // ensure that the snippet's QAction is created before it is added to a widget by the rowsInserted() signal
         m_repo->appendRow(m_snippet);
     }
-    m_snippet->setSnippet(m_snippetView->document()->text(), (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt());
+    m_snippet->setSnippet(m_snippetView->document()->text(),
+                          m_descriptionView->document()->text(),
+                          (Snippet::SnippetType)m_ui->modeComboBox->currentData().toInt());
     m_snippetView->document()->setModified(false);
     m_snippet->setText(m_ui->snippetNameEdit->text());
     m_snippet->action()->setShortcut(m_ui->snippetShortcut->keySequence());
@@ -229,7 +238,7 @@ void EditSnippet::save()
 
 void EditSnippet::reject()
 {
-    if (m_topBoxModified || m_snippetView->document()->isModified() || m_scriptsView->document()->isModified()) {
+    if (m_topBoxModified || m_snippetView->document()->isModified() || m_scriptsView->document()->isModified() || m_descriptionView->document()->isModified()) {
         int ret = KMessageBox::warningTwoActions(qApp->activeWindow(),
                                                  i18n("The snippet contains unsaved changes. Do you want to discard all changes?"),
                                                  i18n("Warning - Unsaved Changes"),

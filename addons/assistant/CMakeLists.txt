@@ -6,7 +6,7 @@ set(PROJECT_SOURCES
 
 kate_add_plugin(assistant)
 target_compile_definitions(assistant PRIVATE TRANSLATION_DOMAIN="assistant")
-target_link_libraries(assistant PRIVATE KF6::I18n KF6::TextEditor)
+target_link_libraries(assistant PRIVATE kateprivate KF6::I18n KF6::TextEditor)
 target_sources(assistant PRIVATE ${PROJECT_SOURCES})
 
 if (ENABLE_PCH)

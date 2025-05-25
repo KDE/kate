@@ -6,6 +6,8 @@
 
 #include "assistant.h"
 
+#include <ktexteditor_utils.h>
+
 #include <KActionCollection>
 #include <KPluginFactory>
 
@@ -74,14 +76,19 @@ void Assistant::requestFinished(QNetworkReply *reply)
     const auto it = m_promptRequests.find(reply);
     Q_ASSERT(it != m_promptRequests.end());
 
-    // trigger the handler if context is still valid
-    if (it->second.context) {
+    // trigger the handler if context is still valid and we had no error
+    if (it->second.context && reply->error() == QNetworkReply::NoError) {
         // extract the answer string
         const auto result = QJsonDocument::fromJson(reply->readAll()).object();
         const auto answer = result[u"response"_s].toString();
 
         // call our handler
         it->second.resultHandler(answer);
+    }
+
+    // show the error if any to the user
+    if (reply->error() != QNetworkReply::NoError) {
+        Utils::showMessage(i18n("Failed to send prompt to service.\nError: %1", reply->errorString()), QIcon(), i18n("Assistant"), MessageType::Error);
     }
 
     // ensure the reply will be deleted

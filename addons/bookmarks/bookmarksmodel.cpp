@@ -32,7 +32,6 @@ QModelIndex BookmarksModel::parent(const QModelIndex &index) const
 
 int BookmarksModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
     return parent.isValid() ? 0 : m_keys.size();
 }
 

@@ -619,7 +619,7 @@ msgstr ""
 #: SearchPlugin.cpp:397
 #, kde-format
 msgid "Click to filter through results"
-msgstr "Feu clic per a filtrar els resultats"
+msgstr "Cliqueu per a filtrar els resultats"
 
 #: SearchPlugin.cpp:487
 #, kde-format

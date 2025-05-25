@@ -72,28 +72,20 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, [this]() {
         if (m_ui->modeComboBox->currentData().toInt() == Snippet::TextTemplate) {
             m_ui->snippetLabel->setText(
-                i18n("The text your snippet will insert into the document. "
-                     "<a href=\"A template snippet can contain editable fields. They can be "
-                     "cycled by pressing Tab. The following expressions can be used "
-                     "in the template text to create fields: <br><tt>${field_name}</tt> "
-                     "creates a simple, editable field. All subsequent occurrences of the "
-                     "same field_name will mirror the contents of the first "
-                     "during editing.<br><tt>${field_name=default}</tt> can be used to "
-                     "specify a default value for the field, where <tt>default</tt> can be any "
-                     "JavaScript expression (use quotatio marks to specify "
-                     "a fixed string as default value).<br><tt>${func(other_field1, "
-                     "other_field2, ...)</tt> evaluates a JavaScript function defined in the "
-                     "'Scripts Library' tab on each edit, and is replaced by the value returned "
-                     "by that function.<br><tt>${cursor}</tt> "
-                     "can be used to mark the end position of the cursor after everything "
-                     "else was filled in.\">More...</a>"));
-            m_snippetView->document()->setMode(QStringLiteral("None")); // TODO
+                i18n("Text to insert into the document (see "
+                     "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a> "
+                     "for special fields)."));
+            m_snippetView->document()->setMode(QStringLiteral("Normal"));
         } else {
             // TODO
-            m_ui->snippetLabel->setText(i18n("Explanation for script. Individual portion vs Script Library"));
+            m_ui->snippetLabel->setText(
+                i18n("Javascript code to evaluate (see "
+                     "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a> "
+                     "for details)."));
             m_snippetView->document()->setMode(QStringLiteral("JavaScript"));
         }
     });
+    m_ui->snippetLabel->setOpenExternalLinks(true);
     m_ui->modeComboBox->addItem(i18n("Text template"), QVariant(Snippet::TextTemplate));
     m_ui->modeComboBox->addItem(i18n("Script"), QVariant(Snippet::Script));
 
@@ -102,19 +94,9 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
 
-    // TODO: link to handbook
     m_ui->scriptLabel->setText(
-        i18n("Write down JavaScript helper functions to use in your snippets here. "
-             "<a href=\"Editable template fields are accessible as local variables. "
-             "For example in a template snippet containing <tt>${field}</tt>, a "
-             "variable called <tt>field</tt> will be present which contains the "
-             "up-to-date contents of the template field. Those variables can either "
-             "be used in the function statically or passed as arguments, by using the "
-             "<tt>${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
-             "snippet string.<br>You can use the kate scripting API to get the "
-             "selected text, full text, file name and more by using the appropriate "
-             "methods of the <tt>document</tt> and <tt>view</tt> objects. Refer to "
-             "the scripting API documentation for more information.\">More...</a>"));
+        i18n("JavaScript functions shared between all snippets in this repository (see "
+             "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a>)."));
 
     m_ui->descriptionLabel->setText(i18n("(Optional) description to show in tooltips. May contain HTML formatting."));
     m_descriptionView = createView(m_ui->descriptionTab);
@@ -133,12 +115,6 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, &EditSnippet::topBoxModified);
     connect(m_ui->snippetShortcut, &KKeySequenceWidget::keySequenceChanged, this, &EditSnippet::topBoxModified);
     connect(m_snippetView->document(), &KTextEditor::Document::textChanged, this, &EditSnippet::validate);
-
-    auto showHelp = [](const QString &text) {
-        QWhatsThis::showText(QCursor::pos(), text);
-    };
-    connect(m_ui->snippetLabel, &QLabel::linkActivated, showHelp);
-    connect(m_ui->scriptLabel, &QLabel::linkActivated, showHelp);
 
     // if we edit a snippet, add all existing data
     if (m_snippet) {

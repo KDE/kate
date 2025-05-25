@@ -52,8 +52,7 @@ public:
     explicit AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwindow);
     ~AssistantView();
 
-    void openTestDialog();
-    void displayMessage(const QString &msg, KTextEditor::Message::MessageType level);
+    void sendCurrentLineAsPrompt();
 
 private:
     Assistant *const m_assistant;

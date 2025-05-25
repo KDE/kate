@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="assistant" library="assistant" version="1" translationDomain="assistant">
+<gui name="assistant" library="assistant" version="2" translationDomain="assistant">
     <MenuBar>
         <Menu name="tools">
             <text>&amp;Tools</text>
-            <Action name="assistant_test_action" group="test_group"/>
+            <Action name="assistant_prompt" group="test_group"/>
         </Menu>
     </MenuBar>
 </gui>

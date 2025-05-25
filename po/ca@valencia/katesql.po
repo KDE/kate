@@ -252,7 +252,7 @@ msgid ""
 "Click on \"Finish\" button to export data."
 msgstr ""
 "Seleccioneu el format dels camps.\n"
-"Cliqueu en el botó «Finalitza» per a exportar les dades."
+"Cliqueu damunt del botó «Finalitza» per a exportar les dades."
 
 #: exportwizard.cpp:101
 #, kde-format

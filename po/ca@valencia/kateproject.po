@@ -669,7 +669,7 @@ msgstr "Git"
 #: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr "Acció d'un sol clic en la vista de «git status»"
+msgstr "Acció d'un sol clic damunt de la vista de «git status»"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
@@ -689,7 +689,7 @@ msgstr "Marca / Desmarca"
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr "Acció de doble clic en la vista de «git status»"
+msgstr "Acció de doble clic damunt de la vista de «git status»"
 
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:68
 #, kde-format

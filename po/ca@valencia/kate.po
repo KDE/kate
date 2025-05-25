@@ -768,7 +768,7 @@ msgstr "Glen Parker"
 #: lib/kateapp.cpp:354
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
-msgstr "Historial Desfés de KWrite, integració amb Kspell"
+msgstr "Historial «Desfés» de KWrite, integració amb Kspell"
 
 #: lib/kateapp.cpp:355
 #, kde-format
@@ -2200,7 +2200,7 @@ msgid ""
 "Data you requested to be saved could not be written. Please choose how you "
 "want to proceed."
 msgstr ""
-"Les dades que heu demanat que es guarden no han pogut ser escrites. Escolliu "
+"Les dades que heu demanat que es guarden no han pogut ser escrites. Trieu "
 "com voleu procedir."
 
 #: lib/kateurlbar.cpp:919
@@ -2848,7 +2848,7 @@ msgstr "&Carrega l'última sessió utilitzada"
 #: lib/ui/sessionconfigwidget.ui:37
 #, kde-format
 msgid "&Manually choose a session"
-msgstr "Trieu &manualment una sessió"
+msgstr "Tria &manualment una sessió"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: lib/ui/sessionconfigwidget.ui:47

@@ -3355,7 +3355,7 @@ that are for the currently opened file type.</para></listitem>
 </menuchoice></term>
 <listitem>
 <para>Create a new snippet, which is a reusable chunk of text you
-may insert in any part of any document.</para>
+may insert in any part of any document, or a small script.</para>
 </listitem>
 </varlistentry>
 
@@ -3463,16 +3463,24 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 
 <varlistentry>
 <term><guilabel>Name</guilabel></term>
-<listitem><para>The name will be shown in the completion list.</para></listitem>
+<listitem><para>The name as shown in the list of snippets, and in the completion list (required).</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Type</guilabel></term>
+<listitem><para>Snippets may either be defined as text templates or scripts. Both types allow to use &javascript; functions
+(see below, for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
+suiteable, if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution, if you want to
+<emphasis>modify</emphasis> text).</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term>Shortcut</term>
-<listitem><para>Pressing this shortcut will insert the snippet into the document.</para></listitem>
+<listitem><para>Pressing this shortcut will insert (or run) the snippet into the current document.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Snippets</guilabel></term>
+<term><guilabel>Snippet</guilabel> (type <userinput>Text Template</userinput>)</term>
 <listitem><para>The text your snippet will insert into the document.</para>
 <para>A snippet can contain editable fields. They can be cycled by
 pressing &Tab;. The following expressions can be used in the template
@@ -3484,64 +3492,81 @@ of the first during editing.</para>
 <para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
 can be used to specify a default value for the field.
 <replaceable>default</replaceable> can be any &javascript; expression.</para>
-<para>Use <userinput>${<replaceable>field_name</replaceable>=<replaceable>text</replaceable>}</userinput>
+<para>Use quotes (<userinput>${<replaceable>field_name</replaceable>=<replaceable>"text"</replaceable>}</userinput>)
 to specify a fixed string as default value.</para>
 <para><userinput>${func(<replaceable>other_field1</replaceable>,
 <replaceable>other_field2</replaceable>, ...)}</userinput> can be used to create a
-field which evaluates a &javascript; function on each edit and contains its
-contents. See the <guilabel>Scripts</guilabel> tab for more information.</para>
+field which evaluates a &javascript; function on each edit and is replaced by that
+function's return value. See the <guilabel>Script Library</guilabel> tab for more information.</para>
 <para><userinput>${cursor}</userinput> can be used to mark the end position
 of the cursor after everything else was filled in.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Scripts</guilabel></term>
-<listitem><para>&javascript; helper functions to use in your snippets.</para>
-<para>All &javascript; functions should return the contents you want to place in a
-template field as a string.</para>
-<para>Functions are called in a scope which contains the contents of all
-editable template fields as local variables. For example in a snippet
+<term><guilabel>Snippet</guilabel> (type <userinput>Script</userinput>)</term>
+<listitem><para>The &javascript; code to evaluate for this snippet</para>
+<para>If this code contains a <userinput>return</userinput>, the returned string will be inserted at the current
+cursor position, but you can also use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate;
+scripting API</ulink> to modify the document, directly.</para>
+<para>Additionally, your code may use functions defined in the <guilabel>Script Library</guilabel> tab, which
+are shared between all snippets in a repository.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Script Library</guilabel></term>
+<listitem><para>&javascript; helper functions to use in your snippets. These functions are shared between all snippets in a repository.</para>
+<para>You can use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate; scripting API</ulink>
+to get the selected text, full text, file name and more by using the appropriate methods of the <userinput>document</userinput>
+and <userinput>view</userinput> objects. Refer to the scripting API
+documentation for more information.</para>
+
+<para>When scripting in conjuction with <userinput>Text Template</userinput> snippets, you should keep the
+following details/hints in mind:</para>
+<itemizedlist>
+<listitem><para>Remember that only the <emphasis>return value</emphasis> of a function is inserted in a field.</para></listitem>
+<listitem><para>The contents of all editable template fields are available as variables in this scope. For example in a snippet
 containing <userinput>${<replaceable>field</replaceable>}</userinput>,
 a variable called <userinput>field</userinput> will be present which contains
 the up-to-date contents of the template field. Those variables can either
 be used in the function statically or passed as arguments, by using the
 <userinput>${func(field)}</userinput> or <userinput>${<replaceable>field2=func(field)</replaceable>}</userinput>
-syntax in the snippet string.</para>
-<para>You can use
-the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate; scripting API</ulink>
-to get the selected text, full text, file name and
-more by using the appropriate methods of the <userinput>document</userinput>
-and <userinput>view</userinput> objects. Refer to the scripting API
-documentation for more information.</para>
-<para>For more complex scripts it may be important to understand that
+syntax in the snippet string.</para></listitem>
+<listitem><para>For more complex scripts it may be important to understand that
 <emphasis>first</emphasis>, the raw snippet is inserted into the document, and <emphasis>then</emphasis>
 functions are being evaluated. E.g., if a function retrieves the text on the
 line where the snippet is being inserted, that text will also contain
-<userinput>${functionCall()}</userinput>.</para>
-<para>As an example of working with selections using the scripting API, a simple way
-to wrap selected text inside tags is this snippet:
-<userinput>&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput>
-</para>
-<para>The following example invokes a script that inserts a default text in case
-there is no selection. Snippet:</para>
+<userinput>${functionCall()}</userinput>. Where this causes complications, consider using a
+<userinput>Script</userinput>-type snippet, instead.</para></listitem>
+<listitem><para>To simply wrap the currently selected text into tags, use: <userinput>&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput></para></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Description</guilabel></term>
+<listitem><para>An optional description of what this snippet does. This will be shown in tooltips. The description
+may contain basic HTML formatting.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term>Usage example</term>
+<listitem><para>The following example invokes a script that wraps the selected text, or - if
+there is no selection - a default text, into tags (Snippet type <userinput>Script</userinput>):</para>
 <para>
-<userinput>${rangeCommand("&lt;strong&gt;%%1&lt;/strong&gt;", "Bold")}</userinput></para>
-<para>Script:
 <programlisting>
-function rangeCommand(command, def) {
-    if (view.selectedText().length > 0) {
-        return command.replace("%%1", view.selectedText());
-    } else {
-        return command.replace("%%1", def);
-    }
-}
+let range = view.hasSelection() ? view.selection() : new Range(view.cursorPosition(), view.cursorPosition());
+let innertext = range.isEmpty() ? "Bold" : document.text(range);
+document.removeText(range);
+document.insertText(range.start, "&lt;strong&gt;" + innertext + "&lt;/strong&gt;");
 </programlisting>
 </para>
 </listitem>
 </varlistentry>
 
 </variablelist>
+
 </sect3>
 </sect2>
 
@@ -3557,10 +3582,11 @@ function rangeCommand(command, def) {
 </mediaobject>
 </screenshot>
 
-<para>You can call snippets in two ways:</para>
+<para>You can call snippets in several ways:</para>
 
 <itemizedlist>
-<listitem><para>By choosing the snippet from the tool view.</para></listitem>
+<listitem><para>By clicking on the snippet from the tool view.</para></listitem>
+<listitem><para>Using a keyboard shortcut, if you have assigned one.</para></listitem>
 <listitem><para>While writing, you can press <keycombo action="simul">&Ctrl;
 &Space;</keycombo>, which will display all the snippets in a
 convenient window from which you can choose.  This key combination provides

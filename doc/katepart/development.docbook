@@ -2584,6 +2584,8 @@ a theme.</para>
 The &kappname; editor component is easily extensible by writing scripts.
 The scripting language is ECMAScript (widely known as &javascript;).
 &kappname; supports two kinds of scripts: indentation and command line scripts.
+A functionality similar to command line scripts is also provided in the
+<ulink url="help:/kate/kate-application-plugin-snippets.html">snippets plugin</ulink>
 </para>
 
 <sect2 id="dev-scripting-indentation">
@@ -2741,6 +2743,12 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 
 <sect2 id="dev-scripting-command-line">
 <title>Command Line Scripts</title>
+
+<note>
+<para>A functionality similar the command line scripts, detailed here, is also provided in the
+<ulink url="help:/kate/kate-application-plugin-snippets.html">snippets plugin</ulink>.
+This plugin may provide an easier starting point, especially for small custom scripts.</para>
+</note>
 
 <para>
 As it is hard to satisfy everyone's needs, &kappname; supports little helper tools

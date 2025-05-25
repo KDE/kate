@@ -98,11 +98,9 @@ void Snippet::apply(KTextEditor::View *view, const QString &repoScript) const
         view->insertTemplate(view->cursorPosition(), snippet(), repoScript);
     } else {
         QVariant res;
-        auto ok = view->evaluateScript(repoScript + u'\n' + snippet(), &res);
-        if (!ok) {
-            // show error message, by simply inserting it
-            view->document()->insertText(view->cursorPosition(), res.toString());
-        }
+        view->evaluateScript(repoScript + u'\n' + snippet(), &res);
+        // for convenience, insert result (or error message) at cursor position
+        view->document()->insertText(view->cursorPosition(), res.toString());
     }
 }
 

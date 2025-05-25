@@ -51,6 +51,7 @@ private:
     Snippet *m_snippet;
     KTextEditor::View *m_snippetView;
     KTextEditor::View *m_scriptsView;
+    KTextEditor::View *m_descriptionView;
     KTextEditor::View *m_testView;
     bool m_topBoxModified;
     QPushButton *m_okButton;

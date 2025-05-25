@@ -76,12 +76,18 @@ public:
     /**
      * Sets the actual contents of this snippet.
      */
-    void setSnippet(const QString &snippet, SnippetType type);
+    void setSnippet(const QString &snippet, const QString &description, SnippetType type);
 
     /**
      * Returns the actual contents of this snippet.
      */
     QString snippet() const;
+
+    /**
+     * Returns the description, or - if that is empty - the snippet contents.
+     * For use in tooltips.
+     */
+    QString description() const;
 
     /**
      * Action to trigger insertion of this snippet.
@@ -100,6 +106,8 @@ public:
 private:
     /// the actual snippet contents aka \code<fillin>\endcode
     QString m_snippet;
+    /// optional description
+    QString m_description;
     /// the type of this snippet
     SnippetType m_type;
     /// the insertion action for this snippet.

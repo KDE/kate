@@ -63,7 +63,12 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
         /// TODO: somehow make it possible to scroll like in other expanding widgets
         // don't make it too large, only show a few lines
         textEdit->resize(textEdit->width(), 100);
-        textEdit->setPlainText(m_snippet->snippet());
+        QString descr = m_snippet->description();
+        if (!descr.isEmpty()) {
+            textEdit->setText(descr);
+        } else {
+            textEdit->setPlainText(m_snippet->snippet());
+        }
         textEdit->setReadOnly(true);
         textEdit->setLineWrapMode(QTextEdit::NoWrap);
 

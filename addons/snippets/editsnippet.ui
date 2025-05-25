@@ -41,7 +41,7 @@
        <item>
         <widget class="QLineEdit" name="snippetNameEdit">
          <property name="placeholderText">
-          <string>will be shown in the completion list</string>
+          <string>(required) Identifier (will also be shown in the completion list)</string>
          </property>
         </widget>
        </item>
@@ -71,6 +71,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="snippetShortcutLabel">
+         <property name="text">
+          <string>Keyboard shortcut:</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="KKeySequenceWidget" name="snippetShortcut"/>
@@ -112,6 +119,20 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QLabel" name="scriptLabel">
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="descriptionTab">
+       <attribute name="title">
+        <string>Description</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QLabel" name="descriptionLabel">
           <property name="wordWrap">
            <bool>true</bool>
           </property>

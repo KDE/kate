@@ -2,6 +2,8 @@ set(PROJECT_SOURCES
     plugin.qrc
     assistant.cpp
     assistant.h
+    assistantview.cpp
+    assistantview.h
 )
 
 kate_add_plugin(assistant)

@@ -774,6 +774,7 @@ void GitWidget::showDiff(const QString &file, bool staged)
             d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);
             d.flags.setFlag(DiffParams::Flag::ReloadOnShow, true);
             d.flags.setFlag(DiffParams::Flag::ShowFullContext, true);
+            d.flags.setFlag(DiffParams::Flag::ShowEditRightSide, true);
             QPointer<GitWidget> _this = QPointer<GitWidget>(this);
             d.updateStatusCallback = [_this] {
                 if (_this) {

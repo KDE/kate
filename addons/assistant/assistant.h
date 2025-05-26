@@ -22,12 +22,43 @@
 class Assistant : public KTextEditor::Plugin
 {
     Q_OBJECT
+
 public:
     explicit Assistant(QObject *parent, const QVariantList & = QVariantList());
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 
     void sendPrompt(const QString &prompt, const QObject *context, const std::function<void(const QString &QString)> &resultHandler);
+
+    /**
+     * Read config from config file.
+     * Will emit configUpdated().
+     */
+    void readConfig();
+
+    /**
+     * Write config to config file.
+     * Will emit configUpdated().
+     */
+    void writeConfig();
+
+    /**
+     * Public accessible config.
+     * Use readConfig/writeConfig if needed to read/write them back.
+     */
+    struct {
+        // url for completion API, e.g. http://localhost:11434/api/generate
+        QUrl urlCompletion;
+
+        // model to use for completion, e.g. llama3.2
+        QString modelCompletion;
+    } config;
+
+Q_SIGNALS:
+    /**
+     * Signal that plugin configuration changed
+     */
+    void configUpdated();
 
 private:
     // handle arriving result for sent prompts

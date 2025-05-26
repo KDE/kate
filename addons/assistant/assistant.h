@@ -6,12 +6,7 @@
 
 #pragma once
 
-#include <KTextEditor/Document>
-#include <KTextEditor/MainWindow>
-#include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
-#include <KTextEditor/View>
-#include <KXMLGUIClient>
 
 #include <QNetworkAccessManager>
 #include <QPointer>
@@ -74,19 +69,4 @@ private:
         std::function<void(const QString &QString)> resultHandler;
     };
     std::unordered_map<QNetworkReply *, PromptRequest> m_promptRequests;
-};
-
-class AssistantView : public QObject, public KXMLGUIClient
-{
-    Q_OBJECT
-public:
-    explicit AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwindow);
-    ~AssistantView();
-
-    void sendCurrentLineAsPrompt();
-
-private:
-    Assistant *const m_assistant;
-    KTextEditor::MainWindow *m_mainWindow = nullptr;
-    QPointer<KTextEditor::Message> m_infoMessage;
 };

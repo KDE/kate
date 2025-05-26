@@ -20,7 +20,9 @@
 #include <QNetworkReply>
 #include <QStandardPaths>
 
+#include <KConfigGroup>
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
@@ -47,16 +49,12 @@ void Assistant::sendPrompt(const QString &prompt, const QObject *context, const 
     // construct prompt request
     QNetworkRequest request;
     request.setRawHeader("Content-Type", "application/json");
-
-    // TODO: make it configurable
-    request.setUrl(QUrl(u"http://localhost:11434/api/generate"_s));
+    request.setUrl(config.urlCompletion);
 
     // setup prompt json
     QJsonObject json{
         {u"prompt"_s, prompt},
-
-        // TODO: make it configurable
-        {u"model"_s, u"llama3.2"_s},
+        {u"model"_s, config.modelCompletion},
         {u"stream"_s, false},
     };
 
@@ -96,6 +94,30 @@ void Assistant::requestFinished(QNetworkReply *reply)
 
     // de-register the reply
     m_promptRequests.erase(it);
+}
+
+void Assistant::readConfig()
+{
+    const KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("assistant"));
+
+    // configure completion api
+    config.urlCompletion = cg.readEntry("urlCompletion", QUrl(u"http://localhost:11434/api/generate"_s));
+    config.modelCompletion = cg.readEntry("modelCompletion", u"llama3.2"_s);
+
+    // inform about potential changes
+    Q_EMIT configUpdated();
+}
+
+void Assistant::writeConfig()
+{
+    KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("assistant"));
+
+    // configure completion api
+    cg.writeEntry("urlCompletion", config.urlCompletion);
+    cg.writeEntry("modelCompletion", config.modelCompletion);
+
+    // inform about potential changes
+    Q_EMIT configUpdated();
 }
 
 AssistantView::AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwindow)

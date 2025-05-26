@@ -25,6 +25,9 @@ K_PLUGIN_FACTORY_WITH_JSON(AssistantFactory, "plugin.json", registerPlugin<Assis
 Assistant::Assistant(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
 {
+    // init api config
+    readConfig();
+
     // init the request handling infrastucture
     connect(&m_accessManager, &QNetworkAccessManager::finished, this, &Assistant::requestFinished);
 }

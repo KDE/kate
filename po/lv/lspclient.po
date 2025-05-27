@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"POT-Creation-Date: 2025-05-27 00:44+0000\n"
 "PO-Revision-Date: 2024-12-30 17:27+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -29,42 +29,42 @@ msgstr "Filtrēt…"
 msgid "LSP Client"
 msgstr "LSP klients"
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Nav JSON datu, ko validēt."
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON dati ir derīgi."
 
-#: lspclientconfigpage.cpp:230
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON dati ir nederīgi: nav JSON objekta"
 
-#: lspclientconfigpage.cpp:233
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON dati ir nederīgi: %1"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:289
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Dzēst atlasītos ierakstus"
 
-#: lspclientconfigpage.cpp:287
+#: lspclientconfigpage.cpp:295
 #, kde-format
 msgid "Delete all entries"
 msgstr "Dzēst visus ierakstus"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:232
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Pieprasīta LSP servera ieslēgšana"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "Vai vēlaties ieslēgt LSP serveri?<br><br>Pilna komandrinda ir:<br><br><b>%1</"
 "b><br><br>Izvēli varat mainīt spraudņa konfigurācijas logā."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:248
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

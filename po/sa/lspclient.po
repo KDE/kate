@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"POT-Creation-Date: 2025-05-27 00:44+0000\n"
 "PO-Revision-Date: 2024-12-15 21:04+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -26,42 +26,42 @@ msgstr "छायांकन…"
 msgid "LSP Client"
 msgstr "LSP ग्राहिका"
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "प्रमाणीकरणार्थं कोऽपि JSON-दत्तांशः नास्ति ।."
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON दत्तांशः वैधः अस्ति ।."
 
-#: lspclientconfigpage.cpp:230
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON दत्तांशः अमान्यः अस्ति: JSON वस्तु नास्ति"
 
-#: lspclientconfigpage.cpp:233
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON दत्तांशः अमान्यः अस्ति: %1"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:289
 #, kde-format
 msgid "Delete selected entries"
 msgstr "चयनितप्रविष्टयः विलोपयन्तु"
 
-#: lspclientconfigpage.cpp:287
+#: lspclientconfigpage.cpp:295
 #, kde-format
 msgid "Delete all entries"
 msgstr "सर्वाणि प्रविष्टयः विलोपयन्तु"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:232
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP विरतारक् आरम्भस्य अनुरोधः कृतः"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -71,7 +71,7 @@ msgstr ""
 "किं भवान् इच्छति यत् LSP वितारक् आरभ्यताम्?<br><br>पूर्णा आदेशपङ्क्तिः अस्ति:<br><br><b>"
 "%1</b><br><br>प्लगिन् इत्यस्य विन्यासपृष्ठद्वारा विकल्पं परिवर्तयितुं शक्यते ।."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:248
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

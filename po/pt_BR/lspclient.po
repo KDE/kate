@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"POT-Creation-Date: 2025-05-27 00:44+0000\n"
 "PO-Revision-Date: 2025-02-20 02:13-0300\n"
 "Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -31,42 +31,42 @@ msgstr "Filtrar…"
 msgid "LSP Client"
 msgstr "Cliente LSP"
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Não há dados JSON para validar."
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Os dados de JSON são válidos."
 
-#: lspclientconfigpage.cpp:230
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Os dados JSON são inválidos: nenhum objeto JSON"
 
-#: lspclientconfigpage.cpp:233
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Os dados JSON são inválidos: %1"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:289
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Excluir as entradas selecionadas"
 
-#: lspclientconfigpage.cpp:287
+#: lspclientconfigpage.cpp:295
 #, kde-format
 msgid "Delete all entries"
 msgstr "Excluir todas as entradas"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:232
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Solicitação de início do servidor LSP"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -77,7 +77,7 @@ msgstr ""
 "é:<br><br><b>%1</b><br><br>A escolha pode ser alterada pela página de "
 "configuração do plugin."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:248
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

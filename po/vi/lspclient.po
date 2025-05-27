@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"POT-Creation-Date: 2025-05-27 00:44+0000\n"
 "PO-Revision-Date: 2023-01-08 08:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -29,42 +29,42 @@ msgstr "Lọc..."
 msgid "LSP Client"
 msgstr "Trình khách LSP"
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Không có dữ liệu JSON để kiểm nhận."
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Dữ liệu JSON hợp lệ."
 
-#: lspclientconfigpage.cpp:230
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Dữ liệu JSON không hợp lệ: không có đối tượng JSON nào"
 
-#: lspclientconfigpage.cpp:233
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Dữ liệu JSON không hợp lệ: %1"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:289
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Xoá các mục được chọn"
 
-#: lspclientconfigpage.cpp:287
+#: lspclientconfigpage.cpp:295
 #, kde-format
 msgid "Delete all entries"
 msgstr "Xoá tất cả các mục"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:232
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Đã yêu cầu khởi động trình chủ LSP"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -75,7 +75,7 @@ msgstr ""
 "%1</b><br><br>Bạn có thể thay đổi lựa chọn này ở trang cấu hình của phần cài "
 "cắm."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:248
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

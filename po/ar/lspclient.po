@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-12 00:44+0000\n"
+"POT-Creation-Date: 2025-05-27 00:44+0000\n"
 "PO-Revision-Date: 2025-02-20 18:02+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -29,42 +29,42 @@ msgstr "رشّح…"
 msgid "LSP Client"
 msgstr "عميل LSP"
 
-#: lspclientconfigpage.cpp:219
+#: lspclientconfigpage.cpp:227
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "لا توجد بيانات JSON للتحقق منها."
 
-#: lspclientconfigpage.cpp:228
+#: lspclientconfigpage.cpp:236
 #, kde-format
 msgid "JSON data is valid."
 msgstr "بيانات JSON صالحة."
 
-#: lspclientconfigpage.cpp:230
+#: lspclientconfigpage.cpp:238
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "بيانات JSON غير صالحة: لا كائن JSON"
 
-#: lspclientconfigpage.cpp:233
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "بيانات JSON غير صالحة: %1"
 
-#: lspclientconfigpage.cpp:281
+#: lspclientconfigpage.cpp:289
 #, kde-format
 msgid "Delete selected entries"
 msgstr "احذف المدخلات المحددة"
 
-#: lspclientconfigpage.cpp:287
+#: lspclientconfigpage.cpp:295
 #, kde-format
 msgid "Delete all entries"
 msgstr "احذف كل المدخلات"
 
-#: lspclientplugin.cpp:223
+#: lspclientplugin.cpp:232
 #, kde-format
 msgid "LSP server start requested"
 msgstr "طلب بدء خادم LSP"
 
-#: lspclientplugin.cpp:226
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "هل تريد بدء تشغيل خادم LSP؟<br><br>سطر الأوامر الكامل هو:<br><br><b>%1</"
 "b><br><br>يمكن تغيير الاختيار عبر صفحة الضبط الخاصة بالملحق."
 
-#: lspclientplugin.cpp:239
+#: lspclientplugin.cpp:248
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"

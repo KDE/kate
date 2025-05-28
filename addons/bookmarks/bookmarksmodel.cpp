@@ -24,9 +24,8 @@ QModelIndex BookmarksModel::index(int row, int column, const QModelIndex &parent
     return createIndex(row, column);
 }
 
-QModelIndex BookmarksModel::parent(const QModelIndex &index) const
+QModelIndex BookmarksModel::parent(const QModelIndex &) const
 {
-    Q_UNUSED(index);
     return QModelIndex();
 }
 
@@ -35,9 +34,8 @@ int BookmarksModel::rowCount(const QModelIndex &parent) const
     return parent.isValid() ? 0 : m_keys.size();
 }
 
-int BookmarksModel::columnCount(const QModelIndex &parent) const
+int BookmarksModel::columnCount(const QModelIndex &) const
 {
-    Q_UNUSED(parent);
     return 2;
 }
 

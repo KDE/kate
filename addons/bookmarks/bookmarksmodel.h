@@ -7,9 +7,9 @@
 
 #include <QAbstractItemModel>
 #include <QHash>
+#include <QList>
 #include <QString>
 #include <QUrl>
-#include <QVector>
 
 struct Bookmark {
     QUrl url;

@@ -38,6 +38,7 @@ private:
 private:
     void onViewChanged(KTextEditor::View *view);
     void onMarkChanged(KTextEditor::Document *document, KTextEditor::Mark mark, KTextEditor::Document::MarkChangeAction action);
+    void onBookmarkClicked(const QModelIndex &index);
     void onBackBtnClicked();
     void onNextBtnClicked();
     void onRemoveBtnClicked();

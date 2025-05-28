@@ -108,6 +108,7 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     hLayout->addWidget(removeBtn);
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &BookmarksPluginView::onViewChanged);
+    connect(m_treeView, &QTreeView::clicked, this, &BookmarksPluginView::onBookmarkClicked);
     connect(&m_selectionModel, &QItemSelectionModel::selectionChanged, root, [this, removeBtn](const QItemSelection &selected) {
         auto indexes = m_proxyModel.mapSelectionToSource(selected).indexes();
         removeBtn->setEnabled(!indexes.empty());
@@ -120,13 +121,24 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     });
 
     auto onRowsChanged = [model, backBtn, nextBtn](const QModelIndex &parent) {
-        bool enabled = model->rowCount(parent) > 0;
+        bool enabled = model->rowCount(parent) > 1;
         backBtn->setEnabled(enabled);
         nextBtn->setEnabled(enabled);
     };
 
     connect(model, &QAbstractItemModel::rowsInserted, root, onRowsChanged);
     connect(model, &QAbstractItemModel::rowsRemoved, root, onRowsChanged);
+}
+
+// Open selected bookmark when clicked
+void BookmarksPluginView::onBookmarkClicked(const QModelIndex &index)
+{
+    auto selectedRows = m_selectionModel.selectedRows();
+    if (selectedRows.length() == 1) {
+        if (selectedRows.at(0).row() == index.row()) {
+            openBookmark(m_model->getBookmark(m_proxyModel.mapToSource(index)));
+        }
+    }
 }
 
 KTextEditor::View *BookmarksPluginView::openBookmark(const Bookmark &bookmark)

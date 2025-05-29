@@ -2,6 +2,8 @@ set(PROJECT_SOURCES
     plugin.qrc
     assistant.cpp
     assistant.h
+    assistantcommand.cpp
+    assistantcommand.h
     assistantview.cpp
     assistantview.h
 )

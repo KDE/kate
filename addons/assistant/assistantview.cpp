@@ -26,8 +26,8 @@ AssistantView::AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwin
     setXMLFile(u"ui.rc"_s);
 
     QAction *a = actionCollection()->addAction(u"assistant_prompt"_s);
-    a->setText(i18n("Send current line as prompt"));
-    connect(a, &QAction::triggered, this, &AssistantView::sendCurrentLineAsPrompt);
+    a->setText(i18n("Assistant Invoke"));
+    connect(a, &QAction::triggered, this, &AssistantView::assistantInvoke);
 
     m_mainWindow->guiFactory()->addClient(this);
 }
@@ -37,7 +37,7 @@ AssistantView::~AssistantView()
     m_mainWindow->guiFactory()->removeClient(this);
 }
 
-void AssistantView::sendCurrentLineAsPrompt()
+void AssistantView::assistantInvoke()
 {
     // get current view, can't do anything if not there
     auto view = m_mainWindow->activeView();
@@ -45,15 +45,7 @@ void AssistantView::sendCurrentLineAsPrompt()
         return;
     }
 
-    // we will just use the current line as prompt, if empty we do nothing
-    const auto line = view->cursorPosition().line();
-    const auto lineText = view->document()->line(line).trimmed();
-    if (lineText.isEmpty()) {
-        return;
-    }
-
     // send prompt, insert result in line below the request line
-    m_assistant->sendPrompt(lineText, view, [view, line](const QString &answer) {
-        view->document()->insertText(KTextEditor::Cursor(line + 1, 0), answer);
-    });
+    QString msg;
+    m_assistant->cmds().exec(view, u"ai"_s, msg);
 }

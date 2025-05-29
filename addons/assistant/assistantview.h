@@ -17,7 +17,7 @@ public:
     explicit AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwindow);
     ~AssistantView();
 
-    void sendCurrentLineAsPrompt();
+    void assistantInvoke();
 
 private:
     Assistant *const m_assistant;

@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "assistantcommand.h"
+
 #include <KTextEditor/Plugin>
 
 #include <QNetworkAccessManager>
@@ -69,4 +71,7 @@ private:
         std::function<void(const QString &QString)> resultHandler;
     };
     std::unordered_map<QNetworkReply *, PromptRequest> m_promptRequests;
+
+    // register our text editor commands
+    const AssistantCommand m_cmd{this};
 };

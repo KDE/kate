@@ -13,8 +13,6 @@ class Assistant;
 
 class AssistantView : public QObject, public KXMLGUIClient
 {
-    Q_OBJECT
-
 public:
     explicit AssistantView(Assistant *plugin, KTextEditor::MainWindow *mainwindow);
     ~AssistantView();

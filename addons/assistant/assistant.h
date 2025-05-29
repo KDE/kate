@@ -51,6 +51,14 @@ public:
         QString modelCompletion;
     } config;
 
+    /**
+     * Allow the view and Co. to trigger our commands
+     */
+    AssistantCommand &cmds()
+    {
+        return m_cmds;
+    }
+
 Q_SIGNALS:
     /**
      * Signal that plugin configuration changed
@@ -73,5 +81,5 @@ private:
     std::unordered_map<QNetworkReply *, PromptRequest> m_promptRequests;
 
     // register our text editor commands
-    const AssistantCommand m_cmd{this};
+    AssistantCommand m_cmds{this};
 };

@@ -24,14 +24,21 @@ AssistantCommand::~AssistantCommand()
 // execute a command
 bool AssistantCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &range)
 {
-    return false;
+    if (cmd == u"ai"_s) {
+        msg = i18n(
+            "<p>ai</p>"
+            "<p>Send the selected text or current line if there is no selection as prompt to the completion model.</p>");
+    }
+    return true;
 }
 
 // output help for a command
-bool AssistantCommand::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+bool AssistantCommand::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
-    if (cmd.startsWith(QLatin1String("ai"))) {
-        msg = i18n("Usage: ai [additional commands added to the selection/current line]");
+    if (cmd == u"ai"_s) {
+        msg = i18n(
+            "<p>ai</p>"
+            "<p>Send the selected text or current line if there is no selection as prompt to the completion model.</p>");
     }
     return true;
 }

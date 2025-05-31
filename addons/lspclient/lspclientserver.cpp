@@ -773,6 +773,11 @@ static QList<LSPLocation> parseDocumentLocation(const rapidjson::Value &result)
 
 static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
 {
+    if (!item.IsObject()) {
+        qCWarning(LSPCLIENT) << "Unexpected, completion item is not an object";
+        return {};
+    }
+
     auto label = GetStringValue(item, MEMBER_LABEL);
     auto detail = GetStringValue(item, MEMBER_DETAIL);
     LSPMarkupContent doc;

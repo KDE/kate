@@ -801,7 +801,7 @@ static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
         lspTextEdit.range = parseRange(GetJsonObjectForKey(textEdit, "range"));
     }
     if (insertText.isEmpty()) {
-        // if this happens, the server is broken but lets try the label anyways
+        // Per LSP 3.17, default to the label if there is no textEdit nor insertText
         insertText = label;
     }
     auto kind = static_cast<LSPCompletionItemKind>(GetIntValue(item, MEMBER_KIND, 1));

@@ -3469,8 +3469,8 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 <varlistentry>
 <term><guilabel>Type</guilabel></term>
 <listitem><para>Snippets may either be defined as text templates or scripts. Both types allow to use &javascript; functions
-(see below, for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
-suiteable, if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution, if you want to
+(see below for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
+suiteable if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution if you want to
 <emphasis>modify</emphasis> text).</para></listitem>
 </varlistentry>
 
@@ -3480,7 +3480,7 @@ suiteable, if you mostly want to <emphasis>insert</emphasis> text, while scripts
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Snippet</guilabel> (type <userinput>Text Template</userinput>)</term>
+<term><anchor id="snippet-input-template"/><guilabel>Snippet</guilabel> (type <userinput>Text Template</userinput>)</term>
 <listitem><para>The text your snippet will insert into the document.</para>
 <para>A snippet can contain editable fields. They can be cycled by
 pressing &Tab;. The following expressions can be used in the template
@@ -3504,21 +3504,21 @@ of the cursor after everything else was filled in.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Snippet</guilabel> (type <userinput>Script</userinput>)</term>
+<term><anchor id="snippet-input-script"/><guilabel>Snippet</guilabel> (type <userinput>Script</userinput>)</term>
 <listitem><para>The &javascript; code to evaluate for this snippet</para>
-<para>If this code contains a <userinput>return</userinput>, the returned string will be inserted at the current
-cursor position, but you can also use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate;
-scripting API</ulink> to modify the document, directly.</para>
+<para>If this code contains a <userinput>return</userinput> statement, the returned string will be inserted at the current
+cursor position. You can also use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate;
+scripting API</ulink> to modify the document directly.</para>
 <para>Additionally, your code may use functions defined in the <guilabel>Script Library</guilabel> tab, which
 are shared between all snippets in a repository.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Script Library</guilabel></term>
+<term><anchor id="snippet-input-library"/><guilabel>Script Library</guilabel></term>
 <listitem><para>&javascript; helper functions to use in your snippets. These functions are shared between all snippets in a repository.</para>
 <para>You can use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate; scripting API</ulink>
-to get the selected text, full text, file name and more by using the appropriate methods of the <userinput>document</userinput>
+to get the selected text, full text, file name, and more by using the appropriate methods of the <userinput>document</userinput>
 and <userinput>view</userinput> objects. Refer to the scripting API
 documentation for more information.</para>
 

@@ -72,15 +72,14 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, [this]() {
         if (m_ui->modeComboBox->currentData().toInt() == Snippet::TextTemplate) {
             m_ui->snippetLabel->setText(
-                i18n("Text to insert into the document (see "
-                     "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a> "
+                i18n("Text to insert into the document (see the "
+                     "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-template\">handbook</a> "
                      "for special fields)."));
             m_snippetView->document()->setMode(QStringLiteral("Normal"));
         } else {
-            // TODO
             m_ui->snippetLabel->setText(
-                i18n("Javascript code to evaluate (see "
-                     "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a> "
+                i18n("JavaScript code to evaluate (see the "
+                     "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-script\">handbook</a> "
                      "for details)."));
             m_snippetView->document()->setMode(QStringLiteral("JavaScript"));
         }
@@ -95,12 +94,15 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     m_scriptsView->document()->setModified(false);
 
     m_ui->scriptLabel->setText(
-        i18n("JavaScript functions shared between all snippets in this repository (see "
-             "<a href=\"help:/kate/kate-application-plugin-snippets.html\">handbook</a>)."));
+        i18n("JavaScript functions shared between all snippets in this repository (see the "
+             "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library\">handbook</a>)."));
+    m_ui->scriptLabel->setOpenExternalLinks(true);
 
-    m_ui->descriptionLabel->setText(i18n("(Optional) description to show in tooltips. May contain HTML formatting."));
+    m_ui->descriptionLabel->setText(i18n("Optional description to show in tooltips. You may use basic HTML formatting."));
     m_descriptionView = createView(m_ui->descriptionTab);
-    m_descriptionView->document()->setText(m_snippet->description());
+    if (m_snippet != nullptr) {
+        m_descriptionView->document()->setText(m_snippet->description());
+    }
     m_descriptionView->document()->setModified(false);
 
     // view for testing the snippet

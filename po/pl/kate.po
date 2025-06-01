@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1709616 $
+# Version: $Revision: 1710141 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-21 00:45+0000\n"
-"PO-Revision-Date: 2025-03-15 10:29+0100\n"
+"PO-Revision-Date: 2025-05-31 09:43+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -25,6 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -456,11 +457,9 @@ msgid "Raw"
 msgstr "Nieprzetworzony"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "&Nowe okno"
+msgstr "Edytuj wiersz"
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format
@@ -1196,8 +1195,7 @@ msgid "Elide tab text"
 msgstr "Pomiń tekst kart"
 
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr "Po zaznaczeniu, tekst kart może zostać pominięty, jeśli jest za długi."
 
@@ -1584,9 +1582,7 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopiuje ścieżkę do bieżącego pliku do schowka."
 
 #: lib/katemainwindow.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
 msgstr "Skopiuj nazwę pliku"
 
@@ -1803,10 +1799,9 @@ msgid "Show File Git History"
 msgstr "Pokaż historię git pliku"
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "No&we okno"
+msgstr "&Okna"
 
 #: lib/katemainwindow.cpp:718
 #, kde-format

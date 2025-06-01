@@ -41,7 +41,7 @@
        <item>
         <widget class="QLineEdit" name="snippetNameEdit">
          <property name="placeholderText">
-          <string>(required) Identifier (will also be shown in the completion list)</string>
+          <string>Name to be shown in the completion list (required)</string>
          </property>
         </widget>
        </item>

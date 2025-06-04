@@ -87,6 +87,10 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     m_ui->snippetLabel->setOpenExternalLinks(true);
     m_ui->modeComboBox->addItem(i18n("Text template"), QVariant(Snippet::TextTemplate));
     m_ui->modeComboBox->addItem(i18n("Script"), QVariant(Snippet::Script));
+#if KTEXTEDITOR_VERSION < QT_VERSION_CHECK(6, 15, 0)
+    m_ui->modeComboBox->hide();
+    m_ui->modeComboBoxLabel->hide();
+#endif
 
     m_scriptsView = createView(m_ui->scriptTab);
     m_scriptsView->document()->setMode(QStringLiteral("JavaScript"));
@@ -124,7 +128,9 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
 
         m_snippetView->document()->setText(m_snippet->snippet());
         m_ui->snippetNameEdit->setText(m_snippet->text());
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(6, 15, 0)
         m_ui->modeComboBox->setCurrentIndex(m_ui->modeComboBox->findData(QVariant(snippet->snippetType())));
+#endif
         m_ui->snippetShortcut->setKeySequence(m_snippet->action()->shortcut());
 
         // unset modified flags

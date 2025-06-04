@@ -3471,7 +3471,8 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 <listitem><para>Snippets may either be defined as text templates or scripts. Both types allow to use &javascript; functions
 (see below for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
 suiteable if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution if you want to
-<emphasis>modify</emphasis> text).</para></listitem>
+<emphasis>modify</emphasis> text).</para>
+<note><para>Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, for this feature to be available. For earlier versions, only text template snippets can be used.</para></note></listitem>
 </varlistentry>
 
 <varlistentry>

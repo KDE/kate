@@ -12,6 +12,7 @@
 #include "katesnippetglobal.h"
 #include "ktexteditor/document.h"
 #include "ktexteditor/mainwindow.h"
+#include "ktexteditor_version.h"
 
 #include <KLocalizedString>
 
@@ -97,10 +98,16 @@ void Snippet::apply(KTextEditor::View *view, const QString &repoScript) const
     if (snippetType() == TextTemplate) {
         view->insertTemplate(view->cursorPosition(), snippet(), repoScript);
     } else {
+#if KTEXTEDITOR_VERSION >= QT_VERSION_CHECK(6, 15, 0)
         QVariant res;
         view->evaluateScript(repoScript + u'\n' + snippet(), &res);
         // for convenience, insert result (or error message) at cursor position
         view->document()->insertText(view->cursorPosition(), res.toString());
+#else
+        // this should not usually be hit, but let's show an error message
+        view->document()->insertText(view->cursorPosition(),
+                                     i18n("Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to use this type of snippet."));
+#endif
     }
 }
 

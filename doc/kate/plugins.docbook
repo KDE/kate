@@ -93,7 +93,7 @@ simple &gdb; frontend</para>
 Search and replace in documents, folders, or projects</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Tool view embedding the snippets management</para>
+<para><link linkend="kate-application-plugin-snippets">Scripts &amp; Snippets tool view</link> - Create or download code snippets and editor scripts</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-keyboardmacros">Keyboard Macros</link>
@@ -3328,13 +3328,20 @@ plugin.</para>
 <author>&TC.Hollingsworth; &TC.Hollingsworth.mail;</author>
 </authorgroup>
 </sect1info>
-<title>&kate; Snippets</title>
+<title>&kate; Scripts &amp; Snippets</title>
 
 <sect2 id="snippets-intro">
 <title>Introduction</title>
-<para>&kate; Snippets is a plugin used to save you some time by adding support for
-so-called <quote>snippets</quote> (re-usable source code, machine code or text). The plugin
-also supports code completion and &javascript;.</para>
+<para>The &kate; Scripts &amp; Snippets plugin allows you to add, and manage your own bits of
+automation. This can range from static re-useable pieces of plain text, over sophisticated templates with
+custom automated and scriptable fields, to fully custom &javascript; scripts to modify the contents of your
+document.</para>
+<para>For ease of reading, and because these types of content are mananged in exactly the same way, for the
+most part, the following discussion does not make a distinction between static snippets, scripted snippets,
+and scripts. Rather, the term <quote>snippet</quote> is be used to refer to all of them.</para>
+<para>The plugin also supports assigning keyboard shortcuts, and inserting snippets via
+code completion. Further you can download collections of snippets (so-called
+repositories) from the internet.</para>
 </sect2>
 
 <sect2 id="snippets-menu">

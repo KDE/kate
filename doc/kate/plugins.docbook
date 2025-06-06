@@ -3336,11 +3336,11 @@ plugin.</para>
 automation. This can range from static re-useable pieces of plain text, over sophisticated templates with
 custom automated and scriptable fields, to fully custom &javascript; scripts to modify the contents of your
 document.</para>
-<para>For ease of reading, and because these types of content are mananged in exactly the same way, for the
-most part, the following discussion does not make a distinction between static snippets, scripted snippets,
+<para>For the most part, these types of content are managed in exactly the same way. Therefore, for ease
+of reading, the following discussion does not differentiate between static snippets, scripted snippets,
 and scripts. Rather, the term <quote>snippet</quote> is be used to refer to all of them.</para>
 <para>The plugin also supports assigning keyboard shortcuts, and inserting snippets via
-code completion. Further you can download collections of snippets (so-called
+code completion. Further, you can download collections of snippets (so-called
 repositories) from the internet.</para>
 </sect2>
 

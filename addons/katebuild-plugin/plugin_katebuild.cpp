@@ -534,8 +534,8 @@ KateBuildView::~KateBuildView()
 /******************************************************************/
 void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 {
-    int numTargets = cg.readEntry(QStringLiteral("NumTargets"), 0);
-    m_projectTargetsetRow = cg.readEntry("ProjectTargetSetRow", 0);
+    int numTargets = cg.readEntry(u"NumTargets"_s, 0);
+    m_projectTargetsetRow = cg.readEntry(u"ProjectTargetSetRow"_s, 0);
     m_targetsUi->targetsModel.clear(m_projectTargetsetRow > 0);
 
     QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
@@ -579,13 +579,17 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     updateProjectTargets();
 
     // pre-select the last active target or the first target of the first set
-    int prevTargetSetRow = cg.readEntry(QStringLiteral("Active Target Index"), 0);
-    int prevCmdRow = cg.readEntry(QStringLiteral("Active Target Command"), 0);
-    QModelIndex rootIndex = m_targetsUi->targetsModel.index(prevTargetSetRow);
-    QModelIndex cmdIndex = m_targetsUi->targetsModel.index(prevCmdRow, 0, rootIndex);
-    cmdIndex = m_targetsUi->proxyModel.mapFromSource(cmdIndex);
-    m_targetsUi->targetsView->setCurrentIndex(cmdIndex);
-
+    const QVector<int> treePath = cg.readEntry(u"Active Target Index Tree"_s, QVector<int>{0, 0, 0});
+    QModelIndex activeIndex;
+    for (const int row : treePath) {
+        const auto idx = m_targetsUi->targetsModel.index(row, 0, activeIndex);
+        if (idx.isValid()) {
+            activeIndex = idx;
+        }
+    }
+    activeIndex = m_targetsUi->proxyModel.mapFromSource(activeIndex);
+    m_targetsUi->targetsView->setCurrentIndex(activeIndex);
+    m_targetsUi->targetsView->scrollTo(activeIndex);
     m_targetsUi->updateTargetsButtonStates();
 }
 
@@ -596,13 +600,13 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
     QModelIndex activeIndex = m_targetsUi->targetsView->currentIndex();
     activeIndex = m_targetsUi->proxyModel.mapToSource(activeIndex);
     if (activeIndex.isValid()) {
-        if (activeIndex.parent().isValid()) {
-            cg.writeEntry(QStringLiteral("Active Target Index"), activeIndex.parent().row());
-            cg.writeEntry(QStringLiteral("Active Target Command"), activeIndex.row());
-        } else {
-            cg.writeEntry(QStringLiteral("Active Target Index"), activeIndex.row());
-            cg.writeEntry(QStringLiteral("Active Target Command"), 0);
+        QVector<int> treePath;
+        treePath.prepend(activeIndex.row());
+        while (activeIndex.parent().isValid()) {
+            activeIndex = activeIndex.parent();
+            treePath.prepend(activeIndex.row());
         }
+        cg.writeEntry(u"Active Target Index Tree"_s, treePath);
     }
 
     // Don't save project target-sets, but save the root-row index

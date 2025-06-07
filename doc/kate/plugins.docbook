@@ -3338,7 +3338,7 @@ custom automated and scriptable fields, to fully custom &javascript; scripts to 
 document.</para>
 <para>For the most part, these types of content are managed in exactly the same way. Therefore, for ease
 of reading, the following discussion does not differentiate between static snippets, scripted snippets,
-and scripts. Rather, the term <quote>snippet</quote> is be used to refer to all of them.</para>
+and scripts. Rather, the term <quote>snippet</quote> is used to refer to all of them.</para>
 <para>The plugin also supports assigning keyboard shortcuts, and inserting snippets via
 code completion. Further, you can download collections of snippets (so-called
 repositories) from the internet.</para>
@@ -3479,7 +3479,7 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 (see below for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
 suiteable if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution if you want to
 <emphasis>modify</emphasis> text).</para>
-<note><para>Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, for this feature to be available. For earlier versions, only text template snippets can be used.</para></note></listitem>
+<note><para>Kate needs to be compiled against KTextEditor version 6.15.0 or higher, for this feature to be available. For earlier versions, only text template snippets can be used.</para></note></listitem>
 </varlistentry>
 
 <varlistentry>

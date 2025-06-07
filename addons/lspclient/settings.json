@@ -1,5 +1,11 @@
 {
     "servers": {
+        "ada": {
+            "command": ["ada_language_server"],
+            "root": "",
+            "url": "https://github.com/AdaCore/ada_language_server",
+            "highlightingModeRegex": "^Ada$"
+        },
         "bash": {
             "command": ["bash-language-server", "start"],
             "root": "",

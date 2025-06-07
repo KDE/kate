@@ -6,7 +6,6 @@
 #pragma once
 
 #include <QAbstractItemModel>
-#include <QHash>
 #include <QList>
 #include <QString>
 #include <QUrl>
@@ -33,14 +32,10 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
     // Bookmarks operations
-    void addBookmark(const QUrl &url, int lineNumber);
-    void removeBookmark(const QUrl &url, int lineNumber);
+    void setBookmarks(const QUrl &url, const QList<int> &lineNumbers);
     const Bookmark &getBookmark(const QModelIndex &index);
 
 private:
-    int getBookmarkId(const QUrl &url, int lineNumber);
-
-private:
-    QList<int> m_keys;
-    QHash<int, Bookmark> m_bookmarks;
+    QList<Bookmark> m_bookmarks;
+    QHash<QUrl, QPair<int, int>> m_bookmarksIndexes;
 };

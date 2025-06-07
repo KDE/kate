@@ -10,6 +10,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
+#include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
@@ -30,6 +31,9 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
     , m_model(parent)
 {
+    // Application instance
+    auto app = KTextEditor::Editor::instance()->application();
+
     // Read meta infos and add bookmarks
     KConfig metaInfos(QStringLiteral("katemetainfos"));
     for (auto groupName : metaInfos.groupList()) {
@@ -37,11 +41,38 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
         QUrl url(kgroup.readEntry("URL"));
         if (!url.isEmpty() && url.isValid()) {
             const QList<int> marks = kgroup.readEntry("Bookmarks", QList<int>());
-            for (int i = 0; i < marks.count(); i++) {
-                m_model.addBookmark(url, marks.at(i));
-            }
+            m_model.setBookmarks(url, marks);
         }
     }
+
+    // Register already open documents
+    const auto docs = app->documents();
+    for (auto document : docs) {
+        registerDocument(document);
+        syncDocumentBookmarks(document); // If meta infos are disabled, add current document bookmarks
+    }
+
+    // Register newly created documents
+    connect(app, &KTextEditor::Application::documentCreated, this, &BookmarksPlugin::registerDocument);
+}
+
+void BookmarksPlugin::registerDocument(KTextEditor::Document *document)
+{
+    connect(document, &KTextEditor::Document::marksChanged, this, &BookmarksPlugin::syncDocumentBookmarks, Qt::UniqueConnection);
+}
+
+void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)
+{
+    QList<int> lineNumbers;
+    auto marks = document->marks();
+
+    for (auto i = marks.cbegin(); i != marks.cend(); ++i) {
+        if (i.value()->type == KTextEditor::Document::Bookmark) {
+            lineNumbers.append(i.value()->line);
+        }
+    }
+
+    m_model.setBookmarks(document->url(), lineNumbers);
 }
 
 QObject *BookmarksPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -107,16 +138,12 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     hLayout->addWidget(nextBtn);
     hLayout->addWidget(removeBtn);
 
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &BookmarksPluginView::onViewChanged);
     connect(m_treeView, &QTreeView::clicked, this, &BookmarksPluginView::onBookmarkClicked);
     connect(&m_selectionModel, &QItemSelectionModel::selectionChanged, root, [this, removeBtn](const QItemSelection &selected) {
         auto indexes = m_proxyModel.mapSelectionToSource(selected).indexes();
         removeBtn->setEnabled(!indexes.empty());
         if (!indexes.empty()) {
-            auto current = indexes.first();
-            if (current.isValid()) {
-                openBookmark(m_model->getBookmark(current));
-            }
+            openBookmark(m_model->getBookmark(indexes.first()));
         }
     });
 
@@ -148,41 +175,10 @@ KTextEditor::View *BookmarksPluginView::openBookmark(const Bookmark &bookmark)
     return view;
 }
 
-void BookmarksPluginView::appendDocumentMarks(KTextEditor::Document *document)
-{
-    auto marks = document->marks();
-    for (auto i = marks.cbegin(); i != marks.cend(); ++i) {
-        if (i.value()->type == KTextEditor::Document::Bookmark) {
-            m_model->addBookmark(document->url(), i.value()->line);
-        }
-    }
-}
-
-void BookmarksPluginView::onViewChanged(KTextEditor::View *view)
-{
-    if (view == nullptr || view->document() == nullptr) {
-        return;
-    }
-
-    appendDocumentMarks(view->document()); // If meta infos are disabled, populate view with runtime marks
-    connect(view->document(), &KTextEditor::Document::markChanged, this, &BookmarksPluginView::onMarkChanged, Qt::UniqueConnection);
-}
-
-void BookmarksPluginView::onMarkChanged(KTextEditor::Document *document, KTextEditor::Mark mark, KTextEditor::Document::MarkChangeAction action)
-{
-    if (mark.type == KTextEditor::Document::Bookmark) {
-        if (action == KTextEditor::Document::MarkChangeAction::MarkAdded) {
-            m_model->addBookmark(document->url(), mark.line);
-        } else if (action == KTextEditor::Document::MarkChangeAction::MarkRemoved) {
-            m_model->removeBookmark(document->url(), mark.line);
-        }
-    }
-}
-
 void BookmarksPluginView::onBackBtnClicked()
 {
-    QModelIndex index = m_proxyModel.mapToSource(m_treeView->currentIndex());
-    int rowCount = m_model->rowCount(index.parent());
+    QModelIndex index = m_treeView->currentIndex();
+    int rowCount = m_proxyModel.rowCount(index.parent());
 
     if (rowCount > 0) {
         int prevRow = index.row() - 1;
@@ -190,15 +186,15 @@ void BookmarksPluginView::onBackBtnClicked()
             prevRow = rowCount - 1;
         }
 
-        auto prevIndex = m_proxyModel.mapFromSource(m_model->index(prevRow, 0, index.parent()));
+        auto prevIndex = m_proxyModel.index(prevRow, 0, index.parent());
         m_treeView->setCurrentIndex(prevIndex);
     }
 }
 
 void BookmarksPluginView::onNextBtnClicked()
 {
-    QModelIndex index = m_proxyModel.mapToSource(m_treeView->currentIndex());
-    int rowCount = m_model->rowCount(index.parent());
+    QModelIndex index = m_treeView->currentIndex();
+    int rowCount = m_proxyModel.rowCount(index.parent());
 
     if (rowCount > 0) {
         int nextRow = index.row() + 1;
@@ -206,7 +202,7 @@ void BookmarksPluginView::onNextBtnClicked()
             nextRow = 0;
         }
 
-        auto nextIndex = m_proxyModel.mapFromSource(m_model->index(nextRow, 0, index.parent()));
+        auto nextIndex = m_proxyModel.index(nextRow, 0, index.parent());
         m_treeView->setCurrentIndex(nextIndex);
     }
 }
@@ -216,6 +212,7 @@ void BookmarksPluginView::onRemoveBtnClicked()
     QModelIndex index = m_proxyModel.mapToSource(m_treeView->currentIndex());
     const Bookmark &bookmark = m_model->getBookmark(index);
 
+    // TODO: Open bookmark only if we don't have document reference
     auto view = openBookmark(bookmark);
     if (view == nullptr || view->document() == nullptr) {
         return;

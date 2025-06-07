@@ -31,7 +31,7 @@ QModelIndex BookmarksModel::parent(const QModelIndex &) const
 
 int BookmarksModel::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : m_keys.size();
+    return parent.isValid() ? 0 : m_bookmarks.size();
 }
 
 int BookmarksModel::columnCount(const QModelIndex &) const
@@ -41,10 +41,11 @@ int BookmarksModel::columnCount(const QModelIndex &) const
 
 QVariant BookmarksModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || index.row() >= m_keys.size())
+    if (!index.isValid() || index.row() >= m_bookmarks.size()) {
         return QVariant();
+    }
 
-    const Bookmark &bookmark = m_bookmarks[m_keys.at(index.row())];
+    const Bookmark &bookmark = m_bookmarks.at(index.row());
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
         case 0:
@@ -80,40 +81,41 @@ QVariant BookmarksModel::headerData(int section, Qt::Orientation orientation, in
     return QVariant();
 }
 
-int BookmarksModel::getBookmarkId(const QUrl &url, int lineNumber)
-{
-    return std::hash<QString>()(url.toString()) ^ std::hash<int>()(lineNumber);
-}
-
-void BookmarksModel::addBookmark(const QUrl &url, int lineNumber)
-{
-    int id = getBookmarkId(url, lineNumber);
-    if (m_bookmarks.contains(id))
-        return;
-
-    beginInsertRows(QModelIndex(), m_keys.size(), m_keys.size());
-    m_bookmarks.insert(id, {url, lineNumber});
-    m_keys.append(id);
-    endInsertRows();
-}
-
-void BookmarksModel::removeBookmark(const QUrl &url, int lineNumber)
-{
-    int id = getBookmarkId(url, lineNumber);
-    if (!m_bookmarks.contains(id))
-        return;
-
-    int row = m_keys.indexOf(id);
-    if (row == -1)
-        return;
-
-    beginRemoveRows(QModelIndex(), row, row);
-    m_bookmarks.remove(id);
-    m_keys.removeAt(row);
-    endRemoveRows();
-}
-
 const Bookmark &BookmarksModel::getBookmark(const QModelIndex &index)
 {
-    return m_bookmarks[m_keys.at(index.row())];
+    return m_bookmarks.at(index.row());
+}
+
+void BookmarksModel::setBookmarks(const QUrl &url, const QList<int> &lineNumbers)
+{
+    auto it = m_bookmarksIndexes.find(url);
+    if (it != m_bookmarksIndexes.end()) {
+        int start = it.value().first;
+        int count = it.value().second;
+
+        beginRemoveRows(QModelIndex(), start, start + count - 1);
+        m_bookmarks.erase(m_bookmarks.begin() + start, m_bookmarks.begin() + start + count);
+        endRemoveRows();
+
+        // Update ranges after removed url
+        m_bookmarksIndexes.remove(url);
+        for (auto it2 = m_bookmarksIndexes.begin(); it2 != m_bookmarksIndexes.end(); ++it2) {
+            if (it2.value().first > start) {
+                it2.value().first -= count;
+            }
+        }
+    }
+
+    int nMarks = lineNumbers.size();
+    if (nMarks > 0) {
+        // Insert new block at the end
+        int insertPos = m_bookmarks.size();
+        m_bookmarksIndexes.insert(url, qMakePair(insertPos, nMarks));
+        beginInsertRows(QModelIndex(), insertPos, insertPos + nMarks - 1);
+        for (int line : lineNumbers) {
+            m_bookmarks.append({url, line});
+        }
+
+        endInsertRows();
+    }
 }

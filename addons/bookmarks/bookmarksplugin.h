@@ -19,7 +19,13 @@ class BookmarksPlugin : public KTextEditor::Plugin
 public:
     explicit BookmarksPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
     ~BookmarksPlugin() override;
+
+public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
+
+private:
+    void registerDocument(KTextEditor::Document *document);
+    void syncDocumentBookmarks(KTextEditor::Document *document);
 
 private:
     BookmarksModel m_model;
@@ -32,12 +38,9 @@ public:
     ~BookmarksPluginView() override;
 
 private:
-    void appendDocumentMarks(KTextEditor::Document *document);
     KTextEditor::View *openBookmark(const Bookmark &bookmark);
 
 private:
-    void onViewChanged(KTextEditor::View *view);
-    void onMarkChanged(KTextEditor::Document *document, KTextEditor::Mark mark, KTextEditor::Document::MarkChangeAction action);
     void onBookmarkClicked(const QModelIndex &index);
     void onBackBtnClicked();
     void onNextBtnClicked();

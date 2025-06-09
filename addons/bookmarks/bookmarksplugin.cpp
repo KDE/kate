@@ -103,7 +103,6 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     m_treeView->setSortingEnabled(true);
     m_treeView->setModel(&m_proxyModel);
     m_treeView->setSelectionModel(&m_selectionModel);
-    m_treeView->setColumnHidden(2, true);
 
     auto vLayout = new QVBoxLayout(root);
     vLayout->setSpacing(0);

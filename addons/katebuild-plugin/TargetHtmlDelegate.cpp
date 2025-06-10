@@ -111,7 +111,13 @@ QWidget *TargetHtmlDelegate::createEditor(QWidget *dparent, const QStyleOptionVi
             editor->setToolTip(i18n("Use:\n\"%B\" for project base directory\n\"%b\" for name of project base directory"));
         } else {
             // Command
-            editor->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
+            editor->setToolTip(
+                i18n("Use:\n"
+                     "\"%f\" for current file\n"
+                     "\"%d\" for directory of current file\n"
+                     "\"%n\" for current file name without suffix\n"
+                     "\"%B\" for current project's base directory\n"
+                     "\"%w\" for the working directory of the target"));
         }
     } else {
         auto *e = new QLineEdit(dparent);

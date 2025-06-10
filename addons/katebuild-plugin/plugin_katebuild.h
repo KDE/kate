@@ -22,6 +22,7 @@
 */
 
 #include <KProcess>
+#include <QFileInfo>
 #include <QHash>
 #include <QPointer>
 #include <QRegularExpression>
@@ -44,6 +45,8 @@
 #include "diagnostics/diagnosticview.h"
 #include "targets.h"
 #include "ui_build.h"
+
+#include <optional>
 
 class KateBuildPlugin;
 
@@ -82,8 +85,6 @@ public:
     void readSessionConfig(const KConfigGroup &config) override;
     void writeSessionConfig(KConfigGroup &config) override;
 
-    bool buildCurrentTarget();
-
     QUrl docUrl();
 
     void sendError(const QString &);
@@ -103,10 +104,13 @@ private Q_SLOTS:
 
     void slotLoadCMakeTargets();
 
+    std::optional<QString> substitutionsApplied(const QString &command, const QFileInfo &docFileInfo, const QString &workDir);
+    bool buildCurrentTarget();
+    void slotRunAfterBuild();
+
     // Parse output
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
     void slotReadReadyStdOut();
-    void slotRunAfterBuild();
     void slotUpdateTextBrowser();
 
     void slotSearchBuildOutput();

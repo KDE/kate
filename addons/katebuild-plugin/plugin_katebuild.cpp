@@ -1061,6 +1061,33 @@ void KateBuildView::slotSelectTarget()
 }
 
 /******************************************************************/
+std::optional<QString> KateBuildView::substitutionsApplied(const QString &command, const QFileInfo &docFInfo, const QString &workDir)
+{
+    QString cmd = command;
+
+    // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
+    if (cmd.contains(u"%f"_s) || cmd.contains(u"%d"_s) || cmd.contains(u"%n"_s)) {
+        if (docFInfo.absoluteFilePath().isEmpty()) {
+            sendError(i18n("Cannot make substitution. No open file or the current file is untitled!"));
+            return std::nullopt;
+        }
+        cmd.replace(u"%n"_s, docFInfo.baseName());
+        cmd.replace(u"%f"_s, docFInfo.absoluteFilePath());
+        cmd.replace(u"%d"_s, docFInfo.absolutePath());
+    }
+
+    if (cmd.contains(u"%B"_s)) {
+        if (m_targetsUi->currentProjectBaseDir.isEmpty()) {
+            sendError(i18n("Cannot make project substitution (%B). No open project!"));
+            return std::nullopt;
+        }
+        cmd.replace(u"%B"_s, docFInfo.absolutePath());
+    }
+    cmd.replace(u"%w"_s, workDir);
+    return cmd;
+}
+
+/******************************************************************/
 bool KateBuildView::buildCurrentTarget()
 {
     const QFileInfo docFInfo(docUrl().toLocalFile()); // docUrl() saves the current document
@@ -1098,22 +1125,16 @@ bool KateBuildView::buildCurrentTarget()
     }
 
     // Check if the command contains the file name or directory
-    // When adding new placeholders, also update the tooltip in TargetHtmlDelegate::createEditor()
-    if (buildCmd.contains(QLatin1String("%f")) || buildCmd.contains(QLatin1String("%d")) || buildCmd.contains(QLatin1String("%n"))) {
-        if (docFInfo.absoluteFilePath().isEmpty()) {
-            sendError(i18n("Cannot make substitution. No open file or the current file is untitled!"));
-            return false;
-        }
-
-        buildCmd.replace(QStringLiteral("%n"), docFInfo.baseName());
-        buildCmd.replace(QStringLiteral("%f"), docFInfo.absoluteFilePath());
-        buildCmd.replace(QStringLiteral("%d"), docFInfo.absolutePath());
+    auto processCmd = substitutionsApplied(buildCmd, docFInfo, dir);
+    if (!processCmd.has_value()) {
+        return false;
     }
+
     m_currentlyBuildingTarget = QStringLiteral("%1: %2").arg(targetSet, cmdName);
     m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1</b> ...", m_currentlyBuildingTarget);
     m_buildUi.buildStatusLabel->setText(msg);
-    return startProcess(dir, buildCmd);
+    return startProcess(dir, *processCmd);
 }
 
 /******************************************************************/
@@ -1436,16 +1457,25 @@ void KateBuildView::slotRunAfterBuild()
     }
     QModelIndex idx = m_previousIndex;
     QModelIndex runIdx = idx.siblingAtColumn(2);
-    const QString runCmd = runIdx.data().toString();
+    QString runCmd = runIdx.data().toString();
     if (runCmd.isEmpty()) {
         // Nothing to run, and not a problem
         return;
     }
+    const QFileInfo docFInfo(docUrl().toLocalFile()); // docUrl() saves the current document
     const QString workDir = parseWorkDir(idx.data(TargetModel::WorkDirRole).toString());
     if (workDir.isEmpty()) {
         displayBuildResult(i18n("Cannot execute: %1 No working directory set.", runCmd), KTextEditor::Message::Warning);
         return;
     }
+
+    // Check if the command contains the file name or directory
+    auto processCmd = substitutionsApplied(runCmd, docFInfo, workDir);
+    if (!processCmd.has_value()) {
+        return;
+    }
+    runCmd = processCmd.value();
+
     QModelIndex nameIdx = idx.siblingAtColumn(0);
     QString name = nameIdx.data().toString();
 

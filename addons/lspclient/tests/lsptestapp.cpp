@@ -112,4 +112,7 @@ int main(int argc, char **argv)
     // lsp.didOpen(document, 0, QStringLiteral("blah"));
     lsp.didChange(document, 1, QStringLiteral("foo"));
     lsp.didClose(document);
+
+    // all fine
+    return 0;
 }

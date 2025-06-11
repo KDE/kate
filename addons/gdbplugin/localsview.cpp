@@ -86,9 +86,7 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidgetItem *parent, const da
     auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
     if (!variable.value.isEmpty()) {
-        auto *label = new QLabel(variable.value);
-        label->setWordWrap(true);
-        setItemWidget(item, Column_Value, label);
+        item->setText(Column_Value, variable.value);
     }
     item->setData(Column_Value, Qt::UserRole, variable.value);
     if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
@@ -108,9 +106,7 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
     auto *item = new QTreeWidgetItem(parent, QStringList(variable.name));
     formatName(*item, variable);
     if (!variable.value.isEmpty()) {
-        auto *label = new QLabel(variable.value);
-        label->setWordWrap(true);
-        setItemWidget(item, Column_Value, label);
+        item->setText(Column_Value, variable.value);
     }
     item->setText(Column_Type, variable.type.value_or(QString()));
 

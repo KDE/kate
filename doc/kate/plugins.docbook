@@ -3477,7 +3477,7 @@ than one file type pressing the &Shift; while adding types.</para></listitem>
 <term><guilabel>Type</guilabel></term>
 <listitem><para>Snippets may either be defined as text templates or scripts. Both types allow to use &javascript; functions
 (see below for details), and can thus be used to similar effect. However, as a rule of thumb, text templates will be more
-suiteable if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution if you want to
+suitable if you mostly want to <emphasis>insert</emphasis> text, while scripts are often an easier solution if you want to
 <emphasis>modify</emphasis> text).</para>
 <note><para>Kate needs to be compiled against KTextEditor version 6.15.0 or higher, for this feature to be available. For earlier versions, only text template snippets can be used.</para></note></listitem>
 </varlistentry>
@@ -3530,7 +3530,7 @@ to get the selected text, full text, file name, and more by using the appropriat
 and <userinput>view</userinput> objects. Refer to the scripting API
 documentation for more information.</para>
 
-<para>When scripting in conjuction with <userinput>Text Template</userinput> snippets, you should keep the
+<para>When scripting in conjunction with <userinput>Text Template</userinput> snippets, you should keep the
 following details/hints in mind:</para>
 <itemizedlist>
 <listitem><para>Remember that only the <emphasis>return value</emphasis> of a function is inserted in a field.</para></listitem>

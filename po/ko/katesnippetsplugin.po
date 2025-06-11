@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-08-20 23:27+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -44,7 +44,7 @@ msgstr "<i>일반 목적 스니펫의 경우 비워 두십시오</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "이름:"
@@ -85,24 +85,64 @@ msgstr "저장소의 짧은 이름"
 msgid "Prefix to show in code completion"
 msgstr "코드 자동 완성에서 보일 접두사"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "스크립트(&C)"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2에서 스니펫 %1 편집"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "저장소 %1에 새 스니펫 만들기"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "스니펫 이름에 공백이 들어 있으면 자동 완성 시 올바르게 작동하지 않을 수도 있"
 "음"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -110,101 +150,62 @@ msgstr ""
 "이 스니펫에 저장되지 않은 변경 사항이 있습니다. 변경 사항을 모두 버리시겠습니"
 "까?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "경고 - 저장되지 않은 변경 사항"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "계속 편집"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "자동 완성 목록에 나타남"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "스니펫(&S)"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "스니펫(&S)"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"문서에 삽입할 텍스트 스니펫입니다. <a href=\"스니펫에는 편집 가능한 필드가 들"
-"어 있을 수 있습니다. Tab 키를 눌러서 전환할 수 있습니다. 템플릿 텍스트에 필드"
-"를 추가하려면 다음 표현식을 사용할 수 있습니다: <br><tt>${field_name}</tt>은 "
-"간단한 편집 가능한 필드를 만듭니다. 같은 field_name을 가지는 필드를 여러 개 "
-"추가하면 한 필드의 내용이 변경되었을 때 다른 필드의 내용도 변경됩니다."
-"<br><tt>${field_name=default}</tt>는 필드의 기본값을 지정할 때 사용합니다. "
-"<tt>default</tt>는 임의의 JavaScript 표현식이 올 수 있습니다. <br>고정된 문자"
-"열을 기본값으로 사용하려면 <tt>${field_name=text}</tt>와 같이 입력하십시오."
-"<br><tt>${func(other_field1, other_field2, ...)}</tt>와 같이 입력하면 필드를 "
-"편집할 때마다 JavaScript 함수를 실행하고 실행 결과물을 필드에 추가합니다. 더 "
-"많은 정보를 보려면 \"스크립트\" 탭을 참고하십시오.<br><tt>${cursor}</tt>를 사"
-"용하면 모든 것을 입력한 다음 커서 끝을 나타낼 수 있습니다.\">더 보기...</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "스크립트(&C)"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"스니펫에 사용할 JavaScript 도우미 함수를 작성하십시오.<a href=\"모든 "
-"JavaScript 함수는 템플릿 필드에 추가할 내용을 문자열로 반환해야 합니다.<br>모"
-"든 편집 가능한 템플릿 필드를 지역 변수로 등록하여 함수를 호출합니다. 예를 들"
-"어 <tt>${field}</tt>가 들어 있는 스니펫의 경우, <tt>field</tt> 변수에 접근하"
-"면 해당 템플릿 필드의 최신 내용을 사용할 수 있습니다. 이 값은 함수 내에서 정"
-"적으로 사용할 수 있거나, 스니펫 텍스트에서 <tt>${func(field)}</tt> 또는 <tt>"
-"${field2=func(field)}</tt> 형식으로 함수에 인자로 전달될 수 있습니다."
-"<br>Kate 스크립팅 API를 사용하여 선택한 텍스트, 전체 텍스트, 파일 이름 등을 "
-"가져올 수 있습니다. <tt>document</tt> 및 <tt>view</tt> 객체를 사용하십시오. "
-"더 많은 정보를 보려면 스크립팅 API 문서를 참고하십시오.\">더 보기...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "이 스니펫 시험"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -221,22 +222,29 @@ msgstr "스니펫"
 msgid "Create Snippet"
 msgstr "스니펫 만들기"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<빈 스니펫>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "스니펫 %1 삽입"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<빈 저장소>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -246,28 +254,28 @@ msgstr ""
 "개인 데이터 디렉터리 밖에 있는 스니펫 저장소 파일을 편집했습니다. 원래 스니"
 "펫 파일의 이름이 변경된 복사본이 개인 데이터 디렉터리에 생성되었습니다."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "출력 파일 '%1'을(를) 열 수 없습니다"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "스니펫 저장소 %1을(를) 열 수 없습니다."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>파일 %1의 %2/%3에서<br />오류 <b>%4</b>이(가) 감지됨</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "잘못된 XML 스니펫 파일: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -276,12 +284,12 @@ msgstr ""
 "저장소가 비활성화되었습니다. 이 저장소에 있는 스니펫은 코드 자동 완성에 표시"
 "되지 않습니다."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "모든 파일 형식에 적용됨"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "다음 파일 형식에 적용됨: %1"
@@ -359,6 +367,63 @@ msgstr "필터..."
 #, kde-format
 msgid "&Tools"
 msgstr "도구(&T)"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "문서에 삽입할 텍스트 스니펫입니다. <a href=\"스니펫에는 편집 가능한 필드"
+#~ "가 들어 있을 수 있습니다. Tab 키를 눌러서 전환할 수 있습니다. 템플릿 텍스"
+#~ "트에 필드를 추가하려면 다음 표현식을 사용할 수 있습니다: <br><tt>"
+#~ "${field_name}</tt>은 간단한 편집 가능한 필드를 만듭니다. 같은 field_name"
+#~ "을 가지는 필드를 여러 개 추가하면 한 필드의 내용이 변경되었을 때 다른 필드"
+#~ "의 내용도 변경됩니다.<br><tt>${field_name=default}</tt>는 필드의 기본값을 "
+#~ "지정할 때 사용합니다. <tt>default</tt>는 임의의 JavaScript 표현식이 올 수 "
+#~ "있습니다. <br>고정된 문자열을 기본값으로 사용하려면 <tt>${field_name=text}"
+#~ "</tt>와 같이 입력하십시오.<br><tt>${func(other_field1, other_field2, ...)}"
+#~ "</tt>와 같이 입력하면 필드를 편집할 때마다 JavaScript 함수를 실행하고 실"
+#~ "행 결과물을 필드에 추가합니다. 더 많은 정보를 보려면 \"스크립트\" 탭을 참"
+#~ "고하십시오.<br><tt>${cursor}</tt>를 사용하면 모든 것을 입력한 다음 커서 끝"
+#~ "을 나타낼 수 있습니다.\">더 보기...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "스니펫에 사용할 JavaScript 도우미 함수를 작성하십시오.<a href=\"모든 "
+#~ "JavaScript 함수는 템플릿 필드에 추가할 내용을 문자열로 반환해야 합니다."
+#~ "<br>모든 편집 가능한 템플릿 필드를 지역 변수로 등록하여 함수를 호출합니"
+#~ "다. 예를 들어 <tt>${field}</tt>가 들어 있는 스니펫의 경우, <tt>field</tt> "
+#~ "변수에 접근하면 해당 템플릿 필드의 최신 내용을 사용할 수 있습니다. 이 값"
+#~ "은 함수 내에서 정적으로 사용할 수 있거나, 스니펫 텍스트에서 <tt>"
+#~ "${func(field)}</tt> 또는 <tt>${field2=func(field)}</tt> 형식으로 함수에 인"
+#~ "자로 전달될 수 있습니다.<br>Kate 스크립팅 API를 사용하여 선택한 텍스트, 전"
+#~ "체 텍스트, 파일 이름 등을 가져올 수 있습니다. <tt>document</tt> 및 "
+#~ "<tt>view</tt> 객체를 사용하십시오. 더 많은 정보를 보려면 스크립팅 API 문서"
+#~ "를 참고하십시오.\">더 보기...</a>"
 
 #~ msgid "Snippet name cannot contain spaces"
 #~ msgstr "스니펫 이름에 공백이 들어 있을 수 없음"

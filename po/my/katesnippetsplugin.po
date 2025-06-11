@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-09-10 15:41+0630\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "အမည် -"
@@ -86,100 +86,121 @@ msgstr "ရီပိုစစ်တိုရီ၏ အမည်တို"
 msgid "Prefix to show in code completion"
 msgstr "ကုဒ်ဖြည့်စွက်မှုတွင် ပြရန် ရှေ့ဆက်"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, kde-format
+msgid "Script"
+msgstr ""
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2 တွင် စာအတိုအထွာ %1 တည်းဖြတ်မည်"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "ရီပိုစစ်တိုရီ %1 စာအတိုအထွာအသစ်တွင်ဖန်တီးမည်"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "သတိ - မသိမ်းဆည်းရသေးသောပြောင်းလဲမှုများ"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "ဆက်လက်တည်းဖြတ်မည်"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "ပြီးစီးမှုစာရင်းတွင် ပြသမည်ဖြစ်သည်။"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Sစာအတိုအထွာ"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Sစာအတိုအထွာ"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
+#: editsnippet.ui:117
 #, kde-format
-msgid "S&cripts"
+msgid "S&cript Library"
 msgstr ""
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "ဤစာအတိုအထွာကို စမ်းသပ်မည်"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -196,22 +217,29 @@ msgstr "စာအတိုအထွာများ"
 msgid "Create Snippet"
 msgstr "စာအတိုအထွာ ဖန်တီးမည်"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<ဗလာ စာအတိုအထွာ>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "စာအတိုအထွာ %1 ထည့်သွင်းမည်"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<ဗလာ ရီပိုစစ်တိုရီ>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -219,40 +247,40 @@ msgid ""
 "personal data directory."
 msgstr ""
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "ရေးရန်အတွက် အထုတ်ဖိုင်လ် '%1' ကို ဖွင့်မရနိုင်ခဲ့ပါ"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr ""
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr ""
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "ဖိုင်လ်အမျိုးအစားအားလုံးကို သက်ရောက်စေမည်"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr ""

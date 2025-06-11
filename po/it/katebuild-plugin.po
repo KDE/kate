@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-07 00:45+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2025-03-27 15:49+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -436,7 +436,7 @@ msgstr ""
 "\"%d\" per la cartella del file attuale\n"
 "\"%n\" per il nome del file attuale senza suffisso"
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
 msgid "Target Set"
 msgstr "Insieme di obiettivi"
@@ -528,13 +528,13 @@ msgstr "Taglia"
 msgid "Paste after"
 msgstr "Incolla dopo"
 
-#: targets.cpp:230 targets.cpp:252
+#: targets.cpp:230 targets.cpp:257
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Comando di compilazione"
 
-#: targets.cpp:251
+#: targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-07 00:45+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2025-04-05 22:24+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -434,7 +434,7 @@ msgstr ""
 "\"%d\" för den aktuella filens katalog\n"
 "\"%n\" för aktuellt filnamn utan suffix."
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
 msgid "Target Set"
 msgstr "Måluppsättning"
@@ -525,13 +525,13 @@ msgstr "Klipp ut"
 msgid "Paste after"
 msgstr "Klistra in efter"
 
-#: targets.cpp:230 targets.cpp:252
+#: targets.cpp:230 targets.cpp:257
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Byggkommando"
 
-#: targets.cpp:251
+#: targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2022-07-13 08:26+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -44,7 +44,7 @@ msgstr "<i>để trống cho các mảnh mã đa dụng</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "Tên:"
@@ -85,22 +85,62 @@ msgstr "Một tên ngắn đặt cho kho"
 msgid "Prefix to show in code completion"
 msgstr "Tiền tố để hiển thị trong phần hoàn tất mã"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "&Kịch bản"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Sửa mảnh mã %1 trong %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Tạo mảnh mã mới trong kho %1"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, fuzzy, kde-format
 #| msgid ""
 #| "The snippet contains unsaved changes. Do you want to continue and lose "
@@ -111,104 +151,62 @@ msgstr ""
 "Mảnh mã có các thay đổi chưa được lưu. Bạn có muốn tiếp tục và sẽ mất tất cả "
 "các thay đổi đó không?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Cảnh báo - thay đổi chưa lưu"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr ""
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "sẽ được hiển thị trong danh sách hoàn tất"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Mảnh mã"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Mảnh mã"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"Phần chữ mà mảnh mã sẽ chèn vào tài liệu. <a href=\"Một mảnh mã có thể chứa "
-"các trường sửa được. Bạn có thể chuyển giữa chúng bằng phím Tab. Các biểu "
-"thức sau có thể dùng trong phần chữ bản mẫu để tạo ra các trường: <br><tt>"
-"${tên_trường}</tt> tạo ra một trường sửa được đơn giản. Tất cả các lần xuất "
-"hiện về sau của cùng một tên_trường sẽ tạo ra các trường lặp lại nội dung "
-"của trường đầu tiên khi chỉnh sửa.<br><tt>${tên_trường=trị}</tt> dùng để chỉ "
-"định một giá trị mặc định cho trường. <tt>trị</tt> có thể là một biểu thức "
-"JavaScript bất kì.<br>Dùng <tt>${tên_trường=chuỗi}</tt> để chỉ định một "
-"chuỗi cố định làm giá trị mặc định.<br><tt>${hàm(trường_1, trường_2, ...)}</"
-"tt> dùng để tạo ra một trường mà sẽ tính một hàm JavaScript sau mỗi lần "
-"chỉnh sửa và chứa nội dung của nó. Xem thêm thông tin ở thẻ \"Kịch bản\"."
-"<br><tt>${cursor}</tt> dùng để đánh dấu vị trí cuối cùng của con trỏ sau khi "
-"mọi thứ khác đã được điền xong.\">Thêm...</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "&Kịch bản"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"Viết vào đây các hàm JavaScript trợ giúp để dùng trong mảnh mã. <a href="
-"\"Tất cả các hàm JavaScript nên trả về nội dung mà bạn muốn đặt vào một "
-"trường bản mẫu dưới dạng một chuỗi.<br>Các hàm được gọi trong một phạm vi "
-"bao gồm nội dung của tất cả các trường bản mẫu sửa được dưới dạng các biến "
-"cục bộ. Ví dụ trong một mảnh mã chứa <tt>${truong}</tt>, sẽ có một biến "
-"<tt>truong</tt> chứa nội dung cập nhật của trường bản mẫu. Các biến đó có "
-"thể, hoặc được dùng tĩnh trong hàm, hoặc được truyền làm đối số, bằng cách "
-"dùng cú pháp <tt>${hàm(trường)}</tt> hoặc <tt>${trường2=hàm(trường)}</tt> "
-"trong mảnh mã.<br>Bạn có thể dùng API lập kịch bản của Kate để lấy phần chữ "
-"được chọn, toàn bộ phần chữ, tên tệp và các thứ khác bằng cách dùng các "
-"phương thức tương ứng của các đối tượng <tt>document</tt> và <tt>view</tt>. "
-"Tham khảo thêm thông tin ở tài liệu API lập kịch bản.\">Thêm...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "Kiểm thử mảnh mã này"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -225,22 +223,29 @@ msgstr "Mảnh mã"
 msgid "Create Snippet"
 msgstr "Tạo mảnh mã"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<mảnh mã trống>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "chèn mảnh mã %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<kho trống>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -251,28 +256,28 @@ msgstr ""
 "vậy, một bản sao của tệp gốc đã được tạo trong thư mục dữ liệu cá nhân của "
 "bạn."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Không mở được tệp đầu ra '%1' để ghi"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Không thể mở kho mảnh mã %1."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Đã phát hiện lỗi <b>%4</b><br /> trong tệp %1 ở %2/%3</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Tệp mảnh mã XML không hợp lệ: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -281,12 +286,12 @@ msgstr ""
 "Kho bị tắt, các mảnh mã chứa bên trong sẽ không được hiển thị khi hoàn tất "
 "mã."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Áp dụng cho tất cả các kiểu tệp"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Áp dụng cho các kiểu tệp sau: %1"
@@ -364,6 +369,66 @@ msgstr "Lọc..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Công cụ"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "Phần chữ mà mảnh mã sẽ chèn vào tài liệu. <a href=\"Một mảnh mã có thể "
+#~ "chứa các trường sửa được. Bạn có thể chuyển giữa chúng bằng phím Tab. Các "
+#~ "biểu thức sau có thể dùng trong phần chữ bản mẫu để tạo ra các trường: "
+#~ "<br><tt>${tên_trường}</tt> tạo ra một trường sửa được đơn giản. Tất cả "
+#~ "các lần xuất hiện về sau của cùng một tên_trường sẽ tạo ra các trường lặp "
+#~ "lại nội dung của trường đầu tiên khi chỉnh sửa.<br><tt>${tên_trường=trị}</"
+#~ "tt> dùng để chỉ định một giá trị mặc định cho trường. <tt>trị</tt> có thể "
+#~ "là một biểu thức JavaScript bất kì.<br>Dùng <tt>${tên_trường=chuỗi}</tt> "
+#~ "để chỉ định một chuỗi cố định làm giá trị mặc định.<br><tt>"
+#~ "${hàm(trường_1, trường_2, ...)}</tt> dùng để tạo ra một trường mà sẽ tính "
+#~ "một hàm JavaScript sau mỗi lần chỉnh sửa và chứa nội dung của nó. Xem "
+#~ "thêm thông tin ở thẻ \"Kịch bản\".<br><tt>${cursor}</tt> dùng để đánh dấu "
+#~ "vị trí cuối cùng của con trỏ sau khi mọi thứ khác đã được điền xong."
+#~ "\">Thêm...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "Viết vào đây các hàm JavaScript trợ giúp để dùng trong mảnh mã. <a href="
+#~ "\"Tất cả các hàm JavaScript nên trả về nội dung mà bạn muốn đặt vào một "
+#~ "trường bản mẫu dưới dạng một chuỗi.<br>Các hàm được gọi trong một phạm vi "
+#~ "bao gồm nội dung của tất cả các trường bản mẫu sửa được dưới dạng các "
+#~ "biến cục bộ. Ví dụ trong một mảnh mã chứa <tt>${truong}</tt>, sẽ có một "
+#~ "biến <tt>truong</tt> chứa nội dung cập nhật của trường bản mẫu. Các biến "
+#~ "đó có thể, hoặc được dùng tĩnh trong hàm, hoặc được truyền làm đối số, "
+#~ "bằng cách dùng cú pháp <tt>${hàm(trường)}</tt> hoặc <tt>"
+#~ "${trường2=hàm(trường)}</tt> trong mảnh mã.<br>Bạn có thể dùng API lập "
+#~ "kịch bản của Kate để lấy phần chữ được chọn, toàn bộ phần chữ, tên tệp và "
+#~ "các thứ khác bằng cách dùng các phương thức tương ứng của các đối tượng "
+#~ "<tt>document</tt> và <tt>view</tt>. Tham khảo thêm thông tin ở tài liệu "
+#~ "API lập kịch bản.\">Thêm...</a>"
 
 #~ msgid "Snippet name cannot contain spaces"
 #~ msgstr "Tên mảnh mã không được chứa dấu cách"

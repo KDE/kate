@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-07 00:45+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2009-01-20 10:11-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -433,7 +433,7 @@ msgstr ""
 "\"%f\" don chomhad reatha\n"
 "\"%d\" do chomhadlann an chomhaid reatha\"%n\" don chomhad reatha gan iarmhír"
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
@@ -527,14 +527,14 @@ msgstr ""
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:230 targets.cpp:252
+#: targets.cpp:230 targets.cpp:257
 #, fuzzy, kde-format
 #| msgid "Clean command:"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Ordú glanta:"
 
-#: targets.cpp:251
+#: targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"

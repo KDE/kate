@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-06-04 13:56+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -48,7 +48,7 @@ msgstr "<i>deixeu-ho buit per als retalls d'ús general</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "Nom:"
@@ -89,129 +89,124 @@ msgstr "Un nom curt per al repositori"
 msgid "Prefix to show in code completion"
 msgstr "Prefix a mostrar en la compleció de codi"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "S&cripts"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Edita el retall %1 a %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Crea un retall nou al repositori %1"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Els noms de retalls amb espais potser no funcionin bé a les complecions"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "El retall conté canvis sense desar. Voleu descartar tots els canvis?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Avís: Canvis sense desar"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "Continua l'edició"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "es mostrarà en la llista de compleció"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Retall"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Retall"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"El text amb el qual heu creat un retall s'inserirà en el document. <a href="
-"\"Un retall pot contenir camps editables. Es poden recórrer prement Tab. Es "
-"poden emprar les expressions següents en el text de plantilla per a crear "
-"camps:<br><tt>${nom_camp}</tt> crea un camp editable senzill. totes les "
-"ocurrències subsegüents del mateix nom_camp crearan camps que reflectiran el "
-"contingut del primer durant l'edició.<br><tt>${nom_camp=defecte}</tt> es pot "
-"emprar per a indicar un valor per defecte del camp. <tt>defecte</tt> pot ser "
-"qualsevol expressió JavaScript.<br>Useu <tt>${nom_camp=text}</tt> per a "
-"indicar una cadena fixa com a valor per defecte.<br><tt>${func(altre_camp1, "
-"altre_camp2, ...)}</tt> es pot emprar per a crear un camp que avaluï una "
-"funció JavaScript en cada edició i contingui el seu contingut. Vegeu la "
-"pestanya «Scripts» per a més informació.<br><tt>${cursor}</tt> es pot emprar "
-"per a marcar la posició final del cursor després d'omplir-ho tot.\">Més...</"
-"a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "S&cripts"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"Escriviu aquí les funcions auxiliars en JavaScript per a usar-les en els "
-"retalls. <a href=\"Totes les funcions en JavaScript han de retornar el "
-"contingut que voleu per a situar-lo en un camp de plantilla com una cadena."
-"<br>Les funcions s'invoquen en un àmbit que conté el contingut de tots els "
-"camps de plantilla editables com a variables locals. Per exemple, en un "
-"retall que contingui <tt>${camp}</tt>, es presentarà una variable anomenada "
-"<tt>camp</tt> que contindrà el contingut actualitzat del camp de plantilla. "
-"Aquestes variables es poden usar estàticament en la funció o es poden passar "
-"com arguments, usant la sintaxi <tt>${func(camp)}</tt> o <tt>"
-"${camp2=func(camp)}</tt> en la cadena del retall.<br>Podeu usar l'API per a "
-"crear scripts del Kate per a obtenir el text seleccionat, tot el text, el "
-"nom del fitxer i més usant els mètodes adequats dels objectes <tt>document</"
-"tt> i <tt>view</tt>. Per a més informació, consulteu la documentació de "
-"l'API per a crear scripts.\">Més...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "Prova aquest retall"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -228,22 +223,29 @@ msgstr "Retalls"
 msgid "Create Snippet"
 msgstr "Crea un retall"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<retall buit>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "insereix el retall %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<repositori buit>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -254,29 +256,29 @@ msgstr ""
 "vostre directori de dades personal; per tant, s'ha creat una còpia del "
 "fitxer de dades original en el vostre directori personal de dades."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "No s'ha pogut obrir el fitxer de sortida «%1» per a escriptura"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "No s'ha pogut obrir el repositori de retalls %1."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>S'ha detectat l'error <b>%4</b><br /> en el fitxer %1 en %2/%3</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Fitxer de retall en XML no vàlid: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -285,12 +287,12 @@ msgstr ""
 "El repositori està inhabilitat, els retalls que conté no es mostraran durant "
 "la compleció de codi."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Aplica a tots els tipus de fitxer"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Aplica als següents tipus de fitxer: %1"
@@ -368,6 +370,68 @@ msgstr "Filtre..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "El text amb el qual heu creat un retall s'inserirà en el document. <a "
+#~ "href=\"Un retall pot contenir camps editables. Es poden recórrer prement "
+#~ "Tab. Es poden emprar les expressions següents en el text de plantilla per "
+#~ "a crear camps:<br><tt>${nom_camp}</tt> crea un camp editable senzill. "
+#~ "totes les ocurrències subsegüents del mateix nom_camp crearan camps que "
+#~ "reflectiran el contingut del primer durant l'edició.<br><tt>"
+#~ "${nom_camp=defecte}</tt> es pot emprar per a indicar un valor per defecte "
+#~ "del camp. <tt>defecte</tt> pot ser qualsevol expressió JavaScript."
+#~ "<br>Useu <tt>${nom_camp=text}</tt> per a indicar una cadena fixa com a "
+#~ "valor per defecte.<br><tt>${func(altre_camp1, altre_camp2, ...)}</tt> es "
+#~ "pot emprar per a crear un camp que avaluï una funció JavaScript en cada "
+#~ "edició i contingui el seu contingut. Vegeu la pestanya «Scripts» per a "
+#~ "més informació.<br><tt>${cursor}</tt> es pot emprar per a marcar la "
+#~ "posició final del cursor després d'omplir-ho tot.\">Més...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "Escriviu aquí les funcions auxiliars en JavaScript per a usar-les en els "
+#~ "retalls. <a href=\"Totes les funcions en JavaScript han de retornar el "
+#~ "contingut que voleu per a situar-lo en un camp de plantilla com una "
+#~ "cadena.<br>Les funcions s'invoquen en un àmbit que conté el contingut de "
+#~ "tots els camps de plantilla editables com a variables locals. Per "
+#~ "exemple, en un retall que contingui <tt>${camp}</tt>, es presentarà una "
+#~ "variable anomenada <tt>camp</tt> que contindrà el contingut actualitzat "
+#~ "del camp de plantilla. Aquestes variables es poden usar estàticament en "
+#~ "la funció o es poden passar com arguments, usant la sintaxi <tt>"
+#~ "${func(camp)}</tt> o <tt>${camp2=func(camp)}</tt> en la cadena del retall."
+#~ "<br>Podeu usar l'API per a crear scripts del Kate per a obtenir el text "
+#~ "seleccionat, tot el text, el nom del fitxer i més usant els mètodes "
+#~ "adequats dels objectes <tt>document</tt> i <tt>view</tt>. Per a més "
+#~ "informació, consulteu la documentació de l'API per a crear scripts."
+#~ "\">Més...</a>"
 
 #~ msgid "Snippet name cannot contain spaces"
 #~ msgstr "El nom del retall no pot contenir espais"

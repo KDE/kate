@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-06-19 18:55+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -46,7 +46,7 @@ msgstr "<i>lascia vuoto per frammenti a scopo generico</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "Nome:"
@@ -87,24 +87,64 @@ msgstr "Un nome breve per il deposito"
 msgid "Prefix to show in code completion"
 msgstr "Prefisso da mostrare nel completamento del codice"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "S&cript"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Modifica il frammento %1 in %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Crea nuovo frammento nel deposito %1"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "I nomi dei frammenti con gli spazi potrebbero non funzionare bene nel "
 "completamento"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -112,108 +152,62 @@ msgstr ""
 "Il frammento contiene delle modifiche non salvate. Vuoi scartare tutte le "
 "modifiche?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Avviso - Modifiche non salvate"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "Continua a modificare"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "sarà mostrato nell'elenco di completamento"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Frammenti"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Frammenti"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"Il testo che il tuo frammento inserirà nel documento. <a href=\"Un frammento "
-"può contenere campi modificabili. Si può passare da uno all'altro premendo "
-"Tab. Le seguenti espressioni possono essere usate nel testo del modello per "
-"create dei campi: <br><tt>${field_name}</tt> crea un semplice campo "
-"modificabile. Tutte le successive occorrenze dello stesso field_name creano "
-"campi che rispecchiano i contenuti del primo durante la modifica. <br><tt>"
-"${field_name=default}</tt> può essere usato per specificare un valore "
-"predefinito per il campo. <tt>default</tt> può essere una qualsiasi "
-"espressione JavaScript. <br>Usa <tt>${field_name=text}</tt> per specificare "
-"una stringa fissa come valore predefinito. <br><tt>${func(other_field1, "
-"other_field2, ...)}</tt> può essere usato per creare un campo che valuta una "
-"funzione JavaScript per ciascuna modifica e che contiene il suo contenuto. "
-"Vedi la scheda Script per maggiori informazioni. <br><tt>${cursor}</tt> può "
-"essere usato per segnare la posizione finale del puntatore dopo che è stato "
-"riempito tutto il resto.\">Altro...</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "S&cript"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"Scrivi qui le funzioni di supporto a JavaScript da usare nei tuoi frammenti. "
-"<a href=\"Tutte le funzioni JavaScript devono restituire i contenuti da "
-"inserire in un campo modello come una stringa.<br>Le funzioni sono chiamate "
-"in un ambito che contiene i contenuti di tutti i campi modello come "
-"variabili locali. Per esempio, in un frammento che contiene <tt>${field}</"
-"tt> sarà presente una variabile, chiamata <tt>field</tt>, contenente i "
-"contenuti aggiornati del campo modello. Quelle variabili possono sia usate "
-"staticamente nella funzione sia passate come argomento usando la sintassi "
-"<tt>${func(field)}</tt> oppure <tt>${field2=func(field)}</tt> nella stringa "
-"del frammento.<br>Puoi usare l'API di scripting di Kate per ottenere il "
-"testo selezionato, l'intero testo, il nome del file e altro ancora usando il "
-"metodo appropriato degli oggetti <tt>document</tt> e <tt>view</tt>. Fai "
-"riferimento alla documentazione dell'API di scripting per ulteriori "
-"informazioni.\">Altro...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "Prova questo frammento"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -230,22 +224,29 @@ msgstr "Frammenti"
 msgid "Create Snippet"
 msgstr "Crea frammento"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<frammento vuoto>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "inserisci frammento %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<deposito vuoto>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -256,28 +257,28 @@ msgstr ""
 "personale; perciò è stata creata una copia del file originale all'interno "
 "della tua cartella personale."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Il file di destinazione «%1» non può essere aperto in scrittura"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Impossibile aprire il deposito di frammenti %1."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>L'errore <b>%4</b><br /> è stato rilevato nel file %1 a %2/%3</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "File di frammento XML non valido: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -286,12 +287,12 @@ msgstr ""
 "Il deposito è disabilitato, i frammenti contenuti non saranno mostrati "
 "durante il completamento del codice."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Si applica a tutti i tipi di file"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Si applica ai seguenti tipi di file: %1"
@@ -369,6 +370,70 @@ msgstr "Filtro..."
 #, kde-format
 msgid "&Tools"
 msgstr "S&trumenti"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "Il testo che il tuo frammento inserirà nel documento. <a href=\"Un "
+#~ "frammento può contenere campi modificabili. Si può passare da uno "
+#~ "all'altro premendo Tab. Le seguenti espressioni possono essere usate nel "
+#~ "testo del modello per create dei campi: <br><tt>${field_name}</tt> crea "
+#~ "un semplice campo modificabile. Tutte le successive occorrenze dello "
+#~ "stesso field_name creano campi che rispecchiano i contenuti del primo "
+#~ "durante la modifica. <br><tt>${field_name=default}</tt> può essere usato "
+#~ "per specificare un valore predefinito per il campo. <tt>default</tt> può "
+#~ "essere una qualsiasi espressione JavaScript. <br>Usa <tt>"
+#~ "${field_name=text}</tt> per specificare una stringa fissa come valore "
+#~ "predefinito. <br><tt>${func(other_field1, other_field2, ...)}</tt> può "
+#~ "essere usato per creare un campo che valuta una funzione JavaScript per "
+#~ "ciascuna modifica e che contiene il suo contenuto. Vedi la scheda Script "
+#~ "per maggiori informazioni. <br><tt>${cursor}</tt> può essere usato per "
+#~ "segnare la posizione finale del puntatore dopo che è stato riempito tutto "
+#~ "il resto.\">Altro...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "Scrivi qui le funzioni di supporto a JavaScript da usare nei tuoi "
+#~ "frammenti. <a href=\"Tutte le funzioni JavaScript devono restituire i "
+#~ "contenuti da inserire in un campo modello come una stringa.<br>Le "
+#~ "funzioni sono chiamate in un ambito che contiene i contenuti di tutti i "
+#~ "campi modello come variabili locali. Per esempio, in un frammento che "
+#~ "contiene <tt>${field}</tt> sarà presente una variabile, chiamata "
+#~ "<tt>field</tt>, contenente i contenuti aggiornati del campo modello. "
+#~ "Quelle variabili possono sia usate staticamente nella funzione sia "
+#~ "passate come argomento usando la sintassi <tt>${func(field)}</tt> oppure "
+#~ "<tt>${field2=func(field)}</tt> nella stringa del frammento.<br>Puoi usare "
+#~ "l'API di scripting di Kate per ottenere il testo selezionato, l'intero "
+#~ "testo, il nome del file e altro ancora usando il metodo appropriato degli "
+#~ "oggetti <tt>document</tt> e <tt>view</tt>. Fai riferimento alla "
+#~ "documentazione dell'API di scripting per ulteriori informazioni."
+#~ "\">Altro...</a>"
 
 #~ msgid "Snippet name cannot contain spaces"
 #~ msgstr "Il nome del frammento non può contenere spazi"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-07 00:45+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2013-11-19 03:44+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -423,7 +423,7 @@ msgstr ""
 "\"%d\" деген ол жатқан қапшығы\n"
 "\"%n\" деген оның жұрнақсыз файл атауы"
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:250
+#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, fuzzy, kde-format
 #| msgid "Target set"
 msgid "Target Set"
@@ -520,14 +520,14 @@ msgstr ""
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:230 targets.cpp:252
+#: targets.cpp:230 targets.cpp:257
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Команда:"
 
-#: targets.cpp:251
+#: targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"

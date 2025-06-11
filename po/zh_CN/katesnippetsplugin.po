@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -44,7 +44,7 @@ msgstr "<i>一般用途的代码片段则留空</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "名称："
@@ -85,118 +85,123 @@ msgstr "简短的仓库名称"
 msgid "Prefix to show in code completion"
 msgstr "显示代码补全的前缀"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "脚本(&C)"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "编辑代码片断 %1 于 %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "在仓库 %1 中创建新代码片段"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "带有空格的代码片段名称可能在代码补全中无法正常工作"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "代码片段包含未保存的更改。您想要丢弃全部更改吗？"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "警告 - 未保存的更改"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "继续编辑"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "将在代码补全列表中显示"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "代码片断(&S)"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "代码片断(&S)"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"代码片段将会插入到文档中的文本。<a href=\"代码片段可能包含可编辑的字段，这些"
-"字段可以用 Tab 键循环。以下表达式可用于在文本模板中创建字段：<br><tt>"
-"${field_name}</tt> 创建简单的，可编辑的字段。所有后续出现的相同的 field_name "
-"会创建内容同步的字段，在编辑时复制第一个字段的内容。<br><tt>"
-"${field_name=default}</tt> 可以创建字段并赋值。<tt>default</tt> 可以是任何 "
-"JavaScript 表达式。<br>使用 <tt>${field_name=text}</tt> 指定固定的字符串作为"
-"默认值。<br><tt>${func(other_field1, other_field2, ...)}</tt> 创建一个用 "
-"JavaScript 函数评估每次编辑并包含其内容。请查看“脚本”标签页了解更多信息。"
-"<br><tt>${cursor}</tt> 用于在所有信息填写完毕后标记光标的结束位置。\">更多..."
-"</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "脚本(&C)"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"在此处编写 JavaScript 帮助函数并在您的代码片段中使用。<a href=\"所有 "
-"JavaScript 函数应当返回您希望在模板字段位置输出的字符串。<br>函数调用的作用域"
-"包含了所有模板字段，并以局部变量形式存在。例如一个代码片段包含 <tt>${field}</"
-"tt> 字段，那么就会有一个名为 <tt>field</tt> 的 JavaScript 变量，其值总是随模"
-"板字段变化而变化。这些变量既可以用于函数中，也可以作为函数的参数，语法是 <tt>"
-"${func(field)}</tt> 或 <tt>${field2=func(field)}</tt>。<br>您可以用 Kate 脚"
-"本 API 获取选中的文本，全部文本，文件名等等，这需要调用 <tt>document</tt> 和 "
-"<tt>view</tt> 对象的一些方法。参考脚本 API 文档获取更多信息。\">更多...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "测试此代码片段"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -213,22 +218,29 @@ msgstr "代码片断"
 msgid "Create Snippet"
 msgstr "创建代码片断"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<空代码片段>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "插入代码片断 %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<空仓库>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -238,40 +250,40 @@ msgstr ""
 "您已经编辑了一个不在您的个人目录中代码片段仓库文件；因此，已在您的个人数据目"
 "录中创建了原始文档的副本。"
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "无法打开输出文件“%1”进行写入"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "无法打开代码片断仓库 %1。"
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>文件 %1 中%2行/%3列<br />发现错误<b>%4</b></qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "无法的 XML 代码片段文件：%1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr "仓库已禁用，所包含的代码片断将不会在代码补全时显示。"
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "应用于所有文件类型"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "应用于以下文件类型：%1"
@@ -349,3 +361,55 @@ msgstr "过滤..."
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "代码片段将会插入到文档中的文本。<a href=\"代码片段可能包含可编辑的字段，这"
+#~ "些字段可以用 Tab 键循环。以下表达式可用于在文本模板中创建字段：<br><tt>"
+#~ "${field_name}</tt> 创建简单的，可编辑的字段。所有后续出现的相同的 "
+#~ "field_name 会创建内容同步的字段，在编辑时复制第一个字段的内容。<br><tt>"
+#~ "${field_name=default}</tt> 可以创建字段并赋值。<tt>default</tt> 可以是任"
+#~ "何 JavaScript 表达式。<br>使用 <tt>${field_name=text}</tt> 指定固定的字符"
+#~ "串作为默认值。<br><tt>${func(other_field1, other_field2, ...)}</tt> 创建一"
+#~ "个用 JavaScript 函数评估每次编辑并包含其内容。请查看“脚本”标签页了解更多信"
+#~ "息。<br><tt>${cursor}</tt> 用于在所有信息填写完毕后标记光标的结束位置。\">"
+#~ "更多...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "在此处编写 JavaScript 帮助函数并在您的代码片段中使用。<a href=\"所有 "
+#~ "JavaScript 函数应当返回您希望在模板字段位置输出的字符串。<br>函数调用的作"
+#~ "用域包含了所有模板字段，并以局部变量形式存在。例如一个代码片段包含 <tt>"
+#~ "${field}</tt> 字段，那么就会有一个名为 <tt>field</tt> 的 JavaScript 变量，"
+#~ "其值总是随模板字段变化而变化。这些变量既可以用于函数中，也可以作为函数的参"
+#~ "数，语法是 <tt>${func(field)}</tt> 或 <tt>${field2=func(field)}</tt>。<br>"
+#~ "您可以用 Kate 脚本 API 获取选中的文本，全部文本，文件名等等，这需要调用 "
+#~ "<tt>document</tt> 和 <tt>view</tt> 对象的一些方法。参考脚本 API 文档获取更"
+#~ "多信息。\">更多...</a>"

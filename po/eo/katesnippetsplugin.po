@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-06-05 21:43+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -45,7 +45,7 @@ msgstr "<i>lasu malplenaj por ĝeneraluzeblaj fragmentoj</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "Nomo:"
@@ -86,22 +86,62 @@ msgstr "Mallonga nomo por la deponejo"
 msgid "Prefix to show in code completion"
 msgstr "Prefikso por montri en kodkompletigo"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "S&kriptoj"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Redakti fragmenton %1 en %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Krei Novan Fragmenton en Deponejo %1"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "Fragmentnomoj kun spacetoj eble ne bone funkcias en kompletigoj"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -109,104 +149,62 @@ msgstr ""
 "La fragmento enhavas nekonservitajn ŝanĝojn. Ĉu vi volas forĵeti ĉiujn "
 "ŝanĝojn?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Averto - Nekonservitaj Ŝanĝoj"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "Daŭrigi redaktadon"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "estos montrita en la kompletigolisto"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Fragmento"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Fragmento"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"La tekston, kiun via fragmento enigos en la dokumenton. <a href=\"Fragmento "
-"povas enhavi redakteblajn kampojn. Oni povas cikli tra ili premante Tab. La "
-"jenaj esprimoj povas esti uzataj en la ŝablona teksto por krei kampojn: "
-"<br><tt>${field_name}</tt> kreas simplan, redakteblan kampon. Ĉiuj postaj "
-"okazoj de la sama kampo_nomo kreas kampojn kiuj spegulas la enhavon de la "
-"unua dum redaktado.<br><tt>${field_name=default}</tt> povas esti uzata por "
-"specifi defaŭltan valoron por la kampo. <tt>default</tt> povas esti ajna "
-"JavaScript-esprimo.<br>Uzu <tt>${field_name=text}</tt> por specifi fiksan "
-"ĉenon kiel defaŭltan valoron.<br><tt>$ {func(alia_kampo1, alia_kampo2, ...)}"
-"</tt> povas esti uzata por krei kampon kiu taksas JavaScript-funkcion ĉe ĉiu "
-"redakto kaj enhavas ĝian enhavon. Vidu la langeton Skriptoj por pliaj "
-"informoj.<br><tt> ${cursor}</tt> povas esti uzata por marki la finpozicion "
-"de la kursoro post kiam ĉio alia estis plenigita.\">Pli...</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "S&kriptoj"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"Skribu JavaScript-helpajn funkciojn por uzi en viaj fragmentoj ĉi tie. <a "
-"href=\"Ĉiuj JavaScript-funkcioj devas resendi la enhavon, kiun vi volas meti "
-"en ŝablonkampon kiel ĉenon.<br>Funkcioj estas nomitaj en medio kiu enhavas "
-"la enhavon de ĉiuj redakteblaj ŝablonkampoj kiel lokaj variabloj. Ekzemple "
-"en fragmento enhavanta <tt>${field}</tt>, variablo nomata <tt>kampo</tt> "
-"ĉeestos kiu enhavas la ĝisdatigitan enhavon de la ŝablono kampo.Tiuj "
-"variabloj povas esti uzataj en la funkcio statike aŭ pasita kiel argumentoj, "
-"uzante la sintakson <tt>${func(field)}</tt> aŭ <tt>${field2=func(field)}</"
-"tt> en la fragmentĉeno.<br >Vi povas uzi la kate scripting API por akiri la "
-"elektitan tekston, plenan tekston, dosiernomon kaj pli uzante la taŭgajn "
-"metodojn de la objektoj <tt>dokumento</tt> kaj <tt>vido</tt>. scripting API-"
-"dokumentado por pliaj informoj.\">Pli...</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "Testi ĉi tiun fragmenton"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -223,22 +221,29 @@ msgstr "Fragmentoj"
 msgid "Create Snippet"
 msgstr "Krei Fragmenton"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<malplena fragmento>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "enmeti fragmenton %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<malplena deponejo>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -249,29 +254,29 @@ msgstr ""
 "dosierujo; kiel tia, kopio de la originala dosiero estis kreita ene de via "
 "persona datuma dosierujo."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Eligaĵdosiero '%1' ne povis esti malfermita por skribado"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Ne povas malfermi fragmentan deponejon %1."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>La eraro <b>%4</b><br /> estis detektita en la dosiero %1 ĉe %2/%3</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Nevalida XML-fragmento dosiero: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -280,12 +285,12 @@ msgstr ""
 "Deponejo estas malŝaltita, la enhavitaj fragmentoj ne estos montritaj dum "
 "kodkompletigo."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Validas por ĉiuj dosiertipoj"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Aplikas al la sekvaj dosiertipoj: %1"
@@ -363,6 +368,65 @@ msgstr "Filtrilo..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Iloj"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "La tekston, kiun via fragmento enigos en la dokumenton. <a href="
+#~ "\"Fragmento povas enhavi redakteblajn kampojn. Oni povas cikli tra ili "
+#~ "premante Tab. La jenaj esprimoj povas esti uzataj en la ŝablona teksto "
+#~ "por krei kampojn: <br><tt>${field_name}</tt> kreas simplan, redakteblan "
+#~ "kampon. Ĉiuj postaj okazoj de la sama kampo_nomo kreas kampojn kiuj "
+#~ "spegulas la enhavon de la unua dum redaktado.<br><tt>${field_name=default}"
+#~ "</tt> povas esti uzata por specifi defaŭltan valoron por la kampo. "
+#~ "<tt>default</tt> povas esti ajna JavaScript-esprimo.<br>Uzu <tt>"
+#~ "${field_name=text}</tt> por specifi fiksan ĉenon kiel defaŭltan valoron."
+#~ "<br><tt>$ {func(alia_kampo1, alia_kampo2, ...)}</tt> povas esti uzata por "
+#~ "krei kampon kiu taksas JavaScript-funkcion ĉe ĉiu redakto kaj enhavas "
+#~ "ĝian enhavon. Vidu la langeton Skriptoj por pliaj informoj.<br><tt> "
+#~ "${cursor}</tt> povas esti uzata por marki la finpozicion de la kursoro "
+#~ "post kiam ĉio alia estis plenigita.\">Pli...</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "Skribu JavaScript-helpajn funkciojn por uzi en viaj fragmentoj ĉi tie. <a "
+#~ "href=\"Ĉiuj JavaScript-funkcioj devas resendi la enhavon, kiun vi volas "
+#~ "meti en ŝablonkampon kiel ĉenon.<br>Funkcioj estas nomitaj en medio kiu "
+#~ "enhavas la enhavon de ĉiuj redakteblaj ŝablonkampoj kiel lokaj variabloj. "
+#~ "Ekzemple en fragmento enhavanta <tt>${field}</tt>, variablo nomata "
+#~ "<tt>kampo</tt> ĉeestos kiu enhavas la ĝisdatigitan enhavon de la ŝablono "
+#~ "kampo.Tiuj variabloj povas esti uzataj en la funkcio statike aŭ pasita "
+#~ "kiel argumentoj, uzante la sintakson <tt>${func(field)}</tt> aŭ <tt>"
+#~ "${field2=func(field)}</tt> en la fragmentĉeno.<br >Vi povas uzi la kate "
+#~ "scripting API por akiri la elektitan tekston, plenan tekston, dosiernomon "
+#~ "kaj pli uzante la taŭgajn metodojn de la objektoj <tt>dokumento</tt> kaj "
+#~ "<tt>vido</tt>. scripting API-dokumentado por pliaj informoj.\">Pli...</a>"
 
 #~ msgid "Snippet name cannot contain spaces"
 #~ msgstr "Fragmentnomo ne povas enhavi spacojn"

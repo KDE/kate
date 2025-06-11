@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-17 00:44+0000\n"
+"POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-08-04 09:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -46,7 +46,7 @@ msgstr "<i>La det vera tomt for tekstbitar til allmenn bruk</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
-#: editrepository.ui:29 editsnippet.ui:35
+#: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
 msgstr "Namn:"
@@ -87,128 +87,125 @@ msgstr "Eit kort namn for lageret"
 msgid "Prefix to show in code completion"
 msgstr "Prefiks som skal visast i kodefullføring"
 
-#: editsnippet.cpp:97 editsnippet.cpp:174
+#: editsnippet.cpp:75
+#, kde-format
+msgid ""
+"Text to insert into the document (see the <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
+"special fields)."
+msgstr ""
+
+#: editsnippet.cpp:81
+#, kde-format
+msgid ""
+"JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
+msgstr ""
+
+#: editsnippet.cpp:88
+#, kde-format
+msgid "Text template"
+msgstr ""
+
+#: editsnippet.cpp:89
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "Script"
+msgstr "&Skript"
+
+#: editsnippet.cpp:101
+#, kde-format
+msgid ""
+"JavaScript functions shared between all snippets in this repository (see the "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">handbook</a>)."
+msgstr ""
+
+#: editsnippet.cpp:105
+#, kde-format
+msgid ""
+"Optional description to show in tooltips. You may use basic HTML formatting."
+msgstr ""
+
+#: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Rediger tekstbit %1 i %2"
 
-#: editsnippet.cpp:107
+#: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
 msgstr "Opprett ny tekstbit i lager %1"
 
-#: editsnippet.cpp:146
+#: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Tekstbit-namn som inneheld mellomrom, fungerer ikkje bra med autoinnsetjing"
 
-#: editsnippet.cpp:186
+#: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Tekstbiten har endringar som ikkje er lagra. Vil du forkasta alle endringane?"
 
-#: editsnippet.cpp:187
+#: editsnippet.cpp:228
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Åtvaring – ulagra endringar"
 
-#: editsnippet.cpp:189
+#: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
 msgstr "Rediger vidare"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
-#: editsnippet.ui:42
-#, kde-format
-msgid "will be shown in the completion list"
+#: editsnippet.ui:44
+#, fuzzy, kde-format
+#| msgid "will be shown in the completion list"
+msgid "Name to be shown in the completion list (required)"
 msgstr "vert vist i fullføringslista"
 
+#. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
+#: editsnippet.ui:55
+#, fuzzy, kde-format
+#| msgid "&Snippet"
+msgid "Snippet Mode:"
+msgstr "&Tekstbit"
+
+#. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
+#: editsnippet.ui:78
+#, kde-format
+msgid "Keyboard shortcut:"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
-#: editsnippet.ui:62
+#: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
 msgstr "&Tekstbit"
 
-#. i18n: ectx: property (text), widget (QLabel, snippetLabel)
-#: editsnippet.ui:68
-#, kde-format
-msgid ""
-"The text your snippet will insert into the document. <a href=\"A snippet can "
-"contain editable fields. They can be cycled by pressing Tab. The following "
-"expressions can be used in the template text to create fields: <br><tt>"
-"${field_name}</tt> creates a simple, editable field. All subsequent "
-"occurrences of the same field_name create fields which mirror the contents "
-"of the first during editing.<br><tt>${field_name=default}</tt> can be used "
-"to specify a default value for the field. <tt>default</tt> can be any "
-"JavaScript expression.<br>Use <tt>${field_name=text}</tt> to specify a fixed "
-"string as default value.<br><tt>${func(other_field1, other_field2, ...)}</"
-"tt> can be used to create a field which evaluates a JavaScript function on "
-"each edit and contains its contents. See the Scripts tab for more "
-"information.<br><tt>${cursor}</tt> can be used to mark the end position of "
-"the cursor after everything else was filled in.\">More...</a>"
-msgstr ""
-"Teksten som tekstbiten skal setja inn i dokumentet. <a href=\"Ein tekstbit "
-"kan innehalda redigerbare felt. Du kan hoppa mellom desse med "
-"tabulatortasten. Du kan bruka desse uttrykka i malen for å laga felt: "
-"<br><tt>${feltnamn}</tt> lagar eit enkelt redigerbart felt. Seinare "
-"førekomstar av same feltnamn gjev felt med det same innhaldet som det første "
-"feltet.<br><tt>${feltnamn=standard}</tt> gjev eit felt med ein "
-"standardverdi, der <tt>standard</tt> kan vera eit vilkårleg JavaScript-"
-"uttrykk.<br>Use <tt>${feltnamn=tekst}</tt> gjev eit felt med ein vald tekst "
-"som standardverdi.<br><tt>${funksjon(annafelt1, annafelt2, …)}</tt> gjev eit "
-"felt som evaluerer ein JavaScript-funksjon ved kvar redigering og set inn "
-"resultatet. Sjå fana «Skript» for meir informasjon.<br><tt>${cursor}</tt> "
-"kan brukast for å markera sluttposisjonen til skrivemerket etter at alt anna "
-"er fylt ut.\">Meir informasjon …</a>"
-
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
-#: editsnippet.ui:82
-#, kde-format
-msgid "S&cripts"
+#: editsnippet.ui:117
+#, fuzzy, kde-format
+#| msgid "S&cripts"
+msgid "S&cript Library"
 msgstr "&Skript"
 
-#. i18n: ectx: property (text), widget (QLabel, scriptLabel)
-#: editsnippet.ui:88
+#. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
+#: editsnippet.ui:131
 #, kde-format
-msgid ""
-"Write down JavaScript helper functions to use in your snippets here. <a href="
-"\"All JavaScript functions should return the contents you want to place in a "
-"template field as a string.<br>Functions are called in a scope which "
-"contains the contents of all editable template fields as local variables. "
-"For example in a snippet containing <tt>${field}</tt>, a variable called "
-"<tt>field</tt> will be present which contains the up-to-date contents of the "
-"template field. Those variables can either be used in the function "
-"statically or passed as arguments, by using the <tt>${func(field)}</tt> or "
-"<tt>${field2=func(field)}</tt> syntax in the snippet string.<br>You can use "
-"the kate scripting API to get the selected text, full text, file name and "
-"more by using the appropriate methods of the <tt>document</tt> and <tt>view</"
-"tt> objects. Refer to the scripting API documentation for more information."
-"\">More...</a>"
+msgid "Description"
 msgstr ""
-"Skriv inn JavaScript-hjelparfunksjonar for å bruka i tekstbiten her. <a href="
-"\"Alle JavaScript-funksjonar skal returnera innhaldet du ønskjer å plassera "
-"i eit malfelt som ein tekststreng.<br>Funksjonar vert kalla i eit "
-"verkeområde som inneheld innhaldet til alle redigerbare malfelt som lokale "
-"variablar. For eksempel vil for ein tekstbit som inneheld <tt>${felt}</tt>, "
-"det finnast ein variabel som heiter <tt>felt</tt> og som inneheld oppdatert "
-"innhald i malfeltet. Variablane kan anten brukast i funksjonen statisk eller "
-"sendast som argument, ved å bruka syntaksen <tt>${func(felt)}</tt> eller <tt>"
-"${felt2=func(felt)}</tt> i tekstbiten.<br>Du kan bruka skript-API-et til "
-"Kate for å henta den merkte teksten, heile teksten, filnamnet eller meir, "
-"ved å bruka dei tilhøyrande metodane til <tt>document</tt>- og <tt>view</tt>-"
-"objekta. Sjå dokumentasjonen til skript-API-et for meir informasjon.\">Meir "
-"informasjon …</a>"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
-#: editsnippet.ui:105
+#: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
 msgstr "Test denne tekstbiten"
 
-#: katesnippetglobal.cpp:103
+#: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
@@ -225,22 +222,29 @@ msgstr "Tekstbitar"
 msgid "Create Snippet"
 msgstr "Lag tekstbit"
 
-#: snippet.cpp:21
+#: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
 msgstr "<tom tekstbit>"
 
-#: snippet.cpp:59
+#: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
 msgstr "set inn tekstbit %1"
+
+#: snippet.cpp:109
+#, kde-format
+msgid ""
+"Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
+"use this type of snippet."
+msgstr ""
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
 msgstr "<tomt lager>"
 
-#: snippetrepository.cpp:228
+#: snippetrepository.cpp:230
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -250,28 +254,28 @@ msgstr ""
 "Du har redigert ei tekstbitlager-fil som ikkje ligg i den personlege mappa "
 "di. Derfor vart det lagra ein kopi av fila med nytt namn der."
 
-#: snippetrepository.cpp:234
+#: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Klarte ikkje opna fila «%1» for lagring"
 
-#: snippetrepository.cpp:269
+#: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Klarte ikkje opna tekstbitlageret %1."
 
-#: snippetrepository.cpp:276
+#: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Oppdaga feilen <b>%4</b><br /> i fila %1 ved %2/%3.</qt>"
 
-#: snippetrepository.cpp:287
+#: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Ugyldig XML-tekstbitfil: %1"
 
-#: snippetrepository.cpp:349
+#: snippetrepository.cpp:358
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -280,12 +284,12 @@ msgstr ""
 "Lageret er slått av. Tekstbitane i lageret vert ikkje viste under "
 "kodefullføring."
 
-#: snippetrepository.cpp:352
+#: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Gjeld alle filtypar"
 
-#: snippetrepository.cpp:354
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Gjeld desse filtypane: %1"
@@ -365,3 +369,62 @@ msgstr "Filtrer …"
 #, kde-format
 msgid "&Tools"
 msgstr "&Verktøy"
+
+#~ msgid ""
+#~ "The text your snippet will insert into the document. <a href=\"A snippet "
+#~ "can contain editable fields. They can be cycled by pressing Tab. The "
+#~ "following expressions can be used in the template text to create fields: "
+#~ "<br><tt>${field_name}</tt> creates a simple, editable field. All "
+#~ "subsequent occurrences of the same field_name create fields which mirror "
+#~ "the contents of the first during editing.<br><tt>${field_name=default}</"
+#~ "tt> can be used to specify a default value for the field. <tt>default</"
+#~ "tt> can be any JavaScript expression.<br>Use <tt>${field_name=text}</tt> "
+#~ "to specify a fixed string as default value.<br><tt>${func(other_field1, "
+#~ "other_field2, ...)}</tt> can be used to create a field which evaluates a "
+#~ "JavaScript function on each edit and contains its contents. See the "
+#~ "Scripts tab for more information.<br><tt>${cursor}</tt> can be used to "
+#~ "mark the end position of the cursor after everything else was filled in."
+#~ "\">More...</a>"
+#~ msgstr ""
+#~ "Teksten som tekstbiten skal setja inn i dokumentet. <a href=\"Ein "
+#~ "tekstbit kan innehalda redigerbare felt. Du kan hoppa mellom desse med "
+#~ "tabulatortasten. Du kan bruka desse uttrykka i malen for å laga felt: "
+#~ "<br><tt>${feltnamn}</tt> lagar eit enkelt redigerbart felt. Seinare "
+#~ "førekomstar av same feltnamn gjev felt med det same innhaldet som det "
+#~ "første feltet.<br><tt>${feltnamn=standard}</tt> gjev eit felt med ein "
+#~ "standardverdi, der <tt>standard</tt> kan vera eit vilkårleg JavaScript-"
+#~ "uttrykk.<br>Use <tt>${feltnamn=tekst}</tt> gjev eit felt med ein vald "
+#~ "tekst som standardverdi.<br><tt>${funksjon(annafelt1, annafelt2, …)}</tt> "
+#~ "gjev eit felt som evaluerer ein JavaScript-funksjon ved kvar redigering "
+#~ "og set inn resultatet. Sjå fana «Skript» for meir informasjon.<br><tt>"
+#~ "${cursor}</tt> kan brukast for å markera sluttposisjonen til skrivemerket "
+#~ "etter at alt anna er fylt ut.\">Meir informasjon …</a>"
+
+#~ msgid ""
+#~ "Write down JavaScript helper functions to use in your snippets here. <a "
+#~ "href=\"All JavaScript functions should return the contents you want to "
+#~ "place in a template field as a string.<br>Functions are called in a scope "
+#~ "which contains the contents of all editable template fields as local "
+#~ "variables. For example in a snippet containing <tt>${field}</tt>, a "
+#~ "variable called <tt>field</tt> will be present which contains the up-to-"
+#~ "date contents of the template field. Those variables can either be used "
+#~ "in the function statically or passed as arguments, by using the <tt>"
+#~ "${func(field)}</tt> or <tt>${field2=func(field)}</tt> syntax in the "
+#~ "snippet string.<br>You can use the kate scripting API to get the selected "
+#~ "text, full text, file name and more by using the appropriate methods of "
+#~ "the <tt>document</tt> and <tt>view</tt> objects. Refer to the scripting "
+#~ "API documentation for more information.\">More...</a>"
+#~ msgstr ""
+#~ "Skriv inn JavaScript-hjelparfunksjonar for å bruka i tekstbiten her. <a "
+#~ "href=\"Alle JavaScript-funksjonar skal returnera innhaldet du ønskjer å "
+#~ "plassera i eit malfelt som ein tekststreng.<br>Funksjonar vert kalla i "
+#~ "eit verkeområde som inneheld innhaldet til alle redigerbare malfelt som "
+#~ "lokale variablar. For eksempel vil for ein tekstbit som inneheld <tt>"
+#~ "${felt}</tt>, det finnast ein variabel som heiter <tt>felt</tt> og som "
+#~ "inneheld oppdatert innhald i malfeltet. Variablane kan anten brukast i "
+#~ "funksjonen statisk eller sendast som argument, ved å bruka syntaksen <tt>"
+#~ "${func(felt)}</tt> eller <tt>${felt2=func(felt)}</tt> i tekstbiten.<br>Du "
+#~ "kan bruka skript-API-et til Kate for å henta den merkte teksten, heile "
+#~ "teksten, filnamnet eller meir, ved å bruka dei tilhøyrande metodane til "
+#~ "<tt>document</tt>- og <tt>view</tt>-objekta. Sjå dokumentasjonen til "
+#~ "skript-API-et for meir informasjon.\">Meir informasjon …</a>"

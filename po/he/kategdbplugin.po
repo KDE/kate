@@ -14,7 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 25.04.1\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
@@ -518,9 +519,8 @@ msgid ""
 "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
 "Advanced Settings -> Source file search paths"
 msgstr ""
-"<title>לא ניתן לפתוח את הקובץ:</title><nl/>%1<br/>נא לנסות להוסיף נתיב חיפוש ד"
-"רך "
-"הגדרות מתקדמות -> נתיבי חיפוש קובצי מקור"
+"<title>לא ניתן לפתוח את הקובץ:</title><nl/>%1<br/>נא לנסות להוסיף נתיב חיפוש "
+"דרך הגדרות מתקדמות -> נתיבי חיפוש קובצי מקור"
 
 #: plugin_kategdb.cpp:267
 #, kde-format

@@ -138,8 +138,8 @@
 <listitem>
 <para
 ><link linkend="kate-application-plugin-snippets"
->Vista d'eina de retalls</link
->: Vista d'eina que incrusta la gestió dels retalls</para>
+>Vista d'eina de scripts i retalls</link
+>: Crea o baixa retalls de codi i scripts de l'editor</para>
 </listitem>
 <listitem>
 <para
@@ -4903,13 +4903,17 @@ its view and place the cursor at the start of the definition.
 </authorgroup>
 </sect1info>
 <title
->Retalls del &kate;</title>
+>Scripts i retalls del &kate;</title>
 
 <sect2 id="snippets-intro">
 <title
 >Introducció</title>
 <para
->El Retalls del &kate; és un connector utilitzat per a estalviar una mica de temps, afegint una implementació per als anomenats «retalls» (codi font reutilitzable, codi de màquina o text). El connector també és compatible amb la compleció del codi i &javascript;.</para>
+>El connector Scripts i retalls del &kate; permet afegir i gestionar els vostres propis trossos d'automatització. Això abasta des de peces estàtiques reutilitzables de text pla, plantilles sofisticades amb camps personalitzats automatitzats i que permeten scripts, fins a scripts de &javascript; completament personalitzats per a modificar el contingut del document.</para>
+<para
+>En la seva major part, aquest tipus de contingut es gestiona exactament de la mateixa manera. Per tant, per facilitar la lectura, el debat següent no diferencia entre retalls estàtics, retalls amb scripts i scripts. Més aviat, el terme «retall» s'utilitza per referir-se a tots ells.</para>
+<para
+>El connector també admet l'assignació de dreceres de teclat i la inserció de retalls mitjançant la compleció de codi. A més, podeu descarregar col·leccions de retalls (els anomenats repositoris) d'Internet.</para>
 </sect2>
 
 <sect2 id="snippets-menu">
@@ -4945,7 +4949,7 @@ its view and place the cursor at the start of the definition.
 ></term>
 <listitem>
 <para
->Crea un retall nou, el qual és un fragment reutilitzable de text que podeu inserir en qualsevol part de qualsevol document.</para>
+>Crea un retall nou, el qual és un fragment reutilitzable de text que podeu inserir en qualsevol part de qualsevol document, o un script petit.</para>
 </listitem>
 </varlistentry>
 
@@ -5115,7 +5119,26 @@ when finished.</para
 ></term>
 <listitem
 ><para
->El nom es mostrarà a la llista de compleció.</para
+>El nom es mostrarà a la llista de retalls i a la llista de compleció (necessari).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Tipus</guilabel
+></term>
+<listitem
+><para
+>Els retalls es poden definir com a plantilles de text o scripts. Ambdós tipus permeten utilitzar funcions de &javascript; (vegeu més avall els detalls), i per tant es poden utilitzar amb un efecte similar. Tanmateix, com a regla general, les plantilles de text seran més adequades si voleu inserir <emphasis
+>text</emphasis
+>, mentre que els scripts són sovint una solució més fàcil si voleu <emphasis
+>modificar</emphasis
+> text).</para>
+<note
+><para
+>El Kate s'ha de compilar amb la versió 6.15.0 o superior del KTextEditor perquè aquesta característica estigui disponible. Per a versions anteriors, només es poden utilitzar retalls de plantilla de text.</para
+></note
 ></listitem>
 </varlistentry>
 
@@ -5124,15 +5147,17 @@ when finished.</para
 >Drecera</term>
 <listitem
 ><para
->En prémer aquesta drecera s'inserirà el retall en el document.</para
+>En prémer aquesta drecera s'inserirà (o executarà) el retall en el document actual.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
-><guilabel
+><anchor id="snippet-input-template"/><guilabel
 >Retall</guilabel
-></term>
+> (tipus <userinput
+>Plantilla de text</userinput
+>)</term>
 <listitem
 ><para
 >El text que heu retallat s'inserirà en el document.</para>
@@ -5153,22 +5178,22 @@ when finished.</para
 >predeterminat</replaceable
 > pot ser qualsevol expressió en &javascript;.</para>
 <para
->Utilitzeu <userinput
+>Utilitzeu cometes (<userinput
 >${<replaceable
 >nom_camp</replaceable
 >=<replaceable
->text</replaceable
+>"text"</replaceable
 >}</userinput
-> per a especificar una cadena fixa com a valor predeterminat.</para>
+>) per a especificar una cadena fixa com a valor predeterminat.</para>
 <para
 ><userinput
 >${func(<replaceable
 >altre_camp_1</replaceable
 >, <replaceable
->altra_camp_2</replaceable
->, «...»)}</userinput
-> ho podeu utilitzar per a crear un camp que avaluï una funció de &javascript; en cada edició i que conté el seu contingut. Vegeu la pestanya <guilabel
->Scripts</guilabel
+>altre_camp_2</replaceable
+>, ...)}</userinput
+> es pot utilitzar per a crear un camp que avaluï una funció de &javascript; en cada edició i se substitueix pel valor de retorn de la funció. Vegeu la pestanya <guilabel
+>Biblioteca de scripts</guilabel
 > per a més informació.</para>
 <para
 ><userinput
@@ -5179,16 +5204,58 @@ when finished.</para
 
 <varlistentry>
 <term
-><guilabel
->Scripts</guilabel
+><anchor id="snippet-input-script"/><guilabel
+>Retall</guilabel
+> (tipus <userinput
+>Script</userinput
+>)</term>
+<listitem
+><para
+>El codi en &javascript; a avaluar per a aquest retall</para>
+<para
+>Si aquest codi conté una declaració <userinput
+>return</userinput
+>, la cadena retornada s'inserirà a la posició actual del cursor. També podeu utilitzar l'<ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
+>API de creació de scripts del &kate;</ulink
+> per a modificar directament el document.</para>
+<para
+>A més, el vostre codi pot utilitzar funcions definides a la pestanya <guilabel
+>Biblioteca de scripts</guilabel
+>, que es comparteixen entre tots els retalls d'un repositori.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="snippet-input-library"/><guilabel
+>Biblioteca de scripts</guilabel
 ></term>
 <listitem
 ><para
->Funcions auxiliars en &javascript; per a utilitzar en els vostres retalls.</para>
+>Funcions auxiliars en &javascript; per a utilitzar en els vostres retalls. Aquestes funcions es comparteixen entre tots els retalls d'un repositori.</para>
 <para
->Totes les funcions en &javascript; han de retornar el contingut que voleu situar a un camp de la plantilla com una cadena.</para>
+>Podeu utilitzar l'<ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
+>API per a crear scripts del &kate;</ulink
+> per a obtenir el text seleccionat, el text complet, el nom del fitxer i més utilitzant els mètodes apropiats dels objectes <userinput
+>document</userinput
+> i <userinput
+>vista</userinput
+>. Consulteu la documentació de l'API per a la creació de scripts per a obtenir més informació.</para>
+
 <para
->Les funcions es criden en un àmbit que conté el contingut de tots els camps editables de la plantilla com a variables locals. Per exemple, en un retall que conté <userinput
+>Quan feu creació de scripts en conjunció amb retalls de <userinput
+>plantilla de text</userinput
+>, hauríeu de tenir en compte els detalls / consells següents:</para>
+<itemizedlist>
+<listitem
+><para
+>Recordeu que només s'insereix el <emphasis
+>valor de retorn</emphasis
+> d'una funció en un camp.</para
+></listitem>
+<listitem
+><para
+>El contingut de tots els camps editables de la plantilla està disponible com a variables locals en aquest àmbit. Per exemple, en un retall que conté <userinput
 >${<replaceable
 >camp</replaceable
 >}</userinput
@@ -5200,49 +5267,62 @@ when finished.</para
 >${<replaceable
 >camp_2=func(camp)</replaceable
 >}</userinput
-> a la cadena del retall.</para>
-<para
->Podeu utilitzar l'<ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
->API per a crear scripts del &kate;</ulink
-> per a obtenir el text seleccionat, el text complet, el nom del fitxer i més utilitzant els mètodes apropiats dels objectes <userinput
->document</userinput
-> i <userinput
->vista</userinput
->. Consulteu la documentació de l'API per a la creació de scripts per a obtenir més informació.</para>
-<para
+> a la cadena del retall.</para
+></listitem>
+<listitem
+><para
 >Per als scripts més complexos, pot ser important entendre que <emphasis
 >primer </emphasis
 > s'insereix el retall en brut en el document, i <emphasis
 >després</emphasis
 > s'avaluen les funcions. P. ex., si una funció recupera el text a la línia a on s'ha inserit el retall, aquest text també contindrà <userinput
 >${functionCall()}</userinput
->.</para>
-<para
->Com a exemple de treballar amb seleccions utilitzant l'API de creació de scripts, una manera senzilla d'ajustar el text seleccionat dins d'etiquetes és aquest fragment: <userinput
+>. A on això provoqui complicacions, en el seu lloc considereu fer servir un retall de tipus <userinput
+>Script</userinput
+>.</para
+></listitem>
+<listitem
+><para
+>Per a embolcallar el text actualment seleccionat entre etiquetes, useu: <userinput
 >&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
-> </para>
-<para
->L'exemple següent invoca un script que insereix un text predeterminat en cas que no hi hagi cap selecció. Retall:</para>
+></para
+></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Descripció</guilabel
+></term>
+<listitem
+><para
+>Una descripció opcional del que fa aquest retall. Això es mostrarà als consells d'eina. La descripció pot contenir format HTML bàsic.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Exemple d'ús</term>
+<listitem
+><para
+>L'exemple següent invoca un script que embolcalla el text seleccionat, o, si no hi ha selecció, un text per defecte, entre etiquetes (tipus de retall <userinput
+>Script</userinput
+>):</para>
 <para>
-<userinput
->${rangeCommand("&lt;strong&gt;%%1&lt;/strong&gt;", "Bold")}</userinput
-></para>
-<para
->Script: <programlisting
->function rangeCommand(command, def) {
-    if (view.selectedText().length 
-> 0) {
-        return command.replace("%%1", view.selectedText());
-    } else {
-        return command.replace("%%1", def);
-    }
-}
+<programlisting
+>let range = view.hasSelection() ? view.selection() : new Range(view.cursorPosition(), view.cursorPosition());
+let innertext = range.isEmpty() ? "Bold" : document.text(range);
+document.removeText(range);
+document.insertText(range.start, "&lt;strong&gt;" + innertext + "&lt;/strong&gt;");
 </programlisting>
 </para>
 </listitem>
 </varlistentry>
 
 </variablelist>
+
 </sect3>
 </sect2>
 
@@ -5268,12 +5348,16 @@ when finished.</para
 </screenshot>
 
 <para
->Podeu cridar als retalls de dues maneres:</para>
+>Podeu cridar als retalls de diverses maneres:</para>
 
 <itemizedlist>
 <listitem
 ><para
->Escollint el retall des de la vista d'eina.</para
+>Fent clic al retall des de la vista d'eina.</para
+></listitem>
+<listitem
+><para
+>Utilitzant una drecera de teclat, si n'heu assignat una.</para
 ></listitem>
 <listitem
 ><para

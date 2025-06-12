@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-11-25 12:04+0200\n"
+"PO-Revision-Date: 2025-06-11 11:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -93,6 +93,8 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"טקסט להוספה למסמך (ב<a href=\"help:/kate/kate-application-plugin-snippets."
+"html#snippet-input-template\">ספרון ההדרכה</a> יש שדות מיוחדות)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -100,17 +102,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"קוד JavaScript להערכה (ב<a href=\"help:/kate/kate-application-plugin-"
+"snippets.html#snippet-input-script\">ספרון ההדרכה</a> יש פרטים נוספים)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "תבנית טקסט"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "&סקריפטים"
+msgstr "סקריפט"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -119,12 +122,15 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"פונקציות JavaScript משותפות בין כל מקטעי הטקסט במאגר הזה (ניתן לעיין ב<a "
+"href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
+"\">ספרון ההדרכה</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
-msgstr ""
+msgstr "תיאור רשות להצגה בחלוניות צצות. אפשר להשתמש בעיצוב בסיסי ב־HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -159,23 +165,21 @@ msgstr "להמשיך לערוך"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "יופיע ברשימת ההשלמות"
+msgstr "שם להצגה ברשימת ההשלמות (חובה)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&קטע טקסט"
+msgstr "מצב מקטעי טקסט:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "קיצור מקשים במקלדת:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -185,16 +189,15 @@ msgstr "&קטע טקסט"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "&סקריפטים"
+msgstr "ס&פריית סקריפטים"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -235,6 +238,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"יש להדר את Kate כנגד KTextEditor בגרסה 6.15.0 ומעלה כדי להשתמש בסוג הזה של "
+"מקטע הקטסט."
 
 #: snippetrepository.cpp:43
 #, kde-format

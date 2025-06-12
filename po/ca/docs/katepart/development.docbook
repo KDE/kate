@@ -4096,7 +4096,9 @@
 >Crear scripts en &javascript;</title>
 
 <para
->El component d'edició de la &kappname; és fàcilment extensible, escrivint scripts. El llenguatge per a crear scripts és ECMAScript (conegut com a &javascript;). La &kappname; admet dos tipus de script: de sagnat i de línia d'ordres. </para>
+>El component d'edició de la &kappname; és fàcilment extensible, escrivint scripts. El llenguatge per a crear scripts és ECMAScript (conegut com a &javascript;). La &kappname; admet dos tipus de script: scripts de sagnat i de línia d'ordres. El <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>connector de retalls</ulink
+> també proporciona una funcionalitat semblant als scripts de línia d'ordres. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4349,6 +4351,13 @@ function indent(line, indentWidth, ch)
 <sect2 id="dev-scripting-command-line">
 <title
 >Els scripts de la línia d'ordres</title>
+
+<note>
+<para
+>Una funcionalitat similar als scripts de línia d'ordres també es proporciona al <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>connector de retalls</ulink
+>. Aquest connector pot proporcionar un punt de partida més fàcil, especialment per a scripts personalitzats petits.</para>
+</note>
 
 <para
 >Com és difícil satisfer les necessitats de tothom, la &kappname; suporta unes quantes eines d'ajuda per a la manipulació ràpida de text a través de la <link linkend="advanced-editing-tools-commandline"

@@ -3,15 +3,15 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2012, 2014, 2015, 2016, 2019, 2020, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2012, 2014, 2015, 2016, 2019, 2020, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-06-05 08:32+0300\n"
+"PO-Revision-Date: 2025-06-11 16:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,6 +96,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Текст, який буде вставлено до документа (див. <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">підручник</a>, щоб "
+"дізнатися про спеціальні поля)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -103,17 +106,19 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Код JavaScript для обробки (див. <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">підручник</a>, щоб дізнатися "
+"більше)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Шаблон тексту"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "Ск&рипти"
+msgstr "Скрипт"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -122,12 +127,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Функції JavaScript є спільними для усіх фрагментів у цьому сховищі (див. <a "
+"href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-library"
+"\">підручник</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Необов'язковий опис, який буде показано на панелях підказок. Можна "
+"використовувати базове форматування HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -165,23 +175,21 @@ msgstr "Продовжити редагування"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "буде показано у списку автозавершення"
+msgstr "Назва, яку буде показано у списку автозавершення (обов'язкова)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&Фрагмент"
+msgstr "Режим фрагмента:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Клавіатурне скорочення:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -191,16 +199,15 @@ msgstr "&Фрагмент"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "Ск&рипти"
+msgstr "Бібліотека с&криптів"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -241,6 +248,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate має бути зібрано з KTextEditor версії 6.15.0 або новішої, щоб можна "
+"було скористатися цим типом фрагментів."
 
 #: snippetrepository.cpp:43
 #, kde-format

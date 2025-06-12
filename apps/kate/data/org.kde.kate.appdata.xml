@@ -64,6 +64,7 @@
   <summary xml:lang="bg">Разширен текстов редактор</summary>
   <summary xml:lang="ca">Editor de text avançat</summary>
   <summary xml:lang="ca-valencia">Editor de text avançat</summary>
+  <summary xml:lang="de">Erweiterter Texteditor</summary>
   <summary xml:lang="el">Προηγμένος επεξεργαστής κειμένου</summary>
   <summary xml:lang="eo">Altnivela tekstredaktilo</summary>
   <summary xml:lang="es">Editor de texto avanzado</summary>
@@ -493,6 +494,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Оцветяване на синтаксиса за над 300 езика</li>
       <li xml:lang="ca">Ressaltat de sintaxi de més de 300 llenguatges</li>
       <li xml:lang="ca-valencia">Ressaltat de sintaxi de més de 300 llenguatges</li>
+      <li xml:lang="de">Syntaxhervorhebung für mehr als 300 Sprachen</li>
       <li xml:lang="en-GB">Syntax highlighting for 300+ languages</li>
       <li xml:lang="eo">sintaksa reliefigo por 300+ lingvoj</li>
       <li xml:lang="es">Resaltado de sintaxis para más de 300 lenguajes</li>
@@ -576,6 +578,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Множество курсори и селекции</li>
       <li xml:lang="ca">Cursors múltiples i seleccions múltiples</li>
       <li xml:lang="ca-valencia">Cursors múltiples i seleccions múltiples</li>
+      <li xml:lang="de">Mehrere Cursor und Mehrfachauswahl</li>
       <li xml:lang="en-GB">Multiple cursors and multiple selections</li>
       <li xml:lang="eo">Multoblaj kursoroj kal multoblaj elektoj</li>
       <li xml:lang="es">Múltiples cursores y selecciones</li>
@@ -857,6 +860,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Разширяем с приставки</li>
       <li xml:lang="ca">Ampliable a través de connectors</li>
       <li xml:lang="ca-valencia">Ampliable a través de connectors</li>
+      <li xml:lang="de">Erweiterbar durch Module</li>
       <li xml:lang="en-GB">Extensible via plugins</li>
       <li xml:lang="eo">Etendebla pere de kromprogramoj</li>
       <li xml:lang="es">Se puede extender mediante complementos</li>
@@ -887,6 +891,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Интегриран команден терминал</li>
       <li xml:lang="ca">Terminal integrat</li>
       <li xml:lang="ca-valencia">Terminal integrat</li>
+      <li xml:lang="de">Integriertes Terminal</li>
       <li xml:lang="en-GB">Integrated terminal</li>
       <li xml:lang="eo">Integrita terminalo</li>
       <li xml:lang="es">Terminal integrada</li>
@@ -968,6 +973,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Vi-режим</li>
       <li xml:lang="ca">Mode del Vi</li>
       <li xml:lang="ca-valencia">Mode de Vi</li>
+      <li xml:lang="de">vi-Modus</li>
       <li xml:lang="en-GB">Vi mode</li>
       <li xml:lang="eo">Vi-reĝimo</li>
       <li xml:lang="es">Modo vi</li>

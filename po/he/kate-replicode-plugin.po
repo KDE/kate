@@ -3,13 +3,13 @@
 #
 # elkana bardugo <ttv200@gmail.com>, 2016.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2025-02-01 09:22+0200\n"
+"PO-Revision-Date: 2025-06-11 11:14+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -234,7 +234,7 @@ msgstr ""
 #: config.ui:489
 #, kde-format
 msgid "Decompile objects:"
-msgstr ""
+msgstr "פירוק עצמים:"
 
 #. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
 #: config.ui:506
@@ -264,7 +264,7 @@ msgstr "פריטי בדיקה:"
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr ""
+msgstr "פירוק מודלים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
@@ -287,7 +287,7 @@ msgstr "מודלים לבדיקה:"
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr ""
+msgstr "נתיב לקובץ ההפעלה של replicode:"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
@@ -371,6 +371,8 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
+"לא ניתן למצוא את מפעיל ה־replicode.\n"
+"נא לגשת להגדרות ולהגדיר את הנתיב לקובץ ההפעלה של Replicode."
 
 #: replicodeview.cpp:135
 #, kde-format
@@ -388,9 +390,9 @@ msgstr ""
 #: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
-msgstr ""
+msgstr "הפעלת Replicode נכשלה: %1"
 
 #: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
-msgstr ""
+msgstr "הפעלת Replicode הושלמה."

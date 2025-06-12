@@ -1,8 +1,30 @@
 {
     "KPlugin": {
         "Description": "Create or download code snippets and editor scripts",
+        "Description[ca@valencia]": "Crea o baixa fragments de codi i scripts de l'editor",
+        "Description[ca]": "Crea o baixa retalls de codi i scripts de l'editor",
+        "Description[es]": "Crear o descargar fragmentos de código y scripts del editor",
+        "Description[he]": "יצירת או הורדת קטעי טקסט וסקריפטים של עורך",
+        "Description[it]": "Crea o scarica frammenti di codice e script dell'editor",
+        "Description[ka]": "შექმენით, ან გადმოწერეთ კოდის ფრაგმენტები, ან რედაქტორის სკრიპტები",
+        "Description[nl]": "Maak of download codetekstfragmenten en bewerkerscripts",
+        "Description[sl]": "Ustvari ali prenese koščke kode in skriptov urejevalnika",
+        "Description[tr]": "Kod parçacıkları ve düzenleyici betikleri oluşturun veya indirin",
+        "Description[uk]": "Створення і отримання фрагментів коду та скриптів редактора",
+        "Description[x-test]": "xxCreate or download code snippets and editor scriptsxx",
         "Icon": "document-new",
-        "Name": "Scripts & Snippets"
+        "Name": "Scripts & Snippets",
+        "Name[ca@valencia]": "Scripts i retalls",
+        "Name[ca]": "Scripts i retalls",
+        "Name[es]": "Scripts y fragmentos",
+        "Name[he]": "סקריפטים וקטעי טקסט",
+        "Name[it]": "Script e frammenti",
+        "Name[ka]": "სკრიპტები და ფრაგმენტები",
+        "Name[nl]": "Scripts & Tekstfragmenten",
+        "Name[sl]": "Skripti in koščki kode",
+        "Name[tr]": "Betikler ve Parçacıklar",
+        "Name[uk]": "Скрипти і фрагменти",
+        "Name[x-test]": "xxScripts & Snippetsxx"
     },
     "LoadInKDevelop": "true"
 }

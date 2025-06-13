@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2023-03-21 18:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -499,13 +499,13 @@ msgstr "mục được đặt tên"
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Kí hiệu"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

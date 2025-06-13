@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-06-04 06:51+0200\n"
+"PO-Revision-Date: 2025-06-12 08:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -33,17 +33,17 @@ msgstr "jlp@holodeck1.com,andrejm@ubuntu.si"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr "Uredi skladišče izrezkov %1"
+msgstr "Uredi skladišče delčkov kode %1"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr "Ustvari novo skladišče izrezkov"
+msgstr "Ustvari novo skladišče delčkov kode"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr "<i>pustite prazno za splošno-namenske izrezke</i>"
+msgstr "<i>pustite prazno za splošno-namenske delčke kode</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -95,6 +95,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Besedilo, ki ga želite vstaviti v dokument (glejte <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">priročnik</a> za "
+"posebna polja)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -102,17 +105,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Koda JavaScript za ocenjevanje (za podrobnosti glejte <a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-script\">priročnik</a>)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Predloga besedila"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "&Skripti"
+msgstr "Skript"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -121,35 +125,40 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Funkcije JavaScript, ki si jih delijo vsi delčki kode v tem repozitoriju "
+"(glejte <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-"
+"input-library\">priročnik</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Neobvezen opis za prikaz v opisih orodij. Uporabite lahko osnovno "
+"oblikovanje HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr "Uredi izrezek %1 iz %2"
+msgstr "Uredi delček kode %1 iz %2"
 
 #: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr "Ustvari nov izrezek v skladišču %1"
+msgstr "Ustvari nov delček kode v skladišču %1"
 
 #: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
-"Imena izrezkov s presledki morda ne bodo dobro delovala pri kompletiranju"
+"Imena delčkov kode s presledki morda ne bodo dobro delovala pri kompletiranju"
 
 #: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Izrezek vsebuje neshranjene spremembe. Ali želite zavreči vse spremembe?"
+"Delček kode vsebuje neshranjene spremembe. Ali želite zavreči vse spremembe?"
 
 #: editsnippet.cpp:228
 #, kde-format
@@ -163,42 +172,39 @@ msgstr "Nadaljuj urejanje"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "bo prikazana na seznamu za dopolnjevanje"
+msgstr "Ime, ki bo prikazano na seznamu za dokončanje (obvezno)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&Izrezek"
+msgstr "Način delčka kode:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Bližnjica na tipkovnici:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
-msgstr "&Izrezek"
+msgstr "Delček kode"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "&Skripti"
+msgstr "Knjižnica skriptov"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -239,6 +245,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Za uporabo te vrste delčka kode mora biti Kate prevedena s programom "
+"KTExtEditor različice 6.15.0 ali novejše."
 
 #: snippetrepository.cpp:43
 #, kde-format

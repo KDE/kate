@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2023-11-07 21:26+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -491,12 +491,12 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, kde-format
 msgid "Copy Symbol"
 msgstr ""
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, kde-format
 msgid "Copy Value"
 msgstr ""

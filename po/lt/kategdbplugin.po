@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2015-12-29 16:09+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -508,13 +508,13 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Simbolis"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

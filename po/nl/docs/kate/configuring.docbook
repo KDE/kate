@@ -26,7 +26,7 @@
 <variablelist>
 <varlistentry>
 <term id="configure"
->Het configuratievenster</term>
+>De configuratiedialoog</term>
 <listitem
 ><para
 >De hoofdinstellingen, bieden u de mogelijkheid om de toepassing &kate;, de tekstbewerkercomponent en het gebruik van plugins te configureren.</para
@@ -61,7 +61,7 @@
 
 <sect1 id="configuring-kate-configdialog">
 <title
->De hoofdinstellingendialoog</title>
+>De hoofdconfiguratiedialoog</title>
 
 <mediaobject>
 <imageobject>

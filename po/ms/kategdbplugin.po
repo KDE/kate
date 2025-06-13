@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -496,12 +496,12 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, fuzzy, kde-format
 msgid "Copy Symbol"
 msgstr "Simbol"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy Value"

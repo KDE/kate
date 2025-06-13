@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2025-04-13 10:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -501,12 +501,12 @@ msgstr "elements amb nom"
 msgid "Loading..."
 msgstr "S'està carregant…"
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Copia el símbol"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, kde-format
 msgid "Copy Value"
 msgstr "Copia el valor"

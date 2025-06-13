@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2021-12-23 14:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -506,13 +506,13 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Szimbólum"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

@@ -138,8 +138,8 @@
 <listitem>
 <para
 ><link linkend="kate-application-plugin-snippets"
->Hulpmiddelweergave van tekstfragmenten</link
-> - Hulpmiddelenweergave ingebed in het beheer van tekstfragmenten</para>
+>Scripts &amp; Tekstfragmenten hulpmiddelenweergave</link
+> - Maak of download codetekstfragmenten en bewerkerscripts</para>
 </listitem>
 <listitem>
 <para
@@ -4910,15 +4910,19 @@ its view and place the cursor at the start of the definition.
 </authorgroup>
 </sect1info>
 <title
->&kate;-fragmenten</title>
+>&kate; Scripts &amp; tekstfragmenten</title>
 
 <sect2 id="snippets-intro">
 <title
 >Inleiding</title>
 <para
->&kate;-fragmenten is een plug-in die wordt gebruikt om u tijd te besparen door ondersteuning toe te voegen voor zogenaamde <quote
->fragmenten</quote
-> (herbruikbare broncode, machinecode of tekst). De plug-in ondersteunt ook code-aanvulling en &javascript;.</para>
+>De plugin van &kate; Scripts &amp; tekstfragmenten biedt u het toevoegen en beheren van uw eigen stukjes automatisering. Dit kan gaan over statische opnieuw bruikbare stukjes gewone tekst, over geavanceerde sjablonen met aanpasbare geautomatiseerde en te velden met scripts, tot volledig aangepaste &javascript; scripts om de inhoud van uw document aan te passen.</para>
+<para
+>In de meeste gevallen worden deze typen inhoud beheerd op exact dezelfde manier. Daarom, voor gemakkelijk lezen, maakt de volgende discussie geen onderscheid tussen statische tekstfragmenten, gescripte tekstfragmenten en scripts. In plaats daarvan wordt de term <quote
+>tekstfragment</quote
+> gebruikt om naar allen te verwijzen.</para>
+<para
+>De plug-in ondersteunt ook toekennen van sneltoetsen en invoegen van tekstfragmenten via code aanvullen. Verder kunt u verzamelingen van tekstfragmenten downloaden (uit zogenaamde opslagruimten) van het internet.</para>
 </sect2>
 
 <sect2 id="snippets-menu">
@@ -4954,7 +4958,7 @@ its view and place the cursor at the start of the definition.
 ></term>
 <listitem>
 <para
->Een nieuw fragment maken, wat een herbruikbaar stuk tekst is dat u in elk deel van elk document kan invoegen.</para>
+>Een nieuw fragment maken, wat een herbruikbaar stuk tekst is dat u in elk deel van elk document kan invoegen of een klein script.</para>
 </listitem>
 </varlistentry>
 
@@ -5128,7 +5132,26 @@ when finished.</para
 ></term>
 <listitem
 ><para
->De naam zal getoond worden in de lijst voor aanvullen.</para
+>De naam zoals getoond in de lijst met tekstfragmenten en de lijst voor aanvullen (vereist).</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Type</guilabel
+></term>
+<listitem
+><para
+>Tekstfragmenten kunnen ofwel gedefinieerd worden als tekstsjabloon of scripts. Beide typen bieden het gebruik van &javascript; functies (zie onderstaand voor details) en kunnen dus gebruikt worden met een gelijk effect. Echter, als een vuistregel, tekstsjablonen zullen geschikter zijn als u meestal tekst wilt <emphasis
+>invoegen</emphasis
+>, terwijl scripts vaak een gemakkelijker oplossing zijn als u tekst wilt <emphasis
+>wijzigen</emphasis
+>).</para>
+<note
+><para
+>Kate moet gecompileerd worden tegen KTextEditor versie 6.15.0 of hoger, om deze functie beschikbaar te maken. Voor eerdere versies kunnen alleen tekstsjabloon tekstfragmenten gebruikt worden.</para
+></note
 ></listitem>
 </varlistentry>
 
@@ -5137,15 +5160,17 @@ when finished.</para
 >Sneltoets</term>
 <listitem
 ><para
->Op deze sneltoets drukken zal het fragment in het document invoegen.</para
+>Op deze sneltoets drukken zal het fragment in het huidige document invoegen (of uitvoeren) .</para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
-><guilabel
->Fragmenten</guilabel
-></term>
+><anchor id="snippet-input-template"/><guilabel
+>Tekstfragmenten</guilabel
+> (type <userinput
+>Tekstsjabloon</userinput
+>)</term>
 <listitem
 ><para
 >De tekst die uw fragment zal invoegen in het document.</para>
@@ -5168,11 +5193,11 @@ when finished.</para
 >standaard</replaceable
 > kan elke &javascript;-expressie zijn.</para>
 <para
->Gebruik <userinput
+>Gebruik aanhalingen <userinput
 >${<replaceable
 >veldnaam</replaceable
 >=<replaceable
->tekst</replaceable
+>"tekst"</replaceable
 >}</userinput
 > om een vaste tekenreeks als standaard waarde te specificeren.</para>
 <para
@@ -5182,8 +5207,8 @@ when finished.</para
 >, <replaceable
 >ander_veld2</replaceable
 >, ...)}</userinput
-> kan gebruikt worden om een veld te definiëren die een &javascript;-functie evalueert bij elke bewerking en zijn inhouden bevat. Zie het tabblad <guilabel
->Scripts</guilabel
+> kan gebruikt worden om een veld te definiëren die een &javascript;-functie evalueert bij elke bewerking en wordt vervangen door de teruggeven waarde van de functie. Zie het tabblad <guilabel
+>Scriptbibliotheek</guilabel
 > voor meer informatie.</para>
 <para
 ><userinput
@@ -5194,16 +5219,58 @@ when finished.</para
 
 <varlistentry>
 <term
-><guilabel
->Scripts</guilabel
+><anchor id="snippet-input-script"/><guilabel
+>Tekstfragmenten</guilabel
+> (type <userinput
+>Script</userinput
+>)</term>
+<listitem
+><para
+>De te evalueren &javascript; code voor dit tekstfragment.</para>
+<para
+>Als deze code een statement <userinput
+>return</userinput
+> bevat, zal de teruggegeven tekenreeks ingevoegd worden op de huidige cursorpositie. U kunt ook de <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
+>&kate; scripting API</ulink
+> gebruiken om het document direct te wijzigen.</para>
+<para
+>Bovendien kan uw functies gebruiken gedefinieerd in het tabblad <guilabel
+>Scriptbibliotheek</guilabel
+>, die gedeeld wordt tussen alle tekstfragmenten in een opslagruimte.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="snippet-input-library"/><guilabel
+>Scriptbibliotheek</guilabel
 ></term>
 <listitem
 ><para
->Te gebruiken &javascript; hulpfuncties in uw fragmenten.</para>
+>Te gebruiken &javascript; hulpfuncties in uw tekstfragmenten. Deze functies worden gedeeld tussen alle tekstfragmenten in een opslagruimte.</para>
 <para
->Alle &javascript;-functies zouden de inhoud, die u wilt plaatsen in een sjabloonveld, als een tekenreeks moeten teruggeven.</para>
+>U kunt de <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
+>scripting API van &kate;</ulink
+> gebruiken om de geselecteerde tekst, de volledige tekst, de bestandsnaam en meer te verkrijgen door de van toepassing zijnde methoden van de objecten van het <userinput
+>document</userinput
+> en <userinput
+>weergave</userinput
+> te gebruiken. Kijk in de documentatie van de scripting API voor meer informatie.</para>
+
 <para
->Functies worden aangeroepen in een scope die de inhouden van alle bewerkbare sjabloonvelden als lokale variabelen bevatten. In een fragment bijvoorbeeld met <userinput
+>Bij scripting samen met <userinput
+>Tekstsjabloon</userinput
+> tekstfragmenten, zou u de volgende details/hints in gedachten moeten houden:</para>
+<itemizedlist>
+<listitem
+><para
+>Bedenkt dat alleen de <emphasis
+>terugkeerwaarde</emphasis
+> van een functie wordt ingevoegd in een veld.</para
+></listitem>
+<listitem
+><para
+>De inhoud van alle bewerkbare sjabloonvelden zijn beschikbaar als variabelen in deze scope. In een fragment bijvoorbeeld met <userinput
 >${<replaceable
 >veld</replaceable
 >}</userinput
@@ -5215,49 +5282,62 @@ when finished.</para
 >${<replaceable
 >field2=func(field)</replaceable
 >}</userinput
-> in de tekenreeks van het fragment te gebruiken.</para>
-<para
->U kunt de <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api"
->scripting API van &kate;</ulink
-> gebruiken om de geselecteerde tekst, de volledige tekst, de bestandsnaam en meer te verkrijgen door de van toepassing zijnde methoden van de objecten van het <userinput
->document</userinput
-> en <userinput
->weergave</userinput
-> te gebruiken. Kijk in de documentatie van de scripting API voor meer informatie.</para>
-<para
+> in de tekenreeks van het fragment te gebruiken.</para
+></listitem>
+<listitem
+><para
 >Voor complexere scripts kan het belangrijk zijn om te begrijpen dat <emphasis
 >eerst</emphasis
 >, het ruwe tekstfragment in het document wordt ingevoegd en <emphasis
 >daarna</emphasis
 > functies geëvalueerd worden. Bijv., als een functie de tekst ophaalt op de regel waar het tekstfragment wordt ingevoegd, dat die tekst ook <userinput
 >${functionCall()}</userinput
-> zal bevatten.</para>
-<para
->Als voorbeeld voor werken met selecties met gebruik van de scripting API, een eenvoudige manier om geselecteerde tekst in te pakken in tags is dit tekstfragment: <userinput
+> zal bevatten. Waar dit complicaties veroorzaakt, overweeg, in plaats daarvan, een type <userinput
+>Script</userinput
+> te gebruiken.</para
+></listitem>
+<listitem
+><para
+>Om eenvoudige de nu geselecteerde tekst in te pakken in tags gebruik: <userinput
 >&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
-> </para>
-<para
->Het volgende voorbeeld start een script dat een standaard tekst invoegt in geval er geen selectie is. tekstfragment:</para>
+></para
+></listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Beschrijving</guilabel
+></term>
+<listitem
+><para
+>Een optionele beschrijving van wat dit tekstfragment doet. Dit zal getoond worden in tekstballonnen. De beschrijving kan basis HTML formattering bevatten.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+>Gebruiksvoorbeeld</term>
+<listitem
+><para
+>Het volgende voorbeeld start een script dat de geselecteerde tekst of - als er geen selectie is - een standaard tekst invoegt in tags (type tekstfragment <userinput
+>Script</userinput
+>):</para>
 <para>
-<userinput
->${rangeCommand("&lt;strong&gt;%%1&lt;/strong&gt;", "Bold")}</userinput
-></para>
-<para
->Script: <programlisting
->function rangeCommand(command, def) {
-    if (view.selectedText().length 
-> 0) {
-        return command.replace("%%1", view.selectedText());
-    } else {
-        return command.replace("%%1", def);
-    }
-}
+<programlisting
+>let range = view.hasSelection() ? view.selection() : new Range(view.cursorPosition(), view.cursorPosition());
+let innertext = range.isEmpty() ? "Bold" : document.text(range);
+document.removeText(range);
+document.insertText(range.start, "&lt;strong&gt;" + innertext + "&lt;/strong&gt;");
 </programlisting>
 </para>
 </listitem>
 </varlistentry>
 
 </variablelist>
+
 </sect3>
 </sect2>
 
@@ -5283,12 +5363,16 @@ when finished.</para
 </screenshot>
 
 <para
->U kunt fragmenten aanroepen op twee manieren:</para>
+>U kunt tekstfragmenten aanroepen op verschillende manieren:</para>
 
 <itemizedlist>
 <listitem
 ><para
->Door het fragment uit de hulpmiddelenweergave te kiezen.</para
+>Door op het fragment uit de hulpmiddelenweergave te klikken.</para
+></listitem>
+<listitem
+><para
+>Een sneltoets gebruiken, als u er een heeft toegekend.</para
 ></listitem>
 <listitem
 ><para

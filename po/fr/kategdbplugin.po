@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-13 00:43+0000\n"
+"POT-Creation-Date: 2025-06-13 00:45+0000\n"
 "PO-Revision-Date: 2025-04-14 09:50+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -504,12 +504,12 @@ msgstr "éléments nommés"
 msgid "Loading..."
 msgstr "Chargement en cours..."
 
-#: localsview.cpp:167
+#: localsview.cpp:163
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Copier le symbole"
 
-#: localsview.cpp:181
+#: localsview.cpp:177
 #, kde-format
 msgid "Copy Value"
 msgstr "Copier la valeur"

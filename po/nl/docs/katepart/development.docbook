@@ -4204,7 +4204,9 @@
 >Scripting met &javascript;</title>
 
 <para
->De editor-component van &kappname; is eenvoudig uit te breiden met scripts. De scripttaal is ECMAScript (breed bekend als &javascript;). &kappname; ondersteunt twee soorten scripts: inspringen en commandoregelscripts. </para>
+>De editor-component van &kappname; is eenvoudig uit te breiden met scripts. De scripttaal is ECMAScript (breed bekend als &javascript;). &kappname; ondersteunt twee soorten scripts: inspringen en commandoregelscripts. Een functionaliteit gelijk aan opdrachtregelscripts wordt ook geleverd in de <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>snippets plug-in</ulink
+>. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4461,6 +4463,13 @@ function indent(line, indentWidth, ch)
 <sect2 id="dev-scripting-command-line">
 <title
 >Commandoregelscripts</title>
+
+<note>
+<para
+>Een functionaliteit gelijk aan opdrachtregelscripts wordt ook geleverd in de <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>snippets plug-in</ulink
+>. Deze plug-in kan een gemakkelijker startpunt leveren, speciaal voor kleine eigen scripts.</para>
+</note>
 
 <para
 >Omdat het moeilijk is om aan de noden van iedereen te voldoen, ondersteunt &kappname; kleine hulpmiddelen voor snelle tekstmanipulatie via de <link linkend="advanced-editing-tools-commandline"

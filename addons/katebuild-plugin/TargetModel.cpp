@@ -627,6 +627,8 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             break;
         case CommandRole:
             return command.buildCmd;
+        case RunCommandRole:
+            return command.runCmd;
         case CommandNameRole:
             return command.name;
         case WorkDirRole:

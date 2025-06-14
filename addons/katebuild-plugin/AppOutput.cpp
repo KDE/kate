@@ -164,7 +164,7 @@ QString AppOutput::runningProcess()
 {
     TerminalInterface *t = qobject_cast<TerminalInterface *>(d->part);
     if (t) {
-        return d->terminalProcess;
+        return t->foregroundProcessName().isEmpty() ? QString() : d->terminalProcess;
     }
 
     QString program = d->process.program().isEmpty() ? QString() : d->process.program().constFirst();

@@ -27,6 +27,7 @@ public:
 
     enum TargetRoles {
         CommandRole = Qt::UserRole,
+        RunCommandRole,
         CommandNameRole,
         WorkDirRole,
         SearchPathsRole,

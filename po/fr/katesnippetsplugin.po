@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2012, 2013.
-# SPDX-FileCopyrightText: 2013, 2014, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2014, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 # Maxime Corteel <mcorteel@gmail.com>, 2014, 2015, 2017.
 # Xavier Besnard <xavier.besnard@kde.org>, 2020.
 #
@@ -11,17 +11,17 @@ msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-06-05 07:19+0200\n"
+"PO-Revision-Date: 2025-06-13 13:12+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
+"X-Environment: kde\n"
+"X-Generator: Lokalize 25.04.2\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -113,10 +113,9 @@ msgid "Text template"
 msgstr ""
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "S&cripts"
+msgstr "Script"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -169,17 +168,15 @@ msgstr "Continuer l'édition"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "sera affiché dans la liste de complètement"
+msgstr "Nom à afficher dans la liste de complètement (Nécessaire)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "Fragment&s"
+msgstr "Mode pour les morceaux :"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
@@ -195,10 +192,9 @@ msgstr "Fragment&s"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "S&cripts"
+msgstr "Bibliothèque de s&cripts"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131

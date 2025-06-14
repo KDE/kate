@@ -75,8 +75,8 @@ TargetsUi::TargetsUi(QObject *view, QWidget *parent)
     targetsView->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     targetsView->header()->setSectionResizeMode(1, QHeaderView::Interactive);
     targetsView->header()->setSectionResizeMode(2, QHeaderView::Interactive);
-    auto *tLayout = new QHBoxLayout();
 
+    auto *tLayout = new QHBoxLayout();
     tLayout->addWidget(targetFilterEdit);
     tLayout->addWidget(buildButton);
     tLayout->addWidget(runButton);

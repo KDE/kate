@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the kate package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2016, 2020, 2024 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2020, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"

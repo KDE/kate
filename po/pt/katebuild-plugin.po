@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-06-16 00:45+0000\n"
 "PO-Revision-Date: 2023-04-23 12:59+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -109,7 +109,7 @@ msgid "Allowed && Blocked Commands"
 msgstr ""
 
 #: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:728
-#: plugin_katebuild.cpp:951 plugin_katebuild.cpp:964
+#: plugin_katebuild.cpp:956 plugin_katebuild.cpp:969
 #, kde-format
 msgid "Build"
 msgstr "Compilar"
@@ -214,75 +214,96 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Não foi possível executar o \"%1\". estado saída = %2"
 
 #: plugin_katebuild.cpp:851
-#, kde-format
-msgid "Building <b>%1</b> cancelled"
+#, fuzzy, kde-format
+#| msgid "Building <b>%1</b> cancelled"
+msgid "Building <b>%1: %2</b> cancelled"
 msgstr "A compilação de <b>%1</b> foi cancelada"
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr ""
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:968
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr ""
 
-#: plugin_katebuild.cpp:1071
+#: plugin_katebuild.cpp:985
 #, kde-format
-msgid "No target available for building."
-msgstr "Não está disponível nenhum alvo para compilação."
+msgid ""
+"Cannot make \"%f\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
 
-#: plugin_katebuild.cpp:1085
+#: plugin_katebuild.cpp:989
 #, kde-format
-msgid "There is no local file or directory specified for building."
-msgstr "Não foi indicado nenhum ficheiro ou pasta local para a compilação."
+msgid ""
+"Cannot make \"%d\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
 
-#: plugin_katebuild.cpp:1091
+#: plugin_katebuild.cpp:993
+#, kde-format
+msgid ""
+"Cannot make \"%n\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+
+#: plugin_katebuild.cpp:1003
+#, kde-format
+msgid "Cannot make project substitution (%B). No open project!"
+msgstr ""
+
+#: plugin_katebuild.cpp:1016
 #, kde-format
 msgid "Already building..."
 msgstr "Já a compilar..."
 
-#: plugin_katebuild.cpp:1104
-#, kde-format
-msgid "Cannot make substitution. No open file or the current file is untitled!"
-msgstr ""
+#: plugin_katebuild.cpp:1054
+#, fuzzy, kde-format
+#| msgid "There is no local file or directory specified for building."
+msgid ""
+"Cannot execute: %1: %2 No working directory set.\n"
+"There is no local file or directory specified for building."
+msgstr "Não foi indicado nenhum ficheiro ou pasta local para a compilação."
 
-#: plugin_katebuild.cpp:1114
-#, kde-format
-msgid "Building target <b>%1</b> ..."
+#: plugin_katebuild.cpp:1169
+#, fuzzy, kde-format
+#| msgid "Building target <b>%1</b> ..."
+msgid "Building target <b>%1: %2</b> ..."
 msgstr "A compilar o alvo <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1151
+#: plugin_katebuild.cpp:1206
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1164
+#: plugin_katebuild.cpp:1219
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1170
+#: plugin_katebuild.cpp:1225
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1179
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
 
-#: plugin_katebuild.cpp:1298
+#: plugin_katebuild.cpp:1353
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr ""
 
-#: plugin_katebuild.cpp:1301
+#: plugin_katebuild.cpp:1356
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -291,7 +312,7 @@ msgid ""
 "altered via the config page of the plugin."
 msgstr ""
 
-#: plugin_katebuild.cpp:1333
+#: plugin_katebuild.cpp:1388
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "<title>Make Results:</title><nl/>%1"
@@ -299,80 +320,76 @@ msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Resultados do 'Make':</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1395
-#, kde-format
-msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#: plugin_katebuild.cpp:1449
+#, fuzzy, kde-format
+#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "A compilação do <b>%1</b> terminou. %2 erro(s), %3 aviso(s), %4 nota(s)"
 
-#: plugin_katebuild.cpp:1401
+#: plugin_katebuild.cpp:1460
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Foi encontrado um erro."
 msgstr[1] "Foram encontrados %1 erros."
 
-#: plugin_katebuild.cpp:1405
+#: plugin_katebuild.cpp:1464
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Foi encontrado um aviso."
 msgstr[1] "Foram encontrados %1 avisos."
 
-#: plugin_katebuild.cpp:1408
+#: plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Foi encontrada uma nota."
 msgstr[1] "Foram encontradas %1 notas."
 
-#: plugin_katebuild.cpp:1413
+#: plugin_katebuild.cpp:1472
 #, kde-format
 msgid "Build failed."
 msgstr "A compilação foi mal-sucedida."
 
-#: plugin_katebuild.cpp:1415
+#: plugin_katebuild.cpp:1474
 #, kde-format
 msgid "Build completed without problems."
 msgstr "A compilação terminou sem problemas."
 
-#: plugin_katebuild.cpp:1420
-#, kde-format
-msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#: plugin_katebuild.cpp:1478
+#, fuzzy, kde-format
+#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "A compilação do <b>%1 foi cancelada</b>. %2 erro(s), %3 aviso(s), %4 nota(s)"
 
-#: plugin_katebuild.cpp:1446
-#, kde-format
-msgid "Cannot execute: %1 No working directory set."
-msgstr ""
-"Não é possível executar: %1 Não está definida nenhuma pasta de trabalho."
-
-#: plugin_katebuild.cpp:1696
+#: plugin_katebuild.cpp:1756
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error|erro"
 
-#: plugin_katebuild.cpp:1699
+#: plugin_katebuild.cpp:1759
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning|aviso"
 
-#: plugin_katebuild.cpp:1702
+#: plugin_katebuild.cpp:1762
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info|nota"
 
-#: plugin_katebuild.cpp:1705
+#: plugin_katebuild.cpp:1765
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:2005
+#: plugin_katebuild.cpp:2065
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""
@@ -408,13 +425,20 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:114
-#, kde-format
+#: TargetHtmlDelegate.cpp:115
+#, fuzzy, kde-format
+#| msgid ""
+#| "Use:\n"
+#| "\"%f\" for current file\n"
+#| "\"%d\" for directory of current file\n"
+#| "\"%n\" for current file name without suffix"
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
 "\"%d\" for directory of current file\n"
-"\"%n\" for current file name without suffix"
+"\"%n\" for current file name without suffix\n"
+"\"%B\" for current project's base directory\n"
+"\"%w\" for the working directory of the target"
 msgstr ""
 "Use:\n"
 "\"%f\" para o ficheiro actual\n"
@@ -436,17 +460,17 @@ msgstr ""
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:659
+#: TargetModel.cpp:661
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nome do Comando/Conjunto de Alvos"
 
-#: TargetModel.cpp:662
+#: TargetModel.cpp:664
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:665
+#: TargetModel.cpp:667
 #, kde-format
 msgid "Run Command"
 msgstr "Executar um Comando"
@@ -543,6 +567,13 @@ msgstr "Inserir um local"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccione a pasta a inserir"
+
+#~ msgid "No target available for building."
+#~ msgstr "Não está disponível nenhum alvo para compilação."
+
+#~ msgid "Cannot execute: %1 No working directory set."
+#~ msgstr ""
+#~ "Não é possível executar: %1 Não está definida nenhuma pasta de trabalho."
 
 #~ msgid "Working Directory / Command"
 #~ msgstr "Pasta de Trabalho / Comando"

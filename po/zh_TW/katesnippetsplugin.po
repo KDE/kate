@@ -3,13 +3,13 @@
 #
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2012, 2014, 2015.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020.
-# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-06-13 03:06+0900\n"
+"PO-Revision-Date: 2025-06-15 18:20+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -94,6 +94,8 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"要插入文件當中的文字（特殊欄位請見<a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-template\">手冊</a>）。"
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -101,17 +103,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"要執行的 JavaScript 程式碼（細節請見<a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">手冊</a>）。"
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "文字樣本"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "文稿(&C)"
+msgstr "文稿"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -120,12 +123,14 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"在這個軟體庫當中所有片段中共享的 JavaScript 函數（請見<a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-library\">手冊</a>）。"
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
-msgstr ""
+msgstr "要顯示在工具提示當中的可選的描述。可以使用基本的 HTML 格式。"
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -160,23 +165,21 @@ msgstr "繼續編輯"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "將會顯示在補完清單中"
+msgstr "顯示在補完清單中的名稱（必要）"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "片段(&S)"
+msgstr "片段模式："
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "鍵盤快捷鍵："
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -186,16 +189,15 @@ msgstr "片段(&S)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "文稿(&C)"
+msgstr "文稿庫(&C)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -235,7 +237,7 @@ msgstr "插入片段 %1"
 msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
-msgstr ""
+msgstr "Kate 需要以 KTextEditor 6.15.0 或更新版本編譯才能使用這種片段。"
 
 #: snippetrepository.cpp:43
 #, kde-format

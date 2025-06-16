@@ -92,6 +92,8 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"要插入文档的文本 (查看 <a href=\"help:/kate/kate-application-plugin-snippets."
+"html#snippet-input-template\">使用手册</a> 以了解特殊字段)。"
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -99,16 +101,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"要评估的 JavaScript 代码 (详情请查看 <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">使用手册</a> )。"
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "文本模板"
 
 #: editsnippet.cpp:89
 #, kde-format
 msgid "Script"
-msgstr ""
+msgstr "脚本"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -117,12 +121,15 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"此代码库中所有代码片段之间共享的 JavaScript 函数 (详情请查看 <a href=\"help:/"
+"kate/kate-application-plugin-snippets.html#snippet-input-library\">使用手册</"
+"a>)。"
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
-msgstr ""
+msgstr "可选的描述，用于在悬停信息中显示。您可以使用基本 HTML 格式。"
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -159,19 +166,19 @@ msgstr "继续编辑"
 #: editsnippet.ui:44
 #, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr ""
+msgstr "要显示在代码补全列表中的名称 (必须)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
 #, kde-format
 msgid "Snippet Mode:"
-msgstr ""
+msgstr "代码片段模式："
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "键盘快捷键："
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -183,13 +190,13 @@ msgstr "代码片断(&S)"
 #: editsnippet.ui:117
 #, kde-format
 msgid "S&cript Library"
-msgstr ""
+msgstr "脚本库(&C)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -230,6 +237,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate 需要使用 KTExtEditor 6.15.0 或更高版本进行编译才能使用这种类型的代码片"
+"段。"
 
 #: snippetrepository.cpp:43
 #, kde-format

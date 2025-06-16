@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-06-16 00:45+0000\n"
 "PO-Revision-Date: 2025-04-02 14:58+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -112,7 +112,7 @@ msgid "Allowed && Blocked Commands"
 msgstr "Baimendutako eta blokeatutako komandoak"
 
 #: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:728
-#: plugin_katebuild.cpp:951 plugin_katebuild.cpp:964
+#: plugin_katebuild.cpp:956 plugin_katebuild.cpp:969
 #, kde-format
 msgid "Build"
 msgstr "Eraiki"
@@ -222,48 +222,83 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" exekutatzea huts egin du. Irteeraren egoera = %2"
 
 #: plugin_katebuild.cpp:851
-#, kde-format
-msgid "Building <b>%1</b> cancelled"
+#, fuzzy, kde-format
+#| msgid "Building <b>%1</b> cancelled"
+msgid "Building <b>%1: %2</b> cancelled"
 msgstr "<b>%1</b> eraikitzea utzi da"
 
-#: plugin_katebuild.cpp:950
+#: plugin_katebuild.cpp:955
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Ez du aurkitu \"%1\" fitxategirako «compile_commands.json» bat."
 
-#: plugin_katebuild.cpp:963
+#: plugin_katebuild.cpp:968
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "\"%2\"(e)an ez du aurkitu \"%1\" fitxategia konpilatzeko komando bat."
 
-#: plugin_katebuild.cpp:1071
-#, kde-format
-msgid "No target available for building."
-msgstr "Ez dago eraikitzeko jomuga erabilgarririk."
-
-#: plugin_katebuild.cpp:1085
-#, kde-format
-msgid "There is no local file or directory specified for building."
-msgstr "Ez dago eraikitzeko zehaztuta bertako fitxategi edo direktoriorik."
-
-#: plugin_katebuild.cpp:1091
-#, kde-format
-msgid "Already building..."
-msgstr "Dagoeneko eraikitzen..."
-
-#: plugin_katebuild.cpp:1104
-#, kde-format
-msgid "Cannot make substitution. No open file or the current file is untitled!"
+#: plugin_katebuild.cpp:985
+#, fuzzy, kde-format
+#| msgid ""
+#| "Cannot make substitution. No open file or the current file is untitled!"
+msgid ""
+"Cannot make \"%f\" substitution. No open file or the current file is "
+"untitled!"
 msgstr ""
 "Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
 "fitxategiak ez du izenik!"
 
-#: plugin_katebuild.cpp:1114
+#: plugin_katebuild.cpp:989
+#, fuzzy, kde-format
+#| msgid ""
+#| "Cannot make substitution. No open file or the current file is untitled!"
+msgid ""
+"Cannot make \"%d\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"fitxategiak ez du izenik!"
+
+#: plugin_katebuild.cpp:993
+#, fuzzy, kde-format
+#| msgid ""
+#| "Cannot make substitution. No open file or the current file is untitled!"
+msgid ""
+"Cannot make \"%n\" substitution. No open file or the current file is "
+"untitled!"
+msgstr ""
+"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"fitxategiak ez du izenik!"
+
+#: plugin_katebuild.cpp:1003
+#, fuzzy, kde-format
+#| msgid ""
+#| "Cannot make substitution. No open file or the current file is untitled!"
+msgid "Cannot make project substitution (%B). No open project!"
+msgstr ""
+"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"fitxategiak ez du izenik!"
+
+#: plugin_katebuild.cpp:1016
 #, kde-format
-msgid "Building target <b>%1</b> ..."
+msgid "Already building..."
+msgstr "Dagoeneko eraikitzen..."
+
+#: plugin_katebuild.cpp:1054
+#, fuzzy, kde-format
+#| msgid "There is no local file or directory specified for building."
+msgid ""
+"Cannot execute: %1: %2 No working directory set.\n"
+"There is no local file or directory specified for building."
+msgstr "Ez dago eraikitzeko zehaztuta bertako fitxategi edo direktoriorik."
+
+#: plugin_katebuild.cpp:1169
+#, fuzzy, kde-format
+#| msgid "Building target <b>%1</b> ..."
+msgid "Building target <b>%1: %2</b> ..."
 msgstr "<b>%1</b> jomuga eraikitzen ..."
 
-#: plugin_katebuild.cpp:1151
+#: plugin_katebuild.cpp:1206
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -272,19 +307,19 @@ msgstr ""
 "Ezin ditu jomugak zamatu, %1 fitxategiak ez dauka CMAKE_COMMAND sarrera "
 "egoki bat!"
 
-#: plugin_katebuild.cpp:1164
+#: plugin_katebuild.cpp:1219
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Ezin izan da, eraikitzeko %1 direktoriorako, CMake fitxategiko API itaun "
 "fitxategirik idatzi!"
 
-#: plugin_katebuild.cpp:1170
+#: plugin_katebuild.cpp:1225
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Ezin izan da, eraikitzeko %1 direktoriorako, CMake (%2) exekutatu!"
 
-#: plugin_katebuild.cpp:1179
+#: plugin_katebuild.cpp:1234
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -293,12 +328,12 @@ msgstr ""
 "Eraikitzeko %1 direktoriorako, CMake fitxategiko API itaun fitxategiak (%2 "
 "erabiliz) sortzea huts egin du!"
 
-#: plugin_katebuild.cpp:1298
+#: plugin_katebuild.cpp:1353
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Eraikitzeko pluginak programa exekutatu nahi du"
 
-#: plugin_katebuild.cpp:1301
+#: plugin_katebuild.cpp:1356
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -311,83 +346,80 @@ msgstr ""
 "<br><br><b>%1</b><br><br>Jarraitu eta komando hori exekutatzea baimendu?"
 "<br><br>Aukera plugina konfiguratzeko orritik aldatu daiteke."
 
-#: plugin_katebuild.cpp:1333
+#: plugin_katebuild.cpp:1388
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Eraikitzea bukatu da:</title>%1"
 
-#: plugin_katebuild.cpp:1395
-#, kde-format
-msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#: plugin_katebuild.cpp:1449
+#, fuzzy, kde-format
+#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1</b> eraikitzea osatu da. %2 errore, %3 abisu, %4 ohar"
 
-#: plugin_katebuild.cpp:1401
+#: plugin_katebuild.cpp:1460
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Errore bat aurkitu da."
 msgstr[1] "%1 errore aurkitu dira."
 
-#: plugin_katebuild.cpp:1405
+#: plugin_katebuild.cpp:1464
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Abisu bat aurkitu da."
 msgstr[1] "%1 abisu aurkitu dira."
 
-#: plugin_katebuild.cpp:1408
+#: plugin_katebuild.cpp:1467
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Ohar bat aurkitu da."
 msgstr[1] "%1 ohar aurkitu dira."
 
-#: plugin_katebuild.cpp:1413
+#: plugin_katebuild.cpp:1472
 #, kde-format
 msgid "Build failed."
 msgstr "Eraikitzea huts egin du."
 
-#: plugin_katebuild.cpp:1415
+#: plugin_katebuild.cpp:1474
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Eraikitzea osatu da arazorik gabe."
 
-#: plugin_katebuild.cpp:1420
-#, kde-format
-msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#: plugin_katebuild.cpp:1478
+#, fuzzy, kde-format
+#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1</b> eraikitzea bertan behera. %2 errore, %3 abisu, %4 ohar"
 
-#: plugin_katebuild.cpp:1446
-#, kde-format
-msgid "Cannot execute: %1 No working directory set."
-msgstr "Ezin du exekutatu: %1 ez da ezarri laneko direktorioa."
-
-#: plugin_katebuild.cpp:1696
+#: plugin_katebuild.cpp:1756
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "errore"
 
-#: plugin_katebuild.cpp:1699
+#: plugin_katebuild.cpp:1759
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "abisu"
 
-#: plugin_katebuild.cpp:1702
+#: plugin_katebuild.cpp:1762
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "ohar|informazio"
 
-#: plugin_katebuild.cpp:1705
+#: plugin_katebuild.cpp:1765
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "definitu gabeko aipamena"
 
-#: plugin_katebuild.cpp:2005
+#: plugin_katebuild.cpp:2065
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ezin izan dira eraikitzeko helburuak hemen gorde: %1"
@@ -424,13 +456,20 @@ msgstr ""
 "\"%B\" proiektuaren oinarri-direktoriorako\n"
 "\"%b\" proiektuaren oinarri-direktorioaren izenerako"
 
-#: TargetHtmlDelegate.cpp:114
-#, kde-format
+#: TargetHtmlDelegate.cpp:115
+#, fuzzy, kde-format
+#| msgid ""
+#| "Use:\n"
+#| "\"%f\" for current file\n"
+#| "\"%d\" for directory of current file\n"
+#| "\"%n\" for current file name without suffix"
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
 "\"%d\" for directory of current file\n"
-"\"%n\" for current file name without suffix"
+"\"%n\" for current file name without suffix\n"
+"\"%B\" for current project's base directory\n"
+"\"%w\" for the working directory of the target"
 msgstr ""
 "Erabili:\n"
 "\"%f\" uneko fitxategirako\n"
@@ -452,17 +491,17 @@ msgstr "Proiektuak"
 msgid "Session"
 msgstr "Saioa"
 
-#: TargetModel.cpp:659
+#: TargetModel.cpp:661
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komandoa/jomuga-multzo izena"
 
-#: TargetModel.cpp:662
+#: TargetModel.cpp:664
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "Eraikitzeko komandoa / Laneko direktorioa"
 
-#: TargetModel.cpp:665
+#: TargetModel.cpp:667
 #, kde-format
 msgid "Run Command"
 msgstr "Ibili komandoa"
@@ -554,6 +593,12 @@ msgstr "Txertatu bide-izena"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Hautatu txertatu beharreko direktorioa"
+
+#~ msgid "No target available for building."
+#~ msgstr "Ez dago eraikitzeko jomuga erabilgarririk."
+
+#~ msgid "Cannot execute: %1 No working directory set."
+#~ msgstr "Ezin du exekutatu: %1 ez da ezarri laneko direktorioa."
 
 #~ msgctxt "@info"
 #~ msgid "<title>Make Results:</title><nl/>%1"

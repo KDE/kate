@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the kate package.
 # Nicola Ruggero <nicola@nxnt.org>, 2013.
 # Vincenzo Reale <smart2128vr@gmail.com>, 2014.
-# SPDX-FileCopyrightText: 2016, 2020, 2024 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2020, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-06-19 18:55+0200\n"
+"PO-Revision-Date: 2025-06-12 15:55+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -94,6 +94,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Testo da inserire nel documento (per i campi speciali, vedi il <a href="
+"\"help:/kate/kate-application-plugin-snippets.html#snippet-input-template"
+"\">manuale</a>)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -101,17 +104,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Codice JavaScript da valutare (per i dettagli, vedi il <a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-script\">manuale</a>)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Modello di testo"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "S&cript"
+msgstr "Script"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -120,12 +124,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Funzioni JavaScript condivise tra tutti i frammenti in questo deposito (vedi "
+"il <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">manuale</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Descrizione facoltativa da mostrare nei suggerimenti. Puoi utilizzare la "
+"formattazione HTML di base."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -164,23 +173,21 @@ msgstr "Continua a modificare"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "sarà mostrato nell'elenco di completamento"
+msgstr "Nome che sarà mostrato nell'elenco di completamento (richiesto)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&Frammenti"
+msgstr "Modalità frammenti:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Scorciatoia da tastiera:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -190,16 +197,15 @@ msgstr "&Frammenti"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "S&cript"
+msgstr "Libreria di s&cript"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -240,6 +246,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate deve essere compilato con la versione 6.15.0 di KTExtEditor, o "
+"superiore, per utilizzare questo tipo di frammenti."
 
 #: snippetrepository.cpp:43
 #, kde-format

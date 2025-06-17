@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-05-11 21:52+0100\n"
+"PO-Revision-Date: 2025-06-16 12:42+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -226,10 +226,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Fallo al ejecutar «%1». Estado de salida = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Se ha cancelado la compilación de <b>%1</b>"
+msgstr "Se ha cancelado la compilación de <b>%1: %2</b>"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -243,46 +242,38 @@ msgstr ""
 "No se ha encontrado una orden de compilación para el archivo «%1» en «%2». "
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No se puede realizar la sustitución. No hay ningún archivo abierto o el "
-"archivo actual no tiene título."
+"No se puede realizar la sustitución de «%f». No hay ningún archivo abierto o "
+"el archivo actual no tiene nombre."
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No se puede realizar la sustitución. No hay ningún archivo abierto o el "
-"archivo actual no tiene título."
+"No se puede realizar la sustitución de «%d». No hay ningún archivo abierto o "
+"el archivo actual no tiene nombre."
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No se puede realizar la sustitución. No hay ningún archivo abierto o el "
-"archivo actual no tiene título."
+"No se puede realizar la sustitución de «%n». No hay ningún archivo abierto o "
+"el archivo actual no tiene nombre."
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
-"No se puede realizar la sustitución. No hay ningún archivo abierto o el "
-"archivo actual no tiene título."
+"No se puede realizar la sustitución del proyecto (%B). No hay ningún "
+"proyecto abierto."
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -290,18 +281,19 @@ msgid "Already building..."
 msgstr "Ya se está compilando."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "No se ha especificado un archivo o directorio local para compilar."
+msgstr ""
+"No se ha podido ejecutar %1: %2. No se ha definido un directorio de "
+"trabajo.\n"
+"No se ha especificado un archivo o directorio local para compilar."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Compilando objetivo <b>%1</b> …"
+msgstr "Compilando objetivo <b>%1: %2</b> …"
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -360,11 +352,11 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Compilación terminada:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Compilación de <b>%1</b> completada. %2 errores, %3 advertencias, %4 notas"
+"Compilación de <b>%1: %2</b> completada. %3 errores, %4 advertencias, %5 "
+"notas"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -398,11 +390,10 @@ msgid "Build completed without problems."
 msgstr "Compilación finalizada sin problemas."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Compilación de <b>%1 cancelada</b>. %2 errores, %3 advertencias, %4 notas"
+"Compilación de <b>%1: %2 cancelada</b>. %3 errores, %4 advertencias, %5 notas"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -466,12 +457,7 @@ msgstr ""
 "«%b» para el nombre del directorio base del proyecto"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -483,7 +469,9 @@ msgstr ""
 "Use:\n"
 "«%f» para el archivo actual\n"
 "«%d» para el directorio del archivo actual\n"
-"«%n» para el nombre del archivo actual sin sufijo"
+"«%n» para el nombre del archivo actual sin sufijo\n"
+"«%B» para el directorio base del proyecto actual\n"
+"«%w» para el directorio de trabajo del objetivo"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
@@ -603,10 +591,3 @@ msgstr "Insertar ruta"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccionar el directorio a insertar"
-
-#~ msgid "No target available for building."
-#~ msgstr "Ningún objetivo disponible para compilar"
-
-#~ msgid "Cannot execute: %1 No working directory set."
-#~ msgstr ""
-#~ "No se puede ejecutar: %1. No se ha definido un directorio de trabajo."

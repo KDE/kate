@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 08:58+0200\n"
+"PO-Revision-Date: 2025-06-16 20:03+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -220,10 +220,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Не вдалося запустити «%1». exitStatus = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Збирання <b>%1</b> скасовано"
+msgstr "Збирання <b>%1: %2</b> скасовано"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -236,46 +235,36 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Не вдалося знайти команду компіляції для файла «%1» у «%2». "
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не вдалося зробити заміну. Немає відкритих файлів або поточний файл не має "
-"назви!"
+"Не вдалося зробити заміну «%f». Немає відкритих файлів або поточний файл не "
+"має назви!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не вдалося зробити заміну. Немає відкритих файлів або поточний файл не має "
-"назви!"
+"Не вдалося зробити заміну «%d». Немає відкритих файлів або поточний файл не "
+"має назви!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не вдалося зробити заміну. Немає відкритих файлів або поточний файл не має "
-"назви!"
+"Не вдалося зробити заміну «%n». Немає відкритих файлів або поточний файл не "
+"має назви!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
-"Не вдалося зробити заміну. Немає відкритих файлів або поточний файл не має "
-"назви!"
+msgstr "Не вдалося зробити заміну у проєкті (%B). Немає відкритих проєктів!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -283,18 +272,18 @@ msgid "Already building..."
 msgstr "Вже збирається…"
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Не було вказано локального файла або каталогу для збирання."
+msgstr ""
+"Не вдалося виконати: %1: %2 Не встановлено робочого каталогу.\n"
+"Не вказано локального файла або каталогу для збирання."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Збираємо ціль <b>%1</b>…"
+msgstr "Збираємо ціль <b>%1: %2</b>…"
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -351,10 +340,10 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Збирання завершено:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Збирання <b>%1</b> завершено. %2 помилок, %3 попереджень, %4 зауважень"
+msgstr ""
+"Збирання <b>%1: %2</b> завершено. %3 помилок, %4 попереджень, %5 зауважень"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -394,10 +383,10 @@ msgid "Build completed without problems."
 msgstr "Збирання виконано без проблем."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Збирання <b>%1 скасовано</b>. %2 помилок, %3 попереджень, %4 зауважень"
+msgstr ""
+"Збирання <b>%1: %2 скасовано</b>. %3 помилок, %4 попереджень, %5 зауважень"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -462,12 +451,7 @@ msgstr ""
 "«%b» — назва базового каталогу проєкту"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -479,7 +463,9 @@ msgstr ""
 "Скористайтеся\n"
 "«%f» для позначення поточного файла,\n"
 "«%d» для позначення каталогу, де зберігається поточний файл,\n"
-"«%n» для позначення назви поточного файла без суфікса."
+"«%n» для позначення назви поточного файла без суфікса.\n"
+"«%B» для позначення основного каталогу поточного проєкту\n"
+"«%w» для позначення робочого каталогу цілі"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

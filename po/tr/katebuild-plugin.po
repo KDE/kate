@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 14:31+0300\n"
-"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"PO-Revision-Date: 2025-06-16 12:13+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -221,10 +221,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "“%1” çalıştırılamadı. Çıktı durumu = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "<b>%1</b> yapımı iptal edildi"
+msgstr "<b>%1: %2</b> yapımı iptal edildi"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -237,38 +236,33 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "“%2” içinde “%1” dosyası için bir derleme komutu bulunamadı."
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "İkame yapılamıyor. Geçerli dosya veya açık dosyalar buna uygun değil!"
+msgstr ""
+"“%f” ikâmesi yapılamıyor. Tüm geçerli veya açık dosyaların bir başlığı var!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "İkame yapılamıyor. Geçerli dosya veya açık dosyalar buna uygun değil!"
+msgstr ""
+"“%d” ikâmesi yapılamıyor. Tüm geçerli veya açık dosyaların bir başlığı var!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "İkame yapılamıyor. Geçerli dosya veya açık dosyalar buna uygun değil!"
+msgstr ""
+"“%n” ikâmesi yapılamıyor. Tüm geçerli veya açık dosyaların bir başlığı var!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr "İkame yapılamıyor. Geçerli dosya veya açık dosyalar buna uygun değil!"
+msgstr "Proje ikâmesi (%B) yapılamıyor. Açık proje yok!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -276,18 +270,18 @@ msgid "Already building..."
 msgstr "Halihazırda yapılıyor…"
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Yapım için herhangi bir dosya veya dizin belirtilmedi."
+msgstr ""
+"Yürütülemiyor: %1: %2. Ayarlı çalışma dizini yok.\n"
+"Yapım için bir yerel dosya veya dizin belirtilmemiş."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "<b>%1</b> hedefi yapılıyor…"
+msgstr "<b>%1: %2</b> hedefi yapılıyor…"
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -341,10 +335,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Yapı bitti:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> yapısı tamamlandı. %2 hata, %3 uyarı, %4 not"
+msgstr "<b>%1: %2</b> yapısı tamamlandı. %3 hata, %4 uyarı, %5 not"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -378,10 +371,9 @@ msgid "Build completed without problems."
 msgstr "Yapı sorunsuzca tamamlandı."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> yapısı iptal edildi. %2 hata, %3 uyarı, %4 not"
+msgstr "<b>%1: %2</b> yapısı iptal edildi. %3 hata, %4 uyarı, %5 not"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -445,12 +437,7 @@ msgstr ""
 "proje taban dizininin adı için “%b”"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -462,7 +449,9 @@ msgstr ""
 "Kullanım:\n"
 "geçerli dosya için “%f”\n"
 "geçerli dosyanın bulunduğu dizin için “%d”\n"
-"sonek olmadan geçerli dosya adı için “%n”"
+"sonek olmadan geçerli dosya adı için “%n”\n"
+"geçerli projenin taban dizini için “%B”\n"
+"hedefin çalışma dizini için “%w”"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

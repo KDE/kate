@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 10:26+0100\n"
+"PO-Revision-Date: 2025-06-16 12:41+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -225,10 +225,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Ha fallat en executar «%1». Estat de la sortida = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "S'ha cancel·lat la construcció de <b>%1</b>"
+msgstr "S'ha cancel·lat la construcció de <b>%1: %2</b>"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -240,46 +239,41 @@ msgstr "No s'ha trobat cap «compile_commands.json» per al fitxer «%1». "
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "No s'ha trobat cap ordre de compilació per al fitxer «%1» a «%2». "
 
+# skip-rule: punctuation-double-quotes
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No s'ha pogut fer la substitució. No hi ha cap fitxer obert o el fitxer "
-"actual no té títol!"
+"No s'ha pogut fer la substitució de \"%f\". No hi ha cap fitxer obert o el "
+"fitxer actual no té títol!"
 
+# skip-rule: punctuation-double-quotes
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No s'ha pogut fer la substitució. No hi ha cap fitxer obert o el fitxer "
-"actual no té títol!"
+"No s'ha pogut fer la substitució de \"%d\". No hi ha cap fitxer obert o el "
+"fitxer actual no té títol!"
 
+# skip-rule: punctuation-double-quotes
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"No s'ha pogut fer la substitució. No hi ha cap fitxer obert o el fitxer "
-"actual no té títol!"
+"No s'ha pogut fer la substitució de \"%n\". No hi ha cap fitxer obert o el "
+"fitxer actual no té títol!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
-"No s'ha pogut fer la substitució. No hi ha cap fitxer obert o el fitxer "
+"No s'ha pogut fer la substitució (%B). No hi ha cap fitxer obert o el fitxer "
 "actual no té títol!"
 
 #: plugin_katebuild.cpp:1016
@@ -288,18 +282,18 @@ msgid "Already building..."
 msgstr "Ja està construint-se..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "No s'ha especificat cap fitxer o carpeta locals per a construir."
+msgstr ""
+"No s'ha pogut executar: %1: %2 No s'ha definit cap directori de treball.\n"
+"No s'ha especificat cap fitxer o carpeta locals per a construir."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "S'està construint l'objectiu <b>%1</b>..."
+msgstr "S'està construint l'objectiu <b>%1: %2</b>..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -358,12 +352,11 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Ha finalitzat la construcció:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"S'ha completat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
-"es"
+"S'ha completat la construcció de <b>%1: %2</b>. %3 error/s, %4 aviso/s, %5 "
+"nota/es"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -397,12 +390,11 @@ msgid "Build completed without problems."
 msgstr "S'ha completat la construcció sense problemes."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"S'ha cancel·lat la construcció de <b>%1</b>. %2 error/s, %3 aviso/s, %4 nota/"
-"es"
+"S'ha cancel·lat la construcció de <b>%1: %2</b>. %3 error/s, %4 aviso/s, %5 "
+"nota/es"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -465,13 +457,9 @@ msgstr ""
 "«%B» pel directori base del projecte\n"
 "«%b» pel nom del directori base del projecte"
 
+# skip-rule: punctuation-double-quotes
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -481,9 +469,11 @@ msgid ""
 "\"%w\" for the working directory of the target"
 msgstr ""
 "Useu:\n"
-"«%f» pel fitxer actual\n"
-"«%d» pel directori del fitxer actual\n"
-"«%n» pel nom de fitxer actual sense sufix"
+"\"%f\" per al fitxer actual\n"
+"\"%d\" per al directori del fitxer actual\n"
+"\"%n\" per al nom de fitxer actual sense sufix\n"
+"\"%B\" per al directori base del projecte actual\n"
+"\"%w\" per al directori de treball de l'objectiu"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
@@ -604,10 +594,3 @@ msgstr "Insereix camí"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori a inserir"
-
-#~ msgid "No target available for building."
-#~ msgstr "No hi ha cap objectiu disponible per a construir."
-
-#~ msgid "Cannot execute: %1 No working directory set."
-#~ msgstr ""
-#~ "No s'ha pogut executar: %1 No s'ha establert cap directori de treball."

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 07:14+0100\n"
+"PO-Revision-Date: 2025-06-16 07:31+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -220,10 +220,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Zagon \"%1\" ni uspel. Izhodno stanje = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Izgrajevanje <b>%1</b> preklicano"
+msgstr "Izgrajevanje <b>%1: %2</b> preklicano"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -236,46 +235,36 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Ni najdene datoteke ukazov prevajanja za datoteko \"%1\" v \"%2\". "
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Zamenjava ni mogoča. Ni odprte datoteke ali pa je trenutna datoteka brez "
-"naslova!"
+"Zamenjave \"%f\" ni mogoče izvesti. Ni odprte datoteke ali pa trenutna "
+"datoteka nima naslova!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Zamenjava ni mogoča. Ni odprte datoteke ali pa je trenutna datoteka brez "
-"naslova!"
+"Zamenjave \"%d\" ni mogoče izvesti. Ni odprte datoteke ali pa trenutna "
+"datoteka nima naslova!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Zamenjava ni mogoča. Ni odprte datoteke ali pa je trenutna datoteka brez "
-"naslova!"
+"Zamenjave \"%n\" ni mogoče izvesti. Ni odprte datoteke ali pa trenutna "
+"datoteka nima naslova!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
-"Zamenjava ni mogoča. Ni odprte datoteke ali pa je trenutna datoteka brez "
-"naslova!"
+msgstr "Zamenjava projekta (%B) ni mogoča. Ni odprtega projekta!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -283,18 +272,18 @@ msgid "Already building..."
 msgstr "Se že izgrajuje..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Za izgradnjo ni določene nobene krajevne datoteke ali mape."
+msgstr ""
+"Ni mogoče izvesti: %1: %2 Delovni imenik ni nastavljen.\n"
+"Za gradnjo ni določene nobene lokalne datoteke ali imenika."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Izgrajevanje cilja <b>%1</b> ..."
+msgstr "Izgrajevanje cilja <b>%1: %2</b> ..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -351,10 +340,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Izgradnja končana:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Izgradnja <b>%1</b> končano. %2 napake, %3 opozorila, %4 opombe"
+msgstr "Izgradnja <b>%1: %2</b> končana. %3 napake, %4 opozorila, %5 opombe"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -394,10 +382,9 @@ msgid "Build completed without problems."
 msgstr "Izgradnja se je zaključila brez težav."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Izgradnja <b>%1 preklicano</b>. %2 napak, %3 opozoril, %4 opomb"
+msgstr "Izgradnja <b>%1: %2 preklicana</b>. %3 napak, %4 opozoril, %5 opomb"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -461,12 +448,7 @@ msgstr ""
 "\"%b\" za ime osnovnega imenika projekta"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -475,10 +457,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Uporabite:\n"
-"»%f« za trenutno datoteko\n"
-"»%d« za mapo trenutne datoteke\n"
-"»%n« za ime trenutne datoteke brez pripone"
+"Uporabi:\n"
+"\"%f\" za trenutno datoteko\n"
+"\"%d\" za mapo trenutne datoteke\n"
+"\"%n\" za ime trenutne datoteke brez pripone\n"
+"\"%B\" za osnovni imenik trenutnega projekta\n"
+"\"%w\" za delovni imenik cilja"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

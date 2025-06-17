@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 15:46+0200\n"
+"PO-Revision-Date: 2025-06-16 16:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -217,10 +217,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "אי אפשר להפעיל את „%1”. מצב סיום = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "הבנייה של <b>%1</b> בוטלה"
+msgstr "הבנייה של <b>%1: %2</b> בוטלה"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -233,38 +232,30 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "לא נמצאה פקודת הידור לקובץ „%1” תחת „%2”."
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "לא ניתן לבצע החלפה. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
+msgstr "לא ניתן לבצע החלפה של „‎%f”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "לא ניתן לבצע החלפה. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
+msgstr "לא ניתן לבצע החלפה של „‎%d”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "לא ניתן לבצע החלפה. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
+msgstr "לא ניתן לבצע החלפה של „‎%n”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr "לא ניתן לבצע החלפה. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
+msgstr "לא ניתן ליצור החלפת מיזם (‎%B). אין מיזם פתוח!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -272,18 +263,18 @@ msgid "Already building..."
 msgstr "כבר מתבצעת בנייה…"
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "לא הוגדרו קובץ או תיקייה מקומיים לבנייה."
+msgstr ""
+"לא ניתן להריץ: %1: %2 לא הוגדרה תיקיית עבודה.\n"
+"אין קובץ או תיקייה מקומיים שצוינו לבנייה."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "המטרה <b>%1</b> נבנית…"
+msgstr "היעד<b>%1: %2</b> נבנה…"
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -333,10 +324,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>הבנייה הסתיימה:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "בניית <b>%1</b> הושלמה. %2 שגיאות, %3 אזהרות, %4 הערות"
+msgstr "בניית <b>%1: %2</b> הושלמה. %3 שגיאות, %4 אזהרות, %5 הערות"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -376,10 +366,9 @@ msgid "Build completed without problems."
 msgstr "הבנייה הסתיימה ללא בעיות"
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "בניית <b>%1 נכשלה</b>. %2 שגיאות, %3 אזהרות %4 הערות"
+msgstr "בניית <b>%1: %2 נכשלה</b>. %3 שגיאות, %4 אזהרות %5 הערות"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -443,12 +432,7 @@ msgstr ""
 "„%b” לייצוג שם תיקיית הבסיס של המיזם"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -458,9 +442,11 @@ msgid ""
 "\"%w\" for the working directory of the target"
 msgstr ""
 "שימוש:\n"
-"„%f” לייצוג הקובץ הנוכחי\n"
-"„%d” לתיקיית הקובץ הנוכחי\n"
-"„%n” לשם הקובץ הנוכחי בלי סיומת"
+"‏„‎%f” לייצוג הקובץ הנוכחי\n"
+"‏„‎%d” לתיקיית הקובץ הנוכחי\n"
+"‏„‎%n” לשם הקובץ הנוכחי בלי סיומת\n"
+"‏„‎%B” לתיקיית הבסיס של המיזם הנוכחי\n"
+"‏„‎%w” לתיקיית העבודה של היעד"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

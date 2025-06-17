@@ -98,7 +98,7 @@ private:
 
 Q_SIGNALS:
     void textFormatted(FormatterRunner *, KTextEditor::Document *, const QByteArray &text, int offset = -1);
-    void error(const QString &error);
+    void message(const QString &error, MessageType = MessageType::Error);
 };
 
 class PrettierFormat : public FormatterRunner

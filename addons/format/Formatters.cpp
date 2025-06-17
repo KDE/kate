@@ -116,14 +116,14 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     // Arguments supplied by the user are prepended
     auto command = readCommandFromJson(m_config);
     if (command.isEmpty()) {
-        Q_EMIT error(i18n("%1: Unexpected empty command!", m_fmt.name));
+        Q_EMIT message(i18n("%1: Unexpected empty command!", m_fmt.name));
         return;
     }
     QString path = command.takeFirst();
     const auto args = command + m_fmt.args;
     const auto name = safeExecutableName(!path.isEmpty() ? path : m_fmt.name);
     if (name.isEmpty()) {
-        Q_EMIT error(i18n("%1 is not installed, please install it to be able to format this document!", m_fmt.name));
+        Q_EMIT message(i18n("%1 is not installed, please install it to be able to format this document!", m_fmt.name), MessageType::Info);
         return;
     }
 
@@ -143,7 +143,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     });
 
     connect(p, &QProcess::errorOccurred, this, [this, p](QProcess::ProcessError e) {
-        Q_EMIT error(QStringLiteral("%1: %2").arg(e).arg(p->errorString()));
+        Q_EMIT message(QStringLiteral("%1: %2").arg(e).arg(p->errorString()));
         p->deleteLater();
         deleteLater();
     });
@@ -172,7 +172,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
 void FormatterRunner::onResultReady(const RunOutput &o)
 {
     if (!o.err.isEmpty()) {
-        Q_EMIT error(QString::fromUtf8(o.err));
+        Q_EMIT message(QString::fromUtf8(o.err));
         return;
     } else if (!o.out.isEmpty()) {
         Q_EMIT textFormatted(this, m_doc, o.out);
@@ -192,14 +192,14 @@ void PrettierFormat::setupNode()
     }
     const QString node = safeExecutableName(cmd.first());
     if (node.isEmpty()) {
-        Q_EMIT error(i18n("Please install node and prettier"));
+        Q_EMIT message(i18n("Please install node and prettier"));
         return;
     }
 
     delete s_tempFile;
     s_tempFile = new QTemporaryFile(KTextEditor::Editor::instance());
     if (!s_tempFile->open()) {
-        Q_EMIT error(i18n("PrettierFormat: Failed to create temporary file"));
+        Q_EMIT message(i18n("PrettierFormat: Failed to create temporary file"));
         return;
     }
     QFile prettierServer(QStringLiteral(":/formatting/prettier_script.js"));
@@ -220,7 +220,7 @@ void PrettierFormat::setupNode()
 
     startHostProcess(*s_nodeProcess, QProcess::ReadWrite);
     if (!s_nodeProcess->waitForStarted()) {
-        Q_EMIT error(i18n("PrettierFormat: Failed to start 'node': %1", s_nodeProcess->errorString()));
+        Q_EMIT message(i18n("PrettierFormat: Failed to start 'node': %1", s_nodeProcess->errorString()));
     }
 }
 
@@ -233,7 +233,7 @@ void PrettierFormat::onReadyReadOut()
         QJsonDocument doc = QJsonDocument::fromJson(m_runOutput.out, &e);
         m_runOutput.out = {};
         if (e.error != QJsonParseError::NoError) {
-            Q_EMIT error(e.errorString());
+            Q_EMIT message(e.errorString());
         } else {
             const auto obj = doc.object();
             const auto formatted = obj[QStringLiteral("formatted")].toString().toUtf8();
@@ -247,7 +247,7 @@ void PrettierFormat::onReadyReadErr()
 {
     const QByteArray err = s_nodeProcess->readAllStandardError();
     if (!err.isEmpty()) {
-        Q_EMIT error(QString::fromUtf8(err));
+        Q_EMIT message(QString::fromUtf8(err));
     }
 }
 

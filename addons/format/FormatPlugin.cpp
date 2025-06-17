@@ -228,12 +228,12 @@ void FormatPluginView::format()
     }
 
     connect(formatter, &FormatterRunner::textFormatted, this, &FormatPluginView::onFormattedTextReceived);
-    connect(formatter, &FormatterRunner::error, this, [formatter](const QString &error) {
+    connect(formatter, &FormatterRunner::message, this, [formatter](const QString &error, MessageType msgType) {
         static QSet<QString> errors;
         if (!errors.contains(error)) {
             formatter->deleteLater();
             const QString msg = formatter->cmdline() + QStringLiteral("\n") + error;
-            Utils::showMessage(msg, {}, i18n("Format"), MessageType::Error);
+            Utils::showMessage(msg, {}, i18n("Format"), msgType);
             errors.insert(error);
         }
     });

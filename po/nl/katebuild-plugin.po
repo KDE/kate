@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-08 10:48+0100\n"
+"PO-Revision-Date: 2025-06-16 13:17+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -224,10 +224,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Kon \"%1\" niet uitvoeren. exitStatus = %2."
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Bouwen van <b>%1</b> geannuleerd"
+msgstr "Bouwen van <b>%1: %2</b> geannuleerd"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -240,46 +239,36 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Hebt u een compile-opdracht in \"%2\" gevonden voor bestand \"%1\"."
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan geen substitutie doen. Geen open bestand of het huidige bestand heeft "
-"geen titel!"
+"Kan geen \"%f\" substitutie doen. Geen open bestand of het huidige bestand "
+"heeft geen titel!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan geen substitutie doen. Geen open bestand of het huidige bestand heeft "
-"geen titel!"
+"Kan geen \"%d\" substitutie doen. Geen open bestand of het huidige bestand "
+"heeft geen titel!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan geen substitutie doen. Geen open bestand of het huidige bestand heeft "
-"geen titel!"
+"Kan geen \"%n\" substitutie doen. Geen open bestand of het huidige bestand "
+"heeft geen titel!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
-"Kan geen substitutie doen. Geen open bestand of het huidige bestand heeft "
-"geen titel!"
+msgstr "Kan geen projectsubstitutie (%B) doen. Geen open project!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -287,18 +276,18 @@ msgid "Already building..."
 msgstr "Al bezig met bouwen..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Er is geen lokaal bestand of map ingesteld om in te bouwen."
+msgstr ""
+"Kan %1: %2 niet uitvoeren. Geen werkmap ingesteld.\n"
+"Er is geen lokaal bestand of map ingesteld om in te bouwen."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Bezig met doel <b>%1</b> te bouwen..."
+msgstr "Bezig met doel <b>%1: %2</b> te bouwen..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -355,11 +344,10 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Bouwen beëindigd:</title><nl/>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Bouwen van <b>%1</b> voltooid. %2 fout(en), %3 waarschuwing(en), %4 "
+"Bouwen van <b>%1: %2</b> voltooid. %3 fout(en), %4 waarschuwing(en), %5 "
 "notitie(s)"
 
 #: plugin_katebuild.cpp:1460
@@ -394,11 +382,10 @@ msgid "Build completed without problems."
 msgstr "Bouwen voltooid zonder problemen."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Bouwen van <b>%1 geannuleerd</b>. %2 fout(en), %3 waarschuwing(en), %4 "
+"Bouwen van <b>%1: %2 geannuleerd</b>. %3 fout(en), %4 waarschuwing(en), %5 "
 "notitie(s)"
 
 #: plugin_katebuild.cpp:1756
@@ -463,12 +450,7 @@ msgstr ""
 "\"%b\" voor de naam van de basismap van het project"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -480,7 +462,9 @@ msgstr ""
 "Gebruik:\n"
 "\"%f\" voor huidig bestand\n"
 "\"%d\" voor map van huidig bestand\n"
-"\"%n\" voor huidig bestand zonder achtervoegsel"
+"\"%n\" voor huidig bestand zonder achtervoegsel\n"
+"\"%B\" voor basismap van huidig project\n"
+"\"%w\" voor de werkmap van het doel"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

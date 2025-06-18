@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2025-06-13 13:12+0200\n"
+"PO-Revision-Date: 2025-06-16 11:48+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -99,6 +99,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Texte à insérer dans le document (Veuillez consulter le <a href=\"help:/kate/"
+"kate-application-plugin-snippets.html#snippet-input-template\">manuel</a> "
+"pour les champs spéciaux)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -106,11 +109,14 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Code JavaScript à évaluer (Veuillez consulter le <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-script\">manuel</a> pour plus "
+"de détails)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Modèle de texte"
 
 #: editsnippet.cpp:89
 #, kde-format
@@ -124,12 +130,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Fonctions JavaScript partagées entre tous les extraits de code de ce dépôt "
+"(Veuillez consulter le <a href=\"help:/kate/kate-application-plugin-snippets."
+"html#snippet-input-library\">manuel</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Description facultative pour l'affichage des info-bulles. Vous pouvez "
+"utiliser le formatage classique « HTML. »"
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -182,7 +193,7 @@ msgstr "Mode pour les morceaux :"
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Raccourci clavier :"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -200,7 +211,7 @@ msgstr "Bibliothèque de s&cripts"
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -241,6 +252,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate doit être compilée avec KTExtEditor en version 6.15.0 ou supérieure, "
+"pour utiliser ce type d'extrait."
 
 #: snippetrepository.cpp:43
 #, kde-format

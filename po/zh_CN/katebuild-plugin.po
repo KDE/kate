@@ -212,10 +212,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "运行“%1”失败。退出状态 = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "<b>%1</b> 构建已取消"
+msgstr ""
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -228,38 +227,30 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "没有找到“%2”中的文件“%1”的编译命令。"
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "无法替换。没有打开的文件或当前文件未命名！"
+msgstr ""
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "无法替换。没有打开的文件或当前文件未命名！"
+msgstr ""
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "无法替换。没有打开的文件或当前文件未命名！"
+msgstr ""
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr "无法替换。没有打开的文件或当前文件未命名！"
+msgstr ""
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -267,18 +258,16 @@ msgid "Already building..."
 msgstr "已经在构建..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "没有指定要构建的本地文件或目录。"
+msgstr ""
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "构建目标 <b>%1</b>..."
+msgstr ""
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -328,10 +317,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>构建完成：</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> 的构建已完成。返回 %2 条错误，%3 条警告，%4 条提醒"
+msgstr ""
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -362,10 +350,9 @@ msgid "Build completed without problems."
 msgstr "构建完成，没有出现问题。"
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> 的构建已取消。返回 %2 条错误，%3 条警告，%4 条提醒"
+msgstr ""
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -429,12 +416,7 @@ msgstr ""
 "“%b”指定项目的根目录的名称"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -443,10 +425,6 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Use:\n"
-"\"%f\" 为当前文件\n"
-"\"%d\" 为当前文件的目录\n"
-"\"%n\" 为不包括后缀的当前文件名"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
@@ -565,9 +543,3 @@ msgstr "插入路径"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"
-
-#~ msgid "No target available for building."
-#~ msgstr "没有可供编译的目标."
-
-#~ msgid "Cannot execute: %1 No working directory set."
-#~ msgstr "无法执行：%1 未设置工作目录。"

@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
 "PO-Revision-Date: 2024-06-05 09:14+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -106,10 +106,9 @@ msgid "Text template"
 msgstr ""
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "S&kripty"
+msgstr "Skript"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -173,7 +172,7 @@ msgstr "Ú&střižek"
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Klávesová zkratka:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -192,7 +191,7 @@ msgstr "S&kripty"
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151

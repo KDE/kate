@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-09 09:28+0100\n"
+"PO-Revision-Date: 2025-06-17 21:29+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.2\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -234,10 +234,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Impossible de lancer « %1 ». Code de sortie = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Construction de <b>%1</b> annulée"
+msgstr "Compilation de <b>%1 : %2 </b> annulée"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -254,46 +253,37 @@ msgstr ""
 "dans « %2 »."
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossible d'effectuer la substitution. Aucun fichier ouvert ou le fichier "
-"courant ne possède aucun titre !"
+"Impossible d'effectuer la substitution « %f ». Aucun fichier ouvert ou le "
+"fichier courant ne possède aucun titre !"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossible d'effectuer la substitution. Aucun fichier ouvert ou le fichier "
-"courant ne possède aucun titre !"
+"Impossible d'effectuer la substitution « %d ». Aucun fichier ouvert ou le "
+"fichier courant ne possède aucun titre !"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossible d'effectuer la substitution. Aucun fichier ouvert ou le fichier "
-"courant ne possède aucun titre !"
+"Impossible d'effectuer la substitution « %n ». Aucun fichier ouvert ou le "
+"fichier courant ne possède aucun titre !"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
-"Impossible d'effectuer la substitution. Aucun fichier ouvert ou le fichier "
-"courant ne possède aucun titre !"
+"Impossible d'effectuer la substitution du projet (%B). Aucun projet ouvert !"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -301,18 +291,18 @@ msgid "Already building..."
 msgstr "La construction est déjà en cours..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Aucun fichier ou dossier local à compiler n'a été indiqué."
+msgstr ""
+"Exécution impossible : %1 : %2. Aucun dossier de travail n'a été défini.\n"
+"Il n’y a aucun fichier ou dossier local spécifié pour la compilation."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Construction de la cible <b>%1</b>..."
+msgstr "Compilation de la cible <b>%1 : %2</b>..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -370,10 +360,11 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Compilation terminée :</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Compilation <b>%1</b> terminée. %2 erreur(s), %3 alarme(s), %4 note(s)"
+msgstr ""
+"Compilation de <b>%1 : %2</b> terminée. %3 erreur(s), %4 alarme(s), %5 "
+"note(s)"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -407,10 +398,10 @@ msgid "Build completed without problems."
 msgstr "Compilation réalisée sans problème."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Compilation <b>%1 annulée</b>. %2 erreur(s), %3 alarme(s), %4 note(s)"
+msgstr ""
+"Compilation de <b>%1 : %2 annulée</b>. %3 erreur(s), %4 alarme(s), %5 note(s)"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -475,12 +466,7 @@ msgstr ""
 "« %b » pour le nom du dossier racine du projet"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -490,9 +476,11 @@ msgid ""
 "\"%w\" for the working directory of the target"
 msgstr ""
 "Utilisation :\n"
-"« %f » pour le fichier actuel\n"
-"« %d » pour le dossier du fichier actuel\n"
-"« %n » pour le nom du fichier actuel sans suffixe"
+"« %f » pour le fichier courant,\n"
+"« %d » pour le dossier du fichier courant,\n"
+"« %n » pour le nom du fichier actuel sans suffixe,\n"
+"« %B » pour le répertoire racine du projet courant,\n"
+"« %w » pour le répertoire de travail de la cible"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

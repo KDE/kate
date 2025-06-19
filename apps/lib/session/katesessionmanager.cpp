@@ -412,7 +412,8 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
      * try to sync file to disk
      */
     QFile fileToSync(sc->name());
-    if (fileToSync.open(QIODevice::ReadOnly)) {
+    // open read-write for _commit, don't use WriteOnly, that will truncate
+    if (fileToSync.open(QIODevice::ReadWrite)) {
 #ifndef Q_OS_WIN
         // ensure that the file is written to disk
 #ifdef HAVE_FDATASYNC

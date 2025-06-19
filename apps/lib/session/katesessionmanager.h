@@ -234,7 +234,7 @@ private:
     /**
      * helper function to save the session to a given config object
      */
-    static void saveSessionTo(KConfig *sc, bool isAutoSave);
+    void saveSessionTo(KConfig *sc, bool isAutoSave);
 
     /**
      * restore sessions documents, windows, etc...

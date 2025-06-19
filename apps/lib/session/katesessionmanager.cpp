@@ -409,6 +409,13 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
         }
     }
 
+    // Stash docs if the session is not anon
+    if (auto active = activeSession()) {
+        if (sc == active->config() && !active->isAnonymous()) {
+            KateApp::self()->stashManager()->stashDocuments(sc, KateApp::self()->documents());
+        }
+    }
+
     sc->sync();
 
     /**
@@ -437,11 +444,6 @@ bool KateSessionManager::saveActiveSession(bool rememberAsLast, bool isAutoSave)
     }
 
     KConfig *sc = activeSession()->config();
-
-    // Stash docs if the session is not anon
-    if (!activeSession()->isAnonymous()) {
-        KateApp::self()->stashManager()->stashDocuments(sc, KateApp::self()->documents());
-    }
 
     saveSessionTo(sc, isAutoSave);
 

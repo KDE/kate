@@ -10,6 +10,7 @@
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <KTextEditor/Editor>
 
 #include <QCommandLineParser>
@@ -37,6 +38,7 @@ private Q_SLOTS:
     void init();
     void testViewCursorPositionIsRestored();
     void testTabsKeepOrderOnRestore();
+    void testNewlyCreatedUnsavedFilesStashed();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -134,6 +136,42 @@ void KateViewManagementTest2::testTabsKeepOrderOnRestore()
     tabs = mw->viewManager()->activeViewSpace()->documentList();
     QCOMPARE(tabs.at(0).doc()->url(), file1);
     QCOMPARE(tabs.at(1).doc()->url(), file2);
+}
+
+void KateViewManagementTest2::testNewlyCreatedUnsavedFilesStashed()
+{
+    QSKIP("This test fails on CI");
+
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    bool oldValue = cgGeneral.readEntry("Stash new unsaved files", true);
+    cgGeneral.writeEntry("Stash new unsaved files", true);
+
+    app->sessionManager()->activateSession(QStringLiteral("testNewlyCreatedUnsavedFilesStashed"), false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    auto v1 = mw->viewManager()->createView();
+    auto v2 = mw->viewManager()->createView();
+    v1->document()->setText(QStringLiteral("A\n"));
+    v2->document()->setText(QStringLiteral("B\n"));
+
+    QVERIFY(app->sessionManager()->saveActiveSession());
+
+    // open new empty session
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    // back to our session
+    app->sessionManager()->activateSession(QStringLiteral("testNewlyCreatedUnsavedFilesStashed"));
+    mw = app->activeKateMainWindow();
+
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 2);
+    auto docs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(docs[0].doc()->text(), QStringLiteral("A\n"));
+    QCOMPARE(docs[1].doc()->text(), QStringLiteral("B\n"));
+
+    cgGeneral.writeEntry("Stash new unsaved files", oldValue);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

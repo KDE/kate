@@ -178,7 +178,10 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         saveActiveSession();
 
         // really close last
-        if (!KateApp::self()->documentManager()->closeAllDocuments()) {
+        // dont closeUrl, The queryClose_internal() should already have queried about
+        // modified documents correctly. Doing this again leads to one dialog per doc
+        // even when we have stashing enabled.
+        if (!KateApp::self()->documentManager()->closeAllDocuments(/*closeUrl=*/false)) {
             // can still fail for modified files, bug 466553
             return false;
         }

@@ -113,7 +113,8 @@
         },
         "haskell": {
             "command": ["haskell-language-server-wrapper", "--lsp"],
-            "rootIndicationFileNames": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml"],
+            "rootIndicationFileNames": ["stack.yaml", "cabal.project", "package.yaml"],
+            "rootIndicationFilePatterns": ["*.cabal"],
             "url": "https://github.com/haskell/haskell-language-server",
             "highlightingModeRegex": "^Haskell$"
         },

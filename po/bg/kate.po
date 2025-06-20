@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2025-03-08 18:07+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -2776,12 +2776,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Преименуване на сесия"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "Име на сесия:"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2790,17 +2790,17 @@ msgstr ""
 "Вече съществува сесия с избраното от вас име:%1\n"
 "Моля, изберете друг."
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "За да може да запишете сесията, трябва да зададете името и."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Задаване на ново име за сесията"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Задаване на ново име за сесия: %1"

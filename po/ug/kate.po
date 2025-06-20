@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -2791,12 +2791,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "ئەڭگىمە ئاتىنى ئۆزگەرتىش"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2810,18 +2810,18 @@ msgstr ""
 "باشقا بىر ئات تاللاڭ\n"
 "ئەڭگىمە ئاتى:"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ئەڭگىمەنى ساقلاش ئۈچۈن چوقۇم ئاتىنى بەلگىلەپ بېرىشىڭىز كېرەك."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "ئەڭگىمەنىڭ يېڭى ئاتىنى بەلگىلەڭ"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

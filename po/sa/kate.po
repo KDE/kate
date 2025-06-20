@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2730,12 +2730,12 @@ msgstr "सत्रस्य नाम \"%1\" इति परिवर्त�
 msgid "Session Renaming"
 msgstr "सत्र पुनर्नामकरणम्"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "सत्रस्य नाम :"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2744,17 +2744,17 @@ msgstr ""
 "भवतः चयनितनाम्ना सह विद्यमानं सत्रं पूर्वमेव अस्ति: %1\n"
 "कृपया भिन्नं चिनोतु ।."
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "सत्रं रक्षितुं भवता नाम निर्दिष्टव्यम् ।."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "अस्य सत्रस्य नाम निर्दिशन्तु"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "सत्रस्य कृते नूतनं नाम निर्दिशन्तु: %1"

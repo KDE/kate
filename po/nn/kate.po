@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -2747,12 +2747,12 @@ msgstr "Økta kunne ikkje endra namn til «%1». Klarte ikkje skriva til «%2».
 msgid "Session Renaming"
 msgstr "Endring av namn på økt"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "Øktnamn:"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2761,17 +2761,17 @@ msgstr ""
 "Det finst alt ei økt med dette namnet: %1\n"
 "Vel eit anna namn."
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Du må velja eit namn for å kunna lagra ei økt."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Vel namn på økta"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Vel eit nytt namn på økta: %1"

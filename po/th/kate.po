@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -2799,12 +2799,12 @@ msgstr "ไม่สามารถเปลี่ยนชื่อกลุ่
 msgid "Session Renaming"
 msgstr "การเปลี่ยนชื่อกลุ่มงาน"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "ชื่อกลุ่มงาน:"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2818,18 +2818,18 @@ msgstr ""
 "โปรดเลือกชื่ออื่น\n"
 "ที่ต่างจากชื่อกลุ่มงาน:"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "ในการบันทึกกลุ่มงาน คุณจะต้องระบุชื่อของกลุ่มงานก่อน"
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "ระบุชื่อใหม่ของกลุ่มงาน"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

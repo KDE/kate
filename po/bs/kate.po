@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2014-01-31 19:52+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -2858,12 +2858,12 @@ msgstr "Sesija se ne može preimenovati u „%1“, jer istoimena već postoji."
 msgid "Session Renaming"
 msgstr "Preimenovanje sesije"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2877,18 +2877,18 @@ msgstr ""
 "Izaberite neko drugo.\n"
 "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Morate navesti ime da biste sačuvali sesiju."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Navedite novo ime za sesiju"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

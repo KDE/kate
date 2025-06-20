@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-21 02:34+0000\n"
+"POT-Creation-Date: 2025-06-20 02:34+0000\n"
 "PO-Revision-Date: 2011-07-17 15:37+0200\n"
 "Last-Translator: Jean Cayron <jean.cayron@base.be>\n"
 "Language-Team: Walloon <linux@walon.org>\n"
@@ -2826,12 +2826,12 @@ msgstr ""
 msgid "Session Renaming"
 msgstr "Rilomaedje del session"
 
-#: lib/session/katesessionmanager.cpp:512
+#: lib/session/katesessionmanager.cpp:513
 #, kde-format
 msgid "Session name:"
 msgstr "No del session :"
 
-#: lib/session/katesessionmanager.cpp:514
+#: lib/session/katesessionmanager.cpp:515
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2845,18 +2845,18 @@ msgstr ""
 "Tchoezixhoz ndè diferin, s' i vs plait\n"
 "No del session :"
 
-#: lib/session/katesessionmanager.cpp:516
+#: lib/session/katesessionmanager.cpp:517
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Po schaper ene session, vos dvoz specifyî on no."
 
-#: lib/session/katesessionmanager.cpp:543
+#: lib/session/katesessionmanager.cpp:544
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Sipecifyîz on novea no pol session"
 
-#: lib/session/katesessionmanager.cpp:545
+#: lib/session/katesessionmanager.cpp:546
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

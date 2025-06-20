@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-10 18:57+0900\n"
+"PO-Revision-Date: 2025-06-19 22:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.07.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -218,10 +218,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "無法執行 %1。離開狀態為：%2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "已取消 <b>%1</b> 的編譯"
+msgstr "已取消 <b>%1: %2</b> 的編譯"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -234,38 +233,30 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "在「%2」中沒有找到檔案「%1」的編譯命令。"
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "無法進行取代。沒有開啟檔案，或者是目前檔案無名稱！"
+msgstr "無法進行 \"%f\" 取代。沒有開啟檔案，或者是目前檔案無名稱！"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "無法進行取代。沒有開啟檔案，或者是目前檔案無名稱！"
+msgstr "無法進行 \"%d\" 取代。沒有開啟檔案，或者是目前檔案無名稱！"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
-msgstr "無法進行取代。沒有開啟檔案，或者是目前檔案無名稱！"
+msgstr "無法進行 \"%n\" 取代。沒有開啟檔案，或者是目前檔案無名稱！"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr "無法進行取代。沒有開啟檔案，或者是目前檔案無名稱！"
+msgstr "無法進行專案取代 (%B)。沒有開啟專案！"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -273,18 +264,18 @@ msgid "Already building..."
 msgstr "已經在編譯了..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "找不到編譯需要的本地端檔案或目錄。"
+msgstr ""
+"無法執行: %1: %2 沒有設定工作目錄。\n"
+"找不到編譯需要的本地端檔案或目錄。"
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "編譯目標 <b>%1</b> 中..."
+msgstr "編譯目標 <b>%1: %2</b> 中..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -334,10 +325,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>編譯已完成：</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "編譯 <b>%1</b> 已完成。%2 個錯誤，%3 個警告，%4 個備註"
+msgstr "編譯 <b>%1: %2</b> 已完成。%3 個錯誤，%4 個警告，%5 個備註"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -368,10 +358,9 @@ msgid "Build completed without problems."
 msgstr "編譯已順利完成。"
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "編譯 <b>%1 已取消</b>。 %2 個錯誤，%3 個警告，%4 個備註"
+msgstr "編譯 <b>%1: %2 已取消</b>。 %3 個錯誤，%4 個警告，%5 個備註"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -435,12 +424,7 @@ msgstr ""
 "\"%b\" 代表專案基底目錄的名稱"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -452,7 +436,9 @@ msgstr ""
 "使用：\n"
 "\"%f\" 表示目前的檔案\n"
 "\"%d\" 表示目前檔案所在的目錄\n"
-"\"%n\" 表示目前的檔名，不含後置字串"
+"\"%n\" 表示目前的檔名，不含後置字串\n"
+"\"%B\" 表示目前專案的基礎目錄\n"
+"\"%w\" 表示目標的工作目錄"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

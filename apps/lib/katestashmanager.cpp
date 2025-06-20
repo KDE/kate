@@ -42,16 +42,11 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
         return;
     }
 
-    // prepare stash directory
+    // prepare stash directory, create it recursively if needed
     const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-    QDir dir(appDataPath);
-    dir.mkdir(QStringLiteral("stash"));
-    dir.cd(QStringLiteral("stash"));
-
     const QString stashName = QFileInfo(KateApp::self()->sessionManager()->activeSession()->file()).fileName();
-    dir.mkdir(stashName);
-    dir.cd(stashName);
-    const QString path = dir.path();
+    const QString path = QStringLiteral("%1/stash/%2").arg(appDataPath, stashName);
+    QDir().mkpath(path);
 
     for (int i = 0; i < (int)documents.size(); ++i) {
         auto doc = documents[i];

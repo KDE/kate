@@ -140,8 +140,6 @@ void KateViewManagementTest2::testTabsKeepOrderOnRestore()
 
 void KateViewManagementTest2::testNewlyCreatedUnsavedFilesStashed()
 {
-    QSKIP("This test fails on CI");
-
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
     bool oldValue = cgGeneral.readEntry("Stash new unsaved files", true);

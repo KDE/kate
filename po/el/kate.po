@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-20 00:45+0000\n"
+"POT-Creation-Date: 2025-06-21 00:45+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -2800,23 +2800,23 @@ msgctxt "@action:button"
 msgid "Reopen"
 msgstr "Άνοιγμα πάλι"
 
-#: lib/session/katesessionmanager.cpp:352
+#: lib/session/katesessionmanager.cpp:355
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 "Αδυναμία μετονομασίας της συνεδρίας σε «%1». Αποτυχία εγγραφής στο «%2»"
 
-#: lib/session/katesessionmanager.cpp:353
+#: lib/session/katesessionmanager.cpp:356
 #, kde-format
 msgid "Session Renaming"
 msgstr "Μετονομασία συνεδρίας"
 
-#: lib/session/katesessionmanager.cpp:513
+#: lib/session/katesessionmanager.cpp:518
 #, kde-format
 msgid "Session name:"
 msgstr "Όνομα συνεδρίας:"
 
-#: lib/session/katesessionmanager.cpp:515
+#: lib/session/katesessionmanager.cpp:520
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2825,17 +2825,17 @@ msgstr ""
 "Υπάρχει ήδη μια συνεδρία με το επιλεγμένο όνομα: %1\n"
 "Παρακαλώ επιλέξτε ένα διαφορετικό."
 
-#: lib/session/katesessionmanager.cpp:517
+#: lib/session/katesessionmanager.cpp:522
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Για την αποθήκευση μιας συνεδρίας, πρέπει να ορίσετε ένα όνομα."
 
-#: lib/session/katesessionmanager.cpp:544
+#: lib/session/katesessionmanager.cpp:549
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "Ορισμός ονόματος για αυτήν τη συνεδρία"
 
-#: lib/session/katesessionmanager.cpp:546
+#: lib/session/katesessionmanager.cpp:551
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "Ορισμός νέου ονόματος για τη συνεδρία: %1"

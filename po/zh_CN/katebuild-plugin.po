@@ -214,7 +214,7 @@ msgstr "运行“%1”失败。退出状态 = %2"
 #: plugin_katebuild.cpp:851
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr ""
+msgstr "构建 <b>%1：%2</b> 已取消"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -231,26 +231,26 @@ msgstr "没有找到“%2”中的文件“%1”的编译命令。"
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
-msgstr ""
+msgstr "无法进行“%f”替换。没有打开的文件或当前文件未命名。"
 
 #: plugin_katebuild.cpp:989
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
-msgstr ""
+msgstr "无法进行“%d”替换。没有打开的文件或当前文件未命名。"
 
 #: plugin_katebuild.cpp:993
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
-msgstr ""
+msgstr "无法进行“%n”替换。没有打开的文件或当前文件未命名。"
 
 #: plugin_katebuild.cpp:1003
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
+msgstr "无法进行项目替换 (%B)。没有打开的项目。"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -263,11 +263,13 @@ msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
 msgstr ""
+"无法执行：%1：%2 没有设置工作目录。\n"
+"没有指定用于构建的本地文件或目录。"
 
 #: plugin_katebuild.cpp:1169
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr ""
+msgstr "正在构建目标 <b>%1：%2</b> ..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -319,7 +321,7 @@ msgstr "<title>构建完成：</title>%1"
 #: plugin_katebuild.cpp:1449
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr ""
+msgstr "构建 <b>%1：%2</b> 已完成：返回 %3 条错误，%4 条警告，%5 条提醒"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -352,7 +354,7 @@ msgstr "构建完成，没有出现问题。"
 #: plugin_katebuild.cpp:1478
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr ""
+msgstr "构建 <b>%1：%2 已取消</b>。返回 %3 条错误，%4 条警告，%5 条提醒"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -425,6 +427,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
+"使用方式\n"
+"“%f“为当前文件\n"
+"“%d“为当前文件的目录\n"
+"“%n“为不带后缀的当前文件\n"
+"“%B\"为当前项目的根目录\n"
+"“%w\"为目标的工作目录"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

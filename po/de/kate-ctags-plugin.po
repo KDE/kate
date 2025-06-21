@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Frederik Schwarzer <schwarzer@kde.org>, 2008, 2009, 2010, 2011, 2022.
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2009.
 # Burkhard Lück <lueck@hube-lueck.de>, 2009, 2014, 2015, 2018, 2021.
@@ -7,15 +8,15 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-19 00:44+0000\n"
-"PO-Revision-Date: 2022-03-06 18:17+0100\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
-"Language-Team: German <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2025-06-18 22:21+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.12.2\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -334,7 +335,7 @@ msgstr "Auf Standardbefehl zurücksetzen"
 #: kate_ctags.ui:208
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: kate_ctags_plugin.cpp:75 kate_ctags_view.cpp:112
 #, kde-format
@@ -364,10 +365,9 @@ msgid "CTags Settings"
 msgstr "CTags-Einstellungen"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:560
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "„%1“ kann nicht ausgeführt werden. Exit-Status = %2"
+msgstr "Ausführung fehlgeschlagen. Fehler: %1, Rückgabewert: %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format
@@ -377,7 +377,7 @@ msgstr "Die CTags-Programmdatei ist abgestürzt."
 #: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr "Der CTags-Befehl wurde mit dem Exit-Code %1 beendet"
+msgstr "Der CTags-Befehl wurde mit dem Rückgabewert %1 beendet"
 
 #: kate_ctags_view.cpp:60
 #, kde-format
@@ -402,7 +402,7 @@ msgstr "Aktuellen Text suchen"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr "Einrichten ..."
+msgstr "Einrichten …"
 
 #: kate_ctags_view.cpp:91
 #, kde-format
@@ -456,16 +456,14 @@ msgid "No folders or files to index"
 msgstr "Keine Ordner oder Dateien zu indizieren"
 
 #: kate_ctags_view.cpp:575
-#, fuzzy, kde-format
-#| msgid "The CTags executable crashed."
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Die CTags-Programmdatei ist abgestürzt."
+msgstr "Das CTags-Programm ist abgestürzt"
 
 #: kate_ctags_view.cpp:577
-#, fuzzy, kde-format
-#| msgid "The CTags program exited with code %1: %2"
+#, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr "Das CTags-Programm ist mit dem Rückgabe-Code %1 beendet worden: %2"
+msgstr "Das CTags-Programm ist mit dem Rückgabewert %2 beendet worden: %1"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "„%1“ kann nicht ausgeführt werden. Exit-Status = %2"

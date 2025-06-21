@@ -3,21 +3,23 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2024, 2025 Alois.spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Automatically generated, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-12 00:43+0000\n"
-"PO-Revision-Date: 2025-05-29 21:11+0200\n"
-"Last-Translator: Alois Spitzbart <spitz234@hotmail.com>\n"
+"PO-Revision-Date: 2025-06-18 18:08+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
 #: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
@@ -33,7 +35,7 @@ msgstr "Die temporäre Datei kann nicht geschrieben werden"
 #: FormatApply.h:35
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr ""
+msgstr "„git diff“ kann nicht ausgeführt werden: %1"
 
 #: FormatConfig.cpp:119
 #, kde-format
@@ -58,12 +60,12 @@ msgstr "Formatierungseinstellungen"
 #: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr ""
+msgstr "settings.json kann nicht gelesen werden. Fehler: %1"
 
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr ""
+msgstr "Dokument formatieren"
 
 #: FormatPlugin.cpp:128
 #, kde-format
@@ -74,49 +76,56 @@ msgstr "Beim Speichern formatieren"
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
+"Formatierung beim Speichern deaktivieren, ohne dies in den Einstellungen zu "
+"speichern."
 
 #: Formatters.cpp:119
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr ""
+msgstr "%1: unerwarteter leerer Befehl!"
 
 #: Formatters.cpp:126
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
+"%1 ist nicht installiert. Bitte installieren, um das Dokument formatieren zu "
+"können!"
 
 #: Formatters.cpp:195
 #, kde-format
 msgid "Please install node and prettier"
-msgstr ""
+msgstr "Bitte „node“ und „prettier“ installieren"
 
 #: Formatters.cpp:202
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr ""
+msgstr "PrettierFormat: Temporäre Datei kann nicht erzeugt werden"
 
 #: Formatters.cpp:223
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr ""
+msgstr "PrettierFormat: „node“ kann nicht gestartet werden: %1"
 
 #: Formatters.cpp:325
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "Unbekannter Formatierer für JSON: %1"
 
 #: Formatters.cpp:345
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "Unbekannter Formatierer für Python: %1"
 
 #: Formatters.cpp:368
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
+"Unbekannter Formatierer für Yaml: %1, stattdessen wird „yamlfmt“ verwendet"
 
 #: Formatters.cpp:398
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""
+"Formatierer kann nicht ausgeführt werden, die Sprache %1 wird nicht "
+"unterstützt"

@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Frederik Schwarzer <schwarzer@kde.org>, 2014, 2016, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2014, 2016, 2018, 2019, 2021.
 # Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
@@ -6,15 +7,15 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-16 00:44+0000\n"
-"PO-Revision-Date: 2023-04-26 21:08+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2025-06-18 22:35+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: katefiletree.cpp:122
 #, kde-format
@@ -97,7 +98,7 @@ msgstr "Kopiert den Pfad und Namen der Datei in die Zwischenablage."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Umbenennen ..."
+msgstr "Umbenennen …"
 
 #: katefiletree.cpp:153
 #, kde-format
@@ -199,14 +200,12 @@ msgstr "Benutzerdefinierte Sortierung"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Öffnen …"
 
 #: katefiletree.cpp:406
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
+#, kde-format
 msgid "Open File"
-msgstr "Öffnen mit"
+msgstr "Datei öffnen"
 
 #: katefiletree.cpp:416
 #, kde-format
@@ -215,10 +214,9 @@ msgid "Open With"
 msgstr "Öffnen mit"
 
 #: katefiletree.cpp:432
-#, fuzzy, kde-format
-#| msgid "Show File Git History"
+#, kde-format
 msgid "Show Git History"
-msgstr "Git-Verlauf der Datei anzeigen"
+msgstr "Git-Verlauf anzeigen"
 
 #: katefiletree.cpp:483
 #, kde-format
@@ -293,15 +291,14 @@ msgid "Show &Toolbar"
 msgstr "&Werkzeugleiste anzeigen"
 
 #: katefiletreeconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "Show Close Button"
+#, kde-format
 msgid "Show Close Button On Hovering"
-msgstr "„Schließen“-Knopf anzeigen"
+msgstr "„Schließen“-Knopf beim Überfahren anzeigen"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Mittelklick, um die Dokumente zu schließen"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -377,10 +374,9 @@ msgstr ""
 "worden.</p>"
 
 #: katefiletreeplugin.cpp:174
-#, fuzzy, kde-format
-#| msgid "&Other..."
+#, kde-format
 msgid "Filter…"
-msgstr "&Weitere ..."
+msgstr "Filter …"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

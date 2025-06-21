@@ -449,7 +449,7 @@
 >, in modo che tu possa configurare rapidamente &kate; per lavorare nella maniera che desideri. </para>
 
 <para
->Avviando &kate; per la prima volta vedrai due finestre con lo sfondo bianco. Sopra le due finestre c'è una barra degli strumenti con le solite icone etichettate. E sopra a questa, la barra dei menu. </para>
+>Avviando &kate; per la prima volta vedrai due finestre con lo sfondo bianco. Sopra le due finestre c'è una barra degli strumenti con le solite icone etichettate. E sopra a questa, la barra del menu. </para>
 
 <para
 >La finestra di sinistra è una barra laterale. Combina le finestre <guilabel
@@ -810,7 +810,7 @@ action="simul"
 ><primary
 >Finestra principale</primary
 ></indexterm
-> La finestra principale di &kate; è una finestra standard di &kde;, con l'aggiunta di barre laterali contenenti le viste degli strumenti. Ha una barra con tutti i menu più comuni e qualcuno in più, e una barra degli strumenti che dà accesso ai comandi usati più spesso.</para>
+> La finestra principale di &kate; è una finestra standard di &kde;, con l'aggiunta di barre laterali contenenti le viste degli strumenti. Ha una barra del menu con tutti i menu più comuni e qualcuno in più, e una barra degli strumenti che dà accesso ai comandi usati più spesso.</para>
 
 <para
 >La parte più importante della finestra è l'area dell'editor che, per impostazione predefinita, visualizza un solo componente editor di testi; qui puoi lavorare con i tuoi documenti.</para>

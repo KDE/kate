@@ -2,6 +2,7 @@
 # Copyright (C) 2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 #
 # Automatically generated, 2022.
 msgid ""
@@ -9,15 +10,15 @@ msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-18 00:42+0000\n"
-"PO-Revision-Date: 2022-11-18 16:11+0100\n"
-"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
+"PO-Revision-Date: 2025-06-18 16:56+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -50,11 +51,13 @@ msgstr "<b>Tastaturmakros:</b> %1"
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
 msgstr ""
+"Das Makro kann nicht während der Aufzeichnung gespeichert werden. Bitte "
+"zuerst die Aufzeichnung beenden."
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr "Aufnahme ..."
+msgstr "Aufnahme …"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -127,8 +130,8 @@ msgid ""
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
 "<qt><p>Aufruf: <code>kmplay &lt;name&gt;</code></p><p>Gespeichertes "
-"Tastaturmakro <code>&lt;name&gt;</code> ohne es zu laden wiedergeben.</p>%1</"
-"qt>"
+"Tastaturmakro <code>&lt;name&gt;</code> wiedergeben, ohne es zu laden.</p>"
+"%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:93
 #, kde-format
@@ -152,7 +155,7 @@ msgstr "Tastaturmakros aufnehmen und wiedergeben."
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr "Makro a&ufnehmen ..."
+msgstr "Makro a&ufnehmen …"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -183,7 +186,7 @@ msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
 msgstr ""
-"Aktuelles Makro wiedergeben (also die zuletzt aufgenommene Tastenfolge "
+"Aktuelles Makro wiedergeben (z.B. die zuletzt aufgenommene Tastenfolge "
 "ausführen)"
 
 #: keyboardmacrospluginview.cpp:76
@@ -199,7 +202,7 @@ msgstr "Dem aktuellen Makro einen Namen geben und es dauerhaft speichern."
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr "Benanntes Makro &laden ..."
+msgstr "Benanntes Makro &laden …"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -209,7 +212,7 @@ msgstr "Ein benanntes Makro laden und zum aktuellen machen."
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr "&Benanntes Makro wiedergeben ..."
+msgstr "&Benanntes Makro wiedergeben …"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -219,7 +222,7 @@ msgstr "Ein benanntes Makro wiedergeben ohne es zu laden."
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr "Benanntes Makro löschen ..."
+msgstr "Benanntes Makro löschen …"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
@@ -232,10 +235,9 @@ msgid "End Macro &Recording"
 msgstr "Makroaufnahme bee&nden"
 
 #: keyboardmacrospluginview.cpp:181
-#, fuzzy, kde-format
-#| msgid "Loaded '%1'"
+#, kde-format
 msgid "Load %1"
-msgstr "„%1“ geladen"
+msgstr "%1 laden"
 
 #: keyboardmacrospluginview.cpp:182
 #, kde-format
@@ -245,18 +247,17 @@ msgstr "Das Makro „%1“ als das aktuelle laden."
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play %1"
-msgstr ""
+msgstr "%1 wiedergeben"
 
 #: keyboardmacrospluginview.cpp:195
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr "Das Makro „%1“ wiedergeben ohne es zu laden."
+msgstr "Das Makro „%1“ wiedergeben, ohne es zu laden."
 
 #: keyboardmacrospluginview.cpp:209
-#, fuzzy, kde-format
-#| msgid "Wiped '%1'"
+#, kde-format
 msgid "Wipe %1"
-msgstr "„%1“ gelöscht"
+msgstr "%1 löschen"
 
 #: keyboardmacrospluginview.cpp:210
 #, kde-format

@@ -2,6 +2,7 @@
 # German translation for kate.
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Automatically generated, 2023.
 #
 msgid ""
@@ -9,26 +10,27 @@ msgstr ""
 "Project-Id-Version: rainbowparens\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-19 00:43+0000\n"
-"PO-Revision-Date: 2023-11-27 16:41+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-18 17:48+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: rainbowparens_plugin.cpp:475
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
-msgstr ""
+msgstr "Farben für das Einfärben von Klammern auswählen:"
 
 #: rainbowparens_plugin.cpp:495
 #, kde-format
 msgid "Colored Brackets"
-msgstr ""
+msgstr "Farbige Klammern"
 
 #: rainbowparens_plugin.cpp:500
 #, kde-format
 msgid "Colored Brackets Settings"
-msgstr ""
+msgstr "Einstellungen für farbige Klammern"

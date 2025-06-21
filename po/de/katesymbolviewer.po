@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Frederik Schwarzer <schwarzer@kde.org>, 2007, 2008, 2010, 2019, 2022.
 # Burkhard Lück <lueck@hube-lueck.de>, 2009, 2013, 2017, 2018.
 # Johannes Obermayr <johannesobermayr@gmx.de>, 2009.
@@ -6,15 +7,15 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-06 00:43+0000\n"
-"PO-Revision-Date: 2022-07-23 22:50+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2025-06-19 01:24+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.07.70\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25
@@ -136,10 +137,9 @@ msgid "Symbol List"
 msgstr "Symbolliste"
 
 #: plugin_katesymbolviewer.cpp:132
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filter ..."
+msgstr "Filter …"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format
@@ -156,7 +156,7 @@ msgstr "Position"
 #: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "Dies wird derzeit leider--**- nicht unterstützt"
+msgstr "Dies wird derzeit leider nicht unterstützt"
 
 #: plugin_katesymbolviewer.cpp:364
 #, kde-format

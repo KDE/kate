@@ -1,23 +1,24 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # Burkhard Lück <lueck@hube-lueck.de>, 2019, 2020, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2022.
 # Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-29 00:42+0000\n"
-"PO-Revision-Date: 2022-11-19 22:58+0100\n"
-"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
+"PO-Revision-Date: 2025-06-18 22:29+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #. i18n: file: 7
 #, kde-format
@@ -170,7 +171,7 @@ msgstr "&Hinzufügen"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Bearbeiten ..."
+msgstr "&Bearbeiten …"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -184,6 +185,9 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Das ausführbare Programm „%1“ wurde nicht gefunden. Stellen Sie sicher, dass "
+"die Programmdatei existiert und die Namen der eventuell genutzten Variablen "
+"richtig sind."
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
 #: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
@@ -248,6 +252,7 @@ msgstr "Sie müssen mindestens einen Namen und eine ausführbare Datei angeben"
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
 msgstr ""
+"Mindestens ein MIME-Typ muss angegeben werden, wenn „Trigger“ aktiv ist."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
@@ -262,7 +267,7 @@ msgstr "MIME-Typen auswählen"
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
-msgstr "Programm hinzufügen ..."
+msgstr "Programm hinzufügen …"
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
@@ -293,7 +298,7 @@ msgstr "Neue Kategorie %1"
 #: kateexternaltoolsview.cpp:102
 #, kde-format
 msgid "Configure..."
-msgstr "Einrichten ..."
+msgstr "Einrichten …"
 
 #: kateexternaltoolsview.cpp:164
 #, kde-format

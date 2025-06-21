@@ -547,7 +547,7 @@
 ></term>
 <listitem>
 <para
->Copia la selezione come &HTML;, formattato con l'evidenziazione della sintassi e le impostazioni dello schema dei colori attuali.</para>
+>Copia la selezione come &HTML;, formattato con l'evidenziazione della sintassi e le impostazioni dello schema di colori attuale.</para>
 </listitem>
 </varlistentry>
 
@@ -1614,7 +1614,7 @@
 ></term>
 <listitem
 ><para
->Questo menu elenca tutti gli schemi di colore disponibili. Da qui puoi cambiare lo schema per la vista attuale, mentre per cambiare lo schema predefinito devi usare la pagina <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>Questo menu elenca tutti gli schemi di colori disponibili. Da qui puoi cambiare lo schema per la vista attuale, mentre per cambiare lo schema predefinito devi usare la pagina <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
 >Caratteri e colori</ulink
 > nella finestra di configurazione.</para>
 </listitem>

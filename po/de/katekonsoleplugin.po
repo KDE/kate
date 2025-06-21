@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Frederik Schwarzer <schwarzer@kde.org>, 2007, 2008, 2009, 2018.
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2008.
 # Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2018, 2020, 2021.
@@ -6,14 +7,15 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2021-05-03 13:49+0200\n"
-"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"PO-Revision-Date: 2025-06-18 23:38+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -58,32 +60,30 @@ msgid "&Focus Terminal Panel"
 msgstr "&Terminalleiste aktivieren"
 
 #: kateconsole.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "&Hide Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr "Terminalleiste &ausblenden"
+msgstr "Terminal &senkrecht teilen"
 
 #: kateconsole.cpp:187
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "Terminal &waagerecht teilen"
 
 #: kateconsole.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&how Terminal Panel"
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "Terminalleiste &anzeigen"
+msgstr "&Neues Terminal-Unterfenster"
 
 #: kateconsole.cpp:354
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole ist nicht installiert. Bitte installieren Sie Konsole, um Terminal "
+"nutzen zu können."
 
 #: kateconsole.cpp:430
 #, kde-format
@@ -151,38 +151,30 @@ msgstr "Terminalleiste aktivieren"
 #: kateconsole.cpp:676
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Synchronmodus des Terminals"
 
 #: kateconsole.cpp:679
-#, fuzzy, kde-format
-#| msgctxt "@action"
-#| msgid "S&ynchronize Terminal with Current Document"
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "Terminal mit aktuellem Dokument ab&gleichen"
+msgstr "Terminal-Unterfenster nicht mit aktuellem &Dokument abgleichen"
 
 #: kateconsole.cpp:682
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr ""
-"Terminal-&Ordner automatisch mit aktuellem Dokument abgleichen (sofern "
-"möglich)"
+"Aktuelles Terminal-Unterfenster &automatisch mit aktuellem Dokument "
+"abgleichen (sofern möglich)"
 
 #: kateconsole.cpp:685
-#, fuzzy, kde-format
-#| msgid ""
-#| "&Automatically synchronize the terminal with the current document when "
-#| "possible"
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr ""
-"Terminal-&Ordner automatisch mit aktuellem Dokument abgleichen (sofern "
-"möglich)"
+"Automatisch ein Terminal-Unterfenster für den Ordner des aktuellen Dokuments "
+"erstellen und zu diesem wechseln"
 
 #: kateconsole.cpp:692 kateconsole.cpp:713
 #, kde-format

@@ -7,6 +7,7 @@
         "Description[ca@valencia]": "Executa ESLint sobre el fitxer actual",
         "Description[ca]": "Executa l'ESLint en el fitxer actual",
         "Description[cs]": "Spustí ESlint na aktuálním souboru",
+        "Description[de]": "Führt ESLint für aktuelle Datei aus",
         "Description[en_GB]": "Runs ESLint on current file",
         "Description[eo]": "Rulas ESLint sur aktuala dosiero",
         "Description[es]": "Ejecuta ESLint en el archivo actual",

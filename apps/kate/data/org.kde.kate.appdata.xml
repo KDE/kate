@@ -98,6 +98,7 @@
     <p xml:lang="bg">Kate е бърз текстов редактор от KDE, предназначен за програмисти, с възможности за обработка на множество документи и изгледи . Той разполага с неща като поддръжка на LSP (Language Server Protocol), проекти, множество курсори и селекции, git интеграция, широко търсене в папки, хоризонтално и вертикално разделяне, vi режим, подчертаване на синтаксиса за над 300 езика, вграден терминал, динамично пренасяне на думи и много повече. Предлага се на Linux, BSD, Windows и MacOS.</p>
     <p xml:lang="ca">El Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport del LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració del Git, cerca ampliada de carpetes, divisions horitzontals i verticals, mode del vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible al Linux, BSD, Windows i MacOS.</p>
     <p xml:lang="ca-valencia">Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport de LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració de Git, busca ampliada de carpetes, divisions horitzontals i verticals, mode de vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible en Linux, BSD, Windows i MacOS.</p>
+    <p xml:lang="de">Kate ist ein schneller Texteditor für mehrere Dokumente mit mehreren Ansichten - von KDE für Programmierer. Kate bietet viele verschiedene Funktionen wie LSP-Unterstützung (Language Server Protocol), Projekte, mehrere Cursor und Auswahlen, Git-Integration, ordnerweite Suche, waagerecht und senkrecht geteilte Ansichten, vi-Modus, Syntax-Hervorhebung für über 300 Sprachen, integriertes Terminal, dynamische Worttrennung und vieles mehr. Kate ist verfügbar für Linux, BSD, Windows und MacOS.</p>
     <p xml:lang="en-GB">Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.</p>
     <p xml:lang="eo">Kate estas rapida multdokumenta, plurvida tekstredaktilo por programistoj de KDE. Ĝi havas aferojn kiel subteno por LSP (Lingva Servila Protokolo), projektoj, multoblaj kursoroj kaj elektoj, git-integriĝo, dosieruj-ampleksa serĉo, horizontalaj kaj vertikalaj dividoj, vi-reĝimo, sintaksa reliefigo por 300+ lingvoj, enkonstruita terminalo, dinamika vortvolvado kaj multe pli. Ĝi disponeblas en Linukso, BSD, Vindozo kaj MacOS.</p>
     <p xml:lang="es">Kate es un editor de texto rápido, multidocumento y multivista para programadores creado por KDE. Incluye compatibilidad con LSP (Protocolo de servidor de lenguaje), proyectos, múltiples cursores y selecciones, integración de git, búsqueda en carpetas, divisiones horizontales y verticales, modo vi, resaltado de sintaxis para más de 300 idiomas, terminal integrado, ajuste de palabras dinámico y mucho más.</p>
@@ -1004,6 +1005,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Поддръжка на Intellisense с помощта на LSP (Language Server Protocol)</li>
       <li xml:lang="ca">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="ca-valencia">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
+      <li xml:lang="de">Unterstützung von Intellisense durch LSP (Language Server Protocol)</li>
       <li xml:lang="en-GB">Intellisense support using LSP (Language Server Protocol)</li>
       <li xml:lang="eo">Subteno por Intellisense uzante LSP (Language Server Protocol)</li>
       <li xml:lang="es">Compatibilidad con IntelliSense mediante LSP (Protocolo de servidor de lenguaje)</li>
@@ -1033,6 +1035,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Поддръжка на протокол DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca-valencia">Implementació del DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="de">Unterstützung von DAP (Debug Adapter Protocol)</li>
       <li xml:lang="en-GB">DAP (Debug Adaptor Protocol) support</li>
       <li xml:lang="eo">Subteno por DAP (Debug Adapter Protocol)</li>
       <li xml:lang="es">Compatibilidad con DAP (protocolo de adaptador de depuración)</li>
@@ -1062,6 +1065,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Вертикални раздели/списък с документи</li>
       <li xml:lang="ca">Llista vertical de pestanyes/documents</li>
       <li xml:lang="ca-valencia">Llista vertical de pestanyes/documents</li>
+      <li xml:lang="de">Senkrechte Karteireiter / Dokumentenliste</li>
       <li xml:lang="en-GB">Vertical tabs/document list</li>
       <li xml:lang="eo">Vertikalaj langetoj/dokumentlisto</li>
       <li xml:lang="es">Pestañas verticales/lista de documentos</li>
@@ -1092,6 +1096,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Лесна поддръжка на проекти. Kate може да отваря папки като проекти</li>
       <li xml:lang="ca">Implementació de projectes lleugers. El Kate pot obrir carpetes com a projectes</li>
       <li xml:lang="ca-valencia">Implementació de projectes lleugers. Kate pot obrir carpetes com a projectes</li>
+      <li xml:lang="de">Leichtgewichtige Unterstützung für Projekte. Kate kann Ordner als Projekte öffnen.</li>
       <li xml:lang="en-GB">Lightweight project support. Kate can open folders as projects</li>
       <li xml:lang="eo">Malpeza projektsubteno. Kate kapablas malfermi dosierujojn kiel projektoj</li>
       <li xml:lang="es">Implementación liviana de proyectos. Kate puede abrir carpetas como proyectos</li>
@@ -1122,6 +1127,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Форматиране на код с помощта на собствени форматиращи програми като clang-format, prettier и др</li>
       <li xml:lang="ca">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
       <li xml:lang="ca-valencia">Format del codi utilitzant formatadors natius com «clang-format», «prettier», etc.</li>
+      <li xml:lang="de">Quelltextformatierung mithilfe nativer Formatierer (clang, prettier, usw.)</li>
       <li xml:lang="en-GB">Code formatting using native formatters such as clang-format, prettier etc</li>
       <li xml:lang="eo">Kodformatado uzante indiĝenajn formatilojn kiel clang-format, prettier ktp</li>
       <li xml:lang="es">Formateo de código mediante formateadores nativos, como clang-format y prettier</li>
@@ -1151,6 +1157,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Вграден преглед на файловата система</li>
       <li xml:lang="ca">Navegador integrat del sistema de fitxers</li>
       <li xml:lang="ca-valencia">Navegador integrat del sistema de fitxers</li>
+      <li xml:lang="de">Integrierter Dateisystem-Browser</li>
       <li xml:lang="en-GB">Built in filesystem browser</li>
       <li xml:lang="eo">Enkonstruita dosiersistem-foliumilo</li>
       <li xml:lang="es">Navegador integrado para el sistema de archivos</li>
@@ -1181,6 +1188,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Поддръжка на CTags</li>
       <li xml:lang="ca">Implementació de CTags</li>
       <li xml:lang="ca-valencia">Implementació de CTags</li>
+      <li xml:lang="de">Unterstützung von CTags</li>
       <li xml:lang="en-GB">CTags support</li>
       <li xml:lang="eo">Subteno por CTags</li>
       <li xml:lang="es">Compatibilidad con CTags</li>
@@ -1211,6 +1219,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Търсене в целия проект и в цялата папка</li>
       <li xml:lang="ca">Cerca ample als projectes i carpetes</li>
       <li xml:lang="ca-valencia">Busca ample als projectes i carpetes</li>
+      <li xml:lang="de">Projekt- und ordnerweite Suche</li>
       <li xml:lang="en-GB">Project wide and folder wide search</li>
       <li xml:lang="eo">Tutprojekta kaj tutdosieruja serĉo</li>
       <li xml:lang="es">Búsqueda en el proyecto y en la carpeta</li>
@@ -1241,6 +1250,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="bg">Интеграция с Git</li>
       <li xml:lang="ca">Integració del Git</li>
       <li xml:lang="ca-valencia">Integració de Git</li>
+      <li xml:lang="de">Git-Integration</li>
       <li xml:lang="en-GB">Git integration</li>
       <li xml:lang="eo">Git-integriĝo</li>
       <li xml:lang="es">Integración con Git</li>
@@ -1330,6 +1340,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca">El Kate amb projectes basats en el Git</caption>
       <caption xml:lang="ca-valencia">Kate amb projectes basats en Git</caption>
       <caption xml:lang="cs">Kate s nějakým projektem v Gitu</caption>
+      <caption xml:lang="de">Kate mit einem auf Git basierenden Projekt</caption>
       <caption xml:lang="en-GB">Kate with some Git based project</caption>
       <caption xml:lang="eo">Kate kun iu Git-bazita projekto</caption>
       <caption xml:lang="es">Kate con un proyecto basado en Git</caption>
@@ -1369,6 +1380,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca">El Kate amb una vista dividida</caption>
       <caption xml:lang="ca-valencia">Kate amb una vista dividida</caption>
       <caption xml:lang="cs">Kate v rozděleném pohledu</caption>
+      <caption xml:lang="de">Kate in geteilter Ansicht</caption>
       <caption xml:lang="en-GB">Kate with split view</caption>
       <caption xml:lang="eo">Kate kun dividita vido</caption>
       <caption xml:lang="es">Kate con una vista dividida</caption>
@@ -1408,6 +1420,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca">El Kate en mode fosc</caption>
       <caption xml:lang="ca-valencia">Kate en mode fosc</caption>
       <caption xml:lang="cs">Kate v tmavém režimu</caption>
+      <caption xml:lang="de">Kate im dunklen Modus</caption>
       <caption xml:lang="en-GB">Kate in dark mode</caption>
       <caption xml:lang="eo">Kate en malhela reĝimo</caption>
       <caption xml:lang="es">Kate en modo oscuro</caption>
@@ -1447,6 +1460,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ca">Creació d'una branca nova del Git amb el Kate</caption>
       <caption xml:lang="ca-valencia">Creeu una branca nova de Git amb Kate</caption>
       <caption xml:lang="cs">Vytvořit novou větev Git pomocí Kate</caption>
+      <caption xml:lang="de">Anlegen eines neuen Git-Zweigs in Kate</caption>
       <caption xml:lang="en-GB">Create a new Git branch with Kate</caption>
       <caption xml:lang="eo">Krei novan Git-branĉon per Kate</caption>
       <caption xml:lang="es">Creación de una nueva rama de Git con Kate</caption>

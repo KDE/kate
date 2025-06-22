@@ -568,9 +568,3 @@ msgstr "Set inn adresse"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vel mappa som skal setjast inn"
-
-#~ msgid "No target available for building."
-#~ msgstr "Ingen mål er tilgjengelege for bygging."
-
-#~ msgid "Cannot execute: %1 No working directory set."
-#~ msgstr "Klarte ikkje køyra: %1. Arbeidsmappe ikkje definert."

@@ -718,6 +718,3 @@ msgstr "&Редактиране"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Търсене във файлове на варианти"
-
-#~ msgid "Filter..."
-#~ msgstr "Филтър..."

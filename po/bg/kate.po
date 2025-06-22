@@ -3091,6 +3091,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показване на приветствената страница за нови прозорци"
-
-#~ msgid "Quick Open Search (configure via context menu)"
-#~ msgstr "Търсене в бърз достъп (конфигуриране чрез контекстното меню)"

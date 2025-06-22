@@ -548,6 +548,3 @@ msgstr "Sett inn sti"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Velg mappe som skal settes inn"
-
-#~ msgid "No target available for building."
-#~ msgstr "Ingen del tilgjengelig for bygging"

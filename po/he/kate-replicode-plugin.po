@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-09-27 00:48+0000\n"
-"PO-Revision-Date: 2025-06-11 11:14+0300\n"
+"PO-Revision-Date: 2025-06-22 21:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -78,31 +78,31 @@ msgstr "מערכת"
 #: config.ui:142
 #, kde-format
 msgid "Model inertia success rate threshold:"
-msgstr ""
+msgstr "סף קצב הצלחת התמדת מודל:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: config.ui:159
 #, kde-format
 msgid "Model inertia count threshold:"
-msgstr ""
+msgstr "סף כמות התמדת מודל:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr ""
+msgstr "סף קצב הצלחת הפרש מחלץ תבניות מוכוון:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
 #, kde-format
 msgid "Minimum simulation time horizon:"
-msgstr ""
+msgstr "אופק זמן הדמיה מזערי:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: config.ui:210
 #, kde-format
 msgid "Maximum simulation time horizon:"
-msgstr ""
+msgstr "אופק זמן הדמיה מרבי:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: config.ui:227
@@ -114,49 +114,49 @@ msgstr "אופק זמן הדמיה:"
 #: config.ui:247
 #, kde-format
 msgid "Targeted pattern extractor time horizon:"
-msgstr ""
+msgstr "אופק זמן מחלץ תבניות מוכוון:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "משך בדיקת ביצועים:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "סבילות שבר עשרוני:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
 #, kde-format
 msgid "Timer tolerance:"
-msgstr ""
+msgstr "סבילות מתזמן:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: config.ui:318
 #, kde-format
 msgid "Primary time horizon:"
-msgstr ""
+msgstr "אופק זמן עיקרי:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: config.ui:335
 #, kde-format
 msgid "Secondary time horizon:"
-msgstr ""
+msgstr "אופק זמן משני:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "חוסן סמן התראה:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "חוסן הצלחת חיזוי יעד:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
@@ -198,19 +198,19 @@ msgstr "ערכי פלט מרוכבים"
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr ""
+msgstr "קלטים של מודל"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr ""
+msgstr "פלטים של מודל"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr ""
+msgstr "מעקב חיזוי"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
@@ -222,13 +222,13 @@ msgstr "מעקב יעדים"
 #: config.ui:475
 #, kde-format
 msgid "Model revision"
-msgstr ""
+msgstr "מהדורת מודל"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr ""
+msgstr "הזרקות מודל/תרכובת"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
@@ -378,7 +378,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "ספריית פעולות משתמש לא נמצאה"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -386,6 +386,8 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"לא ניתן למצוא ספריית פעולות משתמש.\n"
+"נא לגשת להגדרות ולהגדיר את הנתיב לספריה."
 
 #: replicodeview.cpp:201
 #, kde-format

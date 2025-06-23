@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-15 10:30+0100\n"
+"PO-Revision-Date: 2025-06-22 08:58+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -217,10 +218,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nie udało się uruchomić \"%1\". Wynik = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Porzucono budowanie <b>%1</b>"
+msgstr "Przerwano budowanie <b>%1: %2</b>"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -233,46 +233,37 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Nie znaleziono polecenia budowania dla pliku \"%1\" w \"%2\". "
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Nie można wykonać podmiany. Żaden plik nie jest otwarty lub bieżący plik "
-"jest nienazwany!"
+"Nie można wykonać podmiany \"%f\". Żaden plik nie jest otwarty lub bieżący "
+"plik jest nienazwany!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Nie można wykonać podmiany. Żaden plik nie jest otwarty lub bieżący plik "
-"jest nienazwany!"
+"Nie można wykonać podmiany \"%d\". Żaden plik nie jest otwarty lub bieżący "
+"plik jest nienazwany!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Nie można wykonać podmiany. Żaden plik nie jest otwarty lub bieżący plik "
-"jest nienazwany!"
+"Nie można wykonać podmiany \"%n\". Żaden plik nie jest otwarty lub bieżący "
+"plik jest nienazwany!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
-"Nie można wykonać podmiany. Żaden plik nie jest otwarty lub bieżący plik "
-"jest nienazwany!"
+"Nie można wykonać podmiany projektu (%B). Nie jest otwarty żaden projekt!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -280,18 +271,18 @@ msgid "Already building..."
 msgstr "Już w trakcie budowy..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Nie wybrano lokalnego pliku lub katalogu dla budowania."
+msgstr ""
+"Nie można wykonać: %1: %2 nie ustawiono katalogu pracy.\n"
+"Nie wybrano lokalnego pliku lub katalogu dla budowania."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Budowanie celu <b>%1</b> ..."
+msgstr "Budowanie celu <b>%1: %2</b> …"
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -348,10 +339,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Ukończono budowanie:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Ukończono budowanie <b>%1</b>. %2 błędy, %3 ostrzeżenia, %4 uwagi"
+msgstr "Ukończono budowanie <b>%1: %2</b>. %3 błędy, %4 ostrzeżenia, %5 uwagi"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -388,10 +378,9 @@ msgid "Build completed without problems."
 msgstr "Budowanie zakończone bez problemów."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "Zaniechano budowy <b>%1</b>. %2 błędy, %3 ostrzeżenia, %4 uwagi"
+msgstr "Przerwano budowę <b>%1: %2</b></b>. %3 błędy, %4 ostrzeżenia, %5 uwagi"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -455,12 +444,7 @@ msgstr ""
 "\"%b\" dla nazwy katalogu podstawowego projektu"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -469,10 +453,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Użycie:\n"
+"Użyj:\n"
 "\"%f\" dla bieżącego pliku\n"
 "\"%d\" dla katalogu bieżącego pliku\n"
-"\"%n\" dla bieżącej nazwy pliku bez przyrostka"
+"\"%n\" dla bieżącej nazwy pliku bez przyrostka\n"
+"\"%B\" dla katalogu głównego bieżącego projektu\n"
+"\"%w\" dla katalogu pracy bieżącego celu"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

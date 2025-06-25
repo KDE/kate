@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-02-27 00:43+0000\n"
-"PO-Revision-Date: 2025-04-03 17:28+0300\n"
+"PO-Revision-Date: 2025-06-03 17:37+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -60,7 +60,7 @@ msgstr "Ohjelmatiedosto:"
 #: configview.cpp:127
 #, kde-format
 msgid "Working Directory:"
-msgstr "Työhakemisto:"
+msgstr "Työkansio:"
 
 #: configview.cpp:135
 #, kde-format

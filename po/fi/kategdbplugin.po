@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-13 00:45+0000\n"
-"PO-Revision-Date: 2025-04-03 17:28+0300\n"
+"PO-Revision-Date: 2025-06-03 17:37+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -60,7 +60,7 @@ msgstr "Ohjelmatiedosto:"
 #: configview.cpp:127
 #, kde-format
 msgid "Working Directory:"
-msgstr "Työhakemisto:"
+msgstr "Työkansio:"
 
 #: configview.cpp:135
 #, kde-format
@@ -102,16 +102,14 @@ msgid "Target %1"
 msgstr "Kohde %1"
 
 #: configview.cpp:694
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Ohjelmatiedosto:"
+msgstr "Valitse ohjelmatiedosto"
 
 #: configview.cpp:707
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Työhakemisto:"
+msgstr "Valitse työkansio"
 
 #: dapbackend.cpp:182
 #, kde-format

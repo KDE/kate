@@ -370,7 +370,7 @@ void KateExternalToolsPlugin::handleToolFinished(KateToolRunner *runner, int exi
         }
     }
 
-    if (view && runner->tool()->reload) {
+    if (view && runner->tool()->reload || view->document()->documentHasAutoReloadConfiguration()) {
         // updates-enabled trick: avoid some flicker
         const bool wereUpdatesEnabled = view->updatesEnabled();
         view->setUpdatesEnabled(false);

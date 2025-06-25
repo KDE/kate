@@ -81,6 +81,11 @@ public:
         return true;
     }
 
+    bool documentHasAutoReloadConfiguration() override
+    {
+        return true;
+    }
+
     bool isEditingTransactionRunning() const override
     {
         return false;

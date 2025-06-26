@@ -171,6 +171,7 @@ void KateFileBrowser::readSessionConfig(const KConfigGroup &cg)
     m_dirOperator->setViewMode(KFile::Default);
 
     m_urlNavigator->setLocationUrl(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
+    m_urlNavigator->setUrlEditable(cg.readEntry("url navigator editable", m_urlNavigator->isUrlEditable()));
     setDir(cg.readEntry("location", QUrl::fromLocalFile(QDir::homePath())));
     m_autoSyncFolder->setChecked(cg.readEntry("auto sync folder", true));
     m_highlightCurrentFile->setChecked(cg.readEntry("highlight current file", true));
@@ -183,6 +184,7 @@ void KateFileBrowser::writeSessionConfig(KConfigGroup &cg)
     m_dirOperator->writeConfig(cg);
 
     cg.writeEntry("location", m_urlNavigator->locationUrl().url());
+    cg.writeEntry("url navigator editable", m_urlNavigator->isUrlEditable());
     cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
     cg.writeEntry("auto sync folder", m_autoSyncFolder->isChecked());
     cg.writeEntry("highlight current file", m_highlightCurrentFile->isChecked());

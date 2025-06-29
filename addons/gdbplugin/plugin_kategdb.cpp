@@ -246,10 +246,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     connect(m_backend, &BackendInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
 
     connect(m_backend, &BackendInterface::sourceFileNotFound, this, [this](const QString &fileName) {
-        displayMessage(xi18nc("@info",
-                              "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to Advanced Settings -> Source file search paths",
-                              fileName),
-                       KTextEditor::Message::Error);
+        displayMessage(xi18nc("@info", "<title>Could not open file:</title><nl/>%1", fileName), KTextEditor::Message::Error);
     });
 
     connect(m_backend, &BackendInterface::backendError, this, [this](const QString &message, KTextEditor::Message::MessageType level) {

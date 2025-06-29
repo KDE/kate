@@ -27,7 +27,6 @@ public:
 private:
     void registerDocument(KTextEditor::Document *document);
     void syncDocumentBookmarks(KTextEditor::Document *document);
-    QUrl getBookmarkUrl(KTextEditor::Document *document);
     void onDocumentUrlChanged(KTextEditor::Document *document);
     void onDocumentAboutToClose(KTextEditor::Document *document);
     void onDocumentModifiedOnDisk(KTextEditor::Document *doc, bool changed, KTextEditor::Document::ModifiedOnDiskReason reason);

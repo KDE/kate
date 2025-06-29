@@ -24,6 +24,24 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+namespace
+{
+
+const QString VirtualFileUrlScheme = QStringLiteral("kate");
+
+QUrl getBookmarkUrl(KTextEditor::Document *document)
+{
+    QUrl url = document->url();
+    if (url.isEmpty()) {
+        url.setScheme(VirtualFileUrlScheme);
+        url.setHost(QStringLiteral());
+        url.setPath(document->documentName());
+    }
+
+    return url;
+}
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(BookmarksPluginFactory, "bookmarksplugin.json", registerPlugin<BookmarksPlugin>();)
 
 BookmarksPlugin::~BookmarksPlugin() = default;
@@ -90,16 +108,6 @@ void BookmarksPlugin::onDocumentUrlChanged(KTextEditor::Document *document)
 
     m_model.setBookmarks(oldUrl, {});
     syncDocumentBookmarks(document);
-}
-
-QUrl BookmarksPlugin::getBookmarkUrl(KTextEditor::Document *document)
-{
-    QUrl url = document->url();
-    if (url.isEmpty()) {
-        url = QUrl::fromLocalFile(document->documentName());
-    }
-
-    return url;
 }
 
 void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)
@@ -211,13 +219,11 @@ void BookmarksPluginView::onBookmarkClicked(const QModelIndex &index)
 
 KTextEditor::View *BookmarksPluginView::openBookmark(const Bookmark &bookmark)
 {
-    QFileInfo fileInfo(bookmark.url.toLocalFile());
-    if (!fileInfo.exists()) {
-        auto docName = fileInfo.fileName();
+    if (bookmark.url.scheme() == VirtualFileUrlScheme) {
         auto app = KTextEditor::Editor::instance()->application();
         const QList<KTextEditor::Document *> docs = app->documents();
         for (KTextEditor::Document *doc : docs) {
-            if (doc && doc->documentName() == docName) {
+            if (doc && getBookmarkUrl(doc) == bookmark.url) {
                 KTextEditor::View *view = m_mainWindow->activateView(doc);
                 view->setCursorPosition(KTextEditor::Cursor(bookmark.lineNumber, 0));
                 return view;

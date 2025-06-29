@@ -13,6 +13,7 @@
 
 #include <QItemSelectionModel>
 #include <QSortFilterProxyModel>
+#include <QUrl>
 
 class BookmarksPlugin : public KTextEditor::Plugin
 {
@@ -26,9 +27,14 @@ public:
 private:
     void registerDocument(KTextEditor::Document *document);
     void syncDocumentBookmarks(KTextEditor::Document *document);
+    QUrl getBookmarkUrl(KTextEditor::Document *document);
+    void onDocumentUrlChanged(KTextEditor::Document *document);
+    void onDocumentAboutToClose(KTextEditor::Document *document);
+    void onDocumentModifiedOnDisk(KTextEditor::Document *doc, bool changed, KTextEditor::Document::ModifiedOnDiskReason reason);
 
 private:
     BookmarksModel m_model;
+    QHash<KTextEditor::Document *, QUrl> m_urls;
 };
 
 class BookmarksPluginView : public QObject, public KXMLGUIClient

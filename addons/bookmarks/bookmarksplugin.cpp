@@ -15,6 +15,7 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 
+#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QItemSelectionModel>
@@ -30,6 +31,7 @@ BookmarksPlugin::~BookmarksPlugin() = default;
 BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
     : KTextEditor::Plugin(parent)
     , m_model(parent)
+    , m_urls()
 {
     // Application instance
     auto app = KTextEditor::Editor::instance()->application();
@@ -39,6 +41,8 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
     for (auto groupName : metaInfos.groupList()) {
         KConfigGroup kgroup(&metaInfos, groupName);
         QUrl url(kgroup.readEntry("URL"));
+        // TODO: katemetainfos file may contain info about files that do not exist on disk
+        //       Can happen when deleting an open document with bookmarks (Kate bug?)
         if (!url.isEmpty() && url.isValid()) {
             const QList<int> marks = kgroup.readEntry("Bookmarks", QList<int>());
             m_model.setBookmarks(url, marks);
@@ -58,7 +62,44 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
 
 void BookmarksPlugin::registerDocument(KTextEditor::Document *document)
 {
+    m_urls[document] = getBookmarkUrl(document);
     connect(document, &KTextEditor::Document::marksChanged, this, &BookmarksPlugin::syncDocumentBookmarks, Qt::UniqueConnection);
+    connect(document, &KTextEditor::Document::documentUrlChanged, this, &BookmarksPlugin::onDocumentUrlChanged, Qt::UniqueConnection);
+    connect(document, &KTextEditor::Document::aboutToClose, this, &BookmarksPlugin::onDocumentAboutToClose, Qt::UniqueConnection);
+    connect(document, &KTextEditor::Document::modifiedOnDisk, this, &BookmarksPlugin::onDocumentModifiedOnDisk, Qt::UniqueConnection);
+}
+
+void BookmarksPlugin::onDocumentModifiedOnDisk(KTextEditor::Document *document, bool, KTextEditor::Document::ModifiedOnDiskReason reason)
+{
+    if (reason == KTextEditor::Document::OnDiskDeleted) {
+        QUrl url = getBookmarkUrl(document);
+        m_model.setBookmarks(url, {});
+    }
+}
+
+void BookmarksPlugin::onDocumentAboutToClose(KTextEditor::Document *document)
+{
+    m_urls.remove(document);
+}
+
+void BookmarksPlugin::onDocumentUrlChanged(KTextEditor::Document *document)
+{
+    QUrl oldUrl = m_urls.value(document);
+    QUrl newUrl = getBookmarkUrl(document);
+    m_urls[document] = newUrl;
+
+    m_model.setBookmarks(oldUrl, {});
+    syncDocumentBookmarks(document);
+}
+
+QUrl BookmarksPlugin::getBookmarkUrl(KTextEditor::Document *document)
+{
+    QUrl url = document->url();
+    if (url.isEmpty()) {
+        url = QUrl::fromLocalFile(document->documentName());
+    }
+
+    return url;
 }
 
 void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)
@@ -72,7 +113,8 @@ void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)
         }
     }
 
-    m_model.setBookmarks(document->url(), lineNumbers);
+    QUrl url = getBookmarkUrl(document);
+    m_model.setBookmarks(url, lineNumbers);
 }
 
 QObject *BookmarksPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -169,9 +211,25 @@ void BookmarksPluginView::onBookmarkClicked(const QModelIndex &index)
 
 KTextEditor::View *BookmarksPluginView::openBookmark(const Bookmark &bookmark)
 {
-    auto view = m_mainWindow->openUrl(bookmark.url);
-    view->setCursorPosition(KTextEditor::Cursor(bookmark.lineNumber, 0));
-    return view;
+    QFileInfo fileInfo(bookmark.url.toLocalFile());
+    if (!fileInfo.exists()) {
+        auto docName = fileInfo.fileName();
+        auto app = KTextEditor::Editor::instance()->application();
+        const QList<KTextEditor::Document *> docs = app->documents();
+        for (KTextEditor::Document *doc : docs) {
+            if (doc && doc->documentName() == docName) {
+                KTextEditor::View *view = m_mainWindow->activateView(doc);
+                view->setCursorPosition(KTextEditor::Cursor(bookmark.lineNumber, 0));
+                return view;
+            }
+        }
+    } else {
+        auto view = m_mainWindow->openUrl(bookmark.url);
+        view->setCursorPosition(KTextEditor::Cursor(bookmark.lineNumber, 0));
+        return view;
+    }
+
+    return nullptr;
 }
 
 void BookmarksPluginView::onBackBtnClicked()
@@ -211,7 +269,6 @@ void BookmarksPluginView::onRemoveBtnClicked()
     QModelIndex index = m_proxyModel.mapToSource(m_treeView->currentIndex());
     const Bookmark &bookmark = m_model->getBookmark(index);
 
-    // TODO: Open bookmark only if we don't have document reference
     auto view = openBookmark(bookmark);
     if (view == nullptr || view->document() == nullptr) {
         return;

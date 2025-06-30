@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-13 00:45+0000\n"
+"POT-Creation-Date: 2025-06-30 00:44+0000\n"
 "PO-Revision-Date: 2011-06-23 22:47+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <kedidiemas@yahoogroups.com>\n"
@@ -517,7 +517,7 @@ msgstr "Nyahpepijat"
 msgid "Debug View"
 msgstr "Nyahpepijat Paparkan"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:385
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:382
 #, fuzzy, kde-format
 msgid "Debug"
 msgstr "Nyahpepijat"
@@ -527,154 +527,152 @@ msgstr "Nyahpepijat"
 msgid "Locals and Stack"
 msgstr "Panggil Tindan"
 
-#: plugin_kategdb.cpp:250
+#: plugin_kategdb.cpp:249
 #, kde-kuit-format
 msgctxt "@info"
-msgid ""
-"<title>Could not open file:</title><nl/>%1<br/>Try adding a search path to "
-"Advanced Settings -> Source file search paths"
+msgid "<title>Could not open file:</title><nl/>%1"
 msgstr ""
 
-#: plugin_kategdb.cpp:267
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Targets"
 msgstr ""
 
-#: plugin_kategdb.cpp:272
+#: plugin_kategdb.cpp:269
 #, fuzzy, kde-format
 msgid "Start Debugging"
 msgstr "Mula Nyahpepijat"
 
-#: plugin_kategdb.cpp:282
+#: plugin_kategdb.cpp:279
 #, fuzzy, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Henti Nyahpepijat"
 
-#: plugin_kategdb.cpp:289
+#: plugin_kategdb.cpp:286
 #, fuzzy, kde-format
 msgid "Continue"
 msgstr "Teruskan"
 
-#: plugin_kategdb.cpp:295
+#: plugin_kategdb.cpp:292
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr ""
 
-#: plugin_kategdb.cpp:302
+#: plugin_kategdb.cpp:299
 #, fuzzy, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Selit"
 
-#: plugin_kategdb.cpp:307
+#: plugin_kategdb.cpp:304
 #, fuzzy, kde-format
 msgid "Step In"
 msgstr "Langkah"
 
-#: plugin_kategdb.cpp:314
+#: plugin_kategdb.cpp:311
 #, fuzzy, kde-format
 msgid "Step Over"
 msgstr "Langkah Langkau"
 
-#: plugin_kategdb.cpp:321
+#: plugin_kategdb.cpp:318
 #, fuzzy, kde-format
 msgid "Step Out"
 msgstr "Langkah Keluar"
 
-#: plugin_kategdb.cpp:328 plugin_kategdb.cpp:392
+#: plugin_kategdb.cpp:325 plugin_kategdb.cpp:389
 #, fuzzy, kde-format
 msgid "Run To Cursor"
 msgstr "Laksana Kepada"
 
-#: plugin_kategdb.cpp:335
+#: plugin_kategdb.cpp:332
 #, fuzzy, kde-format
 msgid "Restart Debugging"
 msgstr "Ulangmula Nyahpepijat"
 
-#: plugin_kategdb.cpp:342
+#: plugin_kategdb.cpp:339
 #, fuzzy, kde-format
 msgid "Clear Output"
 msgstr "Output"
 
-#: plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:347
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:357
+#: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:363
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:375 plugin_kategdb.cpp:394
+#: plugin_kategdb.cpp:372 plugin_kategdb.cpp:391
 #, fuzzy, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Pindah PC"
 
-#: plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:377
 #, fuzzy, kde-format
 msgid "Print Value"
 msgstr "Cetak Nilai"
 
-#: plugin_kategdb.cpp:469 plugin_kategdb.cpp:485
+#: plugin_kategdb.cpp:466 plugin_kategdb.cpp:482
 #, fuzzy, kde-format
 msgid "Insert breakpoint"
 msgstr "Selit"
 
-#: plugin_kategdb.cpp:483
+#: plugin_kategdb.cpp:480
 #, fuzzy, kde-format
 msgid "Remove breakpoint"
 msgstr "Buang"
 
-#: plugin_kategdb.cpp:655
+#: plugin_kategdb.cpp:652
 #, fuzzy, kde-format
 msgid "Execution point"
 msgstr "Pelaksanaan"
 
-#: plugin_kategdb.cpp:776 plugin_kategdb.cpp:808
+#: plugin_kategdb.cpp:773 plugin_kategdb.cpp:805
 #, kde-format
 msgid "Thread %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:904
+#: plugin_kategdb.cpp:901
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Output"
 
-#: plugin_kategdb.cpp:905
+#: plugin_kategdb.cpp:902
 #, fuzzy, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Seting"
 
-#: plugin_kategdb.cpp:940
+#: plugin_kategdb.cpp:937
 #, kde-format
 msgid "IO"
 msgstr ""
 
-#: plugin_kategdb.cpp:1029
+#: plugin_kategdb.cpp:1026
 #, kde-format
 msgid "Breakpoint"
 msgstr ""
 
-#: plugin_kategdb.cpp:1105
+#: plugin_kategdb.cpp:1102
 #, fuzzy, kde-format
 #| msgid "Remove target"
 msgid "Copy Stack Trace"
 msgstr "Buang sasaran"
 
-#: plugin_kategdb.cpp:1124
+#: plugin_kategdb.cpp:1121
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1134
+#: plugin_kategdb.cpp:1131
 #, kde-format
 msgid "Copy Location"
 msgstr ""

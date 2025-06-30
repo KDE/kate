@@ -15,7 +15,7 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 
-#include <QFileInfo>
+#include <QFile>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QItemSelectionModel>
@@ -59,9 +59,11 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
     for (auto groupName : metaInfos.groupList()) {
         KConfigGroup kgroup(&metaInfos, groupName);
         QUrl url(kgroup.readEntry("URL"));
-        // TODO: katemetainfos file may contain info about files that do not exist on disk
-        //       Can happen when deleting an open document with bookmarks (Kate bug?)
         if (!url.isEmpty() && url.isValid()) {
+            // meta infos may reference files that do not exist on disk
+            if (url.isLocalFile() && !QFile::exists(url.toLocalFile())) {
+                continue;
+            }
             const QList<int> marks = kgroup.readEntry("Bookmarks", QList<int>());
             m_model.setBookmarks(url, marks);
         }

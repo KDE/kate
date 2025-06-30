@@ -1508,6 +1508,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
     <color type="primary" scheme_preference="dark">#17529b</color>
   </branding>
   <releases>
+    <release version="25.04.3" date="2025-07-03"/>
     <release version="25.04.2" date="2025-06-05"/>
     <release version="25.04.1" date="2025-05-08"/>
     <release version="25.04.0" date="2025-04-17"/>

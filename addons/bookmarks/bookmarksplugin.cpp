@@ -120,7 +120,7 @@ void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)
     auto marks = document->marks();
 
     for (auto i = marks.cbegin(); i != marks.cend(); ++i) {
-        if (i.value()->type == KTextEditor::Document::Bookmark) {
+        if (i.value()->type & KTextEditor::Document::Bookmark) {
             lineNumbers.append(i.value()->line);
         }
     }

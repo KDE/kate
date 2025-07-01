@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2025-06-27 00:46+0000\n"
 "PO-Revision-Date: 2022-08-22 17:02+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -27,18 +27,18 @@ msgstr "Hľadať"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Zadajte názov filtra na obmedzenie, ktoré súbory sú zobrazené."
 
-#: katefilebrowser.cpp:293
+#: katefilebrowser.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Otvoriť s"
 
-#: katefilebrowser.cpp:322
+#: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
 msgstr "Iné..."
 
-#: katefilebrowser.cpp:350
+#: katefilebrowser.cpp:352
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
@@ -46,33 +46,33 @@ msgstr[0] "Snažíte sa otvoriť 1 súbor, ste si istý?"
 msgstr[1] "Snažíte sa otvoriť %1 súbory, ste si istý?"
 msgstr[2] "Snažíte sa otvoriť %1 súborov, ste si istý?"
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:354
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvoriť všetky súbory"
 
-#: katefilebrowser.cpp:415
+#: katefilebrowser.cpp:417
 #, kde-format
 msgid "Bookmarks"
 msgstr "Záložky"
 
-#: katefilebrowser.cpp:423
+#: katefilebrowser.cpp:425
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Priečinok aktuálneho dokumentu"
 
-#: katefilebrowser.cpp:431
+#: katefilebrowser.cpp:433
 #, kde-format
 msgid "Options"
 msgstr "Možnosti"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:445
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Automaticky synchronizovať s aktuálnym dokumentom"
 
-#: katefilebrowser.cpp:450
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Highlight current file"
 msgstr "Zvýrazniť aktuálny súbor"

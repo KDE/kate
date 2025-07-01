@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2025-06-27 00:46+0000\n"
 "PO-Revision-Date: 2013-02-26 17:02+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -27,51 +27,51 @@ msgstr ""
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "कोणत्या फाईल्स दर्शवायच्या ते ठरवण्याकरिता नाव गाळणी दाखल करा."
 
-#: katefilebrowser.cpp:293
+#: katefilebrowser.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr ""
 
-#: katefilebrowser.cpp:322
+#: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
 msgstr ""
 
-#: katefilebrowser.cpp:350
+#: katefilebrowser.cpp:352
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "तुम्ही 1 फाईल उघडण्याचा प्रयत्न करत आहात. तुम्हाला खात्री आहे का?"
 msgstr[1] "तुम्ही %1 फाईल्स उघडण्याचा प्रयत्न करत आहात. तुम्हाला खात्री आहे का?"
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:354
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: katefilebrowser.cpp:415
+#: katefilebrowser.cpp:417
 #, kde-format
 msgid "Bookmarks"
 msgstr "ओळखचिन्हे"
 
-#: katefilebrowser.cpp:423
+#: katefilebrowser.cpp:425
 #, kde-format
 msgid "Current Document Folder"
 msgstr "वर्तमान दस्तऐवज संचयीका"
 
-#: katefilebrowser.cpp:431
+#: katefilebrowser.cpp:433
 #, kde-format
 msgid "Options"
 msgstr "पर्याय"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:445
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "वर्तमान दस्तऐवजा बरोबर स्वयंचलितरित्या सिंक्रोनाइझ करा"
 
-#: katefilebrowser.cpp:450
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Highlight current file"
 msgstr ""

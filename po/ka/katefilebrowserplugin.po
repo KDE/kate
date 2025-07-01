@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2025-06-27 00:46+0000\n"
 "PO-Revision-Date: 2022-09-12 11:10+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -28,51 +28,51 @@ msgstr "ძებნა"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "ნაჩვენები ფაილების გასაფილტრად აირჩიეთ მისი სახელი."
 
-#: katefilebrowser.cpp:293
+#: katefilebrowser.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "გამხსნელი პროგრამა"
 
-#: katefilebrowser.cpp:322
+#: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
 msgstr "&სხვა..."
 
-#: katefilebrowser.cpp:350
+#: katefilebrowser.cpp:352
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "ცდილობთ გახსნათ 1 ფაილი. დარწმუნებული ბრძანდებით?"
 msgstr[1] "ცდილობთ გახსნათ %1 ფაილი. დარწმუნებული ბრძანდებით?"
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:354
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: katefilebrowser.cpp:415
+#: katefilebrowser.cpp:417
 #, kde-format
 msgid "Bookmarks"
 msgstr "სანიშნები"
 
-#: katefilebrowser.cpp:423
+#: katefilebrowser.cpp:425
 #, kde-format
 msgid "Current Document Folder"
 msgstr "მიმდინარე დოკუმენტის საქაღალდე"
 
-#: katefilebrowser.cpp:431
+#: katefilebrowser.cpp:433
 #, kde-format
 msgid "Options"
 msgstr "გამართვა"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:445
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "ავტომატური სინქრონიზაცია მიმდინარე დოკუმენტთან"
 
-#: katefilebrowser.cpp:450
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Highlight current file"
 msgstr "მიმდინარე ფაილის გამოკვეთა"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-05-13 00:40+0000\n"
+"POT-Creation-Date: 2025-06-27 00:46+0000\n"
 "PO-Revision-Date: 2023-03-02 08:54+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -33,18 +33,18 @@ msgstr "Poišči"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Vnesite imenski filter, ki bo omejil prikazane datoteke."
 
-#: katefilebrowser.cpp:293
+#: katefilebrowser.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Odpri z"
 
-#: katefilebrowser.cpp:322
+#: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
 msgstr "Drugo..."
 
-#: katefilebrowser.cpp:350
+#: katefilebrowser.cpp:352
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
@@ -53,33 +53,33 @@ msgstr[1] "Ali res želite odpreti %1 datoteki?"
 msgstr[2] "Ali res želite odpreti %1 datoteke?"
 msgstr[3] "Ali res želite odpreti %1 datotek?"
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:354
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Odpri vse datoteke"
 
-#: katefilebrowser.cpp:415
+#: katefilebrowser.cpp:417
 #, kde-format
 msgid "Bookmarks"
 msgstr "Zaznamki"
 
-#: katefilebrowser.cpp:423
+#: katefilebrowser.cpp:425
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Mapa trenutnega dokumenta"
 
-#: katefilebrowser.cpp:431
+#: katefilebrowser.cpp:433
 #, kde-format
 msgid "Options"
 msgstr "Možnosti"
 
-#: katefilebrowser.cpp:443
+#: katefilebrowser.cpp:445
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Samodejno uskladi s trenutnim dokumentom"
 
-#: katefilebrowser.cpp:450
+#: katefilebrowser.cpp:452
 #, kde-format
 msgid "Highlight current file"
 msgstr "Osvetli trenutno datoteko"

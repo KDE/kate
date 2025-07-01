@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-05-11 21:54+0100\n"
+"PO-Revision-Date: 2025-06-30 12:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
@@ -531,7 +531,7 @@ msgstr "Locales y pila"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>No se puede abrir el archivo:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:264
 #, kde-format
@@ -705,12 +705,3 @@ msgstr "&Depurar"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Complemento de depuración"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to Advanced Settings -> Source file search paths"
-#~ msgstr ""
-#~ "<title>No se puede abrir el archivo:</title><nl/>%1<br/>Pruebe a añadir "
-#~ "una ruta de búsqueda en «Preferencias avanzadas -> Rutas de búsqueda de "
-#~ "archivos fuente»."

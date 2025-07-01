@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-04-13 09:11+0300\n"
+"PO-Revision-Date: 2025-06-30 15:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -530,7 +530,7 @@ msgstr "Локальні і стек викликів"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Не вдалося відкрити файл:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:264
 #, kde-format

@@ -1,8 +1,6 @@
 {
     "KPlugin": {
         "Description": "Display and navigate bookmarks",
-        "Description[it]": "Visualizza e naviga i segnalibri",
-        "Name": "Bookmarks",
-        "Name[it]": "Segnalibri"      
+        "Name": "Bookmarks"
     }
 }

@@ -699,11 +699,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to Advanced Settings -> Source file search paths"
-#~ msgstr ""
-#~ "<title>无法打开文件：</title><nl/>%1<br/>尝试添加搜索路径到高级设置 -> 源"
-#~ "文件搜索路径"

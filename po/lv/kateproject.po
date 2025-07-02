@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-05-27 00:44+0000\n"
-"PO-Revision-Date: 2025-03-04 19:06+0200\n"
+"PO-Revision-Date: 2025-07-01 16:37+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -348,10 +348,9 @@ msgid "Stash"
 msgstr "Atlicināt"
 
 #: gitwidget.cpp:1142
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show history"
-msgstr "Rādīt „Git“ vēsturi"
+msgstr "Rādīt vēsturi"
 
 #: gitwidget.cpp:1154
 #, kde-format
@@ -470,10 +469,9 @@ msgid "Open at HEAD"
 msgstr "Atvērt pie HEAD"
 
 #: gitwidget.cpp:1306
-#, fuzzy, kde-format
-#| msgid "Show Git History"
+#, kde-format
 msgid "Show History"
-msgstr "Rādīt „Git“ vēsturi"
+msgstr "Rādīt vēsturi"
 
 #: gitwidget.cpp:1322
 #, kde-format

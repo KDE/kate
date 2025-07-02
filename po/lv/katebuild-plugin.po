@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-03-04 19:03+0200\n"
+"PO-Revision-Date: 2025-07-01 16:32+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -217,10 +217,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Neizdevās palaist „%1“. Iziešanas statuss = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "<b>%1</b> būvēšana ir atcelta"
+msgstr "<b>%1: %2</b> būvēšana ir atcelta"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -238,6 +237,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nav iespējams aizvietot „%f“. Nav atvērta datne vai pašreizējā datne nav "
+"nosaukta!"
 
 #: plugin_katebuild.cpp:989
 #, kde-format
@@ -245,6 +246,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nav iespējams aizvietot „%d“. Nav atvērta datne vai pašreizējā datne nav "
+"nosaukta!"
 
 #: plugin_katebuild.cpp:993
 #, kde-format
@@ -252,11 +255,14 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Nav iespējams aizvietot „%n“. Nav atvērta datne vai pašreizējā datne nav "
+"nosaukta!"
 
 #: plugin_katebuild.cpp:1003
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
+"Nevavri izveidor projekta aizvietojumu (%B). Nav atvērts neviens projekts!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -264,18 +270,18 @@ msgid "Already building..."
 msgstr "Jau būvē..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Būvēšanai nav norādīta lokālas datne vai mape."
+msgstr ""
+"Nevar izpildīt %1: %2. Nav iestatīta darba mape.\n"
+"Nav norādītas lokālas datnes vai mapes būvēšanai."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Būvē mērķi <b>%1</b>..."
+msgstr "Būvē mērķi <b>%1: %2</b> ..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -330,11 +336,10 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Būvēšana ir pabeigta:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"<b>%1</b> būvēšana ir pabeigta. %2 kļūda(-as), %3 brīdinājums(-i), %4 "
+"<b>%1: %2</b> būvēšana ir pabeigta. %3 kļūda(-as), %4 brīdinājums(-i), %5 "
 "piezīme(-es)"
 
 #: plugin_katebuild.cpp:1460
@@ -372,11 +377,10 @@ msgid "Build completed without problems."
 msgstr "Būvēšana pabeigta bez problēmām."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Būvēšana <b>%1 ir atcelta</b>. %2 kļūda(-as), %3 brīdinājums(-i), %4 "
+"Būvēšana <b>%1 : %2 ir atcelta</b>. %3 kļūda(-as), %4 brīdinājums(-i), %5 "
 "piezīme(-es)"
 
 #: plugin_katebuild.cpp:1756
@@ -441,12 +445,7 @@ msgstr ""
 "„%b“ projekta pamatmapes nosaukumam"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -458,7 +457,9 @@ msgstr ""
 "Lietojiet:\n"
 "„%f“ pašreizējai datnei\n"
 "„%d“ pašreizējās datnes mapei\n"
-"„%n“ pašreizējās datnes nosaukumam bez sufiksa"
+"„%n“ pašreizējās datnes nosaukumam bez sufiksa\n"
+"„%B“ pašreizējā projekta pamata mapei\n"
+"„%w“ mērķā vietas darba mapei"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

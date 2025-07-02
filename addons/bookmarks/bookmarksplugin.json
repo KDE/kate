@@ -1,6 +1,8 @@
 {
     "KPlugin": {
         "Description": "Display and navigate bookmarks",
-        "Name": "Bookmarks"
+        "Description[x-test]": "xxDisplay and navigate bookmarksxx",
+        "Name": "Bookmarks",
+        "Name[x-test]": "xxBookmarksxx"
     }
 }

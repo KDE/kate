@@ -1,8 +1,16 @@
 {
     "KPlugin": {
         "Description": "Display and navigate bookmarks",
+        "Description[ca]": "Visualitza i navega als punts",
+        "Description[es]": "Mostrar y explorar los marcadores",
+        "Description[ka]": "სანიშნეების ჩვენება და ნავიგაცია",
+        "Description[tr]": "Yer imlerini görüntüleyin ve onlara bakın",
         "Description[x-test]": "xxDisplay and navigate bookmarksxx",
         "Name": "Bookmarks",
+        "Name[ca]": "Punts",
+        "Name[es]": "Marcadores",
+        "Name[ka]": "სანიშნეები",
+        "Name[tr]": "Yer İmleri",
         "Name[x-test]": "xxBookmarksxx"
     }
 }

@@ -1,2 +1,2 @@
 #! /bin/sh
-$XGETTEXT *.cpp -o $podir/bookmarksplugin.pot
+$XGETTEXT *.cpp -o $podir/katebookmarksplugin.pot

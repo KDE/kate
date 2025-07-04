@@ -350,6 +350,10 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
         }
 
         if (keyEvent->key() == Qt::Key_Escape) {
+            if (event->type() == QEvent::ShortcutOverride) {
+                return true;
+            }
+
             hide();
             deleteLater();
             return true;

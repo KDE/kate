@@ -1,0 +1,48 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2025 Stefan Asserhäll <stefan.asserhall@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"PO-Revision-Date: 2025-07-03 15:58+0200\n"
+"Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
+"Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.1\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "Radnummer"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "Filsökväg"
+
+#: bookmarksplugin.cpp:144
+#, kde-format
+msgid "Bookmarks"
+msgstr "Bokmärken"
+
+#: bookmarksplugin.cpp:169
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "Gå till föregående bokmärke"
+
+#: bookmarksplugin.cpp:175
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "Gå till nästa bokmärke"
+
+#: bookmarksplugin.cpp:181
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "Ta bort bokmärke"

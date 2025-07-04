@@ -1,0 +1,50 @@
+# Spanish translations for bookmarksplugin.po package.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2025.
+#
+# SPDX-FileCopyrightText: 2025 Eloy Cuadra <ecuadra@eloihr.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: bookmarksplugin\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"PO-Revision-Date: 2025-07-03 12:13+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.04.2\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "Número de línea"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "Ruta del archivo"
+
+#: bookmarksplugin.cpp:144
+#, kde-format
+msgid "Bookmarks"
+msgstr "Marcadores"
+
+#: bookmarksplugin.cpp:169
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "Ir al marcador anterior"
+
+#: bookmarksplugin.cpp:175
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "Ir al marcador siguiente"
+
+#: bookmarksplugin.cpp:181
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "Eliminar marcador"

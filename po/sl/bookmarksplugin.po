@@ -1,0 +1,49 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2025 Matjaž Jeran <matjaz.jeran@amis.net>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"PO-Revision-Date: 2025-07-03 09:39+0200\n"
+"Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
+"Language-Team: Slovenian <lugos-slo@lugos.si>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 25.04.2\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "Številka vrstice"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "Pot datoteke"
+
+#: bookmarksplugin.cpp:144
+#, kde-format
+msgid "Bookmarks"
+msgstr "Zaznamki"
+
+#: bookmarksplugin.cpp:169
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "Pojdi na prejšnji zaznamek"
+
+#: bookmarksplugin.cpp:175
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "Pojdi na naslednji zaznamek"
+
+#: bookmarksplugin.cpp:181
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "Odstrani zaznamek"

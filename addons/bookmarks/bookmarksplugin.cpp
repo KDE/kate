@@ -108,8 +108,10 @@ void BookmarksPlugin::onDocumentUrlChanged(KTextEditor::Document *document)
     QUrl newUrl = getBookmarkUrl(document);
     m_urls[document] = newUrl;
 
-    m_model.setBookmarks(oldUrl, {});
-    syncDocumentBookmarks(document);
+    if (newUrl.isValid()) { // When document is closing we get called with an invalid url
+        m_model.setBookmarks(oldUrl, {});
+        syncDocumentBookmarks(document);
+    }
 }
 
 void BookmarksPlugin::syncDocumentBookmarks(KTextEditor::Document *document)

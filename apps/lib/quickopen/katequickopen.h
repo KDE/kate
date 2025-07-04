@@ -25,6 +25,7 @@ class KateQuickOpen : public QFrame
 {
 public:
     KateQuickOpen(KateMainWindow *mainWindow);
+    ~KateQuickOpen() override;
 
     /**
      * update state

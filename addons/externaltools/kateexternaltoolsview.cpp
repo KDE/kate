@@ -68,28 +68,26 @@ void KateExternalToolsMenuAction::reload()
 
     // first add categorized actions, such that the submenus appear at the top
     for (auto tool : m_plugin->tools()) {
-        // !tool->hasexec => tool exe has an expandable variable and thus cannot be checked reliably, consider it true
-        if (tool->canExecute()) {
-            auto a = new QAction(tool->translatedName().replace(QLatin1Char('&'), QLatin1String("&&")), this);
-            a->setIcon(QIcon::fromTheme(tool->icon));
-            a->setData(QVariant::fromValue(tool));
+        // we add all tools, even the non-executable ones, they will be disabled in updateActionState
+        auto a = new QAction(tool->translatedName().replace(QLatin1Char('&'), QLatin1String("&&")), this);
+        a->setIcon(QIcon::fromTheme(tool->icon));
+        a->setData(QVariant::fromValue(tool));
 
-            connect(a, &QAction::triggered, a, [this, a]() {
-                m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView());
-            });
+        connect(a, &QAction::triggered, a, [this, a]() {
+            m_plugin->runTool(*a->data().value<KateExternalTool *>(), m_mainwindow->activeView());
+        });
 
-            m_actionCollection->addAction(tool->actionName, a);
-            if (!tool->category.isEmpty()) {
-                auto categoryMenu = categories[tool->category];
-                if (!categoryMenu) {
-                    categoryMenu = new KActionMenu(tool->translatedCategory(), this);
-                    categories[tool->category] = categoryMenu;
-                    addAction(categoryMenu);
-                }
-                categoryMenu->addAction(a);
-            } else {
-                uncategorizedActions.push_back(a);
+        m_actionCollection->addAction(tool->actionName, a);
+        if (!tool->category.isEmpty()) {
+            auto categoryMenu = categories[tool->category];
+            if (!categoryMenu) {
+                categoryMenu = new KActionMenu(tool->translatedCategory(), this);
+                categories[tool->category] = categoryMenu;
+                addAction(categoryMenu);
             }
+            categoryMenu->addAction(a);
+        } else {
+            uncategorizedActions.push_back(a);
         }
     }
 
@@ -135,7 +133,7 @@ void KateExternalToolsMenuAction::updateActionState(KTextEditor::Document *activ
     for (QAction *action : actions) {
         if (action && action->data().value<KateExternalTool *>()) {
             auto tool = action->data().value<KateExternalTool *>();
-            action->setEnabled(activeDoc && (tool->matchesMimetype(mimeType) || tool->mimetypes.isEmpty()));
+            action->setEnabled(activeDoc && tool->canExecute() && (tool->matchesMimetype(mimeType) || tool->mimetypes.isEmpty()));
         }
     }
 }

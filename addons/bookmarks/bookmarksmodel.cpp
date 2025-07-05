@@ -88,10 +88,26 @@ const Bookmark &BookmarksModel::getBookmark(const QModelIndex &index)
 
 void BookmarksModel::setBookmarks(const QUrl &url, const QList<int> &lineNumbers)
 {
+    int nMarks = lineNumbers.size();
     auto it = m_bookmarksIndexes.find(url);
+
     if (it != m_bookmarksIndexes.end()) {
         int start = it.value().first;
         int count = it.value().second;
+
+        // Skip update if bookmarks are not changed
+        if (count == nMarks) {
+            bool equals = true;
+            for (int i = start; i < start + count; ++i) {
+                if (m_bookmarks[i].lineNumber != lineNumbers[i - start]) {
+                    equals = false;
+                    break;
+                }
+            }
+            if (equals) {
+                return;
+            }
+        }
 
         beginRemoveRows(QModelIndex(), start, start + count - 1);
         m_bookmarks.erase(m_bookmarks.begin() + start, m_bookmarks.begin() + start + count);
@@ -106,7 +122,6 @@ void BookmarksModel::setBookmarks(const QUrl &url, const QList<int> &lineNumbers
         }
     }
 
-    int nMarks = lineNumbers.size();
     if (nMarks > 0) {
         // Insert new block at the end
         int insertPos = m_bookmarks.size();

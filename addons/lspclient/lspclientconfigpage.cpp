@@ -68,6 +68,7 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
              ui->chkFmtOnSave,
              ui->chkInlayHint,
              ui->chkShowCompl,
+             ui->chkHighlightSymbol,
          }) {
         connect(cb, &QCheckBox::toggled, this, &LSPClientConfigPage::changed);
     }
@@ -133,6 +134,7 @@ void LSPClientConfigPage::apply()
     m_plugin->m_autoImport = ui->chkAutoImport->isChecked();
     m_plugin->m_fmtOnSave = ui->chkFmtOnSave->isChecked();
     m_plugin->m_inlayHints = ui->chkInlayHint->isChecked();
+    m_plugin->m_highLightSymbol = ui->chkHighlightSymbol->isChecked();
 
     m_plugin->m_diagnostics = ui->chkDiagnostics->isChecked();
     m_plugin->m_messages = ui->chkMessages->isChecked();
@@ -178,6 +180,7 @@ void LSPClientConfigPage::resetUiTo(const LSPClientPluginOptions &options)
     ui->chkAutoImport->setChecked(options.m_autoImport);
     ui->chkFmtOnSave->setChecked(options.m_fmtOnSave);
     ui->chkInlayHint->setChecked(options.m_inlayHints);
+    ui->chkHighlightSymbol->setChecked(options.m_highLightSymbol);
 
     ui->chkDiagnostics->setChecked(options.m_diagnostics);
     ui->chkMessages->setChecked(options.m_messages);

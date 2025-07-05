@@ -27,6 +27,7 @@ target_sources(
     lspclientpluginview.cpp
     lspclientserver.cpp
     lspclientservermanager.cpp
+    lspclientsymbolhighlighter.cpp
     lspclientsymbolview.cpp
     lspclientutils.cpp
     lspsemantichighlighting.cpp

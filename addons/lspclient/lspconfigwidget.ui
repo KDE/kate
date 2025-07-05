@@ -36,7 +36,7 @@
        <item>
         <layout class="QFormLayout" name="formLayout">
          <property name="formAlignment">
-          <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -69,133 +69,133 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="5" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Completions:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1">
+         <item row="5" column="1">
           <widget class="QCheckBox" name="chkShowCompl">
            <property name="text">
             <string>Show completions</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
+         <item row="6" column="1">
           <widget class="QCheckBox" name="chkComplDoc">
            <property name="text">
             <string>Show inline docs for selected completion</string>
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
+         <item row="7" column="1">
           <widget class="QCheckBox" name="chkSignatureHelp">
            <property name="text">
             <string>Show function signature when typing a function call</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
+         <item row="8" column="1">
           <widget class="QCheckBox" name="chkComplParens">
            <property name="text">
             <string>Add parentheses upon function completion</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1">
+         <item row="9" column="1">
           <widget class="QCheckBox" name="chkAutoImport">
            <property name="text">
             <string>Add imports automatically if needed upon completion</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
+         <item row="10" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
             <string>Navigation:</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
+         <item row="10" column="1">
           <widget class="QCheckBox" name="chkRefDeclaration">
            <property name="text">
             <string>Count declarations when searching for references to a symbol</string>
            </property>
           </widget>
          </item>
-         <item row="10" column="1">
+         <item row="11" column="1">
           <widget class="QCheckBox" name="chkAutoHover">
            <property name="text">
             <string>Show information about currently hovered symbol</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
+         <item row="12" column="1">
           <widget class="QCheckBox" name="chkHighlightGoto">
            <property name="text">
             <string>Highlight target line when hopping to it</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="0">
+         <item row="14" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
             <string>Server:</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="1">
+         <item row="14" column="1">
           <widget class="QCheckBox" name="chkDiagnostics">
            <property name="text">
             <string>Show program diagnostics</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="1">
+         <item row="15" column="1">
           <widget class="QCheckBox" name="chkMessages">
            <property name="text">
             <string>Show notifications from the LSP server</string>
            </property>
           </widget>
          </item>
-         <item row="14" column="1">
+         <item row="16" column="1">
           <widget class="QCheckBox" name="chkIncrementalSync">
            <property name="text">
             <string>Incrementally synchronize documents with the LSP server</string>
            </property>
           </widget>
          </item>
-         <item row="15" column="0">
+         <item row="17" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
             <string>Document outline:</string>
            </property>
           </widget>
          </item>
-         <item row="15" column="1">
+         <item row="17" column="1">
           <widget class="QCheckBox" name="chkSymbolSort">
            <property name="text">
             <string>Sort symbols alphabetically</string>
            </property>
           </widget>
          </item>
-         <item row="16" column="1">
+         <item row="18" column="1">
           <widget class="QCheckBox" name="chkSymbolDetails">
            <property name="text">
             <string>Display additional details for symbols</string>
            </property>
           </widget>
          </item>
-         <item row="17" column="1">
+         <item row="19" column="1">
           <widget class="QCheckBox" name="chkSymbolTree">
            <property name="text">
             <string>Present symbols in a hierarchy instead of a flat list</string>
            </property>
           </widget>
          </item>
-         <item row="18" column="1">
+         <item row="20" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <property name="leftMargin">
             <number>20</number>
@@ -212,12 +212,19 @@
            </item>
           </layout>
          </item>
+         <item row="13" column="1">
+          <widget class="QCheckBox" name="chkHighlightSymbol">
+           <property name="text">
+            <string>Highlight symbol under cursor</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -254,8 +261,8 @@
           </widget>
          </item>
          <item>
-          <widget class="KUrlRequester" name="edtConfigPath">
-           <property name="text">
+          <widget class="KUrlRequester" name="edtConfigPath" native="true">
+           <property name="text" stdset="0">
             <string/>
            </property>
           </widget>

@@ -12,6 +12,7 @@
 #include "lspclienthover.h"
 #include "lspclientplugin.h"
 #include "lspclientservermanager.h"
+#include "lspclientsymbolhighlighter.h"
 #include "lspclientsymbolview.h"
 #include "lspclientutils.h"
 #include "texthint/KateTextHintManager.h"
@@ -454,6 +455,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     };
 
     LSPDiagnosticProvider m_diagnosticProvider;
+    LSPClientSymbolHighlighter m_symbolHighlighter;
 
 public:
     LSPClientPluginViewImpl(LSPClientPlugin *plugin, KTextEditor::MainWindow *mainWin, std::shared_ptr<LSPClientServerManager> serverManager)
@@ -468,6 +470,7 @@ public:
         , m_semHighlightingManager(m_serverManager)
         , m_inlayHintsHandler(m_serverManager, this)
         , m_diagnosticProvider(mainWin, this)
+        , m_symbolHighlighter(actionCollection())
     {
         KXMLGUIClient::setComponentName(QStringLiteral("lspclient"), i18n("LSP Client"));
         setXMLFile(QStringLiteral("ui.rc"));
@@ -661,7 +664,6 @@ public:
         connect(this, &self_type::ctrlClickDefRecieved, this, &self_type::onCtrlMouseMove);
 
         configUpdated();
-        updateState();
 
         m_mainWindow->guiFactory()->addClient(this);
     }
@@ -2296,6 +2298,12 @@ public:
         actionCollection()->action(QStringLiteral("lspclient_find_references"))->setVisible(server != nullptr);
         actionCollection()->action(QStringLiteral("lspclient_rename"))->setVisible(server != nullptr);
         actionCollection()->action(QStringLiteral("lspclient_other_menu"))->setVisible(server != nullptr);
+
+        if (m_plugin->m_highLightSymbol) {
+            m_symbolHighlighter.attach(activeView, server);
+        } else {
+            m_symbolHighlighter.attach(nullptr, nullptr);
+        }
 
         if (m_findDef) {
             m_findDef->setEnabled(defEnabled);

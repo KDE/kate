@@ -45,6 +45,7 @@ static constexpr char CONFIG_BLOCKED_COMMANDS[] = "BlockedServerCommandLines";
 static constexpr char CONFIG_FORMAT_ON_SAVE[] = "FormatOnSave";
 static constexpr char CONFIG_INLAY_HINT[] = "InlayHints";
 static constexpr char CONFIG_SHOW_COMPL[] = "ShowCompletions";
+static constexpr char CONFIG_HIGHLIGHT_SYMBOL[] = "HighlightSymbol";
 
 K_PLUGIN_FACTORY_WITH_JSON(LSPClientPluginFactory, "lspclientplugin.json", registerPlugin<LSPClientPlugin>();)
 
@@ -135,6 +136,7 @@ void LSPClientPlugin::readConfig()
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, defaults.m_autoImport);
     m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, defaults.m_fmtOnSave);
     m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, defaults.m_inlayHints);
+    m_highLightSymbol = config.readEntry(CONFIG_HIGHLIGHT_SYMBOL, true);
 
     m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, defaults.m_diagnostics);
     m_messages = config.readEntry(CONFIG_MESSAGES, defaults.m_messages);
@@ -178,6 +180,7 @@ void LSPClientPlugin::writeConfig() const
     config.writeEntry(CONFIG_FORMAT_ON_SAVE, m_fmtOnSave);
     config.writeEntry(CONFIG_INLAY_HINT, m_inlayHints);
     config.writeEntry(CONFIG_SHOW_COMPL, m_showCompl);
+    config.writeEntry(CONFIG_HIGHLIGHT_SYMBOL, m_highLightSymbol);
 
     // write allow + block lists as two separate keys
     QStringList allowed, blocked;

@@ -43,6 +43,7 @@ struct LSPClientPluginOptions {
     bool m_autoImport = true;
     bool m_fmtOnSave = false;
     bool m_inlayHints = false;
+    bool m_highLightSymbol = true;
 
     bool m_diagnostics = true;
     bool m_messages = true;

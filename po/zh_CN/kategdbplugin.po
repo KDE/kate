@@ -525,7 +525,7 @@ msgstr "局部变量和堆栈"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>无法打开文件：</title><nl/>%1"
 
 #: plugin_kategdb.cpp:264
 #, kde-format

@@ -136,7 +136,7 @@ void LSPClientPlugin::readConfig()
     m_autoImport = config.readEntry(CONFIG_AUTO_IMPORT, defaults.m_autoImport);
     m_fmtOnSave = config.readEntry(CONFIG_FORMAT_ON_SAVE, defaults.m_fmtOnSave);
     m_inlayHints = config.readEntry(CONFIG_INLAY_HINT, defaults.m_inlayHints);
-    m_highLightSymbol = config.readEntry(CONFIG_HIGHLIGHT_SYMBOL, true);
+    m_highLightSymbol = config.readEntry(CONFIG_HIGHLIGHT_SYMBOL, defaults.m_highLightSymbol);
 
     m_diagnostics = config.readEntry(CONFIG_DIAGNOSTICS, defaults.m_diagnostics);
     m_messages = config.readEntry(CONFIG_MESSAGES, defaults.m_messages);

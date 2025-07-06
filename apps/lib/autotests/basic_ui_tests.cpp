@@ -68,7 +68,7 @@ void BasicUiTests::test_openFontDialog()
     QCOMPARE(app->mainWindows().size(), 1); // expect a mainwindow to be there
 
     auto mainWindow = app->activeKateMainWindow();
-    QAction *act = mainWindow->actionCollection()->findChild<QAction *>("options_configure");
+    QAction *act = mainWindow->actionCollection()->findChild<QAction *>(QStringLiteral("options_configure"));
     QVERIFY(act);
 
     auto dismissNextDialog = [this]() {

@@ -134,3 +134,23 @@ void BookmarksModel::setBookmarks(const QUrl &url, const QList<int> &lineNumbers
         endInsertRows();
     }
 }
+
+QModelIndex BookmarksModel::getBookmarkIndex(const Bookmark &bookmark)
+{
+    auto it = m_bookmarksIndexes.find(bookmark.url);
+    if (it == m_bookmarksIndexes.end()) {
+        return QModelIndex();
+    }
+
+    int start = it.value().first;
+    int count = it.value().second;
+
+    for (int i = 0; i < count; ++i) {
+        const Bookmark &b = m_bookmarks[start + i];
+        if (b.lineNumber == bookmark.lineNumber) {
+            return index(start + i, 0);
+        }
+    }
+
+    return QModelIndex();
+}

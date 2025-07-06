@@ -34,6 +34,7 @@ public:
     // Bookmarks operations
     void setBookmarks(const QUrl &url, const QList<int> &lineNumbers);
     const Bookmark &getBookmark(const QModelIndex &index);
+    QModelIndex getBookmarkIndex(const Bookmark &bookmark);
 
 private:
     QList<Bookmark> m_bookmarks;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
 "PO-Revision-Date: 2025-07-03 18:14+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -29,22 +29,22 @@ msgstr "Número de línia"
 msgid "File Path"
 msgstr "Camí cap al fitxer"
 
-#: bookmarksplugin.cpp:144
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "Punts"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Ves fins al punt anterior"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Ves fins al punt següent"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Elimina el punt"

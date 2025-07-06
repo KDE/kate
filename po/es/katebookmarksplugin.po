@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bookmarksplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
 "PO-Revision-Date: 2025-07-03 12:13+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -29,22 +29,22 @@ msgstr "Número de línea"
 msgid "File Path"
 msgstr "Ruta del archivo"
 
-#: bookmarksplugin.cpp:144
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "Marcadores"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Ir al marcador anterior"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Ir al marcador siguiente"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Eliminar marcador"

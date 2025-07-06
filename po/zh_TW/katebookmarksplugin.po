@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:59+0000\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
 "PO-Revision-Date: 2025-07-03 23:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -27,22 +27,22 @@ msgstr "行號"
 msgid "File Path"
 msgstr "檔案路徑"
 
-#: bookmarksplugin.cpp:144
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "跳到上一個書籤"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "跳到下一個書籤"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "移除書籤"

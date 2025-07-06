@@ -1,16 +1,16 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-03 06:59+0000\n"
-"PO-Revision-Date: 2025-07-04 15:52+0300\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: צוות התרגום של KDE ישראל\n"
-"Language: he\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"PO-Revision-Date: 2025-07-05 19:11+0200\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,29 +20,29 @@ msgstr ""
 #: bookmarksmodel.cpp:73
 #, kde-format
 msgid "Line Number"
-msgstr "מספר שורה"
+msgstr "Regelnummer"
 
 #: bookmarksmodel.cpp:75
 #, kde-format
 msgid "File Path"
-msgstr "נתיב קובץ"
+msgstr "Bestandspad"
 
-#: bookmarksplugin.cpp:144
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
-msgstr "סימניות"
+msgstr "Bladwijzers"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
-msgstr "מעבר לסימנייה הקודמת"
+msgstr "Ga naar vorige bladwijzer"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
-msgstr "מעבר לסימנייה הבאה"
+msgstr "Ga naar volgende bladwijzer"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
-msgstr "הסרת סימנייה"
+msgstr "Bladwijzer verwijderen"

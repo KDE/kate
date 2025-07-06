@@ -1,0 +1,49 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"PO-Revision-Date: 2025-07-04 15:52+0300\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: צוות התרגום של KDE ישראל\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Lokalize 25.04.2\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "מספר שורה"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "נתיב קובץ"
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr "סימניות"
+
+#: bookmarksplugin.cpp:171
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "מעבר לסימנייה הקודמת"
+
+#: bookmarksplugin.cpp:177
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "מעבר לסימנייה הבאה"
+
+#: bookmarksplugin.cpp:183
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "הסרת סימנייה"

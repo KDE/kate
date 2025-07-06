@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-06 00:45+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -22,48 +22,48 @@ msgstr ""
 msgid "Filter…"
 msgstr "Filter..."
 
-#: lspclientconfigpage.cpp:102 lspclientconfigpage.cpp:107
-#: lspclientpluginview.cpp:472 lspclientpluginview.cpp:616
+#: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
+#: lspclientpluginview.cpp:475 lspclientpluginview.cpp:619
 #, kde-format
 msgid "LSP Client"
 msgstr "Klien LSP"
 
-#: lspclientconfigpage.cpp:227
+#: lspclientconfigpage.cpp:230
 #, kde-format
 msgid "No JSON data to validate."
 msgstr ""
 
-#: lspclientconfigpage.cpp:236
+#: lspclientconfigpage.cpp:239
 #, kde-format
 msgid "JSON data is valid."
 msgstr ""
 
-#: lspclientconfigpage.cpp:238
+#: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr ""
 
-#: lspclientconfigpage.cpp:241
+#: lspclientconfigpage.cpp:244
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr ""
 
-#: lspclientconfigpage.cpp:289
+#: lspclientconfigpage.cpp:292
 #, kde-format
 msgid "Delete selected entries"
 msgstr ""
 
-#: lspclientconfigpage.cpp:295
+#: lspclientconfigpage.cpp:298
 #, kde-format
 msgid "Delete all entries"
 msgstr ""
 
-#: lspclientplugin.cpp:232
+#: lspclientplugin.cpp:235
 #, kde-format
 msgid "LSP server start requested"
 msgstr ""
 
-#: lspclientplugin.cpp:235
+#: lspclientplugin.cpp:238
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -71,234 +71,234 @@ msgid ""
 "the plugin."
 msgstr ""
 
-#: lspclientplugin.cpp:248
+#: lspclientplugin.cpp:251
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
 
-#: lspclientpluginview.cpp:439 lspclientpluginview.cpp:679
+#: lspclientpluginview.cpp:440 lspclientpluginview.cpp:681
 #, kde-format
 msgid "LSP"
 msgstr ""
 
-#: lspclientpluginview.cpp:501
+#: lspclientpluginview.cpp:504
 #, kde-format
 msgid "Go to Definition"
 msgstr "Menuju ke Definisi"
 
-#: lspclientpluginview.cpp:503
+#: lspclientpluginview.cpp:506
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Menuju ke Deklarasi"
 
-#: lspclientpluginview.cpp:505
+#: lspclientpluginview.cpp:508
 #, fuzzy, kde-format
 #| msgid "Go to Definition"
 msgid "Go to Type Definition"
 msgstr "Menuju ke Definisi"
 
-#: lspclientpluginview.cpp:507
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Find References"
 msgstr "Temukan Referensi"
 
-#: lspclientpluginview.cpp:510
+#: lspclientpluginview.cpp:513
 #, kde-format
 msgid "Find Implementations"
 msgstr ""
 
-#: lspclientpluginview.cpp:512
+#: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Highlight"
 msgstr "Soroti"
 
-#: lspclientpluginview.cpp:514
+#: lspclientpluginview.cpp:517
 #, fuzzy, kde-format
 #| msgid "Symbols"
 msgid "Symbol Info"
 msgstr "Simbol"
 
-#: lspclientpluginview.cpp:516
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr ""
 
-#: lspclientpluginview.cpp:521
+#: lspclientpluginview.cpp:524
 #, kde-format
 msgid "Format"
 msgstr "Format"
 
-#: lspclientpluginview.cpp:524
+#: lspclientpluginview.cpp:527
 #, kde-format
 msgid "Rename"
 msgstr "Ubah-nama"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:530
 #, fuzzy, kde-format
 #| msgid "Expand All"
 msgid "Expand Selection"
 msgstr "Bentangkan Semua"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:533
 #, kde-format
 msgid "Shrink Selection"
 msgstr ""
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:536
 #, kde-format
 msgid "Switch Source Header"
 msgstr ""
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:539
 #, fuzzy, kde-format
 #| msgid "Expand All"
 msgid "Expand Macro"
 msgstr "Bentangkan Semua"
 
-#: lspclientpluginview.cpp:538
+#: lspclientpluginview.cpp:541
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "Code Action"
 msgstr "Opsi Umum"
 
-#: lspclientpluginview.cpp:553
+#: lspclientpluginview.cpp:556
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "Show lsp completions"
 msgstr "Opsi Umum"
 
-#: lspclientpluginview.cpp:556
+#: lspclientpluginview.cpp:559
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "Tampilkan dokumentasi lengkap yang dipilih"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:562
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr ""
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:565
 #, kde-format
 msgid "Include declaration in references"
 msgstr "Sertakan deklarasi dalam referensi"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:565 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:568 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr ""
 
-#: lspclientpluginview.cpp:568
+#: lspclientpluginview.cpp:571
 #, fuzzy, kde-format
 #| msgid "Server Configuration"
 msgid "Show hover information"
 msgstr "Konfigurasi Server"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:571 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:574 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "Format saat mengetik"
 
-#: lspclientpluginview.cpp:574
+#: lspclientpluginview.cpp:577
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "Sinkronisasi dokumen tambahan"
 
-#: lspclientpluginview.cpp:577
+#: lspclientpluginview.cpp:580
 #, kde-format
 msgid "Highlight goto location"
 msgstr ""
 
-#: lspclientpluginview.cpp:586
+#: lspclientpluginview.cpp:589
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr ""
 
-#: lspclientpluginview.cpp:590
+#: lspclientpluginview.cpp:593
 #, fuzzy, kde-format
 #| msgid "Show diagnostics notifications"
 msgid "Show Diagnostics Notifications"
 msgstr "Tampilkan notifikasi diagnostik"
 
-#: lspclientpluginview.cpp:595
+#: lspclientpluginview.cpp:598
 #, fuzzy, kde-format
 #| msgid "Show Details"
 msgid "Show Messages"
 msgstr "Tampilkan Perincian"
 
-#: lspclientpluginview.cpp:600
+#: lspclientpluginview.cpp:603
 #, kde-format
 msgid "Server Memory Usage"
 msgstr ""
 
-#: lspclientpluginview.cpp:604
+#: lspclientpluginview.cpp:607
 #, fuzzy, kde-format
 #| msgid "Close all non-diagnostics tabs"
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Tutup semua tab non-diagnostik"
 
-#: lspclientpluginview.cpp:606
+#: lspclientpluginview.cpp:609
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "Nyalakan Ulang Server LSP"
 
-#: lspclientpluginview.cpp:608
+#: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "Nyalakan Ulang Semua Server LSP"
 
-#: lspclientpluginview.cpp:610
+#: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Go To"
 msgstr ""
 
-#: lspclientpluginview.cpp:633
+#: lspclientpluginview.cpp:636
 #, kde-format
 msgid "More options"
 msgstr ""
 
-#: lspclientpluginview.cpp:837 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:839 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Bentangkan Semua"
 
-#: lspclientpluginview.cpp:838 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:840 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Ciutkan Semua"
 
-#: lspclientpluginview.cpp:1045
+#: lspclientpluginview.cpp:1047
 #, kde-format
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1359
+#: lspclientpluginview.cpp:1361
 #, kde-format
 msgid "Line: %1: "
 msgstr "Garis: %1: "
 
-#: lspclientpluginview.cpp:1511 lspclientpluginview.cpp:1859
-#: lspclientpluginview.cpp:1978
+#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
+#: lspclientpluginview.cpp:1980
 #, kde-format
 msgid "No results"
 msgstr "Tidak ada Hasil"
 
-#: lspclientpluginview.cpp:1570
+#: lspclientpluginview.cpp:1572
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1576
+#: lspclientpluginview.cpp:1578
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklarasi: %1"
 
-#: lspclientpluginview.cpp:1582
+#: lspclientpluginview.cpp:1584
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -306,13 +306,13 @@ msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1588
+#: lspclientpluginview.cpp:1590
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referensi: %1"
 
-#: lspclientpluginview.cpp:1600
+#: lspclientpluginview.cpp:1602
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -320,67 +320,67 @@ msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1613
+#: lspclientpluginview.cpp:1615
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Soroti: %1"
 
-#: lspclientpluginview.cpp:1637 lspclientpluginview.cpp:1648
-#: lspclientpluginview.cpp:1661
+#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
+#: lspclientpluginview.cpp:1663
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "No Actions"
 msgstr "Opsi Umum"
 
-#: lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1654
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: lspclientpluginview.cpp:1744
+#: lspclientpluginview.cpp:1746
 #, kde-format
 msgid "No edits"
 msgstr "Tidak ada edit"
 
-#: lspclientpluginview.cpp:1818
+#: lspclientpluginview.cpp:1820
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Ubah-nama"
 
-#: lspclientpluginview.cpp:1819
+#: lspclientpluginview.cpp:1821
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Nama baru (perhatikan: tidak semua referensi bisa diganti)"
 
-#: lspclientpluginview.cpp:1865
+#: lspclientpluginview.cpp:1867
 #, fuzzy, kde-format
 #| msgid "No results"
 msgid "Not enough results"
 msgstr "Tidak ada Hasil"
 
-#: lspclientpluginview.cpp:1934
+#: lspclientpluginview.cpp:1936
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
+#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Nyalakan Ulang Server LSP"
 
-#: lspclientpluginview.cpp:2197
+#: lspclientpluginview.cpp:2199
 #, fuzzy, kde-format
 #| msgid "LSP Client"
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Klien LSP"
 
-#: lspclientpluginview.cpp:2440
+#: lspclientpluginview.cpp:2448
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"
@@ -445,6 +445,16 @@ msgstr "Gagal mengurai konfigurasi server: %1"
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Gagal membaca konfigurasi server: %1"
+
+#: lspclientsymbolhighlighter.cpp:30
+#, kde-format
+msgid "Go to next symbol highlight"
+msgstr ""
+
+#: lspclientsymbolhighlighter.cpp:32
+#, kde-format
+msgid "Go to previous symbol highlight"
+msgstr ""
 
 #: lspclientsymbolview.cpp:342
 #, fuzzy, kde-format
@@ -627,26 +637,32 @@ msgstr ""
 msgid "Automatically expand tree"
 msgstr "Ranting Dibentangkan Secara Otomatis"
 
+#. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
+#: lspconfigwidget.ui:218
+#, kde-format
+msgid "Highlight symbol under cursor"
+msgstr ""
+
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
-#: lspconfigwidget.ui:234
+#: lspconfigwidget.ui:241
 #, kde-format
 msgid "Allowed && Blocked Servers"
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: lspconfigwidget.ui:244
+#: lspconfigwidget.ui:251
 #, kde-format
 msgid "User Server Settings"
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: lspconfigwidget.ui:252
+#: lspconfigwidget.ui:259
 #, kde-format
 msgid "Settings File:"
 msgstr ""
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
-#: lspconfigwidget.ui:279
+#: lspconfigwidget.ui:286
 #, kde-format
 msgid "Default Server Settings"
 msgstr ""

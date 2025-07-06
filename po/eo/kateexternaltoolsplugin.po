@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-29 00:42+0000\n"
+"POT-Creation-Date: 2025-07-06 00:45+0000\n"
 "PO-Revision-Date: 2023-03-12 01:57+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -189,9 +189,9 @@ msgstr ""
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
 #: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
-#: kateexternaltoolsconfigwidget.cpp:276 kateexternaltoolsview.cpp:158
-#: kateexternaltoolsview.cpp:162 kateexternaltoolsview.cpp:210
-#: kateexternaltoolsview.cpp:278
+#: kateexternaltoolsconfigwidget.cpp:276 kateexternaltoolsview.cpp:156
+#: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
+#: kateexternaltoolsview.cpp:276
 #, kde-format
 msgid "External Tools"
 msgstr "Eksteraj Iloj"
@@ -292,12 +292,12 @@ msgstr "Nova Kategorio"
 msgid "New Category %1"
 msgstr "Nova Kategorio %1"
 
-#: kateexternaltoolsview.cpp:102
+#: kateexternaltoolsview.cpp:100
 #, kde-format
 msgid "Configure..."
 msgstr "Agordi..."
 
-#: kateexternaltoolsview.cpp:164
+#: kateexternaltoolsview.cpp:162
 #, kde-format
 msgid "Launch external helper applications"
 msgstr "Lanĉi eksterajn helpil-aplikojn"

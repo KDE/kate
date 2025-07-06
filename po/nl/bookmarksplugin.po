@@ -1,48 +1,48 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-03 06:59+0000\n"
-"PO-Revision-Date: 2025-07-03 23:41+0900\n"
-"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
-"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2025-07-03 14:08+0200\n"
+"Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
+"Language-Team: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.07.70\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: bookmarksmodel.cpp:73
 #, kde-format
 msgid "Line Number"
-msgstr "行號"
+msgstr "Regelnummer"
 
 #: bookmarksmodel.cpp:75
 #, kde-format
 msgid "File Path"
-msgstr "檔案路徑"
+msgstr "Bestandspad"
 
 #: bookmarksplugin.cpp:144
 #, kde-format
 msgid "Bookmarks"
-msgstr "書籤"
+msgstr "Bladwijzers"
 
 #: bookmarksplugin.cpp:169
 #, kde-format
 msgid "Go to Previous Bookmark"
-msgstr "跳到上一個書籤"
+msgstr "Ga naar vorige bladwijzer"
 
 #: bookmarksplugin.cpp:175
 #, kde-format
 msgid "Go to Next Bookmark"
-msgstr "跳到下一個書籤"
+msgstr "Ga naar volgende bladwijzer"
 
 #: bookmarksplugin.cpp:181
 #, kde-format
 msgid "Remove Bookmark"
-msgstr "移除書籤"
+msgstr "Bladwijzer verwijderen"

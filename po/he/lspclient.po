@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2025-06-09 14:45+0300\n"
+"PO-Revision-Date: 2025-07-06 10:41+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -430,12 +430,12 @@ msgstr "קריאת הגדרות השרת נכשלה: %1"
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "מעבר להדגשת הסמל הבאה"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "מעבר להדגשת הסמל הקודמת"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -613,7 +613,7 @@ msgstr "הרחבת העץ אוטומטית"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "הדגשת הסמל שתחת סמן העכבר"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

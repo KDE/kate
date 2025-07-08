@@ -1,21 +1,21 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Freek de Kruijf <freekdekruijf@kde.nl>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Freek de Kruijf <freekdekruijf@kde.nl>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2024-12-06 11:06+0100\n"
+"PO-Revision-Date: 2025-07-07 12:08+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
-"Language-Team: \n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -431,12 +431,12 @@ msgstr "Serverconfiguratie lezen is mislukt: %1"
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Ga naar volgende geaccentueerde symbool"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Ga naar vorige geaccentueerde symbool"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -615,7 +615,7 @@ msgstr "Boomstructuur automatisch uitvouwen"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Symbool onder cursor accentueren"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

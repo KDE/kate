@@ -1,48 +1,49 @@
+# German translations for kate package
+# German translation for kate.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2025.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: kdeorg\n"
+"Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2025-07-04 19:58\n"
-"Last-Translator: \n"
-"Language-Team: Chinese Simplified\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2025-07-06 11:08+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: kdeorg\n"
-"X-Crowdin-Project-ID: 269464\n"
-"X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-stable/messages/kate/katebookmarksplugin.pot\n"
-"X-Crowdin-File-ID: 58210\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: bookmarksmodel.cpp:73
 #, kde-format
 msgid "Line Number"
-msgstr "行号"
+msgstr ""
 
 #: bookmarksmodel.cpp:75
 #, kde-format
 msgid "File Path"
-msgstr "文件路径"
+msgstr ""
 
 #: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
-msgstr "书签"
+msgstr ""
 
 #: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
-msgstr "跳转到上一个书签"
+msgstr ""
 
 #: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
-msgstr "跳转到下一个书签"
+msgstr ""
 
 #: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
-msgstr "移除书签"
+msgstr ""

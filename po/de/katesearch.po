@@ -2,20 +2,21 @@
 # Frederik Schwarzer <schwarzer@kde.org>, 2011, 2012, 2014, 2016, 2022, 2023.
 # Burkhard Lück <lueck@hube-lueck.de>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
 # Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2024-08-30 21:16+0200\n"
-"Last-Translator: Alois.spitzbart <spitz234@hotmail.com>\n"
+"PO-Revision-Date: 2025-06-23 00:09+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -82,14 +83,14 @@ msgstr "Ergebnis"
 #: MatchModel.cpp:563 MatchModel.cpp:565
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>Dateiliste wird generiert ... %1</i></b>"
+msgstr "<b><i>Dateiliste wird generiert … %1</i></b>"
 
 #: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>Eine Übereinstimmung gefunden, Suche nach: ... %2</i></b>"
-msgstr[1] "<b><i>%1 Übereinstimmungen gefunden, Suche nach: ...%2</i></b>"
+msgstr[0] "<b><i>Eine Übereinstimmung gefunden, Suche nach: … %2</i></b>"
+msgstr[1] "<b><i>%1 Übereinstimmungen gefunden, Suche nach: …%2</i></b>"
 
 #: MatchModel.cpp:578
 #, kde-format
@@ -152,14 +153,14 @@ msgstr[1] ""
 #: MatchModel.cpp:724 MatchModel.cpp:726
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr "Dateiliste wird generiert: ... %1"
+msgstr "Dateiliste wird generiert: … %1"
 
 #: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "Eine Übereinstimmung gefunden, Suche nach: ... %2"
-msgstr[1] "%1 Übereinstimmungen gefunden, Suche nach: ...%2"
+msgstr[0] "Eine Übereinstimmung gefunden, Suche nach: … %2"
+msgstr[1] "%1 Übereinstimmungen gefunden, Suche nach: …%2"
 
 #: MatchModel.cpp:736
 #, kde-format
@@ -208,16 +209,17 @@ msgstr[1] ""
 "(gemeinsamer Ordner %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Filter:"
+msgstr "Filter …"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Im aktuellen Unterfenster suchen. „Strg“ drücken und halten, um in einem "
+"neuen Unterfenster zu suchen."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:294
@@ -278,7 +280,7 @@ msgstr "Ergebnisse erweitern"
 #: search.ui:179 search.ui:249 search.ui:262
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:507
@@ -551,7 +553,7 @@ msgstr "Klein geschriebene Gruppierung 0-999"
 #: SearchPlugin.cpp:287
 #, kde-format
 msgid "Search & Replace"
-msgstr "Suchen und Ersetzen"
+msgstr "Suchen & Ersetzen"
 
 #: SearchPlugin.cpp:328
 #, kde-format
@@ -584,6 +586,8 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Alle hervorgehobenen Zeilen im Suchergebnis werden aus dem aktuellen "
+"Dokument ausgeschnitten und in der Zwischenablage gespeichert"
 
 #: SearchPlugin.cpp:359
 #, kde-format
@@ -596,6 +600,8 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Alle hervorgehobenen Zeilen im Suchergebnis werden aus dem aktuellen "
+"Dokument in die Zwischenablage kopiert"
 
 #: SearchPlugin.cpp:394
 #, kde-format
@@ -628,6 +634,8 @@ msgstr "Suchen"
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
+"Die Suche wurde nicht gestartet, weil der für die Suche angegebene Ordner "
+"„%1“ nicht existiert."
 
 #: SearchPlugin.cpp:1342
 #, kde-format
@@ -698,7 +706,7 @@ msgstr "Leeren"
 #: SearchPlugin.cpp:2400 SearchPlugin.cpp:2434
 #, kde-format
 msgid "Add..."
-msgstr "Hinzufügen ..."
+msgstr "Hinzufügen …"
 
 #: SearchPlugin.cpp:2412
 #, kde-format

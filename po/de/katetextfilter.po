@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Thomas Fischer <thomas.fischer@t-fischer.net>, 2002, 2005.
 # Thomas Reitelbach <tr@erdfunkstelle.de>, 2005.
 # Frederik Schwarzer <schwarzer@kde.org>, 2007, 2009.
@@ -7,14 +8,15 @@ msgstr ""
 "Project-Id-Version: katetextfilter\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-21 00:42+0000\n"
-"PO-Revision-Date: 2021-03-29 07:09+0200\n"
-"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"PO-Revision-Date: 2025-06-19 23:37+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -29,7 +31,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Prozess kann nicht gestartet werden"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format
@@ -67,7 +69,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr "&Filtern durch Befehl ..."
+msgstr "&Filtern durch Befehl …"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14

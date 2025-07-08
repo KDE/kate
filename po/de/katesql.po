@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010.
 # Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2022, 2023.
 # Johannes Obermayr <johannesobermayr@gmx.de>, 2010.
@@ -9,15 +10,15 @@ msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-28 00:44+0000\n"
-"PO-Revision-Date: 2023-07-01 18:32+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2025-06-25 21:47+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -176,7 +177,7 @@ msgstr "Kopieren"
 #, kde-format
 msgctxt "@action:intoolbar"
 msgid "Export..."
-msgstr "Exportieren ..."
+msgstr "Exportieren …"
 
 #: dataoutputwidget.cpp:80 textoutputwidget.cpp:47
 #, kde-format
@@ -352,7 +353,7 @@ msgstr "SQL-Schema"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr "Verbindung hinzufügen ..."
+msgstr "Verbindung hinzufügen …"
 
 #: katesqlview.cpp:109
 #, kde-format
@@ -364,7 +365,7 @@ msgstr "Verbindung entfernen"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr "Verbindung bearbeiten ..."
+msgstr "Verbindung bearbeiten …"
 
 #: katesqlview.cpp:119
 #, kde-format
@@ -515,7 +516,7 @@ msgstr "Aktualisieren"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Die Anweisungsvorbereitung ist fehlgeschlagen"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -523,6 +524,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Vorbereitung der Anfrage ist mit dem Fehler %1 fehlgeschlagen.</"
+"p><p>Möchten Sie ohne Vorbereitung der Anfrage fortfahren?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

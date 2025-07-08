@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 # Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2015, 2016, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2014.
 msgid ""
@@ -5,14 +6,15 @@ msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2021-05-10 06:43+0200\n"
-"Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
+"PO-Revision-Date: 2025-06-23 00:29+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -89,6 +91,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"In das Dokument einzufügender Text (siehe <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">Handbuch</a> für "
+"spezielle Felder)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -96,17 +101,19 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Zu evaluierender JavaScript-Quelltext (siehe <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-script\">Handbuch</a> für "
+"Details)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Textvorlage"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "S&kripte"
+msgstr "Skript"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -115,12 +122,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"JavaScript-Funktionen, die von allen Textbausteinen in diesem Archiv "
+"gemeinsam verwendet werden (siehe <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-library\">Handbuch</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"In Kurzinfos anzuzeigende Beschreibung (optional). Einfache HTML-"
+"Formatierung kann verwendet werden."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
@@ -136,17 +148,16 @@ msgstr "Neuen Textbaustein im Archiv %1 erstellen"
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"Leerzeichen im Textbaustein-Namen können zu Problemen bei der "
+"Vervollständigung führen"
 
 #: editsnippet.cpp:227
-#, fuzzy, kde-format
-#| msgid ""
-#| "The snippet contains unsaved changes. Do you want to continue and lose "
-#| "all changes?"
+#, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Der Textbaustein enthält ungespeicherte Änderungen. Möchten Sie fortfahren "
-"und alle Änderungen verlieren?"
+"Der Textbaustein enthält ungespeicherte Änderungen. Möchten Sie alle "
+"Änderungen verwerfen?"
 
 #: editsnippet.cpp:228
 #, kde-format
@@ -156,27 +167,25 @@ msgstr "Warnung - ungespeicherte Änderungen"
 #: editsnippet.cpp:230
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Weiter bearbeiten"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "Wird in der Vervollständigungsliste angezeigt"
+msgstr "In der Vervollständigungsliste anzuzeigender Name (erforderlich)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "&Textbaustein"
+msgstr "Textbaustein-Modus:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Kurzbefehl:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
@@ -186,16 +195,15 @@ msgstr "&Textbaustein"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "S&kripte"
+msgstr "S&kript-Bibliothek"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
@@ -236,6 +244,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate muss unter Verwendung der KTextEditor-Version 6.15.0 oder höher "
+"kompiliert werden, um Textbausteine dieser Art verwenden zu können."
 
 #: snippetrepository.cpp:43
 #, kde-format
@@ -256,7 +266,7 @@ msgstr ""
 #: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr "Die Datei „%1“kann nicht zum Schreiben geöffnet werden"
+msgstr "Die Ausgabedatei „%1“ kann nicht zum Schreiben geöffnet werden"
 
 #: snippetrepository.cpp:271
 #, kde-format
@@ -363,7 +373,7 @@ msgstr "Definieren Sie hier den Filter"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Filter ..."
+msgstr "Filter …"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

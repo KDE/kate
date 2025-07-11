@@ -1,7 +1,7 @@
 # Translation for katebuild-plugin.po to Euskara/Basque (eu).
 # Copyright (C) 2011-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-16 00:45+0000\n"
-"PO-Revision-Date: 2025-04-02 14:58+0200\n"
+"PO-Revision-Date: 2025-07-10 07:58+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -222,10 +222,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\" exekutatzea huts egin du. Irteeraren egoera = %2"
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "<b>%1</b> eraikitzea utzi da"
+msgstr "<b>%1: %2</b> eraikitzea bertan behera utzi da"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -238,46 +237,36 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "\"%2\"(e)an ez du aurkitu \"%1\" fitxategia konpilatzeko komando bat."
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"Ezin du \"%f\" ordezkapena egin. Ez dago irekitako fitxategirik edo uneko "
 "fitxategiak ez du izenik!"
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"Ezin du \"%d\" ordezkapena egin. Ez dago irekitako fitxategirik edo uneko "
 "fitxategiak ez du izenik!"
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
+"Ezin du \"%n\" ordezkapena egin. Ez dago irekitako fitxategirik edo uneko "
 "fitxategiak ez du izenik!"
 
 #: plugin_katebuild.cpp:1003
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
-"Ezin du ordezkapenik egin. Ez dago irekitako fitxategirik edo uneko "
-"fitxategiak ez du izenik!"
+msgstr "Ezin du proiektu ordezkapena egin (%B). Ez dago irekitako proiekturik!"
 
 #: plugin_katebuild.cpp:1016
 #, kde-format
@@ -285,18 +274,18 @@ msgid "Already building..."
 msgstr "Dagoeneko eraikitzen..."
 
 #: plugin_katebuild.cpp:1054
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Ez dago eraikitzeko zehaztuta bertako fitxategi edo direktoriorik."
+msgstr ""
+"Ezin du exekutatu: %1: %2 ez da laneko direktoriorik ezarri.\n"
+"Ez dago eraikitzeko zehaztutako fitxategi edo direktorio lokalik."
 
 #: plugin_katebuild.cpp:1169
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "<b>%1</b> jomuga eraikitzen ..."
+msgstr "<b>%1: %2</b> jomuga eraikitzen ..."
 
 #: plugin_katebuild.cpp:1206
 #, kde-format
@@ -353,10 +342,9 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Eraikitzea bukatu da:</title>%1"
 
 #: plugin_katebuild.cpp:1449
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> eraikitzea osatu da. %2 errore, %3 abisu, %4 ohar"
+msgstr "<b>%1: %2</b> eraikitzea osatu da. %3 errore, %4 abisu, %5 ohar"
 
 #: plugin_katebuild.cpp:1460
 #, kde-format
@@ -390,10 +378,10 @@ msgid "Build completed without problems."
 msgstr "Eraikitzea osatu da arazorik gabe."
 
 #: plugin_katebuild.cpp:1478
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "<b>%1</b> eraikitzea bertan behera. %2 errore, %3 abisu, %4 ohar"
+msgstr ""
+"<b>%1: %2</b> eraikitzea bertan behera utzi da. %3 errore, %4 abisu, %5 ohar"
 
 #: plugin_katebuild.cpp:1756
 #, kde-format
@@ -457,12 +445,7 @@ msgstr ""
 "\"%b\" proiektuaren oinarri-direktorioaren izenerako"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -474,7 +457,9 @@ msgstr ""
 "Erabili:\n"
 "\"%f\" uneko fitxategirako\n"
 "\"%d\" uneko fitxategiaren direktoriorako\n"
-"\"%n\" uneko fitxategi-izenerako atzizkirik gabe"
+"\"%n\" uneko fitxategi-izenerako atzizkirik gabe\n"
+"\"%B\" uneko proiektuaren oinarri direktoriorako\n"
+"\"%w\" jomugaren laneko direktoriorako"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2014, 2015.
-# SPDX-FileCopyrightText: 2014, 2017, 2020, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2014, 2017, 2020, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-11 00:45+0000\n"
-"PO-Revision-Date: 2024-10-20 21:27+0300\n"
+"PO-Revision-Date: 2025-06-24 17:22+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -32,17 +32,17 @@ msgstr "translator@legisign.org,lasse.liehu@gmail.com"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr "Muokkaa leiketietokantaa %1"
+msgstr "Muokkaa katkelmatietovarastoa %1"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr "Luo uusi leiketietokanta"
+msgstr "Luo uusi katkelmatietovarasto"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr "<i>jätä tyhjäksi yleisleikkeillä</i>"
+msgstr "<i>jätä tyhjäksi yleiskäyttöisille katkelmille</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
@@ -94,6 +94,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Tiedostoon lisättävä teksti (muuttujista löytyy lisätietoa <a href=\"help:/"
+"kate/kate-application-plugin-snippets.html#snippet-input-template"
+"\">käsikirjasta</a>)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -101,17 +104,18 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Suoritettava JavaScript-koodi (lisätietoa löytyy <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-script\">käsikirjasta</a>)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Tekstimalli"
 
 #: editsnippet.cpp:89
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "Script"
-msgstr "&Skriptit"
+msgstr "Skripti"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -120,34 +124,39 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Tämä tietolähteen kaikille katkelmille yhteiset JavaScript-funktiot (katso "
+"<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">käsikirjaa</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Työkaluvihjeissä näytettävät valinnaiset kuvaukset. Muotoiluun voi käyttää "
+"perus-HTML:ää."
 
 #: editsnippet.cpp:127 editsnippet.cpp:215
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr "Muokkaa leikettä %1 tietokannasta %2"
+msgstr "Muokkaa katkelmaa %1 tietovarastossa %2"
 
 #: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr "Luo uusi leike tietokantaan %1"
+msgstr "Luo uusi katkelma tietovarastoon %1"
 
 #: editsnippet.cpp:185
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
-msgstr "Välilyönnit leikkeiden nimissä eivät toimi täydennyksessä kunnolla"
+msgstr "Sanavälit katkelmien nimissä eivät toimi kunnolla täydennyksessä"
 
 #: editsnippet.cpp:227
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
-"Leikkeessä on muutoksia tallentamatta. Haluatko jatkaa menettäen muutokset?"
+"Katkelmassa on muutoksia tallentamatta. Haluatko jatkaa menettäen muutokset?"
 
 #: editsnippet.cpp:228
 #, kde-format
@@ -161,75 +170,72 @@ msgstr "Jatka muokkausta"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
-#, fuzzy, kde-format
-#| msgid "will be shown in the completion list"
+#, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr "näytetään täydennysluettelossa"
+msgstr "Täydennysluettelossa näytettävä nimi (vaaditaan)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "&Snippet"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "L&eike"
+msgstr "Katkelmatila:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Pikanäppäin:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
 #, kde-format
 msgid "&Snippet"
-msgstr "L&eike"
+msgstr "&Katkelma"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
-#, fuzzy, kde-format
-#| msgid "S&cripts"
+#, kde-format
 msgid "S&cript Library"
-msgstr "&Skriptit"
+msgstr "Skriptikirjasto"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
 #, kde-format
 msgid "Test this snippet"
-msgstr "Kokeile tätä leikettä"
+msgstr "Kokeile tätä katkelmaa"
 
 #: katesnippetglobal.cpp:102
 #, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr "%1-leikkeet"
+msgstr "%1-katkelmat"
 
 #: katesnippets.cpp:44 katesnippets.cpp:52 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
 #, kde-format
 msgid "Snippets"
-msgstr "Leikkeet"
+msgstr "Katkelmat"
 
 #: katesnippets.cpp:63
 #, kde-format
 msgid "Create Snippet"
-msgstr "Luo leike"
+msgstr "Luo katkelma"
 
 #: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
-msgstr "<tyhjä leike>"
+msgstr "<tyhjä katkelma>"
 
 #: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
-msgstr "lisää leike %1"
+msgstr "lisää katkelma %1"
 
 #: snippet.cpp:109
 #, kde-format
@@ -237,11 +243,13 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate tulee koostaa KTextEditorin version 6.15.0 tai myöhemmän kanssa tämän "
+"tyypin katkelmien käyttämiseksi."
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
-msgstr "<tyhjä tietokanta>"
+msgstr "<tyhjä tietovarasto>"
 
 #: snippetrepository.cpp:230
 #, kde-format
@@ -250,7 +258,7 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
-"Olet muokannut leiketietokantaa, joka ei sijaitse omassa kansiossasi. "
+"Olet muokannut katkelmatietovarastoa, joka ei sijaitse omassa kansiossasi. "
 "Alkuperäisestä tiedostosta on siksi tehty kopio omaan datakansioosi."
 
 #: snippetrepository.cpp:236
@@ -261,7 +269,7 @@ msgstr "Tulostiedostoa ”%1” ei voitu avata kirjoitettavaksi"
 #: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr "Leiketietokantaa %1 ei voi avata."
+msgstr "Katkelmatietovarastoa %1 ei voi avata."
 
 #: snippetrepository.cpp:278
 #, kde-format
@@ -273,7 +281,7 @@ msgstr ""
 #: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr "Virheellinen XML-leiketiedosto: %1"
+msgstr "Virheellinen XML-katkelmatiedosto: %1"
 
 #: snippetrepository.cpp:358
 #, kde-format
@@ -281,7 +289,7 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
-"Tietokanta ei ole käytössä, joten sen leikkeitä ei koodintäydennyksessä "
+"Tietovarasto ei ole käytössä, joten sen katkelmia ei koodintäydennyksessä "
 "näytetä."
 
 #: snippetrepository.cpp:361
@@ -297,58 +305,58 @@ msgstr "Koskee tiedostotyyppejä: %1"
 #: snippetview.cpp:93
 #, kde-format
 msgid "Add Repository"
-msgstr "Lisää tietokanta"
+msgstr "Lisää tietovarasto"
 
 #: snippetview.cpp:96
 #, kde-format
 msgid "Edit Repository"
-msgstr "Muokkaa tietokantaa"
+msgstr "Muokkaa tietovarastoa"
 
 #: snippetview.cpp:99
 #, kde-format
 msgid "Remove Repository"
-msgstr "Poista tietokanta"
+msgstr "Poista tietovarasto"
 
 #: snippetview.cpp:109
 #, kde-format
 msgid "Add Snippet"
-msgstr "Lisää leike"
+msgstr "Lisää katkelma"
 
 #: snippetview.cpp:112
 #, kde-format
 msgid "Edit Snippet"
-msgstr "Muokkaa leikettä"
+msgstr "Muokkaa katkelmaa"
 
 #: snippetview.cpp:115
 #, kde-format
 msgid "Remove Snippet"
-msgstr "Poista leike"
+msgstr "Poista katkelma"
 
 #: snippetview.cpp:121
 #, kde-format
 msgid "Get New Snippets"
-msgstr "Hae uusia leikkeitä"
+msgstr "Hae uusia katkelmia"
 
 #: snippetview.cpp:210
 #, kde-format
 msgid "Snippet: %1"
-msgstr "Leike: %1"
+msgstr "Katkelma: %1"
 
 #: snippetview.cpp:218
 #, kde-format
 msgid "Repository: %1"
-msgstr "Tietokanta: %1"
+msgstr "Tietovarasto: %1"
 
 #: snippetview.cpp:283
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr "Haluatko varmasti poistaa leikkeen ”%1”?"
+msgstr "Haluatko varmasti poistaa katkelman ”%1”?"
 
 #: snippetview.cpp:327
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
-msgstr "Haluatko varmasti poistaa tietokannan ”%1” leikkeineen?"
+msgstr "Haluatko varmasti poistaa tietovaraston ”%1” katkelmineen?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35

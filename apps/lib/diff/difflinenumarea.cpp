@@ -118,10 +118,10 @@ void LineNumArea::paintEvent(QPaintEvent *event)
     const QPen otherLines = m_otherLinesColor;
 
     QColor c = textEdit->addedColor();
-    c.setAlphaF(0.6f);
+    c.setAlphaF(0.7f);
     const QPen added = c;
     c = textEdit->removedColor();
-    c.setAlphaF(0.6f);
+    c.setAlphaF(0.7f);
     const QPen removed = c;
 
     LineNumColors colors{.otherLine = otherLines /*, currentLine*/, .added = added, .removed = removed};

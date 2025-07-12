@@ -342,16 +342,19 @@ void KateDocManager::saveDocumentList(KConfig *config)
 {
     KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
 
-    openDocGroup.writeEntry("Count", (int)m_docList.size());
-
     int i = 0;
     for (KTextEditor::Document *doc : std::as_const(m_docList)) {
-        const QString entryName = QStringLiteral("Document %1").arg(i);
-        KConfigGroup cg(config, entryName);
-        doc->writeSessionConfig(cg);
-        m_docInfos[doc].sessionConfigId = i;
-        i++;
+        // skip empty new unaved files document
+        if (!doc->isEmpty() || !doc->url().isEmpty()) {
+            const QString entryName = QStringLiteral("Document %1").arg(i);
+            KConfigGroup cg(config, entryName);
+            doc->writeSessionConfig(cg);
+            m_docInfos[doc].sessionConfigId = i;
+            i++;
+        }
     }
+
+    openDocGroup.writeEntry("Count", i);
 }
 
 void KateDocManager::restoreDocumentList(KConfig *config)

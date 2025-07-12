@@ -3539,7 +3539,7 @@ the cursor will jump to this position.</para>
 cursor position. You can also use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate;
 scripting API</ulink> to modify the document directly.</para>
 <para>Additionally, your code may use functions defined in the
-<ulink url="#snippet-input-library"><guilabel>Script Library</guilabel></ulink> tab, which
+<link linkend="snippet-input-library"><guilabel>Script Library</guilabel></link> tab, which
 are shared between all snippets in a repository.</para>
 </listitem>
 </varlistentry>

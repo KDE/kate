@@ -15,8 +15,6 @@
 #include <QFileInfo>
 #include <QUrl>
 
-#include <memory>
-
 void KateStashManager::clearStashForSession(const KateSession::Ptr &session)
 {
     // we should avoid to kill stuff for these, they can't be stashed
@@ -50,8 +48,8 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
 
     for (int i = 0; i < (int)documents.size(); ++i) {
         auto doc = documents[i];
-        // stash the file content
-        if (doc->isModified() && willStashDoc(doc)) {
+        if (willStashDoc(doc)) {
+            // stash the file content
             const QString stashfileName = QStringLiteral("Document %1").arg(i);
             // Stash changes
             QString stashedFile = path + QStringLiteral("/") + stashfileName;

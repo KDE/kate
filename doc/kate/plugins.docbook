@@ -2079,7 +2079,7 @@ or you can tell it to recursively load files from directories as follows:
 Here, subfolders and filters define what’s part of the project.
 You can also mix version control and files based on filters.
 Hidden files will not be retrieved if the option <code>"hidden"</code> is 0.
-<code>"exclude_patterns"</code> is a list of regex patterns that can be used 
+<code>"exclude_patterns"</code> is a list of regex patterns that can be used
 to exclude folders and files from the project tree. In this example, All files
 and folders in a directory <filename>build</filename> from the root will be excluded.
 </para>
@@ -3497,17 +3497,38 @@ text to create fields:</para>
 simple, editable field. All subsequent occurrences of the same
 <replaceable>field_name</replaceable> create fields which mirror the contents
 of the first during editing.</para>
-<para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
-can be used to specify a default value for the field.
-<replaceable>default</replaceable> can be any &javascript; expression.</para>
-<para>Use quotes (<userinput>${<replaceable>field_name</replaceable>=<replaceable>"text"</replaceable>}</userinput>)
-to specify a fixed string as default value.</para>
+
+<tip>
+<para>Field names may contain any character except for the closing curly bracket (<userinput>}</userinput>).</para>
+<para>To insert <userinput>${text}</userinput> literally in a snippet, escape the <userinput>$</userinput> sign
+with a backslash: <userinput>\${text}</userinput>. The text will then not be turned into a field.
+To insert literal backslashes before a field, escape each individual backslash: <userinput>\\${field}</userinput>,
+<userinput>\\\\${field}</userinput>, and so on.</para>
+</tip>
+
 <para><userinput>${func(<replaceable>other_field1</replaceable>,
-<replaceable>other_field2</replaceable>, ...)}</userinput> can be used to create a
+<replaceable>other_field2</replaceable>, ...)}</userinput> creates a
 field which evaluates a &javascript; function on each edit and is replaced by that
-function's return value. See the <guilabel>Script Library</guilabel> tab for more information.</para>
-<para><userinput>${cursor}</userinput> can be used to mark the end position
-of the cursor after everything else was filled in.</para>
+function's return value. See the
+<ulink url="#snippet-input-library"><guilabel>Script Library</guilabel></ulink>
+tab for more information.</para>
+<para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
+sets a default value for the field. <replaceable>default</replaceable> is a &javascript; expression.
+Use quotes (<userinput>${<replaceable>field_name</replaceable>=<replaceable>"text"</replaceable>}</userinput>)
+to specify a fixed string as the default value.</para>
+
+<tip>
+<para>When using default values (<userinput>${<replaceable>field_name=default</replaceable>}</userinput>),
+keep in mind that the default value is evaluated immediately when the snippet is
+inserted into the document, and it is not updated later when fields are changed.</para>
+<para>You can reference other fields in default values if they are defined before the default value
+that is being evaluated. However, this will only give you access to the default value of these fields.</para>
+<para>If no custom default value is defined, the default value is a field's name.</para>
+</tip>
+
+<para><userinput>${cursor}</userinput> marks the end position of the cursor after everything else was filled in.
+Inserting text at this position will finish editing. Plus after pressing <keycap>&Esc;</keycap> to finish editing,
+the cursor will jump to this position.</para>
 </listitem>
 </varlistentry>
 
@@ -3517,7 +3538,8 @@ of the cursor after everything else was filled in.</para>
 <para>If this code contains a <userinput>return</userinput> statement, the returned string will be inserted at the current
 cursor position. You can also use the <ulink url="help:/katepart/dev-scripting.html#dev-scripting-api">&kate;
 scripting API</ulink> to modify the document directly.</para>
-<para>Additionally, your code may use functions defined in the <guilabel>Script Library</guilabel> tab, which
+<para>Additionally, your code may use functions defined in the
+<ulink url="#snippet-input-library"><guilabel>Script Library</guilabel></ulink> tab, which
 are shared between all snippets in a repository.</para>
 </listitem>
 </varlistentry>
@@ -3529,18 +3551,22 @@ are shared between all snippets in a repository.</para>
 to get the selected text, full text, file name, and more by using the appropriate methods of the <userinput>document</userinput>
 and <userinput>view</userinput> objects. Refer to the scripting API
 documentation for more information.</para>
+<para>When a function is called in a field of a <userinput>Text Template</userinput> snippet, its
+<emphasis>return</emphasis> value is inserted into the text.</para>
 
-<para>When scripting in conjunction with <userinput>Text Template</userinput> snippets, you should keep the
-following details/hints in mind:</para>
+<note>
+<para>Using functions in <userinput>Text Template</userinput> snippets:</para>
 <itemizedlist>
-<listitem><para>Remember that only the <emphasis>return value</emphasis> of a function is inserted in a field.</para></listitem>
-<listitem><para>The contents of all editable template fields are available as variables in this scope. For example in a snippet
-containing <userinput>${<replaceable>field</replaceable>}</userinput>,
-a variable called <userinput>field</userinput> will be present which contains
-the up-to-date contents of the template field. Those variables can either
-be used in the function statically or passed as arguments, by using the
-<userinput>${func(field)}</userinput> or <userinput>${<replaceable>field2=func(field)</replaceable>}</userinput>
-syntax in the snippet string.</para></listitem>
+<listitem><para>Functions can access the up-to-date contents of all fields through the <userinput>fields</userinput> object:
+use <userinput>fields.my_field</userinput> or <userinput>fields["my_field"]</userinput>. When using a function as the default
+value for a field, only fields defined in the text before are available.</para></listitem>
+<listitem><para>Fields can be passed as arguments to functions. The field name can be used directly if it is a valid &javascript;
+identifier and no variable with that name exists. Otherwise use the <userinput>fields</userinput> object:
+<userinput>${func(field)}</userinput>, <userinput>${func(fields.document)}</userinput>, <userinput>${func(fields["my field"])}</userinput>
+</para></listitem>
+<listitem><para>Function fields (e.g. <userinput>${func()}</userinput>) are re-evaluated every time any field's contents are changed.
+However, this does not apply to function calls in default values: they are only evaluated once when the snippet is inserted into the document.</para>
+</listitem>
 <listitem><para>For more complex scripts it may be important to understand that
 <emphasis>first</emphasis>, the raw snippet is inserted into the document, and <emphasis>then</emphasis>
 functions are being evaluated. E.g., if a function retrieves the text on the
@@ -3548,7 +3574,10 @@ line where the snippet is being inserted, that text will also contain
 <userinput>${functionCall()}</userinput>. Where this causes complications, consider using a
 <userinput>Script</userinput>-type snippet, instead.</para></listitem>
 <listitem><para>To simply wrap the currently selected text into tags, use: <userinput>&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput></para></listitem>
+<listitem><para>Remember that only the <emphasis>return value</emphasis> of a function is inserted in a field.</para></listitem>
 </itemizedlist>
+</note>
+
 </listitem>
 </varlistentry>
 

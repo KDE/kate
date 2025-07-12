@@ -18,6 +18,11 @@ Backend::Backend(QObject *parent)
 {
 }
 
+Backend::~Backend()
+{
+    unbind();
+}
+
 void Backend::runDebugger(const DAPTargetConf &conf)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {

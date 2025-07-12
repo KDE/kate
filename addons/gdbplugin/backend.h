@@ -18,7 +18,7 @@ class Backend final : public BackendInterface
     Q_OBJECT
 public:
     Backend(QObject *parent);
-    ~Backend() override = default;
+    ~Backend();
 
     void runDebugger(const DAPTargetConf &conf);
 

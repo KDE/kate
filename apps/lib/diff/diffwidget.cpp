@@ -239,6 +239,17 @@ DiffWidget::DiffWidget(DiffParams p, QWidget *parent)
     leftHl->setTheme(KTextEditor::Editor::instance()->theme());
     rightHl->setTheme(KTextEditor::Editor::instance()->theme());
 
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, [this] {
+        auto currentThemeName = leftHl->theme().name();
+        auto newTheme = KTextEditor::Editor::instance()->theme();
+        if (currentThemeName != newTheme.name()) {
+            leftHl->setTheme(newTheme);
+            rightHl->setTheme(newTheme);
+            leftHl->rehighlight();
+            rightHl->rehighlight();
+        }
+    });
+
     connect(m_left->verticalScrollBar(), &QScrollBar::valueChanged, this, [this](int) {
         if (m_stopScrollSync) {
             return;

@@ -105,8 +105,8 @@ private:
     class DiffEditor *m_right;
     class QPlainTextEdit *const m_commitInfo;
     class Toolbar *const m_toolbar;
-    KSyntaxHighlighting::AbstractHighlighter *leftHl;
-    KSyntaxHighlighting::AbstractHighlighter *rightHl;
+    DiffSyntaxHighlighter *leftHl;
+    DiffSyntaxHighlighter *rightHl;
     DiffStyle m_style = SideBySide;
     DiffParams m_params;
     DiffParams m_paramsNoFullContext;

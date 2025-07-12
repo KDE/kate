@@ -190,7 +190,7 @@ private:
     {
         clearDiagnosticsForStaleDocs({}, provider);
     }
-    void clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider);
+    void clearDiagnosticsForStaleDocs(const QList<QUrl> &filesToKeep, DiagnosticsProvider *provider);
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
     void updateDiagnosticsState(struct DocumentDiagnosticItem *&topItem);

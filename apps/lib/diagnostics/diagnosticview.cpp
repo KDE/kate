@@ -627,8 +627,8 @@ void DiagnosticsView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
 
 static DocumentDiagnosticItem *getItem(const QStandardItemModel &model, const QUrl &url)
 {
-    // local file in custom role, Qt::DisplayRole might have additional elements
-    auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword), 1, Qt::MatchExactly);
+    // url in custom role, Qt::DisplayRole might have additional elements
+    auto l = model.match(model.index(0, 0, QModelIndex()), Qt::UserRole, url, 1, Qt::MatchExactly);
     if (!l.empty()) {
         return static_cast<DocumentDiagnosticItem *>(model.itemFromIndex(l.at(0)));
     }
@@ -868,7 +868,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
         model->appendRow(topItem);
         QString prettyUri = diagnostics.uri.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
         topItem->setText(prettyUri);
-        topItem->setData(prettyUri, Qt::UserRole);
+        topItem->setData(diagnostics.uri, Qt::UserRole);
     } else {
         // try to retain current position
         auto currentIndex = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
@@ -959,7 +959,7 @@ static auto getProvider(QStandardItem *item)
     return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
 }
 
-void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesToKeep, DiagnosticsProvider *provider)
+void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QUrl> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto diagWarnShowGuard = qScopeGuard([this] {
         const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
@@ -1004,7 +1004,7 @@ void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QString> &filesTo
 
     for (int i = 0; i < m_model.rowCount(); ++i) {
         auto fileItem = static_cast<DocumentDiagnosticItem *>(m_model.item(i));
-        if (!filesToKeep.contains(fileItem->data(Qt::UserRole).toString())) {
+        if (!filesToKeep.contains(fileItem->data(Qt::UserRole).toUrl())) {
             if (!all_diags_from_provider(fileItem)) {
                 // If the diagnostics of this file item are from multiple providers
                 // delete the ones from @p provider
@@ -1181,7 +1181,7 @@ void DiagnosticsView::addMarksRec(KTextEditor::Document *doc, QStandardItem *ite
 {
     Q_ASSERT(item);
     // We only care about @p doc items
-    if (item->type() == DiagnosticItem_File && QUrl::fromLocalFile(item->data(Qt::UserRole).toString()) != doc->url()) {
+    if (item->type() == DiagnosticItem_File && item->data(Qt::UserRole).toUrl() != doc->url()) {
         return;
     }
     addMarks(doc, item);
@@ -1281,7 +1281,7 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
     }
     // adjust file item level text
     auto suppressed = totalCount - count;
-    const QString path = topItem->data(Qt::UserRole).toString();
+    const QString path = url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
     topItem->setText(suppressed ? i18nc("@info", "%1 [suppressed: %2]", path, suppressed) : path);
     // only hide if really nothing below
     const auto proxyIdx = m_proxy->mapFromSource(topItem->index());
@@ -1485,7 +1485,7 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
             } else {
                 menu->addAction(i18n("Add Global Suppression"), this, std::bind(h, true, empty, diagText));
             }
-            auto file = parent.data(Qt::UserRole).toString();
+            auto file = parent.data(Qt::UserRole).toUrl().toLocalFile();
             if (m_sessionDiagnosticSuppressions->hasSuppression(file, diagText)) {
                 menu->addAction(i18n("Remove Local Suppression"), this, std::bind(h, false, file, diagText));
             } else {
@@ -1550,11 +1550,11 @@ void DiagnosticsView::onDocumentUrlChanged()
 {
     // remove lingering diagnostics
     // collect active urls
-    QSet<QString> fpaths;
+    QSet<QUrl> fpaths;
     const auto views = m_mainWindow->views();
     for (const auto view : views) {
         if (auto doc = view->document()) {
-            fpaths.insert(doc->url().toLocalFile());
+            fpaths.insert(doc->url());
         }
     }
     clearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, nullptr);

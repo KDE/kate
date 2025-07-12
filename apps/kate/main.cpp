@@ -55,7 +55,7 @@
 #include <windows.h>
 #endif
 
-Q_LOGGING_CATEGORY(KateTime, "kate.time", QtDebugMsg)
+Q_LOGGING_CATEGORY(KateTime, "kate.time", QtWarningMsg)
 
 // helper to get activation token for second instance
 static QString activationToken()

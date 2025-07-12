@@ -110,7 +110,7 @@ ecm_qt_declare_logging_category(
     HEADER kate_timings_debug.h
     IDENTIFIER LibKateTime
     CATEGORY_NAME "libkate.time"
-    DEFAULT_SEVERITY Debug
+    DEFAULT_SEVERITY Warning
 )
 
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)

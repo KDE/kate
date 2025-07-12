@@ -27,9 +27,9 @@ LSPClientSymbolHighlighter::LSPClientSymbolHighlighter(KActionCollection *action
     connect(&m_requestTimeout, &QTimer::timeout, this, &LSPClientSymbolHighlighter::cancelRequest);
 
     m_nextSymbolHighlight = actions->addAction(QStringLiteral("lspclient_next_symbol_highlight"), this, &LSPClientSymbolHighlighter::gotoNextHighlight);
-    m_nextSymbolHighlight->setText(i18n("Go to next symbol highlight"));
+    m_nextSymbolHighlight->setText(i18nc("@action", "Go to next symbol highlight"));
     m_prevSymbolHighlight = actions->addAction(QStringLiteral("lspclient_prev_symbol_highlight"), this, &LSPClientSymbolHighlighter::gotoPrevHighlight);
-    m_prevSymbolHighlight->setText(i18n("Go to previous symbol highlight"));
+    m_prevSymbolHighlight->setText(i18nc("@action", "Go to previous symbol highlight"));
 
     connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, &LSPClientSymbolHighlighter::themeChange);
     themeChange(KTextEditor::Editor::instance());

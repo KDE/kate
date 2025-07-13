@@ -220,14 +220,13 @@ void GUIClient::registerToolView(ToolView *tv)
 
 void GUIClient::unregisterToolView(ToolView *tv)
 {
-    auto pred = [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
+    std::erase_if(m_toolToActions, [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
         if (a.first == tv) {
             qDeleteAll(a.second);
             return true;
         }
         return false;
-    };
-    m_toolToActions.erase(std::remove_if(m_toolToActions.begin(), m_toolToActions.end(), pred), m_toolToActions.end());
+    });
 
     updateActions();
 }
@@ -1743,12 +1742,9 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     widget->sidebar()->removeToolView(widget);
 
-    m_toolviews.erase(std::remove_if(m_toolviews.begin(),
-                                     m_toolviews.end(),
-                                     [widget](const std::pair<QString, ToolView *> &p) {
-                                         return p.first == widget->id;
-                                     }),
-                      m_toolviews.end());
+    std::erase_if(m_toolviews, [widget](const std::pair<QString, ToolView *> &p) {
+        return p.first == widget->id;
+    });
 }
 
 void MainWindow::setSidebarsVisibleInternal(bool visible, bool hideFullySilent)

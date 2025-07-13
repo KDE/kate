@@ -313,12 +313,9 @@ void KateExternalToolsConfigWidget::apply()
     config->sync();
 
     m_plugin->removeTools(m_toolsToRemove);
-    m_changedTools.erase(std::remove_if(m_changedTools.begin(),
-                                        m_changedTools.end(),
-                                        [this](const ChangedToolInfo &cti) {
-                                            return std::find(m_toolsToRemove.begin(), m_toolsToRemove.end(), cti.tool) != m_toolsToRemove.end();
-                                        }),
-                         m_changedTools.end());
+    std::erase_if(m_changedTools, [this](const ChangedToolInfo &cti) {
+        return std::find(m_toolsToRemove.begin(), m_toolsToRemove.end(), cti.tool) != m_toolsToRemove.end();
+    });
     m_toolsToRemove.clear();
 
     for (auto &[tool, oldName] : m_changedTools) {

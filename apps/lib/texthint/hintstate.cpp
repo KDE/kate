@@ -29,12 +29,9 @@ void HintState::clear()
 
 void HintState::remove(HintState::ID instanceId)
 {
-    m_hints.erase(std::remove_if(m_hints.begin(),
-                                 m_hints.end(),
-                                 [instanceId](const std::pair<ID, Hint> &idToHint) {
-                                     return idToHint.first == instanceId;
-                                 }),
-                  m_hints.end());
+    std::erase_if(m_hints, [instanceId](const std::pair<ID, Hint> &idToHint) {
+        return idToHint.first == instanceId;
+    });
 }
 
 void HintState::render(const std::function<void(const Hint &)> &callback)

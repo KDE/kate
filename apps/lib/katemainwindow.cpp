@@ -778,40 +778,30 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document *doc, KateMainWin
     // filter out what the stashManager will itself stash
     const bool canStash = KateApp::self()->stashManager()->canStash();
     if (canStash) {
-        modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
-                                               modifiedDocuments.end(),
-                                               [](auto doc) {
-                                                   return KateApp::self()->stashManager()->willStashDoc(doc);
-                                               }),
-                                modifiedDocuments.end());
+        std::erase_if(modifiedDocuments, [](auto doc) {
+            return KateApp::self()->stashManager()->willStashDoc(doc);
+        });
     }
 
     // do we want to ignore some document?
     if (doc) {
-        modifiedDocuments.erase(std::remove(modifiedDocuments.begin(), modifiedDocuments.end(), doc), modifiedDocuments.end());
+        std::erase(modifiedDocuments, doc);
     }
 
     // do we want to ignore all documents visible in other windows?
     if (win) {
-        modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
-                                               modifiedDocuments.end(),
-                                               [win, canStash](auto doc) {
-                                                   if (canStash && (doc->isModified() || doc->url().isEmpty())) {
-                                                       return true;
-                                                   }
-                                                   return KateApp::self()->documentVisibleInOtherWindows(doc, win);
-                                               }),
-                                modifiedDocuments.end());
+        std::erase_if(modifiedDocuments, [win, canStash](auto doc) {
+            if (canStash && (doc->isModified() || doc->url().isEmpty())) {
+                return true;
+            }
+            return KateApp::self()->documentVisibleInOtherWindows(doc, win);
+        });
     }
 
     // Remove all documents that can be closed without user confirmation
-    modifiedDocuments.erase(std::remove_if(modifiedDocuments.begin(),
-                                           modifiedDocuments.end(),
-                                           [](KTextEditor::Document *d) {
-                                               return !d->isModified() || (d->isEmpty() && d->url().isEmpty());
-                                           }),
-                            modifiedDocuments.end());
-
+    std::erase_if(modifiedDocuments, [](KTextEditor::Document *d) {
+        return !d->isModified() || (d->isEmpty() && d->url().isEmpty());
+    });
     bool shutdown = modifiedDocuments.empty();
     if (!shutdown) {
         shutdown = KateSaveModifiedDialog::queryClose(this, modifiedDocuments);

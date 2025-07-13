@@ -286,12 +286,9 @@ void InlayHintsManager::sendRequest(KTextEditor::Range rangeToRequest)
             // and send over inlay hints for the full document anyways. To avoid issues, we
             // remove all the inlay hints that fall outside the range we requested hints for.
             if (rangeToRequest.isValid()) {
-                hints.erase(std::remove_if(hints.begin(),
-                                           hints.end(),
-                                           [rangeToRequest](const LSPInlayHint &h) {
-                                               return !rangeToRequest.contains(h.position);
-                                           }),
-                            hints.end());
+                std::erase_if(hints, [rangeToRequest](const LSPInlayHint &h) {
+                    return !rangeToRequest.contains(h.position);
+                });
             }
 
             const auto result = insertHintsForDoc(v->document(), rangeToRequest, hints);
@@ -469,16 +466,13 @@ void InlayHintsManager::onUnwrapped(KTextEditor::Document *doc, int line)
 
 void InlayHintsManager::clearHintsForDoc(KTextEditor::Document *doc)
 {
-    m_hintDataByDoc.erase(std::remove_if(m_hintDataByDoc.begin(),
-                                         m_hintDataByDoc.end(),
-                                         [doc](const HintData &hd) {
-                                             if (!doc) {
-                                                 // remove all null docs and docs where checksum doesn't match
-                                                 return !hd.doc || (hd.doc->checksum() != hd.checksum);
-                                             }
-                                             return hd.doc == doc;
-                                         }),
-                          m_hintDataByDoc.end());
+    std::erase_if(m_hintDataByDoc, [doc](const HintData &hd) {
+        if (!doc) {
+            // remove all null docs and docs where checksum doesn't match
+            return !hd.doc || (hd.doc->checksum() != hd.checksum);
+        }
+        return hd.doc == doc;
+    });
 }
 
 InlayHintsManager::InsertResult
@@ -538,7 +532,7 @@ InlayHintsManager::insertHintsForDoc(KTextEditor::Document *doc, KTextEditor::Ra
         return false;
     };
     // remove existing hints that contain affectedLines
-    existing.erase(std::remove_if(existing.begin(), existing.end(), pred), existing.end());
+    std::erase_if(existing, pred);
 
     // now add new ones
     affectedLines.clear();

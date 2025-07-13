@@ -284,12 +284,9 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
     auto doc = m_activeView->document();
     auto &ranges = m_docHighligtedLinkRanges[doc];
     if (lineRange.isValid()) {
-        ranges.erase(std::remove_if(ranges.begin(),
-                                    ranges.end(),
-                                    [lineRange](const std::unique_ptr<KTextEditor::MovingRange> &r) {
-                                        return lineRange.overlapsLine(r->start().line());
-                                    }),
-                     ranges.end());
+        std::erase_if(ranges, [lineRange](const std::unique_ptr<KTextEditor::MovingRange> &r) {
+            return lineRange.overlapsLine(r->start().line());
+        });
     } else {
         ranges.clear();
     }

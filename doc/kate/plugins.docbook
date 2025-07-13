@@ -3510,7 +3510,7 @@ To insert literal backslashes before a field, escape each individual backslash: 
 <replaceable>other_field2</replaceable>, ...)}</userinput> creates a
 field which evaluates a &javascript; function on each edit and is replaced by that
 function's return value. See the
-<ulink url="#snippet-input-library"><guilabel>Script Library</guilabel></ulink>
+<link linkend="snippet-input-library"><guilabel>Script Library</guilabel></link>
 tab for more information.</para>
 <para><userinput>${<replaceable>field_name=default</replaceable>}</userinput>
 sets a default value for the field. <replaceable>default</replaceable> is a &javascript; expression.
@@ -3527,7 +3527,7 @@ that is being evaluated. However, this will only give you access to the default 
 </tip>
 
 <para><userinput>${cursor}</userinput> marks the end position of the cursor after everything else was filled in.
-Inserting text at this position will finish editing. Plus after pressing <keycap>&Esc;</keycap> to finish editing,
+Inserting text at this position will finish editing. Plus after pressing &Esc; to finish editing,
 the cursor will jump to this position.</para>
 </listitem>
 </varlistentry>

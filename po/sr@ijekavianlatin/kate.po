@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-13 00:46+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -556,7 +556,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:614
+#: lib/diff/diffwidget.cpp:625
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -564,26 +564,26 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr ""
 
 # >> @title:column
-#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
+#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "ime fajla"
 
-#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Obrisati fajl?"
 
-#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
+#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
 #, kde-format
 msgid "No differences found"
 msgstr ""

@@ -109,9 +109,6 @@ void StashDialog::slotReturnPressed(const QModelIndex &index)
     default:
         break;
     }
-
-    deleteLater();
-    hide();
 }
 
 QProcess *StashDialog::gitp(const QStringList &arguments)

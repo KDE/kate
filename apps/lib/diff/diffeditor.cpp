@@ -111,9 +111,9 @@ DiffEditor::DiffEditor(DiffParams::Flags f, QWidget *parent)
 
 void DiffEditor::updateDiffColors(bool darkMode)
 {
-    red1 = darkMode ? QColor(Qt::red).darker(120) : QColor(Qt::red).lighter(140);
+    red1 = darkMode ? QColor(Qt::red).darker(120) : QColor(Qt::darkRed).lighter(140);
     red1.setAlphaF(0.1f);
-    green1 = darkMode ? QColor(Qt::green).darker(140) : QColor(Qt::green).lighter(140);
+    green1 = darkMode ? QColor(Qt::green).darker(140) : QColor(Qt::darkGreen).lighter(140);
     green1.setAlphaF(0.1f);
 
     red2 = darkMode ? QColor(Qt::red).darker(80) : QColor(Qt::darkRed).lighter(120);

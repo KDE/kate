@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Highlight and open links (via CTRL-click)",
+        "Description[x-test]": "xxHighlight and open links (via CTRL-click)xx",
         "Name": "Open Link",
         "Name[ar]": "افتح الوصلة",
         "Name[az]": "Keçidi açın",

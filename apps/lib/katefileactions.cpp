@@ -93,7 +93,7 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
 
     doc->waitSaveComplete();
 
-    KIO::CopyJob *job = KIO::move(oldFileUrl, newFileUrl);
+    KIO::CopyJob *job = KIO::moveAs(oldFileUrl, newFileUrl);
     QWidget::connect(parent, &QObject::destroyed, job, [job]() {
         job->kill();
     });

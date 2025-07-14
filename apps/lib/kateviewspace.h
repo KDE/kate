@@ -30,6 +30,7 @@ class KATE_PRIVATE_EXPORT KateViewSpace : public QWidget
 
     friend class LocationHistoryTest;
     friend class KateViewManagementTests;
+    friend class KateViewManagementTest2;
 
 public:
     explicit KateViewSpace(KateViewManager *, QWidget *parent = nullptr);

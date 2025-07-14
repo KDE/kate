@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-14 02:52+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -45,13 +45,13 @@ msgstr "Kate - កម្មវិធី​វាយ​អត្ថបទ​ក�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ២០០០-២០០៤ ដោយ​អ្នកនក​និពន្ធ Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "ចាប់ផ្តើម Kate ជាមួយ​នឹង​សម័យ​ដែល​បាន​ផ្តល់"
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
@@ -567,7 +567,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:614
+#: lib/diff/diffwidget.cpp:625
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -575,25 +575,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
+#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "ឈ្មោះ​ឯកសារ"
 
-#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "លុប​ឯកសារ​ឬ ?"
 
-#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
+#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
 #, kde-format
 msgid "No differences found"
 msgstr ""

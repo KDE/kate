@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-14 02:52+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -55,12 +55,12 @@ msgstr "Kate - öflugur textaritill"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 höfundar Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Ræsa Kate með tiltekinni setu"
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, kde-format
 msgid "session"
 msgstr "seta"
@@ -552,7 +552,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Sýna diff með öllu samhenginu, ekki bara breyttum línum"
 
-#: lib/diff/diffwidget.cpp:614
+#: lib/diff/diffwidget.cpp:625
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -563,23 +563,23 @@ msgstr ""
 "er nú þegar uppsett skaltu ganga úr skugga um að það sé PATH-breyta hjá þér. "
 "Sjá https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
+#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
 #, kde-format
 msgid "New file %1"
 msgstr "Ný skrá %1"
 
-#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Eyða skrá %1"
 
-#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
+#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
 #, kde-format
 msgid "No differences found"
 msgstr "Engin frávik fundust"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-14 02:52+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -1076,52 +1076,52 @@ msgstr "सन्देशं स्तम्भयन्तु (वैकल्
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "छानने टङ्कयन्तु, संग्रहं पॉप् कुर्वन्तुं कृते ENTER, त्यक्तुं Esc इति टङ्कयन्तु ।."
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "परिवर्तनं %1 स्थापनं कर्तुं असफलम्"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "परिवर्तनं सफलतया निगूढम्।."
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "संग्रहं सुचि प्राप्तुं असफलम्। त्रुटि: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "संग्रहं प्रयोक्तुं असफलः अभवत् । त्रुटि: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "संग्रहं पातयितुं असफलम्। त्रुटि: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "संग्रहं प्रयुक्तम् पॉप् कर्तुं असफलम्। त्रुटि: "
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "संग्रहं सफलतया प्रयुक्तम्."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "संग्रहं सफलतया पतितः।."
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "संग्रहं सफलतया पोप् अभवत्।."
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "संग्रहं दर्शयतु विफलम् अभवत्। त्रुटि: "

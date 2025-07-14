@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-21 00:45+0000\n"
+"POT-Creation-Date: 2025-07-14 02:52+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -45,12 +45,12 @@ msgstr "Kate - a KDE szövegszerkesztője"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© A Kate szerzői, 2000-2022."
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "A Kate elindítása a megadott munkamenettel."
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, kde-format
 msgid "session"
 msgstr "munkamenet"
@@ -544,7 +544,7 @@ msgstr ""
 "Összehasonlítás megjelenítése a teljes környezettel, nem csak a módosított "
 "sorok"
 
-#: lib/diff/diffwidget.cpp:614
+#: lib/diff/diffwidget.cpp:625
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -555,23 +555,23 @@ msgstr ""
 "összehasonlításához. Ha a git már telepítve van, ellenőrizze, hogy a PATH "
 "tartalmazza-e. Lásd https://git-scm.org/downloads"
 
-#: lib/diff/diffwidget.cpp:617 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Összehasonlítás"
 
-#: lib/diff/diffwidget.cpp:829 lib/diff/diffwidget.cpp:1033
+#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
 #, kde-format
 msgid "New file %1"
 msgstr "Új fájl: %1"
 
-#: lib/diff/diffwidget.cpp:831 lib/diff/diffwidget.cpp:1035
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Törölt fájl: %1"
 
-#: lib/diff/diffwidget.cpp:1203 lib/diff/diffwidget.cpp:1204
+#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
 #, kde-format
 msgid "No differences found"
 msgstr "Nem találhatók különbségek"

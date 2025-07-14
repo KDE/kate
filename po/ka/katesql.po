@@ -58,7 +58,7 @@ msgstr "შეიყვანეთ მიერთების პარამ�
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
-msgstr "ნაგულისხმები"
+msgstr "ნაგულისხმევი"
 
 #: connectionwizard.cpp:95
 #, kde-format

@@ -42,7 +42,7 @@ msgstr "მომხმარებლის პარამეტრები"
 #: FormatConfig.cpp:127
 #, kde-format
 msgid "Default Settings"
-msgstr "ნაგულისხმები პარამეტრები"
+msgstr "ნაგულისხმევი პარამეტრები"
 
 #: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format

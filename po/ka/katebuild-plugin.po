@@ -666,10 +666,10 @@ msgstr "აირჩიეთ ჩასასმელი საქაღალ�
 #~ msgstr "სამიზნეების ფილტრი"
 
 #~ msgid "Build Default Target"
-#~ msgstr "ნაგულისხმები სამიზნის აგება"
+#~ msgstr "ნაგულისხმევი სამიზნის აგება"
 
 #~ msgid "Build and Run Default Target"
-#~ msgstr "ნაგულისხმები სამიზნის აგება და გაშვება"
+#~ msgstr "ნაგულისხმევი სამიზნის აგება და გაშვება"
 
 #~ msgid "Build Previous Target"
 #~ msgstr "წინა სამიზნის აგება"

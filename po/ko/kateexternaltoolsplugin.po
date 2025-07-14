@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2023-07-23 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -273,18 +273,18 @@ msgstr "기본값에서 도구 추가"
 msgid "Add Category"
 msgstr "분류 추가"
 
-#: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:403
-#: kateexternaltoolsconfigwidget.cpp:450
+#: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:400
+#: kateexternaltoolsconfigwidget.cpp:447
 #, kde-format
 msgid "Uncategorized"
 msgstr "분류 없음"
 
-#: kateexternaltoolsconfigwidget.cpp:492
+#: kateexternaltoolsconfigwidget.cpp:489
 #, kde-format
 msgid "New Category"
 msgstr "새 분류"
 
-#: kateexternaltoolsconfigwidget.cpp:495
+#: kateexternaltoolsconfigwidget.cpp:492
 #, kde-format
 msgid "New Category %1"
 msgstr "새 분류 %1"

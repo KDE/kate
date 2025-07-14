@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-13 00:46+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2014-09-18 23:24+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -48,12 +48,12 @@ msgstr "Kate - Verwiedert Texteditor"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2014 de Schrievers vun Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate mit en angeven Törn starten"
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
@@ -1411,13 +1411,13 @@ msgstr "Dokment tomaken"
 msgid "Save As"
 msgstr "Sekern as"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Niege Datei opmaakt, wielt Kate beendt warrn schull. Beennen wöör afbraken."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Utmaken afbraken"
@@ -1879,39 +1879,39 @@ msgstr "All Dokmenten tomaken"
 msgid "Close Others"
 msgstr "Anner tomaken"
 
-#: lib/katemainwindow.cpp:972
+#: lib/katemainwindow.cpp:962
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Dit verstickt den Menübalken heel un deel. Du kannst em mit %1 wedder wiesen."
 
-#: lib/katemainwindow.cpp:975
+#: lib/katemainwindow.cpp:965
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Menübalken versteken"
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1140
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1153
+#: lib/katemainwindow.cpp:1143
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1154
+#: lib/katemainwindow.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Datei opmaken"
 
-#: lib/katemainwindow.cpp:1361
+#: lib/katemainwindow.cpp:1351
 #, kde-format
 msgid " [read only]"
 msgstr " [bloots leesbor]"
@@ -1964,69 +1964,69 @@ msgstr "%1 wiesen"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "Instellen..."
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1126
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Move To"
 msgstr "Verschuven na de"
 
-#: lib/katemdi.cpp:1131
+#: lib/katemdi.cpp:1130
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "Törn opmaken"
 
-#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1145
+#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1150
+#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1143
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1148
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1157
+#: lib/katemdi.cpp:1156
 #, kde-format
 msgid "Left Sidebar"
 msgstr "linke Kant"
 
-#: lib/katemdi.cpp:1161
+#: lib/katemdi.cpp:1160
 #, kde-format
 msgid "Right Sidebar"
 msgstr "rechte Kant"
 
-#: lib/katemdi.cpp:1165
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Böverkant"
 
-#: lib/katemdi.cpp:1169
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Ünnerkant"
 
-#: lib/katemdi.cpp:1773
+#: lib/katemdi.cpp:1769
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

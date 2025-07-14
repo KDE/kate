@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1097,52 +1097,52 @@ msgstr "Thông điệp cất (không bắt buộc). Enter để xác nhận, Esc
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Gõ để lọc, Enter để lấy phần cất ra, Esc để thoát."
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Cất các thay đổi thất bại: %1"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Các thay đổi được cất thành công."
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Lấy danh sách phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Áp dụng phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Bỏ phần cất thất bại. Lỗi: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Lấy phần cất ra thất bại. Lỗi: "
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Áp dụng phần cất thành công."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Bỏ phần cất thành công."
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Lấy phần cất ra thành công."
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Hiện phần cất thất bại. Lỗi: "

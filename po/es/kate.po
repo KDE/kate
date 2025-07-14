@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-13 00:46+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2025-05-11 21:51+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -54,12 +54,12 @@ msgstr "Kate - Editor de texto avanzado"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2024 Los autores de Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Iniciar Kate con una determinada sesión."
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, kde-format
 msgid "session"
 msgstr "sesión"
@@ -1412,14 +1412,14 @@ msgstr "Cerrar documento"
 msgid "Save As"
 msgstr "Guardar como"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Se ha abierto un nuevo archivo cuando trataba de cerrar Kate; se ha "
 "cancelado el cierre."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Cierre cancelado"
@@ -1852,7 +1852,7 @@ msgstr "¿Cerrar todos los documentos junto con el documento actual?"
 msgid "Close Others"
 msgstr "Cerrar los demás"
 
-#: lib/katemainwindow.cpp:972
+#: lib/katemainwindow.cpp:962
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1860,12 +1860,12 @@ msgstr ""
 "Esto ocultará la barra de menú completamente. Puede volver a mostrarla "
 "tecleando %1."
 
-#: lib/katemainwindow.cpp:975
+#: lib/katemainwindow.cpp:965
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ocultar la barra de menú"
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1140
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1874,19 +1874,19 @@ msgstr ""
 "Ha soltado el directorio %1 en Kate. ¿Desea abrir todos los archivos que "
 "contiene?"
 
-#: lib/katemainwindow.cpp:1153
+#: lib/katemainwindow.cpp:1143
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Abrir archivos recursivamente"
 
-#: lib/katemainwindow.cpp:1154
+#: lib/katemainwindow.cpp:1144
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Abrir todos los archivos"
 
-#: lib/katemainwindow.cpp:1361
+#: lib/katemainwindow.cpp:1351
 #, kde-format
 msgid " [read only]"
 msgstr " [solo lectura]"
@@ -1936,67 +1936,67 @@ msgstr "Mostrar el botón %1"
 msgid "Focus %1"
 msgstr "Foco en %1"
 
-#: lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar…"
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Hide Button"
 msgstr "Ocultar botón"
 
-#: lib/katemdi.cpp:1126
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Move To"
 msgstr "Mover a"
 
-#: lib/katemdi.cpp:1131
+#: lib/katemdi.cpp:1130
 #, kde-format
 msgid "Own Section"
 msgstr "Sección propia"
 
-#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1145
+#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
 #, kde-format
 msgid "One Down"
 msgstr "Una abajo"
 
-#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1150
+#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Right"
 msgstr "Una a la derecha"
 
-#: lib/katemdi.cpp:1143
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "One Up"
 msgstr "Una arriba"
 
-#: lib/katemdi.cpp:1148
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Left"
 msgstr "Una a la izquierda"
 
-#: lib/katemdi.cpp:1157
+#: lib/katemdi.cpp:1156
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Panel lateral izquierda"
 
-#: lib/katemdi.cpp:1161
+#: lib/katemdi.cpp:1160
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Panel lateral derecha"
 
-#: lib/katemdi.cpp:1165
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Panel lateral superior"
 
-#: lib/katemdi.cpp:1169
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Panel lateral inferior"
 
-#: lib/katemdi.cpp:1773
+#: lib/katemdi.cpp:1769
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2025-03-26 18:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -1069,52 +1069,52 @@ msgstr "貯存訊息（非必要）。用 Enter 來確認，Esc 來離開。"
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "輸入以過濾，Enter 來彈出貯存，Esc 來離開。"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "無法貯存變更 %1"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "變更已成功貯存。"
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "取得貯存列表時失敗。錯誤："
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "套用貯存時失敗。錯誤："
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "捨棄貯存時失敗。錯誤："
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "彈出貯存時失敗。錯誤："
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "成功套用貯存。"
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "成功捨棄貯存。"
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "成功彈出貯存。"
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "顯示貯存時失敗。錯誤："

@@ -429,12 +429,12 @@ msgstr "读取服务器配置失败：%1"
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "跳转到下一个符号高亮"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "跳转到上一个符号高亮"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -612,7 +612,7 @@ msgstr "自动展开树状结构"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "高亮显示光标下方的符号"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

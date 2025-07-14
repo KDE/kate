@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-13 00:46+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -53,12 +53,12 @@ msgstr "Kate - шматфункцыянальны тэкставы рэдакт�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024, аўтары Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Запуск Kate у дадзеным сеансе."
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, kde-format
 msgid "session"
 msgstr "сеанс"
@@ -1363,12 +1363,12 @@ msgstr "Закрыць дакумент"
 msgid "Save As"
 msgstr "Захаваць як"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Падчас закрыцця адкрыты новы файл, закрыццё перарвана."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Закрыццё перарвана"
@@ -1800,7 +1800,7 @@ msgstr "Закрыць усе адкрытыя дакументы."
 msgid "Close Others"
 msgstr "Закрыць бягучую ўкладку."
 
-#: lib/katemainwindow.cpp:972
+#: lib/katemainwindow.cpp:962
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1808,31 +1808,31 @@ msgstr ""
 "Гэтае дзеянне схавае панэль меню. Вы можаце ўключыць яго зноў, калі ўведзяце "
 "%1."
 
-#: lib/katemainwindow.cpp:975
+#: lib/katemainwindow.cpp:965
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Схаваць панэль меню"
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1140
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1153
+#: lib/katemainwindow.cpp:1143
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1154
+#: lib/katemainwindow.cpp:1144
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1361
+#: lib/katemainwindow.cpp:1351
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -1882,67 +1882,67 @@ msgstr ""
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Configure..."
 msgstr "Наладзіць..."
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Hide Button"
 msgstr "Схаваць кнопку"
 
-#: lib/katemdi.cpp:1126
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Move To"
 msgstr "Перамясціць у"
 
-#: lib/katemdi.cpp:1131
+#: lib/katemdi.cpp:1130
 #, kde-format
 msgid "Own Section"
 msgstr ""
 
-#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1145
+#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1150
+#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1143
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1148
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1157
+#: lib/katemdi.cpp:1156
 #, kde-format
 msgid "Left Sidebar"
 msgstr ""
 
-#: lib/katemdi.cpp:1161
+#: lib/katemdi.cpp:1160
 #, kde-format
 msgid "Right Sidebar"
 msgstr ""
 
-#: lib/katemdi.cpp:1165
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Top Sidebar"
 msgstr ""
 
-#: lib/katemdi.cpp:1169
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr ""
 
-#: lib/katemdi.cpp:1773
+#: lib/katemdi.cpp:1769
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

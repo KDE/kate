@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -1108,52 +1108,52 @@ msgstr ""
 "Napíšte, ak chcete filtrovať, Enter, ak chcete aplikovať a vymazať úschovňu, "
 "Esc, ak chcete odísť."
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Nepodarilo sa uschovať zmeny %1"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Zmeny boli úspešne uschované."
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Nepodarilo sa získať zoznam úschovne Chyba: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Nepodarilo sa aplikovať. Chyba: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Nepodarilo sa vymazať úschovňu. Chyba: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Nepodarilo sa aplikovať a vymazať úschovňu. Chyba: "
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Úschovňa úspešne aplikovaná."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Úschovňa úspešne vymazaná."
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Úschovňa úspešne aplikovaná a vymazaná."
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Zobrazenie úschovne zlyhalo. Chyba: "

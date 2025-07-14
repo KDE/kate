@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2025-06-28 17:14+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1085,52 +1085,52 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "اكتب للتصفية، اضغط على Enter لإخراج العناصر المخبأة، اضغط على Esc للمغادرة."
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "فشل تخزين المؤقت للتغييرات %1"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "خزنت التغييرات مؤقتًا بنجاح."
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "فشل الحصول على قائمة التخزين المؤقت. خطأ:"
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "فشل في تطبيق التخزين المؤقت. الخطأ: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "فشل في إسقاط التخزين المؤقت. الخطأ: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "فشل في إخراج عناصر التخزين المؤقت. الخطأ:"
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "نجح في تطبيق التخزين المؤقت."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "أسقط التخزين المؤقت بنجاح."
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "أخرج التخزين المؤقت بنجاح."
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "فشل في عرض التخزين المؤقت. الخطأ: "

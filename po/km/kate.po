@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-13 00:46+0000\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -45,13 +45,13 @@ msgstr "Kate - កម្មវិធី​វាយ​អត្ថបទ​ក�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ២០០០-២០០៤ ដោយ​អ្នកនក​និពន្ធ Kate"
 
-#: kate/main.cpp:169
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "ចាប់ផ្តើម Kate ជាមួយ​នឹង​សម័យ​ដែល​បាន​ផ្តល់"
 
-#: kate/main.cpp:170
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
@@ -1411,12 +1411,12 @@ msgstr "បិទ​ឯកសារ"
 msgid "Save As"
 msgstr "រក្សាទុកជា"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "មាន​ឯកសារ​ថ្មី​បាន​បើក ខណៈ​ពេល​ព្យាយាម​បិទ Kate, ការ​បិទ​ត្រូវ​បាន​បោះបង់ ។"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:821
+#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:811
 #, kde-format
 msgid "Closing Aborted"
 msgstr "ការ​បិទ​ត្រូវ​បាន​បោះបង់"
@@ -1876,38 +1876,38 @@ msgstr "បិទ​គ្រប់​ឯកសារ​ទាំងអស់​
 msgid "Close Others"
 msgstr "បិទ​ផ្សេងទៀត"
 
-#: lib/katemainwindow.cpp:972
+#: lib/katemainwindow.cpp:962
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:975
+#: lib/katemainwindow.cpp:965
 #, kde-format
 msgid "Hide menu bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1150
+#: lib/katemainwindow.cpp:1140
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1153
+#: lib/katemainwindow.cpp:1143
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1154
+#: lib/katemainwindow.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "បើក​ឯកសារ"
 
-#: lib/katemainwindow.cpp:1361
+#: lib/katemainwindow.cpp:1351
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -1960,69 +1960,69 @@ msgstr "បង្ហាញ %1"
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1120
+#: lib/katemdi.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Configure ..."
 msgid "Configure..."
 msgstr "កំណត់​រចនាសម្ព័ន្ធ ..."
 
-#: lib/katemdi.cpp:1124
+#: lib/katemdi.cpp:1123
 #, kde-format
 msgid "Hide Button"
 msgstr ""
 
-#: lib/katemdi.cpp:1126
+#: lib/katemdi.cpp:1125
 #, kde-format
 msgid "Move To"
 msgstr "ផ្លាស់ទី​ទៅ"
 
-#: lib/katemdi.cpp:1131
+#: lib/katemdi.cpp:1130
 #, fuzzy, kde-format
 #| msgid "Open Session"
 msgid "Own Section"
 msgstr "បើក​សម័យ"
 
-#: lib/katemdi.cpp:1137 lib/katemdi.cpp:1145
+#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
 #, kde-format
 msgid "One Down"
 msgstr ""
 
-#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1150
+#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
 #, kde-format
 msgid "One Right"
 msgstr ""
 
-#: lib/katemdi.cpp:1143
+#: lib/katemdi.cpp:1142
 #, kde-format
 msgid "One Up"
 msgstr ""
 
-#: lib/katemdi.cpp:1148
+#: lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Left"
 msgstr ""
 
-#: lib/katemdi.cpp:1157
+#: lib/katemdi.cpp:1156
 #, kde-format
 msgid "Left Sidebar"
 msgstr "របារ​ចំហៀង​ឆ្វេង"
 
-#: lib/katemdi.cpp:1161
+#: lib/katemdi.cpp:1160
 #, kde-format
 msgid "Right Sidebar"
 msgstr "របារ​ចំហៀង​ស្តាំ"
 
-#: lib/katemdi.cpp:1165
+#: lib/katemdi.cpp:1164
 #, kde-format
 msgid "Top Sidebar"
 msgstr "របារ​ចំហៀង​កំពូល"
 
-#: lib/katemdi.cpp:1169
+#: lib/katemdi.cpp:1168
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "របារ​ចំហៀង​បាត"
 
-#: lib/katemdi.cpp:1773
+#: lib/katemdi.cpp:1769
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

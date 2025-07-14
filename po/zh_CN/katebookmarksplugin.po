@@ -14,35 +14,35 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/bookmarksplugin.pot\n"
-"X-Crowdin-File-ID: 58096\n"
+"X-Crowdin-File: /kf6-trunk/messages/kate/katebookmarksplugin.pot\n"
+"X-Crowdin-File-ID: 58296\n"
 
 #: bookmarksmodel.cpp:73
 #, kde-format
 msgid "Line Number"
-msgstr ""
+msgstr "行号"
 
 #: bookmarksmodel.cpp:75
 #, kde-format
 msgid "File Path"
-msgstr ""
+msgstr "文件路径"
 
 #: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
-msgstr ""
+msgstr "书签"
 
 #: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Previous Bookmark"
-msgstr ""
+msgstr "跳转到上一个书签"
 
 #: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Go to Next Bookmark"
-msgstr ""
+msgstr "跳转到下一个书签"
 
 #: bookmarksplugin.cpp:183
 #, kde-format
 msgid "Remove Bookmark"
-msgstr ""
+msgstr "移除书签"

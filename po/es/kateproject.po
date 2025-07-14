@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-05-27 00:44+0000\n"
-"PO-Revision-Date: 2025-05-11 21:56+0100\n"
+"POT-Creation-Date: 2025-07-14 00:45+0000\n"
+"PO-Revision-Date: 2025-07-12 21:54+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -73,7 +73,7 @@ msgstr "Rama"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr "Último envío"
+msgstr "Última confirmación"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
@@ -139,7 +139,7 @@ msgstr "Cancelar"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Escriba el mensaje para la confirmación…"
+msgstr "Escriba el mensaje de la confirmación…"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
@@ -159,12 +159,12 @@ msgstr "Rectificar"
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1058
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Rectificar el último envío"
+msgstr "Rectificar la última confirmación"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr "Rectificando envío"
+msgstr "Rectificando confirmación"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -221,7 +221,7 @@ msgstr " cancelada."
 #: gitwidget.cpp:333
 #, kde-format
 msgid "Refresh git status"
-msgstr "Actualizad el estado de Git"
+msgstr "Actualizar el estado de Git"
 
 #: gitwidget.cpp:355 kateprojectview.cpp:59
 #, kde-format
@@ -338,7 +338,7 @@ msgstr "Mostrar confirmación"
 #: gitwidget.cpp:1117
 #, kde-format
 msgid "Show Last Commit"
-msgstr "Mostrar el último envío"
+msgstr "Mostrar la última confirmación"
 
 #: gitwidget.cpp:1135
 #, kde-format
@@ -1084,52 +1084,52 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "Escriba para filtrar. «Intro» para recuperar reserva. «Esc» para salir."
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:141
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "No se han podido reservar los cambios: %1"
 
-#: stashdialog.cpp:146
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Cambios reservados correctamente."
 
-#: stashdialog.cpp:165
+#: stashdialog.cpp:162
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "No se ha podido obtener el listado de la reserva. Error: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:178
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "No se ha podido aplicar la reserva. Error: "
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "No se ha podido descartar la reserva. Error: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "No se ha podido recuperar la reserva. Error: "
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:186
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Reserva aplicada correctamente."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Reserva descartada correctamente."
 
-#: stashdialog.cpp:193
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Reserva recuperada correctamente."
 
-#: stashdialog.cpp:222
+#: stashdialog.cpp:219
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "No se ha podido mostrar la reserva. Error: "

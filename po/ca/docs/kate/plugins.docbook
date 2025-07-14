@@ -5169,22 +5169,26 @@ when finished.</para
 >nom_camp</replaceable
 >}</userinput
 > crea un camp senzill i editable. Totes les ocurrències posteriors crearan camps que reflecteixin el contingut del primer durant l'edició.</para>
+
+<tip>
 <para
-><userinput
->${<replaceable
->nom_camp=predeterminat</replaceable
+>Els noms de camp poden contenir qualsevol caràcter excepte la clau de tancament (<userinput
 >}</userinput
-> es pot utilitzar per a especificar un valor predeterminat per al camp. El <replaceable
->predeterminat</replaceable
-> pot ser qualsevol expressió en &javascript;.</para>
+>).</para>
 <para
->Utilitzeu cometes (<userinput
->${<replaceable
->nom_camp</replaceable
->=<replaceable
->"text"</replaceable
->}</userinput
->) per a especificar una cadena fixa com a valor predeterminat.</para>
+>Per a inserir <userinput
+>${text}</userinput
+> literalment en un retall, escapeu el signe <userinput
+>$</userinput
+> amb una barra inversa: <userinput
+>\${text}</userinput
+>. Llavors els text no es convertirà en un camp. Per a inserir barres inverses literals abans d'un camp, escapeu cada barra inversa individual: <userinput
+>\\${camp}</userinput
+>, <userinput
+>\\\\${camp}</userinput
+>, i així successivament.</para>
+</tip>
+
 <para
 ><userinput
 >${func(<replaceable
@@ -5192,13 +5196,43 @@ when finished.</para
 >, <replaceable
 >altre_camp_2</replaceable
 >, ...)}</userinput
-> es pot utilitzar per a crear un camp que avaluï una funció de &javascript; en cada edició i se substitueix pel valor de retorn de la funció. Vegeu la pestanya <guilabel
+> crea un camp que avalua una funció de &javascript; en cada edició i se substitueix pel valor de retorn de la funció. Vegeu la pestanya <ulink url="#snippet-input-library"
+><guilabel
 >Biblioteca de scripts</guilabel
+></ulink
 > per a més informació.</para>
 <para
 ><userinput
+>${<replaceable
+>nom_camp=predeterminat</replaceable
+>}</userinput
+> estableix un valor predeterminat per al camp. Utilitzeu cometes (<userinput
+>${<replaceable
+>nom_camp</replaceable
+>=<replaceable
+>"text"</replaceable
+>}</userinput
+>) per a especificar una cadena fixa com a valor predeterminat.</para>
+
+<tip>
+<para
+>Quan s'utilitzen valors predeterminats (<userinput
+>${<replaceable
+>nom_camp=predeterminat</replaceable
+>}</userinput
+>), tingueu en compte que el valor predeterminat s'avalua immediatament quan s'insereix el retall al document, i no s'actualitza més tard quan es canvien els camps.</para>
+<para
+>Podeu fer referència a altres camps en valors predeterminats si es defineixen abans del valor predeterminat que s'està avaluant. Tanmateix, això només us donarà accés al valor predeterminat d'aquests camps.</para>
+<para
+>Si no es defineix cap valor predeterminat personalitzat, el valor predeterminat és el nom d'un camp.</para>
+</tip>
+
+<para
+><userinput
 >${cursor}</userinput
-> es pot utilitzar per a marcar la posició final del cursor després que tot s'hagi omplert.</para>
+> marca la posició final del cursor després d'omplir tota la resta. Inserir text en aquesta posició acabarà l'edició. A més, després de prémer <keycap
+>&Esc;</keycap
+> per acabar l'edició, el cursor saltarà a aquesta posició.</para>
 </listitem>
 </varlistentry>
 
@@ -5219,8 +5253,10 @@ when finished.</para
 >API de creació de scripts del &kate;</ulink
 > per a modificar directament el document.</para>
 <para
->A més, el vostre codi pot utilitzar funcions definides a la pestanya <guilabel
+>A més, el vostre codi pot utilitzar funcions definides a la pestanya <link linkend="snippet-input-library"
+><guilabel
 >Biblioteca de scripts</guilabel
+></link
 >, que es comparteixen entre tots els retalls d'un repositori.</para>
 </listitem>
 </varlistentry>
@@ -5241,34 +5277,47 @@ when finished.</para
 > i <userinput
 >vista</userinput
 >. Consulteu la documentació de l'API per a la creació de scripts per a obtenir més informació.</para>
-
 <para
->Quan feu creació de scripts en conjunció amb retalls de <userinput
+>Quan es crida una funció en un camp d'un retall d'una <userinput
 >plantilla de text</userinput
->, hauríeu de tenir en compte els detalls / consells següents:</para>
+>, el seu valor de <emphasis
+>retorn</emphasis
+> s'insereix en el text.</para>
+
+<note>
+<para
+>Ús de funcions en el retalls de <userinput
+>Plantilla de text</userinput
+>:</para>
 <itemizedlist>
 <listitem
 ><para
->Recordeu que només s'insereix el <emphasis
->valor de retorn</emphasis
-> d'una funció en un camp.</para
+>Les funcions poden accedir al contingut actualitzat de tots els camps a través de l'objecte <userinput
+>fields</userinput
+>: useu <userinput
+>fields.meu_camp</userinput
+> o <userinput
+>fields["meu_camp"]</userinput
+>. Quan s'utilitza una funció com a valor predeterminat d'un camp, només hi ha disponibles els camps definits en el text anterior.</para
 ></listitem>
 <listitem
 ><para
->El contingut de tots els camps editables de la plantilla està disponible com a variables locals en aquest àmbit. Per exemple, en un retall que conté <userinput
->${<replaceable
->camp</replaceable
->}</userinput
->, hi haurà present una variable anomenada <userinput
->camp</userinput
->, que contindrà el contingut actualitzat del camp de la plantilla. Les variables o bé es poden utilitzar a la funció estàtica o passar com a arguments, mitjançant l'ús de la sintaxi <userinput
+>Els camps es poden passar com a arguments a funcions. El nom del camp es pot utilitzar directament si és un identificador vàlid de &javascript; i no existeix cap variable amb aquest nom. En cas contrari, utilitzeu l'objecte <userinput
+>fields</userinput
+>: <userinput
 >${func(camp)}</userinput
-> o <userinput
->${<replaceable
->camp_2=func(camp)</replaceable
->}</userinput
-> a la cadena del retall.</para
+>, <userinput
+>${func(fields.document)}</userinput
+>, <userinput
+>${func(fields["meu camp"])}</userinput
+> </para
 ></listitem>
+<listitem
+><para
+>Els camps de funció (p. ex. <userinput
+>${func()}</userinput
+>) es tornen a avaluar cada vegada que es canvia el contingut de qualsevol camp. Tanmateix, això no s'aplica a les crides de funció en valors predeterminats: només s'avaluen una vegada que el retall s'insereix en el document.</para>
+</listitem>
 <listitem
 ><para
 >Per als scripts més complexos, pot ser important entendre que <emphasis
@@ -5287,7 +5336,15 @@ when finished.</para
 >&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
 ></para
 ></listitem>
+<listitem
+><para
+>Recordeu que només s'insereix el <emphasis
+>valor de retorn</emphasis
+> d'una funció en un camp.</para
+></listitem>
 </itemizedlist>
+</note>
+
 </listitem>
 </varlistentry>
 

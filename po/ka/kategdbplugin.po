@@ -432,7 +432,7 @@ msgstr "პარამეტრების ფაილი:"
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr "ნაგულისხმები გამართვის ადაპტერის პარამეტრები"
+msgstr "ნაგულისხმევი გამართვის ადაპტერის პარამეტრები"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
 #, kde-format

@@ -641,7 +641,7 @@ msgstr "პარამეტრების ფაილი:"
 #: lspconfigwidget.ui:286
 #, kde-format
 msgid "Default Server Settings"
-msgstr "სერვერის ნაგულისხმები პარამეტრები"
+msgstr "სერვერის ნაგულისხმევი პარამეტრები"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6

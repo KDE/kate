@@ -5184,36 +5184,70 @@ when finished.</para
 > maakt een eenvoudig, bewerkbaar veld aan. Alle volgende exemplaren van dezelfde <replaceable
 >veldnaam</replaceable
 > maken velden die dezelfde inhoud hebben als de eerste tijdens bewerking.</para>
+
+<tip>
+<para
+>Veldnamen kunnen elk teken bevatten behalve de sluit-accolade(<userinput
+>}</userinput
+>).</para>
+<para
+>Om <userinput
+>${text}</userinput
+> letterlijk in een tekstfragment te voegen, escape het <userinput
+>$</userinput
+> teken met een backslash: <userinput
+>\${text}</userinput
+>. The tekst zal dan niet verandert worden in een veld. Om letterlijk een backslash voor een veld in te voegen, escape elke individuele backslash: <userinput
+>\\${field}</userinput
+>, <userinput
+>\\\\${field}</userinput
+> enzovoort.</para>
+</tip>
+
+<para
+><userinput
+>${func(<replaceable
+>other_field1</replaceable
+>, <replaceable
+>other_field2</replaceable
+>, ...)}</userinput
+> creates a field which evaluates a &javascript; function on each edit and is replaced by that function's return value. See the <link linkend="snippet-input-library"
+><guilabel
+>Script Library</guilabel
+></link
+> tab for more information.</para>
 <para
 ><userinput
 >${<replaceable
 >veldnaam=default</replaceable
 >}</userinput
-> kan gebruikt worden om een standaard waarde voor het veld te specificeren. <replaceable
+> stelt een standaard waarde in voor het veld. <replaceable
 >standaard</replaceable
-> kan elke &javascript;-expressie zijn.</para>
-<para
->Gebruik aanhalingen <userinput
+> is een &javascript;-expressie. Gebruik aanhalingstekens (<userinput
 >${<replaceable
->veldnaam</replaceable
+>veld_naam</replaceable
 >=<replaceable
 >"tekst"</replaceable
 >}</userinput
-> om een vaste tekenreeks als standaard waarde te specificeren.</para>
+>) om een vaste tekenreeks als de standaard waarde te specificeren.</para>
+
+<tip>
 <para
-><userinput
->${func(<replaceable
->ander_veld1</replaceable
->, <replaceable
->ander_veld2</replaceable
->, ...)}</userinput
-> kan gebruikt worden om een veld te definiëren die een &javascript;-functie evalueert bij elke bewerking en wordt vervangen door de teruggeven waarde van de functie. Zie het tabblad <guilabel
->Scriptbibliotheek</guilabel
-> voor meer informatie.</para>
+>Bij gebruik van standaard waarden (<userinput
+>${<replaceable
+>veld_naam=standaard</replaceable
+>}</userinput
+>), bedenk dat de standaard waarde onmiddellijk wordt geëvalueerd wanneer het tekstfragment wordt ingevoegd in het document en het later niet wordt bijgewerkt wanneer velden worden gewijzigd.</para>
+<para
+>U kunt naar andere velden verwijzen in standaard waarden als ze gedefinieerd worden voor de standaard waarde die wordt geëvalueerd. Dit zal u alleen toegang geven tot de standaard waarde van deze velden.</para>
+<para
+>Als geen aangepaste standaard waarde is gedefinieerd, dan is de standaard waarde is de naam van het veld.</para>
+</tip>
+
 <para
 ><userinput
 >${cursor}</userinput
-> kan gebruikt worden om de eindpositie van de cursor te markeren nadat al het andere is ingevuld.</para>
+> marks the end position of the cursor after everything else was filled in. Inserting text at this position will finish editing. Plus after pressing &Esc; to finish editing, the cursor will jump to this position.</para>
 </listitem>
 </varlistentry>
 
@@ -5234,8 +5268,10 @@ when finished.</para
 >&kate; scripting API</ulink
 > gebruiken om het document direct te wijzigen.</para>
 <para
->Bovendien kan uw functies gebruiken gedefinieerd in het tabblad <guilabel
+>Bovendien kan uw code functies gebruiken gedefinieerd in het tabblad <link linkend="snippet-input-library"
+><guilabel
 >Scriptbibliotheek</guilabel
+></link
 >, die gedeeld wordt tussen alle tekstfragmenten in een opslagruimte.</para>
 </listitem>
 </varlistentry>
@@ -5256,34 +5292,47 @@ when finished.</para
 > en <userinput
 >weergave</userinput
 > te gebruiken. Kijk in de documentatie van de scripting API voor meer informatie.</para>
-
 <para
->Bij scripting samen met <userinput
+>Wanneer een functie wordt aangeroepen in een veld van een <userinput
 >Tekstsjabloon</userinput
-> tekstfragmenten, zou u de volgende details/hints in gedachten moeten houden:</para>
+>-tekstfragment, wordt zijn <emphasis
+>terugkeer</emphasis
+>waarde ingevoegd in de tekst.</para>
+
+<note>
+<para
+>Functies gebruiken in <userinput
+>Tekstsjabloon</userinput
+>-tekstfragmenten:</para>
 <itemizedlist>
 <listitem
 ><para
->Bedenkt dat alleen de <emphasis
->terugkeerwaarde</emphasis
-> van een functie wordt ingevoegd in een veld.</para
+>Functies kunnen toegang hebben tot de up-to-date inhoud van alle velden via het <userinput
+>fields</userinput
+>-object: gebruik <userinput
+>fields.mijn_veld</userinput
+> of <userinput
+>fields["mijn_veld"]</userinput
+>. Bij gebruik van een functie als de standaard waarde voor een veld, zijn alleen velden gedefinieerd in de tekst ervoor beschikbaar.</para
 ></listitem>
 <listitem
 ><para
->De inhoud van alle bewerkbare sjabloonvelden zijn beschikbaar als variabelen in deze scope. In een fragment bijvoorbeeld met <userinput
->${<replaceable
->veld</replaceable
->}</userinput
-> zal een variabele genaamd <userinput
->veld</userinput
-> aanwezig zijn die de bijgewerkte inhoud van het sjabloonveld bevat. Deze variabelen kunnen ofwel statisch gebruikt worden in de functie of doorgegeven worden als argumenten, door de syntaxis <userinput
+>Velden kunnen doorgegeven worden als argumenten van functies. De veldnaam kan direct gebruikt worden als het een geldige &javascript; identifier is en geen variabele met die naam bestaat. Gebruik anders het <userinput
+>fields</userinput
+>-object: <userinput
 >${func(field)}</userinput
-> of <userinput
->${<replaceable
->field2=func(field)</replaceable
->}</userinput
-> in de tekenreeks van het fragment te gebruiken.</para
+>, <userinput
+>${func(fields.document)}</userinput
+>, <userinput
+>${func(fields["my field"])}</userinput
+> </para
 ></listitem>
+<listitem
+><para
+>Functievelden (bijv. <userinput
+>${func()}</userinput
+>) worden opnieuw geëvalueerd elke keer dat elke inhoud van het veld wordt gewijzigd. Dit is echter niet van toepassing op functie aanroepen in standaard waarden: ze worden slechts eenmaal geëvalueerd wanneer het tekstfragment wordt ingevoegd in het document.</para>
+</listitem>
 <listitem
 ><para
 >Voor complexere scripts kan het belangrijk zijn om te begrijpen dat <emphasis
@@ -5302,7 +5351,15 @@ when finished.</para
 >&lt;strong&gt;${view.selectedText()}&lt;/strong&gt;</userinput
 ></para
 ></listitem>
+<listitem
+><para
+>Bedenkt dat alleen de <emphasis
+>terugkeerwaarde</emphasis
+> van een functie wordt ingevoegd in een veld.</para
+></listitem>
 </itemizedlist>
+</note>
+
 </listitem>
 </varlistentry>
 

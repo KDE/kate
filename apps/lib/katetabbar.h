@@ -95,6 +95,21 @@ public:
      */
     QList<KTextEditor::Document *> lruSortedDocuments() const;
 
+    bool openTabsToRightOfCurrent() const
+    {
+        return m_openNewTabInFrontOfCurrent;
+    }
+    /**
+     * Set whether new tabs open to the right of current tab
+     *
+     * Disabled during session restore as it can mess up the
+     * order of tabs there
+     */
+    void setOpenTabsToRightOfCurrentEnabled(bool e)
+    {
+        m_openNewTabInFrontOfCurrent = e;
+    }
+
 Q_SIGNALS:
     /**
      * This signal is emitted whenever the context menu is requested for

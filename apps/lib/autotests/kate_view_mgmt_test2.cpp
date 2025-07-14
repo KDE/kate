@@ -16,6 +16,7 @@
 #include <QCommandLineParser>
 #include <QObject>
 #include <QPointer>
+#include <QScopeGuard>
 #include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QTemporaryFile>
@@ -40,6 +41,7 @@ private Q_SLOTS:
     void testTabsKeepOrderOnRestore();
     void testNewlyCreatedUnsavedFilesStashed();
     void testMultipleViewCursorPositionIsRestored();
+    void testTabsKeepOrderOnRestore2();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -245,6 +247,80 @@ void KateViewManagementTest2::testMultipleViewCursorPositionIsRestored()
         // Expect correct cursor position
         QCOMPARE(views[0]->cursorPosition(), KTextEditor::Cursor(3, 5));
     }
+}
+
+void KateViewManagementTest2::testTabsKeepOrderOnRestore2()
+{
+    const QString sessionName = QStringLiteral("testTabsKeepOrderOnRestore2");
+
+    KSharedConfig::Ptr config = KSharedConfig::openConfig();
+    KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+    const int oldValue = cgGeneral.readEntry("Tabbar Tab Limit", 0);
+    cgGeneral.writeEntry("Tabbar Tab Limit", 3);
+    auto _ = qScopeGuard([&cgGeneral, oldValue] {
+        cgGeneral.writeEntry("Tabbar Tab Limit", oldValue);
+    });
+
+    // Tab bar with limit of 3 tabs
+    QCOMPARE(cgGeneral.readEntry("Tabbar Tab Limit", 0), 3);
+
+    app->sessionManager()->activateSession(sessionName, false, true);
+    KateMainWindow *mw = app->activeKateMainWindow();
+
+    // open 5 files aka tabs in order
+    auto tab1 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc")));
+    auto tab2 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kwrite/kateui.rc")));
+    auto tab3 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/textfilter/ui.rc")));
+    auto tab4 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kategitblameplugin/ui.rc")));
+    auto tab5 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/katesearch/ui.rc")));
+    const QUrl file1 = tab1->document()->url();
+    const QUrl file2 = tab2->document()->url();
+    const QUrl file3 = tab3->document()->url();
+    const QUrl file4 = tab4->document()->url();
+    const QUrl file5 = tab5->document()->url();
+
+    // check tab order, we need try compare for delayed initial doc closing
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 3);
+    auto tabs = mw->viewManager()->activeViewSpace()->documentList();
+    // Tab order is:
+    QCOMPARE(tabs.at(0).doc()->url(), file4);
+    QCOMPARE(tabs.at(1).doc()->url(), file5);
+    QCOMPARE(tabs.at(2).doc()->url(), file3);
+
+    // activate tab1 so it gets a view
+    QVERIFY(mw->activateView(tab1->document()));
+
+    // Tab order is:
+    tabs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(tabs.at(0).doc()->url(), file4);
+    QCOMPARE(tabs.at(1).doc()->url(), file5);
+    QCOMPARE(tabs.at(2).doc()->url(), file1); // got replaced
+
+    // Move tab 0 to tab 1
+    auto tabBar = mw->viewManager()->activeViewSpace()->m_tabBar;
+    tabBar->moveTab(0, 1);
+
+    // Tab order is:
+    tabs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(tabs.at(0).doc()->url(), file5);
+    QCOMPARE(tabs.at(1).doc()->url(), file4);
+    QCOMPARE(tabs.at(2).doc()->url(), file1);
+
+    // open new empty session
+    app->sessionManager()->sessionNew();
+    mw = app->activeKateMainWindow();
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 1);
+
+    // back to our session
+    app->sessionManager()->activateSession(sessionName);
+    mw = app->activeKateMainWindow();
+
+    // tabs shall have right order, not the LRU one
+    QTRY_COMPARE(mw->viewManager()->activeViewSpace()->documentList().size(), 3);
+    tabs = mw->viewManager()->activeViewSpace()->documentList();
+    QCOMPARE(tabs.at(0).doc()->url(), file5);
+    QCOMPARE(tabs.at(1).doc()->url(), file4);
+    QCOMPARE(tabs.at(2).doc()->url(), file1);
 }
 
 QTEST_MAIN(KateViewManagementTest2)

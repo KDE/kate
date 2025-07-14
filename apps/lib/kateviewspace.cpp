@@ -1352,6 +1352,23 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
         }
     }
 
+    // Fix the tab order. If the number of docs cross the tab limit,
+    // then the first tab after the limit will go to position 0, which
+    // might be incorrect. Below we fix the tab order by traversing the
+    // m_registeredDocuments in reverse order and modifying the tabs
+    // in tab bar.
+    // docList: 0 1 2 3
+    // m_registeredDocuments: 3 2 1 0
+    const QList<DocOrWidget> tabsList = m_tabBar->documentList();
+    if (tabsList.size() < docList.size()) {
+        int firstDocIndex = docList.size() - tabsList.size();
+        auto docIt = m_registeredDocuments.rbegin() + firstDocIndex;
+        for (int i = 0; i < tabsList.size(); i++) {
+            m_tabBar->setTabDocument(i, *docIt);
+            docIt++;
+        }
+    }
+
     // restore active view properties
     if (const QString idOrUrl = group.readEntry("Active View"); !idOrUrl.isEmpty()) {
         // if id use that, is the new format to allow to differentiate between different untitled documents

@@ -282,6 +282,7 @@
         },
         "terraform": {
             "command": ["terraform-ls", "serve"],
+            "root": ".",
             "url": "https://github.com/hashicorp/terraform-ls",
             "highlightingModeRegex": "^Terraform$"
         },

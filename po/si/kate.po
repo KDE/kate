@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 02:52+0000\n"
+"POT-Creation-Date: 2025-07-15 02:44+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -43,13 +43,13 @@ msgstr "Kate - උසස් පෙළ සකසනය"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2005 The Kate Authors"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:215
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "දෙනලද වාරයෙන් Kate අරඹන්න"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:216
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"

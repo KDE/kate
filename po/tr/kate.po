@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 02:52+0000\n"
+"POT-Creation-Date: 2025-07-15 02:44+0000\n"
 "PO-Revision-Date: 2025-05-10 19:51+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -57,12 +57,12 @@ msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2024 Kate Yazarları"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:215
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate’i verilen oturum ile başlat."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:216
 #, kde-format
 msgid "session"
 msgstr "oturum"

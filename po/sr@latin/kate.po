@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 02:52+0000\n"
+"POT-Creation-Date: 2025-07-15 02:44+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -47,12 +47,12 @@ msgstr "Kate, napredni uređivač teksta"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2017, autori Kate"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:215
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Pokreni Kate sa datom sesijom."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:216
 #, kde-format
 msgid "session"
 msgstr "sesija"

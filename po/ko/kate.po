@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 02:52+0000\n"
+"POT-Creation-Date: 2025-07-15 02:44+0000\n"
 "PO-Revision-Date: 2025-04-22 01:22+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -46,12 +46,12 @@ msgstr "Kate - 고급 문서 편집기"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate Authors"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:215
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "지정한 세션으로 Kate를 시작합니다."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:216
 #, kde-format
 msgid "session"
 msgstr "세션"

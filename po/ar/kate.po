@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 02:52+0000\n"
+"POT-Creation-Date: 2025-07-15 02:44+0000\n"
 "PO-Revision-Date: 2025-05-12 17:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -53,12 +53,12 @@ msgstr "كيت - محرّر نصوص متقدّم"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000-2024 مؤلّفو «كيت»"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:212
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:215
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "ابدأ «كيت» بجلسة مُعطاة."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:213
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:216
 #, kde-format
 msgid "session"
 msgstr "الجلسة"

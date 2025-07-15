@@ -1,0 +1,49 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"PO-Revision-Date: 2025-07-14 20:18+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "رقم السطر"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "مسار الملف"
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr "العلامات"
+
+#: bookmarksplugin.cpp:171
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "انتقل إلى العلامة السّابقة"
+
+#: bookmarksplugin.cpp:177
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "انتقل إلى العلامة التّالية"
+
+#: bookmarksplugin.cpp:183
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "احذف العلامة"

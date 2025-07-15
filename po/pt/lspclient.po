@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:47+0000\n"
 "PO-Revision-Date: 2022-11-28 18:09+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -431,11 +431,13 @@ msgstr "Não foi possível ler a configuração do servidor: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
+msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr ""
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
+msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr ""
 

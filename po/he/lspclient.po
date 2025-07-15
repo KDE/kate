@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:47+0000\n"
 "PO-Revision-Date: 2025-07-06 10:41+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -428,12 +428,16 @@ msgid "Failed to read server configuration: %1"
 msgstr "קריאת הגדרות השרת נכשלה: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Go to next symbol highlight"
+msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "מעבר להדגשת הסמל הבאה"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Go to previous symbol highlight"
+msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "מעבר להדגשת הסמל הקודמת"
 

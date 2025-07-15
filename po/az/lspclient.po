@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:47+0000\n"
 "PO-Revision-Date: 2023-06-30 14:00+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -431,11 +431,13 @@ msgstr "Server tənzimləmələri oxuna bilmədi: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
+msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr ""
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
+msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr ""
 

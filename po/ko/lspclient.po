@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:47+0000\n"
 "PO-Revision-Date: 2024-12-24 16:38+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -428,11 +428,13 @@ msgstr "서버 설정을 읽을 수 없음: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
+msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr ""
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
+msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr ""
 

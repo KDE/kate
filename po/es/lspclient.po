@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-15 00:47+0000\n"
 "PO-Revision-Date: 2025-07-06 15:22+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -434,12 +434,16 @@ msgid "Failed to read server configuration: %1"
 msgstr "No se ha podido leer la configuración del servidor: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Go to next symbol highlight"
+msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "Ir al siguiente símbolo resaltado"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Go to previous symbol highlight"
+msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Ir al anterior símbolo resaltado"
 

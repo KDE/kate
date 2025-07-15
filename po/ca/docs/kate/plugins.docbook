@@ -5196,10 +5196,10 @@ when finished.</para
 >, <replaceable
 >altre_camp_2</replaceable
 >, ...)}</userinput
-> crea un camp que avalua una funció de &javascript; en cada edició i se substitueix pel valor de retorn de la funció. Vegeu la pestanya <ulink url="#snippet-input-library"
+> crea un camp que avalua una funció de &javascript; en cada edició i se substitueix pel valor de retorn de la funció. Vegeu la pestanya <link linkend="snippet-input-library"
 ><guilabel
 >Biblioteca de scripts</guilabel
-></ulink
+></link
 > per a més informació.</para>
 <para
 ><userinput
@@ -5230,9 +5230,7 @@ when finished.</para
 <para
 ><userinput
 >${cursor}</userinput
-> marca la posició final del cursor després d'omplir tota la resta. Inserir text en aquesta posició acabarà l'edició. A més, després de prémer <keycap
->&Esc;</keycap
-> per acabar l'edició, el cursor saltarà a aquesta posició.</para>
+> marca la posició final del cursor després d'omplir tota la resta. Inserir text en aquesta posició acabarà l'edició. A més, després de prémer &Esc; per acabar l'edició, el cursor saltarà a aquesta posició.</para>
 </listitem>
 </varlistentry>
 

@@ -5207,15 +5207,15 @@ when finished.</para
 <para
 ><userinput
 >${func(<replaceable
->other_field1</replaceable
+>ander_veld1</replaceable
 >, <replaceable
->other_field2</replaceable
+>ander_veld2</replaceable
 >, ...)}</userinput
-> creates a field which evaluates a &javascript; function on each edit and is replaced by that function's return value. See the <link linkend="snippet-input-library"
+> maakt een veld die een &javascript;-functie evalueert bij elke bewerking en wordt vervangen door de teruggeven waarde van de functie. Zie het tabblad <link linkend="snippet-input-library"
 ><guilabel
->Script Library</guilabel
+>Scriptbibliotheek</guilabel
 ></link
-> tab for more information.</para>
+> voor meer informatie.</para>
 <para
 ><userinput
 >${<replaceable
@@ -5247,7 +5247,7 @@ when finished.</para
 <para
 ><userinput
 >${cursor}</userinput
-> marks the end position of the cursor after everything else was filled in. Inserting text at this position will finish editing. Plus after pressing &Esc; to finish editing, the cursor will jump to this position.</para>
+> markeert de eindpositie van de cursor na al het andere dat is ingevuld. Tekst invullen op die positie zal bewerken beëindigen. Plus na indrukken van &Esc; om bewerken te beëindigen, zal de cursor naar deze positie springen.</para>
 </listitem>
 </varlistentry>
 

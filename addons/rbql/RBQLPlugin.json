@@ -27,7 +27,7 @@
         "Description[sa]": "RBQL इत्यस्य उपयोगेन SQL-सदृशानि प्रश्नानि चालयन्तु",
         "Description[sl]": "Tekoče poizvedbe podobne SQL z uporabo RBQL",
         "Description[sv]": "Utför SQL-liknande frågor med RBQL",
-        "Description[tr]": "RBQL kullanarak SQL tarzı sorgular çalıştır",
+        "Description[tr]": "RBQL kullanarak SQL tarzı sorgular çalıştırın",
         "Description[uk]": "Надсилання SQL-подібних запитів за допомогою RBQL",
         "Description[x-test]": "xxRun SQL-like queries using RBQLxx",
         "Description[zh_CN]": "使用 RBQL 运行 SQL 式查询",

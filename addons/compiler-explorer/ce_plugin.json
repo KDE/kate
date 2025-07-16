@@ -35,7 +35,7 @@
         "Description[sk]": "Zobraziť vygenerovaný asm pre kód C/C++",
         "Description[sl]": "Pogled generirane asm za kodo C/C++",
         "Description[sv]": "Vy av genererade assembler för C/C++ kod",
-        "Description[tr]": "C/C++ kodu için oluşturulmuş asm görüntüle",
+        "Description[tr]": "C/C++ kodu için oluşturulmuş ASM görüntüleyin",
         "Description[uk]": "Перегляд створеного коду асемблера для коду C/C++",
         "Description[vi]": "Xem hợp ngữ được sinh cho mã C/C++",
         "Description[x-test]": "xxView generated asm for C/C++ codexx",

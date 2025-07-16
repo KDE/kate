@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Highlight and open links (via CTRL-click)",
+        "Description[ar]": "إبراز وفتح الوصلات ( عن طريق النقر  والضغط على زر CTRL)",
         "Description[ca@valencia]": "Ressalta i obri els enllaços (mitjançant «Ctrl+clic»)",
         "Description[ca]": "Ressalta i obre els enllaços (mitjançant CTRL-clic)",
         "Description[es]": "Resaltar todos los enlaces abiertos (mediante Ctrl+clic)",
@@ -9,8 +10,10 @@
         "Description[ka]": "ბმულების გამოკვეთა და გახსნა (Ctrl+წკაპით)",
         "Description[nl]": "Accentueer en open koppelingen (via Ctrl-klikken)",
         "Description[sl]": "Osvetli in odpri povezave (CTRL-klik))",
+        "Description[tr]": "Bağlantıları vurgulayın ve açın (Kontrol+tık ile)",
         "Description[uk]": "Підсвічування і відкриття посилань (за допомогою CTRL-клацання)",
         "Description[x-test]": "xxHighlight and open links (via CTRL-click)xx",
+        "Description[zh_CN]": "高亮和打开链接 (通过 Ctrl+点击)",
         "Name": "Open Link",
         "Name[ar]": "افتح الوصلة",
         "Name[az]": "Keçidi açın",

@@ -34,7 +34,7 @@
         "Description[sk]": "Vykonanie dopytu na SQL databázach",
         "Description[sl]": "Izvede poizvedbo na podatkovnih bazah SQL",
         "Description[sv]": "Utför förfrågan i SQL-databaser",
-        "Description[tr]": "SQL veritabanlarında sorgu çalıştır",
+        "Description[tr]": "SQL veritabanlarında sorgu çalıştırın",
         "Description[uk]": "Виконання запитів до баз даних SQL",
         "Description[vi]": "Thực thi truy vấn trong các cơ sở dữ liệu SQL",
         "Description[x-test]": "xxExecute query on SQL databasesxx",

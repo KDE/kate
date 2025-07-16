@@ -427,15 +427,13 @@ msgid "Failed to read server configuration: %1"
 msgstr "读取服务器配置失败：%1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, fuzzy, kde-format
-#| msgid "Go to next symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "跳转到下一个符号高亮"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, fuzzy, kde-format
-#| msgid "Go to previous symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "跳转到上一个符号高亮"

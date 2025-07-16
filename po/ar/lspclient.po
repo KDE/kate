@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 00:47+0000\n"
-"PO-Revision-Date: 2025-07-14 20:21+0400\n"
+"PO-Revision-Date: 2025-07-15 23:12+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
@@ -428,15 +428,13 @@ msgid "Failed to read server configuration: %1"
 msgstr "فشل في قراءة ضبط الخادم: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, fuzzy, kde-format
-#| msgid "Go to next symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "اذهب إلى إبراز الرمز التالي"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, fuzzy, kde-format
-#| msgid "Go to previous symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "اذهب إلى إبراز الرمز السابق"

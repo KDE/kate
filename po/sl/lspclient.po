@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 00:47+0000\n"
-"PO-Revision-Date: 2025-07-06 12:17+0200\n"
+"PO-Revision-Date: 2025-07-15 06:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -430,15 +430,13 @@ msgid "Failed to read server configuration: %1"
 msgstr "Ni mogoče prebrati nastavitve strežnika: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, fuzzy, kde-format
-#| msgid "Go to next symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "Pojdi na naslednji osvetljeni simbol"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, fuzzy, kde-format
-#| msgid "Go to previous symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Pojdi na prejšnji osvetljeni simbol"

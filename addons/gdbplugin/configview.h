@@ -79,7 +79,7 @@ public:
     /**
      * When `full` is true, a DAP launch request will be computed.
      */
-    const DAPTargetConf currentDAPTarget(bool full = false) const;
+    DAPTargetConf currentDAPTarget(bool full, QString &errorMessage) const;
     bool takeFocusAlways() const;
     bool showIOTab() const;
     QUrl dapConfigPath;

@@ -40,6 +40,8 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
+#include <ktexteditor_utils.h>
+
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
 static const QString CONFIG_DEBUGPLUGIN{QStringLiteral("debugplugin")};
@@ -434,6 +436,20 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
 void KatePluginGDBView::slotDebug()
 {
     initDebugToolview();
+    // First, get the configuration from the ConfigView.
+    QString errorMessage;
+    const auto dbgConfOpt = m_configView->currentDAPTarget(true, errorMessage);
+
+    // Now, check if the configuration is valid before doing anything else.
+    // Our previous fix in configview.cpp clears the debugger name to signal an error.
+    if (!errorMessage.isEmpty()) {
+        // The user has already been shown a warning message inside currentDAPTarget().
+        // We just need to abort the entire launch process now, which this return does.
+        const QIcon icon = QIcon::fromTheme(QStringLiteral("debug-run"));
+        const QString message = i18n("Error: %1", errorMessage);
+        Utils::showMessage(message, icon, QStringLiteral("Debug"), MessageType::Error, m_mainWin);
+        return;
+    }
 
     m_outputArea->clear();
 
@@ -445,7 +461,7 @@ void KatePluginGDBView::slotDebug()
     m_scopeCombo->clear();
     m_localsView->clear();
 
-    m_backend->runDebugger(m_configView->currentDAPTarget(true));
+    m_backend->runDebugger(dbgConfOpt);
 }
 
 void KatePluginGDBView::slotRestart()

@@ -344,7 +344,7 @@ void ConfigView::writeConfig(DebugPluginSessionConfig::ConfigData &config)
     config.redirectTerminal = m_redirectTerminal->isChecked();
 }
 
-const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
+DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) const
 {
     DAPTargetConf cfg;
     cfg.targetName = m_targetCombo->currentText();
@@ -383,13 +383,22 @@ const DAPTargetConf ConfigView::currentDAPTarget(bool full) const
     for (const auto &field : variables) {
         // file
         if (field == F_FILE) {
-            cfg.variables[F_FILE] = m_executable->text();
+            QString filePath = m_executable->text();
             // working dir
+
+            if (filePath.isEmpty()) {
+                errorMessage = i18nc("Error message", "No executable target set");
+            }
+
+            cfg.variables[F_FILE] = filePath;
         } else if (field == F_WORKDIR) {
             cfg.variables[F_WORKDIR] = m_workingDirectory->text();
             // pid
         } else if (field == F_PID) {
             cfg.variables[F_PID] = m_processId->value();
+            if (m_processId->value() == 0) {
+                errorMessage = i18nc("Error message", "Invalid process id");
+            }
             // arguments
         } else if (field == F_ARGS) {
             cfg.variables[F_ARGS] = m_arguments->text();
@@ -719,7 +728,8 @@ void ConfigView::saveCurrentToIndex(int index)
     }
 
     tmp[F_TARGET] = m_targetCombo->itemText(index);
-    const auto cfg = currentDAPTarget();
+    QString error;
+    const auto cfg = currentDAPTarget(/*full=*/false, error);
     tmp[F_DEBUGGER] = cfg.debugger;
     tmp[F_PROFILE] = cfg.debuggerProfile;
     tmp[QStringLiteral("variables")] = QJsonObject::fromVariantHash(cfg.variables);

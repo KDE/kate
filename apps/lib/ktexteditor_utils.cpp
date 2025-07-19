@@ -163,6 +163,58 @@ QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
     return toolView;
 }
 
+void goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const KTextEditor::Range &location, const GoToOptions &options)
+{
+    KTextEditor::Cursor cdef = location.start();
+    if (uri.isEmpty() || !cdef.isValid()) {
+        return;
+    }
+
+    KTextEditor::View *activeView = mainWindow->activeView();
+    KTextEditor::Document *document = activeView ? activeView->document() : nullptr;
+    KTextEditor::View *targetView = nullptr;
+    if (document && uri == document->url()) {
+        targetView = activeView;
+    } else {
+        targetView = mainWindow->openUrl(uri);
+    }
+
+    if (targetView) {
+        if (options.record) {
+            // save current position for location history
+            if (activeView) {
+                Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), mainWindow);
+            }
+            // save the position to which we are jumping in location history
+            Utils::addPositionToHistory(targetView->document()->url(), cdef, mainWindow);
+        }
+        targetView->setCursorPosition(cdef);
+        if (options.highlight)
+            highlightLandingLocation(targetView, location);
+        if (options.focus) {
+            mainWindow->window()->raise();
+            mainWindow->window()->setFocus();
+        }
+    }
+}
+
+void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location)
+{
+    auto doc = view->document();
+    if (!doc) {
+        return;
+    }
+    auto mr = doc->newMovingRange(location);
+    KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute);
+    attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
+    mr->setView(view);
+    mr->setAttribute(attr);
+    QTimer::singleShot(1000, doc, [mr] {
+        mr->setRange(KTextEditor::Range::invalid());
+        delete mr;
+    });
+}
+
 void showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow)
 {
     if (!mainWindow) {

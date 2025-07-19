@@ -40,7 +40,6 @@ enum MessageType {
 
 namespace Utils
 {
-
 // A helper class that maintains scroll position
 struct KATE_PRIVATE_EXPORT KateScrollBarRestorer {
     explicit KateScrollBarRestorer(KTextEditor::View *view);
@@ -89,6 +88,21 @@ KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const
 KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
 
 KATE_PRIVATE_EXPORT QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side);
+
+// helper struct to support various keyword options below
+struct GoToOptions {
+    bool highlight = false;
+    bool focus = false;
+    bool record = true;
+};
+
+KATE_PRIVATE_EXPORT void
+goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const KTextEditor::Range &location, const GoToOptions &options = {});
+
+/**
+ * @brief give a short 1sec temporary highlight where you land
+ */
+KATE_PRIVATE_EXPORT void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location);
 
 /*** BEGIN KTextEditor::MainWindow extensions **/
 KATE_PRIVATE_EXPORT void

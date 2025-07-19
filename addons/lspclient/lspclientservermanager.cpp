@@ -10,6 +10,7 @@
 
 #include "lspclientservermanager.h"
 
+#include "exec_io_utils.h"
 #include "hostprocess.h"
 #include "ktexteditor_utils.h"
 #include "lspclient_debug.h"
@@ -217,6 +218,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         QJsonValue settings;
         // use of workspace folders allowed
         bool useWorkspace = false;
+        // execPrefix started with, if any
+        QStringList execPrefix;
     };
 
     struct DocumentInfo {
@@ -615,6 +618,21 @@ private:
         }
     }
 
+    void onExtraData(LSPClientServer *server, QByteArray data)
+    {
+        qCDebug(LSPCLIENT) << "extradata" << data;
+
+        // if path mapping is enabled ...
+        auto mapping = server->pathMapping();
+        if (!mapping)
+            return;
+
+        // ... then it could be introspected path mapping
+        bool ok = Utils::updateMapping(*mapping, data);
+        qCInfo(LSPCLIENT) << "map updated" << ok << "now;\n" << *mapping;
+    }
+
+    // try to find server at specified index, set to
     std::shared_ptr<LSPClientServer> _findServer(KTextEditor::View *view, KTextEditor::Document *document, QJsonObject &mergedConfig)
     {
         // compute the LSP standardized language id, none found => no change
@@ -633,8 +651,9 @@ private:
         const auto projectMap = Utils::projectMapForDocument(document);
 
         // merge with project specific
-        auto projectConfig = QJsonDocument::fromVariant(projectMap).object().value(QStringLiteral("lspclient")).toObject();
-        auto serverConfig = json::merge(m_serverConfig, projectConfig);
+        auto pluginName = QStringLiteral("lspclient");
+        auto projectConfig = QJsonDocument::fromVariant(projectMap).object();
+        auto serverConfig = json::merge(m_serverConfig, projectConfig.value(pluginName).toObject());
 
         // locate server config
         QJsonValue config;
@@ -660,6 +679,8 @@ private:
             return nullptr;
         }
 
+        // store overall settings for later use
+        auto lspConfig = serverConfig;
         // merge global settings
         serverConfig = json::merge(serverConfig.value(QStringLiteral("global")).toObject(), config.toObject());
 
@@ -707,6 +728,35 @@ private:
             }
         }
 
+        QStringList execPrefix;
+        Utils::PathMappingPtr pathMapping;
+        // if we are dealing with a rogue document, i.e. not belonging to a project,
+        // then there is a good chance this was opened by following some definition/declaration reference
+        // so let's see if we can find a server of proper language with an execPrefix and
+        if (projectBase.isEmpty()) {
+            // look for a server of same language with an execPrefix and pathMapping
+            // such that the root (or document) maps into the remote exec space
+            const auto &cs = m_servers;
+            for (auto m = cs.begin(); m != cs.end(); ++m) {
+                auto it = m.value().find(langId);
+                if (it != m.value().end()) {
+                    auto &si = *it;
+                    auto checkurl = rootpath ? QUrl::fromLocalFile(*rootpath) : document->url();
+                    auto map = si.server ? si.server->pathMapping() : nullptr;
+                    if (!si.execPrefix.isEmpty() && map && !si.server->mapPath(checkurl, true).isEmpty()) {
+                        // got one
+                        // then we can re-use the existing server instance or use that execPrefix for a new server
+                        // the latter should reasonably work as it was so configured
+                        execPrefix = si.execPrefix;
+                        pathMapping = map;
+                        // if no reasonable root yet, re-use existing server and root, if any
+                        if (!rootpath && si.server)
+                            rootpath = m.key().toLocalFile();
+                    }
+                }
+            }
+        }
+
         // is it actually safe/reasonable to use workspaces?
         // in practice, (at this time) servers do do not quite consider or support all that
         // so in that regard workspace folders represents a bit of "spec endulgance"
@@ -746,6 +796,9 @@ private:
             }
         }
 
+        // try to collect all exec related info
+        auto execConfig = Utils::ExecConfig::load(serverConfig, projectConfig, {lspConfig});
+
         QStringList cmdline;
         if (!server) {
             // need to find command line for server
@@ -765,6 +818,25 @@ private:
                 }
             }
 
+            // consider and prefix command with execPrefix if supplied
+            // note; we might have obtained it from existing server above
+            // but any config that is found explicitly overrides that guess
+            auto vexecPrefix = execConfig.prefix();
+            if (vexecPrefix.isArray()) {
+                execPrefix.clear();
+                for (const auto &c : vexecPrefix.toArray()) {
+                    execPrefix.push_back(c.toString());
+                }
+            }
+
+            // NOTE no substitution in execPrefix itself
+            // only as part of cmdline below
+            // it may be used elsewhere,
+            // so up to user to ensure it also makes sense there
+            if (!execPrefix.isEmpty()) {
+                cmdline = execPrefix + cmdline;
+            }
+
             // some more expansion and substitution
             // unlikely to be used here, but anyway
             for (auto &e : cmdline) {
@@ -780,6 +852,7 @@ private:
             serverinfo.url = serverConfig.value(QStringLiteral("url")).toString();
             // leave failcount as-is
             serverinfo.useWorkspace = useWorkspace;
+            serverinfo.execPrefix = execPrefix;
 
             // ensure we always only take the server executable from the PATH or user defined paths
             // QProcess will take the executable even just from current working directory without this => BAD
@@ -840,13 +913,26 @@ private:
             // extract some more additional config
             auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
             auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
+            decltype(LSPClientServer::ExtraServerConfig::environment) env;
+            if (!execPrefix.isEmpty()) {
+                if (!pathMapping)
+                    pathMapping = execConfig.init_mapping(view);
+                env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = pluginName;
+                env[QStringLiteral("KATE_EXEC_SERVER")] = realLangId;
+                // allow/enable mount inspection
+                if (pathMapping)
+                    env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QStringLiteral("1");
+            }
+
             // request server and setup
-            server.reset(new LSPClientServer(cmdline,
-                                             root,
-                                             realLangId,
-                                             serverConfig.value(QStringLiteral("initializationOptions")),
-                                             {.folders = folders, .caps = caps, .completion = completionOverride, .signature = signatureOverride}));
+            server.reset(new LSPClientServer(
+                cmdline,
+                root,
+                realLangId,
+                serverConfig.value(QStringLiteral("initializationOptions")),
+                {.folders = folders, .caps = caps, .completion = completionOverride, .signature = signatureOverride, .map = pathMapping, .environment = env}));
             connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
+            connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
                 QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
                 const auto url = serverConfig.value(QStringLiteral("url")).toString();

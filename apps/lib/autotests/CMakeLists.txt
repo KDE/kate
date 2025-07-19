@@ -32,6 +32,7 @@ kate_executable_tests(
     diffwidget_tests
     basic_ui_tests
     doc_or_widget_test
+    exec_tests
 )
 
 # expects some Linux specific idioms

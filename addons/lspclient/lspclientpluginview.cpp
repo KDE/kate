@@ -1884,9 +1884,9 @@ public:
             return;
         }
 
-        auto h = [this](const QString &reply) {
+        auto h = [this](const QUrl &reply) {
             if (!reply.isEmpty()) {
-                m_mainWindow->openUrl(QUrl(reply));
+                goToDocumentLocation(reply, KTextEditor::Range());
             } else {
                 showMessage(i18n("Corresponding Header/Source not found"), KTextEditor::Message::Information);
             }

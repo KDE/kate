@@ -18,6 +18,8 @@
 #include <functional>
 #include <optional>
 
+#include <exec_utils.h>
+
 namespace utils
 {
 // template helper
@@ -64,7 +66,7 @@ using CodeActionReplyHandler = ReplyHandler<QList<LSPCodeAction>>;
 using WorkspaceEditReplyHandler = ReplyHandler<LSPWorkspaceEdit>;
 using ApplyEditReplyHandler = ReplyHandler<LSPApplyWorkspaceEditResponse>;
 using WorkspaceFoldersReplyHandler = ReplyHandler<QList<LSPWorkspaceFolder>>;
-using SwitchSourceHeaderHandler = ReplyHandler<QString>;
+using SwitchSourceHeaderHandler = ReplyHandler<QUrl>;
 using MemoryUsageHandler = ReplyHandler<QString>;
 using ExpandMacroHandler = ReplyHandler<LSPExpandedMacro>;
 using SemanticTokensDeltaReplyHandler = ReplyHandler<LSPSemanticTokensDelta>;
@@ -116,6 +118,8 @@ public:
         QList<QChar> include;
     };
 
+    using PathMappingPtr = Utils::PathMappingPtr;
+
     // collect additional tweaks into a helper struct to avoid ever growing parameter list
     // (which then also needs to be duplicated in a few places)
     struct ExtraServerConfig {
@@ -123,6 +127,8 @@ public:
         LSPClientCapabilities caps;
         TriggerCharactersOverride completion;
         TriggerCharactersOverride signature;
+        PathMappingPtr map;
+        QHash<QString, QString> environment;
     };
 
     LSPClientServer(const QStringList &server,
@@ -147,7 +153,13 @@ public:
     State state() const;
     Q_SIGNAL void stateChanged(LSPClientServer *server);
 
+    // extra out-of-band data
+    Q_SIGNAL void extraData(LSPClientServer *server, QByteArray payload);
+
     const LSPServerCapabilities &capabilities() const;
+
+    PathMappingPtr pathMapping() const;
+    QUrl mapPath(const QUrl &url, bool fromLocal) const;
 
     // language
     RequestHandle documentSymbols(const QUrl &document, const QObject *context, const DocumentSymbolsReplyHandler &h, const ErrorReplyHandler &eh = nullptr);

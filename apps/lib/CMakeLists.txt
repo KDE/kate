@@ -159,6 +159,7 @@ target_sources(
     gitprocess.cpp
     quickdialog.cpp
     ktexteditor_utils.cpp
+    exec_utils.cpp
 
     data/kateprivate.qrc
     hostprocess.cpp
@@ -207,6 +208,11 @@ if (UNIX)
 endif ()
 
 target_link_libraries(kateprivate PRIVATE executils)
+
+install(
+  PROGRAMS exec_inspect.sh
+  TYPE BIN
+)
 
 if (ENABLE_PCH)
     target_precompile_headers(kateprivate REUSE_FROM katepch)

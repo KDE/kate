@@ -223,8 +223,8 @@ void Command::start(QProcess &process) const
         }
         process.setProcessEnvironment(env);
     }
-    //    qDebug() << process.environment();
-    //    qDebug() << process.program();
+    qCDebug(DAPCLIENT) << "environment" << process.environment();
+    qCDebug(DAPCLIENT) << "start" << command << arguments;
     process.start(command, arguments);
 }
 

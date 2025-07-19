@@ -7,6 +7,7 @@
 #include "ktexteditor_utils.h"
 #include "diagnostics/diagnosticview.h"
 #include "diffwidget.h"
+#include "exec_io_utils.h"
 
 #include <QDir>
 #include <QFontDatabase>
@@ -24,6 +25,7 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
+#include <KTextEditor/Message>
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
@@ -164,6 +166,20 @@ QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
     return toolView;
 }
 
+static void showMessage(KTextEditor::MainWindow *mainWindow, const QString &text, KTextEditor::Message::MessageType level)
+{
+    KTextEditor::View *view = mainWindow->activeView();
+    if (!view || !view->document()) {
+        return;
+    }
+
+    auto kmsg = new KTextEditor::Message(text, level);
+    kmsg->setPosition(KTextEditor::Message::BottomInView);
+    kmsg->setAutoHide(500);
+    kmsg->setView(view);
+    view->document()->postMessage(kmsg);
+}
+
 static bool goToDocumentLocation(KTextEditor::MainWindow *mainWindow,
                                  KTextEditor::View *targetView,
                                  const KTextEditor::Range &location,
@@ -210,6 +226,11 @@ void goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, 
     if (document && uri == document->url()) {
         targetView = activeView;
     } else {
+        // skip remote unmapped path url
+        if (uri.scheme() == ExecPrefixManager::scheme() && uri.host().isEmpty()) {
+            showMessage(mainWindow, i18n("Can not open %1", uri.toDisplayString()), KTextEditor::Message::Information);
+            return;
+        }
         targetView = mainWindow->openUrl(uri);
     }
 

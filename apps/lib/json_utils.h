@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <QJsonArray>
 #include <QJsonObject>
 
 namespace json
@@ -32,4 +33,25 @@ inline QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
     return result;
 }
 
+inline void find(const QJsonValue &value, std::function<bool(const QJsonObject &)> check, QJsonObject &current)
+{
+    if (value.isArray()) {
+        auto av = value.toArray();
+        for (const auto &e : av) {
+            find(e, check, current);
+        }
+    } else if (value.isObject()) {
+        auto ob = value.toObject();
+        if (check(ob) && ob.size() > current.size()) {
+            current = ob;
+        }
+    }
+}
+
+inline QJsonObject find(const QJsonValue &value, std::function<bool(const QJsonObject &)> check)
+{
+    QJsonObject current;
+    find(value, check, current);
+    return current;
+}
 }

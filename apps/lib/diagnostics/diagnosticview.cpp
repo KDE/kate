@@ -1314,31 +1314,7 @@ void DiagnosticsView::goToItemLocation(QModelIndex index)
         return;
     }
 
-    int line = start.start().line();
-    int column = start.start().column();
-    KTextEditor::View *activeView = m_mainWindow->activeView();
-    if (line < 0 || column < 0) {
-        return;
-    }
-
-    KTextEditor::Document *document = activeView ? activeView->document() : nullptr;
-    KTextEditor::Cursor cdef(line, column);
-
-    KTextEditor::View *targetView = nullptr;
-    if (document && url == document->url()) {
-        targetView = activeView;
-    } else {
-        targetView = m_mainWindow->openUrl(url);
-    }
-    if (targetView) {
-        // save current position for location history
-        if (activeView) {
-            Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), m_mainWindow);
-        }
-        // save the position to which we are jumping in location history
-        Utils::addPositionToHistory(targetView->document()->url(), cdef, m_mainWindow);
-        targetView->setCursorPosition(cdef);
-    }
+    Utils::goToDocumentLocation(m_mainWindow, url, start);
 }
 
 void DiagnosticsView::onMarkClicked(KTextEditor::Document *document, KTextEditor::Mark mark, bool &handled)

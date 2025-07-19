@@ -2788,7 +2788,11 @@ source XYZ
 # server mileage or arguments may vary
 exec myserver
 </screen>
-
+<para>
+This is but one example of a more general pattern which may be handled a bit
+more comfortably as outlined in the
+<link linkend="lspclient-exec">Execution environment</link> section below.
+</para>
 
 <sect3 id="lspclient-customization">
 <title>LSP Server Configuration</title>
@@ -2932,6 +2936,206 @@ that.  The LSP client also provides additional debug tracing (to stderr)
 when &kate; is invoked with the following
 <literal>LSPCLIENT_DEBUG=1</literal> suitably
 <literal>export</literal>'ed.
+</para>
+
+</sect3>
+
+<sect3 id="lspclient-exec">
+<title>Execution environment setup</title>
+
+<para>
+The python virtualenv example above is but one example of an
+"execution environment" that operates in a distinct and separate way from the
+usual host environment. This could be achieved by different variable settings
+(e.g. virtualenv), or a (s)chroot setup (switching to another dir as new root),
+a container (e.g. podman, docker), or an ssh session to another host.
+In each case, the "other environment" is defined by an "execution prefix".
+That is, some program can be invoked/run in the other environment by means
+of a "prefix" (a program and arguments) appended with the intended
+invocation.  For example, <literal>podman exec -i containername</literal>
+or <literal>ssh user@host</literal>.
+</para>
+
+<para>
+In particular, as in the previous virtualenv example, one may choose/need to run
+an LSP server is such a separate environment (e.g. a container with all
+dependencies needed by some project).  The "manual" approach outlined above
+has as disadvantage that it replaces the standard LSP command-line, which
+then has to specified and duplicated again in the wrapper script.  Also,
+in some of the other examples mentioned above the "path namespace" of host
+(as viewed by the editor) may be different from that of the environment.
+To address these matters in a more systematic way (than a "custom" approach),
+some additional configuration can be specified.
+</para>
+
+<para>
+For example, the following can be specified in a <literal>.kateproject</literal>
+configuration.  Obviously, the "fake" comments should not be included.
+</para>
+
+<screen>
+{
+    // this may also be an array of objects
+    "exec": {
+        "hostname": "foobar"
+        // the command could also be an array of string
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // either of the following forms are possible
+            // a more automagic alternative exists as well, see later/below
+            [ "/dir/on/host", "/mounted/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "lspclient": {
+        "servers": {
+            "python": {
+                // this will match/join with the above object
+                "exec": { "hostname": "foobar" },
+                // confine this server to this project root,
+                // so it is not used for other projects that may be opened
+                // (other servers may already employ specific roots, but python generally not)
+                "root": "."
+            },
+            "c": {
+                // as above
+                "exec": { "hostname": "foobar" },
+                "root": "."
+            }
+        }
+    }
+}
+</screen>
+
+<para>
+So, what happens as a result of the above?  As mentioned, the
+<literal>lspclient</literal> part of the above is merged onto the global config,
+hence an <literal>exec</literal> section is found (for specified languages).
+A search is performed for another object (that specifies matching
+<literal>hostname</literal>) in either <literal>exec</literal> or
+<literal>lspclient</literal> section, and a matching one is as a basis for a
+merge. As a result, an LSP server (for C and python) will have its commandline
+appended to the specified (variable substituted) prefix, and will therefore be
+started within the given container.  Of course, the container must have been
+created, in a proper started state and equipped with proper LSP servers. One
+might have been tempted to use the <literal>global</literal> section (within
+<literal>lspclient</literal>.) That could also work, but then
+<emphasis>all</emphasis> LSP servers would be started with that prefix,
+including those for e.g. Markdown, Bash script or JSON.  It is more likely that
+the usual host will still supply these (if in use).  So, as always, it depends
+on your particular setup.
+</para>
+
+<para>
+However, the LSP server may now observe different (remote) paths than the
+(local) ones that are seen and used by the editor.  The specified
+<literal>pathMappings</literal> are used to translate back and forth between
+either within the communication with the LSP server.  That is, of course,
+as much as possible.  Clearly, not all local paths have a remote representation,
+but the missing ones are also not seen (by the server) and do not pose a problem.
+Conversely, however, the (remote) server may now see and provide references
+in the "remote root" which are not evidently/easily represented in the local
+system.  The enabled <literal>mapRemoteRoot</literal> implicitly maps the
+remote root onto a "local URL" <literal>exec://foobar/</literal>, which
+is then handled by a  plain-and-simple KIO protocol.  The latter essentially
+uses (e.g.) <literal>podman exec -i foobarcontainer cat somefile"</literal>
+for copy from remote to local (and other such variations using tools from
+the <literal>coreutils</literal> suite).  Suffice it to say
+it is not meant for general use and claims no performance whatsoever, but it
+does suffice to get a referenced file quickly and easily loaded into editor.
+</para>
+
+<para>
+It is now easily seen that a simplified version of above configuration
+(without <literal>hostname</literal> or <literal>pathMappings</literal>)
+could be used to handle the virtualenv without having to duplicate server
+commandline (in wrapper script).
+</para>
+
+<para>
+The following may not be so easily seen, so it is mentioned here explicitly.
+</para>
+<itemizedlist>
+<listitem>
+<para>
+Both a <literal>hostname</literal> and the actual <literal>prefix</literal>
+define the execution environment (the former by name, the latter by content).
+Within an editor process instance, the same <literal>hostname</literal>
+should not be associated with different <literal>prefix</literal>, as such
+leads to undefined behavior (with no diagnostic required).
+</para>
+</listitem>
+<listitem>
+<para>
+Both <literal>prefix</literal> and <literal>pathMappings</literal> are subject
+to (editor) variable expansion (but do mind the foregoing item).
+</para>
+</listitem>
+<listitem>
+<para>
+At runtime, some environment variables are also set, which may be used to
+(subtly) adjust the "prefix launcher"'s behavior (though again mind the
+first item).  In particular, <literal>KATE_EXEC_PLUGIN</literal>
+is set to <literal>lspclient</literal> and <literal>KATE_EXEC_SERVER</literal>
+is set to the server's id (e.g. <literal>python</literal>).
+</para>
+</listitem>
+<listitem>
+<para>
+In particular, also <literal>KATE_EXEC_INSPECT</literal> is set to <literal>1</literal>.
+This notifies the "prefix launcher" that the receiver (Kate plugin) accepts some
+out-of-band/protocol data.  This allows the launcher to use some means
+to determine path mappings (e.g. <literal>podman inspect</literal>) and to
+communicate this in suitable format.  This will then be
+removed from the otherwise LSP protocol conforming stream and used to
+extend any defined path mapping.  This may serve as an alternative to  specifying
+e.g. bind mounts explicitly (again, duplicating the container's definition).
+Concretely, the above snippet could then be used instead;
+<screen>
+{
+    // ...
+    "exec": {
+        "hostname": "foobar"
+        // unfortunate repetition of name, but the helper script is plain-and-simple
+        "prefix": "exec_inspect.sh foobarcontainer podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": []
+    }
+    // ...
+}
+</screen>
+</para>
+</listitem>
+</itemizedlist>
+
+<para>
+Last but not least, what if the "fallback KIO" approach is not considered
+adequate?  It is in practice often possible to "mount" the remote root
+into the local filesystem and then specify the latter in a
+<literal>pathMappings</literal>.
+For starters, the well-known <literal>sshfs</literal> (fuse) filesystem can
+mount a (really) remote system into the local one.  For a container
+(podman/docker), most (filesystem driver) setups support the following trick;
+<screen>
+$ rootdir=/proc/`podman inspect --format '{{.State.Pid}}' containername`/root
+# some symlinks may cause issues, see also alternative below
+$ sudo mount --bind $rootdir /somewhere/containername
+</screen>
+
+If that fails, then one could resort to <literal>sshfs</literal>, or in fact
+a subset thereof to mount the remote/container root;
+<screen>
+# see respective man-pages; sftp-server suffices for actual (unencrypted) file ops protocol
+$ socat 'exec:podman exec -i containername /usr/lib/openssh/sftp-server'
+   'exec:sshfs -o transform_symlinks -o passive \:/ /somewhere/containername'
+# ...
+$ fusermount -u /somewhere/containername
+</screen>
+
+Note that such mount of remote root into host filesystem is likely to be specified
+manually and explicitly in a <literal>pathMappings</literal> section
+(barring a very intelligent prefix launcher that arranges all such automagically).
 </para>
 
 </sect3>

@@ -34,3 +34,11 @@ kate_executable_tests(
     doc_or_widget_test
     file_history_tests
 )
+
+# expects some Linux specific idioms
+if (UNIX AND (CMAKE_SYSTEM_NAME STREQUAL Linux))
+    kate_executable_tests(
+        io_tests
+    )
+    target_link_libraries(io_tests PRIVATE executils)
+endif ()

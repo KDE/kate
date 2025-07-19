@@ -1,0 +1,22 @@
+{
+    "KDE-KIO-Protocols": {
+        "kateexec": {
+            "Class": ":internet",
+            "Icon": "folder-remote",
+            "copyFromFile": true,
+            "copyToFile": true,
+            "input": "none",
+             "listing": [
+                "Name",
+                "Type",
+                ""
+            ],
+            "maxInstances": 20,
+            "maxInstancesPerHost": 5,
+            "output": "filesystem",
+            "protocol": "kateexec",
+            "reading": false,
+            "writing": false
+        }
+    }
+}

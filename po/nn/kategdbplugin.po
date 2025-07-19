@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-30 00:44+0000\n"
+"POT-Creation-Date: 2025-07-19 05:24+0000\n"
 "PO-Revision-Date: 2020-10-22 20:43+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -88,18 +88,30 @@ msgstr "Omdiriger inn/ut"
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Omdiriger inn/ut-data for det feilsøkte programmet til ei eiga fane"
 
-#: configview.cpp:462 configview.cpp:475
+#: configview.cpp:390
+#, kde-format
+msgctxt "Error message"
+msgid "No executable target set"
+msgstr ""
+
+#: configview.cpp:400
+#, kde-format
+msgctxt "Error message"
+msgid "Invalid process id"
+msgstr ""
+
+#: configview.cpp:471 configview.cpp:484
 #, kde-format
 msgid "Target %1"
 msgstr "Mål %1"
 
-#: configview.cpp:694
+#: configview.cpp:703
 #, fuzzy, kde-format
 #| msgid "Executable:"
 msgid "Select Executable"
 msgstr "Programfil:"
 
-#: configview.cpp:707
+#: configview.cpp:716
 #, fuzzy, kde-format
 #| msgid "Working Directory:"
 msgid "Select Working Directory"
@@ -505,171 +517,176 @@ msgstr "Symbol"
 msgid "Copy Value"
 msgstr "Kopier mål"
 
-#: plugin_kategdb.cpp:108
+#: plugin_kategdb.cpp:110
 #, kde-format
 msgid "Kate Debug"
 msgstr ""
 
-#: plugin_kategdb.cpp:112
+#: plugin_kategdb.cpp:114
 #, kde-format
 msgid "Debug View"
 msgstr "Feilsøkingsvising"
 
-#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:382
+#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:384
 #, kde-format
 msgid "Debug"
 msgstr "Feilsøk"
 
-#: plugin_kategdb.cpp:115 plugin_kategdb.cpp:118
+#: plugin_kategdb.cpp:117 plugin_kategdb.cpp:120
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Lokale og kallstabel"
 
-#: plugin_kategdb.cpp:249
+#: plugin_kategdb.cpp:251
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr ""
 
-#: plugin_kategdb.cpp:264
+#: plugin_kategdb.cpp:266
 #, kde-format
 msgid "Targets"
 msgstr "Mål"
 
-#: plugin_kategdb.cpp:269
+#: plugin_kategdb.cpp:271
 #, kde-format
 msgid "Start Debugging"
 msgstr "Start feilsøking"
 
-#: plugin_kategdb.cpp:279
+#: plugin_kategdb.cpp:281
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Drep / stopp feilsøking"
 
-#: plugin_kategdb.cpp:286
+#: plugin_kategdb.cpp:288
 #, kde-format
 msgid "Continue"
 msgstr "Hald fram"
 
-#: plugin_kategdb.cpp:292
+#: plugin_kategdb.cpp:294
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Avbrotspunkt/brot på/av"
 
-#: plugin_kategdb.cpp:299
+#: plugin_kategdb.cpp:301
 #, fuzzy, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Avbrotspunkt"
 
-#: plugin_kategdb.cpp:304
+#: plugin_kategdb.cpp:306
 #, kde-format
 msgid "Step In"
 msgstr "Gå inn i"
 
-#: plugin_kategdb.cpp:311
+#: plugin_kategdb.cpp:313
 #, kde-format
 msgid "Step Over"
 msgstr "Gå over"
 
-#: plugin_kategdb.cpp:318
+#: plugin_kategdb.cpp:320
 #, kde-format
 msgid "Step Out"
 msgstr "Gå ut"
 
-#: plugin_kategdb.cpp:325 plugin_kategdb.cpp:389
+#: plugin_kategdb.cpp:327 plugin_kategdb.cpp:391
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Gå til skrivemerke"
 
-#: plugin_kategdb.cpp:332
+#: plugin_kategdb.cpp:334
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Start feilsøking på nytt"
 
-#: plugin_kategdb.cpp:339
+#: plugin_kategdb.cpp:341
 #, kde-format
 msgid "Clear Output"
 msgstr ""
 
-#: plugin_kategdb.cpp:347
+#: plugin_kategdb.cpp:349
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:354
+#: plugin_kategdb.cpp:356
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:363
+#: plugin_kategdb.cpp:365
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:372 plugin_kategdb.cpp:391
+#: plugin_kategdb.cpp:374 plugin_kategdb.cpp:393
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Flytt PC"
 
-#: plugin_kategdb.cpp:377
+#: plugin_kategdb.cpp:379
 #, kde-format
 msgid "Print Value"
 msgstr "Skriv ut verdi"
 
-#: plugin_kategdb.cpp:466 plugin_kategdb.cpp:482
+#: plugin_kategdb.cpp:449
+#, kde-format
+msgid "Error: %1"
+msgstr ""
+
+#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Set inn avbrotspunkt"
 
-#: plugin_kategdb.cpp:480
+#: plugin_kategdb.cpp:496
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Fjern avbrotspunkt"
 
-#: plugin_kategdb.cpp:652
+#: plugin_kategdb.cpp:668
 #, kde-format
 msgid "Execution point"
 msgstr "Køyrepunkt"
 
-#: plugin_kategdb.cpp:773 plugin_kategdb.cpp:805
+#: plugin_kategdb.cpp:789 plugin_kategdb.cpp:821
 #, kde-format
 msgid "Thread %1"
 msgstr "Tråd %1"
 
-#: plugin_kategdb.cpp:901
+#: plugin_kategdb.cpp:917
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr ""
 
-#: plugin_kategdb.cpp:902
+#: plugin_kategdb.cpp:918
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Innstillingar"
 
-#: plugin_kategdb.cpp:937
+#: plugin_kategdb.cpp:953
 #, kde-format
 msgid "IO"
 msgstr "Inn/ut"
 
-#: plugin_kategdb.cpp:1026
+#: plugin_kategdb.cpp:1042
 #, kde-format
 msgid "Breakpoint"
 msgstr "Avbrotspunkt"
 
-#: plugin_kategdb.cpp:1102
+#: plugin_kategdb.cpp:1118
 #, fuzzy, kde-format
 msgid "Copy Stack Trace"
 msgstr "Kopier mål"
 
-#: plugin_kategdb.cpp:1121
+#: plugin_kategdb.cpp:1137
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1131
+#: plugin_kategdb.cpp:1147
 #, kde-format
 msgid "Copy Location"
 msgstr ""

@@ -1091,53 +1091,8 @@ public:
 
     void goToDocumentLocation(const QUrl &uri, const KTextEditor::Range &location)
     {
-        int line = location.start().line();
-        int column = location.start().column();
-        KTextEditor::View *activeView = m_mainWindow->activeView();
-        if (!activeView || uri.isEmpty() || line < 0 || column < 0) {
-            return;
-        }
-
-        KTextEditor::Document *document = activeView->document();
-        KTextEditor::Cursor cdef(line, column);
-
-        KTextEditor::View *targetView = nullptr;
-        if (document && uri == document->url()) {
-            targetView = activeView;
-        } else {
-            targetView = m_mainWindow->openUrl(uri);
-        }
-        if (targetView) {
-            // save current position for location history
-            Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), m_mainWindow);
-            // save the position to which we are jumping in location history
-            Utils::addPositionToHistory(targetView->document()->url(), cdef, m_mainWindow);
-            targetView->setCursorPosition(cdef);
-            highlightLandingLocation(targetView, location);
-        }
-    }
-
-    /**
-     * @brief give a short 1sec temporary highlight where you land
-     */
-    void highlightLandingLocation(KTextEditor::View *view, const KTextEditor::Range &location)
-    {
-        if (!m_highlightGoto || !m_highlightGoto->isChecked()) {
-            return;
-        }
-        auto doc = view->document();
-        if (!doc) {
-            return;
-        }
-        auto mr = doc->newMovingRange(location);
-        KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute);
-        attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
-        mr->setView(view);
-        mr->setAttribute(attr);
-        QTimer::singleShot(1000, doc, [mr] {
-            mr->setRange(KTextEditor::Range::invalid());
-            delete mr;
-        });
+        bool hl = !location.isEmpty() && m_highlightGoto && m_highlightGoto->isChecked();
+        Utils::goToDocumentLocation(m_mainWindow, uri, location, {.highlight = hl});
     }
 
     static QModelIndex getPrimaryModelIndex(QModelIndex index)

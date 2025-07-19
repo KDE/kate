@@ -14,6 +14,7 @@
 #include <QMimeDatabase>
 #include <QPointer>
 #include <QScrollBar>
+#include <QTimer>
 #include <QVariant>
 
 #include <KActionCollection>
@@ -163,6 +164,39 @@ QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
     return toolView;
 }
 
+static bool goToDocumentLocation(KTextEditor::MainWindow *mainWindow,
+                                 KTextEditor::View *targetView,
+                                 const KTextEditor::Range &location,
+                                 KTextEditor::View *activeView,
+                                 const GoToOptions &options)
+{
+    auto targetDoc = targetView->document();
+    // check if document is really loaded by now
+    if (!targetDoc || targetDoc->lines() == 0 || !targetDoc->isReadWrite())
+        return false;
+
+    KTextEditor::Cursor cdef = location.start();
+    if (!cdef.isValid())
+        return true;
+    if (options.record) {
+        if (activeView) {
+            // save current position for location history
+            Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), mainWindow);
+        }
+        // save the position to which we are jumping in location history
+        Utils::addPositionToHistory(targetView->document()->url(), cdef, mainWindow);
+    }
+    targetView->setCursorPosition(cdef);
+    if (options.highlight)
+        highlightLandingLocation(targetView, location);
+    if (options.focus) {
+        mainWindow->window()->raise();
+        mainWindow->window()->setFocus();
+    }
+
+    return true;
+}
+
 void goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const KTextEditor::Range &location, const GoToOptions &options)
 {
     KTextEditor::Cursor cdef = location.start();
@@ -179,22 +213,23 @@ void goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, 
         targetView = mainWindow->openUrl(uri);
     }
 
-    if (targetView) {
-        if (options.record) {
-            // save current position for location history
-            if (activeView) {
-                Utils::addPositionToHistory(activeView->document()->url(), activeView->cursorPosition(), mainWindow);
+    // try to go at once
+    if (targetView && !goToDocumentLocation(mainWindow, targetView, location, activeView, options)) {
+        // setup retry in case delayed non-file load
+        auto timer = new QTimer(mainWindow);
+        auto h = [mainWindow, targetView, activeView = QPointer(activeView), location, options, timer, count = 0]() mutable {
+            // mainWindow is parent, targetView is receiver
+            // so still need to check activeView
+            if (activeView.isNull())
+                return;
+            // note; opening remote url temporarily positions cursor at top of that new view
+            // so try to avoid that in the position history by using the current view instead
+            if (goToDocumentLocation(mainWindow, targetView, location, activeView, options) || ++count > 5) {
+                timer->deleteLater();
             }
-            // save the position to which we are jumping in location history
-            Utils::addPositionToHistory(targetView->document()->url(), cdef, mainWindow);
-        }
-        targetView->setCursorPosition(cdef);
-        if (options.highlight)
-            highlightLandingLocation(targetView, location);
-        if (options.focus) {
-            mainWindow->window()->raise();
-            mainWindow->window()->setFocus();
-        }
+        };
+        QObject::connect(timer, &QTimer::timeout, targetView, h);
+        timer->start(500);
     }
 }
 

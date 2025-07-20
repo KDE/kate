@@ -518,7 +518,7 @@ static LSPResponseError parseResponseError(const rapidjson::Value &v)
     return ret;
 }
 
-static LSPMarkupContent parseMarkupContent(const rapidjson::Value &v)
+static LSPMarkupContent parseMarkupContent(const rapidjson::Value &v, const LSPMarkupKind stringMarkup)
 {
     LSPMarkupContent ret;
     if (v.IsObject()) {
@@ -530,7 +530,7 @@ static LSPMarkupContent parseMarkupContent(const rapidjson::Value &v)
             ret.kind = LSPMarkupKind::MarkDown;
         }
     } else if (v.IsString()) {
-        ret.kind = LSPMarkupKind::PlainText;
+        ret.kind = stringMarkup;
         ret.value = QString::fromUtf8(v.GetString(), v.GetStringLength());
     }
     return ret;
@@ -655,7 +655,9 @@ static QList<LSPDocumentHighlight> parseDocumentHighlightList(const rapidjson::V
 
 static LSPMarkupContent parseHoverContentElement(const rapidjson::Value &contents)
 {
-    return parseMarkupContent(contents);
+    // this element defaults to markdown if it is a plain string
+    // see bug 494139 and https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#markedString
+    return parseMarkupContent(contents, LSPMarkupKind::MarkDown);
 }
 
 static LSPHover parseHover(const rapidjson::Value &hover)
@@ -786,7 +788,7 @@ static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
     LSPMarkupContent doc;
     auto it = item.FindMember(MEMBER_DOCUMENTATION);
     if (it != item.MemberEnd()) {
-        doc = parseMarkupContent(it->value);
+        doc = parseMarkupContent(it->value, LSPMarkupKind::PlainText);
     }
 
     auto sortText = GetStringValue(item, "sortText");
@@ -872,7 +874,7 @@ static LSPSignatureInformation parseSignatureInformation(const rapidjson::Value 
     info.label = GetStringValue(json, MEMBER_LABEL);
     auto it = json.FindMember(MEMBER_DOCUMENTATION);
     if (it != json.MemberEnd()) {
-        info.documentation = parseMarkupContent(it->value);
+        info.documentation = parseMarkupContent(it->value, LSPMarkupKind::PlainText);
     }
     const auto &params = GetJsonArrayForKey(json, "parameters");
     for (const auto &par : params.GetArray()) {

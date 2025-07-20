@@ -18,6 +18,8 @@ namespace settings
 
 static const QString REQUEST = QStringLiteral("request");
 static const QString RUN_IN_TERMINAL = QStringLiteral("runInTerminal");
+static const QString RUN = QStringLiteral("run");
+static const QString CONFIGURATIONS = QStringLiteral("configurations");
 
 struct Command {
     QString command;

@@ -52,6 +52,7 @@ struct GDBTargetConf {
 
 struct DAPAdapterSettings {
     int index{};
+    // profile object = merged run/configuration
     QJsonObject settings;
     QStringList variables;
 };
@@ -149,7 +150,9 @@ private:
     QLabel *m_processIdLabel;
     KSelectAction *m_targetSelectAction = nullptr;
 
+    // (var name, Field)
     QHash<QString, Field> m_dapFields;
+    // (server, (profile, settings))
     QHash<QString, QHash<QString, DAPAdapterSettings>> m_dapAdapterSettings;
 
     QUrl m_dapConfigPath;

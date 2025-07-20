@@ -22,8 +22,6 @@ namespace dap
 {
 namespace settings
 {
-static const QString RUN = QStringLiteral("run");
-static const QString CONFIGURATIONS = QStringLiteral("configurations");
 static const QString COMMAND = QStringLiteral("command");
 static const QString COMMAND_ARGS = QStringLiteral("commandArgs");
 static const QString PORT = QStringLiteral("port");

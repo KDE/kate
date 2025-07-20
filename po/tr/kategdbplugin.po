@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-07-02 16:54+0300\n"
+"PO-Revision-Date: 2025-07-19 22:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -100,14 +100,13 @@ msgstr ""
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Ayarlanmış yürütülebilir hedef yok"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "geçersiz iş parçacığı kimliği: %1"
+msgstr "Geçersiz iş parçacığı kimliği"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -637,10 +636,9 @@ msgid "Print Value"
 msgstr "Değeri Yazdır"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "sözdizim hatası: %1"
+msgstr "Hata: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

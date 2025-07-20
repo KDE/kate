@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-06-30 06:49+0200\n"
+"PO-Revision-Date: 2025-07-19 20:25+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -95,14 +95,13 @@ msgstr "V/I razhroščevanih programov preusmeri v ločen zavihek"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Ni nastavljen cilj izvedljive datoteke"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "neveljaven id niti: %1"
+msgstr "Neveljaven id procesa"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -632,10 +631,9 @@ msgid "Print Value"
 msgstr "Izpiši vrednost"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "napaka skladnje: %1"
+msgstr "Napaka: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

@@ -93,11 +93,10 @@ msgid "No executable target set"
 msgstr ""
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "无效的线程 ID: %1"
+msgstr ""
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -627,10 +626,9 @@ msgid "Print Value"
 msgstr "打印值"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "语法错误：%1"
+msgstr ""
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

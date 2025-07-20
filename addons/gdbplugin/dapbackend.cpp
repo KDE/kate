@@ -163,6 +163,7 @@ dap::settings::ClientSettings &DapBackend::target2dap(const DAPTargetConf &targe
     Q_EMIT outputText(QString::fromLocal8Bit(QJsonDocument(out).toJson()) + QStringLiteral("\n"));
 
     m_settings = dap::settings::ClientSettings(out);
+    m_pathMap = target.dapSettings->pathMap;
     return *m_settings;
 }
 
@@ -174,7 +175,7 @@ void DapBackend::start()
     }
     unsetClient();
 
-    m_client = new dap::Client(*m_settings, this);
+    m_client = new dap::Client(*m_settings, m_pathMap, this);
 
     Q_EMIT debuggerCapabilitiesChanged();
 

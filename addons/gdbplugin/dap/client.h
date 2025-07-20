@@ -16,6 +16,8 @@
 #include "entities.h"
 #include "settings.h"
 
+#include <exec_utils.h>
+
 namespace dap
 {
 class Client : public QObject
@@ -31,9 +33,9 @@ public:
     };
     Q_ENUM(State)
 
-    Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, QObject *parent = nullptr);
+    Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, Utils::PathMappingPtr, QObject *parent = nullptr);
 
-    Client(const settings::ClientSettings &clientSettings, QObject *parent = nullptr);
+    Client(const settings::ClientSettings &clientSettings, Utils::PathMappingPtr, QObject *parent = nullptr);
 
     ~Client() override;
 
@@ -213,6 +215,7 @@ private:
 
     settings::ProtocolSettings m_protocol;
     QString m_launchCommand;
+    std::unique_ptr<MessageContext> m_msgContext;
 };
 
 }

@@ -103,6 +103,12 @@ struct ProcessInfo {
     ProcessInfo(const QJsonObject &body);
 };
 
+struct MessageContext {
+    virtual ~MessageContext() = default;
+    virtual QString toRemote(const QUrl &) = 0;
+    virtual QUrl toLocal(const QString &) = 0;
+};
+
 struct Checksum {
     QString checksum;
     QString algorithm;
@@ -128,10 +134,10 @@ struct Source {
     static QUrl getUnifiedId(const QUrl &path, std::optional<int> sourceReference);
 
     Source() = default;
-    Source(const QJsonObject &body);
+    Source(const QJsonObject &body, MessageContext &);
     Source(const QUrl &path);
 
-    QJsonObject toJson() const;
+    QJsonObject toJson(MessageContext &ctx) const;
 };
 
 struct SourceContent {
@@ -212,7 +218,7 @@ struct Breakpoint {
     std::optional<int> offset;
 
     Breakpoint() = default;
-    Breakpoint(const QJsonObject &body);
+    Breakpoint(const QJsonObject &body, MessageContext &);
     Breakpoint(const int line);
 };
 
@@ -220,14 +226,7 @@ class Output
 {
     Q_GADGET
 public:
-    enum class Category {
-        Console,
-        Important,
-        Stdout,
-        Stderr,
-        Telemetry,
-        Unknown
-    };
+    enum class Category { Console, Important, Stdout, Stderr, Telemetry, Unknown };
 
     Q_ENUM(Category)
 
@@ -247,7 +246,7 @@ public:
     QJsonValue data;
 
     Output() = default;
-    Output(const QJsonObject &body);
+    Output(const QJsonObject &body, MessageContext &ctx);
     Output(const QString &output, const Category &category);
 
     bool isSpecialOutput() const;
@@ -361,7 +360,7 @@ struct BreakpointEvent {
     Breakpoint breakpoint;
 
     BreakpointEvent() = default;
-    BreakpointEvent(const QJsonObject &body);
+    BreakpointEvent(const QJsonObject &body, MessageContext &);
 };
 
 struct Thread {
@@ -390,7 +389,7 @@ struct StackFrame {
     std::optional<QString> presentationHint;
 
     StackFrame() = default;
-    StackFrame(const QJsonObject &body);
+    StackFrame(const QJsonObject &body, MessageContext &ctx);
 };
 
 struct StackTraceInfo {
@@ -398,7 +397,7 @@ struct StackTraceInfo {
     std::optional<int> totalFrames;
 
     StackTraceInfo() = default;
-    StackTraceInfo(const QJsonObject &body);
+    StackTraceInfo(const QJsonObject &body, MessageContext &ctx);
 };
 
 struct Scope {
@@ -415,18 +414,14 @@ struct Scope {
     std::optional<int> endColumn;
 
     Scope() = default;
-    Scope(const QJsonObject &body);
+    Scope(const QJsonObject &body, MessageContext &ctx);
     Scope(int variablesReference, QString name);
 
-    static QList<Scope> parseList(const QJsonArray &scopes);
+    static QList<Scope> parseList(const QJsonArray &scopes, MessageContext &ctx);
 };
 
 struct Variable {
-    enum Type {
-        Indexed = 1,
-        Named = 2,
-        Both = 3
-    };
+    enum Type { Indexed = 1, Named = 2, Both = 3 };
 
     QString name;
     QString value;

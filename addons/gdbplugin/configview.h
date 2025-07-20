@@ -16,6 +16,8 @@
 
 #include <optional>
 
+#include <exec_utils.h>
+
 class QPushButton;
 class QComboBox;
 class QFrame;
@@ -55,6 +57,7 @@ struct DAPAdapterSettings {
     // profile object = merged run/configuration
     QJsonObject settings;
     QStringList variables;
+    Utils::PathMappingPtr pathMap;
 };
 
 struct DAPTargetConf {

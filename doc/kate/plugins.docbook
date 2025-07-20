@@ -1595,8 +1595,12 @@ for opened documents on hover.</para></listitem>
 <sect2 id="gdb-intro">
 <title>Introduction</title>
 
-<para>&kate;'s &gdb; plugin provides a simple frontend to the popular &GNU;
-Project Debugger.</para>
+<para>&kate;'s &gdb; plugin provides a simple frontend to any debugger that supports the
+<ulink url="https://microsoft.github.io/debug-adapter-protocol/">Debugger Adapter Protocol</ulink>.
+In particular, that includes the GNU Project Debugger, aka GDB, as
+<ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html">outlined
+here</ulink>.
+</para>
 
 <important>
 <para>Previous experience with &gdb; is strongly recommended.  For more
@@ -1608,9 +1612,6 @@ information on using &gdb;, visit <ulink url="https://www.gnu.org/software/gdb/"
 <link linkend="config-dialog-plugins">the Plugins section of &kate;'s
 configuration</link>.</para>
 
-<para>For the plugin to work properly, you must have a source file (of any type
-supported by &gdb;) and an executable.</para>
-
 <tip>
 <para>If you compile using &gcc;/<command>g++</command> you might want to use
 the <command><parameter>-ggdb</parameter></command> command line argument.
@@ -1618,10 +1619,20 @@ the <command><parameter>-ggdb</parameter></command> command line argument.
 </tip>
 
 <para>After these preparations are made, open the source file in &kate;,
+select the "debugger profile",
 enter the path to the executable in the <guilabel>Settings</guilabel> tab of the
 <guilabel>Debug View</guilabel> tool view, and select
 <menuchoice><guimenu>Debug</guimenu><guimenuitem>Start Debugging</guimenuitem></menuchoice>
 from the menu to get started.</para>
+
+<para>
+The "debugger profile" selects the DAP server to use (e.g. GDB) and the way
+in which to launch this server.  A typical case is to have the server launch
+a process as specified above, but it may also attach to a running process
+(in which case a PID will have to be specified rather than an executable).
+There may also be other modes which are specific to the language and DAP server.
+See also later for additional background and configuration details on this.
+</para>
 
 </sect2>
 
@@ -1885,6 +1896,189 @@ loaded variables from the program and their corresponding values.</para>
 
 <para>Special thanks to Google Code-In 2011 participant Martin Gergov for
 writing much of this section.</para>
+
+</sect2>
+
+<sect2 id="gdb-configuration">
+<title>Configuration</title>
+
+<para>
+The plugin's configuration page defines the "debugger profiles" which can be
+selected.  The default configuration (JSON) is shown there, and it can be "overlayed"
+by a user provided of similar form.  An example excerpt is as follows:
+
+<screen>
+{
+    "dap": {
+        "debugpy": {
+            "url": "https://github.com/microsoft/debugpy",
+            "run": {
+                "command": ["python", "-m", "debugpy", "--listen", "${#run.port}", "--wait-for-client"],
+                "port": 0,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch": {
+                    "commandArgs": ["${file}", "${args|list}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "attach": {
+                    "commandArgs": ["--pid", "${pid}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+        },
+        "gdb": {
+            "url": "gdb",
+            "run": {
+                "command": [
+                    "gdb",
+                    "-i",
+                    "dap"
+                ],
+                "redirectStderr": true,
+                "redirectStdout": true,
+                "supportsSourceRequest": true
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                }
+            }
+        }
+    }
+}
+</screen>
+
+Each of the entries in <literal>configurations</literal> is combined with
+the <literal>run</literal> data and forms a "profile".  This specifies
+the DAP server to launch along with its arguments, where the latter are specific
+to the profile (<literal>commandArgs</literal>).  The other parts specify
+the DAP protocol request (<literal>launch</literal> or <literal>attach</literal>),
+along with DAP specific extensions.
+</para>
+
+<para>
+Of course, the specified server should be installed (and typically also in
+<literal>PATH</literal> for proper execution).
+</para>
+
+<para>
+Various stages of override/merge are applied;
+user configuration (loaded from file) overrides (internal) default configuration,
+and the "dap" entry in <literal>.kateproject</literal> project configuration in turn
+overrides.
+</para>
+
+
+<sect3 id="gdb-exec">
+<title>Execution environment setup</title>
+
+<para>
+More background and specifics can be found in the
+<link linkend="lspclient-exec">LSP Client Execution environment</link> section below.
+But suffice it to say here it may be needed to run the debuggee process
+(and the DAP server) in a "special environment", whether merely defined by environment
+variables or some container (providing the required dependencies and circumstances
+for proper execution).
+</para>
+
+<para>
+Similar to the example in the referenced section, the following configuration
+may be provided in a <literal>.kateproject</literal>.
+
+<screen>
+{
+    // this may also be an array of objects
+    "exec": {
+        "hostname": "foobar"
+        // the command could also be an array of string
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // either of the following forms are possible
+            [ "/dir/on/host", "/mounted/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "dap": {
+        "debugpy": {
+            "run": {
+                // in this section, it applies to all configurations
+                // this will match/join with the above object
+                "exec": { "hostname": "foobar" },
+                // if server is connected to,
+                // optionally specify explicit port (which is suitable published/forwarded)
+                "port": 5678,
+                // the server may then also have to accept more than localhost
+                "host": "0.0.0.0"
+            }
+        }
+    }
+}
+</screen>
+
+The referenced section should be consulted for details, but in essence
+the <literal>prefix</literal> will be prepended before the DAP server
+command line specified elsewhere.  The effect is that the server is run
+within the specified container and then in turn also the launched process.
+The <literal>pathMapping</literal> arranges for transformation of filepaths
+between editor's view and DAP server (container) view, e.g. when dealing with
+setting of breakpoints or handling of reported backtraces.
+Note that such mapping is optional and may or may not be useful.  When dealing
+with C/C++ code that is compiled on "host", the symbol info references source
+files on host which do not exist at all in the other environment.  However,
+in other scripted (e.g. python) circumstances, actual runtime files are
+referenced (on the other environment).
+</para>
+
+<para>
+The following must evidently be kept in mind;
+<itemizedlist>
+<listitem>
+<para>The DAP server must be present in the environment/container,
+which must be configured to support proper debugger operation
+(so, if needed, privileged, capabilities).
+</para>
+</listitem>
+<listitem>
+<para>Communication between editor and DAP must be possible.  In case of
+a container, the latter should either use host networking, or provide a suitable
+mapped/published port along with corresponding config snippet as in above example
+(as an auto-selected one in case of port 0 would not make it through).
+</para>
+</listitem>
+<listitem>
+<para>
+A specified executable/PID should be in "container" perspective, as well as
+any (debuggee executable) arguments.
+</para>
+</listitem>
+</itemizedlist>
+
+Also, as in the LSP case, some environment variables are set;
+<literal>KATE_EXEC_PLUGIN</literal> is set to <literal>dap</literal>,
+<literal>KATE_EXEC_SERVER</literal> is set to the debugger/language type
+(e.g. <literal>python</literal>) and
+<literal>KATE_EXEC_PROFILE</literal> is set to the configuration entry
+(e.g. <literal>launch</literal>).
+
+</para>
+
+</sect3>
 
 </sect2>
 

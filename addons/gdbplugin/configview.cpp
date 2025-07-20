@@ -41,6 +41,7 @@
 #include "sessionconfig.h"
 #include "target_json_keys.h"
 #include <json_utils.h>
+#include <ktexteditor_utils.h>
 
 using namespace TargetKeys;
 
@@ -406,6 +407,25 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
         } else if (m_dapFields.contains(field)) {
             cfg.variables[field] = m_dapFields[field].input->text();
         }
+    }
+    // also support overlay of config with fragments in kateproject config
+    // in essence, the current project is then also a toggle/configuration switch upon launch
+    if (full) {
+        // use the currently active view/document, which is the focus of user attention
+        const auto view = m_mainWindow->activeView();
+        QVariant projectMap;
+        if (view && view->document())
+            projectMap = Utils::projectMapForDocument(view->document());
+        const auto projectConfig = QJsonDocument::fromVariant(projectMap).object();
+        const auto dapConfig = projectConfig.value(QStringLiteral("dap")).toObject();
+        auto dc = dapConfig.value(cfg.debugger).toObject();
+        // as previously expanded, merge both run and configurations parts
+        auto top = dc.value(dap::settings::RUN).toObject();
+        top = json::merge(top, dc.value(dap::settings::CONFIGURATIONS).toObject().value(cfg.debuggerProfile).toObject());
+        // merge on top of general dap settings
+        // note; these should be in current expanded form; with merged run/configuration
+        auto &settings = cfg.dapSettings->settings;
+        settings = json::merge(settings, top);
     }
     return cfg;
 }

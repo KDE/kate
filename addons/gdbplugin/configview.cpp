@@ -41,6 +41,7 @@
 #include "plugin_kategdb.h"
 #include "sessionconfig.h"
 #include "target_json_keys.h"
+#include <exec_utils.h>
 #include <json_utils.h>
 #include <ktexteditor_utils.h>
 
@@ -430,6 +431,28 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
         // note; these should be in current expanded form; with merged run/configuration
         auto &settings = cfg.dapSettings->settings;
         settings = json::merge(settings, top);
+
+        // now we have all that, also consider execution prefix/environment settings
+        auto execConfig = Utils::ExecConfig::load(settings, projectConfig, {});
+        auto prefix = execConfig.prefix();
+        if (prefix.isArray()) {
+            // prepare map
+            cfg.dapSettings->pathMap = execConfig.init_mapping(view);
+            // adjust command-line
+            auto cmdline = settings.value(dap::settings::COMMAND).toArray();
+            auto newcmdline = prefix.toArray();
+            for (const auto &c : cmdline)
+                newcmdline += c;
+            settings[dap::settings::COMMAND] = newcmdline;
+            // also add environment for prefix runtime
+            auto M_ENV = QStringLiteral("environment");
+            auto env_v = settings[M_ENV];
+            auto env = env_v.isObject() ? env_v.toObject() : QJsonObject();
+            env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = QStringLiteral("dap");
+            env[QStringLiteral("KATE_EXEC_SERVER")] = cfg.debugger;
+            env[QStringLiteral("KATE_EXEC_PROFILE")] = cfg.debuggerProfile;
+            settings[M_ENV] = env;
+        }
 
         // var expansion in cmdline
         auto cmdline = settings.value(dap::settings::COMMAND).toArray();

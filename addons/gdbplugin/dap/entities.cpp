@@ -38,13 +38,13 @@ static std::optional<QString> parseOptionalString(const QJsonValue &value)
     return value.toString();
 }
 
-template<typename T>
-static std::optional<T> parseOptionalObject(const QJsonValue &value)
+template<typename T, typename... Args>
+static std::optional<T> parseOptionalObject(const QJsonValue &value, Args &&...args)
 {
     if (value.isNull() || value.isUndefined() || !value.isObject()) {
         return std::nullopt;
     }
-    return T(value.toObject());
+    return T(value.toObject(), std::forward<Args>(args)...);
 }
 
 template<typename T>
@@ -61,12 +61,12 @@ static std::optional<QHash<QString, T>> parseOptionalMap(const QJsonValue &value
     return map;
 }
 
-template<typename T>
-static QList<T> parseObjectList(const QJsonArray &array)
+template<typename T, typename... Args>
+static QList<T> parseObjectList(const QJsonArray &array, Args &&...args)
 {
     QList<T> out;
     for (const auto &item : array) {
-        out << T(item.toObject());
+        out << T(item.toObject(), std::forward<Args>(args)...);
     }
     return out;
 }
@@ -93,12 +93,12 @@ static std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
     return values;
 }
 
-template<typename T>
-static QJsonArray toJsonArray(const QList<T> &items)
+template<typename T, typename... Args>
+static QJsonArray toJsonArray(const QList<T> &items, Args &&...args)
 {
     QJsonArray out;
     for (const auto &item : items) {
-        out << item.toJson();
+        out << item.toJson(std::forward<Args>(args)...);
     }
     return out;
 }
@@ -153,12 +153,12 @@ ProcessInfo::ProcessInfo(const QJsonObject &body)
 {
 }
 
-Output::Output(const QJsonObject &body)
+Output::Output(const QJsonObject &body, MessageContext &ctx)
     : category(Category::Unknown)
     , output(body[DAP_OUTPUT].toString())
     , group(std::nullopt)
     , variablesReference(parseOptionalInt(body[DAP_VARIABLES_REFERENCE]))
-    , source(parseOptionalObject<Source>(DAP_SOURCE))
+    , source(parseOptionalObject<Source>(DAP_SOURCE, ctx))
     , line(parseOptionalInt(body[DAP_LINE]))
     , column(parseOptionalInt(body[DAP_COLUMN]))
     , data(body[DAP_DATA])
@@ -223,9 +223,9 @@ QUrl Source::getUnifiedId(const QUrl &path, std::optional<int> sourceReference)
     return path;
 }
 
-Source::Source(const QJsonObject &body)
+Source::Source(const QJsonObject &body, MessageContext &ctx)
     : name(body[DAP_NAME].toString())
-    , path(QUrl::fromLocalFile(body[DAP_PATH].toString()))
+    , path(ctx.toLocal(body[DAP_PATH].toString()))
     , sourceReference(parseOptionalInt(body[DAP_SOURCE_REFERENCE]))
     , presentationHint(parseOptionalString(body[DAP_PRESENTATION_HINT]))
     , origin(body[DAP_ORIGIN].toString())
@@ -235,7 +235,7 @@ Source::Source(const QJsonObject &body)
     if (body.contains(DAP_SOURCES)) {
         const auto values = body[DAP_SOURCES].toArray();
         for (const auto &item : values) {
-            sources << Source(item.toObject());
+            sources << Source(item.toObject(), ctx);
         }
     }
 
@@ -253,14 +253,14 @@ Source::Source(const QUrl &path)
 {
 }
 
-QJsonObject Source::toJson() const
+QJsonObject Source::toJson(MessageContext &ctx) const
 {
     QJsonObject out;
     if (!name.isEmpty()) {
         out[DAP_NAME] = name;
     }
     if (!path.isEmpty()) {
-        out[DAP_PATH] = path.path();
+        out[DAP_PATH] = ctx.toRemote(path);
     }
     if (sourceReference) {
         out[DAP_SOURCE_REFERENCE] = *sourceReference;
@@ -275,7 +275,7 @@ QJsonObject Source::toJson() const
         out[DAP_ADAPTER_DATA] = adapterData;
     }
     if (!sources.isEmpty()) {
-        out[DAP_SOURCES] = toJsonArray(sources);
+        out[DAP_SOURCES] = toJsonArray(sources, ctx);
     }
     if (!checksums.isEmpty()) {
         out[DAP_CHECKSUMS] = toJsonArray(checksums);
@@ -343,10 +343,10 @@ QList<Thread> Thread::parseList(const QJsonArray &threads)
     return parseObjectList<Thread>(threads);
 }
 
-StackFrame::StackFrame(const QJsonObject &body)
+StackFrame::StackFrame(const QJsonObject &body, MessageContext &ctx)
     : id(body[DAP_ID].toInt())
     , name(body[DAP_NAME].toString())
-    , source(parseOptionalObject<Source>(body[DAP_SOURCE]))
+    , source(parseOptionalObject<Source>(body[DAP_SOURCE], ctx))
     , line(body[DAP_LINE].toInt())
     , column(body[DAP_COLUMN].toInt())
     , endLine(parseOptionalInt(body[QStringLiteral("endLine")]))
@@ -358,8 +358,8 @@ StackFrame::StackFrame(const QJsonObject &body)
 {
 }
 
-StackTraceInfo::StackTraceInfo(const QJsonObject &body)
-    : stackFrames(parseObjectList<StackFrame>(body[QStringLiteral("stackFrames")].toArray()))
+StackTraceInfo::StackTraceInfo(const QJsonObject &body, MessageContext &ctx)
+    : stackFrames(parseObjectList<StackFrame>(body[QStringLiteral("stackFrames")].toArray(), ctx))
     , totalFrames(parseOptionalInt(body[QStringLiteral("totalFrames")]))
 {
 }
@@ -385,14 +385,14 @@ ModuleEvent::ModuleEvent(const QJsonObject &body)
 {
 }
 
-Scope::Scope(const QJsonObject &body)
+Scope::Scope(const QJsonObject &body, MessageContext &ctx)
     : name(body[DAP_NAME].toString())
     , presentationHint(parseOptionalString(body[DAP_PRESENTATION_HINT]))
     , variablesReference(body[DAP_VARIABLES_REFERENCE].toInt())
     , namedVariables(parseOptionalInt(body[QStringLiteral("namedVariables")]))
     , indexedVariables(parseOptionalInt(body[QStringLiteral("indexedVariables")]))
     , expensive(parseOptionalBool(body[QStringLiteral("expensive")]))
-    , source(parseOptionalObject<Source>(body[QStringLiteral("source")]))
+    , source(parseOptionalObject<Source>(body[QStringLiteral("source")], ctx))
     , line(parseOptionalInt(body[QStringLiteral("line")]))
     , column(parseOptionalInt(body[QStringLiteral("column")]))
     , endLine(parseOptionalInt(body[QStringLiteral("endLine")]))
@@ -406,9 +406,9 @@ Scope::Scope(int variablesReference, QString name)
 {
 }
 
-QList<Scope> Scope::parseList(const QJsonArray &scopes)
+QList<Scope> Scope::parseList(const QJsonArray &scopes, MessageContext &ctx)
 {
-    return parseObjectList<Scope>(scopes);
+    return parseObjectList<Scope>(scopes, ctx);
 }
 
 Variable::Variable(const QJsonObject &body)
@@ -503,11 +503,11 @@ QJsonObject SourceBreakpoint::toJson() const
     return out;
 }
 
-Breakpoint::Breakpoint(const QJsonObject &body)
+Breakpoint::Breakpoint(const QJsonObject &body, MessageContext &ctx)
     : id(parseOptionalInt(body[DAP_ID]))
     , verified(body[QStringLiteral("verified")].toBool())
     , message(parseOptionalString(body[QStringLiteral("message")]))
-    , source(parseOptionalObject<Source>(body[DAP_SOURCE]))
+    , source(parseOptionalObject<Source>(body[DAP_SOURCE], ctx))
     , line(parseOptionalInt(body[DAP_LINE]))
     , column(parseOptionalInt(body[DAP_COLUMN]))
     , endLine(parseOptionalInt(body[DAP_END_LINE]))
@@ -522,9 +522,9 @@ Breakpoint::Breakpoint(const int line)
 {
 }
 
-BreakpointEvent::BreakpointEvent(const QJsonObject &body)
+BreakpointEvent::BreakpointEvent(const QJsonObject &body, MessageContext &ctx)
     : reason(body[DAP_REASON].toString())
-    , breakpoint(Breakpoint(body[DAP_BREAKPOINT].toObject()))
+    , breakpoint(Breakpoint(body[DAP_BREAKPOINT].toObject(), ctx))
 {
 }
 

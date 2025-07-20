@@ -6,6 +6,7 @@
 #include "client.h"
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QFileInfo>
 #include <limits>
 
 #include "dap/bus_selector.h"
@@ -13,26 +14,61 @@
 
 #include "messages.h"
 
+#include <exec_utils.h>
+
 namespace dap
 {
 constexpr int MAX_HEADER_SIZE = 1 << 16;
 
-Client::Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, QObject *parent)
+struct ClientMessageContext : public MessageContext {
+    Utils::PathMappingPtr pathMap;
+
+    ClientMessageContext(Utils::PathMappingPtr pm)
+        : pathMap(pm)
+    {
+    }
+
+    QString toRemote(const QUrl &url) override
+    {
+        if (!pathMap)
+            return url.toLocalFile();
+
+        auto result = Utils::mapPath(*pathMap, url, true).toLocalFile();
+        // if not able to map (e.g. src not present in remote env), then pass as-is
+        // e.g. gdb might be able to find some heuristic match in symbol info
+        return result.isEmpty() ? url.toLocalFile() : result;
+    }
+
+    virtual QUrl toLocal(const QString &path) override
+    {
+        auto url = QUrl::fromLocalFile(path);
+        // pass along relative paths; can not be reasonably mapped
+        // is a matter of search paths to resolve those
+        if (!pathMap || QFileInfo(path).isRelative())
+            return url;
+
+        return Utils::mapPath(*pathMap, url, false);
+    }
+};
+
+Client::Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, Utils::PathMappingPtr pm, QObject *parent)
     : QObject(parent)
     , m_bus(bus)
     , m_managedBus(false)
     , m_protocol(protocolSettings)
     , m_launchCommand(extractCommand(protocolSettings.launchRequest))
 {
+    m_msgContext = std::make_unique<ClientMessageContext>(pm);
     bind();
 }
 
-Client::Client(const settings::ClientSettings &clientSettings, QObject *parent)
+Client::Client(const settings::ClientSettings &clientSettings, Utils::PathMappingPtr pm, QObject *parent)
     : QObject(parent)
     , m_managedBus(true)
     , m_protocol(clientSettings.protocolSettings)
     , m_launchCommand(extractCommand(clientSettings.protocolSettings.launchRequest))
 {
+    m_msgContext = std::make_unique<ClientMessageContext>(pm);
     m_bus = createBus(clientSettings.busSettings);
     m_bus->setParent(this);
     bind();
@@ -191,7 +227,7 @@ void Client::processEvent(const QJsonObject &msg)
         const int exitCode = body[QStringLiteral("exitCode")].toInt(-1);
         Q_EMIT debuggeeExited(exitCode);
     } else if (DAP_OUTPUT == event) {
-        Q_EMIT outputProduced(Output(body));
+        Q_EMIT outputProduced(Output(body, *m_msgContext));
     } else if (QStringLiteral("process") == event) {
         Q_EMIT debuggingProcess(ProcessInfo(body));
     } else if (QStringLiteral("thread") == event) {
@@ -203,7 +239,7 @@ void Client::processEvent(const QJsonObject &msg)
     } else if (QStringLiteral("continued") == event) {
         Q_EMIT debuggeeContinued(ContinuedEvent(body));
     } else if (DAP_BREAKPOINT == event) {
-        Q_EMIT breakpointChanged(BreakpointEvent(body));
+        Q_EMIT breakpointChanged(BreakpointEvent(body, *m_msgContext));
     } else {
         qCWarning(DAPCLIENT, "unsupported event: %ls", qUtf16Printable(event));
     }
@@ -242,7 +278,7 @@ void Client::processResponseStackTrace(const Response &response, const QJsonValu
 {
     const int threadId = request.toObject()[DAP_THREAD_ID].toInt();
     if (response.success) {
-        Q_EMIT stackTrace(threadId, StackTraceInfo(response.body.toObject()));
+        Q_EMIT stackTrace(threadId, StackTraceInfo(response.body.toObject(), *m_msgContext));
     } else {
         Q_EMIT stackTrace(threadId, StackTraceInfo());
     }
@@ -252,7 +288,7 @@ void Client::processResponseScopes(const Response &response, const QJsonValue &r
 {
     const int frameId = request.toObject()[DAP_FRAME_ID].toInt();
     if (response.success) {
-        Q_EMIT scopes(frameId, Scope::parseList(response.body.toObject()[DAP_SCOPES].toArray()));
+        Q_EMIT scopes(frameId, Scope::parseList(response.body.toObject()[DAP_SCOPES].toArray(), *m_msgContext));
     } else {
         Q_EMIT scopes(frameId, QList<Scope>());
     }
@@ -314,7 +350,7 @@ void Client::processResponseDisconnect(const Response &response, const QJsonValu
 void Client::processResponseSource(const Response &response, const QJsonValue &request)
 {
     const auto req = request.toObject();
-    const auto path = QUrl::fromLocalFile(req[DAP_SOURCE].toObject()[DAP_PATH].toString());
+    const auto path = m_msgContext->toLocal(req[DAP_SOURCE].toObject()[DAP_PATH].toString());
     const auto reference = req[DAP_SOURCE_REFERENCE].toInt(0);
     if (response.success) {
         Q_EMIT sourceContent(path, reference, SourceContent(response.body.toObject()));
@@ -326,13 +362,13 @@ void Client::processResponseSource(const Response &response, const QJsonValue &r
 
 void Client::processResponseSetBreakpoints(const Response &response, const QJsonValue &request)
 {
-    const auto source = Source(request.toObject()[DAP_SOURCE].toObject());
+    const auto source = Source(request.toObject()[DAP_SOURCE].toObject(), *m_msgContext);
     if (response.success) {
         const auto resp = response.body.toObject();
         if (resp.contains(DAP_BREAKPOINTS)) {
             QList<Breakpoint> breakpoints;
             for (const auto &item : resp[DAP_BREAKPOINTS].toArray()) {
-                breakpoints.append(Breakpoint(item.toObject()));
+                breakpoints.append(Breakpoint(item.toObject(), *m_msgContext));
             }
             Q_EMIT sourceBreakpoints(source.path, source.sourceReference.value_or(0), breakpoints);
         } else {
@@ -360,7 +396,7 @@ void Client::processResponseEvaluate(const Response &response, const QJsonValue 
 void Client::processResponseGotoTargets(const Response &response, const QJsonValue &request)
 {
     const auto &req = request.toObject();
-    const auto source = Source(req[DAP_SOURCE].toObject());
+    const auto source = Source(req[DAP_SOURCE].toObject(), *m_msgContext);
     const int line = req[DAP_LINE].toInt();
     if (response.success) {
         Q_EMIT gotoTargets(source, line, GotoTarget::parseList(response.body.toObject()[QStringLiteral("targets")].toArray()));
@@ -621,7 +657,7 @@ void Client::requestSource(const Source &source)
     if (reference == 0 && source.path.scheme() == Source::referenceScheme())
         reference = source.path.path().toInt();
     QJsonObject arguments{{DAP_SOURCE_REFERENCE, reference}};
-    const QJsonObject sourceArg{{DAP_SOURCE_REFERENCE, reference}, {DAP_PATH, source.path.path()}};
+    const QJsonObject sourceArg{{DAP_SOURCE_REFERENCE, reference}, {DAP_PATH, m_msgContext->toRemote(source.path)}};
 
     arguments[DAP_SOURCE] = sourceArg;
 
@@ -639,7 +675,7 @@ void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreak
     for (const auto &item : breakpoints) {
         bpoints.append(item.toJson());
     }
-    QJsonObject arguments{{DAP_SOURCE, source.toJson()}, {DAP_BREAKPOINTS, bpoints}, {QStringLiteral("sourceModified"), sourceModified}};
+    QJsonObject arguments{{DAP_SOURCE, source.toJson(*m_msgContext)}, {DAP_BREAKPOINTS, bpoints}, {QStringLiteral("sourceModified"), sourceModified}};
 
     this->write(makeRequest(QStringLiteral("setBreakpoints"), arguments, &Client::processResponseSetBreakpoints));
 }
@@ -669,7 +705,7 @@ void Client::requestGotoTargets(const QUrl &path, const int line, const std::opt
 
 void Client::requestGotoTargets(const Source &source, const int line, const std::optional<int> column)
 {
-    QJsonObject arguments{{DAP_SOURCE, source.toJson()}, {DAP_LINE, line}};
+    QJsonObject arguments{{DAP_SOURCE, source.toJson(*m_msgContext)}, {DAP_LINE, line}};
     if (column) {
         arguments[DAP_COLUMN] = *column;
     }

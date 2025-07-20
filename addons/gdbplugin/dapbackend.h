@@ -155,6 +155,8 @@ private:
 
     dap::Client *m_client = nullptr;
     std::optional<dap::settings::ClientSettings> m_settings;
+    Utils::PathMappingPtr m_pathMap;
+
     State m_state;
     Task m_task;
 

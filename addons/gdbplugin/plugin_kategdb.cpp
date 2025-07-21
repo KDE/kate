@@ -576,7 +576,7 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
     }
 
     // skip not existing files
-    if (!QFile::exists(url.toLocalFile())) {
+    if (url.isLocalFile() && !QFile::exists(url.toLocalFile())) {
         m_lastExecLine = -1;
         return;
     }
@@ -584,10 +584,7 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
     m_lastExecUrl = url;
     m_lastExecLine = lineNum;
 
-    KTextEditor::View *editView = m_mainWin->openUrl(m_lastExecUrl);
-    editView->setCursorPosition(KTextEditor::Cursor(m_lastExecLine, 0));
-    m_mainWin->window()->raise();
-    m_mainWin->window()->setFocus();
+    Utils::goToDocumentLocation(m_mainWin, url, KTextEditor::Range({lineNum, 0}, 0), {.focus = true, .record = false});
 }
 
 void KatePluginGDBView::enableDebugActions(bool enable)
@@ -1136,10 +1133,7 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
             if (url.isValid()) {
                 auto a = menu.addAction(i18n("Open Location"));
                 connect(a, &QAction::triggered, m_stackTree, [this, url, line] {
-                    auto view = m_mainWin->openUrl(url);
-                    if (line >= 0) {
-                        view->setCursorPosition({line, 0});
-                    }
+                    Utils::goToDocumentLocation(m_mainWin, url, KTextEditor::Range({line, 0}, 0), {.focus = true, .record = false});
                 });
             }
         }

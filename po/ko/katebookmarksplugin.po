@@ -1,0 +1,48 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2025 Shinjo Park <kde@peremen.name>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"PO-Revision-Date: 2025-07-21 00:47+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 24.12.3\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "줄 번호"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "파일 경로"
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr "책갈피"
+
+#: bookmarksplugin.cpp:171
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "이전 책갈피로 이동"
+
+#: bookmarksplugin.cpp:177
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "다음 책갈피로 이동"
+
+#: bookmarksplugin.cpp:183
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "책갈피 삭제"

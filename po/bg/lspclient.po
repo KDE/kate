@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the kate package.
 #
 # Automatically generated, 2022.
-# SPDX-FileCopyrightText: 2022, 2024 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2022, 2024, 2025 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2024-12-11 20:01+0100\n"
+"PO-Revision-Date: 2025-07-20 23:44+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -211,7 +211,7 @@ msgstr "Постепенно синхронизиране на документ�
 #: lspclientpluginview.cpp:580
 #, kde-format
 msgid "Highlight goto location"
-msgstr "Открояване на местоположение Отиване до"
+msgstr "Акцентиране на местоположение Отиване до"
 
 #: lspclientpluginview.cpp:589
 #, kde-format
@@ -434,12 +434,12 @@ msgstr "Неуспешно четене на конфигурацията на �
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Преминаване към следващия акцентиран символ"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Преминаване към предишния акцентиран символ"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -558,7 +558,7 @@ msgstr "Показване на информация за символа,  по�
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Highlight target line when hopping to it"
-msgstr "Акцентиране на целевата линия при прескачане до нея"
+msgstr "Акцентиране на целевия ред при прескачане до него"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lspconfigwidget.ui:145
@@ -618,7 +618,7 @@ msgstr "Автоматично разгъване на йерархията"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Акцентиране на символа под курсора"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

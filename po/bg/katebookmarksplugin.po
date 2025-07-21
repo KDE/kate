@@ -1,0 +1,48 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2025 Mincho Kondarev <mkondarev@yahoo.de>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"PO-Revision-Date: 2025-07-20 23:46+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.07.70\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "Номер на ред"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "Файлов път"
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr "Отметки"
+
+#: bookmarksplugin.cpp:171
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "Предишна отметка"
+
+#: bookmarksplugin.cpp:177
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "Следваща отметка"
+
+#: bookmarksplugin.cpp:183
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "Премахване на отметка"

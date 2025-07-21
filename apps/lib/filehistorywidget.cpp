@@ -19,14 +19,18 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QLabel>
+#include <QLineEdit>
 #include <QListView>
+#include <QListWidget>
 #include <QMenu>
 #include <QPainter>
 #include <QPalette>
 #include <QPointer>
 #include <QProcess>
+#include <QSortFilterProxyModel>
 #include <QStyledItemDelegate>
 #include <QToolButton>
+#include <QToolTip>
 #include <QVBoxLayout>
 #include <QWidget>
 
@@ -143,8 +147,75 @@ public:
         endInsertRows();
     }
 
+    const Commit &commit(int row)
+    {
+        return m_rows[row];
+    }
+
 private:
     std::vector<Commit> m_rows;
+};
+
+struct Filter {
+    int id;
+    QString text;
+};
+
+class CommitProxyModel : public QSortFilterProxyModel
+{
+public:
+    using QSortFilterProxyModel::QSortFilterProxyModel;
+
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &) const
+    {
+        bool accept = true;
+        auto model = static_cast<CommitListModel *>(sourceModel());
+        const auto &commit = model->commit(sourceRow);
+
+        if (!m_authorFilters.empty()) {
+            accept = std::any_of(m_authorFilters.begin(), m_authorFilters.end(), [&commit](const Filter &f) {
+                return commit.authorName.contains(f.text, Qt::CaseInsensitive);
+            });
+        }
+
+        if (accept && !m_messageFilters.empty()) {
+            accept = std::all_of(m_messageFilters.begin(), m_messageFilters.end(), [&commit](const Filter &f) {
+                return commit.msg.contains(f.text, Qt::CaseInsensitive);
+            });
+        }
+
+        return accept;
+    }
+
+    int appendFilter(const QString &data)
+    {
+        beginResetModel();
+        int id = m_filterIdCounter++;
+
+        if (data.startsWith(u"a:")) {
+            m_authorFilters.push_back(Filter{id, data.mid(2)});
+        } else {
+            m_messageFilters.push_back(Filter{id, data});
+        }
+
+        endResetModel();
+
+        return id;
+    }
+
+    void removeFilter(int id)
+    {
+        auto pred = [id](const Filter &f) {
+            return f.id == id;
+        };
+        std::erase_if(m_authorFilters, pred);
+        std::erase_if(m_messageFilters, pred);
+    }
+
+private:
+    int m_filterIdCounter = 0;
+    std::vector<Filter> m_authorFilters;
+    std::vector<Filter> m_messageFilters;
 };
 
 class CommitDelegate : public QStyledItemDelegate
@@ -232,6 +303,7 @@ class FileHistoryWidget : public QWidget
 public:
     void itemClicked(const QModelIndex &idx);
     void onContextMenu(QPoint pos);
+    void onFilterReturnPressed(CommitProxyModel *proxy);
 
     void getFileHistory(const QString &file);
     explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
@@ -242,6 +314,8 @@ public:
 
     QToolButton m_backBtn;
     QListView m_listView;
+    QLineEdit m_filterLineEdit;
+    QListWidget m_filtersListWidget;
     QProcess m_git;
     const QString m_file;
     const QString m_gitDir;
@@ -262,9 +336,18 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     , m_mainWindow(mw)
 {
     auto model = new CommitListModel(this);
-    m_listView.setModel(model);
+    auto proxy = new CommitProxyModel(this);
+    proxy->setSourceModel(model);
+
+    m_listView.setModel(proxy);
     m_listView.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     getFileHistory(file);
+
+    m_filtersListWidget.setFlow(QListView::LeftToRight);
+    m_filtersListWidget.setWrapping(true);
+    m_filtersListWidget.setVisible(false);
+    m_filtersListWidget.setSpacing(2);
+    m_filtersListWidget.setSizeAdjustPolicy(QListView::SizeAdjustPolicy::AdjustToContents);
 
     auto vLayout = new QVBoxLayout;
     setLayout(vLayout);
@@ -289,6 +372,25 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     m_listView.setContextMenuPolicy(Qt::CustomContextMenu);
     connect(&m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
 
+    m_filterLineEdit.setPlaceholderText(i18n("Filter…"));
+    auto helpAction = new QAction(this);
+    helpAction->setIcon(QIcon::fromTheme(QStringLiteral("info")));
+    connect(helpAction, &QAction::triggered, this, [this] {
+        const auto pos = mapToGlobal(m_filterLineEdit.rect().bottomRight());
+        const QString text = i18nc("Help text",
+                                   "Filter the log."
+                                   "<ul>"
+                                   "<li>Use \"a:\" prefix to filter by author name. For e.g., <b>a:john doe</b></li>"
+                                   "<li>To filter messages, just type the search term</li>"
+                                   "</ul>"
+                                   "To trigger the filter, press the <b>Enter</b> key. ");
+        QToolTip::showText(pos, text, this);
+    });
+    m_filterLineEdit.addAction(helpAction, QLineEdit::TrailingPosition);
+    connect(&m_filterLineEdit, &QLineEdit::returnPressed, this, [this, proxy]() {
+        onFilterReturnPressed(proxy);
+    });
+
     // Label
     QFileInfo fi(file);
     m_label.setText(fi.fileName());
@@ -304,7 +406,9 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     hLayout->addWidget(&m_backBtn);
 
     vLayout->addLayout(hLayout);
-    vLayout->addWidget(&m_listView);
+    vLayout->addWidget(&m_filterLineEdit);
+    vLayout->addWidget(&m_filtersListWidget);
+    vLayout->addWidget(&m_listView, 99);
 }
 
 FileHistoryWidget::~FileHistoryWidget()
@@ -331,7 +435,8 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
         std::vector<Commit> commits = parseCommits(m_git.readAllStandardOutput());
         if (!commits.empty()) {
-            static_cast<CommitListModel *>(m_listView.model())->addCommits(std::move(commits));
+            auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
+            static_cast<CommitListModel *>(proxy->sourceModel())->addCommits(std::move(commits));
         }
     });
 
@@ -366,6 +471,48 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
     });
 
     menu.exec(m_listView.viewport()->mapToGlobal(pos));
+}
+
+void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
+{
+    int id = proxy->appendFilter(m_filterLineEdit.text());
+
+    if (m_filtersListWidget.isHidden()) {
+        m_filtersListWidget.setVisible(true);
+    }
+
+    auto widget = new QWidget(this);
+    QPalette p = this->palette();
+    p.setBrush(QPalette::Base, p.window());
+
+    widget->setPalette(p);
+    widget->setAutoFillBackground(true);
+    auto layout = new QHBoxLayout(widget);
+    layout->setContentsMargins({});
+    layout->setSpacing(0);
+
+    auto label = new QLabel;
+    label->setContentsMargins(2, 0, 0, 0);
+    label->setText(m_filterLineEdit.text());
+    layout->addWidget(label);
+
+    auto closeBtn = new QToolButton;
+    closeBtn->setAutoRaise(true);
+    closeBtn->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
+    layout->addWidget(closeBtn);
+
+    auto item = new QListWidgetItem(m_filterLineEdit.text().append(QStringLiteral("XXX")));
+    item->setData(Qt::UserRole + 1, id);
+    m_filtersListWidget.addItem(item);
+
+    connect(closeBtn, &QToolButton::clicked, this, [proxy, item, id] {
+        delete item;
+        proxy->removeFilter(id);
+    });
+
+    m_filtersListWidget.setItemWidget(item, widget);
+
+    m_filterLineEdit.clear();
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)

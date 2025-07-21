@@ -71,6 +71,11 @@ KATE_PRIVATE_EXPORT inline QString fileNameFromPath(const QString &path)
     return lastSlash == -1 ? path : path.mid(lastSlash + 1);
 }
 
+KATE_PRIVATE_EXPORT inline QString formatUrl(const QUrl &url)
+{
+    return url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
+}
+
 /**
  * Return a matching icon for the given document.
  * We use the mime type icon for unmodified stuff and the modified one for modified docs.

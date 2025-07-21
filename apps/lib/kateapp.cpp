@@ -537,14 +537,13 @@ bool KateApp::startupKate()
 
     // handle stdin input
     if (m_args.isSet(QStringLiteral("stdin"))) {
-        QFile input;
-        input.open(stdin, QIODevice::ReadOnly);
-        auto decoder = QStringDecoder(codec_name.toUtf8().constData());
-        QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
-
-        // normalize line endings, to e.g. catch issues with \r\n on Windows
-        text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
-
+        QString text;
+        if (QFile input; input.open(stdin, QIODevice::ReadOnly)) {
+            auto decoder = QStringDecoder(codec_name.toUtf8().constData());
+            text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
+            // normalize line endings, to e.g. catch issues with \r\n on Windows
+            text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
+        }
         openInput(text, codec_name);
     } else if (doc) {
         activeKateMainWindow()->viewManager()->activateView(doc);

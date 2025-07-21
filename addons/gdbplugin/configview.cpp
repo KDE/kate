@@ -26,6 +26,7 @@
 #include <QStandardPaths>
 
 #include <KTextEditor/Document>
+#include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/View>
 
@@ -380,20 +381,24 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
             }
         }
     }
+    auto editor = KTextEditor::Editor::instance();
+    const auto view = m_mainWindow->activeView();
+    auto expand = [&](QString text) {
+        return full ? editor->expandText(text, view) : text;
+    };
     const QStringList &variables = m_clientCombo->currentData().toStringList();
     for (const auto &field : variables) {
         // file
         if (field == F_FILE) {
             QString filePath = m_executable->text();
-            // working dir
 
             if (filePath.isEmpty()) {
                 errorMessage = i18nc("Error message", "No executable target set");
             }
-
-            cfg.variables[F_FILE] = filePath;
+            cfg.variables[F_FILE] = expand(filePath);
+            // working dir
         } else if (field == F_WORKDIR) {
-            cfg.variables[F_WORKDIR] = m_workingDirectory->text();
+            cfg.variables[F_WORKDIR] = expand(m_workingDirectory->text());
             // pid
         } else if (field == F_PID) {
             cfg.variables[F_PID] = m_processId->value();
@@ -402,17 +407,16 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
             }
             // arguments
         } else if (field == F_ARGS) {
-            cfg.variables[F_ARGS] = m_arguments->text();
+            cfg.variables[F_ARGS] = expand(m_arguments->text());
             // other
         } else if (m_dapFields.contains(field)) {
-            cfg.variables[field] = m_dapFields[field].input->text();
+            cfg.variables[field] = expand(m_dapFields[field].input->text());
         }
     }
     // also support overlay of config with fragments in kateproject config
     // in essence, the current project is then also a toggle/configuration switch upon launch
     if (full) {
         // use the currently active view/document, which is the focus of user attention
-        const auto view = m_mainWindow->activeView();
         QVariant projectMap;
         if (view && view->document())
             projectMap = Utils::projectMapForDocument(view->document());
@@ -426,6 +430,14 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
         // note; these should be in current expanded form; with merged run/configuration
         auto &settings = cfg.dapSettings->settings;
         settings = json::merge(settings, top);
+
+        // var expansion in cmdline
+        auto cmdline = settings.value(dap::settings::COMMAND).toArray();
+        QStringList cmd;
+        for (const auto &e : cmdline) {
+            cmd.push_back(expand(e.toString()));
+        }
+        settings[dap::settings::COMMAND] = QJsonArray::fromStringList(cmd);
     }
     return cfg;
 }

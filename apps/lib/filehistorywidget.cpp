@@ -241,7 +241,7 @@ public:
     QLabel m_label;
 
     QToolButton m_backBtn;
-    QListView *m_listView;
+    QListView m_listView;
     QProcess m_git;
     const QString m_file;
     const QString m_gitDir;
@@ -262,9 +262,8 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     , m_mainWindow(mw)
 {
     auto model = new CommitListModel(this);
-    m_listView = new QListView;
-    m_listView->setModel(model);
-    m_listView->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
+    m_listView.setModel(model);
+    m_listView.setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
     getFileHistory(file);
 
     auto vLayout = new QVBoxLayout;
@@ -283,12 +282,12 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
             m_mainWindow->showToolView(m_lastActiveToolview.data());
         }
     });
-    connect(m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
-    connect(m_listView, &QListView::activated, this, &FileHistoryWidget::itemClicked);
+    connect(&m_listView, &QListView::clicked, this, &FileHistoryWidget::itemClicked);
+    connect(&m_listView, &QListView::activated, this, &FileHistoryWidget::itemClicked);
 
-    m_listView->setItemDelegate(new CommitDelegate(this));
-    m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
+    m_listView.setItemDelegate(new CommitDelegate(this));
+    m_listView.setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(&m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
 
     // Label
     QFileInfo fi(file);
@@ -305,7 +304,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     hLayout->addWidget(&m_backBtn);
 
     vLayout->addLayout(hLayout);
-    vLayout->addWidget(m_listView);
+    vLayout->addWidget(&m_listView);
 }
 
 FileHistoryWidget::~FileHistoryWidget()
@@ -332,7 +331,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
         std::vector<Commit> commits = parseCommits(m_git.readAllStandardOutput());
         if (!commits.empty()) {
-            static_cast<CommitListModel *>(m_listView->model())->addCommits(std::move(commits));
+            static_cast<CommitListModel *>(m_listView.model())->addCommits(std::move(commits));
         }
     });
 
@@ -347,10 +346,10 @@ void FileHistoryWidget::getFileHistory(const QString &file)
 
 void FileHistoryWidget::onContextMenu(QPoint pos)
 {
-    QMenu menu(m_listView->viewport());
+    QMenu menu(m_listView.viewport());
 
     menu.addAction(i18nc("@menu:action", "Copy Commit Hash"), this, [this, pos] {
-        const auto index = m_listView->indexAt(pos);
+        const auto index = m_listView.indexAt(pos);
         const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
         if (!commit.hash.isEmpty()) {
             qApp->clipboard()->setText(QString::fromLatin1(commit.hash));
@@ -358,7 +357,7 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
     });
 
     menu.addAction(i18nc("@menu:action", "Show Full Commit"), this, [this, pos] {
-        const auto index = m_listView->indexAt(pos);
+        const auto index = m_listView.indexAt(pos);
         const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
         if (!commit.hash.isEmpty()) {
             const QString hash = QString::fromLatin1(commit.hash);
@@ -366,7 +365,7 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
         }
     });
 
-    menu.exec(m_listView->viewport()->mapToGlobal(pos));
+    menu.exec(m_listView.viewport()->mapToGlobal(pos));
 }
 
 void FileHistoryWidget::itemClicked(const QModelIndex &idx)

@@ -200,22 +200,32 @@ bool Output::isSpecialOutput() const
     return (category != Category::Stderr) && (category != Category::Stdout);
 }
 
-QString Source::unifiedId() const
+QString Source::referenceScheme()
+{
+    return QStringLiteral("reference");
+}
+
+QUrl Source::unifiedId() const
 {
     return getUnifiedId(path, sourceReference);
 }
 
-QString Source::getUnifiedId(const QString &path, std::optional<int> sourceReference)
+QUrl Source::getUnifiedId(const QUrl &path, std::optional<int> sourceReference)
 {
     if (sourceReference.value_or(0) > 0) {
-        return QString::number(*sourceReference);
+        // a bit unfortunate, but slightly less so than QString
+        // as it clearly specifies a distinct namespace
+        // will have to convert back if/when used somewhere
+        auto url = QUrl::fromLocalFile(QString::number(*sourceReference));
+        url.setScheme(referenceScheme());
+        return url;
     }
     return path;
 }
 
 Source::Source(const QJsonObject &body)
     : name(body[DAP_NAME].toString())
-    , path(body[DAP_PATH].toString())
+    , path(QUrl::fromLocalFile(body[DAP_PATH].toString()))
     , sourceReference(parseOptionalInt(body[DAP_SOURCE_REFERENCE]))
     , presentationHint(parseOptionalString(body[DAP_PRESENTATION_HINT]))
     , origin(body[DAP_ORIGIN].toString())
@@ -238,7 +248,7 @@ Source::Source(const QJsonObject &body)
     }
 }
 
-Source::Source(const QString &path)
+Source::Source(const QUrl &path)
     : path(path)
 {
 }
@@ -250,7 +260,7 @@ QJsonObject Source::toJson() const
         out[DAP_NAME] = name;
     }
     if (!path.isEmpty()) {
-        out[DAP_PATH] = path;
+        out[DAP_PATH] = path.path();
     }
     if (sourceReference) {
         out[DAP_SOURCE_REFERENCE] = *sourceReference;

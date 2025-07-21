@@ -73,11 +73,11 @@ public:
     void requestTerminate(bool restart = false);
     void requestDisconnect(bool restart = false);
     void requestSource(const Source &source);
-    void requestSetBreakpoints(const QString &path, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
+    void requestSetBreakpoints(const QUrl &path, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
     void requestSetBreakpoints(const dap::Source &source, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
     void requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId = std::nullopt);
     void requestWatch(const QString &expression, std::optional<int> frameId = std::nullopt);
-    void requestGotoTargets(const QString &path, int line, std::optional<int> column = std::nullopt);
+    void requestGotoTargets(const QUrl &path, int line, std::optional<int> column = std::nullopt);
     void requestGotoTargets(const dap::Source &source, int line, std::optional<int> column = std::nullopt);
     void requestHotReload();
     void requestHotRestart();
@@ -118,8 +118,8 @@ Q_SIGNALS:
     void variables(int variablesReference, const QList<Variable> &);
     void modules(const ModulesInfo &);
     void serverDisconnected();
-    void sourceContent(const QString &path, int reference, const SourceContent &content);
-    void sourceBreakpoints(const QString &path, int reference, const std::optional<QList<Breakpoint>> &breakpoints);
+    void sourceContent(const QUrl &path, int reference, const SourceContent &content);
+    void sourceBreakpoints(const QUrl &path, int reference, const std::optional<QList<Breakpoint>> &breakpoints);
     void breakpointChanged(const BreakpointEvent &);
     void expressionEvaluated(const QString &expression, const std::optional<EvaluateInfo> &);
     void gotoTargets(const Source &source, int line, const QList<GotoTarget> &targets);

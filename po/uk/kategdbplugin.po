@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-06-30 15:44+0300\n"
+"PO-Revision-Date: 2025-07-20 16:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -95,14 +95,13 @@ msgstr "Переспрямувати діагностичні дані прог�
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Не встановлено цілі — виконуваного файла"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "некоректний ідентифікатор потоку: %1"
+msgstr "Некоректний ідентифікатор процесу"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -632,10 +631,9 @@ msgid "Print Value"
 msgstr "Вивести значення"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "синтаксична помилка: %1"
+msgstr "Помилка: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

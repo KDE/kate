@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-04-15 23:36+0200\n"
+"PO-Revision-Date: 2025-07-21 00:48+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -90,14 +90,13 @@ msgstr "디버깅 중인 프로그램의 입출력을 별도의 탭으로 전환
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "실행 가능 대상을 설정하지 않았음"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "잘못된 스레드 ID: %1"
+msgstr "잘못된 프로세스 ID"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -538,7 +537,7 @@ msgstr "지역 변수와 호출 스택"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>파일을 열 수 없음:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:266
 #, kde-format
@@ -627,10 +626,9 @@ msgid "Print Value"
 msgstr "값 출력"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "구문 오류: %1"
+msgstr "오류: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

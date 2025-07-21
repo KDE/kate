@@ -97,7 +97,7 @@ private:
     void onScopes(int frameId, const QList<dap::Scope> &scopes);
     void onVariables(int variablesReference, const QList<dap::Variable> &variables);
     void onModules(const dap::ModulesInfo &modules);
-    void onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints);
+    void onSourceBreakpoints(const QUrl &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints);
     void onBreakpointEvent(const dap::BreakpointEvent &info);
     void onExpressionEvaluated(const QString &expression, const std::optional<dap::EvaluateInfo> &info);
     void onGotoTargets(const dap::Source &, int, const QList<dap::GotoTarget> &targets);
@@ -134,17 +134,17 @@ private:
     void pushRequest();
     void popRequest();
 
-    QString resolveOrWarn(const QString &filename);
-    std::optional<QString> resolveFilename(const QString &filename, bool fallback = true) const;
+    QUrl resolveOrWarn(const QUrl &filename);
+    std::optional<QUrl> resolveFilename(const QUrl &filename, bool fallback = true) const;
     dap::settings::ClientSettings &target2dap(const DAPTargetConf &target);
-    std::optional<int> findBreakpoint(const QString &path, int line) const;
-    std::optional<int> findBreakpointIntent(const QString &path, int line) const;
+    std::optional<int> findBreakpoint(const QUrl &path, int line) const;
+    std::optional<int> findBreakpointIntent(const QUrl &path, int line) const;
 
-    void insertBreakpoint(const QString &path, int line);
+    void insertBreakpoint(const QUrl &path, int line);
     // return false if nothing found
-    bool removeBreakpoint(const QString &path, int line);
-    void informBreakpointAdded(const QString &path, const dap::Breakpoint &bpoint);
-    void informBreakpointRemoved(const QString &path, int line);
+    bool removeBreakpoint(const QUrl &path, int line);
+    void informBreakpointAdded(const QUrl &path, const dap::Breakpoint &bpoint);
+    void informBreakpointRemoved(const QUrl &path, int line);
     void clearBreakpoints();
     void informStackFrame();
 
@@ -174,7 +174,7 @@ private:
 
     struct Cursor {
         int line;
-        QString path;
+        QUrl path;
     };
     std::optional<Cursor> m_runToCursor;
 
@@ -182,8 +182,8 @@ private:
 
     QStringList m_commandQueue;
 
-    std::map<QString, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
-    std::map<QString, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
+    std::map<QUrl, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
+    std::map<QUrl, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
     QTimer m_requestThreadsTimer;
 

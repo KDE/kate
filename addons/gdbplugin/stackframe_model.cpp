@@ -6,6 +6,8 @@
 
 #include <KLocalizedString>
 
+#include <ktexteditor_utils.h>
+
 #include <QIcon>
 
 int StackFrameModel::columnCount(const QModelIndex &parent) const
@@ -54,7 +56,7 @@ QVariant StackFrameModel::data(const QModelIndex &index, int role) const
     case Path:
         if (role == Qt::DisplayRole) {
             if (frame.source.has_value()) {
-                return QStringLiteral("%2:%3").arg(frame.source->path).arg(frame.line);
+                return QStringLiteral("%2:%3").arg(Utils::formatUrl(frame.source->path)).arg(frame.line);
             }
         }
         break;

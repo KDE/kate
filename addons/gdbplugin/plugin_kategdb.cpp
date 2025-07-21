@@ -1131,7 +1131,7 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
     if (index.isValid()) {
         auto frame = index.data(StackFrameModel::StackFrameRole).value<dap::StackFrame>();
         if (frame.source) {
-            auto url = QUrl::fromLocalFile(frame.source->path);
+            auto url = frame.source->path;
             int line = frame.line - 1;
             if (url.isValid()) {
                 auto a = menu.addAction(i18n("Open Location"));
@@ -1145,7 +1145,7 @@ void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
         }
 
         auto a = menu.addAction(i18n("Copy Location"));
-        QString location = QStringLiteral("%1:%2").arg(frame.source->path).arg(frame.line);
+        QString location = QStringLiteral("%1:%2").arg(Utils::formatUrl(frame.source->path)).arg(frame.line);
         connect(a, &QAction::triggered, m_stackTree, [location] {
             qApp->clipboard()->setText(location);
         });

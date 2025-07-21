@@ -314,7 +314,7 @@ void Client::processResponseDisconnect(const Response &response, const QJsonValu
 void Client::processResponseSource(const Response &response, const QJsonValue &request)
 {
     const auto req = request.toObject();
-    const auto path = req[DAP_SOURCE].toObject()[DAP_PATH].toString();
+    const auto path = QUrl::fromLocalFile(req[DAP_SOURCE].toObject()[DAP_PATH].toString());
     const auto reference = req[DAP_SOURCE_REFERENCE].toInt(0);
     if (response.success) {
         Q_EMIT sourceContent(path, reference, SourceContent(response.body.toObject()));
@@ -617,15 +617,18 @@ void Client::requestDisconnect(bool restart)
 
 void Client::requestSource(const Source &source)
 {
-    QJsonObject arguments{{DAP_SOURCE_REFERENCE, source.sourceReference.value_or(0)}};
-    const QJsonObject sourceArg{{DAP_SOURCE_REFERENCE, source.sourceReference.value_or(0)}, {DAP_PATH, source.path}};
+    auto reference = source.sourceReference.value_or(0);
+    if (reference == 0 && source.path.scheme() == Source::referenceScheme())
+        reference = source.path.path().toInt();
+    QJsonObject arguments{{DAP_SOURCE_REFERENCE, reference}};
+    const QJsonObject sourceArg{{DAP_SOURCE_REFERENCE, reference}, {DAP_PATH, source.path.path()}};
 
     arguments[DAP_SOURCE] = sourceArg;
 
     this->write(makeRequest(DAP_SOURCE, arguments, &Client::processResponseSource));
 }
 
-void Client::requestSetBreakpoints(const QString &path, const QList<SourceBreakpoint> &breakpoints, bool sourceModified)
+void Client::requestSetBreakpoints(const QUrl &path, const QList<SourceBreakpoint> &breakpoints, bool sourceModified)
 {
     requestSetBreakpoints(Source(path), breakpoints, sourceModified);
 }
@@ -659,7 +662,7 @@ void Client::requestWatch(const QString &expression, std::optional<int> frameId)
     requestEvaluate(expression, QStringLiteral("watch"), frameId);
 }
 
-void Client::requestGotoTargets(const QString &path, const int line, const std::optional<int> column)
+void Client::requestGotoTargets(const QUrl &path, const int line, const std::optional<int> column)
 {
     requestGotoTargets(Source(path), line, column);
 }

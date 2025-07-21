@@ -11,6 +11,8 @@
 
 #include <KLocalizedString>
 
+#include <ktexteditor_utils.h>
+
 #include "dapbackend.h"
 #include "json_placeholders.h"
 
@@ -23,6 +25,8 @@ static QString printEvent(const QString &text)
 {
     return QStringLiteral("\n--> %1").arg(text);
 }
+
+using Utils::formatUrl;
 
 DapBackend::DapBackend(QObject *parent)
     : BackendInterface(parent)
@@ -378,7 +382,7 @@ void DapBackend::onStackTrace(const int /* threadId */, const dap::StackTraceInf
 void DapBackend::clearBreakpoints()
 {
     for (const auto &[url, breakpoints] : m_breakpoints) {
-        const auto path = QUrl::fromLocalFile(url);
+        const auto &path = url;
         for (const auto &bp : breakpoints) {
             if (bp && bp->line) {
                 Q_EMIT breakPointCleared(path, bp->line.value());
@@ -513,7 +517,7 @@ static QString printModule(const dap::Module &module)
     return out;
 }
 
-static QString printBreakpoint(const QString &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
+static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
     QString txtId = QStringLiteral("%1.").arg(bId);
     if (!bp) {
@@ -526,7 +530,7 @@ static QString printBreakpoint(const QString &sourceId, const dap::SourceBreakpo
         }
     }
 
-    QStringList out = {QStringLiteral("[%1] %2: %3").arg(txtId).arg(sourceId).arg(def.line)};
+    QStringList out = {QStringLiteral("[%1] %2: %3").arg(txtId).arg(formatUrl(sourceId)).arg(def.line)};
     if (def.column) {
         out << QStringLiteral(", %1").arg(def.column.value());
     }
@@ -626,23 +630,23 @@ void DapBackend::onModules(const dap::ModulesInfo &modules)
     popRequest();
 }
 
-void DapBackend::informBreakpointAdded(const QString &path, const dap::Breakpoint &bpoint)
+void DapBackend::informBreakpointAdded(const QUrl &path, const dap::Breakpoint &bpoint)
 {
     if (bpoint.line) {
-        Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint set")).arg(path).arg(bpoint.line.value()));
+        Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint set")).arg(formatUrl(path)).arg(bpoint.line.value()));
         // zero based line expected
-        Q_EMIT breakPointSet(QUrl::fromLocalFile(path), bpoint.line.value());
+        Q_EMIT breakPointSet(path, bpoint.line.value());
     }
 }
 
-void DapBackend::informBreakpointRemoved(const QString &path, int line)
+void DapBackend::informBreakpointRemoved(const QUrl &path, int line)
 {
-    Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(path).arg(line));
+    Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(formatUrl(path)).arg(line));
     // zero based line expected
-    Q_EMIT breakPointCleared(QUrl::fromLocalFile(path), line);
+    Q_EMIT breakPointCleared(path, line);
 }
 
-void DapBackend::onSourceBreakpoints(const QString &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
+void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
 {
     if (!breakpoints) {
         popRequest();
@@ -698,7 +702,7 @@ void DapBackend::onBreakpointEvent(const dap::BreakpointEvent &info)
 {
     QStringList parts = {i18n("(%1) breakpoint", info.reason)};
     if (info.breakpoint.source) {
-        parts << QStringLiteral(" ") << info.breakpoint.source->unifiedId();
+        parts << QStringLiteral(" ") << formatUrl(info.breakpoint.source->unifiedId());
     }
     if (info.breakpoint.line) {
         parts << QStringLiteral(":%1").arg(info.breakpoint.line.value());
@@ -724,7 +728,7 @@ void DapBackend::onExpressionEvaluated(const QString &expression, const std::opt
 void DapBackend::onGotoTargets(const dap::Source &source, const int, const QList<dap::GotoTarget> &targets)
 {
     if (!targets.isEmpty() && m_currentThread) {
-        Q_EMIT outputError(newLine(QStringLiteral("jump target %1:%2 (%3)").arg(source.unifiedId()).arg(targets[0].line).arg(targets[0].label)));
+        Q_EMIT outputError(newLine(QStringLiteral("jump target %1:%2 (%3)").arg(formatUrl(source.unifiedId())).arg(targets[0].line).arg(targets[0].label)));
         m_client->requestGoto(*m_currentThread, targets[0].id);
     }
     popRequest();
@@ -812,7 +816,7 @@ bool DapBackend::debuggerBusy() const
     return debuggerRunning() && (m_task == Busy);
 }
 
-std::optional<int> DapBackend::findBreakpoint(const QString &path, int line) const
+std::optional<int> DapBackend::findBreakpoint(const QUrl &path, int line) const
 {
     if (m_breakpoints.find(path) == m_breakpoints.end())
         return std::nullopt;
@@ -828,7 +832,7 @@ std::optional<int> DapBackend::findBreakpoint(const QString &path, int line) con
     return std::nullopt;
 }
 
-std::optional<int> DapBackend::findBreakpointIntent(const QString &path, int line) const
+std::optional<int> DapBackend::findBreakpointIntent(const QUrl &path, int line) const
 {
     if ((m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) || (m_breakpoints.find(path) == m_breakpoints.end())) {
         return std::nullopt;
@@ -852,7 +856,7 @@ std::optional<int> DapBackend::findBreakpointIntent(const QString &path, int lin
 
 bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
 {
-    return findBreakpoint(*resolveFilename(url.path()), line).has_value();
+    return findBreakpoint(*resolveFilename(url), line).has_value();
 }
 
 void DapBackend::toggleBreakpoint(QUrl const &url, int line, bool *)
@@ -862,14 +866,14 @@ void DapBackend::toggleBreakpoint(QUrl const &url, int line, bool *)
         return;
     }
 
-    const auto path = resolveOrWarn(url.path());
+    const auto path = resolveOrWarn(url);
 
     if (!removeBreakpoint(path, line)) {
         insertBreakpoint(path, line);
     }
 }
 
-bool DapBackend::removeBreakpoint(const QString &path, int line)
+bool DapBackend::removeBreakpoint(const QUrl &path, int line)
 {
     bool informed = false;
     // clear all breakpoints in the same line (there can be more than one)
@@ -906,7 +910,7 @@ bool DapBackend::removeBreakpoint(const QString &path, int line)
     return true;
 }
 
-void DapBackend::insertBreakpoint(const QString &path, int line)
+void DapBackend::insertBreakpoint(const QUrl &path, int line)
 {
     if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
         m_wantedBreakpoints[path] = {dap::SourceBreakpoint(line)};
@@ -934,7 +938,7 @@ void DapBackend::movePC(QUrl const &url, int line)
     if (!m_client->adapterCapabilities().supportsGotoTargetsRequest)
         return;
 
-    const auto path = resolveOrWarn(url.path());
+    const auto path = resolveOrWarn(url);
 
     pushRequest();
     m_client->requestGotoTargets(path, line);
@@ -948,7 +952,7 @@ void DapBackend::runToCursor(QUrl const &url, int line)
     if (!m_client->adapterCapabilities().supportsHitConditionalBreakpoints)
         return;
 
-    const auto path = resolveOrWarn(url.path());
+    const auto path = resolveOrWarn(url);
 
     dap::SourceBreakpoint bp(line);
     bp.hitCondition = QStringLiteral("<=1");
@@ -1006,6 +1010,7 @@ void DapBackend::cmdJump(const QString &cmd)
     }
 
     QString path = match.captured(2);
+    auto url = QUrl::fromLocalFile(path);
     if (path.isNull()) {
         if (!m_currentFrame) {
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
@@ -1016,10 +1021,10 @@ void DapBackend::cmdJump(const QString &cmd)
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
             return;
         }
-        path = frame.source->unifiedId();
+        url = frame.source->unifiedId();
     }
 
-    this->movePC(QUrl::fromLocalFile(path), line);
+    this->movePC(url, line);
 }
 
 void DapBackend::cmdRunToCursor(const QString &cmd)
@@ -1041,6 +1046,7 @@ void DapBackend::cmdRunToCursor(const QString &cmd)
     }
 
     QString path = match.captured(2);
+    auto url = QUrl::fromLocalFile(path);
     if (path.isNull()) {
         if (!m_currentFrame) {
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
@@ -1051,10 +1057,10 @@ void DapBackend::cmdRunToCursor(const QString &cmd)
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
             return;
         }
-        path = frame.source->unifiedId();
+        url = frame.source->unifiedId();
     }
 
-    this->runToCursor(QUrl::fromLocalFile(path), line);
+    this->runToCursor(url, line);
 }
 
 void DapBackend::cmdPause(const QString &cmd)
@@ -1336,8 +1342,9 @@ void DapBackend::cmdBreakpointOn(const QString &cmd)
         Q_EMIT outputError(newLine(i18n("hit conditional breakpoints are not supported by the server")));
         return;
     }
-    QString path = match.captured(QStringLiteral("SOURCE"));
-    if (path.isNull()) {
+    QString cpath = match.captured(QStringLiteral("SOURCE"));
+    QUrl path;
+    if (cpath.isNull()) {
         if (!m_currentFrame) {
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
             return;
@@ -1349,7 +1356,7 @@ void DapBackend::cmdBreakpointOn(const QString &cmd)
         }
         path = resolveOrWarn(frame.source->unifiedId());
     } else {
-        path = resolveOrWarn(path);
+        path = resolveOrWarn(QUrl::fromLocalFile(cpath));
     }
 
     if (findBreakpoint(path, bp.line) || findBreakpointIntent(path, bp.line)) {
@@ -1382,8 +1389,9 @@ void DapBackend::cmdBreakpointOff(const QString &cmd)
         return;
     }
 
-    QString path = match.captured(2);
-    if (path.isNull()) {
+    QString cpath = match.captured(2);
+    QUrl path = QUrl::fromLocalFile(cpath);
+    if (cpath.isNull()) {
         if (!m_currentFrame) {
             Q_EMIT outputError(newLine(i18n("file not specified: %1", cmd)));
             return;
@@ -1398,7 +1406,7 @@ void DapBackend::cmdBreakpointOff(const QString &cmd)
     path = resolveOrWarn(path);
 
     if (!removeBreakpoint(path, line)) {
-        Q_EMIT outputError(newLine(i18n("breakpoint not found (%1:%2)", path, line)));
+        Q_EMIT outputError(newLine(i18n("breakpoint not found (%1:%2)", formatUrl(path), line)));
     }
 }
 
@@ -1509,7 +1517,7 @@ void DapBackend::setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoint
     // these are set during initialization
     Q_ASSERT(m_wantedBreakpoints.empty());
     for (const auto &bp : breakpoints.asKeyValueRange()) {
-        const auto path = resolveOrWarn(bp.first.path());
+        const auto path = resolveOrWarn(bp.first);
         auto &breakpoints = m_wantedBreakpoints[path];
         for (auto line : bp.second) {
             breakpoints.push_back(dap::SourceBreakpoint(line));
@@ -1663,9 +1671,10 @@ void DapBackend::changeStackFrame(int index)
     const auto &frame = m_frames[index];
     if (frame.source) {
         const auto id = frame.source->unifiedId();
-        Q_EMIT outputText(QStringLiteral("\n") + i18n("Current frame [%3]: %1:%2 (%4)", id, QString::number(frame.line), QString::number(index), frame.name));
+        Q_EMIT outputText(QStringLiteral("\n")
+                          + i18n("Current frame [%3]: %1:%2 (%4)", formatUrl(id), QString::number(frame.line), QString::number(index), frame.name));
         // zero-based line
-        Q_EMIT debugLocationChanged(QUrl::fromLocalFile(resolveOrWarn(id)), frame.line);
+        Q_EMIT debugLocationChanged(resolveOrWarn(id), frame.line);
     }
 
     Q_EMIT stackFrameChanged(index);
@@ -1687,15 +1696,20 @@ void DapBackend::changeThread(int index)
     m_client->requestStackTrace(index);
 }
 
-std::optional<QString> DapBackend::resolveFilename(const QString &filename, bool fallback) const
+std::optional<QUrl> DapBackend::resolveFilename(const QUrl &file, bool fallback) const
 {
+    // consider absolute, as below
+    if (!file.isLocalFile())
+        return file;
+
+    auto filename = file.path();
     QFileInfo fInfo = QFileInfo(filename);
     if (fInfo.exists() && fInfo.isDir()) {
-        return fInfo.absoluteFilePath();
+        return QUrl::fromLocalFile(fInfo.absoluteFilePath());
     }
 
     if (fInfo.isAbsolute()) {
-        return filename;
+        return file;
     }
 
     // working path
@@ -1703,7 +1717,7 @@ std::optional<QString> DapBackend::resolveFilename(const QString &filename, bool
         const auto base = QDir(m_workDir);
         fInfo = QFileInfo(base.absoluteFilePath(filename));
         if (fInfo.exists() && !fInfo.isDir()) {
-            return fInfo.absoluteFilePath();
+            return QUrl::fromLocalFile(fInfo.absoluteFilePath());
         }
     }
 
@@ -1712,24 +1726,24 @@ std::optional<QString> DapBackend::resolveFilename(const QString &filename, bool
         const auto base = QDir(QFileInfo(m_file).absolutePath());
         fInfo = QFileInfo(base.absoluteFilePath(filename));
         if (fInfo.exists() && !fInfo.isDir()) {
-            return fInfo.absoluteFilePath();
+            return QUrl::fromLocalFile(fInfo.absoluteFilePath());
         }
     }
 
     if (fallback)
-        return filename;
+        return file;
 
     return std::nullopt;
 }
 
-QString DapBackend::resolveOrWarn(const QString &filename)
+QUrl DapBackend::resolveOrWarn(const QUrl &filename)
 {
     const auto path = resolveFilename(filename, false);
 
     if (path)
         return *path;
 
-    Q_EMIT sourceFileNotFound(filename);
+    Q_EMIT sourceFileNotFound(filename.path());
 
     return filename;
 }

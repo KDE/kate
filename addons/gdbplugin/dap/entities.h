@@ -115,7 +115,7 @@ struct Checksum {
 
 struct Source {
     QString name;
-    QString path;
+    QUrl path;
     std::optional<int> sourceReference;
     std::optional<QString> presentationHint;
     QString origin;
@@ -123,12 +123,13 @@ struct Source {
     QJsonValue adapterData;
     QList<Checksum> checksums;
 
-    QString unifiedId() const;
-    static QString getUnifiedId(const QString &path, std::optional<int> sourceReference);
+    static QString referenceScheme();
+    QUrl unifiedId() const;
+    static QUrl getUnifiedId(const QUrl &path, std::optional<int> sourceReference);
 
     Source() = default;
     Source(const QJsonObject &body);
-    Source(const QString &path);
+    Source(const QUrl &path);
 
     QJsonObject toJson() const;
 };

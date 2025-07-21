@@ -93,7 +93,7 @@ void CMakeCompletion::completionInvoked(KTextEditor::View *view, const KTextEdit
         append(m_matches, std::move(data.m_commands), Completion::Compl_COMMAND);
         append(m_matches, std::move(data.m_vars), Completion::Compl_VARIABLE);
         append(m_matches, std::move(data.m_props), Completion::Compl_PROPERTY);
-        setRowCount(m_matches.size());
+        setRowCount(int(m_matches.size()));
         m_hasData = true;
     }
 }
@@ -116,7 +116,7 @@ bool CMakeCompletion::shouldStartCompletion(KTextEditor::View *view, const QStri
 
 int CMakeCompletion::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : m_matches.size();
+    return parent.isValid() ? 0 : int(m_matches.size());
 }
 
 static QIcon getIcon(CMakeCompletion::Completion::Kind type)

@@ -34,7 +34,7 @@ QUrl getBookmarkUrl(KTextEditor::Document *document)
     QUrl url = document->url();
     if (url.isEmpty()) {
         url.setScheme(VirtualFileUrlScheme);
-        url.setHost(QStringLiteral());
+        url.setHost(QString());
         url.setPath(document->documentName());
     }
 

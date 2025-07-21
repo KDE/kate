@@ -16,6 +16,8 @@
 
 #include <algorithm>
 
+#include <ktexteditor_utils.h>
+
 namespace detail
 {
 FilenameListItem::FilenameListItem(DocOrWidget doc)
@@ -40,7 +42,7 @@ QString FilenameListItem::documentName() const
 
 QString FilenameListItem::fullPath() const
 {
-    return document.doc() ? document.doc()->url().toLocalFile() : QString();
+    return document.doc() ? Utils::formatUrl(document.doc()->url()) : QString();
 }
 
 /**

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 00:47+0000\n"
-"PO-Revision-Date: 2025-07-10 08:19+0200\n"
+"PO-Revision-Date: 2025-07-21 19:23+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -433,15 +433,13 @@ msgid "Failed to read server configuration: %1"
 msgstr "Huts egin du zerbitzariaren konfigurazioa irakurtzea: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, fuzzy, kde-format
-#| msgid "Go to next symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "Joan nabarmendutako hurrengo ikurrera"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, fuzzy, kde-format
-#| msgid "Go to previous symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Joan nabarmendutako aurreko ikurrera"

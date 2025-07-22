@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-22 00:46+0000\n"
 "PO-Revision-Date: 2025-07-21 00:47+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -165,7 +165,7 @@ msgid "Copy Location"
 msgstr "위치 복사"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -175,7 +175,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "잘못된 해시"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Git 저장소에 %1이(가) 없습니다."
@@ -342,7 +342,7 @@ msgstr "오류"
 msgid "Warnings"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -563,29 +563,38 @@ msgstr "삭제된 파일 %1"
 msgid "No differences found"
 msgstr "차이점을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:328
+#: lib/filehistorywidget.cpp:381
+#, kde-format
+msgctxt "Help text"
+msgid ""
+"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
+"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+msgstr ""
+
+#: lib/filehistorywidget.cpp:431
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "파일 기록을 가져올 수 없음: PATH에서 git 실행 파일을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:341
+#: lib/filehistorywidget.cpp:445
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "파일 기록을 가져올 수 없음: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:456
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "커밋 해시 복사"
 
-#: lib/filehistorywidget.cpp:360
+#: lib/filehistorywidget.cpp:464
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "전체 커밋 표시"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:566
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -932,7 +941,7 @@ msgstr "여기에 언급하지 않았지만 기여를 해 준 많은 좋은 사�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "프로젝트 플러그인이 활성화되어 있어야만 폴더를 열 수 있음"
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-22 00:46+0000\n"
 "PO-Revision-Date: 2025-05-20 16:20+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -189,7 +189,7 @@ msgid "Copy Location"
 msgstr "Копировать расположение"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -199,7 +199,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Недопустимый хеш"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "«%1» не существует в репозитории git."
@@ -366,7 +366,7 @@ msgstr "Ошибки"
 msgid "Warnings"
 msgstr "Предупреждения"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -596,31 +596,40 @@ msgstr "Удалённый файл %1"
 msgid "No differences found"
 msgstr "Различия не обнаружены"
 
-#: lib/filehistorywidget.cpp:328
+#: lib/filehistorywidget.cpp:381
+#, kde-format
+msgctxt "Help text"
+msgid ""
+"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
+"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+msgstr ""
+
+#: lib/filehistorywidget.cpp:431
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Не удалось получить историю файла: исполняемый файл git не найден в "
 "каталогах, перечисленных в переменной PATH"
 
-#: lib/filehistorywidget.cpp:341
+#: lib/filehistorywidget.cpp:445
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Не удалось получить историю файла: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:456
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Копировать хеш фиксации"
 
-#: lib/filehistorywidget.cpp:360
+#: lib/filehistorywidget.cpp:464
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показать фиксацию полностью"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:566
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -970,7 +979,7 @@ msgstr "Все, кто участвовал в этом проекте, но н�
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Для открытия папок требуется включить модуль «Проекты»"
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

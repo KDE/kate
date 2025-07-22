@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-22 00:46+0000\n"
 "PO-Revision-Date: 2025-05-16 15:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -169,7 +169,7 @@ msgid "Copy Location"
 msgstr "複製位置"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -179,7 +179,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "無效的 hash"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 不存在於一個 git 版本庫中。"
@@ -344,7 +344,7 @@ msgstr "錯誤"
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -564,29 +564,38 @@ msgstr "已刪除檔案 %1"
 msgid "No differences found"
 msgstr "未找到差異"
 
-#: lib/filehistorywidget.cpp:328
+#: lib/filehistorywidget.cpp:381
+#, kde-format
+msgctxt "Help text"
+msgid ""
+"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
+"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+msgstr ""
+
+#: lib/filehistorywidget.cpp:431
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "無法取得檔案歷史：git 執行檔未在 PATH 中找到"
 
-#: lib/filehistorywidget.cpp:341
+#: lib/filehistorywidget.cpp:445
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "無法取得檔案歷史：%1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:456
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "複製提交 hash"
 
-#: lib/filehistorywidget.cpp:360
+#: lib/filehistorywidget.cpp:464
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "顯示完整提交"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:566
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -931,7 +940,7 @@ msgstr "所有曾協力但我忘記提及的人"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "僅能在專案外掛程式啟用時開啟資料夾"
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

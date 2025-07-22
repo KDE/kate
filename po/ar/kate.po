@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-22 00:46+0000\n"
 "PO-Revision-Date: 2025-05-12 17:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -173,7 +173,7 @@ msgid "Copy Location"
 msgstr "انسخ المكان"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Git"
 msgstr "غت"
@@ -183,7 +183,7 @@ msgstr "غت"
 msgid "Invalid hash"
 msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
@@ -349,7 +349,7 @@ msgstr "الأخطاء"
 msgid "Warnings"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -585,29 +585,38 @@ msgstr "ملف محذوف %1"
 msgid "No differences found"
 msgstr "لم يعثر على فروقات"
 
-#: lib/filehistorywidget.cpp:328
+#: lib/filehistorywidget.cpp:381
+#, kde-format
+msgctxt "Help text"
+msgid ""
+"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
+"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+msgstr ""
+
+#: lib/filehistorywidget.cpp:431
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر على تنفيذي غت في المسار PATH"
 
-#: lib/filehistorywidget.cpp:341
+#: lib/filehistorywidget.cpp:445
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:456
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "انسخ تلبيدة الإيداع"
 
-#: lib/filehistorywidget.cpp:360
+#: lib/filehistorywidget.cpp:464
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "أظهر كامل الإيداع"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:566
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -954,7 +963,7 @@ msgstr "كلّ مَن ساهم ونسيت ذكره"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "لا يمكن فتح المجلدات إلا عند تمكين ملحق المشاريع"
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

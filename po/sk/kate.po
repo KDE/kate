@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-22 00:46+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -173,7 +173,7 @@ msgid "Copy Location"
 msgstr "Kopírovať umiestnenie"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -183,7 +183,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Neplatný hash"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 neexistuje v git repo."
@@ -358,7 +358,7 @@ msgstr "Chyba"
 msgid "Warnings"
 msgstr "Upozornenie"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter..."
@@ -589,31 +589,40 @@ msgstr "Vymazaný súbor %1"
 msgid "No differences found"
 msgstr "Nenašli sa žiadne rozdiely"
 
-#: lib/filehistorywidget.cpp:328
+#: lib/filehistorywidget.cpp:381
+#, kde-format
+msgctxt "Help text"
+msgid ""
+"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
+"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+msgstr ""
+
+#: lib/filehistorywidget.cpp:431
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nepodarilo sa získať históriu súborov: spustiteľný súbor git sa nenašiel v "
 "PATH"
 
-#: lib/filehistorywidget.cpp:341
+#: lib/filehistorywidget.cpp:445
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nepodarilo sa získať históriu súborov: %1"
 
-#: lib/filehistorywidget.cpp:352
+#: lib/filehistorywidget.cpp:456
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopírovať hash začlenenia"
 
-#: lib/filehistorywidget.cpp:360
+#: lib/filehistorywidget.cpp:464
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Zobraziť úplne začlenenie"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:566
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -970,7 +979,7 @@ msgstr "Všetci ostatní, ktorí prispeli a zabudol som sa o nich zmieniť"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "Priečinky je možné otvoriť, iba ak je povolený doplnok projekty"
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:622
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."

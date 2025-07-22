@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-07-10 08:01+0200\n"
+"PO-Revision-Date: 2025-07-21 19:25+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -96,14 +96,13 @@ msgstr "Birbideratu araztutako programaren SI banatutako fitxa batera"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Ez da helburu exekutagarririk ezarri"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "hari baliogabearen id: %1"
+msgstr "Prozesu ID baliogabea"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -633,10 +632,9 @@ msgid "Print Value"
 msgstr "Inprimatu balioa"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "sintaxi akatsa: %1"
+msgstr "Errorea: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

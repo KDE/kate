@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 00:47+0000\n"
-"PO-Revision-Date: 2025-07-07 09:09+0200\n"
+"PO-Revision-Date: 2025-07-16 09:24+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.07.80\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -431,15 +431,13 @@ msgid "Failed to read server configuration: %1"
 msgstr "Impossible de lire la configuration du serveur : %1"
 
 #: lspclientsymbolhighlighter.cpp:30
-#, fuzzy, kde-format
-#| msgid "Go to next symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
 msgstr "Aller au symbole suivant en surbrillance"
 
 #: lspclientsymbolhighlighter.cpp:32
-#, fuzzy, kde-format
-#| msgid "Go to previous symbol highlight"
+#, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
 msgstr "Aller au symbole précédent en surbrillance"

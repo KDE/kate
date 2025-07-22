@@ -90,13 +90,13 @@ msgstr "将被调试程序的输入输出重定向到另外标签页"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "没有可执行目标集"
 
 #: configview.cpp:400
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "无效的进程 ID"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -628,7 +628,7 @@ msgstr "打印值"
 #: plugin_kategdb.cpp:449
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "错误：%1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

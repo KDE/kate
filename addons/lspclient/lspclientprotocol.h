@@ -457,3 +457,13 @@ struct LSPMessageRequestAction {
     QString title;
     std::function<void()> choose;
 };
+
+// workspace/configuration request structures (LSP 3.6+)
+struct LSPConfigurationItem {
+    std::optional<QString> scopeUri;
+    std::optional<QString> section;
+};
+
+struct LSPConfigurationParams {
+    QList<LSPConfigurationItem> items;
+};

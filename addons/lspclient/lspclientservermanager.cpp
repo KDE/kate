@@ -862,6 +862,7 @@ private:
                 connect(server.get(), &LSPClientServer::showMessage, this, std::bind(&self_type::onMessage, this, false, _1));
                 connect(server.get(), &LSPClientServer::workDoneProgress, this, &self_type::onWorkDoneProgress);
                 connect(server.get(), &LSPClientServer::workspaceFolders, this, &self_type::onWorkspaceFolders, Qt::UniqueConnection);
+                connect(server.get(), &LSPClientServer::configuration, this, std::bind(&self_type::onConfiguration, this, root, langId, _1, _2, _3));
                 connect(server.get(), &LSPClientServer::showMessageRequest, this, &self_type::showMessageRequest);
             }
         }
@@ -1203,6 +1204,34 @@ private:
 
         auto folders = currentWorkspaceFolders();
         h(folders);
+
+        handled = true;
+    }
+
+    void onConfiguration(QUrl root, QString langId, const LSPConfigurationParams &params, const ConfigurationReplyHandler &h, bool &handled)
+    {
+        if (handled) {
+            return;
+        }
+
+        const auto &settings = m_servers[root][langId].settings;
+        QList<QJsonValue> configurations;
+        for (const auto &item : params.items) {
+            auto configValue = settings;
+            if (item.section && !item.section->isEmpty()) {
+                auto sectionParts = item.section->split(QLatin1Char('.'));
+                for (const auto &part : sectionParts) {
+                    if (configValue.isObject()) {
+                        configValue = configValue.toObject().value(part);
+                    } else {
+                        configValue = QJsonValue::Null;
+                        break;
+                    }
+                }
+            }
+            configurations.append(configValue);
+        }
+        h(configurations);
 
         handled = true;
     }

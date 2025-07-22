@@ -64,6 +64,9 @@ static constexpr char MEMBER_DOCUMENTATION[] = "documentation";
 static constexpr char MEMBER_TITLE[] = "title";
 static constexpr char MEMBER_EDIT[] = "edit";
 static constexpr char MEMBER_ACTIONS[] = "actions";
+static constexpr char MEMBER_ITEMS[] = "items";
+static constexpr char MEMBER_SCOPE_URI[] = "scopeUri";
+static constexpr char MEMBER_SECTION[] = "section";
 
 static QByteArray rapidJsonStringify(const rapidjson::Value &v)
 {
@@ -1184,6 +1187,33 @@ static LSPShowMessageParams parseMessage(const rapidjson::Value &result)
     return ret;
 }
 
+static LSPConfigurationItem parseConfigurationItem(const rapidjson::Value &result)
+{
+    LSPConfigurationItem ret;
+    if (result.HasMember(MEMBER_SCOPE_URI)) {
+        ret.scopeUri = GetStringValue(result, MEMBER_SCOPE_URI);
+    }
+    if (result.HasMember(MEMBER_SECTION)) {
+        ret.section = GetStringValue(result, MEMBER_SECTION);
+    }
+    return ret;
+}
+
+static LSPConfigurationParams parseConfigurationParams(const rapidjson::Value &result)
+{
+    LSPConfigurationParams ret;
+    if (!result.IsObject()) {
+        return ret;
+    }
+    const auto &items = GetJsonArrayForKey(result, MEMBER_ITEMS);
+    if (items.IsArray()) {
+        for (const auto &item : items.GetArray()) {
+            ret.items.append(parseConfigurationItem(item));
+        }
+    }
+    return ret;
+}
+
 static void from_json(LSPWorkDoneProgressValue &value, const rapidjson::Value &json)
 {
     if (!json.IsObject()) {
@@ -1686,11 +1716,15 @@ private:
                                         }
                                   }
                                 };
-        // only declare workspace support if folders so specified
+        // clang-format on
+        // always declare workspace/configuration support (LSP 3.6+)
+        QJsonObject workspaceCapabilities{{QStringLiteral("configuration"), true}};
+        // only declare workspace folders support if so specified
         const auto &folders = m_config.folders;
         if (folders) {
-            capabilities[QStringLiteral("workspace")] = QJsonObject{{QStringLiteral("workspaceFolders"), true}};
+            workspaceCapabilities[QStringLiteral("workspaceFolders")] = true;
         }
+        capabilities[QStringLiteral("workspace")] = workspaceCapabilities;
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
@@ -1702,9 +1736,7 @@ private:
         if (folders) {
             params[QStringLiteral("workspaceFolders")] = to_json(*folders);
         }
-        //
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
-        // clang-format on
     }
 
     void initialized()
@@ -2057,6 +2089,17 @@ public:
             };
             auto h = responseHandler<QList<LSPWorkspaceFolder>>(prepareResponse(msgId), workspaceFolders);
             Q_EMIT q->workspaceFolders(h, handled);
+        } else if (method == QLatin1String("workspace/configuration")) {
+            // helper to convert from array to value
+            auto configurationArray = [](const QList<QJsonValue> &p) -> QJsonValue {
+                QJsonArray array;
+                for (const auto &value : p) {
+                    array.append(value);
+                }
+                return QJsonValue(array);
+            };
+            auto h = responseHandler<QList<QJsonValue>>(prepareResponse(msgId), configurationArray);
+            Q_EMIT q->configuration(parseConfigurationParams(params), h, handled);
         } else if (method == QLatin1String("window/workDoneProgress/create") || method == QLatin1String("client/registerCapability")) {
             // void reply to accept
             // that should trigger subsequent progress notifications

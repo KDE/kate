@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-23 00:46+0000\n"
 "PO-Revision-Date: 2024-12-16 18:11+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -413,17 +413,17 @@ msgstr "Il falleva a startar servitor: %1"
 msgid "Started server %2: %1"
 msgstr "Startava servitor %2: %1"
 
-#: lspclientservermanager.cpp:894
+#: lspclientservermanager.cpp:895
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Falleva a analysar configuration de servitor '%1': necun objecto JSON"
 
-#: lspclientservermanager.cpp:897
+#: lspclientservermanager.cpp:898
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Falleva a analysar configuration de servitor '%1': %2"
 
-#: lspclientservermanager.cpp:901
+#: lspclientservermanager.cpp:902
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Il falleva a leger le confiurtion del sevitor: %1"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -411,17 +411,17 @@ msgstr "启动服务器失败：%1"
 msgid "Started server %2: %1"
 msgstr "服务器已启动 %2: %1"
 
-#: lspclientservermanager.cpp:894
+#: lspclientservermanager.cpp:895
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "无法解析服务器配置“%1”：没有 JSON 对象"
 
-#: lspclientservermanager.cpp:897
+#: lspclientservermanager.cpp:898
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "解析服务器配置失败：“%1”：%2"
 
-#: lspclientservermanager.cpp:901
+#: lspclientservermanager.cpp:902
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "读取服务器配置失败：%1"

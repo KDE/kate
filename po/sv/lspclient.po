@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-23 00:46+0000\n"
 "PO-Revision-Date: 2025-01-11 12:49+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -411,17 +411,17 @@ msgstr "Misslyckades starta server: %1"
 msgid "Started server %2: %1"
 msgstr "Starta server %2: %1"
 
-#: lspclientservermanager.cpp:894
+#: lspclientservermanager.cpp:895
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Misslyckades tolka serverinställning '%1': inget JSON-objekt"
 
-#: lspclientservermanager.cpp:897
+#: lspclientservermanager.cpp:898
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Misslyckades tolka serverinställning '%1': %2"
 
-#: lspclientservermanager.cpp:901
+#: lspclientservermanager.cpp:902
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Misslyckades läsa serverinställning: %1"

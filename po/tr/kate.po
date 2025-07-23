@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-22 00:46+0000\n"
-"PO-Revision-Date: 2025-05-10 19:51+0300\n"
+"PO-Revision-Date: 2025-07-22 21:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -588,6 +588,10 @@ msgid ""
 "<b>a:john doe</b></li><li>To filter messages, just type the search term</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key. "
 msgstr ""
+"Günlüğü süzün.<ul><li>Yazar adıyla süzmek için \"a:\" önekini kullanın. "
+"Örneğin, <b>a:hakan yılmaz</b>.</li><li>İletileri süzmek için yalnızca arama "
+"terimini yazın.</li></ul>Süzgeci tetiklemek için <b>Giriş</b> düğmesine "
+"basın."
 
 #: lib/filehistorywidget.cpp:431
 #, kde-format

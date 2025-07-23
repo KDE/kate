@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-15 00:47+0000\n"
+"POT-Creation-Date: 2025-07-23 00:46+0000\n"
 "PO-Revision-Date: 2023-01-02 22:53+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -414,19 +414,19 @@ msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
 msgid "Started server %2: %1"
 msgstr "Ξεκίνησε ο εξυπηρετητής %2: %1"
 
-#: lspclientservermanager.cpp:894
+#: lspclientservermanager.cpp:895
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': δεν υπάρχει JSON "
 "αντικείμενο"
 
-#: lspclientservermanager.cpp:897
+#: lspclientservermanager.cpp:898
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': %2"
 
-#: lspclientservermanager.cpp:901
+#: lspclientservermanager.cpp:902
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Αποτυχία ανάγνωσης της διαμόρφωσης του εξυπηρετητή: %1"

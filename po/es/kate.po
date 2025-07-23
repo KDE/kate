@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-22 00:46+0000\n"
-"PO-Revision-Date: 2025-05-11 21:51+0100\n"
+"PO-Revision-Date: 2025-07-23 00:50+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -587,6 +587,10 @@ msgid ""
 "<b>a:john doe</b></li><li>To filter messages, just type the search term</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key. "
 msgstr ""
+"Filtrar el registro.<ul><li>Use el prefijo «a:» para filtrar por el nombre "
+"de autor. Por ejemplo, <b>a:pedro montes</b></li><li>Para filtrar mensajes, "
+"escriba el término que se debe buscar</li></ul>Para activar el filtro, pulse "
+"la tecla <b>Intro</b>."
 
 #: lib/filehistorywidget.cpp:431
 #, kde-format

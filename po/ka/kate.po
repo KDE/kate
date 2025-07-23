@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-22 00:46+0000\n"
-"PO-Revision-Date: 2025-05-10 03:51+0200\n"
+"PO-Revision-Date: 2025-07-22 04:43+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -574,6 +574,10 @@ msgid ""
 "<b>a:john doe</b></li><li>To filter messages, just type the search term</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key. "
 msgstr ""
+"ჟურნალის გაფილტვრა.<ul><li>გამოიყენეთ პრეფიქსი \"a:\", რომ გაფილტროთ ავტორის "
+"სახელით. მაგ: <b>a:john doe</b></li><li>შეტყობინებების გასაფილტრად უბრალოდ "
+"აკრიფეთ, რისი მოძებნაც გნებავთ.</li></ul>გაფილტვრის დასაწყებად დააჭირეთ "
+"ღილაკს <b>Enter</b>. "
 
 #: lib/filehistorywidget.cpp:431
 #, kde-format

@@ -431,6 +431,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     connect(&m_listView, &QListView::customContextMenuRequested, this, &FileHistoryWidget::onContextMenu);
 
     m_filterLineEdit.setPlaceholderText(i18n("Filter…"));
+    m_filterLineEdit.setProperty("_breeze_borders_sides", QVariant::fromValue(Qt::TopEdge));
     auto helpAction = new QAction(this);
     helpAction->setIcon(QIcon::fromTheme(QStringLiteral("info")));
     connect(helpAction, &QAction::triggered, this, [this] {

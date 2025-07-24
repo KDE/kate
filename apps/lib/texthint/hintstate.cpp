@@ -61,9 +61,9 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
             const auto &[text, kind] = hint;
             if (kind == TextHintMarkupKind::PlainText) {
                 // Render plaintext as-is
-                contents += QStringLiteral("<p>");
+                contents += QStringLiteral("<div>");
                 contents += text.toHtmlEscaped();
-                contents += QStringLiteral("</p>\n");
+                contents += QStringLiteral("</div>\n");
             } else {
                 contents += text;
             }

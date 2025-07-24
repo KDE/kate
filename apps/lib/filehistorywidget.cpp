@@ -173,7 +173,13 @@ public:
         const auto &commit = model->commit(sourceRow);
 
         if (!m_authorFilters.empty()) {
+            // If we have author, apply that
             accept = std::any_of(m_authorFilters.begin(), m_authorFilters.end(), [&commit](const Filter &f) {
+                return commit.authorName.contains(f.text, Qt::CaseInsensitive);
+            });
+        } else if (accept && !m_inverseAuthorFilters.empty()) {
+            // Otherwise try inverse
+            accept = std::none_of(m_inverseAuthorFilters.begin(), m_inverseAuthorFilters.end(), [&commit](const Filter &f) {
                 return commit.authorName.contains(f.text, Qt::CaseInsensitive);
             });
         }
@@ -194,6 +200,8 @@ public:
 
         if (data.startsWith(u"a:")) {
             m_authorFilters.push_back(Filter{id, data.mid(2)});
+        } else if (data.startsWith(u"!a:")) {
+            m_inverseAuthorFilters.push_back(Filter{id, data.mid(3)});
         } else {
             m_messageFilters.push_back(Filter{id, data});
         }
@@ -208,10 +216,12 @@ public:
         auto pred = [id](const Filter &f) {
             return f.id == id;
         };
+
         beginResetModel();
 
         std::erase_if(m_authorFilters, pred);
         std::erase_if(m_messageFilters, pred);
+        std::erase_if(m_inverseAuthorFilters, pred);
 
         endResetModel();
     }
@@ -219,6 +229,7 @@ public:
 private:
     int m_filterIdCounter = 0;
     std::vector<Filter> m_authorFilters;
+    std::vector<Filter> m_inverseAuthorFilters;
     std::vector<Filter> m_messageFilters;
 };
 
@@ -385,7 +396,9 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
                                    "Filter the log."
                                    "<ul>"
                                    "<li>Use \"a:\" prefix to filter by author name. For e.g., <b>a:john doe</b></li>"
-                                   "<li>To filter messages, just type the search term</li>"
+                                   "<li>Use \"!a:\" prefix to exclude an author. For e.g., <b>!a:john doe</b></li>"
+                                   "<li>To filter messages, just type the search term. If multiple search terms are given then"
+                                   "messages matching all the search terms will be shown.</li>"
                                    "</ul>"
                                    "To trigger the filter, press the <b>Enter</b> key. ");
         QToolTip::showText(pos, text, this);

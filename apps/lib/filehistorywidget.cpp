@@ -208,8 +208,12 @@ public:
         auto pred = [id](const Filter &f) {
             return f.id == id;
         };
+        beginResetModel();
+
         std::erase_if(m_authorFilters, pred);
         std::erase_if(m_messageFilters, pred);
+
+        endResetModel();
     }
 
 private:

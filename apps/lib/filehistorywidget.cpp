@@ -479,7 +479,12 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
 
 void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
 {
-    int id = proxy->appendFilter(m_filterLineEdit.text());
+    QString filterText = m_filterLineEdit.text();
+    if (filterText.isEmpty()) {
+        return;
+    }
+
+    int id = proxy->appendFilter(filterText);
 
     if (m_filtersListWidget.isHidden()) {
         m_filtersListWidget.setVisible(true);
@@ -497,7 +502,7 @@ void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
 
     auto label = new QLabel;
     label->setContentsMargins(2, 0, 0, 0);
-    label->setText(m_filterLineEdit.text());
+    label->setText(filterText);
     layout->addWidget(label);
 
     auto closeBtn = new QToolButton;
@@ -505,7 +510,7 @@ void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
     closeBtn->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
     layout->addWidget(closeBtn);
 
-    auto item = new QListWidgetItem(m_filterLineEdit.text().append(QStringLiteral("XXX")));
+    auto item = new QListWidgetItem(filterText.append(QStringLiteral("XXX")));
     item->setData(Qt::UserRole + 1, id);
     m_filtersListWidget.addItem(item);
 

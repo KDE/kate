@@ -172,6 +172,13 @@ public:
         auto model = static_cast<CommitListModel *>(sourceModel());
         const auto &commit = model->commit(sourceRow);
 
+        if (m_sinceDate.date != -1) {
+            accept = commit.authorDate >= m_sinceDate.date;
+        }
+        if (accept && m_untilDate.date != -1) {
+            accept = commit.authorDate <= m_untilDate.date;
+        }
+
         if (!m_authorFilters.empty()) {
             // If we have author, apply that
             accept = std::any_of(m_authorFilters.begin(), m_authorFilters.end(), [&commit](const Filter &f) {
@@ -202,6 +209,29 @@ public:
             m_authorFilters.push_back(Filter{id, data.mid(2)});
         } else if (data.startsWith(u"!a:")) {
             m_inverseAuthorFilters.push_back(Filter{id, data.mid(3)});
+        } else if (data.startsWith(u"since:") || data.startsWith(u"until:")) {
+            QString date = data.mid(6);
+            QDate d = QDate::fromString(date, Qt::ISODate);
+
+            const bool isSince = data.startsWith(u"since");
+            int timestamp;
+            if (isSince) {
+                timestamp = d.isValid() ? d.startOfDay().toSecsSinceEpoch() : -1;
+            } else {
+                timestamp = d.isValid() ? d.endOfDay().toSecsSinceEpoch() : -1;
+            }
+
+            // select the right filter
+            auto &dateFilter = isSince ? m_sinceDate : m_untilDate;
+
+            dateFilter.date = timestamp;
+            // reuse the id if its valid
+            dateFilter.id = dateFilter.id >= 0 ? dateFilter.id : id;
+            id = dateFilter.id;
+            if (!d.isValid()) {
+                Utils::showMessage(i18nc("error message", "Invalid date: %1", date), gitIcon(), QStringLiteral("Git History"), MessageType::Error);
+                id = -1;
+            }
         } else {
             m_messageFilters.push_back(Filter{id, data});
         }
@@ -219,6 +249,12 @@ public:
 
         beginResetModel();
 
+        if (m_sinceDate.id == id) {
+            m_sinceDate.date = -1;
+        } else if (m_untilDate.id == id) {
+            m_untilDate.date = -1;
+        }
+
         std::erase_if(m_authorFilters, pred);
         std::erase_if(m_messageFilters, pred);
         std::erase_if(m_inverseAuthorFilters, pred);
@@ -231,6 +267,13 @@ private:
     std::vector<Filter> m_authorFilters;
     std::vector<Filter> m_inverseAuthorFilters;
     std::vector<Filter> m_messageFilters;
+
+    struct DateFilter {
+        qint64 date = -1;
+        int id = -1;
+    };
+    DateFilter m_sinceDate;
+    DateFilter m_untilDate;
 };
 
 class CommitDelegate : public QStyledItemDelegate
@@ -397,10 +440,14 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
                                    "<ul>"
                                    "<li>Use \"a:\" prefix to filter by author name. For e.g., <b>a:john doe</b></li>"
                                    "<li>Use \"!a:\" prefix to exclude an author. For e.g., <b>!a:john doe</b></li>"
-                                   "<li>To filter messages, just type the search term. If multiple search terms are given then"
+                                   "<li>Use \"since:\" prefix to show commits after the given date. The author date of each commit will be checked. The date "
+                                   "format is yyyy-MM-dd For e.g., <b>since:2025-04-17</b></li>"
+                                   "<li>Use \"until:\" prefix to show commits before the given date. The author date of each commit will be checked. The date "
+                                   "format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></li>"
+                                   "<li>To filter messages, just type the search term. If multiple search terms are given then "
                                    "messages matching all the search terms will be shown.</li>"
                                    "</ul>"
-                                   "To trigger the filter, press the <b>Enter</b> key. ");
+                                   "To trigger the filter, press the <b>Enter</b> key.");
         QToolTip::showText(pos, text, this);
     });
     m_filterLineEdit.addAction(helpAction, QLineEdit::TrailingPosition);
@@ -498,6 +545,9 @@ void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
     }
 
     int id = proxy->appendFilter(filterText);
+    if (id == -1) {
+        return;
+    }
 
     if (m_filtersListWidget.isHidden()) {
         m_filtersListWidget.setVisible(true);
@@ -522,6 +572,15 @@ void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
     closeBtn->setAutoRaise(true);
     closeBtn->setIcon(QIcon::fromTheme(QStringLiteral("tab-close")));
     layout->addWidget(closeBtn);
+
+    // Remove existing item with that id
+    for (int i = 0; i < m_filtersListWidget.count(); i++) {
+        auto item = m_filtersListWidget.item(i);
+        if (item && item->data(Qt::UserRole + 1).toInt() == id) {
+            delete item;
+            break;
+        }
+    }
 
     auto item = new QListWidgetItem(filterText.append(QStringLiteral("XXX")));
     item->setData(Qt::UserRole + 1, id);

@@ -435,19 +435,20 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     helpAction->setIcon(QIcon::fromTheme(QStringLiteral("info")));
     connect(helpAction, &QAction::triggered, this, [this] {
         const auto pos = mapToGlobal(m_filterLineEdit.rect().bottomRight());
-        const QString text = i18nc("Help text",
-                                   "Filter the log."
-                                   "<ul>"
-                                   "<li>Use \"a:\" prefix to filter by author name. For e.g., <b>a:john doe</b></li>"
-                                   "<li>Use \"!a:\" prefix to exclude an author. For e.g., <b>!a:john doe</b></li>"
-                                   "<li>Use \"since:\" prefix to show commits after the given date. The author date of each commit will be checked. The date "
-                                   "format is yyyy-MM-dd For e.g., <b>since:2025-04-17</b></li>"
-                                   "<li>Use \"until:\" prefix to show commits before the given date. The author date of each commit will be checked. The date "
-                                   "format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></li>"
-                                   "<li>To filter messages, just type the search term. If multiple search terms are given then "
-                                   "messages matching all the search terms will be shown.</li>"
-                                   "</ul>"
-                                   "To trigger the filter, press the <b>Enter</b> key.");
+        const QString text =
+            i18nc("Help text",
+                  "Filter the log."
+                  "<ul>"
+                  "<li>Use <code>\"a:\"</code> prefix to filter by author name. For e.g., <b>a:john doe</b></li>"
+                  "<li>Use <code>\"!a:\"</code> prefix to exclude an author. For e.g., <b>!a:john doe</b></li>"
+                  "<li>Use <code>\"since:\"</code> prefix to show commits after the given date. The author date of each commit will be checked. The date "
+                  "format is yyyy-MM-dd For e.g., <b>since:2025-04-17</b></li>"
+                  "<li>Use <code>\"until:\"</code> prefix to show commits before the given date. The author date of each commit will be checked. The date "
+                  "format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></li>"
+                  "<li>To filter messages, just type the search term. If multiple search terms are given then "
+                  "messages matching all the search terms will be shown.</li>"
+                  "</ul>"
+                  "To trigger the filter, press the <b>Enter</b> key.");
         QToolTip::showText(pos, text, this);
     });
     m_filterLineEdit.addAction(helpAction, QLineEdit::TrailingPosition);

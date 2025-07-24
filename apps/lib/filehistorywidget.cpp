@@ -166,7 +166,7 @@ class CommitProxyModel : public QSortFilterProxyModel
 public:
     using QSortFilterProxyModel::QSortFilterProxyModel;
 
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &) const
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &) const override
     {
         bool accept = true;
         auto model = static_cast<CommitListModel *>(sourceModel());

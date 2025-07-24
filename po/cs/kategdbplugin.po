@@ -628,10 +628,9 @@ msgid "Print Value"
 msgstr "Vypsat hodnotu"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "chyba v syntaxi: %1"
+msgstr "Chyba: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

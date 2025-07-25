@@ -463,16 +463,6 @@ QMap<QString, QString> KateProjectPluginView::allProjects() const
     return projectMap;
 }
 
-ProjectNamesDirAndMap KateProjectPluginView::allProjectMaps() const
-{
-    ProjectNamesDirAndMap ret;
-    const QList<KateProject *> projectList = m_plugin->projects();
-    for (KateProject *project : projectList) {
-        ret.push_back({project->name(), project->baseDir(), project->projectMap()});
-    }
-    return ret;
-}
-
 void KateProjectPluginView::slotViewChanged()
 {
     /**

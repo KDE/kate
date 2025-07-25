@@ -30,8 +30,6 @@ class GitWidget;
 typedef QMap<QString, QString> QStringMap;
 Q_DECLARE_METATYPE(QStringMap)
 
-using ProjectNamesDirAndMap = QList<std::tuple<QString, QString, QVariantMap>>;
-
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
@@ -45,7 +43,6 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
     Q_PROPERTY(QString allProjectsCommonBaseDir READ allProjectsCommonBaseDir)
     Q_PROPERTY(QStringList allProjectsFiles READ allProjectsFiles)
     Q_PROPERTY(QStringMap allProjects READ allProjects)
-    Q_PROPERTY(ProjectNamesDirAndMap allProjectMaps READ allProjectMaps)
 
 public:
     KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);
@@ -96,13 +93,6 @@ public:
      * @returns a map of all open projects which maps base directory to name
      */
     QMap<QString, QString> allProjects() const;
-
-    /**
-     * @returns a list of all open projects in the following format
-     * tuple<ProjectName, ProjectBaseDir, ProjectMap>
-     * @see ProjectNamesDirAndMap
-     */
-    ProjectNamesDirAndMap allProjectMaps() const;
 
     /**
      * @returns the project map of the specified base directory (base directory is unique)

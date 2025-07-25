@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2025-01-11 12:49+0100\n"
+"PO-Revision-Date: 2025-07-24 17:56+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -429,12 +429,12 @@ msgstr "Misslyckades läsa serverinställning: %1"
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Gå till nästa färglagda symbol"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Gå till föregående färglagda symbol"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -612,7 +612,7 @@ msgstr "Expandera träd automatiskt"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Färglägg symbol under markören"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

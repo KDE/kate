@@ -29,6 +29,10 @@ public:
     void render(const std::function<void(const Hint &)> &callback);
 
 private:
-    std::vector<std::pair<ID, Hint>> m_hints;
+    struct HintWithId {
+        size_t id;
+        Hint hint;
+    };
+    std::vector<HintWithId> m_hints;
     QString m_rendered;
 };

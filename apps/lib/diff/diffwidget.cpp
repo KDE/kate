@@ -650,7 +650,12 @@ static void balanceHunkLines(QStringList &left, QStringList &right, int &lineA, 
     }
 }
 
-static std::pair<Change, Change> inlineDiff(QStringView l, QStringView r)
+struct ChangePair {
+    Change left;
+    Change right;
+};
+
+static ChangePair inlineDiff(QStringView l, QStringView r)
 {
     auto sitl = l.begin();
     auto sitr = r.begin();
@@ -692,7 +697,7 @@ static std::pair<Change, Change> inlineDiff(QStringView l, QStringView r)
     Change cr;
     cr.pos = rStart;
     cr.len = rEnd - rStart;
-    return {cl, cr};
+    return {.left = cl, .right = cr};
 }
 
 // Struct representing a changed line in hunk
@@ -859,8 +864,8 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         if (!match.hasMatch())
             continue;
 
-        const std::pair<uint, uint> oldRange = parseRange(match.captured(1));
-        const std::pair<uint, uint> newRange = parseRange(match.captured(2));
+        const DiffRange oldRange = parseRange(match.captured(1));
+        const DiffRange newRange = parseRange(match.captured(2));
         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
@@ -875,11 +880,11 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
         hunkChangedLinesA.clear();
         hunkChangedLinesB.clear();
 
-        int srcLine = oldRange.first;
-        const int oldCount = oldRange.second;
+        int srcLine = oldRange.line;
+        const int oldCount = oldRange.count;
 
-        int tgtLine = newRange.first;
-        const int newCount = newRange.second;
+        int tgtLine = newRange.line;
+        const int newCount = newRange.count;
         maxLineNoFound = qMax(qMax(srcLine + oldCount, tgtLine + newCount), maxLineNoFound);
 
         for (int j = i + 1; j < text.size(); j++) {
@@ -1059,8 +1064,8 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         if (!match.hasMatch())
             continue;
 
-        const std::pair<uint, uint> oldRange = parseRange(match.captured(1));
-        const std::pair<uint, uint> newRange = parseRange(match.captured(2));
+        const DiffRange oldRange = parseRange(match.captured(1));
+        const DiffRange newRange = parseRange(match.captured(2));
         //         const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
         //         const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
@@ -1073,11 +1078,11 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         hunkChangedLinesA.clear();
         hunkChangedLinesB.clear();
 
-        int srcLine = oldRange.first;
-        const int oldCount = oldRange.second;
+        int srcLine = oldRange.line;
+        const int oldCount = oldRange.count;
 
-        int tgtLine = newRange.first;
-        const int newCount = newRange.second;
+        int tgtLine = newRange.line;
+        const int newCount = newRange.count;
         maxLineNoFound = qMax(qMax(srcLine + oldCount, tgtLine + newCount), maxLineNoFound);
 
         for (int j = i + 1; j < text.size(); j++) {

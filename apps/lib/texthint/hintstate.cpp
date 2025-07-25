@@ -19,7 +19,7 @@ void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMa
             return;
         }
     }
-    m_hints.emplace_back(instanceId, Hint{.m_text = text, .m_kind = kind});
+    m_hints.push_back(HintWithId{instanceId, Hint{.m_text = text, .m_kind = kind}});
 }
 
 void HintState::clear()
@@ -29,15 +29,15 @@ void HintState::clear()
 
 void HintState::remove(HintState::ID instanceId)
 {
-    std::erase_if(m_hints, [instanceId](const std::pair<ID, Hint> &idToHint) {
-        return idToHint.first == instanceId;
+    std::erase_if(m_hints, [instanceId](const HintWithId &idToHint) {
+        return idToHint.id == instanceId;
     });
 }
 
 void HintState::render(const std::function<void(const Hint &)> &callback)
 {
     const bool nonPlainText = std::any_of(m_hints.begin(), m_hints.end(), [](const auto &entry) {
-        const auto &kind = entry.second.m_kind;
+        const auto &kind = entry.hint.m_kind;
         return kind == TextHintMarkupKind::MarkDown || kind == TextHintMarkupKind::None;
     });
 

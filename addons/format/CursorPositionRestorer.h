@@ -19,7 +19,7 @@ public:
             m_viewToPosition.reserve(views.size());
             for (auto v : views) {
                 const int off = cursorToSpaceIgnoredOffset(doc, v->cursorPosition());
-                m_viewToPosition.push_back({v, Position{v->cursorPosition(), off}});
+                m_viewToPosition.push_back({.view = v, .position = Position{.cursor = v->cursorPosition(), .spaceIgnoredOffset = off}});
             }
         }
     }
@@ -112,5 +112,10 @@ private:
         KTextEditor::Cursor cursor;
         int spaceIgnoredOffset = 0;
     };
-    std::vector<std::pair<KTextEditor::View *, Position>> m_viewToPosition;
+
+    struct ViewPosition {
+        KTextEditor::View *view = nullptr;
+        Position position;
+    };
+    std::vector<ViewPosition> m_viewToPosition;
 };

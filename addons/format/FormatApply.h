@@ -49,13 +49,18 @@ struct PatchLine {
     QString text;
 };
 
-[[maybe_unused]] static std::pair<uint, uint> parseRange(const QString &range)
+struct DiffRange {
+    uint line{};
+    uint count{};
+};
+
+[[maybe_unused]] static DiffRange parseRange(const QString &range)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
-        return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
+        return {QStringView(range).sliced(0, commaPos).toUInt(), QStringView(range).sliced(commaPos + 1).toUInt()};
     }
-    return {range.toInt(), 1};
+    return {range.toUInt(), 1};
 }
 
 [[maybe_unused]] static std::vector<PatchLine> parseDiff(KTextEditor::Document *doc, const QString &diff)
@@ -71,12 +76,12 @@ struct PatchLine {
             continue;
         }
 
-        const std::pair<int, int> src = parseRange(match.captured(1));
-        const std::pair<int, int> tgt = parseRange(match.captured(2));
+        const DiffRange src = parseRange(match.captured(1));
+        const DiffRange tgt = parseRange(match.captured(2));
 
         // unroll into the hunk
-        int srcline = src.first - 1;
-        int tgtline = tgt.first - 1;
+        int srcline = src.line - 1;
+        int tgtline = tgt.line - 1;
         // qDebug() << "NEW HUNK: " << l << "------------" << srcline << tgtline;
         for (int j = i + 1; j < d.size(); ++j) {
             const QString &hl = d.at(j);

@@ -157,5 +157,9 @@ private:
     std::unique_ptr<class VcsDiffPrivate> d;
 };
 
+struct DiffRange {
+    uint line{};
+    uint count{};
+};
 // Helper, parses "123, 12" into ints
-std::pair<uint, uint> parseRange(const QString &range);
+DiffRange parseRange(const QString &range);

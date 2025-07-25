@@ -195,7 +195,7 @@ QList<GitUtils::Branch> GitUtils::getAllBranches(const QString &repo)
     return getAllBranchesAndTags(repo, static_cast<RefType>(RefType::Head | RefType::Remote));
 }
 
-std::pair<QString, QString> GitUtils::getLastCommitMessage(const QString &repo)
+GitUtils::CommitMessage GitUtils::getLastCommitMessage(const QString &repo)
 {
     // git log -1 --pretty=%B
     QProcess git;

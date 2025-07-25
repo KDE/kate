@@ -25,7 +25,11 @@ enum class Formatters {
 
 inline Formatters formatterForName(const QString &name, Formatters defaultValue)
 {
-    static const std::pair<const char *, Formatters> strToFmt[] = {
+    struct NameToFormatter {
+        const char *name;
+        Formatters formatter;
+    };
+    static const NameToFormatter strToFmt[] = {
         {"clang-format", Formatters::ClangFormat},
         {"clangformat", Formatters::ClangFormat},
         {"prettier", Formatters::Prettier},

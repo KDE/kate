@@ -57,7 +57,11 @@ private:
 private:
     MainWindow *m_mw;
     KToggleAction *m_showSidebarsAction;
-    std::vector<std::pair<ToolView *, std::vector<QAction *>>> m_toolToActions;
+    struct ToolViewActions {
+        ToolView *toolview = nullptr;
+        std::vector<QAction *> actions;
+    };
+    std::vector<ToolViewActions> m_toolToActions;
     KActionMenu *m_toolMenu;
     QAction *m_hideToolViews;
     KActionMenu *m_sidebarButtonsMenu;
@@ -602,8 +606,8 @@ public:
     {
         std::vector<QString> out;
         out.reserve(m_toolviews.size());
-        for (auto tv : m_toolviews) {
-            out.emplace_back(tv.second->id);
+        for (const auto &tv : m_toolviews) {
+            out.emplace_back(tv.toolview->id);
         }
         return out;
     }
@@ -638,7 +642,11 @@ private:
      * mapped by their constant identifier, to have some stable order
      * tool views de-register them self on destruction
      */
-    std::vector<std::pair<QString, ToolView *>> m_toolviews;
+    struct ToolViewWithId {
+        QString id;
+        ToolView *toolview = nullptr;
+    };
+    std::vector<ToolViewWithId> m_toolviews;
 
     /**
      * widget, which is the central part of the

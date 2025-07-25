@@ -56,7 +56,10 @@ void KateTabBar::readConfig()
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
     KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
 
-    using LruCounterToDoc = std::pair<quint64, DocOrWidget>;
+    struct LruCounterToDoc {
+        quint64 lruValue = -1;
+        DocOrWidget doc;
+    };
     // 0 == unlimited, normalized other inputs
     const int tabCountLimit = std::max(cgGeneral.readEntry("Tabbar Tab Limit", 0), 0);
     if (m_tabCountLimit != tabCountLimit) {
@@ -67,10 +70,10 @@ void KateTabBar::readConfig()
             std::vector<LruCounterToDoc> lruDocs;
             lruDocs.reserve(docList.size());
             for (const DocOrWidget &doc : docList) {
-                lruDocs.emplace_back(m_docToLruCounterAndHasTab[doc].first, doc);
+                lruDocs.push_back({m_docToLruCounterAndHasTab[doc].lruValue, doc});
             }
             std::sort(lruDocs.begin(), lruDocs.end(), [](const LruCounterToDoc &l, const LruCounterToDoc &r) {
-                return l.first < r.first;
+                return l.lruValue < r.lruValue;
             });
             int toRemove = docList.count() - m_tabCountLimit;
             for (const auto &[_, doc] : lruDocs) {
@@ -85,18 +88,18 @@ void KateTabBar::readConfig()
             for (const auto &i : m_docToLruCounterAndHasTab) {
                 DocOrWidget doc = i.first;
                 if (!docList.contains(doc)) {
-                    mruDocs.emplace_back(i.second.first, doc);
+                    mruDocs.emplace_back(i.second.lruValue, doc);
                 }
             }
             std::sort(mruDocs.begin(), mruDocs.end(), [](const LruCounterToDoc &l, const LruCounterToDoc &r) {
-                return l.first > r.first;
+                return l.lruValue > r.lruValue;
             });
             int toAdd = m_tabCountLimit - docList.count();
             for (const auto &i : mruDocs) {
                 if (toAdd-- == 0) {
                     break;
                 }
-                DocOrWidget doc = i.second;
+                DocOrWidget doc = i.doc;
                 const auto idx = addTab(doc.doc() ? doc.doc()->documentName() : doc.widget()->windowTitle());
                 setTabDocument(idx, doc);
             }
@@ -366,7 +369,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
 {
     // in any case: update lru counter for this document, might add new element to hash
     // we have a tab after this call, too!
-    m_docToLruCounterAndHasTab[docOrWidget] = std::make_pair(++m_lruCounter, true);
+    m_docToLruCounterAndHasTab[docOrWidget] = DocData{.lruValue = ++m_lruCounter, .hasTab = true};
 
     // do we have a tab for this document?
     // if yes => just set as current one
@@ -395,7 +398,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
         auto doc = data.value<DocOrWidget>();
-        const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].first;
+        const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].lruValue;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
             indexToReplace = idx;
@@ -404,7 +407,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     }
 
     // mark the replace doc as "has no tab"
-    m_docToLruCounterAndHasTab[docToReplace].second = false;
+    m_docToLruCounterAndHasTab[docToReplace].hasTab = false;
 
     const auto oldCurrentIdx = currentIndex();
 
@@ -438,13 +441,13 @@ void KateTabBar::removeDocument(DocOrWidget doc)
         DocOrWidget docToReplace = DocOrWidget::null();
         for (const auto &lru : m_docToLruCounterAndHasTab) {
             // ignore stuff with tabs
-            if (lru.second.second) {
+            if (lru.second.hasTab) {
                 continue;
             }
 
             // search most recently used one
-            if (lru.second.first >= maxCounter) {
-                maxCounter = lru.second.first;
+            if (lru.second.lruValue >= maxCounter) {
+                maxCounter = lru.second.lruValue;
                 docToReplace = lru.first;
             }
         }
@@ -452,7 +455,7 @@ void KateTabBar::removeDocument(DocOrWidget doc)
         // any document found? replace the tab we want to close and be done
         if (!docToReplace.isNull()) {
             // mark the replace doc as "has a tab"
-            m_docToLruCounterAndHasTab[docToReplace].second = true;
+            m_docToLruCounterAndHasTab[docToReplace].hasTab = true;
 
             // replace info for the tab
             setTabDocument(idx, docToReplace);
@@ -526,7 +529,7 @@ QList<KTextEditor::Document *> KateTabBar::lruSortedDocuments() const
         }
     }
     std::sort(docs.begin(), docs.end(), [this](auto a, auto b) {
-        return m_docToLruCounterAndHasTab.at(DocOrWidget(a)).first < m_docToLruCounterAndHasTab.at(DocOrWidget(b)).first;
+        return m_docToLruCounterAndHasTab.at(DocOrWidget(a)).lruValue < m_docToLruCounterAndHasTab.at(DocOrWidget(b)).lruValue;
     });
     return docs;
 }

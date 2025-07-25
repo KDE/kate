@@ -260,15 +260,15 @@ void CEWidget::setAvailableCompilers(const QByteArray &data)
 
     const QJsonArray json = QJsonDocument::fromJson(data).array();
 
-    m_langToCompiler.clear();
+    m_compilers.clear();
 
     for (const auto &value : json) {
         const auto compilerName = value[QStringLiteral("name")].toString();
         const auto lang = value[QStringLiteral("lang")].toString();
         const auto id = value[QStringLiteral("id")];
 
-        Compiler compiler{.name = compilerName, .id = id};
-        m_langToCompiler.push_back({lang, compiler});
+        Compiler compiler{.name = compilerName, .id = id, .language = lang};
+        m_compilers.push_back(compiler);
     }
 
     repopulateCompilersCombo(doc->highlightingMode().toLower());
@@ -281,24 +281,24 @@ void CEWidget::repopulateCompilersCombo(const QString &lang)
 
     auto compilersForLang = compilersForLanguage(currentFileLang);
     if (compilersForLang.empty()) {
-        compilersForLang = m_langToCompiler;
+        compilersForLang = m_compilers;
     }
 
     m_compilerCombo->clear();
 
-    for (const auto &[lang, compiler] : compilersForLang) {
+    for (const Compiler &compiler : compilersForLang) {
         m_compilerCombo->addItem(compiler.name, compiler.id);
     }
 
     m_compilerCombo->setCurrentIndex(0);
 }
 
-std::vector<CEWidget::CompilerLangPair> CEWidget::compilersForLanguage(const QString &lang) const
+std::vector<CEWidget::Compiler> CEWidget::compilersForLanguage(const QString &lang) const
 {
-    std::vector<CompilerLangPair> compilersForLang;
-    for (const auto &pair : m_langToCompiler) {
-        if (pair.first == lang) {
-            compilersForLang.push_back(pair);
+    std::vector<Compiler> compilersForLang;
+    for (const auto &compiler : m_compilers) {
+        if (compiler.language == lang) {
+            compilersForLang.push_back(compiler);
         }
     }
     return compilersForLang;

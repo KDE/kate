@@ -59,10 +59,14 @@ KATE_PRIVATE_EXPORT void openFilePropertiesDialog(QWidget *parent, KTextEditor::
  */
 KATE_PRIVATE_EXPORT void deleteDocumentFile(QWidget *parent, KTextEditor::Document *document);
 
+struct DiffTool {
+    QString name;
+    QString path;
+};
 /**
  * @returns a list of supported diff tools (names of the executables + paths to them, empty if not found in PATH)
  */
-QList<std::pair<QString, QString>> supportedDiffTools();
+QList<DiffTool> supportedDiffTools();
 
 /**
  * Runs an external program to compare the underlying files of two given documents.

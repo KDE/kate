@@ -180,7 +180,11 @@ public:
         return 0;
     }
 
-    static std::pair<int, int> getStringPos(const QString &text, int from)
+    struct StringRange {
+        int open{};
+        int close{};
+    };
+    static StringRange getStringPos(const QString &text, int from)
     {
         int open = text.indexOf(QLatin1Char('"'), from);
         if (open == -1)

@@ -1376,22 +1376,26 @@ void KateViewManager::toggleSplitterOrientation()
 
 QList<KTextEditor::View *> KateViewManager::views() const
 {
-    std::vector<std::pair<KTextEditor::View *, qint64>> sorted;
+    struct ViewWithLruAge {
+        KTextEditor::View *view;
+        qint64 age;
+    };
+    std::vector<ViewWithLruAge> sorted;
 
     // extract into a list
     std::transform(m_views.begin(), m_views.end(), std::back_inserter(sorted), [](const std::pair<KTextEditor::View *, ViewData> &p) {
-        return std::pair<KTextEditor::View *, qint64>{p.first, p.second.lruAge};
+        return ViewWithLruAge{p.first, p.second.lruAge};
     });
     // sort the views based on lru
-    std::sort(sorted.begin(), sorted.end(), [](const std::pair<KTextEditor::View *, qint64> &l, const std::pair<KTextEditor::View *, qint64> &r) {
-        return l.second < r.second;
+    std::sort(sorted.begin(), sorted.end(), [](const ViewWithLruAge &l, const ViewWithLruAge &r) {
+        return l.age < r.age;
     });
 
     // extract the views only and return
     QList<KTextEditor::View *> ret;
     ret.reserve(sorted.size());
-    std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const std::pair<KTextEditor::View *, qint64> &p) {
-        return p.first;
+    std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const ViewWithLruAge &p) {
+        return p.view;
     });
     return ret;
 }

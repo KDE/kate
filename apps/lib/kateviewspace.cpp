@@ -1195,12 +1195,12 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     }
 
     if (compareUsing->isEnabled()) {
-        for (std::pair<QString, QString> &diffTool : KateFileActions::supportedDiffTools()) {
-            QAction *compareAction = compareUsing->addAction(diffTool.first);
+        for (KateFileActions::DiffTool &diffTool : KateFileActions::supportedDiffTools()) {
+            QAction *compareAction = compareUsing->addAction(diffTool.name);
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found
-            compareAction->setData(diffTool.second);
-            compareAction->setEnabled(!diffTool.second.isEmpty());
+            compareAction->setData(diffTool.path);
+            compareAction->setEnabled(!diffTool.path.isEmpty());
         }
     }
 

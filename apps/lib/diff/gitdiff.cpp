@@ -142,13 +142,13 @@ static QString formatRange(uint start, uint count)
     return QString().setNum(start) + QLatin1Char(',') + QString().setNum(count);
 }
 
-std::pair<uint, uint> parseRange(const QString &range)
+DiffRange parseRange(const QString &range)
 {
     int commaPos = range.indexOf(QLatin1Char(','));
     if (commaPos > -1) {
-        return {QStringView(range).sliced(0, commaPos).toInt(), QStringView(range).sliced(commaPos + 1).toInt()};
+        return {QStringView(range).sliced(0, commaPos).toUInt(), QStringView(range).sliced(commaPos + 1).toUInt()};
     }
-    return {range.toInt(), 1};
+    return {range.toUInt(), 1};
 }
 
 /* Creates a hunk header line (starting with @@)
@@ -285,10 +285,10 @@ static std::vector<DiffHunk> parseHunks(VcsDiff &diff)
 
         // The number of filenames present in the diff should match the number
         // of hunks
-        ret.push_back(DiffHunk{.srcStart = oldRange.first,
-                               .srcCount = oldRange.second,
-                               .tgtStart = newRange.first,
-                               .tgtCount = newRange.second,
+        ret.push_back(DiffHunk{.srcStart = oldRange.line,
+                               .srcCount = oldRange.count,
+                               .tgtStart = newRange.line,
+                               .tgtCount = newRange.count,
                                .headingLineIdx = firstLineIdx,
                                .srcFile = curSrcFileName,
                                .tgtFile = curTgtFileName,

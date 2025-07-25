@@ -188,7 +188,11 @@ private:
      * simple 64-bit counter, worst thing that can happen on 64-bit wraparound
      * is a bit strange tab replacement a few times
      */
-    std::unordered_map<DocOrWidget, std::pair<quint64, bool>> m_docToLruCounterAndHasTab;
+    struct DocData {
+        quint64 lruValue = 0;
+        bool hasTab = false;
+    };
+    std::unordered_map<DocOrWidget, DocData> m_docToLruCounterAndHasTab;
 
     QPointF dragStartPos;
     QPointF dragStartGlobalPos;

@@ -10,7 +10,6 @@
 
 #include <QProcess>
 #include <optional>
-#include <utility>
 
 class QIcon;
 
@@ -27,12 +26,16 @@ class QIcon;
  */
 KATE_PRIVATE_EXPORT bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments);
 
+struct GitVersionInfo {
+    int major = -1;
+    int minor = -1;
+};
 /**
  * helper function to get the git version
  * @param workingDirectory working directory to use for process
  * @return git major and minor version as pair, -1,-1 if infeasible to determine
  */
-KATE_PRIVATE_EXPORT std::pair<int, int> getGitVersion(const QString &workingDir);
+KATE_PRIVATE_EXPORT GitVersionInfo getGitVersion(const QString &workingDir);
 
 /**
  * @brief get the git repo base path

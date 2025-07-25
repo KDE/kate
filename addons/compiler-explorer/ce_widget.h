@@ -55,11 +55,11 @@ private:
     struct Compiler {
         QString name;
         QVariant id;
+        QString language;
     };
-    using CompilerLangPair = std::pair<QString, Compiler>;
-    std::vector<CompilerLangPair> m_langToCompiler;
+    std::vector<Compiler> m_compilers;
 
-    std::vector<CompilerLangPair> compilersForLanguage(const QString &lang) const;
+    std::vector<Compiler> compilersForLanguage(const QString &lang) const;
 
 Q_SIGNALS:
     void lineHovered(int line);

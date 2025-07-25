@@ -223,7 +223,11 @@ static bool isCommentOrString(KTextEditor::Document *doc, int line, int col)
 }
 
 using ColoredBracket = std::unique_ptr<KTextEditor::MovingRange>;
-using ColoredBracketPair = std::pair<std::unique_ptr<KTextEditor::MovingRange>, std::unique_ptr<KTextEditor::MovingRange>>;
+
+struct ColoredBracketPair {
+    std::unique_ptr<KTextEditor::MovingRange> start;
+    std::unique_ptr<KTextEditor::MovingRange> end;
+};
 
 /**
  * Helper function to find if we have @p open and @p close already in oldRanges so we

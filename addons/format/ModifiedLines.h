@@ -23,7 +23,7 @@ struct ModifiedLines {
 
 namespace __internal
 {
-static inline auto parseRange(std::string_view sv) -> std::optional<std::pair<int, int>>
+static inline auto parseRange(std::string_view sv) -> std::optional<ModifiedLines>
 {
     if (sv.empty()) {
         return {};
@@ -40,7 +40,7 @@ static inline auto parseRange(std::string_view sv) -> std::optional<std::pair<in
         if (res.ptr != (sv.data() + sv.size())) {
             return {};
         }
-        return std::pair<int, int>(s, s);
+        return ModifiedLines(s, s);
     }
 
     int s = 0;
@@ -53,7 +53,7 @@ static inline auto parseRange(std::string_view sv) -> std::optional<std::pair<in
     if (res.ptr != (sv.data() + sv.size())) {
         return {};
     }
-    return std::pair<int, int>(s, s + c);
+    return ModifiedLines(s, s + c);
 }
 
 static inline auto modifedLinesFromGitDiff(const QByteArray &out) -> std::optional<std::vector<ModifiedLines>>

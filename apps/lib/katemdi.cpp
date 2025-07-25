@@ -169,13 +169,13 @@ void GUIClient::registerToolView(ToolView *tv)
 
     Q_ASSERT(std::find_if(m_toolToActions.begin(),
                           m_toolToActions.end(),
-                          [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
-                              return a.first == tv;
+                          [tv](const ToolViewActions &a) {
+                              return a.toolview == tv;
                           })
              == m_toolToActions.end());
 
     m_toolToActions.push_back({tv, {a}});
-    auto &actionsForTool = m_toolToActions.back().second;
+    auto &actionsForTool = m_toolToActions.back().actions;
 
     /** Show Tab button in sidebar action **/
     aname = QStringLiteral("kate_mdi_show_toolview_button_") + tv->id;
@@ -220,9 +220,9 @@ void GUIClient::registerToolView(ToolView *tv)
 
 void GUIClient::unregisterToolView(ToolView *tv)
 {
-    std::erase_if(m_toolToActions, [tv](const std::pair<ToolView *, std::vector<QAction *>> &a) {
-        if (a.first == tv) {
-            qDeleteAll(a.second);
+    std::erase_if(m_toolToActions, [tv](const ToolViewActions &a) {
+        if (a.toolview == tv) {
+            qDeleteAll(a.actions);
             return true;
         }
         return false;
@@ -1655,7 +1655,7 @@ MainWindow::~MainWindow()
 {
     // kill all toolviews, they will deregister themself
     while (!m_toolviews.empty()) {
-        delete m_toolviews.begin()->second;
+        delete m_toolviews.begin()->toolview;
     }
 
     // seems like we really should delete this by hand ;)
@@ -1742,8 +1742,8 @@ void MainWindow::toolViewDeleted(ToolView *widget)
 
     widget->sidebar()->removeToolView(widget);
 
-    std::erase_if(m_toolviews, [widget](const std::pair<QString, ToolView *> &p) {
-        return p.first == widget->id;
+    std::erase_if(m_toolviews, [widget](const ToolViewWithId &p) {
+        return p.id == widget->id;
     });
 }
 
@@ -1876,7 +1876,7 @@ bool MainWindow::hideToolView(ToolView *widget)
 void MainWindow::hideToolViews()
 {
     for (const auto &tv : m_toolviews) {
-        tv.second->sidebar()->hideToolView(tv.second);
+        tv.toolview->sidebar()->hideToolView(tv.toolview);
     }
     triggerFocusForCentralWidget();
 }

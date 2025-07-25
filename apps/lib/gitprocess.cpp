@@ -47,7 +47,7 @@ bool setupGitProcess(QProcess &process, const QString &workingDirectory, const Q
 }
 
 // internal helper for the external caching accessor
-static std::pair<int, int> getGitVersionUncached(const QString &workingDir)
+static GitVersionInfo getGitVersionUncached(const QString &workingDir)
 {
     QProcess git;
     if (!setupGitProcess(git, workingDir, {QStringLiteral("--version")})) {
@@ -77,10 +77,10 @@ static std::pair<int, int> getGitVersionUncached(const QString &workingDir)
     return {-1, -1};
 }
 
-std::pair<int, int> getGitVersion(const QString &workingDir)
+GitVersionInfo getGitVersion(const QString &workingDir)
 {
     // cache internal result to avoid expensive recalculation
-    static const std::pair<int, int> cachedVersion = getGitVersionUncached(workingDir);
+    static const GitVersionInfo cachedVersion = getGitVersionUncached(workingDir);
     return cachedVersion;
 }
 

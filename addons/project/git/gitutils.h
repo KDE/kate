@@ -84,7 +84,12 @@ QList<Branch> getAllBranchesAndTags(const QString &repo, RefType ref = RefType::
  */
 QList<Branch> getAllLocalBranchesWithLastCommitSubject(const QString &repo);
 
-std::pair<QString, QString> getLastCommitMessage(const QString &repo);
+struct CommitMessage {
+    QString message;
+    QString description;
+};
+
+CommitMessage getLastCommitMessage(const QString &repo);
 
 Result deleteBranches(const QStringList &branches, const QString &repo);
 }

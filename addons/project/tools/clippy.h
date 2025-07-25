@@ -95,7 +95,12 @@ public:
         return i18n("Please install 'cargo'.");
     }
 
-    static std::pair<QString, KTextEditor::Range> sourceLocationFromSpans(const QJsonArray &spans)
+    struct FileRange {
+        QString file;
+        KTextEditor::Range range;
+    };
+
+    static FileRange sourceLocationFromSpans(const QJsonArray &spans)
     {
         int lineStart = -1;
         int lineEnd = -1;

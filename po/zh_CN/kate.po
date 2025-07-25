@@ -570,6 +570,8 @@ msgid ""
 "<b>a:john doe</b></li><li>To filter messages, just type the search term</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key. "
 msgstr ""
+"过滤日志。<ul><li>使用 a: 前缀以按作者名字进行过滤。例如：<b>a:john doe</b></"
+"li><li>要过滤消息，只需输入搜索条件</li></ul>按 <b>回车</b> 键触发过滤。 "
 
 #: lib/filehistorywidget.cpp:431
 #, kde-format

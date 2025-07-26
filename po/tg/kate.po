@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-22 00:46+0000\n"
+"POT-Creation-Date: 2025-07-26 00:45+0000\n"
 "PO-Revision-Date: 2019-09-25 17:04+0500\n"
 "Last-Translator: Victor Ibragimov <victor.ibragimov@gmail.com>\n"
 "Language-Team: English <kde-i18n-doc@kde.org>\n"
@@ -154,7 +154,7 @@ msgid "Copy Location"
 msgstr "Гузориш"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -164,7 +164,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -332,7 +332,7 @@ msgstr ""
 msgid "Warnings"
 msgstr "Огоҳӣ"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 msgid "Filter…"
@@ -562,39 +562,53 @@ msgstr "Нест кардани файл"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:381
+#: lib/filehistorywidget.cpp:232
+#, kde-format
+msgctxt "error message"
+msgid "Invalid date: %1"
+msgstr ""
+
+#: lib/filehistorywidget.cpp:441
 #, kde-format
 msgctxt "Help text"
 msgid ""
-"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
-"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
-"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+"Filter the log.<ul><li>Use <code>\"a:\"</code> prefix to filter by author "
+"name. For e.g., <b>a:john doe</b></li><li>Use <code>\"!a:\"</code> prefix to "
+"exclude an author. For e.g., <b>!a:john doe</b></li><li>Use <code>\"since:"
+"\"</code> prefix to show commits after the given date. The author date of "
+"each commit will be checked. The date format is yyyy-MM-dd For e.g., "
+"<b>since:2025-04-17</b></li><li>Use <code>\"until:\"</code> prefix to show "
+"commits before the given date. The author date of each commit will be "
+"checked. The date format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></"
+"li><li>To filter messages, just type the search term. If multiple search "
+"terms are given then messages matching all the search terms will be shown.</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:431
+#: lib/filehistorywidget.cpp:497
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:445
+#: lib/filehistorywidget.cpp:511
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:456
+#: lib/filehistorywidget.cpp:522
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:464
+#: lib/filehistorywidget.cpp:530
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "&Роҳчаи Нишон додан"
 
-#: lib/filehistorywidget.cpp:566
+#: lib/filehistorywidget.cpp:649
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"

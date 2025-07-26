@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-22 00:46+0000\n"
+"POT-Creation-Date: 2025-07-26 00:45+0000\n"
 "PO-Revision-Date: 2025-05-18 20:22+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -171,7 +171,7 @@ msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "Git"
 msgstr "கிட்"
@@ -181,7 +181,7 @@ msgstr "கிட்"
 msgid "Invalid hash"
 msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ஓர் கிட் கிடங்கில் இல்லை."
@@ -348,7 +348,7 @@ msgstr "பிழைகள்"
 msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -572,38 +572,53 @@ msgstr "நீக்கப்பட்ட கோப்பு %1"
 msgid "No differences found"
 msgstr "வித்தியாசங்கள் இல்லை"
 
-#: lib/filehistorywidget.cpp:381
+#: lib/filehistorywidget.cpp:232
+#, fuzzy, kde-format
+#| msgid "Invalid hash"
+msgctxt "error message"
+msgid "Invalid date: %1"
+msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
+
+#: lib/filehistorywidget.cpp:441
 #, kde-format
 msgctxt "Help text"
 msgid ""
-"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
-"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
-"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+"Filter the log.<ul><li>Use <code>\"a:\"</code> prefix to filter by author "
+"name. For e.g., <b>a:john doe</b></li><li>Use <code>\"!a:\"</code> prefix to "
+"exclude an author. For e.g., <b>!a:john doe</b></li><li>Use <code>\"since:"
+"\"</code> prefix to show commits after the given date. The author date of "
+"each commit will be checked. The date format is yyyy-MM-dd For e.g., "
+"<b>since:2025-04-17</b></li><li>Use <code>\"until:\"</code> prefix to show "
+"commits before the given date. The author date of each commit will be "
+"checked. The date format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></"
+"li><li>To filter messages, just type the search term. If multiple search "
+"terms are given then messages matching all the search terms will be shown.</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:431
+#: lib/filehistorywidget.cpp:497
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "கோப்பின் வரலாற்றைக் கண்டறிய முடியவில்லை: PATH-இல் git நிரல் இல்லை"
 
-#: lib/filehistorywidget.cpp:445
+#: lib/filehistorywidget.cpp:511
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "கோப்பின் வரலாற்றைக் கண்டறிய முடியவில்லை: %1"
 
-#: lib/filehistorywidget.cpp:456
+#: lib/filehistorywidget.cpp:522
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "பதிவின் சரிகாண்தொகையை காட்டு"
 
-#: lib/filehistorywidget.cpp:464
+#: lib/filehistorywidget.cpp:530
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "முழு பதிவை காட்டு"
 
-#: lib/filehistorywidget.cpp:566
+#: lib/filehistorywidget.cpp:649
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

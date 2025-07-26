@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-22 00:46+0000\n"
+"POT-Creation-Date: 2025-07-26 00:45+0000\n"
 "PO-Revision-Date: 2025-07-22 11:44+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -182,7 +182,7 @@ msgid "Copy Location"
 msgstr "Locatie kopiëren"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -192,7 +192,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Ongeldige hash"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:557
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 bestaat niet in een git-repo."
@@ -359,7 +359,7 @@ msgstr "Fouten"
 msgid "Warnings"
 msgstr "Waarschuwingen"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:375
+#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -583,44 +583,55 @@ msgstr "Bestand %1 verwijderen"
 msgid "No differences found"
 msgstr "Geen verschillen gevonden"
 
-#: lib/filehistorywidget.cpp:381
+#: lib/filehistorywidget.cpp:232
+#, fuzzy, kde-format
+#| msgid "Invalid hash"
+msgctxt "error message"
+msgid "Invalid date: %1"
+msgstr "Ongeldige hash"
+
+#: lib/filehistorywidget.cpp:441
 #, kde-format
 msgctxt "Help text"
 msgid ""
-"Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e.g., "
-"<b>a:john doe</b></li><li>To filter messages, just type the search term</"
-"li></ul>To trigger the filter, press the <b>Enter</b> key. "
+"Filter the log.<ul><li>Use <code>\"a:\"</code> prefix to filter by author "
+"name. For e.g., <b>a:john doe</b></li><li>Use <code>\"!a:\"</code> prefix to "
+"exclude an author. For e.g., <b>!a:john doe</b></li><li>Use <code>\"since:"
+"\"</code> prefix to show commits after the given date. The author date of "
+"each commit will be checked. The date format is yyyy-MM-dd For e.g., "
+"<b>since:2025-04-17</b></li><li>Use <code>\"until:\"</code> prefix to show "
+"commits before the given date. The author date of each commit will be "
+"checked. The date format is yyyy-MM-dd For e.g., <b>until:2025-04-17</b></"
+"li><li>To filter messages, just type the search term. If multiple search "
+"terms are given then messages matching all the search terms will be shown.</"
+"li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
-"Filter de log.<ul><li>Gebruik \"a:\" voorvoegsel om op auteursnaam te "
-"filteren. Voor bijv., <b>a:jan jansen</b></li><li>Om berichten te filteren, "
-"type eenvoudig de zoekterm</li></ul>Om het filter te starten, druk op de "
-"toetst <b>Enter</b>. "
 
-#: lib/filehistorywidget.cpp:431
+#: lib/filehistorywidget.cpp:497
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Ophalen van geschiedenis van bestand is mislukt: uitvoerbaar programma git "
 "niet in PATH gevonden"
 
-#: lib/filehistorywidget.cpp:445
+#: lib/filehistorywidget.cpp:511
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Ophalen van geschiedenis van bestand is mislukt: %1"
 
-#: lib/filehistorywidget.cpp:456
+#: lib/filehistorywidget.cpp:522
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Commit-hash kopiëren"
 
-#: lib/filehistorywidget.cpp:464
+#: lib/filehistorywidget.cpp:530
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Volledig vastlegging (commit) tonen"
 
-#: lib/filehistorywidget.cpp:566
+#: lib/filehistorywidget.cpp:649
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -3130,6 +3141,17 @@ msgstr "Sessies beheren..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Welkomstpagina voor nieuw venster tonen"
+
+#~ msgctxt "Help text"
+#~ msgid ""
+#~ "Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e."
+#~ "g., <b>a:john doe</b></li><li>To filter messages, just type the search "
+#~ "term</li></ul>To trigger the filter, press the <b>Enter</b> key. "
+#~ msgstr ""
+#~ "Filter de log.<ul><li>Gebruik \"a:\" voorvoegsel om op auteursnaam te "
+#~ "filteren. Voor bijv., <b>a:jan jansen</b></li><li>Om berichten te "
+#~ "filteren, type eenvoudig de zoekterm</li></ul>Om het filter te starten, "
+#~ "druk op de toetst <b>Enter</b>. "
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Snelzoeken en openen (via contextmenu configureren)"

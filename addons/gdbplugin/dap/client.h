@@ -192,6 +192,8 @@ private:
     void onServerOutput(const QByteArray &message);
     void onProcessOutput(const QByteArray &message);
 
+    void processExtraData(const QByteArray &data);
+
     /*
      * server capabilities
      */
@@ -219,6 +221,8 @@ private:
     class MessageParser;
     // unique_ptr does not work well with undefined type on some platforms
     MessageParser *const m_msgParser = nullptr;
+    bool m_checkExtraData = false;
+    MessageParser *const m_outputMsgParser = nullptr;
 };
 
 }

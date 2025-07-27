@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 00:45+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -915,12 +915,12 @@ msgstr "重新加载项目"
 msgid "Checkout Git Branch"
 msgstr "检出 Git 分支"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
 #, kde-format
 msgid "Lookup: %1"
 msgstr "查询：%1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Goto: %1"
 msgstr "转到：%1"
@@ -930,7 +930,7 @@ msgstr "转到：%1"
 msgid "Projects Index"
 msgstr "项目索引"
 
-#: kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Choose a directory"
 msgstr "选择一个目录"

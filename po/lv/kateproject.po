@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 00:45+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2025-07-01 16:37+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -924,12 +924,12 @@ msgstr "Pārlādēt projektu"
 msgid "Checkout Git Branch"
 msgstr "Paņemt „Git“ zaru"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Uzmeklēt: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Goto: %1"
 msgstr "Iet uz: %1"
@@ -939,7 +939,7 @@ msgstr "Iet uz: %1"
 msgid "Projects Index"
 msgstr "Projektu indekss"
 
-#: kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Choose a directory"
 msgstr "Izvēlēties mapi"

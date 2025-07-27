@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-22 06:53+0200\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 08:41+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -564,33 +564,32 @@ msgstr ""
 "git že nameščen, preverite njegovo spremenljivko PATH. Poglejte https://git-"
 "scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Razlika"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Nova datoteka %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Brisana datoteka %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "Ni najdenih razlik"
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Neveljavno razpršilo"
+msgstr "Neveljavni datum: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -608,6 +607,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Filtriraj dnevnik.<ul><li>Za filtriranje po imenu avtorja uporabi predpono "
+"<code>\"a:\"</code>. Na primer, <b>a:john doe</b></li><li>Za izključitev "
+"avtorja uporabi predpono <code>\"!a:\"</code>. Na primer, <b>!a:john doe</"
+"b></li><li>Za prikaz zapisov po danem datumu uporabite predpono <code>"
+"\"since:\"</code>. Preverjen bo datum avtorja vsakega zapisa. Oblika datuma "
+"je yyyy-MM-dd. Na primer, <b>since:2025-04-17</b></li><li>Za prikaz zapisov "
+"pred danim datumom uporabite predpono <code>\"until:\"</code>. Preverjen bo "
+"datum avtorja vsakega zapisa. Oblika datuma je yyyy-MM-dd. Na primer, "
+"<b>do:2025-04-17</b></li><li>Za filtriranje sporočil preprosto vnesite "
+"iskalni izraz. Če je podanih več iskalnih izrazov, bodo prikazana sporočila, "
+"ki ustrezajo vsem iskalnim izrazom.</li></ul>Za proženje filtra pritisnite "
+"tipko <b>Enter</b>."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format

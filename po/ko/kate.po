@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2025-07-21 00:47+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -542,23 +542,23 @@ msgstr ""
 "요합니다. git이 이미 설치되어 있다면 PATH에 있는 경로에 설치되어 있는지 확인"
 "하십시오. 참조: https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "차이점"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "새 파일 %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "삭제된 파일 %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "차이점을 찾을 수 없음"

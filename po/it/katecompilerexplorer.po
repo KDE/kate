@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2025-03-30 14:53+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 24.12.3\n"
 
-#: AsmView.cpp:299
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr "Scorri al sorgente"
 
-#: AsmView.cpp:309
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr "Salta all'etichetta"
 
-#: AsmView.cpp:335
+#: AsmView.cpp:339
 #, kde-format
 msgid "Copy"
 msgstr "Copia"
 
-#: AsmView.cpp:347
+#: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
 msgstr "Seleziona tutto"

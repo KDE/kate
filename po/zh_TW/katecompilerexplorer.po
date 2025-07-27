@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2025-03-05 19:38+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 25.03.70\n"
 
-#: AsmView.cpp:299
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr "捲動至來源"
 
-#: AsmView.cpp:309
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr "跳至旗標"
 
-#: AsmView.cpp:335
+#: AsmView.cpp:339
 #, kde-format
 msgid "Copy"
 msgstr "複製"
 
-#: AsmView.cpp:347
+#: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
 msgstr "全部選取"

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-23 00:50+0100\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 12:47+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -558,33 +558,32 @@ msgstr ""
 "diferencias entre documentos. Si git ya está instalado, asegúrese de que "
 "está en su variable PATH. Consulte https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diferencias"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Nuevo archivo %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Archivo borrado %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "No se han encontrado diferencias"
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Hash no válido"
+msgstr "Fecha no válida: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -602,6 +601,19 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Filtrar el registro.<ul><li>Use el prefijo <code>«a:»</code> para filtrar "
+"por el nombre de autor. Por ejemplo, <b>a:pedro montes</b></li><li>Use el "
+"prefijo <code>«!a:»</code> para excluir un autor. Por ejemplo, <b>!a:pedro "
+"montes</b></li><li>Use el prefijo <code>«since:»</code> para mostrar las "
+"confirmaciones posteriores a cierta fecha. Se comprobará la fecha de cada "
+"confirmación. El formato de la fecha es «aaaa-MM-dd». Por ejemplo, "
+"<b>since:2025-04-17</b></li><li>Use el prefijo <code>«until:»</code> para "
+"mostrar las confirmaciones anteriores a cierta fecha. Se comprobará la fecha "
+"de cada confirmación. El formato de la fecha es «aaaa-MM-dd». Por ejemplo, "
+"<b>until:2025-04-17</b></li><li>Para filtrar mensajes, escriba el término "
+"que se debe buscar. Si se indican varios términos, se mostrarán los mensajes "
+"que contengan todos ellos.</li></ul>Para aplicar el filtro, pulse la tecla "
+"<b>Intro</b>."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format
@@ -3144,14 +3156,3 @@ msgstr "Gestión de sesiones…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar la página de bienvenida en las ventanas nuevas"
-
-#~ msgctxt "Help text"
-#~ msgid ""
-#~ "Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e."
-#~ "g., <b>a:john doe</b></li><li>To filter messages, just type the search "
-#~ "term</li></ul>To trigger the filter, press the <b>Enter</b> key. "
-#~ msgstr ""
-#~ "Filtrar el registro.<ul><li>Use el prefijo «a:» para filtrar por el "
-#~ "nombre de autor. Por ejemplo, <b>a:pedro montes</b></li><li>Para filtrar "
-#~ "mensajes, escriba el término que se debe buscar</li></ul>Para activar el "
-#~ "filtro, pulse la tecla <b>Intro</b>."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 00:45+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -975,12 +975,12 @@ msgstr "Projek Sekarang"
 msgid "Checkout Git Branch"
 msgstr "Checkout Cabang Git "
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:797
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Pencarian: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:798
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Goto: %1"
 msgstr "Menuju: %1"
@@ -990,7 +990,7 @@ msgstr "Menuju: %1"
 msgid "Projects Index"
 msgstr "Indeks Projek"
 
-#: kateprojectpluginview.cpp:842
+#: kateprojectpluginview.cpp:832
 #, kde-format
 msgid "Choose a directory"
 msgstr "Pilih sebuah direktori"

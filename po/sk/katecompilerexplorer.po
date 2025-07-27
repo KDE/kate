@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2024-11-11 17:46+0100\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -15,22 +15,22 @@ msgstr ""
 "X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: AsmView.cpp:299
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr ""
 
-#: AsmView.cpp:309
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr ""
 
-#: AsmView.cpp:335
+#: AsmView.cpp:339
 #, kde-format
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: AsmView.cpp:347
+#: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
 msgstr "Vybrať všetko"

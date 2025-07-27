@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -554,23 +554,23 @@ msgstr ""
 "artıq quraşdırılmışsa, onun PATH dəyişənindəolduğuna əmin olun. Bax: https://"
 "git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Fərq"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Yeni fayl %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Silinmiş fayl %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "Fərq tapılmadı"

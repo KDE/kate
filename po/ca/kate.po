@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-22 09:39+0200\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 11:19+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -553,33 +553,32 @@ msgstr ""
 "documents. Si el «git» ja està instal·lat, comproveu que estigui a la "
 "variable PATH. Vegeu https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Fitxer nou %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Fitxer suprimit %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "No s'ha trobat cap diferència"
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Resum no vàlid"
+msgstr "Data no vàlida: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -597,6 +596,19 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Filtra el registre.<ul><li>Useu el prefix <code>«a:»</code> per a filtrar "
+"per nom d'autor. P. ex., <b>a:joan cognom</b></li><li>Useu el prefix <code>«!"
+"a:»</code> per a excloure un autor. P. ex., <b>!a:joan cognom</b></"
+"li><li>Useu el prefix <code>«since:»</code> per a mostrar les comissions "
+"després de la data indicada. Es comprovarà la data d'autor de cada comissió. "
+"El format de la data és yyyy-MM-dd. P. ex., <b>since:2025-04-17</b></"
+"li><li>Useu el prefix <code>«until:»</code> per a mostrar les comissions "
+"després de la data indicada. Es comprovarà la data d'autor de cada comissió. "
+"El format de la data és yyyy-MM-dd. P. ex., <b>until:2025-04-17</b></"
+"li><li>Per a filtrar missatges, teclegeu el mot a cercar. Si s'indiquen "
+"diversos mots a cercar, llavors es mostraran els missatges que coincideixin "
+"amb tots els mots de la cerca.</li></ul>Per a activar el filtre, premeu la "
+"tecla <b>Retorn</b>."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format

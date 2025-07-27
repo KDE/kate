@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2023-12-24 18:38+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -19,17 +19,17 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 21.08.3\n"
 
-#: rainbowparens_plugin.cpp:475
+#: rainbowparens_plugin.cpp:479
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
 msgstr "Выберите цвета, которые будут использованы для цветных скобок"
 
-#: rainbowparens_plugin.cpp:495
+#: rainbowparens_plugin.cpp:499
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Цветные скобки"
 
-#: rainbowparens_plugin.cpp:500
+#: rainbowparens_plugin.cpp:504
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Параметры цветных скобок"

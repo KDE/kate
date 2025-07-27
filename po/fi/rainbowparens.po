@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-19 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2023-11-29 17:22+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -16,17 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: rainbowparens_plugin.cpp:475
+#: rainbowparens_plugin.cpp:479
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
 msgstr "Valitse suljeväritykseen käytettävät värit:"
 
-#: rainbowparens_plugin.cpp:495
+#: rainbowparens_plugin.cpp:499
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Värilliset sulkeet"
 
-#: rainbowparens_plugin.cpp:500
+#: rainbowparens_plugin.cpp:504
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Värillisten sulkeiden asetukset"

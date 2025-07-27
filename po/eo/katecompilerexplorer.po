@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
 "PO-Revision-Date: 2025-03-15 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: AsmView.cpp:299
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr "Rulumi al fonto"
 
-#: AsmView.cpp:309
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr "Salti al etikedo"
 
-#: AsmView.cpp:335
+#: AsmView.cpp:339
 #, kde-format
 msgid "Copy"
 msgstr "Kopii"
 
-#: AsmView.cpp:347
+#: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
 msgstr "Elekti Ĉion"

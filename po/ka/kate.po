@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-22 04:43+0200\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 03:38+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -545,33 +545,32 @@ msgstr ""
 "ის უკვე დაყენებულია, დარწმუნდით, რომ ის თქვენს PATH გარემოს ცვლადშია. იხილეთ "
 "https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "სხვაობა"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "ახალი ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "წაშლილია ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "სხვაობები აღმოჩენილი არაა"
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "არასწორი ჰეში"
+msgstr "არასწორი თარიღი: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -589,6 +588,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"ჟურნალის გაფილტვრა.<ul><li>გამოიყენეთ პრეფიქსი <code>\"a:\"</code> ავტორის "
+"სახელით გასაფილტრად. მაგ: <b>a:john doe</b></li><li>Use <code>\"!a:\"</code> "
+"პრეფიქსი, რომ გამორიცხოთ ავტორი. მაგ: <b>!a:john doe</b></li><li>გამოიყენეთ "
+"პრეფიქსი <code>\"since:\"</code> მოცემული თარიღის შემდეგ მომხდარი "
+"გადაცემების საჩვენებლად. შემოწმდება თითოეული კომიტის ავტორი. თარიღის "
+"ფორმატია yyyy-MM-dd მაგ: <b>since:2025-04-17</b></li><li>გამოიყენეთ პრეფიქსი "
+"<code>\"until:\"</code> მოცემულ თარიღამდე მომხდარი კომიტისთვის. შემოწმდება "
+"თითოეული კომიტის ავტორი. თარიღის ფორმატია yyyy-MM-dd მაგ: "
+"<b>until:2025-04-17</b></li><li>შეტყობინებების გასაფილტრად უბრალოდ აკრიფეთ "
+"სასურველი სტრიქონი. თუ შეყვანილია ერთზე მეტი სტრიქონი, ნაჩვენები იქნება "
+"შეტყობინებები, რომელიც ყველა მათგანს შეიცავს.</li></ul>გაფილტვრის დასაწყებად "
+"დააჭირეთ ღილაკს <b>Enter</b>."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format

@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-22 19:24+0200\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 12:00+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -556,33 +556,32 @@ msgstr ""
 "«Git» dagoeneko instalatuta badago, ziurtatu zure «PATH» aldagaian dagoela. "
 "Begiratu https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Fitxategi berria %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Ezabatutako fitxategia %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "Ez da ezberdintasunik aurkitu"
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Hash baliogabea"
+msgstr "Data baliogabea: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -600,6 +599,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Egunkaria iragazi.<ul><li>Erabili<code>\"a:\"</code> aurrizkia egile-"
+"izenaren arabera iragazteko. Adibidez, <b>!a:aratz mendia</b></"
+"li><li>Erabili <code>\"since:\"</code> aurrizkia adierazitako data ondorengo "
+"baliozkotzeak (commits) erakusteko. Baliozkotze bakoitzaren egilearen data "
+"egiaztatuko da. Dataren formatua uuuu-HH-ee da, adib., <b>since:2025-04-17</"
+"b></li><li>Erabili <code>\"until:\"</code> aurrizkia adierazitako data "
+"aurreko baliozkotzeak Baliozkotze bakoitzaren egilearen data egiaztatuko da. "
+"Dataren formatua uuuu-HH-ee da, adib., <b>since:2025-04-17</b></"
+"li><li>Mezuak iragazteko, bilatu beharreko terminoa tekleatu. Bilaketa "
+"termino anizkoitzak adierazten badira, bilaketa-termino guztiekin bat "
+"datozen mezuak erakutsiko dira.</li></ul>Iragazkia eragiteko, sakatu "
+"<b>Sartu</b> tekla."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format

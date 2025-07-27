@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-22 21:31+0300\n"
+"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"PO-Revision-Date: 2025-07-26 21:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -559,33 +559,32 @@ msgstr ""
 "halihazırda kuruluysa onun PATH değişkeninizde olduğundan emin olun. Bkz. "
 "https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, kde-format
 msgid "New file %1"
 msgstr "Yeni dosya %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Silinen dosya %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
 #, kde-format
 msgid "No differences found"
 msgstr "Fark bulunamadı."
 
 #: lib/filehistorywidget.cpp:232
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Geçersiz sağlama"
+msgstr "Geçersiz tarih: %1"
 
 #: lib/filehistorywidget.cpp:441
 #, kde-format
@@ -603,6 +602,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Günlüğü süzün.<ul><li>Yazar koduna göre süzmek için <code>“a:”</code> "
+"önekini kullanın. Örneğin, <b>a:john doe</b></li><li>Bir yazarı dışlamak "
+"için <code>“!a:”</code> önekini kullanın. Örneğin, <b>!a:john doe</b></"
+"li><li>Verilen tarihten sonraki işlemeleri göstermek için <code>“since:”</"
+"code> önekini kullanın. Her bir işlemenin yazar tarihi denetlenecektir. "
+"Tarih biçimi yyyy-AA-gg biçimindedir. Örneğin, <b>since:2025-04-17</b></"
+"li><li>Verilen tarihten önceki işlemeleri göstermek için <code>“until:”</"
+"code> önekini kullanın. Her bir işlemenin yazar tarihleri denetlenecektir. "
+"Tarih biçimi yyyy-AA-gg biçimindedir. Örneğin, <b>until:2025-04-17</b>.</"
+"li><li>İletileri süzmek için yalnızca arama terimini girin. Birden çok arama "
+"terimi sağlanırsa tüm terimlerle eşleşen iletiler gösterilecektir. Süzgeci "
+"tetiklemek için <b>Giriş</b> düğmesine basın."
 
 #: lib/filehistorywidget.cpp:497
 #, kde-format

@@ -172,9 +172,7 @@ bool KateFileActions::compareWithExternalProgram(KTextEditor::Document *document
     Q_ASSERT(documentA);
     Q_ASSERT(documentB);
 
-    QProcess process;
-    QStringList arguments;
-    arguments << documentA->url().toLocalFile() << documentB->url().toLocalFile();
+    QStringList arguments{documentA->url().toLocalFile(), documentB->url().toLocalFile()};
     return QProcess::startDetached(diffExecutable, arguments);
 }
 

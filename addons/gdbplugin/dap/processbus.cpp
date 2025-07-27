@@ -113,7 +113,7 @@ void ProcessBus::readError()
     // process' standard error
     qCDebug(DAPCLIENT, "[BUS] STDERR << %s", message.data());
 
-    Q_EMIT serverOutput(QString::fromLocal8Bit(message));
+    Q_EMIT serverOutput(message);
 }
 
 }

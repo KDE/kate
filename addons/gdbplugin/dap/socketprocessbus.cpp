@@ -150,7 +150,7 @@ void SocketProcessBus::readError()
     // process' standard error
     qCDebug(DAPCLIENT, "[BUS] STDERR << %s", message.constData());
 
-    Q_EMIT serverOutput(QString::fromLocal8Bit(message));
+    Q_EMIT serverOutput(message);
 }
 
 void SocketProcessBus::readOutput()
@@ -158,7 +158,7 @@ void SocketProcessBus::readOutput()
     const auto &message = process.readAllStandardOutput();
     qCDebug(DAPCLIENT, "[BUS] STDOUT << %s", message.constData());
 
-    Q_EMIT processOutput(QString::fromLocal8Bit(message));
+    Q_EMIT processOutput(message);
 }
 
 }

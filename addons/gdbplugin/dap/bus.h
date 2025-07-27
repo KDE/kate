@@ -46,8 +46,8 @@ Q_SIGNALS:
     void running();
     void closed();
     void error(const QString &errorMessage);
-    void serverOutput(const QString &message);
-    void processOutput(const QString &message);
+    void serverOutput(const QByteArray &message);
+    void processOutput(const QByteArray &message);
 
 protected:
     void setState(State state);

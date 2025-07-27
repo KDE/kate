@@ -305,7 +305,7 @@ void KateProjectPluginView::slotConfigUpdated()
     updateActions();
 }
 
-QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForProject(KateProject *project)
+void KateProjectPluginView::viewForProject(KateProject *project)
 {
     /**
      * needs valid project
@@ -316,7 +316,8 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
      * existing view?
      */
     if (m_project2View.contains(project)) {
-        return m_project2View.value(project);
+        m_project2View.value(project);
+        return;
     }
 
     /**
@@ -354,7 +355,7 @@ QPair<KateProjectView *, KateProjectInfoView *> KateProjectPluginView::viewForPr
     /**
      * remember and return it
      */
-    return (m_project2View[project] = QPair<KateProjectView *, KateProjectInfoView *>(view, infoView));
+    m_project2View[project] = ProjectViews(view, infoView);
 }
 
 QString KateProjectPluginView::projectFileName() const
@@ -566,14 +567,14 @@ void KateProjectPluginView::slotDocumentUrlChanged(KTextEditor::Document *docume
     /**
      * select the file FIRST
      */
-    m_project2View.value(project).first->selectFile(document->url().toLocalFile());
+    m_project2View.value(project).tree->selectFile(document->url().toLocalFile());
 
     /**
      * get active project view and switch it, if it is for a different project
      * do this AFTER file selection
      */
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
-    if (active != m_project2View.value(project).first) {
+    if (active != m_project2View.value(project).tree) {
         int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
             m_projectsCombo->setCurrentIndex(index);
@@ -596,7 +597,7 @@ void KateProjectPluginView::switchToProject(const QDir &dir)
      * do this AFTER file selection
      */
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
-    if (active != m_project2View.value(project).first) {
+    if (active != m_project2View.value(project).tree) {
         int index = m_projectsCombo->findData(project->fileName());
         if (index >= 0) {
             m_projectsCombo->setCurrentIndex(index);
@@ -706,13 +707,13 @@ void KateProjectPluginView::slotHandleProjectClosing(KateProject *project)
     const auto viewIt = m_project2View.find(project);
     Q_ASSERT(viewIt != m_project2View.end());
 
-    const int index = m_stackedProjectViews->indexOf(viewIt->first);
+    const int index = m_stackedProjectViews->indexOf(viewIt->tree);
 
-    m_stackedProjectViews->removeWidget(viewIt->first);
-    delete viewIt->first;
+    m_stackedProjectViews->removeWidget(viewIt->tree);
+    delete viewIt->tree;
 
-    m_stackedProjectInfoViews->removeWidget(viewIt->second);
-    delete viewIt->second;
+    m_stackedProjectInfoViews->removeWidget(viewIt->infoview);
+    delete viewIt->infoview;
 
     m_project2View.erase(viewIt);
 
@@ -883,7 +884,7 @@ void KateProjectPluginView::openTerminal(const QString &dirPath, KateProject *pr
 
     auto it = m_project2View.constFind(project);
     if (it != m_project2View.cend()) {
-        it->second->resetTerminal(dirPath);
+        it->infoview->resetTerminal(dirPath);
     }
 }
 

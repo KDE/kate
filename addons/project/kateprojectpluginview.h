@@ -142,9 +142,8 @@ public Q_SLOTS:
      * Create views for given project.
      * Either gives existing ones or creates new one
      * @param project project we want view for
-     * @return views (normal + info view)
      */
-    QPair<KateProjectView *, KateProjectInfoView *> viewForProject(KateProject *project);
+    void viewForProject(KateProject *project);
 
     /**
      * Switch to project for given dir, if any there!
@@ -392,10 +391,14 @@ private:
 
     GitWidget *m_gitWidget;
 
+    struct ProjectViews {
+        KateProjectView *tree;
+        KateProjectInfoView *infoview;
+    };
     /**
      * project => view
      */
-    QMap<KateProject *, QPair<KateProjectView *, KateProjectInfoView *>> m_project2View;
+    QMap<KateProject *, ProjectViews> m_project2View;
 
     /**
      * remember current active view text editor view

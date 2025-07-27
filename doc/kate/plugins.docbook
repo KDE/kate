@@ -2010,6 +2010,7 @@ may be provided in a <literal>.kateproject</literal>.
         "mapRemoteRoot": true,
         "pathMappings": [
             // either of the following forms are possible
+            // a more automagic alternative exists as well, see referenced section
             [ "/dir/on/host", "/mounted/in/container" ]
             { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
         ]

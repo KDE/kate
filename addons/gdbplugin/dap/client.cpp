@@ -82,8 +82,10 @@ Client::Client(const settings::ClientSettings &clientSettings, Utils::PathMappin
     , m_protocol(clientSettings.protocolSettings)
     , m_launchCommand(extractCommand(clientSettings.protocolSettings.launchRequest))
     , m_msgParser(new MessageParser())
+    , m_outputMsgParser(new MessageParser())
 {
     m_msgContext = std::make_unique<ClientMessageContext>(pm);
+    m_checkExtraData = pm.get();
     m_bus = createBus(clientSettings.busSettings);
     m_bus->setParent(this);
     bind();
@@ -93,6 +95,7 @@ Client::~Client()
 {
     detach();
     delete m_msgParser;
+    delete m_outputMsgParser;
 }
 
 void Client::bind()
@@ -102,8 +105,7 @@ void Client::bind()
     connect(m_bus, &Bus::closed, this, &Client::finished);
     if (m_protocol.redirectStderr)
         connect(m_bus, &Bus::serverOutput, this, &Client::onServerOutput);
-    if (m_protocol.redirectStdout)
-        connect(m_bus, &Bus::processOutput, this, &Client::onProcessOutput);
+    connect(m_bus, &Bus::processOutput, this, &Client::onProcessOutput);
 }
 
 void Client::detach()
@@ -763,9 +765,30 @@ void Client::onServerOutput(const QByteArray &message)
     Q_EMIT outputProduced(dap::Output(QString::fromLocal8Bit(message), dap::Output::Category::Console));
 }
 
-void Client::onProcessOutput(const QByteArray &message)
+void Client::onProcessOutput(const QByteArray &_message)
 {
-    Q_EMIT outputProduced(dap::Output(QString::fromLocal8Bit(message), dap::Output::Category::Stdout));
+    auto message = _message;
+    if (m_checkExtraData) {
+        if (m_outputMsgParser->m_buffer.isEmpty() && !message.startsWith(DAP_CONTENT_LENGTH)) {
+            m_checkExtraData = false;
+        } else {
+            m_outputMsgParser->push(message);
+            auto extra = m_outputMsgParser->read();
+            if (!extra.size()) {
+                // need more
+                return;
+            }
+            // only 1 attempt, so no more
+            m_checkExtraData = false;
+            processExtraData(extra);
+            // consider remainder
+            message = std::move(m_outputMsgParser->m_buffer);
+            if (!message.size())
+                return;
+        }
+    }
+    if (m_protocol.redirectStdout)
+        Q_EMIT outputProduced(dap::Output(QString::fromLocal8Bit(message), dap::Output::Category::Stdout));
 }
 
 QString Client::extractCommand(const QJsonObject &launchRequest)
@@ -778,6 +801,16 @@ QString Client::extractCommand(const QJsonObject &launchRequest)
     return command;
 }
 
+void Client::processExtraData(const QByteArray &data)
+{
+    auto ctx = static_cast<ClientMessageContext *>(m_msgContext.get());
+    auto mapping = ctx->pathMap;
+    Q_ASSERT(mapping);
+    qCInfo(DAPCLIENT) << "process extra data" << data;
+    bool ok = Utils::updateMapping(*mapping, data);
+    qCInfo(DAPCLIENT) << "map updated" << ok << "now;\n" << *mapping;
+}
+
 void Client::read()
 {
     m_msgParser->push(m_bus->read());
@@ -785,6 +818,14 @@ void Client::read()
         auto data = m_msgParser->read();
         if (!data.size())
             break;
+
+        // check oob data
+        if (m_checkExtraData && data.front() != '{' && !isblank(data.front())) {
+            /* this does not make for valid json, so treat as extra */
+            processExtraData(data);
+            m_checkExtraData = false;
+            continue;
+        }
 
         // parse payload
         QJsonParseError jsonError;

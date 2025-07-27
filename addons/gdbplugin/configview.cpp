@@ -451,6 +451,9 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
             env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = QStringLiteral("dap");
             env[QStringLiteral("KATE_EXEC_SERVER")] = cfg.debugger;
             env[QStringLiteral("KATE_EXEC_PROFILE")] = cfg.debuggerProfile;
+            // optionally enable mount (intro)inspection
+            if (cfg.dapSettings->pathMap)
+                env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QStringLiteral("1");
             settings[M_ENV] = env;
         }
 

@@ -10,24 +10,11 @@
 #include <QUrl>
 
 BookmarksModel::BookmarksModel(QObject *parent)
-    : QAbstractItemModel(parent)
+    : QAbstractTableModel(parent)
 {
 }
 
 BookmarksModel::~BookmarksModel() = default;
-
-QModelIndex BookmarksModel::index(int row, int column, const QModelIndex &parent) const
-{
-    if (!hasIndex(row, column, parent))
-        return QModelIndex();
-
-    return createIndex(row, column);
-}
-
-QModelIndex BookmarksModel::parent(const QModelIndex &) const
-{
-    return QModelIndex();
-}
 
 int BookmarksModel::rowCount(const QModelIndex &parent) const
 {

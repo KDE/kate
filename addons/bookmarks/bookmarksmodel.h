@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <QAbstractItemModel>
+#include <QAbstractTableModel>
 #include <QList>
 #include <QString>
 #include <QUrl>
@@ -15,7 +15,7 @@ struct Bookmark {
     int lineNumber;
 };
 
-class BookmarksModel : public QAbstractItemModel
+class BookmarksModel : public QAbstractTableModel
 {
     Q_OBJECT
 
@@ -24,8 +24,6 @@ public:
     ~BookmarksModel() override;
 
     // Required model interface methods
-    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;

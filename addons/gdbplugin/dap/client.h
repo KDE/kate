@@ -189,8 +189,8 @@ private:
     void requestLaunchCommand();
 
     void checkRunning();
-    void onServerOutput(const QString &message);
-    void onProcessOutput(const QString &message);
+    void onServerOutput(const QByteArray &message);
+    void onProcessOutput(const QByteArray &message);
 
     /*
      * server capabilities

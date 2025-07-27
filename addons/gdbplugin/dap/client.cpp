@@ -758,14 +758,14 @@ void Client::checkRunning()
     }
 }
 
-void Client::onServerOutput(const QString &message)
+void Client::onServerOutput(const QByteArray &message)
 {
-    Q_EMIT outputProduced(dap::Output(message, dap::Output::Category::Console));
+    Q_EMIT outputProduced(dap::Output(QString::fromLocal8Bit(message), dap::Output::Category::Console));
 }
 
-void Client::onProcessOutput(const QString &message)
+void Client::onProcessOutput(const QByteArray &message)
 {
-    Q_EMIT outputProduced(dap::Output(message, dap::Output::Category::Stdout));
+    Q_EMIT outputProduced(dap::Output(QString::fromLocal8Bit(message), dap::Output::Category::Stdout));
 }
 
 QString Client::extractCommand(const QJsonObject &launchRequest)

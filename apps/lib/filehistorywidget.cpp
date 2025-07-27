@@ -16,7 +16,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDate>
-#include <QDebug>
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>
@@ -631,7 +630,7 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
 {
     QFileInfo fi(file);
     if (!fi.exists()) {
-        qWarning() << "Unexpected non-existent file: " << file;
+        qWarning("Unexpected non-existent file: %ls", qUtf16Printable(file));
         return;
     }
 

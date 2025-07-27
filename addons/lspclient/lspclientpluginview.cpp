@@ -1027,7 +1027,7 @@ public:
         }
 
         if (!attr) {
-            qWarning() << "Unexpected null attr";
+            qWarning("Unexpected null attr");
         }
 
         // highlight the range
@@ -1734,7 +1734,7 @@ public:
             qCInfo(LSPCLIENT) << "applying edit" << edit.label;
             applyWorkspaceEdit(edit.edit, nullptr);
         } else {
-            qCInfo(LSPCLIENT) << "ignoring edit";
+            qCInfo(LSPCLIENT, "ignoring edit");
         }
         h({.applied = m_accept_edit, .failureReason = QString()});
     }
@@ -2416,13 +2416,13 @@ public:
         bool registered = m_completionViews.contains(view);
 
         if (!registered && server && server->capabilities().completionProvider.provider) {
-            qCInfo(LSPCLIENT) << "registering cci";
+            qCInfo(LSPCLIENT, "registering cci");
             view->registerCompletionModel(m_completion.get());
             m_completionViews.append(view);
         }
 
         if (registered && !server) {
-            qCInfo(LSPCLIENT) << "unregistering cci";
+            qCInfo(LSPCLIENT, "unregistering cci");
             view->unregisterCompletionModel(m_completion.get());
             m_completionViews.removeAll(view);
         }

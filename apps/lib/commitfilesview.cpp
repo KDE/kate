@@ -14,7 +14,6 @@
 #include <QApplication>
 #include <QByteArray>
 #include <QClipboard>
-#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QLabel>
@@ -526,7 +525,7 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
 {
     QFileInfo fi(path);
     if (!fi.exists()) {
-        qWarning() << "Unexpected non-existent file: " << path;
+        qWarning("Unexpected non-existent file: %ls", qUtf16Printable(path));
         return;
     }
 

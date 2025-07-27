@@ -488,7 +488,7 @@ bool KateViewSpace::showView(DocOrWidget docOrWidget)
         if (!docOrWidget.widget()) {
             return false;
         } else if (docOrWidget.widget() && !m_registeredDocuments.contains(docOrWidget)) {
-            qWarning() << "Unexpected unregistred widget" << docOrWidget.widget() << ", please add it first";
+            qWarning("Unexpected unregistred widget %p, please add it first", (void *)docOrWidget.widget());
             return false;
         }
     }
@@ -732,7 +732,7 @@ QWidget *KateViewSpace::takeView(DocOrWidget docOrWidget)
     if (docOrWidget.doc()) {
         auto it = m_docToView.find(docOrWidget.doc());
         if (it == m_docToView.end()) {
-            qWarning() << "Unexpected unable to find a view for " << docOrWidget.qobject();
+            qWarning("Unexpected unable to find a view for %p", (void *)docOrWidget.qobject());
             return nullptr;
         }
         ret = it->second;
@@ -747,7 +747,7 @@ QWidget *KateViewSpace::takeView(DocOrWidget docOrWidget)
         m_tabBar->removeDocument(docOrWidget);
         ret = docOrWidget.widget();
     } else {
-        qWarning() << "Unexpected docOrWidget: " << docOrWidget.qobject();
+        qWarning("Unexpected docOrWidget: %p", (void *)docOrWidget.qobject());
         ret = nullptr;
         Q_UNREACHABLE();
     }

@@ -375,7 +375,7 @@ void DiffWidget::handleStyleChange(int newStyle)
         m_right->setVisible(false);
         openDiff(diff);
     } else {
-        qWarning() << "Unexpected diff style value: " << newStyle;
+        qWarning("Unexpected diff style value: %d", newStyle);
         Q_UNREACHABLE();
     }
 
@@ -903,7 +903,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineA++;
                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
-                //                 qDebug() << "- line";
+                // qDebug("- line");
                 l = l.mid(1);
                 LineHighlight h;
                 h.line = lineB;
@@ -920,7 +920,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineB++;
             } else if (l.startsWith(QLatin1Char('-'))) {
                 l = l.mid(1);
-                //                 qDebug() << "+ line: " << l;
+                // qDebug("+ line: %ls", qUtf16Printable(l));
                 LineHighlight h;
                 h.line = lineA;
                 h.added = false;
@@ -1097,7 +1097,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 lineNo++;
                 //                 lineB++;
             } else if (l.startsWith(QLatin1Char('+'))) {
-                //                 qDebug() << "- line";
+                // qDebug("- line");
                 l = l.mid(1);
                 LineHighlight h;
                 h.line = lineNo;

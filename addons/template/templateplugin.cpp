@@ -73,7 +73,7 @@ void TemplatePluginView::crateNewFromTemplate()
 void TemplatePluginView::templateCrated(const QString &fileToOpen)
 {
     if (!m_template) {
-        qWarning() << "m_template not created yet!";
+        qWarning("m_template not created yet!");
         return;
     }
     m_template->hide();

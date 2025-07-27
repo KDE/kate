@@ -93,7 +93,7 @@ static inline auto modifedLinesFromGitDiff(const QByteArray &out) -> std::option
 static inline std::optional<std::vector<ModifiedLines>> getModifiedLines(const QString &filePath)
 {
     if (!QFile::exists(filePath)) {
-        qWarning() << "Doc doesn't exist, shouldn't happen!";
+        qWarning("Doc doesn't exist, shouldn't happen!");
         return std::nullopt;
     }
 

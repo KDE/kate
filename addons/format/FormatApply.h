@@ -110,7 +110,7 @@ struct DiffRange {
             }
         }
     }
-    // qDebug() << "================";
+    // qDebug("================");
 
     return lines;
 }

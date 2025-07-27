@@ -34,7 +34,7 @@ bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding)
 
 bool KateAppAdaptor::openUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
-    qCDebug(LOG_KATE) << "openURL";
+    qCDebug(LOG_KATE, "openURL");
 
     return KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
 }
@@ -51,7 +51,7 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
 
 QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding, bool isTempFile)
 {
-    qCDebug(LOG_KATE) << "openURL";
+    qCDebug(LOG_KATE, "openURL");
     KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
     if (!doc) {
         return QStringLiteral("ERROR");
@@ -61,7 +61,7 @@ QString KateAppAdaptor::tokenOpenUrl(const QString &url, const QString &encoding
 
 QString KateAppAdaptor::tokenOpenUrlAt(const QString &url, int line, int column, const QString &encoding, bool isTempFile)
 {
-    qCDebug(LOG_KATE) << "openURLAt";
+    qCDebug(LOG_KATE, "openURLAt");
     KTextEditor::Document *doc = KateApp::self()->openDocUrl(QUrl(url), encoding, isTempFile);
     if (!doc) {
         return QStringLiteral("ERROR");

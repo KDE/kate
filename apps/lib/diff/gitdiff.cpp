@@ -6,7 +6,6 @@
 */
 #include "gitdiff.h"
 
-#include <QDebug>
 #include <QRegularExpression>
 #include <QString>
 #include <QUrl>
@@ -274,8 +273,8 @@ static std::vector<DiffHunk> parseHunks(VcsDiff &diff)
                     hunkLines << lines.next();
                 }
                 if (!CONFLICT_END_RE->match(lines.peekNext()).hasMatch()) {
-                    qWarning() << "Invalid diff format, end of file reached before conflict finished";
-                    qDebug() << diff.diff();
+                    qWarning("Invalid diff format, end of file reached before conflict finished");
+                    qDebug("%ls", qUtf16Printable(diff.diff()));
                     break;
                 }
             }
@@ -302,8 +301,7 @@ static std::vector<DiffHunk> parseHunks(VcsDiff &diff)
         if (ret.size() > 0 && ret.back().lines.size() > 0) {
             ret.back().lines.pop_back();
         } else {
-            qWarning() << "Failed to parse a diff, produced no hunks";
-            qDebug() << "Failed diff:" << diff.diff();
+            qWarning("Failed to parse a diff, produced no hunks");
         }
     }
 

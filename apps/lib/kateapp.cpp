@@ -212,7 +212,7 @@ void KateApp::initPreApplicationCreation(bool detach)
         sysctl(mib, 2, &path[0], &len, nullptr, 0);
         path.removeLast();
         QByteArray p = qgetenv("PATH");
-        qDebug() << "Adding '" << path << "' to existing PATH:" << p;
+        qDebug("Adding '%s' to exising PATH: %s", path.constData(), p.constData());
         path.append(':').append(p);
         qputenv("PATH", p);
     }

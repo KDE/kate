@@ -49,7 +49,7 @@ QString CompileDBReader::locateCompileCommands(KTextEditor::MainWindow *mw, cons
         }
     }
 
-    qWarning() << "Compile DB not found for file: " << openedFile;
+    qWarning("Compile DB not found for file: %ls", qUtf16Printable(openedFile));
 
     return QString();
 }
@@ -59,19 +59,19 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
     QFile f(compile_commandsPath);
     if (!f.open(QFile::ReadOnly)) {
         // TODO: Use Output view to report error
-        qWarning() << "Failed to load compile_commands: " << f.errorString();
+        qWarning("Failed to load compile_commands: ", qUtf16Printable(f.errorString()));
         return {};
     }
 
     QJsonParseError error;
     QJsonDocument cmdCmds = QJsonDocument::fromJson(f.readAll(), &error);
     if (error.error != QJsonParseError::NoError) {
-        qWarning() << "Failed to read compile_commands: " << error.errorString();
+        qWarning("Failed to read compile_commands: ", qUtf16Printable(error.errorString()));
         return {};
     }
 
     if (!cmdCmds.isArray()) {
-        qWarning() << "Invalid compile_commands, root element is not an array";
+        qWarning("Invalid compile_commands, root element is not an array");
         return {};
     }
 
@@ -92,7 +92,7 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
         }
     }
 
-    qWarning() << "compile_command for " << file << " not found";
+    qWarning("compile_command for %ls not found", qUtf16Printable(file));
     return {};
 }
 

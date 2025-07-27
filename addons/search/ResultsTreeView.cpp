@@ -76,7 +76,7 @@ void ResultsTreeView::enterEvent(QEnterEvent *event)
 {
     auto *res = qobject_cast<Results *>(parent());
     if (!res) {
-        qWarning() << Q_FUNC_INFO << "Unexpected null parent() Results";
+        qWarning("ResultsTreeView::enterEvent Unexpected null parent() Results");
         QTreeView::enterEvent(event);
         return;
     }

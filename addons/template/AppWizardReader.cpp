@@ -68,7 +68,7 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             }
 
             if (!templateEntry || !templateEntry->isFile()) {
-                qDebug() << "template" << archName << "does not contain .kdevtemplate file";
+                qDebug("template %ls does not contain .kdevtemplate file", qUtf16Printable(archName));
                 continue;
             }
             const KArchiveFile *templateFile = (KArchiveFile *)templateEntry;
@@ -99,7 +99,7 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             map.insert(key, data);
 
         } else {
-            qDebug() << "could not open template" << archName;
+            qDebug("could not open template", qUtf16Printable(archName));
         }
     }
     return map;
@@ -125,14 +125,14 @@ bool AppWizardReader::extractTemplateTo(const QString &packageFile, const QStrin
     }
 
     if (!arch->open(QIODevice::ReadOnly)) {
-        qWarning() << "Failed to open template archive";
+        qWarning("Failed to open template archive");
         return false;
     }
 
     const KArchiveDirectory *root = arch->directory();
     bool ok = root->copyTo(dest, true);
     if (!ok) {
-        qWarning() << "Failed to extract the template directory";
+        qWarning("Failed to extract the template directory");
         return false;
     }
     arch->close();

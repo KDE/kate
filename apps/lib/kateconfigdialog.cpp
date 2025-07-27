@@ -73,7 +73,7 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
         }
     }
     if (!m_sideBar) {
-        qWarning() << "Unable to find config dialog sidebar listview!!";
+        qWarning("Unable to find config dialog sidebar listview!!");
     }
 
     // first: add the KTextEditor config pages
@@ -565,7 +565,7 @@ void KateConfigDialog::removePluginPage(KTextEditor::Plugin *plugin)
         }
     }
 
-    qCDebug(LOG_KATE) << remove.size();
+    qCDebug(LOG_KATE, "%zu", remove.size());
     while (!remove.empty()) {
         KPageWidgetItem *wItem = remove.back();
         remove.pop_back();

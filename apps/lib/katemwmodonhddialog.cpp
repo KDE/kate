@@ -84,7 +84,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &d
     for (auto &doc : docs) {
         const auto docInfo = KateApp::self()->documentManager()->documentInfo(doc);
         if (!docInfo) {
-            qWarning() << "Unexpected null doc info";
+            qWarning("Unexpected null doc info");
             continue;
         }
         new KateDocItem(doc, m_stateTexts[static_cast<uint>(docInfo->modifiedOnDiscReason)], docsTreeWidget);

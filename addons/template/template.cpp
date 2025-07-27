@@ -195,7 +195,7 @@ bool Template::copyFile(const QString &src, const QString &trgt, const ReplaceMa
 {
     QFile in(src);
     if (!in.open(QFile::ReadOnly)) {
-        qWarning() << "Failed to open:" << src;
+        qWarning("Failed to open: %ls", qUtf16Printable(src));
         return false;
     }
 
@@ -216,13 +216,13 @@ bool Template::copyFile(const QString &src, const QString &trgt, const ReplaceMa
     }
 
     if (QFileInfo::exists(QString::fromLocal8Bit(newName))) {
-        qWarning() << "File already exists:" << newName;
+        qWarning("File already exists: %s", newName.constData());
         return false;
     }
 
     QFile out(QString::fromLocal8Bit(newName));
     if (!out.open(QFile::WriteOnly)) {
-        qWarning() << "Failed to create:" << newName;
+        qWarning("Failed to create: %s", newName.constData());
         return false;
     }
 
@@ -367,7 +367,7 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
     QJsonParseError error;
     const QJsonDocument doc = QJsonDocument::fromJson(configJson, &error);
     if (error.error != QJsonParseError::NoError) {
-        qWarning() << error.errorString() << "at:" << error.offset;
+        qWarning("%ls at: %d", qUtf16Printable(error.errorString()), error.offset);
     }
     const QJsonObject rootObj = doc.object();
     QString desc = rootObj.value(u"description"_s).toString();

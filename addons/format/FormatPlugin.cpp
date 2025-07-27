@@ -244,7 +244,7 @@ void FormatPluginView::onFormattedTextReceived(FormatterRunner *formatter, KText
 {
     formatter->deleteLater();
     if (!doc) {
-        qWarning() << Q_FUNC_INFO << "invalid null doc";
+        qWarning("%s invalid null doc", Q_FUNC_INFO);
         return;
     }
 

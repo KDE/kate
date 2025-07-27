@@ -285,7 +285,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
         ds << cp.column();
         ds << view->document()->url();
     } else if (!viewSpace->currentWidget()) {
-        qWarning() << "No view or widget, why?";
+        qWarning("No view or widget, why?");
         return;
     }
 
@@ -426,7 +426,7 @@ void KateTabBar::removeDocument(DocOrWidget doc)
     // purge LRU storage, must work
     auto erased = (m_docToLruCounterAndHasTab.erase(doc) == 1);
     if (!erased) {
-        qWarning() << Q_FUNC_INFO << "Failed to erase";
+        qWarning("%s Failed to erase", Q_FUNC_INFO);
     }
 
     // remove document if needed, we might have no tab for it, if tab count is limited!

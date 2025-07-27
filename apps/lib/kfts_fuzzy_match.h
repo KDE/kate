@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <QDebug>
 #include <QString>
 #include <QTextLayout>
 

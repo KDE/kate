@@ -144,7 +144,11 @@ std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPar
         }
 
         const KPluginMetaData &service = offers.first();
-        qCDebug(KTEPREVIEW) << "Found preferred kpart named" << service.name() << "with library" << service.fileName() << "for mimetype" << mimeType;
+        qCDebug(KTEPREVIEW,
+                "Found preferred kpart named %ls with library %ls for mimetype %ls",
+                qUtf16Printable(service.name()),
+                qUtf16Printable(service.fileName()),
+                qUtf16Printable(mimeType));
 
         // no interest in kparts which also just display the text (like katepart itself)
         // TODO: what about parts which also support importing plain text and turning into richer format
@@ -153,7 +157,7 @@ std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPar
         // or making a distinction between source editors/viewers and final editors/viewers?
         // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
         if (service.mimeTypes().contains(QLatin1String("text/plain"))) {
-            qCDebug(KTEPREVIEW) << "Blindly discarding preferred kpart as it also supports text/plain, to avoid useless plain/text preview.";
+            qCDebug(KTEPREVIEW, "Blindly discarding preferred kpart as it also supports text/plain, to avoid useless plain/text preview.");
             continue;
         }
 
@@ -217,7 +221,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
         m_currentServiceId = serviceId;
 
         if (service) {
-            qCDebug(KTEPREVIEW) << "Creating new kpart service instance.";
+            qCDebug(KTEPREVIEW, "Creating new kpart service instance.");
             m_partView = new KPartView(*service, this);
             const bool autoupdate = m_autoUpdateAction->isChecked();
             m_partView->setAutoUpdating(autoupdate);
@@ -241,7 +245,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
             m_partView = nullptr;
         }
     } else if (m_partView) {
-        qCDebug(KTEPREVIEW) << "Reusing active kpart service instance.";
+        qCDebug(KTEPREVIEW, "Reusing active kpart service instance.");
     }
 
     if (m_partView) {

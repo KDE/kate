@@ -165,7 +165,7 @@ void FormatterRunner::run(KTextEditor::Document *doc)
         });
     }
 
-    qCDebug(FORMATTING) << "executing" << name << args;
+    qCDebug(FORMATTING, "executing: %ls %ls", qUtf16Printable(name), qUtf16Printable(args.join(QStringLiteral(" "))));
     startHostProcess(*p, name, args);
 }
 
@@ -385,7 +385,7 @@ static Formatter makeFormatter(KTextEditor::Document *doc, const QJsonObject &co
 FormatterRunner *formatterForDoc(KTextEditor::Document *doc, const QJsonObject &config)
 {
     if (!doc) {
-        qWarning() << "Unexpected null doc";
+        qWarning("Unexpected null doc");
         return nullptr;
     }
 

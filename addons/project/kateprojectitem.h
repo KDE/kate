@@ -28,10 +28,10 @@ public:
      * We start with 1 to have 0 as invalid value!
      */
     enum Type {
-        LinkedProject = 1,
-        Project = 2,
-        Directory = 3,
-        File = 4
+        LinkedProject = QStandardItem::UserType + 1,
+        Project = QStandardItem::UserType + 2,
+        Directory = QStandardItem::UserType + 3,
+        File = QStandardItem::UserType + 4
     };
 
     /**
@@ -53,6 +53,11 @@ public:
      * deconstruct project
      */
     ~KateProjectItem() override;
+
+    int type() const override
+    {
+        return m_type;
+    }
 
     /**
      * Overwritten data method for on-demand icon creation and co.

@@ -94,7 +94,7 @@ QFont editorFont()
     if (KTextEditor::Editor::instance()) {
         return KTextEditor::Editor::instance()->font();
     }
-    qWarning() << __func__ << "Editor::instance() is null! falling back to system fixed font";
+    qWarning("%s Editor::instance() is null! falling back to system fixed font", __func__);
     return QFontDatabase::systemFont(QFontDatabase::FixedFont);
 }
 
@@ -143,7 +143,7 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
     });
 
     if (it == clients.end()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected unable to find toolviewmanager KXMLGUIClient, toolviewName: " << toolviewName;
+        qWarning("%s Unexpected unable to find toolviewmanager KXMLGUIClient, toolviewName: %ls", Q_FUNC_INFO, qUtf16Printable(toolviewName));
         return nullptr;
     }
     return (*it)->actionCollection()->action(prefix + toolviewName);

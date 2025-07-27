@@ -17,7 +17,7 @@ bool TargetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &
 {
     QModelIndex srcIndex = sourceModel()->index(sourceRow, 0, sourceParent);
     if (!srcIndex.isValid()) {
-        qDebug() << "srcIndex is invalid";
+        qDebug("srcIndex is invalid");
         return false;
     }
 

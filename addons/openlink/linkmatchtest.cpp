@@ -70,16 +70,19 @@ private Q_SLOTS:
 
         // output on failure
         if (ranges != expected) {
-            qDebug() << "Failed line:" << line;
-            qDebug().nospace() << "Actual: ";
+            qDebug("Failed line: %ls", qUtf16Printable(line));
+            QString dbg;
             for (auto [a, b, c] : ranges) {
-                qDebug() << a << b << c;
+                dbg.append(QStringLiteral("%1 %2 %3\n").arg(a).arg(b).arg(c));
             }
-            qDebug() << "----";
-            qDebug().nospace() << "Expected: ";
+            qDebug("Actual: %ls", qUtf16Printable(dbg));
+            qDebug("----");
+
+            dbg.clear();
             for (auto [a, b, c] : expected) {
-                qDebug() << a << b << c;
+                dbg.append(QStringLiteral("%1 %2 %3\n").arg(a).arg(b).arg(c));
             }
+            qDebug("Expected: %ls", qUtf16Printable(dbg));
         }
 
         QCOMPARE(ranges, expected);

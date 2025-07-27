@@ -534,7 +534,7 @@ static QString toRitchText(const QString &str)
 QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        qWarning() << "Invalid index" << index;
+        qWarning("Invalid index");
         return QVariant();
     }
 
@@ -675,7 +675,7 @@ bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, i
         return false;
     }
     if (!itemIndex.isValid()) {
-        qWarning() << "Invalid index";
+        qWarning("Invalid index");
         return false;
     }
 
@@ -923,7 +923,7 @@ QJsonObject TargetModel::projectTargetsToJsonObj(const QString &projectBaseDir) 
 {
     const auto idx = projectRootIndex();
     if (!idx.isValid()) {
-        qWarning() << "Unexpected invalid project root node";
+        qWarning("Unexpected invalid project root node");
         return {};
     }
     const auto node = modelToNodeInfo(idx);
@@ -953,7 +953,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QStrin
     QJsonParseError error;
     const QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &error);
     if (error.error != QJsonParseError::NoError) {
-        qWarning() << "Could not parse the provided Json";
+        qWarning("Could not parse the provided Json");
         return QModelIndex();
     }
     return insertAfter(modelIndex, doc.object(), projectBaseDir);
@@ -967,7 +967,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
         for (const auto &set : sets) {
             currentIndex = insertAfter(currentIndex, set.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
-                qWarning() << "Failed to insert targetset";
+                qWarning("Failed to insert targetset");
                 return QModelIndex();
             }
         }
@@ -980,7 +980,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
         for (const auto target : targets) {
             currentIndex = insertAfter(currentIndex, target.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
-                qWarning() << "Failed to insert target";
+                qWarning("Failed to insert target");
                 break;
             }
         }

@@ -169,7 +169,7 @@ static QDomElement addAndCreateElement(QDomDocument &doc, QDomElement &item, con
 
 void SnippetRepository::save()
 {
-    //     qDebug() << "*** called";
+    //     qDebug("*** called");
     /// based on the code from snippets_tng/lib/completionmodel.cpp
     ///@copyright 2009 Joseph Wenninger <jowenn@kde.org>
     /*

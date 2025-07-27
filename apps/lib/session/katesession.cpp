@@ -28,7 +28,7 @@ KateSession::KateSession(const QString &file, const QString &name, const bool an
     if (_config) { // copy data from config instead
         m_config.reset(_config->copyTo(m_file));
     } else if (!QFile::exists(m_file)) { // given file exists, use it to load some stuff
-        qCDebug(LOG_KATE) << "Warning, session file not found: " << m_file;
+        qCDebug(LOG_KATE, "Warning, session file not found: %ls", qUtf16Printable(m_file));
         return;
     }
 

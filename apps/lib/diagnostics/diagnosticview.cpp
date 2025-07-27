@@ -24,7 +24,6 @@
 #include <KXMLGUIFactory>
 #include <QClipboard>
 #include <QComboBox>
-#include <QDebug>
 #include <QFileInfo>
 #include <QGuiApplication>
 #include <QLineEdit>
@@ -547,7 +546,7 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
 void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
 {
     if (std::find(m_providers.begin(), m_providers.end(), provider) != m_providers.end()) {
-        qWarning() << provider << " already registred, ignoring!";
+        qWarning("already registred provider, ignoring!");
         return;
     }
 
@@ -703,13 +702,13 @@ void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const 
     }
     const auto diagModelIdx = data.value<DiagModelIndex>();
     if (diagModelIdx.parentRow == -1) {
-        qWarning() << "Unexpected -1 parentRow";
+        qWarning("Unexpected -1 parentRow");
         return;
     }
     const auto parentIdx = m_model.index(diagModelIdx.parentRow, 0);
     const auto idx = m_model.index(diagModelIdx.row, 0, parentIdx);
     if (!idx.isValid()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected invalid idx";
+        qWarning("%s, Unexpected invalid idx", Q_FUNC_INFO);
         return;
     }
     const auto item = m_model.itemFromIndex(idx);
@@ -795,7 +794,7 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
 {
     auto itemFromIndex = m_model.itemFromIndex(index);
     if (!itemFromIndex) {
-        qWarning() << "invalid item clicked";
+        qWarning("invalid item clicked");
         return;
     }
 
@@ -1119,12 +1118,12 @@ void DiagnosticsView::addMarks(KTextEditor::Document *doc, QStandardItem *item)
         break;
     }
     case DiagnosticSeverity::Unknown:
-        qWarning() << "Unknown diagnostic severity";
+        qWarning("Unknown diagnostic severity");
         return;
     }
 
     if (!attr) {
-        qWarning() << "Unexpected null attr";
+        qWarning("Unexpected null attr");
     }
 
     // highlight the range
@@ -1386,7 +1385,7 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEdit
             m_diagnosticsTree->scrollTo(idx, hint);
             m_diagnosticsTree->setCurrentIndex(idx);
         } else {
-            qWarning() << "Invalid idx for" << targetItem->text();
+            qWarning("Invalid idx for %ls", qUtf16Printable(targetItem->text()));
             Q_ASSERT(false);
         }
         m_diagnosticsTree->blockSignals(false);

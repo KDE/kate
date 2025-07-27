@@ -779,7 +779,7 @@ static QList<LSPLocation> parseDocumentLocation(const rapidjson::Value &result)
 static LSPCompletionItem parseCompletionItem(const rapidjson::Value &item)
 {
     if (!item.IsObject()) {
-        qCWarning(LSPCLIENT) << "Unexpected, completion item is not an object";
+        qCWarning(LSPCLIENT, "Unexpected, completion item is not an object");
         return {};
     }
 
@@ -847,7 +847,7 @@ static QList<LSPCompletionItem> parseDocumentCompletion(const rapidjson::Value &
     }
 
     if (!items->IsArray()) {
-        qCWarning(LSPCLIENT) << "Unexpected, completion items is not an array";
+        qCWarning(LSPCLIENT, "Unexpected, completion items is not an array");
         return ret;
     }
 
@@ -1439,8 +1439,8 @@ private:
         QJsonDocument json(ob);
         auto sjson = json.toJson();
 
-        qCInfo(LSPCLIENT) << "calling" << msg[QLatin1String(MEMBER_METHOD)].toString();
-        qCDebug(LSPCLIENT) << "sending message:\n" << QString::fromUtf8(sjson);
+        qCInfo(LSPCLIENT, "calling %ls", qUtf16Printable(msg[QLatin1String(MEMBER_METHOD)].toString()));
+        qCDebug(LSPCLIENT, "sending message:\n%s", sjson.constData());
         // some simple parsers expect length header first
         auto hdr = QStringLiteral(CONTENT_LENGTH ": %1\r\n").arg(sjson.length());
         // write is async, so no blocking wait occurs here
@@ -1456,7 +1456,7 @@ private:
         if (m_state == State::Running) {
             return write(msg, h, eh);
         } else {
-            qCWarning(LSPCLIENT) << "send for non-running server";
+            qCWarning(LSPCLIENT, "send for non-running server");
         }
         return RequestHandle();
     }
@@ -1470,7 +1470,7 @@ private:
         QByteArray &buffer = m_receive;
 
         while (true) {
-            qCDebug(LSPCLIENT) << "buffer size" << buffer.length();
+            qCDebug(LSPCLIENT, "buffer size %lld", buffer.length());
             auto header = QByteArray(CONTENT_LENGTH ":");
             int index = buffer.indexOf(header);
             if (index < 0) {
@@ -1492,14 +1492,14 @@ private:
             // FIXME perhaps detect if no reply for some time
             // then again possibly better left to user to restart in such case
             if (!ok) {
-                qCWarning(LSPCLIENT) << "invalid " CONTENT_LENGTH;
+                qCWarning(LSPCLIENT, "invalid %s", CONTENT_LENGTH);
                 // flush and try to carry on to some next header
                 buffer.remove(0, msgstart);
                 continue;
             }
             // sanity check to avoid extensive buffering
             if (length > 1 << 29) {
-                qCWarning(LSPCLIENT) << "excessive size";
+                qCWarning(LSPCLIENT, "excessive size");
                 buffer.clear();
                 continue;
             }
@@ -1509,8 +1509,8 @@ private:
             // now onto payload
             auto payload = buffer.mid(msgstart, length);
             buffer.remove(0, msgstart + length);
-            qCInfo(LSPCLIENT) << "got message payload size " << length;
-            qCDebug(LSPCLIENT) << "message payload:\n" << payload;
+            qCInfo(LSPCLIENT, "got message payload size %d", length);
+            qCDebug(LSPCLIENT, "message payload:\n%s", payload.constData());
 
             rapidjson::Document doc;
             doc.ParseInsitu(payload.data());
@@ -1563,7 +1563,7 @@ private:
                 }
             } else {
                 // could have been canceled
-                qCDebug(LSPCLIENT) << "unexpected reply id" << msgid;
+                qCDebug(LSPCLIENT, "unexpected reply id %d", msgid);
             }
         }
     }
@@ -2010,13 +2010,13 @@ public:
         }
         auto methodParamsIt = msg.FindMember(MEMBER_PARAMS);
         if (methodParamsIt == msg.MemberEnd()) {
-            qWarning() << "Ignore because no 'params' member in notification" << QByteArray(methodId->value.GetString());
+            qWarning("Ignore because no 'params' member in notification %s", methodId->value.GetString());
             return;
         }
 
         auto methodString = methodId->value.GetString();
         auto methodLen = methodId->value.GetStringLength();
-        std::string_view method(methodString, methodLen);
+        QByteArrayView method(methodString, methodLen);
 
         const bool isObj = methodParamsIt->value.IsObject();
         auto &obj = methodParamsIt->value;
@@ -2029,7 +2029,7 @@ public:
         } else if (isObj && method == "$/progress") {
             Q_EMIT q->workDoneProgress(parseWorkDone(obj));
         } else {
-            qCWarning(LSPCLIENT) << "discarding notification" << method.data() << ", params is object:" << isObj;
+            qCWarning(LSPCLIENT, "discarding notification %s, params is object: %d", method.data(), isObj);
         }
     }
 
@@ -2130,7 +2130,7 @@ public:
             Q_EMIT q->showMessageRequest(parseMessage(params), v, nullResponse, handled);
         } else {
             write(init_error(LSPErrorCode::MethodNotFound, method), nullptr, nullptr, msgId);
-            qCWarning(LSPCLIENT) << "discarding request" << method;
+            qCWarning(LSPCLIENT, "discarding request %ls", qUtf16Printable(method));
         }
     }
 };

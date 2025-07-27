@@ -32,7 +32,7 @@ static QJsonArray readVsCodeLaunchJson(const QString &filePath)
     rapidjson::Document doc;
     doc.Parse<rapidjson::kParseCommentsFlag>(data.constData());
     if (doc.HasParseError()) {
-        qWarning() << "Failed to parse .vscode/launch.json";
+        qWarning("Failed to parse .vscode/launch.json");
         return {};
     }
 

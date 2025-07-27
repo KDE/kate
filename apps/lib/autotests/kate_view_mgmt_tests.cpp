@@ -482,10 +482,8 @@ void KateViewManagementTests::testNewWindowHasSameGlobalOptions()
     QAction *act = mw->action(QStringLiteral("settings_show_tab_bar"));
     QVERIFY(act && act->isCheckable());
     const bool state = act->isChecked();
-    qDebug() << "v" << mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() << act->isChecked();
     act->setChecked(!state);
     QVERIFY(mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() == act->isChecked());
-    qDebug() << "v" << mw->viewManager()->activeViewSpace()->m_tabBar->isVisible() << act->isChecked();
 
     // create new window
     std::unique_ptr<KateMainWindow> w2(app->newMainWindow(KateApp::self()->sessionManager()->activeSession()->config()));

@@ -7,9 +7,6 @@
 
 #pragma once
 
-#include "kateproject.h"
-#include "kateprojectviewtree.h"
-
 #include <QTimer>
 
 class KLineEdit;
@@ -18,6 +15,8 @@ class BranchesDialog;
 class QToolButton;
 class QStackedWidget;
 class FileHistoryWidget;
+class KateProject;
+class KateProjectViewTree;
 
 /**
  * Class representing a view of a project.

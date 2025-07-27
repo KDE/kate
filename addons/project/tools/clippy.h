@@ -124,8 +124,6 @@ public:
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(line.toUtf8(), &err);
         if (err.error != QJsonParseError::NoError) {
-            qDebug() << "ERROR:" << err.errorString();
-            printf("%s\n", line.toUtf8().data());
             return {};
         }
 
@@ -138,13 +136,13 @@ public:
         QDir manifest_path = topLevelObj.value(u"manifest_path").toString();
         manifest_path.cdUp();
         if (!manifest_path.exists()) {
-            qDebug() << "invalid uri";
+            qDebug("invalid uri");
             return {};
         }
 
         const auto message = topLevelObj.value(QLatin1String("message")).toObject();
         if (message.isEmpty()) {
-            qDebug() << "invalid message";
+            qDebug("invalid message");
             return {};
         }
 

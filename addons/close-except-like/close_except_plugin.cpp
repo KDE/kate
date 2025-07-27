@@ -180,7 +180,7 @@ void CloseExceptPluginView::updateMenu()
 {
     const QList<KTextEditor::Document *> &docs = KTextEditor::Editor::instance()->application()->documents();
     if (docs.size() < 2) {
-        // qDebug() << "No docs r (or the only) opened right now --> disable menu";
+        // qDebug("No docs r (or the only) opened right now --> disable menu");
         m_except_menu->setEnabled(false);
         m_except_menu->addSeparator();
         m_like_menu->setEnabled(false);

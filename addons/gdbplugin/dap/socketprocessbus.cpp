@@ -72,7 +72,7 @@ bool SocketProcessBus::start(const settings::BusSettings &configuration)
 
 void SocketProcessBus::closeResources()
 {
-    qCDebug(DAPCLIENT) << "[BUS] closing resources";
+    qCDebug(DAPCLIENT, "[BUS] closing resources");
     if (socket.state() == QTcpSocket::SocketState::ConnectedState) {
         socket.close();
     }
@@ -95,7 +95,7 @@ void SocketProcessBus::onSocketStateChanged(const QAbstractSocket::SocketState &
 
     const bool socketError = socket.error() != QAbstractSocket::SocketError::UnknownSocketError;
     if (socketError)
-        qCDebug(DAPCLIENT) << socket.errorString();
+        qCDebug(DAPCLIENT, "%ls", qUtf16Printable(socket.errorString()));
 
     if (state == QTcpSocket::SocketState::ConnectedState) {
         m_connectionHandler.reset();
@@ -131,10 +131,10 @@ void SocketProcessBus::onProcessStateChanged(const QProcess::ProcessState &state
 
 void SocketProcessBus::connectSocket()
 {
-    qCDebug(DAPCLIENT) << "connect to socket INIT";
+    qCDebug(DAPCLIENT, "connect to socket INIT");
     if (!m_connectionHandler)
         return;
-    qCDebug(DAPCLIENT) << "connect to socket with handler";
+    qCDebug(DAPCLIENT, "connect to socket with handler");
     (*m_connectionHandler)();
 }
 
@@ -148,7 +148,7 @@ void SocketProcessBus::readError()
 {
     const auto &message = process.readAllStandardError();
     // process' standard error
-    qCDebug(DAPCLIENT) << "[BUS] STDERR << " << message;
+    qCDebug(DAPCLIENT, "[BUS] STDERR << %s", message.constData());
 
     Q_EMIT serverOutput(QString::fromLocal8Bit(message));
 }
@@ -156,7 +156,7 @@ void SocketProcessBus::readError()
 void SocketProcessBus::readOutput()
 {
     const auto &message = process.readAllStandardOutput();
-    qCDebug(DAPCLIENT) << "[BUS] STDOUT << " << message;
+    qCDebug(DAPCLIENT, "[BUS] STDOUT << %s", message.constData());
 
     Q_EMIT processOutput(QString::fromLocal8Bit(message));
 }

@@ -713,7 +713,7 @@ QUrl KateBuildView::docUrl()
 {
     KTextEditor::View *kv = m_win->activeView();
     if (!kv) {
-        qDebug() << "no KTextEditor::View";
+        qDebug("no KTextEditor::View");
         return QUrl();
     }
 
@@ -909,7 +909,7 @@ QString KateBuildView::findCompileCommands(const QString &file) const
 /******************************************************************/
 KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QString &compileCommandsFile) const
 {
-    qCDebug(KTEBUILD) << "parseCompileCommandsFile(): " << compileCommandsFile;
+    qCDebug(KTEBUILD, "%s: %ls", Q_FUNC_INFO, qUtf16Printable(compileCommandsFile));
     CompileCommands res;
     res.filename = compileCommandsFile;
     res.date = QFileInfo(compileCommandsFile).lastModified();
@@ -920,7 +920,7 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
     QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
 
     QJsonArray cmds = jsonDoc.array();
-    qCDebug(KTEBUILD) << "parseCompileCommandsFile(): got " << cmds.count() << " entries";
+    qCDebug(KTEBUILD, "%s: got %lld entries", Q_FUNC_INFO, cmds.count());
 
     for (int i = 0; i < cmds.count(); i++) {
         QJsonObject cmdObj = cmds.at(i).toObject();
@@ -928,7 +928,7 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
         const QString command = cmdObj.value(QStringLiteral("command")).toString();
         const QString dir = cmdObj.value(QStringLiteral("directory")).toString();
         if (dir.isEmpty() || command.isEmpty() || filename.isEmpty()) {
-            qCDebug(KTEBUILD) << "parseCompileCommandsFile(): got empty entry at " << i << " !";
+            qCDebug(KTEBUILD, "parseCompileCommandsFile(): got empty entry at %d !", i);
             continue; // should not happen
         }
         res.commands[filename] = {.workingDir = dir, .command = command};
@@ -940,16 +940,16 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
 /******************************************************************/
 void KateBuildView::slotCompileCurrentFile()
 {
-    qCDebug(KTEBUILD) << "slotCompileCurrentFile()";
+    qCDebug(KTEBUILD, "slotCompileCurrentFile()");
     KTextEditor::Document *currentDocument = m_win->activeView()->document();
     if (!currentDocument) {
-        qCDebug(KTEBUILD) << "slotCompileCurrentFile(): no file";
+        qCDebug(KTEBUILD, "slotCompileCurrentFile(): no file");
         return;
     }
 
     const QString currentFile = currentDocument->url().path();
     QString compileCommandsFile = findCompileCommands(currentFile);
-    qCDebug(KTEBUILD) << "slotCompileCurrentFile(): file: " << currentFile << " compile_commands: " << compileCommandsFile;
+    qCDebug(KTEBUILD, "slotCompileCurrentFile(): file: %ls compile_commands: %ls", qUtf16Printable(currentFile), qUtf16Printable(compileCommandsFile));
 
     if (compileCommandsFile.isEmpty()) {
         QString msg = i18n("Did not find a compile_commands.json for file \"%1\". ", currentFile);
@@ -958,7 +958,7 @@ void KateBuildView::slotCompileCurrentFile()
     }
 
     if ((m_parsedCompileCommands.filename != compileCommandsFile) || (m_parsedCompileCommands.date < QFileInfo(compileCommandsFile).lastModified())) {
-        qCDebug(KTEBUILD) << "slotCompileCurrentFile(): loading compile_commands.json";
+        qCDebug(KTEBUILD, "slotCompileCurrentFile(): loading compile_commands.json");
         m_parsedCompileCommands = parseCompileCommandsFile(compileCommandsFile);
     }
 
@@ -970,7 +970,7 @@ void KateBuildView::slotCompileCurrentFile()
         return;
     }
 
-    qCDebug(KTEBUILD) << "slotCompileCurrentFile(): starting build: " << it->second.command << " in " << it->second.workingDir;
+    qCDebug(KTEBUILD, "slotCompileCurrentFile(): starting build: %ls in %ls", qUtf16Printable(it->second.command), qUtf16Printable(it->second.workingDir));
     startProcess(it->second.workingDir, it->second.command);
 }
 
@@ -1190,7 +1190,7 @@ void KateBuildView::slotLoadCMakeTargets()
                                                            QStringLiteral("Select CMake Build Dir by Selecting the CMakeCache.txt"),
                                                            path,
                                                            QStringLiteral("CMake Cache file (CMakeCache.txt)"));
-    qCDebug(KTEBUILD) << "Loading cmake targets for file " << cmakeFile;
+    qCDebug(KTEBUILD, "Loading cmake targets for file %ls", qUtf16Printable(cmakeFile));
     if (cmakeFile.isEmpty()) {
         return;
     }
@@ -1229,14 +1229,14 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
     }
 
     if (!cmakeFA.haveKateReplyFiles()) {
-        qCDebug(KTEBUILD) << "Generating CMake reply files failed !";
+        qCDebug(KTEBUILD, "Generating CMake reply files failed !");
         sendError(
             i18n("Generating CMake File API reply files for build directory %1 failed (using %2) !", cmakeFA.getBuildDir(), cmakeFA.getCMakeExecutable()));
         return;
     }
 
     bool success = cmakeFA.readReplyFiles();
-    qCDebug(KTEBUILD) << "CMake reply success: " << success;
+    qCDebug(KTEBUILD, "CMake reply success: %d", success);
 
     QModelIndex rootIndex = m_targetsUi->targetsModel.projectRootIndex();
     for (const QString &config : cmakeFA.getConfigurations()) {
@@ -1304,7 +1304,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                          QString());
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();
-    qCDebug(KTEBUILD) << "Creating cmake targets, cmakeGui: " << cmakeGui;
+    qCDebug(KTEBUILD, "Creating cmake targets, cmakeGui: %ls", qUtf16Printable(cmakeGui));
     if (!cmakeGui.isEmpty()) {
         setIndex = m_targetsUi->targetsModel.addCommandAfter(
             setIndex,
@@ -1615,7 +1615,7 @@ void KateBuildView::slotUpdateTextBrowser()
                 scrollValuePx = stopLine * pxPerLine;
             } else {
                 // Fallback add one empty line
-                qDebug() << "Have no known line height";
+                qDebug("Have no known line height");
             }
         }
     }
@@ -1736,7 +1736,7 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(const QString &line)
     filename = QFileInfo(filename).filePath();
 #endif
 
-    // qDebug() << "File Name:"<<m_makeDir << filename << " msg:"<< msg;
+    // qDebug("File Name:")<<m_makeDir << filename << " msg:"<< msg;
     // add path to file
     if (QFile::exists(m_makeDir + QLatin1Char('/') + filename)) {
         filename = m_makeDir + QLatin1Char('/') + filename;
@@ -1946,7 +1946,7 @@ void KateBuildView::updateProjectTargets()
                 QJsonParseError error;
                 const QJsonDocument doc = QJsonDocument::fromJson(jsonString, &error);
                 if (error.error != QJsonParseError::NoError) {
-                    qWarning() << "Could not parse the provided Json";
+                    qWarning("Could not parse the provided Json");
                 } else {
                     root = doc.object();
                     QJsonArray targetSets = root[u"target_sets"_s].toArray();

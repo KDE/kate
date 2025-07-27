@@ -35,7 +35,7 @@ struct AppOutput::Private {
     {
         qDebug() << text;
         if (!outputArea) {
-            qWarning() << "Can't output text to nullptr";
+            qWarning("Can't output text to nullptr");
             return;
         }
 
@@ -77,19 +77,19 @@ AppOutput::AppOutput(QWidget *parent)
     const QString konsolePart = QStringLiteral("kf6/parts/konsolepart");
     KPluginFactory *factory = KPluginFactory::loadFactory(konsolePart).plugin;
     if (!factory) {
-        qDebug() << "could not load the konsolepart factory";
+        qDebug("could not load the konsolepart factory");
     } else {
         d->part = factory->create<KParts::ReadOnlyPart>(this);
     }
 
     TerminalInterface *t = nullptr;
     if (!d->part) {
-        qDebug() << "could not create a konsole part";
+        qDebug("could not create a konsole part");
     } else {
         t = qobject_cast<TerminalInterface *>(d->part);
     }
     if (!t) {
-        qDebug() << "Failed to cast the TerminalInterface";
+        qDebug("Failed to cast the TerminalInterface");
     }
 
     auto *layout = new QVBoxLayout(this);

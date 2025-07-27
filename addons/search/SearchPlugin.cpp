@@ -837,7 +837,7 @@ QStringList KatePluginSearchView::filterFiles(const QStringList &files) const
 void KatePluginSearchView::folderFileListChanged()
 {
     if (!m_searchingTab) {
-        qWarning() << "This is a bug";
+        qWarning("This is a bug");
         searchDone();
         return;
     }
@@ -974,7 +974,7 @@ void KatePluginSearchView::searchPlaceChanged()
 void KatePluginSearchView::matchesFound(const QUrl &url, const QList<KateSearchMatch> &searchMatches, KTextEditor::Document *doc)
 {
     if (!m_searchingTab) {
-        qWarning() << "BUG: A search tab should be set when search results arrive";
+        qWarning("BUG: A search tab should be set when search results arrive");
         return;
     }
 
@@ -1081,7 +1081,7 @@ void KatePluginSearchView::startSearch()
     }
     m_searchingTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_searchingTab) {
-        qWarning() << "BUG: Failed to find a search tab";
+        qWarning("BUG: Failed to find a search tab");
         return;
     }
 
@@ -1266,7 +1266,7 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     m_searchingTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!m_searchingTab) {
-        qWarning() << "BUG: Failed to find a search tab";
+        qWarning("BUG: Failed to find a search tab");
         return;
     }
 
@@ -1536,7 +1536,7 @@ void KatePluginSearchView::replaceChecked()
 {
     Results *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!res) {
-        qWarning() << "BUG: Results tab not found";
+        qWarning("BUG: Results tab not found");
         return;
     }
 
@@ -1741,7 +1741,7 @@ void KatePluginSearchView::expandResults()
 {
     Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!currentTab) {
-        qWarning() << "Results not found";
+        qWarning("Results not found");
         return;
     }
 
@@ -1761,7 +1761,7 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
 {
     Results *currentTab = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
     if (!currentTab) {
-        qDebug() << "No result widget available";
+        qDebug("No result widget available");
         return;
     }
 
@@ -1800,7 +1800,7 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
     }
 
     if (!doc) {
-        qWarning() << "Could not open" << url;
+        qWarning("Could not open %ls", qUtf16Printable(url.toString()));
         Q_ASSERT(false); // If we get here we have a bug
         return;
     }
@@ -1810,7 +1810,7 @@ void KatePluginSearchView::itemSelected(const QModelIndex &item)
 
     // any view active?
     if (!m_mainWindow->activeView()) {
-        qDebug() << "Could not activate view for:" << url;
+        qDebug("Could not activate view for: %ls", qUtf16Printable(url.toString()));
         Q_ASSERT(false);
         return;
     }
@@ -2134,7 +2134,7 @@ void KatePluginSearchView::tabCloseRequested(int index)
 {
     Results *res = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
     if (!res) {
-        qWarning() << "BUG: Result tab not found";
+        qWarning("BUG: Result tab not found");
         return;
     }
 
@@ -2173,7 +2173,7 @@ void KatePluginSearchView::resultTabChanged(int index)
 
     Results *res = qobject_cast<Results *>(m_ui.resultWidget->widget(index));
     if (!res) {
-        // qDebug() << "No res found";
+        // qDebug("No res found");
         return;
     }
 

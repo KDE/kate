@@ -433,7 +433,7 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
         int from = pos + 1;
         pos = out.indexOf('\n', from);
         if (pos == -1) {
-            qWarning() << "Git blame: Invalid blame output : No new line";
+            qWarning("Git blame: Invalid blame output : No new line");
             break;
         }
         pos++;
@@ -476,7 +476,7 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
         constexpr int authorTimeLen = sizeof("author-time ") - 1;
         pos = out.indexOf("author-time ", pos);
         if (pos == -1) {
-            qWarning() << "Invalid commit while git-blameing";
+            qWarning("Invalid commit while git-blameing");
             break;
         }
         pos += authorTimeLen;
@@ -527,14 +527,14 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     for (int i = 0; i < 4; ++i) {
         titleStart = stdOut.indexOf(QLatin1Char('\n'), titleStart + 1);
         if (titleStart < 0 || titleStart >= stdOut.size() - 1) {
-            qWarning() << "This is not a known git show format";
+            qWarning("This is not a known git show format");
             return;
         }
     }
 
     int titleEnd = stdOut.indexOf(QLatin1Char('\n'), titleStart + 1);
     if (titleEnd < 0 || titleEnd >= stdOut.size() - 1) {
-        qWarning() << "This is not a known git show format";
+        qWarning("This is not a known git show format");
         return;
     }
 
@@ -628,7 +628,6 @@ void KateGitBlamePluginView::onErrorOccurred(QProcess::ProcessError e)
 {
     auto process = qobject_cast<QProcess *>(sender());
     if (process) {
-        qWarning() << process->program() << process->arguments() << "Failed to start with error: " << e;
         sendMessage(QStringLiteral("%1 with args %2, error occurred: %3.").arg(process->program(), process->arguments().join(QLatin1Char(' '))).arg(e), false);
     }
 }

@@ -1058,7 +1058,7 @@ public:
         auto urlBarLayout = new QHBoxLayout(this);
         connect(m_ellipses, &QToolButton::clicked, this, [urlBarLayout, this] {
             if (m_currBaseDir.isEmpty()) {
-                qWarning() << "Unexpected empty base dir";
+                qWarning("Unexpected empty base dir");
                 return;
             }
             m_ellipses->hide();

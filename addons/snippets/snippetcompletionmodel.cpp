@@ -74,7 +74,7 @@ void SnippetCompletionModel::initData(KTextEditor::View *view)
     QString posMode = view->document()->highlightingModeAt(view->cursorPosition());
     QString docMode = view->document()->highlightingMode();
     if (docMode.isEmpty() && posMode.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "Unexpected empty modes";
+        qWarning("SnippetCompletionModel::initData Unexpected empty modes");
         return;
     }
 

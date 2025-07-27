@@ -1128,7 +1128,7 @@ void KateViewManager::moveViewToViewSpace(KateViewSpace *dest, KateViewSpace *sr
 
     QWidget *view = src->takeView(docOrWidget);
     if (!view) {
-        qWarning() << Q_FUNC_INFO << "Unexpected null view when trying to drag the view to a different viewspace" << docOrWidget.qobject();
+        qWarning("%s Unexpected null view when trying to drag the view to a different viewspace %p", Q_FUNC_INFO, (void *)docOrWidget.qobject());
         return;
     }
 

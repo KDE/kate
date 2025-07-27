@@ -122,7 +122,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
     }
 
     if (!db.isOpen()) {
-        qDebug() << "database connection is not open. trying to open it...";
+        qDebug("database connection is not open. trying to open it...");
 
         if (m_model->status(connection) == Connection::REQUIRE_PASSWORD) {
             QString password;

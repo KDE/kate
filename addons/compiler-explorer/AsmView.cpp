@@ -286,7 +286,7 @@ AsmView::AsmView(QWidget *parent)
 
         auto model = static_cast<AsmViewModel *>(this->model());
         if (!model) {
-            qWarning() << Q_FUNC_INFO << "Unexpected null model!";
+            qWarning("%s Unexpected null model!", Q_FUNC_INFO);
             return;
         }
         model->setFont(Utils::editorFont());

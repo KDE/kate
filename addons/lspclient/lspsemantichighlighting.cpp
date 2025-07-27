@@ -199,7 +199,7 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
     auto &data = semanticData.tokens;
 
     if (data.size() % 5 != 0) {
-        qWarning() << "Bad data for doc: " << doc->url() << " skipping";
+        qWarning("Bad data for doc: %ls skipping", qUtf16Printable(doc->url().toString()));
         return;
     }
 

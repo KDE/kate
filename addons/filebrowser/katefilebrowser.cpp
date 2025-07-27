@@ -218,7 +218,7 @@ KDirOperator::Action KateFileBrowser::actionFromName(const QString &name)
     } else if (name == QLatin1String("show hidden")) {
         return KDirOperator::ShowHiddenFiles;
     } else {
-        qWarning() << "Unknown KDirOperator action:" << name;
+        qWarning("Unknown KDirOperator action:", qUtf16Printable(name));
     }
 
     return {};

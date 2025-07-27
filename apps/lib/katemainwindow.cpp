@@ -1559,7 +1559,7 @@ QObject *KateMainWindow::pluginView(const QString &name)
 bool KateMainWindow::addWidget(QWidget *widget)
 {
     if (!widget) {
-        qWarning() << Q_FUNC_INFO << "Unexpected null widget!";
+        qWarning("%s Unexpected null widget!", Q_FUNC_INFO);
         return false;
     }
 

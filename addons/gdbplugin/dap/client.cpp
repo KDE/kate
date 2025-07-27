@@ -98,7 +98,7 @@ void Client::processProtocolMessage(const QJsonObject &msg)
     } else if (DAP_REQUEST == type) {
         processReverseRequest(msg);
     } else {
-        qCWarning(DAPCLIENT) << "unknown, empty or unexpected ProtocolMessage::" << DAP_TYPE << " (" << type << ")";
+        qCWarning(DAPCLIENT, "unknown, empty or unexpected ProtocolMessage::%ls (%ls)", qUtf16Printable(DAP_TYPE), qUtf16Printable(type));
     }
 }
 
@@ -120,7 +120,7 @@ void Client::processResponse(const QJsonObject &msg)
     const Response response(msg);
     // check sequence
     if ((response.request_seq < 0) || !m_requests.contains(response.request_seq)) {
-        qCWarning(DAPCLIENT) << "unexpected requested seq in response";
+        qCWarning(DAPCLIENT, "unexpected requested seq in response");
         return;
     }
 
@@ -128,10 +128,10 @@ void Client::processResponse(const QJsonObject &msg)
 
     // check response
     if (response.command != request.command) {
-        qCWarning(DAPCLIENT) << "unexpected command in response: " << response.command << " (expected: " << request.command << ")";
+        qCWarning(DAPCLIENT, "unexpected command in response: %ls (expected: %ls)", qUtf16Printable(response.command), qUtf16Printable(request.command));
     }
     if (response.isCancelled()) {
-        qCWarning(DAPCLIENT) << "request cancelled: " << response.command;
+        qCWarning(DAPCLIENT, "request cancelled: ", qUtf16Printable(response.command));
     }
 
     if (!response.success) {
@@ -153,15 +153,15 @@ void Client::processReverseRequest(const QJsonObject &msg)
 void Client::processResponseInitialize(const Response &response, const QJsonValue &)
 {
     if (m_state != State::Initializing) {
-        qCWarning(DAPCLIENT) << "unexpected initialize response";
+        qCWarning(DAPCLIENT, "unexpected initialize response");
         setState(State::None);
         return;
     }
 
     if (!response.success && response.isCancelled()) {
-        qCWarning(DAPCLIENT) << "InitializeResponse error: " << response.message;
+        qCWarning(DAPCLIENT, "InitializeResponse error: ", qUtf16Printable(response.message));
         if (response.errorBody) {
-            qCWarning(DAPCLIENT) << "error" << response.errorBody->id << response.errorBody->format;
+            qCWarning(DAPCLIENT, "error %d %ls", response.errorBody->id, qUtf16Printable(response.errorBody->format));
         }
         setState(State::None);
         return;
@@ -181,7 +181,7 @@ void Client::processEvent(const QJsonObject &msg)
 
     if (QStringLiteral("initialized") == event) {
         if ((m_state != State::Initializing)) {
-            qCWarning(DAPCLIENT) << "unexpected initialized event";
+            qCWarning(DAPCLIENT, "unexpected initialized event");
             return;
         }
         setState(State::Initialized);
@@ -205,7 +205,7 @@ void Client::processEvent(const QJsonObject &msg)
     } else if (DAP_BREAKPOINT == event) {
         Q_EMIT breakpointChanged(BreakpointEvent(body));
     } else {
-        qCWarning(DAPCLIENT) << "unsupported event: " << event;
+        qCWarning(DAPCLIENT, "unsupported event: %ls", qUtf16Printable(event));
     }
 }
 
@@ -425,7 +425,7 @@ void Client::write(const QJsonObject &msg)
 {
     const auto payload = QJsonDocument(msg).toJson();
 
-    qCDebug(DAPCLIENT) << "--> " << msg;
+    qCDebug(DAPCLIENT, " --> %s", payload.data());
 
     // write header
     m_bus->write(DAP_TPL_HEADER_FIELD.arg(QLatin1String(DAP_CONTENT_LENGTH)).arg(payload.size()).toLatin1());
@@ -488,7 +488,7 @@ void Client::requestInitialize()
 void Client::requestConfigurationDone()
 {
     if (m_state != State::Initialized) {
-        qCWarning(DAPCLIENT) << "trying to configure in an unexpected status";
+        qCWarning(DAPCLIENT, "trying to configure in an unexpected status");
         return;
     }
 
@@ -677,7 +677,7 @@ void Client::requestGotoTargets(const Source &source, const int line, const std:
 void Client::requestLaunchCommand()
 {
     if (m_state != State::Initializing) {
-        qCWarning(DAPCLIENT) << "trying to launch in an unexpected state";
+        qCWarning(DAPCLIENT, "trying to launch in an unexpected state");
         return;
     }
     if (m_launchCommand.isNull() || m_launchCommand.isEmpty())
@@ -717,7 +717,7 @@ QString Client::extractCommand(const QJsonObject &launchRequest)
 {
     const auto &command = launchRequest[DAP_COMMAND].toString();
     if ((command != DAP_LAUNCH) && (command != DAP_ATTACH)) {
-        qCWarning(DAPCLIENT) << "unsupported request command: " << command;
+        qCWarning(DAPCLIENT, "unsupported request command: ", qUtf16Printable(command));
         return QString();
     }
     return command;
@@ -745,11 +745,11 @@ void Client::read()
         QJsonParseError jsonError;
         const auto message = QJsonDocument::fromJson(data, &jsonError);
         if ((jsonError.error != QJsonParseError::NoError) || message.isNull() || !message.isObject()) {
-            qCWarning(DAPCLIENT) << "JSON bad format: " << jsonError.errorString();
+            qCWarning(DAPCLIENT, "JSON bad format: %ls", qUtf16Printable(jsonError.errorString()));
             continue;
         }
 
-        qDebug(DAPCLIENT) << "<-- " << message;
+        qDebug(DAPCLIENT, "<-- %s", message.toJson().constData());
 
         // process message
         processProtocolMessage(message.object());
@@ -785,7 +785,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
         if (header.size() == 0) {
             if (length < 0) {
                 // unexpected end of header
-                qCWarning(DAPCLIENT) << "unexpected end of header block";
+                qCWarning(DAPCLIENT, "unexpected end of header block");
                 discardExploredBuffer();
                 continue;
             }
@@ -795,7 +795,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
         // parse field
         const int sep = header.indexOf(":");
         if (sep < 0) {
-            qCWarning(DAPCLIENT) << "cannot parse header field: " << header;
+            qCWarning(DAPCLIENT, "cannot parse header field: %s", header.constData());
             discardExploredBuffer();
             continue; // CONTINUE HEADER
         }
@@ -805,7 +805,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
             bool ok = false;
             length = header.mid(sep + 1, header.size() - sep).toInt(&ok);
             if (!ok) {
-                qCWarning(DAPCLIENT) << "invalid value: " << header;
+                qCWarning(DAPCLIENT, "invalid value: ", header.constData());
                 discardExploredBuffer();
                 continue; // CONTINUE HEADER
             }
@@ -825,7 +825,7 @@ void Client::start()
     m_launched = false;
     m_configured = false;
     if (m_state != State::None) {
-        qCWarning(DAPCLIENT) << "trying to re-start has no effect";
+        qCWarning(DAPCLIENT, "trying to re-start has no effect");
         return;
     }
     requestInitialize();

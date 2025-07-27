@@ -137,7 +137,6 @@ void StashDialog::stash(bool keepIndex, bool includeUntracked)
     auto git = gitp(args);
     connect(git, &QProcess::finished, this, [this, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
-            qWarning() << git->errorString();
             Q_EMIT message(i18n("Failed to stash changes %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
             Q_EMIT message(i18n("Changes stashed successfully."), false);

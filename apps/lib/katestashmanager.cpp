@@ -60,7 +60,7 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
 
             // save the current document changes to stash
             if (!tmpDoc->saveAs(QUrl::fromLocalFile(stashedFile))) {
-                qCWarning(LOG_KATE) << "Could not write to stash file" << stashedFile;
+                qCWarning(LOG_KATE, "Could not write to stash file %ls", qUtf16Printable(stashedFile));
                 continue;
             }
 
@@ -106,7 +106,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
     if (!(kconfig.hasKey("stashedFile"))) {
         return;
     }
-    qCDebug(LOG_KATE) << "popping stashed document" << doc->url();
+    qCDebug(LOG_KATE, "popping stashed document %ls", qUtf16Printable(doc->url().toString()));
 
     // read metadata
     const auto stashedFile = kconfig.readEntry("stashedFile");
@@ -128,7 +128,7 @@ void KateStashManager::popDocument(KTextEditor::Document *doc, const KConfigGrou
 
         // clean stashed file
         if (!QFile::remove(stashedFile)) {
-            qCWarning(LOG_KATE) << "Could not remove stash file" << stashedFile;
+            qCWarning(LOG_KATE, "Could not remove stash file %ls", qUtf16Printable(stashedFile));
         }
     }
 }

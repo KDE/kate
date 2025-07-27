@@ -83,7 +83,7 @@ void MatchModel::setSearchState(MatchModel::SearchState searchState)
             } else if (m_matchFiles.at(i).doc) {
                 m_matchUnsavedFileIndexHash[m_matchFiles.at(i).doc] = i;
             } else {
-                qWarning() << "Trying to setSearchState for invalid doc";
+                qWarning("Trying to setSearchState for invalid doc");
                 Q_UNREACHABLE();
             }
         }
@@ -156,7 +156,7 @@ void MatchModel::addMatches(const QUrl &fileUrl, const QList<KateSearchMatch> &s
         } else if (doc) {
             m_matchUnsavedFileIndexHash.insert(doc, fileIndex);
         } else {
-            qWarning() << "Trying to insert invalid match, url is invalid, doc is null";
+            qWarning("Trying to insert invalid match, url is invalid, doc is null");
             Q_UNREACHABLE();
         }
 
@@ -184,7 +184,7 @@ void MatchModel::setMatchColors(const QString &foreground, const QString &backgr
 KateSearchMatch *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
 {
     if (!isMatch(matchIndex)) {
-        qDebug() << "Not a valid match index";
+        qDebug("Not a valid match index");
         return nullptr;
     }
 
@@ -197,7 +197,7 @@ KateSearchMatch *MatchModel::matchFromIndex(const QModelIndex &matchIndex)
 KTextEditor::Range MatchModel::matchRange(const QModelIndex &matchIndex) const
 {
     if (!isMatch(matchIndex)) {
-        qDebug() << "Not a valid match index";
+        qDebug("Not a valid match index");
         return KTextEditor::Range();
     }
     int fileRow = matchIndex.internalId();
@@ -307,20 +307,20 @@ QRegularExpressionMatch MatchModel::rangeTextMatches(const QString &rangeText, Q
 bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
 {
     if (!doc) {
-        qDebug() << "No doc";
+        qDebug("No doc");
         return false;
     }
 
     Match *matchItem = matchFromIndex(matchIndex);
 
     if (!matchItem) {
-        qDebug() << "Not a valid index";
+        qDebug("Not a valid index");
         return false;
     }
 
     // don't replace an already replaced item
     if (!matchItem->replaceText.isEmpty()) {
-        // qDebug() << "not replacing already replaced item";
+        // qDebug("not replacing already replaced item");
         return false;
     }
 
@@ -352,17 +352,17 @@ bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &mat
 bool MatchModel::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
 {
     if (!doc) {
-        qDebug() << "No doc";
+        qDebug("No doc");
         return false;
     }
 
     if (!isMatch(matchIndex)) {
-        qDebug() << "This should not be possible";
+        qDebug("This should not be possible");
         return false;
     }
 
     if (matchIndex.internalId() == InfoItemId || matchIndex.internalId() == FileItemId) {
-        qDebug() << "You cannot replace a file or the info item";
+        qDebug("You cannot replace a file or the info item");
         return false;
     }
 
@@ -1000,7 +1000,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
             return fileToPlainText(m_matchFiles[fileRow]);
         case LastMatchedRangeInFileRole:
             if (m_matchFiles[fileRow].matches.isEmpty()) {
-                qWarning() << "Unexpected empty matches for file!";
+                qWarning("Unexpected empty matches for file!");
                 return {};
             }
             return QVariant::fromValue(m_matchFiles[fileRow].matches.constLast().range);
@@ -1040,11 +1040,11 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         case MatchItemRole:
             return QVariant::fromValue(match);
         case LastMatchedRangeInFileRole:
-            qWarning() << "Requested last matched line from a match item instead of file item1";
+            qWarning("Requested last matched line from a match item instead of file item1");
             return {};
         }
     } else {
-        qDebug() << "bad index";
+        qDebug("bad index");
         return QVariant();
     }
 

@@ -24,7 +24,7 @@ static TextHintMarkupKind toKateMarkupKind(LSPMarkupKind kind)
     case LSPMarkupKind::MarkDown:
         return TextHintMarkupKind::MarkDown;
     }
-    qWarning() << Q_FUNC_INFO << "Unknown markup kind" << (int)kind;
+    qWarning("%s Unknown markup kind %d", Q_FUNC_INFO, (int)kind);
     return TextHintMarkupKind::PlainText;
 }
 

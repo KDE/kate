@@ -1099,7 +1099,7 @@ bool Sidebar::eventFilter(QObject *obj, QEvent *ev)
         auto *e = static_cast<QContextMenuEvent *>(ev);
         auto *bt = qobject_cast<KMultiTabBarTab *>(obj);
         if (bt) {
-            // qCDebug(LOG_KATE) << "Request for popup";
+            // qCDebug(LOG_KATE, "Request for popup");
 
             m_popupButton = bt->id();
 
@@ -1886,7 +1886,7 @@ KTextEditor::MainWindow::ToolViewPosition MainWindow::toolViewPosition(QWidget *
     if (auto tv = qobject_cast<ToolView *>(toolview)) {
         return static_cast<KTextEditor::MainWindow::ToolViewPosition>(tv->sidebar()->position());
     }
-    qCWarning(LOG_KATE) << "Invalid, not a toolview" << toolview;
+    qCWarning(LOG_KATE, "Invalid, not a toolview");
     return KTextEditor::MainWindow::ToolViewPosition::Bottom;
 }
 

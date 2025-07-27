@@ -248,7 +248,7 @@ void KateProject::renameFile(const QString &newName, const QString &oldName)
 {
     auto it = m_file2Item->find(oldName);
     if (it == m_file2Item->end()) {
-        qWarning() << "renameFile() File not found, new: " << newName << "old: " << oldName;
+        qWarning("renameFile() File not found, new: %ls old: %ls", qUtf16Printable(newName), qUtf16Printable(oldName));
         return;
     }
     (*m_file2Item)[newName] = it.value();
@@ -259,7 +259,7 @@ void KateProject::removeFile(const QString &file)
 {
     auto it = m_file2Item->find(file);
     if (it == m_file2Item->end()) {
-        qWarning() << "removeFile() File not found: " << file;
+        qWarning("removeFile() File not found: %ls", qUtf16Printable(file));
         return;
     }
     m_file2Item->erase(it);

@@ -27,10 +27,10 @@ QCMakeFileApi::QCMakeFileApi(const QString &cmakeCacheFile, bool withSourceFiles
     , m_buildDir()
     , m_withSourceFiles(withSourceFiles)
 {
-    qCDebug(KTEBUILD) << "QCMakeFileApi cachefile: " << cmakeCacheFile;
+    qCDebug(KTEBUILD, "QCMakeFileApi cachefile: %ls", qUtf16Printable(cmakeCacheFile));
     QFileInfo fi(cmakeCacheFile);
     if (fi.isDir()) {
-        qCDebug(KTEBUILD) << "isDir filepath: " << fi.absoluteFilePath() << " path " << fi.absolutePath();
+        qCDebug(KTEBUILD, "isDir filepath: %ls path %ls", qUtf16Printable(fi.absoluteFilePath()), qUtf16Printable(fi.absolutePath()));
         m_buildDir = fi.absoluteFilePath();
         m_cacheFile = m_buildDir + QStringLiteral("/CMakeCache.txt");
 
@@ -39,7 +39,7 @@ QCMakeFileApi::QCMakeFileApi(const QString &cmakeCacheFile, bool withSourceFiles
         m_cacheFile = fi.absoluteFilePath();
     }
 
-    qCDebug(KTEBUILD) << "builddir: " << m_buildDir << " cachefile: " << m_cacheFile;
+    qCDebug(KTEBUILD, "builddir: %ls cachefile %ls", qUtf16Printable(m_buildDir), qUtf16Printable(m_cacheFile));
 
     // get cmake name from file, ensure in any case we compute some absolute name, beside inside containers
     m_cmakeExecutable = safeExecutableName(findCMakeExecutable(m_cacheFile));
@@ -126,17 +126,17 @@ bool QCMakeFileApi::runCMake()
 
 void QCMakeFileApi::handleStarted()
 {
-    qCDebug(KTEBUILD) << "CMake process started !";
+    qCDebug(KTEBUILD, "CMake process started !");
 }
 
 void QCMakeFileApi::handleStateChanged(QProcess::ProcessState newState)
 {
-    qCDebug(KTEBUILD) << "CMake process state changed: " << (int)newState << "!";
+    qCDebug(KTEBUILD, "CMake process state changed: %d", (int)newState);
 }
 
 void QCMakeFileApi::handleError()
 {
-    qCDebug(KTEBUILD) << "CMakeFileAPI QProcess error !";
+    qCDebug(KTEBUILD, "CMakeFileAPI QProcess error !");
     m_cmakeSuccess = false;
 }
 
@@ -167,7 +167,7 @@ QJsonObject QCMakeFileApi::readJsonFile(const QString &filename) const
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
 
     QString absFileName = replyDir.absoluteFilePath(filename);
-    qCDebug(KTEBUILD) << "Reading file: " << absFileName;
+    qCDebug(KTEBUILD, "Reading file: ", qUtf16Printable(absFileName));
 
     QFile file(absFileName);
     file.open(QIODevice::ReadOnly);
@@ -220,7 +220,7 @@ bool QCMakeFileApi::readReplyFiles()
     m_targets.clear();
 
     QString indexFile = replyDir.absoluteFilePath(indexFiles.at(0));
-    qCDebug(KTEBUILD) << "CMakeFileAPI reply index file: " << indexFile;
+    qCDebug(KTEBUILD, "CMakeFileAPI reply index file: %ls", qUtf16Printable(indexFile));
 
     QJsonObject docObj = readJsonFile(indexFile);
     // qWarning() << "docObj: " << docObj;
@@ -252,14 +252,14 @@ bool QCMakeFileApi::readReplyFiles()
 
     if (m_withSourceFiles) {
         QJsonArray cmakeFiles = cmakeFilesDoc.value(QStringLiteral("inputs")).toArray();
-        qCDebug(KTEBUILD) << "Found " << cmakeFiles.count() << " files";
+        qCDebug(KTEBUILD, "Found %lld files", cmakeFiles.count());
         for (int i = 0; i < cmakeFiles.count(); i++) {
             QJsonObject fileObj = cmakeFiles.at(i).toObject();
             bool isCMake = fileObj.value(QStringLiteral("isCMake")).toBool();
             bool isGenerated = fileObj.value(QStringLiteral("isGenerated")).toBool();
             QString filename = fileObj.value(QStringLiteral("path")).toString();
             if ((isCMake == false) && (isGenerated == false)) {
-                qCDebug(KTEBUILD) << "#" << i << ": " << filename << " cmake: " << isCMake << " gen: " << isGenerated;
+                qCDebug(KTEBUILD, "# %d : %ls cmake: %d gen: %d", i, qUtf16Printable(filename), isCMake, isGenerated);
                 m_sourceFiles.insert(filename);
             }
         }
@@ -276,7 +276,7 @@ bool QCMakeFileApi::readReplyFiles()
         if (configName.isEmpty()) {
             configName = QStringLiteral("NONE");
         }
-        qCDebug(KTEBUILD) << "config: " << configName;
+        qCDebug(KTEBUILD, "config: %ls", qUtf16Printable(configName));
         m_configs.push_back(configName);
         QJsonArray projects = configObj.value(QStringLiteral("projects")).toArray();
         for (int projIdx = 0; projIdx < projects.count(); projIdx++) {
@@ -285,7 +285,7 @@ bool QCMakeFileApi::readReplyFiles()
             if (!projectName.isEmpty()) {
                 // this will usually be the first one. Should we check that this
                 // one contains directoryIndex 0 ?
-                qCDebug(KTEBUILD) << "projectname: " << projectName;
+                qCDebug(KTEBUILD, "projectname: %ls", qUtf16Printable(projectName));
                 m_projectName = projectName;
                 break;
             }

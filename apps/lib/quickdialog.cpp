@@ -7,7 +7,6 @@
 #include "drawing_utils.h"
 
 #include <QCoreApplication>
-#include <QDebug>
 #include <QGraphicsDropShadowEffect>
 #include <QKeyEvent>
 #include <QMainWindow>
@@ -219,7 +218,7 @@ void HUDDialog::setStringList(const QStringList &strList)
     if (auto strModel = qobject_cast<QStringListModel *>(m_proxy->sourceModel())) {
         strModel->setStringList(strList);
     } else {
-        qWarning() << "You are using a custom model: " << m_model.data() << ", setStringList has no effect";
+        qWarning("You are using a custom model: %s(%p), setStringList has no effect", m_model->metaObject()->className(), (void *)m_model.data());
     }
 }
 

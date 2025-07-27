@@ -118,7 +118,7 @@ protected:
             }
         }
         //         if (res && pattern == QStringLiteral(""))
-        //             qDebug() << score << ", " << name << "==================== END\n";
+        //             qDebug("%d, %ls==================== END\n", score, qUtf16Printable(name));
 
         sm->setScoreForIndex(sourceRow, score);
 

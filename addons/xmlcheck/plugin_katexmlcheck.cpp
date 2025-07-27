@@ -130,7 +130,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         return;
     }
 
-    qDebug() << "slotProcExited()";
+    qDebug("slotProcExited()");
     QApplication::restoreOverrideCursor();
     delete m_tmp_file;
     QString proc_stderr = QString::fromLocal8Bit(m_proc.readAllStandardError());
@@ -210,12 +210,12 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 
 void PluginKateXMLCheckView::slotUpdate()
 {
-    qDebug() << "slotUpdate() (not implemented yet)";
+    qDebug("slotUpdate() (not implemented yet)");
 }
 
 bool PluginKateXMLCheckView::slotValidate()
 {
-    qDebug() << "slotValidate()";
+    qDebug("slotValidate()");
 
     m_validating = false;
     m_dtdname = QLatin1String("");

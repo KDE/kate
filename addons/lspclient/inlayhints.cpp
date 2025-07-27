@@ -97,7 +97,10 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
     const auto &hints = this->hints();
     auto it = binaryFind(hints, note.position());
     if (it == hints.end()) {
-        qWarning() << Q_FUNC_INFO << note.view()->document()->documentName() << "failed to find note in m_hints, Note.position:" << note.position();
+        qWarning("%s %ls failed to find note in m_hints, Note.position: %ls",
+                 Q_FUNC_INFO,
+                 qUtf16Printable(note.view()->document()->documentName()),
+                 qUtf16Printable(note.position().toString()));
         return {};
     }
 

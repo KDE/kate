@@ -475,7 +475,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
             }
             c.block().setUserData(new BlockData(token));
         } else {
-            qWarning() << Q_FUNC_INFO << "unable to find valid block!";
+            qWarning("%s unable to find valid block!", Q_FUNC_INFO);
             m_textEdit->append(meta);
             auto data = new BlockData(token);
             m_textEdit->document()->lastBlock().setUserData(data);

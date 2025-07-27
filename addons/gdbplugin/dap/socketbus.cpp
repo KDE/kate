@@ -54,7 +54,7 @@ void SocketBus::onStateChanged(QAbstractSocket::SocketState socketState)
     } else {
         const bool errorOccurred = socket.error() != QAbstractSocket::SocketError::UnknownSocketError;
         if (errorOccurred) {
-            qWarning() << "Socket Error: " << socket.errorString();
+            qWarning("Socket Error: %ls", qUtf16Printable(socket.errorString()));
             Q_EMIT error(socket.errorString());
         }
         if (errorOccurred || (state() == State::Running)) {

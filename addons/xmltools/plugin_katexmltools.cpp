@@ -112,7 +112,7 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     , m_mainWindow(mainWin)
     , m_model(this)
 {
-    // qDebug() << "PluginKateXMLTools constructor called";
+    // qDebug("PluginKateXMLTools constructor called");
 
     KXMLGUIClient::setComponentName(QStringLiteral("katexmltools"), i18n("XML Tools"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -141,7 +141,7 @@ PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
     m_mainWindow->guiFactory()->removeClient(this);
 
-    // qDebug() << "xml tools destructor 1...";
+    // qDebug("xml tools destructor 1...");
     // TODO: unregister the model
 }
 
@@ -187,7 +187,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     Q_UNUSED(range)
     Q_UNUSED(invocationType)
 
-    qDebug() << "xml tools completionInvoked";
+    qDebug("xml tools completionInvoked");
 
     KTextEditor::Document *doc = kv->document();
     if (!m_docDtds[doc])
@@ -211,17 +211,17 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     QString secondLeftCh = lineStr.mid(col - 2, 1);
 
     if (leftCh == QLatin1String("&")) {
-        qDebug() << "Getting entities";
+        qDebug("Getting entities");
         m_allowed = m_docDtds[doc]->entities(QString());
         m_mode = entities;
     } else if (leftCh == QLatin1String("<")) {
-        qDebug() << "*outside tag -> get elements";
+        qDebug("*outside tag -> get elements");
         QString parentElement = getParentElement(*kv, 1);
         qDebug() << "parent: " << parentElement;
         m_allowed = m_docDtds[doc]->allowedElements(parentElement);
         m_mode = elements;
     } else if (leftCh == QLatin1String("/") && secondLeftCh == QLatin1String("<")) {
-        qDebug() << "*close parent element";
+        qDebug("*close parent element");
         QString parentElement = getParentElement(*kv, 2);
 
         if (!parentElement.isEmpty()) {
@@ -241,7 +241,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
         qDebug() << "Attr: " << currentAttribute;
 
         if (!currentElement.isEmpty() && !currentAttribute.isEmpty()) {
-            qDebug() << "*inside attribute -> get attribute values";
+            qDebug("*inside attribute -> get attribute values");
             m_allowed = m_docDtds[doc]->attributeValues(currentElement, currentAttribute);
             if (m_allowed.count() == 1
                 && (m_allowed[0] == QLatin1String("CDATA") || m_allowed[0] == QLatin1String("ID") || m_allowed[0] == QLatin1String("IDREF")
@@ -253,7 +253,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
                 m_mode = attributevalues;
             }
         } else if (!currentElement.isEmpty()) {
-            qDebug() << "*inside tag -> get attributes";
+            qDebug("*inside tag -> get attributes");
             m_allowed = m_docDtds[doc]->allowedAttributes(currentElement);
             m_mode = attributes;
         }
@@ -370,7 +370,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
 
     KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
     if (!kv) {
-        qDebug() << "Warning: no KTextEditor::View";
+        qDebug("Warning: no KTextEditor::View");
         return;
     }
 
@@ -429,7 +429,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         filename = QStringLiteral("xslt-1.0.dtd.xml");
         doctype = QStringLiteral("XSLT 1.0");
     } else {
-        qDebug() << "No doctype found";
+        qDebug("No doctype found");
     }
 
     QUrl url;
@@ -525,7 +525,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
 
     KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
     if (!kv) {
-        qDebug() << "Warning: no KTextEditor::View";
+        qDebug("Warning: no KTextEditor::View");
         return;
     }
 
@@ -599,7 +599,7 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
 
     KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
     if (!kv) {
-        qDebug() << "Warning: no KTextEditor::View";
+        qDebug("Warning: no KTextEditor::View");
         return;
     }
     QString parentElement = getParentElement(*kv, 0);

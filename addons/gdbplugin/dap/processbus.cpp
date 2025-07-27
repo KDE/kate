@@ -95,14 +95,14 @@ void ProcessBus::onStateChanged(QProcess::ProcessState state)
 
 void ProcessBus::onError(QProcess::ProcessError processError)
 {
-    qCWarning(DAPCLIENT) << "PROCESS ERROR: " << processError << " (" << process.errorString() << ")";
+    qCWarning(DAPCLIENT, "PROCESS ERROR: %d (%ls)", (int)processError, qUtf16Printable(process.errorString()));
     Q_EMIT error(process.errorString());
 }
 
 void ProcessBus::onFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     if (exitStatus == QProcess::ExitStatus::CrashExit) {
-        qCWarning(DAPCLIENT) << "ABNORMAL PROCESS EXIT: code " << exitCode;
+        qCWarning(DAPCLIENT, "ABNORMAL PROCESS EXIT: code %d", exitCode);
         Q_EMIT error(QStringLiteral("process exited with code %1").arg(exitCode));
     }
 }
@@ -111,7 +111,7 @@ void ProcessBus::readError()
 {
     const auto &message = process.readAllStandardError();
     // process' standard error
-    qCDebug(DAPCLIENT) << "[BUS] STDERR << " << message;
+    qCDebug(DAPCLIENT, "[BUS] STDERR << %s", message.data());
 
     Q_EMIT serverOutput(QString::fromLocal8Bit(message));
 }

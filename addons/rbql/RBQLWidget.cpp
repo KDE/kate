@@ -271,7 +271,7 @@ void RBQLTab::initEngine()
 
     QFile file(QStringLiteral(":/rbql/rbql.js"));
     if (!file.open(QFile::ReadOnly)) {
-        qWarning() << "Failed to open :/rbql/rbql.js";
+        qWarning("Failed to open :/rbql/rbql.js");
         reportError(QStringLiteral("Failed to open :/rbql/rbql.js"));
         return;
     }
@@ -279,7 +279,7 @@ void RBQLTab::initEngine()
     m_engine->installExtensions(QJSEngine::ConsoleExtension);
     auto res = m_engine->evaluate(QString::fromUtf8(file.readAll()));
     if (res.isError()) {
-        qWarning() << "Failed to init engine" << res.toString();
+        qWarning("Failed to init engine %ls", qUtf16Printable(res.toString()));
         reportError(QStringLiteral("Failed to init engine: %1").arg(res.toString()));
     }
 }

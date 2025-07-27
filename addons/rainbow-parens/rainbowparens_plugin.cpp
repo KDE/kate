@@ -276,7 +276,7 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     int start = view->firstDisplayedLine();
     int end = view->lastDisplayedLine();
     if (end < start) {
-        qWarning() << "RainbowParenPluginView: Unexpected end < start";
+        qWarning("RainbowParenPluginView: Unexpected end < start");
         return;
     }
 

@@ -38,11 +38,11 @@ static std::uniform_int_distribution<> randomPort(40000, 65535);
 static bool checkSection(const QJsonObject &data, const QString &key)
 {
     if (!data.contains(key)) {
-        qCWarning(DAPCLIENT) << "required section '" << key << "' not found";
+        qCWarning(DAPCLIENT, "required section '%ls' not found ", qUtf16Printable(key));
         return false;
     }
     if (!data[key].isObject()) {
-        qCWarning(DAPCLIENT) << "section '" << key << "' is not an object";
+        qCWarning(DAPCLIENT, "section '%ls' is not an object", qUtf16Printable(key));
         return false;
     }
     return true;
@@ -66,7 +66,7 @@ std::optional<QJsonObject> expandConfiguration(const QJsonObject &adapterSetting
     const bool withSocket = out.contains(PORT) && out[PORT].isDouble();
 
     if (!withProcess && !withSocket) {
-        qCWarning(DAPCLIENT) << "'run' requires 'command: string[]' or 'port: number'";
+        qCWarning(DAPCLIENT, "'run' requires 'command: string[]' or 'port: number'");
         return std::nullopt;
     }
 
@@ -88,7 +88,7 @@ std::optional<QJsonObject> expandConfiguration(const QJsonObject &adapterSetting
             out[PORT] = port;
         }
         if (port < 0) {
-            qCWarning(DAPCLIENT) << "'port' must be a positive integer or 0";
+            qCWarning(DAPCLIENT, "'port' must be a positive integer or 0");
             return std::nullopt;
         }
     }

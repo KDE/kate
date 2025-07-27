@@ -8,9 +8,11 @@
 #include "kateprojectview.h"
 #include "gitprocess.h"
 #include "gitwidget.h"
+#include "kateproject.h"
 #include "kateprojectfiltermodel.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
+#include "kateprojectviewtree.h"
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>

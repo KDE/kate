@@ -4,9 +4,9 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "client.h"
+#include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QFileInfo>
 #include <limits>
 
 #include "dap/bus_selector.h"
@@ -51,12 +51,26 @@ struct ClientMessageContext : public MessageContext {
     }
 };
 
+class Client::MessageParser
+{
+public:
+    QByteArray m_buffer;
+
+    void push(QByteArray d)
+    {
+        m_buffer.append(d);
+    }
+    QByteArray read();
+    std::optional<Client::HeaderInfo> readHeader();
+};
+
 Client::Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, Utils::PathMappingPtr pm, QObject *parent)
     : QObject(parent)
     , m_bus(bus)
     , m_managedBus(false)
     , m_protocol(protocolSettings)
     , m_launchCommand(extractCommand(protocolSettings.launchRequest))
+    , m_msgParser(new MessageParser())
 {
     m_msgContext = std::make_unique<ClientMessageContext>(pm);
     bind();
@@ -67,6 +81,7 @@ Client::Client(const settings::ClientSettings &clientSettings, Utils::PathMappin
     , m_managedBus(true)
     , m_protocol(clientSettings.protocolSettings)
     , m_launchCommand(extractCommand(clientSettings.protocolSettings.launchRequest))
+    , m_msgParser(new MessageParser())
 {
     m_msgContext = std::make_unique<ClientMessageContext>(pm);
     m_bus = createBus(clientSettings.busSettings);
@@ -77,6 +92,7 @@ Client::Client(const settings::ClientSettings &clientSettings, Utils::PathMappin
 Client::~Client()
 {
     detach();
+    delete m_msgParser;
 }
 
 void Client::bind()
@@ -764,21 +780,11 @@ QString Client::extractCommand(const QJsonObject &launchRequest)
 
 void Client::read()
 {
-    m_buffer.append(m_bus->read());
-
+    m_msgParser->push(m_bus->read());
     while (true) {
-        // read headers
-        const auto info = readHeader();
-        if (!info) {
-            // incomplete header -> abort
-            break; // PENDING
-        }
-        // read payload
-        const auto data = m_buffer.mid(info->payloadStart, info->payloadLength);
-        if (data.size() < info->payloadLength) {
-            break; // PENDING
-        }
-        m_buffer.remove(0, info->payloadStart + info->payloadLength);
+        auto data = m_msgParser->read();
+        if (!data.size())
+            break;
 
         // parse payload
         QJsonParseError jsonError;
@@ -795,7 +801,29 @@ void Client::read()
     }
 }
 
-std::optional<Client::HeaderInfo> Client::readHeader()
+QByteArray Client::MessageParser::read()
+{
+    while (true) {
+        // read headers
+        const auto info = readHeader();
+        if (!info) {
+            // incomplete header -> abort
+            break; // PENDING
+        }
+        // read payload
+        const auto data = m_buffer.mid(info->payloadStart, info->payloadLength);
+        if (data.size() < info->payloadLength) {
+            break; // PENDING
+        }
+        m_buffer.remove(0, info->payloadStart + info->payloadLength);
+
+        return data;
+    }
+
+    return {};
+}
+
+std::optional<Client::HeaderInfo> Client::MessageParser::readHeader()
 {
     int length = -1;
     int start = 0;

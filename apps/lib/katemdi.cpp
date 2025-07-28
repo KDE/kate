@@ -1709,7 +1709,7 @@ ToolView *MainWindow::createToolView(KTextEditor::Plugin *plugin,
     v->plugin = plugin;
 
     Q_ASSERT(toolView(identifier) == nullptr);
-    m_toolviews.emplace_back(identifier, v);
+    m_toolviews.push_back({identifier, v});
 
     // register for menu stuff
     m_guiClient->registerToolView(v);

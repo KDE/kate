@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2024-06-21 16:19+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -84,7 +84,7 @@ msgstr "תצוגה"
 msgid "No preview available."
 msgstr "אין תצוגה מקדימה זמינה."
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:236
 #, kde-format
 msgid "About %1"
 msgstr "על %1"

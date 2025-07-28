@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2020-03-17 11:50+0000\n"
 "Last-Translator: amrithandh m <amrithanadhm@gmail.com>\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -147,34 +147,34 @@ msgstr ""
 msgid "KWrite - Text Editor"
 msgstr ""
 
-#: lib/commitfilesview.cpp:410 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr ""
 
-#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:438
+#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Copy Location"
 msgstr ""
 
-#: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:534
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:555
+#: lib/commitfilesview.cpp:554
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -230,7 +230,7 @@ msgstr "ഉപകരണങ്ങള്‍ (&T)"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -274,145 +274,145 @@ msgid ""
 "offset %2: %3"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:345
 #, fuzzy, kde-format
 #| msgid "&Quick Open"
 msgid "Quick Fix"
 msgstr "പെട്ടന്ന് തുറക്കുക (&Q)"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:375
 #, kde-format
 msgid "Show Hover Info"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:434 lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:480
 #, kde-format
 msgid "Errors"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:496
 #, fuzzy, kde-format
 #| msgid "Warning"
 msgid "Warnings"
 msgstr "മുന്നറിയിപ്പ്"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Filter…"
 msgstr "പ്രമാണം അടയ്ക്കുക"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:516
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1152 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
 #, kde-format
 msgid "Warning"
 msgstr "മുന്നറിയിപ്പ്"
 
-#: lib/diagnostics/diagnosticview.cpp:1157
+#: lib/diagnostics/diagnosticview.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Meta-Information"
 msgid "Information"
 msgstr "മെറ്റാ-വിവരങ്ങൾ"
 
-#: lib/diagnostics/diagnosticview.cpp:1285
+#: lib/diagnostics/diagnosticview.cpp:1284
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1434
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1436
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Collapse All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1442
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Add Global Suppression"
 msgstr "സെഷനുകള്‍ (&i)"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Disable Suppression"
 msgstr "സെഷനുകള്‍ (&i)"
 
-#: lib/diagnostics/diagnosticview.cpp:1509
+#: lib/diagnostics/diagnosticview.cpp:1508
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "Enable Suppression"
@@ -562,13 +562,13 @@ msgstr "പ്രമാണം കളയുക"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:232
+#: lib/filehistorywidget.cpp:231
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:441
+#: lib/filehistorywidget.cpp:440
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -585,29 +585,29 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:497
+#: lib/filehistorywidget.cpp:496
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:511
+#: lib/filehistorywidget.cpp:510
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:522
+#: lib/filehistorywidget.cpp:521
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:530
+#: lib/filehistorywidget.cpp:529
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:649
+#: lib/filehistorywidget.cpp:648
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1434,7 +1434,7 @@ msgstr "പ്രമാണം കളയുക"
 msgid "File \"%1\" could not be deleted."
 msgstr "ഫയല്‍ \"%1\" കളയാന്‍ സാധിച്ചില്ല."
 
-#: lib/katefileactions.cpp:206
+#: lib/katefileactions.cpp:204
 #, fuzzy, kde-format
 #| msgid "Application"
 msgid "&Other Application..."

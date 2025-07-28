@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -220,7 +220,7 @@ msgstr " cancelada."
 msgid "Refresh git status"
 msgstr "Actualizar o estado do Git"
 
-#: gitwidget.cpp:355 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:61
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
@@ -945,12 +945,12 @@ msgstr "Recarregar o projecto"
 msgid "Checkout Git Branch"
 msgstr "Seleccionar a Ramificação do Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Procurar: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir para: %1"
@@ -960,7 +960,7 @@ msgstr "Ir para: %1"
 msgid "Projects Index"
 msgstr "Índice dos Projectos"
 
-#: kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escolher uma pasta"
@@ -1102,52 +1102,52 @@ msgstr ""
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr "Escreva para filtrar, Enter para obter a preparação, Esc para sair."
 
-#: stashdialog.cpp:141
+#: stashdialog.cpp:140
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Não foi possível preparar as modificações %1"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "As modificações foram preparadas com sucesso."
 
-#: stashdialog.cpp:162
+#: stashdialog.cpp:161
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Não foi possível obter a lista de modificações preparadas. Erro: "
 
-#: stashdialog.cpp:178
+#: stashdialog.cpp:177
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Não foi possível aplicar a preparação. Erro: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Não foi possível ignorar a preparação. Erro: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Não foi possível obter a preparação. Erro: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "As modificações preparadas foram aplicadas com sucesso."
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "As modificações preparadas foram descartadas com sucesso."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "As modificações preparadas foram obtidas com sucesso."
 
-#: stashdialog.cpp:219
+#: stashdialog.cpp:218
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Não foi possível mostrar os ficheiros preparados. Erro: "

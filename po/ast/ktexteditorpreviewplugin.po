@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2023-11-06 00:54+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "No preview available."
 msgstr ""
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:236
 #, kde-format
 msgid "About %1"
 msgstr ""

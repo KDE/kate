@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-03-19 08:49+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -226,7 +226,7 @@ msgstr " s'ha cancel·lat."
 msgid "Refresh git status"
 msgstr "Actualitza l'estat de «git»"
 
-#: gitwidget.cpp:355 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "Filtre…"
@@ -935,12 +935,12 @@ msgstr "Torna a carregar el projecte"
 msgid "Checkout Git Branch"
 msgstr "Extrau la branca de Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Busca: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves fins a: %1"
@@ -950,7 +950,7 @@ msgstr "Ves fins a: %1"
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "Seleccioneu un directori"
@@ -1092,52 +1092,52 @@ msgstr ""
 "Escriviu per a filtrar, premeu «Retorn» per a aplicar una modificació "
 "temporal, «Esc» per a eixir."
 
-#: stashdialog.cpp:141
+#: stashdialog.cpp:140
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "No s'ha pogut fer dels canvis %1 una modificació temporal"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Els canvis s'han fet modificació temporal correctament."
 
-#: stashdialog.cpp:162
+#: stashdialog.cpp:161
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "No s'ha pogut obtindre la llista de modificacions temporals. Error: "
 
-#: stashdialog.cpp:178
+#: stashdialog.cpp:177
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "No s'han pogut aplicar les modificacions temporals. Error: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "No s'han pogut llençar les modificacions temporals. Error: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "No s'ha pogut aplicar («pop») les modificacions temporals. Error: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Les modificacions temporals s'han aplicat correctament."
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Les modificacions temporals s'han llençat correctament."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Les modificacions temporals s'han aplicat correctament."
 
-#: stashdialog.cpp:219
+#: stashdialog.cpp:218
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "No s'ha pogut mostrar la modificació temporal. Error: "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-03-20 03:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -221,7 +221,7 @@ msgstr " გაუქმდა."
 msgid "Refresh git status"
 msgstr "Git-ის სტატუსის განახლება"
 
-#: gitwidget.cpp:355 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "ფილტრი…"
@@ -924,12 +924,12 @@ msgstr "პროექტის თავიდან ჩატვირთვ�
 msgid "Checkout Git Branch"
 msgstr "Git-ის ბრენჩის გამოთხოვა"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Lookup: %1"
 msgstr "მოძებნა: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
 #, kde-format
 msgid "Goto: %1"
 msgstr "გადასვლა: %1"
@@ -939,7 +939,7 @@ msgstr "გადასვლა: %1"
 msgid "Projects Index"
 msgstr "პროექტის ინდექსი"
 
-#: kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "აირჩიეთ საქაღალდე"
@@ -1079,52 +1079,52 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "გასაფილტრად აკრიფეთ, სამალავის გამოსაყენებლად - Enter, გასასვლელად - Esc."
 
-#: stashdialog.cpp:141
+#: stashdialog.cpp:140
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "%1-ის ცვლილებების სამალავში შენახვა ჩავარდა"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "ცვლილებების სამალავში შენახვა წარმატებით დასრულდა."
 
-#: stashdialog.cpp:162
+#: stashdialog.cpp:161
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "სამალავების სიის მიღება ჩავარდა. შეცდომა: "
 
-#: stashdialog.cpp:178
+#: stashdialog.cpp:177
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "სამალავის გადატარება ჩავარდა. შეცდომა: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "სამალავის მოცილება ჩავარდა. შეცდომა: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "სამალავის ამოღება ჩავარდა. შეცდომა: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "სამალავის გადატარება წარმატებით დასრულდა."
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "სამალავის მოცილება წარმატებით დასრულდა."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "სამალავის ამოღება წარმატებით დასრულდა."
 
-#: stashdialog.cpp:219
+#: stashdialog.cpp:218
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "სამალავის ჩვენება ჩავარდა. შეცდომა: "

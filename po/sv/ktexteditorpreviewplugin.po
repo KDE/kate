@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2017-09-26 20:05+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -87,7 +87,7 @@ msgstr "Visa"
 msgid "No preview available."
 msgstr "Ingen förhandsgranskning tillgänglig."
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:236
 #, kde-format
 msgid "About %1"
 msgstr "Om %1"

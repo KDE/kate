@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-07-26 21:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -167,34 +167,34 @@ msgstr "K Yaz"
 msgid "KWrite - Text Editor"
 msgstr "K Yaz — Metin Düzenleyicisi"
 
-#: lib/commitfilesview.cpp:410 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Dosya Aç"
 
-#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:438
+#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
-#: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:534
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgid "Invalid hash"
 msgstr "Geçersiz sağlama"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1, bir Git deposunda yok."
 
-#: lib/commitfilesview.cpp:555
+#: lib/commitfilesview.cpp:554
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -250,7 +250,7 @@ msgstr "&Araçlar"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -296,12 +296,12 @@ msgstr ""
 "Düzenli ifadede hata: %1\n"
 "ofset %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr "Tümü"
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -310,127 +310,127 @@ msgstr ""
 "Tanı sınırına erişildi; bundan sonraki tanılar yok sayılıyor. Sınır, "
 "ayarlarda yapılandırılabilir."
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Tanılar Görünümü"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
 msgid "Quick Fix"
 msgstr "Tez Düzelt"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
 msgstr "Sonraki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
 msgstr "Önceki Öge"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Tanılar Süzgecini Temizle"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:375
 #, kde-format
 msgid "Show Hover Info"
 msgstr "Üzerine Gelince Bilgi Göster"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:434 lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "Tanılar"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:480
 #, kde-format
 msgid "Errors"
 msgstr "Hatalar"
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Warnings"
 msgstr "Uyarılar"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Süz…"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:516
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Tanıları temizle"
 
-#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Hata"
 
-#: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1152 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
 #, kde-format
 msgid "Warning"
 msgstr "Uyarı"
 
-#: lib/diagnostics/diagnosticview.cpp:1157
+#: lib/diagnostics/diagnosticview.cpp:1156
 #, kde-format
 msgid "Information"
 msgstr "Bilgi"
 
-#: lib/diagnostics/diagnosticview.cpp:1285
+#: lib/diagnostics/diagnosticview.cpp:1284
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [susturulmuş: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1434
 #, kde-format
 msgid "Expand All"
 msgstr "Tümünü Genişlet"
 
-#: lib/diagnostics/diagnosticview.cpp:1436
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Collapse All"
 msgstr "Tümünü Daralt"
 
-#: lib/diagnostics/diagnosticview.cpp:1442
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Global Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Global Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Yerel Susturmayı Kaldır"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Yerel Susturma Ekle"
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Susturmayı Devre Dışı Bırak"
 
-#: lib/diagnostics/diagnosticview.cpp:1509
+#: lib/diagnostics/diagnosticview.cpp:1508
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Susturmayı Etkinleştir"
@@ -580,13 +580,13 @@ msgstr "Silinen dosya %1"
 msgid "No differences found"
 msgstr "Fark bulunamadı."
 
-#: lib/filehistorywidget.cpp:232
+#: lib/filehistorywidget.cpp:231
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Geçersiz tarih: %1"
 
-#: lib/filehistorywidget.cpp:441
+#: lib/filehistorywidget.cpp:440
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -615,29 +615,29 @@ msgstr ""
 "terimi sağlanırsa tüm terimlerle eşleşen iletiler gösterilecektir. Süzgeci "
 "tetiklemek için <b>Giriş</b> düğmesine basın."
 
-#: lib/filehistorywidget.cpp:497
+#: lib/filehistorywidget.cpp:496
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "Dosya geçmişi alınamadı: PATH içinde git yürütülebiliri bulunamadı"
 
-#: lib/filehistorywidget.cpp:511
+#: lib/filehistorywidget.cpp:510
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Dosya geçmişi alınamadı: %1"
 
-#: lib/filehistorywidget.cpp:522
+#: lib/filehistorywidget.cpp:521
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "İşleme Sağlamasını Kopyala"
 
-#: lib/filehistorywidget.cpp:530
+#: lib/filehistorywidget.cpp:529
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Tüm İşlemeyi Göster"
 
-#: lib/filehistorywidget.cpp:649
+#: lib/filehistorywidget.cpp:648
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1484,7 +1484,7 @@ msgstr "Dosya Sil"
 msgid "File \"%1\" could not be deleted."
 msgstr "“%1” dosyası silinemedi."
 
-#: lib/katefileactions.cpp:206
+#: lib/katefileactions.cpp:204
 #, kde-format
 msgid "&Other Application..."
 msgstr "&Başka Uygulama…"

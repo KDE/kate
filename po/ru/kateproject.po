@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-04-03 14:40+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -232,7 +232,7 @@ msgstr " отменено."
 msgid "Refresh git status"
 msgstr "Обновить состояние Git"
 
-#: gitwidget.cpp:355 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "Фильтр…"
@@ -942,12 +942,12 @@ msgstr "Перечитать проект"
 msgid "Checkout Git Branch"
 msgstr "Извлечь ветвь Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Поиск: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
 #, kde-format
 msgid "Goto: %1"
 msgstr "Переход: %1"
@@ -957,7 +957,7 @@ msgstr "Переход: %1"
 msgid "Projects Index"
 msgstr "Индекс проекта"
 
-#: kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "Выбор каталога"
@@ -1099,52 +1099,52 @@ msgstr ""
 "Введите текст для применения фильтра, нажмите клавишу «Enter» для "
 "использования запасника, нажмите клавишу «Esc» для выхода."
 
-#: stashdialog.cpp:141
+#: stashdialog.cpp:140
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Не удалось поместить в запасник изменения %1"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Изменения успешно помещены в запасник."
 
-#: stashdialog.cpp:162
+#: stashdialog.cpp:161
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Не удалось получить список запасника. Ошибка: "
 
-#: stashdialog.cpp:178
+#: stashdialog.cpp:177
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Не удалось применить запасник. Ошибка: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Не удалось сбросить запасник. Ошибка: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Не удалось использовать запасник. Ошибка: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Запасник успешно применён."
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Запасник успешно сброшен."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Запасник успешно использован."
 
-#: stashdialog.cpp:219
+#: stashdialog.cpp:218
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Не удалось показать запасник. Ошибка: "

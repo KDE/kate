@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1714276 $
+# Version: $Revision: 1714352 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-07-26 19:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -168,34 +168,34 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - edytor tekstu"
 
-#: lib/commitfilesview.cpp:410 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Otwórz plik"
 
-#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:438
+#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Copy Location"
 msgstr "Skopiuj położenie"
 
-#: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:534
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgid "Invalid hash"
 msgstr "Nieprawidłowy skrót"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 nie istnieje w repozytorium git."
 
-#: lib/commitfilesview.cpp:555
+#: lib/commitfilesview.cpp:554
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -251,7 +251,7 @@ msgstr "&Narzędzia"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -297,12 +297,12 @@ msgstr ""
 "Błąd w wyrażeniu regularnym: %1\n"
 "przesunięcie %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr "Wszystkie"
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -311,127 +311,127 @@ msgstr ""
 "Osiągnięto granicę diagnostyczną, więc zaczęto pomijać dalsze wiadomości "
 "diagnostyczne. Granicę te można zmienić w ustawieniach."
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Widok diagnostyczny"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
 msgid "Quick Fix"
 msgstr "Szybka poprawka"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
 msgstr "Następna rzecz"
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
 msgstr "Poprzednia rzecz"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Wyczyść filtr diagnostyczny"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:375
 #, kde-format
 msgid "Show Hover Info"
 msgstr "Pokaż szczegóły po najechaniu"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:434 lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostyka"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:480
 #, kde-format
 msgid "Errors"
 msgstr "Błędy"
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Warnings"
 msgstr "Ostrzeżenia"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Odfiltruj…"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:516
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Wyczyść diagnostykę"
 
-#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Błąd"
 
-#: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1152 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
 #, kde-format
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1157
+#: lib/diagnostics/diagnosticview.cpp:1156
 #, kde-format
 msgid "Information"
 msgstr "Informacje"
 
-#: lib/diagnostics/diagnosticview.cpp:1285
+#: lib/diagnostics/diagnosticview.cpp:1284
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [wygaszone: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1434
 #, kde-format
 msgid "Expand All"
 msgstr "Rozwiń wszystko"
 
-#: lib/diagnostics/diagnosticview.cpp:1436
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Collapse All"
 msgstr "Zwiń wszystko"
 
-#: lib/diagnostics/diagnosticview.cpp:1442
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Skopiuj do schowka"
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Usuń globalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Dodaj globalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Usuń lokalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Dodaj lokalne wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Wyłącz wygaszenie"
 
-#: lib/diagnostics/diagnosticview.cpp:1509
+#: lib/diagnostics/diagnosticview.cpp:1508
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Włącz wygaszenie"
@@ -585,13 +585,13 @@ msgstr "Usunięty plik %1"
 msgid "No differences found"
 msgstr "Nie znaleziono różnic"
 
-#: lib/filehistorywidget.cpp:232
+#: lib/filehistorywidget.cpp:231
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Nieprawidłowa data: %1"
 
-#: lib/filehistorywidget.cpp:441
+#: lib/filehistorywidget.cpp:440
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -619,31 +619,31 @@ msgstr ""
 "wpiszesz wiele wyrażeń, to zostaną pokazane wiadomości, które zawierają je "
 "wszystkie.</li></ul>Aby zastosować filtr, naciśnij klawisz <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:497
+#: lib/filehistorywidget.cpp:496
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nie udało się pobrać historii pliku: nie znaleziono pliku wykonywalnego git "
 "w zmiennej PATH"
 
-#: lib/filehistorywidget.cpp:511
+#: lib/filehistorywidget.cpp:510
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nie udało się pobrać historii pliku: %1"
 
-#: lib/filehistorywidget.cpp:522
+#: lib/filehistorywidget.cpp:521
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Skopiuj skrót wdrożenia"
 
-#: lib/filehistorywidget.cpp:530
+#: lib/filehistorywidget.cpp:529
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Pokaż pełne wdrożenie"
 
-#: lib/filehistorywidget.cpp:649
+#: lib/filehistorywidget.cpp:648
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1489,7 +1489,7 @@ msgstr "Usunąć plik"
 msgid "File \"%1\" could not be deleted."
 msgstr "Nie można usunąć pliku \"%1\"."
 
-#: lib/katefileactions.cpp:206
+#: lib/katefileactions.cpp:204
 #, kde-format
 msgid "&Other Application..."
 msgstr "Inny pr&ogram..."

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2025-01-22 22:56+0100\n"
 "Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
 "Language-Team: Czech <kde-i18n-cs@kde.org>\n"
@@ -158,34 +158,34 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Jednoduchý textový editor"
 
-#: lib/commitfilesview.cpp:410 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:438
+#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:438
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopírovat umístění"
 
-#: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:534
+#: lib/commitfilesview.cpp:533
 #, kde-format
 msgid "Invalid hash"
 msgstr "Neplatný heš"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:640
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 v repozitáři git neexistuje."
 
-#: lib/commitfilesview.cpp:555
+#: lib/commitfilesview.cpp:554
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -241,7 +241,7 @@ msgstr "Nástroje"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:290
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -287,12 +287,12 @@ msgstr ""
 "Chyba v regulárním výrazu: %1\n"
 "posun %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:62
+#: lib/diagnostics/diagnosticview.cpp:61
 #, kde-format
 msgid "All"
 msgstr "Vše"
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:297
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -301,127 +301,127 @@ msgstr ""
 "Byl dosažen diagnostický limit, ignoruji další diagnostiku. Limit můžete "
 "upravit v nastavení."
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:340
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Diagnostický pohled"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:345
 #, kde-format
 msgid "Quick Fix"
 msgstr "Rychlá oprava"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:351
 #, kde-format
 msgid "Next Item"
 msgstr "Následující položka"
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:357
 #, kde-format
 msgid "Previous Item"
 msgstr "Předchozí položka"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Vyčistit diagnostický filtr"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:375
 #, kde-format
 msgid "Show Hover Info"
 msgstr "Zobrazit informace při přejetí myší"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:370
+#: lib/diagnostics/diagnosticview.cpp:434 lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnostika"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:480
 #, kde-format
 msgid "Errors"
 msgstr "Chyby"
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:496
 #, kde-format
 msgid "Warnings"
 msgstr "Varování"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:433
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Filtrovat…"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:516
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1152 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
 #, kde-format
 msgid "Warning"
 msgstr "Varování"
 
-#: lib/diagnostics/diagnosticview.cpp:1157
+#: lib/diagnostics/diagnosticview.cpp:1156
 #, kde-format
 msgid "Information"
 msgstr "Informace"
 
-#: lib/diagnostics/diagnosticview.cpp:1285
+#: lib/diagnostics/diagnosticview.cpp:1284
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [potlačeno: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1434
 #, kde-format
 msgid "Expand All"
 msgstr "Rozbalit vše"
 
-#: lib/diagnostics/diagnosticview.cpp:1436
+#: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Collapse All"
 msgstr "Svinout vše"
 
-#: lib/diagnostics/diagnosticview.cpp:1442
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Zkopírovat do schránky"
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstranit globální potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1486
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Přidat globální potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstranit místní potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Přidat místní potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1506
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Zakázat potlačení"
 
-#: lib/diagnostics/diagnosticview.cpp:1509
+#: lib/diagnostics/diagnosticview.cpp:1508
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Povolit potlačení"
@@ -574,14 +574,14 @@ msgstr "Smazaný soubor %1"
 msgid "No differences found"
 msgstr "Nebyly nalezeny žádné rozdíly"
 
-#: lib/filehistorywidget.cpp:232
+#: lib/filehistorywidget.cpp:231
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Neplatný heš"
 
-#: lib/filehistorywidget.cpp:441
+#: lib/filehistorywidget.cpp:440
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -598,31 +598,31 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:497
+#: lib/filehistorywidget.cpp:496
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Nepodařilo se získat historii souboru: spouštěč gitu nebyl nalezen v "
 "proměnné PATH"
 
-#: lib/filehistorywidget.cpp:511
+#: lib/filehistorywidget.cpp:510
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Nepodařilo se získat historii souboru: %1"
 
-#: lib/filehistorywidget.cpp:522
+#: lib/filehistorywidget.cpp:521
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Zkopírovat hash commitu"
 
-#: lib/filehistorywidget.cpp:530
+#: lib/filehistorywidget.cpp:529
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Zobrazit celý commit"
 
-#: lib/filehistorywidget.cpp:649
+#: lib/filehistorywidget.cpp:648
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1448,7 +1448,7 @@ msgstr "Smazat soubor"
 msgid "File \"%1\" could not be deleted."
 msgstr "Soubor \"%1\" nelze smazat."
 
-#: lib/katefileactions.cpp:206
+#: lib/katefileactions.cpp:204
 #, kde-format
 msgid "&Other Application..."
 msgstr "Ji&ná aplikace..."

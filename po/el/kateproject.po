@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -227,7 +227,7 @@ msgstr " ακυρώθηκε."
 msgid "Refresh git status"
 msgstr "Ανανέωση κατάστασης του git"
 
-#: gitwidget.cpp:355 kateprojectview.cpp:59
+#: gitwidget.cpp:355 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "Φιλτράρισμα…"
@@ -950,12 +950,12 @@ msgstr "Επαναφόρτωση έργου"
 msgid "Checkout Git Branch"
 msgstr "Εξαγωγή κλάδου του Git"
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:787
+#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Αναζήτηση: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
 #, kde-format
 msgid "Goto: %1"
 msgstr "Μετάβαση: %1"
@@ -965,7 +965,7 @@ msgstr "Μετάβαση: %1"
 msgid "Projects Index"
 msgstr "Ευρετήριο έργων"
 
-#: kateprojectpluginview.cpp:832
+#: kateprojectpluginview.cpp:833
 #, kde-format
 msgid "Choose a directory"
 msgstr "Επιλογή καταλόγου"
@@ -1109,52 +1109,52 @@ msgstr ""
 "Πληκτρολογήστε για φιλτράρισμα, Enter για εξαγωγή από στοίβα, Esc για "
 "εγκατάλειψη."
 
-#: stashdialog.cpp:141
+#: stashdialog.cpp:140
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Αποτυχία τοποθέτησης των αλλαγών %1 σε στοίβα αναμονής"
 
-#: stashdialog.cpp:143
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Οι αλλαγές εισήχθησαν σε στοίβα αναμονής με επιτυχία."
 
-#: stashdialog.cpp:162
+#: stashdialog.cpp:161
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Αποτυχία ανάκτησης λίστας αναμονής. Σφάλμα: "
 
-#: stashdialog.cpp:178
+#: stashdialog.cpp:177
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Αποτυχία εφαρμογής της στοίβας. Σφάλμα: "
 
-#: stashdialog.cpp:180
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Αποτυχία απόρριψης της στοίβας. Σφάλμα: "
 
-#: stashdialog.cpp:182
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Αποτυχία εξαγωγής από τη στοίβα. Σφάλμα: "
 
-#: stashdialog.cpp:186
+#: stashdialog.cpp:185
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Η στοίβα αναμονής εφαρμόστηκε με επιτυχία."
 
-#: stashdialog.cpp:188
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Η στοίβα αναμονής απορρίφθηκε με επιτυχία."
 
-#: stashdialog.cpp:190
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Έγινε εξαγωγή από τη στοίβα με επιτυχία."
 
-#: stashdialog.cpp:219
+#: stashdialog.cpp:218
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Αποτυχία εμφάνισης της στοίβας. Σφάλμα: "

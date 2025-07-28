@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-07-28 00:44+0000\n"
 "PO-Revision-Date: 2018-09-04 17:24+0100\n"
 "Last-Translator: Mthw <jari_45@hotmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Zobraziť"
 msgid "No preview available."
 msgstr "Náhľad nie je k dispozícii"
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:236
 #, kde-format
 msgid "About %1"
 msgstr "Informácie o %1"

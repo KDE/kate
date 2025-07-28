@@ -139,3 +139,5 @@ bool AppWizardReader::extractTemplateTo(const QString &packageFile, const QStrin
 
     return true;
 }
+
+#include "moc_AppWizardReader.cpp"

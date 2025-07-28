@@ -154,3 +154,5 @@ QModelIndex BookmarksModel::getBookmarkIndex(const Bookmark &bookmark)
 
     return QModelIndex();
 }
+
+#include "moc_bookmarksmodel.cpp"

@@ -558,3 +558,5 @@ void Template::createFromAppWizardTemplate(const QString &category)
 }
 
 #endif
+
+#include "moc_template.cpp"

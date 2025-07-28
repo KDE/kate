@@ -211,3 +211,5 @@ bool AbstractDataModel::setHeaderData(int section, Qt::Orientation orientation, 
     }
     return m_rootNode.m_data->setData(value, role, section);
 }
+
+#include "moc_abstractdatamodel.cpp"

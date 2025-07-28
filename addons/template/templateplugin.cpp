@@ -95,3 +95,5 @@ void TemplatePluginView::templateCrated(const QString &fileToOpen)
 }
 
 #include "templateplugin.moc"
+
+#include "moc_templateplugin.cpp"

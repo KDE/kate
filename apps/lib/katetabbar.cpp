@@ -88,7 +88,7 @@ void KateTabBar::readConfig()
             for (const auto &i : m_docToLruCounterAndHasTab) {
                 DocOrWidget doc = i.first;
                 if (!docList.contains(doc)) {
-                    mruDocs.emplace_back(i.second.lruValue, doc);
+                    mruDocs.push_back({i.second.lruValue, doc});
                 }
             }
             std::sort(mruDocs.begin(), mruDocs.end(), [](const LruCounterToDoc &l, const LruCounterToDoc &r) {

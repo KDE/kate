@@ -198,7 +198,7 @@ void KPartView::updatePreview()
     // TODO: encode existing url instead, and for yet-to-be-stored docs some other unique id
     const QUrl streamUrl(QStringLiteral("ktexteditorpreview:/object/%1").arg(reinterpret_cast<quintptr>(m_document), 0, 16));
     if (m_part->openStream(mimeType, streamUrl)) {
-        qCDebug(KTEPREVIEW, "Pushing data via streaming API, url:", qUtf16Printable(streamUrl.url()));
+        qCDebug(KTEPREVIEW, "Pushing data via streaming API, url: %ls", qUtf16Printable(streamUrl.url()));
         m_part->writeStream(m_document->text().toUtf8());
         m_part->closeStream();
 
@@ -215,7 +215,7 @@ void KPartView::updatePreview()
         m_bufferFile->seek(0);
     }
     const QUrl tempFileUrl(QUrl::fromLocalFile(m_bufferFile->fileName()));
-    qCDebug(KTEPREVIEW, "Pushing data via temporary file, url:", qUtf16Printable(tempFileUrl.url()));
+    qCDebug(KTEPREVIEW, "Pushing data via temporary file, url: %ls", qUtf16Printable(tempFileUrl.url()));
 
     // write current data
     m_bufferFile->write(m_document->text().toUtf8());

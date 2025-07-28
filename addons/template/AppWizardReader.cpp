@@ -99,7 +99,7 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             map.insert(key, data);
 
         } else {
-            qDebug("could not open template", qUtf16Printable(archName));
+            qDebug("could not open template %ls", qUtf16Printable(archName));
         }
     }
     return map;

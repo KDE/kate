@@ -59,14 +59,14 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
     QFile f(compile_commandsPath);
     if (!f.open(QFile::ReadOnly)) {
         // TODO: Use Output view to report error
-        qWarning("Failed to load compile_commands: ", qUtf16Printable(f.errorString()));
+        qWarning("Failed to load compile_commands: %ls", qUtf16Printable(f.errorString()));
         return {};
     }
 
     QJsonParseError error;
     QJsonDocument cmdCmds = QJsonDocument::fromJson(f.readAll(), &error);
     if (error.error != QJsonParseError::NoError) {
-        qWarning("Failed to read compile_commands: ", qUtf16Printable(error.errorString()));
+        qWarning("Failed to read compile_commands: %ls", qUtf16Printable(error.errorString()));
         return {};
     }
 

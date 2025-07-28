@@ -167,7 +167,7 @@ QJsonObject QCMakeFileApi::readJsonFile(const QString &filename) const
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
 
     QString absFileName = replyDir.absoluteFilePath(filename);
-    qCDebug(KTEBUILD, "Reading file: ", qUtf16Printable(absFileName));
+    qCDebug(KTEBUILD, "Reading file: %ls", qUtf16Printable(absFileName));
 
     QFile file(absFileName);
     file.open(QIODevice::ReadOnly);

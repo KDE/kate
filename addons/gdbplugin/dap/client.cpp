@@ -131,7 +131,7 @@ void Client::processResponse(const QJsonObject &msg)
         qCWarning(DAPCLIENT, "unexpected command in response: %ls (expected: %ls)", qUtf16Printable(response.command), qUtf16Printable(request.command));
     }
     if (response.isCancelled()) {
-        qCWarning(DAPCLIENT, "request cancelled: ", qUtf16Printable(response.command));
+        qCWarning(DAPCLIENT, "request cancelled: %ls", qUtf16Printable(response.command));
     }
 
     if (!response.success) {
@@ -159,7 +159,7 @@ void Client::processResponseInitialize(const Response &response, const QJsonValu
     }
 
     if (!response.success && response.isCancelled()) {
-        qCWarning(DAPCLIENT, "InitializeResponse error: ", qUtf16Printable(response.message));
+        qCWarning(DAPCLIENT, "InitializeResponse error: %ls", qUtf16Printable(response.message));
         if (response.errorBody) {
             qCWarning(DAPCLIENT, "error %d %ls", response.errorBody->id, qUtf16Printable(response.errorBody->format));
         }
@@ -717,7 +717,7 @@ QString Client::extractCommand(const QJsonObject &launchRequest)
 {
     const auto &command = launchRequest[DAP_COMMAND].toString();
     if ((command != DAP_LAUNCH) && (command != DAP_ATTACH)) {
-        qCWarning(DAPCLIENT, "unsupported request command: ", qUtf16Printable(command));
+        qCWarning(DAPCLIENT, "unsupported request command: %ls", qUtf16Printable(command));
         return QString();
     }
     return command;
@@ -805,7 +805,7 @@ std::optional<Client::HeaderInfo> Client::readHeader()
             bool ok = false;
             length = header.mid(sep + 1, header.size() - sep).toInt(&ok);
             if (!ok) {
-                qCWarning(DAPCLIENT, "invalid value: ", header.constData());
+                qCWarning(DAPCLIENT, "invalid value: %s", header.constData());
                 discardExploredBuffer();
                 continue; // CONTINUE HEADER
             }

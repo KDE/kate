@@ -8,6 +8,7 @@
 #pragma once
 
 #include <QTimer>
+#include <QWidget>
 
 class KLineEdit;
 class KateProjectPluginView;

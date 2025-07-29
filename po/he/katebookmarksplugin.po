@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-29 00:44+0000\n"
 "PO-Revision-Date: 2025-07-04 15:52+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -18,12 +18,12 @@ msgstr ""
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 25.04.2\n"
 
-#: bookmarksmodel.cpp:73
+#: bookmarksmodel.cpp:60
 #, kde-format
 msgid "Line Number"
 msgstr "מספר שורה"
 
-#: bookmarksmodel.cpp:75
+#: bookmarksmodel.cpp:62
 #, kde-format
 msgid "File Path"
 msgstr "נתיב קובץ"

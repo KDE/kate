@@ -566,7 +566,7 @@ msgstr "未发现差异"
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr ""
+msgstr "无效的日期：%1"
 
 #: lib/filehistorywidget.cpp:440
 #, kde-format
@@ -584,6 +584,14 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"过滤日志。<ul><li>使用 <code>“a:”</code> 前缀按作者名字称过滤。例如：<b>a:"
+"john doe</b></li><li>使用 <code>“!a:”</code> 前缀排除某个作者。例如：<b>!a:"
+"john doe</b></li><li>使用 <code>“since:”</code> 前缀显示给定日期之后的提交。"
+"将检查所有提交的写作日期。日期格式为 yyyy-MM-dd。例如：<b>since:2025-04-17</"
+"b></li><li>使用 <code>“until:“</code> 前缀显示给定日期之前的提交。将检查所有"
+"提交的写作日期。日期格式为 yyyy-MM-dd。例如：<b>until:2025-04-17</b></li><li>"
+"要过滤消息，只需输入搜索条件。如果输入了多个搜索条件，则仅显示匹配所有搜索条"
+"件的消息。</li></ul>要触发过滤，请按 <b>回车</b> 键。"
 
 #: lib/filehistorywidget.cpp:496
 #, kde-format

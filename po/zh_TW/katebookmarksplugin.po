@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 00:45+0000\n"
+"POT-Creation-Date: 2025-07-29 00:44+0000\n"
 "PO-Revision-Date: 2025-07-03 23:41+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 25.07.70\n"
 
-#: bookmarksmodel.cpp:73
+#: bookmarksmodel.cpp:60
 #, kde-format
 msgid "Line Number"
 msgstr "行號"
 
-#: bookmarksmodel.cpp:75
+#: bookmarksmodel.cpp:62
 #, kde-format
 msgid "File Path"
 msgstr "檔案路徑"

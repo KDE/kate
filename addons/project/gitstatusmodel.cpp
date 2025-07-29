@@ -19,6 +19,18 @@ static constexpr int Conflict = 2;
 static constexpr int Untrack = 3;
 static constexpr quintptr Root = 0xFFFFFFFF;
 
+static QByteArray getUniqueFilename(const QByteArray &filename, QByteArray &path)
+{
+    const auto i = path.lastIndexOf('/');
+    if (i != -1) {
+        QByteArray name = path.mid(i + 1).append('/').append(filename);
+        // Remove the bit from path that we just appended
+        path = path.left(i);
+        return name;
+    }
+    return QByteArray();
+}
+
 GitStatusModel::GitStatusModel(QObject *parent)
     : QAbstractItemModel(parent)
 {
@@ -121,12 +133,31 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
                     return m_nodes[rootIndex].at(row).file;
                 }
                 if (rootIndex < Untrack && m_nonUniqueFileNames.contains(filename)) {
-                    const auto path = fi.path();
-                    const auto i = path.lastIndexOf(QLatin1Char('/'));
-                    if (i != -1) {
-                        return path.mid(i + 1).append(QLatin1Char('/')).append(filename);
+                    QByteArray path = fi.path().toUtf8();
+                    QByteArray name = getUniqueFilename(filename.toUtf8(), path);
+
+                    // Iterate through all items in this node and ensure we are unique
+                    for (int i = 0; i < m_nodes[rootIndex].size(); i++) {
+                        if (i == row) {
+                            continue; // skip self
+                        }
+                        if (name.isEmpty()) {
+                            break;
+                        }
+                        const GitUtils::StatusItem &item = m_nodes[rootIndex].at(i);
+                        // We found another item with this name, try to uniquify more
+                        while (!item.file.isEmpty() && item.file.endsWith(name)) {
+                            name = getUniqueFilename(name, path);
+                            if (name.isEmpty()) {
+                                break;
+                            }
+                        }
                     }
-                    return fileStr;
+
+                    if (name.isEmpty()) {
+                        return fileStr;
+                    }
+                    return QString::fromUtf8(name);
                 }
                 return filename;
             } else {

@@ -67,7 +67,7 @@ int ConnectionModel::addConnection(const Connection &conn)
 {
     /// FIXME
     if (m_connections.contains(conn.name)) {
-        qDebug() << "a connection named" << conn.name << "already exists!";
+        qDebug("a connection named %ls already exists!", qUtf16Printable(conn.name));
         return -1;
     }
 

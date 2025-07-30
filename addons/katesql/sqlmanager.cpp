@@ -42,7 +42,7 @@ SQLManager::~SQLManager()
 void SQLManager::createConnection(const Connection &conn)
 {
     if (QSqlDatabase::contains(conn.name)) {
-        qDebug() << "connection" << conn.name << "already exist";
+        qDebug("connection %ls already exist", qUtf16Printable(conn.name));
         QSqlDatabase::removeDatabase(conn.name);
     }
 
@@ -129,7 +129,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
             int ret = readCredentials(connection, password);
 
             if (ret != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
-                qDebug() << "Can't retrieve password from kwallet. returned code" << ret;
+                qDebug("Can't retrieve password from kwallet. returned code %d", ret);
             } else {
                 db.setPassword(password);
                 m_model->setPassword(connection, password);
@@ -235,7 +235,7 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
     const auto groupList = connectionsGroup.groupList();
 
     for (const QString &groupName : groupList) {
-        qDebug() << "reading group:" << groupName;
+        qDebug("reading group: %ls", qUtf16Printable(groupName));
 
         KConfigGroup group = connectionsGroup.group(groupName);
 

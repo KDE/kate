@@ -144,7 +144,7 @@ void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)
         item = createWrappedItem(this, variable);
     } else {
         if (!m_variables.contains(parentId)) {
-            qDebug() << "unknown variable reference:" << parentId;
+            qDebug("unknown variable reference: %d", parentId);
             return;
         }
         item = createWrappedItem(m_variables[parentId], variable);

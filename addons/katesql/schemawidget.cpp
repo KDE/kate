@@ -357,7 +357,7 @@ void SchemaWidget::pasteStatementIntoActiveView(const QString &statement)
 {
     KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
     KTextEditor::View *kv = mw->activeView();
-    qDebug() << "Generated statement:" << statement;
+    qDebug("Generated statement: %ls", qUtf16Printable(statement));
 
     if (!kv) {
         return;

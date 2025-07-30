@@ -236,7 +236,7 @@ void MatchModel::updateMatchRanges(const QList<KTextEditor::MovingRange *> &rang
 
     if (ranges.size() != matches.size()) {
         // The sizes do not match so we cannot match the ranges easily.. abort
-        qDebug() << __func__ << ranges.size() << "!=" << matches.size() << fileUrl << doc;
+        qDebug("%s, ranges.size: %lld != matches.size: %lld %ls %p", __func__, ranges.size(), matches.size(), qUtf16Printable(fileUrl.toString()), (void *)doc);
         return;
     }
 
@@ -328,7 +328,7 @@ bool MatchModel::replaceMatch(KTextEditor::Document *doc, const QModelIndex &mat
     QString matchLines = doc->text(matchItem->range);
     QRegularExpressionMatch match = rangeTextMatches(matchLines, regExp);
     if (match.capturedStart() != 0) {
-        qDebug() << matchLines << "Does not match" << regExp.pattern();
+        qDebug("%ls Does not match %ls", qUtf16Printable(matchLines), qUtf16Printable(regExp.pattern()));
         return false;
     }
 
@@ -431,17 +431,17 @@ void MatchModel::doReplaceNextMatch()
     }
 
     if (!doc) {
-        qDebug() << "Failed to open the document" << matchFile.fileUrl << doc;
+        qDebug("Failed to open the document %ls %p", qUtf16Printable(matchFile.fileUrl.toString()), (void *)doc);
         m_replaceFile++;
         QTimer::singleShot(0, this, &MatchModel::doReplaceNextMatch);
         return;
     }
 
     if (matchFile.fileUrl.isValid() && doc->url() != matchFile.fileUrl) {
-        qDebug() << "url differences" << matchFile.fileUrl << doc->url();
+        qDebug("url differences %ls %ls", qUtf16Printable(matchFile.fileUrl.toString()), qUtf16Printable(doc->url().toString()));
         matchFile.fileUrl = doc->url();
     } else if (matchFile.doc != doc) {
-        qDebug() << "doc differences" << matchFile.fileUrl << doc->url();
+        qDebug("doc differences %ls %ls", qUtf16Printable(matchFile.fileUrl.toString()), qUtf16Printable(doc->url().toString()));
         matchFile.doc = doc;
     }
 
@@ -983,7 +983,7 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
     }
 
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
-        qDebug() << "Should be a file (or the info item in the near future)" << fileRow;
+        qDebug("Should be a file (or the info item in the near future) %d", fileRow);
         return QVariant();
     }
 

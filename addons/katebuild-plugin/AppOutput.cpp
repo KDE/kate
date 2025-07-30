@@ -33,7 +33,7 @@ struct AppOutput::Private {
 
     void addOutputText(QString const &text) const
     {
-        qDebug() << text;
+        // qDebug() << text;
         if (!outputArea) {
             qWarning("Can't output text to nullptr");
             return;

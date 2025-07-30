@@ -227,7 +227,7 @@ bool PluginKateXMLCheckView::slotValidate()
     delete m_tmp_file;
     m_tmp_file = new QTemporaryFile();
     if (!m_tmp_file->open()) {
-        qDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
+        qDebug("Error (slotValidate()): could not create '%ls': %ls", qUtf16Printable(m_tmp_file->fileName()), qUtf16Printable(m_tmp_file->errorString()));
         const QString msg = i18n("<b>Error:</b> Could not create temporary file '%1'.", m_tmp_file->fileName());
         Utils::showMessage(msg, {}, i18n("XMLCheck"), MessageType::Error, m_mainWindow);
         delete m_tmp_file;
@@ -286,7 +286,7 @@ bool PluginKateXMLCheckView::slotValidate()
     path.replace(u':', QLatin1String("%3A"));
     // because of such inconvenience with xmllint and paths, maybe switch to xmlstarlet?
 
-    qDebug() << "path=" << path;
+    qDebug("path=%ls", qUtf16Printable(path));
 
     if (!path.isEmpty()) {
         args << QStringLiteral("--path") << path;
@@ -322,12 +322,12 @@ bool PluginKateXMLCheckView::slotValidate()
         args << QStringLiteral("--valid");
     }
     args << m_tmp_file->fileName();
-    qDebug() << "m_tmp_file->fileName()=" << m_tmp_file->fileName();
+    qDebug("m_tmp_file->fileName()=%ls", qUtf16Printable(m_tmp_file->fileName()));
 
     startHostProcess(m_proc, exe, args);
-    qDebug() << "m_proc.program():" << m_proc.program(); // I want to see parameters
-    qDebug() << "args=" << args;
-    qDebug() << "exit code:" << m_proc.exitCode();
+    qDebug("m_proc.program():%ls", qUtf16Printable(m_proc.program())); // I want to see parameters
+    qDebug("args=%ls", qUtf16Printable(args.join(u'\n')));
+    qDebug("exit code: %d", m_proc.exitCode());
     if (!m_proc.waitForStarted(-1)) {
         const QString msg = i18n(
             "<b>Error:</b> Failed to execute xmllint. Please make "

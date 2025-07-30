@@ -33,7 +33,7 @@ void BtFileIndexer::setSearchPaths(const QStringList &urls)
 void BtFileIndexer::setFilter(const QStringList &fileFilter)
 {
     filter = fileFilter;
-    qDebug() << filter;
+    qDebug("filter: %ls", qUtf16Printable(filter.join(u",")));
 }
 
 void BtFileIndexer::run()
@@ -50,7 +50,7 @@ void BtFileIndexer::run()
         }
         indexFiles(searchPaths[i]);
     }
-    qDebug() << QStringLiteral("Backtrace file database contains %1 files").arg(db->size());
+    qDebug("Backtrace file database contains %d files", db->size());
 }
 
 void BtFileIndexer::cancel()

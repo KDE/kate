@@ -79,7 +79,7 @@ void CachedSqlQueryModel::clear()
 
 void CachedSqlQueryModel::cacheRecords(int from, int to) const
 {
-    qDebug() << "caching records from" << from << "to" << to;
+    qDebug("caching records from %d to %d", from, to);
 
     for (int i = from; i <= to; ++i) {
         cache.insert(i, QSqlQueryModel::record(i));
@@ -98,7 +98,7 @@ int CachedSqlQueryModel::cacheCapacity() const
 
 void CachedSqlQueryModel::setCacheCapacity(int capacity)
 {
-    qDebug() << "cache capacity set to" << capacity;
+    qDebug("cache capacity set to %d", capacity);
 
     cache.setCapacity(capacity);
 }

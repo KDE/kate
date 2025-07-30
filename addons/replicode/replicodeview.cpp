@@ -152,7 +152,7 @@ void ReplicodeView::runReplicode()
     connect(m_executor, &QProcess::readyReadStandardOutput, this, &ReplicodeView::gotStdout);
     connect(m_executor, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &ReplicodeView::replicodeFinished);
     connect(m_executor, static_cast<void (QProcess::*)(QProcess::ProcessError)>(&QProcess::errorOccurred), this, &ReplicodeView::runErrored);
-    qDebug() << executorPath << sourceFile.canonicalPath();
+    qDebug("executorPath: %ls, sourceFile: %ls", qUtf16Printable(executorPath), qUtf16Printable(sourceFile.canonicalPath()));
     m_completed = false;
     startHostProcess(*m_executor, executorPath, {}, QProcess::ReadOnly);
 
@@ -185,14 +185,14 @@ void ReplicodeView::outputClicked(QListWidgetItem *item)
 
     bool ok = false;
     int lineNumber = pieces[1].toInt(&ok);
-    qDebug() << lineNumber;
+    // qDebug() << lineNumber;
     if (!ok) {
         return;
     }
 
     KTextEditor::View *doc = m_mainWindow->openUrl(QUrl::fromLocalFile(pieces[0]));
     doc->setCursorPosition(KTextEditor::Cursor(lineNumber, 0));
-    qDebug() << doc->cursorPosition().line();
+    // qDebug() << doc->cursorPosition().line();
 }
 
 void ReplicodeView::runErrored(QProcess::ProcessError error)

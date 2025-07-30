@@ -164,7 +164,7 @@ void PluginKateXMLToolsCompletionModel::slotDocumentDeleted(KTextEditor::Documen
     // Remove the document from m_DTDs, and also delete the PseudoDTD
     // if it becomes unused.
     if (m_docDtds.contains(doc)) {
-        qDebug() << "XMLTools:slotDocumentDeleted: documents: " << m_docDtds.count() << ", DTDs: " << m_dtds.count();
+        qDebug("XMLTools:slotDocumentDeleted: documents: %lld, DTDs: %lld", m_docDtds.count(), m_dtds.count());
         PseudoDTD *dtd = m_docDtds.take(doc);
 
         if (m_docDtds.key(dtd)) {
@@ -217,7 +217,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     } else if (leftCh == QLatin1String("<")) {
         qDebug("*outside tag -> get elements");
         QString parentElement = getParentElement(*kv, 1);
-        qDebug() << "parent: " << parentElement;
+        qDebug("parent: %ls", qUtf16Printable(parentElement));
         m_allowed = m_docDtds[doc]->allowedElements(parentElement);
         m_mode = elements;
     } else if (leftCh == QLatin1String("/") && secondLeftCh == QLatin1String("<")) {
@@ -237,8 +237,8 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
             currentAttribute = insideAttribute(*kv);
         }
 
-        qDebug() << "Tag: " << currentElement;
-        qDebug() << "Attr: " << currentAttribute;
+        qDebug("Tag: %ls", qUtf16Printable(currentElement));
+        qDebug("Attr: %ls", qUtf16Printable(currentAttribute));
 
         if (!currentElement.isEmpty() && !currentAttribute.isEmpty()) {
             qDebug("*inside attribute -> get attribute values");
@@ -260,7 +260,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
     }
 
     // qDebug() << "time elapsed (ms): " << t.elapsed();
-    qDebug() << "Allowed strings: " << m_allowed.count();
+    qDebug("Allowed strings: %lld", m_allowed.count());
 
     if (m_allowed.count() >= 1 && m_allowed[0] != QLatin1String("__EMPTY")) {
         m_allowed = sortQStringList(m_allowed);
@@ -398,8 +398,8 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     if (match.hasMatch()) {
         topElement = match.captured(1);
         doctype = match.captured(2);
-        qDebug() << "Top element: " << topElement;
-        qDebug() << "Doctype match: " << doctype;
+        qDebug("Top element: %ls", qUtf16Printable(topElement));
+        qDebug("Doctype match: %ls", qUtf16Printable(doctype));
         // XHTML:
         if (doctype == QLatin1String("-//W3C//DTD XHTML 1.0 Transitional//EN")) {
             filename = QStringLiteral("xhtml1-transitional.dtd.xml");
@@ -467,7 +467,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         connect(job, &KIO::TransferJob::result, this, &PluginKateXMLToolsCompletionModel::slotFinished);
         connect(job, &KIO::TransferJob::data, this, &PluginKateXMLToolsCompletionModel::slotData);
     }
-    qDebug() << "XMLTools::getDTD: Documents: " << m_docDtds.count() << ", DTDs: " << m_dtds.count();
+    qDebug("XMLTools::getDTD: Documents: %lld, DTDs: %lld", m_docDtds.count(), m_dtds.count());
 }
 
 void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
@@ -619,7 +619,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View 
 
     QString text = data(index.sibling(index.row(), Name), Qt::DisplayRole).toString();
 
-    qDebug() << "executeCompletionItem text: " << text;
+    qDebug("executeCompletionItem text: %ls", qUtf16Printable(text));
 
     int line, col;
     view->cursorPosition().position(line, col);

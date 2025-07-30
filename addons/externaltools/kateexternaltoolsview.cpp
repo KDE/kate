@@ -275,20 +275,25 @@ QAction *KateExternalToolsPluginView::externalToolsForDocumentAction(KTextEditor
     auto *ret = new KActionMenu(this);
     ret->setText(i18n("External Tools"));
     auto menu = ret->menu();
-    connect(menu, &QMenu::aboutToShow, this, [doc, this, menu] {
-        const auto mime = doc->mimeType();
-        const QList<KateExternalTool *> &tools = m_plugin->tools();
-        QPointer<KTextEditor::View> view = doc->views().first();
-        for (auto tool : tools) {
-            if (!tool->mimetypes.isEmpty() && !tool->matchesMimetype(mime)) {
-                continue;
+    connect(
+        menu,
+        &QMenu::aboutToShow,
+        this,
+        [doc, this, menu] {
+            const auto mime = doc->mimeType();
+            const QList<KateExternalTool *> &tools = m_plugin->tools();
+            QPointer<KTextEditor::View> view = doc->views().first();
+            for (auto tool : tools) {
+                if (!tool->mimetypes.isEmpty() && !tool->matchesMimetype(mime)) {
+                    continue;
+                }
+                auto a = menu->addAction(QIcon::fromTheme(tool->icon), tool->translatedName());
+                connect(a, &QAction::triggered, this, [this, tool, view] {
+                    m_plugin->runTool(*tool, view);
+                });
             }
-            auto a = menu->addAction(QIcon::fromTheme(tool->icon), tool->translatedName());
-            connect(a, &QAction::triggered, this, [this, tool, view] {
-                m_plugin->runTool(*tool, view);
-            });
-        }
-    });
+        },
+        Qt::SingleShotConnection);
     return ret;
 }
 

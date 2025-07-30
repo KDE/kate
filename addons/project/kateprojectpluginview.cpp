@@ -355,7 +355,7 @@ void KateProjectPluginView::viewForProject(KateProject *project)
     /**
      * remember and return it
      */
-    m_project2View[project] = ProjectViews(view, infoView);
+    m_project2View[project] = ProjectViews{.tree = view, .infoview = infoView};
 }
 
 QString KateProjectPluginView::projectFileName() const

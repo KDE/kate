@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-28 00:44+0000\n"
-"PO-Revision-Date: 2025-05-20 19:33+0200\n"
+"PO-Revision-Date: 2025-07-29 21:54+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -571,11 +571,10 @@ msgid "No differences found"
 msgstr "Няма разлики"
 
 #: lib/filehistorywidget.cpp:231
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Невалиден хеш"
+msgstr "Невалидна дата: %1"
 
 #: lib/filehistorywidget.cpp:440
 #, kde-format
@@ -593,6 +592,19 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Филтриране на журнала.<ul><li>Използвайте префикса <code>\"a:\"</code>, за "
+"да филтрирате по име на автор. Например, <b>a:john doe</b></"
+"li><li>Използвайте префикса <code>\"!a:\"</code>, за да изключите автор. "
+"Например, <b>!a:john doe</b></li><li>Използвайте префикса <code>\"since:\"</"
+"code>, за да покажете коммити след дадената дата. Датата на автора на всеки "
+"коммит ще бъде проверена. Форматът на датата е гггг-ММ-дд. Например, "
+"<b>since:2025-04-17</b></li><li>Използвайте префикса <code>\"until:\"</"
+"code>, за да покажете коммити преди дадената дата. Датата на автора на всеки "
+"коммит ще бъде проверена. Форматът на датата е гггг-ММ-дд. Например, "
+"<b>до:2025-04-17</b></li><li>За да филтрирате съобщенията, просто въведете "
+"термина за търсене. Ако са дадени няколко термина за търсене, ще бъдат "
+"показани съобщения, съответстващи на всички термини за търсене.</li></ul>За "
+"да задействате филтъра, натиснете клавиша <b>Enter</b>."
 
 #: lib/filehistorywidget.cpp:496
 #, kde-format

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-28 00:44+0000\n"
+"POT-Creation-Date: 2025-07-31 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 02:16-0300\n"
 "Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -182,22 +182,22 @@ msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
 msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
-#: gitstatusmodel.cpp:85
+#: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
 msgstr "Staged"
 
-#: gitstatusmodel.cpp:87
+#: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
 msgstr "Não observado"
 
-#: gitstatusmodel.cpp:89
+#: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
 msgstr "Conflito"
 
-#: gitstatusmodel.cpp:91
+#: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
 msgstr "Modificado"

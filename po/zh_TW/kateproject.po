@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-28 00:44+0000\n"
+"POT-Creation-Date: 2025-07-31 00:45+0000\n"
 "PO-Revision-Date: 2025-03-26 18:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -177,22 +177,22 @@ msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
 msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
-#: gitstatusmodel.cpp:85
+#: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
 msgstr "已暫存"
 
-#: gitstatusmodel.cpp:87
+#: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
 msgstr "未追蹤"
 
-#: gitstatusmodel.cpp:89
+#: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
 msgstr "衝突"
 
-#: gitstatusmodel.cpp:91
+#: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
 msgstr "已修改"

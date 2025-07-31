@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-28 00:44+0000\n"
+"POT-Creation-Date: 2025-07-31 00:45+0000\n"
 "PO-Revision-Date: 2024-09-10 14:36+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -175,22 +175,22 @@ msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
 msgstr "<span style=\"color:%1;\">%2</span> / ၅၂"
 
-#: gitstatusmodel.cpp:85
+#: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
 msgstr "ခြေတစ်လှမ်းတိုးပြီး"
 
-#: gitstatusmodel.cpp:87
+#: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
 msgstr "စာရင်းမသွင်းထားပါ"
 
-#: gitstatusmodel.cpp:89
+#: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
 msgstr "အငြင်းပွားဖွယ်"
 
-#: gitstatusmodel.cpp:91
+#: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
 msgstr "မွမ်းမံခဲ့သည်"

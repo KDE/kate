@@ -2,6 +2,7 @@
     "KPlugin": {
         "Description": "Highlight and open links (via CTRL-click)",
         "Description[ar]": "إبراز وفتح الوصلات ( عن طريق النقر  والضغط على زر CTRL)",
+        "Description[bg]": "Открояване и отваряне на външни връзки (посредством CTRL + кликване)",
         "Description[ca@valencia]": "Ressalta i obri els enllaços (mitjançant «Ctrl+clic»)",
         "Description[ca]": "Ressalta i obre els enllaços (mitjançant CTRL-clic)",
         "Description[es]": "Resaltar todos los enlaces abiertos (mediante Ctrl+clic)",

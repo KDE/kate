@@ -199,10 +199,14 @@
             "highlightingModeRegex": "^OpenSCAD$"
         },
         "perl": {
-            "command": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--"],
-            "commandDebug": ["perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--debug"],
-            "url": "https://github.com/richterger/Perl-LanguageServer",
-            "highlightingModeRegex": "^Perl$"
+            "command": ["perlnavigator", "--stdio"],
+            "url": "https://github.com/bscan/PerlNavigator",
+            "highlightingModeRegex": "^Perl$",
+            "settings": {
+                "perlnavigator": {
+                    "perlPath": "perl"
+                }
+            }
         },
         "php": {
             "command": ["phpactor", "language-server"],

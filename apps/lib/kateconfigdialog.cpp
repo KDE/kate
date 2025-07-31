@@ -22,6 +22,7 @@
 #include "katequickopenmodel.h"
 #include "katesessionmanager.h"
 #include "kateviewmanager.h"
+#include "ui_sessionconfigwidget.h"
 
 #include <KConfigGroup>
 #include <KLocalization>
@@ -410,67 +411,68 @@ void KateConfigDialog::addSessionPage()
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
-    sessionConfigUi.setupUi(sessionsPage);
+    sessionConfigUi = new Ui::SessionConfigWidget;
+    sessionConfigUi->setupUi(sessionsPage);
 
     // save meta infos
-    sessionConfigUi.saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
-    connect(sessionConfigUi.saveMetaInfos, &QGroupBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->saveMetaInfos->setChecked(KateApp::self()->documentManager()->getSaveMetaInfos());
+    connect(sessionConfigUi->saveMetaInfos, &QGroupBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // meta infos days
-    sessionConfigUi.daysMetaInfos->setMaximum(180);
-    sessionConfigUi.daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
-    KLocalization::setupSpinBoxFormatString(sessionConfigUi.daysMetaInfos,
+    sessionConfigUi->daysMetaInfos->setMaximum(180);
+    sessionConfigUi->daysMetaInfos->setSpecialValueText(i18nc("The special case of 'Delete unused meta-information after'", "(never)"));
+    KLocalization::setupSpinBoxFormatString(sessionConfigUi->daysMetaInfos,
                                             ki18ncp("The suffix of 'Delete unused meta-information after'", "%v day", "%v days"));
-    sessionConfigUi.daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
-    connect(sessionConfigUi.daysMetaInfos, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->daysMetaInfos->setValue(KateApp::self()->documentManager()->getDaysMetaInfos());
+    connect(sessionConfigUi->daysMetaInfos, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
 
     // restore view  config
-    sessionConfigUi.restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
-    connect(sessionConfigUi.restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->restoreVC->setChecked(cgGeneral.readEntry("Restore Window Configuration", true));
+    connect(sessionConfigUi->restoreVC, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
-    sessionConfigUi.spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
-    connect(sessionConfigUi.spinBoxRecentFilesCount, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->spinBoxRecentFilesCount->setValue(recentFilesMaxCount());
+    connect(sessionConfigUi->spinBoxRecentFilesCount, &QSpinBox::valueChanged, this, &KateConfigDialog::slotChanged);
 
     QString sesStart(cgGeneral.readEntry("Startup Session", "manual"));
     if (sesStart == QLatin1String("new")) {
-        sessionConfigUi.startNewSessionRadioButton->setChecked(true);
+        sessionConfigUi->startNewSessionRadioButton->setChecked(true);
     } else if (sesStart == QLatin1String("last")) {
-        sessionConfigUi.loadLastUserSessionRadioButton->setChecked(true);
+        sessionConfigUi->loadLastUserSessionRadioButton->setChecked(true);
     } else {
-        sessionConfigUi.manuallyChooseSessionRadioButton->setChecked(true);
+        sessionConfigUi->manuallyChooseSessionRadioButton->setChecked(true);
     }
 
-    connect(sessionConfigUi.startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    connect(sessionConfigUi.loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    connect(sessionConfigUi.manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->startNewSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->loadLastUserSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->manuallyChooseSessionRadioButton, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 
     // New main windows open always a new document if none there
-    sessionConfigUi.showWelcomeViewForNewWindow->setChecked(cgGeneral.readEntry("Show welcome view for new window", true));
-    connect(sessionConfigUi.showWelcomeViewForNewWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->showWelcomeViewForNewWindow->setChecked(cgGeneral.readEntry("Show welcome view for new window", true));
+    connect(sessionConfigUi->showWelcomeViewForNewWindow, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // When a window is closed, close all documents only visible in that window, too
-    sessionConfigUi.winClosesDocuments->setChecked(cgGeneral.readEntry("Close documents with window", true));
-    sessionConfigUi.winClosesDocuments->setToolTip(i18n("When a window is closed the documents opened only in this window are closed as well."));
-    connect(sessionConfigUi.winClosesDocuments, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->winClosesDocuments->setChecked(cgGeneral.readEntry("Close documents with window", true));
+    sessionConfigUi->winClosesDocuments->setToolTip(i18n("When a window is closed the documents opened only in this window are closed as well."));
+    connect(sessionConfigUi->winClosesDocuments, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // Closing last file closes Kate
-    sessionConfigUi.modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
-    connect(sessionConfigUi.modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->modCloseAfterLast->setChecked(m_mainWindow->modCloseAfterLast());
+    connect(sessionConfigUi->modCloseAfterLast, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
 
     // stash unsave changes
-    sessionConfigUi.stashNewUnsavedFiles->setChecked(KateApp::self()->stashManager()->stashNewUnsavedFiles);
-    sessionConfigUi.stashUnsavedFilesChanges->setChecked(KateApp::self()->stashManager()->stashUnsavedChanges);
-    connect(sessionConfigUi.stashNewUnsavedFiles, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
-    connect(sessionConfigUi.stashUnsavedFilesChanges, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    sessionConfigUi->stashNewUnsavedFiles->setChecked(KateApp::self()->stashManager()->stashNewUnsavedFiles);
+    sessionConfigUi->stashUnsavedFilesChanges->setChecked(KateApp::self()->stashManager()->stashUnsavedChanges);
+    connect(sessionConfigUi->stashNewUnsavedFiles, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
+    connect(sessionConfigUi->stashUnsavedFilesChanges, &QRadioButton::toggled, this, &KateConfigDialog::slotChanged);
 
     // simplify the session page for KWrite
     if (KateApp::isKWrite()) {
-        sessionConfigUi.gbAppStartup->hide();
-        sessionConfigUi.restoreVC->hide();
-        sessionConfigUi.label_4->hide();
-        sessionConfigUi.stashNewUnsavedFiles->hide();
-        sessionConfigUi.stashUnsavedFilesChanges->hide();
-        sessionConfigUi.label->hide();
+        sessionConfigUi->gbAppStartup->hide();
+        sessionConfigUi->restoreVC->hide();
+        sessionConfigUi->label_4->hide();
+        sessionConfigUi->stashNewUnsavedFiles->hide();
+        sessionConfigUi->stashUnsavedFilesChanges->hide();
+        sessionConfigUi->label->hide();
     }
 }
 
@@ -602,30 +604,30 @@ void KateConfigDialog::slotApply()
             cg.writeEntry("Icon size for left and right sidebar buttons", m_leftRightSidebarsIconSize->value());
         }
 
-        cg.writeEntry("Restore Window Configuration", sessionConfigUi.restoreVC->isChecked());
+        cg.writeEntry("Restore Window Configuration", sessionConfigUi->restoreVC->isChecked());
 
-        cg.writeEntry("Recent File List Entry Count", sessionConfigUi.spinBoxRecentFilesCount->value());
+        cg.writeEntry("Recent File List Entry Count", sessionConfigUi->spinBoxRecentFilesCount->value());
 
-        if (sessionConfigUi.startNewSessionRadioButton->isChecked()) {
+        if (sessionConfigUi->startNewSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "new");
-        } else if (sessionConfigUi.loadLastUserSessionRadioButton->isChecked()) {
+        } else if (sessionConfigUi->loadLastUserSessionRadioButton->isChecked()) {
             cg.writeEntry("Startup Session", "last");
         } else {
             cg.writeEntry("Startup Session", "manual");
         }
 
-        cg.writeEntry("Save Meta Infos", sessionConfigUi.saveMetaInfos->isChecked());
-        KateApp::self()->documentManager()->setSaveMetaInfos(sessionConfigUi.saveMetaInfos->isChecked());
+        cg.writeEntry("Save Meta Infos", sessionConfigUi->saveMetaInfos->isChecked());
+        KateApp::self()->documentManager()->setSaveMetaInfos(sessionConfigUi->saveMetaInfos->isChecked());
 
-        cg.writeEntry("Days Meta Infos", sessionConfigUi.daysMetaInfos->value());
-        KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi.daysMetaInfos->value());
+        cg.writeEntry("Days Meta Infos", sessionConfigUi->daysMetaInfos->value());
+        KateApp::self()->documentManager()->setDaysMetaInfos(sessionConfigUi->daysMetaInfos->value());
 
-        cg.writeEntry("Show welcome view for new window", sessionConfigUi.showWelcomeViewForNewWindow->isChecked());
+        cg.writeEntry("Show welcome view for new window", sessionConfigUi->showWelcomeViewForNewWindow->isChecked());
 
-        cg.writeEntry("Close documents with window", sessionConfigUi.winClosesDocuments->isChecked());
+        cg.writeEntry("Close documents with window", sessionConfigUi->winClosesDocuments->isChecked());
 
-        cg.writeEntry("Close After Last", sessionConfigUi.modCloseAfterLast->isChecked());
-        m_mainWindow->setModCloseAfterLast(sessionConfigUi.modCloseAfterLast->isChecked());
+        cg.writeEntry("Close After Last", sessionConfigUi->modCloseAfterLast->isChecked());
+        m_mainWindow->setModCloseAfterLast(sessionConfigUi->modCloseAfterLast->isChecked());
 
         if (m_messageTypes && m_outputHistoryLimit) {
             cg.writeEntry("Show output view for message type", m_messageTypes->currentIndex());
@@ -635,10 +637,10 @@ void KateConfigDialog::slotApply()
         cg.writeEntry("Mouse back button action", m_mouseBackActions->currentIndex());
         cg.writeEntry("Mouse forward button action", m_mouseForwardActions->currentIndex());
 
-        cg.writeEntry("Stash unsaved file changes", sessionConfigUi.stashUnsavedFilesChanges->isChecked());
-        KateApp::self()->stashManager()->stashUnsavedChanges = sessionConfigUi.stashUnsavedFilesChanges->isChecked();
-        cg.writeEntry("Stash new unsaved files", sessionConfigUi.stashNewUnsavedFiles->isChecked());
-        KateApp::self()->stashManager()->stashNewUnsavedFiles = sessionConfigUi.stashNewUnsavedFiles->isChecked();
+        cg.writeEntry("Stash unsaved file changes", sessionConfigUi->stashUnsavedFilesChanges->isChecked());
+        KateApp::self()->stashManager()->stashUnsavedChanges = sessionConfigUi->stashUnsavedFilesChanges->isChecked();
+        cg.writeEntry("Stash new unsaved files", sessionConfigUi->stashNewUnsavedFiles->isChecked());
+        KateApp::self()->stashManager()->stashNewUnsavedFiles = sessionConfigUi->stashNewUnsavedFiles->isChecked();
 
         cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
         m_mainWindow->setModNotificationEnabled(m_modNotifications->isChecked());

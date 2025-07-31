@@ -21,12 +21,16 @@
 #include <KUserFeedback/FeedbackConfigWidget>
 #endif
 
-#include "ui_sessionconfigwidget.h"
-
 class QCheckBox;
 class QComboBox;
 class QSpinBox;
 class KateMainWindow;
+class QLineEdit;
+
+namespace Ui
+{
+class SessionConfigWidget;
+}
 
 struct PluginPageListItem {
     KTextEditor::Plugin *plugin;
@@ -105,7 +109,7 @@ private:
     QCheckBox *m_hintViewEnabled = nullptr;
     QLineEdit *m_pathEdit = nullptr;
 
-    Ui::SessionConfigWidget sessionConfigUi;
+    Ui::SessionConfigWidget *sessionConfigUi = nullptr;
 
     QHash<KPageWidgetItem *, PluginPageListItem> m_pluginPages;
     std::vector<KTextEditor::ConfigPage *> m_editorPages;

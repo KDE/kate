@@ -115,6 +115,8 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     connect(this, &QTreeView::expanded, this, [this](const QModelIndex &index) {
         QString path = index.data(Qt::UserRole).toString().remove(m_project->baseDir());
         m_expandedNodes.insert(path);
+
+        flattenPath(index);
     });
 
     connect(this, &QTreeView::collapsed, this, [this](const QModelIndex &index) {
@@ -368,4 +370,30 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
 KTextEditor::MainWindow *KateProjectViewTree::mainWindow()
 {
     return m_pluginView->mainWindow();
+}
+
+void KateProjectViewTree::flattenPath(const QModelIndex &index)
+{
+    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    auto sourceIndex = proxyModel->mapToSource(index);
+    auto item = static_cast<QStandardItemModel *>(proxyModel->sourceModel())->itemFromIndex(sourceIndex);
+
+    if (item->type() != KateProjectItem::Directory) {
+        return;
+    }
+
+    // traverse the item as long as it has 1 child
+    while (item->rowCount() == 1) {
+        auto child = item->child(0);
+        if (child && child->type() == KateProjectItem::Directory) {
+            item->takeColumn(0);
+            item->appendColumn(child->takeColumn(0));
+
+            item->setText(QStringLiteral("%1/%2").arg(item->text(), child->text()));
+
+            delete child;
+        } else {
+            break;
+        }
+    }
 }

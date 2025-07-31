@@ -17,7 +17,6 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
-#include <QLoggingCategory>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QSet>
@@ -28,11 +27,7 @@
 #include <KLocalizedString>
 
 #include <algorithm>
-#include <qdir.h>
-#include <qhashfunctions.h>
 #include <vector>
-
-Q_LOGGING_CATEGORY(KateAddonProject, "kate.addon.project", QtDebugMsg)
 
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
@@ -137,36 +132,6 @@ void KateProjectWorker::loadProject(QStandardItem *parent, const QVariantMap &pr
     }
 }
 
-bool KateProjectWorker::isSingleFolderChain(const QDir &dir, QString &mergedPath)
-{
-    mergedPath.clear();
-    QDir current = dir;
-    QStringList chain;
-
-    while (true) {
-        QFileInfoList entries = current.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries, QDir::Name);
-        QFileInfoList files, dirs;
-
-        for (const QFileInfo &entry : entries) {
-            if (entry.isDir())
-                dirs.append(entry);
-            else
-                files.append(entry);
-        }
-
-        if (!files.isEmpty() || dirs.size() != 1)
-            break;
-
-        chain.append(dirs.first().fileName());
-        current.cd(dirs.first().fileName());
-    }
-
-    if (!chain.isEmpty()) {
-        mergedPath = chain.join(QLatin1Char('/'));
-        return true;
-    }
-    return false;
-}
 /**
  * small helper to construct directory parent items
  * @param dir2Item map for path => item
@@ -185,15 +150,9 @@ QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QStrin
     /**
      * quick check: dir already seen?
      */
-    if (dir2Item.contains(path)) {
-        return dir2Item[path];
-    }
-
-    QString mergedChain;
-    QDir dirToCheck(base.absoluteFilePath(path));
-    if (isSingleFolderChain(dirToCheck, mergedChain)) {
-        QString flattenedPath = path.isEmpty() ? mergedChain : path + QLatin1Char('/') + mergedChain;
-        qCDebug(KateAddonProject, "Flattend path: %s", flattenedPath.toStdString().data());
+    const auto existingIt = dir2Item.find(path);
+    if (existingIt != dir2Item.end()) {
+        return existingIt.value();
     }
 
     /**
@@ -216,7 +175,7 @@ QStandardItem *KateProjectWorker::directoryParent(const QDir &base, QHash<QStrin
      * else, split and recurse
      */
     const QString leftPart = path.left(slashIndex);
-    const QString rightPart = path.mid(slashIndex + 1);
+    const QString rightPart = path.right(path.size() - (slashIndex + 1));
 
     /**
      * special handling if / with nothing on one side are found

@@ -78,7 +78,6 @@ private:
 
 private:
     static QString notInstalledErrorString(const QString &program);
-    static bool isSingleFolderChain(const QDir &dir, QString &mergedPath);
 
     /**
      * project base directory name

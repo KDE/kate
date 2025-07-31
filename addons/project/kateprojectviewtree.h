@@ -90,6 +90,8 @@ private:
      */
     void slotModelChanged();
 
+    void flattenPath(const QModelIndex &index);
+
 protected:
     /**
      * Create matching context menu.

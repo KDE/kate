@@ -14,7 +14,6 @@
 #include <QVariant>
 
 #include <unordered_map>
-#include <utility>
 
 namespace KTextEditor
 {

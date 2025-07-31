@@ -9,8 +9,6 @@
 
 #include "kateprivate_export.h"
 
-#include <utility>
-
 #include <QString>
 
 class QAction;

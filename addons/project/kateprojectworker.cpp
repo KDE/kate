@@ -199,7 +199,8 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
                                        const QString &baseDir)
 {
     QDir dir(baseDir);
-    if (!dir.cd(filesEntry[QStringLiteral("directory")].toString())) {
+    if (QString filesEntryDir = filesEntry[QStringLiteral("directory")].toString(); !dir.cd(filesEntryDir)) {
+        Q_EMIT errorOccurred(i18n("Unable to find directory: %1", filesEntryDir));
         return;
     }
 

@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2024-12-16 18:11+0100\n"
+"PO-Revision-Date: 2025-07-30 18:21+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -431,12 +431,12 @@ msgstr "Il falleva a leger le confiurtion del sevitor: %1"
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Vade al proxime evidentia de symbolo"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Vade al previe evidentia de symbolo"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -614,7 +614,7 @@ msgstr "Automaticamente expande arbore"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Symbolo de evidentia sub cursor"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

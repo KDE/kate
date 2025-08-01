@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2023-04-17 16:12+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -1066,7 +1066,12 @@ msgstr "O nome do ficheiro já existe"
 msgid "Failed to create dir: %1"
 msgstr "Não foi possível criar a pasta: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, kde-format
+msgid "Unable to find directory: %1"
+msgstr ""
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2024-10-18 17:11+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1044,7 +1044,13 @@ msgstr "File name already exists"
 msgid "Failed to create dir: %1"
 msgstr "Failed to create dir: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Failed to get file history: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1170,9 +1176,6 @@ msgstr "&Projects"
 
 #~ msgid "Failed to get file history: git executable not found in PATH"
 #~ msgstr "Failed to get file history: git executable not found in PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Failed to get file history: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "Show File Git History"

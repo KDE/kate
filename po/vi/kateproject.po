@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2023-02-20 11:25+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -1062,7 +1062,13 @@ msgstr "Tên tệp đã tồn tại"
 msgid "Failed to create dir: %1"
 msgstr "Tạo thư mục %1 thất bại"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Lấy lịch sử tệp thất bại: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1184,9 +1190,6 @@ msgstr "&Dự án"
 
 #~ msgid "Failed to get file history: git executable not found in PATH"
 #~ msgstr "Lấy lịch sử tệp thất bại: không thấy tệp thực thi git trong PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Lấy lịch sử tệp thất bại: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "Hiện lịch sử Git của tệp"

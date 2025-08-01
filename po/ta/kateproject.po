@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2025-04-13 16:55+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -1024,7 +1024,12 @@ msgstr "இவ்வடைவு ஏற்கனவே உள்ளது"
 msgid "Failed to create dir: %1"
 msgstr "அடைவை உருவாக்க முடியவில்லை: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, kde-format
+msgid "Unable to find directory: %1"
+msgstr ""
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

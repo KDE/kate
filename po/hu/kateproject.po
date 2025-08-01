@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2022-02-01 10:20+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1096,7 +1096,13 @@ msgstr "A fájlnév már létezik"
 msgid "Failed to create dir: %1"
 msgstr "Nem sikerült létrehozni a mappát: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Nem sikerült lekérni az előzményeket: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1228,9 +1234,6 @@ msgstr "&Projektek"
 #~ msgstr ""
 #~ "Nem sikerült lekérni az előzményeket: a git végrehajtható állomány nem "
 #~ "található a PATH-ban"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Nem sikerült lekérni az előzményeket: %1"
 
 #, fuzzy
 #~| msgid "Show Git History"

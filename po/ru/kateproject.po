@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2025-04-03 14:40+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -1057,7 +1057,13 @@ msgstr "Каталог уже существует"
 msgid "Failed to create dir: %1"
 msgstr "Не удалось создать каталог: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Не удалось получить журнал файла: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1188,9 +1194,6 @@ msgstr "&Проекты"
 #~ msgid "Failed to get file history: git executable not found in PATH"
 #~ msgstr ""
 #~ "Не удалось получить журнал файла: исполняемый файл git не найден в PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Не удалось получить журнал файла: %1"
 
 #, fuzzy
 #~ msgid "Show File Git History"

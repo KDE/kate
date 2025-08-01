@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2025-03-19 08:50+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1051,7 +1051,13 @@ msgstr "Такий каталог вже існує"
 msgid "Failed to create dir: %1"
 msgstr "Не вдалося створити каталог: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Не вдалося отримати дані журналу файла: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1182,9 +1188,6 @@ msgstr "П&роєкти"
 #~ msgstr ""
 #~ "Не вдалося отримати дані журналу файла: виконуваний файл git не знайдено "
 #~ "у жодному з каталогів змінної PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Не вдалося отримати дані журналу файла: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "Показати журнал git файла"

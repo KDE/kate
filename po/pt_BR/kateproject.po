@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2025-02-20 02:16-0300\n"
 "Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -1056,7 +1056,13 @@ msgstr "A pasta já existe"
 msgid "Failed to create dir: %1"
 msgstr "Falha ao criar a pasta: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Falha ao obter histórico do arquivo: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1188,9 +1194,6 @@ msgstr "&Projetos"
 #~ msgstr ""
 #~ "Falha ao obter histórico do arquivo: executável do git não foi encontrado "
 #~ "no PATH"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Falha ao obter histórico do arquivo: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "Exibir histórico do arquivo no git"

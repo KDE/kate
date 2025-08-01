@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -1064,7 +1064,13 @@ msgstr "Fayl adı artıq mövcuddur"
 msgid "Failed to create dir: %1"
 msgstr "Qovluq yaradıla bilmədi: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Fayl tarixçəsi alına bilmədi: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1191,9 +1197,6 @@ msgstr "&Layihələr"
 
 #~ msgid "Failed to get file history: git executable not found in PATH"
 #~ msgstr "Fayl tarixçəsi alına bilmədi: git icra faylı PATH-da tapılmadı"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "Fayl tarixçəsi alına bilmədi: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "Git fayl tarixçəsi göstərilsin"

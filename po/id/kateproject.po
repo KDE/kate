@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -1100,7 +1100,13 @@ msgstr "Nama file sudah ada"
 msgid "Failed to create dir: %1"
 msgstr "Gagal membuat direktori: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Gagal mendapatkan histori file: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1230,9 +1236,6 @@ msgstr "Pro&jek"
 #, fuzzy
 #~| msgid "Failed to get file history: %1"
 #~ msgid "Failed to get file history: git executable not found in PATH"
-#~ msgstr "Gagal mendapatkan histori file: %1"
-
-#~ msgid "Failed to get file history: %1"
 #~ msgstr "Gagal mendapatkan histori file: %1"
 
 #, fuzzy

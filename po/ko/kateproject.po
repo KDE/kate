@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2025-04-06 22:25+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -1036,7 +1036,13 @@ msgstr "디렉터리가 이미 존재함"
 msgid "Failed to create dir: %1"
 msgstr "디렉터리를 만들 수 없음: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "파일 기록을 가져올 수 없음: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1166,9 +1172,6 @@ msgstr "프로젝트(&P)"
 
 #~ msgid "Failed to get file history: git executable not found in PATH"
 #~ msgstr "파일 기록을 가져올 수 없음: PATH에서 git 실행 파일을 찾을 수 없음"
-
-#~ msgid "Failed to get file history: %1"
-#~ msgstr "파일 기록을 가져올 수 없음: %1"
 
 #~ msgid "Show File Git History"
 #~ msgstr "파일 Git 기록 표시"

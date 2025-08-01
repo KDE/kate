@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-31 00:45+0000\n"
+"POT-Creation-Date: 2025-08-01 00:47+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1070,7 +1070,13 @@ msgstr "Το όνομα αρχείου υπάρχει ήδη"
 msgid "Failed to create dir: %1"
 msgstr "Αποτυχία δημιουργίας καταλόγου: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:203
+#, fuzzy, kde-format
+#| msgid "Failed to get file history: %1"
+msgid "Unable to find directory: %1"
+msgstr "Αποτυχία ανάκτησης του ιστορικού του αρχείου: %1"
+
+#: kateprojectworker.cpp:731
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1197,9 +1203,6 @@ msgstr "Έ&ργα"
 #, fuzzy
 #~| msgid "Failed to get file history: %1"
 #~ msgid "Failed to get file history: git executable not found in PATH"
-#~ msgstr "Αποτυχία ανάκτησης του ιστορικού του αρχείου: %1"
-
-#~ msgid "Failed to get file history: %1"
 #~ msgstr "Αποτυχία ανάκτησης του ιστορικού του αρχείου: %1"
 
 #, fuzzy

@@ -28,6 +28,9 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 
+#include "drawing_utils.h"
+#include <QTextLayout>
+
 class KateProjectTreeDelegate : public QStyledItemDelegate
 {
 public:
@@ -41,7 +44,37 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
     {
-        QStyledItemDelegate::paint(painter, opt, index);
+        const QString text = index.data().toString();
+        // Highlight differently if we have a flattened path
+        if (text.contains(u'/')) {
+            QStyleOptionViewItem options = opt;
+            initStyleOption(&options, index);
+
+            QList<QTextLayout::FormatRange> formats;
+
+            QTextCharFormat fmt;
+            fmt.setForeground(options.palette.brush(QPalette::Disabled, QPalette::Text));
+            int slashIndex = text.indexOf(u'/');
+            while (slashIndex != -1) {
+                formats.append(QTextLayout::FormatRange{slashIndex, 1, fmt});
+                slashIndex = text.indexOf(u'/', slashIndex + 1);
+            }
+
+            painter->save();
+
+            options.text = QString(); // clear old text
+            options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
+            options.rect.adjust(4, 0, 0, 0);
+
+            auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+            auto width = textRect.x() - options.rect.x();
+            painter->translate(width, 0);
+            Utils::paintItemViewText(painter, text, options, formats);
+
+            painter->restore();
+        } else {
+            QStyledItemDelegate::paint(painter, opt, index);
+        }
 
         using StatusType = KateProjectModel::StatusType;
         const auto statusType = index.data(Qt::UserRole + 2).value<StatusType>();
@@ -374,6 +407,10 @@ KTextEditor::MainWindow *KateProjectViewTree::mainWindow()
 
 void KateProjectViewTree::flattenPath(const QModelIndex &index)
 {
+    if (!index.isValid()) {
+        return;
+    }
+
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
     auto sourceIndex = proxyModel->mapToSource(index);
     auto item = static_cast<QStandardItemModel *>(proxyModel->sourceModel())->itemFromIndex(sourceIndex);
@@ -389,7 +426,7 @@ void KateProjectViewTree::flattenPath(const QModelIndex &index)
             item->takeColumn(0);
             item->appendColumn(child->takeColumn(0));
 
-            item->setText(QStringLiteral("%1/%2").arg(item->text(), child->text()));
+            item->setText(QStringLiteral("%1 / %2").arg(item->text(), child->text()));
 
             delete child;
         } else {

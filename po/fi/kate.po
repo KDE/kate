@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 02:44+0000\n"
-"PO-Revision-Date: 2025-04-03 17:29+0300\n"
+"PO-Revision-Date: 2025-07-14 11:09+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -465,11 +465,9 @@ msgid "Raw"
 msgstr "Raaka"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "Stage Line"
-#| msgid_plural "Stage Lines"
+#, kde-format
 msgid "Edit Line"
-msgstr "Vaiheista rivi"
+msgstr "Muokkaa riviä"
 
 #: lib/diff/diffeditor.cpp:253
 #, kde-format
@@ -1197,10 +1195,9 @@ msgstr "Lyhennä välilehden teksti"
 
 # *** TARKISTA: Mitähän tämä id oikeasti tarkoittaa?
 #: lib/kateconfigdialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "When checked tab text might be elided if its too long."
+#, kde-format
 msgid "When checked tab text might be elided if it is too long."
-msgstr "Jos valittu, pitkää välilehden tekstiä lyhennetään."
+msgstr "Jos valittu, pitkää välilehden tekstiä voidaan lyhentää."
 
 #: lib/kateconfigdialog.cpp:299
 #, kde-format
@@ -1584,9 +1581,7 @@ msgid "Copies the file path of the current file to clipboard."
 msgstr "Kopioi nykyisen tiedoston sijainnin leikepöydälle."
 
 #: lib/katemainwindow.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "@menu:action"
-#| msgid "Copy Filename"
+#, kde-format
 msgid "Copy Filename"
 msgstr "Kopioi tiedostonimi"
 
@@ -1803,10 +1798,9 @@ msgid "Show File Git History"
 msgstr "Näytä tiedoston git-historia"
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgid "New &Window"
+#, kde-format
 msgid "&Windows"
-msgstr "&Uusi ikkuna"
+msgstr "&Ikkunat"
 
 #: lib/katemainwindow.cpp:718
 #, kde-format

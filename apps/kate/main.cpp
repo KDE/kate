@@ -61,7 +61,33 @@ Q_LOGGING_CATEGORY(KateTime, "kate.time", QtWarningMsg)
 static QString activationToken()
 {
     if (KWindowSystem::isPlatformWayland()) {
-        return qEnvironmentVariable("XDG_ACTIVATION_TOKEN");
+        if (const auto token = qEnvironmentVariable("XDG_ACTIVATION_TOKEN"); !token.isEmpty()) {
+            return token;
+        }
+
+#ifdef WITH_DBUS
+        // can we ask Konsole for a token?
+        const auto konsoleService = qEnvironmentVariable("KONSOLE_DBUS_SERVICE");
+        const auto konsoleSession = qEnvironmentVariable("KONSOLE_DBUS_SESSION");
+        const auto konsoleSessionId = qEnvironmentVariable("SHELL_SESSION_ID");
+        if (konsoleService.isEmpty() || konsoleSession.isEmpty() || konsoleSessionId.isEmpty() || !QDBusConnection::sessionBus().interface()) {
+            return {};
+        }
+
+        // we ask the current shell session
+        QDBusMessage m =
+            QDBusMessage::createMethodCall(konsoleService, konsoleSession, QStringLiteral("org.kde.konsole.Session"), QStringLiteral("activationToken"));
+
+        // use the session id as cookie
+        m.setArguments({konsoleSessionId});
+
+        // get the token, if possible
+        const auto tokenAnswer = QDBusConnection::sessionBus().call(m);
+        if (!tokenAnswer.arguments().isEmpty()) {
+            return tokenAnswer.arguments().first().toString();
+        }
+#endif
+        return {};
     }
 
 #if HAVE_X11
@@ -70,7 +96,7 @@ static QString activationToken()
     }
 #endif
 
-    return QString();
+    return {};
 }
 
 int main(int argc, char **argv)

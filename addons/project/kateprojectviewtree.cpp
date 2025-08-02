@@ -191,7 +191,7 @@ void KateProjectViewTree::selectFile(const QString &file)
     /**
      * select it
      */
-    QModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
+    QPersistentModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource(m_project->model()->indexFromItem(item));
     scrollTo(index, QAbstractItemView::EnsureVisible);
     selectionModel()->setCurrentIndex(index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
 }

@@ -31,11 +31,43 @@
 #include "drawing_utils.h"
 #include <QTextLayout>
 
+namespace
+{
+struct ActivePart {
+    int index;
+    int textIndex;
+    int textLength;
+};
+
+ActivePart activeFlattenedPathItem(const QStringList &splittedPath, int mouseX, int xStart, const QFontMetrics &fm)
+{
+    int textIndex = 0;
+    for (int i = 0; i < splittedPath.size(); ++i) {
+        int width = fm.horizontalAdvance(splittedPath[i]);
+        if (xStart <= mouseX && mouseX <= xStart + width) {
+            return {.index = i, .textIndex = textIndex, .textLength = static_cast<int>(splittedPath[i].size())};
+            break;
+        }
+
+        xStart += width;
+        textIndex += splittedPath[i].length();
+
+        if (i < splittedPath.size() - 1) {
+            xStart += fm.horizontalAdvance(QStringLiteral(" / "));
+            textIndex += 3;
+        }
+    }
+
+    return {-1, -1, -1};
+}
+}
+
 class KateProjectTreeDelegate : public QStyledItemDelegate
 {
 public:
     KateProjectTreeDelegate(KateProjectViewTree *parent)
         : QStyledItemDelegate(parent)
+        , tree(parent)
     {
         KColorScheme c;
         red = c.foreground(KColorScheme::NegativeText).color();
@@ -45,6 +77,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
     {
         const QString text = index.data().toString();
+
         // Highlight differently if we have a flattened path
         if (text.contains(u'/')) {
             QStyleOptionViewItem options = opt;
@@ -52,17 +85,31 @@ public:
 
             QList<QTextLayout::FormatRange> formats;
 
+            if (opt.state & QStyle::State_MouseOver) {
+                const auto mouseX = tree->m_lastMousePosition.x();
+                const auto splitted = text.split(QStringLiteral(" / "), Qt::SkipEmptyParts);
+                auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+                int xStart = textRect.left();
+
+                ActivePart active = activeFlattenedPathItem(splitted, mouseX, xStart, options.fontMetrics);
+                if (active.textIndex != -1) {
+                    QTextCharFormat underlineFmt;
+                    underlineFmt.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+                    formats.append(QTextLayout::FormatRange{active.textIndex, active.textLength, underlineFmt});
+                }
+            }
+
             QTextCharFormat fmt;
             fmt.setForeground(options.palette.brush(QPalette::Disabled, QPalette::Text));
-            int slashIndex = text.indexOf(u'/');
+            int slashIndex = text.indexOf(u"/");
             while (slashIndex != -1) {
                 formats.append(QTextLayout::FormatRange{slashIndex, 1, fmt});
-                slashIndex = text.indexOf(u'/', slashIndex + 1);
+                slashIndex = text.indexOf(u"/", slashIndex + 1);
             }
 
             painter->save();
 
-            options.text = QString(); // clear old text
+            options.text = QString(); // clear text, we'll custom paint it
             options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
             options.rect.adjust(4, 0, 0, 0);
 
@@ -73,6 +120,7 @@ public:
 
             painter->restore();
         } else {
+            // Fallback to default
             QStyledItemDelegate::paint(painter, opt, index);
         }
 
@@ -102,12 +150,14 @@ public:
 private:
     QColor red;
     QColor green;
+    KateProjectViewTree *const tree;
 };
 
 KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, KateProject *project)
     : m_pluginView(pluginView)
     , m_project(project)
 {
+    setMouseTracking(true);
     /**
      * default style
      */
@@ -222,10 +272,69 @@ void KateProjectViewTree::openSelectedDocument()
     }
 }
 
+QStandardItem *KateProjectViewTree::unflattenTreeAndReturnClickedItem(const QModelIndex &idx)
+{
+    // A directory item with flattened path
+    const QStringList splitted = idx.data().toString().split(QStringLiteral(" / "));
+    auto rect = visualRect(idx);
+    ActivePart active = activeFlattenedPathItem(splitted, m_lastMousePosition.x(), rect.left() + 24, fontMetrics());
+
+    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    auto index = proxyModel->mapToSource(idx);
+    auto item = m_project->model()->itemFromIndex(index);
+
+    if (active.index < splitted.size() - 1) {
+        QString path = item->data(Qt::UserRole).toString();
+        QList<QStandardItem *> items;
+        for (int i = splitted.size() - 1; i > 0; i--) {
+            auto newItem = new KateProjectItem(KateProjectItem::Directory, splitted[i], path);
+            if (!items.empty()) {
+                newItem->appendRow(items.last());
+            }
+            items << newItem;
+
+            int lastSlash = path.lastIndexOf(u"/");
+            Q_ASSERT(lastSlash != -1);
+            path = path.left(lastSlash);
+        }
+        QStandardItem *innerMost = items.first();
+        // Move the files to innerMost item
+        innerMost->appendColumn(item->takeColumn(0));
+        // Remove all rows
+        item->removeRows(0, item->rowCount());
+        // Update name and path
+        item->setText(splitted[0]);
+        item->setData(path, Qt::UserRole);
+        // append the top most item
+        item->appendRow(items.last());
+
+        items.append(item);
+
+        // Try to flatten the path after we are done adding the file
+        QMetaObject::invokeMethod(
+            this,
+            [this, item] {
+                auto proxy = static_cast<QSortFilterProxyModel *>(model());
+                auto model = static_cast<QStandardItemModel *>(proxy->sourceModel());
+                auto index = model->indexFromItem(item);
+                flattenPath(proxy->mapFromSource(index));
+            },
+            Qt::QueuedConnection);
+
+        std::reverse(items.begin(), items.end());
+        return items[active.index];
+    }
+
+    return item;
+}
+
 void KateProjectViewTree::addFile(const QModelIndex &idx, const QString &fileName)
 {
     QStandardItem *item = [idx, this] {
         if (idx.isValid()) {
+            if (idx.data().toString().contains(u"/")) {
+                return unflattenTreeAndReturnClickedItem(idx);
+            }
             auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
             auto index = proxyModel->mapToSource(idx);
             return m_project->model()->itemFromIndex(index);
@@ -264,6 +373,9 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
 {
     QStandardItem *item = [idx, this] {
         if (idx.isValid()) {
+            if (idx.data().toString().contains(u"/")) {
+                return unflattenTreeAndReturnClickedItem(idx);
+            }
             auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
             auto index = proxyModel->mapToSource(idx);
             return m_project->model()->itemFromIndex(index);
@@ -403,6 +515,15 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
     menu.exec(filePath, index, viewport()->mapToGlobal(event->pos()), this);
 
     event->accept();
+}
+
+void KateProjectViewTree::mouseMoveEvent(QMouseEvent *e)
+{
+    m_lastMousePosition = e->pos();
+    if (const auto index = indexAt(e->pos()); index.data().toString().contains(u"/")) {
+        update(index);
+    }
+    QTreeView::mouseMoveEvent(e);
 }
 
 KTextEditor::MainWindow *KateProjectViewTree::mainWindow()

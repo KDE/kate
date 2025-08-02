@@ -22,6 +22,8 @@ class MainWindow;
  */
 class KateProjectViewTree : public QTreeView
 {
+    friend class KateProjectTreeDelegate;
+
 public:
     /**
      * construct project view for given project
@@ -92,12 +94,30 @@ private:
 
     void flattenPath(const QModelIndex &index);
 
+    /**
+     * For the given index, unflatten the tree and then return the
+     * item for the part of the path that was clicked
+     *
+     * e.g., idx = /path/child1/child2
+     * it will turn idx into a tree:
+     * - path
+     *   - child1
+     *     - child2
+     * then return child1 item
+     *
+     * This function invokes a Queued call to flattenPath. This reflattens
+     * the path once the operation is done. Used by addFile/addFolder
+     */
+    class QStandardItem *unflattenTreeAndReturnClickedItem(const QModelIndex &idx);
+
 protected:
     /**
      * Create matching context menu.
      * @param event context menu event
      */
     void contextMenuEvent(QContextMenuEvent *event) override;
+
+    void mouseMoveEvent(QMouseEvent *e) override;
 
 private:
     /**
@@ -119,4 +139,6 @@ private:
      * saved scroll position for restore later
      */
     int m_verticalScrollPosition = 0;
+
+    QPoint m_lastMousePosition;
 };

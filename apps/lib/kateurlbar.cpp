@@ -1150,7 +1150,7 @@ protected:
     void enterEvent(QEnterEvent *e) override
     {
         m_fullPathHideTimer.stop();
-        QWidget::leaveEvent(e);
+        QWidget::enterEvent(e);
     }
 
 private:

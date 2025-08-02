@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-03-20 03:36+0100\n"
+"PO-Revision-Date: 2025-08-01 06:41+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1042,7 +1042,7 @@ msgstr "საქაღალდის შექმნის შეცდომ�
 #: kateprojectworker.cpp:203
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "ვერ ვიპოვე საქაღალდე: %1"
 
 #: kateprojectworker.cpp:731
 #, kde-format

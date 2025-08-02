@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-03-19 14:39+0300\n"
-"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"PO-Revision-Date: 2025-08-01 12:47+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.04.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1044,7 +1044,7 @@ msgstr "Dizin oluşturulamadı: %1"
 #: kateprojectworker.cpp:203
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "Dizin bulunamıyor: %1"
 
 #: kateprojectworker.cpp:731
 #, kde-format

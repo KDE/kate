@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-04-05 22:26+0200\n"
+"PO-Revision-Date: 2025-08-01 09:28+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1040,10 +1040,9 @@ msgid "Failed to create dir: %1"
 msgstr "Misslyckades skapa katalog: %1"
 
 #: kateprojectworker.cpp:203
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Misslyckades hämta filhistorik: %1"
+msgstr "Kan inte hitta katalog: %1"
 
 #: kateprojectworker.cpp:731
 #, kde-format

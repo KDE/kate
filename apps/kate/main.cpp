@@ -70,7 +70,7 @@ static QString activationToken()
     }
 #endif
 
-    return QString();
+    return {};
 }
 
 int main(int argc, char **argv)
@@ -139,7 +139,7 @@ int main(int argc, char **argv)
      * authors & co.
      * add yourself there, if you helped to work on Kate or KWrite
      */
-    KateApp::fillAuthorsAndCredits(aboutData);
+    KateApp::initPostApplicationCreation(aboutData);
 
     /**
      * set proper Kate icon for our about dialog

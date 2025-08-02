@@ -77,6 +77,8 @@
 
 #ifdef WITH_DBUS
 #include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusReply>
 #endif
 
 #include <urlinfo.h>
@@ -328,8 +330,36 @@ KateApp *KateApp::self()
     return appSelf;
 }
 
-void KateApp::fillAuthorsAndCredits(KAboutData &aboutData)
+void KateApp::initPostApplicationCreation(KAboutData &aboutData)
 {
+#ifdef WITH_DBUS
+    // on wayland: init token if we are launched by Konsole and have none
+    if (KWindowSystem::isPlatformWayland() && qEnvironmentVariable("XDG_ACTIVATION_TOKEN").isEmpty() && QDBusConnection::sessionBus().interface()) {
+        // can we ask Konsole for a token?
+        const auto konsoleService = qEnvironmentVariable("KONSOLE_DBUS_SERVICE");
+        const auto konsoleSession = qEnvironmentVariable("KONSOLE_DBUS_SESSION");
+        const auto konsoleSessionId = qEnvironmentVariable("SHELL_SESSION_ID");
+        if (!konsoleService.isEmpty() && !konsoleSession.isEmpty() && !konsoleSessionId.isEmpty()) {
+            // we ask the current shell session
+            QDBusMessage m =
+                QDBusMessage::createMethodCall(konsoleService, konsoleSession, QStringLiteral("org.kde.konsole.Session"), QStringLiteral("activationToken"));
+
+            // use the session id as cookie
+            m.setArguments({konsoleSessionId});
+
+            // get the token, if possible and export it to environment for later use
+            const auto tokenAnswer = QDBusConnection::sessionBus().call(m);
+            if (tokenAnswer.type() == QDBusMessage::ReplyMessage && !tokenAnswer.arguments().isEmpty()) {
+                const auto token = tokenAnswer.arguments().first().toString();
+                if (!token.isEmpty()) {
+                    qputenv("XDG_ACTIVATION_TOKEN", token.toUtf8());
+                }
+            }
+        }
+    }
+#endif
+
+    // fill author data
     aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Sven Brauch"), i18n("Developer"), QStringLiteral("mail@svenbrauch.de"));
@@ -363,6 +393,7 @@ void KateApp::fillAuthorsAndCredits(KAboutData &aboutData)
                         QStringLiteral("oss@senarclens.eu"),
                         QStringLiteral("http://find-santa.eu/"));
 
+    // fill credits
     aboutData.addCredit(i18n("Tyson Tan"),
                         i18n("Designer of Kate's mascot 'Kate the Cyber Woodpecker'"),
                         QString(),

@@ -52,6 +52,13 @@ public:
     static void initPreApplicationCreation(bool detach);
 
     /**
+     * Try to get XDG_ACTIVATION_TOKEN if possible from Konsole.
+     * Fill in the authors and credits for the application.
+     * Use by Kate & KWrite
+     */
+    static void initPostApplicationCreation(KAboutData &aboutData);
+
+    /**
      * Was the application started inside a terminal?
      */
     static bool isInsideTerminal();
@@ -95,12 +102,6 @@ public:
     {
         return mode() == KateApp::ApplicationKWrite;
     }
-
-    /**
-     * Fill in the authors and credits for the application.
-     * Use by Kate & KWrite
-     */
-    static void fillAuthorsAndCredits(KAboutData &aboutData);
 
     /**
      * get kate inited

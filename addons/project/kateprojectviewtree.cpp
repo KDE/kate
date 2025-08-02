@@ -426,6 +426,8 @@ void KateProjectViewTree::flattenPath(const QModelIndex &index)
             item->takeColumn(0);
             item->appendColumn(child->takeColumn(0));
 
+            // Set the path to child's path
+            item->setData(child->data(Qt::UserRole), Qt::UserRole);
             item->setText(QStringLiteral("%1 / %2").arg(item->text(), child->text()));
 
             delete child;

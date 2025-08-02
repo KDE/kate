@@ -174,6 +174,8 @@ void KateProjectItem::setData(const QVariant &value, int role)
 
         // change internal path
         m_path = newName;
+    } else if (role == Qt::UserRole) {
+        m_path = value.toString();
     }
 
     QStandardItem::setData(value, role);

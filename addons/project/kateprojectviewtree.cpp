@@ -317,6 +317,11 @@ void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &full
             m_project->model()->sort(0);
         }
         m_project->removeFile(fullFilePath);
+
+        if (parent) {
+            auto parentIdx = m_project->model()->indexFromItem(parent);
+            flattenPath(proxyModel->mapFromSource(parentIdx));
+        }
     }
 }
 

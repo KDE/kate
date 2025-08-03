@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-07-26 09:48+0300\n"
+"PO-Revision-Date: 2025-08-02 21:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -406,12 +406,12 @@ msgstr "העתקה ללוח הגזירים"
 #: lib/diagnostics/diagnosticview.cpp:1483
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr "הסרת הדחקה כוללנית"
+msgstr "הסרת הדחקה מקיפה"
 
 #: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Add Global Suppression"
-msgstr "הוספת הדחקה כוללנית"
+msgstr "הוספת הדחקה מקיפה"
 
 #: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format

@@ -338,6 +338,12 @@ protected:
         }
     }
 
+    void showEvent(QShowEvent *event) override
+    {
+        QTextBrowser::showEvent(event);
+        verticalScrollBar()->setValue(0);
+    }
+
 private:
     void triggerChange()
     {

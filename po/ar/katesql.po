@@ -77,7 +77,7 @@ msgstr "اسم المستخدم:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Password:"
-msgstr "كلمة المرور:"
+msgstr "كلمة السر:"
 
 #: connectionwizard.cpp:98
 #, kde-format

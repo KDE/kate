@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-01 00:47+0000\n"
+"POT-Creation-Date: 2025-08-04 00:45+0000\n"
 "PO-Revision-Date: 2025-04-20 10:31+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -526,9 +526,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
-#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
-#: kateprojectviewtree.cpp:252
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Projekti"
@@ -1019,22 +1019,22 @@ msgstr "Uusi tiedosto"
 msgid "New Folder"
 msgstr "Uusi kansio"
 
-#: kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "Tiedosto on jo olemassa"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Ei voitu luoda tiedostoa: %1, virhe: %2"
 
-#: kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "Kansio on jo olemassa"
 
-#: kateprojectviewtree.cpp:252
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Ei voitu luoda kansiota: %1"

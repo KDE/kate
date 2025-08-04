@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-01 00:47+0000\n"
+"POT-Creation-Date: 2025-08-04 00:45+0000\n"
 "PO-Revision-Date: 2025-08-02 19:27+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -527,9 +527,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "קובץ ה־JSON‏ ‚%1’ פגום: %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
-#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
-#: kateprojectviewtree.cpp:252
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "מיזם"
@@ -1021,22 +1021,22 @@ msgstr "קובץ חדש"
 msgid "New Folder"
 msgstr "תיקייה חדשה"
 
-#: kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "הקובץ כבר קיים"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "יצירת הקובץ נכשלה: %1. שגיאה: %2"
 
-#: kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "התיקייה כבר קיימת"
 
-#: kateprojectviewtree.cpp:252
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "יצירת התיקייה נכשלה: %1"

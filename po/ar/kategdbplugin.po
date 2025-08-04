@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-07-03 09:52+0400\n"
+"PO-Revision-Date: 2025-08-03 07:45+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -92,14 +92,13 @@ msgstr "أعد توجيه دخل/خرج البرامج المنقّحة إلى �
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "لا يوجد هدف قابل للتنفيذ محدد"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "معرف الخيط غير صالح: %1"
+msgstr "معرّف العملية غير صالح"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -570,7 +569,7 @@ msgstr "بدّل نقطة المقاطعة / قاطع"
 #: plugin_kategdb.cpp:301
 #, kde-format
 msgid "Clear All Breakpoints"
-msgstr "امسح جميع نقاط التوقف"
+msgstr "امحُ جميع نقاط التوقف"
 
 #: plugin_kategdb.cpp:306
 #, kde-format
@@ -600,7 +599,7 @@ msgstr "أعد تشغيل التّنقيح"
 #: plugin_kategdb.cpp:341
 #, kde-format
 msgid "Clear Output"
-msgstr "امسح الخرج"
+msgstr "امحُ الخرج"
 
 #: plugin_kategdb.cpp:349
 #, kde-format
@@ -629,10 +628,9 @@ msgid "Print Value"
 msgstr "اطبع القيمة"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "خطأ بناء الجملة: %1"
+msgstr "الخطأ: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

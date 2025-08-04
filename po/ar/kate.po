@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-05-12 17:32+0400\n"
+"PO-Revision-Date: 2025-08-03 14:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -327,7 +327,7 @@ msgstr "العنصر السّابق"
 #: lib/diagnostics/diagnosticview.cpp:365
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "امسح مرشح التشخيص"
+msgstr "امحُ مرشح التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:375
 #, kde-format
@@ -359,7 +359,7 @@ msgstr "رشّح…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "امسح التشخيص"
+msgstr "امحُ التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:166
 #, kde-format
@@ -586,11 +586,10 @@ msgid "No differences found"
 msgstr "لم يعثر على فروقات"
 
 #: lib/filehistorywidget.cpp:231
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "تلبيدة غير صالحة"
+msgstr "تاريخ غير صالح: %1"
 
 #: lib/filehistorywidget.cpp:440
 #, kde-format
@@ -608,6 +607,17 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"تصفية السجل.<ul><li>استخدم البادئة <code>\"a:\"</code> للتصفية حسب اسم "
+"المؤلف. على سبيل المثال، <b>a:john doe</b></li><li>استخدم البادئة <code>\"!a:"
+"\"</code> لاستبعاد مؤلف. على سبيل المثال، <b>!a:john doe</b></li><li>استخدم "
+"البادئة <code>\"since:\"</code> لعرض عمليات الإيداع بعد التاريخ المحدد. سيتم "
+"التحقق من تاريخ الإيداع لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على "
+"سبيل المثال، <b>since:2025-04-17</b></li><li>استخدم البادئة <code>\"until:"
+"\"</code> لعرض عمليات الإيداع قبل التاريخ المحدد. سيتم التحقق من تاريخ "
+"الإيداع لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على سبيل المثال، "
+"<b>حتى: 2025-04-17</b></li><li>لتصفية الرسائل، ما عليك سوى كتابة مصطلح "
+"البحث. إذا أدخلت عدة مصطلحات بحث، فستظهر الرسائل التي تطابق جميع مصطلحات "
+"البحث.</li></ul>لتفعيل التصفية اضغط على مفتاح <b>Enter</b>."
 
 #: lib/filehistorywidget.cpp:496
 #, kde-format
@@ -2108,7 +2118,7 @@ msgstr "[الجديد]"
 #: lib/kateoutputview.cpp:176
 #, kde-format
 msgid "Search..."
-msgstr "ابحث..."
+msgstr "ابحث…"
 
 #: lib/kateoutputview.cpp:192
 #, kde-format
@@ -2118,7 +2128,7 @@ msgstr "انسخ كامل النص إلى الحافظة"
 #: lib/kateoutputview.cpp:197
 #, kde-format
 msgid "Clear all messages"
-msgstr "امح كل الرسائل"
+msgstr "امحُ كل الرسائل"
 
 #: lib/kateoutputview.cpp:409
 #, kde-format
@@ -3035,7 +3045,7 @@ msgstr "افتح ملفًّا..."
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr "امسح الملفات الحديثة"
+msgstr "امحُ الملفات الحديثة"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
@@ -3047,7 +3057,7 @@ msgstr "مساعدة"
 #: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
-msgstr "زر الصفحة الرئيسية"
+msgstr "زر الصفحة الرئيسة"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:293

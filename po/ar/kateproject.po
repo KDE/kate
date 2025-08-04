@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-01 00:47+0000\n"
-"PO-Revision-Date: 2025-06-28 17:14+0400\n"
+"POT-Creation-Date: 2025-08-04 00:45+0000\n"
+"PO-Revision-Date: 2025-08-03 07:44+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -529,9 +529,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "ملف JSON مشوه '%1': %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:207
-#: kateprojectviewtree.cpp:218 kateprojectviewtree.cpp:245
-#: kateprojectviewtree.cpp:252
+#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "مشروع"
@@ -1025,22 +1025,22 @@ msgstr "ملفّ جديد"
 msgid "New Folder"
 msgstr "مجلّد جديد"
 
-#: kateprojectviewtree.cpp:207
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "الملف موجود فعلًا"
 
-#: kateprojectviewtree.cpp:218
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "فشل إنشاء الملف: %1، الخطأ: %2"
 
-#: kateprojectviewtree.cpp:245
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "الدليل موجود مسبقًا"
 
-#: kateprojectviewtree.cpp:252
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "فشل إنشاء الدليل: %1"
@@ -1048,7 +1048,7 @@ msgstr "فشل إنشاء الدليل: %1"
 #: kateprojectworker.cpp:203
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "غير قادر على العثور على الدليل: %1"
 
 #: kateprojectworker.cpp:731
 #, kde-format

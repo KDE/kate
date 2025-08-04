@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-15 02:44+0000\n"
-"PO-Revision-Date: 2025-05-12 17:32+0400\n"
+"PO-Revision-Date: 2025-08-03 14:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -327,7 +327,7 @@ msgstr "العنصر السّابق"
 #: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr "امسح مرشح التشخيص"
+msgstr "امحُ مرشح التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
@@ -359,7 +359,7 @@ msgstr "رشّح…"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "امسح التشخيص"
+msgstr "امحُ التشخيص"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
@@ -2084,7 +2084,7 @@ msgstr "[الجديد]"
 #: lib/kateoutputview.cpp:176
 #, kde-format
 msgid "Search..."
-msgstr "ابحث..."
+msgstr "ابحث…"
 
 #: lib/kateoutputview.cpp:192
 #, kde-format
@@ -2094,7 +2094,7 @@ msgstr "انسخ كامل النص إلى الحافظة"
 #: lib/kateoutputview.cpp:197
 #, kde-format
 msgid "Clear all messages"
-msgstr "امح كل الرسائل"
+msgstr "امحُ كل الرسائل"
 
 #: lib/kateoutputview.cpp:409
 #, kde-format
@@ -3011,7 +3011,7 @@ msgstr "افتح ملفًّا..."
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr "امسح الملفات الحديثة"
+msgstr "امحُ الملفات الحديثة"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
@@ -3023,7 +3023,7 @@ msgstr "مساعدة"
 #: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
-msgstr "زر الصفحة الرئيسية"
+msgstr "زر الصفحة الرئيسة"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:293

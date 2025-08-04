@@ -165,6 +165,10 @@ QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side)
 
 void showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow)
 {
+    if (!mainWindow) {
+        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    }
+
     Q_ASSERT(type >= MessageType::Log && type <= MessageType::Error);
     QVariantMap msg;
     static const QString msgToString[] = {

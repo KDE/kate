@@ -185,7 +185,8 @@ void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
     if (!mainWindow) {
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
-    QMetaObject::invokeMethod(mainWindow->parent(), "showMessage", Qt::DirectConnection, Q_ARG(QVariantMap, map));
+    bool ret = true;
+    QMetaObject::invokeMethod(mainWindow->parent(), "showMessage", Qt::DirectConnection, Q_RETURN_ARG(bool, ret), Q_ARG(QVariantMap, map));
 }
 
 void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)

@@ -609,7 +609,7 @@ public Q_SLOTS:
     /**
      * @brief show a message in the output view. See KTextEditor::MainWindow::showMessage for details
      */
-    void showMessage(const QVariantMap &map);
+    bool showMessage(const QVariantMap &map);
 
     void addPositionToHistory(const QUrl &url, KTextEditor::Cursor c);
 

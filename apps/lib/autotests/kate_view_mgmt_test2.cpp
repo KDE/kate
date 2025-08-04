@@ -21,6 +21,7 @@
 #include <QTemporaryDir>
 #include <QTemporaryFile>
 #include <QTest>
+#include <QTextBrowser>
 #include <memory>
 
 class KateApp;
@@ -43,6 +44,7 @@ private Q_SLOTS:
     void testMultipleViewCursorPositionIsRestored();
     void testTabsKeepOrderOnRestore2();
     void testTabsKeepOrderOnRestore3();
+    void testShowMessageWorks();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -395,6 +397,33 @@ void KateViewManagementTest2::testTabsKeepOrderOnRestore3()
     QCOMPARE(tabs.at(1).doc()->url(), file1);
     QCOMPARE(tabs.at(2).doc()->url(), file3);
     QCOMPARE(tabs.at(3).doc()->url(), file4);
+}
+
+void KateViewManagementTest2::testShowMessageWorks()
+{
+    app->sessionManager()->sessionNew();
+
+    auto outputView = app->activeMainWindow()->parent()->findChild<QWidget *>("KateOutputView");
+    QVERIFY(outputView);
+    auto outputViewTextBrowser = outputView->findChild<QTextBrowser *>();
+    QVERIFY(outputViewTextBrowser);
+
+    QVariantMap msg;
+    msg.insert(QStringLiteral("type"), QStringLiteral("Error"));
+    msg.insert(QStringLiteral("category"), QStringLiteral("Test"));
+    msg.insert(QStringLiteral("categoryIcon"), QIcon());
+    msg.insert(QStringLiteral("text"), QStringLiteral("Test testShowMessageWorks"));
+
+    app->activeMainWindow()->showMessage(msg);
+    Utils::showMessage(QStringLiteral("Test KTextEditor::utils::showMessage"), QIcon(), QStringLiteral("Test"), MessageType::Error);
+    msg.insert(QStringLiteral("text"), QStringLiteral("Test2 testShowMessageWorks"));
+    Utils::showMessage(msg);
+
+    QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test testShowMessageWorks")));
+    QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test KTextEditor::utils::showMessage")));
+    QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test2 testShowMessageWorks")));
+
+    QVERIFY(outputView->isVisible());
 }
 
 QTEST_MAIN(KateViewManagementTest2)

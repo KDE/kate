@@ -399,6 +399,7 @@ void KateMainWindow::setupMainWindow()
                                       QIcon::fromTheme(QStringLiteral("output_win")),
                                       i18n("Output"));
     m_outputView = new KateOutputView(this, m_toolViewOutput);
+    m_outputView->setObjectName(QStringLiteral("KateOutputView"));
 }
 
 void KateMainWindow::setupActions()
@@ -1591,12 +1592,13 @@ void KateMainWindow::activateWidget(QWidget *widget)
     }
 }
 
-void KateMainWindow::showMessage(const QVariantMap &map)
+bool KateMainWindow::showMessage(const QVariantMap &map)
 {
     if (!m_outputView) {
-        return;
+        return false;
     }
     m_outputView->slotMessage(map);
+    return true;
 }
 
 void KateMainWindow::addPositionToHistory(const QUrl &url, KTextEditor::Cursor c)

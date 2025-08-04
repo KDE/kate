@@ -93,7 +93,6 @@ KATE_PRIVATE_EXPORT QWidget *activeToolviewForSide(KTextEditor::MainWindow *main
 /*** BEGIN KTextEditor::MainWindow extensions **/
 KATE_PRIVATE_EXPORT void
 showMessage(const QString &message, const QIcon &icon, const QString &category, MessageType type, KTextEditor::MainWindow *mainWindow = nullptr);
-KATE_PRIVATE_EXPORT void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow = nullptr);
 
 KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow);
 

@@ -177,16 +177,7 @@ void showMessage(const QString &message, const QIcon &icon, const QString &categ
     msg.insert(QStringLiteral("category"), category);
     msg.insert(QStringLiteral("categoryIcon"), icon);
     msg.insert(QStringLiteral("text"), message);
-    showMessage(msg, mainWindow);
-}
-
-void showMessage(const QVariantMap &map, KTextEditor::MainWindow *mainWindow)
-{
-    if (!mainWindow) {
-        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
-    }
-    bool ret = true;
-    QMetaObject::invokeMethod(mainWindow->parent(), "showMessage", Qt::DirectConnection, Q_RETURN_ARG(bool, ret), Q_ARG(QVariantMap, map));
+    mainWindow->showMessage(msg);
 }
 
 void showDiff(const QByteArray &diff, const DiffParams &params, KTextEditor::MainWindow *mainWindow)

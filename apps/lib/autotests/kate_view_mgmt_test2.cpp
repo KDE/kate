@@ -416,12 +416,9 @@ void KateViewManagementTest2::testShowMessageWorks()
 
     app->activeMainWindow()->showMessage(msg);
     Utils::showMessage(QStringLiteral("Test KTextEditor::utils::showMessage"), QIcon(), QStringLiteral("Test"), MessageType::Error);
-    msg.insert(QStringLiteral("text"), QStringLiteral("Test2 testShowMessageWorks"));
-    Utils::showMessage(msg);
 
     QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test testShowMessageWorks")));
     QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test KTextEditor::utils::showMessage")));
-    QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test2 testShowMessageWorks")));
 
     QVERIFY(outputView->isVisible());
 }

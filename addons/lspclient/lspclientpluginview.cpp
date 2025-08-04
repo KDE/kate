@@ -2119,7 +2119,7 @@ public:
         }
 
         // host application will handle these message for us, including auto-show settings
-        Utils::showMessage(genericMessage, m_mainWindow);
+        m_mainWindow->showMessage(genericMessage);
     }
 
     // params type is same for show or log and is treated the same way

@@ -176,7 +176,7 @@ msgstr "اعرض توثيق الإكمال المحددة"
 #: lspclientpluginview.cpp:562
 #, kde-format
 msgid "Enable signature help with auto completion"
-msgstr "تمكين مساعدة التوقيع في الإكمال الآلي"
+msgstr "تمكين مساعدة التوقيع في الإكمال الآليّ"
 
 #: lspclientpluginview.cpp:565
 #, kde-format
@@ -218,7 +218,7 @@ msgstr "أظهر التلميحات المبطنة"
 #: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr "أظهر إخطارات التشخيص"
+msgstr "أظهر إشعارات التشخيص"
 
 #: lspclientpluginview.cpp:598
 #, kde-format
@@ -452,7 +452,7 @@ msgstr "وضع الشّجرة"
 #: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
-msgstr "وسّع الشجرة تلقائيًا"
+msgstr "وسّع الشجرة آليًّا"
 
 #: lspclientsymbolview.cpp:392
 #, kde-format
@@ -531,7 +531,7 @@ msgstr "إظهار توقيع الوظيفة عند كتابة مكالمة دا
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr "أضف الواردات تلقائيًا إذا لزم الأمر عند الانتهاء"
+msgstr "أضف الواردات آليًّا إذا لزم الأمر عند الانتهاء"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:117
@@ -573,7 +573,7 @@ msgstr "اعرض تشخيص البرنامج"
 #: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show notifications from the LSP server"
-msgstr "عرض الإخطارات من خادم LSP"
+msgstr "عرض الإشعارات من خادم LSP"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
 #: lspconfigwidget.ui:166
@@ -609,7 +609,7 @@ msgstr "اعرض الرموز في التسلسل الهرمي بدلاً من �
 #: lspconfigwidget.ui:209
 #, kde-format
 msgid "Automatically expand tree"
-msgstr "وسّع الشجرة آليًا"
+msgstr "وسّع الشجرة آليًّا"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
 #: lspconfigwidget.ui:218

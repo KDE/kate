@@ -168,7 +168,7 @@ msgstr "زامن لسان الطّرفيّة الحالي آليًّا مع ال
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "أنشئ &تلقائيًا لسان طرفية لدليل المستند الحالي وانتقل إليه"
+msgstr "أنشئ &آليًّا لسان طرفية لدليل المستند الحالي وانتقل إليه"
 
 #: kateconsole.cpp:692 kateconsole.cpp:713
 #, kde-format

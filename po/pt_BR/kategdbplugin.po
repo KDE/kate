@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2010, 2011, 2012, 2013, 2014.
-# Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>, 2010.
+# SPDX-FileCopyrightText: 2010, 2025 Marcus Vinícius de Andrade Gama <marcus.gama@gmail.com>
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
 # SPDX-FileCopyrightText: 2024 Geraldo Simiao <geraldosimiao@fedoraproject.org>
@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-02-20 02:16-0300\n"
-"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
+"PO-Revision-Date: 2025-08-04 15:32-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -50,7 +50,7 @@ msgstr "Excluir o alvo"
 #: configview.cpp:102
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Recarregar alvos launch.json"
 
 #: configview.cpp:107
 #, kde-format
@@ -98,14 +98,13 @@ msgstr "Redirecionar a E/S dos programas depurados para uma aba separada"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Nenhum alvo executável definido"
 
 #: configview.cpp:400
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "id de thread inválido: %1"
+msgstr "Id de processo inválido"
 
 #: configview.cpp:471 configview.cpp:484
 #, kde-format
@@ -113,16 +112,14 @@ msgid "Target %1"
 msgstr "Alvo %1"
 
 #: configview.cpp:703
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Executável:"
+msgstr "Selecionar executável"
 
 #: configview.cpp:716
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Pasta de trabalho:"
+msgstr "Selecionar pasta de trabalho"
 
 #: dapbackend.cpp:182
 #, kde-format
@@ -137,7 +134,7 @@ msgstr "programa encerrado"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Falha ao encerrar. Forçando desligamento..."
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -488,7 +485,7 @@ msgstr "Símbolo"
 #: localsview.cpp:23
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: localsview.cpp:24
 #, kde-format
@@ -513,7 +510,7 @@ msgstr "itens nomeados"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Carregando..."
 
 #: localsview.cpp:163
 #, kde-format
@@ -549,7 +546,7 @@ msgstr "Locais e pilha"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Não foi possível abrir o arquivo:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:266
 #, kde-format
@@ -638,10 +635,9 @@ msgid "Print Value"
 msgstr "Imprimir o valor"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "erro de sintaxe: %1"
+msgstr "Erro: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format
@@ -710,14 +706,13 @@ msgstr "Nr"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Função"
 
 #: stackframe_model.cpp:82
-#, fuzzy, kde-format
-#| msgid "Open Location"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Abrir localização"
+msgstr "Localização"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

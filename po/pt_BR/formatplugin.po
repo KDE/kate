@@ -1,121 +1,120 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
+# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-12 00:43+0000\n"
-"PO-Revision-Date: 2025-08-04 18:37+0400\n"
-"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
-"Language-Team: ar\n"
-"Language: ar\n"
+"PO-Revision-Date: 2025-08-04 12:10-0300\n"
+"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
 #: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
-msgstr "التنسيق"
+msgstr "Formato"
 
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr "فشل في كتابة ملف مؤقت"
+msgstr "Falha ao gravar um arquivo temporário"
 
 #: FormatApply.h:35
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr "فشل تشغيل git diff: %1"
+msgstr "Falha ao executar git diff: %1"
 
 #: FormatConfig.cpp:119
 #, kde-format
 msgid "User Settings"
-msgstr "إعدادات المستخدم"
+msgstr "Configurações do usuário"
 
 #: FormatConfig.cpp:127
 #, kde-format
 msgid "Default Settings"
-msgstr "الإعدادات المبدئية"
+msgstr "Configurações padrão"
 
 #: FormatConfig.h:18 FormatPlugin.cpp:112
 #, kde-format
 msgid "Formatting"
-msgstr "التنسيق"
+msgstr "Formatação"
 
 #: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
-msgstr "إعدادات التنسيق"
+msgstr "Configurações de formatação"
 
 #: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr "فشل في قراءة settings.json. الخطأ: %1"
+msgstr "Falha ao ler settings.json. Erro: %1"
 
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "تنسيق المستند"
+msgstr "Formatação do documento"
 
 #: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
-msgstr "التنسيق عند الحفظ"
+msgstr "Formatação ao salvar"
 
 #: FormatPlugin.cpp:131
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
-msgstr "تعطيل التنسيق عند الحفظ دون استمراره في الإعدادات"
+msgstr "Desabilitar a formatação ao salvar sem persistir nas configurações"
 
 #: Formatters.cpp:119
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr "%1: أمر فارغ غير متوقع!"
+msgstr "%1: Comando vazio inesperado!"
 
 #: Formatters.cpp:126
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
-msgstr "%1 غير مثبت، الرجاء تثبيته لتتمكن من تنسيق هذا المستند!"
+msgstr "%1 não está instalado. Instale-o para poder formatar este documento!"
 
 #: Formatters.cpp:195
 #, kde-format
 msgid "Please install node and prettier"
-msgstr "يُرجى تثبيت node و prettier"
+msgstr "Por favor, instale o node e o prettyer"
 
 #: Formatters.cpp:202
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr "PrettierFormat: فشل إنشاء ملف مؤقت"
+msgstr "FormatoPrettier: Falha ao criar arquivo temporário"
 
 #: Formatters.cpp:223
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: فشل بدء تشغيل 'node': %1"
+msgstr "FormatoPrettier: Falha ao iniciar 'nó': %1"
 
 #: Formatters.cpp:325
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr "مُنسيق غير معروف لـJson: %1"
+msgstr "formatterForJson desconhecido: %1"
 
 #: Formatters.cpp:345
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr "مُنسِّق غير معروف لـPython: %1"
+msgstr "formatterForPython desconhecido: %1"
 
 #: Formatters.cpp:368
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "تنسيق غير معروف لـYaml: %1، العودة إلى yamlfmt"
+msgstr "formatterForYaml desconhecido: %1, voltando para yamlfmt"
 
 #: Formatters.cpp:398
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr "فشل تشغيل المنسق. لغة غير مدعومة %1"
+msgstr "Falha ao executar formatador. Linguagem %1 não suportada"

@@ -50,7 +50,7 @@ msgstr "حدّث المعاينة آليًّا"
 #: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
-msgstr "مكن التحديث الآلي لمعاينة المحتويات المستند الحالي"
+msgstr "مكن التحديث الآليّ لمعاينة المحتويات المستند الحالي"
 
 #: previewwidget.cpp:55
 #, kde-format
@@ -61,7 +61,7 @@ msgstr "حدّث المعاينة يدويا"
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
-msgstr "عطّل التحديث الآلي لمعاينة المحتويات المستند الحالي"
+msgstr "عطّل التحديث الآليّ لمعاينة المحتويات المستند الحالي"
 
 #: previewwidget.cpp:62
 #, kde-format

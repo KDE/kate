@@ -83,7 +83,7 @@ msgstr "أضف الأخطاء والتحذيرات إلى التشخيص"
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
-msgstr "التبديل تلقائيًا إلى جزء الإخراج عند تنفيذ الهدف المحدد"
+msgstr "التبديل آليًّا إلى جزء الإخراج عند تنفيذ الهدف المحدد"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:77

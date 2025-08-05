@@ -328,7 +328,7 @@ msgstr "ملفّ قاعدة بيانات «وسوم‌سي»"
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr "ارجع إلى الأمر الافتراضيّ"
+msgstr "ارجع إلى الأمر المبدئيّ"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208

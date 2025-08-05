@@ -59,7 +59,7 @@ msgstr "فضلًا أدخل معاملات الاتّصال"
 #, kde-format
 msgctxt "@item Spinbox special value"
 msgid "Default"
-msgstr "الافتراضيّ"
+msgstr "المبدئيّ"
 
 #: connectionwizard.cpp:95
 #, kde-format

@@ -35,6 +35,14 @@ public:
     QModelIndex getBookmarkIndex(const Bookmark &bookmark);
 
 private:
+    struct Range {
+        int start;
+        int count;
+    };
+
     QList<Bookmark> m_bookmarks;
-    QHash<QUrl, QPair<int, int>> m_bookmarksIndexes;
+    QHash<QUrl, Range> m_bookmarksIndexes;
+
+private:
+    bool bookmarkLinesMatch(const Range &range, const QList<int> &lineNumbers) const;
 };

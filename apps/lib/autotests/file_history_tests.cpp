@@ -152,11 +152,19 @@ void FileHistoryTest::testFiltering()
     QTRY_VERIFY(commitProxyModel->rowCount() != 0);
     const int preFilterRowCount = commitProxyModel->rowCount();
 
+    // Add a filter
     filterLineEdit->setText(QStringLiteral("a:waqar"));
     filterLineEdit->returnPressed();
 
+    // Expect one filter button
     QCOMPARE(filtersList->count(), 1);
+    // Expect different rowCount
     QVERIFY(commitProxyModel->rowCount() != preFilterRowCount);
+
+    // Add the same filter, expect no change
+    filterLineEdit->setText(QStringLiteral("a:waqar"));
+    filterLineEdit->returnPressed();
+    QCOMPARE(filtersList->count(), 1);
 }
 
 QTEST_MAIN(FileHistoryTest)

@@ -205,9 +205,20 @@ public:
         int id = m_filterIdCounter++;
 
         if (data.startsWith(u"a:")) {
-            m_authorFilters.push_back(Filter{id, data.mid(2)});
+            QStringView author = QStringView(data).mid(2);
+            if (hasFilterText(m_authorFilters, author)) {
+                // ignore if we have this text already
+                return -1;
+            }
+
+            m_authorFilters.push_back(Filter{id, author.toString()});
         } else if (data.startsWith(u"!a:")) {
-            m_inverseAuthorFilters.push_back(Filter{id, data.mid(3)});
+            QStringView author = QStringView(data).mid(3);
+            if (hasFilterText(m_inverseAuthorFilters, author)) {
+                // ignore if we have this text already
+                return -1;
+            }
+            m_inverseAuthorFilters.push_back(Filter{id, author.toString()});
         } else if (data.startsWith(u"since:") || data.startsWith(u"until:")) {
             QString date = data.mid(6);
             QDate d = QDate::fromString(date, Qt::ISODate);
@@ -259,6 +270,16 @@ public:
         std::erase_if(m_inverseAuthorFilters, pred);
 
         endResetModel();
+    }
+
+    static bool hasFilterText(const std::vector<Filter> &list, QStringView text)
+    {
+        for (const auto &filter : list) {
+            if (filter.text == text) {
+                return true;
+            }
+        }
+        return false;
     }
 
 private:

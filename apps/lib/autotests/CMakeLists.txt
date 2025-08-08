@@ -32,4 +32,5 @@ kate_executable_tests(
     diffwidget_tests
     basic_ui_tests
     doc_or_widget_test
+    file_history_tests
 )

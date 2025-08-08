@@ -155,6 +155,8 @@ void FileHistoryTest::testFiltering()
     // Add a filter
     filterLineEdit->setText(QStringLiteral("a:waqar"));
     filterLineEdit->returnPressed();
+    // Expect line edit is emptied after return press
+    QVERIFY(filterLineEdit->text().isEmpty());
 
     // Expect one filter button
     QCOMPARE(filtersList->count(), 1);
@@ -165,6 +167,15 @@ void FileHistoryTest::testFiltering()
     filterLineEdit->setText(QStringLiteral("a:waqar"));
     filterLineEdit->returnPressed();
     QCOMPARE(filtersList->count(), 1);
+
+    // Click close button on a filter
+    auto filterCloseBtn = filtersList->findChild<QToolButton *>();
+    QVERIFY(filterCloseBtn);
+    filterCloseBtn->click();
+    // Expect filter list to be empty and hidden
+    QCOMPARE(filtersList->count(), 0);
+    QCOMPARE(filtersList->isVisible(), false);
+    QVERIFY(commitProxyModel->rowCount() == preFilterRowCount);
 }
 
 QTEST_MAIN(FileHistoryTest)

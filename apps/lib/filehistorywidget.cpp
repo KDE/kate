@@ -605,9 +605,12 @@ void FileHistoryWidget::onFilterReturnPressed(CommitProxyModel *proxy)
     item->setData(Qt::UserRole + 1, id);
     m_filtersListWidget.addItem(item);
 
-    connect(closeBtn, &QToolButton::clicked, this, [proxy, item, id] {
+    connect(closeBtn, &QToolButton::clicked, this, [this, proxy, item, id] {
         delete item;
         proxy->removeFilter(id);
+        if (m_filtersListWidget.count() == 0) {
+            m_filtersListWidget.setVisible(false);
+        }
     });
 
     m_filtersListWidget.setItemWidget(item, widget);

@@ -201,7 +201,6 @@ public:
 
     int appendFilter(const QString &data)
     {
-        beginResetModel();
         int id = m_filterIdCounter++;
 
         if (data.startsWith(u"a:")) {
@@ -246,7 +245,7 @@ public:
             m_messageFilters.push_back(Filter{id, data});
         }
 
-        endResetModel();
+        invalidate();
 
         return id;
     }
@@ -256,8 +255,6 @@ public:
         auto pred = [id](const Filter &f) {
             return f.id == id;
         };
-
-        beginResetModel();
 
         if (m_sinceDate.id == id) {
             m_sinceDate.date = -1;
@@ -269,7 +266,7 @@ public:
         std::erase_if(m_messageFilters, pred);
         std::erase_if(m_inverseAuthorFilters, pred);
 
-        endResetModel();
+        invalidate();
     }
 
     static bool hasFilterText(const std::vector<Filter> &list, QStringView text)

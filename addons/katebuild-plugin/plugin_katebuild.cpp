@@ -993,10 +993,11 @@ std::optional<QString> KateBuildView::cmdSubstitutionsApplied(const QString &com
             displayMessage(i18n("Cannot make \"%n\" substitution. No open file or the current file is untitled!"), KTextEditor::Message::Error);
             return std::nullopt;
         }
-        cmd.replace(u"%n"_s, docFInfo.baseName());
-        cmd.replace(u"%f"_s, docFInfo.absoluteFilePath());
-        cmd.replace(u"%d"_s, docFInfo.absolutePath());
     }
+
+    cmd.replace(u"%n"_s, docFInfo.baseName());
+    cmd.replace(u"%f"_s, docFInfo.absoluteFilePath());
+    cmd.replace(u"%d"_s, docFInfo.absolutePath());
 
     if (cmd.contains(u"%B"_s)) {
         if (m_targetsUi->currentProjectBaseDir.isEmpty()) {

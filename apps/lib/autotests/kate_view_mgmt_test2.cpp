@@ -403,7 +403,7 @@ void KateViewManagementTest2::testShowMessageWorks()
 {
     app->sessionManager()->sessionNew();
 
-    auto outputView = app->activeMainWindow()->parent()->findChild<QWidget *>("KateOutputView");
+    auto outputView = app->activeMainWindow()->parent()->findChild<QWidget *>(QStringLiteral("KateOutputView"));
     QVERIFY(outputView);
     auto outputViewTextBrowser = outputView->findChild<QTextBrowser *>();
     QVERIFY(outputViewTextBrowser);

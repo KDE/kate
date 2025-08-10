@@ -36,8 +36,8 @@ public:
 
 private:
     struct Range {
-        int start;
-        int count;
+        int start = 0;
+        int count = 0;
     };
 
     QList<Bookmark> m_bookmarks;

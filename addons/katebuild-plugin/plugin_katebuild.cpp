@@ -517,6 +517,8 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
         }
         m_targetsUi->targetsView->scrollTo(m_targetsUi->targetsView->currentIndex());
     });
+
+    connect(mw->window(), SIGNAL(tabForToolViewAdded(QWidget *, QWidget *)), this, SLOT(tabForToolViewAdded(QWidget *, QWidget *)));
 }
 
 /******************************************************************/
@@ -759,6 +761,7 @@ void KateBuildView::clearBuildResults()
     m_numNotes = 0;
     m_makeDirStack.clear();
     m_buildCancelled = false;
+    updateTabOverlay();
     clearDiagnostics();
 }
 
@@ -838,6 +841,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_buildUi.cancelBuildButton->setEnabled(true);
     m_buildUi.buildAgainButton->setEnabled(false);
     m_targetsUi->setCursor(Qt::BusyCursor);
+    updateTabOverlay();
     return true;
 }
 
@@ -854,6 +858,7 @@ bool KateBuildView::slotStop()
         m_buildBuildCmd.clear();
         m_buildRunCmd.clear();
         m_buildWorkDir.clear();
+        updateTabOverlay();
         return true;
     }
     return false;
@@ -1397,6 +1402,7 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
     m_infoMessage->setView(kv);
     kv->document()->postMessage(m_infoMessage);
+    updateTabOverlay();
 }
 
 /******************************************************************/
@@ -1659,6 +1665,7 @@ void KateBuildView::slotUpdateTextBrowser()
     } else {
         delete m_progressMessage;
     }
+    updateTabOverlay();
 }
 
 /******************************************************************/
@@ -2132,6 +2139,34 @@ void KateBuildView::handleEsc(QEvent *e)
             m_win->hideToolView(m_toolView);
         }
     }
+}
+
+void KateBuildView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
+{
+    if (m_toolView == toolView) {
+        m_tabOverlay = new TabOverlay(tab);
+    }
+}
+
+void KateBuildView::updateTabOverlay()
+{
+    if (!m_tabOverlay) {
+        return;
+    }
+
+    bool running = m_proc.state() != QProcess::NotRunning;
+    TabOverlay::Type type = TabOverlay::Type::None;
+    if (m_numErrors != 0) {
+        type = TabOverlay::Type::Error;
+    } else if (m_numWarnings != 0 || m_buildCancelled) {
+        type = TabOverlay::Type::Warning;
+    } else if (running) {
+        type = TabOverlay::Type::Positive;
+    } else if (!m_buildUi.textBrowser->document()->isEmpty()) {
+        type = TabOverlay::Type::Positive;
+    }
+    m_tabOverlay->setType(type);
+    m_tabOverlay->setGlowing(running);
 }
 
 #include "moc_plugin_katebuild.cpp"

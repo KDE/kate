@@ -42,6 +42,7 @@
 #include <KXMLGUIClient>
 #include <qtextdocument.h>
 
+#include "TabOverlay.h"
 #include "diagnostics/diagnosticview.h"
 #include "targets.h"
 #include "ui_build.h"
@@ -117,6 +118,7 @@ private Q_SLOTS:
     void slotSearchPatternChanged();
 
     void handleEsc(QEvent *e);
+    void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 
     /**
      * keep track if the project plugin is alive and if the project map did change
@@ -190,9 +192,12 @@ private:
     QString findCompileCommands(const QString &file) const;
     CompileCommands parseCompileCommandsFile(const QString &compileCommandsFile) const;
 
+    void updateTabOverlay();
+
     KateBuildPlugin *const m_plugin;
     KTextEditor::MainWindow *const m_win;
     QWidget *m_toolView = nullptr;
+    QPointer<TabOverlay> m_tabOverlay = nullptr;
     Ui::build m_buildUi{};
     QWidget *m_buildWidget = nullptr;
     TargetsUi *m_targetsUi = nullptr;

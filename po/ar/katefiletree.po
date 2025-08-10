@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-16 00:44+0000\n"
-"PO-Revision-Date: 2025-08-03 23:17+0400\n"
+"PO-Revision-Date: 2025-08-09 19:52+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -341,7 +341,7 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
-"عند التمكين ، يتم عرض شريط أدوات بإجراءات مثل \"احفظ\" أعلى قائمة المستندات."
+"عند التمكين، يُعرض شريط أدوات بإجراءات مثل \"احفظ\" أعلى قائمة المستندات."
 
 #: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137

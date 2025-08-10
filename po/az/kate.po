@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-05 00:46+0000\n"
+"POT-Creation-Date: 2025-08-10 00:46+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -167,7 +167,7 @@ msgid "Copy Location"
 msgstr "Ünvanı kopyalayın"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -177,7 +177,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Səhv heş"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Git anbarında %1 mövcud deyil."
@@ -347,7 +347,7 @@ msgstr "Xətalar"
 msgid "Warnings"
 msgstr "Xəbərdarlıqlar"
 
-#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:450
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter..."
@@ -575,14 +575,14 @@ msgstr "Silinmiş fayl %1"
 msgid "No differences found"
 msgstr "Fərq tapılmadı"
 
-#: lib/filehistorywidget.cpp:231
+#: lib/filehistorywidget.cpp:241
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Səhv heş"
 
-#: lib/filehistorywidget.cpp:440
+#: lib/filehistorywidget.cpp:458
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -599,31 +599,31 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:496
+#: lib/filehistorywidget.cpp:514
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Fayl tarixçəsini almaq mümkün olmadı: PATH dəyişənində git icra faylı "
 "tapılmadı"
 
-#: lib/filehistorywidget.cpp:510
+#: lib/filehistorywidget.cpp:528
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Fayl tarixçəsini almaq mümkün olmadı: %1"
 
-#: lib/filehistorywidget.cpp:521
+#: lib/filehistorywidget.cpp:539
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Göndıriş heş-ini kopyalamaq"
 
-#: lib/filehistorywidget.cpp:529
+#: lib/filehistorywidget.cpp:547
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Göndərişi tam göstərmək"
 
-#: lib/filehistorywidget.cpp:648
+#: lib/filehistorywidget.cpp:669
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

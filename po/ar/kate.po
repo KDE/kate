@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-05 00:46+0000\n"
-"PO-Revision-Date: 2025-08-03 23:30+0400\n"
+"POT-Creation-Date: 2025-08-10 00:46+0000\n"
+"PO-Revision-Date: 2025-08-09 15:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -173,7 +173,7 @@ msgid "Copy Location"
 msgstr "انسخ المكان"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "Git"
 msgstr "غت"
@@ -183,7 +183,7 @@ msgstr "غت"
 msgid "Invalid hash"
 msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
@@ -349,7 +349,7 @@ msgstr "الأخطاء"
 msgid "Warnings"
 msgstr "التّحذيرات"
 
-#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:450
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -585,13 +585,13 @@ msgstr "ملف محذوف %1"
 msgid "No differences found"
 msgstr "لم يعثر على فروقات"
 
-#: lib/filehistorywidget.cpp:231
+#: lib/filehistorywidget.cpp:241
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "تاريخ غير صالح: %1"
 
-#: lib/filehistorywidget.cpp:440
+#: lib/filehistorywidget.cpp:458
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -610,38 +610,38 @@ msgstr ""
 "تصفية السجل.<ul><li>استخدم البادئة <code>\"a:\"</code> للتصفية حسب اسم "
 "المؤلف. على سبيل المثال، <b>a:john doe</b></li><li>استخدم البادئة <code>\"!a:"
 "\"</code> لاستبعاد مؤلف. على سبيل المثال، <b>!a:john doe</b></li><li>استخدم "
-"البادئة <code>\"since:\"</code> لعرض عمليات الإيداع بعد التاريخ المحدد. سيتم "
-"التحقق من تاريخ الإيداع لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على "
+"البادئة <code>\"since:\"</code> لعرض عمليات الإيداع بعد التاريخ المحدد. "
+"سيُتحقق من تاريخ الإيداع لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على "
 "سبيل المثال، <b>since:2025-04-17</b></li><li>استخدم البادئة <code>\"until:"
-"\"</code> لعرض عمليات الإيداع قبل التاريخ المحدد. سيتم التحقق من تاريخ "
-"الإيداع لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على سبيل المثال، "
-"<b>حتى: 2025-04-17</b></li><li>لتصفية الرسائل، ما عليك سوى كتابة مصطلح "
-"البحث. إذا أدخلت عدة مصطلحات بحث، فستظهر الرسائل التي تطابق جميع مصطلحات "
-"البحث.</li></ul>لتفعيل التصفية اضغط على مفتاح <b>Enter</b>."
+"\"</code> لعرض عمليات الإيداع قبل التاريخ المحدد. سيُتحقق من تاريخ الإيداع "
+"لكل عملية إيداع. تنسيق التاريخ هو yyyy-MM-dd. على سبيل المثال، <b>حتى: "
+"2025-04-17</b></li><li>لتصفية الرسائل، ما عليك سوى كتابة مصطلح البحث. إذا "
+"أدخلت عدة مصطلحات بحث، فستظهر الرسائل التي تطابق جميع مصطلحات البحث.</li></"
+"ul>لتفعيل التصفية اضغط على مفتاح <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:496
+#: lib/filehistorywidget.cpp:514
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر على تنفيذي غت في المسار PATH"
 
-#: lib/filehistorywidget.cpp:510
+#: lib/filehistorywidget.cpp:528
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:521
+#: lib/filehistorywidget.cpp:539
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "انسخ تلبيدة الإيداع"
 
-#: lib/filehistorywidget.cpp:529
+#: lib/filehistorywidget.cpp:547
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "أظهر كامل الإيداع"
 
-#: lib/filehistorywidget.cpp:648
+#: lib/filehistorywidget.cpp:669
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1021,9 +1021,9 @@ msgid ""
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"قائمة من الدلائل المنفصلة %1 حيث ستبحث كيت عن البرامج التي سيتم تشغيلها.سيتم "
-"إضافة هذه القائمة إلى متغير بيئة PATH الخاص بك. على سبيل المثال'/home/USER/"
-"myapps/bin/:/home/USER/.local/bin'"
+"قائمة من الدلائل المنفصلة %1 حيث ستبحث كيت عن البرامج التي ستُشغل. ستُضاف هذه "
+"القائمة إلى متغير بيئة PATH الخاص بك. على سبيل المثال'/home/USER/myapps/"
+"bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:143
 #, kde-format
@@ -1087,9 +1087,9 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"في حالة التمكين ، سيستخدم مربع حوار مشروط لإظهار جميع الملفات المعدلة.في "
-"حالة عدم التمكين  ستسأل بشكل فردي عما يجب القيام به لكل ملف معدل فقط عندما "
-"يتم التركيز على عرض هذا الملف."
+"في حالة التمكين، سيستخدم مربع حوار مشروط لإظهار جميع الملفات المعدلة.في حالة "
+"عدم التمكين ستسأل بشكل فردي عما يجب القيام به لكل ملف معدل فقط عندما يُركز "
+"على عرض هذا الملف."
 
 #: lib/kateconfigdialog.cpp:193
 #, kde-format
@@ -2891,8 +2891,8 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"في حالة التمكين، سيغلق التطبيق عند إغلاق آخر ملف يتم تحريره، وإلا سيتم فتح "
-"صفحة فارغة حتى تتمكن من بدء ملف جديد."
+"في حالة التمكين، سيغلق التطبيق عند إغلاق آخر ملف مُحرر، وإلا ستُفتح صفحة فارغة "
+"حتى تتمكن من بدء ملف جديد."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101

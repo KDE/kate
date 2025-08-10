@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-05 00:46+0000\n"
+"POT-Creation-Date: 2025-08-10 00:46+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -169,7 +169,7 @@ msgid "Copy Location"
 msgstr "محل"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr "پوشه نامعتبر"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:639
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -351,7 +351,7 @@ msgstr ""
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:432
+#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:450
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "&Filter:"
@@ -588,14 +588,14 @@ msgstr "پرونده حذف شود؟"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:231
+#: lib/filehistorywidget.cpp:241
 #, fuzzy, kde-format
 #| msgid "Invalid Folder"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "پوشه نامعتبر"
 
-#: lib/filehistorywidget.cpp:440
+#: lib/filehistorywidget.cpp:458
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -612,30 +612,30 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:496
+#: lib/filehistorywidget.cpp:514
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:510
+#: lib/filehistorywidget.cpp:528
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:521
+#: lib/filehistorywidget.cpp:539
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:529
+#: lib/filehistorywidget.cpp:547
 #, fuzzy, kde-format
 #| msgid "Sho&w Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "&نمایش مسیر‌"
 
-#: lib/filehistorywidget.cpp:648
+#: lib/filehistorywidget.cpp:669
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"

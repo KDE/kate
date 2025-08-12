@@ -1478,6 +1478,9 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
             msgs << i18np("Found one note.", "Found %1 notes.", m_numNotes);
         }
         displayBuildResult(msgs.join(QLatin1Char('\n')), m_numErrors ? KTextEditor::Message::Error : KTextEditor::Message::Warning);
+    } else if (m_buildCancelled) {
+        displayBuildResult(i18n("Build canceled."), KTextEditor::Message::Warning);
+        buildSuccess = false;
     } else if (exitCode != 0) {
         buildSuccess = false;
         displayBuildResult(i18n("Build failed."), KTextEditor::Message::Warning);

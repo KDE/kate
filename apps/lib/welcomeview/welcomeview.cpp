@@ -302,9 +302,12 @@ void WelcomeView::updateButtons()
         buttons.push_back(buttonNewSession);
         buttons.push_back(buttonManageSessions);
     }
-    const int maxWidth = std::accumulate(buttons.cbegin(), buttons.cend(), 0, [](int maxWidth, const QPushButton *button) {
-        return std::max(maxWidth, button->sizeHint().width());
-    });
+
+    int maxWidth = 0;
+    for (const auto *button : buttons) {
+        maxWidth = std::max(maxWidth, button->sizeHint().width());
+    }
+
     for (QPushButton *button : std::as_const(buttons)) {
         button->setFixedWidth(maxWidth);
     }

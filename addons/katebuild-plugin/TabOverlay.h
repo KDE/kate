@@ -25,6 +25,11 @@ public:
     explicit TabOverlay(QWidget *parent);
     void setType(Type type);
     void setGlowing(bool glowing);
+    /**
+     * Set progress
+     * @param progressRatio is a value between 0.0 and 1.0
+     */
+    void setProgress(double progressRatio);
 
 protected:
     void paintEvent(QPaintEvent *) override;
@@ -34,4 +39,5 @@ private:
     QColor m_color;
     QWidget *m_tabButton = nullptr;
     QTimeLine m_timeline;
+    double m_progress = 0.0;
 };

@@ -760,6 +760,7 @@ void KateBuildView::clearBuildResults()
     m_numWarnings = 0;
     m_numNotes = 0;
     m_makeDirStack.clear();
+    m_progress.clear();
     m_buildCancelled = false;
     updateTabOverlay();
     clearDiagnostics();
@@ -1456,6 +1457,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     m_buildUi.cancelBuildButton->setEnabled(false);
     m_buildUi.buildAgainButton->setEnabled(true);
     delete m_progressMessage;
+    m_progress.clear();
 
     QString buildStatus = i18n("Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)",
                                m_buildTargetSetName,
@@ -1680,7 +1682,6 @@ void KateBuildView::slotReadReadyStdOut()
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
-    m_progress.clear();
     static const QRegularExpression progressReg(u"(?<progress>\\[\\d+/\\d+\\]|\\[\\s*\\d+%\\]).*"_s);
     // handle one line at a time
     int end = -1;
@@ -2169,6 +2170,25 @@ void KateBuildView::updateTabOverlay()
     }
     m_tabOverlay->setType(type);
     m_tabOverlay->setGlowing(running);
+
+    if (!m_progress.isEmpty()) {
+        static const QRegularExpression ratioReg(u"\\[(\\d+)/(\\d+)\\]"_s);
+        static const QRegularExpression percentReg(u"\\[\\s*(\\d+)%\\]"_s);
+
+        if (const auto &match = ratioReg.match(m_progress); match.hasMatch()) {
+            double dividend = match.captured(1).toInt();
+            int divisor = match.captured(2).toInt();
+            double progress = divisor == 0 ? 0.0 : dividend / divisor;
+            m_tabOverlay->setProgress(progress);
+        } else if (const auto &match = percentReg.match(m_progress); match.hasMatch()) {
+            double percent = match.captured(1).toInt();
+            m_tabOverlay->setProgress(percent / 100);
+        } else {
+            m_tabOverlay->setProgress(0.0);
+        }
+    } else {
+        m_tabOverlay->setProgress(0.0);
+    }
 }
 
 #include "moc_plugin_katebuild.cpp"

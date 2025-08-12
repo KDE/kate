@@ -14,7 +14,7 @@ TabOverlay::TabOverlay(QWidget *parent)
     }
     m_timeline.setDirection(QTimeLine::Forward);
     m_timeline.setEasingCurve(QEasingCurve::SineCurve);
-    m_timeline.setFrameRange(50, 180);
+    m_timeline.setFrameRange(50, 190);
     m_timeline.setLoopCount(0);
     auto update = QOverload<>::of(&QWidget::update);
     connect(&m_timeline, &QTimeLine::valueChanged, this, update);
@@ -64,6 +64,12 @@ void TabOverlay::setGlowing(bool glowing)
     }
 }
 
+void TabOverlay::setProgress(double progressRatio)
+{
+    m_progress = std::min(1.0, progressRatio);
+    update();
+}
+
 void TabOverlay::paintEvent(QPaintEvent *)
 {
     if (!m_tabButton || m_type == Type::None) {
@@ -72,10 +78,24 @@ void TabOverlay::paintEvent(QPaintEvent *)
 
     QPainter p(this);
     p.setOpacity(0.25);
-
-    m_color.setAlpha(m_timeline.state() == QTimeLine::Running ? m_timeline.currentFrame() : 255);
-    p.setBrush(m_color);
-
     p.setPen(Qt::NoPen);
-    p.drawRect(rect().adjusted(1, 1, -1, -1));
+
+    int alpha = m_timeline.state() == QTimeLine::Running ? m_timeline.currentFrame() : 255;
+    if (m_progress > 0.0001) {
+        QColor bgColor = KColorScheme().foreground(KColorScheme::LinkText).color();
+        int overlayWidth = rect().width() - 2;
+        int progressMargin = overlayWidth - std::round(overlayWidth * m_progress);
+
+        bgColor.setAlpha(alpha * 0.3);
+        p.setBrush(bgColor);
+        p.drawRect(rect().adjusted(1 + (overlayWidth - progressMargin), 1, -1, -1));
+
+        m_color.setAlpha(alpha + 60);
+        p.setBrush(m_color);
+        p.drawRect(rect().adjusted(1, 1, -progressMargin - 1, -1));
+    } else {
+        m_color.setAlpha(alpha);
+        p.setBrush(m_color);
+        p.drawRect(rect().adjusted(1, 1, -1, -1));
+    }
 }

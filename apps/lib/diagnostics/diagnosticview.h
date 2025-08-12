@@ -19,6 +19,8 @@
 
 #include <KTextEditor/Document>
 #include <KTextEditor/Range>
+#include <span>
+#include <unordered_set>
 
 class KConfigGroup;
 class SessionDiagnosticSuppressions;
@@ -33,6 +35,13 @@ class Mark;
 class View;
 class MovingRange;
 }
+
+struct QUrlHash {
+    std::size_t operator()(const QUrl &url) const
+    {
+        return qHash(url.toString());
+    }
+};
 
 class KATE_PRIVATE_EXPORT DiagnosticsProvider : public QObject
 {
@@ -190,11 +199,11 @@ private:
     {
         clearDiagnosticsForStaleDocs({}, provider);
     }
-    void clearDiagnosticsForStaleDocs(const QList<QUrl> &filesToKeep, DiagnosticsProvider *provider);
+    void clearDiagnosticsForStaleDocs(const std::pmr::unordered_set<QUrl, QUrlHash> &filesToKeep, DiagnosticsProvider *provider);
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();
     void updateDiagnosticsState(struct DocumentDiagnosticItem *&topItem);
-    void updateMarks(const std::vector<QUrl> &urls = {});
+    void updateMarks(const std::span<QUrl> &urls = {});
     void goToItemLocation(QModelIndex index);
 
     void onViewChanged(KTextEditor::View *v);

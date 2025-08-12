@@ -32,6 +32,8 @@
 #include <QTime>
 #include <QTimer>
 
+#include <memory_resource>
+#include <unordered_set>
 #include <vector>
 
 namespace
@@ -149,8 +151,11 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
      * do this first for all level and only after this fails try to invent projects
      * otherwise one e.g. invents projects for .kateproject tree structures with sub .git clones
      */
-    QSet<QString> seenDirectories;
-    std::vector<QString> directoryStack;
+    std::byte buffer[60 * 1000];
+    std::pmr::monotonic_buffer_resource memory(buffer, sizeof(buffer));
+
+    std::pmr::unordered_set<QString> seenDirectories(&memory);
+    std::pmr::vector<QString> directoryStack(&memory);
     while (!seenDirectories.contains(dir.absolutePath())) {
         // update guard
         seenDirectories.insert(dir.absolutePath());

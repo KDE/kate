@@ -297,19 +297,26 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
 void WelcomeView::updateButtons()
 {
-    std::vector<QPushButton *> buttons{buttonNewFile, buttonOpenFile, buttonOpenFolder};
-    if (KateApp::isKate()) {
-        buttons.push_back(buttonNewSession);
-        buttons.push_back(buttonManageSessions);
-    }
+    const bool isKate = KateApp::isKate();
+    QPushButton *buttons[] = {
+        buttonNewFile,
+        buttonOpenFile,
+        buttonOpenFolder,
+        isKate ? buttonNewSession : nullptr,
+        isKate ? buttonManageSessions : nullptr,
+    };
 
     int maxWidth = 0;
     for (const auto *button : buttons) {
-        maxWidth = std::max(maxWidth, button->sizeHint().width());
+        if (button) {
+            maxWidth = std::max(maxWidth, button->sizeHint().width());
+        }
     }
 
     for (QPushButton *button : std::as_const(buttons)) {
-        button->setFixedWidth(maxWidth);
+        if (button) {
+            button->setFixedWidth(maxWidth);
+        }
     }
 }
 

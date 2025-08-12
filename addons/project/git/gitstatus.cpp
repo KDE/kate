@@ -15,7 +15,9 @@
 #include <QSet>
 
 #include <charconv>
+#include <memory_resource>
 #include <optional>
+#include <unordered_set>
 
 static void numStatForStatus(QList<GitUtils::StatusItem> &list, const QString &workDir, bool modified)
 {
@@ -124,8 +126,11 @@ GitUtils::GitParsedStatus GitUtils::parseStatus(const QByteArray &raw, const QSt
         }
     }
 
+    std::byte buffer[60 * 1000];
+    std::pmr::monotonic_buffer_resource memory(buffer, sizeof(buffer));
+
     QSet<QString> nonUniqueFileNames;
-    QSet<QByteArray> seen;
+    std::pmr::unordered_set<QByteArray> seen(&memory);
     auto getNonUniqueFileNamesFor = [&nonUniqueFileNames, &seen](const QList<GitUtils::StatusItem> &items) {
         for (const auto &c : items) {
             const auto file = fileNameFromPath(c.file);

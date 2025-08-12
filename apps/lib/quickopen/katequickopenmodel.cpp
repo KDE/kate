@@ -18,6 +18,7 @@
 #include <QIcon>
 #include <QMimeDatabase>
 
+#include <memory_resource>
 #include <unordered_set>
 
 KateQuickOpenModel::KateQuickOpenModel(QObject *parent)
@@ -113,8 +114,11 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     std::vector<ModelEntry> allDocuments;
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
-    std::unordered_set<QString> openedDocUrls;
-    std::unordered_set<KTextEditor::Document *> seenDocuments;
+    std::byte tempBuffer[256 * 1000];
+    std::pmr::monotonic_buffer_resource memory(tempBuffer, sizeof(tempBuffer));
+
+    std::pmr::unordered_set<QString> openedDocUrls(&memory);
+    std::pmr::unordered_set<KTextEditor::Document *> seenDocuments(&memory);
     openedDocUrls.reserve(sortedViews.size());
 
     const auto collectDoc = [&openedDocUrls, &seenDocuments, &allDocuments](KTextEditor::Document *doc) {

@@ -1380,7 +1380,8 @@ QList<KTextEditor::View *> KateViewManager::views() const
         KTextEditor::View *view;
         qint64 age;
     };
-    std::vector<ViewWithLruAge> sorted;
+
+    QVarLengthArray<ViewWithLruAge> sorted;
 
     // extract into a list
     std::transform(m_views.begin(), m_views.end(), std::back_inserter(sorted), [](const std::pair<KTextEditor::View *, ViewData> &p) {

@@ -37,6 +37,8 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+#include <memory_resource>
+
 class ProviderListModel final : public QAbstractListModel
 {
 public:
@@ -958,7 +960,7 @@ static auto getProvider(QStandardItem *item)
     return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
 }
 
-void DiagnosticsView::clearDiagnosticsForStaleDocs(const QList<QUrl> &filesToKeep, DiagnosticsProvider *provider)
+void DiagnosticsView::clearDiagnosticsForStaleDocs(const std::pmr::unordered_set<QUrl, QUrlHash> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto diagWarnShowGuard = qScopeGuard([this] {
         const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
@@ -1219,7 +1221,7 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
     }
 }
 
-void DiagnosticsView::updateMarks(const std::vector<QUrl> &urls)
+void DiagnosticsView::updateMarks(const std::span<QUrl> &urls)
 {
     std::vector<KTextEditor::Document *> docs;
     if (!urls.empty()) {
@@ -1290,7 +1292,8 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
         topItem = nullptr;
     }
 
-    updateMarks({QUrl::fromLocalFile(path)});
+    QUrl urls[] = {QUrl::fromLocalFile(path)};
+    updateMarks(urls);
 }
 
 void DiagnosticsView::goToItemLocation(QModelIndex index)
@@ -1549,14 +1552,17 @@ void DiagnosticsView::onDocumentUrlChanged()
 {
     // remove lingering diagnostics
     // collect active urls
-    QSet<QUrl> fpaths;
+    std::byte buffer[128 * 1000];
+    std::pmr::monotonic_buffer_resource memory(buffer, sizeof(buffer));
+    std::pmr::unordered_set<QUrl, QUrlHash> fpaths(&memory);
+
     const auto views = m_mainWindow->views();
     for (const auto view : views) {
         if (auto doc = view->document()) {
             fpaths.insert(doc->url());
         }
     }
-    clearDiagnosticsForStaleDocs({fpaths.begin(), fpaths.end()}, nullptr);
+    clearDiagnosticsForStaleDocs(fpaths, nullptr);
 }
 
 void DiagnosticsView::moveDiagnosticsSelection(bool forward)

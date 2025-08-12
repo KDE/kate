@@ -21,6 +21,8 @@
 #include "kate_timings_debug.h"
 #include <QElapsedTimer>
 #include <QFileInfo>
+#include <memory_resource>
+#include <unordered_set>
 
 QString KatePluginInfo::saveName() const
 {
@@ -73,9 +75,14 @@ void KatePluginManager::setupPluginList()
 
     // handle all install KTextEditor plugins
     m_pluginList.clear();
-    QSet<QString> unique;
+
+    std::byte buffer[65 * 1000];
+    std::pmr::monotonic_buffer_resource memory(buffer, sizeof(buffer));
+    std::pmr::unordered_set<QString> unique(&memory);
 
     const QList<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("kf6/ktexteditor"));
+    m_pluginList.reserve(plugins.size());
+
     for (const auto &pluginMetaData : plugins) {
         KatePluginInfo info;
         info.metaData = pluginMetaData;

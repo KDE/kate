@@ -1262,7 +1262,7 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     // documents and not the right ones being used as replacement if you have a limit on tabs
     // we first store all stuff without visible tabs and then the tabs in tab order to proper restore
     // that order
-    std::vector<KTextEditor::View *> views;
+    QVarLengthArray<KTextEditor::View *> views;
     QStringList docList;
     const auto handleDoc = [this, &views, &docList](auto doc) {
         // we can only store stuff about documents that get an id
@@ -1280,6 +1280,8 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
 
     const QList<KTextEditor::Document *> lruDocList = m_tabBar->lruSortedDocuments();
     const QList<DocOrWidget> tabs = m_tabBar->documentList();
+    docList.reserve(tabs.size() + lruDocList.size());
+
     for (auto doc : lruDocList) {
         // skip stuff with visible tabs
         if (std::find(tabs.begin(), tabs.end(), DocOrWidget(doc)) == tabs.end()) {

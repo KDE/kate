@@ -192,10 +192,10 @@ private:
 
     KateBuildPlugin *const m_plugin;
     KTextEditor::MainWindow *const m_win;
-    QWidget *m_toolView;
+    QWidget *m_toolView = nullptr;
     Ui::build m_buildUi{};
     QWidget *m_buildWidget = nullptr;
-    TargetsUi *m_targetsUi;
+    TargetsUi *m_targetsUi = nullptr;
     KProcess m_proc;
     QString m_stdOut;
     QString m_stdErr;

@@ -758,6 +758,7 @@ void KateBuildView::clearBuildResults()
     m_numWarnings = 0;
     m_numNotes = 0;
     m_makeDirStack.clear();
+    m_buildCancelled = false;
     clearDiagnostics();
 }
 
@@ -779,9 +780,6 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     if (m_proc.state() != QProcess::NotRunning) {
         return false;
     }
-
-    // clear previous runs
-    clearBuildResults();
 
     if (m_plugin->m_autoSwitchToOutput) {
         // activate the output tab
@@ -1161,12 +1159,18 @@ void KateBuildView::buildSelectedTarget()
 {
     m_firstBuild = false;
     m_previousIndex = m_targetsUi->targetsView->currentIndex();
+
+    if (m_proc.state() != QProcess::NotRunning) {
+        return;
+    }
+
+    clearBuildResults();
+
     if (m_buildBuildCmd.isEmpty()) {
         slotRunAfterBuild();
         return;
     }
 
-    m_buildCancelled = false;
     QString msg = i18n("Building target <b>%1: %2</b> ...", m_buildTargetSetName, m_buildTargetName);
     m_buildUi.buildStatusLabel->setText(msg);
     startProcess(m_buildWorkDir, m_buildBuildCmd);
@@ -1486,6 +1490,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     m_buildUi.buildStatusLabel->setText(buildStatus);
 
     m_pendingHtmlOutput += buildStatus;
+    slotUpdateTextBrowser();
 
     m_buildBuildCmd.clear();
     if (buildSuccess) {
@@ -1643,11 +1648,16 @@ void KateBuildView::slotUpdateTextBrowser()
     m_numNonUpdatedLines = 0;
     edit->verticalScrollBar()->setValue(scrollValuePx);
 
-    if (!m_progress.isEmpty()) {
-        KTextEditor::Message::MessageType type = m_numErrors != 0 ? KTextEditor::Message::Error
-            : m_numWarnings != 0                                  ? KTextEditor::Message::Warning
-                                                                  : KTextEditor::Message::Information;
+    bool outputVisible = m_buildUi.u_tabWidget->currentIndex() == 1 && m_toolView->isVisible();
+
+    KTextEditor::Message::MessageType type = m_numErrors != 0 ? KTextEditor::Message::Error
+        : m_numWarnings != 0                                  ? KTextEditor::Message::Warning
+                                                              : KTextEditor::Message::Information;
+    bool running = m_proc.state() != QProcess::NotRunning;
+    if (!outputVisible && m_plugin->m_showBuildProgress && !m_progress.isEmpty() && running) {
         displayProgress(m_progress, type);
+    } else {
+        delete m_progressMessage;
     }
 }
 
@@ -1660,7 +1670,6 @@ void KateBuildView::slotReadReadyStdOut()
     l.remove(QLatin1Char('\r'));
     m_stdOut += l;
 
-    bool outputVisible = m_buildUi.u_tabWidget->currentIndex() == 1 && m_toolView->isVisible();
     m_progress.clear();
     static const QRegularExpression progressReg(u"(?<progress>\\[\\d+/\\d+\\]|\\[\\s*\\d+%\\]).*"_s);
     // handle one line at a time
@@ -1692,14 +1701,12 @@ void KateBuildView::slotReadReadyStdOut()
                 m_scrollStopLine = m_numOutputLines;
             }
         }
-        if (!outputVisible && m_plugin->m_showBuildProgress) {
-            QRegularExpressionMatch match = progressReg.matchView(line);
-            if (match.hasMatch()) {
-                m_progress = match.captured(u"progress"_s);
-            }
-        } else {
-            delete m_progressMessage;
+
+        QRegularExpressionMatch progressMatch = progressReg.matchView(line);
+        if (progressMatch.hasMatch()) {
+            m_progress = progressMatch.captured(u"progress"_s);
         }
+
         start = end + 1;
     }
 

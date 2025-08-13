@@ -110,6 +110,13 @@ public:
         m_daysMetaInfos = i;
     }
 
+    void togglePinDocument(KTextEditor::Document *document);
+    bool isDocumentPinned(KTextEditor::Document *document) const;
+    const QList<QUrl> &pinnedDocumentUrls() const
+    {
+        return m_pinnedDocuments;
+    }
+
 public:
     /**
      * saves all documents that has at least one view.
@@ -167,6 +174,11 @@ Q_SIGNALS:
      */
     void documentsDeleted();
 
+    /**
+     * Emitted when the pin status of a document changes
+     */
+    void documentPinStatusChanged(KTextEditor::Document *document);
+
 private:
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);
@@ -186,4 +198,5 @@ private:
     int m_daysMetaInfos;
 
     QList<QUrl> m_recentlyClosedUrls;
+    QList<QUrl> m_pinnedDocuments;
 };

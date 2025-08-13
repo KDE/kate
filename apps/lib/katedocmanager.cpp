@@ -33,6 +33,17 @@ KateDocManager::KateDocManager(QObject *parent)
 {
     // set our application wrapper
     KTextEditor::Editor::instance()->setApplication(KateApp::self()->wrapper());
+
+    if (KateApp::isKate()) {
+        KConfigGroup generalGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+        const QStringList pinnedDocUrls = generalGroup.readEntry("PinnedDocuments", QStringList{});
+        for (const QString &urlString : pinnedDocUrls) {
+            const QUrl url(urlString);
+            if (url.isValid()) {
+                m_pinnedDocuments.push_back(url);
+            }
+        }
+    }
 }
 
 KateDocManager::~KateDocManager()
@@ -54,6 +65,16 @@ KateDocManager::~KateDocManager()
                 }
             }
         }
+    }
+
+    if (KateApp::isKate()) {
+        KConfigGroup generalGroup(KSharedConfig::openConfig(), QStringLiteral("General"));
+        QStringList pinnedDocUrls;
+        pinnedDocUrls.reserve(m_pinnedDocuments.size());
+        for (const QUrl &url : std::as_const(m_pinnedDocuments)) {
+            pinnedDocUrls.push_back(url.toString());
+        }
+        generalGroup.writeEntry("PinnedDocuments", pinnedDocUrls);
     }
 }
 
@@ -541,6 +562,37 @@ KTextEditor::Document *KateDocManager::findDocumentForSessionConfigId(int sessio
     }
 
     return nullptr;
+}
+
+void KateDocManager::togglePinDocument(KTextEditor::Document *document)
+{
+    if (document->url().isEmpty()) {
+        Utils::showMessage(i18n("Cannot pin untitled documents."), QIcon(), QStringLiteral("DocManager"), MessageType::Error);
+        return;
+    }
+
+    if (!document->url().isLocalFile()) {
+        Utils::showMessage(i18n("Cannot pin non local documents."), QIcon(), QStringLiteral("DocManager"), MessageType::Error);
+        return;
+    }
+
+    if (isDocumentPinned(document)) {
+        m_pinnedDocuments.removeAll(document->url());
+    } else {
+        m_pinnedDocuments.push_back(document->url());
+
+        // Limit the size to 8, that should be enough
+        if (m_pinnedDocuments.size() > 8) {
+            m_pinnedDocuments.removeFirst();
+        }
+    }
+
+    Q_EMIT documentPinStatusChanged(document);
+}
+
+bool KateDocManager::isDocumentPinned(KTextEditor::Document *document) const
+{
+    return m_pinnedDocuments.contains(document->url());
 }
 
 #include "moc_katedocmanager.cpp"

@@ -205,6 +205,8 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
+    // handle document pin changes
+    connect(KateApp::self()->documentManager(), &KateDocManager::documentPinStatusChanged, this, &KateViewSpace::updateDocumentIcon);
 
     // ensure we show/hide tabbar if needed
     connect(m_viewManager, &KateViewManager::viewCreated, this, &KateViewSpace::updateTabBar);
@@ -1200,6 +1202,20 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     auto *compareUsing = new QMenu(i18n("Compare with Active Document Using"), &menu);
     compareUsing->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
     menu.addMenu(compareUsing);
+
+    if (KateApp::isKate() && !doc->url().isEmpty()) {
+        QAction *pinAction;
+        auto kateApp = KateApp::self();
+        if (kateApp->documentManager()->isDocumentPinned(doc)) {
+            pinAction = menu.addAction(QIcon::fromTheme(QStringLiteral("window-unpin")), i18n("Unpin Document"));
+        } else {
+            pinAction = menu.addAction(QIcon::fromTheme(QStringLiteral("pin")), i18n("Pin Document"));
+        }
+
+        connect(pinAction, &QAction::triggered, KateApp::self()->documentManager(), [doc] {
+            KateApp::self()->documentManager()->togglePinDocument(doc);
+        });
+    }
 
     // if we have other documents, allow to close them
     aCloseOthers->setEnabled(KateApp::self()->documentManager()->documentList().size() > 1);

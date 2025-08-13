@@ -459,6 +459,27 @@ void KateViewManager::slotRestoreLastClosedDocument()
     }
 }
 
+void KateViewManager::slotOpenNextPinnedDocument()
+{
+    const auto &pinnedUrls = KateApp::self()->documentManager()->pinnedDocumentUrls();
+    if (pinnedUrls.empty()) {
+        return;
+    }
+
+    QUrl activeUrl;
+    if (auto view = activeView()) {
+        activeUrl = view->document()->url();
+    }
+
+    auto it = std::find(pinnedUrls.begin(), pinnedUrls.end(), activeUrl);
+    if (it == pinnedUrls.end()) {
+        openUrlWithView(pinnedUrls.first(), QString());
+    } else {
+        QUrl url = it + 1 == pinnedUrls.end() ? pinnedUrls.first() : *(it + 1);
+        openUrlWithView(url, QString());
+    }
+}
+
 KTextEditor::Document *
 KateViewManager::openUrl(const QUrl &url, const QString &encoding, bool activate, bool ignoreForRecentFiles, const KateDocumentInfo *docInfo)
 {
@@ -1698,6 +1719,17 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
             }
         }
     }
+
+    // Restore pinned documents
+    // Do it delayed because if we do it immediately, for some reason if the tabbar is not visible
+    // See tabbar hide()/show() in KateViewSpace::restoreConfig. This seems to be related, and the
+    // reason seems to be that the tabbar has 0 height for whatever reason.
+    QTimer::singleShot(0, this, [this] {
+        const QList<QUrl> &pinnedDocuments = KateApp::self()->documentManager()->pinnedDocumentUrls();
+        for (const auto &url : pinnedDocuments) {
+            openUrl(url, QString(), /*activate=*/false, /*ignoreForRecentFiles=*/true);
+        }
+    });
 
     updateViewSpaceActions();
 

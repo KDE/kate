@@ -1951,8 +1951,7 @@ void KateBuildView::updateProjectTargets()
     // Delete any old project plugin targets
     m_targetsUi->targetsModel.deleteProjectTargetsExcept(allProjects.keys());
 
-    for (const auto &projectBaseDir : allProjects.keys()) {
-        const QString projectName = allProjects.value(projectBaseDir);
+    for (const auto &[projectBaseDir, projectName] : allProjects.asKeyValueRange()) {
         QJsonObject root;
         // Read the targets from the override if available
         const QString userOverride = projectBaseDir + u"/.kateproject.build"_s;

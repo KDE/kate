@@ -94,6 +94,7 @@ public:
     void slotDocumentClose();
     void slotDocumentClose(KTextEditor::Document *document);
     void slotRestoreLastClosedDocument();
+    void slotOpenNextPinnedDocument();
 
     void setActiveSpace(KateViewSpace *vs);
 

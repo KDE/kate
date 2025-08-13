@@ -626,6 +626,23 @@ void KateMainWindow::setupActions()
         connect(a, &QAction::triggered, KateApp::self()->sessionManager(), &KateSessionManager::sessionSaveAs);
     }
 
+    // Document pinning actions, only for Kate
+    if (KateApp::isKate()) {
+        a = ac->addAction(QStringLiteral("pin_active_document"));
+        a->setIcon(QIcon::fromTheme(QStringLiteral("pin")));
+        a->setText(i18n("Pin/Unpin Active Document"));
+        connect(a, &QAction::triggered, KateApp::self(), [this] {
+            if (auto view = activeView()) {
+                KateApp::self()->documentManager()->togglePinDocument(view->document());
+            }
+        });
+
+        a = ac->addAction(QStringLiteral("activate_next_pin_document"));
+        a->setIcon(QIcon::fromTheme(QStringLiteral("pin")));
+        a->setText(i18n("Open Next Pinned Document"));
+        connect(a, &QAction::triggered, m_viewManager, &KateViewManager::slotOpenNextPinnedDocument);
+    }
+
     // location history actions
     a = ac->addAction(QStringLiteral("view_history_back"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));

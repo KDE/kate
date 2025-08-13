@@ -83,9 +83,9 @@ void KateBuildConfigPage::reset()
     ui->u_showProgressCB->setChecked(m_plugin->m_showBuildProgress);
 
     ui->allowedAndBlockedCommands->clear();
-    for (const auto &it : m_plugin->m_commandLineToAllowedState) {
-        auto item = new QListWidgetItem(it.first, ui->allowedAndBlockedCommands);
-        item->setCheckState(it.second ? Qt::Checked : Qt::Unchecked);
+    for (const auto &[command, isCommandAllowed] : m_plugin->m_commandLineToAllowedState) {
+        auto item = new QListWidgetItem(command, ui->allowedAndBlockedCommands);
+        item->setCheckState(isCommandAllowed ? Qt::Checked : Qt::Unchecked);
     }
 }
 

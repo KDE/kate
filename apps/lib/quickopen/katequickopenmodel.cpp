@@ -157,8 +157,8 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
     // Add projects to the docunents list, and the filepath is their base directory
     if (projects.count() > 1) {
-        for (const auto &project : projects.asKeyValueRange()) {
-            allDocuments.push_back({i18n("Project: %1", project.second.toString()), project.first, nullptr, -1});
+        for (const auto &[projectBaseDir, projectName] : projects.asKeyValueRange()) {
+            allDocuments.push_back({i18n("Project: %1", projectName), projectBaseDir, nullptr, -1});
         }
     }
 

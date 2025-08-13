@@ -239,11 +239,11 @@ void KateBuildPlugin::writeConfig() const
     // write allow + block lists as two separate keys
     QStringList allowed;
     QStringList blocked;
-    for (const auto &it : m_commandLineToAllowedState) {
-        if (it.second) {
-            allowed.push_back(it.first);
+    for (const auto &[command, isCommandAllowed] : m_commandLineToAllowedState) {
+        if (isCommandAllowed) {
+            allowed.push_back(command);
         } else {
-            blocked.push_back(it.first);
+            blocked.push_back(command);
         }
     }
     config.writeEntry(ConfigAllowedCommands, allowed);

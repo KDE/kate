@@ -205,9 +205,9 @@ void KateProjectPlugin::closeProject(KateProject *project)
     // collect all documents we have mapped to the projects we want to close
     // we can not delete projects that still have some mapping
     QList<KTextEditor::Document *> projectDocuments;
-    for (const auto &it : m_document2Project) {
-        if (it.second == project) {
-            projectDocuments.append(it.first);
+    for (const auto &[document, documentProject] : m_document2Project) {
+        if (documentProject == project) {
+            projectDocuments.append(document);
         }
     }
 

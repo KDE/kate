@@ -1,24 +1,13 @@
 #ifdef __cplusplus
 
-#include <algorithm>
-#include <functional>
-#include <memory>
-#include <string>
-#include <type_traits>
-#include <utility>
-#include <vector>
-
-#include <QCborValue>
-#include <QDebug>
-#include <QList>
-#include <QMetaObject>
-#include <QMetaType>
+#include <QDir>
+#include <QJsonObject>
+#include <QLineEdit>
+#include <QModelIndex>
 #include <QObject>
-#include <QPointer>
 #include <QString>
-#include <QTextFormat>
-#include <QVariant>
+#include <QTextCursor>
+#include <QTimer>
 #include <QWidget>
-#include <QtGlobal>
 
 #endif

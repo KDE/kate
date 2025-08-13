@@ -1945,14 +1945,14 @@ void KateBuildView::updateProjectTargets()
 
     BoolTrueLocker locker(m_addingProjTargets);
 
-    const auto allProjects = m_projectPluginView->property("allProjects").toMap();
+    const auto allProjects = m_projectPluginView->property("allProjects").value<QMap<QString, QString>>();
 
     const QModelIndex projRootIndex = m_targetsUi->targetsModel.projectRootIndex();
     // Delete any old project plugin targets
     m_targetsUi->targetsModel.deleteProjectTargetsExcept(allProjects.keys());
 
     for (const auto &projectBaseDir : allProjects.keys()) {
-        const QString projectName = allProjects.value(projectBaseDir).toString();
+        const QString projectName = allProjects.value(projectBaseDir);
         QJsonObject root;
         // Read the targets from the override if available
         const QString userOverride = projectBaseDir + u"/.kateproject.build"_s;

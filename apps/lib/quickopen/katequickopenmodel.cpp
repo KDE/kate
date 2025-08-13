@@ -86,7 +86,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     const QStringList projectDocs = projectView
         ? (m_listMode == CurrentProject ? projectView->property("projectFiles") : projectView->property("allProjectsFiles")).toStringList()
         : QStringList();
-    const auto projects = projectView ? projectView->property("allProjects").toMap() : QVariantMap();
+    const auto projects = projectView ? projectView->property("allProjects").value<QMap<QString, QString>>() : QMap<QString, QString>();
     const QString projectBase = [projectView]() -> QString {
         if (!projectView) {
             return QString();

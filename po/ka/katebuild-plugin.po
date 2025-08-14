@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-13 00:46+0000\n"
-"PO-Revision-Date: 2025-06-16 03:40+0200\n"
+"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"PO-Revision-Date: 2025-08-13 06:18+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -365,10 +365,9 @@ msgstr[0] "ნაპოვნია ერთი შენიშვნა."
 msgstr[1] "ნაპოვნია %1 შენიშვნა."
 
 #: plugin_katebuild.cpp:1482
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "აგების შეცდომა."
+msgstr "აგება გაუქმდა."
 
 #: plugin_katebuild.cpp:1486
 #, kde-format
@@ -409,7 +408,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "აღუწერელი ბმა"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2082
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "შეუძლებელია აგების სამიზნეების შენახვა მისამართზე: %1"

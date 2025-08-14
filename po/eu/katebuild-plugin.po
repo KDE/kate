@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-13 00:46+0000\n"
-"PO-Revision-Date: 2025-07-10 07:58+0200\n"
+"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"PO-Revision-Date: 2025-08-14 00:06+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -368,10 +368,9 @@ msgstr[0] "Ohar bat aurkitu da."
 msgstr[1] "%1 ohar aurkitu dira."
 
 #: plugin_katebuild.cpp:1482
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Eraikitzea huts egin du."
+msgstr "Eraikitzea bertan behera utzi da."
 
 #: plugin_katebuild.cpp:1486
 #, kde-format
@@ -413,7 +412,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "definitu gabeko aipamena"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2082
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Ezin izan dira eraikitzeko helburuak hemen gorde: %1"

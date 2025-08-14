@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-13 00:46+0000\n"
-"PO-Revision-Date: 2025-06-16 12:42+0100\n"
+"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"PO-Revision-Date: 2025-08-13 18:43+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -380,10 +380,9 @@ msgstr[0] "Se ha encontrado una nota."
 msgstr[1] "Se han encontrado %1 notas."
 
 #: plugin_katebuild.cpp:1482
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Ha fallado la compilación."
+msgstr "Compilación cancelada."
 
 #: plugin_katebuild.cpp:1486
 #, kde-format
@@ -425,7 +424,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referencia no definida"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2082
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "No se han podido guardar los objetivos de compilación en: %1"

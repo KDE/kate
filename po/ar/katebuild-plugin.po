@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-13 00:46+0000\n"
+"POT-Creation-Date: 2025-08-14 00:45+0000\n"
 "PO-Revision-Date: 2025-08-03 11:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -329,7 +329,7 @@ msgstr "<title>انتهى البناء:</title>%1"
 #: plugin_katebuild.cpp:1460
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "اكتمل بناء <b>%1: %2</b> الأخطاء:%3 ، التحذيرات:%4 ، الملاحظات: %5"
+msgstr "اكتمل بناء <b>%1: %2</b> الأخطاء:%3، التحذيرات:%4، الملاحظات: %5"
 
 #: plugin_katebuild.cpp:1471
 #, kde-format
@@ -383,7 +383,7 @@ msgstr "اكتمل البناء بلا مشاكل."
 #: plugin_katebuild.cpp:1492
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "ألغي بناء <b>%1: %2</b>. الأخطاء:%3 ، التحذيرات:%4 ، الملاحظات: %5"
+msgstr "ألغي بناء <b>%1: %2</b>. الأخطاء:%3، التحذيرات:%4، الملاحظات: %5"
 
 #: plugin_katebuild.cpp:1774
 #, kde-format
@@ -409,7 +409,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "مرجع غير معرّف"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2082
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "لا يستطيع حفظ أهداف البناء في: %1"

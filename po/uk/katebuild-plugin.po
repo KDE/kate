@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-13 00:46+0000\n"
-"PO-Revision-Date: 2025-06-16 20:03+0300\n"
+"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"PO-Revision-Date: 2025-08-13 21:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -373,10 +373,9 @@ msgstr[2] "Виявлено %1 зауважеь."
 msgstr[3] "Виявлено одне зауваження."
 
 #: plugin_katebuild.cpp:1482
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Спроба збирання завершилася невдало."
+msgstr "Спробу збирання скасовано."
 
 #: plugin_katebuild.cpp:1486
 #, kde-format
@@ -418,7 +417,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "невизначене посилання"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2082
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Не вдалося зберегти цілі збирання у %1"

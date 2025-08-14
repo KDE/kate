@@ -206,7 +206,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
     // handle document pin changes
-    connect(KateApp::self()->documentManager(), &KateDocManager::documentPinStatusChanged, this, &KateViewSpace::updateDocumentIcon);
+    connect(KateApp::self(), &KateApp::documentPinStatusChanged, this, &KateViewSpace::updateDocumentIcon);
 
     // ensure we show/hide tabbar if needed
     connect(m_viewManager, &KateViewManager::viewCreated, this, &KateViewSpace::updateTabBar);

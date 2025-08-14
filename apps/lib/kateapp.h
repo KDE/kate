@@ -430,6 +430,12 @@ Q_SIGNALS:
      */
     void configurationChanged();
 
+    /**
+     * Emitted when the pin status of a document changes. This is defined here because its used
+     * in plugins
+     */
+    void documentPinStatusChanged(KTextEditor::Document *document);
+
 protected:
     /**
      * Event filter for QApplication to handle mac os like file open

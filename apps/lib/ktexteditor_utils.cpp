@@ -5,9 +5,9 @@
 */
 
 #include "ktexteditor_utils.h"
-#include "diagnostics/diagnosticview.h"
 #include "diffwidget.h"
 #include "exec_io_utils.h"
+#include "kateapp.h"
 
 #include <QDir>
 #include <QFontDatabase>
@@ -29,6 +29,12 @@
 #include <KTextEditor/Plugin>
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
+
+static bool isKateApp()
+{
+    static const bool isKateApp = qobject_cast<KateApp *>(KTextEditor::Editor::instance()->application()->parent()) != nullptr;
+    return isKateApp;
+}
 
 namespace Utils
 {
@@ -117,7 +123,10 @@ QIcon iconForDocument(KTextEditor::Document *doc)
     if (doc->isModified()) {
         icon = QIcon::fromTheme(QStringLiteral("modified"));
     }
-
+    // Pinned icon if the doc is pinned
+    else if (isKateApp() && KateApp::self()->documentManager()->isDocumentPinned(doc)) {
+        icon = QIcon::fromTheme(QStringLiteral("pin"));
+    }
     // else mime-type icon
     else {
         const QString mimeType = doc->mimeType();
@@ -379,5 +388,17 @@ QUrl absoluteUrl(QUrl url)
 
     // else: cleanup only the .. stuff
     return url.adjusted(QUrl::NormalizePathSegments);
+}
+
+bool isDocumentPinned(KTextEditor::Document *doc)
+{
+    return isKateApp() && KateApp::self()->documentManager()->isDocumentPinned(doc);
+}
+
+void togglePinDocument(KTextEditor::Document *document)
+{
+    if (isKateApp()) {
+        KateApp::self()->documentManager()->togglePinDocument(document);
+    }
 }
 }

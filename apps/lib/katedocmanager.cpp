@@ -587,7 +587,7 @@ void KateDocManager::togglePinDocument(KTextEditor::Document *document)
         }
     }
 
-    Q_EMIT documentPinStatusChanged(document);
+    Q_EMIT KateApp::self()->documentPinStatusChanged(document);
 }
 
 bool KateDocManager::isDocumentPinned(KTextEditor::Document *document) const

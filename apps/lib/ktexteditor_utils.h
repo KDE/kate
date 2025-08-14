@@ -147,4 +147,7 @@ KATE_PRIVATE_EXPORT QUrl normalizeUrl(QUrl url);
  * Convert an url to an absolute one, used by the document manager and Co.
  */
 KATE_PRIVATE_EXPORT QUrl absoluteUrl(QUrl url);
+
+KATE_PRIVATE_EXPORT bool isDocumentPinned(KTextEditor::Document *doc);
+KATE_PRIVATE_EXPORT void togglePinDocument(KTextEditor::Document *document);
 }

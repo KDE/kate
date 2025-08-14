@@ -12,6 +12,7 @@
 #include "katefileactions.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <ktexteditor/application.h>
@@ -436,6 +437,16 @@ void KateFileTree::contextMenuEvent(QContextMenuEvent *event)
                     if (url.isValid() && url.isLocalFile()) {
                         FileHistory::showFileHistory(url.toLocalFile());
                     }
+                });
+
+                QAction *pinAction;
+                if (Utils::isDocumentPinned(doc)) {
+                    pinAction = menu.addAction(QIcon::fromTheme(QStringLiteral("window-unpin")), i18n("Unpin Document"));
+                } else {
+                    pinAction = menu.addAction(QIcon::fromTheme(QStringLiteral("pin")), i18n("Pin Document"));
+                }
+                connect(pinAction, &QAction::triggered, this, [doc] {
+                    Utils::togglePinDocument(doc);
                 });
 
                 auto externaltoolsplugin = m_mainWindow->pluginView(QStringLiteral("externaltoolsplugin"));

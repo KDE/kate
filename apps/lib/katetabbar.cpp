@@ -363,9 +363,6 @@ void KateTabBar::setModifiedStateIcon(int idx, KTextEditor::Document *doc)
 {
     // use common method, as e.g. in filetree plugin, too
     setTabIcon(idx, Utils::iconForDocument(doc));
-    if (!doc->isModified() && KateApp::self()->documentManager()->isDocumentPinned(doc)) {
-        setTabIcon(idx, QIcon::fromTheme(QStringLiteral("pin")));
-    }
 }
 
 void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)

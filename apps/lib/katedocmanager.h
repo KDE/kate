@@ -174,11 +174,6 @@ Q_SIGNALS:
      */
     void documentsDeleted();
 
-    /**
-     * Emitted when the pin status of a document changes
-     */
-    void documentPinStatusChanged(KTextEditor::Document *document);
-
 private:
     void slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);

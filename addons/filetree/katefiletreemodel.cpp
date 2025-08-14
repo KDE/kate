@@ -436,6 +436,12 @@ KateFileTreeModel::KateFileTreeModel(KTextEditor::MainWindow *mainWindow, QObjec
         m_inactiveDocColor = KColorScheme(QPalette::Active).foreground(KColorScheme::InactiveText).color();
         updateBackgrounds(true);
     });
+    // Handle documentPinStatusChanged, reuse documentModifiedChanged slot as we just need to
+    // update the icon
+    connect(KTextEditor::Editor::instance()->application()->parent(),
+            SIGNAL(documentPinStatusChanged(KTextEditor::Document *)),
+            this,
+            SLOT(documentModifiedChanged(KTextEditor::Document *)));
 }
 
 KateFileTreeModel::~KateFileTreeModel()

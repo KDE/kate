@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-06 02:32+0000\n"
-"PO-Revision-Date: 2025-08-06 15:01+0400\n"
+"PO-Revision-Date: 2025-08-13 18:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -157,7 +157,7 @@ msgstr "تنسيق XML ملف كامل"
 msgid ""
 "This list shows all the configured tools, represented by their menu text."
 msgstr ""
-"تعرض هذه القائمة جميع الأدوات التي المضبوطة ، ممثلة بنص القائمة الخاص بهم."
+"تعرض هذه القائمة جميع الأدوات التي المضبوطة، ممثلة بنص القائمة الخاص بهم."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnAdd)
 #: configwidget.ui:29
@@ -248,7 +248,7 @@ msgstr "يجب عليك تحديد اسم على الأقل وقابل للتن�
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr "مع تمكين \"المطلق\" ، يجب تحديد نوع واحد على الأقل."
+msgstr "مع تمكين \"المطلق\"، يجب تحديد نوع واحد على الأقل."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
@@ -530,8 +530,8 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
-"إذا حددت اسم هنا ، فيمكنك استدعاء الأمر من سطر أوامر العرض مع "
-"the_name_you_specified_here. يرجى عدم استخدام المسافة أو تبويبات في الاسم."
+"إذا حددت اسم هنا، فيمكنك استدعاء الأمر من سطر أوامر العرض مع الاسم المحدد "
+"هنا. يرجى عدم استخدام المسافة أو الجدولة في الاسم."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281

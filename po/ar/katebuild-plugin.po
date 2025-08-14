@@ -329,7 +329,7 @@ msgstr "<title>انتهى البناء:</title>%1"
 #: plugin_katebuild.cpp:1450
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "اكتمل بناء <b>%1: %2</b> الأخطاء:%3 ، التحذيرات:%4 ، الملاحظات: %5"
+msgstr "اكتمل بناء <b>%1: %2</b> الأخطاء:%3، التحذيرات:%4، الملاحظات: %5"
 
 #: plugin_katebuild.cpp:1461
 #, kde-format
@@ -377,7 +377,7 @@ msgstr "اكتمل البناء بلا مشاكل."
 #: plugin_katebuild.cpp:1479
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
-msgstr "ألغي بناء <b>%1: %2</b>. الأخطاء:%3 ، التحذيرات:%4 ، الملاحظات: %5"
+msgstr "ألغي بناء <b>%1: %2</b>. الأخطاء:%3، التحذيرات:%4، الملاحظات: %5"
 
 #: plugin_katebuild.cpp:1757
 #, kde-format

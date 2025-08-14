@@ -541,7 +541,7 @@ msgstr "التّنقّل:"
 #: lspconfigwidget.ui:124
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr "عدد التصريحات عند البحث عن إشارات إلى رمز"
+msgstr "عدد الأذون عند البحث عن إشارات إلى رمز"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:131

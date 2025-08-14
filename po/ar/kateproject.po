@@ -1076,7 +1076,7 @@ msgstr "أمر المشروع"
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
-"رسالة التخزين المؤقت (اختيارية). أدخل للتأكيد ، الضغط على زر الهروب Esc "
+"رسالة التخزين المؤقت (اختيارية). أدخل للتأكيد، الضغط على زر الهروب Esc "
 "للخروج."
 
 #: stashdialog.cpp:43

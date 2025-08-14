@@ -222,7 +222,7 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
-"قد يتسبب هذا في حدوث مشكلات مع التطبيقات الطرفية التي تستخدم مفتاح Esc ، على "
+"قد يتسبب هذا في حدوث مشكلات مع التطبيقات الطرفية التي تستخدم مفتاح Esc، على "
 "سبيل المثال vim. أضف هذه التطبيقات في الإدخال أدناه (قائمة مفصولة بفواصل)"
 
 #: kateconsole.cpp:773

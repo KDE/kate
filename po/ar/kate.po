@@ -75,8 +75,8 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
-"أجبر بدء سيرورة «كيت» جديدة (يُتجاهل الخيار إن اختير البدء ولسيرورة «كيت» "
-"أخرى نفس الجلسة مفتوحة). يُجبر الخيار إن لم تُعط أيّة معاملات أو عناوين."
+"أجبر بدء نسخة «كيت» جديدة (يُتجاهل الخيار إن اختير البدء ولنسخة «كيت» أخرى "
+"نفس الجلسة مفتوحة). يُجبر الخيار إن لم تُعط أيّة معاملات أو عناوين."
 
 #: kate/main.cpp:186
 #, kde-format
@@ -84,8 +84,7 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
-"إن كانت هناك سيرورة «كيت» عاملة، امنع التّشغيل حتّى تخرج، إن أُعطيت عناوين "
-"لفتحها."
+"إن كانت هناك نسخة «كيت» عاملة، امنع التّشغيل حتّى تخرج، إن أُعطيت عناوين لفتحها."
 
 #: kate/main.cpp:192
 #, kde-format
@@ -93,8 +92,8 @@ msgid ""
 "Only try to reuse kate instance with this pid (is ignored if start is used "
 "and another kate instance already has the given session opened)."
 msgstr ""
-"حاول إعادة استخدام سيرورة «كيت» بمعرّف العمليّة هذا فقط (يُتجاهل الخيار إن "
-"اختير البدء ولسيرورة «كيت» أخرى نفس الجلسة مفتوحة)."
+"حاول إعادة استخدام نسخة «كيت» بمعرّف العمليّة هذا فقط (يُتجاهل الخيار إن اختير "
+"البدء ولنسخة «كيت» أخرى نفس الجلسة مفتوحة)."
 
 #: kate/main.cpp:193
 #, kde-format
@@ -2736,14 +2735,14 @@ msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
-"الجلسة '%1' مفتوحة فعلًا في سيرورة أخرى من «كيت»، أأغيّر إلى تلك السيرورة أو "
-"إعادة الفتح هذه السيرورة؟"
+"الجلسة '%1' مفتوحة فعلًا في نسخة أخرى من «كيت»، أأغيّر إلى تلك النسخة أو إعادة "
+"الفتح هذه النسخة؟"
 
 #: lib/session/katesessionmanager.cpp:145
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
-msgstr "بدّل إلى السيرورة"
+msgstr "بدّل إلى النسخة"
 
 #: lib/session/katesessionmanager.cpp:146
 #, kde-format

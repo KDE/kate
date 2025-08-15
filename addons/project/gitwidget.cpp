@@ -30,6 +30,7 @@
 #include <QDialog>
 #include <QDir>
 #include <QEvent>
+#include <QFutureWatcher>
 #include <QGuiApplication>
 #include <QHeaderView>
 #include <QInputDialog>
@@ -226,6 +227,7 @@ static QToolButton *toolButton(const QString &icon, const QString &tooltip, cons
 
 GitWidget::GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView *pluginView, QWidget *parent)
     : QWidget(parent)
+    , m_gitStatusWatcher(new QFutureWatcher<GitUtils::GitParsedStatus>(this))
     , m_mainWin(mainWindow)
     , m_pluginView(pluginView)
     , m_mainView(new QWidget(this))
@@ -240,7 +242,7 @@ GitWidget::GitWidget(KTextEditor::MainWindow *mainWindow, KateProjectPluginView 
                 m_activeGitDirPath.append(u"/");
             }
 
-            connect(&m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
+            connect(m_gitStatusWatcher, &QFutureWatcher<GitUtils::GitParsedStatus>::finished, this, &GitWidget::parseStatusReady);
             // Setup update protection
             m_updateTrigger.setSingleShot(true);
             m_updateTrigger.setInterval(500);
@@ -604,7 +606,7 @@ void GitWidget::slotUpdateStatus()
             // sendMessage(QString::fromUtf8(git->readAllStandardError()), true);
         } else {
             auto future = QtConcurrent::run(GitUtils::parseStatus, git->readAllStandardOutput(), m_activeGitDirPath);
-            m_gitStatusWatcher.setFuture(future);
+            m_gitStatusWatcher->setFuture(future);
         }
         git->deleteLater();
     });
@@ -920,7 +922,7 @@ void GitWidget::treeViewDoubleClicked(const QModelIndex &idx)
 
 void GitWidget::parseStatusReady()
 {
-    const GitUtils::GitParsedStatus status = m_gitStatusWatcher.result();
+    const GitUtils::GitParsedStatus status = m_gitStatusWatcher->result();
     Q_EMIT statusUpdated(status);
     if (!m_initialized) {
         return;

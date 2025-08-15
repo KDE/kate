@@ -5,7 +5,6 @@
 */
 #pragma once
 
-#include <QFutureWatcher>
 #include <QPointer>
 #include <QProcess>
 #include <QTimer>
@@ -26,6 +25,8 @@ class GitWidgetTreeView;
 class QStackedWidget;
 class QLineEdit;
 class KActionCollection;
+template<typename T>
+class QFutureWatcher;
 
 namespace KTextEditor
 {
@@ -107,7 +108,7 @@ private:
     GitWidgetTreeView *m_treeView = nullptr;
     GitStatusModel *m_model = nullptr;
     QLineEdit *m_filterLineEdit = nullptr;
-    QFutureWatcher<GitUtils::GitParsedStatus> m_gitStatusWatcher;
+    QFutureWatcher<GitUtils::GitParsedStatus> *m_gitStatusWatcher;
     QString m_commitMessage;
     KTextEditor::MainWindow *m_mainWin;
     QMenu *m_gitMenu = nullptr;

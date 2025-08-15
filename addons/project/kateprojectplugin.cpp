@@ -16,6 +16,7 @@
 
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
 #include <KConfigGroup>

@@ -7,10 +7,7 @@
 
 #pragma once
 
-#include <QComboBox>
-#include <QMenu>
 #include <QPointer>
-#include <QStackedWidget>
 #include <QToolButton>
 
 #include <KTextEditor/View>
@@ -18,14 +15,15 @@
 
 #include <memory>
 
-#include <kateprojectview.h>
-
 class QAction;
 class QDir;
 class KateProject;
 class KateProjectPlugin;
 class KateProjectInfoView;
+class KateProjectView;
 class GitWidget;
+class QComboBox;
+class QStackedWidget;
 
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {

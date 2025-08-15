@@ -7,14 +7,18 @@
 
 #pragma once
 
-#include "kateproject.h"
-
 #include <QHash>
 #include <QRunnable>
 #include <QSet>
 
 class QDir;
 class KateProjectItem;
+class QStandardItem;
+class KateProjectIndex;
+
+typedef std::shared_ptr<QStandardItem> KateProjectSharedQStandardItem;
+typedef std::shared_ptr<QHash<QString, KateProjectItem *>> KateProjectSharedQHashStringItem;
+typedef std::shared_ptr<KateProjectIndex> KateProjectSharedProjectIndex;
 
 /**
  * Class representing a project background worker.

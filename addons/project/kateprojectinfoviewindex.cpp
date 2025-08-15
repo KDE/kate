@@ -14,6 +14,7 @@
 
 #include <KLocalizedString>
 #include <KMessageWidget>
+#include <KTextEditor/MainWindow>
 #include <QAction>
 #include <QVBoxLayout>
 

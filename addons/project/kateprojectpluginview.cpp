@@ -22,6 +22,7 @@
 #include <KTextEditor/Document>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
 #include <kconfigwidgets_version.h>
@@ -36,9 +37,13 @@
 #include <KXmlGuiWindow>
 
 #include <QAction>
+#include <QComboBox>
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QKeyEvent>
+#include <QMenu>
+#include <QStackedWidget>
+#include <QToolButton>
 
 #define PROJECTCLOSEICON "window-close"
 

@@ -6,14 +6,12 @@
  */
 
 #include "kateprojectinfoviewnotes.h"
-#include "kateproject.h"
 #include "kateprojectpluginview.h"
 
 #include <QVBoxLayout>
 
-KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProject *project)
-    : m_project(project)
-    , m_edit(new QPlainTextEdit())
+KateProjectInfoViewNotes::KateProjectInfoViewNotes(QTextDocument *projectNotesDocument)
+    : m_edit(new QPlainTextEdit())
 {
     /*
      * layout widget
@@ -23,6 +21,6 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes(KateProject *project)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_edit);
     setLayout(layout);
-    m_edit->setDocument(project->notesDocument());
+    m_edit->setDocument(projectNotesDocument);
     setFocusProxy(m_edit);
 }

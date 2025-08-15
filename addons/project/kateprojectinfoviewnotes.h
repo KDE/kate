@@ -24,23 +24,9 @@ public:
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoViewNotes(KateProject *project);
-
-    /**
-     * our project.
-     * @return project
-     */
-    KateProject *project() const
-    {
-        return m_project;
-    }
+    KateProjectInfoViewNotes(QTextDocument *projectNotesDocument);
 
 private:
-    /**
-     * our project
-     */
-    KateProject *m_project;
-
     /**
      * edit widget bound to notes document of project
      */

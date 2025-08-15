@@ -10,12 +10,6 @@
 #include <KTextEditor/Document>
 #include <QStandardItem>
 
-namespace KTextEditor
-{
-class Document;
-
-}
-
 /**
  * Class representing a item inside a project.
  * Items can be: projects, directories, files

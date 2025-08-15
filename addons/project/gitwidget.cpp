@@ -15,7 +15,6 @@
 #include "gitcommitdialog.h"
 #include "gitstatusmodel.h"
 #include "hostprocess.h"
-#include "kateproject.h"
 #include "kateprojectplugin.h"
 #include "kateprojectpluginview.h"
 #include "ktexteditor_utils.h"
@@ -54,6 +53,7 @@
 #include <KFuzzyMatcher>
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/Repository>
+#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Message>

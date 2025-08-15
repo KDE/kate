@@ -121,7 +121,7 @@ void KateProjectInfoView::initialize()
     /**
      * notes
      */
-    addTab(new KateProjectInfoViewNotes(m_project), i18n("Notes"));
+    addTab(new KateProjectInfoViewNotes(m_project->notesDocument()), i18n("Notes"));
 }
 
 void KateProjectInfoView::runCmdInTerminal(const QString &cmd)

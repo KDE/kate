@@ -35,11 +35,6 @@
 
 #include <json_utils.h>
 
-// sadly no common header for plugins to include this from
-// unless we do come up with such one
-typedef QMap<QString, QString> QStringMap;
-Q_DECLARE_METATYPE(QStringMap)
-
 // helper to find a proper root dir for the given document & file name/pattern that indicates the root dir
 static QString findRootForDocument(KTextEditor::Document *document, const QStringList &rootIndicationFileNames, const QStringList &rootIndicationFilePatterns)
 {

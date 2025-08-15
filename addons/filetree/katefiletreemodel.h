@@ -136,5 +136,3 @@ private:
 
     bool m_listMode;
 };
-
-Q_DECLARE_METATYPE(QList<KTextEditor::Document *>)

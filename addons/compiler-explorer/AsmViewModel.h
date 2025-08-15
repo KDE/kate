@@ -29,7 +29,6 @@ struct LabelInRow {
     int col = 0;
     int len = 0;
 };
-Q_DECLARE_METATYPE(QList<LabelInRow>)
 
 struct AsmRow {
     QList<LabelInRow> labels;

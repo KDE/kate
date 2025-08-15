@@ -167,7 +167,4 @@ public:
  */
 bool operator==(const KateExternalTool &lhs, const KateExternalTool &rhs);
 
-// for use in QVariant (QAction::setData() and QAction::data())
-Q_DECLARE_METATYPE(KateExternalTool *)
-
 // kate: space-indent on; indent-width 4; replace-tabs on;

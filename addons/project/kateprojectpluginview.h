@@ -27,9 +27,6 @@ class KateProjectPlugin;
 class KateProjectInfoView;
 class GitWidget;
 
-typedef QMap<QString, QString> QStringMap;
-Q_DECLARE_METATYPE(QStringMap)
-
 class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
@@ -42,7 +39,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
 
     Q_PROPERTY(QString allProjectsCommonBaseDir READ allProjectsCommonBaseDir)
     Q_PROPERTY(QStringList allProjectsFiles READ allProjectsFiles)
-    Q_PROPERTY(QStringMap allProjects READ allProjects)
+    Q_PROPERTY(QMap<QString, QString> allProjects READ allProjects)
 
 public:
     KateProjectPluginView(KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow);

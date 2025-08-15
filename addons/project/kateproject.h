@@ -65,13 +65,8 @@ private:
  * Used to pass pointers over queued connected slots
  */
 typedef std::shared_ptr<QStandardItem> KateProjectSharedQStandardItem;
-Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
-
 typedef std::shared_ptr<QHash<QString, KateProjectItem *>> KateProjectSharedQHashStringItem;
-Q_DECLARE_METATYPE(KateProjectSharedQHashStringItem)
-
 typedef std::shared_ptr<KateProjectIndex> KateProjectSharedProjectIndex;
-Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
 class KateProjectPlugin;
 class QThreadPool;

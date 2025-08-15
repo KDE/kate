@@ -960,6 +960,11 @@ static auto getProvider(QStandardItem *item)
     return item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
 }
 
+void DiagnosticsView::clearDiagnosticsFromProvider(DiagnosticsProvider *provider)
+{
+    clearDiagnosticsForStaleDocs({}, provider);
+}
+
 void DiagnosticsView::clearDiagnosticsForStaleDocs(const std::pmr::unordered_set<QUrl, QUrlHash> &filesToKeep, DiagnosticsProvider *provider)
 {
     auto diagWarnShowGuard = qScopeGuard([this] {

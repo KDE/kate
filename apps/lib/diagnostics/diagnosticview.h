@@ -195,10 +195,7 @@ private:
     void nextItem();
     void previousItem();
     void onDiagnosticsAdded(const FileDiagnostics &diagnostics);
-    void clearDiagnosticsFromProvider(DiagnosticsProvider *provider)
-    {
-        clearDiagnosticsForStaleDocs({}, provider);
-    }
+    void clearDiagnosticsFromProvider(DiagnosticsProvider *provider);
     void clearDiagnosticsForStaleDocs(const std::pmr::unordered_set<QUrl, QUrlHash> &filesToKeep, DiagnosticsProvider *provider);
     void clearSuppressionsFromProvider(DiagnosticsProvider *provider);
     void onDocumentUrlChanged();

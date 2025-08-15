@@ -95,7 +95,7 @@
     <p>
       Kate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.
     </p>
-    <p xml:lang="ar"> كيت هو محرر نصوص سريع متعدد المستندات ومتعدد العروض للمبرمجين من إنتاج كيدي.إنه يتميز بأشياء مثل دعم LSP (ميفاق خادم اللغة)، والمشاريع، ومؤشرات وتحديدات متعددة، وتكامل غت، والبحث على مستوى المجلد،الانقسامات الأفقية والرأسية، الوضع السادس، تمييز بناء الجملة لأكثر من 300لغة والطرفية مضمنة ولفّ الكلمات الديناميكية وغير ذلك الكثير. وهو متوفر على لينكس و بي اس دي و ويندوز و ماك أو أس.</p>
+    <p xml:lang="ar"> كيت هو محرر نصوص سريع متعدد المستندات ومتعدد العروض للمبرمجين من إنتاج كيدي.إنه يتميز بأشياء مثل توفير LSP (ميفاق خادم اللغة)، والمشاريع، ومؤشرات وتحديدات متعددة، وتكامل غت، والبحث على مستوى المجلد،الانقسامات الأفقية والرأسية، الوضع السادس، تمييز بناء الجملة لأكثر من 300لغة والطرفية مضمنة ولفّ الكلمات الديناميكية وغير ذلك الكثير. وهو متوفر على لينكس و بي اس دي و ويندوز و ماك أو أس.</p>
     <p xml:lang="bg">Kate е бърз текстов редактор от KDE, предназначен за програмисти, с възможности за обработка на множество документи и изгледи . Той разполага с неща като поддръжка на LSP (Language Server Protocol), проекти, множество курсори и селекции, git интеграция, широко търсене в папки, хоризонтално и вертикално разделяне, vi режим, подчертаване на синтаксиса за над 300 езика, вграден терминал, динамично пренасяне на думи и много повече. Предлага се на Linux, BSD, Windows и MacOS.</p>
     <p xml:lang="ca">El Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport del LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració del Git, cerca ampliada de carpetes, divisions horitzontals i verticals, mode del vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible al Linux, BSD, Windows i MacOS.</p>
     <p xml:lang="ca-valencia">Kate és un editor de text ràpid multidocument i multivista per a programadors creat per la comunitat KDE. Compta amb suport de LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»), projectes, cursors i seleccions múltiples, integració de Git, busca ampliada de carpetes, divisions horitzontals i verticals, mode de vi, ressaltat de sintaxi per a més de 300 llenguatges, terminal integrat, ajust dinàmic de paraules i molt més. Està disponible en Linux, BSD, Windows i MacOS.</p>
@@ -286,7 +286,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">拼写检查</li>
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
-      <li xml:lang="ar">دعم أسطر CR، وCRLF وLF الجديدة</li>
+      <li xml:lang="ar">إمكانية التعامل مع CR، CRLF، LF لسطر جديد</li>
       <li xml:lang="az">CR, CRLF, LF yeni sətirə keçmə dəstəyi</li>
       <li xml:lang="bg">CR, CRLF, LF поддръжка на нов ред</li>
       <li xml:lang="ca">Implementació de línia nova CR, CRLF, LF</li>
@@ -338,7 +338,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">CR、CRLF、LF 换行支持</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
-      <li xml:lang="ar">دعم التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
+      <li xml:lang="ar">توفير التّرميز (utf-8، وutf-16 وآسكي وغيرها)</li>
       <li xml:lang="az">Müxtəlif kodlama dəstəyi (utf-8, utf-16, ascii etc.)</li>
       <li xml:lang="bg">Поддръжка на кодови таблици (utf-8, utf-16, ascii и др.)</li>
       <li xml:lang="ca">Admet codificacions (UTF-8, UTF-16, ASCII, etc.)</li>
@@ -715,7 +715,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
-      <li xml:lang="ar">دعم الإكمال الآليّ</li>
+      <li xml:lang="ar">الإكمال الآليّ</li>
       <li xml:lang="az">Avtomatik tamamlama dəstəyi</li>
       <li xml:lang="bg">Автоматично завършване на думи</li>
       <li xml:lang="ca">Admet compleció automàtica</li>
@@ -819,7 +819,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">系统外壳程序集成</li>
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.)</li>
-      <li xml:lang="ar">دعم واسع للموافيق (http، وftp، وssh وwebdav وغيرها)</li>
+      <li xml:lang="ar">توفير واسع للموافيق (http، وftp، وssh وwebdav وغيرها)</li>
       <li xml:lang="az">Geniş protokol dəstəyi (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="bg">Поддръжка на множество протоколи (http, ftp, ssh, webdav и др.) </li>
       <li xml:lang="ca">Implementació àmplia de protocols (http, ftp, ssh, webdav, etc.)</li>
@@ -1008,7 +1008,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">Vi 模式</li>
       <li xml:lang="zh-TW">Vi 模式</li>
       <li>Intellisense support using LSP (Language Server Protocol)</li>
-      <li xml:lang="ar">دعم التحسس الذكي باستخدام LSP (ميفاق خادم اللغة)</li>
+      <li xml:lang="ar">التحسس الذكي باستخدام LSP (ميفاق خادم اللغة)</li>
       <li xml:lang="bg">Поддръжка на Intellisense с помощта на LSP (Language Server Protocol)</li>
       <li xml:lang="ca">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
       <li xml:lang="ca-valencia">Implementació d'Intellisense utilitzant LSP (Protocol de Servidor de Llenguatge, «Language Server Protocol»)</li>
@@ -1039,7 +1039,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">Intellisense 支持 (基于 LSP/Language Server Protocol/语言服务器协议)</li>
       <li xml:lang="zh-TW">透過 LSP（語言伺服器協定）實現的 Intellisense 支援</li>
       <li>DAP (Debug Adapter Protocol) support</li>
-      <li xml:lang="ar">دعم DAP (ميفاق محول التنقيح)</li>
+      <li xml:lang="ar">التعامل DAP (ميفاق محول التنقيح)</li>
       <li xml:lang="bg">Поддръжка на протокол DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca">Implementació del DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ca-valencia">Implementació del DAP (Debug Adapter Protocol)</li>
@@ -1070,7 +1070,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">DAP (Debug Adapter Protocol/调试适配器协议) 支持</li>
       <li xml:lang="zh-TW">DAP（除錯配接協定）支援</li>
       <li>Vertical tabs/document list</li>
-      <li xml:lang="ar">دعم قوائم المستندات والألسنة العمودية</li>
+      <li xml:lang="ar">توفير قوائم المستندات والألسنة العمودية</li>
       <li xml:lang="bg">Вертикални раздели/списък с документи</li>
       <li xml:lang="ca">Llista vertical de pestanyes/documents</li>
       <li xml:lang="ca-valencia">Llista vertical de pestanyes/documents</li>
@@ -1102,7 +1102,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">垂直标签页/文档列表</li>
       <li xml:lang="zh-TW">垂直的分頁/文件列表</li>
       <li>Lightweight project support. Kate can open folders as projects</li>
-      <li xml:lang="ar">دعم المشاريع الخفيفة الوزن. يستطيع كيت فتح المجلدات كمشاريع</li>
+      <li xml:lang="ar">توفير التعامل المبسط للمشاريع. يستطيع كيت فتح المجلدات كمشاريع</li>
       <li xml:lang="bg">Лесна поддръжка на проекти. Kate може да отваря папки като проекти</li>
       <li xml:lang="ca">Implementació de projectes lleugers. El Kate pot obrir carpetes com a projectes</li>
       <li xml:lang="ca-valencia">Implementació de projectes lleugers. Kate pot obrir carpetes com a projectes</li>
@@ -1197,7 +1197,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="zh-CN">内建在文件系统浏览器中</li>
       <li xml:lang="zh-TW">內建檔案系統瀏覽器</li>
       <li>CTags support</li>
-      <li xml:lang="ar">دعم وسوم سي</li>
+      <li xml:lang="ar">إمكانية التعامل مع وسوم سي</li>
       <li xml:lang="bg">Поддръжка на CTags</li>
       <li xml:lang="ca">Implementació de CTags</li>
       <li xml:lang="ca-valencia">Implementació de CTags</li>

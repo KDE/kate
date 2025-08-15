@@ -262,7 +262,7 @@ msgstr ""
 #: plugin_katebuild.cpp:1020
 #, kde-format
 msgid "Already building..."
-msgstr "يبني بالفعل..."
+msgstr "يبني فعلًا..."
 
 #: plugin_katebuild.cpp:1058
 #, kde-format

@@ -8,13 +8,14 @@
 # Aracele Torres <aracele@kde.org>, 2016.
 # Geraldo Simiao <geraldosimiao@fedoraproject.org>, 2023.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
+# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-14 00:45+0000\n"
-"PO-Revision-Date: 2025-08-04 12:45-0300\n"
-"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"PO-Revision-Date: 2025-08-13 23:35-0300\n"
+"Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -373,10 +374,9 @@ msgstr[0] "Foi encontrada uma nota."
 msgstr[1] "Foram encontrados %1 erros."
 
 #: plugin_katebuild.cpp:1482
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "A compilação falhou."
+msgstr "A compilação foi cancelada."
 
 #: plugin_katebuild.cpp:1486
 #, kde-format

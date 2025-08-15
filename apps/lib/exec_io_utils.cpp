@@ -1,3 +1,9 @@
+/*
+ *    SPDX-FileCopyrightText: 2025 Mark Nauwelaerts <mark.nauwelaerts@gmail.com>
+ *
+ *    SPDX-License-Identifier: MIT
+ */
+
 #include "exec_io_utils.h"
 
 #include <QMap>

@@ -10,6 +10,8 @@
 #include <QUrl>
 #include <QWidgetList>
 
+#include <optional>
+
 QT_BEGIN_NAMESPACE
 class QScrollBar;
 class QAction;
@@ -97,7 +99,7 @@ struct GoToOptions {
 };
 
 KATE_PRIVATE_EXPORT void
-goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const KTextEditor::Range &location, const GoToOptions &options = {});
+goToDocumentLocation(KTextEditor::MainWindow *mainWindow, const QUrl &uri, const std::optional<KTextEditor::Range> &location, const GoToOptions &options = {});
 
 /**
  * @brief give a short 1sec temporary highlight where you land

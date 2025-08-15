@@ -1089,9 +1089,9 @@ public:
         addMarksRec(doc, treeModel->invisibleRootItem(), oranges, odocs);
     }
 
-    void goToDocumentLocation(const QUrl &uri, const KTextEditor::Range &location)
+    void goToDocumentLocation(const QUrl &uri, const std::optional<KTextEditor::Range> &location)
     {
-        bool hl = !location.isEmpty() && m_highlightGoto && m_highlightGoto->isChecked();
+        bool hl = location && !location->isEmpty() && m_highlightGoto && m_highlightGoto->isChecked();
         Utils::goToDocumentLocation(m_mainWindow, uri, location, {.highlight = hl});
     }
 
@@ -1886,7 +1886,7 @@ public:
 
         auto h = [this](const QUrl &reply) {
             if (!reply.isEmpty()) {
-                goToDocumentLocation(reply, KTextEditor::Range());
+                goToDocumentLocation(reply, std::nullopt);
             } else {
                 showMessage(i18n("Corresponding Header/Source not found"), KTextEditor::Message::Information);
             }

@@ -10,6 +10,7 @@
 #include <QHash>
 #include <QRunnable>
 #include <QSet>
+#include <QVariant>
 
 class QDir;
 class KateProjectItem;

@@ -11,6 +11,7 @@
 
 #include <QFileSystemWatcher>
 #include <QThreadPool>
+#include <QUrl>
 
 #include <KTextEditor/Plugin>
 #include <KTextEditor/SessionConfigInterface>

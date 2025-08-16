@@ -141,9 +141,7 @@ QHash<QString, QJsonValue> findReferences(const QJsonObject &configuration)
     if (configuration.contains(PORT)) {
         variables[QStringLiteral("#run.port")] = QString::number(configuration[PORT].toInt(-1));
     }
-    if (configuration.contains(HOST)) {
-        variables[QStringLiteral("#run.host")] = configuration[HOST].toString();
-    }
+    variables[QStringLiteral("#run.host")] = configuration.value(HOST).toString(QStringLiteral("127.0.0.1"));
 
     return variables;
 }

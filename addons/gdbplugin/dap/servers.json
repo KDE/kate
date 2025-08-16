@@ -3,7 +3,7 @@
         "delve": {
             "url": "https://github.com/go-delve/delve",
             "run": {
-                "command": ["dlv", "dap", "--listen", "127.0.0.1:${#run.port}"],
+                "command": ["dlv", "dap", "--listen", "${#run.host}:${#run.port}"],
                 "port": 0,
                 "redirectStderr": true,
                 "redirectStdout": true,
@@ -60,7 +60,7 @@
         "debugpy": {
             "url": "https://github.com/microsoft/debugpy",
             "run": {
-                "command": ["python", "-m", "debugpy", "--listen", "${#run.port}", "--wait-for-client"],
+                "command": ["python", "-m", "debugpy", "--listen", "${#run.host}:${#run.port}", "--wait-for-client"],
                 "port": 0,
                 "supportsSourceRequest": false
             },

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -250,7 +250,7 @@ msgstr "Ερ&γαλεία"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:290
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:292
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -296,12 +296,12 @@ msgstr ""
 "Σφάλμα στην κανονική έκφραση %1\n"
 "μετατόπιση %2: %3"
 
-#: lib/diagnostics/diagnosticview.cpp:61
+#: lib/diagnostics/diagnosticview.cpp:63
 #, kde-format
 msgid "All"
 msgstr "Όλα"
 
-#: lib/diagnostics/diagnosticview.cpp:297
+#: lib/diagnostics/diagnosticview.cpp:299
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -310,129 +310,129 @@ msgstr ""
 "Συμπληρώθηκε το όριο διαγνωστικών, αγνοώντας περαιτέρω διαγνωστικά. Το όριο "
 "μπορεί να επιλεγεί στις ρυθμίσεις."
 
-#: lib/diagnostics/diagnosticview.cpp:340
+#: lib/diagnostics/diagnosticview.cpp:342
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Προβολή διαγνωστικών"
 
-#: lib/diagnostics/diagnosticview.cpp:345
+#: lib/diagnostics/diagnosticview.cpp:347
 #, kde-format
 msgid "Quick Fix"
 msgstr "Γρήγορη διόρθωση"
 
-#: lib/diagnostics/diagnosticview.cpp:351
+#: lib/diagnostics/diagnosticview.cpp:353
 #, kde-format
 msgid "Next Item"
 msgstr "Επόμενο αντικείμενο"
 
-#: lib/diagnostics/diagnosticview.cpp:357
+#: lib/diagnostics/diagnosticview.cpp:359
 #, kde-format
 msgid "Previous Item"
 msgstr "Προηγούμενο αντικείμενο"
 
-#: lib/diagnostics/diagnosticview.cpp:365
+#: lib/diagnostics/diagnosticview.cpp:367
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Καθαρισμός φίλτρου διαγνωστικών"
 
-#: lib/diagnostics/diagnosticview.cpp:375
+#: lib/diagnostics/diagnosticview.cpp:377
 #, fuzzy, kde-format
 #| msgid "Show/Hide Commit Info"
 msgid "Show Hover Info"
 msgstr "Εμφάνιση/απόκρυψη πληροφοριών αποστολής (commit) στο αποθετήριο"
 
-#: lib/diagnostics/diagnosticview.cpp:434 lib/kateconfigdialog.cpp:371
+#: lib/diagnostics/diagnosticview.cpp:436 lib/kateconfigdialog.cpp:371
 #, kde-format
 msgid "Diagnostics"
 msgstr "Διαγνωστικά"
 
-#: lib/diagnostics/diagnosticview.cpp:480
+#: lib/diagnostics/diagnosticview.cpp:482
 #, kde-format
 msgid "Errors"
 msgstr "Σφάλματα"
 
-#: lib/diagnostics/diagnosticview.cpp:496
+#: lib/diagnostics/diagnosticview.cpp:498
 #, kde-format
 msgid "Warnings"
 msgstr "Προειδοποιήσεις"
 
-#: lib/diagnostics/diagnosticview.cpp:510 lib/filehistorywidget.cpp:450
+#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:450
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "Φιλτράρισμα…"
 
-#: lib/diagnostics/diagnosticview.cpp:516
+#: lib/diagnostics/diagnosticview.cpp:518
 #, fuzzy, kde-format
 #| msgid "Clear Diagnostics Filter"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Καθαρισμός φίλτρου διαγνωστικών"
 
-#: lib/diagnostics/diagnosticview.cpp:1148 lib/kateconfigdialog.cpp:166
+#: lib/diagnostics/diagnosticview.cpp:1155 lib/kateconfigdialog.cpp:166
 #, kde-format
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: lib/diagnostics/diagnosticview.cpp:1152 lib/kateconfigdialog.cpp:166
+#: lib/diagnostics/diagnosticview.cpp:1159 lib/kateconfigdialog.cpp:166
 #: lib/kateconfigdialog.cpp:788
 #, kde-format
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: lib/diagnostics/diagnosticview.cpp:1156
+#: lib/diagnostics/diagnosticview.cpp:1163
 #, kde-format
 msgid "Information"
 msgstr "Πληροφορίες"
 
-#: lib/diagnostics/diagnosticview.cpp:1284
+#: lib/diagnostics/diagnosticview.cpp:1291
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [κατεσταλμένα: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1434
+#: lib/diagnostics/diagnosticview.cpp:1418
 #, kde-format
 msgid "Expand All"
 msgstr "Ανάπτυξη όλων"
 
-#: lib/diagnostics/diagnosticview.cpp:1435
+#: lib/diagnostics/diagnosticview.cpp:1419
 #, kde-format
 msgid "Collapse All"
 msgstr "Σύμπτυξη όλων"
 
-#: lib/diagnostics/diagnosticview.cpp:1441
+#: lib/diagnostics/diagnosticview.cpp:1425
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Αντιγραφή στο πρόχειρο"
 
-#: lib/diagnostics/diagnosticview.cpp:1483
+#: lib/diagnostics/diagnosticview.cpp:1467
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Αφαίρεση καθολικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1485
+#: lib/diagnostics/diagnosticview.cpp:1469
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Προσθήκη καθολικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1489
+#: lib/diagnostics/diagnosticview.cpp:1473
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Αφαίρεση τοπικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1491
+#: lib/diagnostics/diagnosticview.cpp:1475
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Προσθήκη τοπικής καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1506
+#: lib/diagnostics/diagnosticview.cpp:1490
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Απενεργοποίηση καταστολής"
 
-#: lib/diagnostics/diagnosticview.cpp:1508
+#: lib/diagnostics/diagnosticview.cpp:1492
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Ενεργοποίηση καταστολής"
@@ -2639,6 +2639,12 @@ msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "Αδυναμία εκκίνησης του επιλεγμένου προγράμματος. Ίσως δεν έχει εγκατασταθεί."
 
+#: lib/ktexteditor_utils.cpp:231
+#, fuzzy, kde-format
+#| msgid "File not found: %1"
+msgid "Can not open %1"
+msgstr "Το αρχείο δε βρέθηκε: %1"
+
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2703,7 +2709,7 @@ msgstr "Ασαφές φιλτράρισμα"
 msgid "Wildcard Filtering"
 msgstr "Φιλτράρισμα με υποκατάσταση"
 
-#: lib/quickopen/katequickopenmodel.cpp:161
+#: lib/quickopen/katequickopenmodel.cpp:165
 #, fuzzy, kde-format
 #| msgid "All Projects"
 msgid "Project: %1"
@@ -4706,9 +4712,6 @@ msgstr "Εμφάνιση σελίδας υποδοχής για νέο παρά�
 
 #~ msgid "Loading backtrace failed"
 #~ msgstr "Αποτυχία φόρτωσης backtrace"
-
-#~ msgid "File not found: %1"
-#~ msgstr "Το αρχείο δε βρέθηκε: %1"
 
 #~ msgid "Opened file: %1"
 #~ msgstr "Άνοιγμα αρχείου: %1"

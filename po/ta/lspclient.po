@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2023-09-10 17:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -272,160 +272,160 @@ msgstr "அனைத்தையும் சுருக்கு"
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1316
 #, kde-format
 msgid "Line: %1: "
 msgstr "வரி: %1: "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
-#: lspclientpluginview.cpp:1980
+#: lspclientpluginview.cpp:1468 lspclientpluginview.cpp:1816
+#: lspclientpluginview.cpp:1935
 #, kde-format
 msgid "No results"
 msgstr "முடிவுகள் இல்லை"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1527
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1545
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1557
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1570
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr ""
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1594 lspclientpluginview.cpp:1605
+#: lspclientpluginview.cpp:1618
 #, kde-format
 msgid "No Actions"
 msgstr "செயல்கள் இல்லை"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1609
 #, kde-format
 msgid "Loading..."
 msgstr "ஏற்றப்படுகிறது…"
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1701
 #, kde-format
 msgid "No edits"
 msgstr "திருத்தங்கள் இல்லை"
 
-#: lspclientpluginview.cpp:1820
+#: lspclientpluginview.cpp:1775
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "மறுபெயரிடு"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1776
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "புதிய பெயர் (எச்சரிக்கை: சில இடங்களில் மாற்றப்படாமல் இருக்கலாம்)"
 
-#: lspclientpluginview.cpp:1867
+#: lspclientpluginview.cpp:1822
 #, kde-format
 msgid "Not enough results"
 msgstr "போதுமான முடிவுகள் இல்லை"
 
-#: lspclientpluginview.cpp:1936
+#: lspclientpluginview.cpp:1891
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2088 lspclientpluginview.cpp:2131
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr ""
 
-#: lspclientpluginview.cpp:2199
+#: lspclientpluginview.cpp:2154
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr ""
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2403
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"
 msgstr "LSP சேவையகத்தை மீள்துவக்கு"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Restarting"
 msgstr "மீள்துவக்கப்படுகிறது"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "NOT Restarting"
 msgstr "மீள்துவக்கவில்லை"
 
-#: lspclientservermanager.cpp:608
+#: lspclientservermanager.cpp:606
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:877
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "சேவையக நிரலைக் கண்டுபிடிக்க முடியவில்லை: %1"
 
-#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:935
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "நிரல் உங்கள் PATH-இல் உள்ளதா என பாருங்கள்"
 
-#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
+#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:936
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "நிறுவல் அல்லது விவரங்களுக்கு %1 தனை பாருங்கள்"
 
-#: lspclientservermanager.cpp:851
+#: lspclientservermanager.cpp:932
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "சேவையகத்தைத் துவக்க முடியவில்லை: %1"
 
-#: lspclientservermanager.cpp:859
+#: lspclientservermanager.cpp:940
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2 சேவையகம் துவக்கப்பட்டது: %1"
 
-#: lspclientservermanager.cpp:895
+#: lspclientservermanager.cpp:976
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:898
+#: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:902
+#: lspclientservermanager.cpp:983
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

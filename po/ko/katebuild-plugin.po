@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-14 00:45+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2025-07-21 00:53+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -106,7 +106,7 @@ msgid "Allowed && Blocked Commands"
 msgstr "허용 및 차단된 명령"
 
 #: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:730
-#: plugin_katebuild.cpp:959 plugin_katebuild.cpp:972
+#: plugin_katebuild.cpp:960 plugin_katebuild.cpp:973
 #, kde-format
 msgid "Build"
 msgstr "빌드"
@@ -190,12 +190,12 @@ msgid ""
 msgstr ""
 "파일 \"%1\"이(가) 로컬 파일이 아닙니다. 로컬 파일만 컴파일할 수 있습니다."
 
-#: plugin_katebuild.cpp:808
+#: plugin_katebuild.cpp:809
 #, kde-format
 msgid "Create directory"
 msgstr "디렉터리 만들기"
 
-#: plugin_katebuild.cpp:811
+#: plugin_katebuild.cpp:812
 #, kde-format
 msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
@@ -204,32 +204,32 @@ msgstr ""
 "대상 세트 <b>%2</b>에 설정한 작업 디렉터리 <b>%1</b>이(가) 없습니다.<br><br>"
 "디렉터리를 생성하시겠습니까?"
 
-#: plugin_katebuild.cpp:819
+#: plugin_katebuild.cpp:820
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
 msgstr "<b>%1</b> 디렉터리를 생성할 수 없음"
 
-#: plugin_katebuild.cpp:837
+#: plugin_katebuild.cpp:838
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "\"%1\"을(를) 실행할 수 없습니다. 종료 상태 = %2"
 
-#: plugin_katebuild.cpp:853
+#: plugin_katebuild.cpp:854
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
 msgstr "<b>%1:%2</b> 빌드 취소됨"
 
-#: plugin_katebuild.cpp:958
+#: plugin_katebuild.cpp:959
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "\"%1\" 파일에 대한 compile_commands.json을 찾을 수 없습니다."
 
-#: plugin_katebuild.cpp:971
+#: plugin_katebuild.cpp:972
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "\"%2\"에서 \"%1\" 파일 컴파일 명령을 찾을 수 없습니다."
 
-#: plugin_katebuild.cpp:988
+#: plugin_katebuild.cpp:989
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
@@ -238,7 +238,7 @@ msgstr ""
 "\"%f\" 문자열을 대체할 수 없습니다. 열린 파일이 없거나 현재 파일이 아직 저장"
 "되지 않았습니다!"
 
-#: plugin_katebuild.cpp:992
+#: plugin_katebuild.cpp:993
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
@@ -247,7 +247,7 @@ msgstr ""
 "\"%d\" 문자열을 대체할 수 없습니다. 열린 파일이 없거나 현재 파일이 아직 저장"
 "되지 않았습니다!"
 
-#: plugin_katebuild.cpp:996
+#: plugin_katebuild.cpp:997
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
@@ -256,17 +256,17 @@ msgstr ""
 "\"%n\" 문자열을 대체할 수 없습니다. 열린 파일이 없거나 현재 파일이 아직 저장"
 "되지 않았습니다!"
 
-#: plugin_katebuild.cpp:1007
+#: plugin_katebuild.cpp:1008
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr "프로젝트를 대체할 수 없습니다(%B). 열린 프로젝트가 없습니다!"
 
-#: plugin_katebuild.cpp:1020
+#: plugin_katebuild.cpp:1021
 #, kde-format
 msgid "Already building..."
 msgstr "이미 빌드 중..."
 
-#: plugin_katebuild.cpp:1058
+#: plugin_katebuild.cpp:1059
 #, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
@@ -275,41 +275,41 @@ msgstr ""
 "%1: %2을(를) 실행할 수 없습니다. 작업 디렉터리를 설정하지 않았습니다.\n"
 "빌드할 로컬 파일이나 디렉터리가 지정되지 않았습니다."
 
-#: plugin_katebuild.cpp:1179
+#: plugin_katebuild.cpp:1180
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "대상 <b>%1: %2</b> 빌드 중..."
 
-#: plugin_katebuild.cpp:1216
+#: plugin_katebuild.cpp:1217
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr "대상을 불러올 수 없음. %1 파일에 올바른 CMAKE_COMMAND 항목이 없음!"
 
-#: plugin_katebuild.cpp:1229
+#: plugin_katebuild.cpp:1230
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr "%1 빌드 디렉터리에 CMake 파일 API 질의 파일을 기록할 수 없음!"
 
-#: plugin_katebuild.cpp:1235
+#: plugin_katebuild.cpp:1236
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "%1 빌드 디렉터리에서 CMake를 실행할 수 없음(%2)!"
 
-#: plugin_katebuild.cpp:1244
+#: plugin_katebuild.cpp:1245
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr "%1 빌드 디렉터리에서 CMake 파일 API의 응답 파일 생성 실패(%2 사용)!"
 
-#: plugin_katebuild.cpp:1363
+#: plugin_katebuild.cpp:1364
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "빌드 플러그인에서 프로그램을 실행하려고 함"
 
-#: plugin_katebuild.cpp:1366
+#: plugin_katebuild.cpp:1367
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -321,57 +321,57 @@ msgstr ""
 "야 합니다.<br><br>전체 명령행:<br><br><b>%1</b><br><br>이 명령을 실행하시겠습"
 "니까?<br><br>플러그인 설정 페이지에서 선택 사항을 나중에 변경할 수 있습니다."
 
-#: plugin_katebuild.cpp:1398
+#: plugin_katebuild.cpp:1399
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>빌드 완료됨:</title>%1"
 
-#: plugin_katebuild.cpp:1460
+#: plugin_katebuild.cpp:1462
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1: %2</b> 빌드가 완료되었습니다. 오류 %3개, 경고 %4개, 메모 %5개"
 
-#: plugin_katebuild.cpp:1471
+#: plugin_katebuild.cpp:1473
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "오류 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:1475
+#: plugin_katebuild.cpp:1477
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "경고 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:1478
+#: plugin_katebuild.cpp:1480
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "메모 %1개를 발견했습니다."
 
-#: plugin_katebuild.cpp:1482
+#: plugin_katebuild.cpp:1484
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build canceled."
 msgstr "빌드가 실패했습니다."
 
-#: plugin_katebuild.cpp:1486
+#: plugin_katebuild.cpp:1488
 #, kde-format
 msgid "Build failed."
 msgstr "빌드가 실패했습니다."
 
-#: plugin_katebuild.cpp:1488
+#: plugin_katebuild.cpp:1490
 #, kde-format
 msgid "Build completed without problems."
 msgstr "빌드가 성공적으로 끝났습니다."
 
-#: plugin_katebuild.cpp:1492
+#: plugin_katebuild.cpp:1494
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1: %2 빌드가 취소되었습니다</b>. 오류 %3개, 경고 %4개, 메모 %5개"
 
-#: plugin_katebuild.cpp:1774
+#: plugin_katebuild.cpp:1775
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -379,7 +379,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "오류"
 
-#: plugin_katebuild.cpp:1777
+#: plugin_katebuild.cpp:1778
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -387,13 +387,13 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "경고"
 
-#: plugin_katebuild.cpp:1780
+#: plugin_katebuild.cpp:1781
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1783
+#: plugin_katebuild.cpp:1784
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'ld' uses to mark an ..."
 #| msgid "undefined reference"
@@ -401,7 +401,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "정의되지 않은 참조"
 
-#: plugin_katebuild.cpp:2082
+#: plugin_katebuild.cpp:2083
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "빌드 대상을 다음에 저장할 수 없음: %1"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-04 00:45+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -94,7 +94,7 @@ msgstr[1] "Apakah kamu yakin ingin menghapus file-file tersebut?"
 msgid "Select Branch..."
 msgstr "Pilih Cabang..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:568 kateprojectpluginview.cpp:69
+#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:74
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -129,8 +129,8 @@ msgstr "Mencheckout ke cabang baru: %1"
 msgid "Commit Changes"
 msgstr "Commit Perubahan"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:283
-#: gitwidget.cpp:1105
+#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:285
+#: gitwidget.cpp:1107
 #, kde-format
 msgid "Commit"
 msgstr "Commit"
@@ -160,7 +160,7 @@ msgstr "Keluar"
 msgid "Amend"
 msgstr ""
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1058
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1060
 #, kde-format
 msgid "Amend Last Commit"
 msgstr ""
@@ -202,40 +202,40 @@ msgstr "Konflik"
 msgid "Modified"
 msgstr "Dimodifikasi"
 
-#: gitwidget.cpp:291
+#: gitwidget.cpp:293
 #, fuzzy, kde-format
 #| msgid "Git push"
 msgid "Git Push"
 msgstr "Dorong Git"
 
-#: gitwidget.cpp:304
+#: gitwidget.cpp:306
 #, fuzzy, kde-format
 #| msgid "Git pull"
 msgid "Git Pull"
 msgstr "Tarik Git"
 
-#: gitwidget.cpp:317
+#: gitwidget.cpp:319
 #, kde-format
 msgid "Cancel Operation"
 msgstr "Batalkan Operasi"
 
-#: gitwidget.cpp:325
+#: gitwidget.cpp:327
 #, kde-format
 msgid " canceled."
 msgstr " dibatalkan."
 
-#: gitwidget.cpp:333
+#: gitwidget.cpp:335
 #, kde-format
 msgid "Refresh git status"
 msgstr ""
 
-#: gitwidget.cpp:355 kateprojectview.cpp:61
+#: gitwidget.cpp:357 kateprojectview.cpp:61
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "Filter..."
 
-#: gitwidget.cpp:445
+#: gitwidget.cpp:447
 #, fuzzy, kde-format
 #| msgid "Failed to find .git directory, things may not work correctly: %1"
 msgid "Failed to find .git directory for '%1', things may not work correctly"
@@ -243,299 +243,299 @@ msgstr ""
 "Gagal menemukan direktori .git, suatu hal mungkin tidak bekerja dengan "
 "benar: %1"
 
-#: gitwidget.cpp:655
+#: gitwidget.cpp:657
 #, kde-format
 msgid " error: %1"
 msgstr " galat: %1"
 
-#: gitwidget.cpp:661
+#: gitwidget.cpp:663
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\" berhasil dieksekusi: %2"
 
-#: gitwidget.cpp:681
+#: gitwidget.cpp:683
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Gagal men-stage file. Galat:"
 
-#: gitwidget.cpp:694
+#: gitwidget.cpp:696
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Gagal meng-unstage file. Galat:"
 
-#: gitwidget.cpp:705
+#: gitwidget.cpp:707
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Gagal membuang perubahan. Galat:"
 
-#: gitwidget.cpp:716
+#: gitwidget.cpp:718
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Gagal mebghapus. Galat:"
 
-#: gitwidget.cpp:732
+#: gitwidget.cpp:734
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Gagal membuka file di HEAD: %1"
 
-#: gitwidget.cpp:766
+#: gitwidget.cpp:768
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Gagal mendapatkan Diff-nya file: %1"
 
-#: gitwidget.cpp:835
+#: gitwidget.cpp:837
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Gagal meng-commit: %1"
 
-#: gitwidget.cpp:839
+#: gitwidget.cpp:841
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Perubahaan yang di-commit berhasil."
 
-#: gitwidget.cpp:849
+#: gitwidget.cpp:851
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Tidak ada apa-apa untuk meng-commit. Silakan stage perubahanmu dulu."
 
-#: gitwidget.cpp:863
+#: gitwidget.cpp:865
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Pesan commit tidak boleh kosong."
 
-#: gitwidget.cpp:994
+#: gitwidget.cpp:996
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Tidak ada diff untuk %1...%2"
 
-#: gitwidget.cpp:1000
+#: gitwidget.cpp:1002
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Gagal membandingkan %1...%2"
 
-#: gitwidget.cpp:1015
+#: gitwidget.cpp:1017
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Gagal mendapatkan numstat ketika men-diff %1...%2"
 
-#: gitwidget.cpp:1050
+#: gitwidget.cpp:1052
 #, kde-format
 msgid "Refresh"
 msgstr "Segarkan"
 
-#: gitwidget.cpp:1067
+#: gitwidget.cpp:1069
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Cabang Checkout"
 
-#: gitwidget.cpp:1079
+#: gitwidget.cpp:1081
 #, fuzzy, kde-format
 #| msgid "Select Branch..."
 msgid "Delete Branch"
 msgstr "Pilih Cabang..."
 
-#: gitwidget.cpp:1093
+#: gitwidget.cpp:1095
 #, fuzzy, kde-format
 #| msgid "Compare Branch with ..."
 msgid "Compare Branch with..."
 msgstr "Bandingkan Cabang dengan..."
 
-#: gitwidget.cpp:1099
+#: gitwidget.cpp:1101
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgid "Show Commit"
 msgstr "Commit"
 
-#: gitwidget.cpp:1117
+#: gitwidget.cpp:1119
 #, fuzzy, kde-format
 #| msgid "Commit"
 msgid "Show Last Commit"
 msgstr "Commit"
 
-#: gitwidget.cpp:1135
+#: gitwidget.cpp:1137
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open Commit..."
 msgstr "Buka Folder..."
 
-#: gitwidget.cpp:1138 gitwidget.cpp:1183
+#: gitwidget.cpp:1140 gitwidget.cpp:1185
 #, kde-format
 msgid "Stash"
 msgstr "Stash"
 
-#: gitwidget.cpp:1142
+#: gitwidget.cpp:1144
 #, fuzzy, kde-format
 #| msgid "Show File History"
 msgid "Show history"
 msgstr "Tampilkan Histori File"
 
-#: gitwidget.cpp:1154
+#: gitwidget.cpp:1156
 #, kde-format
 msgid "Diff - stash"
 msgstr ""
 
-#: gitwidget.cpp:1187
+#: gitwidget.cpp:1189
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Sembul Stash Terakhir"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1193
 #, kde-format
 msgid "Pop Stash"
 msgstr "Sembul Stash"
 
-#: gitwidget.cpp:1195
+#: gitwidget.cpp:1197
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Terapkan Stash Terakhir"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Stash (Tetap Di-stage)"
 
-#: gitwidget.cpp:1201
+#: gitwidget.cpp:1203
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Stash (Termasuk Tak Terlacak)"
 
-#: gitwidget.cpp:1205
+#: gitwidget.cpp:1207
 #, kde-format
 msgid "Apply Stash"
 msgstr "Terapkan Stash"
 
-#: gitwidget.cpp:1206
+#: gitwidget.cpp:1208
 #, kde-format
 msgid "Drop Stash"
 msgstr "Letakkan Stash"
 
-#: gitwidget.cpp:1207
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Tampilkan Konten Stash"
 
-#: gitwidget.cpp:1245
+#: gitwidget.cpp:1247
 #, kde-format
 msgid "Stage All"
 msgstr "Stage Semua"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Remove All"
 msgstr "Hapus Semua"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Discard All"
 msgstr "Buang Semua"
 
-#: gitwidget.cpp:1250
+#: gitwidget.cpp:1252
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Buka .gitignore"
 
-#: gitwidget.cpp:1251 gitwidget.cpp:1300 gitwidget.cpp:1351
+#: gitwidget.cpp:1253 gitwidget.cpp:1302 gitwidget.cpp:1353
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Tampilkan Diff"
 
-#: gitwidget.cpp:1268
+#: gitwidget.cpp:1270
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Apakah kamu yakin ingin menghapus file-file tersebut?"
 
-#: gitwidget.cpp:1273
+#: gitwidget.cpp:1275
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Apakah kamu yakin ingin membuang file-file tersebut?"
 
-#: gitwidget.cpp:1291
+#: gitwidget.cpp:1293
 #, fuzzy, kde-format
 #| msgid "Open file"
 msgid "Open File"
 msgstr "Buka file"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, fuzzy, kde-format
 #| msgid "Unstage file"
 msgid "Unstage File"
 msgstr "Unstage-kan file"
 
-#: gitwidget.cpp:1292
+#: gitwidget.cpp:1294
 #, fuzzy, kde-format
 #| msgid "Stage file"
 msgid "Stage File"
 msgstr "Stage-kan file"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Remove"
 msgstr "Hapus"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Discard"
 msgstr "Buang"
 
-#: gitwidget.cpp:1301
+#: gitwidget.cpp:1303
 #, fuzzy, kde-format
 #| msgid "Show in external git diff tool"
 msgid "Show in External Git Diff Tool"
 msgstr "Tampilkan dalam alat diff git eksternal"
 
-#: gitwidget.cpp:1302
+#: gitwidget.cpp:1304
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Buka di HEAD"
 
-#: gitwidget.cpp:1306
+#: gitwidget.cpp:1308
 #, fuzzy, kde-format
 #| msgid "Show File History"
 msgid "Show History"
 msgstr "Tampilkan Histori File"
 
-#: gitwidget.cpp:1322
+#: gitwidget.cpp:1324
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Apakah kamu yakin ingin membuang perubahan pada file ini?"
 
-#: gitwidget.cpp:1333
+#: gitwidget.cpp:1335
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Apakah kamu yakin ingin menghapus file ini?"
 
-#: gitwidget.cpp:1350
+#: gitwidget.cpp:1352
 #, kde-format
 msgid "Unstage All"
 msgstr "Unstage-kan Semua"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1419
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Unstage-kan File-file Yang Dipilih"
 
-#: gitwidget.cpp:1417
+#: gitwidget.cpp:1419
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Stage-kan File-file Yang Dipilih"
 
-#: gitwidget.cpp:1418
+#: gitwidget.cpp:1420
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Buang File-file Yang Dipilih"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1424
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Hapus File-file Yang Dipilih."
 
-#: gitwidget.cpp:1435
+#: gitwidget.cpp:1437
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Apakah kamu yakin ingin membuqng perubahan tersebut?"
 
-#: gitwidget.cpp:1440
+#: gitwidget.cpp:1442
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
@@ -546,8 +546,8 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:734 kateprojectpluginview.cpp:74
-#: kateprojectpluginview.cpp:221 kateprojectviewtree.cpp:351
+#: kateproject.cpp:367 kateprojectplugin.cpp:740 kateprojectpluginview.cpp:79
+#: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
 #, kde-format
@@ -637,7 +637,7 @@ msgstr "Indeks Projek"
 msgid "Project ctags index settings"
 msgstr "Pengaturan indeks ctags projek"
 
-#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:209
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:210
 #, kde-format
 msgid "Enable indexing"
 msgstr "Fungsikan pengindeksan"
@@ -709,7 +709,7 @@ msgstr "Stage / Unstage"
 msgid "Double click action in the git status view"
 msgstr "Aksi klik ganda dalam tampilan status git"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:68
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Projects"
 msgstr "Projek"
@@ -827,37 +827,37 @@ msgstr[1] "Analisis pada %1 file, selesai."
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "Analisis pada %1 file, gagal dengan mengeluarkan kode %2."
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Name"
 msgstr "Nama"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Kind"
 msgstr "Jenis"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "File"
 msgstr "File"
 
-#: kateprojectinfoviewindex.cpp:35
+#: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Line"
 msgstr "Baris"
 
-#: kateprojectinfoviewindex.cpp:36
+#: kateprojectinfoviewindex.cpp:37
 #, kde-format
 msgid "Search"
 msgstr "Cari"
 
-#: kateprojectinfoviewindex.cpp:198
+#: kateprojectinfoviewindex.cpp:199
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "Index tidak dapat diciptakan. Mohon instal 'ctag'."
 
-#: kateprojectinfoviewindex.cpp:208
+#: kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "Pengindeksan tidak difungsikan"
@@ -872,22 +872,22 @@ msgstr "Galat"
 msgid "File name already exists"
 msgstr "Nama file sudah ada"
 
-#: kateprojectplugin.cpp:217
+#: kateprojectplugin.cpp:223
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr ""
 
-#: kateprojectplugin.cpp:218
+#: kateprojectplugin.cpp:224
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 
-#: kateprojectplugin.cpp:600
+#: kateprojectplugin.cpp:606
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Alur lengkap ke projek saat ini tidak termasuk nama file."
 
-#: kateprojectplugin.cpp:617
+#: kateprojectplugin.cpp:623
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -896,101 +896,101 @@ msgstr ""
 "Alur lengkap ke projek saat ini tidak termasuk nama file, dengan pemisah "
 "alur asli (garis-miring-terbalik pada Windows)."
 
-#: kateprojectpluginview.cpp:58
+#: kateprojectpluginview.cpp:63
 #, fuzzy, kde-format
 #| msgid "Kate Project Manager"
 msgid "Project Manager"
 msgstr "Manager Projek Kate"
 
-#: kateprojectpluginview.cpp:80
+#: kateprojectpluginview.cpp:85
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Open projects list"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:85
+#: kateprojectpluginview.cpp:90
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Reload project"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:88
+#: kateprojectpluginview.cpp:93
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close project"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:164
+#: kateprojectpluginview.cpp:169
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Buka Folder..."
 
-#: kateprojectpluginview.cpp:170
+#: kateprojectpluginview.cpp:175
 #, kde-format
 msgid "Project TODOs"
 msgstr "Kegiatan Projek"
 
-#: kateprojectpluginview.cpp:175
+#: kateprojectpluginview.cpp:180
 #, kde-format
 msgid "Activate Previous Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:181
+#: kateprojectpluginview.cpp:186
 #, kde-format
 msgid "Activate Next Project"
 msgstr ""
 
-#: kateprojectpluginview.cpp:187
+#: kateprojectpluginview.cpp:192
 #, kde-format
 msgid "Lookup"
 msgstr "Pencarian"
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:197
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Project"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:202
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close All Projects"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:202
+#: kateprojectpluginview.cpp:207
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Close Orphaned Projects"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:212
 #, fuzzy, kde-format
 #| msgid "Current Project"
 msgid "Reload Project"
 msgstr "Projek Sekarang"
 
-#: kateprojectpluginview.cpp:218
+#: kateprojectpluginview.cpp:223
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Checkout Cabang Git "
 
-#: kateprojectpluginview.cpp:224 kateprojectpluginview.cpp:788
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Pencarian: %1"
 
-#: kateprojectpluginview.cpp:225 kateprojectpluginview.cpp:789
+#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:794
 #, kde-format
 msgid "Goto: %1"
 msgstr "Menuju: %1"
 
-#: kateprojectpluginview.cpp:299
+#: kateprojectpluginview.cpp:304
 #, kde-format
 msgid "Projects Index"
 msgstr "Indeks Projek"
 
-#: kateprojectpluginview.cpp:833
+#: kateprojectpluginview.cpp:838
 #, kde-format
 msgid "Choose a directory"
 msgstr "Pilih sebuah direktori"

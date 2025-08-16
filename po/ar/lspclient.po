@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2025-08-14 10:11+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -270,159 +270,159 @@ msgstr "اطوِ الكل"
 msgid "RangeHighLight"
 msgstr "إبراز النطاق"
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1316
 #, kde-format
 msgid "Line: %1: "
 msgstr "السّطر: %1: "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
-#: lspclientpluginview.cpp:1980
+#: lspclientpluginview.cpp:1468 lspclientpluginview.cpp:1816
+#: lspclientpluginview.cpp:1935
 #, kde-format
 msgid "No results"
 msgstr "لا توجد نتائج"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1527
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "التّعريف: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "الإعلان: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "نوع التعريف: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1545
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "المراجع: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1557
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "إجراءات التنفيذ: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1570
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "إبراز: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1594 lspclientpluginview.cpp:1605
+#: lspclientpluginview.cpp:1618
 #, kde-format
 msgid "No Actions"
 msgstr "لا يوجد إجراءات"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1609
 #, kde-format
 msgid "Loading..."
 msgstr "يحمّل..."
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1701
 #, kde-format
 msgid "No edits"
 msgstr "لا يوجد تعديلات"
 
-#: lspclientpluginview.cpp:1820
+#: lspclientpluginview.cpp:1775
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "غيّر الاسم"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1776
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "اسم جديد (تحذير: لا يمكن استبدال جميع المراجع)"
 
-#: lspclientpluginview.cpp:1867
+#: lspclientpluginview.cpp:1822
 #, kde-format
 msgid "Not enough results"
 msgstr "لا توجد نتائج كافية"
 
-#: lspclientpluginview.cpp:1936
+#: lspclientpluginview.cpp:1891
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "لم يعثر على الرأس/المصدر المقابل"
 
-#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2088 lspclientpluginview.cpp:2131
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "خادم LSP"
 
-#: lspclientpluginview.cpp:2199
+#: lspclientpluginview.cpp:2154
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "عميل LSP"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2403
 #, kde-format
 msgid "Question from LSP server"
 msgstr "سؤال من خادم LSP"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Restarting"
 msgstr "يعيد التشغيل"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "NOT Restarting"
 msgstr "لا إعادة التشغيل"
 
-#: lspclientservermanager.cpp:608
+#: lspclientservermanager.cpp:606
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "أنهي الخادم بشكل غير متوقع ... %1 [%2] [الصفحة الرئيسة: %3] "
 
-#: lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:877
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "فشل في العثور على ملف التنفيذي للخادم: %1"
 
-#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:935
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "يرجى التحقق من المسار إلى الملف التنفيذي"
 
-#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
+#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:936
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "انظر أيضًا %1 للتثبيت أو التفاصيل"
 
-#: lspclientservermanager.cpp:851
+#: lspclientservermanager.cpp:932
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "فشل في بدء تشغيل الخادم: %1"
 
-#: lspclientservermanager.cpp:859
+#: lspclientservermanager.cpp:940
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "بدأ الخادم %2: %1"
 
-#: lspclientservermanager.cpp:895
+#: lspclientservermanager.cpp:976
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "فشل في تحليل ضبط الخادم \"%1\": لا كائن JSON"
 
-#: lspclientservermanager.cpp:898
+#: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "فشل في تحليل ضبط الخادم '%1': %2"
 
-#: lspclientservermanager.cpp:902
+#: lspclientservermanager.cpp:983
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "فشل في قراءة ضبط الخادم: %1"

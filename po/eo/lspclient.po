@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-16 00:46+0000\n"
 "PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -271,159 +271,159 @@ msgstr "Malvastigi Ĉion"
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1316
 #, kde-format
 msgid "Line: %1: "
 msgstr "Linio: %1:"
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
-#: lspclientpluginview.cpp:1980
+#: lspclientpluginview.cpp:1468 lspclientpluginview.cpp:1816
+#: lspclientpluginview.cpp:1935
 #, kde-format
 msgid "No results"
 msgstr "Neniuj rezultoj"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1527
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Difino: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1533
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklaro: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1539
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Tipodifino: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1545
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referencoj: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1557
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Efektivigo: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1570
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Emfazo: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1594 lspclientpluginview.cpp:1605
+#: lspclientpluginview.cpp:1618
 #, kde-format
 msgid "No Actions"
 msgstr "Neniuj Agoj"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1609
 #, kde-format
 msgid "Loading..."
 msgstr "Ŝargante..."
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1701
 #, kde-format
 msgid "No edits"
 msgstr "Neniuj redaktoj"
 
-#: lspclientpluginview.cpp:1820
+#: lspclientpluginview.cpp:1775
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Alinomi"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1776
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Nova nomo (atentu: ne ĉiuj referencoj povas esti anstataŭigitaj)"
 
-#: lspclientpluginview.cpp:1867
+#: lspclientpluginview.cpp:1822
 #, kde-format
 msgid "Not enough results"
 msgstr "Nesufiĉaj rezultoj"
 
-#: lspclientpluginview.cpp:1936
+#: lspclientpluginview.cpp:1891
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Koresponda kaplinio/Fonto ne trovita"
 
-#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2088 lspclientpluginview.cpp:2131
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-Servilo"
 
-#: lspclientpluginview.cpp:2199
+#: lspclientpluginview.cpp:2154
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-Kliento"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2403
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Aldemando el LSP-servilo"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Restarting"
 msgstr "Rekomencanta"
 
-#: lspclientservermanager.cpp:607
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "NOT Restarting"
 msgstr "NE Rekomencanta"
 
-#: lspclientservermanager.cpp:608
+#: lspclientservermanager.cpp:606
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Servilo neatendite finiĝis... %1 [%2] [hejmpaĝo: %3]"
 
-#: lspclientservermanager.cpp:809
+#: lspclientservermanager.cpp:877
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Malsukcesis trovi servilan binaron: %1"
 
-#: lspclientservermanager.cpp:812 lspclientservermanager.cpp:854
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:935
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Bonvolu kontroli vian PATH por la duuma"
 
-#: lspclientservermanager.cpp:813 lspclientservermanager.cpp:855
+#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:936
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Vidu ankaŭ %1 por instalado aŭ detaloj"
 
-#: lspclientservermanager.cpp:851
+#: lspclientservermanager.cpp:932
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Malsukcesis lanĉi servilon: %1"
 
-#: lspclientservermanager.cpp:859
+#: lspclientservermanager.cpp:940
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Lanĉita servilo %2: %1"
 
-#: lspclientservermanager.cpp:895
+#: lspclientservermanager.cpp:976
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Malsukcesis analizi servilan agordon '%1': neniu JSON-objekto"
 
-#: lspclientservermanager.cpp:898
+#: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Malsukcesis analizi servilan agordon '%1': %2"
 
-#: lspclientservermanager.cpp:902
+#: lspclientservermanager.cpp:983
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Malsukcesis legi servila agordo: %1"

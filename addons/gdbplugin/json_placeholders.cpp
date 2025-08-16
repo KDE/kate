@@ -187,7 +187,8 @@ QJsonValue resolve(const QString &text, const VarMap &variables)
         if (!variables.contains(key)) {
             continue;
         }
-        parts << text.mid(size, match.capturedStart(0)) << apply_filter(variables[key], match.captured(2));
+        Q_ASSERT(size <= match.capturedStart(0));
+        parts << text.mid(size, match.capturedStart(0) - size) << apply_filter(variables[key], match.captured(2));
         size = match.capturedEnd(0);
     }
     if (size == 0) {

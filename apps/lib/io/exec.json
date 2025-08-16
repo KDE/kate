@@ -6,7 +6,7 @@
             "copyFromFile": true,
             "copyToFile": true,
             "input": "none",
-             "listing": [
+            "listing": [
                 "Name",
                 "Type",
                 ""

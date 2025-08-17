@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-17 00:45+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -2598,7 +2598,7 @@ msgstr ""
 "Klarte ikkje starta programmet. Ein grunn kan vera at det ikkje er "
 "installert."
 
-#: lib/ktexteditor_utils.cpp:231
+#: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

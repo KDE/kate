@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-17 00:45+0000\n"
 "PO-Revision-Date: 2009-03-01 09:45+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -2650,7 +2650,7 @@ msgstr ""
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 
-#: lib/ktexteditor_utils.cpp:231
+#: lib/ktexteditor_utils.cpp:230
 #, fuzzy, kde-format
 #| msgid "File not found: %1"
 msgid "Can not open %1"

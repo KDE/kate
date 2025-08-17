@@ -11,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-07-28 16:49+0200\n"
+"POT-Creation-Date: 2025-08-17 00:45+0000\n"
+"PO-Revision-Date: 2025-08-16 07:26+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2606,10 +2606,10 @@ msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "Det valda programmet kunde inte startas. Kanske är det inte installerat."
 
-#: lib/ktexteditor_utils.cpp:231
+#: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "Kan inte öppna %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

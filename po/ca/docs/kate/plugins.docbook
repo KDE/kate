@@ -4221,7 +4221,10 @@ cd $1
 # El quilometratge o els arguments del servidor poden variar
 exec myserver
 </screen>
-
+<para
+>Aquest és un exemple d'un patró més general que es pot gestionar d'una manera una mica més confortablement com s'indica en la secció de sota <link linkend="lspclient-exec"
+>Entorn d'execució</link
+>. </para>
 
 <sect3 id="lspclient-customization">
 <title
@@ -4326,6 +4329,184 @@ exec myserver
 > <literal
 >LSPCLIENT_DEBUG=1</literal
 > adequat. </para>
+
+</sect3>
+
+<sect3 id="lspclient-exec">
+<title
+>Configuració de l'entorn d'execució</title>
+
+<para
+>L'exemple de «python virtualenv» anterior és només un exemple d'un «entorn d'execució» que opera d'una manera diferent i separada de l'entorn amfitrió habitual. Això es pot aconseguir amb diferents opcions de configuració de variables (p. ex. virtualenv), o una configuració de (s)chroot (canviant a un altre directori com a arrel nova), un contenidor (p. ex. podman, docker), o una sessió ssh a un altre amfitrió. En cada cas, l'«altre entorn» es defineix amb un «prefix d'execució». És a dir, algun programa es pot invocar/executar en l'altre entorn mitjançant un «prefix» (un programa i arguments) afegit amb la invocació prevista. Per exemple, <literal
+>podman exec -i nomcontenidor</literal
+> o <literal
+>ssh user@host</literal
+>. </para>
+
+<para
+>En particular, com en l'exemple anterior de «virtualenv», es pot triar/necessitar executar un servidor LSP en un entorn separat (p. ex. un contenidor amb totes les dependències necessàries per a algun projecte). L'enfocament «manual» descrit anteriorment té com a desavantatge que substitueix la línia d'ordres LSP estàndard, que després s'ha d'especificar i duplicar de nou en l'script d'embolcall. A més, en alguns dels altres exemples esmentats anteriorment, l'«espai de noms de camí» de l'amfitrió (tal com l'ha vist l'editor) pot ser diferent del de l'entorn. Per a abordar aquestes qüestions d'una manera més sistemàtica (que un enfocament «personalitzat»), es pot especificar alguna configuració addicional. </para>
+
+<para
+>Per exemple, es pot especificar el següent en una configuració <literal
+>.kateproject</literal
+>. Evidentment, no s'han d'incloure els comentaris «falsos». </para>
+
+<screen
+>{
+    // això també pot ser una matriu d'objectes
+    "exec": {
+        "hostname": "foobar"
+        // l'ordre també podria ser una matriu de cadenes
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // són possibles qualsevol de les formes següents
+            // també existeix una alternativa més automàgica, vegeu a continuació/sota
+            [ "/dir/on/host", "/mounted/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "lspclient": {
+        "servers": {
+            "python": {
+                // això coincidirà/s'unirà amb l'objecte d'abans
+                "exec": { "hostname": "foobar" },
+                // confina aquest servidor a l'arrel d'aquest projecte,
+                // així que no s'utilitza en altres projectes que es puguin obrir
+                // (altres servidors ja poden fer servir arrels específics, però el python generalment molt)
+                "root": "."
+            },
+            "c": {
+                // com anteriorment
+                "exec": { "hostname": "foobar" },
+                "root": "."
+            }
+        }
+    }
+}
+</screen>
+
+<para
+>Llavors, què passa com a resultat de l'anterior? Com s'ha esmentat, la part <literal
+>lspclient</literal
+> de l'anterior es fusiona a la configuració global, per tant es troba una secció <literal
+>exec</literal
+> (per a llenguatges especificats). Es realitza una cerca d'altre objecte (que especifica que coincideix amb <literal
+>hostname</literal
+>) en qualsevol de les seccions <literal
+>exec</literal
+> o <literal
+>lspclient</literal
+>, i una coincidència és com a base per a una fusió. Com a resultat, un servidor LSP (per a C i Python) tindrà la seva línia d'ordres annexada al prefix especificat (variable substituïda), i per tant s'iniciarà dins del contenidor donat. Per descomptat, el contenidor cal que s'hagi creat, en un estat d'inici adequat i equipat amb servidors LSP adequats. Hom podria haver estat temptat d'utilitzar la secció <literal
+>global</literal
+> (dins de <literal
+>lspclient</literal
+>.) Això també podria funcionar, però llavors <emphasis
+>tots els servidors LSP</emphasis
+> s'iniciarien amb aquest prefix, inclosos els de, per exemple, Markdown, scripts de Bash o JSON. És més probable que l'amfitrió habitual continuï subministrant aquests (si s'utilitzen). Per tant, com sempre, depèn de la vostra configuració particular. </para>
+
+<para
+>No obstant això, el servidor LSP ara pot observar camins diferents (remots) que els (locals) que l'editor veu i utilitza. Els <literal
+>pathMappings</literal
+> especificats s'utilitzen per traduir cap enrere i endavant entre qualsevol de les comunicacions amb el servidor LSP. Això és, per descomptat, en la mesura que sigui possible. Clarament, no tots els camins locals tenen una representació remota, però els que falten tampoc es veuen (pel servidor) i no plantegen cap problema. Per contra, però, el servidor (remot) ara pot veure i proporcionar referències a l'«arrel remota» que no estan representades de manera evident / fàcil en el sistema local. La <literal
+>mapRemoteRoot</literal
+> habilitada assigna implícitament l'arrel remota a un «URL local» <literal
+>exec://foobar/</literal
+>, que després es gestiona mitjançant un protocol KIO simple i senzill. Aquest últim utilitza essencialment (p. ex.) <literal
+>podman exec -i foobarcontainer cat somefile</literal
+> per a copiar des del remot al local (i altres variacions d'aquest tipus utilitzant eines del paquet <literal
+>coreutils</literal
+>). N'hi ha prou amb dir que no està destinat a ús general i no assegura cap rendiment, però sí que n'hi ha prou amb obtenir un fitxer referenciat de forma ràpida i fàcil de carregar a l'editor. </para>
+
+<para
+>Ara es veu fàcilment que una versió simplificada de la configuració anterior (sense <literal
+>hostname</literal
+> o <literal
+>pathMappings</literal
+>) es podria utilitzar per gestionar el «virtualenv» sense haver de duplicar la línia d'ordres del servidor (a l'script d'embolcall). </para>
+
+<para
+>És possible que no es vegi tan fàcilment el següent, per la qual cosa aquí s'esmenta explícitament. </para>
+<itemizedlist>
+<listitem>
+<para
+>Tant un <literal
+>hostname</literal
+> com el <literal
+>prefix</literal
+> real defineixen l'entorn d'execució (el primer pel nom, el segon pel contingut). Dins d'una instància de procés de l'editor, el mateix <literal
+>hostname</literal
+> no s'ha d'associar amb un <literal
+>prefix</literal
+> diferent, com a tal condueix a un comportament indefinit (sense necessitat de diagnòstic). </para>
+</listitem>
+<listitem>
+<para
+>Tant <literal
+>prefix</literal
+> com <literal
+>pathMappings</literal
+> estan subjectes a l'expansió de variables (editor) (però tingueu en compte l'element anterior). </para>
+</listitem>
+<listitem>
+<para
+>En temps d'execució, també s'estableixen algunes variables d'entorn, que es poden utilitzar per ajustar (subtilment) el comportament del «prefix de llançador» (encara que tingueu en compte el primer element). En particular, <literal
+>KATE_EXEC_PLUGIN</literal
+> està establert a <literal
+>lspclient</literal
+> i <literal
+>KATE_EXEC_SERVER</literal
+> està establert a l'identificador del servidor (p. ex. <literal
+>python</literal
+>). </para>
+</listitem>
+<listitem>
+<para
+>En particular, també <literal
+>KATE_EXEC_INSPECT</literal
+> està establert a <literal
+>1</literal
+>. Això notifica al «prefix de llançador» que el receptor (connector del Kate) accepta algunes dades fora de banda/protocol. Això permet al llançador utilitzar alguns mitjans per determinar les assignacions de camins (p. ex. <literal
+>podman inspect</literal
+>) i per comunicar-ho en el format adequat. Això s'eliminarà del flux conforme al protocol LSP d'altra manera i s'utilitzarà per estendre qualsevol mapatge de camí definit. Això pot servir com a alternativa a especificar, per exemple, les muntures d'unió explícitament (una vegada més, duplicant la definició del contenidor). En concret, el fragment anterior es podria utilitzar en el seu lloc; <screen
+>{
+    // ...
+    "exec": {
+        "hostname": "foobar"
+        // repetició poc afortunada de nom, però l'script d'ajuda és cal i senzill
+        "prefix": "exec_inspect.sh foobarcontainer podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": []
+    }
+    // ...
+}
+</screen>
+</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Finalment, però no menys important, què passa si l'enfocament de «KIO alternativa» no es considera suficient? A la pràctica sovint és possible «muntar» l'arrel remota al sistema de fitxers local i després especificar-la en un <literal
+>pathMappings</literal
+>. Per als iniciadors, el conegut sistema de fitxers <literal
+>sshfs</literal
+> (fuse) pot muntar un sistema remot (realment) en el local. Per a un contenidor (podman/docker), la majoria de les configuracions (controlador del sistema de fitxers) admeten el truc següent; <screen>
+$ rootdir./proc/.podman inspect --format '{{.State.Pid}}' containername`/root
+# alguns enllaços simbòlics poden causar problemes, vegeu també alternativa a continuació
+$ sudo mount --bind $rootdir /somewhere/containername
+</screen
+> Si això falla, llavors es podria recórrer a <literal
+>sshfs</literal
+>, o de fet un subconjunt seu per a muntar l'arrel del contenidor/ remot; <screen>
+# vegeu les pàgines respectives de man; sftp-server és suficient per al protocol d'operació de fitxer real (no xifrat)
+$ socat 'exec:podman exec -i nomcontenidor /usr/lib/openssh/sftp-server'
+   'exec:sshfs -o transform_symlinks -o passive \:/ /somewhere/containername'
+...
+$ fusermount -u /somewhere/containername
+</screen
+> Tingueu en compte que aquest muntatge d'arrel remota en el sistema de fitxers amfitrió és probable que s'especifiqui manualment i explícitament en una secció <literal
+>pathMappings</literal
+> (exceptuant un prefix de llançador molt intel·ligent que organitza tot això de manera automàtica). </para>
 
 </sect3>
 

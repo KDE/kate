@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-07-26 11:19+0200\n"
+"POT-Creation-Date: 2025-08-17 00:45+0000\n"
+"PO-Revision-Date: 2025-08-16 17:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2628,10 +2628,10 @@ msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "No s'ha pogut iniciar el programa seleccionat. Potser no està instal·lat."
 
-#: lib/ktexteditor_utils.cpp:231
+#: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "No s'ha pogut obrir %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

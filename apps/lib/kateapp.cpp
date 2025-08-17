@@ -338,14 +338,14 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
         // can we ask Konsole for a token?
         const auto konsoleService = qEnvironmentVariable("KONSOLE_DBUS_SERVICE");
         const auto konsoleSession = qEnvironmentVariable("KONSOLE_DBUS_SESSION");
-        const auto konsoleSessionId = qEnvironmentVariable("SHELL_SESSION_ID");
-        if (!konsoleService.isEmpty() && !konsoleSession.isEmpty() && !konsoleSessionId.isEmpty()) {
+        const auto konsoleActivationCookie = qEnvironmentVariable("KONSOLE_DBUS_ACTIVATION_COOKIE");
+        if (!konsoleService.isEmpty() && !konsoleSession.isEmpty() && !konsoleActivationCookie.isEmpty()) {
             // we ask the current shell session
             QDBusMessage m =
                 QDBusMessage::createMethodCall(konsoleService, konsoleSession, QStringLiteral("org.kde.konsole.Session"), QStringLiteral("activationToken"));
 
-            // use the session id as cookie
-            m.setArguments({konsoleSessionId});
+            // use the cookie from the environment
+            m.setArguments({konsoleActivationCookie});
 
             // get the token, if possible and export it to environment for later use
             const auto tokenAnswer = QDBusConnection::sessionBus().call(m);

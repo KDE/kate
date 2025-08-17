@@ -495,7 +495,7 @@ The script needs to state the interpreter in the first line via a shebang <useri
 <varlistentry>
 <term>Format the entire XML file.</term>
 <listitem>
-<para><userinput>Name</userinput>: JSON Format Full File</para>
+<para><userinput>Name</userinput>: XML Format Full File</para>
 <para><userinput>Icon</userinput>: application-xml</para>
 <para><userinput>Executable</userinput>: xmllint</para>
 <para><userinput>Arguments</userinput>: --format %{Document:FileName}</para>

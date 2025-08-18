@@ -45,6 +45,7 @@ private Q_SLOTS:
     void testTabsKeepOrderOnRestore2();
     void testTabsKeepOrderOnRestore3();
     void testShowMessageWorks();
+    void testPinnedDocs();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;
@@ -421,6 +422,47 @@ void KateViewManagementTest2::testShowMessageWorks()
     QVERIFY(outputViewTextBrowser->toPlainText().contains(QStringLiteral("Test KTextEditor::utils::showMessage")));
 
     QVERIFY(outputView->isVisible());
+}
+
+void KateViewManagementTest2::testPinnedDocs()
+{
+    QTemporaryFile f1;
+    QVERIFY(f1.open());
+    f1.write(QStringLiteral("Some rando text").toUtf8());
+    f1.close();
+    const QUrl url = QUrl::fromLocalFile(f1.fileName());
+
+    // Pin document
+    {
+        app->sessionManager()->sessionNew();
+        app->activeKateMainWindow()->openUrl(url);
+
+        auto pinAction = app->activeKateMainWindow()->action(QStringLiteral("pin_active_document"));
+        QVERIFY(pinAction);
+        pinAction->trigger();
+
+        auto tabBar = app->activeKateMainWindow()->viewManager()->activeViewSpace()->m_tabBar;
+        QCOMPARE(tabBar->tabIcon(0).name(), QStringLiteral("pin"));
+    }
+
+    // Open new session, expect pinned document to be there
+    {
+        app->sessionManager()->activateSession(QStringLiteral("pinned doc session 1"), false, true);
+        // expect to find the pinned doc
+        QTRY_COMPARE(app->activeKateMainWindow()->activeView()->document()->url(), url);
+        // unpin the doc, expect the icon to change
+        auto pinAction = app->activeKateMainWindow()->action(QStringLiteral("pin_active_document"));
+        pinAction->trigger();
+
+        auto tabBar = app->activeKateMainWindow()->viewManager()->activeViewSpace()->m_tabBar;
+        QCOMPARE_NE(tabBar->tabIcon(0).name(), QStringLiteral("pin"));
+    }
+
+    // Open another session, expect no pinned document
+    {
+        app->sessionManager()->sessionNew();
+        QCOMPARE(app->activeKateMainWindow()->views().size(), 0);
+    }
 }
 
 QTEST_MAIN(KateViewManagementTest2)

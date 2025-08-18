@@ -23,6 +23,43 @@
 
 QTEST_MAIN(KateViewManagementTests)
 
+struct TempConfigChanger {
+    Q_DISABLE_COPY_MOVE(TempConfigChanger)
+
+    template<typename T>
+    TempConfigChanger(KateApp *a, const char *key, T value)
+        : app(a)
+        , setingKey(key)
+    {
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        cgGeneral.writeEntry(setingKey, value);
+        app->configurationChanged();
+    }
+
+    ~TempConfigChanger()
+    {
+        reset();
+    }
+
+    void reset()
+    {
+        if (didReset) {
+            return;
+        }
+        // fallback to default
+        didReset = false;
+        KSharedConfig::Ptr config = KSharedConfig::openConfig();
+        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
+        cgGeneral.deleteEntry(setingKey);
+        app->configurationChanged();
+    }
+
+    KateApp *const app;
+    bool didReset = false;
+    const char *setingKey;
+};
+
 static bool viewspaceContainsView(KateViewSpace *vs, KTextEditor::View *v)
 {
     return vs->hasDocument(v->document());
@@ -781,8 +818,13 @@ void KateViewManagementTests::testTabbarContextMenu()
     const auto url = QUrl::fromLocalFile(f1.fileName());
 
     app->sessionManager()->sessionNew();
+    QCOMPARE(app->mainWindowsCount(), 1);
     KateMainWindow *mw = app->activeKateMainWindow();
     KateViewManager *vm = mw->viewManager();
+
+    TempConfigChanger dontAutoHideTabs(app.get(), "Auto Hide Tabs", false);
+    TempConfigChanger enableShowTabBar(app.get(), "Show Tab Bar", true);
+    QVERIFY(mw->showTabBar());
 
     vm->createView();
     vm->slotSplitViewSpaceVert();
@@ -815,42 +857,21 @@ void KateViewManagementTests::testTabbarContextMenu()
         QMenu menu;
 
         rightVS->buildContextMenu(0, menu);
+        QVERIFY(!menu.isEmpty());
         QVERIFY(getAction(menu, "Copy Location")->isEnabled());
         QVERIFY(getAction(menu, "Copy Filename")->isEnabled());
         QVERIFY(getAction(menu, "Rename...")->isEnabled());
         QVERIFY(getAction(menu, "Properties")->isEnabled());
+        QVERIFY(getAction(menu, "Delete")->isEnabled());
 
         auto delAction = getAction(menu, "Delete");
         QVERIFY(delAction->isEnabled());
-        auto acceptNextPopup = [] {
-            auto dialog = qobject_cast<QDialog *>(qApp->activeModalWidget());
-            Q_ASSERT(dialog);
-            const auto buttons = dialog->findChildren<QAbstractButton *>();
-            // KMessageBox has no compatibility with QDialog api, QDialog->accept() doesn't work
-            for (auto b : buttons) {
-                if (b->text().contains(u"Delete")) {
-                    b->click();
-                    return;
-                }
-            }
-            // we failed!
-            Q_ASSERT(false);
-        };
-        QTimer::singleShot(500, this, acceptNextPopup);
-
-        delAction->trigger();
-
-        // The viewspace is gone
-        QTRY_VERIFY(rightVS == nullptr);
     }
 
     {
         QMenu menu;
 
         leftVS->buildContextMenu(0, menu);
-        for (auto a : menu.actions()) {
-            qDebug() << a->text().remove(u'&') << a->isEnabled();
-        }
 
         QVERIFY(!getAction(menu, "Copy Location")->isEnabled());
         QVERIFY(!getAction(menu, "Copy Filename")->isEnabled());
@@ -860,20 +881,25 @@ void KateViewManagementTests::testTabbarContextMenu()
 
         QVERIFY(getAction(menu, "Open…")->isEnabled());
         QVERIFY(getAction(menu, "Close Document")->isEnabled());
-        QVERIFY(!getAction(menu, "Close Other Documents")->isEnabled());
+        QVERIFY(getAction(menu, "Close Other Documents")->isEnabled());
         QVERIFY(getAction(menu, "Close All Documents")->isEnabled());
     }
 
     {
+        vm->setActiveSpace(leftVS);
         // Add a widget
-        auto *widget = new QWidget;
+        QPointer<QWidget> widget = new QWidget;
         widget->setObjectName(QStringLiteral("widget"));
         app->activeMainWindow()->addWidget(widget);
 
         QMenu menu;
         leftVS->buildContextMenu(1, menu);
-        QEXPECT_FAIL("", "this is broken atm", Continue);
         QVERIFY(!menu.isEmpty());
+        auto closeTab = getAction(menu, "Close Tab");
+        QVERIFY(closeTab && closeTab->isEnabled());
+        closeTab->trigger();
+
+        QTRY_VERIFY(widget == nullptr);
     }
 }
 

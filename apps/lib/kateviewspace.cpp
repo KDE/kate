@@ -1122,13 +1122,9 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
         return;
     }
 
-    auto activeView = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
-    if (!activeView) {
-        return; // the welcome screen is open
-    }
-
     auto docOrWidget = m_tabBar->tabDocument(tabIndex);
-    auto activeDocument = activeView->document(); // used for compareUsing which is used with another
+    auto activeView = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
+    auto activeDocument = activeView ? activeView->document() : nullptr; // used for compareUsing which is used with another
     if (!docOrWidget.doc()) {
         // This tab is holding some other widget
         // Show only "close tab" for now
@@ -1222,7 +1218,7 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     }
 
     // both documents must have urls and must not be the same to have the compare feature enabled
-    if (activeDocument->url().isEmpty() || activeDocument == doc) {
+    if (!activeDocument || activeDocument->url().isEmpty() || activeDocument == doc) {
         compare->setEnabled(false);
         compareUsing->setEnabled(false);
     }

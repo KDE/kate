@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-08-03 11:59+0400\n"
+"PO-Revision-Date: 2025-08-17 21:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -365,10 +365,9 @@ msgstr[4] "عثر على %1 ملاحظة"
 msgstr[5] "عثر على %1 ملاحظة"
 
 #: plugin_katebuild.cpp:1484
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "فشل البناء."
+msgstr "ألغي البناء"
 
 #: plugin_katebuild.cpp:1488
 #, kde-format

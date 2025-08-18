@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-17 00:45+0000\n"
-"PO-Revision-Date: 2025-07-26 11:19+0200\n"
+"PO-Revision-Date: 2025-08-16 17:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2048,9 +2048,9 @@ msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
 "once, and press an action button until the list is empty.</p></qt>"
 msgstr ""
-"<qt>Els documents en la llista a continuació han canviat al disc."
-"<p>Seleccioneu-ne un o més a la vegada i premeu un botó d'acció fins que la "
-"llista estiga buida.</p></qt>"
+"<qt>Els documents en la llista a continuació han canviat al disc.<p>Trieu-ne "
+"un o més a la vegada i premeu un botó d'acció fins que la llista estiga "
+"buida.</p></qt>"
 
 #: lib/katemwmodonhddialog.cpp:78
 #, kde-format
@@ -2634,7 +2634,7 @@ msgstr ""
 #: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "No s'ha pogut obrir %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
@@ -2850,7 +2850,7 @@ msgid ""
 "Please choose a different one."
 msgstr ""
 "Ja hi ha una sessió existent amb el nom triat: %1\n"
-"Seleccioneu-ne un de diferent."
+"Trieu-ne un de diferent."
 
 #: lib/session/katesessionmanager.cpp:522
 #, kde-format

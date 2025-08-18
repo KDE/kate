@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-17 00:45+0000\n"
-"PO-Revision-Date: 2025-08-09 15:21+0400\n"
+"PO-Revision-Date: 2025-08-17 21:58+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2600,7 +2600,7 @@ msgstr "لا يمكن بدء البرنامج المحدد. ربما لأنه غ
 #: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "تعذّر فتح %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

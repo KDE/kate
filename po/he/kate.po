@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-17 00:45+0000\n"
-"PO-Revision-Date: 2025-08-02 21:12+0300\n"
+"PO-Revision-Date: 2025-08-16 14:16+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2593,7 +2593,7 @@ msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי ה
 #: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "לא ניתן לפתוח את %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

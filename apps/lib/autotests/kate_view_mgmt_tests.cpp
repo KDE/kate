@@ -9,10 +9,13 @@
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
 #include <QCommandLineParser>
+#include <QDialog>
+#include <QMenu>
 #include <QPointer>
 #include <QSignalSpy>
 #include <QTemporaryFile>
@@ -766,6 +769,111 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
         KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
         cgGeneral.deleteEntry("SDI Mode");
         app->configurationChanged();
+    }
+}
+
+void KateViewManagementTests::testTabbarContextMenu()
+{
+    QTemporaryFile f1;
+    QVERIFY(f1.open());
+    f1.write("Hello world");
+    f1.close();
+    const auto url = QUrl::fromLocalFile(f1.fileName());
+
+    app->sessionManager()->sessionNew();
+    KateMainWindow *mw = app->activeKateMainWindow();
+    KateViewManager *vm = mw->viewManager();
+
+    vm->createView();
+    vm->slotSplitViewSpaceVert();
+
+    QCOMPARE(vm->m_viewSpaceList.size(), 2);
+    auto *leftVS = vm->m_viewSpaceList[0];
+    QPointer<KateViewSpace> rightVS = vm->m_viewSpaceList[1];
+    QVERIFY(rightVS->isActiveSpace());
+
+    // left has empty doc, right has proper doc
+    app->activeKateMainWindow()->openUrl(url);
+    QCOMPARE(leftVS->currentView()->document()->url(), QUrl());
+    QCOMPARE(rightVS->currentView()->document()->url(), url);
+
+    // close first doc, second one is the one with url
+    rightVS->m_tabBar->tabCloseRequested(0);
+    QTRY_COMPARE(rightVS->m_registeredDocuments.size(), 1);
+
+    auto getAction = [](QMenu &menu, const char *name) -> QAction * {
+        const auto actions = menu.actions();
+        for (auto a : actions) {
+            if (a->text().remove(u'&') == QString::fromUtf8(name)) {
+                return a;
+            }
+        }
+        return nullptr;
+    };
+
+    {
+        QMenu menu;
+
+        rightVS->buildContextMenu(0, menu);
+        QVERIFY(getAction(menu, "Copy Location")->isEnabled());
+        QVERIFY(getAction(menu, "Copy Filename")->isEnabled());
+        QVERIFY(getAction(menu, "Rename...")->isEnabled());
+        QVERIFY(getAction(menu, "Properties")->isEnabled());
+
+        auto delAction = getAction(menu, "Delete");
+        QVERIFY(delAction->isEnabled());
+        auto acceptNextPopup = [] {
+            auto dialog = qobject_cast<QDialog *>(qApp->activeModalWidget());
+            Q_ASSERT(dialog);
+            const auto buttons = dialog->findChildren<QAbstractButton *>();
+            // KMessageBox has no compatibility with QDialog api, QDialog->accept() doesn't work
+            for (auto b : buttons) {
+                if (b->text().contains(u"Delete")) {
+                    b->click();
+                    return;
+                }
+            }
+            // we failed!
+            Q_ASSERT(false);
+        };
+        QTimer::singleShot(500, this, acceptNextPopup);
+
+        delAction->trigger();
+
+        // The viewspace is gone
+        QTRY_VERIFY(rightVS == nullptr);
+    }
+
+    {
+        QMenu menu;
+
+        leftVS->buildContextMenu(0, menu);
+        for (auto a : menu.actions()) {
+            qDebug() << a->text().remove(u'&') << a->isEnabled();
+        }
+
+        QVERIFY(!getAction(menu, "Copy Location")->isEnabled());
+        QVERIFY(!getAction(menu, "Copy Filename")->isEnabled());
+        QVERIFY(!getAction(menu, "Rename...")->isEnabled());
+        QVERIFY(!getAction(menu, "Delete")->isEnabled());
+        QVERIFY(!getAction(menu, "Properties")->isEnabled());
+
+        QVERIFY(getAction(menu, "Open…")->isEnabled());
+        QVERIFY(getAction(menu, "Close Document")->isEnabled());
+        QVERIFY(!getAction(menu, "Close Other Documents")->isEnabled());
+        QVERIFY(getAction(menu, "Close All Documents")->isEnabled());
+    }
+
+    {
+        // Add a widget
+        auto *widget = new QWidget;
+        widget->setObjectName(QStringLiteral("widget"));
+        app->activeMainWindow()->addWidget(widget);
+
+        QMenu menu;
+        leftVS->buildContextMenu(1, menu);
+        QEXPECT_FAIL("", "this is broken atm", Continue);
+        QVERIFY(!menu.isEmpty());
     }
 }
 

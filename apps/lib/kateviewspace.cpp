@@ -1108,8 +1108,17 @@ int KateViewSpace::hiddenDocuments() const
 
 void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
 {
+    QMenu menu(this);
+    buildContextMenu(idx, menu);
+    if (!menu.isEmpty()) {
+        menu.exec(globalPos);
+    }
+}
+
+void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
+{
     // right now, show no context menu on empty tab bar space
-    if (idx < 0) {
+    if (tabIndex < 0) {
         return;
     }
 
@@ -1118,49 +1127,73 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
         return; // the welcome screen is open
     }
 
-    auto docOrWidget = m_tabBar->tabDocument(idx);
+    auto docOrWidget = m_tabBar->tabDocument(tabIndex);
     auto activeDocument = activeView->document(); // used for compareUsing which is used with another
     if (!docOrWidget.doc()) {
         // This tab is holding some other widget
         // Show only "close tab" for now
         // maybe later allow adding context menu entries from the widgets
         // if needed
-        QMenu menu(this);
         auto aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("Close Tab"));
-        auto choice = menu.exec(globalPos);
-        if (choice == aCloseTab) {
-            // use single shot as this action can trigger deletion of this viewspace!
-            QTimer::singleShot(0, this, [this, idx]() {
-                closeTabRequest(idx);
+        connect(aCloseTab, &QAction::triggered, this, [this, tabIndex] {
+            QTimer::singleShot(0, this, [this, tabIndex]() {
+                closeTabRequest(tabIndex);
             });
-        }
+        });
         return;
     }
     auto *doc = docOrWidget.doc();
 
-    auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
+    auto addActionFromCollection = [this](QMenu *menu, const char *action_name, Qt::ConnectionType connType = Qt::AutoConnection) {
         QAction *action = m_viewManager->mainWindow()->action(QLatin1StringView(action_name));
-        return menu->addAction(action->icon(), action->text());
+        auto newAction = menu->addAction(action->icon(), action->text());
+        connect(newAction, &QAction::triggered, action, &QAction::trigger, connType);
+        return newAction;
     };
 
-    QMenu menu(this);
     QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
+    connect(aCloseTab, &QAction::triggered, this, [this, tabIndex] {
+        QTimer::singleShot(0, this, [this, tabIndex]() {
+            closeTabRequest(tabIndex);
+        });
+    });
+
     QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
+    auto onCloseOthers = [doc] {
+        KateApp::self()->documentManager()->closeOtherDocuments(doc);
+    };
+    connect(aCloseOthers, &QAction::triggered, this, onCloseOthers);
+
     QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
+    connect(aCloseAll, &QAction::triggered, this, [this] {
+        QTimer::singleShot(0, this, []() {
+            KateApp::self()->documentManager()->closeAllDocuments();
+        });
+    });
+
     menu.addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("reopen_latest_closed_document")));
     menu.addSeparator();
+
     menu.addAction(KStandardAction::open(m_viewManager, &KateViewManager::slotDocumentOpen, this));
+
     QAction *aDetachTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-detach")), i18n("D&etach Document"));
+    connect(aDetachTab, &QAction::triggered, this, [this, doc] {
+        detachDocument(doc);
+    });
     menu.addSeparator();
     aDetachTab->setWhatsThis(i18n("Opens the document in a new window and closes it in the current window"));
     menu.addSeparator();
+
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
     QAction *aCopyFilename = addActionFromCollection(&menu, "file_copy_filename");
     QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
     QAction *aFileProperties = addActionFromCollection(&menu, "file_properties");
     menu.addSeparator();
     QAction *aRenameFile = addActionFromCollection(&menu, "file_rename");
-    QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
+
+    // use QueuedConnection as this action can trigger deletion of this viewspace!
+    QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete", Qt::QueuedConnection);
+
     menu.addSeparator();
     QAction *compare = menu.addAction(i18n("Compare with Active Document"));
     compare->setIcon(QIcon::fromTheme(QStringLiteral("vcs-diff")));
@@ -1197,56 +1230,18 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     if (compareUsing->isEnabled()) {
         for (KateFileActions::DiffTool &diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = compareUsing->addAction(diffTool.name);
+            connect(compareAction, &QAction::triggered, this, [this, tool = diffTool.path, doc, activeDocument] {
+                if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, tool)) {
+                    QMessageBox::information(this,
+                                             i18n("Could not start program"),
+                                             i18n("The selected program could not be started. Maybe it is not installed."),
+                                             QMessageBox::StandardButton::Ok);
+                }
+            });
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found
-            compareAction->setData(diffTool.path);
             compareAction->setEnabled(!diffTool.path.isEmpty());
         }
-    }
-
-    QAction *choice = menu.exec(globalPos);
-
-    if (!choice) {
-        return;
-    }
-
-    if (choice == aCloseTab) {
-        // use single shot as this action can trigger deletion of this viewspace!
-        QTimer::singleShot(0, this, [this, idx]() {
-            closeTabRequest(idx);
-        });
-    } else if (choice == aCloseOthers) {
-        KateApp::self()->documentManager()->closeOtherDocuments(doc);
-    } else if (choice == aCloseAll) {
-        // use single shot as this action can trigger deletion of this viewspace!
-        QTimer::singleShot(0, this, []() {
-            KateApp::self()->documentManager()->closeAllDocuments();
-        });
-    } else if (choice == aCopyPath) {
-        KateFileActions::copyFilePathToClipboard(doc);
-    } else if (choice == aCopyFilename) {
-        KateFileActions::copyFileNameToClipboard(doc);
-    } else if (choice == aOpenFolder) {
-        KateFileActions::openContainingFolder(doc);
-    } else if (choice == aFileProperties) {
-        KateFileActions::openFilePropertiesDialog(this, doc);
-    } else if (choice == aRenameFile) {
-        KateFileActions::renameDocumentFile(this, doc);
-    } else if (choice == aDeleteFile) {
-        // use single shot as this action can trigger deletion of this viewspace!
-        QTimer::singleShot(0, this, [this, doc]() {
-            KateFileActions::deleteDocumentFile(this, doc);
-        });
-    } else if (choice->parent() == compareUsing) {
-        QString actionData = choice->data().toString(); // name of the executable of the diff program
-        if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
-            QMessageBox::information(this,
-                                     i18n("Could not start program"),
-                                     i18n("The selected program could not be started. Maybe it is not installed."),
-                                     QMessageBox::StandardButton::Ok);
-        }
-    } else if (choice == aDetachTab) {
-        detachDocument(doc);
     }
 }
 

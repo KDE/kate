@@ -318,6 +318,8 @@ private:
 
     void removeWidget(QWidget *w);
 
+    void buildContextMenu(int tabIndex, QMenu &menu);
+
 private:
     // Kate's view manager
     KateViewManager *m_viewManager;

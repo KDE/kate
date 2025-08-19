@@ -957,7 +957,7 @@
 <para
 ><userinput
 >Namn</userinput
->: JSON formatera hela filen</para>
+>: XML formatera hela filen</para>
 <para
 ><userinput
 >Ikon</userinput

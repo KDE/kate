@@ -953,7 +953,7 @@
 <para
 ><userinput
 >Naam</userinput
->: JSON-formatteren volledig bestand</para>
+>: XML-formaat volledig bestand</para>
 <para
 ><userinput
 >Pictogram</userinput
@@ -4201,7 +4201,7 @@ Projects Replicode run / stop-->
 >In het algemeen wordt aanbevolen om de root niet te specificeren, omdat het niet zo belangrijk is voor een server (kan voor u anders zijn). Minder exemplaren van de server zijn natuurlijk efficiënter en ze hebben ook een 'bredere' blik dan de blik van vele gescheiden exemplaren. </para>
 
 <para
->Zoals bovenstaand genoemd, zijn verschillende items onderwerp van expansie van variabelen. Een geschikte toepassing ervan gecombineerd met een "wrapper-script" biedt het aanpassen aan een groot aantal omstandigheden. Neem, bijvoorbeeld, een ontwikkeling van een python-scenario dat bestaat uit meerdere projecten (bijv. git repos), elk met zijn eigen virtuele omgeving. Met de standaard configuratie is de python taalserver niet bekend met de virtuele omgeving. Dat kan echter verholpen worden met de volgende benadering. Eerst, het volgende fragment kan ingevoerd worden in "User Server Settings" van de LSPClient-plug-in: </para>
+>Zoals bovenstaand genoemd, zijn verschillende items onderwerp van expansie van variabelen. Een geschikte toepassing ervan gecombineerd met een "omslagscript" biedt het aanpassen aan een groot aantal omstandigheden. Neem, bijvoorbeeld, een ontwikkeling van een python-scenario dat bestaat uit meerdere projecten (bijv. git repos), elk met zijn eigen virtuele omgeving. Met de standaard configuratie is de python taalserver niet bekend met de virtuele omgeving. Dat kan echter verholpen worden met de volgende benadering. Eerst, het volgende fragment kan ingevoerd worden in "User Server Settings" van de LSPClient-plug-in: </para>
 <screen
 >{
         "servers":
@@ -4219,7 +4219,7 @@ Projects Replicode run / stop-->
 <para
 ><filename
 >pylsp_in_env</filename
-> is een klein "wrapper-script" dat geplaatst zou moeten worden in <literal
+> is een klein "omslagscript" dat geplaatst zou moeten worden in <literal
 >PATH</literal
 > met de volgende (aan-te-passen) inhoud: </para>
 <screen
@@ -4232,7 +4232,10 @@ source XYZ
 # lengte van de server of argumenten kunnen variëren
 exec myserver
 </screen>
-
+<para
+>Dit is slechts een voorbeeld van een algemener patroon die een beetje comfortabeler behandeld kan worden zoals uitgelegd in de onderstaande sectie <link linkend="lspclient-exec"
+>Uitvoeromgeving</link
+>. </para>
 
 <sect3 id="lspclient-customization">
 <title
@@ -4337,6 +4340,184 @@ exec myserver
 >, gedefinieerd met commando <literal
 >export</literal
 >. </para>
+
+</sect3>
+
+<sect3 id="lspclient-exec">
+<title
+>Opzet uitvoeromgeving</title>
+
+<para
+>Het bovenstaande voorbeeld van python virtualenv is slechts een voorbeeld van een "uitvoeromgeving" die werkt in en afgesloten en afgescheiden manier van de gebruiker omgeving op de host. Dit zou bereikt kunnen worden door verschillende instellingen van variabelen (bijv. virtualenv) of een (s)chroot opzet (omschakelen naar een andere map als nieuwe root), een container (bijv. podman, docker) of een ssh-sessie naar een andere host. In elk geval, de "andere omgeving" is gedefinieerd door een "uitvoervoorvoegsel". Dat betekent dat een programma aangeroepen/uitgevoerd kan worden in de andere omgeving door middel van een "voorvoegsel" (een programma en argumenten) achtergevoegd met de bedoelde aanroep. Bijvoorbeeld, <literal
+>podman exec -i containername</literal
+> of <literal
+>ssh user@host</literal
+>. </para>
+
+<para
+>Speciaal, zoals in het eerdere voorbeeld van virtualenv, kan men kiezen/nodig hebben een LSP-server te draaien is zo'n aparte omgeving (bijv. een container met alle afhankelijkheden nodig voor een project). De "handmatige" benadering bovenstaand uitgelegd heeft als nadeel dat het de standaard LSP-opdrachtregel vervangt, die dan opnieuw gespecificeerd en gedupliceerd moet worden in het omslagscript. Ook, in enige van de andere voorbeelden bovenstaand genoemd kan de "padnaamruimte" van de host (zoals gezien door de bewerker) verschillen van die van de omgeving. Om deze zaken op een meer systematische manier aan te pakken (dan een "aangepaste" benadering), kan enige extra configuratie gespecificeerd worden. </para>
+
+<para
+>Bijvoorbeeld, het volgende kan gespecificeerd worden in een <literal
+>.kateproject</literal
+> configuratie. Natuurlijk zouden de "valse" commentaren niet ingevoegd moeten worden. </para>
+
+<screen
+>{
+    // dit kan ook een array van objecten zijn
+    "exec": {
+        "hostname": "foobar"
+        // het commando zou ook een array van tekenreeksen kunnen zijn
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // een van de volgende vormen is mogelijk
+            // een meer auto-magisch alternatief bestaat ook, zie later/onderstaand
+            [ "/map/op/host", "/aangekoppeld/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "lspclient": {
+        "servers": {
+            "python": {
+                // dit zal overeenkomen/meedoen met het bovenstaande object
+                "exec": { "hostname": "foobar" },
+                // beperkt deze server tot deze project root,
+                // zodat het niet wordt gebruikt voor andere projecten die geopend kunnen worden
+                // (andere servers kunnen al specifieke roots gebruiken, maar python in het algemeen niet)
+                "root": "."
+            },
+            "c": {
+                // zoals boven
+                "exec": { "hostname": "foobar" },
+                "root": "."
+            }
+        }
+    }
+}
+</screen>
+
+<para
+>Dus, wat gebeurt er als een resultaat van het bovenstaande? Zoals genoemd, het gedeelte <literal
+>lspclient</literal
+> van het bovenstaande wordt gemengd in de globale configuratie, dus een sectie <literal
+>exec</literal
+> wordt gevonden (voor gespecificeerde talen). Er wordt gezocht naar een ander object (dat specificeert overeenkomst met <literal
+>hostname</literal
+>) in ofwel de sectie <literal
+>exec</literal
+> of <literal
+>lspclient</literal
+> en een overeenkomende is als een basis voor een menging. Als een resultaat, een LSP-server (voor C en python) zullen zijn opdrachtregel achtergevoegd hebben aan het gespecificeerde (variabelen gesubstitueerd) voorvoegsel en zal daarom gestart worden in de gegeven container. Natuurlijk moet de container aangemaakt zijn, in een juist gestarte status en voorzien van de juiste LSP-servers. Men zou verleid kunnen zijn om de <literal
+>globale</literal
+> sectie te gebruiken (binnen <literal
+>lspclient</literal
+>.) Dat zou ook kunnen werken, maar dan zouden <emphasis
+>alle</emphasis
+> LSP-servers gestart moeten zijn met dat voorvoegsel, inclusief die voor bijv. Markdown, Bash-script of JSON. Het is waarschijnlijker dat de gebruikelijke host deze nog steeds zal bieden (indien in gebruik). Dus, zoals altijd, het hangt af van uw specifieke opzet. </para>
+
+<para
+>De LSP-server kan nu echter verschillende paden (op afstand) observeren dan de lokalen die gezien wordt en gebruikt door de bewerker. De gespecificeerde <literal
+>pathMappings</literal
+> worden gebruikt om tussen hen heen en terug te vertalen in de communicatie met de LSP-server. Dat is, natuurlijk, zoveel als mogelijk. Het is helder dat niet alle lokale paden een representatie hebben op afstand, maar de ontbrekenden worden ook niet gezien (door de server) en veroorzaken geen problemen. Omgekeerd, echter, de server (op afstand) kan nu verwijzingen zien en leveren in de "root op afstand" die niet evident/gemakkelijk gerepresenteerd worden in het lokale systeem. De ingeschakelde <literal
+>mapRemoteRoot</literal
+> koppelt impliciet de root op afstand op een "lokale URL" <literal
+>exec://foobar/</literal
+>, die dan wordt behandeld door een gewoon-en-eenvoudig KIO-protocol. De laatste gebruikt essentieel (bijv.) <literal
+>podman exec -i foobarcontainer cat somefile"</literal
+> voor kopiëren van afstand naar lokaal (en andere zulke variaties met gebruik van hulpmiddelen uit de suite <literal
+>coreutils</literal
+>). Genoeg te zeggen het is niet bedoeld voor algemeen gebruik en claimt geen enkele prestatie, maar het is voldoende o een verwezen bestand snel en gemakkelijk in de bewerker te laden. </para>
+
+<para
+>Het is nu gemakkelijk in te zien dat en vereenvoudigde versie van de bovenstaande configuratie (zonder <literal
+>hostname</literal
+> of <literal
+>pathMappings</literal
+>) gebruikt zou kunnen worden om de virtualenv te behandelen zonder de opdrachtregel van de server te dupliceren (in het omslagscript). </para>
+
+<para
+>Het volgende kan niet zo gemakkelijk begrepen worden, dus wordt het hier expliciet genoemd. </para>
+<itemizedlist>
+<listitem>
+<para
+>Zowel een <literal
+>hostname</literal
+> en de actuele <literal
+>prefix</literal
+> definiëren de uitvoeringsomgeving (de eerste op naam, de laatste op inhoud). Binnen een exemplaar van een bewerkerproces, zou dezelfde <literal
+>hostname</literal
+> niet geassocieerd moeten worden met verschillende <literal
+>prefix</literal
+>, omdat dat leidt tot ongedefinieerd gedrag (zonder vereiste diagnostiek). </para>
+</listitem>
+<listitem>
+<para
+>Zowel <literal
+>prefix</literal
+> en <literal
+>pathMappings</literal
+> zijn onderworpen aan (bewerker) expansie van variabelen (maar denk aan de het eerdere item). </para>
+</listitem>
+<listitem>
+<para
+>Op het moment van uitvoeren zijn sommige omgevingsvariabelen ook gezet, die gebruikt kunnen worden om (subtiel) het gedrag van de "prefix starter" aan te passen (hou opnieuw het eerste item in gedachten). Speciaal, <literal
+>KATE_EXEC_PLUGIN</literal
+> is gezet op <literal
+>lspclient</literal
+> en <literal
+>KATE_EXEC_SERVER</literal
+> is gezet op de id van de server (bijv. <literal
+>python</literal
+>). </para>
+</listitem>
+<listitem>
+<para
+>Speciaal, ook <literal
+>KATE_EXEC_INSPECT</literal
+> is gezet op <literal
+>1</literal
+>. Dit geeft aan aan de "prefix-starter" dat de ontvanger (Kate-plug-in) enige out-of-band/protocol gegevens accepteert. Dit biedt de starter enige middelen te gebruiken om padkoppelingen te bepalen (bijv. <literal
+>podman inspect</literal
+>) en om dit te communiceren in geschikt formaat. Dit zal dan verwijderd worden uit de anders aan de LSP-protocol conforme stream en gebruikt om enige gedefinieerde padkoppeling uit te breiden. Dit kan dienen als een alternatief om bijv. verbonden aankoppelingen expliciet (opnieuw, de definitie van de container te dupliceren) te specificeren. Concreet, het bovenstaande tekstfragment zou dan, in plaats daarvan, gebruikt worden; <screen
+>{
+    // ...
+    "exec": {
+        "hostname": "foobar"
+        // onfortuinlijke herhaling van naam, maar het hulpscript is gewoon-en-eenvoudig
+        "prefix": "exec_inspect.sh foobarcontainer podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": []
+    }
+    // ...
+}
+</screen>
+</para>
+</listitem>
+</itemizedlist>
+
+<para
+>Tenslotte, wat als de benadering "terugval KIO" niet als adequaat beschouwd zou worden? Het is in de praktijk vaak mogelijke om de root op afstand "aan te koppelen" in het lokale bestandssysteem en dan de laatste in een <literal
+>pathMappings</literal
+> te specificeren. Voor beginners, het welbekende <literal
+>sshfs</literal
+> (fuse) bestandssysteem kan een (echt) systeem op afstand in het lokale systeem aankoppelen. Voor een container (podman/docker) ondersteunen de meeste opzetten met (bestandssysteemstuurprogramma) de volgende truc; <screen>
+$ rootdir=/proc/`podman inspect --format '{{.State.Pid}}' containername`/root
+# sommige symbolische koppelingen kunnen problemen veroorzaken, zie ook alternatief onderstaand
+$ sudo mount --bind $rootdir /somewhere/containername
+</screen
+> Als dat mislukt, dan kan men terugvallen op <literal
+>sshfs</literal
+>, of in feite een subset daarvan om de root op afstand/container aan te koppelen; <screen>
+# zie de respectievelijke man-pages; sftp-server is voldoende voor het actuele (onversleutelde) bestandstoegangsprotocol
+$ socat 'exec:podman exec -i containername /usr/lib/openssh/sftp-server'
+   'exec:sshfs -o transform_symlinks -o passive \:/ /somewhere/containername'
+# ...
+$ fusermount -u /somewhere/containername
+</screen
+> Merk op dat zo'n aankoppeling van root op afstand in het hostbestandssysteem is waarschijnlijk handmatig te specificeren en expliciet in een sectie <literal
+>pathMappings</literal
+> (die een erg intelligente prefix-starter blokkeert die alles zoiets automagisch arrangeert). </para>
 
 </sect3>
 

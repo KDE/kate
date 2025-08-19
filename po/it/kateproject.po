@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-03-30 14:15+0200\n"
+"PO-Revision-Date: 2025-08-16 09:05+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1048,10 +1048,9 @@ msgid "Failed to create dir: %1"
 msgstr "Impossibile creare la cartella: %1"
 
 #: kateprojectworker.cpp:203
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Impossibile ottenere la cronologia del file: %1"
+msgstr "Impossibile trovare la cartella: %1"
 
 #: kateprojectworker.cpp:731
 #, kde-format

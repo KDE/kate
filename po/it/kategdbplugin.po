@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-19 05:24+0000\n"
-"PO-Revision-Date: 2025-07-27 22:35+0200\n"
+"PO-Revision-Date: 2025-08-16 09:04+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -678,10 +678,9 @@ msgid "Breakpoint"
 msgstr "Punto di interruzione"
 
 #: plugin_kategdb.cpp:1118
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Copia obiettivo"
+msgstr "Copia trace dello stack"
 
 #: plugin_kategdb.cpp:1137
 #, kde-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-07-27 22:32+0200\n"
+"PO-Revision-Date: 2025-08-16 08:54+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -239,46 +239,38 @@ msgstr ""
 "Non è stato trovato un comando di compilazione per il file «%1» in «%2». "
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossibile fare sostituzione: nessun file aperto, oppure quello corrente è "
-"senza titolo."
+"Impossibile effettuare la sostituzione «%f»: nessun file aperto, oppure "
+"quello corrente è senza titolo."
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossibile fare sostituzione: nessun file aperto, oppure quello corrente è "
-"senza titolo."
+"Impossibile effettuare la sostituzione «%d»: nessun file aperto, oppure "
+"quello corrente è senza titolo."
 
 #: plugin_katebuild.cpp:997
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Impossibile fare sostituzione: nessun file aperto, oppure quello corrente è "
-"senza titolo."
+"Impossibile effettuare la sostituzione «%n»: nessun file aperto, oppure "
+"quello corrente è senza titolo."
 
 #: plugin_katebuild.cpp:1008
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
-"Impossibile fare sostituzione: nessun file aperto, oppure quello corrente è "
-"senza titolo."
+"Impossibile effettuare la sostituzione del progetto (%B)»: nessun progetto "
+"aperto."
 
 #: plugin_katebuild.cpp:1021
 #, kde-format
@@ -286,12 +278,13 @@ msgid "Already building..."
 msgstr "Compilazione già in corso..."
 
 #: plugin_katebuild.cpp:1059
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Non ci sono file o cartelle locali specificate per la compilazione."
+msgstr ""
+"Impossibile eseguire: %1: %2 nessuna cartella di lavoro impostata.\n"
+"Non ci sono cartelle locali o file specificati per la compilazione."
 
 #: plugin_katebuild.cpp:1180
 #, kde-format
@@ -311,6 +304,8 @@ msgstr ""
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Impossibile scrivere CMake per i file di risposta dell'API della cartella di "
+"compilazione %1."
 
 #: plugin_katebuild.cpp:1236
 #, kde-format
@@ -323,6 +318,8 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Generazione dei file di risposta dell'API del file CMake per la cartella di "
+"compilazione %1 non riuscita (utilizzando %2)."
 
 #: plugin_katebuild.cpp:1364
 #, kde-format
@@ -376,10 +373,9 @@ msgstr[0] "Trovata una nota."
 msgstr[1] "Trovate %1 note."
 
 #: plugin_katebuild.cpp:1484
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Compilazione non riuscita."
+msgstr "Compilazione annullata."
 
 #: plugin_katebuild.cpp:1488
 #, kde-format
@@ -458,12 +454,7 @@ msgstr ""
 "«%b» per la cartella base del nome del progetto"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -473,9 +464,11 @@ msgid ""
 "\"%w\" for the working directory of the target"
 msgstr ""
 "Utilizzo:\n"
-"\"%f\" per il file attuale\n"
-"\"%d\" per la cartella del file attuale\n"
-"\"%n\" per il nome del file attuale senza suffisso"
+"«%f» per il file attuale\n"
+"«%d» per la cartella del file attuale\n"
+"«%n» pere attuale senza suffisso\n"
+"«%B» per la cartella base del progetto corrente\n"
+"«%w» per la cartella di lavoro della destinazione"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

@@ -2545,7 +2545,7 @@ msgstr "无法启动选定的程序。也许它没有安装。"
 #: lib/ktexteditor_utils.cpp:230
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "无法打开 %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

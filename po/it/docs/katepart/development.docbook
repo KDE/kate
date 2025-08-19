@@ -3948,7 +3948,7 @@
 >Applicazione</replaceable
 >...</guimenuitem
 ></menuchoice
-> dalla barra dei menu del tuo editor di testo. Questo fa apparire la finestra di dialogo <guilabel
+> dalla barra del menu del tuo editor di testo. Questo fa apparire la finestra di dialogo <guilabel
 >Configura</guilabel
 >, lì seleziona <guilabel
 >Temi di colore</guilabel
@@ -4252,7 +4252,9 @@
 >Scripting con &javascript;</title>
 
 <para
->Il componente editor di &kappname; è facilmente estendibile attraverso degli script. Il linguaggio di script è ECMAScript (comunemente noto come &javascript;). &kappname; supporta due tipi di script: script di rientro e a riga di comando. </para>
+>Il componente editor di &kappname; è facilmente estendibile attraverso degli script. Il linguaggio di script è ECMAScript (comunemente noto come &javascript;). &kappname; supporta due tipi di script: script di rientro e a riga di comando. Una funzionalità simile per comandare gli script da riga di comando viene anche fornita dall'<ulink url="help:/kate/kate-application-plugin-snippets.html"
+>estensione dei frammenti</ulink
+>. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4521,6 +4523,13 @@ function indent(riga, larghezza_rientro, carattere)
 <sect2 id="dev-scripting-command-line">
 <title
 >Script da riga di comando</title>
+
+<note>
+<para
+>Una funzionalità simile per comandare gli script da riga di comando viene anche fornita dall'<ulink url="help:/kate/kate-application-plugin-snippets.html"
+>estensione dei frammenti</ulink
+>. Questa può essere un punto di partenza più semplice, specialmente per i piccoli script personalizzati.</para>
+</note>
 
 <para
 >Essendo difficile soddisfare le necessità di tutti, &kappname; supporta dei piccoli strumenti di supporto per manipolare velocemente il testo attraverso la <link linkend="advanced-editing-tools-commandline"

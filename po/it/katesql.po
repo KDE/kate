@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2010, 2011, 2012, 2014.
-# Paolo Zamponi <feus73@gmail.com>, 2018, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2018, 2021, 2022, 2023, 2025 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-04-28 00:44+0000\n"
-"PO-Revision-Date: 2023-06-30 23:33+0200\n"
+"PO-Revision-Date: 2025-08-16 09:07+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -520,6 +520,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Preparazione dell'interrogazione non è riuscita con il seguente errore: "
+"%1</p><p>Vuoi continuare senza la preparazione?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

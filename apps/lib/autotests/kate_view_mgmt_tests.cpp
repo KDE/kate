@@ -774,12 +774,7 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
         }
     }
 
-    {
-        KSharedConfig::Ptr config = KSharedConfig::openConfig();
-        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
-        cgGeneral.writeEntry("SDI Mode", true);
-        app->configurationChanged();
-    }
+    TempConfigChanger changeSdiMode(app.get(), "SDI Mode", true);
 
     KateMainWindow *mw = app->activeKateMainWindow();
     QVERIFY(mw->viewManager()->m_sdiMode);
@@ -798,14 +793,6 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
 
     for (auto mw : app->mainWindows()) {
         QCOMPARE(mw->views().size(), 1);
-    }
-
-    // fallback to default
-    {
-        KSharedConfig::Ptr config = KSharedConfig::openConfig();
-        KConfigGroup cgGeneral = KConfigGroup(config, QStringLiteral("General"));
-        cgGeneral.deleteEntry("SDI Mode");
-        app->configurationChanged();
     }
 }
 

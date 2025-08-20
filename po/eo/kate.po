@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-17 00:45+0000\n"
+"POT-Creation-Date: 2025-08-20 00:46+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -2546,53 +2546,53 @@ msgstr[1] ""
 "Aktuale estas %1 pliaj dokumentoj malfermataj. Por vidi ĉiujn malfermajn "
 "dokumentojn, ŝanĝu al la Rapid-Malferma vido klakante ĉi tie."
 
-#: lib/kateviewspace.cpp:1129
+#: lib/kateviewspace.cpp:1133
 #, kde-format
 msgid "Close Tab"
 msgstr "Fermi Langeton"
 
-#: lib/kateviewspace.cpp:1147
+#: lib/kateviewspace.cpp:1150
 #, kde-format
 msgid "&Close Document"
 msgstr "&Fermi Dokumenton"
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1157
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Fermi Aliajn &Dokumentojn"
 
-#: lib/kateviewspace.cpp:1149
+#: lib/kateviewspace.cpp:1163
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Fermu &Ĉiujn Dokumentojn"
 
-#: lib/kateviewspace.cpp:1153
+#: lib/kateviewspace.cpp:1175
 #, kde-format
 msgid "D&etach Document"
 msgstr "Malkroĉi Dokum&enton"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1180
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Malfermas la dokumenton en nova fenestro kaj fermas ĝin en la nuna fenestro"
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1194
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Kompari kun Aktiva Dokumento"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1200
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Kompari kun Aktiva Dokumenta Uzado"
 
-#: lib/kateviewspace.cpp:1244
+#: lib/kateviewspace.cpp:1232
 #, kde-format
 msgid "Could not start program"
 msgstr "Ne eblis komenci programon"
 
-#: lib/kateviewspace.cpp:1245
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""

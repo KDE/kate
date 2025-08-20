@@ -830,16 +830,6 @@ void KateViewManagementTests::testTabbarContextMenu()
     rightVS->m_tabBar->tabCloseRequested(0);
     QTRY_COMPARE(rightVS->m_registeredDocuments.size(), 1);
 
-    auto getAction = [](QMenu &menu, const char *name) -> QAction * {
-        const auto actions = menu.actions();
-        for (auto a : actions) {
-            if (a->text().remove(u'&') == QString::fromUtf8(name)) {
-                return a;
-            }
-        }
-        return nullptr;
-    };
-
     {
         QMenu menu;
 

@@ -10,6 +10,7 @@
 #include "katemainwindow.h"
 #include "kateviewspace.h"
 
+#include <QMenu>
 #include <QObject>
 #include <QTemporaryDir>
 
@@ -28,6 +29,17 @@ inline void clearAllDocs(KateMainWindow *mw)
     for (int i = 0; i < vs->numberOfRegisteredDocuments(); ++i) {
         vm->slotDocumentClose();
     }
+}
+
+QAction *getAction(QMenu &menu, const char *name)
+{
+    const auto actions = menu.actions();
+    for (auto a : actions) {
+        if (a->text().remove(u'&') == QString::fromUtf8(name)) {
+            return a;
+        }
+    }
+    return nullptr;
 }
 
 class KateViewManagementTests : public QObject

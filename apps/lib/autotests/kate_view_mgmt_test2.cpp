@@ -437,6 +437,12 @@ void KateViewManagementTest2::testPinnedDocs()
         app->sessionManager()->sessionNew();
         app->activeKateMainWindow()->openUrl(url);
 
+        QMenu menu;
+        app->activeKateMainWindow()->viewManager()->activeViewSpace()->buildContextMenu(0, menu);
+        auto a = getAction(menu, "Pin Document");
+        QVERIFY(a);
+        QCOMPARE(a->icon().name(), QStringLiteral("pin"));
+
         auto pinAction = app->activeKateMainWindow()->action(QStringLiteral("pin_active_document"));
         QVERIFY(pinAction);
         pinAction->trigger();
@@ -450,9 +456,15 @@ void KateViewManagementTest2::testPinnedDocs()
         app->sessionManager()->activateSession(QStringLiteral("pinned doc session 1"), false, true);
         // expect to find the pinned doc
         QTRY_COMPARE(app->activeKateMainWindow()->activeView()->document()->url(), url);
+
+        QMenu menu;
+        app->activeKateMainWindow()->viewManager()->activeViewSpace()->buildContextMenu(0, menu);
+        auto unpinAction = getAction(menu, "Unpin Document");
+        QVERIFY(unpinAction);
+        QCOMPARE(unpinAction->icon().name(), QStringLiteral("window-unpin"));
+
         // unpin the doc, expect the icon to change
-        auto pinAction = app->activeKateMainWindow()->action(QStringLiteral("pin_active_document"));
-        pinAction->trigger();
+        unpinAction->trigger();
 
         auto tabBar = app->activeKateMainWindow()->viewManager()->activeViewSpace()->m_tabBar;
         QCOMPARE_NE(tabBar->tabIcon(0).name(), QStringLiteral("pin"));

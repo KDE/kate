@@ -152,6 +152,11 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
     if (savedSize.isValid()) {
         resize(savedSize);
     }
+
+    // Position cursor at the beginning
+    m_snippetView->setCursorPosition({});
+    m_scriptsView->setCursorPosition({});
+    m_descriptionView->setCursorPosition({});
 }
 
 void EditSnippet::test()

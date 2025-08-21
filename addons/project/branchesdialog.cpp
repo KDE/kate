@@ -42,9 +42,9 @@ public:
         const int offset = branchItem ? 0 : 2;
 
         const auto ranges = KFuzzyMatcher::matchedRanges(m_filterString, name);
-        std::transform(ranges.begin(), ranges.end(), std::back_inserter(formats), [offset, fmt](const KFuzzyMatcher::Range &fr) {
-            return QTextLayout::FormatRange{.start = fr.start + offset, .length = fr.length, .format = fmt};
-        });
+        for (const KFuzzyMatcher::Range &fr : ranges) {
+            formats.push_back(QTextLayout::FormatRange{.start = fr.start + offset, .length = fr.length, .format = fmt});
+        }
 
         if (!branchItem) {
             name = QStringLiteral("+ ") + name;

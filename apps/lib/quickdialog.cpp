@@ -96,12 +96,12 @@ void HUDStyleDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     QTextCharFormat fmt;
     fmt.setForeground(options.palette.link());
     fmt.setFontWeight(QFont::Bold);
-    QList<KFuzzyMatcher::Range> ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
+    const QList<KFuzzyMatcher::Range> ranges = KFuzzyMatcher::matchedRanges(m_filterString, text);
     QList<QTextLayout::FormatRange> resFmts;
-    std::transform(ranges.begin(), ranges.end(), std::back_inserter(resFmts), [fmt](const KFuzzyMatcher::Range &fr) {
-        return QTextLayout::FormatRange{.start = fr.start, .length = fr.length, .format = fmt};
-    });
-
+    resFmts.reserve(ranges.size());
+    for (const KFuzzyMatcher::Range &fr : ranges) {
+        resFmts.push_back(QTextLayout::FormatRange{.start = fr.start, .length = fr.length, .format = fmt});
+    }
     formats.append(resFmts);
 
     painter->save();

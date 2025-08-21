@@ -1325,10 +1325,10 @@ static std::vector<LSPSymbolInformation> parseWorkspaceSymbols(const rapidjson::
 
     symbols.reserve(res.Size());
 
-    std::transform(res.begin(), res.end(), std::back_inserter(symbols), [](const rapidjson::Value &jv) {
+    for (const rapidjson::Value &jv : res) {
         LSPSymbolInformation symInfo;
         if (!jv.IsObject()) {
-            return symInfo;
+            continue;
         }
         auto symbol = jv.GetObject();
 
@@ -1350,8 +1350,8 @@ static std::vector<LSPSymbolInformation> parseWorkspaceSymbols(const rapidjson::
             symInfo.score = scoreIt->value.GetDouble();
         }
         symInfo.tags = (LSPSymbolTag)GetIntValue(symbol, "tags");
-        return symInfo;
-    });
+        symbols.push_back(symInfo);
+    }
 
     std::sort(symbols.begin(), symbols.end(), [](const LSPSymbolInformation &l, const LSPSymbolInformation &r) {
         return l.score > r.score;

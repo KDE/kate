@@ -1260,9 +1260,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
         const QList<GitUtils::StatusItem> &items = untracked ? m_model->untrackedFiles() : m_model->changedFiles();
         QStringList files;
         files.reserve(items.size());
-        std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
-            return QString::fromUtf8(i.file);
-        });
+        for (const GitUtils::StatusItem &i : items) {
+            files.push_back(QString::fromUtf8(i.file));
+        }
 
         if (act == stageAct) {
             stage(files, treeItem == GitStatusModel::NodeUntrack);
@@ -1366,9 +1366,9 @@ void GitWidget::treeViewContextMenuEvent(QContextMenuEvent *e)
             const QList<GitUtils::StatusItem> &items = m_model->stagedFiles();
             QStringList files;
             files.reserve(items.size());
-            std::transform(items.begin(), items.end(), std::back_inserter(files), [](const GitUtils::StatusItem &i) {
-                return QString::fromUtf8(i.file);
-            });
+            for (const GitUtils::StatusItem &i : items) {
+                files.push_back(QString::fromUtf8(i.file));
+            }
             unstage(files);
         } else if (act == diff) {
             showDiff(QString(), true);

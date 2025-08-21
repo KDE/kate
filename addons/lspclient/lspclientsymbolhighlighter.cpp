@@ -91,29 +91,32 @@ void LSPClientSymbolHighlighter::highlight()
         return;
 
     m_requestTimeout.start();
-    m_requestHandle.cancel() = m_currentServer->documentHighlight(
-        m_currentView->document()->url(),
-        m_currentView->cursorPosition(),
-        this,
-        [this](const QList<LSPDocumentHighlight> &locations) {
-            // By the time we get response view may change.
-            if (!m_currentView)
-                return;
+    m_requestHandle.cancel() =
+        m_currentServer->documentHighlight(m_currentView->document()->url(),
+                                           m_currentView->cursorPosition(),
+                                           this,
+                                           [this](const QList<LSPDocumentHighlight> &locations) {
+                                               // By the time we get response view may change.
+                                               if (!m_currentView)
+                                                   return;
 
-            m_ranges.resize(locations.length());
+                                               auto document = m_currentView->document();
+                                               m_ranges.resize(locations.length());
+                                               auto it = m_ranges.begin();
 
-            std::ranges::transform(locations, m_ranges.begin(), [attr = m_highlightAttribute, document = m_currentView->document()](auto &loc) {
-                auto mr = std::unique_ptr<KTextEditor::MovingRange>(document->newMovingRange(loc.range));
-                mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
-                mr->setAttribute(attr);
-                mr->setAttributeOnlyForViews(true);
-                return mr;
-            });
+                                               for (const auto &location : locations) {
+                                                   auto mr = std::unique_ptr<KTextEditor::MovingRange>(document->newMovingRange(location.range));
+                                                   mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
+                                                   mr->setAttribute(m_highlightAttribute);
+                                                   mr->setAttributeOnlyForViews(true);
+                                                   *it = std::move(mr);
+                                                   it++;
+                                               }
 
-            if (auto it = findRange(m_currentView->cursorPosition()); it != m_ranges.end()) {
-                m_currentWord = **it;
-            }
-        });
+                                               if (auto it = findRange(m_currentView->cursorPosition()); it != m_ranges.end()) {
+                                                   m_currentWord = **it;
+                                               }
+                                           });
 }
 
 LSPClientSymbolHighlighter::MovingRangeList::iterator LSPClientSymbolHighlighter::findRange(const KTextEditor::Cursor &position)

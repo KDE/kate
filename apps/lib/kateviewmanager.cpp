@@ -1405,9 +1405,10 @@ QList<KTextEditor::View *> KateViewManager::views() const
     QVarLengthArray<ViewWithLruAge> sorted;
 
     // extract into a list
-    std::transform(m_views.begin(), m_views.end(), std::back_inserter(sorted), [](const std::pair<KTextEditor::View *, ViewData> &p) {
-        return ViewWithLruAge{p.first, p.second.lruAge};
-    });
+    for (const auto &[view, viewData] : m_views) {
+        sorted.push_back(ViewWithLruAge{view, viewData.lruAge});
+    }
+
     // sort the views based on lru
     std::sort(sorted.begin(), sorted.end(), [](const ViewWithLruAge &l, const ViewWithLruAge &r) {
         return l.age < r.age;
@@ -1416,9 +1417,9 @@ QList<KTextEditor::View *> KateViewManager::views() const
     // extract the views only and return
     QList<KTextEditor::View *> ret;
     ret.reserve(sorted.size());
-    std::transform(sorted.begin(), sorted.end(), std::back_inserter(ret), [](const ViewWithLruAge &p) {
-        return p.view;
-    });
+    for (auto [view, _] : sorted) {
+        ret.push_back(view);
+    }
     return ret;
 }
 

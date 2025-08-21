@@ -42,7 +42,7 @@
 #include <KXMLGUIClient>
 #include <qtextdocument.h>
 
-#include "TabOverlay.h"
+#include "StatusOverlay.h"
 #include "diagnostics/diagnosticview.h"
 #include "targets.h"
 #include "ui_build.h"
@@ -192,12 +192,12 @@ private:
     QString findCompileCommands(const QString &file) const;
     CompileCommands parseCompileCommandsFile(const QString &compileCommandsFile) const;
 
-    void updateTabOverlay();
+    void updateStatusOverlay();
 
     KateBuildPlugin *const m_plugin;
     KTextEditor::MainWindow *const m_win;
     QWidget *m_toolView = nullptr;
-    QPointer<TabOverlay> m_tabOverlay = nullptr;
+    QPointer<StatusOverlay> m_tabStatusOverlay = nullptr;
     Ui::build m_buildUi{};
     QWidget *m_buildWidget = nullptr;
     TargetsUi *m_targetsUi = nullptr;

@@ -762,7 +762,7 @@ void KateBuildView::clearBuildResults()
     m_makeDirStack.clear();
     m_progress.clear();
     m_buildCancelled = false;
-    updateTabOverlay();
+    updateStatusOverlay();
     clearDiagnostics();
 }
 
@@ -842,7 +842,7 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
     m_buildUi.cancelBuildButton->setEnabled(true);
     m_buildUi.buildAgainButton->setEnabled(false);
     m_targetsUi->setCursor(Qt::BusyCursor);
-    updateTabOverlay();
+    updateStatusOverlay();
     return true;
 }
 
@@ -859,7 +859,7 @@ bool KateBuildView::slotStop()
         m_buildBuildCmd.clear();
         m_buildRunCmd.clear();
         m_buildWorkDir.clear();
-        updateTabOverlay();
+        updateStatusOverlay();
         return true;
     }
     return false;
@@ -1403,7 +1403,7 @@ void KateBuildView::displayBuildResult(const QString &msg, KTextEditor::Message:
     m_infoMessage->setAutoHideMode(KTextEditor::Message::Immediate);
     m_infoMessage->setView(kv);
     kv->document()->postMessage(m_infoMessage);
-    updateTabOverlay();
+    updateStatusOverlay();
 }
 
 /******************************************************************/
@@ -1670,7 +1670,7 @@ void KateBuildView::slotUpdateTextBrowser()
     } else {
         delete m_progressMessage;
     }
-    updateTabOverlay();
+    updateStatusOverlay();
 }
 
 /******************************************************************/
@@ -2153,29 +2153,29 @@ void KateBuildView::handleEsc(QEvent *e)
 void KateBuildView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
 {
     if (m_toolView == toolView) {
-        m_tabOverlay = new TabOverlay(tab);
+        m_tabStatusOverlay = new StatusOverlay(tab);
     }
 }
 
-void KateBuildView::updateTabOverlay()
+void KateBuildView::updateStatusOverlay()
 {
-    if (!m_tabOverlay) {
+    if (!m_tabStatusOverlay) {
         return;
     }
 
     bool running = m_proc.state() != QProcess::NotRunning;
-    TabOverlay::Type type = TabOverlay::Type::None;
+    StatusOverlay::Type type = StatusOverlay::Type::None;
     if (m_numErrors != 0) {
-        type = TabOverlay::Type::Error;
+        type = StatusOverlay::Type::Error;
     } else if (m_numWarnings != 0 || m_buildCancelled) {
-        type = TabOverlay::Type::Warning;
+        type = StatusOverlay::Type::Warning;
     } else if (running) {
-        type = TabOverlay::Type::Positive;
+        type = StatusOverlay::Type::Positive;
     } else if (!m_buildUi.textBrowser->document()->isEmpty()) {
-        type = TabOverlay::Type::Positive;
+        type = StatusOverlay::Type::Positive;
     }
-    m_tabOverlay->setType(type);
-    m_tabOverlay->setGlowing(running);
+    m_tabStatusOverlay->setType(type);
+    m_tabStatusOverlay->setGlowing(running);
 
     if (!m_progress.isEmpty()) {
         static const QRegularExpression ratioReg(u"\\[(\\d+)/(\\d+)\\]"_s);
@@ -2185,15 +2185,15 @@ void KateBuildView::updateTabOverlay()
             double dividend = match.captured(1).toInt();
             int divisor = match.captured(2).toInt();
             double progress = divisor == 0 ? 0.0 : dividend / divisor;
-            m_tabOverlay->setProgress(progress);
+            m_tabStatusOverlay->setProgress(progress);
         } else if (const auto &match = percentReg.match(m_progress); match.hasMatch()) {
             double percent = match.captured(1).toInt();
-            m_tabOverlay->setProgress(percent / 100);
+            m_tabStatusOverlay->setProgress(percent / 100);
         } else {
-            m_tabOverlay->setProgress(0.0);
+            m_tabStatusOverlay->setProgress(0.0);
         }
     } else {
-        m_tabOverlay->setProgress(0.0);
+        m_tabStatusOverlay->setProgress(0.0);
     }
 }
 

@@ -1,9 +1,9 @@
-#include "TabOverlay.h"
+#include "StatusOverlay.h"
 
 #include <KColorScheme>
 #include <QPainter>
 
-TabOverlay::TabOverlay(QWidget *parent)
+StatusOverlay::StatusOverlay(QWidget *parent)
     : QWidget(parent)
     , m_tabButton(parent)
     , m_timeline(1500, this)
@@ -26,7 +26,7 @@ TabOverlay::TabOverlay(QWidget *parent)
     raise();
 }
 
-void TabOverlay::setType(TabOverlay::Type type)
+void StatusOverlay::setType(StatusOverlay::Type type)
 {
     if (!m_tabButton) {
         return;
@@ -55,7 +55,7 @@ void TabOverlay::setType(TabOverlay::Type type)
     update();
 }
 
-void TabOverlay::setGlowing(bool glowing)
+void StatusOverlay::setGlowing(bool glowing)
 {
     if (!glowing) {
         m_timeline.stop();
@@ -64,13 +64,13 @@ void TabOverlay::setGlowing(bool glowing)
     }
 }
 
-void TabOverlay::setProgress(double progressRatio)
+void StatusOverlay::setProgress(double progressRatio)
 {
     m_progress = std::min(1.0, progressRatio);
     update();
 }
 
-void TabOverlay::paintEvent(QPaintEvent *)
+void StatusOverlay::paintEvent(QPaintEvent *)
 {
     if (!m_tabButton || m_type == Type::None) {
         return;

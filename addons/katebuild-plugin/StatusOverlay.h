@@ -7,10 +7,10 @@
 /**
  * This class is used to create a colored status overlay to tool-view tab buttons in Kate
  * @note When a tab button is moved, the tab-button is destroyed and a new button is created.
- *       For that reason, it is recommended to store a QPointer to the TabOverlay, to not risk
+ *       For that reason, it is recommended to store a QPointer to the StatusOverlay, to not risk
  *       using a dangling pointer.
  */
-class TabOverlay : public QWidget
+class StatusOverlay : public QWidget
 {
 public:
     enum class Type {
@@ -22,7 +22,7 @@ public:
     };
     Q_ENUM(Type)
 
-    explicit TabOverlay(QWidget *parent);
+    explicit StatusOverlay(QWidget *parent);
     void setType(Type type);
     void setGlowing(bool glowing);
     /**

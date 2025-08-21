@@ -23,7 +23,7 @@ target_sources(
     TargetFilterProxyModel.cpp
     AppOutput.cpp
     buildconfig.cpp
-    TabOverlay.cpp
+    StatusOverlay.cpp
     plugin.qrc
     qcmakefileapi.cpp
     ${DEBUG_SOURCES}

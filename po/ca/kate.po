@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-20 00:46+0000\n"
+"POT-Creation-Date: 2025-08-21 00:46+0000\n"
 "PO-Revision-Date: 2025-08-16 17:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -48,12 +48,12 @@ msgstr "Kate: Editor avançat de text"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 Els autors del Kate"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:217
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Inicia el Kate amb una sessió indicada."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:218
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:219
 #, kde-format
 msgid "session"
 msgstr "sessió"
@@ -1418,7 +1418,7 @@ msgstr "Nom"
 msgid "Description"
 msgstr "Descripció"
 
-#: lib/katedocmanager.cpp:268
+#: lib/katedocmanager.cpp:289
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1427,37 +1427,49 @@ msgstr ""
 "<p>El document «%1» ha estat modificat, però no desat.</p><p>Voleu desar els "
 "canvis o descartar-los?</p>"
 
-#: lib/katedocmanager.cpp:271 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Tanca el document"
 
-#: lib/katedocmanager.cpp:280
+#: lib/katedocmanager.cpp:301
 #, kde-format
 msgid "Save As"
 msgstr "Desa com a"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "S'ha obert un fitxer nou mentre s'intentava tancar el Kate, s'interromp el "
 "tancament."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Tancament interromput"
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:393
 #, kde-format
 msgid "Starting Up"
 msgstr "S'està engegant"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:394
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "S'estan reobrint els fitxers de l'última sessió..."
+
+#: lib/katedocmanager.cpp:570
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Cannot pin untitled documents."
+msgstr "Crea un document nou"
+
+#: lib/katedocmanager.cpp:575
+#, fuzzy, kde-format
+#| msgid "Shows a hint how to compare documents."
+msgid "Cannot pin non local documents."
+msgstr "Mostra un consell quant a comparar documents."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1820,43 +1832,55 @@ msgstr "Desa la &sessió"
 msgid "Save Session &As..."
 msgstr "Desa la sessió com &a..."
 
-#: lib/katemainwindow.cpp:632 lib/kateviewspace.cpp:56
+#: lib/katemainwindow.cpp:633
+#, fuzzy, kde-format
+#| msgid "Detach Active Document"
+msgid "Pin/Unpin Active Document"
+msgstr "Separa el document actiu"
+
+#: lib/katemainwindow.cpp:642
+#, fuzzy, kde-format
+#| msgid "&Reopen Latest Closed Document(s)"
+msgid "Open Next Pinned Document"
+msgstr "To&rna a obrir el/s darrer/s document/s tancat/s"
+
+#: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Ves a la ubicació anterior"
 
-#: lib/katemainwindow.cpp:641 lib/kateviewspace.cpp:68
+#: lib/katemainwindow.cpp:658 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Ves a la ubicació següent"
 
-#: lib/katemainwindow.cpp:649
+#: lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Show File Git History"
 msgstr "Mostra l'historial del Git dels fitxers"
 
-#: lib/katemainwindow.cpp:660
+#: lib/katemainwindow.cpp:677
 #, kde-format
 msgid "&Windows"
 msgstr "&Finestres"
 
-#: lib/katemainwindow.cpp:719
+#: lib/katemainwindow.cpp:736
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Això tancarà tots els documents oberts. Esteu segur que voleu continuar?"
 
-#: lib/katemainwindow.cpp:720
+#: lib/katemainwindow.cpp:737
 #, kde-format
 msgid "Close all documents?"
 msgstr "Tanco tots els documents?"
 
-#: lib/katemainwindow.cpp:721
+#: lib/katemainwindow.cpp:738
 #, kde-format
 msgid "Close All"
 msgstr "Tanca'ls tots"
 
-#: lib/katemainwindow.cpp:735
+#: lib/katemainwindow.cpp:752
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1865,17 +1889,17 @@ msgstr ""
 "Això tancarà tots els documents oberts excepte l'actual. Esteu segur que "
 "voleu continuar?"
 
-#: lib/katemainwindow.cpp:736
+#: lib/katemainwindow.cpp:753
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "Tanco tots els documents excepte l'actual?"
 
-#: lib/katemainwindow.cpp:737
+#: lib/katemainwindow.cpp:754
 #, kde-format
 msgid "Close Others"
 msgstr "Tanca els altres"
 
-#: lib/katemainwindow.cpp:963
+#: lib/katemainwindow.cpp:980
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1883,12 +1907,12 @@ msgstr ""
 "Això ocultarà completament la barra de menús. La podeu tornar a mostrar "
 "prement %1."
 
-#: lib/katemainwindow.cpp:966
+#: lib/katemainwindow.cpp:983
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Oculta la barra de menús"
 
-#: lib/katemainwindow.cpp:1141
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1897,19 +1921,19 @@ msgstr ""
 "S'ha deixat anar el directori %1 en el Kate. Voleu obrir tots els fitxers "
 "continguts?"
 
-#: lib/katemainwindow.cpp:1144
+#: lib/katemainwindow.cpp:1161
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Obre recursivament els fitxers"
 
-#: lib/katemainwindow.cpp:1145
+#: lib/katemainwindow.cpp:1162
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Obre tots els fitxers"
 
-#: lib/katemainwindow.cpp:1352
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid " [read only]"
 msgstr " [només de lectura]"
@@ -2494,41 +2518,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Obertura d'un fitxer gran"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:588
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 no ha pogut obrir les carpetes"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:605
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "No s'ha trobat el connector requerit per a obrir carpetes"
 
-#: lib/kateviewmanager.cpp:590
+#: lib/kateviewmanager.cpp:611
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Per tal d'obrir carpetes, cal activar el connector <b>%1</b>. L'activo?"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Obertura de carpeta"
 
-#: lib/kateviewmanager.cpp:594
+#: lib/kateviewmanager.cpp:615
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activa"
 
-#: lib/kateviewmanager.cpp:601
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Ha fallat en activar el connector <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:643
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "El fitxer «%1» no existeix"
@@ -2552,7 +2576,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:250
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Cliqueu aquí per a canviar a la vista Obertura ràpida."
@@ -2562,7 +2586,7 @@ msgstr "Cliqueu aquí per a canviar a la vista Obertura ràpida."
 msgid "Control view space splitting"
 msgstr "Control de la divisió de l'espai de la vista"
 
-#: lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:251
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2577,58 +2601,70 @@ msgstr[1] ""
 "Actualment, hi ha oberts %1 documents. Per a veure tots els documents "
 "oberts, canvieu a la vista Obertura ràpida clicant aquí."
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Tab"
 msgstr "Tanca la pestanya"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1152
 #, kde-format
 msgid "&Close Document"
 msgstr "Tan&ca el document"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Tanca els altres &documents"
 
-#: lib/kateviewspace.cpp:1163
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Close &All Documents"
 msgstr "T&anca tots els documents"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1177
 #, kde-format
 msgid "D&etach Document"
 msgstr "S&epara el document"
 
-#: lib/kateviewspace.cpp:1180
+#: lib/kateviewspace.cpp:1182
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Obre el document en una finestra nova i el tanca a la finestra actual"
 
-#: lib/kateviewspace.cpp:1194
+#: lib/kateviewspace.cpp:1196
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compara amb el document actiu"
 
-#: lib/kateviewspace.cpp:1200
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compara amb el document actiu emprant"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1210
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Unpin Document"
+msgstr "Documents"
+
+#: lib/kateviewspace.cpp:1212
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Pin Document"
+msgstr "Documents"
+
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Could not start program"
 msgstr "No s'ha pogut iniciar el programa"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "No s'ha pogut iniciar el programa seleccionat. Potser no està instal·lat."
 
-#: lib/ktexteditor_utils.cpp:230
+#: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
 msgstr "No s'ha pogut obrir %1"

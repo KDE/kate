@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-20 00:46+0000\n"
+"POT-Creation-Date: 2025-08-21 00:46+0000\n"
 "PO-Revision-Date: 2025-08-16 06:39+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -43,12 +43,12 @@ msgstr "Kate - გაუმჯობესებული ტექსტურ�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "(c) 2000-2024 The Kate -ის ავტორები"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:217
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate-ის მითითებული სესიით გაშვება."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:218
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:219
 #, kde-format
 msgid "session"
 msgstr "სესია"
@@ -1403,7 +1403,7 @@ msgstr "სახელი"
 msgid "Description"
 msgstr "აღწერა"
 
-#: lib/katedocmanager.cpp:268
+#: lib/katedocmanager.cpp:289
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1412,35 +1412,47 @@ msgstr ""
 "<p>დოკუმენტი '%1' შეცვლილია, შენახული კი - არა.</p><p>გნებავთ ცვლილებების "
 "შენახვა თუ მოვაცილო ისინი?</p>"
 
-#: lib/katedocmanager.cpp:271 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "დოკუმენტის დახურვა"
 
-#: lib/katedocmanager.cpp:280
+#: lib/katedocmanager.cpp:301
 #, kde-format
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate-ის დახურვისას ახალი ფაილი გაიხსნა. დახურვა გაუქმდა."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:393
 #, kde-format
 msgid "Starting Up"
 msgstr "გაშვება"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:394
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
+
+#: lib/katedocmanager.cpp:570
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Cannot pin untitled documents."
+msgstr "ახალი დოკუმენტის შექმნა"
+
+#: lib/katedocmanager.cpp:575
+#, fuzzy, kde-format
+#| msgid "Shows a hint how to compare documents."
+msgid "Cannot pin non local documents."
+msgstr "მინიშნების ჩვენება, როგორ შეადაროთ დოკუმენტები."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1802,42 +1814,55 @@ msgstr "სესიის &შენახვა"
 msgid "Save Session &As..."
 msgstr "შესიის შენახვა, &როგორც..."
 
-#: lib/katemainwindow.cpp:632 lib/kateviewspace.cpp:56
+#: lib/katemainwindow.cpp:633
+#, fuzzy, kde-format
+#| msgid "Detach Active Document"
+msgid "Pin/Unpin Active Document"
+msgstr "აქტიური დოკუმენტის მოხსნა"
+
+#: lib/katemainwindow.cpp:642
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Document..."
+msgid "Open Next Pinned Document"
+msgstr "დოკუმენტის გახსნა..."
+
+#: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "წინა მდებარეობაზე გადასვლა"
 
-#: lib/katemainwindow.cpp:641 lib/kateviewspace.cpp:68
+#: lib/katemainwindow.cpp:658 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "შემდეგ მდებარეობაზე გადასვლა"
 
-#: lib/katemainwindow.cpp:649
+#: lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Show File Git History"
 msgstr "ფაილის Git ისტორიის ჩვენება"
 
-#: lib/katemainwindow.cpp:660
+#: lib/katemainwindow.cpp:677
 #, kde-format
 msgid "&Windows"
 msgstr "&ფანჯრები"
 
-#: lib/katemainwindow.cpp:719
+#: lib/katemainwindow.cpp:736
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "ეს ყველა ღია დოკუმენტს დახურავთ. გნებავთ, გააგრძელოთ?"
 
-#: lib/katemainwindow.cpp:720
+#: lib/katemainwindow.cpp:737
 #, kde-format
 msgid "Close all documents?"
 msgstr "დავხურო ყველა დოკუმენტი?"
 
-#: lib/katemainwindow.cpp:721
+#: lib/katemainwindow.cpp:738
 #, kde-format
 msgid "Close All"
 msgstr "ყველას დახურვა"
 
-#: lib/katemainwindow.cpp:735
+#: lib/katemainwindow.cpp:752
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1845,28 +1870,28 @@ msgid ""
 msgstr ""
 "ეს მიმდინარეს გარდა ყველა დოკუმენტს დახურავს. მართლა გნებავთ, გააგრძელოთ?"
 
-#: lib/katemainwindow.cpp:736
+#: lib/katemainwindow.cpp:753
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "დავხურო მიმდინარეს გარდა ყველა დოკუმენტი?"
 
-#: lib/katemainwindow.cpp:737
+#: lib/katemainwindow.cpp:754
 #, kde-format
 msgid "Close Others"
 msgstr "სხვების დახურვა"
 
-#: lib/katemainwindow.cpp:963
+#: lib/katemainwindow.cpp:980
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "ეს მენიუს ზოლს სრულად დამალავს. მისი ჩვენება %1-ზე დაწოლით შეგიძლიათ."
 
-#: lib/katemainwindow.cpp:966
+#: lib/katemainwindow.cpp:983
 #, kde-format
 msgid "Hide menu bar"
 msgstr "მენიუს ზოლის დამალვა"
 
-#: lib/katemainwindow.cpp:1141
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1875,19 +1900,19 @@ msgstr ""
 "თქვენ საქაღალდე %1 შიგ Kate-ში ჩააგდეთ. გნებავთ, მასში არსებული ყველა "
 "დოკუმენტი გახსნათ?"
 
-#: lib/katemainwindow.cpp:1144
+#: lib/katemainwindow.cpp:1161
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "ფაილების რეკურსიულად გახსნა"
 
-#: lib/katemainwindow.cpp:1145
+#: lib/katemainwindow.cpp:1162
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ყველა ფაილის გახსნა"
 
-#: lib/katemainwindow.cpp:1352
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid " [read only]"
 msgstr " (მხოლოდ-კითხვადი)"
@@ -2470,17 +2495,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "დიდი ფაილის გასნა"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:588
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 -ს საქაღალდეების გახსნა არ შეუძლია"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:605
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "დამატება, რომელიც საქაღალდეების გასახსნელადაა საჭირო, აღმოჩენილი არაა"
 
-#: lib/kateviewmanager.cpp:590
+#: lib/kateviewmanager.cpp:611
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2488,24 +2513,24 @@ msgstr ""
 "იმისათვის, რომ საქაღალდეები გასნათ, საჭიროა, ჩართოთ დამატება <b>%1</b>. "
 "ჩავრთო?"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "საქაღალდის გახსნა"
 
-#: lib/kateviewmanager.cpp:594
+#: lib/kateviewmanager.cpp:615
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "ჩართვა"
 
-#: lib/kateviewmanager.cpp:601
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> დამატების ჩართვის შეცდომა"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:643
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "ფაილი '%1' არ არსებობს"
@@ -2529,7 +2554,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:250
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "დააწკაპუნეთ სწრაფ გადასვლაზე გადასართავად."
@@ -2539,7 +2564,7 @@ msgstr "დააწკაპუნეთ სწრაფ გადასვლ�
 msgid "Control view space splitting"
 msgstr "ხედის დაყოფის მართვა"
 
-#: lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:251
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2554,57 +2579,70 @@ msgstr[1] ""
 "ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Tab"
 msgstr "ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1152
 #, kde-format
 msgid "&Close Document"
 msgstr "დოკუმენტის &დახურვა"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "სხვა &დოკუმენტების დახურვა"
 
-#: lib/kateviewspace.cpp:1163
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Close &All Documents"
 msgstr "&ყველა დოკუმენტის დახურვა"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1177
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1180
+#: lib/kateviewspace.cpp:1182
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1194
+#: lib/kateviewspace.cpp:1196
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1200
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1210
+#, fuzzy, kde-format
+#| msgctxt "on welcome screen"
+#| msgid "Open Document..."
+msgid "Unpin Document"
+msgstr "დოკუმენტის გახსნა..."
+
+#: lib/kateviewspace.cpp:1212
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Pin Document"
+msgstr "დოკუმენტები"
+
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Could not start program"
 msgstr "პროგრამის გაშვების შეცდომა"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr "არჩეული პროგრამის გაშვება შეუძლებელია. შეიძლება, ის დაყენებული არაა."
 
-#: lib/ktexteditor_utils.cpp:230
+#: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
 msgstr "%1 ვერ გავხსენი"
@@ -3151,10 +3189,6 @@ msgstr "მისალმების გვერდის ჩვენებ�
 #~ msgctxt "on welcome screen"
 #~ msgid "New Document"
 #~ msgstr "ახალი დოკუმენტი"
-
-#~ msgctxt "on welcome screen"
-#~ msgid "Open Document..."
-#~ msgstr "დოკუმენტის გახსნა..."
 
 #~ msgctxt "on welcome screen (recent document list)"
 #~ msgid "Forget All"

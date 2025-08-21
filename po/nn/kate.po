@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-20 00:46+0000\n"
+"POT-Creation-Date: 2025-08-21 00:46+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -45,12 +45,12 @@ msgstr "Kate – avansert skriveprogram frå KDE"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2024 Kate-utviklarane"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:217
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Start Kate med ei vald økt."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:218
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:219
 #, kde-format
 msgid "session"
 msgstr "økt"
@@ -1392,7 +1392,7 @@ msgstr "Namn"
 msgid "Description"
 msgstr "Skildring"
 
-#: lib/katedocmanager.cpp:268
+#: lib/katedocmanager.cpp:289
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1401,35 +1401,47 @@ msgstr ""
 "<p>Dokumentet «%1» er endra, men ikkje lagra.</p><p>Vil du ta vare på "
 "endringane eller forkasta dei?</p>"
 
-#: lib/katedocmanager.cpp:271 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:292 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
 
-#: lib/katedocmanager.cpp:280
+#: lib/katedocmanager.cpp:301
 #, kde-format
 msgid "Save As"
 msgstr "Lagra som"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Ny fil opna mens Kate vart lukka. Lukkinga er avbroten."
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:812
+#: lib/katedocmanager.cpp:319 lib/katemainwindow.cpp:829
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Lukking avbroten"
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:393
 #, kde-format
 msgid "Starting Up"
 msgstr "Startar"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:394
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Opnar filer frå førre økt …"
+
+#: lib/katedocmanager.cpp:570
+#, fuzzy, kde-format
+#| msgid "Create a new document"
+msgid "Cannot pin untitled documents."
+msgstr "Lag eit nytt dokument"
+
+#: lib/katedocmanager.cpp:575
+#, fuzzy, kde-format
+#| msgid "Shows a hint how to compare documents."
+msgid "Cannot pin non local documents."
+msgstr "Vis hint om samanlikning av dokument."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1792,45 +1804,55 @@ msgstr "&Lagra økta"
 msgid "Save Session &As..."
 msgstr "Lagra økta &som …"
 
-#: lib/katemainwindow.cpp:632 lib/kateviewspace.cpp:56
+#: lib/katemainwindow.cpp:633
+#, fuzzy, kde-format
+msgid "Pin/Unpin Active Document"
+msgstr "&Kopla frå dokumentet"
+
+#: lib/katemainwindow.cpp:642
+#, fuzzy, kde-format
+msgid "Open Next Pinned Document"
+msgstr "Opna &sist lukka dokument på nytt."
+
+#: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Gå til førre plassering"
 
-#: lib/katemainwindow.cpp:641 lib/kateviewspace.cpp:68
+#: lib/katemainwindow.cpp:658 lib/kateviewspace.cpp:68
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Gå til neste plassering"
 
-#: lib/katemainwindow.cpp:649
+#: lib/katemainwindow.cpp:666
 #, kde-format
 msgid "Show File Git History"
 msgstr "Vis Git-logg for fil"
 
-#: lib/katemainwindow.cpp:660
+#: lib/katemainwindow.cpp:677
 #, fuzzy, kde-format
 #| msgid "New &Window"
 msgid "&Windows"
 msgstr "Nytt &vindauge"
 
-#: lib/katemainwindow.cpp:719
+#: lib/katemainwindow.cpp:736
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Dette vil lukka alle dei opne dokumenta. Er du sikker på at du vil halda "
 "fram?"
 
-#: lib/katemainwindow.cpp:720
+#: lib/katemainwindow.cpp:737
 #, kde-format
 msgid "Close all documents?"
 msgstr "Lukka alle opne dokument?"
 
-#: lib/katemainwindow.cpp:721
+#: lib/katemainwindow.cpp:738
 #, kde-format
 msgid "Close All"
 msgstr "Lukk alle"
 
-#: lib/katemainwindow.cpp:735
+#: lib/katemainwindow.cpp:752
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1839,48 +1861,48 @@ msgstr ""
 "Dette vil lukka alle dei opne dokumenta utanom dette. Er du sikker på at du "
 "vil halda fram?"
 
-#: lib/katemainwindow.cpp:736
+#: lib/katemainwindow.cpp:753
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "Lukka alle opne dokument utanom dette?"
 
-#: lib/katemainwindow.cpp:737
+#: lib/katemainwindow.cpp:754
 #, kde-format
 msgid "Close Others"
 msgstr "Lukk andre"
 
 # %1 er for eksempel «Ctrl + M».
-#: lib/katemainwindow.cpp:963
+#: lib/katemainwindow.cpp:980
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "Dette vil gøyma menylinja heilt. Du kan visa ho att ved å trykkja %1."
 
-#: lib/katemainwindow.cpp:966
+#: lib/katemainwindow.cpp:983
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Gøym menylinje"
 
-#: lib/katemainwindow.cpp:1141
+#: lib/katemainwindow.cpp:1158
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "Du sleppte mappa %1 på Kate. Vil du opna alle filene i mappa?"
 
-#: lib/katemainwindow.cpp:1144
+#: lib/katemainwindow.cpp:1161
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Opna filer rekursivt"
 
-#: lib/katemainwindow.cpp:1145
+#: lib/katemainwindow.cpp:1162
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Opna alle filer"
 
-#: lib/katemainwindow.cpp:1352
+#: lib/katemainwindow.cpp:1369
 #, kde-format
 msgid " [read only]"
 msgstr " [skriveverna]"
@@ -2463,17 +2485,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Opning av stor fil"
 
-#: lib/kateviewmanager.cpp:567
+#: lib/kateviewmanager.cpp:588
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 kan ikkje opna mapper"
 
-#: lib/kateviewmanager.cpp:584
+#: lib/kateviewmanager.cpp:605
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Fann ikkje programtillegget som trengst for å opna mapper"
 
-#: lib/kateviewmanager.cpp:590
+#: lib/kateviewmanager.cpp:611
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2481,24 +2503,24 @@ msgstr ""
 "For å opna mapper må du ha program­tillegget <b>%1</b> påslått. Vil du slå "
 "det på?"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Opna mappe"
 
-#: lib/kateviewmanager.cpp:594
+#: lib/kateviewmanager.cpp:615
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Slå på"
 
-#: lib/kateviewmanager.cpp:601
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Klarte ikkje slå på programtillegget <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:643
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2521,7 +2543,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:248
+#: lib/kateviewspace.cpp:122 lib/kateviewspace.cpp:250
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Trykk her for å byta til snøggopningsvisinga."
@@ -2531,7 +2553,7 @@ msgstr "Trykk her for å byta til snøggopningsvisinga."
 msgid "Control view space splitting"
 msgstr "Styr deling av visingsplassen"
 
-#: lib/kateviewspace.cpp:249
+#: lib/kateviewspace.cpp:251
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2546,59 +2568,71 @@ msgstr[1] ""
 "Det er no %1 ope dokument til. Du kan sjå alle opne dokument viss du byter "
 "til snøggopningsvisinga ved å trykkja her."
 
-#: lib/kateviewspace.cpp:1133
+#: lib/kateviewspace.cpp:1135
 #, kde-format
 msgid "Close Tab"
 msgstr "Lukk fane"
 
-#: lib/kateviewspace.cpp:1150
+#: lib/kateviewspace.cpp:1152
 #, kde-format
 msgid "&Close Document"
 msgstr "&Lukk dokumentet"
 
-#: lib/kateviewspace.cpp:1157
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Close Other &Documents"
 msgstr "Lukk &dei andre dokumenta"
 
-#: lib/kateviewspace.cpp:1163
+#: lib/kateviewspace.cpp:1165
 #, kde-format
 msgid "Close &All Documents"
 msgstr "Lukk &alle dokumenta"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1177
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Kopla frå dokumentet"
 
-#: lib/kateviewspace.cpp:1180
+#: lib/kateviewspace.cpp:1182
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Opna dokumentet i eit nytt vindauge, og lukk utgåva i dette vindauget"
 
-#: lib/kateviewspace.cpp:1194
+#: lib/kateviewspace.cpp:1196
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Samanlikna med gjeldande dokument"
 
-#: lib/kateviewspace.cpp:1200
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Samanlikna med gjeldande dokument via"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1210
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Unpin Document"
+msgstr "Dokument"
+
+#: lib/kateviewspace.cpp:1212
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Pin Document"
+msgstr "Dokument"
+
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Could not start program"
 msgstr "Klarte ikkje starta programmet"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
 "Klarte ikkje starta programmet. Ein grunn kan vera at det ikkje er "
 "installert."
 
-#: lib/ktexteditor_utils.cpp:230
+#: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

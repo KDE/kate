@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-16 00:44+0000\n"
+"POT-Creation-Date: 2025-08-21 00:46+0000\n"
 "PO-Revision-Date: 2025-03-18 07:29+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -20,214 +20,226 @@ msgstr ""
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
 "X-Generator: Poedit 3.5\n"
 
-#: katefiletree.cpp:122
+#: katefiletree.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Znova naloži"
 
-#: katefiletree.cpp:124
+#: katefiletree.cpp:125
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Znova naloži izbrane dokumente iz diska."
 
-#: katefiletree.cpp:126
+#: katefiletree.cpp:127
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Zapri"
 
-#: katefiletree.cpp:128
+#: katefiletree.cpp:129
 #, kde-format
 msgid "Close the current document."
 msgstr "Zapre trenutni dokument."
 
-#: katefiletree.cpp:130
+#: katefiletree.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Razširi rekurzivno"
 
-#: katefiletree.cpp:132
+#: katefiletree.cpp:133
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Rekurzivno razširi poddrevo seznama datotek."
 
-#: katefiletree.cpp:134
+#: katefiletree.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Strni rekurzivno"
 
-#: katefiletree.cpp:136
+#: katefiletree.cpp:137
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Rekurzivno zloži poddrevo seznama datotek."
 
-#: katefiletree.cpp:138
+#: katefiletree.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Zapri druge"
 
-#: katefiletree.cpp:140
+#: katefiletree.cpp:141
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Zapre druge dokumente v tej mapi."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:144
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Odpri vsebovano mapo"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:146
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Odpri mapo, kjer je ta datoteka."
 
-#: katefiletree.cpp:147
+#: katefiletree.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Kopiraj mesto"
 
-#: katefiletree.cpp:149
+#: katefiletree.cpp:150
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Kopiraj pot in ime datoteke na odlagališče."
 
-#: katefiletree.cpp:151
+#: katefiletree.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Preimenuj..."
 
-#: katefiletree.cpp:153
+#: katefiletree.cpp:154
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Preimenuj izbrano datoteko."
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:157
 #, kde-format
 msgid "Print selected document."
 msgstr "Natisni izbran dokument."
 
-#: katefiletree.cpp:159
+#: katefiletree.cpp:160
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Prikaži predogled tiskanja trenutnega dokumenta"
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:162
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Briši"
 
-#: katefiletree.cpp:163
+#: katefiletree.cpp:164
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Zapre in izbriše izbrano datoteko iz shrambe."
 
-#: katefiletree.cpp:167
+#: katefiletree.cpp:168
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "Počisti zgodovino"
 
-#: katefiletree.cpp:169
+#: katefiletree.cpp:170
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "Počisti zgodovino urejevanj/ogledov."
 
-#: katefiletree.cpp:242
+#: katefiletree.cpp:243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Drevesni način"
 
-#: katefiletree.cpp:243
+#: katefiletree.cpp:244
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Slog pogleda nastavi na drevesni način"
 
-#: katefiletree.cpp:249
+#: katefiletree.cpp:250
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Način seznama"
 
-#: katefiletree.cpp:250
+#: katefiletree.cpp:251
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Slog pogleda nastavi na način seznama"
 
-#: katefiletree.cpp:257
+#: katefiletree.cpp:258
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Ime dokumenta"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:259
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Razvrsti po imenu dokumenta"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:264
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Pot dokumenta"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:264
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Razvrsti po poti dokumenta"
 
-#: katefiletree.cpp:267
+#: katefiletree.cpp:268
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Vrstni redu odpiranja"
 
-#: katefiletree.cpp:268
+#: katefiletree.cpp:269
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Razvrsti po vrstnem redu odpiranja"
 
-#: katefiletree.cpp:271 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Razvrščanje po meri"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:403
 #, kde-format
 msgid "Open..."
 msgstr "Odpri..."
 
-#: katefiletree.cpp:406
+#: katefiletree.cpp:407
 #, kde-format
 msgid "Open File"
 msgstr "Odpri datoteko"
 
-#: katefiletree.cpp:416
+#: katefiletree.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Odpri z"
 
-#: katefiletree.cpp:432
+#: katefiletree.cpp:433
 #, kde-format
 msgid "Show Git History"
 msgstr "Prikaži zgodovino Git"
 
-#: katefiletree.cpp:483
+#: katefiletree.cpp:444
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Unpin Document"
+msgstr "Dokumenti"
+
+#: katefiletree.cpp:446
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Pin Document"
+msgstr "Dokumenti"
+
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Način pogleda"
 
-#: katefiletree.cpp:487
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -357,14 +369,14 @@ msgstr "Dokumenti"
 msgid "Configure Documents"
 msgstr "Nastavi dokumente"
 
-#: katefiletreemodel.cpp:498
+#: katefiletreemodel.cpp:504
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "Odpri gradnike"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:655
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

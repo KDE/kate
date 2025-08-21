@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-16 00:44+0000\n"
+"POT-Creation-Date: 2025-08-21 00:46+0000\n"
 "PO-Revision-Date: 2025-03-26 18:17+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -20,214 +20,226 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 24.12.3\n"
 
-#: katefiletree.cpp:122
+#: katefiletree.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "重新載入(&D)"
 
-#: katefiletree.cpp:124
+#: katefiletree.cpp:125
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "從硬碟重新載入選取的文件。"
 
-#: katefiletree.cpp:126
+#: katefiletree.cpp:127
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "關閉"
 
-#: katefiletree.cpp:128
+#: katefiletree.cpp:129
 #, kde-format
 msgid "Close the current document."
 msgstr "關閉目前的文件。"
 
-#: katefiletree.cpp:130
+#: katefiletree.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "遞迴展開"
 
-#: katefiletree.cpp:132
+#: katefiletree.cpp:133
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "遞迴展開檔案清單的子清單樹"
 
-#: katefiletree.cpp:134
+#: katefiletree.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "遞迴收起"
 
-#: katefiletree.cpp:136
+#: katefiletree.cpp:137
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "遞迴折疊檔案清單的子清單樹"
 
-#: katefiletree.cpp:138
+#: katefiletree.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "關閉其他分頁"
 
-#: katefiletree.cpp:140
+#: katefiletree.cpp:141
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "關閉此資料夾中其它的文件."
 
-#: katefiletree.cpp:143
+#: katefiletree.cpp:144
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "開啟包含的資料夾"
 
-#: katefiletree.cpp:145
+#: katefiletree.cpp:146
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "開啟檔案所在的資料夾。"
 
-#: katefiletree.cpp:147
+#: katefiletree.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "複製位置"
 
-#: katefiletree.cpp:149
+#: katefiletree.cpp:150
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "複製位址與檔案名稱到剪貼簿。"
 
-#: katefiletree.cpp:151
+#: katefiletree.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "重新命名…"
 
-#: katefiletree.cpp:153
+#: katefiletree.cpp:154
 #, kde-format
 msgid "Rename the selected file."
 msgstr "重新命名選取的檔案"
 
-#: katefiletree.cpp:156
+#: katefiletree.cpp:157
 #, kde-format
 msgid "Print selected document."
 msgstr "列印選取的文件。"
 
-#: katefiletree.cpp:159
+#: katefiletree.cpp:160
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "顯示目前文件的預覽列印"
 
-#: katefiletree.cpp:161
+#: katefiletree.cpp:162
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "刪除"
 
-#: katefiletree.cpp:163
+#: katefiletree.cpp:164
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "關閉並刪除選取的檔案。"
 
-#: katefiletree.cpp:167
+#: katefiletree.cpp:168
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
 msgstr "清除歷史"
 
-#: katefiletree.cpp:169
+#: katefiletree.cpp:170
 #, kde-format
 msgid "Clear edit/view history."
 msgstr "清除編輯/檢視歷史。"
 
-#: katefiletree.cpp:242
+#: katefiletree.cpp:243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "樹狀模式"
 
-#: katefiletree.cpp:243
+#: katefiletree.cpp:244
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "將檢視樣式設為樹狀模式"
 
-#: katefiletree.cpp:249
+#: katefiletree.cpp:250
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "列表模式"
 
-#: katefiletree.cpp:250
+#: katefiletree.cpp:251
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "將檢視樣式設為列表模式"
 
-#: katefiletree.cpp:257
+#: katefiletree.cpp:258
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "文件名稱"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:259
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "以文件名稱排序"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:264
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "文件路徑"
 
-#: katefiletree.cpp:263
+#: katefiletree.cpp:264
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "以文件路徑排序"
 
-#: katefiletree.cpp:267
+#: katefiletree.cpp:268
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "開啟順序"
 
-#: katefiletree.cpp:268
+#: katefiletree.cpp:269
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "以開啟順序排序"
 
-#: katefiletree.cpp:271 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "自訂排序"
 
-#: katefiletree.cpp:402
+#: katefiletree.cpp:403
 #, kde-format
 msgid "Open..."
 msgstr "開啟..."
 
-#: katefiletree.cpp:406
+#: katefiletree.cpp:407
 #, kde-format
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: katefiletree.cpp:416
+#: katefiletree.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "開啟方式"
 
-#: katefiletree.cpp:432
+#: katefiletree.cpp:433
 #, kde-format
 msgid "Show Git History"
 msgstr "顯示 Git 歷史紀錄"
 
-#: katefiletree.cpp:483
+#: katefiletree.cpp:444
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Unpin Document"
+msgstr "文件"
+
+#: katefiletree.cpp:446
+#, fuzzy, kde-format
+#| msgid "Documents"
+msgid "Pin Document"
+msgstr "文件"
+
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "檢視模式"
 
-#: katefiletree.cpp:487
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -352,14 +364,14 @@ msgstr "文件"
 msgid "Configure Documents"
 msgstr "設定文件"
 
-#: katefiletreemodel.cpp:498
+#: katefiletreemodel.cpp:504
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "已開啟元件"
 
-#: katefiletreemodel.cpp:649
+#: katefiletreemodel.cpp:655
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

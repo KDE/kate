@@ -1845,7 +1845,7 @@ void KateBuildView::gotoNthFound(qsizetype n)
         doSearchAll(searchText);
         if (m_searchFound.empty()) {
             m_buildUi.searchStatus->clear();
-            setBaseColor(m_buildUi.searchPattern, Qt::red);
+            setBaseColor(m_buildUi.searchPattern, KColorScheme().background(KColorScheme::NegativeBackground).color());
             return;
         }
         n = 0;
@@ -1869,8 +1869,14 @@ void KateBuildView::slotSearchBuildOutput()
         return;
     }
 
+    if (input->text().isEmpty()) {
+        return;
+    }
+
     doSearchAll(input->text());
-    setBaseColor(input, m_searchFound.size() > 0 ? Qt::white : Qt::red);
+    KColorScheme c;
+    setBaseColor(input,
+                 m_searchFound.size() > 0 ? c.background(KColorScheme::PositiveBackground).color() : c.background(KColorScheme::NegativeBackground).color());
     gotoNthFound(0);
 }
 
@@ -1884,7 +1890,7 @@ void KateBuildView::slotSearchPatternChanged()
     cursor.clearSelection();
     m_buildUi.textBrowser->setTextCursor(cursor);
 
-    setBaseColor(m_buildUi.searchPattern, Qt::white);
+    setBaseColor(m_buildUi.searchPattern, KColorScheme().background(KColorScheme::NormalBackground).color());
     m_buildUi.searchStatus->clear();
 }
 

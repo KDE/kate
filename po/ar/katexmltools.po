@@ -63,7 +63,7 @@ msgstr "يحمّل DTD الوصفيّة ل‍XML"
 #: plugin_katexmltools.cpp:482
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
-msgstr "تعذّر فتح الملفّ '%1'. أرجع الخادوم خطأ."
+msgstr "تعذّر فتح الملفّ '%1'. أرجع الخادم خطأ."
 
 #: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
 #, kde-format

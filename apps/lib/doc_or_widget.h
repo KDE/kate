@@ -29,7 +29,7 @@ private:
     };
 
 public:
-    consteval DocOrWidget()
+    constexpr DocOrWidget()
         : m_type(Type::None)
         , m_doc(nullptr)
     {

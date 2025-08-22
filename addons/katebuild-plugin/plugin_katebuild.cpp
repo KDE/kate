@@ -346,11 +346,15 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
 
     m_buildWidget = new QWidget(m_toolView);
     m_buildUi.setupUi(m_buildWidget);
-    m_buildUi.u_outpTopLayout->setSpacing(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutHorizontalSpacing));
     m_buildUi.u_outpTopLayout->setContentsMargins(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
                                                   m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutTopMargin),
                                                   m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutRightMargin),
                                                   0);
+    m_buildUi.search->setContentsMargins(m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutLeftMargin),
+                                         0,
+                                         m_buildWidget->style()->pixelMetric(QStyle::PM_LayoutRightMargin),
+                                         0);
+    m_buildUi.search->setHidden(true);
 
     m_targetsUi = new TargetsUi(this, m_buildUi.u_tabWidget);
     m_buildUi.u_tabWidget->setDocumentMode(true);
@@ -365,11 +369,17 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
         m_buildUi.u_tabWidget->widget(index)->deleteLater();
     });
 
+    connect(m_buildUi.u_tabWidget->tabBar(), &QTabBar::currentChanged, this, [this]() {
+        updateStatusOverlay();
+    });
+
     connect(m_buildUi.u_tabWidget->tabBar(), &QTabBar::tabBarClicked, this, [this](int index) {
         if (QWidget *tabWidget = m_buildUi.u_tabWidget->widget(index)) {
             tabWidget->setFocus();
         }
     });
+
+    m_buildStatusOverlay = new StatusOverlay(m_buildUi.u_statusFrame);
 
     m_buildWidget->installEventFilter(this);
 
@@ -750,6 +760,7 @@ bool KateBuildView::checkLocal(const QUrl &dir)
 void KateBuildView::clearBuildResults()
 {
     m_buildUi.textBrowser->clear();
+    m_buildUi.buildStatusLabel->clear();
     m_stdOut.clear();
     m_stdErr.clear();
     m_pendingHtmlOutput.clear();
@@ -762,6 +773,7 @@ void KateBuildView::clearBuildResults()
     m_makeDirStack.clear();
     m_progress.clear();
     m_buildCancelled = false;
+    m_buildStatusSeen = false;
     updateStatusOverlay();
     clearDiagnostics();
 }
@@ -824,6 +836,8 @@ bool KateBuildView::startProcess(const QString &dir, const QString &command)
             return false;
         }
     }
+
+    m_buildStatusSeen = false;
 
     // chdir used by QProcess will resolve symbolic links.
     // Define PWD so that shell scripts can get a path with symbolic links intact
@@ -1500,7 +1514,6 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
     }
     m_buildUi.buildStatusLabel->setText(buildStatus);
 
-    m_pendingHtmlOutput += buildStatus;
     slotUpdateTextBrowser();
 
     m_buildBuildCmd.clear();
@@ -2129,6 +2142,8 @@ bool KateBuildView::eventFilter(QObject *obj, QEvent *event)
         }
         break;
     }
+    case QEvent::Show:
+        updateStatusOverlay();
     default: {
     }
     }
@@ -2157,13 +2172,30 @@ void KateBuildView::tabForToolViewAdded(QWidget *toolView, QWidget *tab)
     }
 }
 
+static double toProgress(const QString &progress)
+{
+    if (!progress.isEmpty()) {
+        static const QRegularExpression ratioReg(u"\\[(\\d+)/(\\d+)\\]"_s);
+        static const QRegularExpression percentReg(u"\\[\\s*(\\d+)%\\]"_s);
+
+        if (const auto &match = ratioReg.match(progress); match.hasMatch()) {
+            double dividend = match.captured(1).toInt();
+            int divisor = match.captured(2).toInt();
+            return divisor == 0 ? 0.0 : dividend / divisor;
+        } else if (const auto &match = percentReg.match(progress); match.hasMatch()) {
+            return match.captured(1).toInt();
+        }
+    }
+    return 0.0;
+}
+
 void KateBuildView::updateStatusOverlay()
 {
     if (!m_tabStatusOverlay) {
         return;
     }
-
     bool running = m_proc.state() != QProcess::NotRunning;
+
     StatusOverlay::Type type = StatusOverlay::Type::None;
     if (m_numErrors != 0) {
         type = StatusOverlay::Type::Error;
@@ -2174,27 +2206,25 @@ void KateBuildView::updateStatusOverlay()
     } else if (!m_buildUi.textBrowser->document()->isEmpty()) {
         type = StatusOverlay::Type::Positive;
     }
+
+    double progress = toProgress(m_progress);
+
+    m_buildStatusOverlay->setType(type);
+    m_buildStatusOverlay->setGlowing(running);
+    m_buildStatusOverlay->setProgress(progress);
+
+    bool outputVisible = m_buildUi.u_tabWidget->currentIndex() == 1 && m_toolView->isVisible();
+    if (outputVisible && !running) {
+        m_buildStatusSeen = true;
+    }
+
+    if (m_buildStatusSeen || outputVisible) {
+        type = StatusOverlay::Type::None;
+        progress = 0;
+    }
     m_tabStatusOverlay->setType(type);
     m_tabStatusOverlay->setGlowing(running);
-
-    if (!m_progress.isEmpty()) {
-        static const QRegularExpression ratioReg(u"\\[(\\d+)/(\\d+)\\]"_s);
-        static const QRegularExpression percentReg(u"\\[\\s*(\\d+)%\\]"_s);
-
-        if (const auto &match = ratioReg.match(m_progress); match.hasMatch()) {
-            double dividend = match.captured(1).toInt();
-            int divisor = match.captured(2).toInt();
-            double progress = divisor == 0 ? 0.0 : dividend / divisor;
-            m_tabStatusOverlay->setProgress(progress);
-        } else if (const auto &match = percentReg.match(m_progress); match.hasMatch()) {
-            double percent = match.captured(1).toInt();
-            m_tabStatusOverlay->setProgress(percent / 100);
-        } else {
-            m_tabStatusOverlay->setProgress(0.0);
-        }
-    } else {
-        m_tabStatusOverlay->setProgress(0.0);
-    }
+    m_tabStatusOverlay->setProgress(progress);
 }
 
 #include "moc_plugin_katebuild.cpp"

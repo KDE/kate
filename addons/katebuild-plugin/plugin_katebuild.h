@@ -198,6 +198,8 @@ private:
     KTextEditor::MainWindow *const m_win;
     QWidget *m_toolView = nullptr;
     QPointer<StatusOverlay> m_tabStatusOverlay = nullptr;
+    QPointer<StatusOverlay> m_buildStatusOverlay = nullptr;
+    bool m_buildStatusSeen = false;
     Ui::build m_buildUi{};
     QWidget *m_buildWidget = nullptr;
     TargetsUi *m_targetsUi = nullptr;

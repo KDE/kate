@@ -286,7 +286,11 @@ void KateMwModOnHdDialog::slotDiff()
     QStringList args = {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index")};
     args << f->fileName();
     args << doc->url().toLocalFile();
-    setupGitProcess(*p, QDir::currentPath(), args);
+    if (!setupGitProcess(*p, QDir::currentPath(), args)) {
+        Utils::showMessage(i18n("Please install git to view diffs"), QIcon(), QStringLiteral("KateMwModOnHdDialog"), MessageType::Error);
+        btnDiff->setEnabled(false);
+        return;
+    }
 
     connect(p, &QProcess::finished, this, [p, f, this, doc](int, QProcess::ExitStatus) {
         f->deleteLater();

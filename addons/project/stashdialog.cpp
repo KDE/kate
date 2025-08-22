@@ -114,7 +114,9 @@ void StashDialog::slotReturnPressed(const QModelIndex &index)
 QProcess *StashDialog::gitp(const QStringList &arguments)
 {
     auto git = new QProcess(this);
-    setupGitProcess(*git, m_gitPath, arguments);
+    if (!setupGitProcess(*git, m_gitPath, arguments)) {
+        qWarning("'git' not found");
+    }
     return git;
 }
 

@@ -61,18 +61,18 @@ KATE_PRIVATE_EXPORT QFont editorFont();
 /**
  * Returns the range that is currently visible in the @p view
  */
-KATE_PRIVATE_EXPORT KTextEditor::Range getVisibleRange(KTextEditor::View *view);
+[[nodiscard]] KATE_PRIVATE_EXPORT KTextEditor::Range getVisibleRange(KTextEditor::View *view);
 
 /**
  * @brief Given path "/home/user/xyz.txt" returns "xyz.txt"
  */
-KATE_PRIVATE_EXPORT inline QString fileNameFromPath(const QString &path)
+[[nodiscard]] KATE_PRIVATE_EXPORT inline QString fileNameFromPath(const QString &path)
 {
     int lastSlash = path.lastIndexOf(QLatin1Char('/'));
     return lastSlash == -1 ? path : path.mid(lastSlash + 1);
 }
 
-KATE_PRIVATE_EXPORT inline QString formatUrl(const QUrl &url)
+[[nodiscard]] KATE_PRIVATE_EXPORT inline QString formatUrl(const QUrl &url)
 {
     return url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
 }
@@ -83,13 +83,13 @@ KATE_PRIVATE_EXPORT inline QString formatUrl(const QUrl &url)
  * @param doc document to get icon for
  * @return icon, always valid
  */
-KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
+[[nodiscard]] KATE_PRIVATE_EXPORT QIcon iconForDocument(KTextEditor::Document *doc);
 
-KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const QString &toolviewName);
+[[nodiscard]] KATE_PRIVATE_EXPORT QAction *toolviewShowAction(KTextEditor::MainWindow *, const QString &toolviewName);
 
-KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
+[[nodiscard]] KATE_PRIVATE_EXPORT QWidget *toolviewForName(KTextEditor::MainWindow *, const QString &toolviewName);
 
-KATE_PRIVATE_EXPORT QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side);
+[[nodiscard]] KATE_PRIVATE_EXPORT QWidget *activeToolviewForSide(KTextEditor::MainWindow *mainWindow, int side);
 
 // helper struct to support various keyword options below
 struct GoToOptions {
@@ -116,7 +116,7 @@ KATE_PRIVATE_EXPORT void showDiff(const QByteArray &diff, const DiffParams &para
 /// TODO: Maybe it would be more versatile to return *all* widgets, including KTextEditor::Views, here, or perhaps
 ///       controlled by a flag to filter which widgets to return. Think e.g. about the document switching plugin.
 ///       activeWidget() (not yet "public") uses those semantics, already.
-KATE_PRIVATE_EXPORT QWidgetList widgets(KTextEditor::MainWindow *mainWindow);
+[[nodiscard]] KATE_PRIVATE_EXPORT QWidgetList widgets(KTextEditor::MainWindow *mainWindow);
 
 KATE_PRIVATE_EXPORT void insertWidgetInStatusbar(QWidget *widget, KTextEditor::MainWindow *mainWindow);
 
@@ -126,28 +126,28 @@ KATE_PRIVATE_EXPORT void addPositionToHistory(const QUrl &url, KTextEditor::Curs
 /**
  * Returns project base dir for provided document
  */
-KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc);
+[[nodiscard]] KATE_PRIVATE_EXPORT QString projectBaseDirForDocument(KTextEditor::Document *doc);
 
 /**
  * Returns project map for provided document
  */
-KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
+[[nodiscard]] KATE_PRIVATE_EXPORT QVariantMap projectMapForDocument(KTextEditor::Document *doc);
 
 /**
  * Convert an url to a xxx.yyy @ dir representation, used e.g. in the window title
  */
-KATE_PRIVATE_EXPORT QString niceFileNameWithPath(const QUrl &url);
+[[nodiscard]] KATE_PRIVATE_EXPORT QString niceFileNameWithPath(const QUrl &url);
 
 /**
  * Convert an url to a normalize one, used by the document manager and Co.
  */
-KATE_PRIVATE_EXPORT QUrl normalizeUrl(QUrl url);
+[[nodiscard]] KATE_PRIVATE_EXPORT QUrl normalizeUrl(QUrl url);
 
 /**
  * Convert an url to an absolute one, used by the document manager and Co.
  */
-KATE_PRIVATE_EXPORT QUrl absoluteUrl(QUrl url);
+[[nodiscard]] KATE_PRIVATE_EXPORT QUrl absoluteUrl(QUrl url);
 
-KATE_PRIVATE_EXPORT bool isDocumentPinned(KTextEditor::Document *doc);
+[[nodiscard]] KATE_PRIVATE_EXPORT bool isDocumentPinned(KTextEditor::Document *doc);
 KATE_PRIVATE_EXPORT void togglePinDocument(KTextEditor::Document *document);
 }

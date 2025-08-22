@@ -38,6 +38,15 @@
 #include <KTextEditor/View>
 #include <ktexteditor/cursor.h>
 
+Q_DECL_COLD_FUNCTION static void gitNotFoundMessage()
+{
+    Utils::showMessage(i18n("<b>git</b> not found. Git is needed to diff the documents. If git is already installed, make sure it is your PATH variable. See "
+                            "https://git-scm.com/downloads"),
+                       gitIcon(),
+                       i18n("Diff"),
+                       MessageType::Error);
+}
+
 DiffWidget *DiffWidgetManager::existingDiffWidgetForParams(KTextEditor::MainWindow *mw, const DiffParams &p)
 {
     const auto widgets = Utils::widgets(mw);
@@ -494,7 +503,10 @@ void DiffWidget::applyDiff(const QString &diff, ApplyFlags flags)
     } else {
         args = QStringList{QStringLiteral("apply"), QStringLiteral("--index"), QStringLiteral("--cached"), file->fileName()};
     }
-    setupGitProcess(*git, m_params.workingDir, args);
+    if (!setupGitProcess(*git, m_params.workingDir, args)) {
+        gitNotFoundMessage();
+        return;
+    }
 
     connect(git, &QProcess::finished, this, [this, git, file](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
@@ -524,7 +536,10 @@ void DiffWidget::runGitDiff()
     const int rf = m_right->firstVisibleBlockNumber();
 
     auto *git = new QProcess(this);
-    setupGitProcess(*git, workingDir, arguments);
+    if (!setupGitProcess(*git, workingDir, arguments)) {
+        gitNotFoundMessage();
+        return;
+    }
     connect(git, &QProcess::finished, this, [this, git, lf, rf](int, QProcess::ExitStatus) {
         const DiffParams params = m_params;
         clearData();
@@ -621,12 +636,7 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
 
     QProcess git;
     if (!setupGitProcess(git, qApp->applicationDirPath(), diffDocsGitArgs(l, r))) {
-        Utils::showMessage(
-            i18n("<b>git</b> not found. Git is needed to diff the documents. If git is already installed, make sure it is your PATH variable. See "
-                 "https://git-scm.com/downloads"),
-            gitIcon(),
-            i18n("Diff"),
-            MessageType::Error);
+        gitNotFoundMessage();
         return;
     }
 

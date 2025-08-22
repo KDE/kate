@@ -29,7 +29,10 @@
     QStringList args = {QStringLiteral("diff"), QStringLiteral("--no-color"), QStringLiteral("--no-index")};
     args << doc->url().toString(QUrl::PreferLocalFile);
     args << f.fileName();
-    setupGitProcess(p, QFileInfo(doc->url().toString(QUrl::PreferLocalFile)).absolutePath(), args);
+    if (!setupGitProcess(p, QFileInfo(doc->url().toString(QUrl::PreferLocalFile)).absolutePath(), args)) {
+        Utils::showMessage(i18n("Failed to run git diff: git not installed"), {}, i18n("Format"), MessageType::Warning);
+        return {};
+    }
     startHostProcess(p);
     if (!p.waitForStarted() || !p.waitForFinished()) {
         Utils::showMessage(i18n("Failed to run git diff: %1", p.errorString()), {}, i18n("Format"), MessageType::Warning);

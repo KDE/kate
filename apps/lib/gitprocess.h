@@ -24,7 +24,7 @@ class QIcon;
  * @param arguments arguments to pass to git
  * @return could set setup the process or did that fail, e.g. because the git executable is not available?
  */
-KATE_PRIVATE_EXPORT bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments);
+KATE_PRIVATE_EXPORT [[nodiscard]] bool setupGitProcess(QProcess &process, const QString &workingDirectory, const QStringList &arguments);
 
 struct GitVersionInfo {
     int major = -1;
@@ -35,23 +35,23 @@ struct GitVersionInfo {
  * @param workingDirectory working directory to use for process
  * @return git major and minor version as pair, -1,-1 if infeasible to determine
  */
-KATE_PRIVATE_EXPORT GitVersionInfo getGitVersion(const QString &workingDir);
+KATE_PRIVATE_EXPORT [[nodiscard]] GitVersionInfo getGitVersion(const QString &workingDir);
 
 /**
  * @brief get the git repo base path
  * Returned path has a `/` at the end
  * @param workingDir the dir where
  */
-KATE_PRIVATE_EXPORT std::optional<QString> getRepoBasePath(const QString &workingDir);
+KATE_PRIVATE_EXPORT [[nodiscard]] std::optional<QString> getRepoBasePath(const QString &workingDir);
 
 /**
  * @brief Returns the path to a repo's "index" file or std::nullopt on failure.
  * This works for regular git repos, git worktrees, and git submodules.
  * @param repo the top-level-dir of the current repo.
  */
-KATE_PRIVATE_EXPORT std::optional<QString> repoIndexFile(const QString &repo);
+KATE_PRIVATE_EXPORT [[nodiscard]] std::optional<QString> repoIndexFile(const QString &repo);
 
 /**
  * @brief returns the git icon for use in UI
  */
-KATE_PRIVATE_EXPORT QIcon gitIcon();
+KATE_PRIVATE_EXPORT [[nodiscard]] QIcon gitIcon();

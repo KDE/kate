@@ -578,7 +578,9 @@ KTextEditor::MainWindow *GitWidget::mainWindow()
 QProcess *GitWidget::gitp(const QStringList &arguments)
 {
     auto git = new QProcess(this);
-    setupGitProcess(*git, m_activeGitDirPath, arguments);
+    if (!setupGitProcess(*git, m_activeGitDirPath, arguments)) {
+        qWarning("%s git not found", Q_FUNC_INFO);
+    }
     connect(git, &QProcess::errorOccurred, this, [this, git](QProcess::ProcessError pe) {
         // git program missing is not an error
         sendMessage(git->errorString(), pe != QProcess::FailedToStart);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-14 13:54+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 "Opcjonalny opis do pokazania w podpowiedziach. Można używać podstawowego "
 "formatowania HTML."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Edytuj wstawkę %1 w %2"
@@ -146,25 +146,25 @@ msgstr "Edytuj wstawkę %1 w %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Utwórz nową wstawkę w repozytorium %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Nazwy wstawek zawierające odstępy mogą nie działać poprawnie przy "
 "uzupełnianiu"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "Wstawka zawiera niezapisane zmiany. Czy porzucić wszystkie zmiany?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Ostrzeżenie: niezapisane zmiany"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Wróć do edytowania"

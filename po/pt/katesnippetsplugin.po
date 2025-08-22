@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2020-09-13 11:33+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -122,7 +122,7 @@ msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editar o Excerto %1 em %2"
@@ -132,12 +132,12 @@ msgstr "Editar o Excerto %1 em %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Criar um Excerto no Repositório %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "The snippet contains unsaved changes. Do you want to continue and lose "
@@ -148,12 +148,12 @@ msgstr ""
 "O excerto contém alterações por gravar. Deseja continuar e perder todas as "
 "alterações?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Atenção - Alterações Não Gravadas"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr ""

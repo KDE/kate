@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -410,7 +410,7 @@ msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "nedefinovaná referencia"
 
-#: plugin_katebuild.cpp:2083
+#: plugin_katebuild.cpp:2089
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""

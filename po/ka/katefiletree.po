@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-03-18 05:46+0100\n"
+"PO-Revision-Date: 2025-08-21 06:45+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: katefiletree.cpp:123
 #, kde-format
@@ -220,16 +220,14 @@ msgid "Show Git History"
 msgstr "Git ისტორიის ჩვენება"
 
 #: katefiletree.cpp:444
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "დოკუმენტები"
+msgstr "დოკუმენტის ჩამოხსნა"
 
 #: katefiletree.cpp:446
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "დოკუმენტები"
+msgstr "დოკუმენტის ამაგრება"
 
 #: katefiletree.cpp:494
 #, kde-format

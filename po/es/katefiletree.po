@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-05-11 21:54+0100\n"
+"PO-Revision-Date: 2025-08-21 11:07+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #: katefiletree.cpp:123
 #, kde-format
@@ -223,16 +223,14 @@ msgid "Show Git History"
 msgstr "Mostrar el historial Git"
 
 #: katefiletree.cpp:444
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Documentos"
+msgstr "Liberar documento"
 
 #: katefiletree.cpp:446
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Documentos"
+msgstr "Fijar documento"
 
 #: katefiletree.cpp:494
 #, kde-format

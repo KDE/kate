@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2016-05-28 16:18+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -125,7 +125,7 @@ msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Redigér tekststumpen %1 i %2"
@@ -135,12 +135,12 @@ msgstr "Redigér tekststumpen %1 i %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Opret ny tekststump i depotet %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "The snippet contains unsaved changes. Do you want to continue and lose "
@@ -151,12 +151,12 @@ msgstr ""
 "Tekststumpen indeholder ikke-gemte ændringer. Vil du fortsætte og miste alle "
 "ændringer?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Advarsel - ikke-gemte ændringer"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr ""

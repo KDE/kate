@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-08-16 18:53+0100\n"
+"PO-Revision-Date: 2025-08-21 11:07+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1471,16 +1471,14 @@ msgid "Reopening files from the last session..."
 msgstr "Reabriendo archivos de la última sesión…"
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Crear un nuevo documento"
+msgstr "No se puede fijar un documento sin título."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Muestra un consejo sobre cómo comparar documentos."
+msgstr "No se puede fijar un documento que no sea local."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1846,16 +1844,14 @@ msgid "Save Session &As..."
 msgstr "Guardar sesión &como…"
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Desprender el documento activo"
+msgstr "Fijar/liberar el documento activo"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgid "&Reopen Latest Closed Document(s)"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "&Volver a abrir los últimos documentos cerrados"
+msgstr "Abrir el siguiente documentos fijado"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2665,16 +2661,14 @@ msgid "Compare with Active Document Using"
 msgstr "Comparar con el documento activo usando"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Documentos"
+msgstr "Liberar documento"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Documentos"
+msgstr "Fijar documento"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

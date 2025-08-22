@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2022-07-13 08:26+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -125,7 +125,7 @@ msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Sửa mảnh mã %1 trong %2"
@@ -135,12 +135,12 @@ msgstr "Sửa mảnh mã %1 trong %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Tạo mảnh mã mới trong kho %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "The snippet contains unsaved changes. Do you want to continue and lose "
@@ -151,12 +151,12 @@ msgstr ""
 "Mảnh mã có các thay đổi chưa được lưu. Bạn có muốn tiếp tục và sẽ mất tất cả "
 "các thay đổi đó không?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Cảnh báo - thay đổi chưa lưu"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr ""

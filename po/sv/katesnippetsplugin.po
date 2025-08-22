@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-12 17:33+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -134,7 +134,7 @@ msgstr ""
 "Valfri beskrivning som visas i verktygstips. Grundläggande HTML-formatering "
 "kan användas."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Redigera textsnutt %1 i %2"
@@ -144,25 +144,25 @@ msgstr "Redigera textsnutt %1 i %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Skapa ny textsnutt i arkivet %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Namn på textsnuttar med mellanslag kanske inte fungerar bra i kompletteringar"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Textsnutten innehåller osparade ändringar. Vill du kasta alla ändringar?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Varning - Osparade ändringar"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Fortsätt redigera"

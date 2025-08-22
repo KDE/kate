@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-12 08:07+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -137,7 +137,7 @@ msgstr ""
 "Neobvezen opis za prikaz v opisih orodij. Uporabite lahko osnovno "
 "oblikovanje HTML."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Uredi delček kode %1 iz %2"
@@ -147,25 +147,25 @@ msgstr "Uredi delček kode %1 iz %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Ustvari nov delček kode v skladišču %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Imena delčkov kode s presledki morda ne bodo dobro delovala pri kompletiranju"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "Delček kode vsebuje neshranjene spremembe. Ali želite zavreči vse spremembe?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Opozorilo – neshranjene spremembe"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Nadaljuj urejanje"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -131,7 +131,7 @@ msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr "可选的描述，用于在悬停信息中显示。您可以使用基本 HTML 格式。"
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "编辑代码片断 %1 于 %2"
@@ -141,23 +141,23 @@ msgstr "编辑代码片断 %1 于 %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "在仓库 %1 中创建新代码片段"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "带有空格的代码片段名称可能在代码补全中无法正常工作"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr "代码片段包含未保存的更改。您想要丢弃全部更改吗？"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "警告 - 未保存的更改"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "继续编辑"

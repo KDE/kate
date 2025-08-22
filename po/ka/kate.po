@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-08-16 06:39+0200\n"
+"PO-Revision-Date: 2025-08-21 06:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1443,16 +1443,14 @@ msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "ახალი დოკუმენტის შექმნა"
+msgstr "უსახელო დოკუმენტების ამაგრება შეუძლებელია."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "მინიშნების ჩვენება, როგორ შეადაროთ დოკუმენტები."
+msgstr "არალოკალური დოკუმენტების ამაგრება შეუძლებელია."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1815,17 +1813,14 @@ msgid "Save Session &As..."
 msgstr "შესიის შენახვა, &როგორც..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "აქტიური დოკუმენტის მოხსნა"
+msgstr "აქტიური დოკუმენტის ამაგრება/ჩამოხსნა"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "დოკუმენტის გახსნა..."
+msgstr "შემდეგი ამაგრებული დოკუმენტის გახსნა"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2620,17 +2615,14 @@ msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Unpin Document"
-msgstr "დოკუმენტის გახსნა..."
+msgstr "დოკუმენტის ჩამოხსნა"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "დოკუმენტები"
+msgstr "დოკუმენტის ამაგრება"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

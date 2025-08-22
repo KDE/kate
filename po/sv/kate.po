@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-08-16 07:26+0200\n"
+"PO-Revision-Date: 2025-08-21 11:57+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -1442,16 +1442,14 @@ msgid "Reopening files from the last session..."
 msgstr "Öppnar filer från senaste sessionen igen..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Kan inte gå till dokumentet"
+msgstr "Kan inte fästa namnlösa dokument."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Kan inte gå till dokumentet"
+msgstr "Kan inte fästa icke-lokala dokument."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1813,17 +1811,14 @@ msgid "Save Session &As..."
 msgstr "Spara session s&om..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Koppla loss aktivt dokument"
+msgstr "Fäst eller ta ner aktivt dokument"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Öppna dokument..."
+msgstr "Öppna nästa fästa dokument..."
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -1885,8 +1880,7 @@ msgstr "Stäng övriga"
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
-"Det här döljer menyraden fullständigt. Du kan visa den igen genom att skriva "
-"%1."
+"Döljer menyraden fullständigt. Du kan visa den igen genom att skriva %1."
 
 #: lib/katemainwindow.cpp:983
 #, kde-format
@@ -2621,17 +2615,14 @@ msgid "Compare with Active Document Using"
 msgstr "Jämför med aktivt dokument med användning av"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Unpin Document"
-msgstr "Öppna dokument..."
+msgstr "Ta ner dokument"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokument"
+msgstr "Fäst dokument"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

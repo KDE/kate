@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-08-16 10:29+0200\n"
+"PO-Revision-Date: 2025-08-21 06:48+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1466,16 +1466,14 @@ msgid "Reopening files from the last session..."
 msgstr "Ponovno odpiranje datotek iz zadnje seje..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Ustvari nov dokument"
+msgstr "Ni mogoče pripeti dokumentov brez naslova."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Prikaži namig kako primerjati dva dokumenta."
+msgstr "Ni mogoče pripeti ne-lokalnih dokumentov."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1836,17 +1834,14 @@ msgid "Save Session &As..."
 msgstr "Shr&ani sejo kot..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Odpni aktivni dokument"
+msgstr "Pripni/Odpni aktivni dokument"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Odpri dokument..."
+msgstr "Odpri naslednji pripeti dokument"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2649,17 +2644,14 @@ msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Unpin Document"
-msgstr "Odpri dokument..."
+msgstr "Odpni dokument"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumenti"
+msgstr "Pripni dokument"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

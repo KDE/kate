@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-08-04 13:26-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -139,7 +139,7 @@ msgstr ""
 "Descrição opcional para exibir nas dicas de ferramentas. Você pode usar "
 "formatação HTML básica."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editar o trecho %1 em %2"
@@ -151,12 +151,12 @@ msgstr "Editar o trecho %1 em %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Criar novo trecho no repositório de %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "Nomes de trechos com espaços podem não funcionar bem na completação"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -164,12 +164,12 @@ msgstr ""
 "O trecho contém alterações que não foram salvas. Deseja descartar todas as "
 "alterações?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Aviso - Modificações não salvas"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Continuar editando"

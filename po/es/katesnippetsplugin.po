@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-11 15:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -138,7 +138,7 @@ msgstr ""
 "Descripción opcional que se muestra en las ayudas emergentes. Se puede usar "
 "formato HTML básico."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editar fragmento de código %1 en %2"
@@ -148,14 +148,14 @@ msgstr "Editar fragmento de código %1 en %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Crear nuevo fragmento de código en el repositorio %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Es posible que los nombres de fragmentos de código con espacios no funcionen "
 "correctamente en terminaciones"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -163,12 +163,12 @@ msgstr ""
 "El fragmento de código contiene cambios sin guardar. ¿Desea descartar todos "
 "los cambios?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Advertencia: cambios sin guardar"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Continuar la edición"

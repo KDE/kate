@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-23 00:29+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -134,7 +134,7 @@ msgstr ""
 "In Kurzinfos anzuzeigende Beschreibung (optional). Einfache HTML-"
 "Formatierung kann verwendet werden."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Textbaustein %1 in %2 bearbeiten"
@@ -144,14 +144,14 @@ msgstr "Textbaustein %1 in %2 bearbeiten"
 msgid "Create New Snippet in Repository %1"
 msgstr "Neuen Textbaustein im Archiv %1 erstellen"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Leerzeichen im Textbaustein-Namen können zu Problemen bei der "
 "Vervollständigung führen"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -159,12 +159,12 @@ msgstr ""
 "Der Textbaustein enthält ungespeicherte Änderungen. Möchten Sie alle "
 "Änderungen verwerfen?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Warnung - ungespeicherte Änderungen"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Weiter bearbeiten"

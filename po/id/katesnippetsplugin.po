@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2020-03-05 07:54+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -128,7 +128,7 @@ msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Edit cuplikan %1 di %2"
@@ -138,12 +138,12 @@ msgstr "Edit cuplikan %1 di %2"
 msgid "Create New Snippet in Repository %1"
 msgstr "Buka Cuplikan Baru di Repositori %1"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "The snippet contains unsaved changes. Do you want to continue and lose "
@@ -154,12 +154,12 @@ msgstr ""
 "Cuplikan berisi perubahan yang tidak disimpan. Apakah kamu ingin melanjutkan "
 "dan kehilangan semua perubahan?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Peringatan - Perubahan tidak disimpan"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr ""

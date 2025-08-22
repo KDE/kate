@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-07-10 08:15+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -139,7 +139,7 @@ msgstr ""
 "Tresna-argibideetan erakusteko hautazko deskribapena. Oinarrizko HTML "
 "formatua erabil dezakezu."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "Editatu %2(e)ko %1 testu-zatia"
@@ -149,13 +149,13 @@ msgstr "Editatu %2(e)ko %1 testu-zatia"
 msgid "Create New Snippet in Repository %1"
 msgstr "Sortu testu-zati berria %1 gordetegian"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Baliteke zuriuneak dituzten testu-zatien izenak osatzean ondo ez ibiltzea"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -163,12 +163,12 @@ msgstr ""
 "Testu-zatiak gorde gabeko aldaketak ditu. Aldaketa guztiak baztertu nahi "
 "dituzu?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Abisua - Gorde gabeko aldaketak"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Jarraitu editatzen"

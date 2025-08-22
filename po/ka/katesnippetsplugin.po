@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-11 05:17+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 "არასავალდებული აღწერა მინიშნებებში საჩვენებლად. შეგიძლიათ გამოიყენოთ "
 "საბაზისო HTML-ის დაფორმატება."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2-ში %1 ფრაგმენტის ჩასწორება"
@@ -146,24 +146,24 @@ msgstr "%2-ში %1 ფრაგმენტის ჩასწორება"
 msgid "Create New Snippet in Repository %1"
 msgstr "რეპოზიტორიაში %1 ახალი ფრაგმენტის შექმნა"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr "ჰარეების შემცველი ნაგლეჯ სახელები დასრულებებში კარგად არ მუშაობს"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
 "ფრაგმენტი შეუნახავ ცვლილებებს შეიცავს. გნებავთ, მოაცილოთ ყველა ცვლილება?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "გაფრთხილება - შეუნახავი ცვლილებები"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "ჩასწორების გაგრძელება"

@@ -1413,16 +1413,14 @@ msgid "Reopening files from the last session..."
 msgstr "重新打开上次会话中的文件..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "创建新文档"
+msgstr ""
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "显示如何比较文档的提示。"
+msgstr ""
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1778,16 +1776,14 @@ msgid "Save Session &As..."
 msgstr "会话另存为(&A)..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "分离显示活动文档"
+msgstr ""
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgid "&Reopen Latest Closed Document(s)"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "重新打开最近关闭的文档(&R)"
+msgstr ""
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2557,16 +2553,14 @@ msgid "Compare with Active Document Using"
 msgstr "与当前文档进行比较"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "文档"
+msgstr ""
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "文档"
+msgstr ""
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

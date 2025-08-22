@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-07-21 00:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -133,7 +133,7 @@ msgstr ""
 "풍선 도움말에 표시할 설명입니다(선택 사항). 기본 HTML 서식을 사용할 수 있습니"
 "다."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%2에서 스니펫 %1 편집"
@@ -143,14 +143,14 @@ msgstr "%2에서 스니펫 %1 편집"
 msgid "Create New Snippet in Repository %1"
 msgstr "저장소 %1에 새 스니펫 만들기"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "스니펫 이름에 공백이 들어 있으면 자동 완성 시 올바르게 작동하지 않을 수도 있"
 "음"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -158,12 +158,12 @@ msgstr ""
 "이 스니펫에 저장되지 않은 변경 사항이 있습니다. 변경 사항을 모두 버리시겠습니"
 "까?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "경고 - 저장되지 않은 변경 사항"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "계속 편집"

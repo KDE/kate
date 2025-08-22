@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-11 00:45+0000\n"
+"POT-Creation-Date: 2025-08-22 00:45+0000\n"
 "PO-Revision-Date: 2025-06-11 12:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -138,7 +138,7 @@ msgstr ""
 "Araç ipuçlarında gösterilecek isteğe bağlı açıklama. Basit HTML "
 "biçimlendirmesi kullanabilirsiniz."
 
-#: editsnippet.cpp:127 editsnippet.cpp:215
+#: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
 msgstr "%1 Parçacığını %2 İçinde Düzenle"
@@ -148,13 +148,13 @@ msgstr "%1 Parçacığını %2 İçinde Düzenle"
 msgid "Create New Snippet in Repository %1"
 msgstr "%1 Deposunda Yeni Parçacık Oluştur"
 
-#: editsnippet.cpp:185
+#: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
 "Boşluk içeren parçacık adları tamamlamalarda pek iyi sonuç vermeyebilir"
 
-#: editsnippet.cpp:227
+#: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
@@ -162,12 +162,12 @@ msgstr ""
 "Parçacık kaydedilmemiş değişiklikler içeriyor. Tüm değişiklikleri atmak "
 "istiyor musunuz?"
 
-#: editsnippet.cpp:228
+#: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
 msgstr "Uyarı — Kaydedilmemiş Değişiklikler Var"
 
-#: editsnippet.cpp:230
+#: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
 msgstr "Düzenlemeyi Sürdür"

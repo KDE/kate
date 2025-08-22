@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-21 00:46+0000\n"
-"PO-Revision-Date: 2025-08-16 14:16+0300\n"
+"PO-Revision-Date: 2025-08-21 08:14+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1444,16 +1444,14 @@ msgid "Reopening files from the last session..."
 msgstr "פותח מחדש קבצים מההפעלה הקודמת..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "יצירת מסמך חדש"
+msgstr "לא ניתן לנעוץ מסמכים ללא שם."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "הצגת רמז על איך להשוות מסמכים."
+msgstr "לא ניתן לנעוץ מסמכים שאינם מקומיים."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1811,17 +1809,14 @@ msgid "Save Session &As..."
 msgstr "שמירת ה&פעלה בשם…"
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "ניתוק המסמך הפעיל"
+msgstr "נעיצה/שחרור של המסמך הפעיל"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "מסמכים פתוחים"
+msgstr "פתיחת המסמך הנעוץ הבא"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2606,17 +2601,14 @@ msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "מסמכים פתוחים"
+msgstr "שחרור נעיצת מסמך"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "מסמכים"
+msgstr "נעיצת מסמך"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

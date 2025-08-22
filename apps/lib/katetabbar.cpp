@@ -394,7 +394,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     // search for the right tab
     auto minCounter = static_cast<quint64>(-1);
     int indexToReplace = 0;
-    DocOrWidget docToReplace = DocOrWidget::null();
+    DocOrWidget docToReplace;
     for (int idx = 0; idx < count(); idx++) {
         QVariant data = tabData(idx);
         auto doc = data.value<DocOrWidget>();
@@ -438,7 +438,7 @@ void KateTabBar::removeDocument(DocOrWidget doc)
     // if we have some tab limit, replace the removed tab with the next best document that has none!
     if (m_tabCountLimit > 0) {
         quint64 maxCounter = 0;
-        DocOrWidget docToReplace = DocOrWidget::null();
+        DocOrWidget docToReplace;
         for (const auto &lru : m_docToLruCounterAndHasTab) {
             // ignore stuff with tabs
             if (lru.second.hasTab) {
@@ -486,7 +486,7 @@ DocOrWidget KateTabBar::tabDocument(int idx)
     QVariant data = ensureValidTabData(idx);
     auto buttonData = data.value<DocOrWidget>();
 
-    auto doc = DocOrWidget::null();
+    DocOrWidget doc;
     // The tab got activated before the correct finalization,
     // we need to plug the document before returning.
     if (buttonData.isNull() && !m_beingAdded.isNull()) {

@@ -9,54 +9,102 @@
 #include <KTextEditor/Document>
 #include <QWidget>
 
-#include <variant>
-
-// TODO: Find a better name for this class
-
 // Just a helper class which we use internally to manage widgets/docs
-class DocOrWidget : public std::variant<KTextEditor::Document *, QWidget *>
+class DocOrWidget
 {
+    friend class DocOrWidgetTest;
+
+private:
+    // The "tag" to discriminate which union member is active.
+    enum class Type {
+        None,
+        Document,
+        Widget
+    };
+
+    Type m_type;
+    union {
+        KTextEditor::Document *m_doc;
+        QWidget *m_widget;
+    };
+
 public:
-    using variant::variant;
-
-    auto *doc() const
+    consteval DocOrWidget()
+        : m_type(Type::None)
+        , m_doc(nullptr)
     {
-        return std::holds_alternative<KTextEditor::Document *>(*this) ? std::get<KTextEditor::Document *>(*this) : nullptr;
+    }
+    constexpr DocOrWidget(KTextEditor::Document *doc)
+        : m_type(Type::Document)
+        , m_doc(doc)
+    {
+    }
+    constexpr DocOrWidget(QWidget *widget)
+        : m_type(Type::Widget)
+        , m_widget(widget)
+    {
     }
 
-    auto *widget() const
+    constexpr DocOrWidget &operator=(KTextEditor::Document *doc)
     {
-        return std::holds_alternative<QWidget *>(*this) ? std::get<QWidget *>(*this) : nullptr;
+        m_type = Type::Document;
+        m_doc = doc;
+        return *this;
     }
 
-    QObject *qobject() const
+    constexpr DocOrWidget &operator=(QWidget *widget)
     {
-        return doc() ? static_cast<QObject *>(doc()) : static_cast<QObject *>(widget());
+        m_type = Type::Widget;
+        m_widget = widget;
+        return *this;
     }
 
-    bool operator==(KTextEditor::Document *doc) const
+    constexpr KTextEditor::Document *doc() const
+    {
+        return (m_type == Type::Document) ? m_doc : nullptr;
+    }
+
+    constexpr QWidget *widget() const
+    {
+        return (m_type == Type::Widget) ? m_widget : nullptr;
+    }
+
+    constexpr QObject *qobject() const
+    {
+        switch (m_type) {
+        case Type::Document:
+            return m_doc;
+        case Type::Widget:
+            return m_widget;
+        case Type::None:
+            return nullptr;
+        }
+        Q_UNREACHABLE();
+        return nullptr;
+    }
+
+    constexpr bool operator==(KTextEditor::Document *doc) const
     {
         return this->doc() == doc;
     }
-    bool operator==(QWidget *w) const
+    constexpr bool operator==(QWidget *w) const
     {
         return this->widget() == w;
     }
-
-    static DocOrWidget null()
+    constexpr bool operator==(DocOrWidget other) const
     {
-        DocOrWidget d = static_cast<KTextEditor::Document *>(nullptr);
-        return d;
+        return m_type == other.m_type && qobject() == other.qobject();
     }
 
-    bool isNull() const
+    constexpr bool isNull() const
     {
-        return !qobject();
+        return qobject() == nullptr;
     }
 
     void clear()
     {
-        *this = null();
+        m_type = Type::None;
+        m_doc = nullptr;
     }
 };
 

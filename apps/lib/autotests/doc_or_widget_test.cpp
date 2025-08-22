@@ -31,7 +31,7 @@ void DocOrWidgetTest::nullTest()
     QVERIFY(!dw.widget());
     QVERIFY(!dw.doc());
 
-    dw = DocOrWidget::null();
+    dw = DocOrWidget();
     QVERIFY(dw.isNull());
     QVERIFY(!dw.qobject());
     QVERIFY(!dw.widget());
@@ -40,7 +40,7 @@ void DocOrWidgetTest::nullTest()
 
 void DocOrWidgetTest::testDocOrWidget()
 {
-    DocOrWidget dw = DocOrWidget::null();
+    DocOrWidget dw;
     QVERIFY(dw.isNull());
     QVERIFY(!dw.qobject());
 
@@ -62,6 +62,24 @@ void DocOrWidgetTest::testDocOrWidget()
     QVERIFY(dw.widget());
     QVERIFY(!dw.doc());
     delete w;
+
+    // Construction
+    static_assert(DocOrWidget(static_cast<KTextEditor::Document *>(nullptr)).m_type == DocOrWidget::Type::Document);
+    static_assert(DocOrWidget(static_cast<QWidget *>(nullptr)).m_type == DocOrWidget::Type::Widget);
+    static_assert(DocOrWidget().m_type == DocOrWidget::Type::None);
+
+    // Nullness
+    static_assert(DocOrWidget().isNull());
+    static_assert(DocOrWidget() == static_cast<KTextEditor::Document *>(nullptr));
+    static_assert(DocOrWidget() == static_cast<QWidget *>(nullptr));
+    static_assert(DocOrWidget(static_cast<KTextEditor::Document *>(nullptr)).isNull());
+    static_assert(DocOrWidget(static_cast<QWidget *>(nullptr)).isNull());
+
+    // Assignment
+    static_assert((DocOrWidget() = static_cast<QWidget *>(nullptr)).m_type == DocOrWidget::Type::Widget);
+    static_assert((DocOrWidget() = static_cast<KTextEditor::Document *>(nullptr)).m_type == DocOrWidget::Type::Document);
+    static_assert((DocOrWidget(static_cast<QWidget *>(nullptr)) = DocOrWidget()).m_type == DocOrWidget::Type::None);
+    static_assert((DocOrWidget(static_cast<KTextEditor::Document *>(nullptr)) = DocOrWidget()).m_type == DocOrWidget::Type::None);
 }
 
 QTEST_MAIN(DocOrWidgetTest)

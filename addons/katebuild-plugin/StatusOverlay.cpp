@@ -1,11 +1,12 @@
 #include "StatusOverlay.h"
 
 #include <KColorScheme>
+#include <QEvent>
 #include <QPainter>
 
 StatusOverlay::StatusOverlay(QWidget *parent)
     : QWidget(parent)
-    , m_tabButton(parent)
+    , m_parent(parent)
     , m_timeline(1500, this)
 {
     if (!parent) {
@@ -19,6 +20,8 @@ StatusOverlay::StatusOverlay(QWidget *parent)
     auto update = QOverload<>::of(&QWidget::update);
     connect(&m_timeline, &QTimeLine::valueChanged, this, update);
 
+    m_parent->installEventFilter(this);
+
     setAttribute(Qt::WA_TransparentForMouseEvents, true);
     setGeometry(parent->geometry());
     move({0, 0});
@@ -28,12 +31,12 @@ StatusOverlay::StatusOverlay(QWidget *parent)
 
 void StatusOverlay::setType(StatusOverlay::Type type)
 {
-    if (!m_tabButton) {
+    if (!m_parent) {
         return;
     }
     m_type = type;
-    if (m_tabButton->size() != size()) {
-        resize(m_tabButton->size());
+    if (m_parent->size() != size()) {
+        resize(m_parent->size());
     }
 
     switch (m_type) {
@@ -72,7 +75,7 @@ void StatusOverlay::setProgress(double progressRatio)
 
 void StatusOverlay::paintEvent(QPaintEvent *)
 {
-    if (!m_tabButton || m_type == Type::None) {
+    if (!m_parent || m_type == Type::None) {
         return;
     }
 
@@ -98,4 +101,13 @@ void StatusOverlay::paintEvent(QPaintEvent *)
         p.setBrush(m_color);
         p.drawRect(rect().adjusted(1, 1, -1, -1));
     }
+}
+
+bool StatusOverlay::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == m_parent && event->type() == QEvent::Resize) {
+        resize(m_parent->size());
+        update();
+    }
+    return QObject::eventFilter(obj, event);
 }

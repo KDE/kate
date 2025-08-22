@@ -33,11 +33,12 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *) override;
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 
 private:
     Type m_type = Type::None;
     QColor m_color;
-    QWidget *m_tabButton = nullptr;
+    QWidget *m_parent = nullptr;
     QTimeLine m_timeline;
     double m_progress = 0.0;
 };

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 00:43+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-30 15:44+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
+#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
+#: Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "Formát"
@@ -28,7 +29,12 @@ msgstr "Formát"
 msgid "Failed to write a temp file"
 msgstr ""
 
-#: FormatApply.h:35
+#: FormatApply.h:33
+#, kde-format
+msgid "Failed to run git diff: git not installed"
+msgstr ""
+
+#: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr ""

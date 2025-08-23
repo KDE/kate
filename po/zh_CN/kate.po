@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -479,59 +479,7 @@ msgstr[0] "取消暂存的行"
 msgid "Unstage Hunk"
 msgstr "取消暂存的块"
 
-#: lib/diff/diffwidget.cpp:71
-#, kde-format
-msgid "Diff %1"
-msgstr "差异 %1"
-
-#: lib/diff/diffwidget.cpp:73
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "比较 %1 和 %2"
-
-#: lib/diff/diffwidget.cpp:102
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "比较 %1 .. %2"
-
-#: lib/diff/diffwidget.cpp:132
-#, kde-format
-msgid "Show/Hide Commit Info"
-msgstr "显示/隐藏提交信息"
-
-#: lib/diff/diffwidget.cpp:137
-#, kde-format
-msgid "Jump to Next File"
-msgstr "跳转到下一个文件"
-
-#: lib/diff/diffwidget.cpp:141
-#, kde-format
-msgid "Jump to Previous File"
-msgstr "跳转到上一个文件"
-
-#: lib/diff/diffwidget.cpp:145
-#, kde-format
-msgid "Jump to Next Hunk"
-msgstr "跳转到下一个块"
-
-#: lib/diff/diffwidget.cpp:149
-#, kde-format
-msgid "Jump to Previous Hunk"
-msgstr "跳转到上一个块"
-
-#: lib/diff/diffwidget.cpp:153
-#, kde-format
-msgctxt "Tooltip for a button, clicking the button reloads the diff"
-msgid "Reload Diff"
-msgstr "重新加载差异"
-
-#: lib/diff/diffwidget.cpp:157
-#, kde-format
-msgctxt "Tooltip for a button"
-msgid "Show diff with full context, not just the changed lines"
-msgstr "显示带有完整上下文的差异，而不只是显示更改过的行"
-
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:43
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -541,23 +489,75 @@ msgstr ""
 "<b>git</b> 无法找到。检测文档差异需要使用 Git。如果 git 已经安装到本机，请确"
 "保它已添加到您的 PATH 变量。详情请见 https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
 msgstr "比较"
 
-#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
+#: lib/diff/diffwidget.cpp:80
+#, kde-format
+msgid "Diff %1"
+msgstr "差异 %1"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "比较 %1 和 %2"
+
+#: lib/diff/diffwidget.cpp:111
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "比较 %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:141
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr "显示/隐藏提交信息"
+
+#: lib/diff/diffwidget.cpp:146
+#, kde-format
+msgid "Jump to Next File"
+msgstr "跳转到下一个文件"
+
+#: lib/diff/diffwidget.cpp:150
+#, kde-format
+msgid "Jump to Previous File"
+msgstr "跳转到上一个文件"
+
+#: lib/diff/diffwidget.cpp:154
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr "跳转到下一个块"
+
+#: lib/diff/diffwidget.cpp:158
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr "跳转到上一个块"
+
+#: lib/diff/diffwidget.cpp:162
+#, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "重新加载差异"
+
+#: lib/diff/diffwidget.cpp:166
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr "显示带有完整上下文的差异，而不只是显示更改过的行"
+
+#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
 #, kde-format
 msgid "New file %1"
 msgstr "新文件 %1"
 
-#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
+#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
 #, kde-format
 msgid "Deleted file %1"
 msgstr "已删除文件 %1"
 
-#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
 #, kde-format
 msgid "No differences found"
 msgstr "未发现差异"
@@ -1415,12 +1415,12 @@ msgstr "重新打开上次会话中的文件..."
 #: lib/katedocmanager.cpp:570
 #, kde-format
 msgid "Cannot pin untitled documents."
-msgstr ""
+msgstr "无法固定未命名文档。"
 
 #: lib/katedocmanager.cpp:575
 #, kde-format
 msgid "Cannot pin non local documents."
-msgstr ""
+msgstr "无法固定非本地文档。"
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1778,12 +1778,12 @@ msgstr "会话另存为(&A)..."
 #: lib/katemainwindow.cpp:633
 #, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr ""
+msgstr "固定/取消固定活动文档"
 
 #: lib/katemainwindow.cpp:642
 #, kde-format
 msgid "Open Next Pinned Document"
-msgstr ""
+msgstr "打开下一个固定文档"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2075,24 +2075,29 @@ msgstr ""
 "无法保存文档\n"
 "“%1”"
 
-#: lib/katemwmodonhddialog.cpp:310
+#: lib/katemwmodonhddialog.cpp:290
+#, kde-format
+msgid "Please install git to view diffs"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
 "PATH."
 msgstr "diff 命令失败。请确保 git 已经安装并且添加到了本机的 PATH 参数中。"
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "创建 Diff 时出错"
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[OLD]"
 msgstr "[旧]"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:324
 #, kde-format
 msgid "[NEW]"
 msgstr "[新]"
@@ -2555,12 +2560,12 @@ msgstr "与当前文档进行比较"
 #: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Unpin Document"
-msgstr ""
+msgstr "取消固定文档"
 
 #: lib/kateviewspace.cpp:1212
 #, kde-format
 msgid "Pin Document"
-msgstr ""
+msgstr "固定文档"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

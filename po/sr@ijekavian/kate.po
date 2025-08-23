@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -503,60 +503,7 @@ msgstr[3] ""
 msgid "Unstage Hunk"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:71
-#, kde-format
-msgid "Diff %1"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:73
-#, kde-format
-msgid "Diff %1..%2"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:102
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:132
-#, kde-format
-msgid "Show/Hide Commit Info"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:137
-#, kde-format
-msgid "Jump to Next File"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:141
-#, kde-format
-msgid "Jump to Previous File"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:145
-#, kde-format
-msgid "Jump to Next Hunk"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:149
-#, kde-format
-msgid "Jump to Previous Hunk"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Reload"
-msgctxt "Tooltip for a button, clicking the button reloads the diff"
-msgid "Reload Diff"
-msgstr "&Учитај поново"
-
-#: lib/diff/diffwidget.cpp:157
-#, kde-format
-msgctxt "Tooltip for a button"
-msgid "Show diff with full context, not just the changed lines"
-msgstr ""
-
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:43
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -564,26 +511,79 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
 msgstr ""
 
+#: lib/diff/diffwidget.cpp:80
+#, kde-format
+msgid "Diff %1"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1..%2"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:111
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:141
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:146
+#, kde-format
+msgid "Jump to Next File"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:150
+#, kde-format
+msgid "Jump to Previous File"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:154
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:158
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr ""
+
+#: lib/diff/diffwidget.cpp:162
+#, fuzzy, kde-format
+#| msgid "&Reload"
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "&Учитај поново"
+
+#: lib/diff/diffwidget.cpp:166
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr ""
+
 # >> @title:column
-#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
+#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "име фајла"
 
-#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
+#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Обрисати фајл?"
 
-#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -2182,7 +2182,12 @@ msgstr ""
 "Нисам могао да сачувам документ \n"
 "„%1“"
 
-#: lib/katemwmodonhddialog.cpp:310
+#: lib/katemwmodonhddialog.cpp:290
+#, kde-format
+msgid "Please install git to view diffs"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:314
 #, fuzzy, kde-format
 #| msgid ""
 #| "The diff command failed. Please make sure that diff(1) is installed and "
@@ -2194,17 +2199,17 @@ msgstr ""
 "Наредба diff није успела. Проверите да ли је инсталирана и доступна кроз "
 "$PATH."
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Грешка при разликовању"
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[OLD]"
 msgstr ""
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:324
 #, kde-format
 msgid "[NEW]"
 msgstr ""

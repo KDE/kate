@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 00:43+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-10-15 07:13+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -15,8 +15,9 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 "X-Generator: Poedit 3.5\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
+#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
+#: Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "Oblika"
@@ -26,7 +27,13 @@ msgstr "Oblika"
 msgid "Failed to write a temp file"
 msgstr "Začasne datoteke ni bilo mogoče zapisati"
 
-#: FormatApply.h:35
+#: FormatApply.h:33
+#, fuzzy, kde-format
+#| msgid "Failed to run git diff: %1"
+msgid "Failed to run git diff: git not installed"
+msgstr "Zagon git diff ni uspel: %1"
+
+#: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "Zagon git diff ni uspel: %1"

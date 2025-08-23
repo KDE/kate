@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 00:43+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-10-23 19:34+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.11.70\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
+#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
+#: Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "Форматиране"
@@ -28,7 +29,13 @@ msgstr "Форматиране"
 msgid "Failed to write a temp file"
 msgstr "Неуспешно записване на временен файл"
 
-#: FormatApply.h:35
+#: FormatApply.h:33
+#, fuzzy, kde-format
+#| msgid "Failed to run git diff: %1"
+msgid "Failed to run git diff: git not installed"
+msgstr "Неуспешно изпълнение на git diff: %1"
+
+#: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "Неуспешно изпълнение на git diff: %1"

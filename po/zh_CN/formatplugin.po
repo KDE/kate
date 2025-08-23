@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 00:43+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-23 19:24\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,8 +17,9 @@ msgstr ""
 "X-Crowdin-File: /kf6-trunk/messages/kate/formatplugin.pot\n"
 "X-Crowdin-File-ID: 48678\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
+#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
+#: Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -28,7 +29,13 @@ msgstr "格式"
 msgid "Failed to write a temp file"
 msgstr "写入临时文件失败"
 
-#: FormatApply.h:35
+#: FormatApply.h:33
+#, fuzzy, kde-format
+#| msgid "Failed to run git diff: %1"
+msgid "Failed to run git diff: git not installed"
+msgstr "运行 git diff 失败：%1"
+
+#: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "运行 git diff 失败：%1"

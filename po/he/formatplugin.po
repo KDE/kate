@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-12 00:43+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-10-19 07:32+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -18,8 +18,9 @@ msgstr ""
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 24.05.2\n"
 
-#: FormatApply.h:22 FormatApply.h:35 FormatPlugin.cpp:82 FormatPlugin.cpp:236
-#: Formatters.cpp:325 Formatters.cpp:345 Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
+#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
+#: Formatters.cpp:368 Formatters.cpp:398
 #, kde-format
 msgid "Format"
 msgstr "תבנית"
@@ -29,7 +30,13 @@ msgstr "תבנית"
 msgid "Failed to write a temp file"
 msgstr "הכתיבה לקובץ זמני נכשלה"
 
-#: FormatApply.h:35
+#: FormatApply.h:33
+#, fuzzy, kde-format
+#| msgid "Failed to run git diff: %1"
+msgid "Failed to run git diff: git not installed"
+msgstr "הרצת git diff‏ (הבדלים) נכשלה: %1"
+
+#: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
 msgstr "הרצת git diff‏ (הבדלים) נכשלה: %1"

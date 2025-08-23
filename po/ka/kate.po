@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-21 06:44+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -482,59 +482,7 @@ msgstr[1] "ხაზის შუალედური ცვლილებე�
 msgid "Unstage Hunk"
 msgstr "ბლოკის შუალედური შენახვის გაუქმება"
 
-#: lib/diff/diffwidget.cpp:71
-#, kde-format
-msgid "Diff %1"
-msgstr "ცვლილება %1"
-
-#: lib/diff/diffwidget.cpp:73
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "ცვლილება %1..%2"
-
-#: lib/diff/diffwidget.cpp:102
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "ცვლილება %1 .. %2"
-
-#: lib/diff/diffwidget.cpp:132
-#, kde-format
-msgid "Show/Hide Commit Info"
-msgstr "გადაცემის ინფორმაციის ჩვენება/დამალვა"
-
-#: lib/diff/diffwidget.cpp:137
-#, kde-format
-msgid "Jump to Next File"
-msgstr "შემდეგ ფაილზე გადასვლა"
-
-#: lib/diff/diffwidget.cpp:141
-#, kde-format
-msgid "Jump to Previous File"
-msgstr "წინა ფაილზე გადასვლა"
-
-#: lib/diff/diffwidget.cpp:145
-#, kde-format
-msgid "Jump to Next Hunk"
-msgstr "შემდეგ ბლოკზე გადასვლა"
-
-#: lib/diff/diffwidget.cpp:149
-#, kde-format
-msgid "Jump to Previous Hunk"
-msgstr "წინა ნაფლეთზე გადასვლა"
-
-#: lib/diff/diffwidget.cpp:153
-#, kde-format
-msgctxt "Tooltip for a button, clicking the button reloads the diff"
-msgid "Reload Diff"
-msgstr "Diff-ის თავიდან ჩატვირთვა"
-
-#: lib/diff/diffwidget.cpp:157
-#, kde-format
-msgctxt "Tooltip for a button"
-msgid "Show diff with full context, not just the changed lines"
-msgstr "სხვაობის სრული კონტექსტით და არა მხოლოდ შეცვლილი ხაზებით ჩვენება"
-
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:43
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -545,23 +493,75 @@ msgstr ""
 "ის უკვე დაყენებულია, დარწმუნდით, რომ ის თქვენს PATH გარემოს ცვლადშია. იხილეთ "
 "https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
 msgstr "სხვაობა"
 
-#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
+#: lib/diff/diffwidget.cpp:80
+#, kde-format
+msgid "Diff %1"
+msgstr "ცვლილება %1"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "ცვლილება %1..%2"
+
+#: lib/diff/diffwidget.cpp:111
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "ცვლილება %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:141
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr "გადაცემის ინფორმაციის ჩვენება/დამალვა"
+
+#: lib/diff/diffwidget.cpp:146
+#, kde-format
+msgid "Jump to Next File"
+msgstr "შემდეგ ფაილზე გადასვლა"
+
+#: lib/diff/diffwidget.cpp:150
+#, kde-format
+msgid "Jump to Previous File"
+msgstr "წინა ფაილზე გადასვლა"
+
+#: lib/diff/diffwidget.cpp:154
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr "შემდეგ ბლოკზე გადასვლა"
+
+#: lib/diff/diffwidget.cpp:158
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr "წინა ნაფლეთზე გადასვლა"
+
+#: lib/diff/diffwidget.cpp:162
+#, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Diff-ის თავიდან ჩატვირთვა"
+
+#: lib/diff/diffwidget.cpp:166
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr "სხვაობის სრული კონტექსტით და არა მხოლოდ შეცვლილი ხაზებით ჩვენება"
+
+#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
 #, kde-format
 msgid "New file %1"
 msgstr "ახალი ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
+#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
 #, kde-format
 msgid "Deleted file %1"
 msgstr "წაშლილია ფაილი %1"
 
-#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
 #, kde-format
 msgid "No differences found"
 msgstr "სხვაობები აღმოჩენილი არაა"
@@ -2121,7 +2121,12 @@ msgstr ""
 "დოკუმენტის შენახვის შეცდომა:\n"
 "\"%1\""
 
-#: lib/katemwmodonhddialog.cpp:310
+#: lib/katemwmodonhddialog.cpp:290
+#, kde-format
+msgid "Please install git to view diffs"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2129,17 +2134,17 @@ msgid ""
 msgstr ""
 "ბრძანება diff-ის შეცდომა. დარწმუნდით, რომ git დაყენებულია და თქვენს PATH-შია."
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "სხვაობის შექმნის შეცდომა"
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[OLD]"
 msgstr "[ძველი]"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:324
 #, kde-format
 msgid "[NEW]"
 msgstr "[ახალი]"

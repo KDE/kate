@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-09 15:15+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -130,7 +130,7 @@ msgid "Commit Changes"
 msgstr "تغييرات الإيداع"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:285
-#: gitwidget.cpp:1107
+#: gitwidget.cpp:1109
 #, kde-format
 msgid "Commit"
 msgstr "أوْدِعْ"
@@ -160,7 +160,7 @@ msgstr "وقّع"
 msgid "Amend"
 msgstr "عدّل"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1060
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1062
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "عدّل آخر إيداع"
@@ -237,288 +237,288 @@ msgstr "رشّح…"
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr "فشل في العثور على دليل .git لـ '%1'، قد لا تعمل الأشياء بشكل صحيح"
 
-#: gitwidget.cpp:657
+#: gitwidget.cpp:659
 #, kde-format
 msgid " error: %1"
 msgstr " خطأ: %1"
 
-#: gitwidget.cpp:663
+#: gitwidget.cpp:665
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "شُغّل \"%1\" بنجاح: %2"
 
-#: gitwidget.cpp:683
+#: gitwidget.cpp:685
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "فشل في إدراج ملف. الخطأ:"
 
-#: gitwidget.cpp:696
+#: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "فشل في إلغاء ترحيل ملف. الخطأ:"
 
-#: gitwidget.cpp:707
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "فشل في تجاهل التغييرات. خطأ:"
 
-#: gitwidget.cpp:718
+#: gitwidget.cpp:720
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "فشل في الإزالة. خطأ:"
 
-#: gitwidget.cpp:734
+#: gitwidget.cpp:736
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "فشل في فتح الملف عند الرأس: %1"
 
-#: gitwidget.cpp:768
+#: gitwidget.cpp:770
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "فشل في الحصول على فرق الملف: %1"
 
-#: gitwidget.cpp:837
+#: gitwidget.cpp:839
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "فشل في إيداع: %1"
 
-#: gitwidget.cpp:841
+#: gitwidget.cpp:843
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "أودعت التغييرات بنجاح."
 
-#: gitwidget.cpp:851
+#: gitwidget.cpp:853
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "لا يوجد شيء للإيداع. يجب على ترحيل التغييرات أولا."
 
-#: gitwidget.cpp:865
+#: gitwidget.cpp:867
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "رسالة الإيداع لا يمكن أن تكون فارغ…"
 
-#: gitwidget.cpp:996
+#: gitwidget.cpp:998
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "لا يوجد فرق لـ %1...%2"
 
-#: gitwidget.cpp:1002
+#: gitwidget.cpp:1004
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "فشل في مقارنة %1...%2"
 
-#: gitwidget.cpp:1017
+#: gitwidget.cpp:1019
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "فشل الحصول على numstat عند مقارنة %1...%2"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1054
 #, kde-format
 msgid "Refresh"
 msgstr "حدّث"
 
-#: gitwidget.cpp:1069
+#: gitwidget.cpp:1071
 #, kde-format
 msgid "Checkout Branch"
 msgstr "الخروج إلى فرع"
 
-#: gitwidget.cpp:1081
+#: gitwidget.cpp:1083
 #, kde-format
 msgid "Delete Branch"
 msgstr "احذف الفرع"
 
-#: gitwidget.cpp:1095
+#: gitwidget.cpp:1097
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "قارن الفرع مع..."
 
-#: gitwidget.cpp:1101
+#: gitwidget.cpp:1103
 #, kde-format
 msgid "Show Commit"
 msgstr "أظهر إيداع"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1121
 #, kde-format
 msgid "Show Last Commit"
 msgstr "أظهر آخر إيداع"
 
-#: gitwidget.cpp:1137
+#: gitwidget.cpp:1139
 #, kde-format
 msgid "Open Commit..."
 msgstr "افتح إيداع..."
 
-#: gitwidget.cpp:1140 gitwidget.cpp:1185
+#: gitwidget.cpp:1142 gitwidget.cpp:1187
 #, kde-format
 msgid "Stash"
 msgstr "التخزين المؤقت"
 
-#: gitwidget.cpp:1144
+#: gitwidget.cpp:1146
 #, kde-format
 msgid "Show history"
 msgstr "اعرض التّاريخ"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Diff - stash"
 msgstr "فرق التخزين المؤقت"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1191
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "أخرج أخر تخزين مؤقت"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Stash"
 msgstr "أخرج التخزين المؤقت"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "طبّق آخر تخزين مؤقت"
 
-#: gitwidget.cpp:1199
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "تخزين مؤقت (حافظ على المدرج)"
 
-#: gitwidget.cpp:1203
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "تخزين مؤقت (بما فيه غير المتعقّب)"
 
-#: gitwidget.cpp:1207
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Apply Stash"
 msgstr "طبّق التخزين المؤقت"
 
-#: gitwidget.cpp:1208
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Drop Stash"
 msgstr "اسقط التخزين المؤقت"
 
-#: gitwidget.cpp:1209
+#: gitwidget.cpp:1211
 #, kde-format
 msgid "Show Stash Content"
 msgstr "أظهر محتويات التخزين المؤقت"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Stage All"
 msgstr "رحّل الكل"
 
-#: gitwidget.cpp:1249
+#: gitwidget.cpp:1251
 #, kde-format
 msgid "Remove All"
 msgstr "أزل الكل"
 
-#: gitwidget.cpp:1249
+#: gitwidget.cpp:1251
 #, kde-format
 msgid "Discard All"
 msgstr "أهمل الكلّ"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Open .gitignore"
 msgstr "افتح .gitignore"
 
-#: gitwidget.cpp:1253 gitwidget.cpp:1302 gitwidget.cpp:1353
+#: gitwidget.cpp:1255 gitwidget.cpp:1304 gitwidget.cpp:1355
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "أظهر الفرق"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "هل أنت متأكد أنك تريد إزالة هذه الملفات؟"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "هل أنت متيقن أنك تريد إهمال كل التغييرات؟"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Open File"
 msgstr "افتح ملفًّا"
 
-#: gitwidget.cpp:1294
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Unstage File"
 msgstr "ملف غير مُعد"
 
-#: gitwidget.cpp:1294
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Stage File"
 msgstr "ملف مُعد"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Remove"
 msgstr "أزل"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Discard"
 msgstr "أهمِل"
 
-#: gitwidget.cpp:1303
+#: gitwidget.cpp:1305
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "أظهر في أداة فرق غت خارجية"
 
-#: gitwidget.cpp:1304
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Open at HEAD"
 msgstr "افتح عند الرأس"
 
-#: gitwidget.cpp:1308
+#: gitwidget.cpp:1310
 #, kde-format
 msgid "Show History"
 msgstr "اعرض التّاريخ"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "هل أنت متأكد أنك تريد تجاهل التغييرات في هذا الملف؟"
 
-#: gitwidget.cpp:1335
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "هل أنت متأكد أنك تريد إزالة هذا الملف؟"
 
-#: gitwidget.cpp:1352
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Unstage All"
 msgstr "ألغ كل المدرج"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1421
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "ألغ إدراج الملفّات المحدّدة"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1421
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "أدرج الملفات المحددة"
 
-#: gitwidget.cpp:1420
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "أهمل الملفات المحددة"
 
-#: gitwidget.cpp:1424
+#: gitwidget.cpp:1426
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "أزل الملفّات المحدّدة"
 
-#: gitwidget.cpp:1437
+#: gitwidget.cpp:1439
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "هل أنت متأكد أنك تريد تجاهل التغييرات؟"
 
-#: gitwidget.cpp:1442
+#: gitwidget.cpp:1444
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "هل أنت متأكد أنك تريد إزالة هذه التغييرات غير المتعقبة؟"
@@ -1090,52 +1090,52 @@ msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
 "اكتب للتصفية، اضغط على Enter لإخراج العناصر المخبأة، اضغط على Esc للمغادرة."
 
-#: stashdialog.cpp:140
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "فشل تخزين المؤقت للتغييرات %1"
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "خزنت التغييرات مؤقتًا بنجاح."
 
-#: stashdialog.cpp:161
+#: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "فشل الحصول على قائمة التخزين المؤقت. خطأ:"
 
-#: stashdialog.cpp:177
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "فشل في تطبيق التخزين المؤقت. الخطأ: "
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "فشل في إسقاط التخزين المؤقت. الخطأ: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "فشل في إخراج عناصر التخزين المؤقت. الخطأ:"
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "نجح في تطبيق التخزين المؤقت."
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "أسقط التخزين المؤقت بنجاح."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "أخرج التخزين المؤقت بنجاح."
 
-#: stashdialog.cpp:218
+#: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "فشل في عرض التخزين المؤقت. الخطأ: "

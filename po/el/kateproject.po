@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -130,7 +130,7 @@ msgid "Commit Changes"
 msgstr "Υποβολή αλλαγών"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:285
-#: gitwidget.cpp:1107
+#: gitwidget.cpp:1109
 #, kde-format
 msgid "Commit"
 msgstr "Υποβολή"
@@ -160,7 +160,7 @@ msgstr "Υπογραφή"
 msgid "Amend"
 msgstr "Τροποποίηση"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1060
+#: gitcommitdialog.cpp:112 gitwidget.cpp:1062
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "Τροποποίηση τελευταίας υποβολής"
@@ -238,290 +238,290 @@ msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "Αποτυχία εύρεσης του καταλόγου .git για το '%1', τα πράγματα δεν θα πάνε καλά"
 
-#: gitwidget.cpp:657
+#: gitwidget.cpp:659
 #, kde-format
 msgid " error: %1"
 msgstr " σφάλμα: %1"
 
-#: gitwidget.cpp:663
+#: gitwidget.cpp:665
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "Το «%1» εκτελέστηκε με επιτυχία: %2"
 
-#: gitwidget.cpp:683
+#: gitwidget.cpp:685
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "Αποτυχία προετοιμασίας του αρχείου για υποβολή. Σφάλμα:"
 
-#: gitwidget.cpp:696
+#: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "Αποτυχία αναίρεσης της προετοιμασίας του αρχείου για υποβολή. Σφάλμα:"
 
-#: gitwidget.cpp:707
+#: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "Αποτυχία απόρριψης αλλαγών. Σφάλμα:"
 
-#: gitwidget.cpp:718
+#: gitwidget.cpp:720
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "Αποτυχία διαγραφής. Σφάλμα:"
 
-#: gitwidget.cpp:734
+#: gitwidget.cpp:736
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "Αποτυχία ανοίγματος του αρχείου στο HEAD: %1"
 
-#: gitwidget.cpp:768
+#: gitwidget.cpp:770
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "Αποτυχία ανάκτησης διαφορών στο αρχείο: %1"
 
-#: gitwidget.cpp:837
+#: gitwidget.cpp:839
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "Αποτυχία υποβολής: %1"
 
-#: gitwidget.cpp:841
+#: gitwidget.cpp:843
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "Οι αλλαγές υποβλήθηκαν με επιτυχία."
 
-#: gitwidget.cpp:851
+#: gitwidget.cpp:853
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "Τίποτε για υποβολή. Προετοιμάστε πρώτα τις αλλαγές για υποβολή."
 
-#: gitwidget.cpp:865
+#: gitwidget.cpp:867
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "Το μήνυμα της υποβολής δεν μπορεί να είναι κενό."
 
-#: gitwidget.cpp:996
+#: gitwidget.cpp:998
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "Καμία διαφορά για %1...%2"
 
-#: gitwidget.cpp:1002
+#: gitwidget.cpp:1004
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "Αποτυχία σύγκρισης %1...%2"
 
-#: gitwidget.cpp:1017
+#: gitwidget.cpp:1019
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "Αποτυχία εμφάνισης του πλήθους των γραμμών στις διαφορές %1...%2"
 
-#: gitwidget.cpp:1052
+#: gitwidget.cpp:1054
 #, kde-format
 msgid "Refresh"
 msgstr "Ανανέωση"
 
-#: gitwidget.cpp:1069
+#: gitwidget.cpp:1071
 #, kde-format
 msgid "Checkout Branch"
 msgstr "Εξαγωγή κλάδου"
 
-#: gitwidget.cpp:1081
+#: gitwidget.cpp:1083
 #, kde-format
 msgid "Delete Branch"
 msgstr "Διαγραφή κλάδου"
 
-#: gitwidget.cpp:1095
+#: gitwidget.cpp:1097
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "Σύγκριση κλάδου με..."
 
-#: gitwidget.cpp:1101
+#: gitwidget.cpp:1103
 #, kde-format
 msgid "Show Commit"
 msgstr "Εμφάνιση υποβολής"
 
-#: gitwidget.cpp:1119
+#: gitwidget.cpp:1121
 #, kde-format
 msgid "Show Last Commit"
 msgstr "Υποβολή τελευταίας υποβολής"
 
-#: gitwidget.cpp:1137
+#: gitwidget.cpp:1139
 #, kde-format
 msgid "Open Commit..."
 msgstr "Άνοιγμα υποβολής..."
 
-#: gitwidget.cpp:1140 gitwidget.cpp:1185
+#: gitwidget.cpp:1142 gitwidget.cpp:1187
 #, kde-format
 msgid "Stash"
 msgstr "Σε στοίβα αναμονής"
 
-#: gitwidget.cpp:1144
+#: gitwidget.cpp:1146
 #, fuzzy, kde-format
 #| msgid "Show Git History"
 msgid "Show history"
 msgstr "Εμφάνιση ιστορικού Git"
 
-#: gitwidget.cpp:1156
+#: gitwidget.cpp:1158
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff - σε αναμονή"
 
-#: gitwidget.cpp:1189
+#: gitwidget.cpp:1191
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "Έξοδος τελευταίου στοιχείου από στοίβα αναμονής"
 
-#: gitwidget.cpp:1193
+#: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Stash"
 msgstr "Έξοδος από στοίβα αναμονής"
 
-#: gitwidget.cpp:1197
+#: gitwidget.cpp:1199
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "Εφαρμογή τελευταίου στοιχείου στη στοίβα"
 
-#: gitwidget.cpp:1199
+#: gitwidget.cpp:1201
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "Σε στοίβα αναμονής (να διατηρηθούν σε προετοιμασία για υποβολή)"
 
-#: gitwidget.cpp:1203
+#: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "Σε στοίβα αναμονής (συμπεριλαμβάνονται τα μη παρακολουθούμενα)"
 
-#: gitwidget.cpp:1207
+#: gitwidget.cpp:1209
 #, kde-format
 msgid "Apply Stash"
 msgstr "Εφαρμογή καταχώρησης σε στοίβα αναμονής"
 
-#: gitwidget.cpp:1208
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Drop Stash"
 msgstr "Διαγραφή στοίβας αναμονής"
 
-#: gitwidget.cpp:1209
+#: gitwidget.cpp:1211
 #, kde-format
 msgid "Show Stash Content"
 msgstr "Εμφάνιση περιεχομένου στοίβας αναμονής"
 
-#: gitwidget.cpp:1247
+#: gitwidget.cpp:1249
 #, kde-format
 msgid "Stage All"
 msgstr "Προετοιμασία όλων για υποβολή"
 
-#: gitwidget.cpp:1249
+#: gitwidget.cpp:1251
 #, kde-format
 msgid "Remove All"
 msgstr "Διαγραφή όλων"
 
-#: gitwidget.cpp:1249
+#: gitwidget.cpp:1251
 #, kde-format
 msgid "Discard All"
 msgstr "Απόρριψη όλων"
 
-#: gitwidget.cpp:1252
+#: gitwidget.cpp:1254
 #, kde-format
 msgid "Open .gitignore"
 msgstr "Άνοιγμα .gitignore"
 
-#: gitwidget.cpp:1253 gitwidget.cpp:1302 gitwidget.cpp:1353
+#: gitwidget.cpp:1255 gitwidget.cpp:1304 gitwidget.cpp:1355
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "Εμφάνιση διαφορών"
 
-#: gitwidget.cpp:1270
+#: gitwidget.cpp:1272
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "Θέλετε πράγματι να διαγράψετε αυτά το αρχεία;"
 
-#: gitwidget.cpp:1275
+#: gitwidget.cpp:1277
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "Θέλετε πράγματι να απορρίψετε αυτές τις αλλαγές;"
 
-#: gitwidget.cpp:1293
+#: gitwidget.cpp:1295
 #, kde-format
 msgid "Open File"
 msgstr "Άνοιγμα αρχείου"
 
-#: gitwidget.cpp:1294
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Unstage File"
 msgstr "Αναίρεση αρχείου από προετοιμασία για υποβολή"
 
-#: gitwidget.cpp:1294
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Stage File"
 msgstr "Προετοιμασία αρχείου για υποβολή"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Remove"
 msgstr "Διαγραφή"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Discard"
 msgstr "Απόρριψη"
 
-#: gitwidget.cpp:1303
+#: gitwidget.cpp:1305
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "Εμφάνιση των διαφορών του Git με εξωτερικό εργαλείο"
 
-#: gitwidget.cpp:1304
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Open at HEAD"
 msgstr "Άνοιγμα στο HEAD"
 
-#: gitwidget.cpp:1308
+#: gitwidget.cpp:1310
 #, fuzzy, kde-format
 #| msgid "Show Git History"
 msgid "Show History"
 msgstr "Εμφάνιση ιστορικού Git"
 
-#: gitwidget.cpp:1324
+#: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "Θέλετε πράγματι να απορρίψετε τις αλλαγές σε αυτό το αρχείο;"
 
-#: gitwidget.cpp:1335
+#: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "Θέλετε πράγματι να διαγράψετε αυτό το αρχείο;"
 
-#: gitwidget.cpp:1352
+#: gitwidget.cpp:1354
 #, kde-format
 msgid "Unstage All"
 msgstr "Αναίρεση όλων από προετοιμασία για υποβολή"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1421
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "Αναίρεση επιλεγμένων αρχείων από προετοιμασία για υποβολή"
 
-#: gitwidget.cpp:1419
+#: gitwidget.cpp:1421
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "Προετοιμασία επιλεγμένων αρχείων για υποβολή"
 
-#: gitwidget.cpp:1420
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "Απόρριψη επιλεγμένων αρχείων"
 
-#: gitwidget.cpp:1424
+#: gitwidget.cpp:1426
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "Διαγραφή επιλεγμένων αρχείων"
 
-#: gitwidget.cpp:1437
+#: gitwidget.cpp:1439
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "Θέλετε πράγματι να απορρίψετε τις αλλαγές;"
 
-#: gitwidget.cpp:1442
+#: gitwidget.cpp:1444
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Θέλετε πράγματι να διαγράψετε αυτές τις μη παρακολουθούμενες αλλαγές;"
@@ -1115,52 +1115,52 @@ msgstr ""
 "Πληκτρολογήστε για φιλτράρισμα, Enter για εξαγωγή από στοίβα, Esc για "
 "εγκατάλειψη."
 
-#: stashdialog.cpp:140
+#: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "Αποτυχία τοποθέτησης των αλλαγών %1 σε στοίβα αναμονής"
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "Οι αλλαγές εισήχθησαν σε στοίβα αναμονής με επιτυχία."
 
-#: stashdialog.cpp:161
+#: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "Αποτυχία ανάκτησης λίστας αναμονής. Σφάλμα: "
 
-#: stashdialog.cpp:177
+#: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "Αποτυχία εφαρμογής της στοίβας. Σφάλμα: "
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "Αποτυχία απόρριψης της στοίβας. Σφάλμα: "
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "Αποτυχία εξαγωγής από τη στοίβα. Σφάλμα: "
 
-#: stashdialog.cpp:185
+#: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "Η στοίβα αναμονής εφαρμόστηκε με επιτυχία."
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "Η στοίβα αναμονής απορρίφθηκε με επιτυχία."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "Έγινε εξαγωγή από τη στοίβα με επιτυχία."
 
-#: stashdialog.cpp:218
+#: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "Αποτυχία εμφάνισης της στοίβας. Σφάλμα: "

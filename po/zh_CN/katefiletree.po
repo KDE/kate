@@ -221,12 +221,12 @@ msgstr "显示 Git 历史"
 #: katefiletree.cpp:444
 #, kde-format
 msgid "Unpin Document"
-msgstr ""
+msgstr "取消固定文档"
 
 #: katefiletree.cpp:446
 #, kde-format
 msgid "Pin Document"
-msgstr ""
+msgstr "固定文档"
 
 #: katefiletree.cpp:494
 #, kde-format

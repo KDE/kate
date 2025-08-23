@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -488,59 +488,7 @@ msgstr[1] "Løys vekk linjene"
 msgid "Unstage Hunk"
 msgstr "Løys vekk blokka"
 
-#: lib/diff/diffwidget.cpp:71
-#, kde-format
-msgid "Diff %1"
-msgstr "Vis forskjellar %1"
-
-#: lib/diff/diffwidget.cpp:73
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Vis forskjellar for %1..%2"
-
-#: lib/diff/diffwidget.cpp:102
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "Vis forskjellar for %1 . .%2"
-
-#: lib/diff/diffwidget.cpp:132
-#, kde-format
-msgid "Show/Hide Commit Info"
-msgstr "Vis/gøym commitinfo"
-
-#: lib/diff/diffwidget.cpp:137
-#, kde-format
-msgid "Jump to Next File"
-msgstr "Gå til neste fil"
-
-#: lib/diff/diffwidget.cpp:141
-#, kde-format
-msgid "Jump to Previous File"
-msgstr "Gå til førre fil"
-
-#: lib/diff/diffwidget.cpp:145
-#, kde-format
-msgid "Jump to Next Hunk"
-msgstr "Gå til neste blokk"
-
-#: lib/diff/diffwidget.cpp:149
-#, kde-format
-msgid "Jump to Previous Hunk"
-msgstr "Gå til førre blokk"
-
-#: lib/diff/diffwidget.cpp:153
-#, kde-format
-msgctxt "Tooltip for a button, clicking the button reloads the diff"
-msgid "Reload Diff"
-msgstr "Last inn diff på nytt"
-
-#: lib/diff/diffwidget.cpp:157
-#, kde-format
-msgctxt "Tooltip for a button"
-msgid "Show diff with full context, not just the changed lines"
-msgstr "Viss diff med full kontekst, ikkje berre endra linjer"
-
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:43
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -551,23 +499,75 @@ msgstr ""
 "dokumenta. Viss det alt er installert, sjå til at det finst i søkjestien "
 "(PATH-variabelen). Sjå https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
+#: lib/diff/diffwidget.cpp:80
+#, kde-format
+msgid "Diff %1"
+msgstr "Vis forskjellar %1"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "Vis forskjellar for %1..%2"
+
+#: lib/diff/diffwidget.cpp:111
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "Vis forskjellar for %1 . .%2"
+
+#: lib/diff/diffwidget.cpp:141
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr "Vis/gøym commitinfo"
+
+#: lib/diff/diffwidget.cpp:146
+#, kde-format
+msgid "Jump to Next File"
+msgstr "Gå til neste fil"
+
+#: lib/diff/diffwidget.cpp:150
+#, kde-format
+msgid "Jump to Previous File"
+msgstr "Gå til førre fil"
+
+#: lib/diff/diffwidget.cpp:154
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr "Gå til neste blokk"
+
+#: lib/diff/diffwidget.cpp:158
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr "Gå til førre blokk"
+
+#: lib/diff/diffwidget.cpp:162
+#, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Last inn diff på nytt"
+
+#: lib/diff/diffwidget.cpp:166
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr "Viss diff med full kontekst, ikkje berre endra linjer"
+
+#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
 #, kde-format
 msgid "New file %1"
 msgstr "Ny fil %1"
 
-#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
+#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Sletta fil %1"
 
-#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
 #, kde-format
 msgid "No differences found"
 msgstr "Fann ingen forskjellar"
@@ -2115,7 +2115,12 @@ msgstr ""
 "Klarte ikkje lagra dokumentet\n"
 "«%1»"
 
-#: lib/katemwmodonhddialog.cpp:310
+#: lib/katemwmodonhddialog.cpp:290
+#, kde-format
+msgid "Please install git to view diffs"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2124,17 +2129,17 @@ msgstr ""
 "Diff-kommandoen gav feil. Sjå til at diff er installert og ligg i søkjestien "
 "(PATH-variabelen)."
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Feil ved køyring av diff"
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[OLD]"
 msgstr "[GAMMAL]"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:324
 #, kde-format
 msgid "[NEW]"
 msgstr "[NY]"

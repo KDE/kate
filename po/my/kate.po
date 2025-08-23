@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-08-23 00:46+0000\n"
 "PO-Revision-Date: 2024-09-10 14:03+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -476,59 +476,7 @@ msgstr[0] "စာကြောင်းကိုခြေလှမ်းပြန
 msgid "Unstage Hunk"
 msgstr "စာအပိုင်းကိုခြေလှမ်းပြန်ဆုတ်မည်"
 
-#: lib/diff/diffwidget.cpp:71
-#, kde-format
-msgid "Diff %1"
-msgstr "Diff %1"
-
-#: lib/diff/diffwidget.cpp:73
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Diff %1..%2"
-
-#: lib/diff/diffwidget.cpp:102
-#, kde-format
-msgid "Diff %1 .. %2"
-msgstr "Diff %1 .. %2"
-
-#: lib/diff/diffwidget.cpp:132
-#, kde-format
-msgid "Show/Hide Commit Info"
-msgstr "အပ်နှံချက်အချက်အလက် ပြ၊ဖွက်"
-
-#: lib/diff/diffwidget.cpp:137
-#, kde-format
-msgid "Jump to Next File"
-msgstr "နောက်ဖိုင်သို့ခုန်"
-
-#: lib/diff/diffwidget.cpp:141
-#, kde-format
-msgid "Jump to Previous File"
-msgstr "ယခင်ဖိုင်သို့ခုန်"
-
-#: lib/diff/diffwidget.cpp:145
-#, kde-format
-msgid "Jump to Next Hunk"
-msgstr "နောက်စာအပိုင်းသို့ခုန်"
-
-#: lib/diff/diffwidget.cpp:149
-#, kde-format
-msgid "Jump to Previous Hunk"
-msgstr "ယခင်စာအပိုင်းသို့ခုန်"
-
-#: lib/diff/diffwidget.cpp:153
-#, kde-format
-msgctxt "Tooltip for a button, clicking the button reloads the diff"
-msgid "Reload Diff"
-msgstr "Diff ပြန်တွန်းတင်မည်"
-
-#: lib/diff/diffwidget.cpp:157
-#, kde-format
-msgctxt "Tooltip for a button"
-msgid "Show diff with full context, not just the changed lines"
-msgstr "ပြောင်းသွားသောစာကြောင်းများသာမက ဆက်စပ်အကြောင်းအရာပြည့်စုံစွာဖြင့် diff ပြမည်"
-
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:43
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -538,23 +486,75 @@ msgstr ""
 "<b>git</b>မတွေ့ပါ။ မှတ်တမ်းစာအုပ်များ၏ကွာခြားချက်ရှာဖွေရန်အတွက် gitကိုလိုအပ်ပါသည်။ https://git-"
 "scm.com/downloadsသို့သွားကြည့်ပါ"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1236
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
+#: lib/diff/diffwidget.cpp:80
+#, kde-format
+msgid "Diff %1"
+msgstr "Diff %1"
+
+#: lib/diff/diffwidget.cpp:82
+#, kde-format
+msgid "Diff %1..%2"
+msgstr "Diff %1..%2"
+
+#: lib/diff/diffwidget.cpp:111
+#, kde-format
+msgid "Diff %1 .. %2"
+msgstr "Diff %1 .. %2"
+
+#: lib/diff/diffwidget.cpp:141
+#, kde-format
+msgid "Show/Hide Commit Info"
+msgstr "အပ်နှံချက်အချက်အလက် ပြ၊ဖွက်"
+
+#: lib/diff/diffwidget.cpp:146
+#, kde-format
+msgid "Jump to Next File"
+msgstr "နောက်ဖိုင်သို့ခုန်"
+
+#: lib/diff/diffwidget.cpp:150
+#, kde-format
+msgid "Jump to Previous File"
+msgstr "ယခင်ဖိုင်သို့ခုန်"
+
+#: lib/diff/diffwidget.cpp:154
+#, kde-format
+msgid "Jump to Next Hunk"
+msgstr "နောက်စာအပိုင်းသို့ခုန်"
+
+#: lib/diff/diffwidget.cpp:158
+#, kde-format
+msgid "Jump to Previous Hunk"
+msgstr "ယခင်စာအပိုင်းသို့ခုန်"
+
+#: lib/diff/diffwidget.cpp:162
+#, kde-format
+msgctxt "Tooltip for a button, clicking the button reloads the diff"
+msgid "Reload Diff"
+msgstr "Diff ပြန်တွန်းတင်မည်"
+
+#: lib/diff/diffwidget.cpp:166
+#, kde-format
+msgctxt "Tooltip for a button"
+msgid "Show diff with full context, not just the changed lines"
+msgstr "ပြောင်းသွားသောစာကြောင်းများသာမက ဆက်စပ်အကြောင်းအရာပြည့်စုံစွာဖြင့် diff ပြမည်"
+
+#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
 #, kde-format
 msgid "New file %1"
 msgstr "ဖိုင်အသစ်%1ခု"
 
-#: lib/diff/diffwidget.cpp:847 lib/diff/diffwidget.cpp:1051
+#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
 #, kde-format
 msgid "Deleted file %1"
 msgstr "ဖျက်ခဲ့သောဖိုင် %1ခု"
 
-#: lib/diff/diffwidget.cpp:1219 lib/diff/diffwidget.cpp:1220
+#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
 #, kde-format
 msgid "No differences found"
 msgstr "ကွာခြားချက်မတွေ့ပါ"
@@ -2063,7 +2063,12 @@ msgstr ""
 "မှတ်တမ်းစာအုပ်ကို မသိမ်းဆည်းနိုင်ခဲ့ပါ\n"
 "'%1'"
 
-#: lib/katemwmodonhddialog.cpp:310
+#: lib/katemwmodonhddialog.cpp:290
+#, kde-format
+msgid "Please install git to view diffs"
+msgstr ""
+
+#: lib/katemwmodonhddialog.cpp:314
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2072,17 +2077,17 @@ msgstr ""
 "အမိန့် diff မအောင်မြင်ခဲ့ပါ။ ကျေးဇူးပြု၍ git တပ်ဆင်ထားခြင်းရှိ၊ မရှိ နှင့် PATH ထဲတွင် ရှိ၊မရှိ "
 "စစ်ဆေးပါ။"
 
-#: lib/katemwmodonhddialog.cpp:312
+#: lib/katemwmodonhddialog.cpp:316
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "Diffဖန်တီးရာတွင် အမှားဖြစ်ပေါ်ခဲ့သည်"
 
-#: lib/katemwmodonhddialog.cpp:319
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[OLD]"
 msgstr "[အဟောင်း]"
 
-#: lib/katemwmodonhddialog.cpp:320
+#: lib/katemwmodonhddialog.cpp:324
 #, kde-format
 msgid "[NEW]"
 msgstr "[အသစ်]"

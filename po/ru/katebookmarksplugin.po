@@ -1,0 +1,49 @@
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# SPDX-FileCopyrightText: 2025 Alexander Yavorsky <kekcuha@gmail.com>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"PO-Revision-Date: 2025-08-18 11:50+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 25.07.90\n"
+
+#: bookmarksmodel.cpp:73
+#, kde-format
+msgid "Line Number"
+msgstr "Номер строки"
+
+#: bookmarksmodel.cpp:75
+#, kde-format
+msgid "File Path"
+msgstr "Путь к файлу"
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#: bookmarksplugin.cpp:171
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr "Перейти к предыдущей закладке"
+
+#: bookmarksplugin.cpp:177
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr "Перейти к следующей закладке"
+
+#: bookmarksplugin.cpp:183
+#, kde-format
+msgid "Remove Bookmark"
+msgstr "Удалить закладку"

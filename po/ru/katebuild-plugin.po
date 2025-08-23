@@ -6,21 +6,21 @@
 # Yury G. Kudryashov <urkud.urkud@gmail.com>, 2012.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
-# Alexander Yavorsky <kekcuha@gmail.com>, 2019, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2019, 2020, 2022, 2023, 2025 Alexander Yavorsky <kekcuha@gmail.com>
 # SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-10 02:46+0000\n"
-"PO-Revision-Date: 2025-04-03 14:33+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
-"Language-Team: Basealt Translation Team\n"
+"PO-Revision-Date: 2025-08-18 12:01+0300\n"
+"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.07.90\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -229,10 +229,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Не удалось выполнить «%1» (код выхода %2)."
 
 #: plugin_katebuild.cpp:851
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Сборка цели <b>%1</b> отменена"
+msgstr "Сборка цели <b>%1: %2</b> отменена"
 
 #: plugin_katebuild.cpp:955
 #, kde-format
@@ -245,46 +244,36 @@ msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Не удалось найти команду компиляции для файла «%1» в «%2». "
 
 #: plugin_katebuild.cpp:985
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не удалось выполнить замену. Нет открытых файлов, или текущий файл не имеет "
-"названия!"
+"Не удалось выполнить замену «%f». Нет открытых файлов, или текущий файл не "
+"имеет названия."
 
 #: plugin_katebuild.cpp:989
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не удалось выполнить замену. Нет открытых файлов, или текущий файл не имеет "
-"названия!"
+"Не удалось выполнить замену «%d». Нет открытых файлов, или текущий файл не "
+"имеет названия."
 
 #: plugin_katebuild.cpp:993
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Не удалось выполнить замену. Нет открытых файлов, или текущий файл не имеет "
-"названия!"
+"Не удалось выполнить замену «%n». Нет открытых файлов, или текущий файл не "
+"имеет названия."
 
 #: plugin_katebuild.cpp:1004
-#, fuzzy, kde-format
-#| msgid ""
-#| "Cannot make substitution. No open file or the current file is untitled!"
+#, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
-msgstr ""
-"Не удалось выполнить замену. Нет открытых файлов, или текущий файл не имеет "
-"названия!"
+msgstr "Не удалось выполнить замену проекта (%B). Не открыт ни один проект."
 
 #: plugin_katebuild.cpp:1017
 #, kde-format
@@ -292,18 +281,18 @@ msgid "Already building..."
 msgstr "Сборка уже выполняется..."
 
 #: plugin_katebuild.cpp:1055
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Не был указан локальный файл или каталог для сборки."
+msgstr ""
+"Не удалось выполнить: %1: %2. Рабочий каталог не задан.\n"
+"Не указан локальный файл или каталог для сборки."
 
 #: plugin_katebuild.cpp:1170
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Сборка цели <b>%1</b>..."
+msgstr "Выполняется сборка цели <b>%1: %2</b>…"
 
 #: plugin_katebuild.cpp:1207
 #, kde-format
@@ -360,11 +349,11 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Сборка завершена:</title>%1"
 
 #: plugin_katebuild.cpp:1450
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Сборка <b>%1</b> завершена. Ошибок — %2, предупреждений — %3, примечаний — %4"
+"Сборка <b>%1: %2</b> завершена. Ошибок: %3, предупреждений: %4, примечаний: "
+"%5"
 
 #: plugin_katebuild.cpp:1461
 #, kde-format
@@ -404,11 +393,10 @@ msgid "Build completed without problems."
 msgstr "Сборка завершена без ошибок."
 
 #: plugin_katebuild.cpp:1479
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Сборка <b>%1 отменена</b>. Ошибок — %2, предупреждений — %3, примечаний — %4"
+"Сборка <b>%1: %2 отменена</b>. Ошибок: %3, предупреждений: %4, примечаний: %5"
 
 #: plugin_katebuild.cpp:1757
 #, kde-format
@@ -473,12 +461,7 @@ msgstr ""
 "«%b» для имени базового каталога проекта"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -487,10 +470,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Используйте:\n"
-"«%f» для текущего файла.\n"
-"«%d» для каталога текущего файла.\n"
-"«%n» для названия текущего файла без суффикса."
+"Используйте следующие подстановки:\n"
+"-«%f»: имя текущего файла;\n"
+"- «%d»: каталог текущего файла;\n"
+"- «%n»: имя текущего файла без суффикса;\n"
+"- «%B»: основной каталог текущего проекта; \n"
+"- «%w»: рабочий каталог цели."
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

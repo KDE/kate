@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2025-08-04 18:37+0400\n"
+"PO-Revision-Date: 2025-08-23 16:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -31,10 +31,9 @@ msgid "Failed to write a temp file"
 msgstr "فشل في كتابة ملف مؤقت"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "فشل تشغيل git diff: %1"
+msgstr "فشل تشغيل git diff: غت غير مثبت"
 
 #: FormatApply.h:38
 #, kde-format
@@ -69,12 +68,12 @@ msgstr "فشل في قراءة settings.json. الخطأ: %1"
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "تنسيق المستند"
+msgstr "نسّق المستند"
 
 #: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
-msgstr "التنسيق عند الحفظ"
+msgstr "نسّق عند الحفظ"
 
 #: FormatPlugin.cpp:131
 #, kde-format

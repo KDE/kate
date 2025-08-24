@@ -1,16 +1,16 @@
 # Translation for formatplugin.po to Euskara/Basque (eu).
-# Copyright (C) 2023-2024 This file is copyright:
+# Copyright (C) 2023-2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# SPDX-FileCopyrightText: 2023, 2024 Iñigo Salvador Azurmendi <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2024-10-15 22:27+0200\n"
+"PO-Revision-Date: 2025-08-23 11:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
 #: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
@@ -33,15 +33,14 @@ msgid "Failed to write a temp file"
 msgstr "Aldi baterako fitxategi bat idaztea huts egin du"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "« git diff » exekutatzea huts egin du: %1"
+msgstr "\"git diff\" exekutatzea huts egin du: git ez dago instalatuta"
 
 #: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr "« git diff » exekutatzea huts egin du: %1"
+msgstr "\"git diff\" exekutatzea huts egin du: %1"
 
 #: FormatConfig.cpp:119
 #, kde-format
@@ -66,7 +65,7 @@ msgstr "Formatua emateko ezarpenak"
 #: FormatPlugin.cpp:82
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr "«settings.json» irakurtzea huts egin du. Errorea: %1"
+msgstr "settings.json irakurtzea huts egin du. Errorea: %1"
 
 #: FormatPlugin.cpp:118
 #, kde-format
@@ -99,7 +98,7 @@ msgstr ""
 #: Formatters.cpp:195
 #, kde-format
 msgid "Please install node and prettier"
-msgstr "Mesedez, instalatu «node» eta «prettier»"
+msgstr "Mesedez, instalatu node eta prettier"
 
 #: Formatters.cpp:202
 #, kde-format
@@ -114,17 +113,17 @@ msgstr "PrettierFormat: 'node' irekitzea huts egin du: %1"
 #: Formatters.cpp:325
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr "«formatterForJson» ezezaguna: %1"
+msgstr "formatterForJson ezezaguna: %1"
 
 #: Formatters.cpp:345
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr "«formatterForPython» ezezaguna: %1"
+msgstr "formatterForPython ezezaguna: %1"
 
 #: Formatters.cpp:368
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr "«formatterForYaml» ezezaguna: %1, «yamlfmt»era atzera egiten"
+msgstr "formatterForYaml ezezaguna: %1, yamlfmt-era atzera egiten"
 
 #: Formatters.cpp:398
 #, kde-format

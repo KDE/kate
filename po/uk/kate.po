@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2025-08-21 08:11+0300\n"
+"PO-Revision-Date: 2025-08-23 20:20+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2153,7 +2153,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Будь ласка, встановіть git, щоб переглядати різниці"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format

@@ -1363,21 +1363,20 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEdit
         targetItem = topItem;
     }
     if (targetItem) {
-        m_diagnosticsTree->blockSignals(true);
-        const auto idx = m_proxy->mapFromSource(targetItem->index());
-        if (idx.isValid()) {
+        if (const auto idx = m_proxy->mapFromSource(targetItem->index()); idx.isValid()) {
+            m_diagnosticsTree->blockSignals(true);
             m_diagnosticsTree->scrollTo(idx, hint);
             m_diagnosticsTree->setCurrentIndex(idx);
-        } else {
-            qWarning("Invalid idx for %ls", qUtf16Printable(targetItem->text()));
-            Q_ASSERT(false);
-        }
-        m_diagnosticsTree->blockSignals(false);
-        if (doShow) {
-            m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));
+            m_diagnosticsTree->blockSignals(false);
+
+            if (doShow) {
+                m_mainWindow->showToolView(qobject_cast<QWidget *>(parent()));
+            }
+
+            return true;
         }
     }
-    return targetItem != nullptr;
+    return false;
 }
 
 void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagTopItem, KTextEditor::Document *doc, bool force)

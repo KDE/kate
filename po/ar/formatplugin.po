@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-12 00:43+0000\n"
-"PO-Revision-Date: 2025-08-04 18:37+0400\n"
+"PO-Revision-Date: 2025-08-23 16:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -62,12 +62,12 @@ msgstr "فشل في قراءة settings.json. الخطأ: %1"
 #: FormatPlugin.cpp:118
 #, kde-format
 msgid "Format Document"
-msgstr "تنسيق المستند"
+msgstr "نسّق المستند"
 
 #: FormatPlugin.cpp:128
 #, kde-format
 msgid "Format on Save"
-msgstr "التنسيق عند الحفظ"
+msgstr "نسّق عند الحفظ"
 
 #: FormatPlugin.cpp:131
 #, kde-format

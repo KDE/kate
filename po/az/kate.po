@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-25 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -383,47 +383,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [əngəlləndi :%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1418
+#: lib/diagnostics/diagnosticview.cpp:1417
 #, kde-format
 msgid "Expand All"
 msgstr "Hamsını açın"
 
-#: lib/diagnostics/diagnosticview.cpp:1419
+#: lib/diagnostics/diagnosticview.cpp:1418
 #, kde-format
 msgid "Collapse All"
 msgstr "Hamısını yığın"
 
-#: lib/diagnostics/diagnosticview.cpp:1425
+#: lib/diagnostics/diagnosticview.cpp:1424
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Mübadilə yaddaşına kopyalayın"
 
-#: lib/diagnostics/diagnosticview.cpp:1467
+#: lib/diagnostics/diagnosticview.cpp:1466
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Ümumi əngəllənməni aradan qaldırın"
 
-#: lib/diagnostics/diagnosticview.cpp:1469
+#: lib/diagnostics/diagnosticview.cpp:1468
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Ümumi əngəlləmə əlavə edin"
 
-#: lib/diagnostics/diagnosticview.cpp:1473
+#: lib/diagnostics/diagnosticview.cpp:1472
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Yerli əngəlləməni silin"
 
-#: lib/diagnostics/diagnosticview.cpp:1475
+#: lib/diagnostics/diagnosticview.cpp:1474
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Yerli əngəlləmə əlavə edin"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Əngəlləməni söndürün"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Əngəlləməni işə salın"

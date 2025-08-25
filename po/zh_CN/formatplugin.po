@@ -30,10 +30,9 @@ msgid "Failed to write a temp file"
 msgstr "写入临时文件失败"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "运行 git diff 失败：%1"
+msgstr ""
 
 #: FormatApply.h:38
 #, kde-format

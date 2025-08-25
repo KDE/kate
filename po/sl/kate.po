@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-25 00:45+0000\n"
 "PO-Revision-Date: 2025-08-23 07:15+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -389,47 +389,47 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [zatrto %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1418
+#: lib/diagnostics/diagnosticview.cpp:1417
 #, kde-format
 msgid "Expand All"
 msgstr "Razširi vse"
 
-#: lib/diagnostics/diagnosticview.cpp:1419
+#: lib/diagnostics/diagnosticview.cpp:1418
 #, kde-format
 msgid "Collapse All"
 msgstr "Strni vse"
 
-#: lib/diagnostics/diagnosticview.cpp:1425
+#: lib/diagnostics/diagnosticview.cpp:1424
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopiraj na odložišče"
 
-#: lib/diagnostics/diagnosticview.cpp:1467
+#: lib/diagnostics/diagnosticview.cpp:1466
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Odstrani globalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1469
+#: lib/diagnostics/diagnosticview.cpp:1468
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Dodaj globalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1473
+#: lib/diagnostics/diagnosticview.cpp:1472
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Odstrani lokalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1475
+#: lib/diagnostics/diagnosticview.cpp:1474
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Dodaj lokalno zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Onemogoči zatrtje"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Omogoči zatrtje"

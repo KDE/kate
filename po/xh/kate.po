@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-25 00:45+0000\n"
 "PO-Revision-Date: 2002-11-15 12:44+0200\n"
 "Last-Translator: Thelma Lungcuzo <thelma@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -374,48 +374,48 @@ msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1418
+#: lib/diagnostics/diagnosticview.cpp:1417
 #, kde-format
 msgid "Expand All"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1419
+#: lib/diagnostics/diagnosticview.cpp:1418
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Collapse All"
 msgstr "&Vala Konke"
 
-#: lib/diagnostics/diagnosticview.cpp:1425
+#: lib/diagnostics/diagnosticview.cpp:1424
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1467
+#: lib/diagnostics/diagnosticview.cpp:1466
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1469
+#: lib/diagnostics/diagnosticview.cpp:1468
 #, fuzzy, kde-format
 msgid "Add Global Suppression"
 msgstr "Intlanganiso"
 
-#: lib/diagnostics/diagnosticview.cpp:1473
+#: lib/diagnostics/diagnosticview.cpp:1472
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1475
+#: lib/diagnostics/diagnosticview.cpp:1474
 #, kde-format
 msgid "Add Local Suppression"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, fuzzy, kde-format
 msgid "Disable Suppression"
 msgstr "Intlanganiso"
 
-#: lib/diagnostics/diagnosticview.cpp:1492
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, fuzzy, kde-format
 msgid "Enable Suppression"
 msgstr "Intlanganiso"

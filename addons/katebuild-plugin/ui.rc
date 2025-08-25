@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="katebuild-plugin" library="katebuildplugin" version="15" translationDomain="katebuild-plugin">
+<gui name="katebuild-plugin" library="katebuildplugin" version="16" translationDomain="katebuild-plugin">
   <MenuBar>
     <Menu name="Build Menubar">
       <text>&amp;Build</text>
@@ -19,5 +19,8 @@
       <Action name="load_targets_cmakefileapi"/>
     </Menu>
   </MenuBar>
+  <ToolBar name="mainToolBar" noMerge="1">
+      <text>Build Plugin Toolbar</text>
+  </ToolBar>
 </gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

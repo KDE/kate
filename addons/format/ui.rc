@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="formatplugin" library="formatplugin" version="1" translationDomain="formatplugin">
+<gui name="formatplugin" library="formatplugin" version="2" translationDomain="formatplugin">
     <MenuBar>
         <Menu name="edit">
             <Action name="format_on_save"/>

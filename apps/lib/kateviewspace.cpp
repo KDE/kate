@@ -1197,6 +1197,9 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
     if (compareUsing->isEnabled()) {
         for (std::pair<QString, QString> &diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = compareUsing->addAction(diffTool.first);
+            connect(compareAction, &QAction::triggered, this, [tool = diffTool.second, doc, activeDocument] {
+                KateFileActions::compareWithExternalProgram(activeDocument, doc, tool);
+            });
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found
             compareAction->setData(diffTool.second);

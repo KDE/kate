@@ -624,7 +624,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
     const QString file = QString::fromUtf8(commit.fileName);
-    const QStringList arguments{QStringLiteral("show"), commit.hash.toString(), QStringLiteral("--"), file};
+    const QStringList arguments{QStringLiteral("show"), QString::fromLatin1(commit.hash), QStringLiteral("--"), file};
 
     if (!setupGitProcess(git, m_gitDir, arguments)) {
         return;

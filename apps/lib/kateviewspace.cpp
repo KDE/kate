@@ -1243,12 +1243,7 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
         for (KateFileActions::DiffTool &diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = compareUsing->addAction(diffTool.name);
             connect(compareAction, &QAction::triggered, this, [this, tool = diffTool.path, doc, activeDocument] {
-                if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, tool)) {
-                    QMessageBox::information(this,
-                                             i18n("Could not start program"),
-                                             i18n("The selected program could not be started. Maybe it is not installed."),
-                                             QMessageBox::StandardButton::Ok);
-                }
+                KateFileActions::compareWithExternalProgram(activeDocument, doc, tool);
             });
 
             // we use the full path to safely execute the tool, disable action if no full path => tool not found

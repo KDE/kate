@@ -82,7 +82,7 @@ QList<DiffTool> supportedDiffTools();
  *
  * IDEA for later: compare with unsaved buffer data instead of underlying file
  */
-bool compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
+void compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable);
 
 /**
  * Prepares the open with menu

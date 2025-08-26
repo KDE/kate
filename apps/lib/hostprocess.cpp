@@ -3,14 +3,20 @@
 
 #include "hostprocess.h"
 
+#include <QProcess>
 #include <QStandardPaths>
 
-#include <KProcess>
 #include <KSandbox>
 
 QString safeExecutableName(const QString &executableName, const QStringList &paths)
 {
-    return KSandbox::isFlatpak() ? executableName : QStandardPaths::findExecutable(executableName, paths);
+    if (KSandbox::isFlatpak()) {
+        QProcess process;
+        startHostProcess(process, QStringLiteral("which"), {executableName});
+        process.waitForFinished();
+        return process.exitCode() == 0 ? QString::fromUtf8(process.readAllStandardOutput().trimmed()) : QString();
+    }
+    return QStandardPaths::findExecutable(executableName, paths);
 }
 
 void startHostProcess(QProcess &proc, QProcess::OpenMode mode)

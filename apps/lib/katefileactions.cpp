@@ -8,6 +8,7 @@
 #include "katefileactions.h"
 
 #include "hostprocess.h"
+#include "ktexteditor_utils.h"
 
 #include <KTextEditor/Document>
 #include <ktexteditor/application.h>
@@ -23,6 +24,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPropertiesDialog>
+#include <KSandbox>
 #include <KService>
 
 #include <QAction>
@@ -167,13 +169,19 @@ QList<KateFileActions::DiffTool> KateFileActions::supportedDiffTools()
     return resultList;
 }
 
-bool KateFileActions::compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable)
+void KateFileActions::compareWithExternalProgram(KTextEditor::Document *documentA, KTextEditor::Document *documentB, const QString &diffExecutable)
 {
     Q_ASSERT(documentA);
     Q_ASSERT(documentB);
 
     QStringList arguments{documentA->url().toLocalFile(), documentB->url().toLocalFile()};
-    return QProcess::startDetached(diffExecutable, arguments);
+
+    QProcess *process = new QProcess();
+    process->setProgram(diffExecutable);
+    process->setArguments(arguments);
+    QObject::connect(process, &QProcess::finished, process, &QProcess::deleteLater);
+
+    startHostProcess(*process);
 }
 
 void KateFileActions::prepareOpenWithMenu(const QUrl &url, QMenu *menu)

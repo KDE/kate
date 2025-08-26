@@ -36,6 +36,11 @@ KATE_PRIVATE_EXPORT bool updateMapping(PathMapping &mapping, const QByteArray &e
 // tries to map, returns empty QUrl if not possible
 KATE_PRIVATE_EXPORT QUrl mapPath(const PathMapping &mapping, const QUrl &p, bool fromLocal);
 
+/**
+ * Sets up path mapping for flatpak
+ */
+KATE_PRIVATE_EXPORT void setupFlatpakPathMapping(PathMappingPtr &mapping);
+
 class KATE_PRIVATE_EXPORT ExecConfig
 {
     QJsonObject config;

@@ -909,6 +909,7 @@ private:
             auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
             auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
             decltype(LSPClientServer::ExtraServerConfig::environment) env;
+
             if (!execPrefix.isEmpty()) {
                 if (!pathMapping)
                     pathMapping = execConfig.init_mapping(view);
@@ -918,6 +919,9 @@ private:
                 if (pathMapping)
                     env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QStringLiteral("1");
             }
+
+            // Setup flatpak path mappings
+            Utils::setupFlatpakPathMapping(pathMapping);
 
             // request server and setup
             server.reset(new LSPClientServer(

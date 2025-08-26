@@ -15,6 +15,7 @@
 
 #include <memory>
 
+#include <KSandbox>
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 
@@ -226,6 +227,22 @@ ExecConfig ExecConfig::load(const QJsonObject &localConfig, const QJsonObject &p
     result.config = execConfig;
 
     return result;
+}
+
+void setupFlatpakPathMapping(PathMappingPtr &mapping)
+{
+    if (KSandbox::isFlatpak()) {
+        if (!mapping) {
+            mapping.reset(new Utils::PathMapping);
+        }
+        auto local = QUrl(QStringLiteral("file:///run/host/usr/"));
+        auto remote = QUrl(QStringLiteral("file:///usr/"));
+        mapping->insert({local, remote});
+
+        local = QUrl(QStringLiteral("file:///home"));
+        remote = QUrl(QStringLiteral("file:///home"));
+        mapping->insert({local, remote});
+    }
 }
 
 } // Utils

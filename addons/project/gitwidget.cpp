@@ -761,14 +761,14 @@ void GitWidget::showDiff(const QString &file, bool staged)
     }
 
     auto git = gitp(args);
-    connect(git, &QProcess::finished, this, [this, file, staged, git](int exitCode, QProcess::ExitStatus es) {
+    connect(git, &QProcess::finished, this, [this, file, staged, args, git](int exitCode, QProcess::ExitStatus es) {
         if (es != QProcess::NormalExit || exitCode != 0) {
             sendMessage(i18n("Failed to get Diff of file: %1", QString::fromUtf8(git->readAllStandardError())), true);
         } else {
             DiffParams d;
             d.srcFile = file;
             d.workingDir = m_activeGitDirPath;
-            d.arguments = git->arguments();
+            d.arguments = args;
             d.flags.setFlag(DiffParams::Flag::ShowStage, !staged);
             d.flags.setFlag(DiffParams::Flag::ShowUnstage, staged);
             d.flags.setFlag(DiffParams::Flag::ShowDiscard, !staged);

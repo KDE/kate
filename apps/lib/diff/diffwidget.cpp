@@ -635,12 +635,13 @@ void DiffWidget::diffDocs(KTextEditor::Document *l, KTextEditor::Document *r)
     }
 
     QProcess git;
-    if (!setupGitProcess(git, qApp->applicationDirPath(), diffDocsGitArgs(l, r))) {
+    const QStringList args = diffDocsGitArgs(l, r);
+    if (!setupGitProcess(git, qApp->applicationDirPath(), args)) {
         gitNotFoundMessage();
         return;
     }
 
-    m_params.arguments = git.arguments();
+    m_params.arguments = args;
     m_params.flags.setFlag(DiffParams::ReloadOnShow);
     m_params.workingDir = git.workingDirectory();
     runGitDiff();

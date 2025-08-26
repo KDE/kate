@@ -624,8 +624,9 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
     const QString file = QString::fromUtf8(commit.fileName);
+    const QStringList arguments{QStringLiteral("show"), commit.hash.toString(), QStringLiteral("--"), file};
 
-    if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), QString::fromUtf8(commit.hash), QStringLiteral("--"), file})) {
+    if (!setupGitProcess(git, m_gitDir, arguments)) {
         return;
     }
 
@@ -641,7 +642,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(m_file), shortCommit);
         d.flags.setFlag(DiffParams::ShowCommitInfo);
         d.flags.setFlag(DiffParams::ShowFullContext);
-        d.arguments = git.arguments();
+        d.arguments = arguments;
         d.workingDir = m_gitDir;
         Utils::showDiff(contents, d, m_mainWindow);
     }

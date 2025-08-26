@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-08-17 21:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -570,6 +570,13 @@ msgstr "اضبط"
 msgid "&Build"
 msgstr "ا&بنِ"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "ملحقة بناء ل‍«كيت»"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -693,9 +700,6 @@ msgstr "اختر الدّليل لإدراجه"
 
 #~ msgid "config"
 #~ msgstr "الضّبط"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "ملحقة بناء ل‍«كيت»"
 
 #~ msgid "Select build target"
 #~ msgstr "اختر هدف البناء"

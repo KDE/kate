@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-08-13 21:40+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -582,6 +582,13 @@ msgstr "Налаштувати"
 msgid "&Build"
 msgstr "&Збирання"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Додаток Kate для збирання"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -705,9 +712,6 @@ msgstr "Виберіть каталог для вставляння"
 
 #~ msgid "config"
 #~ msgstr "config"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Додаток Kate для збирання"
 
 #~ msgid "Select build target"
 #~ msgstr "Виберіть ціль збирання"

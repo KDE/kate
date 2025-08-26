@@ -2078,7 +2078,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "请安装 git 以查看代码差异"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format

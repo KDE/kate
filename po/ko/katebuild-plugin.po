@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-07-21 00:53+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -563,6 +563,13 @@ msgstr "설정"
 msgid "&Build"
 msgstr "빌드(&B)"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate 빌드 플러그인"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -688,9 +695,6 @@ msgstr "삽입할 디렉터리 선택"
 
 #~ msgid "config"
 #~ msgstr "설정"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate 빌드 플러그인"
 
 #~ msgid "Select build target"
 #~ msgstr "빌드 대상 선택"

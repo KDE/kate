@@ -1,5 +1,5 @@
-# Burkhard Lück <lueck@hube-lueck.de>, 2013, 2015, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2013.
+# SPDX-FileCopyrightText: 2013, 2015, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2013 Frederik Schwarzer <schwarzer@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
@@ -87,7 +87,7 @@ msgstr "Fehler"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr "Keine Dateien zu schließen ..."
+msgstr "Keine Dateien zu schließen …"
 
 #: close_except_plugin.cpp:261
 #, kde-format

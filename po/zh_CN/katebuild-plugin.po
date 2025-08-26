@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -546,6 +546,12 @@ msgstr "配置"
 #, kde-format
 msgid "&Build"
 msgstr "构建(&B)"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, kde-format
+msgid "Build Plugin Toolbar"
+msgstr ""
 
 #: UrlInserter.cpp:32
 #, kde-format

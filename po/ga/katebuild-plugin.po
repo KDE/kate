@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2009-01-20 10:11-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -574,6 +574,13 @@ msgstr "Cumraíocht"
 msgid "&Build"
 msgstr "&Tóg"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Breiseán Tógála"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -670,11 +677,6 @@ msgstr ""
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "Cumraíocht"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Breiseán Tógála"
 
 #~ msgid "Build Output"
 #~ msgstr "Aschur Tógála"

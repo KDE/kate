@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -579,6 +579,13 @@ msgstr "Konfiguracija"
 msgid "&Build"
 msgstr "&Izgradi"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Izgradi priključak"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -691,11 +698,6 @@ msgstr ""
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "Konfiguracija"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Izgradi priključak"
 
 #, fuzzy
 #~| msgid "Delete selected target"

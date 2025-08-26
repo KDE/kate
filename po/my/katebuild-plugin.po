@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2024-09-10 15:25+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -538,6 +538,13 @@ msgstr "ပြင်ဆင်"
 msgid "&Build"
 msgstr "&Bတည်ဆောက်မည်"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "ကိတ် တည်ဆောက်မှု ပလပ်ဂင်"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -641,9 +648,6 @@ msgstr "ထည့်သွင်းရန် ဒါရိုက်ထရီ ရ�
 
 #~ msgid "config"
 #~ msgstr "ကွန်ဖစ်"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "ကိတ် တည်ဆောက်မှု ပလပ်ဂင်"
 
 #~ msgid "Select build target"
 #~ msgstr "တည်ဆောက်မှု ဦိးတည်ပစ်မှတ် ရွေးမည်"

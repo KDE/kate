@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2011-08-09 05:54+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -563,6 +563,13 @@ msgstr "සකසන්න"
 msgid "&Build"
 msgstr "ගොඩනැගීම (&B)"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Build ප්ලගිනය"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -661,11 +668,6 @@ msgstr ""
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "සකසන්න"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Build ප්ලගිනය"
 
 #~ msgid "Build Output"
 #~ msgstr "Build ප්‍රතිදානය"

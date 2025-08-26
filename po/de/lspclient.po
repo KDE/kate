@@ -1,7 +1,7 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Frederik Schwarzer <schwarzer@kde.org>, 2019, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2019, 2020, 2021.
+# SPDX-FileCopyrightText: 2019, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 #
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-16 00:46+0000\n"
-"PO-Revision-Date: 2025-06-19 00:52+0200\n"
+"PO-Revision-Date: 2025-08-14 23:02+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
 #: lspclientpluginview.cpp:475 lspclientpluginview.cpp:619
@@ -328,7 +328,7 @@ msgstr "Keine Aktionen"
 #: lspclientpluginview.cpp:1609
 #, kde-format
 msgid "Loading..."
-msgstr "Laden …"
+msgstr "Laden …"
 
 #: lspclientpluginview.cpp:1701
 #, kde-format
@@ -388,7 +388,7 @@ msgstr "Kein Neustart"
 #: lspclientservermanager.cpp:606
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr "Der Server wurde unerwartet beendet … %1 [%2] [Webseite: %3] "
+msgstr "Der Server wurde unerwartet beendet … %1 [%2] [Webseite: %3] "
 
 #: lspclientservermanager.cpp:877
 #, kde-format
@@ -436,13 +436,13 @@ msgstr "Die Einstellung für den Server kann nicht gelesen werden: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Zur nächsten Symbol-Hervorhebung gehen"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Zur vorherigen Symbol-Hervorhebung gehen"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -620,7 +620,7 @@ msgstr "Baum automatisch ausklappen"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Symbol unter dem Cursor hervorheben"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

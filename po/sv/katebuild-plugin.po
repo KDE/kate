@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-08-13 08:07+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -572,6 +572,13 @@ msgstr "Konfigurera"
 msgid "&Build"
 msgstr "&Bygg"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate bygginsticksprogram"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -698,9 +705,6 @@ msgstr "Välj katalog att infoga"
 
 #~ msgid "config"
 #~ msgstr "config"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate bygginsticksprogram"
 
 #~ msgid "Select build target"
 #~ msgstr "Välj byggmål"

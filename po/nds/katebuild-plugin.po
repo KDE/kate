@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2014-08-14 16:55+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -569,6 +569,13 @@ msgstr "Instellen"
 msgid "&Build"
 msgstr "&Buen"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate-Buumoduul"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -683,9 +690,6 @@ msgstr ""
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "Instellen"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate-Buumoduul"
 
 #, fuzzy
 #~| msgid "Delete selected target"

@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2015, 2016, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2014.
+# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2014 Frederik Schwarzer <schwarzer@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
@@ -373,7 +373,7 @@ msgstr "Definieren Sie hier den Filter"
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr "Filter …"
+msgstr "Filter …"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 16:24+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -569,6 +569,13 @@ msgstr "Tənzimləmə"
 msgid "&Build"
 msgstr "&Yığmaq"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate quraşdırma qoşması"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -690,9 +697,6 @@ msgstr "Daxil etmək üçün qovluq seçin"
 
 #~ msgid "config"
 #~ msgstr "tənzimləmə"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate quraşdırma qoşması"
 
 #~ msgid "Select build target"
 #~ msgstr "Yığım hədəfini seçin"

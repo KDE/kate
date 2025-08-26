@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2015-05-17 21:52+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -544,6 +544,12 @@ msgstr "RentOppsett"
 #, kde-format
 msgid "&Build"
 msgstr "&Bygg"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, kde-format
+msgid "Build Plugin Toolbar"
+msgstr ""
 
 #: UrlInserter.cpp:32
 #, kde-format

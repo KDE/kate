@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-07-01 16:32+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -577,6 +577,13 @@ msgstr "Konfigurēt"
 msgid "&Build"
 msgstr "&Būvēt"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Būvēšanas spraudnis"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -689,11 +696,6 @@ msgstr "Atlasīt mapi, ko ievietot"
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "Konfigurācija"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Būvēšanas spraudnis"
 
 #~ msgid "Build Output"
 #~ msgstr "Būvēšanas izvade"

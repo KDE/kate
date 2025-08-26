@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2013-02-23 16:51+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -540,6 +540,13 @@ msgstr ""
 msgid "&Build"
 msgstr ""
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "बिल्ड प्लगइन"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -592,11 +599,6 @@ msgstr ""
 #~| msgid "Output"
 #~ msgid "Full Output"
 #~ msgstr "आउटपुट"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "बिल्ड प्लगइन"
 
 #~ msgid "Others"
 #~ msgstr "इतर"

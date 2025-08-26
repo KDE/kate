@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2024-11-23 12:08+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -567,6 +567,13 @@ msgstr "Configure"
 msgid "&Build"
 msgstr "&Build"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate Build Plugin"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -693,9 +700,6 @@ msgstr "Select directory to insert"
 
 #~ msgid "config"
 #~ msgstr "config"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate Build Plugin"
 
 #~ msgid "Select build target"
 #~ msgstr "Select build target"

@@ -1,21 +1,21 @@
 # SPDX-FileCopyrightText: 2022, 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
-# Thomas Diehl <thd@kde.org>, 2002, 2003, 2004.
-# Stefan Winter <swinter@kde.org>, 2002.
-# Stephan Johach <hunsum@gmx.de>, 2004, 2005, 2006.
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2005, 2006.
-# Burkhard Lück <lueck@hube-lueck.de>, 2006, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2020, 2022, 2023.
-# Rolf Eike Beer <kde@opensource.sf-tec.de>, 2009, 2010, 2013.
-# Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
-# Johannes Obermayr <johannesobermayr@gmx.de>, 2010.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2002, 2003, 2004 Thomas Diehl <thd@kde.org>
+# SPDX-FileCopyrightText: 2002 Stefan Winter <swinter@kde.org>
+# SPDX-FileCopyrightText: 2004, 2005, 2006 Stephan Johach <hunsum@gmx.de>
+# SPDX-FileCopyrightText: 2005, 2006 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2006, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009, 2010, 2013 Rolf Eike Beer <kde@opensource.sf-tec.de>
+# SPDX-FileCopyrightText: 2010, 2011 Panagiotis Papadopoulos <pano_90@gmx.net>
+# SPDX-FileCopyrightText: 2010 Johannes Obermayr <johannesobermayr@gmx.de>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-25 00:45+0000\n"
-"PO-Revision-Date: 2025-06-23 00:22+0200\n"
+"PO-Revision-Date: 2025-08-20 23:51+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -48,7 +48,7 @@ msgstr "Kate – Erweiterter Texteditor"
 #: kate/main.cpp:123 kwrite/main.cpp:50
 #, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "Copyright 2000–2024, die Autoren von Kate"
+msgstr "© 2000–2024, die Kate-Autoren"
 
 #: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
 #, kde-format
@@ -150,7 +150,7 @@ msgstr "Zu öffnende Dokumente."
 #: kate/main.cpp:222 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
-msgstr "[Adressen …]"
+msgstr "[Adressen …]"
 
 #: kwrite/main.cpp:46
 #, kde-format
@@ -355,7 +355,7 @@ msgstr "Warnungen"
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #: lib/diagnostics/diagnosticview.cpp:518
 #, kde-format
@@ -576,11 +576,10 @@ msgid "No differences found"
 msgstr "Es gibt keine Unterschiede"
 
 #: lib/filehistorywidget.cpp:241
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Ungültiger Hash"
+msgstr "Ungültiges Datum: %1"
 
 #: lib/filehistorywidget.cpp:458
 #, kde-format
@@ -598,6 +597,20 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Historie filtern.<ul><li>Verwenden Sie das <code>„a:“</code>-Präfix, um beim "
+"Namen des Autors zu filtern, z. B.: <b>a:Max Mustermann</b></"
+"li><li>Verwenden Sie das <code>„!a:“</code>-Präfix, um einen Autor "
+"auszuschließen, z. B.: <b>!a:Max Mustermann</b></li><li>Verwenden Sie das "
+"<code>„since:“</code>-Präfix, um Commits nach dem angegebenen Datum "
+"anzuzeigen. Das Schreibdatum jedes Commits wird geprüft. Das Datumsformat "
+"ist JJJJ-MM-TT, z. B.: <b>since:2025-04-17</b></li><li>Verwenden Sie das "
+"<code>„until:“</code>-Präfix, um Commits vor dem angegebenen Datum "
+"anzuzeigen. Das Schreibdatum jedes Commits wird geprüft. Das Datumsformat "
+"ist JJJJ-MM-TT, z. B.: <b>until:2025-04-17</b></li><li>Um die Meldungen zu "
+"filtern, geben Sie einfach den Suchbegriff ein. Wenn mehrere Suchbegriffe "
+"eingegeben werden, werden Meldungen angezeigt, die alle Suchbegriffe "
+"enthalten.</li></ul>Um die Filterung zu starten, drücken Sie die "
+"<b>Eingabetaste</b>."
 
 #: lib/filehistorywidget.cpp:514
 #, kde-format
@@ -739,7 +752,7 @@ msgstr "Matt Newell"
 #: lib/kateapp.cpp:377
 #, kde-format
 msgid "Testing, ..."
-msgstr "Tests …"
+msgstr "Tests, …"
 
 #: lib/kateapp.cpp:378
 #, kde-format
@@ -1454,7 +1467,7 @@ msgstr "Programmstart läuft"
 #: lib/katedocmanager.cpp:394
 #, kde-format
 msgid "Reopening files from the last session..."
-msgstr "Dateien der letzten Sitzung werden geöffnet …"
+msgstr "Dateien der letzten Sitzung werden geöffnet …"
 
 #: lib/katedocmanager.cpp:570
 #, fuzzy, kde-format
@@ -1501,7 +1514,7 @@ msgstr "Die Datei „%1“ kann nicht gelöscht werden."
 #: lib/katefileactions.cpp:204
 #, kde-format
 msgid "&Other Application..."
-msgstr "&Andere Anwendung …"
+msgstr "&Andere Anwendung …"
 
 #: lib/katemainwindow.cpp:282
 #, kde-format
@@ -1643,7 +1656,7 @@ msgstr "&Ordner mit diesem Inhalt öffnen"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Umbenennen …"
+msgstr "Umbenennen …"
 
 #: lib/katemainwindow.cpp:471
 #, kde-format
@@ -1825,7 +1838,7 @@ msgstr "&Alle Sitzungen"
 #: lib/katemainwindow.cpp:610
 #, kde-format
 msgid "&Manage Sessions..."
-msgstr "Sitzungen &verwalten …"
+msgstr "Sitzungen &verwalten …"
 
 #: lib/katemainwindow.cpp:619
 #, kde-format
@@ -1835,7 +1848,7 @@ msgstr "Sitzung s&peichern"
 #: lib/katemainwindow.cpp:625
 #, kde-format
 msgid "Save Session &As..."
-msgstr "Sitzung speichern &als …"
+msgstr "Sitzung speichern &unter …"
 
 #: lib/katemainwindow.cpp:633
 #, fuzzy, kde-format
@@ -1993,7 +2006,7 @@ msgstr "%1 aktivieren"
 #: lib/katemdi.cpp:1119
 #, kde-format
 msgid "Configure..."
-msgstr "Einrichten …"
+msgstr "Einrichten …"
 
 #: lib/katemdi.cpp:1123
 #, kde-format
@@ -2188,7 +2201,7 @@ msgstr "[NEU]"
 #: lib/kateoutputview.cpp:176
 #, kde-format
 msgid "Search..."
-msgstr "Suchen …"
+msgstr "Suchen …"
 
 #: lib/kateoutputview.cpp:192
 #, kde-format
@@ -2841,13 +2854,13 @@ msgstr "Diese Nachfrage nicht mehr anzeigen"
 #: lib/session/katesessionmanagedialog.ui:134
 #, kde-format
 msgid "Duplicate..."
-msgstr "Duplizieren …"
+msgstr "Duplizieren …"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_renameButton)
 #: lib/session/katesessionmanagedialog.ui:141
 #, kde-format
 msgid "&Rename..."
-msgstr "&Umbenennen …"
+msgstr "&Umbenennen …"
 
 #. i18n: ectx: property (text), widget (QPushButton, m_deleteButton)
 #: lib/session/katesessionmanagedialog.ui:161
@@ -3106,7 +3119,7 @@ msgstr "Keine gespeicherten Sitzungen"
 #: lib/welcomeview/welcomeview.cpp:248
 #, kde-format
 msgid "Open Selected Files..."
-msgstr "Ausgewählte Dateien öffnen …"
+msgstr "Ausgewählte Dateien öffnen …"
 
 #: lib/welcomeview/welcomeview.cpp:261
 #, kde-format
@@ -3134,7 +3147,7 @@ msgstr "Neue Datei"
 #: lib/welcomeview/welcomeview.ui:186
 #, kde-format
 msgid "Open Folder..."
-msgstr "Ordner öffnen …"
+msgstr "Ordner öffnen …"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
@@ -3146,7 +3159,7 @@ msgstr "Zuletzt geöffnete Dateien"
 #: lib/welcomeview/welcomeview.ui:203
 #, kde-format
 msgid "Open File..."
-msgstr "Datei öffnen …"
+msgstr "Datei öffnen …"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
@@ -3188,7 +3201,7 @@ msgstr "Gespeicherte Sitzungen"
 #: lib/welcomeview/welcomeview.ui:389
 #, kde-format
 msgid "Manage Sessions..."
-msgstr "Sitzungen verwalten …"
+msgstr "Sitzungen verwalten …"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442

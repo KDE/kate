@@ -1,7 +1,7 @@
 # German translations for kate package.
 # Copyright (C) 2022 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 #
 # Automatically generated, 2022.
@@ -57,7 +57,7 @@ msgstr ""
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
 msgid "Recording…"
-msgstr "Aufnahme …"
+msgstr "Aufnahme …"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -155,7 +155,7 @@ msgstr "Tastaturmakros aufnehmen und wiedergeben."
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr "Makro a&ufnehmen …"
+msgstr "Makro a&ufnehmen …"
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
@@ -202,7 +202,7 @@ msgstr "Dem aktuellen Makro einen Namen geben und es dauerhaft speichern."
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr "Benanntes Makro &laden …"
+msgstr "Benanntes Makro &laden …"
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
@@ -212,7 +212,7 @@ msgstr "Ein benanntes Makro laden und zum aktuellen machen."
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr "&Benanntes Makro wiedergeben …"
+msgstr "&Benanntes Makro wiedergeben …"
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
@@ -222,7 +222,7 @@ msgstr "Ein benanntes Makro wiedergeben ohne es zu laden."
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr "Benanntes Makro löschen …"
+msgstr "Benanntes Makro löschen …"
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format

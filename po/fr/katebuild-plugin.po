@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-06-17 21:29+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -598,6 +598,13 @@ msgstr "Configurer"
 msgid "&Build"
 msgstr "&Construire"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Module externe de compilation de Kate"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -723,9 +730,6 @@ msgstr "Sélectionnez le dossier à insérer"
 
 #~ msgid "config"
 #~ msgstr "config"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Module externe de compilation de Kate"
 
 #~ msgid "Select build target"
 #~ msgstr "Sélectionner la cible à construire"

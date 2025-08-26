@@ -82,7 +82,7 @@ msgstr "Compiler"
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Compileroptionen …"
+msgstr "Compileroptionen …"
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -122,7 +122,7 @@ msgstr "Intel-Syntax"
 #: ce_widget.cpp:337
 #, kde-format
 msgid "Change URL…"
-msgstr "URL ändern …"
+msgstr "URL ändern …"
 
 #: ce_widget.cpp:343
 #, kde-format

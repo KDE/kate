@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2011-04-22 02:40-0700\n"
 "Last-Translator: Fumiaki Okushi <okushi@kde.gr.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -551,6 +551,12 @@ msgstr "設定"
 #, kde-format
 msgid "&Build"
 msgstr "ビルド(&B)"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, kde-format
+msgid "Build Plugin Toolbar"
+msgstr ""
 
 #: UrlInserter.cpp:32
 #, kde-format

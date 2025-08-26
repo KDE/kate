@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -578,6 +578,13 @@ msgstr "Подеси"
 msgid "&Build"
 msgstr "&Градња"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Кејтин прикључак за градњу"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -630,9 +637,6 @@ msgstr "Избор фасцикле за уметање"
 #~ msgctxt "Header for the error message column"
 #~ msgid "Message"
 #~ msgstr "порука"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Кејтин прикључак за градњу"
 
 #~ msgid "Build Output"
 #~ msgstr "Излаз градње"

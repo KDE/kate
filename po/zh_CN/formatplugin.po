@@ -32,7 +32,7 @@ msgstr "写入临时文件失败"
 #: FormatApply.h:33
 #, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr ""
+msgstr "运行 git diff 失败：git 没有安装"
 
 #: FormatApply.h:38
 #, kde-format

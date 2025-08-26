@@ -1,5 +1,5 @@
-# Frederik Schwarzer <schwarzer@kde.org>, 2007, 2008, 2009, 2022.
-# Burkhard Lück <lueck@hube-lueck.de>, 2009, 2013, 2014, 2021.
+# SPDX-FileCopyrightText: 2007, 2008, 2009, 2022 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009, 2013, 2014, 2021 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
@@ -36,7 +36,7 @@ msgstr "Öffnen mit"
 #: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
-msgstr "&Weitere ..."
+msgstr "&Weitere …"
 
 #: katefilebrowser.cpp:352
 #, kde-format

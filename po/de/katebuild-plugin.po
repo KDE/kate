@@ -1,14 +1,14 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Frederik Schwarzer <schwarzer@kde.org>, 2008, 2009, 2010, 2011, 2012, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2009, 2013, 2014, 2015, 2018, 2019, 2020, 2021.
-# Rolf Eike Beer <kde@opensource.sf-tec.de>, 2009.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2012, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009, 2013, 2014, 2015, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2009 Rolf Eike Beer <kde@opensource.sf-tec.de>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2025-06-19 13:59+0200\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
+"PO-Revision-Date: 2025-08-20 23:52+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -119,7 +119,7 @@ msgstr "Erstellen"
 #: plugin_katebuild.cpp:278
 #, kde-format
 msgid "Select Target..."
-msgstr "Ziel auswählen …"
+msgstr "Ziel auswählen …"
 
 #: plugin_katebuild.cpp:283
 #, kde-format
@@ -223,10 +223,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "„%1“ kann nicht ausgeführt werden. exitStatus = %2"
 
 #: plugin_katebuild.cpp:868
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Das Erstellen von <b>%1</b> wurde abgebrochen"
+msgstr "Das Erstellen von <b>%1: %2</b> wurde abgebrochen"
 
 #: plugin_katebuild.cpp:973
 #, kde-format
@@ -244,6 +243,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ersetzung „%f“ kann nicht durchgeführt werden, weil keine Datei offen ist "
+"oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
 #: plugin_katebuild.cpp:1007
 #, kde-format
@@ -251,6 +252,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ersetzung „%d“ kann nicht durchgeführt werden, weil keine Datei offen ist "
+"oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
 #: plugin_katebuild.cpp:1011
 #, kde-format
@@ -258,31 +261,34 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ersetzung „%n“ kann nicht durchgeführt werden, weil keine Datei offen ist "
+"oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
 #: plugin_katebuild.cpp:1022
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
+"Ersetzung im Projekt (%B) kann nicht durchgeführt werden, weil kein Projekt "
+"geöffnet ist."
 
 #: plugin_katebuild.cpp:1035
 #, kde-format
 msgid "Already building..."
-msgstr "Wird bereits erstellt …"
+msgstr "Wird bereits erstellt …"
 
 #: plugin_katebuild.cpp:1073
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
 msgstr ""
+"%1: %2 kann nicht ausgeführt werden. Kein Arbeitsordner wurde bestimmt.\n"
 "Es ist keine lokale Datei oder kein lokaler Ordner zum Erstellen angegeben."
 
 #: plugin_katebuild.cpp:1194
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Ziel <b>%1</b> wird erstellt ..."
+msgstr "Ziel <b>%1: %2</b> wird erstellt …"
 
 #: plugin_katebuild.cpp:1231
 #, kde-format
@@ -339,11 +345,10 @@ msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Das Erstellen ist beendet:</title>%1"
 
 #: plugin_katebuild.cpp:1476
-#, fuzzy, kde-format
-#| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Erstellen von <b>%1</b> abgeschlossen. %2 Fehler, %3 Warnung(en), %4 "
+"Erstellen von <b>%1: %2</b> abgeschlossen. %3 Fehler, %4 Warnung(en), %5 "
 "Hinweis(e)"
 
 #: plugin_katebuild.cpp:1487
@@ -384,11 +389,11 @@ msgid "Build completed without problems."
 msgstr "Erstellen ohne Probleme abgeschlossen."
 
 #: plugin_katebuild.cpp:1508
-#, fuzzy, kde-format
-#| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
+#, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
-"Erstellen von <b>%1 abgebrochen</b>. %2 Fehler, %3 Warnung(en), %4 Hinweis(e)"
+"Erstellen von <b>%1: %2 abgebrochen</b>. %3 Fehler, %4 Warnung(en), %5 "
+"Hinweis(e)"
 
 #: plugin_katebuild.cpp:1788
 #, kde-format
@@ -454,12 +459,7 @@ msgstr ""
 "„%b“ für den Namen des Projektbasisordners"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -468,10 +468,12 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Benutzen Sie:\n"
+"Verwenden Sie:\n"
 "„%f“ für die aktuelle Datei\n"
 "„%d“ für den Ordner der aktuellen Datei\n"
-"\"%n\" für den aktuellen Dateinamen ohne Erweiterung"
+"„%n“ für den aktuellen Dateinamen ohne Erweiterung\n"
+"„%B“ für den aktuellen Projekt-Basisordner\n"
+"„%w“ für den Arbeitsordner des Ziels"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
@@ -580,6 +582,13 @@ msgstr "Einstellungen"
 #, kde-format
 msgid "&Build"
 msgstr "&Erstellen"
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate-Erstellenmodul"
 
 #: UrlInserter.cpp:32
 #, kde-format
@@ -708,9 +717,6 @@ msgstr "Ordner zum Einfügen wählen"
 
 #~ msgid "config"
 #~ msgstr "Konfigurieren"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate-Erstellenmodul"
 
 #~ msgid "Select build target"
 #~ msgstr "Erstellungsziel auswählen"

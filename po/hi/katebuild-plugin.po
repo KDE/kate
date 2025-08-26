@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2024-12-15 15:57+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -528,6 +528,12 @@ msgstr ""
 #: ui.rc:6
 #, kde-format
 msgid "&Build"
+msgstr ""
+
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, kde-format
+msgid "Build Plugin Toolbar"
 msgstr ""
 
 #: UrlInserter.cpp:32

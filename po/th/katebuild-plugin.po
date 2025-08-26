@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2010-03-01 22:44+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -551,6 +551,13 @@ msgstr "ประมวลผลคำสั่ง make clean"
 msgid "&Build"
 msgstr "&สร้างโปรแกรม"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build command:"
+msgid "Build Plugin Toolbar"
+msgstr "คำสั่ง Build:"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -634,11 +641,6 @@ msgstr ""
 #~| msgid "Build Output"
 #~ msgid "Full Output"
 #~ msgstr "ผลลัพธ์ของการ Build"
-
-#, fuzzy
-#~| msgid "Build command:"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "คำสั่ง Build:"
 
 #~ msgid "Build Output"
 #~ msgstr "ผลลัพธ์ของการ Build"

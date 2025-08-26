@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-06-21 13:33+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -581,6 +581,13 @@ msgstr "Configurar"
 msgid "&Build"
 msgstr "&Construír"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Complemento de construción de Kate"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -711,9 +718,6 @@ msgstr "Seleccione un cartafol para inserir"
 
 #~ msgid "config"
 #~ msgstr "configurar"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Complemento de construción de Kate"
 
 #~ msgid "Select build target"
 #~ msgstr "Seleccionar o obxectivo da construción"

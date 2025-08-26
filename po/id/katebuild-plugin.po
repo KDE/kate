@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2020-03-05 08:04+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -571,6 +571,13 @@ msgstr "Konfigurasi"
 msgid "&Build"
 msgstr "&Bangun"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Plugin Pembangun Kate"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -696,9 +703,6 @@ msgstr "Pilih direktori untuk dimasukkan"
 
 #~ msgid "config"
 #~ msgstr "konfigurasi"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Plugin Pembangun Kate"
 
 #~ msgid "Select build target"
 #~ msgstr "Pilih sasaran bangun"

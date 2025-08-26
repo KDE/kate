@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2017-03-22 17:11+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -573,6 +573,13 @@ msgstr "Konfiguration"
 msgid "&Build"
 msgstr "&Byg"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate bygge-plugin"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -694,9 +701,6 @@ msgstr "Vælg mappe der skal indsættes"
 
 #~ msgid "config"
 #~ msgstr "konfiguration"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate bygge-plugin"
 
 #~ msgid "Select build target"
 #~ msgstr "Vælg byggemål"

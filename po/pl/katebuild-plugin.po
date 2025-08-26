@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-06-22 08:58+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -576,6 +576,13 @@ msgstr "Ustawienia"
 msgid "&Build"
 msgstr "Z&buduj"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Wtyczka budowania Kate"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -701,9 +708,6 @@ msgstr "Wybierz katalog do wstawienia"
 
 #~ msgid "config"
 #~ msgstr "ustawienia"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Wtyczka budowania Kate"
 
 #~ msgid "Select build target"
 #~ msgstr "Wybierz cel budowania"

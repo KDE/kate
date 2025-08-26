@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2025-08-14 00:06+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -574,6 +574,13 @@ msgstr "Konfiguratu"
 msgid "&Build"
 msgstr "&Eraiki"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Kate Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "Kate eraikitzeko plugina"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -697,9 +704,6 @@ msgstr "Hautatu txertatu beharreko direktorioa"
 
 #~ msgid "config"
 #~ msgstr "Konfiguratu"
-
-#~ msgid "Kate Build Plugin"
-#~ msgstr "Kate eraikitzeko plugina"
 
 #~ msgid "Select build target"
 #~ msgstr "Hautatu eraikitze jomuga"

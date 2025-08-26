@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Frederik Schwarzer <schwarzer@kde.org>, 2007, 2008, 2010, 2019, 2022.
-# Burkhard Lück <lueck@hube-lueck.de>, 2009, 2013, 2017, 2018.
-# Johannes Obermayr <johannesobermayr@gmx.de>, 2009.
+# SPDX-FileCopyrightText: 2007, 2008, 2010, 2019, 2022 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009, 2013, 2017, 2018 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2009 Johannes Obermayr <johannesobermayr@gmx.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
@@ -139,7 +139,7 @@ msgstr "Symbolliste"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format

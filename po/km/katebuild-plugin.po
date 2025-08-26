@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2011-12-21 14:12+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -568,6 +568,13 @@ msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
 msgid "&Build"
 msgstr "ស្ថាបនា"
 
+#. i18n: ectx: ToolBar (mainToolBar)
+#: ui.rc:23
+#, fuzzy, kde-format
+#| msgid "Build Plugin"
+msgid "Build Plugin Toolbar"
+msgstr "កម្មវិធី​ស្ថាបនា"
+
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
@@ -669,11 +676,6 @@ msgstr ""
 #~| msgid "Config"
 #~ msgid "config"
 #~ msgstr "កំណត់​រចនាសម្ព័ន្ធ​"
-
-#, fuzzy
-#~| msgid "Build Plugin"
-#~ msgid "Kate Build Plugin"
-#~ msgstr "កម្មវិធី​ស្ថាបនា"
 
 #~ msgid "Build Output"
 #~ msgstr "លទ្ធផល​នៃការ​ស្ថាបនា"

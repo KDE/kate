@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-19 05:24+0000\n"
+"POT-Creation-Date: 2025-08-26 00:45+0000\n"
 "PO-Revision-Date: 2013-01-28 12:58+0000\n"
 "Last-Translator: Samir Ribić <Unknown>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -22,419 +22,419 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: backend.cpp:24 dapbackend.cpp:168
+#: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
 msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
 
-#: configview.cpp:90
+#: configview.cpp:93
 #, kde-format
 msgid "Add new target"
 msgstr "Dodaj novo odredište"
 
-#: configview.cpp:94
+#: configview.cpp:97
 #, kde-format
 msgid "Copy target"
 msgstr "Kopiraj odredište"
 
-#: configview.cpp:98
+#: configview.cpp:101
 #, kde-format
 msgid "Delete target"
 msgstr "Obriši odredište"
 
-#: configview.cpp:102
+#: configview.cpp:105
 #, kde-format
 msgid "Reload launch.json targets"
 msgstr ""
 
-#: configview.cpp:107
+#: configview.cpp:110
 #, kde-format
 msgid "Executable:"
 msgstr "Izvršni program:"
 
-#: configview.cpp:127
+#: configview.cpp:130
 #, kde-format
 msgid "Working Directory:"
 msgstr "Radni direktorij:"
 
-#: configview.cpp:135
+#: configview.cpp:138
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:140
+#: configview.cpp:143
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumenti:"
 
-#: configview.cpp:143
+#: configview.cpp:146
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Sačuvaj fokus"
 
-#: configview.cpp:144
+#: configview.cpp:147
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Čuvaj fokus na komandnoj liniji"
 
-#: configview.cpp:146
+#: configview.cpp:149
 #, kde-format
 msgid "Redirect IO"
 msgstr "Preusmjeri ulaz i izlaz"
 
-#: configview.cpp:147
+#: configview.cpp:150
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Preusmjeri ulaz i izlaz programa koji se prate u posebnu karticu"
 
-#: configview.cpp:390
+#: configview.cpp:397
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
 msgstr ""
 
-#: configview.cpp:400
+#: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
 msgstr ""
 
-#: configview.cpp:471 configview.cpp:484
+#: configview.cpp:529 configview.cpp:542
 #, kde-format
 msgid "Target %1"
 msgstr "Odredište %1"
 
-#: configview.cpp:703
+#: configview.cpp:761
 #, fuzzy, kde-format
 #| msgid "Executable:"
 msgid "Select Executable"
 msgstr "Izvršni program:"
 
-#: configview.cpp:716
+#: configview.cpp:774
 #, fuzzy, kde-format
 #| msgid "Working Directory:"
 msgid "Select Working Directory"
 msgstr "Radni direktorij:"
 
-#: dapbackend.cpp:182
+#: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
 msgstr ""
 
-#: dapbackend.cpp:232
+#: dapbackend.cpp:237
 #, kde-format
 msgid "program terminated"
 msgstr ""
 
-#: dapbackend.cpp:237
+#: dapbackend.cpp:242
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
 msgstr ""
 
-#: dapbackend.cpp:248
+#: dapbackend.cpp:253
 #, kde-format
 msgid "requesting disconnection"
 msgstr ""
 
-#: dapbackend.cpp:262
+#: dapbackend.cpp:267
 #, kde-format
 msgid "requesting shutdown"
 msgstr ""
 
-#: dapbackend.cpp:286
+#: dapbackend.cpp:291
 #, kde-format
 msgid "DAP backend: %1"
 msgstr ""
 
-#: dapbackend.cpp:295
+#: dapbackend.cpp:300
 #, kde-format
 msgid "stopped (%1)."
 msgstr ""
 
-#: dapbackend.cpp:303
+#: dapbackend.cpp:308
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
 msgstr ""
 
-#: dapbackend.cpp:305
+#: dapbackend.cpp:310
 #, kde-format
 msgid "Active thread: %1."
 msgstr ""
 
-#: dapbackend.cpp:310
+#: dapbackend.cpp:315
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Breakpoint(s) reached:"
 msgstr "Prijelomna tačka"
 
-#: dapbackend.cpp:336
+#: dapbackend.cpp:341
 #, kde-format
 msgid "(continued) thread %1"
 msgstr ""
 
-#: dapbackend.cpp:338
+#: dapbackend.cpp:343
 #, kde-format
 msgid "all threads continued"
 msgstr ""
 
-#: dapbackend.cpp:345
+#: dapbackend.cpp:350
 #, kde-format
 msgid "(running)"
 msgstr ""
 
-#: dapbackend.cpp:407
+#: dapbackend.cpp:412
 #, kde-format
 msgid "*** connection with server closed ***"
 msgstr ""
 
-#: dapbackend.cpp:414
+#: dapbackend.cpp:419
 #, kde-format
 msgid "program exited with code %1"
 msgstr ""
 
-#: dapbackend.cpp:432
+#: dapbackend.cpp:437
 #, kde-format
 msgid "*** waiting for user actions ***"
 msgstr ""
 
-#: dapbackend.cpp:437
+#: dapbackend.cpp:442
 #, kde-format
 msgid "error on response: %1"
 msgstr ""
 
-#: dapbackend.cpp:452
+#: dapbackend.cpp:457
 #, kde-format
 msgid "important"
 msgstr ""
 
-#: dapbackend.cpp:455
+#: dapbackend.cpp:460
 #, kde-format
 msgid "telemetry"
 msgstr ""
 
-#: dapbackend.cpp:474
+#: dapbackend.cpp:479
 #, kde-format
 msgid "debugging process [%1] %2"
 msgstr ""
 
-#: dapbackend.cpp:476
+#: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process %1"
 msgstr ""
 
-#: dapbackend.cpp:479
+#: dapbackend.cpp:484
 #, kde-format
 msgid "Start method: %1"
 msgstr ""
 
-#: dapbackend.cpp:494
+#: dapbackend.cpp:499
 #, fuzzy, kde-format
 #| msgid "Thread %1"
 msgid "thread %1"
 msgstr "Nit %1"
 
-#: dapbackend.cpp:632
+#: dapbackend.cpp:637
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "breakpoint set"
 msgstr "Prijelomna tačka"
 
-#: dapbackend.cpp:640
+#: dapbackend.cpp:645
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "breakpoint cleared"
 msgstr "Prijelomna tačka"
 
-#: dapbackend.cpp:699
+#: dapbackend.cpp:704
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "(%1) breakpoint"
 msgstr "Prijelomna tačka"
 
-#: dapbackend.cpp:716
+#: dapbackend.cpp:721
 #, kde-format
 msgid "<not evaluated>"
 msgstr ""
 
-#: dapbackend.cpp:738
+#: dapbackend.cpp:743
 #, kde-format
 msgid "server capabilities"
 msgstr ""
 
-#: dapbackend.cpp:741
+#: dapbackend.cpp:746
 #, kde-format
 msgid "supported"
 msgstr ""
 
-#: dapbackend.cpp:741
+#: dapbackend.cpp:746
 #, kde-format
 msgid "unsupported"
 msgstr ""
 
-#: dapbackend.cpp:744
+#: dapbackend.cpp:749
 #, fuzzy, kde-format
 #| msgid "Insert breakpoint"
 msgid "conditional breakpoints"
 msgstr "Ubaci prekidnu tačku"
 
-#: dapbackend.cpp:745
+#: dapbackend.cpp:750
 #, fuzzy, kde-format
 #| msgid "Insert breakpoint"
 msgid "function breakpoints"
 msgstr "Ubaci prekidnu tačku"
 
-#: dapbackend.cpp:746
+#: dapbackend.cpp:751
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr ""
 
-#: dapbackend.cpp:747
+#: dapbackend.cpp:752
 #, kde-format
 msgid "log points"
 msgstr ""
 
-#: dapbackend.cpp:747
+#: dapbackend.cpp:752
 #, kde-format
 msgid "modules request"
 msgstr ""
 
-#: dapbackend.cpp:748
+#: dapbackend.cpp:753
 #, kde-format
 msgid "goto targets request"
 msgstr ""
 
-#: dapbackend.cpp:749
+#: dapbackend.cpp:754
 #, kde-format
 msgid "terminate request"
 msgstr ""
 
-#: dapbackend.cpp:750
+#: dapbackend.cpp:755
 #, kde-format
 msgid "terminate debuggee"
 msgstr ""
 
-#: dapbackend.cpp:978
+#: dapbackend.cpp:983
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr ""
 
-#: dapbackend.cpp:996 dapbackend.cpp:1031 dapbackend.cpp:1069
-#: dapbackend.cpp:1103 dapbackend.cpp:1139 dapbackend.cpp:1175
-#: dapbackend.cpp:1211 dapbackend.cpp:1311 dapbackend.cpp:1373
+#: dapbackend.cpp:1001 dapbackend.cpp:1037 dapbackend.cpp:1076
+#: dapbackend.cpp:1110 dapbackend.cpp:1146 dapbackend.cpp:1182
+#: dapbackend.cpp:1218 dapbackend.cpp:1318 dapbackend.cpp:1381
 #, kde-format
 msgid "syntax error: %1"
 msgstr ""
 
-#: dapbackend.cpp:1004 dapbackend.cpp:1039 dapbackend.cpp:1318
-#: dapbackend.cpp:1381
+#: dapbackend.cpp:1009 dapbackend.cpp:1045 dapbackend.cpp:1325
+#: dapbackend.cpp:1389
 #, kde-format
 msgid "invalid line: %1"
 msgstr ""
 
-#: dapbackend.cpp:1011 dapbackend.cpp:1016 dapbackend.cpp:1046
-#: dapbackend.cpp:1051 dapbackend.cpp:1342 dapbackend.cpp:1347
-#: dapbackend.cpp:1388 dapbackend.cpp:1393
+#: dapbackend.cpp:1017 dapbackend.cpp:1022 dapbackend.cpp:1053
+#: dapbackend.cpp:1058 dapbackend.cpp:1350 dapbackend.cpp:1355
+#: dapbackend.cpp:1397 dapbackend.cpp:1402
 #, kde-format
 msgid "file not specified: %1"
 msgstr ""
 
-#: dapbackend.cpp:1081 dapbackend.cpp:1115 dapbackend.cpp:1151
-#: dapbackend.cpp:1187 dapbackend.cpp:1223
+#: dapbackend.cpp:1088 dapbackend.cpp:1122 dapbackend.cpp:1158
+#: dapbackend.cpp:1194 dapbackend.cpp:1230
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr ""
 
-#: dapbackend.cpp:1087 dapbackend.cpp:1121 dapbackend.cpp:1157
-#: dapbackend.cpp:1193 dapbackend.cpp:1229
+#: dapbackend.cpp:1094 dapbackend.cpp:1128 dapbackend.cpp:1164
+#: dapbackend.cpp:1200 dapbackend.cpp:1236
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr ""
 
-#: dapbackend.cpp:1240
+#: dapbackend.cpp:1247
 #, kde-format
 msgid "Available commands:"
 msgstr ""
 
-#: dapbackend.cpp:1328
+#: dapbackend.cpp:1335
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: dapbackend.cpp:1336
+#: dapbackend.cpp:1343
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 
-#: dapbackend.cpp:1356
+#: dapbackend.cpp:1364
 #, kde-format
 msgid "line %1 already has a breakpoint"
 msgstr ""
 
-#: dapbackend.cpp:1401
+#: dapbackend.cpp:1410
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
 msgstr ""
 
-#: dapbackend.cpp:1407
+#: dapbackend.cpp:1416
 #, kde-format
 msgid "Current thread: "
 msgstr ""
 
-#: dapbackend.cpp:1412 dapbackend.cpp:1419 dapbackend.cpp:1440
+#: dapbackend.cpp:1421 dapbackend.cpp:1428 dapbackend.cpp:1449
 #, kde-format
 msgid "none"
 msgstr ""
 
-#: dapbackend.cpp:1415
+#: dapbackend.cpp:1424
 #, kde-format
 msgid "Current frame: "
 msgstr ""
 
-#: dapbackend.cpp:1422
+#: dapbackend.cpp:1431
 #, kde-format
 msgid "Session state: "
 msgstr ""
 
-#: dapbackend.cpp:1425
+#: dapbackend.cpp:1434
 #, kde-format
 msgid "initializing"
 msgstr ""
 
-#: dapbackend.cpp:1428
+#: dapbackend.cpp:1437
 #, kde-format
 msgid "running"
 msgstr ""
 
-#: dapbackend.cpp:1431
+#: dapbackend.cpp:1440
 #, kde-format
 msgid "stopped"
 msgstr ""
 
-#: dapbackend.cpp:1434
+#: dapbackend.cpp:1443
 #, kde-format
 msgid "terminated"
 msgstr ""
 
-#: dapbackend.cpp:1437
+#: dapbackend.cpp:1446
 #, kde-format
 msgid "disconnected"
 msgstr ""
 
-#: dapbackend.cpp:1493
+#: dapbackend.cpp:1502
 #, kde-format
 msgid "command not found"
 msgstr ""
 
-#: dapbackend.cpp:1527
+#: dapbackend.cpp:1536
 #, kde-format
 msgid "missing thread id"
 msgstr ""
 
-#: dapbackend.cpp:1666
+#: dapbackend.cpp:1676
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr ""
@@ -663,17 +663,17 @@ msgstr "Ubaci prekidnu tačku"
 msgid "Remove breakpoint"
 msgstr "Ukloni prekidnu tačku"
 
-#: plugin_kategdb.cpp:668
+#: plugin_kategdb.cpp:665
 #, kde-format
 msgid "Execution point"
 msgstr "Izvršna tačka"
 
-#: plugin_kategdb.cpp:789 plugin_kategdb.cpp:821
+#: plugin_kategdb.cpp:786 plugin_kategdb.cpp:818
 #, kde-format
 msgid "Thread %1"
 msgstr "Nit %1"
 
-#: plugin_kategdb.cpp:917
+#: plugin_kategdb.cpp:914
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -681,51 +681,51 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "GDB izlaz"
 
-#: plugin_kategdb.cpp:918
+#: plugin_kategdb.cpp:915
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Postavke"
 
-#: plugin_kategdb.cpp:953
+#: plugin_kategdb.cpp:950
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1042
+#: plugin_kategdb.cpp:1039
 #, kde-format
 msgid "Breakpoint"
 msgstr "Prijelomna tačka"
 
-#: plugin_kategdb.cpp:1118
+#: plugin_kategdb.cpp:1115
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Kopiraj odredište"
 
-#: plugin_kategdb.cpp:1137
+#: plugin_kategdb.cpp:1134
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1147
+#: plugin_kategdb.cpp:1141
 #, kde-format
 msgid "Copy Location"
 msgstr ""
 
-#: stackframe_model.cpp:78
+#: stackframe_model.cpp:80
 #, kde-format
 msgctxt "Column label (frame number)"
 msgid "Nr"
 msgstr "Nr"
 
-#: stackframe_model.cpp:80
+#: stackframe_model.cpp:82
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
 msgstr ""
 
-#: stackframe_model.cpp:82
+#: stackframe_model.cpp:84
 #, fuzzy, kde-format
 #| msgid "Local application"
 msgctxt "Column label"

@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Frederik Schwarzer <schwarzer@kde.org>, 2014, 2016, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2014, 2016, 2018, 2019, 2021.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2014, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
@@ -98,7 +98,7 @@ msgstr "Kopiert den Pfad und Namen der Datei in die Zwischenablage."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr "Umbenennen …"
+msgstr "Umbenennen …"
 
 #: katefiletree.cpp:153
 #, kde-format
@@ -200,7 +200,7 @@ msgstr "Benutzerdefinierte Sortierung"
 #: katefiletree.cpp:402
 #, kde-format
 msgid "Open..."
-msgstr "Öffnen …"
+msgstr "Öffnen …"
 
 #: katefiletree.cpp:406
 #, kde-format
@@ -376,7 +376,7 @@ msgstr ""
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format

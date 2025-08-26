@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Frederik Schwarzer <schwarzer@kde.org>, 2008, 2009, 2010, 2011, 2022.
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2009.
-# Burkhard Lück <lueck@hube-lueck.de>, 2009, 2014, 2015, 2018, 2021.
-# Panagiotis Papadopoulos <pano_90@gmx.net>, 2010, 2011.
+# SPDX-FileCopyrightText: 2008, 2009, 2010, 2011, 2022 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2009, 2014, 2015, 2018, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2010, 2011 Panagiotis Papadopoulos <pano_90@gmx.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
@@ -402,7 +402,7 @@ msgstr "Aktuellen Text suchen"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr "Einrichten …"
+msgstr "Einrichten …"
 
 #: kate_ctags_view.cpp:91
 #, kde-format

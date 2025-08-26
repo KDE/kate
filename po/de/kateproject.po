@@ -1,12 +1,12 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Frederik Schwarzer <schwarzer@kde.org>, 2012, 2013, 2016, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021.
+# SPDX-FileCopyrightText: 2012, 2013, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-07-14 02:52+0000\n"
-"PO-Revision-Date: 2025-06-25 21:23+0200\n"
+"PO-Revision-Date: 2025-08-19 22:12+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -29,7 +29,7 @@ msgstr "Neuen Branch erstellen"
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr "Neuen Branch erstellen von …"
+msgstr "Neuen Branch erstellen von …"
 
 #: branchcheckoutdialog.cpp:54
 #, kde-format
@@ -89,7 +89,7 @@ msgstr[1] ""
 #: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
-msgstr "Einen Branch auswählen …"
+msgstr "Einen Branch auswählen …"
 
 #: branchesdialog.cpp:113 gitwidget.cpp:568 kateprojectpluginview.cpp:69
 #, kde-format
@@ -138,12 +138,12 @@ msgstr "Abbrechen"
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr "Commit-Nachricht schreiben …"
+msgstr "Commit-Nachricht schreiben …"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Erweiterte Commit-Beschreibung …"
+msgstr "Erweiterte Commit-Beschreibung …"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
@@ -225,7 +225,7 @@ msgstr "Git-Status aktualisieren"
 #: gitwidget.cpp:355 kateprojectview.cpp:59
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #: gitwidget.cpp:445
 #, kde-format
@@ -288,8 +288,8 @@ msgstr "Änderungen erfolgreich ins Quelltext-Archiv eingetragen"
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr ""
-"Nichts zum Commit vorgemerkt, bitte zuerst Änderungen vormerken („git add "
-"…“)."
+"Nichts zum Commit vorgemerkt, bitte zuerst Änderungen vormerken („git "
+"add …“)."
 
 #: gitwidget.cpp:863
 #, kde-format
@@ -329,7 +329,7 @@ msgstr "Branch löschen"
 #: gitwidget.cpp:1093
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Branch vergleichen mit …"
+msgstr "Branch vergleichen mit …"
 
 #: gitwidget.cpp:1099
 #, kde-format
@@ -344,7 +344,7 @@ msgstr "Letzten Commit anzeigen"
 #: gitwidget.cpp:1135
 #, kde-format
 msgid "Open Commit..."
-msgstr "Commit öffnen …"
+msgstr "Commit öffnen …"
 
 #: gitwidget.cpp:1138 gitwidget.cpp:1183
 #, kde-format
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Pop Stash"
 msgstr ""
 "Änderungen einer bestimmten Zwischenlagerung holen\n"
-"„git stash pop …“"
+"„git stash pop …“"
 
 #: gitwidget.cpp:1195
 #, kde-format
@@ -397,21 +397,21 @@ msgstr "Änderungen (inklusive unversionierter) zwischenlagern"
 msgid "Apply Stash"
 msgstr ""
 "Änderungen einer bestimmten Zwischenlagerung holen und anwenden\n"
-"„git stash apply …“"
+"„git stash apply …“"
 
 #: gitwidget.cpp:1206
 #, kde-format
 msgid "Drop Stash"
 msgstr ""
 "Einen Eintrag aus dem Zwischenlager löschen\n"
-"„git stash drop …“"
+"„git stash drop …“"
 
 #: gitwidget.cpp:1207
 #, kde-format
 msgid "Show Stash Content"
 msgstr ""
 "Inhalt einer Zwischenlagerung anzeigen\n"
-"„git stash show …“"
+"„git stash show …“"
 
 #: gitwidget.cpp:1245
 #, kde-format
@@ -752,7 +752,7 @@ msgstr "Notizen"
 #: kateprojectinfoviewcodeanalysis.cpp:35
 #, kde-format
 msgid "Start Analysis..."
-msgstr "Analyse starten …"
+msgstr "Analyse starten …"
 
 #: kateprojectinfoviewcodeanalysis.cpp:43
 #, kde-format
@@ -897,7 +897,7 @@ msgstr "Projekt schließen"
 #: kateprojectpluginview.cpp:164
 #, kde-format
 msgid "Open &Folder..."
-msgstr "Ordner ö&ffnen …"
+msgstr "Ordner ö&ffnen …"
 
 #: kateprojectpluginview.cpp:170
 #, kde-format
@@ -987,12 +987,12 @@ msgstr "Ort kopieren"
 #: kateprojecttreeviewcontextmenu.cpp:97
 #, kde-format
 msgid "New File…"
-msgstr "Neue Datei …"
+msgstr "Neue Datei …"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New Folder…"
-msgstr "Neuer Ordner …"
+msgstr "Neuer Ordner …"
 
 #: kateprojecttreeviewcontextmenu.cpp:105
 #, kde-format

@@ -1,9 +1,9 @@
-# Thomas Fischer <thomas.fischer@t-fischer.net>, 2002, 2003, 2004.
-# Stephan Johach <hunsum@gmx.de>, 2005.
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2005.
-# Frederik Schwarzer <schwarzer@kde.org>, 2007, 2014.
-# Burkhard Lück <lueck@hube-lueck.de>, 2013.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2002, 2003, 2004 Thomas Fischer <thomas.fischer@t-fischer.net>
+# SPDX-FileCopyrightText: 2005 Stephan Johach <hunsum@gmx.de>
+# SPDX-FileCopyrightText: 2005 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2007, 2014 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2013 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
@@ -27,7 +27,7 @@ msgstr "XML-Werkzeuge"
 #: plugin_katexmltools.cpp:120
 #, kde-format
 msgid "&Insert Element..."
-msgstr "Element &einfügen ..."
+msgstr "Element &einfügen …"
 
 #: plugin_katexmltools.cpp:124
 #, kde-format
@@ -37,7 +37,7 @@ msgstr "Element &schließen"
 #: plugin_katexmltools.cpp:128
 #, kde-format
 msgid "Assign Meta &DTD..."
-msgstr "Meta-&DTD zuweisen ..."
+msgstr "Meta-&DTD zuweisen …"
 
 #: plugin_katexmltools.cpp:439
 #, kde-format
@@ -130,7 +130,7 @@ msgstr ""
 #: pseudo_dtd.cpp:70
 #, kde-format
 msgid "Analyzing meta DTD..."
-msgstr "Meta-DTD wird analysiert ..."
+msgstr "Meta-DTD wird analysiert …"
 
 #: pseudo_dtd.cpp:70
 #, kde-format

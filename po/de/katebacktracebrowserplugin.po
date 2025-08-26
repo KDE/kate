@@ -1,4 +1,4 @@
-# Burkhard Lück <lueck@hube-lueck.de>, 2009, 2014, 2017.
+# SPDX-FileCopyrightText: 2009, 2014, 2017 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
@@ -41,7 +41,7 @@ msgstr "Funktion"
 #: btbrowserwidget.ui:72
 #, kde-format
 msgid "Configure Paths..."
-msgstr "Pfade einrichten ..."
+msgstr "Pfade einrichten …"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnClipboard)
 #: btbrowserwidget.ui:79
@@ -53,7 +53,7 @@ msgstr "Zwischenablage verwenden"
 #: btbrowserwidget.ui:86
 #, kde-format
 msgid "Load File..."
-msgstr "Datei laden ..."
+msgstr "Datei laden …"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gFolderList)
 #: btconfigwidget.ui:14
@@ -138,7 +138,7 @@ msgstr "Liste der Dateierweiterungen. Beispiel: *.cpp, *.h, *.c usw."
 #: katebacktracebrowser.cpp:91
 #, kde-format
 msgid "Indexing files..."
-msgstr "Dateien werden indiziert ..."
+msgstr "Dateien werden indiziert …"
 
 #: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
 #, kde-format

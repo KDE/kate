@@ -1,14 +1,14 @@
 # SPDX-FileCopyrightText: 2023 Alois Spitzbart <spitz234@hotmail.com>
-# Panagiotis Papadopoulos <pano_90@gmx.net>, 2010.
-# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2020, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2011, 2013, 2014, 2021.
+# SPDX-FileCopyrightText: 2010 Panagiotis Papadopoulos <pano_90@gmx.net>
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2011, 2013, 2014, 2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-30 00:44+0000\n"
-"PO-Revision-Date: 2025-06-19 15:07+0200\n"
+"PO-Revision-Date: 2025-08-20 23:58+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: backend.cpp:24 dapbackend.cpp:168
 #, kde-format
@@ -119,7 +119,7 @@ msgstr "Das Programm ist beendet"
 #: dapbackend.cpp:237
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr "Beenden fehlgeschlagen. Abschaltung wird erzwungen …"
+msgstr "Beenden fehlgeschlagen. Abschaltung wird erzwungen …"
 
 #: dapbackend.cpp:248
 #, kde-format
@@ -494,7 +494,7 @@ msgstr "benannte Objekte"
 #: localsview.cpp:79 localsview.cpp:80
 #, kde-format
 msgid "Loading..."
-msgstr "Laden …"
+msgstr "Laden …"
 
 #: localsview.cpp:163
 #, kde-format
@@ -530,7 +530,7 @@ msgstr "Lokale Variablen und Aufrufstapel"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Datei kann nicht geöffnet werden:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:264
 #, kde-format

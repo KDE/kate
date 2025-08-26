@@ -1,14 +1,14 @@
 # SPDX-FileCopyrightText: 2024 Alois.spitzbart <spitz234@hotmail.com>
-# Frederik Schwarzer <schwarzer@kde.org>, 2011, 2012, 2014, 2016, 2022, 2023.
-# Burkhard Lück <lueck@hube-lueck.de>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-06-23 00:09+0200\n"
+"PO-Revision-Date: 2025-08-19 22:18+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -83,14 +83,14 @@ msgstr "Ergebnis"
 #: MatchModel.cpp:563 MatchModel.cpp:565
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr "<b><i>Dateiliste wird generiert … %1</i></b>"
+msgstr "<b><i>Dateiliste wird generiert …%1</i></b>"
 
 #: MatchModel.cpp:573
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] "<b><i>Eine Übereinstimmung gefunden, Suche nach: … %2</i></b>"
-msgstr[1] "<b><i>%1 Übereinstimmungen gefunden, Suche nach: …%2</i></b>"
+msgstr[0] "<b><i>Eine Übereinstimmung gefunden, Suche nach: …%2</i></b>"
+msgstr[1] "<b><i>%1 Übereinstimmungen gefunden, Suche nach: …%2</i></b>"
 
 #: MatchModel.cpp:578
 #, kde-format
@@ -153,14 +153,14 @@ msgstr[1] ""
 #: MatchModel.cpp:724 MatchModel.cpp:726
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr "Dateiliste wird generiert: … %1"
+msgstr "Dateiliste wird generiert: …%1"
 
 #: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "Eine Übereinstimmung gefunden, Suche nach: … %2"
-msgstr[1] "%1 Übereinstimmungen gefunden, Suche nach: …%2"
+msgstr[0] "Eine Übereinstimmung gefunden, Suche nach: …%2"
+msgstr[1] "%1 Übereinstimmungen gefunden, Suche nach: …%2"
 
 #: MatchModel.cpp:736
 #, kde-format
@@ -211,7 +211,7 @@ msgstr[1] ""
 #: Results.cpp:32
 #, kde-format
 msgid "Filter…"
-msgstr "Filter …"
+msgstr "Filter …"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
@@ -523,32 +523,32 @@ msgstr "Regulärer Ausdruck Gruppierung 0 (vollständige Übereinstimmung)"
 #: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 1-9"
-msgstr "Regulärer Ausdruck Gruppierung 1-9"
+msgstr "Regulärer Ausdruck Gruppierung 1–9"
 
 #: SearchPlugin.cpp:137
 #, kde-format
 msgid "Regular expression capture 0-999"
-msgstr "Regulärer Ausdruck Gruppierung 0-999"
+msgstr "Regulärer Ausdruck Gruppierung 0–999"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr "Groß geschriebene Gruppierung 0-9"
+msgstr "Groß geschriebene Gruppierung 0–9"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr "Groß geschriebene Gruppierung 0-999"
+msgstr "Groß geschriebene Gruppierung 0–999"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr "Klein geschriebene Gruppierung 0-9"
+msgstr "Klein geschriebene Gruppierung 0–9"
 
 #: SearchPlugin.cpp:142
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr "Klein geschriebene Gruppierung 0-999"
+msgstr "Klein geschriebene Gruppierung 0–999"
 
 #: SearchPlugin.cpp:287
 #, kde-format
@@ -706,7 +706,7 @@ msgstr "Leeren"
 #: SearchPlugin.cpp:2400 SearchPlugin.cpp:2434
 #, kde-format
 msgid "Add..."
-msgstr "Hinzufügen …"
+msgstr "Hinzufügen …"
 
 #: SearchPlugin.cpp:2412
 #, kde-format

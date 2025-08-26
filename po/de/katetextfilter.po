@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Thomas Fischer <thomas.fischer@t-fischer.net>, 2002, 2005.
-# Thomas Reitelbach <tr@erdfunkstelle.de>, 2005.
-# Frederik Schwarzer <schwarzer@kde.org>, 2007, 2009.
-# Burkhard Lück <lueck@hube-lueck.de>, 2013, 2015, 2018, 2021.
+# SPDX-FileCopyrightText: 2002, 2005 Thomas Fischer <thomas.fischer@t-fischer.net>
+# SPDX-FileCopyrightText: 2005 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2007, 2009 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2013, 2015, 2018, 2021 Burkhard Lück <lueck@hube-lueck.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katetextfilter\n"
@@ -69,7 +69,7 @@ msgstr ""
 #: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr "&Filtern durch Befehl …"
+msgstr "&Filtern durch Befehl …"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14

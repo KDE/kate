@@ -1,8 +1,8 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Burkhard Lück <lueck@hube-lueck.de>, 2019, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2022.
-# Frank Steinmetzger <dev-kde@felsenfleischer.de>, 2022.
+# SPDX-FileCopyrightText: 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 #
 msgid ""
@@ -171,7 +171,7 @@ msgstr "&Hinzufügen"
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr "&Bearbeiten …"
+msgstr "&Bearbeiten …"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
@@ -267,7 +267,7 @@ msgstr "MIME-Typen auswählen"
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
-msgstr "Programm hinzufügen …"
+msgstr "Programm hinzufügen …"
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
@@ -298,7 +298,7 @@ msgstr "Neue Kategorie %1"
 #: kateexternaltoolsview.cpp:100
 #, kde-format
 msgid "Configure..."
-msgstr "Einrichten …"
+msgstr "Einrichten …"
 
 #: kateexternaltoolsview.cpp:162
 #, kde-format

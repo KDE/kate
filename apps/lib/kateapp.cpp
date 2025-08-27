@@ -462,6 +462,7 @@ bool KateApp::init()
     // the session will only get saved if Kate is properly closed and not if it gets killed.
     // Do it delayed, don't block the startup
     QTimer::singleShot(100, this, [this] {
+        qCDebug(LOG_KATE, "KateApp::init() save session on startup");
         sessionManager()->saveActiveSession(true, /*isAutoSave=*/true);
     });
 
@@ -592,6 +593,7 @@ void KateApp::shutdownKate(KateMainWindow *win)
         return;
     }
 
+    qCDebug(LOG_KATE, "KateApp::%s save session", __func__);
     sessionManager()->saveActiveSession(true);
 
     /**

@@ -9,6 +9,7 @@
 #include "katedocmanager.h"
 
 #include "kateapp.h"
+#include "katedebug.h"
 #include "katemainwindow.h"
 #include "katesavemodifieddialog.h"
 #include "kateviewmanager.h"
@@ -343,6 +344,7 @@ void KateDocManager::saveDocumentList(KConfig *config)
     KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
 
     openDocGroup.writeEntry("Count", (int)m_docList.size());
+    qCDebug(LOG_KATE, "KateDocManager::%s: Count: %d", __func__, (int)m_docList.size());
 
     int i = 0;
     for (KTextEditor::Document *doc : std::as_const(m_docList)) {
@@ -358,6 +360,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 {
     KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
     unsigned int count = openDocGroup.readEntry("Count", 0);
+    qCDebug(LOG_KATE, "KateDocManager::%s: Count: %d", __func__, (int)m_docList.size());
 
     // kill the old stored id mappings
     for (auto &info : m_docInfos) {

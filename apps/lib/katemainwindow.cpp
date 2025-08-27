@@ -16,6 +16,7 @@
 #include "kate_timings_debug.h"
 #include "kateapp.h"
 #include "kateconfigdialog.h"
+#include "katedebug.h"
 #include "katedocmanager.h"
 #include "katefileactions.h"
 #include "katemwmodonhddialog.h"
@@ -849,6 +850,7 @@ bool KateMainWindow::queryClose()
     // last one: check if we can close all documents, try run
     // and save docs if we really close down !
     if (queryClose_internal()) {
+        qCDebug(LOG_KATE, "%s save active session", __func__);
         KateApp::self()->sessionManager()->saveActiveSession(true);
         return true;
     }

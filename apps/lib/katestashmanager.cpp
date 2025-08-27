@@ -39,6 +39,7 @@ void KateStashManager::stashDocuments(KConfig *config, std::span<KTextEditor::Do
     if (!canStash()) {
         return;
     }
+    qCDebug(LOG_KATE, "%s", __func__);
 
     // prepare stash directory, create it recursively if needed
     const QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);

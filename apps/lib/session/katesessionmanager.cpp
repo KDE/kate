@@ -9,6 +9,7 @@
 #include "katesessionmanagedialog.h"
 
 #include "kateapp.h"
+#include "katedebug.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
 
@@ -84,6 +85,7 @@ KateSessionManager::KateSessionManager(QObject *parent, const QString &sessionsD
     connect(dm, &KateDocManager::documentDeleted, &m_sessionSaveTimer, startTimer);
     m_sessionSaveTimer.callOnTimeout(this, [this] {
         if (m_sessionSaveTimerBlocked == 0) {
+            qCDebug(LOG_KATE, "SessionAutoSave triggered");
             saveActiveSession(true, /*isAutoSave=*/true);
         }
     });
@@ -97,6 +99,8 @@ KateSessionManager::~KateSessionManager()
 
 void KateSessionManager::updateSessionList()
 {
+    qCDebug(LOG_KATE, "%s", Q_FUNC_INFO);
+
     const QStringList list = getAllSessionsInDir(m_sessionsDir);
     bool changed = false;
     // Add new sessions to our list
@@ -128,6 +132,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
     if (activeSession() == session) {
         return true;
     }
+    qCDebug(LOG_KATE, "%s name: %ls, closeAndSaveLast: %d, loadNew: %d", __func__, qUtf16Printable(session->name()), closeAndSaveLast, loadNew);
 
     // we want no auto saving during session switches
     AutoSaveBlocker blocker(this);
@@ -175,6 +180,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         }
 
         // save last session or not?
+        qCDebug(LOG_KATE, "%s: save active session", __func__);
         saveActiveSession();
 
         // really close last
@@ -183,6 +189,7 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
         // even when we have stashing enabled.
         if (!KateApp::self()->documentManager()->closeAllDocuments(/*closeUrl=*/false)) {
             // can still fail for modified files, bug 466553
+            qCDebug(LOG_KATE, "%s: failed to close all docs", __func__);
             return false;
         }
     }
@@ -203,6 +210,8 @@ bool KateSessionManager::activateSession(KateSession::Ptr session, const bool cl
 
 void KateSessionManager::loadSession(const KateSession::Ptr &session) const
 {
+    qCDebug(LOG_KATE, "%s: name: %ls", __func__, qUtf16Printable(session->name()));
+
     // open the new session
     KSharedConfigPtr sharedConfig = KSharedConfig::openConfig();
     KConfig *sc = session->config();
@@ -270,6 +279,7 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
 
 bool KateSessionManager::activateSession(const QString &name, const bool closeAndSaveLast, const bool loadNew)
 {
+    qCDebug(LOG_KATE, "%s: name: %ls, closeAndSaveLast: %d, loadNew: %d", __func__, qUtf16Printable(name), closeAndSaveLast, loadNew);
     return activateSession(giveSession(name), closeAndSaveLast, loadNew);
 }
 
@@ -287,6 +297,8 @@ KateSession::Ptr KateSessionManager::giveSession(const QString &name)
     if (m_sessions.contains(name)) {
         return m_sessions.value(name);
     }
+
+    qCDebug(LOG_KATE, "%s: name: %ls", __func__, qUtf16Printable(name));
 
     KateSession::Ptr s = KateSession::create(sessionFileForName(name), name);
     saveSessionTo(s->config(), /*isAutoSave=*/false);
@@ -376,9 +388,11 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 
 void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
 {
+    qCDebug(LOG_KATE, "%s: isAutoSave: %d", __func__, isAutoSave);
     if (!isAutoSave) {
         // Clear the session file to avoid to accumulate outdated entries
         const QStringList groupList = sc->groupList();
+        qCDebug(LOG_KATE, "%s: clearing KConfigGroups", __func__);
         for (const auto &group : groupList) {
             // Don't delete groups for loaded documents that have
             // ViewSpace config in session but do not have any views.
@@ -435,6 +449,7 @@ void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
         _commit(fileToSync.handle());
 #endif
     }
+    qCDebug(LOG_KATE, "%s sessionSaved", __func__);
 }
 
 bool KateSessionManager::saveActiveSession(bool rememberAsLast, bool isAutoSave)
@@ -442,6 +457,7 @@ bool KateSessionManager::saveActiveSession(bool rememberAsLast, bool isAutoSave)
     if (!activeSession()) {
         return false;
     }
+    qCDebug(LOG_KATE, "%s session: %ls, rememberAsLast: %d isAutoSave: %d", __func__, qUtf16Printable(activeSession()->name()), rememberAsLast, isAutoSave);
 
     KConfig *sc = activeSession()->config();
 
@@ -488,6 +504,7 @@ void KateSessionManager::sessionSave()
     if (activeSession() && activeSession()->isAnonymous()) {
         sessionSaveAs();
     } else {
+        qCDebug(LOG_KATE, "%s", __func__);
         saveActiveSession();
     }
 }
@@ -504,6 +521,7 @@ void KateSessionManager::sessionSaveAs()
 
     KateSession::Ptr ns = KateSession::createFrom(activeSession(), sessionFileForName(newName), newName);
     m_activeSession = ns;
+    qCDebug(LOG_KATE, "%s", __func__);
     saveActiveSession();
 
     Q_EMIT sessionChanged();
@@ -628,6 +646,8 @@ KateSessionList KateSessionManager::sessionList()
 
 void KateSessionManager::updateJumpListActions()
 {
+    qCDebug(LOG_KATE, "%s", Q_FUNC_INFO);
+
     // Let's get a list of all session we have atm
     QStringList sessionList = getAllSessionsInDir(m_sessionsDir);
     if (sessionList.isEmpty()) {

@@ -547,7 +547,7 @@ void DiffWidget::runGitDiff()
         const QByteArray out = git->readAllStandardOutput();
         const QByteArray err = git->readAllStandardError();
         if (!err.isEmpty()) {
-            onError(git->readAllStandardError(), git->exitCode());
+            onError(err, git->exitCode());
         }
 
         if (!out.isEmpty()) {

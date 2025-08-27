@@ -521,7 +521,14 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     }
 
     QString stdOut = QString::fromUtf8(m_showProc.readAllStandardOutput());
-    QStringList args = m_showProc.arguments();
+    const QStringList args = m_showProc.arguments();
+
+    const int showIndex = args.indexOf(u"show");
+    if (showIndex < 0 || showIndex >= args.size()) {
+        qWarning("Bad git show command, did not find 'show' argument. %ls", qUtf16Printable(args.join(QLatin1String(" "))));
+        Q_UNREACHABLE();
+    }
+    const QString commitHashArg = args[showIndex + 1];
 
     int titleStart = 0;
     for (int i = 0; i < 4; ++i) {
@@ -543,12 +550,12 @@ void KateGitBlamePluginView::showFinished(int exitCode, QProcess::ExitStatus exi
     if (dateIdx != -1) {
         int newLine = stdOut.indexOf(QLatin1Char('\n'), dateIdx);
         if (newLine != -1) {
-            QString btn = QLatin1String("\n<a href=\"%1\">Click To Show Commit In Tree View</a>\n").arg(args[1]);
+            QString btn = QLatin1String("\n<a href=\"%1\">Click To Show Commit In Tree View</a>\n").arg(commitHashArg);
             stdOut.insert(newLine + 1, btn);
         }
     }
 
-    if (!m_showHash.isEmpty() && m_showHash != args[1]) {
+    if (!m_showHash.isEmpty() && m_showHash != commitHashArg) {
         startShowProcess(m_mainWindow->activeView()->document()->url(), m_showHash);
         return;
     }

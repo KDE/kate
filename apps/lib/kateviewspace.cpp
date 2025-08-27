@@ -501,9 +501,11 @@ bool KateViewSpace::showView(DocOrWidget docOrWidget)
     if (index < 0) {
         return false;
     }
-    // move view to end of list
-    m_registeredDocuments.removeAt(index);
-    m_registeredDocuments.push_back(docOrWidget);
+    // move view to end of list if not already there
+    if (index != m_registeredDocuments.size() - 1) {
+        m_registeredDocuments.removeAt(index);
+        m_registeredDocuments.push_back(docOrWidget);
+    }
 
     /**
      * show the wanted view
@@ -592,7 +594,7 @@ void KateViewSpace::registerDocument(KTextEditor::Document *doc)
     /**
      * remember our new document
      */
-    m_registeredDocuments.insert(0, doc);
+    m_registeredDocuments.push_back(doc);
 
     /**
      * ensure we cleanup after document is deleted, e.g. we remove the tab bar button
@@ -1369,11 +1371,11 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // m_registeredDocuments in reverse order and modifying the tabs
     // in tab bar.
     // docList: 0 1 2 3
-    // m_registeredDocuments: 3 2 1 0
+    // m_registeredDocuments: 0 1 2 3
     const QList<DocOrWidget> tabsList = m_tabBar->documentList();
     if (tabsList.size() < docList.size()) {
         int firstDocIndex = docList.size() - tabsList.size();
-        auto docIt = m_registeredDocuments.rbegin() + firstDocIndex;
+        auto docIt = m_registeredDocuments.begin() + firstDocIndex;
         for (int i = 0; i < tabsList.size(); i++) {
             m_tabBar->setTabDocument(i, *docIt);
             docIt++;

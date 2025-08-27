@@ -533,7 +533,9 @@ void DiffWidget::runGitDiff()
         const QByteArray err = git->readAllStandardError();
         if (!err.isEmpty()) {
             onError(git->readAllStandardError(), git->exitCode());
-        } else {
+        }
+
+        if (!out.isEmpty()) {
             openDiff(out);
             QMetaObject::invokeMethod(
                 this,

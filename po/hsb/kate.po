@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
 "PO-Revision-Date: 2005-04-18 18:18+0200\n"
 "Last-Translator:  <hertn@gmx.de>\n"
 "Language-Team: Hornjoserbšćina <hsb@li.org>\n"
@@ -156,7 +156,7 @@ msgid "Copy Location"
 msgstr ""
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -488,7 +488,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -546,18 +546,18 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Mjeno dataje"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, fuzzy, kde-format
 msgid "Deleted file %1"
 msgstr "Wušmórnjene"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -607,7 +607,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, fuzzy, kde-format
 #| msgid "&Mime types:"
 msgctxt "@title:tab"

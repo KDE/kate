@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
-"PO-Revision-Date: 2025-08-21 08:14+0300\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
+"PO-Revision-Date: 2025-08-26 11:18+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -179,7 +179,7 @@ msgid "Copy Location"
 msgstr "העתקת מקום"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -189,7 +189,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "גיבוב שגוי"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 לא קיים במאגר ה־git."
@@ -511,7 +511,7 @@ msgstr ""
 "נא לוודא שהוא חלק ממשתנה ה־PATH שלך. ניתן לפנות אל https://git-scm.com/"
 "downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -569,17 +569,17 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "הצגת הבדלים עם הקשר מלא, לא רק השורות שהשתנו"
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, kde-format
 msgid "New file %1"
 msgstr "קובץ חדש %1"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, kde-format
 msgid "Deleted file %1"
 msgstr "קובץ שנמחק %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr "לא נמצאו הבדלים"
@@ -639,7 +639,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "הצגת הגשה מלאה"
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -2113,7 +2113,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "נא להתקין git כדי לצפות בהבדלים"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format

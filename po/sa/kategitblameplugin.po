@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-13 00:48+0000\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -54,7 +54,7 @@ msgstr "गिट्"
 msgid "Git blame, show commit failed."
 msgstr "दोषं ददातु, प्रतिबद्धतां दर्शयतु विफलम्।"
 
-#: kategitblameplugin.cpp:604
+#: kategitblameplugin.cpp:611
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "अद्यापि प्रतिबद्धः नास्ति"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -168,7 +168,7 @@ msgid "Copy Location"
 msgstr "Suíomh"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr "Fillteán Neamhbhailí"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -520,7 +520,7 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -581,19 +581,19 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Ainm comhaid"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Scrios an Comhad?"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -645,7 +645,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "&Taispeáin an Chonair Iomlán"
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"

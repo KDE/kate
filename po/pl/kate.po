@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1716727 $
+# Version: $Revision: 1716900 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
 "PO-Revision-Date: 2025-07-26 19:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -180,7 +180,7 @@ msgid "Copy Location"
 msgstr "Skopiuj położenie"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -190,7 +190,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Nieprawidłowy skrót"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 nie istnieje w repozytorium git."
@@ -512,7 +512,7 @@ msgstr ""
 "ścieżka do niego znajduje się w twojej zmiennej PATH. Odwiedź stronę "
 "pobierania na https://git-scm.com/"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -570,17 +570,17 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Pokaż różnicę w jej pełnym otoczeniu, a nie tylko zmienione wiersze"
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, kde-format
 msgid "New file %1"
 msgstr "Nowy plik %1"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Usunięty plik %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr "Nie znaleziono różnic"
@@ -643,7 +643,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Pokaż pełne wdrożenie"
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

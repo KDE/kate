@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-08-13 06:45+0200\n"
+"PO-Revision-Date: 2025-08-26 07:19+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -580,10 +580,9 @@ msgstr "Izgradnja"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Vstavek za izgradnjo za Kate"
+msgstr "Orodna vrstica vtičnika za izgradnjo"
 
 #: UrlInserter.cpp:32
 #, kde-format

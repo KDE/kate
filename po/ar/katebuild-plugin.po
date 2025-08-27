@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-08-17 21:59+0400\n"
+"PO-Revision-Date: 2025-08-26 22:04+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -572,10 +572,9 @@ msgstr "ا&بنِ"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "ملحقة بناء ل‍«كيت»"
+msgstr "شريط أدوات ملحقة البناء"
 
 #: UrlInserter.cpp:32
 #, kde-format

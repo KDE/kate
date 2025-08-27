@@ -2635,7 +2635,11 @@ folder if possible.</para
 >Inleiding</title>
 
 <para
->De &gdb;-plug-in van &kate; levert een eenvoudige frontend naar het populaire &GNU; Project Debugger.</para>
+>De &gdb;-plug-in van &kate; levert een eenvoudige frontend voor elke debugger die het <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>Debugger Adapter Protocol</ulink
+> ondersteunt. Speciaal, die de GNU Project Debugger omvat, aka GDB, als <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
+>hier aangegeven</ulink
+>. </para>
 
 <important>
 <para
@@ -2649,9 +2653,6 @@ folder if possible.</para
 >de sectie met plug-ins in de instellingen van &kate;</link
 >.</para>
 
-<para
->Om de plug-in juist te laten werken, moet u een bestand met de broncode hebben (van een door &gdb; ondersteunde soort) en een uitvoerbaar programma.</para>
-
 <tip>
 <para
 >Als u compileert met &gcc;/<command
@@ -2664,7 +2665,7 @@ folder if possible.</para
 </tip>
 
 <para
->Nadat deze voorbereidingen zijn gedaan, opent u het bestand met de broncode in &kate;, voer het pad naar het uitvoerbare programma in in het tabblad <guilabel
+>Nadat deze voorbereidingen zijn gedaan, opent u het bestand met de broncode in &kate;, selecteer het "debuggerprofiel", voer het pad naar het uitvoerbare programma in in het tabblad <guilabel
 >Instellingen</guilabel
 > van de hulpmiddelenweergave <guilabel
 >Debugweergave</guilabel
@@ -2675,6 +2676,9 @@ folder if possible.</para
 >Debugging starten</guimenuitem
 ></menuchoice
 > uit het menu om te beginnen.</para>
+
+<para
+>Het "debuggerprofiel" selecteert de te gebruiken DAP-server (bijv. GDB) en de manier waarop deze server te starten. Een typisch geval is om de server een proces te laten starten zoals boven gespecificeerd, maar het kan ook aankoppelen aan een actief proces (in welk geval een PID gespecificeerd moet worden in plaats van een uitvoerbaar programma). Er kunnen ook andere modi zijn die specifiek zijn voor de taal en de DAP-server. Zie ook later voor extra achtergrond en configuratiedetails hierover. </para>
 
 </sect2>
 
@@ -3150,6 +3154,172 @@ folder if possible.</para
 
 <para
 >Speciale dank gaat naar de deelnemer van Google Code-In 2011 Martin Gergov voor het schrijven van veel van deze sectie.</para>
+
+</sect2>
+
+<sect2 id="gdb-configuration">
+<title
+>Configuratie</title>
+
+<para
+>De configuratiepagina van de plugin definieert de "debuggerprofielen" die geselecteerd kunnen worden. De standaard configuratie (JSON) wordt daar getoond en het kan een "overlay" zijn door een gebruiker mits van gelijksoortige vorm. Een voorbeeld is als volgt: <screen>
+{
+    "dap": {
+        "debugpy": {
+            "url": "https://github.com/microsoft/debugpy",
+            "run": {
+                "command": ["python", "-m", "debugpy", "--listen", "${#run.port}", "--wait-for-client"],
+                "port": 0,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch": {
+                    "commandArgs": ["${file}", "${args|list}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "attach": {
+                    "commandArgs": ["--pid", "${pid}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+        },
+        "gdb": {
+            "url": "gdb",
+            "run": {
+                "command": [
+                    "gdb",
+                    "-i",
+                    "dap"
+                ],
+                "redirectStderr": true,
+                "redirectStdout": true,
+                "supportsSourceRequest": true
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                }
+            }
+        }
+    }
+}
+</screen
+> Elk van de items in <literal
+>configuraties</literal
+> wordt gecombineerd met de <literal
+>run</literal
+> gegevens en vormt een "profiel". Dit specificeert de DAP-server om samen met zijn argumenten te starten, waar de laatsten specifiek zijn aan het profiel (<literal
+>commandArgs</literal
+>). De andere delen specificeren het DAP protocolverzoek (<literal
+>Starten</literal
+> of <literal
+>aankoppelen</literal
+>), samen met DAP specifieke uitbreidingen. </para>
+
+<para
+>Natuurlijk zou de gespecificeerde server geïnstalleerd moeten zijn (en typisch ook in <literal
+>PATH</literal
+> voor juiste uitvoering). </para>
+
+<para
+>Verschillende stadia van overschrijven/mengen worden toegepast; gebruikersconfiguratie (geladen uit bestand) overschrijft (interne) standaard configuratie en het "dap" item in de <literal
+>.kateproject</literal
+> projectconfiguratie overschrijft op zijn beurt. </para>
+
+
+<sect3 id="gdb-exec">
+<title
+>Opzet uitvoeromgeving</title>
+
+<para
+>Meer achtergrond en specifieke zaken zijn te vinden in de onderstaande sectie <link linkend="lspclient-exec"
+>LSP Client uitvoeromgeving</link
+>. Maar het is voldoende om hier te zeggen dat het nodig kan zijn om het debugproces (en de DAP-server) in een "speciale omgeving" uit te voeren, ofwel hoofdzakelijk gedefinieerd door omgevingsvariabelen of een container (die de vereiste afhankelijkheden en omstandigheden voor juiste uitvoering leveren). </para>
+
+<para
+>Soortgelijk aan het voorbeeld in naar verwezen sectie kan de volgende configuratie geleverd worden door een <literal
+>.kateproject</literal
+>. <screen>
+{
+    // dit kan ook een array van objecten zijn
+    "exec": {
+        "hostname": "foobar"
+        // het commando zou ook een array van tekenreeksen kunnen zijn
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // een van de volgende vormen is mogelijk
+            // een meer auto-magisch alternatief bestaat ook, zie de naar verwezen sectie
+            [ "/map/op/host", "/aangekoppeld/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "dap": {
+        "servers": {
+            "debugpy": {
+            "run": {
+                // in deze sectie, is het van toepassing op alle configuraties
+                // dit zal overeenkomen/meedoen met het bovenstaande object
+                "exec": { "hostname": "foobar" },
+                // indien server ook verbonden is,
+                // optioneel specificeer expliciet poort (die geschikt is voor publicatie/doorsturen)
+                "port": 5678,
+                // de server kan dan ook meer dan localhost te moeten accepteren
+                "host": "0.0.0.0"
+            }
+        }
+    }
+}
+</screen
+> De naar verwezen sectie zou geconsulteerd moeten worden op details, maar in essentie zal het <literal
+>voorvoegsel</literal
+> voorgevoegd worden voor de opdrachtregel van de DAP-server elders gespecificeerd. Het effect is dat de server draait binnen de gespecificeerde container en daarna op zijn beurt ook het gestarte proces. De <literal
+>pathMapping</literal
+> arrangeert voor transformatie van bestandspaden tussen weergave van de bewerker en de DAP-server (container), bijv. bij behandelen van instelling van breakpoints of behandelen van gerapporteerde backtraces. Meek op dat zulk aan elkaar koppelen optioneel is en wel of niet nuttig kan zijn. Bij behandelen van C/C++ code die wordt gecompileerd op "host", refereert de symboolinformatie bronbestanden op host die helemaal niet bestaan in de andere omgeving. Echter, in andere omstandigheden met scripts (bijv. python), worden naar actuele runtime bestanden verwezen (op de andere omgeving). </para>
+
+<para
+>Het volgende moet evident in gedachten gehouden worden; <itemizedlist
+> <listitem
+> <para
+>De DAP-server moet aanwezig zijn in de omgeving/container, die geconfigureerd moet zijn om juiste debuggerbewerkingen te ondersteunen (dus, indien nodig, geprivilegieerd, mogelijkheden). </para
+> </listitem
+> <listitem
+> <para
+>Communicatie tussen bewerker en DAP moet mogelijk zijn. In geval van een container zou de laatste ofwel hostnetworking moeten gebruiken of een geschikte gekoppelde/gepubliceerde poort samen met overeenkomstige configuratietekstfragment zoals in bovenstaand voorbeeld (als een automatisch geselecteerde in geval van poort 0 zou het niet maken). </para
+> </listitem
+> <listitem
+> <para
+> Een gespecificeerd uitvoerbaar bestand/PID zou in "container" perspectief moeten zijn, evenals eventuele argumenten (te debuggen uitvoerbaar bestand). </para
+> </listitem
+> </itemizedlist
+> Ook, zoals in het LSP-geval zijn enige omgevingsvariabelen gezet; <literal
+>KATE_EXEC_PLUGIN</literal
+> is gezet op <literal
+>dap</literal
+>, <literal
+>KATE_EXEC_SERVER</literal
+> is gezet op het type debugger/taal (bijv. <literal
+>python</literal
+>) en <literal
+>KATE_EXEC_PROFILE</literal
+> is gezet op het configuratie-item (bijv. <literal
+>launch</literal
+>). </para>
+
+</sect3>
 
 </sect2>
 

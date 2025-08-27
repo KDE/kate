@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
-"PO-Revision-Date: 2025-08-20 09:37-0300\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
+"PO-Revision-Date: 2025-08-25 23:19-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -181,7 +181,7 @@ msgid "Copy Location"
 msgstr "Copiar localização"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -191,7 +191,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Hash inválido"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 não existe num repositório git."
@@ -509,7 +509,7 @@ msgstr ""
 "documentos. Se o git já estiver instalado, certifique-se de que ele está na "
 "sua variável PATH. Veja https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -568,17 +568,17 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Mostrar diferenças com contexto completo, não apenas com as linhas alteradas"
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, kde-format
 msgid "New file %1"
 msgstr "Novo arquivo %1"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Excluir arquivo %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr "Não foram encontradas diferenças"
@@ -641,7 +641,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Mostar o commit completo"
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1463,16 +1463,14 @@ msgid "Reopening files from the last session..."
 msgstr "Reabrindo arquivos da última sessão..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Cria um novo documento"
+msgstr "Não é possível fixar documentos sem um nome"
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Mostra uma dica de como comparar documentos."
+msgstr "Não é possível fixar documentos que não estão salvos localmente"
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1833,16 +1831,14 @@ msgid "Save Session &As..."
 msgstr "Salvar sessão &como..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Desanexar documento ativo"
+msgstr "fixar ou desafixar documento ativo"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Fechar documento"
+msgstr "Abrir próximo documento fixado"
 
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2152,7 +2148,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Para ver diffs é necessário instalar o git"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2656,16 +2652,14 @@ msgid "Compare with Active Document Using"
 msgstr "Comparar com o documento em uso"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Fechar documento"
+msgstr "Desafixar documento"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Documentos"
+msgstr "Fixar documento"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format

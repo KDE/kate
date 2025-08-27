@@ -2633,7 +2633,11 @@ folder if possible.</para
 >Introducció</title>
 
 <para
->El connector de &gdb; per al &kate; proporciona un frontal senzill per al popular depurador de projectes de &GNU;.</para>
+>El connector &gdb; del &kate; proporciona un frontal únic a qualsevol depurador que admeti el <ulink url="https://microsoft.github.io/debug-adapter-protocol/"
+>Debugger Adapter Protocol</ulink
+>. En particular, això inclou el Depurador del projecte GNU, també anomenat GDB, com <ulink url="https://sourceware.org/gdb/current/onlinedocs/gdb.html/Debugger-Adapter-Protocol.html"
+>s'explica aquí</ulink
+>. </para>
 
 <important>
 <para
@@ -2647,9 +2651,6 @@ folder if possible.</para
 >la secció Connectors de la configuració del &kate;</link
 >.</para>
 
-<para
->Perquè el connector funcioni correctament, haureu de tenir un fitxer d'origen (de qualsevol tipus admès pel &gdb;) i un executable.</para>
-
 <tip>
 <para
 >Si compileu amb &gcc;/<command
@@ -2662,7 +2663,7 @@ folder if possible.</para
 </tip>
 
 <para
->Una vegada fets aquests preparatius, obriu el fitxer d'origen en el &kate;, introduïu el camí cap a l'executable a la pestanya <guilabel
+>Una vegada fets aquests preparatius, obriu el fitxer d'origen en el &kate;, seleccioneu el «perfil del depurador», introduïu el camí cap a l'executable a la pestanya <guilabel
 >Arranjament</guilabel
 > de la vista d'eina <guilabel
 >Vista del depurador</guilabel
@@ -2673,6 +2674,9 @@ folder if possible.</para
 >Inicia la depuració</guimenuitem
 ></menuchoice
 > des del menú per a començar.</para>
+
+<para
+>El «perfil del depurador» selecciona el servidor DAP a utilitzar (p. ex., GDB) i la forma en què s'ha de llançar aquest servidor. Un cas típic és que el servidor llanci un procés tal com s'ha especificat anteriorment, però també es pot adjuntar a un procés en execució (en aquest cas s'haurà d'especificar un PID en lloc d'un executable). També pot haver-hi altres modes que siguin específics del llenguatge i del servidor DAP. Vegeu també més endavant per obtenir més detalls sobre el fons i la configuració. </para>
 
 </sect2>
 
@@ -3148,6 +3152,171 @@ folder if possible.</para
 
 <para
 >Un agraïment especial a la Google Code-in 2011, al participant Martin Gergov per escriure gran part d'aquesta secció.</para>
+
+</sect2>
+
+<sect2 id="gdb-configuration">
+<title
+>Configuració</title>
+
+<para
+>La pàgina de configuració del connector defineix els «perfils del depurador» que es poden seleccionar. Aquí es mostra la configuració predeterminada (JSON) i un usuari la pot «substituir» proporcionant una forma semblant. Seguidament hi ha un extracte d'exemple: <screen>
+{
+    "dap": {
+        "debugpy": {
+            "url": "https://github.com/microsoft/debugpy",
+            "run": {
+                "command": ["python", "-m", "debugpy", "--listen", "${#run.port}", "--wait-for-client"],
+                "port": 0,
+                "supportsSourceRequest": false
+            },
+            "configurations": {
+                "launch": {
+                    "commandArgs": ["${file}", "${args|list}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+                "attach": {
+                    "commandArgs": ["--pid", "${pid}"],
+                    "request": {
+                        "command": "attach",
+                        "stopOnEntry": true,
+                        "redirectOutput": true
+                    }
+                },
+        },
+        "gdb": {
+            "url": "gdb",
+            "run": {
+                "command": [
+                    "gdb",
+                    "-i",
+                    "dap"
+                ],
+                "redirectStderr": true,
+                "redirectStdout": true,
+                "supportsSourceRequest": true
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                }
+            }
+        }
+    }
+}
+</screen
+> Cadascuna de les entrades de <literal
+>configurations</literal
+> es combina amb les dades <literal
+>run</literal
+> i forma un «perfil». Aquest especifica el servidor DAP a llançar junt amb els seus arguments, a on els darrers són específics al perfil (<literal
+>commandArgs</literal
+>). Les altres parts especifiquen la petició del protocol DAP (<literal
+>launch</literal
+> o <literal
+>attach</literal
+>), junt amb les extensions específiques del DAP. </para>
+
+<para
+>Per descomptat, el servidor especificat s'ha d'instal·lar (i normalment també en el <literal
+>PATH</literal
+> per a una execució correcta). </para>
+
+<para
+>S'apliquen diverses etapes de sobreescriptura/fusió; la configuració de l'usuari (carregada des del fitxer) substitueix la configuració predeterminada (interna) i, al seu torn l'entrada «dap» substitueix a la configuració del projecte <literal
+>.kateproject</literal
+>. </para>
+
+
+<sect3 id="gdb-exec">
+<title
+>Configuració de l'entorn d'execució</title>
+
+<para
+>Es poden trobar més detalls i explicacions a la secció <link linkend="lspclient-exec"
+>Entorn d'execució del client LSP</link
+> a continuació. Però n'hi ha prou amb dir aquí que pot ser necessari executar el procés de depuració (i el servidor DAP) en un «entorn especial», ja sigui simplement definit per variables d'entorn o algun contenidor (aportant les dependències i circumstàncies requerides per a una execució correcta). </para>
+
+<para
+>Similar a l'exemple de la secció referenciada, la configuració següent pot estar proporcionada en un <literal
+>.kateproject</literal
+>. <screen>
+{
+    // això també pot ser una matriu d'objectes
+    "exec": {
+        "hostname": "foobar"
+        // l'ordre també podria ser una matriu de cadenes
+        "prefix": "podman exec -i foobarcontainer",
+        "mapRemoteRoot": true,
+        "pathMappings": [
+            // són possibles qualsevol de les formes següents
+            // també existeix una alternativa més automàgica, vegeu la secció referenciada
+            [ "/dir/on/host", "/mounted/in/container" ]
+            { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
+        ]
+    },
+    "dap": {
+        "debugpy": {
+            "run": {
+                // en aquesta secció, s'aplica a tota la configuració
+                // això coincidirà/s'unirà amb l'objecte de sobre
+                "exec": { "hostname": "foobar" },
+                // si el servidor hi està connectat,
+                // opcionalment especifica un port explícit (el qual és publicat/reenviat de manera adequada)
+                "port": 5678,
+                // el servidor també pot acceptar més d'un servidor local
+                "host": "0.0.0.0"
+            }
+        }
+    }
+}
+</screen
+> Els detalls s'han de consultar a la secció referenciada, però en essència el <literal
+>prefix</literal
+> es preposarà abans que la línia d'ordres del servidor DAP especificada en un altre lloc. L'efecte és que el servidor s'executa dins del contenidor especificat i després, al seu torn, també el procés llançat. El <literal
+>pathMapping</literal
+> organitza la transformació dels camins de fitxer entre la vista de l'editor i la vista del servidor DAP (contenidor), per exemple, quan es tracta de la configuració dels punts d'interrupció o gestionant les traces inverses informades. Tingueu en compte que aquest mapatge és opcional i pot ser o no útil. Quan es tracta amb el codi C/C++ que es compila al «host», la informació del símbol fa referència als fitxers font de l'amfitrió que no existeixen en absolut a l'altre entorn. No obstant això, en altres circumstàncies de creació de scripts (p. ex. python), es fa referència als fitxers en temps d'execució reals (en l'altre entorn). </para>
+
+<para
+>És evident que cal tenir en compte el següent: <itemizedlist
+> <listitem
+> <para
+>El servidor DAP ha d'estar present a l'entorn/contenidor, el qual s'ha de configurar per donar suport a una operació adequada del depurador (de manera que, si cal, amb capacitats privilegiades). </para
+> </listitem
+> <listitem
+> <para
+> Ha de ser possible la comunicació entre l'editor i el DAP. En el cas d'un contenidor, aquest últim hauria d'utilitzar la xarxa de l'amfitrió, o proporcionar un port adequat mapat/publicat juntament amb el fragment corresponent de configuració com a l'exemple anterior (com un de seleccionat automàticament en el cas del port 0 que no ho faria a través seu). </para
+> </listitem
+> <listitem
+> <para
+> Un executable/PID especificat hauria d'estar en la perspectiva del «contenidor», així com qualsevol argument (executable de depuració). </para
+> </listitem
+> </itemizedlist
+> També, com en el cas LSP, s'estableixen algunes variables d'entorn; <literal
+>KATE_EXEC_PLUGIN</literal
+> està establerta a <literal
+>dap</literal
+>, <literal
+>KATE_EXEC_SERVER</literal
+> està establerta al depurador/tipus de llenguatge (p. ex. <literal
+>python</literal
+> i <literal
+>KATE_EXEC_PROFILE</literal
+> està definida a l'entrada de configuració (p. ex. <literal
+>launch</literal
+>). </para>
+
+</sect3>
 
 </sect2>
 

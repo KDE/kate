@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-25 00:45+0000\n"
-"PO-Revision-Date: 2025-05-12 13:43+0200\n"
+"POT-Creation-Date: 2025-08-27 00:46+0000\n"
+"PO-Revision-Date: 2025-08-24 15:22+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.08.0\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -187,7 +187,7 @@ msgid "Copy Location"
 msgstr "Copier un emplacement"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -197,7 +197,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Hachage non valable"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:660
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 n'existe pas dans un dépôt « Git »"
@@ -516,7 +516,7 @@ msgstr ""
 "qu'il est bien pris en compte par votre variable d'environnement « PATH ». "
 "Veuillez consulter le site « https://git-scm.com/downloads »."
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1247
 #: lib/kateconfigdialog.cpp:345
 #, kde-format
 msgid "Diff"
@@ -578,27 +578,26 @@ msgstr ""
 "Afficher les différences avec un contexte global et non seulement les lignes "
 "modifiées."
 
-#: lib/diff/diffwidget.cpp:855 lib/diff/diffwidget.cpp:1059
+#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
 #, kde-format
 msgid "New file %1"
 msgstr "Nouveau fichier %1"
 
-#: lib/diff/diffwidget.cpp:857 lib/diff/diffwidget.cpp:1061
+#: lib/diff/diffwidget.cpp:858 lib/diff/diffwidget.cpp:1062
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Supprimer le fichier %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1230 lib/diff/diffwidget.cpp:1231
 #, kde-format
 msgid "No differences found"
 msgstr "Aucune différence trouvée"
 
 #: lib/filehistorywidget.cpp:241
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Hachage non valable"
+msgstr "Date non valable : %1"
 
 #: lib/filehistorywidget.cpp:458
 #, kde-format
@@ -616,6 +615,21 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Filtrez le journal. <ul><li>Utilisez le préfixe <code>« a : »</code>  pour "
+"filtrer selon le nom de l'auteur, comme par exemple, <b>a : jean dupond</b></"
+"li><li>Utilisez le préfixe <code>« !a : »</code> pour exclure un auteur, "
+"comme par exemple, <b> !a :jean dupond</b></li><li>Utilisez le préfixe "
+"<code>« since : »</code> pour afficher les validations après la date donnée. "
+"La date pour l'auteur de chaque validation sera vérifiée. Le format de date "
+"est « yyyy-MM-dd », comme par exemple, <b>since : 2025-04-17</b></"
+"li><li>Utilisez le préfixe <code>« until : »</code> pour afficher les "
+"validations avant la date donnée. La date pour l'auteur de chaque validation "
+"sera vérifiée. Le format de date est « yyyy-MM-dd », comme par exemple, "
+"<b>depuis : 2025-04-17</b></li><b>Pour filtrer les messages, il suffit de "
+"saisir le terme de recherche. Si plusieurs termes de recherche sont donnés, "
+"alors les messages correspondant à tous les termes de recherche seront "
+"affichés. </li></ul>Pour déclencher le filtre, veuillez appuyer sur la "
+"touche <b>Entrée</b>."
 
 #: lib/filehistorywidget.cpp:514
 #, kde-format
@@ -641,7 +655,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Afficher le commit global"
 
-#: lib/filehistorywidget.cpp:669
+#: lib/filehistorywidget.cpp:670
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1486,16 +1500,14 @@ msgid "Reopening files from the last session..."
 msgstr "Réouverture des fichiers de la session précédente..."
 
 #: lib/katedocmanager.cpp:570
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Impossible d'aller au document"
+msgstr "Impossible de d'épingler des documents non nommés."
 
 #: lib/katedocmanager.cpp:575
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Impossible d'aller au document"
+msgstr "Impossible de d'épingler des documents non locaux."
 
 #: lib/katefileactions.cpp:78
 #, kde-format
@@ -1865,17 +1877,14 @@ msgid "Save Session &As..."
 msgstr "Enregistrer l&a session sous..."
 
 #: lib/katemainwindow.cpp:633
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Détacher un document actif"
+msgstr "Épingler / Annuler l'épinglage du document actif"
 
 #: lib/katemainwindow.cpp:642
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Ouvrir un document..."
+msgstr "Ouvrir le prochain document épinglé"
 
 # | msgid "Go to the previous bookmark."
 #: lib/katemainwindow.cpp:649 lib/kateviewspace.cpp:56
@@ -2187,7 +2196,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Veuillez installer l'application « git » pour afficher les différences"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2700,17 +2709,14 @@ msgid "Compare with Active Document Using"
 msgstr "Comparer avec le document actif en utilisant"
 
 #: lib/kateviewspace.cpp:1210
-#, fuzzy, kde-format
-#| msgctxt "on welcome screen"
-#| msgid "Open Document..."
+#, kde-format
 msgid "Unpin Document"
-msgstr "Ouvrir un document..."
+msgstr "Annuler l'épinglage du document"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Documents"
+msgstr "Épingler un document"
 
 #: lib/kateviewspace.cpp:1248
 #, kde-format
@@ -2727,7 +2733,7 @@ msgstr ""
 #: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "Impossible d'ouvrir %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

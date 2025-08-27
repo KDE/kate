@@ -341,6 +341,11 @@ void KateTabBar::contextMenuEvent(QContextMenuEvent *ev)
 
 void KateTabBar::setTabDocument(int idx, DocOrWidget d)
 {
+    if (d.isNull()) {
+        qWarning("%s: Tried to set null document at tab idx: %d", Q_FUNC_INFO, idx);
+        return;
+    }
+
     setTabData(idx, QVariant::fromValue(d));
 
     KTextEditor::Document *doc = d.doc();

@@ -1906,6 +1906,7 @@ writing much of this section.</para>
 The plugin's configuration page defines the "debugger profiles" which can be
 selected.  The default configuration (JSON) is shown there, and it can be "overlayed"
 by a user provided of similar form.  An example excerpt is as follows:
+</para>
 
 <screen>
 {
@@ -1963,6 +1964,7 @@ by a user provided of similar form.  An example excerpt is as follows:
 }
 </screen>
 
+<para>
 Each of the entries in <literal>configurations</literal> is combined with
 the <literal>run</literal> data and forms a "profile".  This specifies
 the DAP server to launch along with its arguments, where the latter are specific
@@ -1999,6 +2001,7 @@ for proper execution).
 <para>
 Similar to the example in the referenced section, the following configuration
 may be provided in a <literal>.kateproject</literal>.
+</para>
 
 <screen>
 {
@@ -2032,6 +2035,7 @@ may be provided in a <literal>.kateproject</literal>.
 }
 </screen>
 
+<para>
 The referenced section should be consulted for details, but in essence
 the <literal>prefix</literal> will be prepended before the DAP server
 command line specified elsewhere.  The effect is that the server is run
@@ -2047,7 +2051,9 @@ referenced (on the other environment).
 </para>
 
 <para>
-The following must evidently be kept in mind;
+The following must evidently be kept in mind.
+</para>
+
 <itemizedlist>
 <listitem>
 <para>The DAP server must be present in the environment/container,
@@ -2070,6 +2076,7 @@ any (debuggee executable) arguments.
 </listitem>
 </itemizedlist>
 
+<para>
 Also, as in the LSP case, some environment variables are set;
 <literal>KATE_EXEC_PLUGIN</literal> is set to <literal>dap</literal>,
 <literal>KATE_EXEC_SERVER</literal> is set to the debugger/language type

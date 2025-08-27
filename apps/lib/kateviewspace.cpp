@@ -1377,9 +1377,8 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     if (tabsList.size() < docList.size()) {
         int firstDocIndex = docList.size() - tabsList.size();
         auto docIt = m_registeredDocuments.begin() + firstDocIndex;
-        for (int i = 0; i < tabsList.size(); i++) {
+        for (int i = 0; i < tabsList.size() && docIt != m_registeredDocuments.end(); i++, ++docIt) {
             m_tabBar->setTabDocument(i, *docIt);
-            docIt++;
         }
     }
 

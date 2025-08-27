@@ -47,6 +47,7 @@
 #include <KOpenWithDialog>
 #include <KParts/Part>
 #include <KRecentFilesAction>
+#include <KSandbox>
 #include <KSharedConfig>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -218,7 +219,10 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
     m_viewManager->triggerActiveViewFocus();
 
     // log the path
-    Utils::showMessage(qEnvironmentVariable("PATH"), QIcon(), i18n("PATH"), MessageType::Info, m_wrapper);
+    Utils::showMessage(qEnvironmentVariable("PATH"), QIcon(), QStringLiteral("PATH"), MessageType::Info, m_wrapper);
+    if (KSandbox::isInside()) {
+        Utils::showMessage(QStringLiteral("TMPDIR=%1").arg(qEnvironmentVariable("TMPDIR")), QIcon(), QStringLiteral("TMPDIR"), MessageType::Info, m_wrapper);
+    }
 }
 
 KateMainWindow::~KateMainWindow()

@@ -1244,7 +1244,7 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     if (compareUsing->isEnabled()) {
         for (KateFileActions::DiffTool &diffTool : KateFileActions::supportedDiffTools()) {
             QAction *compareAction = compareUsing->addAction(diffTool.name);
-            connect(compareAction, &QAction::triggered, this, [this, tool = diffTool.path, doc, activeDocument] {
+            connect(compareAction, &QAction::triggered, this, [tool = diffTool.path, doc, activeDocument] {
                 KateFileActions::compareWithExternalProgram(activeDocument, doc, tool);
             });
 

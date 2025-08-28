@@ -211,10 +211,9 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Nepovedlo se spustit \"%1\". exitStatus = %2"
 
 #: plugin_katebuild.cpp:868
-#, fuzzy, kde-format
-#| msgid "Building <b>%1</b> cancelled"
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Sestavení <b>%1</b> bylo zrušeno."
+msgstr ""
 
 #: plugin_katebuild.cpp:973
 #, kde-format
@@ -258,18 +257,16 @@ msgid "Already building..."
 msgstr "Sestavení již probíhá..."
 
 #: plugin_katebuild.cpp:1073
-#, fuzzy, kde-format
-#| msgid "There is no local file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Pro sestavení není určen místní soubor nebo adresář."
+msgstr ""
 
 #: plugin_katebuild.cpp:1194
-#, fuzzy, kde-format
-#| msgid "Building target <b>%1</b> ..."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Sestavuji cíl <b>%1</b> ..."
+msgstr ""
 
 #: plugin_katebuild.cpp:1231
 #, kde-format
@@ -345,10 +342,9 @@ msgstr[1] "Nalezeny %1 poznámky."
 msgstr[2] "Nalezeno %1 poznámek."
 
 #: plugin_katebuild.cpp:1498
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Sestavení selhalo."
+msgstr ""
 
 #: plugin_katebuild.cpp:1502
 #, kde-format
@@ -424,12 +420,7 @@ msgid ""
 msgstr ""
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -438,10 +429,6 @@ msgid ""
 "\"%B\" for current project's base directory\n"
 "\"%w\" for the working directory of the target"
 msgstr ""
-"Použití:\n"
-"\"%f\" pro aktuální soubor\n"
-"\"%d\" pro adresář aktuálního souboru\n"
-"\"%n\" pro název aktuálního souboru bez přípony"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format
@@ -566,6 +553,3 @@ msgstr "Vložit cestu"
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vyberte adresář pro vložení"
-
-#~ msgid "Cannot execute: %1 No working directory set."
-#~ msgstr "Nelze spustit: %1 Nebyl nastaven pracovní adresář."

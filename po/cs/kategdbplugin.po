@@ -94,11 +94,10 @@ msgid "No executable target set"
 msgstr ""
 
 #: configview.cpp:407
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "neplatné id vlákna: %1"
+msgstr ""
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format

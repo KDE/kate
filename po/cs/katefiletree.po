@@ -222,16 +222,14 @@ msgid "Show Git History"
 msgstr "Zobrazit historii Gitu"
 
 #: katefiletree.cpp:444
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Dokumenty"
+msgstr ""
 
 #: katefiletree.cpp:446
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumenty"
+msgstr ""
 
 #: katefiletree.cpp:494
 #, kde-format

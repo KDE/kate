@@ -551,7 +551,7 @@ msgstr "构建(&B)"
 #: ui.rc:23
 #, kde-format
 msgid "Build Plugin Toolbar"
-msgstr ""
+msgstr "构建插件工具栏"
 
 #: UrlInserter.cpp:32
 #, kde-format

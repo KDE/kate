@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-05 03:06+0000\n"
+"POT-Creation-Date: 2025-08-28 02:50+0000\n"
 "PO-Revision-Date: 2025-08-02 21:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -552,7 +552,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "הצגת הבדלים עם הקשר מלא, לא רק השורות שהשתנו"
 
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:627
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -563,23 +563,23 @@ msgstr ""
 "נא לוודא שהוא חלק ממשתנה ה־PATH שלך. ניתן לפנות אל https://git-scm.com/"
 "downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:630 lib/diff/diffwidget.cpp:1233
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "הבדלים"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, kde-format
 msgid "New file %1"
 msgstr "קובץ חדש %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:844 lib/diff/diffwidget.cpp:1048
 #, kde-format
 msgid "Deleted file %1"
 msgstr "קובץ שנמחק %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1216 lib/diff/diffwidget.cpp:1217
 #, kde-format
 msgid "No differences found"
 msgstr "לא נמצאו הבדלים"

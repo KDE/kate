@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-05 03:06+0000\n"
+"POT-Creation-Date: 2025-08-28 02:50+0000\n"
 "PO-Revision-Date: 2023-03-21 18:37+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -549,7 +549,7 @@ msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 "Hiện phần chênh cùng ngữ cảnh đầy đủ, chứ không chỉ các dòng bị thay đổi"
 
-#: lib/diff/diffwidget.cpp:625
+#: lib/diff/diffwidget.cpp:627
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -560,23 +560,23 @@ msgstr ""
 "tài liệu. Nếu git đã được cài đặt rồi, hãy đảm bảo là nó ở trong biến PATH. "
 "Xem https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:628 lib/diff/diffwidget.cpp:1231
+#: lib/diff/diffwidget.cpp:630 lib/diff/diffwidget.cpp:1233
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr "Phần chênh"
 
-#: lib/diff/diffwidget.cpp:840 lib/diff/diffwidget.cpp:1044
+#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
 #, kde-format
 msgid "New file %1"
 msgstr "Tệp mới %1"
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:844 lib/diff/diffwidget.cpp:1048
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Tệp đã xoá %1"
 
-#: lib/diff/diffwidget.cpp:1214 lib/diff/diffwidget.cpp:1215
+#: lib/diff/diffwidget.cpp:1216 lib/diff/diffwidget.cpp:1217
 #, kde-format
 msgid "No differences found"
 msgstr "Không tìm thấy gì chênh"

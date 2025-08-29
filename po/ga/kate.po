@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-28 02:50+0000\n"
+"POT-Creation-Date: 2025-08-29 02:39+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -161,14 +161,14 @@ msgstr "KWrite - Eagarthóir Téacs"
 msgid "Open File"
 msgstr "Oscail Comhad"
 
-#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:439
+#: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:440
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "Suíomh"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:412
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr "Fillteán Neamhbhailí"
 
-#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:411
+#: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:412
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -567,7 +567,7 @@ msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:627
+#: lib/diff/diffwidget.cpp:628
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -575,25 +575,25 @@ msgid ""
 "downloads"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:630 lib/diff/diffwidget.cpp:1233
+#: lib/diff/diffwidget.cpp:631 lib/diff/diffwidget.cpp:1234
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
 msgstr ""
 
-#: lib/diff/diffwidget.cpp:842 lib/diff/diffwidget.cpp:1046
+#: lib/diff/diffwidget.cpp:843 lib/diff/diffwidget.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file %1"
 msgstr "Ainm comhaid"
 
-#: lib/diff/diffwidget.cpp:844 lib/diff/diffwidget.cpp:1048
+#: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Deleted file %1"
 msgstr "Scrios an Comhad?"
 
-#: lib/diff/diffwidget.cpp:1216 lib/diff/diffwidget.cpp:1217
+#: lib/diff/diffwidget.cpp:1217 lib/diff/diffwidget.cpp:1218
 #, kde-format
 msgid "No differences found"
 msgstr ""
@@ -621,7 +621,7 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "&Taispeáin an Chonair Iomlán"
 
-#: lib/filehistorywidget.cpp:420
+#: lib/filehistorywidget.cpp:421
 #, fuzzy, kde-format
 #| msgid "File Selector"
 msgctxt "@title:tab"
@@ -961,12 +961,12 @@ msgstr "Cabhair an-deas"
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "Na rannpháirtithe uile a rinne mé dearmaid glan iad a lua"
 
-#: lib/kateapp.cpp:534
+#: lib/kateapp.cpp:535
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:623
+#: lib/kateapp.cpp:625
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -989,7 +989,7 @@ msgstr "Oibriú"
 msgid "Behavior Options"
 msgstr "Oibriú"
 
-#: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:221
+#: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:222
 #, kde-format
 msgid "PATH"
 msgstr ""
@@ -1386,96 +1386,96 @@ msgstr "Ainm"
 msgid "Description"
 msgstr "Cur Síos:"
 
-#: lib/katedocmanager.cpp:268
+#: lib/katedocmanager.cpp:269
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
 msgstr ""
 
-#: lib/katedocmanager.cpp:271 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:272 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Dún an Cháipéis"
 
-#: lib/katedocmanager.cpp:280
+#: lib/katedocmanager.cpp:281
 #, kde-format
 msgid "Save As"
 msgstr "Sábháil Mar"
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:299 lib/katemainwindow.cpp:823
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:298 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:299 lib/katemainwindow.cpp:823
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
 
-#: lib/katedocmanager.cpp:372
+#: lib/katedocmanager.cpp:375
 #, kde-format
 msgid "Starting Up"
 msgstr "Á Thosú"
 
-#: lib/katedocmanager.cpp:373
+#: lib/katedocmanager.cpp:376
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Comhaid á n-athoscailt ón seisiún is déanaí..."
 
-#: lib/katefileactions.cpp:78
+#: lib/katefileactions.cpp:80
 #, fuzzy, kde-format
 #| msgid "Opened file: %1"
 msgid "Rename file"
 msgstr "Comhad oscailte: %1"
 
-#: lib/katefileactions.cpp:78
+#: lib/katefileactions.cpp:80
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgid "New file name"
 msgstr "Ainm comhaid"
 
-#: lib/katefileactions.cpp:112
+#: lib/katefileactions.cpp:114
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
 msgstr ""
 
-#: lib/katefileactions.cpp:133
+#: lib/katefileactions.cpp:135
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
 msgstr ""
 
-#: lib/katefileactions.cpp:134
+#: lib/katefileactions.cpp:136
 #, fuzzy, kde-format
 #| msgid "Delete File?"
 msgid "Delete file"
 msgstr "Scrios an Comhad?"
 
-#: lib/katefileactions.cpp:155
+#: lib/katefileactions.cpp:157
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr ""
 
-#: lib/katefileactions.cpp:206
+#: lib/katefileactions.cpp:212
 #, fuzzy, kde-format
 #| msgid "Application"
 msgid "&Other Application..."
 msgstr "Feidhmchlár"
 
-#: lib/katemainwindow.cpp:282
+#: lib/katemainwindow.cpp:283
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 "Úsáid an t-ordú seo chun barra stádais an amhairc a thaispeáint nó a chur i "
 "bhfolach"
 
-#: lib/katemainwindow.cpp:288
+#: lib/katemainwindow.cpp:289
 #, fuzzy, kde-format
 #| msgid "Show Side&bars"
 msgid "Show &Tabs"
 msgstr "Taispeáin &Barraí Taoibh"
 
-#: lib/katemainwindow.cpp:291
+#: lib/katemainwindow.cpp:292
 #, fuzzy, kde-format
 #| msgid "Use this command to show or hide the view's statusbar"
 msgid "Use this command to show or hide the tabs for the views"
@@ -1483,82 +1483,82 @@ msgstr ""
 "Úsáid an t-ordú seo chun barra stádais an amhairc a thaispeáint nó a chur i "
 "bhfolach"
 
-#: lib/katemainwindow.cpp:293
+#: lib/katemainwindow.cpp:294
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:298
+#: lib/katemainwindow.cpp:299
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Taispeáin conair iomlán na cáipéise i bhfotheideal na fuinneoige"
 
-#: lib/katemainwindow.cpp:300
+#: lib/katemainwindow.cpp:301
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr ""
 
-#: lib/katemainwindow.cpp:318
+#: lib/katemainwindow.cpp:319
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr ""
 
-#: lib/katemainwindow.cpp:322
+#: lib/katemainwindow.cpp:323
 #, fuzzy, kde-format
 #| msgid "Activate Previous Tab"
 msgid "&Previous Tab"
 msgstr "Gníomhachtaigh an Cluaisín Roimhe Seo"
 
-#: lib/katemainwindow.cpp:323
+#: lib/katemainwindow.cpp:324
 #, fuzzy, kde-format
 #| msgid "Activate Previous Tab"
 msgid "Focus the previous tab."
 msgstr "Gníomhachtaigh an Cluaisín Roimhe Seo"
 
-#: lib/katemainwindow.cpp:330
+#: lib/katemainwindow.cpp:331
 #, fuzzy, kde-format
 #| msgid "New Tab"
 msgid "&Next Tab"
 msgstr "Cluaisín Nua"
 
-#: lib/katemainwindow.cpp:331
+#: lib/katemainwindow.cpp:332
 #, kde-format
 msgid "Focus the next tab."
 msgstr ""
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:341
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
 msgstr ""
 
-#: lib/katemainwindow.cpp:360
+#: lib/katemainwindow.cpp:361
 #, kde-format
 msgid "&Quick Open"
 msgstr "Oscail go &Tapa"
 
-#: lib/katemainwindow.cpp:363
+#: lib/katemainwindow.cpp:364
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr ""
 
-#: lib/katemainwindow.cpp:400
+#: lib/katemainwindow.cpp:401
 #, fuzzy, kde-format
 #| msgid "Diff Output"
 msgid "Output"
 msgstr "Aschur Diff"
 
-#: lib/katemainwindow.cpp:411
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid "Create a new document"
 msgstr "Cruthaigh cáipéis nua"
 
-#: lib/katemainwindow.cpp:413
+#: lib/katemainwindow.cpp:414
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Oscail cáipéis atá ann cheana agus cuir í in eagar"
 
-#: lib/katemainwindow.cpp:423
+#: lib/katemainwindow.cpp:424
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1567,343 +1567,343 @@ msgstr ""
 "Taispeánann sé seo na comhaid a d'oscail tú le déanaí, agus ceadaíonn duit "
 "iad a oscailt arís gan stró."
 
-#: lib/katemainwindow.cpp:427
+#: lib/katemainwindow.cpp:428
 #, fuzzy, kde-format
 #| msgid "Save A&ll"
 msgid "Sa&ve All"
 msgstr "Sábháil Uile"
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:431
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Sábháil gach cáipéis atá oscailte agus athraithe ar an diosca."
 
-#: lib/katemainwindow.cpp:433
+#: lib/katemainwindow.cpp:434
 #, fuzzy, kde-format
 #| msgid "&Reload All"
 msgid "Reload A&ll"
 msgstr "&Athluchtaigh Uile"
 
-#: lib/katemainwindow.cpp:435
+#: lib/katemainwindow.cpp:436
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Athluchtaigh gach cáipéis oscailte."
 
-#: lib/katemainwindow.cpp:444 lib/katemainwindow.cpp:453
-#: lib/katemainwindow.cpp:462
+#: lib/katemainwindow.cpp:445 lib/katemainwindow.cpp:454
+#: lib/katemainwindow.cpp:463
 #, fuzzy, kde-format
 #| msgid "Close the currently active split view"
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Dún an t-amharc roinnte atá gníomhach faoi láthair"
 
-#: lib/katemainwindow.cpp:448
+#: lib/katemainwindow.cpp:449
 #, fuzzy, kde-format
 #| msgid "Copy Filename"
 msgid "Copy Filename"
 msgstr "Cóipeáil Ainm an Chomhaid"
 
-#: lib/katemainwindow.cpp:457 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:458 lib/welcomeview/welcomeview.cpp:268
 #, fuzzy, kde-format
 #| msgid "Opening Order"
 msgid "&Open Containing Folder"
 msgstr "Ord Oscailte"
 
-#: lib/katemainwindow.cpp:466
+#: lib/katemainwindow.cpp:467
 #, fuzzy, kde-format
 #| msgid "&Rename..."
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "&Athainmnigh..."
 
-#: lib/katemainwindow.cpp:471
+#: lib/katemainwindow.cpp:472
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Renames the file belonging to the current document."
 msgstr "Cruthaigh amharc eile leis an cháipéis reatha ann"
 
-#: lib/katemainwindow.cpp:475
+#: lib/katemainwindow.cpp:476
 #, fuzzy, kde-format
 #| msgid "Deleted"
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Scriosta"
 
-#: lib/katemainwindow.cpp:480 lib/katemainwindow.cpp:489
+#: lib/katemainwindow.cpp:481 lib/katemainwindow.cpp:490
 #, fuzzy, kde-format
 #| msgid "Create another view containing the current document"
 msgid "Deletes the file belonging to the current document."
 msgstr "Cruthaigh amharc eile leis an cháipéis reatha ann"
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgid "Properties"
 msgstr ""
 
-#: lib/katemainwindow.cpp:492 lib/katemainwindow.cpp:494
+#: lib/katemainwindow.cpp:493 lib/katemainwindow.cpp:495
 #, kde-format
 msgid "Compare"
 msgstr ""
 
-#: lib/katemainwindow.cpp:494
+#: lib/katemainwindow.cpp:495
 #, fuzzy, kde-format
 #| msgid "Use this command to create a new document"
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "Úsáid an t-ordú seo chun cáipéis nua a chruthú"
 
-#: lib/katemainwindow.cpp:496
+#: lib/katemainwindow.cpp:497
 #, fuzzy, kde-format
 #| msgid "Close other open documents."
 msgid "Shows a hint how to compare documents."
 msgstr "Dún gach cáipéis eile atá oscailte."
 
-#: lib/katemainwindow.cpp:499
+#: lib/katemainwindow.cpp:500
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Orp&haned"
 msgstr "Dún na Cinn Eile"
 
-#: lib/katemainwindow.cpp:501
+#: lib/katemainwindow.cpp:502
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr ""
 
-#: lib/katemainwindow.cpp:505
+#: lib/katemainwindow.cpp:506
 #, kde-format
 msgid "Close the current document."
 msgstr "Dún an cháipéis reatha."
 
-#: lib/katemainwindow.cpp:508
+#: lib/katemainwindow.cpp:509
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close O&ther"
 msgstr "Dún na Cinn Eile"
 
-#: lib/katemainwindow.cpp:512
+#: lib/katemainwindow.cpp:513
 #, kde-format
 msgid "Close other open documents."
 msgstr "Dún gach cáipéis eile atá oscailte."
 
-#: lib/katemainwindow.cpp:515
+#: lib/katemainwindow.cpp:516
 #, kde-format
 msgid "Clos&e All"
 msgstr "Dún Uil&e"
 
-#: lib/katemainwindow.cpp:517
+#: lib/katemainwindow.cpp:518
 #, kde-format
 msgid "Close all open documents."
 msgstr "Dún gach cáipéis oscailte."
 
-#: lib/katemainwindow.cpp:520
+#: lib/katemainwindow.cpp:521
 #, fuzzy, kde-format
 #| msgid "Reload all open documents."
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "Athluchtaigh gach cáipéis oscailte."
 
-#: lib/katemainwindow.cpp:522
+#: lib/katemainwindow.cpp:523
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 
-#: lib/katemainwindow.cpp:525
+#: lib/katemainwindow.cpp:526
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "Close &Window"
 msgstr "&Fuinneog"
 
-#: lib/katemainwindow.cpp:529
+#: lib/katemainwindow.cpp:530
 #, kde-format
 msgid "Close this window"
 msgstr "Dún an fhuinneog seo"
 
-#: lib/katemainwindow.cpp:534
+#: lib/katemainwindow.cpp:535
 #, fuzzy, kde-format
 #| msgid "Application"
 msgid "Quit the application"
 msgstr "Feidhmchlár"
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:539
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "New &Window"
 msgstr "&Fuinneog"
 
-#: lib/katemainwindow.cpp:541
+#: lib/katemainwindow.cpp:542
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Create a new window."
 msgstr "Cruthaigh cáipéis nua"
 
-#: lib/katemainwindow.cpp:548
+#: lib/katemainwindow.cpp:549
 #, kde-format
 msgid "Open W&ith"
 msgstr "&Oscail le"
 
-#: lib/katemainwindow.cpp:550
+#: lib/katemainwindow.cpp:551
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
 "type, or an application of your choice."
 msgstr ""
 
-#: lib/katemainwindow.cpp:558
+#: lib/katemainwindow.cpp:559
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Cumraigh aicearraí an fheidhmchláir."
 
-#: lib/katemainwindow.cpp:561
+#: lib/katemainwindow.cpp:562
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Cumraigh na míreanna a thaispeánfar sa bharra/sna barraí uirlisí."
 
-#: lib/katemainwindow.cpp:564
+#: lib/katemainwindow.cpp:565
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr ""
 
-#: lib/katemainwindow.cpp:568
+#: lib/katemainwindow.cpp:569
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Lámhleabhar na mBreiseán"
 
-#: lib/katemainwindow.cpp:570
+#: lib/katemainwindow.cpp:571
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr ""
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:588
 #, kde-format
 msgid "Sess&ions"
 msgstr "Se&isiúin"
 
-#: lib/katemainwindow.cpp:593
+#: lib/katemainwindow.cpp:594
 #, fuzzy, kde-format
 #| msgid "New Session"
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Seisiún Nua"
 
-#: lib/katemainwindow.cpp:598
+#: lib/katemainwindow.cpp:599
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "&Oscail Seisiún"
 
-#: lib/katemainwindow.cpp:603
+#: lib/katemainwindow.cpp:604
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "Se&isiúin"
 
-#: lib/katemainwindow.cpp:610
+#: lib/katemainwindow.cpp:611
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Bainistigh Seisiúin..."
 
-#: lib/katemainwindow.cpp:619
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "&Save Session"
 msgstr "&Sábháil an Seisiún"
 
-#: lib/katemainwindow.cpp:625
+#: lib/katemainwindow.cpp:626
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Sábháil an Seisiún M&ar..."
 
-#: lib/katemainwindow.cpp:632 lib/kateviewspace.cpp:56
+#: lib/katemainwindow.cpp:633 lib/kateviewspace.cpp:56
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Previous Location"
 msgstr "Athchóirigh &suíomh"
 
-#: lib/katemainwindow.cpp:641 lib/kateviewspace.cpp:68
+#: lib/katemainwindow.cpp:642 lib/kateviewspace.cpp:68
 #, fuzzy, kde-format
 #| msgid "Restore loca&tion"
 msgid "Go to Next Location"
 msgstr "Athchóirigh &suíomh"
 
-#: lib/katemainwindow.cpp:649
+#: lib/katemainwindow.cpp:650
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:660
+#: lib/katemainwindow.cpp:661
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "&Windows"
 msgstr "&Fuinneog"
 
-#: lib/katemainwindow.cpp:719
+#: lib/katemainwindow.cpp:720
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:720
+#: lib/katemainwindow.cpp:721
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Dún gach cáipéis"
 
-#: lib/katemainwindow.cpp:721
+#: lib/katemainwindow.cpp:722
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Dún Uil&e"
 
-#: lib/katemainwindow.cpp:735
+#: lib/katemainwindow.cpp:736
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:736
+#: lib/katemainwindow.cpp:737
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents beside current one?"
 msgstr "Dún gach cáipéis"
 
-#: lib/katemainwindow.cpp:737
+#: lib/katemainwindow.cpp:738
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "Dún na Cinn Eile"
 
-#: lib/katemainwindow.cpp:973
+#: lib/katemainwindow.cpp:975
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 
-#: lib/katemainwindow.cpp:976
+#: lib/katemainwindow.cpp:978
 #, fuzzy, kde-format
 #| msgid "Hide Side&bars"
 msgid "Hide menu bar"
 msgstr "Folaigh &Barraí Taoibh"
 
-#: lib/katemainwindow.cpp:1151
+#: lib/katemainwindow.cpp:1153
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1154
+#: lib/katemainwindow.cpp:1156
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1155
+#: lib/katemainwindow.cpp:1157
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Oscail Comhad"
 
-#: lib/katemainwindow.cpp:1362
+#: lib/katemainwindow.cpp:1364
 #, kde-format
 msgid " [read only]"
 msgstr ""
@@ -2576,59 +2576,59 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: lib/kateviewspace.cpp:1129
+#: lib/kateviewspace.cpp:1131
 #, fuzzy, kde-format
 #| msgid "Close &All Tabs"
 msgid "Close Tab"
 msgstr "Dún &Gach Cluaisín"
 
-#: lib/kateviewspace.cpp:1147
+#: lib/kateviewspace.cpp:1149
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "&Close Document"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1150
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close Other &Documents"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1149
+#: lib/kateviewspace.cpp:1151
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close &All Documents"
 msgstr "Dún gach cáipéis"
 
-#: lib/kateviewspace.cpp:1153
+#: lib/kateviewspace.cpp:1155
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "Dún an Cháipéis"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1157
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1165
+#: lib/kateviewspace.cpp:1167
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document"
 msgstr "Tosaigh le cáipéis &fholamh"
 
-#: lib/kateviewspace.cpp:1171
+#: lib/kateviewspace.cpp:1173
 #, fuzzy, kde-format
 #| msgid "Start with an &empty document"
 msgid "Compare with Active Document Using"
 msgstr "Tosaigh le cáipéis &fholamh"
 
-#: lib/kateviewspace.cpp:1244
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Could not start program"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1245
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "The selected program could not be started. Maybe it is not installed."
 msgstr ""
@@ -2803,59 +2803,59 @@ msgstr "Scriosta"
 msgid "Close"
 msgstr "Dún"
 
-#: lib/session/katesessionmanager.cpp:143
+#: lib/session/katesessionmanager.cpp:148
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
 "reopen in this instance?"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:145
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:146
+#: lib/session/katesessionmanager.cpp:151
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:355
+#: lib/session/katesessionmanager.cpp:367
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:356
+#: lib/session/katesessionmanager.cpp:368
 #, kde-format
 msgid "Session Renaming"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:518
+#: lib/session/katesessionmanager.cpp:536
 #, kde-format
 msgid "Session name:"
 msgstr "Ainm an tseisiúin:"
 
-#: lib/session/katesessionmanager.cpp:520
+#: lib/session/katesessionmanager.cpp:538
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
 "Please choose a different one."
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:522
+#: lib/session/katesessionmanager.cpp:540
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Chun seisiún a shábháil, caithfidh tú ainm a shonrú."
 
-#: lib/session/katesessionmanager.cpp:549
+#: lib/session/katesessionmanager.cpp:567
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Sonraigh Ainm Nua ar an Seisiún"
 
-#: lib/session/katesessionmanager.cpp:551
+#: lib/session/katesessionmanager.cpp:569
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

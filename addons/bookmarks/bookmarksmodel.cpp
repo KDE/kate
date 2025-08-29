@@ -35,9 +35,9 @@ QVariant BookmarksModel::data(const QModelIndex &index, int role) const
     const Bookmark &bookmark = m_bookmarks.at(index.row());
     if (role == Qt::DisplayRole) {
         switch (index.column()) {
-        case 0:
+        case LineNumber:
             return bookmark.lineNumber + 1;
-        case 1:
+        case FilePath:
             return bookmark.url.path();
         default:
             return QVariant();

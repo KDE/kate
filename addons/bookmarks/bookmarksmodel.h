@@ -20,6 +20,11 @@ class BookmarksModel : public QAbstractTableModel
     Q_OBJECT
 
 public:
+    enum Column {
+        LineNumber = 0,
+        FilePath = 1
+    };
+
     explicit BookmarksModel(QObject *parent = nullptr);
     ~BookmarksModel() override;
 

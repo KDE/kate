@@ -155,6 +155,7 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeView->setFrameShape(QFrame::NoFrame);
     m_treeView->setSortingEnabled(true);
+    m_treeView->sortByColumn(BookmarksModel::FilePath, Qt::AscendingOrder);
     m_treeView->setModel(&m_proxyModel);
     m_treeView->setSelectionModel(&m_selectionModel);
 

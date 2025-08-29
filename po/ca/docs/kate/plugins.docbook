@@ -3160,8 +3160,10 @@ folder if possible.</para
 >Configuració</title>
 
 <para
->La pàgina de configuració del connector defineix els «perfils del depurador» que es poden seleccionar. Aquí es mostra la configuració predeterminada (JSON) i un usuari la pot «substituir» proporcionant una forma semblant. Seguidament hi ha un extracte d'exemple: <screen>
-{
+>La pàgina de configuració del connector defineix els «perfils del depurador» que es poden seleccionar. Aquí es mostra la configuració predeterminada (JSON) i un usuari la pot «substituir» proporcionant una forma semblant. Seguidament hi ha un extracte d'exemple: </para>
+
+<screen
+>{
     "dap": {
         "debugpy": {
             "url": "https://github.com/microsoft/debugpy",
@@ -3214,12 +3216,14 @@ folder if possible.</para
         }
     }
 }
-</screen
-> Cadascuna de les entrades de <literal
+</screen>
+
+<para
+>Cadascuna de les entrades de <literal
 >configurations</literal
 > es combina amb les dades <literal
 >run</literal
-> i forma un «perfil». Aquest especifica el servidor DAP a llançar junt amb els seus arguments, a on els darrers són específics al perfil (<literal
+> i forma un «perfil». Això especifica el servidor DAP a llançar junt amb els seus arguments, a on els darrers són específics al perfil (<literal
 >commandArgs</literal
 >). Les altres parts especifiquen la petició del protocol DAP (<literal
 >launch</literal
@@ -3248,10 +3252,12 @@ folder if possible.</para
 > a continuació. Però n'hi ha prou amb dir aquí que pot ser necessari executar el procés de depuració (i el servidor DAP) en un «entorn especial», ja sigui simplement definit per variables d'entorn o algun contenidor (aportant les dependències i circumstàncies requerides per a una execució correcta). </para>
 
 <para
->Similar a l'exemple de la secció referenciada, la configuració següent pot estar proporcionada en un <literal
+>Similar a l'exemple de la secció referenciada, la configuració següent es pot proporcionar en un <literal
 >.kateproject</literal
->. <screen>
-{
+>. </para>
+
+<screen
+>{
     // això també pot ser una matriu d'objectes
     "exec": {
         "hostname": "foobar"
@@ -3268,51 +3274,57 @@ folder if possible.</para
     "dap": {
         "debugpy": {
             "run": {
-                // en aquesta secció, s'aplica a tota la configuració
-                // això coincidirà/s'unirà amb l'objecte de sobre
+                // en aquesta secció, s'aplica a totes les configuracions
+                // que coincidiran/es fusionaran amb l'objecte de més amunt
                 "exec": { "hostname": "foobar" },
                 // si el servidor hi està connectat,
-                // opcionalment especifica un port explícit (el qual és publicat/reenviat de manera adequada)
+                // opcionalment especifica un port explícit (que està publicat/reenviat de manera adequada)
                 "port": 5678,
-                // el servidor també pot acceptar més d'un servidor local
+                // el servidor també podria acceptar més que la màquina local
                 "host": "0.0.0.0"
             }
         }
     }
 }
-</screen
-> Els detalls s'han de consultar a la secció referenciada, però en essència el <literal
->prefix</literal
-> es preposarà abans que la línia d'ordres del servidor DAP especificada en un altre lloc. L'efecte és que el servidor s'executa dins del contenidor especificat i després, al seu torn, també el procés llançat. El <literal
->pathMapping</literal
-> organitza la transformació dels camins de fitxer entre la vista de l'editor i la vista del servidor DAP (contenidor), per exemple, quan es tracta de la configuració dels punts d'interrupció o gestionant les traces inverses informades. Tingueu en compte que aquest mapatge és opcional i pot ser o no útil. Quan es tracta amb el codi C/C++ que es compila al «host», la informació del símbol fa referència als fitxers font de l'amfitrió que no existeixen en absolut a l'altre entorn. No obstant això, en altres circumstàncies de creació de scripts (p. ex. python), es fa referència als fitxers en temps d'execució reals (en l'altre entorn). </para>
+</screen>
 
 <para
->És evident que cal tenir en compte el següent: <itemizedlist
-> <listitem
-> <para
->El servidor DAP ha d'estar present a l'entorn/contenidor, el qual s'ha de configurar per donar suport a una operació adequada del depurador (de manera que, si cal, amb capacitats privilegiades). </para
-> </listitem
-> <listitem
-> <para
-> Ha de ser possible la comunicació entre l'editor i el DAP. En el cas d'un contenidor, aquest últim hauria d'utilitzar la xarxa de l'amfitrió, o proporcionar un port adequat mapat/publicat juntament amb el fragment corresponent de configuració com a l'exemple anterior (com un de seleccionat automàticament en el cas del port 0 que no ho faria a través seu). </para
-> </listitem
-> <listitem
-> <para
-> Un executable/PID especificat hauria d'estar en la perspectiva del «contenidor», així com qualsevol argument (executable de depuració). </para
-> </listitem
-> </itemizedlist
-> També, com en el cas LSP, s'estableixen algunes variables d'entorn; <literal
+>La secció referenciada s'ha de consultar per als detalls, però en essència, es preposarà el <literal
+>prefix</literal
+> abans que la línia d'ordres del servidor DAP especificada en un altre lloc. L'efecte és que el servidor s'executa dins del contenidor especificat i després al seu torn també el procés llançat. El <literal
+>pathMapping</literal
+> organitza la transformació dels camins de fitxer entre la vista de l'editor i la vista del servidor DAP (contenidor), p. ex., quan es tracta de la configuració dels punts d'interrupció o la gestió de les traces inverses informades. Tingueu en compte que aquest mapatge és opcional i pot ser o no útil. Quan es tracta amb el codi C/C++ que es compila a «host», la informació dels símbols fa referència als fitxers de codi font de l'amfitrió que no existeixen en absolut a l'altre entorn. No obstant això, en altres circumstàncies de creació de scripts (p. ex. python), es fa referència als fitxers reals en temps d'execució (en l'altre entorn). </para>
+
+<para
+>Evidentment, cal tenir en compte el següent. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>El servidor DAP ha d'estar present a l'entorn/contenidor, el qual s'ha de configurar per a permetre una operació de depuració adequada (capacitats privilegiades, si calen). </para>
+</listitem>
+<listitem>
+<para
+>Cal que sigui possible la comunicació entre editor i el DAP. En el cas d'un contenidor, aquest últim hauria d'utilitzar la xarxa de l'amfitrió, o proporcionar un port adequat mapat/publicat juntament amb el fragment corresponent de configuració com a l'exemple anterior (com un de seleccionat automàticament en el cas del port 0 no ho faria a través seu). </para>
+</listitem>
+<listitem>
+<para
+>Un executable/PID especificat hauria d'estar en la perspectiva del «contenidor», així com qualsevol argument (executable de depuració). </para>
+</listitem>
+</itemizedlist>
+
+<para
+>També, com en el cas de LSP, s'estableixen algunes variables d'entorn; <literal
 >KATE_EXEC_PLUGIN</literal
-> està establerta a <literal
+> s'estableix a <literal
 >dap</literal
 >, <literal
 >KATE_EXEC_SERVER</literal
-> està establerta al depurador/tipus de llenguatge (p. ex. <literal
+> s'estableix al tipus de depurador/llenguatge (p. ex. <literal
 >python</literal
-> i <literal
+>) i <literal
 >KATE_EXEC_PROFILE</literal
-> està definida a l'entrada de configuració (p. ex. <literal
+> s'estableix a l'entrada de la configuració (p. ex. <literal
 >launch</literal
 >). </para>
 

@@ -3059,10 +3059,3 @@ msgstr "管理会话..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "新窗口显示欢迎页面"
-
-#~ msgid "Could not start program"
-#~ msgstr "无法启动程序"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr "无法启动选定的程序。也许它没有安装。"

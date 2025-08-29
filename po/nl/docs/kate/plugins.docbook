@@ -3162,8 +3162,10 @@ folder if possible.</para
 >Configuratie</title>
 
 <para
->De configuratiepagina van de plugin definieert de "debuggerprofielen" die geselecteerd kunnen worden. De standaard configuratie (JSON) wordt daar getoond en het kan een "overlay" zijn door een gebruiker mits van gelijksoortige vorm. Een voorbeeld is als volgt: <screen>
-{
+>De configuratiepagina van de plugin definieert de "debuggerprofielen" die geselecteerd kunnen worden. De standaard configuratie (JSON) is daar getoond en daar kan een door de gebruiker geleverde van gelijke vorm overheen gelegd worden. Een voorbeeld is als volgt: </para>
+
+<screen
+>{
     "dap": {
         "debugpy": {
             "url": "https://github.com/microsoft/debugpy",
@@ -3216,18 +3218,20 @@ folder if possible.</para
         }
     }
 }
-</screen
-> Elk van de items in <literal
+</screen>
+
+<para
+>Elk van de items in de <literal
 >configuraties</literal
 > wordt gecombineerd met de <literal
 >run</literal
-> gegevens en vormt een "profiel". Dit specificeert de DAP-server om samen met zijn argumenten te starten, waar de laatsten specifiek zijn aan het profiel (<literal
+> gegevens en vormt een "profiel". Dit specificeert de DAP-server om samen met zijn argumenten te starten, waar de laatsten specifiek zijn voor het profiel (<literal
 >commandArgs</literal
->). De andere delen specificeren het DAP protocolverzoek (<literal
->Starten</literal
+>). De andere delen specificeren het DAP-protocolverzoek (<literal
+>starten</literal
 > of <literal
 >aankoppelen</literal
->), samen met DAP specifieke uitbreidingen. </para>
+>), samen met DAP-specifieke extensies. </para>
 
 <para
 >Natuurlijk zou de gespecificeerde server geïnstalleerd moeten zijn (en typisch ook in <literal
@@ -3250,10 +3254,12 @@ folder if possible.</para
 >. Maar het is voldoende om hier te zeggen dat het nodig kan zijn om het debugproces (en de DAP-server) in een "speciale omgeving" uit te voeren, ofwel hoofdzakelijk gedefinieerd door omgevingsvariabelen of een container (die de vereiste afhankelijkheden en omstandigheden voor juiste uitvoering leveren). </para>
 
 <para
->Soortgelijk aan het voorbeeld in naar verwezen sectie kan de volgende configuratie geleverd worden door een <literal
+>Gelijk als in het voorbeeld in de gerefereerde sectie, kan de volgende configuratie geleverd zijn in een <literal
 >.kateproject</literal
->. <screen>
-{
+>. </para>
+
+<screen
+>{
     // dit kan ook een array van objecten zijn
     "exec": {
         "hostname": "foobar"
@@ -3261,57 +3267,62 @@ folder if possible.</para
         "prefix": "podman exec -i foobarcontainer",
         "mapRemoteRoot": true,
         "pathMappings": [
-            // een van de volgende vormen is mogelijk
-            // een meer auto-magisch alternatief bestaat ook, zie de naar verwezen sectie
-            [ "/map/op/host", "/aangekoppeld/in/container" ]
+            // elk van de volgende vormen zijn mogelijk
+            // een meer auto-magisch alternatief bestaat ook, zie sectie waarnaar verwezen wordt
+            [ "/dir/on/host", "/mounted/in/container" ]
             { "localRoot": "/local/dir", "remoteRoot": "/remote/dir" }
         ]
     },
     "dap": {
-        "servers": {
-            "debugpy": {
+        "debugpy": {
             "run": {
-                // in deze sectie, is het van toepassing op alle configuraties
-                // dit zal overeenkomen/meedoen met het bovenstaande object
+                // in deze sectie, is het op alle configuraties van toepassing
+                // dit zal overeen komen/meedoen met het bovenstaande object
                 "exec": { "hostname": "foobar" },
-                // indien server ook verbonden is,
-                // optioneel specificeer expliciet poort (die geschikt is voor publicatie/doorsturen)
+                // als server er mee is verbonden,
+                //  specificeer expliciet de poort (die geschikt is gepubliceerd/doorgestuurd)
                 "port": 5678,
-                // de server kan dan ook meer dan localhost te moeten accepteren
+                // de server kan dan ook meer dan localhost moeten accepteren
                 "host": "0.0.0.0"
             }
         }
     }
 }
-</screen
-> De naar verwezen sectie zou geconsulteerd moeten worden op details, maar in essentie zal het <literal
->voorvoegsel</literal
-> voorgevoegd worden voor de opdrachtregel van de DAP-server elders gespecificeerd. Het effect is dat de server draait binnen de gespecificeerde container en daarna op zijn beurt ook het gestarte proces. De <literal
->pathMapping</literal
-> arrangeert voor transformatie van bestandspaden tussen weergave van de bewerker en de DAP-server (container), bijv. bij behandelen van instelling van breakpoints of behandelen van gerapporteerde backtraces. Meek op dat zulk aan elkaar koppelen optioneel is en wel of niet nuttig kan zijn. Bij behandelen van C/C++ code die wordt gecompileerd op "host", refereert de symboolinformatie bronbestanden op host die helemaal niet bestaan in de andere omgeving. Echter, in andere omstandigheden met scripts (bijv. python), worden naar actuele runtime bestanden verwezen (op de andere omgeving). </para>
+</screen>
 
 <para
->Het volgende moet evident in gedachten gehouden worden; <itemizedlist
-> <listitem
-> <para
->De DAP-server moet aanwezig zijn in de omgeving/container, die geconfigureerd moet zijn om juiste debuggerbewerkingen te ondersteunen (dus, indien nodig, geprivilegieerd, mogelijkheden). </para
-> </listitem
-> <listitem
-> <para
->Communicatie tussen bewerker en DAP moet mogelijk zijn. In geval van een container zou de laatste ofwel hostnetworking moeten gebruiken of een geschikte gekoppelde/gepubliceerde poort samen met overeenkomstige configuratietekstfragment zoals in bovenstaand voorbeeld (als een automatisch geselecteerde in geval van poort 0 zou het niet maken). </para
-> </listitem
-> <listitem
-> <para
-> Een gespecificeerd uitvoerbaar bestand/PID zou in "container" perspectief moeten zijn, evenals eventuele argumenten (te debuggen uitvoerbaar bestand). </para
-> </listitem
-> </itemizedlist
-> Ook, zoals in het LSP-geval zijn enige omgevingsvariabelen gezet; <literal
+>De sectie waarnaar gerefereerd zou geconsulteerd moeten worden voor details, maar in essentie zal het <literal
+>voorvoegsel</literal
+> voorgevoegd worden alvorens de opdrachtregel van de DAP-server elders wordt gespecificeerd. Het effect is dat de server draait in de gespecificeerde container en daarna op zijn beurt ook het gestarte proces. De <literal
+>pathMapping</literal
+> zorgt voor transformatie van bestandspaden tussen weergave van de bewerker en de weergave van de DAP-server (container), bijv. wanneer gewerkt wordt met instelling van breakpoints of behandeling van gerapporteerde backtraces. Merk op dat zulke koppeling optioneel is en al dan niet nuttig kan zijn. Bij werken met C/C++ code die op de "host" is gecompileerd, refereert de symboleninformatie van bronbestanden op de host die helemaal niet bestaat in de andere omgeving. Echter, in andere gescripte (bijv. python) omstandigheden, worden actuele runtime bestanden gerefereerd (op de andere omgeving). </para>
+
+<para
+>Het volgende moet duidelijk in gedachten gehouden worden. </para>
+
+<itemizedlist>
+<listitem>
+<para
+>De DAP-server moet aanwezig zijn in de omgeving/container, die geconfigureerd moet zijn om de debuggerbewerking juist te ondersteunen (dus, indien nodig, geprivilegieerd, mogelijkheden). </para>
+</listitem>
+<listitem>
+<para
+>Communicatie tussen bewerker en DAP moet mogelijk zijn. In het geval van een container zou de laatste ofwel hostnetwerking moeten gebruiken of een geschikte gekoppelde/gepubliceerde poort samen met een bijbehorend configuratiefragment zoals in bovenstaand voorbeeld (omdat een automatisch geselecteerde poort als poort 0 niet door komt). </para>
+</listitem>
+<listitem>
+<para
+>Een gespecificeerd uitvoerbaar bestand/PID zou in het perspectief van de "container" , evenals elk argument (debuggee uitvoerbaar bestand). </para>
+</listitem>
+</itemizedlist>
+
+<para
+>Ook, als in het LSP-geval, enige omgevingsvariabelen zijn gezet; <literal
 >KATE_EXEC_PLUGIN</literal
 > is gezet op <literal
 >dap</literal
 >, <literal
 >KATE_EXEC_SERVER</literal
-> is gezet op het type debugger/taal (bijv. <literal
+> is gezet op het debugger-/taaltype (bijv. <literal
 >python</literal
 >) en <literal
 >KATE_EXEC_PROFILE</literal

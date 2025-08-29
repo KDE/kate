@@ -437,7 +437,7 @@ msgstr "(Re)genera la base de dades de CTags específica de la sessió."
 #: kate_ctags_view.cpp:126
 #, kde-format
 msgid "Select new or existing database file."
-msgstr "Seleccioneu un fitxer de base de dades nou o existent."
+msgstr "Trieu un fitxer de base de dades nou o existent."
 
 #: kate_ctags_view.cpp:142
 #, kde-format

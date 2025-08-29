@@ -113,12 +113,12 @@ msgstr "Objectiu %1"
 #: configview.cpp:761
 #, kde-format
 msgid "Select Executable"
-msgstr "Seleccioneu l'executable"
+msgstr "Trieu l'executable"
 
 #: configview.cpp:774
 #, kde-format
 msgid "Select Working Directory"
-msgstr "Seleccioneu el directori de treball"
+msgstr "Trieu el directori de treball"
 
 #: dapbackend.cpp:187
 #, kde-format

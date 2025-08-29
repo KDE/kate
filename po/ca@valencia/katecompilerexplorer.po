@@ -37,7 +37,7 @@ msgstr "Copia"
 #: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
-msgstr "Selecciona-ho tot"
+msgstr "Tria-ho tot"
 
 #: ce_plugin.cpp:35
 #, kde-format

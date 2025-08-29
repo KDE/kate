@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-08-14 08:59+0200\n"
+"PO-Revision-Date: 2025-08-27 07:54+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.07.90\n"
+"X-Generator: Lokalize 25.08.0\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -599,10 +599,9 @@ msgstr "&Construire"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Module externe de compilation de Kate"
+msgstr "Barre d'outils de modules externes de compilation"
 
 #: UrlInserter.cpp:32
 #, kde-format

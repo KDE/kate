@@ -258,12 +258,12 @@ msgstr "Amb «Activador» habilitat, cal especificar com a mínim un tipus MIME.
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
 msgid "Select the MimeTypes for which to enable this tool."
-msgstr "Seleccioneu els tipus MIME per als que cal activar esta eina."
+msgstr "Trieu els tipus MIME per als que cal activar esta eina."
 
 #: kateexternaltoolsconfigwidget.cpp:206
 #, kde-format
 msgid "Select Mime Types"
-msgstr "Seleccioneu els tipus MIME"
+msgstr "Trieu els tipus MIME"
 
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format

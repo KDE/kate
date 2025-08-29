@@ -22,8 +22,7 @@ msgstr ""
 #: rainbowparens_plugin.cpp:479
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
-msgstr ""
-"Seleccioneu els colors que s'utilitzaran per a donar color als parèntesis:"
+msgstr "Trieu els colors que s'utilitzaran per a donar color als parèntesis:"
 
 #: rainbowparens_plugin.cpp:499
 #, kde-format

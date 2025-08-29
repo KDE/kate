@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-16 00:46+0000\n"
+"POT-Creation-Date: 2025-08-29 00:46+0000\n"
 "PO-Revision-Date: 2025-07-15 15:39+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -394,39 +394,39 @@ msgstr "Роботу сервера несподівано перервано…
 msgid "Failed to find server binary: %1"
 msgstr "Не вдалося знайти виконуваний файл сервера: %1"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:935
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 "Будь ласка, перевірте, чи правильно вказано PATH для виконуваного файла"
 
-#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:936
+#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:940
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 "Див. також %1 для ознайомлення із правилами встановлення та подробицями"
 
-#: lspclientservermanager.cpp:932
+#: lspclientservermanager.cpp:936
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Не вдалося запустити сервер: %1"
 
-#: lspclientservermanager.cpp:940
+#: lspclientservermanager.cpp:944
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Запущено сервер %2: %1"
 
-#: lspclientservermanager.cpp:976
+#: lspclientservermanager.cpp:980
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Не вдалося обробити налаштування сервера «%1»: немає об'єкта JSON"
 
-#: lspclientservermanager.cpp:979
+#: lspclientservermanager.cpp:983
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Не вдалося обробити налаштування сервера «%1»: %2"
 
-#: lspclientservermanager.cpp:983
+#: lspclientservermanager.cpp:987
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Не вдалося прочитати налаштування сервера: %1"

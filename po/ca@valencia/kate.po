@@ -1836,7 +1836,7 @@ msgstr "Anomena i gu&arda la sessió…"
 #: lib/katemainwindow.cpp:638
 #, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Fixa/deixa de fixar el document actiu"
+msgstr "Fixa o deixa de fixar el document actiu"
 
 #: lib/katemainwindow.cpp:647
 #, kde-format
@@ -3161,11 +3161,3 @@ msgstr "Gestiona les sessions…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostra una pàgina de benvinguda en les finestres noves"
-
-#~ msgid "Could not start program"
-#~ msgstr "No s'ha pogut iniciar el programa"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "No s'ha pogut iniciar el programa seleccionat. Potser no està instal·lat."

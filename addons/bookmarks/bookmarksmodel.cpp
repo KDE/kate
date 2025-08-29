@@ -56,9 +56,9 @@ QVariant BookmarksModel::headerData(int section, Qt::Orientation orientation, in
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-        case 0:
+        case LineNumber:
             return i18n("Line Number");
-        case 1:
+        case FilePath:
             return i18n("File Path");
         default:
             return QVariant();

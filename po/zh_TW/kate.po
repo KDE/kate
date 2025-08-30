@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-28 00:46+0000\n"
-"PO-Revision-Date: 2025-05-16 15:30+0900\n"
+"PO-Revision-Date: 2025-08-29 20:45+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -565,11 +565,10 @@ msgid "No differences found"
 msgstr "未找到差異"
 
 #: lib/filehistorywidget.cpp:241
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "無效的 hash"
+msgstr "無效的日期：%1"
 
 #: lib/filehistorywidget.cpp:458
 #, kde-format
@@ -587,6 +586,15 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"過濾歷史紀錄。<ul>  <li>    使用 <code>\"a:\"</code> 前綴來依作者名稱過濾。例"
+"如：<b>a:john doe</b>  </li>  <li>    使用 <code>\"!a:\"</code> 前綴來排除作"
+"者。例如：<b>!a:john doe</b>  </li>  <li>    使用 <code>\"since:\"</code> 前"
+"綴來顯示指定日期之後的提交。會檢查每個提交的製作日期。日期格式是 yyyy-MM-dd。"
+"例如：<b>since:2025-04-17</b>  </li>  <li>    使用 <code>\"until:\"</code> 前"
+"綴來顯示指定日期之前的提交。會檢查每個提交的製作日期。日期格式是 yyyy-MM-dd。"
+"例如：<b>until:2025-04-17</b>  </li>  <li>    要過濾提交訊息，只需要直接輸入"
+"搜尋字詞。如果提供多個搜尋字詞，會顯示符合所有搜尋字詞的訊息。  </li></ul>要"
+"觸發過濾，請按下 <b>Enter</b> 鍵。"
 
 #: lib/filehistorywidget.cpp:514
 #, kde-format
@@ -1408,16 +1416,14 @@ msgid "Reopening files from the last session..."
 msgstr "從上一次工作階段重新開啟檔案..."
 
 #: lib/katedocmanager.cpp:573
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "建立一份新文件"
+msgstr "無法釘選未命名文件。"
 
 #: lib/katedocmanager.cpp:578
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "顯示比較文件的方法提示。"
+msgstr "無法釘選非本地的文件。"
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1772,16 +1778,14 @@ msgid "Save Session &As..."
 msgstr "另存工作階段(&A)..."
 
 #: lib/katemainwindow.cpp:638
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "在獨立視窗顯示作用中文件"
+msgstr "釘選/取消釘選作用中文件"
 
 #: lib/katemainwindow.cpp:647
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "關閉文件"
+msgstr "開啟下一個已釘選的文件"
 
 #: lib/katemainwindow.cpp:654 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2076,7 +2080,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "請安裝 git 才能檢視差異"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2558,21 +2562,19 @@ msgid "Compare with Active Document Using"
 msgstr "使用此工具與作用中文件比對差異"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Close Document"
+#, kde-format
 msgid "Unpin Document"
-msgstr "關閉文件"
+msgstr "取消釘選文件"
 
 #: lib/kateviewspace.cpp:1214
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "文件"
+msgstr "釘選文件"
 
 #: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "無法開啟 %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

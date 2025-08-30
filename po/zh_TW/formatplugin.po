@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2024-10-19 19:59+0900\n"
+"PO-Revision-Date: 2025-08-29 20:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.11.70\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
 #: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
@@ -30,10 +30,9 @@ msgid "Failed to write a temp file"
 msgstr "寫入暫存檔時失敗"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "執行 git diff 時失敗：%1"
+msgstr "執行 git diff 時失敗：git 未安裝"
 
 #: FormatApply.h:38
 #, kde-format

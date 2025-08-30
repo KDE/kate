@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-01 19:11+0900\n"
+"PO-Revision-Date: 2025-08-29 20:47+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.11.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
@@ -92,14 +92,13 @@ msgstr "將程式的除錯輸出入重新導向到另一個分頁"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "未設定執行檔目標"
 
 #: configview.cpp:407
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "無效的執行緒 ID：%1"
+msgstr "無效的行程 ID"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -635,10 +634,9 @@ msgid "Print Value"
 msgstr "印出數值"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "語法錯誤：%1"
+msgstr "錯誤：%1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

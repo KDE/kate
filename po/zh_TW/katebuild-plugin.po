@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-06-19 22:41+0900\n"
+"PO-Revision-Date: 2025-08-29 20:48+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.11.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
@@ -348,10 +348,9 @@ msgid_plural "Found %1 notes."
 msgstr[0] "找到 %1 個備註。"
 
 #: plugin_katebuild.cpp:1498
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "編譯失敗。"
+msgstr "編譯取消。"
 
 #: plugin_katebuild.cpp:1502
 #, kde-format
@@ -556,10 +555,9 @@ msgstr "編譯(&B)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Kate 編譯外掛程式"
+msgstr "編譯外掛程式工具列"
 
 #: UrlInserter.cpp:32
 #, kde-format

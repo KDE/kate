@@ -245,7 +245,9 @@ void KateSessionManageDialog::openSession()
         return;
     }
 
+    // ensure we don't crash when the parent window is deleted, bug 508894
     hide();
+    setParent(nullptr);
 
     // this might fail, e.g. if session is in use, then e.g. end kate, bug 390740
     const bool success = KateApp::self()->sessionManager()->activateSession(item->session);
@@ -260,7 +262,9 @@ void KateSessionManageDialog::openSessionAsTemplate()
         return;
     }
 
+    // ensure we don't crash when the parent window is deleted, bug 508894
     hide();
+    setParent(nullptr);
 
     KateSessionManager *sm = KateApp::self()->sessionManager();
     KateSession::Ptr ns = KateSession::createAnonymousFrom(item->session, sm->anonymousSessionFile());
@@ -271,7 +275,10 @@ void KateSessionManageDialog::openSessionAsTemplate()
 
 void KateSessionManageDialog::openNewSession()
 {
+    // ensure we don't crash when the parent window is deleted, bug 508894
     hide();
+    setParent(nullptr);
+
     KateApp::self()->sessionManager()->sessionNew();
     done(ResultNew);
 }

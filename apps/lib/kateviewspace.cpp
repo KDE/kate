@@ -1243,13 +1243,8 @@ void KateViewSpace::showContextMenu(int idx, const QPoint &globalPos)
             KateFileActions::deleteDocumentFile(this, doc);
         });
     } else if (choice->parent() == compareUsing) {
-        QString actionData = choice->data().toString(); // name of the executable of the diff program
-        if (!KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData)) {
-            QMessageBox::information(this,
-                                     i18n("Could not start program"),
-                                     i18n("The selected program could not be started. Maybe it is not installed."),
-                                     QMessageBox::StandardButton::Ok);
-        }
+        const QString actionData = choice->data().toString(); // name of the executable of the diff program
+        KateFileActions::compareWithExternalProgram(activeDocument, doc, actionData);
     } else if (choice == aDetachTab) {
         detachDocument(doc);
     }

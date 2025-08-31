@@ -22,6 +22,7 @@
         "Description[uk]": "Підсвічування і відкриття посилань (за допомогою CTRL-клацання)",
         "Description[x-test]": "xxHighlight and open links (via CTRL-click)xx",
         "Description[zh_CN]": "高亮和打开链接 (通过 Ctrl+点击)",
+        "Description[zh_TW]": "突顯與開啟連結（透過 Ctrl+點擊）",
         "Name": "Open Link",
         "Name[ar]": "افتح الوصلة",
         "Name[az]": "Keçidi açın",

@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-28 00:46+0000\n"
-"PO-Revision-Date: 2025-07-14 11:09+0300\n"
+"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"PO-Revision-Date: 2025-08-22 17:16+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -591,11 +591,10 @@ msgid "No differences found"
 msgstr "Eroja ei löytynyt"
 
 #: lib/filehistorywidget.cpp:241
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Virheellinen tiiviste"
+msgstr "Virheellinen päiväys: %1"
 
 #: lib/filehistorywidget.cpp:458
 #, kde-format
@@ -613,6 +612,17 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Suodata lokia.<ul><li>Suodata tekijän nimellä käyttämällä etuliitettä "
+"<code>”a:”</code>, esim. <b>a:matti meikäläinen</b></li><li>Sulje tekijä "
+"pois etuliitteellä <code>”!a:”</code>, esim. <b>!a:matti meikäläinen</b></"
+"li><li>Tietyn ajan jälkeiset toimitukset näkyvät etuliitteellä "
+"<code>”since:”</code>. Myös kunkin toimituksen tekijä tarkistetaan. "
+"Päivämäärämuoto on VVVV-KK-PP. Esim. <b>since:2025-04-17</b></li><li>Tiettyä "
+"aikaa edeltävät toimitukset näkyvät etuliitteellä <code>”until:”</code>. "
+"Myös kunkin toimituksen tekijä tarkistetaan. Päivämäärämuoto on VVVV-KK-PP. "
+"Esim. <b>until:2025-04-17</b></li><li>Viestillä suodattamiseksi kirjoita "
+"vain hakusanat. Jos annetaan useampi, näytetään kaikkia hakusanoja vastaavat "
+"viestit.</li></ul>Suodatin tulee käyttöön <b>Enter</b>-painalluksella."
 
 #: lib/filehistorywidget.cpp:514
 #, kde-format
@@ -2736,7 +2746,7 @@ msgstr "Istunnonvalitsin"
 msgid "Restore"
 msgstr "Palauta"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Istunto poistetaan kyselyikkunan sulkeuduttua"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-29 00:46+0000\n"
-"PO-Revision-Date: 2025-07-14 11:09+0300\n"
+"PO-Revision-Date: 2025-07-31 09:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -431,13 +431,13 @@ msgstr "Palvelinasetusten lukeminen epäonnistui: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Siirry seuraavaan symbolikorostukseen"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Siirry edelliseen symbolikorostukseen"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format

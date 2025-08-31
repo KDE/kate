@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-26 00:45+0000\n"
-"PO-Revision-Date: 2025-07-14 11:10+0300\n"
+"PO-Revision-Date: 2025-07-31 09:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -100,14 +100,13 @@ msgstr ""
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Kohdeohjelmatiedostoa ei ole asetettu"
 
 #: configview.cpp:407
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "virheellinen säikeen tunniste: %1"
+msgstr "Virheellinen prosessitunniste"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -638,10 +637,9 @@ msgid "Print Value"
 msgstr "Tulosta arvo"
 
 #: plugin_kategdb.cpp:449
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "syntaksivirhe: %1"
+msgstr "Virhe: %1"
 
 #: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
 #, kde-format

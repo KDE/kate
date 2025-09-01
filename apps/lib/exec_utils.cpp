@@ -74,8 +74,8 @@ void updateMapping(PathMapping &mapping, const QJsonValue &json, KTextEditor::Vi
         // allow various common representations
         if (e.isObject()) {
             auto obj = e.toObject();
-            auto local = obj.value(QStringLiteral("localRoot"));
-            auto remote = obj.value(QStringLiteral("remoteRoot"));
+            auto local = obj.value(QLatin1String("localRoot"));
+            auto remote = obj.value(QLatin1String("remoteRoot"));
             add_entry(local, remote);
         } else if (e.isArray()) {
             auto a = e.toArray();
@@ -161,7 +161,7 @@ QUrl mapPath(const PathMapping &mapping, const QUrl &p, bool fromLocal)
 static void findExec(const QJsonValue &value, const QString &hostname, QJsonObject &current)
 {
     auto check = [&hostname](const QJsonObject &ob) {
-        return ob.value(QStringLiteral("hostname")).toString() == hostname;
+        return ob.value(QLatin1String("hostname")).toString() == hostname;
     };
 
     json::find(value, check, current);
@@ -170,7 +170,7 @@ static void findExec(const QJsonValue &value, const QString &hostname, QJsonObje
 PathMappingPtr ExecConfig::init_mapping(KTextEditor::View *view)
 {
     // load path mapping, with var substitution
-    auto pathMapping = Utils::loadMapping(config.value(QStringLiteral("pathMappings")), view);
+    auto pathMapping = Utils::loadMapping(config.value(QLatin1String("pathMappings")), view);
     // check if user has specified map for remote root
     auto rooturl = QUrl::fromLocalFile(QLatin1String("/"));
     if (pathMapping && Utils::mapPath(*pathMapping, rooturl, false).isEmpty()) {
@@ -180,7 +180,7 @@ PathMappingPtr ExecConfig::init_mapping(KTextEditor::View *view)
         // otherwise, use same protocol with empty host
         // the latter maps nowhere, but it least it provides both a path
         // and a clear indication not to confuse it with a mere local path
-        auto fallback = config.value(QStringLiteral("mapRemoteRoot")).toBool();
+        auto fallback = config.value(QLatin1String("mapRemoteRoot")).toBool();
         auto hn = hostname();
         pathMapping->insert({QUrl(QLatin1String("%1://%2/").arg(epm.scheme(), fallback ? hn : QString())), rooturl});
         if (fallback) {
@@ -201,16 +201,16 @@ ExecConfig ExecConfig::load(const QJsonObject &localConfig, const QJsonObject &p
     ExecConfig result;
 
     // try to collect all exec related info
-    auto EXEC = QStringLiteral("exec");
-    auto execConfig = localConfig.value(QStringLiteral("exec")).toObject();
+    constexpr auto EXEC = QLatin1String("exec");
+    auto execConfig = localConfig.value(EXEC).toObject();
     QString hostname;
     if (!execConfig.isEmpty()) {
-        hostname = execConfig.value(QStringLiteral("hostname")).toString();
+        hostname = execConfig.value(QLatin1String("hostname")).toString();
         // convenience; let's try to find more info for this hostname elsewhere
         if (!hostname.isEmpty()) {
             QJsonObject current;
             // first look into a common project config part
-            findExec(projectConfig.value(QStringLiteral("exec")), hostname, current);
+            findExec(projectConfig.value(EXEC), hostname, current);
             // search extra parts
             for (const auto &e : extra)
                 findExec(e, hostname, current);
@@ -219,7 +219,7 @@ ExecConfig ExecConfig::load(const QJsonObject &localConfig, const QJsonObject &p
         }
     }
     // normalize string prefix to array
-    auto PREFIX = QStringLiteral("prefix");
+    constexpr auto PREFIX = QLatin1String("prefix");
     if (auto sprefix = execConfig.value(PREFIX).toString(); !sprefix.isEmpty()) {
         execConfig[PREFIX] = QJsonArray::fromStringList(sprefix.split(QLatin1Char(' ')));
     }

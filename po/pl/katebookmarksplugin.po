@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-29 00:44+0000\n"
+"POT-Creation-Date: 2025-09-01 00:45+0000\n"
 "PO-Revision-Date: 2025-07-26 19:32+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -33,17 +33,17 @@ msgstr "Ścieżka do pliku"
 msgid "Bookmarks"
 msgstr "Zakładki"
 
-#: bookmarksplugin.cpp:171
+#: bookmarksplugin.cpp:172
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Przejdź do poprzedniej zakładki"
 
-#: bookmarksplugin.cpp:177
+#: bookmarksplugin.cpp:178
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Przejdź do następnej zakładki"
 
-#: bookmarksplugin.cpp:183
+#: bookmarksplugin.cpp:184
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Usuń zakładkę"

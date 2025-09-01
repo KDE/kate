@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2024, 2025 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-23 00:46+0000\n"
-"PO-Revision-Date: 2024-10-23 19:34+0200\n"
+"PO-Revision-Date: 2025-08-31 23:27+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
 #: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
@@ -30,10 +30,9 @@ msgid "Failed to write a temp file"
 msgstr "Неуспешно записване на временен файл"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "Неуспешно изпълнение на git diff: %1"
+msgstr "Неуспешно изпълнение на git diff: git не е инсталиран"
 
 #: FormatApply.h:38
 #, kde-format

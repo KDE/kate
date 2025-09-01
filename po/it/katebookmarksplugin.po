@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-29 00:44+0000\n"
+"POT-Creation-Date: 2025-09-01 00:45+0000\n"
 "PO-Revision-Date: 2025-07-07 22:14+0200\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -32,17 +32,17 @@ msgstr "Percorso del file"
 msgid "Bookmarks"
 msgstr "Segnalibri"
 
-#: bookmarksplugin.cpp:171
+#: bookmarksplugin.cpp:172
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Vai al segnalibro precedente"
 
-#: bookmarksplugin.cpp:177
+#: bookmarksplugin.cpp:178
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Vai al segnalibro successivo"
 
-#: bookmarksplugin.cpp:183
+#: bookmarksplugin.cpp:184
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Rimuovi segnalibro"

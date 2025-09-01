@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-31 00:45+0000\n"
-"PO-Revision-Date: 2025-07-29 21:54+0200\n"
+"PO-Revision-Date: 2025-08-31 23:26+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -1457,16 +1457,14 @@ msgid "Reopening files from the last session..."
 msgstr "Отваряне на файловете от последната сесия..."
 
 #: lib/katedocmanager.cpp:573
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Създаване на нов документ"
+msgstr "Не може да се закачат неозаглавени документи."
 
 #: lib/katedocmanager.cpp:578
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Показва подсказки за сравняване на документи."
+msgstr "Не може да се закачат документи, които не са локални."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1828,16 +1826,14 @@ msgid "Save Session &As..."
 msgstr "Запис на сесията &като..."
 
 #: lib/katemainwindow.cpp:638
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Откачване на активния документ"
+msgstr "Закачване/откачване на активния документ"
 
 #: lib/katemainwindow.cpp:647
-#, fuzzy, kde-format
-#| msgid "&Reopen Latest Closed Document(s)"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "&Презареждане на последните затворени документи"
+msgstr "Отваряне на следващия закачен документ"
 
 #: lib/katemainwindow.cpp:654 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2145,7 +2141,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Моля, инсталирайте git, за да видите разликите"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2642,21 +2638,19 @@ msgid "Compare with Active Document Using"
 msgstr "Сравняване с активния документ с помощта на"
 
 #: lib/kateviewspace.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Документи"
+msgstr "Откачване на документ"
 
 #: lib/kateviewspace.cpp:1214
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Документи"
+msgstr "Закачване на документ"
 
 #: lib/ktexteditor_utils.cpp:239
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "Не може да се отвори „%1“"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

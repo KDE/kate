@@ -46,11 +46,11 @@ class KATE_PRIVATE_EXPORT ExecConfig
     QJsonObject config;
 
 public:
-    static inline QString M_HOSTNAME = QStringLiteral("hostname");
-    static inline QString M_PREFIX = QStringLiteral("prefix");
+    static constexpr auto M_HOSTNAME = QLatin1String("hostname");
+    static constexpr auto M_PREFIX = QLatin1String("prefix");
     // environment var
-    static inline QString ENV_KATE_EXEC_PLUGIN = QStringLiteral("KATE_EXEC_PLUGIN");
-    static inline QString ENV_KATE_EXEC_INSPECT = QStringLiteral("KATE_EXEC_INSPECT");
+    static constexpr auto ENV_KATE_EXEC_PLUGIN = QLatin1String("KATE_EXEC_PLUGIN");
+    static constexpr auto ENV_KATE_EXEC_INSPECT = QLatin1String("KATE_EXEC_INSPECT");
 
     static ExecConfig load(const QJsonObject &localConfig, const QJsonObject &projectConfig, QList<QJsonValue> extra);
 

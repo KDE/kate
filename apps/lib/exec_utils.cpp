@@ -26,10 +26,6 @@
 
 namespace Utils
 {
-// (localRoot = probably file but need not be, remoteRoot = should be file)
-using PathMap = std::pair<QUrl, QUrl>;
-using PathMapping = QSet<PathMap>;
-using PathMappingPtr = std::shared_ptr<PathMapping>;
 
 PathMappingPtr loadMapping(const QJsonValue &json, KTextEditor::View *view)
 {

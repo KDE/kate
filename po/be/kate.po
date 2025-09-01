@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -2515,16 +2515,6 @@ msgstr ""
 msgid "Compare with Active Document Using"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr ""
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2609,7 +2599,7 @@ msgstr "Сродак выбару сеанса"
 msgid "Restore"
 msgstr "Аднавіць"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr ""

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -2545,16 +2545,6 @@ msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕ�
 msgid "Compare with Active Document Using"
 msgstr "ਸਰਗਰਮ ਡੌਕੂਮੈਂਟ ਨਾਲ ਤੁਲਨਾ ਕਰੋ"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "ਪਰੋਗਰਾਮ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2640,7 +2630,7 @@ msgstr "ਸ਼ੈਸ਼ਨ ਚੋਣਕਾਰ"
 msgid "Restore"
 msgstr "ਬਹਾਲ ਕਰੋ"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr ""
@@ -3051,6 +3041,9 @@ msgstr "ਸ਼ੈਸ਼ਨਾਂ ਦਾ ਇੰਤਜ਼ਾਮ..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "ਨਵਾਂ ਡੌਕੂਮੈਂਟ ਬਣਾਓ"
+
+#~ msgid "Could not start program"
+#~ msgstr "ਪਰੋਗਰਾਮ ਸ਼ੁਰੂ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
 
 #~ msgid "Show for new window"
 #~ msgstr "ਨਵੀਂ ਵਿੰਡੋ ਲਈ ਵੇਖਾਓ"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ./messages/kdebase/kate.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2004-09-22 16:07+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud@mandriva.com>\n"
 "Language-Team: br <LL@li.org>\n"
@@ -2580,16 +2580,6 @@ msgstr "Krouiñ un teul nevez"
 msgid "Compare with Active Document Using"
 msgstr "Krouiñ un teul nevez"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr ""
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2676,7 +2666,7 @@ msgstr "Diuzer an dalc'h"
 msgid "Restore"
 msgstr ""
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr ""

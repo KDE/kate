@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1717021 $
+# Version: $Revision: 1717229 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-31 09:43+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -2581,16 +2581,6 @@ msgstr "Porównaj z bieżącym dokumentem "
 msgid "Compare with Active Document Using"
 msgstr "Porównaj z bieżącym dokumentem używając"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Nie można uruchomi programu"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Nie można uruchomić wybranego programu. Może nie został on wgrany."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2679,7 +2669,7 @@ msgstr "Wybieranie posiedzenia"
 msgid "Restore"
 msgstr "Przywróć"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Posiedzenie zostanie usunięte po zamknięciu okna dialogowego"
@@ -3091,6 +3081,13 @@ msgstr "Zarządzanie posiedzeniami..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Pokaż ekran powitalny dla nowo otwartych okien"
+
+#~ msgid "Could not start program"
+#~ msgstr "Nie można uruchomi programu"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Nie można uruchomić wybranego programu. Może nie został on wgrany."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Szukanie szybko otwierające (ustawienia w menu podręcznym)"

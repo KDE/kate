@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -2562,18 +2562,6 @@ msgstr "Samanlikna med gjeldande dokument"
 msgid "Compare with Active Document Using"
 msgstr "Samanlikna med gjeldande dokument via"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Klarte ikkje starta programmet"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Klarte ikkje starta programmet. Ein grunn kan vera at det ikkje er "
-"installert."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2657,7 +2645,7 @@ msgstr "Øktveljar"
 msgid "Restore"
 msgstr "Gjenopprett"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Økta vert sletta når dialogvindauget vert lukka"
@@ -3066,3 +3054,12 @@ msgstr "Handsam økter …"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"
+
+#~ msgid "Could not start program"
+#~ msgstr "Klarte ikkje starta programmet"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Klarte ikkje starta programmet. Ein grunn kan vera at det ikkje er "
+#~ "installert."

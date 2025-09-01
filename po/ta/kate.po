@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-18 20:22+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -2552,18 +2552,6 @@ msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்�
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "செயலியை துவக்க முடியவில்லை"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"தேர்ந்தெடுக்கப்பட்ட செயலியை துவக்க முடியவில்லை. அது நிறுவப்படவில்லையெனில் இச்சிக்கல் "
-"நேரலாம்."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2653,7 +2641,7 @@ msgstr "அமர்வு தேர்வி"
 msgid "Restore"
 msgstr "மீட்டெடு"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "இச்சாளரம் மூடப்படும்போது அமர்வு நீக்கப்படும்"
@@ -3060,6 +3048,15 @@ msgstr "அமர்வுகளை நிர்வகி..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "புதிய சாளரத்தில் வரவேற்புப்பக்கத்தை காட்டு"
+
+#~ msgid "Could not start program"
+#~ msgstr "செயலியை துவக்க முடியவில்லை"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "தேர்ந்தெடுக்கப்பட்ட செயலியை துவக்க முடியவில்லை. அது நிறுவப்படவில்லையெனில் இச்சிக்கல் "
+#~ "நேரலாம்."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "விரைவாக திறப்பதற்கான தேடல் (வலது-க்ளிக் பட்டியின் மூலம் அமைக்கவும்)"

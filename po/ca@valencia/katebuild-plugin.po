@@ -123,7 +123,7 @@ msgstr "Construïx"
 #: plugin_katebuild.cpp:278
 #, kde-format
 msgid "Select Target..."
-msgstr "Seleccioneu l'objectiu…"
+msgstr "Trieu l'objectiu…"
 
 #: plugin_katebuild.cpp:283
 #, kde-format
@@ -592,4 +592,4 @@ msgstr "Inserix camí"
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr "Seleccioneu el directori que s'ha d'inserir"
+msgstr "Trieu el directori que s'ha d'inserir"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -2633,16 +2633,6 @@ msgstr "Sammenlign med det aktive dokument"
 msgid "Compare with Active Document Using"
 msgstr "Sammenlign med det aktive dokument"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Kunne ikke starte programmet"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Det valgte program kunne ikke startes. Måske er det ikke installeret."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2730,7 +2720,7 @@ msgstr "Sessionsvælger"
 msgid "Restore"
 msgstr "Gendan"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sessionen slettes når dialogen lukkes"
@@ -3174,6 +3164,14 @@ msgstr "&Håndtér sessioner..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Opret et nyt dokument"
+
+#~ msgid "Could not start program"
+#~ msgstr "Kunne ikke starte programmet"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Det valgte program kunne ikke startes. Måske er det ikke installeret."
 
 #, fuzzy
 #~| msgid "Create a new document"

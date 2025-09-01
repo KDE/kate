@@ -84,7 +84,7 @@ msgstr "Configureu el selector de color"
 #: katecolorpickerplugin.cpp:256
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr "Selecciona el color (eixida en hexadecimal)"
+msgstr "Tria el color (eixida en hexadecimal)"
 
 #: katecolorpickerplugin.cpp:259
 #, kde-format

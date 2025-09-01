@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2023-06-18 19:22+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -2642,16 +2642,6 @@ msgstr "Compară cu documentul activ"
 msgid "Compare with Active Document Using"
 msgstr "Compară cu documentul activ folosind"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Nu s-a putut porni programul"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Programul ales nu a putut fi pornit Poate nu e instalat."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2737,7 +2727,7 @@ msgstr "Selector de sesiuni"
 msgid "Restore"
 msgstr "Restabilește"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sesiunea va fi ștearsă la închiderea dialogului"
@@ -3178,6 +3168,13 @@ msgstr "&Gestionare sesiuni..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Creează un document nou"
+
+#~ msgid "Could not start program"
+#~ msgstr "Nu s-a putut porni programul"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Programul ales nu a putut fi pornit Poate nu e instalat."
 
 #, fuzzy
 #~| msgid "Create a new document"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -2596,16 +2596,6 @@ msgstr "Aktiv sənəd ilə müqayisə edin"
 msgid "Compare with Active Document Using"
 msgstr "Aktiv sənəd ilə bunu istifadə edərək müqayisə edin"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Proqram başladıla bilmədi"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Seçilmiş proqram başladıla bilmədi. Ola bilsin ki, o quraşdırılmayıb."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2691,7 +2681,7 @@ msgstr "Sesia seçimi"
 msgid "Restore"
 msgstr "Bərpa etmək"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Dialoq bağlandıqda sesiya silinəcək"
@@ -3099,6 +3089,14 @@ msgstr "Sesiyaları idarə etmək..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Yeni pəncərə üçün salamlamanı göstərmək"
+
+#~ msgid "Could not start program"
+#~ msgstr "Proqram başladıla bilmədi"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Seçilmiş proqram başladıla bilmədi. Ola bilsin ki, o quraşdırılmayıb."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Axtarışı sürətlə açmaq (kontekst menyudan tənzimləmək)"

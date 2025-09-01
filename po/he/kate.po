@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-08-02 21:12+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -2547,16 +2547,6 @@ msgstr "השוואה מול המסמך הפעיל"
 msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "לא ניתן להתחיל את התוכנית"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי היא לא מותקנת."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2640,7 +2630,7 @@ msgstr "בורר ההפעלות"
 msgid "Restore"
 msgstr "שחזור"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "ההפעלה תימחק עם סגירת החלונית"
@@ -3044,6 +3034,13 @@ msgstr "ניהול הפעלות…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "הצגת מסך קבלת פנים בחלונות חדשים"
+
+#~ msgid "Could not start program"
+#~ msgstr "לא ניתן להתחיל את התוכנית"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "אי אפשר להפעיל את התוכנית הנבחרת. אולי היא לא מותקנת."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "חיפוש בפתיחה מהירה (אפשר להגדיר דרך תפריט הקשר)"

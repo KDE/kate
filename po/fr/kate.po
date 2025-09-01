@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-12 13:43+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -2645,18 +2645,6 @@ msgstr "Comparer avec le document actif"
 msgid "Compare with Active Document Using"
 msgstr "Comparer avec le document actif en utilisant"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Impossible de démarrer le programme"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Il est impossible de démarrer le programme sélectionné. Il n'est peut-être "
-"pas installé."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2750,7 +2738,7 @@ msgstr "Sélection de la session"
 msgid "Restore"
 msgstr "Restaurer"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "La session sera supprimée à la fermeture du dialogue"
@@ -3164,6 +3152,15 @@ msgstr "Gérer les sessions..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Afficher la page d'accueil pour une nouvelle fenêtre."
+
+#~ msgid "Could not start program"
+#~ msgstr "Impossible de démarrer le programme"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Il est impossible de démarrer le programme sélectionné. Il n'est peut-"
+#~ "être pas installé."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Rechercher « Quick Open » (Configurer grâce au menu contextuel)"

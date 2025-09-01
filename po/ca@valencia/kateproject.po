@@ -24,8 +24,7 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
-"Seleccioneu la branca que s'ha d'extraure. Premeu «Esc» per a cancel·lar."
+msgstr "Trieu la branca que s'ha d'extraure. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
@@ -55,8 +54,7 @@ msgstr "Introduïu el nom de la nova branca. Premeu «Esc» per a cancel·lar."
 #: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
-"Seleccioneu la branca que s'ha d'extraure. Premeu «Esc» per a cancel·lar."
+msgstr "Trieu la branca que s'ha d'extraure. Premeu «Esc» per a cancel·lar."
 
 #: branchcheckoutdialog.cpp:125
 #, kde-format
@@ -93,7 +91,7 @@ msgstr[1] "Segur que voleu suprimir les branques seleccionades?"
 #: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
-msgstr "Selecciona la branca…"
+msgstr "Tria la branca…"
 
 #: branchesdialog.cpp:113 gitwidget.cpp:568 kateprojectpluginview.cpp:69
 #, kde-format
@@ -953,7 +951,7 @@ msgstr "Índex dels projectes"
 #: kateprojectpluginview.cpp:842
 #, kde-format
 msgid "Choose a directory"
-msgstr "Seleccioneu un directori"
+msgstr "Trieu un directori"
 
 #: kateprojecttreeviewcontextmenu.cpp:45
 #, kde-format

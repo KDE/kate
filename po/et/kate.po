@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2022-10-22 12:40+0200\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -2624,17 +2624,6 @@ msgstr "Võrdle aktiivse dokumendiga"
 msgid "Compare with Active Document Using"
 msgstr "Võrdle aktiivse dokumendiga"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Programmi käivitamine nurjus"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Valitud programmi ei õnnestunud käivitada. Võib-olla ei ole seda paigaldatud."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2720,7 +2709,7 @@ msgstr "Seansivalija"
 msgid "Restore"
 msgstr "Taasta"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Seanss kustutatakse dialoogi sulgemisel"
@@ -3167,6 +3156,15 @@ msgstr "&Halda seansse..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Loo uus dokument"
+
+#~ msgid "Could not start program"
+#~ msgstr "Programmi käivitamine nurjus"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Valitud programmi ei õnnestunud käivitada. Võib-olla ei ole seda "
+#~ "paigaldatud."
 
 #, fuzzy
 #~| msgid "Create a new document"

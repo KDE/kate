@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-08-20 09:37-0300\n"
 "Last-Translator: Geraldo Simiao <geraldosimiao@fedoraproject.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -2591,17 +2591,6 @@ msgstr "Comparar com o documento ativo"
 msgid "Compare with Active Document Using"
 msgstr "Comparar com o documento em uso"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Não foi possível iniciar o programa"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Não foi possível iniciar o programa selecionado. Talvez não esteja instalado."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2696,7 +2685,7 @@ msgstr "Escolha da sessão"
 msgid "Restore"
 msgstr "Restaurar"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "A sessão será excluída ao fechar a caixa de diálogo"
@@ -3108,6 +3097,15 @@ msgstr "Gerenciar sessões..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar página de boas-vindas para nova janela"
+
+#~ msgid "Could not start program"
+#~ msgstr "Não foi possível iniciar o programa"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Não foi possível iniciar o programa selecionado. Talvez não esteja "
+#~ "instalado."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Abrir pesquisa rapidamente (configurar via menu de contexto)"

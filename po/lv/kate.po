@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-07-01 16:22+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2563,16 +2563,6 @@ msgstr "Salīdzināt ar aktīvo dokumentu"
 msgid "Compare with Active Document Using"
 msgstr "Salīdzināt ar aktīvo dokumentu, izmantojot"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Neizdevās palaist programmu"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Izvēlēto programmu nevar ieslēgt. Iespējams, tā nav instalēta."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2660,7 +2650,7 @@ msgstr "Sesiju izvēle"
 msgid "Restore"
 msgstr "Atjaunot"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sesija dzēsīsies pēc lodziņa aizvēršanas"
@@ -3069,6 +3059,13 @@ msgstr "Pārvaldīt sesijas..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Jaunajiem logiem rādīt sākuma lapu"
+
+#~ msgid "Could not start program"
+#~ msgstr "Neizdevās palaist programmu"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Izvēlēto programmu nevar ieslēgt. Iespējams, tā nav instalēta."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Ātrās atvēršanas meklēšana (konfigurēt konteksta izvēlnē)"

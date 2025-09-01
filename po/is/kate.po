@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-06-30 15:48+0000\n"
 "Last-Translator: Gummi <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -2581,17 +2581,6 @@ msgstr "Bera saman við skjal sem er opið"
 msgid "Compare with Active Document Using"
 msgstr "Bera saman við skjal sem er opið með því að nota"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Gat ekki ræst forrit"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Ekki var hægt að ræsa forritið sem var valið. Kannski er það ekki uppsett."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2677,7 +2666,7 @@ msgstr "Setuval"
 msgid "Restore"
 msgstr "Endurheimta"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Setu verður eytt þegar svarglugginn lokast"
@@ -3086,6 +3075,14 @@ msgstr "Umsjón með setum..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Sýna upphafssíðu í nýjum gluggum"
+
+#~ msgid "Could not start program"
+#~ msgstr "Gat ekki ræst forrit"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Ekki var hægt að ræsa forritið sem var valið. Kannski er það ekki uppsett."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Flýtiopnunarleit (grunnstillt í samhengisvalmynd)"

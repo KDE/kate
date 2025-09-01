@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-06-24 19:17+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2580,17 +2580,6 @@ msgstr "Konparatu dokumentu aktiboarekin"
 msgid "Compare with Active Document Using"
 msgstr "Konparatu dokumentu aktiboarekin hau erabiliz,"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Ezin izan da programa abiarazi"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"Aukeratutako programa ezin izan da abiarazi. Agian ez dago instalatuta."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2680,7 +2669,7 @@ msgstr "Saio-hautatzailea"
 msgid "Restore"
 msgstr "Lehengoratu"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Saioa ezabatuko da elkarrizketa-koadroa ixtean"
@@ -3090,6 +3079,14 @@ msgstr "Kudeatu saioak..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Erakutsi ongietorri-orria leiho berrietan"
+
+#~ msgid "Could not start program"
+#~ msgstr "Ezin izan da programa abiarazi"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Aukeratutako programa ezin izan da abiarazi. Agian ez dago instalatuta."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Bizkor irekitzeko bilaketa (konfiguratu testuinguru menuaren bidez)"

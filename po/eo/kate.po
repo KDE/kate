@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -2563,17 +2563,6 @@ msgstr "Kompari kun Aktiva Dokumento"
 msgid "Compare with Active Document Using"
 msgstr "Kompari kun Aktiva Dokumenta Uzado"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Ne eblis komenci programon"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr ""
-"La elektita programo ne povis esti komencita. Eble ĝi ne estas instalita."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2657,7 +2646,7 @@ msgstr "Seanca Elektilo"
 msgid "Restore"
 msgstr "Restaŭri"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Seanco estos forigita ĉe dialogo fermo"
@@ -3067,3 +3056,11 @@ msgstr "Administri Seancojn..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Montri bonvenpaĝon por nova fenestro"
+
+#~ msgid "Could not start program"
+#~ msgstr "Ne eblis komenci programon"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "La elektita programo ne povis esti komencita. Eble ĝi ne estas instalita."

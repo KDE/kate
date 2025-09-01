@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-09-10 14:03+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -2497,16 +2497,6 @@ msgstr "သက်ဝင်နေသော မှတ်တမ်းစာအု�
 msgid "Compare with Active Document Using"
 msgstr "အောက်ပါကိုအသုံးပြု၍ သက်ဝင်နေသောမှတ်တမ်းစာအုပ်နှင့် နှိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "ရွေးထားသော ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ။ တပ်ဆင်မထားရသေးခြင်းဖြစ်နိုင်သည်။"
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2592,7 +2582,7 @@ msgstr "ဆက်ရှင် ရွေးချယ်ကိရိယာ"
 msgid "Restore"
 msgstr "ပြန်လည်ထားသိုမည်"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "ဒိုင်ယာလော့ ပိတ်သည်နှင့် ဆက်ရှင်ကို ဖျက်ပစ်မည်"
@@ -2985,6 +2975,13 @@ msgstr "ဆက်ရှင်များ စီမံမည်…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "ဝင်းဒိုးအသစ်တွင် ကြိုဆိုစာမျက်နှာပြမည်"
+
+#~ msgid "Could not start program"
+#~ msgstr "ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "ရွေးထားသော ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ။ တပ်ဆင်မထားရသေးခြင်းဖြစ်နိုင်သည်။"
 
 #~ msgid "File Actions"
 #~ msgstr "ဖိုင်လုပ်ဆောင်ချက်များ"

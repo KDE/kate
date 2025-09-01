@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -2639,16 +2639,6 @@ msgstr "Bandingkan dengan dokumen yang aktif"
 msgid "Compare with Active Document Using"
 msgstr "Bandingkan dengan dokumen yang aktif"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Tidak bisa memulai program"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2734,7 +2724,7 @@ msgstr "Pemilih Sesi"
 msgid "Restore"
 msgstr "Kembalikan"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Sesi akan dihapus saat dialog ditutup"
@@ -3174,6 +3164,13 @@ msgstr "&Mengelola Sesi..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Ciptakan sebuah dokumen baru"
+
+#~ msgid "Could not start program"
+#~ msgstr "Tidak bisa memulai program"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Program yang dipilih tidak bisa dimulai. Mungkin ia belum diinstal."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Pencarian Buka Cepat (konfigurasi via menu konteks)"

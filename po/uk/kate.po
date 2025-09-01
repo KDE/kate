@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-10 08:59+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2602,16 +2602,6 @@ msgstr "Порівняти із активним документом"
 msgid "Compare with Active Document Using"
 msgstr "Порівняти із активним документом за допомогою"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Не вдалося запустити програму"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Не вдалося запустити вибрану програму. Можливо, її не встановлено."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2705,7 +2695,7 @@ msgstr "Вибір сеансу"
 msgid "Restore"
 msgstr "Відновити"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Сеанс буде вилучено після закриття вікна"
@@ -3114,6 +3104,13 @@ msgstr "Керування сеансами…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показувати вітальну сторінку для нових вікон"
+
+#~ msgid "Could not start program"
+#~ msgstr "Не вдалося запустити програму"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Не вдалося запустити вибрану програму. Можливо, її не встановлено."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr ""

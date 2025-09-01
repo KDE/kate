@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-10 07:23+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -2588,16 +2588,6 @@ msgstr "Primerjaj z aktivnim dokumentom"
 msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Programa ni bilo moč zagnati"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Izbranega programa ni bilo moč zagnati. Morda sploh ni nameščen."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2687,7 +2677,7 @@ msgstr "Izbirnik sej"
 msgid "Restore"
 msgstr "Obnovi"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Seja bo zbrisana po zaprtju dialoga"
@@ -3095,6 +3085,13 @@ msgstr "Upravljaj seje..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Pokaži stran dobrodošlice za novo okno"
+
+#~ msgid "Could not start program"
+#~ msgstr "Programa ni bilo moč zagnati"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Izbranega programa ni bilo moč zagnati. Morda sploh ni nameščen."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Hitro odprto iskanje (nastavitev v kontekstnem meniju)"

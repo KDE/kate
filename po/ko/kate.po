@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-07-21 00:47+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2519,16 +2519,6 @@ msgstr "활성 문서와 비교"
 msgid "Compare with Active Document Using"
 msgstr "다음을 사용하여 활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "프로그램을 시작할 수 없음"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 확인하십시오."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2618,7 +2608,7 @@ msgstr "세션 선택기"
 msgid "Restore"
 msgstr "복원"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "대화 상자를 닫으면 세션을 삭제합니다"
@@ -3021,6 +3011,13 @@ msgstr "세션 관리..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "새 창에 환영 페이지 표시"
+
+#~ msgid "Could not start program"
+#~ msgstr "프로그램을 시작할 수 없음"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "선택한 프로그램을 시작할 수 없습니다. 설치 상태를 확인하십시오."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "빠른 열기 검색(상황에 맞는 메뉴로 설정 가능)"

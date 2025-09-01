@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2606,16 +2606,6 @@ msgstr "Összehasonlítás az aktív dokumentummal"
 msgid "Compare with Active Document Using"
 msgstr "Összehasonlítás az aktív dokumentummal ezzel:"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Nem sikerült elindítani a programot"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "A kiválasztott program indítása sikertelen. Talán nincs is telepítve."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2701,7 +2691,7 @@ msgstr "Munkamenetválasztó"
 msgid "Restore"
 msgstr "Visszaállítás"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "A munkamenet törlődik a párbeszédablak bezárásakor"
@@ -3114,6 +3104,14 @@ msgstr "Munkamenetkezelő…"
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Kezdőlap megjelenítése új ablakokban"
+
+#~ msgid "Could not start program"
+#~ msgstr "Nem sikerült elindítani a programot"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "A kiválasztott program indítása sikertelen. Talán nincs is telepítve."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Keresés a gyors megnyitásban (beállítás a helyi menüben)"

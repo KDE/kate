@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-16 15:30+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2504,16 +2504,6 @@ msgstr "與作用中文件比對差異"
 msgid "Compare with Active Document Using"
 msgstr "使用此工具與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "無法開啟程式"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2598,7 +2588,7 @@ msgstr "工作階段選擇器"
 msgid "Restore"
 msgstr "復原"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "工作階段將會在對話框關閉時刪除"
@@ -3003,6 +2993,13 @@ msgstr "管理工作階段..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "為新視窗顯示歡迎頁面"
+
+#~ msgid "Could not start program"
+#~ msgstr "無法開啟程式"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "無法啟動選擇的程式，也許還沒安裝該程式。"
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "快速開啟搜尋（透過右鍵選單設定）"

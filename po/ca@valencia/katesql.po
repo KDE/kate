@@ -37,7 +37,7 @@ msgstr "Controlador de la base de dades"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr "Seleccioneu el controlador de la base de dades"
+msgstr "Trieu el controlador de la base de dades"
 
 #: connectionwizard.cpp:50
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "Destinació de l'eixida"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
-msgstr "Seleccioneu la destinació de l'eixida."
+msgstr "Trieu la destinació de l'eixida."
 
 #: exportwizard.cpp:45
 #, kde-format
@@ -251,7 +251,7 @@ msgid ""
 "Select fields format.\n"
 "Click on \"Finish\" button to export data."
 msgstr ""
-"Seleccioneu el format dels camps.\n"
+"Trieu el format dels camps.\n"
 "Cliqueu damunt del botó «Finalitza» per a exportar les dades."
 
 #: exportwizard.cpp:101
@@ -479,7 +479,7 @@ msgstr "Taules del sistema"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr "Seleccioneu les dades"
+msgstr "Trieu les dades"
 
 #: schemawidget.cpp:273
 #, kde-format

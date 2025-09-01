@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-08-09 15:21+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2553,16 +2553,6 @@ msgstr "قارن مع المستند النشط"
 msgid "Compare with Active Document Using"
 msgstr "قارن مع استعمال المستند النشط"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "لا يمكن بدء البرنامج"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "لا يمكن بدء البرنامج المحدد. ربما لأنه غير مثبت."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2650,7 +2640,7 @@ msgstr "منتقي الجلسات"
 msgid "Restore"
 msgstr "استعد"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "ستحذف الجلسة عند غلق الحواري"
@@ -3053,6 +3043,13 @@ msgstr "أدر الجلسات..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "أظهر شاشة الترحيب للنوافذ الجديدة"
+
+#~ msgid "Could not start program"
+#~ msgstr "لا يمكن بدء البرنامج"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "لا يمكن بدء البرنامج المحدد. ربما لأنه غير مثبت."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "يفتح البحث بسرعة (يضبط عن طريق قائمة السياق)"

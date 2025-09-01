@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-20 16:20+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2589,16 +2589,6 @@ msgstr "Сравнить с активным документом"
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Невозможно запустить программу"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Не удалось запустить выбранную программу, возможно она не установлена."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2692,7 +2682,7 @@ msgstr "Выбор сеанса"
 msgid "Restore"
 msgstr "Восстановить"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "При закрытии диалога сеансы будут удалены"
@@ -3102,6 +3092,14 @@ msgstr "Управление сеансами…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показывать страницу приветствия при открытии нового окна"
+
+#~ msgid "Could not start program"
+#~ msgstr "Невозможно запустить программу"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr ""
+#~ "Не удалось запустить выбранную программу, возможно она не установлена."
 
 #~ msgid "Quick Open Search (configure via context menu)"
 #~ msgstr "Быстрый переход к поиску (настраивается в контекстном меню)"

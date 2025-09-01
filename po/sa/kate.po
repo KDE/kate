@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2542,16 +2542,6 @@ msgstr "सक्रियदस्तावेजेन सह तुलना�
 msgid "Compare with Active Document Using"
 msgstr "सक्रियदस्तावेजस्य उपयोगेन सह तुलनां कुर्वन्तु"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "कार्यक्रमं आरभुं न शक्तवान्"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2641,7 +2631,7 @@ msgstr "सत्रचयनकर्ता"
 msgid "Restore"
 msgstr "निर्यत्"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "संवादः समाप्तः इत्यत्र सत्रं विलोपितं भविष्यति"
@@ -3047,3 +3037,10 @@ msgstr "सत्रं प्रबन्धयन्तु..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "नूतनगवाक्ष कृते स्वागतपृष्ठं दर्शयतु"
+
+#~ msgid "Could not start program"
+#~ msgstr "कार्यक्रमं आरभुं न शक्तवान्"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "चयनितः कार्यक्रमः आरभ्यतुं न शक्तवान् । कदाचित् न संस्थापितम्।."

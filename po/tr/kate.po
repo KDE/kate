@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 02:39+0000\n"
+"POT-Creation-Date: 2025-09-01 02:39+0000\n"
 "PO-Revision-Date: 2025-05-10 19:51+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2576,16 +2576,6 @@ msgstr "Etkin Belgeyle Karşılaştır"
 msgid "Compare with Active Document Using"
 msgstr "Etkin Belgeyle Şunu Kullanarak Karşılaştır"
 
-#: lib/kateviewspace.cpp:1249
-#, kde-format
-msgid "Could not start program"
-msgstr "Program başlatılamadı"
-
-#: lib/kateviewspace.cpp:1250
-#, kde-format
-msgid "The selected program could not be started. Maybe it is not installed."
-msgstr "Seçilen program başlatılamadı. Kurulmamış olabilir."
-
 #: lib/mainwindow_commands.cpp:44
 #, kde-format
 msgid ""
@@ -2676,7 +2666,7 @@ msgstr "Oturum Seçicisi"
 msgid "Restore"
 msgstr "Geri Yükle"
 
-#: lib/session/katesessionmanagedialog.cpp:308
+#: lib/session/katesessionmanagedialog.cpp:315
 #, kde-format
 msgid "Session will be deleted on dialog close"
 msgstr "Pencere kapatıldığında oturum silinecek"
@@ -3085,3 +3075,10 @@ msgstr "Oturumları Yönet…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Yeni pencerelerde karşılama ekranını göster"
+
+#~ msgid "Could not start program"
+#~ msgstr "Program başlatılamadı"
+
+#~ msgid ""
+#~ "The selected program could not be started. Maybe it is not installed."
+#~ msgstr "Seçilen program başlatılamadı. Kurulmamış olabilir."

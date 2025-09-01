@@ -86,8 +86,7 @@ have &kwrite; open (or create) that file immediately upon startup.  This
 option might look something like the following:</para>
 
 <informalexample><screen>
-<prompt>%</prompt> <userinput><command>kwrite</command>
-<option><replaceable>/home/myhome/docs/myfile.txt</replaceable></option>
+<prompt>%</prompt> <userinput><command>kwrite</command> <option><replaceable>/home/myhome/docs/myfile.txt</replaceable></option>
 </userinput>
 </screen>
 </informalexample>
@@ -100,8 +99,7 @@ Internet (if the user has an active connection at the time.)  An example of
 this might look like the following:</para>
 
 <informalexample><screen>
-<prompt>%</prompt> <userinput><command>kwrite</command>
-<option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable>
+<prompt>%</prompt> <userinput><command>kwrite</command> <option><replaceable>ftp://ftp.kde.org/pub/kde/README</replaceable>
 </option></userinput>
 </screen>
 </informalexample>

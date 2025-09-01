@@ -172,7 +172,7 @@ PathMappingPtr ExecConfig::init_mapping(KTextEditor::View *view)
     // load path mapping, with var substitution
     auto pathMapping = Utils::loadMapping(config.value(QLatin1String("pathMappings")), view);
     // check if user has specified map for remote root
-    auto rooturl = QUrl::fromLocalFile(QLatin1String("/"));
+    auto rooturl = QUrl::fromLocalFile(QStringLiteral("/"));
     if (pathMapping && Utils::mapPath(*pathMapping, rooturl, false).isEmpty()) {
         auto &epm = Utils::ExecPrefixManager::instance();
         // if not, then add a mapping

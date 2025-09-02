@@ -2068,9 +2068,9 @@ msgid ""
 "<qt>The documents listed below have changed on disk.<p>Select one or more at "
 "once, and press an action button until the list is empty.</p></qt>"
 msgstr ""
-"<qt>Els documents en la llista a continuació han canviat al disc.<p>Trieu-ne "
-"un o més a la vegada i premeu un botó d'acció fins que la llista estiga "
-"buida.</p></qt>"
+"<qt>Els documents en la llista a continuació han canviat al disc."
+"<p>Seleccioneu-ne un o més a la vegada i premeu un botó d'acció fins que la "
+"llista estiga buida.</p></qt>"
 
 #: lib/katemwmodonhddialog.cpp:78
 #, kde-format

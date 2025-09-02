@@ -1,0 +1,49 @@
+# Lithuanian translations for kate package.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-09-01 00:45+0000\n"
+"PO-Revision-Date: 2025-09-01 00:45+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: bookmarksmodel.cpp:60
+#, kde-format
+msgid "Line Number"
+msgstr ""
+
+#: bookmarksmodel.cpp:62
+#, kde-format
+msgid "File Path"
+msgstr ""
+
+#: bookmarksplugin.cpp:146
+#, kde-format
+msgid "Bookmarks"
+msgstr ""
+
+#: bookmarksplugin.cpp:172
+#, kde-format
+msgid "Go to Previous Bookmark"
+msgstr ""
+
+#: bookmarksplugin.cpp:178
+#, kde-format
+msgid "Go to Next Bookmark"
+msgstr ""
+
+#: bookmarksplugin.cpp:184
+#, kde-format
+msgid "Remove Bookmark"
+msgstr ""

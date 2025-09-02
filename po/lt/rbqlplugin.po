@@ -1,0 +1,54 @@
+# Lithuanian translations for kate package.
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"PO-Revision-Date: 2024-03-30 00:39+0000\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: RBQLPlugin.cpp:34
+#, kde-format
+msgid "RBQL"
+msgstr ""
+
+#: RBQLWidget.cpp:54
+#, kde-format
+msgid "Enter RBQL query"
+msgstr ""
+
+#: RBQLWidget.cpp:56
+#, kde-format
+msgid "Add new tab"
+msgstr ""
+
+#: RBQLWidget.cpp:58
+#, kde-format
+msgid "Execute query"
+msgstr ""
+
+#: RBQLWidget.cpp:73
+#, kde-format
+msgid "File has header"
+msgstr ""
+
+#: RBQLWidget.cpp:113
+#, kde-format
+msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
+msgstr ""
+
+#: RBQLWidget.cpp:122
+#, kde-format
+msgid "Document is empty"
+msgstr ""

@@ -227,7 +227,7 @@
             "highlightingModeRegex": "^Python$"
         },
         "qml": {
-            "command": ["qmlls"],
+            "command": ["qmlls6"],
             "url": "https://code.qt.io/cgit/qt/qtdeclarative.git/tree/src/qmlls",
             "highlightingModeRegex": "^Qml$"
         },

@@ -774,6 +774,7 @@ void KateBuildView::clearBuildResults()
     m_progress.clear();
     m_buildCancelled = false;
     m_buildStatusSeen = false;
+    m_exitCode = 0;
     updateStatusOverlay();
     clearDiagnostics();
 }
@@ -1480,6 +1481,7 @@ void KateBuildView::slotProcExited(int exitCode, QProcess::ExitStatus)
                                m_numWarnings,
                                m_numNotes);
 
+    m_exitCode = exitCode;
     bool buildSuccess = true;
     if (m_numErrors || m_numWarnings) {
         QStringList msgs;
@@ -2199,7 +2201,7 @@ void KateBuildView::updateStatusOverlay()
     StatusOverlay::Type type = StatusOverlay::Type::None;
     if (m_numErrors != 0) {
         type = StatusOverlay::Type::Error;
-    } else if (m_numWarnings != 0 || m_buildCancelled) {
+    } else if (m_numWarnings != 0 || m_buildCancelled || m_exitCode != 0) {
         type = StatusOverlay::Type::Warning;
     } else if (running) {
         type = StatusOverlay::Type::Positive;

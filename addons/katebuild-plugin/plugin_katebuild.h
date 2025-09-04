@@ -225,9 +225,10 @@ private:
     QStringList m_searchPaths;
     QRegularExpression m_filenameDetector;
     QRegularExpression m_newDirDetector;
-    unsigned int m_numErrors = 0;
-    unsigned int m_numWarnings = 0;
-    unsigned int m_numNotes = 0;
+    uint64_t m_numErrors = 0;
+    uint64_t m_numWarnings = 0;
+    uint64_t m_numNotes = 0;
+    int32_t m_exitCode = 0;
     QString m_progress;
 
     QPersistentModelIndex m_previousIndex;

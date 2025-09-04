@@ -31,9 +31,9 @@
 #include <QToolBar>
 #include <QTreeView>
 
+#include <QGraphicsEffect>
 #include <drawing_utils.h>
 #include <kfts_fuzzy_match.h>
-#include <qgraphicseffect.h>
 
 class QuickOpenFilterProxyModel final : public QSortFilterProxyModel
 {

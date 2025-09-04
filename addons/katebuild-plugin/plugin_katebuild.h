@@ -40,7 +40,7 @@
 
 #include <KConfigGroup>
 #include <KXMLGUIClient>
-#include <qtextdocument.h>
+#include <QTextDocument>
 
 #include "StatusOverlay.h"
 #include "diagnostics/diagnosticview.h"

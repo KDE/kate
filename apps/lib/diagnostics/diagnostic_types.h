@@ -5,9 +5,9 @@
 #pragma once
 
 #include <KTextEditor/Range>
+#include <QMetaType>
 #include <QString>
 #include <QUrl>
-#include <qmetatype.h>
 
 enum class DiagnosticSeverity {
     Unknown = 0,

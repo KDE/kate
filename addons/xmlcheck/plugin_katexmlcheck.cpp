@@ -66,8 +66,8 @@
 
 #include <ktexteditor/editor.h>
 
+#include <QRegularExpression>
 #include <kxmlguifactory.h>
-#include <qregularexpression.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLCheckFactory, "katexmlcheck.json", registerPlugin<PluginKateXMLCheck>();)
 

@@ -8,8 +8,8 @@
 #pragma once
 
 #include <KTextEditor/Document>
+#include <QIcon>
 #include <QPixmap>
-#include <qicon.h>
 
 class DummyDocument : public KTextEditor::Document
 {

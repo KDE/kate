@@ -65,12 +65,12 @@
 #include <kterminallauncherjob.h>
 #include <ktexteditor_utils.h>
 
+#include <QPalette>
+#include <QTextBrowser>
+#include <QTextCursor>
+#include <QTextEdit>
 #include <kde_terminal_interface.h>
 #include <kparts/part.h>
-#include <qpalette.h>
-#include <qtextbrowser.h>
-#include <qtextcursor.h>
-#include <qtextedit.h>
 
 using namespace Qt::Literals::StringLiterals;
 

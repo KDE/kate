@@ -21,7 +21,7 @@ ProcessBus::ProcessBus(QObject *parent)
 
     // state/error
     connect(&process, &QProcess::errorOccurred, this, &ProcessBus::onError);
-    connect(&process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &ProcessBus::onFinished);
+    connect(&process, &QProcess::finished, this, &ProcessBus::onFinished);
     connect(&process, &QProcess::readyReadStandardError, this, &ProcessBus::readError);
 }
 

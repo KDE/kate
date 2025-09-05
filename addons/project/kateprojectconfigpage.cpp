@@ -131,8 +131,8 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
     connect(m_indexPath, &KUrlRequester::textChanged, this, &KateProjectConfigPage::slotMyChanged);
     connect(m_indexPath, &KUrlRequester::urlSelected, this, &KateProjectConfigPage::slotMyChanged);
-    connect(m_cmbSingleClick, QOverload<int>::of(&QComboBox::activated), this, &KateProjectConfigPage::slotMyChanged);
-    connect(m_cmbDoubleClick, QOverload<int>::of(&QComboBox::activated), this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cmbSingleClick, &QComboBox::activated, this, &KateProjectConfigPage::slotMyChanged);
+    connect(m_cmbDoubleClick, &QComboBox::activated, this, &KateProjectConfigPage::slotMyChanged);
 
     reset();
 }

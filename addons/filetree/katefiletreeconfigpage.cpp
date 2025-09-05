@@ -125,8 +125,8 @@ KateFileTreeConfigPage::KateFileTreeConfigPage(QWidget *parent, KateFileTreePlug
     connect(gbEnableShading, &QGroupBox::toggled, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(kcbViewShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
     connect(kcbEditShade, &KColorButton::changed, this, &KateFileTreeConfigPage::slotMyChanged);
-    connect(cmbSort, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
-    connect(cmbMode, QOverload<int>::of(&QComboBox::activated), this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbSort, &QComboBox::activated, this, &KateFileTreeConfigPage::slotMyChanged);
+    connect(cmbMode, &QComboBox::activated, this, &KateFileTreeConfigPage::slotMyChanged);
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
     connect(cbShowFullPath, &QCheckBox::stateChanged, this, &KateFileTreeConfigPage::slotMyChanged);
 #else

@@ -55,7 +55,7 @@ public:
         m_timeline.setDirection(QTimeLine::Forward);
         m_timeline.setEasingCurve(QEasingCurve::SineCurve);
         m_timeline.setFrameRange(20, 150);
-        auto update = QOverload<>::of(&QWidget::update);
+        auto update = qOverload<>(&QWidget::update);
         connect(&m_timeline, &QTimeLine::valueChanged, this, update);
         connect(&m_timeline, &QTimeLine::finished, this, &QObject::deleteLater);
         connect(window()->windowHandle(), &QWindow::activeChanged, this, [this]() {

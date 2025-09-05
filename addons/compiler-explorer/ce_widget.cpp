@@ -246,7 +246,7 @@ void CEWidget::setAvailableLanguages(const QByteArray &data)
     m_languagesCombo->setCurrentText(activeLang);
     m_languagesCombo->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-    connect(m_languagesCombo, qOverload<int>(&QComboBox::currentIndexChanged), this, [this](int index) {
+    connect(m_languagesCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
         QString id = m_languagesCombo->itemData(index).toString();
         repopulateCompilersCombo(id);
     });

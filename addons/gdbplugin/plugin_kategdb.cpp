@@ -187,7 +187,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     auto *variableContainer = new QWidget();
     auto *variableLayout = new QVBoxLayout(variableContainer);
     m_scopeCombo = new QComboBox();
-    connect(m_scopeCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &KatePluginGDBView::scopeSelected);
+    connect(m_scopeCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::scopeSelected);
     m_localsView = new LocalsView();
     variableLayout->addWidget(m_scopeCombo);
     variableLayout->addWidget(m_localsView);

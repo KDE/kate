@@ -33,9 +33,6 @@ class TabSwitcherPlugin : public KTextEditor::Plugin
     friend TabSwitcherPluginView;
 
 public:
-    /**
-     * Plugin constructor.
-     */
     explicit TabSwitcherPlugin(QObject *parent);
 
     /**

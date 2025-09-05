@@ -17,7 +17,7 @@ StatusOverlay::StatusOverlay(QWidget *parent)
     m_timeline.setEasingCurve(QEasingCurve::SineCurve);
     m_timeline.setFrameRange(50, 190);
     m_timeline.setLoopCount(0);
-    auto update = QOverload<>::of(&QWidget::update);
+    auto update = qOverload<>(&QWidget::update);
     connect(&m_timeline, &QTimeLine::valueChanged, this, update);
 
     m_parent->installEventFilter(this);

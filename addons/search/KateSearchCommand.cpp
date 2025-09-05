@@ -10,14 +10,17 @@
 #include <KLocalizedString>
 
 KateSearchCommand::KateSearchCommand(QObject *parent)
-    : KTextEditor::Command(QStringList{QStringLiteral("grep"),
-                                       QStringLiteral("newGrep"),
-                                       QStringLiteral("search"),
-                                       QStringLiteral("newSearch"),
-                                       QStringLiteral("pgrep"),
-                                       QStringLiteral("newPGrep"),
-                                       QStringLiteral("preg")},
-                           parent)
+    : KTextEditor::Command(
+          QStringList{
+              QStringLiteral("grep"),
+              QStringLiteral("newGrep"),
+              QStringLiteral("search"),
+              QStringLiteral("newSearch"),
+              QStringLiteral("pgrep"),
+              QStringLiteral("newPGrep"),
+              QStringLiteral("preg"),
+          },
+          parent)
 {
 }
 

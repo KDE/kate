@@ -12,9 +12,6 @@
 class CEPlugin : public KTextEditor::Plugin
 {
 public:
-    /**
-     * Plugin constructor.
-     */
     explicit CEPlugin(QObject *parent);
 
     ~CEPlugin() override;

@@ -27,9 +27,6 @@
 class PluginKateTextFilter : public KTextEditor::Plugin
 {
 public:
-    /**
-     * Plugin constructor.
-     */
     explicit PluginKateTextFilter(QObject *parent);
 
     ~PluginKateTextFilter() override;

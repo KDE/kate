@@ -15,7 +15,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KTextEditorPreviewPluginFactory, "ktexteditorpreview.json", registerPlugin<KTextEditorPreviewPlugin>();)
 
-KTextEditorPreviewPlugin::KTextEditorPreviewPlugin(QObject *parent /*args*/)
+KTextEditorPreviewPlugin::KTextEditorPreviewPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

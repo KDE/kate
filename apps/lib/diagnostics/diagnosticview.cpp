@@ -541,7 +541,7 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
     }
 
     if (v && v->document()) {
-        connect(v->document(), &KTextEditor::Document::documentUrlChanged, m_urlChangedTimer, QOverload<>::of(&QTimer::start), Qt::UniqueConnection);
+        connect(v->document(), &KTextEditor::Document::documentUrlChanged, m_urlChangedTimer, qOverload<>(&QTimer::start), Qt::UniqueConnection);
     }
 }
 

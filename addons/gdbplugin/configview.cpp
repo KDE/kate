@@ -164,7 +164,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_browseDir, &QToolButton::clicked, this, &ConfigView::slotBrowseDir);
     connect(m_redirectTerminal, &QCheckBox::toggled, this, &ConfigView::showIO);
 
-    connect(m_clientCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ConfigView::refreshUI);
+    connect(m_clientCombo, &QComboBox::currentIndexChanged, this, &ConfigView::refreshUI);
 }
 
 ConfigView::~ConfigView()

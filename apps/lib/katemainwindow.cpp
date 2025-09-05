@@ -1323,10 +1323,10 @@ bool KateMainWindow::showModOnDiskPrompt(ModOnDiskMode mode)
 
 void KateMainWindow::slotDocumentCreated(KTextEditor::Document *doc)
 {
-    connect(doc, &KTextEditor::Document::modifiedChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
-    connect(doc, &KTextEditor::Document::readWriteChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
-    connect(doc, &KTextEditor::Document::documentNameChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
-    connect(doc, &KTextEditor::Document::documentUrlChanged, this, QOverload<KTextEditor::Document *>::of(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::modifiedChanged, this, qOverload<KTextEditor::Document *>(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::readWriteChanged, this, qOverload<KTextEditor::Document *>(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::documentNameChanged, this, qOverload<KTextEditor::Document *>(&KateMainWindow::updateCaption));
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, qOverload<KTextEditor::Document *>(&KateMainWindow::updateCaption));
     connect(doc, &KTextEditor::Document::documentUrlChanged, this, &KateMainWindow::slotUpdateActionsNeedingUrl);
 
     updateCaption(doc);

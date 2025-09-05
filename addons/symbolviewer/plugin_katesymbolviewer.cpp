@@ -421,12 +421,10 @@ bool KatePluginSymbolViewerView::filterSymbols(QTreeWidgetItem *item, const QStr
 KatePluginSymbolViewer::KatePluginSymbolViewer(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
-    // qDebug()<<"KatePluginSymbolViewer";
 }
 
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
 {
-    // qDebug()<<"~KatePluginSymbolViewer";
 }
 
 QObject *KatePluginSymbolViewer::createView(KTextEditor::MainWindow *mainWindow)

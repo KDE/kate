@@ -450,7 +450,9 @@ struct LSPInlayHint {
     // QString tooltip;
 
     // kate specific
-    int width = 0; ///> Used to cache width
+    // used to cache width
+    mutable int fontSize = 0;
+    mutable int width = 0;
 };
 
 struct LSPMessageRequestAction {

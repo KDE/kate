@@ -106,10 +106,14 @@ QSize InlayHintNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note)
 
     const LSPInlayHint &hint = *it;
     const int padding = (hint.paddingLeft || hint.paddingRight) ? 4 : 0;
-    if (hint.width == 0) {
-        const auto font = qApp->font();
+
+    const auto font = note.font();
+    const auto fontSize = font.pointSize();
+    // invalidate cache when font size changes
+    if (hint.fontSize != fontSize) {
         const auto fm = QFontMetrics(font);
-        const_cast<LSPInlayHint &>(hint).width = fm.horizontalAdvance(hint.label) + padding;
+        hint.fontSize = fontSize;
+        hint.width = fm.horizontalAdvance(hint.label) + padding;
     }
     return {hint.width, note.lineHeight()};
 }
@@ -119,7 +123,7 @@ void InlayHintNoteProvider::paintInlineNote(const KTextEditor::InlineNote &note,
     const auto &hints = this->hints();
     auto it = binaryFind(hints, note.position());
     if (it != hints.end()) {
-        const auto font = qApp->font();
+        const auto font = note.font();
         painter.setFont(font);
         QRectF r{0., 0., (qreal)it->width, (qreal)note.lineHeight()};
 

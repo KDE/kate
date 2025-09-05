@@ -33,7 +33,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_treeView->setUniformRowHeights(true);
     m_treeView->setRootIsDecorated(false);
-    m_model->setHorizontalHeaderLabels(QStringList() << i18n("Name") << i18n("Kind") << i18n("File") << i18n("Line"));
+    m_model->setHorizontalHeaderLabels(QStringList{i18n("Name"), i18n("Kind"), i18n("File"), i18n("Line")});
     m_lineEdit->setPlaceholderText(i18n("Search"));
     m_lineEdit->setClearButtonEnabled(true);
 

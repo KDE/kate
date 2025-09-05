@@ -165,56 +165,54 @@ int main(int argc, char **argv)
     aboutData.setupCommandLine(&parser);
 
     // -s/--start session option
-    const QCommandLineOption startSessionOption(QStringList() << QStringLiteral("s") << QStringLiteral("start"),
+    const QCommandLineOption startSessionOption(QStringList{QStringLiteral("s"), QStringLiteral("start")},
                                                 i18n("Start Kate with a given session."),
                                                 i18n("session"));
     parser.addOption(startSessionOption);
 
     // --startanon session option
-    const QCommandLineOption startAnonymousSessionOption(QStringList() << QStringLiteral("startanon"),
+    const QCommandLineOption startAnonymousSessionOption(QStringList{QStringLiteral("startanon")},
                                                          i18n("Start Kate with a new anonymous session, implies '-n'."));
     parser.addOption(startAnonymousSessionOption);
 
     // -n/--new option
-    const QCommandLineOption startNewInstanceOption(QStringList() << QStringLiteral("n") << QStringLiteral("new"),
+    const QCommandLineOption startNewInstanceOption(QStringList{QStringLiteral("n"), QStringLiteral("new")},
                                                     i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already "
                                                          "has the given session opened), forced if no parameters and no URLs are given at all."));
     parser.addOption(startNewInstanceOption);
 
     // -b/--block option
-    const QCommandLineOption startBlockingOption(QStringList() << QStringLiteral("b") << QStringLiteral("block"),
+    const QCommandLineOption startBlockingOption(QStringList{QStringLiteral("b"), QStringLiteral("block")},
                                                  i18n("If using an already running kate instance, block until it exits, if URLs given to open."));
     parser.addOption(startBlockingOption);
 
     // -p/--pid option
     const QCommandLineOption usePidOption(
-        QStringList() << QStringLiteral("p") << QStringLiteral("pid"),
+        QStringList{QStringLiteral("p"), QStringLiteral("pid")},
         i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."),
         i18n("pid"));
     parser.addOption(usePidOption);
 
     // -e/--encoding option
-    const QCommandLineOption useEncodingOption(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"),
+    const QCommandLineOption useEncodingOption(QStringList{QStringLiteral("e"), QStringLiteral("encoding")},
                                                i18n("Set encoding for the file to open."),
                                                i18n("encoding"));
     parser.addOption(useEncodingOption);
 
     // -l/--line option
-    const QCommandLineOption gotoLineOption(QStringList() << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), i18n("line"));
+    const QCommandLineOption gotoLineOption(QStringList{QStringLiteral("l"), QStringLiteral("line")}, i18n("Navigate to this line."), i18n("line"));
     parser.addOption(gotoLineOption);
 
     // -c/--column option
-    const QCommandLineOption gotoColumnOption(QStringList() << QStringLiteral("c") << QStringLiteral("column"),
-                                              i18n("Navigate to this column."),
-                                              i18n("column"));
+    const QCommandLineOption gotoColumnOption(QStringList{QStringLiteral("c"), QStringLiteral("column")}, i18n("Navigate to this column."), i18n("column"));
     parser.addOption(gotoColumnOption);
 
     // -i/--stdin option
-    const QCommandLineOption readStdInOption(QStringList() << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
+    const QCommandLineOption readStdInOption(QStringList{QStringLiteral("i"), QStringLiteral("stdin")}, i18n("Read the contents of stdin."));
     parser.addOption(readStdInOption);
 
     // --tempfile option
-    const QCommandLineOption tempfileOption(QStringList() << QStringLiteral("tempfile"),
+    const QCommandLineOption tempfileOption(QStringList{QStringLiteral("tempfile")},
                                             i18n("The files/URLs opened by the application will be deleted after use"));
     parser.addOption(tempfileOption);
 

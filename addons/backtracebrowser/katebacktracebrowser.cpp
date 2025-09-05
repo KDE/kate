@@ -32,8 +32,14 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
 
 KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = nullptr;
-static QStringList fileExtensions = QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") << QStringLiteral("*.c") << QStringLiteral("*.cc")
-                                                  << QStringLiteral("*.h") << QStringLiteral("*.hpp") << QStringLiteral("*.hxx") << QStringLiteral("*.moc");
+static QStringList fileExtensions = QStringList{QStringLiteral("*.cpp"),
+                                                QStringLiteral("*.cxx"),
+                                                QStringLiteral("*.c"),
+                                                QStringLiteral("*.cc"),
+                                                QStringLiteral("*.h"),
+                                                QStringLiteral("*.hpp"),
+                                                QStringLiteral("*.hxx"),
+                                                QStringLiteral("*.moc")};
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)

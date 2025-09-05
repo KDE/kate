@@ -229,7 +229,7 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
 // BEGIN Kate::Command methods
 
 PluginKateTextFilterCommand::PluginKateTextFilterCommand(PluginKateTextFilter *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("textfilter"), plugin)
+    : KTextEditor::Command(QStringList{QStringLiteral("textfilter")}, plugin)
     , m_plugin(plugin)
 {
 }

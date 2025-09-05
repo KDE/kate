@@ -214,7 +214,7 @@ void KateViewManagementTest2::testMultipleViewCursorPositionIsRestored()
     {
         QCommandLineParser parser;
         // TODO: reuse option from kate/main.cpp properly
-        const QCommandLineOption startSessionOption(QStringList() << QStringLiteral("s") << QStringLiteral("start"),
+        const QCommandLineOption startSessionOption(QStringList{QStringLiteral("s"), QStringLiteral("start")},
                                                     i18n("Start Kate with a given session."),
                                                     i18n("session"));
         parser.addOption(startSessionOption);

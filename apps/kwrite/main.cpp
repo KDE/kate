@@ -97,25 +97,25 @@ int main(int argc, char **argv)
     aboutData.setupCommandLine(&parser);
 
     // -e/--encoding option
-    const QCommandLineOption useEncoding(QStringList() << QStringLiteral("e") << QStringLiteral("encoding"),
+    const QCommandLineOption useEncoding(QStringList{QStringLiteral("e"), QStringLiteral("encoding")},
                                          i18n("Set encoding for the file to open."),
                                          i18n("encoding"));
     parser.addOption(useEncoding);
 
     // -l/--line option
-    const QCommandLineOption gotoLine(QStringList() << QStringLiteral("l") << QStringLiteral("line"), i18n("Navigate to this line."), i18n("line"));
+    const QCommandLineOption gotoLine(QStringList{QStringLiteral("l"), QStringLiteral("line")}, i18n("Navigate to this line."), i18n("line"));
     parser.addOption(gotoLine);
 
     // -c/--column option
-    const QCommandLineOption gotoColumn(QStringList() << QStringLiteral("c") << QStringLiteral("column"), i18n("Navigate to this column."), i18n("column"));
+    const QCommandLineOption gotoColumn(QStringList{QStringLiteral("c"), QStringLiteral("column")}, i18n("Navigate to this column."), i18n("column"));
     parser.addOption(gotoColumn);
 
     // -i/--stdin option
-    const QCommandLineOption readStdIn(QStringList() << QStringLiteral("i") << QStringLiteral("stdin"), i18n("Read the contents of stdin."));
+    const QCommandLineOption readStdIn(QStringList{QStringLiteral("i"), QStringLiteral("stdin")}, i18n("Read the contents of stdin."));
     parser.addOption(readStdIn);
 
     // --tempfile option
-    const QCommandLineOption tempfile(QStringList() << QStringLiteral("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
+    const QCommandLineOption tempfile(QStringList{QStringLiteral("tempfile")}, i18n("The files/URLs opened by the application will be deleted after use"));
     parser.addOption(tempfile);
 
     // urls to open

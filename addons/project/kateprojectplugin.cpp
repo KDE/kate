@@ -50,7 +50,7 @@ const QString SubversionConfig = QStringLiteral("subversion");
 const QString MercurialConfig = QStringLiteral("mercurial");
 const QString FossilConfig = QStringLiteral("fossil");
 
-const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig << MercurialConfig;
+const QStringList DefaultConfig = QStringList{GitConfig, SubversionConfig, MercurialConfig};
 }
 
 KateProjectPlugin::KateProjectPlugin(QObject *parent)

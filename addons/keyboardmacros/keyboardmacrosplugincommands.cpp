@@ -12,8 +12,7 @@
 #include "keyboardmacrosplugincommands.h"
 
 KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin *plugin)
-    : KTextEditor::Command(QStringList() << QStringLiteral("kmsave") << QStringLiteral("kmload") << QStringLiteral("kmplay") << QStringLiteral("kmwipe"),
-                           plugin)
+    : KTextEditor::Command(QStringList{QStringLiteral("kmsave"), QStringLiteral("kmload"), QStringLiteral("kmplay"), QStringLiteral("kmwipe")}, plugin)
     , m_plugin(plugin)
 {
 }

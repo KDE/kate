@@ -31,7 +31,7 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     m_tablesLoaded = false;
     m_viewsLoaded = false;
 
-    setHeaderLabels(QStringList() << i18nc("@title:column", "Database schema"));
+    setHeaderLabels(QStringList{i18nc("@title:column", "Database schema")});
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     setDragDropMode(QAbstractItemView::DragOnly);

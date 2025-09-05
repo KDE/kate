@@ -168,7 +168,7 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, const std::vecto
     m_list = new QTreeWidget(this);
     mainLayout->addWidget(m_list);
     m_list->setColumnCount(2);
-    m_list->setHeaderLabels(QStringList() << i18n("Documents") << i18n("Location"));
+    m_list->setHeaderLabels(QStringList{i18n("Documents"), i18n("Location")});
     m_list->setRootIsDecorated(true);
 
     for (KTextEditor::Document *doc : documents) {

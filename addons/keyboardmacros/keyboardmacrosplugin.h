@@ -50,7 +50,7 @@ class KeyboardMacrosPlugin : public KTextEditor::Plugin
 
     // Plugin creation and destruction
 public:
-    explicit KeyboardMacrosPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KeyboardMacrosPlugin(QObject *parent);
     ~KeyboardMacrosPlugin() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 

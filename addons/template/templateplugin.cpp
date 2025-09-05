@@ -22,7 +22,7 @@ using namespace Qt::Literals::StringLiterals;
 
 K_PLUGIN_FACTORY_WITH_JSON(TemplatePluginFactory, "plugin.json", registerPlugin<TemplatePlugin>();)
 
-TemplatePlugin::TemplatePlugin(QObject *parent, const QVariantList &)
+TemplatePlugin::TemplatePlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

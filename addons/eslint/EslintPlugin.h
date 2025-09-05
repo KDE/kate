@@ -18,7 +18,7 @@
 class ESLintPlugin final : public KTextEditor::Plugin
 {
 public:
-    explicit ESLintPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit ESLintPlugin(QObject *parent);
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };

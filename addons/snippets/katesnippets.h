@@ -21,7 +21,7 @@ class KateSnippetsPlugin : public KTextEditor::Plugin
     friend class KateSnippetsPluginView;
 
 public:
-    explicit KateSnippetsPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateSnippetsPlugin(QObject *parent);
     ~KateSnippetsPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

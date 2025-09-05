@@ -14,7 +14,7 @@
 class LatexCompletionPlugin : public KTextEditor::Plugin
 {
 public:
-    LatexCompletionPlugin(QObject *parent, const QVariantList &)
+    LatexCompletionPlugin(QObject *parent)
         : KTextEditor::Plugin(parent)
         , m_model(new LatexCompletionModel(this))
     {

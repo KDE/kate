@@ -37,7 +37,7 @@ class KateCTagsPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateCTagsPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateCTagsPlugin(QObject *parent);
     ~KateCTagsPlugin() override
     {
     }

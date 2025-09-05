@@ -15,7 +15,7 @@ public:
     /**
      * Default constructor, with arguments as expected by KPluginFactory
      */
-    KTextEditorPreviewPlugin(QObject *parent, const QVariantList &args);
+    KTextEditorPreviewPlugin(QObject *parentargs);
 
     ~KTextEditorPreviewPlugin() override;
 

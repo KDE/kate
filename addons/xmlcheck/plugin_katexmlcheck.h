@@ -65,7 +65,7 @@ private:
 class PluginKateXMLCheck : public KTextEditor::Plugin
 {
 public:
-    explicit PluginKateXMLCheck(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit PluginKateXMLCheck(QObject *parent);
 
     ~PluginKateXMLCheck() override;
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

@@ -31,7 +31,7 @@ class QLineEdit;
 class KateFileTreePlugin : public KTextEditor::Plugin
 {
 public:
-    explicit KateFileTreePlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateFileTreePlugin(QObject *parent);
     ~KateFileTreePlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

@@ -35,7 +35,7 @@ KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = nullptr;
 static QStringList fileExtensions = QStringList() << QStringLiteral("*.cpp") << QStringLiteral("*.cxx") << QStringLiteral("*.c") << QStringLiteral("*.cc")
                                                   << QStringLiteral("*.h") << QStringLiteral("*.hpp") << QStringLiteral("*.hxx") << QStringLiteral("*.moc");
 
-KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QVariantList &)
+KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , indexer(&db)
 {

@@ -58,7 +58,7 @@ static QList<KateExternalTool> readDefaultTools()
 
 K_PLUGIN_FACTORY_WITH_JSON(KateExternalToolsFactory, "externaltoolsplugin.json", registerPlugin<KateExternalToolsPlugin>();)
 
-KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent, const QVariantList &)
+KateExternalToolsPlugin::KateExternalToolsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
     m_config = KSharedConfig::openConfig(QStringLiteral("kate-externaltoolspluginrc"), KConfig::NoGlobals, QStandardPaths::GenericConfigLocation);

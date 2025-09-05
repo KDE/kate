@@ -23,7 +23,7 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateFileBrowserPluginFactory, "katefilebrowserplugin.json", registerPlugin<KateFileBrowserPlugin>();)
 
 // BEGIN KateFileBrowserPlugin
-KateFileBrowserPlugin::KateFileBrowserPlugin(QObject *parent, const QVariantList &)
+KateFileBrowserPlugin::KateFileBrowserPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

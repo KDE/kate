@@ -37,7 +37,7 @@ K_PLUGIN_FACTORY_WITH_JSON(KateFileTreeFactory, "katefiletreeplugin.json", regis
 Q_LOGGING_CATEGORY(FILETREE, "kate-filetree", QtWarningMsg)
 
 // BEGIN KateFileTreePlugin
-KateFileTreePlugin::KateFileTreePlugin(QObject *parent, const QVariantList &)
+KateFileTreePlugin::KateFileTreePlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

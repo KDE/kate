@@ -38,7 +38,7 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateCTagsPluginFactory, "katectagsplugin.json", registerPlugin<KateCTagsPlugin>();)
 
 /******************************************************************/
-KateCTagsPlugin::KateCTagsPlugin(QObject *parent, const QVariantList &)
+KateCTagsPlugin::KateCTagsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

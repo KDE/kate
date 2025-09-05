@@ -35,7 +35,7 @@ static QJsonDocument readDefaultConfig()
     return doc;
 }
 
-FormatPlugin::FormatPlugin(QObject *parent, const QVariantList &)
+FormatPlugin::FormatPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_defaultConfig(readDefaultConfig())
 {

@@ -93,7 +93,7 @@ TODO:
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory, "katexmltools.json", registerPlugin<PluginKateXMLTools>();)
 
-PluginKateXMLTools::PluginKateXMLTools(QObject *const parent, const QVariantList &)
+PluginKateXMLTools::PluginKateXMLTools(QObject *const parent)
     : KTextEditor::Plugin(parent)
 {
 }

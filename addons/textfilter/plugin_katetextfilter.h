@@ -30,7 +30,7 @@ public:
     /**
      * Plugin constructor.
      */
-    explicit PluginKateTextFilter(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit PluginKateTextFilter(QObject *parent);
 
     ~PluginKateTextFilter() override;
 

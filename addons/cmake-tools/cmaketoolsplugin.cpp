@@ -14,7 +14,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(CMakeToolsPluginFactory, "cmaketoolsplugin.json", registerPlugin<CMakeToolsPlugin>();)
 
-CMakeToolsPlugin::CMakeToolsPlugin(QObject *parent, const QVariantList &)
+CMakeToolsPlugin::CMakeToolsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

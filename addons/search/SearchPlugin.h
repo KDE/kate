@@ -59,7 +59,7 @@ protected:
 class KatePluginSearch : public KTextEditor::Plugin
 {
 public:
-    explicit KatePluginSearch(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KatePluginSearch(QObject *parent);
     ~KatePluginSearch() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

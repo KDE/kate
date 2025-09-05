@@ -21,7 +21,7 @@
 class RainbowParenPlugin final : public KTextEditor::Plugin
 {
 public:
-    explicit RainbowParenPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit RainbowParenPlugin(QObject *parent);
 
     int configPages() const override
     {

@@ -18,7 +18,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateSnippetsPluginFactory, "katesnippetsplugin.json", registerPlugin<KateSnippetsPlugin>();)
 
-KateSnippetsPlugin::KateSnippetsPlugin(QObject *parent, const QVariantList &)
+KateSnippetsPlugin::KateSnippetsPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_snippetGlobal(new KateSnippetGlobal(this))
 {

@@ -30,7 +30,7 @@
 
 KateSnippetGlobal *KateSnippetGlobal::s_self = nullptr;
 
-KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
+KateSnippetGlobal::KateSnippetGlobal(QObject *parent)
     : QObject(parent)
 {
     s_self = this;

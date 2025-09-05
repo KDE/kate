@@ -53,7 +53,7 @@ const QString FossilConfig = QStringLiteral("fossil");
 const QStringList DefaultConfig = QStringList() << GitConfig << SubversionConfig << MercurialConfig;
 }
 
-KateProjectPlugin::KateProjectPlugin(QObject *parent, const QVariantList &)
+KateProjectPlugin::KateProjectPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_completion(this)
     , m_commands(this)

@@ -18,7 +18,7 @@
 class BookmarksPlugin : public KTextEditor::Plugin
 {
 public:
-    explicit BookmarksPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit BookmarksPlugin(QObject *parent);
     ~BookmarksPlugin() override;
 
 public:

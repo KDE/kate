@@ -36,7 +36,7 @@ class KateProjectPlugin : public KTextEditor::Plugin, public KTextEditor::Sessio
     Q_PROPERTY(QList<QObject *> projects READ projectsObjects)
 
 public:
-    explicit KateProjectPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateProjectPlugin(QObject *parent);
     ~KateProjectPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

@@ -18,7 +18,7 @@ class KateSQLPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateSQLPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateSQLPlugin(QObject *parent);
 
     ~KateSQLPlugin() override;
 

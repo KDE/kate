@@ -13,10 +13,9 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateReplicodePluginFactory, "katereplicodeplugin.json", registerPlugin<ReplicodePlugin>();)
 
-ReplicodePlugin::ReplicodePlugin(QObject *parent, const QVariantList &args)
+ReplicodePlugin::ReplicodePlugin(QObject *parent)
     : KTextEditor::Plugin(qobject_cast<KTextEditor::Application *>(parent))
 {
-    Q_UNUSED(args);
 }
 
 ReplicodePlugin::~ReplicodePlugin()
@@ -25,7 +24,6 @@ ReplicodePlugin::~ReplicodePlugin()
 
 KTextEditor::ConfigPage *ReplicodePlugin::configPage(int number, QWidget *parent)
 {
-    Q_UNUSED(number);
     Q_ASSERT(number == 0);
     return new ReplicodeConfigPage(parent);
 }

@@ -16,7 +16,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(CEPluginFactory, "ce_plugin.json", registerPlugin<CEPlugin>();)
 
-CEPlugin::CEPlugin(QObject *parent, const QVariantList &)
+CEPlugin::CEPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

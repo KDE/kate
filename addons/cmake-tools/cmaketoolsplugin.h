@@ -18,7 +18,7 @@
 class CMakeToolsPlugin : public KTextEditor::Plugin
 {
 public:
-    explicit CMakeToolsPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit CMakeToolsPlugin(QObject *parent);
 
     ~CMakeToolsPlugin() override;
 

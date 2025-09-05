@@ -65,7 +65,7 @@ static void myCategoryFilter(QLoggingCategory *category)
     }
 }
 
-LSPClientPlugin::LSPClientPlugin(QObject *parent, const QVariantList &)
+LSPClientPlugin::LSPClientPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_settingsPath(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QStringLiteral("/lspclient"))
     , m_defaultConfigPath(QUrl::fromLocalFile(m_settingsPath + QStringLiteral("/settings.json")))

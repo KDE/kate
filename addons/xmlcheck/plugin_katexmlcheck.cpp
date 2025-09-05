@@ -71,7 +71,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLCheckFactory, "katexmlcheck.json", registerPlugin<PluginKateXMLCheck>();)
 
-PluginKateXMLCheck::PluginKateXMLCheck(QObject *const parent, const QVariantList &)
+PluginKateXMLCheck::PluginKateXMLCheck(QObject *const parent)
     : KTextEditor::Plugin(parent)
 {
 }

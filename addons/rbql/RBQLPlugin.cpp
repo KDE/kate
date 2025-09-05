@@ -13,7 +13,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(RBQLPluginFactory, "RBQLPlugin.json", registerPlugin<RBQLPlugin>();)
 
-RBQLPlugin::RBQLPlugin(QObject *parent, const QVariantList &)
+RBQLPlugin::RBQLPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

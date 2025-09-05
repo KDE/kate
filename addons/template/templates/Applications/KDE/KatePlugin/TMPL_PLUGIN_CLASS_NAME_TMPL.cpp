@@ -20,7 +20,7 @@ using namespace Qt::Literals::StringLiterals;
 
 K_PLUGIN_FACTORY_WITH_JSON(TMPL_PLUGIN_CLASS_NAME_TMPLFactory, "plugin.json", registerPlugin<TMPL_PLUGIN_CLASS_NAME_TMPL>();)
 
-TMPL_PLUGIN_CLASS_NAME_TMPL::TMPL_PLUGIN_CLASS_NAME_TMPL(QObject *parent, const QVariantList &)
+TMPL_PLUGIN_CLASS_NAME_TMPL::TMPL_PLUGIN_CLASS_NAME_TMPL(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

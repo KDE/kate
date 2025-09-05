@@ -34,7 +34,7 @@ K_PLUGIN_FACTORY_WITH_JSON(KeyboardMacrosPluginFactory, "keyboardmacrosplugin.js
 
 // BEGIN Plugin creation and destruction
 
-KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent, const QVariantList &)
+KeyboardMacrosPlugin::KeyboardMacrosPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
     m_commands = new KeyboardMacrosPluginCommands(this);

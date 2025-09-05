@@ -13,7 +13,7 @@ class TMPL_PLUGIN_CLASS_NAME_TMPL : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit TMPL_PLUGIN_CLASS_NAME_TMPL(QObject *parent, const QVariantList & = QVariantList());
+    explicit TMPL_PLUGIN_CLASS_NAME_TMPL(QObject *parent);
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };

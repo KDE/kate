@@ -46,7 +46,7 @@ K_PLUGIN_FACTORY_WITH_JSON(BookmarksPluginFactory, "bookmarksplugin.json", regis
 
 BookmarksPlugin::~BookmarksPlugin() = default;
 
-BookmarksPlugin::BookmarksPlugin(QObject *parent, const QVariantList &)
+BookmarksPlugin::BookmarksPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_model(parent)
     , m_urls()

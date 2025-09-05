@@ -23,7 +23,7 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(ESLintPluginFactory, "EslintPlugin.json", registerPlugin<ESLintPlugin>();)
 
-ESLintPlugin::ESLintPlugin(QObject *parent, const QVariantList &)
+ESLintPlugin::ESLintPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
 }

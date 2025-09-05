@@ -12,9 +12,7 @@
 class ReplicodePlugin : public KTextEditor::Plugin
 {
 public:
-    // Constructor
-    explicit ReplicodePlugin(QObject *parent = nullptr, const QVariantList &args = QVariantList());
-    // Destructor
+    explicit ReplicodePlugin(QObject *parent);
     ~ReplicodePlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override

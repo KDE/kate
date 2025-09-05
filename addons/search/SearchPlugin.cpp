@@ -161,7 +161,7 @@ void KatePluginSearchView::regexHelperActOnAction(QAction *resultAction, const Q
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
 
-KatePluginSearch::KatePluginSearch(QObject *parent, const QVariantList &)
+KatePluginSearch::KatePluginSearch(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
     // ensure we can send over vector of matches via queued connection

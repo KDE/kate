@@ -62,7 +62,7 @@ public:
      */
     Q_PROPERTY(QStringList disabledLanguages MEMBER m_alwaysDisabledLanguages)
 
-    explicit LSPClientPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit LSPClientPlugin(QObject *parent);
     ~LSPClientPlugin() override;
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;

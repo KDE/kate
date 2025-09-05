@@ -27,7 +27,7 @@ class KateExternalToolsPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateExternalToolsPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateExternalToolsPlugin(QObject *parent);
     ~KateExternalToolsPlugin() override;
 
     /**

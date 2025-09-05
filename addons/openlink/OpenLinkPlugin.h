@@ -25,7 +25,7 @@ using MovingRangeList = std::vector<std::unique_ptr<KTextEditor::MovingRange>>;
 class OpenLinkPlugin final : public KTextEditor::Plugin
 {
 public:
-    explicit OpenLinkPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList())
+    explicit OpenLinkPlugin(QObject *parent)
         : KTextEditor::Plugin(parent)
     {
     }

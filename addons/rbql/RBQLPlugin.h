@@ -17,7 +17,7 @@
 class RBQLPlugin final : public KTextEditor::Plugin
 {
 public:
-    explicit RBQLPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit RBQLPlugin(QObject *parent);
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };

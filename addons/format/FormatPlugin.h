@@ -20,7 +20,7 @@ class FormatPlugin final : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit FormatPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit FormatPlugin(QObject *parent);
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 

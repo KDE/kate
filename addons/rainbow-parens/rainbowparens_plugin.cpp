@@ -24,7 +24,7 @@ constexpr int numberOfColors = 5;
 
 K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json", registerPlugin<RainbowParenPlugin>();)
 
-RainbowParenPlugin::RainbowParenPlugin(QObject *parent, const QVariantList &)
+RainbowParenPlugin::RainbowParenPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
 {
     readConfig();

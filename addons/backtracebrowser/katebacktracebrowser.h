@@ -27,7 +27,7 @@ class KateBtBrowserPlugin : public KTextEditor::Plugin
     Q_OBJECT
 
 public:
-    explicit KateBtBrowserPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateBtBrowserPlugin(QObject *parent);
     ~KateBtBrowserPlugin() override;
 
     static KateBtBrowserPlugin &self();

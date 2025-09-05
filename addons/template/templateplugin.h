@@ -15,7 +15,7 @@ class TemplatePlugin : public KTextEditor::Plugin
 {
     Q_OBJECT
 public:
-    explicit TemplatePlugin(QObject *parent, const QList<QVariant> & = QList<QVariant>());
+    explicit TemplatePlugin(QObject *parent);
 
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
 };

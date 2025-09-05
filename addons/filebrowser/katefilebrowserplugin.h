@@ -22,7 +22,7 @@ class KateFileBrowserPluginView;
 class KateFileBrowserPlugin : public KTextEditor::Plugin
 {
 public:
-    explicit KateFileBrowserPlugin(QObject *parent = nullptr, const QVariantList & = QVariantList());
+    explicit KateFileBrowserPlugin(QObject *parent);
     ~KateFileBrowserPlugin() override
     {
     }

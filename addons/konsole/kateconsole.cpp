@@ -62,7 +62,7 @@ static QString directoryForView(const KTextEditor::View *view)
     return QString();
 }
 
-KateKonsolePlugin::KateKonsolePlugin(QObject *parent, const QVariantList &)
+KateKonsolePlugin::KateKonsolePlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_previousEditorEnv(qgetenv("EDITOR"))
 {

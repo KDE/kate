@@ -936,7 +936,6 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::Document::ModifiedOnDiskReason reason)
 {
-    Q_UNUSED(modified);
     auto it = m_docmap.find(doc);
     if (it == m_docmap.end()) {
         return;

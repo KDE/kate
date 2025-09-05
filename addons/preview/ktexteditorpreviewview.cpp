@@ -22,8 +22,6 @@ using namespace KTextEditorPreview;
 KTextEditorPreviewView::KTextEditorPreviewView(KTextEditorPreviewPlugin *plugin, KTextEditor::MainWindow *mainWindow)
     : QObject(mainWindow)
 {
-    Q_UNUSED(plugin);
-
     m_toolView = mainWindow->createToolView(plugin,
                                             QStringLiteral("ktexteditorpreviewplugin"),
                                             KTextEditor::MainWindow::Right,

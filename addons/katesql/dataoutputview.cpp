@@ -19,11 +19,7 @@ DataOutputView::DataOutputView(QWidget *parent)
 
 void DataOutputView::slotCustomContextMenuRequested(const QPoint &pos)
 {
-    Q_UNUSED(pos);
-
     QMenu menu(this);
-
     menu.addActions(actions());
-
     menu.exec(mapToGlobal(pos));
 }

@@ -348,8 +348,6 @@ public:
 
     void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType it) override
     {
-        Q_UNUSED(it)
-
         qCInfo(LSPCLIENT) << "completion invoked" << m_server.get();
 
         const bool userInvocation = it == UserInvocation;

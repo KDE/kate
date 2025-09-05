@@ -61,8 +61,8 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
+#include <KTerminalLauncherJob>
 #include <kateapp.h>
-#include <kterminallauncherjob.h>
 #include <ktexteditor_utils.h>
 
 #include <QPalette>

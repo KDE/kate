@@ -7,7 +7,7 @@
 #pragma once
 
 #include "katesession.h"
-#include "kconfiggroup.h"
+#include <KConfigGroup>
 
 #include <span>
 

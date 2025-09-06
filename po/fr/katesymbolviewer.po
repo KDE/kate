@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-12-07 10:32+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -169,37 +169,37 @@ msgstr "Désolé, non pris en charge pour l'instant !"
 msgid "File type: %1"
 msgstr "Type de fichier : %1"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:475
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Afficher les paramètres des fonctions"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Développer automatiquement les nœuds en mode arborescence"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Toujours afficher les symboles en mode arborescent"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Toujours trier les symboles"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Parser Options"
 msgstr "Options d'analyse syntaxique"
 
-#: plugin_katesymbolviewer.cpp:510
+#: plugin_katesymbolviewer.cpp:508
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Afficheur de symboles"
 
-#: plugin_katesymbolviewer.cpp:515
+#: plugin_katesymbolviewer.cpp:513
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Page de configuration de l'afficheur de symboles"

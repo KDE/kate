@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -110,35 +110,35 @@ msgstr "Gean nei dizze rigel"
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:208 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "Gean nei dizze kolom"
 
-#: kate/main.cpp:209 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, fuzzy, kde-format
 msgid "column"
 msgstr "Taljochting"
 
-#: kate/main.cpp:213 kwrite/main.cpp:114
+#: kate/main.cpp:211 kwrite/main.cpp:114
 #, fuzzy, kde-format
 #| msgid "Read the contents of stdin"
 msgid "Read the contents of stdin."
 msgstr "Lês de ynhâld fan stdin"
 
-#: kate/main.cpp:218 kwrite/main.cpp:118
+#: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "Dokumint om te iepenjen"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr ""

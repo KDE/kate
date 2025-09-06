@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2025-08-23 11:27+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -123,33 +123,33 @@ msgstr "Nabigatu lerro honetara."
 msgid "line"
 msgstr "lerroa"
 
-#: kate/main.cpp:208 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "Nabigatu zutabe honetara."
 
-#: kate/main.cpp:209 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "zutabea"
 
-#: kate/main.cpp:213 kwrite/main.cpp:114
+#: kate/main.cpp:211 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "Irakurri «stdin» sarrera estandarraren edukia."
 
-#: kate/main.cpp:218 kwrite/main.cpp:118
+#: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 "Aplikazioak irekitako fitxategiak/URLak ezabatu egingo dira erabili ondoren"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "Ireki beharreko dokumentuak."
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[URLak...]"

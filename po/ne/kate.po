@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2007-09-13 12:58+0545\n"
 "Last-Translator: Narayan Kumar Magar <narayan@mpp.org.np>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -112,36 +112,36 @@ msgstr "यो रेखामा नेभिगेट गर्नुहोस
 msgid "line"
 msgstr ""
 
-#: kate/main.cpp:208 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Navigate to this column"
 msgid "Navigate to this column."
 msgstr "यो स्तम्भमा नेभिगेट गर्नुहोस्"
 
-#: kate/main.cpp:209 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, fuzzy, kde-format
 #| msgid "Column"
 msgid "column"
 msgstr "स्तम्भ"
 
-#: kate/main.cpp:213 kwrite/main.cpp:114
+#: kate/main.cpp:211 kwrite/main.cpp:114
 #, fuzzy, kde-format
 #| msgid "Read the contents of stdin"
 msgid "Read the contents of stdin."
 msgstr "stdin को सामाग्री पढ्नुहोस्"
 
-#: kate/main.cpp:218 kwrite/main.cpp:118
+#: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr ""
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, fuzzy, kde-format
 #| msgid "Document to open"
 msgid "Documents to open."
 msgstr "खोल्नका लागि कागजात"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr ""

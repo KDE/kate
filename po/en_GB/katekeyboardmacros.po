@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-11-23 12:09+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -84,23 +84,23 @@ msgstr "Loaded '%1'"
 msgid "Wiped '%1'"
 msgstr "Wiped '%1'"
 
-#: keyboardmacrosplugincommands.cpp:27
+#: keyboardmacrosplugincommands.cpp:26
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "Usage: %1 <name>."
 
-#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
-#: keyboardmacrosplugincommands.cpp:62
+#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
+#: keyboardmacrosplugincommands.cpp:61
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "No keyboard macro named '%1' found."
 
-#: keyboardmacrosplugincommands.cpp:50
+#: keyboardmacrosplugincommands.cpp:49
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "Cannot save empty keyboard macro."
 
-#: keyboardmacrosplugincommands.cpp:82
+#: keyboardmacrosplugincommands.cpp:81
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -109,7 +109,7 @@ msgstr ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:85
+#: keyboardmacrosplugincommands.cpp:84
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -118,7 +118,7 @@ msgstr ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:89
+#: keyboardmacrosplugincommands.cpp:88
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -127,7 +127,7 @@ msgstr ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:93
+#: keyboardmacrosplugincommands.cpp:92
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

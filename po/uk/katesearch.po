@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2025-02-13 09:45+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -20,32 +20,32 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "Використання: grep [шаблон для пошуку у теці]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "Використання: newGrep [шаблон для пошуку у теці]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "Використання: search [шаблон для пошуку у відкритих файлах]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "Використання: pgrep [шаблон для пошуку у поточному проєкті]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "Використання: newPGrep [шаблон для пошуку у поточному проєкті]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr ""

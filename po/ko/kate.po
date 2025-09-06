@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2025-07-21 00:47+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -113,32 +113,32 @@ msgstr "이 줄로 찾아갑니다."
 msgid "line"
 msgstr "줄"
 
-#: kate/main.cpp:208 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "이 칸으로 찾아갑니다."
 
-#: kate/main.cpp:209 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "칸"
 
-#: kate/main.cpp:213 kwrite/main.cpp:114
+#: kate/main.cpp:211 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "표준 입력의 내용을 읽어옵니다."
 
-#: kate/main.cpp:218 kwrite/main.cpp:118
+#: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "앱에서 연 파일/URL을 사용한 후 삭제합니다"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "열 문서입니다."
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"

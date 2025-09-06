@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-12-06 11:07+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -166,37 +166,37 @@ msgstr "Helaas, wordt nog niet ondersteund!"
 msgid "File type: %1"
 msgstr "Bestandstype: %1"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:475
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Parameters van functie tonen"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Items in boomstructuur automatisch uitvouwen"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "Symbolen altijd in modus boomstructuur weergeven"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always sort symbols"
 msgstr "Symbolen altijd sorteren"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Parser Options"
 msgstr "Ontlederopties"
 
-#: plugin_katesymbolviewer.cpp:510
+#: plugin_katesymbolviewer.cpp:508
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Symboolviewer"
 
-#: plugin_katesymbolviewer.cpp:515
+#: plugin_katesymbolviewer.cpp:513
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Configuratiepagina van symboolviewer"

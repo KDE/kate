@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -163,37 +163,37 @@ msgstr "抱歉，尚未支持！"
 msgid "File type: %1"
 msgstr "文件类型：%1"
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:475
 #, kde-format
 msgid "Display functions parameters"
 msgstr "显示函数参数"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "树状模式下自动扩展节点"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr "树状模式中总是显示符号"
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always sort symbols"
 msgstr "总是排序符号"
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Parser Options"
 msgstr "解析选项"
 
-#: plugin_katesymbolviewer.cpp:510
+#: plugin_katesymbolviewer.cpp:508
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "符号查看器"
 
-#: plugin_katesymbolviewer.cpp:515
+#: plugin_katesymbolviewer.cpp:513
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "符号查看器配置页"

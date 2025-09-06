@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2013-01-28 12:46+0000\n"
 "Last-Translator: Admir Salkanović <asalkanovi2@etf.unsa.ba>\n"
 "Language-Team: bs <bs@kde.org>\n"
@@ -20,32 +20,32 @@ msgstr ""
 "X-Generator: Launchpad (build 16451)\n"
 "X-Launchpad-Export-Date: 2013-01-29 05:56+0000\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "Upotreba: grep [uzorak za pretragu u direktoriju]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "Upotreba: newGrep [uzorak za traženje u direktoriju]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "Upotreba: search [uzorak za pretragu u otvorenim datotekama]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "Upotreba: pgrep [uzorak za pretragu u trenutnom projektu]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "Upotreba: newPGrep [uzorak za traženje u trenutnom projektu]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, fuzzy, kde-format
 #| msgid "Usage: pgrep [pattern to search for in current project]"
 msgid "Usage: preg [regex pattern to search for in current project]"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-11-19 08:25+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -83,23 +83,23 @@ msgstr "« %1 » chargé"
 msgid "Wiped '%1'"
 msgstr "« %1 » supprimé"
 
-#: keyboardmacrosplugincommands.cpp:27
+#: keyboardmacrosplugincommands.cpp:26
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "Utilisation : %1 <name>."
 
-#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
-#: keyboardmacrosplugincommands.cpp:62
+#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
+#: keyboardmacrosplugincommands.cpp:61
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "Aucune macro de clavier nommée « %1 » trouvée."
 
-#: keyboardmacrosplugincommands.cpp:50
+#: keyboardmacrosplugincommands.cpp:49
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "Impossible d'enregistrer une macro vide de clavier."
 
-#: keyboardmacrosplugincommands.cpp:82
+#: keyboardmacrosplugincommands.cpp:81
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -108,7 +108,7 @@ msgstr ""
 "<qt><p>Utilisation : <code>kmsave &lt;name&gt;</code></p><p>Enregistrer la "
 "macro courante de clavier comme <code>&lt;name&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:85
+#: keyboardmacrosplugincommands.cpp:84
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -118,7 +118,7 @@ msgstr ""
 "macro enregistrée de clavier <code>&lt;name&gt;</code> comme macro courante."
 "</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:89
+#: keyboardmacrosplugincommands.cpp:88
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -128,7 +128,7 @@ msgstr ""
 "macro enregistrée de clavier <code>&lt;name&gt;</code> sans la charger.</p>"
 "%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:93
+#: keyboardmacrosplugincommands.cpp:92
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

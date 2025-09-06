@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-18 00:42+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2025-08-03 14:45+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -85,23 +85,23 @@ msgstr "حمّل '%1'"
 msgid "Wiped '%1'"
 msgstr "مسح '%1'"
 
-#: keyboardmacrosplugincommands.cpp:27
+#: keyboardmacrosplugincommands.cpp:26
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "استخدم: %1 <name>."
 
-#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
-#: keyboardmacrosplugincommands.cpp:62
+#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
+#: keyboardmacrosplugincommands.cpp:61
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "لم يعثر على ماكرو لوحة المفاتيح المسمى '%1'."
 
-#: keyboardmacrosplugincommands.cpp:50
+#: keyboardmacrosplugincommands.cpp:49
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "لا يمكن حفظ ماكرو لوحة المفاتيح الفارغ."
 
-#: keyboardmacrosplugincommands.cpp:82
+#: keyboardmacrosplugincommands.cpp:81
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -110,7 +110,7 @@ msgstr ""
 "<qt><p>الاستخدام: <code>kmsave &lt;name&gt;</code></p><p>حفظ ماكرو لوحة "
 "المفاتيح الحالي باسم <code>&lt;name&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:85
+#: keyboardmacrosplugincommands.cpp:84
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -119,7 +119,7 @@ msgstr ""
 "<qt><p>الاستخدام: <code>kmload &lt;name&gt;</code></p><p>تحميل ماكرو لوحة "
 "المفاتيح المحفوظ <code>&lt;name&gt;</code> كماكرو حالي.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:89
+#: keyboardmacrosplugincommands.cpp:88
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -128,7 +128,7 @@ msgstr ""
 "<qt><p>الاستخدام: <code>kmplay &lt;name&gt;</code></p><p>تشغيل ماكرو لوحة "
 "المفاتيح المحفوظ <code>&lt;name&gt;</code> دون تحميله.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:93
+#: keyboardmacrosplugincommands.cpp:92
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

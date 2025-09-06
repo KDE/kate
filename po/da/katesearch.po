@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2018-07-18 22:03+0100\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 2.0\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "Brug: grep [mønster der skal søges efter i mappen]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "Brug: newGrep [mønster der skal søges efter i mappe]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "Brug: search [mønster der skal søges efter i mappen]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "Brug: pgrep [mønster der skal søges efter i aktuelt projekt]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "Brug: newPGrep [mønster der skal søges efter i aktuelt projekt]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, fuzzy, kde-format
 #| msgid "Usage: pgrep [pattern to search for in current project]"
 msgid "Usage: preg [regex pattern to search for in current project]"

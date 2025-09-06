@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2012-06-08 16:41+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -19,32 +19,32 @@ msgstr ""
 "X-Generator: WordForge 0.8 RC1\n"
 "X-Language: km-KH\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "ការ​ប្រើប្រាស់ ៖ grep [លំនាំ​ដែល​ត្រូវ​ស្វែងរក​នៅ​ក្នុង​ថត]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "ការ​ប្រើប្រាស់ ៖ grep [លំនាំ​ដែល​ត្រូវ​ស្វែងរក​នៅ​ក្នុង​ថត]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "ការ​ប្រើ​ប្រាស់ ៖ ស្វែងរក [លំនាំ​ដែល​ត្រូវ​ស្វែងរក​​នៅ​​ក្នុង​ឯកសារ​បើក]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "ការ​ប្រើប្រាស់ ៖ pgrep [លំនាំ​ដែល​ត្រូវ​ស្វែងរក​នៅ​ក្នុង​ថត]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "ការ​ប្រើប្រាស់ ៖ newPGrep [លំនាំ​ដែល​ត្រូវ​ស្វែងរក​នៅ​ក្នុង​ថត]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, fuzzy, kde-format
 #| msgid "Usage: pgrep [pattern to search for in current project]"
 msgid "Usage: preg [regex pattern to search for in current project]"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-06 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2013-04-16 17:23+0300\n"
 "Last-Translator: Liudas Alisauskas <liudas@akmc.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -169,37 +169,37 @@ msgstr "Atleiskite. Kalba nepalaikoma kol kas"
 msgid "File type: %1"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:477
+#: plugin_katesymbolviewer.cpp:475
 #, kde-format
 msgid "Display functions parameters"
 msgstr "Rodyti funkcijų parametrus"
 
-#: plugin_katesymbolviewer.cpp:478
+#: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
 msgstr "Automatiškai išplėsti mazgus medžio veiksenoje"
 
-#: plugin_katesymbolviewer.cpp:479
+#: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Always display symbols in tree mode"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:480
+#: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always sort symbols"
 msgstr ""
 
-#: plugin_katesymbolviewer.cpp:482
+#: plugin_katesymbolviewer.cpp:480
 #, kde-format
 msgid "Parser Options"
 msgstr "Analizatorius nuostatos"
 
-#: plugin_katesymbolviewer.cpp:510
+#: plugin_katesymbolviewer.cpp:508
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Simbolių žiūryklė"
 
-#: plugin_katesymbolviewer.cpp:515
+#: plugin_katesymbolviewer.cpp:513
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Simbolių žiūryklės konfigūravimo puslapis"

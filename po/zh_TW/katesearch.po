@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2025-02-18 15:59+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -20,32 +20,32 @@ msgstr ""
 "X-Generator: Lokalize 25.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "用法：grep [要在資料夾中搜尋的樣式]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "用法：newGrep [要在資料夾中搜尋的樣式]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "用法：search [要在已開啟檔案中搜尋的樣式]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "用法：pgrep [要在目前專案中搜尋的樣式]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "用法：newPGrep [要在目前專案中搜尋的樣式]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr "用法：preg [要在目前專案中搜尋的正則表達式]"

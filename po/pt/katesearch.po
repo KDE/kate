@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2022-12-23 22:32+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -18,32 +18,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-SpellExtra: search grep newGrep xxx pgrep newPGrep build Kate\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "Utilização: grep [padrão a usar na pesquisa na pasta]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "Utilização: newGrep [padrão a usar na pesquisa na pasta]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "Utilização: search [padrão a usar na pesquisa nos ficheiros abertos]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "Utilização: pgrep [padrão a usar na pesquisa no projecto actual]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "Utilização: newPGrep [padrão a usar na pesquisa no projecto actual]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr ""

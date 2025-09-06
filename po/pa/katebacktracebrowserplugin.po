@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-01-01 12:41-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -120,52 +120,52 @@ msgstr "ਫਾਇਲ ਟਾਈਪਾਂ:"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr ""
 
-#: katebacktracebrowser.cpp:91
+#: katebacktracebrowser.cpp:97
 #, kde-format
 msgid "Indexing files..."
 msgstr "ਫਾਇਲਾਂ ਇੰਡੈਕਸ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ..."
 
-#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
 #, kde-format
 msgid "Backtrace"
 msgstr "ਬੈਕਟਰੇਸ"
 
-#: katebacktracebrowser.cpp:150
+#: katebacktracebrowser.cpp:156
 #, kde-format
 msgid "Load Backtrace"
 msgstr "ਬੈਕਟਰੇਸ ਲੋਡ ਕਰੋ"
 
-#: katebacktracebrowser.cpp:192
+#: katebacktracebrowser.cpp:198
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr ""
 
-#: katebacktracebrowser.cpp:194
+#: katebacktracebrowser.cpp:200
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr ""
 
-#: katebacktracebrowser.cpp:228
+#: katebacktracebrowser.cpp:234
 #, kde-format
 msgid "File not found: %1"
 msgstr "%1: ਫਾਇਲ ਨਹੀਂ ਲੱਭੀ ਹੈ।"
 
-#: katebacktracebrowser.cpp:239
+#: katebacktracebrowser.cpp:245
 #, kde-format
 msgid "Opened file: %1"
 msgstr "ਖੋਲ੍ਹੀ ਫਾਇਲ: %1"
 
-#: katebacktracebrowser.cpp:242
+#: katebacktracebrowser.cpp:248
 #, kde-format
 msgid "No debugging information available"
 msgstr "ਕੋਈ ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਨਹੀਂ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
 
-#: katebacktracebrowser.cpp:284
+#: katebacktracebrowser.cpp:290
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "ਬੈਕਟਰੇਸ ਸੈਟਿੰਗਾਂ"
 
-#: katebacktracebrowser.cpp:358
+#: katebacktracebrowser.cpp:364
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "ਬੈਕਟਰੇਸ ਬਰਾਊਜ਼ਰ ਸੈਟਿੰਗ"

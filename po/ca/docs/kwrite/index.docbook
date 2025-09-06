@@ -91,8 +91,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >/home/meu_inici/docs/meu_fitxer.txt</replaceable
 ></option>
@@ -114,8 +114,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >ftp://ftp.kde.org/pub/kde/README</replaceable>
 </option

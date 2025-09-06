@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-31 00:45+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -110,32 +110,32 @@ msgstr "ਇਹ ਲਾਈਨ ਉੱਤੇ ਜਾਉ।"
 msgid "line"
 msgstr "ਲਾਈਨ"
 
-#: kate/main.cpp:208 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "Navigate to this column."
 msgstr "ਇਸ ਕਾਲਮ ਉੱਤੇ ਜਾਉ।"
 
-#: kate/main.cpp:209 kwrite/main.cpp:110
+#: kate/main.cpp:207 kwrite/main.cpp:110
 #, kde-format
 msgid "column"
 msgstr "ਕਾਲਮ"
 
-#: kate/main.cpp:213 kwrite/main.cpp:114
+#: kate/main.cpp:211 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
 msgstr "stdin ਦੇ ਹਿੱਸੇ ਪੜੇ ਜਾ ਰਹੇ ਹਨ"
 
-#: kate/main.cpp:218 kwrite/main.cpp:118
+#: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
 msgid "The files/URLs opened by the application will be deleted after use"
 msgstr "ਐਪਲੀਕੇਸ਼ਨ ਰਾਹੀਂ ਖੋਲ੍ਹੀ ਗਈ ਫਾਇਲ ਜਾਂ URL ਨੂੰ ਵਰਤੋਂ ਉਪਰੰਤ ਹਟਾ ਦਿੱਤਾ ਜਾਵੇਗਾ"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "Documents to open."
 msgstr "ਖੋਲ੍ਹਣ ਲਈ ਡੌਕੂਮੈਂਟ।"
 
-#: kate/main.cpp:222 kwrite/main.cpp:122
+#: kate/main.cpp:220 kwrite/main.cpp:122
 #, kde-format
 msgid "[urls...]"
 msgstr "[urls...]"

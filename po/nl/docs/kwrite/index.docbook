@@ -95,8 +95,8 @@
 > <option
 ><replaceable
 >/home/mijnpersoonlijkemap/docs/mijnbestand.txt</replaceable
-></option
-></userinput
+></option>
+</userinput
 >
 </screen>
 </informalexample>
@@ -117,8 +117,8 @@
 >kwrite</command
 > <option
 ><replaceable
->ftp://ftp.kde.org/pub/kde/Welcome.msg</replaceable
-></option
+>ftp://ftp.kde.org/pub/kde/Welcome.msg</replaceable>
+</option
 ></userinput
 >
 </screen>

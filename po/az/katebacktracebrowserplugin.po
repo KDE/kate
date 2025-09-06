@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2021-03-09 10:53+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -137,52 +137,52 @@ msgstr "Fayl növləri"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr "Fayl uzantıları siyahısı. Misal üçün: *.cpp, *.h, *.c, və s...."
 
-#: katebacktracebrowser.cpp:91
+#: katebacktracebrowser.cpp:97
 #, kde-format
 msgid "Indexing files..."
 msgstr "Fayllar indekslənir..."
 
-#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
 #, kde-format
 msgid "Backtrace"
 msgstr "Geriyə izləmə"
 
-#: katebacktracebrowser.cpp:150
+#: katebacktracebrowser.cpp:156
 #, kde-format
 msgid "Load Backtrace"
 msgstr "Geri izləməni yükləmək"
 
-#: katebacktracebrowser.cpp:192
+#: katebacktracebrowser.cpp:198
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "Geri izləmə uğurla yükləndi"
 
-#: katebacktracebrowser.cpp:194
+#: katebacktracebrowser.cpp:200
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "Geri izləmə yüklənə bilmədi"
 
-#: katebacktracebrowser.cpp:228
+#: katebacktracebrowser.cpp:234
 #, kde-format
 msgid "File not found: %1"
 msgstr "Fayl tapılmadı: %1"
 
-#: katebacktracebrowser.cpp:239
+#: katebacktracebrowser.cpp:245
 #, kde-format
 msgid "Opened file: %1"
 msgstr "Açılmış fayl: %1"
 
-#: katebacktracebrowser.cpp:242
+#: katebacktracebrowser.cpp:248
 #, kde-format
 msgid "No debugging information available"
 msgstr "Xəta sazlama məlumatları əlçatan deyil"
 
-#: katebacktracebrowser.cpp:284
+#: katebacktracebrowser.cpp:290
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Geriyə izləmə ayarları"
 
-#: katebacktracebrowser.cpp:358
+#: katebacktracebrowser.cpp:364
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Geriyə izləmə bələdçisi ayarları"

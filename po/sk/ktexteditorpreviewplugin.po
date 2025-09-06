@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-28 00:44+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2018-09-04 17:24+0100\n"
 "Last-Translator: Mthw <jari_45@hotmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ktexteditorpreviewview.cpp:31
+#: ktexteditorpreviewview.cpp:29
 #, kde-format
 msgid "Preview"
 msgstr "Náhľad"

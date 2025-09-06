@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2011-08-09 06:00+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -17,35 +17,35 @@ msgstr ""
 "X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "භාවිතය: grep [බහලුමක් තුල සෙවිය යුතු රටාව]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "භාවිතය: grep [බහලුමක් තුල සෙවිය යුතු රටාව]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "භාවිතය: search [විවෘත ගොනු තුල සෙවීමේ රටාව]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "භාවිතය: grep [බහලුමක් තුල සෙවිය යුතු රටාව]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "භාවිතය: grep [බහලුමක් තුල සෙවිය යුතු රටාව]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: preg [regex pattern to search for in current project]"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -14,32 +14,32 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "उपयोगः: grep [पुटे अन्वेष्टुं प्रतिरूपम्] ।"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "उपयोगः: newGrep [पुटे अन्वेष्टुं प्रतिरूपम्] ।"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "उपयोगः: अन्वेषणं [उद्घाटितसञ्चिकासु अन्वेषणार्थं प्रतिरूपम्] ।"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "उपयोगः: pgrep [वर्तमानप्रकल्पे अन्वेषणार्थं प्रतिरूपम्] ।"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "उपयोगः: newPGrep [वर्तमानप्रकल्पे अन्वेषणार्थं प्रतिरूपम्] ।"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
 msgstr "उपयोगः: preg [वर्तमानप्रकल्पे अन्वेषणार्थं regex pattern] ।"

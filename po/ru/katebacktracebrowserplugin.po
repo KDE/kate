@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2018-11-18 11:12+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -146,52 +146,52 @@ msgstr "Типы файлов:"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr "Список расширений файлов, например: *.cpp, *.h, *.c, ..."
 
-#: katebacktracebrowser.cpp:91
+#: katebacktracebrowser.cpp:97
 #, kde-format
 msgid "Indexing files..."
 msgstr "Индексирование файлов..."
 
-#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
 #, kde-format
 msgid "Backtrace"
 msgstr "Стек вызовов"
 
-#: katebacktracebrowser.cpp:150
+#: katebacktracebrowser.cpp:156
 #, kde-format
 msgid "Load Backtrace"
 msgstr "Открытие стека вызовов"
 
-#: katebacktracebrowser.cpp:192
+#: katebacktracebrowser.cpp:198
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "Стек вызовов успешно загружен."
 
-#: katebacktracebrowser.cpp:194
+#: katebacktracebrowser.cpp:200
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "Не удалось загрузить стек вызовов."
 
-#: katebacktracebrowser.cpp:228
+#: katebacktracebrowser.cpp:234
 #, kde-format
 msgid "File not found: %1"
 msgstr "Файл не найден: %1"
 
-#: katebacktracebrowser.cpp:239
+#: katebacktracebrowser.cpp:245
 #, kde-format
 msgid "Opened file: %1"
 msgstr "Открыт файл: %1"
 
-#: katebacktracebrowser.cpp:242
+#: katebacktracebrowser.cpp:248
 #, kde-format
 msgid "No debugging information available"
 msgstr "Нет отладочной информации."
 
-#: katebacktracebrowser.cpp:284
+#: katebacktracebrowser.cpp:290
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Настройка просмотра стека вызовов"
 
-#: katebacktracebrowser.cpp:358
+#: katebacktracebrowser.cpp:364
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Настройка просмотра стека вызовов"

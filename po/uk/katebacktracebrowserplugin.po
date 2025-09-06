@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2017-07-31 12:33+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -142,52 +142,52 @@ msgstr "Типи файлів:"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr "Список суфіксів. Приклад: *.cpp, *.h, *.c тощо..."
 
-#: katebacktracebrowser.cpp:91
+#: katebacktracebrowser.cpp:97
 #, kde-format
 msgid "Indexing files..."
 msgstr "Індексування файлів..."
 
-#: katebacktracebrowser.cpp:116 katebacktracebrowser.cpp:279
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
 #, kde-format
 msgid "Backtrace"
 msgstr "Зворотне трасування"
 
-#: katebacktracebrowser.cpp:150
+#: katebacktracebrowser.cpp:156
 #, kde-format
 msgid "Load Backtrace"
 msgstr "Завантажити зворотне трасування"
 
-#: katebacktracebrowser.cpp:192
+#: katebacktracebrowser.cpp:198
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "Успішне завантаження зворотного трасування"
 
-#: katebacktracebrowser.cpp:194
+#: katebacktracebrowser.cpp:200
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "Спроба завантажити зворотне трасування завершилася невдало"
 
-#: katebacktracebrowser.cpp:228
+#: katebacktracebrowser.cpp:234
 #, kde-format
 msgid "File not found: %1"
 msgstr "Не знайдено файла: %1"
 
-#: katebacktracebrowser.cpp:239
+#: katebacktracebrowser.cpp:245
 #, kde-format
 msgid "Opened file: %1"
 msgstr "Відкрито файл: %1"
 
-#: katebacktracebrowser.cpp:242
+#: katebacktracebrowser.cpp:248
 #, kde-format
 msgid "No debugging information available"
 msgstr "Немає інформації щодо налагоджування"
 
-#: katebacktracebrowser.cpp:284
+#: katebacktracebrowser.cpp:290
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Параметри зворотного трасування"
 
-#: katebacktracebrowser.cpp:358
+#: katebacktracebrowser.cpp:364
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Параметри переглядача зворотного трасування"

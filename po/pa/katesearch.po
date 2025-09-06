@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-02 00:43+0000\n"
+"POT-Creation-Date: 2025-09-06 00:45+0000\n"
 "PO-Revision-Date: 2011-12-16 08:29+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -17,34 +17,34 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: KateSearchCommand.cpp:80
+#: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
 msgstr "ਵਰਤੋਂ: grep [pattern to search for in folder]"
 
-#: KateSearchCommand.cpp:82
+#: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
 msgstr "ਵਰਤੋਂ: newGrep [pattern to search for in folder]"
 
-#: KateSearchCommand.cpp:86 KateSearchCommand.cpp:88
+#: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
 msgstr "ਵਰਤੋਂ: search [pattern to search for in open files]"
 
-#: KateSearchCommand.cpp:92
+#: KateSearchCommand.cpp:100
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: pgrep [pattern to search for in current project]"
 msgstr "ਵਰਤੋਂ: grep [pattern to search for in folder]"
 
-#: KateSearchCommand.cpp:94
+#: KateSearchCommand.cpp:102
 #, fuzzy, kde-format
 #| msgid "Usage: newGrep [pattern to search for in folder]"
 msgid "Usage: newPGrep [pattern to search for in current project]"
 msgstr "ਵਰਤੋਂ: newGrep [pattern to search for in folder]"
 
-#: KateSearchCommand.cpp:98
+#: KateSearchCommand.cpp:106
 #, fuzzy, kde-format
 #| msgid "Usage: grep [pattern to search for in folder]"
 msgid "Usage: preg [regex pattern to search for in current project]"

@@ -3054,12 +3054,3 @@ msgstr "Handsam økter …"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"
-
-#~ msgid "Could not start program"
-#~ msgstr "Klarte ikkje starta programmet"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "Klarte ikkje starta programmet. Ein grunn kan vera at det ikkje er "
-#~ "installert."

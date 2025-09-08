@@ -15,6 +15,8 @@
 #include <unordered_set>
 #include <vector>
 
+using namespace Qt::Literals::StringLiterals;
+
 FolderFilesList::FolderFilesList(QObject *parent)
     : QThread(parent)
 {
@@ -113,10 +115,20 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
 
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludes.clear();
-    for (int i = 0; i < tmpExcludes.size(); i++) {
-        m_excludes << QRegularExpression(QRegularExpression::wildcardToRegularExpression(tmpExcludes[i].trimmed()));
+    m_pathExcludes.clear();
+    for (auto excl : tmpExcludes) {
+        if (excl.contains('/'_L1)) {
+            // If the exclude includes a '/', we match the whole path not just the path section
+            // and simulate the rest of wildcardToRegularExpression
+            excl.replace('.'_L1, u"\\."_s);
+            excl.replace('?'_L1, '.'_L1);
+            excl.replace('*'_L1, u".*"_s);
+            excl.replace(QRegularExpression(u"\\[\\!([^\\]]+)\\]"_s), u"[^\\1]"_s);
+            m_pathExcludes << QRegularExpression(excl);
+        } else {
+            m_excludes << QRegularExpression(QRegularExpression::wildcardToRegularExpression(excl.trimmed()));
+        }
     }
-
     start();
 }
 
@@ -168,6 +180,13 @@ void FolderFilesList::checkNextItem(DirectoryWithResults &handleOnFolder) const
         const QString absFilePath = entry.absoluteFilePath();
         bool skip{false};
         const QStringList pathSplit = absFilePath.split(QLatin1Char('/'), Qt::SkipEmptyParts);
+        for (const auto &regex : m_pathExcludes) {
+            QRegularExpressionMatch match = regex.match(absFilePath);
+            if (match.hasMatch()) {
+                skip = true;
+                break;
+            }
+        }
         for (const auto &regex : m_excludes) {
             for (const auto &part : pathSplit) {
                 QRegularExpressionMatch match = regex.match(part);

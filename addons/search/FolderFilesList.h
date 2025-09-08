@@ -50,4 +50,5 @@ private:
     bool m_symlinks = false;
     QStringList m_types;
     QList<QRegularExpression> m_excludes;
+    QList<QRegularExpression> m_pathExcludes;
 };

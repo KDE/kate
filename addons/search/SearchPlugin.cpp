@@ -391,8 +391,12 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_ui.currentFolderButton->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
     m_ui.newTabButton->setIcon(QIcon::fromTheme(QStringLiteral("tab-new")));
 
-    m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
-    m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
+    m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\""));
+    m_ui.excludeCombo->setToolTip(
+        i18n("Comma separated list of wildcard patterns to match files or directory names to "
+             "exclude from the search.\n"
+             "Example: \"build*\"\n"
+             "If the pattern contains a '/', the whole path is checked for a match."));
 
     m_ui.filterBtn->setToolTip(i18n("Click to filter through results"));
     m_ui.filterBtn->setDisabled(true);

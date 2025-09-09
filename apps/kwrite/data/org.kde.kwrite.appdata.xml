@@ -62,7 +62,6 @@
   <name xml:lang="tr">K Yaz</name>
   <name xml:lang="uk">KWrite</name>
   <name xml:lang="vi">KWrite</name>
-  <name xml:lang="x-test">xxKWritexx</name>
   <name xml:lang="zh-CN">KWrite 记事本</name>
   <name xml:lang="zh-TW">KWrite</name>
   <summary>Text Editor</summary>
@@ -118,7 +117,6 @@
   <summary xml:lang="tr">Metin Düzenleyicisi</summary>
   <summary xml:lang="uk">Текстовий редактор</summary>
   <summary xml:lang="vi">Trình biên tập văn bản</summary>
-  <summary xml:lang="x-test">xxText Editorxx</summary>
   <summary xml:lang="zh-CN">文本编辑器</summary>
   <summary xml:lang="zh-TW">文字編輯器</summary>
   <description>
@@ -172,7 +170,6 @@
     <p xml:lang="tr">Kate’in düzenleyici bileşeni tabanlı olan K Yaz, KDE için bir metin düzenleyicisidir.</p>
     <p xml:lang="uk">KWrite — текстовий редактор від KDE, заснований на компоненті редактора Kate.</p>
     <p xml:lang="vi">KWrite là một trình biên tập văn bản của KDE, dựa trên thành phần trình biên tập của Kate.</p>
-    <p xml:lang="x-test">xxKWrite is a text editor by KDE, based on the Kate's editor component.xx</p>
     <p xml:lang="zh-CN">KWrite 是 KDE 的文本编辑器，它基于 Kate 的编辑器组件构建。</p>
     <p xml:lang="zh-TW">KWrite 是一套 KDE 的文字編輯器，基於 Kate 的編輯器組件。</p>
     <p>Features:</p>
@@ -229,7 +226,6 @@
     <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="vi">Tính năng:</p>
-    <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能：</p>
     <p xml:lang="zh-TW">功能：</p>
     <ul>
@@ -284,7 +280,6 @@
       <li xml:lang="tr">Dosya türüne göre sözdizim vurgulama</li>
       <li xml:lang="uk">Підсвічування синтаксичних конструкцій відповідно до типу файла.</li>
       <li xml:lang="vi">Tô sáng cú pháp theo kiểu tệp</li>
-      <li xml:lang="x-test">xxSyntax highlighting according to the file typexx</li>
       <li xml:lang="zh-CN">按文件类型进行语法高亮</li>
       <li xml:lang="zh-TW">根據檔案型態做語法突顯</li>
       <li>Word completion</li>
@@ -340,7 +335,6 @@
       <li xml:lang="tr">Sözcük tamamlama</li>
       <li xml:lang="uk">Завершення слів.</li>
       <li xml:lang="vi">Hoàn tất từ</li>
-      <li xml:lang="x-test">xxWord completionxx</li>
       <li xml:lang="zh-CN">单词补全</li>
       <li xml:lang="zh-TW">文字補完</li>
       <li>Auto-indentation</li>
@@ -395,7 +389,6 @@
       <li xml:lang="tr">Otomatik girintileme</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="vi">Thụt lề tự động</li>
-      <li xml:lang="x-test">xxAuto-indentationxx</li>
       <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Plugin support</li>
@@ -450,7 +443,6 @@
       <li xml:lang="tr">Eklenti desteği</li>
       <li xml:lang="uk">Підтримка додатків.</li>
       <li xml:lang="vi">Hỗ trợ phần cài cắm</li>
-      <li xml:lang="x-test">xxPlugin supportxx</li>
       <li xml:lang="zh-CN">插件支持</li>
       <li xml:lang="zh-TW">外掛程式支援</li>
       <li>Vi input mode</li>
@@ -506,7 +498,6 @@
       <li xml:lang="tr">Vi giriş kipi</li>
       <li xml:lang="uk">Режим введення Vi.</li>
       <li xml:lang="vi">Chế độ nhập Vi</li>
-      <li xml:lang="x-test">xxVi input modexx</li>
       <li xml:lang="zh-CN">Vi 输入模式</li>
       <li xml:lang="zh-TW">VI 輸入模式</li>
     </ul>
@@ -561,7 +552,6 @@
       <caption xml:lang="tr">K Yaz ile kod düzenleme</caption>
       <caption xml:lang="uk">Редагування коду за допомогою KWrite</caption>
       <caption xml:lang="vi">Chỉnh sửa mã bằng KWrite</caption>
-      <caption xml:lang="x-test">xxEditing code with KWritexx</caption>
       <caption xml:lang="zh-CN">使用 Kwrite 编辑代码</caption>
       <caption xml:lang="zh-TW">使用 KWrite 編輯程式碼</caption>
       <image>https://cdn.kde.org/screenshots/kwrite/kwrite.png</image>

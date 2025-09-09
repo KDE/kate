@@ -56,7 +56,6 @@
   <name xml:lang="tr">Kate</name>
   <name xml:lang="uk">Kate</name>
   <name xml:lang="vi">Kate</name>
-  <name xml:lang="x-test">xxKatexx</name>
   <name xml:lang="zh-CN">Kate 文本编辑器</name>
   <name xml:lang="zh-TW">Kate</name>
   <summary>Advanced text editor</summary>
@@ -88,7 +87,6 @@
   <summary xml:lang="ta">மேம்பட்ட உரைத்திருத்தி</summary>
   <summary xml:lang="tr">Gelişmiş Metin Düzenleyicisi</summary>
   <summary xml:lang="uk">Потужний текстовий редактор</summary>
-  <summary xml:lang="x-test">xxAdvanced text editorxx</summary>
   <summary xml:lang="zh-CN">多功能文本编辑器</summary>
   <summary xml:lang="zh-TW">進階文字編輯器</summary>
   <description>
@@ -122,7 +120,6 @@
     <p xml:lang="sv">Kate är en snabb texteditor med flera dokument och vyer för programmerare av KDE. Den innehåller saker som stöd för LSP (Language Server Protocol)x, projekt, flera markörer och markeringar, integrering med git, katalogsökning, horisontell och vertikal uppdelning, vi-läge, syntaxmarkering för över 300 språk, inbyggd terminal, dynamisk radbrytning och mycket mer. Den är tillgänglig på Linux, BSD, Windows och MacOS.</p>
     <p xml:lang="tr">Kate, KDE tarafından programcılar için yapılan hızlı bir çok belgeli, çok görünümlü bir metin düzenleyicisidir. LSP (Dil Sunucusu Protokolü) desteği, projeler, çoklu imleç ve seçim, Git tümleştirmesi, klasör çapında arama, yatay ve dikey bölmeler, vi(1) kipi, 300’den fazla dil için sözdizim vurgulaması, yerleşik uçbirim, devingen sözcük kaydırma ve çok daha fazlası gibi özelliklere sahiptir. Linux, BSD, Windows ve macOS üzerinde kullanılabilirdir.</p>
     <p xml:lang="uk">Kate — швидкий текстовий редактор із підтримкою режиму декількох документів та панелей перегляду від KDE. У програмі передбачено підтримку LSP (Language Server Protocol), проєктів, декількох курсорів та областей позначення, інтеграцію з git, пошук за теками, поділ вікна на горизонтальні і вертикальні панелі, режим vi, підсвічування синтаксису понад 300 мов, вбудований термінал, динамічне перенесення рядків і багато іншого. Програмою можна користуватися у Linux, BSD, Windows і MacOS.</p>
-    <p xml:lang="x-test">xxKate is a fast multi-document, multi-view text editor for programmers by KDE. It features stuff like LSP (Language Server Protocol) support, projects, multiple cursors and selections, git integration, folder wide search, horizontal and vertical splits, vi mode, syntax highlighting for 300+ languages, built-in terminal, dynamic word wrap and much more. It is available on Linux, BSD, Windows and MacOS.xx</p>
     <p xml:lang="zh-CN">Kate 是 KDE 为程序员量身定制的一款轻快的多文档、多视图文本编辑器。它的功能丰富，支持 LSP (Language Server Protocol, 语言服务器协议)、项目、多光标、多个选择对象、Git 集成、文件夹内搜索、水平和垂直视图拆分、Vi 模式、300 多种语言的语法高亮、内置终端、动态换行等。它可在 Linux、BSD、Windows 和 macOS 上使用。</p>
     <p xml:lang="zh-TW">Kate 是一個快速的多文件、多檢視文字編輯器，適合程式設計師，由 KDE 所做。它提供許多功能，像是 LSP（語言伺服器協定）支援、專案支援、多重游標與多重選取功能、Git 整合、資料夾內搜尋、水平與垂直的分割視窗、Vi 模式、超過 300 種語言的語法突顯、內建終端機、動態折行等等。它可在 Linux、BSD、Windows 及 MacOS 上使用。</p>
     <p>Features:</p>
@@ -176,7 +173,6 @@
     <p xml:lang="tr">Özellikler:</p>
     <p xml:lang="uk">Можливості:</p>
     <p xml:lang="vi">Tính năng:</p>
-    <p xml:lang="x-test">xxFeatures:xx</p>
     <p xml:lang="zh-CN">功能特性：</p>
     <p xml:lang="zh-TW">功能：</p>
     <ul>
@@ -228,7 +224,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">MDI, pencere bölme, sekmeli pencereler</li>
       <li xml:lang="uk">Інтерфейс для одночасної роботи з багатьма документами, поділ вікна програми, можливість роботи із вкладками.</li>
       <li xml:lang="vi">MDI (Giao diện đa tài liệu - Multiple Document Interface), chia cửa sổ, tạo thẻ trong cửa sổ</li>
-      <li xml:lang="x-test">xxMDI, window splitting, window tabbingxx</li>
       <li xml:lang="zh-CN">多文档界面 (MDI)、窗口拆分、标签页</li>
       <li xml:lang="zh-TW">MDI，視窗分割，視窗分頁</li>
       <li>Spell checking</li>
@@ -282,7 +277,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Yazım denetimi</li>
       <li xml:lang="uk">Перевірка правопису.</li>
       <li xml:lang="vi">Kiểm tra đánh vần</li>
-      <li xml:lang="x-test">xxSpell checkingxx</li>
       <li xml:lang="zh-CN">拼写检查</li>
       <li xml:lang="zh-TW">拼字檢查</li>
       <li>CR, CRLF, LF newline support</li>
@@ -334,7 +328,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">CR, CRLF, LF yenisatır desteği</li>
       <li xml:lang="uk">Підтримка форматів розриву рядків CR, CRLF та LF.</li>
       <li xml:lang="vi">Hỗ trợ dòng mới kiểu CR, CRLF, LF</li>
-      <li xml:lang="x-test">xxCR, CRLF, LF newline supportxx</li>
       <li xml:lang="zh-CN">CR、CRLF、LF 换行支持</li>
       <li xml:lang="zh-TW">CR, CRLF, LF 等換行符號支援</li>
       <li>Encoding support (utf-8, utf-16, ascii etc.)</li>
@@ -386,7 +379,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Kodlama desteği (utf-8, utf-16, ascii vb.)</li>
       <li xml:lang="uk">Підтримка різноманітних кодувань (utf-8, utf-16, ascii тощо).</li>
       <li xml:lang="vi">Hỗ trợ mã hoá (utf-8, utf-16, ascii, v.v.)</li>
-      <li xml:lang="x-test">xxEncoding support (utf-8, utf-16, ascii etc.)xx</li>
       <li xml:lang="zh-CN">编码支持 (UTF-8、UTF-16、ASCII 等)</li>
       <li xml:lang="zh-TW">編碼支援（UTF-8，UTF-16，ASCII 等）</li>
       <li>Encoding conversion</li>
@@ -439,7 +431,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Kodlama dönüştürme</li>
       <li xml:lang="uk">Підтримка можливості перетворення даних у різних кодуваннях.</li>
       <li xml:lang="vi">Chuyển đổi mã hoá</li>
-      <li xml:lang="x-test">xxEncoding conversionxx</li>
       <li xml:lang="zh-CN">编码转换</li>
       <li xml:lang="zh-TW">編碼轉換</li>
       <li>Regular expression based find &amp; replace</li>
@@ -489,7 +480,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Bul ve değiştir için düzenli ifade desteği</li>
       <li xml:lang="uk">Пошук і заміна фрагментів тексту на основі формальних виразів.</li>
       <li xml:lang="vi">Tìm &amp; thay thế dựa trên biểu thức chính quy</li>
-      <li xml:lang="x-test">xxRegular expression based find &amp; replacexx</li>
       <li xml:lang="zh-CN">基于正则表达式的查找和替换</li>
       <li xml:lang="zh-TW">搜尋與取代支援正則表達式</li>
       <li>Syntax highlighting for 300+ languages</li>
@@ -521,7 +511,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">300-க்கும் மேற்பட்ட நிரலாக்க மொழிகளுக்கான இலக்கணசார் முன்னிலைப்படுத்தல்</li>
       <li xml:lang="tr">300+ dil için sözdizim vurgulaması</li>
       <li xml:lang="uk">Підсвічування синтаксису понад 300 мовами</li>
-      <li xml:lang="x-test">xxSyntax highlighting for 300+ languagesxx</li>
       <li xml:lang="zh-CN">300 多种语言的语法高亮</li>
       <li xml:lang="zh-TW">超過 300 種語言的語法突顯</li>
       <li>Code and text folding</li>
@@ -574,7 +563,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Kod ve metin katlama</li>
       <li xml:lang="uk">Засоби згортання коду та тексту.</li>
       <li xml:lang="vi">Gập mã và văn bản</li>
-      <li xml:lang="x-test">xxCode and text foldingxx</li>
       <li xml:lang="zh-CN">代码和文本折叠</li>
       <li xml:lang="zh-TW">程式碼與文字封裝</li>
       <li>Multiple cursors and multiple selections</li>
@@ -606,7 +594,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">ஒரே நேரத்தில் பல இடஞ்சுட்டிகளும் தேர்வுகளும்</li>
       <li xml:lang="tr">Birden çok imleç ve seçim olanağı</li>
       <li xml:lang="uk">Використання декількох курсорів і позначних областей</li>
-      <li xml:lang="x-test">xxMultiple cursors and multiple selectionsxx</li>
       <li xml:lang="zh-CN">多光标和多个选择对象</li>
       <li xml:lang="zh-TW">多重游標與多重選取</li>
       <li>Block selection mode</li>
@@ -658,7 +645,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Blok seçim kipi</li>
       <li xml:lang="uk">Режим прямокутного вибору.</li>
       <li xml:lang="vi">Chế độ chọn khối</li>
-      <li xml:lang="x-test">xxBlock selection modexx</li>
       <li xml:lang="zh-CN">块选择模式</li>
       <li xml:lang="zh-TW">區塊選擇模式</li>
       <li>Auto indentation</li>
@@ -711,7 +697,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Otomatik girintileme</li>
       <li xml:lang="uk">Автовідступ.</li>
       <li xml:lang="vi">Thụt lề tự động</li>
-      <li xml:lang="x-test">xxAuto indentationxx</li>
       <li xml:lang="zh-CN">自动缩进</li>
       <li xml:lang="zh-TW">自動縮排</li>
       <li>Auto completion support</li>
@@ -763,7 +748,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Otomatik tamamlama desteği</li>
       <li xml:lang="uk">Підтримка автодоповнення.</li>
       <li xml:lang="vi">Hỗ trợ hoàn tất tự động</li>
-      <li xml:lang="x-test">xxAuto completion supportxx</li>
       <li xml:lang="zh-CN">自动补全支持</li>
       <li xml:lang="zh-TW">自動補完支援</li>
       <li>Shell integration</li>
@@ -815,7 +799,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Kabuk tümleştirmesi</li>
       <li xml:lang="uk">Інтеграція з командною оболонкою.</li>
       <li xml:lang="vi">Tích hợp hệ vỏ</li>
-      <li xml:lang="x-test">xxShell integrationxx</li>
       <li xml:lang="zh-CN">系统外壳程序集成</li>
       <li xml:lang="zh-TW">Shell 整合</li>
       <li>Wide protocol support (http, ftp, ssh, webdav etc.)</li>
@@ -857,7 +840,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">Geniş protokol desteği (http, ftp, ssh, webdav vb.)</li>
       <li xml:lang="uk">Широка підтримка протоколів (http, ftp, ssh, webdav тощо)</li>
       <li xml:lang="vi">Hỗ trợ nhiều giao thức (http, ftp, ssh, webdav, v.v.)</li>
-      <li xml:lang="x-test">xxWide protocol support (http, ftp, ssh, webdav etc.)xx</li>
       <li xml:lang="zh-CN">支持多种类型的协议 (HTTP、FTP、SSH、WebDAV 等)</li>
       <li xml:lang="zh-TW">廣泛的協定支援（http, ftp, ssh, webdav 等等）</li>
       <li>Extensible via plugins</li>
@@ -889,7 +871,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">செருகுநிரல்களால் மேம்படுத்தக்கூடியது</li>
       <li xml:lang="tr">Eklentilerle genişletilebilir</li>
       <li xml:lang="uk">Можливість розширення за допомогою додатків</li>
-      <li xml:lang="x-test">xxExtensible via pluginsxx</li>
       <li xml:lang="zh-CN">可通过插件扩展</li>
       <li xml:lang="zh-TW">可透過外掛程式擴充</li>
       <li>Integrated terminal</li>
@@ -921,7 +902,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">உள்ளமைந்த முனையம்</li>
       <li xml:lang="tr">Tümleşik uçbirim</li>
       <li xml:lang="uk">Інтегрований термінал</li>
-      <li xml:lang="x-test">xxIntegrated terminalxx</li>
       <li xml:lang="zh-CN">集成终端</li>
       <li xml:lang="zh-TW">內建終端機</li>
       <li>Scriptable using JavaScript</li>
@@ -972,7 +952,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="tr">JavaScript kullanılarak betikleştirilebilir</li>
       <li xml:lang="uk">Можливість керування програмою за допомогою скриптів мовою JavaScript.</li>
       <li xml:lang="vi">Lập kịch bản được bằng JavaScript</li>
-      <li xml:lang="x-test">xxScriptable using JavaScriptxx</li>
       <li xml:lang="zh-CN">基于 JavaScript 实现的脚本编程</li>
       <li xml:lang="zh-TW">可使用 JavaScript</li>
       <li>Vi mode</li>
@@ -1004,7 +983,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">Vi பயன்முறை</li>
       <li xml:lang="tr">vi(1) kipi</li>
       <li xml:lang="uk">Режим vi</li>
-      <li xml:lang="x-test">xxVi modexx</li>
       <li xml:lang="zh-CN">Vi 模式</li>
       <li xml:lang="zh-TW">Vi 模式</li>
       <li>Intellisense support using LSP (Language Server Protocol)</li>
@@ -1035,7 +1013,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sv">Stöd för Intellisense med LSP (Language Server Protocol)</li>
       <li xml:lang="tr">LSP (Dil Sunucusu Protokolü) kullanarak Intellisense desteği</li>
       <li xml:lang="uk">Підтримка Intellisense з використанням LSP (Language Server Protocol або протоколу сервера мов)</li>
-      <li xml:lang="x-test">xxIntellisense support using LSP (Language Server Protocol)xx</li>
       <li xml:lang="zh-CN">Intellisense 支持 (基于 LSP/Language Server Protocol/语言服务器协议)</li>
       <li xml:lang="zh-TW">透過 LSP（語言伺服器協定）實現的 Intellisense 支援</li>
       <li>DAP (Debug Adapter Protocol) support</li>
@@ -1066,7 +1043,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sv">Stöd för DAP (Debug Adapter Protocol)</li>
       <li xml:lang="tr">DAP (Hata Ayıklama Bağdaştırıcısı Protokolü) desteği</li>
       <li xml:lang="uk">Підтримка DAP (Debug Adapter Protocol або протоколу адаптації діагностики)</li>
-      <li xml:lang="x-test">xxDAP (Debug Adapter Protocol) supportxx</li>
       <li xml:lang="zh-CN">DAP (Debug Adapter Protocol/调试适配器协议) 支持</li>
       <li xml:lang="zh-TW">DAP（除錯配接協定）支援</li>
       <li>Vertical tabs/document list</li>
@@ -1098,7 +1074,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">செங்குத்தான கீற்று/ஆவண பட்டியல்</li>
       <li xml:lang="tr">Dikey sekme/belge listesi</li>
       <li xml:lang="uk">Вертикальний список вкладок або документів</li>
-      <li xml:lang="x-test">xxVertical tabs/document listxx</li>
       <li xml:lang="zh-CN">垂直标签页/文档列表</li>
       <li xml:lang="zh-TW">垂直的分頁/文件列表</li>
       <li>Lightweight project support. Kate can open folders as projects</li>
@@ -1130,7 +1105,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">எளிய திட்டப்பணி ஆதரவு. அடைவுகளை திட்டப்பணிகளாக கேட்டில் திறக்கலாம்</li>
       <li xml:lang="tr">Hafif proje desteği. Kate, klasörleri proje olarak açabilir</li>
       <li xml:lang="uk">Проста підтримка проєктів. Kate може відкривати теки як проєкти</li>
-      <li xml:lang="x-test">xxLightweight project support. Kate can open folders as projectsxx</li>
       <li xml:lang="zh-CN">轻量级项目支持。Kate 能够将文件夹作为项目打开</li>
       <li xml:lang="zh-TW">輕量專案支援。Kate 可以把任何資料夾當作專案打開</li>
       <li>Code formatting using native formatters such as clang-format, prettier etc</li>
@@ -1161,7 +1135,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="sv">Kodformatering med inbyggda formateringsverktyg såsom clang-format, prettier, etc.</li>
       <li xml:lang="tr">clang-format, prettier vb. gibi yerel biçimlendiricileri kullanarak kod biçimlendirmesi</li>
       <li xml:lang="uk">Форматування коду з використанням відповідних засобів форматування, зокрема clang-format, prettier тощо</li>
-      <li xml:lang="x-test">xxCode formatting using native formatters such as clang-format, prettier etcxx</li>
       <li xml:lang="zh-CN">使用本地格式化工具 (如clang-format、prettier等) 对代码进行格式化。</li>
       <li xml:lang="zh-TW">利用原生格式工具（如 clang-format、prettier 等等）進行程式碼格式美化</li>
       <li>Built in filesystem browser</li>
@@ -1193,7 +1166,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">உள்ளமை கோப்பு முறைமை உலாவி</li>
       <li xml:lang="tr">Yerleşik dosya sistemi tarayıcısı</li>
       <li xml:lang="uk">Вбудований навігатор файловою системою</li>
-      <li xml:lang="x-test">xxBuilt in filesystem browserxx</li>
       <li xml:lang="zh-CN">内建在文件系统浏览器中</li>
       <li xml:lang="zh-TW">內建檔案系統瀏覽器</li>
       <li>CTags support</li>
@@ -1225,7 +1197,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">CTags ஆதரவு</li>
       <li xml:lang="tr">CTags desteği</li>
       <li xml:lang="uk">Підтримка CTags</li>
-      <li xml:lang="x-test">xxCTags supportxx</li>
       <li xml:lang="zh-CN">CTags 支持</li>
       <li xml:lang="zh-TW">CTags 支援</li>
       <li>Project wide and folder wide search</li>
@@ -1257,7 +1228,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">திட்டப்பணி அல்லது அடைவு முழுவதிலும் தேடலாம்</li>
       <li xml:lang="tr">Proje çapı ve klasör çapı arama</li>
       <li xml:lang="uk">Пошук у межах проєкту та теки</li>
-      <li xml:lang="x-test">xxProject wide and folder wide searchxx</li>
       <li xml:lang="zh-CN">查找整个项目和整个文件夹中的内容</li>
       <li xml:lang="zh-TW">專案內與資料夾內的搜尋</li>
       <li>Git integration</li>
@@ -1289,7 +1259,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ta">Git ஒருங்கிணைப்பு</li>
       <li xml:lang="tr">Git tümleştirmesi</li>
       <li xml:lang="uk">Інтеграція з git</li>
-      <li xml:lang="x-test">xxGit integrationxx</li>
       <li xml:lang="zh-CN">Git 集成</li>
       <li xml:lang="zh-TW">Git 整合</li>
     </ul>
@@ -1344,7 +1313,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="tr">Kate ile kod düzenleme</caption>
       <caption xml:lang="uk">Редагування коду за допомогою Kate</caption>
       <caption xml:lang="vi">Chỉnh sửa mã bằng Kate</caption>
-      <caption xml:lang="x-test">xxEditing code with Katexx</caption>
       <caption xml:lang="zh-CN">使用 Kate 编辑代码</caption>
       <caption xml:lang="zh-TW">使用 Kate 編輯程式碼</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate.png</image>
@@ -1384,7 +1352,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ta">Git திட்டப்பணியில் கேட்</caption>
       <caption xml:lang="tr">Git tabanlı bir proje ile Kate</caption>
       <caption xml:lang="uk">Kate із заснованим на Git проєктом</caption>
-      <caption xml:lang="x-test">xxKate with some Git based projectxx</caption>
       <caption xml:lang="zh-CN">Kate 正在打开某个基于 Git 的项目</caption>
       <caption xml:lang="zh-TW">正在檢視某個 Git 專案的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-light.png</image>
@@ -1424,7 +1391,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ta">பிரிந்த காட்சிமுறையுடன் கேட்</caption>
       <caption xml:lang="tr">Bölünmüş görünüm ile Kate</caption>
       <caption xml:lang="uk">Kate із розділеним переглядом</caption>
-      <caption xml:lang="x-test">xxKate with split viewxx</caption>
       <caption xml:lang="zh-CN">Kate 正在显示拆分视图</caption>
       <caption xml:lang="zh-TW">分割檢視下的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-light2.png</image>
@@ -1464,7 +1430,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ta">கருமையான நிறத்திட்டத்துடன் கேட்</caption>
       <caption xml:lang="tr">Koyu kipte Kate</caption>
       <caption xml:lang="uk">Kate у темному режимі</caption>
-      <caption xml:lang="x-test">xxKate in dark modexx</caption>
       <caption xml:lang="zh-CN">Kate 的深色模式</caption>
       <caption xml:lang="zh-TW">使用暗色模式的 Kate</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark.png</image>
@@ -1504,7 +1469,6 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ta">கேட்டால் புதிய git கிளையை உருவாக்குவது</caption>
       <caption xml:lang="tr">Kate ile yeni bir Git dalı oluştur</caption>
       <caption xml:lang="uk">Створення нової гілки Git за допомогою Kate</caption>
-      <caption xml:lang="x-test">xxCreate a new Git branch with Katexx</caption>
       <caption xml:lang="zh-CN">用 Kate 创建一个新的 Git 分支</caption>
       <caption xml:lang="zh-TW">用 Kate 建立新的 Git 分支</caption>
       <image>https://cdn.kde.org/screenshots/kate/kate-windows-dark2.png</image>

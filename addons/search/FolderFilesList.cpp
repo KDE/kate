@@ -119,12 +119,8 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
     for (auto excl : tmpExcludes) {
         if (excl.contains('/'_L1)) {
             // If the exclude includes a '/', we match the whole path not just the path section
-            // and simulate the rest of wildcardToRegularExpression
-            excl.replace('.'_L1, u"\\."_s);
-            excl.replace('?'_L1, '.'_L1);
-            excl.replace('*'_L1, u".*"_s);
-            excl.replace(QRegularExpression(u"\\[\\!([^\\]]+)\\]"_s), u"[^\\1]"_s);
-            m_pathExcludes << QRegularExpression(excl);
+            m_pathExcludes << QRegularExpression(
+                QRegularExpression::wildcardToRegularExpression(excl.trimmed(), QRegularExpression::UnanchoredWildcardConversion));
         } else {
             m_excludes << QRegularExpression(QRegularExpression::wildcardToRegularExpression(excl.trimmed()));
         }

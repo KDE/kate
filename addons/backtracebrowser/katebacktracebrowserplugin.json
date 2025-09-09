@@ -38,7 +38,6 @@
         "Description[tr]": "C/C++ Geri iz dolaşım araç görünümü",
         "Description[uk]": "Панель навігації зворотним трасуванням C++",
         "Description[vi]": "Khung xem công cụ \"điều hướng vết ngăn xếp C/C++\"",
-        "Description[x-test]": "xxC/C++ Backtrace navigation tool viewxx",
         "Description[zh_CN]": "C/C++ 回溯导航工具视图",
         "Description[zh_TW]": "C/C++ 回溯追蹤瀏覽工具檢視",
         "Name": "Backtrace Browser",
@@ -79,7 +78,6 @@
         "Name[tr]": "Geri İz Tarayıcısı",
         "Name[uk]": "Переглядач зворотного трасування",
         "Name[vi]": "Trình duyệt vết ngăn xếp",
-        "Name[x-test]": "xxBacktrace Browserxx",
         "Name[zh_CN]": "回溯跟踪浏览器",
         "Name[zh_TW]": "回溯追蹤瀏覽器"
     }

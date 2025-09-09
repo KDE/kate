@@ -37,7 +37,6 @@
         "Description[tr]": "Unicode semboller için LaTeX sözdizimi",
         "Description[uk]": "Синтаксис LaTeX для символів Unicode",
         "Description[vi]": "Cú pháp LaTeX cho các kí hiệu unicode",
-        "Description[x-test]": "xxLaTeX syntax for unicode symbolsxx",
         "Description[zh_CN]": "Unicode 符号的 LaTeX 语法",
         "Description[zh_TW]": "Unicode 符號的 LaTeX 語法",
         "Name": "LaTeX completion",
@@ -79,7 +78,6 @@
         "Name[tr]": "LaTeX Tamamlama",
         "Name[uk]": "Доповнення LaTeX",
         "Name[vi]": "Hoàn tất LaTeX",
-        "Name[x-test]": "xxLaTeX completionxx",
         "Name[zh_CN]": "LaTeX 代码补全",
         "Name[zh_TW]": "LaTeX 補完"
     }

@@ -27,7 +27,6 @@
         "Description[sv]": "TMPL_PLUGIN_UI_NAME_TMPL beskrivning",
         "Description[tr]": "TMPL_PLUGIN_UI_NAME_TMPL açıklaması",
         "Description[uk]": "Опис TMPL_PLUGIN_UI_NAME_TMPL",
-        "Description[x-test]": "xxTMPL_PLUGIN_UI_NAME_TMPL descriptionxx",
         "Description[zh_CN]": "TMPL_PLUGIN_UI_NAME_TMPL description",
         "Description[zh_TW]": "TMPL_PLUGIN_UI_NAME_TMPL 描述",
         "Name": "TMPL_PLUGIN_UI_NAME_TMPL",
@@ -57,7 +56,6 @@
         "Name[sv]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[tr]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[uk]": "TMPL_PLUGIN_UI_NAME_TMPL",
-        "Name[x-test]": "xxTMPL_PLUGIN_UI_NAME_TMPLxx",
         "Name[zh_CN]": "TMPL_PLUGIN_UI_NAME_TMPL",
         "Name[zh_TW]": "TMPL_PLUGIN_UI_NAME_TMPL"
     }

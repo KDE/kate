@@ -39,7 +39,6 @@
         "Description[tr]": "Dış Araçlar",
         "Description[uk]": "Зовнішні інструменти",
         "Description[vi]": "Công cụ bên ngoài",
-        "Description[x-test]": "xxExternal Toolsxx",
         "Description[zh_CN]": "外部工具",
         "Description[zh_TW]": "外部工具",
         "Icon": "system-run",
@@ -83,7 +82,6 @@
         "Name[tr]": "Dış Araçlar",
         "Name[uk]": "Зовнішні засоби",
         "Name[vi]": "Công cụ bên ngoài",
-        "Name[x-test]": "xxExternal Toolsxx",
         "Name[zh_CN]": "外部工具",
         "Name[zh_TW]": "外部工具"
     }

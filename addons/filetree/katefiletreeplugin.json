@@ -39,7 +39,6 @@
         "Description[tr]": "Açık belgeleri bir dosya ağacında görüntüler",
         "Description[uk]": "Показує відкриті документи у ієрархії файлів",
         "Description[vi]": "Hiển thị các tài liệu đang mở trong một cây tệp",
-        "Description[x-test]": "xxDisplays the open documents in a file treexx",
         "Description[zh_CN]": "在文件树中显示打开的文档",
         "Description[zh_TW]": "以檔案樹狀圖顯示開啟的文件",
         "Name": "Documents Tree",
@@ -78,7 +77,6 @@
         "Name[tr]": "Belgeler Ağacı",
         "Name[uk]": "Ієрархія документів",
         "Name[vi]": "Cây tài liệu",
-        "Name[x-test]": "xxDocuments Treexx",
         "Name[zh_CN]": "文档树",
         "Name[zh_TW]": "文件樹狀圖"
     }

@@ -23,7 +23,6 @@
         "Description[sv]": "Visa och navigera i bokmärken",
         "Description[tr]": "Yer imlerini görüntüleyin ve onlara bakın",
         "Description[uk]": "Показ закладок і навігація ними",
-        "Description[x-test]": "xxDisplay and navigate bookmarksxx",
         "Description[zh_CN]": "显示和导航书签",
         "Description[zh_TW]": "顯示並瀏覽書籤",
         "Name": "Bookmarks",
@@ -50,7 +49,6 @@
         "Name[sv]": "Bokmärken",
         "Name[tr]": "Yer İmleri",
         "Name[uk]": "Закладки",
-        "Name[x-test]": "xxBookmarksxx",
         "Name[zh_CN]": "书签",
         "Name[zh_TW]": "書籤"
     }

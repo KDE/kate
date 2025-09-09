@@ -37,7 +37,6 @@
         "Description[tr]": "XML ögelerini, özniteliklerini, öznitelik değerlerini ve DTD tarafından izin verilen varlıkları listeler",
         "Description[uk]": "Список елементів XML, атрибути, значення атрибутів і об’єктів дозволених DTD",
         "Description[vi]": "Liệt kê các phần tử, thuộc tính, giá trị thuộc tính và các thực thể XML được DTD cho phép",
-        "Description[x-test]": "xxLists XML elements, attributes, attribute values and entities allowed by DTDxx",
         "Description[zh_CN]": "显示 DTD 允许的 XML 元素、属性、属性值和实体列表",
         "Description[zh_TW]": "列出 DTD 允許的 XML 元素、屬性、屬性值與實體",
         "Name": "XML Completion",
@@ -79,7 +78,6 @@
         "Name[tr]": "XML Tamamlama",
         "Name[uk]": "Завершення XML",
         "Name[vi]": "Hoàn tất XML",
-        "Name[x-test]": "xxXML Completionxx",
         "Name[zh_CN]": "XML 代码补全",
         "Name[zh_TW]": "XML 補完"
     }

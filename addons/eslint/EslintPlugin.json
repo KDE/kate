@@ -35,7 +35,6 @@
         "Description[tr]": "Geçerli dosyada ESLint’i çalıştırır",
         "Description[uk]": "Запустити ESLint для поточного файла",
         "Description[vi]": "Chạy ESLint cho tệp hiện tại",
-        "Description[x-test]": "xxRuns ESLint on current filexx",
         "Description[zh_CN]": "在当前文件运行 ESLint",
         "Description[zh_TW]": "為目前檔案執行 ESLint",
         "Name": "ESLint",
@@ -74,7 +73,6 @@
         "Name[tr]": "ESLint",
         "Name[uk]": "ESLint",
         "Name[vi]": "ESLint",
-        "Name[x-test]": "xxESLintxx",
         "Name[zh_CN]": "ESLint",
         "Name[zh_TW]": "ESLint"
     }

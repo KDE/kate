@@ -38,7 +38,6 @@
         "Description[tr]": "Projelerde, klasörlerde ve belgelerde bul ve değiştir",
         "Description[uk]": "Пошук з заміною у відкритих документах,теках або проєктах",
         "Description[vi]": "Tìm kiếm và thay thế trong tài liệu, thư mục, hay dự án",
-        "Description[x-test]": "xxSearch and replace in documents, folders, or projectsxx",
         "Description[zh_CN]": "在文档、文件夹或项目中查找内容并替换",
         "Description[zh_TW]": "在文件、資料夾或專案中進行搜尋與取代",
         "Name": "Search & Replace",
@@ -80,7 +79,6 @@
         "Name[tr]": "Ara ve Değiştir",
         "Name[uk]": "Пошук з заміною",
         "Name[vi]": "Tìm kiếm & thay thế",
-        "Name[x-test]": "xxSearch & Replacexx",
         "Name[zh_CN]": "搜索和替换",
         "Name[zh_TW]": "搜尋與取代"
     }

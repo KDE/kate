@@ -32,7 +32,6 @@
         "Description[sv]": "Bygg, tolka utmatning och kör program",
         "Description[tr]": "Uygulamaları yap, çıktıyı ayrıştır ve uygulamaları çalıştır",
         "Description[uk]": "Збирає, обробляє виведені дані і запускає програми",
-        "Description[x-test]": "xxBuild, parse output and run applicationsxx",
         "Description[zh_CN]": "构建，解析输出并运行应用程序",
         "Description[zh_TW]": "編譯、剖析輸出、執行應用程式",
         "Name": "Build & Run",
@@ -68,7 +67,6 @@
         "Name[ta]": "இரும‍மாக்கி இயக்கு",
         "Name[tr]": "Yap ve Çalıştır",
         "Name[uk]": "Зібрати і запустити",
-        "Name[x-test]": "xxBuild & Runxx",
         "Name[zh_CN]": "构建并运行",
         "Name[zh_TW]": "編譯與執行"
     }

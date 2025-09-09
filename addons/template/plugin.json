@@ -28,7 +28,6 @@
         "Description[ta]": "திட்டப்பணிகளுக்கும் கோப்புகளுக்குமான வார்ப்புருகள்",
         "Description[tr]": "Proje ve dosya şablonları",
         "Description[uk]": "Шаблони проєктів і файлів",
-        "Description[x-test]": "xxProject and file templatesxx",
         "Description[zh_CN]": "项目和文件模板",
         "Description[zh_TW]": "專案與檔案樣本",
         "Name": "File Templates",
@@ -60,7 +59,6 @@
         "Name[ta]": "கோப்பு வார்ப்புருகள்",
         "Name[tr]": "Dosya Şablonları",
         "Name[uk]": "Шаблони файлів",
-        "Name[x-test]": "xxFile Templatesxx",
         "Name[zh_CN]": "文件模板",
         "Name[zh_TW]": "檔案樣本"
     }

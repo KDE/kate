@@ -39,7 +39,6 @@
         "Description[tr]": "Aynı yol veya dosya uzantısı temelli belge grubunu kapat",
         "Description[uk]": "Закриває групу документів, які зберігаються у одному каталозі або мають однаковий суфікс назви.",
         "Description[vi]": "Đóng một nhóm các tài liệu dựa trên một đường dẫn hoặc phần mở rộng tệp chung",
-        "Description[x-test]": "xxClose group of documents based on a common path or file extensionxx",
         "Description[zh_CN]": "根据路径或文件扩展名关闭一组文档",
         "Description[zh_TW]": "依共同的路徑或副檔名關閉一群文件",
         "Name": "Close Except/Like",
@@ -79,7 +78,6 @@
         "Name[tr]": "Dışındakileri/Benzerleri Kapat",
         "Name[uk]": "Додаток закриття за критерієм",
         "Name[vi]": "Đóng ngoại trừ / theo kiểu",
-        "Name[x-test]": "xxClose Except/Likexx",
         "Name[zh_CN]": "批量关闭",
         "Name[zh_TW]": "關閉「例外/喜歡」"
     },

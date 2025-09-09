@@ -36,7 +36,6 @@
         "Description[tr]": "KDE’nin Konsole araç takımını kullanarak elinizin altında bir uçbirim bulundurun",
         "Description[uk]": "Термінал на основі віджета Konsole KDE",
         "Description[vi]": "Có một trình dòng lệnh luôn sẵn sàng, với phụ kiện Konsole của KDE",
-        "Description[x-test]": "xxHave a terminal at the ready, using KDE's Konsole widgetxx",
         "Description[zh_CN]": "随处均可调用的命令行终端，基于 KDE 的 Konsole 部件构建。",
         "Description[zh_TW]": "用 KDE 的 Konsole 元件來提供一個隨時可用的終端機",
         "Name": "Terminal",
@@ -75,7 +74,6 @@
         "Name[tr]": "Uçbirim",
         "Name[uk]": "Термінал",
         "Name[vi]": "Dòng lệnh",
-        "Name[x-test]": "xxTerminalxx",
         "Name[zh_CN]": "终端",
         "Name[zh_TW]": "終端機"
     }

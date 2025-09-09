@@ -38,7 +38,6 @@
         "Description[tr]": "Dosya sistemi tarayıcısı araç görünümü",
         "Description[uk]": "Панель навігатора файловою системою",
         "Description[vi]": "Khung xem công cụ \"trình duyệt hệ thống tệp\"",
-        "Description[x-test]": "xxFile system browser tool viewxx",
         "Description[zh_CN]": "文件系统浏览器工具视图",
         "Description[zh_TW]": "檔案系統瀏覽器工作檢視",
         "Name": "File System Browser",
@@ -80,7 +79,6 @@
         "Name[tr]": "Dosya Sistemi Tarayıcısı",
         "Name[uk]": "Навігатор файловою системою",
         "Name[vi]": "Trình duyệt hệ thống tệp",
-        "Name[x-test]": "xxFile System Browserxx",
         "Name[zh_CN]": "文件系统浏览器",
         "Name[zh_TW]": "檔案系統瀏覽器"
     }

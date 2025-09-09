@@ -38,7 +38,6 @@
         "Description[tr]": "C/C++ kodu için oluşturulmuş ASM görüntüleyin",
         "Description[uk]": "Перегляд створеного коду асемблера для коду C/C++",
         "Description[vi]": "Xem hợp ngữ được sinh cho mã C/C++",
-        "Description[x-test]": "xxView generated asm for C/C++ codexx",
         "Description[zh_CN]": "查看 C/C++ 代码生成的 asm",
         "Description[zh_TW]": "檢視 C/C++ 程式碼產生的組合語言",
         "Name": "Compiler Explorer",
@@ -78,7 +77,6 @@
         "Name[tr]": "Derleyici Gezgini",
         "Name[uk]": "Засіб аналізу компілятора",
         "Name[vi]": "Trình khảo sát trình biên dịch",
-        "Name[x-test]": "xxCompiler Explorerxx",
         "Name[zh_CN]": "编译器浏览器",
         "Name[zh_TW]": "編譯器探索工具"
     }

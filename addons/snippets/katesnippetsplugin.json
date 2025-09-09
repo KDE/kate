@@ -24,7 +24,6 @@
         "Description[sv]": "Skapa eller ladda ner kodsnuttar och editorskript.",
         "Description[tr]": "Kod parçacıkları ve düzenleyici betikleri oluşturun veya indirin",
         "Description[uk]": "Створення і отримання фрагментів коду та скриптів редактора",
-        "Description[x-test]": "xxCreate or download code snippets and editor scriptsxx",
         "Description[zh_CN]": "创建或下载代码片段和编辑脚本",
         "Description[zh_TW]": "建立或下載程式碼片段與編輯器文稿",
         "Icon": "document-new",
@@ -52,7 +51,6 @@
         "Name[sv]": "Skript och textsnuttar",
         "Name[tr]": "Betikler ve Parçacıklar",
         "Name[uk]": "Скрипти і фрагменти",
-        "Name[x-test]": "xxScripts & Snippetsxx",
         "Name[zh_CN]": "脚本和代码片段",
         "Name[zh_TW]": "文稿與片段"
     },

@@ -39,7 +39,6 @@
         "Description[tr]": "Metni uçbirim komutları kullanarak işleyin",
         "Description[uk]": "Обробити текст за допомогою команд термінала",
         "Description[vi]": "Xử lí văn bản bằng các lệnh trong trình dòng lệnh",
-        "Description[x-test]": "xxProcess text using terminal commandsxx",
         "Description[zh_CN]": "使用终端命令处理文本",
         "Description[zh_TW]": "用終端機指令處理文字",
         "Name": "Text Filter",
@@ -81,7 +80,6 @@
         "Name[tr]": "Metin Süzgeci",
         "Name[uk]": "Фільтр тексту",
         "Name[vi]": "Bộ lọc văn bản",
-        "Name[x-test]": "xxText Filterxx",
         "Name[zh_CN]": "文本过滤器",
         "Name[zh_TW]": "文字過濾器"
     }

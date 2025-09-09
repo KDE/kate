@@ -25,7 +25,6 @@
         "Description[sv]": "Kodkomplettering för CMake-filer",
         "Description[tr]": "CMake dosyaları için kod tamamlama",
         "Description[uk]": "Автодоповнення коду для файлів CMake",
-        "Description[x-test]": "xxCode completion for CMake filesxx",
         "Description[zh_CN]": "CMake 文件的代码补全",
         "Description[zh_TW]": "CMake 檔案用的程式碼補完",
         "Name": "CMake Completion",
@@ -54,7 +53,6 @@
         "Name[sv]": "CMake-komplettering",
         "Name[tr]": "CMake Tamamlama",
         "Name[uk]": "Автодоповнення CMake",
-        "Name[x-test]": "xxCMake Completionxx",
         "Name[zh_CN]": "CMake 代码补全",
         "Name[zh_TW]": "CMake 補完"
     }

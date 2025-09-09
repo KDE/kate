@@ -39,7 +39,6 @@
         "Description[tr]": "XML dosyalarını xmllint kullanarak doğrular",
         "Description[uk]": "Перевіряє файли XML за допомогою xmllint",
         "Description[vi]": "Kiểm nhận các tệp XML bằng xmllint",
-        "Description[x-test]": "xxValidates XML files using xmllintxx",
         "Description[zh_CN]": "使用 xmllint 校验 XML 文件",
         "Description[zh_TW]": "用 xmllint 檢驗 XML 檔案",
         "Name": "XML Validation",
@@ -81,7 +80,6 @@
         "Name[tr]": "XML Doğrulama",
         "Name[uk]": "Перевірка XML",
         "Name[vi]": "Kiểm nhận XML",
-        "Name[x-test]": "xxXML Validationxx",
         "Name[zh_CN]": "XML 验证",
         "Name[zh_TW]": "XML 檢驗"
     }

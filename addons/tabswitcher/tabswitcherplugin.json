@@ -38,7 +38,6 @@
         "Description[tr]": "Seçenek+Sekme davranışı ile tez belge değiştirme",
         "Description[uk]": "Поведінка швидкого перемикача між документами за Alt+Tab",
         "Description[vi]": "Chuyển tài liệu nhanh với hành vi theo kiểu Alt+Tab",
-        "Description[x-test]": "xxQuick document switching with Alt+Tab behaviorxx",
         "Description[zh_CN]": "使用 Alt+Tab 快速切换文档",
         "Description[zh_TW]": "行為如同 Alt+Tab 的快速文件切換",
         "Name": "Document Switcher",
@@ -80,7 +79,6 @@
         "Name[tr]": "Belge Değiştiricisi",
         "Name[uk]": "Перемикач між документами",
         "Name[vi]": "Trình chuyển tài liệu",
-        "Name[x-test]": "xxDocument Switcherxx",
         "Name[zh_CN]": "文档切换器",
         "Name[zh_TW]": "文件切換器"
     }

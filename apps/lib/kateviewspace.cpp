@@ -1129,17 +1129,43 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     auto docOrWidget = m_tabBar->tabDocument(tabIndex);
     auto activeView = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
     auto activeDocument = activeView ? activeView->document() : nullptr; // used for compareUsing which is used with another
-    if (!docOrWidget.doc()) {
-        // This tab is holding some other widget
-        // Show only "close tab" for now
-        // maybe later allow adding context menu entries from the widgets
-        // if needed
-        auto aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("Close Tab"));
-        connect(aCloseTab, &QAction::triggered, this, [this, tabIndex] {
-            QTimer::singleShot(0, this, [this, tabIndex]() {
-                closeTabRequest(tabIndex);
-            });
+
+    auto aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Tab"));
+    connect(aCloseTab, &QAction::triggered, this, [this, tabIndex] {
+        QTimer::singleShot(0, this, [this, tabIndex]() {
+            closeTabRequest(tabIndex);
         });
+    });
+
+    QAction *aCloseOtherTabs = menu.addAction(i18n("Close &Other Tabs"));
+    aCloseOtherTabs->setEnabled(m_tabBar->documentList().size() > 1);
+    connect(aCloseOtherTabs, &QAction::triggered, this, [this, docOrWidget] {
+        QTimer::singleShot(0, this, [this, docOrWidget]() {
+            for (auto otherDocOrWidget : m_tabBar->documentList()) {
+                if (otherDocOrWidget != docOrWidget) {
+                    int idx = m_tabBar->documentIdx(otherDocOrWidget);
+                    closeTabRequest(idx);
+                }
+            }
+        });
+    });
+
+    auto aCloseAllTabs = menu.addAction(i18n("Close All &Tabs"));
+    aCloseAllTabs->setEnabled(m_tabBar->documentList().size() > 1);
+    connect(aCloseAllTabs, &QAction::triggered, this, [this] {
+        QTimer::singleShot(0, this, [this]() {
+            for (auto docOrWidget : m_tabBar->documentList()) {
+                int idx = m_tabBar->documentIdx(docOrWidget);
+                closeTabRequest(idx);
+            }
+        });
+    });
+
+    menu.addSeparator();
+
+    if (!docOrWidget.doc()) {
+        // This tab is holding a widget
+        // Widget menu entries can be added here
         return;
     }
     auto *doc = docOrWidget.doc();
@@ -1150,26 +1176,6 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
         connect(newAction, &QAction::triggered, action, &QAction::trigger, connType);
         return newAction;
     };
-
-    QAction *aCloseTab = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close")), i18n("&Close Document"));
-    connect(aCloseTab, &QAction::triggered, this, [this, tabIndex] {
-        QTimer::singleShot(0, this, [this, tabIndex]() {
-            closeTabRequest(tabIndex);
-        });
-    });
-
-    QAction *aCloseOthers = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-other")), i18n("Close Other &Documents"));
-    auto onCloseOthers = [doc] {
-        KateApp::self()->documentManager()->closeOtherDocuments(doc);
-    };
-    connect(aCloseOthers, &QAction::triggered, this, onCloseOthers);
-
-    QAction *aCloseAll = menu.addAction(QIcon::fromTheme(QStringLiteral("tab-close-all")), i18n("Close &All Documents"));
-    connect(aCloseAll, &QAction::triggered, this, [this] {
-        QTimer::singleShot(0, this, []() {
-            KateApp::self()->documentManager()->closeAllDocuments();
-        });
-    });
 
     menu.addAction(m_viewManager->mainWindow()->actionCollection()->action(QStringLiteral("reopen_latest_closed_document")));
     menu.addSeparator();
@@ -1218,9 +1224,6 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
             KateApp::self()->documentManager()->togglePinDocument(doc);
         });
     }
-
-    // if we have other documents, allow to close them
-    aCloseOthers->setEnabled(KateApp::self()->documentManager()->documentList().size() > 1);
 
     // make it feasible to detach tabs if we have more then one
     aDetachTab->setEnabled(m_tabBar->count() > 1);

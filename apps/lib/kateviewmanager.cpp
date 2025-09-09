@@ -414,8 +414,13 @@ void KateViewManager::slotDocumentClose(KTextEditor::Document *document)
     // keep recent used files up to date
     mainWindow()->addRecentOpenedFile(url);
 
+    int docOrWidgetCount = 0;
+    for (auto vs : m_viewSpaceList) {
+        docOrWidgetCount += vs->numberOfRegisteredDocuments();
+    }
+
     // we might need to close the app or show the welcome page
-    if (KateApp::self()->documentManager()->documentList().isEmpty()) {
+    if (docOrWidgetCount == 0) {
         // Close window if specified
         if (m_mainWindow->modCloseAfterLast()) {
             KateApp::self()->shutdownKate(m_mainWindow);

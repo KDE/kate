@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-09-11 00:45+0000\n"
 "PO-Revision-Date: 2025-02-14 08:54+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -290,7 +290,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:507
+#: search.ui:195 SearchPlugin.cpp:511
 #, kde-format
 msgid "Replace"
 msgstr "Remplacer"
@@ -611,121 +611,127 @@ msgstr ""
 "du document actuel vers le presse-papier."
 
 #: SearchPlugin.cpp:394
-#, kde-format
-msgid ""
-"Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, fuzzy, kde-format
+#| msgid ""
+#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
 "Liste séparée par des virgules, des types de fichiers dans lesquels "
 "effectuer une recherche. Exemple : « *.cpp,*.h »\n"
 
-#: SearchPlugin.cpp:395
-#, kde-format
+#: SearchPlugin.cpp:396
+#, fuzzy, kde-format
+#| msgid ""
+#| "Comma separated list of files and directories to exclude from the search. "
+#| "Example: \"build*\""
 msgid ""
-"Comma separated list of files and directories to exclude from the search. "
-"Example: \"build*\""
+"Comma separated list of wildcard patterns to match files or directory names "
+"to exclude from the search.\n"
+"Example: \"build*\"\n"
+"If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
 "Liste séparée par des virgules, des fichiers et des dossiers à exclure de la "
 "recherche. Exemple : « build* »"
 
-#: SearchPlugin.cpp:397
+#: SearchPlugin.cpp:401
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Cliquez pour filtrer les résultats"
 
-#: SearchPlugin.cpp:487
+#: SearchPlugin.cpp:491
 #, kde-format
 msgid "Find"
 msgstr "Chercher"
 
-#: SearchPlugin.cpp:1169
+#: SearchPlugin.cpp:1173
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 "La recherche n'a pas été affichée car le répertoire « %1 » dans lequel  doit "
 "s'effectuer la recherche n'existe pas."
 
-#: SearchPlugin.cpp:1342
+#: SearchPlugin.cpp:1346
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "La recherche instantanée a été interrompue. Elle aurait pris trop de temps."
 
-#: SearchPlugin.cpp:1675
+#: SearchPlugin.cpp:1679
 #, kde-format
 msgid "Search Match"
 msgstr "Rechercher une correspondance"
 
-#: SearchPlugin.cpp:1852 SearchPlugin.cpp:1928
+#: SearchPlugin.cpp:1856 SearchPlugin.cpp:1932
 #, kde-format
 msgid "Next from cursor"
 msgstr "Suivant à partir du curseur"
 
-#: SearchPlugin.cpp:1869
+#: SearchPlugin.cpp:1873
 #, kde-format
 msgid "Starting from first match"
 msgstr "Continuer à partir de la première correspondance"
 
-#: SearchPlugin.cpp:1889
+#: SearchPlugin.cpp:1893
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Continuer depuis la première correspondance"
 
-#: SearchPlugin.cpp:1945
+#: SearchPlugin.cpp:1949
 #, kde-format
 msgid "Starting from last match"
 msgstr "Démarrage à partir de la première correspondance"
 
-#: SearchPlugin.cpp:1965
+#: SearchPlugin.cpp:1969
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Continuer depuis la dernière correspondance"
 
-#: SearchPlugin.cpp:2126
+#: SearchPlugin.cpp:2130
 #, kde-format
 msgid "Search: %1"
 msgstr "Rechercher : %1"
 
-#: SearchPlugin.cpp:2269
+#: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy all"
 msgstr "Tout copier"
 
-#: SearchPlugin.cpp:2274
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy expanded"
 msgstr "Copier de façon élargie"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Export matches"
 msgstr "Exporter les correspondances"
 
-#: SearchPlugin.cpp:2282
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Ouvrir comme un onglet d'éditeur"
 
-#: SearchPlugin.cpp:2290
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Clear"
 msgstr "Effacer"
 
-#: SearchPlugin.cpp:2400 SearchPlugin.cpp:2434
+#: SearchPlugin.cpp:2404 SearchPlugin.cpp:2438
 #, kde-format
 msgid "Add..."
 msgstr "Ajouter..."
 
-#: SearchPlugin.cpp:2412
+#: SearchPlugin.cpp:2416
 #, kde-format
 msgid "Search As You Type"
 msgstr "Rechercher pendant votre saisie"
 
-#: SearchPlugin.cpp:2483
+#: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In Current Project"
 msgstr "Dans le projet en cours"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Dans tous les projets ouverts"

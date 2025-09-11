@@ -39,55 +39,54 @@
 #include <KTextEditor/MainWindow>
 
 struct Commit {
-    QByteArray hash;
-    QString authorName;
-    QString email;
+    QStringView hash;
+    QStringView authorName;
+    QStringView email;
     qint64 authorDate;
     qint64 commitDate;
-    QByteArray parentHash;
-    QString msg;
-    QByteArray fileName;
+    QStringView parentHash;
+    QStringView msg;
+    QStringView fileName;
 };
 
-static std::vector<Commit> parseCommits(const QByteArray &raw)
+static std::vector<Commit> parseCommits(const QString &raw)
 {
     std::vector<Commit> commits;
 
-    const auto splitted = ByteArraySplitter(raw, '\0');
+    const auto splitted = QStringTokenizer(raw, u'\0');
     for (auto it = splitted.begin(); it != splitted.end(); ++it) {
-        const auto commitDetails = *it;
+        const QStringView commitDetails = *it;
         if (commitDetails.empty()) {
             continue;
         }
 
-        const auto lines = ByteArraySplitter(commitDetails, '\n').toContainer<QVarLengthArray<strview, 7>>();
+        const auto lines = QStringTokenizer(commitDetails, u'\n').toContainer<QVarLengthArray<QStringView, 7>>();
         if (lines.length() < 7) {
             continue;
         }
 
-        QByteArray hash = lines.at(0).toByteArray();
-        QString author = lines.at(1).toString();
-        QString email = lines.at(2).toString();
+        QStringView hash = lines.at(0);
+        QStringView author = lines.at(1);
+        QStringView email = lines.at(2);
 
-        std::optional<long long> authDate = lines.at(3).to<qint64>();
-        if (!authDate.has_value()) {
+        bool ok = false;
+        qint64 authorDate = lines.at(3).toLongLong(&ok);
+        if (!ok) {
             continue;
         }
-        qint64 authorDate = authDate.value();
 
-        std::optional<long long> commtDate = lines.at(4).to<qint64>();
-        if (!commtDate.has_value()) {
+        qint64 commitDate = lines.at(4).toLongLong(&ok);
+        if (!ok) {
             continue;
         }
-        qint64 commitDate = commtDate.value();
 
-        QByteArray parent = lines.at(5).toByteArray();
-        QString msg = lines.at(6).toString();
+        QStringView parent = lines.at(5);
+        QStringView msg = lines.at(6);
 
-        QByteArray file;
+        QStringView file;
         ++it;
         if (it != splitted.end()) {
-            file = (*it).toByteArray().trimmed();
+            file = (*it).trimmed();
         }
 
         Commit c{.hash = hash,
@@ -98,7 +97,7 @@ static std::vector<Commit> parseCommits(const QByteArray &raw)
                  .parentHash = parent,
                  .msg = msg,
                  .fileName = file};
-        commits.push_back(std::move(c));
+        commits.push_back(c);
     }
 
     return commits;
@@ -151,8 +150,15 @@ public:
         return m_rows[row];
     }
 
+    QString &appendData(const QString &newData)
+    {
+        m_data.push_back(newData);
+        return m_data.back();
+    }
+
 private:
     std::vector<Commit> m_rows;
+    std::vector<QString> m_data;
 };
 
 struct Filter {
@@ -332,12 +338,17 @@ public:
             secondaryColor = primaryColor;
         }
 
+        const QString authorName = QString::fromRawData(commit.authorName.data(), commit.authorName.size());
+        const QStringView shortHash = commit.hash.left(7);
+        const QString hash = QString::fromRawData(shortHash.data(), shortHash.size());
+        const QString msg = QString::fromRawData(commit.msg.data(), commit.msg.size());
+
         // draw author on left
         QFont f = opt.font;
         f.setBold(true);
         painter->setFont(f);
         painter->setPen(primaryColor);
-        painter->drawText(prect, Qt::AlignLeft, commit.authorName);
+        painter->drawText(prect, Qt::AlignLeft, authorName);
         painter->setFont(opt.font);
 
         // draw author date on right
@@ -351,12 +362,12 @@ public:
         auto fg = painter->pen();
         painter->setPen(secondaryColor);
         prect.setY(prect.y() + fm.height() + LineHeight);
-        painter->drawText(prect, Qt::AlignLeft, QString::fromUtf8(commit.hash.left(7)));
+        painter->drawText(prect, Qt::AlignLeft, hash);
         painter->setPen(fg);
 
         // draw msg
         prect.setY(prect.y() + fm.height() + LineHeight);
-        QString elidedMsg = opt.fontMetrics.elidedText(commit.msg, Qt::ElideRight, prect.width());
+        QString elidedMsg = opt.fontMetrics.elidedText(msg, Qt::ElideRight, prect.width());
         painter->drawText(prect, Qt::AlignLeft, elidedMsg);
 
         // draw separator
@@ -516,10 +527,12 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     }
 
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
-        std::vector<Commit> commits = parseCommits(m_git.readAllStandardOutput());
+        auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
+        auto model = static_cast<CommitListModel *>(proxy->sourceModel());
+        QString data = QString::fromUtf8(m_git.readAllStandardOutput());
+        std::vector<Commit> commits = parseCommits(model->appendData(data));
         if (!commits.empty()) {
-            auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
-            static_cast<CommitListModel *>(proxy->sourceModel())->addCommits(std::move(commits));
+            model->addCommits(std::move(commits));
         }
     });
 
@@ -540,7 +553,7 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
         const auto index = m_listView.indexAt(pos);
         const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
         if (!commit.hash.isEmpty()) {
-            qApp->clipboard()->setText(QString::fromLatin1(commit.hash));
+            qApp->clipboard()->setText(commit.hash.toString());
         }
     });
 
@@ -548,7 +561,7 @@ void FileHistoryWidget::onContextMenu(QPoint pos)
         const auto index = m_listView.indexAt(pos);
         const auto commit = index.data(CommitListModel::CommitRole).value<Commit>();
         if (!commit.hash.isEmpty()) {
-            const QString hash = QString::fromLatin1(commit.hash);
+            const QString hash = commit.hash.toString();
             CommitView::openCommit(hash, m_file, m_mainWindow);
         }
     });
@@ -623,8 +636,8 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
     QProcess git;
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
-    const QString file = QString::fromUtf8(commit.fileName);
-    const QStringList arguments{QStringLiteral("show"), QString::fromLatin1(commit.hash), QStringLiteral("--"), file};
+    const QString file = commit.fileName.toString();
+    const QStringList arguments{QStringLiteral("show"), commit.hash.toString(), QStringLiteral("--"), file};
 
     if (!setupGitProcess(git, m_gitDir, arguments)) {
         return;
@@ -638,7 +651,7 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
         const QByteArray contents(git.readAllStandardOutput());
 
         DiffParams d;
-        const QString shortCommit = QString::fromUtf8(commit.hash.mid(0, 7));
+        const QString shortCommit = commit.hash.mid(0, 7).toString();
         d.tabTitle = QStringLiteral("%1[%2]").arg(Utils::fileNameFromPath(m_file), shortCommit);
         d.flags.setFlag(DiffParams::ShowCommitInfo);
         d.flags.setFlag(DiffParams::ShowFullContext);

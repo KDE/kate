@@ -23,9 +23,8 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
 
+#include "doc_or_widget.h"
 #include "ktexteditor_utils.h"
-
-#include <variant>
 
 static constexpr int MaxHistoryItems = 10;
 
@@ -121,7 +120,7 @@ private:
 
     QString m_display;
     QIcon m_icon;
-    std::variant<KTextEditor::Document *, QWidget *> m_object;
+    DocOrWidget m_object;
     QString m_host;
 
 protected:
@@ -329,16 +328,12 @@ void ProxyItem::setWidget(QWidget *w)
 
 QWidget *ProxyItem::widget() const
 {
-    if (!std::holds_alternative<QWidget *>(m_object))
-        return nullptr;
-    return std::get<QWidget *>(m_object);
+    return m_object.widget();
 }
 
 KTextEditor::Document *ProxyItem::doc() const
 {
-    if (!std::holds_alternative<KTextEditor::Document *>(m_object))
-        return nullptr;
-    return std::get<KTextEditor::Document *>(m_object);
+    return m_object.doc();
 }
 
 QList<KTextEditor::Document *> ProxyItem::docTree() const

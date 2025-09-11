@@ -30,7 +30,7 @@
 #include <QVariant>
 #include <QtMath>
 
-static bool isUncomittedLine(const QByteArray &hash)
+static bool isUncomittedLine(QByteArrayView hash)
 {
     return hash == "hash" || hash == "0000000000000000000000000000000000000000";
 }
@@ -280,6 +280,7 @@ void KateGitBlamePluginView::startBlameProcess(const QUrl &url)
     m_absoluteFilePath = fi.absoluteFilePath();
 
     // clear everything
+    m_rawCommitData.clear();
     m_blamedLines.clear();
     m_blameInfoForHash.clear();
 
@@ -317,16 +318,16 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
     startShowProcess(view->document()->url(), hash);
 }
 
-static int nextBlockStart(const QByteArray &out, int from)
+static int nextBlockStart(QByteArrayView rawData, int from)
 {
-    int next = out.indexOf('\t', from);
+    int next = rawData.indexOf('\t', from);
     // tab must be the first character in line for next block
-    if (next > 0 && out[next - 1] != '\n') {
+    if (next > 0 && rawData[next - 1] != '\n') {
         next++;
         // move forward one line
-        next = out.indexOf('\n', next);
+        next = rawData.indexOf('\n', next);
         // try to look for another tab char
-        next = out.indexOf('\t', next);
+        next = rawData.indexOf('\t', next);
         // if not found => end
     }
     return next;
@@ -389,9 +390,12 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
 
 void KateGitBlamePluginView::parseGitBlameStdOutput()
 {
-    QByteArray out = m_blameInfoProc.readAllStandardOutput();
-    out.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
+    // Save the data, everything else has views over this data
+    m_rawCommitData = m_blameInfoProc.readAllStandardOutput();
+    m_rawCommitData.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
     // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
+
+    QByteArrayView out = m_rawCommitData;
 
     /**
      * This is out git blame output parser.
@@ -426,7 +430,7 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
             printf("no proper hash\n");
             break;
         }
-        QByteArray hash = out.mid(start, pos - start);
+        QByteArrayView hash = out.mid(start, pos - start);
 
         // skip to line end,
         // we don't care about line no etc here

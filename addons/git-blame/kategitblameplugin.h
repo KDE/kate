@@ -31,15 +31,15 @@ enum class KateGitBlameMode {
 };
 
 struct CommitInfo {
-    QByteArray hash;
+    QByteArrayView hash;
     QString authorName;
     QDateTime authorDate;
-    QByteArray summary;
+    QByteArrayView summary;
 };
 
 struct BlamedLine {
-    QByteArray shortCommitHash;
-    QByteArray lineText;
+    QByteArrayView shortCommitHash;
+    QByteArrayView lineText;
 };
 
 class KateGitBlamePluginView;
@@ -121,8 +121,11 @@ private:
 
     QProcess m_blameInfoProc;
     QProcess m_showProc;
+
+    QByteArray m_rawCommitData;
     QHash<QByteArray, CommitInfo> m_blameInfoForHash;
     std::vector<BlamedLine> m_blamedLines;
+
     QPointer<KTextEditor::View> m_lastView;
     int m_lineOffset{0};
     GitBlameTooltip m_tooltip;

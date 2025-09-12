@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-09-12 00:46+0000\n"
 "PO-Revision-Date: 2025-08-29 20:48+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -362,14 +362,14 @@ msgstr "文件"
 msgid "Configure Documents"
 msgstr "設定文件"
 
-#: katefiletreemodel.cpp:504
+#: katefiletreemodel.cpp:499
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
 msgstr "已開啟元件"
 
-#: katefiletreemodel.cpp:655
+#: katefiletreemodel.cpp:650
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

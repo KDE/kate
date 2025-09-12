@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-21 00:46+0000\n"
+"POT-Creation-Date: 2025-09-12 00:46+0000\n"
 "PO-Revision-Date: 2019-10-29 20:19+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -370,7 +370,7 @@ msgstr "Dokumendid"
 msgid "Configure Documents"
 msgstr "Dokumentide seadistamine"
 
-#: katefiletreemodel.cpp:504
+#: katefiletreemodel.cpp:499
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
@@ -379,7 +379,7 @@ msgctxt ""
 msgid "Open Widgets"
 msgstr "Ava rakendusega"
 
-#: katefiletreemodel.cpp:655
+#: katefiletreemodel.cpp:650
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""

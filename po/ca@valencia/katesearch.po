@@ -3,21 +3,21 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025.
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2017, 2019, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-11 00:45+0000\n"
-"PO-Revision-Date: 2025-02-13 09:09+0100\n"
+"PO-Revision-Date: 2025-09-11 10:50+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -600,27 +600,24 @@ msgstr ""
 "actual a dins del porta-retalls"
 
 #: SearchPlugin.cpp:394
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
 "Llista dels tipus de fitxer que es buscaran, separats per comes. Exemple: «*."
-"cpp,*.h»\n"
+"cpp,*.h»"
 
 #: SearchPlugin.cpp:396
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Llista de fitxers i directoris que s'han d'excloure de la busca, separats "
-"per comes. Exemple: «build*»"
+"Llista separada per comes de patrons amb comodins per a buscar coincidències "
+"amb els noms de fitxer o directoris que s'exclouran de la busca.\n"
+"Exemple: «build*»\n"
+"Si el patró conté un «/», es comprova tot el camí buscant una coincidència."
 
 #: SearchPlugin.cpp:401
 #, kde-format

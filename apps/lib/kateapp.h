@@ -403,7 +403,7 @@ public Q_SLOTS:
     }
 
     /**
-     * last time some QEvent::ActivationChange occured, negated if no windows on the current active desktop
+     * last time some QEvent::ActivationChange occurred, negated if no windows on the current active desktop
      * used to determine which instance to reuse, if we have multiple
      */
     qint64 lastActivationChange() const;
@@ -502,7 +502,7 @@ private:
 #endif
 
     /**
-     * last time some QEvent::ActivationChange occured
+     * last time some QEvent::ActivationChange occurred
      * used to determine which instance to reuse, if we have multiple
      */
     qint64 m_lastActivationChange;

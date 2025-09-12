@@ -506,7 +506,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     if (!setupGitProcess(m_git,
                          m_gitDir,
                          {QStringLiteral("log"),
-                          QStringLiteral("--follow"), // get history accross renames
+                          QStringLiteral("--follow"), // get history across renames
                           QStringLiteral("--name-only"), // get file name also, it could be different if renamed
                           QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
                           QStringLiteral("-z"),

@@ -124,7 +124,7 @@ void KateConfigDialog::addBehaviorPage()
 
         auto label = new QLabel(buttonGroup);
         label->setText(
-            i18n("List of %1 seperated directories where Kate will look for programs to run. This list will be prepended to your PATH environment variable. "
+            i18n("List of %1 separated directories where Kate will look for programs to run. This list will be prepended to your PATH environment variable. "
                  "E.g '/home/USER/myapps/bin/:/home/USER/.local/bin'",
                  QDir::listSeparator()));
         label->setWordWrap(true);

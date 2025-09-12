@@ -129,7 +129,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &d
     dlgButtons->addButton(reloadButton, QDialogButtonBox::DestructiveRole);
     connect(reloadButton, &QPushButton::clicked, this, &KateMwModOnHdDialog::slotReload);
 
-    // butons will only be enabled when items are checked. see slotCheckedFilesChanged()
+    // buttons will only be enabled when items are checked. see slotCheckedFilesChanged()
     dlgButtons->setEnabled(false);
     slotCheckedFilesChanged(nullptr, 0);
 
@@ -250,7 +250,7 @@ void KateMwModOnHdDialog::slotCheckedFilesChanged(QTreeWidgetItem *, int column)
         }
     }
 
-    // no itmes checked, disable all buttons
+    // no items checked, disable all buttons
     dlgButtons->setEnabled(false);
 }
 

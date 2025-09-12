@@ -35,7 +35,7 @@ void UrlInfoTest::someCursors()
     QCOMPARE(UrlInfo(QStringLiteral("file:///directory/file?some=variable&column=5&other=value&line=6")).cursor, KTextEditor::Cursor(5, 4));
     QCOMPARE(UrlInfo(QStringLiteral("~/file?line=7")).url.hasQuery(), false);
 
-    // we shall not cut curors for remote stuff we don't check existance, see bug 487151
+    // we shall not cut curors for remote stuff we don't check existence, see bug 487151
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:100:1")).url.toString(), QStringLiteral("sftp://127.0.0.1:1234/path/to/file:100:1"));
     QCOMPARE(UrlInfo(QStringLiteral("sftp://127.0.0.1:1234/path/to/file:100:1")).cursor, KTextEditor::Cursor::invalid());
 }

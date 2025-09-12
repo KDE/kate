@@ -54,7 +54,7 @@ KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     // we don't allow full collapse, see bug 366014
     setChildrenCollapsible(false);
 
-    // important, set them up, as we use them in other methodes
+    // important, set them up, as we use them in other methods
     setupActions();
 
     auto *vs = new KateViewSpace(this, nullptr);
@@ -1712,7 +1712,7 @@ void KateViewManager::restoreViewConfiguration(const KConfigGroup &config)
         m_viewSpaceList.push_back(vs);
     } else {
         // remove any empty viewspaces
-        // use a copy, m_viewSpaceList wil be modified
+        // use a copy, m_viewSpaceList will be modified
         const std::vector<KateViewSpace *> copy = m_viewSpaceList;
         for (KateViewSpace *vs : copy) {
             if (vs->documentList().isEmpty()) {

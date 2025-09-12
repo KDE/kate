@@ -1204,7 +1204,7 @@ KateUrlBar::KateUrlBar(KateViewSpace *parent)
     , m_parentViewSpace(parent)
 {
     setContentsMargins({});
-    setFont(QApplication::font("QMenu")); // We wan't not the default system font
+    setFont(QApplication::font("QMenu")); // We don't want the default system font
     setFixedHeight(fontMetrics().height());
 
     setupLayout();

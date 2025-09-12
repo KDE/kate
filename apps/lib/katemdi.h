@@ -112,7 +112,7 @@ Q_SIGNALS:
     void tabButtonVisibleChanged(bool visible);
 
     /**
-     * some internal methodes needed by the main window and the sidebars
+     * some internal methods needed by the main window and the sidebars
      */
 protected:
     Sidebar *sidebar()

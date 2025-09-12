@@ -490,7 +490,7 @@ bool KateViewSpace::showView(DocOrWidget docOrWidget)
         if (!docOrWidget.widget()) {
             return false;
         } else if (docOrWidget.widget() && !m_registeredDocuments.contains(docOrWidget)) {
-            qWarning("Unexpected unregistred widget %p, please add it first", (void *)docOrWidget.widget());
+            qWarning("Unexpected unregistered widget %p, please add it first", (void *)docOrWidget.widget());
             return false;
         }
     }
@@ -1405,7 +1405,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // ensure we update the urlbar at least once
     m_urlBar->updateForDocument(currentView() ? currentView()->document() : nullptr);
 
-    m_group = groupname; // used for restroing view configs later
+    m_group = groupname; // used for restoring view configs later
 }
 
 void KateViewSpace::goBack()

@@ -548,7 +548,7 @@ void DiagnosticsView::onViewChanged(KTextEditor::View *v)
 void DiagnosticsView::registerDiagnosticsProvider(DiagnosticsProvider *provider)
 {
     if (std::find(m_providers.begin(), m_providers.end(), provider) != m_providers.end()) {
-        qWarning("already registred provider, ignoring!");
+        qWarning("already registered provider, ignoring!");
         return;
     }
 

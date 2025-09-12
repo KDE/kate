@@ -319,7 +319,7 @@ public:
     void replugActiveView();
 
     /**
-     * Toogle the orientation of current split view
+     * Toggle the orientation of current split view
      */
     void toggleSplitterOrientation();
 

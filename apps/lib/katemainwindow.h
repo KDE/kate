@@ -73,7 +73,7 @@ public:
     ~KateMainWindow() override;
 
     /**
-     * Accessor methodes for interface and child objects
+     * Accessor methods for interface and child objects
      */
 public:
     KateViewManager *viewManager()

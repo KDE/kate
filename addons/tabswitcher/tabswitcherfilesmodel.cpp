@@ -194,6 +194,9 @@ void detail::TabswitcherFilesModel::raiseDocument(DocOrWidget document)
 
 DocOrWidget detail::TabswitcherFilesModel::item(int row) const
 {
+    if (row < 0 || size_t(row) >= data_.size()) {
+        return DocOrWidget();
+    }
     return data_[row].document;
 }
 
@@ -203,20 +206,22 @@ void detail::TabswitcherFilesModel::updateItems()
     Q_EMIT dataChanged(createIndex(0, 0), createIndex((int)data_.size() - 1, 1), {});
 }
 
-int detail::TabswitcherFilesModel::columnCount(const QModelIndex &parent) const
+int detail::TabswitcherFilesModel::columnCount(const QModelIndex &) const
 {
-    Q_UNUSED(parent);
     return 2;
 }
 
-int detail::TabswitcherFilesModel::rowCount(const QModelIndex &parent) const
+int detail::TabswitcherFilesModel::rowCount(const QModelIndex &) const
 {
-    Q_UNUSED(parent);
     return (int)data_.size();
 }
 
 QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role) const
 {
+    if (!index.isValid() || index.row() < 0 || size_t(index.row()) >= data_.size()) {
+        return QVariant();
+    }
+
     if (role == Qt::DisplayRole) {
         const auto &row = data_[index.row()];
         if (index.column() == 0) {

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-27 00:46+0000\n"
+"POT-Creation-Date: 2025-09-13 00:52+0000\n"
 "PO-Revision-Date: 2022-05-06 00:22+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -44,17 +44,17 @@ msgstr "Git Blame 자세한 정보 표시"
 msgid "Toggle Git Blame Details"
 msgstr "Git Blame 자세한 정보 전환"
 
-#: kategitblameplugin.cpp:337
+#: kategitblameplugin.cpp:338
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:518
+#: kategitblameplugin.cpp:522
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame, show commit이 실패했습니다."
 
-#: kategitblameplugin.cpp:611
+#: kategitblameplugin.cpp:615
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "아직 커밋하지 않음"

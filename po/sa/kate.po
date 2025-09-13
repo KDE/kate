@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-09-13 00:52+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -162,7 +162,7 @@ msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
@@ -172,7 +172,7 @@ msgstr "गिट्"
 msgid "Invalid hash"
 msgstr "अमान्य हैश"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 git repo मध्ये नास्ति ।."
@@ -337,7 +337,7 @@ msgstr "दोषाः"
 msgid "Warnings"
 msgstr "चेतावनी"
 
-#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:450
+#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -564,14 +564,14 @@ msgstr "%1 सञ्चिका विलोपिता"
 msgid "No differences found"
 msgstr "न भेदाः लब्धाः"
 
-#: lib/filehistorywidget.cpp:241
+#: lib/filehistorywidget.cpp:247
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "अमान्य हैश"
 
-#: lib/filehistorywidget.cpp:458
+#: lib/filehistorywidget.cpp:469
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -588,29 +588,29 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:514
+#: lib/filehistorywidget.cpp:525
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "सञ्चिका-इतिहासं प्राप्तुं असफलम्: git executable PATH मध्ये न प्राप्तम्"
 
-#: lib/filehistorywidget.cpp:528
+#: lib/filehistorywidget.cpp:541
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "सञ्चिका-इतिहासं प्राप्तुं असफलम्: %1"
 
-#: lib/filehistorywidget.cpp:539
+#: lib/filehistorywidget.cpp:552
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "प्रतिबद्ध हैश प्रतिलिख्यताम्"
 
-#: lib/filehistorywidget.cpp:547
+#: lib/filehistorywidget.cpp:560
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "पूर्णप्रतिबद्धता दर्शयतु"
 
-#: lib/filehistorywidget.cpp:670
+#: lib/filehistorywidget.cpp:683
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -987,7 +987,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:127
 #, kde-format
 msgid ""
-"List of %1 seperated directories where Kate will look for programs to run. "
+"List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""

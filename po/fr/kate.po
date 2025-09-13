@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-09-13 00:52+0000\n"
 "PO-Revision-Date: 2025-08-24 15:22+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -187,7 +187,7 @@ msgid "Copy Location"
 msgstr "Copier un emplacement"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -197,7 +197,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Hachage non valable"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 n'existe pas dans un dépôt « Git »"
@@ -364,7 +364,7 @@ msgstr "Erreurs"
 msgid "Warnings"
 msgstr "Avertissements"
 
-#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:450
+#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -593,13 +593,13 @@ msgstr "Supprimer le fichier %1"
 msgid "No differences found"
 msgstr "Aucune différence trouvée"
 
-#: lib/filehistorywidget.cpp:241
+#: lib/filehistorywidget.cpp:247
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Date non valable : %1"
 
-#: lib/filehistorywidget.cpp:458
+#: lib/filehistorywidget.cpp:469
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -631,31 +631,31 @@ msgstr ""
 "affichés. </li></ul>Pour déclencher le filtre, veuillez appuyer sur la "
 "touche <b>Entrée</b>."
 
-#: lib/filehistorywidget.cpp:514
+#: lib/filehistorywidget.cpp:525
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Impossible d'obtenir l'historique du fichier : il a été impossible de "
 "trouver l'exécutable associé à Git dans la variable d'environnement « PATH »"
 
-#: lib/filehistorywidget.cpp:528
+#: lib/filehistorywidget.cpp:541
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Impossible d'obtenir l'historique des fichiers : %1"
 
-#: lib/filehistorywidget.cpp:539
+#: lib/filehistorywidget.cpp:552
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Copier le code de hachage du commit"
 
-#: lib/filehistorywidget.cpp:547
+#: lib/filehistorywidget.cpp:560
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Afficher le commit global"
 
-#: lib/filehistorywidget.cpp:670
+#: lib/filehistorywidget.cpp:683
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1041,9 +1041,13 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:127
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "List of %1 seperated directories where Kate will look for programs to "
+#| "run. This list will be prepended to your PATH environment variable. E.g '/"
+#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
 msgid ""
-"List of %1 seperated directories where Kate will look for programs to run. "
+"List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-09-13 00:52+0000\n"
 "PO-Revision-Date: 2023-01-05 10:46+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -179,7 +179,7 @@ msgid "Copy Location"
 msgstr "Αντιγραφή τοποθεσίας"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -189,7 +189,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Μη έγκυρος κατακερματισμός"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Το %1 δεν υπάρχει σε αποθετήριο git."
@@ -357,7 +357,7 @@ msgstr "Σφάλματα"
 msgid "Warnings"
 msgstr "Προειδοποιήσεις"
 
-#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:450
+#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -585,14 +585,14 @@ msgstr "Διαγραμμένο αρχείο %1"
 msgid "No differences found"
 msgstr "Δε βρέθηκαν διαφορές"
 
-#: lib/filehistorywidget.cpp:241
+#: lib/filehistorywidget.cpp:247
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Μη έγκυρος κατακερματισμός"
 
-#: lib/filehistorywidget.cpp:458
+#: lib/filehistorywidget.cpp:469
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -609,31 +609,31 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:514
+#: lib/filehistorywidget.cpp:525
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Αποτυχία ανάκτησης ιστορικού του αρχείου: το εκτελέσιμο git δεν βρέθηκε στο "
 "PATH"
 
-#: lib/filehistorywidget.cpp:528
+#: lib/filehistorywidget.cpp:541
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Αποτυχία ανάκτησης ιστορικού του αρχείου: %1"
 
-#: lib/filehistorywidget.cpp:539
+#: lib/filehistorywidget.cpp:552
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Αντιγραφή τιμής hash υποβολής"
 
-#: lib/filehistorywidget.cpp:547
+#: lib/filehistorywidget.cpp:560
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Εμφάνιση πλήρους υποβολής"
 
-#: lib/filehistorywidget.cpp:670
+#: lib/filehistorywidget.cpp:683
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1013,7 +1013,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:127
 #, kde-format
 msgid ""
-"List of %1 seperated directories where Kate will look for programs to run. "
+"List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""

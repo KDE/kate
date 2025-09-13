@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-09-13 00:52+0000\n"
 "PO-Revision-Date: 2025-08-31 23:26+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -168,7 +168,7 @@ msgid "Copy Location"
 msgstr "Копиране на местоположението"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -178,7 +178,7 @@ msgstr "Git"
 msgid "Invalid hash"
 msgstr "Невалиден хеш"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:661
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1s не съществува в хранилището на git."
@@ -345,7 +345,7 @@ msgstr "Грешки"
 msgid "Warnings"
 msgstr "Предупреждение"
 
-#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:450
+#: lib/diagnostics/diagnosticview.cpp:512 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -570,13 +570,13 @@ msgstr "Изтрити файлове %1"
 msgid "No differences found"
 msgstr "Няма разлики"
 
-#: lib/filehistorywidget.cpp:241
+#: lib/filehistorywidget.cpp:247
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Невалидна дата: %1"
 
-#: lib/filehistorywidget.cpp:458
+#: lib/filehistorywidget.cpp:469
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -606,31 +606,31 @@ msgstr ""
 "показани съобщения, съответстващи на всички термини за търсене.</li></ul>За "
 "да задействате филтъра, натиснете клавиша <b>Enter</b>."
 
-#: lib/filehistorywidget.cpp:514
+#: lib/filehistorywidget.cpp:525
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 "Неуспешно получаване на историята на файловете: изпълнимият файл на git не е "
 "открит в PATH"
 
-#: lib/filehistorywidget.cpp:528
+#: lib/filehistorywidget.cpp:541
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Неуспешно получаване на историята на файловете: %1"
 
-#: lib/filehistorywidget.cpp:539
+#: lib/filehistorywidget.cpp:552
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Копиране на хеша на commit"
 
-#: lib/filehistorywidget.cpp:547
+#: lib/filehistorywidget.cpp:560
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Показване на целия commit"
 
-#: lib/filehistorywidget.cpp:670
+#: lib/filehistorywidget.cpp:683
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
@@ -1006,9 +1006,13 @@ msgid "PATH"
 msgstr "Път"
 
 #: lib/kateconfigdialog.cpp:127
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "List of %1 seperated directories where Kate will look for programs to "
+#| "run. This list will be prepended to your PATH environment variable. E.g '/"
+#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
 msgid ""
-"List of %1 seperated directories where Kate will look for programs to run. "
+"List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""

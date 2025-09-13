@@ -30,20 +30,18 @@ public:
 
 public:
     KateDocumentInfo() = default;
-
-    bool modifiedOnDisc = false;
-    KTextEditor::Document::ModifiedOnDiskReason modifiedOnDiscReason = KTextEditor::Document::OnDiskUnmodified;
-
-    bool openedByUser = false;
-    bool openSuccess = true;
-    KTextEditor::Cursor startCursor = KTextEditor::Cursor::invalid(); // initial cursor position. This can be specified in the command line or as a url query
-    bool wasDocumentEverModified = false;
-
     QUrl normalizedUrl;
 
+    KTextEditor::Document::ModifiedOnDiskReason modifiedOnDiscReason = KTextEditor::Document::OnDiskUnmodified;
+    KTextEditor::Cursor startCursor = KTextEditor::Cursor::invalid(); // initial cursor position. This can be specified in the command line or as a url query
     // id of this document from the last session restore or as set by the last session save
     // -1 if not valid
     int sessionConfigId = -1;
+
+    bool openedByUser = false;
+    bool openSuccess = true;
+    bool wasDocumentEverModified = false;
+    bool modifiedOnDisc = false;
 };
 
 class KATE_PRIVATE_EXPORT KateDocManager : public QObject

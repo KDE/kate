@@ -83,7 +83,9 @@ void KateDocManager::slotUrlChanged(const QUrl &newUrl)
 {
     auto *doc = qobject_cast<KTextEditor::Document *>(sender());
     if (doc) {
-        m_docInfos.at(doc).normalizedUrl = Utils::normalizeUrl(newUrl);
+        if (auto docInfo = documentInfo(doc)) {
+            docInfo->normalizedUrl = Utils::normalizeUrl(newUrl);
+        }
     }
 }
 
@@ -97,7 +99,7 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     doc->setModifiedOnDiskWarning(!ownModNotification);
 
     m_docList.push_back(doc);
-    m_docInfos.emplace(doc, docInfo);
+    m_docInfos.push_back(docInfo);
 
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
@@ -116,20 +118,19 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
 
 KateDocumentInfo *KateDocManager::documentInfo(KTextEditor::Document *doc)
 {
-    auto it = m_docInfos.find(doc);
-    if (it != m_docInfos.end()) {
-        return &it->second;
-    }
-    return nullptr;
+    int i = m_docList.indexOf(doc);
+    return i != -1 ? &m_docInfos[i] : nullptr;
 }
 
 KTextEditor::Document *KateDocManager::findDocument(const QUrl &url) const
 {
-    auto it = std::find_if(m_docInfos.begin(), m_docInfos.end(), [u = Utils::normalizeUrl(url)](const auto &p) {
-        return p.second.normalizedUrl == u;
-    });
-
-    return it == m_docInfos.end() ? nullptr : it->first;
+    const QUrl normalizedUrl = Utils::normalizeUrl(url);
+    for (size_t i = 0; i < m_docInfos.size(); i++) {
+        if (m_docInfos[i].normalizedUrl == normalizedUrl) {
+            return m_docList[i];
+        }
+    }
+    return nullptr;
 }
 
 std::vector<KTextEditor::Document *> KateDocManager::openUrls(std::span<const QUrl> urls, const QString &encoding, const KateDocumentInfo &docInfo)
@@ -182,12 +183,9 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
 
     m_recentlyClosedUrls.clear();
     for (const auto document : documents) {
-        if (const auto docInfoItr = m_docInfos.find(document); docInfoItr != m_docInfos.end()) {
-            const auto &docInfo = docInfoItr->second;
-
-            if (!docInfo.normalizedUrl.isEmpty()) {
-                m_recentlyClosedUrls.push_back(docInfo.normalizedUrl);
-            }
+        int i = m_docList.indexOf(document);
+        if (i != -1 && !m_docInfos[i].normalizedUrl.isEmpty()) {
+            m_recentlyClosedUrls.push_back(m_docInfos[i].normalizedUrl);
         }
     }
 
@@ -207,8 +205,9 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
 
         // really delete the document and its infos
         disconnect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
-        m_docInfos.erase(doc);
-        delete m_docList.takeAt(m_docList.indexOf(doc));
+        int docIndex = m_docList.indexOf(doc);
+        m_docInfos.erase(m_docInfos.begin() + docIndex);
+        delete m_docList.takeAt(docIndex);
 
         // document is gone, emit our signals
         Q_EMIT documentDeleted(doc);
@@ -367,13 +366,11 @@ void KateDocManager::saveDocumentList(KConfig *config)
     openDocGroup.writeEntry("Count", (int)m_docList.size());
     qCDebug(LOG_KATE, "KateDocManager::%s: Count: %d", __func__, (int)m_docList.size());
 
-    int i = 0;
-    for (KTextEditor::Document *doc : std::as_const(m_docList)) {
+    for (int i = 0; i < m_docList.size(); i++) {
         const QString entryName = QStringLiteral("Document %1").arg(i);
         KConfigGroup cg(config, entryName);
-        doc->writeSessionConfig(cg);
-        m_docInfos[doc].sessionConfigId = i;
-        i++;
+        m_docList[i]->writeSessionConfig(cg);
+        m_docInfos[i].sessionConfigId = i;
     }
 }
 
@@ -385,7 +382,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 
     // kill the old stored id mappings
     for (auto &info : m_docInfos) {
-        info.second.sessionConfigId = -1;
+        info.sessionConfigId = -1;
     }
 
     if (count == 0) {
@@ -402,7 +399,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
     for (unsigned int i = 0; i < count; i++) {
         KConfigGroup cg(config, QStringLiteral("Document %1").arg(i));
         KTextEditor::Document *doc = createDoc();
-        m_docInfos[doc].sessionConfigId = i;
+        m_docInfos.back().sessionConfigId = i;
 
         connect(doc, &KTextEditor::Document::completed, this, &KateDocManager::documentOpened);
         connect(doc, &KParts::ReadOnlyPart::canceled, this, &KateDocManager::documentOpened);
@@ -417,10 +414,9 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 
 void KateDocManager::slotModifiedOnDisc(KTextEditor::Document *doc, bool b, KTextEditor::Document::ModifiedOnDiskReason reason)
 {
-    auto it = m_docInfos.find(doc);
-    if (it != m_docInfos.end()) {
-        it->second.modifiedOnDisc = b;
-        it->second.modifiedOnDiscReason = reason;
+    if (KateDocumentInfo *info = documentInfo(doc)) {
+        info->modifiedOnDisc = b;
+        info->modifiedOnDiscReason = reason;
         slotModChanged1(doc);
     }
 }
@@ -558,9 +554,9 @@ KTextEditor::Document *KateDocManager::findDocumentForSessionConfigId(int sessio
         return nullptr;
     }
 
-    for (const auto &info : m_docInfos) {
-        if (info.second.sessionConfigId == sessionConfigId) {
-            return info.first;
+    for (size_t i = 0; i < m_docInfos.size(); i++) {
+        if (m_docInfos[i].sessionConfigId == sessionConfigId) {
+            return m_docList[i];
         }
     }
 

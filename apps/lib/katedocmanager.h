@@ -17,7 +17,6 @@
 #include <KConfig>
 
 #include <span>
-#include <unordered_map>
 
 class KateMainWindow;
 
@@ -184,7 +183,7 @@ private:
     void saveMetaInfos(std::span<KTextEditor::Document *const> docs);
 
     QList<KTextEditor::Document *> m_docList;
-    std::unordered_map<KTextEditor::Document *, KateDocumentInfo> m_docInfos;
+    std::vector<KateDocumentInfo> m_docInfos;
 
     KConfig m_metaInfos;
     bool m_saveMetaInfos;

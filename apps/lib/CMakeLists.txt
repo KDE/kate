@@ -91,11 +91,15 @@ if (TARGET KF6::UserFeedbackWidgets)
     target_compile_definitions(kateprivate PUBLIC -DWITH_KUSERFEEDBACK)
 endif()
 
-# terminal detection
+# terminal detection & malloc_trim for memory release
 include(CheckFunctionExists)
 check_function_exists(ctermid HAVE_CTERMID)
+check_function_exists(malloc_trim HAVE_MALLOC_TRIM)
 if(HAVE_CTERMID)
   target_compile_definitions(kateprivate PRIVATE HAVE_CTERMID)
+  endif()
+if(HAVE_MALLOC_TRIM)
+    target_compile_definitions(kateprivate PRIVATE HAVE_MALLOC_TRIM)
 endif()
 
 # detaching from terminal

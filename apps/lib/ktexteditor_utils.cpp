@@ -30,6 +30,10 @@
 #include <KTextEditor/View>
 #include <KXMLGUIFactory>
 
+#ifdef HAVE_MALLOC_TRIM
+#include <malloc.h>
+#endif
+
 static bool isKateApp()
 {
     static const bool isKateApp = qobject_cast<KateApp *>(KTextEditor::Editor::instance()->application()->parent()) != nullptr;
@@ -400,5 +404,12 @@ void togglePinDocument(KTextEditor::Document *document)
     if (isKateApp()) {
         KateApp::self()->documentManager()->togglePinDocument(document);
     }
+}
+
+void releaseMemoryToOperatingSystem()
+{
+#ifdef HAVE_MALLOC_TRIM
+    malloc_trim(0);
+#endif
 }
 }

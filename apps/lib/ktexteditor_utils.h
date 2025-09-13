@@ -150,4 +150,10 @@ KATE_PRIVATE_EXPORT void addPositionToHistory(const QUrl &url, KTextEditor::Curs
 
 [[nodiscard]] KATE_PRIVATE_EXPORT bool isDocumentPinned(KTextEditor::Document *doc);
 KATE_PRIVATE_EXPORT void togglePinDocument(KTextEditor::Document *document);
+
+/**
+ * Try to release memory to the system.
+ * Will call e.g. malloc_trim or similar stuff if feasible.
+ */
+KATE_PRIVATE_EXPORT void releaseMemoryToOperatingSystem();
 }

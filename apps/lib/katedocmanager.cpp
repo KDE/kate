@@ -215,6 +215,9 @@ bool KateDocManager::closeDocuments(std::span<KTextEditor::Document *const> docu
 
     Q_EMIT documentsDeleted();
 
+    // try to release memory, see bug 509126
+    Utils::releaseMemoryToOperatingSystem();
+
     return success;
 }
 

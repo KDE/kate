@@ -240,6 +240,9 @@ void KateProjectPlugin::closeProject(KateProject *project)
 
         // purge the project, now there shall be no references left
         delete project;
+
+        // try to release memory, see bug 509126
+        Utils::releaseMemoryToOperatingSystem();
     }
 }
 

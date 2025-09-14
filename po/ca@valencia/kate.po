@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
-"PO-Revision-Date: 2025-08-23 10:41+0200\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"PO-Revision-Date: 2025-09-13 09:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -1012,11 +1012,7 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
@@ -1423,7 +1419,7 @@ msgstr "Nom"
 msgid "Description"
 msgstr "Descripció"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1432,24 +1428,24 @@ msgstr ""
 "<p>El document «%1» ha sigut modificat, però no guardat.</p><p>Voleu guardar "
 "els canvis o descartar-los?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Tanca el document"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "Anomena i guarda"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "S'ha obert un fitxer nou mentre s'intentava tancar Kate, s'interromp el "
 "tancament."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Tancament interromput"
@@ -1464,12 +1460,12 @@ msgstr "S'està iniciant"
 msgid "Reopening files from the last session..."
 msgstr "S'estan tornant a obrir els fitxers de l'última sessió…"
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "No es poden fixar documents sense títol."
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "No es poden fixar documents no locals."
@@ -2659,7 +2655,7 @@ msgstr "Deixa de fixar el document"
 msgid "Pin Document"
 msgstr "Fixa el document"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr "No s'ha pogut obrir %1"

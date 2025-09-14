@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -1406,7 +1406,7 @@ msgstr "име"
 msgid "Description"
 msgstr "опис"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1415,22 +1415,22 @@ msgstr ""
 "<p>Документ „%1“ је измијењен, али није сачуван.</p><p>Желите ли да сачувате "
 "или одбаците измјене?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Затвори документ"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "Сачувај као"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Отворен је нови фајл током затварања Кејт, па је оно обустављено."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Затварање обустављено"
@@ -1445,13 +1445,13 @@ msgstr "Покретање"
 msgid "Reopening files from the last session..."
 msgstr "Отварам фајлове из прошле сесије..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Направи нови документ"
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, fuzzy, kde-format
 #| msgid "Open a form to quick open documents."
 msgid "Cannot pin non local documents."
@@ -2727,7 +2727,7 @@ msgstr "Документи|/|$[својства аку 'Документе']"
 msgid "Pin Document"
 msgstr "Документи|/|$[својства аку 'Документе']"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

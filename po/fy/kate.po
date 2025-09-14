@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2006-05-07 10:37+0200\n"
 "Last-Translator: Rinse de Vries <RinseDeVries@home.nl>\n"
 "Language-Team:  <nl@li.org>\n"
@@ -1402,7 +1402,7 @@ msgstr "Namme"
 msgid "Description"
 msgstr "Sk&ript:"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.<p>Do you want to "
@@ -1414,23 +1414,23 @@ msgstr ""
 "<p>Dit dokumint '%1' is bewurke, mar net op skiif bewarre.<p>Wolle jo de "
 "bewurkings bewarje of fuortsmite?"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Dokumint slúte"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "Bewarje &as..."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "In nije triem is iepene ûnder it slúten fan Kate, it slúten is ôfbrutsen."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Slúte ôfbrutsen"
@@ -1445,13 +1445,13 @@ msgstr "Set út ein"
 msgid "Reopening files from the last session..."
 msgstr "Dwaande triemmen wer te iepenjen fan de foarige sesje..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "In nij dokumint meitsje"
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin non local documents."
@@ -2723,7 +2723,7 @@ msgstr "Dokuminten Iepenje"
 msgid "Pin Document"
 msgstr "Dokuminten"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

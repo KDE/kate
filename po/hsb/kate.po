@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2005-04-18 18:18+0200\n"
 "Last-Translator:  <hertn@gmx.de>\n"
 "Language-Team: Hornjoserbšćina <hsb@li.org>\n"
@@ -1357,29 +1357,29 @@ msgstr "Mjeno"
 msgid "Description"
 msgstr "Program"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
 "save your changes or discard them?</p>"
 msgstr ""
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr ""
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, fuzzy, kde-format
 msgid "Save As"
 msgstr "&Wšitko zawěsćić"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr ""
@@ -1394,13 +1394,13 @@ msgstr ""
 msgid "Reopening files from the last session..."
 msgstr ""
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Nowy dokument zhotowić"
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin non local documents."
@@ -2576,7 +2576,7 @@ msgstr "Dokumenty"
 msgid "Pin Document"
 msgstr "Dokumenty"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

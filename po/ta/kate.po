@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2025-09-07 18:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -1395,7 +1395,7 @@ msgstr "பெயர்"
 msgid "Description"
 msgstr "விவரணம்"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1404,22 +1404,22 @@ msgstr ""
 "<p>'%1' என்ற ஆவணம் மாற்றப்பட்டது, ஆனால் சேமிக்கப்படவில்லை.</p><p>மாற்றங்களை சேமிக்க "
 "வேண்டுமா அல்லது கைவிட வேண்டுமா?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "ஆவணத்தை மூடு"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "வேறு பெயரில் சேமி"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "கேட்டை மூட முயற்சிக்கும்போது புது கோப்பு திறக்கப்பட்டதால் மூடுதல் கைவிடப்பட்டது."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "மூடுதல் கைவிடப்பட்டது"
@@ -1434,12 +1434,12 @@ msgstr "துவங்குகிறது"
 msgid "Reopening files from the last session..."
 msgstr "சென்ற அமர்விலிருந்த கோப்புகள் திறக்கப்படுகின்றன..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "தலைப்பற்ற ஆவணத்தை தக்கவைக்க முடியாது"
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "தொலை ஆவணத்தை தக்கவைக்க முடியாது"
@@ -2614,7 +2614,7 @@ msgstr "ஆவணத்தை தக்கவைத்ததை நீக்க�
 msgid "Pin Document"
 msgstr "ஆவணத்தை தக்கவை"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr "%1 தனை திறக்க முடியவில்லை"

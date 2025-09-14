@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2025-08-01 12:31+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -529,7 +529,7 @@ msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:740 kateprojectpluginview.cpp:79
+#: kateproject.cpp:367 kateprojectplugin.cpp:743 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -848,12 +848,12 @@ msgstr "Confirma el tancament del projecte: %1"
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Voleu tancar el projecte %1 i els %2 documents oberts relacionats?"
 
-#: kateprojectplugin.cpp:606
+#: kateprojectplugin.cpp:609
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Camí complet del projecte actual excloent el nom del fitxer."
 
-#: kateprojectplugin.cpp:623
+#: kateprojectplugin.cpp:626
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "

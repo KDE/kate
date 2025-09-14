@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
-"PO-Revision-Date: 2025-08-23 07:15+0200\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"PO-Revision-Date: 2025-09-13 07:00+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "Translator: Andrej Mernik <andrejm@ubuntu.si>\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1021,19 +1021,15 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
 "Seznam %1 ločenih imenikov, kjer bo Kate iskal programe za zagon. Ta seznam "
-"bo dodan vaši spremenljivki okolja PATH. Npr. '/home/USER/myapps/bin/:/home/"
-"USER/.local/bin'"
+"bo dodan na začetek k vaši spremenljivki okolja PATH. Npr. '/home/USER/"
+"myapps/bin/:/home/USER/.local/bin'"
 
 #: lib/kateconfigdialog.cpp:143
 #, kde-format
@@ -1429,7 +1425,7 @@ msgstr "Ime"
 msgid "Description"
 msgstr "Opis"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1438,23 +1434,23 @@ msgstr ""
 "<p>Dokument »%1« je bil spremenjen, vendar ni shranjen.</p><p>Ali želite "
 "shraniti spremembe, ali jih zavreči?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Zapri dokument"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "Shrani kot"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Med zapiranjem Kate je bila odprta nova datoteka, zapiranje prekinjeno."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zapiranje prekinjeno"
@@ -1469,12 +1465,12 @@ msgstr "Začenjanje"
 msgid "Reopening files from the last session..."
 msgstr "Ponovno odpiranje datotek iz zadnje seje..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "Ni mogoče pripeti dokumentov brez naslova."
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "Ni mogoče pripeti ne-lokalnih dokumentov."
@@ -2662,7 +2658,7 @@ msgstr "Odpni dokument"
 msgid "Pin Document"
 msgstr "Pripni dokument"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr "Ni mogoče odpreti %1"

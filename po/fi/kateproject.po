@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2025-04-20 10:31+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -525,7 +525,7 @@ msgstr "Haluatko varmasti poistaa nämä ei-jäljitetyt muutokset?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:740 kateprojectpluginview.cpp:79
+#: kateproject.cpp:367 kateprojectplugin.cpp:743 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -840,12 +840,12 @@ msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Haluatko sulkea projektin %1 siihen kuuluvine %2 avoimine tiedostoineen?"
 
-#: kateprojectplugin.cpp:606
+#: kateprojectplugin.cpp:609
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Nykyisen projekti koko sijainti tiedostonimettä."
 
-#: kateprojectplugin.cpp:623
+#: kateprojectplugin.cpp:626
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "

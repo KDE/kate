@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
-"PO-Revision-Date: 2025-08-24 04:04+0200\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"PO-Revision-Date: 2025-09-13 05:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1003,11 +1003,7 @@ msgid "PATH"
 msgstr "ბილიკი"
 
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
@@ -1407,7 +1403,7 @@ msgstr "სახელი"
 msgid "Description"
 msgstr "აღწერა"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1416,22 +1412,22 @@ msgstr ""
 "<p>დოკუმენტი '%1' შეცვლილია, შენახული კი - არა.</p><p>გნებავთ ცვლილებების "
 "შენახვა თუ მოვაცილო ისინი?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "დოკუმენტის დახურვა"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "შენახვა როგორც"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Kate-ის დახურვისას ახალი ფაილი გაიხსნა. დახურვა გაუქმდა."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "დახურვა გაუქმდა"
@@ -1446,12 +1442,12 @@ msgstr "გაშვება"
 msgid "Reopening files from the last session..."
 msgstr "წინა სესიის ფაილების თავიდან გახსნა..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "უსახელო დოკუმენტების ამაგრება შეუძლებელია."
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "არალოკალური დოკუმენტების ამაგრება შეუძლებელია."
@@ -2633,7 +2629,7 @@ msgstr "დოკუმენტის ჩამოხსნა"
 msgid "Pin Document"
 msgstr "დოკუმენტის ამაგრება"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr "%1 ვერ გავხსენი"

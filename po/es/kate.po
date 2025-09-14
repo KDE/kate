@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
-"PO-Revision-Date: 2025-08-23 22:51+0100\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"PO-Revision-Date: 2025-09-13 11:14+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -1017,20 +1017,18 @@ msgstr "Opciones de comportamiento"
 msgid "PATH"
 msgstr "PATH"
 
+# %1 es un símbolo separador de listas
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Lista de %1 directorios separados en los que Kate buscará los programas que "
-"se deben ejecutar. Esta lista se antepondrá a la variable de entorno PATH. "
-"Por ejemplo, «/home/USUARIO/misaplicaciones/bin/:/home/USUARIO/.local/bin»."
+"Lista de directorios separados por %1 en los que Kate buscará los programas "
+"que se deben ejecutar. Esta lista se antepondrá a la variable de entorno "
+"PATH. Por ejemplo, «/home/USUARIO/misaplicaciones/bin/:/home/USUARIO/.local/"
+"bin»."
 
 #: lib/kateconfigdialog.cpp:143
 #, kde-format
@@ -1433,7 +1431,7 @@ msgstr "Nombre"
 msgid "Description"
 msgstr "Descripción"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1442,24 +1440,24 @@ msgstr ""
 "<p>El documento «%1» ha sido modificado, aunque no ha sido guardado.</"
 "p><p>¿Desea guardar los cambios, o descartarlos?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Cerrar documento"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "Guardar como"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "Se ha abierto un nuevo archivo cuando trataba de cerrar Kate; se ha "
 "cancelado el cierre."
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Cierre cancelado"
@@ -1474,12 +1472,12 @@ msgstr "Iniciando"
 msgid "Reopening files from the last session..."
 msgstr "Reabriendo archivos de la última sesión…"
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "No se puede fijar un documento sin título."
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "No se puede fijar un documento que no sea local."
@@ -2679,7 +2677,7 @@ msgstr "Liberar documento"
 msgid "Pin Document"
 msgstr "Fijar documento"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr "No se puede abrir %1"
@@ -3188,12 +3186,3 @@ msgstr "Gestión de sesiones…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar la página de bienvenida en las ventanas nuevas"
-
-#~ msgid "Could not start program"
-#~ msgstr "No se ha podido iniciar el programa"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "El programa seleccionado no se ha podido iniciar. Es posible que no esté "
-#~ "instalado."

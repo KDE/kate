@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-14 00:45+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -1389,7 +1389,7 @@ msgstr "ชื่อ"
 msgid "Description"
 msgstr "ตำแหน่ง"
 
-#: lib/katedocmanager.cpp:290
+#: lib/katedocmanager.cpp:292
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1398,22 +1398,22 @@ msgstr ""
 "<p>เอกสาร '%1' มีการเปลี่ยนแปลง แต่ยังไม่มีการบันทึก</"
 "p><p>คุณต้องการจะบันทึกการเปลี่ยนแปลงหรือจะละทิ้งมัน ?</p>"
 
-#: lib/katedocmanager.cpp:293 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "ปิดเอกสาร"
 
-#: lib/katedocmanager.cpp:302
+#: lib/katedocmanager.cpp:304
 #, kde-format
 msgid "Save As"
 msgstr "บันทึกเป็น"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "มีการเปิดแฟ้มใหม่ขึ้นมาในระหว่างกำลังทำการปิด Kate การปิดโปรแกรมจึงถูกยกเลิก"
 
-#: lib/katedocmanager.cpp:320 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "ยกเลิกการปิดแล้ว"
@@ -1428,13 +1428,13 @@ msgstr "กำลังเริ่มการทำงาน"
 msgid "Reopening files from the last session..."
 msgstr "กำลังทำการเปิดแฟ้มที่ถูกเปิดใช้กับกลุ่มงานที่ใช้ครั้งล่าสุด..."
 
-#: lib/katedocmanager.cpp:573
+#: lib/katedocmanager.cpp:572
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "สร้างเอกสารใหม่"
 
-#: lib/katedocmanager.cpp:578
+#: lib/katedocmanager.cpp:577
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin non local documents."
@@ -2672,7 +2672,7 @@ msgstr "เปิดเอกสาร"
 msgid "Pin Document"
 msgstr "เอกสาร"
 
-#: lib/ktexteditor_utils.cpp:239
+#: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
 msgstr ""

@@ -396,6 +396,7 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
     // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
 
     QByteArrayView out = m_rawCommitData;
+    QHash<QByteArrayView, QString> authorCache;
 
     /**
      * This is out git blame output parser.
@@ -473,7 +474,13 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
         from = pos;
         pos = out.indexOf('\n', pos);
 
-        commitInfo.authorName = QString::fromUtf8(out.mid(from, pos - from));
+        QByteArrayView authorView = out.mid(from, pos - from);
+        auto it = authorCache.find(authorView);
+        if (it == authorCache.end()) {
+            it = authorCache.insert(authorView, QString::fromUtf8(authorView));
+        }
+        commitInfo.authorName = it.value();
+
         pos++;
 
         // author-time timestamp

@@ -212,8 +212,8 @@ KTextEditor::ConfigPage *KateBuildPlugin::configPage(int number, QWidget *parent
 void KateBuildPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("BuildConfig"));
-    m_addDiagnostics = config.readEntry(QStringLiteral("UseDiagnosticsOutput"), true);
-    m_autoSwitchToOutput = config.readEntry(QStringLiteral("AutoSwitchToOutput"), true);
+    m_addDiagnostics = config.readEntry("UseDiagnosticsOutput", true);
+    m_autoSwitchToOutput = config.readEntry("AutoSwitchToOutput", true);
     m_showBuildProgress = config.readEntry("ShowBuildProgress", false);
 
     // read allow + block lists as two separate keys, let block always win
@@ -543,21 +543,31 @@ KateBuildView::~KateBuildView()
     delete m_toolView;
 }
 
+template<typename... Args>
+auto formatKey(std::span<char> buffer, std::format_string<Args...> fmt, Args &&...args)
+{
+    auto result = std::format_to_n(buffer.data(), buffer.size() - 1, fmt, std::forward<Args...>(args...));
+    *result.out = '\0';
+    Q_ASSERT(result.size < buffer.size());
+    return buffer.data();
+}
+
 /******************************************************************/
 void KateBuildView::readSessionConfig(const KConfigGroup &cg)
 {
-    int numTargets = cg.readEntry(u"NumTargets"_s, 0);
-    m_projectTargetsetRow = cg.readEntry(u"ProjectTargetSetRow"_s, 0);
+    int numTargets = cg.readEntry("NumTargets", 0);
+    m_projectTargetsetRow = cg.readEntry("ProjectTargetSetRow", 0);
     m_targetsUi->targetsModel.clear(m_projectTargetsetRow > 0);
 
     QModelIndex setIndex = m_targetsUi->targetsModel.sessionRootIndex();
+    char key[256]{};
 
     for (int i = 0; i < numTargets; i++) {
-        QStringList targetNames = cg.readEntry(QStringLiteral("%1 Target Names").arg(i), QStringList());
-        QString targetSetName = cg.readEntry(QStringLiteral("%1 Target").arg(i), QString());
-        QString buildDir = cg.readEntry(QStringLiteral("%1 BuildPath").arg(i), QString());
-        bool loadedViaCMake = cg.readEntry(QStringLiteral("%1 LoadedViaCMake").arg(i), false);
-        QString cmakeConfigName = cg.readEntry(QStringLiteral("%1 CMakeConfig").arg(i), QStringLiteral("NONE"));
+        QStringList targetNames = cg.readEntry(formatKey(key, "{} Target Names", i), QStringList());
+        QString targetSetName = cg.readEntry(formatKey(key, "{} Target", i), QString());
+        QString buildDir = cg.readEntry(formatKey(key, "{} BuildPath", i), QString());
+        bool loadedViaCMake = cg.readEntry(formatKey(key, "{} LoadedViaCMake", i), false);
+        QString cmakeConfigName = cg.readEntry(formatKey(key, "{} CMakeConfig", i), QStringLiteral("NONE"));
 
         if (loadedViaCMake) {
             QCMakeFileApi cmakeFA(buildDir, false);
@@ -573,7 +583,8 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
         setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, targetSetName, buildDir);
 
         // Keep a bit of backwards compatibility by ensuring that the "default" target is the first in the list
-        QString defCmd = cg.readEntry(QStringLiteral("%1 Target Default").arg(i), QString());
+        QString defCmd = cg.readEntry(formatKey(key, "{} Target Default", i), QString());
+
         int defIndex = targetNames.indexOf(defCmd);
         if (defIndex > 0) {
             targetNames.move(defIndex, 0);
@@ -591,7 +602,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     updateProjectTargets();
 
     // pre-select the last active target or the first target of the first set
-    const QVector<int> treePath = cg.readEntry(u"Active Target Index Tree"_s, QVector<int>{0, 0, 0});
+    const QVector<int> treePath = cg.readEntry("Active Target Index Tree", QVector<int>{0, 0, 0});
     QModelIndex activeIndex;
     for (const int row : treePath) {
         const auto idx = m_targetsUi->targetsModel.index(row, 0, activeIndex);
@@ -618,7 +629,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
             activeIndex = activeIndex.parent();
             treePath.prepend(activeIndex.row());
         }
-        cg.writeEntry(u"Active Target Index Tree"_s, treePath);
+        cg.writeEntry("Active Target Index Tree", treePath);
     }
 
     // Don't save project target-sets, but save the root-row index
@@ -635,11 +646,13 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
 
     for (int i = 0; i < setsArray.size(); ++i) {
         auto setObj = setsArray[i].toObject();
-        bool loadedViaCMake = setObj[QStringLiteral("loaded_via_cmake")].toBool();
-        cg.writeEntry(QStringLiteral("%1 Target").arg(i), setObj[QStringLiteral("name")].toString());
-        cg.writeEntry(QStringLiteral("%1 BuildPath").arg(i), setObj[QStringLiteral("directory")].toString());
-        cg.writeEntry(QStringLiteral("%1 LoadedViaCMake").arg(i), loadedViaCMake);
-        cg.writeEntry(QStringLiteral("%1 CMakeConfig").arg(i), setObj[QStringLiteral("cmake_config")].toString());
+        bool loadedViaCMake = setObj[QLatin1String("loaded_via_cmake")].toBool();
+        char key[256]{};
+
+        cg.writeEntry(formatKey(key, "{} Target", i), setObj[QLatin1String("name")].toString());
+        cg.writeEntry(formatKey(key, "{} BuildPath", i), setObj[QLatin1String("directory")].toString());
+        cg.writeEntry(formatKey(key, "{} LoadedViaCMake", i), loadedViaCMake);
+        cg.writeEntry(formatKey(key, "{} CMakeConfig", i), setObj[QLatin1String("cmake_config")].toString());
 
         if (loadedViaCMake) {
             // don't save the build commands, they'll be reloaded via the CMake file API
@@ -647,18 +660,18 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         }
 
         QStringList cmdNames;
-        QJsonArray targetsArray = setObj[QStringLiteral("targets")].toArray();
+        QJsonArray targetsArray = setObj[QLatin1String("targets")].toArray();
 
         for (int j = 0; j < targetsArray.size(); ++j) {
             auto targetObj = targetsArray[j].toObject();
-            const QString &cmdName = targetObj[QStringLiteral("name")].toString();
-            const QString &buildCmd = targetObj[QStringLiteral("build_cmd")].toString();
-            const QString &runCmd = targetObj[QStringLiteral("run_cmd")].toString();
+            const QString &cmdName = targetObj[QLatin1String("name")].toString();
+            const QString &buildCmd = targetObj[QLatin1String("build_cmd")].toString();
+            const QString &runCmd = targetObj[QLatin1String("run_cmd")].toString();
             cmdNames << cmdName;
             cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(cmdName), buildCmd);
             cg.writeEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(cmdName), runCmd);
         }
-        cg.writeEntry(QStringLiteral("%1 Target Names").arg(i), cmdNames);
+        cg.writeEntry(formatKey(key, "{} Target Names", i), cmdNames);
     }
 }
 

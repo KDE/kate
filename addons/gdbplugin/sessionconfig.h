@@ -49,9 +49,9 @@ inline QJsonObject unserialize(const QString map)
 inline ConfigData read(const KConfigGroup &group)
 {
     ConfigData config;
-    config.version = group.readEntry(QStringLiteral("version"), CONFIG_VERSION);
-    config.targetCount = group.readEntry(QStringLiteral("targetCount"), 1);
-    int lastTarget = group.readEntry(QStringLiteral("lastTarget"), 0);
+    config.version = group.readEntry("version", CONFIG_VERSION);
+    config.targetCount = group.readEntry("targetCount", 1);
+    int lastTarget = group.readEntry("lastTarget", 0);
     const QString targetKey(QStringLiteral("target_%1"));
 
     for (int i = 0; i < config.targetCount; i++) {

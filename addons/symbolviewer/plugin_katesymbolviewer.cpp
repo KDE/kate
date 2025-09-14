@@ -89,10 +89,10 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_typesOn->setCheckable(true);
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-    m_typesOn->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
-    m_expandOn->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
-    m_treeOn->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
-    m_sort->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
+    m_typesOn->setChecked(config.readEntry("ViewTypes", false));
+    m_expandOn->setChecked(config.readEntry("ExpandTree", false));
+    m_treeOn->setChecked(config.readEntry("TreeView", false));
+    m_sort->setChecked(config.readEntry("SortSymbols", false));
 
     m_macro->setChecked(true);
     m_struct->setChecked(true);
@@ -437,10 +437,10 @@ KTextEditor::ConfigPage *KatePluginSymbolViewer::configPage(int, QWidget *parent
     auto *p = new KatePluginSymbolViewerConfigPage(this, parent);
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-    p->viewReturns->setChecked(config.readEntry(QStringLiteral("ViewTypes"), false));
-    p->expandTree->setChecked(config.readEntry(QStringLiteral("ExpandTree"), false));
-    p->treeView->setChecked(config.readEntry(QStringLiteral("TreeView"), false));
-    p->sortSymbols->setChecked(config.readEntry(QStringLiteral("SortSymbols"), false));
+    p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
+    p->expandTree->setChecked(config.readEntry("ExpandTree", false));
+    p->treeView->setChecked(config.readEntry("TreeView", false));
+    p->sortSymbols->setChecked(config.readEntry("SortSymbols", false));
     connect(p, &KatePluginSymbolViewerConfigPage::configPageApplyRequest, this, &KatePluginSymbolViewer::applyConfig);
     return static_cast<KTextEditor::ConfigPage *>(p);
 }
@@ -448,10 +448,10 @@ KTextEditor::ConfigPage *KatePluginSymbolViewer::configPage(int, QWidget *parent
 void KatePluginSymbolViewer::applyConfig(KatePluginSymbolViewerConfigPage *p)
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("PluginSymbolViewer"));
-    config.writeEntry(QStringLiteral("ViewTypes"), p->viewReturns->isChecked());
-    config.writeEntry(QStringLiteral("ExpandTree"), p->expandTree->isChecked());
-    config.writeEntry(QStringLiteral("TreeView"), p->treeView->isChecked());
-    config.writeEntry(QStringLiteral("SortSymbols"), p->sortSymbols->isChecked());
+    config.writeEntry("ViewTypes", p->viewReturns->isChecked());
+    config.writeEntry("ExpandTree", p->expandTree->isChecked());
+    config.writeEntry("TreeView", p->treeView->isChecked());
+    config.writeEntry("SortSymbols", p->sortSymbols->isChecked());
 
     for (auto view : std::as_const(m_views)) {
         view->m_typesOn->setChecked(p->viewReturns->isChecked());

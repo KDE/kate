@@ -56,13 +56,13 @@ QObject *CloseExceptPlugin::createView(KTextEditor::MainWindow *parent)
 void CloseExceptPlugin::readSessionConfig(const KConfigGroup &config)
 {
     const KConfigGroup scg(&config, QStringLiteral("menu"));
-    m_show_confirmation_needed = scg.readEntry(QStringLiteral("ShowConfirmation"), true);
+    m_show_confirmation_needed = scg.readEntry("ShowConfirmation", true);
 }
 
 void CloseExceptPlugin::writeSessionConfig(KConfigGroup &config)
 {
     KConfigGroup scg(&config, QStringLiteral("menu"));
-    scg.writeEntry(QStringLiteral("ShowConfirmation"), m_show_confirmation_needed);
+    scg.writeEntry("ShowConfirmation", m_show_confirmation_needed);
     scg.sync();
 }
 // END CloseExceptPlugin

@@ -1442,14 +1442,17 @@ void Sidebar::startRestoreSession(KConfigGroup &config)
     m_sessionRestoreRunning = true;
 
     // Using splitter data avoid to store tabBarCount explicit ;-)
-    QList<int> s = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    char key[256]{};
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-Splitter", (int)position()) = '\0';
+    QList<int> s = config.readEntry(key, QList<int>());
     // Notice the start value of 1, only add extra tab bars
     for (int i = 1; i < s.size(); ++i) {
         insertTabBar();
     }
     // Create for each tool we expect, in the correct order, a tab in advance, a blank one
     for (int i = 0; i < s.size(); ++i) {
-        const QStringList tvList = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), QStringList());
+        *std::format_to(key, "Kate-MDI-Sidebar-{}-Bar-{}-TvList", (int)position(), i) = '\0';
+        const QStringList tvList = config.readEntry(key, QStringList());
         for (int j = 0; j < tvList.size(); ++j) {
             // Don't add in case of a config mismatch blank tabs for some stuff twice
             auto it = std::find_if(m_tvIdToTabId.begin(), m_tvIdToTabId.end(), [&tvList, j](const ToolViewToTabId &a) {
@@ -1491,7 +1494,9 @@ void Sidebar::restoreSession(KConfigGroup &config)
         }
     }
 
-    QList<int> sectSizes = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-SectSizes").arg(position()), QList<int>());
+    char key[256]{};
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-SectSizes", (int)position()) = '\0';
+    QList<int> sectSizes = config.readEntry(key, QList<int>());
     for (int i = 0; i < sectSizes.count(); ++i) {
         if (tabBarCount() - 1 < i) {
             // Config mismatch!
@@ -1503,9 +1508,11 @@ void Sidebar::restoreSession(KConfigGroup &config)
     // Collapse now, and before! we restore m_lastSize, will hide (all) m_stack(s) so that
     // expanding will work fine...
     collapseSidebar();
-    m_lastSize = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), 160);
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-LastSize", (int)position()) = '\0';
+    m_lastSize = config.readEntry(key, 160);
     // Since we delay in insertTabBar(..) to adjust the sizes, we need it here too or the now set data will overwritten
-    auto sz = config.readEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-Splitter", (int)position()) = '\0';
+    auto sz = config.readEntry(key, QList<int>());
     QTimer::singleShot(100, this, [this, sz]() {
         setSizes(sz);
 
@@ -1526,8 +1533,12 @@ void Sidebar::saveSession(KConfigGroup &config)
         return;
     }
 
-    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Splitter").arg(position()), sizes());
-    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-LastSize").arg(position()), m_lastSize);
+    char key[256]{};
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-Splitter", (int)position()) = '\0';
+    config.writeEntry(key, sizes());
+
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-LastSize", (int)position()) = '\0';
+    config.writeEntry(key, m_lastSize);
 
     // store the data about all toolviews in this sidebar ;)
     for (const auto &[id, tv, _] : m_toolviews) {
@@ -1544,10 +1555,12 @@ void Sidebar::saveSession(KConfigGroup &config)
         for (int j : tabBar(i)->tabList()) {
             tvList << dataForId(j).toolview->id;
         }
-        config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-Bar-%2-TvList").arg(position()).arg(i), tvList);
+        *std::format_to(key, "Kate-MDI-Sidebar-{}-Bar-{}-TvList", (int)position(), i) = '\0';
+        config.writeEntry(key, tvList);
     }
 
-    config.writeEntry(QStringLiteral("Kate-MDI-Sidebar-%1-SectSizes").arg(position()), sectSizes);
+    *std::format_to(key, "Kate-MDI-Sidebar-{}-SectSizes", (int)position()) = '\0';
+    config.writeEntry(key, sectSizes);
 }
 
 // END SIDEBAR

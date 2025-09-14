@@ -1312,7 +1312,9 @@ void KateViewSpace::saveConfig(KConfigBase *config, int myIndex, const QString &
     for (auto view : views) {
         const int sessionId = KateApp::self()->documentManager()->documentInfo(view->document())->sessionConfigId;
         if (sessionId >= 0) {
-            group.writeEntry(QStringLiteral("View %1").arg(idx), sessionId);
+            char key[128];
+            *std::format_to(key, "View {}", idx) = '\0';
+            group.writeEntry(key, sessionId);
 
             // view config, group: "ViewSpace <n> id"
             QString vgroup = QStringLiteral("%1 %2").arg(groupname, QString::number(sessionId));

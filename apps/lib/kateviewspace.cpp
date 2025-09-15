@@ -1371,8 +1371,7 @@ void KateViewSpace::restoreConfig(KateViewManager *viewMan, const KConfigBase *c
     // Fix the tab order. If the number of docs cross the tab limit,
     // then the first tab after the limit will go to position 0, which
     // might be incorrect. Below we fix the tab order by traversing the
-    // m_registeredDocuments in reverse order and modifying the tabs
-    // in tab bar.
+    // m_registeredDocuments and modifying the tabs in tab bar.
     // docList: 0 1 2 3
     // m_registeredDocuments: 0 1 2 3
     const QList<DocOrWidget> tabsList = m_tabBar->documentList();

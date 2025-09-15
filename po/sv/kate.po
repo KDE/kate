@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-14 00:45+0000\n"
-"PO-Revision-Date: 2025-08-23 06:30+0200\n"
+"PO-Revision-Date: 2025-09-14 08:42+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -1006,11 +1006,7 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"

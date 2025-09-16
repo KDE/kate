@@ -227,7 +227,7 @@ msgstr "显示消息"
 #: lspclientpluginview.cpp:603
 #, kde-format
 msgid "Server Memory Usage"
-msgstr "服务器内存使用情况"
+msgstr "服务器内存使用率"
 
 #: lspclientpluginview.cpp:607
 #, kde-format

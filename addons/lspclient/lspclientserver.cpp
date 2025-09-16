@@ -79,7 +79,7 @@ static QUrl urlTransform(const QUrl &url, bool fromLocal)
     // this should always be around
     // if not, it means we missed a (call) spot
     if (!currentServer) {
-        qCWarning(LSPCLIENT) << "missing currrent server";
+        qCWarning(LSPCLIENT) << "missing current server";
         return url;
     }
     return currentServer->mapPath(url, fromLocal);

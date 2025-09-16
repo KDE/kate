@@ -601,7 +601,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     // Add project targets, if any
     updateProjectTargets();
 
-    // pre-select the last active target or the first target of the first set
+    // preselect the last active target or the first target of the first set
     const QVector<int> treePath = cg.readEntry("Active Target Index Tree", QVector<int>{0, 0, 0});
     QModelIndex activeIndex;
     for (const int row : treePath) {
@@ -1567,7 +1567,7 @@ void KateBuildView::slotRunAfterBuild()
                 out = nullptr;
                 continue;
             }
-            // We have a winner, re-use this tab
+            // We have a winner, reuse this tab
             m_buildUi.u_tabWidget->setCurrentIndex(i);
             break;
         }

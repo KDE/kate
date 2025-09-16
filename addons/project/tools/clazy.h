@@ -161,10 +161,10 @@ public:
         }
 
         /**
-         * list of absoloute paths to check compile commands
+         * list of absolute paths to check compile commands
          */
         const QString possiblePaths[4] = {
-            /** Absoloute build path in .kateproject e.g from cmake */
+            /** Absolute build path in .kateproject e.g from cmake */
             buildDir,
             /** Relative path in .kateproject e.g */
             m_project->baseDir() + (buildDir.startsWith(QLatin1Char('/')) ? buildDir : QLatin1Char('/') + buildDir),

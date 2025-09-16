@@ -93,7 +93,7 @@ QVariant LatexCompletionModel::data(const QModelIndex &index, int role) const
         const Completion &completion = completiontable[m_matches.first + index.row()];
         if (role == IsExpandable)
             return true; // if it's not expandable, the description will often be cut off
-                         // because apprarently the ItemSelected role is not taken into account
+                         // because apparently the ItemSelected role is not taken into account
                          // when determining the completion widget width. So expanding is
                          // the only way to make sure that the complete description is available.
         else if (role == ItemSelected || role == ExpandingWidget)

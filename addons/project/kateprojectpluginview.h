@@ -253,7 +253,7 @@ Q_SIGNALS:
     void projectLookupWord(const QString &word);
 
     /**
-     * Emitted when a ctags goto sysmbol is requested
+     * Emitted when a ctags goto symbol is requested
      * @param word lookup word
      */
     void gotoSymbol(const QString &word, int &results);

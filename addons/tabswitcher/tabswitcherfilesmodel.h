@@ -87,7 +87,7 @@ public:
 
     /**
      * Reimplemented to remove the specified rows.
-     * The paret is always ignored since this is a table model.
+     * The parent is always ignored since this is a table model.
      */
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
 

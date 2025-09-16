@@ -986,7 +986,7 @@ public:
         bool enabled = false;
         switch (kind) {
         case RangeData::KindEnum::Text: {
-            // well, it's a bit like searching for something, so re-use that color
+            // well, it's a bit like searching for something, so reuse that color
             static KTextEditor::Attribute::Ptr searchAttr;
             if (!searchAttr) {
                 searchAttr = new KTextEditor::Attribute();
@@ -2169,7 +2169,7 @@ public:
             return;
         }
 
-        // NOTE the intendation mode should probably be set to None,
+        // NOTE the indentation mode should probably be set to None,
         // so as not to experience unpleasant interference
         auto cursor = activeView->cursorPosition();
         QChar lastChar = cursor.column() == 0 ? QChar::fromLatin1('\n') : doc->characterAt({cursor.line(), cursor.column() - 1});

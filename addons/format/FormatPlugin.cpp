@@ -248,7 +248,7 @@ void FormatPluginView::onFormattedTextReceived(FormatterRunner *formatter, KText
         return;
     }
 
-    // No formattted => no work to do
+    // Not formatted => no work to do
     if (formattedText.isEmpty()) {
         return;
     }
@@ -282,9 +282,9 @@ void FormatPluginView::onFormattedTextReceived(FormatterRunner *formatter, KText
         return;
     }
 
-    // create applyable edits
+    // create applicable edits
     const std::vector<PatchLine> edits = parseDiff(doc, patch);
-    // If the edits are too many, just do "setText" as it can be very slow
+    // If the edits are too numerous, just do "setText" as it can be very slow
     if ((int)edits.size() >= (doc->lines() / 2) && doc->lines() > 1000) {
         for (const PatchLine &p : edits) {
             delete p.pos;

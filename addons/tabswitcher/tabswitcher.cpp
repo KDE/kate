@@ -203,7 +203,7 @@ void TabSwitcherPluginView::updateDocumentName(KTextEditor::Document *document)
         return;
     }
 
-    // update all items, since a document URL change menas we have to recalculate
+    // update all items, since a document URL change means we have to recalculate
     // common prefix path of all items.
     m_model->updateItems();
 }
@@ -273,7 +273,7 @@ void TabSwitcherPluginView::updateViewGeometry()
 
     // The actual view size should be as big as the columns/rows need it, but
     // smaller than the max-size. This means the view will get quite high with
-    // many open files but I think thats ok. Otherwise one can easily tweak the
+    // many open files but I think that's ok. Otherwise one can easily tweak the
     // max size to be only 1/2th of the central widget size
     const int rowHeight = m_treeView->sizeHintForRow(0);
     const int frameWidth = m_treeView->frameWidth();

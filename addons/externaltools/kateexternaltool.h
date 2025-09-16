@@ -94,7 +94,7 @@ public:
 
     /**
      * @return true if the executable has a valid executable.
-     * Will also return true, if the execuable contains an
+     * Will also return true, if the executable contains an
      * expandable variable
      */
     bool canExecute() const

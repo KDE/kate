@@ -21,7 +21,7 @@ namespace KTextEditor
 }
 
 /**
- * This class is implemented as singelton.
+ * This class is implemented as singleton.
  * It represents the model containing all snippet repositories with their snippets.
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  * @author Milian Wolff <mail@milianw.de>

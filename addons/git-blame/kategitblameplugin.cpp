@@ -393,7 +393,7 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
     // Save the data, everything else has views over this data
     m_rawCommitData = m_blameInfoProc.readAllStandardOutput();
     m_rawCommitData.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
-    // printf("recieved output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
+    // printf("received output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
 
     QByteArrayView out = m_rawCommitData;
     QHash<QByteArrayView, QString> authorCache;

@@ -1469,7 +1469,7 @@ void KatePluginSearchView::indicateMatch(MatchType matchType)
         // Green background for line edit
         KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
     } else if (matchType == MatchType::InvalidRegExp) {
-        // Red background in case an error occured
+        // Red background in case an error occurred
         KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
     } else {
         // Reset background of line edit

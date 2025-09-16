@@ -245,7 +245,7 @@ void KateConsole::loadConsoleIfNeeded(QString directory)
     // if we want one terminal per directory, we will try to locate a tab that has the
     // right one or start a new one
     if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget()); konsoleTabWidget && (m_syncMode == SyncCreateTabPerDir)) {
-        // if no dir is set, use explictly the current working dir to be able to re-use even that konsole
+        // if no dir is set, explictely use the current working dir to be able to reuse even that konsole
         if (directory.isEmpty()) {
             directory = QDir::currentPath();
         }
@@ -394,7 +394,7 @@ void KateConsole::cd(const QString &path)
         }
     }
 
-#ifndef Q_OS_WIN // Doesnt work with PS or cmd.exe on windows
+#ifndef Q_OS_WIN // Doesn't work with PS or cmd.exe on windows
     // Send prior Ctrl-E, Ctrl-U to ensure the line is empty
     sendInput(QStringLiteral("\x05\x15"));
 #endif

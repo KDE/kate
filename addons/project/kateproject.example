@@ -57,7 +57,7 @@ struct
    /// If set, its contents are used by the build plugin in kate.
    /// "targets", "default_target" and "clean_target" are supported starting with kate 4.13.
    /// The "build", "clean" and "quick" fields are only used if "targets" is empty.
-   /// They servce for backward compatibility with the build plugin < 4.13, or they can
+   /// They service for backward compatibility with the build plugin < 4.13, or they can
    /// be used as a quicker way to set up projects with up to 3 targets.
    struct build
    {

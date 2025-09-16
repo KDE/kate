@@ -46,7 +46,7 @@ public:
     explicit SemanticTokensLegend(QObject *parent = nullptr);
 
     /**
-     * Called from LSP Server when capabilities are recieved
+     * Called from LSP Server when capabilities are received
      */
     void initialize(const std::vector<QString> &types);
 

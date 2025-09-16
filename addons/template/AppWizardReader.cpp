@@ -109,7 +109,7 @@ QList<AppWizardReader::Replacement> AppWizardReader::replacements() const
 {
     QList<Replacement> reps;
     reps.append({i18n("Application Name"), "%{APPNAME}"_ba, "MyApp"_ba});
-    reps.append({i18n("Appication Version"), "%{VERSION}"_ba, "0.1"_ba});
+    reps.append({i18n("Application Version"), "%{VERSION}"_ba, "0.1"_ba});
     reps.append({i18n("Author"), "%{AUTHOR}"_ba, QByteArray()});
     reps.append({i18n("E-Mail"), "%{EMAIL}"_ba, QByteArray()});
     return reps;

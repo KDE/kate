@@ -69,7 +69,7 @@ private:
     KTextEditor::Range m_currentHighlightedRange;
 
     /**
-     * A simple struct which holds the tokens recieved from server +
+     * A simple struct which holds the tokens received from server +
      * moving ranges that were created to highlight those tokens
      */
     struct TokensData {

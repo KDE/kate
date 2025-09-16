@@ -427,7 +427,7 @@ struct Variable {
     QString value;
     std::optional<QString> type;
     /**
-     * @brief evaluateName Optional evaluatable name of tihs variable which can be
+     * @brief evaluateName Optional evaluatable name of this variable which can be
      * passed to the EvaluateRequest to fetch the variable's value
      */
     std::optional<QString> evaluateName;

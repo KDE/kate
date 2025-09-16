@@ -507,7 +507,7 @@ public:
         }
 
         // If the server sent a CompletionItem.textEdit.range and that range's start
-        // is different than what we have, perfer the server. This leads to better
+        // is different than what we have, prefer the server. This leads to better
         // completion because the server might be supplying items for a bigger range than
         // just the current word under cursor.
         const auto textEditRange = item.textEdit.range;
@@ -554,7 +554,7 @@ public:
         }
 
         if (m_autoImport) {
-            // re-use util to apply edits
+            // reuse util to apply edits
             // (which takes care to use moving range, etc)
             if (!additionalTextEdits.isEmpty()) {
                 applyEdits(view->document(), nullptr, additionalTextEdits);

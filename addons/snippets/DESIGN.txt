@@ -20,15 +20,15 @@ After importing, the repository and it's snippets and sup-repositories show
 up in the snippet tree and the snippets can be inserted like normal code-completion items.
 
 2. Editing
-Snipets and repositories can be edited via the contextmenu of the snippet tree.
+Snippets and repositories can be edited via the contextmenu of the snippet tree.
 
 Changing a repository's name will also rename the file from which the snippet has
 been loaded.
 
 3. Contents of a snippet
 A snippet can contain any kind of text. A snippet's text will inserted into the
-currently active document uppon doubleclicking a snippet from the tree or by
-executing it's completion item.
+currently active document upon doubleclicking a snippet from the tree or by
+executing its completion item.
 
 The snippets content's can contain variables, see the documentation of KTextEditor::TemplateInterface
 for more information.

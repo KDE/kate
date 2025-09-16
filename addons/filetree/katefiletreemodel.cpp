@@ -1095,7 +1095,7 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
             endRemoveRows();
             delete item;
         } else {
-            // breakout early, if this node isn't empty, theres no use in checking its parents
+            // breakout early, if this node isn't empty, there's no use in checking its parents
             return;
         }
 

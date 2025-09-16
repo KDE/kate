@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-11 00:45+0000\n"
-"PO-Revision-Date: 2025-08-04 14:40+0400\n"
+"PO-Revision-Date: 2025-09-15 12:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -647,23 +647,22 @@ msgstr ""
 "سيؤدي ذلك إلى نسخ جميع السطور المطابقة للبحث من المستند الحالي إلى الحافظة"
 
 #: SearchPlugin.cpp:394
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
-msgstr "قائمة بأنواع الملفّات للبحث عنها مفصولة بفواصل. مثال: ‎\"*.cpp,*.h\"\n"
+msgstr "قائمة بأنواع الملفّات للبحث عنها مفصولة بفواصل. مثال: ‎\"*.cpp,*.h\""
 
 #: SearchPlugin.cpp:396
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
-msgstr "قائمة ملفّات وأدّلة لاستثنائها من البحث مفصولة بفواصل. مثال: ‎\"build*\"‎"
+msgstr ""
+"قائمة مفصولة بفواصل من أنماط أحرف البدل لمطابقة أسماء الملفات أو الدلائل "
+"المراد استبعادها من البحث.\n"
+"مثال: ”build*“\n"
+"إذا كان النمط يحتوي على علامة ”/“، سيفحص المسار بأكمله بحثًا عن تطابق."
 
 #: SearchPlugin.cpp:401
 #, kde-format

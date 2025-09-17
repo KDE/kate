@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-17 00:46+0000\n"
 "PO-Revision-Date: 2023-01-22 15:24+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -49,12 +49,12 @@ msgstr "Zobraziť podrobnosti Git Blame"
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:522
+#: kategitblameplugin.cpp:529
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git blame, zobrazenie začlenenia zlyhalo."
 
-#: kategitblameplugin.cpp:615
+#: kategitblameplugin.cpp:622
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Zatiaľ nezačlenené"

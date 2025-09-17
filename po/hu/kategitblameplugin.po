@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-17 00:46+0000\n"
 "PO-Revision-Date: 2024-01-12 21:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -49,12 +49,12 @@ msgstr "Git gyanúsítás részletei be/ki"
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:522
+#: kategitblameplugin.cpp:529
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git gyanúsítás, véglegesítés megjelenítése sikertelen."
 
-#: kategitblameplugin.cpp:615
+#: kategitblameplugin.cpp:622
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Nincs még véglegesítve"

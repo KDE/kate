@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-17 00:46+0000\n"
 "PO-Revision-Date: 2024-06-21 15:31+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -50,12 +50,12 @@ msgstr "הצגת/הסתרת פרטי האשמה ב־Git"
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:522
+#: kategitblameplugin.cpp:529
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "האשמה ב־Git, הצגת ההגשה נכשלה."
 
-#: kategitblameplugin.cpp:615
+#: kategitblameplugin.cpp:622
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "לא הוגש עדיין"

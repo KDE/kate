@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-13 00:52+0000\n"
+"POT-Creation-Date: 2025-09-17 00:46+0000\n"
 "PO-Revision-Date: 2024-10-10 15:08+0300\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -50,12 +50,12 @@ msgstr "Pārslēgt „Git Blame“ informāciju"
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:522
+#: kategitblameplugin.cpp:529
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "„Git blame“, iesūtījuma parādīšana neizdevās."
 
-#: kategitblameplugin.cpp:615
+#: kategitblameplugin.cpp:622
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Vēl nav iesūtīts"

@@ -410,8 +410,6 @@ public:
     QPointer<QWidget> m_lastActiveToolview;
 
 Q_SIGNALS:
-    void backClicked();
-    void errorMessage(const QString &msg, bool warn);
     void gitLogDone();
 };
 
@@ -524,7 +522,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
                           QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
                           QStringLiteral("-z"),
                           file})) {
-        Q_EMIT errorMessage(i18n("Failed to get file history: git executable not found in PATH"), true);
+        Utils::showMessage(i18n("Failed to get file history: git executable not found in PATH"), gitIcon(), QStringLiteral("FileHistory"), MessageType::Error);
         return;
     }
 
@@ -540,7 +538,10 @@ void FileHistoryWidget::getFileHistory(const QString &file)
 
     connect(&m_git, &QProcess::finished, this, [this](int exitCode, QProcess::ExitStatus s) {
         if (exitCode != 0 || s != QProcess::NormalExit) {
-            Q_EMIT errorMessage(i18n("Failed to get file history: %1", QString::fromUtf8(m_git.readAllStandardError())), true);
+            Utils::showMessage(i18n("Failed to get file history: %1", QString::fromUtf8(m_git.readAllStandardError())),
+                               gitIcon(),
+                               QStringLiteral("FileHistory"),
+                               MessageType::Error);
         }
         Q_EMIT gitLogDone();
     });

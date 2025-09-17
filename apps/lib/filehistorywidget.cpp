@@ -184,7 +184,7 @@ public:
             accept = commit.authorDate <= m_untilDate.date;
         }
 
-        if (!m_authorFilters.empty()) {
+        if (accept && !m_authorFilters.empty()) {
             // If we have author, apply that
             accept = std::any_of(m_authorFilters.begin(), m_authorFilters.end(), [&commit](const Filter &f) {
                 return commit.authorName.contains(f.text, Qt::CaseInsensitive);
@@ -412,6 +412,7 @@ public:
 Q_SIGNALS:
     void backClicked();
     void errorMessage(const QString &msg, bool warn);
+    void gitLogDone();
 };
 
 FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent)
@@ -421,6 +422,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     , m_toolView(parent)
     , m_mainWindow(mw)
 {
+    setObjectName(QStringLiteral("FileHistoryWidget"));
     auto model = new CommitListModel(this);
     auto proxy = new CommitProxyModel(this);
     proxy->setSourceModel(model);
@@ -540,6 +542,7 @@ void FileHistoryWidget::getFileHistory(const QString &file)
         if (exitCode != 0 || s != QProcess::NormalExit) {
             Q_EMIT errorMessage(i18n("Failed to get file history: %1", QString::fromUtf8(m_git.readAllStandardError())), true);
         }
+        Q_EMIT gitLogDone();
     });
 
     startHostProcess(m_git, QProcess::ReadOnly);

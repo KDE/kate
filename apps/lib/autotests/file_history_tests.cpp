@@ -44,6 +44,7 @@ public:
 private Q_SLOTS:
     void smokeTest();
     void testFiltering();
+    void testAuthorAndDateFiltering();
 
 private:
     QWidget *getToolview()
@@ -176,6 +177,57 @@ void FileHistoryTest::testFiltering()
     QCOMPARE(filtersList->count(), 0);
     QCOMPARE(filtersList->isVisible(), false);
     QVERIFY(commitProxyModel->rowCount() == preFilterRowCount);
+
+    getCloseButton(toolview)->click();
+    QTRY_VERIFY(getToolview() == nullptr);
+}
+
+void FileHistoryTest::testAuthorAndDateFiltering()
+{
+    if (!haveGit) {
+        QSKIP("Skipping the test, 'git' not found");
+    }
+
+    KateMainWindow *mw = app->activeKateMainWindow();
+    FileHistory::showFileHistory(testFile, mw->wrapper());
+
+    auto toolview = getToolview();
+    QVERIFY(toolview);
+    auto fileHistoryWidget = toolview->findChild<QWidget *>("FileHistoryWidget");
+    QVERIFY(fileHistoryWidget);
+    QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
+
+    auto filtersList = toolview->findChild<QListWidget *>();
+    auto filterLineEdit = toolview->findChild<QLineEdit *>();
+    auto commitProxyModel = toolview->findChild<QSortFilterProxyModel *>();
+
+    QVERIFY(filterLineEdit->text().isEmpty());
+    QVERIFY(filtersList->count() == 0);
+
+    QTRY_VERIFY(spy.count() == 1);
+    const int preFilterRowCount = commitProxyModel->rowCount();
+
+    // Add a filter
+    filterLineEdit->setText(QStringLiteral("a:waqar"));
+    filterLineEdit->returnPressed();
+    // Expect line edit is emptied after return press
+    QVERIFY(filterLineEdit->text().isEmpty());
+
+    // Expect different rowCount
+    QVERIFY(commitProxyModel->rowCount() != preFilterRowCount);
+    const int rowCountAfterAuthorFilter = commitProxyModel->rowCount();
+
+    // Add since filter
+    filterLineEdit->setText(QStringLiteral("since:2025-01-01"));
+    filterLineEdit->returnPressed();
+    QCOMPARE(filtersList->count(), 2);
+
+    // Expect different rowCount after applying since filter
+    QVERIFY(commitProxyModel->rowCount() != rowCountAfterAuthorFilter);
+
+    // close the toolview
+    getCloseButton(toolview)->click();
+    QTRY_VERIFY(getToolview() == nullptr);
 }
 
 QTEST_MAIN(FileHistoryTest)

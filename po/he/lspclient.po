@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-08-29 00:46+0000\n"
-"PO-Revision-Date: 2025-07-15 07:57+0300\n"
+"PO-Revision-Date: 2025-09-17 10:44+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -71,7 +71,7 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
-"להפעיל את שרת LSP?<br><br>שורת הפקודה המלאה היא:<br><br><b>%1</"
+"להפעיל את שרת LSP?<br><br>שורת הפקודות המלאה היא:<br><br><b>%1</"
 "b><br><br>אפשר לשנות את הבחירה דרך עמוד ההגדרות של התוסף."
 
 #: lspclientplugin.cpp:251

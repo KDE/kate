@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-11 00:45+0000\n"
-"PO-Revision-Date: 2025-02-18 08:34+0200\n"
+"PO-Revision-Date: 2025-09-17 10:33+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -614,23 +614,22 @@ msgid ""
 msgstr "פעולה זו תעתיק את כל שורות החיפוש המודגשות במסמך הנוכחי ללוח הגזירים"
 
 #: SearchPlugin.cpp:394
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
-msgstr "רשימה מופרדת בפסיקים של סוגי הקבצים לחיפוש. לדוגמה: „‎*.cpp;‏ ‎*.h”\n"
+msgstr "רשימה מופרדת בפסיקים של סוגי הקבצים לחיפוש. לדוגמה: „‎*.cpp;‏ ‎*.h”"
 
 #: SearchPlugin.cpp:396
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
-msgstr "רשימה מופרדת בפסיקים של קבצים וספריות להחרגה מהחיפוש. למשל: „build.*”"
+msgstr ""
+"רשימה מופרדת בפסיקים של תבניות עם תווי הכללה כדי ללכוד שמות קבצים ותיקיות "
+"לחרגה מהחיפוש.\n"
+"למשל: „build*‎”\n"
+"אם התבנית מכילה ‚/’, כל הנתיב יסומן ללכידה."
 
 #: SearchPlugin.cpp:401
 #, kde-format

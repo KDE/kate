@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-17 00:46+0000\n"
-"PO-Revision-Date: 2025-08-26 11:18+0300\n"
+"PO-Revision-Date: 2025-09-17 10:44+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -140,7 +140,7 @@ msgstr "עמודה"
 #: kate/main.cpp:211 kwrite/main.cpp:114
 #, kde-format
 msgid "Read the contents of stdin."
-msgstr "לקרוא את תוכן קלט שורת הפקודה (stdin)."
+msgstr "לקרוא את תוכן קלט שורת הפקודות (stdin)."
 
 #: kate/main.cpp:216 kwrite/main.cpp:118
 #, kde-format
@@ -1013,17 +1013,13 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:127
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"רשימה של תיקיות %1 מופרדות בפסיקים בהן תחפש Kate תוכניות להרצה. הרשימה תצטרף "
+"רשימה של תיקיות שביניהן המפריד %1 בהן תחפש Kate תוכניות להרצה. הרשימה תצטרף "
 "לפני משתנה הסביבה שלך בשם PATH. כלומר: ‚‎/home/USER/myapps/bin/:/home/USER/."
 "local/bin’"
 

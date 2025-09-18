@@ -543,12 +543,14 @@ KateBuildView::~KateBuildView()
     delete m_toolView;
 }
 
-template<typename... Args>
-auto formatKey(std::span<char> buffer, std::format_string<Args...> fmt, Args &&...args)
+static const char *formatKey(std::span<char> buffer, const char *fmt, ...)
 {
-    auto result = std::format_to_n(buffer.data(), buffer.size() - 1, fmt, std::forward<Args...>(args...));
-    *result.out = '\0';
-    Q_ASSERT(result.size < buffer.size());
+    va_list args;
+    va_start(args, fmt);
+    int w = vsnprintf(buffer.data(), buffer.size(), fmt, args);
+    va_end(args);
+
+    Q_ASSERT(size_t(w) < buffer.size());
     return buffer.data();
 }
 
@@ -563,11 +565,11 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
     char key[256]{};
 
     for (int i = 0; i < numTargets; i++) {
-        QStringList targetNames = cg.readEntry(formatKey(key, "{} Target Names", i), QStringList());
-        QString targetSetName = cg.readEntry(formatKey(key, "{} Target", i), QString());
-        QString buildDir = cg.readEntry(formatKey(key, "{} BuildPath", i), QString());
-        bool loadedViaCMake = cg.readEntry(formatKey(key, "{} LoadedViaCMake", i), false);
-        QString cmakeConfigName = cg.readEntry(formatKey(key, "{} CMakeConfig", i), QStringLiteral("NONE"));
+        QStringList targetNames = cg.readEntry(formatKey(key, "%d Target Names", i), QStringList());
+        QString targetSetName = cg.readEntry(formatKey(key, "%d Target", i), QString());
+        QString buildDir = cg.readEntry(formatKey(key, "%d BuildPath", i), QString());
+        bool loadedViaCMake = cg.readEntry(formatKey(key, "%d LoadedViaCMake", i), false);
+        QString cmakeConfigName = cg.readEntry(formatKey(key, "%d CMakeConfig", i), QStringLiteral("NONE"));
 
         if (loadedViaCMake) {
             QCMakeFileApi cmakeFA(buildDir, false);
@@ -583,7 +585,7 @@ void KateBuildView::readSessionConfig(const KConfigGroup &cg)
         setIndex = m_targetsUi->targetsModel.insertTargetSetAfter(setIndex, targetSetName, buildDir);
 
         // Keep a bit of backwards compatibility by ensuring that the "default" target is the first in the list
-        QString defCmd = cg.readEntry(formatKey(key, "{} Target Default", i), QString());
+        QString defCmd = cg.readEntry(formatKey(key, "%d Target Default", i), QString());
 
         int defIndex = targetNames.indexOf(defCmd);
         if (defIndex > 0) {
@@ -649,10 +651,10 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
         bool loadedViaCMake = setObj[QLatin1String("loaded_via_cmake")].toBool();
         char key[256]{};
 
-        cg.writeEntry(formatKey(key, "{} Target", i), setObj[QLatin1String("name")].toString());
-        cg.writeEntry(formatKey(key, "{} BuildPath", i), setObj[QLatin1String("directory")].toString());
-        cg.writeEntry(formatKey(key, "{} LoadedViaCMake", i), loadedViaCMake);
-        cg.writeEntry(formatKey(key, "{} CMakeConfig", i), setObj[QLatin1String("cmake_config")].toString());
+        cg.writeEntry(formatKey(key, "%d Target", i), setObj[QLatin1String("name")].toString());
+        cg.writeEntry(formatKey(key, "%d BuildPath", i), setObj[QLatin1String("directory")].toString());
+        cg.writeEntry(formatKey(key, "%d LoadedViaCMake", i), loadedViaCMake);
+        cg.writeEntry(formatKey(key, "%d CMakeConfig", i), setObj[QLatin1String("cmake_config")].toString());
 
         if (loadedViaCMake) {
             // don't save the build commands, they'll be reloaded via the CMake file API
@@ -671,7 +673,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
             cg.writeEntry(QStringLiteral("%1 BuildCmd %2").arg(i).arg(cmdName), buildCmd);
             cg.writeEntry(QStringLiteral("%1 RunCmd %2").arg(i).arg(cmdName), runCmd);
         }
-        cg.writeEntry(formatKey(key, "{} Target Names", i), cmdNames);
+        cg.writeEntry(formatKey(key, "%d Target Names", i), cmdNames);
     }
 }
 

@@ -857,9 +857,10 @@ void KateViewManagementTests::testTabbarContextMenu()
         QVERIFY(!getAction(menu, "Properties")->isEnabled());
 
         QVERIFY(getAction(menu, "Open…")->isEnabled());
-        QVERIFY(getAction(menu, "Close Document")->isEnabled());
-        QVERIFY(getAction(menu, "Close Other Documents")->isEnabled());
-        QVERIFY(getAction(menu, "Close All Documents")->isEnabled());
+        QVERIFY(getAction(menu, "Close Tab")->isEnabled());
+        // The next two menu entries should be disabled when there is only one tab
+        QVERIFY(getAction(menu, "Close Other Tabs")->isEnabled() == false);
+        QVERIFY(getAction(menu, "Close All Tabs")->isEnabled() == false);
     }
 
     {

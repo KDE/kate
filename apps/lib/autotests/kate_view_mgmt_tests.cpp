@@ -865,10 +865,15 @@ void KateViewManagementTests::testTabbarContextMenu()
 
     {
         vm->setActiveSpace(leftVS);
-        // Add a widget
-        QPointer<QWidget> widget = new QWidget;
-        widget->setObjectName(QStringLiteral("widget"));
-        app->activeMainWindow()->addWidget(widget);
+        // Add widget1
+        QPointer<QWidget> widget1 = new QWidget;
+        widget1->setObjectName(QStringLiteral("widget1"));
+        app->activeMainWindow()->addWidget(widget1);
+
+        // Add widget2
+        QPointer<QWidget> widget2 = new QWidget;
+        widget2->setObjectName(QStringLiteral("widget2"));
+        app->activeMainWindow()->addWidget(widget2);
 
         QMenu menu;
         leftVS->buildContextMenu(1, menu);
@@ -876,8 +881,14 @@ void KateViewManagementTests::testTabbarContextMenu()
         auto closeTab = getAction(menu, "Close Tab");
         QVERIFY(closeTab && closeTab->isEnabled());
         closeTab->trigger();
+        QTRY_VERIFY(widget1 == nullptr);
 
-        QTRY_VERIFY(widget == nullptr);
+        leftVS->buildContextMenu(0, menu); // Context menu of doc
+        QVERIFY(!menu.isEmpty());
+        auto closeOtherTabs = getAction(menu, "Close Other Tabs");
+        QVERIFY(closeOtherTabs && closeTab->isEnabled());
+        closeOtherTabs->trigger();
+        QTRY_VERIFY(widget2 == nullptr);
     }
 }
 

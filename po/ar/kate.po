@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-17 00:46+0000\n"
+"POT-Creation-Date: 2025-09-19 00:45+0000\n"
 "PO-Revision-Date: 2025-09-15 12:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -172,7 +172,7 @@ msgid "Copy Location"
 msgstr "انسخ المكان"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "Git"
 msgstr "غت"
@@ -182,7 +182,7 @@ msgstr "غت"
 msgid "Invalid hash"
 msgstr "تلبيدة غير صالحة"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 غير موجود في مستودع غت"
@@ -628,19 +628,19 @@ msgstr "أخفق في الحصول على ملف التاريخ: لم يعثر �
 msgid "Failed to get file history: %1"
 msgstr "أخفق في الحصول على ملف التاريخ: %1"
 
-#: lib/filehistorywidget.cpp:552
+#: lib/filehistorywidget.cpp:556
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "انسخ تلبيدة الإيداع"
 
-#: lib/filehistorywidget.cpp:560
+#: lib/filehistorywidget.cpp:564
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "أظهر كامل الإيداع"
 
-#: lib/filehistorywidget.cpp:683
+#: lib/filehistorywidget.cpp:687
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-17 00:46+0000\n"
+"POT-Creation-Date: 2025-09-19 00:45+0000\n"
 "PO-Revision-Date: 2025-09-14 14:17+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -171,7 +171,7 @@ msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "Git"
 msgstr "கிட்"
@@ -181,7 +181,7 @@ msgstr "கிட்"
 msgid "Invalid hash"
 msgstr "செல்லுபடியாகாத சரிகாண்தொகை"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ஓர் கிட் கிடங்கில் இல்லை."
@@ -618,19 +618,19 @@ msgstr "கோப்பின் வரலாற்றைக் கண்டற�
 msgid "Failed to get file history: %1"
 msgstr "கோப்பின் வரலாற்றைக் கண்டறிய முடியவில்லை: %1"
 
-#: lib/filehistorywidget.cpp:552
+#: lib/filehistorywidget.cpp:556
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "பதிவின் சரிகாண்தொகையை காட்டு"
 
-#: lib/filehistorywidget.cpp:560
+#: lib/filehistorywidget.cpp:564
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "முழு பதிவை காட்டு"
 
-#: lib/filehistorywidget.cpp:683
+#: lib/filehistorywidget.cpp:687
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

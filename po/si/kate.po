@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-17 00:46+0000\n"
+"POT-Creation-Date: 2025-09-19 00:45+0000\n"
 "PO-Revision-Date: 2011-08-04 10:19+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -184,7 +184,7 @@ msgid "Copy Location"
 msgstr "පිහිටුම"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "Git"
 msgstr ""
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
@@ -632,20 +632,20 @@ msgstr ""
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:552
+#: lib/filehistorywidget.cpp:556
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:560
+#: lib/filehistorywidget.cpp:564
 #, fuzzy, kde-format
 #| msgid "&Show Full Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "මුළු මඟ පෙන්වන්න (&S)"
 
-#: lib/filehistorywidget.cpp:683
+#: lib/filehistorywidget.cpp:687
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

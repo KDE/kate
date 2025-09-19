@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-17 00:46+0000\n"
+"POT-Creation-Date: 2025-09-19 00:45+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -162,7 +162,7 @@ msgid "Copy Location"
 msgstr "प्रतिलिपि स्थानम्"
 
 #: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
@@ -172,7 +172,7 @@ msgstr "गिट्"
 msgid "Invalid hash"
 msgstr "अमान्य हैश"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:674
+#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 git repo मध्ये नास्ति ।."
@@ -598,19 +598,19 @@ msgstr "सञ्चिका-इतिहासं प्राप्तुं 
 msgid "Failed to get file history: %1"
 msgstr "सञ्चिका-इतिहासं प्राप्तुं असफलम्: %1"
 
-#: lib/filehistorywidget.cpp:552
+#: lib/filehistorywidget.cpp:556
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "प्रतिबद्ध हैश प्रतिलिख्यताम्"
 
-#: lib/filehistorywidget.cpp:560
+#: lib/filehistorywidget.cpp:564
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "पूर्णप्रतिबद्धता दर्शयतु"
 
-#: lib/filehistorywidget.cpp:683
+#: lib/filehistorywidget.cpp:687
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

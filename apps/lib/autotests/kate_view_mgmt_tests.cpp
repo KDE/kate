@@ -886,7 +886,7 @@ void KateViewManagementTests::testTabbarContextMenu()
         leftVS->buildContextMenu(0, menu); // Context menu of doc
         QVERIFY(!menu.isEmpty());
         auto closeOtherTabs = getAction(menu, "Close Other Tabs");
-        QVERIFY(closeOtherTabs && closeTab->isEnabled());
+        QVERIFY(closeOtherTabs && closeOtherTabs->isEnabled());
         closeOtherTabs->trigger();
         QTRY_VERIFY(widget2 == nullptr);
     }

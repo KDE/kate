@@ -227,8 +227,6 @@ void KateCTagsView::writeSessionConfig(KConfigGroup &cg)
     }
 
     cg.writeEntry("SessionDatabase", m_ctagsUi.tagsFile->text());
-
-    cg.sync();
 }
 
 /******************************************************************/

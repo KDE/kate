@@ -102,7 +102,6 @@ CloseConfirmDialog::~CloseConfirmDialog()
 {
     KConfigGroup gcg(KSharedConfig::openConfig(), QStringLiteral("kate-close-except-like-CloseConfirmationDialog"));
     KWindowConfig::saveWindowSize(windowHandle(), gcg); // write dialog geometry to config
-    gcg.sync();
 }
 
 /**

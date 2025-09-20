@@ -459,8 +459,6 @@ void KateFileTreePluginView::writeSessionConfig(KConfigGroup &g)
         g.deleteEntry("listMode");
         g.deleteEntry("sortRole");
     }
-
-    g.sync();
 }
 
 void KateFileTreePluginView::slotDocumentsCreated()

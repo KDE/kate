@@ -208,10 +208,8 @@ void KateSQLView::writeSessionConfig(KConfigGroup &group)
 
     if (saveConnections) {
         m_manager->saveConnections(&group);
-
         group.writeEntry("LastUsed", m_connectionsComboBox->currentText());
     }
-    group.config()->sync();
 }
 
 void KateSQLView::slotConnectionCreate()

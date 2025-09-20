@@ -63,7 +63,6 @@ void CloseExceptPlugin::writeSessionConfig(KConfigGroup &config)
 {
     KConfigGroup scg(&config, QStringLiteral("menu"));
     scg.writeEntry("ShowConfirmation", m_show_confirmation_needed);
-    scg.sync();
 }
 // END CloseExceptPlugin
 

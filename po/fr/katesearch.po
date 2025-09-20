@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-11 00:45+0000\n"
-"PO-Revision-Date: 2025-02-14 08:54+0100\n"
+"PO-Revision-Date: 2025-09-12 13:51+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.08.1\n"
 "X-Text-Markup: kde4\n"
 
 #: KateSearchCommand.cpp:88
@@ -611,27 +611,25 @@ msgstr ""
 "du document actuel vers le presse-papier."
 
 #: SearchPlugin.cpp:394
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Liste séparée par des virgules, des types de fichiers dans lesquels "
-"effectuer une recherche. Exemple : « *.cpp,*.h »\n"
+"Liste séparée par des virgules des types de fichiers dans lesquels effectuer "
+"une recherche. Exemple : « *.cpp,*.h »"
 
 #: SearchPlugin.cpp:396
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Liste séparée par des virgules, des fichiers et des dossiers à exclure de la "
-"recherche. Exemple : « build* »"
+"Liste séparée par des virgules des motifs avec caractères génériques pour "
+"spécifier les fichiers et les dossiers à exclure de la recherche. Exemple : "
+"« build* »\n"
+"Si le motif contient un caractère « / », la totalité de l'emplacement est "
+"pris en compte pour la recherche d'une correspondance."
 
 #: SearchPlugin.cpp:401
 #, kde-format

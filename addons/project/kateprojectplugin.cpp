@@ -79,6 +79,14 @@ KateProjectPlugin::KateProjectPlugin(QObject *parent)
     // forward to meta-object system friendly version
     connect(this, &KateProjectPlugin::projectCreated, this, &KateProjectPlugin::projectAdded);
     connect(this, &KateProjectPlugin::pluginViewProjectClosing, this, &KateProjectPlugin::projectRemoved);
+
+    /**
+     * heuristic:
+     * clear our cache of directories without projects when a new project got created
+     */
+    connect(this, &KateProjectPlugin::projectCreated, this, [this]() {
+        m_dirsWithNoProjectsCache.clear();
+    });
 }
 
 KateProjectPlugin::~KateProjectPlugin()
@@ -147,6 +155,13 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
     const QDir originalDir = dir;
 
     /**
+     * check our cache if not user triggered, avoids to stat a lot below
+     */
+    if (!userSpecified && m_dirsWithNoProjectsCache.contains(originalDir.absolutePath())) {
+        return nullptr;
+    }
+
+    /**
      * search project file upwards
      * with recursion guard
      * do this first for all level and only after this fails try to invent projects
@@ -202,7 +217,9 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
 
     /**
      * Give up
+     * remember we failed, we only arrive here for non user triggered auto detection!
      */
+    m_dirsWithNoProjectsCache.insert(originalDir.absolutePath());
     return nullptr;
 }
 

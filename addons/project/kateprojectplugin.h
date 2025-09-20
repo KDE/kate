@@ -10,6 +10,7 @@
 #include <unordered_map>
 
 #include <QFileSystemWatcher>
+#include <QSet>
 #include <QThreadPool>
 #include <QUrl>
 
@@ -295,4 +296,11 @@ private:
     QThreadPool m_threadPool;
 
     const ProjectPluginCommands m_commands;
+
+    /**
+     * set of directories we know we will find no projects in
+     * allows to avoid extensive stating
+     * will be cleared whenever we see a new project
+     */
+    QSet<QString> m_dirsWithNoProjectsCache;
 };

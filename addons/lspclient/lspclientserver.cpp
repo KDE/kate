@@ -1598,7 +1598,12 @@ private:
                 continue;
             }
 
-            rapidjson::GenericObject result = doc.GetObject();
+            if (!doc.IsObject()) {
+                qWarning(LSPCLIENT) << "invalid response payload: no JSON object";
+                continue;
+            }
+
+            const rapidjson::GenericObject result = doc.GetObject();
             auto memIdIt = result.FindMember(MEMBER_ID);
             int msgid = -1;
             if (memIdIt != result.MemberEnd()) {

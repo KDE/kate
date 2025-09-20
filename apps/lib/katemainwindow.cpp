@@ -1438,7 +1438,6 @@ void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
     KConfigGroup config(_config);
     saveMainWindowSettings(config);
     config.writeEntry("WindowState", static_cast<int>(windowState()));
-    config.sync();
 }
 
 void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)

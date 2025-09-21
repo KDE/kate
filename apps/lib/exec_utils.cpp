@@ -8,12 +8,7 @@
 
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <QJsonValue>
-#include <QSet>
-#include <QUrl>
-
-#include <memory>
 
 #include <KSandbox>
 #include <KTextEditor/Editor>

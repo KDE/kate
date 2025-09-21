@@ -19,7 +19,6 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QRegularExpression>
-#include <QSet>
 #include <QStandardPaths>
 #include <QThread>
 #include <QtConcurrentMap>

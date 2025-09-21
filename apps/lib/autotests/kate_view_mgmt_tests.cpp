@@ -4,8 +4,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "kate_view_mgmt_tests.h"
-#include "katemainwindow.h"
-#include "kateviewspace.h"
 #include "ktexteditor_utils.h"
 
 #include <KLocalizedString>
@@ -15,7 +13,6 @@
 
 #include <QCommandLineParser>
 #include <QDialog>
-#include <QMenu>
 #include <QPointer>
 #include <QSignalSpy>
 #include <QTemporaryFile>

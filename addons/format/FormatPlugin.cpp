@@ -20,7 +20,6 @@
 #include <KXMLGUIFactory>
 
 #include <QDir>
-#include <QPointer>
 
 K_PLUGIN_FACTORY_WITH_JSON(FormatPluginFactory, "FormatPlugin.json", registerPlugin<FormatPlugin>();)
 

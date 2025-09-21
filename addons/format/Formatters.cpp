@@ -12,7 +12,6 @@
 #include <QIcon>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QJsonObject>
 #include <QLoggingCategory>
 #include <QTemporaryFile>
 

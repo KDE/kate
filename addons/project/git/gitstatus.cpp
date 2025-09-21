@@ -12,7 +12,6 @@
 #include <KLocalizedString>
 #include <QByteArray>
 #include <QProcess>
-#include <QSet>
 
 #include <charconv>
 #include <memory_resource>

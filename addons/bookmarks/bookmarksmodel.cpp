@@ -7,7 +7,6 @@
 
 #include <KLocalizedString>
 #include <QIcon>
-#include <QUrl>
 
 BookmarksModel::BookmarksModel(QObject *parent)
     : QAbstractTableModel(parent)

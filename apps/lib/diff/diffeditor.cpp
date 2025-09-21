@@ -4,7 +4,6 @@
 */
 #include "diffeditor.h"
 #include "difflinenumarea.h"
-#include "diffparams.h"
 #include "diffwidget.h"
 #include "ktexteditor_utils.h"
 

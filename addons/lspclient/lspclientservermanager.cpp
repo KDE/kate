@@ -111,7 +111,6 @@ static LSPClientServer::TriggerCharactersOverride parseTriggerOverride(const QJs
     return adjust;
 }
 
-#include <memory>
 #include <utility>
 
 // helper guard to handle revision (un)lock

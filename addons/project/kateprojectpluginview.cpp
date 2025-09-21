@@ -43,7 +43,6 @@
 #include <QKeyEvent>
 #include <QMenu>
 #include <QStackedWidget>
-#include <QToolButton>
 
 #define PROJECTCLOSEICON "window-close"
 

@@ -4,22 +4,18 @@
 */
 
 #include "bookmarksplugin.h"
-#include "bookmarksmodel.h"
 
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KTextEditor/Application>
-#include <KTextEditor/Document>
 #include <KTextEditor/Editor>
 #include <KTextEditor/MainWindow>
 
 #include <QFile>
 #include <QHBoxLayout>
 #include <QIcon>
-#include <QItemSelectionModel>
-#include <QSortFilterProxyModel>
 #include <QToolButton>
 #include <QTreeView>
 #include <QVBoxLayout>

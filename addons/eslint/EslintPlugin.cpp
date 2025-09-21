@@ -16,7 +16,6 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QPointer>
 
 #include <hostprocess.h>
 #include <ktexteditor_utils.h>

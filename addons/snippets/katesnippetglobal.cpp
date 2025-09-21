@@ -11,7 +11,6 @@
 #include "editsnippet.h"
 #include "snippet.h"
 #include "snippetcompletionitem.h"
-#include "snippetcompletionmodel.h"
 #include "snippetrepository.h"
 #include "snippetstore.h"
 

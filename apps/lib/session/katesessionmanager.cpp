@@ -29,7 +29,6 @@
 #include <QCryptographicHash>
 #include <QDir>
 #include <QInputDialog>
-#include <QTimer>
 #include <QUrl>
 
 #ifndef Q_OS_WIN

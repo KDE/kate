@@ -41,7 +41,6 @@
 #include "plugin_kategdb.h"
 #include "sessionconfig.h"
 #include "target_json_keys.h"
-#include <exec_utils.h>
 #include <json_utils.h>
 #include <ktexteditor_utils.h>
 

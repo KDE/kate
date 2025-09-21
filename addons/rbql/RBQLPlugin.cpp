@@ -9,8 +9,6 @@
 #include <KPluginFactory>
 #include <KXMLGUIFactory>
 
-#include <QPointer>
-
 K_PLUGIN_FACTORY_WITH_JSON(RBQLPluginFactory, "RBQLPlugin.json", registerPlugin<RBQLPlugin>();)
 
 RBQLPlugin::RBQLPlugin(QObject *parent)

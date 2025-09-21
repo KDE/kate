@@ -21,7 +21,6 @@
 #include <QFontMetricsF>
 #include <QPainter>
 #include <QPointer>
-#include <QVariant>
 
 ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Document *doc)
     : m_doc(doc)

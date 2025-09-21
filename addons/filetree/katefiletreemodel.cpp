@@ -18,7 +18,6 @@
 #include <KColorUtils>
 #include <KLocalizedString>
 
-#include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
 #include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>

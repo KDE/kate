@@ -10,7 +10,6 @@
 #include "lspclient_debug.h"
 
 #include "ktexteditor_utils.h"
-#include "lspclientprotocol.h"
 
 #include <QCoreApplication>
 #include <QFileInfo>

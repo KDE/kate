@@ -7,11 +7,9 @@
 #include <QApplication>
 #include <QCheckBox>
 #include <QFile>
-#include <QJSValue>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QStandardItemModel>
 #include <QTableView>
 #include <QVBoxLayout>
 #include <QtConcurrentRun>

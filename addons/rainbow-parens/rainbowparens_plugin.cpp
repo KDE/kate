@@ -10,7 +10,6 @@
 #include <QLabel>
 #include <QPainter>
 #include <QScopeGuard>
-#include <QTimer>
 #include <QVBoxLayout>
 
 #include <KConfigGroup>

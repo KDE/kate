@@ -26,8 +26,6 @@
 #include <QKeySequence>
 #include <QLayout>
 #include <QPainter>
-#include <QUrl>
-#include <QVariant>
 #include <QtMath>
 
 static bool isUncomittedLine(QByteArrayView hash)

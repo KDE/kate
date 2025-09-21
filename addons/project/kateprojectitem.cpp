@@ -18,8 +18,6 @@
 #include <KIconUtils>
 #include <KLocalizedString>
 
-#include <KTextEditor/Document>
-
 KateProjectItem::KateProjectItem(Type type, const QString &text, const QString &path)
     : QStandardItem(text)
     , m_type(type)

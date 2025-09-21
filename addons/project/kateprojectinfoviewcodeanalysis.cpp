@@ -25,7 +25,6 @@
 #include <QVBoxLayout>
 
 #include <KLocalizedString>
-#include <QTimer>
 
 #include <KTextEditor/MainWindow>
 

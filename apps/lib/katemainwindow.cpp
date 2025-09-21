@@ -30,7 +30,6 @@
 #include "kateupdatedisabler.h"
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
-#include "mainwindow_commands.h"
 #include "texthint/KateTextHintManager.h"
 
 #include <KActionCollection>

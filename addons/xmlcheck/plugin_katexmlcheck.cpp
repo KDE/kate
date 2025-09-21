@@ -48,7 +48,6 @@
 #include <KActionCollection>
 #include <QApplication>
 #include <QFile>
-#include <QString>
 #include <QTextStream>
 
 #include "hostprocess.h"

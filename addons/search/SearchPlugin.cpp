@@ -9,7 +9,6 @@
 #include "KateSearchCommand.h"
 #include "MatchExportDialog.h"
 #include "MatchProxyModel.h"
-#include "Results.h"
 
 #include <KTextEditor/Document>
 #include <ktexteditor/editor.h>

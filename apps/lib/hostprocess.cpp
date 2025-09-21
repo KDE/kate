@@ -3,7 +3,6 @@
 
 #include "hostprocess.h"
 
-#include <QProcess>
 #include <QStandardPaths>
 
 #include <KSandbox>

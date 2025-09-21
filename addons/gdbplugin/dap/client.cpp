@@ -14,8 +14,6 @@
 
 #include "messages.h"
 
-#include <exec_utils.h>
-
 namespace dap
 {
 constexpr int MAX_HEADER_SIZE = 1 << 16;

@@ -36,7 +36,6 @@
 
 #include "debugconfigpage.h"
 #include <KShell>
-#include <KTextEditor/Document>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 

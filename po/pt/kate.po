@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-07-02 02:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-doc@kde.org>\n"
@@ -2564,17 +2564,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Abertura de um Ficheiro Grande"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "O %1 não consegue abrir pastas"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "O 'plugin' necessário para abrir as pastas não foi encontrado"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2582,24 +2582,24 @@ msgstr ""
 "Para abrir as pastas, é necessário activar o 'plugin' <b>%1</b>. Deseja "
 "activá-lo?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Abrir a Pasta"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Activar"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Não foi possível activar o 'plugin' <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2646,53 +2646,51 @@ msgstr[1] ""
 "De momento, existem mais %1 documentos abertos. Para ver todos os documentos "
 "abertos, mude para a área de Abertura Rápida, carregado para tal aqui."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Fechar a Página"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "Fe&char o Documento"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close &Other Tabs"
+msgstr "Fechar as Outras"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Fechar os Outros &Documentos"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All &Tabs"
+msgstr "Fech&ar Tudo"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "Fechar &Todos os Documentos"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Dissociar o Documento"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Abre o documento numa nova janela e fecha-o na actual"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Comparar com o Documento Activo"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Comparar com o Documento Activo Com"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Documentos"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3201,6 +3199,15 @@ msgstr "Gerir as Sessões..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Mostrar as boas-vindas nas janelas novas"
+
+#~ msgid "&Close Document"
+#~ msgstr "Fe&char o Documento"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Fechar os Outros &Documentos"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "Fechar &Todos os Documentos"
 
 #~ msgid "Could not start program"
 #~ msgstr "Não foi possível iniciar o programa"

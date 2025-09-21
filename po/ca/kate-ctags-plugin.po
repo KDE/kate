@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 00:44+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-02-20 10:13+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -357,8 +357,8 @@ msgid "(Re-)generate the common CTags database."
 msgstr "(Re)genera la base de dades comuna de CTags."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
-#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:549
-#: kate_ctags_view.cpp:562 kate_ctags_view.cpp:575 kate_ctags_view.cpp:579
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
@@ -368,7 +368,7 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "Arranjament de CTags"
 
-#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:560
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr "Ha fallat en executar. Error: %1, codi de sortida: %2"
@@ -449,22 +449,22 @@ msgstr "Ves al símbol local"
 msgid "Go To Global Symbol"
 msgstr "Ves al símbol global"
 
-#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:355
+#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
 #, kde-format
 msgid "No hits found"
 msgstr "No s'ha trobat cap coincidència"
 
-#: kate_ctags_view.cpp:549
+#: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
 msgstr "No hi ha carpetes o fitxers per a indexar"
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:573
 #, kde-format
 msgid "The CTags executable crashed"
 msgstr "L'executable CTags ha fallat"
 
-#: kate_ctags_view.cpp:577
+#: kate_ctags_view.cpp:575
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr "El programa CTags ha finalitzat amb el codi %2: %1"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-13 07:00+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -2519,41 +2519,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Odiranje velike datoteke"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ni mogoče odpreti map"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Zahtevanega vtičnika za odpiranje map ni bilo mogoče najti"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Da bi odpirali mape, mora biti vtičnik <b>%1</b> omogočen. Naj ga omogočim?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Odpri mapo"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Omogoči"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Omogočenje vtičnika <b>%1</b> ni uspelo"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Datoteka '%1' ne obstaja"
@@ -2608,52 +2608,50 @@ msgstr[3] ""
 "Trenutno je odprtih še %1 dokumentov. Kliknite sem, da preklopite na pogled "
 "hitrega odpiranja in vidite vse odprte dokumente."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Zapri zavihek"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "Zapri dokument"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "Zapri ostale"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Zapri druge &dokumente"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "Zapri vse"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "Zapri vse dokumente"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Odpre dokument v novem oknu in ga zapre v trenutnem oknu"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Primerjaj z aktivnim dokumentom"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Primerjaj z aktivnim dokumentom z uporabo"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "Odpni dokument"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "Pripni dokument"
@@ -3160,6 +3158,15 @@ msgstr "Upravljaj seje..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Pokaži stran dobrodošlice za novo okno"
+
+#~ msgid "&Close Document"
+#~ msgstr "Zapri dokument"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Zapri druge &dokumente"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "Zapri vse dokumente"
 
 #~ msgid "Could not start program"
 #~ msgstr "Programa ni bilo moč zagnati"

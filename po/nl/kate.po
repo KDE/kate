@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-13 18:07+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -2538,17 +2538,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Bezig met groot bestand te openen"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 kan mappen niet openen"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "De plug-in vereist om mappen te openen is niet gevonden"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2556,24 +2556,24 @@ msgstr ""
 "Om mappen te openen moet de plug-in <b>%1</b> ingeschakeld worden. "
 "Inschakelen?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Map openen"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Inschakelen"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Inschakelen van plug-in <b>%1</b> is mislukt"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Het bestand '%1 bestaat niet"
@@ -2622,53 +2622,51 @@ msgstr[1] ""
 "Op dit moment zijn er %1 documenten meer open. Om alle open documenten te "
 "zien, schakel over naar de weergave Snelopenen door hier te klikken."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Tabblad sluiten"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "Document &sluiten"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "Andere sluiten"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Andere &documenten sluiten"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "Alles sluiten"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "&Alle documenten sluiten."
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "Docum&ent afkoppelen"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Opent het document in een nieuw venster en sluit het in het huidige venster"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Met het actieve document vergelijken"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vergelijken met het actieve document met gebruik van"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "Document losmaken"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "Document vastpinnen"
@@ -3181,6 +3179,15 @@ msgstr "Sessies beheren..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Welkomstpagina voor nieuw venster tonen"
+
+#~ msgid "&Close Document"
+#~ msgstr "Document &sluiten"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Andere &documenten sluiten"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "&Alle documenten sluiten."
 
 #~ msgid "Could not start program"
 #~ msgstr "Kon het programma niet starten"

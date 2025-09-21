@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-08-01 12:53+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -526,7 +526,7 @@ msgstr "¿Seguro que desea eliminar estos cambios no seguidos?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Archivo JSON mal formado «%1»: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:743 kateprojectpluginview.cpp:79
+#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -834,23 +834,23 @@ msgstr "Error"
 msgid "File name already exists"
 msgstr "El nombre del archivo ya existe"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:240
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Confirmar el cierre del proyecto: %1"
 
-#: kateprojectplugin.cpp:224
+#: kateprojectplugin.cpp:241
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "¿Desea cerrar el proyecto %1 y los %2 documentos abiertos relacionados?"
 
-#: kateprojectplugin.cpp:609
+#: kateprojectplugin.cpp:626
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Ruta completa al proyecto actual, excluyendo el nombre de archivo."
 
-#: kateprojectplugin.cpp:626
+#: kateprojectplugin.cpp:643
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "

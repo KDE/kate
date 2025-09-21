@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-08-22 17:16+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -2520,17 +2520,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Avaamassa suurta tiedostoa"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ei voi avata kansioita"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Kansioiden avaamiseen vaadittua liitännäistä ei löydy"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2538,24 +2538,24 @@ msgstr ""
 "Kansioiden avaamiseen vaaditaan <b>%1</b>-liitännäinen. Otetaanko se "
 "käyttöön?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Avaa kansio"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ota käyttöön"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Tiedostoa ”%1” ei ole olemassa"
@@ -2603,54 +2603,51 @@ msgstr[1] ""
 "%1 tiedosto lisää on auki. Katso kaikki avoimet tiedostot siirtymällä pika-"
 "avausnäkymään painamalla tästä."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Sulje välilehti"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1140
 #, kde-format
-msgid "&Close Document"
-msgstr "&Sulje tiedosto"
+msgid "Close &Other Tabs"
+msgstr "Sulje &muut välilehdet"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Sulje &muut tiedostot"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close &All Tabs"
+msgid "Close All &Tabs"
+msgstr "Sulje k&aikki välilehdet"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "Sulje &kaikki tiedostot"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Irrota tiedosto"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Avaa tiedoston uuteen ikkunaan ja sulkee sen nykyisessä"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Vertaa aktiiviseen tiedostoon"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vertaa aktiiviseen tiedostoon ohjelmalla"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Avoimia tiedostoja"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3160,6 +3157,15 @@ msgstr "Istuntojen hallinta…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Näytä tervetulosivu uudelle ikkunalle"
+
+#~ msgid "&Close Document"
+#~ msgstr "&Sulje tiedosto"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Sulje &muut tiedostot"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "Sulje &kaikki tiedostot"
 
 #~ msgid "Could not start program"
 #~ msgstr "Ohjelmaa ei voitu käynnistää"
@@ -4918,12 +4924,6 @@ msgstr "Näytä tervetulosivu uudelle ikkunalle"
 
 #~ msgid "Sorting Behavior"
 #~ msgstr "Lajittelukäyttäytyminen"
-
-#~ msgid "Close &Other Tabs"
-#~ msgstr "Sulje &muut välilehdet"
-
-#~ msgid "Close &All Tabs"
-#~ msgstr "Sulje k&aikki välilehdet"
 
 #~ msgid "Kill Failed"
 #~ msgstr "Tappaminen epäonnistui"

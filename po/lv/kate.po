@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-07-01 16:22+0300\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -2496,40 +2496,40 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Lielas datnes atvēršana"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "„%1“ nevar atvērt mapes"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Nav atrasts spraudnis mapju atvēršanai"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "Lai atvērto mapes, jābūt ieslēgtam <b>%1</b>spraudnim. Vai to ieslēgt?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Atvērt mapi"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Ieslēgt"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Neizdevās ieslēgt <b>%1</b> spraudni"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Datne ar nosaukumu „%1“ nepastāv"
@@ -2581,54 +2581,52 @@ msgstr[2] ""
 "Ir atvērti vēl %1 dokumenti. Lai redzētu visus atvērtos dokumentus, "
 "pārslēdzieties uz ātrās atvēršanas skatu, klikšķinot te."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Aizvērt cilni"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "&Aizvērt dokumentu"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "Aizvērt pārējos"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Aizvērt pārējos &dokumentus"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "Aizvērt visus"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "Aizvērt &visus dokumentus"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "A&tdalīt dokumentu"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Atver dokumentu jaunā logā un to aizver pašreizējā logā"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Salīdzināt ar aktīvo dokumentu"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Salīdzināt ar aktīvo dokumentu, izmantojot"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Atvērt dokumentus"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3135,6 +3133,15 @@ msgstr "Pārvaldīt sesijas..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Jaunajiem logiem rādīt sākuma lapu"
+
+#~ msgid "&Close Document"
+#~ msgstr "&Aizvērt dokumentu"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Aizvērt pārējos &dokumentus"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "Aizvērt &visus dokumentus"
 
 #~ msgid "Could not start program"
 #~ msgstr "Neizdevās palaist programmu"

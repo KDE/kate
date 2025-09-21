@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2007-02-17 11:32+0100\n"
 "Last-Translator: Bozidar Proevski <bobibobi@freemail.com.mk>\n"
 "Language-Team: Macedonian <mkde-l10n@lists.sourceforge.net>\n"
@@ -2601,41 +2601,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Отворете датотека"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Отворете датотека"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2679,58 +2679,50 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
-msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Затвори го активното ливче"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1140
 #, fuzzy, kde-format
-#| msgid "Close Document"
-msgid "&Close Document"
-msgstr "Затворате документ"
+msgid "Close &Other Tabs"
+msgstr "Затвори го активното ливче"
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1153
 #, fuzzy, kde-format
-#| msgid "Close Document"
-msgid "Close Other &Documents"
-msgstr "Затворате документ"
+msgid "Close All &Tabs"
+msgstr "Затвори го активното ливче"
 
-#: lib/kateviewspace.cpp:1167
-#, fuzzy, kde-format
-#| msgid "Close all open documents."
-msgid "Close &All Documents"
-msgstr "Ги затвора сите отворени документи."
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "&Документ"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document"
 msgstr "Синхронизирај го &терминалскиот емулатор со активниот документ"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, fuzzy, kde-format
 #| msgid "Sync &terminal emulator with active document"
 msgid "Compare with Active Document Using"
 msgstr "Синхронизирај го &терминалскиот емулатор со активниот документ"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Отворени документи"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3251,6 +3243,21 @@ msgstr "Менаџмент на сесии"
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "Создава нов документ"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "&Close Document"
+#~ msgstr "Затворате документ"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "Close Other &Documents"
+#~ msgstr "Затворате документ"
+
+#, fuzzy
+#~| msgid "Close all open documents."
+#~ msgid "Close &All Documents"
+#~ msgstr "Ги затвора сите отворени документи."
 
 #, fuzzy
 #~| msgid "Create a new document"
@@ -4571,14 +4578,6 @@ msgstr "Создава нов документ"
 #, fuzzy
 #~ msgid "Sorting Behavior"
 #~ msgstr "Однесување"
-
-#, fuzzy
-#~ msgid "Close &Other Tabs"
-#~ msgstr "Затвори го активното ливче"
-
-#, fuzzy
-#~ msgid "Close &All Tabs"
-#~ msgstr "Затвори го активното ливче"
 
 #, fuzzy
 #~ msgid "&Print command name"

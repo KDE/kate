@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2010-03-01 22:47+0700\n"
 "Last-Translator: Thanomsub Noppaburana <donga.nb@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
@@ -2535,41 +2535,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "เปิดแฟ้ม"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "เปิดแฟ้ม"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2612,61 +2612,55 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Close"
-msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "ปิด"
 
-#: lib/kateviewspace.cpp:1154
+#: lib/kateviewspace.cpp:1140
 #, fuzzy, kde-format
-#| msgid "Close Document"
-msgid "&Close Document"
-msgstr "ปิดเอกสาร"
+#| msgid "Close Other"
+msgid "Close &Other Tabs"
+msgstr "ปิดเอกสารอื่น ๆ"
 
-#: lib/kateviewspace.cpp:1161
+#: lib/kateviewspace.cpp:1153
 #, fuzzy, kde-format
-#| msgid "Close Document"
-msgid "Close Other &Documents"
-msgstr "ปิดเอกสาร"
+#| msgid "Clos&e All"
+msgid "Close All &Tabs"
+msgstr "ปิดทั้&งหมด"
 
-#: lib/kateviewspace.cpp:1167
-#, fuzzy, kde-format
-#| msgid "Close all open documents."
-msgid "Close &All Documents"
-msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "เ&อกสาร"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "ปิดเอกสารปัจจุบัน"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "ปิดเอกสารปัจจุบัน"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "เปิดเอกสาร"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3197,6 +3191,21 @@ msgstr "&จัดการกลุ่มงาน..."
 #| msgid "Create a new document"
 msgid "Show welcome page for new window"
 msgstr "สร้างเอกสารใหม่"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "&Close Document"
+#~ msgstr "ปิดเอกสาร"
+
+#, fuzzy
+#~| msgid "Close Document"
+#~ msgid "Close Other &Documents"
+#~ msgstr "ปิดเอกสาร"
+
+#, fuzzy
+#~| msgid "Close all open documents."
+#~ msgid "Close &All Documents"
+#~ msgstr "ปิดเอกสารที่เปิดอยู่ทั้งหมด"
 
 #, fuzzy
 #~| msgid "Create a new document"

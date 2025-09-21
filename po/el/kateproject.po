@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-14 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -531,7 +531,7 @@ msgstr "Θέλετε πράγματι να διαγράψετε αυτές τι�
 msgid "Malformed JSON file '%1': %2"
 msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:743 kateprojectpluginview.cpp:79
+#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:79
 #: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -855,23 +855,23 @@ msgstr "Σφάλμα"
 msgid "File name already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"
 
-#: kateprojectplugin.cpp:223
+#: kateprojectplugin.cpp:240
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Επιβεβαίωση κλεισίματος έργου: %1"
 
-#: kateprojectplugin.cpp:224
+#: kateprojectplugin.cpp:241
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Θέλετε να κλείσετε το έργο %1 και τα σχετικά %2 με αυτό ανοιχτά έγγραφα;"
 
-#: kateprojectplugin.cpp:609
+#: kateprojectplugin.cpp:626
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Πλήρης διαδρομή στο τρέχον έργο χωρίς το όνομα αρχείου."
 
-#: kateprojectplugin.cpp:626
+#: kateprojectplugin.cpp:643
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "

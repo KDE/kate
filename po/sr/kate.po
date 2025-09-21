@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -2579,42 +2579,42 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Отварање великог фајла"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
 # >> @title:window
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Отварање фајла"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2669,58 +2669,54 @@ msgstr[3] ""
 "Тренутно има још један отворен документ. Кликните овде да их све видите, "
 "пребацивши се на приказ брзог отварања."
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1133
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
-msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Затвори св&е"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "&Затвори документ"
-
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Затвори друге &документе"
-
-#: lib/kateviewspace.cpp:1167
+#: lib/kateviewspace.cpp:1140
 #, fuzzy, kde-format
-#| msgid "Close all documents"
-msgid "Close &All Documents"
-msgstr "Затвори све документе"
+#| msgid "Close Other"
+msgid "Close &Other Tabs"
+msgstr "Затвори друге"
 
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All &Tabs"
+msgstr "Затвори св&е"
+
+#: lib/kateviewspace.cpp:1185
 #, fuzzy, kde-format
 #| msgid "&Close Document"
 msgid "D&etach Document"
 msgstr "&Затвори документ"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Затвори текући документ."
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Затвори текући документ."
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Документи|/|$[својства аку 'Документе']"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3257,6 +3253,17 @@ msgstr "&Управљај сесијама..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr ""
+
+#~ msgid "&Close Document"
+#~ msgstr "&Затвори документ"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Затвори друге &документе"
+
+#, fuzzy
+#~| msgid "Close all documents"
+#~ msgid "Close &All Documents"
+#~ msgstr "Затвори све документе"
 
 #~ msgid ""
 #~ "Internal error: there is more than one instance open for a given session."

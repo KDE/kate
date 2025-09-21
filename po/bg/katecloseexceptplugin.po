@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2022-01-03 20:53+0100\n"
 "Last-Translator: mkkDr2010 <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -57,55 +57,55 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Изключване на въпроса"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "Показване на потвърждение"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "Затваряне на документи с изключение на"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "Затваряне на документи подобни на"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "Затваряне на плъгин с изключение/подобни на:"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Грешка"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Няма файлове за затваряне..."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Готово"
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "затворен е %1 файл"
 msgstr[1] "затворени са %1 файла"
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

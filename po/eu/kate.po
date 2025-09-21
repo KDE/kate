@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-13 21:58+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2517,41 +2517,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Fitxategi handia irekitzea"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 ezin du karpetarik ireki"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Karpetak irekitzeko plugina ez da aurkitu"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Karpetak ireki ahal izateko, <b>%1</b> plugina gaitu behar da. Hura gaitu?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Ireki karpeta"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Gaitu"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> plugina gaitzea huts egin du"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "'%1' fitxategia ez da existitzen"
@@ -2600,52 +2600,50 @@ msgstr[1] ""
 "Une honetan, irekitako %1 dokumentu gehiago daude. Irekitako dokumentu "
 "guztiak ikusteko, aldatu «Bizkor ireki» ikuspegira hemen klik eginez."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Itxi fitxa"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "It&xi dokumentua"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "Itxi besteak"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Itxi beste &dokumentuak"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "Itxi guztiak"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "Itxi dokumentu &denak"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "B&ereizi dokumentua"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Dokumentua leiho berri batean irekitzen du eta uneko leihoan ixten du"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Konparatu dokumentu aktiboarekin"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Konparatu dokumentu aktiboarekin hau erabiliz,"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "Iltzagetu dokumentua"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "Iltzatu dokumentua"
@@ -3154,6 +3152,15 @@ msgstr "Kudeatu saioak..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Erakutsi ongietorri-orria leiho berrietan"
+
+#~ msgid "&Close Document"
+#~ msgstr "It&xi dokumentua"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Itxi beste &dokumentuak"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "Itxi dokumentu &denak"
 
 #~ msgid "Could not start program"
 #~ msgstr "Ezin izan da programa abiarazi"

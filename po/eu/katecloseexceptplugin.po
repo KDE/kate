@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2018-08-13 11:29+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@euskalnet.net>\n"
 "Language-Team: Basque <kde-i18n-doc@kde.org>\n"
@@ -60,55 +60,55 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Ez galdetu berriz"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "Erakutsi berrespena"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "Itxi ... ezik"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "Itxi ... bezala"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "Itxi ... ezik/bezala plugina"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Errorea"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Ez dago itxi beharreko fitxategirik ..."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Eginda"
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "Fitxategi %1 itxi da"
 msgstr[1] "%1 fitxategi itxi dira"
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

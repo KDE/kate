@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2015-10-24 18:14+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -58,49 +58,49 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Не питај више"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "Тражи потврду"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "Затвори осим"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "Затвори према"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "Прикључак за затварање осим/према"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Грешка"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Нема фајлова за затварање."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Готово"
 
 # >> @info
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
@@ -109,7 +109,7 @@ msgstr[1] "Затворена %1 фајла."
 msgstr[2] "Затворено %1 фајлова."
 msgstr[3] "Затворен %1 фајл."
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

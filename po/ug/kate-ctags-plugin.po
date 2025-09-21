@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 00:44+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -353,8 +353,8 @@ msgid "(Re-)generate the common CTags database."
 msgstr "CTags سانداننى (قايتا) ھاسىل قىلىدۇ."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
-#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:549
-#: kate_ctags_view.cpp:562 kate_ctags_view.cpp:575 kate_ctags_view.cpp:579
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "CTags"
@@ -364,7 +364,7 @@ msgstr "CTags"
 msgid "CTags Settings"
 msgstr "CTags تەڭشەك"
 
-#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:560
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
 #, fuzzy, kde-format
 #| msgid "Failed to run \"%1\". exitStatus = %2"
 msgid "Failed to run. Error: %1, exit code: %2"
@@ -447,23 +447,23 @@ msgstr ""
 msgid "Go To Global Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:355
+#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
 #, kde-format
 msgid "No hits found"
 msgstr "خاتىرە تېپىلمىدى"
 
-#: kate_ctags_view.cpp:549
+#: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
 msgstr ""
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:573
 #, fuzzy, kde-format
 #| msgid "The CTags executable crashed."
 msgid "The CTags executable crashed"
 msgstr "CTags ئىجراچان پروگرامما يىمىرىلدى."
 
-#: kate_ctags_view.cpp:577
+#: kate_ctags_view.cpp:575
 #, fuzzy, kde-format
 #| msgid "The CTags program exited with code %1"
 msgid "The CTags program exited with code %2: %1"

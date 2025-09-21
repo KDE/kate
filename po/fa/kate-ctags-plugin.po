@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 00:44+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2014-06-17 15:39+0430\n"
 "Last-Translator: Mohi Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-fa@kde.org>\n"
@@ -351,8 +351,8 @@ msgid "(Re-)generate the common CTags database."
 msgstr ""
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
-#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:549
-#: kate_ctags_view.cpp:562 kate_ctags_view.cpp:575 kate_ctags_view.cpp:579
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr ""
@@ -362,7 +362,7 @@ msgstr ""
 msgid "CTags Settings"
 msgstr ""
 
-#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:560
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr ""
@@ -443,22 +443,22 @@ msgstr ""
 msgid "Go To Global Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:355
+#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
 #, kde-format
 msgid "No hits found"
 msgstr ""
 
-#: kate_ctags_view.cpp:549
+#: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
 msgstr ""
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:573
 #, kde-format
 msgid "The CTags executable crashed"
 msgstr ""
 
-#: kate_ctags_view.cpp:577
+#: kate_ctags_view.cpp:575
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr ""

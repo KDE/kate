@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-19 00:44+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 11:23+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -352,8 +352,8 @@ msgid "(Re-)generate the common CTags database."
 msgstr "ولّد/أعد توليد قاعدة بيانات «وسوم‌سي» العامّة."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
-#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:549
-#: kate_ctags_view.cpp:562 kate_ctags_view.cpp:575 kate_ctags_view.cpp:579
+#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
 #, kde-format
 msgid "CTags"
 msgstr "وسوم‌سي"
@@ -363,7 +363,7 @@ msgstr "وسوم‌سي"
 msgid "CTags Settings"
 msgstr "إعدادات «وسوم‌سي»"
 
-#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:560
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr "فشل في التشغيل. الخطأ: %1، رمز الخروج: %2"
@@ -444,22 +444,22 @@ msgstr "انتقل إلى الرمز المحلي"
 msgid "Go To Global Symbol"
 msgstr "انتقل إلى الرمز العام"
 
-#: kate_ctags_view.cpp:322 kate_ctags_view.cpp:355
+#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
 #, kde-format
 msgid "No hits found"
 msgstr "لا نتائج"
 
-#: kate_ctags_view.cpp:549
+#: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
 msgstr "لا مجلّدات أو ملفّات لفهرستها"
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:573
 #, kde-format
 msgid "The CTags executable crashed"
 msgstr "انهار تنفيذيّ «وسوم‌سي»"
 
-#: kate_ctags_view.cpp:577
+#: kate_ctags_view.cpp:575
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr "أُنهي برنامج «وسوم‌سي» بالرّمز %2: %1"

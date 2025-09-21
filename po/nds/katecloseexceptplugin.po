@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2014-03-02 21:47+0100\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -57,55 +57,55 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "Nich nochmaal fragen"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "Beglöven wiesen"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "Utbenahmen tomaken"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "Liek-as tomaken"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "Liek/Anner-Dateien-Tomaakmoduul"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "Fehler"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "Keen Dateien, de sik tomaken laat ..."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "Afslaten"
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "%1 Datei tomaakt"
 msgstr[1] "%1 Dateien tomaakt"
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

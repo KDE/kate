@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2016-09-02 18:09+0300\n"
 "Last-Translator: Safa Alfulaij <safa1996alfulaij@gmail.com>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
@@ -58,48 +58,48 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "لا تسأل مجدّدًا"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "أظهر تأكيدًا"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "أغلق ما عدا"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "أغلق ما يشابه"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "ملحقة إغلاق ما عدا/يشابه"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr "خطأ"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "لا ملفّات لإغلاقها..."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgctxt "@title:window"
 msgid "Done"
 msgstr "تمّ"
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
@@ -110,7 +110,7 @@ msgstr[3] "أُغلقت %1 ملفّات"
 msgstr[4] "أُغلق %1 ملفًّا"
 msgstr[5] "أُغلق %1 ملفّ"
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

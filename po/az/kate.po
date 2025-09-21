@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 17:14+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -2528,41 +2528,41 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Böyük fayl açılır"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 qovluqları aça bilmir"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Qovluqları açmaq üçün tələb olunan qoşma tapılmadı"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 "Qovluqları aça bilmək üçün <b>%1</b> qoşması aktiv edilməlidir. Aktiv edək?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Qovluğu açın"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Aktiv edin"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> qoşmasını aktiv etmək mümkün olmadı"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2609,53 +2609,51 @@ msgstr[1] ""
 "Hal-hazırda %1 və daha çox sənədlər açılır. Bütün açılan sənədləri görmək "
 "üçün, buraya vurmaqla Sürətli aşılış görünüşünə keçin."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "Vərəqi bağlayın"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "Sənədi &bağlayın"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Other"
+msgid "Close &Other Tabs"
+msgstr "O birilərini bağlamaq"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "Başqa sənə&dləri bağlamaq"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Clos&e All"
+msgid "Close All &Tabs"
+msgstr "&Hamısını bağlamaq"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "&Bütün sənədləri bağlayın"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "Sə&nədi ayırın"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Sənədi yeni bir pəncərədə açır və onu cari pəncərədə bağlayır"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Aktiv sənəd ilə müqayisə edin"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Aktiv sənəd ilə bunu istifadə edərək müqayisə edin"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Unpin Document"
 msgstr "Sənədi bağlamaq"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
@@ -3159,6 +3157,15 @@ msgstr "Sesiyaları idarə etmək..."
 #| msgid "Show welcome view for new windows"
 msgid "Show welcome page for new window"
 msgstr "Yeni pəncərə üçün salamlamanı göstərmək"
+
+#~ msgid "&Close Document"
+#~ msgstr "Sənədi &bağlayın"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "Başqa sənə&dləri bağlamaq"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "&Bütün sənədləri bağlayın"
 
 #~ msgid "Could not start program"
 #~ msgstr "Proqram başladıla bilmədi"

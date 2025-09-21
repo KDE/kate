@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-14 14:17+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -2493,40 +2493,40 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "பெரிய கோப்பு திறக்கப்படுகிறது"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1-ஆல் அடைவுகளை திறக்க முடியாது"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "அடைவுகளை திறப்பதற்கான செருகுநிரலை காணவில்லை"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr "அடைவுகளைத் திறக்க, <b>%1</b> செருகுநிரலை இயக்க வேண்டும். அதை இயக்கலாமா?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "அடைவைத் திறப்பது"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "இயக்கு"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> செருகுநிரலை இயக்க முடியவில்லை"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "'%1' எனும் கோப்பு இல்லை."
@@ -2573,52 +2573,48 @@ msgstr[1] ""
 "இன்னும் %1 ஆவணங்கள் தற்போது திறக்கப்பட்டுள்ளன. திறக்கப்பட்டுள்ள அனைத்து ஆவணங்களை பார்க்க, "
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "கீற்றை மூடு"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "&ஆவணத்தை மூடு"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+msgid "Close &Other Tabs"
+msgstr "நடப்பு தத்தலை மூடு"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "&மற்ற ஆவணங்களை மூடு"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+msgid "Close All &Tabs"
+msgstr "நடப்பு தத்தலை மூடு"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "&அனைத்து ஆவணங்களையும் மூடு"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "ஆவணத்தை &பிரித்தெடு"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ஆவணத்தைப் இச்சாளரத்தில் மூடி, புதிய சாளரத்தில் திறக்கும்"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "செயலிலுள்ள ஆவணத்துடன் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "செயலிலுள்ள ஆவணத்துடன் வேறு நிரலால் ஒப்பிடு"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "ஆவணத்தை தக்கவைத்ததை நீக்கு"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "ஆவணத்தை தக்கவை"
@@ -3124,6 +3120,15 @@ msgstr "அமர்வுகளை நிர்வகி..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "புதிய சாளரத்தில் வரவேற்புப்பக்கத்தை காட்டு"
+
+#~ msgid "&Close Document"
+#~ msgstr "&ஆவணத்தை மூடு"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "&மற்ற ஆவணங்களை மூடு"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "&அனைத்து ஆவணங்களையும் மூடு"
 
 #~ msgid "Could not start program"
 #~ msgstr "செயலியை துவக்க முடியவில்லை"
@@ -4442,14 +4447,6 @@ msgstr "புதிய சாளரத்தில் வரவேற்பு�
 #, fuzzy
 #~ msgid "Sorting Behavior"
 #~ msgstr "&தன்மை"
-
-#, fuzzy
-#~ msgid "Close &Other Tabs"
-#~ msgstr "நடப்பு தத்தலை மூடு"
-
-#, fuzzy
-#~ msgid "Close &All Tabs"
-#~ msgstr "நடப்பு தத்தலை மூடு"
 
 #, fuzzy
 #~ msgid "&Print command name"

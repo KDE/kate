@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-09 01:39+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2013-04-15 10:51+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -61,60 +61,60 @@ msgctxt "option:check"
 msgid "Do not ask again"
 msgstr "पुन्हा विचारु नका"
 
-#: close_except_plugin.cpp:74
+#: close_except_plugin.cpp:73
 #, fuzzy, kde-format
 #| msgid "Show Confirmation"
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
 msgstr "खात्री संवाद दर्शवा"
 
-#: close_except_plugin.cpp:75
+#: close_except_plugin.cpp:74
 #, fuzzy, kde-format
 #| msgid "Close Except"
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
 msgstr "याशिवाय बंद करा"
 
-#: close_except_plugin.cpp:76
+#: close_except_plugin.cpp:75
 #, fuzzy, kde-format
 #| msgid "Close Like"
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
 msgstr "यासारखे बंद करा"
 
-#: close_except_plugin.cpp:79
+#: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
 msgstr "याशिवाय/यासारखे प्लगइन बंद करा"
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
 msgctxt "@title:window"
 msgid "Error"
 msgstr ""
 
-#: close_except_plugin.cpp:248 close_except_plugin.cpp:256
+#: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, fuzzy, kde-format
 #| msgid "No files to close ..."
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
 msgstr "बंद करण्याकरिता फाईल्स नाहीत ..."
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, fuzzy, kde-format
 #| msgid "Done"
 msgctxt "@title:window"
 msgid "Done"
 msgstr "झाले"
 
-#: close_except_plugin.cpp:261
+#: close_except_plugin.cpp:260
 #, kde-format
 msgid "%1 file closed"
 msgid_plural "%1 files closed"
 msgstr[0] "%1 फाईल बंद केली"
 msgstr[1] "%1 फाईल्स बंद केल्या"
 
-#: close_except_plugin.cpp:274
+#: close_except_plugin.cpp:273
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>%1</title><nl/>%2"

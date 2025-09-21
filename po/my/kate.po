@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -2400,40 +2400,40 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "ကြီးမားသောဖိုင်ကိုဖွင့်နေပါသည်"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 သည်ဖိုင်တွဲများမဖွင့်နိုင်ပါ"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "ဖိုင်တွဲဖွင့်ရန်လိုသော ပလပ်ဂင်မရှိပါ"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "ဖိုင်တွဲဖွင့်"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "သုံး"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "ပလပ်ဂင် <b>%1</b> ကို သုံးမရပါ"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "ဖိုင် '%1' မရှိပါ"
@@ -2475,52 +2475,50 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "တပ်ဘ်ပိတ်"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "မှတ်တမ်းစာအုပ်&ပိတ်"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "အခြားဟာများပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "အခြား&မှတ်တမ်းစာအုပ်အားလုံးပိတ်"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "အားလုံးပိတ်"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "&အားလုံးပိတ်"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "မှတ်တမ်းစာအုပ်&ခွာမည်"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ဝင်းဒိုးအသစ်တွင် မှတ်တမ်းစာအုပ်ကိုဖွင့်၍ လက်ရှိဝင်းဒိုးတွင်ပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "နောက်ပါကိုအသုံးပြု၍သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော့ပါ"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"
@@ -3006,6 +3004,15 @@ msgstr "ဆက်ရှင်များ စီမံမည်…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "ဝင်းဒိုးအသစ်တွင် ကြိုဆိုစာမျက်နှာပြမည်"
+
+#~ msgid "&Close Document"
+#~ msgstr "မှတ်တမ်းစာအုပ်&ပိတ်"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "အခြား&မှတ်တမ်းစာအုပ်အားလုံးပိတ်"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "&အားလုံးပိတ်"
 
 #~ msgid "Could not start program"
 #~ msgstr "ပရိုဂရမ်ကို မစတင်နိုင်ခဲ့ပါ"

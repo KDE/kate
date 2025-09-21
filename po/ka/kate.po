@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-09-21 00:45+0000\n"
 "PO-Revision-Date: 2025-09-13 05:29+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2495,17 +2495,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "დიდი ფაილის გასნა"
 
-#: lib/kateviewmanager.cpp:588
+#: lib/kateviewmanager.cpp:593
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 -ს საქაღალდეების გახსნა არ შეუძლია"
 
-#: lib/kateviewmanager.cpp:605
+#: lib/kateviewmanager.cpp:610
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "დამატება, რომელიც საქაღალდეების გასახსნელადაა საჭირო, აღმოჩენილი არაა"
 
-#: lib/kateviewmanager.cpp:611
+#: lib/kateviewmanager.cpp:616
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2513,24 +2513,24 @@ msgstr ""
 "იმისათვის, რომ საქაღალდეები გასნათ, საჭიროა, ჩართოთ დამატება <b>%1</b>. "
 "ჩავრთო?"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "საქაღალდის გახსნა"
 
-#: lib/kateviewmanager.cpp:615
+#: lib/kateviewmanager.cpp:620
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "ჩართვა"
 
-#: lib/kateviewmanager.cpp:622
+#: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> დამატების ჩართვის შეცდომა"
 
-#: lib/kateviewmanager.cpp:643
+#: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "ფაილი '%1' არ არსებობს"
@@ -2579,52 +2579,50 @@ msgstr[1] ""
 "ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
-#: lib/kateviewspace.cpp:1137
-#, kde-format
-msgid "Close Tab"
+#: lib/kateviewspace.cpp:1133
+#, fuzzy, kde-format
+#| msgid "Close Tab"
+msgid "&Close Tab"
 msgstr "ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:1154
-#, kde-format
-msgid "&Close Document"
-msgstr "დოკუმენტის &დახურვა"
+#: lib/kateviewspace.cpp:1140
+#, fuzzy, kde-format
+#| msgid "Close Others"
+msgid "Close &Other Tabs"
+msgstr "სხვების დახურვა"
 
-#: lib/kateviewspace.cpp:1161
-#, kde-format
-msgid "Close Other &Documents"
-msgstr "სხვა &დოკუმენტების დახურვა"
+#: lib/kateviewspace.cpp:1153
+#, fuzzy, kde-format
+#| msgid "Close All"
+msgid "Close All &Tabs"
+msgstr "ყველას დახურვა"
 
-#: lib/kateviewspace.cpp:1167
-#, kde-format
-msgid "Close &All Documents"
-msgstr "&ყველა დოკუმენტის დახურვა"
-
-#: lib/kateviewspace.cpp:1179
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1184
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1198
+#: lib/kateviewspace.cpp:1204
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1204
+#: lib/kateviewspace.cpp:1210
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1212
+#: lib/kateviewspace.cpp:1218
 #, kde-format
 msgid "Unpin Document"
 msgstr "დოკუმენტის ჩამოხსნა"
 
-#: lib/kateviewspace.cpp:1214
+#: lib/kateviewspace.cpp:1220
 #, kde-format
 msgid "Pin Document"
 msgstr "დოკუმენტის ამაგრება"
@@ -3129,6 +3127,15 @@ msgstr "სესიების მართვა..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "მისალმების გვერდის ჩვენება ახალი ფანჯრისთვის"
+
+#~ msgid "&Close Document"
+#~ msgstr "დოკუმენტის &დახურვა"
+
+#~ msgid "Close Other &Documents"
+#~ msgstr "სხვა &დოკუმენტების დახურვა"
+
+#~ msgid "Close &All Documents"
+#~ msgstr "&ყველა დოკუმენტის დახურვა"
 
 #~ msgid "Could not start program"
 #~ msgstr "პროგრამის გაშვების შეცდომა"

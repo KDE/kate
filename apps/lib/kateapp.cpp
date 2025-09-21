@@ -303,6 +303,7 @@ KateApp::KateApp(const QCommandLineParser &args, const ApplicationMode mode, con
 
 KateApp::~KateApp()
 {
+    qCDebug(LOG_KATE, "%s", Q_FUNC_INFO);
     // we want no auto saving during application closing, we handle that explicitly
     KateSessionManager::AutoSaveBlocker blocker(sessionManager());
 
@@ -431,7 +432,8 @@ bool KateApp::init()
     KSignalHandler::self()->watchSignal(SIGTERM);
     connect(KSignalHandler::self(), &KSignalHandler::signalReceived, this, [this](int signal) {
         if (signal == SIGINT || signal == SIGTERM) {
-            printf("Shutting down...\n");
+            const char *str = signal == SIGINT ? "SIGINT" : "SIGTERM";
+            qCDebug(LOG_KATE, "signal received: %s, Shutting down...", str);
             quit();
         }
     });

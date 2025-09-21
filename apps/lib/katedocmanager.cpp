@@ -49,6 +49,7 @@ KateDocManager::KateDocManager(QObject *parent)
 
 KateDocManager::~KateDocManager()
 {
+    qCDebug(LOG_KATE, "%s", Q_FUNC_INFO);
     // write metainfos?
     if (m_saveMetaInfos) {
         // saving meta-infos when file is saved is not enough, we need to do it once more at the end
@@ -381,7 +382,7 @@ void KateDocManager::restoreDocumentList(KConfig *config)
 {
     KConfigGroup openDocGroup(config, QStringLiteral("Open Documents"));
     unsigned int count = openDocGroup.readEntry("Count", 0);
-    qCDebug(LOG_KATE, "KateDocManager::%s: Count: %d", __func__, (int)m_docList.size());
+    qCDebug(LOG_KATE, "KateDocManager::%s: Count: %d, m_docList.count: %d", __func__, count, (int)m_docList.size());
 
     // kill the old stored id mappings
     for (auto &info : m_docInfos) {

@@ -247,6 +247,7 @@ KateMainWindow::~KateMainWindow()
                                       return KateApp::self()->documentVisibleInOtherWindows(doc, this);
                                   }),
                    docs.end());
+        qCDebug(LOG_KATE, "~KateMainWindow(): close all documents");
         KateApp::self()->documentManager()->closeDocuments(docs, false);
     }
 

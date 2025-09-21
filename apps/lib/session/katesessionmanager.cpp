@@ -387,7 +387,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
 
 void KateSessionManager::saveSessionTo(KConfig *sc, bool isAutoSave)
 {
-    qCDebug(LOG_KATE, "%s: isAutoSave: %d", __func__, isAutoSave);
+    qCDebug(LOG_KATE, "%s: isAutoSave: %d, mainWindowsCount: %d", __func__, isAutoSave, KateApp::self()->mainWindowsCount());
     if (!isAutoSave) {
         // Clear the session file to avoid to accumulate outdated entries
         const QStringList groupList = sc->groupList();

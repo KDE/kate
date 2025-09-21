@@ -20,10 +20,10 @@
 
 namespace
 {
-class FuzzyFilterModel final : public QSortFilterProxyModel
+class QuickDialogFuzzyFilterModel final : public QSortFilterProxyModel
 {
 public:
-    explicit FuzzyFilterModel(QObject *parent = nullptr)
+    explicit QuickDialogFuzzyFilterModel(QObject *parent = nullptr)
         : QSortFilterProxyModel(parent)
     {
     }
@@ -119,7 +119,7 @@ HUDDialog::HUDDialog(QWidget *mainWindow)
     : QFrame(mainWindow)
     , m_mainWindow(mainWindow)
     , m_model(new QStringListModel(this))
-    , m_proxy(new FuzzyFilterModel(this))
+    , m_proxy(new QuickDialogFuzzyFilterModel(this))
 {
     Q_ASSERT(mainWindow);
     initHudDialog(this, mainWindow, &m_lineEdit, &m_treeView);
@@ -336,7 +336,7 @@ void HUDDialog::setModel(QAbstractItemModel *model, FilterType type, int filterK
     m_proxy->setSourceModel(model);
     m_proxy->setFilterKeyColumn(filterKeyCol);
     m_proxy->setFilterRole(filterRole);
-    auto proxy = static_cast<FuzzyFilterModel *>(m_proxy.data());
+    auto proxy = static_cast<QuickDialogFuzzyFilterModel *>(m_proxy.data());
     proxy->setFilterType(type);
     proxy->setScoreRole(scoreRole);
 }
@@ -353,7 +353,7 @@ void HUDDialog::setFilteringEnabled(bool enabled)
             m_treeView.setModel(m_proxy);
         }
         connect(&m_lineEdit, &QLineEdit::textChanged, this, [this](const QString &txt) {
-            static_cast<FuzzyFilterModel *>(m_proxy.data())->setFilterString(txt);
+            static_cast<QuickDialogFuzzyFilterModel *>(m_proxy.data())->setFilterString(txt);
             m_delegate->setFilterString(txt);
             m_treeView.viewport()->update();
             m_treeView.setCurrentIndex(m_treeView.model()->index(0, 0));

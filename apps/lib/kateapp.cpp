@@ -361,16 +361,13 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
 #endif
 
     // fill author data
-    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.io"));
+    aboutData.addAuthor(i18n("Christoph Cullmann"), i18n("Maintainer"), QStringLiteral("cullmann@kde.org"), QStringLiteral("https://cullmann.dev"));
     aboutData.addAuthor(i18n("Dominik Haumann"), i18n("Core Developer"), QStringLiteral("dhaumann@kde.org"));
     aboutData.addAuthor(i18n("Sven Brauch"), i18n("Developer"), QStringLiteral("mail@svenbrauch.de"));
     aboutData.addAuthor(i18n("Kåre Särs"), i18n("Developer"), QStringLiteral("kare.sars@iki.fi"));
     aboutData.addAuthor(i18n("Waqar Ahmed"), i18n("Core Developer"), QStringLiteral("waqar.17a@gmail.com"));
-    aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"), QStringLiteral("https://www.alweb.dk"));
-    aboutData.addAuthor(i18n("Joseph Wenninger"),
-                        i18n("Core Developer"),
-                        QStringLiteral("jowenn@kde.org"),
-                        QStringLiteral("http://stud3.tuwien.ac.at/~e9925371"));
+    aboutData.addAuthor(i18n("Anders Lund"), i18n("Core Developer"), QStringLiteral("anders@alweb.dk"));
+    aboutData.addAuthor(i18n("Joseph Wenninger"), i18n("Core Developer"), QStringLiteral("jowenn@kde.org"));
     aboutData.addAuthor(i18n("Hamish Rodda"), i18n("Core Developer"), QStringLiteral("rodda@kde.org"));
     aboutData.addAuthor(i18n("Alexander Neundorf"), i18n("Developer"), QStringLiteral("neundorf@kde.org"));
     aboutData.addAuthor(i18n("Waldo Bastian"), i18n("The cool buffersystem"), QStringLiteral("bastian@kde.org"));
@@ -389,10 +386,7 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
                         i18n("Python Plugin Developer"),
                         QStringLiteral("goinnn@gmail.com"),
                         QStringLiteral("https://github.com/goinnn/"));
-    aboutData.addAuthor(i18n("Gerald Senarclens de Grancy"),
-                        i18n("QA and Scripting"),
-                        QStringLiteral("oss@senarclens.eu"),
-                        QStringLiteral("http://find-santa.eu/"));
+    aboutData.addAuthor(i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QStringLiteral("oss@senarclens.eu"));
 
     // fill credits
     aboutData.addCredit(i18n("Tyson Tan"),

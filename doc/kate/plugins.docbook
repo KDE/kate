@@ -299,7 +299,7 @@ or one can obtain the current date in the preferred format like
 
 <para>
 Several tools are shipped by default. However, if you have more useful tools
-please contribute those to <email>kwrite-devel@kde.org</email> so that we can add them to this list.
+please contribute those to <ulink url="https://invent.kde.org/utilities/kate">our GitLab project</ulink> so that we can add them to this list.
 All default tools are visible in the list view by default. However, all tools can be
 changed to your liking, including the category or even deleting tools.
 Deleted tools can be added back again by clicking on the <guibutton>Add</guibutton>

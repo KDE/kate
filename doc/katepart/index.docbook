@@ -185,9 +185,9 @@ The original &kwrite; documentation was written by &Thad.McGinnis;
 </para>
 
 <para>The current &katepart; documentation is maintained by &TC.Hollingsworth;
-&TC.Hollingsworth.mail;.  Please send comments or suggestions to the &katepart;
-development mailing list at <email>kwrite-devel@kde.org</email> or file a bug
-in the <ulink url="https://bugs.kde.org/">&kde; Bugtracking System</ulink>.</para>
+&TC.Hollingsworth.mail;.  To request changes please file a bug
+in the <ulink url="https://bugs.kde.org/">&kde; Bugtracking System</ulink> or provide
+a patch on <ulink url="https://invent.kde.org/utilities/kate">our GitLab project</ulink>.</para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 

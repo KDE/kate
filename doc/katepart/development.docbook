@@ -2734,7 +2734,7 @@ the command line and invoke the command <command>reload-scripts</command>.
 
 <para>
 If you develop useful scripts please consider contributing to the &kappname; Project
-by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
+by providing a merge request to <ulink url="https://invent.kde.org/frameworks/ktexteditor">our GitLab project</ulink>.
 </para>
 
 </sect3>
@@ -2903,7 +2903,7 @@ The fields for one action are as follows:
 
 <para>
 If you develop useful scripts please consider contributing to the &kappname; Project
-by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
+by providing a merge request to <ulink url="https://invent.kde.org/frameworks/ktexteditor">our GitLab project</ulink>.
 </para>
 
 </sect4>

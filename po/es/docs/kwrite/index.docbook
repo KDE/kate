@@ -31,6 +31,20 @@
 ><contrib
 >Traducción</contrib
 ></othercredit
+><othercredit role="translator"
+><firstname
+>Rocío</firstname
+><surname
+>Gallego</surname
+><affiliation
+><address
+><email
+>traducciones@rociogallego.com</email
+></address
+></affiliation
+><contrib
+>Traducción</contrib
+></othercredit
 > 
 
 </authorgroup>
@@ -105,10 +119,10 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
->/home/micarpetapersonal/docs/miarchivo.txt</replaceable
+>/home/usuario/Documentos/archivo.txt</replaceable
 ></option>
 </userinput
 >
@@ -128,8 +142,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >ftp://ftp.kde.org/pub/kde/README</replaceable>
 </option
@@ -407,10 +421,10 @@
 </itemizedlist>
 
 <para
->Traducido por Cristina Yenyxe González García <email
->the.blue.valkyrie@gmail.com</email
-> y Kira J. Fernández <email
->kirajfdez@gmail.com</email
+>Traducido por Eloy Cuadra <email
+>ecuadra@eloihr.net</email
+> y Rocío Gallego <email
+>traducciones@rociogallego.com</email
 >.</para
 > &underFDL; &underGPL; </sect1>
 

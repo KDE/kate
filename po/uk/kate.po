@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-13 08:32+0300\n"
+"PO-Revision-Date: 2025-09-21 18:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2624,22 +2624,19 @@ msgstr[3] ""
 "наступним клацанням лівою кнопкою миші."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Закрити вкладку"
+msgstr "З&акрити вкладку"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Закрити інші"
+msgstr "Закрити ін&ші вкладки"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Закрити все"
+msgstr "Закрити &усі вкладки"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

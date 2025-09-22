@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-13 11:14+0100\n"
+"PO-Revision-Date: 2025-09-21 12:01+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -2627,22 +2627,19 @@ msgstr[1] ""
 "documentos abiertos, pulse aquí para cambiar a la vista de apertura rápida."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Cerrar pestaña"
+msgstr "&Cerrar pestaña"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Cerrar los demás"
+msgstr "Cerrar las &demás pestañas"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Cerrar todos"
+msgstr "Cerrar &todas las pestañas"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format
@@ -3184,12 +3181,3 @@ msgstr "Gestión de sesiones…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar la página de bienvenida en las ventanas nuevas"
-
-#~ msgid "&Close Document"
-#~ msgstr "&Cerrar documento"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Cerrar otros &documentos"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "C&errar todos los documentos"

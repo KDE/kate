@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-14 18:11+0300\n"
+"PO-Revision-Date: 2025-09-21 19:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2597,22 +2597,19 @@ msgstr[1] ""
 "görünümüne geçebilirsiniz."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Sekmeyi Kapat"
+msgstr "Sekmeyi &Kapat"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Diğerlerini Kapat"
+msgstr "&Diğer Sekmeleri Kapat"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Tümünü Kapat"
+msgstr "Tüm &Sekmeleri Kapat"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

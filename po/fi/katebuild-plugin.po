@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-19 00:45+0000\n"
-"PO-Revision-Date: 2025-06-24 17:03+0300\n"
+"PO-Revision-Date: 2025-09-19 18:13+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -363,10 +363,9 @@ msgstr[0] "Löytyi yksi huomautus."
 msgstr[1] "Löytyi %1 huomautusta."
 
 #: plugin_katebuild.cpp:1515
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Koostaminen epäonnistui."
+msgstr "Koostaminen peruttiin."
 
 #: plugin_katebuild.cpp:1519
 #, kde-format
@@ -573,10 +572,9 @@ msgstr "K&oosta"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Kate-koostamisliitännäinen"
+msgstr "Koostamisliitännäisen työkalurivi"
 
 #: UrlInserter.cpp:32
 #, kde-format

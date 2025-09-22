@@ -812,7 +812,7 @@ action="simul"
 >Introducción</title>
 
 <para
->Ventana, Vista, Documento, Marco, Editor... ¿Qué significan en la terminología de &kate;, y como extraer de ellos el máximo rendimiento? Este capítulo explicará todo esto y alguna cosa más.</para>
+>Ventana, Vista, Documento, Marco, Editor… ¿Qué significan en la terminología de &kate;, y como extraer de ellos el máximo rendimiento? Este capítulo explicará todo esto y alguna cosa más.</para>
 
 <sect3 id="kate-mdi-overview-mainwindow">
 

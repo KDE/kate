@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-13 05:29+0200\n"
+"PO-Revision-Date: 2025-09-21 03:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2580,22 +2580,19 @@ msgstr[1] ""
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "ჩანართის დახურვა"
+msgstr "&ჩანართის დახურვა"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "სხვების დახურვა"
+msgstr "&სხვა ჩანართების დახურვა"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "ყველას დახურვა"
+msgstr "ყველა ჩანართის და&ხურვა"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

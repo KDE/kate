@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-14 14:17+0530\n"
+"PO-Revision-Date: 2025-09-21 13:43+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
 "Language: ta\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2574,20 +2574,19 @@ msgstr[1] ""
 "இங்கே அழுத்தி விரைவாக திறக்கும் படிவத்திற்கு தாவுங்கள்."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
 msgstr "கீற்றை மூடு"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "நடப்பு தத்தலை மூடு"
+msgstr "மற்ற கீற்றுகளை மூடு"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "நடப்பு தத்தலை மூடு"
+msgstr "அனைத்து கீற்றுகளையும் மூடு"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

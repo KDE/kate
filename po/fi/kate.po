@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-08-22 17:16+0300\n"
+"PO-Revision-Date: 2025-09-19 18:12+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1463,16 +1463,14 @@ msgid "Reopening files from the last session..."
 msgstr "Avataan tiedostoja edellisestä istunnosta…"
 
 #: lib/katedocmanager.cpp:572
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Ei voi siirtyä asiakirjaan"
+msgstr "Nimettömiä tiedostoja ei voi kiinnittää."
 
 #: lib/katedocmanager.cpp:577
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Ei voi siirtyä asiakirjaan"
+msgstr "Ei-paikallisia tiedostoja ei voi kiinnittää."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1833,17 +1831,14 @@ msgid "Save Session &As..."
 msgstr "Tallenna istunto &nimellä…"
 
 #: lib/katemainwindow.cpp:638
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Irrota aktiivinen tiedosto"
+msgstr "Kiinnitä tai irrota aktiivinen tiedosto"
 
 #: lib/katemainwindow.cpp:647
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Avoimia tiedostoja"
+msgstr "Avaa seuraava kiinnitetty tiedosto"
 
 #: lib/katemainwindow.cpp:654 lib/kateviewspace.cpp:56
 #, kde-format
@@ -2150,7 +2145,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:290
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "diffejä katsellaksesi asenna git"
 
 #: lib/katemwmodonhddialog.cpp:314
 #, kde-format
@@ -2610,7 +2605,8 @@ msgid "&Close Tab"
 msgstr "Sulje välilehti"
 
 #: lib/kateviewspace.cpp:1140
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Close &Other Tabs"
 msgid "Close &Other Tabs"
 msgstr "Sulje &muut välilehdet"
 
@@ -2641,22 +2637,19 @@ msgid "Compare with Active Document Using"
 msgstr "Vertaa aktiiviseen tiedostoon ohjelmalla"
 
 #: lib/kateviewspace.cpp:1218
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Avoimia tiedostoja"
+msgstr "Irrota tiedosto"
 
 #: lib/kateviewspace.cpp:1220
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Tiedostot"
+msgstr "Kiinnitä tiedosto"
 
 #: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "Ei voi avata: %1"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

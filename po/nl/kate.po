@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-13 18:07+0200\n"
+"PO-Revision-Date: 2025-09-21 15:44+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2623,22 +2623,19 @@ msgstr[1] ""
 "zien, schakel over naar de weergave Snelopenen door hier te klikken."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Tabblad sluiten"
+msgstr "Tabblad &sluiten"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Andere sluiten"
+msgstr "&Andere tabbladen sluiten"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Alles sluiten"
+msgstr "Alle &tabbladen sluiten"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

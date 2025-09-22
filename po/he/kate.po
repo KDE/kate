@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-21 00:45+0000\n"
-"PO-Revision-Date: 2025-09-17 10:44+0300\n"
+"PO-Revision-Date: 2025-09-21 09:01+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2566,22 +2566,19 @@ msgstr[3] ""
 "לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 
 #: lib/kateviewspace.cpp:1133
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "סגירת לשונית"
+msgstr "&סגירת לשונית"
 
 #: lib/kateviewspace.cpp:1140
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "לסגור את השאר"
+msgstr "לסגור את &שאר הלשוניות"
 
 #: lib/kateviewspace.cpp:1153
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "לסגור הכול"
+msgstr "לסגור את &כל הלשוניות"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

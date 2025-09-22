@@ -863,6 +863,8 @@ bool KateMainWindow::queryClose()
     if (queryClose_internal()) {
         qCDebug(LOG_KATE, "%s save active session", __func__);
         KateApp::self()->sessionManager()->saveActiveSession(true);
+        // We are ready to quit, ignore signals now, BUG: 508494
+        KateApp::setIgnoreSignals();
         return true;
     }
 

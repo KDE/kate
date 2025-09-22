@@ -125,6 +125,8 @@ static bool insideTerminal = false;
 static KateAppAdaptor *adaptor = nullptr;
 #endif
 
+static bool ignoreUnixSignals = false;
+
 /**
  * singleton instance pointer
  */
@@ -425,7 +427,7 @@ bool KateApp::init()
     KSignalHandler::self()->watchSignal(SIGINT);
     KSignalHandler::self()->watchSignal(SIGTERM);
     connect(KSignalHandler::self(), &KSignalHandler::signalReceived, this, [this](int signal) {
-        if (signal == SIGINT || signal == SIGTERM) {
+        if ((signal == SIGINT || signal == SIGTERM) && !ignoreUnixSignals) {
             const char *str = signal == SIGINT ? "SIGINT" : "SIGTERM";
             qCDebug(LOG_KATE, "signal received: %s, Shutting down...", str);
             quit();
@@ -591,6 +593,10 @@ void KateApp::shutdownKate(KateMainWindow *win)
 
     qCDebug(LOG_KATE, "KateApp::%s save session", __func__);
     sessionManager()->saveActiveSession(true);
+
+    // Session is saved and we are ready to quit, ignore any unix signals now to
+    // avoid incorrect session save. BUG: 508494
+    setIgnoreSignals();
 
     /**
      * all main windows will be cleaned up
@@ -935,6 +941,11 @@ bool KateApp::documentVisibleInOtherWindows(KTextEditor::Document *doc, KateMain
 bool KateApp::isInsideTerminal()
 {
     return insideTerminal;
+}
+
+void KateApp::setIgnoreSignals()
+{
+    ignoreUnixSignals = true;
 }
 
 qint64 KateApp::lastActivationChange() const

@@ -64,6 +64,11 @@ public:
     static bool isInsideTerminal();
 
     /**
+     * Ignore unix signals
+     */
+    static void setIgnoreSignals();
+
+    /**
      *  Are we full featured Kate or the simplified KWrite?
      */
     enum ApplicationMode {

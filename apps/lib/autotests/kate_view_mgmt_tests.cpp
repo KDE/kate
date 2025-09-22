@@ -92,6 +92,11 @@ void KateViewManagementTests::init()
     app = std::make_unique<KateApp>(parser, KateApp::ApplicationKWrite, m_tempdir->path());
 }
 
+void KateViewManagementTests::cleanup()
+{
+    app->documentManager()->closeAllDocuments();
+}
+
 void KateViewManagementTests::testSingleViewspaceDoesntCloseWhenLastViewClosed()
 {
     app->sessionManager()->sessionNew();

@@ -51,6 +51,7 @@ public:
 
 private Q_SLOTS:
     void init();
+    void cleanup();
     void testSingleViewspaceDoesntCloseWhenLastViewClosed();
     void testViewspaceClosesWhenLastViewClosed();
     void testViewspaceClosesWhenThereIsWidget();

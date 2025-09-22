@@ -235,7 +235,7 @@ KateMainWindow::~KateMainWindow()
     saveOptions();
 
     // close all documents not visible in other windows, we did ask for permission in queryClose
-    if (winClosesDocuments()) {
+    if (KateApp::self()->mainWindowsCount() > 1 && winClosesDocuments()) {
         auto docs = KateApp::self()->documentManager()->documentList();
         const bool canStash = KateApp::self()->stashManager()->canStash();
         docs.erase(std::remove_if(docs.begin(),

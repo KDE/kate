@@ -861,10 +861,11 @@ bool KateMainWindow::queryClose()
     // last one: check if we can close all documents, try run
     // and save docs if we really close down !
     if (queryClose_internal()) {
-        qCDebug(LOG_KATE, "%s save active session", __func__);
-        KateApp::self()->sessionManager()->saveActiveSession(true);
         // We are ready to quit, ignore signals now, BUG: 508494
         KateApp::setIgnoreSignals();
+
+        qCDebug(LOG_KATE, "%s save active session", __func__);
+        KateApp::self()->sessionManager()->saveActiveSession(true);
         return true;
     }
 

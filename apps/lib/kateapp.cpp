@@ -591,12 +591,11 @@ void KateApp::shutdownKate(KateMainWindow *win)
         return;
     }
 
+    //  we are ready to quit, ignore any unix signals now to avoid incorrect session save. BUG: 508494
+    setIgnoreSignals();
+
     qCDebug(LOG_KATE, "KateApp::%s save session", __func__);
     sessionManager()->saveActiveSession(true);
-
-    // Session is saved and we are ready to quit, ignore any unix signals now to
-    // avoid incorrect session save. BUG: 508494
-    setIgnoreSignals();
 
     /**
      * all main windows will be cleaned up

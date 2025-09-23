@@ -8,7 +8,6 @@
 #include "diagnosticitem.h"
 #include "drawing_utils.h"
 #include "kateapp.h"
-#include "kateviewmanager.h"
 #include "session_diagnostic_suppression.h"
 #include "texthint/KateTextHintManager.h"
 

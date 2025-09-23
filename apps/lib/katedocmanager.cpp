@@ -12,7 +12,6 @@
 #include "katedebug.h"
 #include "katemainwindow.h"
 #include "katesavemodifieddialog.h"
-#include "kateviewmanager.h"
 #include "ktexteditor_utils.h"
 
 #include <ktexteditor/editor.h>

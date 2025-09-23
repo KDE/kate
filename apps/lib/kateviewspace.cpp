@@ -34,6 +34,7 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
+#include <QVBoxLayout>
 #include <QWhatsThis>
 
 // BEGIN KateViewSpace

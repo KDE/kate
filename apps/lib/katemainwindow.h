@@ -10,14 +10,11 @@
 
 #include "katemdi.h"
 #include "kateprivate_export.h"
-#include "kateviewmanager.h"
 #include "mainwindow_commands.h"
 
 #include <ktexteditor/mainwindow.h>
 
 #include <QHash>
-#include <QStackedLayout>
-#include <QUrl>
 
 // makes no sense on macOS
 #ifdef Q_OS_MACOS
@@ -44,15 +41,7 @@ class KateMwModOnHdDialog;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
-
-// Helper layout class to always provide minimum size
-class KateContainerStackedLayout : public QStackedLayout
-{
-public:
-    explicit KateContainerStackedLayout(QWidget *parent);
-    QSize sizeHint() const override;
-    QSize minimumSize() const override;
-};
+class KateContainerStackedLayout;
 
 class KATE_PRIVATE_EXPORT KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBase
 {
@@ -146,11 +135,7 @@ public:
     /**
      * Called if focus should go to the important part of the central widget.
      */
-    void triggerFocusForCentralWidget() override
-    {
-        // just dispatch to view manager
-        m_viewManager->triggerActiveViewFocus();
-    }
+    void triggerFocusForCentralWidget() override;
 
 private:
     /**
@@ -264,45 +249,13 @@ public:
         return m_bottomViewBarContainer;
     }
 
-    void addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar)
-    {
-        m_bottomContainerStack->addWidget(bar);
-        m_bottomViewBarMapping[view] = BarState(bar);
-    }
+    void addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar);
 
-    void hideBottomViewBarForView(KTextEditor::View *view)
-    {
-        BarState &state = m_bottomViewBarMapping[view];
-        if (state.bar()) {
-            m_bottomContainerStack->setCurrentWidget(state.bar());
-            state.bar()->hide();
-            state.setState(false);
-        }
-        m_bottomViewBarContainer->hide();
-    }
+    void hideBottomViewBarForView(KTextEditor::View *view);
 
-    void showBottomViewBarForView(KTextEditor::View *view)
-    {
-        BarState &state = m_bottomViewBarMapping[view];
-        if (state.bar()) {
-            m_bottomContainerStack->setCurrentWidget(state.bar());
-            state.bar()->show();
-            state.setState(true);
-            m_bottomViewBarContainer->show();
-        }
-    }
+    void showBottomViewBarForView(KTextEditor::View *view);
 
-    void deleteBottomViewBarForView(KTextEditor::View *view)
-    {
-        BarState state = m_bottomViewBarMapping.take(view);
-        if (state.bar()) {
-            if (m_bottomContainerStack->currentWidget() == state.bar()) {
-                m_bottomViewBarContainer->hide();
-            }
-            delete state.bar();
-            delete state.statusBar();
-        }
-    }
+    void deleteBottomViewBarForView(KTextEditor::View *view);
 
     bool modNotificationEnabled() const
     {
@@ -367,19 +320,13 @@ public Q_SLOTS:
      * Get a list of all views for this main window.
      * @return all views
      */
-    QList<KTextEditor::View *> views()
-    {
-        return viewManager()->views();
-    }
+    QList<KTextEditor::View *> views();
 
     /**
      * Access the active view.
      * \return active view
      */
-    KTextEditor::View *activeView()
-    {
-        return viewManager()->activeView();
-    }
+    KTextEditor::View *activeView();
 
     /**
      * Activate the view with the corresponding \p document.
@@ -397,50 +344,33 @@ public Q_SLOTS:
      * \return a pointer to the created view for the new document, if a document
      *         with this url is already existing, its view will be activated
      */
-    KTextEditor::View *openUrl(const QUrl &url, const QString &encoding = QString())
-    {
-        return viewManager()->openUrlWithView(url, encoding);
-    }
+    KTextEditor::View *openUrl(const QUrl &url, const QString &encoding = QString());
 
     /**
      * Close selected view
      * \param view the view
      * \return true if view was closed
      */
-    bool closeView(KTextEditor::View *view)
-    {
-        m_viewManager->closeView(view);
-        return true;
-    }
+    bool closeView(KTextEditor::View *view);
 
     /**
      * Close the split view where the given view is contained.
      * \param view the view.
      * \return true if the split view was closed.
      */
-    bool closeSplitView(KTextEditor::View *view)
-    {
-        m_viewManager->closeViewSpace(view);
-        return true;
-    }
+    bool closeSplitView(KTextEditor::View *view);
 
     /**
      * @returns true if the two given views share the same split view,
      * false otherwise.
      */
-    bool viewsInSameSplitView(KTextEditor::View *view1, KTextEditor::View *view2)
-    {
-        return m_viewManager->viewsInSameViewSpace(view1, view2);
-    }
+    bool viewsInSameSplitView(KTextEditor::View *view1, KTextEditor::View *view2);
 
     /**
      * Split current view space according to \p orientation
      * \param orientation in which line split the view
      */
-    void splitView(Qt::Orientation orientation)
-    {
-        m_viewManager->splitViewSpace(nullptr, orientation);
-    }
+    void splitView(Qt::Orientation orientation);
 
     /**
      * Try to create a view bar for the given view.

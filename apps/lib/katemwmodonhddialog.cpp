@@ -18,6 +18,7 @@
 #include <KTextEditor/Document>
 
 #include <QDir>
+#include <QHBoxLayout>
 #include <QHeaderView>
 #include <QLabel>
 #include <QPushButton>

@@ -28,6 +28,7 @@
 #include "katesessionsaction.h"
 #include "katestashmanager.h"
 #include "kateupdatedisabler.h"
+#include "kateviewmanager.h"
 #include "kateviewspace.h"
 #include "ktexteditor_utils.h"
 #include "texthint/KateTextHintManager.h"
@@ -56,6 +57,7 @@
 #include <KWindowConfig>
 #include <KWindowSystem>
 #include <KXMLGUIFactory>
+#include <QStackedLayout>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER
@@ -94,6 +96,7 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QToolButton>
+#include <QUrl>
 #include <QWindow>
 
 #include <ktexteditor/sessionconfiginterface.h>
@@ -111,6 +114,15 @@ static bool winClosesDocuments()
     const KConfigGroup cgGeneral(config, QStringLiteral("General"));
     return cgGeneral.readEntry("Close documents with window", true);
 }
+
+// Helper layout class to always provide minimum size
+class KateContainerStackedLayout : public QStackedLayout
+{
+public:
+    explicit KateContainerStackedLayout(QWidget *parent);
+    QSize sizeHint() const override;
+    QSize minimumSize() const override;
+};
 
 KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = nullptr;
 
@@ -1812,6 +1824,89 @@ void KateMainWindow::activate(const QString &token)
     setWindowState(windowState() & ~Qt::WindowMinimized);
     raise();
     activateWindow();
+}
+
+void KateMainWindow::triggerFocusForCentralWidget()
+{
+    // just dispatch to view manager
+    m_viewManager->triggerActiveViewFocus();
+}
+
+QList<KTextEditor::View *> KateMainWindow::views()
+{
+    return viewManager()->views();
+}
+
+KTextEditor::View *KateMainWindow::activeView()
+{
+    return viewManager()->activeView();
+}
+
+KTextEditor::View *KateMainWindow::openUrl(const QUrl &url, const QString &encoding)
+{
+    return viewManager()->openUrlWithView(url, encoding);
+}
+
+bool KateMainWindow::closeView(KTextEditor::View *view)
+{
+    m_viewManager->closeView(view);
+    return true;
+}
+
+bool KateMainWindow::closeSplitView(KTextEditor::View *view)
+{
+    m_viewManager->closeViewSpace(view);
+    return true;
+}
+
+bool KateMainWindow::viewsInSameSplitView(KTextEditor::View *view1, KTextEditor::View *view2)
+{
+    return m_viewManager->viewsInSameViewSpace(view1, view2);
+}
+
+void KateMainWindow::splitView(Qt::Orientation orientation)
+{
+    m_viewManager->splitViewSpace(nullptr, orientation);
+}
+
+void KateMainWindow::addToBottomViewBarContainer(KTextEditor::View *view, QWidget *bar)
+{
+    m_bottomContainerStack->addWidget(bar);
+    m_bottomViewBarMapping[view] = BarState(bar);
+}
+
+void KateMainWindow::hideBottomViewBarForView(KTextEditor::View *view)
+{
+    BarState &state = m_bottomViewBarMapping[view];
+    if (state.bar()) {
+        m_bottomContainerStack->setCurrentWidget(state.bar());
+        state.bar()->hide();
+        state.setState(false);
+    }
+    m_bottomViewBarContainer->hide();
+}
+
+void KateMainWindow::showBottomViewBarForView(KTextEditor::View *view)
+{
+    BarState &state = m_bottomViewBarMapping[view];
+    if (state.bar()) {
+        m_bottomContainerStack->setCurrentWidget(state.bar());
+        state.bar()->show();
+        state.setState(true);
+        m_bottomViewBarContainer->show();
+    }
+}
+
+void KateMainWindow::deleteBottomViewBarForView(KTextEditor::View *view)
+{
+    BarState state = m_bottomViewBarMapping.take(view);
+    if (state.bar()) {
+        if (m_bottomContainerStack->currentWidget() == state.bar()) {
+            m_bottomViewBarContainer->hide();
+        }
+        delete state.bar();
+        delete state.statusBar();
+    }
 }
 
 #include "moc_katemainwindow.cpp"

@@ -8,6 +8,7 @@
 
 #include "kateapp.h"
 #include "katemainwindow.h"
+#include "kateviewmanager.h"
 #include "kateviewspace.h"
 
 #include <QMenu>

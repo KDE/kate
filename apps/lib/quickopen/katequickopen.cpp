@@ -6,11 +6,9 @@
 */
 
 #include "katequickopen.h"
+#include "katemainwindow.h"
 #include "katequickopenmodel.h"
 #include "quickdialog.h"
-
-#include "katemainwindow.h"
-#include "kateviewmanager.h"
 
 #include <KTextEditor/Document>
 #include <ktexteditor/view.h>
@@ -378,7 +376,7 @@ void KateQuickOpen::reselectFirst()
 {
     int first = 0;
     const QAbstractItemModel *model = m_listView->model();
-    if (m_mainWindow->viewManager()->views().size() > 1 && model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
+    if (m_mainWindow->views().size() > 1 && model->rowCount() > 1 && m_inputLine->text().isEmpty()) {
         first = 1;
     }
 
@@ -399,9 +397,8 @@ void KateQuickOpen::updateState()
 void KateQuickOpen::slotReturnPressed()
 {
     // save current position before opening new url for location history
-    KateViewManager *vm = m_mainWindow->viewManager();
-    if (KTextEditor::View *v = vm->activeView()) {
-        vm->addPositionToHistory(v->document()->url(), v->cursorPosition());
+    if (KTextEditor::View *v = m_mainWindow->activeView()) {
+        m_mainWindow->addPositionToHistory(v->document()->url(), v->cursorPosition());
     }
 
     // either get view via document pointer or url
@@ -461,7 +458,7 @@ void KateQuickOpen::slotReturnPressed()
 
     // store the new position in location history
     if (view) {
-        vm->addPositionToHistory(view->document()->url(), view->cursorPosition());
+        m_mainWindow->addPositionToHistory(view->document()->url(), view->cursorPosition());
     }
 }
 

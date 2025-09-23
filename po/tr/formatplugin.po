@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-23 17:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
-#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
-#: Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
+#: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
+#: Formatters.cpp:367 Formatters.cpp:397
 #, kde-format
 msgid "Format"
 msgstr "Biçimlendir"
@@ -49,7 +49,7 @@ msgstr "Kullanıcı Ayarları"
 msgid "Default Settings"
 msgstr "Öntanımlı Ayarlar"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Biçimlendirme"
@@ -59,68 +59,68 @@ msgstr "Biçimlendirme"
 msgid "Formatting Settings"
 msgstr "Biçimlendirme Ayarları"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json okunamadı. Hata: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Belgeyi Biçimlendir"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Kaydederken Biçimlendir"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "Ayarı kalıcı yapmadan kaydederken biçimlendirmeyi devre dışı bırak"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Beklenmedik boş komut!"
 
-#: Formatters.cpp:126
+#: Formatters.cpp:125
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 kurulu değil, bu belgeyi biçimlendirebilmek için önce onu kurun!"
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Lütfen node ve prettier kurun"
 
-#: Formatters.cpp:202
+#: Formatters.cpp:201
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Geçici dosya oluşturulamadı"
 
-#: Formatters.cpp:223
+#: Formatters.cpp:222
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: “node” başlatılamadı: %1"
 
-#: Formatters.cpp:325
+#: Formatters.cpp:324
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Bilinmeyen JSON biçimlendiricisi: %1"
 
-#: Formatters.cpp:345
+#: Formatters.cpp:344
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Bilinmeyen Python biçimlendiricisi: %1"
 
-#: Formatters.cpp:368
+#: Formatters.cpp:367
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Bilinmeyen YAML biçimlendiricisi: %1, yamlfmt’ye geri dönülüyor"
 
-#: Formatters.cpp:398
+#: Formatters.cpp:397
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Biçimlendirici çalıştırılamadı. Desteklenmeyen dil %1"

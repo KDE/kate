@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-12-10 00:24+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
-#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
-#: Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
+#: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
+#: Formatters.cpp:367 Formatters.cpp:397
 #, kde-format
 msgid "Format"
 msgstr "형식 지정"
@@ -50,7 +50,7 @@ msgstr "사용자 설정"
 msgid "Default Settings"
 msgstr "기본 설정"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "형식 지정"
@@ -60,69 +60,69 @@ msgstr "형식 지정"
 msgid "Formatting Settings"
 msgstr "형식 지정 설정"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json 파일을 읽을 수 없습니다. 오류: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "문서 형식 지정"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "저장할 때 형식 지정"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "설졍을 변경하지 않고 임시로 저장할 때 형식 지정 비활성화"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: 예상하지 못한 빈 명령!"
 
-#: Formatters.cpp:126
+#: Formatters.cpp:125
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 "%1이(가) 설치되어 있지 않습니다. 이 문서의 형식을 지정하려면 설치하십시오!"
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "node와 prettier를 설치하십시오"
 
-#: Formatters.cpp:202
+#: Formatters.cpp:201
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: 임시 파일을 만들 수 없음"
 
-#: Formatters.cpp:223
+#: Formatters.cpp:222
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: 'node'를 시작할 수 없음: %1"
 
-#: Formatters.cpp:325
+#: Formatters.cpp:324
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "알 수 없는 formatterForJson: %1"
 
-#: Formatters.cpp:345
+#: Formatters.cpp:344
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "알 수 없는 formatterForPython: %1"
 
-#: Formatters.cpp:368
+#: Formatters.cpp:367
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "알 수 없는 formatterForYaml: %1, yamlfmt으로 대체됨"
 
-#: Formatters.cpp:398
+#: Formatters.cpp:397
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "형식 지정 도구를 실행할 수 없습니다. 지원하지 않는 언어: %1"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-29 20:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -91,7 +91,7 @@ msgstr[0] "您確定要刪除選取的分支嗎？"
 msgid "Select Branch..."
 msgstr "選取分支..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -518,20 +518,20 @@ msgstr "您確定要捨棄變更嗎？"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您確定要移除這些未追蹤的變更嗎？"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:299
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "格式不正確的 JSON 檔案 '%1'：%2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
+#: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "專案"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:665
 #, kde-format
 msgid "<untracked>"
 msgstr "<未追蹤>"
@@ -678,7 +678,7 @@ msgstr "暫存 / 取消暫存"
 msgid "Double click action in the git status view"
 msgstr "git status 檢視中的雙擊動作"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Projects"
 msgstr "專案"
@@ -728,18 +728,18 @@ msgstr "代碼分析"
 msgid "Notes"
 msgstr "備忘"
 
-#: kateprojectinfoviewcodeanalysis.cpp:35
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "開始分析..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:43
+#: kateprojectinfoviewcodeanalysis.cpp:42
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "程式碼分析 - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -748,7 +748,7 @@ msgstr ""
 "'%1' 未在您的系統上安裝，%2。<br/><br/>%3。這個工具將會在專案中所有符合此副檔"
 "名列表的檔案上執行：<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -757,14 +757,14 @@ msgstr ""
 "將使用安裝於 %2 的 %1。<br/><br/>%3。這個工具將會在專案中所有符合此副檔名列表"
 "的檔案上執行：<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:152
-#: kateprojectinfoviewcodeanalysis.cpp:212
-#: kateprojectinfoviewcodeanalysis.cpp:216
+#: kateprojectinfoviewcodeanalysis.cpp:151
+#: kateprojectinfoviewcodeanalysis.cpp:211
+#: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "程式碼分析"
 
-#: kateprojectinfoviewcodeanalysis.cpp:207
+#: kateprojectinfoviewcodeanalysis.cpp:206
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -774,7 +774,7 @@ msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1]已完成對 %2 個檔案的分析。"
 
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "分析失敗，結束碼為 %1，錯誤：%2"
@@ -814,12 +814,12 @@ msgstr "無法建立索引。請安裝 ctags。"
 msgid "Indexing is not enabled"
 msgstr "未啟用索引"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "Error"
 msgstr "錯誤"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "File name already exists"
 msgstr "檔案名稱已存在"
@@ -848,92 +848,92 @@ msgstr ""
 "指向目前專案的完整路徑 (不含檔名，使用原生路徑分隔符 - 在 Windows 上是反斜"
 "線)。"
 
-#: kateprojectpluginview.cpp:63
+#: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
 msgstr "專案管理員"
 
-#: kateprojectpluginview.cpp:85
+#: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Open projects list"
 msgstr "開啟專案列表"
 
-#: kateprojectpluginview.cpp:90
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
 msgstr "重新載入專案"
 
-#: kateprojectpluginview.cpp:93
+#: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Close project"
 msgstr "關閉專案"
 
-#: kateprojectpluginview.cpp:169
+#: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Open &Folder..."
 msgstr "開啟資料夾(&F)…"
 
-#: kateprojectpluginview.cpp:175
+#: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
 msgstr "專案待辦事項"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "啟用前一個專案"
 
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
 msgstr "啟用下一個專案"
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
 msgstr "尋找"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "關閉專案"
 
-#: kateprojectpluginview.cpp:202
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
 msgstr "關閉所有專案"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "關閉沒有開啟文件的專案"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Reload Project"
 msgstr "重新載入專案"
 
-#: kateprojectpluginview.cpp:223
+#: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "簽出 Git 分支"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
 #, kde-format
 msgid "Lookup: %1"
 msgstr "尋找：%1"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:794
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
 #, kde-format
 msgid "Goto: %1"
 msgstr "前往：%1"
 
-#: kateprojectpluginview.cpp:304
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "專案索引"
 
-#: kateprojectpluginview.cpp:838
+#: kateprojectpluginview.cpp:837
 #, kde-format
 msgid "Choose a directory"
 msgstr "選擇目錄"
@@ -1033,12 +1033,12 @@ msgstr "目錄已存在"
 msgid "Failed to create dir: %1"
 msgstr "建立目錄時失敗：%1"
 
-#: kateprojectworker.cpp:203
+#: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr "找不到目錄：%1"
 
-#: kateprojectworker.cpp:731
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
-#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
-#: Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
+#: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
+#: Formatters.cpp:367 Formatters.cpp:397
 #, kde-format
 msgid "Format"
 msgstr "प्रारूप"
@@ -50,7 +50,7 @@ msgstr "उपयोक्तृसेटिंग्स्"
 msgid "Default Settings"
 msgstr "पूर्वनिर्धारित सेटिंग्स्"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "स्वरूपणम्"
@@ -60,68 +60,68 @@ msgstr "स्वरूपणम्"
 msgid "Formatting Settings"
 msgstr "सेटिंग्स् स्वरूपणम्"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json पठितुं असफलम्। त्रुटिः %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "दस्तावेज प्रारूपं कुर्वन्तु"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Save इत्यत्र प्रारूपं कुर्वन्तु"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "सेटिङ्ग्स् मध्ये न स्थापयित्वा save इत्यत्र स्वरूपणं निष्क्रियं कुर्वन्तु"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: अप्रत्याशितः रिक्तः आदेशः!"
 
-#: Formatters.cpp:126
+#: Formatters.cpp:125
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 संस्थापितम् नास्ति, कृपया एतत् दस्तावेजं स्वरूपयितुं शक्नुवन्तु इति संस्थापयन्तु!"
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "कृपया node and prettier संस्थापयन्तु"
 
-#: Formatters.cpp:202
+#: Formatters.cpp:201
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: अस्थायीसञ्चिकां निर्मातुं असफलम्"
 
-#: Formatters.cpp:223
+#: Formatters.cpp:222
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: 'नोड्' आरभ्यतुं असफलम्: %1"
 
-#: Formatters.cpp:325
+#: Formatters.cpp:324
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "अज्ञात formatterForJson: %1"
 
-#: Formatters.cpp:345
+#: Formatters.cpp:344
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "अज्ञात प्रारूपकForPython: %1"
 
-#: Formatters.cpp:368
+#: Formatters.cpp:367
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "अज्ञात formatterForYaml: %1, पुनः yamlfmt प्रति पतति"
 
-#: Formatters.cpp:398
+#: Formatters.cpp:397
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "स्वरूपकं चालयितुं असफलम्। असमर्थिता भाषा %1"

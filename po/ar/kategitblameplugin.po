@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-17 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-02-20 11:09+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -18,44 +18,44 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: kategitblameplugin.cpp:93
+#: kategitblameplugin.cpp:91
 #, kde-format
 msgctxt "git-blame information \"author: date \""
 msgid " %1: %2 "
 msgstr " %1: %2 "
 
-#: kategitblameplugin.cpp:94
+#: kategitblameplugin.cpp:92
 #, kde-format
 msgctxt "git-blame information \"author: date: commit title \""
 msgid " %1: %2: %3 "
 msgstr " %1: %2: %3 "
 
-#: kategitblameplugin.cpp:182
+#: kategitblameplugin.cpp:180
 #, kde-format
 msgid "Git Blame"
 msgstr "غت بلام"
 
-#: kategitblameplugin.cpp:185
+#: kategitblameplugin.cpp:183
 #, kde-format
 msgid "Show Git Blame Details"
 msgstr "أظهر تفاصيل غت بلام"
 
-#: kategitblameplugin.cpp:188
+#: kategitblameplugin.cpp:186
 #, kde-format
 msgid "Toggle Git Blame Details"
 msgstr "بدّل حالة تفاصيل غيت بلام"
 
-#: kategitblameplugin.cpp:338
+#: kategitblameplugin.cpp:336
 #, kde-format
 msgid "Git"
 msgstr "غت"
 
-#: kategitblameplugin.cpp:529
+#: kategitblameplugin.cpp:527
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "غت بلام، فشل إظهار الإيداع."
 
-#: kategitblameplugin.cpp:622
+#: kategitblameplugin.cpp:620
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "لم تودع بعد"

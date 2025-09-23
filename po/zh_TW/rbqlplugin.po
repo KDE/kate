@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-16 19:22+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 24.04.70\n"
 
-#: RBQLPlugin.cpp:34
+#: RBQLPlugin.cpp:32
 #, kde-format
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:52
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "輸入 RBQL 查詢"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:54
 #, kde-format
 msgid "Add new tab"
 msgstr "新增分頁"
 
-#: RBQLWidget.cpp:58
+#: RBQLWidget.cpp:56
 #, kde-format
 msgid "Execute query"
 msgstr "執行查詢"
 
-#: RBQLWidget.cpp:73
+#: RBQLWidget.cpp:71
 #, kde-format
 msgid "File has header"
 msgstr "檔案有標頭"
 
-#: RBQLWidget.cpp:113
+#: RBQLWidget.cpp:111
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr "取得目前文件分隔符時失敗。目前文件真的是 CSV 或 TSV 嗎？"
 
-#: RBQLWidget.cpp:122
+#: RBQLWidget.cpp:120
 #, kde-format
 msgid "Document is empty"
 msgstr "文件為空"

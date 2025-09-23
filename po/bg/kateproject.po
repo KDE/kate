@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-11-10 20:12+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr[1] "Наистина ли искате да изтриете избран
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -519,20 +519,20 @@ msgstr "Сигурни ли сте, че желаете да отхвърлит�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:299
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл „%1“: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
+#: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Проект"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:665
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Double click action in the git status view"
 msgstr ""
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Projects"
 msgstr "Проекти"
@@ -741,19 +741,19 @@ msgstr "Анализ на код"
 msgid "Notes"
 msgstr "Бележки"
 
-#: kateprojectinfoviewcodeanalysis.cpp:35
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Стартиране на анализ..."
 
-#: kateprojectinfoviewcodeanalysis.cpp:43
+#: kateprojectinfoviewcodeanalysis.cpp:42
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Анализ на код"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:99
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -765,7 +765,7 @@ msgstr ""
 "%1<br/><br/>Инструментът ще се изпълнява във всички проектни файлове, които "
 "съответстват на този списък с разширения на файлове:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:109
 #, fuzzy, kde-format
 #| msgid ""
 #| "%1<br/><br/>The tool will be run on all project files which match this "
@@ -777,15 +777,15 @@ msgstr ""
 "%1<br/><br/>Инструментът ще се изпълнява във всички проектни файлове, които "
 "съответстват на този списък с разширения на файлове:<br/><br/><b>%2</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:152
-#: kateprojectinfoviewcodeanalysis.cpp:212
-#: kateprojectinfoviewcodeanalysis.cpp:216
+#: kateprojectinfoviewcodeanalysis.cpp:151
+#: kateprojectinfoviewcodeanalysis.cpp:211
+#: kateprojectinfoviewcodeanalysis.cpp:215
 #, fuzzy, kde-format
 #| msgid "Code Analysis"
 msgid "CodeAnalysis"
 msgstr "Анализ на код"
 
-#: kateprojectinfoviewcodeanalysis.cpp:207
+#: kateprojectinfoviewcodeanalysis.cpp:206
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file finished."
 #| msgid_plural "Analysis on %1 files finished."
@@ -798,7 +798,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "Анализ на %1файл завършен."
 msgstr[1] "Анализ на %1файла завършен."
 
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:214
 #, fuzzy, kde-format
 #| msgid "Analysis on %1 file failed with exit code %2."
 #| msgid_plural "Analysis on %1 files failed with exit code %2."
@@ -840,12 +840,12 @@ msgstr "Индексът не можа да бъде създаден. Моля 
 msgid "Indexing is not enabled"
 msgstr "Индексирането не е активирано"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "Error"
 msgstr "Грешка"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "File name already exists"
 msgstr "Файловото име вече съществува"
@@ -874,96 +874,96 @@ msgstr ""
 "Пълен път до текущия проект, с изключение на името на файла, с роден "
 "разделител на пътя (наклонена черта в Windows)."
 
-#: kateprojectpluginview.cpp:63
+#: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
 msgstr "Мениджър на проекти"
 
-#: kateprojectpluginview.cpp:85
+#: kateprojectpluginview.cpp:84
 #, fuzzy, kde-format
 #| msgid "Restore Open Projects"
 msgid "Open projects list"
 msgstr "Възстановяване на отворен проект"
 
-#: kateprojectpluginview.cpp:90
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
 msgstr "Повторно зареждане на проект"
 
-#: kateprojectpluginview.cpp:93
+#: kateprojectpluginview.cpp:92
 #, fuzzy, kde-format
 #| msgid "Close Project"
 msgid "Close project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:169
+#: kateprojectpluginview.cpp:168
 #, fuzzy, kde-format
 #| msgid "Open Folder..."
 msgid "Open &Folder..."
 msgstr "Отваряне на папка..."
 
-#: kateprojectpluginview.cpp:175
+#: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
 msgstr "Задачи на проекта"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Активиране на предишния проект"
 
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Активиране на следващия проект"
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
 msgstr "Търсене"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Затваряне на проект"
 
-#: kateprojectpluginview.cpp:202
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
 msgstr "Затваряне на всички проекти"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Затваряне на осиротелите проекти"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:211
 #, fuzzy, kde-format
 #| msgid "Reload project"
 msgid "Reload Project"
 msgstr "Повторно зареждане на проект"
 
-#: kateprojectpluginview.cpp:223
+#: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Търсене: %1"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:794
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
 #, kde-format
 msgid "Goto: %1"
 msgstr "Отиване до: %1"
 
-#: kateprojectpluginview.cpp:304
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "Индекс на проект"
 
-#: kateprojectpluginview.cpp:838
+#: kateprojectpluginview.cpp:837
 #, kde-format
 msgid "Choose a directory"
 msgstr "Избиране на директория"
@@ -1069,12 +1069,12 @@ msgstr "Файловото име вече съществува"
 msgid "Failed to create dir: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:203
+#: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:731
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

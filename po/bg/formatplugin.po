@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-31 23:27+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 25.07.70\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:82
-#: FormatPlugin.cpp:236 Formatters.cpp:325 Formatters.cpp:345
-#: Formatters.cpp:368 Formatters.cpp:398
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
+#: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
+#: Formatters.cpp:367 Formatters.cpp:397
 #, kde-format
 msgid "Format"
 msgstr "Форматиране"
@@ -49,7 +49,7 @@ msgstr "Потребителски настройки"
 msgid "Default Settings"
 msgstr "Настройки по подразбиране"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:112
+#: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
 msgstr "Форматиране"
@@ -59,34 +59,34 @@ msgstr "Форматиране"
 msgid "Formatting Settings"
 msgstr "Настройки за форматиране"
 
-#: FormatPlugin.cpp:82
+#: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Неуспешно четене на settings.json. Грешка: %1"
 
-#: FormatPlugin.cpp:118
+#: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
 msgstr "Форматиране на документ"
 
-#: FormatPlugin.cpp:128
+#: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
 msgstr "Форматиране при запазване"
 
-#: FormatPlugin.cpp:131
+#: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Деактивиране на форматирането при запазване, без да го запазвате в "
 "настройките"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Неочаквана празна команда!"
 
-#: Formatters.cpp:126
+#: Formatters.cpp:125
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -94,37 +94,37 @@ msgstr ""
 "%1 не е инсталиран, моля, инсталирайте го, за да можете да форматирате този "
 "документ!"
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Моля, инсталирайте node и prettier"
 
-#: Formatters.cpp:202
+#: Formatters.cpp:201
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Неуспешно създаване на временен файл"
 
-#: Formatters.cpp:223
+#: Formatters.cpp:222
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: Неуспешно стартиране  на 'node': %1"
 
-#: Formatters.cpp:325
+#: Formatters.cpp:324
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Неизвестен formatterForJson: %1"
 
-#: Formatters.cpp:345
+#: Formatters.cpp:344
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Неизвестен formatterForPython: %1"
 
-#: Formatters.cpp:368
+#: Formatters.cpp:367
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt"
 
-#: Formatters.cpp:398
+#: Formatters.cpp:397
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

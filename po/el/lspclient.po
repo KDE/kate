@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2023-01-02 22:53+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -374,59 +374,59 @@ msgstr "LSP πελάτης"
 msgid "Question from LSP server"
 msgstr "Επανεκκίνηση εξυπηρετητή LSP"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Restarting"
 msgstr "Επανεκκινεί"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "NOT Restarting"
 msgstr "ΔΕΝ επανεκκινεί"
 
-#: lspclientservermanager.cpp:606
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Απρόσμενος τερματισμός εξυπηρετητή ... %1 [%2] [αρχική σελίδα: %3] "
 
-#: lspclientservermanager.cpp:877
+#: lspclientservermanager.cpp:876
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Αποτυχία εύρεσης του εκτελέσιμου του εξυπηρετητή: %1"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Ελέγξτε τη ΔΙΑΔΡΟΜΗ για το εκτελέσιμο"
 
-#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:940
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Δείτε και στο %1 για εγκατάσταση ή λεπτομέρειες"
 
-#: lspclientservermanager.cpp:936
+#: lspclientservermanager.cpp:935
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
 
-#: lspclientservermanager.cpp:944
+#: lspclientservermanager.cpp:943
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Ξεκίνησε ο εξυπηρετητής %2: %1"
 
-#: lspclientservermanager.cpp:980
+#: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': δεν υπάρχει JSON "
 "αντικείμενο"
 
-#: lspclientservermanager.cpp:983
+#: lspclientservermanager.cpp:982
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': %2"
 
-#: lspclientservermanager.cpp:987
+#: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Αποτυχία ανάγνωσης της διαμόρφωσης του εξυπηρετητή: %1"

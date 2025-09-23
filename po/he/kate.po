@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-09-21 09:01+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -433,32 +433,32 @@ msgstr "השבתת הדחקה"
 msgid "Enable Suppression"
 msgstr "הפעלת הדחקה"
 
-#: lib/diff/diffeditor.cpp:195
+#: lib/diff/diffeditor.cpp:194
 #, kde-format
 msgid "Change Style"
 msgstr "החלפת סגנון"
 
-#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:196 lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Side By Side"
 msgstr "זה לצד זה"
 
-#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Unified"
 msgstr "מאוחד"
 
-#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:353
+#: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Raw"
 msgstr "גולמי"
 
-#: lib/diff/diffeditor.cpp:214
+#: lib/diff/diffeditor.cpp:213
 #, kde-format
 msgid "Edit Line"
 msgstr "עריכת שורה"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:252
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -467,12 +467,12 @@ msgstr[1] "העלאת שורות לבימוי"
 msgstr[2] "העלאת שורות לבימוי"
 msgstr[3] "העלאת שורות לבימוי"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:257
 #, kde-format
 msgid "Stage Hunk"
 msgstr "העלאת גוש לבימוי"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:264
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -481,12 +481,12 @@ msgstr[1] "התעלמות משורות"
 msgstr[2] "התעלמות משורות"
 msgstr[3] "התעלמות משורות"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:269
 #, kde-format
 msgid "Discard Hunk"
 msgstr "התעלמות מגוש"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:276
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -495,7 +495,7 @@ msgstr[1] "הורדת שורות מבימוי"
 msgstr[2] "הורדת שורות מבימוי"
 msgstr[3] "הורדת שורות מבימוי"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:281
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "הורדת גוש מבימוי"
@@ -645,7 +645,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "היסטוריית קובץ - %1"
 
-#: lib/kateapp.cpp:144
+#: lib/kateapp.cpp:146
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -655,7 +655,7 @@ msgstr ""
 "יש להשתמש בעורך הזה כרגיל ותופיע בקשה להרשאות משופרות בעת שמירת מסמכים במקרה "
 "הצורך."
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:153
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -665,53 +665,53 @@ msgstr ""
 "יש להשתמש בעורך הזה כרגיל ותופיע בקשה להרשאות משופרות בעת שמירת מסמכים במקרה "
 "הצורך."
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "כריסטוף קלמן"
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Maintainer"
 msgstr "מתחזק"
 
-#: lib/kateapp.cpp:364
+#: lib/kateapp.cpp:367
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "דומיניק האומאן"
 
-#: lib/kateapp.cpp:364 lib/kateapp.cpp:367 lib/kateapp.cpp:368
-#: lib/kateapp.cpp:370 lib/kateapp.cpp:373 lib/kateapp.cpp:379
+#: lib/kateapp.cpp:367 lib/kateapp.cpp:370 lib/kateapp.cpp:371
+#: lib/kateapp.cpp:372 lib/kateapp.cpp:373 lib/kateapp.cpp:379
 #, kde-format
 msgid "Core Developer"
 msgstr "מפתח מרכזי"
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:368
 #, kde-format
 msgid "Sven Brauch"
 msgstr "סוון בראוך"
 
-#: lib/kateapp.cpp:365 lib/kateapp.cpp:366 lib/kateapp.cpp:374
+#: lib/kateapp.cpp:368 lib/kateapp.cpp:369 lib/kateapp.cpp:374
 #, kde-format
 msgid "Developer"
 msgstr "מפתח"
 
-#: lib/kateapp.cpp:366
+#: lib/kateapp.cpp:369
 #, kde-format
 msgid "Kåre Särs"
 msgstr "קורה סיירס"
 
-#: lib/kateapp.cpp:367
+#: lib/kateapp.cpp:370
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "ווקאר אחמד"
 
-#: lib/kateapp.cpp:368
+#: lib/kateapp.cpp:371
 #, kde-format
 msgid "Anders Lund"
 msgstr "אנדרס לונד"
 
-#: lib/kateapp.cpp:369
+#: lib/kateapp.cpp:372
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "ג׳וזף ונינגר"
@@ -846,147 +846,147 @@ msgstr "מפתח תוספים של Python"
 msgid "Gerald Senarclens de Grancy"
 msgstr "גירלט סנרקלנס דה גרנסי"
 
-#: lib/kateapp.cpp:392
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "QA and Scripting"
 msgstr "בקרת איכות ותסרוט"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Tyson Tan"
 msgstr "טייסון טן"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "המעצב של הקמע של Kate ‚נקר הסייבר Kate’"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Matteo Merli"
 msgstr "מתיאו מרלי"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "הדגשה לקובצי Spec של RPM וגם Perl,‏ Diff ועוד"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "רוקי סקלטה"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "הדגשה ל־VHDL"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "יורי לבדב"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "הדגשה ל־SQL"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Chris Ross"
 msgstr "כריס רוס"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "הדגשה ל־Ferite"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Nick Roux"
 msgstr "ניק רוקס"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "הדגשה ל־ILERPG"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "קרסטן ניהאוס"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "הדגשת LaTeX"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Per Wigren"
 msgstr "פר ויגרן"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "הדגשת קובצי Make, Python"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Jan Fritz"
 msgstr "יאן פריץ"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "הדגשת Python"
 
-#: lib/kateapp.cpp:409
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Daniel Naber"
 msgstr "דניאל נייבר"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Roland Pabel"
 msgstr "רולנד פייבל"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "הדגשת Scheme"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "קריסטי דומיטרסקו"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "רשימת טיפוסי נתונים\\מילות מפתח של PHP"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "קרסטן פייפר"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Very nice help"
 msgstr "עזרה אדיבה מאוד"
 
-#: lib/kateapp.cpp:413
+#: lib/kateapp.cpp:410
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "כל האנשים שתרמו וששכחתי להזכיר"
 
-#: lib/kateapp.cpp:566
+#: lib/kateapp.cpp:564
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "אפשר לפתוח תיקיות רק כאשר תוסף המיזמים מופעל"
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1404,7 +1404,7 @@ msgstr "שם"
 msgid "Description"
 msgstr "תיאור"
 
-#: lib/katedocmanager.cpp:292
+#: lib/katedocmanager.cpp:293
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1413,42 +1413,42 @@ msgstr ""
 "<p>המסמך ‚%1’ נערך, אך לא נשמר.</p><p>לשמור את השינויים שלך או להתעלם מהם?</"
 "p>"
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:296 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "סגירת המסמך"
 
-#: lib/katedocmanager.cpp:304
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "שמירה בשם"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "נפתח קובץ חדש בעת סגירת Kate, הסגירה בוטלה."
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "הסגירה בוטלה"
 
-#: lib/katedocmanager.cpp:396
+#: lib/katedocmanager.cpp:397
 #, kde-format
 msgid "Starting Up"
 msgstr "מפעיל"
 
-#: lib/katedocmanager.cpp:397
+#: lib/katedocmanager.cpp:398
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "פותח מחדש קבצים מההפעלה הקודמת..."
 
-#: lib/katedocmanager.cpp:572
+#: lib/katedocmanager.cpp:573
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "לא ניתן לנעוץ מסמכים ללא שם."
 
-#: lib/katedocmanager.cpp:577
+#: lib/katedocmanager.cpp:578
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "לא ניתן לנעוץ מסמכים שאינם מקומיים."
@@ -1870,38 +1870,38 @@ msgstr "לסגור את כל המסמכים חוץ מהנוכחי?"
 msgid "Close Others"
 msgstr "לסגור את השאר"
 
-#: lib/katemainwindow.cpp:986
+#: lib/katemainwindow.cpp:989
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "פעולה זו תסתיר את סרגל התפריטים ללחלוטין. אפשר להציג אותו שוב בלחיצה על %1."
 
-#: lib/katemainwindow.cpp:989
+#: lib/katemainwindow.cpp:992
 #, kde-format
 msgid "Hide menu bar"
 msgstr "הסתרת תפריט"
 
-#: lib/katemainwindow.cpp:1164
+#: lib/katemainwindow.cpp:1167
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "גררת את התיקייה %1 לתוך Kate. לפתוח את כל הקבצים שבה?"
 
-#: lib/katemainwindow.cpp:1167
+#: lib/katemainwindow.cpp:1170
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "פתיחת קבצים ברקורסיה"
 
-#: lib/katemainwindow.cpp:1168
+#: lib/katemainwindow.cpp:1171
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "פתיחת כל הקבצים"
 
-#: lib/katemainwindow.cpp:1375
+#: lib/katemainwindow.cpp:1378
 #, kde-format
 msgid " [read only]"
 msgstr " [קריאה בלבד]"
@@ -2777,7 +2777,7 @@ msgstr "מחיקה"
 msgid "Close"
 msgstr "סגירה"
 
-#: lib/session/katesessionmanager.cpp:148
+#: lib/session/katesessionmanager.cpp:147
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2785,34 +2785,34 @@ msgid ""
 msgstr ""
 "ההפעלה ‚%1’ כבר פתוחה בעותק אחר של Kate. לעבור אליה או לפתוח מחדש בעותק הזה?"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "מעבר למופע"
 
-#: lib/session/katesessionmanager.cpp:151
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "לפתוח מחדש"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:366
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "אי אפשר לשנות את שם הפעלה ל־„%1”. הכתיבה אל „%2” נכשלה"
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:367
 #, kde-format
 msgid "Session Renaming"
 msgstr "שינוי שם ההפעלה"
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:535
 #, kde-format
 msgid "Session name:"
 msgstr "שם ההפעלה:"
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:537
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2821,17 +2821,17 @@ msgstr ""
 "יש כבר הפעלה פתוחה בשם שבחרת: %1\n"
 "נא לבחור שם אחר."
 
-#: lib/session/katesessionmanager.cpp:540
+#: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "כדי לשמור הפעלה, יש לתת לה שם."
 
-#: lib/session/katesessionmanager.cpp:567
+#: lib/session/katesessionmanager.cpp:566
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "נא לציין שם להפעלה הזאת"
 
-#: lib/session/katesessionmanager.cpp:569
+#: lib/session/katesessionmanager.cpp:568
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "ציון שם חדש להפעלה: %1"

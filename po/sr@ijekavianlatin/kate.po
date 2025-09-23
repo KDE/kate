@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -434,34 +434,34 @@ msgstr "Sesije"
 msgid "Enable Suppression"
 msgstr "Upravljanje sesijama"
 
-#: lib/diff/diffeditor.cpp:195
+#: lib/diff/diffeditor.cpp:194
 #, kde-format
 msgid "Change Style"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:196 lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Side By Side"
 msgstr ""
 
 # >> @item:intable
-#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:352
 #, fuzzy, kde-format
 #| msgid "Modified"
 msgid "Unified"
 msgstr "izmijenjen"
 
-#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:353
+#: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Raw"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:214
+#: lib/diff/diffeditor.cpp:213
 #, kde-format
 msgid "Edit Line"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:252
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
@@ -470,12 +470,12 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:257
 #, kde-format
 msgid "Stage Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:264
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
@@ -484,12 +484,12 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:269
 #, kde-format
 msgid "Discard Hunk"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:276
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
@@ -498,7 +498,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:281
 #, kde-format
 msgid "Unstage Hunk"
 msgstr ""
@@ -639,67 +639,67 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr ""
 
-#: lib/kateapp.cpp:144
+#: lib/kateapp.cpp:146
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:153
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Kristof Kulman"
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Maintainer"
 msgstr "održavalac"
 
-#: lib/kateapp.cpp:364
+#: lib/kateapp.cpp:367
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Hauman"
 
-#: lib/kateapp.cpp:364 lib/kateapp.cpp:367 lib/kateapp.cpp:368
-#: lib/kateapp.cpp:370 lib/kateapp.cpp:373 lib/kateapp.cpp:379
+#: lib/kateapp.cpp:367 lib/kateapp.cpp:370 lib/kateapp.cpp:371
+#: lib/kateapp.cpp:372 lib/kateapp.cpp:373 lib/kateapp.cpp:379
 #, kde-format
 msgid "Core Developer"
 msgstr "programer jezgra"
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:368
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauh"
 
-#: lib/kateapp.cpp:365 lib/kateapp.cpp:366 lib/kateapp.cpp:374
+#: lib/kateapp.cpp:368 lib/kateapp.cpp:369 lib/kateapp.cpp:374
 #, kde-format
 msgid "Developer"
 msgstr "programer"
 
-#: lib/kateapp.cpp:366
+#: lib/kateapp.cpp:369
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kore Sers"
 
-#: lib/kateapp.cpp:367
+#: lib/kateapp.cpp:370
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr ""
 
-#: lib/kateapp.cpp:368
+#: lib/kateapp.cpp:371
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:369
+#: lib/kateapp.cpp:372
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Jozef Veninger"
@@ -834,147 +834,147 @@ msgstr "programer Python priključaka"
 msgid "Gerald Senarclens de Grancy"
 msgstr "Žeral Sanarklan de Gransi"
 
-#: lib/kateapp.cpp:392
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "QA and Scripting"
 msgstr "obezbeđivanje kvaliteta i skriptovanje"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Tyson Tan"
 msgstr ""
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr ""
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Mateo Merli"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "isticanje RPM odrednica, Perla, razlika i još toga"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Roki Skaleta"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "isticanje VHDL‑a"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Jurij Lebedev"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "isticanje SQL‑a"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Chris Ross"
 msgstr "Kris Ros"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "isticanje Feritea"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nik Rouks"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "isticanje ILERPG‑a"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Karsten Nihaus"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "isticanje LaTeXa"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Vigren"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "isticanje spravifajlova, Pythona"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fric"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "isticanje Pythona"
 
-#: lib/kateapp.cpp:409
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Danijel Naber"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "isticanje Scheme"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Kristi Dumitresku"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "spisak ključnih reči i tipova za PHP"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Karsten Pfajfer"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Very nice help"
 msgstr "valjana pomoć"
 
-#: lib/kateapp.cpp:413
+#: lib/kateapp.cpp:410
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "svi koji su doprinijeli, a ja zaboravih da ih spomenem"
 
-#: lib/kateapp.cpp:566
+#: lib/kateapp.cpp:564
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1406,7 +1406,7 @@ msgstr "ime"
 msgid "Description"
 msgstr "opis"
 
-#: lib/katedocmanager.cpp:292
+#: lib/katedocmanager.cpp:293
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1415,43 +1415,43 @@ msgstr ""
 "<p>Dokument „%1“ je izmijenjen, ali nije sačuvan.</p><p>Želite li da "
 "sačuvate ili odbacite izmjene?</p>"
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:296 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "Zatvori dokument"
 
-#: lib/katedocmanager.cpp:304
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "Sačuvaj kao"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Otvoren je novi fajl tokom zatvaranja Kate, pa je ono obustavljeno."
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Zatvaranje obustavljeno"
 
-#: lib/katedocmanager.cpp:396
+#: lib/katedocmanager.cpp:397
 #, kde-format
 msgid "Starting Up"
 msgstr "Pokretanje"
 
-#: lib/katedocmanager.cpp:397
+#: lib/katedocmanager.cpp:398
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "Otvaram fajlove iz prošle sesije..."
 
-#: lib/katedocmanager.cpp:572
+#: lib/katedocmanager.cpp:573
 #, fuzzy, kde-format
 #| msgid "Create a new document"
 msgid "Cannot pin untitled documents."
 msgstr "Napravi novi dokument"
 
-#: lib/katedocmanager.cpp:577
+#: lib/katedocmanager.cpp:578
 #, fuzzy, kde-format
 #| msgid "Open a form to quick open documents."
 msgid "Cannot pin non local documents."
@@ -1913,7 +1913,7 @@ msgstr "Zatvori sve dokumente osim tekućeg"
 msgid "Close Others"
 msgstr "Zatvori druge"
 
-#: lib/katemainwindow.cpp:986
+#: lib/katemainwindow.cpp:989
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1921,12 +1921,12 @@ msgstr ""
 "Ovo će potpuno sakriti traku menija. Možete je vratiti pritiskom na %1."
 
 # >> @title:window
-#: lib/katemainwindow.cpp:989
+#: lib/katemainwindow.cpp:992
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Sakrivanje trake menija"
 
-#: lib/katemainwindow.cpp:1164
+#: lib/katemainwindow.cpp:1167
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1938,7 +1938,7 @@ msgstr ""
 "Prevukli ste fasciklu %1 na Kate. Želite li da učitate sve fajlove iz nje?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:1167
+#: lib/katemainwindow.cpp:1170
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
@@ -1946,14 +1946,14 @@ msgid "Open Files Recursively"
 msgstr "Učitati fajlove rekurzivno?"
 
 # >> @title:window
-#: lib/katemainwindow.cpp:1168
+#: lib/katemainwindow.cpp:1171
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Otvaranje fajla"
 
-#: lib/katemainwindow.cpp:1375
+#: lib/katemainwindow.cpp:1378
 #, kde-format
 msgid " [read only]"
 msgstr " [samo čitanje]"
@@ -2898,7 +2898,7 @@ msgstr "obrisan"
 msgid "Close"
 msgstr "Zatvori sv&e"
 
-#: lib/session/katesessionmanager.cpp:148
+#: lib/session/katesessionmanager.cpp:147
 #, fuzzy, kde-format
 #| msgid ""
 #| "Session '%1' is already opened in another kate instance, change there "
@@ -2910,34 +2910,34 @@ msgstr ""
 "Sesija „%1“ je već otvorena u drugom primjerku Kate — da prebacim na njega "
 "umjesto otvaranja novog?"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:151
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr ""
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:366
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "Sesija ne može da se preimenuje na „%1“. Ne mogu da pišem u „%2“."
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:367
 #, kde-format
 msgid "Session Renaming"
 msgstr "Preimenovanje sesije"
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:535
 #, kde-format
 msgid "Session name:"
 msgstr "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:537
 #, fuzzy, kde-format
 #| msgid ""
 #| "There is already an existing session with your chosen name.\n"
@@ -2951,18 +2951,18 @@ msgstr ""
 "Izaberite neko drugo.\n"
 "Ime sesije:"
 
-#: lib/session/katesessionmanager.cpp:540
+#: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "Morate navesti ime da biste sačuvali sesiju."
 
-#: lib/session/katesessionmanager.cpp:567
+#: lib/session/katesessionmanager.cpp:566
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a name for this session"
 msgstr "Navedite novo ime za sesiju"
 
-#: lib/session/katesessionmanager.cpp:569
+#: lib/session/katesessionmanager.cpp:568
 #, fuzzy, kde-format
 #| msgid "Specify New Name for Session"
 msgid "Specify a new name for session: %1"

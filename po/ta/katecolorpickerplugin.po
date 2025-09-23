@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2022-08-23 21:17+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -78,12 +78,12 @@ msgstr "நிறத் தேர்வி"
 msgid "Color Picker Settings"
 msgstr "நிறத் தேர்விக்கான அமைப்புகள்"
 
-#: katecolorpickerplugin.cpp:256
+#: katecolorpickerplugin.cpp:255
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "நிறத்தைத் தேர்ந்தெடுங்கள் (பதின‍றும எண் கிடைக்கும்)"
 
-#: katecolorpickerplugin.cpp:259
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "நிறத்தைப் பார் (படித்தல் மட்டும்)"

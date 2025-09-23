@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-29 00:46+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2023-01-08 08:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -376,58 +376,58 @@ msgstr "Trình khách LSP"
 msgid "Question from LSP server"
 msgstr "Khởi động lại trình chủ LSP"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Restarting"
 msgstr "Đang khởi động lại"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "NOT Restarting"
 msgstr "KHÔNG khởi động lại"
 
-#: lspclientservermanager.cpp:606
+#: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Trình chủ bất ngờ kết thúc... %1 [%2] [trang nhà: %3]"
 
-#: lspclientservermanager.cpp:877
+#: lspclientservermanager.cpp:876
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Không tìm được tệp thực thi trình chủ: %1"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Vui lòng tìm xem chương trình đó có trong biến PATH không"
 
-#: lspclientservermanager.cpp:881 lspclientservermanager.cpp:940
+#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Xem thêm cách cài đặt và các chi tiết ở %1"
 
-#: lspclientservermanager.cpp:936
+#: lspclientservermanager.cpp:935
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Khởi động trình chủ thất bại: %1"
 
-#: lspclientservermanager.cpp:944
+#: lspclientservermanager.cpp:943
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Đã khởi động trình chủ %2: %1"
 
-#: lspclientservermanager.cpp:980
+#: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Phân tách cấu hình trình chủ '%1' thất bại: không có đối tượng JSON nào"
 
-#: lspclientservermanager.cpp:983
+#: lspclientservermanager.cpp:982
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Phân tách cấu hình trình chủ '%1' thất bại: %2"
 
-#: lspclientservermanager.cpp:987
+#: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Đọc cấu hình trình chủ thất bại: %1"

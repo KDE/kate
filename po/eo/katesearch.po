@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-11 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-12-27 10:42+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -206,7 +206,7 @@ msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
-#: search.ui:40 SearchPlugin.cpp:294
+#: search.ui:40 SearchPlugin.cpp:293
 #, kde-format
 msgid "Search"
 msgstr "Serĉi"
@@ -267,7 +267,7 @@ msgid "..."
 msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
-#: search.ui:195 SearchPlugin.cpp:511
+#: search.ui:195 SearchPlugin.cpp:510
 #, kde-format
 msgid "Replace"
 msgstr "Anstataŭigi"
@@ -374,197 +374,197 @@ msgstr "MB"
 msgid "Size limit"
 msgstr "Grandeclimo"
 
-#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
+#: SearchPlugin.cpp:80 SearchPlugin.cpp:113
 #, kde-format
 msgid "Line break"
 msgstr "Liniorompo"
 
-#: SearchPlugin.cpp:82 SearchPlugin.cpp:115
+#: SearchPlugin.cpp:81 SearchPlugin.cpp:114
 #, kde-format
 msgid "Tab"
 msgstr "Tab"
 
-#: SearchPlugin.cpp:93
+#: SearchPlugin.cpp:92
 #, kde-format
 msgid "Beginning of line"
 msgstr "Komenco de linio"
 
-#: SearchPlugin.cpp:94
+#: SearchPlugin.cpp:93
 #, kde-format
 msgid "End of line"
 msgstr "Fino de linio"
 
-#: SearchPlugin.cpp:96
+#: SearchPlugin.cpp:95
 #, kde-format
 msgid "Any single character (excluding line breaks)"
 msgstr "Ajna unuopa signo (krom liniorompoj)"
 
-#: SearchPlugin.cpp:97
+#: SearchPlugin.cpp:96
 #, kde-format
 msgid "Literal dot"
 msgstr "Laŭvorta punkto"
 
-#: SearchPlugin.cpp:99
+#: SearchPlugin.cpp:98
 #, kde-format
 msgid "One or more occurrences"
 msgstr "Unu aŭ pluraj okazoj"
 
-#: SearchPlugin.cpp:100
+#: SearchPlugin.cpp:99
 #, kde-format
 msgid "Zero or more occurrences"
 msgstr "Nulo aŭ pli da okazoj"
 
-#: SearchPlugin.cpp:101
+#: SearchPlugin.cpp:100
 #, kde-format
 msgid "Zero or one occurrences"
 msgstr "Nul aŭ unu okazoj"
 
-#: SearchPlugin.cpp:103
+#: SearchPlugin.cpp:102
 #, kde-format
 msgid "<a> through <b> occurrences"
 msgstr "<a> tra <b> okazoj"
 
-#: SearchPlugin.cpp:105
+#: SearchPlugin.cpp:104
 #, kde-format
 msgid "Group, capturing"
 msgstr "Grupo, kaptanta"
 
-#: SearchPlugin.cpp:106
+#: SearchPlugin.cpp:105
 #, kde-format
 msgid "Or"
 msgstr "Aŭ"
 
-#: SearchPlugin.cpp:107
+#: SearchPlugin.cpp:106
 #, kde-format
 msgid "Set of characters"
 msgstr "Aro de signoj"
 
-#: SearchPlugin.cpp:108
+#: SearchPlugin.cpp:107
 #, kde-format
 msgid "Negative set of characters"
 msgstr "Negativa aro de signoj"
 
-#: SearchPlugin.cpp:109
+#: SearchPlugin.cpp:108
 #, kde-format
 msgid "Group, non-capturing"
 msgstr "Grupo, nekapta"
 
-#: SearchPlugin.cpp:110
+#: SearchPlugin.cpp:109
 #, kde-format
 msgid "Lookahead"
 msgstr "Antaŭenrigardo (lookahead)"
 
-#: SearchPlugin.cpp:111
+#: SearchPlugin.cpp:110
 #, kde-format
 msgid "Negative lookahead"
 msgstr "Negativa antaŭenrigardo"
 
-#: SearchPlugin.cpp:116
+#: SearchPlugin.cpp:115
 #, kde-format
 msgid "Word boundary"
 msgstr "Vortlimo"
 
-#: SearchPlugin.cpp:117
+#: SearchPlugin.cpp:116
 #, kde-format
 msgid "Not word boundary"
 msgstr "Ne vortlimo"
 
-#: SearchPlugin.cpp:118
+#: SearchPlugin.cpp:117
 #, kde-format
 msgid "Digit"
 msgstr "Cifero"
 
-#: SearchPlugin.cpp:119
+#: SearchPlugin.cpp:118
 #, kde-format
 msgid "Non-digit"
 msgstr "Ne-cifero"
 
-#: SearchPlugin.cpp:120
+#: SearchPlugin.cpp:119
 #, kde-format
 msgid "Whitespace (excluding line breaks)"
 msgstr "Blankspaco (ekskludante liniorompojn)"
 
-#: SearchPlugin.cpp:121
+#: SearchPlugin.cpp:120
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
 msgstr "Ne-blankspaco (ekskludante liniorompojn)"
 
-#: SearchPlugin.cpp:122
+#: SearchPlugin.cpp:121
 #, kde-format
 msgid "Word character (alphanumerics plus '_')"
 msgstr "Vorta signo (alfanumeroj plus '_')"
 
-#: SearchPlugin.cpp:123
+#: SearchPlugin.cpp:122
 #, kde-format
 msgid "Non-word character"
 msgstr "Nevorta signo"
 
-#: SearchPlugin.cpp:135
+#: SearchPlugin.cpp:134
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
 msgstr "Regula esprimo kapto 0 (tuta kongruo)"
 
-#: SearchPlugin.cpp:136
+#: SearchPlugin.cpp:135
 #, kde-format
 msgid "Regular expression capture 1-9"
 msgstr "Regula esprimo kapto 1-9"
 
-#: SearchPlugin.cpp:137
+#: SearchPlugin.cpp:136
 #, kde-format
 msgid "Regular expression capture 0-999"
 msgstr "Regula esprimo kapto 0-999"
 
-#: SearchPlugin.cpp:139
+#: SearchPlugin.cpp:138
 #, kde-format
 msgid "Upper-cased capture 0-9"
 msgstr "Majuskla kapto 0-9"
 
-#: SearchPlugin.cpp:140
+#: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-999"
 msgstr "Majuskla kapto 0-999"
 
-#: SearchPlugin.cpp:141
+#: SearchPlugin.cpp:140
 #, kde-format
 msgid "Lower-cased capture 0-9"
 msgstr "Minuskla kapto 0-9"
 
-#: SearchPlugin.cpp:142
+#: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-999"
 msgstr "Minuskla kapto 0-999"
 
-#: SearchPlugin.cpp:287
+#: SearchPlugin.cpp:286
 #, kde-format
 msgid "Search & Replace"
 msgstr "Serĉi & Anstataŭigi"
 
-#: SearchPlugin.cpp:328
+#: SearchPlugin.cpp:327
 #, kde-format
 msgid "Find in Files"
 msgstr "Trovi en Dosieroj"
 
-#: SearchPlugin.cpp:334
+#: SearchPlugin.cpp:333
 #, kde-format
 msgid "Find in Files (in a New Tab)"
 msgstr "Trovi en Dosieroj (en Nova Langeto)"
 
-#: SearchPlugin.cpp:340
+#: SearchPlugin.cpp:339
 #, kde-format
 msgid "Go to Next Match"
 msgstr "Iri al Sekva Kongruo"
 
-#: SearchPlugin.cpp:346
+#: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Previous Match"
 msgstr "Iri al Antaŭa Kongruo"
 
-#: SearchPlugin.cpp:352
+#: SearchPlugin.cpp:351
 #, kde-format
 msgid "Cut Matching Lines"
 msgstr "Tranĉi Kongruajn Liniojn"
 
-#: SearchPlugin.cpp:354
+#: SearchPlugin.cpp:353
 #, kde-format
 msgid ""
 "This will cut all highlighted search match lines from the current document "
@@ -573,12 +573,12 @@ msgstr ""
 "Ĉi tio tranĉos ĉiujn elstarigitajn serĉkongruajn liniojn de la nuna "
 "dokumento al la tondujo"
 
-#: SearchPlugin.cpp:359
+#: SearchPlugin.cpp:358
 #, kde-format
 msgid "Copy Matching Lines"
 msgstr "Kopii Kongruajn Liniojn"
 
-#: SearchPlugin.cpp:361
+#: SearchPlugin.cpp:360
 #, kde-format
 msgid ""
 "This will copy all highlighted search match lines in the current document to "
@@ -587,7 +587,7 @@ msgstr ""
 "Ĉi tio kopios ĉiujn elstarigitajn serĉkongruajn liniojn en la nuna dokumento "
 "al la tondujo"
 
-#: SearchPlugin.cpp:394
+#: SearchPlugin.cpp:393
 #, fuzzy, kde-format
 #| msgid ""
 #| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
@@ -595,7 +595,7 @@ msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
 "Komo apartigita listo de dosiertipoj por serĉi. Ekzemplo: \"*.cpp,*.h\"\n"
 
-#: SearchPlugin.cpp:396
+#: SearchPlugin.cpp:395
 #, fuzzy, kde-format
 #| msgid ""
 #| "Comma separated list of files and directories to exclude from the search. "
@@ -609,102 +609,102 @@ msgstr ""
 "Komo apartigita listo de dosieroj kaj dosierujoj por ekskludi de la serĉo. "
 "Ekzemplo: \"konstrui*\""
 
-#: SearchPlugin.cpp:401
+#: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
 msgstr "Klaki por filtri tra rezultoj"
 
-#: SearchPlugin.cpp:491
+#: SearchPlugin.cpp:490
 #, kde-format
 msgid "Find"
 msgstr "Trovi"
 
-#: SearchPlugin.cpp:1173
+#: SearchPlugin.cpp:1172
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 
-#: SearchPlugin.cpp:1346
+#: SearchPlugin.cpp:1345
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Serĉado dum vi tajpas estis interrompita. Ĝi estus preninta tro longe."
 
-#: SearchPlugin.cpp:1679
+#: SearchPlugin.cpp:1678
 #, kde-format
 msgid "Search Match"
 msgstr "Serĉi Kongruon"
 
-#: SearchPlugin.cpp:1856 SearchPlugin.cpp:1932
+#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
 #, kde-format
 msgid "Next from cursor"
 msgstr "Poste de la kursoro"
 
-#: SearchPlugin.cpp:1873
+#: SearchPlugin.cpp:1872
 #, kde-format
 msgid "Starting from first match"
 msgstr "Komencante de la unua kongruo"
 
-#: SearchPlugin.cpp:1893
+#: SearchPlugin.cpp:1892
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Daŭrigante de la unua kongruo"
 
-#: SearchPlugin.cpp:1949
+#: SearchPlugin.cpp:1948
 #, kde-format
 msgid "Starting from last match"
 msgstr "Komencante de la lasta kongruo"
 
-#: SearchPlugin.cpp:1969
+#: SearchPlugin.cpp:1968
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Daŭrigante de la lasta kongruo"
 
-#: SearchPlugin.cpp:2130
+#: SearchPlugin.cpp:2129
 #, kde-format
 msgid "Search: %1"
 msgstr "Serĉi: %1"
 
-#: SearchPlugin.cpp:2273
+#: SearchPlugin.cpp:2272
 #, kde-format
 msgid "Copy all"
 msgstr "Kopii ĉion"
 
-#: SearchPlugin.cpp:2278
+#: SearchPlugin.cpp:2277
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopii vastigita"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid "Export matches"
 msgstr "Eksporti kongruojn"
 
-#: SearchPlugin.cpp:2286
+#: SearchPlugin.cpp:2285
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Malfermi kiel Redaktil-Langeto"
 
-#: SearchPlugin.cpp:2294
+#: SearchPlugin.cpp:2293
 #, kde-format
 msgid "Clear"
 msgstr "Forviŝi"
 
-#: SearchPlugin.cpp:2404 SearchPlugin.cpp:2438
+#: SearchPlugin.cpp:2403 SearchPlugin.cpp:2437
 #, kde-format
 msgid "Add..."
 msgstr "Aldoni..."
 
-#: SearchPlugin.cpp:2416
+#: SearchPlugin.cpp:2415
 #, kde-format
 msgid "Search As You Type"
 msgstr "Serĉi Dum Tajpado"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In Current Project"
 msgstr "En Nuna Projekto"
 
-#: SearchPlugin.cpp:2489
+#: SearchPlugin.cpp:2488
 #, kde-format
 msgid "In All Open Projects"
 msgstr "En Ĉiuj Malfermaj Projektoj"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -421,60 +421,60 @@ msgstr "禁用抑制"
 msgid "Enable Suppression"
 msgstr "启用抑制"
 
-#: lib/diff/diffeditor.cpp:195
+#: lib/diff/diffeditor.cpp:194
 #, kde-format
 msgid "Change Style"
 msgstr "更改样式"
 
-#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:351
+#: lib/diff/diffeditor.cpp:196 lib/kateconfigdialog.cpp:351
 #, kde-format
 msgid "Side By Side"
 msgstr "并排"
 
-#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:352
+#: lib/diff/diffeditor.cpp:199 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Unified"
 msgstr "整合"
 
-#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:353
+#: lib/diff/diffeditor.cpp:202 lib/kateconfigdialog.cpp:353
 #, kde-format
 msgid "Raw"
 msgstr "原始"
 
-#: lib/diff/diffeditor.cpp:214
+#: lib/diff/diffeditor.cpp:213
 #, kde-format
 msgid "Edit Line"
 msgstr "编辑行"
 
-#: lib/diff/diffeditor.cpp:253
+#: lib/diff/diffeditor.cpp:252
 #, kde-format
 msgid "Stage Line"
 msgid_plural "Stage Lines"
 msgstr[0] "暂存行"
 
-#: lib/diff/diffeditor.cpp:258
+#: lib/diff/diffeditor.cpp:257
 #, kde-format
 msgid "Stage Hunk"
 msgstr "暂存块"
 
-#: lib/diff/diffeditor.cpp:265
+#: lib/diff/diffeditor.cpp:264
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
 msgstr[0] "放弃更改"
 
-#: lib/diff/diffeditor.cpp:270
+#: lib/diff/diffeditor.cpp:269
 #, kde-format
 msgid "Discard Hunk"
 msgstr "放弃块"
 
-#: lib/diff/diffeditor.cpp:277
+#: lib/diff/diffeditor.cpp:276
 #, kde-format
 msgid "Unstage Line"
 msgid_plural "Unstage Lines"
 msgstr[0] "取消暂存的行"
 
-#: lib/diff/diffeditor.cpp:282
+#: lib/diff/diffeditor.cpp:281
 #, kde-format
 msgid "Unstage Hunk"
 msgstr "取消暂存的块"
@@ -622,7 +622,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "文件历史 - %1"
 
-#: lib/kateapp.cpp:144
+#: lib/kateapp.cpp:146
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -631,7 +631,7 @@ msgstr ""
 "用 sudo 运行此编辑器可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
 "运行此编辑器，如果在保存文档时需要提升权限，程序将提示您进行身份验证。"
 
-#: lib/kateapp.cpp:151
+#: lib/kateapp.cpp:153
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -640,53 +640,53 @@ msgstr ""
 "用 kdesu 运行此编辑器可能会导致程序错误，并使你暴露在安全风险中。请以正常方式"
 "运行此编辑器，如果在保存文档时需要提升权限，程序将提示您进行身份验证。"
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:363
+#: lib/kateapp.cpp:366
 #, kde-format
 msgid "Maintainer"
 msgstr "维护者"
 
-#: lib/kateapp.cpp:364
+#: lib/kateapp.cpp:367
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:364 lib/kateapp.cpp:367 lib/kateapp.cpp:368
-#: lib/kateapp.cpp:370 lib/kateapp.cpp:373 lib/kateapp.cpp:379
+#: lib/kateapp.cpp:367 lib/kateapp.cpp:370 lib/kateapp.cpp:371
+#: lib/kateapp.cpp:372 lib/kateapp.cpp:373 lib/kateapp.cpp:379
 #, kde-format
 msgid "Core Developer"
 msgstr "核心开发者"
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:368
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:365 lib/kateapp.cpp:366 lib/kateapp.cpp:374
+#: lib/kateapp.cpp:368 lib/kateapp.cpp:369 lib/kateapp.cpp:374
 #, kde-format
 msgid "Developer"
 msgstr "开发者"
 
-#: lib/kateapp.cpp:366
+#: lib/kateapp.cpp:369
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:367
+#: lib/kateapp.cpp:370
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:368
+#: lib/kateapp.cpp:371
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:369
+#: lib/kateapp.cpp:372
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
@@ -821,147 +821,147 @@ msgstr "Python 插件开发者"
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:392
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "QA and Scripting"
 msgstr "QA 和脚本"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan (谭代山/钛山)"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Kate 的吉祥物“电子啄木鸟 Kate”的设计者"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "RPM Spec 文件、Perl、Diff 和其他类型的语法高亮"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "VHDL 语法高亮"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "SQL 语法高亮"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "Ferite 语法高亮"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG 语法高亮"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "LaTeX 语法高亮"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:404
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "Makefiles、Python 语法高亮"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:405
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "Python 语法高亮"
 
-#: lib/kateapp.cpp:409
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:410
+#: lib/kateapp.cpp:407
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "Scheme 语法高亮"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:411
+#: lib/kateapp.cpp:408
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP 关键字/数据类型列表"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:412
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Very nice help"
 msgstr "很好的帮助"
 
-#: lib/kateapp.cpp:413
+#: lib/kateapp.cpp:410
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "所有做出贡献而我却没能提到的人员"
 
-#: lib/kateapp.cpp:566
+#: lib/kateapp.cpp:564
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "只有启用项目插件时才能打开文件夹"
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1377,7 +1377,7 @@ msgstr "名称"
 msgid "Description"
 msgstr "描述"
 
-#: lib/katedocmanager.cpp:292
+#: lib/katedocmanager.cpp:293
 #, kde-format
 msgid ""
 "<p>The document '%1' has been modified, but not saved.</p><p>Do you want to "
@@ -1386,42 +1386,42 @@ msgstr ""
 "<p>文档“%1”已经被修改，但尚未保存。</p><p>您是否想要保存更改还是丢弃更改？</"
 "p>"
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:296 lib/katesavemodifieddialog.cpp:134
 #, kde-format
 msgid "Close Document"
 msgstr "关闭文档"
 
-#: lib/katedocmanager.cpp:304
+#: lib/katedocmanager.cpp:305
 #, kde-format
 msgid "Save As"
 msgstr "另存为"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "试图关闭 Kate 时打开了新文件，关闭被中止。"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:834
+#: lib/katedocmanager.cpp:323 lib/katemainwindow.cpp:834
 #, kde-format
 msgid "Closing Aborted"
 msgstr "关闭被中止"
 
-#: lib/katedocmanager.cpp:396
+#: lib/katedocmanager.cpp:397
 #, kde-format
 msgid "Starting Up"
 msgstr "正在启动"
 
-#: lib/katedocmanager.cpp:397
+#: lib/katedocmanager.cpp:398
 #, kde-format
 msgid "Reopening files from the last session..."
 msgstr "重新打开上次会话中的文件..."
 
-#: lib/katedocmanager.cpp:572
+#: lib/katedocmanager.cpp:573
 #, kde-format
 msgid "Cannot pin untitled documents."
 msgstr "无法固定未命名文档。"
 
-#: lib/katedocmanager.cpp:577
+#: lib/katedocmanager.cpp:578
 #, kde-format
 msgid "Cannot pin non local documents."
 msgstr "无法固定非本地文档。"
@@ -1841,37 +1841,37 @@ msgstr "关闭除了当前文档之外的所有文档？"
 msgid "Close Others"
 msgstr "关闭其他文档"
 
-#: lib/katemainwindow.cpp:986
+#: lib/katemainwindow.cpp:989
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "这将完全隐藏菜单栏。按 %1 可以重新显示。"
 
-#: lib/katemainwindow.cpp:989
+#: lib/katemainwindow.cpp:992
 #, kde-format
 msgid "Hide menu bar"
 msgstr "隐藏菜单栏"
 
-#: lib/katemainwindow.cpp:1164
+#: lib/katemainwindow.cpp:1167
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr "您将目录“%1”拖拽到了 Kate 中。您想要打开该目录中的所有文件吗？"
 
-#: lib/katemainwindow.cpp:1167
+#: lib/katemainwindow.cpp:1170
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "打开文件 - 递归式"
 
-#: lib/katemainwindow.cpp:1168
+#: lib/katemainwindow.cpp:1171
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "打开所有文件"
 
-#: lib/katemainwindow.cpp:1375
+#: lib/katemainwindow.cpp:1378
 #, kde-format
 msgid " [read only]"
 msgstr " [只读]"
@@ -2737,7 +2737,7 @@ msgstr "删除"
 msgid "Close"
 msgstr "关闭"
 
-#: lib/session/katesessionmanager.cpp:148
+#: lib/session/katesessionmanager.cpp:147
 #, kde-format
 msgid ""
 "Session '%1' is already opened in another Kate instance. Switch to that or "
@@ -2746,34 +2746,34 @@ msgstr ""
 "会话“%1”已在另一个 Kate 实例中打开。您想要切换到该实例，还是要在当前实例中重"
 "新打开会话？"
 
-#: lib/session/katesessionmanager.cpp:150
+#: lib/session/katesessionmanager.cpp:149
 #, kde-format
 msgctxt "@action:button"
 msgid "Switch to Instance"
 msgstr "切换到该实例"
 
-#: lib/session/katesessionmanager.cpp:151
+#: lib/session/katesessionmanager.cpp:150
 #, kde-format
 msgctxt "@action:button"
 msgid "Reopen"
 msgstr "重新打开会话"
 
-#: lib/session/katesessionmanager.cpp:367
+#: lib/session/katesessionmanager.cpp:366
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr "此会话无法被重命名为“%1”，无法写入“%2”"
 
-#: lib/session/katesessionmanager.cpp:368
+#: lib/session/katesessionmanager.cpp:367
 #, kde-format
 msgid "Session Renaming"
 msgstr "会话重命名"
 
-#: lib/session/katesessionmanager.cpp:536
+#: lib/session/katesessionmanager.cpp:535
 #, kde-format
 msgid "Session name:"
 msgstr "会话名称："
 
-#: lib/session/katesessionmanager.cpp:538
+#: lib/session/katesessionmanager.cpp:537
 #, kde-format
 msgid ""
 "There is already an existing session with your chosen name: %1\n"
@@ -2782,17 +2782,17 @@ msgstr ""
 "已经有了一个和您选择的同名的会话：%1\n"
 "请选择其他会话名称。"
 
-#: lib/session/katesessionmanager.cpp:540
+#: lib/session/katesessionmanager.cpp:539
 #, kde-format
 msgid "To save a session, you must specify a name."
 msgstr "要保存会话，您必须指定名称。"
 
-#: lib/session/katesessionmanager.cpp:567
+#: lib/session/katesessionmanager.cpp:566
 #, kde-format
 msgid "Specify a name for this session"
 msgstr "指定此会话的名称"
 
-#: lib/session/katesessionmanager.cpp:569
+#: lib/session/katesessionmanager.cpp:568
 #, kde-format
 msgid "Specify a new name for session: %1"
 msgstr "为会话指定新名称：%1"

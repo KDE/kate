@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-03 00:43+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -77,12 +77,12 @@ msgstr "拾色器"
 msgid "Color Picker Settings"
 msgstr "拾色器设置"
 
-#: katecolorpickerplugin.cpp:256
+#: katecolorpickerplugin.cpp:255
 #, kde-format
 msgid "Select Color (Hex output)"
 msgstr "选择颜色 (输出十六进制)"
 
-#: katecolorpickerplugin.cpp:259
+#: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "View Color [Read only]"
 msgstr "查看颜色 [只读]"

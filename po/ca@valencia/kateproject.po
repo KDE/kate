@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-01 12:31+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -93,7 +93,7 @@ msgstr[1] "Segur que voleu suprimir les branques seleccionades?"
 msgid "Select Branch..."
 msgstr "Tria la branca…"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:74
+#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -524,20 +524,20 @@ msgstr "Segur que voleu descartar els canvis?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:299
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:79
-#: kateprojectpluginview.cpp:226 kateprojectviewtree.cpp:351
+#: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Projecte"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:665
 #, kde-format
 msgid "<untracked>"
 msgstr "<sense seguiment>"
@@ -689,7 +689,7 @@ msgstr "Marca / Desmarca"
 msgid "Double click action in the git status view"
 msgstr "Acció de doble clic damunt de la vista de «git status»"
 
-#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:73
+#: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
 msgid "Projects"
 msgstr "Projectes"
@@ -739,18 +739,18 @@ msgstr "Anàlisi del codi"
 msgid "Notes"
 msgstr "Notes"
 
-#: kateprojectinfoviewcodeanalysis.cpp:35
+#: kateprojectinfoviewcodeanalysis.cpp:34
 #, kde-format
 msgid "Start Analysis..."
 msgstr "Inicia l'anàlisi…"
 
-#: kateprojectinfoviewcodeanalysis.cpp:43
+#: kateprojectinfoviewcodeanalysis.cpp:42
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
 msgstr "Anàlisi del codi - %1"
 
-#: kateprojectinfoviewcodeanalysis.cpp:100
+#: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format
 msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
@@ -760,7 +760,7 @@ msgstr ""
 "s'executarà sobre tots els fitxers de projecte que coincidisquen amb esta "
 "llista d'extensions de fitxer:<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:110
+#: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
 msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
@@ -770,14 +770,14 @@ msgstr ""
 "els fitxers de projecte que coincidisquen amb esta llista d'extensions de "
 "fitxer:<br/><b>%4</b>"
 
-#: kateprojectinfoviewcodeanalysis.cpp:152
-#: kateprojectinfoviewcodeanalysis.cpp:212
-#: kateprojectinfoviewcodeanalysis.cpp:216
+#: kateprojectinfoviewcodeanalysis.cpp:151
+#: kateprojectinfoviewcodeanalysis.cpp:211
+#: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "CodeAnalysis"
 msgstr "Anàlisi del codi"
 
-#: kateprojectinfoviewcodeanalysis.cpp:207
+#: kateprojectinfoviewcodeanalysis.cpp:206
 #, kde-format
 msgctxt ""
 "Message to the user that analysis finished. %1 is the name of the program "
@@ -788,7 +788,7 @@ msgid_plural "[%1]Analysis on %2 files finished."
 msgstr[0] "[%1]Ha finalitzat l'anàlisi d'%2 fitxer."
 msgstr[1] "[%1]Ha finalitzat l'anàlisi de %2 fitxers."
 
-#: kateprojectinfoviewcodeanalysis.cpp:215
+#: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
 msgstr "L'anàlisi ha fallat amb el codi d'eixida %1. Error: %2"
@@ -828,12 +828,12 @@ msgstr "No s'ha pogut crear l'índex. Instal·leu «ctags»."
 msgid "Indexing is not enabled"
 msgstr "La indexació no està activa"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "Error"
 msgstr "S'ha produït un error"
 
-#: kateprojectitem.cpp:166
+#: kateprojectitem.cpp:164
 #, kde-format
 msgid "File name already exists"
 msgstr "El nom de fitxer ja existix"
@@ -862,93 +862,93 @@ msgstr ""
 "Camí complet del projecte actual excloent el nom del fitxer, amb el "
 "separador de camí natiu (barra inversa a Windows)."
 
-#: kateprojectpluginview.cpp:63
+#: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
 msgstr "Gestor de projectes"
 
-#: kateprojectpluginview.cpp:85
+#: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Open projects list"
 msgstr "Obri la llista de projectes"
 
-#: kateprojectpluginview.cpp:90
+#: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
 msgstr "Torna a carregar el projecte"
 
-#: kateprojectpluginview.cpp:93
+#: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Close project"
 msgstr "Tanca el projecte"
 
-#: kateprojectpluginview.cpp:169
+#: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Open &Folder..."
 msgstr "Obri una &carpeta…"
 
 # skip-rule: kct-todo
-#: kateprojectpluginview.cpp:175
+#: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
 msgstr "TODO del projecte"
 
-#: kateprojectpluginview.cpp:180
+#: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
 msgstr "Activa el projecte anterior"
 
-#: kateprojectpluginview.cpp:186
+#: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
 msgstr "Activa el projecte següent"
 
-#: kateprojectpluginview.cpp:192
+#: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
 msgstr "Busca"
 
-#: kateprojectpluginview.cpp:197
+#: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
 msgstr "Tanca el projecte"
 
-#: kateprojectpluginview.cpp:202
+#: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
 msgstr "Tanca tots els projectes"
 
-#: kateprojectpluginview.cpp:207
+#: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
 msgstr "Tanca els projectes orfes"
 
-#: kateprojectpluginview.cpp:212
+#: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Reload Project"
 msgstr "Torna a carregar el projecte"
 
-#: kateprojectpluginview.cpp:223
+#: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
 msgstr "Extrau la branca de Git"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Busca: %1"
 
-#: kateprojectpluginview.cpp:230 kateprojectpluginview.cpp:794
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves fins a: %1"
 
-#: kateprojectpluginview.cpp:304
+#: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:838
+#: kateprojectpluginview.cpp:837
 #, kde-format
 msgid "Choose a directory"
 msgstr "Trieu un directori"
@@ -1048,12 +1048,12 @@ msgstr "El directori ja existix"
 msgid "Failed to create dir: %1"
 msgstr "No s'ha pogut crear el directori: %1"
 
-#: kateprojectworker.cpp:203
+#: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr "No s'ha pogut trobar el directori: %1"
 
-#: kateprojectworker.cpp:731
+#: kateprojectworker.cpp:730
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

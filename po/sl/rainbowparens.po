@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2023-11-27 08:36+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
-#: rainbowparens_plugin.cpp:479
+#: rainbowparens_plugin.cpp:478
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
 msgstr "Izberite barve, ki bodo uporabljene za barvanje oklepaja:"
 
-#: rainbowparens_plugin.cpp:499
+#: rainbowparens_plugin.cpp:498
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Pobarvani oklepaji"
 
-#: rainbowparens_plugin.cpp:504
+#: rainbowparens_plugin.cpp:503
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Nastavitve pobarvanih oklepajev"

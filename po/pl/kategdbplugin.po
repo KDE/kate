@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-26 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-07-26 19:33+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -27,91 +27,91 @@ msgid ""
 msgstr ""
 "Trwa sesja diagnostyczna. Uruchom ponownie, aby zatrzymać bieżącą sesję."
 
-#: configview.cpp:93
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Dodaj nowy cel"
 
-#: configview.cpp:97
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Skopiuj cel"
 
-#: configview.cpp:101
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Usuń cel"
 
-#: configview.cpp:105
+#: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
 msgstr "Wczytaj ponownie cele launch.json"
 
-#: configview.cpp:110
+#: configview.cpp:109
 #, kde-format
 msgid "Executable:"
 msgstr "Plik wykonywalny:"
 
-#: configview.cpp:130
+#: configview.cpp:129
 #, kde-format
 msgid "Working Directory:"
 msgstr "Katalog pracy:"
 
-#: configview.cpp:138
+#: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
 msgstr "ID procesu:"
 
-#: configview.cpp:143
+#: configview.cpp:142
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argumenty:"
 
-#: configview.cpp:146
+#: configview.cpp:145
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Zachowaj uaktywnienie"
 
-#: configview.cpp:147
+#: configview.cpp:146
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Zachowaj uaktywnienie na wierszu poleceń"
 
-#: configview.cpp:149
+#: configview.cpp:148
 #, kde-format
 msgid "Redirect IO"
 msgstr "Przekieruj WE/WY"
 
-#: configview.cpp:150
+#: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Przekieruj WE/WY diagnozowanych programów do osobnej karty"
 
-#: configview.cpp:397
+#: configview.cpp:396
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
 msgstr "Nie ustawiono wykonywalnego celu"
 
-#: configview.cpp:407
+#: configview.cpp:406
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
 msgstr "Nieprawidłowy id procesu"
 
-#: configview.cpp:529 configview.cpp:542
+#: configview.cpp:528 configview.cpp:541
 #, kde-format
 msgid "Target %1"
 msgstr "Cel %1"
 
-#: configview.cpp:761
+#: configview.cpp:760
 #, kde-format
 msgid "Select Executable"
 msgstr "Wybierz plik wykonywalny"
 
-#: configview.cpp:774
+#: configview.cpp:773
 #, kde-format
 msgid "Select Working Directory"
 msgstr "Wybierz katalog pracy"
@@ -517,176 +517,176 @@ msgstr "Skopiuj symbol"
 msgid "Copy Value"
 msgstr "Skopiuj wartość"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Kate Debug"
 msgstr "Kate Debug"
 
-#: plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:113
 #, kde-format
 msgid "Debug View"
 msgstr "Widok diagnostyczny"
 
-#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:384
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:383
 #, kde-format
 msgid "Debug"
 msgstr "Diagnozuj"
 
-#: plugin_kategdb.cpp:117 plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:116 plugin_kategdb.cpp:119
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Lokalne i stos"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:250
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr "<title>Nie można otworzyć pliku:</title><nl/>%1"
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:265
 #, kde-format
 msgid "Targets"
 msgstr "Cele"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:270
 #, kde-format
 msgid "Start Debugging"
 msgstr "Rozpocznij diagnozowanie"
 
-#: plugin_kategdb.cpp:281
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Zakończ / Przestań diagnozować"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Continue"
 msgstr "Kontynuuj"
 
-#: plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:293
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Włącz pułapkę / przerwę"
 
-#: plugin_kategdb.cpp:301
+#: plugin_kategdb.cpp:300
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Wyczyść wszystkie pułapki"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Step In"
 msgstr "Wejdź wgłąb"
 
-#: plugin_kategdb.cpp:313
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Step Over"
 msgstr "Przejdź ponad"
 
-#: plugin_kategdb.cpp:320
+#: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Step Out"
 msgstr "Wyjdź stąd"
 
-#: plugin_kategdb.cpp:327 plugin_kategdb.cpp:391
+#: plugin_kategdb.cpp:326 plugin_kategdb.cpp:390
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Wykonaj do kursora"
 
-#: plugin_kategdb.cpp:334
+#: plugin_kategdb.cpp:333
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Zdiagnozuj ponownie"
 
-#: plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Clear Output"
 msgstr "Wyczyść wynik"
 
-#: plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:348
 #, kde-format
 msgid "Hot Reload"
 msgstr "Wczytaj ponownie na gorąco"
 
-#: plugin_kategdb.cpp:356
+#: plugin_kategdb.cpp:355
 #, kde-format
 msgid "Hot Restart"
 msgstr "Uruchom ponownie na gorąco"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:364
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Włącz ponowne wczytywanie na gorąco przy zapisie"
 
-#: plugin_kategdb.cpp:374 plugin_kategdb.cpp:393
+#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:392
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Przenieś PC"
 
-#: plugin_kategdb.cpp:379
+#: plugin_kategdb.cpp:378
 #, kde-format
 msgid "Print Value"
 msgstr "Wyświetl wartość"
 
-#: plugin_kategdb.cpp:449
+#: plugin_kategdb.cpp:448
 #, kde-format
 msgid "Error: %1"
 msgstr "Błąd: %1"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Wstaw pułapkę"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:495
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Usuń pułapkę"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:664
 #, kde-format
 msgid "Execution point"
 msgstr "Punkt wykonania"
 
-#: plugin_kategdb.cpp:786 plugin_kategdb.cpp:818
+#: plugin_kategdb.cpp:785 plugin_kategdb.cpp:817
 #, kde-format
 msgid "Thread %1"
 msgstr "Wątek %1"
 
-#: plugin_kategdb.cpp:914
+#: plugin_kategdb.cpp:913
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Wyjście diagnostyczne"
 
-#: plugin_kategdb.cpp:915
+#: plugin_kategdb.cpp:914
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: plugin_kategdb.cpp:950
+#: plugin_kategdb.cpp:949
 #, kde-format
 msgid "IO"
 msgstr "WE/WY"
 
-#: plugin_kategdb.cpp:1039
+#: plugin_kategdb.cpp:1038
 #, kde-format
 msgid "Breakpoint"
 msgstr "Pułapka"
 
-#: plugin_kategdb.cpp:1115
+#: plugin_kategdb.cpp:1114
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Skopiuj ślad wykonywania"
 
-#: plugin_kategdb.cpp:1134
+#: plugin_kategdb.cpp:1133
 #, kde-format
 msgid "Open Location"
 msgstr "Otwórz miejsce"
 
-#: plugin_kategdb.cpp:1141
+#: plugin_kategdb.cpp:1140
 #, kde-format
 msgid "Copy Location"
 msgstr "Skopiuj położenie"

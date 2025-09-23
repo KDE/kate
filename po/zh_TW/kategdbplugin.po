@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-26 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-08-29 20:47+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -26,91 +26,91 @@ msgid ""
 "session."
 msgstr "有執行中的除錯工作階段。請使用重新執行或是停止目前的工作階段。"
 
-#: configview.cpp:93
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "新增目標"
 
-#: configview.cpp:97
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "複製目標"
 
-#: configview.cpp:101
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "刪除目標"
 
-#: configview.cpp:105
+#: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
 msgstr "重新載入 launch.json 的目標"
 
-#: configview.cpp:110
+#: configview.cpp:109
 #, kde-format
 msgid "Executable:"
 msgstr "執行檔："
 
-#: configview.cpp:130
+#: configview.cpp:129
 #, kde-format
 msgid "Working Directory:"
 msgstr "工作目錄："
 
-#: configview.cpp:138
+#: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
 msgstr "行程 ID："
 
-#: configview.cpp:143
+#: configview.cpp:142
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "參數："
 
-#: configview.cpp:146
+#: configview.cpp:145
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "保持焦點"
 
-#: configview.cpp:147
+#: configview.cpp:146
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "保持焦點於命令列"
 
-#: configview.cpp:149
+#: configview.cpp:148
 #, kde-format
 msgid "Redirect IO"
 msgstr "重新導向 IO"
 
-#: configview.cpp:150
+#: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "將程式的除錯輸出入重新導向到另一個分頁"
 
-#: configview.cpp:397
+#: configview.cpp:396
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
 msgstr "未設定執行檔目標"
 
-#: configview.cpp:407
+#: configview.cpp:406
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
 msgstr "無效的行程 ID"
 
-#: configview.cpp:529 configview.cpp:542
+#: configview.cpp:528 configview.cpp:541
 #, kde-format
 msgid "Target %1"
 msgstr "目標 %1"
 
-#: configview.cpp:761
+#: configview.cpp:760
 #, kde-format
 msgid "Select Executable"
 msgstr "選擇執行檔："
 
-#: configview.cpp:774
+#: configview.cpp:773
 #, kde-format
 msgid "Select Working Directory"
 msgstr "選擇工作目錄"
@@ -521,176 +521,176 @@ msgstr "複製符號"
 msgid "Copy Value"
 msgstr "複製數值"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Kate Debug"
 msgstr "Kate 除錯"
 
-#: plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:113
 #, kde-format
 msgid "Debug View"
 msgstr "除錯檢視"
 
-#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:384
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:383
 #, kde-format
 msgid "Debug"
 msgstr "除錯"
 
-#: plugin_kategdb.cpp:117 plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:116 plugin_kategdb.cpp:119
 #, kde-format
 msgid "Locals and Stack"
 msgstr "本地變數與堆疊"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:250
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr "<title>無法開啟檔案：</title><nl/>%1"
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:265
 #, kde-format
 msgid "Targets"
 msgstr "目標"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:270
 #, kde-format
 msgid "Start Debugging"
 msgstr "開始除錯"
 
-#: plugin_kategdb.cpp:281
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "砍掉 / 停止除錯"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Continue"
 msgstr "繼續"
 
-#: plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:293
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "切換中斷點 / 中斷"
 
-#: plugin_kategdb.cpp:301
+#: plugin_kategdb.cpp:300
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "清除所有中斷點"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Step In"
 msgstr "單步進入"
 
-#: plugin_kategdb.cpp:313
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Step Over"
 msgstr "單步"
 
-#: plugin_kategdb.cpp:320
+#: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Step Out"
 msgstr "單步跳出"
 
-#: plugin_kategdb.cpp:327 plugin_kategdb.cpp:391
+#: plugin_kategdb.cpp:326 plugin_kategdb.cpp:390
 #, kde-format
 msgid "Run To Cursor"
 msgstr "執行到游標處"
 
-#: plugin_kategdb.cpp:334
+#: plugin_kategdb.cpp:333
 #, kde-format
 msgid "Restart Debugging"
 msgstr "重新開始除錯"
 
-#: plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:340
 #, kde-format
 msgid "Clear Output"
 msgstr "清除輸出"
 
-#: plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:348
 #, kde-format
 msgid "Hot Reload"
 msgstr "熱重載 (Hot Reload)"
 
-#: plugin_kategdb.cpp:356
+#: plugin_kategdb.cpp:355
 #, kde-format
 msgid "Hot Restart"
 msgstr "熱重啟 (Hot Restart)"
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:364
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "啟用儲存時熱重載"
 
-#: plugin_kategdb.cpp:374 plugin_kategdb.cpp:393
+#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:392
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "移動程式計數器（PC）"
 
-#: plugin_kategdb.cpp:379
+#: plugin_kategdb.cpp:378
 #, kde-format
 msgid "Print Value"
 msgstr "印出數值"
 
-#: plugin_kategdb.cpp:449
+#: plugin_kategdb.cpp:448
 #, kde-format
 msgid "Error: %1"
 msgstr "錯誤：%1"
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "插入中斷點"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:495
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "移除中斷點"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:664
 #, kde-format
 msgid "Execution point"
 msgstr "執行點"
 
-#: plugin_kategdb.cpp:786 plugin_kategdb.cpp:818
+#: plugin_kategdb.cpp:785 plugin_kategdb.cpp:817
 #, kde-format
 msgid "Thread %1"
 msgstr "執行緒 %1"
 
-#: plugin_kategdb.cpp:914
+#: plugin_kategdb.cpp:913
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "除錯輸出"
 
-#: plugin_kategdb.cpp:915
+#: plugin_kategdb.cpp:914
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "設定"
 
-#: plugin_kategdb.cpp:950
+#: plugin_kategdb.cpp:949
 #, kde-format
 msgid "IO"
 msgstr "IO"
 
-#: plugin_kategdb.cpp:1039
+#: plugin_kategdb.cpp:1038
 #, kde-format
 msgid "Breakpoint"
 msgstr "中斷點"
 
-#: plugin_kategdb.cpp:1115
+#: plugin_kategdb.cpp:1114
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "複製堆疊追蹤"
 
-#: plugin_kategdb.cpp:1134
+#: plugin_kategdb.cpp:1133
 #, kde-format
 msgid "Open Location"
 msgstr "開啟位置"
 
-#: plugin_kategdb.cpp:1141
+#: plugin_kategdb.cpp:1140
 #, kde-format
 msgid "Copy Location"
 msgstr "複製位置"

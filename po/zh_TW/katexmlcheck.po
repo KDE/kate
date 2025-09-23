@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2023-12-22 03:20+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -18,45 +18,45 @@ msgstr ""
 "X-Generator: Lokalize 24.01.80\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: plugin_katexmlcheck.cpp:94
+#: plugin_katexmlcheck.cpp:93
 #, kde-format
 msgid "XML Check"
 msgstr "XML 檢驗器"
 
-#: plugin_katexmlcheck.cpp:99
+#: plugin_katexmlcheck.cpp:98
 #, kde-format
 msgid "Validate XML"
 msgstr "檢驗 XML"
 
-#: plugin_katexmlcheck.cpp:129
+#: plugin_katexmlcheck.cpp:128
 #, kde-format
 msgid "Validate process crashed"
 msgstr "檢驗行程已崩潰"
 
-#: plugin_katexmlcheck.cpp:129 plugin_katexmlcheck.cpp:147
-#: plugin_katexmlcheck.cpp:207 plugin_katexmlcheck.cpp:232
-#: plugin_katexmlcheck.cpp:252 plugin_katexmlcheck.cpp:335
+#: plugin_katexmlcheck.cpp:128 plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:206 plugin_katexmlcheck.cpp:231
+#: plugin_katexmlcheck.cpp:251 plugin_katexmlcheck.cpp:334
 #, kde-format
 msgid "XMLCheck"
 msgstr "XML 檢驗器"
 
-#: plugin_katexmlcheck.cpp:143
+#: plugin_katexmlcheck.cpp:142
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr "未找到 DOCTYPE，只會檢查格式是否良好。"
 
-#: plugin_katexmlcheck.cpp:145
+#: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr "未找到 '%1'，只會檢查格式是否良好。"
 
-#: plugin_katexmlcheck.cpp:231
+#: plugin_katexmlcheck.cpp:230
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>錯誤：</b>無法建立暫存檔「%1」。"
 
-#: plugin_katexmlcheck.cpp:250
+#: plugin_katexmlcheck.cpp:249
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -64,7 +64,7 @@ msgid ""
 msgstr ""
 "<b>錯誤：</b>找不到 xmllint。請確定 xmllint 已安裝。它是 libxml2 的一部份。"
 
-#: plugin_katexmlcheck.cpp:333
+#: plugin_katexmlcheck.cpp:332
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

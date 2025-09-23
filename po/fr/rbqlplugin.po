@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-03-31 15:02+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -14,39 +14,39 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: RBQLPlugin.cpp:34
+#: RBQLPlugin.cpp:32
 #, kde-format
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:52
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "Saisir une requête « RBQL »"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:54
 #, kde-format
 msgid "Add new tab"
 msgstr "Ajouter un nouvel onglet"
 
-#: RBQLWidget.cpp:58
+#: RBQLWidget.cpp:56
 #, kde-format
 msgid "Execute query"
 msgstr "Lancer une requête"
 
-#: RBQLWidget.cpp:73
+#: RBQLWidget.cpp:71
 #, kde-format
 msgid "File has header"
 msgstr "Le fichier possède une en-tête"
 
-#: RBQLWidget.cpp:113
+#: RBQLWidget.cpp:111
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
 "Impossible d'obtenir un séparateur dans le document courant. Est-ce un "
 "document « CSV / TSV » ?"
 
-#: RBQLWidget.cpp:122
+#: RBQLWidget.cpp:120
 #, kde-format
 msgid "Document is empty"
 msgstr "Le document est vide"

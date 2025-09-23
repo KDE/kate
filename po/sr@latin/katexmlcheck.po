@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-17 00:43+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#: plugin_katexmlcheck.cpp:94
+#: plugin_katexmlcheck.cpp:93
 #, fuzzy, kde-format
 #| msgid "Kate XML check"
 msgid "XML Check"
 msgstr "Kateina provera XML‑a"
 
-#: plugin_katexmlcheck.cpp:99
+#: plugin_katexmlcheck.cpp:98
 #, kde-format
 msgid "Validate XML"
 msgstr "Overi XML"
 
-#: plugin_katexmlcheck.cpp:129
+#: plugin_katexmlcheck.cpp:128
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:129 plugin_katexmlcheck.cpp:147
-#: plugin_katexmlcheck.cpp:207 plugin_katexmlcheck.cpp:232
-#: plugin_katexmlcheck.cpp:252 plugin_katexmlcheck.cpp:335
+#: plugin_katexmlcheck.cpp:128 plugin_katexmlcheck.cpp:146
+#: plugin_katexmlcheck.cpp:206 plugin_katexmlcheck.cpp:231
+#: plugin_katexmlcheck.cpp:251 plugin_katexmlcheck.cpp:334
 #, fuzzy, kde-format
 #| msgid "Kate XML check"
 msgid "XMLCheck"
 msgstr "Kateina provera XML‑a"
 
-#: plugin_katexmlcheck.cpp:143
+#: plugin_katexmlcheck.cpp:142
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:145
+#: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:231
+#: plugin_katexmlcheck.cpp:230
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Greška:</b> Ne mogu da napravim privremeni fajl „%1“."
 
-#: plugin_katexmlcheck.cpp:250
+#: plugin_katexmlcheck.cpp:249
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -70,7 +70,7 @@ msgstr ""
 "<b>Greška:</b> Ne mogu da izvršim <tt>xmllint</tt>. Proverite da li je ova "
 "naredba instalirana (deo paketa <tt>libxml2</tt>)."
 
-#: plugin_katexmlcheck.cpp:333
+#: plugin_katexmlcheck.cpp:332
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

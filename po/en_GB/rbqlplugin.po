@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-30 00:39+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2024-05-24 16:59+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: RBQLPlugin.cpp:34
+#: RBQLPlugin.cpp:32
 #, kde-format
 msgid "RBQL"
 msgstr "RBQL"
 
-#: RBQLWidget.cpp:54
+#: RBQLWidget.cpp:52
 #, kde-format
 msgid "Enter RBQL query"
 msgstr "Enter RBQL query"
 
-#: RBQLWidget.cpp:56
+#: RBQLWidget.cpp:54
 #, kde-format
 msgid "Add new tab"
 msgstr "Add new tab"
 
-#: RBQLWidget.cpp:58
+#: RBQLWidget.cpp:56
 #, kde-format
 msgid "Execute query"
 msgstr "Execute query"
 
-#: RBQLWidget.cpp:73
+#: RBQLWidget.cpp:71
 #, kde-format
 msgid "File has header"
 msgstr "File has header"
 
-#: RBQLWidget.cpp:113
+#: RBQLWidget.cpp:111
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr "Failed to get separator for current document. Not a CSV/TSV doc?"
 
-#: RBQLWidget.cpp:122
+#: RBQLWidget.cpp:120
 #, kde-format
 msgid "Document is empty"
 msgstr "Document is empty"

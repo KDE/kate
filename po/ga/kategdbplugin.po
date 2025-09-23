@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-08-26 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2011-12-28 12:28-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -24,92 +24,92 @@ msgid ""
 "session."
 msgstr ""
 
-#: configview.cpp:93
+#: configview.cpp:92
 #, kde-format
 msgid "Add new target"
 msgstr "Cuir sprioc nua leis"
 
-#: configview.cpp:97
+#: configview.cpp:96
 #, kde-format
 msgid "Copy target"
 msgstr "Cóipeáil an sprioc"
 
-#: configview.cpp:101
+#: configview.cpp:100
 #, kde-format
 msgid "Delete target"
 msgstr "Scrios an sprioc"
 
-#: configview.cpp:105
+#: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
 msgstr ""
 
-#: configview.cpp:110
+#: configview.cpp:109
 #, kde-format
 msgid "Executable:"
 msgstr "Comhad inrite:"
 
-#: configview.cpp:130
+#: configview.cpp:129
 #, kde-format
 msgid "Working Directory:"
 msgstr "Comhadlann Oibre:"
 
-#: configview.cpp:138
+#: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
 msgstr ""
 
-#: configview.cpp:143
+#: configview.cpp:142
 #, kde-format
 msgctxt "Program argument list"
 msgid "Arguments:"
 msgstr "Argóintí:"
 
-#: configview.cpp:146
+#: configview.cpp:145
 #, kde-format
 msgctxt "Checkbox to for keeping focus on the command line"
 msgid "Keep focus"
 msgstr "Coinnigh an fócas"
 
-#: configview.cpp:147
+#: configview.cpp:146
 #, kde-format
 msgid "Keep the focus on the command line"
 msgstr "Coinnigh an fócas ar líne na n-orduithe"
 
-#: configview.cpp:149
+#: configview.cpp:148
 #, kde-format
 msgid "Redirect IO"
 msgstr "Atreoraigh I/A"
 
-#: configview.cpp:150
+#: configview.cpp:149
 #, kde-format
 msgid "Redirect the debugged programs IO to a separate tab"
 msgstr "Athdhírigh I/A an ríomhchláir dhífhabhtaithe ar chluaisín ar leith"
 
-#: configview.cpp:397
+#: configview.cpp:396
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
 msgstr ""
 
-#: configview.cpp:407
+#: configview.cpp:406
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
 msgstr ""
 
-#: configview.cpp:529 configview.cpp:542
+#: configview.cpp:528 configview.cpp:541
 #, kde-format
 msgid "Target %1"
 msgstr "Sprioc %1"
 
-#: configview.cpp:761
+#: configview.cpp:760
 #, fuzzy, kde-format
 #| msgid "Executable:"
 msgid "Select Executable"
 msgstr "Comhad inrite:"
 
-#: configview.cpp:774
+#: configview.cpp:773
 #, fuzzy, kde-format
 #| msgid "Working Directory:"
 msgid "Select Working Directory"
@@ -527,149 +527,149 @@ msgstr "Siombail"
 msgid "Copy Value"
 msgstr "Cóipeáil an sprioc"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:109
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Kate Debug"
 msgstr "Dílochtú"
 
-#: plugin_kategdb.cpp:114
+#: plugin_kategdb.cpp:113
 #, kde-format
 msgid "Debug View"
 msgstr "Amharc Dífhabhtaithe"
 
-#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:384
+#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:383
 #, kde-format
 msgid "Debug"
 msgstr "Dílochtú"
 
-#: plugin_kategdb.cpp:117 plugin_kategdb.cpp:120
+#: plugin_kategdb.cpp:116 plugin_kategdb.cpp:119
 #, fuzzy, kde-format
 #| msgid "Call Stack"
 msgid "Locals and Stack"
 msgstr "Cruach Glao"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:250
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr ""
 
-#: plugin_kategdb.cpp:266
+#: plugin_kategdb.cpp:265
 #, kde-format
 msgid "Targets"
 msgstr "Spriocanna"
 
-#: plugin_kategdb.cpp:271
+#: plugin_kategdb.cpp:270
 #, kde-format
 msgid "Start Debugging"
 msgstr "Tosaigh Dífhabhtú"
 
-#: plugin_kategdb.cpp:281
+#: plugin_kategdb.cpp:280
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Maraigh / Stop Dífhabhtú"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:287
 #, kde-format
 msgid "Continue"
 msgstr "Lean ar aghaidh"
 
-#: plugin_kategdb.cpp:294
+#: plugin_kategdb.cpp:293
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Scoránaigh Brisphointe / Briseadh"
 
-#: plugin_kategdb.cpp:301
+#: plugin_kategdb.cpp:300
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Clear All Breakpoints"
 msgstr "Brisphointe"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Step In"
 msgstr "Céimnigh Isteach"
 
-#: plugin_kategdb.cpp:313
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Step Over"
 msgstr "Céimnigh Thart"
 
-#: plugin_kategdb.cpp:320
+#: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Step Out"
 msgstr "Céimnigh Amach"
 
-#: plugin_kategdb.cpp:327 plugin_kategdb.cpp:391
+#: plugin_kategdb.cpp:326 plugin_kategdb.cpp:390
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Rith go dtí an cúrsóir"
 
-#: plugin_kategdb.cpp:334
+#: plugin_kategdb.cpp:333
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Atosaigh Dífhabhtú"
 
-#: plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:340
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
 msgid "Clear Output"
 msgstr "Aschur GDB"
 
-#: plugin_kategdb.cpp:349
+#: plugin_kategdb.cpp:348
 #, kde-format
 msgid "Hot Reload"
 msgstr ""
 
-#: plugin_kategdb.cpp:356
+#: plugin_kategdb.cpp:355
 #, kde-format
 msgid "Hot Restart"
 msgstr ""
 
-#: plugin_kategdb.cpp:365
+#: plugin_kategdb.cpp:364
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr ""
 
-#: plugin_kategdb.cpp:374 plugin_kategdb.cpp:393
+#: plugin_kategdb.cpp:373 plugin_kategdb.cpp:392
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Athraigh an PC"
 
-#: plugin_kategdb.cpp:379
+#: plugin_kategdb.cpp:378
 #, kde-format
 msgid "Print Value"
 msgstr "Priontáil Luach"
 
-#: plugin_kategdb.cpp:449
+#: plugin_kategdb.cpp:448
 #, kde-format
 msgid "Error: %1"
 msgstr ""
 
-#: plugin_kategdb.cpp:482 plugin_kategdb.cpp:498
+#: plugin_kategdb.cpp:481 plugin_kategdb.cpp:497
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Ionsáigh brisphointe"
 
-#: plugin_kategdb.cpp:496
+#: plugin_kategdb.cpp:495
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Bain brisphointe"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:664
 #, kde-format
 msgid "Execution point"
 msgstr "Pointe rite"
 
-#: plugin_kategdb.cpp:786 plugin_kategdb.cpp:818
+#: plugin_kategdb.cpp:785 plugin_kategdb.cpp:817
 #, kde-format
 msgid "Thread %1"
 msgstr "Snáithe %1"
 
-#: plugin_kategdb.cpp:914
+#: plugin_kategdb.cpp:913
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -677,34 +677,34 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Aschur GDB"
 
-#: plugin_kategdb.cpp:915
+#: plugin_kategdb.cpp:914
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Socruithe"
 
-#: plugin_kategdb.cpp:950
+#: plugin_kategdb.cpp:949
 #, kde-format
 msgid "IO"
 msgstr "I/A"
 
-#: plugin_kategdb.cpp:1039
+#: plugin_kategdb.cpp:1038
 #, kde-format
 msgid "Breakpoint"
 msgstr "Brisphointe"
 
-#: plugin_kategdb.cpp:1115
+#: plugin_kategdb.cpp:1114
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Stack Trace"
 msgstr "Cóipeáil an sprioc"
 
-#: plugin_kategdb.cpp:1134
+#: plugin_kategdb.cpp:1133
 #, kde-format
 msgid "Open Location"
 msgstr ""
 
-#: plugin_kategdb.cpp:1141
+#: plugin_kategdb.cpp:1140
 #, kde-format
 msgid "Copy Location"
 msgstr ""

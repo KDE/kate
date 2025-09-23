@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-01 00:45+0000\n"
+"POT-Creation-Date: 2025-09-23 00:46+0000\n"
 "PO-Revision-Date: 2025-07-04 09:39+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -15,32 +15,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.04.3\n"
 
-#: bookmarksmodel.cpp:60
+#: bookmarksmodel.cpp:59
 #, kde-format
 msgid "Line Number"
 msgstr "Numéro de ligne"
 
-#: bookmarksmodel.cpp:62
+#: bookmarksmodel.cpp:61
 #, kde-format
 msgid "File Path"
 msgstr "Emplacement de fichier"
 
-#: bookmarksplugin.cpp:146
+#: bookmarksplugin.cpp:142
 #, kde-format
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: bookmarksplugin.cpp:172
+#: bookmarksplugin.cpp:168
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Aller au signet précédent"
 
-#: bookmarksplugin.cpp:178
+#: bookmarksplugin.cpp:174
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Aller au signet suivant"
 
-#: bookmarksplugin.cpp:184
+#: bookmarksplugin.cpp:180
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Supprimer un signet"

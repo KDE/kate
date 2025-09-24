@@ -19,7 +19,6 @@
 #include "katedebug.h"
 #include "katemainwindow.h"
 #include "katepluginmanager.h"
-#include "katequickopenmodel.h"
 #include "katesessionmanager.h"
 #include "ui_sessionconfigwidget.h"
 

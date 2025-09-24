@@ -241,10 +241,10 @@
 >Автором початкової версії документації до &kwrite; є &Thad.McGinnis; &Thad.McGinnis.mail;. Значні зміни було внесено &Cristian.Tibirna; &Cristian.Tibirna.mail;. Перетворення документації у формат DocBook та виправлення помилок виконано &Lauri.Watts; &Lauri.Watts.mail;. Документацію було оновлено &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; та &Anders.Lund; &Anders.Lund.mail; </para>
 
 <para
->Супровід поточної версії документації до &katepart; здійснює &TC.Hollingsworth; &TC.Hollingsworth.mail;. Будь ласка, повідомляйте про ваші коментарі та пропозиції за допомогою списку листування розробників &katepart;, за адресою <email
->kwrite-devel@kde.org</email
->, або за допомогою створених записів про вади у <ulink url="https://bugs.kde.org/"
->системі стеження за вадами KDE</ulink
+>Супровід поточної версії документації до &katepart; здійснює &TC.Hollingsworth; &TC.Hollingsworth.mail;. Щоб створити запит щодо змін, надішліть повідомлення щодо вади за допомогою <ulink url="https://bugs.kde.org/"
+>системи стеження за вадами &kde;</ulink
+> або надайте латку на сторінці <ulink url="https://invent.kde.org/utilities/kate"
+>нашого проєкту у GitLab</ulink
 >.</para>
 
 <para

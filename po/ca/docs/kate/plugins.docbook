@@ -548,8 +548,8 @@
 >Llista de les eines predeterminades</title>
 
 <para
->De manera predeterminada es distribueixen diverses eines. No obstant això, si teniu més eines útils, col·laboreu amb elles a <email
->kwrite-devel@kde.org</email
+>De manera predeterminada es distribueixen diverses eines. No obstant això, si teniu més eines útils, col·laboreu amb elles al nostre <ulink url="https://invent.kde.org/utilities/kate"
+>projecte de GitLab</ulink
 > perquè puguem afegir-les a aquesta llista. De manera predeterminada totes les eines predeterminades estan visibles a la vista de llista. No obstant això, totes les eines es podran canviar al vostre gust, inclosa la categoria o fins i tot suprimir-les. Les eines suprimides es podran tornar a afegir fent clic al botó <guibutton
 >Afegeix</guibutton
 > que hi ha a la pàgina de configuració com s'ha descrit anteriorment. </para>

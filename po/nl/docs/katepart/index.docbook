@@ -227,10 +227,10 @@
 >De originele documentatie van &kwrite; is geschreven door &Thad.McGinnis; &Thad.McGinnis.mail;, met veel wijzigen van &Cristian.Tibirna; &Cristian.Tibirna.mail;. Geconverteerd naar docbook/proofreading door &Lauri.Watts; &Lauri.Watts.mail; en bijgewerkt door &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; en &Anders.Lund; &Anders.Lund.mail; </para>
 
 <para
->De huidige documentatie van &katepart; wordt onderhouden door &TC.Hollingsworth; &TC.Hollingsworth.mail;. Stuur commentaar of suggesties naar de e-maillijst voor ontwikkeling van &katepart; op <email
->kwrite-devel@kde.org</email
-> of rapporteer een bug in het <ulink url="https://bugs.kde.org/"
->&kde; Bugtracking Systeem</ulink
+>De huidige documentatie van &katepart; wordt onderhouden door &TC.Hollingsworth; &TC.Hollingsworth.mail;. Om wijzigingen dien een bugrapport in op het <ulink url="https://bugs.kde.org/"
+>&kde; Bugtvolgsysteem</ulink
+> of lever een patch op <ulink url="https://invent.kde.org/utilities/kate"
+>ons GitLab-project</ulink
 >.</para>
 
 &meld.fouten;&vertaling.niels;&vertaling.tom;&vertaling.hannie; &underFDL; &underGPL; </chapter>

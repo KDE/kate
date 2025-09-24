@@ -1,4 +1,3 @@
-<!-- auto-generate scripting documentation (kwrite-devel@kde.org Re: [kate] doc/kate: document most of the new scripts in 4.10) -->
 <chapter id="dev">
 <chapterinfo>
 <authorgroup>
@@ -4341,8 +4340,8 @@ function indent(line, indentWidth, ch)
 >. </para>
 
 <para
->Si desenvolupeu scripts útils, si us plau, considereu contribuir al projecte &kappname; <ulink url="mailto:kwrite-devel@kde.org"
->posant-vos en contacte amb la llista de correu</ulink
+>Si desenvolupeu scripts útils, considereu contribuir al projecte &kappname; proporcionant una petició de fusió al nostre <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>projecte de GitLab</ulink
 >. </para>
 
 </sect3>
@@ -4604,8 +4603,8 @@ var katescript = {
 </para>
 
 <para
->Si desenvolupeu scripts útils, si us plau, considereu contribuir al projecte &kappname; <ulink url="mailto:kwrite-devel@kde.org"
->posant-vos en contacte amb la llista de correu</ulink
+>Si desenvolupeu scripts útils, considereu contribuir al projecte &kappname; proporcionant una petició de fusió al nostre <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>projecte de GitLab</ulink
 >. </para>
 
 </sect4>

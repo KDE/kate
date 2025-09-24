@@ -227,10 +227,10 @@
 >La documentació original del &kwrite; va ser escrita per en &Thad.McGinnis; &Thad.McGinnis.mail;, amb grans modificacions d'en &Cristian.Tibirna; &Cristian.Tibirna.mail;. Convertida a docbook/correcció de proves per en &Lauri.Watts; &Lauri.Watts.mail; i actualitzada per na &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; i en &Anders.Lund; &Anders.Lund.mail; </para>
 
 <para
->La documentació actual de la &katepart; és mantinguda per en &TC.Hollingsworth; &TC.Hollingsworth.mail;. Envieu els vostres comentaris o suggeriments a la llista de correu de desenvolupament de la &katepart; a <email
->kwrite-devel@kde.org</email
-> o obriu un informe d'error al <ulink url="https://bugs.kde.org/"
->&kde; Bugtracking System</ulink
+>La documentació actual de la &katepart; és mantinguda per &TC.Hollingsworth; &TC.Hollingsworth.mail;. Per a sol·licitar canvis, obriu un informe d'error al <ulink url="https://bugs.kde.org/"
+>sistema de seguiment d'errors de &kde;</ulink
+> o proporcioneu un pedaç al nostre <ulink url="https://invent.kde.org/utilities/kate"
+>projecte de GitLab</ulink
 >.</para>
 
 <para

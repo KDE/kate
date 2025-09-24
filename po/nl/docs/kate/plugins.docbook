@@ -548,11 +548,11 @@
 >Lijst met standaard hulpmiddelen</title>
 
 <para
->Verschillende hulpmiddelen worden standaard geleverd. Als u echter meer nuttige hulpmiddelen hebt draag ze dan bij op <email
->kwrite-devel@kde.org</email
+>Verschillende hulpmiddelen worden standaard geleverd. Als u echter meer nuttige hulpmiddelen hebt draag ze dan bij op <ulink url="https://invent.kde.org/utilities/kate"
+>our GitLab project</ulink
 > zodat we ze aan deze lijst kunnen toevoegen. Alle standaard hulpmiddelen zijn standaard zichtbaar in de lijstweergave. Alle hulpmiddelen kunnen naar uw wensen gewijzigd worden, inclusief de categorie of zelfs hulpmiddelen verwijderen. Verwijderde hulpmiddelen kunnen opnieuw terug toegevoegd worden door te klikken op de knop <guibutton
 >Toevoegen</guibutton
-> in de configureren zoals boven beschreven. </para>
+> in de configuratiepagina zoals boven beschreven. </para>
 
 <variablelist>
 <title

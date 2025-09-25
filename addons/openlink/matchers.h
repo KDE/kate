@@ -7,6 +7,8 @@
 #include <QFileInfo>
 #include <QRegularExpression>
 
+#include <KTextEditor/Cursor>
+
 enum OpenLinkType {
     HttpLink,
     FileLink,
@@ -15,6 +17,8 @@ enum OpenLinkType {
 struct OpenLinkRange {
     int start = 0;
     int end = 0;
+    QString link = {};
+    KTextEditor::Cursor startPos = KTextEditor::Cursor::invalid();
     OpenLinkType type;
 };
 
@@ -36,6 +40,47 @@ static void adjustMDLink(const QString &line, int capturedStart, int &capturedEn
             capturedEnd = f != -1 ? f : capturedEnd;
         }
     }
+}
+
+static KTextEditor::Cursor parseLineCol(QStringView &link)
+{
+    int line = -1;
+    int col = -1;
+    if (link.last().isDigit()) {
+        // find the last colon
+        if (int colon = link.lastIndexOf(u':'); colon != -1) {
+            int num1 = -1;
+            bool num1_Ok = false;
+            int num2 = -1;
+            bool num2_Ok = false;
+
+            // get the number
+            num1 = link.mid(colon + 1).toInt(&num1_Ok);
+            // adjust the link
+            link = link.mid(0, colon);
+            // is it ok?
+            if (num1_Ok) {
+                // try to find another colon
+                colon = link.lastIndexOf(u':');
+                // try to get the second number
+                if (colon != -1) {
+                    num2 = link.mid(colon + 1).toInt(&num2_Ok);
+                    link = link.mid(0, colon);
+                }
+            }
+
+            if (num1_Ok && num2_Ok) {
+                line = num2;
+                col = num1;
+            } else if (num1_Ok) {
+                line = num1;
+                col = 0;
+            }
+        }
+    } else if (link.last() == u':') {
+        link = link.mid(0, link.size() - 1);
+    }
+    return KTextEditor::Cursor(line, col);
 }
 
 static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outColumnRanges)
@@ -87,8 +132,13 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
                 continue;
             }
 
-            if (e != -1 && QFileInfo(line.mid(s, e - s)).isFile()) {
-                outColumnRanges->push_back({s, e, FileLink});
+            if (e != -1) {
+                QStringView linkView(QStringView(line).mid(s, e - s));
+                KTextEditor::Cursor c = parseLineCol(linkView);
+                QString link = linkView.toString();
+                if (QFileInfo(link).isFile()) {
+                    outColumnRanges->push_back({s, e, link, c, FileLink});
+                }
             }
             s = e;
             continue;
@@ -122,8 +172,13 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             }
         }
 
-        if (e != -1 && QFileInfo(line.mid(s, e - s)).isFile()) {
-            outColumnRanges->push_back({s, e, FileLink});
+        if (e != -1) {
+            QStringView linkView(QStringView(line).mid(s, e - s));
+            KTextEditor::Cursor c = parseLineCol(linkView);
+            QString link = linkView.toString();
+            if (QFileInfo(link).isFile()) {
+                outColumnRanges->push_back({s, e, link, c, FileLink});
+            }
         }
         s = e;
     }
@@ -140,7 +195,8 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             if (match.hasMatch()) {
                 int capturedEnd = match.capturedEnd();
                 adjustMDLink(line, match.capturedStart(), capturedEnd);
-                outColumnRanges->push_back({.start = (int)match.capturedStart(), .end = capturedEnd, .type = HttpLink});
+                QString link = line.mid(match.capturedStart(), capturedEnd);
+                outColumnRanges->push_back({.start = (int)match.capturedStart(), .end = capturedEnd, .link = link, .type = HttpLink});
             }
         }
     }

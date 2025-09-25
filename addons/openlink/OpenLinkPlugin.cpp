@@ -117,11 +117,12 @@ public:
             viewInternal->setCursor(Qt::IBeamCursor);
         }
         viewInternal.clear();
-        currentWord.clear();
+        link.clear();
     }
 
     OpenLinkType linkType = HttpLink;
-    QString currentWord;
+    QString link;
+    KTextEditor::Cursor startPos = KTextEditor::Cursor::invalid();
     QPointer<QWidget> viewInternal;
 
 private:
@@ -199,13 +200,22 @@ void OpenLinkPluginView::clear(KTextEditor::Document *doc)
 
 void OpenLinkPluginView::gotoLink()
 {
-    const QUrl u = QUrl::fromUserInput(m_ctrlHoverFeedback->currentWord);
+    const QUrl u = QUrl::fromUserInput(m_ctrlHoverFeedback->link);
     if (m_ctrlHoverFeedback->linkType == HttpLink) {
         if (u.isValid()) {
             QDesktopServices::openUrl(u);
         }
     } else if (m_ctrlHoverFeedback->linkType == FileLink) {
-        m_mainWindow->openUrl(u);
+        if (auto v = m_mainWindow->openUrl(u)) {
+            if (m_ctrlHoverFeedback->startPos.isValid()) {
+                auto pos = m_ctrlHoverFeedback->startPos;
+                pos.setLine(pos.line() - 1);
+                if (pos.column() > 0) {
+                    pos.setColumn(pos.column() - 1);
+                }
+                v->setCursorPosition(pos);
+            }
+        }
     } else {
         Q_ASSERT(false);
     }
@@ -225,11 +235,12 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
 
     std::vector<OpenLinkRange> matchedRanges;
     matchLine(line, &matchedRanges);
-    for (auto [start, end, type] : matchedRanges) {
+    for (auto [start, end, link, startPos, type] : matchedRanges) {
         if (start <= c.column() && c.column() <= end) {
-            m_ctrlHoverFeedback->currentWord = line.mid(start, end - start);
+            m_ctrlHoverFeedback->link = link;
             m_ctrlHoverFeedback->viewInternal = viewInternal;
             m_ctrlHoverFeedback->linkType = type;
+            m_ctrlHoverFeedback->startPos = startPos;
             KTextEditor::Range range(c.line(), start, c.line(), end);
             m_ctrlHoverFeedback->highlight(m_activeView, range);
             break;
@@ -300,7 +311,9 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
         }
         const QString line = doc->line(i);
         matchLine(line, &matchedRanges);
-        for (auto [startCol, endCol, _] : matchedRanges) {
+        for (auto [startCol, endCol, link, startCursor, _] : matchedRanges) {
+            Q_UNUSED(startCursor)
+            Q_UNUSED(link)
             KTextEditor::Range range(i, startCol, i, endCol);
             ranges.emplace_back(highlightRange(doc, range));
         }
@@ -321,7 +334,7 @@ bool OpenLinkPluginView::eventFilter(QObject *obj, QEvent *event)
     auto mouseEvent = static_cast<QMouseEvent *>(event);
 
     // The user pressed Ctrl + Click
-    if (event->type() == QEvent::MouseButtonRelease && !m_ctrlHoverFeedback->currentWord.isEmpty()) {
+    if (event->type() == QEvent::MouseButtonRelease && !m_ctrlHoverFeedback->link.isEmpty()) {
         if (mouseEvent->button() == Qt::LeftButton && mouseEvent->modifiers() == Qt::ControlModifier) {
             gotoLink();
             m_ctrlHoverFeedback->clear();

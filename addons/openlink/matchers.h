@@ -99,7 +99,7 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
             break;
         }
 
-        const bool isAbsoloutePath = s > 2 && line[s - 1] == u':' && isValidDriveLetter(line[s - 2]);
+        const bool isAbsoloutePath = s >= 2 && line[s - 1] == u':' && isValidDriveLetter(line[s - 2]);
         const bool isRelativePath = s > 1 && line[s - 1] == u'.';
         if (isAbsoloutePath || isRelativePath) {
             const bool isDotDotRelativePath = isRelativePath && s > 2 && line[s - 2] == u'.';

@@ -78,6 +78,9 @@ private Q_SLOTS:
 
         t = QLatin1String("Text has filepath: %1:x12:").arg(filePath);
         QTest::addRow("13") << t << R{};
+
+        t = QLatin1String("%1").arg(filePath);
+        QTest::addRow("14") << t << R{OpenLinkRange{.start = 0, .end = fileLen, .link = filePath, .type = FileLink}};
     }
 
     void test()

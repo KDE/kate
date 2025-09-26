@@ -80,7 +80,7 @@ protected:
             }
         }
 
-        const QString &name = sm->idxToFileName(sourceRow);
+        QStringView name = sm->idxToFileName(sourceRow);
 
         int score = 0;
         bool res;
@@ -88,14 +88,14 @@ protected:
         if (fileNameMatchPattern.isEmpty()) {
             res = true;
         } else {
-            res = filterByName(QStringView(name.data(), name.size()), fileNameMatchPattern, score);
+            res = filterByName(name, fileNameMatchPattern, score);
         }
 
         // only match file path if needed
         if (matchPath && res) {
             int scorep = 0;
             QStringView path{sm->idxToFilePath(sourceRow)};
-            bool resp = filterByPath(path, QStringView(pattern.data(), pattern.size()), scorep);
+            bool resp = filterByPath(path, pattern, scorep);
             score += scorep;
             res = resp;
             // zero out the score if didn't match

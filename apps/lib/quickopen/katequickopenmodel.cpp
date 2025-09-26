@@ -50,7 +50,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
     switch (role) {
     case Qt::DisplayRole:
     case Role::FileName:
-        return entry.fileName;
+        return QString::fromRawData(entry.fileName.data(), entry.fileName.size());
     case Role::FilePath: {
         // no .remove since that might remove all occurrence in rare cases
         const auto &path = entry.filePath;
@@ -65,7 +65,7 @@ QVariant KateQuickOpenModel::data(const QModelIndex &idx, int role) const
         return {};
     }
     case Qt::DecorationRole:
-        return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.fileName, QMimeDatabase::MatchExtension).iconName());
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForFile(entry.filePath, QMimeDatabase::MatchExtension).iconName());
     case Qt::UserRole:
         return !entry.document ? QUrl::fromLocalFile(entry.filePath) : entry.document->url();
     case Role::Score:
@@ -112,6 +112,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     m_projectBase = projectBase;
 
     std::vector<ModelEntry> allDocuments;
+    std::vector<QString> strings;
     allDocuments.reserve(sortedViews.size() + projectDocs.size());
 
     std::byte tempBuffer[256 * 1000];
@@ -121,7 +122,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     std::pmr::unordered_set<KTextEditor::Document *> seenDocuments(&memory);
     openedDocUrls.reserve(sortedViews.size());
 
-    const auto collectDoc = [&openedDocUrls, &seenDocuments, &allDocuments](KTextEditor::Document *doc) {
+    const auto collectDoc = [&openedDocUrls, &seenDocuments, &allDocuments, &strings](KTextEditor::Document *doc) {
         // we don't want nullptr (bug 497150) or any duplicates, beside for untitled documents
         if (!doc || !seenDocuments.insert(doc).second) {
             return;
@@ -131,12 +132,14 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         if (!doc->url().isEmpty()) {
             auto path = doc->url().toString(QUrl::NormalizePathSegments | QUrl::PreferLocalFile);
             openedDocUrls.insert(path);
-            allDocuments.push_back({QFileInfo(path).fileName(), path, doc, -1});
+            strings.push_back(QFileInfo(path).fileName());
+            allDocuments.push_back({strings.back(), path, doc, -1});
             return;
         }
 
         // untitled document
-        allDocuments.push_back({doc->documentName(), QString(), doc, -1});
+        strings.push_back(doc->documentName());
+        allDocuments.push_back({strings.back(), QString(), doc, -1});
     };
 
     for (auto *view : sortedViews) {
@@ -147,7 +150,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
         collectDoc(doc);
     }
 
-    for (const auto &filePath : projectDocs) {
+    for (const QString &filePath : projectDocs) {
         // No duplicates
         if (openedDocUrls.count(filePath) != 0) {
             continue;
@@ -155,18 +158,20 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
 
         // QFileInfo is too expensive just for fileName computation
         const int slashIndex = filePath.lastIndexOf(QLatin1Char('/'));
-        QString fileName = filePath.mid(slashIndex + 1);
-        allDocuments.push_back({std::move(fileName), filePath, nullptr, -1});
+        QStringView fileName = QStringView(filePath).mid(slashIndex + 1);
+        allDocuments.push_back({fileName, filePath, nullptr, -1});
     }
 
     // Add projects to the docunents list, and the filepath is their base directory
     if (projects.count() > 1) {
         for (const auto &[projectBaseDir, projectName] : projects.asKeyValueRange()) {
-            allDocuments.push_back({i18n("Project: %1", projectName), projectBaseDir, nullptr, -1});
+            strings.push_back(i18n("Project: %1", projectName));
+            allDocuments.push_back({strings.back(), projectBaseDir, nullptr, -1});
         }
     }
 
     beginResetModel();
     m_modelEntries = std::move(allDocuments);
+    m_strings = std::move(strings);
     endResetModel();
 }

@@ -19,7 +19,7 @@ class Document;
 }
 
 struct ModelEntry {
-    QString fileName; // display string for left column
+    QStringView fileName; // display string for left column
     QString filePath; // display string for right column
     KTextEditor::Document *document = nullptr; // document for entry, if already open
     int score = -1;
@@ -66,7 +66,7 @@ public:
         m_modelEntries[row].score = score;
     }
 
-    const QString &idxToFileName(int row) const
+    QStringView idxToFileName(int row) const
     {
         return m_modelEntries.at(row).fileName;
     }
@@ -102,6 +102,7 @@ public:
 
 private:
     std::vector<ModelEntry> m_modelEntries;
+    std::vector<QString> m_strings;
     QString m_projectBase;
     List m_listMode{};
 };

@@ -46,7 +46,11 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
 {
     int line = -1;
     int col = -1;
-    if (link.last().isDigit()) {
+    if (link.last() == u':' || link.last().isDigit()) {
+        // strip last colon
+        if (link.last() == u':') {
+            link = link.mid(0, link.size() - 1);
+        }
         // find the last colon
         if (int colon = link.lastIndexOf(u':'); colon != -1) {
             int num1 = -1;
@@ -80,8 +84,6 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
                 col = 0;
             }
         }
-    } else if (link.last() == u':') {
-        link = link.mid(0, link.size() - 1);
     }
     return KTextEditor::Cursor(line, col);
 }

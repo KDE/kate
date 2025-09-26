@@ -155,9 +155,8 @@ GitCommitDialog::GitCommitDialog(const QString &lastCommit, QWidget *parent, Qt:
 
     // set 72 chars wide plain text edit
     const int avgCharWidth = fm.averageCharWidth();
-    const int width = (avgCharWidth * 72);
-    const int fw = width + (vlayout->contentsMargins().left() * 2) + (m_pe.frameWidth() * 2) + m_pe.contentsMargins().left() + vlayout->spacing();
-    resize(fw, avgCharWidth * 52);
+    const int width = (avgCharWidth * 72) + 100;
+    resize(width, avgCharWidth * 60);
 }
 
 void GitCommitDialog::loadCommitMessage(const QString &lastCommit)

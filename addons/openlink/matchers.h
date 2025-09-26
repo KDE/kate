@@ -56,16 +56,19 @@ static KTextEditor::Cursor parseLineCol(QStringView &link)
 
             // get the number
             num1 = link.mid(colon + 1).toInt(&num1_Ok);
-            // adjust the link
-            link = link.mid(0, colon);
+
             // is it ok?
             if (num1_Ok) {
+                // adjust the link
+                link = link.mid(0, colon);
                 // try to find another colon
                 colon = link.lastIndexOf(u':');
                 // try to get the second number
                 if (colon != -1) {
                     num2 = link.mid(colon + 1).toInt(&num2_Ok);
-                    link = link.mid(0, colon);
+                    if (num2_Ok) {
+                        link = link.mid(0, colon);
+                    }
                 }
             }
 

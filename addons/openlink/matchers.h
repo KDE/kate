@@ -119,7 +119,7 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
                 continue;
             }
 
-            const bool matchNextQuote = s > 3 && line[s - 3] == u'"'; // last char is quote?
+            const bool matchNextQuote = s > 0 && line[s - 1] == u'"'; // last char is quote?
             int e = -1;
             if (!matchNextQuote) {
                 e = line.indexOf(QLatin1String(" "), s);

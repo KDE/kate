@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-25 00:45+0000\n"
+"POT-Creation-Date: 2025-09-27 00:46+0000\n"
 "PO-Revision-Date: 2025-09-21 07:29-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -2736,7 +2736,7 @@ msgstr "Filtragem difusa"
 msgid "Wildcard Filtering"
 msgstr "Filtragem curinga"
 
-#: lib/quickopen/katequickopenmodel.cpp:165
+#: lib/quickopen/katequickopenmodel.cpp:168
 #, kde-format
 msgid "Project: %1"
 msgstr "Projeto: %1"

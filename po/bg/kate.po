@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-25 00:45+0000\n"
-"PO-Revision-Date: 2025-09-14 11:53+0200\n"
+"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"PO-Revision-Date: 2025-09-26 15:39+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -2598,22 +2598,19 @@ msgstr[1] ""
 "превключете към изгледа за бързо отваряне, като кликнете тук."
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Затваряне на раздел"
+msgstr "&Затваряне на подпрозорец"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Затваряне на другите"
+msgstr "Затваряне на &останалите подпрозорци"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Зат&варяне на всички"
+msgstr "Затваряне на вс&ички подпрозорци"
 
 #: lib/kateviewspace.cpp:1186
 #, kde-format
@@ -2723,7 +2720,7 @@ msgstr "Грубо филтриране"
 msgid "Wildcard Filtering"
 msgstr "Филтриране със заместващи символи"
 
-#: lib/quickopen/katequickopenmodel.cpp:165
+#: lib/quickopen/katequickopenmodel.cpp:168
 #, kde-format
 msgid "Project: %1"
 msgstr "Проект: %1"

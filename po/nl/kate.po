@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-25 00:45+0000\n"
+"POT-Creation-Date: 2025-09-27 00:46+0000\n"
 "PO-Revision-Date: 2025-09-21 15:44+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -2743,7 +2743,7 @@ msgstr "Vage filtering"
 msgid "Wildcard Filtering"
 msgstr "Filteren met jokerteken"
 
-#: lib/quickopen/katequickopenmodel.cpp:165
+#: lib/quickopen/katequickopenmodel.cpp:168
 #, kde-format
 msgid "Project: %1"
 msgstr "Project: %1"

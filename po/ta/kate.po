@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-25 00:45+0000\n"
+"POT-Creation-Date: 2025-09-27 00:46+0000\n"
 "PO-Revision-Date: 2025-09-21 13:43+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -2692,7 +2692,7 @@ msgstr "Fuzzy வடிகட்டல்"
 msgid "Wildcard Filtering"
 msgstr "குழுக்குறி வடிகட்டல்"
 
-#: lib/quickopen/katequickopenmodel.cpp:165
+#: lib/quickopen/katequickopenmodel.cpp:168
 #, kde-format
 msgid "Project: %1"
 msgstr "திட்டப்பணி: %1"

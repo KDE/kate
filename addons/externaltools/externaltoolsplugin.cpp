@@ -126,7 +126,7 @@ void KateExternalToolsPlugin::addNewTool(KateExternalTool *tool)
     if (tool->canExecute() && !tool->cmdname.isEmpty()) {
         m_commands.push_back(tool->cmdname);
     }
-    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+    if (KAuthorized::authorize(QStringLiteral("shell_access"))) {
         m_command = new KateExternalToolsCommand(this);
     }
 }
@@ -209,7 +209,7 @@ void KateExternalToolsPlugin::reload()
         }
     }
 
-    if (KAuthorized::authorizeAction(QStringLiteral("shell_access"))) {
+    if (KAuthorized::authorize(QStringLiteral("shell_access"))) {
         m_command = new KateExternalToolsCommand(this);
     }
 

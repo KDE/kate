@@ -14,6 +14,7 @@
 #include "kateprojectitem.h"
 #include "kateprojectviewtree.h"
 
+#include <KAuthorized>
 #include <KIO/OpenFileManagerWindowJob>
 #include <KLocalizedString>
 #include <KPropertiesDialog>
@@ -120,7 +121,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     /**
      * Open external terminal here
      */
-    if (KateProjectInfoViewTerminal::isLoadable()) {
+    if (KateProjectInfoViewTerminal::isLoadable() && KAuthorized::authorize(QStringLiteral("shell_access"))) {
         menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Internal Terminal Here"), [parent, &filename]() {
             QFileInfo checkFile(filename);
             if (checkFile.isFile()) {
@@ -130,7 +131,11 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
             }
         });
     }
-    QAction *terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open External Terminal Here"));
+
+    QAction *terminal = nullptr;
+    if (KAuthorized::authorize(QStringLiteral("shell_access"))) {
+        terminal = menu.addAction(QIcon::fromTheme(QStringLiteral("utilities-terminal")), i18n("Open External Terminal Here"));
+    }
 
     /**
      * Open Containing folder
@@ -166,7 +171,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (QAction *const action = menu.exec(pos)) {
         if (action == copyAction) {
             QApplication::clipboard()->setText(filename);
-        } else if (action == terminal) {
+        } else if (terminal && action == terminal) {
             // handle "open terminal here"
             QFileInfo checkFile(filename);
             auto *job = new KTerminalLauncherJob(QString());

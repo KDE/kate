@@ -13,6 +13,7 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
+#include <KAuthorized>
 #include <KLocalizedString>
 
 #include <QFileInfo>
@@ -67,9 +68,11 @@ void KateProjectInfoView::initialize()
         const QFileInfo buildInfo(m_project->projectMap().value(QStringLiteral("build")).toMap().value(QStringLiteral("directory")).toString());
         const QString buildPath = buildInfo.absoluteFilePath();
 
-        const bool projectTerminalAvailable = !projectPath.isEmpty() && projectInfo.exists();
-        const bool baseTerminalAvailable = !basePath.isEmpty() && projectPath != basePath && baseInfo.exists();
-        const bool buildTerminalAvailable = !buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists();
+        const bool projectTerminalAvailable = !projectPath.isEmpty() && projectInfo.exists() && KAuthorized::authorize(QStringLiteral("shell_access"));
+        const bool baseTerminalAvailable =
+            !basePath.isEmpty() && projectPath != basePath && baseInfo.exists() && KAuthorized::authorize(QStringLiteral("shell_access"));
+        const bool buildTerminalAvailable = !buildPath.isEmpty() && projectPath != buildPath && basePath != buildPath && buildInfo.exists()
+            && KAuthorized::authorize(QStringLiteral("shell_access"));
 
         const int availableTabCount =
             static_cast<int>(projectTerminalAvailable) + static_cast<int>(baseTerminalAvailable) + static_cast<int>(buildTerminalAvailable);

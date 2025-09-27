@@ -66,9 +66,6 @@ KateKonsolePlugin::KateKonsolePlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
     , m_previousEditorEnv(qgetenv("EDITOR"))
 {
-    if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
-        KMessageBox::error(nullptr, i18n("You do not have enough karma to access a shell or terminal emulation"));
-    }
 }
 
 static void setEditorEnv(const QByteArray &value)
@@ -87,6 +84,10 @@ KateKonsolePlugin::~KateKonsolePlugin()
 
 QObject *KateKonsolePlugin::createView(KTextEditor::MainWindow *mainWindow)
 {
+    if (!KAuthorized::authorize(QStringLiteral("shell_access"))) {
+        return nullptr;
+    }
+
     auto *view = new KateKonsolePluginView(this, mainWindow);
     return view;
 }

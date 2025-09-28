@@ -1860,7 +1860,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem>
 <para
->Kontrolante ĉi tiun agon, vi povas eksplicite aldoni bajtan ordomarkon por unikodaj koditaj dokumentoj. La bajta ordomarko (BOM) estas Unikoda signo uzata por signali la endianecon (bajto-ordo) de tekstdosiero aŭ fluo, por pliaj informoj vidu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark "
+>Kontrolante ĉi tiun agon, vi povas eksplicite aldoni bajtan ordomarkon por unikodaj koditaj dokumentoj. La bajta ordomarko (BOM) estas Unikoda signo uzata por signali la endianecon (bajto-ordo) de tekstdosiero aŭ fluo, por pliaj informoj vidu <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
 >Byte Order Mark</ulink
 >.</para>
 </listitem>

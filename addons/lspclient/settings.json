@@ -16,6 +16,11 @@
             "use": "latex",
             "highlightingModeRegex": "^BibTeX$"
         },
+        "blueprint": {
+            "command": ["blueprint-compiler", "lsp"],
+            "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler",
+            "highlightingModeRegex": "^GTK Blueprint$"
+        },
         "c": {
             "command": ["clangd", "-log=error", "--background-index", "--limit-results=500", "--completion-style=bundled"],
             "commandDebug": ["clangd", "-log=verbose", "--background-index"],

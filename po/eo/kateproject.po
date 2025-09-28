@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2025-03-22 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -73,7 +73,7 @@ msgstr "Branĉo"
 msgid "Last Commit"
 msgstr "Lasta Enmeto"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Delete"
 msgstr "Forigi"
@@ -164,13 +164,13 @@ msgstr "Amendi Lastan Enmeton"
 msgid "Amending Commit"
 msgstr "Amendanta Enmeton"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:206
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -691,41 +691,41 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "Projektoj Propraĵoj"
 
-#: kateprojectinfoview.cpp:80
+#: kateprojectinfoview.cpp:83
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
 msgstr "Terminalo"
 
-#: kateprojectinfoview.cpp:89
+#: kateprojectinfoview.cpp:92
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
 msgstr "Terminalo (Projekto)"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:101
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "Terminalo (Bazo)"
 
-#: kateprojectinfoview.cpp:107
+#: kateprojectinfoview.cpp:110
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "Terminalo (Konstruo)"
 
-#: kateprojectinfoview.cpp:114
+#: kateprojectinfoview.cpp:117
 #, kde-format
 msgid "Code Index"
 msgstr "Koda Indekso"
 
-#: kateprojectinfoview.cpp:119
+#: kateprojectinfoview.cpp:122
 #, kde-format
 msgid "Code Analysis"
 msgstr "Koda Analizo"
 
-#: kateprojectinfoview.cpp:124
+#: kateprojectinfoview.cpp:127
 #, kde-format
 msgid "Notes"
 msgstr "Notoj"
@@ -945,77 +945,77 @@ msgstr "Indekso de Projektoj"
 msgid "Choose a directory"
 msgstr "Elekti dosierujon"
 
-#: kateprojecttreeviewcontextmenu.cpp:45
+#: kateprojecttreeviewcontextmenu.cpp:46
 #, kde-format
 msgid "Enter name:"
 msgstr "Enigu nomon:"
 
-#: kateprojecttreeviewcontextmenu.cpp:62
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Delete File"
 msgstr "Forigi Dosieron"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "Ĉu vi volas forigi la dosieron '%1'?"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopii Lokon"
 
-#: kateprojecttreeviewcontextmenu.cpp:97
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New File…"
 msgstr "Nova Dosiero…"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "New Folder…"
 msgstr "Nova Dosierujo…"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "&Rename"
 msgstr "&Renomi"
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "Properties"
 msgstr "Propraĵoj"
 
-#: kateprojecttreeviewcontextmenu.cpp:116
+#: kateprojecttreeviewcontextmenu.cpp:117
 #, kde-format
 msgid "Open With"
 msgstr "Malfermi Per"
 
-#: kateprojecttreeviewcontextmenu.cpp:124
+#: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Malfermi Internan Terminalon Ĉi tie"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Malfermi Eksteran Terminalon Ĉi tie"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Malfermi Enhavan D&osierujon"
 
-#: kateprojecttreeviewcontextmenu.cpp:147
+#: kateprojecttreeviewcontextmenu.cpp:152
 #, kde-format
 msgid "Show Git History"
 msgstr "Montri Git-Historion"
 
-#: kateprojecttreeviewcontextmenu.cpp:211
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, kde-format
 msgid "New File"
 msgstr "Nova Dosiero"
 
-#: kateprojecttreeviewcontextmenu.cpp:216
+#: kateprojecttreeviewcontextmenu.cpp:221
 #, kde-format
 msgid "New Folder"
 msgstr "Nova Dosierujo"

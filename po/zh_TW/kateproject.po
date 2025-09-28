@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2025-08-29 20:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -75,7 +75,7 @@ msgstr "分支"
 msgid "Last Commit"
 msgstr "最新提交"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Delete"
 msgstr "刪除"
@@ -165,13 +165,13 @@ msgstr "編輯 (amend) 上一個提交"
 msgid "Amending Commit"
 msgstr "正在編輯 (amend) 提交"
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:206
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -689,41 +689,41 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "專案屬性"
 
-#: kateprojectinfoview.cpp:80
+#: kateprojectinfoview.cpp:83
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
 msgstr "終端機"
 
-#: kateprojectinfoview.cpp:89
+#: kateprojectinfoview.cpp:92
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
 msgstr "終端機（專案）"
 
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:101
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "終端機（基礎）"
 
-#: kateprojectinfoview.cpp:107
+#: kateprojectinfoview.cpp:110
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "終端機（編譯）"
 
-#: kateprojectinfoview.cpp:114
+#: kateprojectinfoview.cpp:117
 #, kde-format
 msgid "Code Index"
 msgstr "代碼索引"
 
-#: kateprojectinfoview.cpp:119
+#: kateprojectinfoview.cpp:122
 #, kde-format
 msgid "Code Analysis"
 msgstr "代碼分析"
 
-#: kateprojectinfoview.cpp:124
+#: kateprojectinfoview.cpp:127
 #, kde-format
 msgid "Notes"
 msgstr "備忘"
@@ -938,77 +938,77 @@ msgstr "專案索引"
 msgid "Choose a directory"
 msgstr "選擇目錄"
 
-#: kateprojecttreeviewcontextmenu.cpp:45
+#: kateprojecttreeviewcontextmenu.cpp:46
 #, kde-format
 msgid "Enter name:"
 msgstr "輸入名稱："
 
-#: kateprojecttreeviewcontextmenu.cpp:62
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Delete File"
 msgstr "刪除檔案"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr "您確定刪除檔案 '%1' 嗎？"
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Copy Location"
 msgstr "複製位置"
 
-#: kateprojecttreeviewcontextmenu.cpp:97
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New File…"
 msgstr "新增檔案…"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "New Folder…"
 msgstr "新增資料夾…"
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "&Rename"
 msgstr "重新命名(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "Properties"
 msgstr "屬性"
 
-#: kateprojecttreeviewcontextmenu.cpp:116
+#: kateprojecttreeviewcontextmenu.cpp:117
 #, kde-format
 msgid "Open With"
 msgstr "開啟方式"
 
-#: kateprojecttreeviewcontextmenu.cpp:124
+#: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "在此開啟內部終端機"
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "在此開啟外部終端機"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "開啟包含資料夾(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:147
+#: kateprojecttreeviewcontextmenu.cpp:152
 #, kde-format
 msgid "Show Git History"
 msgstr "顯示 Git 歷史紀錄"
 
-#: kateprojecttreeviewcontextmenu.cpp:211
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, kde-format
 msgid "New File"
 msgstr "新檔案"
 
-#: kateprojecttreeviewcontextmenu.cpp:216
+#: kateprojecttreeviewcontextmenu.cpp:221
 #, kde-format
 msgid "New Folder"
 msgstr "新資料夾"

@@ -93,7 +93,7 @@
 <para
 >La stiloj kaj koloroj uzataj de ĉiu sintaksa emfaza difino povas esti agorditaj uzante la langeton <link linkend="prefcolors-highlighting-text-styles"
 >Elstarigante Tekstajn Stilojn</link
-> de la <link linkend="config-dialog "
+> de la <link linkend="config-dialog"
 >Agorda Dialogo</link
 >, dum la &MIME; Tipoj kaj dosier-etendoj por kiuj ĝi estu uzata estas pritraktataj de la langeto <link linkend="pref-open-save-modes-filetypes"
 >Reĝimoj &amp; Dosiertipoj</link

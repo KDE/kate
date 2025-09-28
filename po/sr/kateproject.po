@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr ""
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:106
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -167,13 +167,13 @@ msgstr ""
 msgid "Amending Commit"
 msgstr ""
 
-#: gitcommitdialog.cpp:207
+#: gitcommitdialog.cpp:206
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr ""
 
-#: gitcommitdialog.cpp:211
+#: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -705,7 +705,7 @@ msgid "Projects Properties"
 msgstr "Својства пројеката"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:80
+#: kateprojectinfoview.cpp:83
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgctxt "@title:tab"
@@ -713,7 +713,7 @@ msgid "Terminal"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:89
+#: kateprojectinfoview.cpp:92
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgctxt "@title:tab"
@@ -721,7 +721,7 @@ msgid "Terminal (Project)"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:98
+#: kateprojectinfoview.cpp:101
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgctxt "@title:tab"
@@ -729,7 +729,7 @@ msgid "Terminal (Base)"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:107
+#: kateprojectinfoview.cpp:110
 #, fuzzy, kde-format
 #| msgid "Terminal"
 msgctxt "@title:tab"
@@ -737,18 +737,18 @@ msgid "Terminal (Build)"
 msgstr "Терминал"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:114
+#: kateprojectinfoview.cpp:117
 #, kde-format
 msgid "Code Index"
 msgstr "Индекс кода"
 
-#: kateprojectinfoview.cpp:119
+#: kateprojectinfoview.cpp:122
 #, kde-format
 msgid "Code Analysis"
 msgstr "Анализа кода"
 
 # >> @title:tab
-#: kateprojectinfoview.cpp:124
+#: kateprojectinfoview.cpp:127
 #, kde-format
 msgid "Notes"
 msgstr "Белешке"
@@ -977,81 +977,81 @@ msgstr "Пројекти"
 msgid "Choose a directory"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:45
+#: kateprojecttreeviewcontextmenu.cpp:46
 #, kde-format
 msgid "Enter name:"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:62
+#: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Delete File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:63
+#: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:90
+#: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Copy Location"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:97
+#: kateprojecttreeviewcontextmenu.cpp:98
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New File…"
 msgstr "Отвори помоћу"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "New Folder…"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:105
+#: kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "&Rename"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:112
+#: kateprojecttreeviewcontextmenu.cpp:113
 #, fuzzy, kde-format
 #| msgctxt "Groupbox title"
 #| msgid "Projects Properties"
 msgid "Properties"
 msgstr "Својства пројеката"
 
-#: kateprojecttreeviewcontextmenu.cpp:116
+#: kateprojecttreeviewcontextmenu.cpp:117
 #, kde-format
 msgid "Open With"
 msgstr "Отвори помоћу"
 
-#: kateprojecttreeviewcontextmenu.cpp:124
+#: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:133
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:147
+#: kateprojecttreeviewcontextmenu.cpp:152
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:211
+#: kateprojecttreeviewcontextmenu.cpp:216
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New File"
 msgstr "Отвори помоћу"
 
-#: kateprojecttreeviewcontextmenu.cpp:216
+#: kateprojecttreeviewcontextmenu.cpp:221
 #, fuzzy, kde-format
 #| msgid "Open With"
 msgid "New Folder"

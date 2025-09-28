@@ -536,7 +536,8 @@ msgid "Move selected target down"
 msgstr ""
 
 #: targets.cpp:204
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copy"
 msgid "Copy"
 msgstr "Copiază"
 

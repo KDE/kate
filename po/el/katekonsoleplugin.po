@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2021-06-14 10:01+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -22,49 +22,42 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 20.04.2\n"
 
-#: kateconsole.cpp:70
-#, kde-format
-msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr ""
-"Δεν έχετε αρκετά δικαιώματα για πρόσβαση σε ένα κέλυφος ή εξομοίωση "
-"τερματικού"
-
-#: kateconsole.cpp:118 kateconsole.cpp:148 kateconsole.cpp:768
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "Τερματικό"
 
-#: kateconsole.cpp:157
+#: kateconsole.cpp:158
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&Ανακατεύθυνση προς το τερματικό"
 
-#: kateconsole.cpp:161
+#: kateconsole.cpp:162
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "Σ&υγχρονισμός τερματικού με το τρέχον έγγραφο"
 
-#: kateconsole.cpp:165
+#: kateconsole.cpp:166
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Εκτέλεση τρέχοντος εγγράφου"
 
-#: kateconsole.cpp:170 kateconsole.cpp:555
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Εμφάνισ&η πίνακα τερματικού"
 
-#: kateconsole.cpp:176
+#: kateconsole.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "&Εστίαση πίνακα τερματικού"
 
-#: kateconsole.cpp:182
+#: kateconsole.cpp:183
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Hide Terminal Panel"
@@ -72,13 +65,13 @@ msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "&Απόκρυψη πίνακα τερματικού"
 
-#: kateconsole.cpp:187
+#: kateconsole.cpp:188
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr ""
 
-#: kateconsole.cpp:192
+#: kateconsole.cpp:193
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&how Terminal Panel"
@@ -86,13 +79,13 @@ msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "Εμφάνισ&η πίνακα τερματικού"
 
-#: kateconsole.cpp:354
+#: kateconsole.cpp:355
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:430
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -102,22 +95,22 @@ msgstr ""
 "εκτελέσει οποιαδήποτε περιεχόμενη εντολή με τα δικαιώματα του δικού σας "
 "χρήστη."
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Ανακατεύθυνση προς το τερματικό;"
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Ανακατεύθυνση προς το τερματικό"
 
-#: kateconsole.cpp:496
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Δεν είναι τοπικό αρχείο: '%1'"
 
-#: kateconsole.cpp:529
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -129,45 +122,45 @@ msgstr ""
 "Θα εκτελεστεί η ακόλουθη εντολή στο τερματικό\n"
 "με τα δικά σας δικαιώματα:'%1'"
 
-#: kateconsole.cpp:536
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Να εκτελεστεί στο τερματικό;"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "Εκτέλεση"
 
-#: kateconsole.cpp:552
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Απόκρυψη πίνακα τερματικού"
 
-#: kateconsole.cpp:563
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Απομάκρυνση από τον πίνακα τερματικού"
 
-#: kateconsole.cpp:564 kateconsole.cpp:565
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Εστίαση στον πίνακα τερματικού"
 
-#: kateconsole.cpp:676
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:679
+#: kateconsole.cpp:680
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Σ&υγχρονισμός τερματικού με το τρέχον έγγραφο"
 
-#: kateconsole.cpp:682
+#: kateconsole.cpp:683
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -179,7 +172,7 @@ msgstr ""
 "&Αυτόματος συγχρονισμός του τερματικού με το τρέχον έγγραφο όταν αυτό είναι "
 "δυνατό"
 
-#: kateconsole.cpp:685
+#: kateconsole.cpp:686
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -191,27 +184,27 @@ msgstr ""
 "&Αυτόματος συγχρονισμός του τερματικού με το τρέχον έγγραφο όταν αυτό είναι "
 "δυνατό"
 
-#: kateconsole.cpp:692 kateconsole.cpp:713
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "Εκτέλεση στο τερματικό"
 
-#: kateconsole.cpp:694
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Αφαίρεση επέκτασης"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "Πρόθεμα:"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Να εμφανιστεί προειδοποίηση την επόμενη φορά"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -221,12 +214,12 @@ msgstr ""
 "προειδοποίησης θα εμφανιστεί με την εντολή που θα σταλεί στο τερματικό, για "
 "επισκόπηση."
 
-#: kateconsole.cpp:720
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Ορισμός της μεταβλητής περιβάλλοντος &EDITOR στο 'kate -b'"
 
-#: kateconsole.cpp:723
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -235,12 +228,12 @@ msgstr ""
 "Σημαντικό: Το έγγραφο πρέπει να κλείσει για να συνεχιστεί η εφαρμογή της "
 "κονσόλας"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Απόκρυψη κονσόλας με το πάτημα του 'Esc'"
 
-#: kateconsole.cpp:729
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -250,7 +243,7 @@ msgstr ""
 "χρησιμοποιούν το πλήκτρο Esc, π.χ. το vim. Προσθέστε αυτές τις εφαρμογές "
 "στην παρακάτω είσοδο δεδομένων (λίστα με διαχωριστικό το κόμμα)"
 
-#: kateconsole.cpp:773
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Ρυθμίσεις τερματικού"
@@ -260,6 +253,11 @@ msgstr "Ρυθμίσεις τερματικού"
 #, kde-format
 msgid "&Tools"
 msgstr "Ερ&γαλεία"
+
+#~ msgid "You do not have enough karma to access a shell or terminal emulation"
+#~ msgstr ""
+#~ "Δεν έχετε αρκετά δικαιώματα για πρόσβαση σε ένα κέλυφος ή εξομοίωση "
+#~ "τερματικού"
 
 #~ msgid "Sorry, cannot cd into '%1'"
 #~ msgstr "Λυπούμαστε, δεν μπορείτε να εκτελέσετε cd μέσα στο '%1'"

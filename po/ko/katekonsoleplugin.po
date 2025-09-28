@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2024-08-20 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -18,72 +18,67 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: kateconsole.cpp:70
-#, kde-format
-msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr "셸이나 터미널 에뮬레이터에 접근할 능력이 부족합니다"
-
-#: kateconsole.cpp:118 kateconsole.cpp:148 kateconsole.cpp:768
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "터미널"
 
-#: kateconsole.cpp:157
+#: kateconsole.cpp:158
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "터미널에 파이프하기(&P)"
 
-#: kateconsole.cpp:161
+#: kateconsole.cpp:162
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "현재 문서와 터미널 동기화하기(&Y)"
 
-#: kateconsole.cpp:165
+#: kateconsole.cpp:166
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "현재 문서를 실행"
 
-#: kateconsole.cpp:170 kateconsole.cpp:555
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "터미널 패널 표시(&H)"
 
-#: kateconsole.cpp:176
+#: kateconsole.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "터미널 패널에 포커스 맞추기(&F)"
 
-#: kateconsole.cpp:182
+#: kateconsole.cpp:183
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "수직으로 터미널 분할(&S)"
 
-#: kateconsole.cpp:187
+#: kateconsole.cpp:188
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "수평으로 터미널 분할(&S)"
 
-#: kateconsole.cpp:192
+#: kateconsole.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "새 터미널 탭(&N)"
 
-#: kateconsole.cpp:354
+#: kateconsole.cpp:355
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 "Konsole이 설치되어 있지 않습니다. 터미널을 사용하려면 Konsole을 설치하십시오."
 
-#: kateconsole.cpp:430
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -92,22 +87,22 @@ msgstr ""
 "콘솔로 텍스트를 파이프하시겠습니까? 임의의 포함된 명령을 현재 사용자의 권한으"
 "로 실행합니다."
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "터미널에 파이프하시겠습니까?"
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "터미널에 파이프하기"
 
-#: kateconsole.cpp:496
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "로컬 파일이 아님: '%1'"
 
-#: kateconsole.cpp:529
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -119,50 +114,50 @@ msgstr ""
 "현재 사용자의 권한으로 다음 명령어를 터미널에 실행합니다:\n"
 "'%1'"
 
-#: kateconsole.cpp:536
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "터미널에서 실행하시겠습니까?"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "실행"
 
-#: kateconsole.cpp:552
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "터미널 패널 숨기기(&H)"
 
-#: kateconsole.cpp:563
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "터미널에 포커스 맞추지 않기"
 
-#: kateconsole.cpp:564 kateconsole.cpp:565
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "터미널에 포커스 맞추기"
 
-#: kateconsole.cpp:676
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "터미널 동기화 모드"
 
-#: kateconsole.cpp:679
+#: kateconsole.cpp:680
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "현재 문서와 터미널 동기화하지 않음(&D)"
 
-#: kateconsole.cpp:682
+#: kateconsole.cpp:683
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr "가능한 경우 현재 문서와 터미널 탭을 자동으로 동기화(&A)"
 
-#: kateconsole.cpp:685
+#: kateconsole.cpp:686
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -170,27 +165,27 @@ msgid ""
 msgstr ""
 "가능한 경우 현재 문서의 디렉터리를 가리키는 터미널 탭을 자동으로 생성(&A)"
 
-#: kateconsole.cpp:692 kateconsole.cpp:713
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "터미널에서 실행"
 
-#: kateconsole.cpp:694
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "확장 기능 삭제(&R)"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "접두사:"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "다음번에 경고 표시(&S)"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -199,24 +194,24 @@ msgstr ""
 "다음 번에 '%1'을(를) 실행할 때 터미널로 보낼 명령어를 검토하려고 표시하는 경"
 "고 창을 표시합니다."
 
-#: kateconsole.cpp:720
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "EDITOR 환경 변수를 'kate -b'로 설정(&E)"
 
-#: kateconsole.cpp:723
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "주의: 콘솔 앱이 계속 진행하려면 문서를 닫아야 합니다"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "'Esc' 키를 누를 때 Konsole 숨기기"
 
-#: kateconsole.cpp:729
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -225,7 +220,7 @@ msgstr ""
 "vim과 같이 Esc 키를 사용하는 앱에서 문제가 발생할 수도 있습니다. 아래에 해당 "
 "앱을 입력하십시오(쉼표로 구분)"
 
-#: kateconsole.cpp:773
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "터미널 설정"
@@ -235,6 +230,9 @@ msgstr "터미널 설정"
 #, kde-format
 msgid "&Tools"
 msgstr "도구(&T)"
+
+#~ msgid "You do not have enough karma to access a shell or terminal emulation"
+#~ msgstr "셸이나 터미널 에뮬레이터에 접근할 능력이 부족합니다"
 
 #~ msgid "Sorry, cannot cd into '%1'"
 #~ msgstr "디렉터리 '%1'(으)로 들어갈 수 없습니다"

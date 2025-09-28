@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 00:42+0000\n"
+"POT-Creation-Date: 2025-09-28 00:47+0000\n"
 "PO-Revision-Date: 2024-05-22 15:25+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -20,71 +20,66 @@ msgstr ""
 "n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: kateconsole.cpp:70
-#, kde-format
-msgid "You do not have enough karma to access a shell or terminal emulation"
-msgstr "אין לך מספיק קארמה כדי לגשת למעטפת או להדמיית המסוף"
-
-#: kateconsole.cpp:118 kateconsole.cpp:148 kateconsole.cpp:768
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "מסוף"
 
-#: kateconsole.cpp:157
+#: kateconsole.cpp:158
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&ניתוב למסוף"
 
-#: kateconsole.cpp:161
+#: kateconsole.cpp:162
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "&סנכרון המסוף עם המסמך הנוכחי"
 
-#: kateconsole.cpp:165
+#: kateconsole.cpp:166
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "הרצת המסמך הנוכחי"
 
-#: kateconsole.cpp:170 kateconsole.cpp:555
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "ה&צגת לוח מסוף"
 
-#: kateconsole.cpp:176
+#: kateconsole.cpp:177
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "התמ&קדות בלוח המסוף"
 
-#: kateconsole.cpp:182
+#: kateconsole.cpp:183
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "&פיצול המסוף אנכית"
 
-#: kateconsole.cpp:187
+#: kateconsole.cpp:188
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "פיצול המסוף &אופקית"
 
-#: kateconsole.cpp:192
+#: kateconsole.cpp:193
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "לשונית מסוף &חדשה"
 
-#: kateconsole.cpp:354
+#: kateconsole.cpp:355
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr "Konsole לא מותקן. נא להתקין את konsole כדי לאפשר שימוש במסוף."
 
-#: kateconsole.cpp:430
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -92,22 +87,22 @@ msgid ""
 msgstr ""
 "לנתב את הטקסט למסוף? עשוי להפעיל פקודות כלולות כלשהןעם הרשאות המשתמש שלך."
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "האם לנתב למסוף?"
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "ניתוב למסוף"
 
-#: kateconsole.cpp:496
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "לא קובץ מקומי: ‚%1’"
 
-#: kateconsole.cpp:529
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -120,77 +115,77 @@ msgstr ""
 "עם הרשאות המשתמש שלך, במסוף:\n"
 "‚%1’"
 
-#: kateconsole.cpp:536
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "להריץ במסוף?"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "הרצה"
 
-#: kateconsole.cpp:552
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "ה&סתרת לוח מסוף"
 
-#: kateconsole.cpp:563
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "ביטול מיקוד ללוח מסוף"
 
-#: kateconsole.cpp:564 kateconsole.cpp:565
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "התמקדות על לוח מסוף"
 
-#: kateconsole.cpp:676
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "מצב סנכרון מסוף"
 
-#: kateconsole.cpp:679
+#: kateconsole.cpp:680
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "לא &לסנכרן את לשונית המסוף עם המסמך הנוכחי"
 
-#: kateconsole.cpp:682
+#: kateconsole.cpp:683
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr "ל&סנכרן את לשונית המסוף הנוכחית מול המסמך הנוכחי אוטומטית כשאפשר"
 
-#: kateconsole.cpp:685
+#: kateconsole.cpp:686
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr "לי&צור לשונית מסוף לתיקיית המסמך הנוכחי ולעבור אליה"
 
-#: kateconsole.cpp:692 kateconsole.cpp:713
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "הרצה במסוף"
 
-#: kateconsole.cpp:694
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "ה&סרת סיומת"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "קידומת:"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "להציג א&זהרה בפעם הבאה"
 
-#: kateconsole.cpp:709
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -199,24 +194,24 @@ msgstr ""
 "עם ההפעלה הבאה של ‚%1’, נא לוודא שיקפוץ חלון אזהרה, שיציג את הפקודה שתישלח "
 "למסוף, לסקירה."
 
-#: kateconsole.cpp:720
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "לה&גדיר את משתנה הסביבה EDITOR ל־‚kate -b’"
 
-#: kateconsole.cpp:723
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "חשוב: יש לסגור את המסמך כדי לאפשר ליישום המסוף להמשיך"
 
-#: kateconsole.cpp:726
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "להסתיר את Konsole בלחיצה על ‚Esc’"
 
-#: kateconsole.cpp:729
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -225,7 +220,7 @@ msgstr ""
 "יכול לגרום לבעיות עם יישומי מסוף שמשתמשים במקש Esc, למשל: vim. יש להוסיף את "
 "היישומים האלה בקלט שלהלן (רשימה מופרדת בפסיקים)"
 
-#: kateconsole.cpp:773
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "הגדרות מסוף"
@@ -235,6 +230,9 @@ msgstr "הגדרות מסוף"
 #, kde-format
 msgid "&Tools"
 msgstr "&כלים"
+
+#~ msgid "You do not have enough karma to access a shell or terminal emulation"
+#~ msgstr "אין לך מספיק קארמה כדי לגשת למעטפת או להדמיית המסוף"
 
 #~ msgid "Sorry, cannot cd into '%1'"
 #~ msgstr "אי אפשר לעבור לתיקייה ‏‚%1’, מחילה"

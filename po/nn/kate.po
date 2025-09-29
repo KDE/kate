@@ -3120,12 +3120,3 @@ msgstr "Handsam økter …"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Vis velkomstsida for nye vindauge"
-
-#~ msgid "&Close Document"
-#~ msgstr "&Lukk dokumentet"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Lukk &dei andre dokumenta"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "Lukk &alle dokumenta"

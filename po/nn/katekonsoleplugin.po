@@ -236,8 +236,3 @@ msgstr "Terminalinnstillingar"
 #, kde-format
 msgid "&Tools"
 msgstr "V&erktøy"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr ""
-#~ "Du har ikkje god nok karma til å få tilgang til eit skal eller ei "
-#~ "terminalemulering"

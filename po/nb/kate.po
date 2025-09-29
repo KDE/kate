@@ -3046,9 +3046,3 @@ msgstr ""
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr ""
-
-#~ msgid "&Close Document"
-#~ msgstr "&Lukk dokumentet"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Lukk andre &dokumenter"

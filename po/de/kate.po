@@ -2643,7 +2643,8 @@ msgid "&Close Tab"
 msgstr "Unterfenster schließen"
 
 #: lib/kateviewspace.cpp:1141
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Close &Other Tabs"
 msgid "Close &Other Tabs"
 msgstr "&Andere Unterfenster schließen"
 

@@ -988,18 +988,14 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:125
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Kate 寻找程序运行的 %1 个单独目录列表。此列表将被附加到您的 PATH 环境变量中。"
-"例如 /home/USER/myapps/bin/:/home/USER/.local/bin"
+"Kate 将在其中查找要运行的程序的目录列表，各目录以 %1 分隔。此列表将添加到您"
+"的 PATH 环境变量的开头。例如：/home/USER/myapps/bin/:/home/USER/.local/bin"
 
 #: lib/kateconfigdialog.cpp:141
 #, kde-format
@@ -2522,22 +2518,19 @@ msgstr[0] ""
 "当前还有 %1 个文档已打开。要查看所有打开文档，请点击此处切换到快速打开视图。"
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "关闭标签页"
+msgstr "关闭标签页(&C)"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "关闭其他文档"
+msgstr "关闭其他标签页(&O)"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "关闭所有文档"
+msgstr "关闭所有标签页(&T)"
 
 #: lib/kateviewspace.cpp:1186
 #, kde-format
@@ -3061,12 +3054,3 @@ msgstr "管理会话..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "新窗口显示欢迎页面"
-
-#~ msgid "&Close Document"
-#~ msgstr "关闭文档(&C)"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "关闭其他文档(&D)"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "关闭所有文档(&A)"

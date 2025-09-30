@@ -562,23 +562,21 @@ msgid ""
 msgstr "这将复制所有高亮的搜索匹配行，从当前文档到剪贴板"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
-msgstr "逗号分割的要搜索的文件类型列表。例如：“*.cpp,*.h”\n"
+msgstr "以逗号分隔的列表，用于指定要搜索的文件类型。例如：“*.cpp,*.h”"
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
-msgstr "用于排除在搜索外的逗号分割的文件和目录列表。例如：“build*”"
+msgstr ""
+"以逗号分隔的通配符模式列表，用于匹配要从搜索中排除的文件或目录名称。\n"
+"示例：“build*”\n"
+"如果模式包含“/”，则会检查整个路径以查找匹配项。"
 
 #: SearchPlugin.cpp:400
 #, kde-format

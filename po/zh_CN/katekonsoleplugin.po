@@ -226,6 +226,3 @@ msgstr "终端设置"
 #, kde-format
 msgid "&Tools"
 msgstr "工具(&T)"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr "您没有访问 shell 或终端模拟器的足够权限"

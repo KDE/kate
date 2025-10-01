@@ -281,6 +281,7 @@ public:
                         auto i = QModelIndex(pIndex);
                         // we only support resolving additionalTextEdits and documentation so only
                         // update those fields
+                        self->m_matches[i.row()].documentation.kind = c.documentation.kind;
                         self->m_matches[i.row()].documentation.value += c.documentation.value;
                         self->m_matches[i.row()].additionalTextEdits = c.additionalTextEdits;
                         self->m_matches[i.row()].m_docResolved = true;

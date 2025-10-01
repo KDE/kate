@@ -1171,10 +1171,9 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     }
     auto *doc = docOrWidget.doc();
 
-    auto addActionFromCollection = [this](QMenu *menu, const char *action_name, Qt::ConnectionType connType = Qt::AutoConnection) {
+    auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
         QAction *action = m_viewManager->mainWindow()->action(QLatin1StringView(action_name));
         auto newAction = menu->addAction(action->icon(), action->text());
-        connect(newAction, &QAction::triggered, action, &QAction::trigger, connType);
         return newAction;
     };
 
@@ -1192,14 +1191,41 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     menu.addSeparator();
 
     QAction *aCopyPath = addActionFromCollection(&menu, "file_copy_filepath");
+    connect(aCopyPath, &QAction::triggered, this, [doc]() {
+        KateFileActions::copyFilePathToClipboard(doc);
+    });
+
     QAction *aCopyFilename = addActionFromCollection(&menu, "file_copy_filename");
+    connect(aCopyFilename, &QAction::triggered, this, [doc]() {
+        KateFileActions::copyFileNameToClipboard(doc);
+    });
+
     QAction *aOpenFolder = addActionFromCollection(&menu, "file_open_containing_folder");
+    connect(aOpenFolder, &QAction::triggered, this, [doc]() {
+        KateFileActions::openContainingFolder(doc);
+    });
+
     QAction *aFileProperties = addActionFromCollection(&menu, "file_properties");
+    connect(aFileProperties, &QAction::triggered, this, [doc, this]() {
+        KateFileActions::openFilePropertiesDialog(this, doc);
+    });
     menu.addSeparator();
+
     QAction *aRenameFile = addActionFromCollection(&menu, "file_rename");
+    connect(aRenameFile, &QAction::triggered, this, [doc, this]() {
+        KateFileActions::renameDocumentFile(this, doc);
+    });
 
     // use QueuedConnection as this action can trigger deletion of this viewspace!
-    QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete", Qt::QueuedConnection);
+    QAction *aDeleteFile = addActionFromCollection(&menu, "file_delete");
+    connect(
+        aDeleteFile,
+        &QAction::triggered,
+        this,
+        [this, doc]() {
+            KateFileActions::deleteDocumentFile(this, doc);
+        },
+        Qt::QueuedConnection);
 
     menu.addSeparator();
     QAction *compare = menu.addAction(i18n("Compare with Active Document"));

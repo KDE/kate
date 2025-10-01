@@ -78,6 +78,7 @@ private Q_SLOTS:
     void testDetachDoc();
     void testKwriteInSDIModeWithOpenMultipleUrls();
     void testTabbarContextMenu();
+    void testTabbarContextMenu2();
 
 private:
     std::unique_ptr<QTemporaryDir> m_tempdir;

@@ -11,6 +11,7 @@
 #include <KSharedConfig>
 #include <KTextEditor/Editor>
 
+#include <QClipboard>
 #include <QCommandLineParser>
 #include <QDialog>
 #include <QPointer>
@@ -892,6 +893,41 @@ void KateViewManagementTests::testTabbarContextMenu()
         closeOtherTabs->trigger();
         QTRY_VERIFY(widget2 == nullptr);
     }
+}
+
+void KateViewManagementTests::testTabbarContextMenu2()
+{
+    app->sessionManager()->sessionNew();
+    QCOMPARE(app->mainWindowsCount(), 1);
+    KateMainWindow *mw = app->activeKateMainWindow();
+    KateViewManager *vm = mw->viewManager();
+    auto vs = vm->activeViewSpace();
+
+    vm->setActiveSpace(vs);
+
+    const QDir d = QDir::current();
+    const QUrl file1 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File1")));
+    const QUrl file2 = QUrl::fromLocalFile(d.absoluteFilePath(QStringLiteral("File2")));
+
+    auto doc1 = app->openDocUrl(file1, QString(), false, /*activateView=*/false);
+    auto doc2 = app->openDocUrl(file2, QString(), false, /*activateView=*/false);
+
+    QCOMPARE(vm->activeView()->document(), doc1);
+    QCOMPARE(vs->m_tabBar->currentIndex(), 0);
+
+    // tab 0 is active, but context menu is for tab 1
+    QMenu menu;
+    vs->buildContextMenu(1, menu);
+
+    auto loc = getAction(menu, "Copy Location");
+    QVERIFY(loc->isEnabled());
+    loc->trigger();
+    QCOMPARE(qApp->clipboard()->text(), QDir::toNativeSeparators(doc2->url().toLocalFile()));
+
+    auto filename = getAction(menu, "Copy Filename");
+    QVERIFY(filename->isEnabled());
+    filename->trigger();
+    QCOMPARE(qApp->clipboard()->text(), QStringLiteral("File2"));
 }
 
 #include "moc_kate_view_mgmt_tests.cpp"

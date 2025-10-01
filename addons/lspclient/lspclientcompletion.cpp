@@ -272,7 +272,7 @@ public:
             return index.row();
         } else if (role == KTextEditor::CodeCompletionModel::IsExpandable) {
             return !match.documentation.value.isEmpty();
-        } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget && !match.documentation.value.isEmpty()) {
+        } else if (role == KTextEditor::CodeCompletionModel::ExpandingWidget) {
             if (m_server->capabilities().completionProvider.resolveProvider && !match.m_docResolved && !match.data.isNull()) {
                 QPersistentModelIndex pIndex = QPersistentModelIndex(index);
                 auto h = [this, pIndex](const LSPCompletionItem &c) {

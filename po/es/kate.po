@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-01 02:39+0000\n"
-"PO-Revision-Date: 2025-05-11 21:51+0100\n"
+"PO-Revision-Date: 2025-09-29 22:27+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -238,7 +238,7 @@ msgstr "&Ver"
 #: lib/data/kateui.rc:77 lib/kateviewspace.cpp:138
 #, kde-format
 msgid "Split View"
-msgstr "Dividir la vista"
+msgstr "Vista dividida"
 
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:113 lib/diagnostics/ui.rc:6
@@ -1904,7 +1904,7 @@ msgstr "Botones de la barra lateral"
 #: lib/katemdi.cpp:99
 #, kde-format
 msgid "Focus Toolview"
-msgstr "Vista de herramientas del foco"
+msgstr "Foco en vista de herramienta"
 
 #: lib/katemdi.cpp:102
 #, kde-format
@@ -2230,7 +2230,7 @@ msgstr "Copiar nombre de archivo"
 #: lib/kateviewmanager.cpp:146
 #, kde-format
 msgid "Split Ve&rtical"
-msgstr "Dividi&r verticalmente"
+msgstr "Dividi&r en vertical"
 
 #: lib/kateviewmanager.cpp:150
 #, kde-format
@@ -3108,12 +3108,3 @@ msgstr "Gestión de sesiones…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostrar la página de bienvenida en las ventanas nuevas"
-
-#~ msgid "Could not start program"
-#~ msgstr "No se ha podido iniciar el programa"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "El programa seleccionado no se ha podido iniciar. Es posible que no esté "
-#~ "instalado."

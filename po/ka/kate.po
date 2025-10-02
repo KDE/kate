@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"POT-Creation-Date: 2025-10-02 00:45+0000\n"
 "PO-Revision-Date: 2025-09-21 03:48+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -2594,32 +2594,32 @@ msgstr "&სხვა ჩანართების დახურვა"
 msgid "Close All &Tabs"
 msgstr "ყველა ჩანართის და&ხურვა"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1205
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1211
+#: lib/kateviewspace.cpp:1237
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1245
 #, kde-format
 msgid "Unpin Document"
 msgstr "დოკუმენტის ჩამოხსნა"
 
-#: lib/kateviewspace.cpp:1221
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Pin Document"
 msgstr "დოკუმენტის ამაგრება"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"POT-Creation-Date: 2025-10-02 00:45+0000\n"
 "PO-Revision-Date: 2005-04-18 18:18+0200\n"
 "Last-Translator:  <hertn@gmx.de>\n"
 "Language-Team: Hornjoserbšćina <hsb@li.org>\n"
@@ -2537,34 +2537,34 @@ msgstr "Wšitke wočinjene dokumenty začinić"
 msgid "Close All &Tabs"
 msgstr "Wšitke &začinić"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1185
 #, fuzzy, kde-format
 msgid "D&etach Document"
 msgstr "Dokumenty"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1205
+#: lib/kateviewspace.cpp:1231
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Tuchwilny dokument ma so začinić."
 
-#: lib/kateviewspace.cpp:1211
+#: lib/kateviewspace.cpp:1237
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Tuchwilny dokument ma so začinić."
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1245
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Dokumenty"
 
-#: lib/kateviewspace.cpp:1221
+#: lib/kateviewspace.cpp:1247
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

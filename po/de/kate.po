@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"POT-Creation-Date: 2025-10-02 00:45+0000\n"
 "PO-Revision-Date: 2025-08-20 23:51+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2654,35 +2654,35 @@ msgstr "&Andere Unterfenster schließen"
 msgid "Close All &Tabs"
 msgstr "Alle Unterfenster sch&ließen"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "Dokument ab&koppeln"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Das Dokument in einem neuen Fenster öffnen und im aktuellen Fenster schließen"
 
-#: lib/kateviewspace.cpp:1205
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Mit aktivem Dokument vergleichen"
 
-#: lib/kateviewspace.cpp:1211
+#: lib/kateviewspace.cpp:1237
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Mit aktivem Dokument vergleichen mittels"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1245
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Geöffnete Dokumente"
 
-#: lib/kateviewspace.cpp:1221
+#: lib/kateviewspace.cpp:1247
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

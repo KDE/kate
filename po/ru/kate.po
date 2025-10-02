@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"POT-Creation-Date: 2025-10-02 00:45+0000\n"
 "PO-Revision-Date: 2025-05-20 16:20+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -2619,32 +2619,32 @@ msgstr "Закрыть текущую вкладку"
 msgid "Close All &Tabs"
 msgstr "Закрыть текущую вкладку"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "Открыть в новом окне"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Переместить документ в новое окно"
 
-#: lib/kateviewspace.cpp:1205
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Сравнить с активным документом"
 
-#: lib/kateviewspace.cpp:1211
+#: lib/kateviewspace.cpp:1237
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1245
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Открытые документы"
 
-#: lib/kateviewspace.cpp:1221
+#: lib/kateviewspace.cpp:1247
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

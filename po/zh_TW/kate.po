@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-27 00:46+0000\n"
+"POT-Creation-Date: 2025-10-02 00:45+0000\n"
 "PO-Revision-Date: 2025-09-22 03:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2536,32 +2536,32 @@ msgstr "關閉其他分頁(&O)"
 msgid "Close All &Tabs"
 msgstr "關閉所有分頁(&T)"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1185
 #, kde-format
 msgid "D&etach Document"
 msgstr "在獨立視窗顯示文件(&E)"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1190
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "在新視窗開啟文件並在此視窗關閉它"
 
-#: lib/kateviewspace.cpp:1205
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1211
+#: lib/kateviewspace.cpp:1237
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "使用此工具與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1219
+#: lib/kateviewspace.cpp:1245
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消釘選文件"
 
-#: lib/kateviewspace.cpp:1221
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Pin Document"
 msgstr "釘選文件"

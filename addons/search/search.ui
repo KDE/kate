@@ -147,7 +147,7 @@
         <item>
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -306,7 +306,7 @@
        <item row="2" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -340,7 +340,7 @@
           <item row="0" column="0" colspan="2">
            <widget class="Line" name="line">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -350,7 +350,7 @@
              <string>Folder:</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
             <property name="buddy">
              <cstring>folderRequester</cstring>
@@ -377,7 +377,7 @@
              <string>Filter:</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
             <property name="buddy">
              <cstring>filterCombo</cstring>
@@ -392,7 +392,7 @@
                <bool>true</bool>
               </property>
               <property name="insertPolicy">
-               <enum>QComboBox::InsertAtTop</enum>
+               <enum>QComboBox::InsertPolicy::InsertAtTop</enum>
               </property>
               <item>
                <property name="text">
@@ -474,9 +474,19 @@
              </widget>
             </item>
             <item>
+             <widget class="QCheckBox" name="trimSpaceCheckBox">
+              <property name="text">
+               <string>Trim whitespace</string>
+              </property>
+              <property name="toolTip">
+                <string>Trim whitespace at the beginning of each matched line</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>

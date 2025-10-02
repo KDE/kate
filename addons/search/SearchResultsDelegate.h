@@ -17,6 +17,8 @@ public:
     void paint(QPainter *, const QStyleOptionViewItem &, const QModelIndex &) const override;
     QSize sizeHint(const QStyleOptionViewItem &, const QModelIndex &) const override;
 
+    void setTrimWhiteSpace(bool trim);
+
 private:
     void paintMatchItem(QPainter *, const QStyleOptionViewItem &, const QModelIndex &index) const;
 
@@ -31,4 +33,6 @@ private:
 
     QColor m_searchColor;
     QColor m_replaceColor;
+
+    bool m_trimWhiteSpace = false;
 };

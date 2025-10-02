@@ -36,6 +36,7 @@ public:
 
     bool isEmpty() const;
     void setFilterLineVisible(bool visible);
+    void setTrimWhiteSpace(bool set);
     void expandRoot();
     bool isMatch(const QModelIndex &index) const;
     class MatchProxyModel *model() const;

@@ -551,6 +551,15 @@ KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEdi
     m_changeTimer.setSingleShot(true);
     connect(&m_changeTimer, &QTimer::timeout, this, &KatePluginSearchView::startSearchWhileTyping);
 
+    connect(m_ui.trimSpaceCheckBox, &QCheckBox::checkStateChanged, this, [this](Qt::CheckState s) {
+        if (auto *res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget())) {
+            res->setTrimWhiteSpace(s == Qt::Checked);
+            auto *tree = res->treeView;
+            const auto viewportRect = tree->viewport()->rect();
+            tree->dataChanged(tree->indexAt(viewportRect.topLeft()), tree->indexAt(viewportRect.bottomRight()));
+        }
+    });
+
     m_toolView->setMinimumHeight(container->sizeHint().height());
 
     connect(m_mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KatePluginSearchView::handleEsc);
@@ -2018,6 +2027,7 @@ void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
     m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", false));
     m_ui.sizeLimitSpinBox->setValue(cg.readEntry("SizeLimit", 128));
+    m_ui.trimSpaceCheckBox->setChecked(cg.readEntry("TrimWhitespace", false));
     m_ui.folderRequester->comboBox()->clear();
     m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchDiskFiless", QStringList()));
     m_ui.folderRequester->setText(cg.readEntry("SearchDiskFiles", QString()));
@@ -2060,6 +2070,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
     cg.writeEntry("FollowSymLink", m_ui.symLinkCheckBox->isChecked());
     cg.writeEntry("BinaryFiles", m_ui.binaryCheckBox->isChecked());
     cg.writeEntry("SizeLimit", m_ui.sizeLimitSpinBox->value());
+    cg.writeEntry("TrimWhitespace", m_ui.trimSpaceCheckBox->isChecked());
     QStringList folders;
     for (int i = 0; i < qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
         folders << m_ui.folderRequester->comboBox()->itemText(i);

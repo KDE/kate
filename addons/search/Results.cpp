@@ -63,6 +63,12 @@ void Results::setFilterLineVisible(bool visible)
     }
 }
 
+void Results::setTrimWhiteSpace(bool set)
+{
+    auto *delegate = static_cast<SearchResultsDelegate *>(treeView->itemDelegate());
+    delegate->setTrimWhiteSpace(set);
+}
+
 void Results::expandRoot()
 {
     treeView->expand(treeView->model()->index(0, 0));

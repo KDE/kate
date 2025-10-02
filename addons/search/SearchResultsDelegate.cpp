@@ -24,6 +24,20 @@
 // (which would not be the case with default QTextDocument margin)
 static const int s_ItemMargin = 1;
 
+static void lTrim(QString &in)
+{
+    int i = 0;
+    for (auto c : in) {
+        if (c != u' ') {
+            break;
+        }
+        i++;
+    }
+    if (i < in.size()) {
+        in.remove(0, i);
+    }
+}
+
 SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
@@ -109,10 +123,16 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     p->setPen(QPen(m_textColor, 1));
     QString text;
     bool replacing = !match.replaceText.isEmpty();
+
+    QString preMatchStr = match.preMatchStr;
+    if (m_trimWhiteSpace) {
+        lTrim(preMatchStr);
+    }
+
     if (replacing) {
-        text = match.preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;
+        text = preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;
     } else {
-        text = match.preMatchStr + match.matchStr + match.postMatchStr;
+        text = preMatchStr + match.matchStr + match.postMatchStr;
     }
 
     QList<QTextLayout::FormatRange> formats;
@@ -124,7 +144,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     formats << fontFmt;
 
     QTextLayout::FormatRange matchFmt;
-    matchFmt.start = match.preMatchStr.size();
+    matchFmt.start = preMatchStr.size();
     matchFmt.length = match.matchStr.size();
     matchFmt.format.setBackground(m_searchColor);
     matchFmt.format.setFontStrikeOut(replacing);
@@ -132,7 +152,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
 
     if (replacing) {
         QTextLayout::FormatRange repFmt;
-        repFmt.start = match.preMatchStr.size() + match.matchStr.size();
+        repFmt.start = preMatchStr.size() + match.matchStr.size();
         repFmt.length = match.replaceText.size();
         repFmt.format.setBackground(m_replaceColor);
         formats << repFmt;
@@ -204,4 +224,9 @@ QSize SearchResultsDelegate::sizeHint(const QStyleOptionViewItem &opt, const QMo
     s.setHeight(fm.lineSpacing());
     s = s.grownBy({0, 2, 0, 2});
     return s;
+}
+
+void SearchResultsDelegate::setTrimWhiteSpace(bool trim)
+{
+    m_trimWhiteSpace = trim;
 }

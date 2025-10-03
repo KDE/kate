@@ -367,11 +367,18 @@ QUrl normalizeUrl(QUrl url)
     }
 
     // Resolve symbolic links for local files
-    if (url.isLocalFile() && !KNetworkMounts::self()->isOptionEnabledForPath(url.toLocalFile(), KNetworkMounts::StrongSideEffectsOptimizations)) {
-        QString normalizedUrl = QFileInfo(url.toLocalFile()).canonicalFilePath();
-        if (!normalizedUrl.isEmpty()) {
-            return QUrl::fromLocalFile(normalizedUrl);
+    if (url.isLocalFile()) {
+        // Resolve symbolic links for local files
+        auto localFile = url.toLocalFile();
+        if (!KNetworkMounts::self()->isOptionEnabledForPath(localFile, KNetworkMounts::StrongSideEffectsOptimizations)) {
+            const auto normalizedUrl = QFileInfo(localFile).canonicalFilePath();
+            if (!normalizedUrl.isEmpty()) {
+                localFile = normalizedUrl;
+            }
         }
+
+        // ensure we always do basic stuff like uppercase drive letters, bug 509085
+        return QUrl::fromLocalFile(QFileInfo(localFile).absoluteFilePath());
     }
 
     // else: cleanup only the .. stuff

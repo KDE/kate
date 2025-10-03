@@ -2551,22 +2551,19 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Zavřít kartu"
+msgstr "Zavřít &kartu"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Zavřít ostatní"
+msgstr "Zavřít &ostatní karty"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Zavřít vše"
+msgstr ""
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format
@@ -3093,12 +3090,3 @@ msgstr "Spravovat sezení..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Zobrazit uvítací stránku pro nové okno"
-
-#~ msgid "&Close Document"
-#~ msgstr "&Zavřít dokument"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Zavřít ostatní &dokumenty"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "Z&avřít všechny dokumenty"

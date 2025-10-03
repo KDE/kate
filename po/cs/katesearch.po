@@ -599,27 +599,18 @@ msgid ""
 msgstr ""
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Seznam typů souborů oddělených čárkou, kde se má hledat. Např.: \"*.cpp,*.h"
-"\"\n"
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Seznam souborů a adresářů oddělených čárkou, jenž mají být vyřazeny z "
-"vyhledávání. Např.: \"build*\""
 
 #: SearchPlugin.cpp:400
 #, kde-format

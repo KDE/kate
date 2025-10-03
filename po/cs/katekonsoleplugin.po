@@ -229,8 +229,3 @@ msgstr "Nastavení terminálu"
 #, kde-format
 msgid "&Tools"
 msgstr "&Nástroje"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr ""
-#~ "Vaše karma není dostatečně silná pro přístup k příkazovému procesoru nebo "
-#~ "terminálu"

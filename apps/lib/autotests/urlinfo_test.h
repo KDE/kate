@@ -19,4 +19,5 @@ private Q_SLOTS:
     void someCursors();
     void urlWithColonAtStart();
     void nonExistingRelativePath();
+    void testNormalizeUrlOnWindows();
 };

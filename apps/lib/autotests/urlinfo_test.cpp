@@ -6,6 +6,8 @@
 
 #include "urlinfo_test.h"
 
+#include <ktexteditor_utils.h>
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -75,6 +77,15 @@ void UrlInfoTest::nonExistingRelativePath()
     QCOMPARE(info.url.toLocalFile(), dir.filePath(fileName));
 
     QDir::setCurrent(oldCurrent);
+}
+
+void UrlInfoTest::testNormalizeUrlOnWindows()
+{
+#ifdef Q_OS_WIN
+    QUrl normalizeUrl = Utils::normalizeUrl(QUrl(QStringLiteral("file:///c%3A/Users/admin/test_project/test.ts")));
+    QUrl absoluteUrl = Utils::absoluteUrl(QUrl(QStringLiteral("file:///c%3A/Users/admin/test_project/test.ts")));
+    QCOMPARE(normalizeUrl, absoluteUrl);
+#endif
 }
 
 #include "moc_urlinfo_test.cpp"

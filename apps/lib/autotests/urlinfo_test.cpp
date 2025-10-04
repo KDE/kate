@@ -85,6 +85,10 @@ void UrlInfoTest::testNormalizeUrlOnWindows()
     QUrl normalizeUrl = Utils::normalizeUrl(QUrl(QStringLiteral("file:///c%3A/Users/admin/test_project/test.ts")));
     QUrl absoluteUrl = Utils::absoluteUrl(QUrl(QStringLiteral("file:///c%3A/Users/admin/test_project/test.ts")));
     QCOMPARE(normalizeUrl, absoluteUrl);
+
+    normalizeUrl = Utils::normalizeUrl(QUrl(QStringLiteral("file:///C%3A/Users/admin/test_project/test.ts")));
+    absoluteUrl = Utils::absoluteUrl(QUrl(QStringLiteral("file:///c%3A/Users/admin/test_project/test.ts")));
+    QCOMPARE(normalizeUrl, absoluteUrl);
 #endif
 }
 

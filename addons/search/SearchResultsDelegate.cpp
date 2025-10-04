@@ -20,6 +20,8 @@
 #include <drawing_utils.h>
 #include <ktexteditor_utils.h>
 
+using namespace Qt::Literals::StringLiterals;
+
 // make list spacing resemble the default list spacing
 // (which would not be the case with default QTextDocument margin)
 static const int s_ItemMargin = 1;
@@ -109,10 +111,17 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     p->setPen(QPen(m_textColor, 1));
     QString text;
     bool replacing = !match.replaceText.isEmpty();
+
+    // Calculate the preMatch width
+    int preWidthMaxPx = opt.widget->width() / 4;
+    int letterWidthPx = std::max(fm.horizontalAdvance(u"M"_s), 4);
+    int preMatchChars = std::min(preWidthMaxPx / letterWidthPx, (int)match.preMatchStr.size());
+    QString preMatchStr = match.preMatchStr.last(preMatchChars);
+
     if (replacing) {
-        text = match.preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;
+        text = preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;
     } else {
-        text = match.preMatchStr + match.matchStr + match.postMatchStr;
+        text = preMatchStr + match.matchStr + match.postMatchStr;
     }
 
     QList<QTextLayout::FormatRange> formats;
@@ -124,7 +133,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     formats << fontFmt;
 
     QTextLayout::FormatRange matchFmt;
-    matchFmt.start = match.preMatchStr.size();
+    matchFmt.start = preMatchStr.size();
     matchFmt.length = match.matchStr.size();
     matchFmt.format.setBackground(m_searchColor);
     matchFmt.format.setFontStrikeOut(replacing);
@@ -132,7 +141,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
 
     if (replacing) {
         QTextLayout::FormatRange repFmt;
-        repFmt.start = match.preMatchStr.size() + match.matchStr.size();
+        repFmt.start = preMatchStr.size() + match.matchStr.size();
         repFmt.length = match.replaceText.size();
         repFmt.format.setBackground(m_replaceColor);
         formats << repFmt;

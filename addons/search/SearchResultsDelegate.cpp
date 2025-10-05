@@ -116,7 +116,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     int preWidthMaxPx = opt.widget->width() / 4;
     int letterWidthPx = std::max(fm.horizontalAdvance(u"M"_s), 4);
     int preMatchChars = std::min(preWidthMaxPx / letterWidthPx, (int)match.preMatchStr.size());
-    QString preMatchStr = match.preMatchStr.last(preMatchChars);
+    const QStringView preMatchStr = match.preMatchStr.last(preMatchChars);
 
     if (replacing) {
         text = preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;

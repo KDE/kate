@@ -3,13 +3,13 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-09-21 00:42+0000\n"
-"PO-Revision-Date: 2024-05-22 15:25+0300\n"
+"PO-Revision-Date: 2025-10-05 11:36+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: kateconsole.cpp:70
 #, kde-format
@@ -90,7 +90,7 @@ msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr ""
-"לנתב את הטקסט למסוף? עשוי להפעיל פקודות כלולות כלשהןעם הרשאות המשתמש שלך."
+"לנתב את הטקסט למסוף? עשוי להפעיל פקודות כלולות כלשהן עם הרשאות המשתמש שלך."
 
 #: kateconsole.cpp:431
 #, kde-format

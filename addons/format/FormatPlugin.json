@@ -1,6 +1,6 @@
 {
     "KPlugin": {
-        "Description": "Plugin for formatting code",
+        "Description": "Format using an external tool when the file is saved",
         "Description[ar]": "ملحقة لتنسيق الشفرة",
         "Description[az]": "Kodu formatlamaq üçün qoşma",
         "Description[bg]": "Приставка за форматиране на код",

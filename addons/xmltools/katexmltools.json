@@ -16,7 +16,7 @@
         "Description[fi]": "Luettelee XML-alkiot, -määritteet, -määritteiden arvot ja DTD:n sallimat entiteetit",
         "Description[fr]": "Liste les éléments, attributs, valeurs d'attributs et entités XML autorisés par la DTD",
         "Description[gl]": "Lista elementos, atributos, valores de atributos e entidades XML permitidos pola DTD.",
-        "Description[he]": "הצגת רכיבי, מאפייני, ערכי מאפיינים וערכי זXML",
+        "Description[he]": "הצגת רכיבי, מאפייני, ערכי מאפיינים וערכי XML שמורשים לפי ה־DTD",
         "Description[hu]": "A DTD által engedélyezett XML elemek, attribútumok, attribútum-értékek és entitások listázása",
         "Description[ia]": "Lista elementos XML, attributos, valores de attributo e entitates permittite per DTD",
         "Description[ie]": "Liste elementes e atributes XML, su valores e entitás permisset de DTD",

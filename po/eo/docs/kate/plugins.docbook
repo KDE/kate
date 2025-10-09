@@ -6147,7 +6147,7 @@ VALUES ("<replaceable
 >Aŭtomate sinkronigi la terminalon kun la nuna dokumento kiam eblas</link
 > estas ebligita en la paĝo <guilabel
 >Terminalo</guilabel
-> de la <link linkend=" config-dialog"
+> de la <link linkend="config-dialog"
 >Ĉefa agorda dialogo</link
 > la ŝelseanco ŝanĝiĝos al la dosierujo de la aktiva dokumento, se ĝi estas loka dosiero.</para>
 </listitem>

@@ -9,6 +9,8 @@
 
 #include "katequickopenlineedit.h"
 
+#include <QPointer>
+
 class KateMainWindow;
 
 class QModelIndex;
@@ -65,4 +67,5 @@ private:
      * fuzzy filter model
      */
     QuickOpenFilterProxyModel *m_proxyModel = nullptr;
+    QPointer<QWidget> m_previouslyFocusedWidget;
 };

@@ -17,7 +17,7 @@
 #include <KPluginFactory>
 #include <KSharedConfig>
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QDir>
 #include <QEvent>
 #include <QFileInfo>
@@ -352,6 +352,9 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 return true;
             }
 
+            if (m_previouslyFocusedWidget) {
+                m_previouslyFocusedWidget->setFocus();
+            }
             hide();
             deleteLater();
             return true;
@@ -386,6 +389,8 @@ void KateQuickOpen::reselectFirst()
 
 void KateQuickOpen::updateState()
 {
+    m_previouslyFocusedWidget = qApp->focusWidget();
+
     m_model->refresh(m_mainWindow);
     reselectFirst();
 

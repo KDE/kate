@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-19 00:45+0000\n"
-"PO-Revision-Date: 2025-07-21 00:53+0200\n"
+"PO-Revision-Date: 2025-10-09 00:28+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -351,10 +351,9 @@ msgid_plural "Found %1 notes."
 msgstr[0] "메모 %1개를 발견했습니다."
 
 #: plugin_katebuild.cpp:1515
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "빌드가 실패했습니다."
+msgstr "빌드가 취소되었습니다."
 
 #: plugin_katebuild.cpp:1519
 #, kde-format
@@ -565,10 +564,9 @@ msgstr "빌드(&B)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Kate 빌드 플러그인"
+msgstr "빌드 플러그인 도구 모음"
 
 #: UrlInserter.cpp:32
 #, kde-format

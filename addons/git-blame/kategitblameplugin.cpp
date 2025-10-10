@@ -316,21 +316,6 @@ void KateGitBlamePluginView::showCommitInfo(const QString &hash, KTextEditor::Vi
     startShowProcess(view->document()->url(), hash);
 }
 
-static int nextBlockStart(QByteArrayView rawData, int from)
-{
-    int next = rawData.indexOf('\t', from);
-    // tab must be the first character in line for next block
-    if (next > 0 && rawData[next - 1] != '\n') {
-        next++;
-        // move forward one line
-        next = rawData.indexOf('\n', next);
-        // try to look for another tab char
-        next = rawData.indexOf('\t', next);
-        // if not found => end
-    }
-    return next;
-}
-
 void KateGitBlamePluginView::sendMessage(const QString &text, bool error)
 {
     Utils::showMessage(text, gitIcon(), i18n("Git"), error ? MessageType::Error : MessageType::Info, m_mainWindow);
@@ -386,12 +371,39 @@ void KateGitBlamePluginView::commandFinished(int exitCode, QProcess::ExitStatus 
     }
 }
 
+struct LineBlock {
+    int commitEnd;
+    int lineEnd;
+};
+
+static LineBlock nextBlock(QByteArrayView rawData, int from)
+{
+    // A line block is either
+    // <40 char hash> 1 2 3\n
+    // \t<line data>\n
+    // or
+    // <40 char hash> 1 2 3\n
+    // author ...\n
+    // ...
+    // author-time ...\n
+    // ...
+    // summary ...
+    // \t<line data>\n
+    //
+    // As every code line starts with a \t, we can use \n\t to find the beginning of the code line
+    int commitEnd = rawData.indexOf("\n\t", from) + 1;
+    if (commitEnd == 0) {
+        return {-1, -1};
+    }
+    int blockEnd = rawData.indexOf('\n', commitEnd);
+    return {commitEnd, blockEnd};
+}
+
 void KateGitBlamePluginView::parseGitBlameStdOutput()
 {
     // Save the data, everything else has views over this data
     m_rawCommitData = m_blameInfoProc.readAllStandardOutput();
     m_rawCommitData.replace("\r", ""); // KTextEditor removes all \r characters in the internal buffers
-    // printf("received output: %d for: git %s\n", out.size(), qPrintable(m_blameInfoProc.arguments().join(QLatin1Char(' '))));
 
     QByteArrayView out = m_rawCommitData;
     QHash<QByteArrayView, QString> authorCache;
@@ -409,11 +421,15 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
      */
 
     int start = 0;
-    int next = out.indexOf('\t');
-    next = out.indexOf('\n', next);
 
-    while (next != -1) {
-        //         printf("Block: (Size: %d) %s\n\n", (next - start), out.mid(start, next - start).constData());
+    while (start != -1) {
+        auto block = nextBlock(out, start);
+        if (block.commitEnd == -1 || block.lineEnd == -1) {
+            return;
+        }
+        // qDebug() << start << block.commitEnd << block.lineEnd;
+        // qDebug() << out.mid(start, block.commitEnd - start);
+        // qDebug() << out.mid(block.commitEnd, block.lineEnd - block.commitEnd);
 
         CommitInfo commitInfo;
         BlamedLine lineInfo;
@@ -423,101 +439,81 @@ void KateGitBlamePluginView::parseGitBlameStdOutput()
          *
          * 5c7f27a0915a9b20dc9f683d0d85b6e4b829bc85 1 1 5
          */
-        int pos = out.indexOf(' ', start);
+        int hashEnd = out.indexOf(' ', start);
         constexpr int hashLen = 40;
-        if (pos == -1 || (pos - start) != hashLen) {
-            printf("no proper hash\n");
+        if (hashEnd == -1 || (hashEnd - start) != hashLen) {
+            qWarning() << "Not a proper hash:" << out.mid(start, hashEnd - start);
             break;
         }
-        QByteArrayView hash = out.mid(start, pos - start);
+        QByteArrayView hash = out.mid(start, hashEnd - start);
+        lineInfo.shortCommitHash = hash.mid(0, 7);
+        m_blamedLines.push_back(lineInfo);
 
         // skip to line end,
         // we don't care about line no etc here
-        int from = pos + 1;
-        pos = out.indexOf('\n', from);
-        if (pos == -1) {
+        start = out.indexOf('\n', hashEnd);
+        if (start == -1) {
             qWarning("Git blame: Invalid blame output : No new line");
             break;
         }
-        pos++;
-
-        lineInfo.shortCommitHash = hash.mid(0, 7);
-
-        m_blamedLines.push_back(lineInfo);
+        start++;
 
         // are we done because this line references the commit instead of
         // containing the content?
-        if (out[pos] == '\t') {
-            pos++; // skip \t
-            from = pos;
-            pos = out.indexOf('\n', from); // go to line end
-            m_blamedLines.back().lineText = out.mid(from, pos - from);
-
-            start = next + 1;
-            next = nextBlockStart(out, start);
-            if (next == -1)
-                break;
-            next = out.indexOf('\n', next);
+        if (start == block.commitEnd) {
+            start++; // skip the \t
+            m_blamedLines.back().lineText = out.mid(start, block.lineEnd - start);
+            start = block.lineEnd + 1;
             continue;
         }
 
         /**
-         * Parse actual commit
+         * Parse commit
          */
         commitInfo.hash = hash;
 
         // author Xyz
-        constexpr int authorLen = sizeof("author ") - 1;
-        pos += authorLen;
-        from = pos;
-        pos = out.indexOf('\n', pos);
+        constexpr int authorLen = (int)sizeof("author");
+        start += authorLen;
+        int authorEnd = out.indexOf('\n', start);
 
-        QByteArrayView authorView = out.mid(from, pos - from);
+        QByteArrayView authorView = out.mid(start, authorEnd - start);
         auto it = authorCache.find(authorView);
         if (it == authorCache.end()) {
             it = authorCache.insert(authorView, QString::fromUtf8(authorView));
         }
         commitInfo.authorName = it.value();
 
-        pos++;
+        start++;
 
         // author-time timestamp
-        constexpr int authorTimeLen = sizeof("author-time ") - 1;
-        pos = out.indexOf("author-time ", pos);
-        if (pos == -1) {
+        constexpr int authorTimeLen = (int)sizeof("author-time");
+        start = out.indexOf("author-time ", start);
+        if (start == -1) {
             qWarning("Invalid commit while git-blameing");
             break;
         }
-        pos += authorTimeLen;
-        from = pos;
-        pos = out.indexOf('\n', from);
+        start += authorTimeLen;
+        int timeEnd = out.indexOf('\n', start);
 
-        qint64 timestamp = out.mid(from, pos - from).toLongLong();
+        qint64 timestamp = out.mid(start, timeEnd - start).toLongLong();
         commitInfo.authorDate = QDateTime::fromSecsSinceEpoch(timestamp);
 
-        constexpr int summaryLen = sizeof("summary ") - 1;
-        pos = out.indexOf("summary ", pos);
-        pos += summaryLen;
-        from = pos;
-        pos = out.indexOf('\n', pos);
+        constexpr int summaryLen = (int)sizeof("summary");
+        start = out.indexOf("summary ", start);
+        start += summaryLen;
+        int summaryEnd = out.indexOf('\n', start);
 
-        commitInfo.summary = out.mid(from, pos - from);
-        //         printf("Commit{\n %s,\n %s,\n %s,\n %s\n}\n", qPrintable(commitInfo.commitHash), qPrintable(commitInfo.name),
-        //         qPrintable(commitInfo.date.toString()), qPrintable(commitInfo.title));
+        commitInfo.summary = out.mid(start, summaryEnd - start);
+        // qDebug() << "\nCommit {\n" //
+        //          << commitInfo.hash << "\n" //
+        //          << commitInfo.authorName << "\n" //
+        //          << commitInfo.authorDate.toString() << "\n" //
+        //          << commitInfo.summary << "\n}";
 
         m_blameInfoForHash[lineInfo.shortCommitHash] = commitInfo;
-
-        from = pos;
-        pos = out.indexOf('\t', from);
-        from = pos + 1;
-        pos = out.indexOf('\n', from);
-        m_blamedLines.back().lineText = out.mid(from, pos - from);
-
-        start = next + 1;
-        next = nextBlockStart(out, start);
-        if (next == -1)
-            break;
-        next = out.indexOf('\n', next);
+        m_blamedLines.back().lineText = out.mid(block.commitEnd + 1, block.lineEnd - block.commitEnd - 1);
+        start = block.lineEnd + 1;
     }
 }
 

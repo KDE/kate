@@ -310,6 +310,11 @@
             "url": "https://github.com/Prince781/vala-language-server",
             "highlightingModeRegex": "^Vala$"
         },
+        "vhdl": {
+            "command": ["vhdl_ls"],
+            "url": "https://github.com/VHDL-LS/rust_hdl",
+            "highlightingModeRegex": "^VHDL"
+        },
         "vue": {
             "command": [ "vue-language-server", "--stdio"],
             "rootIndicationFileNames": ["package.json", "package-lock.json"],

@@ -88,7 +88,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     /**
      * Copy Path, always available, put that to the top
      */
-    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18n("Copy Location"));
+    QAction *copyLocationAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18n("Copy Location"));
 
     const bool isRootDirectory = !index.isValid();
 
@@ -169,7 +169,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * run menu and handle the triggered action
      */
     if (QAction *const action = menu.exec(pos)) {
-        if (action == copyAction) {
+        if (action == copyLocationAction) {
             QApplication::clipboard()->setText(filename);
         } else if (terminal && action == terminal) {
             // handle "open terminal here"

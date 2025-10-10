@@ -1,6 +1,9 @@
 {
     "KPlugin": {
         "Description": "Format using an external tool when the file is saved",
+        "Description[pt_BR]": "Formatar usando uma ferramenta externa quando o arquivo for salvo",
+        "Description[sl]": "Oblikovanje z zunanjim orodjem ob shranjevanju datoteke",
+        "Description[uk]": "Форматування за допомогою зовнішнього інструмента при збереженні файла",
         "Name": "Formatting",
         "Name[ar]": "التنسيق",
         "Name[az]": "Formatlama",

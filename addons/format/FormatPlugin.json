@@ -1,8 +1,13 @@
 {
     "KPlugin": {
         "Description": "Format using an external tool when the file is saved",
+        "Description[ca]": "Dona format usant una eina externa quan es desi el fitxer",
+        "Description[es]": "Formatear con una herramienta externa al guardar el archivo",
+        "Description[ka]": "ფაილის შენახვისას დაფორმატებისთვის გარე ხელსაწყოს გამოყენება",
         "Description[pt_BR]": "Formatar usando uma ferramenta externa quando o arquivo for salvo",
         "Description[sl]": "Oblikovanje z zunanjim orodjem ob shranjevanju datoteke",
+        "Description[sv]": "Formatera med ett externt verktyg när filen sparas",
+        "Description[tr]": "Dosya kaydedildiğinde dış bir araç kullanarak biçimlendirin",
         "Description[uk]": "Форматування за допомогою зовнішнього інструмента при збереженні файла",
         "Name": "Formatting",
         "Name[ar]": "التنسيق",

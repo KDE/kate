@@ -205,8 +205,12 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     m_startBlameTimer.callOnTimeout(this, &KateGitBlamePluginView::startGitBlameForActiveView);
 
     connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *) {
+        connect(activeDocument(),
+                &KTextEditor::Document::reloaded, //
+                this,
+                &KateGitBlamePluginView::documentReloaded,
+                Qt::UniqueConnection);
         m_startBlameTimer.start();
-
         m_tooltip.hide();
     });
 
@@ -228,6 +232,15 @@ KateGitBlamePluginView::~KateGitBlamePluginView()
     m_showProc.waitForFinished();
 
     m_mainWindow->guiFactory()->removeClient(this);
+}
+
+void KateGitBlamePluginView::documentReloaded()
+{
+    // We need to clear the m_absoluteFilePath as it is used to prevent re-parsing the same blame
+    // in different split views
+    m_absoluteFilePath.clear();
+    m_startBlameTimer.start();
+    m_tooltip.hide();
 }
 
 QPointer<KTextEditor::View> KateGitBlamePluginView::activeView() const

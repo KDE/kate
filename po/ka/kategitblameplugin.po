@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-10-11 09:09+0000\n"
 "PO-Revision-Date: 2023-01-16 06:17+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -45,17 +45,17 @@ msgstr "Git Blame-ის დეტალების ჩვენება"
 msgid "Toggle Git Blame Details"
 msgstr "Git Blame-ის დეტალების გადართვა"
 
-#: kategitblameplugin.cpp:336
+#: kategitblameplugin.cpp:321
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:527
+#: kategitblameplugin.cpp:523
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git Blame. კომიტის ჩვენების შეცდომა."
 
-#: kategitblameplugin.cpp:620
+#: kategitblameplugin.cpp:616
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "ჯერ დაკომიტებული არაა"

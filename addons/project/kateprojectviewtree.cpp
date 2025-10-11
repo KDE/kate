@@ -437,6 +437,43 @@ void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &full
     }
 }
 
+void KateProjectViewTree::scanNewPaths(const QModelIndex &dirIdx, const QList<QUrl> &oldFilePaths)
+{
+    auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
+    auto dirIndex = proxyModel->mapToSource(dirIdx);
+    auto item = m_project->model()->itemFromIndex(dirIndex);
+    if (!item) {
+        return;
+    }
+
+    QString base;
+    if (dirIndex.isValid() && dirIndex.data(KateProjectItem::Directory).toBool()) {
+        base = dirIndex.data(Qt::UserRole).toString();
+    } else {
+        base = m_project->baseDir();
+    }
+
+    for (const auto &path : oldFilePaths) {
+        if (!path.isLocalFile()) {
+            continue;
+        }
+
+        const QString name = path.fileName();
+        const QString fullDirName = base + QLatin1Char('/') + name;
+        QFileInfo fi(fullDirName);
+        if (fi.isFile()) {
+            auto *i = new KateProjectItem(KateProjectItem::File, name, fullDirName);
+            item->appendRow(i);
+        } else if (fi.isDir()) {
+            // If we have a directory then just reload the entire project instead of recursively adding everything.
+            // Not ideal but it matches the drag-and-drop behaviour.
+            m_project->reload(true);
+            return;
+        }
+    }
+    item->sortChildren(0);
+}
+
 void KateProjectViewTree::openTerminal(const QString &dirPath)
 {
     m_pluginView->openTerminal(dirPath, m_project);

@@ -73,6 +73,11 @@ public:
     void removeFile(const QModelIndex &idx, const QString &fullFilePath);
 
     /**
+     * Scan new files that have been moved/copied into a directory
+     */
+    void scanNewPaths(const QModelIndex &dirIdx, const QList<QUrl> &oldFilePaths);
+
+    /**
      * Open project terminal at location dirPath
      */
     void openTerminal(const QString &dirPath);

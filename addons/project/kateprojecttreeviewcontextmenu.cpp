@@ -16,6 +16,8 @@
 
 #include <KAuthorized>
 #include <KIO/OpenFileManagerWindowJob>
+#include <KIO/Paste>
+#include <KIO/PasteJob>
 #include <KLocalizedString>
 #include <KPropertiesDialog>
 #include <KTerminalLauncherJob>
@@ -32,6 +34,7 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QMessageBox>
+#include <QMimeData>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
@@ -90,11 +93,19 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      */
     QAction *copyLocationAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy-path")), i18n("Copy Location"));
 
+    // Copy the file or directory to clipboard
+    QAction *copyAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-copy")), i18nc("@action:inmenu", "Copy"));
+
+    QAction *cutAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-cut")), i18nc("@action:inmenu", "Cut"));
+
     const bool isRootDirectory = !index.isValid();
 
+    QAction *pasteAction = nullptr;
     QAction *addFile = nullptr;
     QAction *addFolder = nullptr;
     if (isRootDirectory || index.data(KateProjectItem::TypeRole).toInt() == KateProjectItem::Directory) {
+        pasteAction = menu.addAction(QIcon::fromTheme(QStringLiteral("edit-paste")), i18nc("@action:inmenu", "Paste"));
+        pasteAction->setEnabled(KIO::canPasteMimeData(QApplication::clipboard()->mimeData()));
         addFile = menu.addAction(QIcon::fromTheme(QStringLiteral("document-new")), i18n("New File…"));
         addFolder = menu.addAction(QIcon::fromTheme(QStringLiteral("folder-new")), i18n("New Folder…"));
     }
@@ -171,6 +182,17 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
     if (QAction *const action = menu.exec(pos)) {
         if (action == copyLocationAction) {
             QApplication::clipboard()->setText(filename);
+        } else if (action == copyAction || action == cutAction) {
+            auto mimeData = new QMimeData;
+            mimeData->setUrls({QUrl::fromLocalFile(filename)});
+            KIO::setClipboardDataCut(mimeData, action == cutAction);
+            QApplication::clipboard()->setMimeData(mimeData);
+        } else if (pasteAction && action == pasteAction) {
+            const auto urls = QApplication::clipboard()->mimeData()->urls();
+            const auto pasteJob = KIO::paste(QApplication::clipboard()->mimeData(), QUrl::fromLocalFile(filename));
+            QObject::connect(pasteJob, &KJob::finished, parent, [parent, index, urls]() {
+                parent->scanNewPaths(index, urls);
+            });
         } else if (terminal && action == terminal) {
             // handle "open terminal here"
             QFileInfo checkFile(filename);

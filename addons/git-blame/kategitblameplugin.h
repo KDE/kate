@@ -91,6 +91,7 @@ private:
 
     void sendMessage(const QString &text, bool error);
 
+    void documentReloaded();
     void startGitBlameForActiveView();
 
     void startBlameProcess(const QUrl &url);

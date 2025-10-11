@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Burkhard Lück <lueck@hube-lueck.de>, 2015, 2016.
-# Frederik Schwarzer <schwarzer@kde.org>, 2016, 2022.
+# SPDX-FileCopyrightText: 2015, 2016 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2016, 2022 Frederik Schwarzer <schwarzer@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"

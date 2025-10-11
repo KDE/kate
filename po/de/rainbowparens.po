@@ -3,8 +3,6 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# Automatically generated, 2023.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: rainbowparens\n"

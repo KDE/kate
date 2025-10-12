@@ -271,10 +271,10 @@
 >La documentazione originale di &kwrite; fu scritta da &Thad.McGinnis; &Thad.McGinnis.mail;, con molte modifiche da &Cristian.Tibirna; &Cristian.Tibirna.mail;. Fu convertita a docbook e riletta da &Lauri.Watts; &Lauri.Watts.mail;, e aggiornata da &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; e &Anders.Lund; &Anders.Lund.mail;. </para>
 
 <para
->La documentazione attuale di &katepart; è responsabilità di &TC.Hollingsworth; &TC.Hollingsworth.mail;. Per piacere, invia i tuoi commenti e suggerimenti alla lista di distribuzione di sviluppo di &katepart; a <email
->kwrite-devel@kde.org</email
-> o apri una richiesta sul <ulink url="https://bugs.kde.org/"
->sistema di tracciamento degli errori di &kde;</ulink
+>La documentazione attuale di &katepart; è mantenuta da &TC.Hollingsworth; &TC.Hollingsworth.mail;. Per richiedere una modifica, per favore compila una segnalazione di bug nel <ulink url="https://bugs.kde.org/"
+>&kde; sistema di tracciamento dei bug</ulink
+>, oppure fornisci una correzione nel <ulink url="https://invent.kde.org/utilities/kate"
+>nostro progetto GitLab</ulink
 >.</para>
 
 <para

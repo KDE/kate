@@ -22,6 +22,7 @@
 #include "katesessionmanager.h"
 #include "ui_sessionconfigwidget.h"
 
+#include <KActionCollection>
 #include <KConfigGroup>
 #include <KLocalization>
 #include <KLocalizedString>
@@ -301,13 +302,35 @@ void KateConfigDialog::addBehaviorPage()
     connect(m_openNewTabInFrontOfCurrent, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
     vbox->addWidget(m_openNewTabInFrontOfCurrent);
 
-    m_cycleThroughTabs = new QCheckBox(
-        i18nc("'Next Tab'/'Previous Tab' is an existing action name. Please use the same text here as it is used in that action's translation",
-              "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous Tab' will not go to first/last tab after reaching the end"),
-        this);
+    auto *cycleTabsLayout = new QGridLayout;
+    cycleTabsLayout->setSpacing(0);
+
+    const auto *actionCollection = m_mainWindow->actionCollection();
+    auto *nextTabAction = actionCollection->action(QStringLiteral("view_next_tab"));
+    auto *previousTabAction = actionCollection->action(QStringLiteral("view_prev_tab"));
+
+    m_cycleThroughTabs = new QCheckBox(i18n("Allow cycling through tabs"), this);
+    m_cycleThroughTabs->setAccessibleDescription(i18nc("If 'Allow cycling through tabs' is disabled.",
+                                                       "If unchecked, the action '%1'/'%2' will not go to first/last tab after reaching the end.",
+                                                       nextTabAction->text().remove(QLatin1Char('&')),
+                                                       previousTabAction->text().remove(QLatin1Char('&'))));
     m_cycleThroughTabs->setChecked(cgGeneral.readEntry("Cycle To First Tab", true));
     connect(m_cycleThroughTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
-    vbox->addWidget(m_cycleThroughTabs);
+    cycleTabsLayout->addWidget(m_cycleThroughTabs, 0, 0, 1, 2);
+
+    // Align explanation label with the checkbox text.
+    const int indicatorAlignmentWidth = style()->pixelMetric(QStyle::PM_IndicatorWidth) + style()->pixelMetric(QStyle::PM_CheckBoxLabelSpacing);
+    auto *cycleTabsSpacer = new QSpacerItem(indicatorAlignmentWidth, 0, QSizePolicy::Fixed, QSizePolicy::Fixed);
+    cycleTabsLayout->addItem(cycleTabsSpacer, 1, 0);
+
+    auto *cycleTabsExplanationLabel = new QLabel(m_cycleThroughTabs->accessibleDescription(), this);
+    cycleTabsExplanationLabel->setWordWrap(true);
+    cycleTabsExplanationLabel->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+    cycleTabsExplanationLabel->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
+    cycleTabsExplanationLabel->setBuddy(m_cycleThroughTabs);
+    cycleTabsLayout->addWidget(cycleTabsExplanationLabel, 1, 1, 1, 1);
+
+    vbox->addLayout(cycleTabsLayout);
 
     layout->addWidget(buttonGroup);
 

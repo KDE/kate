@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "gitblameparser.h"
 #include "gitblametooltip.h"
 
 #include <KTextEditor/InlineNoteProvider>
@@ -28,18 +29,6 @@ enum class KateGitBlameMode {
     SingleLine,
     AllLines,
     Count = AllLines
-};
-
-struct CommitInfo {
-    QByteArrayView hash;
-    QString authorName;
-    QDateTime authorDate;
-    QByteArrayView summary;
-};
-
-struct BlamedLine {
-    QByteArrayView shortCommitHash;
-    QByteArrayView lineText;
 };
 
 class KateGitBlamePluginView;
@@ -83,7 +72,6 @@ public:
     QPointer<KTextEditor::Document> activeDocument() const;
 
     bool hasBlameInfo() const;
-
     const CommitInfo &blameInfo(int lineNr);
 
     void showCommitInfo(const QString &hash, KTextEditor::View *view);
@@ -113,18 +101,12 @@ private:
     void showFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void onErrorOccurred(QProcess::ProcessError e);
 
-    const CommitInfo &blameGetUpdateInfo(int lineNr);
-
     KTextEditor::MainWindow *m_mainWindow;
 
     GitBlameInlineNoteProvider m_inlineNoteProvider;
 
     QProcess m_blameInfoProc;
     QProcess m_showProc;
-
-    QByteArray m_rawCommitData;
-    QHash<QByteArray, CommitInfo> m_blameInfoForHash;
-    std::vector<BlamedLine> m_blamedLines;
 
     QPointer<KTextEditor::View> m_lastView;
     int m_lineOffset{0};
@@ -138,4 +120,6 @@ private:
     QString m_root;
     QString m_ignoreRevsFile;
     QString m_absoluteFilePath;
+
+    KateGitBlameParser m_parser;
 };

@@ -7,6 +7,7 @@ target_sources(
   PRIVATE
     kategitblameplugin.cpp
     gitblametooltip.cpp
+    gitblameparser.cpp
     plugin.qrc
 )
 

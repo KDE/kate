@@ -1,0 +1,25 @@
+c302399967975034e80f28224d515d44c710de69 1 1 7
+author Kåre Särs
+author-mail <kare.sars@iki.fi>
+author-time 1760099738
+author-tz +0300
+committer Kåre Särs
+committer-mail <kare.sars@iki.fi>
+committer-time 1760102421
+committer-tz +0300
+summary Fooo:	Message
+boundary
+filename main.cpp
+	#include <iostream>
+c302399967975034e80f28224d515d44c710de69 2 2
+	
+c302399967975034e80f28224d515d44c710de69 3 3
+	int main(int, char *[])
+c302399967975034e80f28224d515d44c710de69 4 4
+	{
+c302399967975034e80f28224d515d44c710de69 5 5
+	    std::cout << "Hello World!" << std::endl;
+c302399967975034e80f28224d515d44c710de69 6 6
+	    return 0;
+c302399967975034e80f28224d515d44c710de69 7 7
+	}

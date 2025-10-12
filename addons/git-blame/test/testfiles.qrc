@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>test_tab_in_summary.txt</file>
+    </qresource>
+</RCC>

@@ -587,6 +587,6 @@
     <release version="23.08.5" date="2024-02-15"/>
   </releases>
   <custom>
-    <value key="KDE::supporters">Piwix;[Pablo Rauzy](https://pablo.plus/);Alex Gurenko;Kasimir den Hertog;Pokipan</value>
+    <value key="KDE::supporters">.</value>
   </custom>
 </component>

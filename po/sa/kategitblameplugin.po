@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-11 09:09+0000\n"
+"POT-Creation-Date: 2025-10-13 00:45+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
+
+#: gitblameparser.cpp:184
+#, kde-format
+msgid "Not Committed Yet"
+msgstr "अद्यापि प्रतिबद्धः नास्ति"
 
 #: kategitblameplugin.cpp:91
 #, kde-format
@@ -44,20 +49,15 @@ msgstr "Git Blame विवरणं दर्शयतु"
 msgid "Toggle Git Blame Details"
 msgstr "Git दोषविवरणं Toggle कुर्वन्तु"
 
-#: kategitblameplugin.cpp:321
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
 
-#: kategitblameplugin.cpp:523
+#: kategitblameplugin.cpp:395
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "दोषं ददातु, प्रतिबद्धतां दर्शयतु विफलम्।"
-
-#: kategitblameplugin.cpp:616
-#, kde-format
-msgid "Not Committed Yet"
-msgstr "अद्यापि प्रतिबद्धः नास्ति"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

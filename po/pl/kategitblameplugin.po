@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-11 09:09+0000\n"
+"POT-Creation-Date: 2025-10-13 00:45+0000\n"
 "PO-Revision-Date: 2022-06-26 20:58+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+
+#: gitblameparser.cpp:184
+#, kde-format
+msgid "Not Committed Yet"
+msgstr "Jeszcze niewdrożone"
 
 #: kategitblameplugin.cpp:91
 #, kde-format
@@ -44,20 +49,15 @@ msgstr "Pokaż szczegóły Git Blame"
 msgid "Toggle Git Blame Details"
 msgstr "Przełącz szczegóły Git Blame"
 
-#: kategitblameplugin.cpp:321
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:523
+#: kategitblameplugin.cpp:395
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Nie udało się wykonać Git blame, show commit."
-
-#: kategitblameplugin.cpp:616
-#, kde-format
-msgid "Not Committed Yet"
-msgstr "Jeszcze niewdrożone"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

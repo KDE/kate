@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-11 09:09+0000\n"
+"POT-Creation-Date: 2025-10-13 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 11:09+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -17,6 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
+
+#: gitblameparser.cpp:184
+#, kde-format
+msgid "Not Committed Yet"
+msgstr "لم تودع بعد"
 
 #: kategitblameplugin.cpp:91
 #, kde-format
@@ -45,20 +50,15 @@ msgstr "أظهر تفاصيل غت بلام"
 msgid "Toggle Git Blame Details"
 msgstr "بدّل حالة تفاصيل غيت بلام"
 
-#: kategitblameplugin.cpp:321
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "غت"
 
-#: kategitblameplugin.cpp:523
+#: kategitblameplugin.cpp:395
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "غت بلام، فشل إظهار الإيداع."
-
-#: kategitblameplugin.cpp:616
-#, kde-format
-msgid "Not Committed Yet"
-msgstr "لم تودع بعد"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

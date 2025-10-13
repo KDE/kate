@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-11 09:09+0000\n"
+"POT-Creation-Date: 2025-10-13 00:45+0000\n"
 "PO-Revision-Date: 2024-01-12 21:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.4\n"
+
+#: gitblameparser.cpp:184
+#, kde-format
+msgid "Not Committed Yet"
+msgstr "Nincs még véglegesítve"
 
 #: kategitblameplugin.cpp:91
 #, kde-format
@@ -44,20 +49,15 @@ msgstr "Git gyanúsítás részleteinek megjelenítése"
 msgid "Toggle Git Blame Details"
 msgstr "Git gyanúsítás részletei be/ki"
 
-#: kategitblameplugin.cpp:321
+#: kategitblameplugin.cpp:332
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:523
+#: kategitblameplugin.cpp:395
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git gyanúsítás, véglegesítés megjelenítése sikertelen."
-
-#: kategitblameplugin.cpp:616
-#, kde-format
-msgid "Not Committed Yet"
-msgstr "Nincs még véglegesítve"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

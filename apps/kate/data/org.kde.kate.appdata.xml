@@ -1480,7 +1480,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
   </provides>
   <custom>
     <value key="KDE::windows_store">https://apps.microsoft.com/detail/9NWMW7BB59HW</value>
-    <value key="KDE::supporters">Dr. Denis Stogl;Vladimir Solomatin;Akseli Lahtinen;Tjelta Meihack;Nithanim</value>
+    <value key="KDE::supporters">.</value>
   </custom>
   <content_rating type="oars-1.1"/>
   <branding>

@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-09-21 07:29-0300\n"
+"PO-Revision-Date: 2025-10-13 08:41-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -1247,23 +1247,17 @@ msgstr "Se desmarcado, a nova aba será aberta no final."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Permitir a navegação pelas abas"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Permitir a navegação entre as abas. Se desmarcada, a ação 'Próxima Aba'/'Aba "
-"Anterior' não levará à primeira/última aba após atingir o final."
+"Se desmarcado, a ação '%1'/'%2' não irá para a primeira/última aba após "
+"chegar ao final."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

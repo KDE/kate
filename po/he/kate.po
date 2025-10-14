@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-10-05 11:35+0300\n"
+"PO-Revision-Date: 2025-10-13 09:01+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1235,23 +1235,17 @@ msgstr "אם האפשרות לא סומנה הלשונית החדשה תיפתח
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "לאפשר לעבור בין הלשוניות באופן מעגלי"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"לאפשר מעבר בלולאה על לשוניות. אם האפשרות לא מסומנת, הפעולה ‚הלשונית הבאה’/"
-"‚הלשונית הקודמת’ לא תעבור ללשונית הראשונה/אחרונה אחרי הגעה לסוף."
+"אם האפשרות לא מסומנת, הפעולה ‚%1’/‚%2’ לא תעבור ללשונית הראשונה/אחרונה אחרי "
+"שמגיעים לסוף."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

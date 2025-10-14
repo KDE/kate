@@ -29,17 +29,16 @@ static const QRegularExpression &httplinkRE()
     return re;
 }
 
-static void adjustMDLink(const QString &line, int capturedStart, int &capturedEnd)
+static void adjustLink(QString &link)
 {
-    if (capturedStart > 1) { // at least two chars before
-        int i = capturedStart - 1;
-        // for markdown [asd](google.com) style urls, make sure to strip last `)`
-        bool isMD = line.at(i - 1) == QLatin1Char(']') && line.at(i) == QLatin1Char('(');
-        if (isMD) {
-            int f = line.lastIndexOf(QLatin1Char(')'), capturedEnd >= line.size() ? line.size() - 1 : capturedEnd);
-            capturedEnd = f != -1 ? f : capturedEnd;
-        }
-    }
+    // fixup links like:
+    // [ccc](https://cullmann.dev)
+    // Visit 'https://cullmann.dev'
+    // Visit "https://cullmann.dev"
+    // The web site https://cullmann.dev.
+    // <https://cullmann.dev>
+    static const QRegularExpression skipSpecial(QStringLiteral("[)'\".>]$"));
+    link.replace(skipSpecial, QString());
 }
 
 static KTextEditor::Cursor parseLineCol(QStringView &link)
@@ -198,10 +197,12 @@ static void matchFilePaths(const QString &line, std::vector<OpenLinkRange> *outC
         while (it.hasNext()) {
             auto match = it.next();
             if (match.hasMatch()) {
-                int capturedEnd = match.capturedEnd();
-                adjustMDLink(line, match.capturedStart(), capturedEnd);
-                QString link = line.mid(match.capturedStart(), capturedEnd);
-                outColumnRanges->push_back({.start = (int)match.capturedStart(), .end = capturedEnd, .link = link, .type = HttpLink});
+                QString link = match.captured();
+                adjustLink(link);
+                if (!link.isEmpty()) {
+                    outColumnRanges->push_back(
+                        {.start = int(match.capturedStart()), .end = int(match.capturedStart() + link.size()), .link = link, .type = HttpLink});
+                }
             }
         }
     }

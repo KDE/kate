@@ -52,7 +52,7 @@ QList<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
         return QList<int>();
     }
 
-    QPointer<KTextEditor::Document> doc = m_pluginView->activeDocument();
+    KTextEditor::Document *doc = m_pluginView->activeDocument();
     if (!doc) {
         return QList<int>();
     }
@@ -62,7 +62,7 @@ QList<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     }
 
     int lineLen = doc->line(line).size();
-    QPointer<KTextEditor::View> view = m_pluginView->activeView();
+    KTextEditor::View *view = m_pluginView->activeView();
     if (view->cursorPosition().line() == line || m_mode == KateGitBlameMode::AllLines) {
         return QList<int>{lineLen + 4};
     }
@@ -243,12 +243,12 @@ void KateGitBlamePluginView::documentReloaded()
     m_tooltip.hide();
 }
 
-QPointer<KTextEditor::View> KateGitBlamePluginView::activeView() const
+KTextEditor::View *KateGitBlamePluginView::activeView() const
 {
     return m_mainWindow->activeView();
 }
 
-QPointer<KTextEditor::Document> KateGitBlamePluginView::activeDocument() const
+KTextEditor::Document *KateGitBlamePluginView::activeDocument() const
 {
     KTextEditor::View *view = m_mainWindow->activeView();
     if (view && view->document()) {

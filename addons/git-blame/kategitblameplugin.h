@@ -68,8 +68,8 @@ public:
     KateGitBlamePluginView(KateGitBlamePlugin *plugin, KTextEditor::MainWindow *mainwindow);
     ~KateGitBlamePluginView() override;
 
-    QPointer<KTextEditor::View> activeView() const;
-    QPointer<KTextEditor::Document> activeDocument() const;
+    KTextEditor::View *activeView() const;
+    KTextEditor::Document *activeDocument() const;
 
     bool hasBlameInfo() const;
     const CommitInfo &blameInfo(int lineNr);

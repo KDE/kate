@@ -204,12 +204,13 @@ KateGitBlamePluginView::KateGitBlamePluginView(KateGitBlamePlugin *plugin, KText
     m_startBlameTimer.setInterval(400);
     m_startBlameTimer.callOnTimeout(this, &KateGitBlamePluginView::startGitBlameForActiveView);
 
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this](KTextEditor::View *) {
-        connect(activeDocument(),
-                &KTextEditor::Document::reloaded, //
-                this,
-                &KateGitBlamePluginView::documentReloaded,
-                Qt::UniqueConnection);
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, [this]() {
+        if (!activeView()) {
+            return;
+        }
+
+        QObject::disconnect(m_documentReloadConnection);
+        m_documentReloadConnection = connect(activeDocument(), &KTextEditor::Document::reloaded, this, &KateGitBlamePluginView::documentReloaded);
         m_startBlameTimer.start();
         m_tooltip.hide();
     });

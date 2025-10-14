@@ -123,4 +123,5 @@ private:
     QString m_absoluteFilePath;
 
     KateGitBlameParser m_parser;
+    QMetaObject::Connection m_documentReloadConnection;
 };

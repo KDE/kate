@@ -9,7 +9,7 @@
 
 static bool operator==(OpenLinkRange l, OpenLinkRange r)
 {
-    return l.start == r.start && l.end == r.end && l.type == r.type;
+    return l.start == r.start && l.end == r.end && l.type == r.type && l.link == r.link;
 }
 
 class LinkMatchTest : public QObject
@@ -87,6 +87,25 @@ private Q_SLOTS:
 
         t = QLatin1String("Text has filepath: \"%1:13:25:\" ").arg(filePath);
         QTest::addRow("16") << t << R{OpenLinkRange{.start = 20, .end = (20 + fileLen + 7), .link = filePath, .startPos = {13, 25}, .type = FileLink}};
+
+        QTest::addRow("17") << QStringLiteral("[ccc](https://cullmann.dev)")
+                            << R{OpenLinkRange{.start = 6, .end = 26, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink}};
+
+        QTest::addRow("18") << QStringLiteral("Visit 'https://cullmann.dev'")
+                            << R{OpenLinkRange{.start = 7, .end = 27, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink}};
+
+        QTest::addRow("19") << QStringLiteral("Visit \"https://cullmann.dev\"")
+                            << R{OpenLinkRange{.start = 7, .end = 27, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink}};
+
+        QTest::addRow("20") << QStringLiteral("The web site https://cullmann.dev.")
+                            << R{OpenLinkRange{.start = 13, .end = 33, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink}};
+
+        QTest::addRow("21") << QStringLiteral("<https://cullmann.dev>")
+                            << R{OpenLinkRange{.start = 1, .end = 21, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink}};
+
+        QTest::addRow("22") << QStringLiteral("<https://cullmann.dev> xxx <https://hello.dev>")
+                            << R{OpenLinkRange{.start = 1, .end = 21, .link = QStringLiteral("https://cullmann.dev"), .type = HttpLink},
+                                 OpenLinkRange{.start = 28, .end = 45, .link = QStringLiteral("https://hello.dev"), .type = HttpLink}};
     }
 
     void test()

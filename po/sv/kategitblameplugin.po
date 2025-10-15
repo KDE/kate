@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:45+0000\n"
+"POT-Creation-Date: 2025-10-15 00:46+0000\n"
 "PO-Revision-Date: 2022-05-04 18:37+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -49,12 +49,12 @@ msgstr "Visa detaljinformation för Git klandra"
 msgid "Toggle Git Blame Details"
 msgstr "Visa eller dölj detaljinformation för Git klandra"
 
-#: kategitblameplugin.cpp:332
+#: kategitblameplugin.cpp:333
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: kategitblameplugin.cpp:395
+#: kategitblameplugin.cpp:396
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr "Git klandra, visa arkivering misslyckades."

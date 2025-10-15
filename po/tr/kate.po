@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-09-21 19:05+0300\n"
+"PO-Revision-Date: 2025-10-14 15:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1241,23 +1241,16 @@ msgstr "İşaretlenmemişse yeni sekme sonda açılır."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Sekmeler arasında sırasıyla geçiş yapmaya izin ver"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Sekmeler arasında sırasıyla geçiş yapmaya izin verin. İşaretli değilse "
-"“Sonraki Sekme”/“Önceki Sekme” seçenekleri, sona ulaştıktan sonra ilk/son "
+"İşaretli değilse “%1”/“%2” seçenekleri, sona ulaştıktan sonra ilk/son "
 "sekmeye gitmez."
 
 #: lib/kateconfigdialog.cpp:337

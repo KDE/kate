@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:45+0000\n"
+"POT-Creation-Date: 2025-10-15 00:46+0000\n"
 "PO-Revision-Date: 2023-11-06 00:53+0100\n"
 "Last-Translator: Enol P. <enolp@softastur.org>\n"
 "Language-Team: \n"
@@ -49,12 +49,12 @@ msgstr ""
 msgid "Toggle Git Blame Details"
 msgstr ""
 
-#: kategitblameplugin.cpp:332
+#: kategitblameplugin.cpp:333
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: kategitblameplugin.cpp:395
+#: kategitblameplugin.cpp:396
 #, kde-format
 msgid "Git blame, show commit failed."
 msgstr ""

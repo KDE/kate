@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-05-12 14:41+0200\n"
+"PO-Revision-Date: 2025-10-14 17:29+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -568,11 +568,10 @@ msgid "No differences found"
 msgstr "On trovava nulle differentias"
 
 #: lib/filehistorywidget.cpp:247
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Hash invalide"
+msgstr "Data invalide: %1"
 
 #: lib/filehistorywidget.cpp:469
 #, kde-format
@@ -2608,22 +2607,19 @@ msgstr[1] ""
 "documentos aperite, commuta al vista de aperir rapide per pulsar hic."
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Claude scheda"
+msgstr "&Claude scheda"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Claude  alteres"
+msgstr "Cla&ude altere schedas"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Claude omne"
+msgstr "Claude omne sc&hedas"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format

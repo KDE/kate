@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-09-22 20:13+0400\n"
+"PO-Revision-Date: 2025-10-15 21:05+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1236,24 +1236,17 @@ msgstr "لم يؤشر سيفتح اللسان الجديد في النهاية"
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "اسمح بتنقل بين الألسنة."
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"السماح بالتنقل بين الألسنة. إذا لم يحدد هذا المربع، فلن ينتقل الإجراء "
-"\"اللسان التالي\"/\"اللسان السابق\" إلى اللسان الأول/الأخير بعد الوصول إلى "
-"النهاية"
+"إذا لم يُحدد، فلن تنتقل الإجراء ”%1“/”%2“ إلى اللسان الأول/الأخير بعد الوصول "
+"إلى النهاية."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

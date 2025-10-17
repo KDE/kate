@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Format using an external tool when the file is saved",
+        "Description[ar]": "نسّق الملف باستخدام أداة خارجية عند حفظه",
         "Description[bg]": "Форматиране с помощта на външен инструмент при запазване на файла",
         "Description[ca@valencia]": "Dona format utilitzant una eina externa quan es guarde el fitxer",
         "Description[ca]": "Dona format usant una eina externa quan es desi el fitxer",

@@ -143,6 +143,10 @@
             "url": "https://github.com/microsoft/vscode/tree/main/extensions/json-language-features/server",
             "highlightingModeRegex": "^JSON$"
         },
+        "jsonc": {
+            "use": "json",
+            "highlightingModeRegex": "^JSONC$"
+        },
         "julia": {
             "command": ["julia", "-e", "using LanguageServer; runserver();"],
             "root": ".",

@@ -3,6 +3,11 @@
     "formatterForJson": "jq",
     "formatterForPython": "ruff",
     "formatterForYaml": "yamlfmt",
+    "autopep8": {
+        "command": [
+            "autopep8"
+        ]
+    },
     "clang-format": {
         "command": [
             "clang-format",
@@ -10,54 +15,14 @@
         ],
         "formatOnSave": true
     },
-    "dart": {
-        "command": [
-            "dart"
-        ]
-    },
-    "jq": {
-        "command": [
-            "jq"
-        ]
-    },
-    "prettier": {
-        "command": [
-            "node"
-        ]
-    },
-    "rustfmt": {
-        "command": [
-            "rustfmt"
-        ]
-    },
-    "xmllint": {
-        "command": [
-            "xmllint"
-        ]
-    },
-    "gofmt": {
-        "command": [
-            "gofmt"
-        ]
-    },
-    "zig": {
-        "command": [
-            "zig"
-        ]
-    },
     "cmake-format": {
         "command": [
             "cmake-format"
         ]
     },
-    "autopep8": {
+    "dart": {
         "command": [
-            "autopep8"
-        ]
-    },
-    "ruff": {
-        "command": [
-            "ruff"
+            "dart"
         ]
     },
     "dfmt": {
@@ -65,14 +30,31 @@
             "dfmt"
         ]
     },
+    "erlfmt": {
+        "command": [
+            "erlfmt",
+            "-"
+        ]
+    },
     "fish_indent": {
         "command": [
             "fish_indent"
         ]
     },
-    "shfmt": {
+    "gdformat": {
         "command": [
-            "shfmt"
+            "gdformat",
+            "-"
+        ]
+    },
+    "gofmt": {
+        "command": [
+            "gofmt"
+        ]
+    },
+    "jq": {
+        "command": [
+            "jq"
         ]
     },
     "nixfmt": {
@@ -80,9 +62,50 @@
             "nixfmt"
         ]
     },
+    "odinfmt": {
+        "command": [
+            "odinfmt"
+        ]
+    },
+    "opsi-script-beautifier": {
+        "command": [
+            "opsi-script-beautifier",
+            "-s"
+        ]
+    },
+    "prettier": {
+        "command": [
+            "node"
+        ]
+    },
     "qmlformat": {
         "command": [
             "qmlformat"
+        ]
+    },
+    "ruff": {
+        "command": [
+            "ruff"
+        ]
+    },
+    "rustfmt": {
+        "command": [
+            "rustfmt"
+        ]
+    },
+    "shfmt": {
+        "command": [
+            "shfmt"
+        ]
+    },
+    "swiftformat": {
+        "command": [
+            "swiftformat"
+        ]
+    },
+    "xmllint": {
+        "command": [
+            "xmllint"
         ]
     },
     "yamlfmt": {
@@ -94,32 +117,9 @@
             "-"
         ]
     },
-    "opsi-script-beautifier": {
+    "zig": {
         "command": [
-            "opsi-script-beautifier",
-            "-s"
-        ]
-    },
-    "odinfmt": {
-        "command": [
-            "odinfmt"
-        ]
-    },
-    "swiftformat": {
-        "command": [
-            "swiftformat"
-        ]
-    },
-    "erlfmt": {
-        "command": [
-            "erlfmt",
-            "-"
-        ]
-    },
-    "gdformat": {
-        "command": [
-            "gdformat",
-            "-"
+            "zig"
         ]
     }
 }

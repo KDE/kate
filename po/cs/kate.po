@@ -1211,20 +1211,12 @@ msgid "Allow cycling through tabs"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Povolit cyklování přes karty. Pokud není zatrženo, akce Další karta/"
-"Předchozí karta nepůjdou na první/poslední kartu poté, co dojdou na konec"
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

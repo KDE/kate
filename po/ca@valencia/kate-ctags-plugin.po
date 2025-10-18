@@ -3,9 +3,9 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Manuel Tortosa <manutortosa@chakra-project.org>, 2009, 2010.
-# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2012, 2014, 2015, 2018, 2020, 2021, 2022, 2023.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014, 2015, 2020, 2021.
+# SPDX-FileCopyrightText: 2009, 2010 Manuel Tortosa <manutortosa@chakra-project.org>
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2014, 2015, 2018, 2020, 2021, 2022, 2023 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2014, 2015, 2020, 2021 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -437,7 +437,7 @@ msgstr "(Re)genera la base de dades de CTags específica de la sessió."
 #: kate_ctags_view.cpp:126
 #, kde-format
 msgid "Select new or existing database file."
-msgstr "Seleccioneu un fitxer de base de dades nou o existent."
+msgstr "Trieu un fitxer de base de dades nou o existent."
 
 #: kate_ctags_view.cpp:142
 #, kde-format

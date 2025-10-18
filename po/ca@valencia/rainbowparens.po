@@ -3,7 +3,7 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2023.
+# SPDX-FileCopyrightText: 2023 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
@@ -22,8 +22,7 @@ msgstr ""
 #: rainbowparens_plugin.cpp:475
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
-msgstr ""
-"Seleccioneu els colors que s'utilitzaran per a donar color als parèntesis:"
+msgstr "Trieu els colors que s'utilitzaran per a donar color als parèntesis:"
 
 #: rainbowparens_plugin.cpp:495
 #, kde-format

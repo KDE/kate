@@ -3,10 +3,10 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Manuel Tortosa <manutortosa@gmail.com>, 2009.
-# Manuel Tortosa Moreno <manutortosa@gmail.com>, 2009.
-# Josep M. Ferrer <txemaq@gmail.com>, 2010, 2011, 2015, 2017, 2020.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2014.
+# SPDX-FileCopyrightText: 2009 Manuel Tortosa <manutortosa@gmail.com>
+# SPDX-FileCopyrightText: 2009 Manuel Tortosa Moreno <manutortosa@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2011, 2015, 2017, 2020 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2014 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

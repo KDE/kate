@@ -70,9 +70,9 @@
             "highlightingModeRegex": "^Elm$"
         },
         "fish": {
-                    "command": ["fish-lsp", "start"],
-                    "url": "https://github.com/ndonfris/fish-lsp",
-                    "highlightingModeRegex": "^fish$"
+            "command": ["fish-lsp", "start"],
+            "url": "https://github.com/ndonfris/fish-lsp",
+            "highlightingModeRegex": "^fish$"
         },
         "fortran": {
             "command": ["fortls"],

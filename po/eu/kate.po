@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-09-21 09:52+0200\n"
+"PO-Revision-Date: 2025-10-18 16:32+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -1247,24 +1247,17 @@ msgstr "Markatu gabe badago, fitxa berria amaieran irekiko da."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Fitxen artean zikloa egiteko aukera eman"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Fitxen arteko ibilbide ziklikoa baimendu. Markatzeke badago, bukaerara "
-"iritsita, 'Hurrengo fitxa'/'Aurreko fitxa' ekintzek ez dute eramango "
-"lehenengo/azken fitxara"
+"Markatu gabe badago, '%1/%2' ekintza ez da amaierara iristean aurreneko/"
+"azken fitxara joango."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

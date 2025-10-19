@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-13 00:45+0000\n"
-"PO-Revision-Date: 2025-09-19 18:12+0300\n"
+"PO-Revision-Date: 2025-10-15 21:06+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1021,19 +1021,15 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
 "Luettelo %1-merkillä erotetuista kansioista, joista Kate etsii suoritettavia "
-"ohjelmia. Luettelo lisätään PATH-ympäristömuuttujasi alkuun. Esim. ”/home/"
-"KÄYTTÄJÄ/omatohjelmat/bin/:/home/KÄYTTÄJÄ/.local/bin”."
+"ohjelmia. Luettelo lisätään PATH-ympäristömuuttujan alkuun. Esim. ”/home/"
+"TUNNUS/omatohjelmat/bin/:/home/TUNNUS/.local/bin”."
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1250,24 +1246,17 @@ msgstr "Ellei valittu, uusi välilehti avataan loppuun."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Salli välilehdissä kiertäminen"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Salli välilehtien kiertäminen. Jos on valitsematta, ”Seuraava välilehti” ja "
-"”Edellinen välilehti” eivät kierrä ensimmäiseen tai viimeiseen välilehteen "
-"loppuun tai alkuun päästyään"
+"Ellei ole valittu, toiminto ”%1” tai ”%2” ei siirry ensimmäiseen tai "
+"viimeiseen välilehteen lopun saavutettuaan."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format
@@ -2608,20 +2597,17 @@ msgstr[1] ""
 "avausnäkymään painamalla tästä."
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Sulje välilehti"
+msgstr "Sul&je välilehti"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close &Other Tabs"
+#, kde-format
 msgid "Close &Other Tabs"
 msgstr "Sulje &muut välilehdet"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close &All Tabs"
+#, kde-format
 msgid "Close All &Tabs"
 msgstr "Sulje k&aikki välilehdet"
 

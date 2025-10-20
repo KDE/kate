@@ -6,6 +6,8 @@
         "Description[ca@valencia]": "Dona format utilitzant una eina externa quan es guarde el fitxer",
         "Description[ca]": "Dona format usant una eina externa quan es desi el fitxer",
         "Description[es]": "Formatear con una herramienta externa al guardar el archivo",
+        "Description[eu]": "Eman formatua gordetzean kanpoko tresna bat erabiliz",
+        "Description[fi]": "Muotoile tiedostoa tallennettaessa ulkoisella työkalulla",
         "Description[he]": "לעצב/לסדר עם כלי חיצוני בעת שמירת הקובץ",
         "Description[ia]": "Fornatta usante un instrumento externe quando le file es salveguardate",
         "Description[it]": "Formatta usando uno strumento esterno quando il file è stato salvato",

@@ -176,7 +176,7 @@ static const rapidjson::Value &GetJsonArrayForKey(const rapidjson::Value &v, std
 
 static QJsonValue encodeUrl(const QUrl &url)
 {
-    return QJsonValue(QLatin1String(urlTransform(url, true).toEncoded()));
+    return QJsonValue(QString::fromUtf8(urlTransform(url, true).toEncoded()));
 }
 
 // message construction helpers
@@ -1816,7 +1816,7 @@ private:
         auto root = mapPath(m_root, true);
         QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
                            {QStringLiteral("rootPath"), root.isValid() ? root.toLocalFile() : QJsonValue()},
-                           {QStringLiteral("rootUri"), root.isValid() ? root.toString() : QJsonValue()},
+                           {QStringLiteral("rootUri"), root.isValid() ? QJsonValue(QString::fromUtf8(root.toEncoded())) : QJsonValue()},
                            {QStringLiteral("capabilities"), capabilities},
                            {QStringLiteral("initializationOptions"), m_init}};
         // only add new style workspaces init if so specified

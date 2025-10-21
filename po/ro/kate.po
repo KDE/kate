@@ -1,7 +1,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Claudiu Costin <claudiuc@kde.org>, 2002,2003, 2004, 2005.
-# Sergiu Bivol <sergiu@cip.md>, 2008, 2009, 2011, 2012, 2013, 2014, 2020, 2022, 2023.
+# SPDX-FileCopyrightText: 2008, 2009, 2011, 2012, 2013, 2014, 2020, 2022, 2023, 2025 Sergiu Bivol <sergiu@cip.md>
 # Florin Cătălin RUSSEN <cfrussen@yahoo.co.uk>, 2011.
 # Cristian Oneț <onet.cristian@gmail.com>, 2011.
 #
@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-01 02:39+0000\n"
-"PO-Revision-Date: 2023-06-18 19:22+0100\n"
+"PO-Revision-Date: 2025-10-20 11:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -43,10 +43,9 @@ msgid "Kate - Advanced Text Editor"
 msgstr "Kate - Un editor de text avansat"
 
 #: kate/main.cpp:123 kwrite/main.cpp:50
-#, fuzzy, kde-format
-#| msgid "(c) 2000-2019 The Kate Authors"
+#, kde-format
 msgid "(c) 2000-2024 The Kate Authors"
-msgstr "(c) 2000-2019 Autorii Kate"
+msgstr "(c) 2000-2024 Autorii Kate"
 
 #: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:217
 #, kde-format
@@ -148,16 +147,14 @@ msgid "[urls...]"
 msgstr "[url-uri...]"
 
 #: kwrite/main.cpp:46
-#, fuzzy, kde-format
-#| msgid "KWrite Author"
+#, kde-format
 msgid "KWrite"
-msgstr "Autor KWrite"
+msgstr "KWrite"
 
 #: kwrite/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Kate - Advanced Text Editor"
+#, kde-format
 msgid "KWrite - Text Editor"
-msgstr "Kate - Un editor de text avansat"
+msgstr "KWrite - Redactor de text"
 
 #: lib/commitfilesview.cpp:410 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
@@ -166,16 +163,15 @@ msgid "Open File"
 msgstr "Deschide fișier"
 
 #: lib/commitfilesview.cpp:416 lib/katemainwindow.cpp:440
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy Location"
-msgstr "Amplasare"
+msgstr "Copiază amplasarea"
 
 #: lib/commitfilesview.cpp:438 lib/commitfilesview.cpp:534
 #: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:412
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: lib/commitfilesview.cpp:534
 #, kde-format
@@ -185,14 +181,13 @@ msgstr ""
 #: lib/commitfilesview.cpp:540 lib/filehistorywidget.cpp:412
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
-msgstr ""
+msgstr "%1 nu există într-un depozit git."
 
 #: lib/commitfilesview.cpp:555
-#, fuzzy, kde-format
-#| msgid "Comment"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
-msgstr "Comentariu"
+msgstr "Comitere %1"
 
 #. i18n: ectx: Menu (file)
 #: lib/data/kateui.rc:6
@@ -202,10 +197,9 @@ msgstr "&Fișier"
 
 #. i18n: ectx: Menu (file_file_actions)
 #: lib/data/kateui.rc:31
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "File Act&ions"
-msgstr "Acțiuni"
+msgstr "Acț&iuni fișier"
 
 #. i18n: ectx: Menu (edit)
 #: lib/data/kateui.rc:45
@@ -215,16 +209,15 @@ msgstr "&Editare"
 
 #. i18n: ectx: Menu (selection)
 #: lib/data/kateui.rc:56
-#, fuzzy, kde-format
-#| msgid "Actions"
+#, kde-format
 msgid "Sele&ction"
-msgstr "Acțiuni"
+msgstr "Sele&cție"
 
 #. i18n: ectx: Menu (go)
 #: lib/data/kateui.rc:59
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Go"
-msgstr "&Mergi"
+msgstr "Mer&gi"
 
 #. i18n: ectx: Menu (view)
 #: lib/data/kateui.rc:75
@@ -248,10 +241,9 @@ msgstr "Unel&te"
 #. i18n: ectx: Menu (tools)
 #: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
 #: lib/diagnostics/ui.rc:8
-#, fuzzy, kde-format
-#| msgid "List View"
+#, kde-format
 msgid "Diagnostics View"
-msgstr "Vizualizare listă"
+msgstr "Vizualizare diagnostice"
 
 #. i18n: ectx: Menu (settings)
 #: lib/data/kateui.rc:133
@@ -275,7 +267,7 @@ msgstr "Bara de unelte principală"
 #: lib/data/kateui.rc:163
 #, kde-format
 msgid "Hamburger Menu Toolbar"
-msgstr ""
+msgstr "Bară de unelte cu meniu hamburgher"
 
 #. i18n: ectx: Menu (viewspace_popup_statusbar)
 #: lib/data/kateui.rc:177
@@ -290,11 +282,13 @@ msgid ""
 "Error in regular expression: %1\n"
 "offset %2: %3"
 msgstr ""
+"Eroare în expresia regulată: %1\n"
+"decalaj %2: %3"
 
 #: lib/diagnostics/diagnosticview.cpp:62
 #, kde-format
 msgid "All"
-msgstr ""
+msgstr "Toate"
 
 #: lib/diagnostics/diagnosticview.cpp:298
 #, kde-format
@@ -302,76 +296,71 @@ msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
+"A fost atinsă limita diagnosticelor, se ignoră cele ulterioare. Limita poate "
+"fi stabilită în configurări."
 
 #: lib/diagnostics/diagnosticview.cpp:341
-#, fuzzy, kde-format
-#| msgid "List View"
+#, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
-msgstr "Vizualizare listă"
+msgstr "Vizualizare diagnostice"
 
 #: lib/diagnostics/diagnosticview.cpp:346
-#, fuzzy, kde-format
-#| msgid "&Quick Open"
+#, kde-format
 msgid "Quick Fix"
-msgstr "&Deschide rapid"
+msgstr "Corectare rapidă"
 
 #: lib/diagnostics/diagnosticview.cpp:352
-#, fuzzy, kde-format
-#| msgid "&Next Tab"
+#, kde-format
 msgid "Next Item"
-msgstr "Fila &următoare"
+msgstr "Elementul următor"
 
 #: lib/diagnostics/diagnosticview.cpp:358
-#, fuzzy, kde-format
-#| msgid "&Previous Tab"
+#, kde-format
 msgid "Previous Item"
-msgstr "Fila &precedentă"
+msgstr "Elementul precedent"
 
 #: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Clear Diagnostics Filter"
-msgstr ""
+msgstr "Curăță filtrul de diagnostice"
 
 #: lib/diagnostics/diagnosticview.cpp:376
 #, kde-format
 msgid "Show Hover Info"
-msgstr ""
+msgstr "Arată informații la planare"
 
 #: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:370
 #, kde-format
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnosticare"
 
 #: lib/diagnostics/diagnosticview.cpp:481
 #, kde-format
 msgid "Errors"
-msgstr ""
+msgstr "Erori"
 
 #: lib/diagnostics/diagnosticview.cpp:497
-#, fuzzy, kde-format
-#| msgid "Warning"
+#, kde-format
 msgid "Warnings"
-msgstr "Avertisment"
+msgstr "Avertismente"
 
 #: lib/diagnostics/diagnosticview.cpp:511
 #: lib/kateconfigplugindialogpage.cpp:109
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Filtru:"
+msgstr "Filtrează…"
 
 #: lib/diagnostics/diagnosticview.cpp:517
-#, fuzzy, kde-format
-#| msgid "List View"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
-msgstr "Vizualizare listă"
+msgstr "Șterge diagnosticele"
 
 #: lib/diagnostics/diagnosticview.cpp:1149 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: lib/diagnostics/diagnosticview.cpp:1153 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:786
@@ -380,70 +369,65 @@ msgid "Warning"
 msgstr "Avertisment"
 
 #: lib/diagnostics/diagnosticview.cpp:1157
-#, fuzzy, kde-format
-#| msgid "Meta-Information"
+#, kde-format
 msgid "Information"
-msgstr "Metainformații"
+msgstr "Informații"
 
 #: lib/diagnostics/diagnosticview.cpp:1285
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
-msgstr ""
+msgstr "%1 [suprimat: %2]"
 
 #: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Expand All"
-msgstr ""
+msgstr "Desfășoară tot"
 
 #: lib/diagnostics/diagnosticview.cpp:1436
-#, fuzzy, kde-format
-#| msgid "Clos&e All"
+#, kde-format
 msgid "Collapse All"
-msgstr "În&chide tot"
+msgstr "Restrânge tot"
 
 #: lib/diagnostics/diagnosticview.cpp:1442
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Copiază în clipboard"
 
 #: lib/diagnostics/diagnosticview.cpp:1484
 #, kde-format
 msgid "Remove Global Suppression"
-msgstr ""
+msgstr "Elimină suprimarea globală"
 
 #: lib/diagnostics/diagnosticview.cpp:1486
-#, fuzzy, kde-format
-#| msgid "Sess&ions"
+#, kde-format
 msgid "Add Global Suppression"
-msgstr "Ses&iuni"
+msgstr "Adaugă suprimare globală"
 
 #: lib/diagnostics/diagnosticview.cpp:1490
 #, kde-format
 msgid "Remove Local Suppression"
-msgstr ""
+msgstr "Elimină suprimarea locală"
 
 #: lib/diagnostics/diagnosticview.cpp:1492
 #, kde-format
 msgid "Add Local Suppression"
-msgstr ""
+msgstr "Adaugă suprimare locală"
 
 #: lib/diagnostics/diagnosticview.cpp:1507
-#, fuzzy, kde-format
-#| msgid "Filter Sessions"
+#, kde-format
 msgid "Disable Suppression"
-msgstr "Filtrare sesiuni"
+msgstr "Dezactivează suprimarea"
 
 #: lib/diagnostics/diagnosticview.cpp:1509
-#, fuzzy, kde-format
-#| msgid "Manage Sessions"
+#, kde-format
 msgid "Enable Suppression"
-msgstr "Gestionează sesiunile"
+msgstr "Activează suprimarea"
 
 #: lib/diff/diffeditor.cpp:195
 #, kde-format
 msgid "Change Style"
-msgstr ""
+msgstr "Schimbă stilul"
 
 #: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:350
 #, kde-format
@@ -451,21 +435,19 @@ msgid "Side By Side"
 msgstr ""
 
 #: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:351
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "Unified"
-msgstr "Modificat"
+msgstr "Unificat"
 
 #: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:352
 #, kde-format
 msgid "Raw"
-msgstr ""
+msgstr "Brut"
 
 #: lib/diff/diffeditor.cpp:214
-#, fuzzy, kde-format
-#| msgid "&New Window"
+#, kde-format
 msgid "Edit Line"
-msgstr "Fereastră &nouă"
+msgstr "Modifică linia"
 
 #: lib/diff/diffeditor.cpp:253
 #, fuzzy, kde-format
@@ -485,9 +467,9 @@ msgstr ""
 #, kde-format
 msgid "Discard Line"
 msgid_plural "Discard Lines"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Aruncă linia"
+msgstr[1] "Aruncă liniile"
+msgstr[2] "Aruncă liniile"
 
 #: lib/diff/diffeditor.cpp:270
 #, kde-format
@@ -511,32 +493,32 @@ msgstr ""
 #: lib/diff/diffwidget.cpp:71
 #, kde-format
 msgid "Diff %1"
-msgstr ""
+msgstr "Diff %1"
 
 #: lib/diff/diffwidget.cpp:73
 #, kde-format
 msgid "Diff %1..%2"
-msgstr ""
+msgstr "Diff %1..%2"
 
 #: lib/diff/diffwidget.cpp:102
 #, kde-format
 msgid "Diff %1 .. %2"
-msgstr ""
+msgstr "Diff %1 .. %2"
 
 #: lib/diff/diffwidget.cpp:132
 #, kde-format
 msgid "Show/Hide Commit Info"
-msgstr ""
+msgstr "Arată/ascunde informații despre comitere"
 
 #: lib/diff/diffwidget.cpp:137
 #, kde-format
 msgid "Jump to Next File"
-msgstr ""
+msgstr "Sari la fișierul următor"
 
 #: lib/diff/diffwidget.cpp:141
 #, kde-format
 msgid "Jump to Previous File"
-msgstr ""
+msgstr "Sari la fișierul precedent"
 
 #: lib/diff/diffwidget.cpp:145
 #, kde-format
@@ -549,17 +531,16 @@ msgid "Jump to Previous Hunk"
 msgstr ""
 
 #: lib/diff/diffwidget.cpp:153
-#, fuzzy, kde-format
-#| msgid "&Reload"
+#, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
-msgstr "&Reîncarcă"
+msgstr "Reîncarcă diferența"
 
 #: lib/diff/diffwidget.cpp:157
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
-msgstr ""
+msgstr "Arată diferența cu context deplin, nu doar liniile modificate"
 
 #: lib/diff/diffwidget.cpp:628
 #, kde-format
@@ -573,24 +554,22 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "Diff"
-msgstr ""
+msgstr "Diff"
 
 #: lib/diff/diffwidget.cpp:843 lib/diff/diffwidget.cpp:1047
-#, fuzzy, kde-format
-#| msgid "New file name"
+#, kde-format
 msgid "New file %1"
-msgstr "Denumire nouă de fișier"
+msgstr "Fișier nou %1"
 
 #: lib/diff/diffwidget.cpp:845 lib/diff/diffwidget.cpp:1049
-#, fuzzy, kde-format
-#| msgid "Delete file"
+#, kde-format
 msgid "Deleted file %1"
-msgstr "Șterge fișierul"
+msgstr "Fișier șters %1"
 
 #: lib/diff/diffwidget.cpp:1217 lib/diff/diffwidget.cpp:1218
 #, kde-format
 msgid "No differences found"
-msgstr ""
+msgstr "Nu s-a găsit nicio diferență"
 
 #: lib/filehistorywidget.cpp:328
 #, kde-format
@@ -619,7 +598,7 @@ msgstr "&Arată calea completă"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr ""
+msgstr "Istoric fișier - %1"
 
 #: lib/kateapp.cpp:142
 msgid ""
@@ -674,7 +653,7 @@ msgstr "Kåre Särs"
 #: lib/kateapp.cpp:337
 #, kde-format
 msgid "Waqar Ahmed"
-msgstr ""
+msgstr "Waqar Ahmed"
 
 #: lib/kateapp.cpp:338
 #, kde-format
@@ -824,7 +803,7 @@ msgstr "Asigurarea calității și scripting"
 #: lib/kateapp.cpp:366
 #, kde-format
 msgid "Tyson Tan"
-msgstr ""
+msgstr "Tyson Tan"
 
 #: lib/kateapp.cpp:367
 #, kde-format
@@ -975,10 +954,9 @@ msgid "Behavior"
 msgstr "Comportament"
 
 #: lib/kateconfigdialog.cpp:113
-#, fuzzy, kde-format
-#| msgid "Behavior"
+#, kde-format
 msgid "Behavior Options"
-msgstr "Comportament"
+msgstr "Opțiuni de comportament"
 
 #: lib/kateconfigdialog.cpp:120 lib/katemainwindow.cpp:222
 #, kde-format
@@ -1001,7 +979,7 @@ msgstr "&Comportament"
 #: lib/kateconfigdialog.cpp:147
 #, kde-format
 msgid "Open each document in its own window"
-msgstr ""
+msgstr "Deschide fiecare document în propria fereastră"
 
 #: lib/kateconfigdialog.cpp:150
 #, kde-format
@@ -1016,21 +994,19 @@ msgid "&Switch to output view upon message type:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:165
-#, fuzzy, kde-format
-#| msgctxt "The special case of 'Delete unused meta-information after'"
-#| msgid "(never)"
+#, kde-format
 msgid "Never"
-msgstr "(niciodată)"
+msgstr "Niciodată"
 
 #: lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Info"
-msgstr ""
+msgstr "Informații"
 
 #: lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Log"
-msgstr ""
+msgstr "Jurnal"
 
 #: lib/kateconfigdialog.cpp:171
 #, kde-format
@@ -1041,7 +1017,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:378
 #, kde-format
 msgid "Unlimited"
-msgstr ""
+msgstr "Nelimitat"
 
 #: lib/kateconfigdialog.cpp:184
 #, kde-format
@@ -1077,15 +1053,14 @@ msgid ""
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:202
-#, fuzzy, kde-format
-#| msgid "Top Sidebar"
+#, kde-format
 msgid "&Sidebars"
-msgstr "Bara laterală superioară"
+msgstr "&Bare laterale"
 
 #: lib/kateconfigdialog.cpp:205
 #, kde-format
 msgid "Sync section size with tab positions"
-msgstr ""
+msgstr "Sincronizează mărimea secțiunii cu pozițiile tabulatorilor"
 
 #: lib/kateconfigdialog.cpp:208
 #, kde-format
@@ -1106,15 +1081,14 @@ msgid "Icon size for left and right sidebar buttons:"
 msgstr ""
 
 #: lib/kateconfigdialog.cpp:238
-#, fuzzy, kde-format
-#| msgid "Show Side&bars"
+#, kde-format
 msgid "&Tabs"
-msgstr "Arată &bare laterale"
+msgstr "Fi&le"
 
 #: lib/kateconfigdialog.cpp:242
 #, kde-format
 msgid "&Limit number of tabs:"
-msgstr ""
+msgstr "&Limitează numărul filelor:"
 
 #: lib/kateconfigdialog.cpp:253
 #, kde-format
@@ -1126,27 +1100,27 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:257
 #, kde-format
 msgid "&Auto hide tabs"
-msgstr ""
+msgstr "&Ascunde filele automat"
 
 #: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
-msgstr ""
+msgstr "Când e activ, filele vor fi ascunse dacă e deschis un singur document."
 
 #: lib/kateconfigdialog.cpp:263
 #, kde-format
 msgid "&Show close button"
-msgstr ""
+msgstr "A&rată butonul de închidere"
 
 #: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "When checked each tab will display a close button."
-msgstr ""
+msgstr "Când e activ, fiecare filă afișează un buton de închidere."
 
 #: lib/kateconfigdialog.cpp:269
 #, kde-format
 msgid "&Expand tabs"
-msgstr ""
+msgstr "D&esfășoară filele"
 
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
@@ -2152,7 +2126,7 @@ msgstr "[NOU]"
 #: lib/kateoutputview.cpp:176
 #, kde-format
 msgid "Search..."
-msgstr ""
+msgstr "Caută…"
 
 #: lib/kateoutputview.cpp:192
 #, kde-format
@@ -2244,18 +2218,16 @@ msgstr ""
 "faceți în continuare."
 
 #: lib/kateurlbar.cpp:919
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
-msgstr "Amplasare"
+msgstr "Copiază amplasarea"
 
 #: lib/kateurlbar.cpp:925
-#, fuzzy, kde-format
-#| msgid "Filename"
+#, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"
-msgstr "Denumire fișier"
+msgstr "Copiază denumirea fișierului"
 
 #: lib/kateviewmanager.cpp:146
 #, kde-format
@@ -2282,7 +2254,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Move Document to New Vertical Split"
-msgstr ""
+msgstr "Mută documentul într-o despărțire verticală nouă"
 
 #: lib/kateviewmanager.cpp:166
 #, fuzzy, kde-format
@@ -2296,7 +2268,7 @@ msgstr ""
 #: lib/kateviewmanager.cpp:171
 #, kde-format
 msgid "Move Document to New Horizontal Split"
-msgstr ""
+msgstr "Mută documentul într-o despărțire orizontală nouă"
 
 #: lib/kateviewmanager.cpp:175
 #, fuzzy, kde-format
@@ -2478,19 +2450,17 @@ msgstr "Arată pagina de întâmpinare"
 #: lib/kateviewmanager.cpp:299
 #, kde-format
 msgid "Toggle Scroll Synchronization"
-msgstr ""
+msgstr "Comută sincronizarea derulării"
 
 #: lib/kateviewmanager.cpp:300
-#, fuzzy, kde-format
-#| msgid "Toggles the orientation of the current split view"
+#, kde-format
 msgid "Toggle scroll synchronization for the current view"
-msgstr "Comută orientarea vizualizării despărțite actuale"
+msgstr "Comută sincronizarea derulării pentru vizualizarea actuală"
 
 #: lib/kateviewmanager.cpp:310
-#, fuzzy, kde-format
-#| msgid "D&etach Document"
+#, kde-format
 msgid "Detach Active Document"
-msgstr "D&etașează documentul"
+msgstr "Detașează documentul activ"
 
 #: lib/kateviewmanager.cpp:311
 #, fuzzy, kde-format
@@ -2525,7 +2495,7 @@ msgstr "%1 nu poate deschide dosare"
 #: lib/kateviewmanager.cpp:584
 #, kde-format
 msgid "The plugin required to open folders was not found"
-msgstr ""
+msgstr "Extensia necesară pentru deschiderea dosarelor nu a fost găsită"
 
 #: lib/kateviewmanager.cpp:590
 #, kde-format
@@ -2548,17 +2518,17 @@ msgstr "Activează"
 #: lib/kateviewmanager.cpp:601
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr ""
+msgstr "Extensia <b>%1</b> nu a putut fi activată"
 
 #: lib/kateviewmanager.cpp:622
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr ""
+msgstr "Fișierul „%1” nu există"
 
 #: lib/kateviewspace.cpp:93
 #, kde-format
 msgid "Synchronize Scrolling"
-msgstr ""
+msgstr "Sincronizează derularea"
 
 #: lib/kateviewspace.cpp:95
 #, kde-format
@@ -2655,10 +2625,9 @@ msgid "Script error. Expected a toolview name. Available: %1"
 msgstr ""
 
 #: lib/mainwindow_commands.cpp:55
-#, fuzzy, kde-format
-#| msgid "QA and Scripting"
+#, kde-format
 msgid "Scripting"
-msgstr "Asigurarea calității și scripting"
+msgstr "Scriptare"
 
 #: lib/mainwindow_commands.cpp:76
 #, kde-format
@@ -2707,10 +2676,9 @@ msgid "Wildcard Filtering"
 msgstr "Filtrare metacaractere"
 
 #: lib/quickopen/katequickopenmodel.cpp:161
-#, fuzzy, kde-format
-#| msgid "All Projects"
+#, kde-format
 msgid "Project: %1"
-msgstr "Toate proiectele"
+msgstr "Proiect: %1"
 
 #: lib/session/katesessionmanagedialog.cpp:28
 #, kde-format
@@ -2905,19 +2873,19 @@ msgstr "Opțiunile aplicației"
 #: lib/ui/sessionconfigwidget.ui:55
 #, kde-format
 msgid "Automatically save and restore:"
-msgstr ""
+msgstr "Salvează și restabilește automat:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashNewUnsavedFiles)
 #: lib/ui/sessionconfigwidget.ui:67
 #, kde-format
 msgid "Newly-created unsaved files"
-msgstr ""
+msgstr "Fișiere nesalvate proaspăt create"
 
 #. i18n: ectx: property (text), widget (QCheckBox, stashUnsavedFilesChanges)
 #: lib/ui/sessionconfigwidget.ui:77
 #, kde-format
 msgid "Files with unsaved changes"
-msgstr ""
+msgstr "Fișiere cu modificări nesalvate"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:88
@@ -2927,36 +2895,32 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome view for new windows"
-msgstr "Creează un document nou"
+msgstr "Arată vizualizarea de întâmpinare pentru ferestrele noi"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "If enabled, Kate will shutdown when the last file being edited is closed, "
-#| "otherwise a blank page will open so that you can start a new file."
+#, kde-format
 msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"Dacă e activ, Kate se va stinge la închiderea ultimului fișier redactat, "
-"altfel se va deschide o pagină goală ca să puteți începe un fișier nou."
+"Dacă e activ, aplicația se va stinge la închiderea ultimului fișier "
+"redactat, altfel se va deschide o pagină goală ca să puteți începe un fișier "
+"nou."
 
 #. i18n: ectx: property (text), widget (QCheckBox, modCloseAfterLast)
 #: lib/ui/sessionconfigwidget.ui:101
-#, fuzzy, kde-format
-#| msgid "Close Kate entirely when the last file is closed"
+#, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "Închide Kate cu totul la închiderea ultimului fișier."
+msgstr "Închide aplicația cu totul la închiderea ultimului fișier"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108
 #, kde-format
 msgid "Close documents with the window they belong to"
-msgstr ""
+msgstr "Închide documentele cu fereastra de care aparțin"
 
 #. i18n: ectx: property (title), widget (QGroupBox, gbElements)
 #: lib/ui/sessionconfigwidget.ui:118
@@ -2984,16 +2948,13 @@ msgstr "Număr maxim de înregistrări în lista cu fișiere recente:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:164
-#, fuzzy, kde-format
-#| msgid ""
-#| "Check this if you want all your views and frames restored each time you "
-#| "open Kate."
+#, kde-format
 msgid ""
 "Check this if you want all your views and frames restored each time you open "
 "the application."
 msgstr ""
 "Bifați aici dacă doriți ca toate vizualizările și cadrele să fie restabilite "
-"de fiecare dată când deschideți Kate."
+"de fiecare dată când deschideți aplicația."
 
 #. i18n: ectx: property (text), widget (QCheckBox, restoreVC)
 #: lib/ui/sessionconfigwidget.ui:167
@@ -3022,152 +2983,132 @@ msgstr "Păstrează &metainformațiile peste sesiuni"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lib/ui/sessionconfigwidget.ui:191
-#, fuzzy, kde-format
-#| msgid "&Delete unused meta-information after:"
+#, kde-format
 msgid "Delete unused meta-information after:"
-msgstr "Șterge metainformațiile neutilizate &după:"
+msgstr "Șterge metainformațiile neutilizate după:"
 
 #: lib/welcomeview/welcomeview.cpp:57
 #, kde-format
 msgid "Welcome to %1"
-msgstr ""
+msgstr "Bun venit în %1"
 
 #: lib/welcomeview/welcomeview.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents and Projects"
-msgstr "Documente deschise"
+msgstr "Documente și proiecte recente"
 
 #: lib/welcomeview/welcomeview.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Recent Documents"
-msgstr "Documente deschise"
+msgstr "Documente recente"
 
 #: lib/welcomeview/welcomeview.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents or projects"
-msgstr "Documente deschise"
+msgstr "Nu sunt documente sau proiecte recente"
 
 #: lib/welcomeview/welcomeview.cpp:64
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "No recent documents"
-msgstr "Documente deschise"
+msgstr "Nu sunt documente recente"
 
 #: lib/welcomeview/welcomeview.cpp:118
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "No saved sessions"
-msgstr "&Salvează sesiunea"
+msgstr "Nu sunt sesiuni salvate"
 
 #: lib/welcomeview/welcomeview.cpp:248
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Selected Files..."
-msgstr "Deschide fișier"
+msgstr "Deschide fișierele alese…"
 
 #: lib/welcomeview/welcomeview.cpp:261
-#, fuzzy, kde-format
-#| msgid "Location"
+#, kde-format
 msgid "Copy &Location"
-msgstr "Amplasare"
+msgstr "Copiază amp&lasarea"
 
 #: lib/welcomeview/welcomeview.cpp:276
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Elimină"
 
 #. i18n: ectx: property (windowTitle), widget (QScrollArea, WelcomeView)
 #: lib/welcomeview/welcomeview.ui:17
 #, kde-format
 msgid "Welcome"
-msgstr ""
+msgstr "Bun venit"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonNewFile)
 #: lib/welcomeview/welcomeview.ui:179
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "New File"
-msgstr "Deschide fișier"
+msgstr "Fișier nou"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFolder)
 #: lib/welcomeview/welcomeview.ui:186
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open Folder..."
-msgstr "Deschide fișier"
+msgstr "Deschide dosar…"
 
 #. i18n: ectx: property (text), widget (QLabel, labelRecentItems)
 #: lib/welcomeview/welcomeview.ui:193
-#, fuzzy, kde-format
-#| msgid "Delete File?"
+#, kde-format
 msgid "Recent Files"
-msgstr "Ștergeți fișierul?"
+msgstr "Fișiere recente"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonOpenFile)
 #: lib/welcomeview/welcomeview.ui:203
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgid "Open File..."
-msgstr "Deschide fișier"
+msgstr "Deschide fișier…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, buttonClearRecentItems)
 #: lib/welcomeview/welcomeview.ui:242
 #, kde-format
 msgid "Clear Recent Files"
-msgstr ""
+msgstr "Curăță fișierele recente"
 
 #. i18n: ectx: property (text), widget (QLabel, labelHelp)
 #: lib/welcomeview/welcomeview.ui:270
-#, fuzzy, kde-format
-#| msgid "&Help"
+#, kde-format
 msgid "Help"
-msgstr "&Ajutor"
+msgstr "Ajutor"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHomepage)
 #: lib/welcomeview/welcomeview.ui:280
 #, kde-format
 msgid "Visit homepage"
-msgstr ""
+msgstr "Vizitați pagina"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelContribute)
 #: lib/welcomeview/welcomeview.ui:293
 #, kde-format
 msgid "Get involved"
-msgstr ""
+msgstr "Implicați-vă"
 
 #. i18n: ectx: property (text), widget (KUrlLabel, labelHandbook)
 #: lib/welcomeview/welcomeview.ui:306
 #, kde-format
 msgid "Read handbook"
-msgstr ""
+msgstr "Citiți manualul"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSavedSessions)
 #: lib/welcomeview/welcomeview.ui:353
-#, fuzzy, kde-format
-#| msgid "&Save Session"
+#, kde-format
 msgid "Saved Sessions"
-msgstr "&Salvează sesiunea"
+msgstr "Sesiuni salvate"
 
 #. i18n: ectx: property (text), widget (QPushButton, buttonManageSessions)
 #: lib/welcomeview/welcomeview.ui:389
-#, fuzzy, kde-format
-#| msgid "&Manage Sessions..."
+#, kde-format
 msgid "Manage Sessions..."
-msgstr "&Gestionare sesiuni..."
+msgstr "Gestionează sesiunile…"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBoxShowForNewWindow)
 #: lib/welcomeview/welcomeview.ui:442
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Show welcome page for new window"
-msgstr "Creează un document nou"
+msgstr "Arată pagina de întâmpinare pentru ferestre noi"
 
 #~ msgid "Could not start program"
 #~ msgstr "Nu s-a putut porni programul"

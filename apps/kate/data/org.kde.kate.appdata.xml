@@ -80,6 +80,7 @@
   <summary xml:lang="nl">Geavanceerde tekstbewerker</summary>
   <summary xml:lang="pl">Rozbudowany edytor tekstu</summary>
   <summary xml:lang="pt-BR">Editor de texto avançado</summary>
+  <summary xml:lang="ro">Redactor de text avansat</summary>
   <summary xml:lang="ru">Улучшенный текстовый редактор</summary>
   <summary xml:lang="sa">उन्नत पाठ सम्पादक</summary>
   <summary xml:lang="sl">Napredni urejevalnik besedil</summary>
@@ -976,6 +977,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Vi-modus</li>
       <li xml:lang="pl">Tryb vi</li>
       <li xml:lang="pt-BR">Modo Vi</li>
+      <li xml:lang="ro">Regim Vi</li>
       <li xml:lang="ru">Режим vi;</li>
       <li xml:lang="sa">वयं फैशनं कुर्मः</li>
       <li xml:lang="sl">Način vi</li>
@@ -1037,6 +1039,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">DAP (Debug Adapter Protocol) ondersteuning</li>
       <li xml:lang="pl">Obsługa DAP (Debug Adapter Protocol)</li>
       <li xml:lang="pt-BR">Suporte ao DAP (Debug Adapter Protocol)</li>
+      <li xml:lang="ro">Suport pentru DAP (Debug Adapter Protocol)</li>
       <li xml:lang="ru">Поддержка протокола отладочного адаптера (Debug Adapter Protocol, DAP);</li>
       <li xml:lang="sa">DAP (Debug Adapter Protocol) समर्थनम्</li>
       <li xml:lang="sl">Podpora DAP (Debug Adapter Protocol)</li>
@@ -1067,6 +1070,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Verticale tabbladen/documentenlijst</li>
       <li xml:lang="pl">Pionowe karty/listy dokumentów</li>
       <li xml:lang="pt-BR">Abas verticais/lista de documentos</li>
+      <li xml:lang="ro">Listă verticală de file și documente</li>
       <li xml:lang="ru">Вертикальные вкладки/список документов;</li>
       <li xml:lang="sa">ऊर्ध्वाधर ट्याब्स्/दस्तावेजसूची</li>
       <li xml:lang="sl">Navpični zavihki/seznam dokumentov</li>
@@ -1159,6 +1163,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Ingebouwde browser van het bestandssysteem</li>
       <li xml:lang="pl">Wbudowana przeglądarka systemu plików</li>
       <li xml:lang="pt-BR">Navegador de sistema de arquivos embutido</li>
+      <li xml:lang="ro">Navigator încorporat pentru sistemul de fișiere</li>
       <li xml:lang="ru">Встроенный просмотр файловой системы;</li>
       <li xml:lang="sa">सञ्चिकातन्त्रब्राउजरे निर्मितम्</li>
       <li xml:lang="sl">Vgrajeni brskalnik datotečnega sistema</li>
@@ -1190,6 +1195,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">CTags ondersteuning</li>
       <li xml:lang="pl">Obsługa CTags</li>
       <li xml:lang="pt-BR">Suporte a CTags</li>
+      <li xml:lang="ro">Suport pentru CTags</li>
       <li xml:lang="ru">Поддержка CTags;</li>
       <li xml:lang="sa">CTags समर्थनम्</li>
       <li xml:lang="sl">Podpora CTags</li>
@@ -1221,6 +1227,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Projectbreed en mapbreed zoeken</li>
       <li xml:lang="pl">Szukanie w projekcie i katalogach</li>
       <li xml:lang="pt-BR">Pesquisa em todo o projeto e em toda a pasta</li>
+      <li xml:lang="ro">Căutare în tot dosarul și tot proiectul</li>
       <li xml:lang="ru">Поиск по проекту и по папкам;</li>
       <li xml:lang="sa">परियोजना विस्तृतं तथा पुटव्यापी अन्वेषणम्</li>
       <li xml:lang="sl">Iskanje po celotnem projektu in mapi</li>
@@ -1252,6 +1259,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="nl">Git-integratie</li>
       <li xml:lang="pl">Obsługa Gita</li>
       <li xml:lang="pt-BR">Integração com o git</li>
+      <li xml:lang="ro">Integrare cu Git</li>
       <li xml:lang="ru">Интеграция с Git.</li>
       <li xml:lang="sa">गिट् एकीकरणम्</li>
       <li xml:lang="sl">Integracija Git-a</li>
@@ -1345,6 +1353,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
       <caption xml:lang="pt-BR">Kate em algum projeto baseado em Git</caption>
+      <caption xml:lang="ro">Kate cu un proiect bazat pe Git</caption>
       <caption xml:lang="ru">Kate с проектом на основе Git</caption>
       <caption xml:lang="sa">केट् किञ्चित् Git आधारित परियोजना सह</caption>
       <caption xml:lang="sl">Kate z nekim projektom, ki temelji na Gitu</caption>
@@ -1384,6 +1393,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
       <caption xml:lang="pt-BR">Kate em visualização dividida</caption>
+      <caption xml:lang="ro">Kate cu vizualizare despărțită</caption>
       <caption xml:lang="ru">Kate с разделённым окном</caption>
       <caption xml:lang="sa">विभक्तदृष्ट्या सह केट्</caption>
       <caption xml:lang="sl">Kate z deljenim pogledom</caption>
@@ -1423,6 +1433,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
       <caption xml:lang="pt-BR">Kate em modo escuro</caption>
+      <caption xml:lang="ro">Kate în regim întunecat</caption>
       <caption xml:lang="ru">Kate в тёмном режиме</caption>
       <caption xml:lang="sa">केट् डार्क मोड् मध्ये</caption>
       <caption xml:lang="sl">Kate v temnem načinu</caption>

@@ -430,6 +430,8 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     SemanticHighlighter m_semHighlightingManager;
     InlayHintsManager m_inlayHintsHandler;
 
+    QMetaObject::Connection m_formatOnSaveConnection;
+
     class LSPDiagnosticProvider : public DiagnosticsProvider
     {
     public:
@@ -1783,9 +1785,10 @@ public:
                 applyEdits(document, snapshot.get(), edits);
                 m_onTypeFormattingTriggers = savedTriggers;
                 if (save) {
-                    disconnect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave);
+                    QObject::disconnect(m_formatOnSaveConnection);
                     document->documentSave();
-                    connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave);
+                    m_formatOnSaveConnection =
+                        connect(document, &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave, Qt::QueuedConnection);
                 }
             }
         };
@@ -2246,6 +2249,7 @@ public:
         bool isClangd = false;
         bool isRustAnalyzer = false;
         bool formatOnSave = false;
+        QObject::disconnect(m_formatOnSaveConnection);
 
         if (server) {
             const auto &caps = server->capabilities();
@@ -2379,8 +2383,8 @@ public:
         updateMarks(doc);
 
         if (formatOnSave) {
-            auto t = Qt::ConnectionType(Qt::UniqueConnection | Qt::QueuedConnection);
-            connect(activeView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave, t);
+            m_formatOnSaveConnection =
+                connect(activeView->document(), &KTextEditor::Document::documentSavedOrUploaded, this, &self_type::formatOnSave, Qt::QueuedConnection);
         }
 
         // connect for cleanup stuff

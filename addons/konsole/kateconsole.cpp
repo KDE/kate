@@ -411,11 +411,7 @@ void KateConsole::sendInput(const QString &text)
     }
 
     if (TerminalInterface *t = qobject_cast<TerminalInterface *>(m_part)) {
-        // Do a bracketed paste See https://en.wikipedia.org/wiki/Bracketed-paste and BUG 510587
-        const QString START_PASTE = QStringLiteral("\x1b[200~");
-        const QString END_PASTE = QStringLiteral("\x1b[201~");
-        QString bracketedText = START_PASTE + text + END_PASTE;
-        t->sendInput(bracketedText);
+        t->sendInput(text);
     }
 }
 

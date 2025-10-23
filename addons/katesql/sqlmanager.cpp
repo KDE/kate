@@ -1,8 +1,8 @@
 /*
-   SPDX-FileCopyrightText: 2010 Marco Mentasti <marcomentasti@gmail.com>
-
-   SPDX-License-Identifier: LGPL-2.0-only
-*/
+ *   SPDX-FileCopyrightText: 2010 Marco Mentasti <marcomentasti@gmail.com>
+ *
+ *   SPDX-License-Identifier: LGPL-2.0-only
+ */
 
 #include "sqlmanager.h"
 #include "connectionmodel.h"
@@ -20,12 +20,14 @@
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
+#include <QSqlQuery>
+#include <QStringList>
 
 #include <qt6keychain/keychain.h>
 
 SQLManager::SQLManager(QObject *parent)
-    : QObject(parent)
-    , m_model(new ConnectionModel(this))
+: QObject(parent)
+, m_model(new ConnectionModel(this))
 {
 }
 
@@ -42,7 +44,7 @@ SQLManager::~SQLManager()
 void SQLManager::createConnection(const Connection &conn)
 {
     if (QSqlDatabase::contains(conn.name)) {
-        qDebug("connection %ls already exist", qUtf16Printable(conn.name));
+        qDebug("connection %ls already exists", qUtf16Printable(conn.name));
         QSqlDatabase::removeDatabase(conn.name);
     }
 
@@ -66,14 +68,11 @@ void SQLManager::createConnection(const Connection &conn)
 
     m_model->addConnection(conn);
 
-    // try to open connection, with or without password
     if (db.open()) {
         m_model->setStatus(conn.name, Connection::ONLINE);
     } else {
-        if (conn.status != Connection::REQUIRE_PASSWORD) {
-            m_model->setStatus(conn.name, Connection::OFFLINE);
-            Q_EMIT error(db.lastError().text());
-        }
+        m_model->setStatus(conn.name, Connection::OFFLINE);
+        Q_EMIT error(db.lastError().text());
     }
 
     Q_EMIT connectionCreated(conn.name);
@@ -81,8 +80,7 @@ void SQLManager::createConnection(const Connection &conn)
 
 bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
 {
-    QString connectionName = (conn.name.isEmpty()) ? QStringLiteral("katesql-test") : conn.name;
-
+    QString connectionName = conn.name.isEmpty() ? QStringLiteral("katesql-test") : conn.name;
     QSqlDatabase db = QSqlDatabase::addDatabase(conn.driver, connectionName);
 
     if (!db.isValid()) {
@@ -122,15 +120,10 @@ bool SQLManager::isValidAndOpen(const QString &connection)
     }
 
     if (!db.isOpen()) {
-        qDebug("database connection is not open. trying to open it...");
-
         if (m_model->status(connection) == Connection::REQUIRE_PASSWORD) {
             QString password;
             int ret = readCredentials(connection, password);
-
-            if (ret != SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
-                qDebug("Can't retrieve password from kwallet. returned code %d", ret);
-            } else {
+            if (ret == SQLManager::K_WALLET_CONNECTION_SUCCESSFUL) {
                 db.setPassword(password);
                 m_model->setPassword(connection, password);
             }
@@ -144,16 +137,13 @@ bool SQLManager::isValidAndOpen(const QString &connection)
     }
 
     m_model->setStatus(connection, Connection::ONLINE);
-
     return true;
 }
 
 void SQLManager::reopenConnection(const QString &name)
 {
     Q_EMIT connectionAboutToBeClosed(name);
-
     QSqlDatabase db = QSqlDatabase::database(name);
-
     db.close();
     isValidAndOpen(name);
 }
@@ -164,7 +154,6 @@ int SQLManager::storeCredentials(const Connection &conn)
     map[QStringLiteral("driver")] = conn.driver.toUpper();
     map[QStringLiteral("options")] = conn.options;
 
-    // Sqlite is without password
     if (conn.driver.contains(QLatin1String("QSQLITE"))) {
         map[QStringLiteral("database")] = conn.database;
     } else {
@@ -175,13 +164,11 @@ int SQLManager::storeCredentials(const Connection &conn)
         map[QStringLiteral("port")] = QString::number(conn.port);
     }
 
-    // store the full map just as binary key as JSON
     QKeychain::WritePasswordJob job(QStringLiteral("org.kde.kate.katesql"));
     job.setAutoDelete(false);
     job.setKey(conn.name);
     job.setBinaryData(QJsonDocument(map).toJson(QJsonDocument::Compact));
 
-    // we need to have a blocking API
     QEventLoop loop;
     connect(&job, &QKeychain::Job::finished, &loop, &QEventLoop::quit);
     job.start();
@@ -189,23 +176,20 @@ int SQLManager::storeCredentials(const Connection &conn)
     return job.error() ? SQLManager::K_WALLET_CONNECTION_ERROR : SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
 }
 
-// if success, password contain the password
 int SQLManager::readCredentials(const QString &name, QString &password)
 {
-    // get the full map just as binary key as JSON
     QKeychain::ReadPasswordJob job(QStringLiteral("org.kde.kate.katesql"));
     job.setAutoDelete(false);
     job.setKey(name);
 
-    // we need to have a blocking API
     QEventLoop loop;
     connect(&job, &QKeychain::Job::finished, &loop, &QEventLoop::quit);
     job.start();
     loop.exec();
+
     if (!job.error()) {
-        // check if data makes any sense
         const QJsonObject map = QJsonDocument::fromJson(job.binaryData()).object();
-        if (!map.contains(QStringLiteral("password"))) {
+        if (map.contains(QStringLiteral("password"))) {
             password = map.value(QStringLiteral("password")).toString();
             return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
         }
@@ -221,11 +205,8 @@ ConnectionModel *SQLManager::connectionModel()
 void SQLManager::removeConnection(const QString &name)
 {
     Q_EMIT connectionAboutToBeClosed(name);
-
     m_model->removeConnection(name);
-
     QSqlDatabase::removeDatabase(name);
-
     Q_EMIT connectionRemoved(name);
 }
 
@@ -235,8 +216,6 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
     const auto groupList = connectionsGroup.groupList();
 
     for (const QString &groupName : groupList) {
-        qDebug("reading group: %ls", qUtf16Printable(groupName));
-
         KConfigGroup group = connectionsGroup.group(groupName);
 
         c.name = groupName;
@@ -250,16 +229,8 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
             c.hostname = group.readEntry("hostname");
             c.username = group.readEntry("username");
             c.port = group.readEntry("port", 0);
-
-            // for compatibility with version 0.2, when passwords
-            // were stored in config file instead of kwallet
             c.password = group.readEntry("password");
-
-            if (!c.password.isEmpty()) {
-                c.status = Connection::ONLINE;
-            } else {
-                c.status = Connection::REQUIRE_PASSWORD;
-            }
+            c.status = c.password.isEmpty() ? Connection::REQUIRE_PASSWORD : Connection::ONLINE;
         }
         createConnection(c);
     }
@@ -267,7 +238,6 @@ void SQLManager::loadConnections(const KConfigGroup &connectionsGroup)
 
 void SQLManager::saveConnections(KConfigGroup *connectionsGroup)
 {
-    //    qDebug() << "Saving " << m_model->rowCount() << " groups";
     for (int i = 0; i < m_model->rowCount(); i++) {
         saveConnection(connectionsGroup, m_model->data(m_model->index(i), Qt::UserRole).value<Connection>());
     }
@@ -275,9 +245,7 @@ void SQLManager::saveConnections(KConfigGroup *connectionsGroup)
 
 void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection &conn)
 {
-    //    qDebug() << "saving connection " << conn.name;
     KConfigGroup group = connectionsGroup->group(conn.name);
-
     group.writeEntry("driver", conn.driver);
     group.writeEntry("options", conn.options);
 
@@ -285,6 +253,7 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
         group.writeEntry("database", QUrl::fromLocalFile(conn.database));
         return;
     }
+
     group.writeEntry("database", conn.database);
     group.writeEntry("hostname", conn.hostname);
     group.writeEntry("username", conn.username);
@@ -293,67 +262,161 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
 
 void SQLManager::runQuery(const QString &text, const QString &connection)
 {
-    //    qDebug() << "connection:" << connection;
-    //    qDebug() << "text:" << text;
-
-    if (text.isEmpty()) {
-        return;
-    }
-
-    if (!isValidAndOpen(connection)) {
+    if (text.isEmpty() || !isValidAndOpen(connection)) {
         return;
     }
 
     QSqlDatabase db = QSqlDatabase::database(connection);
     QSqlQuery query(db);
 
-    if (!query.prepare(text)) {
-        QSqlError err = query.lastError();
-        const int res = QMessageBox::warning(
-            qApp->activeWindow(),
-            i18n("Prepare Statement Failure"),
-            i18n("<p>Preparing the query failed with the following error: %1</p><p>Do you want to continue without preparing the query?</p>", err.text()),
-            QMessageBox::Yes,
-            QMessageBox::No);
+    // Split multiple queries properly, handling semicolons within strings and complex statements
+    QStringList statements;
+    QString currentStatement;
+    bool inString = false;
+    QChar stringChar;
+    bool inComment = false;
 
-        if (res == QMessageBox::Rejected) {
-            if (err.type() == QSqlError::ConnectionError) {
-                m_model->setStatus(connection, Connection::OFFLINE);
+    for (int i = 0; i < text.length(); ++i) {
+        QChar c = text[i];
+        QChar nextChar = (i + 1 < text.length()) ? text[i + 1] : QChar();
+
+        // Handle comments
+        if (!inString && !inComment && c == QLatin1Char('-') && nextChar == QLatin1Char('-')) {
+            // Skip to end of line
+            while (i < text.length() && text[i] != QLatin1Char('\n')) {
+                i++;
             }
-
-            Q_EMIT error(err.text());
-            return;
-        }
-    }
-
-    if (!query.exec()) {
-        QSqlError err = query.lastError();
-
-        if (err.type() == QSqlError::ConnectionError) {
-            m_model->setStatus(connection, Connection::OFFLINE);
+            continue;
         }
 
-        Q_EMIT error(err.text());
-        return;
-    }
+        if (!inString && !inComment && c == QLatin1Char('/') && nextChar == QLatin1Char('*')) {
+            inComment = true;
+            i++; // Skip the next character
+            continue;
+        }
 
-    QString message;
+        if (inComment && c == QLatin1Char('*') && nextChar == QLatin1Char('/')) {
+            inComment = false;
+            i++; // Skip the next character
+            continue;
+        }
 
-    /// TODO: improve messages
-    if (query.isSelect()) {
-        if (!query.driver()->hasFeature(QSqlDriver::QuerySize)) {
-            message = i18nc("@info", "Query completed successfully");
+        if (inComment) {
+            continue;
+        }
+
+        // Handle strings
+        if (!inComment && (c == QLatin1Char('\'') || c == QLatin1Char('"'))) {
+            if (!inString) {
+                inString = true;
+                stringChar = c;
+            } else if (c == stringChar) {
+                // Check for escaped quotes
+                if (i > 0 && text[i-1] == QLatin1Char('\\')) {
+                    // This is an escaped quote, continue
+                } else {
+                    inString = false;
+                }
+            }
+        }
+
+        // Handle statement separation
+        if (!inString && !inComment && c == QLatin1Char(';')) {
+            QString trimmed = currentStatement.trimmed();
+            if (!trimmed.isEmpty()) {
+                statements.append(trimmed);
+            }
+            currentStatement.clear();
         } else {
-            int nRowsSelected = query.size();
-            message = i18ncp("@info", "%1 record selected", "%1 records selected", nRowsSelected);
+            currentStatement.append(c);
         }
-    } else {
-        int nRowsAffected = query.numRowsAffected();
-        message = i18ncp("@info", "%1 row affected", "%1 rows affected", nRowsAffected);
     }
 
-    Q_EMIT success(message);
-    Q_EMIT queryActivated(query, connection);
+    // Add the last statement if any
+    QString trimmed = currentStatement.trimmed();
+    if (!trimmed.isEmpty()) {
+        statements.append(trimmed);
+    }
+
+    bool hasResults = false;
+    int totalRowsAffected = 0;
+
+    for (const QString &stmt : statements) {
+        if (stmt.isEmpty()) continue;
+
+        QString upper = stmt.toUpper().trimmed();
+
+        // For PostgreSQL and other databases, we need to handle DDL statements differently
+        // DDL statements (CREATE, DROP, ALTER, etc.) cannot be prepared in PostgreSQL
+        bool isDDL = upper.startsWith(QLatin1String("CREATE")) ||
+        upper.startsWith(QLatin1String("DROP")) ||
+        upper.startsWith(QLatin1String("ALTER")) ||
+        upper.startsWith(QLatin1String("TRUNCATE")) ||
+        upper.startsWith(QLatin1String("COMMENT ON")) ||
+        upper.startsWith(QLatin1String("GRANT")) ||
+        upper.startsWith(QLatin1String("REVOKE")) ||
+        upper.startsWith(QLatin1String("BEGIN")) ||
+        upper.startsWith(QLatin1String("COMMIT")) ||
+        upper.startsWith(QLatin1String("ROLLBACK"));
+
+        // Check if this is a PostgreSQL-specific DDL that can't be prepared
+        bool needsDirectExecution = isDDL;
+
+        // For PostgreSQL driver, always execute DDL directly
+        if (db.driverName().contains(QLatin1String("PSQL"), Qt::CaseInsensitive)) {
+            needsDirectExecution = isDDL ||
+            upper.startsWith(QLatin1String("VACUUM")) ||
+            upper.startsWith(QLatin1String("REINDEX"));
+        }
+
+        if (needsDirectExecution) {
+            // Execute DDL and other non-preparable statements directly
+            if (!query.exec(stmt)) {
+                QSqlError err = query.lastError();
+                Q_EMIT error(i18n("Error executing statement: %1\n", err.text()));
+                return;
+            }
+        } else {
+            // For other statements, try to prepare first, then fallback to direct execution
+            if (query.prepare(stmt)) {
+                if (!query.exec()) {
+                    QSqlError err = query.lastError();
+                    Q_EMIT error(i18n("Error executing prepared statement: %1\nStatement: %2", err.text(), stmt));
+                    return;
+                }
+            } else {
+                // Preparation failed, try direct execution
+                if (!query.exec(stmt)) {
+                    QSqlError err = query.lastError();
+                    Q_EMIT error(i18n("Error executing statement: %1\nStatement: %2", err.text(), stmt));
+                    return;
+                }
+            }
+        }
+
+        if (query.isSelect()) {
+            hasResults = true;
+            // Emit the query result
+            Q_EMIT queryActivated(query, connection);
+            // Create a new query object for the next statement
+            query = QSqlQuery(db);
+        } else {
+            int rowsAffected = query.numRowsAffected();
+            if (rowsAffected > 0) {
+                totalRowsAffected += rowsAffected;
+            }
+        }
+    }
+
+    // Emit appropriate success message
+    if (hasResults) {
+        Q_EMIT success(i18n("Query executed successfully"));
+    } else if (totalRowsAffected > 0) {
+        QString message = i18ncp("@info", "%1 row affected", "%1 rows affected", totalRowsAffected);
+        Q_EMIT success(message);
+    } else {
+        Q_EMIT success(i18n("Query executed successfully"));
+    }
 }
 
 #include "moc_sqlmanager.cpp"

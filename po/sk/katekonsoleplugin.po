@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-10-23 00:45+0000\n"
 "PO-Revision-Date: 2021-05-22 20:08+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Lokalize 21.04.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:773
 #, kde-format
 msgid "Terminal"
 msgstr "Terminál"
@@ -42,7 +42,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Spustiť Aktuálny Dokument"
 
-#: kateconsole.cpp:171 kateconsole.cpp:556
+#: kateconsole.cpp:171 kateconsole.cpp:560
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -82,7 +82,7 @@ msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:435
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -91,22 +91,22 @@ msgstr ""
 "Chcete naozaj zreťaziť text do konzoly? Týmto sa spustí akýkoľvek obsiahnutý "
 "príkaz s použitím vašich užívateľských práv."
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:436
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Zreťaziť terminál?"
 
-#: kateconsole.cpp:433
+#: kateconsole.cpp:437
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Zreťazenie terminálu"
 
-#: kateconsole.cpp:497
+#: kateconsole.cpp:501
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Nie je lokálny súbor: '%1'"
 
-#: kateconsole.cpp:530
+#: kateconsole.cpp:534
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -119,45 +119,45 @@ msgstr ""
 "s vašimi používateľskými právami, v termináli:\n"
 "'%1'"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:541
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Spustiť v termináli?"
 
-#: kateconsole.cpp:538
+#: kateconsole.cpp:542
 #, kde-format
 msgid "Run"
 msgstr "Spustiť"
 
-#: kateconsole.cpp:553
+#: kateconsole.cpp:557
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Skryť panel terminálu"
 
-#: kateconsole.cpp:564
+#: kateconsole.cpp:568
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Zrušiť zameranie panelu terminálu"
 
-#: kateconsole.cpp:565 kateconsole.cpp:566
+#: kateconsole.cpp:569 kateconsole.cpp:570
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Zamerať panel terminálu"
 
-#: kateconsole.cpp:677
+#: kateconsole.cpp:681
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:680
+#: kateconsole.cpp:684
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Synchronizovať terminál s aktuálnym dokumentom"
 
-#: kateconsole.cpp:683
+#: kateconsole.cpp:687
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -168,7 +168,7 @@ msgid ""
 msgstr ""
 "&Automaticky synchronizovať terminál s aktuálnym dokumentom, ak je to možné"
 
-#: kateconsole.cpp:686
+#: kateconsole.cpp:690
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -179,27 +179,27 @@ msgid ""
 msgstr ""
 "&Automaticky synchronizovať terminál s aktuálnym dokumentom, ak je to možné"
 
-#: kateconsole.cpp:693 kateconsole.cpp:714
+#: kateconsole.cpp:697 kateconsole.cpp:718
 #, kde-format
 msgid "Run in terminal"
 msgstr "Spustiť v termináli"
 
-#: kateconsole.cpp:695
+#: kateconsole.cpp:699
 #, kde-format
 msgid "&Remove extension"
 msgstr "O&dstrániť rozšírenie"
 
-#: kateconsole.cpp:700
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Prefix:"
 msgstr "Predpona:"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:712
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Nabudúce zobraziť varovanie"
 
-#: kateconsole.cpp:710
+#: kateconsole.cpp:714
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -208,12 +208,12 @@ msgstr ""
 "Nabudúce keď  '%1' je vykonané, zabezpečiť že sa objaví okno s upozornením, "
 "zobrazujúce príkaz na odoslanie do terminálu, pre kontrolu."
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:725
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Nastaviť premennú prostredia &EDITOR na 'kate -b'"
 
-#: kateconsole.cpp:724
+#: kateconsole.cpp:728
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -222,12 +222,12 @@ msgstr ""
 "Dôležité: Dokument musí byť zatvorený aby mohla konzolová aplikácia "
 "pokračovať"
 
-#: kateconsole.cpp:727
+#: kateconsole.cpp:731
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Skryť Konsole po stlačení klávesu „Esc“"
 
-#: kateconsole.cpp:730
+#: kateconsole.cpp:734
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -237,7 +237,7 @@ msgstr ""
 "kláves Esc, napríklad vim. Pridajte tieto aplikácie do nižšie uvedeného "
 "vstupu (zoznam oddelený čiarkami)"
 
-#: kateconsole.cpp:774
+#: kateconsole.cpp:778
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Nastavenia terminálu"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-10-23 00:45+0000\n"
 "PO-Revision-Date: 2024-04-27 17:28+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: translate-po (https://github.com/zcribe/translate-po)\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:773
 #, kde-format
 msgid "Terminal"
 msgstr "Terminalo"
@@ -43,7 +43,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Ruli Aktualan Dokumento"
 
-#: kateconsole.cpp:171 kateconsole.cpp:556
+#: kateconsole.cpp:171 kateconsole.cpp:560
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -80,7 +80,7 @@ msgid ""
 msgstr ""
 "Konsole ne instalita. Bonvolu instali Konsole por povi uzi la terminalon."
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:435
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -89,22 +89,22 @@ msgstr ""
 "Ĉu vi vere volas transmeti la tekston al konzolo? Tio rulos ĉiujn enhavitajn "
 "komandojn laŭ viaj uzantrajtoj."
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:436
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Ĉu transmeti al terminalo?"
 
-#: kateconsole.cpp:433
+#: kateconsole.cpp:437
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Transmeti al terminalo"
 
-#: kateconsole.cpp:497
+#: kateconsole.cpp:501
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Ne estas loka dosiero: '%1'"
 
-#: kateconsole.cpp:530
+#: kateconsole.cpp:534
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -117,43 +117,43 @@ msgstr ""
 "kun viaj uzantrajtoj, en la terminalo:\n"
 "'%1'"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:541
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Ĉu ruli en Terminalo?"
 
-#: kateconsole.cpp:538
+#: kateconsole.cpp:542
 #, kde-format
 msgid "Run"
 msgstr "Ruli"
 
-#: kateconsole.cpp:553
+#: kateconsole.cpp:557
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Kaŝi Terminalan Panelon"
 
-#: kateconsole.cpp:564
+#: kateconsole.cpp:568
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Malfokusi Terminal-Panelon"
 
-#: kateconsole.cpp:565 kateconsole.cpp:566
+#: kateconsole.cpp:569 kateconsole.cpp:570
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Fokusi Terminal-Panelon"
 
-#: kateconsole.cpp:677
+#: kateconsole.cpp:681
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "Terminal-Sinkroniga Reĝimo"
 
-#: kateconsole.cpp:680
+#: kateconsole.cpp:684
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Ne sinkronigi terminal-langeton kun aktuala &dokumento"
 
-#: kateconsole.cpp:683
+#: kateconsole.cpp:687
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
@@ -162,7 +162,7 @@ msgstr ""
 "&Aŭtomate sinkronigi la aktualan terminal-langeton kun la dokumento kiam "
 "eblas"
 
-#: kateconsole.cpp:686
+#: kateconsole.cpp:690
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -171,27 +171,27 @@ msgstr ""
 "&Aŭtomate krei terminal-langeton por la dosierujo de la aktuala dokumento "
 "kaj ŝanĝi al ĝi"
 
-#: kateconsole.cpp:693 kateconsole.cpp:714
+#: kateconsole.cpp:697 kateconsole.cpp:718
 #, kde-format
 msgid "Run in terminal"
 msgstr "Ruli en terminalo"
 
-#: kateconsole.cpp:695
+#: kateconsole.cpp:699
 #, kde-format
 msgid "&Remove extension"
 msgstr "Fo&rigi etendon"
 
-#: kateconsole.cpp:700
+#: kateconsole.cpp:704
 #, kde-format
 msgid "Prefix:"
 msgstr "Prefikso:"
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:712
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&Montri averton venontfoje"
 
-#: kateconsole.cpp:710
+#: kateconsole.cpp:714
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -200,24 +200,24 @@ msgstr ""
 "La venontan fojon kiam '%1' estos plenumita, certigu, ke avertanta fenestro "
 "aperos, montrante la komandon sendotan al terminalo, por revizio."
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:725
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Agordi ĉirkaŭaĵvariablon &EDITOR al 'kate -b'"
 
-#: kateconsole.cpp:724
+#: kateconsole.cpp:728
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "Grava: la dokumento devas esti fermita por daŭrigi la konzolon"
 
-#: kateconsole.cpp:727
+#: kateconsole.cpp:731
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Kaŝi Konsole premante 'Esk'"
 
-#: kateconsole.cpp:730
+#: kateconsole.cpp:734
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -227,7 +227,7 @@ msgstr ""
 "klavon, ekzemple vim. Aldonu ĉi tiujn programojn en la suban enigon (listo "
 "disigita per komoj)"
 
-#: kateconsole.cpp:774
+#: kateconsole.cpp:778
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Agordoj de terminalo"

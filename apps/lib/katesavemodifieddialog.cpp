@@ -274,6 +274,8 @@ void KateSaveModifiedDialog::showEvent(QShowEvent *event)
     if (!event->spontaneous()) {
         KMessageDialog::beep(KMessageDialog::WarningTwoActionsCancel, m_label->text(), this);
     }
+
+    QDialog::showEvent(event);
 }
 
 bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)

@@ -144,31 +144,33 @@ void PreviewWidget::setTextEditorView(KTextEditor::View *view)
 std::optional<KPluginMetaData> KTextEditorPreview::PreviewWidget::findPreviewPart(const QStringList &mimeTypes)
 {
     for (const auto &mimeType : std::as_const(mimeTypes)) {
+        // Skip text/plain. Kate can display it just fine ;)
+        if (mimeType == QLatin1String("text/plain")) {
+            continue;
+        }
+
         const auto offers = KParts::PartLoader::partsForMimeType(mimeType);
 
         if (offers.isEmpty()) {
             continue;
         }
 
-        const KPluginMetaData &service = offers.first();
-        qCDebug(KTEPREVIEW,
-                "Found preferred kpart named %ls with library %ls for mimetype %ls",
-                qUtf16Printable(service.name()),
-                qUtf16Printable(service.fileName()),
-                qUtf16Printable(mimeType));
+        for (const auto &offer : offers) {
+            // Skip katepart, we already are in one ;)
+            if (offer.pluginId() == QLatin1String("katepart")) {
+                continue;
+            }
 
-        // no interest in kparts which also just display the text (like katepart itself)
-        // TODO: what about parts which also support importing plain text and turning into richer format
-        // and thus have it in their mimetypes list?
-        // could that perhaps be solved by introducing the concept of "native" and "imported" mimetypes?
-        // or making a distinction between source editors/viewers and final editors/viewers?
-        // latter would also help other source editors/viewers like a hexeditor, which "supports" any mimetype
-        if (service.mimeTypes().contains(QLatin1String("text/plain"))) {
-            qCDebug(KTEPREVIEW, "Blindly discarding preferred kpart as it also supports text/plain, to avoid useless plain/text preview.");
-            continue;
+            qCDebug(KTEPREVIEW,
+                    "Found preferred kpart named %ls with library %ls for mimetype %ls",
+                    qUtf16Printable(offer.name()),
+                    qUtf16Printable(offer.fileName()),
+                    qUtf16Printable(mimeType));
+
+            // TODO: add a part preference list, perhaps hardcoded initially. For e.g., for markdown
+            // it should prefer to use markdownpart first then okularpart
+            return offer;
         }
-
-        return service;
     }
     return {};
 }

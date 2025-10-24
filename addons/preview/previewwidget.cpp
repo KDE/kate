@@ -97,13 +97,20 @@ PreviewWidget::PreviewWidget(KTextEditor::MainWindow *mainWindow, QWidget *paren
     label->setAlignment(Qt::AlignHCenter);
     addWidget(label);
 
-    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, this, &PreviewWidget::setTextEditorView);
+    m_viewChangedTimer.setInterval(200);
+    m_viewChangedTimer.setSingleShot(true);
+    m_viewChangedTimer.callOnTimeout(this, [this] {
+        setTextEditorView(m_mainWindow->activeView());
+    });
+
+    connect(m_mainWindow, &KTextEditor::MainWindow::viewChanged, &m_viewChangedTimer, qOverload<>(&QTimer::start));
 
     setTextEditorView(m_mainWindow->activeView());
 }
 
 PreviewWidget::~PreviewWidget()
 {
+    m_viewChangedTimer.stop();
     delete m_kPartMenu;
 }
 

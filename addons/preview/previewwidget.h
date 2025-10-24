@@ -12,6 +12,7 @@
 // Qt
 #include <QPointer>
 #include <QStackedWidget>
+#include <QTimer>
 
 #include <optional>
 
@@ -110,5 +111,6 @@ private:
     QString m_currentMode;
     QPointer<KPartView> m_partView;
     KXMLGUIFactory *m_xmlGuiFactory;
+    QTimer m_viewChangedTimer;
 };
 }

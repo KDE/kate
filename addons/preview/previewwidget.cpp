@@ -188,13 +188,14 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
 
         // Get mimetypes assigned to the currently set mode.
         auto mimeTypes = KConfigGroup(KSharedConfig::openConfig(QStringLiteral("katemoderc")), m_currentMode).readXdgListEntry("Mimetypes");
-        // For markdown manually add text/markdown if above fails e.g., if the file is untitled
-        if (mimeTypes.isEmpty() && m_currentMode == QStringLiteral("Markdown")) {
-            mimeTypes << QStringLiteral("text/markdown");
-        }
 
         // Also try to guess from the content, if the above fails.
         mimeTypes << m_previewedTextEditorDocument->mimeType();
+
+        // For markdown manually add text/markdown if above fails e.g., if the file is untitled
+        if (mimeTypes.isEmpty() && m_currentMode == QStringLiteral("Markdown") && !mimeTypes.contains(u"text/markdown")) {
+            mimeTypes << QStringLiteral("text/markdown");
+        }
 
         service = findPreviewPart(mimeTypes);
 

@@ -17,6 +17,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QShowEvent>
 #include <QTreeWidget>
 #include <QVBoxLayout>
 
@@ -268,9 +269,11 @@ bool KateSaveModifiedDialog::doSave()
     return true;
 }
 
-void KateSaveModifiedDialog::showEvent(QShowEvent *)
+void KateSaveModifiedDialog::showEvent(QShowEvent *event)
 {
-    KMessageDialog::beep(KMessageDialog::WarningTwoActionsCancel, m_label->text(), this);
+    if (!event->spontaneous()) {
+        KMessageDialog::beep(KMessageDialog::WarningTwoActionsCancel, m_label->text(), this);
+    }
 }
 
 bool KateSaveModifiedDialog::queryClose(QWidget *parent, const std::vector<KTextEditor::Document *> &documents)

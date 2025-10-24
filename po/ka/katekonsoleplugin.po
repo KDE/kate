@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-10-24 00:45+0000\n"
 "PO-Revision-Date: 2024-04-25 10:18+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.2\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:773
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "ტერმინალი"
@@ -41,7 +41,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "მიმდინარე დოკუმენტის გაშვება"
 
-#: kateconsole.cpp:171 kateconsole.cpp:560
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -79,7 +79,7 @@ msgstr ""
 "Konsole დაყენებული არაა. ტერმინალის ფუნქციის გამოსაყენებლად დააყენეთ "
 "პროგრამა konsole."
 
-#: kateconsole.cpp:435
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -88,22 +88,22 @@ msgstr ""
 "მართლა გნებავთ ამ ტექსტის კონსოლში გადაგზავნა? ეს ყველა ბრძანებას, რომელსაც "
 "ის შეიცავს, შეასრულებს თქვენი სახელით."
 
-#: kateconsole.cpp:436
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "გადავამისამართო ტერმინალში?"
 
-#: kateconsole.cpp:437
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "ტერმინალში გადამისამართება"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "არალოკალური ფაილი: %1"
 
-#: kateconsole.cpp:534
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -116,45 +116,45 @@ msgstr ""
 "თქვენი მომხმარებლის უფლებებით, ტერმინალში:\n"
 "'%1'"
 
-#: kateconsole.cpp:541
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "გავუშვა ტერმინალში?"
 
-#: kateconsole.cpp:542
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "გაშვება"
 
-#: kateconsole.cpp:557
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&ტერმინალის პანელის დახურვა"
 
-#: kateconsole.cpp:568
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "ტერმინალის პანელიდან ფოკუსის მოხსნა"
 
-#: kateconsole.cpp:569 kateconsole.cpp:570
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "ტერმინალის პანელის ფოკუსი"
 
-#: kateconsole.cpp:681
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "ტერმინალის სინქრონიზაციის რეჟიმი"
 
-#: kateconsole.cpp:684
+#: kateconsole.cpp:680
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr ""
 "&ტერმინალის მიმდინარე დოკუმენტთან ავტომატური სინქრონიზაცია, როცა ეს "
 "შესაძლებელია"
 
-#: kateconsole.cpp:687
+#: kateconsole.cpp:683
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
@@ -163,7 +163,7 @@ msgstr ""
 "&ტერმინალის მიმდინარე ჩანართის ავტომატური სინქრონიზაცია მიმდინარე "
 "დოკუმენტთან, როცა ეს შესაძლებელია"
 
-#: kateconsole.cpp:690
+#: kateconsole.cpp:686
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -172,27 +172,27 @@ msgstr ""
 "&ტერმინალის ჩანართის ავტომატურ შექმნა მიმდინარე დოკუმენტის საქაღალდეში და "
 "მასზე გადართვა"
 
-#: kateconsole.cpp:697 kateconsole.cpp:718
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "ტერმინალში გაშვება"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "&გაფართოების წაშლა"
 
-#: kateconsole.cpp:704
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "პრეფიქსი:"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&შემდეგ ჯერზე გაფრთხილების ჩვენება"
 
-#: kateconsole.cpp:714
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -201,12 +201,12 @@ msgstr ""
 "როცა, შემდეგ ჯერზე, '%1' გაეშვება, გამოჩნდება გაფრთხილების მხტუნარა, რომელიც,"
 "გადასახედად, ტერმინალში გაგზავნილ ბრძანებებს გაჩვენებთ."
 
-#: kateconsole.cpp:725
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "დააყენეთ გარემოს ცვლადი 'EDITOR' მნიშვნელობაზე 'kate -b'"
 
-#: kateconsole.cpp:728
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -215,12 +215,12 @@ msgstr ""
 "მნიშვნელოვანია: კონსოლს აპლიკაციის გასაგრძელებლად, აუცილებელია, დოკუმენტი "
 "დახუროთ"
 
-#: kateconsole.cpp:731
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Konsole-ის დამალვა 'Esc'-ის დაჭერისას"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -230,7 +230,7 @@ msgstr ""
 "ღილაკს იყენებენ. მაგ: vin. ასეთი აპები ქვემოთ ველში შეიყვანეთ (მძიმით "
 "გამოყოფილი სია)"
 
-#: kateconsole.cpp:778
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "ტერმინალის მორგება"

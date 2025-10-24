@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-10-24 00:45+0000\n"
 "PO-Revision-Date: 2012-01-28 12:09+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@akmc.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:773
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "Terminalas"
@@ -42,7 +42,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr ""
 
-#: kateconsole.cpp:171 kateconsole.cpp:560
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Focus Terminal"
@@ -86,7 +86,7 @@ msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 
-#: kateconsole.cpp:435
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -95,22 +95,22 @@ msgstr ""
 "Ar tikrai norite nukreipti (pipe) tekstą į konsolę? Tokiu būdu bus įvykdytos "
 "visos tekste esančios komandos Jūsų naudotojo teisėmis."
 
-#: kateconsole.cpp:436
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Nukreipti į konsolę?"
 
-#: kateconsole.cpp:437
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Nukreipti į konsolę"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr ""
 
-#: kateconsole.cpp:534
+#: kateconsole.cpp:530
 #, fuzzy, kde-format
 #| msgid ""
 #| "Do you really want to pipe the text to the console? This will execute any "
@@ -124,18 +124,18 @@ msgstr ""
 "Ar tikrai norite nukreipti (pipe) tekstą į konsolę? Tokiu būdu bus įvykdytos "
 "visos tekste esančios komandos Jūsų naudotojo teisėmis."
 
-#: kateconsole.cpp:541
+#: kateconsole.cpp:537
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal?"
 msgid "Run in Terminal?"
 msgstr "Nukreipti į konsolę?"
 
-#: kateconsole.cpp:542
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr ""
 
-#: kateconsole.cpp:557
+#: kateconsole.cpp:553
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "&Pipe to Terminal"
@@ -143,31 +143,31 @@ msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "&Nukreipti į konsolę"
 
-#: kateconsole.cpp:568
+#: kateconsole.cpp:564
 #, fuzzy, kde-format
 #| msgid "Defocus Terminal"
 msgid "Defocus Terminal Panel"
 msgstr "Palikti Terminalą"
 
-#: kateconsole.cpp:569 kateconsole.cpp:570
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, fuzzy, kde-format
 #| msgid "Focus Terminal"
 msgid "Focus Terminal Panel"
 msgstr "Pereiti į Terminalą"
 
-#: kateconsole.cpp:681
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr ""
 
-#: kateconsole.cpp:684
+#: kateconsole.cpp:680
 #, fuzzy, kde-format
 #| msgctxt "@action"
 #| msgid "S&ynchronize Terminal with Current Document"
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Sinchronizuoti Terminalą su dabartiniu dokumentu"
 
-#: kateconsole.cpp:687
+#: kateconsole.cpp:683
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -179,7 +179,7 @@ msgstr ""
 "&Automatiškai sinchronizuoti Terminalą su dabartiniu dokumentu kaip tik "
 "galima"
 
-#: kateconsole.cpp:690
+#: kateconsole.cpp:686
 #, fuzzy, kde-format
 #| msgid ""
 #| "&Automatically synchronize the terminal with the current document when "
@@ -191,40 +191,40 @@ msgstr ""
 "&Automatiškai sinchronizuoti Terminalą su dabartiniu dokumentu kaip tik "
 "galima"
 
-#: kateconsole.cpp:697 kateconsole.cpp:718
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, fuzzy, kde-format
 #| msgid "Pipe to Terminal"
 msgid "Run in terminal"
 msgstr "Nukreipti į konsolę"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr ""
 
-#: kateconsole.cpp:704
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr ""
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr ""
 
-#: kateconsole.cpp:714
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
 
-#: kateconsole.cpp:725
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Nustatyti &REDAKTORIAUS aplinkos kintamąjį į „kate-b“"
 
-#: kateconsole.cpp:728
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -232,19 +232,19 @@ msgid ""
 msgstr ""
 "Svarbu: Dokumentą reikia uždaryti, kad būtų galima tęsti su konsolės programa"
 
-#: kateconsole.cpp:731
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr ""
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
 
-#: kateconsole.cpp:778
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Terminalo nuostatos"

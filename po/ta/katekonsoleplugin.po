@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-10-24 00:45+0000\n"
 "PO-Revision-Date: 2024-04-28 16:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.02.2\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:773
+#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
 #, kde-format
 msgid "Terminal"
 msgstr "முனையம்"
@@ -40,7 +40,7 @@ msgctxt "@action"
 msgid "Run Current Document"
 msgstr "தற்போதைய ஆவணத்தை இயக்கு"
 
-#: kateconsole.cpp:171 kateconsole.cpp:560
+#: kateconsole.cpp:171 kateconsole.cpp:556
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
@@ -76,7 +76,7 @@ msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr "கான்சோல் நிறுவப்படவில்லை. முனையத்தைப் பயன்படுத்த கான்சோல் தனை நிறுவ‍வும்."
 
-#: kateconsole.cpp:435
+#: kateconsole.cpp:431
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -85,22 +85,22 @@ msgstr ""
 "உரையை உறுதியாக முனையத்துக்கு அனுப்ப வேண்டுமா? அதிலுள்ள கட்டளைகள், உங்கள் உரிமைகளுடன் "
 "இயக்கப்படும்."
 
-#: kateconsole.cpp:436
+#: kateconsole.cpp:432
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "முனையத்துக்கு அனுப்பலாமா?"
 
-#: kateconsole.cpp:437
+#: kateconsole.cpp:433
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "முனையத்துக்கு அனுப்பு"
 
-#: kateconsole.cpp:501
+#: kateconsole.cpp:497
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "உள்ளக கோப்பு அல்ல: '%1'"
 
-#: kateconsole.cpp:534
+#: kateconsole.cpp:530
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -113,77 +113,77 @@ msgstr ""
 "உங்கள் உரிமைகளுடன் இது இயக்கும்:\n"
 "'%1'"
 
-#: kateconsole.cpp:541
+#: kateconsole.cpp:537
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "முனையத்தில் இயக்கலாமா?"
 
-#: kateconsole.cpp:542
+#: kateconsole.cpp:538
 #, kde-format
 msgid "Run"
 msgstr "இயக்கு"
 
-#: kateconsole.cpp:557
+#: kateconsole.cpp:553
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "முனையப்பலகையை ம&றை"
 
-#: kateconsole.cpp:568
+#: kateconsole.cpp:564
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "முனையப் பலகையிலிருந்து குவியத்தை எடு"
 
-#: kateconsole.cpp:569 kateconsole.cpp:570
+#: kateconsole.cpp:565 kateconsole.cpp:566
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "முனையப் பலகையில் குவியத்தை வை"
 
-#: kateconsole.cpp:681
+#: kateconsole.cpp:677
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "முனைய ஒத்திசைவு முறை"
 
-#: kateconsole.cpp:684
+#: kateconsole.cpp:680
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "&தற்போதைய ஆவணத்துடன் முனையக்கீற்றை ஒத்திசையச்செய்யாதே"
 
-#: kateconsole.cpp:687
+#: kateconsole.cpp:683
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr "&முடிந்தால் தற்போதைய முனையக்கீற்றை தற்போதைய ஆவணத்துடன் ஒத்திசையச்செய்"
 
-#: kateconsole.cpp:690
+#: kateconsole.cpp:686
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr "தற்போதைய &ஆவணத்தின் அடைவிற்கு ஓர் புதிய முனையக்கீற்றை உருவாக்கி அதற்கு தாவு"
 
-#: kateconsole.cpp:697 kateconsole.cpp:718
+#: kateconsole.cpp:693 kateconsole.cpp:714
 #, kde-format
 msgid "Run in terminal"
 msgstr "முனையத்தில் இயக்கு"
 
-#: kateconsole.cpp:699
+#: kateconsole.cpp:695
 #, kde-format
 msgid "&Remove extension"
 msgstr "&வகைப்பெயரை நீக்கு"
 
-#: kateconsole.cpp:704
+#: kateconsole.cpp:700
 #, kde-format
 msgid "Prefix:"
 msgstr "முன்னொட்டு:"
 
-#: kateconsole.cpp:712
+#: kateconsole.cpp:708
 #, kde-format
 msgid "&Show warning next time"
 msgstr "&அடுத்த முறையும் எச்சரி"
 
-#: kateconsole.cpp:714
+#: kateconsole.cpp:710
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -192,24 +192,24 @@ msgstr ""
 "அடுத்த முறை '%1' இயக்கப்படும்போதும், முனையத்துக்கு அனுப்பப்படவுள்ள கட்டளையைக் காட்டும் "
 "எச்சரிக்கைச் சாளரம் காட்டப்படும்."
 
-#: kateconsole.cpp:725
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "EDITOR சூழ்மாறியை 'kate -b' என்று அமை"
 
-#: kateconsole.cpp:728
+#: kateconsole.cpp:724
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "முக்கியமானது: ஆவணத்தை மூடிய பின்னே முனைய நிரல் தொடரும்"
 
-#: kateconsole.cpp:731
+#: kateconsole.cpp:727
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "'Esc' விசையை அழுத்தும்போது முனையத்தை மறை"
 
-#: kateconsole.cpp:734
+#: kateconsole.cpp:730
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -219,7 +219,7 @@ msgstr ""
 "பின்வரும் உரைப்பெட்டியில் காற்புள்ளிகளால் பிரிக்கப்பட்டுள்ள பட்டியலாக அப்படிப்பட்ட நிரல்களின் "
 "பெயர்களை உள்ளிடுங்கள்."
 
-#: kateconsole.cpp:778
+#: kateconsole.cpp:774
 #, kde-format
 msgid "Terminal Settings"
 msgstr "முனைய அமைப்புகள்"

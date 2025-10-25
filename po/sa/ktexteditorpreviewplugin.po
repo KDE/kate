@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-10-25 00:45+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -83,7 +83,7 @@ msgstr "दृश्यं"
 msgid "No preview available."
 msgstr "पूर्वावलोकनं उपलब्धं नास्ति।"
 
-#: previewwidget.cpp:236
+#: previewwidget.cpp:246
 #, kde-format
 msgid "About %1"
 msgstr "%1 इत्यस्य विषये"

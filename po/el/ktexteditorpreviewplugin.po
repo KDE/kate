@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-10-25 00:45+0000\n"
 "PO-Revision-Date: 2017-11-07 15:40+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -87,7 +87,7 @@ msgstr "Προβολή"
 msgid "No preview available."
 msgstr "Χωρίς διαθέσιμη προεπισκόπηση."
 
-#: previewwidget.cpp:236
+#: previewwidget.cpp:246
 #, kde-format
 msgid "About %1"
 msgstr "Σχετικά με το %1"

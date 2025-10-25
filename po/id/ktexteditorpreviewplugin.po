@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-10-25 00:45+0000\n"
 "PO-Revision-Date: 2019-08-19 19:38+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Tampilan"
 msgid "No preview available."
 msgstr "Tidak ada pratinjau yang tersedia."
 
-#: previewwidget.cpp:236
+#: previewwidget.cpp:246
 #, kde-format
 msgid "About %1"
 msgstr "Tentang %1"

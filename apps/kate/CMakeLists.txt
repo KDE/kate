@@ -56,9 +56,11 @@ set_property(
 
 # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
 if(APPLE)
+  # we need to copy the file to avoid issues with duplicate generation targets
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../lib/data/MacOSXBundleInfo.plist.in ${CMAKE_CURRENT_BINARY_DIR}/plist.in COPYONLY)
   set_property(
     TARGET kate-bin
-    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../lib/data/MacOSXBundleInfo.plist.in
+    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/plist.in
   )
 
   # These are substituted by CMake into plist.in.

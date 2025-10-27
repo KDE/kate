@@ -58,7 +58,7 @@ set_property(
 if(APPLE)
   set_property(
     TARGET kate-bin
-    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/data/MacOSXBundleInfo.plist.in
+    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../lib/data/MacOSXBundleInfo.plist.in
   )
 
   # These are substituted by CMake into plist.in.

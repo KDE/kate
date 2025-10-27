@@ -28,10 +28,9 @@ target_sources(kwrite PRIVATE ${ICONS_SOURCES})
 
 # See https://cmake.org/cmake/help/v3.15/prop_tgt/MACOSX_BUNDLE_INFO_PLIST.html
 if(APPLE)
-  # we re-use the kate template
   set_property(
     TARGET kwrite
-    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../kate/data/MacOSXBundleInfo.plist.in
+    PROPERTY MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/../lib/data/MacOSXBundleInfo.plist.in
   )
 
   # These are substituted by CMake into plist.in.

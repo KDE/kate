@@ -213,13 +213,15 @@ KateConsole::~KateConsole()
     }
 }
 
-void KateConsole::loadConsoleIfNeeded(QString directory)
+void KateConsole::loadConsoleIfNeeded(QString directory, bool force)
 {
-    if (!window() || !parent()) {
-        return;
-    }
-    if (!window() || !isVisibleTo(window())) {
-        return;
+    if (!force) {
+        if (!window() || !parent()) {
+            return;
+        }
+        if (!window() || !isVisibleTo(window())) {
+            return;
+        }
     }
 
     const bool firstShell = !m_part;
@@ -443,6 +445,10 @@ void KateConsole::slotPipeToConsole()
         return;
     }
 
+    if (!m_part) {
+        loadConsoleIfNeeded(directoryForView(v), /*force=*/true);
+    }
+
     if (v->selection()) {
         sendInput(v->selectionText());
     } else {
@@ -541,6 +547,11 @@ void KateConsole::slotRun()
     if (result != KMessageBox::Continue) {
         return;
     }
+
+    if (!m_part) {
+        loadConsoleIfNeeded(directoryForView(view), /*force=*/true);
+    }
+
     // echo to terminal
     sendInput(output_str + eolChar());
 }

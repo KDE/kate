@@ -191,7 +191,7 @@ private Q_SLOTS:
     /**
      * construct console if needed
      */
-    void loadConsoleIfNeeded(QString directory = QString());
+    void loadConsoleIfNeeded(QString directory = QString(), bool force = false);
 
     /**
      * Show or hide the konsole view as appropriate.

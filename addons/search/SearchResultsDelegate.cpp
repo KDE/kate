@@ -112,11 +112,24 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     QString text;
     bool replacing = !match.replaceText.isEmpty();
 
-    // Calculate the preMatch width
-    int preWidthMaxPx = opt.widget->width() / 4;
-    int letterWidthPx = std::max(fm.horizontalAdvance(u"M"_s), 4);
-    int preMatchChars = std::min(preWidthMaxPx / letterWidthPx, (int)match.preMatchStr.size());
-    const QStringView preMatchStr = QStringView(match.preMatchStr).last(preMatchChars);
+    QStringView preMatchStr = QStringView(match.preMatchStr);
+    const int letterWidthPx = std::max(fm.horizontalAdvance(u"M"_s), 4);
+
+    // avaiable width, we dont use text textRect width because that width is larger because the widget can scroll horizontally
+    const int availableWidth = opt.widget->width() - (iconBorderRect.width() + textRect.x());
+    const int preMatchTextWidth = letterWidthPx * match.preMatchStr.size();
+    const int matchTextWidth = letterWidthPx * match.matchStr.size();
+    const int totalTextWidth = preMatchTextWidth + matchTextWidth + (letterWidthPx * match.postMatchStr.size());
+
+    // if total text width exceeds available width
+    if (totalTextWidth > availableWidth) {
+        // if the length of pre context + match exceeds available width, then reduce pre context size to 25% of available width
+        if (preMatchTextWidth + matchTextWidth >= availableWidth) {
+            int preWidthMaxPx = opt.widget->width() / 4;
+            int preMatchChars = std::min(preWidthMaxPx / letterWidthPx, (int)match.preMatchStr.size());
+            preMatchStr = QStringView(match.preMatchStr).last(preMatchChars);
+        }
+    }
 
     if (replacing) {
         text = preMatchStr + match.matchStr + match.replaceText + match.postMatchStr;

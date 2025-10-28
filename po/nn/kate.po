@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:45+0000\n"
+"POT-Creation-Date: 2025-10-28 00:46+0000\n"
 "PO-Revision-Date: 2024-08-31 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -1404,7 +1404,7 @@ msgstr ""
 "<p>Dokumentet «%1» er endra, men ikkje lagra.</p><p>Vil du ta vare på "
 "endringane eller forkasta dei?</p>"
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Close Document"
 msgstr "Lukk dokument"
@@ -2186,17 +2186,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Logg"
 
-#: lib/katesavemodifieddialog.cpp:82
+#: lib/katesavemodifieddialog.cpp:83
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Lagra som (%1)"
 
-#: lib/katesavemodifieddialog.cpp:134
+#: lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Save Documents"
 msgstr "Lagra dokument"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:159
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
@@ -2204,7 +2204,7 @@ msgid ""
 msgstr "Dokumentet «%1» er endra. Vil du lagra eller forkasta endringane?"
 
 # Det er hakket meir naturleg å snakka om «dokumenta nedanfor» enn «dei følgjande dokumenta». (Dei vert viste i ei liste nedanfor teksten.)
-#: lib/katesavemodifieddialog.cpp:162
+#: lib/katesavemodifieddialog.cpp:163
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2212,22 +2212,22 @@ msgid ""
 msgstr ""
 "<qt>Dokumenta nedanfor er endra. Vil du lagra dei før du avsluttar?</qt>"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Documents"
 msgstr "Dokument"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Location"
 msgstr "Plassering"
 
-#: lib/katesavemodifieddialog.cpp:181
+#: lib/katesavemodifieddialog.cpp:182
 #, kde-format
 msgid "Se&lect All"
 msgstr "&Vel alle"
 
-#: lib/katesavemodifieddialog.cpp:259
+#: lib/katesavemodifieddialog.cpp:260
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

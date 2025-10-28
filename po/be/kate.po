@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fc57ad16a28d02dea100ceb1c60de14e\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:45+0000\n"
+"POT-Creation-Date: 2025-10-28 00:46+0000\n"
 "PO-Revision-Date: 2024-06-01 17:50\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian\n"
@@ -1380,7 +1380,7 @@ msgid ""
 "save your changes or discard them?</p>"
 msgstr ""
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Close Document"
 msgstr "Закрыць дакумент"
@@ -2151,24 +2151,24 @@ msgctxt "@info"
 msgid "Log"
 msgstr "Журнал"
 
-#: lib/katesavemodifieddialog.cpp:82
+#: lib/katesavemodifieddialog.cpp:83
 #, kde-format
 msgid "Save As (%1)"
 msgstr "Захаваць як (%1)"
 
-#: lib/katesavemodifieddialog.cpp:134
+#: lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Save Documents"
 msgstr "Захаваць дакументы"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:159
 #, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:162
+#: lib/katesavemodifieddialog.cpp:163
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2177,22 +2177,22 @@ msgstr ""
 "<qt>Наступныя дакументы былі змененыя. Хочаце захаваць іх перад закрыццём?</"
 "qt>"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Documents"
 msgstr "Дакументы"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Location"
 msgstr "Размяшчэнне"
 
-#: lib/katesavemodifieddialog.cpp:181
+#: lib/katesavemodifieddialog.cpp:182
 #, kde-format
 msgid "Se&lect All"
 msgstr "Абраць &усе"
 
-#: lib/katesavemodifieddialog.cpp:259
+#: lib/katesavemodifieddialog.cpp:260
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

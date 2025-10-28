@@ -119,6 +119,8 @@ KateKonsolePluginView::KateKonsolePluginView(KateKonsolePlugin *plugin, KTextEdi
                                                    i18n("Terminal"));
     m_console = new KateConsole(m_plugin, mainWindow, toolview);
 
+    connect(toolview, SIGNAL(toolVisibleChanged(bool)), m_console, SLOT(slotChangeVisiblityActionText(bool)));
+
     // register this view
     m_plugin->mViews.append(this);
 }
@@ -558,13 +560,21 @@ void KateConsole::slotRun()
 
 void KateConsole::slotToggleVisibility()
 {
-    QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
     if (!m_part || !m_part->widget()->isVisible()) {
         m_mw->showToolView(qobject_cast<QWidget *>(parent()));
-        action->setText(i18nc("@action", "&Hide Terminal Panel"));
     } else {
         m_mw->hideToolView(m_toolView);
+    }
+    slotChangeVisiblityActionText({});
+}
+
+void KateConsole::slotChangeVisiblityActionText(bool)
+{
+    QAction *action = actionCollection()->action(QStringLiteral("katekonsole_tools_toggle_visibility"));
+    if (!m_toolView || m_toolView->isHidden()) {
         action->setText(i18nc("@action", "S&how Terminal Panel"));
+    } else {
+        action->setText(i18nc("@action", "&Hide Terminal Panel"));
     }
 }
 

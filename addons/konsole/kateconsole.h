@@ -218,6 +218,8 @@ private Q_SLOTS:
      */
     void handleEsc(QEvent *e);
 
+    void slotChangeVisiblityActionText(bool);
+
 protected:
     /**
      * the konsole get shown

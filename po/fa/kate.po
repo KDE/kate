@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-13 00:45+0000\n"
+"POT-Creation-Date: 2025-10-28 00:46+0000\n"
 "PO-Revision-Date: 2011-09-27 16:16+0330\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <>\n"
@@ -1419,7 +1419,7 @@ msgstr ""
 "<p>سند »%1« تغییر کرده، اما ذخیره نشده است.</p><p>می‌خواهید تغییرات خود را "
 "ذخیره کنید یا آنها را دور بریزید؟</p>"
 
-#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:134
+#: lib/katedocmanager.cpp:295 lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Close Document"
 msgstr "بستن سند"
@@ -2258,17 +2258,17 @@ msgctxt "@info"
 msgid "Log"
 msgstr ""
 
-#: lib/katesavemodifieddialog.cpp:82
+#: lib/katesavemodifieddialog.cpp:83
 #, kde-format
 msgid "Save As (%1)"
 msgstr "ذخیره به عنوان )%1("
 
-#: lib/katesavemodifieddialog.cpp:134
+#: lib/katesavemodifieddialog.cpp:135
 #, kde-format
 msgid "Save Documents"
 msgstr "ذخیره اسناد"
 
-#: lib/katesavemodifieddialog.cpp:158
+#: lib/katesavemodifieddialog.cpp:159
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
@@ -2280,7 +2280,7 @@ msgstr ""
 "<p>سند »%1« تغییر کرده، اما ذخیره نشده است.</p><p>می‌خواهید تغییرات خود را "
 "ذخیره کنید یا آنها را دور بریزید؟</p>"
 
-#: lib/katesavemodifieddialog.cpp:162
+#: lib/katesavemodifieddialog.cpp:163
 #, kde-format
 msgid ""
 "<qt>The following documents have been modified. Do you want to save them "
@@ -2288,22 +2288,22 @@ msgid ""
 msgstr ""
 "<qt>اسناد زیر تغییر یافته‌اند. می‌خواهید پیش از بستن آنها را ذخیره کنید؟ </qt>"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Documents"
 msgstr "اسناد"
 
-#: lib/katesavemodifieddialog.cpp:171
+#: lib/katesavemodifieddialog.cpp:172
 #, kde-format
 msgid "Location"
 msgstr "محل"
 
-#: lib/katesavemodifieddialog.cpp:181
+#: lib/katesavemodifieddialog.cpp:182
 #, kde-format
 msgid "Se&lect All"
 msgstr "&برگزیدن همه‌"
 
-#: lib/katesavemodifieddialog.cpp:259
+#: lib/katesavemodifieddialog.cpp:260
 #, kde-format
 msgid ""
 "Data you requested to be saved could not be written. Please choose how you "

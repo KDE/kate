@@ -244,7 +244,7 @@ void KateGPGPluginView::decryptButtonPressed()
     }
     GPGOperationResult res = m_gpgWrapper->decryptString(v->document()->text(), m_selectedKeyIndexEdit->text());
     if (!res.keyFound) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!\ņ"
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!\n"
                                                        "No matching fingerprint found!\n"
                                                        "Or this is not a GPG "
                                                        "encrypted text..."),

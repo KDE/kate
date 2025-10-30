@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-28 00:46+0000\n"
-"PO-Revision-Date: 2025-08-20 23:51+0200\n"
+"PO-Revision-Date: 2025-10-23 22:12+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1014,11 +1014,7 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
@@ -1483,16 +1479,14 @@ msgid "Reopening files from the last session..."
 msgstr "Dateien der letzten Sitzung werden geöffnet …"
 
 #: lib/katedocmanager.cpp:572
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Das Dokument kann nicht angezeigt werden"
+msgstr "Unbenannte Dokumente können nicht angeheftet werden."
 
 #: lib/katedocmanager.cpp:577
-#, fuzzy, kde-format
-#| msgid "Cannot go to the document"
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Das Dokument kann nicht angezeigt werden"
+msgstr "Nicht lokale Dokumente können nicht angeheftet werden."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1864,17 +1858,14 @@ msgid "Save Session &As..."
 msgstr "Sitzung speichern &unter …"
 
 #: lib/katemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Das aktive Dokument ab&koppeln"
+msgstr "Das aktive Dokument anheften/loslösen"
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Geöffnete Dokumente"
+msgstr "Nächstes angeheftete Dokument öffnen"
 
 #: lib/katemainwindow.cpp:666 lib/kateviewspace.cpp:57
 #, kde-format
@@ -2185,7 +2176,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:291
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Bitte installieren Sie „git“, um Unterschiede anzusehen"
 
 #: lib/katemwmodonhddialog.cpp:315
 #, kde-format
@@ -2646,22 +2637,19 @@ msgstr[1] ""
 "sehen, wechseln Sie zur Schnellöffner-Ansicht, indem Sie hier klicken."
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Unterfenster schließen"
+msgstr "&Unterfenster schließen"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close &Other Tabs"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "&Andere Unterfenster schließen"
+msgstr "A&ndere Unterfenster schließen"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close &All Tabs"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Alle Unterfenster sch&ließen"
+msgstr "A&lle Unterfenster schließen"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format
@@ -2685,23 +2673,19 @@ msgid "Compare with Active Document Using"
 msgstr "Mit aktivem Dokument vergleichen mittels"
 
 #: lib/kateviewspace.cpp:1245
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Geöffnete Dokumente"
+msgstr "Dokument loslösen"
 
 #: lib/kateviewspace.cpp:1247
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumente"
+msgstr "Dokument anheften"
 
 #: lib/ktexteditor_utils.cpp:243
-#, fuzzy, kde-format
-#| msgid "File not found: %1"
+#, kde-format
 msgid "Can not open %1"
-msgstr "Datei nicht gefunden: %1"
+msgstr "%1 kann nicht geöffnet werden"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

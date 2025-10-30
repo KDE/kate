@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-19 00:45+0000\n"
-"PO-Revision-Date: 2025-08-20 23:52+0200\n"
+"PO-Revision-Date: 2025-10-12 19:47+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -373,10 +373,9 @@ msgstr[0] "Einen Hinweis gefunden."
 msgstr[1] "%1 Hinweise gefunden."
 
 #: plugin_katebuild.cpp:1515
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Erstellen fehlgeschlagen."
+msgstr "Erstellen abgebrochen."
 
 #: plugin_katebuild.cpp:1519
 #, kde-format
@@ -585,10 +584,9 @@ msgstr "&Erstellen"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Kate-Erstellenmodul"
+msgstr "Werkzeugleiste des Erstellungsmoduls"
 
 #: UrlInserter.cpp:32
 #, kde-format

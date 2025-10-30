@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-23 00:46+0000\n"
-"PO-Revision-Date: 2025-08-19 22:18+0200\n"
+"PO-Revision-Date: 2025-10-23 22:13+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -604,27 +604,25 @@ msgstr ""
 "Dokument in die Zwischenablage kopiert"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Durch Kommata getrennte Liste von Dateiarten, in denen gesucht werden soll. "
-"Beispiel: \"*.cpp,*.h\"\n"
+"Durch Kommata getrennte Liste der Dateitypen, in denen gesucht werden soll. "
+"Beispiel: \"*.cpp,*.h\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Durch Kommata getrennte Liste von Dateien und Ordnern, die von der Suche "
-"ausgeschlossen werden. Beispiel: \"build*\""
+"Durch Kommata getrennte Liste der Suchmuster, welche den Datei- oder "
+"Ordnernamen entsprechen, die von der Suche ausgeschlossen werden sollen.\n"
+"Beispiel: \"build*\"\n"
+"Wenn das Suchmuster ein „/“ enthält, wird der komplette Pfad auf die "
+"Übereinstimmung geprüft."
 
 #: SearchPlugin.cpp:400
 #, kde-format

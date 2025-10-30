@@ -16,8 +16,9 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QTableWidgetItem>
-#include <gpgkeydetails.hpp>
-#include <kategpgplugin.hpp>
+
+#include "gpgkeydetails.hpp"
+#include "kategpgplugin.hpp"
 
 K_PLUGIN_FACTORY_WITH_JSON(KateGPGPluginFactory, "kategpgplugin.json", registerPlugin<KateGPGPlugin>();)
 

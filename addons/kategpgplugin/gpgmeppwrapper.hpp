@@ -12,9 +12,10 @@
 
 #include <gpgme++/key.h>
 
+#include "gpgkeydetails.hpp"
+
 #include <QVector>
 #include <QVersionNumber>
-#include <gpgkeydetails.hpp>
 
 struct GPGOperationResult {
     QString resultString; // de- or encrypted string depending on operation

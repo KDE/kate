@@ -11,8 +11,10 @@
 #include <gpgme++/key.h>
 #include <gpgme++/keylistresult.h>
 
+#include "gpgmeppwrapper.hpp"
+
 #include <KLocalizedString>
-#include <gpgmeppwrapper.hpp>
+
 #include <vector>
 
 // This is needed to distinguish GPGMe++ versions

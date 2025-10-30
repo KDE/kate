@@ -4,7 +4,8 @@
 */
 
 #include <QDateTime>
-#include <gpgkeydetails.hpp>
+
+#include "gpgkeydetails.hpp"
 
 GPGKeyDetails::GPGKeyDetails()
 {

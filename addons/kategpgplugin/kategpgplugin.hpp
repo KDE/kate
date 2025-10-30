@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include "gpgmeppwrapper.hpp"
+
 #include <KConfigGroup>
 #include <KTextEditor/Document>
 #include <KTextEditor/MainWindow>
@@ -19,7 +21,6 @@
 #include <QTableWidget>
 #include <QTextBrowser>
 #include <QVBoxLayout>
-#include <gpgmeppwrapper.hpp>
 #include <memory>
 
 // forward declaration

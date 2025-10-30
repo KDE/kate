@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-02 00:43+0000\n"
-"PO-Revision-Date: 2025-08-19 22:18+0200\n"
+"PO-Revision-Date: 2025-10-23 22:13+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: KateSearchCommand.cpp:80
 #, kde-format
@@ -608,7 +608,7 @@ msgstr ""
 msgid ""
 "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
 msgstr ""
-"Durch Kommata getrennte Liste von Dateiarten, in denen gesucht werden soll. "
+"Durch Kommata getrennte Liste der Dateitypen, in denen gesucht werden soll. "
 "Beispiel: \"*.cpp,*.h\"\n"
 
 #: SearchPlugin.cpp:395

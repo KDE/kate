@@ -235,7 +235,7 @@ void KateGPGPluginView::decryptButtonPressed()
     }
     KTextEditor::View *v = views.at(0);
     if (!v || !v->document() || v->document()->isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! Document is empty.."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! Document is empty..."), i18n("Error")));
         return;
     }
     if (m_selectedKeyIndexEdit->text().isEmpty()) {
@@ -244,7 +244,7 @@ void KateGPGPluginView::decryptButtonPressed()
     }
     GPGOperationResult res = m_gpgWrapper->decryptString(v->document()->text(), m_selectedKeyIndexEdit->text());
     if (!res.keyFound) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!ņ"
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!\ņ"
                                                        "No matching fingerprint found!\n"
                                                        "Or this is not a GPG "
                                                        "encrypted text..."),
@@ -283,7 +283,7 @@ void KateGPGPluginView::encryptButtonPressed()
         return;
     }
     if (v->document()->text().isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! Document is empty.."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! Document is empty..."), i18n("Error")));
         return;
     }
     if (m_selectedKeyIndexEdit->text().isEmpty()) {
@@ -303,7 +303,7 @@ void KateGPGPluginView::encryptButtonPressed()
                                                          m_saveAsASCIICheckbox->isChecked(),
                                                          m_symmetricEncryptioCheckbox->isChecked());
     if (!res.keyFound) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! No Matching Fingerprint found...\n") + res.errorMessage, i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! No Matching Fingerprint found...\n") + res.errorMessage, i18n("Error")));
         return;
     }
     if (!res.decryptionSuccess) {

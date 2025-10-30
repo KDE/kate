@@ -326,8 +326,12 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
                 });
             } else if (!bracketStack.empty() && matchesCloser(line.at(c), bracketStack.back().bracketChar)) {
                 auto openerPos = bracketStack.back().pos;
-                parens.push_back({openerPos, {l, c}});
                 bracketStack.pop_back();
+                // no '()' or '{}' highlighting
+                if (openerPos.line() == l && openerPos.column() + 1 == c) {
+                    continue;
+                }
+                parens.push_back({openerPos, {l, c}});
             }
         }
     }
@@ -361,14 +365,6 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
             idx++;
             lastParenLine = p.opener.line();
         });
-
-        auto cur1 = p.opener;
-        cur1.setColumn(cur1.column() + 1);
-
-        // no '()' or '{}' highlighting
-        if (cur1 == p.closer) {
-            continue;
-        }
 
         // open/close brackets on same line?
         if (lastParenLine != p.opener.line() && onSameLine(p.opener, p.closer)) {

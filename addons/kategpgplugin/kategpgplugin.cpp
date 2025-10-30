@@ -400,3 +400,5 @@ void KateGPGPluginView::updateKeyTable()
 }
 
 #include "kategpgplugin.moc"
+
+#include "moc_kategpgplugin.cpp"

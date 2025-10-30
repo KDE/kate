@@ -20,3 +20,5 @@ void GitBlameTest::testBlameFiles()
 }
 
 QTEST_MAIN(GitBlameTest)
+
+#include "moc_gitblametest.cpp"

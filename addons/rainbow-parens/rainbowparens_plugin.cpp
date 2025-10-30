@@ -284,37 +284,13 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         end = start + 800;
     }
 
-    /** The brackets that we support for now **/
-    constexpr int totalBracketTypes = 3;
-    static constexpr std::array<QChar, totalBracketTypes> opens = {QLatin1Char('{'), QLatin1Char('('), QLatin1Char('[')};
-    static constexpr std::array<QChar, totalBracketTypes> closes = {QLatin1Char('}'), QLatin1Char(')'), QLatin1Char(']')};
-
     // Check if @p c matches any opener
-    auto matchOpen = [](QChar c) {
-        for (auto o : opens) {
-            if (o == c) {
-                return true;
-            }
-        }
-        return false;
+    auto isBracketOpen = [](QChar c) {
+        return c == u'{' || c == u'[' || c == u'(';
     };
-    // Check if @p c matches any closer
-    auto matchClose = [](QChar c) {
-        for (auto o : closes) {
-            if (o == c) {
-                return true;
-            }
-        }
-        return false;
-    };
-    // Check at which index @p c is in openers
-    auto indexOfOpener = [](QChar c) {
-        for (int i = 0; i < (int)opens.size(); ++i) {
-            if (c == opens[i]) {
-                return i;
-            }
-        }
-        return -1;
+    // Check if @p is a bracket closer for @p opener
+    auto matchesCloser = [](QChar in, QChar opener) {
+        return (opener == u'{' && in == u'}') || (opener == u'[' && in == u']') || (opener == u'(' && in == u')');
     };
 
     // A struct representing an opening bracket
@@ -325,11 +301,6 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
 
     // A struct representing a bracket pair (open, close)
     struct BracketPair {
-        BracketPair(KTextEditor::Cursor oo, KTextEditor::Cursor cc)
-            : opener(oo)
-            , closer(cc)
-        {
-        }
         KTextEditor::Cursor opener;
         KTextEditor::Cursor closer;
     };
@@ -348,27 +319,15 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
                 continue;
             }
 
-            if (matchOpen(line.at(c))) {
-                Opener o;
-                o.bracketChar = line.at(c);
-                o.pos = {l, c};
-                bracketStack.push_back(o);
-            } else if (matchClose(line.at(c))) {
-                if (!bracketStack.empty()) {
-                    auto opener = bracketStack.back();
-                    int idx = indexOfOpener(opener.bracketChar);
-                    if (idx == -1) {
-                        continue;
-                    }
-                    QChar closerChar = closes[idx];
-
-                    if (closerChar != line.at(c)) {
-                        continue;
-                    }
-
-                    parens.push_back({opener.pos, {l, c}});
-                    bracketStack.pop_back();
-                }
+            if (isBracketOpen(line.at(c))) {
+                bracketStack.push_back(Opener{
+                    .bracketChar = line.at(c),
+                    .pos = {l, c},
+                });
+            } else if (!bracketStack.empty() && matchesCloser(line.at(c), bracketStack.back().bracketChar)) {
+                auto openerPos = bracketStack.back().pos;
+                parens.push_back({openerPos, {l, c}});
+                bracketStack.pop_back();
             }
         }
     }
@@ -426,16 +385,16 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         auto [existingStart, existingEnd] = existingColoredBracketForPos(oldRanges, p.opener, p.closer);
         if (existingStart && existingEnd) {
             // ensure start and end have same attribute and expected range
-            KTextEditor::Range expectedStart = {p.opener, cur1};
+            KTextEditor::Cursor bracketEnd{p.opener.line(), p.opener.column() + 1};
+            KTextEditor::Range expectedStart = {p.opener, bracketEnd};
             if (existingStart->toRange() != expectedStart) {
                 existingStart->setRange(expectedStart, existingEnd->attribute());
             } else if (existingStart->attribute() != existingEnd->attribute()) {
                 existingStart->setAttribute(existingEnd->attribute());
             }
 
-            auto cur2 = p.closer;
-            cur2.setColumn(cur2.column() + 1);
-            KTextEditor::Range expectedEnd = {p.closer, cur2};
+            bracketEnd.setPosition({p.closer.line(), p.closer.column() + 1});
+            KTextEditor::Range expectedEnd = {p.closer, bracketEnd};
             if (existingEnd->toRange() != expectedEnd) {
                 existingEnd->setRange(expectedEnd);
             }

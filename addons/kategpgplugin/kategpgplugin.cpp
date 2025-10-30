@@ -218,7 +218,7 @@ void KateGPGPluginView::onDocumentWillSave(KTextEditor::Document *doc)
         if (m_gpgWrapper->isEncrypted(v->document()->text())) {
             m_mainWindow->showMessage(generateMessage(i18n("Attempted double encryption detected!\nEncrypting more "
                                                            "than once is disabled for now..."),
-                                                      i18n("Warning")));
+                                                      QStringLiteral("Warning")));
             return;
         }
         v->document()->setText(v->document()->text());
@@ -230,16 +230,16 @@ void KateGPGPluginView::decryptButtonPressed()
 {
     QList<KTextEditor::View *> views = m_mainWindow->views();
     if (views.size() < 1) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error! No views available..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error! No views available..."), QStringLiteral("Error")));
         return;
     }
     KTextEditor::View *v = views.at(0);
     if (!v || !v->document() || v->document()->isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! Document is empty..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! Document is empty..."), QStringLiteral("Error")));
         return;
     }
     if (m_selectedKeyIndexEdit->text().isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! No fingerprint selected..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text! No fingerprint selected..."), QStringLiteral("Error")));
         return;
     }
     GPGOperationResult res = m_gpgWrapper->decryptString(v->document()->text(), m_selectedKeyIndexEdit->text());
@@ -248,11 +248,11 @@ void KateGPGPluginView::decryptButtonPressed()
                                                        "No matching fingerprint found!\n"
                                                        "Or this is not a GPG "
                                                        "encrypted text..."),
-                                                  i18n("Error")));
+                                                  QStringLiteral("Error")));
         return;
     }
     if (!res.decryptionSuccess) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!\n") + res.errorMessage, i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Decrypting Text!\n") + res.errorMessage, QStringLiteral("Error")));
         return;
     }
     v->document()->setText(res.resultString);
@@ -273,27 +273,27 @@ void KateGPGPluginView::encryptButtonPressed()
 {
     QList<KTextEditor::View *> views = m_mainWindow->views();
     if (views.size() < 1) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error! No views available..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error! No views available..."), QStringLiteral("Error")));
         return;
     }
     KTextEditor::View *v = views.at(0);
 
     if (!v || !v->document()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! No document available..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! No document available..."), QStringLiteral("Error")));
         return;
     }
     if (v->document()->text().isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! Document is empty..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! Document is empty..."), QStringLiteral("Error")));
         return;
     }
     if (m_selectedKeyIndexEdit->text().isEmpty()) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text!\nNo fingerprint selected..."), i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text!\nNo fingerprint selected..."), QStringLiteral("Error")));
         return;
     }
     if (v->document()->text().startsWith(QLatin1String("-----BEGIN PGP MESSAGE-----"))) {
         m_mainWindow->showMessage(generateMessage(i18n("Attempted double encryption detected! Encrypting twice "
                                                        "is disabled for now..."),
-                                                  i18n("Warning")));
+                                                  QStringLiteral("Warning")));
         return;
     }
 
@@ -303,11 +303,12 @@ void KateGPGPluginView::encryptButtonPressed()
                                                          m_saveAsASCIICheckbox->isChecked(),
                                                          m_symmetricEncryptioCheckbox->isChecked());
     if (!res.keyFound) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text! No Matching Fingerprint found...\n") + res.errorMessage, i18n("Error")));
+        m_mainWindow->showMessage(
+            generateMessage(i18n("Error Encrypting Text! No Matching Fingerprint found...\n") + res.errorMessage, QStringLiteral("Error")));
         return;
     }
     if (!res.decryptionSuccess) {
-        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text!") + res.errorMessage, i18n("Error")));
+        m_mainWindow->showMessage(generateMessage(i18n("Error Encrypting Text!") + res.errorMessage, QStringLiteral("Error")));
         return;
     }
     v->document()->setText(res.resultString);

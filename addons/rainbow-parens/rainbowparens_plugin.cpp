@@ -292,6 +292,9 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     auto matchesCloser = [](QChar in, QChar opener) {
         return (opener == u'{' && in == u'}') || (opener == u'[' && in == u']') || (opener == u'(' && in == u')');
     };
+    auto createOneColumnRange = [](KTextEditor::Cursor c) {
+        return KTextEditor::Range(c.line(), c.column(), c.line(), c.column() + 1);
+    };
 
     // A struct representing an opening bracket
     struct Opener {
@@ -381,16 +384,14 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         auto [existingStart, existingEnd] = existingColoredBracketForPos(oldRanges, p.opener, p.closer);
         if (existingStart && existingEnd) {
             // ensure start and end have same attribute and expected range
-            KTextEditor::Cursor bracketEnd{p.opener.line(), p.opener.column() + 1};
-            KTextEditor::Range expectedStart = {p.opener, bracketEnd};
+            KTextEditor::Range expectedStart = createOneColumnRange(p.opener);
             if (existingStart->toRange() != expectedStart) {
                 existingStart->setRange(expectedStart, existingEnd->attribute());
             } else if (existingStart->attribute() != existingEnd->attribute()) {
                 existingStart->setAttribute(existingEnd->attribute());
             }
 
-            bracketEnd.setPosition({p.closer.line(), p.closer.column() + 1});
-            KTextEditor::Range expectedEnd = {p.closer, bracketEnd};
+            KTextEditor::Range expectedEnd = createOneColumnRange(p.closer);
             if (existingEnd->toRange() != expectedEnd) {
                 existingEnd->setRange(expectedEnd);
             }
@@ -405,12 +406,10 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
             continue;
         }
 
-        std::unique_ptr<KTextEditor::MovingRange> r(doc->newMovingRange({p.opener, cur1}));
+        std::unique_ptr<KTextEditor::MovingRange> r(doc->newMovingRange(createOneColumnRange(p.opener)));
         r->setAttribute(attrs[color % numberOfColors]);
 
-        auto cur2 = p.closer;
-        cur2.setColumn(cur2.column() + 1);
-        std::unique_ptr<KTextEditor::MovingRange> r2(doc->newMovingRange({p.closer, cur2}));
+        std::unique_ptr<KTextEditor::MovingRange> r2(doc->newMovingRange(createOneColumnRange(p.closer)));
         r2->setAttribute(attrs[color % numberOfColors]);
 
         ranges.push_back(std::move(r));

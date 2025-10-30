@@ -40,8 +40,15 @@ bool TargetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &
 
 void TargetFilterProxyModel::setFilter(const QString &filter)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    beginFilterChange();
+#endif
     m_filter = filter;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+    endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
     invalidateFilter();
+#endif
 }
 
 bool TargetFilterProxyModel::setData(const QModelIndex &index, const QVariant &value, int role)

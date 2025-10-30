@@ -53,9 +53,15 @@ public:
 public Q_SLOTS:
     void setFilterText(const QString &text)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        beginFilterChange();
+#endif
         m_filterStrings = text.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-
+#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
+        endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
         invalidateFilter();
+#endif
     }
 
 private:

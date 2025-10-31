@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2024-07-23 21:27+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -267,13 +267,13 @@ msgstr "CTags 執行檔執行失敗。"
 msgid "CTags was unable to parse this file."
 msgstr "CTags 無法解析此檔案。"
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr "找不到標籤檔案。請手動產生一個或使用 CTags 外掛程式"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "找不到「%1」的檔案。"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -267,7 +267,7 @@ msgstr "CTags yürütülebiliri çalıştırılamadı."
 msgid "CTags was unable to parse this file."
 msgstr "CTags bu dosyayı ayrıştıramadı."
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
@@ -275,7 +275,7 @@ msgstr ""
 "Etiketler dosyası bulunamadı, lütfen el ile bir tane oluşturun veya CTags "
 "eklentisini kullanın"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "“%1“ için dosya bulunamadı."

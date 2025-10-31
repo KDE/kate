@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2024-09-10 15:39+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -263,13 +263,13 @@ msgstr "စီတပ် လုပ်ဆောင်-ဖိုင် ကိုမ
 msgid "CTags was unable to parse this file."
 msgstr "စီတပ်သည် ဤဖိုင်ကို မဖတ်နိုင်(အဓိပ္ပါယ်ရှိအောင်)ပါ။"
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr "တပ်ဖိုင်မတွေ့ပါ။ ကိုယ်တိုင် သို့မဟုတ် စီတပ် ပလပ်ဂင် သုံး၍ ဖန်တီးပါ"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "'%1' အတွက် ဖိုင်မတွေ့ပါ။"

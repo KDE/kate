@@ -1,0 +1,236 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
+"PO-Revision-Date: 2025-10-30 14:45+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 23.04.3\n"
+
+#: gpgmeppwrapper.cpp:83
+#, kde-format
+msgid "Error! No keys found..."
+msgstr "Помилка! Не знайдено ключів…"
+
+#: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
+#, kde-format
+msgid "Error finding key: "
+msgstr "Помилка пошуку ключа: "
+
+#: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
+#, kde-format
+msgid "Error in symmetric encryption: "
+msgstr "Помилка у симетричному шифруванні: "
+
+#: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
+#, kde-format
+msgid "Encryption Failed: "
+msgstr "Помилка шифрування: "
+
+#: kategpgplugin.cpp:76
+#, kde-format
+msgid "GPG Plugin"
+msgstr "Додаток GPG"
+
+#: kategpgplugin.cpp:81
+#, kde-format
+msgid "GPG Decrypt current document"
+msgstr "Розшифровування поточного документа за допомогою GPG"
+
+#: kategpgplugin.cpp:82
+#, kde-format
+msgid "GPG Encrypt current document"
+msgstr "Шифрування поточного документа за допомогою GPG"
+
+#: kategpgplugin.cpp:86
+#, kde-format
+msgid "<b>GPG Plugin Settings</b>"
+msgstr "<b>Параметри додатка GPG</b>"
+
+#: kategpgplugin.cpp:89
+#, kde-format
+msgid "Key ID"
+msgstr "Ідентифікатор ключа"
+
+#: kategpgplugin.cpp:90
+#, kde-format
+msgid "A search string used to filter keys by available email addresses"
+msgstr ""
+"Пошуковий рядок, який буде використано для фільтрування ключів за доступними "
+"адресами електронної пошти"
+
+#: kategpgplugin.cpp:93
+#, kde-format
+msgid "Selected GPG Key finerprint for encryption"
+msgstr "Відбиток вибраного ключа GPG для шифрування"
+
+#: kategpgplugin.cpp:94
+#, kde-format
+msgid "<b>To: Email address used for encryption</b>"
+msgstr "<b>Адреса електронної пошти «Кому» для шифрування</b>"
+
+#: kategpgplugin.cpp:103
+#, kde-format
+msgid ""
+"Select an email address to which to encrypt.\n"
+"Only mail addresses associated with your currently selected\n"
+"key fingerprint are available."
+msgstr ""
+"Виберіть адресу електронної пошти, для якої слід виконати шифрування.\n"
+"Доступними будуть лише адреси електронної пошти із вибраним зараз\n"
+"відбитком ключа."
+
+#: kategpgplugin.cpp:107
+#, kde-format
+msgid ""
+"This is your currently selected GPG key fingerprint that will be used for "
+"encryption."
+msgstr ""
+"Це відбиток поточного вибраного ключа GPG, який буде використано для "
+"шифрування."
+
+#: kategpgplugin.cpp:110
+#, kde-format
+msgid "Save as ASCII encoded (.asc/.gpg)"
+msgstr "Зберегти у кодуванні ASCII (.asc/.gpg)"
+
+#: kategpgplugin.cpp:113
+#, kde-format
+msgid "Enable symmetric encryption"
+msgstr "Увімкнути симетричне шифрування"
+
+#: kategpgplugin.cpp:116
+#, kde-format
+msgid "Show only keys for which a private key is available"
+msgstr "Показувати лише ключі, для яких доступний закритий ключ"
+
+#: kategpgplugin.cpp:119
+#, kde-format
+msgid "Hide Expired Keys"
+msgstr "Приховати прострочені ключі"
+
+#: kategpgplugin.cpp:220
+#, kde-format
+msgid ""
+"Attempted double encryption detected!\n"
+"Encrypting more than once is disabled for now..."
+msgstr ""
+"Виявлено спробу подвійного шифрування!\n"
+"У поточній версії повторне шифрування вимкнено…"
+
+#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#, kde-format
+msgid "Error! No views available..."
+msgstr "Помилка! Немає доступних переглядів…"
+
+#: kategpgplugin.cpp:239
+#, fuzzy, kde-format
+#| msgid "Error Decrypting Text! Document is empty.."
+msgid "Error Decrypting Text! Document is empty..."
+msgstr "Помилка під час розшифровування тексту! Порожній документ…"
+
+#: kategpgplugin.cpp:243
+#, kde-format
+msgid "Error Decrypting Text! No fingerprint selected..."
+msgstr "Помилка під час розшифровування тексту! Не вибрано відбитка…"
+
+#: kategpgplugin.cpp:248
+#, fuzzy, kde-format
+#| msgid ""
+#| "Error Decrypting Text!ņNo matching fingerprint found!\n"
+#| "Or this is not a GPG encrypted text..."
+msgid ""
+"Error Decrypting Text!\n"
+"No matching fingerprint found!\n"
+"Or this is not a GPG encrypted text..."
+msgstr ""
+"Помилка під час розшифровування тексту!\n"
+"Не знайдено відповідного відбитка!\n"
+"Або цей текст не зашифровано за допомогою GPG…"
+
+#: kategpgplugin.cpp:256
+#, kde-format
+msgid "Error Decrypting Text!\n"
+msgstr "Помилка під час розшифровування тексту!\n"
+
+#: kategpgplugin.cpp:283
+#, kde-format
+msgid "Error Encrypting Text! No document available..."
+msgstr "Помилка під час шифрування тексту! Немає доступного документа…"
+
+#: kategpgplugin.cpp:287
+#, fuzzy, kde-format
+#| msgid "Error Encrypting Text! Document is empty.."
+msgid "Error Encrypting Text! Document is empty..."
+msgstr "Помилка під час шифрування тексту! Порожні документ…"
+
+#: kategpgplugin.cpp:291
+#, kde-format
+msgid ""
+"Error Encrypting Text!\n"
+"No fingerprint selected..."
+msgstr ""
+"Помилка під час шифрування тексту!\n"
+"Не вибрано відбитка…"
+
+#: kategpgplugin.cpp:295
+#, kde-format
+msgid ""
+"Attempted double encryption detected! Encrypting twice is disabled for now..."
+msgstr ""
+"Виявлено спробу подвійного шифрування! У поточній версії повторне шифрування "
+"вимкнено…"
+
+#: kategpgplugin.cpp:308
+#, fuzzy, kde-format
+#| msgid "Error Decrypting Text! No Matching Fingerprint found...\n"
+msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
+msgstr ""
+"Помилка під час розшифровування тексту! Не знайдено відповідного відбитка…\n"
+
+#: kategpgplugin.cpp:312
+#, kde-format
+msgid "Error Encrypting Text!"
+msgstr "Помилка під час шифрування тексту!"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Key Fingerprint"
+msgstr "Відбиток ключа"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Creation Date"
+msgstr "Дата створення"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Expiry Date"
+msgstr "Термін дії"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Key Length"
+msgstr "Довжина ключа"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "User IDs"
+msgstr "Ідентифікатори користувачів"
+
+#~ msgid "Warning"
+#~ msgstr "Попередження"
+
+#~ msgid "Error"
+#~ msgstr "Помилка"

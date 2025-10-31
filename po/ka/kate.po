@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-28 00:46+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2025-10-13 04:46+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -236,7 +236,7 @@ msgstr "&ხელსაწყოები"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -287,7 +287,7 @@ msgstr ""
 msgid "All"
 msgstr "ყველა"
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:312
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
@@ -296,127 +296,127 @@ msgstr ""
 "მიღწეულია დიაგნოსტიკის ზღვარი. მეტ დიაგნოსტიკას მე ვეღარ ავიტან. ზღვრის "
 "დაყენება მორგების ფანჯარაში შეგიძლიათ."
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:355
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "დიაგნოსტიკის ხედი"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:360
 #, kde-format
 msgid "Quick Fix"
 msgstr "სწრაფი გასწორება"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Next Item"
 msgstr "შემდეგი ელემენტი"
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:372
 #, kde-format
 msgid "Previous Item"
 msgstr "წინა ელემენტი"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:380
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "დიაგნოსტიკის ფილტრის გასუფთავება"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:390
 #, kde-format
 msgid "Show Hover Info"
 msgstr "თაგუნას გადატარების ინფორმაციის ჩვენება"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:392
+#: lib/diagnostics/diagnosticview.cpp:449 lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid "Diagnostics"
 msgstr "დიაგნოსტიკა"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:495
 #, kde-format
 msgid "Errors"
 msgstr "შედომები"
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:511
 #, kde-format
 msgid "Warnings"
 msgstr "გაფრთხილებები"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "გაფილტვრა…"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:531
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "დიაგნოსტიკის გასუფთავება"
 
-#: lib/diagnostics/diagnosticview.cpp:1154 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1168 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "შეცდომა"
 
-#: lib/diagnostics/diagnosticview.cpp:1158 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1172 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:809
 #, kde-format
 msgid "Warning"
 msgstr "გაფრთხილება"
 
-#: lib/diagnostics/diagnosticview.cpp:1162
+#: lib/diagnostics/diagnosticview.cpp:1176
 #, kde-format
 msgid "Information"
 msgstr "ინფორმაცია"
 
-#: lib/diagnostics/diagnosticview.cpp:1290
+#: lib/diagnostics/diagnosticview.cpp:1304
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ჩახშობილია: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1416
+#: lib/diagnostics/diagnosticview.cpp:1430
 #, kde-format
 msgid "Expand All"
 msgstr "ყველას ამოკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1417
+#: lib/diagnostics/diagnosticview.cpp:1431
 #, kde-format
 msgid "Collapse All"
 msgstr "ყველას ჩაკეცვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1423
+#: lib/diagnostics/diagnosticview.cpp:1437
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "ბუფერში კოპირება"
 
-#: lib/diagnostics/diagnosticview.cpp:1465
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "გლობალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1467
+#: lib/diagnostics/diagnosticview.cpp:1481
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "გლობალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1471
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "ლოკალური ჩახშობის წაშლა"
 
-#: lib/diagnostics/diagnosticview.cpp:1473
+#: lib/diagnostics/diagnosticview.cpp:1487
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "ლოკალური ჩახშობის დამატება"
 
-#: lib/diagnostics/diagnosticview.cpp:1488
+#: lib/diagnostics/diagnosticview.cpp:1502
 #, kde-format
 msgid "Disable Suppression"
 msgstr "ჩახშობის გათიშვა"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1504
 #, kde-format
 msgid "Enable Suppression"
 msgstr "ჩახშობის ჩართვა"

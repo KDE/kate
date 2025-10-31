@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2023-03-12 08:26+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -263,7 +263,7 @@ msgstr "Nie udało się wykonać pliku wykonywalnego CTags."
 msgid "CTags was unable to parse this file."
 msgstr "CTags nie był w stanie przetworzyć tego pliku."
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
@@ -271,7 +271,7 @@ msgstr ""
 "Nie znaleziono pliku znaczników. Utwórz taki plik ręcznie lub przy użyciu "
 "wtyczki CTags"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "Nie znaleziono pliku '%1'."

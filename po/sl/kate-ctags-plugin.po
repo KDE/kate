@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2023-02-22 09:01+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -266,7 +266,7 @@ msgstr "Izvajalni program CTags se ni uspel izvesti."
 msgid "CTags was unable to parse this file."
 msgstr "CTags ni mogel razčleniti te datoteke."
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
@@ -274,7 +274,7 @@ msgstr ""
 "Datoteke z značkami ni mogoče najti. Generirajte jo ročno ali z uporabo "
 "vtičnika CTags"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "Datoteke za '%1' ni mogoče najti."

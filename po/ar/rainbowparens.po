@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 11:10+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -18,17 +18,17 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: rainbowparens_plugin.cpp:478
+#: rainbowparens_plugin.cpp:432
 #, kde-format
 msgid "Choose colors that will be used for bracket coloring:"
 msgstr "اختر الألوان التي ستستخدم في تلوين الأقواس:"
 
-#: rainbowparens_plugin.cpp:498
+#: rainbowparens_plugin.cpp:452
 #, kde-format
 msgid "Colored Brackets"
 msgstr "أقواس ملونة"
 
-#: rainbowparens_plugin.cpp:503
+#: rainbowparens_plugin.cpp:457
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "إعدادات الأقواس الملونة"

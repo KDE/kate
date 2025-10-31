@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 11:23+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -264,13 +264,13 @@ msgstr "فشل تنفيذ تنفيذي  «وسوم‌سي»."
 msgid "CTags was unable to parse this file."
 msgstr "«وسوم‌سي» لم يتمكن من تحليل هذا الملف."
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr "لم يعثر على ملف الوسوم. فضلا ولّد واحدا يدوياً أو استخدم ملحقة وسوم سي"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "لم يعثر على ملف لـ'%1'"

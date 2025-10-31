@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-28 00:46+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -241,7 +241,7 @@ msgstr "&Eszközök"
 
 #. i18n: ectx: Menu (tools_diagnosticsview)
 #. i18n: ectx: Menu (tools)
-#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:291
+#: lib/data/kateui.rc:128 lib/diagnostics/diagnosticview.cpp:305
 #: lib/diagnostics/ui.rc:8
 #, kde-format
 msgid "Diagnostics View"
@@ -292,137 +292,137 @@ msgstr ""
 msgid "All"
 msgstr "Mind"
 
-#: lib/diagnostics/diagnosticview.cpp:298
+#: lib/diagnostics/diagnosticview.cpp:312
 #, kde-format
 msgid ""
 "Diagnostics limit reached, ignoring further diagnostics. The limit can be "
 "configured in settings."
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:341
+#: lib/diagnostics/diagnosticview.cpp:355
 #, kde-format
 msgctxt "@action:inmenu Diagnostics View actions menu"
 msgid "Diagnostics View"
 msgstr "Diagnosztikai nézet"
 
-#: lib/diagnostics/diagnosticview.cpp:346
+#: lib/diagnostics/diagnosticview.cpp:360
 #, kde-format
 msgid "Quick Fix"
 msgstr "Gyors javítás"
 
-#: lib/diagnostics/diagnosticview.cpp:352
+#: lib/diagnostics/diagnosticview.cpp:366
 #, kde-format
 msgid "Next Item"
 msgstr "Következő elem"
 
-#: lib/diagnostics/diagnosticview.cpp:358
+#: lib/diagnostics/diagnosticview.cpp:372
 #, kde-format
 msgid "Previous Item"
 msgstr "Előző elem"
 
-#: lib/diagnostics/diagnosticview.cpp:366
+#: lib/diagnostics/diagnosticview.cpp:380
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "Diagnosztikai szűrő törlése"
 
-#: lib/diagnostics/diagnosticview.cpp:376
+#: lib/diagnostics/diagnosticview.cpp:390
 #, fuzzy, kde-format
 #| msgid "Show/Hide Commit Info"
 msgid "Show Hover Info"
 msgstr "Véglegesítő információk megjelenítése/elrejtése"
 
-#: lib/diagnostics/diagnosticview.cpp:435 lib/kateconfigdialog.cpp:392
+#: lib/diagnostics/diagnosticview.cpp:449 lib/kateconfigdialog.cpp:392
 #, kde-format
 msgid "Diagnostics"
 msgstr "Diagnosztika"
 
-#: lib/diagnostics/diagnosticview.cpp:481
+#: lib/diagnostics/diagnosticview.cpp:495
 #, kde-format
 msgid "Errors"
 msgstr "Hibák"
 
-#: lib/diagnostics/diagnosticview.cpp:497
+#: lib/diagnostics/diagnosticview.cpp:511
 #, kde-format
 msgid "Warnings"
 msgstr "Figyelmeztetések"
 
-#: lib/diagnostics/diagnosticview.cpp:511 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter..."
 msgid "Filter…"
 msgstr "Szűrő…"
 
-#: lib/diagnostics/diagnosticview.cpp:517
+#: lib/diagnostics/diagnosticview.cpp:531
 #, fuzzy, kde-format
 #| msgid "Clear Diagnostics Filter"
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Diagnosztikai szűrő törlése"
 
-#: lib/diagnostics/diagnosticview.cpp:1154 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1168 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/diagnostics/diagnosticview.cpp:1158 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1172 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:809
 #, kde-format
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/diagnostics/diagnosticview.cpp:1162
+#: lib/diagnostics/diagnosticview.cpp:1176
 #, kde-format
 msgid "Information"
 msgstr "Információk"
 
-#: lib/diagnostics/diagnosticview.cpp:1290
+#: lib/diagnostics/diagnosticview.cpp:1304
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [mellőzve: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1416
+#: lib/diagnostics/diagnosticview.cpp:1430
 #, kde-format
 msgid "Expand All"
 msgstr "Összes kibontása"
 
-#: lib/diagnostics/diagnosticview.cpp:1417
+#: lib/diagnostics/diagnosticview.cpp:1431
 #, kde-format
 msgid "Collapse All"
 msgstr "Összes összecsukása"
 
-#: lib/diagnostics/diagnosticview.cpp:1423
+#: lib/diagnostics/diagnosticview.cpp:1437
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Másolás a vágólapra"
 
-#: lib/diagnostics/diagnosticview.cpp:1465
+#: lib/diagnostics/diagnosticview.cpp:1479
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Globális mellőzés eltávolítása"
 
-#: lib/diagnostics/diagnosticview.cpp:1467
+#: lib/diagnostics/diagnosticview.cpp:1481
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Globális mellőzés hozzáadása"
 
-#: lib/diagnostics/diagnosticview.cpp:1471
+#: lib/diagnostics/diagnosticview.cpp:1485
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Helyi mellőzés eltávolítása"
 
-#: lib/diagnostics/diagnosticview.cpp:1473
+#: lib/diagnostics/diagnosticview.cpp:1487
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Helyi mellőzés hozzáadása"
 
-#: lib/diagnostics/diagnosticview.cpp:1488
+#: lib/diagnostics/diagnosticview.cpp:1502
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Mellőzés kikapcsolása"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1504
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Mellőzés bekapcsolása"

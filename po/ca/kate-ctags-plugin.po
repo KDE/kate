@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-21 00:45+0000\n"
+"POT-Creation-Date: 2025-10-31 00:45+0000\n"
 "PO-Revision-Date: 2023-02-20 10:13+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -267,7 +267,7 @@ msgstr "Ha fallat l'execució de l'executable del CTags."
 msgid "CTags was unable to parse this file."
 msgstr "El CTags no ha pogut interpretar aquest fitxer."
 
-#: gotosymbolwidget.cpp:246
+#: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
@@ -275,7 +275,7 @@ msgstr ""
 "No s'ha trobat el fitxer d'etiquetes. Genereu-ne un manualment o utilitzant "
 "el connector CTags"
 
-#: gotosymbolwidget.cpp:315
+#: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
 msgstr "No s'ha trobat el fitxer per a «%1»."

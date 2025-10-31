@@ -39,24 +39,24 @@ KTextEditor::ConfigPage *RainbowParenPlugin::configPage(int number, QWidget *par
 
 void RainbowParenPlugin::readConfig()
 {
-    if (attrs.empty()) {
-        attrs.resize(5);
-        for (auto &attr : attrs) {
+    if (m_attrs.empty()) {
+        m_attrs.resize(5);
+        for (auto &attr : m_attrs) {
             attr = new KTextEditor::Attribute;
         }
     }
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ColoredBrackets"));
     QColor br = config.readEntry("color1", QStringLiteral("#1275ef"));
-    attrs[0]->setForeground(br);
+    m_attrs[0]->setForeground(br);
     br = config.readEntry("color2", QStringLiteral("#f83c1f"));
-    attrs[1]->setForeground(br);
+    m_attrs[1]->setForeground(br);
     br = config.readEntry("color3", QStringLiteral("#9dba1e"));
-    attrs[2]->setForeground(br);
+    m_attrs[2]->setForeground(br);
     br = config.readEntry("color4", QStringLiteral("#e219e2"));
-    attrs[3]->setForeground(br);
+    m_attrs[3]->setForeground(br);
     br = config.readEntry("color5", QStringLiteral("#37d21c"));
-    attrs[4]->setForeground(br);
+    m_attrs[4]->setForeground(br);
 }
 
 QObject *RainbowParenPlugin::createView(KTextEditor::MainWindow *mainWindow)
@@ -122,10 +122,10 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
         // loose the bracket coloring
         SavedRanges saved;
         saved.doc = doc;
-        saved.ranges = std::move(ranges);
-        savedRanges.push_back(std::move(saved));
-        if (savedRanges.size() > 4) {
-            savedRanges.erase(savedRanges.begin());
+        saved.ranges = std::move(m_ranges);
+        m_savedRanges.push_back(std::move(saved));
+        if (m_savedRanges.size() > 4) {
+            m_savedRanges.erase(m_savedRanges.begin());
         }
 
         // clear ranges for this doc if it gets closed
@@ -139,11 +139,11 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
                 Qt::UniqueConnection);
     }
 
-    ranges.clear();
+    m_ranges.clear();
     m_activeView = view;
 
     // get any existing ranges for this view
-    getSavedRangesForDoc(savedRanges, ranges, m_activeView->document());
+    getSavedRangesForDoc(m_savedRanges, m_ranges, m_activeView->document());
 
     connect(view, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged, Qt::UniqueConnection);
 
@@ -201,16 +201,16 @@ void RainbowParenPluginView::requestRehighlight(int delay)
 
 void RainbowParenPluginView::clearRanges(KTextEditor::Document *)
 {
-    ranges.clear();
+    m_ranges.clear();
 }
 
 void RainbowParenPluginView::clearSavedRangesForDoc(KTextEditor::Document *doc)
 {
-    auto it = std::find_if(savedRanges.begin(), savedRanges.end(), [doc](const RainbowParenPluginView::SavedRanges &r) {
+    auto it = std::find_if(m_savedRanges.begin(), m_savedRanges.end(), [doc](const RainbowParenPluginView::SavedRanges &r) {
         return r.doc == doc;
     });
-    if (it != savedRanges.end()) {
-        savedRanges.erase(it);
+    if (it != m_savedRanges.end()) {
+        m_savedRanges.erase(it);
     }
 }
 
@@ -342,7 +342,7 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     // We reuse ranges completely if there was no change but the user
     // was only scrolling. This allows the colors to stay somewhat stable
     // and not change all the time
-    auto oldRanges = std::move(ranges);
+    auto oldRanges = std::move(m_ranges);
 
     if (parens.empty())
         return;
@@ -396,9 +396,9 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
                 existingEnd->setRange(expectedEnd);
             }
 
-            ranges.push_back(std::move(existingStart));
-            ranges.push_back(std::move(existingEnd));
-            auto attrib = ranges.back()->attribute();
+            m_ranges.push_back(std::move(existingStart));
+            m_ranges.push_back(std::move(existingEnd));
+            auto attrib = m_ranges.back()->attribute();
             auto it = std::find(attrs.begin(), attrs.end(), attrib);
             auto prevColor = color;
             color = std::distance(attrs.begin(), it) + 1;
@@ -412,8 +412,8 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         std::unique_ptr<KTextEditor::MovingRange> r2(doc->newMovingRange(createOneColumnRange(p.closer)));
         r2->setAttribute(attrs[color % numberOfColors]);
 
-        ranges.push_back(std::move(r));
-        ranges.push_back(std::move(r2));
+        m_ranges.push_back(std::move(r));
+        m_ranges.push_back(std::move(r2));
 
         color++;
     }

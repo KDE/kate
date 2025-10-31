@@ -33,13 +33,13 @@ public:
     QObject *createView(KTextEditor::MainWindow *mainWindow) override;
     const std::vector<KTextEditor::Attribute::Ptr> &colorsList() const
     {
-        return attrs;
+        return m_attrs;
     }
 
     void readConfig();
 
 private:
-    std::vector<KTextEditor::Attribute::Ptr> attrs;
+    std::vector<KTextEditor::Attribute::Ptr> m_attrs;
 };
 
 class RainbowParenPluginView final : public QObject, public KXMLGUIClient
@@ -61,11 +61,11 @@ public:
         QPointer<KTextEditor::Document> doc;
         std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
     };
-    std::vector<SavedRanges> savedRanges;
+    std::vector<SavedRanges> m_savedRanges;
 
 private:
     RainbowParenPlugin *const m_plugin;
-    std::vector<std::unique_ptr<KTextEditor::MovingRange>> ranges;
+    std::vector<std::unique_ptr<KTextEditor::MovingRange>> m_ranges;
     QPointer<KTextEditor::View> m_activeView;
     KTextEditor::MainWindow *m_mainWindow;
     QTimer m_rehighlightTimer;

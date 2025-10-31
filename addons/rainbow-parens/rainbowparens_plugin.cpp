@@ -21,6 +21,10 @@
 #include <KTextEditor/View>
 
 constexpr int numberOfColors = 5;
+[[nodiscard]] size_t rehighlight(KTextEditor::View *view,
+                                 std::vector<std::unique_ptr<KTextEditor::MovingRange>> &ranges,
+                                 size_t lastUserColorIdx,
+                                 const std::vector<KTextEditor::Attribute::Ptr> &attrs);
 
 K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json", registerPlugin<RainbowParenPlugin>();)
 
@@ -73,14 +77,14 @@ RainbowParenPluginView::RainbowParenPluginView(RainbowParenPlugin *plugin, KText
     connect(mainWin, &KTextEditor::MainWindow::viewChanged, this, &RainbowParenPluginView::viewChanged);
     QTimer::singleShot(50, this, [this] {
         if (auto *view = m_mainWindow->activeView()) {
-            rehighlight(view);
+            m_lastUserColor = rehighlight(view, m_ranges, m_lastUserColor, m_plugin->colorsList());
         }
     });
     m_rehighlightTimer.setInterval(200);
     m_rehighlightTimer.setSingleShot(true);
     m_rehighlightTimer.callOnTimeout(this, [this] {
         if (m_activeView) {
-            rehighlight(m_activeView);
+            m_lastUserColor = rehighlight(m_activeView, m_ranges, m_lastUserColor, m_plugin->colorsList());
         }
     });
 }
@@ -156,7 +160,7 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
     connect(doc, &KTextEditor::Document::textInserted, this, &RainbowParenPluginView::onTextInserted, Qt::UniqueConnection);
     connect(doc, &KTextEditor::Document::textRemoved, this, &RainbowParenPluginView::onTextRemoved, Qt::UniqueConnection);
 
-    rehighlight(m_activeView);
+    m_lastUserColor = rehighlight(m_activeView, m_ranges, m_lastUserColor, m_plugin->colorsList());
 }
 
 static void onTextChanged(RainbowParenPluginView *p, const QString &text)
@@ -270,14 +274,17 @@ static ColoredBracketPair existingColoredBracketForPos(std::vector<ColoredBracke
  * This allows us to do a lot less work and still be able to do coloring
  * of brackets.
  */
-void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
+size_t rehighlight(KTextEditor::View *view,
+                   std::vector<std::unique_ptr<KTextEditor::MovingRange>> &ranges,
+                   size_t lastUserColorIdx,
+                   const std::vector<KTextEditor::Attribute::Ptr> &attrs)
 {
     // we only care about lines that are in the viewport
     int start = view->firstDisplayedLine();
     int end = view->lastDisplayedLine();
     if (end < start) {
         qWarning("RainbowParenPluginView: Unexpected end < start");
-        return;
+        return lastUserColorIdx;
     }
 
     // if the lines are folded we can get really big range
@@ -343,10 +350,10 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     // We reuse ranges completely if there was no change but the user
     // was only scrolling. This allows the colors to stay somewhat stable
     // and not change all the time
-    auto oldRanges = std::move(m_ranges);
+    auto oldRanges = std::move(ranges);
 
     if (parens.empty())
-        return;
+        return lastUserColorIdx;
 
     // sort by start paren
     // Necessary so that we can get alternating colors for brackets
@@ -360,9 +367,8 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
     };
 
     size_t idx = 0;
-    size_t color = m_lastUserColor;
+    size_t color = lastUserColorIdx;
     int lastParenLine = 0;
-    const auto &attrs = m_plugin->colorsList();
     for (auto p : parens) {
         // scope guard to ensure we always update stuff for every iteration
         auto updater = qScopeGuard([&idx, &lastParenLine, p] {
@@ -397,9 +403,9 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
                 existingEnd->setRange(expectedEnd);
             }
 
-            m_ranges.push_back(std::move(existingStart));
-            m_ranges.push_back(std::move(existingEnd));
-            auto attrib = m_ranges.back()->attribute();
+            ranges.push_back(std::move(existingStart));
+            ranges.push_back(std::move(existingEnd));
+            auto attrib = ranges.back()->attribute();
             auto it = std::find(attrs.begin(), attrs.end(), attrib);
             auto prevColor = color;
             color = std::distance(attrs.begin(), it) + 1;
@@ -413,13 +419,14 @@ void RainbowParenPluginView::rehighlight(KTextEditor::View *view)
         std::unique_ptr<KTextEditor::MovingRange> r2(doc->newMovingRange(createOneColumnRange(p.closer)));
         r2->setAttribute(attrs[color % numberOfColors]);
 
-        m_ranges.push_back(std::move(r));
-        m_ranges.push_back(std::move(r2));
+        ranges.push_back(std::move(r));
+        ranges.push_back(std::move(r2));
 
         color++;
     }
-    m_lastUserColor = color;
+
     oldRanges.clear();
+    return color;
 }
 
 RainbowParenConfigPage::RainbowParenConfigPage(QWidget *parent, RainbowParenPlugin *plugin)

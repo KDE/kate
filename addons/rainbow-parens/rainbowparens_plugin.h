@@ -51,7 +51,6 @@ public:
     void onTextRemoved(KTextEditor::Document *doc, KTextEditor::Range range, const QString &text);
     void onScrollChanged();
     void requestRehighlight(int delay = 200);
-    void rehighlight(KTextEditor::View *view);
     void viewChanged(KTextEditor::View *view);
 
     void clearRanges(KTextEditor::Document *doc);

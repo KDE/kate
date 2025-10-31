@@ -6,6 +6,7 @@
 #include "rainbowparens_plugin.h"
 
 #include <QGradient>
+#include <QGroupBox>
 #include <QIcon>
 #include <QLabel>
 #include <QPainter>
@@ -426,22 +427,18 @@ RainbowParenConfigPage::RainbowParenConfigPage(QWidget *parent, RainbowParenPlug
     , m_plugin(plugin)
 {
     auto layout = new QVBoxLayout(this);
-    layout->setContentsMargins({});
 
-    auto label = new QLabel(this);
-    label->setText(i18n("Choose colors that will be used for bracket coloring:"));
-    label->setWordWrap(true);
-    layout->addWidget(label);
+    auto gb = new QGroupBox(this);
+    gb->setTitle(i18nc("group title", "Bracket Colors"));
+    auto gbLayout = new QVBoxLayout(gb);
 
     for (auto &btn : m_btns) {
-        auto hl = new QHBoxLayout;
-        hl->addWidget(&btn);
-        hl->addStretch();
-        hl->setContentsMargins({});
-        layout->addLayout(hl);
-        btn.setMinimumWidth(150);
+        gbLayout->addWidget(&btn);
+        btn.setMaximumWidth(150);
         connect(&btn, &KColorButton::changed, this, &RainbowParenConfigPage::changed);
     }
+
+    layout->addWidget(gb);
     layout->addStretch();
 
     reset();

@@ -306,8 +306,8 @@ KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)
         if (didFilter) {
             m_styleDelegate->setFilterString(text);
             m_listView->viewport()->update();
-            reselectFirst();
         }
+        reselectFirst();
     });
 
     setHidden(true);

@@ -437,26 +437,24 @@ void KateQuickOpen::slotReturnPressed()
 
     const QStringList strs = m_inputLine->text().split(QLatin1Char(':'));
     if (view && strs.count() > 1) {
-        // helper to convert String => Number
-        std::function<int(const QString &)> stringToInt = [](const QString &s) {
-            bool ok = false;
-            const int num = s.toInt(&ok);
-            return ok ? num : -1;
-        };
-        KTextEditor::Cursor cursor = KTextEditor::Cursor::invalid();
+        // convert strings to cursor
+        const auto cursor = [](const QStringList &strs) -> KTextEditor::Cursor {
+            if (strs.size() > 1) {
+                bool ok = false;
+                int line = strs.at(1).toInt(&ok);
+                if (ok && strs.size() > 2) {
+                    int column = strs.at(2).toInt(&ok);
+                    if (ok) {
+                        return {line - 1, column - 1};
+                    }
+                    return {line - 1, 0};
+                }
+            }
+            return KTextEditor::Cursor::invalid();
+        }(strs);
 
-        // try to get line
-        const int line = stringToInt(strs.at(1));
-        cursor.setLine(line - 1);
-
-        // if line is valid, try to see if we have column available as well
-        if (line > -1 && strs.count() > 2) {
-            const int col = stringToInt(strs.at(2));
-            cursor.setColumn(col - 1);
-        }
-
-        // do we have valid line at least?
-        if (line > -1) {
+        // jump to position if we have a valid cursor
+        if (cursor.isValid()) {
             view->setCursorPosition(cursor);
         }
     }

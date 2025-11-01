@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-31 00:45+0000\n"
+"POT-Creation-Date: 2025-11-01 00:49+0000\n"
 "PO-Revision-Date: 2024-01-19 16:00+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -17,17 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.08.4\n"
 
-#: rainbowparens_plugin.cpp:432
+#: rainbowparens_plugin.cpp:439
 #, kde-format
-msgid "Choose colors that will be used for bracket coloring:"
+msgctxt "group title"
+msgid "Bracket Colors"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:452
+#: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Obarvené závorky"
 
-#: rainbowparens_plugin.cpp:457
+#: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr ""

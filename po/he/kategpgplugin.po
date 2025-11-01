@@ -7,14 +7,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-10-30 10:03+0200\n"
+"PO-Revision-Date: 2025-10-31 09:37+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
 "X-Generator: Lokalize 25.08.2\n"
 
 #: gpgmeppwrapper.cpp:83
@@ -130,8 +131,7 @@ msgid "Error! No views available..."
 msgstr "אזהרה! אין תצוגות זמינות…"
 
 #: kategpgplugin.cpp:239
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "שגיאה בפענוח הטקסט! המסמך ריק…"
 
@@ -141,16 +141,14 @@ msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "שגיאה בפענוח הטקסט! לא נבחרה טביעת אצבע…"
 
 #: kategpgplugin.cpp:248
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error Decrypting Text!ņNo matching fingerprint found!\n"
-#| "Or this is not a GPG encrypted text..."
+#, kde-format
 msgid ""
 "Error Decrypting Text!\n"
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"שגיאה בפענוח הטקסט! לא נמצאה טביעת אצבע מתאימה!\n"
+"שגיאה בפענוח הטקסט!\n"
+"לא נמצאה טביעת אצבע מתאימה!\n"
 "או שזה לא טקסט בהצפנת GPG…"
 
 #: kategpgplugin.cpp:256
@@ -164,8 +162,7 @@ msgid "Error Encrypting Text! No document available..."
 msgstr "שגיאה בהצפנת טקסט! אין מסמך זמין…"
 
 #: kategpgplugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Error Encrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "שגיאה בהצפנת הטקסט! המסמך ריק…"
 
@@ -185,10 +182,9 @@ msgid ""
 msgstr "התגלה ניסיון להצפין פעמיים! הצפנה כפולה מושבתת לעת עתה…"
 
 #: kategpgplugin.cpp:308
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! No Matching Fingerprint found...\n"
+#, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
-msgstr "שגיאה בפענוח הטקסט! לא נמצאה טביעת אצבע מתאימה…\n"
+msgstr "שגיאה בהצפנת הטקסט! לא נמצאה טביעת אצבע מתאימה…\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format

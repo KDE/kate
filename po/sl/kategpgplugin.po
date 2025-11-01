@@ -4,16 +4,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-10-30 10:07+0100\n"
+"PO-Revision-Date: 2025-10-31 06:40+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.08.2\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
+"X-Generator: Poedit 3.8\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
@@ -131,10 +131,9 @@ msgid "Error! No views available..."
 msgstr "Napaka! Ni na voljo pogledov..."
 
 #: kategpgplugin.cpp:239
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "Napaka pri dešifriranju besedila! Dokument je prazen.."
+msgstr "Napaka pri dešifriranju besedila! Dokument je prazen..."
 
 #: kategpgplugin.cpp:243
 #, kde-format
@@ -142,17 +141,14 @@ msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "Napaka pri dešifriranju besedila! Ni izbranega prstnega odtisa ..."
 
 #: kategpgplugin.cpp:248
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error Decrypting Text!ņNo matching fingerprint found!\n"
-#| "Or this is not a GPG encrypted text..."
+#, kde-format
 msgid ""
 "Error Decrypting Text!\n"
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"Napaka pri dešifriranju besedila! Ni najdenega ujemajočega se prstnega "
-"odtisa!\n"
+"Napaka pri dešifriranju besedila!\n"
+"Ni najdenega ujemajočega se prstnega odtisa!\n"
 "Ali pa to ni GPG šifrirano besedilo..."
 
 #: kategpgplugin.cpp:256
@@ -166,10 +162,9 @@ msgid "Error Encrypting Text! No document available..."
 msgstr "Napaka pri šifriranju besedila! Ni na voljo nobenega dokumenta..."
 
 #: kategpgplugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Error Encrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "Napaka pri šifriranju besedila! Dokument je prazen.."
+msgstr "Napaka pri šifriranju besedila! Dokument je prazen..."
 
 #: kategpgplugin.cpp:291
 #, kde-format
@@ -189,11 +184,10 @@ msgstr ""
 "onemogočeno ..."
 
 #: kategpgplugin.cpp:308
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! No Matching Fingerprint found...\n"
+#, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
-"Napaka pri dešifriranju besedila! Ni najdenega ujemajočega se prstnega "
+"Napaka pri šifriranju besedila! Ni najdenega ujemajočega se prstnega "
 "odtisa...\n"
 
 #: kategpgplugin.cpp:312

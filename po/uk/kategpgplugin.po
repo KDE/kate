@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-10-30 14:45+0200\n"
+"PO-Revision-Date: 2025-10-31 13:15+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
+"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.04.3\n"
 
 #: gpgmeppwrapper.cpp:83
@@ -135,8 +135,7 @@ msgid "Error! No views available..."
 msgstr "Помилка! Немає доступних переглядів…"
 
 #: kategpgplugin.cpp:239
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "Помилка під час розшифровування тексту! Порожній документ…"
 
@@ -146,10 +145,7 @@ msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "Помилка під час розшифровування тексту! Не вибрано відбитка…"
 
 #: kategpgplugin.cpp:248
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error Decrypting Text!ņNo matching fingerprint found!\n"
-#| "Or this is not a GPG encrypted text..."
+#, kde-format
 msgid ""
 "Error Decrypting Text!\n"
 "No matching fingerprint found!\n"
@@ -170,8 +166,7 @@ msgid "Error Encrypting Text! No document available..."
 msgstr "Помилка під час шифрування тексту! Немає доступного документа…"
 
 #: kategpgplugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Error Encrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "Помилка під час шифрування тексту! Порожні документ…"
 
@@ -193,11 +188,10 @@ msgstr ""
 "вимкнено…"
 
 #: kategpgplugin.cpp:308
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! No Matching Fingerprint found...\n"
+#, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
-"Помилка під час розшифровування тексту! Не знайдено відповідного відбитка…\n"
+"Помилка під час шифрування тексту! Не знайдено відповідного відбитка…\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format

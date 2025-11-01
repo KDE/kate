@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-31 00:45+0000\n"
+"POT-Creation-Date: 2025-11-01 00:49+0000\n"
 "PO-Revision-Date: 2024-02-22 16:42+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -17,17 +17,21 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 23.08.3\n"
 
-#: rainbowparens_plugin.cpp:432
+#: rainbowparens_plugin.cpp:439
 #, kde-format
-msgid "Choose colors that will be used for bracket coloring:"
-msgstr "Veldu liti sem verða notaðir á sviga og hornklofa:"
+msgctxt "group title"
+msgid "Bracket Colors"
+msgstr ""
 
-#: rainbowparens_plugin.cpp:452
+#: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Litaðir svigar og hornklofar"
 
-#: rainbowparens_plugin.cpp:457
+#: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Stillingar fyrir lit á svigum og hornklofum"
+
+#~ msgid "Choose colors that will be used for bracket coloring:"
+#~ msgstr "Veldu liti sem verða notaðir á sviga og hornklofa:"

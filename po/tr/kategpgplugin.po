@@ -1,17 +1,16 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2025 Guilherme Marçal Silva <guimarcalsilva@gmail.com>
-# SPDX-FileCopyrightText: 2025 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2025 Emir SARI <emir_sari@îcloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-10-31 07:16-0300\n"
-"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
-"Language: pt_BR\n"
+"PO-Revision-Date: 2025-10-31 17:29+0300\n"
+"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,64 +20,64 @@ msgstr ""
 #: gpgmeppwrapper.cpp:83
 #, kde-format
 msgid "Error! No keys found..."
-msgstr "Erro! Nenhuma chave encontrada…"
+msgstr "Hata! Bulunan anahtar yok."
 
 #: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
 #, kde-format
 msgid "Error finding key: "
-msgstr "Erro ao encontrar chave:"
+msgstr "Anahtar bulunurken hata: "
 
 #: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
 #, kde-format
 msgid "Error in symmetric encryption: "
-msgstr "Erro na criptografia simétrica:"
+msgstr "Simetrik şifrelemede hata: "
 
 #: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
 #, kde-format
 msgid "Encryption Failed: "
-msgstr "A criptografia falhou:"
+msgstr "Şifreleme başarısız: "
 
 #: kategpgplugin.cpp:76
 #, kde-format
 msgid "GPG Plugin"
-msgstr "Plugin GPG"
+msgstr "GPG Eklentisi"
 
 #: kategpgplugin.cpp:81
 #, kde-format
 msgid "GPG Decrypt current document"
-msgstr "Descriptografar documento atual com GPG"
+msgstr "Geçerli Belgenin Şifresini GPG ile Çöz"
 
 #: kategpgplugin.cpp:82
 #, kde-format
 msgid "GPG Encrypt current document"
-msgstr "Criptografar documento atual com GPG"
+msgstr "Geçerli Belgeyi GPG ile Şifrele"
 
 #: kategpgplugin.cpp:86
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
-msgstr "<b>Configurações do plugin GPG</b>"
+msgstr "<b>GPG Eklentisi Ayarları</b>"
 
 #: kategpgplugin.cpp:89
 #, kde-format
 msgid "Key ID"
-msgstr "ID da chave"
+msgstr "Anahtar kimliği"
 
 #: kategpgplugin.cpp:90
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
-"Um texto de busca usado para filtrar chaves pelos endereços de e-mail "
-"disponíveis"
+"Kullanılabilir e-posta adresleri arasından anahtarları süzmek için "
+"kullanılan bir arama dizisi"
 
 #: kategpgplugin.cpp:93
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
-msgstr "Impressão digital da chave GPG selecionada para criptografia"
+msgstr "Şifreleme için seçili GPG anahtar parmak izi"
 
 #: kategpgplugin.cpp:94
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
-msgstr "<b>Para: Endereço de e-mail usado para criptografia</b>"
+msgstr "<b>Kime:</b> Şifreleme için kullanılan e-posta adresi"
 
 #: kategpgplugin.cpp:103
 #, kde-format
@@ -87,9 +86,9 @@ msgid ""
 "Only mail addresses associated with your currently selected\n"
 "key fingerprint are available."
 msgstr ""
-"Selecione um endereço de e-mail que deseja criptografar.\n"
-"Apenas endereços de e-mail associados com sua impressão digital\n"
-"selecionada atualmente estão disponíveis."
+"Kendisine şifrelenecek bir e-posta adresi seçin.\n"
+"Yalnızca şu anda seçili anahtar parmak izinizle ilişkilendirilmiş\n"
+"e-posta adresleri kullanılabilirdir."
 
 #: kategpgplugin.cpp:107
 #, kde-format
@@ -97,28 +96,27 @@ msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
 msgstr ""
-"Esta é sua impressão digital GPG atualimente selecionada que será usada para "
-"criptografia."
+"Bu, şu anda seçili olan ve şifreleme için kullanılacak GPG anahtarınızdır."
 
 #: kategpgplugin.cpp:110
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
-msgstr "Salvar com codificação em ASCII (.asc/.gpg)"
+msgstr "ASCII kodlu olarak kaydet (.asc/.gpg)"
 
 #: kategpgplugin.cpp:113
 #, kde-format
 msgid "Enable symmetric encryption"
-msgstr "Habilitar criptografia simétrica"
+msgstr "Simetrek şifrelemeyi etkinleştir"
 
 #: kategpgplugin.cpp:116
 #, kde-format
 msgid "Show only keys for which a private key is available"
-msgstr "Exibir somente chaves para as quais uma chave privada está disponível"
+msgstr "Yalnızca kullanılabilir bir özel anahtarı olan anahtarları göster"
 
 #: kategpgplugin.cpp:119
 #, kde-format
 msgid "Hide Expired Keys"
-msgstr "Ocultar chaves expiradas"
+msgstr "Süresi dolmuş anahtarları gizle"
 
 #: kategpgplugin.cpp:220
 #, kde-format
@@ -126,23 +124,23 @@ msgid ""
 "Attempted double encryption detected!\n"
 "Encrypting more than once is disabled for now..."
 msgstr ""
-"Tentativa de criptografia dupla detectada!\n"
-"A criptografia dupla está desabilitada por enquanto…"
+"Çifte şifreleme denemesi algılandı!\n"
+"Birden çok şifreleme şu an için devre dışıdır."
 
 #: kategpgplugin.cpp:234 kategpgplugin.cpp:277
 #, kde-format
 msgid "Error! No views available..."
-msgstr "Erro! Nenhuma vista disponível…"
+msgstr "Hata! Kullanılabilir görünüm yok."
 
 #: kategpgplugin.cpp:239
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "Erro ao descriptografar texto! O documento está vazio…"
+msgstr "Metin şifresi çözülürken hata! Belge boş."
 
 #: kategpgplugin.cpp:243
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
-msgstr "Erro ao descriptografar texto! Nenhuma impressão digital selecionada…"
+msgstr "Metin şifresi çözülürken hata! Seçili parmak izi yok."
 
 #: kategpgplugin.cpp:248
 #, kde-format
@@ -151,24 +149,24 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"Erro ao descriptografar texto!\n"
-"Nenhuma impressão digital correspondente encontrada!\n"
-"Ou não é um texto criptografado pelo GPG…"
+"Metin şifresi çözülürken hata!\n"
+"Eşleşen parmak izi bulunamadı veya\n"
+"bu GPG ile şifrelenmiş bir metin değil."
 
 #: kategpgplugin.cpp:256
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "Erro ao descriptografar texto!\n"
+msgstr "Metin şifresi çözülürken hata!\n"
 
 #: kategpgplugin.cpp:283
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
-msgstr "Erro ao criptografar texto! Nenhum documento disponível…"
+msgstr "Metin şifresi çözülürken hata! Kullanılabilir belge yok."
 
 #: kategpgplugin.cpp:287
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "Erro ao criptografar texto! O documento está vazio…"
+msgstr "Metin şifresi çözülürken hata! Belge boş."
 
 #: kategpgplugin.cpp:291
 #, kde-format
@@ -176,56 +174,47 @@ msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
-"Erro ao criptografar texto!\n"
-"Nenhuma impressão digital selecionada…"
+"Metin şifresi çözülürken hata!\n"
+"Seçili parmak izi yok."
 
 #: kategpgplugin.cpp:295
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
 msgstr ""
-"Tentativa de criptografia dupla detectada! A criptografia dupla está "
-"desabilitada por enquanto…"
+"Çifte şifreleme denemesi algılandı! Bu özellik, şu an için devre dışıdır."
 
 #: kategpgplugin.cpp:308
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
-msgstr ""
-"Erro ao criptografar texto! Nenhuma impressão digital correspondente "
-"encontrada…\n"
+msgstr "Metin şifresi çözülürken hata! Eşleşen parmak izi bulunamadı.\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format
 msgid "Error Encrypting Text!"
-msgstr "Erro ao criptografar texto!"
+msgstr "Metin şifresi çözülürken hata!"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Fingerprint"
-msgstr "Impressão digital da chave:"
+msgstr "Anahtar parmak izi"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Creation Date"
-msgstr "Data de criação"
+msgstr "Oluşturulma tarihi"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Expiry Date"
-msgstr "Data de expiração"
+msgstr "Son kullanım tarihi"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Length"
-msgstr "Comprimento da chave"
+msgstr "Anahtar uzunluğu"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "User IDs"
-msgstr "IDs de usuário"
-
-#~ msgid "Warning"
-#~ msgstr "Aviso"
-
-#~ msgid "Error"
-#~ msgstr "Erro"
+msgstr "Kullanıcı kimlikleri"

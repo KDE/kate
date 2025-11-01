@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-11-01 02:42+0000\n"
 "PO-Revision-Date: 2017-09-26 19:16+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -90,7 +90,7 @@ msgstr "Vista"
 msgid "No preview available."
 msgstr "No hi ha disponible la vista prèvia."
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:239
 #, kde-format
 msgid "About %1"
 msgstr "Quant al %1"

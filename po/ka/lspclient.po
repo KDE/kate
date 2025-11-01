@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"POT-Creation-Date: 2025-11-01 02:42+0000\n"
 "PO-Revision-Date: 2025-07-13 05:51+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -24,7 +24,7 @@ msgid "Filter…"
 msgstr "ფილტრი…"
 
 #: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
-#: lspclientpluginview.cpp:475 lspclientpluginview.cpp:619
+#: lspclientpluginview.cpp:477 lspclientpluginview.cpp:621
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP კლიენტი"
@@ -84,291 +84,291 @@ msgstr ""
 "მომხმარებელი სამუდამოდ დაიბლოკა: '%1'.\n"
 "ბლოკის გასაუქმებლად დამატების კონფიგურაციის გვერდი გამოიყენეთ."
 
-#: lspclientpluginview.cpp:440 lspclientpluginview.cpp:681
+#: lspclientpluginview.cpp:442 lspclientpluginview.cpp:683
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:504
+#: lspclientpluginview.cpp:506
 #, kde-format
 msgid "Go to Definition"
 msgstr "აღწერაზე გადასვლა"
 
-#: lspclientpluginview.cpp:506
+#: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Go to Declaration"
 msgstr "დეკლარაციაზე გადასვლა"
 
-#: lspclientpluginview.cpp:508
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "ტიპის აღწერაზე გადასვლა"
 
-#: lspclientpluginview.cpp:510
+#: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Find References"
 msgstr "მიბმების პოვნა"
 
-#: lspclientpluginview.cpp:513
+#: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Find Implementations"
 msgstr "იმპლემენტაციების პოვნა"
 
-#: lspclientpluginview.cpp:515
+#: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Highlight"
 msgstr "მოუნიშნავის გაბუნდოვნება"
 
-#: lspclientpluginview.cpp:517
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Symbol Info"
 msgstr "სიმბოლოს ინფორმაცია"
 
-#: lspclientpluginview.cpp:519
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "სიმბოლოს პოვნა და გადასვლა"
 
-#: lspclientpluginview.cpp:524
+#: lspclientpluginview.cpp:526
 #, kde-format
 msgid "Format"
 msgstr "ფორმატი"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:529
 #, kde-format
 msgid "Rename"
 msgstr "გადარქმევა"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:532
 #, kde-format
 msgid "Expand Selection"
 msgstr "მონიშნულის გაფართოება"
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:535
 #, kde-format
 msgid "Shrink Selection"
 msgstr "მონიშნულის შემცირება"
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Switch Source Header"
 msgstr "წყაროს თავსართის გადართვა"
 
-#: lspclientpluginview.cpp:539
+#: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Expand Macro"
 msgstr "მაკროს გაფართოება"
 
-#: lspclientpluginview.cpp:541
+#: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Code Action"
 msgstr "კოდის ქმედება"
 
-#: lspclientpluginview.cpp:556
+#: lspclientpluginview.cpp:558
 #, kde-format
 msgid "Show lsp completions"
 msgstr "Lsp დასრულებების ჩვენება"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:561
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "მონიშნულის დასრულების დოკუმენტაციის ჩვენება"
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:564
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "ავტომატური დასრულებისას ხელმოწერის დახმარების ჩართვა"
 
-#: lspclientpluginview.cpp:565
+#: lspclientpluginview.cpp:567
 #, kde-format
 msgid "Include declaration in references"
 msgstr "მიმართვებში აღწერების ჩართვა"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:568 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:570 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "ფუნქციის დასრულებისას ფრჩხილების დამატება"
 
-#: lspclientpluginview.cpp:571
+#: lspclientpluginview.cpp:573
 #, kde-format
 msgid "Show hover information"
 msgstr "გადატარების ინფორმაციის ჩვენება"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:574 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:576 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "ფორმატირება კრეფისას"
 
-#: lspclientpluginview.cpp:577
+#: lspclientpluginview.cpp:579
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "დოკუმენტების ინკრემენტული სინქრონიზაცია"
 
-#: lspclientpluginview.cpp:580
+#: lspclientpluginview.cpp:582
 #, kde-format
 msgid "Highlight goto location"
 msgstr "Goto მდებარეობის გამოკვეთა"
 
-#: lspclientpluginview.cpp:589
+#: lspclientpluginview.cpp:591
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "კონტექსტური მინიშნებების ჩვენება"
 
-#: lspclientpluginview.cpp:593
+#: lspclientpluginview.cpp:595
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "დიაგნოსტიკის შეტყობინებების ჩვენება"
 
-#: lspclientpluginview.cpp:598
+#: lspclientpluginview.cpp:600
 #, kde-format
 msgid "Show Messages"
 msgstr "შეტყობინებების ჩვენება"
 
-#: lspclientpluginview.cpp:603
+#: lspclientpluginview.cpp:605
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "სერვერის მეხსიერების დატვირთვა"
 
-#: lspclientpluginview.cpp:607
+#: lspclientpluginview.cpp:609
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "დინამიკური მიმართვების შემცველი ჩანართების დახურვა"
 
-#: lspclientpluginview.cpp:609
+#: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "LSP სერვერის რესტარტი"
 
-#: lspclientpluginview.cpp:611
+#: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "ყველა LSP სერვერის რესტარტი"
 
-#: lspclientpluginview.cpp:613
+#: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Go To"
 msgstr "გადასვლა"
 
-#: lspclientpluginview.cpp:636
+#: lspclientpluginview.cpp:638
 #, kde-format
 msgid "More options"
 msgstr "მეტი პარამეტრი"
 
-#: lspclientpluginview.cpp:839 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:841 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "ყველას ამოკეცვა"
 
-#: lspclientpluginview.cpp:840 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:842 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "ყველას ჩაკეცვა"
 
-#: lspclientpluginview.cpp:1047
+#: lspclientpluginview.cpp:1049
 #, kde-format
 msgid "RangeHighLight"
 msgstr "დიაპაზონის გამოკვეთა"
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1363
 #, kde-format
 msgid "Line: %1: "
 msgstr "ხაზი: %1: "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
-#: lspclientpluginview.cpp:1980
+#: lspclientpluginview.cpp:1515 lspclientpluginview.cpp:1864
+#: lspclientpluginview.cpp:1983
 #, kde-format
 msgid "No results"
 msgstr "შედეგების გარეშე"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "აღწერა: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1580
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "დეკლარაცია: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "ტიპის აღწერა: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1592
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "მიბმა: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1604
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "იმპლემენტაცია: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1617
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "გამოკვეთა: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1641 lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1665
 #, kde-format
 msgid "No Actions"
 msgstr "ქმედებების გარეშე"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgid "Loading..."
 msgstr "ჩატვირთვა..."
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1748
 #, kde-format
 msgid "No edits"
 msgstr "ჩასწორებების გარეშე"
 
-#: lspclientpluginview.cpp:1820
+#: lspclientpluginview.cpp:1823
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "გადარქმევა"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "ახალი სახელი (გაფრთხილება: ყველა მიმართვის ჩანაცვლება შეუძლებელია)"
 
-#: lspclientpluginview.cpp:1867
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgid "Not enough results"
 msgstr "საკმარისი შედეგების გარეშე"
 
-#: lspclientpluginview.cpp:1936
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "შესაბამისი თავსართი/კოდი ვერ ვიპოვე"
 
-#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2136 lspclientpluginview.cpp:2179
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP სერვერი"
 
-#: lspclientpluginview.cpp:2199
+#: lspclientpluginview.cpp:2202
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP კლიენტი"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2452
 #, kde-format
 msgid "Question from LSP server"
 msgstr "კითხვა LSP სერვერიდან"

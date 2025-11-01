@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-11-01 02:42+0000\n"
 "PO-Revision-Date: 2018-01-23 17:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -83,7 +83,7 @@ msgstr "Näkymä"
 msgid "No preview available."
 msgstr "Esikatselua ei saatavissa."
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:239
 #, kde-format
 msgid "About %1"
 msgstr "Tietoa osiosta %1|/|Tietoa $[yleisnimi_pienellä $[elat %1] ]"

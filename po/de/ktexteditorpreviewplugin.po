@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ktexteditorpreviewplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-08 01:19+0000\n"
+"POT-Creation-Date: 2025-11-01 02:42+0000\n"
 "PO-Revision-Date: 2017-10-15 22:33+0100\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -85,7 +85,7 @@ msgstr "Ansicht"
 msgid "No preview available."
 msgstr "Keine Vorschau verfügbar."
 
-#: previewwidget.cpp:232
+#: previewwidget.cpp:239
 #, kde-format
 msgid "About %1"
 msgstr "Über %1"

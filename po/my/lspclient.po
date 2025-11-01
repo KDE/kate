@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-06 02:32+0000\n"
+"POT-Creation-Date: 2025-11-01 02:42+0000\n"
 "PO-Revision-Date: 2024-09-10 15:18+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -25,7 +25,7 @@ msgid "Filter…"
 msgstr "စစ်ထုတ်မည်…"
 
 #: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
-#: lspclientpluginview.cpp:475 lspclientpluginview.cpp:619
+#: lspclientpluginview.cpp:477 lspclientpluginview.cpp:621
 #, kde-format
 msgid "LSP Client"
 msgstr "LSPပရိုဂရမ်ငယ်"
@@ -80,292 +80,292 @@ msgid ""
 "Use the config page of the plugin to undo this block."
 msgstr ""
 
-#: lspclientpluginview.cpp:440 lspclientpluginview.cpp:681
+#: lspclientpluginview.cpp:442 lspclientpluginview.cpp:683
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:504
+#: lspclientpluginview.cpp:506
 #, kde-format
 msgid "Go to Definition"
 msgstr "အဓိပ္ပါယ်ဖွင့်ဆိုချက်သို့ သွားမည်"
 
-#: lspclientpluginview.cpp:506
+#: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Go to Declaration"
 msgstr "ကျေညာချက်သို့သွားမည်"
 
-#: lspclientpluginview.cpp:508
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "အမျိုးအစားအဓိပ္ပါယ်ဖွင့်ဆိုချက်သို့ သွားမည်"
 
-#: lspclientpluginview.cpp:510
+#: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Find References"
 msgstr "အကိုးအကားများရှာဖွေမည်"
 
-#: lspclientpluginview.cpp:513
+#: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Find Implementations"
 msgstr "အကောင်အထည်ဖော်ချက်များရှာဖွမည်"
 
-#: lspclientpluginview.cpp:515
+#: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Highlight"
 msgstr "အရောင်ချယ်"
 
-#: lspclientpluginview.cpp:517
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Symbol Info"
 msgstr "သင်္ကေတ အချက်အလက်"
 
-#: lspclientpluginview.cpp:519
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "ရှာ၍သင်္ကေတသို့သွားမည်"
 
-#: lspclientpluginview.cpp:524
+#: lspclientpluginview.cpp:526
 #, kde-format
 msgid "Format"
 msgstr "ပုံစံချ"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:529
 #, kde-format
 msgid "Rename"
 msgstr "အမည်ပြောင်း"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:532
 #, kde-format
 msgid "Expand Selection"
 msgstr "ရွေးထားသည်များဖြန့်ပြမည်"
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:535
 #, kde-format
 msgid "Shrink Selection"
 msgstr ""
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Switch Source Header"
 msgstr "မူလခေါင်းစီးဖိုင်ပြောင်းမည်"
 
-#: lspclientpluginview.cpp:539
+#: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Expand Macro"
 msgstr "မာခရိုဖြန့်ပြမည်"
 
-#: lspclientpluginview.cpp:541
+#: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Code Action"
 msgstr "ကုဒ်လုပ်ဆောင်ချက်"
 
-#: lspclientpluginview.cpp:556
+#: lspclientpluginview.cpp:558
 #, fuzzy, kde-format
 #| msgid "Completions:"
 msgid "Show lsp completions"
 msgstr "ကူးရေးမှု-"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:561
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr ""
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:564
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr ""
 
-#: lspclientpluginview.cpp:565
+#: lspclientpluginview.cpp:567
 #, kde-format
 msgid "Include declaration in references"
 msgstr "အကိုးအကားများတွင် ကျေညာချက်ပါဝင်စေမည်"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:568 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:570 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "functionရေးပြီးသည်နှင့် ကွင်းစ၊ကွင်းပိတ်ထည့်မည်"
 
-#: lspclientpluginview.cpp:571
+#: lspclientpluginview.cpp:573
 #, kde-format
 msgid "Show hover information"
 msgstr "မောက်စ်မြားဝဲနေစဉ်အချက်အလက်ပြမည်"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:574 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:576 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "ရေးနေစဉ်ပုံစံချမည်"
 
-#: lspclientpluginview.cpp:577
+#: lspclientpluginview.cpp:579
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr ""
 
-#: lspclientpluginview.cpp:580
+#: lspclientpluginview.cpp:582
 #, kde-format
 msgid "Highlight goto location"
 msgstr "သွားရန်နေရာ အရောင်ချယ်ပြမည်"
 
-#: lspclientpluginview.cpp:589
+#: lspclientpluginview.cpp:591
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr ""
 
-#: lspclientpluginview.cpp:593
+#: lspclientpluginview.cpp:595
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "ရှာဖွေစစ်ဆေးမှုဆိုင်ရာအသိပေးချက်များပြမည်"
 
-#: lspclientpluginview.cpp:598
+#: lspclientpluginview.cpp:600
 #, kde-format
 msgid "Show Messages"
 msgstr "မှတ်စာများပြမည်"
 
-#: lspclientpluginview.cpp:603
+#: lspclientpluginview.cpp:605
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "ဆာဗာမှတ်ဉာဏ်သုံးစွဲမှု"
 
-#: lspclientpluginview.cpp:607
+#: lspclientpluginview.cpp:609
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr ""
 
-#: lspclientpluginview.cpp:609
+#: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "LSPဆာဗာ ပြန်စတင်မည်"
 
-#: lspclientpluginview.cpp:611
+#: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "LSPဆာဗာအားလုံးပြန်စတင်မည်"
 
-#: lspclientpluginview.cpp:613
+#: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Go To"
 msgstr "သို့သွား"
 
-#: lspclientpluginview.cpp:636
+#: lspclientpluginview.cpp:638
 #, kde-format
 msgid "More options"
 msgstr "နောက်ထပ်ရွေးချယ်စရာများ…"
 
-#: lspclientpluginview.cpp:839 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:841 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "အားလုံးဖြန့်မည်"
 
-#: lspclientpluginview.cpp:840 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:842 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "အားလုံးပိတ်မည်"
 
-#: lspclientpluginview.cpp:1047
+#: lspclientpluginview.cpp:1049
 #, kde-format
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1363
 #, kde-format
 msgid "Line: %1: "
 msgstr "စာကြောင်း- %1: "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1861
-#: lspclientpluginview.cpp:1980
+#: lspclientpluginview.cpp:1515 lspclientpluginview.cpp:1864
+#: lspclientpluginview.cpp:1983
 #, kde-format
 msgid "No results"
 msgstr "ရလဒ်မရှိ"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1574
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "အဓိပ္ပါယ်ဖွင့်ဆိုချက်- %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1580
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "ကျေညာချက် - %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1586
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "အမျိုးအစားအဓိပ္ပါယ်ဖွင့်ဆိုချက် - %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1592
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "အကိုးအကားများ - %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1604
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "အကောင်အထည်ဖော်ချက်- %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1617
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "အရောင်ချယ်ပြ- %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1641 lspclientpluginview.cpp:1652
+#: lspclientpluginview.cpp:1665
 #, kde-format
 msgid "No Actions"
 msgstr "လုပ်ဆောင်ချက်မရှိ"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1656
 #, kde-format
 msgid "Loading..."
 msgstr "တွန်းတင်နေသည်…"
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1748
 #, kde-format
 msgid "No edits"
 msgstr "မတည်းဖြတ်ရသေး"
 
-#: lspclientpluginview.cpp:1820
+#: lspclientpluginview.cpp:1823
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "အမည်ပြောင်း"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1824
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "အမည်အသစ် (သတိ - အကိုးအကားအားလုံးကို အစားထိုးပေးနိုင်မည်မဟုတ်ပါ)"
 
-#: lspclientpluginview.cpp:1867
+#: lspclientpluginview.cpp:1870
 #, kde-format
 msgid "Not enough results"
 msgstr "ရလဒ်များမလုံလောက်ပါ"
 
-#: lspclientpluginview.cpp:1936
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "သက်ဆိုင်သော ခေါင်းစီးဖိုင်/ဇစ်မြစ်ဖိုင် ရှာမတွေ့ပါ"
 
-#: lspclientpluginview.cpp:2133 lspclientpluginview.cpp:2176
+#: lspclientpluginview.cpp:2136 lspclientpluginview.cpp:2179
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSPဆာဗာ"
 
-#: lspclientpluginview.cpp:2199
+#: lspclientpluginview.cpp:2202
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSPပရိုဂရမ်ငယ်"
 
-#: lspclientpluginview.cpp:2448
+#: lspclientpluginview.cpp:2452
 #, kde-format
 msgid "Question from LSP server"
 msgstr "LSPဆာဗာမှမေးခွန်းများ"

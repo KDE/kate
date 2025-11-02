@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-24 00:45+0000\n"
+"POT-Creation-Date: 2025-11-02 00:45+0000\n"
 "PO-Revision-Date: 2024-04-29 18:50+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -22,88 +22,88 @@ msgstr ""
 "X-Generator: Lokalize 24.04.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:149 kateconsole.cpp:769
+#: kateconsole.cpp:119 kateconsole.cpp:151 kateconsole.cpp:790
 #, kde-format
 msgid "Terminal"
 msgstr "終端機"
 
-#: kateconsole.cpp:158
+#: kateconsole.cpp:160
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "送至終端機(&P)"
 
-#: kateconsole.cpp:162
+#: kateconsole.cpp:164
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "將終端機與目前文件同步(&Y)"
 
-#: kateconsole.cpp:166
+#: kateconsole.cpp:168
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "執行目前的檔案"
 
-#: kateconsole.cpp:171 kateconsole.cpp:556
+#: kateconsole.cpp:173 kateconsole.cpp:575
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "顯示終端機面板(&H)"
 
-#: kateconsole.cpp:177
+#: kateconsole.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "聚焦於終端機面板(&F)"
 
-#: kateconsole.cpp:183
+#: kateconsole.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "垂直分割終端機(&S)"
 
-#: kateconsole.cpp:188
+#: kateconsole.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "水平分割終端機(&S)"
 
-#: kateconsole.cpp:193
+#: kateconsole.cpp:195
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "新終端機分頁(&N)"
 
-#: kateconsole.cpp:355
+#: kateconsole.cpp:359
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr "Konsole 未安裝。請安裝 Konsole 才能使用終端機。"
 
-#: kateconsole.cpp:431
+#: kateconsole.cpp:435
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
 "contained commands with your user rights."
 msgstr "您確定要將文字送到終端機嗎？這會用您的使用者權限來執行所有包含的指令。"
 
-#: kateconsole.cpp:432
+#: kateconsole.cpp:436
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "要送至終端機嗎？"
 
-#: kateconsole.cpp:433
+#: kateconsole.cpp:437
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "送至終端機"
 
-#: kateconsole.cpp:497
+#: kateconsole.cpp:505
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "非本機檔案：「%1」"
 
-#: kateconsole.cpp:530
+#: kateconsole.cpp:538
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -116,77 +116,77 @@ msgstr ""
 "在終端器執行下方的指令：\n"
 "'%1'"
 
-#: kateconsole.cpp:537
+#: kateconsole.cpp:545
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "在終端機執行？"
 
-#: kateconsole.cpp:538
+#: kateconsole.cpp:546
 #, kde-format
 msgid "Run"
 msgstr "執行"
 
-#: kateconsole.cpp:553
+#: kateconsole.cpp:577
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "隱藏終端機面板(&H)"
 
-#: kateconsole.cpp:564
+#: kateconsole.cpp:585
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "焦點移離終端機面板"
 
-#: kateconsole.cpp:565 kateconsole.cpp:566
+#: kateconsole.cpp:586 kateconsole.cpp:587
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "聚焦於終端機面板"
 
-#: kateconsole.cpp:677
+#: kateconsole.cpp:698
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "終端機同步模式"
 
-#: kateconsole.cpp:680
+#: kateconsole.cpp:701
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "不讓終端機分頁與目前文件同步(&D)"
 
-#: kateconsole.cpp:683
+#: kateconsole.cpp:704
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
 msgstr "可能時自動將目前終端機與目前的文件同步(&A)"
 
-#: kateconsole.cpp:686
+#: kateconsole.cpp:707
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
 msgstr "自動為目前文件的目錄建立新的終端機分頁並切換到它(&A)"
 
-#: kateconsole.cpp:693 kateconsole.cpp:714
+#: kateconsole.cpp:714 kateconsole.cpp:735
 #, kde-format
 msgid "Run in terminal"
 msgstr "在終端機執行"
 
-#: kateconsole.cpp:695
+#: kateconsole.cpp:716
 #, kde-format
 msgid "&Remove extension"
 msgstr "移除附加元件（&R）"
 
-#: kateconsole.cpp:700
+#: kateconsole.cpp:721
 #, kde-format
 msgid "Prefix:"
 msgstr "前置文字："
 
-#: kateconsole.cpp:708
+#: kateconsole.cpp:729
 #, kde-format
 msgid "&Show warning next time"
 msgstr "下次仍顯示這個警告（&S）"
 
-#: kateconsole.cpp:710
+#: kateconsole.cpp:731
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -195,24 +195,24 @@ msgstr ""
 "當下一次「%1」執行時，確保警告視窗會顯示，並且顯示要傳送到終端機的指令以供再"
 "次確認。"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:742
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "將 EDITOR 環境變數設為 'kate -b'(&E)"
 
-#: kateconsole.cpp:724
+#: kateconsole.cpp:745
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr "重要：此文件必須被關閉，才能讓主控台應用程式繼續"
 
-#: kateconsole.cpp:727
+#: kateconsole.cpp:748
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "按下 'Esc' 時隱藏 Konsole"
 
-#: kateconsole.cpp:730
+#: kateconsole.cpp:751
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -221,7 +221,7 @@ msgstr ""
 "這可能會在使用 Esc 鍵的終端機應用程式中造成問題，例如 Vim。請將有影響到的應用"
 "程式加入以下輸入框中（用逗號分隔）"
 
-#: kateconsole.cpp:774
+#: kateconsole.cpp:795
 #, kde-format
 msgid "Terminal Settings"
 msgstr "終端機設定"

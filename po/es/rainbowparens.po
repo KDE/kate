@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: rainbowparens\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-01 00:49+0000\n"
-"PO-Revision-Date: 2025-05-11 22:02+0100\n"
+"PO-Revision-Date: 2025-11-01 20:51+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: rainbowparens_plugin.cpp:439
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
-msgstr ""
+msgstr "Colores de paréntesis"
 
 #: rainbowparens_plugin.cpp:456
 #, kde-format
@@ -34,6 +34,3 @@ msgstr "Paréntesis coloreados"
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Preferencias de los paréntesis coloreados"
-
-#~ msgid "Choose colors that will be used for bracket coloring:"
-#~ msgstr "Escoja los colores que se usarán para colorear los paréntesis:"

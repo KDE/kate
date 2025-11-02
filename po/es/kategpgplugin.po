@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategpgplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-11-01 01:52+0100\n"
+"PO-Revision-Date: 2025-11-01 20:51+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -136,8 +136,7 @@ msgid "Error! No views available..."
 msgstr "Error: No hay vistas disponibles…"
 
 #: kategpgplugin.cpp:239
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "Error al descifrar texto: El documento está vacío."
 
@@ -148,10 +147,7 @@ msgstr ""
 "Error al descifrar texto: No se ha seleccionado ninguna huella digital."
 
 #: kategpgplugin.cpp:248
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error Decrypting Text!ņNo matching fingerprint found!\n"
-#| "Or this is not a GPG encrypted text..."
+#, kde-format
 msgid ""
 "Error Decrypting Text!\n"
 "No matching fingerprint found!\n"
@@ -172,8 +168,7 @@ msgid "Error Encrypting Text! No document available..."
 msgstr "Error al cifrar texto: Ningún documento disponible."
 
 #: kategpgplugin.cpp:287
-#, fuzzy, kde-format
-#| msgid "Error Encrypting Text! Document is empty.."
+#, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "Error al cifrar texto: El documento está vacío."
 
@@ -195,11 +190,10 @@ msgstr ""
 "cifrar dos veces."
 
 #: kategpgplugin.cpp:308
-#, fuzzy, kde-format
-#| msgid "Error Decrypting Text! No Matching Fingerprint found...\n"
+#, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
-"Error al descifrar texto: No se ha encontrado ninguna huella digital "
+"Error al cifrar texto: No se ha encontrado ninguna huella digital "
 "coincidente.\n"
 
 #: kategpgplugin.cpp:312
@@ -231,9 +225,3 @@ msgstr "Longitud de la clave"
 #, kde-format
 msgid "User IDs"
 msgstr "ID de usuario"
-
-#~ msgid "Warning"
-#~ msgstr "Advertencia"
-
-#~ msgid "Error"
-#~ msgstr "Error"

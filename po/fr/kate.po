@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-28 02:42+0000\n"
-"PO-Revision-Date: 2025-05-12 13:43+0200\n"
+"PO-Revision-Date: 2025-10-14 09:41+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -1069,7 +1069,7 @@ msgstr "Illimité"
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
-"Utiliser une boîte de dialogue spécifique pour gérer les fichiers modifiés "
+"Utiliser une boite de dialogue spécifique pour gérer les fichiers modifiés "
 "de façon externe"
 
 #: lib/kateconfigdialog.cpp:187
@@ -1079,7 +1079,7 @@ msgid ""
 "If not enabled, you will be individually asked what to do for each modified "
 "file only when that file's view receives focus."
 msgstr ""
-"Si cette option est sélectionnée, une boîte de dialogue de mode sera "
+"Si cette option est sélectionnée, une boite de dialogue de mode sera "
 "utilisée pour l'affichage de tous les fichiers modifiés. Si elle ne l'est "
 "pas, vous serez spécifiquement invité à préciser ce que vous voulez faire "
 "avec chaque fichier ayant été modifié, uniquement quand l'affichage du "
@@ -1770,7 +1770,7 @@ msgstr "Configure les affectations de raccourcis clavier de l'application."
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr ""
-"Décide quels éléments devront apparaître dans la (les) barre(s) d'outils."
+"Décide quels éléments devront apparaitre dans la (les) barre(s) d'outils."
 
 #: lib/katemainwindow.cpp:565
 #, kde-format

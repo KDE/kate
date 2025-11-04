@@ -403,7 +403,7 @@ msgstr "Afficher l'outil uniquement pour les types MIME renseignés"
 #, kde-format
 msgid "Opens a dialog that helps in creating a list of mimetypes."
 msgstr ""
-"Ouvre une boîte de dialogue qui permet de créer une liste de types MIME."
+"Ouvre une boite de dialogue qui permet de créer une liste de types MIME."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
 #: tooldialog.ui:149

@@ -285,7 +285,7 @@ msgstr "Guillemets"
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
-msgstr "Mettre les chaînes entre guillemets"
+msgstr "Mettre les chaines entre guillemets"
 
 #: exportwizard.cpp:116
 #, kde-format

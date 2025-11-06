@@ -12,7 +12,7 @@ class KLineEdit;
 class QRadioButton;
 class QCheckBox;
 
-#include <qwizard.h>
+#include <QWizard>
 
 class ExportWizard : public QWizard
 {

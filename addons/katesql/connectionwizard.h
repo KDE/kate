@@ -15,7 +15,7 @@ class KUrlRequester;
 
 #include "connection.h"
 
-#include <qwizard.h>
+#include <QWizard>
 
 class ConnectionWizard : public QWizard
 {

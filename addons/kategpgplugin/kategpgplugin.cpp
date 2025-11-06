@@ -3,7 +3,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 
-#include <qdebug.h>
+#include <QDebug>
 
 #include <KLocalizedString>
 #include <KPluginFactory>

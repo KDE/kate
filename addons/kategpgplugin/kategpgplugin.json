@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "A GPG plugin to decrypt and encrypt text files",
+        "Description[ar]": "محلقة GPG لتعمية وفك تعمية ملفات النصوص",
         "Description[ca@valencia]": "Un connector de GPG per a desencriptar i encriptar fitxers de text",
         "Description[ca]": "Un connector del GPG per a desencriptar i encriptar fitxers de text",
         "Description[es]": "Complemento GPG para cifrar y descifrar archivos de texto",
@@ -13,6 +14,7 @@
         "Description[tr]": "Metin dosyalarını şifrelemek ve şifrelerini çözmek için bir GPG eklentisi",
         "Description[uk]": "Додаток GPG для розшифровування та шифрування текстових файлів",
         "Name": "GPG Plugin",
+        "Name[ar]": "ملحقة GPG",
         "Name[ca@valencia]": "Connector GPG",
         "Name[ca]": "Connector GPG",
         "Name[es]": "Complemento GPG",

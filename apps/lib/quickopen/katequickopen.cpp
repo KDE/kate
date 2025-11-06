@@ -442,10 +442,12 @@ void KateQuickOpen::slotReturnPressed()
             if (strs.size() > 1) {
                 bool ok = false;
                 int line = strs.at(1).toInt(&ok);
-                if (ok && strs.size() > 2) {
-                    int column = strs.at(2).toInt(&ok);
-                    if (ok) {
-                        return {line - 1, column - 1};
+                if (ok) {
+                    if (strs.size() > 2) {
+                        int column = strs.at(2).toInt(&ok);
+                        if (ok) {
+                            return {line - 1, column - 1};
+                        }
                     }
                     return {line - 1, 0};
                 }

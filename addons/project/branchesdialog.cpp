@@ -30,7 +30,7 @@ public:
         QStyleOptionViewItem options = option;
         initStyleOption(&options, index);
 
-        auto name = index.data().toString();
+        QString name = index.data().toString();
 
         QList<QTextLayout::FormatRange> formats;
         QTextCharFormat fmt;
@@ -46,22 +46,21 @@ public:
             formats.push_back(QTextLayout::FormatRange{.start = fr.start + offset, .length = fr.length, .format = fmt});
         }
 
-        const int nameLen = name.length();
-        int len = 6;
         if (branchItem) {
+            const qsizetype oldNameLen = name.length();
             const auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
             using RefType = GitUtils::RefType;
             if (refType == RefType::Head) {
                 name.append(QStringLiteral(" local"));
             } else if (refType == RefType::Remote) {
                 name.append(QStringLiteral(" remote"));
-                len = 7;
             }
+
+            QTextCharFormat lf;
+            lf.setFontItalic(true);
+            lf.setForeground(Qt::gray);
+            formats.append({.start = int(oldNameLen), .length = int(name.length() - oldNameLen), .format = lf});
         }
-        QTextCharFormat lf;
-        lf.setFontItalic(true);
-        lf.setForeground(Qt::gray);
-        formats.append({.start = nameLen, .length = len, .format = lf});
 
         painter->save();
 

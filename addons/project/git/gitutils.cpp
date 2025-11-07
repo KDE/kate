@@ -148,6 +148,11 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
         // clang-format on
     }
 
+    // sort the branches, local first, then remote
+    std::stable_sort(branches.begin(), branches.end(), [](const Branch &l, const Branch &r) {
+        return l.type < r.type;
+    });
+
     return branches;
 }
 

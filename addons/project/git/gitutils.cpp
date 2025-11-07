@@ -93,15 +93,15 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
     return res;
 }
 
-static GitUtils::Branch parseLocalBranch(const QString &raw)
+static GitUtils::Branch parseLocalBranch(QLatin1String raw)
 {
-    static const int len = QStringLiteral("refs/heads/").length();
+    static const int len = sizeof("refs/heads/") - 1;
     return GitUtils::Branch{.name = raw.mid(len), .remote = QString(), .type = GitUtils::Head, .lastCommit = QString()};
 }
 
-static GitUtils::Branch parseRemoteBranch(const QString &raw)
+static GitUtils::Branch parseRemoteBranch(QLatin1String raw)
 {
-    static const int len = QStringLiteral("refs/remotes/").length();
+    static const int len = sizeof("refs/remotes/") - 1;
     int indexofRemote = raw.indexOf(QLatin1Char('/'), len);
     return GitUtils::Branch{.name = raw.mid(len), .remote = raw.mid(len, indexofRemote - len), .type = GitUtils::Remote, .lastCommit = QString()};
 }
@@ -130,22 +130,20 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
     startHostProcess(git, QProcess::ReadOnly);
     QList<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        QString gitout = QString::fromUtf8(git.readAllStandardOutput());
-        QStringList out = gitout.split(QLatin1Char('\n'));
+        const QByteArray gitout = git.readAllStandardOutput();
+        const auto stringview = QLatin1String(gitout);
 
-        branches.reserve(out.size());
-        // clang-format off
-        for (const auto &o : out) {
+        QStringTokenizer tokens(stringview, QLatin1Char('\n'));
+        for (QLatin1String o : tokens) {
             if (ref & Head && o.startsWith(QLatin1String("refs/heads"))) {
                 branches.append(parseLocalBranch(o));
             } else if (ref & Remote && o.startsWith(QLatin1String("refs/remotes"))) {
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
-                branches.append({.name=o.mid(len), .remote={}, .type=RefType::Tag, .lastCommit=QString()});
+                branches.append({.name = o.mid(len), .remote = {}, .type = RefType::Tag, .lastCommit = QString()});
             }
         }
-        // clang-format on
     }
 
     // sort the branches, local first, then remote

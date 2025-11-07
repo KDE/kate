@@ -32,13 +32,21 @@ void BranchCheckoutDialog::resetValues()
 void BranchCheckoutDialog::openDialog()
 {
     resetValues();
-    GitUtils::Branch newBranch;
-    newBranch.name = i18n("Create New Branch");
-    GitUtils::Branch newBranchFrom;
-    newBranchFrom.name = i18n("Create New Branch From...");
+    const GitUtils::Branch newBranch{
+        .name = BranchesDialogModel::createBranchItemName(),
+        .remote = {},
+        .refType = GitUtils::RefType::None,
+        .lastCommit = {},
+    };
+    const GitUtils::Branch newBranchFrom{
+        .name = BranchesDialogModel::createFromBranchItemName(),
+        .remote = {},
+        .refType = GitUtils::RefType::None,
+        .lastCommit = {},
+    };
     QList<GitUtils::Branch> branches{newBranch, newBranchFrom};
     branches << GitUtils::getAllBranches(m_projectPath);
-    m_model->refresh(branches, /*checkingOut:*/ true);
+    m_model->refresh(branches);
 
     reselectFirst();
     updateViewGeometry();

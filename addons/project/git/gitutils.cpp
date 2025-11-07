@@ -96,14 +96,14 @@ GitUtils::CheckoutResult GitUtils::checkoutNewBranch(const QString &repo, const 
 static GitUtils::Branch parseLocalBranch(QLatin1String raw)
 {
     static const int len = sizeof("refs/heads/") - 1;
-    return GitUtils::Branch{.name = raw.mid(len), .remote = QString(), .type = GitUtils::Head, .lastCommit = QString()};
+    return GitUtils::Branch{.name = raw.mid(len), .remote = QString(), .refType = GitUtils::Head, .lastCommit = QString()};
 }
 
 static GitUtils::Branch parseRemoteBranch(QLatin1String raw)
 {
     static const int len = sizeof("refs/remotes/") - 1;
     int indexofRemote = raw.indexOf(QLatin1Char('/'), len);
-    return GitUtils::Branch{.name = raw.mid(len), .remote = raw.mid(len, indexofRemote - len), .type = GitUtils::Remote, .lastCommit = QString()};
+    return GitUtils::Branch{.name = raw.mid(len), .remote = raw.mid(len, indexofRemote - len), .refType = GitUtils::Remote, .lastCommit = QString()};
 }
 
 QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, RefType ref)
@@ -141,14 +141,14 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
                 branches.append(parseRemoteBranch(o));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
-                branches.append({.name = o.mid(len), .remote = {}, .type = RefType::Tag, .lastCommit = QString()});
+                branches.append({.name = o.mid(len), .remote = {}, .refType = RefType::Tag, .lastCommit = QString()});
             }
         }
     }
 
     // sort the branches, local first, then remote
     std::stable_sort(branches.begin(), branches.end(), [](const Branch &l, const Branch &r) {
-        return l.type < r.type;
+        return l.refType < r.refType;
     });
 
     return branches;
@@ -185,7 +185,7 @@ QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const
             int commitStart = seperatorIdx + 4;
             branches << GitUtils::Branch{.name = QString::fromUtf8(row.mid(len, seperatorIdx - len)),
                                          .remote = QString(),
-                                         .type = GitUtils::Head,
+                                         .refType = GitUtils::Head,
                                          .lastCommit = QString::fromUtf8(row.mid(commitStart))};
         }
     }

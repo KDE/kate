@@ -8,6 +8,16 @@
 #include <QFont>
 #include <QIcon>
 
+#include <KLocalizedString>
+
+static BranchesDialogModel::ItemType itemType(const GitUtils::Branch &branch)
+{
+    if (branch.refType != GitUtils::RefType::None) {
+        return BranchesDialogModel::BranchItem;
+    }
+    return branch.name == BranchesDialogModel::createBranchItemName() ? BranchesDialogModel::CreateBranch : BranchesDialogModel::CreateBranchFrom;
+}
+
 BranchesDialogModel::BranchesDialogModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -33,13 +43,13 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return {};
     }
 
-    const Branch &branch = m_modelEntries.at(idx.row());
+    const GitUtils::Branch &branch = m_modelEntries.at(idx.row());
     if (role == Qt::DisplayRole) {
         return branch.name;
     } else if (role == Role::FuzzyScore) {
         return branch.score;
     } else if (role == Qt::DecorationRole) {
-        if (branch.itemType == BranchItem) {
+        if (itemType(branch) == BranchItem) {
             static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
             return branchIcon;
         } else {
@@ -47,7 +57,7 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
             return addIcon;
         }
     } else if (role == Qt::FontRole) {
-        if (branch.itemType == CreateBranch || branch.itemType == CreateBranchFrom) {
+        if (itemType(branch) != BranchItem) {
             QFont font;
             font.setBold(true);
             return font;
@@ -57,37 +67,23 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
     } else if (role == Role::RefType) {
         return branch.refType;
     } else if (role == Role::ItemTypeRole) {
-        return branch.itemType;
+        return itemType(branch);
     }
 
     return {};
 }
 
-void BranchesDialogModel::refresh(const QList<GitUtils::Branch> &branches, bool checkingOut)
+void BranchesDialogModel::refresh(QList<GitUtils::Branch> branches)
 {
-    QList<Branch> temp;
-    if (checkingOut) {
-        Branch create{.name = branches.at(0).name, .remote = {}, .refType = {}, .score = 0, .itemType = ItemType::CreateBranch};
-        Branch createFrom{.name = branches.at(1).name, .remote = {}, .refType = {}, .score = 0, .itemType = ItemType::CreateBranchFrom};
-        temp.push_back(create);
-        temp.push_back(createFrom);
-    }
-
-    int i = checkingOut ? 2 : 0;
-    for (; i < branches.size(); ++i) {
-        temp.append(
-            {.name = branches.at(i).name, .remote = branches.at(i).remote, .refType = branches.at(i).type, .score = -1, .itemType = ItemType::BranchItem});
-    }
-
     beginResetModel();
-    m_modelEntries = std::move(temp);
+    m_modelEntries = std::move(branches);
     endResetModel();
 }
 
 void BranchesDialogModel::clear()
 {
     beginResetModel();
-    QList<Branch>().swap(m_modelEntries);
+    m_modelEntries.clear();
     endResetModel();
 }
 
@@ -97,4 +93,16 @@ void BranchesDialogModel::clearBranchCreationItems()
     m_modelEntries.removeFirst();
     m_modelEntries.removeFirst();
     endRemoveRows();
+}
+
+QString BranchesDialogModel::createBranchItemName()
+{
+    static const auto s = i18n("Create New Branch");
+    return s;
+}
+
+QString BranchesDialogModel::createFromBranchItemName()
+{
+    static const auto s = i18n("Create New Branch From...");
+    return s;
 }

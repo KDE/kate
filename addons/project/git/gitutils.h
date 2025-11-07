@@ -12,6 +12,7 @@
 namespace GitUtils
 {
 enum RefType {
+    None = 0x0,
     Head = 0x1,
     Remote = 0x2,
     Tag = 0x4,
@@ -27,9 +28,11 @@ struct Branch {
     /** remote name, will be empty for local branches */
     QString remote;
     /** Ref type @see RefType */
-    RefType type = All;
+    RefType refType;
     /** last commit on this branch, may be empty **/
     QString lastCommit;
+    /** used to sort the branches in mode */
+    int score = 0;
 };
 
 struct Result {

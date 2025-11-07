@@ -31,7 +31,7 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &idx, int role) const override;
-    void refresh(const QList<GitUtils::Branch> &branches, bool checkingOut = false);
+    void refresh(QList<GitUtils::Branch> branches);
     void clear();
     void clearBranchCreationItems();
 
@@ -47,14 +47,9 @@ public:
         return QAbstractTableModel::setData(index, value, role);
     }
 
-private:
-    struct Branch {
-        QString name;
-        QString remote;
-        GitUtils::RefType refType;
-        int score;
-        ItemType itemType;
-    };
+    static QString createBranchItemName();
+    static QString createFromBranchItemName();
 
-    QList<BranchesDialogModel::Branch> m_modelEntries;
+private:
+    QList<GitUtils::Branch> m_modelEntries;
 };

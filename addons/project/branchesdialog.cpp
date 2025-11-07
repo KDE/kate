@@ -50,16 +50,14 @@ public:
             const qsizetype oldNameLen = name.length();
             const auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
             using RefType = GitUtils::RefType;
-            if (refType == RefType::Head) {
-                name.append(QStringLiteral(" local"));
-            } else if (refType == RefType::Remote) {
+            if (refType == RefType::Remote) {
                 name.append(QStringLiteral(" remote"));
-            }
 
-            QTextCharFormat lf;
-            lf.setFontItalic(true);
-            lf.setForeground(Qt::gray);
-            formats.append({.start = int(oldNameLen), .length = int(name.length() - oldNameLen), .format = lf});
+                QTextCharFormat lf;
+                lf.setFontItalic(true);
+                lf.setForeground(Qt::gray);
+                formats.append({.start = int(oldNameLen), .length = int(name.length() - oldNameLen), .format = lf});
+            }
         }
 
         painter->save();

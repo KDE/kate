@@ -111,7 +111,10 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
     // git for-each-ref --format '%(refname)' --sort=-committerdate ...
     QProcess git;
 
-    QStringList args{QStringLiteral("for-each-ref"), QStringLiteral("--format"), QStringLiteral("%(refname)"), QStringLiteral("--sort=-committerdate")};
+    QStringList args{QStringLiteral("for-each-ref"),
+                     QStringLiteral("--format"),
+                     QStringLiteral("%(refname)[--]%(committerdate:relative)"),
+                     QStringLiteral("--sort=-committerdate")};
     if (ref & RefType::Head) {
         args.append(QStringLiteral("refs/heads"));
     }
@@ -134,15 +137,26 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
         const auto stringview = QLatin1String(gitout);
 
         QStringTokenizer tokens(stringview, QLatin1Char('\n'));
+        QList<QLatin1String> splitted;
         for (QLatin1String o : tokens) {
+            QStringTokenizer tokenizer(o, QLatin1String("[--]"));
+            splitted.clear();
+            splitted = tokenizer.toContainer(splitted);
+
+            if (splitted.size() != 2) {
+                continue;
+            }
+
             if (ref & Head && o.startsWith(QLatin1String("refs/heads"))) {
-                branches.append(parseLocalBranch(o));
+                branches.append(parseLocalBranch(splitted[0]));
             } else if (ref & Remote && o.startsWith(QLatin1String("refs/remotes"))) {
-                branches.append(parseRemoteBranch(o));
+                branches.append(parseRemoteBranch(splitted[0]));
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
+                QString name = splitted[0].mid(len);
                 branches.append({.name = o.mid(len), .remote = {}, .refType = RefType::Tag, .lastCommit = QString()});
             }
+            branches.back().lastActivity = splitted[1];
         }
     }
 

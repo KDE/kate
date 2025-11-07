@@ -47,15 +47,22 @@ public:
         }
 
         if (branchItem) {
-            const qsizetype oldNameLen = name.length();
+            const auto lastActivity = index.data(BranchesDialogModel::LastActivityRole).toString();
+
+            qsizetype oldNameLen = name.length();
             const auto refType = (GitUtils::RefType)index.data(BranchesDialogModel::RefType).toInt();
             using RefType = GitUtils::RefType;
+
+            name.append(QStringLiteral(" (%1)").arg(lastActivity));
+            QTextCharFormat lf;
+            lf.setFontItalic(true);
+            lf.setForeground(Qt::gray);
+            formats.append({.start = int(oldNameLen), .length = int(name.length() - oldNameLen), .format = lf});
+
+            oldNameLen = name.length();
+
             if (refType == RefType::Remote) {
                 name.append(QStringLiteral(" remote"));
-
-                QTextCharFormat lf;
-                lf.setFontItalic(true);
-                lf.setForeground(Qt::gray);
                 formats.append({.start = int(oldNameLen), .length = int(name.length() - oldNameLen), .format = lf});
             }
         }

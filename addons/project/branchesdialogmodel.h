@@ -19,7 +19,8 @@ public:
         CheckoutName,
         RefType,
         Creator,
-        ItemTypeRole
+        ItemTypeRole,
+        LastActivityRole,
     };
     enum ItemType {
         BranchItem,

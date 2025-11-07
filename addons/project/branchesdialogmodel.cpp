@@ -68,6 +68,8 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         return branch.refType;
     } else if (role == Role::ItemTypeRole) {
         return itemType(branch);
+    } else if (role == Role::LastActivityRole) {
+        return branch.lastActivity;
     }
 
     return {};

@@ -161,7 +161,7 @@ QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const
 
     QStringList args{QStringLiteral("for-each-ref"),
                      QStringLiteral("--format"),
-                     QStringLiteral("%(refname)[--]%(contents:subject)"),
+                     QStringLiteral("%(refname)[--]%(contents:subject)[--]%(committerdate:relative)"),
                      QStringLiteral("--sort=-committerdate"),
                      QStringLiteral("refs/heads")};
 
@@ -176,17 +176,23 @@ QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const
         QByteArrayList rows = gitout.split('\n');
 
         branches.reserve(rows.size());
-        constexpr int len = sizeof("refs/heads/") - 1;
+        QList<QLatin1String> tokens;
         for (const auto &row : rows) {
-            int seperatorIdx = row.indexOf("[--]", len);
-            if (seperatorIdx == -1) {
+            QLatin1String rowString(row);
+            QStringTokenizer tokenizer(rowString, QLatin1String("[--]"));
+            tokens.clear();
+            tokens = tokenizer.toContainer(tokens);
+            if (tokens.size() != 3) {
                 continue;
             }
-            int commitStart = seperatorIdx + 4;
-            branches << GitUtils::Branch{.name = QString::fromUtf8(row.mid(len, seperatorIdx - len)),
-                                         .remote = QString(),
-                                         .refType = GitUtils::Head,
-                                         .lastCommit = QString::fromUtf8(row.mid(commitStart))};
+
+            branches << GitUtils::Branch{
+                .name = parseLocalBranch(tokens[0]).name,
+                .remote = QString(),
+                .refType = GitUtils::Head,
+                .lastCommit = tokens[1],
+                .lastActivity = tokens[2],
+            };
         }
     }
 

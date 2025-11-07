@@ -121,7 +121,7 @@ BranchDeleteDialog::BranchDeleteDialog(const QString &dotGitPath, QWidget *paren
 
     l->addWidget(&m_listView);
 
-    m_model.setHorizontalHeaderLabels({i18n("Branch"), i18n("Last Commit")});
+    m_model.setHorizontalHeaderLabels({i18n("Branch"), i18n("Last Activity"), i18n("Last Commit")});
 
     m_listView.setUniformRowHeights(true);
     m_listView.setRootIsDecorated(false);
@@ -169,10 +169,11 @@ void BranchDeleteDialog::loadBranches(const QString &dotGitPath)
     const auto branches = GitUtils::getAllLocalBranchesWithLastCommitSubject(dotGitPath);
     for (const auto &branch : branches) {
         auto branchName = new QStandardItem(branchIcon, branch.name);
+        auto branchLastActivity = new QStandardItem(branch.lastActivity);
         auto branchLastCommit = new QStandardItem(branch.lastCommit);
         branchName->setFont(f);
         branchName->setCheckable(true);
-        m_model.appendRow({branchName, branchLastCommit});
+        m_model.appendRow({branchName, branchLastActivity, branchLastCommit});
     }
 }
 

@@ -30,7 +30,9 @@ struct Branch {
     /** Ref type @see RefType */
     RefType refType;
     /** last commit on this branch, may be empty **/
-    QString lastCommit;
+    QString lastCommit = {};
+    /** lastActivity - e.g., 3 days ago **/
+    QString lastActivity = {};
     /** used to sort the branches in mode */
     int score = 0;
 };

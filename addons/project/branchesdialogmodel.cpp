@@ -42,6 +42,9 @@ QVariant BranchesDialogModel::data(const QModelIndex &idx, int role) const
         if (branch.itemType == BranchItem) {
             static const auto branchIcon = QIcon::fromTheme(QStringLiteral("vcs-branch"));
             return branchIcon;
+        } else {
+            static const auto addIcon = QIcon::fromTheme(QStringLiteral("list-add"));
+            return addIcon;
         }
     } else if (role == Qt::FontRole) {
         if (branch.itemType == CreateBranch || branch.itemType == CreateBranchFrom) {

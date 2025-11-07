@@ -46,10 +46,6 @@ public:
             formats.push_back(QTextLayout::FormatRange{.start = fr.start + offset, .length = fr.length, .format = fmt});
         }
 
-        if (!branchItem) {
-            name = QStringLiteral("+ ") + name;
-        }
-
         const int nameLen = name.length();
         int len = 6;
         if (branchItem) {
@@ -76,11 +72,7 @@ public:
         // leave space for icon
         const int hMargin = style->pixelMetric(QStyle::PM_FocusFrameHMargin, &option, option.widget);
         const int iconWidth = option.decorationSize.width() + (hMargin * 2);
-        if (itemType == BranchesDialogModel::BranchItem) {
-            options.rect.adjust(iconWidth, 0, 0, 0);
-        } else {
-            options.rect.adjust((hMargin * 2), 0, 0, 0);
-        }
+        options.rect.adjust(iconWidth, 0, 0, 0);
         Utils::paintItemViewText(painter, name, options, formats);
 
         painter->restore();

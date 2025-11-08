@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Mincho Kondarev <mkondarev@yahoo.de>
+# SPDX-FileCopyrightText: 2024, 2025 Mincho Kondarev <mkondarev@yahoo.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-01 00:49+0000\n"
-"PO-Revision-Date: 2024-06-04 22:13+0200\n"
+"PO-Revision-Date: 2025-11-07 18:33+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -15,23 +15,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.0\n"
+"X-Generator: Lokalize 25.07.70\n"
 
 #: rainbowparens_plugin.cpp:439
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
-msgstr ""
+msgstr "Цвят на квадратните скоби"
 
 #: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets"
-msgstr "Оцветени скоби"
+msgstr "Оцветени квадратни скоби"
 
 #: rainbowparens_plugin.cpp:461
 #, kde-format
 msgid "Colored Brackets Settings"
-msgstr "Настройки за оцветени скоби"
+msgstr "Настройки за оцветени квадратни скоби"
 
 #~ msgid "Choose colors that will be used for bracket coloring:"
 #~ msgstr "Изберете цветовете, които ще се използват за скобите:"

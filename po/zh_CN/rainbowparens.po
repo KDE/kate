@@ -14,14 +14,14 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/rainbowparens.pot\n"
-"X-Crowdin-File-ID: 48676\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/rainbowparens.pot\n"
+"X-Crowdin-File-ID: 52022\n"
 
 #: rainbowparens_plugin.cpp:439
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
-msgstr ""
+msgstr "括号颜色"
 
 #: rainbowparens_plugin.cpp:456
 #, kde-format
@@ -32,6 +32,3 @@ msgstr "彩色括号"
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "彩色括号设置"
-
-#~ msgid "Choose colors that will be used for bracket coloring:"
-#~ msgstr "选择用于显示括号的颜色："

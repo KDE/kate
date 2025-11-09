@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/formatplugin.pot\n"
-"X-Crowdin-File-ID: 48678\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/formatplugin.pot\n"
+"X-Crowdin-File-ID: 52350\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
 #: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344

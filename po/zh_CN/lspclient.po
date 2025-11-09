@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/lspclient.pot\n"
-"X-Crowdin-File-ID: 44745\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/lspclient.pot\n"
+"X-Crowdin-File-ID: 52990\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format

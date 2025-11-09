@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/kateexternaltoolsplugin.pot\n"
-"X-Crowdin-File-ID: 44811\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/kateexternaltoolsplugin.pot\n"
+"X-Crowdin-File-ID: 52096\n"
 
 #. i18n: file: 7
 #, kde-format

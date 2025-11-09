@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katekonsoleplugin.pot\n"
-"X-Crowdin-File-ID: 44763\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katekonsoleplugin.pot\n"
+"X-Crowdin-File-ID: 51722\n"
 
 #: kateconsole.cpp:119 kateconsole.cpp:151 kateconsole.cpp:790
 #, kde-format

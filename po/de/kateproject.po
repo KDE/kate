@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2025-08-19 22:12+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -21,44 +21,34 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Einen Branch zum „Wechseln zu“ auswählen. „Esc“ → abbrechen."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "Neuen Branch erstellen"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "Neuen Branch erstellen von …"
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Wechsel zum Branch %1 abgeschlossen"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Zum Branch %1 kann nicht gewechselt werden, Fehler: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr ""
 "Einen Namen für den neuen Branch eingeben. Drücken Sie „Esc“, um abzubrechen."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Einen Branch zum „Wechseln zu“ auswählen. Drücken Sie „Esc“, um abzubrechen."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Zum neuen Branch %1 gewechselt"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Der neue Branch kann nicht erstellt werden, Fehler: „%1“"
@@ -67,6 +57,11 @@ msgstr "Der neue Branch kann nicht erstellt werden, Fehler: „%1“"
 #, kde-format
 msgid "Branch"
 msgstr "Branch"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -86,15 +81,25 @@ msgstr[0] "Sind Sie sicher, dass Sie den ausgewählten Branch löschen möchten?
 msgstr[1] ""
 "Sind Sie sicher, dass Sie die ausgewählten Branches löschen möchten?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "Einen Branch auswählen …"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "Neuen Branch erstellen"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Neuen Branch erstellen von …"
 
 #: comparebranchesview.cpp:145
 #, kde-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2025-08-16 09:05+0200\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -24,42 +24,32 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Seleziona ramo da prelevare. Premi «Esc» per annullare."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "Crea nuovo ramo"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "Crea nuovo ramo da..."
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Ramo %1 prelevato"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Impossibile prelevare il ramo %1, errore: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Inserisci nome del nuovo ramo. Premi «Esc» per annullare."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Seleziona un ramo da cui prelevare. Premi «Esc» per annullare."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Passaggio effettuato al nuovo ramo: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Impossibile creare nuovo ramo. Errore «%1»"
@@ -68,6 +58,11 @@ msgstr "Impossibile creare nuovo ramo. Errore «%1»"
 #, kde-format
 msgid "Branch"
 msgstr "Ramo"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -86,15 +81,25 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "Sei sicuro di voler rimuovere il ramo selezionato?"
 msgstr[1] "Sei sicuro di voler rimuovere i rami selezionati?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "Seleziona ramo..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "Crea nuovo ramo"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Crea nuovo ramo da..."
 
 #: comparebranchesview.cpp:145
 #, kde-format

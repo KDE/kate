@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2025-04-03 14:40+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -30,44 +30,34 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "Выберите ветвь для извлечения. Нажмите клавишу «Esc» для отмены."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "Создать ветвь"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "Создать ветвь из…"
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "Ветвь %1 извлечена"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "Не удалось извлечь в ветвь %1. Ошибка: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Введите имя новой ветви. Для отмены нажмите клавишу «Esc»."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr ""
 "Выберите ветвь, из которой следует выполнить извлечение. Для отмены нажмите "
 "клавишу «Esc»."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Извлечено в новую ветвь: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Не удалось создать ветвь. Ошибка «%1»"
@@ -76,6 +66,11 @@ msgstr "Не удалось создать ветвь. Ошибка «%1»"
 #, kde-format
 msgid "Branch"
 msgstr "Ветвь"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -96,15 +91,25 @@ msgstr[1] "Удалить выбранные ветви?"
 msgstr[2] "Удалить выбранные ветви?"
 msgstr[3] "Удалить выбранную ветвь?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "Выберите ветвь…"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "Создать ветвь"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Создать ветвь из…"
 
 #: comparebranchesview.cpp:145
 #, kde-format

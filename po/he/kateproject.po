@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2025-08-02 19:27+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -25,42 +25,32 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "נא לבחור ענף לשליפה. לחיצה על ‚Esc’ לביטול."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "יצירת ענף חדש"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "יצירת ענף חדש מתוך…"
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "הענף %1 נשלף"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "שליפת הענף %1 נכשלה, שגיאה: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "נא למלא שם חדש לענף. ‚Esc’ לביטול."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "נא לבחור ענף לשליפה ממנו. לחיצה על ‚Esc’ לביטול."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "שליפה לענף חדש: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "יצירת ענף חדשה נכשלה. שגיאה „%1”"
@@ -69,6 +59,11 @@ msgstr "יצירת ענף חדשה נכשלה. שגיאה „%1”"
 #, kde-format
 msgid "Branch"
 msgstr "ענף"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -89,15 +84,25 @@ msgstr[1] "למחוק את הענפים הנבחרים?"
 msgstr[2] "למחוק את הענפים הנבחרים?"
 msgstr[3] "למחוק את הענפים הנבחרים?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "בחירת ענף…"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "יצירת ענף חדש"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "יצירת ענף חדש מתוך…"
 
 #: comparebranchesview.cpp:145
 #, kde-format

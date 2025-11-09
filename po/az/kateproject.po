@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 15:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -23,42 +23,32 @@ msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr ""
 "Verilənləri almaq üçün şöbəni seçin. Seçimi ləğv etmək üçün \"Esc\" vurun."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "Yeni şöbə yaradın"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "Yeni şöbəni buradan seçin..."
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "%1 şöbəsindən məlumatlar alındı"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "%1 şöbəsindən məlumatlar alına bilmədi, Xəta: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "Yeni şöbə adını daxil edin.İmtina üçün \"Esc\" vurun."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "Məlumatlar almaq üçün şöbəni seçin. İmtina üçün \"Esc\" seçin."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "Yeni şöbəyə köçürüldü: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "Yeni şöbənin yaradıla bilmədi. Xəta \"%1\""
@@ -67,6 +57,11 @@ msgstr "Yeni şöbənin yaradıla bilmədi. Xəta \"%1\""
 #, kde-format
 msgid "Branch"
 msgstr "Şöbə"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -85,15 +80,25 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "Seçilmiş şöbəni silmək istədiyinizə əminsiniz?"
 msgstr[1] "Seçilmiş şöbələri silmək istədiyinizə əminsiniz?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "Şöbəni seçin..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "Yeni şöbə yaradın"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "Yeni şöbəni buradan seçin..."
 
 #: comparebranchesview.cpp:145
 #, kde-format

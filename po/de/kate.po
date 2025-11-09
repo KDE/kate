@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-10-23 22:12+0200\n"
+"PO-Revision-Date: 2025-11-05 21:56+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -1254,24 +1254,17 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Zum ersten bzw. letzten Unterfenster springen erlauben"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Durchblättern von Unterfenster zulassen. Wenn dies nicht aktiviert ist, "
-"wechselt die Aktion „Nächstes Unterfenster“/„Vorheriges Unterfenster“ nicht "
-"zum ersten/letzten Unterfenster, wenn das Ende erreicht ist."
+"Wenn dies nicht aktiviert ist, wechselt die Aktion „%1“/„%2“ nicht zum "
+"ersten/letzten Unterfenster, wenn das Ende erreicht ist."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

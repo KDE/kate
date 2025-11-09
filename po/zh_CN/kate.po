@@ -1207,23 +1207,17 @@ msgstr "如果不勾选此项，则新标签页将在标签页队列末尾打开
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "允许循环切换标签"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"允许循环切换标签页。如果不勾选此项，“上一个标签页/下一个标签页”操作在抵达第一"
-"个/最后一个标签页时将不会循环切换到另一端"
+"如果不勾选，“%1”/“%2”操作在抵达第一个/最后一个标签页时将不会循环切换到另一"
+"端。"
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

@@ -1,84 +1,81 @@
-# German translations for kate package
-# German messages for kate.
-# Copyright (C) 2025 This file is copyright:
-# This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
-"Project-Id-Version: kate\n"
+"Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-11-05 23:12+0100\n"
-"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
-"Language-Team: German <kde-i18n-de@kde.org>\n"
-"Language: de\n"
+"PO-Revision-Date: 2025-11-08 11:46\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: kdeorg\n"
+"X-Crowdin-Project-ID: 269464\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /kf6-trunk/messages/kate/kategpgplugin.pot\n"
+"X-Crowdin-File-ID: 58672\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
 msgid "Error! No keys found..."
-msgstr "Fehler! Keine Schlüssel gefunden …"
+msgstr "错误！找不到密钥..."
 
 #: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
 #, kde-format
 msgid "Error finding key: "
-msgstr "Fehler beim Finden des Schlüssels: "
+msgstr "查找密钥时出错："
 
 #: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
 #, kde-format
 msgid "Error in symmetric encryption: "
-msgstr "Fehler bei der symmetrischen Verschlüsselung: "
+msgstr "对称加密错误："
 
 #: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
 #, kde-format
 msgid "Encryption Failed: "
-msgstr "Verschlüsseln fehlgeschlagen: "
+msgstr "加密失败："
 
 #: kategpgplugin.cpp:76
 #, kde-format
 msgid "GPG Plugin"
-msgstr "GPG-Modul"
+msgstr "GPG 插件"
 
 #: kategpgplugin.cpp:81
 #, kde-format
 msgid "GPG Decrypt current document"
-msgstr "Aktuelles Dokument mit GPG entschlüsseln"
+msgstr "GPG 解密当前文档"
 
 #: kategpgplugin.cpp:82
 #, kde-format
 msgid "GPG Encrypt current document"
-msgstr "Aktuelles Dokument mit GPG verschlüsseln"
+msgstr "GPG 加密当前文档"
 
 #: kategpgplugin.cpp:86
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
-msgstr "<b>GPG-Moduleinstellungen</b>"
+msgstr "<b>GPG 插件设置</b>"
 
 #: kategpgplugin.cpp:89
 #, kde-format
 msgid "Key ID"
-msgstr "Schlüssel-ID"
+msgstr "密钥 ID"
 
 #: kategpgplugin.cpp:90
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
-msgstr ""
-"Eine Suchzeichenkette, um Schüssel nach verfügbaren E-Mail-Adressen zu "
-"filtern"
+msgstr "用于通过可用电子邮件地址筛选密钥的搜索字符串"
 
 #: kategpgplugin.cpp:93
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
-msgstr "Für die Verschlüsselung ausgewählter GPG-Fingerabdruck"
+msgstr "选择用于加密的 GPG 密钥指纹"
 
 #: kategpgplugin.cpp:94
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
-msgstr "<b>An: E-Mail-Adresse, die für die Verschlüsselung verwendet wird</b>"
+msgstr "<b>收件人：用于加密的电子邮件地址</b>"
 
 #: kategpgplugin.cpp:103
 #, kde-format
@@ -87,39 +84,35 @@ msgid ""
 "Only mail addresses associated with your currently selected\n"
 "key fingerprint are available."
 msgstr ""
-"Wählen Sie eine E-Mail-Adresse für die Verschlüsselung aus.\n"
-"Es sind nur die E-Mail-Adressen verfügbar, die mit dem\n"
-"ausgewählten Schlüssel-Fingerabdruck verknüpft sind."
+"请选择要加密的电子邮件地址。\n"
+"只有与您当前所选密钥指纹相关联的电子邮件地址可用。"
 
 #: kategpgplugin.cpp:107
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
-msgstr ""
-"Das ist der aktuell ausgewählte GPG-Schlüssel-Fingerabdruck, der für die "
-"Verschlüsselung verwendet wird."
+msgstr "这是您当前选择的用于加密的 GPG 密钥指纹。"
 
 #: kategpgplugin.cpp:110
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
-msgstr "Als ASCII-kodiert speichern (.asc/.gpg)"
+msgstr "另存为 ASCII 编码文件 (.asc/.gpg)"
 
 #: kategpgplugin.cpp:113
 #, kde-format
 msgid "Enable symmetric encryption"
-msgstr "Symmetrische Verschlüsselung aktivieren"
+msgstr "启用对称加密"
 
 #: kategpgplugin.cpp:116
 #, kde-format
 msgid "Show only keys for which a private key is available"
-msgstr ""
-"Nur die Schlüssel anzeigen, für die ein privater Schlüssel verfügbar ist"
+msgstr "仅显示有可用私钥的密钥"
 
 #: kategpgplugin.cpp:119
 #, kde-format
 msgid "Hide Expired Keys"
-msgstr "Abgelaufene Schlüssel ausblenden"
+msgstr "隐藏过期密钥"
 
 #: kategpgplugin.cpp:220
 #, kde-format
@@ -127,23 +120,23 @@ msgid ""
 "Attempted double encryption detected!\n"
 "Encrypting more than once is disabled for now..."
 msgstr ""
-"Versuch doppelter Verschlüsselung festgestellt!\n"
-"Aktuell ist mehrfache Verschlüsselung deaktiviert …"
+"检测到尝试双重加密！\n"
+"目前禁用多次加密功能……"
 
 #: kategpgplugin.cpp:234 kategpgplugin.cpp:277
 #, kde-format
 msgid "Error! No views available..."
-msgstr "Fehler! Keine Ansichten verfügbar …"
+msgstr "错误！没有可用的视图..."
 
 #: kategpgplugin.cpp:239
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "Fehler bei der Textentschlüsselung! Das Dokument ist leer …"
+msgstr "解密文本时出错！文档为空..."
 
 #: kategpgplugin.cpp:243
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
-msgstr "Fehler bei der Textentschlüsselung! Kein Fingerabdruck ausgewählt …"
+msgstr "解密文本时出错！没有选择指纹..."
 
 #: kategpgplugin.cpp:248
 #, kde-format
@@ -152,24 +145,23 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"Fehler bei der Textentschlüsselung!\n"
-"Kein passender Fingerabdruck gefunden!\n"
-"Möglicherweise ist dies kein GPG-verschlüsselter Text …"
+"解密文本时出错！没有找到匹配的指纹！\n"
+"或者这不是 GPG 加密文本..."
 
 #: kategpgplugin.cpp:256
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "Fehler bei der Textentschlüsselung!\n"
+msgstr "解密文本时出错！\n"
 
 #: kategpgplugin.cpp:283
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
-msgstr "Fehler bei der Textverschlüsselung! Kein Dokument verfügbar …"
+msgstr "加密文本时出错！没有可用的文档..."
 
 #: kategpgplugin.cpp:287
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "Fehler bei der Textverschlüsselung! Das Dokument ist leer …"
+msgstr "加密文本时出错！文档为空..."
 
 #: kategpgplugin.cpp:291
 #, kde-format
@@ -177,49 +169,46 @@ msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
-"Fehler bei der Textverschlüsselung!\n"
-"Es wurde kein Fingerabdruck ausgewählt …"
+"加密文本时出错！\n"
+"没有选择指纹..."
 
 #: kategpgplugin.cpp:295
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
-msgstr ""
-"Versuch doppelter Verschlüsselung festgestellt! Aktuell ist die zweifache "
-"Verschlüsselung deaktiviert …"
+msgstr "尝试双重加密！当前已禁用两次加密..."
 
 #: kategpgplugin.cpp:308
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
-msgstr ""
-"Fehler bei der Textverschlüsselung! Kein passender Fingerabdruck gefunden …\n"
+msgstr "加密文本时出错！找不到匹配指纹...\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format
 msgid "Error Encrypting Text!"
-msgstr "Fehler bei der Textverschlüsselung!"
+msgstr "加密文本时出错！"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Fingerprint"
-msgstr "Schlüssel-Fingerabdruck"
+msgstr "密钥指纹"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Creation Date"
-msgstr "Erstellungsdatum"
+msgstr "创建日期"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Expiry Date"
-msgstr "Ablaufdatum"
+msgstr "过期日期"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Length"
-msgstr "Schlüssel-Länge"
+msgstr "密钥长度"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "User IDs"
-msgstr "Benutzerkennungen"
+msgstr "用户 ID"

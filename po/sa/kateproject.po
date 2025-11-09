@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -19,42 +19,32 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "अधिक्रियतुं शाखां चिनोतु। रद्दं कर्तुं 'Esc' नुदन्तु।."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "नवीन शाखा रचयन्तु"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "तः नूतनं शाखां रचयन्तु..."
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "शाखा %1 अधिक्रियते"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "शाखा %1 प्रति अधिक्रियते कर्तुं असफलम्, त्रुटिः: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "नूतनं शाखानाम प्रविष्टं कुर्वन्तु। रद्दं कर्तुं 'Esc' नुदन्तु।."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "तः अधिक्रियतुं शाखां चिनोतु। रद्दं कर्तुं 'Esc' नुदन्तु।."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "नूतनशाखायाः कृते जाँचितम्: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "नूतनशाखायाः निर्माणे असफलः अभवत् । \"%1\" इति त्रुटिः ।"
@@ -63,6 +53,11 @@ msgstr "नूतनशाखायाः निर्माणे असफल�
 #, kde-format
 msgid "Branch"
 msgstr "शाखा"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -81,15 +76,25 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "किं भवन्तः निश्चयेन चयनितशाखां विलोपयितुम् इच्छन्ति?"
 msgstr[1] "किं भवन्तः निश्चिताः सन्ति यत् भवन्तः चयनितशाखाः विलोपयितुम् इच्छन्ति?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "शाखा चयनं कुर्वन्तु..."
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "गिट्"
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "नवीन शाखा रचयन्तु"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "तः नूतनं शाखां रचयन्तु..."
 
 #: comparebranchesview.cpp:145
 #, kde-format

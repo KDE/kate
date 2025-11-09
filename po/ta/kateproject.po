@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-28 00:47+0000\n"
+"POT-Creation-Date: 2025-11-09 00:45+0000\n"
 "PO-Revision-Date: 2025-08-03 12:09+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -22,42 +22,32 @@ msgstr ""
 msgid "Select branch to checkout. Press 'Esc' to cancel."
 msgstr "செயற்படுத்த வேண்டிய கிளையைத் தேர்ந்தெடுக்கவும். கைவிட 'Esc' விசையைத் தட்டவும்."
 
-#: branchcheckoutdialog.cpp:36
-#, kde-format
-msgid "Create New Branch"
-msgstr "புதிய கிளையை உருவாக்கு:"
-
-#: branchcheckoutdialog.cpp:38
-#, kde-format
-msgid "Create New Branch From..."
-msgstr "புதிய கிளையை இதிலிருந்து உருவாக்கு..."
-
-#: branchcheckoutdialog.cpp:54
+#: branchcheckoutdialog.cpp:62
 #, kde-format
 msgid "Branch %1 checked out"
 msgstr "%1 கிளை செயலிலுள்ளது"
 
-#: branchcheckoutdialog.cpp:57
+#: branchcheckoutdialog.cpp:65
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
 msgstr "%1 எனும் கிளையை செயற்படுத்த முடியவில்லை. சிக்கல் குறித்த விவரம்: %2"
 
-#: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
+#: branchcheckoutdialog.cpp:93 branchcheckoutdialog.cpp:105
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
 msgstr "புதிய கிளையின் பெயரை உள்ளிடவும். ரத்து செய்ய 'Esc' விசையை அழுத்தவும்."
 
-#: branchcheckoutdialog.cpp:102
+#: branchcheckoutdialog.cpp:110
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
 msgstr "புதிய கிளைக்கான மூலக் கிளையைத் தேர்ந்தெடுக்கவும். கைவிட 'Esc' தனை தட்டவும்."
 
-#: branchcheckoutdialog.cpp:125
+#: branchcheckoutdialog.cpp:133
 #, kde-format
 msgid "Checked out to new branch: %1"
 msgstr "புதிய கிளையாக செயல்படுத்தப்பட்டுள்ளது: %1"
 
-#: branchcheckoutdialog.cpp:127
+#: branchcheckoutdialog.cpp:135
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
 msgstr "புதிய கிளையை உருவாக்க முடியவில்லை. சிக்கல் குறித்த விவரம்: '%1'"
@@ -66,6 +56,11 @@ msgstr "புதிய கிளையை உருவாக்க முடி
 #, kde-format
 msgid "Branch"
 msgstr "கிளை"
+
+#: branchdeletedialog.cpp:124
+#, kde-format
+msgid "Last Activity"
+msgstr ""
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -84,15 +79,25 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] "கண்டிப்பாக இந்த கிளையை நீக்க வேண்டுமா?"
 msgstr[1] "கண்டிப்பாக இந்த கிளைகளை நீக்க வேண்டுமா?"
 
-#: branchesdialog.cpp:101
+#: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
 msgstr "கிளையைத் தேர்ந்தெடு…"
 
-#: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr ""
+
+#: branchesdialogmodel.cpp:102
+#, kde-format
+msgid "Create New Branch"
+msgstr "புதிய கிளையை உருவாக்கு:"
+
+#: branchesdialogmodel.cpp:108
+#, kde-format
+msgid "Create New Branch From..."
+msgstr "புதிய கிளையை இதிலிருந்து உருவாக்கு..."
 
 #: comparebranchesview.cpp:145
 #, kde-format

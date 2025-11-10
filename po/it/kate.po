@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-09-23 18:52+0200\n"
+"PO-Revision-Date: 2025-11-01 09:13+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1242,24 +1242,17 @@ msgstr "Se non spuntato, la nuova scheda verrà aperta alla fine."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Permetti il passaggio ciclico tra le schede"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Permetti il passaggio ciclico tra le schede. Se non è spuntato, l'azione "
-"«Scheda successiva»/«Scheda precedente» non andrà alla prima o all'ultima "
-"scheda se viene raggiunta la fine"
+"Se non è spuntato, l'azione «%1»/«%2» non andrà alla prima o all'ultima "
+"scheda se viene raggiunta la fine."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

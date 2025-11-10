@@ -21,6 +21,7 @@
         "Description[sv]": "Formatera med ett externt verktyg när filen sparas",
         "Description[tr]": "Dosya kaydedildiğinde dış bir araç kullanarak biçimlendirin",
         "Description[uk]": "Форматування за допомогою зовнішнього інструмента при збереженні файла",
+        "Description[zh_CN]": "使用外部工具时保存文件的格式",
         "Name": "Formatting",
         "Name[ar]": "التنسيق",
         "Name[az]": "Formatlama",

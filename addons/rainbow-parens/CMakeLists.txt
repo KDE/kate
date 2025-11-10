@@ -11,3 +11,7 @@ target_sources(
 if (ENABLE_PCH)
     target_precompile_headers(rainbowparens REUSE_FROM katepch)
 endif()
+
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()

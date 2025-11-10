@@ -20,12 +20,6 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 
-constexpr int numberOfColors = 5;
-[[nodiscard]] size_t rehighlight(KTextEditor::View *view,
-                                 std::vector<std::unique_ptr<KTextEditor::MovingRange>> &ranges,
-                                 size_t lastUserColorIdx,
-                                 const std::vector<KTextEditor::Attribute::Ptr> &attrs);
-
 K_PLUGIN_FACTORY_WITH_JSON(RainbowParenPluginFactory, "rainbowparens_plugin.json", registerPlugin<RainbowParenPlugin>();)
 
 RainbowParenPlugin::RainbowParenPlugin(QObject *parent)

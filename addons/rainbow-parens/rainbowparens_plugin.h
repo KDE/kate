@@ -18,6 +18,13 @@
 
 #include <array>
 
+constexpr int numberOfColors = 5;
+
+[[nodiscard]] size_t rehighlight(KTextEditor::View *view,
+                                 std::vector<std::unique_ptr<KTextEditor::MovingRange>> &ranges,
+                                 size_t lastUserColorIdx,
+                                 const std::vector<KTextEditor::Attribute::Ptr> &attrs);
+
 class RainbowParenPlugin final : public KTextEditor::Plugin
 {
 public:

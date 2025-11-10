@@ -1,30 +1,29 @@
-cmake_minimum_required(VERSION 3.16)
+include(ECMMarkAsTest)
 
-project(test-blame VERSION 0.1 LANGUAGES CXX)
+add_executable(test_gitblameparsing "")
+target_include_directories(test_gitblameparsing PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+find_package(Qt6Test ${QT_MIN_VERSION} QUIET REQUIRED)
+target_link_libraries(
+  test_gitblameparsing
+  PRIVATE
+    kateprivate
+    KF6::TextEditor
+    KF6::I18n
+    Qt::Test
+)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-
-find_package(Qt6 REQUIRED COMPONENTS Core Test)
-find_package(ECM REQUIRED COMPONENTS I18n)
-# We append to the module path so modules can be overridden from the command line.
-list(APPEND CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
-find_package(KF6 REQUIRED COMPONENTS I18n)
-
-set(PROJECT_SOURCES
+target_sources(
+  test_gitblameparsing
+  PRIVATE
     ../gitblameparser.cpp
     gitblametest.cpp
     testfiles.qrc
 )
 
-qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+if(ENABLE_PCH)
+    target_precompile_headers(test_gitblameparsing REUSE_FROM katepch_tests)
+endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Core Qt6::Test KF6::I18n)
-
-enable_testing(true)
-
-add_test(NAME ${PROJECT_NAME} COMMAND ${PROJECT_NAME})
+add_test(NAME kateapp-test_gitblameparsing COMMAND test_gitblameparsing ${OFFSCREEN_QPA})
+ecm_mark_as_test(test_gitblameparsing)

@@ -6,7 +6,7 @@
 
 void GitBlameTest::testBlameFiles()
 {
-    QDir rootDir(":/");
+    QDir rootDir(QStringLiteral(":/"));
     const QFileInfoList files = rootDir.entryInfoList(QDir::Files);
     for (const auto &fileInfo : files) {
         qDebug() << fileInfo.absoluteFilePath();

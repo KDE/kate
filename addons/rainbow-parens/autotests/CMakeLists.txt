@@ -11,6 +11,7 @@ target_link_libraries(
     KF6::I18n
     Qt::Test
      $<TARGET_OBJECTS:rainbowparens>
+    katepch
 )
 
 target_sources(

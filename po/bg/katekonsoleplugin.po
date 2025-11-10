@@ -237,7 +237,3 @@ msgstr "Настройки на терминала"
 #, kde-format
 msgid "&Tools"
 msgstr "&Инструменти"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr ""
-#~ "Нямате достатъчно карма за достъп до обвивка или терминална емулация"

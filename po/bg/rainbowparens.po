@@ -32,6 +32,3 @@ msgstr "Оцветени квадратни скоби"
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Настройки за оцветени квадратни скоби"
-
-#~ msgid "Choose colors that will be used for bracket coloring:"
-#~ msgstr "Изберете цветовете, които ще се използват за скобите:"

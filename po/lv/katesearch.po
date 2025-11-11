@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-23 00:46+0000\n"
-"PO-Revision-Date: 2025-03-04 19:07+0200\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2025-11-07 18:26+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 25.08.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -613,26 +613,22 @@ msgstr ""
 "izceltās meklēšanas atrastās rindas."
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
-msgstr ""
-"Ar komatu atdalīts datņu saraksts, kurās meklēt. Piemēram: „*.cpp,*.h“\n"
+msgstr "Ar komatu atdalīts datņu saraksts, kurās meklēt. Piemēram: „*.cpp,*.h“"
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Ar komatu atdalīts datņu un mapju saraksts, ko izlaist meklēšanā. Piemēram, "
-"„build*“"
+"Ar komatu atdalīts aizstājējzīmju paraugu saraksts, meklējot datnes un "
+"mapes, ko izlaist no meklēšanas.\n"
+"Piemēram: „build*“\n"
+"Ja modelis satur a „/“, atbilsmei tiek pārbaudīts pilns ceļš."
 
 #: SearchPlugin.cpp:400
 #, kde-format

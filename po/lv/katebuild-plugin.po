@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-09-19 00:45+0000\n"
-"PO-Revision-Date: 2025-07-01 16:32+0300\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2025-11-07 18:22+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -367,10 +367,9 @@ msgstr[1] "Atrastas %1 piezīmes."
 msgstr[2] "Atrasts %1 piezīmju."
 
 #: plugin_katebuild.cpp:1515
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Būvēšana neizdevās."
+msgstr "Būvēšana ir atcelta."
 
 #: plugin_katebuild.cpp:1519
 #, kde-format
@@ -579,10 +578,9 @@ msgstr "&Būvēt"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Būvēšanas spraudnis"
+msgstr "Būvēšanas spraudņa rīkjosla"
 
 #: UrlInserter.cpp:32
 #, kde-format

@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-31 00:45+0000\n"
-"PO-Revision-Date: 2025-07-01 16:22+0300\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2025-11-07 18:21+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -577,11 +577,10 @@ msgid "No differences found"
 msgstr "Atšķirības nav atrastas"
 
 #: lib/filehistorywidget.cpp:247
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Nederīgs jaucējkods"
+msgstr "Nederīgs datums: %1"
 
 #: lib/filehistorywidget.cpp:469
 #, kde-format
@@ -599,6 +598,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Filtrēt žurnālu.<ul><li>Lietojiet <code>\"a:\"</code> prefiksu, lai filtrētu "
+"pēc autora vārda. Piemēram, <b>a:jānis bērziņs</b></li><li>Lietojiet <code>"
+"\"!a:\"</code> prefiksu, lai nerādīto noteiktu autoru. Piemēram, <b>!a:jānis "
+"bērziņš</b></li><li>Lietojiet <code>\"since:\"</code> prefiksu, lai rādītu "
+"iesniegtās izmaiņas pēc noteikta datuma. Tiks pārbaudīts katru izmaiņu "
+"autora datums. Datuma formāts ir gggg-MM-dd, piemēram, <b>since:2025-04-17</"
+"b></li><li>Lietojiet <code>\"until:\"</code> prefiksu, lai parādītu "
+"iesniegtās izmaiņas pirms dotā datuma. Tiks pārbaudīts katru izmaiņu autora "
+"datums. Datuma formāts ir gggg-MM-dd, piemēram, <b>until:2025-04-17</b></"
+"li><li>Lai filtrētu ziņas, vienkārši rakstiet meklējamo tekstu. Ja ir "
+"ierakstīti vairāki meklējami teksti, programma parādīs visu meklējamo tekstu "
+"atbilsmes.</li></ul>Lai ieslēgtu filtru, spiediet <b>Enter</b> taustiņu."
 
 #: lib/filehistorywidget.cpp:525
 #, kde-format
@@ -1000,19 +1011,15 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
-"Saraksts ar %1 atsevišķām mapēm, kurās „Kate“ meklēs programmas. Šo sarakstu "
-"varat pievienot PATH vides mainīgā sākumam, piemēram, /„home/USER/myapps/"
-"bin/:/home/USER/.local/bin“"
+"Saraksts mapēm, kas atdalītas ar %1, kurās „Kate“ meklēs palaižamas "
+"programmas. Šo sarakstu varat pievienot PATH vides mainīgā sākumam, "
+"piemēram, /„home/USER/myapps/bin/:/home/USER/.local/bin“"
 
 #: lib/kateconfigdialog.cpp:142
 #, kde-format
@@ -1228,24 +1235,17 @@ msgstr "Ja noņemta atzīme, jaunās cilnes atvērsies beigās."
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Atļaut iet pa apli cauri cilnēm"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Atļaut iet pa apli cauri cilnēm. Ja izslēgts, mēģinot iet uz nākamo cilni "
-"vai iepriekšējo cilni, no pēdējās cilnes nenokļūsit pirmajā un no pirmās "
-"pēdējā."
+"Ja izslēgts, darbība „%1“/„%2“, mēģinot iet uz nākamo cilni vai iepriekšējo "
+"cilni, no pēdējās cilnes nenokļūsit pirmajā un no pirmās pēdējā."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format
@@ -1451,16 +1451,14 @@ msgid "Reopening files from the last session..."
 msgstr "Atver pēdējās sesijas datnes..."
 
 #: lib/katedocmanager.cpp:572
-#, fuzzy, kde-format
-#| msgid "Create a new document"
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Izveidot jaunu dokumentu"
+msgstr "Nevar piespraust nenosauktus dokumentus."
 
 #: lib/katedocmanager.cpp:577
-#, fuzzy, kde-format
-#| msgid "Shows a hint how to compare documents."
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Parāda padomu, kā salīdzināt dokumentus."
+msgstr "Nevar piespraust attālus dokumentus."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1820,17 +1818,14 @@ msgid "Save Session &As..."
 msgstr "S&aglabāt sesiju kā..."
 
 #: lib/katemainwindow.cpp:650
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "A&tdalīt aktīvo dokumentu"
+msgstr "Piespraust/noņem piespraudi aktīvajam dokumentam"
 
 #: lib/katemainwindow.cpp:659
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Atvērt dokumentus"
+msgstr "Atvērt nākamo piesprausto dokumentu"
 
 #: lib/katemainwindow.cpp:666 lib/kateviewspace.cpp:57
 #, kde-format
@@ -2134,7 +2129,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:291
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Lai redzētu atšķirības, ieinstalējiet „git“"
 
 #: lib/katemwmodonhddialog.cpp:315
 #, kde-format
@@ -2591,22 +2586,19 @@ msgstr[2] ""
 "pārslēdzieties uz ātrās atvēršanas skatu, klikšķinot te."
 
 #: lib/kateviewspace.cpp:1134
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Aizvērt cilni"
+msgstr "&Aizvērt cilni"
 
 #: lib/kateviewspace.cpp:1141
-#, fuzzy, kde-format
-#| msgid "Close Others"
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Aizvērt pārējos"
+msgstr "Aizvērt &pārējās cilnes"
 
 #: lib/kateviewspace.cpp:1154
-#, fuzzy, kde-format
-#| msgid "Close All"
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Aizvērt visus"
+msgstr "Aizvērt &visas cilnes"
 
 #: lib/kateviewspace.cpp:1185
 #, kde-format
@@ -2629,22 +2621,19 @@ msgid "Compare with Active Document Using"
 msgstr "Salīdzināt ar aktīvo dokumentu, izmantojot"
 
 #: lib/kateviewspace.cpp:1245
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Atvērt dokumentus"
+msgstr "Noņemt dokumenta piespraudi"
 
 #: lib/kateviewspace.cpp:1247
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumenti"
+msgstr "Piespraust dokumentu"
 
 #: lib/ktexteditor_utils.cpp:243
 #, kde-format
 msgid "Can not open %1"
-msgstr ""
+msgstr "Nevar atvērt „%1“"
 
 #: lib/mainwindow_commands.cpp:44
 #, kde-format

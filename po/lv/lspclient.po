@@ -1,14 +1,14 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024 Toms Trasūns <toms.trasuns@posteo.net>
+# SPDX-FileCopyrightText: 2024, 2025 Toms Trasūns <toms.trasuns@posteo.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-10-23 00:45+0000\n"
-"PO-Revision-Date: 2024-12-30 17:27+0200\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2025-11-07 18:28+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -431,13 +431,13 @@ msgstr "Neizdevās nolasīt servera konfigurāciju: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Iet uz nākamo simbola izcēlumu"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Iet uz iepriekšējo simbola izcēlumu"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -615,7 +615,7 @@ msgstr "Automātiski izvērst koku"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Izcelt zem kursora esošo simbolu"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

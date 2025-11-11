@@ -60,7 +60,7 @@ msgstr "分支"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "最近活动"
 
 #: branchdeletedialog.cpp:124
 #, kde-format

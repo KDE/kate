@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-09 00:45+0000\n"
-"PO-Revision-Date: 2025-07-01 16:37+0300\n"
-"Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
+"PO-Revision-Date: 2025-11-07 18:23+0200\n"
+"Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 25.04.2\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -1047,7 +1047,7 @@ msgstr "Neizdevās izveidot mapi: „%1“"
 #: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "Neizdodas atrast mapi: %1"
 
 #: kateprojectworker.cpp:730
 #, kde-format

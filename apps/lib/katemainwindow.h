@@ -614,7 +614,7 @@ private:
         {
             return m_bar;
         }
-        bool state()
+        bool state() const
         {
             return m_state;
         }

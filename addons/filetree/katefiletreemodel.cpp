@@ -443,7 +443,7 @@ KateFileTreeModel::~KateFileTreeModel()
     delete m_root;
 }
 
-bool KateFileTreeModel::shadingEnabled()
+bool KateFileTreeModel::shadingEnabled() const
 {
     return m_shadingEnabled;
 }

@@ -81,7 +81,7 @@ ExecPrefixManager::~ExecPrefixManager()
 
 void ExecPrefixManager::update(QString name, QStringList args)
 {
-    return d->update(name, args);
+    d->update(name, args);
 }
 
 QStringList ExecPrefixManager::load(QString name)

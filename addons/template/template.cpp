@@ -274,7 +274,8 @@ void Template::createFromTemplate()
     QString path = ui->u_templateTree->currentIndex().data(TreeData::PathRole).toString();
     QString config = ui->u_templateTree->currentIndex().data(TreeData::ConfigJsonRole).toString();
     if (!config.endsWith(u"json"_s)) {
-        return createFromAppWizardTemplate(path);
+        createFromAppWizardTemplate(path);
+        return;
     }
 #endif
 
@@ -351,7 +352,8 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
 
 #ifdef BUILD_APPWIZARD
     if (!config.endsWith(u"json"_s)) {
-        return appWizardTemplateSelected(path);
+        appWizardTemplateSelected(path);
+        return;
     }
 #endif
 

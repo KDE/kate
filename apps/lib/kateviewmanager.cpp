@@ -36,7 +36,7 @@
 
 // END Includes
 
-static constexpr qint64 FileSizeAboveToAskUserIfProceedWithOpen = 10 * 1024 * 1024; // 10MB should suffice
+static constexpr qint64 FileSizeAboveToAskUserIfProceedWithOpen = 10L * 1024 * 1024; // 10MB should suffice
 
 KateViewManager::KateViewManager(QWidget *parentW, KateMainWindow *parent)
     : KateSplitter(parentW)

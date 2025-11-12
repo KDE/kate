@@ -47,7 +47,7 @@ void SearchDiskFiles::run()
         }
 
         // skip files that hit the limit or files we can't get the size, that might lead to oom
-        if (const auto s = file.size(); (s <= 0) || ((s / (1024 * 1024)) > m_sizeLimit)) {
+        if (const auto s = file.size(); (s <= 0) || ((s / (1024L * 1024L)) > m_sizeLimit)) {
             continue;
         }
 

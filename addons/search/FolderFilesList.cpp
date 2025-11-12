@@ -116,7 +116,7 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
     QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludes.clear();
     m_pathExcludes.clear();
-    for (auto excl : tmpExcludes) {
+    for (const auto &excl : tmpExcludes) {
         if (excl.contains('/'_L1)) {
             // If the exclude includes a '/', we match the whole path not just the path section
             m_pathExcludes << QRegularExpression(

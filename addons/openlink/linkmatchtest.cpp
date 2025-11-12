@@ -120,14 +120,14 @@ private Q_SLOTS:
         if (ranges != expected) {
             qDebug("Failed line: %ls", qUtf16Printable(line));
             QString dbg;
-            for (auto [start, end, _, cursor, type] : ranges) {
+            for (const auto &[start, end, _, cursor, type] : ranges) {
                 dbg.append(QStringLiteral("%1 %2 %4 %3\n").arg(start).arg(end).arg(type).arg(cursor.toString()));
             }
             qDebug("Actual: %ls", qUtf16Printable(dbg));
             qDebug("----");
 
             dbg.clear();
-            for (auto [start, end, _, cursor, type] : expected) {
+            for (const auto &[start, end, _, cursor, type] : expected) {
                 dbg.append(QStringLiteral("%1 %2 %4 %3\n").arg(start).arg(end).arg(type).arg(cursor.toString()));
             }
             qDebug("Expected: %ls", qUtf16Printable(dbg));

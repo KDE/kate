@@ -52,7 +52,8 @@ BookmarksPlugin::BookmarksPlugin(QObject *parent)
 
     // Read meta infos and add bookmarks
     KConfig metaInfos(QStringLiteral("katemetainfos"));
-    for (auto groupName : metaInfos.groupList()) {
+    const auto groupList = metaInfos.groupList();
+    for (const auto &groupName : groupList) {
         KConfigGroup kgroup(&metaInfos, groupName);
         QUrl url(kgroup.readEntry("URL"));
         if (!url.isEmpty() && url.isValid()) {

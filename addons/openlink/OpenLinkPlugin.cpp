@@ -235,7 +235,7 @@ void OpenLinkPluginView::highlightIfLink(KTextEditor::Cursor c, QWidget *viewInt
 
     std::vector<OpenLinkRange> matchedRanges;
     matchLine(line, &matchedRanges);
-    for (auto [start, end, link, startPos, type] : matchedRanges) {
+    for (const auto &[start, end, link, startPos, type] : matchedRanges) {
         if (start <= c.column() && c.column() <= end) {
             m_ctrlHoverFeedback->link = link;
             m_ctrlHoverFeedback->viewInternal = viewInternal;

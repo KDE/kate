@@ -432,7 +432,7 @@ public:
         return server;
     }
 
-    virtual QJsonValue findServerConfig(KTextEditor::Document *document) override
+    QJsonValue findServerConfig(KTextEditor::Document *document) override
     {
         // check if document has been seen/processed by now
         auto it = m_docs.find(document);

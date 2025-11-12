@@ -37,7 +37,7 @@ struct ClientMessageContext : public MessageContext {
         return result.isEmpty() ? url.toLocalFile() : result;
     }
 
-    virtual QUrl toLocal(const QString &path) override
+    QUrl toLocal(const QString &path) override
     {
         auto url = QUrl::fromLocalFile(path);
         // pass along relative paths; can not be reasonably mapped

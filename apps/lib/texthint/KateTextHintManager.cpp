@@ -37,7 +37,7 @@ public:
         Q_ASSERT(m_mgr);
     }
 
-    ~KTETextHintProvider()
+    ~KTETextHintProvider() override
     {
         if (m_view) {
             m_view->unregisterTextHintProvider(this);
@@ -60,7 +60,7 @@ public:
         return m_view;
     }
 
-    virtual QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
+    QString textHint(KTextEditor::View *view, const KTextEditor::Cursor &position) override
     {
         m_mgr->ontextHintRequested(view, position, KateTextHintManager::Requestor::HintProvider);
         return {};

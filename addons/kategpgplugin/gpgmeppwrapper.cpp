@@ -93,7 +93,6 @@ void GPGMeWrapper::loadKeys(bool showOnlyPrivateKeys_, bool hideExpiredKeys_, co
         d.loadFromGPGMeKey(*key);
         m_keys.push_back(d);
     }
-    return;
 }
 
 const QVector<GPGKeyDetails> &GPGMeWrapper::getKeys() const

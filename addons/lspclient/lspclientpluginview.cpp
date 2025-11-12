@@ -1477,7 +1477,7 @@ public:
                 }
                 // ... so we can sort it also
                 std::stable_sort(ranges.begin(), ranges.end(), compareRangeItem);
-                makeTree(ranges, s.get()->get());
+                makeTree(ranges, s->get());
 
                 // assuming that reply ranges refer to revision when submitted
                 // (not specified anyway in protocol/reply)

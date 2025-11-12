@@ -29,9 +29,9 @@ quint16 SocketBus::write(const QByteArray &data)
 
 bool SocketBus::start(const settings::BusSettings &configuration)
 {
-    if (!configuration.hasConnection())
+    if (!configuration.hasConnection()) {
         return false;
-
+    }
     socket.connectToHost(configuration.connection->host, configuration.connection->port);
 
     return true;

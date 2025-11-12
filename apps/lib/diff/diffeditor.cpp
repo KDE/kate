@@ -187,8 +187,9 @@ void DiffEditor::contextMenuEvent(QContextMenuEvent *e)
 
     auto menu = createStandardContextMenu();
     QAction *before = nullptr;
-    if (!menu->actions().isEmpty())
+    if (!menu->actions().isEmpty()) {
         before = menu->actions().constFirst();
+    }
 
     {
         auto a = new QAction(i18n("Change Style"), this);

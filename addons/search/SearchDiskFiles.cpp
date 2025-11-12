@@ -96,8 +96,9 @@ QList<KateSearchMatch> SearchDiskFiles::searchSingleLineRegExp(QFile &file)
             // try match at the current interesting column, abort search loop if nothing found!
             const QRegularExpressionMatch match = m_regExp.match(line, columnToStartMatch);
             const int column = match.capturedStart();
-            if (column == -1 || match.capturedLength() == 0)
+            if (column == -1 || match.capturedLength() == 0) {
                 break;
+            }
 
             // remember match
             const int endColumn = column + match.capturedLength();

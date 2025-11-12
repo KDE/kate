@@ -617,14 +617,18 @@ void ConfigView::resizeEvent(QResizeEvent *)
         }
 
         for (const auto &fieldName : debuggerVariables) {
-            if (fieldName == F_FILE)
+            if (fieldName == F_FILE) {
                 continue;
-            if (fieldName == F_ARGS)
+            }
+            if (fieldName == F_ARGS) {
                 continue;
-            if (fieldName == F_PID)
+            }
+            if (fieldName == F_PID) {
                 continue;
-            if (fieldName == F_WORKDIR)
+            }
+            if (fieldName == F_WORKDIR) {
                 continue;
+            }
 
             const auto &field = getDapField(fieldName);
 

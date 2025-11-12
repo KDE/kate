@@ -429,8 +429,9 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
     connect(&m_outputTimer, &QTimer::timeout, this, &KateBuildView::slotUpdateTextBrowser);
 
     auto updateEditorColors = [this](KTextEditor::Editor *e) {
-        if (!e)
+        if (!e) {
             return;
+        }
         auto theme = e->theme();
         auto bg = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::BackgroundColor));
         auto fg = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::TextStyle::Normal));

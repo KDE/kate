@@ -522,16 +522,17 @@ void CEWidget::doCompile()
     bool libfuncs = false;
     for (auto action : actions) {
         bool isChecked = action->isChecked();
-        if (action->data().toInt() == CE_Option_Demangle)
+        if (action->data().toInt() == CE_Option_Demangle) {
             demangle = isChecked;
-        else if (action->data().toInt() == CE_Option_FilterComments)
+        } else if (action->data().toInt() == CE_Option_FilterComments) {
             comments = isChecked;
-        else if (action->data().toInt() == CE_Option_FilterLabel)
+        } else if (action->data().toInt() == CE_Option_FilterLabel) {
             labels = isChecked;
-        else if (action->data().toInt() == CE_Option_FilterUnusedLibFuncs)
+        } else if (action->data().toInt() == CE_Option_FilterUnusedLibFuncs) {
             libfuncs = isChecked;
-        else if (action->data().toInt() == CE_Option_IntelAsm)
+        } else if (action->data().toInt() == CE_Option_IntelAsm) {
             intel = isChecked;
+        }
     }
 
     QString args2 = m_lineEdit->text().trimmed();

@@ -1455,8 +1455,9 @@ public:
     QUrl mapPath(const QUrl &url, bool fromLocal) const
     {
         auto &m = m_config.map;
-        if (!m || m->isEmpty())
+        if (!m || m->isEmpty()) {
             return url;
+        }
         auto result = Utils::mapPath(*m, url, fromLocal);
         qCDebug(LSPCLIENT) << "transform url" << fromLocal << url << "->" << result;
         // use special scheme to mark unmappable remote file

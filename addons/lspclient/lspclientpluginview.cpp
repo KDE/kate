@@ -1901,8 +1901,9 @@ public:
     {
         KTextEditor::View *activeView = m_mainWindow->activeView();
         auto server = m_serverManager->findServer(activeView);
-        if (!server)
+        if (!server) {
             return;
+        }
 
         auto h = [this](const QString &reply) {
             auto view = m_mainWindow->openUrl(QUrl());

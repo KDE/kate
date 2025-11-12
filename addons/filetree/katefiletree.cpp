@@ -215,8 +215,9 @@ void KateFileTree::setShowCloseButton(bool show)
     m_hasCloseButton = show;
     static_cast<CloseIconStyleDelegate *>(itemDelegate())->setShowCloseButton(show);
 
-    if (!header())
+    if (!header()) {
         return;
+    }
 
     const int minSize = show ? 16 : 1;
     header()->setMinimumSectionSize(minSize);

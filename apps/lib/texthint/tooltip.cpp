@@ -272,18 +272,24 @@ public:
 
         p = QPoint(wordStart.x(), wordStart.y() + lineHeight);
 
-        if (p.x() + width() > screen.x() + screen.width())
+        if (p.x() + width() > screen.x() + screen.width()) {
             p.setX(wordEnd.x() - width());
-        if (p.y() + this->height() > screen.y() + screen.height())
+        }
+        if (p.y() + this->height() > screen.y() + screen.height()) {
             p.ry() -= lineHeight + this->height();
-        if (p.y() < screen.y())
+        }
+        if (p.y() < screen.y()) {
             p.setY(screen.y());
-        if (p.x() + this->width() > screen.x() + screen.width())
+        }
+        if (p.x() + this->width() > screen.x() + screen.width()) {
             p.setX(screen.x() + screen.width() - this->width());
-        if (p.x() < screen.x())
+        }
+        if (p.x() < screen.x()) {
             p.setX(screen.x());
-        if (p.y() + this->height() > screen.y() + screen.height())
+        }
+        if (p.y() + this->height() > screen.y() + screen.height()) {
             p.setY(screen.y() + screen.height() - this->height());
+        }
 
         this->move(p);
     }

@@ -464,8 +464,9 @@ void KateMainWindow::setupActions()
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy")));
     a->setText(i18n("Copy Filename"));
     connect(a, &QAction::triggered, KateApp::self()->documentManager(), [this]() {
-        if (auto view = viewManager()->activeView())
+        if (auto view = viewManager()->activeView()) {
             KateFileActions::copyFileNameToClipboard(view->document());
+        }
     });
     a->setWhatsThis(i18n("Copies the file path of the current file to clipboard."));
 

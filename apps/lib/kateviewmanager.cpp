@@ -1925,8 +1925,9 @@ void KateViewManager::showWelcomeViewOrNewDocumentIfNeeded()
     QTimer::singleShot(0, this, [this]() {
         // we really want to show up only if nothing is in the current view space
         // this guard versus double invocation of this function, too
-        if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget()))
+        if (activeViewSpace() && (activeViewSpace()->currentView() || activeViewSpace()->currentWidget())) {
             return;
+        }
 
         // the user can decide: welcome page or a new untitled document for a new window?
         KSharedConfig::Ptr config = KSharedConfig::openConfig();

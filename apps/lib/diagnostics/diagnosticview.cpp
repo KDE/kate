@@ -619,8 +619,9 @@ void DiagnosticsView::showEvent(QShowEvent *e)
 
 void DiagnosticsView::handleEsc(QEvent *event)
 {
-    if (event->type() != QEvent::ShortcutOverride)
+    if (event->type() != QEvent::ShortcutOverride) {
         return;
+    }
 
     auto keyEvent = static_cast<QKeyEvent *>(event);
     if (keyEvent && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {

@@ -269,8 +269,9 @@ void KateExternalToolsPluginView::handleEsc(QEvent *event)
 
 QAction *KateExternalToolsPluginView::externalToolsForDocumentAction(KTextEditor::Document *doc)
 {
-    if (!doc || doc->views().isEmpty())
+    if (!doc || doc->views().isEmpty()) {
         return nullptr;
+    }
 
     auto *ret = new KActionMenu(this);
     ret->setText(i18n("External Tools"));

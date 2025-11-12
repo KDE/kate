@@ -142,54 +142,55 @@ void SemanticTokensLegend::initialize(const std::vector<QString> &types)
     std::vector<TokenType> tokenTypes(types.size());
     int i = 0;
     for (const auto &type : types) {
-        if (type == QStringLiteral("type"))
+        if (type == QStringLiteral("type")) {
             tokenTypes[i] = TokenType::Type;
-        else if (type == QStringLiteral("class"))
+        } else if (type == QStringLiteral("class")) {
             tokenTypes[i] = TokenType::Class;
-        else if (type == QStringLiteral("enum"))
+        } else if (type == QStringLiteral("enum")) {
             tokenTypes[i] = TokenType::Enum;
-        else if (type == QStringLiteral("type"))
+        } else if (type == QStringLiteral("type")) {
             tokenTypes[i] = TokenType::Type;
-        else if (type == QStringLiteral("interface"))
+        } else if (type == QStringLiteral("interface")) {
             tokenTypes[i] = TokenType::Interface;
-        else if (type == QStringLiteral("struct"))
+        } else if (type == QStringLiteral("struct")) {
             tokenTypes[i] = TokenType::Struct;
-        else if (type == QStringLiteral("typeParameter"))
+        } else if (type == QStringLiteral("typeParameter")) {
             tokenTypes[i] = TokenType::TypeParameter;
-        else if (type == QStringLiteral("parameter"))
+        } else if (type == QStringLiteral("parameter")) {
             tokenTypes[i] = TokenType::Parameter;
-        else if (type == QStringLiteral("variable"))
+        } else if (type == QStringLiteral("variable")) {
             tokenTypes[i] = TokenType::Variable;
-        else if (type == QStringLiteral("property"))
+        } else if (type == QStringLiteral("property")) {
             tokenTypes[i] = TokenType::Property;
-        else if (type == QStringLiteral("enumMember"))
+        } else if (type == QStringLiteral("enumMember")) {
             tokenTypes[i] = TokenType::EnumMember;
-        else if (type == QStringLiteral("event"))
+        } else if (type == QStringLiteral("event")) {
             tokenTypes[i] = TokenType::Event;
-        else if (type == QStringLiteral("function"))
+        } else if (type == QStringLiteral("function")) {
             tokenTypes[i] = TokenType::Function;
-        else if (type == QStringLiteral("method"))
+        } else if (type == QStringLiteral("method")) {
             tokenTypes[i] = TokenType::Method;
-        else if (type == QStringLiteral("macro"))
+        } else if (type == QStringLiteral("macro")) {
             tokenTypes[i] = TokenType::Macro;
-        else if (type == QStringLiteral("keyword"))
+        } else if (type == QStringLiteral("keyword")) {
             tokenTypes[i] = TokenType::Keyword;
-        else if (type == QStringLiteral("modifier"))
+        } else if (type == QStringLiteral("modifier")) {
             tokenTypes[i] = TokenType::Modifier;
-        else if (type == QStringLiteral("comment"))
+        } else if (type == QStringLiteral("comment")) {
             tokenTypes[i] = TokenType::Comment; // Can mean inactive code
-        else if (type == QStringLiteral("string"))
+        } else if (type == QStringLiteral("string")) {
             tokenTypes[i] = TokenType::String;
-        else if (type == QStringLiteral("number"))
+        } else if (type == QStringLiteral("number")) {
             tokenTypes[i] = TokenType::Number;
-        else if (type == QStringLiteral("regexp"))
+        } else if (type == QStringLiteral("regexp")) {
             tokenTypes[i] = TokenType::Regexp;
-        else if (type == QStringLiteral("operator"))
+        } else if (type == QStringLiteral("operator")) {
             tokenTypes[i] = TokenType::Operator;
-        else if (type == QStringLiteral("namespace"))
+        } else if (type == QStringLiteral("namespace")) {
             tokenTypes[i] = TokenType::Namespace;
-        else
+        } else {
             tokenTypes[i] = TokenType::Unsupported;
+        }
         i++;
     }
     refresh(tokenTypes);

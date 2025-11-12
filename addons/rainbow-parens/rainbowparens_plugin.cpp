@@ -346,8 +346,9 @@ size_t rehighlight(KTextEditor::View *view,
     // and not change all the time
     auto oldRanges = std::move(ranges);
 
-    if (parens.empty())
+    if (parens.empty()) {
         return lastUserColorIdx;
+    }
 
     // sort by start paren
     // Necessary so that we can get alternating colors for brackets

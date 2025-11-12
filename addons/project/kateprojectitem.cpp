@@ -139,8 +139,9 @@ void KateProjectItem::setData(const QVariant &value, int role)
 {
     if (role == Qt::EditRole) {
         auto newFileName = value.toString();
-        if (newFileName.isEmpty())
+        if (newFileName.isEmpty()) {
             return;
+        }
 
         /**
          *  retrieve the ref to project that we stored

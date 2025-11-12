@@ -68,10 +68,11 @@ void LSPClientSymbolHighlighter::rangesInvalidated()
     m_currentWord = KTextEditor::Range::invalid();
     cancelRequest();
 
-    if (m_currentView && !m_currentView->selection())
+    if (m_currentView && !m_currentView->selection()) {
         m_highlightDelayTimer.start();
-    else
+    } else {
         m_highlightDelayTimer.stop();
+    }
 }
 
 void LSPClientSymbolHighlighter::themeChange(KTextEditor::Editor *e)
@@ -87,8 +88,9 @@ void LSPClientSymbolHighlighter::cancelRequest()
 
 void LSPClientSymbolHighlighter::highlight()
 {
-    if (!m_currentView || !m_currentServer)
+    if (!m_currentView || !m_currentServer) {
         return;
+    }
 
     m_requestTimeout.start();
     m_requestHandle.cancel() =
@@ -97,8 +99,9 @@ void LSPClientSymbolHighlighter::highlight()
                                            this,
                                            [this](const QList<LSPDocumentHighlight> &locations) {
                                                // By the time we get response view may change.
-                                               if (!m_currentView)
+                                               if (!m_currentView) {
                                                    return;
+                                               }
 
                                                auto document = m_currentView->document();
                                                m_ranges.resize(locations.length());
@@ -150,8 +153,9 @@ void LSPClientSymbolHighlighter::gotoPrevHighlight()
 
 void LSPClientSymbolHighlighter::goToRange(const KTextEditor::MovingRange &range)
 {
-    if (!m_currentView)
+    if (!m_currentView) {
         return;
+    }
 
     // Update the current word position to skip new query to LSP
     // when signal is received.

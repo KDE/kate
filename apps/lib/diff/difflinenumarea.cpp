@@ -25,8 +25,9 @@ LineNumArea::LineNumArea(DiffEditor *parent)
 {
     setFont(textEdit->font());
     auto updateColors = [this](KTextEditor::Editor *e) {
-        if (!e)
+        if (!e) {
             return;
+        }
         auto theme = e->theme();
         //         m_currentLineBgColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::CurrentLine));
         //         m_currentLineColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::EditorColorRole::CurrentLineNumber));

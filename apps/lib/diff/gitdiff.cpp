@@ -385,16 +385,18 @@ public:
                     return -1;
 
                 if (ln.startsWith(QLatin1Char(dest)) || ln.startsWith(QLatin1Char(' ')) || ln.isEmpty() || inConflict) {
-                    if (dest == SRC)
+                    if (dest == SRC) {
                         // The -1 accounts for the fact that srcStart is 1-based
                         // but we need to return 0-based line numbers
                         return h.srcStart - 1 + hunkPos - skipCount;
-                    else
+                    } else {
                         // The -1 accounts for the fact that srcStart is 1-based
                         // but we need to return 0-based line numbers
                         return h.tgtStart - 1 + hunkPos - skipCount;
-                } else
+                    }
+                } else {
                     return -1;
+                }
             }
         }
         return -1;

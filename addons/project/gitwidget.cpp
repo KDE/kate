@@ -161,8 +161,9 @@ public:
         auto index = sourceModel()->index(sourceRow, 0, parent);
         if (isTopLevel(parent)) {
             // Staged are always visible
-            if (index.row() == GitStatusModel::ItemType::NodeStage)
+            if (index.row() == GitStatusModel::ItemType::NodeStage) {
                 return true;
+            }
 
             // otherwise visible only if rowCount > 0
             return sourceModel()->rowCount(index) > 0;

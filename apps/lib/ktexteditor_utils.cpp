@@ -215,8 +215,9 @@ static bool goToDocumentLocation(KTextEditor::MainWindow *mainWindow,
         Utils::addPositionToHistory(targetView->document()->url(), cdef, mainWindow);
     }
     targetView->setCursorPosition(cdef);
-    if (options.highlight)
+    if (options.highlight) {
         highlightLandingLocation(targetView, location);
+    }
     if (options.focus) {
         mainWindow->window()->raise();
         mainWindow->window()->setFocus();

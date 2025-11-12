@@ -764,8 +764,9 @@ void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes, std::optio
 
 void KatePluginGDBView::scopeSelected(int scope)
 {
-    if (scope < 0)
+    if (scope < 0) {
         return;
+    }
     m_backend->changeScope(m_scopeCombo->itemData(scope).toInt());
 }
 

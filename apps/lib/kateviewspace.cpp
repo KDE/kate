@@ -401,8 +401,9 @@ KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)
     }
 
     connect(v, &KTextEditor::View::cursorPositionChanged, this, [this](KTextEditor::View *view, const KTextEditor::Cursor &newPosition) {
-        if (!m_blockAddHistory && view && view->document())
+        if (!m_blockAddHistory && view && view->document()) {
             addPositionToHistory(view->document()->url(), newPosition);
+        }
     });
 
     // register document

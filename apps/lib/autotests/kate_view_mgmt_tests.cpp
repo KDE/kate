@@ -67,8 +67,9 @@ static int tabIdxForDoc(QTabBar *t, KTextEditor::Document *d)
 {
     Q_ASSERT(t);
     for (int i = 0; i < t->count(); ++i) {
-        if (t->tabData(i).value<DocOrWidget>().doc() == d)
+        if (t->tabData(i).value<DocOrWidget>().doc() == d) {
             return i;
+        }
     }
     return -1;
 }

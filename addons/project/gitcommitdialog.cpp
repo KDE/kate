@@ -41,8 +41,9 @@ private:
 
 static void changeTextColorToRed(QLineEdit *lineEdit, const QColor &red)
 {
-    if (!lineEdit)
+    if (!lineEdit) {
         return;
+    }
 
     // Everything > 52 = red color
     QList<QInputMethodEvent::Attribute> attributes;

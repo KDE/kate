@@ -187,11 +187,13 @@ public:
     static StringRange getStringPos(const QString &text, int from)
     {
         int open = text.indexOf(QLatin1Char('"'), from);
-        if (open == -1)
+        if (open == -1) {
             return {-1, -1};
+        }
         int close = text.indexOf(QLatin1Char('"'), open + 1);
-        if (close == -1)
+        if (close == -1) {
             return {-1, -1};
+        }
         return {open, close + 1}; // +1 because we include the quote as well
     }
 

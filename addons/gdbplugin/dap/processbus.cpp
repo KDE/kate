@@ -51,8 +51,9 @@ quint16 ProcessBus::write(const QByteArray &data)
 
 bool ProcessBus::start(const settings::BusSettings &configuration)
 {
-    if (!configuration.hasCommand())
+    if (!configuration.hasCommand()) {
         return false;
+    }
 
     configuration.command->start(process);
 

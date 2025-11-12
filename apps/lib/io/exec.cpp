@@ -65,8 +65,9 @@ public:
         }
 
         // check proper exit
-        if (!exitCode)
+        if (!exitCode) {
             exitCode = process.exitStatus() == QProcess::NormalExit ? process.exitCode() : -1;
+        }
 
         // there is semi-official chroot exit code convention
         // (also followed by podman, docker, ssh) to return high exit code

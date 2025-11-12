@@ -50,8 +50,9 @@ void updateMapping(PathMapping &mapping, const QJsonValue &json, KTextEditor::Vi
         // no normalize at this stage
         // so subsequent transformation has clear semantics
         // any normalization can/will happen later if needed
-        if (url.isRelative())
+        if (url.isRelative()) {
             url.setScheme(QStringLiteral("file"));
+        }
         return url;
     };
 

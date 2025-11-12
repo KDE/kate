@@ -90,8 +90,9 @@ void StashDialog::slotReturnPressed(const QModelIndex &index)
     }
 
     auto stashIndex = getStashIndex(index);
-    if (stashIndex.isEmpty())
+    if (stashIndex.isEmpty()) {
         return;
+    }
 
     switch (m_currentMode) {
     case StashMode::StashApply:

@@ -52,8 +52,9 @@ void KateProjectInfoView::resetTerminal(const QString &directory)
 
 void KateProjectInfoView::initialize()
 {
-    if (m_initialized)
+    if (m_initialized) {
         return;
+    }
     m_initialized = true;
     /**
      * skip terminal toolviews if no terminal aka KonsolePart around

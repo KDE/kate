@@ -35,10 +35,11 @@ bool MainWindowCommands::exec(KTextEditor::View *, const QString &cmd, QString &
         if (args.size() > 1) {
             const bool show = args[0] == u"showtoolview";
             if (QWidget *toolview = m_mainWindow->toolviewForName(args[1])) {
-                if (show)
+                if (show) {
                     m_mainWindow->showToolView(toolview);
-                else
+                } else {
                     m_mainWindow->hideToolView(toolview);
+                }
                 return true;
             } else {
                 error(i18n("No toolview found for name: '%1'. Is the plugin for it disabled or the name is misspelled?", toolviewNames()));

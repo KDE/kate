@@ -72,8 +72,9 @@ KTextEditor::Range LatexCompletionModel::completionRange(KTextEditor::View *view
     auto text = view->document()->line(position.line());
     KTextEditor::Cursor start = position;
     int pos = text.left(position.column()).lastIndexOf(latexexpr);
-    if (pos >= 0)
+    if (pos >= 0) {
         start.setColumn(pos);
+    }
     return KTextEditor::Range(start, position);
 }
 

@@ -21,35 +21,43 @@ static std::optional<QString> valueAsString(const QJsonValue &);
 
 static std::optional<QString> valueAsString(const QJsonArray &array, const bool quote = false)
 {
-    if (array.isEmpty())
+    if (array.isEmpty()) {
         return {};
+    }
 
-    if (array.size() == 1)
+    if (array.size() == 1) {
         return valueAsString(array.first());
+    }
 
     QStringList parts;
     for (const auto &item : array) {
         const auto text = valueAsString(item);
-        if (!text)
+        if (!text) {
             return std::nullopt;
-        if (quote)
+        }
+        if (quote) {
             parts << QStringLiteral("\"%s\"").arg(text.value());
-        else
+        } else {
             parts << *text;
+        }
     }
     return parts.join(QStringLiteral(" "));
 }
 
 std::optional<QString> valueAsString(const QJsonValue &value)
 {
-    if (value.isString())
+    if (value.isString()) {
         return value.toString();
-    if (value.isArray())
+    }
+    if (value.isArray()) {
         return valueAsString(value.toArray());
-    if (value.isBool())
+    }
+    if (value.isBool()) {
         return value.toBool() ? QStringLiteral("true") : QStringLiteral("false");
-    if (value.isDouble())
+    }
+    if (value.isDouble()) {
         return QString::number(value.toDouble());
+    }
 
     return std::nullopt;
 }
@@ -60,15 +68,17 @@ static std::optional<QStringList> valueAsStringList(const QJsonValue &value)
         QStringList listValue;
         for (const auto &item : value.toArray()) {
             const auto text = valueAsString(item);
-            if (!text)
+            if (!text) {
                 return std::nullopt;
+            }
             listValue << *text;
         }
         return listValue;
     } else {
         const auto text = valueAsString(value);
-        if (text)
+        if (text) {
             return QProcess::splitCommand(*text);
+        }
     }
 
     return std::nullopt;
@@ -76,8 +86,9 @@ static std::optional<QStringList> valueAsStringList(const QJsonValue &value)
 
 static std::optional<bool> valueAsBool(const QJsonValue &value)
 {
-    if (value.isBool())
+    if (value.isBool()) {
         return value.toBool();
+    }
 
     const auto text = valueAsString(value);
     if (text) {
@@ -151,16 +162,19 @@ static std::optional<QJsonValue> cast_from_string(const QString &text, const Var
 
     if (filter == QStringLiteral("int")) {
         const auto &intValue = valueAsInt(value);
-        if (intValue)
+        if (intValue) {
             return intValue.value();
+        }
     } else if (filter == QStringLiteral("bool")) {
         const auto &boolValue = valueAsBool(value);
-        if (boolValue)
+        if (boolValue) {
             return boolValue.value();
+        }
     } else if (filter == QStringLiteral("list")) {
         const auto &listValue = valueAsStringList(value);
-        if (listValue)
+        if (listValue) {
             return QJsonArray::fromStringList(*listValue);
+        }
     }
 
     return std::nullopt;
@@ -236,11 +250,13 @@ QJsonArray resolve(const QJsonArray &array, const VarMap &variables)
 
 QJsonValue resolve(const QJsonValue &value, const VarMap &variables)
 {
-    if (value.isObject())
+    if (value.isObject()) {
         return resolve(value.toObject(), variables);
+    }
 
-    if (value.isArray())
+    if (value.isArray()) {
         return resolve(value.toArray(), variables);
+    }
 
     if (value.isString()) {
         return resolve(value.toString(), variables);
@@ -251,8 +267,9 @@ QJsonValue resolve(const QJsonValue &value, const VarMap &variables)
 
 void findVariables(const QJsonObject &map, QSet<QString> &variables)
 {
-    if (map.isEmpty())
+    if (map.isEmpty()) {
         return;
+    }
     for (const auto &value : map) {
         findVariables(value, variables);
     }
@@ -260,8 +277,9 @@ void findVariables(const QJsonObject &map, QSet<QString> &variables)
 
 void findVariables(const QJsonValue &value, QSet<QString> &variables)
 {
-    if (value.isNull() || value.isUndefined())
+    if (value.isNull() || value.isUndefined()) {
         return;
+    }
     if (value.isObject()) {
         findVariables(value.toObject(), variables);
     } else if (value.isArray()) {
@@ -273,8 +291,9 @@ void findVariables(const QJsonValue &value, QSet<QString> &variables)
 
 void findVariables(const QJsonArray &array, QSet<QString> &variables)
 {
-    if (array.isEmpty())
+    if (array.isEmpty()) {
         return;
+    }
     for (const auto &value : array) {
         findVariables(value, variables);
     }
@@ -282,8 +301,9 @@ void findVariables(const QJsonArray &array, QSet<QString> &variables)
 
 void findVariables(const QString &text, QSet<QString> &variables)
 {
-    if (text.isNull() || text.isEmpty())
+    if (text.isNull() || text.isEmpty()) {
         return;
+    }
     auto matches = rx_placeholder.globalMatch(text);
     while (matches.hasNext()) {
         const auto match = matches.next();

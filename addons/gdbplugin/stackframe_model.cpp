@@ -12,22 +12,25 @@
 
 int StackFrameModel::columnCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
+    if (parent.isValid()) {
         return 0;
+    }
     return Num_Columns;
 }
 
 int StackFrameModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
+    if (parent.isValid()) {
         return 0;
+    }
     return m_frames.size();
 }
 
 QVariant StackFrameModel::data(const QModelIndex &index, int role) const
 {
-    if (index.row() >= m_frames.size())
+    if (index.row() >= m_frames.size()) {
         return {};
+    }
 
     if (role == StackFrameRole) {
         return QVariant::fromValue(m_frames.at(index.row()));

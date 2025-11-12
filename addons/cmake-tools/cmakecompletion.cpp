@@ -139,11 +139,13 @@ static QIcon getIcon(CMakeCompletion::Completion::Kind type)
 
 QVariant CMakeCompletion::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return {};
+    }
 
-    if (role != Qt::DisplayRole && role != Qt::DecorationRole)
+    if (role != Qt::DisplayRole && role != Qt::DecorationRole) {
         return {};
+    }
 
     if (index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole) {
         return m_matches.at(index.row()).text;

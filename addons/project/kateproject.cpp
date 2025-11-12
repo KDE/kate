@@ -63,8 +63,9 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
     QPointer<KIO::CopyJob> job = KIO::copy(urls, dest);
     KJobWidgets::setWindow(job, QApplication::activeWindow());
     connect(job, &KIO::Job::finished, this, [this, job, destDir] {
-        if (!job || job->error() != 0 || !m_project)
+        if (!job || job->error() != 0 || !m_project) {
             return;
+        }
 
         bool needsReload = false;
         QStandardItem *item = invisibleRootItem();

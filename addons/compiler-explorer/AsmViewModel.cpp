@@ -12,12 +12,13 @@ QVariant AsmViewModel::data(const QModelIndex &index, int role) const
     const int row = index.row();
     switch (role) {
     case Qt::DisplayRole:
-        if (index.column() == Column_LineNo)
+        if (index.column() == Column_LineNo) {
             return QString::number(row + 1);
-        else if (index.column() == Column_Text)
+        } else if (index.column() == Column_Text) {
             return m_rows.at(row).text;
-        else
+        } else {
             Q_UNREACHABLE();
+        }
     case Qt::FontRole:
         return m_font;
     case Qt::BackgroundRole:

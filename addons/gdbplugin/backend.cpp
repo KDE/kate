@@ -76,8 +76,9 @@ void Backend::bind()
 
 void Backend::unbind()
 {
-    if (!m_debugger)
+    if (!m_debugger) {
         return;
+    }
     disconnect(m_debugger, nullptr, this, nullptr);
     delete m_debugger;
 }
@@ -188,81 +189,94 @@ bool Backend::canHotRestart() const
 
 void Backend::movePC(QUrl const &url, int line)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->movePC(url, line);
+    }
 }
 
 void Backend::runToCursor(QUrl const &url, int line)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->runToCursor(url, line);
+    }
 }
 
 void Backend::issueCommand(QString const &cmd)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->issueCommand(cmd);
+    }
 }
 
 QString Backend::targetName() const
 {
-    if (m_debugger)
+    if (m_debugger) {
         return m_debugger->targetName();
+    }
     return {};
 }
 
 void Backend::setFileSearchPaths(const QStringList &paths)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->setFileSearchPaths(paths);
+    }
 }
 
 void Backend::slotInterrupt()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotInterrupt();
+    }
 }
 
 void Backend::slotStepInto()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotStepInto();
+    }
 }
 
 void Backend::slotStepOver()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotStepOver();
+    }
 }
 
 void Backend::slotStepOut()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotStepOut();
+    }
 }
 
 void Backend::slotContinue()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotContinue();
+    }
 }
 
 void Backend::slotKill()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotKill();
+    }
 }
 
 void Backend::slotReRun()
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->slotReRun();
+    }
 }
 
 QString Backend::slotPrintVariable(const QString &variable)
 {
-    if (m_debugger)
+    if (m_debugger) {
         return m_debugger->slotPrintVariable(variable);
+    }
     return {};
 }
 
@@ -296,26 +310,30 @@ void Backend::slotQueryLocals(bool display)
 
 void Backend::changeStackFrame(int index)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->changeStackFrame(index);
+    }
 }
 
 void Backend::changeThread(int thread)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->changeThread(thread);
+    }
 }
 
 void Backend::changeScope(int scopeId)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->changeScope(scopeId);
+    }
 }
 
 void Backend::requestVariable(int variablesReference)
 {
-    if (m_debugger)
+    if (m_debugger) {
         m_debugger->requestVariable(variablesReference);
+    }
 }
 
 #include "moc_backend.cpp"

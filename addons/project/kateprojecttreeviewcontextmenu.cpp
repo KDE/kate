@@ -63,8 +63,9 @@ static void onDeleteFile(const QModelIndex &index, const QString &path, KateProj
     const QString title = i18n("Delete File");
     const QString text = i18n("Do you want to delete the file '%1'?", path);
     if (QMessageBox::Yes == QMessageBox::question(parent, title, text, QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes)) {
-        if (!idx.isValid())
+        if (!idx.isValid()) {
             return;
+        }
         const QList<KTextEditor::Document *> openDocuments = KTextEditor::Editor::instance()->application()->documents();
 
         // if is open, close

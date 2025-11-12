@@ -27,12 +27,13 @@ KateBuildConfigPage::KateBuildConfigPage(KateBuildPlugin *plugin, QWidget *paren
 
     reset();
 
-    for (const auto *item : {ui->useDiagnosticsCB, ui->autoSwitchToOutput, ui->u_showProgressCB})
+    for (const auto *item : {ui->useDiagnosticsCB, ui->autoSwitchToOutput, ui->u_showProgressCB}) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(item, &QCheckBox::stateChanged, this, &KateBuildConfigPage::changed);
 #else
         connect(item, &QCheckBox::checkStateChanged, this, &KateBuildConfigPage::changed);
 #endif
+    }
 
     connect(ui->allowedAndBlockedCommands, &QListWidget::itemChanged, this, &KateBuildConfigPage::changed);
 

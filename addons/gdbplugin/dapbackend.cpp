@@ -83,8 +83,9 @@ void DapBackend::resetState(State state)
 
 void DapBackend::setState(State state)
 {
-    if (state == m_state)
+    if (state == m_state) {
         return;
+    }
 
     m_state = state;
     Q_EMIT readyForInput(debuggerRunning());
@@ -117,8 +118,9 @@ void DapBackend::setState(State state)
 
 void DapBackend::setTaskState(Task state)
 {
-    if (state == m_task)
+    if (state == m_task) {
         return;
+    }
     m_task = state;
     Q_EMIT readyForInput(debuggerRunning() && (m_task != Busy));
     if ((m_task == Idle) && !m_commandQueue.isEmpty()) {
@@ -261,8 +263,9 @@ bool DapBackend::tryDisconnect()
 
 void DapBackend::cmdShutdown()
 {
-    if (m_state == None)
+    if (m_state == None) {
         return;
+    }
 
     Q_EMIT outputError(newLine(i18n("requesting shutdown")));
     if (m_client) {
@@ -274,8 +277,9 @@ void DapBackend::cmdShutdown()
 
 bool DapBackend::tryTerminate()
 {
-    if (!isRunningState())
+    if (!isRunningState()) {
         return false;
+    }
 
     if (!m_client->supportsTerminate()) {
         setState(Terminated);
@@ -447,8 +451,9 @@ void DapBackend::onErrorResponse(const QString &summary, const std::optional<dap
 
 void DapBackend::onOutputProduced(const dap::Output &output)
 {
-    if (output.output.isEmpty())
+    if (output.output.isEmpty()) {
         return;
+    }
 
     if (output.isSpecialOutput() && !output.output.isEmpty()) {
         QString channel;
@@ -569,11 +574,13 @@ void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
 
 void DapBackend::changeScope(int scopeId)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (m_currentScope && (*m_currentScope == scopeId))
+    if (m_currentScope && (*m_currentScope == scopeId)) {
         return;
+    }
 
     m_currentScope = scopeId;
 
@@ -819,8 +826,9 @@ bool DapBackend::debuggerBusy() const
 
 std::optional<int> DapBackend::findBreakpoint(const QUrl &path, int line) const
 {
-    if (m_breakpoints.find(path) == m_breakpoints.end())
+    if (m_breakpoints.find(path) == m_breakpoints.end()) {
         return std::nullopt;
+    }
 
     const auto &bpoints = m_breakpoints.at(path);
     int index = 0;
@@ -927,17 +935,21 @@ void DapBackend::insertBreakpoint(const QUrl &path, int line)
 
 void DapBackend::movePC(QUrl const &url, int line)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (m_state != State::Stopped)
+    if (m_state != State::Stopped) {
         return;
+    }
 
-    if (!m_currentThread)
+    if (!m_currentThread) {
         return;
+    }
 
-    if (!m_client->adapterCapabilities().supportsGotoTargetsRequest)
+    if (!m_client->adapterCapabilities().supportsGotoTargetsRequest) {
         return;
+    }
 
     const auto path = resolveOrWarn(url);
 
@@ -947,11 +959,13 @@ void DapBackend::movePC(QUrl const &url, int line)
 
 void DapBackend::runToCursor(QUrl const &url, int line)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (!m_client->adapterCapabilities().supportsHitConditionalBreakpoints)
+    if (!m_client->adapterCapabilities().supportsHitConditionalBreakpoints) {
         return;
+    }
 
     const auto path = resolveOrWarn(url);
 
@@ -985,8 +999,9 @@ void DapBackend::cmdEval(const QString &cmd)
     }
 
     std::optional<int> frameId = std::nullopt;
-    if (m_currentFrame)
+    if (m_currentFrame) {
         frameId = m_frames[*m_currentFrame].id;
+    }
 
     pushRequest();
     m_client->requestWatch(expression, frameId);
@@ -1066,8 +1081,9 @@ void DapBackend::cmdRunToCursor(const QString &cmd)
 
 void DapBackend::cmdPause(const QString &cmd)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     const static QRegularExpression rx_pause(QStringLiteral(R"--(^s[a-z]*(?:\s+(\d+))?\s*$)--"));
 
@@ -1100,8 +1116,9 @@ void DapBackend::cmdPause(const QString &cmd)
 
 void DapBackend::cmdContinue(const QString &cmd)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     const static QRegularExpression rx_cont(QStringLiteral(R"--(^c[a-z]*(?:\s+(?P<ONLY>only))?(?:\s+(?P<ID>\d+))?\s*$)--"));
 
@@ -1136,8 +1153,9 @@ void DapBackend::cmdContinue(const QString &cmd)
 
 void DapBackend::cmdStepIn(const QString &cmd)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     const static QRegularExpression rx_in(QStringLiteral(R"--(^in?(?:\s+(?P<ONLY>only))?(?:\s+(?P<ID>\d+))?\s*$)--"));
 
@@ -1172,8 +1190,9 @@ void DapBackend::cmdStepIn(const QString &cmd)
 
 void DapBackend::cmdStepOut(const QString &cmd)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     const static QRegularExpression rx_out(QStringLiteral(R"--(^o[a-z]*(?:\s+(?P<ONLY>only))?(?:\s+(?P<ID>\d+))?\s*$)--"));
 
@@ -1208,8 +1227,9 @@ void DapBackend::cmdStepOut(const QString &cmd)
 
 void DapBackend::cmdNext(const QString &cmd)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     const static QRegularExpression rx_next(QStringLiteral(R"--(^n[a-z]*(?:\s+(?P<ONLY>only))?(?:\s+(?P<ID>\d+))?\s*$)--"));
 
@@ -1281,8 +1301,9 @@ void DapBackend::cmdHelp(const QString & /*cmd*/)
 
 void DapBackend::cmdListModules(const QString &)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     if (!m_client->adapterCapabilities().supportsModulesRequest) {
         return;
@@ -1455,8 +1476,9 @@ void DapBackend::cmdWhereami(const QString &)
 
 void DapBackend::issueCommand(QString const &command)
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
     if (m_task == Busy) {
         m_commandQueue << command;
@@ -1465,8 +1487,9 @@ void DapBackend::issueCommand(QString const &command)
 
     QString cmd = command.trimmed();
 
-    if (cmd.isEmpty())
+    if (cmd.isEmpty()) {
         return;
+    }
 
     Q_EMIT outputText(QStringLiteral("\n(dap) %1").arg(command));
 
@@ -1542,50 +1565,60 @@ void DapBackend::slotInterrupt()
 
 void DapBackend::slotStepInto()
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (m_state != State::Stopped)
+    if (m_state != State::Stopped) {
         return;
+    }
 
-    if (!m_currentThread)
+    if (!m_currentThread) {
         return;
+    }
 
     m_client->requestStepIn(*m_currentThread);
 }
 
 void DapBackend::slotStepOut()
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (m_state != State::Stopped)
+    if (m_state != State::Stopped) {
         return;
+    }
 
-    if (!m_currentThread)
+    if (!m_currentThread) {
         return;
+    }
 
     m_client->requestStepOut(*m_currentThread);
 }
 
 void DapBackend::slotStepOver()
 {
-    if (!m_client)
+    if (!m_client) {
         return;
+    }
 
-    if (m_state != State::Stopped)
+    if (m_state != State::Stopped) {
         return;
+    }
 
-    if (!m_currentThread)
+    if (!m_currentThread) {
         return;
+    }
 
     m_client->requestNext(*m_currentThread);
 }
 
 void DapBackend::slotContinue()
 {
-    if (!isAttachedState())
+    if (!isAttachedState()) {
         return;
+    }
 
     if (m_currentThread) {
         m_client->requestContinue(*m_currentThread);
@@ -1658,14 +1691,17 @@ void DapBackend::slotHotRestart()
 
 void DapBackend::changeStackFrame(int index)
 {
-    if (!debuggerRunning())
+    if (!debuggerRunning()) {
         return;
+    }
 
-    if ((m_frames.size() < index) || (index < 0))
+    if ((m_frames.size() < index) || (index < 0)) {
         return;
+    }
 
-    if (m_currentFrame && (*m_currentFrame == index))
+    if (m_currentFrame && (*m_currentFrame == index)) {
         return;
+    }
 
     m_currentFrame = index;
 
@@ -1685,11 +1721,13 @@ void DapBackend::changeStackFrame(int index)
 
 void DapBackend::changeThread(int index)
 {
-    if (!debuggerRunning())
+    if (!debuggerRunning()) {
         return;
+    }
 
-    if (m_currentThread && (*m_currentThread == index))
+    if (m_currentThread && (*m_currentThread == index)) {
         return;
+    }
 
     m_currentThread = index;
 
@@ -1700,8 +1738,9 @@ void DapBackend::changeThread(int index)
 std::optional<QUrl> DapBackend::resolveFilename(const QUrl &file, bool fallback) const
 {
     // consider absolute, as below
-    if (!file.isLocalFile())
+    if (!file.isLocalFile()) {
         return file;
+    }
 
     auto filename = file.path();
     QFileInfo fInfo = QFileInfo(filename);
@@ -1731,8 +1770,9 @@ std::optional<QUrl> DapBackend::resolveFilename(const QUrl &file, bool fallback)
         }
     }
 
-    if (fallback)
+    if (fallback) {
         return file;
+    }
 
     return std::nullopt;
 }
@@ -1741,8 +1781,9 @@ QUrl DapBackend::resolveOrWarn(const QUrl &filename)
 {
     const auto path = resolveFilename(filename, false);
 
-    if (path)
+    if (path) {
         return *path;
+    }
 
     Q_EMIT sourceFileNotFound(filename.path());
 

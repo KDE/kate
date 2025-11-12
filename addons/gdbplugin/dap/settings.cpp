@@ -321,8 +321,9 @@ ClientSettings::ClientSettings(const QJsonObject &configuration)
 std::optional<ClientSettings> ClientSettings::extractFromAdapter(const QJsonObject &adapterSettings, const QString &configurationKey)
 {
     const auto configuration = findConfiguration(adapterSettings, configurationKey);
-    if (!configuration)
+    if (!configuration) {
         return std::nullopt;
+    }
 
     return ClientSettings(*configuration);
 }

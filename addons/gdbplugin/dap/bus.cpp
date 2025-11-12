@@ -20,8 +20,9 @@ Bus::State Bus::state() const
 
 void Bus::setState(State state)
 {
-    if (state == m_state)
+    if (state == m_state) {
         return;
+    }
     m_state = state;
 
     Q_EMIT stateChanged(state);

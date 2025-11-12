@@ -301,8 +301,9 @@ public:
                    && m_selectedDocumentation) {
             return match.documentation.value;
         } else if (role == KTextEditor::CodeCompletionModel::CustomHighlight && match.argumentHintDepth > 0) {
-            if (index.column() != Name || match.len == 0)
+            if (index.column() != Name || match.len == 0) {
                 return {};
+            }
             QTextCharFormat boldFormat;
             boldFormat.setFontWeight(QFont::Bold);
             const QVariantList highlighting{

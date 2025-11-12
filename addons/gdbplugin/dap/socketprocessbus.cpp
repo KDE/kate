@@ -132,8 +132,9 @@ void SocketProcessBus::onProcessStateChanged(const QProcess::ProcessState &state
 void SocketProcessBus::connectSocket()
 {
     qCDebug(DAPCLIENT, "connect to socket INIT");
-    if (!m_connectionHandler)
+    if (!m_connectionHandler) {
         return;
+    }
     qCDebug(DAPCLIENT, "connect to socket with handler");
     (*m_connectionHandler)();
 }

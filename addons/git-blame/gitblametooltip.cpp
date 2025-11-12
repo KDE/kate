@@ -104,8 +104,9 @@ public:
 protected:
     void applyFormat(int offset, int length, const Format &format) override
     {
-        if (!length)
+        if (!length) {
             return;
+        }
 
         QString formatOutput;
 

@@ -1074,8 +1074,9 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
         }
 
         match = HUNK_HEADER_RE.match(line);
-        if (!match.hasMatch())
+        if (!match.hasMatch()) {
             continue;
+        }
 
         const DiffRange oldRange = parseRange(match.captured(1));
         const DiffRange newRange = parseRange(match.captured(2));

@@ -48,8 +48,9 @@ CMakeToolsPluginView::~CMakeToolsPluginView()
 
 void CMakeToolsPluginView::onViewCreated(KTextEditor::View *v)
 {
-    if (!CMakeCompletion::isCMakeFile(v->document()->url()))
+    if (!CMakeCompletion::isCMakeFile(v->document()->url())) {
         return;
+    }
 
     v->registerCompletionModel(&m_completion);
 }

@@ -603,8 +603,9 @@ QList<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Docum
     auto searchMarkType = KTextEditor::Document::SearchMatch;
     for (const int markedLineNumber : documentMarksHash.keys()) {
         auto documentMarkTypeMask = documentMarksHash.value(markedLineNumber)->type;
-        if ((searchMarkType & documentMarkTypeMask) != searchMarkType)
+        if ((searchMarkType & documentMarkTypeMask) != searchMarkType) {
             continue;
+        }
         result.push_back(markedLineNumber);
     }
     std::sort(result.begin(), result.end());

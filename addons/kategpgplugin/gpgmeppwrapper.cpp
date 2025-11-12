@@ -198,8 +198,9 @@ GPGOperationResult GPGMeWrapper::encryptString(const QString &inputString_,
     GpgME::initializeLibrary();
     auto ctx = std::unique_ptr<GpgME::Context>(GpgME::Context::createForProtocol(protocol));
     ctx->setArmor(true);
-    if (useASCII)
+    if (useASCII) {
         ctx->setTextMode(true);
+    }
 
     QByteArray bar = inputString_.toUtf8();
     const qsizetype length = bar.length();
@@ -253,8 +254,9 @@ bool GPGMeWrapper::isEncrypted(const QString &inputString_)
     QByteArray outBuffer;
     GpgME::Data dataOut(outBuffer.constData(), outBuffer.size(), true);
     std::unique_ptr<GpgME::Context> ctx(GpgME::Context::createForProtocol(GpgME::OpenPGP));
-    if (!ctx)
+    if (!ctx) {
         return false;
+    }
 
     GpgME::DecryptionResult result = ctx->decrypt(dataIn, dataOut);
 

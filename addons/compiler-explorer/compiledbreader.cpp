@@ -150,14 +150,18 @@ QString CompileDBReader::filteredArgsForFile(const QString &compile_commandsPath
     finalArgs.reserve(argsList.size() - 2);
 
     for (auto &&arg : argsList) {
-        if (arg == QStringLiteral("-o"))
+        if (arg == QStringLiteral("-o")) {
             continue;
-        if (arg.endsWith(QStringLiteral(".o")))
+        }
+        if (arg.endsWith(QStringLiteral(".o"))) {
             continue;
-        if (arg == QStringLiteral("-c"))
+        }
+        if (arg == QStringLiteral("-c")) {
             continue;
-        if (file == arg || file.contains(arg))
+        }
+        if (file == arg || file.contains(arg)) {
             continue;
+        }
 
         finalArgs << arg;
     }

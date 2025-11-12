@@ -781,8 +781,9 @@ void Client::onProcessOutput(const QByteArray &_message)
             processExtraData(extra);
             // consider remainder
             message = std::move(m_outputMsgParser->m_buffer);
-            if (!message.size())
+            if (!message.size()) {
                 return;
+            }
         }
     }
     if (m_protocol.redirectStdout)

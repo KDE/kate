@@ -147,7 +147,7 @@ KatePluginSymbolViewerView::KatePluginSymbolViewerView(KatePluginSymbolViewer *p
     m_symbols->setSortingEnabled(m_sort->isChecked());
     // Sets the default sorting order:
     m_symbols->sortByColumn(0, Qt::AscendingOrder);
-    m_symbols->setRootIsDecorated(0);
+    m_symbols->setRootIsDecorated(false);
     m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
     m_symbols->setIndentation(10);
 

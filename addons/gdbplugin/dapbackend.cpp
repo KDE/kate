@@ -1221,7 +1221,7 @@ void DapBackend::cmdNext(const QString &cmd)
 
     const auto &txtThread = match.captured(QStringLiteral("ID"));
 
-    int threadId;
+    int threadId{};
 
     if (!txtThread.isNull()) {
         bool ok = false;

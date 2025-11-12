@@ -171,7 +171,8 @@ static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWith
         auto fixObject = msg.value(QStringLiteral("fix")).toObject();
         if (!fixObject.isEmpty()) {
             const auto rangeArray = fixObject.value(QStringLiteral("range")).toArray();
-            int s, e;
+            int s{};
+            int e{};
             if (rangeArray.size() == 2) {
                 s = rangeArray[0].toInt(-1);
                 e = rangeArray[1].toInt(-1);

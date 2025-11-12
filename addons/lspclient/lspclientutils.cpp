@@ -10,8 +10,8 @@
 
 LSPRange transformRange(const QUrl &url, const LSPClientRevisionSnapshot &snapshot, const LSPRange &range)
 {
-    KTextEditor::Document *doc;
-    qint64 revision;
+    KTextEditor::Document *doc{};
+    qint64 revision{};
 
     auto result = range;
     snapshot.find(url, doc, revision);

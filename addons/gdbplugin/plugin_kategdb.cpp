@@ -1195,7 +1195,7 @@ void KatePluginGDBView::onToolViewMoved(QWidget *toolview, KTextEditor::MainWind
 
 KTextEditor::MainWindow::ToolViewPosition KatePluginGDBView::toolviewPosition(QWidget *toolview) const
 {
-    KTextEditor::MainWindow::ToolViewPosition pos;
+    KTextEditor::MainWindow::ToolViewPosition pos{};
     QMetaObject::invokeMethod(m_mainWin->window(), "toolViewPosition", qReturnArg(pos), toolview);
     return pos;
 }

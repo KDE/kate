@@ -173,12 +173,11 @@ void KeyboardMacrosPluginView::macroLoaded(bool enable)
 
 void KeyboardMacrosPluginView::addNamedMacro(const QString &name, const QString &description)
 {
-    QAction *action;
     // avoid unwanted accelerators
     QString label = KLocalizedString::removeAcceleratorMarker(KStringHandler::rsqueeze(name + QStringLiteral(": ") + description, 50));
 
     // add load action
-    action = new QAction(i18n("Load %1", label), this);
+    auto action = new QAction(i18n("Load %1", label), this);
     action->setToolTip(i18n("Load the '%1' macro as the current one.", name));
     action->setEnabled(true);
     connect(action, &QAction::triggered, m_plugin, [this, name] {
@@ -286,7 +285,7 @@ void KeyboardMacrosPluginView::slotSave()
     if (m_plugin->m_recording) {
         return;
     }
-    bool ok;
+    bool ok{};
     QString name =
         QInputDialog::getText(m_mainWindow->window(), i18n("Keyboard Macros"), i18n("Save current macro as?"), QLineEdit::Normal, QStringLiteral(""), &ok);
     if (!ok || name.isEmpty()) {

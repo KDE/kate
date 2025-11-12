@@ -104,10 +104,9 @@ void KateFileBrowserConfigPage::apply()
 
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("filebrowser"));
     QStringList l;
-    ActionLBItem *aItem;
     const QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QStringLiteral("*"), Qt::MatchWildcard);
     for (QListWidgetItem *item : list) {
-        aItem = static_cast<ActionLBItem *>(item);
+        auto aItem = static_cast<ActionLBItem *>(item);
         l << aItem->idstring();
     }
     config.writeEntry("toolbar actions", l);
@@ -152,9 +151,8 @@ void KateFileBrowserConfigPage::init()
 
     static const QRegularExpression re(QStringLiteral("&(?=[^&])"));
     QAction *ac = nullptr;
-    QListWidget *lb;
     for (const auto &actionName : allActions) {
-        lb = l.contains(actionName) ? acSel->selectedListWidget() : acSel->availableListWidget();
+        auto lb = l.contains(actionName) ? acSel->selectedListWidget() : acSel->availableListWidget();
 
         if (actionName == QLatin1String("bookmarks") || actionName == QLatin1String("sync_dir") || actionName == QLatin1String("configure")) {
             ac = fileBrowser->actionCollection()->action(actionName);

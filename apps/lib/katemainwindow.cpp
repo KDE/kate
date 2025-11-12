@@ -421,7 +421,7 @@ void KateMainWindow::setupMainWindow()
 
 void KateMainWindow::setupActions()
 {
-    QAction *a;
+    QAction *a{};
     auto ac = actionCollection();
 
     ac->addAction(KStandardAction::New, QStringLiteral("file_new"), m_viewManager, &KateViewManager::slotDocumentNew)

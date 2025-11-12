@@ -29,7 +29,7 @@ KateTextHintView::KateTextHintView(KTextEditor::MainWindow *mainWindow, KateText
     m_edit->setReadOnly(true);
     m_viewTracker = connect(mainWindow, &KTextEditor::MainWindow::viewChanged, this, &KateTextHintView::setView);
     connect(this, &QObject::destroyed, m_pane, &QObject::deleteLater);
-    connect(mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, [=, this](QEvent *event) {
+    connect(mainWindow, &KTextEditor::MainWindow::unhandledShortcutOverride, this, [mainWindow, this](QEvent *event) {
         const auto *keyEvent = static_cast<QKeyEvent *>(event);
         if (m_pane->isVisible() && keyEvent->key() == Qt::Key_Escape && keyEvent->modifiers() == Qt::NoModifier) {
             mainWindow->hideToolView(m_pane);

@@ -49,7 +49,7 @@ QSqlRecord CachedSqlQueryModel::record(int row) const
         if (row - cache.lastIndex() > lookAhead) {
             cacheRecords(row - halfLookAhead, qMin<int>(rowCount(), row + halfLookAhead));
         } else {
-            int until = qMin<int>(rowCount(), cache.lastIndex() + lookAhead);
+            int until = std::min<qsizetype>(rowCount(), cache.lastIndex() + lookAhead);
 
             while (cache.lastIndex() < until) {
                 cache.append(QSqlQueryModel::record(cache.lastIndex() + 1));
@@ -59,7 +59,7 @@ QSqlRecord CachedSqlQueryModel::record(int row) const
         if (cache.firstIndex() - row > lookAhead) {
             cacheRecords(qMax(0, row - halfLookAhead), row + halfLookAhead);
         } else {
-            int until = qMax<int>(0, cache.firstIndex() - lookAhead);
+            int until = std::max<qsizetype>(0, cache.firstIndex() - lookAhead);
 
             while (cache.firstIndex() > until) {
                 cache.prepend(QSqlQueryModel::record(cache.firstIndex() - 1));

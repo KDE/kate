@@ -967,10 +967,10 @@ static LSPSignatureHelp parseSignatureHelp(const rapidjson::Value &result)
     }
     ret.activeSignature = GetIntValue(result, "activeSignature", 0);
     ret.activeParameter = GetIntValue(result, "activeParameter", 0);
-    ret.activeSignature = qMin(qMax(ret.activeSignature, 0), ret.signatures.size());
-    ret.activeParameter = qMax(ret.activeParameter, 0);
+    ret.activeSignature = std::min(std::max(ret.activeSignature, 0), static_cast<int>(ret.signatures.size()));
+    ret.activeParameter = std::max(ret.activeParameter, 0);
     if (!ret.signatures.isEmpty()) {
-        ret.activeParameter = qMin(ret.activeParameter, ret.signatures.at(ret.activeSignature).parameters.size());
+        ret.activeParameter = std::min(ret.activeParameter, static_cast<int>(ret.signatures.at(ret.activeSignature).parameters.size()));
     }
     return ret;
 }

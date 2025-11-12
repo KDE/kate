@@ -18,9 +18,7 @@ namespace dap
 #include <json_utils.h>
 }
 
-namespace dap
-{
-namespace settings
+namespace dap::settings
 {
 static const QString COMMAND_ARGS = QStringLiteral("commandArgs");
 static const QString PORT = QStringLiteral("port");
@@ -328,5 +326,4 @@ std::optional<ClientSettings> ClientSettings::extractFromAdapter(const QJsonObje
     return ClientSettings(*configuration);
 }
 
-} // settings
-} // dap
+} // dap::settings

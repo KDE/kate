@@ -129,9 +129,8 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
     });
 }
 
-KateFileBrowser::~KateFileBrowser()
-{
-}
+KateFileBrowser::~KateFileBrowser() = default;
+
 // END Constructor/Destructor
 
 // BEGIN Public Methods

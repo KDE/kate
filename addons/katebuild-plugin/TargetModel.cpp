@@ -206,9 +206,8 @@ TargetModel::TargetModel(QObject *parent)
     // By default the project branch is second
     m_rootNodes[1].isProject = true;
 }
-TargetModel::~TargetModel()
-{
-}
+
+TargetModel::~TargetModel() = default;
 
 void TargetModel::clear(bool setSessionFirst)
 {

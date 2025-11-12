@@ -1068,9 +1068,7 @@ InsertElement::InsertElement(const QStringList &completions, QWidget *parent)
     slotHistoryTextChanged(m_cmbElements->lineEdit()->text());
 }
 
-InsertElement::~InsertElement()
-{
-}
+InsertElement::~InsertElement() = default;
 
 void InsertElement::slotHistoryTextChanged(const QString &text)
 {

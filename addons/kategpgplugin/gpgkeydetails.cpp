@@ -7,9 +7,7 @@
 
 #include "gpgkeydetails.hpp"
 
-GPGKeyDetails::GPGKeyDetails()
-{
-}
+GPGKeyDetails::GPGKeyDetails() = default;
 
 GPGKeyDetails::~GPGKeyDetails()
 {

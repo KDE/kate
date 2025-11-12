@@ -12,9 +12,7 @@ KateProjectCodeAnalysisTool::KateProjectCodeAnalysisTool(QObject *parent)
 {
 }
 
-KateProjectCodeAnalysisTool::~KateProjectCodeAnalysisTool()
-{
-}
+KateProjectCodeAnalysisTool::~KateProjectCodeAnalysisTool() = default;
 
 void KateProjectCodeAnalysisTool::setProject(KateProject *project)
 {

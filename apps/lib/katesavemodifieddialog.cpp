@@ -32,9 +32,7 @@ public:
         setCheckState(0, Qt::Checked);
         setState(InitialState);
     }
-    ~AbstractKateSaveModifiedDialogCheckListItem() override
-    {
-    }
+    ~AbstractKateSaveModifiedDialogCheckListItem() override = default;
     virtual bool synchronousSave(QWidget *dialogParent) = 0;
     enum STATE {
         InitialState,

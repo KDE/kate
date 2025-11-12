@@ -49,9 +49,7 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
     updatePreviews();
 }
 
-OutputStyleWidget::~OutputStyleWidget()
-{
-}
+OutputStyleWidget::~OutputStyleWidget() = default;
 
 QTreeWidgetItem *OutputStyleWidget::addContext(const QString &key, const QString &name)
 {

@@ -70,9 +70,7 @@ KTextEditor::ConfigPage *KatePluginGDB::configPage(int number, QWidget *parent)
     return new DebugConfigPage(parent, this);
 }
 
-KatePluginGDB::~KatePluginGDB()
-{
-}
+KatePluginGDB::~KatePluginGDB() = default;
 
 void KatePluginGDB::readConfig()
 {

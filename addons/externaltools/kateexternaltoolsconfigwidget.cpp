@@ -262,9 +262,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     connect(&m_toolsModel, &QStandardItemModel::itemChanged, this, &KateExternalToolsConfigWidget::slotItemChanged);
 }
 
-KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget()
-{
-}
+KateExternalToolsConfigWidget::~KateExternalToolsConfigWidget() = default;
 
 QString KateExternalToolsConfigWidget::name() const
 {

@@ -44,9 +44,7 @@ KateSQLConfigPage::KateSQLConfigPage(QWidget *parent)
     connect(m_outputStyleWidget, &OutputStyleWidget::changed, this, &KateSQLConfigPage::changed);
 }
 
-KateSQLConfigPage::~KateSQLConfigPage()
-{
-}
+KateSQLConfigPage::~KateSQLConfigPage() = default;
 
 QString KateSQLConfigPage::name() const
 {

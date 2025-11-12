@@ -31,9 +31,7 @@ KateProjectCompletion::KateProjectCompletion(KateProjectPlugin *plugin)
 {
 }
 
-KateProjectCompletion::~KateProjectCompletion()
-{
-}
+KateProjectCompletion::~KateProjectCompletion() = default;
 
 void KateProjectCompletion::saveMatches(KTextEditor::View *view, const KTextEditor::Range &range)
 {

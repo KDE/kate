@@ -33,9 +33,7 @@ PseudoDTD::PseudoDTD()
     m_sgmlSupport = true; // TODO: make this an run-time option ( maybe automatically set )
 }
 
-PseudoDTD::~PseudoDTD()
-{
-}
+PseudoDTD::~PseudoDTD() = default;
 
 void PseudoDTD::analyzeDTD(QString &metaDtdUrl, QString &metaDtd)
 {

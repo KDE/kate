@@ -18,6 +18,4 @@ KateSQLOutputWidget::KateSQLOutputWidget(QWidget *parent)
     addTab(m_dataOutputWidget = new DataOutputWidget(this), QIcon::fromTheme(QStringLiteral("view-form-table")), i18nc("@title:window", "SQL Data Output"));
 }
 
-KateSQLOutputWidget::~KateSQLOutputWidget()
-{
-}
+KateSQLOutputWidget::~KateSQLOutputWidget() = default;

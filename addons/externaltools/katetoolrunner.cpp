@@ -27,9 +27,7 @@ KateToolRunner::KateToolRunner(std::unique_ptr<KateExternalTool> tool, KTextEdit
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
 }
 
-KateToolRunner::~KateToolRunner()
-{
-}
+KateToolRunner::~KateToolRunner() = default;
 
 KTextEditor::View *KateToolRunner::view() const
 {

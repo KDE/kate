@@ -39,9 +39,7 @@ MatchModel::MatchModel(QObject *parent)
     });
 }
 
-MatchModel::~MatchModel()
-{
-}
+MatchModel::~MatchModel() = default;
 
 void MatchModel::setDocumentManager(KTextEditor::Application *manager)
 {

@@ -33,9 +33,7 @@ SnippetCompletionItem::SnippetCompletionItem(Snippet *snippet, SnippetRepository
     }
 }
 
-SnippetCompletionItem::~SnippetCompletionItem()
-{
-}
+SnippetCompletionItem::~SnippetCompletionItem() = default;
 
 QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const KTextEditor::CodeCompletionModel *model) const
 {

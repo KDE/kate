@@ -224,9 +224,7 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     slotModelChanged();
 }
 
-KateProjectViewTree::~KateProjectViewTree()
-{
-}
+KateProjectViewTree::~KateProjectViewTree() = default;
 
 void KateProjectViewTree::selectFile(const QString &file)
 {

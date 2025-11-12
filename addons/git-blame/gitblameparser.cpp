@@ -9,9 +9,7 @@
 
 #include <QDateTime>
 
-KateGitBlameParser::KateGitBlameParser()
-{
-}
+KateGitBlameParser::KateGitBlameParser() = default;
 
 struct LineBlock {
     int commitEnd;

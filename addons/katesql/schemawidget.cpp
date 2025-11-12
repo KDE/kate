@@ -42,9 +42,7 @@ SchemaWidget::SchemaWidget(QWidget *parent, SQLManager *manager)
     connect(this, &SchemaWidget::itemExpanded, this, &SchemaWidget::slotItemExpanded);
 }
 
-SchemaWidget::~SchemaWidget()
-{
-}
+SchemaWidget::~SchemaWidget() = default;
 
 bool SchemaWidget::isConnectionValidAndOpen()
 {

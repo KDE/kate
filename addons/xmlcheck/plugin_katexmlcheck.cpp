@@ -75,9 +75,7 @@ PluginKateXMLCheck::PluginKateXMLCheck(QObject *const parent)
 {
 }
 
-PluginKateXMLCheck::~PluginKateXMLCheck()
-{
-}
+PluginKateXMLCheck::~PluginKateXMLCheck() = default;
 
 QObject *PluginKateXMLCheck::createView(KTextEditor::MainWindow *mainWindow)
 {

@@ -124,9 +124,7 @@ TsTestApp::TsTestApp(QWidget *parent)
     l->addWidget(treeview2);
 }
 
-TsTestApp::~TsTestApp()
-{
-}
+TsTestApp::~TsTestApp() = default;
 
 int main(int argc, char *argv[])
 {

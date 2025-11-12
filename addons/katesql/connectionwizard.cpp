@@ -109,9 +109,7 @@ ConnectionStandardServerPage::ConnectionStandardServerPage(QWidget *parent)
     registerField(QStringLiteral("port"), portSpinBox);
 }
 
-ConnectionStandardServerPage::~ConnectionStandardServerPage()
-{
-}
+ConnectionStandardServerPage::~ConnectionStandardServerPage() = default;
 
 void ConnectionStandardServerPage::initializePage()
 {

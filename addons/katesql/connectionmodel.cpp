@@ -22,9 +22,7 @@ ConnectionModel::ConnectionModel(QObject *parent)
     m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QStringLiteral("user-invisible"));
 }
 
-ConnectionModel::~ConnectionModel()
-{
-}
+ConnectionModel::~ConnectionModel() = default;
 
 int ConnectionModel::rowCount(const QModelIndex &parent) const
 {

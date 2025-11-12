@@ -18,9 +18,7 @@ ReplicodePlugin::ReplicodePlugin(QObject *parent)
 {
 }
 
-ReplicodePlugin::~ReplicodePlugin()
-{
-}
+ReplicodePlugin::~ReplicodePlugin() = default;
 
 KTextEditor::ConfigPage *ReplicodePlugin::configPage(int number, QWidget *parent)
 {

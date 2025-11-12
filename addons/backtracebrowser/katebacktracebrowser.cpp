@@ -276,9 +276,7 @@ KateBtConfigWidget::KateBtConfigWidget(QWidget *parent)
     m_changed = false;
 }
 
-KateBtConfigWidget::~KateBtConfigWidget()
-{
-}
+KateBtConfigWidget::~KateBtConfigWidget() = default;
 
 QString KateBtConfigWidget::name() const
 {

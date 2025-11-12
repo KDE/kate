@@ -24,9 +24,7 @@ KateSnippetsPlugin::KateSnippetsPlugin(QObject *parent)
 {
 }
 
-KateSnippetsPlugin::~KateSnippetsPlugin()
-{
-}
+KateSnippetsPlugin::~KateSnippetsPlugin() = default;
 
 QObject *KateSnippetsPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {

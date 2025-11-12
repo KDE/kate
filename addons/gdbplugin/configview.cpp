@@ -166,9 +166,7 @@ ConfigView::ConfigView(QWidget *parent, KTextEditor::MainWindow *mainWin, KatePl
     connect(m_clientCombo, &QComboBox::currentIndexChanged, this, &ConfigView::refreshUI);
 }
 
-ConfigView::~ConfigView()
-{
-}
+ConfigView::~ConfigView() = default;
 
 void ConfigView::readDAPSettings()
 {

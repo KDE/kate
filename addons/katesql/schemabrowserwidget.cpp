@@ -20,9 +20,7 @@ SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
     setLayout(layout);
 }
 
-SchemaBrowserWidget::~SchemaBrowserWidget()
-{
-}
+SchemaBrowserWidget::~SchemaBrowserWidget() = default;
 
 SchemaWidget *SchemaBrowserWidget::schemaWidget() const
 {

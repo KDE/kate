@@ -16,9 +16,7 @@ BtFileIndexer::BtFileIndexer(KateBtDatabase *database)
 {
 }
 
-BtFileIndexer::~BtFileIndexer()
-{
-}
+BtFileIndexer::~BtFileIndexer() = default;
 
 void BtFileIndexer::setSearchPaths(const QStringList &urls)
 {

@@ -28,9 +28,7 @@ ExportWizard::ExportWizard(QWidget *parent)
     addPage(new ExportFormatPage(this));
 }
 
-ExportWizard::~ExportWizard()
-{
-}
+ExportWizard::~ExportWizard() = default;
 // END ExportWizard
 
 // BEGIN ExportOutputPage

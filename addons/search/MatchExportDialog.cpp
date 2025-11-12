@@ -36,9 +36,7 @@ MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchM
     connect(pushButton, &QPushButton::clicked, this, &MatchExportDialog::generateMatchExport);
 }
 
-MatchExportDialog::~MatchExportDialog()
-{
-}
+MatchExportDialog::~MatchExportDialog() = default;
 
 void MatchExportDialog::generateMatchExport()
 {

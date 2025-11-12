@@ -31,9 +31,7 @@ TargetHtmlDelegate::TargetHtmlDelegate(QObject *parent)
     connect(this, &TargetHtmlDelegate::sendEditStart, this, &TargetHtmlDelegate::editStarted);
 }
 
-TargetHtmlDelegate::~TargetHtmlDelegate()
-{
-}
+TargetHtmlDelegate::~TargetHtmlDelegate() = default;
 
 void TargetHtmlDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {

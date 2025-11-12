@@ -97,9 +97,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
     setLayout(layout);
 }
 
-DataOutputWidget::~DataOutputWidget()
-{
-}
+DataOutputWidget::~DataOutputWidget() = default;
 
 void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 {

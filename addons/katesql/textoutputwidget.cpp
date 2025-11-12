@@ -54,9 +54,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
     setLayout(m_layout);
 }
 
-TextOutputWidget::~TextOutputWidget()
-{
-}
+TextOutputWidget::~TextOutputWidget() = default;
 
 void TextOutputWidget::showErrorMessage(const QString &message)
 {

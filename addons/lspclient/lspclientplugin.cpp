@@ -83,9 +83,7 @@ LSPClientPlugin::LSPClientPlugin(QObject *parent)
     readConfig();
 }
 
-LSPClientPlugin::~LSPClientPlugin()
-{
-}
+LSPClientPlugin::~LSPClientPlugin() = default;
 
 QObject *LSPClientPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {

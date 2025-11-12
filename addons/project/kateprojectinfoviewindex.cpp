@@ -75,9 +75,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex(KateProjectPluginView *plugin
     slotTextChanged(QString());
 }
 
-KateProjectInfoViewIndex::~KateProjectInfoViewIndex()
-{
-}
+KateProjectInfoViewIndex::~KateProjectInfoViewIndex() = default;
 
 void KateProjectInfoViewIndex::slotGotoSymbol(const QString &text, int &results)
 {

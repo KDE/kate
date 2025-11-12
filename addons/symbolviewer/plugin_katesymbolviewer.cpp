@@ -499,9 +499,7 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(QObject * /*p
     connect(sortSymbols, &QCheckBox::toggled, this, &KatePluginSymbolViewerConfigPage::changed);
 }
 
-KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage()
-{
-}
+KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() = default;
 
 QString KatePluginSymbolViewerConfigPage::name() const
 {

@@ -20,9 +20,7 @@ KateSQLPlugin::KateSQLPlugin(QObject *parent)
 {
 }
 
-KateSQLPlugin::~KateSQLPlugin()
-{
-}
+KateSQLPlugin::~KateSQLPlugin() = default;
 
 QObject *KateSQLPlugin::createView(KTextEditor::MainWindow *mainWindow)
 {

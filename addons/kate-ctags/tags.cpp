@@ -17,9 +17,7 @@ namespace ctags
 
 QString Tags::_tagsfile;
 
-Tags::TagEntry::TagEntry()
-{
-}
+Tags::TagEntry::TagEntry() = default;
 
 Tags::TagEntry::TagEntry(const QString &tag, const QString &type, const QString &file, const QString &pattern)
     : tag(tag)

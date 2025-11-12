@@ -30,9 +30,7 @@ LocalsView::LocalsView(QWidget *parent)
     connect(this, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
 }
 
-LocalsView::~LocalsView()
-{
-}
+LocalsView::~LocalsView() = default;
 
 void LocalsView::showEvent(QShowEvent *)
 {

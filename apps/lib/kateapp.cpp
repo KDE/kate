@@ -906,7 +906,7 @@ void KateApp::remoteMessageReceived(quint32, QByteArray message)
      * open all passed urls
      */
     const QJsonArray urls = jsonMessage.object().value(QLatin1String("urls")).toArray();
-    for (const QJsonValue &urlObject : urls) {
+    for (const auto &urlObject : urls) {
         /**
          * get url meta data
          */

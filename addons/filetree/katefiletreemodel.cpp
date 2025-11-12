@@ -472,7 +472,7 @@ void KateFileTreeModel::setViewShade(const QColor &vs)
     m_viewShade = vs;
 }
 
-bool KateFileTreeModel::showFullPathOnRoots(void) const
+bool KateFileTreeModel::showFullPathOnRoots() const
 {
     return m_root->flag(ProxyItem::ShowFullPath);
 }

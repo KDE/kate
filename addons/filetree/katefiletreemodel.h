@@ -75,7 +75,7 @@ public:
 
     void setViewShade(const QColor &);
 
-    bool showFullPathOnRoots(void) const;
+    bool showFullPathOnRoots() const;
     void setShowFullPathOnRoots(bool);
 
     void documentsOpened(const QList<KTextEditor::Document *> &);

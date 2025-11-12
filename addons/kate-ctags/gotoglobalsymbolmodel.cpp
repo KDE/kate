@@ -25,10 +25,10 @@ int GotoGlobalSymbolModel::rowCount(const QModelIndex &) const
 QString GotoGlobalSymbolModel::filterName(QString tagName)
 {
     // remove anon namespace
-    int __anonIdx = tagName.indexOf(QStringLiteral("__anon"));
-    if (__anonIdx != -1) {
-        int scopeOpIdx = tagName.indexOf(QStringLiteral("::"), __anonIdx) + 2;
-        tagName.remove(__anonIdx, scopeOpIdx - __anonIdx);
+    int anonIdx = tagName.indexOf(QStringLiteral("__anon"));
+    if (anonIdx != -1) {
+        int scopeOpIdx = tagName.indexOf(QStringLiteral("::"), anonIdx) + 2;
+        tagName.remove(anonIdx, scopeOpIdx - anonIdx);
     }
     return tagName;
 }

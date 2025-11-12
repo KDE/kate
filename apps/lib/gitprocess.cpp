@@ -50,13 +50,13 @@ static GitVersionInfo getGitVersionUncached(const QString &workingDir)
 {
     QProcess git;
     if (!setupGitProcess(git, workingDir, {QStringLiteral("--version")})) {
-        return {-1, -1};
+        return {.major = -1, .minor = -1};
     }
 
     // try to run, no version output feasible if not possible
     startHostProcess(git, QProcess::ReadOnly);
     if (!git.waitForStarted() || !git.waitForFinished() || git.exitStatus() != QProcess::NormalExit || git.exitCode() != 0) {
-        return {-1, -1};
+        return {.major = -1, .minor = -1};
     }
 
     // match the version output
@@ -73,7 +73,7 @@ static GitVersionInfo getGitVersionUncached(const QString &workingDir)
     }
 
     // no version properly detected
-    return {-1, -1};
+    return {.major = -1, .minor = -1};
 }
 
 GitVersionInfo getGitVersion(const QString &workingDir)

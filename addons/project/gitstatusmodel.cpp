@@ -28,7 +28,7 @@ static QByteArray getUniqueFilename(const QByteArray &filename, QByteArray &path
         path = path.left(i);
         return name;
     }
-    return QByteArray();
+    return {};
 }
 
 GitStatusModel::GitStatusModel(QObject *parent)
@@ -53,7 +53,7 @@ QModelIndex GitStatusModel::index(int row, int column, const QModelIndex &parent
 QModelIndex GitStatusModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(child.internalId(), 0, Root);
@@ -121,7 +121,7 @@ QVariant GitStatusModel::data(const QModelIndex &index, int role) const
     } else {
         int rootIndex = index.internalId();
         if (rootIndex < 0 || rootIndex > 3) {
-            return QVariant();
+            return {};
         }
 
         if (role == Qt::DisplayRole) {

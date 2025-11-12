@@ -88,7 +88,7 @@ Tags::TagList Tags::getPartialMatchesNoi8n(const QString &tagFile, const QString
         if (dotPos > -1) {
             return QStringView(fileUrl).mid(dotPos + 1);
         }
-        return QStringView();
+        return {};
     };
     Tags::TagList list;
 

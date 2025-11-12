@@ -408,7 +408,7 @@ QUrl KateFileBrowser::activeDocumentUrl()
     if (v) {
         return v->document()->url();
     }
-    return QUrl();
+    return {};
 }
 
 void KateFileBrowser::setupActions()

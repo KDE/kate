@@ -1272,7 +1272,7 @@ QUrl KateMainWindow::activeDocumentUrl()
     if (auto v = m_viewManager->activeView()) {
         return v->document()->url();
     }
-    return QUrl();
+    return {};
 }
 
 void KateMainWindow::mSlotFixOpenWithMenu()

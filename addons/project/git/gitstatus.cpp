@@ -180,7 +180,7 @@ QString GitUtils::statusString(GitUtils::GitStatus s)
     case Unmerge_DeletedByUs:
         return i18n(" ‣ Conflicted");
     }
-    return QString();
+    return {};
 }
 
 static void addNumStat(QList<GitUtils::StatusItem> &items, int add, int sub, std::string_view file)

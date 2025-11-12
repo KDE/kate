@@ -31,7 +31,7 @@ static QString lastPath(const QString &path)
 QVariant Template::TreeData::data(int role, int column)
 {
     if (column != 0) {
-        return QVariant();
+        return {};
     }
 
     switch (role) {
@@ -43,13 +43,13 @@ QVariant Template::TreeData::data(int role, int column)
         return configFile;
     }
 
-    return QVariant();
+    return {};
 }
 
 QVariant Template::ConfigData::data(int role, int column)
 {
     if (column < 0 || column > 1) {
-        return QVariant();
+        return {};
     }
 
     switch (role) {
@@ -64,7 +64,7 @@ QVariant Template::ConfigData::data(int role, int column)
         return i18n("This value must be lowercase");
     case Qt::BackgroundRole:
         if (column != 1) {
-            return QVariant();
+            return {};
         }
         return (m_mustBeLowercase && m_value.toLower() != m_value) || m_value.isEmpty() ? QBrush(Qt::red) : QVariant();
     case ConfigData::ReplaceDescRole:
@@ -78,7 +78,7 @@ QVariant Template::ConfigData::data(int role, int column)
     case ConfigData::GeneratedFilesRole:
         return m_generatedFiles;
     }
-    return QVariant();
+    return {};
 }
 
 Qt::ItemFlags Template::ConfigData::flags(int column) const

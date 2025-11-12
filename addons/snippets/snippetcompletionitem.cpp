@@ -49,11 +49,11 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
         case KTextEditor::CodeCompletionModel::Name:
             return m_name;
         case KTextEditor::CodeCompletionModel::Prefix:
-            return QString();
+            return {};
         case KTextEditor::CodeCompletionModel::Postfix:
-            return QString();
+            return {};
         case KTextEditor::CodeCompletionModel::Arguments:
-            return QString();
+            return {};
         }
         break;
     case KTextEditor::CodeCompletionModel::IsExpandable:
@@ -78,7 +78,7 @@ QVariant SnippetCompletionItem::data(const QModelIndex &index, int role, const K
     }
     }
 
-    return QVariant();
+    return {};
 }
 
 void SnippetCompletionItem::execute(KTextEditor::View *view, const KTextEditor::Range &word)

@@ -56,7 +56,7 @@ QString KateBtDatabase::value(const QString &key)
         }
     }
 
-    return QString();
+    return {};
 }
 
 void KateBtDatabase::add(const QString &folder, const QStringList &files)

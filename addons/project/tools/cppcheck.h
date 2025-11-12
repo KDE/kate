@@ -94,7 +94,7 @@ public:
         // filenames are written to stdin (--file-list=-)
 
         if (!m_project) {
-            return QString();
+            return {};
         }
 
         auto &&fileList = filter(m_project->files());

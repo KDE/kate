@@ -19,7 +19,7 @@ CachedSqlQueryModel::CachedSqlQueryModel(QObject *parent, int cacheCapacity)
 QVariant CachedSqlQueryModel::data(const QModelIndex &item, int role) const
 {
     if (!item.isValid()) {
-        return QVariant();
+        return {};
     }
 
     if (role == Qt::EditRole) {
@@ -27,7 +27,7 @@ QVariant CachedSqlQueryModel::data(const QModelIndex &item, int role) const
     }
 
     if (role != Qt::DisplayRole) {
-        return QVariant();
+        return {};
     }
 
     const int row = item.row();

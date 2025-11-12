@@ -28,7 +28,7 @@ int BookmarksModel::columnCount(const QModelIndex &) const
 QVariant BookmarksModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.row() >= m_bookmarks.size()) {
-        return QVariant();
+        return {};
     }
 
     const Bookmark &bookmark = m_bookmarks.at(index.row());
@@ -39,7 +39,7 @@ QVariant BookmarksModel::data(const QModelIndex &index, int role) const
         case FilePath:
             return bookmark.url.path();
         default:
-            return QVariant();
+            return {};
         }
     }
 
@@ -48,7 +48,7 @@ QVariant BookmarksModel::data(const QModelIndex &index, int role) const
         return icon;
     }
 
-    return QVariant();
+    return {};
 }
 
 QVariant BookmarksModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -60,11 +60,11 @@ QVariant BookmarksModel::headerData(int section, Qt::Orientation orientation, in
         case FilePath:
             return i18n("File Path");
         default:
-            return QVariant();
+            return {};
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 bool BookmarksModel::bookmarkLinesMatch(const Range &range, const QList<int> &lineNumbers) const
@@ -132,7 +132,7 @@ QModelIndex BookmarksModel::getBookmarkIndex(const Bookmark &bookmark)
 {
     auto rangeIt = m_bookmarksIndexes.find(bookmark.url);
     if (rangeIt == m_bookmarksIndexes.end()) {
-        return QModelIndex();
+        return {};
     }
 
     auto range = rangeIt.value();
@@ -143,7 +143,7 @@ QModelIndex BookmarksModel::getBookmarkIndex(const Bookmark &bookmark)
         }
     }
 
-    return QModelIndex();
+    return {};
 }
 
 #include "moc_bookmarksmodel.cpp"

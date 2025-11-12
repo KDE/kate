@@ -45,11 +45,11 @@ QVariant SnippetCompletionModel::data(const QModelIndex &idx, int role) const
         if (role == KTextEditor::CodeCompletionModel::GroupRole) {
             return Qt::DisplayRole;
         }
-        return QVariant();
+        return {};
     }
     // snippets
     if (!idx.isValid() || idx.row() < 0 || idx.row() >= m_snippets.count()) {
-        return QVariant();
+        return {};
     } else {
         return m_snippets.at(idx.row())->data(idx, role, nullptr);
     }
@@ -109,7 +109,7 @@ QModelIndex SnippetCompletionModel::parent(const QModelIndex &index) const
     if (index.internalId()) {
         return createIndex(0, 0, quintptr(0));
     } else {
-        return QModelIndex();
+        return {};
     }
 }
 
@@ -119,14 +119,14 @@ QModelIndex SnippetCompletionModel::index(int row, int column, const QModelIndex
         if (row == 0) {
             return createIndex(row, column, quintptr(0)); // header  index
         } else {
-            return QModelIndex();
+            return {};
         }
     } else if (parent.parent().isValid()) { // we only have header and children, no subheaders
-        return QModelIndex();
+        return {};
     }
 
     if (row < 0 || row >= m_snippets.count() || column < 0 || column >= ColumnCount) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(row, column, 1); // normal item index

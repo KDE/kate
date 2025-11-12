@@ -53,11 +53,11 @@ public:
 
     QString mimeType() override
     {
-        return QString();
+        return {};
     }
     QByteArray checksum() const override
     {
-        return QByteArray();
+        return {};
     }
     bool setEncoding(const QString &) override
     {
@@ -87,19 +87,19 @@ public:
     }
     QString text() const override
     {
-        return QString();
+        return {};
     }
     QString text(KTextEditor::Range, bool = false) const override
     {
-        return QString();
+        return {};
     }
     QChar characterAt(KTextEditor::Cursor) const override
     {
-        return QChar();
+        return {};
     }
     QString wordAt(KTextEditor::Cursor) const override
     {
-        return QString();
+        return {};
     }
     KTextEditor::Range wordRangeAt(KTextEditor::Cursor) const override
     {
@@ -111,11 +111,11 @@ public:
     }
     QStringList textLines(KTextEditor::Range, bool = false) const override
     {
-        return QStringList();
+        return {};
     }
     QString line(int) const override
     {
-        return QString();
+        return {};
     }
     int lines() const override
     {
@@ -176,19 +176,19 @@ public:
     }
     QString mode() const override
     {
-        return QString();
+        return {};
     }
     QString highlightingMode() const override
     {
-        return QString();
+        return {};
     }
     QStringList modes() const override
     {
-        return QStringList();
+        return {};
     }
     QStringList highlightingModes() const override
     {
-        return QStringList();
+        return {};
     }
     bool setMode(const QString &) override
     {
@@ -200,11 +200,11 @@ public:
     }
     QString highlightingModeSection(int) const override
     {
-        return QString();
+        return {};
     }
     QString modeSection(int) const override
     {
-        return QString();
+        return {};
     }
     bool print() override
     {
@@ -215,11 +215,11 @@ public:
     }
     QStringList embeddedHighlightingModes() const override
     {
-        return QStringList();
+        return {};
     }
     QString highlightingModeAt(KTextEditor::Cursor) override
     {
-        return QString();
+        return {};
     }
     bool isLineModified(int) const override
     {

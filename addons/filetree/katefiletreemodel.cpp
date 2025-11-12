@@ -603,12 +603,12 @@ Qt::ItemFlags KateFileTreeModel::flags(const QModelIndex &index) const
 QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     auto *item = static_cast<ProxyItem *>(index.internalPointer());
     if (!item) {
-        return QVariant();
+        return {};
     }
 
     switch (role) {
@@ -668,7 +668,7 @@ QVariant KateFileTreeModel::data(const QModelIndex &index, int role) const
         break;
     }
 
-    return QVariant();
+    return {};
 }
 
 Qt::DropActions KateFileTreeModel::supportedDropActions() const
@@ -745,7 +745,7 @@ QVariant KateFileTreeModel::headerData(int section, Qt::Orientation orientation,
         return QLatin1String("name");
     }
 
-    return QVariant();
+    return {};
 }
 
 int KateFileTreeModel::rowCount(const QModelIndex &parent) const
@@ -776,20 +776,20 @@ int KateFileTreeModel::columnCount(const QModelIndex &parent) const
 QModelIndex KateFileTreeModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
     if (!item) {
-        return QModelIndex();
+        return {};
     }
 
     if (!item->parent()) {
-        return QModelIndex();
+        return {};
     }
 
     if (item->parent() == m_root) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(item->parent()->row(), 0, item->parent());
@@ -799,7 +799,7 @@ QModelIndex KateFileTreeModel::index(int row, int column, const QModelIndex &par
 {
     const ProxyItem *p = nullptr;
     if (column != 0 && column != 1) {
-        return QModelIndex();
+        return {};
     }
 
     if (!parent.isValid()) {
@@ -809,11 +809,11 @@ QModelIndex KateFileTreeModel::index(int row, int column, const QModelIndex &par
     }
 
     if (!p) {
-        return QModelIndex();
+        return {};
     }
 
     if (row < 0 || row >= p->childCount()) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(row, column, p->child(row));

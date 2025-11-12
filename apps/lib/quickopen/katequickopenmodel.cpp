@@ -90,7 +90,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
     const auto projects = projectView ? projectView->property("allProjects").value<QMap<QString, QString>>() : QMap<QString, QString>();
     const QString projectBase = [projectView]() -> QString {
         if (!projectView) {
-            return QString();
+            return {};
         }
         QString ret;
         // open files are always included in the listing, even if list mode == CurrentProject

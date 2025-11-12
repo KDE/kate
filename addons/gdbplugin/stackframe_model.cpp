@@ -71,7 +71,7 @@ QVariant StackFrameModel::data(const QModelIndex &index, int role) const
 QVariant StackFrameModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole) {
-        return QVariant();
+        return {};
     }
 
     const Column column = static_cast<Column>(section);
@@ -85,7 +85,7 @@ QVariant StackFrameModel::headerData(int section, Qt::Orientation orientation, i
     case Num_Columns:
         break;
     }
-    return QVariant();
+    return {};
 }
 
 void StackFrameModel::setActiveFrame(int level)

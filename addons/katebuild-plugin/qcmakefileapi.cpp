@@ -68,7 +68,7 @@ QString QCMakeFileApi::findCMakeGuiExecutable(const QString &cmakeExecutable) co
             return cmakeGui;
         }
     }
-    return QString();
+    return {};
 }
 
 QString QCMakeFileApi::findCMakeExecutable(const QString &cmakeCacheFile) const
@@ -90,13 +90,13 @@ QString QCMakeFileApi::findCMakeExecutable(const QString &cmakeCacheFile) const
         }
     }
 
-    return QString();
+    return {};
 }
 
 QStringList QCMakeFileApi::getCMakeRequestCommandLine() const
 {
     if (m_cmakeExecutable.isEmpty()) {
-        return QStringList();
+        return {};
     }
 
     const QStringList commandLine = {m_cmakeExecutable, QStringLiteral("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"), m_buildDir};

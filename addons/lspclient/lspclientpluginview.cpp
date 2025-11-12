@@ -159,7 +159,7 @@ public:
                 return text;
             }
         }
-        return QString();
+        return {};
     }
 };
 
@@ -1439,7 +1439,7 @@ public:
             KTextEditor::Cursor cursor = activeView->cursorPosition();
             return activeView->document()->wordAt(cursor);
         } else {
-            return QString();
+            return {};
         }
     }
 

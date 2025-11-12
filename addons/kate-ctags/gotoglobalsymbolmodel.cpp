@@ -36,7 +36,7 @@ QString GotoGlobalSymbolModel::filterName(QString tagName)
 QVariant GotoGlobalSymbolModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     static const QIcon defIcon = QIcon::fromTheme(QStringLiteral("code-block"));
@@ -64,5 +64,5 @@ QVariant GotoGlobalSymbolModel::data(const QModelIndex &index, int role) const
         return row.file;
     }
 
-    return QVariant();
+    return {};
 }

@@ -35,7 +35,7 @@ QVariant RecentItemsModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 int RecentItemsModel::rowCount(const QModelIndex &) const
@@ -79,5 +79,5 @@ QUrl RecentItemsModel::url(const QModelIndex &index) const
         }
     }
 
-    return QUrl();
+    return {};
 }

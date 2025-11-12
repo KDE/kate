@@ -54,10 +54,10 @@ AbstractDataModel::AbstractDataModel(std::unique_ptr<AbstractData> headerData, Q
 QVariant AbstractDataModel::headerData(int column, Qt::Orientation orientation, int role) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole) {
-        return QVariant();
+        return {};
     }
     if (!m_rootNode.m_data) {
-        return QVariant();
+        return {};
     }
     return m_rootNode.m_data->data(role, column);
 }
@@ -65,12 +65,12 @@ QVariant AbstractDataModel::headerData(int column, Qt::Orientation orientation, 
 QVariant AbstractDataModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     const auto *node = static_cast<const TreeNode *>(index.internalPointer());
     if (node == nullptr) {
-        return QVariant();
+        return {};
     }
 
     return node->m_data->data(role, index.column());
@@ -109,11 +109,11 @@ int AbstractDataModel::columnCount(const QModelIndex &parent) const
 QModelIndex AbstractDataModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (!hasIndex(row, column, parent)) {
-        return QModelIndex();
+        return {};
     }
     const TreeNode *pNode = parent.isValid() ? static_cast<TreeNode *>(parent.internalPointer()) : &m_rootNode;
     if (row < 0 || row >= (int)pNode->m_children.size()) {
-        return QModelIndex();
+        return {};
     }
     void *child = pNode->m_children[row].get();
 
@@ -123,15 +123,15 @@ QModelIndex AbstractDataModel::index(int row, int column, const QModelIndex &par
 QModelIndex AbstractDataModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) {
-        return QModelIndex();
+        return {};
     }
     TreeNode *cNode = static_cast<TreeNode *>(child.internalPointer());
     if (!cNode) {
-        return QModelIndex();
+        return {};
     }
 
     if (cNode->m_parent == &m_rootNode) {
-        return QModelIndex();
+        return {};
     }
     TreeNode *pNode = cNode->m_parent;
     return createIndex(pNode->rowInParent(), 0, pNode);

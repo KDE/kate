@@ -34,7 +34,7 @@ QVariant SavedSessionsModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 int SavedSessionsModel::rowCount(const QModelIndex &) const

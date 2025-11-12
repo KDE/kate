@@ -51,7 +51,7 @@ QString CompileDBReader::locateCompileCommands(KTextEditor::MainWindow *mw, cons
 
     qWarning("Compile DB not found for file: %ls", qUtf16Printable(openedFile));
 
-    return QString();
+    return {};
 }
 
 QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const QString &file)

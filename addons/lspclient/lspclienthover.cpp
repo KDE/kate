@@ -101,7 +101,7 @@ public:
             }
         }
 
-        return QString();
+        return {};
     }
 };
 

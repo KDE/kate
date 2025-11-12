@@ -741,7 +741,7 @@ QUrl KateBuildView::docUrl()
     KTextEditor::View *kv = m_win->activeView();
     if (!kv) {
         qDebug("no KTextEditor::View");
-        return QUrl();
+        return {};
     }
 
     if (kv->document()->isModified()) {
@@ -937,7 +937,7 @@ QString KateBuildView::findCompileCommands(const QString &file) const
         }
     }
 
-    return QString();
+    return {};
 }
 
 /******************************************************************/

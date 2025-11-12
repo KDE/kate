@@ -141,7 +141,7 @@ public:
 
     QString stdinMessages() override
     {
-        return QString();
+        return {};
     }
 
     static QString buildDirectory(const QVariantMap &projectMap)

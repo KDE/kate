@@ -147,7 +147,7 @@ static const CTagsKindMapping *findKindMapping(const char *pextension)
 QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
 {
     if (kindChar == nullptr || extension.isEmpty()) {
-        return QString();
+        return {};
     }
 
     const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
@@ -161,13 +161,13 @@ QString CTagsKinds::findKind(const char *kindChar, const QString &extension)
         }
     }
 
-    return QString();
+    return {};
 }
 
 QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringView &extension)
 {
     if (kindChar == nullptr || extension.isEmpty()) {
-        return QString();
+        return {};
     }
 
     const CTagsKindMapping *kindMapping = findKindMapping(extension.toLocal8Bit().constData());
@@ -181,5 +181,5 @@ QString CTagsKinds::findKindNoi18n(const char *kindChar, const QStringView &exte
         }
     }
 
-    return QString();
+    return {};
 }

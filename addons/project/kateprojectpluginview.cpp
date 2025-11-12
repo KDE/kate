@@ -366,7 +366,7 @@ QString KateProjectPluginView::projectFileName() const
 {
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
-        return QString();
+        return {};
     }
 
     return static_cast<KateProjectView *>(active)->project()->fileName();
@@ -376,7 +376,7 @@ QString KateProjectPluginView::projectName() const
 {
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
-        return QString();
+        return {};
     }
 
     return static_cast<KateProjectView *>(active)->project()->name();
@@ -386,7 +386,7 @@ QString KateProjectPluginView::projectBaseDir() const
 {
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
-        return QString();
+        return {};
     }
 
     return static_cast<KateProjectView *>(active)->project()->baseDir();
@@ -396,7 +396,7 @@ QVariantMap KateProjectPluginView::projectMap() const
 {
     QWidget *active = m_stackedProjectViews->currentWidget();
     if (!active) {
-        return QVariantMap();
+        return {};
     }
 
     return static_cast<KateProjectView *>(active)->project()->projectMap();
@@ -411,14 +411,14 @@ QVariantMap KateProjectPluginView::projectMapFor(const QString &baseDir) const
             return proj->projectMap();
         }
     }
-    return QVariantMap();
+    return {};
 }
 
 QStringList KateProjectPluginView::projectFiles() const
 {
     auto *active = static_cast<KateProjectView *>(m_stackedProjectViews->currentWidget());
     if (!active) {
-        return QStringList();
+        return {};
     }
 
     return active->project()->files();
@@ -429,7 +429,7 @@ QString KateProjectPluginView::allProjectsCommonBaseDir() const
     auto projects = m_plugin->projects();
 
     if (projects.empty()) {
-        return QString();
+        return {};
     }
 
     if (projects.size() == 1) {
@@ -740,7 +740,7 @@ QString KateProjectPluginView::currentWord() const
 {
     KTextEditor::View *kv = m_activeTextEditorView;
     if (!kv) {
-        return QString();
+        return {};
     }
 
     if (kv->selection() && kv->selectionRange().onSingleLine()) {

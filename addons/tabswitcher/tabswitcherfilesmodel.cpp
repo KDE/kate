@@ -52,7 +52,7 @@ QString longestCommonPrefix(std::vector<QString> const &strs)
 {
     // only 2 or more items can have a common prefix
     if (strs.size() < 2) {
-        return QString();
+        return {};
     }
 
     // get the min length
@@ -219,7 +219,7 @@ int detail::TabswitcherFilesModel::rowCount(const QModelIndex &) const
 QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.row() < 0 || size_t(index.row()) >= data_.size()) {
-        return QVariant();
+        return {};
     }
 
     if (role == Qt::DisplayRole) {
@@ -247,8 +247,8 @@ QVariant detail::TabswitcherFilesModel::data(const QModelIndex &index, int role)
         if (index.column() == 0) {
             return QBrush(Qt::darkGray);
         } else {
-            return QVariant();
+            return {};
         }
     }
-    return QVariant();
+    return {};
 }

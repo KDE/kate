@@ -40,12 +40,12 @@ static QString findRootForDocument(KTextEditor::Document *document, const QStrin
 {
     // skip search if nothing there to look at
     if (rootIndicationFileNames.isEmpty() && rootIndicationFilePatterns.isEmpty()) {
-        return QString();
+        return {};
     }
 
     // search only feasible if document is local file
     if (!document->url().isLocalFile()) {
-        return QString();
+        return {};
     }
 
     // search root upwards
@@ -77,7 +77,7 @@ static QString findRootForDocument(KTextEditor::Document *document, const QStrin
     }
 
     // no root found, bad luck
-    return QString();
+    return {};
 }
 
 static QStringList indicationDataToStringList(const QJsonValue &indicationData)
@@ -357,7 +357,7 @@ public:
 
         // else: we have no matching server!
         m_highlightingModeToLanguageIdCache[mode] = QString();
-        return QString();
+        return {};
     }
 
     QString languageId(KTextEditor::Document *doc)

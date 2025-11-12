@@ -91,6 +91,6 @@ public:
 
     QString stdinMessages() override
     {
-        return QString();
+        return {};
     }
 };

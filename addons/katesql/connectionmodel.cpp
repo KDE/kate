@@ -36,7 +36,7 @@ int ConnectionModel::rowCount(const QModelIndex &parent) const
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     const QString key = m_connections.keys().at(index.row());
@@ -57,10 +57,10 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     }
 
     default:
-        return QVariant();
+        return {};
     }
 
-    return QVariant();
+    return {};
 }
 
 int ConnectionModel::addConnection(const Connection &conn)

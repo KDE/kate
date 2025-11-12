@@ -39,7 +39,7 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
     for (int i = 0; i < 3; ++i) {
         QProcess git;
         if (!setupGitProcess(git, repo, argsList[i])) {
-            return QString();
+            return {};
         }
 
         startHostProcess(git, QProcess::ReadOnly);
@@ -51,7 +51,7 @@ QString GitUtils::getCurrentBranchName(const QString &repo)
     }
 
     // give up
-    return QString();
+    return {};
 }
 
 GitUtils::CheckoutResult GitUtils::checkoutBranch(const QString &repo, const QString &branch)

@@ -208,7 +208,7 @@ QString Backend::targetName() const
 {
     if (m_debugger)
         return m_debugger->targetName();
-    return QString();
+    return {};
 }
 
 void Backend::setFileSearchPaths(const QStringList &paths)
@@ -263,7 +263,7 @@ QString Backend::slotPrintVariable(const QString &variable)
 {
     if (m_debugger)
         return m_debugger->slotPrintVariable(variable);
-    return QString();
+    return {};
 }
 
 void Backend::slotHotReload()

@@ -134,7 +134,7 @@ QString SemanticHighlighter::previousResultIdForDoc(KTextEditor::Document *doc) 
     if (it != m_docResultId.end()) {
         return it->second;
     }
-    return QString();
+    return {};
 }
 
 void SemanticHighlighter::processTokens(const LSPSemanticTokensDelta &tokens, KTextEditor::View *view, const SemanticTokensLegend *legend)

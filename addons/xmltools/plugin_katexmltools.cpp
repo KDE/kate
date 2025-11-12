@@ -290,10 +290,10 @@ int PluginKateXMLToolsCompletionModel::rowCount(const QModelIndex &parent) const
 QModelIndex PluginKateXMLToolsCompletionModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid()) { // Is root/invalid index?
-        return QModelIndex(); // Nothing to return...
+        return {}; // Nothing to return...
     }
     if (index.internalId() == groupNode) { // Return a root node for group
-        return QModelIndex();
+        return {};
     }
     // Otherwise, this is a leaf level, so return the only group as a parent
     return createIndex(0, 0, groupNode);
@@ -311,13 +311,13 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int co
         }
     }
     // Leaf node has no children... nothing to return
-    return QModelIndex();
+    return {};
 }
 
 QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) { // Nothing to do w/ invalid index
-        return QVariant();
+        return {};
     }
 
     if (index.internalId() == groupNode) { // Return group level node data
@@ -329,7 +329,7 @@ QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int r
         default:
             break;
         }
-        return QVariant(); // Nothing to return for other roles
+        return {}; // Nothing to return for other roles
     }
     switch (role) {
     case Qt::DisplayRole:
@@ -342,7 +342,7 @@ QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int r
     default:
         break;
     }
-    return QVariant();
+    return {};
 }
 
 bool PluginKateXMLToolsCompletionModel::shouldStartCompletion(KTextEditor::View *view,
@@ -722,7 +722,7 @@ QString PluginKateXMLToolsCompletionModel::insideTag(KTextEditor::View &kv)
         for (uint x = col; x > 0; x--) {
             QString ch = lineStr.mid(x - 1, 1);
             if (ch == QLatin1String(">")) { // cursor is outside tag
-                return QString();
+                return {};
             }
 
             if (ch == QLatin1String("<")) {
@@ -747,7 +747,7 @@ QString PluginKateXMLToolsCompletionModel::insideTag(KTextEditor::View &kv)
         col = kv.document()->line(y).length();
     } while (y >= 0);
 
-    return QString();
+    return {};
 }
 
 /**
@@ -778,9 +778,9 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute(KTextEditor::View &kv
             if (isQuote(ch) && chLeft == QLatin1String("=")) {
                 break;
             } else if (isQuote(ch) && chLeft != QLatin1String("=")) {
-                return QString();
+                return {};
             } else if (ch == QLatin1String("<") || ch == QLatin1String(">")) {
-                return QString();
+                return {};
             }
         }
         y--;
@@ -842,7 +842,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &k
         if (!col--) {
             do {
                 if (!line--) {
-                    return QString(); // reached start of document
+                    return {}; // reached start of document
                 }
                 str = kv.document()->line(line);
                 col = str.length();
@@ -862,7 +862,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement(KTextEditor::View &k
             switch (ch) {
             case '<':
                 // hmm... we were actually inside an element
-                return QString();
+                return {};
 
             case '>':
                 // we just hit an element boundary
@@ -1000,7 +1000,7 @@ QString PluginKateXMLToolsCompletionModel::currentModeToString() const
     default:
         break;
     }
-    return QString();
+    return {};
 }
 
 /** Sort a QStringList case-insensitively. Static. TODO: make it more simple. */

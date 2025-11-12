@@ -59,7 +59,7 @@ static QString directoryForView(const KTextEditor::View *view)
         QFileInfo fi(u.toLocalFile());
         return fi.absolutePath();
     }
-    return QString();
+    return {};
 }
 
 KateKonsolePlugin::KateKonsolePlugin(QObject *parent)

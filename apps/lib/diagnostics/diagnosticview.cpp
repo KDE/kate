@@ -281,7 +281,7 @@ static QIcon diagnosticsIcon(DiagnosticSeverity severity)
     default:
         break;
     }
-    return QIcon();
+    return {};
 }
 
 DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainWindow)

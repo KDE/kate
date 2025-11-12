@@ -195,7 +195,7 @@ static QJsonValue to_json(const LSPLocation &location)
     if (location.uri.isValid()) {
         return QJsonObject{{QLatin1String(MEMBER_URI), encodeUrl(location.uri)}, {QLatin1String(MEMBER_RANGE), to_json(location.range)}};
     }
-    return QJsonValue();
+    return {};
 }
 
 static QJsonValue to_json(const LSPDiagnosticRelatedInformation &related)
@@ -204,7 +204,7 @@ static QJsonValue to_json(const LSPDiagnosticRelatedInformation &related)
     if (loc.isObject()) {
         return QJsonObject{{QLatin1String(MEMBER_LOCATION), to_json(related.location)}, {QLatin1String(MEMBER_MESSAGE), related.message}};
     }
-    return QJsonValue();
+    return {};
 }
 
 static QJsonObject to_json(const LSPDiagnostic &diagnostic)
@@ -1528,7 +1528,7 @@ private:
         } else {
             qCWarning(LSPCLIENT, "send for non-running server");
         }
-        return RequestHandle();
+        return {};
     }
 
     void readStandardOutput()
@@ -2069,7 +2069,7 @@ public:
         PushCurrentServer g(q);
         auto params = executeCommandParams(command);
         // Pass an empty lambda as reply handler because executeCommand is a Request, but we ignore the result
-        send(init_request(QStringLiteral("workspace/executeCommand"), params), [](const auto &) {});
+        send(init_request(QStringLiteral("workspace/executeCommand"), params), [](const auto &) { });
     }
 
     void didOpen(const QUrl &document, int version, const QString &langId, const QString &text)

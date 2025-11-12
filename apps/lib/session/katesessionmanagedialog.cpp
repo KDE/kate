@@ -422,7 +422,7 @@ KateSession::Ptr KateSessionManageDialog::currentSelectedSession() const
     KateSessionChooserItem *item = currentSessionItem();
 
     if (!item) {
-        return KateSession::Ptr();
+        return {};
     }
 
     return item->session;

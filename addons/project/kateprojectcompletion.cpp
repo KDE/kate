@@ -66,7 +66,7 @@ QVariant KateProjectCompletion::data(const QModelIndex &index, int role) const
         return icon;
     }
 
-    return QVariant();
+    return {};
 }
 
 QModelIndex KateProjectCompletion::parent(const QModelIndex &index) const
@@ -74,7 +74,7 @@ QModelIndex KateProjectCompletion::parent(const QModelIndex &index) const
     if (index.internalId()) {
         return createIndex(0, 0, quintptr(0));
     } else {
-        return QModelIndex();
+        return {};
     }
 }
 
@@ -84,15 +84,15 @@ QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex 
         if (row == 0) {
             return createIndex(row, column, quintptr(0));
         } else {
-            return QModelIndex();
+            return {};
         }
 
     } else if (parent.parent().isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     if (row < 0 || row >= m_matches.rowCount() || column < 0 || column >= ColumnCount) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(row, column, 1);

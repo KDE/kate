@@ -141,7 +141,7 @@ public:
         default:
             break;
         }
-        return QIcon();
+        return {};
     }
 
 private:
@@ -247,7 +247,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const override
     {
         if (!index.isValid() || index.row() >= m_matches.size()) {
-            return QVariant();
+            return {};
         }
 
         const auto &match = m_matches.at(index.row());
@@ -315,7 +315,7 @@ public:
             return QVariant(HighlightMethod::CustomHighlighting);
         }
 
-        return QVariant();
+        return {};
     }
 
     bool shouldStartCompletion(KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position) override

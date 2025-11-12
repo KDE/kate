@@ -205,7 +205,7 @@ QStringList PseudoDTD::allowedElements(const QString &parentElement)
         return it->second;
     }
 
-    return QStringList();
+    return {};
 }
 
 /**
@@ -268,7 +268,7 @@ QStringList PseudoDTD::allowedAttributes(const QString &element)
         return it->second.optionalAttributes + it->second.requiredAttributes;
     }
 
-    return QStringList();
+    return {};
 }
 
 QStringList PseudoDTD::requiredAttributes(const QString &element) const
@@ -283,7 +283,7 @@ QStringList PseudoDTD::requiredAttributes(const QString &element) const
         return it->second.requiredAttributes;
     }
 
-    return QStringList();
+    return {};
 }
 
 /**
@@ -356,7 +356,7 @@ QStringList PseudoDTD::attributeValues(const QString &element, const QString &at
     }
 
     // no predefined values available:
-    return QStringList();
+    return {};
 }
 
 /**

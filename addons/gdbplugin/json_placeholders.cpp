@@ -22,7 +22,7 @@ static std::optional<QString> valueAsString(const QJsonValue &);
 static std::optional<QString> valueAsString(const QJsonArray &array, const bool quote = false)
 {
     if (array.isEmpty())
-        return QString();
+        return {};
 
     if (array.size() == 1)
         return valueAsString(array.first());

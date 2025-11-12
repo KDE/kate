@@ -209,7 +209,7 @@ QString IOView::createFifo(const QString &prefix)
     QString fifo = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + prefix + KRandom::randomString(3);
     int result = mkfifo(QFile::encodeName(fifo).data(), 0666);
     if (result != 0) {
-        return QString();
+        return {};
     }
     return fifo;
 #else

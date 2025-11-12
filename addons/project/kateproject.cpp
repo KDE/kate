@@ -170,7 +170,7 @@ QVariant KateProjectModel::data(const QModelIndex &index, int role) const
     if (role == Qt::ToolTipRole) {
         auto type = getStatusTypeForPath(index.data(Qt::UserRole).toString());
         if (type == None) {
-            return QString();
+            return {};
         } else if (type == Modified) {
             return tr("Modified");
         } else if (type == Added) {
@@ -277,12 +277,12 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName) const
     static QHash<QString, QDateTime> lastModifiedTimes;
 
     if (fileName.isEmpty()) {
-        return QJsonDocument();
+        return {};
     }
 
     QFile file(fileName);
     if (!file.exists() || !file.open(QFile::ReadOnly)) {
-        return QJsonDocument();
+        return {};
     }
 
     /**
@@ -298,7 +298,7 @@ QJsonDocument KateProject::readJSONFile(const QString &fileName) const
             lastModifiedTimes[fileName] = lastModified;
             m_plugin->sendMessage(i18n("Malformed JSON file '%1': %2", fileName, parseError.errorString()), true);
         }
-        return QJsonDocument();
+        return {};
     }
 
     return document;
@@ -308,13 +308,13 @@ QVariantMap KateProject::readProjectFile() const
 {
     // not file back => will not work
     if (!m_fileBacked) {
-        return QVariantMap();
+        return {};
     }
 
     // bail out on error
     QJsonDocument project(readJSONFile(m_fileName));
     if (project.isNull()) {
-        return QVariantMap();
+        return {};
     }
 
     /**
@@ -470,7 +470,7 @@ QString KateProject::projectLocalFileName(const QString &suffix) const
      * should not happen
      */
     if (m_baseDir.isEmpty() || suffix.isEmpty()) {
-        return QString();
+        return {};
     }
 
     /**

@@ -365,7 +365,7 @@ QString KateSessionManager::renameSession(KateSession::Ptr session, const QStrin
         KMessageBox::error(QApplication::activeWindow(),
                            i18n("The session could not be renamed to \"%1\". Failed to write to \"%2\"", newName, newFile),
                            i18n("Session Renaming"));
-        return QString();
+        return {};
     }
 
     // update session name and sync
@@ -529,7 +529,7 @@ void KateSessionManager::sessionSaveAs()
 QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const QString &newName)
 {
     if (session->name() == newName && !session->isAnonymous()) {
-        return QString();
+        return {};
     }
 
     const QString messagePrompt = i18n("Session name:");
@@ -574,7 +574,7 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
         name = dlg.textValue();
 
         if (!ok) {
-            return QString();
+            return {};
         }
     }
 }
@@ -583,7 +583,7 @@ QString KateSessionManager::suggestNewSessionName(const QString &target)
 {
     if (target.isEmpty()) {
         // Here could also a default name set or the current session name used
-        return QString();
+        return {};
     }
 
     const QString mask = QStringLiteral("%1 (%2)");
@@ -597,7 +597,7 @@ QString KateSessionManager::suggestNewSessionName(const QString &target)
         }
     }
 
-    return QString();
+    return {};
 }
 
 void KateSessionManager::sessionManage()

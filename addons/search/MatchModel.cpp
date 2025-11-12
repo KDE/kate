@@ -542,7 +542,7 @@ static QString nbsFormated(int number, int width)
 QString MatchModel::infoHtmlString() const
 {
     if (m_matchFiles.isEmpty() && m_searchState == SearchDone && m_lastMatchUrl.isEmpty()) {
-        return QString();
+        return {};
     }
 
     int matchesTotal = 0;
@@ -615,7 +615,7 @@ QString MatchModel::infoHtmlString() const
         break;
     }
 
-    return QString();
+    return {};
 }
 
 QString MatchModel::matchPath(const MatchFile &matchFile) const
@@ -707,7 +707,7 @@ QString MatchModel::matchToHtmlString(const Match &match) const
 QString MatchModel::infoToPlainText() const
 {
     if (m_matchFiles.isEmpty() && m_searchState == SearchDone) {
-        return QString();
+        return {};
     }
 
     int matchesTotal = 0;
@@ -766,7 +766,7 @@ QString MatchModel::infoToPlainText() const
         break;
     }
 
-    return QString();
+    return {};
 }
 
 QString MatchModel::fileToPlainText(const MatchFile &matchFile) const
@@ -821,7 +821,7 @@ QModelIndex MatchModel::fileIndex(const QUrl &url, KTextEditor::Document *doc) c
 {
     int row = matchFileRow(url, doc);
     if (row == -1) {
-        return QModelIndex();
+        return {};
     }
     return createIndex(row, 0, FileItemId);
 }
@@ -829,7 +829,7 @@ QModelIndex MatchModel::fileIndex(const QUrl &url, KTextEditor::Document *doc) c
 QModelIndex MatchModel::firstMatch() const
 {
     if (m_matchFiles.isEmpty()) {
-        return QModelIndex();
+        return {};
     }
 
     return createIndex(0, 0, static_cast<quintptr>(0));
@@ -838,7 +838,7 @@ QModelIndex MatchModel::firstMatch() const
 QModelIndex MatchModel::lastMatch() const
 {
     if (m_matchFiles.isEmpty()) {
-        return QModelIndex();
+        return {};
     }
     const MatchFile &matchFile = m_matchFiles.constLast();
     return createIndex(matchFile.matches.size() - 1, 0, m_matchFiles.size() - 1);
@@ -848,7 +848,7 @@ QModelIndex MatchModel::firstFileMatch(KTextEditor::Document *doc) const
 {
     int row = matchFileRow(doc->url(), doc);
     if (row == -1) {
-        return QModelIndex();
+        return {};
     }
 
     // if a file is in the vector it has a match
@@ -859,13 +859,13 @@ QModelIndex MatchModel::closestMatchAfter(KTextEditor::Document *doc, const KTex
 {
     int row = matchFileRow(doc->url(), doc);
     if (row < 0) {
-        return QModelIndex();
+        return {};
     }
     if (row >= m_matchFiles.size()) {
-        return QModelIndex();
+        return {};
     }
     if (!cursor.isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     // if a file is in the vector it has a match
@@ -885,13 +885,13 @@ QModelIndex MatchModel::closestMatchBefore(KTextEditor::Document *doc, const KTe
 {
     int row = matchFileRow(doc->url(), doc);
     if (row < 0) {
-        return QModelIndex();
+        return {};
     }
     if (row >= m_matchFiles.size()) {
-        return QModelIndex();
+        return {};
     }
     if (!cursor.isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     // if a file is in the vector it has a match
@@ -915,7 +915,7 @@ QModelIndex MatchModel::nextMatch(const QModelIndex &itemIndex) const
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
-        return QModelIndex();
+        return {};
     }
 
     int matchRow = itemIndex.internalId() < FileItemId ? itemIndex.row() : 0;
@@ -939,7 +939,7 @@ QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
 
     int fileRow = itemIndex.internalId() < FileItemId ? itemIndex.internalId() : itemIndex.row();
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
-        return QModelIndex();
+        return {};
     }
 
     int matchRow = itemIndex.internalId() < FileItemId ? itemIndex.row() : 0;
@@ -959,11 +959,11 @@ QModelIndex MatchModel::prevMatch(const QModelIndex &itemIndex) const
 QVariant MatchModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     if (index.column() < 0 || index.column() > 1) {
-        return QVariant();
+        return {};
     }
 
     int fileRow = index.internalId() == InfoItemId ? -1 : index.internalId() == FileItemId ? index.row() : (int)index.internalId();
@@ -979,12 +979,12 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         case Qt::CheckStateRole:
             return m_infoCheckState;
         }
-        return QVariant();
+        return {};
     }
 
     if (fileRow < 0 || fileRow >= m_matchFiles.size()) {
         qDebug("Should be a file (or the info item in the near future) %d", fileRow);
-        return QVariant();
+        return {};
     }
 
     if (matchRow < 0) {
@@ -1045,10 +1045,10 @@ QVariant MatchModel::data(const QModelIndex &index, int role) const
         }
     } else {
         qDebug("bad index");
-        return QVariant();
+        return {};
     }
 
-    return QVariant();
+    return {};
 }
 
 bool MatchModel::setFileChecked(int fileRow, bool checked)
@@ -1250,13 +1250,13 @@ QModelIndex MatchModel::index(int row, int column, const QModelIndex &parent) co
     }
 
     // Parent is a match which does not have children
-    return QModelIndex();
+    return {};
 }
 
 QModelIndex MatchModel::parent(const QModelIndex &child) const
 {
     if (child.internalId() == InfoItemId) {
-        return QModelIndex();
+        return {};
     }
 
     if (child.internalId() == FileItemId) {

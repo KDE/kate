@@ -227,7 +227,7 @@ QModelIndex TargetModel::sessionRootIndex() const
             return index(i, 0);
         }
     }
-    return QModelIndex();
+    return {};
 }
 
 QModelIndex TargetModel::projectRootIndex() const
@@ -237,7 +237,7 @@ QModelIndex TargetModel::projectRootIndex() const
             return index(i, 0);
         }
     }
-    return QModelIndex();
+    return {};
 }
 
 QModelIndex TargetModel::insertTargetSetAfter(const QModelIndex &beforeIndex,
@@ -526,7 +526,7 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
 static QString toRitchText(const QString &str)
 {
     if (str.isEmpty()) {
-        return QString();
+        return {};
     }
     return u"<p>%1</p>"_s.arg(str.toHtmlEscaped());
 }
@@ -535,13 +535,13 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         qWarning("Invalid index");
-        return QVariant();
+        return {};
     }
 
     NodeInfo node = modelToNodeInfo(index);
     if (!nodeExists(m_rootNodes, node)) {
         qDebug() << "Node does not exist:" << node;
-        return QVariant();
+        return {};
     }
 
     if (node.isRoot()) {
@@ -552,7 +552,7 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         } else if (role == IsProjectTargetRole) {
             return m_rootNodes[node.rootRow].isProject;
         }
-        return QVariant();
+        return {};
     }
 
     // This is either a TargetSet or a Command
@@ -580,12 +580,12 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
             break;
         case CommandRole:
             if (targetSet.commands.isEmpty()) {
-                return QVariant();
+                return {};
             }
             return targetSet.commands[0].buildCmd;
         case CommandNameRole:
             if (targetSet.commands.isEmpty()) {
-                return QVariant();
+                return {};
             }
             return targetSet.commands[0].name;
         case WorkDirRole:
@@ -644,17 +644,17 @@ QVariant TargetModel::data(const QModelIndex &index, int role) const
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) {
-        return QVariant();
+        return {};
     }
 
     if (orientation != Qt::Horizontal) {
-        return QVariant();
+        return {};
     }
 
     if (section == 0) {
@@ -666,7 +666,7 @@ QVariant TargetModel::headerData(int section, Qt::Orientation orientation, int r
     if (section == 2) {
         return i18n("Run Command");
     }
-    return QVariant();
+    return {};
 }
 
 bool TargetModel::setData(const QModelIndex &itemIndex, const QVariant &value, int role)
@@ -792,27 +792,27 @@ int TargetModel::columnCount(const QModelIndex &) const
 QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) const
 {
     if (row < 0) {
-        return QModelIndex();
+        return {};
     }
 
     if (!parent.isValid()) {
         // RootRow Item (Session/Project)
         if (row >= m_rootNodes.size()) {
-            return QModelIndex();
+            return {};
         }
         return createIndex(row, column, InvalidIndex);
     }
 
     if (parent.column() != 0) {
         // Only column 0 can have children.
-        return QModelIndex();
+        return {};
     }
 
     if (parent.internalId() == InvalidIndex) {
         // TargetSet node
         int rootRow = parent.row();
         if (rootRow >= m_rootNodes.size() || row >= m_rootNodes.at(rootRow).targetSets.size()) {
-            return QModelIndex();
+            return {};
         }
         return createIndex(row, column, toInternalId(rootRow, -1));
     }
@@ -821,11 +821,11 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
     int rootRow = idToRootRow(parent.internalId());
     int targetSetRow = parent.row();
     if (rootRow >= m_rootNodes.size() || targetSetRow >= m_rootNodes.at(rootRow).targetSets.size()) {
-        return QModelIndex();
+        return {};
     }
     const TargetSet &tgSet = m_rootNodes.at(rootRow).targetSets.at(targetSetRow);
     if (row >= tgSet.commands.size()) {
-        return QModelIndex();
+        return {};
     }
     return createIndex(row, column, toInternalId(rootRow, targetSetRow));
 }
@@ -833,12 +833,12 @@ QModelIndex TargetModel::index(int row, int column, const QModelIndex &parent) c
 QModelIndex TargetModel::parent(const QModelIndex &child) const
 {
     if (!child.isValid()) {
-        return QModelIndex();
+        return {};
     }
 
     if (child.internalId() == InvalidIndex) {
         // child is a RootRow node -> invalid parent
-        return QModelIndex();
+        return {};
     }
 
     int rootRow = idToRootRow(child.internalId());
@@ -904,7 +904,7 @@ QJsonObject TargetModel::indexToJsonObj(const QModelIndex &modelIndex) const
 {
     NodeInfo node = modelToNodeInfo(modelIndex);
     if (!nodeExists(m_rootNodes, node)) {
-        return QJsonObject();
+        return {};
     }
 
     QJsonObject obj;
@@ -954,7 +954,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QStrin
     const QJsonDocument doc = QJsonDocument::fromJson(jsonStr.toUtf8(), &error);
     if (error.error != QJsonParseError::NoError) {
         qWarning("Could not parse the provided Json");
-        return QModelIndex();
+        return {};
     }
     return insertAfter(modelIndex, doc.object(), projectBaseDir);
 }
@@ -968,7 +968,7 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
             currentIndex = insertAfter(currentIndex, set.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
                 qWarning("Failed to insert targetset");
-                return QModelIndex();
+                return {};
             }
         }
     } else if (obj.contains(QStringLiteral("targets"))) {

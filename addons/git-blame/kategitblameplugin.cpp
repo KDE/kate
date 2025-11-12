@@ -49,12 +49,12 @@ GitBlameInlineNoteProvider::~GitBlameInlineNoteProvider()
 QList<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
 {
     if (!m_pluginView->hasBlameInfo()) {
-        return QList<int>();
+        return {};
     }
 
     KTextEditor::Document *doc = m_pluginView->activeDocument();
     if (!doc) {
-        return QList<int>();
+        return {};
     }
 
     if (m_mode == KateGitBlameMode::None) {
@@ -66,7 +66,7 @@ QList<int> GitBlameInlineNoteProvider::inlineNotes(int line) const
     if (view->cursorPosition().line() == line || m_mode == KateGitBlameMode::AllLines) {
         return QList<int>{lineLen + 4};
     }
-    return QList<int>();
+    return {};
 }
 
 QSize GitBlameInlineNoteProvider::inlineNoteSize(const KTextEditor::InlineNote &note) const

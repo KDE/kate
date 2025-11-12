@@ -794,7 +794,7 @@ QString Client::extractCommand(const QJsonObject &launchRequest)
     const auto &command = launchRequest[DAP_COMMAND].toString();
     if ((command != DAP_LAUNCH) && (command != DAP_ATTACH)) {
         qCWarning(DAPCLIENT, "unsupported request command: %ls", qUtf16Printable(command));
-        return QString();
+        return {};
     }
     return command;
 }

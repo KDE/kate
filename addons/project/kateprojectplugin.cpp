@@ -624,34 +624,34 @@ void KateProjectPlugin::registerVariables()
     auto editor = KTextEditor::Editor::instance();
     editor->registerVariableMatch(QStringLiteral("Project:Path"),
                                   i18n("Full path to current project excluding the file name."),
-                                  [](const QStringView &, KTextEditor::View *view) {
+                                  [](const QStringView &, KTextEditor::View *view) -> QString {
                                       if (!view) {
-                                          return QString();
+                                          return {};
                                       }
                                       auto projectPlugin = findProjectPlugin();
                                       if (!projectPlugin) {
-                                          return QString();
+                                          return {};
                                       }
                                       auto kateProject = findProjectPlugin()->projectForUrl(view->document()->url());
                                       if (!kateProject) {
-                                          return QString();
+                                          return {};
                                       }
                                       return QDir(kateProject->baseDir()).absolutePath();
                                   });
 
     editor->registerVariableMatch(QStringLiteral("Project:NativePath"),
                                   i18n("Full path to current project excluding the file name, with native path separator (backslash on Windows)."),
-                                  [](const QStringView &, KTextEditor::View *view) {
+                                  [](const QStringView &, KTextEditor::View *view) -> QString {
                                       if (!view) {
-                                          return QString();
+                                          return {};
                                       }
                                       auto projectPlugin = findProjectPlugin();
                                       if (!projectPlugin) {
-                                          return QString();
+                                          return {};
                                       }
                                       auto kateProject = findProjectPlugin()->projectForUrl(view->document()->url());
                                       if (!kateProject) {
-                                          return QString();
+                                          return {};
                                       }
                                       return QDir::toNativeSeparators(QDir(kateProject->baseDir()).absolutePath());
                                   });

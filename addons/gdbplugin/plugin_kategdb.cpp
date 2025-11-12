@@ -854,12 +854,12 @@ QString KatePluginGDBView::currentWord()
     KTextEditor::View *kv = m_mainWin->activeView();
     if (!kv) {
         qDebug("no KTextEditor::View");
-        return QString();
+        return {};
     }
 
     if (!kv->cursorPosition().isValid()) {
         qDebug("cursor not valid!");
-        return QString();
+        return {};
     }
 
     int line = kv->cursorPosition().line();
@@ -893,7 +893,7 @@ QString KatePluginGDBView::currentWord()
     }
     if (startPos == endPos) {
         qDebug("no word found!");
-        return QString();
+        return {};
     }
 
     // qDebug() << linestr.mid(startPos+1, endPos-startPos-1);

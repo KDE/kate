@@ -111,7 +111,7 @@ public:
                 return text.mid(start, nl - start);
             }
         }
-        return QString();
+        return {};
     }
 
 private:

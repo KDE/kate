@@ -105,11 +105,11 @@ int TMPL_QAbstractListModel::rowCount(const QModelIndex &) const
 QVariant TMPL_QAbstractListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
-        return QVariant();
+        return {};
     }
 
     if (index.row() >= m_list.count() || index.row() < 0) {
-        return QVariant();
+        return {};
     }
 
     const auto &item = m_list.at(index.row());
@@ -119,5 +119,5 @@ QVariant TMPL_QAbstractListModel::data(const QModelIndex &index, int role) const
         // More roles handled here
     }
 
-    return QVariant();
+    return {};
 }

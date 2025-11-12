@@ -391,7 +391,7 @@ QString KateCTagsView::currentWord()
     KTextEditor::View *kv = m_mWin->activeView();
     if (!kv) {
         qCDebug(KTECTAGS, "no KTextEditor::View");
-        return QString();
+        return {};
     }
 
     if (kv->selection() && kv->selectionRange().onSingleLine()) {
@@ -400,7 +400,7 @@ QString KateCTagsView::currentWord()
 
     if (!kv->cursorPosition().isValid()) {
         qCDebug(KTECTAGS, "cursor not valid!");
-        return QString();
+        return {};
     }
 
     int line = kv->cursorPosition().line();
@@ -422,7 +422,7 @@ QString KateCTagsView::currentWord()
     }
     if (startPos == endPos) {
         qCDebug(KTECTAGS, "no word found!");
-        return QString();
+        return {};
     }
 
     linestr = linestr.mid(startPos + 1, endPos - startPos - 1);

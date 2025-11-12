@@ -45,7 +45,7 @@ QVariant GotoSymbolModel::data(const QModelIndex &index, int role) const
         return row.line;
     }
 
-    return QVariant();
+    return {};
 }
 
 void GotoSymbolModel::refresh(const QString &filePath)

@@ -205,7 +205,7 @@ public:
 
     QString stdinMessages() override
     {
-        return QString();
+        return {};
     }
 
     bool isSuccessfulExitCode(int exitCode) const override

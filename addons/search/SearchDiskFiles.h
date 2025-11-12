@@ -95,7 +95,7 @@ public:
     {
         QMutexLocker lock(&m_mutex);
         if (m_filesToSearchIndex >= m_filesToSearch.size()) {
-            return QString();
+            return {};
         }
 
         // else return file, shall not be empty and advance one file

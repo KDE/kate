@@ -30,7 +30,7 @@ KateProjectIndex::KateProjectIndex(const QString &baseDir, const QString &indexD
         if (!QDir::isAbsolutePath(path)) {
             path = QDir(baseDir).absoluteFilePath(path);
         }
-        m_ctagsIndexFile.reset(new QFile(path));
+        m_ctagsIndexFile = std::make_unique<QFile>(path);
     } else {
         if (baseDir == QDir::homePath() || baseDir == QDir::rootPath()) {
             // avoid dumb stuff, dont index the full home/root dir

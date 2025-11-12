@@ -678,7 +678,7 @@ bool KateViewSpace::acceptsDroppedTab(const QMimeData *md)
 void KateViewSpace::dragEnterEvent(QDragEnterEvent *e)
 {
     if (acceptsDroppedTab(e->mimeData())) {
-        m_dropIndicator.reset(new QRubberBand(QRubberBand::Rectangle, this));
+        m_dropIndicator = std::make_unique<QRubberBand>(QRubberBand::Rectangle, this);
         m_dropIndicator->setGeometry(rect());
         m_dropIndicator->show();
         e->acceptProposedAction();

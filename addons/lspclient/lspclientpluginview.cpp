@@ -1242,7 +1242,7 @@ public:
                     auto url = child->data(RangeData::FileUrlRole).toUrl();
                     doc = findDocument(m_mainWindow, url);
                     if (!doc) {
-                        fr.reset(new FileLineReader(url));
+                        fr = std::make_unique<FileLineReader>(url);
                     }
                 }
                 auto lineno = child->data(RangeData::RangeRole).value<LSPRange>().start().line();

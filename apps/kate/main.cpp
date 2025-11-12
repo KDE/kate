@@ -506,7 +506,7 @@ int main(int argc, char **argv)
      */
     std::unique_ptr<SingleApplication> singleApplicationInstance;
     if (dbusNotThere) {
-        singleApplicationInstance.reset(new SingleApplication(argc, argv, true));
+        singleApplicationInstance = std::make_unique<SingleApplication>(argc, argv, true);
         if (!force_new && singleApplicationInstance->isSecondary()) {
 #if defined(Q_OS_WIN)
             // allow primary instance to raise its window

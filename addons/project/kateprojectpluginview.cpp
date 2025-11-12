@@ -926,7 +926,7 @@ void KateProjectPluginView::slotActivateProject(KateProject *project)
 void KateProjectPluginView::updateGitBranchButton(KateProject *project)
 {
     if (!m_branchBtn) {
-        m_branchBtn.reset(new CurrentGitBranchButton(mainWindow(), this, nullptr));
+        m_branchBtn = std::make_unique<CurrentGitBranchButton>(mainWindow(), this, nullptr);
         auto a = actionCollection()->action(QStringLiteral("checkout_branch"));
         Q_ASSERT(a);
         m_branchBtn->setDefaultAction(a);

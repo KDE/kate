@@ -384,7 +384,7 @@ public:
         connect(m_symbols, &QTreeView::clicked, this, &self_type::goToSymbol);
 
         // context menu
-        m_popup.reset(new QMenu(m_symbols));
+        m_popup = std::make_unique<QMenu>(m_symbols);
         m_treeOn = m_popup->addAction(i18n("Tree Mode"), this, &self_type::displayOptionChanged);
         m_treeOn->setCheckable(true);
         m_expandOn = m_popup->addAction(i18n("Automatically Expand Tree"), this, &self_type::displayOptionChanged);

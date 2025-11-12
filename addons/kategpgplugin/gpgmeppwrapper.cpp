@@ -172,12 +172,12 @@ const GPGOperationResult GPGMeWrapper::decryptString(const QString &inputString_
     return result;
 }
 
-const GPGOperationResult GPGMeWrapper::encryptString(const QString &inputString_,
-                                                     const QString &fingerprint_,
-                                                     const QString &recipientMail_,
-                                                     const bool useASCII,
-                                                     bool symmetricEncryption_,
-                                                     bool showOnlyPrivateKeys_)
+GPGOperationResult GPGMeWrapper::encryptString(const QString &inputString_,
+                                               const QString &fingerprint_,
+                                               const QString &recipientMail_,
+                                               const bool useASCII,
+                                               bool symmetricEncryption_,
+                                               bool showOnlyPrivateKeys_)
 {
     GPGOperationResult result;
 

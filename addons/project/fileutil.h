@@ -20,7 +20,7 @@ public:
      *
      * TODO: Extend QUrl with this method and submit patch to QT
      */
-    static const QString commonParent(const QString &path1, const QString &path2);
+    static QString commonParent(const QString &path1, const QString &path2);
 };
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

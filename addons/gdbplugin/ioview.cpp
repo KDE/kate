@@ -218,15 +218,15 @@ QString IOView::createFifo(const QString &prefix)
 #endif
 }
 
-const QString IOView::stdinFifo()
+const QString &IOView::stdinFifo()
 {
     return m_stdinFifo;
 }
-const QString IOView::stdoutFifo()
+const QString &IOView::stdoutFifo()
 {
     return m_stdoutFifo;
 }
-const QString IOView::stderrFifo()
+const QString &IOView::stderrFifo()
 {
     return m_stderrFifo;
 }

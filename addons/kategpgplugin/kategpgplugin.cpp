@@ -187,7 +187,7 @@ void KateGPGPluginView::onHideExpiredKeysChanged()
     updateKeyTable();
 }
 
-const QVariantMap KateGPGPluginView::generateMessage(const QString translatebleMessage, const QString messageType)
+QVariantMap KateGPGPluginView::generateMessage(const QString translatebleMessage, const QString messageType)
 {
     QVariantMap message;
     message[QStringLiteral("text")] = translatebleMessage;

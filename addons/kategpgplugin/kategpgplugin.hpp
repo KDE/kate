@@ -108,5 +108,5 @@ private:
     void onDocumentOpened(KTextEditor::Document *doc);
 
     // Function to generate translatable Kate-conform error/warning messages
-    const QVariantMap generateMessage(const QString translatebleMessage, const QString messageType);
+    QVariantMap generateMessage(const QString translatebleMessage, const QString messageType);
 };

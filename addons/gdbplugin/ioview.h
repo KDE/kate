@@ -24,9 +24,9 @@ public:
     explicit IOView(QWidget *parent = nullptr);
     ~IOView() override;
 
-    const QString stdinFifo();
-    const QString stdoutFifo();
-    const QString stderrFifo();
+    const QString &stdinFifo();
+    const QString &stdoutFifo();
+    const QString &stderrFifo();
 
     void enableInput(bool enable);
 

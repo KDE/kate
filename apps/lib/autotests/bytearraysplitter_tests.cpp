@@ -18,8 +18,8 @@ void ByteArraySplitterTests::test_data()
     QTest::addColumn<char>("splitOn");
 
     QTest::addRow("1") << QByteArray("hello\0world\0foo", sizeof("hello\0world\0foo") - 1) << char('\0');
-    QTest::addRow("2") << QByteArray("hello\nworld\nfoo") << char('\n');
-    QTest::addRow("3") << QByteArray("abc\ndef\nhij") << char('z');
+    QTest::addRow("2") << QByteArray("hello\nworld\nfoo") << '\n';
+    QTest::addRow("3") << QByteArray("abc\ndef\nhij") << 'z';
 }
 
 void ByteArraySplitterTests::test()

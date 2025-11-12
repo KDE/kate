@@ -702,7 +702,7 @@ void KateProject::unregisterDocument(KTextEditor::Document *document)
     // ignore further updates but clear state once
     disconnect(document, &KTextEditor::Document::modifiedChanged, this, &KateProject::slotModifiedChanged);
     const QString &file = m_documents.value(document);
-    auto *item = static_cast<KateProjectItem *>(itemForFile(file));
+    auto *item = itemForFile(file);
     if (item) {
         item->slotModifiedChanged(nullptr);
     }

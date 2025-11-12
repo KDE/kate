@@ -101,7 +101,7 @@ int AbstractDataModel::columnCount(const QModelIndex &parent) const
     }
     const TreeNode *pNode = static_cast<TreeNode *>(parent.internalPointer());
     if (pNode) {
-        return (int)pNode->m_data->columns();
+        return pNode->m_data->columns();
     }
     return 1;
 }

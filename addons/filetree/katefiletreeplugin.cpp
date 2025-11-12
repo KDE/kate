@@ -454,7 +454,7 @@ void KateFileTreePluginView::writeSessionConfig(KConfigGroup &g)
 {
     if (m_hasLocalPrefs) {
         g.writeEntry("listMode", QVariant(m_documentModel->listMode()));
-        g.writeEntry("sortRole", int(m_proxyModel->sortRole()));
+        g.writeEntry<int>("sortRole", m_proxyModel->sortRole());
     } else {
         g.deleteEntry("listMode");
         g.deleteEntry("sortRole");

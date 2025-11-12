@@ -1268,7 +1268,7 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
         return;
     }
 
-    auto diagTopItem = static_cast<DocumentDiagnosticItem *>(topItem);
+    auto diagTopItem = topItem;
     auto enabled = diagTopItem->enabled;
     auto suppressions = enabled ? diagTopItem->diagnosticSuppression.get() : nullptr;
     auto url = topItem->data(Qt::UserRole).toUrl();

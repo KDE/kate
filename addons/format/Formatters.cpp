@@ -42,15 +42,11 @@ static QString filenameFromMode(KTextEditor::Document *doc)
     };
 
     QString path = doc->url().toLocalFile();
-    bool needsStdinFileName;
-    if (path.isEmpty()) {
-        needsStdinFileName = true;
-    }
     QFileInfo fi(path);
     const auto suffix = fi.suffix();
     const auto base = fi.baseName();
     // If the basename or suffix is missing, try to create a filename
-    needsStdinFileName = fi.suffix().isEmpty() || fi.baseName().isEmpty();
+    bool needsStdinFileName = fi.suffix().isEmpty() || fi.baseName().isEmpty();
 
     if (!needsStdinFileName) {
         return path;

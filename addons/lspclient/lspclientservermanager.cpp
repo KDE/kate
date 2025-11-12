@@ -319,8 +319,7 @@ public:
         }
 
         // stage 2 and 3
-        count = 0;
-        for (count = 0; count < 2; ++count) {
+        for (int count = 0; count < 2; ++count) {
             bool wait = false;
             for (const auto &el : std::as_const(m_servers)) {
                 for (const auto &si : el) {

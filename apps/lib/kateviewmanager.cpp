@@ -1850,7 +1850,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
         return;
     }
 
-    int move = 4 * repeats;
+    int move = 0;
     // try to use font height in pixel to move splitter
     {
         KTextEditor::Attribute::Ptr attrib(vs->currentView()->defaultStyleAttribute(KSyntaxHighlighting::Theme::TextStyle::Normal));

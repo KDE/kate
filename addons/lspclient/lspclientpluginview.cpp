@@ -1196,7 +1196,7 @@ public:
     struct RangeItem {
         QUrl uri;
         LSPRange range;
-        LSPDocumentHighlightKind kind;
+        LSPDocumentHighlightKind kind = LSPDocumentHighlightKind::Text;
 
         bool isValid() const
         {

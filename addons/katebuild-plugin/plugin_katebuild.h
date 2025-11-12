@@ -242,7 +242,7 @@ private:
     QSet<QString> m_saveProjectTargetDirs;
 
     QList<QTextCursor> m_searchFound;
-    qsizetype m_currentFound;
+    qsizetype m_currentFound = 0;
 
     /**
      * current project plugin view, if any

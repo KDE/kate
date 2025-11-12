@@ -111,7 +111,7 @@ Q_SIGNALS:
 
 private:
     friend class DiagnosticsView;
-    class DiagnosticsView *diagnosticView;
+    class DiagnosticsView *diagnosticView = nullptr;
     bool m_persistentDiagnostics = false;
 };
 
@@ -231,7 +231,7 @@ private:
     class QToolButton *const m_warnFilterBtn;
     class KMessageWidget *const m_diagLimitReachedWarning;
 
-    class ProviderListModel *m_providerModel;
+    class ProviderListModel *m_providerModel = nullptr;
 
     QStandardItemModel m_model;
     QSortFilterProxyModel *const m_proxy;

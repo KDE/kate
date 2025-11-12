@@ -30,9 +30,6 @@ using Utils::formatUrl;
 
 DapBackend::DapBackend(QObject *parent)
     : BackendInterface(parent)
-    , m_client(nullptr)
-    , m_state(State::None)
-    , m_requests(0)
 {
     m_requestThreadsTimer.setInterval(100);
     m_requestThreadsTimer.setSingleShot(true);

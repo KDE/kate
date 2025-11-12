@@ -44,7 +44,7 @@ private:
     bool copyResult = false;
     bool mergeOutput = false;
     bool newDocument = false;
-    KTextEditor::MainWindow *m_mainWindow;
+    KTextEditor::MainWindow *m_mainWindow = nullptr;
 public Q_SLOTS:
     void slotEditFilter();
     void slotFilterReceivedStdout();

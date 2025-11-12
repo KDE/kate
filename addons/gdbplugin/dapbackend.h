@@ -157,8 +157,8 @@ private:
     std::optional<dap::settings::ClientSettings> m_settings;
     Utils::PathMappingPtr m_pathMap;
 
-    State m_state;
-    Task m_task;
+    State m_state = State::None;
+    Task m_task = Task::Idle;
 
     QString m_file;
     QString m_workDir;
@@ -180,7 +180,7 @@ private:
     };
     std::optional<Cursor> m_runToCursor;
 
-    int m_requests;
+    int m_requests = 0;
 
     QStringList m_commandQueue;
 

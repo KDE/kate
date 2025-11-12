@@ -45,5 +45,5 @@ private:
      * the main window we belong to
      */
     KTextEditor::MainWindow *m_mainWindow;
-    class CEWidget *m_mainWidget;
+    class CEWidget *m_mainWidget = nullptr;
 };

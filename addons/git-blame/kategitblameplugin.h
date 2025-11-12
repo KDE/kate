@@ -51,7 +51,7 @@ public:
 private:
     KateGitBlamePluginView *m_pluginView;
     QLocale m_locale;
-    KateGitBlameMode m_mode;
+    KateGitBlameMode m_mode = KateGitBlameMode::None;
 };
 
 class KateGitBlamePlugin : public KTextEditor::Plugin
@@ -113,11 +113,11 @@ private:
     int m_lineOffset{0};
     GitBlameTooltip m_tooltip;
     QString m_showHash;
-    class CommitDiffTreeView *m_commitFilesView;
+    class CommitDiffTreeView *m_commitFilesView = nullptr;
     QPointer<KTextEditor::View> m_diffView;
     QTimer m_startBlameTimer;
     QString m_parentPath;
-    Command m_currentCommand;
+    Command m_currentCommand{};
     QString m_root;
     QString m_ignoreRevsFile;
     QString m_absoluteFilePath;

@@ -197,7 +197,7 @@ private:
     /*
      * server capabilities
      */
-    Capabilities m_adapterCapabilities;
+    Capabilities m_adapterCapabilities{};
 
     Bus *m_bus = nullptr;
     bool m_managedBus;

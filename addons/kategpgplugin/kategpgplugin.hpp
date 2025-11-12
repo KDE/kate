@@ -66,7 +66,7 @@ private:
     const QString m_pluginConfigGroupName = QStringLiteral("gpgplugin");
     GPGMeWrapper *m_gpgWrapper = nullptr;
 
-    int m_selectedRowIndex;
+    int m_selectedRowIndex = 0;
 
     QPushButton *m_gpgDecryptButton = nullptr;
     QPushButton *m_gpgEncryptButton = nullptr;

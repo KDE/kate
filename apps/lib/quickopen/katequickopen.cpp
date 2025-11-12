@@ -265,7 +265,7 @@ public Q_SLOTS:
 
 private:
     QString m_filterString;
-    FilterMode m_filterMode;
+    FilterMode m_filterMode = FilterMode::Fuzzy;
 };
 
 KateQuickOpen::KateQuickOpen(KateMainWindow *mainWindow)

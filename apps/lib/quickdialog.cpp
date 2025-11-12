@@ -77,7 +77,7 @@ public:
     }
 
 private:
-    HUDDialog::FilterType m_filterType;
+    HUDDialog::FilterType m_filterType = HUDDialog::Fuzzy;
     QString m_pattern;
     int m_scoreRole = -1;
 };

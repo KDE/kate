@@ -146,7 +146,7 @@ private:
     QCheckBox *m_redirectTerminal;
     QBoxLayout *m_checBoxLayout;
 
-    bool m_useBottomLayout;
+    bool m_useBottomLayout = false;
     QLabel *m_execLabel;
     QLabel *m_workDirLabel;
     QLabel *m_argumentsLabel;

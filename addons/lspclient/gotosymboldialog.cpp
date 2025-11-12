@@ -25,7 +25,7 @@ static constexpr int SymbolInfoRole = Qt::UserRole + 1;
 struct GotoSymbolItem {
     QUrl fileUrl;
     KTextEditor::Cursor pos;
-    LSPSymbolKind kind;
+    LSPSymbolKind kind = LSPSymbolKind::File;
 };
 Q_DECLARE_METATYPE(GotoSymbolItem)
 Q_DECLARE_TYPEINFO(GotoSymbolItem, Q_MOVABLE_TYPE);

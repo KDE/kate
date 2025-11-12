@@ -704,12 +704,8 @@ static ChangePair inlineDiff(QStringView l, QStringView r)
     int lEnd = l.size() - std::distance(l.rbegin(), eitl);
     int rEnd = r.size() - std::distance(r.rbegin(), eitr);
 
-    Change cl;
-    cl.pos = lStart;
-    cl.len = lEnd - lStart;
-    Change cr;
-    cr.pos = rStart;
-    cr.len = rEnd - rStart;
+    Change cl{.pos = lStart, .len = lEnd - lStart};
+    Change cr{.pos = rStart, .len = rEnd - rStart};
     return {.left = cl, .right = cr};
 }
 

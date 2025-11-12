@@ -33,7 +33,7 @@ private:
 
     // for convenience reasons we want to know the currently selected key from the
     // UI
-    uint m_selectedKeyIndex;
+    uint m_selectedKeyIndex = 0;
 
     /**
      * @brief Gets all available GPG keys containing mail addresses

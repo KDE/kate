@@ -53,8 +53,8 @@ private:
 
     QRegularExpression m_colorRegex;
     QList<int> m_matchHexLengths;
-    bool m_putPreviewAfterColor;
-    bool m_matchNamedColors;
+    bool m_putPreviewAfterColor = false;
+    bool m_matchNamedColors = false;
 };
 
 class KateColorPickerPlugin : public KTextEditor::Plugin
@@ -75,6 +75,6 @@ private:
     }
     KTextEditor::ConfigPage *configPage(int number = 0, QWidget *parent = nullptr) override;
 
-    KTextEditor::MainWindow *m_mainWindow;
+    KTextEditor::MainWindow *m_mainWindow = nullptr;
     std::unordered_map<KTextEditor::Document *, std::unique_ptr<ColorPickerInlineNoteProvider>> m_inlineColorNoteProviders;
 };

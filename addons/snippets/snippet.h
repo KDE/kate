@@ -109,7 +109,7 @@ private:
     /// optional description
     QString m_description;
     /// the type of this snippet
-    SnippetType m_type;
+    SnippetType m_type = TextTemplate;
     /// the insertion action for this snippet.
     QAction *m_action = nullptr;
 };

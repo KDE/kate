@@ -192,7 +192,7 @@ struct Breakpoint {
      * If true breakpoint could be set (but not necessarily at the desired
      * location).
      */
-    bool verified;
+    bool verified = false;
     /**
      * An optional message about the state of the breakpoint.
      * This is shown to the user and can be used to explain why a breakpoint could
@@ -226,7 +226,14 @@ class Output
 {
     Q_GADGET
 public:
-    enum class Category { Console, Important, Stdout, Stderr, Telemetry, Unknown };
+    enum class Category {
+        Console,
+        Important,
+        Stdout,
+        Stderr,
+        Telemetry,
+        Unknown
+    };
 
     Q_ENUM(Category)
 
@@ -421,7 +428,11 @@ struct Scope {
 };
 
 struct Variable {
-    enum Type { Indexed = 1, Named = 2, Both = 3 };
+    enum Type {
+        Indexed = 1,
+        Named = 2,
+        Both = 3
+    };
 
     QString name;
     QString value;

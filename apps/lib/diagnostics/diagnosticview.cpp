@@ -823,10 +823,11 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
             return;
         }
         auto item = static_cast<DiagnosticItem *>(itemFromIndex);
-        DiagModelIndex idx;
-        idx.row = item->row();
-        idx.parentRow = item->parent() ? item->parent()->row() : -1;
-        idx.autoApply = quickFix;
+        DiagModelIndex idx{
+            .row = item->row(),
+            .parentRow = item->parent() ? item->parent()->row() : -1,
+            .autoApply = quickFix,
+        };
         QVariant data = QVariant::fromValue(idx);
         Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, data);
     }

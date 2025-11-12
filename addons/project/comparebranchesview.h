@@ -35,5 +35,5 @@ private:
     QString m_gitDir;
     QString m_fromBr;
     QString m_toBr;
-    KateProjectPluginView *m_pluginView;
+    KateProjectPluginView *m_pluginView = nullptr;
 };

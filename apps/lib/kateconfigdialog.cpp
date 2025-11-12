@@ -566,11 +566,12 @@ void KateConfigDialog::addPluginPage(KTextEditor::Plugin *plugin)
         item->setHeader(cp->fullName());
         item->setIcon(cp->icon());
 
-        PluginPageListItem info;
-        info.plugin = plugin;
-        info.pluginPage = cp;
-        info.idInPlugin = i;
-        info.pageWidgetItem = item;
+        PluginPageListItem info{
+            .plugin = plugin,
+            .idInPlugin = i,
+            .pluginPage = cp,
+            .pageWidgetItem = item,
+        };
         connect(info.pluginPage, &KTextEditor::ConfigPage::changed, this, &KateConfigDialog::slotChanged);
         m_pluginPages.insert(item, info);
         m_allPages.insert(item);

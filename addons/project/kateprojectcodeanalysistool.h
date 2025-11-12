@@ -33,7 +33,7 @@ public:
      */
     KateProject *m_project = nullptr;
 
-    KTextEditor::MainWindow *m_mainWindow;
+    KTextEditor::MainWindow *m_mainWindow = nullptr;
 
     ~KateProjectCodeAnalysisTool() override;
 

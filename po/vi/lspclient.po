@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-01-08 08:44+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -59,12 +59,12 @@ msgstr "Xoá các mục được chọn"
 msgid "Delete all entries"
 msgstr "Xoá tất cả các mục"
 
-#: lspclientplugin.cpp:235
+#: lspclientplugin.cpp:233
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Đã yêu cầu khởi động trình chủ LSP"
 
-#: lspclientplugin.cpp:238
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -75,7 +75,7 @@ msgstr ""
 "%1</b><br><br>Bạn có thể thay đổi lựa chọn này ở trang cấu hình của phần cài "
 "cắm."
 
-#: lspclientplugin.cpp:251
+#: lspclientplugin.cpp:249
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -278,7 +278,7 @@ msgid "Line: %1: "
 msgstr "Dòng: %1: "
 
 #: lspclientpluginview.cpp:1470 lspclientpluginview.cpp:1819
-#: lspclientpluginview.cpp:1938
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "No results"
 msgstr "Không có kết quả"
@@ -358,50 +358,50 @@ msgstr "Không đủ kết quả"
 msgid "Corresponding Header/Source not found"
 msgstr "Không tìm thấy đầu tải / nguồn tương ứng"
 
-#: lspclientpluginview.cpp:2091 lspclientpluginview.cpp:2134
+#: lspclientpluginview.cpp:2092 lspclientpluginview.cpp:2135
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Trình chủ LSP"
 
-#: lspclientpluginview.cpp:2157
+#: lspclientpluginview.cpp:2158
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Trình khách LSP"
 
-#: lspclientpluginview.cpp:2407
+#: lspclientpluginview.cpp:2408
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"
 msgstr "Khởi động lại trình chủ LSP"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "Restarting"
 msgstr "Đang khởi động lại"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "NOT Restarting"
 msgstr "KHÔNG khởi động lại"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Trình chủ bất ngờ kết thúc... %1 [%2] [trang nhà: %3]"
 
-#: lspclientservermanager.cpp:876
+#: lspclientservermanager.cpp:875
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Không tìm được tệp thực thi trình chủ: %1"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Vui lòng tìm xem chương trình đó có trong biến PATH không"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Xem thêm cách cài đặt và các chi tiết ở %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-04-22 00:01+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -60,7 +60,7 @@ msgstr "XML 메타 DTD 불러오는 중"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "파일 '%1'을(를) 불러올 수 없습니다. 서버에서 오류를 반환했습니다."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML 플러그인 오류"
@@ -99,7 +99,7 @@ msgstr ""
 "XML 태그 이름과 속성을 입력하십시오. \"<\", \">\", 닫는 태그는 자동으로 입력"
 "됩니다:"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -107,7 +107,7 @@ msgid ""
 msgstr ""
 "파일 '%1'을(를) 해석할 수 없습니다. 형식이 올바른 XML인지 확인하십시오."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -122,12 +122,12 @@ msgstr ""
 "dtdparse를 사용하여 이러한 파일을 만들 수 있습니다. Kate 플러그인 문서를 참고"
 "하십시오."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "메타 DTD 분석 중..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "취소"

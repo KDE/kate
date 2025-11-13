@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-10-14 17:22+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -27,22 +27,22 @@ msgstr "Numero de rango"
 msgid "File Path"
 msgstr "Percurso de file"
 
-#: bookmarksplugin.cpp:142
+#: bookmarksplugin.cpp:143
 #, kde-format
 msgid "Bookmarks"
 msgstr "Marcatores de libro"
 
-#: bookmarksplugin.cpp:168
+#: bookmarksplugin.cpp:169
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Va al previe marcator de libro"
 
-#: bookmarksplugin.cpp:174
+#: bookmarksplugin.cpp:175
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Va al proxime marcator de libro"
 
-#: bookmarksplugin.cpp:180
+#: bookmarksplugin.cpp:181
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Remove iste marcator de libro"

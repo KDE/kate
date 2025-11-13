@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-12-10 00:27+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "'%1'을(를) 불러올 수 없음: 잘못된 매크로입니다. 삭제�
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
+#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "키보드 매크로"
@@ -224,42 +224,42 @@ msgstr "저장된 매크로를 삭제합니다."
 msgid "End Macro &Recording"
 msgstr "매크로 기록 종료(&R)"
 
-#: keyboardmacrospluginview.cpp:181
+#: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
 msgstr "%1 불러오기"
 
-#: keyboardmacrospluginview.cpp:182
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "'%1' 매크로를 현재 매크로로 불러 옵니다."
 
-#: keyboardmacrospluginview.cpp:194
+#: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
 msgstr "%1 재생"
 
-#: keyboardmacrospluginview.cpp:195
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "'%1' 매크로를 불러오지 않고 재생만 합니다."
 
-#: keyboardmacrospluginview.cpp:209
+#: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
 msgstr "%1 삭제"
 
-#: keyboardmacrospluginview.cpp:210
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "'%1' 매크로를 삭제합니다."
 
-#: keyboardmacrospluginview.cpp:291
+#: keyboardmacrospluginview.cpp:290
 #, kde-format
 msgid "Save current macro as?"
 msgstr "현재 매크로 다른 이름으로 저장?"
 
-#: keyboardmacrospluginview.cpp:325
+#: keyboardmacrospluginview.cpp:324
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "'%1' 매크로를 삭제하시겠습니까?"

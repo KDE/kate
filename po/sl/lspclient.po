@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-07-15 06:35+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -61,12 +61,12 @@ msgstr "Zbriši izbrane postavke"
 msgid "Delete all entries"
 msgstr "Zbriši vse postavke"
 
-#: lspclientplugin.cpp:235
+#: lspclientplugin.cpp:233
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Zahtevan zagon strežnika LSP"
 
-#: lspclientplugin.cpp:238
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -76,7 +76,7 @@ msgstr ""
 "Ali želite zagnati strežnik LSP?<br><br>Celoten ukaz je:<br><br><b>%1</"
 "b><br><br>Izbira je lahko spremenjena na konfiguracijski strani vtičnika."
 
-#: lspclientplugin.cpp:251
+#: lspclientplugin.cpp:249
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -278,7 +278,7 @@ msgid "Line: %1: "
 msgstr "Vrsta: %1: "
 
 #: lspclientpluginview.cpp:1470 lspclientpluginview.cpp:1819
-#: lspclientpluginview.cpp:1938
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "No results"
 msgstr "Ni rezultatov"
@@ -357,49 +357,49 @@ msgstr "Ni dovolj rezultatov"
 msgid "Corresponding Header/Source not found"
 msgstr "Ustrezne glave/vira ni mogoče najti"
 
-#: lspclientpluginview.cpp:2091 lspclientpluginview.cpp:2134
+#: lspclientpluginview.cpp:2092 lspclientpluginview.cpp:2135
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Strešnik LSP"
 
-#: lspclientpluginview.cpp:2157
+#: lspclientpluginview.cpp:2158
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Odjemalec LSP"
 
-#: lspclientpluginview.cpp:2407
+#: lspclientpluginview.cpp:2408
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Vprašanje iz strežnika LSP"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "Restarting"
 msgstr "Ponovno zaganjam"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "NOT Restarting"
 msgstr "NE zaganjam"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Strežnik je je nepričakovano ustavil ... %1 [%2] [domača stran: %3] "
 
-#: lspclientservermanager.cpp:876
+#: lspclientservermanager.cpp:875
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Binarne datoteke strežnika ni bilo mogoče najti: %1"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Preverite vašo pot za binarne datoteke"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Poglej tudi %1 za namestitev ali podrobnosti"

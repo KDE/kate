@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-02-27 21:46+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr "Se încarcă Meta DTD-ul pentru XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Fișierul „%1” nu a putut fi deschis. Serverul a returnat o eroare."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Eroare modul XML"
@@ -105,7 +105,7 @@ msgstr ""
 "Introduceți numele etichetei XML și atributele (vor fi furnizate „<”, „>” și "
 "eticheta de închidere):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -114,7 +114,7 @@ msgstr ""
 "Fișierul „%1” nu a putut fi analizat. Vă rugăm să verificați dacă fișierul "
 "este un XML bine-format."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -129,12 +129,12 @@ msgstr ""
 "Puteți produce astfel de fișiere cu dtdparse. Vedeți documentația modului "
 "Kate pentru mai multe detalii."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analizez meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Renunță"

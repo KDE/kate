@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-22 16:53+0200\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -190,12 +190,12 @@ msgstr "Vždy triediť symboly"
 msgid "Parser Options"
 msgstr "Možnosti parsera"
 
-#: plugin_katesymbolviewer.cpp:508
+#: plugin_katesymbolviewer.cpp:506
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Prehliadač symbolov"
 
-#: plugin_katesymbolviewer.cpp:513
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Konfiguračná strana prehliadača symbolov"

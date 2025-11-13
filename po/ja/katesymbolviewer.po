@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2008-12-16 22:41+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -198,12 +198,12 @@ msgstr ""
 msgid "Parser Options"
 msgstr "パーサのオプション"
 
-#: plugin_katesymbolviewer.cpp:508
+#: plugin_katesymbolviewer.cpp:506
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "シンボルビューア"
 
-#: plugin_katesymbolviewer.cpp:513
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "シンボルビューアの設定"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -189,12 +189,12 @@ msgstr "Selalu urutkan simbol"
 msgid "Parser Options"
 msgstr "Opsi Parser"
 
-#: plugin_katesymbolviewer.cpp:508
+#: plugin_katesymbolviewer.cpp:506
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Penampil Simbol"
 
-#: plugin_katesymbolviewer.cpp:513
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Halaman Konfigurasi Penampil Simbol"

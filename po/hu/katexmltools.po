@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-01-12 21:56+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -63,7 +63,7 @@ msgstr "XML meta-DTD betöltése"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "A(z) „%1” fájl megnyitása nem sikerült. A kiszolgáló hibát jelzett."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Hiba az XML bővítőmodulban"
@@ -102,7 +102,7 @@ msgstr ""
 "Adja meg az XML-tag nevét és attribútumait. A „<” és „>” jelet illetve a "
 "bezáró címkét automatikusan hozzáadja a program:"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -111,7 +111,7 @@ msgstr ""
 "A(z) „%1” fájl feldolgozása nem sikerült. Ellenőrizze, hogy a fájl "
 "szabványos struktúrájú („well-formed”) XML fájl-e."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -126,12 +126,12 @@ msgstr ""
 "Ilyen fájlokat a dtdparse-szal lehet létrehozni. További részletek a Kate "
 "bővítőmodul dokumentációjában találhatók."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "A meta-DTD feldolgozása folyik…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Mégsem"

@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-03-09 23:33+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -73,7 +73,7 @@ msgstr "טעינת Meta DTD של XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "אי אפשר לפתוח את הקובץ „%1”. השרת החזיר שגיאה."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "שגיאה בתוסף ה־XML"
@@ -112,14 +112,14 @@ msgstr ""
 "נא למלא את שם תגית ה־XML ואת מאפייניה (התוסף ידאג לתווים „<”, „>” ולתגית "
 "הסוגרת)."
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "אי אפשר לפענח את הקובץ „%1”. נא לוודא שהקובץ מכיל XML בתבנית נכונה."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -133,12 +133,12 @@ msgstr ""
 "אפשר לייצר קבצים כאלה עם dtdparse. יש לעיין בתיעוד התוספים של Kate לקבלת "
 "מידע נוסף."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "‏Meta DTD מאובחן…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "ביטול"

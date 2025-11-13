@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-09 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-10-09 00:28+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr "마지막 커밋"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:107
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
 #, kde-format
 msgid "Delete"
 msgstr "삭제"
@@ -83,7 +83,7 @@ msgstr[0] "선택한 브랜치를 삭제하시겠습니까?"
 msgid "Select Branch..."
 msgstr "브랜치 선택..."
 
-#: branchesdialog.cpp:109 gitwidget.cpp:570 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:109 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"
@@ -121,59 +121,59 @@ msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
 msgstr "활성 브랜치: %1"
 
-#: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
+#: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
 msgstr "변경 사항 커밋"
 
-#: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:285
-#: gitwidget.cpp:1109
+#: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:286
+#: gitwidget.cpp:1110
 #, kde-format
 msgid "Commit"
 msgstr "커밋"
 
-#: gitcommitdialog.cpp:74
+#: gitcommitdialog.cpp:75
 #, kde-format
 msgid "Cancel"
 msgstr "취소"
 
-#: gitcommitdialog.cpp:76
+#: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
 msgstr "커밋 메시지 쓰기..."
 
-#: gitcommitdialog.cpp:83
+#: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
 msgstr "확장된 커밋 설명..."
 
-#: gitcommitdialog.cpp:107
+#: gitcommitdialog.cpp:108
 #, kde-format
 msgid "Sign off"
 msgstr "Sign off"
 
-#: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
+#: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
 msgid "Amend"
 msgstr "덧붙이기"
 
-#: gitcommitdialog.cpp:112 gitwidget.cpp:1062
+#: gitcommitdialog.cpp:113 gitwidget.cpp:1063
 #, kde-format
 msgid "Amend Last Commit"
 msgstr "마지막 커밋에 덧붙이기"
 
-#: gitcommitdialog.cpp:123
+#: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
 msgstr "커밋에 덧붙이는 중"
 
-#: gitcommitdialog.cpp:206
+#: gitcommitdialog.cpp:207
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
 msgstr "%1 / 52"
 
-#: gitcommitdialog.cpp:210
+#: gitcommitdialog.cpp:211
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
@@ -199,347 +199,347 @@ msgstr "충돌"
 msgid "Modified"
 msgstr "수정됨"
 
-#: gitwidget.cpp:293
+#: gitwidget.cpp:294
 #, kde-format
 msgid "Git Push"
 msgstr "Git 푸시"
 
-#: gitwidget.cpp:306
+#: gitwidget.cpp:307
 #, kde-format
 msgid "Git Pull"
 msgstr "Git 풀"
 
-#: gitwidget.cpp:319
+#: gitwidget.cpp:320
 #, kde-format
 msgid "Cancel Operation"
 msgstr "작업 취소"
 
-#: gitwidget.cpp:327
+#: gitwidget.cpp:328
 #, kde-format
 msgid " canceled."
 msgstr " 취소됨."
 
-#: gitwidget.cpp:335
+#: gitwidget.cpp:336
 #, kde-format
 msgid "Refresh git status"
 msgstr "Git 상태 새로 고침"
 
-#: gitwidget.cpp:357 kateprojectview.cpp:61
+#: gitwidget.cpp:358 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
 msgstr "필터…"
 
-#: gitwidget.cpp:447
+#: gitwidget.cpp:448
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
 "'%1'의 .git 디렉터리를 찾을 수 없습니다. 올바르게 작동하지 않을 수도 있습니다"
 
-#: gitwidget.cpp:659
+#: gitwidget.cpp:660
 #, kde-format
 msgid " error: %1"
 msgstr " 오류: %1"
 
-#: gitwidget.cpp:665
+#: gitwidget.cpp:666
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
 msgstr "\"%1\"이(가) 성공적으로 실행됨: %2"
 
-#: gitwidget.cpp:685
+#: gitwidget.cpp:686
 #, kde-format
 msgid "Failed to stage file. Error:"
 msgstr "파일을 스테이지할 수 없습니다. 오류:"
 
-#: gitwidget.cpp:698
+#: gitwidget.cpp:699
 #, kde-format
 msgid "Failed to unstage file. Error:"
 msgstr "파일을 스테이지 해제할 수 없습니다. 오류:"
 
-#: gitwidget.cpp:709
+#: gitwidget.cpp:710
 #, kde-format
 msgid "Failed to discard changes. Error:"
 msgstr "변경 사항을 취소할 수 없습니다. 오류:"
 
-#: gitwidget.cpp:720
+#: gitwidget.cpp:721
 #, kde-format
 msgid "Failed to remove. Error:"
 msgstr "삭제할 수 없습니다. 오류:"
 
-#: gitwidget.cpp:736
+#: gitwidget.cpp:737
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
 msgstr "HEAD 기준 파일을 열 수 없습니다. 오류: %1"
 
-#: gitwidget.cpp:770
+#: gitwidget.cpp:771
 #, kde-format
 msgid "Failed to get Diff of file: %1"
 msgstr "파일의 Diff를 가져올 수 없음: %1"
 
-#: gitwidget.cpp:839
+#: gitwidget.cpp:840
 #, kde-format
 msgid "Failed to commit: %1"
 msgstr "커밋할 수 없음: %1"
 
-#: gitwidget.cpp:843
+#: gitwidget.cpp:844
 #, kde-format
 msgid "Changes committed successfully."
 msgstr "변경 사항을 커밋했습니다."
 
-#: gitwidget.cpp:853
+#: gitwidget.cpp:854
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
 msgstr "커밋할 것이 없습니다. 변경 사항을 먼저 스테이지하십시오."
 
-#: gitwidget.cpp:867
+#: gitwidget.cpp:868
 #, kde-format
 msgid "Commit message cannot be empty."
 msgstr "커밋 메시지를 비워 둘 수 없습니다."
 
-#: gitwidget.cpp:998
+#: gitwidget.cpp:999
 #, kde-format
 msgid "No diff for %1...%2"
 msgstr "%1...%2의 차이점 없음"
 
-#: gitwidget.cpp:1004
+#: gitwidget.cpp:1005
 #, kde-format
 msgid "Failed to compare %1...%2"
 msgstr "%1...%2 간을 비교할 수 없음"
 
-#: gitwidget.cpp:1019
+#: gitwidget.cpp:1020
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
 msgstr "%1...%2 간을 비교할 때 numstat을 가져올 수 없음"
 
-#: gitwidget.cpp:1054
+#: gitwidget.cpp:1055
 #, kde-format
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: gitwidget.cpp:1071
+#: gitwidget.cpp:1072
 #, kde-format
 msgid "Checkout Branch"
 msgstr "브랜치 체크아웃"
 
-#: gitwidget.cpp:1083
+#: gitwidget.cpp:1084
 #, kde-format
 msgid "Delete Branch"
 msgstr "브랜치 삭제"
 
-#: gitwidget.cpp:1097
+#: gitwidget.cpp:1098
 #, kde-format
 msgid "Compare Branch with..."
 msgstr "다음과 브랜치 비교..."
 
-#: gitwidget.cpp:1103
+#: gitwidget.cpp:1104
 #, kde-format
 msgid "Show Commit"
 msgstr "커밋 표시"
 
-#: gitwidget.cpp:1121
+#: gitwidget.cpp:1122
 #, kde-format
 msgid "Show Last Commit"
 msgstr "마지막 커밋 표시"
 
-#: gitwidget.cpp:1139
+#: gitwidget.cpp:1140
 #, kde-format
 msgid "Open Commit..."
 msgstr "커밋 열기..."
 
-#: gitwidget.cpp:1142 gitwidget.cpp:1187
+#: gitwidget.cpp:1143 gitwidget.cpp:1188
 #, kde-format
 msgid "Stash"
 msgstr "스태시"
 
-#: gitwidget.cpp:1146
+#: gitwidget.cpp:1147
 #, kde-format
 msgid "Show history"
 msgstr "과거 기록 표시"
 
-#: gitwidget.cpp:1158
+#: gitwidget.cpp:1159
 #, kde-format
 msgid "Diff - stash"
 msgstr "Diff - 스태시"
 
-#: gitwidget.cpp:1191
+#: gitwidget.cpp:1192
 #, kde-format
 msgid "Pop Last Stash"
 msgstr "마지막 스태시 팝"
 
-#: gitwidget.cpp:1195
+#: gitwidget.cpp:1196
 #, kde-format
 msgid "Pop Stash"
 msgstr "스태시 팝"
 
-#: gitwidget.cpp:1199
+#: gitwidget.cpp:1200
 #, kde-format
 msgid "Apply Last Stash"
 msgstr "마지막 스태시 적용"
 
-#: gitwidget.cpp:1201
+#: gitwidget.cpp:1202
 #, kde-format
 msgid "Stash (Keep Staged)"
 msgstr "스태시(스테이지 유지)"
 
-#: gitwidget.cpp:1205
+#: gitwidget.cpp:1206
 #, kde-format
 msgid "Stash (Include Untracked)"
 msgstr "스태시(추적하지 않는 항목 포함)"
 
-#: gitwidget.cpp:1209
+#: gitwidget.cpp:1210
 #, kde-format
 msgid "Apply Stash"
 msgstr "스태시 적용"
 
-#: gitwidget.cpp:1210
+#: gitwidget.cpp:1211
 #, kde-format
 msgid "Drop Stash"
 msgstr "스태시 드롭"
 
-#: gitwidget.cpp:1211
+#: gitwidget.cpp:1212
 #, kde-format
 msgid "Show Stash Content"
 msgstr "스태시 내용 표시"
 
-#: gitwidget.cpp:1249
+#: gitwidget.cpp:1250
 #, kde-format
 msgid "Stage All"
 msgstr "모두 스테이지"
 
-#: gitwidget.cpp:1251
+#: gitwidget.cpp:1252
 #, kde-format
 msgid "Remove All"
 msgstr "모두 삭제"
 
-#: gitwidget.cpp:1251
+#: gitwidget.cpp:1252
 #, kde-format
 msgid "Discard All"
 msgstr "모두 버리기"
 
-#: gitwidget.cpp:1254
+#: gitwidget.cpp:1255
 #, kde-format
 msgid "Open .gitignore"
 msgstr ".gitignore 열기"
 
-#: gitwidget.cpp:1255 gitwidget.cpp:1304 gitwidget.cpp:1355
+#: gitwidget.cpp:1256 gitwidget.cpp:1305 gitwidget.cpp:1356
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
 msgstr "차이점 표시"
 
-#: gitwidget.cpp:1272
+#: gitwidget.cpp:1273
 #, kde-format
 msgid "Are you sure you want to remove these files?"
 msgstr "이 파일을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1277
+#: gitwidget.cpp:1278
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
 msgstr "모든 변경 사항을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1295
+#: gitwidget.cpp:1296
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Unstage File"
 msgstr "파일 스테이지 해제"
 
-#: gitwidget.cpp:1296
+#: gitwidget.cpp:1297
 #, kde-format
 msgid "Stage File"
 msgstr "파일 스테이지"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1298
 #, kde-format
 msgid "Remove"
 msgstr "삭제"
 
-#: gitwidget.cpp:1297
+#: gitwidget.cpp:1298
 #, kde-format
 msgid "Discard"
 msgstr "버리기"
 
-#: gitwidget.cpp:1305
+#: gitwidget.cpp:1306
 #, kde-format
 msgid "Show in External Git Diff Tool"
 msgstr "외부 git diff 도구에 표시"
 
-#: gitwidget.cpp:1306
+#: gitwidget.cpp:1307
 #, kde-format
 msgid "Open at HEAD"
 msgstr "HEAD 기준으로 열기"
 
-#: gitwidget.cpp:1310
+#: gitwidget.cpp:1311
 #, kde-format
 msgid "Show History"
 msgstr "과거 기록 표시"
 
-#: gitwidget.cpp:1326
+#: gitwidget.cpp:1327
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
 msgstr "파일의 모든 변경 사항을 버리시겠습니까?"
 
-#: gitwidget.cpp:1337
+#: gitwidget.cpp:1338
 #, kde-format
 msgid "Are you sure you want to remove this file?"
 msgstr "이 파일을 삭제하시겠습니까?"
 
-#: gitwidget.cpp:1354
+#: gitwidget.cpp:1355
 #, kde-format
 msgid "Unstage All"
 msgstr "모두 스테이지 해제"
 
-#: gitwidget.cpp:1421
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Unstage Selected Files"
 msgstr "선택한 파일 스테이지 해제"
 
-#: gitwidget.cpp:1421
+#: gitwidget.cpp:1422
 #, kde-format
 msgid "Stage Selected Files"
 msgstr "선택한 파일 스테이지"
 
-#: gitwidget.cpp:1422
+#: gitwidget.cpp:1423
 #, kde-format
 msgid "Discard Selected Files"
 msgstr "선택한 파일 버리기"
 
-#: gitwidget.cpp:1426
+#: gitwidget.cpp:1427
 #, kde-format
 msgid "Remove Selected Files"
 msgstr "선택한 파일 삭제"
 
-#: gitwidget.cpp:1439
+#: gitwidget.cpp:1440
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
 msgstr "모든 변경 사항을 버리시겠습니까?"
 
-#: gitwidget.cpp:1444
+#: gitwidget.cpp:1445
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "추적하지 않는 변경 사항을 삭제하시겠습니까?"
 
-#: kateproject.cpp:299
+#: kateproject.cpp:300
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "잘못된 JSON 파일 '%1': %2"
 
-#: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
-#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
-#: kateprojectviewtree.cpp:399
+#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:397
 #, kde-format
 msgid "Project"
 msgstr "프로젝트"
 
-#: kateproject.cpp:665
+#: kateproject.cpp:666
 #, kde-format
 msgid "<untracked>"
 msgstr "<추적 안 됨>"
 
-#: kateprojectcompletion.cpp:54
+#: kateprojectcompletion.cpp:52
 #, kde-format
 msgid "Project Completion"
 msgstr "프로젝트 완성"
@@ -611,7 +611,7 @@ msgstr "프로젝트 색인"
 msgid "Project ctags index settings"
 msgstr "프로젝트 ctags 색인 설정"
 
-#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:210
+#: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:208
 #, kde-format
 msgid "Enable indexing"
 msgstr "색인 사용"
@@ -695,41 +695,41 @@ msgctxt "Groupbox title"
 msgid "Projects Properties"
 msgstr "프로젝트 속성"
 
-#: kateprojectinfoview.cpp:83
+#: kateprojectinfoview.cpp:84
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
 msgstr "터미널"
 
-#: kateprojectinfoview.cpp:92
+#: kateprojectinfoview.cpp:93
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
 msgstr "터미널(프로젝트)"
 
-#: kateprojectinfoview.cpp:101
+#: kateprojectinfoview.cpp:102
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
 msgstr "터미널(기본)"
 
-#: kateprojectinfoview.cpp:110
+#: kateprojectinfoview.cpp:111
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
 msgstr "터미널(빌드)"
 
-#: kateprojectinfoview.cpp:117
+#: kateprojectinfoview.cpp:118
 #, kde-format
 msgid "Code Index"
 msgstr "코드 색인"
 
-#: kateprojectinfoview.cpp:122
+#: kateprojectinfoview.cpp:123
 #, kde-format
 msgid "Code Analysis"
 msgstr "코드 분석"
 
-#: kateprojectinfoview.cpp:127
+#: kateprojectinfoview.cpp:128
 #, kde-format
 msgid "Notes"
 msgstr "메모"
@@ -812,22 +812,22 @@ msgstr "줄"
 msgid "Search"
 msgstr "찾기"
 
-#: kateprojectinfoviewindex.cpp:199
+#: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
 msgstr "색인을 만들 수 없습니다. 'ctags'를 설치하십시오."
 
-#: kateprojectinfoviewindex.cpp:209
+#: kateprojectinfoviewindex.cpp:207
 #, kde-format
 msgid "Indexing is not enabled"
 msgstr "색인 생성이 비활성화됨"
 
-#: kateprojectitem.cpp:164
+#: kateprojectitem.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "오류"
 
-#: kateprojectitem.cpp:164
+#: kateprojectitem.cpp:165
 #, kde-format
 msgid "File name already exists"
 msgstr "파일 이름이 이미 존재함"
@@ -961,82 +961,82 @@ msgstr "파일 삭제"
 msgid "Do you want to delete the file '%1'?"
 msgstr "파일 '%1'을(를) 삭제하시겠습니까?"
 
-#: kateprojecttreeviewcontextmenu.cpp:91
+#: kateprojecttreeviewcontextmenu.cpp:92
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
 
-#: kateprojecttreeviewcontextmenu.cpp:98
+#: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "New File…"
 msgstr "새 파일…"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:100
 #, kde-format
 msgid "New Folder…"
 msgstr "새 폴더…"
 
-#: kateprojecttreeviewcontextmenu.cpp:106
+#: kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: kateprojecttreeviewcontextmenu.cpp:113
+#: kateprojecttreeviewcontextmenu.cpp:114
 #, kde-format
 msgid "Properties"
 msgstr "속성"
 
-#: kateprojecttreeviewcontextmenu.cpp:117
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "Open With"
 msgstr "다음으로 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:125
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "여기에서 내부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:137
+#: kateprojecttreeviewcontextmenu.cpp:138
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "여기에서 외부 터미널 열기"
 
-#: kateprojecttreeviewcontextmenu.cpp:143
+#: kateprojecttreeviewcontextmenu.cpp:144
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "포함하는 폴더 열기(&O)"
 
-#: kateprojecttreeviewcontextmenu.cpp:152
+#: kateprojecttreeviewcontextmenu.cpp:153
 #, kde-format
 msgid "Show Git History"
 msgstr "Git 기록 표시"
 
-#: kateprojecttreeviewcontextmenu.cpp:216
+#: kateprojecttreeviewcontextmenu.cpp:217
 #, kde-format
 msgid "New File"
 msgstr "새 파일"
 
-#: kateprojecttreeviewcontextmenu.cpp:221
+#: kateprojecttreeviewcontextmenu.cpp:222
 #, kde-format
 msgid "New Folder"
 msgstr "새 폴더"
 
-#: kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:349
 #, kde-format
 msgid "The file already exists"
 msgstr "파일이 이미 존재함"
 
-#: kateprojectviewtree.cpp:362
+#: kateprojectviewtree.cpp:360
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "파일을 만들 수 없음: %1, 오류: %2"
 
-#: kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:390
 #, kde-format
 msgid "The directory already exists"
 msgstr "디렉터리가 이미 존재함"
 
-#: kateprojectviewtree.cpp:399
+#: kateprojectviewtree.cpp:397
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "디렉터리를 만들 수 없음: %1"
@@ -1087,52 +1087,52 @@ msgstr ""
 "필터하려면 입력하십시오. Enter 키를 누르면 스태시를 팝하며, Esc 키를 누르면 "
 "종료합니다."
 
-#: stashdialog.cpp:142
+#: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
 msgstr "변경 사항 %1을(를) 스태시할 수 없음"
 
-#: stashdialog.cpp:144
+#: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
 msgstr "변경 사항을 스태시했습니다."
 
-#: stashdialog.cpp:163
+#: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
 msgstr "스태시 목록을 가져올 수 없습니다. 오류:"
 
-#: stashdialog.cpp:179
+#: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
 msgstr "스태시를 적용할 수 없습니다. 오류:"
 
-#: stashdialog.cpp:181
+#: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
 msgstr "스태시를 삭제할 수 없습니다. 오류:"
 
-#: stashdialog.cpp:183
+#: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
 msgstr "스태시를 팝할 수 없습니다. 오류:"
 
-#: stashdialog.cpp:187
+#: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
 msgstr "스태시를 적용했습니다."
 
-#: stashdialog.cpp:189
+#: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
 msgstr "스태시를 삭제했습니다."
 
-#: stashdialog.cpp:191
+#: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
 msgstr "스태시를 팝했습니다."
 
-#: stashdialog.cpp:220
+#: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
 msgstr "스태시를 표시할 수 없습니다. 오류: "

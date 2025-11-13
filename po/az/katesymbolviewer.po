@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-06-21 17:07+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -189,12 +189,12 @@ msgstr "Simvollar həmişə sıralansın"
 msgid "Parser Options"
 msgstr "Təhlil etmə seçimləri"
 
-#: plugin_katesymbolviewer.cpp:508
+#: plugin_katesymbolviewer.cpp:506
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "Simvol Görünüşü"
 
-#: plugin_katesymbolviewer.cpp:513
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "Simvol görünüşünü tənzimləmə səhifəsi"

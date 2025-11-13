@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2021-03-24 14:54+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -144,7 +144,7 @@ msgstr "Seznam přípon souborů: *.cpp, *.h, *.c, etc..."
 msgid "Indexing files..."
 msgstr "Indexuji soubory..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Backtrace:"
@@ -179,12 +179,12 @@ msgstr "Otevřen soubor: %1"
 msgid "No debugging information available"
 msgstr "Nejsou dostupné ladicí informace"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Nastavení backtrace"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Nastavení prohlížeče backtrace"

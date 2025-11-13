@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -76,61 +76,61 @@ msgstr "Παραγωγή"
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
-#: MatchModel.cpp:563 MatchModel.cpp:565
+#: MatchModel.cpp:561 MatchModel.cpp:563
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Παραγωγή λίστας αρχείων: ... %1</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα βρέθηκε, αναζήτηση: ... %2</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα βρέθηκαν, αναζήτηση: ... %2</i></b>"
 
-#: MatchModel.cpp:578
+#: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα βρέθηκε, αναζήτηση: %2</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα βρέθηκαν, αναζήτηση: %2</i></b>"
 
-#: MatchModel.cpp:585 MatchModel.cpp:740
+#: MatchModel.cpp:583 MatchModel.cpp:738
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Ένα ελέγχθηκε"
 msgstr[1] "%1 ελέγχθηκαν"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:587
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα (%2) βρέθηκε στο αρχείο</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα (%2) βρέθηκαν στο τρέχον αρχείο</i></b>"
 
-#: MatchModel.cpp:591
+#: MatchModel.cpp:589
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα (%2) βρέθηκε σε ανοιχτά αρχεία</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα (%2) βρέθηκαν σε ανοιχτά αρχεία</i></b>"
 
-#: MatchModel.cpp:594
+#: MatchModel.cpp:592
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα (%3) βρέθηκε στο φάκελο %2</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα (%3) βρέθηκαν στο φάκελο %2</i></b>"
 
-#: MatchModel.cpp:601
+#: MatchModel.cpp:599
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>Ένα αποτέλεσμα (%4) βρέθηκε στο έργο %2 (%3)</i></b>"
 msgstr[1] "<b><i>%1 αποτελέσματα (%4) βρέθηκαν στο έργο %2 (%3)</i></b>"
 
-#: MatchModel.cpp:610
+#: MatchModel.cpp:608
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -143,54 +143,54 @@ msgstr[1] ""
 "<b><i>%1 αποτελέσματα (%3) βρέθηκαν σε όλα τα ανοιχτά έργα (κοινός γονέας: "
 "%2)</i></b>"
 
-#: MatchModel.cpp:724 MatchModel.cpp:726
+#: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Παραγωγή λίστας αρχείων: ...%1"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:732
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Ένα αποτέλεσμα βρέθηκε, αναζήτηση: ...%2"
 msgstr[1] "%1 αποτελέσματα βρέθηκαν, αναζήτηση: ...%2"
 
-#: MatchModel.cpp:736
+#: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Ένα αποτέλεσμα βρέθηκε, αναζήτηση: ...%2"
 msgstr[1] "%1 αποτελέσματα βρέθηκαν, αναζήτηση: ...%2"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "Ένα αποτέλεσμα (%2) βρέθηκε στο αρχείο"
 msgstr[1] "%1 αποτελέσματα (%2) βρέθηκαν στο τρέχον αρχείο"
 
-#: MatchModel.cpp:746
+#: MatchModel.cpp:744
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "Ένα αποτέλεσμα (%2) βρέθηκε σε ανοιχτά αρχεία"
 msgstr[1] "%1 αποτελέσματα (%2) βρέθηκαν σε ανοιχτά αρχεία"
 
-#: MatchModel.cpp:749
+#: MatchModel.cpp:747
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "Ένα αποτέλεσμα (%3) βρέθηκε στο φάκελο %2"
 msgstr[1] "%1 αποτελέσματα (%3) βρέθηκαν στο φάκελο %2"
 
-#: MatchModel.cpp:752
+#: MatchModel.cpp:750
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "Ένα αποτέλεσμα (%4) βρέθηκε στο έργο %2 (%3)"
 msgstr[1] "%1 αποτελέσματα (%4) βρέθηκαν στο έργο %2 (%3)"
 
-#: MatchModel.cpp:761
+#: MatchModel.cpp:759
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
@@ -625,92 +625,92 @@ msgstr "Με κλικ φιλτράρονται τα αποτελέσματα"
 msgid "Find"
 msgstr "Εύρεση"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1173
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1346
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Η αναζήτηση καθώς πληκτρολογείτε διεκόπη. Θα είχε διαρκέσει πολύ."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1679
 #, kde-format
 msgid "Search Match"
 msgstr "Αναζήτηση αποτελέσματος"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1856 SearchPlugin.cpp:1932
 #, kde-format
 msgid "Next from cursor"
 msgstr "Επόμενο από τον δρομέα"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1873
 #, kde-format
 msgid "Starting from first match"
 msgstr "Έναρξη της αναζήτησης από το πρώτο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1893
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Συνέχιση της αναζήτησης από το πρώτο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1949
 #, kde-format
 msgid "Starting from last match"
 msgstr "Έναρξη της αναζήτησης από το τελευταίο αποτέλεσμα"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1969
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Συνέχιση της αναζήτησης από το τελευταίο αποτέλεσμα"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2130
 #, kde-format
 msgid "Search: %1"
 msgstr "Αναζήτηση: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy all"
 msgstr "Αντιγραφή όλων"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy expanded"
 msgstr "Αντιγραφή επεκτάσεων"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Export matches"
 msgstr "Εξαγωγή αποτελεσμάτων"
 
-#: SearchPlugin.cpp:2285
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Άνοιγμα ως καρτέλα του κειμενογράφου"
 
-#: SearchPlugin.cpp:2293
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Clear"
 msgstr "Καθαρισμός"
 
-#: SearchPlugin.cpp:2403 SearchPlugin.cpp:2437
+#: SearchPlugin.cpp:2404 SearchPlugin.cpp:2438
 #, kde-format
 msgid "Add..."
 msgstr "Προσθήκη..."
 
-#: SearchPlugin.cpp:2415
+#: SearchPlugin.cpp:2416
 #, kde-format
 msgid "Search As You Type"
 msgstr "Αναζήτηση κατά την πληκτρολόγηση"
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In Current Project"
 msgstr "Στο τρέχον έργο"
 
-#: SearchPlugin.cpp:2488
+#: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Σε όλα τα ανοικτά έργα"

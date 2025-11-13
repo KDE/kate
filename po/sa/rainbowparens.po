@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-11 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
 
-#: rainbowparens_plugin.cpp:433
+#: rainbowparens_plugin.cpp:434
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:450
+#: rainbowparens_plugin.cpp:451
 #, kde-format
 msgid "Colored Brackets"
 msgstr "रंगीन कोष्ठक"
 
-#: rainbowparens_plugin.cpp:455
+#: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "रंगीन कोष्ठक सेटिंग्स"

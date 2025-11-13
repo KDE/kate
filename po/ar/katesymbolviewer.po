@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-02-20 10:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -191,12 +191,12 @@ msgstr "افرز الرّموز دائمًا"
 msgid "Parser Options"
 msgstr "خيارات المحلّل"
 
-#: plugin_katesymbolviewer.cpp:508
+#: plugin_katesymbolviewer.cpp:506
 #, kde-format
 msgid "Symbol Viewer"
 msgstr "عارض الرّموز"
 
-#: plugin_katesymbolviewer.cpp:513
+#: plugin_katesymbolviewer.cpp:511
 #, kde-format
 msgid "Symbol Viewer Configuration Page"
 msgstr "صفحة ضبط عارض الرّموز"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-05-26 09:26+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -142,7 +142,7 @@ msgstr "Lista de extensiones. Exemplo: *.cpp, *.h, *.c, etc..."
 msgid "Indexing files..."
 msgstr "Indicisante files..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Retraciamento"
@@ -177,12 +177,12 @@ msgstr "File aperite: %1"
 msgid "No debugging information available"
 msgstr "Nulle information de cribrar disponibile"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Preferentias de retraciamento"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Preferentias de navigator de retro tracia"

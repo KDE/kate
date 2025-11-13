@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2012-01-28 12:31+0200\n"
 "Last-Translator: Liudas Ališauskas <liudas@akmc.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -163,7 +163,7 @@ msgstr "Sąrašas failų plėtinių. Pavyzdžiui: *.cpp, *.h, *.c, etc..."
 msgid "Indexing files..."
 msgstr "Indeksuojami failai..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
@@ -199,13 +199,13 @@ msgstr "Atidarytas failas: %1"
 msgid "No debugging information available"
 msgstr "Nėra derinimo informacijos"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "Atgalinio ryšio naršyklės nuostatos"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Atgalinio ryšio naršyklės nuostatos"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-03-14 18:00+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -140,7 +140,7 @@ msgstr "Lista de extensões de ficheiros. Exemplo: *.cpp, *.h, *.c, etc..."
 msgid "Indexing files..."
 msgstr "A indexar os ficheiros..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Registo de Chamadas"
@@ -175,12 +175,12 @@ msgstr "Abriu-se o ficheiro: %1"
 msgid "No debugging information available"
 msgstr "Não existe nenhuma informação de depuração disponível"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Configuração do Registo de Chamadas"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Configuração do Gestor de Estoiros"

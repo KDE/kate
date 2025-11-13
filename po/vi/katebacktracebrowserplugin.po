@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2021-06-13 11:17+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -143,7 +143,7 @@ msgstr "Danh sách các phần mở rộng tệp. Ví dụ: *.cpp, *.h, *.c, v.v
 msgid "Indexing files..."
 msgstr "Đang lập chỉ mục các tệp..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Vết ngăn xếp"
@@ -178,12 +178,12 @@ msgstr "Tệp đã mở: %1"
 msgid "No debugging information available"
 msgstr "Không có thông tin gỡ lỗi"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Thiết lập vết ngăn xếp"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Thiết lập trình duyệt vết ngăn xếp"

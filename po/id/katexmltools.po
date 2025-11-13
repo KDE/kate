@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2019-08-31 19:43+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -61,7 +61,7 @@ msgstr "Memuat XML Meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "File '%1' tidak bisa dibuka. Si server membalikkan sebuah error."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Plugin XML Error"
@@ -100,7 +100,7 @@ msgstr ""
 "Masukkan atribut dan nama tag XML (\"<\", \">\" dan penutupan tag akan "
 "dipasok):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -109,7 +109,7 @@ msgstr ""
 "File '%1' tidak bisa diurai. Mohon periksa bahwa si file adalah XML yang "
 "berformat baik."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -124,12 +124,12 @@ msgstr ""
 "Kamu bisa menghasilkan file seperti itu dengan dtdparse. Lihatlah "
 "dokumentasi Plugin Kate untuk informasi selebihnya."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Menganalisa meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Batalkan"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2014-08-08 19:47+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -64,7 +64,7 @@ msgstr "Åpner XML Meta-DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Klarte ikke åpne fila «%1». Tjeneren returnerte en feil."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML-modulfeil"
@@ -103,14 +103,14 @@ msgstr ""
 "Skriv inn XML-elementnavn og -attributter. («<», «>» og sluttagger blir "
 "automatisk satt inn):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "Klarte ikke tolke fila «%1». Kontroller at fila er riktig XML."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "Slike filer kan du lage med dtdparse. Hjelpeteksten til Kate-"
 "programtilleggene forklarer hvordan."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analyserer meta-DTD …"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Avbryt"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2011-08-23 14:43+0430\n"
 "Last-Translator: Mohamad Reza Mirdamadi <mohi@ubuntu.ir>\n"
 "Language-Team: Farsi (Persian) <kde-i18n-doc@kde.org>\n"
@@ -63,7 +63,7 @@ msgstr "بارگذاری فرا DTD XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "پرونده «%1» را نمی‌توان باز کرد. کارساز، خطایی را بازگرداند."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "خطای وصله XML"
@@ -101,7 +101,7 @@ msgid ""
 "supplied):"
 msgstr "واردات نام برچسب XML و خصیصه‌ها ( «<»، «>» و برچسب بستن فراهم می‌شوند):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -110,7 +110,7 @@ msgstr ""
 "پرونده «%1» را نمی‌توان تجزیه کرد. لطفاً، بررسی کنید که پرونده XML خوش ترکیب "
 "باشد."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "می‌توانید این پرونده‌ها را با dtdparse تولید کنید. برای اطلاعات بیشتر، به سند "
 "وصله Kate مراجعه کنید."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "تجزیه فرا DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "لغو"

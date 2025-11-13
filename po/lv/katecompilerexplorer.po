@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-03-04 19:04+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "2);\n"
 "X-Generator: Lokalize 24.12.2\n"
 
-#: AsmView.cpp:303
+#: AsmView.cpp:305
 #, kde-format
 msgid "Scroll to source"
 msgstr "Ritināt uz avotu"
 
-#: AsmView.cpp:313
+#: AsmView.cpp:315
 #, kde-format
 msgid "Jump to label"
 msgstr "Pāriet uz etiķeti"
 
-#: AsmView.cpp:339
+#: AsmView.cpp:341
 #, kde-format
 msgid "Copy"
 msgstr "Kopēt"
 
-#: AsmView.cpp:351
+#: AsmView.cpp:353
 #, kde-format
 msgid "Select All"
 msgstr "Atlasīt visu"
@@ -139,17 +139,17 @@ msgstr ""
 msgid "Compiler returned: %1"
 msgstr "Kompilators ir atgriezies: %1"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
 msgstr "Atklāt saistīto kodu"
 
-#: ce_widget.cpp:575
+#: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "Kompilatora pārlūks"
 
-#: ce_widget.cpp:591
+#: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "Atrasti „%1“ kompilatora karogi. Izvade var nebūt noderīga."

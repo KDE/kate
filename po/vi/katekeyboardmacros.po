@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-24 21:22+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Không tải được '%1': vĩ lệnh sai dạng; đang xoá."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
+#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Vĩ lệnh bàn phím"
@@ -227,44 +227,44 @@ msgstr "Xoá một vĩ lệnh."
 msgid "End Macro &Recording"
 msgstr "&Dừng ghi vĩ lệnh"
 
-#: keyboardmacrospluginview.cpp:181
+#: keyboardmacrospluginview.cpp:180
 #, fuzzy, kde-format
 #| msgid "Loaded '%1'"
 msgid "Load %1"
 msgstr "Đã tải '%1'"
 
-#: keyboardmacrospluginview.cpp:182
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Tải vĩ lệnh '%1' thành vĩ lệnh hiện tại."
 
-#: keyboardmacrospluginview.cpp:194
+#: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
 msgstr ""
 
-#: keyboardmacrospluginview.cpp:195
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Chạy vĩ lệnh '%1' mà không tải nó."
 
-#: keyboardmacrospluginview.cpp:209
+#: keyboardmacrospluginview.cpp:208
 #, fuzzy, kde-format
 #| msgid "Wiped '%1'"
 msgid "Wipe %1"
 msgstr "Đã xoá '%1'"
 
-#: keyboardmacrospluginview.cpp:210
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Xoá vĩ lệnh '%1'."
 
-#: keyboardmacrospluginview.cpp:291
+#: keyboardmacrospluginview.cpp:290
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Lưu vĩ lệnh hiện tại thành?"
 
-#: keyboardmacrospluginview.cpp:325
+#: keyboardmacrospluginview.cpp:324
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Xoá vĩ lệnh '%1'?"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-05-15 19:44\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -17,22 +17,22 @@ msgstr ""
 "X-Crowdin-File: /kf6-trunk/messages/kate/katecompilerexplorer.pot\n"
 "X-Crowdin-File-ID: 53674\n"
 
-#: AsmView.cpp:303
+#: AsmView.cpp:305
 #, kde-format
 msgid "Scroll to source"
 msgstr "滚动到来源"
 
-#: AsmView.cpp:313
+#: AsmView.cpp:315
 #, kde-format
 msgid "Jump to label"
 msgstr "跳转到标签"
 
-#: AsmView.cpp:339
+#: AsmView.cpp:341
 #, kde-format
 msgid "Copy"
 msgstr "复制"
 
-#: AsmView.cpp:351
+#: AsmView.cpp:353
 #, kde-format
 msgid "Select All"
 msgstr "选择全部"
@@ -139,17 +139,17 @@ msgstr ""
 msgid "Compiler returned: %1"
 msgstr "编译器返回：%1"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
 msgstr "显示链接代码"
 
-#: ce_widget.cpp:575
+#: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "编译器浏览器"
 
-#: ce_widget.cpp:591
+#: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "找不到“%1”编译器旗标。输出可能没有意义。"

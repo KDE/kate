@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-12-25 19:37+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -141,7 +141,7 @@ msgstr "सञ्चिकाविस्तारस्य सूची । उ
 msgid "Indexing files..."
 msgstr "सञ्चिकानां अनुक्रमणिका..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "पश्चात्तापः"
@@ -176,12 +176,12 @@ msgstr "उद्घाटिता सञ्चिका: %1"
 msgid "No debugging information available"
 msgstr "त्रुटिनिवारणसूचना उपलब्धा नास्ति"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Backtrace सेटिंग्स्"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "ब्राउज़र सेटिंग्स् पृष्ठतः अनुसरणं कुर्वन्तु"

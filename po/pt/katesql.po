@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:44+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-28 02:38+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -38,7 +38,7 @@ msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "Controlador da base de dados:"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:79 connectionwizard.cpp:165
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
@@ -86,18 +86,18 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "Nome da base de dados:"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:179
+#: connectionwizard.cpp:100 connectionwizard.cpp:177
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "Opções da ligação:"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:150
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "Não é possível contactar a base de dados."
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:167
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -107,41 +107,41 @@ msgstr ""
 "Indique por favor a localização da base de dados em SQLite.\n"
 "Se não existir, será criada uma nova base de dados."
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:175
 #, kde-format
 msgid "Database files"
 msgstr "Ficheiros de bases de dados"
 
-#: connectionwizard.cpp:177 exportwizard.cpp:54
+#: connectionwizard.cpp:175 exportwizard.cpp:52
 #, kde-format
 msgid "All files"
 msgstr "Todos os ficheiros"
 
-#: connectionwizard.cpp:178
+#: connectionwizard.cpp:176
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "Localização:"
 
-#: connectionwizard.cpp:211
+#: connectionwizard.cpp:209
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "Não é possível contactar a base de dados.<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:226
+#: connectionwizard.cpp:224
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "Nome da Ligação"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:225
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "Indique um nome de ligação único"
 
-#: connectionwizard.cpp:233
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -183,7 +183,7 @@ msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "Usar a configuração regional do sistema"
 
-#: dataoutputwidget.cpp:272
+#: dataoutputwidget.cpp:270
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
@@ -195,48 +195,48 @@ msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "Assistente de Exportação"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:38
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "Destino do Resultado"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:39
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "Seleccione a localização de destino."
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:43
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "Documento actual"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:44
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "Área de Transferência"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "Ficheiro"
 
-#: exportwizard.cpp:54
+#: exportwizard.cpp:52
 #, kde-format
 msgid "Comma Separated Values"
 msgstr "Valores Separados por Vírgulas"
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:94
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "Formato dos Campos"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:95
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -246,55 +246,55 @@ msgstr ""
 "Seleccione o formato dos campos.\n"
 "Carregue em \"Terminar\" para exportar os dados."
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:99
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "Cabeçalhos"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "Exportar os nomes das colunas"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:103
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "Exportar os números de linha"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "Aspas"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "Aspas nos textos"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:114
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "Aspas nos números"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:122 exportwizard.cpp:125
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "Carácter:"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:131
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "Delimitadores"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:137
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
@@ -312,13 +312,13 @@ msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "Personalização do Resultado"
 
-#: katesqlconfigpage.cpp:53
+#: katesqlconfigpage.cpp:51
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:58
+#: katesqlconfigpage.cpp:56
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
@@ -449,57 +449,57 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "Esquema da base de dados"
 
-#: schemawidget.cpp:91
+#: schemawidget.cpp:89
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "Tabelas"
 
-#: schemawidget.cpp:96
+#: schemawidget.cpp:94
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "Vistas"
 
-#: schemawidget.cpp:110
+#: schemawidget.cpp:108
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "Tabelas do Sistema"
 
-#: schemawidget.cpp:270
+#: schemawidget.cpp:268
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr "Seleccionar os Dados"
 
-#: schemawidget.cpp:273
+#: schemawidget.cpp:271
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "Gerar"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:273
 #, kde-format
 msgid "SELECT"
 msgstr "SELECT"
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:274
 #, kde-format
 msgid "UPDATE"
 msgstr "UPDATE"
 
-#: schemawidget.cpp:277
+#: schemawidget.cpp:275
 #, kde-format
 msgid "INSERT"
 msgstr "INSERT"
 
-#: schemawidget.cpp:278
+#: schemawidget.cpp:276
 #, kde-format
 msgid "DELETE"
 msgstr "DELETE"
 
-#: schemawidget.cpp:282
+#: schemawidget.cpp:280
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

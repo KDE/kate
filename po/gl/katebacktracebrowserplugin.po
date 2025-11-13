@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-07-24 15:00+0100\n"
 "Last-Translator: Adrián Chaves <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
@@ -145,7 +145,7 @@ msgstr "Lista de extensións de ficheiro. Exemplo: *.cpp, *.h, *.c etc…"
 msgid "Indexing files..."
 msgstr "Estanse a indexar os ficheiros…"
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Trazado inverso"
@@ -180,12 +180,12 @@ msgstr "Ficheiro aberto: %1"
 msgid "No debugging information available"
 msgstr "Non hai información de depuración dispoñíbel."
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Configuración dos trazados inversos"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Configuración do navegador de trazados inversos"

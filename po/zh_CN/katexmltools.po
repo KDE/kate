@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -59,7 +59,7 @@ msgstr "加载 XML Meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "无法打开文件“%1”，服务器返回一个错误。"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML 插件错误"
@@ -96,14 +96,14 @@ msgid ""
 "supplied):"
 msgstr "输入 XML 标签名和属性(“<”、“>”和结束标记会被自动提供)："
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "无法解析文件“%1”，请检查该文件是否具有正确的 XML 格式。"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -116,12 +116,12 @@ msgstr ""
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
 "您可以用 dtdparse 生成这类文件。详情请参阅 Kate 插件文档。"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "正在分析 meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "取消"

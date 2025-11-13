@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-12-12 18:00+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -133,109 +133,109 @@ msgstr "Limpar o Histórico"
 msgid "Clear edit/view history."
 msgstr "Limpa o histórico de visualização/edição."
 
-#: katefiletree.cpp:243
+#: katefiletree.cpp:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Modo em Árvore"
 
-#: katefiletree.cpp:244
+#: katefiletree.cpp:245
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Muda o estilo de visualização para um modo em árvore"
 
-#: katefiletree.cpp:250
+#: katefiletree.cpp:251
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Modo em Lista"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:252
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Muda o estilo de visualização para um modo em lista"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:259
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Nome do Documento"
 
-#: katefiletree.cpp:259
+#: katefiletree.cpp:260
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Ordenar pelo Nome do Documento"
 
-#: katefiletree.cpp:264
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Localização do Documento"
 
-#: katefiletree.cpp:264
+#: katefiletree.cpp:265
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Ordenar pela Localização do Documento"
 
-#: katefiletree.cpp:268
+#: katefiletree.cpp:269
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Ordem de Abertura"
 
-#: katefiletree.cpp:269
+#: katefiletree.cpp:270
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Ordenar pela Ordem de Abertura"
 
-#: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Ordenação Personalizada"
 
-#: katefiletree.cpp:403
+#: katefiletree.cpp:404
 #, kde-format
 msgid "Open..."
 msgstr ""
 
-#: katefiletree.cpp:407
+#: katefiletree.cpp:408
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
 msgid "Open File"
 msgstr "Abrir Com"
 
-#: katefiletree.cpp:417
+#: katefiletree.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Abrir Com"
 
-#: katefiletree.cpp:433
+#: katefiletree.cpp:434
 #, fuzzy, kde-format
 #| msgid "Show File Git History"
 msgid "Show Git History"
 msgstr "Mostrar o Histórico dos Ficheiros no Git"
 
-#: katefiletree.cpp:444
+#: katefiletree.cpp:445
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Documentos"
 
-#: katefiletree.cpp:446
+#: katefiletree.cpp:447
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Documentos"
 
-#: katefiletree.cpp:494
+#: katefiletree.cpp:495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Modo de Visualização"
 
-#: katefiletree.cpp:498
+#: katefiletree.cpp:499
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

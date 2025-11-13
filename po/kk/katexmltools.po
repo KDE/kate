@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2013-10-29 05:33+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -62,7 +62,7 @@ msgstr "XML Meta DTD-ні жүктеу"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "'%1' деген файл ашылмады. Сервер қате туралы хабарлады."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML плагин модульдің қатесі"
@@ -101,7 +101,7 @@ msgstr ""
 "XML тегтің атауы мен атрибуттарын келтіріңіз (\"<\", \">\" жақшалары мен "
 "жабатын тегті модулдің өзі қамтамасыз етеді):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -109,7 +109,7 @@ msgid ""
 msgstr ""
 "'%1' файлы талдауға келмейді. Файл шын XML пішімінде екенін тексеріңіз."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -123,12 +123,12 @@ msgstr ""
 "екенін тексеріңіз. Бұндай файлды dtdparse көмегімен жасауға болады. "
 "Толығырақ Kate плагин модульдің құжаттамасынан білуге болады."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Мета DTD талдауда..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Қайту"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2008-01-24 10:13+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -61,7 +61,7 @@ msgstr "​កំពុងផ្ទុក XML មេតា DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "​មិន​អាច​បើក​ឯកសារ '%1' បានទេ ។ ម៉ាស៊ីន​បម្រើ​បាន​ត្រឡប់​កំហុស​មួយ ។"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "កំហុស​កម្មវិធី​ជំនួយ XML"
@@ -100,14 +100,14 @@ msgid ""
 msgstr ""
 "​បញ្ចូល​ឈ្មោះ​ស្លាក ​និង​គុណលក្ខណៈ​​របស់ XML (\"<\", \">\" ​ហើយ​ការ​បិទ​ស្លាក​នឹង​ត្រូវ​បាន​ផ្តល់​ឲ្យ) ៖"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "មិន​អាច​ញែក​ឯកសារ '%1' ។ សូម​ពិនិត្យ​មើល​ថា​​ឯកសារ​ត្រូវ​បាន​បង្កើត​​ XML ​យ៉ាង​ល្អ ។"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -121,12 +121,12 @@ msgstr ""
 "អ្នក​អាច​បង្កើត​​ឯកសារ​​បែប​នេះ​បាន​​ជា​មួយ dtdparse ។ សម្រាប់​ព័ត៌មាន​បន្ថែម សូម​មើល​ឯកសារ​កម្មវិធី​ជំនួយ​"
 "របស់ Kate ។"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "​កំពុង​វិភាគ​មេតា DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "បោះបង់"

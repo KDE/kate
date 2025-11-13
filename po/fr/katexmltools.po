@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-17 08:36+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@neuf.fr>\n"
 "Language-Team: French <kde-francophone@kde.org>\n"
@@ -72,7 +72,7 @@ msgid "The file '%1' could not be opened. The server returned an error."
 msgstr ""
 "Impossible d'ouvrir le fichier « %1 ». Le serveur a renvoyé une erreur."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Problème avec le module externe XML"
@@ -111,7 +111,7 @@ msgstr ""
 "Saisissez les attributs et le nom de la balise XML (les « < », « > » et la "
 "balise de fermeture seront fournis) :"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -120,7 +120,7 @@ msgstr ""
 "Impossible d'effectuer l'analyse syntaxique du fichier « %1 ». Veuillez "
 "vérifier que le fichier est du XML bien formé."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -136,12 +136,12 @@ msgstr ""
 "reporter à la documentation des modules externes de Kate pour plus "
 "d'informations."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analyse de la méta-DTD en cours..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Annuler"

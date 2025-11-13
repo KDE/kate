@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -61,7 +61,7 @@ msgstr "XML मेटा DTD लोड् भवति"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "'%1' इति सञ्चिका उद्घाटयितुं न शक्यते स्म । सर्वरः त्रुटिं प्रत्यागच्छत् ।"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML प्लगिन् त्रुटि"
@@ -100,7 +100,7 @@ msgstr ""
 "XML टैग् नाम विशेषता च (\"<\", \">\" प्रविष्टं कुर्वन्तु तथा च समापन टैग् आपूर्तिः "
 "भविष्यति):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -109,7 +109,7 @@ msgstr ""
 "'%1' इति सञ्चिकां विश्लेषणं कर्तुं न शक्यते स्म । कृपया सञ्चिका सुनिर्मितं XML अस्ति वा इति "
 "पश्यन्तु ।"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -123,12 +123,12 @@ msgstr ""
 "dtdparse इत्यनेन एतादृशाः सञ्चिकाः उत्पादयितुं शक्नुवन्ति । अधिकविवरणार्थं Kate Plugin "
 "दस्तावेजीकरणं पश्यन्तु ।"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "मेटा डीटीडी विश्लेषणं कुर्वन्..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "निरसयतु"

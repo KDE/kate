@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-08-29 20:48+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -140,104 +140,104 @@ msgstr "清除歷史"
 msgid "Clear edit/view history."
 msgstr "清除編輯/檢視歷史。"
 
-#: katefiletree.cpp:243
+#: katefiletree.cpp:244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "樹狀模式"
 
-#: katefiletree.cpp:244
+#: katefiletree.cpp:245
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "將檢視樣式設為樹狀模式"
 
-#: katefiletree.cpp:250
+#: katefiletree.cpp:251
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "列表模式"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:252
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "將檢視樣式設為列表模式"
 
-#: katefiletree.cpp:258
+#: katefiletree.cpp:259
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "文件名稱"
 
-#: katefiletree.cpp:259
+#: katefiletree.cpp:260
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "以文件名稱排序"
 
-#: katefiletree.cpp:264
+#: katefiletree.cpp:265
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "文件路徑"
 
-#: katefiletree.cpp:264
+#: katefiletree.cpp:265
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "以文件路徑排序"
 
-#: katefiletree.cpp:268
+#: katefiletree.cpp:269
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "開啟順序"
 
-#: katefiletree.cpp:269
+#: katefiletree.cpp:270
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "以開啟順序排序"
 
-#: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "自訂排序"
 
-#: katefiletree.cpp:403
+#: katefiletree.cpp:404
 #, kde-format
 msgid "Open..."
 msgstr "開啟..."
 
-#: katefiletree.cpp:407
+#: katefiletree.cpp:408
 #, kde-format
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: katefiletree.cpp:417
+#: katefiletree.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "開啟方式"
 
-#: katefiletree.cpp:433
+#: katefiletree.cpp:434
 #, kde-format
 msgid "Show Git History"
 msgstr "顯示 Git 歷史紀錄"
 
-#: katefiletree.cpp:444
+#: katefiletree.cpp:445
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消釘選文件"
 
-#: katefiletree.cpp:446
+#: katefiletree.cpp:447
 #, kde-format
 msgid "Pin Document"
 msgstr "釘選文件"
 
-#: katefiletree.cpp:494
+#: katefiletree.cpp:495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "檢視模式"
 
-#: katefiletree.cpp:498
+#: katefiletree.cpp:499
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

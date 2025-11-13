@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-08-26 20:20+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -48,22 +48,22 @@ msgstr "Bygg igen"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "Bygg och kör"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Bygg och körinställningar"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Ta bort markerade poster"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "Ta bort alla poster"
@@ -108,8 +108,8 @@ msgstr "Visa byggförlopp som ett meddelande när utmatningsrutan är dold"
 msgid "Allowed && Blocked Commands"
 msgstr "Tillåtna och blockerade kommandon"
 
-#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:755
-#: plugin_katebuild.cpp:990 plugin_katebuild.cpp:1003
+#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:991 plugin_katebuild.cpp:1004
 #, kde-format
 msgid "Build"
 msgstr "Bygg"
@@ -178,29 +178,29 @@ msgstr ""
 "<b>Filen hittades inte:</b> %1<br><b>Sökvägar:</b><br>%2<br>Försök lägga "
 "till en sökväg till \"arbetskatalogen\""
 
-#: plugin_katebuild.cpp:503
+#: plugin_katebuild.cpp:504
 #, kde-format
 msgid "Build Information"
 msgstr "Bygginformation"
 
-#: plugin_katebuild.cpp:762
+#: plugin_katebuild.cpp:763
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "Det finns ingen fil eller katalog angiven att bygga."
 
-#: plugin_katebuild.cpp:766
+#: plugin_katebuild.cpp:767
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr ""
 "Filen \"%1\" är inte en lokal fil. Icke-lokala filer kan inte kompileras."
 
-#: plugin_katebuild.cpp:837
+#: plugin_katebuild.cpp:838
 #, kde-format
 msgid "Create directory"
 msgstr "Skapa katalog"
 
-#: plugin_katebuild.cpp:840
+#: plugin_katebuild.cpp:841
 #, kde-format
 msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
@@ -209,32 +209,32 @@ msgstr ""
 "Den inställda arbetskatalogen <b>%1</b> för måluppsättningen <b>%2</b> finns "
 "inte.<br><br>Skapa katalogen?"
 
-#: plugin_katebuild.cpp:848
+#: plugin_katebuild.cpp:849
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
 msgstr "Misslyckades skapa katalogen <b>%1</b>"
 
-#: plugin_katebuild.cpp:868
+#: plugin_katebuild.cpp:869
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Misslyckades köra \"%1\". Avslutningsstatus = %2"
 
-#: plugin_katebuild.cpp:884
+#: plugin_katebuild.cpp:885
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
 msgstr "Byggning av <b>%1: %2</b> avbruten"
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:990
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "Hittade inte compile_commands.json för filen \"%1\". "
 
-#: plugin_katebuild.cpp:1002
+#: plugin_katebuild.cpp:1003
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Hittade inte ett kompileringskommando för filen \"%1\" i \"%2\". "
 
-#: plugin_katebuild.cpp:1019
+#: plugin_katebuild.cpp:1020
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
@@ -243,7 +243,7 @@ msgstr ""
 "Kan inte utföra substitution av \"%f\". Ingen öppen fil eller så är den "
 "nuvarande filen namnlös."
 
-#: plugin_katebuild.cpp:1023
+#: plugin_katebuild.cpp:1024
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
@@ -252,7 +252,7 @@ msgstr ""
 "Kan inte utföra substitution av \"%d\". Ingen öppen fil eller så är den "
 "nuvarande filen namnlös."
 
-#: plugin_katebuild.cpp:1027
+#: plugin_katebuild.cpp:1028
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
@@ -261,17 +261,17 @@ msgstr ""
 "Kan inte utföra substitution av \"%n\". Ingen öppen fil eller så är den "
 "nuvarande filen namnlös."
 
-#: plugin_katebuild.cpp:1038
+#: plugin_katebuild.cpp:1039
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr "Kan inte utföra projektsubstitution (%B). Inget öppet projekt."
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:1052
 #, kde-format
 msgid "Already building..."
 msgstr "Bygger redan..."
 
-#: plugin_katebuild.cpp:1089
+#: plugin_katebuild.cpp:1090
 #, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
@@ -280,12 +280,12 @@ msgstr ""
 "Kan inte köra: %1: %2 Ingen arbetskatalog inställd.\n"
 "Det finns ingen lokal fil eller katalog angiven att bygga."
 
-#: plugin_katebuild.cpp:1210
+#: plugin_katebuild.cpp:1211
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "Bygger mål <b>%1: %2</b> ..."
 
-#: plugin_katebuild.cpp:1247
+#: plugin_katebuild.cpp:1248
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -293,19 +293,19 @@ msgid ""
 msgstr ""
 "Kan inte läsa in mål, filen %1 innehåller inte en riktig CMAKE_COMMAND post."
 
-#: plugin_katebuild.cpp:1260
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Kunde inte skriva frågefiler för CMake-filens programmeringsgränssnitt i "
 "byggkatalogen %1."
 
-#: plugin_katebuild.cpp:1266
+#: plugin_katebuild.cpp:1267
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "Kunde inte köra CMake (%2) för byggkatalogen %1."
 
-#: plugin_katebuild.cpp:1275
+#: plugin_katebuild.cpp:1276
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -314,12 +314,12 @@ msgstr ""
 "Misslyckades skapa svarsfiler för CMake-filens programmeringsgränssnitt i "
 "byggkatalogen %1 (med användning av %2)."
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1395
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Bygginsticksprogrammet vill köra program"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1398
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -332,101 +332,101 @@ msgstr ""
 "b><br>< br>Fortsätt och tillåt att kommandot körs?<br><br>Valet kan ändras "
 "via insticksprogrammets inställningssida."
 
-#: plugin_katebuild.cpp:1429
+#: plugin_katebuild.cpp:1430
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Byggning klar:</title><nl/>%1"
 
-#: plugin_katebuild.cpp:1492
+#: plugin_katebuild.cpp:1493
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "Byggning <b>%1: %2</b> klar. %3 fel, %4 varning(ar), %5 anmärkning(ar)"
 
-#: plugin_katebuild.cpp:1504
+#: plugin_katebuild.cpp:1505
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Hittade ett fel."
 msgstr[1] "Hittade %1 fel."
 
-#: plugin_katebuild.cpp:1508
+#: plugin_katebuild.cpp:1509
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Hittade en varning."
 msgstr[1] "Hittade %1 varningar."
 
-#: plugin_katebuild.cpp:1511
+#: plugin_katebuild.cpp:1512
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Hittade ett anmärkning."
 msgstr[1] "Hittade %1 anmärkningar."
 
-#: plugin_katebuild.cpp:1515
+#: plugin_katebuild.cpp:1516
 #, kde-format
 msgid "Build canceled."
 msgstr "Byggning avbruten."
 
-#: plugin_katebuild.cpp:1519
+#: plugin_katebuild.cpp:1520
 #, kde-format
 msgid "Build failed."
 msgstr "Byggning misslyckades."
 
-#: plugin_katebuild.cpp:1521
+#: plugin_katebuild.cpp:1522
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Byggning avslutades utan problem."
 
-#: plugin_katebuild.cpp:1525
+#: plugin_katebuild.cpp:1526
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "Byggning <b>%1: %2 avbruten</b>. %3 fel, %4 varning(ar), %5 anmärkning(ar)"
 
-#: plugin_katebuild.cpp:1805
+#: plugin_katebuild.cpp:1806
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "fel"
 
-#: plugin_katebuild.cpp:1808
+#: plugin_katebuild.cpp:1809
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "varning"
 
-#: plugin_katebuild.cpp:1811
+#: plugin_katebuild.cpp:1812
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "anmärkning|information"
 
-#: plugin_katebuild.cpp:1814
+#: plugin_katebuild.cpp:1815
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "odefinierad referens"
 
-#: plugin_katebuild.cpp:2119
+#: plugin_katebuild.cpp:2120
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Kan inte spara byggmål i: %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>M:</B> %1"
 
-#: TargetHtmlDelegate.cpp:53
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Kat:</B> %1"
 
-#: TargetHtmlDelegate.cpp:104
+#: TargetHtmlDelegate.cpp:102
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -435,7 +435,7 @@ msgstr ""
 "Lämna tom för att använda katalogen för det aktuella dokumentet.\n"
 "Lägg till sökkataloger genom att lägga till sökvägar åtskilda av ';'"
 
-#: TargetHtmlDelegate.cpp:111
+#: TargetHtmlDelegate.cpp:109
 #, kde-format
 msgid ""
 "Use:\n"
@@ -446,7 +446,7 @@ msgstr ""
 "\"%B\" för projektets baskatalog\n"
 "\"%b\" för namnet på projektets baskatalog"
 
-#: TargetHtmlDelegate.cpp:115
+#: TargetHtmlDelegate.cpp:113
 #, kde-format
 msgid ""
 "Use:\n"
@@ -463,32 +463,32 @@ msgstr ""
 "\"%B\" för det aktuella projektets baskatalog\n"
 "\"%w\" för målets arbetskatalog"
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
 #, kde-format
 msgid "Target Set"
 msgstr "Måluppsättning"
 
-#: TargetModel.cpp:549
+#: TargetModel.cpp:548
 #, kde-format
 msgid "Projects"
 msgstr "Projekt"
 
-#: TargetModel.cpp:549
+#: TargetModel.cpp:548
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: TargetModel.cpp:661
+#: TargetModel.cpp:660
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Kommando/Måluppsättningens namn"
 
-#: TargetModel.cpp:664
+#: TargetModel.cpp:663
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "Byggkommando / Arbetskatalog"
 
-#: TargetModel.cpp:667
+#: TargetModel.cpp:666
 #, kde-format
 msgid "Run Command"
 msgstr "Kör kommando"

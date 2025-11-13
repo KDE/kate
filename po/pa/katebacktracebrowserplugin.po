@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-01-01 12:41-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Indexing files..."
 msgstr "ਫਾਇਲਾਂ ਇੰਡੈਕਸ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "ਬੈਕਟਰੇਸ"
@@ -160,12 +160,12 @@ msgstr "ਖੋਲ੍ਹੀ ਫਾਇਲ: %1"
 msgid "No debugging information available"
 msgstr "ਕੋਈ ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਨਹੀਂ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "ਬੈਕਟਰੇਸ ਸੈਟਿੰਗਾਂ"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "ਬੈਕਟਰੇਸ ਬਰਾਊਜ਼ਰ ਸੈਟਿੰਗ"

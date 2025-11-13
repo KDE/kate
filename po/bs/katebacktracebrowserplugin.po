@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2013-01-28 12:54+0000\n"
 "Last-Translator: Vedran Ljubovic <vljubovic@smartnet.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -164,7 +164,7 @@ msgstr "Lista ekstenzija.Primjer: *.cpp, *.h, *.c, itd..."
 msgid "Indexing files..."
 msgstr "Indeksiram datoteke..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 msgid "Backtrace"
 msgstr "Učitavanje traga unazad"
@@ -199,12 +199,12 @@ msgstr "Datoteka %1 je otvorena."
 msgid "No debugging information available"
 msgstr "Informacije o otklanjanju grešaka nisu dostupne."
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 msgid "Backtrace Settings"
 msgstr "Postavke pregledača traga unazad"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Postavke pregledača traga unazad"

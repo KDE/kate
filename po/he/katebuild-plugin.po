@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-19 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-09-17 10:44+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -48,22 +48,22 @@ msgstr "בנייה חוזרת"
 msgid "Cancel"
 msgstr "ביטול"
 
-#: buildconfig.cpp:47
+#: buildconfig.cpp:48
 #, kde-format
 msgid "Build & Run"
 msgstr "בנייה והרצה"
 
-#: buildconfig.cpp:53
+#: buildconfig.cpp:54
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "הגדרות בנייה והרצה"
 
-#: buildconfig.cpp:106
+#: buildconfig.cpp:107
 #, kde-format
 msgid "Delete selected entries"
 msgstr "מחיקת הרשומות הנבחרות"
 
-#: buildconfig.cpp:111
+#: buildconfig.cpp:112
 #, kde-format
 msgid "Delete all entries"
 msgstr "מחיקת כל הרשומות"
@@ -108,8 +108,8 @@ msgstr "להציג את תהליך הבנייה כהודעה כשלוח הפלט
 msgid "Allowed && Blocked Commands"
 msgstr "פקודות מורשות וחסומות"
 
-#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:755
-#: plugin_katebuild.cpp:990 plugin_katebuild.cpp:1003
+#: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:756
+#: plugin_katebuild.cpp:991 plugin_katebuild.cpp:1004
 #, kde-format
 msgid "Build"
 msgstr "בנייה"
@@ -176,28 +176,28 @@ msgstr ""
 "<b>הקובץ לא נמצא:</b> %1<br><b>נתיבי חיפוש:</b><br>%2<br>כדאי לנסותלהוסיף "
 "נתיב חיפוש ל„תיקיית העבודה”"
 
-#: plugin_katebuild.cpp:503
+#: plugin_katebuild.cpp:504
 #, kde-format
 msgid "Build Information"
 msgstr "פרטי בנייה"
 
-#: plugin_katebuild.cpp:762
+#: plugin_katebuild.cpp:763
 #, kde-format
 msgid "There is no file or directory specified for building."
 msgstr "אין קובץ או ספרייה מוגדרת עבור בנייה"
 
-#: plugin_katebuild.cpp:766
+#: plugin_katebuild.cpp:767
 #, kde-format
 msgid ""
 "The file \"%1\" is not a local file. Non-local files cannot be compiled."
 msgstr "הקובץ „%1” הוא לא קובץ מקומי. אי אפשר להדר קבצים שאינם מקומיים."
 
-#: plugin_katebuild.cpp:837
+#: plugin_katebuild.cpp:838
 #, kde-format
 msgid "Create directory"
 msgstr "יצירת תיקייה"
 
-#: plugin_katebuild.cpp:840
+#: plugin_katebuild.cpp:841
 #, kde-format
 msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
@@ -206,63 +206,63 @@ msgstr ""
 "תיקיית העבודה המוגדרת <b>%1</b> לערכת היעדים <b>%2</b> לא קיימת."
 "<br><br>ליצור את התיקייה?"
 
-#: plugin_katebuild.cpp:848
+#: plugin_katebuild.cpp:849
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
 msgstr "יצירת התיקייה <b>%1</b> נכשלה"
 
-#: plugin_katebuild.cpp:868
+#: plugin_katebuild.cpp:869
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "אי אפשר להפעיל את „%1”. מצב סיום = %2"
 
-#: plugin_katebuild.cpp:884
+#: plugin_katebuild.cpp:885
 #, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
 msgstr "הבנייה של <b>%1: %2</b> בוטלה"
 
-#: plugin_katebuild.cpp:989
+#: plugin_katebuild.cpp:990
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
 msgstr "לא נמצא compile_commands.json לקובץ „%1”."
 
-#: plugin_katebuild.cpp:1002
+#: plugin_katebuild.cpp:1003
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "לא נמצאה פקודת הידור לקובץ „%1” תחת „%2”."
 
-#: plugin_katebuild.cpp:1019
+#: plugin_katebuild.cpp:1020
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr "לא ניתן לבצע החלפה של „‎%f”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם!"
 
-#: plugin_katebuild.cpp:1023
+#: plugin_katebuild.cpp:1024
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr "לא ניתן לבצע החלפה של „‎%d”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם!"
 
-#: plugin_katebuild.cpp:1027
+#: plugin_katebuild.cpp:1028
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr "לא ניתן לבצע החלפה של „‎%n”. אין קבצים פתוחים או שהקובץ הפתוח נטול שם."
 
-#: plugin_katebuild.cpp:1038
+#: plugin_katebuild.cpp:1039
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr "לא ניתן ליצור החלפת מיזם (‎%B). אין מיזם פתוח!"
 
-#: plugin_katebuild.cpp:1051
+#: plugin_katebuild.cpp:1052
 #, kde-format
 msgid "Already building..."
 msgstr "כבר מתבצעת בנייה…"
 
-#: plugin_katebuild.cpp:1089
+#: plugin_katebuild.cpp:1090
 #, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
@@ -271,41 +271,41 @@ msgstr ""
 "לא ניתן להריץ: %1: %2 לא הוגדרה תיקיית עבודה.\n"
 "אין קובץ או תיקייה מקומיים שצוינו לבנייה."
 
-#: plugin_katebuild.cpp:1210
+#: plugin_katebuild.cpp:1211
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "היעד<b>%1: %2</b> נבנה…"
 
-#: plugin_katebuild.cpp:1247
+#: plugin_katebuild.cpp:1248
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr "לא ניתן לטעון יעדים, הקובץ %1 לא מכיל רשומת CMAKE_COMMAND הולמת!"
 
-#: plugin_katebuild.cpp:1260
+#: plugin_katebuild.cpp:1261
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr "לא ניתן לכתובת קובצי שאילתת API לקובץ CMake לתיקיית הבנייה %1!"
 
-#: plugin_katebuild.cpp:1266
+#: plugin_katebuild.cpp:1267
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "לא ניתן להריץ את CMake (%2) לתיקיית הבנייה %1!"
 
-#: plugin_katebuild.cpp:1275
+#: plugin_katebuild.cpp:1276
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr "יצירת קובצי תגובת API לקובץ CMake לתיקיית הבנייה %1 נכשלה (דרך %2)!"
 
-#: plugin_katebuild.cpp:1394
+#: plugin_katebuild.cpp:1395
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "תוסף הבנייה רוצה להריץ תוכנית"
 
-#: plugin_katebuild.cpp:1397
+#: plugin_katebuild.cpp:1398
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -317,18 +317,18 @@ msgstr ""
 "<br><br> שורת הפקודות המלאה היא:<br><br><b>%1</b><br><br>להמשיך ולהתיר את "
 "הרצת הפקודה הזאת?<br><br>אפשר לשנות את הבחירה הזאת דרך עמוד ההגדרות של התוסף."
 
-#: plugin_katebuild.cpp:1429
+#: plugin_katebuild.cpp:1430
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>הבנייה הסתיימה:</title>%1"
 
-#: plugin_katebuild.cpp:1492
+#: plugin_katebuild.cpp:1493
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "בניית <b>%1: %2</b> הושלמה. %3 שגיאות, %4 אזהרות, %5 הערות"
 
-#: plugin_katebuild.cpp:1504
+#: plugin_katebuild.cpp:1505
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
@@ -337,7 +337,7 @@ msgstr[1] "נמצאו שתי שגיאות."
 msgstr[2] "נמצאו %1 שגיאות."
 msgstr[3] "נמצאו %1 שגיאות."
 
-#: plugin_katebuild.cpp:1508
+#: plugin_katebuild.cpp:1509
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
@@ -346,7 +346,7 @@ msgstr[1] "נמצאו שתי אזהרות."
 msgstr[2] "נמצאו %1 אזהרות."
 msgstr[3] "נמצאו %1 אזהרות."
 
-#: plugin_katebuild.cpp:1511
+#: plugin_katebuild.cpp:1512
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
@@ -355,68 +355,68 @@ msgstr[1] "נמצאו שתי הערות."
 msgstr[2] "נמצאו %1 הערות."
 msgstr[3] "נמצאו %1 הערות."
 
-#: plugin_katebuild.cpp:1515
+#: plugin_katebuild.cpp:1516
 #, kde-format
 msgid "Build canceled."
 msgstr "הבנייה בוטלה."
 
-#: plugin_katebuild.cpp:1519
+#: plugin_katebuild.cpp:1520
 #, kde-format
 msgid "Build failed."
 msgstr "הבנייה נכשלה"
 
-#: plugin_katebuild.cpp:1521
+#: plugin_katebuild.cpp:1522
 #, kde-format
 msgid "Build completed without problems."
 msgstr "הבנייה הסתיימה ללא בעיות"
 
-#: plugin_katebuild.cpp:1525
+#: plugin_katebuild.cpp:1526
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "בניית <b>%1: %2 נכשלה</b>. %3 שגיאות, %4 אזהרות %5 הערות"
 
-#: plugin_katebuild.cpp:1805
+#: plugin_katebuild.cpp:1806
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:1808
+#: plugin_katebuild.cpp:1809
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "warning"
 
-#: plugin_katebuild.cpp:1811
+#: plugin_katebuild.cpp:1812
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "note|info"
 
-#: plugin_katebuild.cpp:1814
+#: plugin_katebuild.cpp:1815
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "undefined reference"
 
-#: plugin_katebuild.cpp:2119
+#: plugin_katebuild.cpp:2120
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "לא ניתן לשמור את יעדי הבנייה תחת: %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>י:</B> %1"
 
-#: TargetHtmlDelegate.cpp:53
+#: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>תיקייה:</B> %1"
 
-#: TargetHtmlDelegate.cpp:104
+#: TargetHtmlDelegate.cpp:102
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -425,7 +425,7 @@ msgstr ""
 "להשאיר ריק כדי שייעשה שימוש בתיקיית המסמך הנוכחי.\n"
 "אפשר להוסיף תיקיות חיפוש על ידי הוספת נתיבים עם ‚;’ ביניהם."
 
-#: TargetHtmlDelegate.cpp:111
+#: TargetHtmlDelegate.cpp:109
 #, kde-format
 msgid ""
 "Use:\n"
@@ -436,7 +436,7 @@ msgstr ""
 "„%B” לייצוג תיקיית הבסיס של המיזם\n"
 "„%b” לייצוג שם תיקיית הבסיס של המיזם"
 
-#: TargetHtmlDelegate.cpp:115
+#: TargetHtmlDelegate.cpp:113
 #, kde-format
 msgid ""
 "Use:\n"
@@ -453,32 +453,32 @@ msgstr ""
 "‏„‎%B” לתיקיית הבסיס של המיזם הנוכחי\n"
 "‏„‎%w” לתיקיית העבודה של היעד"
 
-#: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
 #, kde-format
 msgid "Target Set"
 msgstr "קבוצת יעדים"
 
-#: TargetModel.cpp:549
+#: TargetModel.cpp:548
 #, kde-format
 msgid "Projects"
 msgstr "מיזמים"
 
-#: TargetModel.cpp:549
+#: TargetModel.cpp:548
 #, kde-format
 msgid "Session"
 msgstr "הפעלה"
 
-#: TargetModel.cpp:661
+#: TargetModel.cpp:660
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "שם פקודה/קבוצת יעדים"
 
-#: TargetModel.cpp:664
+#: TargetModel.cpp:663
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "פקודת בנייה / תיקיית עבודה"
 
-#: TargetModel.cpp:667
+#: TargetModel.cpp:666
 #, kde-format
 msgid "Run Command"
 msgstr "הרצת פקודות"

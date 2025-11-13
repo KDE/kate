@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-23 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-07-26 19:34+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -59,12 +59,12 @@ msgstr "Usuń zaznaczone wpisy"
 msgid "Delete all entries"
 msgstr "Usuń wszystkie wpisy"
 
-#: lspclientplugin.cpp:235
+#: lspclientplugin.cpp:233
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Żądanie uruchomienia serwera LSP"
 
-#: lspclientplugin.cpp:238
+#: lspclientplugin.cpp:236
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -75,7 +75,7 @@ msgstr ""
 "<br><br><b>%1</b><br><br>Wybór ten będzie można później zmienić na stronie "
 "ustawień wtyczki."
 
-#: lspclientplugin.cpp:251
+#: lspclientplugin.cpp:249
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -277,7 +277,7 @@ msgid "Line: %1: "
 msgstr "Wiersz: %1: "
 
 #: lspclientpluginview.cpp:1470 lspclientpluginview.cpp:1819
-#: lspclientpluginview.cpp:1938
+#: lspclientpluginview.cpp:1939
 #, kde-format
 msgid "No results"
 msgstr "Brak wyników"
@@ -356,49 +356,49 @@ msgstr "Niewystarczająco wyników"
 msgid "Corresponding Header/Source not found"
 msgstr "Nie znaleziono odpowiadającego pliku nagłówka/źródła"
 
-#: lspclientpluginview.cpp:2091 lspclientpluginview.cpp:2134
+#: lspclientpluginview.cpp:2092 lspclientpluginview.cpp:2135
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Serwer LSP"
 
-#: lspclientpluginview.cpp:2157
+#: lspclientpluginview.cpp:2158
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Klient LSP"
 
-#: lspclientpluginview.cpp:2407
+#: lspclientpluginview.cpp:2408
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Pytanie z serwera LSP"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "Restarting"
 msgstr "Ponowne uruchamianie"
 
-#: lspclientservermanager.cpp:604
+#: lspclientservermanager.cpp:603
 #, kde-format
 msgid "NOT Restarting"
 msgstr "NIE uruchamia ponownie"
 
-#: lspclientservermanager.cpp:605
+#: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Serwer nieoczekiwane zakończył ... %1 [%2] [strona domowa: %3]"
 
-#: lspclientservermanager.cpp:876
+#: lspclientservermanager.cpp:875
 #, kde-format
 msgid "Failed to find server binary: %1"
 msgstr "Nie udało się znaleźć pliku wykonywalnego serwera: %1"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Sprawdź swoją ścieżkę do pliku wykonywalnego"
 
-#: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Aby dowiedzieć się szczegółów lub jak wgrać zajrzyj na %1"

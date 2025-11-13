@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2016-08-18 21:46+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-i18n-doc@kde.org>\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: plugin_katexmlcheck.cpp:93
+#: plugin_katexmlcheck.cpp:91
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XML Check"
 msgstr "XML-i kontrollija väljund"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:96
 #, kde-format
 msgid "Validate XML"
 msgstr "XML-i süntaksi kontroll"
 
-#: plugin_katexmlcheck.cpp:128
+#: plugin_katexmlcheck.cpp:126
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:128 plugin_katexmlcheck.cpp:146
-#: plugin_katexmlcheck.cpp:206 plugin_katexmlcheck.cpp:231
-#: plugin_katexmlcheck.cpp:251 plugin_katexmlcheck.cpp:334
+#: plugin_katexmlcheck.cpp:126 plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:204 plugin_katexmlcheck.cpp:229
+#: plugin_katexmlcheck.cpp:249 plugin_katexmlcheck.cpp:332
 #, fuzzy, kde-format
 #| msgid "XML Checker Output"
 msgid "XMLCheck"
 msgstr "XML-i kontrollija väljund"
 
-#: plugin_katexmlcheck.cpp:142
+#: plugin_katexmlcheck.cpp:140
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:142
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:230
+#: plugin_katexmlcheck.cpp:228
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Tõrge:</b> ajutise faili \"%1\" loomine nurjus."
 
-#: plugin_katexmlcheck.cpp:249
+#: plugin_katexmlcheck.cpp:247
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -69,7 +69,7 @@ msgstr ""
 "<b>Tõrge:</b> xmllint'i käivitamine nurjus. Palun kontrolli, kas xmllint on "
 "paigaldatud. See on libxml2 osa."
 
-#: plugin_katexmlcheck.cpp:332
+#: plugin_katexmlcheck.cpp:330
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

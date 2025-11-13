@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-31 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-10-31 10:15+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Error! No keys found..."
 msgstr "Error! No s'ha trobat cap clau…"
 
-#: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
+#: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
 #, kde-format
 msgid "Error finding key: "
 msgstr "S'ha produït un error en buscar la clau: "

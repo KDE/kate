@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-04-06 22:24+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 23.08.5\n"
 
-#: AsmView.cpp:303
+#: AsmView.cpp:305
 #, kde-format
 msgid "Scroll to source"
 msgstr "소스로 스크롤"
 
-#: AsmView.cpp:313
+#: AsmView.cpp:315
 #, kde-format
 msgid "Jump to label"
 msgstr "레이블로 이동"
 
-#: AsmView.cpp:339
+#: AsmView.cpp:341
 #, kde-format
 msgid "Copy"
 msgstr "복사"
 
-#: AsmView.cpp:351
+#: AsmView.cpp:353
 #, kde-format
 msgid "Select All"
 msgstr "모두 선택"
@@ -138,17 +138,17 @@ msgstr ""
 msgid "Compiler returned: %1"
 msgstr "컴파일러 반환값: %1"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
 msgstr "링크된 코드 표시"
 
-#: ce_widget.cpp:575
+#: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:591
+#: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr "'%1' 컴파일러 플래그를 찾았습니다. 출력이 유용하지 않을 수도 있습니다."

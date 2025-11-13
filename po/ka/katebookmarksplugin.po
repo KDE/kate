@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-07-04 05:00+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -28,22 +28,22 @@ msgstr "ხაზის ნომერი"
 msgid "File Path"
 msgstr "ფაილის ბილიკი"
 
-#: bookmarksplugin.cpp:142
+#: bookmarksplugin.cpp:143
 #, kde-format
 msgid "Bookmarks"
 msgstr "სანიშნეები"
 
-#: bookmarksplugin.cpp:168
+#: bookmarksplugin.cpp:169
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "წინა სანიშნეზე გადასვლა"
 
-#: bookmarksplugin.cpp:174
+#: bookmarksplugin.cpp:175
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "შემდეგ სანიშნეზე გადასვლა"
 
-#: bookmarksplugin.cpp:180
+#: bookmarksplugin.cpp:181
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "სანიშნეს წაშლა"

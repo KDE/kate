@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -18,47 +18,47 @@ msgstr ""
 "X-Text-Markup: kde4\n"
 "X-Environment: kde\n"
 
-#: plugin_katexmlcheck.cpp:93
+#: plugin_katexmlcheck.cpp:91
 #, fuzzy, kde-format
 #| msgid "Kate XML check"
 msgid "XML Check"
 msgstr "Кејтина провера ИксМЛ‑а"
 
-#: plugin_katexmlcheck.cpp:98
+#: plugin_katexmlcheck.cpp:96
 #, kde-format
 msgid "Validate XML"
 msgstr "Овери ИксМЛ"
 
-#: plugin_katexmlcheck.cpp:128
+#: plugin_katexmlcheck.cpp:126
 #, kde-format
 msgid "Validate process crashed"
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:128 plugin_katexmlcheck.cpp:146
-#: plugin_katexmlcheck.cpp:206 plugin_katexmlcheck.cpp:231
-#: plugin_katexmlcheck.cpp:251 plugin_katexmlcheck.cpp:334
+#: plugin_katexmlcheck.cpp:126 plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:204 plugin_katexmlcheck.cpp:229
+#: plugin_katexmlcheck.cpp:249 plugin_katexmlcheck.cpp:332
 #, fuzzy, kde-format
 #| msgid "Kate XML check"
 msgid "XMLCheck"
 msgstr "Кејтина провера ИксМЛ‑а"
 
-#: plugin_katexmlcheck.cpp:142
+#: plugin_katexmlcheck.cpp:140
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:144
+#: plugin_katexmlcheck.cpp:142
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr ""
 
-#: plugin_katexmlcheck.cpp:230
+#: plugin_katexmlcheck.cpp:228
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Грешка:</b> Не могу да направим привремени фајл „%1“."
 
-#: plugin_katexmlcheck.cpp:249
+#: plugin_katexmlcheck.cpp:247
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
@@ -70,7 +70,7 @@ msgstr ""
 "<b>Грешка:</b> Не могу да извршим <tt>xmllint</tt>. Проверите да ли је ова "
 "наредба инсталирана (део пакета <tt>libxml2</tt>)."
 
-#: plugin_katexmlcheck.cpp:332
+#: plugin_katexmlcheck.cpp:330
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

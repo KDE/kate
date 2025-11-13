@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-04-28 00:44+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2012-12-20 09:35+0700\n"
 "Last-Translator: sutha <sutha@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros>\n"
@@ -44,7 +44,7 @@ msgctxt "@label:listbox"
 msgid "Database driver:"
 msgstr "កម្មវិធី​បញ្ជា​មូលដ្ឋាន​ទិន្នន័យ​ ៖"
 
-#: connectionwizard.cpp:79 connectionwizard.cpp:167
+#: connectionwizard.cpp:79 connectionwizard.cpp:165
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Parameters"
@@ -92,18 +92,18 @@ msgctxt "@label:textbox"
 msgid "Database name:"
 msgstr "ឈ្មោះ​មូលដ្ឋាន​ទិន្នន័យ​ ៖​"
 
-#: connectionwizard.cpp:100 connectionwizard.cpp:179
+#: connectionwizard.cpp:100 connectionwizard.cpp:177
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection options:"
 msgstr "ជម្រើស​ការ​តភ្ជាប់​ ៖​"
 
-#: connectionwizard.cpp:152
+#: connectionwizard.cpp:150
 #, kde-format
 msgid "Unable to connect to database."
 msgstr "បើក​ដើម្បី​តភ្ជាប់​ទៅកាន់​មូលដ្ឋាន​ទិន្នន័យ​ ។"
 
-#: connectionwizard.cpp:169
+#: connectionwizard.cpp:167
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -113,41 +113,41 @@ msgstr ""
 "សូម​បញ្ចូល​​ផ្លូវ​ឯកសារ​មូលដ្ឋាន​ទិន្នន័យ​​របស់​ SQLite ។\n"
 "ប្រសិន​បើ​ មិន​មាន​ឯកសារ​ទេ​​ មូលដ្ឋាន​ទិន្នន័យ​ថ្មី​នឹង​ត្រូវ​បាន​បង្កើត​ ។"
 
-#: connectionwizard.cpp:177
+#: connectionwizard.cpp:175
 #, kde-format
 msgid "Database files"
 msgstr "ឯកសារ​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: connectionwizard.cpp:177 exportwizard.cpp:54
+#: connectionwizard.cpp:175 exportwizard.cpp:52
 #, kde-format
 msgid "All files"
 msgstr "គ្រប់​ឯកសារ​ទាំងអស់​"
 
-#: connectionwizard.cpp:178
+#: connectionwizard.cpp:176
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Path:"
 msgstr "ផ្លូវ​ ៖"
 
-#: connectionwizard.cpp:211
+#: connectionwizard.cpp:209
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
 msgstr "បើក​​ ដើម្បី​តភ្ជាប់​ទៅកាន់​មូលដ្ឋាន​ទិន្នន័យ ។<nl/><message>%1</message>"
 
-#: connectionwizard.cpp:226
+#: connectionwizard.cpp:224
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Connection Name"
 msgstr "ឈ្មោះ​តភ្ជាប់​"
 
-#: connectionwizard.cpp:227
+#: connectionwizard.cpp:225
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
 msgstr "បញ្ចូល​ឈ្មោះ​តភ្ជាប់​តែ​មួយ​"
 
-#: connectionwizard.cpp:233
+#: connectionwizard.cpp:231
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Connection name:"
@@ -189,7 +189,7 @@ msgctxt "@action:intoolbar"
 msgid "Use system locale"
 msgstr "ប្រើ​មូលដ្ឋាន​​របស់​ប្រព័ន្ធ​​"
 
-#: dataoutputwidget.cpp:272
+#: dataoutputwidget.cpp:270
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to open file <filename>%1</filename>"
@@ -201,48 +201,48 @@ msgctxt "@title:window"
 msgid "Export Wizard"
 msgstr "អ្នក​ជំនួយ​ការ​នាំចេញ​"
 
-#: exportwizard.cpp:40
+#: exportwizard.cpp:38
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Output Target"
 msgstr "គោលដៅ​ទិន្នផល​​​"
 
-#: exportwizard.cpp:41
+#: exportwizard.cpp:39
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
 msgstr "ជ្រើស​គោលដៅ​ទិន្នផល​ ។​"
 
-#: exportwizard.cpp:45
+#: exportwizard.cpp:43
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Current document"
 msgstr "ឯកសារ​បច្ចុប្បន្ន​"
 
-#: exportwizard.cpp:46
+#: exportwizard.cpp:44
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "Clipboard"
 msgstr "ក្ដារ​តម្បៀត​ខ្ទាស់​"
 
-#: exportwizard.cpp:47
+#: exportwizard.cpp:45
 #, kde-format
 msgctxt "@option:radio Output target"
 msgid "File"
 msgstr "ឯកសារ​"
 
-#: exportwizard.cpp:54
+#: exportwizard.cpp:52
 #, kde-format
 msgid "Comma Separated Values"
 msgstr ""
 
-#: exportwizard.cpp:96
+#: exportwizard.cpp:94
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Fields Format"
 msgstr "ទ្រង់ទ្រាយ​វាល​"
 
-#: exportwizard.cpp:97
+#: exportwizard.cpp:95
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid ""
@@ -252,55 +252,55 @@ msgstr ""
 "ជ្រើស​ទ្រង់ទ្រាយ​វាល​ ។​\n"
 "​ចុច​ប៊ូតុង​ \"បញ្ចប់\" ដើម្បី​នាំ​ទិន្នន័យ​ចេញ​ ។"
 
-#: exportwizard.cpp:101
+#: exportwizard.cpp:99
 #, kde-format
 msgctxt "@title:group"
 msgid "Headers"
 msgstr "បឋមកថា​"
 
-#: exportwizard.cpp:104
+#: exportwizard.cpp:102
 #, kde-format
 msgctxt "@option:check"
 msgid "Export column names"
 msgstr "នាំ​ឈ្មោះ​របស់​ជួរឈរ​ចេញ​​"
 
-#: exportwizard.cpp:105
+#: exportwizard.cpp:103
 #, kde-format
 msgctxt "@option:check"
 msgid "Export line numbers"
 msgstr "នាំ​ចំនួន​បន្ទាត់​ចេញ​"
 
-#: exportwizard.cpp:112
+#: exportwizard.cpp:110
 #, kde-format
 msgctxt "@title:group"
 msgid "Quotes"
 msgstr "ដកស្រង់​"
 
-#: exportwizard.cpp:115
+#: exportwizard.cpp:113
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote strings"
 msgstr "ដកស្រង់​ខ្សែ​អក្សរ​"
 
-#: exportwizard.cpp:116
+#: exportwizard.cpp:114
 #, kde-format
 msgctxt "@option:check"
 msgid "Quote numbers"
 msgstr "ចំនួន​ដកស្រង់​"
 
-#: exportwizard.cpp:124 exportwizard.cpp:127
+#: exportwizard.cpp:122 exportwizard.cpp:125
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Character:"
 msgstr "តួ​អក្សរ​ ៖​"
 
-#: exportwizard.cpp:133
+#: exportwizard.cpp:131
 #, kde-format
 msgctxt "@title:group"
 msgid "Delimiters"
 msgstr "សញ្ញា​កំណត់​ព្រំដែន​"
 
-#: exportwizard.cpp:139
+#: exportwizard.cpp:137
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Field delimiter:"
@@ -318,13 +318,13 @@ msgctxt "@title:group"
 msgid "Output Customization"
 msgstr "ការ​ប្ដូរ​ទិន្នផល​តាម​បំណង"
 
-#: katesqlconfigpage.cpp:53
+#: katesqlconfigpage.cpp:51
 #, kde-format
 msgctxt "@title"
 msgid "SQL"
 msgstr "SQL"
 
-#: katesqlconfigpage.cpp:58
+#: katesqlconfigpage.cpp:56
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "SQL Plugin Settings"
@@ -471,57 +471,57 @@ msgctxt "@title:column"
 msgid "Database schema"
 msgstr "គ្រោងការណ៍​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: schemawidget.cpp:91
+#: schemawidget.cpp:89
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Tables"
 msgstr "តារាង​"
 
-#: schemawidget.cpp:96
+#: schemawidget.cpp:94
 #, kde-format
 msgctxt "@title Folder name"
 msgid "Views"
 msgstr "មើល​"
 
-#: schemawidget.cpp:110
+#: schemawidget.cpp:108
 #, kde-format
 msgctxt "@title Folder name"
 msgid "System Tables"
 msgstr "តារាង​ប្រព័ន្ធ​"
 
-#: schemawidget.cpp:270
+#: schemawidget.cpp:268
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
 msgstr ""
 
-#: schemawidget.cpp:273
+#: schemawidget.cpp:271
 #, kde-format
 msgctxt "@action:inmenu Submenu title"
 msgid "Generate"
 msgstr "បង្កើត​"
 
-#: schemawidget.cpp:275
+#: schemawidget.cpp:273
 #, kde-format
 msgid "SELECT"
 msgstr ""
 
-#: schemawidget.cpp:276
+#: schemawidget.cpp:274
 #, kde-format
 msgid "UPDATE"
 msgstr ""
 
-#: schemawidget.cpp:277
+#: schemawidget.cpp:275
 #, kde-format
 msgid "INSERT"
 msgstr ""
 
-#: schemawidget.cpp:278
+#: schemawidget.cpp:276
 #, kde-format
 msgid "DELETE"
 msgstr ""
 
-#: schemawidget.cpp:282
+#: schemawidget.cpp:280
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Refresh"

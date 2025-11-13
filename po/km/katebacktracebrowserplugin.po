@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2009-06-08 10:20+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -160,7 +160,7 @@ msgstr "បញ្ជី​ផ្នែកបន្ថែម​ឯកសារ �
 msgid "Indexing files..."
 msgstr "កំពុង​ដាក់​លិបិក្រម​ឯកសារ..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
@@ -196,13 +196,13 @@ msgstr "ឯកសារ​ដែលបានបើក ៖ %1"
 msgid "No debugging information available"
 msgstr "មិនមាន​ព័ត៌មានបំបាត់​កំហុស​ទេ"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "កា​រកំណត់​កម្មវិធីរុករក Backtrace"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "កា​រកំណត់​កម្មវិធីរុករក Backtrace"

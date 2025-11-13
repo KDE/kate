@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-11 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-11-01 00:50-0300\n"
 "Last-Translator: Guilherme Marçal Silva <guimarcalsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.08.2\n"
 
-#: rainbowparens_plugin.cpp:433
+#: rainbowparens_plugin.cpp:434
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "Cores dos colchetes"
 
-#: rainbowparens_plugin.cpp:450
+#: rainbowparens_plugin.cpp:451
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Colchetes Coloridos"
 
-#: rainbowparens_plugin.cpp:455
+#: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Configurações dos colchetes coloridos"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2007-06-25 18:20+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi <punjabi-l10n@users.sf.net>\n"
@@ -59,7 +59,7 @@ msgstr "XML ਮੈਟਾ DTD ਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "ਫਾਇਲ '%1' ਨੂੰ ਖੋਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ। ਸਰਵਰ ਨੇ ਗਲਤੀ ਦਿੱਤੀ ਹੈ।"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML ਪਲੱਗਇਨ ਗਲਤੀ"
@@ -97,7 +97,7 @@ msgid ""
 "supplied):"
 msgstr ""
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -105,7 +105,7 @@ msgid ""
 msgstr ""
 "ਫਾਇਲ '%1' ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ। ਜਾਂਚ ਕਰੋ ਜੀ ਕਿ ਫਾਇਲ ਠੀਕ XML ਫਾਰਮੈਟ ਵਿੱਚ ਹੈ।"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -115,12 +115,12 @@ msgid ""
 "for more information."
 msgstr ""
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "ਮੈਟਾ DTD ਦੀ ਜਾਂਚ ਜਾਰੀ ਹੈ..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"

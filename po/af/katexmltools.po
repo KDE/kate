@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools VERSION\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2002-11-07 11:26+0200\n"
 "Last-Translator: WEB-Translator <http://kde.af.org.za>\n"
 "Language-Team: AFRIKAANS <AF@lia.org.za>\n"
@@ -61,7 +61,7 @@ msgid "The file '%1' could not be opened. The server returned an error."
 msgstr ""
 "Die lêer '%1' kon nie wees geöpende. Die bediener teruggestuur 'n fout."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Xml Inplak Fout"
@@ -101,7 +101,7 @@ msgstr ""
 "Invoer Xml etiket naam en eienskappe. Die \"<\", \">\" en maak toe etiket "
 "sal wees verskaf."
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, fuzzy, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -110,7 +110,7 @@ msgstr ""
 "Die lêer '%1' kon nie wees gelees. Asseblief bevestig wat Die lêer is well-"
 "formed Xml.\n"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "Jy kan produseer soos lêers met dtdparse. Sien Die Kate Inplak dokumentasie "
 "vir meer informasie."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Besig om te analiseer meta Dtd..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr ""

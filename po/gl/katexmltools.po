@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-06-18 12:57+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -64,7 +64,7 @@ msgstr "Cargando o meta DTD XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Non foi posíbel abrir o ficheiro «%1». O servidor devolveu un erro."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Erro do complemento de XML"
@@ -103,7 +103,7 @@ msgstr ""
 "Insira o nome da etiqueta XML e os seus atributos (forneceranse o «<», o «>» "
 "e a etiqueta de peche):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -112,7 +112,7 @@ msgstr ""
 "Non foi posíbel procesar o ficheiro «%1». Comprobe que o ficheiro contén XML "
 "correcto."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -127,12 +127,12 @@ msgstr ""
 "Pode crear estes ficheiros con dtdparse. Consulte a documentación do "
 "complemento de Kate para máis información."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analizando o meta DTD…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Cancelar"

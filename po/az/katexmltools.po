@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-06-30 13:48+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -61,7 +61,7 @@ msgstr "SML Meta DTD yüklənir"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "\"%1\" faylı açıla bilmədi. Server xəta olduğunu bildirdi."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML qoşması xətası"
@@ -100,7 +100,7 @@ msgstr ""
 "XML yarlıq adı və atributları daxil edin (\"<\", \">\" və bağlama teq'i "
 "avtomatik yerləşdiriləcəkdir):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -108,7 +108,7 @@ msgid ""
 msgstr ""
 "\"%1\" faylını işləmək mümkün olmadı. XML faylının quruluşunu yoxlayın."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -123,12 +123,12 @@ msgstr ""
 "Belə faylı siz özünüz dtdparse ilə yarada bilərsiniz. Daha ətraflı məlumat "
 "üçün Kate qoşması sənədləşməsinə baxın."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Meta DTD analiz edilir..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "İmtina"

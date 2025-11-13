@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-03-21 20:43+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -68,7 +68,7 @@ msgstr "XML Meta DTD yükleniyor"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "“%1“ adlı dosya açılamadı. Sunucu hata verdi."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML Eklenti Hatası"
@@ -107,7 +107,7 @@ msgstr ""
 "XML etiket adı ve özelliklerini girin ( \"<\",\">\" ve kapatma etiketi "
 "sağlanacak):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -116,7 +116,7 @@ msgstr ""
 "“%1“ adlı dosya ayrıştırılamadı. Dosyanın iyi oluşturulmuş bir XML olduğunu "
 "denetleyin."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -131,12 +131,12 @@ msgstr ""
 "Bu türdeki dosyaları dtdparse ile üretebilirsiniz. Daha fazla bilgi için "
 "Kate Eklenti belgelerine bakın."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Meta DTD çözümleniyor…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "İptal"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-04-03 11:49+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -77,12 +77,12 @@ msgstr "Генерировать"
 msgid "Result"
 msgstr "Результат"
 
-#: MatchModel.cpp:563 MatchModel.cpp:565
+#: MatchModel.cpp:561 MatchModel.cpp:563
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Создание списка файлов: %1</i></b>"
 
-#: MatchModel.cpp:573
+#: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
@@ -91,7 +91,7 @@ msgstr[1] "<b><i>Найдено %1 совпадения, поиск: …%2</i></
 msgstr[2] "<b><i>Найдено %1 совпадений, поиск: …%2</i></b>"
 msgstr[3] "<b><i>Найдено одно совпадение, поиск: …%2</i></b>"
 
-#: MatchModel.cpp:578
+#: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
@@ -100,7 +100,7 @@ msgstr[1] "<b><i>Найдено %1 совпадения, поиск: %2</i></b>"
 msgstr[2] "<b><i>Найдено %1 совпадений, поиск: %2</i></b>"
 msgstr[3] "<b><i>Найдено одно совпадение, поиск: %2</i></b>"
 
-#: MatchModel.cpp:585 MatchModel.cpp:740
+#: MatchModel.cpp:583 MatchModel.cpp:738
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -109,7 +109,7 @@ msgstr[1] "%1 отмечено"
 msgstr[2] "%1 отмечено"
 msgstr[3] "одно отмечено"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:587
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
@@ -118,7 +118,7 @@ msgstr[1] "<b><i>В файле найдено %1 совпадения (%2)</i></
 msgstr[2] "<b><i>В файле найдено %1 совпадений (%2)</i></b>"
 msgstr[3] "<b><i>В файле найдено одно совпадение (%2)</i></b>"
 
-#: MatchModel.cpp:591
+#: MatchModel.cpp:589
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -127,7 +127,7 @@ msgstr[1] "<b><i>В открытых файлах найдено %1 совпад
 msgstr[2] "<b><i>В открытых файлах найдено %1 совпадений (%2)</i></b>"
 msgstr[3] "<b><i>В открытых файлах найдено одно совпадение (%2)</i></b>"
 
-#: MatchModel.cpp:594
+#: MatchModel.cpp:592
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
@@ -136,7 +136,7 @@ msgstr[1] "<b><i>В папке «%2» найдено %1 совпадения (%3
 msgstr[2] "<b><i>В папке «%2» найдено %1 совпадений (%3)</i></b>"
 msgstr[3] "<b><i>В папке «%2» найдено одно совпадение (%3)</i></b>"
 
-#: MatchModel.cpp:601
+#: MatchModel.cpp:599
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
@@ -145,7 +145,7 @@ msgstr[1] "<b><i>В проекте «%2» («%3») найдено %1 совпа�
 msgstr[2] "<b><i>В проекте «%2» («%3») найдено %1 совпадений (%4)</i></b>"
 msgstr[3] "<b><i>В проекте «%2» («%3») найдено одно совпадение (%4)</i></b>"
 
-#: MatchModel.cpp:610
+#: MatchModel.cpp:608
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -164,12 +164,12 @@ msgstr[3] ""
 "<b><i>Во всех открытых проектах (общая родительская папка: «%2») найдено "
 "одно совпадение (%3)</i></b>"
 
-#: MatchModel.cpp:724 MatchModel.cpp:726
+#: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Создание списка файлов: …%1"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:732
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -178,7 +178,7 @@ msgstr[1] "Найдено %1 совпадения, поиск: …%2"
 msgstr[2] "Найдено %1 совпадений, поиск: …%2"
 msgstr[3] "Найдено одно совпадение, поиск: …%2"
 
-#: MatchModel.cpp:736
+#: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -187,7 +187,7 @@ msgstr[1] "Найдено %1 совпадения, поиск: %2"
 msgstr[2] "Найдено %1 совпадений, поиск: %2"
 msgstr[3] "Найдено одно совпадение, поиск: %2"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
@@ -196,7 +196,7 @@ msgstr[1] "В файле найдено %1 совпадения (%2)"
 msgstr[2] "В файле найдено %1 совпадений (%2)"
 msgstr[3] "В файле найдено одно совпадение (%2)"
 
-#: MatchModel.cpp:746
+#: MatchModel.cpp:744
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
@@ -205,7 +205,7 @@ msgstr[1] "В открытых файлах найдено %1 совпадени
 msgstr[2] "В открытых файлах найдено %1 совпадений (%2)"
 msgstr[3] "В открытых файлах найдено одно совпадение (%2)"
 
-#: MatchModel.cpp:749
+#: MatchModel.cpp:747
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
@@ -214,7 +214,7 @@ msgstr[1] "В папке «%2» найдено %1 совпадения (%3)"
 msgstr[2] "В папке «%2» найдено %1 совпадений (%3)"
 msgstr[3] "В папке «%2» найдено одно совпадение (%3)"
 
-#: MatchModel.cpp:752
+#: MatchModel.cpp:750
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
@@ -223,7 +223,7 @@ msgstr[1] "В проекте «%2» («%3») найдено %1 совпаден�
 msgstr[2] "В проекте «%2» («%3») найдено %1 совпадений (%4)"
 msgstr[3] "В проекте «%2» («%3») найдено одно совпадение (%4)"
 
-#: MatchModel.cpp:761
+#: MatchModel.cpp:759
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
@@ -666,93 +666,93 @@ msgstr "Нажмите для фильтрации результатов"
 msgid "Find"
 msgstr "Поиск"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1173
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Поиск не был начат, так как указанный каталог «%1» не существует."
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1346
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Поиск текста по мере набора был прерван. Он занимает слишком много времени."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1679
 #, kde-format
 msgid "Search Match"
 msgstr "Совпадения поиска"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1856 SearchPlugin.cpp:1932
 #, kde-format
 msgid "Next from cursor"
 msgstr "Начать справа от курсора"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1873
 #, kde-format
 msgid "Starting from first match"
 msgstr "Начать с первого совпадения"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1893
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Продолжить с первого совпадения"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1949
 #, kde-format
 msgid "Starting from last match"
 msgstr "Начать с последнего совпадения"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1969
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Продолжить с последнего совпадения"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2130
 #, kde-format
 msgid "Search: %1"
 msgstr "Поиск: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy all"
 msgstr "Копировать всё"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy expanded"
 msgstr "Копировать развёрнутые"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Export matches"
 msgstr "Экспорт совпадений"
 
-#: SearchPlugin.cpp:2285
+#: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Открыть как вкладку в редакторе"
 
-#: SearchPlugin.cpp:2293
+#: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Clear"
 msgstr "Очистить"
 
-#: SearchPlugin.cpp:2403 SearchPlugin.cpp:2437
+#: SearchPlugin.cpp:2404 SearchPlugin.cpp:2438
 #, kde-format
 msgid "Add..."
 msgstr "Добавить..."
 
-#: SearchPlugin.cpp:2415
+#: SearchPlugin.cpp:2416
 #, kde-format
 msgid "Search As You Type"
 msgstr "Поиск по мере набора"
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In Current Project"
 msgstr "В текущем проекте"
 
-#: SearchPlugin.cpp:2488
+#: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Во всех открытых проектах"

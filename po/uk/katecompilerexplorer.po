@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-03-03 08:34+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.04.3\n"
 
-#: AsmView.cpp:303
+#: AsmView.cpp:305
 #, kde-format
 msgid "Scroll to source"
 msgstr "Гортати до джерела"
 
-#: AsmView.cpp:313
+#: AsmView.cpp:315
 #, kde-format
 msgid "Jump to label"
 msgstr "Перейти до мітки"
 
-#: AsmView.cpp:339
+#: AsmView.cpp:341
 #, kde-format
 msgid "Copy"
 msgstr "Копіювати"
 
-#: AsmView.cpp:351
+#: AsmView.cpp:353
 #, kde-format
 msgid "Select All"
 msgstr "Позначити все"
@@ -139,17 +139,17 @@ msgstr ""
 msgid "Compiler returned: %1"
 msgstr "Повернуто компілятором: %1"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
 msgstr "Показати пов'язаний код"
 
-#: ce_widget.cpp:575
+#: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "CompilerExplorer"
 
-#: ce_widget.cpp:591
+#: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""

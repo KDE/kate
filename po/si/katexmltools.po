@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2011-08-09 06:06+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -61,7 +61,7 @@ msgstr "XML මෙටා DTD පූර්ණය වෙමින්"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "'%1' ගොනුව විවෘත කල නොහැක. සේවාදායකට දෝශයක් පැණනැගිනි."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML ප්ලගීන දෝශය"
@@ -100,14 +100,14 @@ msgid ""
 msgstr ""
 "XML ටැග් නාමයක් හා උපලක්‍ෂන ඇතුලත් කරන්න (\"<\", \">\" සහ වැසීමේ ටැග ලබා දෙනු ඇත):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "'%1' ගොනුව කොටස්කල නොහැක. කරුණාකර ගොනුව නිසිලෙස සැකසූ XML යක්ද පිරික්සන්න."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -121,12 +121,12 @@ msgstr ""
 "ඔබට මෙවැනි ගොනු dtdparse මගින් තැනිය හැක. වැඩිදුර තොරතුරු සඳහා Kate ප්ලගින ලේඛන වෙත "
 "යොමුවෙන්න."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "මෙටා DTD විශ්ලේෂණය කරන්න..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "අවලංගු"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2014-08-14 16:54+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -164,7 +164,7 @@ msgstr "List vun Dateiverwiedern. Bispill: *.cpp, *.h, *.c, usw..."
 msgid "Indexing files..."
 msgstr "Dateien warrt indizeert..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Backtrace "
 msgid "Backtrace"
@@ -200,12 +200,12 @@ msgstr "Datei opmaakt: %1"
 msgid "No debugging information available"
 msgstr "Keen Fehlersöök-Informatschonen verföögbor"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Fehlerspoor-Instellen"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Fehlerspoor-Kieker instellen"

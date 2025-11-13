@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-27 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-03-15 10:31+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: AsmView.cpp:303
+#: AsmView.cpp:305
 #, kde-format
 msgid "Scroll to source"
 msgstr "Przewiń do źródła"
 
-#: AsmView.cpp:313
+#: AsmView.cpp:315
 #, kde-format
 msgid "Jump to label"
 msgstr "Przejdź do etykiety"
 
-#: AsmView.cpp:339
+#: AsmView.cpp:341
 #, kde-format
 msgid "Copy"
 msgstr "Skopiuj"
 
-#: AsmView.cpp:351
+#: AsmView.cpp:353
 #, kde-format
 msgid "Select All"
 msgstr "Zaznacz wszystko"
@@ -139,17 +139,17 @@ msgstr ""
 msgid "Compiler returned: %1"
 msgstr "Kompilator zwrócił: %1"
 
-#: ce_widget.cpp:553
+#: ce_widget.cpp:554
 #, kde-format
 msgid "Reveal linked code"
 msgstr "Odkryj powiązany kod"
 
-#: ce_widget.cpp:575
+#: ce_widget.cpp:576
 #, kde-format
 msgid "CompilerExplorer"
 msgstr "Przeglądarka Kompilatora"
 
-#: ce_widget.cpp:591
+#: ce_widget.cpp:592
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
 msgstr ""

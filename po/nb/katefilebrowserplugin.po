@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefilebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-27 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2014-09-14 21:59+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -29,51 +29,51 @@ msgstr "Søk"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "Oppgi et navnefilter som begrenser hvilke filer som blir vist."
 
-#: katefilebrowser.cpp:295
+#: katefilebrowser.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr ""
 
-#: katefilebrowser.cpp:324
+#: katefilebrowser.cpp:323
 #, kde-format
 msgid "&Other..."
 msgstr ""
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:351
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "Du forsøker å åpne 1 fil, er du sikker?"
 msgstr[1] "Du forsøker å åpne %1 filer, er du sikker?"
 
-#: katefilebrowser.cpp:354
+#: katefilebrowser.cpp:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr ""
 
-#: katefilebrowser.cpp:417
+#: katefilebrowser.cpp:416
 #, kde-format
 msgid "Bookmarks"
 msgstr "Bokmerker"
 
-#: katefilebrowser.cpp:425
+#: katefilebrowser.cpp:424
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Gjeldende dokumentmappe"
 
-#: katefilebrowser.cpp:433
+#: katefilebrowser.cpp:432
 #, kde-format
 msgid "Options"
 msgstr "Valg"
 
-#: katefilebrowser.cpp:445
+#: katefilebrowser.cpp:444
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Synkroniser automatisk med det gjeldende dokumentet."
 
-#: katefilebrowser.cpp:452
+#: katefilebrowser.cpp:451
 #, kde-format
 msgid "Highlight current file"
 msgstr ""

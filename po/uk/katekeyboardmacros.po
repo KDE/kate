@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-11-18 08:49+0200\n"
 "Last-Translator: Fracture dept <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
+#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Клавіатурні макроси"
@@ -236,42 +236,42 @@ msgstr "Витерти вказаний за назвою макрос."
 msgid "End Macro &Recording"
 msgstr "Завер&шити записування макроса"
 
-#: keyboardmacrospluginview.cpp:181
+#: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
 msgstr "Завантажити %1"
 
-#: keyboardmacrospluginview.cpp:182
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Завантажити макрос «%1» як поточний."
 
-#: keyboardmacrospluginview.cpp:194
+#: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
 msgstr "Відтворити %1"
 
-#: keyboardmacrospluginview.cpp:195
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Відтворити макрос «%1» без його завантаження."
 
-#: keyboardmacrospluginview.cpp:209
+#: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
 msgstr "Витерти %1"
 
-#: keyboardmacrospluginview.cpp:210
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Витерти макрос «%1»."
 
-#: keyboardmacrospluginview.cpp:291
+#: keyboardmacrospluginview.cpp:290
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Зберегти поточний макрос із новою назвою?"
 
-#: keyboardmacrospluginview.cpp:325
+#: keyboardmacrospluginview.cpp:324
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Витерти макрос «%1»?"

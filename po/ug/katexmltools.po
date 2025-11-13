@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -61,7 +61,7 @@ msgstr "XML مېتا DTD يۈكلەۋاتىدۇ"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "ھۆججەت '%1' نى ئاچالمىدى. مۇلازىمېتىر بىر خاتالىق قايتۇردى."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML قىستۇرما خاتالىقى"
@@ -101,7 +101,7 @@ msgstr ""
 "XML بەلگە ئاتى ۋە خاسلىقى (\"<\"، \">\" ۋە ئاخىرلاشتۇرۇش بەلگىسى ئۆزلۈكىدىن "
 "تەمىنلىنىدۇ):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -110,7 +110,7 @@ msgstr ""
 "بۇ '%1' ھۆججەتنى يېشەلمىدى، بۇ ھۆججەتنىڭ توغرا بولغان XML پىچىمدىكى ھۆججەت "
 "ئىكەنلىكىنى تەكشۈرۈڭ."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -124,12 +124,12 @@ msgstr ""
 "dtdparse نى ئىشلىتىپ بۇ خىلدىكى ھۆججەتنى ھاسىل قىلالايسىز. تەپسىلاتىنى Kate "
 "قىستۇرما پۈتۈكىدىن كۆرۈڭ."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "مېتا DTD نى تەھلىل قىلىۋاتىدۇ…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "ئەمەلدىن قالدۇر"

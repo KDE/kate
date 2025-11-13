@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-11-24 17:55+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Kunde inte läsa in '%1': felformat makro, suddar det."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
+#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Tangentbordsmakron"
@@ -230,42 +230,42 @@ msgstr "Sudda ett namngivet makro."
 msgid "End Macro &Recording"
 msgstr "Avsluta mak&roinspelning"
 
-#: keyboardmacrospluginview.cpp:181
+#: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
 msgstr "Läs in %1"
 
-#: keyboardmacrospluginview.cpp:182
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Läs in makro '%1' som det nuvarande."
 
-#: keyboardmacrospluginview.cpp:194
+#: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
 msgstr "Spela %1"
 
-#: keyboardmacrospluginview.cpp:195
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Spela upp makro '%1' utan att läsa in det."
 
-#: keyboardmacrospluginview.cpp:209
+#: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
 msgstr "Sudda %1"
 
-#: keyboardmacrospluginview.cpp:210
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Sudda makro '%1'."
 
-#: keyboardmacrospluginview.cpp:291
+#: keyboardmacrospluginview.cpp:290
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Spara nuvarande makro som?"
 
-#: keyboardmacrospluginview.cpp:325
+#: keyboardmacrospluginview.cpp:324
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Sudda makro '%1'?"

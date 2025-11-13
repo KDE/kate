@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-06-12 07:04+0100\n"
 "Last-Translator: Burkhard Lück <lueck@hube-lueck.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -140,7 +140,7 @@ msgstr "Liste der Dateierweiterungen. Beispiel: *.cpp, *.h, *.c usw."
 msgid "Indexing files..."
 msgstr "Dateien werden indiziert …"
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Backtrace"
@@ -175,12 +175,12 @@ msgstr "Geöffnete Datei: %1"
 msgid "No debugging information available"
 msgstr "Keine Debugging-Informationen verfügbar"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Einstellungen für Backtrace"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Einstellungen für Backtrace-Browser"

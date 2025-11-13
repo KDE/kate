@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -160,7 +160,7 @@ msgstr "ھۆججەت كېڭەيتىلگەن ئات تىزىمى. مەسىلەن:
 msgid "Indexing files..."
 msgstr "ئىندېكسلانغان ھۆججەتلەر…"
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
@@ -196,13 +196,13 @@ msgstr "ئېچىلغان ھۆججەت: %1"
 msgid "No debugging information available"
 msgstr "ئىشلەتكىلى بولىدىغان سازلاش ئۇچۇرى يوق"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "ئارقا ئىزلاش كۆرگۈ تەڭشىكى"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "ئارقا ئىزلاش كۆرگۈ تەڭشىكى"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-23 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-08-24 15:22+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Generator: Lokalize 25.08.0\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
-#: Formatters.cpp:367 Formatters.cpp:397
+#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
 msgstr "Format"
@@ -80,12 +80,12 @@ msgstr ""
 "Désactiver le formatage lors de l'enregistrement sans le mettant à jour dans "
 "la configuration"
 
-#: Formatters.cpp:118
+#: Formatters.cpp:114
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1 : commande vide inattendue !"
 
-#: Formatters.cpp:125
+#: Formatters.cpp:121
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -93,38 +93,38 @@ msgstr ""
 "%1 n'est pas installé. Veuillez l'installer pour pouvoir formater ce "
 "document !"
 
-#: Formatters.cpp:194
+#: Formatters.cpp:190
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Veuillez installer les paquets « node » et « prettier »"
 
-#: Formatters.cpp:201
+#: Formatters.cpp:197
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "Format de » prettier » : impossible de créer un fichier temporaire"
 
-#: Formatters.cpp:222
+#: Formatters.cpp:218
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "Format plus élégant : impossible de démarrer « nœud » : %1"
 
-#: Formatters.cpp:324
+#: Formatters.cpp:320
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Formateur « json » inconnu : %1"
 
-#: Formatters.cpp:344
+#: Formatters.cpp:340
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Formateur pour Python inconnu : %1"
 
-#: Formatters.cpp:367
+#: Formatters.cpp:363
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 "Module « formatterForYaml » inconnu : %1. Retour au module « yamlfmt »."
 
-#: Formatters.cpp:397
+#: Formatters.cpp:393
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Impossible de lancer le formateur. Langue non prise en charge %1"

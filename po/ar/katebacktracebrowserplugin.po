@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2021-12-11 19:18+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -142,7 +142,7 @@ msgstr "قائمة امتدادات. مثال: ‎*.cpp،‏ ‎*.h،‏ ‎*.c 
 msgid "Indexing files..."
 msgstr "يفهرس الملفّات..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "التّتبّع الخلفيّ "
@@ -177,12 +177,12 @@ msgstr "فُتح الملفّ: %1"
 msgid "No debugging information available"
 msgstr "لا معلومات تنقيح متوفّرة"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "إعدادات التّتبّع الخلفيّ"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "إعدادات متصفّح التّتبّع الخلفيّ"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2021-03-09 10:53+0400\n"
 "Last-Translator: Kheyyam Gojayev <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -142,7 +142,7 @@ msgstr "Fayl uzantıları siyahısı. Misal üçün: *.cpp, *.h, *.c, və s...."
 msgid "Indexing files..."
 msgstr "Fayllar indekslənir..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Geriyə izləmə"
@@ -177,12 +177,12 @@ msgstr "Açılmış fayl: %1"
 msgid "No debugging information available"
 msgstr "Xəta sazlama məlumatları əlçatan deyil"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Geriyə izləmə ayarları"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Geriyə izləmə bələdçisi ayarları"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-10-09 16:29+0300\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -64,7 +64,7 @@ msgstr "Ielādē XML Meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Neizdevās atvērt datni „%1“. Serveris atgrieza kļūdu."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML spraudņa kļūda"
@@ -103,14 +103,14 @@ msgstr ""
 "Ievadiet XML birkas nosaukumu un atribūtus (\"<\", \">\" un programma "
 "izveidos aizverošo birku):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "Neizdevās parsēt datni „%1“. Pārliecinieties, ka tā ir laba XML datne."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "Šādas datnes var izveidot ar „dtdparse“. Vairāk informācijas lasiet „Kate“ "
 "spraudņa dokumentācijā."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analizē meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Atcelt"

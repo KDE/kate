@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-11-18 08:58+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -36,7 +36,7 @@ msgstr "No s'ha pogut carregar «%1»: macro amb format incorrecte; s'esborra."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:291 keyboardmacrospluginview.cpp:325 ui.rc:12
+#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Macros de teclat"
@@ -233,43 +233,43 @@ msgstr "Esborra una macro amb nom."
 msgid "End Macro &Recording"
 msgstr "Finalitza l'en&registrament de la macro"
 
-#: keyboardmacrospluginview.cpp:181
+#: keyboardmacrospluginview.cpp:180
 #, kde-format
 msgid "Load %1"
 msgstr "Carrega %1"
 
-#: keyboardmacrospluginview.cpp:182
+#: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
 msgstr "Carrega la macro «%1» com a l'actual."
 
-#: keyboardmacrospluginview.cpp:194
+#: keyboardmacrospluginview.cpp:193
 #, kde-format
 msgid "Play %1"
 msgstr "Reproduïx %1"
 
-#: keyboardmacrospluginview.cpp:195
+#: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
 msgstr "Reproduïx la macro «%1» sense carregar-la."
 
-#: keyboardmacrospluginview.cpp:209
+#: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
 msgstr "Esborra %1"
 
-#: keyboardmacrospluginview.cpp:210
+#: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
 msgstr "Esborra la macro «%1»."
 
-#: keyboardmacrospluginview.cpp:291
+#: keyboardmacrospluginview.cpp:290
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Com guarde la macro actual?"
 
 # skip-rule: kct-wip
-#: keyboardmacrospluginview.cpp:325
+#: keyboardmacrospluginview.cpp:324
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Esborre la macro «%1»?"

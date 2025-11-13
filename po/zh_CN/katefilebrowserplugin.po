@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-06-27 00:46+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -27,50 +27,50 @@ msgstr "搜索"
 msgid "Enter a name filter to limit which files are displayed."
 msgstr "输入名称过滤字符以限制要显示哪些文件。"
 
-#: katefilebrowser.cpp:295
+#: katefilebrowser.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "打开方式"
 
-#: katefilebrowser.cpp:324
+#: katefilebrowser.cpp:323
 #, kde-format
 msgid "&Other..."
 msgstr "其他(&O)..."
 
-#: katefilebrowser.cpp:352
+#: katefilebrowser.cpp:351
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
 msgstr[0] "您正尝试打开 %1 个文件，您确定吗？"
 
-#: katefilebrowser.cpp:354
+#: katefilebrowser.cpp:353
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "打开所有文件"
 
-#: katefilebrowser.cpp:417
+#: katefilebrowser.cpp:416
 #, kde-format
 msgid "Bookmarks"
 msgstr "书签"
 
-#: katefilebrowser.cpp:425
+#: katefilebrowser.cpp:424
 #, kde-format
 msgid "Current Document Folder"
 msgstr "当前文档目录"
 
-#: katefilebrowser.cpp:433
+#: katefilebrowser.cpp:432
 #, kde-format
 msgid "Options"
 msgstr "选项"
 
-#: katefilebrowser.cpp:445
+#: katefilebrowser.cpp:444
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "自动同步当前文档"
 
-#: katefilebrowser.cpp:452
+#: katefilebrowser.cpp:451
 #, kde-format
 msgid "Highlight current file"
 msgstr "高亮当前文件"

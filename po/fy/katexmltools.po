@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2007-05-20 15:22+0100\n"
 "Last-Translator: Douwe VDM <dvandermeulen@hetnet.nl>\n"
 "Language-Team: Frysk <kde-i18n-fry@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr "XML Meta-DTD wurdt laden"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "De triem '%1' koe net iepene wurde. De tsjinner joech in foutmelding."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML-plugin-fout"
@@ -106,7 +106,7 @@ msgstr ""
 "Fier de XML-tagnamme en -attributen yn. (de \"<\", \">\" en ôfslutende tag "
 "wurde oanlevere):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -115,7 +115,7 @@ msgstr ""
 "De triem '%1' koe net ûntleden wurde. Wês wis dat de triem de goede XML-"
 "opmak hat."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -130,12 +130,12 @@ msgstr ""
 "Soksoarte triemmen kinne jo oanmeitsje mei dtdparse. Foar mear ynformaasje "
 "kinne jo terjochte by de Kate Plugin-dokumintaasje."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Dwaande meta-DTD te analysearjen..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr ""

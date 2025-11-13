@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-12-22 03:19+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -63,7 +63,7 @@ msgstr "正在載入 XML Meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "無法開啟檔案 '%1'，伺服器傳回錯誤。"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML 外掛程式錯誤"
@@ -100,14 +100,14 @@ msgid ""
 "supplied):"
 msgstr "輸入 XML 標籤名稱及屬性。\"<\", \">\"及關閉標籤將由程式提供："
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "檔案 '%1' 無法被解析。請確認這個檔案是否為良好格式的 XML。"
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -120,12 +120,12 @@ msgstr ""
 "-//Norman Walsh//DTD DTDParse V2.0//EN\n"
 "您可以用 dtdparse 製作這類檔案。請看 Kate 外掛程式文件來獲取更多資訊"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "正在分析 meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "取消"

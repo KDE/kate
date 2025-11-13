@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2013-02-26 16:14+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -159,7 +159,7 @@ msgstr "फाईल विस्तारणांची यादी. उद�
 msgid "Indexing files..."
 msgstr "फाईल्स अनुक्रमीत करत आहे..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
@@ -195,13 +195,13 @@ msgstr "उघडलेली फाईल : %1"
 msgid "No debugging information available"
 msgstr "डिबगिंग माहिती उपलब्ध नाही"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "बॅकट्रेस ब्राऊजर संयोजना"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "बॅकट्रेस ब्राऊजर संयोजना"

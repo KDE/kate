@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-01-06 22:00+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -146,7 +146,7 @@ msgstr "Listo de dosiersufiksoj. Ekzemplo: *.cpp, *.h, *.c, etc..."
 msgid "Indexing files..."
 msgstr "Indeksanta dosierojn..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Retrospuro"
@@ -181,12 +181,12 @@ msgstr "Malfermis dosieron: %1"
 msgid "No debugging information available"
 msgstr "Sencimigaj informoj ne haveblas"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Agordoj por Retrospurado"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Retumilagordoj por Retrospurado"

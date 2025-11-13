@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-09-13 06:08+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -62,7 +62,7 @@ msgstr "XML-ის მეტა DTD-ის ჩატვირთვა"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "ფაილის '%1' გახსნა შეუძლებელია. სერვერმა შეცდომა დააბრუნა."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML დამატების შეცდომა"
@@ -101,7 +101,7 @@ msgstr ""
 "შეიყვანეთ XML ჭდე და ატრიბუტები (\"<\", \">\" და დამხურავი ჭდე ავტომატურად "
 "ჩაისმება):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -110,7 +110,7 @@ msgstr ""
 "ფაილის '%1' დამუშავება შეუძლებელია. შეამოწმეთ ფაილი და დარწმუნდით, რომ მისი "
 "XML ფორმატი სწორია."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "ასეთი ფაილების შექმნა dtdparse-ს შეუძლია. მეტი ინფორმაციისთვის მიმართეთ Kate-"
 "ის დამატებების დოკუმენტაციას."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "მეტა DTD-ის ანალიზი..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "შეწყვეტა"

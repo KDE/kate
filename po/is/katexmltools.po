@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-12-06 21:19+0000\n"
 "Last-Translator: Guðmundur Erlingsson <gudmundure@gmail.com>\n"
 "Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
@@ -64,7 +64,7 @@ msgstr "Hleð inn XML DTD-lýsiskrá"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Ekki var hægt að opna skrána '%1'. Þjónninn skilaði villu."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Villa í XML-viðbót"
@@ -103,7 +103,7 @@ msgstr ""
 "Sláðu inn heiti og eiginleika XML-staks (\"<\", \">\" og lokunarstaki verður "
 "bætt við):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -112,7 +112,7 @@ msgstr ""
 "Ekki var hægt að þátta skrána '%1'. Athugaðu hvort skráin sé vel formuð XML-"
 "skrá."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -127,12 +127,12 @@ msgstr ""
 "Þú getur búið til slíkar skrár með dtdparse. Frekari upplýsingar um þetta er "
 "að finna í Kate Plugin-handbókinni."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Greini DTD-gögn..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Hætta við"

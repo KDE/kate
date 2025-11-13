@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-16 19:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -67,7 +67,7 @@ msgstr "Завантаження мета-DTD XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Не вдалося відкрити файл «%1». Сервер повідомив про помилку."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Помилка додатка XML"
@@ -105,7 +105,7 @@ msgid ""
 msgstr ""
 "Введіть назву та атрибути мітки XML («<», «>» і кінцева мітка будуть додані):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -114,7 +114,7 @@ msgstr ""
 "Помилка розбору файла «%1». Будь ласка, переконайтеся, що цей файл має "
 "правильно сформований XML."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -129,12 +129,12 @@ msgstr ""
 "ви можете створювати такі файли за допомогою утиліти dtdparse. Дивіться "
 "документацію до додатка до Kate, щоб дізнатися більше."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Аналізування мета-DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Скасувати"

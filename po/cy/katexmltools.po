@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2004-02-24 11:39+0000\n"
 "Last-Translator: KD at KGyfieithu <kyfieithu@dotmon.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -66,7 +66,7 @@ msgstr "Llwytho Meta DTD XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Ni ellid agor y ffeil '%1'. Dychwelwyd gwall gan y gweinydd."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Gwall ategyn XML"
@@ -105,14 +105,14 @@ msgid ""
 msgstr ""
 "Mewnosodwch y tag XML a'i nodweddion. Darperir y \"<\", \">\" a'r tag cau."
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "Methwyd dadansoddi'r ffeil '%1'. Sicrhewch bod yr XML yn dda ei ffurf."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -128,12 +128,12 @@ msgstr ""
 "Cewch gynhyrchu ffasiwn ffeiliau efo dtdparse. Gweler dogfenniaeth ategyn "
 "Kate am ragor o wybodaeth."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Dadansoddi meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr ""

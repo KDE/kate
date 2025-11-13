@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2022-08-16 13:40+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr "S'està carregant la meta DTD XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "No s'ha pogut obrir el fitxer «%1». El servidor ha retornat un error."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "S'ha produït un error en el connector XML"
@@ -105,7 +105,7 @@ msgstr ""
 "Introduïu el nom i atributs d'una etiqueta XML (es posarà «<», «>» i "
 "l'etiqueta de tancar):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -114,7 +114,7 @@ msgstr ""
 "El fitxer «%1» no es pot processar. Comproveu que el fitxer està en un "
 "format XML correcte."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -129,12 +129,12 @@ msgstr ""
 "Podreu crear este tipus de fitxers amb «dtdparse». Per a més informació, "
 "vegeu la documentació per als connectors de Kate."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "S'està analitzant la meta DTD…"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Cancel·la"

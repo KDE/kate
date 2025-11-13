@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-03-09 22:47+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-doc@kde.org>\n"
@@ -64,7 +64,7 @@ msgstr "Ŝarganta XML Meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "La dosiero '%1' ne malfermeblas. La servilo liveris eraron."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Eraro de XML-kromprogramo"
@@ -103,7 +103,7 @@ msgstr ""
 "Enigu nomon kaj atribuojn de XML-marko (\"<\", \">\" kaj ferma marko estos "
 "aldonataj):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -112,7 +112,7 @@ msgstr ""
 "La dosiero '%1' ne analizeblas. Bonvole kontrolu ĉu la dosiero estas XML-"
 "korekte formata."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -127,12 +127,12 @@ msgstr ""
 "Vi povas produkti tiajn dosierojn per dtdparse. Vidu la dokumentadon de la "
 "kromprogramo de Kate por pliaj informoj."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analizanta meta DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Nuligi"

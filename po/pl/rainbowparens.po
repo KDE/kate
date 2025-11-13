@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-11 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-12-16 11:27+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmai.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: rainbowparens_plugin.cpp:433
+#: rainbowparens_plugin.cpp:434
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:450
+#: rainbowparens_plugin.cpp:451
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Barwne nawiasy"
 
-#: rainbowparens_plugin.cpp:455
+#: rainbowparens_plugin.cpp:456
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Ustawienia zabarwiania nawiasów"

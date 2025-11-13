@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2009-12-24 06:59-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -125,7 +125,7 @@ msgstr "Liosta d'iarmhíreanna. Mar shampla: *.cpp, *.h, *.c, srl..."
 msgid "Indexing files..."
 msgstr "Comhaid á n-innéacsú..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, fuzzy, kde-format
 #| msgid "Load Backtrace"
 msgid "Backtrace"
@@ -161,13 +161,13 @@ msgstr "Comhad oscailte: %1"
 msgid "No debugging information available"
 msgstr "Níl aon eolas dífhabhtaithe ar fáil"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, fuzzy, kde-format
 #| msgid "Backtrace Browser Settings"
 msgid "Backtrace Settings"
 msgstr "Socruithe na Brabhsála Cúl-Lorg"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Socruithe na Brabhsála Cúl-Lorg"

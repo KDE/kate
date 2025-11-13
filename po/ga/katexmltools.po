@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeaddons/katexmltools.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2004-12-03 14:52-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -61,7 +61,7 @@ msgstr "Meitea-DTD XML á luchtú"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Níorbh fhéidir comhad '%1' a oscailt. Fuarthas earráid ón fhreastalaí."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Earráid Bhreiseáin XML"
@@ -101,7 +101,7 @@ msgstr ""
 "Iontráil clib XML agus aitreabúidí (soláthrófar \"<\", \">\" agus an chlib "
 "dheiridh):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -110,7 +110,7 @@ msgstr ""
 "Níorbh fhéidir comhad '%1' a pharsáil. Bí cinnte gur comhad dea-chumtha XML "
 "é."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -125,12 +125,12 @@ msgstr ""
 "Is féidir leat comhaid den chineál sin le dtdparse. Féach ar dhoiciméadú an "
 "bhreiseáin Kate chun tuilleadh eolais a fháil."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Meitea-DTD á anailísiú..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Cealaigh"

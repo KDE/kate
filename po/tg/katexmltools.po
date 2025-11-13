@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2004-09-07 19:03+0500\n"
 "Last-Translator: Marina Kolucheva <youth_opportunities@tajik.net>\n"
 "Language-Team: Tajik\n"
@@ -66,7 +66,7 @@ msgstr "Пурборкунии метаи DTD дар формати XML"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Натавонистам файли '%1'-ро кушодан .Сервер оиди хатогӣ иттилоот дод."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Хатогии модули XML"
@@ -106,14 +106,14 @@ msgstr ""
 "Номро барои теги XML дароред ва хусусиятҳои . Ишораҳои (\"<\", \">\" ва "
 "тегҳои маҳкамшавнда ба таври худкор гузошта мешаванд:"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
 "XML."
 msgstr "Файли %1-ро коркард намешавад.Сохти файли XML -ро саҷед."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -128,12 +128,12 @@ msgstr ""
 "Шумо худатон метавонед бисозед ин гуна файл бо ёрии dtdparse. Барои "
 "гирифтани иттилооти иловагӣ ба санадот аз рӯи модули Kate низ муроҷиат кунед."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Таҳлили метаи DTD..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr ""

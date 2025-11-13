@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-07-14 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2023-07-23 23:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -185,10 +185,10 @@ msgstr ""
 "바른지 확인하십시오"
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
-#: kateexternaltoolsconfigwidget.cpp:276 kateexternaltoolsview.cpp:156
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:269
+#: kateexternaltoolsconfigwidget.cpp:274 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
-#: kateexternaltoolsview.cpp:276
+#: kateexternaltoolsview.cpp:277
 #, kde-format
 msgid "External Tools"
 msgstr "외부 도구"
@@ -273,18 +273,18 @@ msgstr "기본값에서 도구 추가"
 msgid "Add Category"
 msgstr "분류 추가"
 
-#: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:400
-#: kateexternaltoolsconfigwidget.cpp:447
+#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:398
+#: kateexternaltoolsconfigwidget.cpp:445
 #, kde-format
 msgid "Uncategorized"
 msgstr "분류 없음"
 
-#: kateexternaltoolsconfigwidget.cpp:489
+#: kateexternaltoolsconfigwidget.cpp:487
 #, kde-format
 msgid "New Category"
 msgstr "새 분류"
 
-#: kateexternaltoolsconfigwidget.cpp:492
+#: kateexternaltoolsconfigwidget.cpp:490
 #, kde-format
 msgid "New Category %1"
 msgstr "새 분류 %1"

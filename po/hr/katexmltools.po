@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2007-03-05 01:29+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Croatian <kde-croatia-list@lists.sourceforge.net>\n"
@@ -63,7 +63,7 @@ msgstr "Učitavanje XML meta DTD"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Datoteku '%1' nije moguće otvoriti. Poslužitelj je prijavio pogrešku."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Pogreška XML dodatka"
@@ -103,7 +103,7 @@ msgstr ""
 "Unesite naziv XML oznake i atribute (\"<\", \">\" i završna oznaka bit će "
 "pružene):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -112,7 +112,7 @@ msgstr ""
 "Datoteku '%1' nije moguće raščlaniti. Provjerite je li datoteka pravilno "
 "oblikovani XML."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -126,12 +126,12 @@ msgstr ""
 "Datoteke ovakve vrste možete proizvesti pomoću 'dtdparse'. Dodatne podatke "
 "potražite u dokumentaciju o Kate dodacima."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Analiziranje meta DTD …"
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Odustani"

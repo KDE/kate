@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-09-14 12:04+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -146,7 +146,7 @@ msgstr "Λίστα επεκτάσεων αρχείων. Παράδειγμα: *.
 msgid "Indexing files..."
 msgstr "Γίνεται δεικτοδότηση αρχείων..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Ενεργές κλήσεις"
@@ -181,12 +181,12 @@ msgstr "Ανοιγμένο αρχείο: %1"
 msgid "No debugging information available"
 msgstr "Μη διαθέσιμες πληροφορίες διόρθωσης σφαλμάτων"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Ρυθμίσεις ενεργών κλήσεων"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Ρυθμίσεις περιηγητή ενεργών κλήσεων συναρτήσεων"

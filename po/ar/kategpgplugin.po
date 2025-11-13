@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-10-31 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2025-11-05 20:47+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Error! No keys found..."
 msgstr "خطأ! لا مفاتيح عُثر عليها..."
 
-#: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
+#: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
 #, kde-format
 msgid "Error finding key: "
 msgstr "خطأ في العثور على المفتاح: "

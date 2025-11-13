@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-09-06 00:45+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2020-12-22 18:47+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -145,7 +145,7 @@ msgstr "Tiedostopäätteiden luettelo, esim. *.cpp, *.h, *.c jne."
 msgid "Indexing files..."
 msgstr "Indeksoidaan tiedostoja…"
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:285
+#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
 #, kde-format
 msgid "Backtrace"
 msgstr "Pinolistaus "
@@ -180,12 +180,12 @@ msgstr "Avattu tiedosto: %1"
 msgid "No debugging information available"
 msgstr "Virheenpaikannustietoa ei saatavilla"
 
-#: katebacktracebrowser.cpp:290
+#: katebacktracebrowser.cpp:288
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Pinolistausten asetukset"
 
-#: katebacktracebrowser.cpp:364
+#: katebacktracebrowser.cpp:362
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Pinolistausselaimen asetukset"

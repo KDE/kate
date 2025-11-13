@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-02-04 00:43+0000\n"
+"POT-Creation-Date: 2025-11-13 00:45+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -66,7 +66,7 @@ msgstr "Учитавање ИксМЛ мета‑ДТД‑а"
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Фајл ‘%1’ није могао бити отворен. Сервер је вратио грешку."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:48 pseudo_dtd.cpp:60
+#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Грешка ИксМЛ прикључка"
@@ -107,7 +107,7 @@ msgid ""
 "supplied):"
 msgstr "Унесите ИксМЛ ознаку и атрибуте (<, > и затварач ће бити сами додати):"
 
-#: pseudo_dtd.cpp:45
+#: pseudo_dtd.cpp:43
 #, kde-format
 msgid ""
 "The file '%1' could not be parsed. Please check that the file is well-formed "
@@ -116,7 +116,7 @@ msgstr ""
 "Фајл ‘%1’ не може да се рашчлани. Проверите да ли је фајл доброформирани "
 "ИксМЛ."
 
-#: pseudo_dtd.cpp:54
+#: pseudo_dtd.cpp:52
 #, kde-format
 msgid ""
 "The file '%1' is not in the expected format. Please check that the file is "
@@ -131,12 +131,12 @@ msgstr ""
 "овог прикључка за детаље."
 
 # >> @info:progress
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Analyzing meta DTD..."
 msgstr "Анализирам мета‑ДТД..."
 
-#: pseudo_dtd.cpp:70
+#: pseudo_dtd.cpp:68
 #, kde-format
 msgid "Cancel"
 msgstr "Одустани"

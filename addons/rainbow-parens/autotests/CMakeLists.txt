@@ -11,8 +11,14 @@ target_link_libraries(
     KF6::I18n
     Qt::Test
      $<TARGET_OBJECTS:rainbowparens>
-    katepch
 )
+if(ENABLE_PCH)
+  target_link_libraries(
+    test_rainbowparens
+    PRIVATE
+    katepch
+  )
+endif()
 
 target_sources(
   test_rainbowparens

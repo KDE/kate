@@ -743,10 +743,9 @@ void KatePluginGDBView::stackFrameChanged(int level)
     model->setActiveFrame(level);
 }
 
-void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId)
+void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes)
 {
     const int currentIndex = m_scopeCombo->currentIndex();
-    Q_UNUSED(activeId)
 
     m_scopeCombo->clear();
 

@@ -143,7 +143,7 @@ Q_SIGNALS:
     void variableInfo(int parentId, const dap::Variable &variable);
     void variableScopeOpened();
     void variableScopeClosed();
-    void scopesInfo(const QList<dap::Scope> &scopes, std::optional<int> activeId);
+    void scopesInfo(const QList<dap::Scope> &scopes);
 
     void outputText(const QString &text);
     void outputError(const QString &text);

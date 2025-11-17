@@ -599,7 +599,7 @@ void DapBackend::requestVariable(int variablesReference)
 void DapBackend::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
 {
     m_currentScope = std::nullopt; // unset current scope as scopes have changed
-    Q_EMIT scopesInfo(scopes, {});
+    Q_EMIT scopesInfo(scopes);
     popRequest();
 }
 

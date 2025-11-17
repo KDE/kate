@@ -101,7 +101,7 @@ private Q_SLOTS:
     void updateThread(const dap::Thread &thread, Backend::ThreadState, bool isActive);
     void threadSelected(int thread);
 
-    void insertScopes(const QList<dap::Scope> &scopes, std::optional<int> activeId);
+    void insertScopes(const QList<dap::Scope> &scopes);
     void scopeSelected(int scope);
 
     void showIO(bool show);

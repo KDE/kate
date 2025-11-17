@@ -11,27 +11,86 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QClipboard>
+#include <QComboBox>
 #include <QDebug>
 #include <QLabel>
 #include <QMenu>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QVBoxLayout>
+
+namespace
+{
+enum Role {
+    VariableReference = Qt::UserRole + 1,
+};
+enum TreeItemType {
+    PendingDataItem = QTreeWidgetItem::UserType + 1
+};
+enum Column {
+    Column_Symbol = 0,
+    Column_Type = 1,
+    Column_Value = 2,
+};
+}
 
 LocalsView::LocalsView(QWidget *parent)
-    : QTreeWidget(parent)
+    : QWidget(parent)
+    , m_scopeCombo(new QComboBox(this))
+    , m_treeWidget(new QTreeWidget(this))
 {
+    auto layout = new QVBoxLayout(this);
+    layout->setContentsMargins({});
+    layout->setSpacing(0);
+
+    layout->addWidget(m_scopeCombo);
+    layout->addWidget(m_treeWidget);
+
     QStringList headers;
     headers << i18n("Symbol");
     headers << i18n("Type");
     headers << i18n("Value");
-    setHeaderLabels(headers);
-    setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    setUniformRowHeights(true);
+    m_treeWidget->setHeaderLabels(headers);
+    m_treeWidget->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+    m_treeWidget->setUniformRowHeights(true);
     setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(this, &QTreeWidget::customContextMenuRequested, this, &LocalsView::onContextMenu);
-    connect(this, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    connect(m_treeWidget, &QTreeWidget::customContextMenuRequested, this, &LocalsView::onTreeWidgetContextMenu);
+    connect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    connect(m_scopeCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
+        if (index >= 0 && index < m_scopeCombo->count()) {
+            Q_EMIT scopeChanged(m_scopeCombo->itemData(index).toInt());
+        }
+    });
 }
 
 LocalsView::~LocalsView()
 {
+}
+
+void LocalsView::clear()
+{
+    m_scopeCombo->clear();
+    m_treeWidget->clear();
+}
+
+void LocalsView::insertScopes(const QList<dap::Scope> &scopes)
+{
+    const int currentIndex = m_scopeCombo->currentIndex();
+
+    m_scopeCombo->clear();
+
+    for (const auto &scope : scopes) {
+        QString name = scope.expensive.value_or(false) ? QStringLiteral("%1!").arg(scope.name) : scope.name;
+        m_scopeCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), scope.name, scope.variablesReference);
+    }
+
+    if (currentIndex >= 0 && currentIndex < scopes.size()) {
+        m_scopeCombo->setCurrentIndex(currentIndex);
+    } else if (m_scopeCombo->count() > 0) {
+        m_scopeCombo->setCurrentIndex(0);
+    }
 }
 
 void LocalsView::showEvent(QShowEvent *)
@@ -68,16 +127,16 @@ static QString valueTip(const dap::Variable &variable)
 
 static void formatName(QTreeWidgetItem &item, const dap::Variable &variable)
 {
-    QFont font = item.font(LocalsView::Column_Symbol);
+    QFont font = item.font(Column::Column_Symbol);
     font.setBold(variable.valueChanged.value_or(false));
-    item.setFont(LocalsView::Column_Symbol, font);
+    item.setFont(Column::Column_Symbol, font);
 }
 
 static QTreeWidgetItem *pendingDataChild(QTreeWidgetItem *parent)
 {
-    auto item = new QTreeWidgetItem(parent, LocalsView::PendingDataItem);
-    item->setText(LocalsView::Column_Symbol, i18n("Loading..."));
-    item->setText(LocalsView::Column_Value, i18n("Loading..."));
+    auto item = new QTreeWidgetItem(parent, TreeItemType::PendingDataItem);
+    item->setText(Column::Column_Symbol, i18n("Loading..."));
+    item->setText(Column::Column_Value, i18n("Loading..."));
     return item;
 }
 
@@ -123,7 +182,7 @@ QTreeWidgetItem *LocalsView::createWrappedItem(QTreeWidget *parent, const dap::V
 
 void LocalsView::openVariableScope()
 {
-    clear();
+    m_treeWidget->clear();
     m_variables.clear();
 }
 
@@ -141,7 +200,7 @@ void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)
     QTreeWidgetItem *item = nullptr;
 
     if (parentId == 0) {
-        item = createWrappedItem(this, variable);
+        item = createWrappedItem(m_treeWidget, variable);
     } else {
         if (!m_variables.contains(parentId)) {
             qDebug("unknown variable reference: %d", parentId);
@@ -155,11 +214,11 @@ void LocalsView::addVariableLevel(int parentId, const dap::Variable &variable)
     }
 }
 
-void LocalsView::onContextMenu(QPoint pos)
+void LocalsView::onTreeWidgetContextMenu(QPoint pos)
 {
     QMenu menu(this);
 
-    if (auto item = currentItem()) {
+    if (auto item = m_treeWidget->currentItem()) {
         auto a = menu.addAction(i18n("Copy Symbol"));
         connect(a, &QAction::triggered, this, [item] {
             qApp->clipboard()->setText(item->text(0).trimmed());
@@ -167,8 +226,8 @@ void LocalsView::onContextMenu(QPoint pos)
 
         QString value = item->data(Column_Value, Qt::UserRole).toString();
         if (value.isEmpty()) {
-            if (itemWidget(item, Column_Value)) {
-                auto label = qobject_cast<QLabel *>(itemWidget(item, 1));
+            if (m_treeWidget->itemWidget(item, Column_Value)) {
+                auto label = qobject_cast<QLabel *>(m_treeWidget->itemWidget(item, 1));
                 value = label ? label->text() : QString();
             }
         }
@@ -181,7 +240,7 @@ void LocalsView::onContextMenu(QPoint pos)
         }
     }
 
-    menu.exec(viewport()->mapToGlobal(pos));
+    menu.exec(m_treeWidget->viewport()->mapToGlobal(pos));
 }
 
 void LocalsView::onItemExpanded(QTreeWidgetItem *item)

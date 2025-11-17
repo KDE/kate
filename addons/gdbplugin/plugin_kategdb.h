@@ -35,6 +35,7 @@ class QTextEdit;
 class QTreeWidget;
 class QTreeView;
 class QSplitter;
+class QTabWidget;
 
 typedef QVariantList VariantList;
 
@@ -101,9 +102,6 @@ private Q_SLOTS:
     void updateThread(const dap::Thread &thread, Backend::ThreadState, bool isActive);
     void threadSelected(int thread);
 
-    void insertScopes(const QList<dap::Scope> &scopes);
-    void scopeSelected(int scope);
-
     void showIO(bool show);
     void addOutput(const dap::Output &output);
     void addOutputText(QString const &text);
@@ -139,7 +137,6 @@ private:
     QTextEdit *m_outputArea;
     KHistoryComboBox *m_inputArea;
     QWidget *m_gdbPage;
-    QComboBox *m_scopeCombo;
     QComboBox *m_threadCombo;
     int m_activeThread;
     QTreeView *m_stackTree;

@@ -7,32 +7,26 @@
 
 #pragma once
 
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
+#include <QWidget>
 
 namespace dap
 {
 struct Variable;
+struct Scope;
 }
+class QComboBox;
+class QTreeWidgetItem;
+class QTreeWidget;
 
-class LocalsView : public QTreeWidget
+class LocalsView : public QWidget
 {
     Q_OBJECT
 public:
-    enum Role {
-        VariableReference = Qt::UserRole + 1,
-    };
-    enum Type {
-        PendingDataItem = QTreeWidgetItem::UserType + 1
-    };
-    enum Column {
-        Column_Symbol = 0,
-        Column_Type = 1,
-        Column_Value = 2,
-    };
-
     LocalsView(QWidget *parent = nullptr);
     ~LocalsView() override;
+
+    void clear();
+    void insertScopes(const QList<dap::Scope> &scopes);
 
 public Q_SLOTS:
     // An empty value string ends the locals
@@ -43,6 +37,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void localsVisible(bool visible);
     void requestVariable(int variableReference);
+    void scopeChanged(int scope);
 
 protected:
     void showEvent(QShowEvent *event) override;
@@ -51,8 +46,10 @@ protected:
 private:
     QTreeWidgetItem *createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable);
     QTreeWidgetItem *createWrappedItem(QTreeWidget *parent, const dap::Variable &variable);
-    void onContextMenu(QPoint pos);
+    void onTreeWidgetContextMenu(QPoint pos);
     void onItemExpanded(QTreeWidgetItem *);
 
     QHash<int, QTreeWidgetItem *> m_variables;
+    QComboBox *const m_scopeCombo;
+    QTreeWidget *const m_treeWidget;
 };

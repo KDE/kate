@@ -183,19 +183,10 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
 
-    auto *variableContainer = new QWidget();
-    auto *variableLayout = new QVBoxLayout(variableContainer);
-    m_scopeCombo = new QComboBox();
-    connect(m_scopeCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::scopeSelected);
     m_localsView = new LocalsView();
-    variableLayout->addWidget(m_scopeCombo);
-    variableLayout->addWidget(m_localsView);
-    variableLayout->setStretch(0, 10);
-    variableLayout->setContentsMargins(0, 0, 0, 0);
-    variableLayout->setSpacing(0);
 
     auto *locStackSplitter = m_localsStackSplitter = new QSplitter(m_localsStackToolView.get());
-    locStackSplitter->addWidget(variableContainer);
+    locStackSplitter->addWidget(m_localsView);
     locStackSplitter->addWidget(stackContainer);
 
     const auto pos = toolviewPosition(m_localsStackToolView.get());
@@ -235,7 +226,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_backend, &BackendInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
 
-    connect(m_backend, &BackendInterface::scopesInfo, this, &KatePluginGDBView::insertScopes);
+    connect(m_backend, &BackendInterface::scopesInfo, m_localsView, &LocalsView::insertScopes);
 
     connect(m_backend, &BackendInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
     connect(m_backend, &BackendInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
@@ -256,6 +247,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_localsView, &LocalsView::localsVisible, m_backend, &BackendInterface::slotQueryLocals);
     connect(m_localsView, &LocalsView::requestVariable, m_backend, &BackendInterface::requestVariable);
+    connect(m_localsView, &LocalsView::scopeChanged, m_backend, &Backend::changeScope);
 
     connect(m_backend, &BackendInterface::debuggeeRequiresTerminal, this, &KatePluginGDBView::requestRunInTerminal);
 
@@ -457,7 +449,6 @@ void KatePluginGDBView::slotDebug()
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-    m_scopeCombo->clear();
     m_localsView->clear();
 
     m_backend->runDebugger(dbgConfOpt);
@@ -469,7 +460,6 @@ void KatePluginGDBView::slotRestart()
     m_tabWidget->setCurrentWidget(m_gdbPage);
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-    m_scopeCombo->clear();
     m_localsView->clear();
 
     m_backend->slotReRun();
@@ -635,7 +625,6 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     m_inputArea->setEnabled(enable && !m_backend->debuggerBusy());
     m_threadCombo->setEnabled(enable);
     m_stackTree->setEnabled(enable);
-    m_scopeCombo->setEnabled(enable);
     m_localsView->setEnabled(enable);
 
     if (enable) {
@@ -681,7 +670,6 @@ void KatePluginGDBView::programEnded()
     m_lastExecLine = -1;
     static_cast<StackFrameModel *>(m_stackTree->model())->setFrames({});
     static_cast<StackFrameModel *>(m_stackTree->model())->setActiveFrame(-1);
-    m_scopeCombo->clear();
     m_localsView->clear();
     m_threadCombo->clear();
 
@@ -743,31 +731,6 @@ void KatePluginGDBView::stackFrameChanged(int level)
 {
     auto model = static_cast<StackFrameModel *>(m_stackTree->model());
     model->setActiveFrame(level);
-}
-
-void KatePluginGDBView::insertScopes(const QList<dap::Scope> &scopes)
-{
-    const int currentIndex = m_scopeCombo->currentIndex();
-
-    m_scopeCombo->clear();
-
-    for (const auto &scope : scopes) {
-        QString name = scope.expensive.value_or(false) ? QStringLiteral("%1!").arg(scope.name) : scope.name;
-        m_scopeCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), scope.name, scope.variablesReference);
-    }
-
-    if (currentIndex >= 0 && currentIndex < scopes.size()) {
-        m_scopeCombo->setCurrentIndex(currentIndex);
-    } else if (m_scopeCombo->count() > 0) {
-        m_scopeCombo->setCurrentIndex(0);
-    }
-}
-
-void KatePluginGDBView::scopeSelected(int scope)
-{
-    if (scope < 0)
-        return;
-    m_backend->changeScope(m_scopeCombo->itemData(scope).toInt());
 }
 
 void KatePluginGDBView::onThreads(const QList<dap::Thread> &threads)

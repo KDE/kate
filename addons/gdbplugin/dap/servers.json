@@ -186,6 +186,25 @@
                     }
                 }
             }
+        },
+        "lldb-dap": {
+            "url": "lldb",
+            "run": {
+                "command": ["lldb-dap"],
+                "redirectStderr": true,
+                "redirectStdout": true
+            },
+            "configurations": {
+                "launch (debug)": {
+                    "request": {
+                        "command": "launch",
+                        "mode": "debug",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                }
+            }
         }
     }
 }

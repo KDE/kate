@@ -43,6 +43,5 @@ private:
     void onItemExpanded(QTreeWidgetItem *);
 
     QHash<int, QTreeWidgetItem *> m_variables;
-    QComboBox *const m_scopeCombo;
     QTreeWidget *const m_treeWidget;
 };

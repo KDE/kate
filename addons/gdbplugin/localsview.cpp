@@ -23,6 +23,7 @@ namespace
 {
 enum Role {
     VariableReference = Qt::UserRole + 1,
+    IsResolved,
 };
 enum TreeItemType {
     PendingDataItem = QTreeWidgetItem::UserType + 1
@@ -93,14 +94,12 @@ QTreeWidgetItem *createWrappedItem(const dap::Variable &variable)
 
 LocalsView::LocalsView(QWidget *parent)
     : QWidget(parent)
-    , m_scopeCombo(new QComboBox(this))
     , m_treeWidget(new QTreeWidget(this))
 {
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins({});
     layout->setSpacing(0);
 
-    layout->addWidget(m_scopeCombo);
     layout->addWidget(m_treeWidget);
 
     QStringList headers;
@@ -114,12 +113,6 @@ LocalsView::LocalsView(QWidget *parent)
 
     connect(m_treeWidget, &QTreeWidget::customContextMenuRequested, this, &LocalsView::onTreeWidgetContextMenu);
     connect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
-
-    connect(m_scopeCombo, &QComboBox::currentIndexChanged, this, [this](int index) {
-        if (index >= 0 && index < m_scopeCombo->count()) {
-            Q_EMIT scopeChanged(m_scopeCombo->itemData(index).toInt());
-        }
-    });
 }
 
 LocalsView::~LocalsView()
@@ -128,26 +121,25 @@ LocalsView::~LocalsView()
 
 void LocalsView::clear()
 {
-    m_scopeCombo->clear();
     m_treeWidget->clear();
 }
 
 void LocalsView::insertScopes(const QList<dap::Scope> &scopes)
 {
-    const int currentIndex = m_scopeCombo->currentIndex();
+    m_treeWidget->clear();
+    m_variables.clear();
 
-    m_scopeCombo->clear();
+    QList<QTreeWidgetItem *> topLevelItems;
+    topLevelItems.reserve(scopes.size());
 
     for (const auto &scope : scopes) {
-        QString name = scope.expensive.value_or(false) ? QStringLiteral("%1!").arg(scope.name) : scope.name;
-        m_scopeCombo->addItem(QIcon::fromTheme(QStringLiteral("")).pixmap(10, 10), scope.name, scope.variablesReference);
+        auto item = new QTreeWidgetItem(QStringList(scope.name));
+        item->setData(0, VariableReference, scope.variablesReference);
+        item->addChild(pendingDataChild(item));
+        topLevelItems.push_back(item);
     }
 
-    if (currentIndex >= 0 && currentIndex < scopes.size()) {
-        m_scopeCombo->setCurrentIndex(currentIndex);
-    } else if (m_scopeCombo->count() > 0) {
-        m_scopeCombo->setCurrentIndex(0);
-    }
+    m_treeWidget->addTopLevelItems(topLevelItems);
 }
 
 void LocalsView::showEvent(QShowEvent *)
@@ -162,23 +154,28 @@ void LocalsView::hideEvent(QHideEvent *)
 
 void LocalsView::addVariables(int variableReference, const QList<dap::Variable> &variables)
 {
-    const bool isRootLevel = m_scopeCombo->findData(variableReference) != -1;
-    if (isRootLevel) {
-        // new root level => scope was changed, clear existing data
-        m_treeWidget->clear();
-        m_variables.clear();
+    QTreeWidgetItem *root = nullptr;
+    for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++) {
+        auto item = m_treeWidget->topLevelItem(i);
+        if (item && item->data(0, VariableReference).toInt() == variableReference) {
+            root = item;
+            break;
+        }
     }
 
-    QTreeWidgetItem *root = nullptr;
-
-    if (isRootLevel) {
-        root = m_treeWidget->invisibleRootItem();
+    const bool isTopLevel = root != nullptr;
+    if (isTopLevel) {
+        // resolved now
+        root->setData(0, Role::IsResolved, true);
+        // We should have only 1 item i.e., pendingDataChild
+        Q_ASSERT(root->childCount() == 1);
+        root->removeChild(root->child(0));
     } else {
-        const auto it = m_variables.constFind(variableReference);
-        if (it == m_variables.cend()) {
+        const auto varIt = m_variables.constFind(variableReference);
+        if (varIt == m_variables.cend()) {
             return;
         }
-        root = it.value();
+        root = varIt.value();
     }
 
     QList<QTreeWidgetItem *> items;
@@ -224,12 +221,18 @@ void LocalsView::onTreeWidgetContextMenu(QPoint pos)
 
 void LocalsView::onItemExpanded(QTreeWidgetItem *item)
 {
-    const int childCount = item->childCount();
-    for (int i = 0; i < childCount; ++i) {
-        if (item->child(i)->type() == PendingDataItem) {
-            item->removeChild(item->child(i));
-            Q_EMIT requestVariable(item->data(Column_Value, VariableReference).toInt());
-            break;
+    const bool isTopLevel = m_treeWidget->indexOfTopLevelItem(item) != -1;
+    if (isTopLevel && !item->data(0, Role::IsResolved).toBool()) {
+        int scope = item->data(0, Role::VariableReference).toInt();
+        Q_EMIT scopeChanged(scope);
+    } else {
+        const int childCount = item->childCount();
+        for (int i = 0; i < childCount; ++i) {
+            if (item->child(i)->type() == PendingDataItem) {
+                item->removeChild(item->child(i));
+                Q_EMIT requestVariable(item->data(Column_Value, VariableReference).toInt());
+                break;
+            }
         }
     }
 }

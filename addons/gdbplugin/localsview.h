@@ -27,12 +27,7 @@ public:
 
     void clear();
     void insertScopes(const QList<dap::Scope> &scopes);
-
-public Q_SLOTS:
-    // An empty value string ends the locals
-    void openVariableScope();
-    void closeVariableScope();
-    void addVariableLevel(int parentId, const dap::Variable &variable);
+    void addVariables(int variableReference, const QList<dap::Variable> &variables);
 
 Q_SIGNALS:
     void localsVisible(bool visible);
@@ -44,8 +39,6 @@ protected:
     void hideEvent(QHideEvent *event) override;
 
 private:
-    QTreeWidgetItem *createWrappedItem(QTreeWidgetItem *parent, const dap::Variable &variable);
-    QTreeWidgetItem *createWrappedItem(QTreeWidget *parent, const dap::Variable &variable);
     void onTreeWidgetContextMenu(QPoint pos);
     void onItemExpanded(QTreeWidgetItem *);
 

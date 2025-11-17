@@ -611,18 +611,7 @@ void DapBackend::onVariables(const int variablesReference, const QList<dap::Vari
         return;
     }
 
-    const bool rootLevel = m_currentScope && (*m_currentScope == variablesReference);
-    if (rootLevel) {
-        Q_EMIT variableScopeOpened();
-    }
-
-    for (const auto &variable : variables) {
-        Q_EMIT variableInfo(rootLevel ? 0 : variablesReference, variable);
-    }
-
-    if (m_requests == 0) {
-        Q_EMIT variableScopeClosed();
-    }
+    Q_EMIT variablesInfo(variablesReference, variables);
 
     popRequest();
 }

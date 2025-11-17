@@ -228,9 +228,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_backend, &BackendInterface::scopesInfo, m_localsView, &LocalsView::insertScopes);
 
-    connect(m_backend, &BackendInterface::variableScopeOpened, m_localsView, &LocalsView::openVariableScope);
-    connect(m_backend, &BackendInterface::variableScopeClosed, m_localsView, &LocalsView::closeVariableScope);
-    connect(m_backend, &BackendInterface::variableInfo, m_localsView, &LocalsView::addVariableLevel);
+    connect(m_backend, &BackendInterface::variablesInfo, m_localsView, &LocalsView::addVariables);
 
     connect(m_backend, &BackendInterface::threads, this, &KatePluginGDBView::onThreads);
     connect(m_backend, &BackendInterface::threadUpdated, this, &KatePluginGDBView::updateThread);

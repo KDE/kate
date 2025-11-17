@@ -55,9 +55,7 @@ void Backend::bind()
     connect(m_debugger, &BackendInterface::threads, this, &BackendInterface::threads);
     connect(m_debugger, &BackendInterface::threadUpdated, this, &BackendInterface::threadUpdated);
 
-    connect(m_debugger, &BackendInterface::variableInfo, this, &BackendInterface::variableInfo);
-    connect(m_debugger, &BackendInterface::variableScopeOpened, this, &BackendInterface::variableScopeOpened);
-    connect(m_debugger, &BackendInterface::variableScopeClosed, this, &BackendInterface::variableScopeClosed);
+    connect(m_debugger, &BackendInterface::variablesInfo, this, &BackendInterface::variablesInfo);
 
     connect(m_debugger, &BackendInterface::outputText, this, &BackendInterface::outputText);
     connect(m_debugger, &BackendInterface::outputError, this, &BackendInterface::outputError);

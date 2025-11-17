@@ -140,9 +140,7 @@ Q_SIGNALS:
     void threads(const QList<dap::Thread> &thread);
     void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);
 
-    void variableInfo(int parentId, const dap::Variable &variable);
-    void variableScopeOpened();
-    void variableScopeClosed();
+    void variablesInfo(int parentId, const QList<dap::Variable> &variable);
     void scopesInfo(const QList<dap::Scope> &scopes);
 
     void outputText(const QString &text);

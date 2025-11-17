@@ -221,6 +221,16 @@ void Backend::setFileSearchPaths(const QStringList &paths)
     }
 }
 
+QList<dap::Module> Backend::modules()
+{
+    if (m_debugger) {
+        if (auto dap = qobject_cast<DapBackend *>(m_debugger)) {
+            return dap->modules();
+        }
+    }
+    return {};
+}
+
 void Backend::slotInterrupt()
 {
     if (m_debugger) {

@@ -36,6 +36,7 @@ public:
     void issueCommand(QString const &cmd) override;
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
+    QList<dap::Module> modules();
 
     void saveBreakpoint(QUrl const &url, int line);
     void removeSavedBreakpoint(QUrl const &url, int line);

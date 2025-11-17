@@ -32,9 +32,10 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
     void setActiveFrame(int level);
-    void setFrames(const QList<dap::StackFrame> &frames);
+    void setFrames(const QList<dap::StackFrame> &frames, const QList<dap::Module> &modules);
 
 private:
     int m_activeFrame = -1;
     QList<dap::StackFrame> m_frames;
+    QList<dap::Module> m_modules;
 };

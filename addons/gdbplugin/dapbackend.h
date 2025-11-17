@@ -46,6 +46,8 @@ public:
 
     void setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoints);
 
+    QList<dap::Module> modules();
+
 public Q_SLOTS:
     void slotInterrupt() override;
     void slotStepInto() override;
@@ -187,6 +189,7 @@ private:
     std::map<QUrl, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
     std::map<QUrl, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
+    QList<dap::Module> m_modules;
     QTimer m_requestThreadsTimer;
 
     std::vector<int> m_pendingVariableRequest;

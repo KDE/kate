@@ -664,7 +664,7 @@ void KatePluginGDBView::programEnded()
 
     // don't set the execution mark on exit
     m_lastExecLine = -1;
-    static_cast<StackFrameModel *>(m_stackTree->model())->setFrames({});
+    static_cast<StackFrameModel *>(m_stackTree->model())->setFrames({}, {});
     static_cast<StackFrameModel *>(m_stackTree->model())->setActiveFrame(-1);
     m_localsView->clear();
     m_threadCombo->clear();
@@ -714,7 +714,7 @@ void KatePluginGDBView::slotSendCommand()
 void KatePluginGDBView::insertStackFrame(const QList<dap::StackFrame> &frames)
 {
     auto model = static_cast<StackFrameModel *>(m_stackTree->model());
-    model->setFrames(frames);
+    model->setFrames(frames, m_backend->modules());
     m_stackTree->resizeColumnToContents(StackFrameModel::Column::Path);
 }
 

@@ -61,6 +61,7 @@ void DapBackend::unsetClient()
     resetState(State::None);
     shutdownUntil();
     m_currentScope = std::nullopt;
+    m_modules.clear();
 }
 
 void DapBackend::resetState(State state)
@@ -566,6 +567,26 @@ static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint
 
 void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
 {
+    if (info.reason == QStringLiteral("new")) {
+        m_modules << info.module;
+    } else if (info.reason == QStringLiteral("changed") || info.reason == QStringLiteral("removed")) {
+        auto it = std::find_if(m_modules.begin(), m_modules.end(), [info](const dap::Module &m) {
+            if (info.module.id_int.has_value() && m.id_int.has_value()) {
+                return info.module.id_int.value() == m.id_int.value();
+            } else if (info.module.id_str.has_value() && m.id_str.has_value()) {
+                return info.module.id_str.value() == m.id_str.value();
+            }
+            return false;
+        });
+        if (it != m_modules.end()) {
+            if (info.reason == u"removed") {
+                m_modules.erase(it);
+            } else {
+                *it = info.module;
+            }
+        }
+    }
+
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(printModule(info.module))));
 }
 
@@ -618,6 +639,7 @@ void DapBackend::onVariables(const int variablesReference, const QList<dap::Vari
 
 void DapBackend::onModules(const dap::ModulesInfo &modules)
 {
+    m_modules = modules.modules;
     for (const auto &mod : modules.modules) {
         Q_EMIT outputText(newLine(printModule(mod)));
     }
@@ -1296,6 +1318,7 @@ void DapBackend::cmdListModules(const QString &)
     }
 
     pushRequest();
+    m_modules.clear();
     m_client->requestModules();
 }
 
@@ -1533,6 +1556,11 @@ void DapBackend::setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoint
             breakpoints.push_back(dap::SourceBreakpoint(line));
         }
     }
+}
+
+QList<dap::Module> DapBackend::modules()
+{
+    return m_modules;
 }
 
 void DapBackend::slotInterrupt()

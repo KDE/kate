@@ -60,6 +60,18 @@ QVariant StackFrameModel::data(const QModelIndex &index, int role) const
         if (role == Qt::DisplayRole) {
             if (frame.source.has_value()) {
                 return QStringLiteral("%2:%3").arg(Utils::formatUrl(frame.source->path)).arg(frame.line);
+            } else if (frame.moduleId_int.has_value()) {
+                const auto id = frame.moduleId_int.value();
+                auto it = std::find_if(m_modules.begin(), m_modules.end(), [id](const dap::Module &m) {
+                    return m.id_int.has_value() && id == m.id_int.value();
+                });
+                return it != m_modules.end() ? it->name : QString();
+            } else if (frame.moduleId_str.has_value()) {
+                const auto id = frame.moduleId_str.value();
+                auto it = std::find_if(m_modules.begin(), m_modules.end(), [id](const dap::Module &m) {
+                    return m.id_str.has_value() && id == m.id_str.value();
+                });
+                return it != m_modules.end() ? it->name : QString();
             }
         }
         break;
@@ -107,9 +119,10 @@ void StackFrameModel::setActiveFrame(int level)
     }
 }
 
-void StackFrameModel::setFrames(const QList<dap::StackFrame> &frames)
+void StackFrameModel::setFrames(const QList<dap::StackFrame> &frames, const QList<dap::Module> &modules)
 {
     beginResetModel();
     m_frames = frames;
+    m_modules = modules;
     endResetModel();
 }

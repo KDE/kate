@@ -1,4 +1,4 @@
-# Version: $Revision: 1722705 $
+# Version: $Revision: 1723076 $
 # translation of katexmltools.po to
 #
 # Copyright (C) 2002, 2004, 2005, 2007 Free Software Foundation, Inc.
@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-13 00:45+0000\n"
+"POT-Creation-Date: 2025-11-17 11:55+0000\n"
 "PO-Revision-Date: 2022-08-16 20:54+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"

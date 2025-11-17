@@ -6,7 +6,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include <KLocalizedString>
+
+#include <rapidjson/cursorstreamwrapper.h>
 #include <rapidjson/document.h>
+#include <rapidjson/error/en.h>
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
@@ -20,7 +24,7 @@ static QByteArray rapidJsonStringify(const rapidjson::Value &v)
     return QByteArray(buf.GetString(), buf.GetSize());
 }
 
-static QJsonArray readVsCodeLaunchJson(const QString &filePath)
+static QJsonArray readVsCodeLaunchJson(const QString &filePath, QString &errorString)
 {
     QFile f(filePath);
     if (!f.open(QFile::ReadOnly)) {
@@ -30,9 +34,22 @@ static QJsonArray readVsCodeLaunchJson(const QString &filePath)
     const auto data = f.readAll();
     // need to use rapidjson because QJson doesn't support comments'
     rapidjson::Document doc;
-    doc.Parse<rapidjson::kParseCommentsFlag>(data.constData());
+    constexpr auto flags = rapidjson::kParseCommentsFlag;
+    doc.Parse<flags>(data.constData());
     if (doc.HasParseError()) {
-        qWarning("Failed to parse .vscode/launch.json");
+        errorString = i18nc("%1 refers to filepath", "Failed to parse .vscode/launch.json at %1. ", filePath);
+        errorString.append(QString::fromUtf8(GetParseError_En(doc.GetParseError())));
+
+        // Get line column info
+        rapidjson::StringStream ss(data.constData());
+        rapidjson::CursorStreamWrapper cursor(ss);
+        rapidjson::Document doc;
+        doc.ParseStream<flags>(cursor);
+        if (doc.HasParseError()) {
+            int l = cursor.GetLine();
+            int c = cursor.GetColumn();
+            errorString.append(i18nc("at line no:column no", " at %1:%2", l, c));
+        }
         return {};
     }
 
@@ -137,7 +154,7 @@ static void postProcessTargets(QJsonArray &configs, const QDir &projectBaseDir)
     }
 }
 
-QList<QJsonValue> readLaunchJsonConfigs(const QStringList &baseDirs)
+QList<QJsonValue> readLaunchJsonConfigs(const QStringList &baseDirs, QStringList &errors)
 {
     if (baseDirs.isEmpty()) {
         return {};
@@ -147,8 +164,12 @@ QList<QJsonValue> readLaunchJsonConfigs(const QStringList &baseDirs)
     for (const QString &baseDir : baseDirs) {
         QDir projectBaseDir(baseDir);
         const QString vscodeLaunchJson = QStringLiteral(".vscode/launch.json");
+        QString error;
         if (!baseDir.isEmpty() && projectBaseDir.exists(vscodeLaunchJson)) {
-            auto projectConfig = readVsCodeLaunchJson(projectBaseDir.absoluteFilePath(vscodeLaunchJson));
+            auto projectConfig = readVsCodeLaunchJson(projectBaseDir.absoluteFilePath(vscodeLaunchJson), error);
+            if (!error.isEmpty()) {
+                errors.push_back(error);
+            }
             postProcessTargets(projectConfig, projectBaseDir);
             configs.reserve(configs.size() + projectConfig.size());
             for (const auto &value : projectConfig) {

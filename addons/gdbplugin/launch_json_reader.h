@@ -2,4 +2,4 @@
 
 #include <QJsonArray>
 
-QList<QJsonValue> readLaunchJsonConfigs(const QStringList &projectBaseDirs);
+QList<QJsonValue> readLaunchJsonConfigs(const QStringList &projectBaseDirs, QStringList &errors);

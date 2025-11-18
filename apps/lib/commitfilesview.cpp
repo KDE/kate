@@ -7,6 +7,7 @@
 #include "commitfilesview.h"
 
 #include "hostprocess.h"
+#include <bytearraysplitter.h>
 #include <diffparams.h>
 #include <gitprocess.h>
 #include <ktexteditor_utils.h>
@@ -37,6 +38,7 @@
 #include <optional>
 
 struct GitFileItem {
+    QByteArray oldFileName;
     QByteArray file;
     int linesAdded;
     int linesRemoved;
@@ -58,6 +60,8 @@ public:
         TypeRole,
         LinesAdded,
         LinesRemoved,
+        OldPath,
+        NewPath,
     };
 
     FileItem(Type type, const QString &text)
@@ -277,41 +281,72 @@ static void createFileTree(QStandardItem *parent, const QString &basePath, const
         fileItem->setData(fullFilePath, FileItem::Path);
         fileItem->setData(file.linesAdded, FileItem::LinesAdded);
         fileItem->setData(file.linesRemoved, FileItem::LinesRemoved);
+        if (!file.oldFileName.isEmpty()) {
+            const auto oldFileName = QString::fromUtf8(file.oldFileName);
+            fileItem->setData(oldFileName, FileItem::OldPath);
+            fileItem->setData(filePath, FileItem::NewPath);
+            // we just show name here
+            fileItem->setText(QStringLiteral("%1 => %2").arg(oldFileName, fileName));
+        }
 
         // put in our item to the right directory parent
         directoryParent(dir, dir2Item, filePathName)->appendRow(fileItem);
     }
 }
 
-static bool getNum(const QByteArray &numBytes, int *num)
-{
-    bool res = false;
-    *num = numBytes.toInt(&res);
-    return res;
-}
-
 static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 {
-    const QList<QByteArray> lines = raw.split(0x00);
-    for (const QByteArray &line : lines) {
+    const auto splitter = ByteArraySplitter(raw, '\0');
+    for (auto it = splitter.begin(); it != splitter.end(); ++it) {
+        const auto line = *it;
         // format: 12(adds)\t10(subs)\tFileName
-        const QList<QByteArray> cols = line.split('\t');
+        auto lineSplitter = ByteArraySplitter(line, '\t');
+        const auto cols = lineSplitter.toContainer<QVarLengthArray<strview, 3>>();
         if (cols.length() < 3) {
             continue;
         }
 
         int add = 0;
-        if (!getNum(cols.at(0), &add)) {
-            continue;
-        }
         int sub = 0;
-        if (!getNum(cols.at(1), &sub)) {
-            continue;
+        if (cols[0] == "-") {
+            add = sub = 0;
+        } else {
+            auto col0 = cols[0].to<int>();
+            auto col1 = cols[1].to<int>();
+            if (!col0 || !col1) {
+                continue;
+            }
+            add = col0.value();
+            sub = col1.value();
         }
 
-        const QByteArray &file = cols.at(2);
-
-        items->push_back(GitFileItem{.file = file, .linesAdded = add, .linesRemoved = sub});
+        if (cols[2].empty()) {
+            it++; // skip this
+            if (it == splitter.end()) {
+                qWarning() << "Unexpected EOF when parsing numstat";
+                break;
+            }
+            auto oldFileName = (*it).toByteArray().trimmed();
+            it++;
+            if (it == splitter.end()) {
+                qWarning() << "Unexpected EOF when parsing numstat";
+                break;
+            }
+            auto file = (*it).toByteArray().trimmed();
+            items->push_back(GitFileItem{
+                .oldFileName = oldFileName,
+                .file = file,
+                .linesAdded = add,
+                .linesRemoved = sub,
+            });
+        } else {
+            items->push_back(GitFileItem{
+                .oldFileName = {},
+                .file = cols[2].toByteArray(),
+                .linesAdded = add,
+                .linesRemoved = sub,
+            });
+        }
     }
 }
 
@@ -431,6 +466,7 @@ void CommitDiffTreeView::openCommit(const QString &hash)
         delete git;
         return;
     }
+
     connect(git, &QProcess::finished, this, [this, git](int e, QProcess::ExitStatus s) {
         git->deleteLater();
         if (e != 0 || s != QProcess::NormalExit) {
@@ -499,10 +535,18 @@ void CommitDiffTreeView::createFileTreeForCommit(const QByteArray &rawNumStat)
 void CommitDiffTreeView::showDiff(const QModelIndex &idx)
 {
     const QString file = idx.data(FileItem::Path).toString();
+    const QString oldFile = idx.data(FileItem::OldPath).toString();
     QProcess git;
-    if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file})) {
-        return;
+    if (oldFile.isEmpty()) {
+        if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file})) {
+            return;
+        }
+    } else {
+        if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), oldFile, file})) {
+            return;
+        }
     }
+
     startHostProcess(git, QProcess::ReadOnly);
 
     if (git.waitForStarted() && git.waitForFinished(-1)) {
@@ -512,6 +556,9 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     }
 
     DiffParams d;
+    if (!oldFile.isEmpty()) {
+        d.tabTitle = i18n("Renamed %1 => %2", oldFile, idx.data(FileItem::NewPath).toString());
+    }
     d.srcFile = file;
     d.flags.setFlag(DiffParams::ShowCommitInfo);
     d.workingDir = m_gitDir;

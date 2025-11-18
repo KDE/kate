@@ -49,7 +49,7 @@ struct Commit {
     QStringView fileName;
 };
 
-static std::vector<Commit> parseCommits(const QString &raw)
+static std::vector<Commit> parseCommits(const QString &raw, bool hasFiles)
 {
     std::vector<Commit> commits;
 
@@ -84,9 +84,14 @@ static std::vector<Commit> parseCommits(const QString &raw)
         QStringView msg = lines.at(6);
 
         QStringView file;
-        ++it;
-        if (it != splitted.end()) {
-            file = (*it).trimmed();
+        if (hasFiles) {
+            ++it;
+            if (it != splitted.end()) {
+                file = (*it).trimmed();
+            } else {
+                qWarning() << "This should not happen, its a bug" << hash;
+                break;
+            }
         }
 
         Commit c{.hash = hash,
@@ -514,23 +519,30 @@ FileHistoryWidget::~FileHistoryWidget()
 // git log --format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B --author-date-order
 void FileHistoryWidget::getFileHistory(const QString &file)
 {
-    if (!setupGitProcess(m_git,
-                         m_gitDir,
-                         {QStringLiteral("log"),
-                          QStringLiteral("--follow"), // get history across renames
-                          QStringLiteral("--name-only"), // get file name also, it could be different if renamed
-                          QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B"),
-                          QStringLiteral("-z"),
-                          file})) {
+    const auto isDir = QFileInfo(file).isDir();
+
+    auto args = QStringList{
+        QStringLiteral("log"),
+        QStringLiteral("--follow"), // get history across renames
+    };
+
+    if (!isDir) {
+        args << QStringLiteral("--name-only"); // get file name also, it could be different if renamed
+    }
+    args << QStringLiteral("--format=%H%n%aN%n%aE%n%at%n%ct%n%P%n%B");
+    args << QStringLiteral("-z");
+    args << file;
+
+    if (!setupGitProcess(m_git, m_gitDir, args)) {
         Utils::showMessage(i18n("Failed to get file history: git executable not found in PATH"), gitIcon(), QStringLiteral("FileHistory"), MessageType::Error);
         return;
     }
 
-    connect(&m_git, &QProcess::readyReadStandardOutput, this, [this] {
+    connect(&m_git, &QProcess::readyReadStandardOutput, this, [this, isDir] {
         auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
         auto model = static_cast<CommitListModel *>(proxy->sourceModel());
         QString data = QString::fromUtf8(m_git.readAllStandardOutput());
-        std::vector<Commit> commits = parseCommits(model->appendData(data));
+        std::vector<Commit> commits = parseCommits(model->appendData(data), !isDir);
         if (!commits.empty()) {
             model->addCommits(std::move(commits));
         }
@@ -640,8 +652,11 @@ void FileHistoryWidget::itemClicked(const QModelIndex &idx)
     QProcess git;
 
     const auto commit = idx.data(CommitListModel::CommitRole).value<Commit>();
-    const QString file = commit.fileName.toString();
-    const QStringList arguments{QStringLiteral("show"), commit.hash.toString(), QStringLiteral("--"), file};
+    const QString file = commit.fileName.isEmpty() ? QString() : commit.fileName.toString();
+    QStringList arguments{QStringLiteral("show"), commit.hash.toString()};
+    if (!file.isEmpty()) {
+        arguments << QStringLiteral("--") << file;
+    }
 
     if (!setupGitProcess(git, m_gitDir, arguments)) {
         return;

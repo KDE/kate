@@ -466,7 +466,7 @@ int Client::sequenceNumber()
 {
     const int seq = m_seq;
     if (m_seq == std::numeric_limits<int>::max()) {
-        m_seq = 0;
+        m_seq = SEQ_START;
     } else {
         ++m_seq;
     }

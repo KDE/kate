@@ -20,6 +20,8 @@
 
 namespace dap
 {
+const int SEQ_START = 1;
+
 class Client : public QObject
 {
     Q_OBJECT
@@ -201,7 +203,7 @@ private:
 
     Bus *m_bus = nullptr;
     bool m_managedBus;
-    int m_seq = 0;
+    int m_seq = SEQ_START;
 
     struct Request {
         QString command;

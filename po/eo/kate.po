@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-11-20 00:45+0000\n"
 "PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo@kde.org>\n"
@@ -153,34 +153,39 @@ msgstr "KWskribi"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Tekstredaktilo"
 
-#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Malfermi dosieron"
 
-#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:456
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopii Lokon"
 
-#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:560
+#, kde-format
+msgid "Renamed %1 => %2"
+msgstr ""
+
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr "Nevalida haketkodo"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 ne ekzistas en git-repo."
 
-#: lib/commitfilesview.cpp:554
+#: lib/commitfilesview.cpp:601
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -342,7 +347,7 @@ msgstr "Eraroj"
 msgid "Warnings"
 msgstr "Avertoj"
 
-#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:466
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -568,14 +573,14 @@ msgstr "Forigita dosiero %1"
 msgid "No differences found"
 msgstr "Neniuj diferencoj trovitaj"
 
-#: lib/filehistorywidget.cpp:247
+#: lib/filehistorywidget.cpp:252
 #, fuzzy, kde-format
 #| msgid "Invalid hash"
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Nevalida haketkodo"
 
-#: lib/filehistorywidget.cpp:469
+#: lib/filehistorywidget.cpp:474
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -592,29 +597,29 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:525
+#: lib/filehistorywidget.cpp:537
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "Malsukcesis akiri dosierhistorion: git rulebla ne trovita en PATH"
 
-#: lib/filehistorywidget.cpp:541
+#: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "Malsukcesis akiri dosierhistorion: %1"
 
-#: lib/filehistorywidget.cpp:556
+#: lib/filehistorywidget.cpp:568
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "Kopii Enmet-Haketaĵon (hash)"
 
-#: lib/filehistorywidget.cpp:564
+#: lib/filehistorywidget.cpp:576
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Montri Plenan Enmeton"
 
-#: lib/filehistorywidget.cpp:687
+#: lib/filehistorywidget.cpp:702
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

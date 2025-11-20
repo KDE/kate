@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-11-20 00:45+0000\n"
 "PO-Revision-Date: 2013-03-29 16:35+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -153,35 +153,40 @@ msgstr "केराइट लेखक"
 msgid "KWrite - Text Editor"
 msgstr "केट - प्रगत पाठ्य संपादक"
 
-#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "फाईल उघडा"
 
-#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:456
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:456
 #, fuzzy, kde-format
 #| msgid "Location"
 msgid "Copy Location"
 msgstr "स्थान"
 
-#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr ""
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:560
+#, kde-format
+msgid "Renamed %1 => %2"
+msgstr ""
+
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr ""
 
-#: lib/commitfilesview.cpp:554
+#: lib/commitfilesview.cpp:601
 #, fuzzy, kde-format
 #| msgid "Comment"
 msgctxt "@title:tab"
@@ -347,7 +352,7 @@ msgstr ""
 msgid "Warnings"
 msgstr ""
 
-#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:466
 #: lib/kateconfigplugindialogpage.cpp:109
 #, fuzzy, kde-format
 #| msgid "Filter:"
@@ -582,13 +587,13 @@ msgstr "फाईल काढून टाकायची का?"
 msgid "No differences found"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:247
+#: lib/filehistorywidget.cpp:252
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:469
+#: lib/filehistorywidget.cpp:474
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -605,30 +610,30 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:525
+#: lib/filehistorywidget.cpp:537
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:541
+#: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:556
+#: lib/filehistorywidget.cpp:568
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:564
+#: lib/filehistorywidget.cpp:576
 #, fuzzy, kde-format
 #| msgid "&Show Full Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "पूर्ण मार्ग दर्शवा (&S)"
 
-#: lib/filehistorywidget.cpp:687
+#: lib/filehistorywidget.cpp:702
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

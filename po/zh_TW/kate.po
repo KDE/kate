@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2025-09-22 03:49+0900\n"
+"PO-Revision-Date: 2025-11-20 22:14+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 26.03.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1211,23 +1211,16 @@ msgstr "取消勾選時新分頁會開在尾端。"
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "允許循環切換分頁"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"允許循環切換分頁。若未勾選，則「下一個分頁」「上一個分頁」動作在抵達最後一個"
-"或第一個分頁的時候不會跳到另外一端"
+"若未勾選，則「%1/%2」動作在抵達最後一個或第一個分頁的時候不會跳到另外一端。"
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format

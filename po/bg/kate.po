@@ -3153,20 +3153,3 @@ msgstr "Управление на сесиите..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Показване на приветствената страница за нови прозорци"
-
-#~ msgid "&Close Document"
-#~ msgstr "&Затваряне на документ"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Затваряне на другите документи"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "Затваряне на &всички документи"
-
-#~ msgid "Could not start program"
-#~ msgstr "Неуспешно стартиране на програмата"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "Избраната програма не може да бъде стартирана. Може би не е инсталиран."

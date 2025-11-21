@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-10-15 21:05+0400\n"
+"PO-Revision-Date: 2025-11-20 18:47+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -180,7 +180,7 @@ msgstr "غت"
 #: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "أُعيدت تسميته %1 => %2"
 
 #: lib/commitfilesview.cpp:580
 #, kde-format

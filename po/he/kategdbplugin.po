@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-07-24 09:49+0300\n"
+"PO-Revision-Date: 2025-11-20 10:52+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
@@ -473,13 +473,13 @@ msgstr "נתוני JSON שגויים: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "פענוח ‎.vscode/launch.json ב־%1 נכשל. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " ב־%1:%2"
 
 #: localsview.cpp:41
 #, kde-format

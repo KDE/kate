@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-07-20 16:40+0300\n"
+"PO-Revision-Date: 2025-11-20 21:40+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -477,13 +477,13 @@ msgstr "Дані JSON є некоректними: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Не вдалося обробити .vscode/launch.json у %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " на позиції %1:%2"
 
 #: localsview.cpp:41
 #, kde-format

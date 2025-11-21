@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-07-20 04:15+0200\n"
+"PO-Revision-Date: 2025-11-20 04:55+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
@@ -475,13 +475,13 @@ msgstr "JSON მონაცემები არასწორია: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "დამუშავების შეცდომა ფაილისთვის .vscode/launch.json მისამართზე %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " მისამართზე %1:%2"
 
 #: localsview.cpp:41
 #, kde-format

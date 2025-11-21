@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-10-13 13:56+0300\n"
+"PO-Revision-Date: 2025-11-20 21:40+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -179,7 +179,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "Перейменовано %1 => %2"
 
 #: lib/commitfilesview.cpp:580
 #, kde-format

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-07-19 20:25+0200\n"
+"PO-Revision-Date: 2025-11-20 07:07+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
@@ -477,13 +477,13 @@ msgstr "Podatki JSON so neveljavni: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Neuspelo razčlenjevanje datoteke .vscode/launch.json pri %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " pri %1:%2"
 
 #: localsview.cpp:41
 #, kde-format

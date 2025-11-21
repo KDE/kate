@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-10-14 15:56+0300\n"
+"PO-Revision-Date: 2025-11-20 21:41+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -187,7 +187,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "%1, %2 olarak yeniden adlandırıldı"
 
 #: lib/commitfilesview.cpp:580
 #, kde-format

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-08-04 15:32-0300\n"
+"PO-Revision-Date: 2025-11-20 07:10-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.08.3\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
@@ -481,13 +481,13 @@ msgstr "Os dados JSON são inválidos: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Falha ao analisar .vscode/launch.json em %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " em %1:%2"
 
 #: localsview.cpp:41
 #, kde-format

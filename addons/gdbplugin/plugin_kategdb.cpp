@@ -8,7 +8,7 @@
 //  SPDX-License-Identifier: LGPL-2.0-only
 
 #include "plugin_kategdb.h"
-#include "stackframe_model.h"
+#include "stackview.h"
 
 #include <QBoxLayout>
 #include <QFile>
@@ -24,7 +24,6 @@
 #include <KActionCollection>
 #include <KConfigGroup>
 #include <QAction>
-#include <QClipboard>
 #include <QDir>
 #include <QMenu>
 
@@ -102,7 +101,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_lastExecLine = -1;
     m_kateApplication = KTextEditor::Editor::instance()->application();
     m_focusOnInput = true;
-    m_activeThread = -1;
 
     KXMLGUIClient::setComponentName(QStringLiteral("kategdb"), i18n("Kate Debug"));
     setXMLFile(QStringLiteral("ui.rc"));
@@ -157,35 +155,14 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     layout->setSpacing(0);
 
     // stack page
-    auto *stackContainer = new QWidget();
-    auto *stackLayout = new QVBoxLayout(stackContainer);
-    m_threadCombo = new QComboBox();
-    m_stackTree = new QTreeView();
-    stackLayout->addWidget(m_threadCombo);
-    stackLayout->addWidget(m_stackTree);
-    stackLayout->setStretch(0, 10);
-    stackLayout->setContentsMargins(0, 0, 0, 0);
-    stackLayout->setSpacing(0);
-
-    m_stackTree->setModel(new StackFrameModel(this));
-
-    m_stackTree->setRootIsDecorated(false);
-    m_stackTree->resizeColumnToContents(0);
-    m_stackTree->resizeColumnToContents(1);
-    m_stackTree->setAutoScroll(false);
-    m_stackTree->setUniformRowHeights(true);
-
-    connect(m_stackTree, &QTreeView::activated, this, &KatePluginGDBView::stackFrameSelected);
-    m_stackTree->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_stackTree, &QTreeWidget::customContextMenuRequested, this, &KatePluginGDBView::onStackTreeContextMenuRequest);
-
-    connect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
+    m_backend = new Backend(this);
 
     m_localsView = new LocalsView();
+    m_stackView = new StackView(m_backend, m_mainWin);
 
     auto *locStackSplitter = m_localsStackSplitter = new QSplitter(m_localsStackToolView.get());
     locStackSplitter->addWidget(m_localsView);
-    locStackSplitter->addWidget(stackContainer);
+    locStackSplitter->addWidget(m_stackView);
 
     const auto pos = toolviewPosition(m_localsStackToolView.get());
     const Qt::Orientation orientation = (pos == KTextEditor::MainWindow::Bottom || pos == KTextEditor::MainWindow::Top) ? Qt::Horizontal : Qt::Vertical;
@@ -198,7 +175,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     m_ioView = std::make_unique<IOView>();
 
-    m_backend = new Backend(this);
     connect(m_backend, &BackendInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
     connect(m_backend, &BackendInterface::debuggerCapabilitiesChanged, [this] {
         enableDebugActions(true);
@@ -220,16 +196,9 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_backend, &BackendInterface::gdbEnded, this, &KatePluginGDBView::programEnded);
 
-    connect(m_backend, &BackendInterface::stackFrameInfo, this, &KatePluginGDBView::insertStackFrame);
-
-    connect(m_backend, &BackendInterface::stackFrameChanged, this, &KatePluginGDBView::stackFrameChanged);
-
     connect(m_backend, &BackendInterface::scopesInfo, m_localsView, &LocalsView::insertScopes);
 
     connect(m_backend, &BackendInterface::variablesInfo, m_localsView, &LocalsView::addVariables);
-
-    connect(m_backend, &BackendInterface::threads, this, &KatePluginGDBView::onThreads);
-    connect(m_backend, &BackendInterface::threadUpdated, this, &KatePluginGDBView::updateThread);
 
     connect(m_backend, &BackendInterface::debuggeeOutput, this, &KatePluginGDBView::addOutput);
 
@@ -619,8 +588,7 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     m_continueButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
 
     m_inputArea->setEnabled(enable && !m_backend->debuggerBusy());
-    m_threadCombo->setEnabled(enable);
-    m_stackTree->setEnabled(enable);
+    m_stackView->setEnabled(enable);
     m_localsView->setEnabled(enable);
 
     if (enable) {
@@ -664,16 +632,13 @@ void KatePluginGDBView::programEnded()
 
     // don't set the execution mark on exit
     m_lastExecLine = -1;
-    static_cast<StackFrameModel *>(m_stackTree->model())->setFrames({}, {});
-    static_cast<StackFrameModel *>(m_stackTree->model())->setActiveFrame(-1);
+    m_stackView->clear();
     m_localsView->clear();
-    m_threadCombo->clear();
 
     // Indicate the state change by showing the debug outputArea
     m_mainWin->showToolView(m_toolView.get());
     m_tabWidget->setCurrentWidget(m_configView);
 
-    m_localsView->clear();
     m_ioView->clearOutput();
 }
 
@@ -709,102 +674,6 @@ void KatePluginGDBView::slotSendCommand()
 
     QScrollBar *sb = m_outputArea->verticalScrollBar();
     sb->setValue(sb->maximum());
-}
-
-void KatePluginGDBView::insertStackFrame(const QList<dap::StackFrame> &frames)
-{
-    auto model = static_cast<StackFrameModel *>(m_stackTree->model());
-    model->setFrames(frames, m_backend->modules());
-    m_stackTree->resizeColumnToContents(StackFrameModel::Column::Path);
-}
-
-void KatePluginGDBView::stackFrameSelected()
-{
-    m_backend->changeStackFrame(m_stackTree->currentIndex().row());
-}
-
-void KatePluginGDBView::stackFrameChanged(int level)
-{
-    auto model = static_cast<StackFrameModel *>(m_stackTree->model());
-    model->setActiveFrame(level);
-}
-
-void KatePluginGDBView::onThreads(const QList<dap::Thread> &threads)
-{
-    // We dont want to signal thread change while we are modifying the combo
-    disconnect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
-    m_threadCombo->clear();
-    int activeThread = m_activeThread;
-    m_activeThread = -1;
-    bool oldActiveThreadFound = false;
-
-    const auto pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
-    for (const auto &thread : threads) {
-        QString name = i18n("Thread %1", thread.id);
-        if (!thread.name.isEmpty()) {
-            name += QStringLiteral(": %1").arg(thread.name);
-        }
-        QPixmap icon = pix;
-        if (thread.id == activeThread) {
-            icon = QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10);
-            oldActiveThreadFound = true;
-        }
-        m_threadCombo->addItem(icon, name, thread.id);
-    }
-
-    connect(m_threadCombo, &QComboBox::currentIndexChanged, this, &KatePluginGDBView::threadSelected);
-    // try to set an active thread
-    if (m_threadCombo->count() > 0) {
-        int idx = 0; // use first thread
-        if (oldActiveThreadFound) {
-            // if old active thread was found, use that instead
-            idx = m_threadCombo->findData(activeThread);
-            m_activeThread = activeThread;
-        } else {
-            m_activeThread = m_threadCombo->itemData(idx).toInt();
-        }
-        m_threadCombo->setCurrentIndex(idx);
-    }
-}
-
-void KatePluginGDBView::updateThread(const dap::Thread &thread, Backend::ThreadState state, bool isActive)
-{
-    int idx = m_threadCombo->findData(thread.id);
-    if (idx == -1 && state != Backend::ThreadState::Exited) {
-        // thread wasn't found, add it
-        QString name = i18n("Thread %1", thread.id);
-        const QPixmap pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
-        m_threadCombo->addItem(pix, name, thread.id);
-    } else if (idx != -1 && state == Backend::ThreadState::Exited) {
-        // remove exited thread
-        m_threadCombo->removeItem(idx);
-    }
-
-    // Try to set an active thread
-    if (isActive) {
-        if (m_activeThread != thread.id && m_activeThread != -1) {
-            int oldActiveIdx = m_threadCombo->findData(m_activeThread);
-            const QPixmap pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
-            m_threadCombo->setItemIcon(oldActiveIdx, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
-        }
-
-        m_activeThread = thread.id;
-        m_threadCombo->setItemIcon(idx, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
-        m_threadCombo->setCurrentIndex(idx);
-    }
-
-    if (m_activeThread == -1 && m_threadCombo->count() > 0) {
-        // activate first thread if nothing active
-        m_activeThread = m_threadCombo->itemData(0).toInt();
-        m_threadCombo->setCurrentIndex(0);
-    }
-}
-
-void KatePluginGDBView::threadSelected(int thread)
-{
-    if (thread < 0)
-        return;
-    m_backend->changeThread(m_threadCombo->itemData(thread).toInt());
 }
 
 QString KatePluginGDBView::currentWord()
@@ -1062,47 +931,6 @@ QToolButton *KatePluginGDBView::createDebugButton(QAction *action)
     });
     button->setVisible(action->isVisible());
     return button;
-}
-
-void KatePluginGDBView::onStackTreeContextMenuRequest(QPoint pos)
-{
-    QMenu menu(m_stackTree);
-    auto model = m_stackTree->model();
-
-    auto a = menu.addAction(i18n("Copy Stack Trace"));
-    connect(a, &QAction::triggered, m_stackTree, [model] {
-        QString text;
-        for (int i = 0; i < model->rowCount(); ++i) {
-            QString no = model->index(i, StackFrameModel::Column::Number).data().toString();
-            QString func = model->index(i, StackFrameModel::Column::Func).data().toString();
-            QString path = model->index(i, StackFrameModel::Column::Path).data().toString();
-            text.append(QStringLiteral("#%1  %2  %3\n").arg(no, func, path));
-        }
-        qApp->clipboard()->setText(text);
-    });
-
-    auto index = m_stackTree->currentIndex();
-    if (index.isValid()) {
-        auto frame = index.data(StackFrameModel::StackFrameRole).value<dap::StackFrame>();
-        if (frame.source) {
-            auto url = frame.source->path;
-            int line = frame.line - 1;
-            if (url.isValid()) {
-                auto a = menu.addAction(i18n("Open Location"));
-                connect(a, &QAction::triggered, m_stackTree, [this, url, line] {
-                    Utils::goToDocumentLocation(m_mainWin, url, KTextEditor::Range({line, 0}, 0), {.focus = true, .record = false});
-                });
-            }
-        }
-
-        auto a = menu.addAction(i18n("Copy Location"));
-        QString location = QStringLiteral("%1:%2").arg(Utils::formatUrl(frame.source->path)).arg(frame.line);
-        connect(a, &QAction::triggered, m_stackTree, [location] {
-            qApp->clipboard()->setText(location);
-        });
-    }
-
-    menu.exec(m_stackTree->viewport()->mapToGlobal(pos));
 }
 
 void KatePluginGDBView::requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation)

@@ -36,6 +36,7 @@ class QTreeWidget;
 class QTreeView;
 class QSplitter;
 class QTabWidget;
+class StackView;
 
 typedef QVariantList VariantList;
 
@@ -94,14 +95,6 @@ private Q_SLOTS:
     void enableDebugActions(bool enable);
     void programEnded();
 
-    void insertStackFrame(const QList<dap::StackFrame> &frames);
-    void stackFrameChanged(int level);
-    void stackFrameSelected();
-
-    void onThreads(const QList<dap::Thread> &threads);
-    void updateThread(const dap::Thread &thread, Backend::ThreadState, bool isActive);
-    void threadSelected(int thread);
-
     void showIO(bool show);
     void addOutput(const dap::Output &output);
     void addOutputText(QString const &text);
@@ -125,7 +118,6 @@ private:
     void displayMessage(const QString &message, KTextEditor::Message::MessageType level);
     void enableHotReloadOnSave(KTextEditor::View *view);
     QToolButton *createDebugButton(QAction *action);
-    void onStackTreeContextMenuRequest(QPoint pos);
     KTextEditor::MainWindow::ToolViewPosition toolviewPosition(QWidget *toolview) const;
 
     KatePluginGDB *const m_plugin;
@@ -137,14 +129,12 @@ private:
     QTextEdit *m_outputArea;
     KHistoryComboBox *m_inputArea;
     QWidget *m_gdbPage;
-    QComboBox *m_threadCombo;
-    int m_activeThread;
-    QTreeView *m_stackTree;
     QString m_lastCommand;
     Backend *m_backend;
     ConfigView *m_configView = nullptr;
     std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;
+    StackView *m_stackView;
     QPointer<KActionMenu> m_menu;
     QAction *m_breakpoint;
     QUrl m_lastExecUrl;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:45+0000\n"
+"POT-Creation-Date: 2025-11-22 00:45+0000\n"
 "PO-Revision-Date: 2025-11-20 18:48+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -527,179 +527,159 @@ msgstr "انسخ الرّمز"
 msgid "Copy Value"
 msgstr "انسخ القيمة"
 
-#: plugin_kategdb.cpp:107
+#: plugin_kategdb.cpp:105
 #, kde-format
 msgid "Kate Debug"
 msgstr "منقح كيت"
 
-#: plugin_kategdb.cpp:111
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "منظور التّنقيح"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:371
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:340
 #, kde-format
 msgid "Debug"
 msgstr "نقّح"
 
-#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:117
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "المحليّات والرّصّة"
 
-#: plugin_kategdb.cpp:237
+#: plugin_kategdb.cpp:206
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr "<title>تعذر فتح الملف :</title><nl/>%1"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Targets"
 msgstr "الأهداف"
 
-#: plugin_kategdb.cpp:258
+#: plugin_kategdb.cpp:227
 #, kde-format
 msgid "Start Debugging"
 msgstr "ابدأ التّنقيح"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:237
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "اقتل / أوقف التّنقيح"
 
-#: plugin_kategdb.cpp:275
+#: plugin_kategdb.cpp:244
 #, kde-format
 msgid "Continue"
 msgstr "تابع"
 
-#: plugin_kategdb.cpp:281
+#: plugin_kategdb.cpp:250
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "بدّل نقطة المقاطعة / قاطع"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "امحُ جميع نقاط التوقف"
 
-#: plugin_kategdb.cpp:293
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Step In"
 msgstr "ادخل"
 
-#: plugin_kategdb.cpp:300
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Step Over"
 msgstr "تخطّ"
 
-#: plugin_kategdb.cpp:307
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Step Out"
 msgstr "اخرج"
 
-#: plugin_kategdb.cpp:314 plugin_kategdb.cpp:378
+#: plugin_kategdb.cpp:283 plugin_kategdb.cpp:347
 #, kde-format
 msgid "Run To Cursor"
 msgstr "شغّل حتّى المؤشّر"
 
-#: plugin_kategdb.cpp:321
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Restart Debugging"
 msgstr "أعد تشغيل التّنقيح"
 
-#: plugin_kategdb.cpp:328
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Clear Output"
 msgstr "امحُ الخرج"
 
-#: plugin_kategdb.cpp:336
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Hot Reload"
 msgstr "إعادة التحميل الساخن"
 
-#: plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Restart"
 msgstr "إعادة التشغيل الساخن"
 
-#: plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:321
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "مكّن إعادة التحميل الساخن عند الحفظ"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:330 plugin_kategdb.cpp:349
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "انقل عدّاد البرنامج"
 
-#: plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Print Value"
 msgstr "اطبع القيمة"
 
-#: plugin_kategdb.cpp:436
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Error: %1"
 msgstr "الخطأ: %1"
 
-#: plugin_kategdb.cpp:467 plugin_kategdb.cpp:483
+#: plugin_kategdb.cpp:436 plugin_kategdb.cpp:452
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "أدرج نقطة مقاطعة"
 
-#: plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:450
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "أزل نقطة المقاطعة"
 
-#: plugin_kategdb.cpp:649
+#: plugin_kategdb.cpp:617
 #, kde-format
 msgid "Execution point"
 msgstr "نقطة التّنفيذ"
 
-#: plugin_kategdb.cpp:743 plugin_kategdb.cpp:775
-#, kde-format
-msgid "Thread %1"
-msgstr "الخيط %1"
-
-#: plugin_kategdb.cpp:871
+#: plugin_kategdb.cpp:740
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "ناتج التنقيح"
 
-#: plugin_kategdb.cpp:872
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "إعدادات"
 
-#: plugin_kategdb.cpp:907
+#: plugin_kategdb.cpp:776
 #, kde-format
 msgid "IO"
 msgstr "الدّخل/الخرج"
 
-#: plugin_kategdb.cpp:996
+#: plugin_kategdb.cpp:865
 #, kde-format
 msgid "Breakpoint"
 msgstr "نقطة مقاطعة"
-
-#: plugin_kategdb.cpp:1072
-#, kde-format
-msgid "Copy Stack Trace"
-msgstr "انسخ تتبع المكدس"
-
-#: plugin_kategdb.cpp:1091
-#, kde-format
-msgid "Open Location"
-msgstr "افتح موقعًا"
-
-#: plugin_kategdb.cpp:1098
-#, kde-format
-msgid "Copy Location"
-msgstr "انسخ الموقع"
 
 #: stackframe_model.cpp:95
 #, kde-format
@@ -718,6 +698,26 @@ msgstr "الوظيفة"
 msgctxt "Column label"
 msgid "Location"
 msgstr "الموقع"
+
+#: stackview.cpp:90 stackview.cpp:122
+#, kde-format
+msgid "Thread %1"
+msgstr "الخيط %1"
+
+#: stackview.cpp:162
+#, kde-format
+msgid "Copy Stack Trace"
+msgstr "انسخ تتبع المكدس"
+
+#: stackview.cpp:181
+#, kde-format
+msgid "Open Location"
+msgstr "افتح موقعًا"
+
+#: stackview.cpp:188
+#, kde-format
+msgid "Copy Location"
+msgstr "انسخ الموقع"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

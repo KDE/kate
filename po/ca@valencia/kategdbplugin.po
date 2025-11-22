@@ -10,15 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:45+0000\n"
-"PO-Revision-Date: 2025-07-19 18:41+0200\n"
+"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"PO-Revision-Date: 2025-11-20 10:07+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
@@ -482,13 +482,13 @@ msgstr "Les dades JSON no són vàlides: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "No s'ha pogut analitzar .vscode/launch.json a %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " a %1:%2"
 
 #: localsview.cpp:41
 #, kde-format
@@ -535,180 +535,160 @@ msgstr "Copia el símbol"
 msgid "Copy Value"
 msgstr "Copia el valor"
 
-#: plugin_kategdb.cpp:107
+#: plugin_kategdb.cpp:105
 #, kde-format
 msgid "Kate Debug"
 msgstr "Depuració de Kate"
 
-#: plugin_kategdb.cpp:111
+#: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Debug View"
 msgstr "Vista del depurador"
 
-#: plugin_kategdb.cpp:111 plugin_kategdb.cpp:371
+#: plugin_kategdb.cpp:109 plugin_kategdb.cpp:340
 #, kde-format
 msgid "Debug"
 msgstr "Depura"
 
-#: plugin_kategdb.cpp:114 plugin_kategdb.cpp:117
+#: plugin_kategdb.cpp:112 plugin_kategdb.cpp:115
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Locals i pila"
 
-#: plugin_kategdb.cpp:237
+#: plugin_kategdb.cpp:206
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr "<title>No s'ha pogut obrir el fitxer:</title><nl/>%1"
 
-#: plugin_kategdb.cpp:253
+#: plugin_kategdb.cpp:222
 #, kde-format
 msgid "Targets"
 msgstr "Objectius"
 
-#: plugin_kategdb.cpp:258
+#: plugin_kategdb.cpp:227
 #, kde-format
 msgid "Start Debugging"
 msgstr "Inicia la depuració"
 
-#: plugin_kategdb.cpp:268
+#: plugin_kategdb.cpp:237
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Mata/para la depuració"
 
-#: plugin_kategdb.cpp:275
+#: plugin_kategdb.cpp:244
 #, kde-format
 msgid "Continue"
 msgstr "Continua"
 
 # skip-rule: k-Break-1
-#: plugin_kategdb.cpp:281
+#: plugin_kategdb.cpp:250
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Canvia entre punt d'interrupció/interrupció"
 
-#: plugin_kategdb.cpp:288
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Neteja tots els punts d'interrupció"
 
-#: plugin_kategdb.cpp:293
+#: plugin_kategdb.cpp:262
 #, kde-format
 msgid "Step In"
 msgstr "Avança per dins"
 
-#: plugin_kategdb.cpp:300
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Step Over"
 msgstr "Avança per damunt"
 
-#: plugin_kategdb.cpp:307
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Step Out"
 msgstr "Avança per fora"
 
-#: plugin_kategdb.cpp:314 plugin_kategdb.cpp:378
+#: plugin_kategdb.cpp:283 plugin_kategdb.cpp:347
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Executa fins al cursor"
 
-#: plugin_kategdb.cpp:321
+#: plugin_kategdb.cpp:290
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Reinicia la depuració"
 
-#: plugin_kategdb.cpp:328
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Clear Output"
 msgstr "Neteja l'eixida"
 
-#: plugin_kategdb.cpp:336
+#: plugin_kategdb.cpp:305
 #, kde-format
 msgid "Hot Reload"
 msgstr "Torna a carregar en calent"
 
-#: plugin_kategdb.cpp:343
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Restart"
 msgstr "Reinicia en calent"
 
-#: plugin_kategdb.cpp:352
+#: plugin_kategdb.cpp:321
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Activa la recàrrega en calent en guardar"
 
-#: plugin_kategdb.cpp:361 plugin_kategdb.cpp:380
+#: plugin_kategdb.cpp:330 plugin_kategdb.cpp:349
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Mou el CP"
 
-#: plugin_kategdb.cpp:366
+#: plugin_kategdb.cpp:335
 #, kde-format
 msgid "Print Value"
 msgstr "Imprimix el valor"
 
-#: plugin_kategdb.cpp:436
+#: plugin_kategdb.cpp:405
 #, kde-format
 msgid "Error: %1"
 msgstr "S'ha produït un error: %1"
 
-#: plugin_kategdb.cpp:467 plugin_kategdb.cpp:483
+#: plugin_kategdb.cpp:436 plugin_kategdb.cpp:452
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Inserix un punt d'interrupció"
 
-#: plugin_kategdb.cpp:481
+#: plugin_kategdb.cpp:450
 #, kde-format
 msgid "Remove breakpoint"
 msgstr "Elimina el punt d'interrupció"
 
-#: plugin_kategdb.cpp:649
+#: plugin_kategdb.cpp:617
 #, kde-format
 msgid "Execution point"
 msgstr "Punt d'execució"
 
-#: plugin_kategdb.cpp:743 plugin_kategdb.cpp:775
-#, kde-format
-msgid "Thread %1"
-msgstr "Fil %1"
-
-#: plugin_kategdb.cpp:871
+#: plugin_kategdb.cpp:740
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Eixida de depuració"
 
-#: plugin_kategdb.cpp:872
+#: plugin_kategdb.cpp:741
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configuració"
 
-#: plugin_kategdb.cpp:907
+#: plugin_kategdb.cpp:776
 #, kde-format
 msgid "IO"
 msgstr "E/S"
 
-#: plugin_kategdb.cpp:996
+#: plugin_kategdb.cpp:865
 #, kde-format
 msgid "Breakpoint"
 msgstr "Punt d'interrupció"
-
-#: plugin_kategdb.cpp:1072
-#, kde-format
-msgid "Copy Stack Trace"
-msgstr "Copia la traça de la pila"
-
-#: plugin_kategdb.cpp:1091
-#, kde-format
-msgid "Open Location"
-msgstr "Obri la ubicació"
-
-#: plugin_kategdb.cpp:1098
-#, kde-format
-msgid "Copy Location"
-msgstr "Copia la ubicació"
 
 #: stackframe_model.cpp:95
 #, kde-format
@@ -727,6 +707,26 @@ msgstr "Funció"
 msgctxt "Column label"
 msgid "Location"
 msgstr "Ubicació"
+
+#: stackview.cpp:90 stackview.cpp:122
+#, kde-format
+msgid "Thread %1"
+msgstr "Fil %1"
+
+#: stackview.cpp:162
+#, kde-format
+msgid "Copy Stack Trace"
+msgstr "Copia la traça de la pila"
+
+#: stackview.cpp:181
+#, kde-format
+msgid "Open Location"
+msgstr "Obri la ubicació"
+
+#: stackview.cpp:188
+#, kde-format
+msgid "Copy Location"
+msgstr "Copia la ubicació"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6

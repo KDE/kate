@@ -17,6 +17,7 @@
         "Description[tr]": "Metin dosyalarını şifrelemek ve şifrelerini çözmek için bir GPG eklentisi",
         "Description[uk]": "Додаток GPG для розшифровування та шифрування текстових файлів",
         "Description[zh_CN]": "用于解密和加密文本文件的 GPG 插件",
+        "Description[zh_TW]": "GPG 外掛程式，用來解密或加密文字檔案",
         "Name": "GPG Plugin",
         "Name[ar]": "ملحقة GPG",
         "Name[bg]": "Приставка за GPG:",
@@ -33,6 +34,7 @@
         "Name[sl]": "Vtičnik GPG",
         "Name[tr]": "GPG Eklentisi",
         "Name[uk]": "Додаток GPG",
-        "Name[zh_CN]": "GPG 插件"
+        "Name[zh_CN]": "GPG 插件",
+        "Name[zh_TW]": "GPG 外掛程式"
     }
 }

@@ -205,6 +205,30 @@
                     }
                 }
             }
+        },
+        "netcoredbg": {
+            "url": "https://github.com/Samsung/netcoredbg",
+            "run": {
+                "command": ["netcoredbg", "--interpreter=vscode"],
+                "redirectStderr": true,
+                "redirectStdout": true
+            },
+            "configurations": {
+                "launch": {
+                    "request": {
+                        "command": "launch",
+                        "program": "${file}",
+                        "args": "${args|list}",
+                        "cwd": "${workdir}"
+                    }
+                },
+                "attach": {
+                    "request": {
+                        "command": "attach",
+                        "processId": "${pid|int}"
+                    }
+                }
+            }
         }
     }
 }

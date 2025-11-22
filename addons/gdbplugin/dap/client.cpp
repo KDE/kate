@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "client.h"
+#include <KLocalizedString>
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -194,9 +195,15 @@ void Client::processResponse(const QJsonObject &msg)
 
 void Client::processReverseRequest(const QJsonObject &msg)
 {
-    if (!msg.contains(DAP_SEQ) || msg[DAP_COMMAND].toString() != DAP_RUN_IN_TERMINAL) {
+    const QString command = msg[DAP_COMMAND].toString();
+    if (!msg.contains(DAP_SEQ) || command != DAP_RUN_IN_TERMINAL) {
         // error response
         write(makeResponse(msg, false));
+        qCWarning(DAPCLIENT, "unexpected '%ls' reverse request", qUtf16Printable(command));
+        if (command == QStringLiteral("startDebugging")) {
+            Q_EMIT outputProduced(dap::Output(i18n("the incompatible server did not honor the specification"), dap::Output::Category::Important));
+            setState(State::Failed);
+        }
         return;
     }
     processRequestRunInTerminal(msg);

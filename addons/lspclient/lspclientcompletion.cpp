@@ -348,6 +348,18 @@ public:
         return complete;
     }
 
+    bool shouldAbortCompletion(KTextEditor::View *view, const KTextEditor::Range &range, const QString &currentCompletion) override
+    {
+        bool ret = KTextEditor::CodeCompletionModelControllerInterface::shouldAbortCompletion(view, range, currentCompletion);
+        int column = range.end().column() - 1;
+        int line = range.end().line();
+        if (column >= 0 && currentCompletion.isEmpty()) {
+            QChar c = view->document()->characterAt(KTextEditor::Cursor(line, column));
+            ret = ret || c.isSpace();
+        }
+        return ret;
+    }
+
     void completionInvoked(KTextEditor::View *view, const KTextEditor::Range &range, InvocationType it) override
     {
         qCInfo(LSPCLIENT) << "completion invoked" << m_server.get();

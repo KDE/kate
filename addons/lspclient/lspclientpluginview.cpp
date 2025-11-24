@@ -993,7 +993,7 @@ public:
             if (!searchAttr) {
                 searchAttr = new KTextEditor::Attribute();
                 const auto theme = KTextEditor::Editor::instance()->theme();
-                QColor rangeColor = theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight);
+                QColor rangeColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight));
                 searchAttr->setBackground(rangeColor);
                 searchAttr->setForeground(QBrush(theme.textColor(KSyntaxHighlighting::Theme::Normal)));
             }

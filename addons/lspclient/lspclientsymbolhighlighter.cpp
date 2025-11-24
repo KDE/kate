@@ -78,7 +78,7 @@ void LSPClientSymbolHighlighter::rangesInvalidated()
 void LSPClientSymbolHighlighter::themeChange(KTextEditor::Editor *e)
 {
     const auto theme = e->theme();
-    m_highlightAttribute->setBackground(QBrush(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight)));
+    m_highlightAttribute->setBackground(QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::SearchHighlight)));
 }
 
 void LSPClientSymbolHighlighter::cancelRequest()

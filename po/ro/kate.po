@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:43+0000\n"
+"POT-Creation-Date: 2025-11-25 02:36+0000\n"
 "PO-Revision-Date: 2025-10-20 11:03+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -156,34 +156,34 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - Redactor de text"
 
-#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "Deschide fișier"
 
-#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:456
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiază amplasarea"
 
-#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr ""
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "%1 nu există într-un depozit git."
 
-#: lib/commitfilesview.cpp:554
+#: lib/commitfilesview.cpp:601
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -345,7 +345,7 @@ msgstr "Erori"
 msgid "Warnings"
 msgstr "Avertismente"
 
-#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:466
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -571,13 +571,13 @@ msgstr "Fișier șters %1"
 msgid "No differences found"
 msgstr "Nu s-a găsit nicio diferență"
 
-#: lib/filehistorywidget.cpp:247
+#: lib/filehistorywidget.cpp:252
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Dată nevalidă: %1"
 
-#: lib/filehistorywidget.cpp:469
+#: lib/filehistorywidget.cpp:474
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -594,30 +594,30 @@ msgid ""
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
 
-#: lib/filehistorywidget.cpp:525
+#: lib/filehistorywidget.cpp:537
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:541
+#: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:556
+#: lib/filehistorywidget.cpp:568
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr ""
 
-#: lib/filehistorywidget.cpp:564
+#: lib/filehistorywidget.cpp:576
 #, fuzzy, kde-format
 #| msgid "&Show Full Path"
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "&Arată calea completă"
 
-#: lib/filehistorywidget.cpp:687
+#: lib/filehistorywidget.cpp:702
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

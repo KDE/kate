@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 14:43+0000\n"
+"POT-Creation-Date: 2025-11-25 02:36+0000\n"
 "PO-Revision-Date: 2025-10-09 00:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -153,34 +153,34 @@ msgstr "KWrite"
 msgid "KWrite - Text Editor"
 msgstr "KWrite - 텍스트 편집기"
 
-#: lib/commitfilesview.cpp:409 lib/kateviewmanager.cpp:365
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
 #: lib/kateviewmanager.cpp:367
 #, kde-format
 msgid "Open File"
 msgstr "파일 열기"
 
-#: lib/commitfilesview.cpp:415 lib/katemainwindow.cpp:456
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:456
 #, kde-format
 msgid "Copy Location"
 msgstr "위치 복사"
 
-#: lib/commitfilesview.cpp:437 lib/commitfilesview.cpp:533
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:473 lib/commitfilesview.cpp:580
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "Git"
 msgstr "Git"
 
-#: lib/commitfilesview.cpp:533
+#: lib/commitfilesview.cpp:580
 #, kde-format
 msgid "Invalid hash"
 msgstr "잘못된 해시"
 
-#: lib/commitfilesview.cpp:539 lib/filehistorywidget.cpp:678
+#: lib/commitfilesview.cpp:586 lib/filehistorywidget.cpp:693
 #, kde-format
 msgid "%1 doesn't exist in a git repo."
 msgstr "Git 저장소에 %1이(가) 없습니다."
 
-#: lib/commitfilesview.cpp:554
+#: lib/commitfilesview.cpp:601
 #, kde-format
 msgctxt "@title:tab"
 msgid "Commit %1"
@@ -342,7 +342,7 @@ msgstr "오류"
 msgid "Warnings"
 msgstr "경고"
 
-#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:461
+#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:466
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -563,13 +563,13 @@ msgstr "삭제된 파일 %1"
 msgid "No differences found"
 msgstr "차이점을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:247
+#: lib/filehistorywidget.cpp:252
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "잘못된 날짜: %1"
 
-#: lib/filehistorywidget.cpp:469
+#: lib/filehistorywidget.cpp:474
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -597,29 +597,29 @@ msgstr ""
 "를 지정하면 해당하는 모든 단어가 있는 메시지만 표시됩니다.</li></ul>필터를 적"
 "용하려면 <b>Enter</b> 키를 누르십시오."
 
-#: lib/filehistorywidget.cpp:525
+#: lib/filehistorywidget.cpp:537
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr "파일 기록을 가져올 수 없음: PATH에서 git 실행 파일을 찾을 수 없음"
 
-#: lib/filehistorywidget.cpp:541
+#: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
 msgstr "파일 기록을 가져올 수 없음: %1"
 
-#: lib/filehistorywidget.cpp:556
+#: lib/filehistorywidget.cpp:568
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Commit Hash"
 msgstr "커밋 해시 복사"
 
-#: lib/filehistorywidget.cpp:564
+#: lib/filehistorywidget.cpp:576
 #, kde-format
 msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "전체 커밋 표시"
 
-#: lib/filehistorywidget.cpp:687
+#: lib/filehistorywidget.cpp:702
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"

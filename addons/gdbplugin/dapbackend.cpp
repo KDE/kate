@@ -384,15 +384,16 @@ void DapBackend::onStackTrace(const int /* threadId */, const dap::StackTraceInf
 
 void DapBackend::clearBreakpoints()
 {
-    for (const auto &[url, breakpoints] : m_breakpoints) {
-        const auto &path = url;
-        for (const auto &bp : breakpoints) {
-            if (bp && bp->line) {
-                Q_EMIT breakPointCleared(path, bp->line.value());
-            }
-        }
-    }
-    Q_EMIT clearBreakpointMarks();
+    Q_ASSERT(false);
+    // for (const auto &[url, breakpoints] : m_breakpoints) {
+    //     const auto &path = url;
+    //     for (const auto &bp : breakpoints) {
+    //         if (bp && bp->line) {
+    //             Q_EMIT breakPointCleared(path, bp->line.value());
+    //         }
+    //     }
+    // }
+    // Q_EMIT clearBreakpointMarks();
 }
 
 void DapBackend::onServerDisconnected()
@@ -651,7 +652,7 @@ void DapBackend::informBreakpointAdded(const QUrl &path, const dap::Breakpoint &
     if (bpoint.line) {
         Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint set")).arg(formatUrl(path)).arg(bpoint.line.value()));
         // zero based line expected
-        Q_EMIT breakPointSet(path, bpoint.line.value());
+        // Q_EMIT breakPointSet(path, bpoint.line.value());
     }
 }
 
@@ -659,12 +660,13 @@ void DapBackend::informBreakpointRemoved(const QUrl &path, int line)
 {
     Q_EMIT outputText(QStringLiteral("\n%1 %2:%3\n").arg(i18n("breakpoint cleared")).arg(formatUrl(path)).arg(line));
     // zero based line expected
-    Q_EMIT breakPointCleared(path, line);
+    // Q_EMIT breakPointCleared(path, line);
 }
 
 void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std::optional<QList<dap::Breakpoint>> &breakpoints)
 {
     if (!breakpoints) {
+        Q_EMIT outputText(QStringLiteral("Failed to set breakpoints"));
         popRequest();
         return;
     }
@@ -688,23 +690,29 @@ void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std:
     auto &table = m_breakpoints[id];
     int pointIdx = 0;
     const int last = table.size();
-    for (const auto &point : *breakpoints) {
-        if (pointIdx >= last) {
-            // bpoint added
-            table << point;
-            informBreakpointAdded(id, point);
-        } else if (!table[pointIdx]) {
-            // bpoint added
-            table[pointIdx] = point;
-            informBreakpointAdded(id, point);
-        }
-        if (withRunToCursor) {
-            if (wanted[pointIdx].line == m_runToCursor->line) {
-                mustContinue = point.line.has_value();
-                m_runToCursor = std::nullopt;
+
+    if (m_runToCursor) {
+        // TODO
+        for (const auto &point : *breakpoints) {
+            if (pointIdx >= last) {
+                // bpoint added
+                table << point;
+                informBreakpointAdded(id, point);
+            } else if (!table[pointIdx]) {
+                // bpoint added
+                table[pointIdx] = point;
+                informBreakpointAdded(id, point);
             }
+            if (withRunToCursor) {
+                if (wanted[pointIdx].line == m_runToCursor->line) {
+                    mustContinue = point.line.has_value();
+                    m_runToCursor = std::nullopt;
+                }
+            }
+            ++pointIdx;
         }
-        ++pointIdx;
+    } else {
+        Q_EMIT breakPointsSet(path, breakpoints.value());
     }
 
     popRequest();
@@ -716,15 +724,23 @@ void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std:
 
 void DapBackend::onBreakpointEvent(const dap::BreakpointEvent &info)
 {
-    QStringList parts = {i18n("(%1) breakpoint", info.reason)};
-    if (info.breakpoint.source) {
-        parts << QStringLiteral(" ") << formatUrl(info.breakpoint.source->unifiedId());
-    }
-    if (info.breakpoint.line) {
-        parts << QStringLiteral(":%1").arg(info.breakpoint.line.value());
-    }
+    if (info.reason == QStringLiteral("new")) {
+        Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::New);
+    } else if (info.reason == QStringLiteral("changed")) {
+        Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::Changed);
+    } else if (info.reason == QStringLiteral("removed")) {
+        Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::Removed);
+    } else {
+        QStringList parts = {i18n("(%1) breakpoint", info.reason)};
+        if (info.breakpoint.source) {
+            parts << QStringLiteral(" ") << formatUrl(info.breakpoint.source->unifiedId());
+        }
+        if (info.breakpoint.line) {
+            parts << QStringLiteral(":%1").arg(info.breakpoint.line.value());
+        }
 
-    Q_EMIT outputText(printEvent(parts.join(QString())));
+        Q_EMIT outputText(printEvent(parts.join(QString())));
+    }
 }
 
 void DapBackend::onExpressionEvaluated(const QString &expression, const std::optional<dap::EvaluateInfo> &info)
@@ -876,18 +892,19 @@ bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
     return findBreakpoint(*resolveFilename(url), line).has_value();
 }
 
-void DapBackend::toggleBreakpoint(QUrl const &url, int line, bool *)
+void DapBackend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints)
 {
     if (m_task != Idle) {
-        Q_EMIT breakPointCleared(url, line);
+        // ??
         return;
     }
 
     const auto path = resolveOrWarn(url);
 
-    if (!removeBreakpoint(path, line)) {
-        insertBreakpoint(path, line);
-    }
+    m_wantedBreakpoints[path] = breakpoints;
+
+    pushRequest();
+    m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
 }
 
 bool DapBackend::removeBreakpoint(const QUrl &path, int line)
@@ -1545,17 +1562,11 @@ void DapBackend::setFileSearchPaths(const QStringList & /*paths*/)
     // TODO
 }
 
-void DapBackend::setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoints)
+void DapBackend::setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints)
 {
     // these are set during initialization
     Q_ASSERT(m_wantedBreakpoints.empty());
-    for (const auto &bp : breakpoints.asKeyValueRange()) {
-        const auto path = resolveOrWarn(bp.first);
-        auto &breakpoints = m_wantedBreakpoints[path];
-        for (auto line : bp.second) {
-            breakpoints.push_back(dap::SourceBreakpoint(line));
-        }
-    }
+    m_wantedBreakpoints = std::move(breakpoints);
 }
 
 QList<dap::Module> DapBackend::modules()

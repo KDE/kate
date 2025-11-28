@@ -20,7 +20,7 @@ public:
     Backend(QObject *parent);
     ~Backend();
 
-    void runDebugger(const DAPTargetConf &conf);
+    void runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>>);
 
     bool debuggerRunning() const override;
     bool debuggerBusy() const override;
@@ -30,16 +30,13 @@ public:
     bool canSetBreakpoints() const override;
     bool canMove() const override;
     bool canContinue() const override;
-    void toggleBreakpoint(QUrl const &url, int line, bool *added = nullptr) override;
+    void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
     void runToCursor(QUrl const &url, int line) override;
     void issueCommand(QString const &cmd) override;
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
     QList<dap::Module> modules();
-
-    void saveBreakpoint(QUrl const &url, int line);
-    void removeSavedBreakpoint(QUrl const &url, int line);
 
     bool canHotReload() const;
     bool canHotRestart() const;
@@ -67,5 +64,4 @@ private:
 
     BackendInterface *m_debugger;
     std::optional<bool> m_displayQueryLocals = std::nullopt;
-    QHash<QUrl, QList<int>> m_breakpoints;
 };

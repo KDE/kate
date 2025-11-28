@@ -253,6 +253,12 @@ Source::Source(const QUrl &path)
 {
 }
 
+bool Source::operator==(const Source &r) const
+{
+    return name == r.name && path == r.path && sourceReference == r.sourceReference && presentationHint == r.presentationHint && origin == r.origin
+        && sources == r.sources && adapterData == r.adapterData && checksums == r.checksums;
+}
+
 QJsonObject Source::toJson(MessageContext &ctx) const
 {
     QJsonObject out;
@@ -287,6 +293,11 @@ Checksum::Checksum(const QJsonObject &body)
     : checksum(body[DAP_CHECKSUM].toString())
     , algorithm(body[DAP_ALGORITHM].toString())
 {
+}
+
+bool Checksum::operator==(const Checksum &r) const
+{
+    return checksum == r.checksum && algorithm == r.algorithm;
 }
 
 QJsonObject Checksum::toJson() const
@@ -520,6 +531,12 @@ Breakpoint::Breakpoint(const QJsonObject &body, MessageContext &ctx)
 Breakpoint::Breakpoint(const int line)
     : line(line)
 {
+}
+
+bool Breakpoint::operator==(const dap::Breakpoint &r) const
+{
+    return id == r.id && verified == r.verified && message == r.message && source == r.source && line == r.line && column == r.column && endLine == r.endLine
+        && endColumn == r.endColumn && instructionReference == r.instructionReference && offset == r.offset;
 }
 
 BreakpointEvent::BreakpointEvent(const QJsonObject &body, MessageContext &ctx)

@@ -35,7 +35,7 @@ public:
     bool canHotReload() const;
     bool canHotRestart() const;
 
-    void toggleBreakpoint(QUrl const &url, int line, bool *) override;
+    void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
     void runToCursor(QUrl const &url, int line) override;
 
@@ -44,7 +44,7 @@ public:
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
 
-    void setPendingBreakpoints(const QHash<QUrl, QList<int>> &breakpoints);
+    void setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>>);
 
     QList<dap::Module> modules();
 

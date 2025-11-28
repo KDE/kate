@@ -37,6 +37,7 @@ target_sources(
     debugconfigpage.cpp
     stackframe_model.cpp
     stackview.cpp
+    breakpointview.cpp
 
     ${DAP_SOURCES}
     ${DEBUG_SOURCES}

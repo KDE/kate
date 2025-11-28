@@ -37,6 +37,7 @@ class QTreeView;
 class QSplitter;
 class QTabWidget;
 class StackView;
+class BreakpointView;
 
 typedef QVariantList VariantList;
 
@@ -82,15 +83,12 @@ public:
 private Q_SLOTS:
     void slotDebug();
     void slotRestart();
-    void slotToggleBreakpoint();
     void slotMovePC();
     void slotRunToCursor();
     void slotGoTo(const QUrl &fileName, int lineNum);
     void slotValue();
 
     void aboutToShowMenu();
-    void slotBreakpointSet(const QUrl &file, int line);
-    void slotBreakpointCleared(const QUrl &file, int line);
     void slotSendCommand();
     void enableDebugActions(bool enable);
     void programEnded();
@@ -99,11 +97,9 @@ private Q_SLOTS:
     void addOutput(const dap::Output &output);
     void addOutputText(QString const &text);
     void addErrorText(QString const &text);
-    void clearMarks();
     void handleEsc(QEvent *e);
     void enableBreakpointMarks(KTextEditor::Document *document) const;
     void prepareDocumentBreakpoints(KTextEditor::Document *document);
-    void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
     void requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation);
 
     void onToolViewMoved(QWidget *toolview, KTextEditor::MainWindow::ToolViewPosition);
@@ -125,6 +121,7 @@ private:
     KTextEditor::MainWindow *m_mainWin;
     std::unique_ptr<QWidget> m_toolView;
     std::unique_ptr<QWidget> m_localsStackToolView;
+    std::unique_ptr<QWidget> m_breakpointToolView;
     QTabWidget *m_tabWidget;
     QTextEdit *m_outputArea;
     KHistoryComboBox *m_inputArea;
@@ -135,6 +132,7 @@ private:
     std::unique_ptr<IOView> m_ioView;
     LocalsView *m_localsView;
     StackView *m_stackView;
+    BreakpointView *m_breakpointView;
     QPointer<KActionMenu> m_menu;
     QAction *m_breakpoint;
     QUrl m_lastExecUrl;

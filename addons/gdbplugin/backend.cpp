@@ -23,7 +23,7 @@ Backend::~Backend()
     unbind();
 }
 
-void Backend::runDebugger(const DAPTargetConf &conf)
+void Backend::runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
         KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
@@ -36,7 +36,7 @@ void Backend::runDebugger(const DAPTargetConf &conf)
     m_debugger = dap = new DapBackend(this);
     bind();
 
-    dap->setPendingBreakpoints(m_breakpoints);
+    dap->setPendingBreakpoints(std::move(breakpoints)); // TODO
     dap->runDebugger(conf);
 
     if (m_displayQueryLocals) {
@@ -47,8 +47,7 @@ void Backend::runDebugger(const DAPTargetConf &conf)
 void Backend::bind()
 {
     connect(m_debugger, &BackendInterface::debugLocationChanged, this, &BackendInterface::debugLocationChanged);
-    connect(m_debugger, &BackendInterface::breakPointSet, this, &BackendInterface::breakPointSet);
-    connect(m_debugger, &BackendInterface::breakPointCleared, this, &BackendInterface::breakPointCleared);
+    connect(m_debugger, &BackendInterface::breakPointsSet, this, &BackendInterface::breakPointsSet);
     connect(m_debugger, &BackendInterface::clearBreakpointMarks, this, &BackendInterface::clearBreakpointMarks);
     connect(m_debugger, &BackendInterface::stackFrameInfo, this, &BackendInterface::stackFrameInfo);
     connect(m_debugger, &BackendInterface::stackFrameChanged, this, &BackendInterface::stackFrameChanged);
@@ -70,6 +69,7 @@ void Backend::bind()
     connect(m_debugger, &BackendInterface::debuggeeOutput, this, &BackendInterface::debuggeeOutput);
     connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
     connect(m_debugger, &BackendInterface::debuggeeRequiresTerminal, this, &BackendInterface::debuggeeRequiresTerminal);
+    connect(m_debugger, &BackendInterface::breakpointEvent, this, &BackendInterface::breakpointEvent);
 }
 
 void Backend::unbind()
@@ -121,51 +121,14 @@ bool Backend::canContinue() const
     return m_debugger && m_debugger->canContinue();
 }
 
-void Backend::toggleBreakpoint(QUrl const &url, int line, bool *added)
+void Backend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
-        // let the actual debugger handle it. It will emit
+        // TODO let the actual debugger handle it. It will emit
         // breakPointSet/breakPointCleared signal
-        m_debugger->toggleBreakpoint(url, line);
+        m_debugger->setBreakpoints(url, breakpoints);
     } else {
-        // update the breakpoint in our storage
-        auto it = m_breakpoints.find(url);
-        if (it != m_breakpoints.end()) {
-            auto &lines = *it;
-            auto existing = lines.indexOf(line);
-            if (existing != -1) {
-                lines.remove(existing);
-                *added = false;
-            } else {
-                it->push_back(line);
-            }
-        } else {
-            m_breakpoints[url] = {line};
-        }
-    }
-}
-
-void Backend::saveBreakpoint(QUrl const &url, int line)
-{
-    auto it = m_breakpoints.find(url);
-    if (it != m_breakpoints.end()) {
-        auto &lines = *it;
-        auto existing = lines.indexOf(line);
-        if (existing == -1) {
-            lines.push_back(line);
-        }
-    }
-}
-
-void Backend::removeSavedBreakpoint(QUrl const &url, int line)
-{
-    auto it = m_breakpoints.find(url);
-    if (it != m_breakpoints.end()) {
-        auto &lines = *it;
-        auto existing = lines.indexOf(line);
-        if (existing != -1) {
-            lines.remove(existing);
-        }
+        Q_ASSERT(false);
     }
 }
 

@@ -30,6 +30,12 @@ public:
         Unknown,
     };
 
+    enum BreakpointEventKind {
+        New,
+        Changed,
+        Removed
+    };
+
     /**
      * true if debugger is running
      */
@@ -66,7 +72,7 @@ public:
      * toggle breakpoint at url:line
      * whether the breakpoint was added or not
      */
-    virtual void toggleBreakpoint(QUrl const &url, int line, bool *added = nullptr) = 0;
+    virtual void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) = 0;
     /**
      * move PC to url:line
      */
@@ -132,13 +138,13 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void debugLocationChanged(const QUrl &file, int lineNum);
-    void breakPointSet(const QUrl &file, int lineNum);
-    void breakPointCleared(const QUrl &file, int lineNum);
+    void breakPointsSet(const QUrl &file, const QList<dap::Breakpoint> &breakpoints);
     void clearBreakpointMarks();
     void stackFrameInfo(const QList<dap::StackFrame> &frames);
     void stackFrameChanged(int level);
     void threads(const QList<dap::Thread> &thread);
     void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);
+    void breakpointEvent(const dap::Breakpoint &bp, BreakpointEventKind);
 
     void variablesInfo(int parentId, const QList<dap::Variable> &variable);
     void scopesInfo(const QList<dap::Scope> &scopes);

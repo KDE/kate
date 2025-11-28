@@ -43,12 +43,18 @@ public:
 
 private:
     void slotBreakpointsSet(const QUrl &file, const QList<dap::Breakpoint> &breakpoints);
-    void setBreakpoint(const QUrl &file, int line);
+
+    /**
+     * \p file the file where breakpoint should be toggled
+     * \p line where to toggle breakpoint
+     * \p enabledStateChange whether enabled state of a breakpoint changed i.e., it was checked/unchecked
+     */
+    void setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange);
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind);
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;
-    Backend *const m_backend;
+    BackendInterface *const m_backend;
     QTreeView *const m_treeview;
     BreakpointModel *const m_breakpointModel;
 };

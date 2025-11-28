@@ -48,8 +48,8 @@
 >configurações</secondary>
 <tertiary
 >preferências</tertiary
-></indexterm>
-<anchor id="find"/> <anchor id="find-again"/> <anchor id="replace"/> <anchor id="undo"/> <anchor id="redo"/> O &kate; oferece vários meios de configurar o aplicativo para comportar-se como desejado. Os mais importantes são: </para>
+></indexterm
+><anchor id="find"/> <anchor id="find-again"/> <anchor id="replace"/> <anchor id="undo"/> <anchor id="redo"/> O &kate; oferece vários meios de configurar o aplicativo para comportar-se como desejado. Os mais importantes são: </para>
 
 <variablelist>
 <varlistentry>
@@ -83,9 +83,7 @@
 </variablelist>
 
 <para
->O terminal integrado usa as opções definidas nas &systemsettings; e pode ser configurado usando o clique <mousebutton
->direito</mousebutton
-> do mouse para acessar o menu de contexto.</para>
+>O terminal integrado usa as opções definidas nas &systemsettings; e pode ser configurado clicando o &RMB; para acessar o menu de contexto.</para>
 
 </sect1>
 
@@ -103,7 +101,7 @@
 >A janela de configuração do &kate; mostra uma árvore com os tópicos à esquerda, bem como uma página de configuração correspondente ao tópico selecionado à direita.</para>
 
 <para
->A configuração está dividida em dois grupos, denominados <itemizedlist>
+>A configuração está dividida em dois grupos, denominados: <itemizedlist>
 <listitem
 ><para
 ><link linkend="config-dialog"
@@ -148,15 +146,51 @@
 
 <varlistentry>
 <term
-><anchor id="config-dialog-general-warn-mod"/>
+><anchor id="config-dialog-general-open-each-document"/>
 <guilabel
->Avisar sobre arquivos modificados por outros processos</guilabel
+>Abrir cada documento em sua própria janela</guilabel
 ></term>
 <listitem
 ><para
->Quando esta opção estiver ativa, o &kate; irá notificá-lo dos arquivos modificados fora do aplicativo, sempre que a janela principal for colocada em primeiro plano. Você será então capaz de lidar com vários arquivos modificados de uma vez, os quais poderá recarregar, salvar ou descartar os arquivos alterados nos grupos.</para>
+>Se ativado, cada documento será aberto em sua própria janela. Se não estiver habilitado, cada documento será aberto em uma nova aba na janela atual.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-switch-to-output"/>
+<guilabel
+>Mudar para a visualização de saída no tipo de mensagem</guilabel
+></term>
+<listitem
+><para
+>Esta opção permite configurar quando o &kate; deve exibir um painel de saída dependendo do tipo de saída da ação.</para>
 <para
->Se não estiver ativada, o &kate; irá perguntar-lhe a ação a tomar, quando um arquivo modificado externamente ficar em primeiro plano, dentro do aplicativo.</para>
+>É possível escolher entre <guimenuitem
+>Nunca</guimenuitem
+>, <guimenuitem
+>Erro</guimenuitem
+> (em caso de erro), <guimenuitem
+>Aviso</guimenuitem
+> (em caso de aviso ou superior), <guimenuitem
+>Informação</guimenuitem
+> (em caso de informação ou superior) e <guimenuitem
+>Registro</guimenuitem
+> (em caso de registro ou superior).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-dialog-general-separate-dialog"/>
+<guilabel
+>Usar uma janela separada para manipular arquivos modificados externamente</guilabel
+></term>
+<listitem
+><para
+>Quando esta opção estiver ativa, o &kate; irá notificá-lo com uma janela modal sobre todos os arquivos modificados fora do aplicativo, sempre que a janela principal for colocada em primeiro plano. Você será então capaz de lidar com vários arquivos modificados de uma vez, os quais poderá recarregar, salvar ou descartar os arquivos alterados nos grupos.</para>
+<para
+>Se não estiver habilitado, o &kate; perguntará individualmente o que você deve fazer para cada arquivo modificado somente quando a visualização desse arquivo receber o foco.</para>
 </listitem>
 </varlistentry>
 
@@ -167,34 +201,42 @@
 
 <varlistentry>
 <term
-><anchor id="config-general-meta-data"/>
+><anchor id="config-general-quick-open"/>
 <guilabel
->Metainformações</guilabel
+>Abertura rápida</guilabel
 ></term>
  <listitem>
 
 <variablelist>
 <varlistentry>
 <term
-><anchor id="config-general-keep-meta-information"/>
+><anchor id="config-general-quick-open-match-mode"/>
 <guilabel
->Manter metainformações de sessões passadas</guilabel
+>Modo de correspondência</guilabel
 ></term>
 <listitem
 ><para
->Quando estiver ativa, o &kate; irá guardar alguns metadados, como a configuração dos favoritos e da sessão, mesmo quando fechar os seus documentos. Os dados serão usados, se o documento não estiver alterado, quando for aberto de novo.</para
+>Define o modo de lista para a ferramenta <link linkend="view-quick-open"
+>Abertura rápida</link
+>. Os arquivos podem ser encontrados pelo nome ou pelo caminho.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
-><anchor id="config-general-delete-meta-information-after"/>
+><anchor id="config-general-quick-open-list-mode"/>
 <guilabel
->Remover metainformações que não forem utilizadas após</guilabel
+>Modo de lista</guilabel
 ></term>
 <listitem
 ><para
->Indica o número máximo de dias durante os quais serão mantidas as metainformações dos arquivos previamente abertos. Isto mantém o banco de dados de informação com um tamanho razoável.</para
+>Define o modo de lista para a ferramenta <link linkend="view-quick-open"
+>Abertura rápida</link
+>. É possível escolher entre <guilabel
+>Arquivos do projeto atual</guilabel
+> e <guilabel
+>Todos os arquivos do projeto</guilabel
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -202,14 +244,171 @@
 
 </listitem>
 </varlistentry
-><!-- /meta data group -->
+><!-- /quick open group -->
 
+<varlistentry>
+<term
+><anchor id="config-general-tabs"/>
+<guilabel
+>Abas</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-limit-number-of-tabs"/>
+<guilabel
+>Limitar o número de abas</guilabel
+></term>
+<listitem
+><para
+>Define o número máximo de abas. Escolha <guimenuitem
+>Ilimitado</guimenuitem
+> se não quiser restringir esse número.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-auto-hide-tabs"/>
+<guilabel
+>Ocultar abas automaticamente</guilabel
+></term>
+<listitem
+><para
+>Quando marcado cada aba será ocultada se apenas um documento estiver aberto.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-show-close-button"/>
+<guilabel
+>Mostrar botão de fechar</guilabel
+></term>
+<listitem
+><para
+>Quando marcado cada aba exibirá um botão de fechar.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-expand-tabs"/>
+<guilabel
+>Expandir abas</guilabel
+></term>
+<listitem
+><para
+>Quando marcado as abas ocupam o maior espaço possível.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-double-click"/>
+<guilabel
+>Duplo clique abre um novo documento</guilabel
+></term>
+<listitem
+><para
+>Quando marcado o duplo clique abre um novo documento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-middle-click"/>
+<guilabel
+>Clique com o botão do meio fecha um documento</guilabel
+></term>
+<listitem
+><para
+>Quando marcado o clique com o botão do meio fecha um documento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-tab-scrolling"/>
+<guilabel
+>Permitir rolagem de abas</guilabel
+></term>
+<listitem
+><para
+>Quando marcado isto permitirá a rolagem na barra de abas quando o número de abas for grande.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-elide-tab-text"/>
+<guilabel
+>Encurtar texto da aba</guilabel
+></term>
+<listitem
+><para
+>Quando marcado o texto da aba pode ser encurtado se for muito longo.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /tabs group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-mouse"/>
+<guilabel
+>Abas</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-backward-button-pressed"/>
+<guilabel
+>Botão Voltar pressionado</guilabel
+></term>
+<listitem
+><para
+>Permite selecionar a ação do botão Voltar do mouse entre os itens <guimenuitem
+>Aba anterior</guimenuitem
+> e <guimenuitem
+>Voltar histórico</guimenuitem
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-forward-button-pressed"/>
+<guilabel
+>Botão Avançar pressionado</guilabel
+></term>
+<listitem
+><para
+>Permite selecionar a ação do botão de avançar do mouse entre os itens <guimenuitem
+>Próxima aba</guimenuitem
+> e <guimenuitem
+>Avançar histórico</guimenuitem
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /mouse group -->
 </variablelist>
 </sect2>
 
 <sect2 id="config-dialog-sessions">
 <title
->Sessões</title>
+>Sessão</title>
 
 <para
 >Esta seção contém opções relacionadas com a <link linkend="fundamentals-using-sessions"
@@ -220,32 +419,9 @@
 
 <varlistentry>
 <term
-><anchor id="config-dialog-sessions-elements"/>
-<guilabel
->Elementos das Sessões</guilabel
-></term>
-<listitem>
-<variablelist>
-<varlistentry>
-<term
-><guilabel
->Incluir configurações da janela</guilabel
-></term>
-<listitem
-><para
->Se estiver ativada esta opção, o &kate; irá salvar as configurações da janela com cada sessão.</para
-></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry
-><!-- /elements of sessions -->
-
-<varlistentry>
-<term
 ><anchor id="config-dialog-sessions-startup-behavior"/>
 <guilabel
->Comportamento ao Iniciar o Aplicativo</guilabel
+>Comportamento da inicialização do aplicativo</guilabel
 ></term>
 <listitem>
 <para
@@ -288,6 +464,103 @@
 </varlistentry
 ><!-- /startup behavior -->
 
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-shutdown-behavior"/>
+<guilabel
+>Comportamento de inicialização/desligamento do aplicativo</guilabel
+></term>
+<listitem>
+<para
+>Seleciona como você deseja que o &kate; se comporte ao ser desligado. É possível definir o que o &kate; deve <guilabel
+>Salvar e restaurar automaticamente</guilabel
+>.</para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Arquivos não salvos criados recentemente</guilabel
+></term>
+<listitem
+><para
+>Com este item marcado, o &kate; salvará automaticamente todos os arquivos recém-criados que ainda não foram salvos.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Arquivos com alterações não salvas</guilabel
+></term>
+<listitem
+><para
+>Este item permite configurar o &kate; para salvar automaticamente todos os arquivos com alterações não salvas ao encerrar.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-close-mod"/>
+<guilabel
+>Fechar totalmente o Kate ao fechar o último arquivo</guilabel
+></term>
+<listitem
+><para
+>Se estiver ativo, o &kate; irá encerrar quando o último arquivo em edição for fechado, caso contrário, uma página em branco será aberta para que você possa iniciar um novo arquivo.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /shutdown behavior -->
+
+<varlistentry>
+<term
+><anchor id="config-dialog-sessions-elements"/>
+<guilabel
+>Elementos da sessão</guilabel
+></term>
+<listitem>
+<variablelist>
+<!--FIXME Maximum number of entries in recent file list-->
+<varlistentry>
+<term
+><guilabel
+>Incluir configurações da janela</guilabel
+></term>
+<listitem
+><para
+>Se estiver ativada esta opção, o &kate; irá salvar as configurações da janela com cada sessão.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry
+><!-- /elements of sessions -->
+
+<varlistentry>
+<term
+><anchor id="config-sessions-keep-meta-information"/>
+<guilabel
+>Manter metainformações de sessões passadas</guilabel
+></term>
+<listitem
+><para
+>Quando estiver ativa, o &kate; irá guardar alguns metadados, como a configuração dos favoritos e da sessão, mesmo quando fechar os seus documentos. Os dados serão usados, se o documento não estiver alterado, quando for aberto de novo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-sessions-delete-meta-information-after"/>
+<guilabel
+>Excluir metainformações não usadas após</guilabel
+></term>
+<listitem
+><para
+>Define o número máximo de dias para manter as informações de metadados de arquivos previamente abertos. Isso ajuda a manter o banco de dados de informações de metadados com um tamanho razoável.</para
+></listitem>
+</varlistentry>
+
 </variablelist>
 <para
 >Quaisquer alterações nos dados da sessão (arquivos abertos e, se estiver ativa, a configuração das janelas) serão sempre guardadas.</para>
@@ -309,80 +582,18 @@
 
 </sect2>
 
-<sect2 id="config-dialog-treeview">
-<title
->Documentos</title
-> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
-<!-- Tree View plugin http://kate-editor.org/2010/09/10/tree-view-plugin-introduction/ -->
-<variablelist>
-<varlistentry>
-<term
-><guilabel
->Sombra do Fundo</guilabel
-></term>
-<listitem
-><para
->Esta página permite-lhe ativar ou desativar a visualização sombreada do fundo da sua atividade recente e escolher as cores a usar, se estiver ativada. Veja a seção sobre a <link linkend="kate-mdi-tools-file-list"
->Lista de Documentos</link
-> para mais dados sobre esta funcionalidade.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Ordenar Por</guilabel
-></term>
-<listitem
-><para
->Indique como deseja ordenar a lista de documentos. Isto também poderá ser feito, com o menu do &RMB;, na lista de documentos.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Modo de exibição</guilabel
-></term>
-<listitem
-><para
->Isto fornece duas opções que afetam a apresentação da exibição dos Documentos. A <guilabel
->Exibição em árvore</guilabel
-> irá mostrar os documentos em uma árvore por baixo das pasta onde estiverem, enquanto a opção para <guilabel
->Exibição em lista</guilabel
-> irá mostrar uma lista simples de documentos. </para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Mostrar localização completa</guilabel
-></term>
-<listitem
-><para
->Quando a Exibição em árvore e esta opção estiverem ativas, os itens da pasta mostrada na exibição de Documentos irá mostrar o caminho completo do sistema de arquivos até a pasta e também o nome desta. Ele não tem efeito na Exibição em lista.</para
-></listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect2>
-
-</sect1>
-
-<sect1 id="config-dialog-editor">
+<sect2 id="config-dialog-editor">
 <title
 >Configuração do Componente de Edição</title>
 
 <para
->Para obter mais informações sobre esta seção da janela de configuração, leia a <ulink url="help:/katepart/config-dialog-editor.html"
+>Para obter mais informações sobre esta seção da janela de configuração, leia a <ulink url="help:/katepart/config-dialog.html"
 >seção Configuração do Componente de Edição do Manual do &katepart;</ulink
 >.</para>
 
-</sect1>
+</sect2>
 
-<sect1 id="config-variables">
+<sect2 id="config-variables">
 <title
 >Configurando com as Variáveis do Documento</title>
 
@@ -390,6 +601,8 @@
 >Para obter mais informações sobre o uso de variáveis do documento com o &kate;, leia a <ulink url="help:/katepart/config-variables.html"
 >seção Configuração com variáveis do documento no Manual do &katepart;</ulink
 >.</para>
+
+</sect2>
 
 </sect1>
 

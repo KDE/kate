@@ -304,9 +304,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> da campainha (BEL, 0x07).</para
+>Isto combina com o caractere &ASCII; da campainha (BEL, 0x07).</para
 ></listitem>
 </varlistentry>
 
@@ -317,9 +315,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> de nova página (FF, 0x0C).</para
+>Isto combina com o caractere &ASCII; de nova página (FF, 0x0C).</para
 ></listitem>
 </varlistentry>
 
@@ -330,9 +326,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> de nova linha (LF, 0x0A, nova linha do Unix).</para
+>Isto combina com o caractere &ASCII; de nova linha (LF, 0x0A, nova linha do Unix).</para
 ></listitem>
 </varlistentry>
 
@@ -343,9 +337,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> de retorno de carro (CR, 0x0D).</para
+>Isto combina com o caractere &ASCII; de retorno de carro (CR, 0x0D).</para
 ></listitem>
 </varlistentry>
 
@@ -356,9 +348,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> de tabulação horizontal (HT, 0x09).</para
+>Isto combina com o caractere &ASCII; de tabulação horizontal (HT, 0x09).</para
 ></listitem>
 </varlistentry>
 
@@ -369,9 +359,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Isto combina com o caractere <acronym
->ASCII</acronym
-> de tabulação vertical (VT, 0x0B).</para
+>Isto combina com o caractere &ASCII; de tabulação vertical (VT, 0x0B).</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -382,9 +370,7 @@ outros comandos como o <command
 
 <listitem
 ><para
->Isto combina com o caractere Unicode correspondente ao número hexadecimal hhhh (entre 0x0000 e 0xFFFF). \0ooo (&ie;, \zero ooo) combina com o caractere <acronym
->ASCII</acronym
->/Latin-1 correspondente ao número octal ooo (entre 0 e 0377).</para
+>Isto combina com o caractere Unicode correspondente ao número hexadecimal hhhh (entre 0x0000 e 0xFFFF). \0ooo (&ie;, \zero ooo) combina com o caractere &ASCII;/Latin-1 correspondente ao número octal ooo (entre 0 e 0377).</para
 ></listitem>
 </varlistentry>
 
@@ -464,9 +450,7 @@ outros comandos como o <command
 ><para
 >Combina com quaisquer <quote
 >caractere da palavra</quote
->, neste caso quaisquer letras ou dígitos. Note que o caractere de sublinhado (ou underscore - <literal
->_</literal
->) não combina, como é o caso com expressões regulares do Perl. Igual a <literal
+>, neste caso quaisquer letras , dígitos ou sublinhado. Igual a <literal
 >[a-zA-Z0-9]</literal
 ></para
 ></listitem>
@@ -479,7 +463,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Combina com qualquer caractere diferente de palavra - qualquer coisa menos letras ou números. Igual a <literal
+>Combina com qualquer caractere diferente de palavra - qualquer coisa menos letras, números ou sublinhado. Igual a <literal
 >[^a-zA-Z0-9]</literal
 > ou <literal
 >[^\w]</literal
@@ -493,16 +477,26 @@ outros comandos como o <command
 </para>
 
 <para
+>A <emphasis
+>notação POSIX de classes</emphasis
+>, <userinput
+>[:&lt;class name&gt;:]</userinput
+> também é suportada. Por exemplo, <userinput
+>[:digit:]</userinput
+> é equivalente a <userinput
+>\d</userinput
+>, e <userinput
+>[:space:]</userinput
+> a <userinput
+>\s</userinput
+>. Veja a lista completa de classes de caracteres POSIX <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>aqui</ulink
+>.</para>
+
+<para
 >As classes abreviadas pode ser colocadas dentro de classes personalizadas, como por exemplo: para combinar um caractere de palavra, um em branco ou um ponto, você poderia escrever <userinput
 >[\w\.]</userinput
 ></para>
-
-<note
-> <para
->A notação POSIX de classes, <userinput
->[:&lt;nome da classe&gt;:]</userinput
->, atualmente não é suportada.</para
-> </note>
 
 <sect3>
 <title
@@ -521,7 +515,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Finaliza a classe. Deve ser escapado, a menos que este caractere seja o primeiro da classe (pode ser seguido por um circunflexo não-escapado)</para
+>Finaliza a classe. Deve ser escapado, a menos que este caractere seja o primeiro da classe (pode ser seguido por um circunflexo não-escapado).</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -619,13 +613,17 @@ outros comandos como o <command
 
 </sect3>
 
-<sect3>
+<sect3 id="regex-capturing">
 
 <title
 >Capturando texto relacionado (referências anteriores)</title>
 
 <para
->Se você deseja usar uma referência anterior, use um subpadrão para ter a parte desejada do padrão lembrada.</para>
+>Se você quiser usar uma referência anterior, use um subpadrão <userinput
+>(PADRÃO)</userinput
+> para que a parte desejada do padrão seja lembrada. Para impedir que o subpadrão seja lembrado, use um grupo não capturador <userinput
+>(?:PADRÃO)</userinput
+>.</para>
 
 <para
 >Por exemplo: Se você deseja encontrar duas ocorrências da mesma palavra, separadas por vírgula, e possivelmente algum espaço em branco, poderia escrever: <userinput
@@ -637,6 +635,40 @@ outros comandos como o <command
 > referencia <emphasis
 >o primeiro subpadrão entre os parênteses</emphasis
 >).</para>
+
+<note>
+<para
+>Para evitar ambiguidades com o uso de <userinput
+>\1</userinput
+> com alguns dígitos depois dele (por exemplo, <userinput
+>\12</userinput
+> pode ser o 12º subpadrão ou apenas o primeiro subpadrão com <userinput
+>2</userinput
+>), usamos <userinput
+>\{12}</userinput
+> como sintaxe para subpadrões com vários dígitos.</para>
+<para
+>Exemplos:</para>
+<itemizedlist>
+<listitem
+><para
+><userinput
+>\{12}1</userinput
+> é <quote
+>usar subpadrão 12</quote
+></para
+></listitem>
+<listitem
+><para
+><userinput
+>\123</userinput
+> é <quote
+>usar captura 1 e então 23 como texto normal</quote
+></para
+></listitem>
+</itemizedlist>
+
+</note>
 
 <!-- <para
 >See also <link linkend="backreferences"
@@ -669,6 +701,36 @@ outros comandos como o <command
 >, bem como por <quote
 >Billy the kid</quote
 >, mas ele silenciosamente ignoraria as outras combinações).</para>
+
+<para
+>Os subpadrões usados para as afirmações não são capturados.</para>
+
+<para
+>Veja também em <link linkend="assertions"
+>Afirmações</link
+>.</para>
+
+</sect3>
+
+<sect3 id="lookbehind-assertions">
+<title
+>Afirmações atrás</title>
+
+<para
+>Uma afirmação atrás é um subpadrão, iniciando com <literal
+>?&lt;=</literal
+> ou <literal
+>?&lt;!</literal
+>.</para>
+
+<para
+>Atrás tem o mesmo efeito que a adiante, mas funciona de trás para frente. Por exemplo, para corresponder à string literal <quote
+>fruit</quote
+> mas somente se não for precedida por <quote
+>grape</quote
+>, você poderia usar esta expressão: <userinput
+>(?&lt;!grape)fruit</userinput
+>.</para>
 
 <para
 >Os subpadrões usados para as afirmações não são capturados.</para>
@@ -957,7 +1019,7 @@ outros comandos como o <command
 >Exemplos do Contexto</title>
 
 <para
->Aqui estão alguns exemplos do uso de quantificadores</para>
+>Aqui estão alguns exemplos do uso de quantificadores:</para>
 
 <variablelist>
 
@@ -976,7 +1038,7 @@ outros comandos como o <command
 >567 sete</quote
 > nem com <quote
 >223459 algum local</quote
-></para
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -987,7 +1049,7 @@ outros comandos como o <command
 ></term>
 <listitem
 ><para
->Combina uma ou mais vezes com caracteres de espaço em branco</para
+>Combina uma ou mais vezes com caracteres de espaço em branco.</para
 ></listitem>
 </varlistentry>
 
@@ -1006,7 +1068,7 @@ outros comandos como o <command
 >blackbird</quote
 > ou <quote
 >tabla</quote
-></para
+>.</para
 ></listitem>
 </varlistentry>
 
@@ -1190,6 +1252,96 @@ outros comandos como o <command
 >, pois o <quote
 >&amp; </quote
 > combina com o padrão de afirmação negativo.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;=PADRÃO)</userinput
+> (atrás positivo)</term>
+<listitem
+><para
+>Retrospectiva tem o mesmo efeito que o adiante, mas funciona de trás para frente. Retrospectiva examina a parte da string anterior a uma possível correspondência. Retrospectiva positiva corresponderá a uma string somente se ela for precedida pelo <emphasis
+>PADRÃO</emphasis
+> da asserção, mas o texto correspondido por esse PADRÃO não será incluído no resultado.</para>
+<para
+>A expressão <userinput
+>(?&lt;=cup)cake</userinput
+> corresponderá a <quote
+>cake</quote
+> se for seguida por <quote
+>cup</quote
+> (em <quote
+>cupcake</quote
+> mas não em <quote
+>cheesecake</quote
+> ou em <quote
+>cake</quote
+> sozinho).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?&lt;!PADRÃO)</userinput
+> (retrospectiva negativa)</term>
+<listitem
+><para
+>A 'atrás negativo' previne que uma possível combinação seja de conhecimento, se a seguinte parte da string buscada não combina com seu <emphasis
+>PADRÃO</emphasis
+>.</para>
+<para
+>A expressão <userinput
+>(?&lt;![\w\.])[0-9]+</userinput
+> corresponderá em <quote
+>123</quote
+> nas strings <quote
+>=123</quote
+> e <quote
+>-123</quote
+> enquanto não pode corresponder a <quote
+>123</quote
+> em <quote
+>. 123</quote
+> ou <quote
+>word123</quote
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(PADRÃO)</userinput
+> (grupo de captura)</term>
+
+<listitem
+><para
+>O subpadrão dentro dos parênteses é capturado e memorizado, para que possa ser usado em referências anteriores. Por exemplo, a expressão <userinput
+>(&amp;quot;+)[^&amp;quot;]*\1</userinput
+> corresponde a <userinput
+>&quot;&quot;&quot;texto&quot;&quot;&quot;</userinput
+> e <userinput
+>&quot;texto&quot;</userinput
+>.</para>
+<para
+>Consulte a seção <link linkend="regex-capturing"
+>Captura de texto correspondente (referências anteriores)</link
+> para obter mais informações.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>(?:PADRÃO)</userinput
+> (grupo não-captura)</term>
+
+<listitem
+><para
+>O subpadrão dentro dos parênteses não é capturado e não é lembrado. É preferível usar sempre grupos não capturantes se as capturas não forem usadas.</para>
 </listitem>
 </varlistentry>
 

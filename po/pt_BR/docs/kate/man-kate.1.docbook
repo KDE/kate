@@ -10,11 +10,11 @@
 <author
 >&Lauri.Watts; &Lauri.Watts.mail;</author>
 <date
->02/08/2015</date>
+>12/07/2021</date>
 <releaseinfo
->Applications 15.08</releaseinfo>
+>KDE Gear 21.08</releaseinfo>
 <productname
->KDE Applications</productname>
+>KDE Gear</productname>
 </refentryinfo>
 
 <refmeta>
@@ -32,7 +32,7 @@
 >kate</command
 ></refname>
 <refpurpose
->Um editor de texto avançado para o &kde;</refpurpose>
+>Um editor de texto avançado do &kde;</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -43,7 +43,7 @@
 ><option
 >-s, --start</option
 > <replaceable
-> nome</replaceable
+> name</replaceable
 > </group
 > <group choice="opt"
 ><option
@@ -91,22 +91,6 @@
 ></group
 > <group choice="opt"
 ><option
->-h, --help</option
-></group
-> <group choice="opt"
-><option
->-v, --version</option
-></group
-> <group choice="opt"
-><option
->--author</option
-></group
-> <group choice="opt"
-><option
->--license</option
-></group
-> <group choice="opt"
-><option
 ><replaceable
 >arquivo</replaceable
 ></option
@@ -122,9 +106,7 @@
 <para
 >O &kate; também oferece o componente de edição para vários aplicativos, sob o nome &kwrite;.</para>
 <para
->Algumas das várias funcionalidades do &kate; incluem o realce de sintaxe configurável para as linguagens que vão do C e C++ até ao <acronym
->HTML</acronym
->, passando por programas em 'bash', a capacidade de criar e manter projetos, uma interface para vários documentos (<acronym
+>Algumas das várias funcionalidades do &kate; incluem o realce de sintaxe configurável para as linguagens que vão do C e C++ até ao &HTML;, passando por programas em 'bash', a capacidade de criar e manter projetos, uma interface para vários documentos (<acronym
 >MDI</acronym
 >) e um emulador de terminal embutido. </para>
 
@@ -216,7 +198,7 @@
 ></term>
 <listitem
 ><para
->Modifica a codificação do arquivo a abrir</para
+>Define a codificação do arquivo a abrir.</para
 ><para
 >Você poderá usar esta opção para obrigar a abrir um documento no formato UTF-8, por exemplo. (O comando <command
 >iconv -l</command
@@ -232,7 +214,7 @@
 ></term>
 <listitem
 ><para
->Navegar para esta linha</para
+>Navega para esta linha.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -244,7 +226,7 @@
 ></term>
 <listitem
 ><para
->Navegar para esta coluna</para
+>Navega para esta coluna.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -256,7 +238,7 @@
 ><para
 >Lê o conteúdo do <filename
 >stdin</filename
-></para
+>.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -266,51 +248,7 @@
 ></term>
 <listitem
 ><para
->Os arquivos/&URL;s abertos pelo aplicativo serão excluídos após o uso</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->-h</option
-> <option
->--help</option
-></term>
-<listitem
-><para
->Apresenta as opções disponíveis a partir da linha de comando</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->--author</option
-></term>
-<listitem
-><para
->Apresenta os autores do &kate; na janela do terminal</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->-v</option
-> <option
->--version</option
-></term>
-<listitem>
-<para
->Apresenta informações sobre o &kate;</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->--license</option
-></term>
-<listitem
-><para
->Mostra informações sobre a licença</para
+>Os arquivos/&URL;s abertos pelo aplicativo serão excluídos após o uso.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -322,7 +260,7 @@
 ></term>
 <listitem
 ><para
->Arquivo a abrir</para
+>Arquivo a abrir.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -333,23 +271,26 @@
 <title
 >Veja também</title>
 
-<para
+<simplelist
+><member
 >Existe a documentação do usuário mais detalhada em <ulink url="help:/kate"
 >help:/kate</ulink
-> (tanto poderá inserir este <acronym
->URL</acronym
-> no &konqueror;, como executar o <userinput
+> (tanto poderá inserir este &URL; no &konqueror;, como executar o <userinput
 ><command
 >khelpcenter</command
 > <parameter
 >help:/kate</parameter
 ></userinput
->).</para>
-
-<para
->Existem ainda mais informações disponíveis na <ulink url="http://kate-editor.org/"
->página Web do &kate;</ulink
->.</para>
+>).</member>
+<member
+>kf6options(7)</member>
+<member
+>qt6options(7)</member>
+<member
+>Existem ainda mais informações disponíveis no <ulink url="https://kate-editor.org/"
+>site do &kate;</ulink
+>.</member>
+</simplelist>
 </refsect1>
 
 <refsect1>
@@ -367,24 +308,22 @@
 > <option
 >-c 15</option
 > <option
->-l
-25</option
-> <option
->-u</option
+>-l 25</option
 > <filename
->codigo.cpp</filename
+>source.cpp</filename
 ></userinput
-> </screen>
+>
+</screen>
 
 <para
->Se você tiver uma conexão à Internet, poderá tirar partido da transparência da rede do &kde; para abrir um arquivo num servidor de FTP. Se não tiver permissões de escrita no servidor remoto, o arquivo será aberto apenas para leitura e ser-lhe-á pedido o nome do arquivo local no qual deseja gravar, se fizer alterações nele. Se tiver permissões para escrita, as alterações serão feitas de forma transparente pela rede.</para>
+>Se você tiver uma conexão à Internet, poderá tirar partido da transparência da rede do &kde; para abrir um arquivo num servidor de &FTP;. Se não tiver permissões de escrita no servidor remoto, o arquivo será aberto apenas para leitura e ser-lhe-á pedido o nome do arquivo local no qual deseja gravar, se fizer alterações nele. Se tiver permissões para escrita, as alterações serão feitas de forma transparente pela rede.</para>
 <screen
 ><userinput
 ><command
 >kate</command
 > <option
 ><replaceable
->ftp://ftp.kde.org/pub/kde/README</replaceable
+>&kde-ftp;README</replaceable
 ></option
 ></userinput
 ></screen>

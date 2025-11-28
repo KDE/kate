@@ -57,14 +57,10 @@
 > no menu <guimenu
 >Editar</guimenu
 >. (O atalho de teclado padrão é <keycombo action="simul"
-><keysym
->Meta</keysym
->&Ctrl;<keycap
+>&Meta;&Ctrl;<keycap
 >V</keycap
 ></keycombo
-> - onde o <keysym
->Meta</keysym
-> é normalmente a tecla <keysym
+> - onde o &Meta; é normalmente a tecla <keysym
 >Windows</keysym
 >).</para>
 
@@ -245,7 +241,7 @@
 >tantas</replaceable
 >] vezes ao deixar o modo de inserção.</para>
 <para
->Isto é normalmente feito como uma consequência de se observar muitas pessoas confusas com este comportamento no canal IRC do vim (#vim no freenode).</para>
+>Isto é normalmente feito como uma consequência de se observar muitas pessoas confusas com este comportamento no canal &irc; do vim (#vim no Libera Chat).</para>
 </listitem>
 </itemizedlist>
 
@@ -289,17 +285,17 @@
 >, insira o comando e pressione &Enter;.</para>
 </listitem>
 </itemizedlist>
-<!-- add a picture like http://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
 </sect2>
 
 <sect2 id="vi-integration">
 <title
->Integração com as funcionalidades do Kate</title>
+>Integração com as funcionalidades do &kate;</title>
 <itemizedlist>
 
 <listitem>
 <para
->O Modo Visual é ativado automaticamente quando o texto é selecionado com o mouse. Isto é também ativado ao usar funções do Kate que selecionam texto, como a Selecionar tudo (por meio do menu ou usando o <keycombo action="simul"
+>O Modo Visual é ativado automaticamente quando o texto é selecionado com o mouse. Isto é também ativado ao usar funções do &kate; que selecionam texto, como a Selecionar tudo (por meio do menu ou usando o <keycombo action="simul"
 >&Ctrl;<keycap
 >A</keycap
 > </keycombo
@@ -309,10 +305,10 @@
 <listitem>
 <para
 >As marcas do Vi e os <link linkend="kate-part-bookmarks"
->favoritos do Kate</link
-> são integrados. Quando uma marca é criada no Modo Vi, um favorito correspondente no Kate é criado e aparece no menu <guimenu
+>favoritos do &kate;</link
+> são integrados. Quando uma marca é criada no Modo Vi, um favorito correspondente no &kate; é criado e aparece no menu <guimenu
 >Favoritos</guimenu
->. Do mesmo modo, quando um favorito do Kate é criado, uma marca correspondente do Vi na coluna 0 é também criada.</para>
+>. Do mesmo modo, quando um favorito do &kate; é criado, uma marca correspondente do Vi na coluna 0 é também criada.</para>
 </listitem>
 
 </itemizedlist>
@@ -376,9 +372,7 @@
 <row
 ><entry
 ><para
-><keycap
->Inserir</keycap
-></para
+>&Ins;</para
 ></entry>
 <entry
 ><para
@@ -606,9 +600,7 @@
 <row
 ><entry
 ><para
-><keycap
->Excluir</keycap
-></para
+>&Del;</para
 ></entry>
 <entry
 ><para
@@ -968,7 +960,7 @@
 ></entry>
 <entry
 ><para
->Imprimir o valor ASCII do caractere</para
+>Imprimir o valor &ASCII; do caractere</para
 ></entry>
 </row>
 <row
@@ -1079,9 +1071,7 @@
 >&Ctrl; <keycap
 >W</keycap
 ></keycombo
-><keysym
->Esquerda</keysym
-></keycombo
+>&Left;</keycombo
 ></para
 ></entry>
 <entry
@@ -1105,9 +1095,7 @@
 >&Ctrl; <keycap
 >W</keycap
 ></keycombo
-><keysym
->Direita</keysym
-></keycombo
+>&Right;</keycombo
 ></para
 ></entry>
 <entry
@@ -1131,9 +1119,7 @@
 >&Ctrl; <keycap
 >W</keycap
 ></keycombo
-><keysym
->Acima</keysym
-></keycombo
+>&Up;</keycombo
 ></para
 ></entry>
 <entry
@@ -1157,9 +1143,7 @@
 >&Ctrl; <keycap
 >W</keycap
 ></keycombo
-><keysym
->Abaixo</keysym
-></keycombo
+>&Down;</keycombo
 ></para
 ></entry>
 <entry
@@ -1209,9 +1193,7 @@
 <row
 ><entry
 ><para
-><keysym
->Esquerda</keysym
-></para
+>&Left;</para
 ></entry>
 <entry
 ><para
@@ -1243,9 +1225,7 @@
 <row
 ><entry
 ><para
-><keysym
->Abaixo</keysym
-></para
+>&Down;</para
 ></entry>
 <entry
 ><para
@@ -1267,9 +1247,7 @@
 <row
 ><entry
 ><para
-><keysym
->Acima</keysym
-></para
+>&Up;</para
 ></entry>
 <entry
 ><para
@@ -1291,9 +1269,7 @@
 <row
 ><entry
 ><para
-><keysym
->Direita</keysym
-></para
+>&Right;</para
 ></entry>
 <entry
 ><para
@@ -1303,9 +1279,7 @@
 <row
 ><entry
 ><para
-><keysym
->Espaço</keysym
-></para
+>&Space;</para
 ></entry>
 <entry
 ><para
@@ -1327,9 +1301,7 @@
 <row
 ><entry
 ><para
-><keycap
->End</keycap
-></para
+>&End;</para
 ></entry>
 <entry
 ><para
@@ -1351,9 +1323,7 @@
 <row
 ><entry
 ><para
-><keycap
->Início</keycap
-></para
+>&Home;</para
 ></entry>
 <entry
 ><para
@@ -1699,7 +1669,7 @@
 ><para
 ><userinput
 >%<replaceable
->percentagem</replaceable
+>porcentagem</replaceable
 ></userinput
 ></para
 ></entry>
@@ -1736,9 +1706,7 @@
 ><entry
 ><para
 ><keycombo action="simul"
->&Ctrl;<keycap
->Esquerda</keycap
-></keycombo
+>&Ctrl;&Left;</keycombo
 ></para
 ></entry>
 <entry
@@ -1750,9 +1718,7 @@
 ><entry
 ><para
 ><keycombo action="simul"
->&Ctrl;<keycap
->Direita</keycap
-></keycombo
+>&Ctrl;&Right;</keycombo
 ></para
 ></entry>
 <entry
@@ -2163,9 +2129,7 @@
 ><entry
 ><para
 ><keycombo action="simul"
->&Ctrl;<keycap
->Home</keycap
-></keycombo
+>&Ctrl;&Home;</keycombo
 ></para
 ></entry>
 <entry

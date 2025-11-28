@@ -43,12 +43,10 @@
 
 <para
 >Como em qualquer editor de texto avançado, o &kate; oferece uma grande variedade de formas para ampliar suas funcionalidades. Você pode <link linkend="dev-scripting"
->criar scripts simples para adicionar funcionalidades com o JavaScript</link
->; adicionar funcionalidades melhoradas ao componente de edição com os <link linkend="dev-part"
-> Plugins do componente de edição</link
->; ou adicionar ainda mais funcionalidades ao editor propriamente dito com os <link linkend="dev-app"
+>criar scripts simples para adicionar funcionalidades com o &javascript;</link
+> ou adicionar ainda mais funcionalidades ao editor propriamente dito com os <link linkend="dev-app"
 >plugins do &kate;, escritos em C++</link
->. Finalmente, assim que tiver ampliado as funcionalidades do &kate;, sinta-se a vontade para <ulink url="http://kate-editor.org/join-us/"
+>. Finalmente, assim que tiver ampliado as funcionalidades do &kate;, sinta-se a vontade para <ulink url="https://kate-editor.org/join-us/"
 >se juntar a nós</ulink
 > e compartilhar as suas melhorias com o mundo!</para>
 
@@ -59,30 +57,19 @@
 >Trabalhando com Realce de Sintaxe</title>
 
 <para
->Para obter mais informações sobre como adicionar ou modificar as definições de realce de sintaxe, leia a <ulink url="help:/katepart/dev-scripting.html"
->seção Trabalhando com realce de sintaxe, no capítulo de Desenvolvimento do Manual do &katepart;</ulink
+>Para obter mais informações sobre como adicionar ou modificar as definições de realce de sintaxe, leia a seção <ulink url="help:/katepart/highlight.html"
+>Trabalhando com realce de sintaxe, no capítulo de Desenvolvimento do manual do &katepart;</ulink
 >.</para>
 
 </sect1>
 
 <sect1 id="dev-scripting">
 <title
->Criação de scripts com JavaScript</title>
+>Criação de scripts com &javascript;</title>
 
 <para
->Para obter mais informações sobre a criação de scripts em JavaScript, leia a <ulink url="help:/katepart/dev-scripting.html"
->seção Criando scripts com JavaScript, no capítulo de Desenvolvimento do Manual do &katepart;</ulink
->.</para>
-
-</sect1>
-
-<sect1 id="dev-part">
-<title
->Extensões do componente de edição</title>
-
-<para
->Para obter mais informações sobre a criação de plugins para o &katepart;, leia a <ulink url="help:/katepart/dev-part.html"
->seção Extensões do Componente de Edição, no capítulo de Desenvolvimento do Manual do &katepart;</ulink
+>Para obter mais informações sobre a criação de scripts em &javascript;, leia a <ulink url="help:/katepart/dev-scripting.html"
+>seção Criando scripts com &javascript;, no capítulo de Desenvolvimento do Manual do &katepart;</ulink
 >.</para>
 
 </sect1>
@@ -93,16 +80,12 @@
 
 <para
 >Os <link linkend="kate-application-plugins"
->Plugins do aplicativo Kate</link
+>Plugins do aplicativo</link
 > ampliam as funcionalidades do editor &kate; propriamente dito, usando a mesma linguagem de programação em que o &kate; é escrito - C++.</para>
 
 <para
->Para começar, leia o <ulink url="http://kate-editor.org/2004/01/06/writing-a-kate-plugin/"
->Tutorial de criação de um plugin na página Web do &kate;</ulink
->. Também existe um <ulink url="http://quickgit.kde.org/?p=kate.git&amp;a=tree&amp;f=addons%2Fkate%2Fhelloworld"
->clássico plugin de exemplo <quote
->Olá mundo!</quote
->, que vem incluído no código-fonte do &kate;</ulink
+>Para começar, leia o <ulink url="https://kate-editor.org/2004/01/06/writing-a-kate-plugin/"
+>Tutorial de criação de um plugin no site do &kate;</ulink
 >.</para>
 
 </sect1>

@@ -13,262 +13,12 @@
 >O &katepart; usa o protocolo Arrastar e Soltar do &kde;. Os arquivos podem ser arrastados e depois soltos no &katepart;, a partir da Área de Trabalho, do gerenciador de arquivos &dolphin; ou de algum site &FTP; remoto que estiver aberto em uma das janelas do &dolphin;. </para>
 </sect1>
 
-<sect1 id="command-line-options">
-<title
->Opções de Linha de Comando</title>
-
-<para
->Embora o &kwrite; possa ser geralmente iniciado a partir do menu de programas do &kde; ou de um ícone da área de trabalho, ele poderá ser aberto a partir da linha de comando de uma janela de terminal. Existem algumas opções úteis que estão disponíveis ao fazer isto. </para>
-
-<para
->Muitos outros aplicativos que usam o &katepart; oferecem opções de linha de comando similares.</para>
-
-<sect2 id="specify-a-file">
-<title
->Especificar um Arquivo</title>
-
-<para
->Especificando o caminho e nome de um arquivo específico o usuário pode fazer com que o &kwrite; abra (ou crie) este arquivo imediatamente após iniciar. Esta opção pode parecer algo como o seguinte:</para>
-
-<informalexample
-><screen
-><prompt
->%</prompt
-> <userinput
-><command
->kwrite</command>
-<option
-><replaceable
->/home/eu/documentos/arquivo.txt</replaceable
-></option>
-</userinput
->
-</screen>
-</informalexample>
-</sect2>
-<sect2 id="editing-files-on-the-internet">
-<title
->Especificar um arquivo da Internet</title>
-
-<para
->O método acima mencionado pode também ser usado para abrir arquivos na Internet (se o usuário tiver uma conexão ativa no momento.) Um exemplo disto pode parecer com o seguinte:</para>
-
-<informalexample
-><screen
-><prompt
->%</prompt
-> <userinput
-><command
->kwrite</command>
-<option
-><replaceable
->ftp://ftp.kde.org/pub/kde/README</replaceable>
-</option
-></userinput
->
-</screen>
-</informalexample>
-
-</sect2>
-
-<sect2 id="other-command-line-options">
-<title
->Outras Opções de Linha de Comando</title>
-
-<para
->As seguintes opções de ajuda de linha de comando estão disponíveis</para>
-
-<variablelist>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--help</option
-></userinput
-></term>
-<listitem
-><para
->Apresenta as opções mais básicas disponíveis a partir da linha de comando.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--help-qt</option
-></userinput
-></term>
-<listitem
-><para
->Isto lista as opções disponíveis para mudar a maneira como o &kwrite; interage com o &Qt;.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--help-kde</option
-></userinput
-></term>
-<listitem
-><para
->Isto lista as opções disponíveis para mudar a maneira com o &kwrite; interage com o &kde;.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--help-all</option
-></userinput
-></term>
-<listitem
-><para
->Apresenta todas as opções da linha de comando.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--author</option
-></userinput
-></term>
-<listitem
-><para
->Lista o autor do &kwrite; na janela do terminal</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->-v, --version</option
-></userinput
-></term>
-<listitem
-><para
->Lista as informações de versão do &Qt;, do &kde; e do &kwrite;. Também está disponível como <userinput
-><command
->kwrite</command
-> <option
->-v</option
-></userinput
-> </para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->&kwrite;</command
-> <option
->--license</option
-></userinput
-></term>
-<listitem>
-<para
->Mostra informações sobre a licença.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--stdin</option
-></userinput
-></term>
-<listitem
-><para
->Faz com que o &kwrite; leia o conteúdo do documento a partir do STDIN. Isto é semelhante à opção comum <option
->-</option
->, que é usada em muitos programas de linha de comando, permitindo-lhe encaminhar o resultado dos comandos para o &kwrite;.</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--encoding</option
-> <parameter
->encoding</parameter
-> <parameter
->&URL;</parameter
-></userinput
-></term>
-<listitem
-><para
->Faz com que o &kwrite; use a codificação indicada para o documento. </para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--line</option
-> <parameter
->linha</parameter
-> <parameter
->&URL;</parameter
-></userinput
-></term>
-<listitem
-><para
->Vai para a linha indicada, após abrir o documento. </para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><userinput
-><command
->kwrite</command
-> <option
->--column</option
-> <parameter
->coluna</parameter
-> <parameter
->&URL;</parameter
-></userinput
-></term>
-<listitem
-><para
->Vai para a coluna indicada, após abrir o documento. </para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
-</sect1>
-
-<sect1 id="keybindings"
-> <!--60 shortcuts here and 4.4.63 has 89 lueck
-missing ctrl+6,7,8,9,T,Home,End
-ctrl+shift+O,Home,End,PgUp,Left,Right,PgDown
-Shift+Home
--->
+<sect1 id="keybindings">
 <title
 >Atalhos</title>
 
 <para
->Muitos dos atalhos de teclado são configuráveis através do menu <link linkend="settings"
+>Muitos dos atalhos de teclado são configuráveis através do menu <link linkend="settings-help-menu"
 >Configurações</link
 >. Por padrão, o &katepart; respeita os seguintes atalhos de teclado:</para>
 <informaltable>
@@ -278,12 +28,7 @@ Shift+Home
 <row
 ><entry
 ><para
-><keycombo
-action="simul"
-><keycap
->Ins</keycap
-></keycombo
-></para
+>&Ins;</para
 ></entry>
 <entry
 ><para
@@ -293,171 +38,353 @@ action="simul"
 <row>
 <entry
 ><para
-><keycombo action="simul"
-><keycap
->Seta à esquerda</keycap
-></keycombo
-></para
+>&Left;</para
 ></entry>
 <entry
 ><para
->Move o cursor um caractere à esquerda </para
+>Move o cursor um caractere à esquerda.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Right;</para
+></entry>
+<entry
+><para
+>Move o cursor um caractere à direita.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>Move o cursor uma linha acima.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>Move o cursor uma linha abaixo.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
-><keycap
->Seta à direita</keycap
+>&Ctrl;<keycap
+>E</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor um caractere à direita </para
+>Ir para a linha de edição anterior.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
-><keycap
->Seta para cima</keycap
+>&Ctrl;&Shift;<keycap
+>E</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor uma linha acima </para
+>Ir para o próximo local de edição no documento.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
-><keycap
->Seta para baixo</keycap
-></keycombo
+>&Alt;&Shift;&Up;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor uma linha abaixo </para
+>Move o cursor para o recuo correspondente anterior.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
-><keycap
->Page Up</keycap
-></keycombo
+>&Alt;&Shift;&Down;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor uma página acima </para
+>Move o cursor para o recuo correspondente anterior.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
->&Alt;<keycap
->Page Up</keycap
+>&Ctrl;<keycap
+>6</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Favorito Anterior</para
+>Move até o parênteses correspondente.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&PgUp;</para
+></entry>
+<entry
+><para
+>Move o cursor uma página acima.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&PgDn;</para
+></entry>
+<entry
+><para
+>Move o cursor uma página abaixo.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>Move o cursor para o início da linha.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>Move o cursor para o fim da linha.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
-><keycap
->Page Down</keycap
-></keycombo
+>&Ctrl;&Home;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor uma página abaixo </para
+>Move até o início do documento.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
->&Alt;<keycap
->Page Down</keycap
-></keycombo
+>&Ctrl;&End;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Próximo favorito</para
+>Move até o fim do documento.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
->&Backspace;</keycombo
+><keycombo action="simul"
+>&Ctrl;&Up;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Apaga o caractere à esquerda do cursor </para
+>Rolar uma linha acima.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->Home</keycap
-></keycombo
+><keycombo action="simul"
+>&Ctrl;&Down;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor para o início da linha </para
+>Rolar uma linha abaixo.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->End</keycap
-></keycombo
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Move o cursor para o fim da linha </para
+>Mover palavra à direita.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->Excluir</keycap
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Mover palavra à esquerda.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Mover as linhas para cima.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Mover as linhas para baixo.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>.</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Apaga o caractere à direita do cursor (ou o texto selecionado)</para
+>Duplicar as linhas selecionadas para baixo.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Definir um favorito.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Favorito anterior.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Próximo favorito.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>Apaga o caractere à direita do cursor (ou o texto selecionado).</para
+></entry>
+</row>
+<row>
+<entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>Apaga o caractere à esquerda do cursor.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Del;</keycombo
+></para
+></entry>
+<entry
+><para
+>Apagar palavra à direita.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Backspace;</keycombo
+></para
+></entry>
+<entry
+><para
+>Apagar palavra à esquerda.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>K</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Excluir linha.</para
 ></entry>
 </row>
 <row>
@@ -480,231 +407,48 @@ action="simul"
 <entry
 ><para
 ><keycombo action="simul"
->&Shift;<keycap
->Seta à esquerda</keycap
-></keycombo
+>&Ctrl;&Shift;&Enter;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Marca o texto que estiver um caractere à esquerda </para
+>Cria uma nova linha abaixo da linha atual.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
 ><keycombo action="simul"
->&Shift;<keycap
->Seta Direita</keycap
-></keycombo
+>&Ctrl;&Alt;&Enter;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Marca o texto que estiver um caractere à direita </para
+>Cria uma nova linha acima da linha atual.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F1</keycap
-></keycombo
+><keycombo action="simul"
+>&Shift;&Left;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Ajuda</para
+>Marca o texto que estiver um caractere à esquerda.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
->&Shift;<keycap
->F1</keycap
-></keycombo
+><keycombo action="simul"
+>&Shift;&Right;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->O que é isto?</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
-><keycap
->F3</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="find-again"
->Localizar próxima</link
-></para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Shift;<keycap
->F3</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="find-previous"
->Localizar anterior</link
-></para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->H</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="find-selected"
->Procurar Selecionado</link
-></para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;&Shift;<keycap
->H</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="find-selected-backwards"
->Procurar Selecionado para Trás</link
-></para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->A</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Selecionar Tudo</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;&Shift;<keycap
->A</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Desmarcar</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;&Shift;<keycap
->B</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Modo de Seleção em Bloco</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->B</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Definir um favorito</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->C</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Copia o texto marcado para a área de transferência. </para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->D</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Comentário</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;&Shift;<keycap
->D</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Descomentar</para
+>Marca o texto que estiver um caractere à direita.</para
 ></entry>
 </row>
 <row>
@@ -719,9 +463,324 @@ action="simul"
 ></entry>
 <entry
 ><para
-><link linkend="find"
+><link linkend="edit-find"
 >Localizar</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+><keycap
+>F3</keycap
+></keycombo
 ></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-next"
+>Localizar próxima</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-previous"
+>Localizar anterior</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-selected"
+>Localizar selecionado</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+><link linkend="edit-find-selected-backwards"
+>Localizar selecionado para trás</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar palavra à direita.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar palavra à esquerda.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o início da linha.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&End;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o fim da linha.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até a linha anterior.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até a linha seguinte.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>6</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o parênteses correspondente.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o topo da visão.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o fundo da visão.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&PgUp;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar página acima.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&PgDn;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar página abaixo.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o início do documento.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&End;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar até o fim do documento.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>Selecionar tudo.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Desmarcar.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Modo de seleção em bloco.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> / <keycombo action="simul"
+>&Ctrl;&Ins;</keycombo
+></para
+></entry>
+<entry
+><para
+>Copia o texto marcado para a área de transferência.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Comentar.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Descomentar.</para
 ></entry>
 </row>
 <row>
@@ -751,7 +810,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Recua a seleção</para
+>Recuar seleção.</para
 ></entry>
 </row>
 <row>
@@ -766,7 +825,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Retira o recuo da seleção</para
+>Retirar o recuo da seleção.</para
 ></entry>
 </row>
 <row>
@@ -781,41 +840,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Juntar Linhas</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->N</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="new"
->Novo</link
-> documento</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->O</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="open"
->Abre um documento</link
-> </para
+>Juntar linhas.</para
 ></entry>
 </row>
 <row>
@@ -830,24 +855,9 @@ action="simul"
 ></entry>
 <entry
 ><para
-><link linkend="print"
+><link linkend="file-print"
 >Imprimir</link
-> </para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->Q</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Sair - fecha a cópia ativa do editor </para
+>.</para
 ></entry>
 </row>
 <row>
@@ -862,9 +872,9 @@ action="simul"
 ></entry>
 <entry
 ><para
-><link linkend="replace"
+><link linkend="edit-replace"
 >Substituir</link
-></para
+>.</para
 ></entry>
 </row>
 <row>
@@ -879,11 +889,26 @@ action="simul"
 ></entry>
 <entry
 ><para
->Invoca o comando <link linkend="save"
+>Invoca o comando <link linkend="file-save"
 ><guilabel
 >Salvar</guilabel
 ></link
 >.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo
+action="simul"
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Salvar como.</para
 ></entry>
 </row>
 <row>
@@ -898,7 +923,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Maiúsculas</para
+>Maiúsculas.</para
 ></entry>
 </row>
 <row>
@@ -913,7 +938,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Minúsculas</para
+>Minúsculas.</para
 ></entry>
 </row>
 <row>
@@ -928,49 +953,34 @@ action="simul"
 ></entry>
 <entry
 ><para
->Iniciais maiúsculas</para
+>Iniciais maiúsculas.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
+><keycombo action="simul"
 >&Ctrl;<keycap
 >V</keycap
 ></keycombo
+> / <keycombo action="simul"
+>&Shift;&Ins;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Cola o texto da área de transferência na linha de edição. </para
+>Cola o texto da área de transferência na linha de edição.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->W</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
-><link linkend="close"
->Fechar</link
-> </para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
+><keycombo action="simul"
 >&Ctrl;<keycap
 >X</keycap
 ></keycombo
+> / <keycombo action="simul"
+>&Shift;&Ins;</keycombo
 ></para
 ></entry>
 <entry
@@ -990,9 +1000,9 @@ action="simul"
 ></entry>
 <entry
 ><para
-><link linkend="undo"
+><link linkend="edit-undo"
 >Desfazer</link
-></para
+>.</para
 ></entry>
 </row>
 <row>
@@ -1007,9 +1017,9 @@ action="simul"
 ></entry>
 <entry
 ><para
-><link linkend="redo"
+><link linkend="edit-redo"
 >Refazer</link
-></para
+>.</para
 ></entry>
 </row>
 <row>
@@ -1024,7 +1034,25 @@ action="simul"
 ></entry>
 <entry
 ><para
->Recolher um nível local</para
+>Diminuir fonte.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+><keycombo action="simul"
+>&Ctrl;<keycap
+>=</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Aumentar fonte.</para
 ></entry>
 </row>
 <row>
@@ -1039,22 +1067,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Fechar o Nível de Topo</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo
-action="simul"
->&Ctrl;<keycap
->+</keycap
-></keycombo
-></para
-></entry>
-<entry
-><para
->Expandir Um Nível Local</para
+>Dobrar os nós superiores.</para
 ></entry>
 </row>
 <row>
@@ -1069,7 +1082,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Expandir o Nível de Topo</para
+>Desdobrar os nós superiores.</para
 ></entry>
 </row>
 <row>
@@ -1077,125 +1090,240 @@ action="simul"
 ><para
 ><keycombo
 action="simul"
-><keysym
->Meta</keysym
+>&Ctrl;&Space;</keycombo
+></para
+></entry>
+<entry
+><para
+>Invocar completamento de código.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F5</keycap
+></para
+></entry>
+<entry
+><para
+><link linkend="file-reload"
+> Recarregar</link
+>.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F6</keycap
+></para
+></entry>
+<entry
+><para
+>Mostrar/Ocultar a borda dos ícones.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F7</keycap
+></para
+></entry>
+<entry
+><para
+>Alternar para linha de comando.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F9</keycap
+></para
+></entry>
+<entry
+><para
+>Mostrar/Ocultar as marcas de desdobramento.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F10</keycap
+></para
+></entry>
+<entry
+><para
+>Quebra de linha dinâmica.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycap
+>F11</keycap
+></para
+></entry>
+<entry
+><para
+>Mostrar/Ocultar números de linha.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
 >&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Transpor caracteres.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Verificação ortográfica automática.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
 >V</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Modo de entrada do VI</para
+>Mudar para o próximo modo de entrada.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
+><keycombo action="simul"
 >&Ctrl;<keycap
->Espaço</keycap
+>8</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Invocar complementação de código</para
+>Reutilizar a palavra acima.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F5</keycap
+><keycombo action="simul"
+>&Ctrl;<keycap
+>9</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
-><link linkend="reload"
->Recarregar</link
-></para
+>Reutilizar a palavra abaixo.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F6</keycap
+><keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>#</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Mostrar/Ocultar a Borda dos Ícones</para
+>Expandir a abreviatura.</para
+></entry>
+</row>
+
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Adicionar um cursor acima do cursor atual.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F7</keycap
-></keycombo
+><keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
 ></para
 ></entry>
 <entry
 ><para
->Alternar para linha de comando</para
+>Adicionar um cursor abaixo do cursor atual.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F9</keycap
+><keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Mostrar/Ocultar as Marcas de Desdobramento</para
+>Criar um cursor no final de cada linha da seleção.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F10</keycap
+><keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Quebra de linha dinâmica</para
+>Localiza a próxima ocorrência da palavra sob o cursor e selecione-a.</para
 ></entry>
 </row>
 <row>
 <entry
 ><para
-><keycombo
-action="simul"
-><keycap
->F11</keycap
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
 ></keycombo
 ></para
 ></entry>
 <entry
 ><para
->Mostrar/Ocultar os Números de Linha</para
+>Localiza todas as ocorrências da palavra sob o cursor e selecione-as.</para
 ></entry>
 </row>
+
 </tbody>
 </tgroup>
 </informaltable>

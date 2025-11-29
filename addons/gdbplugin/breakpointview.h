@@ -36,7 +36,7 @@ public:
      */
     void toggleBreakpoint();
 
-    void clearMarks();
+    void clearLineBreakpoints();
 
     // This function is called when the user sets breakpoint by clicking View border
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);

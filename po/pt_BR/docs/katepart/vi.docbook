@@ -57,10 +57,14 @@
 > no menu <guimenu
 >Editar</guimenu
 >. (O atalho de teclado padrão é <keycombo action="simul"
->&Meta;&Ctrl;<keycap
+><keysym
+>Meta</keysym
+>&Ctrl;<keycap
 >V</keycap
 ></keycombo
-> - onde o &Meta; é normalmente a tecla <keysym
+> - onde o <keysym
+>Meta</keysym
+> é normalmente a tecla <keysym
 >Windows</keysym
 >).</para>
 
@@ -1301,7 +1305,9 @@
 <row
 ><entry
 ><para
->&End;</para
+><keycap
+>End</keycap
+></para
 ></entry>
 <entry
 ><para
@@ -1323,7 +1329,9 @@
 <row
 ><entry
 ><para
->&Home;</para
+><keycap
+>Home</keycap
+></para
 ></entry>
 <entry
 ><para
@@ -2129,7 +2137,9 @@
 ><entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&Home;</keycombo
+>&Ctrl;<keycap
+>Home</keycap
+></keycombo
 ></para
 ></entry>
 <entry

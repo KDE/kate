@@ -164,7 +164,9 @@
 <row>
 <entry
 ><para
->&Home;</para
+><keycap
+>Home</keycap
+></para
 ></entry>
 <entry
 ><para
@@ -174,7 +176,9 @@
 <row>
 <entry
 ><para
->&End;</para
+><keycap
+>End</keycap
+></para
 ></entry>
 <entry
 ><para
@@ -185,7 +189,9 @@
 <entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&Home;</keycombo
+>&Ctrl;<keycap
+>Home</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -197,7 +203,9 @@
 <entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&End;</keycombo
+>&Ctrl;<keycap
+>End</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -564,7 +572,9 @@ action="simul"
 <entry
 ><para
 ><keycombo action="simul"
->&Shift;&Home;</keycombo
+>&Shift;<keycap
+>Home</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -576,7 +586,9 @@ action="simul"
 <entry
 ><para
 ><keycombo action="simul"
->&Shift;&End;</keycombo
+>&Shift;<keycap
+>End</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -674,7 +686,9 @@ action="simul"
 <entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&Shift;&Home;</keycombo
+>&Ctrl;&Shift;<keycap
+>Home</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -686,7 +700,9 @@ action="simul"
 <entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&Shift;&End;</keycombo
+>&Ctrl;&Shift;<keycap
+>End</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -699,7 +715,9 @@ action="simul"
 ><para
 ><keycombo
 action="simul"
->&Ctrl;&Home;</keycombo
+>&Ctrl;<keycap
+>Home</keycap
+></keycombo
 ></para
 ></entry>
 <entry

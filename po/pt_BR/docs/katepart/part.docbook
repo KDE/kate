@@ -162,7 +162,11 @@
 >Navegando no Texto</title>
 
 <para
->A movimentação pelo texto no &kappname; é como na maioria dos editores de texto gráficos. O usuário poderá mover o cursor com as teclas dos cursores e com as teclas &PgUp;, &PgDn;, &Home; e &End;, em conjunto com as teclas modificadoras &Ctrl; e &Shift;. A tecla &Shift; é sempre usada para gerar uma seleção, enquanto a tecla &Ctrl; pode ter efeitos diferentes nas diferentes teclas: <itemizedlist>
+>A movimentação pelo texto no &kappname; é como na maioria dos editores de texto gráficos. O usuário poderá mover o cursor com as teclas dos cursores e com as teclas &PgUp;, &PgDn;, <keycap
+>Home</keycap
+> e <keycap
+>End</keycap
+>, em conjunto com as teclas modificadoras &Ctrl; e &Shift;. A tecla &Shift; é sempre usada para gerar uma seleção, enquanto a tecla &Ctrl; pode ter efeitos diferentes nas diferentes teclas: <itemizedlist>
 <listitem
 ><para
 >Para as teclas &Up;e &Down;, isto significa deslocar o cursor, em vez de movê-lo.</para
@@ -177,7 +181,11 @@
 </listitem>
 <listitem
 ><para
->Para as teclas &Home; e &End;, isto significa ir para o início ou fim do documento, em vez de ir para o início ou fim da linha.</para
+>Para as teclas <keycap
+>Home</keycap
+> e <keycap
+>End</keycap
+>, isto significa ir para o início ou fim do documento, em vez de ir para o início ou fim da linha.</para
 ></listitem>
 </itemizedlist>
 </para>
@@ -232,7 +240,11 @@
 </note>
 
 <para
->Para selecionar usando o teclado, pressione mantenha pressionada a tecla &Shift; usando as teclas de navegação (as setas, &PgUp;, &PgDn;, &Home; e &End;, possivelmente em combinação com o &Ctrl; para aumentar o movimento do cursor de texto).</para>
+>Para selecionar usando o teclado, pressione mantenha pressionada a tecla &Shift; usando as teclas de navegação (as setas, &PgUp;, &PgDn;, <keycap
+>Home</keycap
+> e <keycap
+>End</keycap
+>, possivelmente em combinação com o &Ctrl; para aumentar o movimento do cursor de texto).</para>
 
 <para
 >Veja também a seção <link linkend="kate-part-navigation"

@@ -16,6 +16,7 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+#include <memory_resource>
 #include <span>
 
 Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
@@ -23,9 +24,11 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] Set initial breakpoints that get set when debugging starts
 // [x] Breakpoint events support
 // [x] Checkable breakpoints
+// [x] Breakpoints should be sorted by linenumber
+// [] Document loads its initial mark using us, not backend
 // [] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
-// [] Breakpoints should be sorted by linenumber
+// [] Double clicking on a breakpoint takes us to the location?
 
 class BreakpointModel : public QAbstractItemModel
 {
@@ -48,6 +51,11 @@ class BreakpointModel : public QAbstractItemModel
         bool isEnabled() const
         {
             return checkState == Qt::Checked;
+        }
+
+        bool operator==(const FileBreakpoint &r) const
+        {
+            return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
         }
     };
     QList<FileBreakpoint> m_lineBreakpoints;
@@ -237,60 +245,94 @@ public:
         return toSourceBreakpoints(breakpoints);
     }
 
-    void fileBreakpointsSet(const QUrl &url, const QList<dap::Breakpoint> &newBreakpoints)
+    void fileBreakpointsSet(const QUrl &url, QList<dap::Breakpoint> newDapBreakpoints)
     {
-        auto oldRangeStart = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [url](const FileBreakpoint &bp) {
-            return bp.url == url;
+        std::byte memory[sizeof(FileBreakpoint) * 30];
+        std::pmr::monotonic_buffer_resource allocator(memory, sizeof(memory));
+
+        std::span oldBreakpoints = getFileBreakpoints(url);
+
+        // ensure elements are sorted
+        std::sort(newDapBreakpoints.begin(), newDapBreakpoints.end(), [](const dap::Breakpoint &l, const dap::Breakpoint &r) {
+            return l.line < r.line;
         });
 
-        auto oldRangeEnd = std::find_if(oldRangeStart, m_lineBreakpoints.end(), [url](const FileBreakpoint &bp) {
-            return bp.url != url;
-        });
+        std::pmr::vector<FileBreakpoint> newBreakpoints(&allocator);
+        newBreakpoints.reserve(newDapBreakpoints.size());
+        for (auto &&b : newDapBreakpoints) {
+            newBreakpoints.push_back(FileBreakpoint{.url = url, .breakpoint = std::move(b)});
+        }
 
-        std::span oldBreakpoints{oldRangeStart, oldRangeEnd};
+        auto lessThanByLine = [](const FileBreakpoint &l, const FileBreakpoint &r) {
+            return l.breakpoint.line < r.breakpoint.line;
+        };
 
-        QList<FileBreakpoint> disabledBreakpoints;
-        QList<int> disabledBreakpointsIndices;
-        for (int i = 0; const auto &b : oldBreakpoints) {
+        auto sortedUniqueInsert = [&newBreakpoints, lessThanByLine](const FileBreakpoint &b) {
+            auto it = std::lower_bound(newBreakpoints.begin(), newBreakpoints.end(), b, lessThanByLine);
+            if (it == newBreakpoints.end() || it->breakpoint.line != b.breakpoint.line) {
+                newBreakpoints.insert(it, b);
+            }
+        };
+
+        // merge all old disabled breakpoints into new ones
+        for (const auto &b : oldBreakpoints) {
             if (!b.isEnabled()) {
-                auto line = b.breakpoint.line;
-                auto it = std::find_if(newBreakpoints.begin(), newBreakpoints.end(), [line](const dap::Breakpoint &b) {
-                    return b.line == line;
-                });
-                // If a disabled breakpoint is in the new list, it got enabled?
-                if (it == newBreakpoints.end()) {
-                    disabledBreakpoints << b;
-                    disabledBreakpointsIndices << i;
+                sortedUniqueInsert(b);
+            }
+        }
+
+        const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
+
+        if (oldBreakpoints.size() != static_cast<size_t>(newBreakpoints.size())) {
+            auto setDifference = [&allocator, lessThanByLine](const auto &list1, const auto &list2) {
+                std::pmr::vector<FileBreakpoint> ret(&allocator);
+                std::set_difference(list1.begin(), list1.end(), list2.begin(), list2.end(), std::back_inserter(ret), lessThanByLine);
+                return ret;
+            };
+
+            std::pmr::vector<FileBreakpoint> newlyAddedBreakpoints = setDifference(newBreakpoints, oldBreakpoints);
+            std::pmr::vector<FileBreakpoint> removedBreakpoints = setDifference(oldBreakpoints, newBreakpoints);
+
+            if (!removedBreakpoints.empty()) {
+                const auto startIndex = oldBreakpoints.empty() ? m_lineBreakpoints.size() : static_cast<int>(oldBreakpoints.data() - m_lineBreakpoints.data());
+                for (const auto &b : removedBreakpoints) {
+                    int i = m_lineBreakpoints.indexOf(b, startIndex);
+                    Q_ASSERT(i >= 0);
+                    beginRemoveRows(parent, i, i);
+                    m_lineBreakpoints.remove(i);
+                    endRemoveRows();
                 }
             }
-            i++;
+
+            if (!newlyAddedBreakpoints.empty()) {
+                // get breakpoints again as they might be invalidated above
+                oldBreakpoints = getFileBreakpoints(url);
+                const auto startIndex = oldBreakpoints.empty() ? m_lineBreakpoints.size() : static_cast<int>(oldBreakpoints.data() - m_lineBreakpoints.data());
+
+                for (const auto &b : newlyAddedBreakpoints) {
+                    auto it = std::lower_bound(oldBreakpoints.begin(), oldBreakpoints.end(), b, lessThanByLine);
+                    Q_ASSERT(it == oldBreakpoints.end() || it->breakpoint.line != b.breakpoint.line);
+                    const auto pos = startIndex + static_cast<int>(std::distance(oldBreakpoints.begin(), it));
+                    beginInsertRows(parent, pos, pos);
+                    m_lineBreakpoints.insert(pos, b);
+                    endInsertRows();
+                }
+            }
+
+            oldBreakpoints = getFileBreakpoints(url);
+            Q_ASSERT(oldBreakpoints.size() == static_cast<size_t>(newBreakpoints.size()));
+            // replace the old list below, important as breakpoint ids might have changed even though line/url info matches
         }
 
-        const auto startIndex = static_cast<int>(oldRangeStart - m_lineBreakpoints.begin());
-
-        if (!oldBreakpoints.empty()) {
-            beginRemoveRows(QModelIndex(), startIndex, static_cast<int>((startIndex + oldBreakpoints.size()) - 1));
-            m_lineBreakpoints.erase(oldRangeStart, oldRangeEnd);
-            endRemoveRows();
-        }
-
+        // just replace the old list and emit data changed
         if (!newBreakpoints.empty()) {
-            const int newSize = disabledBreakpoints.size() + newBreakpoints.size();
-            beginInsertRows(QModelIndex(), startIndex, startIndex + newSize - 1);
-
-            // preallocate
-            m_lineBreakpoints.insert(startIndex, newSize, FileBreakpoint{});
-            auto newBreakpointsIt = newBreakpoints.begin();
-            for (int i = 0; i < newSize; i++) {
-                if (int pos = disabledBreakpointsIndices.indexOf(i); pos != -1) {
-                    m_lineBreakpoints[startIndex + i] = disabledBreakpoints[pos];
-                } else {
-                    m_lineBreakpoints[startIndex + i] = FileBreakpoint{.url = url, .breakpoint = *newBreakpointsIt};
-                    newBreakpointsIt++;
-                }
+            const auto startIndex = oldBreakpoints.empty() ? m_lineBreakpoints.size() : static_cast<int>(oldBreakpoints.data() - m_lineBreakpoints.data());
+            auto it = newBreakpoints.begin();
+            for (auto &oldBP : oldBreakpoints) {
+                oldBP.breakpoint = std::move(it->breakpoint);
+                it++;
             }
-
-            endInsertRows();
+            Q_EMIT dataChanged(index(startIndex, 0, parent), index(startIndex + newBreakpoints.size() - 1, columnCount(parent) - 1, parent));
         }
     }
 
@@ -316,18 +358,12 @@ public:
             return;
         }
         const auto url = bp.source.value().path;
-        auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [url](const FileBreakpoint &fp) {
-            return url == fp.url;
+        const auto fileBreakpoints = getFileBreakpoints(url);
+        auto it = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
+            return l.breakpoint.line < val.line;
         });
-
-        while (it != m_lineBreakpoints.end() && it->url == url) {
-            ++it;
-        }
-
-        int pos = m_lineBreakpoints.size();
-        if (it != m_lineBreakpoints.end()) {
-            pos = it - m_lineBreakpoints.begin();
-        }
+        const auto fileStart = fileBreakpoints.empty() ? m_lineBreakpoints.size() : fileBreakpoints.data() - m_lineBreakpoints.data();
+        const auto pos = fileStart + static_cast<int>(std::distance(fileBreakpoints.begin(), it));
 
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
         beginInsertRows(parent, pos, pos);
@@ -346,9 +382,9 @@ public:
             return fp.breakpoint.id == id;
         });
 
-        // If we don't find an id for this, add it as a new breakpoint
+        // If we don't find an id for this, ignore
         if (it == m_lineBreakpoints.end()) {
-            addNewBreakpoint(bp);
+            qCWarning(kateBreakpoint, "breakpoint-update: Unexpected didn't find a breakpoint in the model for id: %d", id);
             return;
         }
 
@@ -379,11 +415,11 @@ public:
         });
 
         if (it == m_lineBreakpoints.end()) {
+            qCWarning(kateBreakpoint, "breakpoint-remove: Unexpected didn't find a breakpoint in the model for id: %d", id);
             return;
         }
 
         const int pos = it - m_lineBreakpoints.begin();
-
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
         beginRemoveRows(parent, pos, pos);
         m_lineBreakpoints.remove(pos);
@@ -405,6 +441,23 @@ public:
         return ret;
     }
 
+    std::span<FileBreakpoint> getFileBreakpoints(const QUrl &url)
+    {
+        auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [url](const FileBreakpoint &fp) {
+            return url == fp.url;
+        });
+        auto start = it;
+
+        if (start == m_lineBreakpoints.end()) {
+            return {};
+        }
+
+        while (it != m_lineBreakpoints.end() && it->url == url) {
+            ++it;
+        }
+        return std::span{start, it};
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -416,9 +469,7 @@ Q_SIGNALS:
 
 void BreakpointModel::toggleBreakpoint(const QUrl &url, int line, std::optional<bool> enabled)
 {
-    auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [url](const FileBreakpoint &fp) {
-        return url == fp.url;
-    });
+    const auto fileBreakpoints = getFileBreakpoints(url);
 
     dap::Breakpoint bp;
     bp.source = dap::Source(url);
@@ -426,7 +477,7 @@ void BreakpointModel::toggleBreakpoint(const QUrl &url, int line, std::optional<
     bp.line = line;
     const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
 
-    if (it == m_lineBreakpoints.end()) {
+    if (fileBreakpoints.empty()) {
         // We are adding a new breakpoint, not modifying the state of an existing one
         // so this shouldn't be set
         Q_ASSERT(!enabled.has_value());
@@ -438,26 +489,17 @@ void BreakpointModel::toggleBreakpoint(const QUrl &url, int line, std::optional<
         // nothing to do, enabled state changed
         return;
     } else {
-        bool remove = false;
-        while (it != m_lineBreakpoints.end() && it->url == url) {
-            if (it->breakpoint.line.value_or(-1) == line) {
-                remove = true;
-                break;
-            }
-            ++it;
-        }
+        auto it = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
+            return l.breakpoint.line < val.line;
+        });
+        const auto fileStart = fileBreakpoints.data() - m_lineBreakpoints.data();
+        const auto pos = fileStart + static_cast<int>(std::distance(fileBreakpoints.begin(), it));
 
-        const auto pos = static_cast<int>(std::distance(m_lineBreakpoints.begin(), it));
-
-        if (remove) {
-            if (!it->isEnabled()) {
-                qDebug() << "Dont do anyhting";
-                return;
-            }
+        if (it != fileBreakpoints.end() && it->breakpoint.line.value_or(-1) == line) {
             qCDebug(kateBreakpoint, "removed breakpoint %ls:%d", qUtf16Printable(url.toLocalFile()), line);
 
             beginRemoveRows(parent, pos, pos);
-            m_lineBreakpoints.erase(it);
+            m_lineBreakpoints.erase(m_lineBreakpoints.begin() + pos);
             endRemoveRows();
         } else {
             beginInsertRows(parent, pos, pos);

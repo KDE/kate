@@ -37,7 +37,6 @@ class KRecentFilesAction;
 
 class KateOutputView;
 class KateViewManager;
-class KateMwModOnHdDialog;
 class QDragEnterEvent;
 class QDropEvent;
 class QEvent;
@@ -698,17 +697,9 @@ public:
     }
 
 public:
-    static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog *diag)
-    {
-        if (s_modOnHdDialog == diag) {
-            s_modOnHdDialog = nullptr;
-        }
-    }
-
     void slotWindowActivated();
 
 private:
-    static KateMwModOnHdDialog *s_modOnHdDialog;
     const MainWindowCommands m_mainWindowCommands;
 
 protected:

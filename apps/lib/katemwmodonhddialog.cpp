@@ -140,9 +140,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog(const QList<KTextEditor::Document *> &d
 KateMwModOnHdDialog::~KateMwModOnHdDialog()
 {
     // ensure no cleanup of documents during shutdown
-    disconnect();
-
-    KateMainWindow::unsetModifiedOnDiscDialogIfIf(this);
+    disconnect(nullptr, nullptr, this, nullptr);
 
     // if there are any living processes, disconnect them now before we get destroyed
     const QList<QProcess *> children = findChildren<QProcess *>();

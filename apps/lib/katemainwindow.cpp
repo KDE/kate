@@ -107,6 +107,9 @@
 
 // END
 
+// we keep one dialog around for event processing
+static QPointer<KateMwModOnHdDialog> s_modOnHdDialog;
+
 // shall windows close the documents only visible inside them if the are closed?
 static bool winClosesDocuments()
 {
@@ -123,8 +126,6 @@ public:
     QSize sizeHint() const override;
     QSize minimumSize() const override;
 };
-
-KateMwModOnHdDialog *KateMainWindow::s_modOnHdDialog = nullptr;
 
 KateContainerStackedLayout::KateContainerStackedLayout(QWidget *parent)
     : QStackedLayout(parent)
@@ -1537,7 +1538,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     }
     bool modOnDisk = static_cast<uint>(docInfo->modifiedOnDisc);
 
-    if (s_modOnHdDialog == nullptr && modOnDisk) {
+    if (!s_modOnHdDialog && modOnDisk) {
         QList<KTextEditor::Document *> list;
         list.append(doc);
 
@@ -1562,9 +1563,9 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
         }
 
         s_modOnHdDialog->exec();
-        delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
+        delete s_modOnHdDialog; // s_modOnHdDialog is cleared as that is a QPointer
         m_modignore = false;
-    } else if (s_modOnHdDialog != nullptr) {
+    } else if (s_modOnHdDialog) {
         s_modOnHdDialog->addDocument(doc);
     }
 }

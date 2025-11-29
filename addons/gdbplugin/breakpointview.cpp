@@ -25,6 +25,7 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] Breakpoint events support
 // [x] Checkable breakpoints
 // [x] Breakpoints should be sorted by linenumber
+// [x] Clear all breakpoints
 // [] Document loads its initial mark using us, not backend
 // [] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
@@ -458,6 +459,14 @@ public:
         return std::span{start, it};
     }
 
+    void clearLineBreakpoints()
+    {
+        const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
+        beginRemoveRows(parent, 0, m_lineBreakpoints.size() - 1);
+        m_lineBreakpoints.clear();
+        endRemoveRows();
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -532,7 +541,7 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, Backend *bac
     delete m;
 
     connect(m_backend, &BackendInterface::breakPointsSet, this, &BreakpointView::slotBreakpointsSet);
-    connect(m_backend, &BackendInterface::clearBreakpointMarks, this, &BreakpointView::clearMarks);
+    connect(m_backend, &BackendInterface::clearBreakpointMarks, this, &BreakpointView::clearLineBreakpoints);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
 
     connect(m_breakpointModel, &BreakpointModel::breakpointChanged, this, [this](const QUrl &url, int line, BackendInterface::BreakpointEventKind kind) {
@@ -627,24 +636,38 @@ void BreakpointView::slotBreakpointsSet(const QUrl &file, const QList<dap::Break
     }
 }
 
-void BreakpointView::clearMarks()
+void BreakpointView::clearLineBreakpoints()
 {
-    // qCDebug(kateBreakpoint, "%s", __FUNCTION__);
+    qCDebug(kateBreakpoint, "%s", __FUNCTION__);
 
-    // TODO this is broken
-    // auto app = KTextEditor::Editor::instance()->application();
-    // const auto documents = app->documents();
-    // for (KTextEditor::Document *doc : documents) {
-    //     const QHash<int, KTextEditor::Mark *> marks = doc->marks();
-    //     QHashIterator<int, KTextEditor::Mark *> i(marks);
-    //     while (i.hasNext()) {
-    //         i.next();
-    //         if ((i.value()->type == KTextEditor::Document::Execution) || (i.value()->type == KTextEditor::Document::BreakpointActive)) {
-    //             // m_backend->removeSavedBreakpoint(doc->url(), i.value()->line);
-    //             doc->removeMark(i.value()->line, i.value()->type);
-    //         }
-    //     }
-    // }
+    if (m_backend->debuggerRunning()) {
+        auto allBreakpoints = m_breakpointModel->allBreakpoints();
+        for (auto &[url, breakpoints] : allBreakpoints) {
+            breakpoints.clear();
+            m_backend->setBreakpoints(url, breakpoints);
+        }
+    }
+
+    // clear the model
+    m_breakpointModel->clearLineBreakpoints();
+
+    // remove all breakpoint marks in open files
+    auto app = KTextEditor::Editor::instance()->application();
+    const auto documents = app->documents();
+    for (KTextEditor::Document *doc : documents) {
+        const QHash<int, KTextEditor::Mark *> marks = doc->marks();
+        if (!marks.isEmpty()) {
+            disconnect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints);
+            QHashIterator<int, KTextEditor::Mark *> i(marks);
+            while (i.hasNext()) {
+                i.next();
+                if (i.value()->type & KTextEditor::Document::BreakpointActive) {
+                    doc->removeMark(i.value()->line, i.value()->type);
+                }
+            }
+            connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
+        }
+    }
 }
 
 void BreakpointView::updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark)

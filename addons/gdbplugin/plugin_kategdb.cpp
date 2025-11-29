@@ -259,7 +259,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     a = ac->addAction(u"clear_all_breakpoints"_s);
     a->setText(i18n("Clear All Breakpoints"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
-    connect(a, &QAction::triggered, m_breakpointView, &BreakpointView::clearMarks);
+    connect(a, &QAction::triggered, m_breakpointView, &BreakpointView::clearLineBreakpoints);
 
     a = ac->addAction(QStringLiteral("step_in"));
     a->setText(i18n("Step In"));

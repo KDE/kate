@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
-  <!ENTITY kappname "&kate;">
-  <!ENTITY imgpath "../katepart/">
-  <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym
 >GDB</acronym
+>">
+  <!ENTITY kparts "<acronym
+>KParts</acronym
 >">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
@@ -104,16 +104,16 @@
 >&FDLNotice;</legalnotice>
 
 <date
->31/07/2015</date>
+>22/04/2022</date>
 <releaseinfo
->Applications 15.12</releaseinfo>
+>Applications 22.08</releaseinfo>
 
 <abstract>
 <para
->&kate; é um editor de texto de programadores para o &kde; 4 e superior.</para>
+>&kate; é um editor de texto do &kde;, indicado para programadores.</para>
 
 <para
->Este manual documenta a versão 15.12 do &kate;</para>
+>Este manual documenta a versão 22.08 do &kate;</para>
 </abstract>
 
 <keywordset>
@@ -148,16 +148,13 @@
 </keywordset>
 
 </bookinfo>
-<!-- FIXME
-ckeck http://kate-editor.org/2012/06/30/kate-in-kde-4-9/
-http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
-  -->
+
 <chapter id="introduction">
 <title
 >Introdução</title>
 
 <para
->Bem-vindo ao &kate;, um editor de texto destinado a programadores para o &kde; versões 4 e posteriores. Algumas das funcionalidades do &kate; incluem o realce de sintaxe programável para linguagens que vão do C e C++ ao &HTML;, passando pelos scripts em bash, a capacidade de criar e gerenciar projetos, uma interface de múltiplos documentos (<acronym
+>Bem-vindo ao &kate;, um editor de texto do &kde;, indicado para programadores. Algumas das funcionalidades do &kate; incluem o realce de sintaxe programável para linguagens que vão do C e C++ ao &HTML;, passando pelos scripts em bash, a capacidade de criar e gerenciar projetos, uma interface de múltiplos documentos (<acronym
 >MDI</acronym
 >) e um emulador de terminal embutido. </para>
 
@@ -312,7 +309,7 @@ http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
 >&Michael.Koch; &Michael.Koch.mail;</term>
 <listitem
 ><para
->Conversão do &kwrite; para KParts</para
+>Conversão do &kwrite; para &kparts;</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -431,7 +428,7 @@ http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
 >&Carsten.Niehaus;</term>
 <listitem
 ><para
->Realce para LaTeX</para
+>Realce para &latex;</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -472,8 +469,7 @@ http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
 > e André Marcelo Alvarenga <email
 >alvarenga@kde.org</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 
 <appendix id="regular-expressions">
 <title
@@ -482,17 +478,6 @@ http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
 <para
 >Para obter mais informações sobre o uso de expressões regulares no &kate;, leia o <ulink url="help:/katepart/regular-expressions.html"
 >apêndice Expressões regulares do Manual do &katepart;</ulink
->.</para>
-
-</appendix>
-
-<appendix id="installation">
-<title
->Instalação</title>
-
-<para
->Para aprender como instalar o &kate; e outros aplicativos do &kde; no seu sistema, leia o <ulink url="help:fundamentals/install.html"
->capítulo Instalação da documentação dos Fundamentos do &kde;</ulink
 >.</para>
 
 </appendix>

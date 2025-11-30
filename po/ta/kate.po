@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-20 00:45+0000\n"
+"POT-Creation-Date: 2025-11-30 00:46+0000\n"
 "PO-Revision-Date: 2025-09-21 13:43+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -165,7 +165,7 @@ msgstr "கேரைட் -  உரைதொகுப்பாளர் உற�
 msgid "Open File"
 msgstr "கோப்பை திறத்தல்"
 
-#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:456
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:457
 #, kde-format
 msgid "Copy Location"
 msgstr "இருப்பிடத்தை நகலெடு"
@@ -1437,12 +1437,12 @@ msgstr "ஆவணத்தை மூடு"
 msgid "Save As"
 msgstr "வேறு பெயரில் சேமி"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:847
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:848
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "கேட்டை மூட முயற்சிக்கும்போது புது கோப்பு திறக்கப்பட்டதால் மூடுதல் கைவிடப்பட்டது."
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:847
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:848
 #, kde-format
 msgid "Closing Aborted"
 msgstr "மூடுதல் கைவிடப்பட்டது"
@@ -1502,93 +1502,93 @@ msgstr "\"%1\" என்ற கோப்பை நீக்க முடிய�
 msgid "&Other Application..."
 msgstr "&வேறு செயலி..."
 
-#: lib/katemainwindow.cpp:299
+#: lib/katemainwindow.cpp:300
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr "நிலைப்பட்டையை காட்டவோ மறைக்கவோ இந்த கட்டளையை பயன்படுத்துங்கள்"
 
-#: lib/katemainwindow.cpp:305
+#: lib/katemainwindow.cpp:306
 #, kde-format
 msgid "Show &Tabs"
 msgstr "&கீற்றுகளை காட்டு"
 
-#: lib/katemainwindow.cpp:308
+#: lib/katemainwindow.cpp:309
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr "காட்சிப்பகுதிகளில் கீற்றுகளை காட்டவோ மறைக்கவோ இக்கட்டளையை பயன்படுத்துங்கள்"
 
-#: lib/katemainwindow.cpp:310
+#: lib/katemainwindow.cpp:311
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "&தலைப்புப்பட்டையில் பாதையை காட்டு"
 
-#: lib/katemainwindow.cpp:315
+#: lib/katemainwindow.cpp:316
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "சாளரத் தலைப்பில் முழு ஆவணப்பாதையை காட்டவும்"
 
-#: lib/katemainwindow.cpp:317
+#: lib/katemainwindow.cpp:318
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "உலாவல் பட்டையை காட்டு"
 
-#: lib/katemainwindow.cpp:335
+#: lib/katemainwindow.cpp:336
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "&சாளரத்தின் நிறத்திட்டம்"
 
-#: lib/katemainwindow.cpp:339
+#: lib/katemainwindow.cpp:340
 #, kde-format
 msgid "&Previous Tab"
 msgstr "&முந்தைய கீற்று"
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:341
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "முந்தைய கீற்றில் குவியத்தை வைக்கும்."
 
-#: lib/katemainwindow.cpp:347
+#: lib/katemainwindow.cpp:348
 #, kde-format
 msgid "&Next Tab"
 msgstr "&அடுத்த கீற்று"
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:349
 #, kde-format
 msgid "Focus the next tab."
 msgstr "அடுத்த கீற்றில் குவியத்தை வைக்கும்."
 
-#: lib/katemainwindow.cpp:357
+#: lib/katemainwindow.cpp:358
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
 msgstr "%1-ஆம் கீற்றுக்கு தாவு"
 
-#: lib/katemainwindow.cpp:377
+#: lib/katemainwindow.cpp:378
 #, kde-format
 msgid "&Quick Open"
 msgstr "&விரைவாக திறத்தல்"
 
-#: lib/katemainwindow.cpp:380
+#: lib/katemainwindow.cpp:381
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "ஆவணங்களை விரைவாக திறக்க உதவும் படிவத்தை திறக்கும்."
 
-#: lib/katemainwindow.cpp:417
+#: lib/katemainwindow.cpp:418
 #, kde-format
 msgid "Output"
 msgstr "வெளியீடு"
 
-#: lib/katemainwindow.cpp:428
+#: lib/katemainwindow.cpp:429
 #, kde-format
 msgid "Create a new document"
 msgstr "புதிய ஆவணத்தை உருவாக்கு"
 
-#: lib/katemainwindow.cpp:430
+#: lib/katemainwindow.cpp:431
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "ஏற்கனவே உள்ள ஒரு ஆவணத்தை திருத்துவதற்கு திற"
 
-#: lib/katemainwindow.cpp:440
+#: lib/katemainwindow.cpp:441
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1596,162 +1596,162 @@ msgid ""
 msgstr ""
 "நீங்கள் அண்மையில் திறந்த கோப்புகளை எளிதில் மறுபடியும் திறக்கும்படி இது பட்டியலிடும்."
 
-#: lib/katemainwindow.cpp:444
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid "Sa&ve All"
 msgstr "&அனைத்தையும் சேமி"
 
-#: lib/katemainwindow.cpp:447
+#: lib/katemainwindow.cpp:448
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "மாற்றப்பட்ட அனைத்து திறந்த ஆவணங்களையும் வட்டுக்கு சேமி"
 
-#: lib/katemainwindow.cpp:450
+#: lib/katemainwindow.cpp:451
 #, kde-format
 msgid "Reload A&ll"
 msgstr "அ&னைத்தையும் மீளேற்று"
 
-#: lib/katemainwindow.cpp:452
+#: lib/katemainwindow.cpp:453
 #, kde-format
 msgid "Reload all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மீளேற்றும்."
 
-#: lib/katemainwindow.cpp:461 lib/katemainwindow.cpp:471
-#: lib/katemainwindow.cpp:480
+#: lib/katemainwindow.cpp:462 lib/katemainwindow.cpp:472
+#: lib/katemainwindow.cpp:481
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "தற்போதைய கோப்பின் பாதையை பிடிப்புப்பலகைக்கு நகலெடுக்கும்."
 
-#: lib/katemainwindow.cpp:465
+#: lib/katemainwindow.cpp:466
 #, kde-format
 msgid "Copy Filename"
 msgstr "கோப்புப்பெயரை நகலெடு"
 
-#: lib/katemainwindow.cpp:475 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:476 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&கொண்டுள்ள அடைவை திற"
 
-#: lib/katemainwindow.cpp:484
+#: lib/katemainwindow.cpp:485
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "மறுபெயரிடு..."
 
-#: lib/katemainwindow.cpp:489
+#: lib/katemainwindow.cpp:490
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "தற்போதைய ஆவணத்திற்கான கோப்பின் பெயரை மாற்றும்."
 
-#: lib/katemainwindow.cpp:493
+#: lib/katemainwindow.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "அகற்று"
 
-#: lib/katemainwindow.cpp:498 lib/katemainwindow.cpp:507
+#: lib/katemainwindow.cpp:499 lib/katemainwindow.cpp:508
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "தற்போதைய ஆவணத்திற்கான கோப்பை நீக்கும்."
 
-#: lib/katemainwindow.cpp:502
+#: lib/katemainwindow.cpp:503
 #, kde-format
 msgid "Properties"
 msgstr "பண்புகள்"
 
-#: lib/katemainwindow.cpp:510 lib/katemainwindow.cpp:512
+#: lib/katemainwindow.cpp:511 lib/katemainwindow.cpp:513
 #, kde-format
 msgid "Compare"
 msgstr "ஒப்பிடு "
 
-#: lib/katemainwindow.cpp:512
+#: lib/katemainwindow.cpp:513
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr "இரண்டு ஆவணங்களை ஒப்பிட, கீற்றுப்பட்டையின் வலது-க்ளிக் பட்டியை பயன்படுத்துங்கள்"
 
-#: lib/katemainwindow.cpp:514
+#: lib/katemainwindow.cpp:515
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "ஆவணங்களை ஒப்பிடுவது எப்படியென கூறும்."
 
-#: lib/katemainwindow.cpp:517
+#: lib/katemainwindow.cpp:518
 #, kde-format
 msgid "Close Orp&haned"
 msgstr "அனா&தைகளை மூடு"
 
-#: lib/katemainwindow.cpp:519
+#: lib/katemainwindow.cpp:520
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
 "they are not accessible anymore."
 msgstr "அணுக முடியாத‍தால் திறக்க முடியாத ஆவணங்கள் பட்டியலில் இருந்தால், அவற்றை மூடு."
 
-#: lib/katemainwindow.cpp:523
+#: lib/katemainwindow.cpp:524
 #, kde-format
 msgid "Close the current document."
 msgstr "தற்போதைய கோப்பை மூடு."
 
-#: lib/katemainwindow.cpp:526
+#: lib/katemainwindow.cpp:527
 #, kde-format
 msgid "Close O&ther"
 msgstr "&மற்றவற்றை மூடு"
 
-#: lib/katemainwindow.cpp:530
+#: lib/katemainwindow.cpp:531
 #, kde-format
 msgid "Close other open documents."
 msgstr "திறந்துள்ள மற்ற கோப்புகளை மூடும்."
 
-#: lib/katemainwindow.cpp:533
+#: lib/katemainwindow.cpp:534
 #, kde-format
 msgid "Clos&e All"
 msgstr "&அனைத்தையும் மூடு"
 
-#: lib/katemainwindow.cpp:535
+#: lib/katemainwindow.cpp:536
 #, kde-format
 msgid "Close all open documents."
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் மூடும்."
 
-#: lib/katemainwindow.cpp:538
+#: lib/katemainwindow.cpp:539
 #, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "&கடைசியாக முடிய ஆவணத்தைத் திற"
 
-#: lib/katemainwindow.cpp:540
+#: lib/katemainwindow.cpp:541
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr "கடைசியாக மூடிய ஆவணத்தை அல்லது ஆவணங்களை மீண்டும் திறக்கும்"
 
-#: lib/katemainwindow.cpp:543
+#: lib/katemainwindow.cpp:544
 #, kde-format
 msgid "Close &Window"
 msgstr "சாளரத்தை மூடு"
 
-#: lib/katemainwindow.cpp:547
+#: lib/katemainwindow.cpp:548
 #, kde-format
 msgid "Close this window"
 msgstr "இந்த சாளரத்தை மூடு"
 
-#: lib/katemainwindow.cpp:552
+#: lib/katemainwindow.cpp:553
 #, kde-format
 msgid "Quit the application"
 msgstr "செயலியிலிருந்து வெளியேறு"
 
-#: lib/katemainwindow.cpp:556
+#: lib/katemainwindow.cpp:557
 #, kde-format
 msgid "New &Window"
 msgstr "&புதிய சாளரம்"
 
-#: lib/katemainwindow.cpp:559
+#: lib/katemainwindow.cpp:560
 #, kde-format
 msgid "Create a new window."
 msgstr "புதிய சாளரத்தை உருவாக்கும்."
 
-#: lib/katemainwindow.cpp:566
+#: lib/katemainwindow.cpp:567
 #, kde-format
 msgid "Open W&ith"
 msgstr "இதனால் திற"
 
-#: lib/katemainwindow.cpp:568
+#: lib/katemainwindow.cpp:569
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1760,114 +1760,114 @@ msgstr ""
 "நடப்பிலுள்ள ஆவணத்தை அதன் வகைக்கேற்ற மற்ற பயன்பாட்டில், அல்லது உங்கள் விருப்பத்திற்கேற்றதில் "
 "திறக்கவும்."
 
-#: lib/katemainwindow.cpp:576
+#: lib/katemainwindow.cpp:577
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr " பயன்பாடு விசைப்பலகையின் குறுவழி  இருத்துதலை உள்ளமை "
 
-#: lib/katemainwindow.cpp:579
+#: lib/katemainwindow.cpp:580
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "எந்த உருப்படிகள்  கருவிப்பட்டையில் தெரிய வெனண்டும் என்று உள்ளமை "
 
-#: lib/katemainwindow.cpp:582
+#: lib/katemainwindow.cpp:583
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr " திருத்தும் பகுதிகளையும் பயன்பாடுகளையும் திறுத்தி உள்ளமை"
 
-#: lib/katemainwindow.cpp:586
+#: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&செருகுநிரல்களுக்கான கையேடு"
 
-#: lib/katemainwindow.cpp:588
+#: lib/katemainwindow.cpp:589
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "அனைத்து செருகல்களுக்கும் உதவியைக் காட்டு"
 
-#: lib/katemainwindow.cpp:605
+#: lib/katemainwindow.cpp:606
 #, kde-format
 msgid "Sess&ions"
 msgstr "அ&மர்வுகள்"
 
-#: lib/katemainwindow.cpp:611
+#: lib/katemainwindow.cpp:612
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "&புதிய அமர்வு"
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:617
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "&சமீபத்திய அமர்வுகள்"
 
-#: lib/katemainwindow.cpp:621
+#: lib/katemainwindow.cpp:622
 #, kde-format
 msgid "&All Sessions"
 msgstr "அ&னைத்து அமர்வுகள்"
 
-#: lib/katemainwindow.cpp:628
+#: lib/katemainwindow.cpp:629
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "அமர்வுகளை &நிர்வகி..."
 
-#: lib/katemainwindow.cpp:637
+#: lib/katemainwindow.cpp:638
 #, kde-format
 msgid "&Save Session"
 msgstr "&அமர்வை சேமி"
 
-#: lib/katemainwindow.cpp:643
+#: lib/katemainwindow.cpp:644
 #, kde-format
 msgid "Save Session &As..."
 msgstr "அமர்வை &இவ்வாறு சேமி..."
 
-#: lib/katemainwindow.cpp:651
+#: lib/katemainwindow.cpp:652
 #, kde-format
 msgid "Pin/Unpin Active Document"
 msgstr "செயலிலுள்ள ஆவணத்தை தக்கவை / தக்கவைத்ததை நீக்கு"
 
-#: lib/katemainwindow.cpp:660
+#: lib/katemainwindow.cpp:661
 #, kde-format
 msgid "Open Next Pinned Document"
 msgstr "அடுத்த தக்கவைத்த ஆவணத்தைத் திற"
 
-#: lib/katemainwindow.cpp:667 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:668 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "முந்தைய இடத்திற்கு செல்"
 
-#: lib/katemainwindow.cpp:676 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:677 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "அடுத்த இடத்திற்கு செல்"
 
-#: lib/katemainwindow.cpp:684
+#: lib/katemainwindow.cpp:685
 #, kde-format
 msgid "Show File Git History"
 msgstr "கோப்பின் கிட் வரலாற்றைக் காட்டு"
 
-#: lib/katemainwindow.cpp:695
+#: lib/katemainwindow.cpp:696
 #, kde-format
 msgid "&Windows"
 msgstr "சாளரங்கள்"
 
-#: lib/katemainwindow.cpp:754
+#: lib/katemainwindow.cpp:755
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "திறந்துள்ள அனைத்து ஆவணங்களையும் இது மூடும். உறுதியாக தொடர வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:755
+#: lib/katemainwindow.cpp:756
 #, kde-format
 msgid "Close all documents?"
 msgstr "அனைத்து ஆவணங்களையும் மூடலாமா?"
 
-#: lib/katemainwindow.cpp:756
+#: lib/katemainwindow.cpp:757
 #, kde-format
 msgid "Close All"
 msgstr "அனைத்தையும் மூடு"
 
-#: lib/katemainwindow.cpp:770
+#: lib/katemainwindow.cpp:771
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1876,17 +1876,17 @@ msgstr ""
 "தற்போதைய ஆவணத்தை தவிர திறந்துள்ள அனைத்து ஆவணங்களையும் இது மூடும். உறுதியாக தொடர "
 "வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:771
+#: lib/katemainwindow.cpp:772
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "நடப்பு ஆவணத்தை தவிர மற்ற எல்லா ஆவணங்களையும் மூடலாமா?"
 
-#: lib/katemainwindow.cpp:772
+#: lib/katemainwindow.cpp:773
 #, kde-format
 msgid "Close Others"
 msgstr "மற்றவற்றை மூடு"
 
-#: lib/katemainwindow.cpp:1002
+#: lib/katemainwindow.cpp:1003
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
@@ -1894,12 +1894,12 @@ msgstr ""
 "இது பட்டிப் பட்டையை முழுதாக மறைத்துவிடும். %1 என்பதை தட்டி நீங்கள் மறுபடியும் அதை "
 "காட்டலாம்."
 
-#: lib/katemainwindow.cpp:1005
+#: lib/katemainwindow.cpp:1006
 #, kde-format
 msgid "Hide menu bar"
 msgstr "பட்டிப் பட்டையை மறை"
 
-#: lib/katemainwindow.cpp:1180
+#: lib/katemainwindow.cpp:1181
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1908,19 +1908,19 @@ msgstr ""
 "%1 என்ற அடைவை நீங்கள் கேட்டிற்குள் இழுத்து போட்டுள்ளீர்கள். அதிலுள்ள அனைத்து கோப்புகளையும் "
 "திறக்க வேண்டுமா?"
 
-#: lib/katemainwindow.cpp:1183
+#: lib/katemainwindow.cpp:1184
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "அடைவுகளுக்குள் உள்ள கோப்புகளை திறக்கலாமா?"
 
-#: lib/katemainwindow.cpp:1184
+#: lib/katemainwindow.cpp:1185
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "அனைத்து கோப்புகளையும் திற"
 
-#: lib/katemainwindow.cpp:1391
+#: lib/katemainwindow.cpp:1392
 #, kde-format
 msgid " [read only]"
 msgstr " [படித்தல் மட்டும்]"
@@ -2124,7 +2124,7 @@ msgstr "&மீளேற்று"
 msgid "Reload selected documents from disk"
 msgstr "வட்டிலிருந்து தேர்ந்தெடுக்கப்பட்ட ஆவணங்களை மீளேற்று"
 
-#: lib/katemwmodonhddialog.cpp:193
+#: lib/katemwmodonhddialog.cpp:191
 #, kde-format
 msgid ""
 "Could not save the document \n"
@@ -2133,12 +2133,12 @@ msgstr ""
 "'%1'\n"
 "என்ற ஆவணத்தை சேமிக்க முடியவில்லை"
 
-#: lib/katemwmodonhddialog.cpp:291
+#: lib/katemwmodonhddialog.cpp:289
 #, kde-format
 msgid "Please install git to view diffs"
 msgstr "மாற்றங்களைக் காண git தனை நிறுவவும்"
 
-#: lib/katemwmodonhddialog.cpp:315
+#: lib/katemwmodonhddialog.cpp:313
 #, kde-format
 msgid ""
 "The diff command failed. Please make sure that git is installed and in your "
@@ -2147,17 +2147,17 @@ msgstr ""
 "diff கட்டளை தோல்வியடைந்தது. git நிறுவப்பட்டுள்ளதென்றும், உங்கள் PATH-இல் உள்ளதென்றும் "
 "உறுதி செய்யுங்கள்."
 
-#: lib/katemwmodonhddialog.cpp:317
+#: lib/katemwmodonhddialog.cpp:315
 #, kde-format
 msgid "Error Creating Diff"
 msgstr "வித்தியாசங்களை கண்டுபிடிப்பதில் சிக்கல்"
 
-#: lib/katemwmodonhddialog.cpp:324
+#: lib/katemwmodonhddialog.cpp:322
 #, kde-format
 msgid "[OLD]"
 msgstr "[பழையது]"
 
-#: lib/katemwmodonhddialog.cpp:325
+#: lib/katemwmodonhddialog.cpp:323
 #, kde-format
 msgid "[NEW]"
 msgstr "[புதியது]"

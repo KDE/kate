@@ -45,7 +45,21 @@
 ><contrib
 >Tradução</contrib
 ></othercredit
-> 
+> <othercredit role="translator"
+><firstname
+>Antonio Henrique L.</firstname
+><surname
+>Rodrigues</surname
+><affiliation
+><address
+><email
+>ahlr_2000@yahoo.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
+>  
 
 </authorgroup>
 
@@ -59,9 +73,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->19/05/2018</date>
+>2021-09-02</date>
 <releaseinfo
->Applications 18.08</releaseinfo>
+>KDE Gear 21.12</releaseinfo>
 
 <abstract>
 <para
@@ -91,7 +105,7 @@
 >), que permite a edição de apenas um arquivo por janela. </para>
 
 <para
->O &kwrite; é uma interface simples para o componente &katepart;, que também é usado pelo &kate;, pelo KDevelop e por outros aplicativos do &kde;, que precisam de funcionalidades avançadas para edição de texto. Portanto, a documentação completa das funcionalidades do &kwrite; pode ser encontrada no <ulink url="help:/katepart"
+>O &kwrite; é uma interface simples para o componente &katepart;, que também é usado pelo &kate;, &kdevelop;, e por outros aplicativos do &kde;, que precisam de funcionalidades avançadas para edição de texto. Portanto, a documentação completa das funcionalidades do &kwrite; pode ser encontrada no <ulink url="help:/katepart"
 >Manual do &katepart;</ulink
 >. </para>
 </sect1>
@@ -119,10 +133,10 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
->/home/myhome/docs/myfile.txt</replaceable
+>/home/minhahome/docs/meuarquivo.txt</replaceable
 ></option>
 </userinput
 >
@@ -142,8 +156,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >ftp://ftp.kde.org/pub/kde/README</replaceable>
 </option
@@ -214,7 +228,7 @@
 <term
 ><userinput
 ><command
->&kwrite;</command
+>kwrite</command
 > <option
 >--license</option
 ></userinput

@@ -472,13 +472,13 @@ msgstr "JSON 数据无效：%1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "解析 .vscode/launch.json 在 %1 失败。"
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " 位于 %1:%2"
 
 #: localsview.cpp:41
 #, kde-format

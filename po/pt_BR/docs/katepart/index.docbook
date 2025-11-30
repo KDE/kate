@@ -2,8 +2,6 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN"
 "dtd/kdedbx45.dtd" [
   <!ENTITY kappname "&katepart;">
-  <!ENTITY imgpath "./">
-  <!ENTITY rcfile "kwriterc">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY menus-chapter SYSTEM "menus.docbook">
@@ -101,13 +99,13 @@
 >&FDLNotice;</legalnotice>
 
 <date
->09/04/2016</date>
+>02/05/2022</date>
 <releaseinfo
->Frameworks 5.21</releaseinfo>
+>&frameworks; 5.94</releaseinfo>
 
 <abstract>
 <para
->O &katepart; é um componente de edição completo para aplicativos do &Qt; e do &kde;.</para>
+>O &katepart; é um componente de edição completo do &kde;.</para>
 </abstract>
 
 <keywordset>
@@ -154,7 +152,7 @@
 >Créditos e licença</title>
 
 <para
->Direitos autorais do &katepart; e &kwrite; 2001-2014 da equipe do &kate;.</para>
+>Direitos autorais do &katepart; e &kwrite; 2001-2022 da equipe do &kate;.</para>
 
 <para
 >Baseado no &kwrite; original, que possui Direitos Autorais 2000 para Jochen Wilhelmy <email
@@ -241,6 +239,13 @@
 <para
 >&John.Firebaugh; &John.Firebaugh.mail;</para>
 </listitem>
+
+<listitem>
+<para
+>Nibaldo González <email
+>nibgonz@gmail.com</email
+></para>
+</listitem>
 </itemizedlist>
 
 <para
@@ -250,10 +255,10 @@
 >A documentação original do &kwrite; foi escrita por &Thad.McGinnis; &Thad.McGinnis.mail;, com diversas modificações de &Cristian.Tibirna; &Cristian.Tibirna.mail;. Foi revista e convertida para DocBook por &Lauri.Watts; &Lauri.Watts.mail; e atualizada por &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; e &Anders.Lund; &Anders.Lund.mail; </para>
 
 <para
->A documentação atual do &katepart; é mantida por &TC.Hollingsworth; &TC.Hollingsworth.mail;. Por favor, envie seus comentários ou sugestões para a lista de discussão de desenvolvimento do &katepart; em <email
->kwrite-devel@kde.org</email
-> ou crie um relatório de erro no <ulink url="https://bugs.kde.org/"
->Sistema de Gerenciamento de Erros do KDE</ulink
+>A documentação atual do &katepart; é mantida por &TC.Hollingsworth; &TC.Hollingsworth.mail;. Para solicitar alterações, registre um bug no <ulink url="https://bugs.kde.org/"
+>Sistema de Rastreamento de bugs do KDE</ulink
+> ou forneça um patch no <ulink url="https://invent.kde.org/utilities/kate"
+>nosso projeto no GitLab</ulink
 >.</para>
 
 <para
@@ -262,8 +267,7 @@
 > e André Marcelo Alvarenga <email
 >alvarenga@kde.org</email
 ></para
-> 
-&underFDL; &underGPL; </chapter>
+> &underFDL; &underGPL; </chapter>
 
 &vi-appendix;
 

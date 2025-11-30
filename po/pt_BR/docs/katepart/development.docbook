@@ -31,6 +31,20 @@
 ><contrib
 >Tradução</contrib
 ></othercredit
+> <othercredit role="translator"
+><firstname
+>Marcus</firstname
+><surname
+>Gama</surname
+><affiliation
+><address
+><email
+>marcus.gama@gmail.com</email
+></address
+></affiliation
+><contrib
+>Tradução</contrib
+></othercredit
 > 
 </authorgroup>
 </chapterinfo>
@@ -43,8 +57,8 @@
 
 <para
 >Como em qualquer componente de editor de texto avançado, o &katepart; oferece uma grande variedade de formas para ampliar suas funcionalidades. Você pode <link linkend="dev-scripting"
->criar scripts simples para adicionar funcionalidades com o JavaScript</link
-> Finalmente, assim que tiver ampliado as funcionalidades do &katepart;, sinta-se a vontade para <ulink url="http://kate-editor.org/join-us/"
+>criar scripts simples para adicionar funcionalidades com o &javascript;</link
+> Finalmente, assim que tiver ampliado as funcionalidades do &katepart;, sinta-se a vontade para <ulink url="https://kate-editor.org/join-us/"
 >se juntar a nós</ulink
 > e compartilhar as suas melhorias com o mundo!</para>
 
@@ -67,11 +81,11 @@
 ><imagedata format="PNG" fileref="highlighted.png"/></imageobject>
 <textobject
 ><phrase
->Uma função Perl, representada com realce de sintaxe.</phrase
+>Uma função C++, representada com realce de sintaxe.</phrase
 ></textobject>
 <caption
 ><para
->Uma função Perl, representada com realce de sintaxe.</para>
+>Uma função C++, representada com realce de sintaxe.</para>
 </caption>
 </mediaobject>
 
@@ -80,11 +94,11 @@
 ><imagedata format="PNG" fileref="unhighlighted.png"/></imageobject>
 <textobject
 ><phrase
->A mesma função Perl, sem realce de sintaxe.</phrase
+>A mesma função C++, sem realce de sintaxe.</phrase
 ></textobject>
 <caption
 ><para
->A mesma função Perl, sem realce de sintaxe.</para
+>A mesma função C++, sem realce de sintaxe.</para
 ></caption>
 </mediaobject>
 
@@ -116,17 +130,6 @@
 <para
 >O realce de sintaxe existe para aumentar a legibilidade do texto correto, mas não se pode confiar nisto para validar seu texto. Marcar o texto para sintaxe é difícil, dependendo do formato que você está usando e, em alguns casos, os autores das regras de sintaxe ficarão orgulhosos se 98% do texto é renderizado corretamente, embora muito frequentemente você precise de um estilo raro para ver os 2% incorretos.</para>
 </note>
-
-<tip>
-<para
->Você pode baixar as definições de sintaxe adicionais ou atualizadas na página Web do &kappname; clicando no botão <guibutton
->Baixar Arquivos de Sintaxe...</guibutton
-> na página <link linkend="pref-open-save-modes-filetypes"
->Modos &amp; Tipos de Arquivo</link
-> da <link linkend="config-dialog"
->Janela de Configuração</link
->.</para>
-</tip>
 
 </sect2>
 
@@ -208,9 +211,7 @@
 >Estilos Padrão</title>
 
 <para
->Se você abrir um arquivo de código em C++, um arquivo de &Java; e um documento em <acronym
->HTML</acronym
-> no &kappname;, irá ver que, ainda que os formatos sejam diferentes e, por isso, sejam selecionadas palavras diferentes para um tratamento especial, as cores usadas são as mesmas. Isto deve-se ao fato do &kappname; ter uma lista pré-definida de Estilos Padrão, os quais são usados pelas definições de sintaxe individuais.</para>
+>Se você abrir um arquivo de código em C++, um arquivo de &Java; e um documento em &HTML; no &kappname;, irá ver que, ainda que os formatos sejam diferentes e, por isso, sejam selecionadas palavras diferentes para um tratamento especial, as cores usadas são as mesmas. Isto deve-se ao fato do &kappname; ter uma lista pré-definida de Estilos Padrão, os quais são usados pelas definições de sintaxe individuais.</para>
 
 <para
 >Isto faz com que fique mais fácil reconhecer conceitos similares em diferentes formatos. Por exemplo, os comentários estão presentes na maioria das linguagens de programação, script e marcação, e quando são renderizados utilizando-se o mesmo estilo em todas as linguagens, você não precisa parar e pensar para identificá-los dentro do texto.</para>
@@ -235,22 +236,139 @@
 >Introdução</title>
 
 <para
+>O pacote &kappname; utiliza o framework de realce de sintaxe do pacote &kde-frameworks;. Os arquivos &XML; de realce padrão fornecidos com o pacote &kappname; são compilados na biblioteca de realce de sintaxe por padrão. </para>
+
+<para
 >Esta seção é uma introdução ao formato &XML; de Definição de Realce. Baseado em um pequeno exemplo, ele irá descrever as componentes principais, bem como o seu significado e utilização. A próxima seção colocará em detalhes as regras de detecção.</para>
 
 <para
 >A definição formal, também conhecida como <acronym
 >XSD</acronym
->, é armazenada no arquivo <filename
+>, você encontra no <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>Repositório de realce de sintaxe</ulink
+> no arquivo <filename
 >language.xsd</filename
->, o qual deve estar instalado na pasta <filename
->$<envar
->XDG_DATA_DIRS</envar
->/katepart5/syntax</filename
-> do seu sistema. Nesse sentido, a variável de ambiente <envar
->XDG_DATA_DIRS</envar
-> normalmente se expande para <filename
->/usr/share</filename
+> </para>
+
+<para
+>Os arquivos de definição de realce personalizados <filename class="extension"
+>.xml</filename
+> estão localizados em <filename class="directory"
+>org.kde.syntax-highlighting/syntax/</filename
+> na sua pasta de usuário, encontrada com <userinput
+><command
+>qtpaths</command
+><option
+> --paths GenericDataLocation</option
+></userinput
+> que geralmente são <filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/</filename
+> e <filename class="directory"
+>/usr/share/</filename
 >. </para>
+
+<para
+>Em pacotes Flatpak e Snap, o diretório acima não funcionará, pois o local dos dados é diferente para cada aplicativo. Em um aplicativo Flatpak, o local dos arquivos &XML; personalizados geralmente é <filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>nome-pacote-flatpak</replaceable
+>/data/org.kde.syntax-highlighting/syntax/</filename
+> e em um aplicativo Snap, esse local é <filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>nome-pacote-snap</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/syntax/</filename
+>. </para>
+
+<para
+>No Windows, esses arquivos estão localizados em <filename
+>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> geralmente se expande para <filename
+>C:&#92;Users&#92;<replaceable
+>user</replaceable
+></filename
+>.</para>
+
+<para
+>Em resumo, para a maioria das configurações, o diretório de arquivos &XML; personalizados é o seguinte:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry
+>Para o usuário local</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para todos os usuários</entry>
+<entry
+><filename class="directory"
+>/usr/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para pacotes Flatpak</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>nome-pacote-flatpak</replaceable
+>/data/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para pacotes Snap</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>nome-pacote-snap</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+<row>
+<entry
+>No &Windows;</entry>
+<entry
+><filename class="directory"
+>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>No &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Se existirem vários arquivos para a mesma linguagem, o arquivo com o atributo de versão mais alto no elemento <userinput
+>language</userinput
+> será carregado.</para>
 
 <variablelist>
 <title
@@ -258,7 +376,7 @@
 
 <varlistentry>
 <term
->Um arquivo de realce contém um cabeçalho que define a versão do XML:</term>
+>Um arquivo de realce contém um cabeçalho que define a versão do &XML;:</term>
 <listitem>
 <programlisting
 >&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
@@ -287,6 +405,14 @@
 >O <userinput
 >extensions</userinput
 > define as extensões dos arquivos, como por exemplo, &quot;*.cpp;*.h&quot;</para>
+<para
+>O <userinput
+>version</userinput
+> especifica a revisão atual do arquivo de definição em termos de um número inteiro. Sempre que você alterar um arquivo de definição de realce, certifique-se de aumentar esse número.</para>
+<para
+>O <userinput
+>kateversion</userinput
+> indica a última versão suportada pelo &kappname;.</para>
 
 <para
 >Atributos opcionais:</para>
@@ -294,14 +420,6 @@
 >O <userinput
 >mimetype</userinput
 > associa os arquivos do tipo &MIME;.</para>
-<para
->O <userinput
->version</userinput
-> indica a versão atual do arquivo de definição.</para>
-<para
->O <userinput
->kateversion</userinput
-> indica a última versão suportada pelo &kappname;.</para>
 <para
 >O <userinput
 >casesensitive</userinput
@@ -317,7 +435,7 @@
 <para
 >O <userinput
 >license</userinput
-> contém a licença, que é normalmente a LGPL, a Artistic, a GPL ou outras.</para>
+> contém a licença, que é normalmente a licença MIT para novos arquivos de realce de sintaxe.</para>
 <para
 >O <userinput
 >style</userinput
@@ -326,12 +444,20 @@
 >.</para>
 <para
 >O <userinput
+>indenter</userinput
+> define qual indentador será usado por padrão. Os indentadores disponíveis são: <emphasis
+>ada, normal, cstyle, cmake, haskell, latex, lilypond, lisp, lua, pascal, python, replicode, ruby</emphasis
+> e <emphasis
+>xml</emphasis
+>.</para>
+<para
+>O <userinput
 >hidden</userinput
 > define se o nome deverá aparecer nos menus do &kappname;.</para>
 <para
 >Assim, a próxima linha se parece com o seguinte:</para>
 <programlisting
->&lt;language name=&quot;C++&quot; version=&quot;1.00&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
+>&lt;language name=&quot;C++&quot; version=&quot;1&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
 </programlisting>
 </listitem>
 </varlistentry>
@@ -358,6 +484,22 @@
 >const</emphasis
 >.Você poderá adicionar tantas listas quanto desejar.</para>
 <para
+>Desde o &kde-frameworks; 5.53, uma lista pode incluir palavras-chave de outra lista ou linguagem/arquivo, usando o elemento <userinput
+>include</userinput
+>. O <userinput
+>##</userinput
+> é usado para separar o nome da lista e o nome da definição da linguagem, da mesma forma que na regra <userinput
+>IncludeRules</userinput
+>. Isso é útil para evitar a duplicação de listas de palavras-chave, caso você precise incluir as palavras-chave de outra linguagem/arquivo. Por exemplo, a lista <emphasis
+>othername</emphasis
+> contém a palavra-chave <emphasis
+>str</emphasis
+> e todas as palavras-chave da lista <emphasis
+>types</emphasis
+>, que pertence à linguagem <emphasis
+>ISO C++</emphasis
+>.</para>
+<para
 >O elemento <userinput
 >contexts</userinput
 > contém todos os contextos. O primeiro contexto é, por padrão, o início do realce. Existem duas regras no contexto <emphasis
@@ -381,13 +523,18 @@
 > (Palavra-Chave). </para>
 <programlisting
 >&lt;highlighting&gt;
-    &lt;list name=&quot;um_nome&quot;&gt;
-      &lt;item&gt; class &lt;/item&gt;
-      &lt;item&gt; const &lt;/item&gt;
+    &lt;list name=&quot;somename&quot;&gt;
+      &lt;item&gt;class&lt;/item&gt;
+      &lt;item&gt;const&lt;/item&gt;
+    &lt;/list&gt;
+    &lt;list name=&quot;othername&quot;&gt;
+      &lt;item&gt;str&lt;/item&gt;
+      &lt;include&gt;types##ISO C++&lt;/include&gt;
     &lt;/list&gt;
     &lt;contexts&gt;
       &lt;context attribute=&quot;Normal Text&quot; lineEndContext=&quot;#pop&quot; name=&quot;Normal Text&quot; &gt;
         &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;somename&quot; /&gt;
+        &lt;keyword attribute=&quot;Keyword&quot; context=&quot;#stay&quot; String=&quot;othername&quot; /&gt;
         &lt;DetectChar attribute=&quot;String&quot; context=&quot;string&quot; char=&quot;&amp;quot;&quot; /&gt;
       &lt;/context&gt;
       &lt;context attribute=&quot;String&quot; lineEndContext=&quot;#stay&quot; name=&quot;string&quot; &gt;
@@ -408,7 +555,7 @@
 <term
 >A última parte de uma definição de realce é a seção opcional <userinput
 >general</userinput
->. Ela poderá conter informações sobre as palavras-chave, expansão/recolhimento de código, comentários e recuo.</term>
+>. Ela poderá conter informações sobre as palavras-chave, expansão/recolhimento de código, comentários, recuo, linhas vazias e verificação ortográfica.</term>
 
 <listitem>
 <para
@@ -425,12 +572,30 @@
 >A seção <userinput
 >keywords</userinput
 > define se as listas de palavras-chave fazem distinção entre maiúsculas e minúsculas ou não. Os outros atributos serão explicados mais tarde.</para>
+<para
+>As outras seções, <userinput
+>folding</userinput
+>, <userinput
+>emptyLines</userinput
+> e <userinput
+>spellchecking</userinput
+>, geralmente não são necessárias e serão explicadas posteriormente.</para>
 <programlisting
 >&lt;general&gt;
     &lt;comments&gt;
       &lt;comment name="singleLine" start="#"/&gt;
+      &lt;comment name="multiLine" start="###" end="###" region="CommentFolding"/&gt;
     &lt;/comments&gt;
     &lt;keywords casesensitive="1"/&gt;
+    &lt;folding indentationsensitive="0"/&gt;
+    &lt;emptyLines&gt;
+      &lt;emptyLine regexpr="\s+"/&gt;
+      &lt;emptyLine regexpr="\s*#.*"/&gt;
+    &lt;/emptyLines&gt;
+    &lt;spellchecking&gt;
+      &lt;encoding char="&#225;" string="\&#39;a"/&gt;
+      &lt;encoding char="&#224;" string="\&#96;a"/&gt;
+    &lt;/spellchecking&gt;
   &lt;/general&gt;
 &lt;/language&gt;
 </programlisting>
@@ -444,7 +609,7 @@
 
 <sect3 id="kate-highlight-sections">
 <title
->As Seções em Detalhe</title>
+>As Seções em detalhes</title>
 <para
 >Esta parte irá descrever todos os atributos disponíveis para o 'contexts', o 'itemDatas', o 'keywords', o 'comments', a expansão de código e o recuo.</para>
 
@@ -460,9 +625,19 @@
 
 <listitem>
 <para
-><userinput
+>O <userinput
 >name</userinput
 > declara o nome do contexto. As regras irão usar esse nome para indicar o contexto para onde mudar, se a regra corresponder.</para>
+
+<para
+>O <userinput
+>attribute</userinput
+> identifica o estilo a ser usado para um caractere quando nenhuma regra corresponde ou quando uma regra não especifica um atributo. Neste último caso, o <emphasis
+>attribute</emphasis
+> do contexto especificado no <emphasis
+>context</emphasis
+> da regra será usado.</para>
+
 <para
 >O <userinput
 >lineEndContext</userinput
@@ -476,27 +651,47 @@
 >#pop#pop!OutroContexto</userinput
 > para sair duas vezes e mudar para o contexto <userinput
 >OutroContexto</userinput
->.</para>
+>. Também é possível alternar para um contexto que pertence a outra definição de linguagem, da mesma forma que nas regras <userinput
+>IncludeRules</userinput
+>, por exemplo, <userinput
+>AlgumContexto##JavaScript</userinput
+>. As mudanças de contexto também são descritas em <xref linkend="kate-highlight-rules-detailled"/>. Padrão: #stay.</para>
 <para
 >O <userinput
 >lineEmptyContext</userinput
-> define o contexto, se for encontrada uma linha em branco. Padrão: #stay.</para>
+> define o contexto, se for encontrada uma linha em branco. A nomenclatura das mudanças de contexto é a mesma que a descrita anteriormente em <emphasis
+>lineEndContext</emphasis
+>. Padrão: #stay.</para>
+<para
+>O <userinput
+>fallthroughContext</userinput
+> especifica o próximo contexto para o qual alternar caso nenhuma regra corresponda. A nomenclatura das mudanças de contexto é a mesma descrita anteriormente em <emphasis
+>lineEndContext</emphasis
+>. Padrão: #stay.</para>
 <para
 >O <userinput
 >fallthrough</userinput
-> define se o sistema de realce salta para o contexto indicado em 'fallthroughContext' se não corresponder nenhuma regra. Padrão: <emphasis
+> define se o sistema de realce alterna para o contexto especificado em <userinput
+>fallthroughContext</userinput
+> caso nenhuma regra corresponda. Observe que, desde o &kde; &frameworks; 5.62, este atributo está obsoleto em favor de <userinput
+>fallthroughContext</userinput
+>, pois, se o atributo <userinput
+>fallthroughContext</userinput
+> estiver presente, subentende-se implicitamente que o valor de <userinput
+>fallthrough</userinput
+> é <emphasis
+>true</emphasis
+>. Padrão: <emphasis
 >false</emphasis
 >.</para>
 <para
 >O <userinput
->fallthroughContext</userinput
-> define o próximo contexto, se nenhuma regra corresponder.</para>
-<para
->O <userinput
->dynamic</userinput
->, se for <emphasis
->true</emphasis
-> (verdadeiro), fará com que o contexto recorde os textos/sequências de substituição gravados pelas regras dinâmicas. Isto é necessário, por exemplo, para os documentos do HERE. Padrão: <emphasis
+>noIndentationBasedFolding</userinput
+> desativa o recolhimento baseado em indentação no contexto. Se o recolhimento baseado em indentação não estiver ativado, este atributo é inútil. Ele é definido no elemento <emphasis
+>folding</emphasis
+> do grupo <emphasis
+>general</emphasis
+>. Padrão: <emphasis
 >false</emphasis
 >.</para>
 </listitem>
@@ -550,7 +745,7 @@
 > (verdadeiro), irá colocar o texto sublinhado.</para>
 <para
 >O <userinput
->strikeout</userinput
+>strikeOut</userinput
 >, se for <emphasis
 >true</emphasis
 > (verdadeiro), o texto ficará traçado.</para>
@@ -615,19 +810,25 @@
 <term
 >O elemento <userinput
 >comment</userinput
->, no grupo <userinput
+> no grupo <userinput
 >comments</userinput
->, define as propriedades dos comentários que são usadas nas opções <menuchoice
+> define propriedades de comentário que são usadas para: <menuchoice
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
 >Comentar</guimenuitem
 ></menuchoice
-> e <menuchoice
+>, <menuchoice
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
 >Descomentar</guimenuitem
+></menuchoice
+> e <menuchoice
+><guimenu
+>Ferramentas</guimenu
+><guimenuitem
+>Alternar comentário</guimenuitem
 ></menuchoice
 >. Os atributos disponíveis são:</term>
 
@@ -645,15 +846,25 @@
 >end</emphasis
 > e <emphasis
 >region</emphasis
+>. Se escolher <emphasis
+>singleLine</emphasis
+>, poderá adicionar o atributo opcional <emphasis
+>position</emphasis
 >.</para>
 <para
 >O <userinput
 >start</userinput
-> define o texto usado para iniciar um comentário. No C++, este será o &quot;/*&quot;.</para>
+> define o texto usado para iniciar um comentário. No C++, este será o &quot;/*&quot; em comentários de várias linhas. Este atributo é obrigatório para os tipos <emphasis
+>multiLine</emphasis
+> e <emphasis
+>singleLine</emphasis
+>.</para>
 <para
 >O <userinput
 >end</userinput
-> define o texto usado para fechar um comentário. No C++, será o &quot;*/&quot;.</para>
+> define o texto usado para fechar um comentário. No C++, será o &quot;*/&quot;. Este atributo está disponível apenas e é obrigatório para comentários do tipo <emphasis
+>multiLine</emphasis
+>.</para>
 <para
 >O <userinput
 >region</userinput
@@ -663,7 +874,19 @@
 >endRegion="Comment"</emphasis
 > nas suas regras; nesse caso, deverá usar o <emphasis
 >region="Comment"</emphasis
->. Desta forma, a remoção de comentários funciona, mesmo que não tenha selecionado todo o texto do comentário multi-linhas. O cursor só precisa estar dentro deste comentário.</para>
+>. Desta forma, a remoção de comentários funciona, mesmo que não tenha selecionado todo o texto do comentário multi-linhas. O cursor só precisa estar dentro deste comentário. Este atributo está disponível apenas para o tipo <emphasis
+>multiLine</emphasis
+>.</para>
+<para
+>O <userinput
+>position</userinput
+> define onde o comentário de linha única é inserido. Por padrão, o comentário de linha única é colocado no início da linha na coluna 0, mas se você usar <emphasis
+>position="afterwhitespace"</emphasis
+> o comentário é inserido após os espaços em branco iniciais à direita, antes do primeiro caractere que não seja um espaço em branco. Isso é útil para colocar comentários corretamente em linguagens onde a indentação é importante, como Python ou YAML. Este atributo é opcional e o único valor possível é <emphasis
+>afterwhitespace</emphasis
+>. Isso só está disponível para o tipo <emphasis
+>singleLine</emphasis
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -692,19 +915,46 @@
 <varlistentry>
 <term
 >O elemento <userinput
->indentation</userinput
->, no grupo <userinput
->general</userinput
->, define qual o sistema de recuo será usado. Contudo, recomenda-se omitir esse elemento, uma vez que o sistema de recuo será normalmente definido a partir de um Tipo de Arquivo ou através da adição da linha de modo no arquivo de texto. Se você indicar um sistema de recuo, todavia, irá obrigar o usuário a usar um sistema de recuo específico, o que poderá não ser o que ele quer. Os atributos disponíveis são:</term>
+>emptyLine</userinput
+> no grupo <userinput
+>emptyLines</userinput
+> define quais linhas devem ser tratadas como linhas vazias. Isso permite modificar o comportamento do atributo <emphasis
+>lineEmptyContext</emphasis
+> nos elementos <userinput
+>context</userinput
+>. Os atributos disponíveis são:</term>
 
 <listitem>
 <para
 >O <userinput
->mode</userinput
-> é o nome do sistema de recuo. Os sistemas disponíveis atualmente são: <emphasis
->normal, cstyle, haskell, lilypond, lisp, python, ruby</emphasis
-> e <emphasis
->xml</emphasis
+>regexpr</userinput
+> define uma expressão regular que será tratada como uma linha em branco. Por padrão, linhas em branco não contêm nenhum caractere; portanto, isso adiciona linhas em branco adicionais, por exemplo, se você quiser que linhas com espaços também sejam consideradas linhas em branco. No entanto, na maioria das definições de sintaxe, você não precisa definir esse atributo.</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+>O elemento <userinput
+>encoding</userinput
+> no grupo <userinput
+>spellchecking</userinput
+> define uma codificação de caracteres para a verificação ortográfica. Atributos disponíveis:</term>
+
+<listitem>
+<para
+>O <userinput
+>char</userinput
+> é um caractere codificado.</para>
+<para
+>O <userinput
+>string</userinput
+> é uma sequência de caracteres que será codificada como o caractere <emphasis
+>char</emphasis
+> na verificação ortográfica. Por exemplo, na linguagem LaTeX, a string <userinput
+>\&quot;{A}</userinput
+> representa o caractere <userinput
+>&#196;</userinput
 >.</para>
 </listitem>
 </varlistentry>
@@ -742,7 +992,7 @@
 <para
 ><userinput
 >dsVariable</userinput
->, se aplicável: nomes das variáveis (por exemplo, $algumaVariavel em PHP/Perl).</para>
+>, se aplicável: nomes das variáveis (&eg; $algumaVariavel em PHP/Perl).</para>
 <para
 ><userinput
 >dsControlFlow</userinput
@@ -758,7 +1008,7 @@
 <para
 ><userinput
 >dsExtension</userinput
->, extensões comuns, como as classes e funções/macros do Qt em C++ e Python.</para>
+>, extensões comuns, como as classes e funções/macros do &Qt; em C++ e Python.</para>
 <para
 ><userinput
 >dsPreprocessor</userinput
@@ -793,7 +1043,7 @@
 <para
 ><userinput
 >dsSpecialString</userinput
->, SQL, expressões regulares, documentação, modo matemático do LaTeX, ...</para>
+>, SQL, expressões regulares, documentação, modo matemático do &latex;, ...</para>
 <para
 ><userinput
 >dsImport</userinput
@@ -932,7 +1182,9 @@
 >#stay</userinput
 >), ou voltar a usar um contexto usado anteriormente na string (<userinput
 >#pop</userinput
->).</para>
+>). Um contexto vazio ou ausente é equivalente a <userinput
+>#stay</userinput
+>.</para>
 <para
 >Para voltar mais passos, a palavra-chave #pop pode ser repetida: <userinput
 >#pop#pop#pop</userinput
@@ -946,28 +1198,28 @@
 >!</emphasis
 >) e um <emphasis
 >identificador</emphasis
->, que fará com que o mecanismo siga primeiro a ordem e depois mude para o outro contexto, por exemplo, <userinput
+>, que fará com que o mecanismo siga primeiro a ordem e depois mude para o outro contexto, &eg; <userinput
 >#pop#pop!OtherContext</userinput
 >.</para>
+</listitem>
+<listitem>
+<para
+>Um <emphasis
+>identificador</emphasis
+>, que é um nome de contexto, seguido por dois hashes (<userinput
+>##</userinput
+>) e outro <emphasis
+>identificador</emphasis
+>, que é o nome de uma definição de linguagem. Essa nomenclatura é similar à usada nas regras <userinput
+>IncludeRules</userinput
+> e permite que você alterne para um contexto pertencente a outra definição de realce de sintaxe, por exemplo, <userinput
+>AlgumContexto##JavaScript</userinput
+>. </para>
 </listitem>
 </itemizedlist>
 
 <para
->Algumas regras podem ter <emphasis
->regras-filhas</emphasis
->, as quais podem ser avaliadas se e só se a regra-mãe foi verificada. O texto inteiro verificado terá o atributo definido pela regra-mãe. Uma regra com regras-filhas se pareceria com a seguinte:</para>
-
-<programlisting
->&lt;NomedaRegra (atributos)&gt;
-  &lt;NomedaRegraFilha (atributos) /&gt;
-  ...
-&lt;/NomedaRegra&gt;
-</programlisting>
-
-
-<para
 >Os atributos específicos da regra variam e estão descritos nas seções a seguir.</para>
-
 
 <itemizedlist>
 <title
@@ -975,11 +1227,7 @@
 <para
 >Todas as regras possuem os seguintes atributos em comum e estão disponíveis sempre que os <userinput
 >(atributos comuns)</userinput
-> aparecerem. O <emphasis
->attribute</emphasis
-> e o <emphasis
->context</emphasis
-> são atributos obrigatórios, enquanto os outros são opcionais. </para>
+> aparecerem. Todos os atributos são opcionais. </para>
 
 <listitem>
 <para
@@ -987,13 +1235,17 @@
 >attribute</emphasis
 >: Um atributo mapeia-se para um <emphasis
 >itemData</emphasis
-> definido.</para>
+> definido. Padrão: <emphasis
+>attribute</emphasis
+> do contexto especificado no atributo <emphasis
+>context</emphasis
+>.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: Indica o contexto para onde muda o sistema de realce, se a regra corresponder.</para>
+>: Indica o contexto para onde muda o sistema de realce, se a regra corresponder. Padrão: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1055,7 +1307,7 @@
 >%N</replaceable
 > (em que o N é um número) será substituído pela captura correspondente a <replaceable
 >N</replaceable
-> na expressão regular de chamada. Num <userinput
+> na expressão regular de chamada, iniciando de 1. Num <userinput
 >char</userinput
 >, a sequência de substituição deverá ser um número <replaceable
 >N</replaceable
@@ -1075,9 +1327,199 @@
 </listitem>
 </itemizedlist>
 
+<para
+><userinput
+>Como isto funciona:</userinput
+></para>
+
+<para
+>Nas <link linkend="regular-expressions"
+>expressões regulares</link
+> das regras <userinput
+>RegExpr</userinput
+>, todo o texto entre colchetes curvos simples <userinput
+>(PADRÃO)</userinput
+> é capturado e armazenado. Essas capturas podem ser usadas no contexto em que são alternadas, nas regras com o atributo <userinput
+>dynamic</userinput
+> <emphasis
+>true</emphasis
+>, por meio de <replaceable
+>%N</replaceable
+> (em <emphasis
+>String</emphasis
+>) ou <replaceable
+>N</replaceable
+> (em <emphasis
+>char</emphasis
+>).</para>
+
+<para
+>É importante mencionar que um texto capturado em uma regra <userinput
+>RegEx</userinput
+> é armazenado apenas para o contexto alterado, especificado em seu atributo <userinput
+>context</userinput
+>.</para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para
+>Se as capturas não forem usadas, tanto por regras dinâmicas quanto na mesma expressão regular, grupos não capturantes devem ser usados: <userinput
+>(?:PADRÃO)</userinput
+></para>
+<para
+>Os grupos <emphasis
+>lookahead</emphasis
+> ou <emphasis
+>lookbehind</emphasis
+>, como <userinput
+>(?=PADRÃO)</userinput
+>, <userinput
+>(?!PADRÃO)</userinput
+> ou <userinput
+>(?&lt;=PADRÃO)</userinput
+>, não são capturados. Consulte <link linkend="regular-expressions"
+>Expressões regulares</link
+> para obter mais informações.</para>
+</listitem>
+
+<listitem>
+<para
+>Os grupos de captura podem ser usados ​​dentro da mesma expressão regular, usando <replaceable
+>\N</replaceable
+> em vez de <replaceable
+>%N</replaceable
+> respectivamente. Para mais informações, consulte <link linkend="regex-capturing"
+>Capturando texto correspondente (referências anteriores)</link
+> em <link linkend="regular-expressions"
+>Expressões regulares</link
+>.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+<para
+>Exemplo 1:</para>
+<para
+>Neste exemplo simples, o texto correspondente à expressão regular <userinput
+>=*</userinput
+> é capturado e inserido em <replaceable
+>%1</replaceable
+> na regra dinâmica. Isso permite que o comentário termine com a mesma quantidade de <userinput
+>=</userinput
+> que no início. Isso corresponde a textos como: <userinput
+>[[ comentário ]]</userinput
+>, <userinput
+>[=[ comentário ]=]</userinput
+> ou <userinput
+>[=====[ comentário ]=====]</userinput
+>.</para>
+<para
+>Além disso, as capturas estão disponíveis apenas no contexto alternado para <emphasis
+>Comentário de várias linhas</emphasis
+>.</para>
+
+<programlisting
+>&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="Multi-line Comment" attribute="Comment" String="\[(=*)\[" beginRegion="RegionComment"/&gt;
+&lt;/context&gt;
+&lt;context name="Multi-line Comment" attribute="Comment" lineEndContext="#stay"&gt;
+  &lt;StringDetect context="#pop" attribute="Comment" String="]%1]" dynamic="true" endRegion="RegionComment"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para
+>Exemplo 2:</para>
+<para
+>Na regra dinâmica, <replaceable
+>%1</replaceable
+> corresponde à captura que corresponde a <userinput
+>#+</userinput
+>, e <replaceable
+>%2</replaceable
+> a <userinput
+>&amp;quot;+</userinput
+>. Isso corresponde ao texto como:<userinput
+>#label""""dentro do contexto""""#</userinput
+>.</para>
+<para
+>Essas capturas não estarão disponíveis em outros contextos, como <emphasis
+>OtherContext</emphasis
+>, <emphasis
+>FindEscapes</emphasis
+> ou <emphasis
+>SomeContext</emphasis
+>.</para>
+
+<programlisting
+>&lt;context name="SomeContext" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!NamedString" attribute="String" String="(#+)(?:[\w-]|[^[:ascii:]])(&amp;quot;+)"/&gt;
+&lt;/context&gt;
+&lt;context name="NamedString" attribute="String" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="#pop!OtherContext" attribute="String" String="%2(?:%1)?" dynamic="true"/&gt;
+  &lt;DetectChar context="FindEscapes" attribute="Escape" char="\"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<para
+>Exemplo 3:</para>
+<para
+>Isso corresponde a textos como: <userinput
+>Class::function&lt;T&gt;( ... )</userinput
+>.</para>
+
+<programlisting
+>&lt;context name="Normal" attribute="Normal Text" lineEndContext="#stay"&gt;
+  &lt;RegExpr context="FunctionName" lookAhead="true"
+              String="\b([a-zA-Z_][\w-]*)(::)([a-zA-Z_][\w-]*)(?:&amp;lt;[\w\-\s]*&amp;gt;)?(\()"/&gt;
+&lt;/context&gt;
+&lt;context name="FunctionName" attribute="Normal Text" lineEndContext="#pop"&gt;
+  &lt;StringDetect context="#stay" attribute="Class" String="%1" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Operator" String="%2" dynamic="true"/&gt;
+  &lt;StringDetect context="#stay" attribute="Function" String="%3" dynamic="true"/&gt;
+  &lt;DetectChar context="#pop" attribute="Normal Text" char="4" dynamic="true"/&gt;
+&lt;/context&gt;
+</programlisting>
+
+<itemizedlist>
+<title
+>Delimitadores locais</title>
+<para
+>Algumas regras permitem os atributos opcionais <userinput
+>weakDeliminator</userinput
+> e <userinput
+>additionalDeliminator</userinput
+>, que são combinados com atributos de mesmo nome da tag <userinput
+>keywords</userinput
+>. Por exemplo, quando <userinput
+>'%'</userinput
+> é um delimitador fraco de <userinput
+>keywords</userinput
+>, ele pode se tornar um delimitador de palavras apenas para uma regra ao ser inserido em seu atributo <userinput
+>additionalDeliminator</userinput
+>. Sempre que uma regra permite esses atributos, ela conterá um <emphasis
+>(delimitadores locais)</emphasis
+>.</para>
+
+<listitem>
+<para
+><emphasis
+>weakDeliminator</emphasis
+>: lista de caracteres que não atuam como delimitadores de palavras.</para>
+</listitem>
+<listitem>
+<para
+><emphasis
+>additionalDeliminator</emphasis
+>: define os delimitadores ou separadores adicionais.</para>
+</listitem>
+</itemizedlist>
+
 <sect3 id="highlighting-rules-in-detail">
 <title
->As Regras em Detalhes</title>
+>As regras em detalhes</title>
 
 <variablelist>
 <varlistentry>
@@ -1102,13 +1544,17 @@
 <para
 >Detecta dois caracteres específicos, em uma ordem definida.</para>
 <programlisting
->&lt;Detect2Chars char=&quot;(caractere)&quot; char1=&quot;(caractere)&quot; (atributos comuns) (dinâmico) /&gt;</programlisting>
+>&lt;Detect2Chars char=&quot;(caractere)&quot; char1=&quot;(caractere)&quot; (atributos comuns) /&gt;</programlisting>
 <para
 >O atributo <userinput
 >char</userinput
 > define o primeiro caractere a ser procurado, e o atributo <userinput
 >char1</userinput
 > o segundo.</para>
+<para
+>Esta regra existe por razões históricas e, para facilitar a leitura, é preferível usar <userinput
+>StringDetect</userinput
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -1161,7 +1607,7 @@
 >Exp Reg</userinput
 >.</para>
 <programlisting
->&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false;&quot;] (atributos comuns) (dinâmico) /&gt;</programlisting>
+>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false;&quot;] (atributos comuns) (delimitadores locais) /&gt;</programlisting>
 <para
 >O atributo <userinput
 >String</userinput
@@ -1173,7 +1619,7 @@
 >true</emphasis
 > a comparação não faz distinção entre maiúsculas e minúsculas.</para>
 <para
->Desde: Kate 3.5 (KDE 4.5)</para>
+>Desde: &kate; 3.5 (&kde; 4.5)</para>
 </listitem>
 </varlistentry>
 
@@ -1219,7 +1665,7 @@
 <para
 >Detecta uma palavra-chave de uma lista especificada.</para>
 <programlisting
->&lt;keyword String=&quot;(nome da lista)&quot; (atributos comuns) /&gt;</programlisting>
+>&lt;keyword String=&quot;(nome da lista)&quot; (atributos comuns) (delimitadores locais) /&gt;</programlisting>
 <para
 >O atributo <userinput
 >String</userinput
@@ -1237,7 +1683,11 @@
 >keywords</emphasis
 >. Este caractere irá então perder a sua propriedade de separador em todas as regras <emphasis
 >keyword</emphasis
->.</para>
+>. Também é possível usar o atributo <emphasis
+>weakDeliminator</emphasis
+> de <emphasis
+>keyword</emphasis
+> para que esta modificação se aplique apenas a esta regra.</para>
 </listitem>
 </varlistentry>
 
@@ -1246,29 +1696,15 @@
 >Int</term>
 <listitem>
 <para
->Detecta um número inteiro.</para>
+>Detecta um número inteiro (como a expressão regular: <userinput
+>\b[0-9]+</userinput
+>).</para>
 <para
 ><programlisting
->&lt;Int (atributos comuns) (dinâmico) /&gt;</programlisting
+>&lt;Int (atributos comuns) (delimitadores locais) /&gt;</programlisting
 ></para>
 <para
->Esta regra não tem atributos específicos. As regras-filho são tipicamente usadas para detectar as combinações de <userinput
->L</userinput
-> e <userinput
->U</userinput
-> depois do número, o que indica o tipo inteiro no código do programa. De fato, todas as regras são permitidas como regras-filhas, contudo, o <acronym
->DTD</acronym
-> só permite a regra-filha <userinput
->StringDetect</userinput
->.</para>
-<para
->O exemplo a seguir faz correspondência com os números inteiros, seguidos do caractere 'L'. <programlisting
->&lt;Int attribute="Decimal" context="#stay" &gt;
-  &lt;StringDetect attribute="Decimal" context="#stay" String="L" insensitive="true"/&gt;
-&lt;/Int&gt;
-</programlisting
-></para>
-
+>Esta regra não possui atributos específicos.</para>
 </listitem>
 </varlistentry>
 
@@ -1277,17 +1713,15 @@
 >Float</term>
 <listitem>
 <para
->Detecta um número de ponto flutuante.</para>
+>Detecta um número de ponto flutuante (como a expressão regular: <userinput
+>(\b[0-9]+\.[0-9]*|\.[0-9]+)([eE][-+]?[0-9]+)?</userinput
+>).</para>
 <para
 ><programlisting
->&lt;Float (atributos comuns) /&gt;</programlisting
+>&lt;Float (atributos comuns) (delimitadores locais) /&gt;</programlisting
 ></para>
 <para
->Esta regra não tem atributos específicos. O <userinput
->AnyChar</userinput
-> é permitido como regra-filha e é tipicamente usada para detectar combinações; veja a regra <userinput
->Int</userinput
-> para mais referências.</para>
+>Esta regra não possui atributos específicos.</para>
 </listitem>
 </varlistentry>
 
@@ -1296,10 +1730,12 @@
 >HlCOct</term>
 <listitem>
 <para
->Detecta uma representação de um número octal.</para>
+>Detecta uma representação de número de ponto octal (como a expressão regular: <userinput
+>\b0[0-7]+</userinput
+>).</para>
 <para
 ><programlisting
->&lt;HlCOct (atributos comuns) /&gt;</programlisting
+>&lt;HlCOct (atributos comuns) (delimitadores locais) /&gt;</programlisting
 ></para>
 <para
 >Esta regra não possui atributos específicos.</para>
@@ -1311,10 +1747,12 @@
 >HlCHex</term>
 <listitem>
 <para
->Detecta uma representação de um número hexadecimal.</para>
+>Detecta uma representação numérica hexadecimal (como uma expressão regular: <userinput
+>\b0[xX][0-9a-fA-F]+</userinput
+>).</para>
 <para
 ><programlisting
->&lt;HlCHex (atributos comuns) /&gt;</programlisting
+>&lt;HlCHex (atributos comuns) (delimitadores locais) /&gt;</programlisting
 ></para>
 <para
 >Esta regra não possui atributos específicos.</para>
@@ -1474,7 +1912,9 @@
 >DetectIdentifier</term>
 <listitem>
 <para
->Detecta os textos dos identificadores (como acontece na expressão regular: [a-zA-Z_][a-zA-Z0-9_]*).</para>
+>Detecta os textos dos identificadores (como a expressão regular: <userinput
+>[a-zA-Z_][a-zA-Z0-9_]*</userinput
+>).</para>
 <programlisting
 >&lt;DetectIdentifier (atributos comuns) /&gt;</programlisting>
 
@@ -1498,16 +1938,6 @@
 
 <listitem>
 <para
->Se você só corresponder com 2 caracteres, use o <userinput
->Detect2Chars</userinput
-> em vez do <userinput
->StringDetect</userinput
->. O mesmo aplica-se ao <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >As expressões regulares são fáceis de usar mas, normalmente, existe outra forma muito mais rápida de obter o mesmo resultado. Assuma que só deseja corresponder com o caractere <userinput
 >'#'</userinput
 > se for o primeiro caractere da linha. Uma solução baseada em expressões regulares seria semelhante à seguinte: <programlisting
@@ -1526,12 +1956,30 @@
 </listitem>
 <listitem>
 <para
+>Nas regras <userinput
+>RegExpr</userinput
+>, use o atributo <userinput
+>column="0"</userinput
+> se o padrão <userinput
+>^PADRÃO</userinput
+> for usado para encontrar correspondências no início de uma linha. Isso melhora o desempenho, pois evita a busca por correspondências nas demais colunas.</para>
+</listitem>
+<listitem>
+<para
+>Em expressões regulares, use grupos não capturantes <userinput
+>(?:PADRÃO)</userinput
+> em vez de grupos capturantes <userinput
+>(PADRÃO)</userinput
+>, se as capturas não forem usadas na mesma expressão regular ou em regras dinâmicas. Isso evita o armazenamento desnecessário de capturas.</para>
+</listitem>
+<listitem>
+<para
 >Você poderá mudar de contextos sem processar os caracteres. Assuma que deseja mudar de contexto quando encontrar o texto <userinput
 >*/</userinput
 >, mas necessita de processar essa sequência no próximo contexto. A regra abaixo irá corresponder e o atributo <userinput
 >lookAhead</userinput
 > fará com que o sistema de realce mantenha o texto correspondente no próximo contexto. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -1554,13 +2002,19 @@
 </listitem>
 <listitem>
 <para
->Procure em outros arquivos XML para ver como as outras pessoas implementam as regras mais complicadas.</para>
+>Procure em outros arquivos &XML; para ver como as outras pessoas implementam as regras mais complicadas.</para>
 </listitem>
 <listitem>
 <para
->Você poderá validar todos os arquivos XML se usar o comando <command
->xmllint --schema language.xsd MinhaSintaxe.xml</command
->.</para>
+>Você pode validar todos os arquivos &XML; usando o comando <command
+>validatehl.sh mySyntax.xml</command
+>. O arquivo <filename
+>validatehl.sh</filename
+> usa <filename
+>language.xsd</filename
+> que estão disponíveis no <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>Repositório de realce de sintaxe</ulink
+>. </para>
 </listitem>
 <listitem>
 <para
@@ -1569,15 +2023,53 @@
 >. Por exemplo:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
-        &lt;!ENTITY referencia    "[A-Za-z_:][\w.:_-]*"&gt;
+        &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
 </programlisting>
 <para
 >Agora, você poderá usar o <emphasis
 >&amp;referencia;</emphasis
 > em vez da expressão regular.</para>
+</listitem>
+<listitem>
+<para
+>No editor do Kate, você pode recarregar as sintaxes usando a linha de comando integrada (atalho <userinput
+>F7</userinput
+> por padrão) e o comando <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Você pode usar o utilitário de linha de comando chamado <userinput
+>ksyntaxhighlighter6</userinput
+> (<userinput
+>kate-syntax-highlighter</userinput
+> em versões mais antigas) para testar uma sintaxe e exibir o estilo e as regiões associadas a cada parte de um texto.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Resultado de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Resultado de <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Use <command
+>ksyntaxhighlighter6 -h</command
+> para mais opções.</para>
 </listitem>
 </itemizedlist>
 </sect3>
@@ -1587,12 +2079,2183 @@
 </sect1>
 
 
-<sect1 id="dev-scripting">
+<sect1 id="color-themes">
 <title
->Criação de scripts com JavaScript</title>
+>Trabalhando com temas de cores</title>
+
+<sect2 id="color-themes-overview">
+
+<title
+>Introdução</title>
 
 <para
->O componente de edição do &kappname; é facilmente extensível, através da criação de scripts. A linguagem de programação é o ECMAScript (popularmente conhecido como JavaScript). O &kappname; suporta dois tipos de scripts: os de recuo e os de linha de comando. </para>
+>Os temas de cores definem as cores da <link linkend="kate-part"
+>área de edição de texto</link
+> e do <link linkend="highlight"
+>realce de sintaxe</link
+>. Um tema de cores engloba o seguinte: <itemizedlist>
+<listitem
+><para
+>O estilo do texto, usado para realce de sintaxe através dos <emphasis
+>atributos de estilo padrão</emphasis
+>. Por exemplo, a cor do texto e a cor do texto selecionada.</para
+></listitem>
+<listitem
+><para
+>O plano de fundo da área de edição de texto, incluindo a seleção de texto e a linha atual.</para
+></listitem>
+<listitem
+><para
+>A borda do ícone da área de texto: seu fundo, a linha separadora, os números de linha, os marcadores de quebra de linha, as marcas de linha modificadas e o recolhimento de código.</para
+></listitem>
+<listitem
+><para
+>Decoradores de texto, como marcadores de pesquisa, recuo e marcas de tabulação/espaço, a correspondência de parênteses e a verificação ortográfica.</para
+></listitem>
+<listitem
+><para
+>Favoritos e trechos de código.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<para
+>Para evitar confusão, o seguinte está fora do escopo: <itemizedlist>
+<listitem
+><para
+>O tipo e o tamanho da fonte.</para
+></listitem>
+<listitem
+><para
+>As cores do aplicativo de edição de texto, como o mapa da barra de rolagem, os menus, a barra de abas, a cor da janela, etc. Em aplicativos do &kde;, como o &kate; ou o &kdevelop;, essas cores são definidas pelo <userinput
+>esquema de cores global do &kde; &plasma;</userinput
+>, que é configurado no módulo <ulink url="help:/kcontrol/colors/"
+><quote
+>Cores</quote
+> em &systemsettings;</ulink
+> ou no próprio aplicativo, no menu <menuchoice
+><guimenu
+>Configurações</guimenu
+><guisubmenu
+>Esquema de cores</guisubmenu
+></menuchoice
+>. </para
+></listitem>
+</itemizedlist>
+</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="breeze-color-theme-preview.png"/></imageobject>
+<textobject
+><phrase
+>Temas de cores <quote
+>Breeze Light</quote
+> e <quote
+>Breeze Dark</quote
+> com realce de sintaxe para <quote
+>C++</quote
+>.</phrase>
+</textobject>
+<caption
+><para
+>Temas de cores <quote
+>Breeze Light</quote
+> e <quote
+>Breeze Dark</quote
+> com realce de sintaxe para <quote
+>C++</quote
+>.</para>
+</caption>
+</mediaobject>
+
+</sect2>
+
+<sect2 id="color-themes-ksyntaxhighlighting">
+
+<title
+>O temas de cores do KSyntaxHighlighting</title>
+
+<para
+>O framework <ulink url="https://api.kde.org/frameworks/syntax-highlighting/html/"
+>KSyntaxHighlighting</ulink
+>, que é o <link linkend="highlight"
+>mecanismo de realce de sintaxe</link
+>, é a biblioteca que <userinput
+>fornece e gerencia os temas de cores</userinput
+>. Isso faz parte do &kde; &frameworks; e é usado no editores de texto do &kde; como o <ulink url="https://apps.kde.org/en/kate"
+>&kate;</ulink
+>, <ulink url="https://apps.kde.org/en/kwrite"
+>&kwrite;</ulink
+>, <ulink url="https://apps.kde.org/en/kile"
+>&kile;</ulink
+> e <ulink url="https://apps.kde.org/en/kdevelop"
+>&kdevelop;</ulink
+>. Essa dependência se parece com o seguinte:</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="kf5-ksyntaxhighlighting.png"/></imageobject>
+<textobject
+><phrase
+>Dependência das bibliotecas do &kde; &frameworks; 5 em editores de texto.</phrase
+></textobject>
+<caption
+><para
+>Dependência das bibliotecas do &kde; &frameworks; em editores de texto.</para>
+</caption>
+</mediaobject>
+
+<para
+>O KSyntaxHighlighting inclui uma variedade de temas integrados que são exibidos na página <ulink url="https://kate-editor.org/themes/"
+><quote
+>Temas de cores</quote
+> do site do editor Kate</ulink
+>.</para>
+
+<para
+>O framework <ulink url="https://api.kde.org/frameworks/ktexteditor/html/"
+>KTextEditor</ulink
+>, que é o mecanismo de edição de texto, fornece uma interface de usuário para criar e editar temas de cores, incluindo uma ferramenta para importar e exportar temas. Esta é a maneira mais simples de criar e editar temas; você pode acessá-la através da janela <link linkend="config-dialog"
+><quote
+>Configurar</quote
+></link
+> do editor de texto. Mais detalhes em <xref linkend="color-themes-gui"/>.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="color-themes-gui-breeze-dark-default-text-styles.png"/></imageobject>
+<textobject
+><phrase
+>A &GUI; para gerenciar temas de cores nas configurações do &kate;.</phrase
+></textobject>
+<caption
+><para
+>A &GUI; para gerenciar temas de cores nas configurações do &kate;.</para>
+</caption>
+</mediaobject>
+
+<para
+>É importante mencionar que, nos editores de texto do &kde;, como o &kate; ou o &kdevelop;, os temas de cores do KSyntaxHighlighting são usados ​​ <ulink url="https://kate-editor.org/post/2020/2020-09-13-kate-color-themes-5.75/"
+>desde o &kde; &frameworks; 5.75</ulink
+>, lançado em 10 de outubro de 2020. Anteriormente, os esquemas de cores do &kate; (configuração de esquema baseada em KConfig) eram usados ​​e agora estão obsoletos. No entanto, é possível converter os antigos esquemas do &kate; para os temas de cores do KSyntaxHighlighting. O <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
+>repositório do KSyntaxHighlighting</ulink
+> inclui o script <userinput
+>utils/kateschema_to_theme_converter.py</userinput
+> e o utilitário <userinput
+>utils/schema-converter/</userinput
+> para essa finalidade. </para>
+
+</sect2>
+
+<sect2 id="color-themes-json">
+
+<title
+>Formato &JSON; dos temas de cores</title>
+
+<sect3 id="color-themes-json-overview">
+
+<title
+>Introdução</title>
+
+<para
+>Os temas de cores são armazenados em arquivos no formato &JSON;, com a extensão <userinput
+>.theme</userinput
+>.</para>
+
+<para
+>No código-fonte do <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
+>KSyntaxHighlighting</ulink
+>, os arquivos &JSON; dos temas integrados estão localizados no diretório <userinput
+>data/themes/</userinput
+>. Observe que nos editores de texto, os temas integrados são compilados na biblioteca KSyntaxHighlighting; portanto, a maneira de acessá-los é por meio do código-fonte ou <link linkend="color-themes-gui-import-export"
+>exportando-os da &GUI; para gerenciar temas do KTextEditor</link
+>.</para>
+
+<para
+>Também é possível adicionar facilmente temas adicionais ou personalizados, que são carregados do sistema de arquivos. Os arquivos de tema personalizados pelo usuário estão localizados na pasta <filename class="directory"
+>org.kde.syntax-highlighting/themes/</filename
+> na sua pasta de usuário, que você pode encontrar com o comando <userinput
+><command
+>qtpaths</command
+><option
+> --paths GenericDataLocation</option
+></userinput
+> e geralmente são <filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/</filename
+> e <filename class="directory"
+>/usr/share/</filename
+>. </para>
+
+<para
+>Em pacotes Flatpak e Snap, a pasta acima não funcionará, pois o local dos dados é diferente para cada aplicativo. Em um aplicativo Flatpak, o local dos arquivos de tema personalizados geralmente é <filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>nome-pacote-flatpak</replaceable
+>/data/org.kde.syntax-highlighting/themes/</filename
+> e em um aplicativo Snap, esse local é <filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>nome-pacote-snap</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/themes/</filename
+>. </para>
+
+<para
+>No &Windows;, esses arquivos estão localizados em <filename
+>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> geralmente se expande para <filename
+>C:&#92;Users&#92;<replaceable
+>nome-de-usuário</replaceable
+></filename
+>.</para>
+
+<para
+>Em resumo, para a maioria das configurações, a pasta de temas personalizados é a seguinte:</para>
+
+<informaltable>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry
+>Para o usuário local</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.local/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para todos os usuários</entry>
+<entry
+><filename class="directory"
+>/usr/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para pacotes Flatpak</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/.var/app/<replaceable
+>nome-pacote-flatpak</replaceable
+>/data/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>Para pacotes Snap</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/snap/<replaceable
+>nome-pacote-snap</replaceable
+>/current/.local/share/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+<row>
+<entry
+>No &Windows;</entry>
+<entry
+><filename class="directory"
+>%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>No &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para
+>Se existirem vários arquivos de tema com o mesmo nome, o arquivo com a <userinput
+>revision</userinput
+> mais alta será carregado. </para>
+
+</sect3>
+
+<sect3 id="color-themes-json-basic">
+
+<title
+>A estrutura &JSON;</title>
+
+<para
+>A estrutura de um arquivo &JSON; é explicada em <ulink url="https://www.json.org"
+>seu site</ulink
+>. Basicamente, um arquivo no formato JSON consiste em: <itemizedlist>
+<listitem
+><para
+>Coleções de pares chave/valor, separados por vírgulas e agrupados em <userinput
+>{ }</userinput
+> que chamaremos de <quote
+>objetos</quote
+>.</para
+></listitem>
+<listitem
+><para
+>Listas ordenadas de valores, separados por vírgulas e agrupados em <userinput
+>[ ]</userinput
+> que chamaremos de <quote
+>array</quote
+>.</para
+></listitem
+></itemizedlist>
+</para>
+
+<para
+>A nomenclatura <quote
+>chave</quote
+>, <quote
+>valor</quote
+>, <quote
+>objeto</quote
+> e <quote
+>array</quote
+> será usada neste artigo. Se esta for a sua primeira vez trabalhando com arquivos &JSON;, entendê-los é tão simples quanto observar os exemplos abaixo. </para>
+
+</sect3>
+
+<sect3 id="color-themes-json-root">
+
+<title
+>Seções principais dos arquivos de tema de cores &JSON;</title>
+
+<para
+>O objeto raiz do arquivo &JSON; do tema de cores contém o seguinte esquema de chaves:</para>
+
+<itemizedlist>
+<listitem
+><para
+><userinput
+>metadata</userinput
+>: É obrigatória. O valor é um objeto com os metadados do tema, como nome, revisão e licença.</para>
+<para
+>Isto é detalhado em <xref linkend="color-themes-json-metadata"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>editor-colors</userinput
+>: É obrigatória. O valor é um objeto com as cores da área de edição de texto, como o fundo, a borda do ícone e a decoração do texto.</para>
+<para
+>Isto é detalhado em <xref linkend="color-themes-editor-colors"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>text-styles</userinput
+>: É obrigatória. O valor é um objeto com os atributos de <emphasis
+>estilo de texto padrão</emphasis
+> da sintaxe realce de sintaxe. Cada atributo define sua <emphasis
+>cor do texto</emphasis
+>, sua <emphasis
+>cor do texto selecionada</emphasis
+> ou se está em <emphasis
+>negrito</emphasis
+> ou <emphasis
+>itálico</emphasis
+>, por exemplo. Os estilos de texto podem ser referenciados a partir dos <link linkend="kate-highlight-default-styles"
+>arquivos XML de definição de sintaxe</link
+>.</para>
+<para
+>Isto é detalhado em <xref linkend="color-themes-text-styles"/>.</para>
+</listitem>
+
+<listitem
+><para
+><userinput
+>custom-styles</userinput
+>: É opcional. Define estilos de texto para os atributos de definições específicas de realce de sintaxe. Por exemplo, em uma definição de realce como <userinput
+>Python</userinput
+> ou <userinput
+>Markdown</userinput
+> você pode especificar um estilo de texto diferente que substitui o padrão definido em <userinput
+>text-styles</userinput
+>.</para>
+<para
+>Isto é detalhado em <xref linkend="color-themes-custom-styles"/>.</para>
+</listitem>
+</itemizedlist>
+
+<para
+>A linguagem &JSON; não suporta comentários. No entanto, você pode usar a chave opcional <userinput
+>_comments</userinput
+> no objeto raiz para escrever comentários. Por exemplo, se você estiver adaptando um tema existente, pode inserir a URL do repositório original. A maneira mais prática é usar um array de strings. </para>
+
+<para
+>Abaixo está um arquivo de exemplo para o tema <quote
+>Breeze Light</quote
+>. Você pode notar que, para evitar que o exemplo fique muito grande, os objetos <userinput
+>editor-colors</userinput
+> e <userinput
+>text-styles</userinput
+> não contêm todas as chaves necessárias. Você pode ver o arquivo completo do <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/data/themes/breeze-light.theme"
+>tema <quote
+>Breeze Light</quote
+> no repositório do KSyntaxHighlighting</ulink
+>. </para>
+
+<programlisting
+>{
+    "_comments": [
+        "Isto é um comentário.",
+        "Se o tema for uma adaptação de outro, coloque o link para o repositório original."
+    ],
+    "metadata": {
+        "name" : "Breeze Light",
+        "revision" : 5,
+        "copyright": [
+            "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+            "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+        ],
+        "license": "SPDX-License-Identifier: MIT"
+    },
+    "editor-colors": {
+        "BackgroundColor" : "#ffffff",
+        "CodeFolding" : "#94caef",
+        "BracketMatching" : "#ffff00",
+        "CurrentLine" : "#f8f7f6",
+        "IconBorder" : "#f0f0f0",
+        "IndentationLine" : "#d2d2d2",
+        "LineNumbers" : "#a0a0a0",
+        "CurrentLineNumber" : "#1e1e1e",
+        <replaceable
+>As outras chaves de cor do editor...</replaceable>
+
+    },
+    "text-styles": {
+        "Normal" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : false,
+            "italic" : false,
+            "underline" : false,
+            "strike-through" : false
+        },
+        "Keyword" : {
+            "text-color" : "#1f1c1b",
+            "selected-text-color" : "#ffffff",
+            "bold" : true
+        },
+        "Function" : {
+            "text-color" : "#644a9b",
+            "selected-text-color" : "#452886"
+        },
+        "Variable" : {
+            "text-color" : "#0057ae",
+            "selected-text-color" : "#00316e"
+        },
+        <replaceable
+>As outras chaves de estilo de texto...</replaceable>
+
+    },
+    "custom-styles": {
+        "ISO C++": {
+            "Data Type": {
+                "bold": true,
+                "selected-text-color": "#009183",
+                "text-color": "#00b5cf"
+            },
+            "Keyword": {
+                "text-color": "#6431b3"
+            }
+        },
+        "YAML": {
+            "Attribute": {
+                "selected-text-color": "#00b5cf",
+                "text-color": "#00b5cf"
+            }
+        }
+    }
+}
+</programlisting>
+
+</sect3>
+
+<sect3 id="color-themes-json-metadata">
+
+<title
+>Metadados</title>
+
+<para
+>O objeto &JSON; da chave <userinput
+>metadata</userinput
+> contém informações relevantes sobre o tema. Este objeto possui as seguintes chaves: <itemizedlist>
+<listitem
+><para
+><userinput
+>nome</userinput
+>: É uma <emphasis
+>string</emphasis
+> que define o nome da linguagem. Ela aparece nos menus e diálogos posteriormente. É obrigatória.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>revision</userinput
+>: É um <emphasis
+>número inteiro</emphasis
+> que especifica a revisão atual do arquivo de tema. Sempre que você atualizar um arquivo de tema de cores, certifique-se de incrementar esse número. É obrigatória.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>license</userinput
+>: É uma <emphasis
+>string</emphasis
+> que define a licença do tema, usando o identificador <userinput
+>SPDX-License-Identifier</userinput
+> do formato de comunicação de licença padrão <ulink url="https://spdx.dev/"
+>SPDX</ulink
+>. É opcional.</para>
+<para
+>Você pode ver a lista completa de identificadores de licença SPDX <ulink url="https://spdx.org/licenses/"
+>aqui</ulink
+>.</para
+></listitem>
+
+<listitem
+><para
+><userinput
+>copyright</userinput
+>: É uma <emphasis
+>array</emphasis
+> de <emphasis
+>strings</emphasis
+> que especifica os autores do tema, usando o identificador <userinput
+>SPDX-FileCopyrightText</userinput
+> do formato de comunicação de licença padrão <ulink url="https://spdx.dev/"
+>SPDX</ulink
+>. É opcional.</para
+></listitem>
+</itemizedlist>
+</para>
+
+<programlisting
+>"metadata": {
+    "name" : "Breeze Light",
+    "revision" : 5,
+    "copyright": [
+        "SPDX-FileCopyrightText: 2016 Volker Krause &lt;vkrause@kde.org&gt;",
+        "SPDX-FileCopyrightText: 2016 Dominik Haumann &lt;dhaumann@kde.org&gt;"
+    ],
+    "license": "SPDX-License-Identifier: MIT"
+}
+</programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-editing">
+
+<title
+>Cores em detalhes</title>
+
+<para
+>Esta seção detalha todos os atributos de cor disponíveis e as configurações de cor disponíveis.</para>
+
+<sect3 id="color-themes-editor-colors">
+
+<title
+>Cores do editor</title>
+
+<para
+>Corresponde às cores da <link linkend="kate-part"
+>área de edição de texto</link
+>.</para>
+
+<para
+>No <link linkend="color-themes-json"
+>arquivo de tema &JSON;</link
+>, a chave respectiva <userinput
+>editor-colors</userinput
+> tem como valor um <emphasis
+>objeto</emphasis
+> onde cada chave referencia um atributo de cor do editor de texto. Aqui, <userinput
+>todas as chaves disponíveis são obrigatórias</userinput
+>, seus valores são <userinput
+>strings</userinput
+> com códigos de cores hexadecimais, como <quote
+>#00B5CF</quote
+>. </para>
+
+<para
+>Na <link linkend="color-themes-gui"
+>&GUI; para gerenciar temas do KTextEditor</link
+>, esses atributos podem ser modificados na aba <userinput
+><guilabel
+>Cores</guilabel
+></userinput
+>. </para>
+
+<para
+>As chaves disponíveis são as seguintes; as chaves usadas no arquivo <link linkend="color-themes-json"
+>&JSON;</link
+> estão listadas em <emphasis
+>negrito</emphasis
+>, os nomes usados na <link linkend="color-themes-gui"
+>&GUI;</link
+> são mostrados entre parênteses. </para>
+
+<variablelist>
+
+<varlistentry id="variable-prefcolors-colors-text-background">
+<term
+><guilabel
+>Cores de fundo do editor</guilabel
+></term>
+<listitem>
+
+<variablelist>
+
+<varlistentry id="variable-pref-colors-normal-text">
+<term
+><userinput
+>BackgroundColor</userinput
+> (<guilabel
+>Área do texto</guilabel
+>)</term>
+<listitem
+><para
+>Este é o plano de fundo padrão para a área do editor; será a cor dominante.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-BackgroundColor.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-selected-text">
+<term
+><userinput
+>TextSelection</userinput
+> (<guilabel
+>Texto selecionado</guilabel
+>)</term>
+<listitem
+><para
+>Este é o fundo para o texto selecionado. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TextSelection.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-current-line">
+<term
+><userinput
+>CurrentLine</userinput
+> (<guilabel
+>Linha atual</guilabel
+>)</term>
+<listitem
+><para
+>Define a cor da linha atual. Se configurar esta cor um pouco diferente do fundo do texto normal, isto o ajudará a concentrar-se na linha atual. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-CurrentLine.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-search-highlight">
+<term
+><userinput
+>SearchHighlight</userinput
+> (<guilabel
+>Pesquisar realce</guilabel
+>)</term>
+<listitem
+><para
+>Define a cor do texto que corresponda à sua última pesquisa. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-SearchHighlight.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-pref-colors-replace-highlight">
+<term
+><userinput
+>ReplaceHighlight</userinput
+> (<guilabel
+>Substituir realce</guilabel
+>)</term>
+<listitem
+><para
+>Define a cor do texto que corresponda à sua última operação de substituição.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-ReplaceHighlight.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-icon-border">
+<term
+><guilabel
+>Borda do ícone</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>IconBorder</userinput
+> (<guilabel
+>Área de fundo</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para as marcas, números de linhas e bordas das marcações de desdobramento do lado esquerdo da janela de edição, quando forem apresentados. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>LineNumbers</userinput
+> (<guilabel
+>Números de linha</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar os números de linha do lado esquerdo da janela, quando estiverem visíveis.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>CurrentLineNumber</userinput
+> (<guilabel
+>Número da linha atual</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar o número da linha atual, no lado esquerdo da visualização. Definir isso um pouco diferente de <quote
+>LineNumbers</quote
+> ajuda a manter o foco na linha atual. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>Separator</userinput
+> (<guilabel
+>Separador</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar a linha vertical que separa a borda do ícone do fundo da área de texto.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-IconBorder.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>WordWrapMarker</userinput
+> (<guilabel
+>Marcador de quebra de linha</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar um padrão à esquerda das linhas repartidas com quebra de linha, quando estiverem alinhadas na vertical, assim como para as marcações de quebras de linha estáticas.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-WordWrapMarker.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>CodeFolding</userinput
+> (<guilabel
+>Dobradura de código</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para destacar a seção de código que será recolhida quando você clicar na seta de recolhimento de código à esquerda de um documento. Para mais informações, consulte a <link linkend="advanced-editing-tools-code-folding"
+>documentação de recolhimento de código</link
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-CodeFolding.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>ModifiedLines</userinput
+> (<guilabel
+>Linhas modificadas</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para destacar à esquerda de um documento as linhas que foram modificadas, mas ainda não salvas. Para mais informações, consulte <xref linkend="kate-part-line-modification"/>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>SavedLines</userinput
+> (<guilabel
+>Linhas salvas</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para destacar à esquerda de um documento as linhas que foram modificadas nesta sessão e salvas. Para mais informações, consulte <xref linkend="kate-part-line-modification"/>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-ModifiedLines.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-decorations">
+<term
+><guilabel
+>Decorações de texto</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>SpellChecking</userinput
+> (<guilabel
+>Linha com erro de ortografia</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para indicar erros ortográficos.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-SpellChecking.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TabMarker</userinput
+> (<guilabel
+>Marcadores de espaço e tabulação</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar os indicadores de espaços em branco, quando eles estiverem ativos.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TabMarker.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>IndentationLine</userinput
+> (<guilabel
+>Recuo da linha</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar uma linha à esquerda de blocos recuados, se <link linkend="appearance-general"
+>esse recurso estiver ativado</link
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-IndentationLine.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>BracketMatching</userinput
+> (<guilabel
+>Realce de parênteses</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para desenhar o fundo dos parênteses correspondentes. </para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-BracketMatching.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-marker-colors">
+<term
+><guilabel
+>Cores dos marcadores</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>MarkBookmark</userinput
+> (<guilabel
+>Favorito</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada para indicar marcadores. Observe que esta cor tem uma opacidade de 22% (e 33% para a linha atual) em relação ao fundo. Para mais informações, consulte <xref linkend="kate-part-bookmarks"/>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-MarkBookmark.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointActive</userinput
+> (<guilabel
+>Ponto de parada ativo</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin GDB para indicar um ponto de parada ativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>a documentação do plugin GDB</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointReached</userinput
+> (<guilabel
+>Ponto de parada atingido</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin GDB para indicar um ponto de parada que você atingiu durante a depuração. Observe que esta cor tem opacidade em relação ao fundo. Para obter mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>a documentação do plugin GDB</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkBreakpointDisabled</userinput
+> (<guilabel
+>Ponto de parada desativado</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin GDB para indicar um ponto de parada inativo. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>a documentação do plugin GDB</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkExecution</userinput
+> (<guilabel
+>Execução</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin GDB na linha que está sendo executada no momento. Observe que esta cor tem opacidade em relação ao fundo. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-gdb.html"
+>a documentação do plugin GDB</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkWarning</userinput
+> (<guilabel
+>Aviso</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de compilação para indicar uma linha que causou um aviso do compilador. Observe que esta cor tem opacidade em relação ao fundo. Para obter mais informações, consulte <ulink url="help:/kate/kate-application-plugin-build.html"
+>a documentação do plugin de compilação</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>MarkError</userinput
+> (<guilabel
+>Erro</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de compilação para indicar uma linha que causou um erro do compilador Observe que esta cor tem opacidade em relação ao fundo. Para obter mais informações, consulte <ulink url="help:/kate/kate-application-plugin-build.html"
+>a documentação do plugin de compilação</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
+<term
+><guilabel
+>Modelos de texto e trechos</guilabel
+></term>
+<listitem>
+<variablelist>
+
+<varlistentry>
+<term
+><userinput
+>TemplateBackground</userinput
+> (<guilabel
+>Fundo</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de trechos do &kate; para marcar o fundo de um trecho de código. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>a documentação de trechos do &kate;</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TemplatePlaceholder</userinput
+> (<guilabel
+>Espaço reservado editável</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de trechos do &kate; para marcar um espaço reservado que você pode clicar para editar manualmente. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>a documentação de trechos do &kate;</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TemplateFocusedPlaceholder</userinput
+> (<guilabel
+>Espaço reservado editável focado</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de trechos do &kate; para marcar o espaço reservado que você está editando atualmente. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>a documentação de trechos do &kate;</ulink
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-Template.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><userinput
+>TemplateReadOnlyPlaceholder</userinput
+> (<guilabel
+>Espaço reservado não editável</guilabel
+>)</term>
+<listitem
+><para
+>Esta cor é usada pelo plugin de trechos do &kate; para marcar um espaço reservado que não pode ser editado manualmente, como o que é preenchido automaticamente. Para mais informações, consulte <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>a documentação de trechos do &kate;</ulink
+>.</para>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="editor-colors-TemplateReadOnlyPlaceholder.png"/></imageobject>
+<caption
+><para
+></para
+></caption>
+</mediaobject>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+<sect3 id="color-themes-text-styles">
+
+<title
+>Estilos de texto padrão</title>
+
+<para
+>Os estilos de texto padrão são herdados pelos estilos de texto realçados, permitindo ao editor apresentar o texto de forma bastante consistente. Por exemplo, o texto do comentário usa o mesmo estilo em quase todos os formatos de texto que o KSyntaxHighlighting  consegue realçar. </para>
+
+<note>
+<para
+>Esses estilos de texto podem ser referenciados nos <userinput
+>estilos padrão</userinput
+> usados ​​nos arquivos de definição &XML; de <link linkend="highlight"
+>realce de sintaxe</link
+>. Por exemplo, o atributo <quote
+>Normal</quote
+> é equivalente a <quote
+>dsNormal</quote
+> nos arquivos &XML; e <quote
+>DataType</quote
+> é equivalente a <quote
+>dsDataType</quote
+>. Consulte <xref linkend="kate-highlight-default-styles"/> na documentação de realce de sintaxe. </para>
+</note>
+
+<tip>
+<para
+>Certifique-se de escolher cores legíveis com bom contraste, especialmente em combinação com as <userinput
+><link linkend="color-themes-editor-colors"
+>Cores do editor</link
+></userinput
+>. Consulte <xref linkend="color-themes-contrast"/>. </para>
+</tip>
+
+<para
+>No <link linkend="color-themes-json"
+>arquivo &JSON;</link
+>, a chave <userinput
+>text-styles</userinput
+> respectiva tem como valor um <emphasis
+>objeto</emphasis
+> onde cada chave corresponde ao nome de um <emphasis
+>estilo de texto padrão</emphasis
+>, que são equivalentes aos usados ​​nas definições de realce de sintaxe. Aqui, <userinput
+>todas as chaves de estilo de texto disponíveis são obrigatórias</userinput
+>, e estão listadas abaixo. </para>
+
+<programlisting
+>"text-styles": {
+    "Normal" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : false,
+        "italic" : false,
+        "underline" : false,
+        "strike-through" : false
+    },
+    "Keyword" : {
+        "text-color" : "#1f1c1b",
+        "selected-text-color" : "#ffffff",
+        "bold" : true
+    },
+    "Function" : {
+        "text-color" : "#644a9b",
+        "selected-text-color" : "#452886"
+    },
+    <replaceable
+>As outras chaves de estilo de texto...</replaceable>
+}
+</programlisting>
+
+<variablelist>
+<varlistentry>
+
+<term
+>Cada chave de <emphasis
+>estilo de texto padrão</emphasis
+> possui um objeto &JSON; como seu valor, onde valores como <emphasis
+>color</emphasis
+>, <emphasis
+>bold</emphasis
+>, <emphasis
+>italic</emphasis
+>, etc. são especificados. Essas chaves são as seguintes: </term>
+
+<listitem>
+
+<para
+><userinput
+>text-color</userinput
+>: É uma <emphasis
+>string</emphasis
+> com a cor do texto em código hexadecimal. Este par chave/valor é obrigatório.</para>
+
+<para
+><userinput
+>selected-text-color</userinput
+>: A cor do texto quando ele é selecionado geralmente tem o mesmo valor que <quote
+>text-color</quote
+>. Quando o texto é selecionado, o fundo é definido pelo valor de <link linkend="variable-pref-colors-selected-text"
+>TextSelection</link
+> em <link linkend="color-themes-editor-colors"
+>Cores do editor</link
+>, portanto, você deve garantir que o texto tenha bom contraste e seja legível com esse fundo. O valor é uma <emphasis
+>string</emphasis
+> com um código de cor hexadecimal. Este par chave/valor é obrigatório.</para>
+
+<para
+><userinput
+>bold</userinput
+>: É um <emphasis
+>booleano</emphasis
+> que determina se o texto está em negrito. Esta chave é opcional, o valor padrão é <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>italic</userinput
+>: É um <emphasis
+>booleano</emphasis
+> que determina se o texto está em itálico. Esta chave é opcional, o valor padrão é <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>underline</userinput
+>: É um <emphasis
+>booleano</emphasis
+> que determina se o texto está sublinhado. Esta chave é opcional, o valor padrão é <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>strike-through</userinput
+>: É um <emphasis
+>booleano</emphasis
+> que determina se o texto está riscado. Esta chave é opcional, o valor padrão é <userinput
+>false</userinput
+>.</para>
+
+<para
+><userinput
+>background-color</userinput
+>: Determina a cor de fundo do texto, usada, por exemplo, em alertas e comentários. O valor é uma <emphasis
+>string</emphasis
+> com um código de cor hexadecimal. Esta chave é opcional; por padrão, não há cor de fundo.</para>
+
+<para
+><userinput
+>selected-background-color</userinput
+>: Determina a cor de fundo do texto quando ele é selecionado. O valor é uma <emphasis
+>string</emphasis
+> com um código de cor hexadecimal. Esta chave é opcional; por padrão, não há cor de fundo.</para>
+
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para
+>Na <link linkend="color-themes-gui"
+>&GUI; para gerenciar temas de cores do KTextEditor</link
+>, esses atributos podem ser modificados na aba <userinput
+><guilabel
+>Estilos de texto padrão</guilabel
+></userinput
+>. O nome na lista de estilos usa o estilo configurado para o item, fornecendo uma pré-visualização imediata ao configurar um estilo. Cada estilo permite selecionar atributos comuns, bem como cores de primeiro plano e de fundo. Para remover uma cor de fundo, clique com o botão direito do mouse para usar o menu de contexto.</para>
+
+<para
+>As chaves de estilo de texto disponíveis são as seguintes; as chaves usadas no <link linkend="color-themes-json"
+>arquivo &JSON;</link
+> estão listadas em <emphasis
+>negrito</emphasis
+>, os nomes usados na <link linkend="color-themes-gui"
+>&GUI;</link
+> são mostrados entre parênteses se forem diferentes.</para>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Texto normal e código-fonte</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Normal</userinput
+>: Estilo de texto padrão para texto normal e código-fonte sem realce especial.</para>
+
+<para
+><userinput
+>Keyword</userinput
+>: Estilo de texto para palavras-chave de linguagem integradas.</para>
+
+<para
+><userinput
+>Function</userinput
+>: Estilo de texto para definições de função e chamadas de função.</para>
+
+<para
+><userinput
+>Variable</userinput
+>: Estilo de texto para variáveis, se aplicável. Por exemplo, variáveis ​​em PHP/Perl normalmente começam com um <userinput
+>$</userinput
+>, portanto, todos os identificadores que seguem o padrão <userinput
+>$foo</userinput
+> são destacados como variáveis.</para>
+
+<para
+><userinput
+>ControlFlow</userinput
+> (<guilabel
+>Fluxo de controle</guilabel
+>): Estilo de texto para palavras-chave de fluxo de controle, como <emphasis
+>if</emphasis
+>, <emphasis
+>then</emphasis
+>, <emphasis
+>else</emphasis
+>, <emphasis
+>return</emphasis
+>, <emphasis
+>switch</emphasis
+>, <emphasis
+>break</emphasis
+>, <emphasis
+>yield</emphasis
+>, <emphasis
+>continue</emphasis
+>, etc.</para>
+
+<para
+><userinput
+>Operator</userinput
+>: Estilo de texto para operadores, como <userinput
+>+</userinput
+>, <userinput
+>-</userinput
+>, <userinput
+>*</userinput
+>, <userinput
+>/</userinput
+>, <userinput
+>%</userinput
+>, etc.</para>
+
+<para
+><userinput
+>BuiltIn</userinput
+> (<guilabel
+>Integrado</guilabel
+>): Estilo de texto para classes de linguagem, funções e objetos integrados.</para>
+
+<para
+><userinput
+>Extension</userinput
+>: Estilo de texto para extensões conhecidas, como classes &Qt;, funções/macros em C++ e Python ou boost.</para>
+
+<para
+><userinput
+>Preprocessor</userinput
+>: Estilo de texto para instruções do pré-processador ou definições de macro.</para>
+
+<para
+><userinput
+>Attribute</userinput
+>: Estilo de texto para anotações ou atributos de funções ou objetos, por exemplo, <userinput
+>@override</userinput
+> em Java, ou <userinput
+>__declspec(...)</userinput
+> e <userinput
+>__attribute__((...))</userinput
+> em C++.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Números, tipos e constantes</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>DataType</userinput
+> (<guilabel
+>Tipo de dados</guilabel
+>): Estilo de texto para tipos de dados integrados como <emphasis
+>int</emphasis
+>, <emphasis
+>char</emphasis
+>, <emphasis
+>float</emphasis
+>, <emphasis
+>void</emphasis
+>, <emphasis
+>u64</emphasis
+>, etc.</para>
+
+<para
+><userinput
+>DecVal</userinput
+> (<guilabel
+>Decimal/Valor</guilabel
+>): Estilo de texto para valores decimais.</para>
+
+<para
+><userinput
+>BaseN</userinput
+> (<guilabel
+>Inteiro de base N</guilabel
+>): Estilo de texto para números com base diferente de 10.</para>
+
+<para
+><userinput
+>Float</userinput
+> (<guilabel
+>Ponto flutuante</guilabel
+>): Estilo de texto para números de ponto flutuante.</para>
+
+<para
+><userinput
+>Constant</userinput
+>: Estilo de texto para constantes de linguagem e constantes definidas pelo usuário, por exemplo, <emphasis
+>True</emphasis
+>, <emphasis
+>False</emphasis
+>, <emphasis
+>None</emphasis
+> em Python ou <emphasis
+>nullptr</emphasis
+> em C/C++; ou constantes matemáticas como <emphasis
+>PI</emphasis
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Strings e caracteres</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Char</userinput
+> (<guilabel
+>Caractere</guilabel
+>): Estilo de texto para caracteres únicos como <userinput
+>'x'</userinput
+>.</para>
+
+<para
+><userinput
+>SpecialChar</userinput
+> (<guilabel
+>Caractere especial</guilabel
+>): Estilo de texto para caracteres escapados em strings, por exemplo, <quote
+><userinput
+>olá\n</userinput
+></quote
+>, e outros caracteres com significado especial em strings, como substituições ou operadores regex.</para>
+
+<para
+><userinput
+>String</userinput
+>: Estilo de texto para strings como <quote
+><userinput
+>olá mundo</userinput
+></quote
+>.</para>
+
+<para
+><userinput
+>VerbatimString</userinput
+> (<guilabel
+>String Verbatim</guilabel
+>): Estilo de texto para strings literais ou brutas como <userinput
+>'raw\backlash'</userinput
+> em Perl, CoffeeScript e shells, bem como <userinput
+>r'\raw'</userinput
+> em Python, ou como na documentação AQUI.</para>
+
+<para
+><userinput
+>SpecialString</userinput
+> (<guilabel
+>String especial</guilabel
+>): Estilo de texto para strings especiais, como expressões regulares em ECMAScript, o modo matemático &latex;, SQL, etc.</para>
+
+<para
+><userinput
+>Import</userinput
+> (<guilabel
+>Importações, Módulos, Inclusões</guilabel
+>): Estilo de texto para inclusões, importações, módulos ou pacotes &latex;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Comentários e documentação</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Comment</userinput
+>: Estilo de texto para comentários normais.</para>
+
+<para
+><userinput
+>Documentation</userinput
+>: Estilo de texto para comentários que refletem a documentação da API, como <userinput
+>/** comentários doxygen */</userinput
+> ou <userinput
+>"""docstrings"""</userinput
+>.</para>
+
+<para
+><userinput
+>Annotation</userinput
+>: Estilo de texto para anotações em comentários ou comandos de documentação, como <userinput
+>@param</userinput
+> em Doxygen ou JavaDoc.</para>
+
+<para
+><userinput
+>CommentVar</userinput
+> (<guilabel
+>Variável de comentário</guilabel
+>): Estilo de texto que se refere aos nomes das variáveis ​​usadas nos comandos acima em um comentário, como <userinput
+>foobar</userinput
+> em <quote
+><userinput
+>@param foobar</userinput
+></quote
+>, no Doxygen ou JavaDoc.</para>
+
+<para
+><userinput
+>RegionMarker</userinput
+> (<guilabel
+>Marcador de região</guilabel
+>): Estilo de texto para marcadores de região, normalmente definido por <userinput
+>//BEGIN</userinput
+> e <userinput
+>//END</userinput
+> em comentários.</para>
+
+<para
+><userinput
+>Information</userinput
+>: Estilo de texto para informações, notas e dicas, como a palavra-chave <userinput
+>@note</userinput
+> no Doxygen.</para>
+
+<para
+><userinput
+>Warning</userinput
+>: Estilo de texto para avisos, como a palavra-chave <userinput
+>@warning</userinput
+> no Doxygen.</para>
+
+<para
+><userinput
+>Alert</userinput
+>: Estilo de texto para palavras especiais em comentários, como <userinput
+>TODO</userinput
+>, <userinput
+>FIXME</userinput
+>, <userinput
+>XXXX</userinput
+> e <userinput
+>WARNING</userinput
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Diversos</guilabel
+></term>
+<listitem>
+<para
+><userinput
+>Error</userinput
+>: Estilo de texto indicando realce de erro e sintaxe incorreta.</para>
+
+<para
+><userinput
+>Others</userinput
+>: Estilo de texto para atributos que não correspondem a nenhum dos outros estilos padrão.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+</sect3>
+
+<sect3 id="color-themes-custom-styles">
+
+<title
+>Estilos de texto de realce personalizados</title>
+
+<para
+>Aqui você pode definir estilos de texto para uma definição específica de realce de sintaxe, substituindo o <userinput
+>estilo de texto padrão</userinput
+> descrito na <link linkend="color-themes-text-styles"
+>seção anterior</link
+>. </para>
+
+<para
+>No <link linkend="color-themes-json"
+>arquivo de tema &JSON;</link
+>, isso corresponde à chave <userinput
+>custom-styles</userinput
+>, cujo valor é um <emphasis
+>objeto</emphasis
+> onde cada chave de subesquema corresponde ao <userinput
+>nome de uma definição de realce de sintaxe</userinput
+>. Seu valor é um <emphasis
+>objeto</emphasis
+> onde cada chave se refere ao <userinput
+>nome dos atributos de estilo</userinput
+> definidos nos <link linkend="kate-highlight-sections"
+>elementos <userinput
+>itemData</userinput
+></link
+> do arquivo de realce de sintaxe &XML;, e o respectivo valor é um subobjeto com as chaves <emphasis
+>text-color</emphasis
+>, <emphasis
+>selected-text-color</emphasis
+>, <emphasis
+>bold</emphasis
+>, <emphasis
+>italic</emphasis
+>, <emphasis
+>underline</emphasis
+>, <emphasis
+>strike-through</emphasis
+>, <emphasis
+>background-color</emphasis
+> e <emphasis
+>selected-background-color</emphasis
+>, definidas <link linkend="color-themes-text-styles"
+>na seção anterior</link
+>. Cada um desses valores é opcional, pois se eles não estiverem presentes, o estilo definido em <userinput
+>text-styles</userinput
+> é considerado. </para>
+
+<para
+>Por exemplo, neste trecho de código, a definição de realce de sintaxe <quote
+>ISO C++</quote
+> tem um estilo de texto especial para os atributos <quote
+>Type Modifiers</quote
+> e <quote
+>Standard Classes</quote
+>. No arquivo &XML; correspondente <quote
+>isocpp.xml</quote
+>, o atributo definido <quote
+>Standard Classes</quote
+> usa o estilo padrão <userinput
+>BuiltIn</userinput
+> (ou dsBuiltIn). Neste atributo, apenas o valor de <userinput
+>text-color</userinput
+> é sobrescrito pela nova cor <quote
+>#6431b3</quote
+>. </para>
+
+<programlisting
+>"custom-styles": {
+    "ISO C++": {
+        "Standard Classes": {
+            "text-color": "#6431b3"
+        },
+        "Type Modifiers": {
+            "bold": true,
+            "selected-text-color": "#009183",
+            "text-color": "#00b5cf"
+        }
+    }
+}
+</programlisting>
+
+<note>
+<itemizedlist>
+
+<listitem>
+<para
+>Você deve levar em consideração que esses estilos de texto estão associados aos nomes de atributos definidos nos arquivos de realce de sintaxe &XML;. Se um arquivo XML for atualizado e alguns atributos forem renomeados ou removidos, o estilo personalizado definido no tema deixará de ser aplicado.</para>
+</listitem>
+
+<listitem>
+<para
+>As definições de realce de sintaxe frequentemente incluem outras definições. Por exemplo, o realçador de sintaxe <quote
+>QML</quote
+> inclui o realçador de sintaxe <quote
+>JavaScript</quote
+>, já que compartilham funcionalidades de realce.</para>
+</listitem>
+
+</itemizedlist>
+</note>
+
+<para
+>Na <link linkend="color-themes-gui"
+>&GUI; para gerenciar temas do KTextEditor</link
+>, esses atributos podem ser modificados na aba <userinput
+><guilabel
+>Estilos de realce de texto</guilabel
+></userinput
+>. Por padrão, o editor pré-seleciona o realce do documento atual. Você notará que muitos realces contêm outros realces representados por grupos na lista de estilos. Por exemplo, a maioria dos realces importa o realce <quote
+>Alerta</quote
+> e muitos formatos de código-fonte importam o realce <quote
+>Doxygen</quote
+>. </para>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-gui">
+
+<title
+>&GUI; dos temas de cores</title>
+
+<para
+>A maneira mais simples de criar e editar temas de cores é através da &GUI; dentro da <link linkend="config-dialog"
+>janela <quote
+>Configurar</quote
+></link
+> fornecida pelo <ulink url="https://api.kde.org/frameworks/ktexteditor/html/"
+>KTextEditor</ulink
+>. Para acessá-la, selecione <menuchoice
+><guimenu
+>Configurações</guimenu
+> <guimenuitem
+>Configurar <replaceable
+>aplicativo</replaceable
+>...</guimenuitem
+></menuchoice
+> na barra de menus do seu editor de texto. Isso abrirá a janela <guilabel
+>Configurar</guilabel
+>, onde você poderá selecionar <guilabel
+>Temas de cores</guilabel
+> no painel lateral. </para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="color-themes-gui-default-text-styles.png"/></imageobject>
+<textobject
+><phrase
+>Janela de configuração do &kate; com o gerenciamento de temas de cores.</phrase
+></textobject>
+<caption
+><para
+>Janela de configuração do &kate; com o gerenciamento de temas de cores.</para>
+</caption>
+</mediaobject>
+
+<para
+>Nesta <link linkend="config-dialog"
+>janela</link
+> você pode configurar todas as cores de qualquer tema que você tenha, bem como criar/copiar novos temas, excluí-los, exportá-los para um arquivo <userinput
+>.theme</userinput
+> com <link linkend="color-themes-json"
+>formato &JSON;</link
+> ou importá-los de arquivos <userinput
+>.theme</userinput
+> externos. Cada tema possui configurações para cores e estilos de texto. </para>
+
+<para
+>Os temas integrados não podem ser modificados por padrão. Para fazer isso, você precisa copiá-los e dar-lhes um novo nome.</para>
+
+<para
+>Para usar um tema permanentemente em seu editor de texto, você deve selecioná-lo na caixa de combinação rotulada como <guilabel
+>Tema padrão para <replaceable
+>aplicativo</replaceable
+></guilabel
+> na parte inferior da janela e pressionar <guibutton
+>Aplicar</guibutton
+> ou <guibutton
+>OK</guibutton
+>. Por padrão, a opção <userinput
+><guilabel
+>Seleção automática</guilabel
+></userinput
+> está ativa, que escolhe um tema de cores mais apropriado de acordo com o <emphasis
+>esquema de cores do &kde; &plasma;</emphasis
+> usado no aplicativo de edição de texto; geralmente, escolhe entre <quote
+>Breeze Light</quote
+> e <quote
+>Breeze Dark</quote
+> se o esquema for claro ou escuro, respectivamente. </para>
+
+<tip>
+<para
+>Você pode ajustar o esquema de cores global do &kde; no <ulink url="help:/kcontrol/colors/"
+>módulo <quote
+>Cores</quote
+> nas &systemsettings;</ulink
+>. Você também pode alterá-lo individualmente em alguns aplicativos, como o &kate; ou o &kdevelop;, no menu <menuchoice
+><guimenu
+>Configurações</guimenu
+><guisubmenu
+>Esquema de cores</guisubmenu
+></menuchoice
+>. </para>
+</tip>
+
+<sect3 id="color-themes-gui-new-theme">
+
+<title
+>Criar um novo tema</title>
+
+<para
+>Para criar um novo tema, primeiro é necessário copiar um existente. Selecione um tema existente que você deseja usar como base, como <quote
+>Breeze Light</quote
+> ou <quote
+>Breeze Dark</quote
+>, e clique em <guibutton
+>Copiar</guibutton
+>. Em seguida, digite um nome para o novo tema. </para>
+
+<para
+>Se você quiser modificar um tema integrado ou somente leitura, primeiro você deve copiá-lo com um nome diferente.</para>
+
+</sect3>
+
+<sect3 id="color-themes-gui-import-export">
+
+<title
+>Importar ou exportar arquivos de tema &JSON;</title>
+
+<para
+>Você pode exportar um tema selecionado (incluindo os temas integrados) para um <link linkend="color-themes-json"
+>arquivo &JSON;</link
+> com a extensão <userinput
+>.theme</userinput
+>, usando o botão <guibutton
+>Exportar</guibutton
+>. Isso abrirá uma janela para salvar o arquivo. Para adicionar um tema de cores de um <link linkend="color-themes-json"
+>arquivo &JSON;</link
+> externo, basta pressionar o botão <guibutton
+>Importar</guibutton
+> e selecionar o arquivo <userinput
+>.theme</userinput
+> na janela. </para>
+
+<tip>
+<itemizedlist>
+
+<listitem>
+<para
+>Como <link linkend="color-themes-json-overview"
+>mencionado acima</link
+>, os arquivos de tema personalizados pelo usuário são armazenados na pasta <filename class="directory"
+>org.kde.syntax-highlighting/themes/</filename
+>. Ao copiar ou criar um tema, ele aparecerá automaticamente lá. Além disso, importar ou adicionar um tema é equivalente a copiar um arquivo <userinput
+>.theme</userinput
+> externo para esta pasta. O KSyntaxHighlighting detecta automaticamente os arquivos de tema de cores desta pasta.</para>
+</listitem>
+
+<listitem>
+<para
+>Se você deseja publicar um tema criado por você, é essencial verificar o objeto <link linkend="color-themes-json-metadata"
+>metadata</link
+> do <link linkend="color-themes-json"
+>arquivo &JSON;</link
+>, adicionando a licença respectiva e verificando o número da revisão.</para>
+</listitem>
+
+</itemizedlist>
+</tip>
+
+</sect3>
+
+<sect3 id="color-themes-gui-editing">
+
+<title
+>Editando temas de cores</title>
+
+<sect4 id="prefcolors-colors">
+
+<title
+>Cores</title>
+
+<para
+>Aqui, as cores da área de edição de texto são ajustadas. Elas são detalhadas em <xref linkend="color-themes-editor-colors"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-normal-text-styles">
+
+<title
+>Estilos de texto padrão</title>
+
+<para
+>Os estilos de texto padrão são herdados pelos estilos de texto realçados, permitindo ao editor apresentar o texto de forma bastante consistente. Por exemplo, o texto do comentário usa o mesmo estilo em quase todos os formatos de texto que o KSyntaxHighlighting  consegue realçar.</para>
+<para
+>O nome na lista de estilos está usando o estilo configurado para o item, oferecendo-lhe uma visualização imediata ao configurar um estilo. </para>
+<para
+>Cada estilo permite selecionar atributos comuns, bem como cores de primeiro plano e de fundo. Para remover uma cor de fundo, clique com o botão direito do mouse para usar o menu de contexto.</para>
+<para
+>Os atributos desta área estão detalhados em <xref linkend="color-themes-text-styles"/>.</para>
+
+</sect4>
+
+<sect4 id="prefcolors-highlighting-text-styles">
+
+<title
+>Estilos de texto de realce</title>
+
+<para
+>Aqui você poderá editar os estilos de texto usados por uma definição de realce específica. O editor seleciona previamente o realce usado pelo seu documento atual. Para funcionar com um realce diferente, selecione um na lista <guilabel
+>Realce</guilabel
+>, acima da lista de estilos. </para>
+<para
+>O nome na lista de estilos está usando o estilo configurado para o item, oferecendo-lhe uma visualização imediata ao configurar um estilo. </para>
+<para
+>Cada estilo permite-lhe selecionar os atributos comuns, assim como as cores de fundo e do texto. Para retirar uma cor de fundo, clique com o botão direito para usar o menu de contexto. Além disso, você poderá verificar se um estilo é igual ao pré-definido que for usado para o item, e configurá-lo como tal, se não estiver.</para>
+<para
+>Você notará que vários realces contém outros realces, representados por grupos na lista de estilos. Por exemplo, a maioria dos realces implementam o realce Alert (Alerta) e muitos formatos de código importam o realce do Doxygen. A edição das cores destes grupos só afetará os estilos se forem usados no formato de realce editado. </para>
+
+</sect4>
+
+</sect3>
+
+</sect2>
+
+<sect2 id="color-themes-tips-and-tricks">
+
+<title
+>Dicas &amp; Truques</title>
+
+<sect3 id="color-themes-contrast">
+
+<title
+>Contraste das cores do texto</title>
+
+<para
+>Um aspecto importante ao trabalhar com temas de cores é escolher um contraste de texto que facilite a leitura, especialmente em combinação com o fundo.</para>
+
+<para
+>O aplicativo <userinput
+>Kontrast</userinput
+> é um verificador de contraste de cores. Ele informa se as combinações de cores de texto e de fundo são legíveis e acessíveis, sendo uma excelente ferramenta para ajudar na criação de temas de cores.</para>
+
+<para
+>Você pode baixar o <userinput
+>Kontrast</userinput
+> do <ulink url="https://apps.kde.org/en/kontrast"
+>site de aplicativos do &kde;</ulink
+> ou do <ulink url="https://flathub.org/apps/details/org.kde.kontrast"
+>pacote Flatpak no Flathub</ulink
+> (somente para GNU/Linux).</para>
+
+<para
+>O aplicativo <userinput
+>Contrast</userinput
+> do GNOME é semelhante. Você pode baixar <ulink url="https://flathub.org/apps/details/org.gnome.design.Contrast"
+>o pacote Flatpak no Flathub</ulink
+> (somente para GNU/Linux).</para>
+
+<para
+>Um script Python no <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>Repositório de realce de sintaxe</ulink
+> permite visualizar todas as cores em um tema, bem como o contraste com os vários planos de fundo configurados.</para>
+
+</sect3>
+
+<sect3 id="color-themes-tips-and-tricks-consistency">
+
+<title
+>Sugestões de consistência com o realce de sintaxe</title>
+
+<para
+>O KSyntaxHighlighting inclui <ulink url="https://kate-editor.org/syntax/"
+>mais de 300 definições de realce de sintaxe</ulink
+>, portanto, é ideal que você se certifique de que seu novo tema fique bem em todas as definições de realce de sintaxe. Os temas de cores integrados têm as seguintes semelhanças que é recomendável (mas não obrigatório) seguir para obter uma exibição correta de todas as definições de realce de sintaxe:</para>
+
+<itemizedlist>
+<listitem
+><para
+>Use negrito para os <link linkend="color-themes-text-styles"
+>estilos de texto</link
+> <quote
+>Keyword</quote
+> e <quote
+>ControlFlow</quote
+>.</para
+></listitem>
+
+<listitem
+><para
+>Não use cor de fundo em qualquer <link linkend="color-themes-text-styles"
+>estilo de texto</link
+>, exceto <quote
+>Alert</quote
+> e <quote
+>RegionMarker</quote
+>.</para
+></listitem>
+</itemizedlist>
+
+<para
+>A maioria dos realçadores de sintaxe são projetados para ter uma boa aparência nos temas padrão <quote
+>Breeze Light</quote
+> e <quote
+>Breeze Dark</quote
+>, portanto, outra maneira de manter a consistência é usar cores semelhantes nos <link linkend="color-themes-text-styles"
+>estilos de texto</link
+>, como <emphasis
+>verde</emphasis
+> para <quote
+>Preprocessor</quote
+> e <quote
+>Others</quote
+>, <emphasis
+>azul</emphasis
+> para <quote
+>DataType</quote
+> e <quote
+>Attribute</quote
+>, ou <emphasis
+>roxo</emphasis
+> para <quote
+>Function</quote
+>.</para>
+
+<para
+>Observe que essas recomendações não são obrigatórias ao criar e publicar um tema.</para>
+
+</sect3>
+
+</sect2>
+
+</sect1>
+
+
+<sect1 id="dev-scripting">
+<title
+>Scripts com &javascript;</title>
+
+<para
+>O componente de edição do &kappname; é facilmente extensível, através da criação de scripts. A linguagem de programação é o ECMAScript (popularmente conhecido como JavaScript). O &kappname; suporta dois tipos de scripts: os de recuo e os de linha de comando. Uma funcionalidade semelhante aos scripts de linha de comando também é fornecida no <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>plugin de trechos</ulink
+>. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -1617,6 +4280,16 @@
 > ou <filename
 >~/.local/share</filename
 >. </para>
+<para
+>No &Windows; estes arquivos estão localizados em <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> que normalmente se expandem para <filename
+>C:\\Users\\<replaceable
+>usuário</replaceable
+></filename
+>.</para>
 
 <sect3 id="dev-scripting-indentation-header">
 <title
@@ -1624,7 +4297,7 @@
 <para
 >O cabeçalho do arquivo <filename
 >javascript.js</filename
-> está incorporado como JSON no início do documento no seguinte formato: <programlisting>
+> está incorporado como &JSON; no início do documento no seguinte formato: <programlisting>
 var katescript = {
     "name": "JavaScript",
     "author": "Nome de Exemplo &lt;nome.exemplo@endereco.org&gt;",
@@ -1691,7 +4364,7 @@ var katescript = {
 ><para
 ><literal
 >indent-languages</literal
-> [opcional]: Uma lista JSON de estilos de sintaxe que este módulo consegue recuar corretamente, &eg;: <literal
+> [opcional]: Uma lista &JSON; de estilos de sintaxe que este módulo consegue recuar corretamente, &eg;: <literal
 >["c++", "java"]</literal
 >. </para
 ></listitem>
@@ -1711,7 +4384,7 @@ var katescript = {
 >O código-fonte do recuador</title>
 <para
 >Tendo definido o cabeçalho, esta seção explica como funciona a programação de recuadores em si. O esqueleto básico do código parece-se com o seguinte: <programlisting>
-// Necessário para as bibliotecas js do katepart, p.ex., range.js se você usar Range
+// Necessário para as bibliotecas js do katepart, &eg; range.js se você usar Range
 require ("range.js");
   
 caracteresAtivacao = "{}/:;";
@@ -1722,7 +4395,7 @@ function indent(linha, larguraRecuo, caractere)
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
->Alinhar</guimenuitem
+>Formatar recuo</guimenuitem
 ></menuchoice>
     // a variável 'caractere' está em branco, isto é, caractere == ''.
     //
@@ -1808,10 +4481,20 @@ function indent(linha, larguraRecuo, caractere)
 > devolve [8, 15]. Em função disso, são introduzidas duas tabulações para recuar até à coluna 8, e são introduzidos 7 espaços para alinhar o segundo parâmetro com o primeiro, de modo a permanecer alinhado, caso o arquivo seja visto com outro tamanho de tabulação. </para>
 
 <para
->Uma instalação padrão do &kde; fornece o &kappname; com vários módulos de recuo. O código-fonte correspondente em JavaScript poderá ser encontrado em <filename
+>Uma instalação padrão do &kde; fornece o &kappname; com vários módulos de recuo. O código-fonte correspondente em &javascript; poderá ser encontrado em <filename
 >$<envar
 >XDG_DATA_DIRS</envar
 >/katepart5/script/indentation</filename
+>.</para>
+<para
+>No &Windows; estes arquivos estão localizados em <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\indentation</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> que normalmente se expandem para <filename
+>C:\\Users\\<replaceable
+>usuário</replaceable
+></filename
 >. </para>
 
 <para
@@ -1820,8 +4503,8 @@ function indent(linha, larguraRecuo, caractere)
 >. </para>
 
 <para
->Se você criar scripts úteis, considere a hipótese de contribuir com eles para o Projeto &kappname;, <ulink url="mailto:kwrite-devel@kde.org"
->contactando para isso a lista de correio</ulink
+>Se você criar scripts úteis, considere a hipótese de contribuir com eles para o Projeto &kappname; enviando uma solicitação de mesclagem para <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>nosso projeto no GitLab</ulink
 >. </para>
 
 </sect3>
@@ -1830,6 +4513,13 @@ function indent(linha, larguraRecuo, caractere)
 <sect2 id="dev-scripting-command-line">
 <title
 >Scripts de Linha de Comando</title>
+
+<note>
+<para
+>Uma funcionalidade semelhante a scripts de linha de comando também é fornecida no <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>plugin de trechos</ulink
+>. Este plugin pode fornecer um ponto de partida mais fácil, especialmente para pequenos scripts personalizados.</para>
+</note>
 
 <para
 >Como é difícil satisfazer as necessidades de todos, o &kappname; tem suporte a algumas ferramentas auxiliares para manipular rapidamente o texto, usando para isso a <link linkend="advanced-editing-tools-commandline"
@@ -1855,13 +4545,23 @@ function indent(linha, larguraRecuo, caractere)
 >~/.local</filename
 > ou <filename
 >~/.local/share</filename
+>.</para>
+<para
+>No Windows, esses arquivos estão localizados em <filename
+>%USERPROFILE%\AppData\Local\katepart5\script\commands</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> geralmente se expande para <filename
+>C:\\Users\\<replaceable
+>usuário</replaceable
+></filename
 >. </para>
 
 <sect3 id="dev-scripting-command-line-header">
 <title
 >O Cabeçalho do Script de Linha de Comando</title>
 <para
->O cabeçalho de cada script de linha de comando é está incorporado como JSON no início do script no seguinte formato: <programlisting>
+>O cabeçalho de cada script de linha de comando é está incorporado como &JSON; no início do script no seguinte formato: <programlisting>
 var katescript = {
     "author": "Nome de exemplo &lt;nome.exemplo@endereco.org&gt;",
     "license": "LGPLv2+",
@@ -1912,13 +4612,13 @@ var katescript = {
 ><para
 ><literal
 >functions</literal
-> [obrigatório]: Uma lista JSON dos comandos do script.</para
+> [obrigatório]: Uma lista &JSON; dos comandos do script.</para
 ></listitem>
 <listitem
 ><para
 ><literal
 >actions</literal
-> [opcional]: Lista em JSON de objetos JSON que definem as ações que aparecem no menu do aplicativo. São oferecidas informações detalhadas na seção <link linkend="advanced-editing-tools-commandline"
+> [opcional]: Array em &JSON; de objetos &JSON; que definem as ações que aparecem no menu do aplicativo. São oferecidas informações detalhadas na seção <link linkend="advanced-editing-tools-commandline"
 >Associar combinações de teclas</link
 >.</para
 ></listitem>
@@ -1928,7 +4628,7 @@ var katescript = {
 <para
 >Uma vez que o valor de <literal
 >functions</literal
-> é uma lista em JSON, um único script é capaz de conter um número arbitrário de comandos da linha de comando. Cada função está disponível através da <link linkend="advanced-editing-tools-commandline"
+> é uma lista em &JSON;, um único script é capaz de conter um número arbitrário de comandos da linha de comando. Cada função está disponível através da <link linkend="advanced-editing-tools-commandline"
 >linha de comando incorporada</link
 > do &kappname;. </para>
 </sect3>
@@ -1943,7 +4643,7 @@ var katescript = {
 > e <command
 >descerLinhas</command
 >. Todas as funções têm a seguinte sintaxe: <programlisting
->// bibliotecas necessárias do katepart js, p.ex., range.js se você usar Range
+>// bibliotecas necessárias do katepart js, &eg; range.js se você usar Range
 function &lt;nome&gt;(arg1, arg2, ...)
 {
     // ... implementação, ver também: API de Programação
@@ -1956,7 +4656,7 @@ function &lt;nome&gt;(arg1, arg2, ...)
 >arg1</parameter
 >, <parameter
 >arg2</parameter
->, etc. Para poder indicar a documentação de cada comando, basta implementar a função '<function
+>, &etc; Para poder indicar a documentação de cada comando, basta implementar a função '<function
 >help</function
 >', como demonstrado a seguir: <programlisting>
 function help(cmd)
@@ -2048,8 +4748,8 @@ var katescript = {
 >shortcut</literal
 > [opcional]: A combinação de teclas indicada aqui é o atalho de teclado padrão. Por exemplo: <literal
 >Ctrl+Alt+T</literal
->. Veja a <ulink url="http://qt-project.org/doc/qt-5/qt.html#Key-enum"
->documentação do Qt</ulink
+>. Veja a <ulink url="https://doc.qt.io/qt-5/qt.html#Key-enum"
+>documentação do &Qt;</ulink
 > para mais detalhes.</para
 ></listitem>
 <listitem
@@ -2064,8 +4764,8 @@ var katescript = {
 </para>
 
 <para
->Se você criar scripts úteis, considere a hipótese de contribuir com eles para o Projeto &kappname;, <ulink url="mailto:kwrite-devel@kde.org"
->contactando para isso a lista de correio</ulink
+>Se você criar scripts úteis, considere a hipótese de contribuir com eles para o Projeto &kappname; enviando uma solicitação de mesclagem para <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>nosso projeto no GitLab</ulink
 >. </para>
 
 </sect4>
@@ -2090,7 +4790,7 @@ var katescript = {
 > ou <classname
 >View</classname
 > no seu script. Inclua a biblioteca necessária usando: <programlisting
->// bibliotecas necessárias do katepart js, p.ex., range.js se você usar Range
+>// bibliotecas necessárias do katepart js, &eg; range.js se você usar Range
 require ("range.js");
 </programlisting>
 </para>
@@ -2107,6 +4807,17 @@ require ("range.js");
 </para>
 
 <para
+>No Windows, esses arquivos estão localizados em <filename
+>%USERPROFILE%\AppData\Local\katepart5\libraries</filename
+>. <replaceable
+>%USERPROFILE%</replaceable
+> geralmente se expande para <filename
+>C:\\Users\\<replaceable
+>usuário</replaceable
+></filename
+>.</para>
+
+<para
 >Para estender os protótipos existentes, como o <classname
 >Cursor</classname
 > ou o <classname
@@ -2117,7 +4828,7 @@ require ("range.js");
 >*.js</filename
 > globais. Em vez disso, altere o protótipo do <filename
 >cursor.js</filename
-> em JavaScript, após o <filename
+> em &javascript;, após o <filename
 >cursor.js</filename
 > que é incluído no seu script através do <literal
 >require</literal
@@ -2816,7 +5527,7 @@ require ("range.js");
 >Irá procurar pelo <replaceable
 >arquivo</replaceable
 > indicado em relação à pasta <literal
->katepart/script/files</literal
+>katepart5/script/files</literal
 > e irá devolver o seu conteúdo como texto. </para
 ></listitem>
 </varlistentry
@@ -2838,7 +5549,7 @@ require ("range.js");
 >Irá procurar pelo <replaceable
 >arquivo</replaceable
 > indicado em relação à pasta <literal
->katepart/script/libraries</literal
+>katepart5/script/libraries</literal
 > e avaliá-lo. O <literal
 >require</literal
 > está protegido internamente contra inclusões múltiplas do mesmo <replaceable
@@ -2893,7 +5604,7 @@ require ("range.js");
 >i18np</literal
 > e o <literal
 >i18ncp</literal
->. Estas funções comportam-se exatamente como as <ulink url="http://techbase.kde.org/Development/Tutorials/Localization/i18n"
+>. Estas funções comportam-se exatamente como as <ulink url="https://techbase.kde.org/Development/Tutorials/Localization/i18n"
 > funções de tradução do &kde;</ulink
 >. </para>
 
@@ -2923,7 +5634,7 @@ require ("range.js");
 >%1</literal
 >, <literal
 >%2</literal
->, etc.</para
+>, &etc;</para
 ></listitem>
 </varlistentry>
 
@@ -2955,7 +5666,7 @@ require ("range.js");
 >%1</literal
 >, <literal
 >%2</literal
->, etc.</para
+>, &etc;</para
 ></listitem>
 </varlistentry>
 
@@ -2993,7 +5704,7 @@ require ("range.js");
 >%1</literal
 >, <literal
 >%2</literal
->, etc.</para
+>, &etc;</para
 ></listitem>
 </varlistentry>
 
@@ -3037,7 +5748,7 @@ require ("range.js");
 >%1</literal
 >, <literal
 >%2</literal
->, etc.</para
+>, &etc;</para
 ></listitem>
 </varlistentry
 ></variablelist>
@@ -3053,8 +5764,64 @@ require ("range.js");
 ><literal
 >view</literal
 ></quote
-> que representa a área de edição ativa no momento. Segue-se uma lista com todas as funções disponíveis para o View. <variablelist
-><varlistentry>
+> que representa a área de edição ativa no momento. Segue-se uma lista com todas as funções disponíveis para o View. <variablelist>
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.copy()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Copia a seleção se houver uma, caso contrário, a linha atual se a opção <userinput
+>[ ] Copiar/Recortar a linha atual se nenhuma seleção</userinput
+> estiver definida.</para>
+<para
+>Desde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.cut()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Recorta a seleção se houver uma, caso contrário, a linha atual se a opção <userinput
+>[ ] Copiar/Recortar a linha atual se nenhuma seleção</userinput
+> estiver definida.</para>
+<para
+>Desde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+><function
+>void view.paste()</function
+>
+</synopsis
+></term>
+<listitem>
+<para
+>Cola o conteúdo da área de transferência.</para>
+<para
+>Desde: &kde-frameworks; 5.79</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
 <term
 ><synopsis
 ><function
@@ -3230,8 +5997,183 @@ void view.setVirtualCursorPosition(<parameter
 ><para
 >Limpa a seleção de texto atual, sem remover o texto. </para
 ></listitem>
-</varlistentry
-></variablelist>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.setBlockSelection(bool on);
+</synopsis
+></term>
+<listitem
+><para
+>Liga/desliga o modo de seleção de blocos. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool view.blockSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Devolve <literal
+>true</literal
+> (verdadeiro) se o modo de seleção de bloco estiver ligado, caso contrário, devolve <literal
+>false</literal
+> (falso). </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.align(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Ajusta corretamente o recuo das linhas dentro do <replaceable
+>intervalo</replaceable
+> de acordo com as configurações de recuo atuais. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void view.alignOn(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>padrão</replaceable
+> = &quot;&quot;</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Alinha as linhas no <replaceable
+>intervalo</replaceable
+> na coluna especificada pela expressão regula <replaceable
+>padrão</replaceable
+>. Com um <replaceable
+>padrão</replaceable
+> vazio especificado, o alinhamento será feito no primeiro caractere não vazio. Se o padrão contiver uma captura, o recuo será feito na correspondência capturada. </para>
+<para
+><emphasis
+>Exemplos:</emphasis
+></para>
+<para
+><literal
+>view.alignOn(document.documentRange(), '-');</literal
+> irá inserir espaços antes do primeiro <literal
+>-</literal
+> de cada linha para alinhá-las todas na mesma coluna.</para>
+<para
+><literal
+>view.alignOn(document.documentRange(), ':\\s+(.)');</literal
+> Irá inserir espaços antes do primeiro caractere não em branco que ocorrer após dois pontos para alinhá-los todos na mesma coluna.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>object view.executeCommand(<parameter
+>String <replaceable
+>comando</replaceable
+></parameter
+>,
+                           <parameter
+>String <replaceable
+>args</replaceable
+></parameter
+>,
+                           <parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Executa o <link linkend="advanced-editing-tools-commandline"
+>comando de linha de comando</link
+> <replaceable
+>comando</replaceable
+> com os argumentos opcionais <replaceable
+>args</replaceable
+> e o intervalo opcional <replaceable
+>intervalo</replaceable
+>. O objeto retornado <replaceable
+>object</replaceable
+> possui uma propriedade booleana <replaceable
+>object.ok</replaceable
+> que indica se a execução do comando <replaceable
+>comando</replaceable
+> foi bem-sucedida. Em caso de erro, a string <replaceable
+>object.status</replaceable
+> contém uma mensagem de erro. </para>
+<para
+>Desde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Range view.searchText(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>,
+                      <parameter
+>String <replaceable
+>padrão</replaceable
+></parameter
+>,
+                      <parameter
+>bool <replaceable
+>backwards</replaceable
+> = false</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Busca a primeira ocorrência do <replaceable
+>padrão</replaceable
+> em <replaceable
+>intervalo</replaceable
+> e retorna o intervalo correspondente. A busca é realizada de trás para frente se o parâmetro booleano opcional <replaceable
+>backwards</replaceable
+> estiver definido como <literal
+>true</literal
+>. </para>
+<para
+>O intervalo retornado é inválido (consulte Range.isValid()) se <replaceable
+>padrão</replaceable
+> não for encontrado no <replaceable
+>intervalo</replaceable
+>. </para>
+<para
+>Desde: &kde-frameworks; 5.97</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
 </para>
 </sect3>
 
@@ -3243,8 +6185,9 @@ void view.setVirtualCursorPosition(<parameter
 ><literal
 >document</literal
 ></quote
-> representando o documento ativo atual. A seguir é apresentada uma lista de todas as funções disponíveis para o Document. <variablelist
-><varlistentry>
+> representando o documento ativo atual. A seguir é apresentada uma lista de todas as funções disponíveis para o Document. <variablelist>
+
+<varlistentry>
 <term
 ><synopsis
 >String document.fileName();
@@ -3265,7 +6208,7 @@ void view.setVirtualCursorPosition(<parameter
 ></term>
 <listitem
 ><para
->Devolve o URL completo do documento, ou então um texto vazio para as janelas de texto ainda por salvar. </para
+>Devolve o &URL; completo do documento, ou então um texto vazio para as janelas de texto ainda por salvar. </para
 ></listitem>
 </varlistentry>
 
@@ -3278,9 +6221,9 @@ void view.setVirtualCursorPosition(<parameter
 ></term>
 <listitem
 ><para
->Devolve o tipo MIME do documento, ou então o tipo <literal
+>Devolve o tipo &MIME; do documento, ou então o tipo &MIME; <literal
 >application/octet-stream</literal
-> se não for encontrado qualquer tipo MIME apropriado. </para
+> se não for encontrado qualquer tipo &MIME; apropriado. </para
 ></listitem>
 </varlistentry>
 
@@ -5026,10 +7969,101 @@ bool document.isOthers(<parameter
 >false</literal
 > (falso). </para
 ></listitem>
-</varlistentry
-></variablelist>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void document.indent(<parameter
+>Range <replaceable
+>intervalo</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>número</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Recua todas as linhas em <replaceable
+>intervalo</replaceable
+> por <replaceable
+>número</replaceable
+> de tabulações ou <replaceable
+>número</replaceable
+> vezes <literal
+>tabSize</literal
+> espaços, dependendo das preferências do usuário. O parâmetro <replaceable
+>número</replaceable
+> pode ser negativo. </para
+></listitem>
+</varlistentry>
+
+</variablelist>
 </para>
 
+</sect3>
+
+<sect3 id="dev-scripting-api-editor">
+<title
+>A API do editor</title>
+<para
+>Além da API de documento e visualização, existe uma API de editor geral que fornece funções para funcionalidades gerais de script do editor. <variablelist>
+
+<varlistentry>
+<term
+><synopsis
+>String editor.clipboardText();
+</synopsis
+></term>
+<listitem
+><para
+>Retorna o texto que está atualmente na área de transferência global. </para>
+<para
+>Desde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>String editor.clipboardHistory();
+</synopsis
+></term>
+<listitem
+><para
+>O editor mantém um histórico da área de transferência que contém até 10 entradas. Esta função retorna todas as entradas que estão atualmente no histórico da área de transferência. </para>
+<para
+>Desde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void editor.setClipboardText(<parameter
+>String <replaceable
+>texto</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Define o conteúdo da área de transferência para <replaceable
+>texto</replaceable
+>. O <replaceable
+>texto</replaceable
+> será adicionado ao histórico da área de transferência. </para>
+<para
+>Desde: &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
 </sect3>
 </sect2>
 

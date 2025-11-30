@@ -54,93 +54,91 @@
 <varlistentry>
 <term
 ><guilabel
->Quebra de linhas dinâmica</guilabel
+>Fonte do editor</guilabel
 ></term>
 <listitem>
 <para
->Se esta opção estiver marcada, as linhas de texto serão quebradas na borda da visão da tela.</para>
-<variablelist>
-<varlistentry>
-<term
-><guilabel
->Indicadores de quebra de linhas dinâmica (se aplicável)</guilabel
-></term>
-<listitem
-><para
->Escolhe quando deverão ser mostrados os indicadores de quebra de linha, sendo as opções <guilabel
->Desligado</guilabel
->, <guilabel
->Seguir número de linhas</guilabel
-> ou <guilabel
->Sempre ligado</guilabel
->. </para
-></listitem
-></varlistentry>
-<varlistentry>
-<term
-><guilabel
->Alinhar a quebra de linhas dinâmica à profundidade de recuo: </guilabel
-></term>
-<listitem
-><para
->Ativa o início das linhas repartidas com quebras de linha dinâmicas, de modo a ficarem alinhadas na vertical com o nível de recuo da primeira linha. Isto poderá ajudar a tornar o código e a formatação mais legíveis.</para
-><para
->Além disso, isto permite-lhe definir uma largura máxima da tela, como porcentagem, após a qual as linhas repartidas de forma dinâmica não serão mais alinhadas na vertical. Por exemplo, a 50%, as linhas cujos níveis de recuo sejam mais profundas que 50% da largura da tela não terão qualquer alinhamento vertical aplicado às linhas repartidas subsequentes.</para
-></listitem>
-</varlistentry>
-</variablelist>
+>Aqui, o usuário poderá escolher a fonte do editor de texto. Você pode escolher qualquer fonte disponível no seu sistema, assim como definir um tamanho padrão. Um texto de exemplo é exibido na parte inferior da janela, para que você possa ver o resultado das suas opções. </para>
+<para
+>Para mais informações sobre como selecionar uma fonte, leia a seção <ulink url="help:/fundamentals/fonts.html"
+><emphasis
+>Escolhendo as fontes</emphasis
+> na documentação dos <emphasis
+>Fundamentos do &kde;</emphasis
+></ulink
+>.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Realce de espaço em branco</guilabel
+>Mostrar indicadores de espaço em branco</guilabel
 ></term>
 <listitem>
 <variablelist>
 <varlistentry>
 <term
 ><guilabel
->Realçar as tabulações</guilabel
+>Nunca</guilabel
 ></term>
 <listitem
 ><para
->O editor mostrará um símbolo &raquo; para indicar a presença de uma tabulação no texto.</para
+>O editor nunca mostrará pontos para indicar a presença de espaços em branco.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
 <term
 ><guilabel
->Realçar espaços finais</guilabel
+>No final da linha</guilabel
 ></term>
 <listitem
 ><para
 >O editor mostrará pontos para indicar a presença de espaços em branco extra no fim das linhas.</para
 ></listitem>
 </varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Sempre</guilabel
+></term>
+<listitem
+><para
+>O editor sempre mostrará pontos para indicar a presença de espaços em branco.</para
+></listitem>
+</varlistentry>
 </variablelist>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Tamanho do indicador de espaço em branco</guilabel
+></term>
+<listitem
+><para
+>Use o controle deslizante para alterar o tamanho do marcador indicador visível.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Mostrar indicadores de tabulação</guilabel
+></term>
+<listitem
+><para
+>Quando selecionado, o editor mostrará um símbolo &raquo; para indicar a presença de uma tabulação no texto.</para
+></listitem>
 </varlistentry>
 
 <varlistentry>
 <term
 ><guilabel
->Avançado </guilabel
+>Correspondência de parênteses </guilabel
 ></term>
 <listitem
 ><para>
 <variablelist>
-<varlistentry>
-<term
-><guilabel
->Mostrar linhas de recuo </guilabel
-></term>
-<listitem
-><para
->Se esta opção estiver assinalada, o editor irá mostrar linhas verticais para ajudar a identificar as linhas de recuo.</para
-></listitem>
-</varlistentry>
 <varlistentry>
 <term
 ><guilabel
@@ -151,14 +149,20 @@
 >Se esta opção estiver ativa, o intervalo entre os parênteses selecionados será realçado.</para
 ></listitem>
 </varlistentry>
-</variablelist>
-</para
+<varlistentry>
+<term
+><guilabel
+>Mostrar uma visualização do parênteses aberto correspondente </guilabel
+></term>
+<listitem
+><para
+>Quando ativado, o editor exibirá uma dica de ferramenta com o parênteses de abertura correspondente.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
 <term
 ><guilabel
->Animar os parênteses correspondentes </guilabel
+>Piscar parênteses correspondentes quando o cursor mover sobre o outro parêntesis do par </guilabel
 ></term>
 <listitem
 ><para
@@ -174,9 +178,58 @@
 >(</keycap
 > ou <keycap
 >)</keycap
->) irá animar rapidamente o sinal correspondente.</para
+>) irá piscar rapidamente o sinal correspondente.</para
 ></listitem>
 </varlistentry>
+</variablelist>
+</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Mostrar linhas de recuo </guilabel
+></term>
+<listitem
+><para
+>Se esta opção estiver assinalada, o editor irá mostrar linhas verticais para ajudar a identificar as linhas de recuo.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Contagens </guilabel
+></term>
+<listitem
+><para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Mostrar quantidade de palavras </guilabel
+></term>
+<listitem
+><para
+>Exibe o número de palavras e caracteres no documento e na seleção atual na barra de status. Esta opção também está disponível no menu de contexto da barra de status.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Mostrar número de linhas </guilabel
+></term>
+<listitem
+><para
+>Exibe o número total de linhas no documento na barra de status. Esta opção também está disponível no menu de contexto da barra de status.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term
 ><guilabel
@@ -187,6 +240,79 @@
 >Se estiver assinalado, a primeira linha é dobrada, se possível. Isso é útil se o arquivo começar com um comentário, como por exemplo, uma informação sobre direitos autorais.</para
 ></listitem>
 </varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Quebra de linhas dinâmica</guilabel
+></term>
+<listitem>
+<para
+>Se esta opção estiver marcada, as linhas de texto serão quebradas na borda da visão da tela.</para>
+<para>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Quebra dinâmica no marcador estático de quebra de linhas </guilabel
+></term>
+<listitem
+><para
+>Quando selecionado, o editor quebra as linhas dinamicamente na <link linkend="pref-word-wrap"
+>posição de quebra de linha estática</link
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Desconsiderar os limites das palavras para quebra dinâmica </guilabel
+></term>
+<listitem
+><para
+>Quando selecionada, a opção do editor não leva em consideração os limites das palavras ao quebrar as linhas de texto.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Indicadores de quebra de linhas dinâmico</guilabel
+></term>
+<listitem
+><para
+>Escolhe quando deverão ser mostrados os indicadores de quebra de linha, sendo as opções <guilabel
+>Desligado</guilabel
+>, <guilabel
+>Seguir número de linhas</guilabel
+> ou <guilabel
+>Sempre ligado</guilabel
+>. </para
+></listitem
+></varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Recuar linhas quebradas </guilabel
+></term>
+<listitem
+><para
+>Além disso, isto permite-lhe definir uma largura máxima da tela, como porcentagem, após a qual as linhas repartidas de forma dinâmica não serão mais alinhadas na vertical. Por exemplo, a 50%, as linhas cujos níveis de recuo sejam mais profundas que 50% da largura da tela não terão qualquer alinhamento vertical aplicado às linhas repartidas subsequentes.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Multiplicador de altura da linha </guilabel
+></term>
+<listitem
+><para
+>Esse valor será multiplicado pela altura de linha padrão da fonte. Um valor de 1,0 significa que a altura padrão será usada.</para
+></listitem
+></varlistentry>
 </variablelist>
 </sect3>
 
@@ -198,14 +324,14 @@
 <varlistentry>
 <term
 ><guilabel
->Bordas</guilabel
+>Dobradura de bloco de código</guilabel
 ></term>
 <listitem>
 <variablelist>
 <varlistentry>
 <term
 ><guilabel
->Mostrar marcadores de dobra </guilabel
+>Mostrar setas para recolher blocos de código </guilabel
 ></term>
 <listitem
 ><para
@@ -215,7 +341,47 @@
 <varlistentry>
 <term
 ><guilabel
->Mostrar borda de ícones </guilabel
+>Mostrar uma visualização do bloco de código dobrado ao passar o mouse </guilabel
+></term>
+<listitem
+><para
+>Se estiver marcada, a passagem do ponteiro do mouse sobre uma região dobrada mostra uma visualização do texto dobrado em uma janela popup.</para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Visibilidade das setas de dobradura</guilabel
+></term>
+<listitem
+><para
+>Alterna as setas de recolhimento entre <guimenuitem
+>Mostrar ao passar o mouse</guimenuitem
+> e <guimenuitem
+>Mostrar sempre</guimenuitem
+>. </para
+></listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Lado esquerdo</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Mostrar marcas </guilabel
 ></term>
 <listitem
 ><para
@@ -235,17 +401,30 @@
 <varlistentry>
 <term
 ><guilabel
->Mostrar marcadores de modificação de linha </guilabel
+>Realçar linhas alteradas e não salvas </guilabel
 ></term>
 <listitem
 ><para
 >Se estiver assinalada, os marcadores de modificação das linhas ficarão visíveis. Para mais informações, veja em <xref linkend="kate-part-line-modification"/>. </para
 ></listitem>
 </varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
 <varlistentry>
 <term
 ><guilabel
->Mostrar marcas na barra de rolagem </guilabel
+>Barras de rolagem</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Mostrar marcas </guilabel
 ></term>
 <listitem
 ><para
@@ -255,13 +434,36 @@
 <varlistentry>
 <term
 ><guilabel
->Mostrar minimapa na barra de rolagem</guilabel
+>Mostrar a visualização ao passar o mouse na barra de rolagem</guilabel
+></term>
+<listitem
+><para
+>Se esta opção estiver marcada e você posicionar o cursor do mouse sobre a barra de rolagem, uma pequena pré-visualização de texto com várias linhas do documento atual ao redor da posição do cursor será exibida. Isso permite que você alterne rapidamente para outra parte do documento.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Minimapa</guilabel
+></term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Mostrar minimapa</guilabel
 ></term>
 <listitem
 ><para
 >Se esta opção estiver assinalada, cada nova visão exibirá um minimapa do documento na barra de rolagem vertical.</para>
 <para
->Para obter mais informações sobre o minimapa na barra de rolagem, veja <xref linkend="kate-part-scrollbar-minimap"/></para
+>Para obter mais informações sobre o minimapa na barra de rolagem, veja <xref linkend="kate-part-scrollbar-minimap"/>.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -274,21 +476,33 @@
 >Ajusta a largura em pixels do minimapa na barra de rolagem. </para
 ></listitem>
 </varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-
 <varlistentry>
 <term
 ><guilabel
->Ordenar menu de favoritos </guilabel
+>Visibilidade das barras de rolagem</guilabel
+></term>
+<listitem
+><para
+>Ativa, desativa ou exibe a barra de rolagem somente quando necessário. Clique com o &LMB; no retângulo azul para exibir o intervalo de números de linha do documento exibido na tela. Mantenha o &LMB; pressionado fora do retângulo azul para rolar automaticamente pelo documento. </para
+></listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<variablelist>
+<varlistentry>
+<term
+><guilabel
+>Ordenar menu de favoritos</guilabel
 ></term>
 <listitem>
 <variablelist>
 <varlistentry>
 <term
 ><guilabel
->Por criação </guilabel
+>Por data de criação </guilabel
 ></term>
 <listitem
 ><para
@@ -298,7 +512,7 @@
 <varlistentry>
 <term
 ><guilabel
->Por posição </guilabel
+>Por número de linha </guilabel
 ></term>
 <listitem
 ><para
@@ -313,471 +527,26 @@
 </sect3>
 </sect2>
 
-<sect2 id="prefcolors"
-><!-- checked for 4.7 + synced with kwrite -->
+<sect2 id="prefcolors">
 <title
->Fontes &amp; Cores</title>
+>Temas de cores</title>
 
 <para
->Esta seção da janela permite-lhe configurar todas as fontes e cores de qualquer esquema de cores que tiver, assim como criar esquemas novos ou remover os existentes. Cada esquema tem a configuração das cores, fontes e estilos do texto normal e selecionado. </para>
+>Esta seção da janela permite configurar todas as cores em qualquer tema de cores que você tenha, além de criar novos temas, excluir os existentes ou simplesmente <guilabel
+>Seguir o esquema de cores do sistema</guilabel
+>. Cada esquema possui configurações para cores e estilos de texto normal e destacado. </para>
 
 <para
->O &kappname; selecionará previamente o esquema atualmente ativo para você; se quiser trabalhar sobre um esquema diferente, comece por selecioná-lo na lista <guilabel
->Esquema</guilabel
+>O &kappname; selecionará previamente o tema atualmente ativo para você; se quiser trabalhar sobre um tema diferente, comece por selecioná-lo na lista <guilabel
+>Selecionar tema</guilabel
 >. Com os botões <guibutton
->Novo</guibutton
+>Copiar</guibutton
 > e <guibutton
 >Excluir</guibutton
-> você pode criar um novo esquema ou remover um existente.</para>
-<para
->No fundo da página, você poderá selecionar o <guilabel
->Esquema padrão para o &kappname;</guilabel
->.</para>
+> você pode criar um novo tema (copiando um existente) ou remover um existente.</para>
 
 <para
->Por padrão, o &kappname; irá basear o seu esquema de cores no esquema atual do &kde;. Você poderá restaurar uma cor individual ao seu valor predefinido clicando no botão de reposição à direita do item no editor de cores, ou poderá ainda restaurar todas as cores predefinidas se usar o botão <guibutton
->Usar o esquema de cores do &kde;</guibutton
-> no fundo do painel.</para>
-
-<tip>
-<para
->Você poderá ajustar o esquema de cores do &kde; no <ulink url="help:/kcontrol/colors/"
->módulo de <guilabel
->Cores</guilabel
-> das &systemsettings;</ulink
->.</para>
-</tip>
-
-<sect3 id="prefcolors-colors">
-<title
->Cores</title>
-
-<variablelist>
-<varlistentry id="variable-prefcolors-colors-text-background">
-<term
-><guilabel
->Cores de fundo do Editor</guilabel
-></term>
-<listitem>
-
-<variablelist>
-
-<varlistentry id="variable-pref-colors-normal-text">
-<term
-><guilabel
->Área de texto</guilabel
-></term>
-<listitem
-><para
->Este é o fundo padrão para a área de edição, sendo a cor dominante da área do editor.</para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-selected-text">
-<term
-><guilabel
->Texto selecionado</guilabel
-></term>
-<listitem
-><para
->Este é o fundo do texto selecionado. O valor padrão é a cor global de seleção, como está definida nas preferências de cores do &kde;. </para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-current-line">
-<term
-><guilabel
->Linha atual</guilabel
-></term>
-<listitem
-><para
->Define a cor da linha atual. Se configurar esta cor um pouco diferente do fundo do Texto Normal, isto o ajudará a concentrar-se na linha atual. </para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-search-highlight">
-<term
-><guilabel
->Realce da pesquisa</guilabel
-></term>
-<listitem
-><para
->Define a cor do texto correspondente à sua última pesquisa. </para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-pref-colors-replace-highlight">
-<term
-><guilabel
->Realce da substituição</guilabel
-></term>
-<listitem
-><para
->Define a cor do texto correspondente à sua última substituição.</para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-icon-border">
-<term
-><guilabel
->Borda do ícone</guilabel
-></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term
-><guilabel
->Área de fundo</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para as marcas, números de linhas e bordas das marcações de desdobramento do lado esquerdo da janela de edição, quando forem apresentados. </para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Número de linhas</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para desenhar os números de linha do lado esquerdo da janela, quando estiverem visíveis.</para
-></listitem>
-</varlistentry>
-
-<!--FIXME: Missing Separator - not sure what that is-->
-
-<varlistentry>
-<term
-><guilabel
->Marcadores de quebra de linhas</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para desenhar um padrão à esquerda das linhas repartidas com quebra de linha, quando estiverem alinhadas na vertical, assim como para as marcações de quebras de linha estáticas.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Dobradura de código</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para realçar a seção de código que seria dobrada quando você clica na seta de dobradura de código à esquerda de um documento Para mais informações, veja a <link linkend="advanced-editing-tools-code-folding"
->documentação sobre a dobradura de código</link
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Linhas modificadas</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para realçar, à esquerda de um documento, as linhas que foram modificadas mas ainda não foram salvas. Para mais informações, veja a <xref linkend="kate-part-line-modification"/>.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Linhas salvas</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para realçar, à esquerda de um documento, as linhas que foram modificadas e salvas nesta sessão. Para mais informações, veja a <xref linkend="kate-part-line-modification"/>.</para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-text-decorations">
-<term
-><guilabel
->Decorações de texto</guilabel
-></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term
-><guilabel
->Linha com erros ortográficos</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para indicar os erros ortográficos.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Marcadores de tabulação e espaços</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para desenhar os indicadores de espaços em branco, quando estiverem ativos.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Linha de recuo</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para desenham uma linha à esquerda dos blocos recuados, se <link linkend="appearance-general"
->este recurso estiver ativo</link
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Realçar parênteses</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para desenhar o fundo dos parênteses correspondentes. </para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-marker-colors">
-<term
-><guilabel
->Cores dos marcadores</guilabel
-></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term
-><guilabel
->Favoritos</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada para indicar os favoritos. Para mais informações, veja os <xref linkend="kate-part-bookmarks"/>.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Ponto de parada ativo</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin do GDB para indicar um ponto de parada ativo. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-gdb.html"
->documentação do plugin do GDB</ulink
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Ponto de parada alcançado</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin do GDB para indicar um ponto de parada que tenha sido atingido durante a depuração. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-gdb.html"
->documentação do plugin do GDB</ulink
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Ponto de parada desativado</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin do GDB para indicar um ponto de parada inativo. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-gdb.html"
->documentação do plugin do GDB</ulink
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Execução</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin do GDB para indicar a linha que está sendo executada de momento. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-gdb.html"
->documentação do plugin do GDB</ulink
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Aviso</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin de compilação para indicar uma linha que contém um aviso do compilador. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-build.html"
->documentação do plugin de compilação</ulink
->.</para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Erro</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin de compilação para indicar uma linha que contém um erro do compilador. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-build.html"
->documentação do plugin de compilação</ulink
->.</para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="variable-prefcolors-colors-text-templates-snippets">
-<term
-><guilabel
->Modelos de texto &amp; trechos</guilabel
-></term>
-<listitem>
-<variablelist>
-
-<varlistentry>
-<term
-><guilabel
->Plano de fundo</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin Trechos do &kate; para marcar o fundo de um trecho. </para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Campo editável</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin Trechos do &kate; para marcar um item de substituição que você poderá clicar para editar manualmente. </para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Campo editável focável</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin Trechos do &kate; para marcar o item de substituição que você está editando no momento. </para
-></listitem>
-</varlistentry>
-
-<varlistentry>
-<term
-><guilabel
->Modelo de campo não editável</guilabel
-></term>
-<listitem
-><para
->Esta cor é usada pelo plugin de trechos do &kate; para marcar um item de substituição que não pode ser editado manualmente. Para mais informações, veja a <ulink url="help:/kate/kate-application-plugin-snippets.html"
->documentação sobre os Trechos no &kate;</ulink
->.</para
-></listitem>
-</varlistentry>
-
-</variablelist>
-</listitem>
-</varlistentry>
-
-<varlistentry id="prefcolors-colors-use-kde-color-scheme">
-<term
-><guibutton
->Usar esquema de cores do &kde;</guibutton
-></term>
-<listitem>
-<para
->Se clicar neste botão irá ativar todas as cores definidas acima para corresponderem ao esquema de cores definido nas &systemsettings; do &kde;. Para mais informações, veja a <ulink url="help:/kcontrol/colors/"
->documentação do Módulo de Controle de Cores do &kde;</ulink
->.</para>
-<para
->Se não usar o Espaço de Trabalho &plasma; do &kde;, este botão não fará efeito e pode não estar presente.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-</sect3>
-
-<sect3 id="prefcolors-fonts">
-<title
->Fonte</title>
-<para
->Aqui, o usuário poderá escolher a fonte padrão para o esquema. Você pode escolher qualquer fonte disponível no seu sistema, assim como definir um tamanho padrão e uma codificação. Um texto de exemplo aparecerá na parte inferior da janela, para que você possa ver o resultado das suas opções. </para>
-<para
->Para mais informações sobre como selecionar uma fonte, leia a seção <ulink url="help:/fundamentals/fonts.html"
-><emphasis
->Escolhendo as fontes</emphasis
-> na documentação dos <emphasis
->Fundamentos do &kde;</emphasis
-></ulink
->.</para>
-</sect3>
-
-<sect3 id="prefcolors-normal-text-styles">
-<title
->Estilos de texto padrão</title>
-<para
->Os estilos de texto predefinidos são herdados pelos estilos de texto realçados, permitindo ao editor apresentar o texto de forma bastante consistente. Por exemplo, o texto do comentário usa o mesmo estilo em quase todos os formatos de texto que o &kappname; consegue realçar.</para>
-<para
->O nome na lista de estilos está usando o estilo configurado para o item, oferecendo-lhe uma visualização imediata ao configurar um estilo. </para>
-<para
->Cada estilo permite-lhe selecionar atributos comuns, assim como as cores do texto e de fundo. Para retirar uma cor de fundo, clique com o botão direito para usar o menu de contexto.</para>
-</sect3>
-
-<sect3 id="prefcolors-highlighting-text-styles">
-<title
->Estilos de texto de realce</title>
-<para
->Aqui você poderá editar os estilos de texto usados por uma definição de realce específica. O editor seleciona previamente o realce usado pelo seu documento atual. Para funcionar com um realce diferente, selecione um na lista <guilabel
->Realce</guilabel
->, acima da lista de estilos. </para>
-<para
->O nome na lista de estilos está usando o estilo configurado para o item, oferecendo-lhe uma visualização imediata ao configurar um estilo. </para>
-<para
->Cada estilo permite-lhe selecionar os atributos comuns, assim como as cores de fundo e do texto. Para retirar uma cor de fundo, clique com o botão direito para usar o menu de contexto. Além disso, você poderá verificar se o estilo usado pelo item é igual ao estilo padrão e configurá-lo desta forma, caso não estiver.</para>
-<para
->Você notará que vários realces contém outros realces, representados por grupos na lista de estilos. Por exemplo, a maioria dos realces implementam o realce Alert (Alerta) e muitos formatos de código importam o realce do Doxygen. A edição das cores destes grupos só afetará os estilos se forem usados no formato de realce editado. </para>
-</sect3>
+>Isto é descrito em detalhes em <xref linkend="color-themes-gui"/>.</para>
 
 </sect2>
 
@@ -793,7 +562,7 @@
 <varlistentry>
 <term id="pref-word-wrap"
 ><guilabel
->Quebra de linha estática</guilabel
+>Quebra de linha</guilabel
 ></term>
 <listitem
 ><para
@@ -804,7 +573,7 @@
 <varlistentry>
 <term
 ><guilabel
->Habilitar quebra de linha estática</guilabel
+>Quebrar linhas em uma coluna fixa</guilabel
 ></term>
 <listitem>
 <para
@@ -814,7 +583,7 @@
 <varlistentry>
 <term
 ><guilabel
->Mostrar marcador de quebra de linha estática (se aplicável)</guilabel
+>Desenhar uma linha vertical na coluna da quebra de linha</guilabel
 ></term>
 <listitem>
 <para
@@ -835,7 +604,7 @@
 <listitem>
 <para
 >Se a opção <link linkend="pref-word-wrap"
->Ativar quebra de linha estática</link
+>Ativar quebra de linha em uma coluna fixa</link
 > estiver selecionada esta entrada determina o comprimento (em caracteres) no qual o editor automaticamente iniciará uma nova linha.</para>
 </listitem>
 </varlistentry>
@@ -845,7 +614,7 @@
 <varlistentry>
 <term
 ><guilabel
->Modo de entrada</guilabel
+>Modo de entrada padrão</guilabel
 ></term
 > <listitem
 ><para
@@ -854,14 +623,17 @@
 >. </para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term
 ><guilabel
->Parênteses automáticos</guilabel
+>Parênteses</guilabel
 ></term
-> <listitem
-><para
->Quando o usuário digitar um sinal gráfico de abertura (<keycap
+> <listitem>
+<para
+>Se a opção <guilabel
+>Fechar parênteses automaticamente ao digitar um parênteses de abertura</guilabel
+> estiver selecionada, quando o usuário digitar um sinal gráfico de abertura (<keycap
 >[</keycap
 >, <keycap
 >(</keycap
@@ -874,11 +646,21 @@
 > ou <keycap
 >]</keycap
 >) à direita do cursor.</para>
-<para
->Quando o texto for selecionado, a digitação de um dos caracteres envolve o texto selecionado.</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term
+><guilabel
+>Caracteres de fechamento</guilabel
+></term
+> <listitem>
+<para
+>É possível selecionar os caracteres delimitadores usando a lista suspensa correspondente.</para>
+<para
+>Quando o texto for selecionado, a digitação de um desses caracteres envolve o texto selecionado.</para>
+</listitem>
+</varlistentry>
 
 <varlistentry>
 <term
@@ -890,11 +672,31 @@
 <varlistentry>
 <term
 ><guilabel
->Copiar/recortar a linha atual se não existir seleção</guilabel
+>Mover o texto selecionado quando arrastado</guilabel
+></term
+> <listitem>
+<para
+>Esta opção permite arrastar e soltar o texto selecionado dentro da janela do editor.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Copiar/recortar a linha atual se invocado sem nenhum texto selecionado</guilabel
 ></term
 > <listitem>
 <para
 >Se esta opção estiver ativa e se a seleção de texto estiver vazia, as ações de cópia e corte são efetuadas para a linha de texto na posição atual do cursor.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Não mover o cursor do texto ao colar com o mouse</guilabel
+></term
+> <listitem>
+<para
+>Se esta opção estiver ativada e você colar algum texto na janela do editor com o &MMB;, o &kappname; não moverá o cursor de texto para a posição clicada.</para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -934,11 +736,25 @@
 ></term>
 <listitem>
 <para
->Esta opção muda o comportamento do cursor quando o usuário pressiona as teclas <keycap
->Page Up</keycap
-> e <keycap
->Page Down</keycap
->. Se não estiver selecionada, o cursor de texto manterá sua posição relativa dentro do texto visível no &kappname; conforme o novo texto se torna visível como resultada da operação. Assim, se o cursor estiver no meio do texto visível quando a operação ocorre, ele permanecerá lá (exceto quando o início ou fim são atingidos). Com esta opção selecionada, o primeiro pressionamento de tecla fará com que o cursor se mova para cima ou para baixo do texto visível conforme uma nova página de texto é exibida.</para>
+>Esta opção muda o comportamento do cursor quando o usuário pressiona as teclas &PgUp; e &PgDn;. Se não estiver selecionada, o cursor de texto manterá sua posição relativa dentro do texto visível no &kappname; conforme o novo texto se torna visível como resultada da operação. Assim, se o cursor estiver no meio do texto visível quando a operação ocorre, ele permanecerá lá (exceto quando o início ou fim são atingidos). Com esta opção selecionada, o primeiro pressionamento de tecla fará com que o cursor se mova para cima ou para baixo do texto visível conforme uma nova página de texto é exibida.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Ativar movimento de cursor em Camel Case</guilabel
+></term>
+<listitem>
+<para
+>Esta opção altera o comportamento do cursor quando o usuário pressiona o atalho <keycombo
+>&Ctrl;<keycap
+>Seta para a esquerda</keycap
+></keycombo
+> ou <keycombo
+>&Ctrl;<keycap
+>Seta para a direita</keycap
+></keycombo
+>. Se desmarcada, o cursor de texto pula sobre as palavras inteiras. Com esta opção marcada, o cursor pula nas letras camel case.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -992,8 +808,31 @@
 >Esta opção permite-lhe deslocar além do fim do documento. Isto poderá ser usado para centrar na vertical o fundo do documento, ou para colocá-lo no topo da janela atual.</para
 ></listitem>
 </varlistentry>
+<varlistentry>
+<term
+><guilabel
+>A tecla Backspace remove a base do caractere e a sua terminação diacrítica</guilabel
+></term
+> <listitem>
+<para
+>Quando estiver selecionada, os caracteres compostos são removidos com as suas terminações em vez de remover apenas o caractere de base. Isso é útil para os localidades do Índico.</para
+></listitem>
+</varlistentry>
 
 </variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="multicursor-modifier-configure">
+<term
+><guilabel
+>Modificador multicursor</guilabel
+></term>
+<listitem>
+<para
+>Esta opção permite definir o modificador que será usado para criar vários cursores com um clique do botão esquerdo do mouse. Você precisa pressionar os modificadores e clicar com o botão esquerdo do mouse para criar um cursor no local desejado. Consulte <link linkend="kate-part-create-multiple-cursors"
+>Criando vários cursores</link
+> para descobrir outras maneiras de criar vários cursores.</para>
 </listitem>
 </varlistentry>
 
@@ -1147,8 +986,8 @@
 ></term>
 <listitem>
 <para
->Se você quiser que o &Tab; alinhe a linha atual no bloco de código atual, como acontece no Emacs, torne o &Tab; um atalho para a ação <guimenuitem
->Alinhar</guimenuitem
+>Se você quiser que o &Tab; alinhe a linha atual no bloco de código atual, como acontece no &Emacs;, torne o &Tab; um atalho para a ação <guimenuitem
+>Formatar recuo</guimenuitem
 >. </para>
 <variablelist>
 <varlistentry>
@@ -1231,6 +1070,16 @@
 >Se habilitado, aparece um campo de completação automática, mostrando uma lista com os itens de texto para completar o texto atual sob o cursor.</para>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Selecionar automaticamente a primeira entrada da complementação</guilabel
+></term>
+<listitem>
+<para
+>Se ativada, a primeira opção de autocompletar é sempre pré-selecionada para que você possa inseri-la com a tecla &Enter;. Se você não deseja esse comportamento, &eg; se quiser que pressionar &Enter; insira apenas uma nova linha, desative esta opção.</para>
+</listitem>
+</varlistentry>
 </variablelist>
 </listitem>
 </varlistentry>
@@ -1276,7 +1125,7 @@
 <title
 >Verificação ortográfica</title>
 <para
->Estas opções de configuração estão descritas na documentação do módulo do &systemsettings; sobre <ulink url="help:kcontrol/spellchecking"
+>Estas opções de configuração estão descritas na documentação do módulo do &systemsettings; sobre <ulink url="help:/kcontrol/spellchecking"
 >Verificação Ortográfica</ulink
 >.</para>
 </sect3>
@@ -1429,11 +1278,11 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Ativar o marcador da ordem de bytes</guilabel
+>Ativar o marcador da ordem de bytes (BOM)</guilabel
 ></term>
 <listitem>
 <para
->O marcador da ordem dos bytes é uma sequência especial no início dos documentos codificados em Unicode. Ajuda os editores a abrir os documentos de texto com a codificação Unicode correta. Para mais informações, veja o <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark"
+>O marcador da ordem dos bytes é uma sequência especial no início dos documentos codificados em Unicode. Ajuda os editores a abrir os documentos de texto com a codificação Unicode correta. Para mais informações, veja o <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
 >Marcador da Ordem de Bytes</ulink
 >.</para>
 </listitem>
@@ -1496,6 +1345,42 @@ Remove selected Add new mapping Import from vimrc file-->
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term
+><guilabel
+>Habilitar salvamento automático (apenas para arquivos locais)</guilabel
+></term>
+<listitem>
+<para
+>Marque esta opção se quiser que o editor salve automaticamente os documentos enquanto você estiver trabalhando neles. </para>
+<variablelist>
+
+<varlistentry>
+<term
+><guilabel
+>Salvar automaticamente o documento quando o foco sai do editor</guilabel
+></term>
+<listitem>
+<para
+>O editor salvará automaticamente os documentos quando você alternar para algo fora do editor, &eg; o painel do terminal no &kate;.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><guilabel
+>Intervalo de salvamento automático</guilabel
+></term>
+<listitem>
+<para
+>Você pode definir o intervalo de salvamento automático em segundos aqui. Se o intervalo for 0, o documento não será salvo automaticamente após o intervalo definido.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
 </variablelist>
 </sect3>
 
@@ -1507,13 +1392,13 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Fazer cópia de segurança ao salvar</guilabel
+>Gravar um arquivo de backup ao salvar para</guilabel
 ></term>
 <listitem
 ><para
->Criar cópia de segurança ao salvar, fará com que o &kappname; copie o arquivo do disco para &lt;prefixo&gt;&lt;arquivo&gt;&lt;sufixo&gt; antes de salvar as alterações. O sufixo é, por padrão, <emphasis role="bold"
+>Fazer backup ao salvar fará com que o &kappname; copie o arquivo de disco (a versão salva anteriormente do arquivo) para &lt;prefixo&gt;&lt;nomedoarquivo&gt;&lt;sufixo&gt; antes de salvar as novas alterações. Um arquivo de backup pode ajudar você a recuperar o trabalho caso algo dê errado durante o salvamento ou se você quiser recuperar posteriormente a versão anterior do arquivo. O sufixo é definido como <emphasis role="bold"
 >~</emphasis
-> e o prefixo está em branco, por padrão. </para>
+> por padrão e o prefixo está vazio por padrão. </para>
 <variablelist>
 <varlistentry>
 <term
@@ -1538,7 +1423,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Prefixo</guilabel
+>Prefixo para os arquivos de backup</guilabel
 ></term>
 <listitem>
 <para
@@ -1548,7 +1433,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Sufixo</guilabel
+>Sufixo para os arquivos de backup</guilabel
 ></term>
 <listitem>
 <para
@@ -1558,20 +1443,44 @@ Remove selected Add new mapping Import from vimrc file-->
 <varlistentry>
 <term
 ><guilabel
->Opções do arquivo temporário</guilabel
+>Modo arquivo de troca</guilabel
 ></term>
 <listitem>
 <para
->O &kappname; é capaz de recuperar (a maior parte) o que foi escrito após o último salvamento no caso de uma falta de energia. Um arquivo temporário (.swp.&lt;nomedoarquivo&gt;) é criado após a primeira ação de edição de um documento. Se o usuário não salvar as mudanças e o &kappname; travar, o arquivo temporário permanecerá no disco. Ao abrir um arquivo, o &kappname; verifica se existe um arquivo temporário para o documento e, caso exista, ele pergunta se o usuário deseja recuperar os dados perdidos ou não. O usuário também pode ver as diferenças entre o arquivo original e o recuperado. O arquivo temporário é excluído após cada salvamento ou saída normal do programa.</para>
+>O &kappname; é capaz de recuperar (a maior parte) do trabalho não salvo no caso de um travamento ou falta de energia. Um arquivo temporário (.&lt;nomedoarquivo&gt;.kate-swp) é criado após o documento ser editado. Se o usuário não salvar as mudanças e o &kappname; travar, o arquivo temporário permanecerá no disco. Ao abrir um arquivo, o &kappname; verifica se existe um arquivo temporário para o documento e, caso exista, ele pergunta se o usuário deseja recuperar os dados perdidos ou não. O usuário também pode ver as diferenças entre o arquivo original e o recuperado. O arquivo temporário é excluído após cada salvamento ou saída normal do programa.</para>
 <para
 >O &kappname; sincroniza os arquivos temporários a cada 15 segundos, mas somente se eles tiverem mudado desde a última sincronização. O usuário poderá desativar a sincronização dos arquivos temporários se desejar, selecionando a opção <guilabel
 >Desativar</guilabel
 >, mas isto pode levar a mais perda de dados.</para>
 <para
->Quando estiver assinalado, os arquivos temporários são salvos na mesma pasta onde o arquivo está armazanado. Quando a <guilabel
->Pasta alternativa</guilabel
-> for escolhida, os arquivos temporários serão criados na pasta indicada. Isso é útil para sistemas de arquivos de rede, de forma a evitar o tráfego de rede desnecessário.</para>
+>Quando o arquivo de troca está habilitado, é possível alternar entre dois modos, nomeadamente <guilabel
+>Habilitado, armazenar no diretório padrão</guilabel
+> e <guilabel
+>Habilitado, armazenar em diretório personalizado</guilabel
+>. </para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Armazenar arquivos de troca em</guilabel
+></term>
+<listitem
+><para
+>Por padrão, os arquivos temporários são salvos na mesma pasta do arquivo principal. Quando a <guilabel
+>Habilitado, armazenar em diretório personalizado</guilabel
+> for selecionado, os arquivos temporários serão criados na pasta indicada. Isso é útil para sistemas de arquivos de rede, de forma a evitar o tráfego de rede desnecessário.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term
+><guilabel
+>Salvar arquivos de troca a cada</guilabel
+></term>
+<listitem
+><para
+>O &kappname; sincroniza os arquivos temporários a cada 15 segundos, mas somente se eles tiverem mudado desde a última sincronização. O usuário poderá alterar o intervalo de sincronização como desejar.</para
+></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1585,7 +1494,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <title
 >Modos &amp; Tipos de Arquivos</title>
 <para
->Esta página permite-lhe substituir a configuração padrão dos documentos dos tipos MIME indicados. Quando o editor carregar um documento, ele verificará se o arquivo corresponde às máscaras de arquivos ou tipos MIME para cada um dos tipos definidos e, se corresponder, aplica as variáveis definidas. Se de um tipo de arquivo corresponder, será usado o que tiver maior prioridade. </para>
+>Esta página permite-lhe substituir a configuração padrão dos documentos dos tipos &MIME; indicados. Quando o editor carregar um documento, ele verificará se o arquivo corresponde às máscaras de arquivos ou tipos &MIME; para cada um dos tipos definidos e, se corresponder, aplica as variáveis definidas. Se de um tipo de arquivo corresponder, será usado o que tiver maior prioridade. </para>
 <variablelist>
 <varlistentry>
 <term
@@ -1638,13 +1547,13 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->O nome do tipo de arquivo será o texto do item de menu correspondente. Este nome é mostrado no item <menuchoice
+>O nome do tipo de arquivo será o texto do item de menu correspondente. Este nome é mostrado no menu <menuchoice
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
 >Tipos de arquivo</guimenuitem
 > </menuchoice
-></para
+>.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -1670,7 +1579,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Este texto permite-lhe configurar as opções do &kappname; para os arquivos selecionados por este tipo MIME, usando as variáveis do &kappname;. Você poderá definir quase todas as opções de configuração, como o 'highlight', 'indent-mode', etc.</para>
+>Este texto permite-lhe configurar as opções do &kappname; para os arquivos selecionados por este tipo &MIME;, usando as variáveis do &kappname;. Você poderá definir quase todas as opções de configuração, como o 'highlight', 'indent-mode', &etc;</para>
 <para
 >Pressione <guibutton
 >Editar</guibutton
@@ -1724,7 +1633,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem
 ><para
->Exibe um assistente que o ajuda a escolher facilmente tipos MIME.</para
+>Exibe um assistente que o ajuda a escolher facilmente tipos &MIME;.</para
 ></listitem>
 </varlistentry>
 
@@ -1743,17 +1652,6 @@ Remove selected Add new mapping Import from vimrc file-->
 </listitem
 > </varlistentry>
 
-<varlistentry>
-<term
-><guibutton
->Baixar arquivos de realce...</guibutton
-></term>
-<listitem>
-<para
->Clique neste botão para transferir descrições de realce de sintaxe novas ou atualizadas na página Web do &kappname;. </para>
-</listitem>
-</varlistentry>
-
 </variablelist>
 </sect3>
 
@@ -1766,12 +1664,12 @@ Remove selected Add new mapping Import from vimrc file-->
 >Configurando com as Variáveis do Documento</title>
 
 <para
->As variáveis do &kappname; são a implementação do 'katepart' para as variáveis do documento, de forma semelhante à que acontece no &Emacs; e no VI. Na 'katepart', as linhas têm o seguinte formato: <userinput
+>As variáveis do &kappname; são a implementação do &kappname; para as variáveis do documento, de forma semelhante à que acontece no &Emacs; e no VI. Na 'katepart', as linhas têm o seguinte formato: <userinput
 >kate: NOMEVARIÁVEL VALOR; [ NOMEVARIÁVEL VALOR; ... ]</userinput
 >. As linhas poderão estar, claro, num comentário, se o arquivo estiver num formato que suporte comentários. Os nomes das variáveis são palavras únicas (sem espaços) e tudo o que estiver até o próximo ponto e vírgula é o valor. Esse ponto e vírgula é obrigatório.</para>
 
 <para
->Aqui está uma linha de variável de exemplo, obrigando a configuração do recuo para um arquivo em C++, Java ou JavaScript: <programlisting
+>Aqui está uma linha de variável de exemplo, obrigando a configuração do recuo para um arquivo em C++, &Java; ou &javascript;: <programlisting
 >// kate: replace-tabs on; indent-width 4; indent-mode cstyle;</programlisting>
 </para>
 
@@ -1783,14 +1681,25 @@ Remove selected Add new mapping Import from vimrc file-->
 <para
 >Além disso, as variáveis do documento podem ser colocadas em um arquivo chamado <filename
 >.kateconfig</filename
-> em qualquer diretório, e as opções configuradas serão aplicadas se as modelines forem inseridas em qualquer arquivo no diretório e subdiretórios, com a profundidade <link linkend="pref-open-save-advanced"
->definida na profundidade de pesquisa.</link
-> As variáveis de documento no <filename
+> em qualquer diretório, e as opções configuradas serão aplicadas se as modelines forem inseridas em qualquer arquivo no diretório e subdiretórios. As variáveis de documento no <filename
 >.kateconfig</filename
-> usam a mesma sintaxe das modelines.</para>
+> usam a mesma sintaxe das modelines, mas com <link linkend="kateconfig-extended-options"
+>opções estendidas</link
+>.</para>
 
 <para
->Existem variáveis para suportar quase todas as configurações no 'katepart', e os plugins adicionais podem usar as variáveis; nesse caso, isto deverá estar indicado na documentação do plugin.</para>
+>Existem variáveis para suportar quase todas as configurações no &kappname; e os plugins adicionais podem usar as variáveis; nesse caso, isto deverá estar indicado na documentação do plugin.</para>
+
+<para
+>O &kappname; oferece suporte à leitura de configurações de arquivos <filename
+>.editorconfig</filename
+>, quando a biblioteca <ulink url="https://editorconfig.org/"
+>editorconfig</ulink
+> está instalada. O &kappname; busca automaticamente por um arquivo <filename
+>.editorconfig</filename
+> sempre que você abre um arquivo. No entanto, ele dá prioridade a arquivos <filename
+>.kateconfig</filename
+>. </para>
 
 <sect2 id="config-variables-howto">
 <title
@@ -1831,7 +1740,7 @@ Remove selected Add new mapping Import from vimrc file-->
 >Todas as variáveis que não estejam indicadas abaixo são guardadas no documento e poderão ser pesquisadas por outros objetos, como os plugins, usando-as para os seus próprios fins. Por exemplo, o modo de recuo variável usa as variáveis do documento para a sua própria configuração.</para>
 
 <para
->As variáveis aqui listadas dizem respeito ao &kappname; versão 3.7. Poderão ser adicionadas mais variáveis no futuro. Existem 3 tipos de valores definidos para as variáveis, com as seguintes expressões válidas: <itemizedlist>
+>As variáveis aqui listadas dizem respeito ao &kappname; versão 5.38. Poderão ser adicionadas mais variáveis no futuro. Existem 3 tipos de valores definidos para as variáveis, com as seguintes expressões válidas: <itemizedlist>
 <listitem
 ><para
 >BOOL - on|off|true|false|1|0</para
@@ -1855,6 +1764,21 @@ Remove selected Add new mapping Import from vimrc file-->
 
 <variablelist>
 
+<varlistentry id="variable-auto-brackets">
+<term
+><cmdsynopsis
+><command
+>auto-brackets</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ativar a inserção automática de parênteses.</para
+></listitem>
+</varlistentry>
+
 <varlistentry id="variable-auto-center-lines">
 <term
 ><cmdsynopsis
@@ -1867,21 +1791,6 @@ Remove selected Add new mapping Import from vimrc file-->
 <listitem
 ><para
 >Define o número de linhas de centralização automática.</para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-auto-insert-doxygen">
-<term
-><cmdsynopsis
-><command
->auto-insert-doxygen</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Ativa ou desativa a inserção do asterisco inicial nos comentários do 'doxygen'. Isto não tem efeito, a menos que você use o sistema de recuo no estilo do C. </para
 ></listitem>
 </varlistentry>
 
@@ -1934,39 +1843,20 @@ Remove selected Add new mapping Import from vimrc file-->
 ></listitem>
 </varlistentry>
 
-<varlistentry id="variable-byte-order-marker">
+<varlistentry id="variable-byte-order-mark">
 <term
 ><cmdsynopsis
 ><command
->bom | byte-order-marker</command
+>bom | byte-order-mark | byte-order-marker</command
 ><arg
->BOOLEANO</arg
+>BOOL</arg
 ></cmdsynopsis
 ></term>
 <listitem
 ><para
->Ativar/desativar o marcador da ordem dos bytes ao salvar os arquivos no formato Unicode (utf8, utf16, utf32).</para>
+>Ativar/desativar o marcador da ordem dos bytes (BOM) ao salvar os arquivos no formato Unicode (utf8, utf16, utf32).</para>
 <para
 >Desde: &kate; 3.4 (&kde; 4.4)</para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-encoding">
-<term
-><cmdsynopsis
-><command
->encoding</command
-><arg
->TEXTO</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Define a codificação usada para carregar ou salvar o arquivo. Como as variáveis do documento serão lidas após o carregamento, isto só terá impacto na gravação. Se o colocar em um arquivo <filename
->.kateconfig</filename
->, também afetará o carregamento.</para>
-<para
->Desde: &kate; 3.10 (&kde; 4.10)</para
 ></listitem>
 </varlistentry>
 
@@ -2073,6 +1963,21 @@ Remove selected Add new mapping Import from vimrc file-->
 >Ativa ou desativa a visualização dos <link linkend="advanced-editing-tools-code-folding"
 >marcadores de expansão/contração do código</link
 >. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-folding-preview">
+<term
+><cmdsynopsis
+><command
+>folding-preview</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ativar a visualização de dobragem no contorno do editor.</para
 ></listitem>
 </varlistentry>
 
@@ -2252,25 +2157,6 @@ Remove selected Add new mapping Import from vimrc file-->
 ></listitem>
 </varlistentry>
 
-<varlistentry id="variable-mixed-indent">
-<term
-><cmdsynopsis
-><command
->mixed-indent</command
-><arg
->BOOLEANO</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Ativa ou desativa o recuo misto no estilo &Emacs;.</para>
-<para
->Nota: Obsoleto desde o &kate; 3 no &kde;4. Esta variável é ignorada. Use o <command
->replace-tabs on;</command
-> como alternativa no futuro.</para
-></listitem>
-</varlistentry>
-
 <varlistentry id="variable-newline-at-eof">
 <term
 ><cmdsynopsis
@@ -2320,22 +2206,33 @@ Remove selected Add new mapping Import from vimrc file-->
 ></listitem>
 </varlistentry>
 
-<varlistentry id="variable-remove-trailing-space">
+<varlistentry id="variable-replace-tabs-save">
 <term
 ><cmdsynopsis
 ><command
->remove-trailing-space</command
+>replace-tabs-save</command
 ><arg
 >BOOL</arg
 ></cmdsynopsis
 ></term>
 <listitem
 ><para
->Ativa ou desativa a limpeza dinâmica dos fins-de-linha.</para>
-<para
->Nota: Obsoleto desde a versão &kde; 4.10. Em vez disso, use a opção <link linkend="variable-remove-trailing-spaces"
-> remove-trailing-spaces</link
-> com a escolha desejada. </para
+>Ativa ou desativa a conversão de tabulações para espaços no salvamento.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="variable-replace-tabs">
+<term
+><cmdsynopsis
+><command
+>replace-tabs</command
+><arg
+>BOOL</arg
+></cmdsynopsis
+></term>
+<listitem
+><para
+>Ativa ou desativa a conversão dinâmica de tabulações para espaços no salvamento.</para
 ></listitem>
 </varlistentry>
 
@@ -2385,61 +2282,36 @@ Remove selected Add new mapping Import from vimrc file-->
 >: remove os espaços finais no documento inteiro.</para
 ></listitem>
 </itemizedlist>
-<para
->Desde: &kde; 4.10. Esta opção substitui as opções <userinput
->remove-trailing-space</userinput
-> e <userinput
->replace-trailing-space-save</userinput
->. </para
-></listitem>
+</listitem>
 </varlistentry>
 
-<varlistentry id="variable-replace-tabs-save">
+<varlistentry id="variable-scrollbar-minimap">
 <term
 ><cmdsynopsis
 ><command
->replace-tabs-save</command
+>scrollbar-minimap</command
 ><arg
 >BOOL</arg
 ></cmdsynopsis
 ></term>
 <listitem
 ><para
->Ativa ou desativa a conversão de tabulações para espaços no salvamento.</para
+>Mostrar minimapa na barra de rolagem.</para
 ></listitem>
 </varlistentry>
 
-<varlistentry id="variable-replace-tabs">
+<varlistentry id="variable-scrollbar-preview">
 <term
 ><cmdsynopsis
 ><command
->replace-tabs</command
+>scrollbar-preview</command
 ><arg
 >BOOL</arg
 ></cmdsynopsis
 ></term>
 <listitem
 ><para
->Ativa ou desativa a conversão dinâmica de tabulações para espaços no salvamento.</para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-replace-trailing-space-save">
-<term
-><cmdsynopsis
-><command
->replace-trailing-space-save</command
-><arg
->BOOL</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Ativa ou desativa a limpeza dos fins-de-linha no salvamento.</para>
-<para
->Nota: Obsoleto desde a versão &kde; 4.10. Em vez disso, use a opção <link linkend="variable-remove-trailing-spaces"
-> remove-trailing-spaces</link
-> com a escolha desejada. </para
+>Mostrar a visualização na barra de rolagem.</para
 ></listitem>
 </varlistentry>
 
@@ -2504,25 +2376,6 @@ Remove selected Add new mapping Import from vimrc file-->
 >Ativa ou desativa a <link linkend="pref-edit-cursor-selection"
 >navegação inteligente do Home</link
 >.</para
-></listitem>
-</varlistentry>
-
-<varlistentry id="variable-space-indent">
-<term
-><cmdsynopsis
-><command
->space-indent</command
-><arg
->BOOLEANO</arg
-></cmdsynopsis
-></term>
-<listitem
-><para
->Ativa ou desativa o recuo com espaços.</para>
-<para
->Nota: Obsoleto desde o &kate; 3 no &kde;4. O recuo misto é o comportamento padrão. Use o <command
->replace-tabs on;</command
-> para obter um recuo apenas com espaços.</para
 ></listitem>
 </varlistentry>
 
@@ -2623,6 +2476,49 @@ Remove selected Add new mapping Import from vimrc file-->
 </varlistentry>
 
 </variablelist>
+
+</sect2>
+
+<sect2 id="kateconfig-extended-options">
+<title
+>Opções estendidas nos arquivos <filename
+>.kateconfig</filename
+></title>
+
+<para
+>O &kappname; sempre procura um arquivo <filename
+>.kateconfig</filename
+> para arquivos locais (não arquivos remotos). Além disso, é possível definir opções com base em curingas (extensões de arquivo) da seguinte forma:</para>
+
+<programlisting
+>kate: tab-width 4; indent-width 4; replace-tabs on;
+kate-wildcard(*.xml): indent-width 2;
+kate-wildcard(Makefile): replace-tabs off;
+</programlisting>
+
+<para
+>Neste exemplo, todos os arquivos usam uma largura de tabulação de 4 espaços, uma largura de recuo de 4 espaços e as tabulações são substituídas por espaços quando expandidas. No entanto, para todos os arquivos <filename class="extension"
+>*.xml</filename
+>, a largura do recuo é definida como 2 espaços. E os Makefiles usam tabulações, &ie; as tabulações não são substituídas por espaços.</para>
+
+<para
+>Os caracteres curinga são separados por ponto e vírgula, &ie; você também pode especificar várias extensões de arquivo da seguinte forma: </para>
+
+<programlisting
+>kate-wildcard(*.json;*.xml): indent-width 2;</programlisting>
+
+<para
+>Além disso, você também pode usar o tipo &MIME; para corresponder a determinados arquivos, &eg; para indentar todos os arquivos de origem C++ com 4 espaços, você pode escrever: </para>
+
+<programlisting
+>kate-mimetype(text/x-c++src): indent-width 4;</programlisting>
+
+<note
+><para
+>Além do suporte em arquivos <filename
+>.kateconfig</filename
+>, curingas e variáveis ​​de documento dependentes do tipo &MIME; também são suportados nos próprios arquivos como comentários. </para
+></note>
 
 </sect2>
 

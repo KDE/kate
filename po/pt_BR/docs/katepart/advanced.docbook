@@ -92,7 +92,7 @@
 >A Linha de Comando do Componente de Edição</title>
 
 <para
->O componente de edição do &kappname; possui uma linha de comando interna, que lhe permite efetuar várias ações a partir de uma interface mínima. A linha de comando é um campo de texto no fundo da área de edição onde, para mostrá-la, você poderá selecionar a opção <menuchoice
+>O componente de edição do &kappname; possui uma linha de comando interna, que lhe permite efetuar várias ações a partir de uma &GUI; mínima. A linha de comando é um campo de texto no fundo da área de edição onde, para mostrá-la, você poderá selecionar a opção <menuchoice
 ><guimenu
 >Ver</guimenu
 ><guimenuitem
@@ -123,11 +123,7 @@
 >.</para>
 
 <para
->A linha de comando possui um histórico embutido, como tal, o usuário poderá reutilizar os comandos já digitados. Para navegar no histórico, use as teclas <keycap
->Cima</keycap
-> e <keycap
->Baixo</keycap
->. Ao mostrar os comandos do histórico, a parte do argumento do comando será selecionada, o que lhe permite sobrepor facilmente os argumentos.</para>
+>A linha de comando possui um histórico embutido, como tal, o usuário poderá reutilizar os comandos já digitados. Para navegar no histórico, use as teclas &Up; e &Down;. Ao mostrar os comandos do histórico, a parte do argumento do comando será selecionada, o que lhe permite sobrepor facilmente os argumentos.</para>
 
 <sect2 id="advanced-editing-tools-commandline-commands">
 <title
@@ -495,8 +491,8 @@
 <listitem
 ><para
 >Recarrega todos os <link linkend="dev-scripting"
->scripts do JavaScript</link
-> usados pelo Kate, incluindo scripts de indentação e de linha de comando.</para
+>scripts do &javascript;</link
+> usados pelo &kate;, incluindo scripts de indentação e de linha de comando.</para
 ></listitem>
 </varlistentry>
 
@@ -790,7 +786,7 @@
 >ddd</literal
 ></entry
 ><entry
->O nome do dia abreviado, no formato regional (p.ex. 'Seg'..'Dom').</entry
+>O nome do dia abreviado, no formato regional (&eg; 'Seg'..'Dom').</entry
 ></row>
 <row
 ><entry
@@ -798,7 +794,7 @@
 >dddd</literal
 ></entry
 ><entry
->O nome do dia completo, no formato regional (p.ex. 'Segunda'..'Domingo').</entry
+>O nome do dia completo, no formato regional (&eg; 'Segunda'..'Domingo').</entry
 ></row>
 <row
 ><entry
@@ -822,7 +818,7 @@
 >MMMM</literal
 ></entry
 ><entry
->O nome completo do mês localizado (ex.: 'Janeiro'..'Dezembro').</entry
+>O nome completo do mês localizado (&eg; 'Janeiro'..'Dezembro').</entry
 ></row>
 <row
 ><entry
@@ -830,7 +826,7 @@
 >MMM</literal
 ></entry
 ><entry
->O nome do mês abreviado, no formato regional (p.ex. 'Jan'..'Dez').</entry
+>O nome do mês abreviado, no formato regional (&eg; 'Jan'..'Dez').</entry
 ></row>
 <row
 ><entry
@@ -987,8 +983,8 @@
 >substituir no estilo sed</primary>
 <secondary
 >procurar no estilo sed</secondary
-></indexterm>
-<command
+></indexterm
+><command
 >s///[ig]</command
 > <command
 >%s///[ig]</command
@@ -1294,6 +1290,35 @@
 <term
 ><cmdsynopsis
 ><command
+>alignon</command
+></cmdsynopsis
+></term>
+<listitem>
+<para
+>Este comando alinha as linhas no bloco selecionado ou em todo o documento na coluna especificada por uma expressão regular fornecida como argumento.</para>
+<para
+>Se você fornecer um padrão vazio, ele se alinhará ao primeiro caractere não vazio por padrão.</para>
+<para
+>Se o padrão tiver uma captura, ele será recuado na correspondência capturada.</para>
+<para
+><emphasis
+>Exemplos:</emphasis
+></para>
+<para
+><userinput
+>alignon -</userinput
+> irá inserir espaços antes do primeiro '-' de cada linha para alinhá-las na mesma coluna.</para>
+<para
+><userinput
+>alignon :\\s+(.)</userinput
+> irá inserir espaços antes do primeiro caractere não em branco que ocorrer após dois pontos para alinhá-los todos na mesma coluna.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><cmdsynopsis
+><command
 >unwrap</command
 ></cmdsynopsis
 ></term>
@@ -1314,7 +1339,7 @@
 ></term>
 <listitem
 ><para
->Fornecida uma função do JavaScript como argumento, chama pela lista de linhas selecionadas e substitui-as com o valor de retorno desta chamada.</para>
+>Fornecida uma função do &javascript; como argumento, chama pela lista de linhas selecionadas e substitui-as com o valor de retorno desta chamada.</para>
 
 <example>
 <title
@@ -1352,7 +1377,7 @@
 ></term>
 <listitem
 ><para
->Fornecida uma função do JavaScript como argumento, chama pela lista de linhas selecionadas e remove-as onde a chamada retorna falso.</para>
+>Fornecida uma função do &javascript; como argumento, chama pela lista de linhas selecionadas e remove-as onde a chamada retorna falso.</para>
 
 <example>
 <title
@@ -1390,7 +1415,7 @@
 ></term>
 <listitem
 ><para
->Fornecida uma função do JavaScript como argumento, chama pela lista de linhas selecionadas e substitui a linha com o valor de retorno da chamada.</para>
+>Fornecida uma função do &javascript; como argumento, chama pela lista de linhas selecionadas e substitui a linha com o valor de retorno da chamada.</para>
 
 <example>
 <title
@@ -1479,7 +1504,7 @@
 ><para
 >Pesquisa o documento pela expressão regular <userinput
 >padrão</userinput
->. Para mais informações, veja as <xref linkend="regular-expressions"/></para>
+>. Para mais informações, veja as <xref linkend="regular-expressions"/>.</para>
 </listitem>
 </varlistentry>
 
@@ -1600,7 +1625,7 @@
 >à-medida-que-digita</quote
 >. Você poderá configurar o comportamento da procura adicionando dois-pontos (:), seguidos de uma ou mais opções, como se segue: <userinput
 >ifind:opções padrão</userinput
->. As opções permitidas são <variablelist>
+>. As opções permitidas são: <variablelist>
 <varlistentry>
 <term
 ><userinput

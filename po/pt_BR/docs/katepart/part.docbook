@@ -162,38 +162,22 @@
 >Navegando no Texto</title>
 
 <para
->A movimentação pelo texto no &kappname; é como na maioria dos editores de texto gráficos. O usuário poderá mover o cursor com as teclas dos cursores e com as teclas <keycap
->Page Up</keycap
->, <keycap
->Page Down</keycap
->, <keycap
+>A movimentação pelo texto no &kappname; é como na maioria dos editores de texto gráficos. O usuário poderá mover o cursor com as teclas dos cursores e com as teclas &PgUp;, &PgDn;, <keycap
 >Home</keycap
 > e <keycap
 >End</keycap
 >, em conjunto com as teclas modificadoras &Ctrl; e &Shift;. A tecla &Shift; é sempre usada para gerar uma seleção, enquanto a tecla &Ctrl; pode ter efeitos diferentes nas diferentes teclas: <itemizedlist>
 <listitem
 ><para
->Para as teclas <keycap
->Cima</keycap
-> e <keycap
->Baixo</keycap
->, isto significa deslocar o cursor, em vez de movê-lo.</para
+>Para as teclas &Up;e &Down;, isto significa deslocar o cursor, em vez de movê-lo.</para
 ></listitem>
 <listitem
 ><para
->Para as teclas <keycap
->Esquerda</keycap
-> e <keycap
->Direita</keycap
->, isto significa saltar as palavras em vez de simples caracteres.</para
+>Para as teclas &Left; e &Right;, isto significa saltar as palavras em vez de simples caracteres.</para
 ></listitem>
 <listitem
 ><para
->Para as teclas <keycap
->Page Up</keycap
-> e <keycap
->Page Down</keycap
->, isto significa ir para o limite visível da janela, em vez de navegar.</para>
+>Para as teclas &PgUp; e &PgDn;, isto significa ir para o limite visível da janela, em vez de navegar.</para>
 </listitem>
 <listitem
 ><para
@@ -256,14 +240,10 @@
 </note>
 
 <para
->Para selecionar usando o teclado, pressione mantenha pressionada a tecla &Shift; usando as teclas de navegação (as setas, <keycap
->Page Up</keycap
->, <keycap
->Page Down</keycap
->, <keycap
+>Para selecionar usando o teclado, pressione mantenha pressionada a tecla &Shift; usando as teclas de navegação (as setas, &PgUp;, &PgDn;, <keycap
 >Home</keycap
 > e <keycap
->End </keycap
+>End</keycap
 >, possivelmente em combinação com o &Ctrl; para aumentar o movimento do cursor de texto).</para>
 
 <para
@@ -397,9 +377,7 @@
 >.</para>
 
 <para
->Adicionalmente, o texto selecionado com o mouse pode ser colando clicando-se com o botão do <mousebutton
->meio</mousebutton
-> do mouse na posição desejada.</para>
+>Adicionalmente, o texto selecionado com o mouse pode ser colando clicando-se com o &MMB; na posição desejada.</para>
 
 <tip>
 <para
@@ -415,7 +393,7 @@
 
 <sect2 id="find-replace-bars">
 <title
->As Barras para Procurar e Substituir</title>
+>As Barras para Pesquisar e Substituir</title>
 
 
 <para
@@ -433,7 +411,7 @@
 ></term>
 <listitem
 ><para
->Aqui é onde se digita a string de busca. A interpretação da string depende de algumas das opções escritas a seguir.</para
+>Aqui é onde se digita a string de pesquisa. A interpretação da string depende de algumas das opções escritas a seguir.</para
 ></listitem>
 </varlistentry>
 
@@ -510,7 +488,7 @@
 <varlistentry>
 <term
 ><guilabel
->Apenas a seleção</guilabel
+>Procura apenas na área selecionada</guilabel
 ></term>
 <listitem>
 <para
@@ -532,7 +510,8 @@
 </variablelist>
 
 </sect2>
-
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-find"
+> -->
 <sect2 id="finding-text">
 <title
 >Procurando Texto</title>
@@ -552,23 +531,31 @@
 <para
 >Isto abre a barra de pesquisa incremental no fundo da janela do editor. Do lado esquerdo da barra, existe um botão com ícone para fechar a barra, seguido de um pequeno campo de texto para inserir o padrão a pesquisar.</para>
 <para
->Quando você começar a inserir os caracteres no seu padrão de pesquisa, a busca inicia imediatamente. Se existir uma ocorrência no texto, ela fica realçada e a cor de fundo do campo muda para verde-claro. Se o padrão de pesquisa não corresponder a nenhum texto, isto é indicado por uma cor de fundo vermelha-clara no campo e com uma mensagem <guilabel
->Não encontrado</guilabel
-> do lado direito da barra.</para>
+>Quando você começar a inserir os caracteres no seu padrão de pesquisa, a busca inicia imediatamente. Se existir uma ocorrência no texto, ela fica realçada e a cor de fundo do campo muda para verde-claro. Se o padrão de pesquisa não corresponder a nenhum texto, isto é indicado por uma cor de fundo vermelha-clara no campo.</para>
 <para
->Use o botão <guilabel
->Próximo</guilabel
-> ou <guilabel
->Anterior</guilabel
-> para saltar para a próxima ocorrência ou a anterior no documento.</para>
+>Use os botões <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> or <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> para ir para a ocorrência anterior ou seguinte no documento.</para>
 <para
->As correspondências são realçadas mesmo quando você fecha a barra de pesquisa. Para limpar este realce, pressione a tecla &Esc;.</para>
+>As correspondências no documento são realçadas mesmo quando você fecha a barra de pesquisa. Para limpar este realce, pressione a tecla &Esc;.</para>
 <para
->Você poderá escolher aqui se a pesquisa faz a distinção entre minúsculas e maiúsculas. Se selecionar a opção <guilabel
->Diferenciar maiúsculas de minúsculas</guilabel
+>Você poderá escolher aqui se a pesquisa faz a distinção entre minúsculas e maiúsculas. Se selecionar a opção <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
 >, irá limitar as pesquisas para os itens que correspondam às letras (maiúsculas ou minúsculas) de cada um dos caracteres do padrão de pesquisa.</para>
 <para
->Clique no botão com um ícone da seta verde, à direita da barra de pesquisa incremental, para mudar para a barra mais poderosa de pesquisa e substituição. </para>
+>Clique no botão <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> à direita da barra de pesquisa incremental, para mudar para a barra mais poderosa de pesquisa e substituição. </para>
 <para
 >Para repetir a última operação de pesquisa, se existir alguma e sem ter que invocar a barra de pesquisa incremental, use a opção <menuchoice
 > <shortcut
@@ -597,8 +584,9 @@
 >. </para>
 
 </sect2>
-
-<sect2>
+<!--FIXME keep in sync with kate/menus.docbook <varlistentry id="edit-replace"
+> -->
+<sect2 id="replacing-text">
 <title
 >Substituindo Texto</title>
 
@@ -615,23 +603,35 @@
 ></keycombo
 >.</para>
 <para
->No canto superior esquerdo da barra existe um botão com um ícone para fechar a barra, seguido de um pequeno campo de texto para inserir o padrão de pesquisa.</para>
+>No canto superior esquerdo da barra existe um botão com um ícone para fechar a barra, seguido de um pequeno menu suspenso para inserir o padrão de pesquisa. O menu se lembra dos padrões recentemente usados.</para>
 <para
 >Você poderá controlar o modo de pesquisa selecionando as opções <guilabel
->Texto Simples</guilabel
+>Texto simples</guilabel
 >, <guilabel
->Palavras Completas</guilabel
+>Palavras completas</guilabel
 >, <guilabel
->Sequências de Escape</guilabel
+>Sequências de escape</guilabel
 > ou <guilabel
->Expressão Regular</guilabel
->, que estão descritas acima. </para>
+>Expressão regular</guilabel
+> da caixa suspensa. </para>
 <para
->Use o botão <guilabel
->Próximo</guilabel
+>Se <guilabel
+>Sequências de escape</guilabel
 > ou <guilabel
->Anterior</guilabel
-> para saltar para a próxima ocorrência ou a anterior no documento.</para>
+>Expressão regular</guilabel
+> estiver selecionado, o item de menu <guibutton
+>Adicionar...</guibutton
+> na base do menu de contexto de caixas de texto será habilitado e lhe permitirá adicionar sequências de escape ou expressões regulares para pesquisa ou substituição de padrões a partir de listas pré-definidas.</para>
+<para
+>Use os botões <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> or <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> para ir para a ocorrência anterior ou seguinte no documento.</para>
 <para
 >Insira o texto de substituição no campo de texto <guilabel
 >Substituir</guilabel
@@ -641,15 +641,23 @@
 >Substituir Tudo</guibutton
 > para substituir o texto de pesquisa em todo o documento. </para>
 <para
->Você poderá modificar o comportamento da pesquisa e da substituição se selecionar as diferentes opções no fundo da barra. Selecionar a opção <guilabel
->Distinguir a Capitalização</guilabel
-> irá limitar as pesquisas aos itens que correspondam, a nível de maiúsculas/minúsculas, a cada um dos caracteres no padrão de pesquisa. A opção <guilabel
->Apenas a Seleção</guilabel
-> irá procurar e substituir apenas dentro da seleção atual. O botão <guilabel
->Procurar Tudo</guilabel
-> irá realçar todas as ocorrências no documento e mostrar o número de ocorrências encontradas numa pequena janela. </para>
+>Você poderá modificar o comportamento da pesquisa e da substituição ao selecionar as diferentes opções no lado direito da barra. Se selecionar a opção <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+>, irá limitar as pesquisas apenas aos itens com capitalização correspondente (maiúsculas ou minúsculas) para cada um dos caracteres no padrão de pesquisa. A opção <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> irá procurar e substituir apenas dentro do texto selecionado no momento. A opção <guilabel
+>Procurar tudo</guilabel
+> realça todas as ocorrências no documento e mostra o número de correspondências encontradas em uma pequena janela de contexto. </para>
 <para
->Clique no botão com o ícone da seta verde, à direita da barra avançada de pesquisa e substituição, para mudar para a barra de pesquisa incremental. </para>
+>Clique no botão <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> à direita da barra avançada de pesquisa e substituição, para mudar para a barra de pesquisa incremental. </para>
 <tip>
 <para
 >Se estiver usando uma expressão regular para encontrar um texto a ser substituído, você pode empregar referências regressivas, para reutilizar o texto capturado em subpadrões da expressão, com parênteses.</para>
@@ -721,9 +729,7 @@
 >Seguinte</guimenuitem
 > </menuchoice
 > (<keycombo action="simul"
->&Alt; <keycap
->PgDown</keycap
-></keycombo
+>&Alt;&PgDn;</keycombo
 >) ou <menuchoice
 > <guimenu
 >Favoritos</guimenu
@@ -731,9 +737,7 @@
 >Anterior</guimenuitem
 ></menuchoice
 > (<keycombo action="simul"
->&Alt;<keycap
->PgUp</keycap
-> </keycombo
+>&Alt;&PgUp; </keycombo
 >).</para>
 
 </sect1>
@@ -802,7 +806,7 @@
 ><guimenu
 >Ferramentas</guimenu
 ><guimenuitem
->Alinhamento</guimenuitem
+>Formatar recuo</guimenuitem
 ></menuchoice
 >, que irá calcular novamente o recuo da linha atual ou a selecionada. Assim, você poderá mudar o recuo do seu documento inteiro, selecionando o texto e ativando essa opção.</para>
 
@@ -846,7 +850,7 @@
 >Estilo C</term>
 <listitem
 ><para
->Um sistema de recuo para o C e para as linguagens semelhantes, como o C++, C#, Java, JavaScript, entre outros. Este sistema não irá funcionar para as linguagens de 'scripting', como o Perl ou o PHP.</para
+>Um sistema de recuo para o C e para as linguagens semelhantes, como o C++, C#, &Java;, &javascript;, entre outros. Este sistema não irá funcionar para as linguagens de 'scripting', como o Perl ou o PHP.</para
 ></listitem>
 </varlistentry>
 
@@ -909,7 +913,7 @@
 <para>
 <mediaobject>
 <imageobject
-><imagedata format="PNG" fileref="&imgpath;line-modification-system.png"/></imageobject>
+><imagedata format="PNG" fileref="line-modification-system.png"/></imageobject>
 <caption
 ><para
 >Os indicadores de modificação de linhas em ação.</para
@@ -942,7 +946,7 @@
 <para>
 <mediaobject>
 <imageobject
-><imagedata format="PNG" fileref="&imgpath;minimap.png"/></imageobject>
+><imagedata format="PNG" fileref="minimap.png"/></imageobject>
 <caption
 ><para
 >O minimapa na barra de rolagem mostra uma miniatura do código-fonte do &kate;. </para
@@ -960,6 +964,99 @@
 > ou de forma permanente na seção <link linkend="appearance-borders"
 >Aparência, da configuração do &kappname;</link
 >.</para>
+
+</sect1>
+
+<sect1 id="kate-part-multiple-cursors">
+<title
+>Cursores múltiplos</title>
+
+<para
+>O suporte a múltiplos cursores foi introduzido na versão 5.93 do katepart.</para>
+
+<sect2 id="kate-part-create-multiple-cursors">
+<title
+>Criando cursores múltiplos</title>
+
+<itemizedlist>
+<listitem
+><para
+>Para criá-los com o mouse, use &Alt; + &LMB;. O modificador é configurável. Consulte <link linkend="multicursor-modifier-configure"
+>Configurar modificador multicursor</link
+></para
+></listitem>
+
+<listitem
+><para
+>Para criar usando o teclado, pressione <keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+> para criar o cursor acima do cursor principal e <keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+> para criar o cursor abaixo. Esses atalhos também são configuráveis</para
+></listitem>
+
+<listitem
+><para
+>Para criar cursores a partir de uma seleção, primeiro selecione algum texto e pressione <keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+>. Isso criará um cursor no final de cada linha da seleção.</para
+></listitem>
+
+<listitem
+><para
+>Use <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> para encontrar a próxima ocorrência da palavra sob o cursor e selecioná-la + criar um cursor. Se quiser pular a palavra atual sob o cursor, pressione <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> e a palavra selecionada será marcada como pulada. Ao pressionar <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> novamente, a palavra atual será desmarcada e o cursor passará para a próxima palavra.</para>
+</listitem>
+
+<listitem
+><para
+>Use <keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+> para encontrar todas as ocorrências da palavra sob o cursor e selecioná-las com o cursor no final de cada seleção. Você pode usar <keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+> para percorrer as palavras selecionadas e usar <keycombo action="simul"
+>&Alt;<keycap
+>K</keycap
+></keycombo
+> para desmarcar qualquer palavra, como mencionado no parágrafo anterior.</para
+></listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2
+><title
+>Trabalhando com cursores múltiplos</title>
+<para
+>Depois de criar alguns cursores, você pode realizar a maioria das operações de edição neles como faria em um único cursor. Por exemplo, digitar uma letra a digitará para cada cursor. Da mesma forma, você pode realizar transformações de texto &eg;, capitalização para todas as posições ou seleções.</para>
+
+<para
+>Às vezes, você desejará remover os cursores. Para isso, você pode usar &Alt; + &LMB; no cursor que deseja remover. Se você quiser remover os cursores apenas em linhas vazias, existe uma ação pronta para isso para você. Para invocar a ação, abra a barra de comandos usando <keycombo action="simul"
+> &Ctrl;&Alt;<keycap
+>I</keycap
+></keycombo
+> e procure por <guimenuitem
+>Remover cursores de linhas vazias</guimenuitem
+> e pressione &Enter;. Você também pode configurar um atalho para esta ação.</para>
+
+</sect2>
 
 </sect1>
 

@@ -49,6 +49,10 @@ target_sources(
     plugin.qrc 
 )
 
+if (BUILD_TESTING)
+    add_subdirectory(autotests)
+endif()
+
 if (ENABLE_PCH)
     target_precompile_headers(kategdbplugin REUSE_FROM katepch)
 endif()

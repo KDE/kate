@@ -3,7 +3,6 @@
  *    SPDX-License-Identifier: LGPL-2.0-or-later
  */
 #include "breakpointview.h"
-#include "backend.h"
 
 #include <KLocalizedString>
 #include <KTextEditor/Application>
@@ -30,6 +29,7 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
 // [] Double clicking on a breakpoint takes us to the location?
+// [] add a test for this
 
 class BreakpointModel : public QAbstractItemModel
 {
@@ -248,6 +248,7 @@ public:
 
     void fileBreakpointsSet(const QUrl &url, QList<dap::Breakpoint> newDapBreakpoints)
     {
+        qDebug() << Q_FUNC_INFO;
         std::byte memory[sizeof(FileBreakpoint) * 30];
         std::pmr::monotonic_buffer_resource allocator(memory, sizeof(memory));
 
@@ -520,7 +521,7 @@ void BreakpointModel::toggleBreakpoint(const QUrl &url, int line, std::optional<
     }
 }
 
-BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, Backend *backend, QWidget *parent)
+BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInterface *backend, QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_backend(backend)
@@ -585,6 +586,10 @@ void BreakpointView::toggleBreakpoint()
     if (m_backend->debuggerRunning() && !m_backend->canContinue()) {
         m_backend->slotInterrupt();
     } else {
+        if (!m_mainWindow) {
+            return;
+        }
+
         KTextEditor::View *editView = m_mainWindow->activeView();
         if (!editView) {
             return;
@@ -630,10 +635,10 @@ void BreakpointView::slotBreakpointsSet(const QUrl &file, const QList<dap::Break
             }
         }
 
-        m_breakpointModel->fileBreakpointsSet(file, breakpoints);
-
         connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
     }
+
+    m_breakpointModel->fileBreakpointsSet(file, breakpoints);
 }
 
 void BreakpointView::clearLineBreakpoints()

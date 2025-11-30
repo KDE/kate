@@ -22,8 +22,10 @@ class MainWindow;
 
 class BreakpointView : public QWidget
 {
+    friend class BreakpointViewTest;
+
 public:
-    explicit BreakpointView(KTextEditor::MainWindow *mainWindow, Backend *backend, QWidget *parent);
+    explicit BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInterface *backend, QWidget *parent);
 
 public:
     /**

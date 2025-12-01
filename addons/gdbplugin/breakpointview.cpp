@@ -30,6 +30,8 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [] Cleanup, add a header to the model, path item can span multiple columns?
 // [] Double clicking on a breakpoint takes us to the location?
 // [] add a test for this
+// [] Fix KatePluginGDBView::prepareDocumentBreakpoints, it should work whether or not debugger is running. Perhaps remove it altogether because we shouldn't
+// call that function when a view is created. Listening on view creation is useless here
 
 class BreakpointModel : public QAbstractItemModel
 {
@@ -371,6 +373,10 @@ public:
         beginInsertRows(parent, pos, pos);
         m_lineBreakpoints.insert(pos, FileBreakpoint{.url = url, .breakpoint = bp});
         endInsertRows();
+
+        if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
+            Q_EMIT breakpointChanged(bp.source.value().path, std::nullopt, bp.line.value(), BackendInterface::BreakpointEventKind::New);
+        }
     }
 
     void onBreakpointChanged(const dap::Breakpoint &bp)
@@ -412,6 +418,7 @@ public:
         const auto newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
         const auto oldPos = std::distance(m_lineBreakpoints.begin(), it);
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
+        const auto oldLine = it->breakpoint.line;
 
         if (newPos == oldPos) {
             it->breakpoint = bp;
@@ -432,7 +439,7 @@ public:
         }
 
         if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
-            Q_EMIT breakpointChanged(bp.source.value().path, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);
+            Q_EMIT breakpointChanged(bp.source.value().path, oldLine, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);
         }
     }
 
@@ -458,7 +465,7 @@ public:
         endRemoveRows();
 
         if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
-            Q_EMIT breakpointChanged(bp.source.value().path, bp.line.value(), BackendInterface::BreakpointEventKind::Removed);
+            Q_EMIT breakpointChanged(bp.source.value().path, std::nullopt, bp.line.value(), BackendInterface::BreakpointEventKind::Removed);
         }
     }
 
@@ -503,7 +510,7 @@ Q_SIGNALS:
      * Breakpoint at file:line changed
      * line is 1 based index
      */
-    void breakpointChanged(const QUrl &url, int line, BackendInterface::BreakpointEventKind);
+    void breakpointChanged(const QUrl &url, std::optional<int> oldline, int line, BackendInterface::BreakpointEventKind);
     void breakpointEnabledChanged(const QUrl &url, int line, bool enabled);
 };
 
@@ -575,23 +582,31 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     connect(m_backend, &BackendInterface::clearBreakpointMarks, this, &BreakpointView::clearLineBreakpoints);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
 
-    connect(m_breakpointModel, &BreakpointModel::breakpointChanged, this, [this](const QUrl &url, int line, BackendInterface::BreakpointEventKind kind) {
-        auto app = KTextEditor::Editor::instance()->application();
-        if (auto doc = app->findUrl(url)) {
-            disconnect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints);
+    connect(m_breakpointModel,
+            &BreakpointModel::breakpointChanged,
+            this,
+            [this](const QUrl &url, std::optional<int> oldLine, int line, BackendInterface::BreakpointEventKind kind) {
+                auto app = KTextEditor::Editor::instance()->application();
+                if (auto doc = app->findUrl(url)) {
+                    disconnect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints);
 
-            if (kind == BackendInterface::BreakpointEventKind::Changed) {
-                // Ensure there is a red dot for this line
-                if ((doc->mark(line - 1) & KTextEditor::Document::BreakpointActive) == 0) {
-                    doc->addMark(line - 1, KTextEditor::Document::BreakpointActive);
+                    if (kind == BackendInterface::BreakpointEventKind::Changed) {
+                        if (oldLine.has_value()) {
+                            doc->removeMark(oldLine.value() - 1, KTextEditor::Document::BreakpointActive);
+                        }
+                        // Ensure there is a red dot for this line
+                        if ((doc->mark(line - 1) & KTextEditor::Document::BreakpointActive) == 0) {
+                            doc->addMark(line - 1, KTextEditor::Document::BreakpointActive);
+                        }
+                    } else if (kind == BackendInterface::BreakpointEventKind::Removed) {
+                        doc->removeMark(line - 1, KTextEditor::Document::BreakpointActive);
+                    } else if (kind == BackendInterface::BreakpointEventKind::New) {
+                        doc->addMark(line - 1, KTextEditor::Document::BreakpointActive);
+                    }
+
+                    connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
                 }
-            } else if (kind == BackendInterface::BreakpointEventKind::Removed) {
-                doc->removeMark(line - 1, KTextEditor::Document::BreakpointActive);
-            }
-
-            connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
-        }
-    });
+            });
 
     connect(m_breakpointModel, &BreakpointModel::breakpointEnabledChanged, this, [this](const QUrl &url, int line, bool enabled) {
         auto app = KTextEditor::Editor::instance()->application();

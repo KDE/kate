@@ -53,6 +53,7 @@ private:
      */
     void setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange);
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind);
+    void enableBreakpointMarks(KTextEditor::Document *doc);
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;

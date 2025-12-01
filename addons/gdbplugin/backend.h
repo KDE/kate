@@ -24,7 +24,6 @@ public:
 
     bool debuggerRunning() const override;
     bool debuggerBusy() const override;
-    bool hasBreakpoint(QUrl const &url, int line) const override;
     bool supportsMovePC() const override;
     bool supportsRunToCursor() const override;
     bool canSetBreakpoints() const override;

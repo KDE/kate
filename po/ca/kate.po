@@ -3153,31 +3153,3 @@ msgstr "Gestiona les sessions..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostra una pàgina de benvinguda a les finestres noves"
-
-#~ msgid "&Close Document"
-#~ msgstr "Tan&ca el document"
-
-#~ msgid "Close Other &Documents"
-#~ msgstr "Tanca els altres &documents"
-
-#~ msgid "Close &All Documents"
-#~ msgstr "T&anca tots els documents"
-
-#~ msgid "Could not start program"
-#~ msgstr "No s'ha pogut iniciar el programa"
-
-#~ msgid ""
-#~ "The selected program could not be started. Maybe it is not installed."
-#~ msgstr ""
-#~ "No s'ha pogut iniciar el programa seleccionat. Potser no està instal·lat."
-
-#~ msgctxt "Help text"
-#~ msgid ""
-#~ "Filter the log.<ul><li>Use \"a:\" prefix to filter by author name. For e."
-#~ "g., <b>a:john doe</b></li><li>To filter messages, just type the search "
-#~ "term</li></ul>To trigger the filter, press the <b>Enter</b> key. "
-#~ msgstr ""
-#~ "Filtra el registre.<ul><li>Useu el prefix «a:» per a filtrar per nom "
-#~ "d'autor. P. ex., <b>a:joan cognom</b></li><li>Per a filtrar missatges, "
-#~ "teclegeu el terme a cercar</li></ul>Per a activar el filtre, premeu la "
-#~ "tecla <b>Retorn</b>. "

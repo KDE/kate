@@ -727,16 +727,3 @@ msgstr "&Depura"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Connector de depuració"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>Could not open file:</title><nl/>%1<br/>Try adding a search path "
-#~ "to Advanced Settings -> Source file search paths"
-#~ msgstr ""
-#~ "<title>No s'ha pogut obrir el fitxer:</title><nl/>%1<br/>Intenteu-ho "
-#~ "afegint un camí de cerca a Configuració avançada -> Camins de cerca de "
-#~ "fitxers de codi font"
-
-#~ msgctxt "Column label"
-#~ msgid "Frame"
-#~ msgstr "Marc"

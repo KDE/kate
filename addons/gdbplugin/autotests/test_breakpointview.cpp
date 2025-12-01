@@ -34,6 +34,10 @@ public:
     QHash<QUrl, QList<dap::Breakpoint>> breakpoints;
     int idCounter = 0;
 
+    // Emulates the behaviour where a backend sets the breakpoint at
+    // a different line than what was requested
+    int offsetLinesBy = 0;
+
     BreakpointBackend(QObject *parent = nullptr)
         : BackendInterface(parent)
     {
@@ -80,7 +84,7 @@ public:
         QList<dap::Breakpoint> bps;
         bps.reserve(sourceBreaks.size());
         for (const auto &b : sourceBreaks) {
-            dap::Breakpoint brk{b.line};
+            dap::Breakpoint brk{b.line + offsetLinesBy};
             brk.id = idCounter++;
             brk.source = dap::Source(url);
             brk.source.value().name = url.fileName();
@@ -159,7 +163,27 @@ private Q_SLOTS:
     void testBreakpointRemovedEvent();
     void testBreakpointNewEvent();
     void testBreakpointWithDocument();
-    // TODO: test that if backend sets breakpoint at a different location, the mark in document is correct
+    void testBreakpointSetAtDifferentLine();
+
+private:
+    KApp *createKtextEditorApp()
+    {
+        auto editor = KTextEditor::Editor::instance();
+        auto app = new KApp;
+        auto kteApp = new KTextEditor::Application(app);
+        editor->setApplication(kteApp);
+        return app;
+    }
+
+    std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url, KApp *app, BreakpointView *bv)
+    {
+        Q_ASSERT(url.isValid());
+        auto doc = std::unique_ptr<KTextEditor::Document>(KTextEditor::Editor::instance()->createDocument(nullptr));
+        doc->openUrl(url);
+        app->docs[url] = doc.get();
+        connect(doc.get(), &KTextEditor::Document::markChanged, bv, &BreakpointView::updateBreakpoints);
+        return doc;
+    }
 };
 
 static QString stringifyModel(QAbstractItemModel *model, const QModelIndex index = {}, int depth = 0)
@@ -328,16 +352,9 @@ void BreakpointViewTest::testBreakpointWithDocument()
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    auto editor = KTextEditor::Editor::instance();
-    auto app = new KApp;
-    auto kteApp = new KTextEditor::Application(app);
-    editor->setApplication(kteApp);
-    auto doc = std::unique_ptr<KTextEditor::Document>(editor->createDocument(nullptr));
-
+    auto app = createKtextEditorApp();
     const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
-    QVERIFY(url.isValid());
-    doc->openUrl(url);
-    app->docs[url] = doc.get();
+    auto doc = createDocument(url, app, bv.get());
 
     connect(doc.get(), &KTextEditor::Document::markChanged, bv.get(), &BreakpointView::updateBreakpoints);
 
@@ -382,6 +399,29 @@ void BreakpointViewTest::testBreakpointWithDocument()
              stringifyModel(bv->m_treeview->model()));
     QCOMPARE(doc->marks().size(), 2);
     QVERIFY((doc->mark(1) & KTextEditor::Document::BreakpointActive) != 0);
+}
+
+void BreakpointViewTest::testBreakpointSetAtDifferentLine()
+{
+    // Test that, if the backend sets the breakpoint at a different location
+    // than what was requested, the UI shows it correctly i.e.,
+    // Document mark should be at the correct line, the model should show correct breakpoint
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    auto app = createKtextEditorApp();
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto doc = createDocument(url, app, bv.get());
+
+    backend->offsetLinesBy = 3;
+
+    doc->setMark(2, KTextEditor::Document::BreakpointActive);
+    QCOMPARE(doc->marks().size(), 1);
+    QVERIFY((doc->mark(2 + backend->offsetLinesBy) & KTextEditor::Document::BreakpointActive) != 0);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]kateui.rc:6\n"),
+             stringifyModel(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

@@ -51,14 +51,7 @@ public:
     {
         return false;
     }
-    bool hasBreakpoint(QUrl const &url, int line) const override
-    {
-        const auto bps = breakpoints.value(url);
-        for (const auto &b : bps) {
-            return b.line == line;
-        }
-        return false;
-    }
+
     bool supportsMovePC() const override
     {
         return false;

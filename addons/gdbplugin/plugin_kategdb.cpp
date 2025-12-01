@@ -355,13 +355,6 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     connect(m_mainWin, &KTextEditor::MainWindow::unhandledShortcutOverride, this, &KatePluginGDBView::handleEsc);
 
-    const auto documents = KTextEditor::Editor::instance()->application()->documents();
-    for (auto doc : documents) {
-        enableBreakpointMarks(doc);
-    }
-
-    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &KatePluginGDBView::enableBreakpointMarks);
-
     m_hotReloadTimer.setInterval(10);
     m_hotReloadTimer.setSingleShot(true);
     m_hotReloadTimer.callOnTimeout(m_backend, &Backend::slotHotReload);
@@ -442,18 +435,7 @@ void KatePluginGDBView::aboutToShowMenu()
     }
 
     m_breakpoint->setDisabled(false);
-
-    KTextEditor::View *editView = m_mainWin->activeView();
-    QUrl url = editView->document()->url();
-    int line = editView->cursorPosition().line();
-
-    line++; // GDB uses 1 based line numbers, kate uses 0 based...
-
-    if (m_backend->hasBreakpoint(url, line)) {
-        m_breakpoint->setText(i18n("Remove breakpoint"));
-    } else {
-        m_breakpoint->setText(i18n("Insert breakpoint"));
-    }
+    m_breakpoint->setText(i18n("Toggle breakpoint"));
 }
 
 void KatePluginGDBView::slotMovePC()
@@ -801,17 +783,6 @@ void KatePluginGDBView::handleEsc(QEvent *e)
     }
 }
 
-void KatePluginGDBView::enableBreakpointMarks(KTextEditor::Document *document) const
-{
-    if (document) {
-        document->setEditableMarks(document->editableMarks() | KTextEditor::Document::BreakpointActive);
-        document->setMarkDescription(KTextEditor::Document::BreakpointActive, i18n("Breakpoint"));
-        document->setMarkIcon(KTextEditor::Document::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
-
-        connect(document, &KTextEditor::Document::viewCreated, this, &KatePluginGDBView::prepareDocumentBreakpoints);
-    }
-}
-
 void KatePluginGDBView::enableHotReloadOnSave(KTextEditor::View *view)
 {
     QObject::disconnect(m_hotReloadOnSaveConnection);
@@ -819,21 +790,6 @@ void KatePluginGDBView::enableHotReloadOnSave(KTextEditor::View *view)
         auto doc = view->document();
         m_hotReloadOnSaveConnection = connect(doc, &KTextEditor::Document::documentSavedOrUploaded, &m_hotReloadTimer, qOverload<>(&QTimer::start));
     }
-}
-
-void KatePluginGDBView::prepareDocumentBreakpoints(KTextEditor::Document *document)
-{
-    // If debugger is running and we open the file, check if there is a break point set in every line
-    // and add markers accordingly
-    if (m_backend->debuggerRunning()) {
-        for (auto i = 0; i < document->lines(); i++) {
-            if (m_backend->hasBreakpoint(document->url(), i)) {
-                document->setMark(i - 1, KTextEditor::Document::MarkTypes::BreakpointActive);
-            }
-        }
-    }
-    // Update breakpoints when they're added or removed to the debugger
-    connect(document, &KTextEditor::Document::markChanged, m_breakpointView, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
 }
 
 void KatePluginGDBView::displayMessage(const QString &msg, KTextEditor::Message::MessageType level)

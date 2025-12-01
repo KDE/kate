@@ -25,13 +25,29 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] Checkable breakpoints
 // [x] Breakpoints should be sorted by linenumber
 // [x] Clear all breakpoints
-// [] Document loads its initial mark using us, not backend
+// [x] Fix KatePluginGDBView::prepareDocumentBreakpoints, it should work whether or not debugger is running. Perhaps remove it altogether because we shouldn't
+// call that function when a view is created. Listening on view creation is useless here
+// [x] Document loads its initial mark using us, not backend
+// [x] add a test for this
 // [] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
 // [] Double clicking on a breakpoint takes us to the location?
-// [] add a test for this
-// [] Fix KatePluginGDBView::prepareDocumentBreakpoints, it should work whether or not debugger is running. Perhaps remove it altogether because we shouldn't
-// call that function when a view is created. Listening on view creation is useless here
+
+struct FileBreakpoint {
+    QUrl url;
+    dap::Breakpoint breakpoint;
+    Qt::CheckState checkState = Qt::Checked;
+
+    bool isEnabled() const
+    {
+        return checkState == Qt::Checked;
+    }
+
+    bool operator==(const FileBreakpoint &r) const
+    {
+        return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
+    }
+};
 
 class BreakpointModel : public QAbstractItemModel
 {
@@ -46,21 +62,6 @@ class BreakpointModel : public QAbstractItemModel
     static constexpr int LineBreakpointsItem = 0;
     static constexpr quintptr Root = 0xFFFFFFFF;
 
-    struct FileBreakpoint {
-        QUrl url;
-        dap::Breakpoint breakpoint;
-        Qt::CheckState checkState = Qt::Checked;
-
-        bool isEnabled() const
-        {
-            return checkState == Qt::Checked;
-        }
-
-        bool operator==(const FileBreakpoint &r) const
-        {
-            return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
-        }
-    };
     QList<FileBreakpoint> m_lineBreakpoints;
 
 public:
@@ -621,6 +622,12 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
         }
         setBreakpoint(url, line, enabled);
     });
+
+    const auto documents = KTextEditor::Editor::instance()->application()->documents();
+    for (auto doc : documents) {
+        enableBreakpointMarks(doc);
+    }
+    connect(KTextEditor::Editor::instance()->application(), &KTextEditor::Application::documentCreated, this, &BreakpointView::enableBreakpointMarks);
 }
 
 void BreakpointView::toggleBreakpoint()
@@ -752,6 +759,39 @@ void BreakpointView::setBreakpoint(const QUrl &file, int line, std::optional<boo
     } else {
         // update breakpoint in model
         m_breakpointModel->toggleBreakpoint(file, line, enabledStateChange);
+    }
+}
+
+void BreakpointView::enableBreakpointMarks(KTextEditor::Document *doc)
+{
+    if (doc) {
+        doc->setEditableMarks(doc->editableMarks() | KTextEditor::Document::BreakpointActive);
+        doc->setMarkDescription(KTextEditor::Document::BreakpointActive, i18n("Breakpoint"));
+        doc->setMarkIcon(KTextEditor::Document::BreakpointActive, QIcon::fromTheme(QStringLiteral("media-record")));
+
+        // Update breakpoints when they're added or removed to the debugger
+        connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
+
+        // When a view is created, add breakpoint marks. We don't do it upfront to avoid wasteful work
+        connect(doc, &KTextEditor::Document::viewCreated, this, [this, doc] {
+            if (!doc->url().isValid()) {
+                return;
+            }
+            const auto fileBreakpoints = m_breakpointModel->getFileBreakpoints(doc->url());
+            if (fileBreakpoints.empty()) {
+                return;
+            }
+
+            const int lines = doc->lines();
+            for (auto i = 0; i < lines; i++) {
+                auto it = std::find_if(fileBreakpoints.begin(), fileBreakpoints.end(), [i](const FileBreakpoint &b) {
+                    return b.breakpoint.line.has_value() && b.breakpoint.line.value() - 1 == i;
+                });
+                if (it != fileBreakpoints.end()) {
+                    doc->setMark(i, KTextEditor::Document::MarkTypes::BreakpointActive);
+                }
+            }
+        });
     }
 }
 

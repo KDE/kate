@@ -90,11 +90,6 @@ bool Backend::debuggerBusy() const
     return !m_debugger || m_debugger->debuggerBusy();
 }
 
-bool Backend::hasBreakpoint(QUrl const &url, int line) const
-{
-    return m_debugger && m_debugger->hasBreakpoint(url, line);
-}
-
 bool Backend::supportsMovePC() const
 {
     return m_debugger && m_debugger->supportsMovePC();

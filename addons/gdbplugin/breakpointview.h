@@ -55,6 +55,10 @@ private:
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind);
     void enableBreakpointMarks(KTextEditor::Document *doc);
 
+    void onRemoveBreakpointRequested(const QUrl &url, int line);
+    void onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
+    void onListBreakpointsRequested();
+
 private:
     KTextEditor::MainWindow *const m_mainWindow;
     BackendInterface *const m_backend;

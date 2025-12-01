@@ -15,9 +15,13 @@
 #include <QTreeView>
 #include <QVBoxLayout>
 
+#include <ktexteditor_utils.h>
+
 #include <memory_resource>
 #include <span>
 
+namespace
+{
 Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 
 // [x] Set initial breakpoints that get set when debugging starts
@@ -32,6 +36,50 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
 // [] Double clicking on a breakpoint takes us to the location?
+
+static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
+{
+    QString txtId = QStringLiteral("%1.").arg(bId);
+    if (!bp) {
+        txtId += QStringLiteral(" ");
+    } else {
+        if (bp->verified) {
+            txtId += bp->id ? QString::number(bp->id.value()) : QStringLiteral("?");
+        } else {
+            txtId += QStringLiteral("!");
+        }
+    }
+
+    QStringList out = {QStringLiteral("[%1] %2: %3").arg(txtId).arg(Utils::formatUrl(sourceId)).arg(def.line)};
+    if (def.column) {
+        out << QStringLiteral(", %1").arg(def.column.value());
+    }
+    if (bp) {
+        if (bp->line) {
+            out << QStringLiteral("->%1").arg(bp->line.value());
+            if (bp->endLine) {
+                out << QStringLiteral("-%1").arg(bp->endLine.value());
+            }
+            if (bp->column) {
+                out << QStringLiteral(",%1").arg(bp->column.value());
+                if (bp->endColumn) {
+                    out << QStringLiteral("-%1").arg(bp->endColumn.value());
+                }
+            }
+        }
+    }
+    if (def.condition) {
+        out << QStringLiteral(" when {%1}").arg(def.condition.value());
+    }
+    if (def.hitCondition) {
+        out << QStringLiteral(" hitcount {%1}").arg(def.hitCondition.value());
+    }
+    if (bp && bp->message) {
+        out << QStringLiteral(" (%1)").arg(bp->message.value());
+    }
+
+    return out.join(QString());
+}
 
 struct FileBreakpoint {
     QUrl url;
@@ -48,6 +96,7 @@ struct FileBreakpoint {
         return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
     }
 };
+}
 
 class BreakpointModel : public QAbstractItemModel
 {
@@ -582,6 +631,10 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     connect(m_backend, &BackendInterface::breakPointsSet, this, &BreakpointView::slotBreakpointsSet);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
 
+    connect(m_backend, &BackendInterface::removeBreakpointRequested, this, &BreakpointView::onRemoveBreakpointRequested);
+    connect(m_backend, &BackendInterface::addBreakpointRequested, this, &BreakpointView::onAddBreakpointRequested);
+    connect(m_backend, &BackendInterface::listBreakpointsRequested, this, &BreakpointView::onListBreakpointsRequested);
+
     connect(m_breakpointModel,
             &BreakpointModel::breakpointChanged,
             this,
@@ -793,6 +846,34 @@ void BreakpointView::enableBreakpointMarks(KTextEditor::Document *doc)
             }
         });
     }
+}
+
+void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
+{
+    auto existing = m_breakpointModel->sourceBreakpointsForPath(url);
+    auto it = std::find_if(existing.begin(), existing.end(), [line](const dap::SourceBreakpoint &n) {
+        return n.line == line;
+    });
+    if (it != existing.end()) {
+        setBreakpoint(url, line, {});
+    }
+}
+
+void BreakpointView::onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint)
+{
+    auto existing = m_breakpointModel->sourceBreakpointsForPath(url);
+    const auto line = breakpoint.line;
+    auto it = std::find_if(existing.begin(), existing.end(), [line](const dap::SourceBreakpoint &n) {
+        return n.line == line;
+    });
+    if (it == existing.end()) {
+        setBreakpoint(url, line, {});
+    }
+}
+
+void BreakpointView::onListBreakpointsRequested()
+{
+    // TODO
 }
 
 std::map<QUrl, QList<dap::SourceBreakpoint>> BreakpointView::allBreakpoints() const

@@ -157,6 +157,7 @@ private Q_SLOTS:
     void testBreakpointNewEvent();
     void testBreakpointWithDocument();
     void testBreakpointSetAtDifferentLine();
+    void testAddRemoveBreakpointRequested();
 
 private:
     KApp *createKtextEditorApp()
@@ -415,6 +416,34 @@ void BreakpointViewTest::testBreakpointSetAtDifferentLine()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:6\n"),
              stringifyModel(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testAddRemoveBreakpointRequested()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    const QUrl url(QStringLiteral("/file"));
+    backend->addBreakpointRequested(url, 1);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:1\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    backend->addBreakpointRequested(url, 2);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:1\n"
+                            "** [x]file:2\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    backend->removeBreakpointRequested(url, 2);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:1\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    backend->removeBreakpointRequested(url, 1);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyModel(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

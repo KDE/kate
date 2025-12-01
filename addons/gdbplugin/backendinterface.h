@@ -141,6 +141,14 @@ Q_SIGNALS:
     void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);
     void breakpointEvent(const dap::Breakpoint &bp, BreakpointEventKind);
 
+    /*
+     * Requests from backend
+     */
+
+    void removeBreakpointRequested(const QUrl &url, int line);
+    void addBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
+    void listBreakpointsRequested();
+
     void variablesInfo(int parentId, const QList<dap::Variable> &variable);
     void scopesInfo(const QList<dap::Scope> &scopes);
 

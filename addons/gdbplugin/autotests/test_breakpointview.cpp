@@ -17,7 +17,7 @@ class KApp : public QObject
 {
     Q_OBJECT
 public:
-    Q_INVOKABLE KTextEditor::Document *findUrl(const QUrl &url)
+    Q_INVOKABLE KTextEditor::Document *findUrl(const QUrl &url) // NOLINT(readability-make-member-function-const)
     {
         return docs.value(url, nullptr);
     }

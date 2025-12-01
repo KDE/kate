@@ -147,7 +147,6 @@ private:
     bool removeBreakpoint(const QUrl &path, int line);
     void informBreakpointAdded(const QUrl &path, const dap::Breakpoint &bpoint);
     void informBreakpointRemoved(const QUrl &path, int line);
-    void clearBreakpoints();
     void informStackFrame();
 
     QString m_targetName;

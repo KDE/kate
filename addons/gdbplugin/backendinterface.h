@@ -139,7 +139,6 @@ public Q_SLOTS:
 Q_SIGNALS:
     void debugLocationChanged(const QUrl &file, int lineNum);
     void breakPointsSet(const QUrl &file, const QList<dap::Breakpoint> &breakpoints);
-    void clearBreakpointMarks();
     void stackFrameInfo(const QList<dap::StackFrame> &frames);
     void stackFrameChanged(int level);
     void threads(const QList<dap::Thread> &thread);

@@ -579,7 +579,6 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     delete m;
 
     connect(m_backend, &BackendInterface::breakPointsSet, this, &BreakpointView::slotBreakpointsSet);
-    connect(m_backend, &BackendInterface::clearBreakpointMarks, this, &BreakpointView::clearLineBreakpoints);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
 
     connect(m_breakpointModel,

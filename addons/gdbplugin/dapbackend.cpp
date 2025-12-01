@@ -382,20 +382,6 @@ void DapBackend::onStackTrace(const int /* threadId */, const dap::StackTraceInf
     popRequest();
 }
 
-void DapBackend::clearBreakpoints()
-{
-    Q_ASSERT(false);
-    // for (const auto &[url, breakpoints] : m_breakpoints) {
-    //     const auto &path = url;
-    //     for (const auto &bp : breakpoints) {
-    //         if (bp && bp->line) {
-    //             Q_EMIT breakPointCleared(path, bp->line.value());
-    //         }
-    //     }
-    // }
-    // Q_EMIT clearBreakpointMarks();
-}
-
 void DapBackend::onServerDisconnected()
 {
     if (!isConnectedState()) {

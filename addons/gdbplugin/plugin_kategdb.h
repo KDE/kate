@@ -98,8 +98,6 @@ private Q_SLOTS:
     void addOutputText(QString const &text);
     void addErrorText(QString const &text);
     void handleEsc(QEvent *e);
-    void enableBreakpointMarks(KTextEditor::Document *document) const;
-    void prepareDocumentBreakpoints(KTextEditor::Document *document);
     void requestRunInTerminal(const dap::RunInTerminalRequestArguments &args, const dap::Client::ProcessInTerminal &notifyCreation);
 
     void onToolViewMoved(QWidget *toolview, KTextEditor::MainWindow::ToolViewPosition);

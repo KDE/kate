@@ -45,10 +45,6 @@ public:
      */
     virtual bool debuggerBusy() const = 0;
     /**
-     * true if a breakpoint exists at url:line
-     */
-    virtual bool hasBreakpoint(QUrl const &url, int line) const = 0;
-    /**
      * true if debugger supports move program counter
      */
     virtual bool supportsMovePC() const = 0;

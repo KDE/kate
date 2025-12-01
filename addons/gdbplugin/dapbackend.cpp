@@ -873,11 +873,6 @@ std::optional<int> DapBackend::findBreakpointIntent(const QUrl &path, int line) 
     return std::nullopt;
 }
 
-bool DapBackend::hasBreakpoint(QUrl const &url, int line) const
-{
-    return findBreakpoint(*resolveFilename(url), line).has_value();
-}
-
 void DapBackend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints)
 {
     if (m_task != Idle) {

@@ -138,14 +138,9 @@ private:
     QUrl resolveOrWarn(const QUrl &filename);
     std::optional<QUrl> resolveFilename(const QUrl &filename, bool fallback = true) const;
     dap::settings::ClientSettings &target2dap(const DAPTargetConf &target);
-    std::optional<int> findBreakpoint(const QUrl &path, int line) const;
-    std::optional<int> findBreakpointIntent(const QUrl &path, int line) const;
 
-    void insertBreakpoint(const QUrl &path, int line);
     // return false if nothing found
-    bool removeBreakpoint(const QUrl &path, int line);
     void informBreakpointAdded(const QUrl &path, const dap::Breakpoint &bpoint);
-    void informBreakpointRemoved(const QUrl &path, int line);
     void informStackFrame();
 
     QString m_targetName;
@@ -184,7 +179,6 @@ private:
 
     QStringList m_commandQueue;
 
-    std::map<QUrl, QList<std::optional<dap::Breakpoint>>> m_breakpoints;
     std::map<QUrl, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::StackFrame> m_frames;
     QList<dap::Module> m_modules;

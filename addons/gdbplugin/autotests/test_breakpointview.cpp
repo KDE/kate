@@ -16,6 +16,7 @@ class BreakpointBackend : public BackendInterface
 public:
     bool isRunning = false;
     QHash<QUrl, QList<dap::Breakpoint>> breakpoints;
+    int idCounter = 0;
 
     BreakpointBackend(QObject *parent = nullptr)
         : BackendInterface(parent)
@@ -64,6 +65,7 @@ public:
         bps.reserve(sourceBreaks.size());
         for (const auto &b : sourceBreaks) {
             dap::Breakpoint brk{b.line};
+            brk.id = idCounter++;
             brk.source = dap::Source(url);
             brk.source.value().name = url.fileName();
             bps.push_back(brk);
@@ -137,8 +139,10 @@ class BreakpointViewTest : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void testBasic();
+    void testBreakpointChangedEvent();
+    void testBreakpointRemovedEvent();
+    void testBreakpointNewEvent();
     // TODO: test that if backend sets breakpoint at a different location, the mark in document is correct
-    // TODO: test breakpoint events
 };
 
 static QString stringifyModel(QAbstractItemModel *model, const QModelIndex index = {}, int depth = 0)
@@ -231,6 +235,80 @@ void BreakpointViewTest::testBasic()
         delete bv;
         delete backend;
     }
+}
+
+void BreakpointViewTest::testBreakpointChangedEvent()
+{
+    const QUrl url1 = QUrl(QStringLiteral("/file"));
+    auto backend = new BreakpointBackend;
+    backend->isRunning = true;
+
+    auto bv = new BreakpointView(nullptr, backend, nullptr);
+
+    bv->setBreakpoint(url1, 3, std::nullopt);
+    bv->setBreakpoint(url1, 4, std::nullopt);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:3\n"
+                            "** [x]file:4\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    backend->breakpoints[url1].front().line = 5;
+    Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Changed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:4\n"
+                            "** [x]file:5\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    backend->breakpoints[url1].front().line = 3;
+    Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Changed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:3\n"
+                            "** [x]file:4\n"),
+             stringifyModel(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testBreakpointRemovedEvent()
+{
+    const QUrl url1 = QUrl(QStringLiteral("/file"));
+    auto backend = new BreakpointBackend;
+    backend->isRunning = true;
+
+    auto bv = new BreakpointView(nullptr, backend, nullptr);
+
+    bv->setBreakpoint(url1, 3, std::nullopt);
+    bv->setBreakpoint(url1, 4, std::nullopt);
+
+    Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Removed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:4\n"),
+             stringifyModel(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testBreakpointNewEvent()
+{
+    const QUrl url1 = QUrl(QStringLiteral("/file"));
+    auto backend = new BreakpointBackend;
+    backend->isRunning = true;
+
+    auto bv = new BreakpointView(nullptr, backend, nullptr);
+
+    bv->setBreakpoint(url1, 3, std::nullopt);
+    bv->setBreakpoint(url1, 4, std::nullopt);
+
+    dap::Breakpoint brk{1};
+    brk.id = backend->idCounter++;
+    brk.source = dap::Source(url1);
+    brk.source.value().name = url1.fileName();
+
+    backend->breakpoints[url1] << brk;
+    Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].last(), BackendInterface::New);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:1\n"
+                            "** [x]file:3\n"
+                            "** [x]file:4\n"),
+             stringifyModel(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

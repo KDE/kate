@@ -379,6 +379,13 @@ public:
             // ignore if no source or id
             return;
         }
+
+        if (!bp.source) {
+            // can we do better?
+            qCWarning(kateBreakpoint, "breakpoint-update: ignoring because breakpoint has no path set");
+            return;
+        }
+
         const auto id = bp.id.value();
         auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [id](const FileBreakpoint &fp) {
             return fp.breakpoint.id == id;
@@ -394,12 +401,35 @@ public:
             return;
         }
 
-        it->breakpoint = bp;
+        const auto url = bp.source.value().path;
+        const auto fileBreakpoints = getFileBreakpoints(url);
+        Q_ASSERT(!fileBreakpoints.empty());
+        const int fileStartIdx = fileBreakpoints.data() - m_lineBreakpoints.data();
 
-        const int pos = it - m_lineBreakpoints.begin();
+        auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
+            return l.breakpoint.line < val.line;
+        });
+        const auto newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
+        const auto oldPos = std::distance(m_lineBreakpoints.begin(), it);
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
 
-        Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount({}), parent));
+        if (newPos == oldPos) {
+            it->breakpoint = bp;
+
+            const int pos = it - m_lineBreakpoints.begin();
+
+            Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount({}), parent));
+        } else {
+            beginMoveRows(parent, oldPos, oldPos, parent, newPos);
+            m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
+            m_lineBreakpoints[newPos].breakpoint = bp;
+            if (newPos > oldPos) {
+                m_lineBreakpoints.remove(oldPos);
+            } else {
+                m_lineBreakpoints.remove(oldPos + 1);
+            }
+            endMoveRows();
+        }
 
         if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
             Q_EMIT breakpointChanged(bp.source.value().path, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);

@@ -212,16 +212,14 @@ void BreakpointViewTest::testBasic()
 
         bv->setBreakpoint(QUrl(QStringLiteral("/file")), 3, std::nullopt);
         bv->setBreakpoint(QUrl(QStringLiteral("/file")), 4, std::nullopt);
-
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:3\n"
                                 "** [x]file:4\n"),
                  stringifyModel(bv->m_treeview->model()));
 
         // uncheck second breakpoint
-        bv->m_treeview->model()->setData(bv->m_treeview->model()->index(1, 0, bv->m_treeview->model()->index(0, 0, {})),
-                                         QVariant(Qt::Unchecked),
-                                         Qt::CheckStateRole);
+        const auto lineBreakpointParent = bv->m_treeview->model()->index(0, 0, {});
+        bv->m_treeview->model()->setData(bv->m_treeview->model()->index(1, 0, lineBreakpointParent), QVariant(Qt::Unchecked), Qt::CheckStateRole);
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:3\n"
                                 "** []file:4\n"),

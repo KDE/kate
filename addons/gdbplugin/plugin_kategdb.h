@@ -84,7 +84,6 @@ private Q_SLOTS:
     void slotDebug();
     void slotRestart();
     void slotMovePC();
-    void slotRunToCursor();
     void slotGoTo(const QUrl &fileName, int lineNum);
     void slotValue();
 

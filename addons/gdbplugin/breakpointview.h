@@ -40,6 +40,10 @@ public:
 
     void clearLineBreakpoints();
 
+    void runToCursor();
+
+    void onStoppedAtLine(const QUrl &url, int line);
+
 private:
     // This function is called when the user sets breakpoint by clicking View border
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
@@ -51,13 +55,14 @@ private:
      * \p line where to toggle breakpoint
      * \p enabledStateChange whether enabled state of a breakpoint changed i.e., it was checked/unchecked
      */
-    void setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange);
+    void setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange, bool isOneShot = false);
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind);
     void enableBreakpointMarks(KTextEditor::Document *doc);
 
     void onRemoveBreakpointRequested(const QUrl &url, int line);
     void onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
     void onListBreakpointsRequested();
+    void runToPosition(const QUrl &url, int line);
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;

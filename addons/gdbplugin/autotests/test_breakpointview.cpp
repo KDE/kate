@@ -90,9 +90,6 @@ public:
     void movePC(QUrl const &, int) override
     {
     }
-    void runToCursor(QUrl const &, int) override
-    {
-    }
     void issueCommand(QString const &) override
     {
     }

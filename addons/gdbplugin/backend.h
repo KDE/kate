@@ -31,7 +31,6 @@ public:
     bool canContinue() const override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
-    void runToCursor(QUrl const &url, int line) override;
     void issueCommand(QString const &cmd) override;
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;

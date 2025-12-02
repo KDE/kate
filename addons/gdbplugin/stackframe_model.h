@@ -31,6 +31,10 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
+    int activeFrame() const
+    {
+        return m_activeFrame;
+    }
     void setActiveFrame(int level);
     void setFrames(const QList<dap::StackFrame> &frames, const QList<dap::Module> &modules);
 

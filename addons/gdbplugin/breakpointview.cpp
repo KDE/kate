@@ -629,6 +629,9 @@ public:
 
     void clearLineBreakpoints()
     {
+        if (m_lineBreakpoints.empty()) {
+            return;
+        }
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
         beginRemoveRows(parent, 0, m_lineBreakpoints.size() - 1);
         m_lineBreakpoints.clear();

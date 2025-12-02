@@ -24,6 +24,8 @@ public:
 
     void clear();
 
+    int activeFrame() const;
+
     void insertStackFrame(const QList<dap::StackFrame> &frames);
     void stackFrameChanged(int level);
     void stackFrameSelected();

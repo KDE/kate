@@ -286,7 +286,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     a->setText(i18n("Run To Cursor"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run-cursor")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::SHIFT | Qt::Key_F9)));
-    connect(a, &QAction::triggered, this, &KatePluginGDBView::slotRunToCursor);
+    connect(a, &QAction::triggered, m_breakpointView, &BreakpointView::runToCursor);
     buttonsLayout->addWidget(createDebugButton(a));
 
     a = ac->addAction(QStringLiteral("rerun"));
@@ -346,7 +346,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     m_breakpoint = m_menu->menu()->addAction(u"popup_breakpoint"_s, m_breakpointView, &BreakpointView::toggleBreakpoint);
 
-    QAction *popupAction = m_menu->menu()->addAction(u"popup_run_to_cursor"_s, this, &KatePluginGDBView::slotRunToCursor);
+    QAction *popupAction = m_menu->menu()->addAction(u"popup_run_to_cursor"_s, m_breakpointView, &BreakpointView::runToCursor);
     popupAction->setText(i18n("Run To Cursor"));
     popupAction = m_menu->menu()->addAction(QStringLiteral("move_pc"), this, &KatePluginGDBView::slotMovePC);
     popupAction->setText(i18nc("Move Program Counter (next execution)", "Move PC"));
@@ -445,16 +445,6 @@ void KatePluginGDBView::slotMovePC()
     KTextEditor::Cursor cursor = editView->cursorPosition();
 
     m_backend->movePC(currURL, cursor.line() + 1);
-}
-
-void KatePluginGDBView::slotRunToCursor()
-{
-    KTextEditor::View *editView = m_mainWin->activeView();
-    QUrl currURL = editView->document()->url();
-    KTextEditor::Cursor cursor = editView->cursorPosition();
-
-    // GDB starts lines from 1, kate returns lines starting from 0 (displaying 1)
-    m_backend->runToCursor(currURL, cursor.line() + 1);
 }
 
 void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
@@ -558,6 +548,10 @@ void KatePluginGDBView::enableDebugActions(bool enable)
                 doc->setMarkDescription(KTextEditor::Document::Execution, i18n("Execution point"));
                 doc->setMarkIcon(KTextEditor::Document::Execution, QIcon::fromTheme(QStringLiteral("arrow-right")));
                 doc->addMark(m_lastExecLine, KTextEditor::Document::Execution);
+
+                if (m_backend->canContinue() && m_stackView->activeFrame() == 0) {
+                    m_breakpointView->onStoppedAtLine(m_lastExecUrl, m_lastExecLine + 1);
+                }
             } else {
                 doc->removeMark(m_lastExecLine, KTextEditor::Document::Execution);
             }

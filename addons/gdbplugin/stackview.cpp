@@ -58,6 +58,12 @@ void StackView::clear()
     m_threadCombo->clear();
 }
 
+int StackView::activeFrame() const
+{
+    auto model = static_cast<StackFrameModel *>(m_stackTree->model());
+    return model->activeFrame();
+}
+
 void StackView::insertStackFrame(const QList<dap::StackFrame> &frames)
 {
     auto model = static_cast<StackFrameModel *>(m_stackTree->model());

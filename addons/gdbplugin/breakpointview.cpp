@@ -34,8 +34,8 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] Document loads its initial mark using us, not backend
 // [x] add a test for this
 // [x] Fix run to cursor
+// [x] Double clicking on a breakpoint takes us to the location?
 // [] Cleanup, add a header to the model, path item can span multiple columns?
-// [] Double clicking on a breakpoint takes us to the location?
 
 static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
@@ -647,6 +647,19 @@ public:
         return false;
     }
 
+    std::pair<QUrl, int> fileAndLineForIndex(const QModelIndex &index)
+    {
+        Q_ASSERT(index.isValid() && index.model() == this);
+        if (!index.parent().isValid()) {
+            return {{}, -1};
+        }
+        if (index.row() >= 0 && index.row() < m_lineBreakpoints.size()) {
+            const auto &item = m_lineBreakpoints[index.row()];
+            return {item.url, item.line()};
+        }
+        return {{}, -1};
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -671,6 +684,17 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     m_treeview->setHeaderHidden(true);
     m_treeview->setSelectionBehavior(QAbstractItemView::SelectRows);
     m_treeview->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    connect(m_treeview, &QTreeView::doubleClicked, this, [this](const QModelIndex &index) {
+        if (index.isValid()) {
+            const auto [url, line] = m_breakpointModel->fileAndLineForIndex(index);
+            if (url.isValid()) {
+                if (auto view = m_mainWindow->openUrl(url)) {
+                    view->setCursorPosition({line - 1, 0});
+                }
+            }
+        }
+    });
 
     QItemSelectionModel *m = m_treeview->selectionModel();
     m_treeview->setModel(m_breakpointModel);

@@ -178,6 +178,7 @@ private Q_SLOTS:
     void testBreakpointWithDocument();
     void testBreakpointSetAtDifferentLine();
     void testAddRemoveBreakpointRequested();
+    void testListBreakpointsRequested();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -450,6 +451,33 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
 
     backend->removeBreakpointRequested(url, 1);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyModel(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testListBreakpointsRequested()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    const QUrl url1(QStringLiteral("/file"));
+    const QUrl url2(QStringLiteral("/file2"));
+
+    bv->setBreakpoint(url1, 3, std::nullopt);
+    bv->setBreakpoint(url1, 4, std::nullopt);
+
+    bv->setBreakpoint(url2, 3, std::nullopt);
+    bv->setBreakpoint(url2, 8, std::nullopt);
+
+    QString out;
+    connect(backend.get(), &BackendInterface::outputText, backend.get(), [&out](const QString &text) {
+        out = text;
+    });
+
+    backend->listBreakpointsRequested();
+    QCOMPARE(out,
+             QStringLiteral("[0.!] /file: 3->3\n"
+                            "[1.!] /file: 4->4\n"
+                            "[2.!] /file2: 3->3\n"
+                            "[3.!] /file2: 8->8\n"));
 }
 
 QTEST_MAIN(BreakpointViewTest)

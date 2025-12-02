@@ -33,7 +33,7 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // call that function when a view is created. Listening on view creation is useless here
 // [x] Document loads its initial mark using us, not backend
 // [x] add a test for this
-// [] Fix run to cursor
+// [x] Fix run to cursor
 // [] Cleanup, add a header to the model, path item can span multiple columns?
 // [] Double clicking on a breakpoint takes us to the location?
 
@@ -86,6 +86,7 @@ struct FileBreakpoint {
     dap::SourceBreakpoint sourceBreakpoint;
     std::optional<dap::Breakpoint> breakpoint;
     Qt::CheckState checkState = Qt::Checked;
+    bool isOneShot = false;
 
     bool isEnabled() const
     {
@@ -311,7 +312,7 @@ public:
         return toSourceBreakpoints(breakpoints);
     }
 
-    QList<dap::SourceBreakpoint> toggleBreakpoint(const QUrl &url, int line, std::optional<bool> breakpointEnabledChange)
+    QList<dap::SourceBreakpoint> toggleBreakpoint(const QUrl &url, int line, bool isOneShot, std::optional<bool> breakpointEnabledChange)
     {
         if (breakpointEnabledChange) {
             return sourceBreakpointsForPath(url);
@@ -328,12 +329,26 @@ public:
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
         if (it == existing.end() || it->line() != line) {
             beginInsertRows(parent, pos, pos);
-            m_lineBreakpoints.insert(pos, FileBreakpoint{.url = url, .sourceBreakpoint = bp, .breakpoint = {}});
+            m_lineBreakpoints.insert(pos,
+                                     FileBreakpoint{
+                                         .url = url,
+                                         .sourceBreakpoint = bp,
+                                         .breakpoint = {},
+                                         .isOneShot = isOneShot,
+                                     });
             endInsertRows();
         } else {
-            beginRemoveRows(parent, pos, pos);
-            m_lineBreakpoints.remove(pos);
-            endRemoveRows();
+            if (isOneShot) {
+                // For one shot, don't remove instead force check + mark it one shot
+                m_lineBreakpoints[pos].isOneShot = true;
+                m_lineBreakpoints[pos].checkState = Qt::Checked;
+                auto thisIdx = index(pos, 0, parent);
+                Q_EMIT dataChanged(thisIdx, thisIdx);
+            } else {
+                beginRemoveRows(parent, pos, pos);
+                m_lineBreakpoints.remove(pos);
+                endRemoveRows();
+            }
         }
 
         return sourceBreakpointsForPath(url);
@@ -620,6 +635,18 @@ public:
         endRemoveRows();
     }
 
+    bool hasSingleShotBreakpointAtLine(const QUrl &url, int line)
+    {
+        const auto breakpoints = getFileBreakpoints(url);
+        auto it = std::find_if(breakpoints.begin(), breakpoints.end(), [line](const FileBreakpoint &n) {
+            return n.breakpoint.has_value() && n.breakpoint->line == line;
+        });
+        if (it != breakpoints.end() && it->isOneShot && it->breakpoint) {
+            return true;
+        }
+        return false;
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -655,6 +682,7 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     connect(m_backend, &BackendInterface::removeBreakpointRequested, this, &BreakpointView::onRemoveBreakpointRequested);
     connect(m_backend, &BackendInterface::addBreakpointRequested, this, &BreakpointView::onAddBreakpointRequested);
     connect(m_backend, &BackendInterface::listBreakpointsRequested, this, &BreakpointView::onListBreakpointsRequested);
+    connect(m_backend, &BackendInterface::runToLineRequested, this, &BreakpointView::runToPosition);
 
     connect(m_breakpointModel,
             &BreakpointModel::breakpointChanged,
@@ -800,6 +828,26 @@ void BreakpointView::clearLineBreakpoints()
     }
 }
 
+void BreakpointView::runToCursor()
+{
+    KTextEditor::View *editView = m_mainWindow->activeView();
+    QUrl currURL = editView->document()->url();
+    if (!currURL.isValid()) {
+        return;
+    }
+    KTextEditor::Cursor cursor = editView->cursorPosition();
+
+    runToPosition(currURL, cursor.line() + 1);
+}
+
+void BreakpointView::onStoppedAtLine(const QUrl &url, int line)
+{
+    Q_ASSERT(m_backend->canContinue());
+    if (m_breakpointModel->hasSingleShotBreakpointAtLine(url, line)) {
+        setBreakpoint(url, line, std::nullopt);
+    }
+}
+
 void BreakpointView::updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark)
 {
     if (!document->url().isValid()) {
@@ -814,9 +862,9 @@ void BreakpointView::updateBreakpoints(const KTextEditor::Document *document, co
     }
 }
 
-void BreakpointView::setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange)
+void BreakpointView::setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange, bool isOneShot)
 {
-    auto breakpoints = m_breakpointModel->toggleBreakpoint(file, line, enabledStateChange);
+    auto breakpoints = m_breakpointModel->toggleBreakpoint(file, line, isOneShot, enabledStateChange);
     if (m_backend->debuggerRunning()) {
         m_backend->setBreakpoints(file, breakpoints);
     }
@@ -885,6 +933,14 @@ void BreakpointView::onListBreakpointsRequested()
         m_backend->outputText(i18n("No breakpoints set"));
     } else {
         m_backend->outputText(out);
+    }
+}
+
+void BreakpointView::runToPosition(const QUrl &url, int line)
+{
+    setBreakpoint(url, line, std::nullopt, /*isOneShot=*/true);
+    if (m_backend->canContinue()) {
+        m_backend->slotContinue();
     }
 }
 

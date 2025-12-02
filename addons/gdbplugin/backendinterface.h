@@ -73,10 +73,6 @@ public:
      * move PC to url:line
      */
     virtual void movePC(QUrl const &url, int line) = 0;
-    /**
-     * run to url:line
-     */
-    virtual void runToCursor(QUrl const &url, int line) = 0;
 
     virtual void issueCommand(QString const &cmd) = 0;
 
@@ -148,6 +144,7 @@ Q_SIGNALS:
     void removeBreakpointRequested(const QUrl &url, int line);
     void addBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
     void listBreakpointsRequested();
+    void runToLineRequested(const QUrl &url, int line);
 
     void variablesInfo(int parentId, const QList<dap::Variable> &variable);
     void scopesInfo(const QList<dap::Scope> &scopes);

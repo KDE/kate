@@ -67,7 +67,6 @@ void DapBackend::unsetClient()
 void DapBackend::resetState(State state)
 {
     m_requests = 0;
-    m_runToCursor = std::nullopt;
     if (state != Running) {
         m_currentThread = std::nullopt;
     }
@@ -610,44 +609,9 @@ void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std:
         return;
     }
 
-    // if runToCursor is pending, a bpoint with hit condition has been added
-    const bool withRunToCursor = m_runToCursor && (m_runToCursor->path == path);
-    bool mustContinue = false;
-    const auto &wanted = m_wantedBreakpoints[path];
-
-    QList<std::optional<dap::Breakpoint>> table;
-    int pointIdx = 0;
-    const int last = table.size();
-
-    if (m_runToCursor) {
-        // TODO
-        for (const auto &point : *breakpoints) {
-            if (pointIdx >= last) {
-                // bpoint added
-                table << point;
-                informBreakpointAdded(id, point);
-            } else if (!table[pointIdx]) {
-                // bpoint added
-                table[pointIdx] = point;
-                informBreakpointAdded(id, point);
-            }
-            if (withRunToCursor) {
-                if (wanted[pointIdx].line == m_runToCursor->line) {
-                    mustContinue = point.line.has_value();
-                    m_runToCursor = std::nullopt;
-                }
-            }
-            ++pointIdx;
-        }
-    } else {
-        Q_EMIT breakPointsSet(path, breakpoints.value());
-    }
+    Q_EMIT breakPointsSet(path, breakpoints.value());
 
     popRequest();
-
-    if (mustContinue) {
-        slotContinue();
-    }
 }
 
 void DapBackend::onBreakpointEvent(const dap::BreakpointEvent &info)
@@ -815,32 +779,6 @@ void DapBackend::movePC(QUrl const &url, int line)
     m_client->requestGotoTargets(path, line);
 }
 
-void DapBackend::runToCursor(QUrl const &url, int line)
-{
-    if (!m_client) {
-        return;
-    }
-
-    if (!m_client->adapterCapabilities().supportsHitConditionalBreakpoints) {
-        return;
-    }
-
-    const auto path = resolveOrWarn(url);
-
-    dap::SourceBreakpoint bp(line);
-    bp.hitCondition = QStringLiteral("<=1");
-
-    if (m_wantedBreakpoints.find(path) == m_wantedBreakpoints.end()) {
-        m_wantedBreakpoints[path] = {std::move(bp)};
-    } else {
-        m_wantedBreakpoints[path] << std::move(bp);
-    }
-
-    m_runToCursor = Cursor{.line = line, .path = path};
-    pushRequest();
-    m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
-}
-
 void DapBackend::cmdEval(const QString &cmd)
 {
     int start = cmd.indexOf(QLatin1Char(' '));
@@ -932,7 +870,7 @@ void DapBackend::cmdRunToCursor(const QString &cmd)
         url = frame.source->unifiedId();
     }
 
-    this->runToCursor(url, line);
+    Q_EMIT runToLineRequested(url, line);
 }
 
 void DapBackend::cmdPause(const QString &cmd)

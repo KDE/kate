@@ -149,13 +149,6 @@ void Backend::movePC(QUrl const &url, int line)
     }
 }
 
-void Backend::runToCursor(QUrl const &url, int line)
-{
-    if (m_debugger) {
-        m_debugger->runToCursor(url, line);
-    }
-}
-
 void Backend::issueCommand(QString const &cmd)
 {
     if (m_debugger) {

@@ -36,7 +36,6 @@ public:
 
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
-    void runToCursor(QUrl const &url, int line) override;
 
     void issueCommand(QString const &cmd) override;
 
@@ -168,12 +167,6 @@ private:
 
     void shutdownUntil(std::optional<State> state = std::nullopt);
     bool continueShutdown() const;
-
-    struct Cursor {
-        int line;
-        QUrl path;
-    };
-    std::optional<Cursor> m_runToCursor;
 
     int m_requests = 0;
 

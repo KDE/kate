@@ -1729,7 +1729,28 @@ private:
     void onInitializeReply(const rapidjson::Value &value)
     {
         // only parse parts that we use later on
-        from_json(m_capabilities, GetJsonObjectForKey(value, "capabilities"));
+        const auto &capabilities = GetJsonObjectForKey(value, "capabilities");
+        const rapidjson::Value *capabilitiesForParsing = &capabilities;
+        rapidjson::Document mergedCapabilities;
+        if (m_config.allowExperimental) {
+            const auto &experimental = GetJsonValueForKey(capabilities, "experimental");
+            if (experimental.IsObject()) {
+                mergedCapabilities.CopyFrom(capabilities, mergedCapabilities.GetAllocator());
+                // merge experimental members, allowing overrides
+                for (auto it = experimental.MemberBegin(); it != experimental.MemberEnd(); ++it) {
+                    const QByteArray key(it->name.GetString(), it->name.GetStringLength());
+                    if (auto existing = mergedCapabilities.FindMember(key.constData()); existing != mergedCapabilities.MemberEnd()) {
+                        existing->value.CopyFrom(it->value, mergedCapabilities.GetAllocator());
+                    } else {
+                        rapidjson::Value nameCopy(it->name, mergedCapabilities.GetAllocator());
+                        rapidjson::Value valueCopy(it->value, mergedCapabilities.GetAllocator());
+                        mergedCapabilities.AddMember(std::move(nameCopy), std::move(valueCopy), mergedCapabilities.GetAllocator());
+                    }
+                }
+                capabilitiesForParsing = &mergedCapabilities;
+            }
+        }
+        from_json(m_capabilities, *capabilitiesForParsing);
         // tweak triggers as specified
         applyTriggerOverride(m_capabilities.completionProvider.triggerCharacters, m_config.completion);
         applyTriggerOverride(m_capabilities.signatureHelpProvider.triggerCharacters, m_config.signature);

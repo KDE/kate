@@ -928,7 +928,13 @@ private:
                 root,
                 realLangId,
                 serverConfig.value(QStringLiteral("initializationOptions")),
-                {.folders = folders, .caps = caps, .completion = completionOverride, .signature = signatureOverride, .map = pathMapping, .environment = env}));
+                {.folders = folders,
+                 .caps = caps,
+                 .completion = completionOverride,
+                 .signature = signatureOverride,
+                 .map = pathMapping,
+                 .allowExperimental = serverConfig.value(QStringLiteral("allowExperimental")).toBool(),
+                 .environment = env}));
             connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {

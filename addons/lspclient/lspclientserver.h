@@ -128,6 +128,7 @@ public:
         TriggerCharactersOverride completion;
         TriggerCharactersOverride signature;
         PathMappingPtr map;
+        bool allowExperimental = false;
         QHash<QString, QString> environment;
     };
 
@@ -135,7 +136,7 @@ public:
                     const QUrl &root,
                     const QString &langId = QString(),
                     const QJsonValue &init = QJsonValue(),
-                    const ExtraServerConfig = {});
+                    const ExtraServerConfig = { .allowExperimental = false });
     ~LSPClientServer() override;
 
     // server management

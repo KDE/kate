@@ -40,10 +40,10 @@ public:
 
     void clearLineBreakpoints();
 
+private:
     // This function is called when the user sets breakpoint by clicking View border
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);
 
-private:
     void slotBreakpointsSet(const QUrl &file, const QList<dap::Breakpoint> &breakpoints);
 
     /**

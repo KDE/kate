@@ -909,6 +909,7 @@ void BreakpointView::enableBreakpointMarks(KTextEditor::Document *doc)
             }
 
             const int lines = doc->lines();
+            disconnect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints);
             for (auto i = 0; i < lines; i++) {
                 auto it = std::find_if(fileBreakpoints.begin(), fileBreakpoints.end(), [i](const FileBreakpoint &b) {
                     return b.line() - 1 == i;
@@ -917,6 +918,7 @@ void BreakpointView::enableBreakpointMarks(KTextEditor::Document *doc)
                     doc->setMark(i, KTextEditor::Document::MarkTypes::BreakpointActive);
                 }
             }
+            connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
         });
     }
 }

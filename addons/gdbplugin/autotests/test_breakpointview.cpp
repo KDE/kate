@@ -12,6 +12,7 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
 #include <KTextEditor/Editor>
+#include <KTextEditor/View>
 
 class KApp : public QObject
 {
@@ -25,6 +26,12 @@ public:
     Q_INVOKABLE QList<KTextEditor::Document *> documents() // NOLINT(readability-make-member-function-const)
     {
         return docs.values();
+    }
+
+    void addDoc(const QUrl &url, KTextEditor::Document *doc)
+    {
+        docs[url] = doc;
+        Q_EMIT KTextEditor::Editor::instance()->application()->documentCreated(doc);
     }
 
     QHash<QUrl, KTextEditor::Document *> docs;
@@ -176,6 +183,7 @@ private Q_SLOTS:
     void testBreakpointSetAtDifferentLine();
     void testAddRemoveBreakpointRequested();
     void testListBreakpointsRequested();
+    void testBreakpointsGetAddedToDocOnViewCreation();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -183,7 +191,7 @@ private:
         Q_ASSERT(url.isValid());
         auto doc = std::unique_ptr<KTextEditor::Document>(KTextEditor::Editor::instance()->createDocument(nullptr));
         doc->openUrl(url);
-        kapp->docs[url] = doc.get();
+        kapp->addDoc(url, doc.get());
         return doc;
     }
 
@@ -475,6 +483,28 @@ void BreakpointViewTest::testListBreakpointsRequested()
                             "[1.!] /file: 4->4\n"
                             "[2.!] /file2: 3->3\n"
                             "[3.!] /file2: 8->8\n"));
+}
+
+void BreakpointViewTest::testBreakpointsGetAddedToDocOnViewCreation()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    bv->setBreakpoint(url, 3, std::nullopt);
+    bv->setBreakpoint(url, 4, std::nullopt);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]kateui.rc:3\n"
+                            "** [x]kateui.rc:4\n"),
+             stringifyModel(bv->m_treeview->model()));
+
+    auto doc = createDocument(url);
+    QCOMPARE(doc->mark(2), 0);
+
+    auto view = std::unique_ptr<KTextEditor::View>(doc->createView(nullptr));
+    QCOMPARE(doc->mark(2), KTextEditor::Document::BreakpointActive);
 }
 
 QTEST_MAIN(BreakpointViewTest)

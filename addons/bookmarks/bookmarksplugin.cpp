@@ -159,10 +159,6 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     auto vLayout = new QVBoxLayout(root);
     vLayout->setSpacing(0);
     vLayout->setContentsMargins({});
-    auto hLayout = new QHBoxLayout(root);
-    hLayout->setAlignment(QStyle::visualAlignment(Qt::LayoutDirection::LayoutDirectionAuto, Qt::AlignmentFlag::AlignLeft));
-    hLayout->setSpacing(0);
-    hLayout->setContentsMargins({});
 
     auto backBtn = new QToolButton(m_treeView);
     backBtn->setEnabled(model->rowCount() > 0);
@@ -182,6 +178,11 @@ BookmarksPluginView::BookmarksPluginView(BookmarksPlugin *plugin, KTextEditor::M
     removeBtn->setIcon(QIcon::fromTheme(QStringLiteral("bookmark-remove")));
     removeBtn->setAutoRaise(true);
     connect(removeBtn, &QToolButton::clicked, this, &BookmarksPluginView::onRemoveBtnClicked);
+
+    auto hLayout = new QHBoxLayout;
+    hLayout->setAlignment(QStyle::visualAlignment(Qt::LayoutDirection::LayoutDirectionAuto, Qt::AlignmentFlag::AlignLeft));
+    hLayout->setSpacing(0);
+    hLayout->setContentsMargins({});
 
     vLayout->addLayout(hLayout);
     vLayout->addWidget(m_treeView);

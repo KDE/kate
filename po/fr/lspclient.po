@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-03 00:47+0000\n"
 "PO-Revision-Date: 2025-07-16 09:24+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -394,38 +394,38 @@ msgstr ""
 msgid "Failed to find server binary: %1"
 msgstr "Impossible de trouver un binaire associé au serveur : %1"
 
-#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:938
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:944
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Veuillez vérifier votre paramètre « PATH » pour vos exécutables"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:945
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Voir aussi %1 pour l'installation ou les détails correspondants."
 
-#: lspclientservermanager.cpp:935
+#: lspclientservermanager.cpp:941
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Impossible de démarrer le serveur : %1"
 
-#: lspclientservermanager.cpp:943
+#: lspclientservermanager.cpp:949
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Serveur %2 démarré : %1"
 
-#: lspclientservermanager.cpp:979
+#: lspclientservermanager.cpp:985
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Impossible d'analyser la configuration du serveur « %1 » : pas d'objet JSON"
 
-#: lspclientservermanager.cpp:982
+#: lspclientservermanager.cpp:988
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Impossible d'analyser la configuration du serveur « %1 » : %2"
 
-#: lspclientservermanager.cpp:986
+#: lspclientservermanager.cpp:992
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Impossible de lire la configuration du serveur : %1"

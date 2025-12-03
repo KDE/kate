@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-03 00:47+0000\n"
 "PO-Revision-Date: 2023-02-05 17:53+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -395,37 +395,37 @@ msgstr "Server sa neočakávane ukončil ... %1 [%2] [domovská stránka: %3] "
 msgid "Failed to find server binary: %1"
 msgstr "Spustiteľný súbor servera sa nepodarilo nájsť: %1"
 
-#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:938
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:944
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Skontrolujte svoju PATH pre binárne súbory"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:939
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:945
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Pozrite si tiež %1 pre inštaláciu alebo podrobnosti"
 
-#: lspclientservermanager.cpp:935
+#: lspclientservermanager.cpp:941
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Nepodarilo sa spustiť server: %1"
 
-#: lspclientservermanager.cpp:943
+#: lspclientservermanager.cpp:949
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Spustil sa server %2: %1"
 
-#: lspclientservermanager.cpp:979
+#: lspclientservermanager.cpp:985
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Nepodarilo sa analyzovať konfiguráciu servera '%1': žiadny objekt JSON"
 
-#: lspclientservermanager.cpp:982
+#: lspclientservermanager.cpp:988
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Nepodarilo sa spracovať nastavenia serveru '%1': %2"
 
-#: lspclientservermanager.cpp:986
+#: lspclientservermanager.cpp:992
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Nepodarilo sa prečítať nastavenia serveru: %1"

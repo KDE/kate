@@ -2,21 +2,21 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sveinki@nett.is>, 2011.
+# SPDX-FileCopyrightText: 2011, 2025 Sveinn í Felli <sveinki@nett.is>
 # SPDX-FileCopyrightText: 2023, 2024 Guðmundur Erlingsson <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2024-04-06 20:37+0000\n"
-"Last-Translator: Gummi <gudmundure@gmail.com>\n"
-"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2025-12-02 14:24+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: KateSearchCommand.cpp:88
@@ -197,16 +197,17 @@ msgstr[1] ""
 "%2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter:"
+#, kde-format
 msgid "Filter…"
-msgstr "Sía:"
+msgstr "Sía…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Leita í fyrirliggjandi flipa: ýttu og haltu niðri Ctrl til að leita í nýjum "
+"flipa."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:293
@@ -591,27 +592,24 @@ msgstr ""
 "leitina á klippispjaldið"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Listi yfir skrárgerðir sem er leitað í, aðskildar með kommum. Dæmi: \"*.cpp,"
-"*.h\"\n"
+"Listi yfir skráategundir sem er leitað í, aðskildar með kommum. Dæmi: \"*."
+"cpp,*.h\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Listi yfir skrár og möppur sem á ekki að hafa með í leit, aðskildar með "
-"kommum. Dæmi: \"build*\""
+"Kommuaðgreindur listi yfir frátökutáknamynstur sem samsvara skrám og möppum "
+"sem á ekki að hafa með í leit.\n"
+"Dæmi: \"build*\"\n"
+"Ef mynstrið inniheldur '/', er leitað að samsvörun á allri slóðinni."
 
 #: SearchPlugin.cpp:400
 #, kde-format
@@ -627,6 +625,7 @@ msgstr "Finna"
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
+"Leit var ekki sett í gang þar sem mappan '%1' sem á að leita í er ekki til."
 
 #: SearchPlugin.cpp:1346
 #, kde-format

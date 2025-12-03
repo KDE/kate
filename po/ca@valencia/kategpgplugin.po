@@ -139,14 +139,15 @@ msgstr "Error! No hi ha vistes disponibles…"
 #: kategpgplugin.cpp:239
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "S'ha produït un error en desencriptar el text! El document està buit…"
+msgstr ""
+"S'ha produït un error mentre es desencriptava el text! El document està buit…"
 
 #: kategpgplugin.cpp:243
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr ""
-"S'ha produït un error en desencriptar el text! No s'ha seleccionat cap "
-"empremta digital…"
+"S'ha produït un error mentre es desencriptava el text! No s'ha seleccionat "
+"cap empremta digital…"
 
 #: kategpgplugin.cpp:248
 #, kde-format
@@ -155,25 +156,27 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"S'ha produït un error en desencriptar el text!\n"
+"S'ha produït un error mentre es desencriptava el text!\n"
 "No s'ha trobat cap empremta digital coincident!\n"
 "O açò no és un text encriptat amb GPG…"
 
 #: kategpgplugin.cpp:256
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "S'ha produït un error en desencriptar el text!\n"
+msgstr "S'ha produït un error mentre es desencriptava el text!\n"
 
 #: kategpgplugin.cpp:283
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr ""
-"S'ha produït un error en encriptar el text! No hi ha cap document disponible…"
+"S'ha produït un error mentre s'encriptava el text! No hi ha cap document "
+"disponible…"
 
 #: kategpgplugin.cpp:287
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "S'ha produït un error en encriptar el text! El document està buit…"
+msgstr ""
+"S'ha produït un error mentre s'encriptava el text! El document està buit…"
 
 #: kategpgplugin.cpp:291
 #, kde-format
@@ -181,7 +184,7 @@ msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
-"S'ha produït un error en encriptar el text\n"
+"S'ha produït un error mentre s'encriptava el text\n"
 "No s'ha seleccionat cap empremta digital…"
 
 #: kategpgplugin.cpp:295
@@ -196,13 +199,13 @@ msgstr ""
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
-"S'ha produït un error en encriptar el text! No s'ha trobat cap empremta "
-"digital coincident…\n"
+"S'ha produït un error mentre s'encriptava el text! No s'ha trobat cap "
+"empremta digital coincident…\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format
 msgid "Error Encrypting Text!"
-msgstr "S'ha produït un error en encriptar el text!"
+msgstr "S'ha produït un error mentre s'encriptava el text!"
 
 #: kategpgplugin.cpp:372
 #, kde-format

@@ -614,13 +614,13 @@ msgstr ""
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
-"No s'ha pogut obtindre l'historial de fitxers: no s'ha trobat l'executable "
-"«git» en la PATH"
+"Ha fallat mentre s'obtenia l'historial de fitxers: no s'ha trobat "
+"l'executable «git» en la PATH"
 
 #: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr "No s'ha pogut obtindre l'historial de fitxers: %1"
+msgstr "Ha fallat mentre s'obtenia l'historial de fitxers: %1"
 
 #: lib/filehistorywidget.cpp:568
 #, kde-format
@@ -2164,7 +2164,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:317
 #, kde-format
 msgid "Error Creating Diff"
-msgstr "S'ha produït un error en crear «diff»"
+msgstr "S'ha produït un error mentre es creava «diff»"
 
 #: lib/katemwmodonhddialog.cpp:324
 #, kde-format
@@ -2556,7 +2556,7 @@ msgstr "Activa"
 #: lib/kateviewmanager.cpp:627
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
-msgstr "No s'ha pogut activar el connector <b>%1</b>"
+msgstr "Ha fallat mentre s'activava el connector <b>%1</b>"
 
 #: lib/kateviewmanager.cpp:648
 #, kde-format
@@ -2852,7 +2852,7 @@ msgstr "Torne a obrir"
 #, kde-format
 msgid "The session could not be renamed to \"%1\". Failed to write to \"%2\""
 msgstr ""
-"La sessió no es pot canviar de nom a «%1». No s'ha pogut escriure a «%2»"
+"La sessió no es pot canviar de nom a «%1». Ha fallat mentre s'escrivia a «%2»"
 
 #: lib/session/katesessionmanager.cpp:367
 #, kde-format

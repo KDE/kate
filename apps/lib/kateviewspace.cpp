@@ -85,6 +85,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
         makeActive(true);
     });
     hLayout->addWidget(m_tabBar);
+    hLayout->addStretch();
 
     // add Scroll Sync Indicator
     m_scrollSync = new QToolButton(this);

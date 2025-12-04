@@ -118,7 +118,10 @@ class BreakpointModel : public QAbstractItemModel
         Columns_Count
     };
 
-    static constexpr int LineBreakpointsItem = 0;
+    enum TopLevelItem {
+        LineBreakpointsItem = 0,
+    };
+
     static constexpr quintptr Root = 0xFFFFFFFF;
 
     QList<FileBreakpoint> m_lineBreakpoints;
@@ -142,7 +145,8 @@ public:
             return 1;
         }
         if (parent.internalId() == Root) {
-            switch (parent.row()) {
+            const auto topLevelItem = TopLevelItem(parent.row());
+            switch (topLevelItem) {
             case LineBreakpointsItem:
                 return m_lineBreakpoints.size();
             }
@@ -180,7 +184,8 @@ public:
     {
         if (parent.isValid()) {
             if (parent.internalId() == Root) {
-                switch (parent.row()) {
+                const auto topLevelItem = TopLevelItem(parent.row());
+                switch (topLevelItem) {
                 case LineBreakpointsItem:
                     return !m_lineBreakpoints.empty();
                 }
@@ -202,8 +207,12 @@ public:
         const int row = index.row();
 
         if (index.internalId() == Root) {
-            if (row == LineBreakpointsItem && role == Qt::DisplayRole) {
-                return i18n("Line Breakpoints");
+            if (role == Qt::DisplayRole) {
+                const auto topLevelItem = TopLevelItem(row);
+                switch (topLevelItem) {
+                case LineBreakpointsItem:
+                    return i18n("Line Breakpoints");
+                }
             }
             if (role == Qt::FontRole) {
                 QFont font;

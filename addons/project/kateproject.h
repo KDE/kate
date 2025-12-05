@@ -36,9 +36,14 @@ public:
 
     Qt::DropActions supportedDropActions() const override
     {
-        return Qt::CopyAction;
+        return Qt::CopyAction | Qt::MoveAction;
+    }
+    Qt::DropActions supportedDragActions() const override
+    {
+        return Qt::MoveAction;
     }
 
+    QMimeData *mimeData(const QModelIndexList &indexes) const override;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;

@@ -170,7 +170,7 @@ KateProjectViewTree::KateProjectViewTree(KateProjectPluginView *pluginView, Kate
     setIndentation(12);
     setSelectionMode(QAbstractItemView::SingleSelection);
 
-    setDragDropMode(QAbstractItemView::DropOnly);
+    setDragDropMode(QAbstractItemView::DragDrop);
     setDragDropOverwriteMode(false);
 
     setItemDelegate(new KateProjectTreeDelegate(this));

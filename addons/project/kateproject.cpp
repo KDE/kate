@@ -30,6 +30,19 @@
 #include <QPlainTextDocumentLayout>
 #include <utility>
 
+QMimeData *KateProjectModel::mimeData(const QModelIndexList &indexes) const
+{
+    auto *data = new QMimeData;
+    QList<QUrl> urls;
+    for (auto &index : indexes) {
+        if (index.data(KateProjectItem::TypeRole) == KateProjectItem::File) {
+            urls.push_back(QUrl::fromLocalFile(index.data(Qt::UserRole).toString()));
+        }
+    }
+    data->setUrls(urls);
+    return data;
+}
+
 bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     if (!canDropMimeData(data, action, row, column, parent)) {
@@ -39,20 +52,28 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
     const auto index = this->index(row, column, parent);
     const auto type = (KateProjectItem::Type)index.data(KateProjectItem::TypeRole).toInt();
     const auto parentType = (KateProjectItem::Type)parent.data(KateProjectItem::TypeRole).toInt();
-    QString pathToCopyTo;
+    QString targetPath;
     if (!index.isValid() && parent.isValid() && parentType == KateProjectItem::Directory) {
-        pathToCopyTo = parent.data(Qt::UserRole).toString();
+        targetPath = parent.data(Qt::UserRole).toString();
     } else if (index.isValid() && type == KateProjectItem::File) {
         if (index.parent().isValid()) {
-            pathToCopyTo = index.parent().data(Qt::UserRole).toString();
+            targetPath = index.parent().data(Qt::UserRole).toString();
         } else {
-            pathToCopyTo = m_project->baseDir();
+            targetPath = m_project->baseDir();
         }
     } else if (!index.isValid() && !parent.isValid()) {
-        pathToCopyTo = m_project->baseDir();
+        targetPath = m_project->baseDir();
     }
 
-    const QDir d = pathToCopyTo;
+    // the `if (!d.exists())` after this won't work for empty paths
+    // and will end up moving / copying stuff to the kate current working directory, which can be anything...
+    // so check for empty paths here
+    // this can happen when trying to drop a file between 2 folders
+    if (targetPath.isEmpty()) {
+        return false;
+    }
+
+    const QDir d = targetPath;
     if (!d.exists()) {
         return false;
     }
@@ -60,17 +81,45 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
     const auto urls = data->urls();
     const QString destDir = d.absolutePath();
     const QUrl dest = QUrl::fromLocalFile(destDir);
-    QPointer<KIO::CopyJob> job = KIO::copy(urls, dest);
+
+    for (auto &url : urls) {
+        // don't allow moving it to the same folder its already in
+        if (url.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash | QUrl::RemoveScheme)
+            == dest.adjusted(QUrl::StripTrailingSlash | QUrl::RemoveScheme)) {
+            return false;
+        }
+    }
+
+    QPointer<KIO::CopyJob> job;
+
+    if (action == Qt::CopyAction) {
+        job = KIO::copy(urls, dest);
+    } else {
+        job = KIO::move(urls, dest);
+    }
+
     KJobWidgets::setWindow(job, QApplication::activeWindow());
-    connect(job, &KIO::Job::finished, this, [this, job, destDir] {
+    connect(job, &KIO::Job::finished, this, [this, action, originalUrls = urls, job, destDir] {
         if (!job || job->error() != 0 || !m_project) {
             return;
+        }
+
+        if (action == Qt::MoveAction) {
+            // remove the files we are moving if they are from this project
+            // this avoids some files being invisible until reloaded
+            // this is kinda hacky tbh, idk if theres a better solution
+            for (auto &url : originalUrls) {
+                auto path = url.toLocalFile();
+                if (m_project->itemForFile(path)) {
+                    m_project->removeFile(path);
+                }
+            }
         }
 
         bool needsReload = false;
         QStandardItem *item = invisibleRootItem();
         if (destDir != m_project->baseDir()) {
-            const auto indexes = match(this->index(0, 0), Qt::UserRole, destDir, 1, Qt::MatchStartsWith);
+            const auto indexes = match(this->index(0, 0), Qt::UserRole, destDir, 1, Qt::MatchStartsWith | Qt::MatchRecursive);
             if (indexes.empty()) {
                 needsReload = true;
             } else {
@@ -113,15 +162,22 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
 
 bool KateProjectModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int, int, const QModelIndex &) const
 {
-    return data && data->hasUrls() && action == Qt::CopyAction;
+    return data && data->hasUrls() && (action == Qt::CopyAction || action == Qt::MoveAction);
 }
 
 Qt::ItemFlags KateProjectModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags flags = QStandardItemModel::flags(index);
-    if (index.data(KateProjectItem::TypeRole) == KateProjectItem::File) {
+
+    auto type = index.data(KateProjectItem::TypeRole);
+    if (type == KateProjectItem::File) {
         flags.setFlag(Qt::ItemIsDropEnabled, false);
+        flags.setFlag(Qt::ItemIsDragEnabled, true);
+    } else if (type == KateProjectItem::Directory) {
+        flags.setFlag(Qt::ItemIsDropEnabled, true);
+        flags.setFlag(Qt::ItemIsDragEnabled, false);
     }
+
     return flags;
 }
 

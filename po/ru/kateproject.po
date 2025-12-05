@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2025-04-03 14:40+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2025-12-04 11:40+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -361,9 +361,9 @@ msgid "Stash"
 msgstr "Поместить в запасник"
 
 #: gitwidget.cpp:1146
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show history"
-msgstr "Показать журнал Git"
+msgstr "Показать журнал"
 
 #: gitwidget.cpp:1158
 #, kde-format
@@ -482,9 +482,9 @@ msgid "Open at HEAD"
 msgstr "Открыть HEAD"
 
 #: gitwidget.cpp:1310
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show History"
-msgstr "Показать журнал Git"
+msgstr "Показать журнал"
 
 #: gitwidget.cpp:1326
 #, kde-format
@@ -1058,10 +1058,9 @@ msgid "Failed to create dir: %1"
 msgstr "Не удалось создать каталог: %1"
 
 #: kateprojectworker.cpp:202
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Не удалось получить журнал файла: %1"
+msgstr "Не удалось найти каталог: %1"
 
 #: kateprojectworker.cpp:730
 #, kde-format

@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-22 00:45+0000\n"
-"PO-Revision-Date: 2025-04-03 15:09+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2025-12-04 11:39+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -97,14 +97,13 @@ msgstr ""
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Не задана цель исполняемого файла"
 
 #: configview.cpp:408
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "некорректный идентификатор потока: %1"
+msgstr "Некорректный идентификатор процесса"
 
 #: configview.cpp:530 configview.cpp:543
 #, kde-format
@@ -112,16 +111,14 @@ msgid "Target %1"
 msgstr "Цель %1"
 
 #: configview.cpp:766
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Исполняемый файл:"
+msgstr "Выбор исполняемого файла"
 
 #: configview.cpp:779
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Рабочий каталог:"
+msgstr "Выбор рабочего каталога"
 
 #: dapbackend.cpp:187
 #, kde-format
@@ -560,7 +557,7 @@ msgstr "Лок. переменные и стек"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Не удалось открыть файл:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:222
 #, kde-format
@@ -649,10 +646,9 @@ msgid "Print Value"
 msgstr "Показать значение"
 
 #: plugin_kategdb.cpp:405
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "синтаксическая ошибка: %1"
+msgstr "Ошибка: %1"
 
 #: plugin_kategdb.cpp:436 plugin_kategdb.cpp:452
 #, kde-format

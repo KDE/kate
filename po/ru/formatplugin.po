@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the kate package.
 #
 # SPDX-FileCopyrightText: 2023, 2024 Alexander Yavorsky <kekcuha@gmail.com>
-# SPDX-FileCopyrightText: 2024 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2024-12-09 09:53+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2025-12-04 13:54+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -32,10 +32,10 @@ msgid "Failed to write a temp file"
 msgstr "Не удалось записать временный файл"
 
 #: FormatApply.h:33
-#, fuzzy, kde-format
-#| msgid "Failed to run git diff: %1"
+#, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "Не удалось запустить команду «git diff»: %1"
+msgstr ""
+"Не удалось запустить команду «git diff», так как программа git не установлена"
 
 #: FormatApply.h:38
 #, kde-format

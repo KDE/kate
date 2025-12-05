@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-05 00:45+0000\n"
 "PO-Revision-Date: 2025-07-07 20:54+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -32,17 +32,17 @@ msgstr "Tiedoston sijainti"
 msgid "Bookmarks"
 msgstr "Kirjanmerkit"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:165
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Siirry edelliseen kirjanmerkkiin"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Siirry seuraavaan kirjanmerkkiin"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Poista kirjanmerkki"

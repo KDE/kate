@@ -22,14 +22,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-30 00:46+0000\n"
-"PO-Revision-Date: 2025-05-20 16:20+0300\n"
-"Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
-"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"PO-Revision-Date: 2025-12-04 16:43+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
+"Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -602,11 +602,10 @@ msgid "No differences found"
 msgstr "Различия не обнаружены"
 
 #: lib/filehistorywidget.cpp:252
-#, fuzzy, kde-format
-#| msgid "Invalid hash"
+#, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
-msgstr "Недопустимый хеш"
+msgstr "Недопустимая дата: %1"
 
 #: lib/filehistorywidget.cpp:474
 #, kde-format
@@ -624,6 +623,18 @@ msgid ""
 "terms are given then messages matching all the search terms will be shown.</"
 "li></ul>To trigger the filter, press the <b>Enter</b> key."
 msgstr ""
+"Фильтр журнала.<ul><li>Используйте префикс <code>\"a:\"</code> для "
+"фильтрации по имени автора. Например, <b>a:john doe</b></li><li>Используйте "
+"префикс <code>\"!a:\"</code> для исключения автора. Например, <b>!a:john "
+"doe</b></li><li>Используйте префикс <code>\"since:\"</code> для показа "
+"фиксаций после указанной даты. Будет проверена дата авторства каждой "
+"фиксации. Формат даты: ГГГГ-ММ-ДД. Например, <b>since:2025-04-17</b></"
+"li><li>Используйте префикс <code>\"until:\"</code> для показа фиксаций до "
+"указанной даты. Будет проверена дата авторства каждой фиксации. Формат даты: "
+"ГГГГ-ММ-ДД. Например, <b>until:2025-04-17</b></li><li>Чтобы отфильтровать "
+"сообщения, просто наберите текст для поиска. Если указать несколько "
+"поисковых запросов, будут показаны те сообщения, которые соответствуют им "
+"всем.</li></ul>Чтобы активировать фильтр, нажмите клавишу <b>Ввод</b>."
 
 #: lib/filehistorywidget.cpp:537
 #, kde-format
@@ -1028,11 +1039,7 @@ msgid "PATH"
 msgstr "PATH"
 
 #: lib/kateconfigdialog.cpp:126
-#, fuzzy, kde-format
-#| msgid ""
-#| "List of %1 seperated directories where Kate will look for programs to "
-#| "run. This list will be prepended to your PATH environment variable. E.g '/"
-#| "home/USER/myapps/bin/:/home/USER/.local/bin'"
+#, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
 "This list will be prepended to your PATH environment variable. E.g '/home/"
@@ -1260,24 +1267,17 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:312
 #, kde-format
 msgid "Allow cycling through tabs"
-msgstr ""
+msgstr "Разрешить циклический переход по вкладкам"
 
 #: lib/kateconfigdialog.cpp:314
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "'Next Tab'/'Previous Tab' is an existing action name. Please use the same "
-#| "text here as it is used in that action's translation"
-#| msgid ""
-#| "Allow cycling through tabs. If unchecked, the action 'Next Tab'/'Previous "
-#| "Tab' will not go to first/last tab after reaching the end"
+#, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
 "If unchecked, the action '%1'/'%2' will not go to first/last tab after "
 "reaching the end."
 msgstr ""
-"Разрешить циклический перебор вкладок. Если флажок снят, действие «Следующая "
-"вкладка»/«Предыдущая вкладка» не приведёт к переходу на первую/последнюю "
-"вкладку по достижении конца списка."
+"Если флажок снят, действие «%1»/«%2» не приведёт к переходу на первую/"
+"последнюю вкладку по достижении конца списка."
 
 #: lib/kateconfigdialog.cpp:337
 #, kde-format
@@ -1482,14 +1482,14 @@ msgid "Reopening files from the last session..."
 msgstr "Открываются файлы последнего сеанса..."
 
 #: lib/katedocmanager.cpp:572
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cannot pin untitled documents."
-msgstr "Создать новый документ"
+msgstr "Нельзя закреплять документы без названия."
 
 #: lib/katedocmanager.cpp:577
-#, fuzzy, kde-format
+#, kde-format
 msgid "Cannot pin non local documents."
-msgstr "Создать новый документ"
+msgstr "Закреплять можно только локальные документы."
 
 #: lib/katefileactions.cpp:80
 #, kde-format
@@ -1850,15 +1850,14 @@ msgid "Save Session &As..."
 msgstr "Сохранить сеанс &как..."
 
 #: lib/katemainwindow.cpp:652
-#, fuzzy, kde-format
-#| msgid "Detach Active Document"
+#, kde-format
 msgid "Pin/Unpin Active Document"
-msgstr "Открыть в новом окне"
+msgstr "Закрепить/открепить активный документ"
 
 #: lib/katemainwindow.cpp:661
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open Next Pinned Document"
-msgstr "Открытые документы"
+msgstr "Открыть следующий закреплённый документ"
 
 #: lib/katemainwindow.cpp:668 lib/kateviewspace.cpp:57
 #, kde-format
@@ -2160,7 +2159,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:289
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Для просмотра различий необходимо установить программу git"
 
 #: lib/katemwmodonhddialog.cpp:313
 #, kde-format
@@ -2618,20 +2617,19 @@ msgstr[3] ""
 "документов в режиме быстрого перехода."
 
 #: lib/kateviewspace.cpp:1135
-#, fuzzy, kde-format
-#| msgid "Close Tab"
+#, kde-format
 msgid "&Close Tab"
-msgstr "Закрыть вкладку"
+msgstr "&Закрыть вкладку"
 
 #: lib/kateviewspace.cpp:1142
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close &Other Tabs"
-msgstr "Закрыть текущую вкладку"
+msgstr "Закрыть &другие вкладки"
 
 #: lib/kateviewspace.cpp:1155
-#, fuzzy, kde-format
+#, kde-format
 msgid "Close All &Tabs"
-msgstr "Закрыть текущую вкладку"
+msgstr "Закрыть &все вкладки"
 
 #: lib/kateviewspace.cpp:1186
 #, kde-format
@@ -2654,21 +2652,19 @@ msgid "Compare with Active Document Using"
 msgstr "Сравнить с активным документом с помощью"
 
 #: lib/kateviewspace.cpp:1246
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unpin Document"
-msgstr "Открытые документы"
+msgstr "Открепить документ"
 
 #: lib/kateviewspace.cpp:1248
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Документы"
+msgstr "Закрепить документ"
 
 #: lib/ktexteditor_utils.cpp:244
-#, fuzzy, kde-format
-#| msgid "File not found: %1"
+#, kde-format
 msgid "Can not open %1"
-msgstr "Файл не найден: %1"
+msgstr "Не удалось открыть %1"
 
 #: lib/mainwindow_commands.cpp:45
 #, kde-format
@@ -2955,8 +2951,8 @@ msgstr "Несохранённые изменённые файлы"
 #, kde-format
 msgid "If disabled, an untitled document will be shown for new windows."
 msgstr ""
-"Если этот параметр не включён, при открытии нового окна создан документ без "
-"названия"
+"Если этот параметр отключён, при открытии нового окна будет показан документ "
+"без названия."
 
 #. i18n: ectx: property (text), widget (QCheckBox, showWelcomeViewForNewWindow)
 #: lib/ui/sessionconfigwidget.ui:91

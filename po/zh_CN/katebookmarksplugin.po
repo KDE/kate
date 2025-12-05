@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-05 00:45+0000\n"
 "PO-Revision-Date: 2025-07-04 19:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -32,17 +32,17 @@ msgstr "文件路径"
 msgid "Bookmarks"
 msgstr "书签"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:165
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "跳转到上一个书签"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "跳转到下一个书签"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "移除书签"

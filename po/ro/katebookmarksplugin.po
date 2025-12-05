@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-05 00:45+0000\n"
 "PO-Revision-Date: 2025-10-19 23:07+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -33,17 +33,17 @@ msgstr "Calea fișierului"
 msgid "Bookmarks"
 msgstr "Semne de carte"
 
-#: bookmarksplugin.cpp:169
+#: bookmarksplugin.cpp:165
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Mergi la semnul de carte precedent"
 
-#: bookmarksplugin.cpp:175
+#: bookmarksplugin.cpp:171
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Mergi la semnul de carte următor"
 
-#: bookmarksplugin.cpp:181
+#: bookmarksplugin.cpp:177
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Elimină semnul de carte"

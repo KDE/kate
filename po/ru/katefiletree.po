@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2025-04-03 12:05+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2025-12-04 11:27+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -232,23 +232,19 @@ msgid "Open With"
 msgstr "Открыть с помощью..."
 
 #: katefiletree.cpp:434
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Git History"
-msgstr "Показать историю файла Git"
+msgstr "Показать журнал Git"
 
 #: katefiletree.cpp:445
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Открытые документы"
+msgstr "Открепить документ"
 
 #: katefiletree.cpp:447
-#, fuzzy, kde-format
-#| msgctxt "The number of open documents"
-#| msgid "Open Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Открытые документы"
+msgstr "Закрепить документ"
 
 #: katefiletree.cpp:495
 #, kde-format

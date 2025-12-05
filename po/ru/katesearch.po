@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2025-04-03 11:49+0300\n"
-"Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
+"PO-Revision-Date: 2025-12-04 11:50+0300\n"
+"Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -634,27 +634,23 @@ msgstr ""
 "Копировать найденные выделенные строки текущего документа в буфер обмена"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Список типов просматриваемых файлов (через запятую). Например: \"*.cpp,*.h"
-"\"\n"
+"Список типов просматриваемых файлов (через запятую). Например: \"*.cpp,*.h\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Список файлов и каталогов, исключаемых из рассмотрения (через запятую). "
-"Например: \"build*\""
+"Список шаблонов для файлов и каталогов, исключаемых из рассмотрения (через "
+"запятую).\n"
+"Например: \"build*\"\n"
+"Если шаблон содержит символ «/», на соответствие будет проверяться весь путь."
 
 #: SearchPlugin.cpp:400
 #, kde-format

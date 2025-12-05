@@ -773,6 +773,8 @@ void KatePluginGDBView::handleEsc(QEvent *e)
         } else if (m_localsStackToolView && m_localsStackToolView->isVisible()
                    && toolviewPosition(m_localsStackToolView.get()) == KTextEditor::MainWindow::Bottom) {
             m_mainWin->hideToolView(m_localsStackToolView.get());
+        } else if (m_breakpointToolView && m_breakpointToolView->isVisible()) {
+            m_mainWin->hideToolView(m_breakpointToolView.get());
         }
     }
 }

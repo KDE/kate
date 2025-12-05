@@ -68,9 +68,9 @@ public:
     void addDirectory(const QModelIndex &idx, const QString &name);
 
     /**
-     * remove a file, the function isn't closing document before removing'
+     * Remove a path, the function doesn't close documents before removing
      */
-    void removeFile(const QModelIndex &idx, const QString &fullFilePath);
+    void removePath(const QModelIndex &idx, const QString &fullPath);
 
     /**
      * Open project terminal at location dirPath

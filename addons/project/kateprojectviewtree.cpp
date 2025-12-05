@@ -20,6 +20,7 @@
 
 #include <QContextMenuEvent>
 #include <QDir>
+#include <QDirIterator>
 #include <QPainter>
 #include <QProcess>
 #include <QScrollBar>
@@ -30,6 +31,8 @@
 
 #include "drawing_utils.h"
 #include <QTextLayout>
+
+#include <KIO/DeleteJob>
 
 namespace
 {
@@ -403,7 +406,7 @@ void KateProjectViewTree::addDirectory(const QModelIndex &idx, const QString &na
     item->sortChildren(0);
 }
 
-void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &fullFilePath)
+void KateProjectViewTree::removePath(const QModelIndex &idx, const QString &path)
 {
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
     auto index = proxyModel->mapToSource(idx);
@@ -413,12 +416,8 @@ void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &full
     }
     QStandardItem *parent = item->parent();
 
-    /**
-     * Delete file
-     */
-    QFile file(fullFilePath);
-    if (file.remove()) //.moveToTrash()
-    {
+    auto *job = KIO::del(QUrl::fromLocalFile(path));
+    if (job->exec()) {
         if (parent != nullptr) {
             parent->removeRow(item->row());
             parent->sortChildren(0);
@@ -426,7 +425,16 @@ void KateProjectViewTree::removeFile(const QModelIndex &idx, const QString &full
             m_project->model()->removeRow(item->row());
             m_project->model()->sort(0);
         }
-        m_project->removeFile(fullFilePath);
+
+        if (QFileInfo(path).isDir()) {
+            QDirIterator it(path, QDir::Files, QDirIterator::Subdirectories);
+            while (it.hasNext()) {
+                QString dir = it.next();
+                m_project->removeFile(it.next());
+            }
+        } else {
+            m_project->removeFile(path);
+        }
 
         if (parent) {
             auto parentIdx = m_project->model()->indexFromItem(parent);
@@ -509,8 +517,7 @@ void KateProjectViewTree::contextMenuEvent(QContextMenuEvent *event)
         return;
     }
 
-    KateProjectTreeViewContextMenu menu;
-    menu.exec(filePath, index, viewport()->mapToGlobal(event->pos()), this);
+    KateProjectTreeViewContextMenu::exec(filePath, index, viewport()->mapToGlobal(event->pos()), this);
 
     event->accept();
 }

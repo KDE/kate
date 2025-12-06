@@ -23,7 +23,7 @@
         "Description[nn]": "Køyr SQL-liknande spørjingar med RQBL",
         "Description[pl]": "Wykonuje zapytania SQL przy użyciu RBQL",
         "Description[pt_BR]": "Executa consultas do tipo SQL usando RBQL",
-        "Description[ru]": "Выполнять SQL-подобные запросы с помощью RBQL",
+        "Description[ru]": "Выполнение SQL-подобных запросов с помощью RBQL",
         "Description[sa]": "RBQL इत्यस्य उपयोगेन SQL-सदृशानि प्रश्नानि चालयन्तु",
         "Description[sl]": "Tekoče poizvedbe podobne SQL z uporabo RBQL",
         "Description[sv]": "Utför SQL-liknande frågor med RBQL",

@@ -17,6 +17,7 @@
         "Description[ko]": "파일을 저장할 때 외부 도구로 형식 지정",
         "Description[nl]": "Een extern hulpmiddel gebruiken bij opslaan van het bestand",
         "Description[pt_BR]": "Formatar usando uma ferramenta externa quando o arquivo for salvo",
+        "Description[ru]": "Форматирование с помощью внешней программы при сохранении файла",
         "Description[sl]": "Oblikovanje z zunanjim orodjem ob shranjevanju datoteke",
         "Description[sv]": "Formatera med ett externt verktyg när filen sparas",
         "Description[tr]": "Dosya kaydedildiğinde dış bir araç kullanarak biçimlendirin",

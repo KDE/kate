@@ -663,7 +663,7 @@ public:
 
         connect(m_mainWindow, &KTextEditor::MainWindow::viewCreated, this, &self_type::onViewCreated);
 
-        connect(this, &self_type::ctrlClickDefRecieved, this, &self_type::onCtrlMouseMove);
+        connect(this, &self_type::ctrlClickDefReceieved, this, &self_type::onCtrlMouseMove);
 
         configUpdated();
 
@@ -1443,7 +1443,7 @@ public:
         }
     }
 
-    Q_SIGNAL void ctrlClickDefRecieved(const RangeItem &range);
+    Q_SIGNAL void ctrlClickDefReceieved(const RangeItem &range);
 
     Q_SLOT void onCtrlMouseMove(const RangeItem &range)
     {
@@ -1509,7 +1509,7 @@ public:
                 return;
             } else {
                 const auto item = locationToRangeItem(defs.at(0));
-                Q_EMIT this->ctrlClickDefRecieved(item);
+                Q_EMIT this->ctrlClickDefReceieved(item);
                 return;
             }
         };

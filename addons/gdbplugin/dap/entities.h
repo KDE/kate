@@ -226,6 +226,18 @@ struct Breakpoint {
     bool operator==(const dap::Breakpoint &r) const;
 };
 
+struct FunctionBreakpoint {
+    QString function;
+    std::optional<QString> condition;
+    std::optional<QString> hitCondition;
+
+    FunctionBreakpoint() = default;
+    FunctionBreakpoint(const QJsonObject &body);
+    FunctionBreakpoint(const QString &functionName);
+
+    QJsonObject toJson() const;
+};
+
 class Output
 {
     Q_GADGET

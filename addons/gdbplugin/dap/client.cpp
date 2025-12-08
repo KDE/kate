@@ -406,6 +406,32 @@ void Client::processResponseSetBreakpoints(const Response &response, const QJson
     }
 }
 
+void Client::processResponseSetFunctionBreakpoints(const Response &response, const QJsonValue &request)
+{
+    QList<dap::FunctionBreakpoint> requested;
+    const auto array = request.toObject()[DAP_BREAKPOINTS].toArray();
+    requested.reserve(array.size());
+    for (const auto &jv : array) {
+        requested.push_back(dap::FunctionBreakpoint(jv.toObject()));
+    }
+
+    if (response.success) {
+        const auto resp = response.body.toObject();
+        QList<Breakpoint> breakpoints;
+        const auto responseArray = resp[DAP_BREAKPOINTS].toArray();
+
+        if (responseArray.size() != array.size()) {
+            qWarning() << "Invalid response for function breakpoints, backend didn't return enough breakpoints";
+            return;
+        }
+
+        for (const auto &item : responseArray) {
+            breakpoints.append(Breakpoint(item.toObject(), *m_msgContext));
+        }
+        Q_EMIT functionBreakpointsSet(requested, breakpoints);
+    }
+}
+
 void Client::processResponseEvaluate(const Response &response, const QJsonValue &request)
 {
     const auto &expression = request.toObject()[DAP_EXPRESSION].toString();
@@ -701,6 +727,16 @@ void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreak
     QJsonObject arguments{{DAP_SOURCE, source.toJson(*m_msgContext)}, {DAP_BREAKPOINTS, bpoints}, {QStringLiteral("sourceModified"), sourceModified}};
 
     this->write(makeRequest(QStringLiteral("setBreakpoints"), arguments, &Client::processResponseSetBreakpoints));
+}
+
+void Client::requestSetFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints)
+{
+    QJsonArray bpoints;
+    for (const auto &item : breakpoints) {
+        bpoints.append(item.toJson());
+    }
+    QJsonObject arguments{{DAP_BREAKPOINTS, bpoints}};
+    this->write(makeRequest(QStringLiteral("setFunctionBreakpoints"), arguments, &Client::processResponseSetFunctionBreakpoints));
 }
 
 void Client::requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId)

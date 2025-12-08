@@ -63,6 +63,9 @@ private:
     void onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
     void onListBreakpointsRequested();
     void runToPosition(const QUrl &url, int line);
+    void onContextMenuRequested(QPoint pos);
+    void buildContextMenu(const QModelIndex &index, QMenu *menu);
+    void onAddFunctionBreakpoint();
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;

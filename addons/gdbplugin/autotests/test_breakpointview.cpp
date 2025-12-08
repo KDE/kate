@@ -72,6 +72,10 @@ public:
     {
         return false;
     }
+    bool supportsFunctionBreakpoints() const override
+    {
+        return true;
+    }
     bool canSetBreakpoints() const override
     {
         return true;
@@ -110,6 +114,12 @@ public:
     }
     void setFileSearchPaths(const QStringList &) override
     {
+    }
+
+    void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override
+    {
+        // TODO
+        Q_ASSERT(false);
     }
 
 public Q_SLOTS:

@@ -212,6 +212,7 @@ void DapBackend::start()
     connect(m_client, &dap::Client::breakpointChanged, this, &DapBackend::onBreakpointEvent);
     connect(m_client, &dap::Client::expressionEvaluated, this, &DapBackend::onExpressionEvaluated);
     connect(m_client, &dap::Client::gotoTargets, this, &DapBackend::onGotoTargets);
+    connect(m_client, &dap::Client::functionBreakpointsSet, this, &DapBackend::functionBreakpointsSet);
 
     m_client->bus()->start(m_settings->busSettings);
 }
@@ -690,6 +691,11 @@ bool DapBackend::supportsRunToCursor() const
     return isAttachedState() && m_client && m_client->adapterCapabilities().supportsHitConditionalBreakpoints;
 }
 
+bool DapBackend::supportsFunctionBreakpoints() const
+{
+    return isAttachedState() && m_client && m_client->adapterCapabilities().supportsFunctionBreakpoints;
+}
+
 bool DapBackend::isConnectedState() const
 {
     return m_client && (m_state != None) && (m_state != Disconnected);
@@ -738,6 +744,14 @@ bool DapBackend::debuggerRunning() const
 bool DapBackend::debuggerBusy() const
 {
     return debuggerRunning() && (m_task == Busy);
+}
+
+void DapBackend::setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints)
+{
+    if (!supportsFunctionBreakpoints()) {
+        return;
+    }
+    m_client->requestSetFunctionBreakpoints(breakpoints);
 }
 
 void DapBackend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints)

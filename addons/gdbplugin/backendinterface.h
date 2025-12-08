@@ -53,6 +53,10 @@ public:
      */
     virtual bool supportsRunToCursor() const = 0;
     /**
+     * true if debugger supports function breakpoints
+     */
+    virtual bool supportsFunctionBreakpoints() const = 0;
+    /**
      * true if breakpoints can be set/unset
      */
     virtual bool canSetBreakpoints() const = 0;
@@ -78,6 +82,11 @@ public:
 
     virtual QString targetName() const = 0;
     virtual void setFileSearchPaths(const QStringList &paths) = 0;
+
+    /**
+     * set function breakpoints
+     */
+    virtual void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) = 0;
 
 public Q_SLOTS:
     /**
@@ -136,6 +145,7 @@ Q_SIGNALS:
     void threads(const QList<dap::Thread> &thread);
     void threadUpdated(const dap::Thread &thread, ThreadState state, bool isActive);
     void breakpointEvent(const dap::Breakpoint &bp, BreakpointEventKind);
+    void functionBreakpointsSet(const QList<dap::FunctionBreakpoint> &requestedBreakpoints, const QList<dap::Breakpoint> &response);
 
     /*
      * Requests from backend

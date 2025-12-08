@@ -28,12 +28,14 @@ public:
 
     bool supportsMovePC() const override;
     bool supportsRunToCursor() const override;
+    bool supportsFunctionBreakpoints() const override;
     bool canSetBreakpoints() const override;
     bool canMove() const override;
     bool canContinue() const override;
     bool canHotReload() const;
     bool canHotRestart() const;
 
+    void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
 

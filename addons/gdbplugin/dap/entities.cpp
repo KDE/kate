@@ -539,6 +539,31 @@ bool Breakpoint::operator==(const dap::Breakpoint &r) const
         && endColumn == r.endColumn && instructionReference == r.instructionReference && offset == r.offset;
 }
 
+FunctionBreakpoint::FunctionBreakpoint(const QJsonObject &body)
+    : function(body[DAP_NAME].toString())
+    , condition(parseOptionalString(body[DAP_CONDITION]))
+    , hitCondition(parseOptionalString(body[DAP_HIT_CONDITION]))
+{
+}
+
+FunctionBreakpoint::FunctionBreakpoint(const QString &functionName)
+    : function(functionName)
+{
+}
+
+QJsonObject FunctionBreakpoint::toJson() const
+{
+    QJsonObject out;
+    out[DAP_NAME] = function;
+    if (condition) {
+        out[DAP_CONDITION] = condition.value();
+    }
+    if (hitCondition) {
+        out[DAP_HIT_CONDITION] = hitCondition.value();
+    }
+    return out;
+}
+
 BreakpointEvent::BreakpointEvent(const QJsonObject &body, MessageContext &ctx)
     : reason(body[DAP_REASON].toString())
     , breakpoint(Breakpoint(body[DAP_BREAKPOINT].toObject(), ctx))

@@ -11,7 +11,9 @@
 #include <KTextEditor/View>
 
 #include <QAbstractTableModel>
+#include <QInputDialog>
 #include <QLoggingCategory>
+#include <QMenu>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -35,7 +37,8 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] add a test for this
 // [x] Fix run to cursor
 // [x] Double clicking on a breakpoint takes us to the location?
-// [] Cleanup, add a header to the model, path item can span multiple columns?
+// [] Function breakpoints, cmd for setting func breakpoints, add func breakpoints when offline, set all to pending on debugger stop
+// [] context menu on items [delete item, edit, clear all]
 
 static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
@@ -106,6 +109,18 @@ struct FileBreakpoint {
         return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
     }
 };
+
+struct FunctionBreakpoint {
+    dap::FunctionBreakpoint funcBreakpoint;
+    std::optional<dap::Breakpoint> breakpoint;
+    Qt::CheckState checkState = Qt::Checked;
+    bool isOneShot = false;
+
+    bool isEnabled() const
+    {
+        return checkState == Qt::Checked;
+    }
+};
 }
 
 class BreakpointModel : public QAbstractItemModel
@@ -120,21 +135,25 @@ class BreakpointModel : public QAbstractItemModel
 
     enum TopLevelItem {
         LineBreakpointsItem = 0,
+        FunctionBreakpointItem,
+
+        TopLevelItem_Last = FunctionBreakpointItem,
     };
 
     static constexpr quintptr Root = 0xFFFFFFFF;
 
     QList<FileBreakpoint> m_lineBreakpoints;
+    QList<FunctionBreakpoint> m_funcBreakpoints;
 
 public:
     explicit BreakpointModel(QObject *parent)
         : QAbstractItemModel(parent)
     {
-        beginInsertRows({}, 0, 0);
+        beginInsertRows({}, 0, TopLevelItem_Last);
         endInsertRows();
     }
 
-    int columnCount(const QModelIndex &) const override
+    int columnCount(const QModelIndex & = {}) const override
     {
         return Columns_Count;
     }
@@ -142,13 +161,15 @@ public:
     int rowCount(const QModelIndex &parent) const override
     {
         if (!parent.isValid()) {
-            return 1;
+            return TopLevelItem_Last + 1;
         }
         if (parent.internalId() == Root) {
             const auto topLevelItem = TopLevelItem(parent.row());
             switch (topLevelItem) {
             case LineBreakpointsItem:
                 return m_lineBreakpoints.size();
+            case FunctionBreakpointItem:
+                return m_funcBreakpoints.size();
             }
             Q_ASSERT(false);
         }
@@ -188,6 +209,8 @@ public:
                 switch (topLevelItem) {
                 case LineBreakpointsItem:
                     return !m_lineBreakpoints.empty();
+                case FunctionBreakpointItem:
+                    return !m_funcBreakpoints.empty();
                 }
                 qCWarning(kateBreakpoint, "Invalid top level item: %d", parent.row());
                 Q_ASSERT(false);
@@ -212,6 +235,8 @@ public:
                 switch (topLevelItem) {
                 case LineBreakpointsItem:
                     return i18n("Line Breakpoints");
+                case FunctionBreakpointItem:
+                    return i18n("Function Breakpoints");
                 }
             }
             if (role == Qt::FontRole) {
@@ -221,7 +246,7 @@ public:
             }
         } else {
             int rootIndex = index.internalId();
-            if (rootIndex > LineBreakpointsItem) {
+            if (rootIndex > TopLevelItem_Last) {
                 Q_ASSERT(false);
                 return {};
             }
@@ -259,6 +284,23 @@ public:
                         }
                     }
                 }
+            } else if (rootIndex == FunctionBreakpointItem) {
+                if (role == Qt::DisplayRole) {
+                    const auto &item = m_funcBreakpoints[index.row()];
+                    if (col == Column0) {
+                        const QString verified = item.breakpoint.has_value() ? item.breakpoint->verified ? i18n("verified") : i18n("pending") : i18n("pending");
+                        const QString address = item.breakpoint->instructionReference.has_value()
+                            ? QStringLiteral(" (%1)").arg(item.breakpoint->instructionReference.value())
+                            : QString();
+                        return QStringLiteral("%1%2 [%3]").arg(item.funcBreakpoint.function, address, verified);
+                    }
+                }
+
+                if (role == Qt::CheckStateRole) {
+                    return m_funcBreakpoints[row].checkState;
+                }
+            } else {
+                Q_UNREACHABLE();
             }
         }
 
@@ -267,19 +309,30 @@ public:
 
     bool setData(const QModelIndex &index, const QVariant &value, int role) override
     {
-        if (role == Qt::CheckStateRole && index.isValid() && !hasChildren(index)) {
-            if (value.isValid() && index.row() >= 0 && index.row() < m_lineBreakpoints.size()) {
-                auto &bp = m_lineBreakpoints[index.row()];
-                bp.checkState = value.value<Qt::CheckState>();
-                Q_EMIT dataChanged(index, index, {role});
+        if (role == Qt::CheckStateRole && index.isValid() && !hasChildren(index) && value.isValid()) {
+            if (index.internalId() == LineBreakpointsItem) {
+                if (index.row() >= 0 && index.row() < m_lineBreakpoints.size()) {
+                    auto &bp = m_lineBreakpoints[index.row()];
+                    bp.checkState = value.value<Qt::CheckState>();
+                    Q_EMIT dataChanged(index, index, {role});
 
-                const int line = bp.breakpoint ? bp.breakpoint->line.value_or(-1) : bp.sourceBreakpoint.line;
-                if (line >= 0) {
-                    Q_EMIT breakpointEnabledChanged(bp.url, line, bp.isEnabled());
+                    const int line = bp.breakpoint ? bp.breakpoint->line.value_or(-1) : bp.sourceBreakpoint.line;
+                    if (line >= 0) {
+                        Q_EMIT breakpointEnabledChanged(bp.url, line, bp.isEnabled());
+                    }
+                    return true;
                 }
-                return true;
+            } else if (index.internalId() == FunctionBreakpointItem) {
+                if (index.row() >= 0 && index.row() < m_funcBreakpoints.size()) {
+                    auto &bp = m_funcBreakpoints[index.row()];
+                    bp.checkState = value.value<Qt::CheckState>();
+                    Q_EMIT dataChanged(index, index, {role});
+                    Q_EMIT functionBreakpointEnabledChanged(bp.funcBreakpoint.function, bp.isEnabled());
+                    return true;
+                }
+            } else {
+                Q_UNREACHABLE();
             }
-            Q_ASSERT(false);
         }
         return false;
     }
@@ -551,6 +604,7 @@ public:
             Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount({}), parent));
         } else {
             beginMoveRows(parent, oldPos, oldPos, parent, newPos);
+            qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %td, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
             m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
             m_lineBreakpoints[newPos].breakpoint = bp;
             if (newPos > oldPos) {
@@ -672,6 +726,101 @@ public:
         return {{}, -1};
     }
 
+    QList<dap::FunctionBreakpoint> functionBreakpoints() const
+    {
+        QList<dap::FunctionBreakpoint> ret;
+        for (const auto &fp : m_funcBreakpoints) {
+            if (fp.isEnabled()) {
+                ret << fp.funcBreakpoint;
+            }
+        }
+        return ret;
+    }
+
+    QList<QAction *> actionsForIndex(const QModelIndex &index) const
+    {
+        QList<QAction *> ret;
+
+        const bool isTopLevel = !index.parent().isValid();
+        if (isTopLevel) {
+            if (index.row() == FunctionBreakpointItem) {
+                auto a = new QAction(i18n("Add Function Breakpoint…"));
+                connect(a, &QAction::triggered, this, &BreakpointModel::addFunctionBreakpoint);
+                ret << a;
+
+                a = new QAction(i18n("Clear All Function Breakpoints"));
+                a->setEnabled(rowCount(index) > 0);
+                connect(a, &QAction::triggered, this, &BreakpointModel::clearAllFunctionBreakpoints);
+                ret << a;
+            }
+        }
+
+        return ret;
+    }
+
+    QList<dap::FunctionBreakpoint> toggleFunctionBreakpoint(const QString &function, std::optional<bool> breakpointEnabledChange)
+    {
+        if (breakpointEnabledChange) {
+            return functionBreakpoints();
+        }
+
+        auto it = std::find_if(m_funcBreakpoints.begin(), m_funcBreakpoints.end(), [&function](const FunctionBreakpoint &b) {
+            return b.funcBreakpoint.function == function;
+        });
+
+        const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
+        const auto pos = it == m_funcBreakpoints.end() ? m_funcBreakpoints.size() : std::distance(m_funcBreakpoints.begin(), it);
+
+        if (it == m_funcBreakpoints.end()) {
+            beginInsertRows(parent, pos, pos);
+            m_funcBreakpoints.push_back(FunctionBreakpoint{
+                .funcBreakpoint = dap::FunctionBreakpoint(function),
+                .breakpoint = std::nullopt,
+            });
+            endInsertRows();
+        } else {
+            beginRemoveRows(parent, pos, pos);
+            m_funcBreakpoints.remove(pos);
+            endRemoveRows();
+        }
+
+        return functionBreakpoints();
+    }
+
+    void onFunctionBreakpointsSet(const QList<dap::FunctionBreakpoint> &requestedBreakpoints, const QList<dap::Breakpoint> &response)
+    {
+        const auto parent = index(FunctionBreakpointItem, 0, {});
+        if (requestedBreakpoints.size() != response.size()) {
+            qCWarning(kateBreakpoint, "Unexpected response and requested function breakpoints not equal");
+            return;
+        }
+
+        m_funcBreakpoints.clear();
+
+        if (requestedBreakpoints.size() == m_funcBreakpoints.size()) {
+            for (int i = 0; i < requestedBreakpoints.size(); i++) {
+                m_funcBreakpoints << FunctionBreakpoint{.funcBreakpoint = requestedBreakpoints[i], .breakpoint = response[i]};
+            }
+            Q_EMIT dataChanged(index(0, 0, parent), index(rowCount(parent) - 1, columnCount() - 1, parent));
+        } else {
+            beginInsertRows(parent, 0, response.size() - 1);
+            for (int i = 0; i < requestedBreakpoints.size(); i++) {
+                m_funcBreakpoints << FunctionBreakpoint{.funcBreakpoint = requestedBreakpoints[i], .breakpoint = response[i]};
+            }
+            endInsertRows();
+        }
+    }
+
+    void clearAllFunctionBreakpoints()
+    {
+        const auto parent = index(FunctionBreakpointItem, 0, {});
+        beginRemoveRows(parent, 0, m_funcBreakpoints.size() - 1);
+        m_funcBreakpoints.clear();
+        endRemoveRows();
+
+        Q_EMIT clearAllFunctionBreakpointsRequested();
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -679,6 +828,9 @@ Q_SIGNALS:
      */
     void breakpointChanged(const QUrl &url, std::optional<int> oldline, int line, BackendInterface::BreakpointEventKind);
     void breakpointEnabledChanged(const QUrl &url, int line, bool enabled);
+    void addFunctionBreakpoint();
+    void clearAllFunctionBreakpointsRequested();
+    void functionBreakpointEnabledChanged(const QString &function, bool enabled);
 };
 
 BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInterface *backend, QWidget *parent)
@@ -712,8 +864,12 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     m_treeview->setModel(m_breakpointModel);
     delete m;
 
+    m_treeview->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(m_treeview, &QTreeView::customContextMenuRequested, this, &BreakpointView::onContextMenuRequested);
+
     connect(m_backend, &BackendInterface::breakPointsSet, this, &BreakpointView::slotBreakpointsSet);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
+    connect(m_backend, &BackendInterface::functionBreakpointsSet, m_breakpointModel, &BreakpointModel::onFunctionBreakpointsSet);
 
     connect(m_backend, &BackendInterface::removeBreakpointRequested, this, &BreakpointView::onRemoveBreakpointRequested);
     connect(m_backend, &BackendInterface::addBreakpointRequested, this, &BreakpointView::onAddBreakpointRequested);
@@ -759,6 +915,19 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
             connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
         }
         setBreakpoint(url, line, enabled);
+    });
+
+    connect(m_breakpointModel, &BreakpointModel::addFunctionBreakpoint, this, &BreakpointView::onAddFunctionBreakpoint);
+    connect(m_breakpointModel, &BreakpointModel::clearAllFunctionBreakpointsRequested, this, [this] {
+        if (m_backend->debuggerRunning()) {
+            m_backend->setFunctionBreakpoints({});
+        }
+    });
+    connect(m_breakpointModel, &BreakpointModel::functionBreakpointEnabledChanged, this, [this](const QString &function, bool isEnabled) {
+        auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, isEnabled);
+        if (m_backend->debuggerRunning()) {
+            m_backend->setFunctionBreakpoints(breakpoints);
+        }
     });
 
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
@@ -979,6 +1148,54 @@ void BreakpointView::runToPosition(const QUrl &url, int line)
     setBreakpoint(url, line, std::nullopt, /*isOneShot=*/true);
     if (m_backend->canContinue()) {
         m_backend->slotContinue();
+    }
+}
+
+void BreakpointView::onContextMenuRequested(QPoint pos)
+{
+    const auto index = m_treeview->indexAt(pos);
+    if (!index.isValid()) {
+        return;
+    }
+
+    QMenu menu(this);
+    buildContextMenu(index, &menu);
+    if (menu.isEmpty()) {
+        return;
+    }
+
+    menu.exec(m_treeview->viewport()->mapToGlobal(pos));
+}
+
+void BreakpointView::buildContextMenu(const QModelIndex &index, QMenu *menu)
+{
+    Q_ASSERT(index.isValid());
+    const auto actions = m_breakpointModel->actionsForIndex(index);
+    if (actions.isEmpty()) {
+        return;
+    }
+
+    menu->addActions(actions);
+}
+
+void BreakpointView::onAddFunctionBreakpoint()
+{
+    QInputDialog dlg(this);
+    dlg.setWindowTitle(i18n("Add Function Breakpoint"));
+    dlg.setLabelText(i18n("Function name:"));
+    dlg.setInputMode(QInputDialog::TextInput);
+    dlg.resize(400, dlg.height());
+
+    int res = dlg.exec();
+    bool suc = res == QDialog::Accepted;
+    if (!suc || dlg.textValue().isEmpty()) {
+        return;
+    }
+    QString value = dlg.textValue();
+
+    auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(value, std::nullopt);
+    if (m_backend->debuggerRunning()) {
+        m_backend->setFunctionBreakpoints(breakpoints);
     }
 }
 

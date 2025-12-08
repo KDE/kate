@@ -79,6 +79,7 @@ public:
     void requestSource(const Source &source);
     void requestSetBreakpoints(const QUrl &path, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
     void requestSetBreakpoints(const dap::Source &source, const QList<dap::SourceBreakpoint> &breakpoints, bool sourceModified = false);
+    void requestSetFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints);
     void requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId = std::nullopt);
     void requestWatch(const QString &expression, std::optional<int> frameId = std::nullopt);
     void requestGotoTargets(const QUrl &path, int line, std::optional<int> column = std::nullopt);
@@ -128,6 +129,7 @@ Q_SIGNALS:
     void expressionEvaluated(const QString &expression, const std::optional<EvaluateInfo> &);
     void gotoTargets(const Source &source, int line, const QList<GotoTarget> &targets);
     void debuggeeRequiresTerminal(const RunInTerminalRequestArguments &args, const ProcessInTerminal &processCreated);
+    void functionBreakpointsSet(const QList<dap::FunctionBreakpoint> &requestedBreakpoints, const QList<dap::Breakpoint> &response);
 
 private:
     void setState(const State &state);
@@ -165,6 +167,7 @@ private:
     void processResponseDisconnect(const Response &response, const QJsonValue &);
     void processResponseSource(const Response &response, const QJsonValue &);
     void processResponseSetBreakpoints(const Response &response, const QJsonValue &);
+    void processResponseSetFunctionBreakpoints(const Response &response, const QJsonValue &);
     void processResponseEvaluate(const Response &response, const QJsonValue &);
     void processResponseGotoTargets(const Response &response, const QJsonValue &);
     void processResponsePause(const Response &response, const QJsonValue &);

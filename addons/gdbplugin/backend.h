@@ -26,6 +26,7 @@ public:
     bool debuggerBusy() const override;
     bool supportsMovePC() const override;
     bool supportsRunToCursor() const override;
+    bool supportsFunctionBreakpoints() const override;
     bool canSetBreakpoints() const override;
     bool canMove() const override;
     bool canContinue() const override;
@@ -35,6 +36,7 @@ public:
     QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
     QList<dap::Module> modules();
+    void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
 
     bool canHotReload() const;
     bool canHotRestart() const;

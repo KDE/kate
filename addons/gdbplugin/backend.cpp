@@ -69,6 +69,7 @@ void Backend::bind()
     connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
     connect(m_debugger, &BackendInterface::debuggeeRequiresTerminal, this, &BackendInterface::debuggeeRequiresTerminal);
     connect(m_debugger, &BackendInterface::breakpointEvent, this, &BackendInterface::breakpointEvent);
+    connect(m_debugger, &BackendInterface::functionBreakpointsSet, this, &BackendInterface::functionBreakpointsSet);
 }
 
 void Backend::unbind()
@@ -98,6 +99,11 @@ bool Backend::supportsMovePC() const
 bool Backend::supportsRunToCursor() const
 {
     return m_debugger && m_debugger->supportsRunToCursor();
+}
+
+bool Backend::supportsFunctionBreakpoints() const
+{
+    return m_debugger && m_debugger->supportsFunctionBreakpoints();
 }
 
 bool Backend::canSetBreakpoints() const
@@ -179,6 +185,13 @@ QList<dap::Module> Backend::modules()
         }
     }
     return {};
+}
+
+void Backend::setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints)
+{
+    if (m_debugger) {
+        m_debugger->setFunctionBreakpoints(breakpoints);
+    }
 }
 
 void Backend::slotInterrupt()

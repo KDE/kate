@@ -23,17 +23,17 @@ public:
     ~DapBackend() override;
 
     void runDebugger(const DAPTargetConf &conf);
-    bool debuggerRunning() const override;
-    bool debuggerBusy() const override;
+    [[nodiscard]] bool debuggerRunning() const override;
+    [[nodiscard]] bool debuggerBusy() const override;
 
-    bool supportsMovePC() const override;
-    bool supportsRunToCursor() const override;
-    bool supportsFunctionBreakpoints() const override;
-    bool canSetBreakpoints() const override;
-    bool canMove() const override;
-    bool canContinue() const override;
-    bool canHotReload() const;
-    bool canHotRestart() const;
+    [[nodiscard]] bool supportsMovePC() const override;
+    [[nodiscard]] bool supportsRunToCursor() const override;
+    [[nodiscard]] bool supportsFunctionBreakpoints() const override;
+    [[nodiscard]] bool canSetBreakpoints() const override;
+    [[nodiscard]] bool canMove() const override;
+    [[nodiscard]] bool canContinue() const override;
+    [[nodiscard]] bool canHotReload() const;
+    [[nodiscard]] bool canHotRestart() const;
 
     void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
@@ -41,7 +41,7 @@ public:
 
     void issueCommand(QString const &cmd) override;
 
-    QString targetName() const override;
+    [[nodiscard]] QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
 
     void setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>>);
@@ -129,15 +129,15 @@ private:
     void setState(State state);
     void setTaskState(Task state);
 
-    bool isConnectedState() const;
-    bool isAttachedState() const;
-    bool isRunningState() const;
+    [[nodiscard]] bool isConnectedState() const;
+    [[nodiscard]] bool isAttachedState() const;
+    [[nodiscard]] bool isRunningState() const;
 
     void pushRequest();
     void popRequest();
 
     QUrl resolveOrWarn(const QUrl &filename);
-    std::optional<QUrl> resolveFilename(const QUrl &filename, bool fallback = true) const;
+    [[nodiscard]] std::optional<QUrl> resolveFilename(const QUrl &filename, bool fallback = true) const;
     dap::settings::ClientSettings &target2dap(const DAPTargetConf &target);
 
     // return false if nothing found
@@ -168,7 +168,7 @@ private:
     } m_shutdown;
 
     void shutdownUntil(std::optional<State> state = std::nullopt);
-    bool continueShutdown() const;
+    [[nodiscard]] bool continueShutdown() const;
 
     int m_requests = 0;
 

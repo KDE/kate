@@ -18,28 +18,28 @@ class Backend final : public BackendInterface
     Q_OBJECT
 public:
     Backend(QObject *parent);
-    ~Backend();
+    ~Backend() override;
 
     void runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>>);
 
-    bool debuggerRunning() const override;
-    bool debuggerBusy() const override;
-    bool supportsMovePC() const override;
-    bool supportsRunToCursor() const override;
-    bool supportsFunctionBreakpoints() const override;
-    bool canSetBreakpoints() const override;
-    bool canMove() const override;
-    bool canContinue() const override;
+    [[nodiscard]] bool debuggerRunning() const override;
+    [[nodiscard]] bool debuggerBusy() const override;
+    [[nodiscard]] bool supportsMovePC() const override;
+    [[nodiscard]] bool supportsRunToCursor() const override;
+    [[nodiscard]] bool supportsFunctionBreakpoints() const override;
+    [[nodiscard]] bool canSetBreakpoints() const override;
+    [[nodiscard]] bool canMove() const override;
+    [[nodiscard]] bool canContinue() const override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
     void issueCommand(QString const &cmd) override;
-    QString targetName() const override;
+    [[nodiscard]] QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
     QList<dap::Module> modules();
     void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
 
-    bool canHotReload() const;
-    bool canHotRestart() const;
+    [[nodiscard]] bool canHotReload() const;
+    [[nodiscard]] bool canHotRestart() const;
 
 public Q_SLOTS:
     void slotInterrupt() override;

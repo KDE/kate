@@ -38,35 +38,35 @@ public:
     /**
      * true if debugger is running
      */
-    virtual bool debuggerRunning() const = 0;
+    [[nodiscard]] virtual bool debuggerRunning() const = 0;
     /**
      * true if debugger is running and busy executing commands
      */
-    virtual bool debuggerBusy() const = 0;
+    [[nodiscard]] virtual bool debuggerBusy() const = 0;
     /**
      * true if debugger supports move program counter
      */
-    virtual bool supportsMovePC() const = 0;
+    [[nodiscard]] virtual bool supportsMovePC() const = 0;
     /**
      * true if debugger supports run to cursor
      */
-    virtual bool supportsRunToCursor() const = 0;
+    [[nodiscard]] virtual bool supportsRunToCursor() const = 0;
     /**
      * true if debugger supports function breakpoints
      */
-    virtual bool supportsFunctionBreakpoints() const = 0;
+    [[nodiscard]] virtual bool supportsFunctionBreakpoints() const = 0;
     /**
      * true if breakpoints can be set/unset
      */
-    virtual bool canSetBreakpoints() const = 0;
+    [[nodiscard]] virtual bool canSetBreakpoints() const = 0;
     /**
      * true if execution can continue
      */
-    virtual bool canContinue() const = 0;
+    [[nodiscard]] virtual bool canContinue() const = 0;
     /**
      * true if basic movement actions can be used
      */
-    virtual bool canMove() const = 0;
+    [[nodiscard]] virtual bool canMove() const = 0;
     /**
      * toggle breakpoint at url:line
      * whether the breakpoint was added or not
@@ -79,7 +79,7 @@ public:
 
     virtual void issueCommand(QString const &cmd) = 0;
 
-    virtual QString targetName() const = 0;
+    [[nodiscard]] virtual QString targetName() const = 0;
     virtual void setFileSearchPaths(const QStringList &paths) = 0;
 
     /**

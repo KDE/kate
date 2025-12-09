@@ -10,7 +10,6 @@
 #include <QObject>
 #include <QUrl>
 #include <ktexteditor/message.h>
-#include <optional>
 
 #include "dap/client.h"
 #include "dap/entities.h"

@@ -34,6 +34,11 @@ public:
     [[nodiscard]] std::map<QUrl, QList<dap::SourceBreakpoint>> allBreakpoints() const;
 
     /**
+     * Returns a list of all function breakpoints
+     */
+    [[nodiscard]] QList<dap::FunctionBreakpoint> allFunctionBreakpoints() const;
+
+    /**
      * Toggle breakpoint at the location of currently active view's cursor position
      */
     void toggleBreakpoint();

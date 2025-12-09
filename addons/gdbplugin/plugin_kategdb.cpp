@@ -412,7 +412,7 @@ void KatePluginGDBView::slotDebug()
     sb->setValue(sb->maximum());
     m_localsView->clear();
 
-    m_backend->runDebugger(dbgConfOpt, m_breakpointView->allBreakpoints());
+    m_backend->runDebugger(dbgConfOpt, m_breakpointView->allBreakpoints(), m_breakpointView->allFunctionBreakpoints());
 }
 
 void KatePluginGDBView::slotRestart()

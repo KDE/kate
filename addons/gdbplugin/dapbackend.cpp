@@ -10,6 +10,7 @@
 #include <QRegularExpression>
 
 #include <KLocalizedString>
+#include <utility>
 
 #include <ktexteditor_utils.h>
 
@@ -390,6 +391,7 @@ void DapBackend::onServerDisconnected()
 
     if (!m_restart) {
         m_wantedBreakpoints.clear();
+        m_wantedFunctionBreakpoints.clear();
     }
 
     setState(Disconnected);
@@ -414,6 +416,11 @@ void DapBackend::onInitialized()
             pushRequest();
             m_client->requestSetBreakpoints(url, breakpoints, true);
         }
+    }
+
+    if (!m_wantedFunctionBreakpoints.empty()) {
+        pushRequest();
+        m_client->requestSetFunctionBreakpoints(m_wantedFunctionBreakpoints);
     }
 
     // Send ConfigurationDone request. This is the last request in init sequence
@@ -1323,11 +1330,13 @@ void DapBackend::setFileSearchPaths(const QStringList & /*paths*/)
     // TODO
 }
 
-void DapBackend::setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints)
+void DapBackend::setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints, QList<dap::FunctionBreakpoint> functionBreakpoints)
 {
     // these are set during initialization
     Q_ASSERT(m_wantedBreakpoints.empty());
     m_wantedBreakpoints = std::move(breakpoints);
+    Q_ASSERT(m_wantedFunctionBreakpoints.empty());
+    m_wantedFunctionBreakpoints = std::move(functionBreakpoints);
 }
 
 QList<dap::Module> DapBackend::modules()

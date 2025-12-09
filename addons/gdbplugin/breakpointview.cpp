@@ -1235,6 +1235,11 @@ std::map<QUrl, QList<dap::SourceBreakpoint>> BreakpointView::allBreakpoints() co
     return m_breakpointModel->allBreakpoints();
 }
 
+QList<dap::FunctionBreakpoint> BreakpointView::allFunctionBreakpoints() const
+{
+    return m_breakpointModel->functionBreakpoints();
+}
+
 void BreakpointView::onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind kind)
 {
     m_breakpointModel->onBreakpointEvent(bp, kind);

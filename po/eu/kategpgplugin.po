@@ -1,0 +1,226 @@
+# Translation for kategpgplugin.po to Euskara/Basque (eu).
+# Copyright (C) 2025 This file is copyright:
+# This file is distributed under the same license as the kate package.
+# KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>.
+#
+# Translators:
+# SPDX-FileCopyrightText: 2025 Iñigo Salvador Azurmendi <xalba@ni.eus>
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"PO-Revision-Date: 2025-12-08 10:01+0100\n"
+"Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.08.3\n"
+
+#: gpgmeppwrapper.cpp:83
+#, kde-format
+msgid "Error! No keys found..."
+msgstr "Errorea! Ez da gakorik aurkitu..."
+
+#: gpgmeppwrapper.cpp:133 gpgmeppwrapper.cpp:135
+#, kde-format
+msgid "Error finding key: "
+msgstr "Gakoa aurkitzeko errora: "
+
+#: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
+#, kde-format
+msgid "Error in symmetric encryption: "
+msgstr "Errorea zifratze simetrikoan: "
+
+#: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
+#, kde-format
+msgid "Encryption Failed: "
+msgstr "Zifratzea huts egin du: "
+
+#: kategpgplugin.cpp:76
+#, kde-format
+msgid "GPG Plugin"
+msgstr "GPG plugina"
+
+#: kategpgplugin.cpp:81
+#, kde-format
+msgid "GPG Decrypt current document"
+msgstr "GPG deszifratu uneko dokumentua"
+
+#: kategpgplugin.cpp:82
+#, kde-format
+msgid "GPG Encrypt current document"
+msgstr "GPG zifratu uneko dokumentua"
+
+#: kategpgplugin.cpp:86
+#, kde-format
+msgid "<b>GPG Plugin Settings</b>"
+msgstr "<b>GPG Pluginaren ezarpenak</b>"
+
+#: kategpgplugin.cpp:89
+#, kde-format
+msgid "Key ID"
+msgstr "Gako ID"
+
+#: kategpgplugin.cpp:90
+#, kde-format
+msgid "A search string used to filter keys by available email addresses"
+msgstr ""
+"Gakoak helbide elektroniko erabilgarrien arabera iragazteko erabiltzen den "
+"bilaketa-katea"
+
+#: kategpgplugin.cpp:93
+#, kde-format
+msgid "Selected GPG Key finerprint for encryption"
+msgstr "Zifratzeko hautatutako GPG gakoaren hatz-marka"
+
+#: kategpgplugin.cpp:94
+#, kde-format
+msgid "<b>To: Email address used for encryption</b>"
+msgstr "<b>Nori: zifratzeko erabiltzen den e-posta helbidea</b>"
+
+#: kategpgplugin.cpp:103
+#, kde-format
+msgid ""
+"Select an email address to which to encrypt.\n"
+"Only mail addresses associated with your currently selected\n"
+"key fingerprint are available."
+msgstr ""
+"Hautatu zein e-posta helbidetara zifratu.\n"
+"Une honetan hautatuta duzun hatz-markarekin lotutako\n"
+"posta-helbideak bakarrik daude erabilgarri."
+
+#: kategpgplugin.cpp:107
+#, kde-format
+msgid ""
+"This is your currently selected GPG key fingerprint that will be used for "
+"encryption."
+msgstr ""
+"Hau da unean hautatuta duzun GPG gakoaren hatz-marka, zifratzeko erabiliko "
+"dena."
+
+#: kategpgplugin.cpp:110
+#, kde-format
+msgid "Save as ASCII encoded (.asc/.gpg)"
+msgstr "Gorde ASCII gisa kodetuta (.asc/.gpg)"
+
+#: kategpgplugin.cpp:113
+#, kde-format
+msgid "Enable symmetric encryption"
+msgstr "Gaitu zifratze simetrikoa"
+
+#: kategpgplugin.cpp:116
+#, kde-format
+msgid "Show only keys for which a private key is available"
+msgstr "Gako pribatua duten gakoak bakarrik erakutsi"
+
+#: kategpgplugin.cpp:119
+#, kde-format
+msgid "Hide Expired Keys"
+msgstr "Ezkutatu iraungitako gakoak"
+
+#: kategpgplugin.cpp:220
+#, kde-format
+msgid ""
+"Attempted double encryption detected!\n"
+"Encrypting more than once is disabled for now..."
+msgstr ""
+"Zifratze bikoitz saiakera antzeman da!\n"
+"Behin baino gehiagotan zifratzea ezgaituta dago oraingoz..."
+
+#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#, kde-format
+msgid "Error! No views available..."
+msgstr "Errorea! Ez dago ikuspegirik erabilgarri..."
+
+#: kategpgplugin.cpp:239
+#, kde-format
+msgid "Error Decrypting Text! Document is empty..."
+msgstr "Errorea testua deszifratzean! Dokumentua hutsik dago..."
+
+#: kategpgplugin.cpp:243
+#, kde-format
+msgid "Error Decrypting Text! No fingerprint selected..."
+msgstr "Errorea testua deszifratzean! Ez da hatz-markarik hautatu..."
+
+#: kategpgplugin.cpp:248
+#, kde-format
+msgid ""
+"Error Decrypting Text!\n"
+"No matching fingerprint found!\n"
+"Or this is not a GPG encrypted text..."
+msgstr ""
+"Errorea testua deszifratzean!\n"
+"Ez da aurkitu bat datorren hatz-markarik!\n"
+"Edo hau ez da GPG bidez zifratutako testu bat..."
+
+#: kategpgplugin.cpp:256
+#, kde-format
+msgid "Error Decrypting Text!\n"
+msgstr "Errorea testua deszifratzean!\n"
+
+#: kategpgplugin.cpp:283
+#, kde-format
+msgid "Error Encrypting Text! No document available..."
+msgstr "Errorea testua zifratzean! Ez dago dokumenturik erabilgarri..."
+
+#: kategpgplugin.cpp:287
+#, kde-format
+msgid "Error Encrypting Text! Document is empty..."
+msgstr "Errorea testua zifratzean! Dokumentua hutsik dago..."
+
+#: kategpgplugin.cpp:291
+#, kde-format
+msgid ""
+"Error Encrypting Text!\n"
+"No fingerprint selected..."
+msgstr ""
+"Errorea testua zifratzean!\n"
+"Ez da hatz-markarik hautatu..."
+
+#: kategpgplugin.cpp:295
+#, kde-format
+msgid ""
+"Attempted double encryption detected! Encrypting twice is disabled for now..."
+msgstr ""
+"Zifratze bikoitz saiakera antzeman da! Bitan zifratzea ezgaituta dago "
+"oraingoz..."
+
+#: kategpgplugin.cpp:308
+#, kde-format
+msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
+msgstr ""
+"Errorea testua zifratzean! Ez da bat datorren hatza-markarik aurkitu...\n"
+
+#: kategpgplugin.cpp:312
+#, kde-format
+msgid "Error Encrypting Text!"
+msgstr "Errorea testua zifratzean!"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Key Fingerprint"
+msgstr "Gakoaren hatz-marka"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Creation Date"
+msgstr "Sorrera-data"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Expiry Date"
+msgstr "Iraungitze-data"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "Key Length"
+msgstr "Gakoaren luzera"
+
+#: kategpgplugin.cpp:372
+#, kde-format
+msgid "User IDs"
+msgstr "Erabiltzaile IDak"

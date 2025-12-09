@@ -196,7 +196,7 @@ public:
             if (child.internalId() == Root) {
                 return {};
             }
-            const int row = child.internalId();
+            const int row = static_cast<int>(child.internalId());
             return createIndex(row, 0, Root);
         }
         return {};
@@ -246,7 +246,7 @@ public:
                 return font;
             }
         } else {
-            int rootIndex = index.internalId();
+            int rootIndex = static_cast<int>(index.internalId());
             if (rootIndex > TopLevelItem_Last) {
                 Q_ASSERT(false);
                 return {};
@@ -533,6 +533,7 @@ public:
             // ignore
             return;
         }
+
         const auto url = bp.source.value().path;
         const auto fileBreakpoints = getFileBreakpoints(url);
         auto it = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
@@ -587,13 +588,13 @@ public:
         const auto url = bp.source.value().path;
         const auto fileBreakpoints = getFileBreakpoints(url);
         Q_ASSERT(!fileBreakpoints.empty());
-        const int fileStartIdx = fileBreakpoints.data() - m_lineBreakpoints.data();
+        const int fileStartIdx = static_cast<int>(fileBreakpoints.data() - m_lineBreakpoints.data());
 
         auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
             return l.line() < val.line;
         });
-        const auto newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
-        const auto oldPos = std::distance(m_lineBreakpoints.begin(), it);
+        const qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
+        const qsizetype oldPos = std::distance(m_lineBreakpoints.begin(), it);
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
         const auto oldLine = it->line();
 
@@ -605,7 +606,7 @@ public:
             Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount({}), parent));
         } else {
             beginMoveRows(parent, oldPos, oldPos, parent, newPos);
-            qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %td, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
+            qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %lld, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
             m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
             m_lineBreakpoints[newPos].breakpoint = bp;
             if (newPos > oldPos) {

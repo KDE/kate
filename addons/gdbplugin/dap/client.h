@@ -41,23 +41,23 @@ public:
 
     ~Client() override;
 
-    Bus *bus() const
+    [[nodiscard]] Bus *bus() const
     {
         return m_bus;
     }
 
     void start();
-    settings::ProtocolSettings protocol() const
+    [[nodiscard]] settings::ProtocolSettings protocol() const
     {
         return m_protocol;
     }
-    Capabilities adapterCapabilities() const
+    [[nodiscard]] Capabilities adapterCapabilities() const
     {
         return m_adapterCapabilities;
     }
-    bool isServerConnected() const;
+    [[nodiscard]] bool isServerConnected() const;
 
-    bool supportsTerminate() const;
+    [[nodiscard]] bool supportsTerminate() const;
 
     /*
      * requests

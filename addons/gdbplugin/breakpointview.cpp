@@ -39,8 +39,9 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] Double clicking on a breakpoint takes us to the location?
 // [] Function breakpoints, cmd for setting func breakpoints, add func breakpoints when offline, set all to pending on debugger stop
 // [] context menu on items [delete item, edit, clear all]
+// [] red dot remains after run to cursor
 
-static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
+[[nodiscard]] static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
     QString txtId = QStringLiteral("%1.").arg(bId);
     if (!bp) {
@@ -91,12 +92,12 @@ struct FileBreakpoint {
     Qt::CheckState checkState = Qt::Checked;
     bool isOneShot = false;
 
-    bool isEnabled() const
+    [[nodiscard]] bool isEnabled() const
     {
         return checkState == Qt::Checked;
     }
 
-    int line() const
+    [[nodiscard]] int line() const
     {
         if (breakpoint && breakpoint->line) {
             return breakpoint->line.value();
@@ -116,7 +117,7 @@ struct FunctionBreakpoint {
     Qt::CheckState checkState = Qt::Checked;
     bool isOneShot = false;
 
-    bool isEnabled() const
+    [[nodiscard]] bool isEnabled() const
     {
         return checkState == Qt::Checked;
     }
@@ -153,12 +154,12 @@ public:
         endInsertRows();
     }
 
-    int columnCount(const QModelIndex & = {}) const override
+    [[nodiscard]] int columnCount(const QModelIndex & = {}) const override
     {
         return Columns_Count;
     }
 
-    int rowCount(const QModelIndex &parent) const override
+    [[nodiscard]] int rowCount(const QModelIndex &parent) const override
     {
         if (!parent.isValid()) {
             return TopLevelItem_Last + 1;
@@ -176,7 +177,7 @@ public:
         return 0;
     }
 
-    QModelIndex index(int row, int column, const QModelIndex &parent) const override
+    [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent) const override
     {
         auto rootIndex = Root;
         if (parent.isValid()) {
@@ -189,7 +190,7 @@ public:
         return createIndex(row, column, rootIndex);
     }
 
-    QModelIndex parent(const QModelIndex &child) const override
+    [[nodiscard]] QModelIndex parent(const QModelIndex &child) const override
     {
         if (child.isValid()) {
             if (child.internalId() == Root) {
@@ -201,7 +202,7 @@ public:
         return {};
     }
 
-    bool hasChildren(const QModelIndex &parent) const override
+    [[nodiscard]] bool hasChildren(const QModelIndex &parent) const override
     {
         if (parent.isValid()) {
             if (parent.internalId() == Root) {
@@ -221,7 +222,7 @@ public:
         return true;
     }
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
+    [[nodiscard]] QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override
     {
         if (!index.isValid()) {
             return {};
@@ -337,7 +338,7 @@ public:
         return false;
     }
 
-    Qt::ItemFlags flags(const QModelIndex &index) const override
+    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex &index) const override
     {
         auto flags = QAbstractItemModel::flags(index);
         if (hasChildren(index)) {
@@ -348,7 +349,7 @@ public:
         return flags;
     }
 
-    static QList<dap::SourceBreakpoint> toSourceBreakpoints(QList<FileBreakpoint> &breakpoints)
+    [[nodiscard]] static QList<dap::SourceBreakpoint> toSourceBreakpoints(QList<FileBreakpoint> &breakpoints)
     {
         QList<dap::SourceBreakpoint> ret;
         ret.reserve(breakpoints.size());
@@ -363,7 +364,7 @@ public:
         return ret;
     }
 
-    QList<dap::SourceBreakpoint> sourceBreakpointsForPath(const QUrl &url)
+    [[nodiscard]] QList<dap::SourceBreakpoint> sourceBreakpointsForPath(const QUrl &url)
     {
         QList<FileBreakpoint> breakpoints;
         for (const auto &b : m_lineBreakpoints) {
@@ -374,7 +375,7 @@ public:
         return toSourceBreakpoints(breakpoints);
     }
 
-    QList<dap::SourceBreakpoint> toggleBreakpoint(const QUrl &url, int line, bool isOneShot, std::optional<bool> breakpointEnabledChange)
+    [[nodiscard]] QList<dap::SourceBreakpoint> toggleBreakpoint(const QUrl &url, int line, bool isOneShot, std::optional<bool> breakpointEnabledChange)
     {
         if (breakpointEnabledChange) {
             return sourceBreakpointsForPath(url);
@@ -646,7 +647,7 @@ public:
         }
     }
 
-    std::map<QUrl, QList<dap::SourceBreakpoint>> allBreakpoints() const
+    [[nodiscard]] std::map<QUrl, QList<dap::SourceBreakpoint>> allBreakpoints() const
     {
         std::map<QUrl, QList<dap::SourceBreakpoint>> ret;
         for (const auto &fileBreakpoint : m_lineBreakpoints) {
@@ -661,7 +662,7 @@ public:
         return ret;
     }
 
-    QString printBreakpoints()
+    [[nodiscard]] QString printBreakpoints()
     {
         QString out;
         int bId = 0;
@@ -673,7 +674,7 @@ public:
         return out;
     }
 
-    std::span<FileBreakpoint> getFileBreakpoints(const QUrl &url)
+    [[nodiscard]] std::span<FileBreakpoint> getFileBreakpoints(const QUrl &url)
     {
         auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [url](const FileBreakpoint &fp) {
             return url == fp.url;
@@ -701,7 +702,7 @@ public:
         endRemoveRows();
     }
 
-    bool hasSingleShotBreakpointAtLine(const QUrl &url, int line)
+    [[nodiscard]] bool hasSingleShotBreakpointAtLine(const QUrl &url, int line)
     {
         const auto breakpoints = getFileBreakpoints(url);
         auto it = std::find_if(breakpoints.begin(), breakpoints.end(), [line](const FileBreakpoint &n) {
@@ -713,7 +714,7 @@ public:
         return false;
     }
 
-    std::pair<QUrl, int> fileAndLineForIndex(const QModelIndex &index)
+    [[nodiscard]] std::pair<QUrl, int> fileAndLineForIndex(const QModelIndex &index)
     {
         Q_ASSERT(index.isValid() && index.model() == this);
         if (!index.parent().isValid()) {
@@ -726,7 +727,7 @@ public:
         return {{}, -1};
     }
 
-    QList<dap::FunctionBreakpoint> functionBreakpoints() const
+    [[nodiscard]] QList<dap::FunctionBreakpoint> functionBreakpoints() const
     {
         QList<dap::FunctionBreakpoint> ret;
         for (const auto &fp : m_funcBreakpoints) {
@@ -737,7 +738,7 @@ public:
         return ret;
     }
 
-    QList<QAction *> actionsForIndex(const QModelIndex &index) const
+    [[nodiscard]] QList<QAction *> actionsForIndex(const QModelIndex &index) const
     {
         QList<QAction *> ret;
 
@@ -758,7 +759,7 @@ public:
         return ret;
     }
 
-    QList<dap::FunctionBreakpoint> toggleFunctionBreakpoint(const QString &function, std::optional<bool> breakpointEnabledChange)
+    [[nodiscard]] QList<dap::FunctionBreakpoint> toggleFunctionBreakpoint(const QString &function, std::optional<bool> breakpointEnabledChange)
     {
         if (breakpointEnabledChange) {
             return functionBreakpoints();

@@ -31,7 +31,7 @@ public:
     /**
      * Returns a list of all breakpoints by file
      */
-    std::map<QUrl, QList<dap::SourceBreakpoint>> allBreakpoints() const;
+    [[nodiscard]] std::map<QUrl, QList<dap::SourceBreakpoint>> allBreakpoints() const;
 
     /**
      * Toggle breakpoint at the location of currently active view's cursor position

@@ -44,7 +44,7 @@ public:
     [[nodiscard]] QString targetName() const override;
     void setFileSearchPaths(const QStringList &paths) override;
 
-    void setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>>);
+    void setPendingBreakpoints(std::map<QUrl, QList<dap::SourceBreakpoint>>, QList<dap::FunctionBreakpoint>);
 
     QList<dap::Module> modules();
 
@@ -175,6 +175,8 @@ private:
     QStringList m_commandQueue;
 
     std::map<QUrl, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
+    QList<dap::FunctionBreakpoint> m_wantedFunctionBreakpoints;
+
     QList<dap::StackFrame> m_frames;
     QList<dap::Module> m_modules;
     QTimer m_requestThreadsTimer;

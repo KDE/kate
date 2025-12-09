@@ -20,7 +20,7 @@ public:
     Backend(QObject *parent);
     ~Backend() override;
 
-    void runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>>);
+    void runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>>, QList<dap::FunctionBreakpoint> functionBreakpoints);
 
     [[nodiscard]] bool debuggerRunning() const override;
     [[nodiscard]] bool debuggerBusy() const override;

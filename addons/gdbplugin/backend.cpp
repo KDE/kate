@@ -23,7 +23,9 @@ Backend::~Backend()
     unbind();
 }
 
-void Backend::runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints)
+void Backend::runDebugger(const DAPTargetConf &conf,
+                          std::map<QUrl, QList<dap::SourceBreakpoint>> breakpoints,
+                          QList<dap::FunctionBreakpoint> functionBreakpoints)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
         KMessageBox::error(nullptr, i18n("A debugging session is on course. Please, use re-run or stop the current session."));
@@ -36,7 +38,7 @@ void Backend::runDebugger(const DAPTargetConf &conf, std::map<QUrl, QList<dap::S
     m_debugger = dap = new DapBackend(this);
     bind();
 
-    dap->setPendingBreakpoints(std::move(breakpoints)); // TODO
+    dap->setPendingBreakpoints(std::move(breakpoints), std::move(functionBreakpoints));
     dap->runDebugger(conf);
 
     if (m_displayQueryLocals) {

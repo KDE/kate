@@ -229,6 +229,12 @@ static QString stringifyModel(QAbstractItemModel *model, const QModelIndex index
     return ret;
 }
 
+static QString stringifyLineBreakpoints(QAbstractItemModel *model)
+{
+    const auto lineBreakpointIndex = model->index(0, 0, {});
+    return stringifyModel(model, lineBreakpointIndex, 1);
+}
+
 void BreakpointViewTest::testBasic()
 {
     const auto isRunning = {false, true};
@@ -244,7 +250,7 @@ void BreakpointViewTest::testBasic()
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:3\n"
                                 "** [x]file:4\n"),
-                 stringifyModel(bv->m_treeview->model()));
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
 
         // uncheck second breakpoint
         const auto lineBreakpointParent = bv->m_treeview->model()->index(0, 0, {});
@@ -252,7 +258,7 @@ void BreakpointViewTest::testBasic()
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:3\n"
                                 "** []file:4\n"),
-                 stringifyModel(bv->m_treeview->model()));
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
 
         QCOMPARE(bv->allBreakpoints().size(), 1);
         auto fileBreaks = bv->allBreakpoints()[QUrl(QStringLiteral("/file"))];
@@ -266,14 +272,14 @@ void BreakpointViewTest::testBasic()
                                 "** [x]file:2\n"
                                 "** [x]file:3\n"
                                 "** []file:4\n"),
-                 stringifyModel(bv->m_treeview->model()));
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
 
         // Remove breakpoint
         bv->setBreakpoint(QUrl(QStringLiteral("/file")), 3, std::nullopt);
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:2\n"
                                 "** []file:4\n"),
-                 stringifyModel(bv->m_treeview->model()));
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
 
         // check second breakpoint
         bv->m_treeview->model()->setData(bv->m_treeview->model()->index(1, 0, bv->m_treeview->model()->index(0, 0, {})),
@@ -282,7 +288,7 @@ void BreakpointViewTest::testBasic()
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:2\n"
                                 "** [x]file:4\n"),
-                 stringifyModel(bv->m_treeview->model()));
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
         QCOMPARE(bv->allBreakpoints().size(), 1);
         fileBreaks = bv->allBreakpoints()[QUrl(QStringLiteral("/file"))];
         QCOMPARE(fileBreaks.size(), 2);
@@ -292,7 +298,7 @@ void BreakpointViewTest::testBasic()
         // Clear all
         bv->clearLineBreakpoints();
         QCOMPARE(bv->allBreakpoints().size(), 0);
-        QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyModel(bv->m_treeview->model()));
+        QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
     }
 }
 
@@ -309,21 +315,21 @@ void BreakpointViewTest::testBreakpointChangedEvent()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:3\n"
                             "** [x]file:4\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     backend->breakpoints[url1].front().line = 5;
     Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Changed);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:4\n"
                             "** [x]file:5\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     backend->breakpoints[url1].front().line = 3;
     Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Changed);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:3\n"
                             "** [x]file:4\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testBreakpointRemovedEvent()
@@ -339,7 +345,7 @@ void BreakpointViewTest::testBreakpointRemovedEvent()
     Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Removed);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:4\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testBreakpointNewEvent()
@@ -364,7 +370,7 @@ void BreakpointViewTest::testBreakpointNewEvent()
                             "** [x]file:1\n"
                             "** [x]file:3\n"
                             "** [x]file:4\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testBreakpointWithDocument()
@@ -381,7 +387,7 @@ void BreakpointViewTest::testBreakpointWithDocument()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:3\n"
                             "** [x]kateui.rc:6\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     // Emit a breakpoint new event
     dap::Breakpoint brk{8};
@@ -396,7 +402,7 @@ void BreakpointViewTest::testBreakpointWithDocument()
                             "** [x]kateui.rc:3\n"
                             "** [x]kateui.rc:6\n"
                             "** [x]kateui.rc:8\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
     QVERIFY((doc->mark(7) & KTextEditor::Document::BreakpointActive) != 0);
     QCOMPARE(doc->marks().size(), 3);
 
@@ -405,7 +411,7 @@ void BreakpointViewTest::testBreakpointWithDocument()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:6\n"
                             "** [x]kateui.rc:8\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     // Breakpoint changed by backend, expect document to have breakpoint mark at new location
     backend->breakpoints[url].front().line = 2;
@@ -413,7 +419,7 @@ void BreakpointViewTest::testBreakpointWithDocument()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:2\n"
                             "** [x]kateui.rc:8\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
     QCOMPARE(doc->marks().size(), 2);
     QVERIFY((doc->mark(1) & KTextEditor::Document::BreakpointActive) != 0);
 }
@@ -437,7 +443,7 @@ void BreakpointViewTest::testBreakpointSetAtDifferentLine()
     QVERIFY((doc->mark(2 + backend->offsetLinesBy) & KTextEditor::Document::BreakpointActive) != 0);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:6\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testAddRemoveBreakpointRequested()
@@ -451,21 +457,21 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
 
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:1\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     backend->addBreakpointRequested(url, 2);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:1\n"
                             "** [x]file:2\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     backend->removeBreakpointRequested(url, 2);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:1\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     backend->removeBreakpointRequested(url, 1);
-    QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyModel(bv->m_treeview->model()));
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testListBreakpointsRequested()
@@ -508,7 +514,7 @@ void BreakpointViewTest::testBreakpointsGetAddedToDocOnViewCreation()
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:3\n"
                             "** [x]kateui.rc:4\n"),
-             stringifyModel(bv->m_treeview->model()));
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 
     auto doc = createDocument(url);
     QCOMPARE(doc->mark(2), 0);

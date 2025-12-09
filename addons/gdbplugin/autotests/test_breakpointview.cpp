@@ -194,6 +194,7 @@ private Q_SLOTS:
     void testAddRemoveBreakpointRequested();
     void testListBreakpointsRequested();
     void testBreakpointsGetAddedToDocOnViewCreation();
+    void testRunToCursor();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -521,6 +522,29 @@ void BreakpointViewTest::testBreakpointsGetAddedToDocOnViewCreation()
 
     auto view = std::unique_ptr<KTextEditor::View>(doc->createView(nullptr));
     QCOMPARE(doc->mark(2), KTextEditor::Document::BreakpointActive);
+}
+
+void BreakpointViewTest::testRunToCursor()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    // use clicks run to cursor
+    backend->offsetLinesBy = 2;
+    bv->runToPosition(url, 5);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]kateui.rc:7\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+
+    backend->offsetLinesBy = 0;
+
+    // backend stops at the breakpoint
+    bv->onStoppedAtLine(url, 7);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 QTEST_MAIN(BreakpointViewTest)

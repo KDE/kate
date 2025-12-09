@@ -739,9 +739,12 @@ public:
         return ret;
     }
 
-    [[nodiscard]] QList<QAction *> actionsForIndex(const QModelIndex &index) const
+    [[nodiscard]] QList<QAction *> actionsForIndex(const QModelIndex &index)
     {
         QList<QAction *> ret;
+        if (!index.isValid()) {
+            return ret;
+        }
 
         const bool isTopLevel = !index.parent().isValid();
         if (isTopLevel) {
@@ -753,6 +756,14 @@ public:
                 a = new QAction(i18n("Clear All Function Breakpoints"));
                 a->setEnabled(rowCount(index) > 0);
                 connect(a, &QAction::triggered, this, &BreakpointModel::clearAllFunctionBreakpoints);
+                ret << a;
+            }
+        } else {
+            if (index.internalId() == FunctionBreakpointItem && index.row() < m_funcBreakpoints.size()) {
+                auto a = new QAction(i18n("Remove Breakpoint…"));
+                connect(a, &QAction::triggered, this, [this, row = index.row()] {
+                    removeFunctionBreakpoint(row);
+                });
                 ret << a;
             }
         }
@@ -823,6 +834,18 @@ public:
         Q_EMIT clearAllFunctionBreakpointsRequested();
     }
 
+    void removeFunctionBreakpoint(int funcBreakpointIndex)
+    {
+        Q_ASSERT(funcBreakpointIndex < m_funcBreakpoints.size());
+
+        const auto parent = index(FunctionBreakpointItem, 0, {});
+        beginRemoveRows(parent, funcBreakpointIndex, funcBreakpointIndex);
+        m_funcBreakpoints.remove(funcBreakpointIndex, 1);
+        endRemoveRows();
+
+        Q_EMIT functionBreakpointRemoved();
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -833,6 +856,7 @@ Q_SIGNALS:
     void addFunctionBreakpoint();
     void clearAllFunctionBreakpointsRequested();
     void functionBreakpointEnabledChanged(const QString &function, bool enabled);
+    void functionBreakpointRemoved();
 };
 
 BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInterface *backend, QWidget *parent)
@@ -929,6 +953,11 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
         auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, isEnabled);
         if (m_backend->debuggerRunning()) {
             m_backend->setFunctionBreakpoints(breakpoints);
+        }
+    });
+    connect(m_breakpointModel, &BreakpointModel::functionBreakpointRemoved, this, [this]() {
+        if (m_backend->debuggerRunning()) {
+            m_backend->setFunctionBreakpoints(m_breakpointModel->functionBreakpoints());
         }
     });
 

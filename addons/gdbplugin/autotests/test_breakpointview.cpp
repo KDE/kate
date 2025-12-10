@@ -185,7 +185,7 @@ private Q_SLOTS:
         kapp->docs.clear();
     }
 
-    void testBasic();
+    void testLineBreakpointsBasic();
     void testBreakpointChangedEvent();
     void testBreakpointRemovedEvent();
     void testBreakpointNewEvent();
@@ -236,7 +236,7 @@ static QString stringifyLineBreakpoints(QAbstractItemModel *model)
     return stringifyModel(model, lineBreakpointIndex, 1);
 }
 
-void BreakpointViewTest::testBasic()
+void BreakpointViewTest::testLineBreakpointsBasic()
 {
     const auto isRunning = {false, true};
     for (auto running : isRunning) {

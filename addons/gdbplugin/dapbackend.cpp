@@ -314,9 +314,9 @@ void DapBackend::onStopped(const dap::StoppedEvent &info)
         }
     }
 
-    if (info.hitBreakpointsIds) {
+    if (info.hitBreakpointIds) {
         text << QStringLiteral(" ") << i18n("Breakpoint(s) reached:");
-        for (const int b : info.hitBreakpointsIds.value()) {
+        for (const int b : info.hitBreakpointIds.value()) {
             text << QStringLiteral(" [%1] ").arg(b);
         }
     }

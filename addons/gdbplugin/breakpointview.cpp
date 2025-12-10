@@ -286,13 +286,25 @@ public:
                     }
                 }
             } else if (rootIndex == FunctionBreakpointItem) {
+                if (row >= m_funcBreakpoints.size()) {
+                    qCWarning(kateBreakpoint, "Invalid row (function breakpoint): %d", row);
+                    return {};
+                }
+
                 if (role == Qt::DisplayRole) {
                     const auto &item = m_funcBreakpoints[index.row()];
                     if (col == Column0) {
-                        const QString verified = item.breakpoint.has_value() ? item.breakpoint->verified ? i18n("verified") : i18n("pending") : i18n("pending");
-                        const QString address = item.breakpoint->instructionReference.has_value()
-                            ? QStringLiteral(" (%1)").arg(item.breakpoint->instructionReference.value())
-                            : QString();
+                        const bool hasBreakpoint = item.breakpoint.has_value();
+                        QString verified;
+                        QString address;
+                        if (hasBreakpoint) {
+                            verified = item.breakpoint->verified ? i18n("verified") : i18n("pending");
+                            address = item.breakpoint->instructionReference.has_value()
+                                ? QStringLiteral(" (%1)").arg(item.breakpoint->instructionReference.value())
+                                : QString();
+                        } else {
+                            verified = i18n("pending");
+                        }
                         return QStringLiteral("%1%2 [%3]").arg(item.funcBreakpoint.function, address, verified);
                     }
                 }
@@ -808,19 +820,48 @@ public:
             return;
         }
 
-        m_funcBreakpoints.clear();
+        const int oldCount = m_funcBreakpoints.size();
+        const int newCount = response.size();
 
-        if (requestedBreakpoints.size() == m_funcBreakpoints.size()) {
-            for (int i = 0; i < requestedBreakpoints.size(); i++) {
-                m_funcBreakpoints << FunctionBreakpoint{.funcBreakpoint = requestedBreakpoints[i], .breakpoint = response[i]};
-            }
-            Q_EMIT dataChanged(index(0, 0, parent), index(rowCount(parent) - 1, columnCount() - 1, parent));
-        } else {
-            beginInsertRows(parent, 0, response.size() - 1);
-            for (int i = 0; i < requestedBreakpoints.size(); i++) {
+        if (newCount > 0) {
+            const int startRow = oldCount;
+            const int endRow = oldCount + newCount - 1;
+
+            beginInsertRows(parent, startRow, endRow);
+            for (int i = 0; i < newCount; ++i) {
                 m_funcBreakpoints << FunctionBreakpoint{.funcBreakpoint = requestedBreakpoints[i], .breakpoint = response[i]};
             }
             endInsertRows();
+        }
+
+        // Collect ranges to remove
+        QList<QPair<int, int>> removalRanges;
+        {
+            int currentStart = -1;
+            for (int i = 0; i < oldCount; ++i) {
+                const bool isEnabled = m_funcBreakpoints.at(i).isEnabled();
+
+                if (isEnabled && currentStart == -1) {
+                    // Start of a new removable block
+                    currentStart = i;
+                } else if (!isEnabled && currentStart != -1) {
+                    // End of the previous removable block
+                    removalRanges.append({currentStart, i - 1});
+                    currentStart = -1; // reset
+                }
+            }
+
+            if (currentStart != -1) {
+                removalRanges.append({currentStart, oldCount - 1});
+            }
+        }
+
+        // remove backwards to maintain index stability during removal
+        for (int i = removalRanges.size() - 1; i >= 0; --i) {
+            const auto [start, end] = removalRanges[i];
+            beginRemoveRows(parent, start, end);
+            m_funcBreakpoints.remove(start, (end - start) + 1);
+            endRemoveRows();
         }
     }
 

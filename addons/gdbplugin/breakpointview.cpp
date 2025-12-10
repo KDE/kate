@@ -576,61 +576,81 @@ public:
             return;
         }
 
-        if (!bp.source) {
-            // can we do better?
-            qCWarning(kateBreakpoint, "breakpoint-update: ignoring because breakpoint has no path set");
-            return;
-        }
-
         const auto id = bp.id.value();
-        auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [id](const FileBreakpoint &fp) {
-            return fp.breakpoint && fp.breakpoint->id == id;
-        });
 
-        // If we don't find an id for this, ignore
-        if (it == m_lineBreakpoints.end()) {
-            qCWarning(kateBreakpoint, "breakpoint-update: Unexpected didn't find a breakpoint in the model for id: %d", id);
-            return;
-        }
-
-        if (it->breakpoint == bp) {
-            return;
-        }
-
-        const auto url = bp.source.value().path;
-        const auto fileBreakpoints = getFileBreakpoints(url);
-        Q_ASSERT(!fileBreakpoints.empty());
-        const int fileStartIdx = static_cast<int>(fileBreakpoints.data() - m_lineBreakpoints.data());
-
-        auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
-            return l.line() < val.line;
-        });
-        const qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
-        const qsizetype oldPos = std::distance(m_lineBreakpoints.begin(), it);
-        const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
-        const auto oldLine = it->line();
-
-        if (newPos == oldPos) {
-            it->breakpoint = bp;
-
-            const int pos = it - m_lineBreakpoints.begin();
-
-            Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount({}), parent));
-        } else {
-            beginMoveRows(parent, oldPos, oldPos, parent, newPos);
-            qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %lld, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
-            m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
-            m_lineBreakpoints[newPos].breakpoint = bp;
-            if (newPos > oldPos) {
-                m_lineBreakpoints.remove(oldPos);
-            } else {
-                m_lineBreakpoints.remove(oldPos + 1);
+        // Line breakpoint update
+        if (auto it = std::find_if(m_lineBreakpoints.begin(),
+                                   m_lineBreakpoints.end(),
+                                   [id](const FileBreakpoint &fp) {
+                                       return fp.breakpoint && fp.breakpoint->id == id;
+                                   });
+            it != m_lineBreakpoints.end()) {
+            if (!bp.source) {
+                // can we do better?
+                qCWarning(kateBreakpoint, "breakpoint-update: ignoring because breakpoint has no path set");
+                return;
             }
-            endMoveRows();
-        }
 
-        if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
-            Q_EMIT breakpointChanged(bp.source.value().path, oldLine, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);
+            // If we don't find an id for this, ignore
+            if (it == m_lineBreakpoints.end()) {
+                qCWarning(kateBreakpoint, "breakpoint-update: Unexpected didn't find a breakpoint in the model for id: %d", id);
+                return;
+            }
+
+            if (it->breakpoint == bp) {
+                return;
+            }
+
+            const auto url = bp.source.value().path;
+            const auto fileBreakpoints = getFileBreakpoints(url);
+            Q_ASSERT(!fileBreakpoints.empty());
+            const int fileStartIdx = static_cast<int>(fileBreakpoints.data() - m_lineBreakpoints.data());
+
+            auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
+                return l.line() < val.line;
+            });
+            const qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
+            const qsizetype oldPos = std::distance(m_lineBreakpoints.begin(), it);
+            const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
+            const auto oldLine = it->line();
+
+            if (newPos == oldPos) {
+                it->breakpoint = bp;
+
+                const int pos = it - m_lineBreakpoints.begin();
+
+                Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount() - 1, parent));
+            } else {
+                beginMoveRows(parent, oldPos, oldPos, parent, newPos);
+                qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %lld, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
+                m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
+                m_lineBreakpoints[newPos].breakpoint = bp;
+                if (newPos > oldPos) {
+                    m_lineBreakpoints.remove(oldPos);
+                } else {
+                    m_lineBreakpoints.remove(oldPos + 1);
+                }
+                endMoveRows();
+            }
+
+            if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
+                Q_EMIT breakpointChanged(bp.source.value().path, oldLine, bp.line.value(), BackendInterface::BreakpointEventKind::Changed);
+            }
+        }
+        // Function breakpoint update
+        else if (auto funcBreakPointIt = std::find_if(m_funcBreakpoints.begin(),
+                                                      m_funcBreakpoints.end(),
+                                                      [id](const FunctionBreakpoint &b) {
+                                                          return b.breakpoint.has_value() && b.breakpoint->id == id;
+                                                      });
+                 funcBreakPointIt != m_funcBreakpoints.end()) {
+            funcBreakPointIt->breakpoint = bp;
+            const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
+            const auto row = static_cast<int>(std::distance(m_funcBreakpoints.begin(), funcBreakPointIt));
+            const auto updateBP = index(row, 0, parent);
+            Q_EMIT dataChanged(updateBP, updateBP);
+        } else {
+            qCWarning(kateBreakpoint, "Unknown breakpoint update event");
         }
     }
 
@@ -640,23 +660,42 @@ public:
             return;
         }
         const auto id = bp.id.value();
-        auto it = std::find_if(m_lineBreakpoints.begin(), m_lineBreakpoints.end(), [id](const FileBreakpoint &fp) {
-            return fp.breakpoint && fp.breakpoint->id == id;
-        });
+        // Line breakpoint
+        if (auto it = std::find_if(m_lineBreakpoints.begin(),
+                                   m_lineBreakpoints.end(),
+                                   [id](const FileBreakpoint &fp) {
+                                       return fp.breakpoint && fp.breakpoint->id == id;
+                                   });
+            it != m_lineBreakpoints.end()) {
+            if (it == m_lineBreakpoints.end()) {
+                qCWarning(kateBreakpoint, "breakpoint-remove: Unexpected didn't find a breakpoint in the model for id: %d", id);
+                return;
+            }
 
-        if (it == m_lineBreakpoints.end()) {
-            qCWarning(kateBreakpoint, "breakpoint-remove: Unexpected didn't find a breakpoint in the model for id: %d", id);
-            return;
+            const int pos = it - m_lineBreakpoints.begin();
+            const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
+            beginRemoveRows(parent, pos, pos);
+            m_lineBreakpoints.remove(pos);
+            endRemoveRows();
+
+            if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
+                Q_EMIT breakpointChanged(bp.source.value().path, std::nullopt, bp.line.value(), BackendInterface::BreakpointEventKind::Removed);
+            }
         }
-
-        const int pos = it - m_lineBreakpoints.begin();
-        const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
-        beginRemoveRows(parent, pos, pos);
-        m_lineBreakpoints.remove(pos);
-        endRemoveRows();
-
-        if (bp.line && bp.source.has_value() && !bp.source.value().path.isEmpty()) {
-            Q_EMIT breakpointChanged(bp.source.value().path, std::nullopt, bp.line.value(), BackendInterface::BreakpointEventKind::Removed);
+        // Func breakpoint
+        else if (auto funcBreakPointIt = std::find_if(m_funcBreakpoints.begin(),
+                                                      m_funcBreakpoints.end(),
+                                                      [id](const FunctionBreakpoint &b) {
+                                                          return b.breakpoint.has_value() && b.breakpoint->id == id;
+                                                      });
+                 funcBreakPointIt != m_funcBreakpoints.end()) {
+            const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
+            const auto row = static_cast<int>(std::distance(m_funcBreakpoints.begin(), funcBreakPointIt));
+            beginRemoveColumns(parent, row, row);
+            m_funcBreakpoints.remove(row);
+            endRemoveRows();
+        } else {
+            qCWarning(kateBreakpoint, "Unknown breakpoint remove event");
         }
     }
 

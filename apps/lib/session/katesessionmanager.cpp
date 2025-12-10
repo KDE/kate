@@ -569,7 +569,6 @@ QString KateSessionManager::askForNewSessionName(KateSession::Ptr session, const
         }
         dlg.setLabelText(messageTotal);
         dlg.setTextValue(preset);
-        dlg.resize(900, 100); // FIXME Calc somehow a proper size
         bool ok = dlg.exec();
         name = dlg.textValue();
 

@@ -357,9 +357,9 @@ struct StoppedEvent {
      */
     std::optional<bool> allThreadsStopped;
     /**
-     * @brief hitBreakpointsIds ids of the breakpoints that triggered the event
+     * @brief hitBreakpointIds ids of the breakpoints that triggered the event
      */
-    std::optional<QList<int>> hitBreakpointsIds;
+    std::optional<QList<int>> hitBreakpointIds;
 
     StoppedEvent() = default;
     StoppedEvent(const QJsonObject &body);

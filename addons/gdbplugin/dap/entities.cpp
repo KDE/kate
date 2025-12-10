@@ -334,7 +334,7 @@ StoppedEvent::StoppedEvent(const QJsonObject &body)
     , preserveFocusHint(parseOptionalBool(body[QStringLiteral("preserveFocusHint")]))
     , text(parseOptionalString(body[QStringLiteral("text")]))
     , allThreadsStopped(parseOptionalBool(body[QStringLiteral("allThreadsStopped")]))
-    , hitBreakpointsIds(parseOptionalIntList(body[QStringLiteral("hitBreakpointsIds")]))
+    , hitBreakpointIds(parseOptionalIntList(body[QStringLiteral("hitBreakpointIds")]))
 {
 }
 

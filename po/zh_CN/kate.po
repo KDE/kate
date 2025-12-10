@@ -175,7 +175,7 @@ msgstr "Git"
 #: lib/commitfilesview.cpp:560
 #, kde-format
 msgid "Renamed %1 => %2"
-msgstr ""
+msgstr "已重命名 %1 => %2"
 
 #: lib/commitfilesview.cpp:580
 #, kde-format

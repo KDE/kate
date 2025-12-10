@@ -811,7 +811,7 @@ public:
             }
         } else {
             if (index.internalId() == FunctionBreakpointItem && index.row() < m_funcBreakpoints.size()) {
-                auto a = new QAction(i18n("Remove Breakpoint…"));
+                auto a = new QAction(i18n("Remove Breakpoint"));
                 connect(a, &QAction::triggered, this, [this, row = index.row()] {
                     removeFunctionBreakpoint(row);
                 });
@@ -1303,8 +1303,13 @@ void BreakpointView::onAddFunctionBreakpoint()
         return;
     }
     QString value = dlg.textValue();
+    addFunctionBreakpoint(value);
+}
 
-    auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(value, std::nullopt);
+void BreakpointView::addFunctionBreakpoint(const QString &function)
+{
+    Q_ASSERT(!function.isEmpty());
+    auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, std::nullopt);
     if (m_backend->debuggerRunning()) {
         m_backend->setFunctionBreakpoints(breakpoints);
     }

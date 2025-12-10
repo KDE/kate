@@ -71,6 +71,7 @@ private:
     void onContextMenuRequested(QPoint pos);
     void buildContextMenu(const QModelIndex &index, QMenu *menu);
     void onAddFunctionBreakpoint();
+    void addFunctionBreakpoint(const QString &function);
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;

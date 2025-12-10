@@ -6,8 +6,9 @@
 
 #include <QAbstractItemModel>
 #include <QHash>
+#include <QMenu>
+#include <QTest>
 #include <QTreeView>
-#include <QtTest/QTest>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/Document>
@@ -118,8 +119,17 @@ public:
 
     void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override
     {
-        // TODO
-        Q_ASSERT(false);
+        QList<dap::Breakpoint> response;
+        response.reserve(breakpoints.size());
+        for (const auto &_ : breakpoints) {
+            dap::Breakpoint bp;
+            bp.id = idCounter++;
+            bp.instructionReference = QStringLiteral("0xffee2211");
+            bp.verified = true;
+            response.push_back(bp);
+        }
+
+        Q_EMIT functionBreakpointsSet(breakpoints, response);
     }
 
 public Q_SLOTS:
@@ -195,6 +205,7 @@ private Q_SLOTS:
     void testListBreakpointsRequested();
     void testBreakpointsGetAddedToDocOnViewCreation();
     void testRunToCursor();
+    void testFunctionBreakpoints();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -234,6 +245,30 @@ static QString stringifyLineBreakpoints(QAbstractItemModel *model)
 {
     const auto lineBreakpointIndex = model->index(0, 0, {});
     return stringifyModel(model, lineBreakpointIndex, 1);
+}
+
+static QString stringifyFuncBreakpoints(QAbstractItemModel *model)
+{
+    const auto funcBreakpointIndex = model->index(1, 0, {});
+    return stringifyModel(model, funcBreakpointIndex, 1);
+}
+
+QAction *getAction(QMenu &menu, const char *name)
+{
+    const auto actions = menu.actions();
+    for (auto a : actions) {
+        if (a->text().remove(u'&') == QString::fromUtf8(name)) {
+            return a;
+        }
+    }
+    return nullptr;
+}
+
+QModelIndex indexForString(QAbstractItemModel *model, const char *str)
+{
+    const auto indexes =
+        model->match(model->index(0, 0), Qt::DisplayRole, QVariant(QString::fromUtf8(str)), 1, Qt::MatchFlags(Qt::MatchRecursive | Qt::MatchExactly));
+    return indexes.size() == 1 ? indexes.front() : QModelIndex();
 }
 
 void BreakpointViewTest::testLineBreakpointsBasic()
@@ -545,6 +580,57 @@ void BreakpointViewTest::testRunToCursor()
     bv->onStoppedAtLine(url, 7);
 
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
+}
+
+void BreakpointViewTest::testFunctionBreakpoints()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    bv->addFunctionBreakpoint(QStringLiteral("func1"));
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    bv->addFunctionBreakpoint(QStringLiteral("func2"));
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"
+                            "** [x]func2 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    const auto funcBreakpointParent = bv->m_treeview->model()->index(1, 0, {});
+    bv->m_treeview->model()->setData(bv->m_treeview->model()->index(1, 0, funcBreakpointParent), QVariant(Qt::Unchecked), Qt::CheckStateRole);
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** []func2 (0xffee2211) [verified]\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    {
+        const auto index = indexForString(bv->m_treeview->model(), "func1 (0xffee2211) [verified]");
+        QVERIFY(index.isValid());
+
+        QMenu menu;
+        bv->buildContextMenu(index, &menu);
+        auto a = getAction(menu, "Remove Breakpoint");
+        QVERIFY(a);
+        a->trigger();
+        QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                                "** []func2 (0xffee2211) [verified]\n"),
+                 stringifyFuncBreakpoints(bv->m_treeview->model()));
+    }
+
+    {
+        const auto index = indexForString(bv->m_treeview->model(), "func2 (0xffee2211) [verified]");
+        QVERIFY(index.isValid());
+        QMenu menu;
+        bv->buildContextMenu(index, &menu);
+        auto a = getAction(menu, "Remove Breakpoint");
+        QVERIFY(a);
+        a->trigger();
+        QCOMPARE(QStringLiteral("* Function Breakpoints\n"), stringifyFuncBreakpoints(bv->m_treeview->model()));
+    }
 }
 
 QTEST_MAIN(BreakpointViewTest)

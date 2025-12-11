@@ -11,6 +11,21 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <QMetaMethod>
+
+[[nodiscard]] static int superClassSignalCount(const QMetaObject *metaObject)
+{
+    const int methodCount = metaObject->methodCount();
+    int signalCount = 0;
+    // Iterate through all methods exposed by the meta-object system
+    for (int i = metaObject->methodOffset(); i < metaObject->methodOffset() + methodCount; ++i) {
+        // Check if the method is a Signal
+        if (metaObject->method(i).methodType() == QMetaMethod::Signal) {
+            signalCount++;
+        }
+    }
+    return signalCount;
+}
 
 Backend::Backend(QObject *parent)
     : BackendInterface(parent)
@@ -48,30 +63,37 @@ void Backend::runDebugger(const DAPTargetConf &conf,
 
 void Backend::bind()
 {
-    connect(m_debugger, &BackendInterface::debugLocationChanged, this, &BackendInterface::debugLocationChanged);
-    connect(m_debugger, &BackendInterface::breakPointsSet, this, &BackendInterface::breakPointsSet);
-    connect(m_debugger, &BackendInterface::stackFrameInfo, this, &BackendInterface::stackFrameInfo);
-    connect(m_debugger, &BackendInterface::stackFrameChanged, this, &BackendInterface::stackFrameChanged);
-    connect(m_debugger, &BackendInterface::threads, this, &BackendInterface::threads);
-    connect(m_debugger, &BackendInterface::threadUpdated, this, &BackendInterface::threadUpdated);
+    int i = 0;
+    i += (bool)connect(m_debugger, &BackendInterface::debugLocationChanged, this, &BackendInterface::debugLocationChanged);
+    i += (bool)connect(m_debugger, &BackendInterface::breakPointsSet, this, &BackendInterface::breakPointsSet);
+    i += (bool)connect(m_debugger, &BackendInterface::stackFrameInfo, this, &BackendInterface::stackFrameInfo);
+    i += (bool)connect(m_debugger, &BackendInterface::stackFrameChanged, this, &BackendInterface::stackFrameChanged);
+    i += (bool)connect(m_debugger, &BackendInterface::threads, this, &BackendInterface::threads);
+    i += (bool)connect(m_debugger, &BackendInterface::threadUpdated, this, &BackendInterface::threadUpdated);
 
-    connect(m_debugger, &BackendInterface::variablesInfo, this, &BackendInterface::variablesInfo);
+    i += (bool)connect(m_debugger, &BackendInterface::variablesInfo, this, &BackendInterface::variablesInfo);
 
-    connect(m_debugger, &BackendInterface::outputText, this, &BackendInterface::outputText);
-    connect(m_debugger, &BackendInterface::outputError, this, &BackendInterface::outputError);
-    connect(m_debugger, &BackendInterface::readyForInput, this, &BackendInterface::readyForInput);
-    connect(m_debugger, &BackendInterface::programEnded, this, &BackendInterface::programEnded);
-    connect(m_debugger, &BackendInterface::gdbEnded, this, &BackendInterface::gdbEnded);
-    connect(m_debugger, &BackendInterface::sourceFileNotFound, this, &BackendInterface::sourceFileNotFound);
-    connect(m_debugger, &BackendInterface::scopesInfo, this, &BackendInterface::scopesInfo);
+    i += (bool)connect(m_debugger, &BackendInterface::outputText, this, &BackendInterface::outputText);
+    i += (bool)connect(m_debugger, &BackendInterface::outputError, this, &BackendInterface::outputError);
+    i += (bool)connect(m_debugger, &BackendInterface::readyForInput, this, &BackendInterface::readyForInput);
+    i += (bool)connect(m_debugger, &BackendInterface::programEnded, this, &BackendInterface::programEnded);
+    i += (bool)connect(m_debugger, &BackendInterface::gdbEnded, this, &BackendInterface::gdbEnded);
+    i += (bool)connect(m_debugger, &BackendInterface::sourceFileNotFound, this, &BackendInterface::sourceFileNotFound);
+    i += (bool)connect(m_debugger, &BackendInterface::scopesInfo, this, &BackendInterface::scopesInfo);
 
-    connect(m_debugger, &BackendInterface::debuggerCapabilitiesChanged, this, &BackendInterface::debuggerCapabilitiesChanged);
+    i += (bool)connect(m_debugger, &BackendInterface::debuggerCapabilitiesChanged, this, &BackendInterface::debuggerCapabilitiesChanged);
 
-    connect(m_debugger, &BackendInterface::debuggeeOutput, this, &BackendInterface::debuggeeOutput);
-    connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
-    connect(m_debugger, &BackendInterface::debuggeeRequiresTerminal, this, &BackendInterface::debuggeeRequiresTerminal);
-    connect(m_debugger, &BackendInterface::breakpointEvent, this, &BackendInterface::breakpointEvent);
-    connect(m_debugger, &BackendInterface::functionBreakpointsSet, this, &BackendInterface::functionBreakpointsSet);
+    i += (bool)connect(m_debugger, &BackendInterface::debuggeeOutput, this, &BackendInterface::debuggeeOutput);
+    i += (bool)connect(m_debugger, &BackendInterface::backendError, this, &BackendInterface::backendError);
+    i += (bool)connect(m_debugger, &BackendInterface::debuggeeRequiresTerminal, this, &BackendInterface::debuggeeRequiresTerminal);
+    i += (bool)connect(m_debugger, &BackendInterface::breakpointEvent, this, &BackendInterface::breakpointEvent);
+    i += (bool)connect(m_debugger, &BackendInterface::addBreakpointRequested, this, &BackendInterface::addBreakpointRequested);
+    i += (bool)connect(m_debugger, &BackendInterface::removeBreakpointRequested, this, &BackendInterface::removeBreakpointRequested);
+    i += (bool)connect(m_debugger, &BackendInterface::listBreakpointsRequested, this, &BackendInterface::listBreakpointsRequested);
+    i += (bool)connect(m_debugger, &BackendInterface::runToLineRequested, this, &BackendInterface::runToLineRequested);
+    i += (bool)connect(m_debugger, &BackendInterface::functionBreakpointsSet, this, &BackendInterface::functionBreakpointsSet);
+
+    Q_ASSERT_X(i == superClassSignalCount(metaObject()->superClass()), Q_FUNC_INFO, "not all signals connected");
 }
 
 void Backend::unbind()

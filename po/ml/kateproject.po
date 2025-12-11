@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-11 00:48+0000\n"
 "PO-Revision-Date: 2019-03-17 02:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: Swathanthra|സ്വതന്ത്ര Malayalam|മലയാളം Computing|കമ്പ്യൂട്ടിങ്ങ് <smc."
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr ""
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -528,9 +528,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
-#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
-#: kateprojectviewtree.cpp:397
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Project"
 msgstr ""
@@ -935,97 +935,87 @@ msgstr ""
 msgid "Choose a directory"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:46
+#: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:63
-#, kde-format
-msgid "Delete File"
-msgstr ""
-
-#: kateprojecttreeviewcontextmenu.cpp:64
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr ""
-
-#: kateprojecttreeviewcontextmenu.cpp:92
+#: kateprojecttreeviewcontextmenu.cpp:111
 #, kde-format
 msgid "Copy Location"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "New File…"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:100
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "New Folder…"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "&Rename"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:114
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Properties"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Open With"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:161
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:167
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:153
+#: kateprojecttreeviewcontextmenu.cpp:176
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:217
+#: kateprojecttreeviewcontextmenu.cpp:240
 #, kde-format
 msgid "New File"
 msgstr ""
 
-#: kateprojecttreeviewcontextmenu.cpp:222
+#: kateprojecttreeviewcontextmenu.cpp:245
 #, kde-format
 msgid "New Folder"
 msgstr ""
 
-#: kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:352
 #, kde-format
 msgid "The file already exists"
 msgstr ""
 
-#: kateprojectviewtree.cpp:360
+#: kateprojectviewtree.cpp:363
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr ""
 
-#: kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:393
 #, kde-format
 msgid "The directory already exists"
 msgstr ""
 
-#: kateprojectviewtree.cpp:397
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr ""

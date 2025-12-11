@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-11 00:48+0000\n"
 "PO-Revision-Date: 2025-03-19 13:16+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -69,7 +69,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr "Última remisión"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Delete"
 msgstr "Eliminar"
@@ -537,9 +537,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "O ficheiro JSON «%1» ten erros de sintaxe: %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
-#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
-#: kateprojectviewtree.cpp:397
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Project"
 msgstr "Proxecto"
@@ -959,97 +959,87 @@ msgstr "Índice de proxectos"
 msgid "Choose a directory"
 msgstr "Escoller un cartafol"
 
-#: kateprojecttreeviewcontextmenu.cpp:46
+#: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
 msgstr "Escriba o nome:"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
-#, kde-format
-msgid "Delete File"
-msgstr "Eliminar o ficheiro"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr "Quere eliminar o ficheiro «%1»?"
-
-#: kateprojecttreeviewcontextmenu.cpp:92
+#: kateprojecttreeviewcontextmenu.cpp:111
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiar a localización"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "New File…"
 msgstr "Novo ficheiro…"
 
-#: kateprojecttreeviewcontextmenu.cpp:100
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "New Folder…"
 msgstr "Novo cartafol…"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "&Rename"
 msgstr "&Renomear"
 
-#: kateprojecttreeviewcontextmenu.cpp:114
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Properties"
 msgstr "Propiedades"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Open With"
 msgstr "Abrir con"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Abrir un terminal interno aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:161
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Abrir un terminal externo aquí"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:167
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Abrir o cartafol c&ontedor…"
 
-#: kateprojecttreeviewcontextmenu.cpp:153
+#: kateprojecttreeviewcontextmenu.cpp:176
 #, kde-format
 msgid "Show Git History"
 msgstr "Amosar o historial de Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:217
+#: kateprojecttreeviewcontextmenu.cpp:240
 #, kde-format
 msgid "New File"
 msgstr "Novo ficheiro"
 
-#: kateprojecttreeviewcontextmenu.cpp:222
+#: kateprojecttreeviewcontextmenu.cpp:245
 #, kde-format
 msgid "New Folder"
 msgstr "Novo cartafol"
 
-#: kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:352
 #, kde-format
 msgid "The file already exists"
 msgstr "O ficheiro xa existe."
 
-#: kateprojectviewtree.cpp:360
+#: kateprojectviewtree.cpp:363
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Non foi posíbel crear o ficheiro: %1. Erro: %2"
 
-#: kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:393
 #, kde-format
 msgid "The directory already exists"
 msgstr "O cartafol xa existe."
 
-#: kateprojectviewtree.cpp:397
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Non foi posíbel crear o cartafol: %1"
@@ -1153,6 +1143,12 @@ msgstr "Non foi posíbel amosar a reserva. Erro: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Proxectos"
+
+#~ msgid "Delete File"
+#~ msgstr "Eliminar o ficheiro"
+
+#~ msgid "Do you want to delete the file '%1'?"
+#~ msgstr "Quere eliminar o ficheiro «%1»?"
 
 #~ msgid "Add"
 #~ msgstr "Engadir"

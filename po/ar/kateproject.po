@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-11 00:48+0000\n"
 "PO-Revision-Date: 2025-11-12 18:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -70,7 +70,7 @@ msgstr "أخر نشاط"
 msgid "Last Commit"
 msgstr "آخر إيداع"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Delete"
 msgstr "احذف"
@@ -534,9 +534,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "ملف JSON مشوه '%1': %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
-#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
-#: kateprojectviewtree.cpp:397
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Project"
 msgstr "مشروع"
@@ -955,97 +955,87 @@ msgstr "فهرس مشروع"
 msgid "Choose a directory"
 msgstr "اختر مجلدًا"
 
-#: kateprojecttreeviewcontextmenu.cpp:46
+#: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
 msgstr "أدخل الاسم:"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
-#, kde-format
-msgid "Delete File"
-msgstr "احذف الملفّ"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr "هل تريد حذف الملف '%1'؟"
-
-#: kateprojecttreeviewcontextmenu.cpp:92
+#: kateprojecttreeviewcontextmenu.cpp:111
 #, kde-format
 msgid "Copy Location"
 msgstr "انسخ المكان"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "New File…"
 msgstr "ملفّ جديد…"
 
-#: kateprojecttreeviewcontextmenu.cpp:100
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "New Folder…"
 msgstr "مجلّد جديد…"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "&Rename"
 msgstr "غيّر الاسم"
 
-#: kateprojecttreeviewcontextmenu.cpp:114
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Properties"
 msgstr "الخصائص"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Open With"
 msgstr "افتح ب‍"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "افتح طرفية داخلية هنا"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:161
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "افتح طرفية خارجية هنا"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:167
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "ا&فتح المجلّد الحاوي"
 
-#: kateprojecttreeviewcontextmenu.cpp:153
+#: kateprojecttreeviewcontextmenu.cpp:176
 #, kde-format
 msgid "Show Git History"
 msgstr "أظهر تاريخ غت"
 
-#: kateprojecttreeviewcontextmenu.cpp:217
+#: kateprojecttreeviewcontextmenu.cpp:240
 #, kde-format
 msgid "New File"
 msgstr "ملفّ جديد"
 
-#: kateprojecttreeviewcontextmenu.cpp:222
+#: kateprojecttreeviewcontextmenu.cpp:245
 #, kde-format
 msgid "New Folder"
 msgstr "مجلّد جديد"
 
-#: kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:352
 #, kde-format
 msgid "The file already exists"
 msgstr "الملف موجود فعلًا"
 
-#: kateprojectviewtree.cpp:360
+#: kateprojectviewtree.cpp:363
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "فشل إنشاء الملف: %1، الخطأ: %2"
 
-#: kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:393
 #, kde-format
 msgid "The directory already exists"
 msgstr "الدليل موجود مسبقًا"
 
-#: kateprojectviewtree.cpp:397
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "فشل إنشاء الدليل: %1"
@@ -1150,6 +1140,12 @@ msgstr "فشل في عرض التخزين المؤقت. الخطأ: "
 #, kde-format
 msgid "&Projects"
 msgstr "م&شاريع"
+
+#~ msgid "Delete File"
+#~ msgstr "احذف الملفّ"
+
+#~ msgid "Do you want to delete the file '%1'?"
+#~ msgstr "هل تريد حذف الملف '%1'؟"
 
 #~ msgid "Add"
 #~ msgstr "أضف"

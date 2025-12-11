@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-11 00:48+0000\n"
 "PO-Revision-Date: 2025-12-04 11:40+0300\n"
 "Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -77,7 +77,7 @@ msgstr ""
 msgid "Last Commit"
 msgstr "Последняя фиксация"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
@@ -542,9 +542,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Некорректный файл в формате JSON «%1»: %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
-#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
-#: kateprojectviewtree.cpp:397
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Project"
 msgstr "Проект"
@@ -967,97 +967,87 @@ msgstr "Индекс проекта"
 msgid "Choose a directory"
 msgstr "Выбор каталога"
 
-#: kateprojecttreeviewcontextmenu.cpp:46
+#: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
 msgstr "Введите имя:"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
-#, kde-format
-msgid "Delete File"
-msgstr "Удалить файл"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr "Удалить файл «%1»?"
-
-#: kateprojecttreeviewcontextmenu.cpp:92
+#: kateprojecttreeviewcontextmenu.cpp:111
 #, kde-format
 msgid "Copy Location"
 msgstr "Копировать расположение"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "New File…"
 msgstr "Создать файл…"
 
-#: kateprojecttreeviewcontextmenu.cpp:100
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "New Folder…"
 msgstr "Создать папку…"
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "&Rename"
 msgstr "&Переименовать"
 
-#: kateprojecttreeviewcontextmenu.cpp:114
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Properties"
 msgstr "Свойства"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Open With"
 msgstr "Открыть с помощью..."
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Открыть встроенный терминал в этой папке"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:161
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Открыть внешний терминал в этой папке"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:167
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Открыть содержащую папку"
 
-#: kateprojecttreeviewcontextmenu.cpp:153
+#: kateprojecttreeviewcontextmenu.cpp:176
 #, kde-format
 msgid "Show Git History"
 msgstr "Показать журнал Git"
 
-#: kateprojecttreeviewcontextmenu.cpp:217
+#: kateprojecttreeviewcontextmenu.cpp:240
 #, kde-format
 msgid "New File"
 msgstr "Создать файл"
 
-#: kateprojecttreeviewcontextmenu.cpp:222
+#: kateprojecttreeviewcontextmenu.cpp:245
 #, kde-format
 msgid "New Folder"
 msgstr "Создать папку"
 
-#: kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:352
 #, kde-format
 msgid "The file already exists"
 msgstr "Файл уже существует"
 
-#: kateprojectviewtree.cpp:360
+#: kateprojectviewtree.cpp:363
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Не удалось создать файл: %1. Ошибка: %2"
 
-#: kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:393
 #, kde-format
 msgid "The directory already exists"
 msgstr "Каталог уже существует"
 
-#: kateprojectviewtree.cpp:397
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Не удалось создать каталог: %1"
@@ -1164,6 +1154,12 @@ msgstr "Не удалось показать запасник. Ошибка: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Проекты"
+
+#~ msgid "Delete File"
+#~ msgstr "Удалить файл"
+
+#~ msgid "Do you want to delete the file '%1'?"
+#~ msgstr "Удалить файл «%1»?"
 
 #~ msgid "Add"
 #~ msgstr "Добавить"

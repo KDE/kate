@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-11 00:48+0000\n"
 "PO-Revision-Date: 2025-12-08 09:19+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "Azken jarduera"
 msgid "Last Commit"
 msgstr "Azken baliozkotzea"
 
-#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:108
+#: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:131
 #, kde-format
 msgid "Delete"
 msgstr "Ezabatu"
@@ -534,9 +534,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
 #: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:349
-#: kateprojectviewtree.cpp:360 kateprojectviewtree.cpp:390
-#: kateprojectviewtree.cpp:397
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Project"
 msgstr "Proiektua"
@@ -957,97 +957,87 @@ msgstr "Proiektuen indizea"
 msgid "Choose a directory"
 msgstr "Hautatu direktorio bat"
 
-#: kateprojecttreeviewcontextmenu.cpp:46
+#: kateprojecttreeviewcontextmenu.cpp:48
 #, kde-format
 msgid "Enter name:"
 msgstr "Sartu izena:"
 
-#: kateprojecttreeviewcontextmenu.cpp:63
-#, kde-format
-msgid "Delete File"
-msgstr "Ezabatu fitxategia"
-
-#: kateprojecttreeviewcontextmenu.cpp:64
-#, kde-format
-msgid "Do you want to delete the file '%1'?"
-msgstr "'%1' fitxategia ezabatu nahi duzu?"
-
-#: kateprojecttreeviewcontextmenu.cpp:92
+#: kateprojecttreeviewcontextmenu.cpp:111
 #, kde-format
 msgid "Copy Location"
 msgstr "Kopiatu kokalekua"
 
-#: kateprojecttreeviewcontextmenu.cpp:99
+#: kateprojecttreeviewcontextmenu.cpp:118
 #, kde-format
 msgid "New File…"
 msgstr "Fitxategi berria…"
 
-#: kateprojecttreeviewcontextmenu.cpp:100
+#: kateprojecttreeviewcontextmenu.cpp:119
 #, kde-format
 msgid "New Folder…"
 msgstr "Karpeta berria..."
 
-#: kateprojecttreeviewcontextmenu.cpp:107
+#: kateprojecttreeviewcontextmenu.cpp:126
 #, kde-format
 msgid "&Rename"
 msgstr "Be&rrizendatu"
 
-#: kateprojecttreeviewcontextmenu.cpp:114
+#: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Properties"
 msgstr "Propietateak"
 
-#: kateprojecttreeviewcontextmenu.cpp:118
+#: kateprojecttreeviewcontextmenu.cpp:141
 #, kde-format
 msgid "Open With"
 msgstr "Ireki honekin"
 
-#: kateprojecttreeviewcontextmenu.cpp:126
+#: kateprojecttreeviewcontextmenu.cpp:149
 #, kde-format
 msgid "Open Internal Terminal Here"
 msgstr "Ireki barneko terminala hemen"
 
-#: kateprojecttreeviewcontextmenu.cpp:138
+#: kateprojecttreeviewcontextmenu.cpp:161
 #, kde-format
 msgid "Open External Terminal Here"
 msgstr "Ireki kanpoko terminala hemen"
 
-#: kateprojecttreeviewcontextmenu.cpp:144
+#: kateprojecttreeviewcontextmenu.cpp:167
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "&Ireki hau barnean duen karpeta"
 
-#: kateprojecttreeviewcontextmenu.cpp:153
+#: kateprojecttreeviewcontextmenu.cpp:176
 #, kde-format
 msgid "Show Git History"
 msgstr "Erakutsi Git historia"
 
-#: kateprojecttreeviewcontextmenu.cpp:217
+#: kateprojecttreeviewcontextmenu.cpp:240
 #, kde-format
 msgid "New File"
 msgstr "Fitxategi berria"
 
-#: kateprojecttreeviewcontextmenu.cpp:222
+#: kateprojecttreeviewcontextmenu.cpp:245
 #, kde-format
 msgid "New Folder"
 msgstr "Karpeta berria"
 
-#: kateprojectviewtree.cpp:349
+#: kateprojectviewtree.cpp:352
 #, kde-format
 msgid "The file already exists"
 msgstr "Fitxategia lehendik ere badago"
 
-#: kateprojectviewtree.cpp:360
+#: kateprojectviewtree.cpp:363
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Fitxategia sortzea huts egin du: %1, Errorea: %2"
 
-#: kateprojectviewtree.cpp:390
+#: kateprojectviewtree.cpp:393
 #, kde-format
 msgid "The directory already exists"
 msgstr "Direktorioa lehendik ere badago"
 
-#: kateprojectviewtree.cpp:397
+#: kateprojectviewtree.cpp:400
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Karpeta sortzea huts egin du: %1"
@@ -1151,6 +1141,12 @@ msgstr "«Erakutsi gordelekua»k huts egin du. Errorea:"
 #, kde-format
 msgid "&Projects"
 msgstr "&Proiektuak"
+
+#~ msgid "Delete File"
+#~ msgstr "Ezabatu fitxategia"
+
+#~ msgid "Do you want to delete the file '%1'?"
+#~ msgstr "'%1' fitxategia ezabatu nahi duzu?"
 
 #~ msgid "Add"
 #~ msgstr "Gehitu"

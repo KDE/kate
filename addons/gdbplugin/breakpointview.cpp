@@ -766,6 +766,15 @@ public:
         return false;
     }
 
+    [[nodiscard]] bool hasBreakpointAtLine(const QUrl &url, int line)
+    {
+        const auto breakpoints = getFileBreakpoints(url);
+        auto it = std::find_if(breakpoints.begin(), breakpoints.end(), [line](const FileBreakpoint &n) {
+            return n.line() == line && n.isEnabled();
+        });
+        return it != breakpoints.end();
+    }
+
     [[nodiscard]] std::pair<QUrl, int> fileAndLineForIndex(const QModelIndex &index)
     {
         Q_ASSERT(index.isValid() && index.model() == this);
@@ -1070,6 +1079,7 @@ void BreakpointView::toggleBreakpoint()
 
         int line = editView->cursorPosition().line() + 1;
         setBreakpoint(currURL, line, {});
+        addOrRemoveDocumentBreakpointMark(currURL, line, m_breakpointModel->hasBreakpointAtLine(currURL, line));
     }
 }
 
@@ -1229,6 +1239,7 @@ void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
     });
     if (it != existing.end()) {
         setBreakpoint(url, line, {});
+        addOrRemoveDocumentBreakpointMark(url, line, /*add=*/false);
     }
 }
 
@@ -1241,6 +1252,7 @@ void BreakpointView::onAddBreakpointRequested(const QUrl &url, const dap::Source
     });
     if (it == existing.end()) {
         setBreakpoint(url, line, {});
+        addOrRemoveDocumentBreakpointMark(url, line, /*add=*/true);
     }
 }
 
@@ -1259,6 +1271,20 @@ void BreakpointView::runToPosition(const QUrl &url, int line)
     setBreakpoint(url, line, std::nullopt, /*isOneShot=*/true);
     if (m_backend->canContinue()) {
         m_backend->slotContinue();
+    }
+}
+
+void BreakpointView::addOrRemoveDocumentBreakpointMark(const QUrl &url, int line, bool add) const
+{
+    auto app = KTextEditor::Editor::instance()->application();
+    if (auto doc = app->findUrl(url)) {
+        disconnect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints);
+        if (add) {
+            doc->addMark(line - 1, KTextEditor::Document::BreakpointActive);
+        } else {
+            doc->removeMark(line - 1, KTextEditor::Document::BreakpointActive);
+        }
+        connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
     }
 }
 

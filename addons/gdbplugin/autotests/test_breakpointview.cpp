@@ -487,27 +487,31 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
     auto backend = std::make_unique<BreakpointBackend>();
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto doc = createDocument(url);
 
-    const QUrl url(QStringLiteral("/file"));
     backend->addBreakpointRequested(url, 1);
-
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
-                            "** [x]file:1\n"),
+                            "** [x]kateui.rc:1\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
+    QVERIFY((doc->mark(0) & KTextEditor::Document::BreakpointActive) != 0);
 
     backend->addBreakpointRequested(url, 2);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
-                            "** [x]file:1\n"
-                            "** [x]file:2\n"),
+                            "** [x]kateui.rc:1\n"
+                            "** [x]kateui.rc:2\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
+    QVERIFY((doc->mark(1) & KTextEditor::Document::BreakpointActive) != 0);
 
     backend->removeBreakpointRequested(url, 2);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
-                            "** [x]file:1\n"),
+                            "** [x]kateui.rc:1\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
+    QVERIFY((doc->mark(1) & KTextEditor::Document::BreakpointActive) == 0);
 
     backend->removeBreakpointRequested(url, 1);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
+    QVERIFY((doc->mark(0) & KTextEditor::Document::BreakpointActive) == 0);
 }
 
 void BreakpointViewTest::testListBreakpointsRequested()

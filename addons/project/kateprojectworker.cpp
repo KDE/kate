@@ -409,12 +409,11 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
     QStringList userGivenFilesList = filesEntry[QStringLiteral("list")].toStringList();
     if (!userGivenFilesList.empty()) {
         /**
-         * make the files absolute relative to current dir
-         * all code later requires this and the filesFrom... routines do this, too, internally
-         * even without this, the tree views will show them, but opening them will create new elements!
+         * make the files relative to current dir
+         * later code requires that, see bug 512981
          */
         for (auto &file : userGivenFilesList) {
-            file = dir.absoluteFilePath(file);
+            file = dir.relativeFilePath(file);
         }
 
         /**

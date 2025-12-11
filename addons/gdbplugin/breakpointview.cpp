@@ -137,14 +137,16 @@ class BreakpointModel : public QAbstractItemModel
     enum TopLevelItem {
         LineBreakpointsItem = 0,
         FunctionBreakpointItem,
+        ExceptionBreakpointItem,
 
-        TopLevelItem_Last = FunctionBreakpointItem,
+        TopLevelItem_Last = ExceptionBreakpointItem,
     };
 
     static constexpr quintptr Root = 0xFFFFFFFF;
 
     QList<FileBreakpoint> m_lineBreakpoints;
     QList<FunctionBreakpoint> m_funcBreakpoints;
+    QList<dap::ExceptionBreakpointsFilter> m_exceptionBreakpoints;
 
 public:
     explicit BreakpointModel(QObject *parent)
@@ -171,6 +173,8 @@ public:
                 return m_lineBreakpoints.size();
             case FunctionBreakpointItem:
                 return m_funcBreakpoints.size();
+            case ExceptionBreakpointItem:
+                return m_exceptionBreakpoints.size();
             }
             Q_ASSERT(false);
         }
@@ -212,6 +216,8 @@ public:
                     return !m_lineBreakpoints.empty();
                 case FunctionBreakpointItem:
                     return !m_funcBreakpoints.empty();
+                case ExceptionBreakpointItem:
+                    return !m_exceptionBreakpoints.empty();
                 }
                 qCWarning(kateBreakpoint, "Invalid top level item: %d", parent.row());
                 Q_ASSERT(false);
@@ -238,6 +244,8 @@ public:
                     return i18n("Line Breakpoints");
                 case FunctionBreakpointItem:
                     return i18n("Function Breakpoints");
+                case ExceptionBreakpointItem:
+                    return i18n("Exception Breakpoints");
                 }
             }
             if (role == Qt::FontRole) {
@@ -312,6 +320,19 @@ public:
                 if (role == Qt::CheckStateRole) {
                     return m_funcBreakpoints[row].checkState;
                 }
+            } else if (rootIndex == ExceptionBreakpointItem) {
+                const auto &item = m_exceptionBreakpoints[index.row()];
+                if (role == Qt::DisplayRole && col == Column0) {
+                    return QStringLiteral("%1 - %2").arg(item.filter, item.label);
+                }
+
+                if (role == Qt::CheckStateRole) {
+                    return (item.defaultValue.has_value() && item.defaultValue.value() == true) ? Qt::Checked : Qt::Unchecked;
+                }
+
+                if (role == Qt::ToolTipRole && item.description.has_value()) {
+                    return item.description.value();
+                }
             } else {
                 Q_UNREACHABLE();
             }
@@ -341,6 +362,13 @@ public:
                     bp.checkState = value.value<Qt::CheckState>();
                     Q_EMIT dataChanged(index, index, {role});
                     Q_EMIT functionBreakpointEnabledChanged(bp.funcBreakpoint.function, bp.isEnabled());
+                    return true;
+                }
+            } else if (index.internalId() == ExceptionBreakpointItem) {
+                if (index.row() >= 0 && index.row() < m_exceptionBreakpoints.size()) {
+                    m_exceptionBreakpoints[index.row()].defaultValue = value.value<Qt::CheckState>() == Qt::Checked;
+                    Q_EMIT dataChanged(index, index, {role});
+                    Q_EMIT exceptionBreakpointsChanged();
                     return true;
                 }
             } else {
@@ -935,6 +963,33 @@ public:
         Q_EMIT functionBreakpointRemoved();
     }
 
+    void setExceptionBreakpointFilters(const QList<dap::ExceptionBreakpointsFilter> &filters)
+    {
+        const auto parent = index(ExceptionBreakpointItem, 0, {});
+        if (!m_exceptionBreakpoints.empty()) {
+            beginRemoveRows(parent, 0, m_exceptionBreakpoints.size() - 1);
+            m_exceptionBreakpoints.clear();
+            endRemoveRows();
+        }
+
+        if (!filters.empty()) {
+            beginInsertRows(parent, 0, filters.size() - 1);
+            m_exceptionBreakpoints = filters;
+            endInsertRows();
+        }
+    }
+
+    [[nodiscard]] QStringList enabledExceptionBreakpoints() const
+    {
+        QStringList ret;
+        for (const auto &b : m_exceptionBreakpoints) {
+            if (b.defaultValue && b.defaultValue.value() == true) {
+                ret << b.filter;
+            }
+        }
+        return ret;
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -945,6 +1000,7 @@ Q_SIGNALS:
     void addFunctionBreakpoint();
     void clearAllFunctionBreakpointsRequested();
     void functionBreakpointEnabledChanged(const QString &function, bool enabled);
+    void exceptionBreakpointsChanged();
     void functionBreakpointRemoved();
 };
 
@@ -985,6 +1041,12 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     connect(m_backend, &BackendInterface::breakPointsSet, this, &BreakpointView::slotBreakpointsSet);
     connect(m_backend, &BackendInterface::breakpointEvent, this, &BreakpointView::onBreakpointEvent);
     connect(m_backend, &BackendInterface::functionBreakpointsSet, m_breakpointModel, &BreakpointModel::onFunctionBreakpointsSet);
+    connect(m_backend, &BackendInterface::debuggerCapabilitiesChanged, this, [this] {
+        m_breakpointModel->setExceptionBreakpointFilters(m_backend->exceptionBreakpointFilters());
+    });
+    connect(m_backend, &BackendInterface::gdbEnded, this, [this] {
+        m_breakpointModel->setExceptionBreakpointFilters({});
+    });
 
     connect(m_backend, &BackendInterface::removeBreakpointRequested, this, &BreakpointView::onRemoveBreakpointRequested);
     connect(m_backend, &BackendInterface::addBreakpointRequested, this, &BreakpointView::onAddBreakpointRequested);
@@ -1049,6 +1111,7 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
             m_backend->setFunctionBreakpoints(m_breakpointModel->functionBreakpoints());
         }
     });
+    connect(m_breakpointModel, &BreakpointModel::exceptionBreakpointsChanged, this, &BreakpointView::onExceptionBreakpointsChanged);
 
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
     for (auto doc : documents) {
@@ -1338,6 +1401,13 @@ void BreakpointView::addFunctionBreakpoint(const QString &function)
     auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, std::nullopt);
     if (m_backend->debuggerRunning()) {
         m_backend->setFunctionBreakpoints(breakpoints);
+    }
+}
+
+void BreakpointView::onExceptionBreakpointsChanged()
+{
+    if (m_backend->debuggerRunning()) {
+        m_backend->setExceptionBreakpoints(m_breakpointModel->enabledExceptionBreakpoints());
     }
 }
 

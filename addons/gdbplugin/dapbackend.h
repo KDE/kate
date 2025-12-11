@@ -34,9 +34,11 @@ public:
     [[nodiscard]] bool canContinue() const override;
     [[nodiscard]] bool canHotReload() const;
     [[nodiscard]] bool canHotRestart() const;
+    [[nodiscard]] QList<dap::ExceptionBreakpointsFilter> exceptionBreakpointFilters() const override;
 
     void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
+    void setExceptionBreakpoints(const QStringList &filters) override;
     void movePC(QUrl const &url, int line) override;
 
     void issueCommand(QString const &cmd) override;
@@ -173,6 +175,7 @@ private:
     int m_requests = 0;
 
     QStringList m_commandQueue;
+    dap::Capabilities m_capabilities;
 
     std::map<QUrl, QList<dap::SourceBreakpoint>> m_wantedBreakpoints;
     QList<dap::FunctionBreakpoint> m_wantedFunctionBreakpoints;

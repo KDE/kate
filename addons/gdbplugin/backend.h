@@ -30,6 +30,7 @@ public:
     [[nodiscard]] bool canSetBreakpoints() const override;
     [[nodiscard]] bool canMove() const override;
     [[nodiscard]] bool canContinue() const override;
+    [[nodiscard]] QList<dap::ExceptionBreakpointsFilter> exceptionBreakpointFilters() const override;
     void setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints) override;
     void movePC(QUrl const &url, int line) override;
     void issueCommand(QString const &cmd) override;
@@ -37,6 +38,7 @@ public:
     void setFileSearchPaths(const QStringList &paths) override;
     QList<dap::Module> modules();
     void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override;
+    void setExceptionBreakpoints(const QStringList &filters) override;
 
     [[nodiscard]] bool canHotReload() const;
     [[nodiscard]] bool canHotRestart() const;

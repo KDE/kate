@@ -145,6 +145,14 @@ bool Backend::canContinue() const
     return m_debugger && m_debugger->canContinue();
 }
 
+QList<dap::ExceptionBreakpointsFilter> Backend::exceptionBreakpointFilters() const
+{
+    if (m_debugger) {
+        return m_debugger->exceptionBreakpointFilters();
+    }
+    return {};
+}
+
 void Backend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoint> &breakpoints)
 {
     if (m_debugger && m_debugger->debuggerRunning()) {
@@ -215,6 +223,13 @@ void Backend::setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &break
 {
     if (m_debugger) {
         m_debugger->setFunctionBreakpoints(breakpoints);
+    }
+}
+
+void Backend::setExceptionBreakpoints(const QStringList &filters)
+{
+    if (m_debugger) {
+        m_debugger->setExceptionBreakpoints(filters);
     }
 }
 

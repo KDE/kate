@@ -132,6 +132,16 @@ public:
         Q_EMIT functionBreakpointsSet(breakpoints, response);
     }
 
+    QList<dap::ExceptionBreakpointsFilter> exceptionBreakpointFilters() const override
+    {
+        return {};
+    }
+
+    void setExceptionBreakpoints(const QStringList &filters) override
+    {
+        std::ignore = filters;
+    }
+
 public Q_SLOTS:
     void slotInterrupt() override
     {

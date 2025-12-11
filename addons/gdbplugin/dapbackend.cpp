@@ -177,8 +177,6 @@ void DapBackend::start()
 
     m_client = new dap::Client(*m_settings, m_pathMap, this);
 
-    Q_EMIT debuggerCapabilitiesChanged();
-
     // connect
     connect(m_client->bus(), &dap::Bus::error, this, &DapBackend::onError);
 
@@ -388,6 +386,8 @@ void DapBackend::onServerDisconnected()
     if (!isConnectedState()) {
         return;
     }
+
+    m_capabilities = {};
 
     if (!m_restart) {
         m_wantedBreakpoints.clear();
@@ -685,6 +685,17 @@ void DapBackend::onCapabilitiesReceived(const dap::Capabilities &capabilities)
          << format(i18n("terminate request"), capabilities.supportsTerminateRequest)
          << format(i18n("terminate debuggee"), capabilities.supportTerminateDebuggee);
 
+    if (capabilities.exceptionBreakpointFilters) {
+        text << format(i18n("exception breakpoint filters"), capabilities.supportTerminateDebuggee);
+        for (const auto &exceptionBreakpointFilter : capabilities.exceptionBreakpointFilters.value()) {
+            text << QStringLiteral("   ") << exceptionBreakpointFilter.toString();
+        }
+    }
+
+    m_capabilities = capabilities;
+
+    Q_EMIT debuggerCapabilitiesChanged();
+
     Q_EMIT outputText(text.join(QString()));
 }
 
@@ -743,6 +754,11 @@ bool DapBackend::canHotRestart() const
     return m_debuggerName == QStringLiteral("flutter") && debuggerRunning();
 }
 
+QList<dap::ExceptionBreakpointsFilter> DapBackend::exceptionBreakpointFilters() const
+{
+    return m_capabilities.exceptionBreakpointFilters.value_or(QList<dap::ExceptionBreakpointsFilter>{});
+}
+
 bool DapBackend::debuggerRunning() const
 {
     return m_client && (m_state != None);
@@ -774,6 +790,14 @@ void DapBackend::setBreakpoints(const QUrl &url, const QList<dap::SourceBreakpoi
 
     pushRequest();
     m_client->requestSetBreakpoints(path, m_wantedBreakpoints[path], true);
+}
+
+void DapBackend::setExceptionBreakpoints(const QStringList &filters)
+{
+    if (!m_capabilities.exceptionBreakpointFilters.has_value()) {
+        return;
+    }
+    m_client->requestSetExceptionBreakpoints(filters);
 }
 
 void DapBackend::movePC(QUrl const &url, int line)

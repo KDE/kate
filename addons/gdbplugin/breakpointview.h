@@ -68,6 +68,7 @@ private:
     void onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint);
     void onListBreakpointsRequested();
     void runToPosition(const QUrl &url, int line);
+    void addOrRemoveDocumentBreakpointMark(const QUrl &url, int line, bool add) const;
     void onContextMenuRequested(QPoint pos);
     void buildContextMenu(const QModelIndex &index, QMenu *menu);
     void onAddFunctionBreakpoint();

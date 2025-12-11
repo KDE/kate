@@ -5,21 +5,23 @@
 */
 #pragma once
 
-#include <QByteArray>
-#include <QHash>
-#include <QJsonObject>
-#include <QObject>
-#include <functional>
-#include <optional>
-
-#include "bus.h"
 #include "entities.h"
 #include "settings.h"
 
+#include <QHash>
+#include <QObject>
+
+#include <functional>
+#include <optional>
+
 #include <exec_utils.h>
+
+class QJsonObject;
+class QByteArray;
 
 namespace dap
 {
+class Bus;
 const int SEQ_START = 1;
 
 class Client : public QObject

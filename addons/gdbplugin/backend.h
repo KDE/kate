@@ -7,11 +7,13 @@
  */
 #pragma once
 
+#include "backendinterface.h"
+
 #include <QObject>
+
 #include <optional>
 
-#include "backendinterface.h"
-#include "configview.h"
+struct DAPTargetConf;
 
 class Backend final : public BackendInterface
 {

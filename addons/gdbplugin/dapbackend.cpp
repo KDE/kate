@@ -3,19 +3,22 @@
 
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-#include <KMessageBox>
+#include "dapbackend.h"
+#include "configview.h"
+#include "dap/bus.h"
+#include "dap/client.h"
+#include "dap/settings.h"
+#include "json_placeholders.h"
+
 #include <QDir>
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QRegularExpression>
 
 #include <KLocalizedString>
-#include <utility>
+#include <KMessageBox>
 
 #include <ktexteditor_utils.h>
-
-#include "dapbackend.h"
-#include "json_placeholders.h"
 
 static QString newLine(const QString &text)
 {

@@ -466,6 +466,12 @@ void KatePluginGDBView::slotGoTo(const QUrl &url, int lineNum)
         return;
     }
 
+    // skip "reference" scheme
+    if (url.scheme() == dap::Source::referenceScheme()) {
+        m_lastExecLine = -1;
+        return;
+    }
+
     m_lastExecUrl = url;
     m_lastExecLine = lineNum;
 

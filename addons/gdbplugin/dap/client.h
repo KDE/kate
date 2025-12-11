@@ -223,12 +223,12 @@ private:
 
     settings::ProtocolSettings m_protocol;
     QString m_launchCommand;
+    bool m_checkExtraData = false;
     std::unique_ptr<MessageContext> m_msgContext;
 
     class MessageParser;
     // unique_ptr does not work well with undefined type on some platforms
     MessageParser *const m_msgParser = nullptr;
-    bool m_checkExtraData = false;
     MessageParser *const m_outputMsgParser = nullptr;
 };
 

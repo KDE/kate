@@ -23,7 +23,7 @@ struct ClientMessageContext : public MessageContext {
     Utils::PathMappingPtr pathMap;
 
     ClientMessageContext(Utils::PathMappingPtr pm)
-        : pathMap(pm)
+        : pathMap(std::move(pm))
     {
     }
 
@@ -55,7 +55,7 @@ class Client::MessageParser
 public:
     QByteArray m_buffer;
 
-    void push(QByteArray d)
+    void push(const QByteArray &d)
     {
         m_buffer.append(d);
     }
@@ -69,9 +69,9 @@ Client::Client(const settings::ProtocolSettings &protocolSettings, Bus *bus, Uti
     , m_managedBus(false)
     , m_protocol(protocolSettings)
     , m_launchCommand(extractCommand(protocolSettings.launchRequest))
+    , m_msgContext(std::make_unique<ClientMessageContext>(std::move(pm)))
     , m_msgParser(new MessageParser())
 {
-    m_msgContext = std::make_unique<ClientMessageContext>(pm);
     bind();
 }
 
@@ -80,11 +80,11 @@ Client::Client(const settings::ClientSettings &clientSettings, Utils::PathMappin
     , m_managedBus(true)
     , m_protocol(clientSettings.protocolSettings)
     , m_launchCommand(extractCommand(clientSettings.protocolSettings.launchRequest))
+    , m_checkExtraData(pm.get())
+    , m_msgContext(std::make_unique<ClientMessageContext>(std::move(pm)))
     , m_msgParser(new MessageParser())
     , m_outputMsgParser(new MessageParser())
 {
-    m_msgContext = std::make_unique<ClientMessageContext>(pm);
-    m_checkExtraData = pm.get();
     m_bus = createBus(clientSettings.busSettings);
     m_bus->setParent(this);
     bind();
@@ -541,7 +541,7 @@ QJsonObject Client::makeRequest(const QString &command, const QJsonValue &argume
     if (!arguments.isUndefined()) {
         message[DAP_ARGUMENTS] = arguments;
     }
-    m_requests[seq] = Request{command, arguments, handler};
+    m_requests[seq] = Request{.command = command, .arguments = arguments, .callback = handler};
 
     return message;
 }

@@ -4,16 +4,20 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "client.h"
-#include <KLocalizedString>
+#include "bus.h"
+#include "dap/bus_selector.h"
+#include "dapclient_debug.h"
+#include "messages.h"
+
+#include <QByteArray>
 #include <QFileInfo>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
+
+#include <KLocalizedString>
+
 #include <limits>
-
-#include "dap/bus_selector.h"
-#include "dapclient_debug.h"
-
-#include "messages.h"
 
 namespace dap
 {

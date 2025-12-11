@@ -7,11 +7,13 @@
  */
 
 #include "backend.h"
+#include "configview.h"
 #include "dapbackend.h"
+
+#include <QMetaMethod>
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <QMetaMethod>
 
 [[nodiscard]] static int superClassSignalCount(const QMetaObject *metaObject)
 {

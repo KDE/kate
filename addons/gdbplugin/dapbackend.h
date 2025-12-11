@@ -5,15 +5,21 @@
 */
 #pragma once
 
+#include "backendinterface.h"
+#include "dap/entities.h"
+#include "dap/settings.h"
+
 #include <QObject>
 #include <QTimer>
 
-#include "backendinterface.h"
-#include "configview.h"
-#include "dap/client.h"
-#include "dap/entities.h"
-#include "dap/settings.h"
 #include <optional>
+
+namespace dap
+{
+class Client;
+}
+
+struct DAPTargetConf;
 
 class DapBackend final : public BackendInterface
 {

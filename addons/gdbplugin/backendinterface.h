@@ -7,12 +7,13 @@
  */
 #pragma once
 
-#include <QObject>
-#include <QUrl>
-#include <ktexteditor/message.h>
-
 #include "dap/client.h"
 #include "dap/entities.h"
+
+#include <QObject>
+#include <QUrl>
+
+#include <KTextEditor/Message>
 
 class BackendInterface : public QObject
 {

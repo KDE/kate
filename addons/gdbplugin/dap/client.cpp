@@ -432,6 +432,12 @@ void Client::processResponseSetFunctionBreakpoints(const Response &response, con
     }
 }
 
+void Client::processResponseSetExceptionBreakpoints(const Response &response, const QJsonValue &)
+{
+    // ignore for now, we can use this info to show that a breakpoint is "verified"
+    std::ignore = response;
+}
+
 void Client::processResponseEvaluate(const Response &response, const QJsonValue &request)
 {
     const auto &expression = request.toObject()[DAP_EXPRESSION].toString();
@@ -737,6 +743,13 @@ void Client::requestSetFunctionBreakpoints(const QList<dap::FunctionBreakpoint> 
     }
     QJsonObject arguments{{DAP_BREAKPOINTS, bpoints}};
     this->write(makeRequest(QStringLiteral("setFunctionBreakpoints"), arguments, &Client::processResponseSetFunctionBreakpoints));
+}
+
+void Client::requestSetExceptionBreakpoints(const QStringList &filters)
+{
+    QJsonArray filtersArray = QJsonArray::fromStringList(filters);
+    QJsonObject arguments{{QLatin1String("filters"), filtersArray}};
+    this->write(makeRequest(QStringLiteral("setExceptionBreakpoints"), arguments, &Client::processResponseSetExceptionBreakpoints));
 }
 
 void Client::requestEvaluate(const QString &expression, const QString &context, std::optional<int> frameId)

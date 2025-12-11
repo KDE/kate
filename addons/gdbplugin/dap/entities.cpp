@@ -308,6 +308,37 @@ QJsonObject Checksum::toJson() const
     return out;
 }
 
+ExceptionBreakpointsFilter::ExceptionBreakpointsFilter(const QJsonObject &body)
+    : filter(body[QLatin1String("filter")].toString())
+    , label(body[QLatin1String("label")].toString())
+    , description(parseOptionalString(body[QLatin1String("description")]))
+    , defaultValue(parseOptionalBool(body[QLatin1String("defaultValue")]))
+    , supportsCondition(parseOptionalBool(body[QLatin1String("supportsCondition")]))
+    , conditionDescription(parseOptionalString(body[QLatin1String("conditionDescription")]))
+{
+}
+
+QString ExceptionBreakpointsFilter::toString() const
+{
+    QString ret;
+    ret += QStringLiteral("filter: %1, ").arg(filter);
+    ret += QStringLiteral("label: %1").arg(label);
+    if (description) {
+        ret += QStringLiteral(", description: %1").arg(description.value());
+    }
+    if (defaultValue) {
+        ret += QStringLiteral(", defaultValue: %1").arg(defaultValue.value());
+    }
+    if (supportsCondition) {
+        ret += QStringLiteral(", supportsCondition: %1").arg(supportsCondition.value());
+    }
+    if (conditionDescription) {
+        ret += QStringLiteral(", conditionDescription: %1").arg(conditionDescription.value());
+    }
+    ret += QStringLiteral("\n");
+    return ret;
+}
+
 Capabilities::Capabilities(const QJsonObject &body)
     : supportsConfigurationDoneRequest(body[QStringLiteral("supportsConfigurationDoneRequest")].toBool())
     , supportsFunctionBreakpoints(body[QStringLiteral("supportsFunctionBreakpoints")].toBool())
@@ -318,6 +349,7 @@ Capabilities::Capabilities(const QJsonObject &body)
     , supportsTerminateRequest(body[QStringLiteral("supportsTerminateRequest")].toBool())
     , supportTerminateDebuggee(body[QStringLiteral("supportTerminateDebuggee")].toBool())
     , supportsGotoTargetsRequest(body[QStringLiteral("supportsGotoTargetsRequest")].toBool())
+    , exceptionBreakpointFilters(parseObjectList<ExceptionBreakpointsFilter>(body[QStringLiteral("exceptionBreakpointFilters")].toArray()))
 {
 }
 

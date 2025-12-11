@@ -67,6 +67,12 @@ public:
      * true if basic movement actions can be used
      */
     [[nodiscard]] virtual bool canMove() const = 0;
+
+    /**
+     * returns the list of exception breakpoint filters
+     */
+    [[nodiscard]] virtual QList<dap::ExceptionBreakpointsFilter> exceptionBreakpointFilters() const = 0;
+
     /**
      * toggle breakpoint at url:line
      * whether the breakpoint was added or not
@@ -86,6 +92,8 @@ public:
      * set function breakpoints
      */
     virtual void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) = 0;
+
+    virtual void setExceptionBreakpoints(const QStringList &filters) = 0;
 
 public Q_SLOTS:
     /**

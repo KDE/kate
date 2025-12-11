@@ -275,6 +275,48 @@ public:
     bool isSpecialOutput() const;
 };
 
+struct ExceptionBreakpointsFilter {
+    /**
+     * The internal ID of the filter option. This value is passed to the
+     * `setExceptionBreakpoints` request.
+     */
+    QString filter;
+
+    /**
+     * The name of the filter option. This is shown in the UI.
+     */
+    QString label;
+
+    /**
+     * A help text providing additional information about the exception filter.
+     * This string is typically shown as a hover and can be translated.
+     */
+    std::optional<QString> description;
+
+    /**
+     * Initial value of the filter option. If not specified a value false is
+     * assumed.
+     */
+    std::optional<bool> defaultValue;
+
+    /**
+     * Controls whether a condition can be specified for this filter option. If
+     * false or missing, a condition can not be set.
+     */
+    std::optional<bool> supportsCondition;
+
+    /**
+     * A help text providing information about the condition. This string is shown
+     * as the placeholder text for a text box and can be translated.
+     */
+    std::optional<QString> conditionDescription;
+
+    ExceptionBreakpointsFilter() = default;
+    ExceptionBreakpointsFilter(const QJsonObject &body);
+
+    [[nodiscard]] QString toString() const;
+};
+
 struct Capabilities {
     bool supportsConfigurationDoneRequest;
     bool supportsFunctionBreakpoints;
@@ -285,6 +327,7 @@ struct Capabilities {
     bool supportsTerminateRequest;
     bool supportTerminateDebuggee;
     bool supportsGotoTargetsRequest;
+    std::optional<QList<ExceptionBreakpointsFilter>> exceptionBreakpointFilters;
 
     Capabilities() = default;
     Capabilities(const QJsonObject &body);

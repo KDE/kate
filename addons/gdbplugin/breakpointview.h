@@ -73,6 +73,7 @@ private:
     void buildContextMenu(const QModelIndex &index, QMenu *menu);
     void onAddFunctionBreakpoint();
     void addFunctionBreakpoint(const QString &function);
+    void onExceptionBreakpointsChanged();
 
 private:
     KTextEditor::MainWindow *const m_mainWindow;

@@ -1118,6 +1118,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Projekty"
-
-#~ msgid "Delete File"
-#~ msgstr "Smazat soubor"

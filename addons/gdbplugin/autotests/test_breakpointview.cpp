@@ -377,6 +377,13 @@ void BreakpointViewTest::testBreakpointChangedEvent()
                             "** [x]file:3\n"
                             "** [x]file:4\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
+
+    backend->breakpoints[url1].back().line = 2;
+    Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].back(), BackendInterface::Changed);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:2\n"
+                            "** [x]file:3\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testBreakpointRemovedEvent()

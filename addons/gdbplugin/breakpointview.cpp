@@ -720,10 +720,14 @@ public:
             auto fit = std::lower_bound(fileBreakpoints.begin(), fileBreakpoints.end(), bp, [](const FileBreakpoint &l, const dap::Breakpoint &val) {
                 return l.line() < val.line;
             });
-            const qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
+            qsizetype newPos = fileStartIdx + std::distance(fileBreakpoints.begin(), fit);
             const qsizetype oldPos = std::distance(m_lineBreakpoints.begin(), it);
             const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
             const auto oldLine = it->line();
+
+            if (newPos > oldPos) {
+                newPos -= 1;
+            }
 
             if (newPos == oldPos) {
                 it->breakpoint = bp;
@@ -732,15 +736,12 @@ public:
 
                 Q_EMIT dataChanged(index(pos, 0, parent), index(pos, columnCount() - 1, parent));
             } else {
-                beginMoveRows(parent, oldPos, oldPos, parent, newPos);
+                // beginMoveRows api is garbage, when moving items to a higher pos, we need to +1
+                auto dest = newPos > oldPos ? newPos + 1 : newPos;
+                beginMoveRows(parent, oldPos, oldPos, parent, dest);
                 qCDebug(kateBreakpoint, "onBreakpointChanged: oldPos %lld, newPos: %lld, total: %lld", oldPos, newPos, m_lineBreakpoints.size());
-                m_lineBreakpoints.insert(newPos, m_lineBreakpoints[oldPos]);
+                m_lineBreakpoints.move(oldPos, newPos);
                 m_lineBreakpoints[newPos].breakpoint = bp;
-                if (newPos > oldPos) {
-                    m_lineBreakpoints.remove(oldPos);
-                } else {
-                    m_lineBreakpoints.remove(oldPos + 1);
-                }
                 endMoveRows();
             }
 

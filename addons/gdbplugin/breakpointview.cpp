@@ -11,9 +11,12 @@
 #include <KTextEditor/View>
 
 #include <QAbstractTableModel>
+#include <QEvent>
 #include <QInputDialog>
 #include <QLoggingCategory>
 #include <QMenu>
+#include <QMouseEvent>
+#include <QStyledItemDelegate>
 #include <QTreeView>
 #include <QVBoxLayout>
 
@@ -37,8 +40,9 @@ Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
 // [x] add a test for this
 // [x] Fix run to cursor
 // [x] Double clicking on a breakpoint takes us to the location?
-// [] Function breakpoints, cmd for setting func breakpoints, add func breakpoints when offline, set all to pending on debugger stop
-// [] context menu on items [delete item, edit, clear all]
+// [x] Function breakpoints, cmd for setting func breakpoints, add func breakpoints when offline, set all to pending on debugger stop
+// [x] context menu on items [delete item, edit, clear all]
+// [x] item delegate, that provides "x" (delete action) for breakpoints
 // [] red dot remains after run to cursor
 
 [[nodiscard]] static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
@@ -122,6 +126,93 @@ struct FunctionBreakpoint {
         return checkState == Qt::Checked;
     }
 };
+
+enum TopLevelItem {
+    LineBreakpointsItem = 0,
+    FunctionBreakpointItem,
+    ExceptionBreakpointItem,
+
+    TopLevelItem_Last = ExceptionBreakpointItem,
+};
+
+class BreakpointViewDelegate : public QStyledItemDelegate
+{
+    const int IconPadding = 4;
+
+public:
+    struct IconButton {
+        QIcon icon;
+        std::function<void(const QModelIndex &index)> m_onClick;
+        std::array<bool, TopLevelItem_Last + 1> m_enabledForItemKinds;
+
+        [[nodiscard]] bool isEnabled(const QModelIndex &index) const
+        {
+            if (!index.isValid() || !index.parent().isValid()) {
+                return false;
+            }
+            Q_ASSERT(index.internalId() < m_enabledForItemKinds.size());
+            return m_enabledForItemKinds[index.internalId()];
+        }
+    };
+
+    explicit BreakpointViewDelegate(QObject *parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {
+    }
+
+    void addOverlayButton(IconButton button)
+    {
+        m_buttons.push_back(std::move(button));
+    }
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override
+    {
+        QStyledItemDelegate::paint(painter, option, index);
+
+        if (option.state & QStyle::State_Enabled && (option.state & QStyle::State_MouseOver)) {
+            const int w = option.decorationSize.width();
+            const int totalWidth = m_buttons.size() * (w + IconPadding);
+            int x = option.rect.right() - totalWidth;
+            for (const auto &button : m_buttons) {
+                if (button.isEnabled(index)) {
+                    QRect iconRect(x, option.rect.top(), w, option.rect.height());
+                    button.icon.paint(painter, iconRect, Qt::AlignCenter);
+                }
+                x += w + IconPadding;
+            }
+        }
+    }
+
+    bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override
+    {
+        switch (event->type()) {
+        case QEvent::MouseButtonRelease: {
+            const int w = option.decorationSize.width();
+            const int totalWidth = m_buttons.size() * (w + IconPadding);
+            int x = option.rect.right() - totalWidth;
+            auto me = static_cast<QMouseEvent *>(event);
+            for (const auto &button : m_buttons) {
+                if (button.isEnabled(index)) {
+                    QRect iconRect(x, option.rect.top(), w, option.rect.height());
+                    if (iconRect.contains(me->pos())) {
+                        button.m_onClick(index);
+                        return true;
+                    }
+                }
+                x += w + IconPadding;
+            }
+
+        } break;
+        default:
+            break;
+        }
+
+        return QStyledItemDelegate::editorEvent(event, model, option, index);
+    }
+
+private:
+    QList<IconButton> m_buttons;
+};
 }
 
 class BreakpointModel : public QAbstractItemModel
@@ -132,14 +223,6 @@ class BreakpointModel : public QAbstractItemModel
         Column0,
 
         Columns_Count
-    };
-
-    enum TopLevelItem {
-        LineBreakpointsItem = 0,
-        FunctionBreakpointItem,
-        ExceptionBreakpointItem,
-
-        TopLevelItem_Last = ExceptionBreakpointItem,
     };
 
     static constexpr quintptr Root = 0xFFFFFFFF;
@@ -816,6 +899,14 @@ public:
         return {{}, -1};
     }
 
+    void removeLineBreakpoint(int row)
+    {
+        Q_ASSERT(row < m_lineBreakpoints.size());
+        auto url = m_lineBreakpoints[row].url;
+        auto line = m_lineBreakpoints[row].line();
+        Q_EMIT lineBreakpointRemoveRequested(url, line);
+    }
+
     [[nodiscard]] QList<dap::FunctionBreakpoint> functionBreakpoints() const
     {
         QList<dap::FunctionBreakpoint> ret;
@@ -847,10 +938,12 @@ public:
                 ret << a;
             }
         } else {
-            if (index.internalId() == FunctionBreakpointItem && index.row() < m_funcBreakpoints.size()) {
+            if ((index.internalId() == LineBreakpointsItem || index.internalId() == FunctionBreakpointItem)) {
                 auto a = new QAction(i18n("Remove Breakpoint"));
-                connect(a, &QAction::triggered, this, [this, row = index.row()] {
-                    removeFunctionBreakpoint(row);
+                connect(a, &QAction::triggered, this, [this, persistentIndex = QPersistentModelIndex(index)] {
+                    if (persistentIndex.isValid()) {
+                        removeBreakpoint(persistentIndex);
+                    }
                 });
                 ret << a;
             }
@@ -990,6 +1083,20 @@ public:
         return ret;
     }
 
+    void removeBreakpoint(const QModelIndex &index)
+    {
+        if (!index.isValid() || !index.parent().isValid()) {
+            Q_UNREACHABLE();
+            return;
+        }
+
+        if (index.internalId() == LineBreakpointsItem) {
+            removeLineBreakpoint(index.row());
+        } else if (index.internalId() == FunctionBreakpointItem) {
+            removeFunctionBreakpoint(index.row());
+        }
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -1002,6 +1109,7 @@ Q_SIGNALS:
     void functionBreakpointEnabledChanged(const QString &function, bool enabled);
     void exceptionBreakpointsChanged();
     void functionBreakpointRemoved();
+    void lineBreakpointRemoveRequested(const QUrl &url, int line);
 };
 
 BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInterface *backend, QWidget *parent)
@@ -1034,6 +1142,21 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     QItemSelectionModel *m = m_treeview->selectionModel();
     m_treeview->setModel(m_breakpointModel);
     delete m;
+
+    auto delegate = new BreakpointViewDelegate(this);
+    delegate->addOverlayButton({
+        .icon = QIcon::fromTheme(QStringLiteral("delete")),
+        .m_onClick =
+            [this](const QModelIndex &index) {
+                m_breakpointModel->removeBreakpoint(index);
+            },
+        .m_enabledForItemKinds = {{
+            /*LineBreakpointsItem=*/true,
+            /*FunctionBreakpointItem=*/true,
+            /*ExceptionBreakpointItem=*/false,
+        }},
+    });
+    m_treeview->setItemDelegate(delegate);
 
     m_treeview->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(m_treeview, &QTreeView::customContextMenuRequested, this, &BreakpointView::onContextMenuRequested);
@@ -1112,6 +1235,7 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
         }
     });
     connect(m_breakpointModel, &BreakpointModel::exceptionBreakpointsChanged, this, &BreakpointView::onExceptionBreakpointsChanged);
+    connect(m_breakpointModel, &BreakpointModel::lineBreakpointRemoveRequested, this, &BreakpointView::onRemoveBreakpointRequested);
 
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
     for (auto doc : documents) {

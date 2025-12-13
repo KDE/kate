@@ -216,6 +216,7 @@ private Q_SLOTS:
     void testBreakpointsGetAddedToDocOnViewCreation();
     void testRunToCursor();
     void testFunctionBreakpoints();
+    void testUserRemovedBreakpoint();
 
 private:
     std::unique_ptr<KTextEditor::Document> createDocument(const QUrl &url)
@@ -644,6 +645,35 @@ void BreakpointViewTest::testFunctionBreakpoints()
         QVERIFY(a);
         a->trigger();
         QCOMPARE(QStringLiteral("* Function Breakpoints\n"), stringifyFuncBreakpoints(bv->m_treeview->model()));
+    }
+}
+
+void BreakpointViewTest::testUserRemovedBreakpoint()
+{
+    const QUrl url1 = QUrl(QStringLiteral("/file"));
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    bv->setBreakpoint(url1, 3, std::nullopt);
+    bv->setBreakpoint(url1, 4, std::nullopt);
+
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]file:3\n"
+                            "** [x]file:4\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+
+    {
+        const auto index = indexForString(bv->m_treeview->model(), "file:3");
+        QVERIFY(index.isValid());
+        QMenu menu;
+        bv->buildContextMenu(index, &menu);
+        auto a = getAction(menu, "Remove Breakpoint");
+        QVERIFY(a);
+        a->trigger();
+        QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                                "** [x]file:4\n"),
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
     }
 }
 

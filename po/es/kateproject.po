@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-11 00:48+0000\n"
+"POT-Creation-Date: 2025-12-13 00:47+0000\n"
 "PO-Revision-Date: 2025-11-10 02:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -1044,7 +1044,7 @@ msgstr "No se ha podido crear el directorio: %1"
 msgid "Unable to find directory: %1"
 msgstr "No se ha podido encontrar el directorio: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:729
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

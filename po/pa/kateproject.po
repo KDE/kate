@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-11 00:48+0000\n"
+"POT-Creation-Date: 2025-12-13 00:47+0000\n"
 "PO-Revision-Date: 2024-01-01 12:44-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -1048,7 +1048,7 @@ msgstr ""
 msgid "Unable to find directory: %1"
 msgstr ""
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:729
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

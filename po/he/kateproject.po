@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-11 00:48+0000\n"
+"POT-Creation-Date: 2025-12-13 00:47+0000\n"
 "PO-Revision-Date: 2025-11-09 08:24+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -1041,7 +1041,7 @@ msgstr "יצירת התיקייה נכשלה: %1"
 msgid "Unable to find directory: %1"
 msgstr "לא ניתן לאתר תיקייה: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:729
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

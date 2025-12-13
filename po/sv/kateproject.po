@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-11 00:48+0000\n"
+"POT-Creation-Date: 2025-12-13 00:47+0000\n"
 "PO-Revision-Date: 2025-08-01 09:28+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1039,7 +1039,7 @@ msgstr "Misslyckades skapa katalog: %1"
 msgid "Unable to find directory: %1"
 msgstr "Kan inte hitta katalog: %1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:729
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

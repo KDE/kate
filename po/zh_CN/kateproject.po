@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-11 00:48+0000\n"
+"POT-Creation-Date: 2025-12-13 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -1030,7 +1030,7 @@ msgstr "创建目录失败：%1"
 msgid "Unable to find directory: %1"
 msgstr "无法找到目录：%1"
 
-#: kateprojectworker.cpp:730
+#: kateprojectworker.cpp:729
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "
@@ -1121,9 +1121,3 @@ msgstr "显示储藏失败。错误："
 #, kde-format
 msgid "&Projects"
 msgstr "项目(&P)"
-
-#~ msgid "Delete File"
-#~ msgstr "删除文件"
-
-#~ msgid "Do you want to delete the file '%1'?"
-#~ msgstr "您想要删除文件“%1”吗？"

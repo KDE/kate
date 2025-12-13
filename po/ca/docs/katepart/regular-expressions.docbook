@@ -1066,7 +1066,7 @@ regulars de Perl, ni de <command
 > (cerca cap enrere positiva)</term>
 <listitem
 ><para
->La cerca cap enrere té el mateix efecte que l'anticipació, però funciona a l'inrevés.Una cerca capo enrere la part de la cadena anterior a una possible coincidència. La cerca cap enrere positiva només coincidirà amb una cadena si està precedida pel <emphasis
+>La cerca cap enrere té el mateix efecte que l'anticipació, però funciona a l'inrevés. Una cerca cap enrere cerca a la part de la cadena anterior a una possible coincidència. La cerca cap enrere positiva només coincidirà amb una cadena si està precedida pel <emphasis
 >PATRÓ</emphasis
 > de la declaració, i el text que coincideix amb aquest no serà inclòs en el resultat.</para>
 <para

@@ -68,10 +68,16 @@ KateProjectView::KateProjectView(KateProjectPluginView *pluginView, KateProject 
     // pluginView is not fully initialized at this point so delay it.
     QMetaObject::invokeMethod(this, &KateProjectView::checkAndRefreshGit, Qt::QueuedConnection);
 
+    m_projectReloadTimer.setInterval(1000);
+    m_projectReloadTimer.setSingleShot(true);
+    m_projectReloadTimer.callOnTimeout(this, [this] {
+        m_project->reload(true);
+    });
+
     connect(m_project, &KateProject::modelChanged, this, &KateProjectView::checkAndRefreshGit);
     connect(&m_pluginView->plugin()->fileWatcher(), &QFileSystemWatcher::fileChanged, this, [this](const QString &path) {
         if (m_branchChangedWatcherFile == path) {
-            m_project->reload(true);
+            m_projectReloadTimer.start();
         }
     });
 }

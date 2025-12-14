@@ -1304,10 +1304,13 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
             // We are moving from topLevel root to maybe some child node
             // We MUST move, otherwise if "root" was expanded, it will be collapsed if we did a remove + insert instead.
             // This is the reason for added complexity in insertItemInto
-            beginMoveRows(QModelIndex(), root->row(), root->row(), destParent, moveDest->childCount());
-            m_root->removeChild(root);
-            moveDest->addChild(root);
-            endMoveRows();
+            if (beginMoveRows(QModelIndex(), root->row(), root->row(), destParent, moveDest->childCount())) {
+                m_root->removeChild(root);
+                moveDest->addChild(root);
+                endMoveRows();
+            } else {
+                Q_ASSERT_X(false, Q_FUNC_INFO, "Failed to move row");
+            }
         }
     }
 

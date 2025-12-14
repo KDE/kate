@@ -447,31 +447,40 @@ void TargetModel::moveRowUp(const QModelIndex &itemIndex)
     QModelIndex parent = itemIndex.parent(); // This parent is valid for all the cases
 
     if (node.isRoot()) {
-        beginMoveRows(parent, row, row, parent, row - 1);
-        m_rootNodes.move(row, row - 1);
-        endMoveRows();
+        if (beginMoveRows(parent, row, row, parent, row - 1)) {
+            m_rootNodes.move(row, row - 1);
+            endMoveRows();
+        } else {
+            Q_ASSERT(false);
+        }
         return;
     }
 
     QList<TargetSet> &targetSets = m_rootNodes[node.rootRow].targetSets;
     if (node.isTargetSet()) {
         auto dir = m_rootNodes[node.rootRow].targetSets[row].projectBaseDir;
-        beginMoveRows(parent, row, row, parent, row - 1);
-        targetSets.move(row, row - 1);
-        endMoveRows();
-        if (m_rootNodes[node.rootRow].isProject) {
-            Q_EMIT projectTargetChanged(dir);
+        if (beginMoveRows(parent, row, row, parent, row - 1)) {
+            targetSets.move(row, row - 1);
+            endMoveRows();
+            if (m_rootNodes[node.rootRow].isProject) {
+                Q_EMIT projectTargetChanged(dir);
+            }
+        } else {
+            Q_ASSERT(false);
         }
         return;
     }
 
     // It is a command-row
-    QList<Command> &commands = targetSets[node.targetSetRow].commands;
-    beginMoveRows(parent, row, row, parent, row - 1);
-    commands.move(row, row - 1);
-    endMoveRows();
-    if (m_rootNodes[node.rootRow].isProject) {
-        Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
+    if (beginMoveRows(parent, row, row, parent, row - 1)) {
+        QList<Command> &commands = targetSets[node.targetSetRow].commands;
+        commands.move(row, row - 1);
+        endMoveRows();
+        if (m_rootNodes[node.rootRow].isProject) {
+            Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
+        }
+    } else {
+        Q_ASSERT(false);
     }
 }
 
@@ -494,31 +503,40 @@ void TargetModel::moveRowDown(const QModelIndex &itemIndex)
         if (row >= m_rootNodes.size() - 1) {
             return;
         }
-        beginMoveRows(parent, row, row, parent, row + 2);
-        m_rootNodes.move(row, row + 1);
-        endMoveRows();
+        if (beginMoveRows(parent, row, row, parent, row + 2)) {
+            m_rootNodes.move(row, row + 1);
+            endMoveRows();
+        } else {
+            Q_ASSERT(false);
+        }
         return;
     }
 
     QList<TargetSet> &targetSets = m_rootNodes[node.rootRow].targetSets;
     if (node.isTargetSet()) {
         QString dir = targetSets[row].projectBaseDir;
-        beginMoveRows(parent, row, row, parent, row + 2);
-        targetSets.move(row, row + 1);
-        endMoveRows();
-        if (m_rootNodes[node.rootRow].isProject) {
-            Q_EMIT projectTargetChanged(dir);
+        if (beginMoveRows(parent, row, row, parent, row + 2)) {
+            targetSets.move(row, row + 1);
+            endMoveRows();
+            if (m_rootNodes[node.rootRow].isProject) {
+                Q_EMIT projectTargetChanged(dir);
+            }
+        } else {
+            Q_ASSERT(false);
         }
         return;
     }
 
     // It is a command-row
     QList<Command> &commands = targetSets[node.targetSetRow].commands;
-    beginMoveRows(parent, row, row, parent, row + 2);
-    commands.move(row, row + 1);
-    endMoveRows();
-    if (m_rootNodes[node.rootRow].isProject) {
-        Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
+    if (beginMoveRows(parent, row, row, parent, row + 2)) {
+        commands.move(row, row + 1);
+        endMoveRows();
+        if (m_rootNodes[node.rootRow].isProject) {
+            Q_EMIT projectTargetChanged(targetSets[node.targetSetRow].projectBaseDir);
+        }
+    } else {
+        Q_ASSERT(false);
     }
 }
 

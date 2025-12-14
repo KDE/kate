@@ -184,9 +184,12 @@ void detail::TabswitcherFilesModel::raiseDocument(DocOrWidget document)
     // skip row 0, since row 0 is already correct
     for (int row = 1; row < rowCount(); ++row) {
         if (data_[row].document == document) {
-            beginMoveRows(QModelIndex(), row, row, QModelIndex(), 0);
-            std::rotate(data_.begin(), data_.begin() + row, data_.begin() + row + 1);
-            endMoveRows();
+            if (beginMoveRows(QModelIndex(), row, row, QModelIndex(), 0)) {
+                std::rotate(data_.begin(), data_.begin() + row, data_.begin() + row + 1);
+                endMoveRows();
+            } else {
+                Q_ASSERT_X(false, Q_FUNC_INFO, "Failed to move rows");
+            }
             break;
         }
     }

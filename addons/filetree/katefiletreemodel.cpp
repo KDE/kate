@@ -717,11 +717,21 @@ bool KateFileTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction, int 
         return false;
     }
 
+    if (index.row() + 1 == row) {
+        // beginMoveRows has crappy api. If you want to move items by +1 in the same parent,
+        // then the dest should actually be 1+destIdx. so source.row + 1 is bogus and will crash
+        return false;
+    }
+
     auto parentItem = parent.isValid() ? static_cast<ProxyItemDir *>(parent.internalPointer()) : m_root;
     std::vector<ProxyItem *> &childs = parentItem->children();
     int sourceRow = index.row();
 
-    beginMoveRows(index.parent(), index.row(), index.row(), parent, row);
+    auto result = beginMoveRows(index.parent(), index.row(), index.row(), parent, row);
+    if (!result) {
+        return false;
+    }
+
     childs.insert(childs.begin() + row, childs.at(index.row()));
     if (sourceRow > row) {
         sourceRow++;

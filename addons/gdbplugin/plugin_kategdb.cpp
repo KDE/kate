@@ -372,6 +372,7 @@ KatePluginGDBView::~KatePluginGDBView()
 void KatePluginGDBView::readSessionConfig(const KConfigGroup &config)
 {
     m_sessionConfig = DebugPluginSessionConfig::read(config);
+    m_breakpointView->readSessionConfig(config);
 }
 
 void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
@@ -383,6 +384,7 @@ void KatePluginGDBView::writeSessionConfig(KConfigGroup &config)
     } else {
         DebugPluginSessionConfig::write(config, m_sessionConfig);
     }
+    m_breakpointView->writeSessionConfig(config);
 }
 
 void KatePluginGDBView::slotDebug()

@@ -49,6 +49,9 @@ public:
 
     void onStoppedAtLine(const QUrl &url, int line);
 
+    void readSessionConfig(const KConfigGroup &config);
+    void writeSessionConfig(KConfigGroup &config);
+
 private:
     // This function is called when the user sets breakpoint by clicking View border
     void updateBreakpoints(const KTextEditor::Document *document, const KTextEditor::Mark mark);

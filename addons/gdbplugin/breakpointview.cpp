@@ -4,6 +4,7 @@
  */
 #include "breakpointview.h"
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -13,6 +14,8 @@
 #include <QAbstractTableModel>
 #include <QEvent>
 #include <QInputDialog>
+#include <QJsonArray>
+#include <QJsonDocument>
 #include <QLoggingCategory>
 #include <QMenu>
 #include <QMouseEvent>
@@ -113,6 +116,27 @@ struct FileBreakpoint {
     {
         return url == r.url && breakpoint == r.breakpoint && checkState == r.checkState;
     }
+
+    [[nodiscard]] QJsonObject toJson() const
+    {
+        QJsonObject ret;
+        ret[QLatin1String("url")] = url.toString();
+        ret[QLatin1String("breakpoint")] = sourceBreakpoint.toJson();
+        ret[QLatin1String("checkState")] = checkState == Qt::Checked;
+        return ret;
+    }
+
+    bool fromJson(const QJsonObject &object)
+    {
+        const auto url = QUrl(object[QLatin1String("url")].toString());
+        if (url.isValid()) {
+            this->url = url;
+            this->sourceBreakpoint = dap::SourceBreakpoint(object[QLatin1String("breakpoint")].toObject());
+            this->checkState = object[QLatin1String("checkState")].toBool() ? Qt::Checked : Qt::Unchecked;
+            return true;
+        }
+        return false;
+    }
 };
 
 struct FunctionBreakpoint {
@@ -124,6 +148,21 @@ struct FunctionBreakpoint {
     [[nodiscard]] bool isEnabled() const
     {
         return checkState == Qt::Checked;
+    }
+
+    [[nodiscard]] QJsonObject toJson() const
+    {
+        QJsonObject ret;
+        ret[QLatin1String("function")] = funcBreakpoint.toJson();
+        ret[QLatin1String("checkState")] = checkState == Qt::Checked;
+        return ret;
+    }
+
+    bool fromJson(const QJsonObject &object)
+    {
+        funcBreakpoint = dap::FunctionBreakpoint(object[QLatin1String("function")].toObject());
+        this->checkState = object[QLatin1String("checkState")].toBool() ? Qt::Checked : Qt::Unchecked;
+        return true;
     }
 };
 
@@ -1098,6 +1137,75 @@ public:
         }
     }
 
+    void readSessionConfig(const KConfigGroup &config)
+    {
+        // We write to an empty model
+        beginResetModel();
+
+        m_lineBreakpoints.clear();
+        m_exceptionBreakpoints.clear();
+        m_funcBreakpoints.clear();
+
+        {
+            const QByteArray lineBreakpointsJson = config.readEntry("LineBreakpoints", QByteArray());
+            QJsonParseError error;
+            QJsonDocument doc = QJsonDocument::fromJson(lineBreakpointsJson, &error);
+            if (error.error == QJsonParseError::NoError) {
+                const auto breakpointsArray = doc.array();
+                m_lineBreakpoints.reserve(breakpointsArray.size());
+
+                for (const auto &breakJson : breakpointsArray) {
+                    FileBreakpoint b;
+                    if (b.fromJson(breakJson.toObject())) {
+                        m_lineBreakpoints << b;
+                    }
+                }
+            }
+        }
+
+        {
+            const QByteArray funcBreakpointsJson = config.readEntry("FuncBreakpoints", QByteArray());
+            QJsonParseError error;
+            QJsonDocument doc = QJsonDocument::fromJson(funcBreakpointsJson, &error);
+            if (error.error == QJsonParseError::NoError) {
+                const auto breakpointsArray = doc.array();
+                m_funcBreakpoints.reserve(breakpointsArray.size());
+
+                for (const auto &breakJson : breakpointsArray) {
+                    FunctionBreakpoint b;
+                    if (b.fromJson(breakJson.toObject())) {
+                        m_funcBreakpoints << b;
+                    }
+                }
+            }
+        }
+
+        endResetModel();
+    }
+
+    void writeSessionConfig(KConfigGroup &config)
+    {
+        if (!m_lineBreakpoints.empty()) {
+            QJsonArray lineBreakpointsJson;
+            for (const auto &b : m_lineBreakpoints) {
+                lineBreakpointsJson.push_back(b.toJson());
+            }
+            config.writeEntry<QByteArray>("LineBreakpoints", QJsonDocument(lineBreakpointsJson).toJson(QJsonDocument::Compact));
+        } else {
+            config.deleteEntry("LineBreakpoints");
+        }
+
+        if (!m_funcBreakpoints.empty()) {
+            QJsonArray funcBreakpointsJson;
+            for (const auto &b : m_funcBreakpoints) {
+                funcBreakpointsJson.push_back(b.toJson());
+            }
+            config.writeEntry<QByteArray>("FuncBreakpoints", QJsonDocument(funcBreakpointsJson).toJson(QJsonDocument::Compact));
+        } else {
+            config.deleteEntry("FuncBreakpoints");
+        }
+    }
+
 Q_SIGNALS:
     /**
      * Breakpoint at file:line changed
@@ -1555,6 +1663,16 @@ QList<dap::FunctionBreakpoint> BreakpointView::allFunctionBreakpoints() const
 void BreakpointView::onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind kind)
 {
     m_breakpointModel->onBreakpointEvent(bp, kind);
+}
+
+void BreakpointView::readSessionConfig(const KConfigGroup &config)
+{
+    m_breakpointModel->readSessionConfig(config);
+}
+
+void BreakpointView::writeSessionConfig(KConfigGroup &config)
+{
+    m_breakpointModel->writeSessionConfig(config);
 }
 
 #include "breakpointview.moc"

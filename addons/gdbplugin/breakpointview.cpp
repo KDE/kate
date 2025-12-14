@@ -408,11 +408,11 @@ public:
                     return m_lineBreakpoints[row].checkState;
                 }
 
-                if (role == Qt::ToolTipRole) {
-                    if (col == Column0) {
-                        if (item && item->source.has_value()) {
-                            return item->source.value().path.toDisplayString();
-                        }
+                if (role == Qt::ToolTipRole && col == Column0) {
+                    if (item && item->source.has_value()) {
+                        return item->source.value().path.toDisplayString(QUrl::PreferLocalFile);
+                    } else {
+                        return m_lineBreakpoints[row].url.toDisplayString(QUrl::PreferLocalFile);
                     }
                 }
             } else if (rootIndex == FunctionBreakpointItem) {

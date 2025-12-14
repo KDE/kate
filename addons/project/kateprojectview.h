@@ -103,4 +103,9 @@ private:
      * filter timer
      */
     QTimer m_filterStartTimer;
+
+    /**
+     * project reload debouncing timer
+     */
+    QTimer m_projectReloadTimer;
 };

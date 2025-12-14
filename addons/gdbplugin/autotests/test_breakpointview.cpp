@@ -299,6 +299,8 @@ void BreakpointViewTest::testLineBreakpointsBasic()
                                 "** [x]file:4\n"),
                  stringifyLineBreakpoints(bv->m_treeview->model()));
 
+        QCOMPARE(bv->m_treeview->isExpanded(bv->m_treeview->model()->index(0, 0)), true);
+
         // uncheck second breakpoint
         const auto lineBreakpointParent = bv->m_treeview->model()->index(0, 0, {});
         bv->m_treeview->model()->setData(bv->m_treeview->model()->index(1, 0, lineBreakpointParent), QVariant(Qt::Unchecked), Qt::CheckStateRole);

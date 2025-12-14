@@ -1238,6 +1238,12 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
     connect(m_breakpointModel, &BreakpointModel::exceptionBreakpointsChanged, this, &BreakpointView::onExceptionBreakpointsChanged);
     connect(m_breakpointModel, &BreakpointModel::lineBreakpointRemoveRequested, this, &BreakpointView::onRemoveBreakpointRequested);
 
+    connect(m_breakpointModel, &QAbstractItemModel::rowsInserted, this, [this](const QModelIndex &parent) {
+        if (parent.isValid() && m_breakpointModel->rowCount(parent) > 0 && !m_treeview->isExpanded(parent)) {
+            m_treeview->expand(parent);
+        }
+    });
+
     const auto documents = KTextEditor::Editor::instance()->application()->documents();
     for (auto doc : documents) {
         enableBreakpointMarks(doc);

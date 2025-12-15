@@ -216,6 +216,7 @@ private Q_SLOTS:
     void testBreakpointsGetAddedToDocOnViewCreation();
     void testRunToCursor();
     void testFunctionBreakpoints();
+    void testFunctionBreakpointUncheckCheck();
     void testUserRemovedBreakpoint();
 
 private:
@@ -618,6 +619,12 @@ void BreakpointViewTest::testFunctionBreakpoints()
                             "** [x]func1 (0xffee2211) [verified]\n"),
              stringifyFuncBreakpoints(bv->m_treeview->model()));
 
+    // try add it again, no change
+    bv->addFunctionBreakpoint(QStringLiteral("func1"));
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
     bv->addFunctionBreakpoint(QStringLiteral("func2"));
     QCOMPARE(QStringLiteral("* Function Breakpoints\n"
                             "** [x]func1 (0xffee2211) [verified]\n"
@@ -655,6 +662,63 @@ void BreakpointViewTest::testFunctionBreakpoints()
         a->trigger();
         QCOMPARE(QStringLiteral("* Function Breakpoints\n"), stringifyFuncBreakpoints(bv->m_treeview->model()));
     }
+}
+
+void BreakpointViewTest::testFunctionBreakpointUncheckCheck()
+{
+    auto backend = std::make_unique<BreakpointBackend>();
+    backend->isRunning = true;
+    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
+    auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
+
+    bv->addFunctionBreakpoint(QStringLiteral("func1"));
+    bv->addFunctionBreakpoint(QStringLiteral("func2"));
+    bv->addFunctionBreakpoint(QStringLiteral("func3"));
+    bv->addFunctionBreakpoint(QStringLiteral("func4"));
+
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"
+                            "** [x]func2 (0xffee2211) [verified]\n"
+                            "** [x]func3 (0xffee2211) [verified]\n"
+                            "** [x]func4 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    auto index = indexForString(bv->m_treeview->model(), "func4 (0xffee2211) [verified]");
+    QVERIFY(index.isValid());
+    bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** []func4 (0xffee2211) [verified]\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"
+                            "** [x]func2 (0xffee2211) [verified]\n"
+                            "** [x]func3 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    index = indexForString(bv->m_treeview->model(), "func2 (0xffee2211) [verified]");
+    QVERIFY(index.isValid());
+    bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+
+    index = indexForString(bv->m_treeview->model(), "func3 (0xffee2211) [verified]");
+    QVERIFY(index.isValid());
+    bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** []func4 (0xffee2211) [verified]\n"
+                            "** []func2 (0xffee2211) [verified]\n"
+                            "** []func3 (0xffee2211) [verified]\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
+
+    index = indexForString(bv->m_treeview->model(), "func2 (0xffee2211) [verified]");
+    QVERIFY(index.isValid());
+    bv->m_treeview->model()->setData(index, Qt::Checked, Qt::CheckStateRole);
+
+    QCOMPARE(QStringLiteral("* Function Breakpoints\n"
+                            "** []func4 (0xffee2211) [verified]\n"
+                            "** []func3 (0xffee2211) [verified]\n"
+                            "** [x]func2 (0xffee2211) [verified]\n"
+                            "** [x]func1 (0xffee2211) [verified]\n"),
+             stringifyFuncBreakpoints(bv->m_treeview->model()));
 }
 
 void BreakpointViewTest::testUserRemovedBreakpoint()

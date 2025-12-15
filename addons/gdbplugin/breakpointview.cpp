@@ -483,7 +483,7 @@ public:
                     auto &bp = m_funcBreakpoints[index.row()];
                     bp.checkState = value.value<Qt::CheckState>();
                     Q_EMIT dataChanged(index, index, {role});
-                    Q_EMIT functionBreakpointEnabledChanged(bp.funcBreakpoint.function, bp.isEnabled());
+                    Q_EMIT functionBreakpointEnabledChanged();
                     return true;
                 }
             } else if (index.internalId() == ExceptionBreakpointItem) {
@@ -969,7 +969,7 @@ public:
         if (isTopLevel) {
             if (index.row() == FunctionBreakpointItem) {
                 auto a = new QAction(i18n("Add Function Breakpoint…"));
-                connect(a, &QAction::triggered, this, &BreakpointModel::addFunctionBreakpoint);
+                connect(a, &QAction::triggered, this, &BreakpointModel::addFunctionBreakpointRequested);
                 ret << a;
 
                 a = new QAction(i18n("Clear All Function Breakpoints"));
@@ -992,33 +992,25 @@ public:
         return ret;
     }
 
-    [[nodiscard]] QList<dap::FunctionBreakpoint> toggleFunctionBreakpoint(const QString &function, std::optional<bool> breakpointEnabledChange)
+    [[nodiscard]] bool addFunctionBreakpoint(const QString &function)
     {
-        if (breakpointEnabledChange) {
-            return functionBreakpoints();
-        }
-
         auto it = std::find_if(m_funcBreakpoints.begin(), m_funcBreakpoints.end(), [&function](const FunctionBreakpoint &b) {
             return b.funcBreakpoint.function == function;
         });
 
-        const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
-        const auto pos = it == m_funcBreakpoints.end() ? m_funcBreakpoints.size() : std::distance(m_funcBreakpoints.begin(), it);
-
         if (it == m_funcBreakpoints.end()) {
+            const auto parent = index(FunctionBreakpointItem, 0, QModelIndex());
+            const auto pos = m_funcBreakpoints.size();
             beginInsertRows(parent, pos, pos);
             m_funcBreakpoints.push_back(FunctionBreakpoint{
                 .funcBreakpoint = dap::FunctionBreakpoint(function),
                 .breakpoint = std::nullopt,
             });
             endInsertRows();
-        } else {
-            beginRemoveRows(parent, pos, pos);
-            m_funcBreakpoints.remove(pos);
-            endRemoveRows();
+            return true;
         }
 
-        return functionBreakpoints();
+        return false;
     }
 
     void onFunctionBreakpointsSet(const QList<dap::FunctionBreakpoint> &requestedBreakpoints, const QList<dap::Breakpoint> &response)
@@ -1213,9 +1205,9 @@ Q_SIGNALS:
      */
     void breakpointChanged(const QUrl &url, std::optional<int> oldline, int line, BackendInterface::BreakpointEventKind);
     void breakpointEnabledChanged(const QUrl &url, int line, bool enabled);
-    void addFunctionBreakpoint();
+    void addFunctionBreakpointRequested();
     void clearAllFunctionBreakpointsRequested();
-    void functionBreakpointEnabledChanged(const QString &function, bool enabled);
+    void functionBreakpointEnabledChanged();
     void exceptionBreakpointsChanged();
     void functionBreakpointRemoved();
     void lineBreakpointRemoveRequested(const QUrl &url, int line);
@@ -1326,16 +1318,15 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
         setBreakpoint(url, line, enabled);
     });
 
-    connect(m_breakpointModel, &BreakpointModel::addFunctionBreakpoint, this, &BreakpointView::onAddFunctionBreakpoint);
+    connect(m_breakpointModel, &BreakpointModel::addFunctionBreakpointRequested, this, &BreakpointView::onAddFunctionBreakpoint);
     connect(m_breakpointModel, &BreakpointModel::clearAllFunctionBreakpointsRequested, this, [this] {
         if (m_backend->debuggerRunning()) {
             m_backend->setFunctionBreakpoints({});
         }
     });
-    connect(m_breakpointModel, &BreakpointModel::functionBreakpointEnabledChanged, this, [this](const QString &function, bool isEnabled) {
-        auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, isEnabled);
+    connect(m_breakpointModel, &BreakpointModel::functionBreakpointEnabledChanged, this, [this] {
         if (m_backend->debuggerRunning()) {
-            m_backend->setFunctionBreakpoints(breakpoints);
+            m_backend->setFunctionBreakpoints(m_breakpointModel->functionBreakpoints());
         }
     });
     connect(m_breakpointModel, &BreakpointModel::functionBreakpointRemoved, this, [this]() {
@@ -1637,9 +1628,11 @@ void BreakpointView::onAddFunctionBreakpoint()
 void BreakpointView::addFunctionBreakpoint(const QString &function)
 {
     Q_ASSERT(!function.isEmpty());
-    auto breakpoints = m_breakpointModel->toggleFunctionBreakpoint(function, std::nullopt);
+    if (!m_breakpointModel->addFunctionBreakpoint(function)) {
+        return;
+    }
     if (m_backend->debuggerRunning()) {
-        m_backend->setFunctionBreakpoints(breakpoints);
+        m_backend->setFunctionBreakpoints(m_breakpointModel->functionBreakpoints());
     }
 }
 

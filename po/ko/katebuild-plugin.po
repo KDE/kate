@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-15 00:45+0000\n"
 "PO-Revision-Date: 2025-10-09 00:28+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -459,27 +459,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "대상 설정"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
 msgstr "프로젝트"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
 msgstr "세션"
 
-#: TargetModel.cpp:660
+#: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "명령/대상 집합 이름"
 
-#: TargetModel.cpp:663
+#: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "빌드 명령/작업 디렉터리"
 
-#: TargetModel.cpp:666
+#: TargetModel.cpp:684
 #, kde-format
 msgid "Run Command"
 msgstr "실행 명령"

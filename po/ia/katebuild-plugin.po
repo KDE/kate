@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-15 00:45+0000\n"
 "PO-Revision-Date: 2025-09-02 18:04+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -475,27 +475,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "Insimul de Objectivo"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
 msgstr "Projectos"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
 msgstr "Session"
 
-#: TargetModel.cpp:660
+#: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Nomine de Commando/Insimul de objectivo"
 
-#: TargetModel.cpp:663
+#: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "Commando a contruer/Directorio de travalio"
 
-#: TargetModel.cpp:666
+#: TargetModel.cpp:684
 #, kde-format
 msgid "Run Command"
 msgstr "Executa commando"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-15 00:45+0000\n"
 "PO-Revision-Date: 2014-02-08 10:06+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bosanski <bs@li.org>\n"
@@ -468,27 +468,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "Skup odredišta"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
 msgstr ""
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
 msgstr ""
 
-#: TargetModel.cpp:660
+#: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr ""
 
-#: TargetModel.cpp:663
+#: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr ""
 
-#: TargetModel.cpp:666
+#: TargetModel.cpp:684
 #, fuzzy, kde-format
 #| msgid "Command:"
 msgid "Run Command"

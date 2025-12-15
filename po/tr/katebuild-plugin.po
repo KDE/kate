@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-15 00:45+0000\n"
 "PO-Revision-Date: 2025-08-27 09:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -463,27 +463,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "Hedef Kümesi"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
 msgstr "Projeler"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
 msgstr "Oturum"
 
-#: TargetModel.cpp:660
+#: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "Komut/Hedef Kümesi Adı"
 
-#: TargetModel.cpp:663
+#: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "Yapı Komutu/Çalışma Dizini"
 
-#: TargetModel.cpp:666
+#: TargetModel.cpp:684
 #, kde-format
 msgid "Run Command"
 msgstr "Komutu Çalıştır"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-15 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -444,27 +444,27 @@ msgstr ""
 msgid "Target Set"
 msgstr "目标集"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Projects"
 msgstr "项目"
 
-#: TargetModel.cpp:548
+#: TargetModel.cpp:566
 #, kde-format
 msgid "Session"
 msgstr "会话"
 
-#: TargetModel.cpp:660
+#: TargetModel.cpp:678
 #, kde-format
 msgid "Command/Target-set Name"
 msgstr "命令/目标集名称"
 
-#: TargetModel.cpp:663
+#: TargetModel.cpp:681
 #, kde-format
 msgid "Build Command / Working Directory"
 msgstr "构建命令 / 工作目录"
 
-#: TargetModel.cpp:666
+#: TargetModel.cpp:684
 #, kde-format
 msgid "Run Command"
 msgstr "运行命令"

@@ -535,13 +535,13 @@ public:
         return toSourceBreakpoints(breakpoints);
     }
 
-    [[nodiscard]] QList<dap::SourceBreakpoint> toggleBreakpoint(const QUrl &url, int line, bool isOneShot, std::optional<bool> breakpointEnabledChange)
+    [[nodiscard]] QList<dap::SourceBreakpoint>
+    toggleBreakpoint(const QUrl &url, const dap::SourceBreakpoint &bp, bool isOneShot, std::optional<bool> breakpointEnabledChange)
     {
         if (breakpointEnabledChange) {
             return sourceBreakpointsForPath(url);
         }
 
-        auto bp = dap::SourceBreakpoint(line);
         auto existing = getFileBreakpoints(url);
         auto it = std::lower_bound(existing.begin(), existing.end(), bp, [](const FileBreakpoint &l, const dap::SourceBreakpoint &val) {
             return l.line() < val.line;
@@ -550,7 +550,7 @@ public:
         const auto pos = fileStart + static_cast<int>(std::distance(existing.begin(), it));
 
         const auto parent = index(LineBreakpointsItem, 0, QModelIndex());
-        if (it == existing.end() || it->line() != line) {
+        if (it == existing.end() || it->line() != bp.line) {
             beginInsertRows(parent, pos, pos);
             m_lineBreakpoints.insert(pos,
                                      FileBreakpoint{
@@ -592,7 +592,7 @@ public:
         std::pmr::vector<FileBreakpoint> newBreakpoints(&allocator);
         newBreakpoints.reserve(newDapBreakpoints.size());
         for (auto &&b : newDapBreakpoints) {
-            newBreakpoints.push_back(FileBreakpoint{.url = url, .sourceBreakpoint = {INT_MAX}, .breakpoint = std::move(b)});
+            newBreakpoints.push_back(FileBreakpoint{.url = url, .sourceBreakpoint = dap::SourceBreakpoint{INT_MAX}, .breakpoint = std::move(b)});
         }
 
         auto sortedUniqueInsert = [&newBreakpoints](const FileBreakpoint &b) {
@@ -1313,7 +1313,7 @@ BreakpointView::BreakpointView(KTextEditor::MainWindow *mainWindow, BackendInter
             }
             connect(doc, &KTextEditor::Document::markChanged, this, &BreakpointView::updateBreakpoints, Qt::UniqueConnection);
         }
-        setBreakpoint(url, line, enabled);
+        setBreakpoint(url, dap::SourceBreakpoint(line), enabled);
     });
 
     connect(m_breakpointModel, &BreakpointModel::addFunctionBreakpointRequested, this, &BreakpointView::onAddFunctionBreakpoint);
@@ -1369,7 +1369,7 @@ void BreakpointView::toggleBreakpoint()
         }
 
         int line = editView->cursorPosition().line() + 1;
-        setBreakpoint(currURL, line, {});
+        setBreakpoint(currURL, dap::SourceBreakpoint(line), {});
         addOrRemoveDocumentBreakpointMark(currURL, line, m_breakpointModel->hasBreakpointAtLine(currURL, line));
     }
 }
@@ -1461,7 +1461,7 @@ void BreakpointView::onStoppedAtLine(const QUrl &url, int line)
 {
     Q_ASSERT(m_backend->canContinue());
     if (m_breakpointModel->hasSingleShotBreakpointAtLine(url, line)) {
-        setBreakpoint(url, line, std::nullopt);
+        setBreakpoint(url, dap::SourceBreakpoint(line), std::nullopt);
     }
 }
 
@@ -1475,13 +1475,13 @@ void BreakpointView::updateBreakpoints(const KTextEditor::Document *document, co
         if (m_backend->debuggerRunning() && !m_backend->canContinue()) {
             m_backend->slotInterrupt();
         }
-        setBreakpoint(document->url(), mark.line + 1, {});
+        setBreakpoint(document->url(), dap::SourceBreakpoint(mark.line + 1), {});
     }
 }
 
-void BreakpointView::setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange, bool isOneShot)
+void BreakpointView::setBreakpoint(const QUrl &file, const dap::SourceBreakpoint &bp, std::optional<bool> enabledStateChange, bool isOneShot)
 {
-    auto breakpoints = m_breakpointModel->toggleBreakpoint(file, line, isOneShot, enabledStateChange);
+    auto breakpoints = m_breakpointModel->toggleBreakpoint(file, bp, isOneShot, enabledStateChange);
     if (m_backend->debuggerRunning()) {
         m_backend->setBreakpoints(file, breakpoints);
     }
@@ -1529,7 +1529,7 @@ void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
         return n.line == line;
     });
     if (it != existing.end()) {
-        setBreakpoint(url, line, {});
+        setBreakpoint(url, dap::SourceBreakpoint(line), {});
         addOrRemoveDocumentBreakpointMark(url, line, /*add=*/false);
     } else {
         const auto fileBreakpoints = m_breakpointModel->getFileBreakpoints(url);
@@ -1539,7 +1539,7 @@ void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
         // either we don't find the breakpoint or it is disabled
         if (it != fileBreakpoints.end() && !it->isEnabled()) {
             // ignore the return value, this was a disabled breakpoint we don't need to update the backend
-            std::ignore = m_breakpointModel->toggleBreakpoint(url, line, false, {});
+            std::ignore = m_breakpointModel->toggleBreakpoint(url, dap::SourceBreakpoint(line), false, {});
         }
     }
 }
@@ -1547,15 +1547,14 @@ void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
 void BreakpointView::onAddBreakpointRequested(const QUrl &url, const dap::SourceBreakpoint &breakpoint)
 {
     auto existing = m_breakpointModel->sourceBreakpointsForPath(url);
-    const auto line = breakpoint.line;
-    auto it = std::find_if(existing.begin(), existing.end(), [line](const dap::SourceBreakpoint &n) {
+    auto it = std::find_if(existing.begin(), existing.end(), [line = breakpoint.line](const dap::SourceBreakpoint &n) {
         return n.line == line;
     });
     if (it == existing.end()) {
-        setBreakpoint(url, line, {});
-        addOrRemoveDocumentBreakpointMark(url, line, /*add=*/true);
+        setBreakpoint(url, breakpoint, {});
+        addOrRemoveDocumentBreakpointMark(url, breakpoint.line, /*add=*/true);
     } else {
-        Q_EMIT m_backend->outputError(i18n("line %1 already has a breakpoint", line));
+        Q_EMIT m_backend->outputError(i18n("line %1 already has a breakpoint", breakpoint.line));
     }
 }
 
@@ -1572,7 +1571,7 @@ void BreakpointView::onListBreakpointsRequested()
 
 void BreakpointView::runToPosition(const QUrl &url, int line)
 {
-    setBreakpoint(url, line, std::nullopt, /*isOneShot=*/true);
+    setBreakpoint(url, dap::SourceBreakpoint(line), std::nullopt, /*isOneShot=*/true);
     if (m_backend->canContinue()) {
         m_backend->slotContinue();
     }

@@ -179,7 +179,7 @@ struct SourceBreakpoint {
 
     SourceBreakpoint() = default;
     SourceBreakpoint(const QJsonObject &body);
-    SourceBreakpoint(const int line);
+    explicit SourceBreakpoint(const int line);
 
     QJsonObject toJson() const;
 };

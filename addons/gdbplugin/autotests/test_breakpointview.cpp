@@ -293,8 +293,8 @@ void BreakpointViewTest::testLineBreakpointsBasic()
 
         auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-        bv->setBreakpoint(QUrl(QStringLiteral("/file")), 3, std::nullopt);
-        bv->setBreakpoint(QUrl(QStringLiteral("/file")), 4, std::nullopt);
+        bv->setBreakpoint(QUrl(QStringLiteral("/file")), dap::SourceBreakpoint(3), std::nullopt);
+        bv->setBreakpoint(QUrl(QStringLiteral("/file")), dap::SourceBreakpoint(4), std::nullopt);
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:3\n"
                                 "** [x]file:4\n"),
@@ -316,7 +316,7 @@ void BreakpointViewTest::testLineBreakpointsBasic()
         QCOMPARE(fileBreaks.constFirst().line, 3);
 
         // add a breakpoint at line 2, expect it to be at the top as breakpoints are sorted by line
-        bv->setBreakpoint(QUrl(QStringLiteral("/file")), 2, std::nullopt);
+        bv->setBreakpoint(QUrl(QStringLiteral("/file")), dap::SourceBreakpoint(2), std::nullopt);
 
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:2\n"
@@ -325,7 +325,7 @@ void BreakpointViewTest::testLineBreakpointsBasic()
                  stringifyLineBreakpoints(bv->m_treeview->model()));
 
         // Remove breakpoint
-        bv->setBreakpoint(QUrl(QStringLiteral("/file")), 3, std::nullopt);
+        bv->setBreakpoint(QUrl(QStringLiteral("/file")), dap::SourceBreakpoint(3), std::nullopt);
         QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                                 "** [x]file:2\n"
                                 "** []file:4\n"),
@@ -359,8 +359,8 @@ void BreakpointViewTest::testBreakpointChangedEvent()
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    bv->setBreakpoint(url1, 3, std::nullopt);
-    bv->setBreakpoint(url1, 4, std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(4), std::nullopt);
 
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:3\n"
@@ -396,8 +396,8 @@ void BreakpointViewTest::testBreakpointRemovedEvent()
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    bv->setBreakpoint(url1, 3, std::nullopt);
-    bv->setBreakpoint(url1, 4, std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(4), std::nullopt);
 
     Q_EMIT backend->breakpointEvent(backend->breakpoints[url1].front(), BackendInterface::Removed);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
@@ -412,8 +412,8 @@ void BreakpointViewTest::testBreakpointNewEvent()
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    bv->setBreakpoint(url1, 3, std::nullopt);
-    bv->setBreakpoint(url1, 4, std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(4), std::nullopt);
 
     dap::Breakpoint brk{1};
     brk.id = backend->idCounter++;
@@ -511,7 +511,7 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
     const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
     auto doc = createDocument(url);
 
-    backend->addBreakpointRequested(url, 1);
+    backend->addBreakpointRequested(url, dap::SourceBreakpoint(1));
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:1\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
@@ -522,13 +522,13 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
     connect(backend.get(), &BackendInterface::outputError, this, [&err](const QString &s) {
         err = s;
     });
-    backend->addBreakpointRequested(url, 1);
+    backend->addBreakpointRequested(url, dap::SourceBreakpoint(1));
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:1\n"),
              stringifyLineBreakpoints(bv->m_treeview->model()));
     QCOMPARE(err, QStringLiteral("line 1 already has a breakpoint"));
 
-    backend->addBreakpointRequested(url, 2);
+    backend->addBreakpointRequested(url, dap::SourceBreakpoint(2));
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:1\n"
                             "** [x]kateui.rc:2\n"),
@@ -554,11 +554,11 @@ void BreakpointViewTest::testListBreakpointsRequested()
     const QUrl url1(QStringLiteral("/file"));
     const QUrl url2(QStringLiteral("/file2"));
 
-    bv->setBreakpoint(url1, 3, std::nullopt);
-    bv->setBreakpoint(url1, 4, std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(4), std::nullopt);
 
-    bv->setBreakpoint(url2, 3, std::nullopt);
-    bv->setBreakpoint(url2, 8, std::nullopt);
+    bv->setBreakpoint(url2, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url2, dap::SourceBreakpoint(8), std::nullopt);
 
     QString out;
     connect(backend.get(), &BackendInterface::outputText, backend.get(), [&out](const QString &text) {
@@ -580,8 +580,8 @@ void BreakpointViewTest::testBreakpointsGetAddedToDocOnViewCreation()
     const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    bv->setBreakpoint(url, 3, std::nullopt);
-    bv->setBreakpoint(url, 4, std::nullopt);
+    bv->setBreakpoint(url, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url, dap::SourceBreakpoint(4), std::nullopt);
 
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:3\n"
@@ -739,8 +739,8 @@ void BreakpointViewTest::testUserRemovedBreakpoint()
     backend->isRunning = true;
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
-    bv->setBreakpoint(url1, 3, std::nullopt);
-    bv->setBreakpoint(url1, 4, std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(3), std::nullopt);
+    bv->setBreakpoint(url1, dap::SourceBreakpoint(4), std::nullopt);
 
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]file:3\n"

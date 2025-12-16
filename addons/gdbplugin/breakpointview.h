@@ -63,7 +63,7 @@ private:
      * \p line where to toggle breakpoint
      * \p enabledStateChange whether enabled state of a breakpoint changed i.e., it was checked/unchecked
      */
-    void setBreakpoint(const QUrl &file, int line, std::optional<bool> enabledStateChange, bool isOneShot = false);
+    void setBreakpoint(const QUrl &file, const dap::SourceBreakpoint &bp, std::optional<bool> enabledStateChange, bool isOneShot = false);
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind);
     void enableBreakpointMarks(KTextEditor::Document *doc);
 

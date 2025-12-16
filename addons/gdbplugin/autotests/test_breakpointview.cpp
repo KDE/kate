@@ -517,6 +517,17 @@ void BreakpointViewTest::testAddRemoveBreakpointRequested()
              stringifyLineBreakpoints(bv->m_treeview->model()));
     QVERIFY((doc->mark(0) & KTextEditor::Document::BreakpointActive) != 0);
 
+    // try to breakpoint same line again
+    QString err;
+    connect(backend.get(), &BackendInterface::outputError, this, [&err](const QString &s) {
+        err = s;
+    });
+    backend->addBreakpointRequested(url, 1);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** [x]kateui.rc:1\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+    QCOMPARE(err, QStringLiteral("line 1 already has a breakpoint"));
+
     backend->addBreakpointRequested(url, 2);
     QCOMPARE(QStringLiteral("* Line Breakpoints\n"
                             "** [x]kateui.rc:1\n"

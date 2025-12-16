@@ -1554,6 +1554,8 @@ void BreakpointView::onAddBreakpointRequested(const QUrl &url, const dap::Source
     if (it == existing.end()) {
         setBreakpoint(url, line, {});
         addOrRemoveDocumentBreakpointMark(url, line, /*add=*/true);
+    } else {
+        Q_EMIT m_backend->outputError(i18n("line %1 already has a breakpoint", line));
     }
 }
 

@@ -390,18 +390,16 @@ public:
                 }
                 const auto &item = m_lineBreakpoints[row].breakpoint;
 
-                if (role == Qt::DisplayRole) {
-                    if (col == Column0) {
-                        if (item && item->source.has_value()) {
-                            QString name = item->source.value().name;
-                            if (item->line.has_value()) {
-                                return QStringLiteral("%1:%2").arg(name).arg(item->line.value());
-                            }
-                            return QStringLiteral("%1:??").arg(name);
-                        } else {
-                            return QStringLiteral("%1:%2").arg(m_lineBreakpoints[row].url.fileName()).arg(m_lineBreakpoints[row].sourceBreakpoint.line);
-                        }
+                if (role == Qt::DisplayRole && col == Column0) {
+                    QString fileName;
+                    if (item && item->source.has_value()) {
+                        fileName = item->source.value().name;
                     }
+                    if (fileName.isEmpty()) {
+                        fileName = m_lineBreakpoints[row].url.fileName();
+                    }
+                    const int line = m_lineBreakpoints[row].line();
+                    return QStringLiteral("%1:%2").arg(fileName).arg(line);
                 }
 
                 if (role == Qt::CheckStateRole) {

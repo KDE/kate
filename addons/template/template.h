@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QWidget>
+#include <QModelIndex>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -101,8 +102,11 @@ private:
 
     void selectFolder();
 
+    void exportTemplate();
+
     Ui::Template *ui;
     QPushButton *m_createButton;
+    QPushButton *m_exportButton;
     AbstractDataModel m_selectionModel;
     AbstractDataModel m_configModel;
     QString m_fileToOpen;

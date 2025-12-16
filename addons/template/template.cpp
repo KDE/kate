@@ -5,6 +5,7 @@
 #include "ui_template.h"
 
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QDebug>
 #include <QDir>
@@ -117,10 +118,17 @@ Template::Template(QWidget *parent)
     ui->setupUi(this);
     m_createButton = new QPushButton(i18n("Create"));
     m_createButton->setEnabled(false);
-    ui->u_buttonBox->addButton(m_createButton, QDialogButtonBox::AcceptRole);
+    
+    ui->u_buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
+    m_createButton->setDefault(true); 
+
+    m_exportButton = new QPushButton(i18n("Export"));
+    m_exportButton->setEnabled(false);
+    ui->u_buttonBox->addButton(m_exportButton, QDialogButtonBox::ActionRole);
 
     connect(m_createButton, &QPushButton::clicked, this, &Template::createFromTemplate);
     connect(ui->u_buttonBox, &QDialogButtonBox::rejected, this, &Template::cancel);
+    connect(m_exportButton, &QPushButton::clicked, this, &Template::exportTemplate);
 
     ui->u_templateTree->setHeaderHidden(true);
     ui->u_templateTree->setModel(&m_selectionModel);
@@ -147,6 +155,7 @@ Template::Template(QWidget *parent)
 #ifdef BUILD_APPWIZARD
     addAppWizardTemplates();
 #endif
+
 }
 
 Template::~Template()
@@ -343,6 +352,9 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
     ui->u_detailsTB->setText(QString());
     ui->u_configWidget->setEnabled(false);
 
+    m_exportButton->setEnabled(false);
+    m_createButton->setEnabled(false);
+
     QString path = newIndex.data(TreeData::PathRole).toString();
     QString config = newIndex.data(TreeData::ConfigJsonRole).toString();
 
@@ -358,7 +370,6 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
 #endif
 
     QByteArray configJson;
-
     ui->u_lowercaseCheckBox->setEnabled(true);
 
     QFile in(path + '/'_L1 + config);
@@ -396,6 +407,9 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
     ui->u_configTreeView->resizeColumnToContents(0);
     ui->u_configTreeView->resizeColumnToContents(1);
     ui->u_configWidget->setEnabled(true);
+
+    m_exportButton->setEnabled(true);
+    checkIfConfigIsReady();
 }
 
 void Template::checkIfConfigIsReady()
@@ -558,7 +572,56 @@ void Template::createFromAppWizardTemplate(const QString &category)
     }
     Q_EMIT done(fileToOpen);
 }
-
 #endif
+
+void Template::exportTemplate()
+{
+    const QModelIndex index = ui->u_templateTree->currentIndex();
+    if (!index.isValid()) {
+        return;
+    }
+
+    const QString sourcePath = index.data(TreeData::PathRole).toString();
+    if (sourcePath.isEmpty()) {
+        KMessageBox::error(this, i18n("Could not retrieve template path."));
+        return;
+    }
+
+    const QString destDir = QFileDialog::getExistingDirectory(this, i18n("Export Template To"), QDir::homePath());
+    if (destDir.isEmpty()) {
+        return;
+    }
+
+    const QString fileName = QFileInfo(sourcePath).fileName();
+    const QString finalDest = QDir(destDir).filePath(fileName);
+
+    if (QFileInfo::exists(finalDest)) {
+        QFileInfo destInfo(finalDest);
+        QString typeStr;
+
+        if (destInfo.isDir()) {
+            typeStr = i18n("folder");
+        } else {
+            typeStr = i18n("file");
+        }
+
+        KMessageBox::error(
+            this,
+            i18n("The %1 '%2' already exists in the destination.\nExport failed.", typeStr, fileName),
+            i18n("Export Failed") 
+        );
+    
+        return;
+    }
+
+    QDir().mkpath(finalDest);
+    bool success = copyFolder(sourcePath, finalDest, ReplaceMap(), ReplaceMap(), QStringList());
+
+    if (success) {
+        KMessageBox::information(this, i18n("Template exported successfully to:\n%1", finalDest));
+    } else {
+        KMessageBox::error(this, i18n("Failed to export template."));
+    }
+}
 
 #include "moc_template.cpp"

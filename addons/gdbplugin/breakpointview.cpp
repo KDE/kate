@@ -1533,6 +1533,16 @@ void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
     if (it != existing.end()) {
         setBreakpoint(url, line, {});
         addOrRemoveDocumentBreakpointMark(url, line, /*add=*/false);
+    } else {
+        const auto fileBreakpoints = m_breakpointModel->getFileBreakpoints(url);
+        auto it = std::find_if(fileBreakpoints.begin(), fileBreakpoints.end(), [line](const FileBreakpoint &n) {
+            return n.line() == line;
+        });
+        // either we don't find the breakpoint or it is disabled
+        if (it != fileBreakpoints.end() && !it->isEnabled()) {
+            // ignore the return value, this was a disabled breakpoint we don't need to update the backend
+            std::ignore = m_breakpointModel->toggleBreakpoint(url, line, false, {});
+        }
     }
 }
 

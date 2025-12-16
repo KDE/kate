@@ -748,6 +748,24 @@ void BreakpointViewTest::testUserRemovedBreakpoint()
                                 "** [x]file:4\n"),
                  stringifyLineBreakpoints(bv->m_treeview->model()));
     }
+
+    // uncheck breakpoint
+    const auto index = indexForString(bv->m_treeview->model(), "file:4");
+    QVERIFY(index.isValid());
+    bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                            "** []file:4\n"),
+             stringifyLineBreakpoints(bv->m_treeview->model()));
+
+    {
+        const auto index = indexForString(bv->m_treeview->model(), "file:4");
+        QMenu menu;
+        bv->buildContextMenu(index, &menu);
+        auto a = getAction(menu, "Remove Breakpoint");
+        QVERIFY(a);
+        a->trigger();
+        QCOMPARE(QStringLiteral("* Line Breakpoints\n"), stringifyLineBreakpoints(bv->m_treeview->model()));
+    }
 }
 
 QTEST_MAIN(BreakpointViewTest)

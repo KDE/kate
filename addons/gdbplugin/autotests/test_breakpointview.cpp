@@ -556,7 +556,7 @@ void BreakpointViewTest::testListBreakpointsRequested()
 
     backend->listBreakpointsRequested();
     QCOMPARE(out,
-             QStringLiteral("[0.!] /file: 3->3\n"
+             QStringLiteral("\n[0.!] /file: 3->3\n"
                             "[1.!] /file: 4->4\n"
                             "[2.!] /file2: 3->3\n"
                             "[3.!] /file2: 8->8\n"));

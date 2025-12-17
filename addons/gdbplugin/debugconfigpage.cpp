@@ -23,6 +23,8 @@
 #include <QMenu>
 #include <QPalette>
 
+#include <ktexteditor_utils.h>
+
 DebugConfigPage::DebugConfigPage(QWidget *parent, KatePluginGDB *plugin)
     : KTextEditor::ConfigPage(parent)
     , m_plugin(plugin)
@@ -39,7 +41,9 @@ DebugConfigPage::DebugConfigPage(QWidget *parent, KatePluginGDB *plugin)
 
     // Setup default JSON settings
     QFile defaultConfigFile(QStringLiteral(":/debugger/dap.json"));
-    defaultConfigFile.open(QIODevice::ReadOnly);
+    if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+        Q_UNREACHABLE();
+    }
     Q_ASSERT(defaultConfigFile.isOpen());
     ui->defaultConfig->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
 
@@ -88,7 +92,12 @@ void DebugConfigPage::apply()
     // Own scope to ensure file is flushed before we signal below in writeConfig!
     {
         QFile configFile(m_plugin->configPath().toLocalFile());
-        configFile.open(QIODevice::WriteOnly);
+        if (!configFile.open(QIODevice::WriteOnly)) {
+            Utils::showMessage(i18n("Failed to open file: %1", m_plugin->m_configPath.toLocalFile()),
+                               QIcon(),
+                               QStringLiteral("DebugConfig"),
+                               MessageType::Error);
+        }
         if (configFile.isOpen()) {
             configFile.write(ui->userConfig->toPlainText().toUtf8());
         }
@@ -111,8 +120,7 @@ void DebugConfigPage::defaults()
 void DebugConfigPage::readUserConfig(const QString &fileName)
 {
     QFile configFile(fileName);
-    configFile.open(QIODevice::ReadOnly);
-    if (configFile.isOpen()) {
+    if (configFile.open(QIODevice::ReadOnly)) {
         ui->userConfig->setPlainText(QString::fromUtf8(configFile.readAll()));
     } else {
         ui->userConfig->clear();

@@ -136,7 +136,7 @@ public:
     FileLineReader(const QUrl &url)
         : file(url.toLocalFile())
     {
-        file.open(QIODevice::ReadOnly);
+        std::ignore = file.open(QIODevice::ReadOnly);
     }
 
     // called with non-descending lineno

@@ -923,18 +923,17 @@ private:
             Utils::setupFlatpakPathMapping(pathMapping);
 
             // request server and setup
-            server.reset(new LSPClientServer(
-                cmdline,
-                root,
-                realLangId,
-                serverConfig.value(QStringLiteral("initializationOptions")),
-                {.folders = folders,
-                 .caps = caps,
-                 .completion = completionOverride,
-                 .signature = signatureOverride,
-                 .map = pathMapping,
-                 .allowExperimental = serverConfig.value(QStringLiteral("allowExperimental")).toBool(),
-                 .environment = env}));
+            server.reset(new LSPClientServer(cmdline,
+                                             root,
+                                             realLangId,
+                                             serverConfig.value(QStringLiteral("initializationOptions")),
+                                             {.folders = folders,
+                                              .caps = caps,
+                                              .completion = completionOverride,
+                                              .signature = signatureOverride,
+                                              .map = pathMapping,
+                                              .allowExperimental = serverConfig.value(QStringLiteral("allowExperimental")).toBool(),
+                                              .environment = env}));
             connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
@@ -965,7 +964,9 @@ private:
     {
         // default configuration, compiled into plugin resource, reading can't fail
         QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
-        defaultConfigFile.open(QIODevice::ReadOnly);
+        if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+            Q_UNREACHABLE();
+        }
         Q_ASSERT(defaultConfigFile.isOpen());
         m_serverConfig = QJsonDocument::fromJson(defaultConfigFile.readAll()).object();
 

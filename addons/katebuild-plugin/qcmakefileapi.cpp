@@ -170,12 +170,13 @@ QJsonObject QCMakeFileApi::readJsonFile(const QString &filename) const
     qCDebug(KTEBUILD, "Reading file: %ls", qUtf16Printable(absFileName));
 
     QFile file(absFileName);
-    file.open(QIODevice::ReadOnly);
-    QByteArray fileContents = file.readAll();
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
-    QJsonObject docObj = jsonDoc.object();
-
-    return docObj;
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray fileContents = file.readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
+        QJsonObject docObj = jsonDoc.object();
+        return docObj;
+    }
+    return {};
 }
 
 bool QCMakeFileApi::haveKateReplyFiles() const

@@ -46,13 +46,13 @@ public:
 
         // remote
         QTemporaryFile remote;
-        remote.open();
+        QVERIFY(remote.open());
         auto remoteUrl = QUrl::fromLocalFile(remote.fileName());
         makeRemote(remoteUrl);
 
         // local
         QTemporaryFile local;
-        local.open();
+        QVERIFY(local.open());
         auto localUrl = QUrl::fromLocalFile(local.fileName());
 
         auto &srcUrl = toFile ? remoteUrl : localUrl;
@@ -116,7 +116,7 @@ private Q_SLOTS:
         // add some content
         topdir.mkdir(topdir.path() + QLatin1String("/subdir"));
         QFile file(topdir.path() + QLatin1String("/subfile"));
-        file.open(QFile::WriteOnly);
+        QVERIFY(file.open(QFile::WriteOnly));
         file.close();
 
         auto job = QScopedPointer(KIO::listDir(url));

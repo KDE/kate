@@ -27,7 +27,6 @@
 #include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KWindowSystem>
-#include <QLoggingCategory>
 
 #define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
 #if HAVE_STYLE_MANAGER

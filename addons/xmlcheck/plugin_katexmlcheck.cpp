@@ -59,7 +59,6 @@
 #include <QTemporaryFile>
 
 #include <QPushButton>
-#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QUrl>
 

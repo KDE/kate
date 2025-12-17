@@ -91,7 +91,9 @@ void IOView::createFifos()
     }
 
     m_stdoutD.setFileName(m_stdoutFifo);
-    m_stdoutD.open(QIODevice::ReadWrite);
+    if (!m_stdoutD.open(QIODevice::ReadWrite)) {
+        qWarning("failed to open m_stdoutD");
+    }
 
     m_stdout.setFileName(m_stdoutFifo);
     m_stdoutFD = ::open(m_stdoutFifo.toLocal8Bit().data(), O_RDWR | O_NONBLOCK);
@@ -107,7 +109,9 @@ void IOView::createFifos()
     m_stdoutNotifier->setEnabled(true);
 
     m_stderrD.setFileName(m_stderrFifo);
-    m_stderrD.open(QIODevice::ReadWrite);
+    if (!m_stderrD.open(QIODevice::ReadWrite)) {
+        qWarning("failed to open m_stderrD");
+    }
 
     m_stderr.setFileName(m_stderrFifo);
     m_stderrFD = ::open(m_stderrFifo.toLocal8Bit().data(), O_RDONLY | O_NONBLOCK);

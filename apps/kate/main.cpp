@@ -399,7 +399,9 @@ int main(int argc, char **argv)
                 const QString codec_name = parser.isSet(QStringLiteral("encoding")) ? parser.value(QStringLiteral("encoding")) : QString();
 
                 QFile input;
-                input.open(stdin, QIODevice::ReadOnly);
+                if (!input.open(stdin, QIODevice::ReadOnly)) {
+                    std::ignore = fprintf(stderr, "Error: Failed to open stdin\n");
+                }
                 auto decoder = QStringDecoder(codec_name.toUtf8().constData());
                 QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 

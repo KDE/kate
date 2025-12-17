@@ -37,7 +37,7 @@ private Q_SLOTS:
                                 OpenLinkRange{.start = 32, .end = 50, .link = QStringLiteral("https://google.com"), .type = HttpLink}};
 
         QFile file(QDir::current().absoluteFilePath(QStringLiteral("testfile")));
-        file.open(QFile::WriteOnly);
+        QVERIFY(file.open(QFile::WriteOnly));
         file.write("abc");
         file.close();
         const QString filePath = file.fileName();

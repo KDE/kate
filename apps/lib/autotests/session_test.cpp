@@ -53,7 +53,7 @@ void KateSessionTest::createAnonymousFrom()
 
     const QString groupName = QStringLiteral("test group");
     QTemporaryFile newFile;
-    newFile.open();
+    QVERIFY(newFile.open());
     KateSession::Ptr ns;
 
     s->config()->group(groupName).writeEntry("foo", "bar");
@@ -75,7 +75,7 @@ void KateSessionTest::createFrom()
     const QString groupName = QStringLiteral("test group");
 
     QTemporaryFile newFile;
-    newFile.open();
+    QVERIFY(newFile.open());
     KateSession::Ptr ns;
 
     s->config()->group(groupName).writeEntry("foo", "bar");
@@ -94,7 +94,7 @@ void KateSessionTest::setFile()
     s->config()->group(QStringLiteral("test")).writeEntry("foo", "bar");
 
     QTemporaryFile file2;
-    file2.open();
+    QVERIFY(file2.open());
 
     s->setFile(file2.fileName());
     QCOMPARE(s->config()->name(), file2.fileName());

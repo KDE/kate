@@ -209,7 +209,9 @@ void KPartView::updatePreview()
     // have to go via filesystem for now, not nice
     if (!m_bufferFile) {
         m_bufferFile = new QTemporaryFile(this);
-        m_bufferFile->open();
+        if (!m_bufferFile->open()) {
+            qCWarning(KTEPREVIEW, "Failed to open temporary file");
+        }
     } else {
         // reset position
         m_bufferFile->seek(0);

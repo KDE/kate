@@ -950,23 +950,24 @@ KateBuildView::CompileCommands KateBuildView::parseCompileCommandsFile(const QSt
     res.date = QFileInfo(compileCommandsFile).lastModified();
 
     QFile file(compileCommandsFile);
-    file.open(QIODevice::ReadOnly);
-    QByteArray fileContents = file.readAll();
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray fileContents = file.readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(fileContents);
 
-    QJsonArray cmds = jsonDoc.array();
-    qCDebug(KTEBUILD, "%s: got %lld entries", Q_FUNC_INFO, cmds.count());
+        QJsonArray cmds = jsonDoc.array();
+        qCDebug(KTEBUILD, "%s: got %lld entries", Q_FUNC_INFO, cmds.count());
 
-    for (int i = 0; i < cmds.count(); i++) {
-        QJsonObject cmdObj = cmds.at(i).toObject();
-        const QString filename = cmdObj.value(QStringLiteral("file")).toString();
-        const QString command = cmdObj.value(QStringLiteral("command")).toString();
-        const QString dir = cmdObj.value(QStringLiteral("directory")).toString();
-        if (dir.isEmpty() || command.isEmpty() || filename.isEmpty()) {
-            qCDebug(KTEBUILD, "parseCompileCommandsFile(): got empty entry at %d !", i);
-            continue; // should not happen
+        for (int i = 0; i < cmds.count(); i++) {
+            QJsonObject cmdObj = cmds.at(i).toObject();
+            const QString filename = cmdObj.value(QStringLiteral("file")).toString();
+            const QString command = cmdObj.value(QStringLiteral("command")).toString();
+            const QString dir = cmdObj.value(QStringLiteral("directory")).toString();
+            if (dir.isEmpty() || command.isEmpty() || filename.isEmpty()) {
+                qCDebug(KTEBUILD, "parseCompileCommandsFile(): got empty entry at %d !", i);
+                continue; // should not happen
+            }
+            res.commands[filename] = {.workingDir = dir, .command = command};
         }
-        res.commands[filename] = {.workingDir = dir, .command = command};
     }
 
     return res;

@@ -26,7 +26,9 @@ K_PLUGIN_FACTORY_WITH_JSON(FormatPluginFactory, "FormatPlugin.json", registerPlu
 static QJsonDocument readDefaultConfig()
 {
     QFile defaultConfigFile(QStringLiteral(":/formatting/FormatterSettings.json"));
-    defaultConfigFile.open(QIODevice::ReadOnly);
+    if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+        Q_UNREACHABLE();
+    }
     Q_ASSERT(defaultConfigFile.isOpen());
     QJsonParseError err;
     auto doc = QJsonDocument::fromJson(defaultConfigFile.readAll(), &err);

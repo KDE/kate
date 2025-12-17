@@ -277,7 +277,10 @@ void KateMwModOnHdDialog::slotDiff()
     }
 
     auto f = new QTemporaryFile(this);
-    f->open();
+    if (!f->open()) {
+        Utils::showMessage(i18n("Failed to create a temporary file"), QIcon(), QStringLiteral("KateMwModOnHdDialog"), MessageType::Error);
+        return;
+    }
     f->write(doc->text().toUtf8().constData());
     f->flush();
 

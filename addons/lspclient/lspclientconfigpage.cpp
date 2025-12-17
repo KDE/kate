@@ -39,7 +39,9 @@ LSPClientConfigPage::LSPClientConfigPage(QWidget *parent, LSPClientPlugin *plugi
 
     // setup default json settings
     QFile defaultConfigFile(QStringLiteral(":/lspclient/settings.json"));
-    defaultConfigFile.open(QIODevice::ReadOnly);
+    if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+        Q_UNREACHABLE();
+    }
     Q_ASSERT(defaultConfigFile.isOpen());
     ui->defaultConfig->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
 
@@ -150,8 +152,7 @@ void LSPClientConfigPage::apply()
     // own scope to ensure file is flushed before we signal below in writeConfig!
     {
         QFile configFile(m_plugin->configPath().toLocalFile());
-        configFile.open(QIODevice::WriteOnly);
-        if (configFile.isOpen()) {
+        if (configFile.open(QIODevice::WriteOnly)) {
             configFile.write(ui->userConfig->toPlainText().toUtf8());
         }
     }
@@ -213,8 +214,7 @@ void LSPClientConfigPage::defaults()
 void LSPClientConfigPage::readUserConfig(const QString &fileName)
 {
     QFile configFile(fileName);
-    configFile.open(QIODevice::ReadOnly);
-    if (configFile.isOpen()) {
+    if (configFile.open(QIODevice::ReadOnly)) {
         ui->userConfig->setPlainText(QString::fromUtf8(configFile.readAll()));
     } else {
         ui->userConfig->clear();

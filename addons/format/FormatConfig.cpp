@@ -121,7 +121,9 @@ FormatConfigPage::FormatConfigPage(class FormatPlugin *plugin, QWidget *parent)
     m_defaultConfigEdit = new QPlainTextEdit(this);
     initTextEdit(m_defaultConfigEdit);
     QFile defaultConfigFile(QStringLiteral(":/formatting/FormatterSettings.json"));
-    defaultConfigFile.open(QIODevice::ReadOnly);
+    if (!defaultConfigFile.open(QIODevice::ReadOnly)) {
+        Q_UNREACHABLE();
+    }
     Q_ASSERT(defaultConfigFile.isOpen());
     m_defaultConfigEdit->setPlainText(QString::fromUtf8(defaultConfigFile.readAll()));
     m_tabWidget->addTab(m_defaultConfigEdit, i18n("Default Settings"));

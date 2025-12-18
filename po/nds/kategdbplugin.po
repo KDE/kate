@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2014-08-14 16:55+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -456,28 +456,33 @@ msgstr "Instellen"
 msgid "Default Debug Adapter Settings"
 msgstr ""
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, fuzzy, kde-format
 #| msgid "Debug"
 msgid "Debugger"
 msgstr "Fehlersöök"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
 #, kde-format
-msgid "No JSON data to validate."
+msgid "Failed to open file: %1"
 msgstr ""
 
 #: debugconfigpage.cpp:136
 #, kde-format
+msgid "No JSON data to validate."
+msgstr ""
+
+#: debugconfigpage.cpp:144
+#, kde-format
 msgid "JSON data is valid."
 msgstr ""
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr ""
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr ""

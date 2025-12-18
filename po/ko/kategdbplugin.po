@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2025-07-21 00:48+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -443,27 +443,33 @@ msgstr "설정 파일:"
 msgid "Default Debug Adapter Settings"
 msgstr "기본 디버그 어댑터 설정"
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, kde-format
 msgid "Debugger"
 msgstr "디버거"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "file not specified: %1"
+msgid "Failed to open file: %1"
+msgstr "파일을 지정하지 않았음: %1"
+
+#: debugconfigpage.cpp:136
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "검증할 JSON 데이터가 없습니다."
 
-#: debugconfigpage.cpp:136
+#: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON 데이터가 올바릅니다."
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON 데이터가 잘못됨: JSON 객체가 없음"
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON 데이터가 잘못됨: %1"

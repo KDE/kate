@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2023-05-08 23:52+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
@@ -450,27 +450,33 @@ msgstr "Ficheiro de Configuração:"
 msgid "Default Debug Adapter Settings"
 msgstr "Configuração Predefinida do Adaptador de Depuração"
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, kde-format
 msgid "Debugger"
 msgstr "Depurador"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "file not specified: %1"
+msgid "Failed to open file: %1"
+msgstr "ficheiro não definido: %1"
+
+#: debugconfigpage.cpp:136
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Não há dados em JSON para validar."
 
-#: debugconfigpage.cpp:136
+#: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Os dados em JSON são válidos."
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Os dados em JSON são inválidos: não foi detectado nenhum objecto JSON"
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Os dados em JSON são inválidos: %1"

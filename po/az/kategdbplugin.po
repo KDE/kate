@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -451,27 +451,33 @@ msgstr "Ayarlarfaylı:"
 msgid "Default Debug Adapter Settings"
 msgstr "Standart sazlama uzlaşdırıcı ayarları"
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, kde-format
 msgid "Debugger"
 msgstr "Xəta sazlayıcı"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "file not specified: %1"
+msgid "Failed to open file: %1"
+msgstr "fayl göstərilməyib: %1"
+
+#: debugconfigpage.cpp:136
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Etibarlı JSON verilənləri yoxdur."
 
-#: debugconfigpage.cpp:136
+#: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON verilənləri doğrudur."
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON verilənləri doğrudur: JSON obyekti yoxdur"
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON verilənləri səhvdir: %1"

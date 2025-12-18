@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmlcheck\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2023-02-02 18:38+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -17,45 +17,45 @@ msgstr ""
 "X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: plugin_katexmlcheck.cpp:91
+#: plugin_katexmlcheck.cpp:90
 #, kde-format
 msgid "XML Check"
 msgstr "XML Kontrola"
 
-#: plugin_katexmlcheck.cpp:96
+#: plugin_katexmlcheck.cpp:95
 #, kde-format
 msgid "Validate XML"
 msgstr "Kontrolovať XML"
 
-#: plugin_katexmlcheck.cpp:126
+#: plugin_katexmlcheck.cpp:125
 #, kde-format
 msgid "Validate process crashed"
 msgstr "Proces overovania sa zrútil"
 
-#: plugin_katexmlcheck.cpp:126 plugin_katexmlcheck.cpp:144
-#: plugin_katexmlcheck.cpp:204 plugin_katexmlcheck.cpp:229
-#: plugin_katexmlcheck.cpp:249 plugin_katexmlcheck.cpp:332
+#: plugin_katexmlcheck.cpp:125 plugin_katexmlcheck.cpp:143
+#: plugin_katexmlcheck.cpp:203 plugin_katexmlcheck.cpp:228
+#: plugin_katexmlcheck.cpp:248 plugin_katexmlcheck.cpp:331
 #, kde-format
 msgid "XMLCheck"
 msgstr "XML Kontrola"
 
-#: plugin_katexmlcheck.cpp:140
+#: plugin_katexmlcheck.cpp:139
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr "Nenašiel sa žiadny DOCTYPE, skontroluje sa len správna formulácia."
 
-#: plugin_katexmlcheck.cpp:142
+#: plugin_katexmlcheck.cpp:141
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr "'%1' nebolo nájdené, skontroluje sa len správna formulácia."
 
-#: plugin_katexmlcheck.cpp:228
+#: plugin_katexmlcheck.cpp:227
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Chyba:</b> Nemôžem vytvoriť dočasný súbor '%1'."
 
-#: plugin_katexmlcheck.cpp:247
+#: plugin_katexmlcheck.cpp:246
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -64,7 +64,7 @@ msgstr ""
 "<b>Chyba:</b> Nepodarilo sa nájsť xmllint. Uistite sa, že xmllint je "
 "nainštalovaný. Je súčasťou libxml2."
 
-#: plugin_katexmlcheck.cpp:330
+#: plugin_katexmlcheck.cpp:329
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

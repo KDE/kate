@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2024-01-12 21:52+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.4\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
+#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
 #: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
@@ -45,12 +45,12 @@ msgstr "Nem sikerült a git diff futtatása: %1"
 msgid "User Settings"
 msgstr "Felhasználóbeállítások"
 
-#: FormatConfig.cpp:127
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Alapértelmezett beállítások"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:113
 #, kde-format
 msgid "Formatting"
 msgstr "Formázás"
@@ -60,22 +60,22 @@ msgstr "Formázás"
 msgid "Formatting Settings"
 msgstr "Formázási beállítások"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Nem sikerült olvasni a settings.json fájlt. Hiba: %1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:119
 #, kde-format
 msgid "Format Document"
 msgstr "Dokumentum formázása"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:129
 #, kde-format
 msgid "Format on Save"
 msgstr "Formázás mentéskor"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:132
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""

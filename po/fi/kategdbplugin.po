@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2025-07-31 09:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -454,27 +454,33 @@ msgstr "Asetustiedosto:"
 msgid "Default Debug Adapter Settings"
 msgstr "Virheenpaikannussovittimen oletusasetukset"
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, kde-format
 msgid "Debugger"
 msgstr "Virheenpaikannin"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "file not specified: %1"
+msgid "Failed to open file: %1"
+msgstr "tiedostoa ei määritetty: %1"
+
+#: debugconfigpage.cpp:136
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Ei validoitavaa JSON-dataa."
 
-#: debugconfigpage.cpp:136
+#: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
 msgstr "JSON-data on kelvollista."
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "JSON-data on kelvotonta: ei JSON-oliota"
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "JSON-data on kelvotonta: %1"

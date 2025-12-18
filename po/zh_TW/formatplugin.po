@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2025-08-29 20:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 25.11.70\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
+#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
 #: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
@@ -44,12 +44,12 @@ msgstr "執行 git diff 時失敗：%1"
 msgid "User Settings"
 msgstr "使用者設定"
 
-#: FormatConfig.cpp:127
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "預設設定"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:113
 #, kde-format
 msgid "Formatting"
 msgstr "格式"
@@ -59,22 +59,22 @@ msgstr "格式"
 msgid "Formatting Settings"
 msgstr "格式設定"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "讀取 settings.json 時失敗。錯誤：%1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:119
 #, kde-format
 msgid "Format Document"
 msgstr "格式化文件"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:129
 #, kde-format
 msgid "Format on Save"
 msgstr "儲存時格式化"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:132
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "暫時停用儲存檔案時的格式化，不記住此設定"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-03 00:47+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2024-12-15 21:04+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 msgid "Filter…"
 msgstr "छायांकन…"
 
-#: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
+#: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
 #: lspclientpluginview.cpp:477 lspclientpluginview.cpp:621
 #, kde-format
 msgid "LSP Client"
@@ -389,37 +389,37 @@ msgstr "वितारकः अप्रत्याशितरूपेण �
 msgid "Failed to find server binary: %1"
 msgstr "वितारकं द्विचक्रीयम् अन्वेष्टुं असफलम्: %1"
 
-#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:944
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:943
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "कृपया द्विचक्रीयस्य कृते स्वस्य PATH पश्यन्तु"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:945
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:944
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "संस्थापनार्थं वा विवरणार्थं वा %1 इत्यपि पश्यन्तु"
 
-#: lspclientservermanager.cpp:941
+#: lspclientservermanager.cpp:940
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "वितारकं आरभ्यतुं असफलम्: %1"
 
-#: lspclientservermanager.cpp:949
+#: lspclientservermanager.cpp:948
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2: %1 वितारकः आरब्धः"
 
-#: lspclientservermanager.cpp:985
+#: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "वितारकविन्यासस्य '%1' विश्लेषणं कर्तुं असफलम्: JSON वस्तु नास्ति"
 
-#: lspclientservermanager.cpp:988
+#: lspclientservermanager.cpp:989
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "वितारकविन्यासस्य विश्लेषणं कर्तुं असफलः '%1': %2"
 
-#: lspclientservermanager.cpp:992
+#: lspclientservermanager.cpp:993
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "वितारकविन्यासं पठितुं असफलम्: %1"

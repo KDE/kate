@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2024-02-15 21:57+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -17,45 +17,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.4\n"
 
-#: plugin_katexmlcheck.cpp:91
+#: plugin_katexmlcheck.cpp:90
 #, kde-format
 msgid "XML Check"
 msgstr "XML-ellenőrzés"
 
-#: plugin_katexmlcheck.cpp:96
+#: plugin_katexmlcheck.cpp:95
 #, kde-format
 msgid "Validate XML"
 msgstr "XML ellenőrzése"
 
-#: plugin_katexmlcheck.cpp:126
+#: plugin_katexmlcheck.cpp:125
 #, kde-format
 msgid "Validate process crashed"
 msgstr "Az ellenőrző folyamat összeomlott"
 
-#: plugin_katexmlcheck.cpp:126 plugin_katexmlcheck.cpp:144
-#: plugin_katexmlcheck.cpp:204 plugin_katexmlcheck.cpp:229
-#: plugin_katexmlcheck.cpp:249 plugin_katexmlcheck.cpp:332
+#: plugin_katexmlcheck.cpp:125 plugin_katexmlcheck.cpp:143
+#: plugin_katexmlcheck.cpp:203 plugin_katexmlcheck.cpp:228
+#: plugin_katexmlcheck.cpp:248 plugin_katexmlcheck.cpp:331
 #, kde-format
 msgid "XMLCheck"
 msgstr "XMLCheck"
 
-#: plugin_katexmlcheck.cpp:140
+#: plugin_katexmlcheck.cpp:139
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
 msgstr "Nem található DOCTYPE, csak a jól formázottság lesz ellenőrizve."
 
-#: plugin_katexmlcheck.cpp:142
+#: plugin_katexmlcheck.cpp:141
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
 msgstr "A(z) „%1” nem található, csak a jól formázottság lesz ellenőrizve."
 
-#: plugin_katexmlcheck.cpp:228
+#: plugin_katexmlcheck.cpp:227
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
 msgstr "<b>Hiba:</b> Nem sikerült létrehozni a(z) „%1” ideiglenes fájlt."
 
-#: plugin_katexmlcheck.cpp:247
+#: plugin_katexmlcheck.cpp:246
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
@@ -64,7 +64,7 @@ msgstr ""
 "<b>Hiba:</b> Az xmllint nem található. Ellenőrizze, hogy az xmllint "
 "telepítve van-e. A libxml2 része."
 
-#: plugin_katexmlcheck.cpp:330
+#: plugin_katexmlcheck.cpp:329
 #, kde-format
 msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-03 00:47+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Filter…"
 msgstr "Filtrilo…"
 
-#: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
+#: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
 #: lspclientpluginview.cpp:477 lspclientpluginview.cpp:621
 #, kde-format
 msgid "LSP Client"
@@ -393,37 +393,37 @@ msgstr "Servilo neatendite finiĝis... %1 [%2] [hejmpaĝo: %3]"
 msgid "Failed to find server binary: %1"
 msgstr "Malsukcesis trovi servilan binaron: %1"
 
-#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:944
+#: lspclientservermanager.cpp:878 lspclientservermanager.cpp:943
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Bonvolu kontroli vian PATH por la duuma"
 
-#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:945
+#: lspclientservermanager.cpp:879 lspclientservermanager.cpp:944
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Vidu ankaŭ %1 por instalado aŭ detaloj"
 
-#: lspclientservermanager.cpp:941
+#: lspclientservermanager.cpp:940
 #, kde-format
 msgid "Failed to start server: %1"
 msgstr "Malsukcesis lanĉi servilon: %1"
 
-#: lspclientservermanager.cpp:949
+#: lspclientservermanager.cpp:948
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Lanĉita servilo %2: %1"
 
-#: lspclientservermanager.cpp:985
+#: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "Malsukcesis analizi servilan agordon '%1': neniu JSON-objekto"
 
-#: lspclientservermanager.cpp:988
+#: lspclientservermanager.cpp:989
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Malsukcesis analizi servilan agordon '%1': %2"
 
-#: lspclientservermanager.cpp:992
+#: lspclientservermanager.cpp:993
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Malsukcesis legi servila agordo: %1"

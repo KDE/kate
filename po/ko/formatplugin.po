@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2025-10-09 00:21+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 24.12.3\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
+#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
 #: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
@@ -44,12 +44,12 @@ msgstr "git diff를 실행할 수 없음: %1"
 msgid "User Settings"
 msgstr "사용자 설정"
 
-#: FormatConfig.cpp:127
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "기본 설정"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:113
 #, kde-format
 msgid "Formatting"
 msgstr "형식 지정"
@@ -59,22 +59,22 @@ msgstr "형식 지정"
 msgid "Formatting Settings"
 msgstr "형식 지정 설정"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json 파일을 읽을 수 없습니다. 오류: %1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:119
 #, kde-format
 msgid "Format Document"
 msgstr "문서 형식 지정"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:129
 #, kde-format
 msgid "Format on Save"
 msgstr "저장할 때 형식 지정"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:132
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "설졍을 변경하지 않고 임시로 저장할 때 형식 지정 비활성화"

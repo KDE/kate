@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2025-09-06 05:50+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -18,8 +18,8 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
+#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
 #: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
@@ -45,12 +45,12 @@ msgstr "Nie udało się wykonać git diff: %1"
 msgid "User Settings"
 msgstr "Ustawienia użytkownika"
 
-#: FormatConfig.cpp:127
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "Ustawienia domyślne"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:113
 #, kde-format
 msgid "Formatting"
 msgstr "Formatowanie"
@@ -60,22 +60,22 @@ msgstr "Formatowanie"
 msgid "Formatting Settings"
 msgstr "Ustawienia formatowania"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "Nie udało wczytać settings.json. Błąd: %1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:119
 #, kde-format
 msgid "Format Document"
 msgstr "Sformatuj dokument"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:129
 #, kde-format
 msgid "Format on Save"
 msgstr "Sformatuj przed zapisem"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:132
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""

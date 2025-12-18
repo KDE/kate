@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2024-12-13 19:09+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>2);\n"
 
-#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
-#: FormatPlugin.cpp:235 Formatters.cpp:320 Formatters.cpp:340
+#: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
+#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
 #: Formatters.cpp:363 Formatters.cpp:393
 #, kde-format
 msgid "Format"
@@ -45,12 +45,12 @@ msgstr "git diff: %1 चालयितुं असफलम्"
 msgid "User Settings"
 msgstr "उपयोक्तृसेटिंग्स्"
 
-#: FormatConfig.cpp:127
+#: FormatConfig.cpp:129
 #, kde-format
 msgid "Default Settings"
 msgstr "पूर्वनिर्धारित सेटिंग्स्"
 
-#: FormatConfig.h:18 FormatPlugin.cpp:111
+#: FormatConfig.h:18 FormatPlugin.cpp:113
 #, kde-format
 msgid "Formatting"
 msgstr "स्वरूपणम्"
@@ -60,22 +60,22 @@ msgstr "स्वरूपणम्"
 msgid "Formatting Settings"
 msgstr "सेटिंग्स् स्वरूपणम्"
 
-#: FormatPlugin.cpp:81
+#: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
 msgstr "settings.json पठितुं असफलम्। त्रुटिः %1"
 
-#: FormatPlugin.cpp:117
+#: FormatPlugin.cpp:119
 #, kde-format
 msgid "Format Document"
 msgstr "दस्तावेज प्रारूपं कुर्वन्तु"
 
-#: FormatPlugin.cpp:127
+#: FormatPlugin.cpp:129
 #, kde-format
 msgid "Format on Save"
 msgstr "Save इत्यत्र प्रारूपं कुर्वन्तु"
 
-#: FormatPlugin.cpp:130
+#: FormatPlugin.cpp:132
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "सेटिङ्ग्स् मध्ये न स्थापयित्वा save इत्यत्र स्वरूपणं निष्क्रियं कुर्वन्तु"

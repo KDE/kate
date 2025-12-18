@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-18 00:46+0000\n"
 "PO-Revision-Date: 2023-05-31 11:35+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -444,27 +444,33 @@ msgstr "Soubor nastavení:"
 msgid "Default Debug Adapter Settings"
 msgstr "Nastavení výchozího ladicího adaptéru"
 
-#: debugconfigpage.cpp:72 debugconfigpage.cpp:77
+#: debugconfigpage.cpp:76 debugconfigpage.cpp:81
 #, kde-format
 msgid "Debugger"
 msgstr "Ladicí program"
 
-#: debugconfigpage.cpp:128
+#: debugconfigpage.cpp:96
+#, fuzzy, kde-format
+#| msgid "file not specified: %1"
+msgid "Failed to open file: %1"
+msgstr "soubor nebyl určen: %1"
+
+#: debugconfigpage.cpp:136
 #, kde-format
 msgid "No JSON data to validate."
 msgstr "Žádná data JSON k ověření."
 
-#: debugconfigpage.cpp:136
+#: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
 msgstr "Data JSON jsou platná."
 
-#: debugconfigpage.cpp:138
+#: debugconfigpage.cpp:146
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
 msgstr "Data JSON jsou neplatná: žádný objekt JSON"
 
-#: debugconfigpage.cpp:141
+#: debugconfigpage.cpp:149
 #, kde-format
 msgid "JSON data is invalid: %1"
 msgstr "Data JSON jsou neplatná: %1"

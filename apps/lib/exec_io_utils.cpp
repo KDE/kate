@@ -26,7 +26,10 @@ public:
     ExecPrefixManagerPrivate()
     {
         // prime temp file
-        m_workerConfig.open();
+        if (!m_workerConfig.open()) {
+            qCWarning(LibKateExec, "Failed to open temporary file m_workerConfig");
+            return;
+        }
         m_workerConfigPath = m_workerConfig.fileName();
         m_workerConfig.close();
 
@@ -45,7 +48,10 @@ public:
         QSaveFile save(m_workerConfigPath);
         // QTemporaryFile tmp;
         // tmp.open();
-        save.open(QFile::WriteOnly);
+        if (!save.open(QFile::WriteOnly)) {
+            qCWarning(LibKateExec, "Failed to open file for saving: %ls", qUtf16Printable(m_workerConfigPath));
+            return;
+        }
         QDataStream stream(&save);
         QMap<QString, QStringList> data;
         stream << m_args;
@@ -89,7 +95,10 @@ QStringList ExecPrefixManager::load(QString name)
     auto fname = qEnvironmentVariable(ENV_KATE_EXEC_DATA);
     qCDebug(LibKateExec) << "in worker" << fname;
     QFile fdata(fname);
-    fdata.open(QFile::ReadOnly);
+    if (!fdata.open(QFile::ReadOnly)) {
+        qCWarning(LibKateExec, "%s: Failed to open file %ls", __func__, qUtf16Printable(fname));
+        return {};
+    }
     QDataStream stream(&fdata);
     QMap<QString, QStringList> data;
     stream >> data;

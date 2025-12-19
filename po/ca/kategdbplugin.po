@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 10:07+0100\n"
+"PO-Revision-Date: 2025-12-18 10:09+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -459,10 +459,9 @@ msgid "Debugger"
 msgstr "Depurador"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "fitxer no especificat: %1"
+msgstr "Ha fallat en obrir el fitxer: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format

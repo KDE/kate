@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-21 02:04+0100\n"
+"PO-Revision-Date: 2025-12-18 12:00+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Boris Wesslowski <Boris@Wesslowski.com>\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -2167,10 +2167,9 @@ msgstr ""
 "«%1»"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "No se ha podido obtener el historial del archivo: %1"
+msgstr "No se ha podido crear un archivo temporal"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

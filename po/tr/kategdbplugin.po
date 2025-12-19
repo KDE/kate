@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 21:40+0300\n"
+"PO-Revision-Date: 2025-12-18 15:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -459,10 +459,9 @@ msgid "Debugger"
 msgstr "Hata Ayıklayıcısı"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "dosya belirtilmedi: %1"
+msgstr "Dosya açılamadı: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format

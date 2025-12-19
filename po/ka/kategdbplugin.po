@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 04:55+0100\n"
+"PO-Revision-Date: 2025-12-18 04:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -452,10 +452,9 @@ msgid "Debugger"
 msgstr "გამმართველი"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "ფაილი მითითებული არაა: %1"
+msgstr "ფაილის გახსნის შეცდომა: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format

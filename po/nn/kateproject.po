@@ -1125,9 +1125,3 @@ msgstr ""
 #, kde-format
 msgid "&Projects"
 msgstr "&Prosjekt"
-
-#~ msgid "Delete File"
-#~ msgstr "Slett fil"
-
-#~ msgid "Do you want to delete the file '%1'?"
-#~ msgstr "Er du sikker på at du vil sletta fila «%1»?"

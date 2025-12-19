@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 10:06+0100\n"
+"PO-Revision-Date: 2025-12-18 10:09+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -2150,10 +2150,9 @@ msgstr ""
 "«%1»"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Ha fallat en obtenir l'historial de fitxers: %1"
+msgstr "Ha fallat en crear un fitxer temporal"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

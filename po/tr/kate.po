@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 21:41+0300\n"
+"PO-Revision-Date: 2025-12-18 15:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2142,10 +2142,9 @@ msgstr ""
 "“%1“"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Dosya geçmişi alınamadı: %1"
+msgstr "Geçici dosya oluşturulamadı"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

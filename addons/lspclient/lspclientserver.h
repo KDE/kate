@@ -81,6 +81,28 @@ struct LSPClientCapabilities {
     bool snippetSupport = false;
 };
 
+using FoldersType = std::optional<QList<LSPWorkspaceFolder>>;
+
+// optionally adjust server provided/suggest trigger characters
+struct TriggerCharactersOverride {
+    QList<QChar> exclude;
+    QList<QChar> include;
+};
+
+using PathMappingPtr = Utils::PathMappingPtr;
+
+// collect additional tweaks into a helper struct to avoid ever growing parameter list
+// (which then also needs to be duplicated in a few places)
+struct ExtraServerConfig {
+    FoldersType folders;
+    LSPClientCapabilities caps;
+    TriggerCharactersOverride completion;
+    TriggerCharactersOverride signature;
+    PathMappingPtr map;
+    bool allowExperimental = false;
+    QHash<QString, QString> environment;
+};
+
 class LSPClientServer : public QObject
 {
     Q_OBJECT
@@ -110,33 +132,11 @@ public:
         }
     };
 
-    using FoldersType = std::optional<QList<LSPWorkspaceFolder>>;
-
-    // optionally adjust server provided/suggest trigger characters
-    struct TriggerCharactersOverride {
-        QList<QChar> exclude;
-        QList<QChar> include;
-    };
-
-    using PathMappingPtr = Utils::PathMappingPtr;
-
-    // collect additional tweaks into a helper struct to avoid ever growing parameter list
-    // (which then also needs to be duplicated in a few places)
-    struct ExtraServerConfig {
-        FoldersType folders;
-        LSPClientCapabilities caps;
-        TriggerCharactersOverride completion;
-        TriggerCharactersOverride signature;
-        PathMappingPtr map;
-        bool allowExperimental = false;
-        QHash<QString, QString> environment;
-    };
-
     LSPClientServer(const QStringList &server,
                     const QUrl &root,
                     const QString &langId = QString(),
                     const QJsonValue &init = QJsonValue(),
-                    const ExtraServerConfig = { .allowExperimental = false });
+                    const ExtraServerConfig = {});
     ~LSPClientServer() override;
 
     // server management

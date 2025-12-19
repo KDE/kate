@@ -96,9 +96,9 @@ static QStringList indicationDataToStringList(const QJsonValue &indicationData)
     return {};
 }
 
-static LSPClientServer::TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
+static TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
 {
-    LSPClientServer::TriggerCharactersOverride adjust;
+    TriggerCharactersOverride adjust;
     if (json.isObject()) {
         auto ob = json.toObject();
         for (const auto &c : ob.value(QStringLiteral("exclude")).toString()) {
@@ -897,7 +897,7 @@ private:
             // since that is what a server is more aware of
             // and should support if it declares workspace folder capable
             // (as opposed to the new initialization property)
-            LSPClientServer::FoldersType folders;
+            FoldersType folders;
             if (useWorkspace) {
                 folders = QList<LSPWorkspaceFolder>();
             }
@@ -906,7 +906,7 @@ private:
             // extract some more additional config
             auto completionOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("completionTriggerCharacters")));
             auto signatureOverride = parseTriggerOverride(serverConfig.value(QStringLiteral("signatureTriggerCharacters")));
-            decltype(LSPClientServer::ExtraServerConfig::environment) env;
+            decltype(ExtraServerConfig::environment) env;
 
             if (!execPrefix.isEmpty()) {
                 if (!pathMapping) {

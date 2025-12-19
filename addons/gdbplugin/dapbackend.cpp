@@ -421,7 +421,7 @@ void DapBackend::onInitialized()
         }
     }
 
-    if (!m_wantedFunctionBreakpoints.empty()) {
+    if (!m_wantedFunctionBreakpoints.empty() && supportsFunctionBreakpoints()) {
         pushRequest();
         m_client->requestSetFunctionBreakpoints(m_wantedFunctionBreakpoints);
     }

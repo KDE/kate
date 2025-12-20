@@ -2,150 +2,150 @@
 # Copyright (C) 2011 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katesearch package.
 # Kevin Scannell <kscanne@gmail.com>, 2011.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2011-12-28 12:28-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-12-01 12:16+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
+"X-Generator: Poedit 3.7\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
 msgid "Usage: grep [pattern to search for in folder]"
-msgstr ""
+msgstr "Úsáid: grep [patrún le cuardach a dhéanamh sa bhfillteán]"
 
 #: KateSearchCommand.cpp:90
 #, kde-format
 msgid "Usage: newGrep [pattern to search for in folder]"
-msgstr ""
+msgstr "Úsáid: newGrep [patrún le cuardach sa bhfillteán]"
 
 #: KateSearchCommand.cpp:94 KateSearchCommand.cpp:96
 #, kde-format
 msgid "Usage: search [pattern to search for in open files]"
-msgstr ""
+msgstr "Úsáid: cuardach [patrún le cuardach a dhéanamh i gcomhaid oscailte]"
 
 #: KateSearchCommand.cpp:100
 #, kde-format
 msgid "Usage: pgrep [pattern to search for in current project]"
-msgstr ""
+msgstr "Úsáid: pgrep [patrún le cuardach sa tionscadal reatha]"
 
 #: KateSearchCommand.cpp:102
 #, kde-format
 msgid "Usage: newPGrep [pattern to search for in current project]"
-msgstr ""
+msgstr "Úsáid: newPGrep [patrún le cuardach sa tionscadal reatha]"
 
 #: KateSearchCommand.cpp:106
 #, kde-format
 msgid "Usage: preg [regex pattern to search for in current project]"
-msgstr ""
+msgstr "Úsáid: preg [patrún regex le cuardach sa tionscadal reatha]"
 
 #: MatchExportDialog.cpp:20
-#, fuzzy, kde-format
-#| msgid "Search & Replace"
+#, kde-format
 msgid "Export Search Result Matches"
-msgstr "Cuardach & Ionadú"
+msgstr "Easpórtáil Torthaí Cuardaigh"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr ""
+msgstr "Patrún Easpórtála"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
 #, kde-format
 msgid "Generate"
-msgstr ""
+msgstr "Gin"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
 #: MatchExportDialog.ui:50
 #, kde-format
 msgid "Result"
-msgstr ""
+msgstr "Toradh"
 
 #: MatchModel.cpp:561 MatchModel.cpp:563
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
-msgstr ""
+msgstr "<b><i>Liosta comhad á ghiniúint: ...%1</i></b>"
 
 #: MatchModel.cpp:571
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Fuarthas cluiche amháin, ag cuardach: ...%2</i></b>"
+msgstr[1] "<b><i>%1 meaitseáil aimsithe, ag cuardach: ...%2</i></b>"
+msgstr[2] "<b><i>%1 meaitseáil aimsithe, ag cuardach: ...%2</i></b>"
+msgstr[3] "<b><i>%1 meaitseáil aimsithe, ag cuardach: ...%2</i></b>"
+msgstr[4] "<b><i>%1 meaitseáil aimsithe, ag cuardach: ...%2</i></b>"
 
 #: MatchModel.cpp:576
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Fuarthas cluiche amháin, ag cuardach: %2</i></b>"
+msgstr[1] "<b><i>%1 meaitseáil aimsithe, ag cuardach: %2</i></b>"
+msgstr[2] "<b><i>%1 meaitseáil aimsithe, ag cuardach: %2</i></b>"
+msgstr[3] "<b><i>%1 meaitseáil aimsithe, ag cuardach: %2</i></b>"
+msgstr[4] "<b><i>%1 meaitseáil aimsithe, ag cuardach: %2</i></b>"
 
 #: MatchModel.cpp:583 MatchModel.cpp:738
-#, fuzzy, kde-format
-#| msgid "Search & Replace"
+#, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
-msgstr[0] "Cuardach & Ionadú"
-msgstr[1] "Cuardach & Ionadú"
-msgstr[2] "Cuardach & Ionadú"
-msgstr[3] "Cuardach & Ionadú"
-msgstr[4] "Cuardach & Ionadú"
+msgstr[0] "Seiceáilte amháin"
+msgstr[1] "%1 seiceáilte"
+msgstr[2] "%1 seiceáilte"
+msgstr[3] "%1 seiceáilte"
+msgstr[4] "%1 seiceáilte"
 
 #: MatchModel.cpp:587
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Aon mheaitseáil amháin (%2) aimsithe sa chomhad</i></b>"
+msgstr[1] "<b><i>%1 meaitseáil (%2) aimsithe sa chomhad reatha</i></b>"
+msgstr[2] "<b><i>%1 meaitseáil (%2) aimsithe sa chomhad reatha</i></b>"
+msgstr[3] "<b><i>%1 meaitseáil (%2) aimsithe sa chomhad reatha</i></b>"
+msgstr[4] "<b><i>%1 meaitseáil (%2) aimsithe sa chomhad reatha</i></b>"
 
 #: MatchModel.cpp:589
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Fuarthas cluiche amháin (%2) i gcomhaid oscailte</i></b>"
+msgstr[1] "<b><i>%1 meaitseáil (%2) aimsithe i gcomhaid oscailte</i></b>"
+msgstr[2] "<b><i>%1 meaitseáil (%2) aimsithe i gcomhaid oscailte</i></b>"
+msgstr[3] "<b><i>%1 meaitseáil (%2) aimsithe i gcomhaid oscailte</i></b>"
+msgstr[4] "<b><i>%1 meaitseáil (%2) aimsithe i gcomhaid oscailte</i></b>"
 
 #: MatchModel.cpp:592
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Fuarthas cluiche amháin (%3) i bhfillteán %2</i></b>"
+msgstr[1] "<b><i>%1 meaitseáil (%3) aimsithe i bhfillteán %2</i></b>"
+msgstr[2] "<b><i>%1 meaitseáil (%3) aimsithe i bhfillteán %2</i></b>"
+msgstr[3] "<b><i>%1 meaitseáil (%3) aimsithe i bhfillteán %2</i></b>"
+msgstr[4] "<b><i>%1 meaitseáil (%3) aimsithe i bhfillteán %2</i></b>"
 
 #: MatchModel.cpp:599
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "<b><i>Fuarthas cluiche amháin (%4) i dtionscadal %2 (%3)</i></b>"
+msgstr[1] "<b><i>Fuarthas %1 meaitseáil (%4) i dtionscadal %2 (%3)</i></b>"
+msgstr[2] "<b><i>Fuarthas %1 meaitseáil (%4) i dtionscadal %2 (%3)</i></b>"
+msgstr[3] "<b><i>Fuarthas %1 meaitseáil (%4) i dtionscadal %2 (%3)</i></b>"
+msgstr[4] "<b><i>Fuarthas %1 meaitseáil (%4) i dtionscadal %2 (%3)</i></b>"
 
 #: MatchModel.cpp:608
 #, kde-format
@@ -154,97 +154,118 @@ msgid ""
 msgid_plural ""
 "<b><i>%1 matches (%3) found in all open projects (common parent: %2)</i></b>"
 msgstr[0] ""
+"<b><i>Fuarthas cluiche amháin (%3) i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)</i></b>"
 msgstr[1] ""
+"<b><i>%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)</i></b>"
 msgstr[2] ""
+"<b><i>%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)</i></b>"
 msgstr[3] ""
+"<b><i>%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)</i></b>"
 msgstr[4] ""
+"<b><i>%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)</i></b>"
 
 #: MatchModel.cpp:722 MatchModel.cpp:724
 #, kde-format
 msgid "Generating file list: ...%1"
-msgstr ""
+msgstr "Ag giniúint liosta comhad: ...%1"
 
 #: MatchModel.cpp:732
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin, ag cuardach: ...%2"
+msgstr[1] "%1 meaitseáil aimsithe, ag cuardach: ...%2"
+msgstr[2] "%1 meaitseáil aimsithe, ag cuardach: ...%2"
+msgstr[3] "%1 meaitseáil aimsithe, ag cuardach: ...%2"
+msgstr[4] "%1 meaitseáil aimsithe, ag cuardach: ...%2"
 
 #: MatchModel.cpp:734
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin, ag cuardach: %2"
+msgstr[1] "%1 meaitseáil aimsithe, ag cuardach: %2"
+msgstr[2] "%1 meaitseáil aimsithe, ag cuardach: %2"
+msgstr[3] "%1 meaitseáil aimsithe, ag cuardach: %2"
+msgstr[4] "%1 meaitseáil aimsithe, ag cuardach: %2"
 
 #: MatchModel.cpp:742
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin (%2) sa chomhad"
+msgstr[1] "%1 meaitseáil (%2) aimsithe sa chomhad reatha"
+msgstr[2] "%1 meaitseáil (%2) aimsithe sa chomhad reatha"
+msgstr[3] "%1 meaitseáil (%2) aimsithe sa chomhad reatha"
+msgstr[4] "%1 meaitseáil (%2) aimsithe sa chomhad reatha"
 
 #: MatchModel.cpp:744
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin (%2) i gcomhaid oscailte"
+msgstr[1] "%1 meaitseáil (%2) aimsithe i gcomhaid oscailte"
+msgstr[2] "%1 meaitseáil (%2) aimsithe i gcomhaid oscailte"
+msgstr[3] "%1 meaitseáil (%2) aimsithe i gcomhaid oscailte"
+msgstr[4] "%1 meaitseáil (%2) aimsithe i gcomhaid oscailte"
 
 #: MatchModel.cpp:747
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin (%3) i bhfillteán %2"
+msgstr[1] "%1 meaitseáil (%3) aimsithe i bhfillteán %2"
+msgstr[2] "%1 meaitseáil (%3) aimsithe i bhfillteán %2"
+msgstr[3] "%1 meaitseáil (%3) aimsithe i bhfillteán %2"
+msgstr[4] "%1 meaitseáil (%3) aimsithe i bhfillteán %2"
 
 #: MatchModel.cpp:750
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Fuarthas cluiche amháin (%4) i dtionscadal %2 (%3)"
+msgstr[1] "%1 meaitseáil (%4) aimsithe i dtionscadal %2 (%3)"
+msgstr[2] "%1 meaitseáil (%4) aimsithe i dtionscadal %2 (%3)"
+msgstr[3] "%1 meaitseáil (%4) aimsithe i dtionscadal %2 (%3)"
+msgstr[4] "%1 meaitseáil (%4) aimsithe i dtionscadal %2 (%3)"
 
 #: MatchModel.cpp:759
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"
 msgstr[0] ""
+"Fuarthas cluiche amháin (%3) i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)"
 msgstr[1] ""
+"%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)"
 msgstr[2] ""
+"%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)"
 msgstr[3] ""
+"%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)"
 msgstr[4] ""
+"%1 meaitseáil (%3) aimsithe i ngach tionscadal oscailte (tuismitheoir "
+"coiteann: %2)"
 
 #: Results.cpp:32
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Filter…"
-msgstr "Scagaire"
+msgstr "Scagaire…"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, searchButton)
 #: search.ui:37
 #, kde-format
 msgid "Search in current tab; press and hold Ctrl to search in a new tab."
 msgstr ""
+"Cuardaigh sa chluaisín reatha; brúigh agus coinnigh Ctrl chun cuardach a "
+"dhéanamh i gcluaisín nua."
 
 #. i18n: ectx: property (text), widget (QPushButton, searchButton)
 #: search.ui:40 SearchPlugin.cpp:293
@@ -254,21 +275,20 @@ msgstr "Cuardaigh"
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceCheckedBtn)
 #: search.ui:50
-#, fuzzy, kde-format
-#| msgid "Search & Replace"
+#, kde-format
 msgctxt ""
 "Checked here refers to the items  on the list below that can have a "
 "checkmark or not. It's not about any verification or similar, plainly about "
 "user interface"
 msgid "Replace Checked"
-msgstr "Cuardach & Ionadú"
+msgstr "Athsholáthar Seiceáilte"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, nextButton)
 #. i18n: ectx: property (text), widget (QPushButton, nextButton)
 #: search.ui:70 search.ui:73
 #, kde-format
 msgid "Next"
-msgstr ""
+msgstr "Ar Aghaidh"
 
 #. i18n: ectx: property (toolTip), widget (QPushButton, stopButton)
 #. i18n: ectx: property (text), widget (QPushButton, stopButton)
@@ -279,10 +299,9 @@ msgstr "Stad"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, matchCase)
 #: search.ui:118
-#, fuzzy, kde-format
-#| msgid "Match Case"
+#, kde-format
 msgid "Match case"
-msgstr "Comhoiriúnaigh an Cás"
+msgstr "Cás meaitseála"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, useRegExp)
 #: search.ui:134
@@ -291,12 +310,15 @@ msgid ""
 "<html><head/><body><p>Enable regular expressions. Find help for regex syntax "
 "by using the buttons in the search and replace text fields.</p></body></html>"
 msgstr ""
+"<html><head/><body><p>Cumasaigh nathanna rialta. Faigh cabhair le haghaidh "
+"comhréir regex trí na cnaipí sna réimsí téacs cuardaigh agus athsholáthair a "
+"úsáid.</p></body></html>"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, expandResults)
 #: search.ui:163
 #, kde-format
 msgid "Expand results"
-msgstr ""
+msgstr "Leathnaigh na torthaí"
 
 #. i18n: ectx: property (text), widget (QToolButton, filterBtn)
 #. i18n: ectx: property (text), widget (QToolButton, displayOptions)
@@ -308,29 +330,27 @@ msgstr "..."
 
 #. i18n: ectx: property (text), widget (QPushButton, replaceButton)
 #: search.ui:195 SearchPlugin.cpp:510
-#, fuzzy, kde-format
-#| msgid "Search & Replace"
+#, kde-format
 msgid "Replace"
-msgstr "Cuardach & Ionadú"
+msgstr "Athsholáthair"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:218
 #, kde-format
 msgid "In Current File"
-msgstr ""
+msgstr "Sa Chomhad Reatha"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:223
 #, kde-format
 msgid "In Open Files"
-msgstr ""
+msgstr "I gComhaid Oscailte"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, searchPlaceCombo)
 #: search.ui:228
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "In Folder"
-msgstr "Fillteán"
+msgstr "I bhFillteán"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, currentFolderButton)
 #: search.ui:236
@@ -340,36 +360,33 @@ msgstr "Úsáid conair na cáipéise reatha."
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, displayOptions)
 #: search.ui:246
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Show more search options"
-msgstr "Cuardaigh"
+msgstr "Taispeáin níos mó roghanna cuardaigh"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, newTabButton)
 #: search.ui:259
 #, kde-format
 msgid "Add new search tab"
-msgstr ""
+msgstr "Cuir cluaisín cuardaigh nua leis"
 
 #. i18n: ectx: property (text), widget (QLabel, folderLabel)
 #: search.ui:350
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "Folder:"
-msgstr "Fillteán"
+msgstr "Fillteán:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, folderUpButton)
 #: search.ui:368
 #, kde-format
 msgid "Go one folder up."
-msgstr ""
+msgstr "Téigh fillteán amháin suas."
 
 #. i18n: ectx: property (text), widget (QLabel, filterLabel)
 #: search.ui:377
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Filter:"
-msgstr "Scagaire"
+msgstr "Scagaire:"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, filterCombo)
 #: search.ui:399
@@ -381,7 +398,7 @@ msgstr "*"
 #: search.ui:407
 #, kde-format
 msgid "Exclude:"
-msgstr ""
+msgstr "Eisiamh:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, recursiveCheckBox)
 #: search.ui:428
@@ -393,31 +410,31 @@ msgstr "Athchúrsach"
 #: search.ui:438
 #, kde-format
 msgid "Include hidden"
-msgstr ""
+msgstr "Cuir i bhfolach san áireamh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, symLinkCheckBox)
 #: search.ui:445
 #, kde-format
 msgid "Follow symbolic links"
-msgstr ""
+msgstr "Lean naisc shiombalacha"
 
 #. i18n: ectx: property (text), widget (QCheckBox, binaryCheckBox)
 #: search.ui:452
 #, kde-format
 msgid "Include binary files"
-msgstr ""
+msgstr "Cuir comhaid dénártha san áireamh"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, sizeLimitSpinBox)
 #: search.ui:459
 #, kde-format
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: search.ui:472
 #, kde-format
 msgid "Size limit"
-msgstr ""
+msgstr "Teorainn méide"
 
 #: SearchPlugin.cpp:80 SearchPlugin.cpp:113
 #, kde-format
@@ -447,7 +464,7 @@ msgstr "Aon charactar aonair (seachas bristeacha líne)"
 #: SearchPlugin.cpp:96
 #, kde-format
 msgid "Literal dot"
-msgstr ""
+msgstr "Ponc liteartha"
 
 #: SearchPlugin.cpp:98
 #, kde-format
@@ -532,7 +549,7 @@ msgstr "Spás bán (seachas bristeacha líne)"
 #: SearchPlugin.cpp:120
 #, kde-format
 msgid "Non-whitespace (excluding line breaks)"
-msgstr ""
+msgstr "Gan spás bán (gan briseadh líne san áireamh)"
 
 #: SearchPlugin.cpp:121
 #, kde-format
@@ -547,70 +564,67 @@ msgstr "Carachtar neamhfhocail"
 #: SearchPlugin.cpp:134
 #, kde-format
 msgid "Regular expression capture 0 (whole match)"
-msgstr ""
+msgstr "Gabháil nathanna rialta 0 (meaitseáil iomlán)"
 
 #: SearchPlugin.cpp:135
-#, fuzzy, kde-format
-#| msgid "Regular Expressions"
+#, kde-format
 msgid "Regular expression capture 1-9"
-msgstr "Sloinn Ionadaíochta"
+msgstr "Gabháil nathanna rialta 1-9"
 
 #: SearchPlugin.cpp:136
-#, fuzzy, kde-format
-#| msgid "Regular Expressions"
+#, kde-format
 msgid "Regular expression capture 0-999"
-msgstr "Sloinn Ionadaíochta"
+msgstr "Gabháil nathanna rialta 0-999"
 
 #: SearchPlugin.cpp:138
 #, kde-format
 msgid "Upper-cased capture 0-9"
-msgstr ""
+msgstr "Gabháil i litreacha móra 0-9"
 
 #: SearchPlugin.cpp:139
 #, kde-format
 msgid "Upper-cased capture 0-999"
-msgstr ""
+msgstr "Gabháil i litreacha móra 0-999"
 
 #: SearchPlugin.cpp:140
 #, kde-format
 msgid "Lower-cased capture 0-9"
-msgstr ""
+msgstr "Gabháil i litreacha beaga 0-9"
 
 #: SearchPlugin.cpp:141
 #, kde-format
 msgid "Lower-cased capture 0-999"
-msgstr ""
+msgstr "Gabháil i litreacha beaga 0-999"
 
 #: SearchPlugin.cpp:286
-#, fuzzy, kde-format
-#| msgid "Search and Replace"
+#, kde-format
 msgid "Search & Replace"
-msgstr "Cuardaigh agus Athchuir"
+msgstr "Cuardaigh & Ionadaigh"
 
 #: SearchPlugin.cpp:327
 #, kde-format
 msgid "Find in Files"
-msgstr ""
+msgstr "Aimsigh i gComhaid"
 
 #: SearchPlugin.cpp:333
 #, kde-format
 msgid "Find in Files (in a New Tab)"
-msgstr ""
+msgstr "Aimsigh i gComhaid (i gCluaisín Nua)"
 
 #: SearchPlugin.cpp:339
 #, kde-format
 msgid "Go to Next Match"
-msgstr ""
+msgstr "Téigh go dtí an Chéad Chluiche Eile"
 
 #: SearchPlugin.cpp:345
 #, kde-format
 msgid "Go to Previous Match"
-msgstr ""
+msgstr "Téigh go dtí an Cluiche Roimhe Seo"
 
 #: SearchPlugin.cpp:351
 #, kde-format
 msgid "Cut Matching Lines"
-msgstr ""
+msgstr "Gearr Línte Meaitseála"
 
 #: SearchPlugin.cpp:353
 #, kde-format
@@ -618,11 +632,13 @@ msgid ""
 "This will cut all highlighted search match lines from the current document "
 "to the clipboard"
 msgstr ""
+"Gearrfar leis seo na línte cuardaigh uile atá aibhsithe ón doiciméad reatha "
+"go dtí an ghearrthaisce"
 
 #: SearchPlugin.cpp:358
 #, kde-format
 msgid "Copy Matching Lines"
-msgstr ""
+msgstr "Cóipeáil Línte Meaitseála"
 
 #: SearchPlugin.cpp:360
 #, kde-format
@@ -630,11 +646,15 @@ msgid ""
 "This will copy all highlighted search match lines in the current document to "
 "the clipboard"
 msgstr ""
+"Cóipeálfaidh sé seo na línte cuardaigh uile atá aibhsithe sa doiciméad "
+"reatha chuig an ghearrthaisce"
 
 #: SearchPlugin.cpp:393
 #, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
+"Liosta cineálacha comhad scartha le camóga le cuardach a dhéanamh ann. "
+"Sampla: \"*.cpp,*.h\""
 
 #: SearchPlugin.cpp:395
 #, kde-format
@@ -644,88 +664,94 @@ msgid ""
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
+"Liosta patrún fiáin scartha le camóga chun meaitseáil le hainmneacha comhad "
+"nó eolaire atá le heisiamh ón gcuardach.\n"
+"Sampla: \"build*\"\n"
+"Má tá '/' sa phatrún, déantar seiceáil ar an gcosán iomlán le haghaidh "
+"meaitseáil."
 
 #: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
-msgstr ""
+msgstr "Cliceáil chun scagadh a dhéanamh trí na torthaí"
 
 #: SearchPlugin.cpp:490
 #, kde-format
 msgid "Find"
-msgstr ""
+msgstr "Aimsigh"
 
 #: SearchPlugin.cpp:1173
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
+"Níor cuireadh tús leis an gcuardach mar níl an eolaire '%1' le cuardach ann "
+"ann."
 
 #: SearchPlugin.cpp:1346
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
+"Cuireadh isteach ar an gcuardach agus tú ag clóscríobh. Bheadh ​​sé ró-fhada."
 
 #: SearchPlugin.cpp:1679
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search Match"
-msgstr "Cuardaigh"
+msgstr "Cuardaigh Meaitseáil"
 
 #: SearchPlugin.cpp:1856 SearchPlugin.cpp:1932
 #, kde-format
 msgid "Next from cursor"
-msgstr ""
+msgstr "Ar Aghaidh ón gcúrsóir"
 
 #: SearchPlugin.cpp:1873
 #, kde-format
 msgid "Starting from first match"
-msgstr ""
+msgstr "Ag tosú ón gcéad chluiche"
 
 #: SearchPlugin.cpp:1893
 #, kde-format
 msgid "Continuing from first match"
-msgstr ""
+msgstr "Ag leanúint ón gcéad chluiche"
 
 #: SearchPlugin.cpp:1949
 #, kde-format
 msgid "Starting from last match"
-msgstr ""
+msgstr "Ag tosú ón gcluiche deireanach"
 
 #: SearchPlugin.cpp:1969
 #, kde-format
 msgid "Continuing from last match"
-msgstr ""
+msgstr "Ag leanúint ón gcluiche deireanach"
 
 #: SearchPlugin.cpp:2130
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search: %1"
-msgstr "Cuardaigh"
+msgstr "Cuardaigh: %1"
 
 #: SearchPlugin.cpp:2273
 #, kde-format
 msgid "Copy all"
-msgstr ""
+msgstr "Cóipeáil gach rud"
 
 #: SearchPlugin.cpp:2278
 #, kde-format
 msgid "Copy expanded"
-msgstr ""
+msgstr "Cóip leathnaithe"
 
 #: SearchPlugin.cpp:2281
 #, kde-format
 msgid "Export matches"
-msgstr ""
+msgstr "Easpórtáil cluichí"
 
 #: SearchPlugin.cpp:2286
 #, kde-format
 msgid "Open as Editor Tab"
-msgstr ""
+msgstr "Oscail mar Chluaisín Eagarthóra"
 
 #: SearchPlugin.cpp:2294
 #, kde-format
 msgid "Clear"
-msgstr ""
+msgstr "Glan"
 
 #: SearchPlugin.cpp:2404 SearchPlugin.cpp:2438
 #, kde-format
@@ -733,20 +759,19 @@ msgid "Add..."
 msgstr "Cuir Leis..."
 
 #: SearchPlugin.cpp:2416
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgid "Search As You Type"
-msgstr "Cuardaigh"
+msgstr "Cuardaigh agus tú ag clóscríobh"
 
 #: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In Current Project"
-msgstr ""
+msgstr "Sa Tionscadal Reatha"
 
 #: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In All Open Projects"
-msgstr ""
+msgstr "I ngach tionscadal oscailte"
 
 #. i18n: ectx: Menu (edit)
 #: ui.rc:6
@@ -758,7 +783,7 @@ msgstr "&Eagar"
 #: ui.rc:9
 #, kde-format
 msgid "Find in Files Variants"
-msgstr ""
+msgstr "Aimsigh i gComhaid Malartacha"
 
 #, fuzzy
 #~| msgid "Filter"

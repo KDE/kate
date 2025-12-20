@@ -450,10 +450,9 @@ msgid "Debugger"
 msgstr "Ladicí program"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "soubor nebyl určen: %1"
+msgstr "Nelze otevřít soubor: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format

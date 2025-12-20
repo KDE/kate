@@ -2,20 +2,22 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katetextfilter package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeaddons/katetextfilter.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2004-12-03 14:52-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:52+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
+"X-Generator: Poedit 3.7\n"
 
 #: plugin_katetextfilter.cpp:89
 #, kde-kuit-format
@@ -24,11 +26,13 @@ msgid ""
 "<title>Result of:</title><nl /><pre><code>$ %1\n"
 "<nl />%2</code></pre>"
 msgstr ""
+"<title>Toradh:</title><nl /><pre><code>$ %1\n"
+"<nl />%2</code></pre>"
 
 #: plugin_katetextfilter.cpp:142
 #, kde-format
 msgid "Failed to start process"
-msgstr ""
+msgstr "Theip ar an bpróiseas a thosú"
 
 #: plugin_katetextfilter.cpp:156
 #, kde-format
@@ -45,10 +49,9 @@ msgid "Access Restrictions"
 msgstr "Srianta Rochtana"
 
 #: plugin_katetextfilter.cpp:176 plugin_katetextfilter.cpp:264
-#, fuzzy, kde-format
-#| msgid "Filter"
+#, kde-format
 msgid "Text Filter"
-msgstr "Scagaire"
+msgstr "Scagaire Téacs"
 
 #: plugin_katetextfilter.cpp:242
 #, kde-format
@@ -67,32 +70,31 @@ msgstr ""
 #: plugin_katetextfilter.cpp:269
 #, kde-format
 msgid "&Filter Through Command..."
-msgstr ""
+msgstr "&Scag Trí Ordú..."
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, TextFilterWidget)
 #: textfilterwidget.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Dialóg"
 
 #. i18n: ectx: property (text), widget (QLabel, lblFilter)
 #: textfilterwidget.ui:26
-#, fuzzy, kde-format
-#| msgid "Enter command to pipe selected text through:"
+#, kde-format
 msgid "Enter command to &pipe selected text through:"
-msgstr "Iontráil ordú a bpíopálfar an téacs roghnaithe tríd:"
+msgstr "Iontráil ordú chun an téacs roghnaithe a &phíobáil tríd:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, newDoc)
 #: textfilterwidget.ui:39
 #, kde-format
 msgid "Open results in a new document"
-msgstr ""
+msgstr "Oscail torthaí i ndoiciméad nua"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:46
 #, kde-format
 msgid "Copy the result to clipboard leaving a document unchanged."
-msgstr ""
+msgstr "Cóipeáil an toradh chuig an ghearrthaisce gan an doiciméad a athrú."
 
 #. i18n: ectx: property (text), widget (QCheckBox, copyResult)
 #: textfilterwidget.ui:49
@@ -108,12 +110,15 @@ msgid ""
 "will be reported.\n"
 "Otherwise, STDERR will be displayed as a passive message."
 msgstr ""
+"Má tá sé seo seiceáilte, cuirfear aschur ó STDOUT agus STDERR le chéile agus "
+"ní thuairisceofar aon earráidí. \n"
+"Seachas sin, taispeánfar STDERR mar theachtaireacht éighníomhach."
 
 #. i18n: ectx: property (text), widget (QCheckBox, mergeOutput)
 #: textfilterwidget.ui:60
 #, kde-format
 msgid "Merge STDOUT and STDERR"
-msgstr ""
+msgstr "Cumaisc STDOUT agus STDERR"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

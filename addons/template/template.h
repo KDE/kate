@@ -103,6 +103,7 @@ private:
     void selectFolder();
 
     void exportTemplate();
+    void importTemplate();
 
     Ui::Template *ui;
     QPushButton *m_createButton;

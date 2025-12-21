@@ -17,6 +17,8 @@
 #include <QJsonParseError>
 #include <QStandardPaths>
 #include <QTemporaryDir>
+#include <QInputDialog>
+#include <QDirIterator>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -126,6 +128,10 @@ Template::Template(QWidget *parent)
     m_exportButton->setEnabled(false);
     ui->u_buttonBox->addButton(m_exportButton, QDialogButtonBox::ActionRole);
 
+    QPushButton *importButton = new QPushButton(QIcon::fromTheme(u"document-import"_s), i18n("Import..."), this);
+    ui->u_buttonBox->addButton(importButton, QDialogButtonBox::ActionRole);
+    
+    connect(importButton, &QPushButton::clicked, this, &Template::importTemplate);
     connect(m_createButton, &QPushButton::clicked, this, &Template::createFromTemplate);
     connect(ui->u_buttonBox, &QDialogButtonBox::rejected, this, &Template::cancel);
     connect(m_exportButton, &QPushButton::clicked, this, &Template::exportTemplate);
@@ -616,6 +622,152 @@ void Template::exportTemplate()
         KMessageBox::information(this, i18n("Template exported successfully to:\n%1", finalDest));
     } else {
         KMessageBox::error(this, i18n("Failed to export template."));
+    }
+}
+
+void Template::importTemplate()
+{
+    const QString srcDir = QFileDialog::getExistingDirectory(this, i18n("Select Template Folder to Import"), QDir::homePath(), QFileDialog::ShowDirsOnly | QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
+    if (srcDir.isEmpty()) {
+        return;
+    }
+
+    QDir source(srcDir);
+
+    if (!source.exists(u"template.json"_s)) {
+        KMessageBox::error(this, i18n("The selected folder does not contain a valid template.json file."));
+        return;
+    }
+
+    QFile jsonFile(source.filePath(u"template.json"_s));
+    if (!jsonFile.open(QIODevice::ReadOnly)) {
+        KMessageBox::error(this, i18n("Could not open template.json."));
+        return;
+    }
+
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(jsonFile.readAll(), &error);
+    jsonFile.close();
+
+    if (error.error != QJsonParseError::NoError) {
+        KMessageBox::error(this, i18n("Invalid JSON in template.json: %1", error.errorString()));
+        return;
+    }
+
+    QJsonObject root = doc.object();
+
+    if (root.contains(u"fileToOpen"_s)) {
+        const QString fileToOpen = root.value(u"fileToOpen"_s).toString();
+        if (!source.exists(fileToOpen)) {
+            KMessageBox::error(this, i18n("Broken Template: The fileToOpen '%1' does not exist in the folder.", fileToOpen));
+            return;
+        }
+    }
+
+    if (!root.contains(u"replacements"_s)) {
+        KMessageBox::error(this, i18n("Invalid Template: Missing mandatory 'replacements' tag in template.json."));
+        return;
+    }
+
+    QSet<QString> unfoundPlaceholders;
+    const QJsonArray replacements = root.value(u"replacements"_s).toArray();
+
+    for (const auto &item : replacements) {
+        if (!item.isObject()) {
+            KMessageBox::error(this, i18n("Invalid Template: 'replacements' array contains invalid data."));
+            return;
+        }
+
+        const QJsonObject replacement = item.toObject();
+
+        if (!replacement.contains(u"description"_s) || !replacement.contains(u"placeholder"_s) || !replacement.contains(u"default"_s)) {
+            KMessageBox::error(this, i18n("Invalid Template: A replacement object is missing required tags (description, placeholder, or default)."));
+            return;
+        }
+
+        const QString placeholder = replacement.value(u"placeholder"_s).toString();
+
+        if (placeholder.isEmpty()) {
+            KMessageBox::error(this, i18n("Invalid Template: A placeholder string cannot be empty."));
+            return;
+        }
+
+        unfoundPlaceholders.insert(placeholder);
+    }
+
+    if (!unfoundPlaceholders.isEmpty()) {
+        QDirIterator it(srcDir, QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+        while (it.hasNext() && !unfoundPlaceholders.isEmpty()) {
+            QString filePath = it.next();
+            if (QFileInfo(filePath).fileName() == u"template.json"_s) {
+                continue;
+            }
+
+            QFile f(filePath);
+            if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QString content = QString::fromUtf8(f.readAll());
+                for (auto i = unfoundPlaceholders.begin(); i != unfoundPlaceholders.end();) {
+                    if (content.contains(*i)) {
+                        i = unfoundPlaceholders.erase(i);
+                    } else {
+                        ++i;
+                    }
+                }
+            }
+        }
+
+        if (!unfoundPlaceholders.isEmpty()) {
+            QString missing = QStringList(unfoundPlaceholders.values()).join(u", ");
+            KMessageBox::error(this, i18n("Broken Template: Placeholders defined but not used:\n%1", missing));
+            return;
+        }
+    }
+
+    bool ok = false;
+    QString category = QInputDialog::getText(this, i18n("Import Template"),
+                                             i18n("Enter the category (tree-path) for this template (e.g., Files/Qt/FooBar):"),
+                                             QLineEdit::Normal,
+                                             i18n("Imported"),
+                                             &ok);
+
+    if (!ok || category.isEmpty()) {
+        return;
+    }
+
+    const QString localTemplates = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + u"/templates"_s;
+    const QString dirName = source.dirName();
+    const QString destPath = QDir(localTemplates).filePath(category + QLatin1Char('/') + dirName);
+
+    if (QFileInfo::exists(destPath)) {
+        const int ret = KMessageBox::warningContinueCancel(this,
+                                                           i18n("A template '%1' already exists in category '%2'.\nDo you want to overwrite it?", dirName, category),
+                                                           i18n("Overwrite Template"),
+                                                           KStandardGuiItem::overwrite(),
+                                                           KStandardGuiItem::cancel(),
+                                                           u"overwrite_imported_template_warning"_s);
+
+        if (ret != KMessageBox::Continue) {
+            return;
+        }
+
+        QDir(destPath).removeRecursively();
+    }
+
+    QDir().mkpath(destPath);
+    bool success = copyFolder(srcDir, destPath, ReplaceMap(), ReplaceMap(), QStringList());
+
+    if (success) {
+        m_selectionModel.clear();
+        
+        addTemplateRoot(localTemplates);
+        addTemplateRoot(u":/templates"_s);
+
+#ifdef BUILD_APPWIZARD
+        addAppWizardTemplates();
+#endif
+        KMessageBox::information(this, i18n("Template imported successfully!"));
+    } else {
+        KMessageBox::error(this, i18n("Failed to import template."));
     }
 }
 

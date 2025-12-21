@@ -2085,7 +2085,6 @@ msgstr ""
 
 #: lib/katemwmodonhddialog.cpp:281
 #, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
 msgid "Failed to create a temporary file"
 msgstr "无法获取文件历史：%1"
 

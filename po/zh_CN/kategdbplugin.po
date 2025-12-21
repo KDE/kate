@@ -450,7 +450,6 @@ msgstr "调试器"
 
 #: debugconfigpage.cpp:96
 #, fuzzy, kde-format
-#| msgid "file not specified: %1"
 msgid "Failed to open file: %1"
 msgstr "文件未指定：%1"
 

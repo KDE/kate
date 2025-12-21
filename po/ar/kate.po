@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2025-11-20 18:47+0400\n"
+"PO-Revision-Date: 2025-12-20 11:15+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2120,10 +2120,9 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "أخفق في الحصول على ملف التاريخ: %1"
+msgstr "فشل إنشاء ملف مؤقت"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

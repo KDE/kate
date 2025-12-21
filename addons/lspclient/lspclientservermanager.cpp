@@ -412,8 +412,9 @@ public:
             return nullptr;
         }
 
+        // we can only work on documents with a proper local file url
         auto document = view->document();
-        if (!document || document->url().isEmpty()) {
+        if (!document || document->url().isEmpty() || !document->url().isValid() || !document->url().isLocalFile()) {
             return nullptr;
         }
 

@@ -147,7 +147,9 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
     // This confirmation is useless when deleting, so we mark the document as unmodified.
     doc->setModified(false);
 
-    if (!KTextEditor::Editor::instance()->application()->closeDocument(doc)) {
+    // only try to close the file, if we use closeDocument, we might close the application and never delete stuff
+    // see bug 513649
+    if (!doc->closeUrl()) {
         return; // no extra message, the internals of ktexteditor should take care of that.
     }
 
@@ -155,8 +157,12 @@ void KateFileActions::deleteDocumentFile(QWidget *parent, KTextEditor::Document 
         KIO::DeleteJob *job = KIO::del(url);
         if (!job->exec()) {
             KMessageBox::error(parent, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
+            return;
         }
     }
+
+    // try to close the tab, this might close the application
+    KTextEditor::Editor::instance()->application()->closeDocument(doc);
 }
 
 QList<KateFileActions::DiffTool> KateFileActions::supportedDiffTools()

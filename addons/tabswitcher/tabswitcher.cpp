@@ -151,9 +151,9 @@ void TabSwitcherPluginView::unregisterItem(DocOrWidget docOrWidget)
     if (it == m_documents.end()) {
         // remove from pending
         if (auto doc = docOrWidget.doc()) {
-            auto it = std::find(m_documentsPendingAdd.begin(), m_documentsPendingAdd.end(), doc);
-            if (it != m_documentsPendingAdd.end()) {
-                m_documentsPendingAdd.erase(it);
+            auto pendingDocIt = std::find(m_documentsPendingAdd.begin(), m_documentsPendingAdd.end(), doc);
+            if (pendingDocIt != m_documentsPendingAdd.end()) {
+                m_documentsPendingAdd.erase(pendingDocIt);
             }
         }
         return;

@@ -314,8 +314,8 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
         for (auto [startCol, endCol, link, startCursor, _] : matchedRanges) {
             Q_UNUSED(startCursor)
             Q_UNUSED(link)
-            KTextEditor::Range range(i, startCol, i, endCol);
-            ranges.emplace_back(highlightRange(doc, range));
+            KTextEditor::Range linkRange(i, startCol, i, endCol);
+            ranges.emplace_back(highlightRange(doc, linkRange));
         }
     }
 }

@@ -1247,10 +1247,10 @@ public:
                 return QStandardItem::data(role);
             }
 
-            auto line = data(Qt::UserRole);
+            auto lineVariant = data(Qt::UserRole);
             // either of these mean we tried to obtain line already
-            if (line.isValid() || rootItem->data(RangeData::KindRole).toBool()) {
-                return QStandardItem::data(role).toString().append(line.toString());
+            if (lineVariant.isValid() || rootItem->data(RangeData::KindRole).toBool()) {
+                return QStandardItem::data(role).toString().append(lineVariant.toString());
             }
 
             KTextEditor::Document *doc = nullptr;
@@ -1987,8 +1987,7 @@ public:
     {
         QStandardItem *targetItem = nullptr;
         if (topItem) {
-            int count = topItem->rowCount();
-            int first = 0, last = count;
+            const int count = topItem->rowCount();
             // let's not run wild on a linear search in a flood of diagnostics
             if (count > 50) {
                 // instead, let's *assume* sorted and use binary search to get closer
@@ -2013,6 +2012,7 @@ public:
                     }
                 }
             }
+            int first = 0, last = count;
             for (int i = first; i < last; ++i) {
                 auto item = topItem->child(i);
                 if (!(item->flags() & Qt::ItemIsEnabled)) {

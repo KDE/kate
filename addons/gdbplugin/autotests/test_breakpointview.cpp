@@ -117,11 +117,11 @@ public:
     {
     }
 
-    void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &breakpoints) override
+    void setFunctionBreakpoints(const QList<dap::FunctionBreakpoint> &funcBreakpoints) override
     {
         QList<dap::Breakpoint> response;
-        response.reserve(breakpoints.size());
-        for (const auto &_ : breakpoints) {
+        response.reserve(funcBreakpoints.size());
+        for (const auto &_ : funcBreakpoints) {
             dap::Breakpoint bp;
             bp.id = idCounter++;
             bp.instructionReference = QStringLiteral("0xffee2211");
@@ -129,7 +129,7 @@ public:
             response.push_back(bp);
         }
 
-        Q_EMIT functionBreakpointsSet(breakpoints, response);
+        Q_EMIT functionBreakpointsSet(funcBreakpoints, response);
     }
 
     QList<dap::ExceptionBreakpointsFilter> exceptionBreakpointFilters() const override
@@ -761,12 +761,14 @@ void BreakpointViewTest::testUserRemovedBreakpoint()
     }
 
     // uncheck breakpoint
-    const auto index = indexForString(bv->m_treeview->model(), "file:4");
-    QVERIFY(index.isValid());
-    bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
-    QCOMPARE(QStringLiteral("* Line Breakpoints\n"
-                            "** []file:4\n"),
-             stringifyLineBreakpoints(bv->m_treeview->model()));
+    {
+        const auto index = indexForString(bv->m_treeview->model(), "file:4");
+        QVERIFY(index.isValid());
+        bv->m_treeview->model()->setData(index, Qt::Unchecked, Qt::CheckStateRole);
+        QCOMPARE(QStringLiteral("* Line Breakpoints\n"
+                                "** []file:4\n"),
+                 stringifyLineBreakpoints(bv->m_treeview->model()));
+    }
 
     {
         const auto index = indexForString(bv->m_treeview->model(), "file:4");

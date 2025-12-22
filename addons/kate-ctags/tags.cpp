@@ -95,11 +95,11 @@ Tags::TagList Tags::getPartialMatchesNoi8n(const QString &tagFile, const QString
     }
 
     ctags::tagFileInfo info;
-    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagFile *tagFilePtr = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
     ctags::tagEntry entry;
 
     QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
-    if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | TAG_PARTIALMATCH) == ctags::TagSuccess) {
+    if (ctags::tagsFind(tagFilePtr, &entry, tagpartBArray.data(), TAG_OBSERVECASE | TAG_PARTIALMATCH) == ctags::TagSuccess) {
         do {
             QString file = QString::fromLocal8Bit(entry.file);
             QString type(CTagsKinds::findKindNoi18n(entry.kind, getExtension(file)));
@@ -109,10 +109,10 @@ Tags::TagList Tags::getPartialMatchesNoi8n(const QString &tagFile, const QString
             }
 
             list << TagEntry(QString::fromLocal8Bit(entry.name), type, file, QString::fromLocal8Bit(entry.address.pattern));
-        } while (ctags::tagsFindNext(file, &entry) == ctags::TagSuccess);
+        } while (ctags::tagsFindNext(tagFilePtr, &entry) == ctags::TagSuccess);
     }
 
-    ctags::tagsClose(file);
+    ctags::tagsClose(tagFilePtr);
 
     return list;
 }
@@ -126,11 +126,11 @@ Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStri
     }
 
     ctags::tagFileInfo info;
-    ctags::tagFile *file = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
+    ctags::tagFile *tagsFilePtr = ctags::tagsOpen(_tagsfile.toLocal8Bit().constData(), &info);
     ctags::tagEntry entry;
 
     QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
-    if (ctags::tagsFind(file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH)) == ctags::TagSuccess) {
+    if (ctags::tagsFind(tagsFilePtr, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH)) == ctags::TagSuccess) {
         do {
             QString file = QString::fromLocal8Bit(entry.file);
             QString type(CTagsKinds::findKind(entry.kind, file.section(QLatin1Char('.'), -1)));
@@ -141,10 +141,10 @@ Tags::TagList Tags::getMatches(const QString &tagpart, bool partial, const QStri
             if (types.isEmpty() || types.contains(QString::fromLocal8Bit(entry.kind))) {
                 list << TagEntry(QString::fromLocal8Bit(entry.name), type, file, QString::fromLocal8Bit(entry.address.pattern));
             }
-        } while (ctags::tagsFindNext(file, &entry) == ctags::TagSuccess);
+        } while (ctags::tagsFindNext(tagsFilePtr, &entry) == ctags::TagSuccess);
     }
 
-    ctags::tagsClose(file);
+    ctags::tagsClose(tagsFilePtr);
 
     return list;
 }

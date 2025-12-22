@@ -149,8 +149,7 @@ public:
         QString code = message.value(u"code").toObject().value(u"code").toString();
         QString level = message.value(u"level").toString().toLower();
         QString diagMessage = message.value(u"message").toString();
-        const auto spans = message.value(u"spans").toArray();
-        const auto [fileName, range] = sourceLocationFromSpans(spans);
+        const auto [fileName, range] = sourceLocationFromSpans(message.value(u"spans").toArray());
 
         Diagnostic diag;
         diag.severity = [&level]() {
@@ -182,7 +181,7 @@ public:
                 continue;
             }
             auto spans = obj.value(u"spans").toArray();
-            auto [_, range] = sourceLocationFromSpans(spans);
+            auto [_, childSpanRange] = sourceLocationFromSpans(spans);
             QUrl u = uri;
             if (!spans.isEmpty()) {
                 auto rep = spans.first().toObject().value(u"suggested_replacement").toString();
@@ -193,10 +192,10 @@ public:
                 }
             }
 
-            if (!range.isValid()) {
-                range = diag.range;
+            if (!childSpanRange.isValid()) {
+                childSpanRange = diag.range;
             }
-            diag.relatedInformation.push_back(DiagnosticRelatedInformation{.location = {.uri = u, .range = range}, .message = msg});
+            diag.relatedInformation.push_back(DiagnosticRelatedInformation{.location = {.uri = u, .range = childSpanRange}, .message = msg});
         }
 
         // qDebug() << uri << diag.message << diag.range;

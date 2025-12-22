@@ -105,15 +105,15 @@ void LSPClientSymbolHighlighter::highlight()
 
                                                auto document = m_currentView->document();
                                                m_ranges.resize(locations.length());
-                                               auto it = m_ranges.begin();
+                                               auto rangesIt = m_ranges.begin();
 
                                                for (const auto &location : locations) {
                                                    auto mr = std::unique_ptr<KTextEditor::MovingRange>(document->newMovingRange(location.range));
                                                    mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
                                                    mr->setAttribute(m_highlightAttribute);
                                                    mr->setAttributeOnlyForViews(true);
-                                                   *it = std::move(mr);
-                                                   it++;
+                                                   *rangesIt = std::move(mr);
+                                                   rangesIt++;
                                                }
 
                                                if (auto it = findRange(m_currentView->cursorPosition()); it != m_ranges.end()) {

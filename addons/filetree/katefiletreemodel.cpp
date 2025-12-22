@@ -1265,8 +1265,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     }
 
     // case (item.path > root.path)
-    ProxyItemDir *root = findRootNode(item->path());
-    if (root) {
+    if (ProxyItemDir *root = findRootNode(item->path()); root) {
         insertItemInto(root, item);
         return;
     }

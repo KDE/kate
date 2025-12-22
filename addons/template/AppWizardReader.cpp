@@ -80,10 +80,10 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
                 // Rename the extracted description
                 // so that its basename matches the basename of the template archive
                 // Use temporary dir to not overwrite other files with same name
-                QTemporaryDir dir;
-                templateFile->copyTo(dir.path());
+                QTemporaryDir tempDir;
+                templateFile->copyTo(tempDir.path());
                 QFile::remove(destinationPath);
-                QFile::rename(dir.path() + QLatin1Char('/') + templateFile->name(), destinationPath);
+                QFile::rename(tempDir.path() + QLatin1Char('/') + templateFile->name(), destinationPath);
             }
 
             KConfig templateConfig(destinationPath);

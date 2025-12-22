@@ -588,10 +588,9 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
         return;
     }
 
-    QString text;
     if (KateApp::isKWrite()) {
-        text = i18n("%1 cannot open folders", KAboutData::applicationData().displayName());
-        KMessageBox::error(mainWindow(), text);
+        QString error = i18n("%1 cannot open folders", KAboutData::applicationData().displayName());
+        KMessageBox::error(mainWindow(), error);
         return;
     }
 
@@ -605,17 +604,16 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
             return pluginInfo.metaData.pluginId() == projectPluginId;
         });
 
-        QString text;
         if (i == pluginList.end()) {
-            text = i18n("The plugin required to open folders was not found");
-            KMessageBox::error(mainWindow(), text);
+            QString error = i18n("The plugin required to open folders was not found");
+            KMessageBox::error(mainWindow(), error);
             return;
         }
 
         KatePluginInfo &projectPluginInfo = *i;
-        text = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?", projectPluginInfo.metaData.name());
+        QString questionText = i18n("In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?", projectPluginInfo.metaData.name());
         if (KMessageBox::questionTwoActions(mainWindow(),
-                                            text,
+                                            questionText,
                                             i18nc("@title:window", "Open Folder"),
                                             KGuiItem(i18nc("@action:button", "Enable"), QStringLiteral("dialog-ok")),
                                             KStandardGuiItem::cancel())
@@ -624,8 +622,8 @@ void KateViewManager::openUrlOrProject(const QUrl &url)
         }
 
         if (!KateApp::self()->pluginManager()->loadPlugin(&projectPluginInfo)) {
-            text = i18n("Failed to enable <b>%1</b> plugin", projectPluginInfo.metaData.name());
-            KMessageBox::error(mainWindow(), text);
+            QString error = i18n("Failed to enable <b>%1</b> plugin", projectPluginInfo.metaData.name());
+            KMessageBox::error(mainWindow(), error);
             return;
         }
 
@@ -1766,14 +1764,14 @@ QString KateViewManager::saveSplitterConfig(KateSplitter *s, KConfigBase *config
         auto obj = s->widget(idx);
         if (auto kvs = qobject_cast<KateViewSpace *>(obj)) {
             auto it = std::find(m_viewSpaceList.begin(), m_viewSpaceList.end(), kvs);
-            int idx = (int)std::distance(m_viewSpaceList.begin(), it);
+            int viewspaceIdx = (int)std::distance(m_viewSpaceList.begin(), it);
 
-            childList.append(QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(idx));
-            kvs->saveConfig(configBase, idx, viewConfGrp);
+            childList.append(QString(viewConfGrp + QStringLiteral("-ViewSpace %1")).arg(viewspaceIdx));
+            kvs->saveConfig(configBase, viewspaceIdx, viewConfGrp);
             // save active viewspace
             if (kvs->isActiveSpace()) {
                 KConfigGroup viewConfGroup(configBase, viewConfGrp);
-                viewConfGroup.writeEntry("Active ViewSpace", idx);
+                viewConfGroup.writeEntry("Active ViewSpace", viewspaceIdx);
             }
         }
         // for KateSplitters, recurse

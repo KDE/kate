@@ -27,8 +27,8 @@ FilenameListItem::FilenameListItem(DocOrWidget doc)
 
 QIcon FilenameListItem::icon() const
 {
-    if (auto document = this->document.doc()) {
-        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(document->url()).iconName());
+    if (auto doc = this->document.doc()) {
+        return QIcon::fromTheme(QMimeDatabase().mimeTypeForUrl(doc->url()).iconName());
     } else if (auto widget = this->document.widget()) {
         return widget->windowIcon();
     }

@@ -348,8 +348,8 @@ QStringList PseudoDTD::attributeValues(const QString &element, const QString &at
         }
     } else if (auto it = m_attributevaluesList.find(element); it != m_attributevaluesList.end()) {
         const std::map<QString, QStringList> &attrVals = it->second;
-        if (auto it = attrVals.find(attribute); it != attrVals.end()) {
-            return it->second;
+        if (auto attrIt = attrVals.find(attribute); attrIt != attrVals.end()) {
+            return attrIt->second;
         }
     }
 

@@ -50,14 +50,14 @@ void SnippetView::setupActionsForWindow(QWidget *widget)
     const auto &model = SnippetStore::self();
     for (int i = 0; i < model->rowCount(); i++) {
         auto index = model->index(i, 0, QModelIndex());
-        auto item = model->itemFromIndex(index);
-        auto repo = SnippetRepository::fromItem(item);
+        auto repoItem = model->itemFromIndex(index);
+        auto repo = SnippetRepository::fromItem(repoItem);
         if (!repo) {
             continue;
         }
         for (int j = 0; j < model->rowCount(index); j++) {
-            auto item = model->itemFromIndex(model->index(j, 0, index));
-            auto snippet = Snippet::fromItem(item);
+            auto snippetItem = model->itemFromIndex(model->index(j, 0, index));
+            auto snippet = Snippet::fromItem(snippetItem);
             if (!snippet) {
                 continue;
             }

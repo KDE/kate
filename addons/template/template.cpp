@@ -118,9 +118,9 @@ Template::Template(QWidget *parent)
     ui->setupUi(this);
     m_createButton = new QPushButton(i18n("Create"));
     m_createButton->setEnabled(false);
-    
+
     ui->u_buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
-    m_createButton->setDefault(true); 
+    m_createButton->setDefault(true);
 
     m_exportButton = new QPushButton(i18n("Export"));
     m_exportButton->setEnabled(false);
@@ -155,7 +155,6 @@ Template::Template(QWidget *parent)
 #ifdef BUILD_APPWIZARD
     addAppWizardTemplates();
 #endif
-
 }
 
 Template::~Template()
@@ -458,10 +457,10 @@ void Template::addAppWizardTemplates()
     }
 
     // create the appWiz root
-    std::unique_ptr<TreeData> data = std::make_unique<TreeData>();
-    data->path = i18n("KAppTemplates");
+    std::unique_ptr<TreeData> rootData = std::make_unique<TreeData>();
+    rootData->path = i18n("KAppTemplates");
     QMap<QString, QModelIndex> indexes;
-    indexes.insert(QString(), m_selectionModel.addChild(std::move(data), QModelIndex()));
+    indexes.insert(QString(), m_selectionModel.addChild(std::move(rootData), QModelIndex()));
 
     for (auto it = m_appWizMap.cbegin(); it != m_appWizMap.cend(); it++) {
         QStringList itemPaths = it.key().split(u'/');
@@ -605,12 +604,8 @@ void Template::exportTemplate()
             typeStr = i18n("file");
         }
 
-        KMessageBox::error(
-            this,
-            i18n("The %1 '%2' already exists in the destination.\nExport failed.", typeStr, fileName),
-            i18n("Export Failed") 
-        );
-    
+        KMessageBox::error(this, i18n("The %1 '%2' already exists in the destination.\nExport failed.", typeStr, fileName), i18n("Export Failed"));
+
         return;
     }
 

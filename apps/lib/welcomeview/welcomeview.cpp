@@ -283,9 +283,9 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
             }
         } else {
             for (const auto &index : selectedIndexes) {
-                const auto url = m_recentItemsModel->url(index);
-                if (url.isValid()) {
-                    recentFilesAction->removeUrl(url);
+                const auto selectedUrl = m_recentItemsModel->url(index);
+                if (selectedUrl.isValid()) {
+                    recentFilesAction->removeUrl(selectedUrl);
                 }
             }
         }

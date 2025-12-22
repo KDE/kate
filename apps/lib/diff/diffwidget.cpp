@@ -832,16 +832,16 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     int lineB = 0;
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
-        auto match = DIFF_FILENAME_RE.match(line);
-        if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
-            srcFile = match.hasMatch() ? match.captured(1) : QString();
+        auto srcMatch = DIFF_FILENAME_RE.match(line);
+        if ((srcMatch.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
+            srcFile = srcMatch.hasMatch() ? srcMatch.captured(1) : QString();
             if (!srcFile.isEmpty()) {
                 fileExtensions.insert(QFileInfo(srcFile).suffix());
             }
-            auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
+            auto tgtFilenameMatch = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
-                tgtFile = match.hasMatch() ? match.captured(1) : QString();
+            if (tgtFilenameMatch.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+                tgtFile = tgtFilenameMatch.hasMatch() ? tgtFilenameMatch.captured(1) : QString();
                 if (!tgtFile.isEmpty()) {
                     fileExtensions.insert(QFileInfo(tgtFile).suffix());
                 }
@@ -869,14 +869,14 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
             continue;
         }
 
-        match = HUNK_HEADER_RE.match(line);
-        if (!match.hasMatch())
+        srcMatch = HUNK_HEADER_RE.match(line);
+        if (!srcMatch.hasMatch())
             continue;
 
-        const DiffRange oldRange = parseRange(match.captured(1));
-        const DiffRange newRange = parseRange(match.captured(2));
-        const QString headingLeft = QStringLiteral("@@ ") + match.captured(1) + match.captured(3) /* + QStringLiteral(" ") + srcFile*/;
-        const QString headingRight = QStringLiteral("@@ ") + match.captured(2) + match.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
+        const DiffRange oldRange = parseRange(srcMatch.captured(1));
+        const DiffRange newRange = parseRange(srcMatch.captured(2));
+        const QString headingLeft = QStringLiteral("@@ ") + srcMatch.captured(1) + srcMatch.captured(3) /* + QStringLiteral(" ") + srcFile*/;
+        const QString headingRight = QStringLiteral("@@ ") + srcMatch.captured(2) + srcMatch.captured(3) /* + QStringLiteral(" ") + tgtFile*/;
 
         lineNumsA.push_back(-1);
         lineNumsB.push_back(-1);
@@ -1043,10 +1043,10 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
             if (!srcFile.isEmpty()) {
                 fileExtensions.insert(QFileInfo(srcFile).suffix());
             }
-            auto match = DIFF_FILENAME_RE.match(text.at(i + 1));
+            auto tgtMatch = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (match.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
-                tgtFile = match.hasMatch() ? match.captured(1) : QString();
+            if (tgtMatch.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+                tgtFile = tgtMatch.hasMatch() ? tgtMatch.captured(1) : QString();
                 if (!tgtFile.isEmpty()) {
                     fileExtensions.insert(QFileInfo(tgtFile).suffix());
                 }

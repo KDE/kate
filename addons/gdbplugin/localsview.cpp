@@ -193,10 +193,12 @@ void LocalsView::onTreeWidgetContextMenu(QPoint pos)
     QMenu menu(this);
 
     if (auto item = m_treeWidget->currentItem()) {
-        auto a = menu.addAction(i18n("Copy Symbol"));
-        connect(a, &QAction::triggered, this, [item] {
-            qApp->clipboard()->setText(item->text(0).trimmed());
-        });
+        {
+            auto a = menu.addAction(i18n("Copy Symbol"));
+            connect(a, &QAction::triggered, this, [item] {
+                qApp->clipboard()->setText(item->text(0).trimmed());
+            });
+        }
 
         QString value = item->data(Column_Value, Qt::UserRole).toString();
         if (value.isEmpty()) {

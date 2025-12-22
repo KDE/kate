@@ -1449,15 +1449,15 @@ void KateMainWindow::saveGlobalProperties(KConfig *sessionConfig)
 {
     KateApp::self()->documentManager()->saveDocumentList(sessionConfig);
 
-    KConfigGroup cg(sessionConfig, QStringLiteral("General"));
-    cg.writeEntry("Last Session", KateApp::self()->sessionManager()->activeSession()->name());
+    KConfigGroup cgGeneral(sessionConfig, QStringLiteral("General"));
+    cgGeneral.writeEntry("Last Session", KateApp::self()->sessionManager()->activeSession()->name());
 
     // save plugin config !!
     KateApp::self()->pluginManager()->writeConfig(sessionConfig);
 
     if (m_diagView) {
-        KConfigGroup cg(sessionConfig, QStringLiteral("Kate Diagnostics"));
-        m_diagView->writeSessionConfig(cg);
+        KConfigGroup cgDiag(sessionConfig, QStringLiteral("Kate Diagnostics"));
+        m_diagView->writeSessionConfig(cgDiag);
     }
 }
 

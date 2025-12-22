@@ -333,7 +333,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
     const QRect viewportRect = viewport()->rect();
 
     while (block.isValid()) {
-        const QRectF r = blockBoundingRect(block).translated(offset);
+        const QRectF currentBlockRect = blockBoundingRect(block).translated(offset);
         QTextLayout *layout = block.layout();
 
         const LineHighlight *hl = highlightingForLine(block.blockNumber());
@@ -341,7 +341,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             const std::vector<Change> changes = hl->changes;
             for (Change c : changes) {
                 // full line background is colored
-                p.fillRect(r, hl->added ? green1 : red1);
+                p.fillRect(currentBlockRect, hl->added ? green1 : red1);
                 if (c.len == Change::FullBlock) {
                     continue;
                 }
@@ -389,8 +389,8 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             pen.setWidthF(1.1);
             p.setPen(pen);
             p.setBrush(Qt::NoBrush);
-            p.drawLine(r.topLeft(), r.topRight());
-            p.drawLine(r.bottomLeft(), r.bottomRight());
+            p.drawLine(currentBlockRect.topLeft(), currentBlockRect.topRight());
+            p.drawLine(currentBlockRect.bottomLeft(), currentBlockRect.bottomRight());
             p.restore();
         }
 
@@ -401,7 +401,7 @@ void DiffEditor::paintEvent(QPaintEvent *e)
             pen.setWidthF(1.1);
             p.setPen(pen);
             p.setBrush(Qt::NoBrush);
-            QRectF rCopy = r;
+            QRectF rCopy = currentBlockRect;
             rCopy.setRight(block.layout()->lineAt(0).naturalTextRect().right() + 4);
             rCopy.setLeft(rCopy.left() - 2);
             p.drawRect(rCopy);
@@ -415,10 +415,10 @@ void DiffEditor::paintEvent(QPaintEvent *e)
         }
 
         if (block.blockNumber() == cursorBlock && block.layout()) {
-            block.layout()->drawCursor(&p, {0., r.y()}, cursorPos, 2);
+            block.layout()->drawCursor(&p, {0., currentBlockRect.y()}, cursorPos, 2);
         }
 
-        offset.ry() += r.height();
+        offset.ry() += currentBlockRect.height();
         if (offset.y() > viewportRect.height()) {
             break;
         }

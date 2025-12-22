@@ -39,8 +39,7 @@ void CompilerExplorerSvc::sendRequest(CompilerExplorer::Endpoints endpoint, cons
 {
     QString endp = CompilerExplorer::endpointsToString.value(endpoint);
     QString requestUrl = url + endp + additional;
-    QUrl url{requestUrl};
-    QNetworkRequest req{url};
+    QNetworkRequest req{QUrl{url}};
     req.setRawHeader("ACCEPT", "application/json");
     req.setRawHeader("Content-Type", "application/json");
 

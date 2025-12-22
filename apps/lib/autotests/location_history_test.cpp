@@ -302,8 +302,10 @@ void LocationHistoryTest::test_signalEmission()
 
     vm->addPositionToHistory(currentFileUrl, {1, 0});
     QCOMPARE(sigSpy.count(), 1);
-    auto args = sigSpy.takeFirst();
-    QCOMPARE(args.at(0).toBool(), true);
+    {
+        auto args = sigSpy.takeFirst();
+        QCOMPARE(args.at(0).toBool(), true);
+    }
 
     QSignalSpy spy2(vm, &KateViewManager::historyForwardEnabled);
 

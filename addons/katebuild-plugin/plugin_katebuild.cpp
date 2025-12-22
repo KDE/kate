@@ -2201,7 +2201,9 @@ static double toProgress(const QString &progress)
             double dividend = match.captured(1).toInt();
             int divisor = match.captured(2).toInt();
             return divisor == 0 ? 0.0 : dividend / divisor;
-        } else if (const auto &match = percentReg.match(progress); match.hasMatch()) {
+        }
+
+        if (const auto &match = percentReg.match(progress); match.hasMatch()) {
             return match.captured(1).toInt();
         }
     }

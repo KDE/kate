@@ -654,8 +654,7 @@ static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor 
 {
     QStandardItem *targetItem = nullptr;
     if (topItem) {
-        int count = topItem->rowCount();
-        int first = 0, last = count;
+        const int count = topItem->rowCount();
         // let's not run wild on a linear search in a flood of diagnostics
         if (count > 50) {
             // instead, let's *assume* sorted and use binary search to get closer
@@ -680,7 +679,8 @@ static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor 
                 }
             }
         }
-        for (int i = first; i < last; ++i) {
+
+        for (int i = 0; i < count; ++i) {
             auto item = topItem->child(i);
             if (!(item->flags() & Qt::ItemIsEnabled)) {
                 continue;
@@ -1406,9 +1406,9 @@ void DiagnosticsView::updateDiagnosticsSuppression(DocumentDiagnosticItem *diagT
         const QList<DiagnosticsProvider *> &providers = diagTopItem->providers();
         if (doc) {
             for (auto p : providers) {
-                auto suppressions = p->suppressions(doc);
-                if (!suppressions.isEmpty()) {
-                    providerSupressions.push_back(suppressions);
+                auto docSuppressions = p->suppressions(doc);
+                if (!docSuppressions.isEmpty()) {
+                    providerSupressions.push_back(docSuppressions);
                 }
             }
         }

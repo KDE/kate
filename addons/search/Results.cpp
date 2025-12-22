@@ -127,11 +127,11 @@ KTextEditor::Range Results::matchRange(const QModelIndex &matchIndex) const
     return matchModel.matchRange(model()->mapToSource(matchIndex));
 }
 
-bool Results::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regExp, const QString &replaceString)
+bool Results::replaceSingleMatch(KTextEditor::Document *doc, const QModelIndex &matchIndex, const QRegularExpression &regex, const QString &replaceString)
 {
     Q_ASSERT(matchIndex.model() == model());
     const auto sourceIndex = model()->mapToSource(matchIndex);
-    return matchModel.replaceSingleMatch(doc, sourceIndex, regExp, replaceString);
+    return matchModel.replaceSingleMatch(doc, sourceIndex, regex, replaceString);
 }
 
 #include "moc_Results.cpp"

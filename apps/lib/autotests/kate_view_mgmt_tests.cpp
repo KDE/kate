@@ -795,8 +795,8 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
 
     QCOMPARE(app->mainWindowsCount(), 2);
 
-    for (auto mw : app->mainWindows()) {
-        QCOMPARE(mw->views().size(), 1);
+    for (auto mainWin : app->mainWindows()) {
+        QCOMPARE(mainWin->views().size(), 1);
     }
 }
 

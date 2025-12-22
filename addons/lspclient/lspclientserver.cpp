@@ -653,13 +653,13 @@ static LSPLocation parseLocationLink(const rapidjson::Value &loc)
     auto uri = urlFromRemote(urlString);
     // both should be present, selection contained by the other
     // so let's preferentially pick the smallest one
-    KTextEditor::Range range;
     if (auto it = loc.FindMember(MEMBER_TARGET_SELECTION_RANGE); it != loc.MemberEnd()) {
-        range = parseRange(it->value);
-    } else if (auto it = loc.FindMember(MEMBER_TARGET_RANGE); it != loc.MemberEnd()) {
-        range = parseRange(it->value);
+        return {uri, parseRange(it->value)};
     }
-    return {uri, range};
+    if (auto it = loc.FindMember(MEMBER_TARGET_RANGE); it != loc.MemberEnd()) {
+        return {uri, parseRange(it->value)};
+    }
+    return {uri, KTextEditor::Range()};
 }
 
 static QList<LSPTextEdit> parseTextEdit(const rapidjson::Value &result)
@@ -1640,8 +1640,8 @@ private:
                 PushCurrentServer g(q);
                 auto &h = handler.first;
                 auto &eh = handler.second;
-                if (auto it = result.FindMember(MEMBER_ERROR); it != result.MemberEnd() && eh) {
-                    eh(it->value);
+                if (auto memberIt = result.FindMember(MEMBER_ERROR); memberIt != result.MemberEnd() && eh) {
+                    eh(memberIt->value);
                 } else {
                     // result can be object or array so just extract value
                     h(GetJsonValueForKey(result, MEMBER_RESULT));

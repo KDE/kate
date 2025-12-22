@@ -300,7 +300,7 @@ public:
          * So we are left with a minor sleep compromise ...
          */
 
-        int count = 0;
+        int runningCount = 0;
         for (const auto &el : std::as_const(m_servers)) {
             for (const auto &si : el) {
                 auto &s = si.server;
@@ -309,12 +309,12 @@ public:
                 }
                 disconnect(s.get(), nullptr, this, nullptr);
                 if (s->state() != LSPClientServer::State::None) {
-                    ++count;
+                    ++runningCount;
                     s->stop(-1, -1);
                 }
             }
         }
-        if (count) {
+        if (runningCount > 0) {
             QThread::msleep(500);
         } else {
             return;

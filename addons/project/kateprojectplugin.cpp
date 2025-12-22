@@ -199,11 +199,11 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
      * if we arrive here, we found no .kateproject
      * => we want to invent a project based on e.g. version control system info
      */
-    for (const QString &dir : directoryStack) {
+    for (const QString &dirPath : directoryStack) {
         // try to invent project based on CMake & version control stuff, try CMake first
         KateProject *project = nullptr;
-        if ((project = detectCMake(dir)) || (project = detectGit(dir)) || (project = detectSubversion(dir)) || (project = detectMercurial(dir))
-            || (project = detectFossil(dir))) {
+        if ((project = detectCMake(dirPath)) || (project = detectGit(dirPath)) || (project = detectSubversion(dirPath)) || (project = detectMercurial(dirPath))
+            || (project = detectFossil(dirPath))) {
             return project;
         }
     }

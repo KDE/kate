@@ -41,8 +41,8 @@ static QString filenameFromMode(KTextEditor::Document *doc)
         return m.compare(QLatin1String(s.data(), s.size()), Qt::CaseInsensitive) == 0;
     };
 
-    QString path = doc->url().toLocalFile();
-    QFileInfo fi(path);
+    const QString path = doc->url().toLocalFile();
+    const QFileInfo fi(path);
     const auto suffix = fi.suffix();
     const auto base = fi.baseName();
     // If the basename or suffix is missing, try to create a filename
@@ -54,12 +54,10 @@ static QString filenameFromMode(KTextEditor::Document *doc)
 
     QString prefix;
     if (!path.isEmpty()) {
-        const auto fi = QFileInfo(path);
         prefix = fi.absolutePath();
         if (!prefix.isEmpty() && !prefix.endsWith(QLatin1Char('/'))) {
             prefix += QLatin1String("/");
         }
-        const QString base = fi.baseName();
         if (!base.isEmpty()) {
             prefix += base + QStringLiteral("/");
         } else {

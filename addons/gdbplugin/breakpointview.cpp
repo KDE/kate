@@ -116,9 +116,9 @@ struct FileBreakpoint {
 
     bool fromJson(const QJsonObject &object)
     {
-        const auto url = QUrl(object[QLatin1String("url")].toString());
-        if (url.isValid()) {
-            this->url = url;
+        const auto inUrl = QUrl(object[QLatin1String("url")].toString());
+        if (inUrl.isValid()) {
+            this->url = inUrl;
             this->sourceBreakpoint = dap::SourceBreakpoint(object[QLatin1String("breakpoint")].toObject());
             this->checkState = object[QLatin1String("checkState")].toBool() ? Qt::Checked : Qt::Unchecked;
             return true;
@@ -1524,10 +1524,10 @@ void BreakpointView::enableBreakpointMarks(KTextEditor::Document *doc)
 void BreakpointView::onRemoveBreakpointRequested(const QUrl &url, int line)
 {
     auto existing = m_breakpointModel->sourceBreakpointsForPath(url);
-    auto it = std::find_if(existing.begin(), existing.end(), [line](const dap::SourceBreakpoint &n) {
+    auto existingIt = std::find_if(existing.begin(), existing.end(), [line](const dap::SourceBreakpoint &n) {
         return n.line == line;
     });
-    if (it != existing.end()) {
+    if (existingIt != existing.end()) {
         setBreakpoint(url, dap::SourceBreakpoint(line), {});
         addOrRemoveDocumentBreakpointMark(url, line, /*add=*/false);
     } else {

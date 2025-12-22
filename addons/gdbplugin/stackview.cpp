@@ -165,8 +165,8 @@ void StackView::onStackTreeContextMenuRequest(QPoint pos)
     QMenu menu(m_stackTree);
     auto model = m_stackTree->model();
 
-    auto a = menu.addAction(i18n("Copy Stack Trace"));
-    connect(a, &QAction::triggered, m_stackTree, [model] {
+    auto copyStackAct = menu.addAction(i18n("Copy Stack Trace"));
+    connect(copyStackAct, &QAction::triggered, m_stackTree, [model] {
         QString text;
         for (int i = 0; i < model->rowCount(); ++i) {
             QString no = model->index(i, StackFrameModel::Column::Number).data().toString();
@@ -191,9 +191,9 @@ void StackView::onStackTreeContextMenuRequest(QPoint pos)
             }
         }
 
-        auto a = menu.addAction(i18n("Copy Location"));
+        auto copyLocAct = menu.addAction(i18n("Copy Location"));
         QString location = QStringLiteral("%1:%2").arg(Utils::formatUrl(frame.source->path)).arg(frame.line);
-        connect(a, &QAction::triggered, m_stackTree, [location] {
+        connect(copyLocAct, &QAction::triggered, m_stackTree, [location] {
             qApp->clipboard()->setText(location);
         });
     }

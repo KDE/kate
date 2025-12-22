@@ -1343,13 +1343,13 @@ void Sidebar::dragMoveEvent(QDragMoveEvent *e)
         Q_ASSERT(it != m_toolviews.end());
         MultiTabBar *tabbar = it->tabbar;
         int lastTabId = tabbar->tabList().back();
-        KMultiTabBarTab *tab = tabbar->tabBar()->tab(lastTabId);
+        KMultiTabBarTab *lastTab = tabbar->tabBar()->tab(lastTabId);
 
-        QPoint tabPos = tab->pos();
+        QPoint tabPos = lastTab->pos();
         if (isVertical()) {
-            tabPos.setY(tabPos.y() + tab->height());
+            tabPos.setY(tabPos.y() + lastTab->height());
         } else {
-            tabPos.setX(tabPos.x() + tab->width());
+            tabPos.setX(tabPos.x() + lastTab->width());
         }
         auto globalPos = mapToGlobal(tabPos);
         auto pos = m_mainWin->mapFromGlobal(globalPos);

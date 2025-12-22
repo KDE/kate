@@ -150,20 +150,20 @@ QStandardItemModel *RBQLTab::execQuery(const QString &sep, QStringList lines, bo
     // SELECT a1,a2 WHERE a3 <= 1000
     // SELECT NR,*
 
-    int i = 0;
+    int row = 0;
     QStringList header;
     if (includeHeader) {
-        i = 1;
+        row = 1;
         header = lines.at(0).split(sep, Qt::SkipEmptyParts);
     }
 
     QJSValue inputRecords = m_engine->newArray();
     int recordIdx = 0;
-    for (; i < lines.size(); ++i) {
-        if (QStringView(lines.at(i)).trimmed().isEmpty()) {
+    for (; row < lines.size(); ++row) {
+        if (QStringView(lines.at(row)).trimmed().isEmpty()) {
             continue;
         }
-        auto line = lines.at(i).split(sep, Qt::SkipEmptyParts);
+        auto line = lines.at(row).split(sep, Qt::SkipEmptyParts);
         auto recordColumn = m_engine->newArray(line.size());
         for (int j = 0; j < line.size(); ++j) {
             recordColumn.setProperty(j, line[j]);

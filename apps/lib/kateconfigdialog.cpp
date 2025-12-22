@@ -199,24 +199,24 @@ void KateConfigDialog::addBehaviorPage()
     buttonGroup->setLayout(vbox);
 
     if (KateApp::isKate()) {
-        auto *buttonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
-        layout->addWidget(buttonGroup);
-        auto *vbox = new QVBoxLayout;
-        m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), buttonGroup);
+        auto *sideBarsButtonGroup = new QGroupBox(i18n("&Sidebars"), generalFrame);
+        layout->addWidget(sideBarsButtonGroup);
+        auto *sidebarsVbox = new QVBoxLayout;
+        m_syncSectionSizeWithSidebarTabs = new QCheckBox(i18n("Sync section size with tab positions"), sideBarsButtonGroup);
         m_syncSectionSizeWithSidebarTabs->setChecked(cgGeneral.readEntry("Sync section size with tab positions", false));
         m_syncSectionSizeWithSidebarTabs->setToolTip(
             i18n("When enabled the section size will be determined by the position of the tabs.\n"
                  "This option does not affect the bottom sidebar."));
         connect(m_syncSectionSizeWithSidebarTabs, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
-        vbox->addWidget(m_syncSectionSizeWithSidebarTabs);
+        sidebarsVbox->addWidget(m_syncSectionSizeWithSidebarTabs);
 
-        m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right sidebar buttons"), buttonGroup);
+        m_showTextForLeftRightSidebars = new QCheckBox(i18n("Show text for left and right sidebar buttons"), sideBarsButtonGroup);
         m_showTextForLeftRightSidebars->setChecked(cgGeneral.readEntry("Show text for left and right sidebar", false));
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, &KateConfigDialog::slotChanged);
-        vbox->addWidget(m_showTextForLeftRightSidebars);
+        sidebarsVbox->addWidget(m_showTextForLeftRightSidebars);
 
-        label = new QLabel(i18n("Icon size for left and right sidebar buttons:"), buttonGroup);
-        m_leftRightSidebarsIconSize = new QSpinBox(buttonGroup);
+        label = new QLabel(i18n("Icon size for left and right sidebar buttons:"), sideBarsButtonGroup);
+        m_leftRightSidebarsIconSize = new QSpinBox(sideBarsButtonGroup);
         m_leftRightSidebarsIconSize->setMinimum(16);
         m_leftRightSidebarsIconSize->setMaximum(48);
         m_leftRightSidebarsIconSize->setValue(cgGeneral.readEntry("Icon size for left and right sidebar buttons", 32));
@@ -225,13 +225,13 @@ void KateConfigDialog::addBehaviorPage()
         hlayout = new QHBoxLayout;
         hlayout->addWidget(label);
         hlayout->addWidget(m_leftRightSidebarsIconSize);
-        vbox->addLayout(hlayout);
+        sidebarsVbox->addLayout(hlayout);
 
         connect(m_showTextForLeftRightSidebars, &QCheckBox::toggled, this, [l = QPointer(label), this](bool v) {
             m_leftRightSidebarsIconSize->setEnabled(!v);
             l->setEnabled(!v);
         });
-        buttonGroup->setLayout(vbox);
+        sideBarsButtonGroup->setLayout(sidebarsVbox);
     }
 
     // tabbar => we allow to configure some limit on number of tabs to show
@@ -713,12 +713,12 @@ void KateConfigDialog::slotApply()
 
         if (KateApp::isKate()) {
             const QString existingPATH = cg.readEntry("Kate PATH", QString());
-            const QString newPATH = m_pathEdit->text();
+            const QString userEnteredPATH = m_pathEdit->text();
             const QChar seperator = QDir::listSeparator();
             // check if it changed
-            if (existingPATH != newPATH) {
+            if (existingPATH != userEnteredPATH) {
                 // validate entries, check they exist
-                const QStringList paths = newPATH.split(seperator, Qt::SkipEmptyParts);
+                const QStringList paths = userEnteredPATH.split(seperator, Qt::SkipEmptyParts);
                 QStringList validatedPaths;
                 for (const auto &p : paths) {
                     if (!QFileInfo::exists(p)) {

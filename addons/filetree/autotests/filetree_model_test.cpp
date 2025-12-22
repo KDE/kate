@@ -57,9 +57,9 @@ public:
             s += QLatin1String("  ");
         }
 
-        const QString name = rootNode.name.isEmpty() ? QStringLiteral("ROOT") : rootNode.name;
+        const QString rootNodeName = rootNode.name.isEmpty() ? QStringLiteral("ROOT") : rootNode.name;
 
-        s += QLatin1String("( ") + name;
+        s += QLatin1String("( ") + rootNodeName;
         if (rootNode.dir) {
             s += QLatin1String(", {D}");
         }

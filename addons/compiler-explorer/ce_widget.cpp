@@ -415,9 +415,9 @@ bool CEWidget::compilationFailed(const QJsonObject &obj)
                 }
 
                 for (const auto &line : std::as_const(lines)) {
-                    AsmRow r;
-                    r.text = line;
-                    rows.push_back(r);
+                    AsmRow row;
+                    row.text = line;
+                    rows.push_back(row);
                 }
             }
 

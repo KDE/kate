@@ -114,13 +114,13 @@ void ESLintPluginView::onSaved(KTextEditor::Document *)
 
 static FileDiagnostics parseLine(const QString &line, std::vector<DiagnosticWithFix> &diagWithFix)
 {
-    QJsonParseError e;
-    QJsonDocument d = QJsonDocument::fromJson(line.toUtf8(), &e);
-    if (e.error != QJsonParseError::NoError) {
+    QJsonParseError jsonErr;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(line.toUtf8(), &jsonErr);
+    if (jsonErr.error != QJsonParseError::NoError) {
         return {};
     }
 
-    const auto arr = d.array();
+    const auto arr = jsonDoc.array();
     if (arr.empty()) {
         return {};
     }

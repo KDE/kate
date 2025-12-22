@@ -1064,8 +1064,7 @@ void KatePluginSearchView::startSearch()
 
     QString currentSearchText = m_ui.searchCombo->currentText();
     m_ui.searchCombo->setItemText(0, QString()); // remove the text from index 0 on enter/search
-    int index = m_ui.searchCombo->findText(currentSearchText);
-    if (index > 0) {
+    if (int index = m_ui.searchCombo->findText(currentSearchText); index > 0) {
         m_ui.searchCombo->removeItem(index);
     }
     m_ui.searchCombo->insertItem(1, currentSearchText);

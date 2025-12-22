@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-13 00:47+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-11-11 00:32+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -525,12 +525,12 @@ msgstr "Wilt u de wijzigingen verwerpen?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Wilt u deze niet-gevolgde wijzigingen verwijderen?"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Misvormd JSON-bestand '%1': %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
 #: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
 #: kateprojectviewtree.cpp:400
@@ -538,7 +538,7 @@ msgstr "Misvormd JSON-bestand '%1': %2"
 msgid "Project"
 msgstr "Project"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<untracked>"

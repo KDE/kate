@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-13 00:47+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-12-08 09:19+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -528,12 +528,12 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "Ziur zaude aztarna jarraitzeke duten aldaketa hauek kendu nahi dituzula?"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
 #: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
 #: kateprojectviewtree.cpp:400
@@ -541,7 +541,7 @@ msgstr "Gaizki osatutako JSON fitxategia '%1': %2"
 msgid "Project"
 msgstr "Proiektua"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<aztarna jarraitzeke>"

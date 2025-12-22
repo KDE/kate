@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-12-21 06:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -232,7 +232,7 @@ msgid "&View"
 msgstr "檢視(&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "分割檢視"
@@ -1457,12 +1457,12 @@ msgstr "確定刪除檔案「%1」？"
 msgid "Delete file"
 msgstr "刪除檔案"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "無法刪除「%1」檔案。"
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, kde-format
 msgid "&Other Application..."
 msgstr "其他應用程式(&O)..."
@@ -2494,34 +2494,34 @@ msgstr "啟用 <b>%1</b> 外掛程式時失敗"
 msgid "The file '%1' does not exist"
 msgstr "檔案「%1」不存在"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "同步捲動"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "與其他已同步捲動的分割檢視同步這個分割檢視的捲動"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "點擊此處以切換到快速開啟檢視。"
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "控制檢視空間分割"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2533,47 +2533,47 @@ msgstr[0] ""
 "目前還有 %1 份文件待開啟。要查看所有開啟的文件，請點擊此出來切換到快速開啟檢"
 "視。"
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Tab"
 msgstr "關閉分頁(&C)"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "關閉其他分頁(&O)"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "關閉所有分頁(&T)"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "D&etach Document"
 msgstr "在獨立視窗顯示文件(&E)"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "在新視窗開啟文件並在此視窗關閉它"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "使用此工具與作用中文件比對差異"
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消釘選文件"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Pin Document"
 msgstr "釘選文件"

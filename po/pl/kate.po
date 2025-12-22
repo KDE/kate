@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1725145 $
+# Version: $Revision: 1725559 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-09-06 05:51+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -243,7 +243,7 @@ msgid "&View"
 msgstr "&Widok"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "Widok podzielony"
@@ -1512,12 +1512,12 @@ msgstr "Czy na pewno chcesz usunąć plik \"%1\"?"
 msgid "Delete file"
 msgstr "Usunąć plik"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Nie można usunąć pliku \"%1\"."
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, kde-format
 msgid "&Other Application..."
 msgstr "Inny pr&ogram..."
@@ -2577,12 +2577,12 @@ msgstr "Nie udało się włączyć wtyczki <b>%1</b>"
 msgid "The file '%1' does not exist"
 msgstr "Plik '%1' nie istnieje"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Zsynchronizuj przewijanie"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2590,23 +2590,23 @@ msgstr ""
 "Zsynchronizuj przewijanie tego podzielonego widoku z innymi "
 "zsynchronizowanymi widokami podzielonymi"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Naciśnij tutaj, aby przełączyć się do widoku szybkiego otwierania."
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Podział przestrzeni widoku sterowania"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2624,50 +2624,50 @@ msgstr[2] ""
 "Obecnie otwartych jest jeszcze %1 dokumentów. Aby zobaczyć wszystkie otwarte "
 "dokumenty, naciśnij tutaj, aby przełączyć się do widoku szybkiego otwierania."
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "Zamknij kartę"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "Zamknij pozostałe"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "Zamknij wszystkie"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "D&etach Document"
 msgstr "Odłącz dokum&ent"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Otwiera dokument w nowym oknie i zamyka go w bieżącym oknie"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Porównaj z bieżącym dokumentem "
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Porównaj z bieżącym dokumentem używając"
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Unpin Document"
 msgstr "Odepnij dokument"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Pin Document"
 msgstr "Przypnij dokument"

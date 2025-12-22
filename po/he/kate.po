@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-12-18 11:44+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -242,7 +242,7 @@ msgid "&View"
 msgstr "&תצוגה"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "תצוגה מפוצלת"
@@ -1486,12 +1486,12 @@ msgstr "למחוק את „%1”?"
 msgid "Delete file"
 msgstr "מחיקת קובץ"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "אי אפשר למחוק את הקובץ „%1”."
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, kde-format
 msgid "&Other Application..."
 msgstr "יישום &אחר…"
@@ -2530,34 +2530,34 @@ msgstr "הפעלת התוסף <b>%1</b> נכשלה"
 msgid "The file '%1' does not exist"
 msgstr "הקובץ ‚%1’ לא קיים"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "סנכרון גלילה"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr "סנכרון הגלילה של התצוגה המפוצלת הזאת עם תצוגות מפוצלות מסונכרנות אחרות"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "לחיצה כאן תעביר לתצוגת הפתיחה המהירה."
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "שליטה על הרווח בין התצוגות"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2578,47 +2578,47 @@ msgstr[3] ""
 "נכון לעכשיו, יש עוד %1 מסמכים פתוחים. כדי לצפות בכל המסמכים הפתוחים, ניתן "
 "לעבור לתצוגת הפתיחה המהירה על ידי לחיצה כאן."
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Tab"
 msgstr "&סגירת לשונית"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "לסגור את &שאר הלשוניות"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "לסגור את &כל הלשוניות"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "D&etach Document"
 msgstr "&ניתוק המסמך"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "פתיחת המסמך בחלון חדש וסגירתו בחלון הנוכחי"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "השוואה מול המסמך הפעיל"
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "השוואה מול המסמך הפעיל בעזרת"
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Unpin Document"
 msgstr "שחרור נעיצת מסמך"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Pin Document"
 msgstr "נעיצת מסמך"

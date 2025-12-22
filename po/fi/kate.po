@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-10-15 21:06+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -251,7 +251,7 @@ msgid "&View"
 msgstr "&Näkymä"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "Jaa näkymä"
@@ -1500,12 +1500,12 @@ msgstr "Haluatko varmasti poistaa tiedoston ”%1”?"
 msgid "Delete file"
 msgstr "Poista tiedosto"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "Tiedostoa ”%1” ei voitu poistaa."
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, kde-format
 msgid "&Other Application..."
 msgstr "&Muu sovellus…"
@@ -2564,35 +2564,35 @@ msgstr "<b>%1</b> -liitännäisen käyttöönotto epäonnistui"
 msgid "The file '%1' does not exist"
 msgstr "Tiedostoa ”%1” ei ole olemassa"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "Tahdista vieritys"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 "Tahdistaa jakonäkymän vierityksen muiden tahdistettujen jakonäkymien kanssa"
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Vaihda pika-avaukseen painamalla tästä."
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Hallitse näkymien viemän tilan jakamista"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2607,47 +2607,47 @@ msgstr[1] ""
 "%1 tiedosto lisää on auki. Katso kaikki avoimet tiedostot siirtymällä pika-"
 "avausnäkymään painamalla tästä."
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, kde-format
 msgid "&Close Tab"
 msgstr "Sul&je välilehti"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Sulje &muut välilehdet"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Sulje k&aikki välilehdet"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "D&etach Document"
 msgstr "&Irrota tiedosto"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Avaa tiedoston uuteen ikkunaan ja sulkee sen nykyisessä"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Vertaa aktiiviseen tiedostoon"
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vertaa aktiiviseen tiedostoon ohjelmalla"
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Unpin Document"
 msgstr "Irrota tiedosto"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Pin Document"
 msgstr "Kiinnitä tiedosto"

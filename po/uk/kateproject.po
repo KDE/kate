@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-13 00:47+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-11-09 18:10+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -531,12 +531,12 @@ msgstr ""
 "Ви справді хочете вилучити ці зміни, за якими не ведеться стеження у системі "
 "керування версіями?"
 
-#: kateproject.cpp:300
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Помилкове форматування файла JSON «%1»: %2"
 
-#: kateproject.cpp:367 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
 #: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
 #: kateprojectviewtree.cpp:400
@@ -544,7 +544,7 @@ msgstr "Помилкове форматування файла JSON «%1»: %2"
 msgid "Project"
 msgstr "Проєкт"
 
-#: kateproject.cpp:666
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<стеження не виконується>"

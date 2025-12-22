@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -220,7 +220,7 @@ msgid "&View"
 msgstr "&မြင်ကွင်း"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "မြင်ကွင်းအခွဲ"
@@ -1420,12 +1420,12 @@ msgstr "ဖိုင် \"%1\" ကို ဖျက်မှာ သေချာ�
 msgid "Delete file"
 msgstr "ဖျက်"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr "\"%1\"ဖိုင်ကို မဖျက်နိုင်ခဲ့ပါ"
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, kde-format
 msgid "&Other Application..."
 msgstr "&အခြားအပ္ပလီကေးရှင်း…"
@@ -2452,34 +2452,34 @@ msgstr "ပလပ်ဂင် <b>%1</b> ကို သုံးမရပါ"
 msgid "The file '%1' does not exist"
 msgstr "ဖိုင် '%1' မရှိပါ"
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "ဆွဲရွှေ့မှု စည်းချက်ညီရန်"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "အလျင်အမြန်ဖွင့်မြင်ကွင်းသို့ပြောင်းရန် ဤနေရာကိုနှိပ်ပါ။"
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "ကြည့်ရှုနေရာချထားမှု စီမံရန်"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2489,50 +2489,50 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "တပ်ဘ်ပိတ်"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "အခြားဟာများပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "အားလုံးပိတ်"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, kde-format
 msgid "D&etach Document"
 msgstr "မှတ်တမ်းစာအုပ်&ခွာမည်"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ဝင်းဒိုးအသစ်တွင် မှတ်တမ်းစာအုပ်ကိုဖွင့်၍ လက်ရှိဝင်းဒိုးတွင်ပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "နောက်ပါကိုအသုံးပြု၍သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, kde-format
 msgid "Unpin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော့ပါ"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, kde-format
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"

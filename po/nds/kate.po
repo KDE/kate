@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-22 00:45+0000\n"
 "PO-Revision-Date: 2014-09-18 23:24+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -243,7 +243,7 @@ msgid "&View"
 msgstr "&Ansicht"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:139
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
 #, kde-format
 msgid "Split View"
 msgstr "Ansicht delen"
@@ -1503,12 +1503,12 @@ msgstr ""
 msgid "Delete file"
 msgstr "Datei wegdoon?"
 
-#: lib/katefileactions.cpp:157
+#: lib/katefileactions.cpp:159
 #, kde-format
 msgid "File \"%1\" could not be deleted."
 msgstr ""
 
-#: lib/katefileactions.cpp:212
+#: lib/katefileactions.cpp:218
 #, fuzzy, kde-format
 #| msgid "Application"
 msgid "&Other Application..."
@@ -2628,35 +2628,35 @@ msgstr ""
 msgid "The file '%1' does not exist"
 msgstr ""
 
-#: lib/kateviewspace.cpp:94
+#: lib/kateviewspace.cpp:95
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "Synchronize Scrolling"
 msgstr "&Nieg Finster"
 
-#: lib/kateviewspace.cpp:96
+#: lib/kateviewspace.cpp:97
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:118
+#: lib/kateviewspace.cpp:119
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:123 lib/kateviewspace.cpp:251
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Klick hier, wenn Du na de Gauopmaak-Ansicht wesseln wullt"
 
-#: lib/kateviewspace.cpp:140
+#: lib/kateviewspace.cpp:141
 #, kde-format
 msgid "Control view space splitting"
 msgstr "Delen vun't Ansichtrebeet stüern"
 
-#: lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:253
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2671,55 +2671,55 @@ msgstr[1] ""
 "Opstunns sünd noch %1 Dokmenten mehr opmaakt. Du kannst hier klicken un na "
 "de Gauopmaak-Ansicht wesseln, wenn Du all opmaakt Dokmenten ankieken wullt."
 
-#: lib/kateviewspace.cpp:1135
+#: lib/kateviewspace.cpp:1136
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "&Close Tab"
 msgstr "Utmaken"
 
-#: lib/kateviewspace.cpp:1142
+#: lib/kateviewspace.cpp:1143
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close &Other Tabs"
 msgstr "Anner tomaken"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1156
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "All &tomaken"
 
-#: lib/kateviewspace.cpp:1186
+#: lib/kateviewspace.cpp:1187
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "D&etach Document"
 msgstr "Nakamen Dokment"
 
-#: lib/kateviewspace.cpp:1191
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1233
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "Dit Dokment tomaken."
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1239
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "Dit Dokment tomaken."
 
-#: lib/kateviewspace.cpp:1246
+#: lib/kateviewspace.cpp:1247
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "Opmaakt Dokmenten"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1249
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

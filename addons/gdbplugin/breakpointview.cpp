@@ -30,23 +30,11 @@
 
 namespace
 {
-Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtDebugMsg)
+Q_LOGGING_CATEGORY(kateBreakpoint, "kate-breakpoint", QtWarningMsg)
 
-// [x] Set initial breakpoints that get set when debugging starts
-// [x] Breakpoint events support
-// [x] Checkable breakpoints
-// [x] Breakpoints should be sorted by linenumber
-// [x] Clear all breakpoints
-// [x] Fix KatePluginGDBView::prepareDocumentBreakpoints, it should work whether or not debugger is running. Perhaps remove it altogether because we shouldn't
-// call that function when a view is created. Listening on view creation is useless here
-// [x] Document loads its initial mark using us, not backend
-// [x] add a test for this
-// [x] Fix run to cursor
-// [x] Double clicking on a breakpoint takes us to the location?
-// [x] Function breakpoints, cmd for setting func breakpoints, add func breakpoints when offline, set all to pending on debugger stop
-// [x] context menu on items [delete item, edit, clear all]
-// [x] item delegate, that provides "x" (delete action) for breakpoints
-// [] red dot remains after run to cursor
+// TODO:
+// - red dot remains after run to cursor
+// - save/restore exception breakpoint filters
 
 [[nodiscard]] static QString printBreakpoint(const QUrl &sourceId, const dap::SourceBreakpoint &def, const std::optional<dap::Breakpoint> &bp, const int bId)
 {
@@ -579,6 +567,8 @@ public:
 
     void fileBreakpointsSet(const QUrl &url, QList<dap::Breakpoint> newDapBreakpoints)
     {
+        qCDebug(kateBreakpoint, "file breakpoints set");
+
         std::byte memory[sizeof(FileBreakpoint) * 30];
         std::pmr::monotonic_buffer_resource allocator(memory, sizeof(memory));
 
@@ -674,6 +664,12 @@ public:
 
     void onBreakpointEvent(const dap::Breakpoint &bp, BackendInterface::BreakpointEventKind kind)
     {
+        qCDebug(kateBreakpoint,
+                "Breakpoint event, kind: %d, breakpoint: %ls:%d",
+                (int)kind,
+                qUtf16Printable(bp.source.value_or(dap::Source{}).name),
+                bp.line.value_or(-1));
+
         switch (kind) {
         case BackendInterface::New:
             addNewBreakpoint(bp);
@@ -690,7 +686,7 @@ public:
     void addNewBreakpoint(const dap::Breakpoint &bp)
     {
         if (!bp.source) {
-            // ignore
+            qCWarning(kateBreakpoint, "new breakpoint: ignoring because no source set");
             return;
         }
 
@@ -1013,6 +1009,8 @@ public:
 
     void onFunctionBreakpointsSet(const QList<dap::FunctionBreakpoint> &requestedBreakpoints, const QList<dap::Breakpoint> &response)
     {
+        qCDebug(kateBreakpoint, "function breakpoints set, requested: %lld, response: %lld", requestedBreakpoints.size(), response.size());
+
         const auto parent = index(FunctionBreakpointItem, 0, {});
         if (requestedBreakpoints.size() != response.size()) {
             qCWarning(kateBreakpoint, "Unexpected response and requested function breakpoints not equal");
@@ -1461,6 +1459,7 @@ void BreakpointView::onStoppedAtLine(const QUrl &url, int line)
 {
     Q_ASSERT(m_backend->canContinue());
     if (m_breakpointModel->hasSingleShotBreakpointAtLine(url, line)) {
+        qCDebug(kateBreakpoint, "run-to-cursor, removing one-shot breakpoint");
         setBreakpoint(url, dap::SourceBreakpoint(line), std::nullopt);
     }
 }
@@ -1571,6 +1570,7 @@ void BreakpointView::onListBreakpointsRequested()
 
 void BreakpointView::runToPosition(const QUrl &url, int line)
 {
+    qCDebug(kateBreakpoint, "run-to-cursor: %ls:%d", qUtf16Printable(url.toString()), line);
     setBreakpoint(url, dap::SourceBreakpoint(line), std::nullopt, /*isOneShot=*/true);
     if (m_backend->canContinue()) {
         m_backend->slotContinue();

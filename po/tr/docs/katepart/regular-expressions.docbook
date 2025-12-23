@@ -82,13 +82,13 @@ doğrudan uyumlu değildir.</synopsis>
 >says</quote
 >, <quote
 >said</quote
-> vb. Sonrasında bunların hepsini diğer adla da yinelememiz gerekecekti...</para>
+> vb. Sonrasında bunların hepsini diğer adla da yinelememiz gerekecekti…</para>
 
 <para
 >Düzenli İfadeler sayesinde bu görev tek bir aramayla ve daha büyük bir doğrulukla gerçekleştirilebilir.</para>
 
 <para
->Bunu başarmak için, Düzenli İfadeler, eşleşecek bir dizinin genelleştirilmesini ayrıntılı olarak ifade etmeye yönelik kuralları tanımlar. Sözcüğü tam anlamıyla şu şekilde ifade edebiliriz: <quote
+>Bunu başarmak için Düzenli İfadeler, eşleşecek bir dizinin genelleştirilmesini ayrıntılı olarak ifade etmeye yönelik kuralları tanımlar. Sözcüğü tam anlamıyla şu şekilde ifade edebiliriz: <quote
 >Ya <quote
 >Henrik</quote
 > ya da <quote
@@ -242,11 +242,11 @@ doğrudan uyumlu değildir.</synopsis>
 >[a-c]</userinput
 >, <userinput
 >[abc]</userinput
->'ye ve <userinput
+>’ye ve <userinput
 >[0-9]</userinput
 > ise <userinput
 >[0123456789]</userinput
->'a eşittir. Bu yapıları birleştirerek; örneğin <userinput
+>’a eşittir. Bu yapıları birleştirerek; örneğin <userinput
 >[a-fynot1-38]</userinput
 > gibi tümüyle geçerli bir yapı oluşturabilirsiniz (sonuncusu, elbette <quote
 >a</quote
@@ -500,11 +500,11 @@ doğrudan uyumlu değildir.</synopsis>
 >[:digit:]</userinput
 >, <userinput
 >\d</userinput
->'e ve <userinput
+>’e ve <userinput
 >[:space:]</userinput
 > de <userinput
 >\s</userinput
->'e eşittir. POSIX karakter sınıflarının tam listesine <ulink url="https://www.regular-expressions.info/posixbrackets.html"
+>’e eşittir. POSIX karakter sınıflarının tam listesine <ulink url="https://www.regular-expressions.info/posixbrackets.html"
 >buradan</ulink
 > bakabilirsiniz.</para>
 
@@ -713,9 +713,9 @@ doğrudan uyumlu değildir.</synopsis>
 >Bill(?! Gates)</userinput
 >. (Bu, hem <quote
 >Bill Clinton</quote
->'u hem de <quote
+>’u hem de <quote
 >Billy the kid</quote
->'i bulur; ancak diğer eşleşmeleri sessizce yok sayar.)</para>
+>’i bulur; ancak diğer eşleşmeleri sessizce yok sayar.)</para>
 
 <para
 >Savlar için kullanılan alt dizgiler yakalanmaz.</para>
@@ -1230,7 +1230,7 @@ doğrudan uyumlu değildir.</synopsis>
 ><para
 >İleriye bakan bir sav, dizinin olası bir eşleşmeyi takip eden kısmına bakar. Olası eşleşmeyi takip eden metin savın <emphasis
 >DİZGİ</emphasis
->'siyle eşleşmezse pozitif bakış dizinin eşleşmesini engeller; ancak bununla eşleşen metin sonuçta içerilmez.</para>
+>’siyle eşleşmezse pozitif bakış dizinin eşleşmesini engeller; ancak bununla eşleşen metin sonuçta içerilmez.</para>
 <para
 ><userinput
 >handy(?=\w)</userinput
@@ -1281,7 +1281,7 @@ doğrudan uyumlu değildir.</synopsis>
 ><para
 >Arkaya bakma, ileriye bakmayla aynı etkiye sahiptir; ancak geriye doğru çalışır. Geriye doğru bir bakış, dizinin olası bir eşleşmeden önceki kısmına bakar. Pozitif geriye bakış, yalnızca savın <emphasis
 >DİZGİ</emphasis
->'sinden önce geliyorsa bir diziyle eşleşir; ancak bununla eşleşen metin sonuçta içerilmez.</para>
+>’sinden önce geliyorsa bir diziyle eşleşir; ancak bununla eşleşen metin sonuçta içerilmez.</para>
 <para
 ><userinput
 >(?&lt;=cup)cake</userinput

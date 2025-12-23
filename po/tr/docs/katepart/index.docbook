@@ -99,7 +99,7 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2022-05-02</date>
+>2022‒05‒02</date>
 <releaseinfo
 >&frameworks; 5.94</releaseinfo>
 
@@ -128,11 +128,11 @@
 >Giriş</title>
 
 <para
->&katepart;, birçok &Qt; ve &kde; uygulaması için tam özellikli bir düzenleyici bileşendir. &katepart;, bir metin düzenleyicisinden fazlasıdır; bir programcı düzenleyicisi olarak tasarlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. &katepart;'ın temel özelliklerinden biri, sözdizim renklendirmesidir ve bu özellik birçok programlama dili için özelleştirilmiştir: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; ve Ada. </para>
+>&katepart;, birçok &Qt; ve &kde; uygulaması için tam özellikli bir düzenleyici bileşendir. &katepart;, bir metin düzenleyicisinden fazlasıdır; bir programcı düzenleyicisi olarak tasarlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. &katepart;’ın temel özelliklerinden biri, sözdizim renklendirmesidir ve bu özellik birçok programlama dili için özelleştirilmiştir: C/C++, &Java;, Python, Perl, Bash, Modula 2, &HTML; ve Ada. </para>
 <para
 >&kwrite;, &katepart; temelli yalın bir metin düzenleyicisidir. Pencere başına o anda bir dosyayı düzenlemenizi sağlayan tek bir belge arabirimi (<acronym
 >SDI</acronym
->) vardır. &kwrite;, &katepart;'ın çok basit bir uygulamasıdır ve kendi belgelendirmesini gerektirmemektedir. &katepart;'ın nasıl kullanılacağını biliyorsanız &kwrite;'ı da kullanabilirsiniz. </para>
+>) vardır. &kwrite;, &katepart;’ın çok basit bir uygulamasıdır ve kendi belgelendirmesini gerektirmemektedir. &katepart;’ın nasıl kullanılacağını biliyorsanız &kwrite;’ı da kullanabilirsiniz. </para>
 </chapter>
 
 &fundamentals-chapter;
@@ -152,7 +152,7 @@
 >Emeği Geçenler ve Lisans</title>
 
 <para
->&katepart; ve &kwrite; Telif hakkı 2001-2014 &kate; takımı.</para>
+>&katepart; ve &kwrite; Telif hakkı 2001–2014 &kate; takımı.</para>
 
 <para
 >Özgün &kwrite; temellidir, Telif hakkı 2000 Jochen Wilhelmy <email
@@ -255,11 +255,11 @@
 >Özgün &kwrite; belgelendirmesi, &Thad.McGinnis; &Thad.McGinnis.mail; tarafından yazılmış, &Cristian.Tibirna; &Cristian.Tibirna.mail; tarafından  birçok düzeltme almıştır. &Lauri.Watts; &Lauri.Watts.mail; tarafından docbook biçimine dönüştürülmüş, &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; ve &Anders.Lund; &Anders.Lund.mail; tarafından güncellenmiştir </para>
 
 <para
->Geçerli &katepart; belgelendirmesi bakımı &TC.Hollingsworth; &TC.Hollingsworth.mail; tarafından yapılmaktadır. Yorumlarınızı ve önerilerinizi lütfen &katepart; geliştirme posta listesine (<email
->kwrite-devel@kde.org</email
->) gönderin veya <ulink url="https://bugs.kde.org/"
->&kde; Hata İzleme Sistemi</ulink
->'nde bir hata kaydı açın.</para>
+>Şu anki &katepart; belgelendirmesi &TC.Hollingsworth; &TC.Hollingsworth.mail; tarafından tutulur. Değişiklikler istemek için <ulink url="https://bugs.kde.org/"
+>&kde; hata izleme sistemine</ulink
+> bir kayıt açın veya <ulink url="https://invent.kde.org/utilities/kate"
+>GitLab sayfamıza</ulink
+> bir yama gönderin.</para>
 
 <para
 >Çeviri: Kaan Özdinçer <email

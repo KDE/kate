@@ -104,7 +104,7 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2022-04-22</date>
+>2022‒04‒22</date>
 <releaseinfo
 >Uygulamalar 22.08</releaseinfo>
 
@@ -113,7 +113,7 @@
 >&kate;, &kde; tarafından geliştirilmiş olan, programcılar için bir metin düzenleyicisidir.</para>
 
 <para
->Bu el kitabı, &kate;'in 22.08 sürümü içindir</para>
+>Bu el kitabı, &kate;’in 22.08 sürümü içindir</para>
 </abstract>
 
 <keywordset>
@@ -154,7 +154,7 @@
 >Giriş</title>
 
 <para
->&kate; uygulamasına hoş geldiniz. &kate;, &kde; için geliştiricilere yönelik metin düzenleyicisidir. &kate; içerisinde yapılandırılabiliecek özelliklerin bazıları şunlardır: C ve C++ dillerinden &HTML; ve bash betikerine kadar sözdizim vurgulaması, proje oluşturma ve geliştirme, çoklu belge arayüzü (<acronym
+>&kate; uygulamasına hoş geldiniz. &kate;, &kde; için geliştiricilere yönelik metin düzenleyicisidir. &kate; içerisinde yapılandırılabilecek özelliklerin bazıları şunlardır: C ve C++ dillerinden &HTML; ve bash betiklerine kadar sözdizim vurgulaması, proje oluşturma ve geliştirme, çoklu belge arayüzü (<acronym
 >MDI</acronym
 >) ve içsel uçbirim öykünücüsüdür. </para>
 
@@ -167,7 +167,7 @@
 ><imagedata format="PNG" fileref="kate.png"/></imageobject>
 <caption
 ><para
->Bu el kitabını düzenlemek...</para
+>Bu el kitabını düzenlemek…</para
 ></caption>
 </mediaobject>
 </para>
@@ -181,7 +181,7 @@
 >&kate; Düzenleyicisi ile Çalışmak</title>
 <para
 >&kate; altında bulunan düzenleyici bileşeni ile çalışma ile ilgili temel bilgiler hakkında bilgi almak için <ulink url="help:/katepart/kate-part.html"
->&katepart; ile Çalışmak; &katepart; El Kitabı</ulink
+>&katepart; El Kitabı’nın &katepart; ile Çalışmak</ulink
 > faslına göz atın.</para>
 </chapter>
 
@@ -192,8 +192,8 @@
 >Gelişmiş Düzenleme Araçları</title>
 <para
 >&kate; ile içerilen gelişmiş düzenleme araçları hakkında bilgi almak için <ulink url="help:/katepart/advanced-editing-tools.html"
->&katepart; El Kitabı</ulink
->'nın Gelişmiş Düzenleme Araçları bölümüne göz atın.</para>
+>&katepart; El Kitabı’nın Gelişmiş Düzenleme Araçları</ulink
+> bölümüne göz atın.</para>
 </chapter>
 
 &development-chapter;
@@ -202,9 +202,9 @@
 <title
 >Vi Giriş Kipi</title>
 <para
->&kate;'in Vi giriş kipi hakkında bilgi için <ulink url="help:/katepart/vi-input-mode-chapter.html"
->&katepart; El Kitabı</ulink
->'nın Vi Giriş Kipi bölümüne göz atın.</para>
+>&kate;’in Vi giriş kipi hakkında bilgi için <ulink url="help:/katepart/vi-input-mode-chapter.html"
+>&katepart; El Kitabı’nın Vi Giriş Kipi</ulink
+> bölümüne göz atın.</para>
 </chapter>
 
 &menu-chapter;
@@ -217,7 +217,7 @@
 >Emeği Geçenler ve Lisans</title>
 
 <para
->&kate;. Uygulama telif hakkı 2000, 2001, 2002 - 2005 &kate; geliştirici takımı. </para>
+>Uygulama telif hakkı 2000, 2001, 2002–2005 &kate; geliştirici takımı. </para>
 
 <variablelist>
 <title
@@ -281,7 +281,7 @@
 ></term>
 <listitem
 ><para
->Sınama...</para
+>Sınama…</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -309,7 +309,7 @@
 >&Michael.Koch; &Michael.Koch.mail;</term>
 <listitem
 ><para
->&kwrite;'ın &kparts;'a aktarımı</para
+>&kwrite;’ın &kparts;’a aktarımı</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -355,7 +355,7 @@
 >&John.Firebaugh; &John.Firebaugh.mail;</term>
 <listitem
 ><para
->Çeşitki Yamalar</para
+>Çeşitli yamalar</para
 ></listitem>
 </varlistentry>
 <varlistentry>

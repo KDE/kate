@@ -10,7 +10,7 @@
 <author
 >&Lauri.Watts; &Lauri.Watts.mail;</author>
 <date
->2021-07-12</date>
+>2021‒07‒12</date>
 <releaseinfo
 >KDE Gear 21.08</releaseinfo>
 <productname
@@ -106,7 +106,7 @@
 <para
 >Ayrıca &kate;, &kwrite; adı altında çeşitli uygulamalar için bir düzenleyici de sağlamaktadır.</para>
 <para
->&kate;'in özellikleri arasında; C, C++, &HTML; ve bash betikleri de bulunan uzun bir dil listesi için yapılandırılabilir sözdizim vurgulaması, proje oluşturma ve sürdürme yeteneği, çoklu belge arayüzü (<acronym
+>&kate;’in özellikleri arasında; C, C++, &HTML; ve bash betikleri de bulunan uzun bir dil listesi için yapılandırılabilir sözdizim vurgulaması, proje oluşturma ve sürdürme yeteneği, çoklu belge arayüzü (<acronym
 >MDI</acronym
 >) ve kendi içinde yerleşik bir uçbirim öykünücüsü bulunur. </para>
 
@@ -132,7 +132,7 @@
 ></term>
 <listitem
 ><para
->&kate;'i verilen oturum ile başlat</para
+>&kate;’i verilen oturum ile başlat</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -248,7 +248,7 @@
 ></term>
 <listitem
 ><para
->Uygulama tarafından açılan dosyalar/&URL;'ler, kullanımdan sonra silinir.</para
+>Uygulama tarafından açılan dosyalar/&URL;’ler, kullanımdan sonra silinir.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -275,7 +275,7 @@
 ><member
 >Ayrıntılı kullanıcı belgelendirmesine <ulink url="help:/kate"
 >help:/kate</ulink
-> üzerinden ulaşılabilir (ya bu &URL;'yi &konqueror;'a girin veya <userinput
+> üzerinden ulaşılabilir (ya bu &URL;’yi &konqueror;’a girin veya <userinput
 ><command
 >khelpcenter</command
 > <parameter
@@ -283,9 +283,9 @@
 ></userinput
 > komutunu çalıştırın).</member>
 <member
->kf5options(7)</member>
+>kf6options(7)</member>
 <member
->qt5options(7)</member>
+>qt6options(7)</member>
 <member
 ><ulink url="https://kate-editor.org/"
 >&kate; web sitesinde</ulink
@@ -316,7 +316,7 @@
 </screen>
 
 <para
->Etkin bir internet bağlantınız varsa bir &FTP; sitesinden dosya açmak için &kde;'nin ağ saydamlığından yararlanabilirsiniz. Uzak sunucuda yazma izniniz yoksa dosya saltokunur olarak açılacak ve değişiklik yaptığınızda kaydedilecek yerel bir dosya adı istenecektir. Yazma izniniz varsa değişiklikler ağ üzerinden saydam bir biçimde kaydedilir.</para>
+>Etkin bir internet bağlantınız varsa bir &FTP; sitesinden dosya açmak için &kde;’nin ağ saydamlığından yararlanabilirsiniz. Uzak sunucuda yazma izniniz yoksa dosya saltokunur olarak açılacak ve değişiklik yaptığınızda kaydedilecek yerel bir dosya adı istenecektir. Yazma izniniz varsa değişiklikler ağ üzerinden saydam bir biçimde kaydedilir.</para>
 <screen
 ><userinput
 ><command

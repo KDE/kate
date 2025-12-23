@@ -47,7 +47,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Aç...</guimenuitem
+>Aç…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -56,7 +56,7 @@
 >Dosya Aç</guilabel
 > iletişim kutusu görüntüler. Açmak istediğiniz dosyayı seçmek için dosya görünümünü kullanın ve açmak için <guibutton
 >Aç</guibutton
->'a tıklayın.</para>
+>’a tıklayın.</para>
 </listitem>
 </varlistentry>
 
@@ -89,10 +89,10 @@
 >Bu alt menü, geçerli belgenizin &MIME; türünü işlediği bilinen uygulamaların bir listesini sunar. Bir girdinin etkinleştirilmesi, geçerli belgenin o uygulamayla açılmasını sağlar.</para>
 <para
 >Ek olarak, bir <guimenuitem
->Diğer...</guimenuitem
+>Diğer…</guimenuitem
 > girdisi, etkin dosyayı açmak için <action
 >başka bir uygulama seçmenize olanak veren</action
-> Birlikte Aç iletişim kutusunu açar. Dosyanız hâlâ &kate;'de açık olacaktır. </para>
+> Birlikte Aç iletişim kutusunu açar. Dosyanız hâlâ &kate;’de açık olacaktır. </para>
 </listitem>
 </varlistentry>
 
@@ -129,7 +129,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Farklı Kaydet...</guimenuitem
+>Farklı Kaydet…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -243,7 +243,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Yazdır...</guimenuitem
+>Yazdır…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -316,7 +316,7 @@
 </term>
 <listitem>
 <para
->Bu komut, &kate;'de <action
+>Bu komut, &kate;’de <action
 >açtığınız tüm dosyaları kapatır</action
 >. </para>
 </listitem>
@@ -357,7 +357,7 @@
 <listitem>
 <para
 >Bu komut, <action
->&kate;'i ve düzenlediğiniz tüm dosyaları kapatır</action
+>&kate;’i ve düzenlediğiniz tüm dosyaları kapatır</action
 >. Düzenlediğiniz dosyalardan herhangi birinde kaydedilmemiş değişiklikler yaptıysanız bunları kaydetmeniz istenecektir. </para>
 </listitem>
 </varlistentry>
@@ -681,7 +681,7 @@
 > <guimenu
 >Düzen</guimenu
 > <guimenuitem
->Bul...</guimenuitem
+>Bul…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -821,7 +821,7 @@
 > <guimenu
 >Düzen</guimenu
 > <guimenuitem
->Değiştir...</guimenuitem
+>Değiştir…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -843,7 +843,7 @@
 > veya <guilabel
 >Düzenli ifade</guilabel
 > seçiliyse metin kutularının bağlam menüsünün alt kısmındaki <guibutton
->Ekle...</guibutton
+>Ekle…</guibutton
 > menü ögesi etkinleştirilir ve önceden tanımlanmış listelerden aramaya kaçış dizileri veya düzenli ifade ögeleri eklemenize veya dizgileri değiştirmenize olanak tanır.</para>
 <para
 >Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
@@ -978,7 +978,7 @@
 > <guisubmenu
 >Git</guisubmenu
 > <guimenuitem
->Satıra Git...</guimenuitem
+>Satıra Git…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -1009,7 +1009,7 @@
 <listitem>
 <para
 ><action
->&kate;'in başka bir örneğini açar</action
+>&kate;’in başka bir örneğini açar</action
 >. Yeni örnek önceki örneğinizle aynı olacaktır. </para>
 </listitem>
 </varlistentry>
@@ -1090,7 +1090,7 @@
 ></term>
 <listitem>
 <para
->Düzenleyici alanında bir arama alanı ve açılan dosyaların listesini gösterin. Arama alanına metin girerken, eşleşen metin için belge adları ve belge &URL;'leri aranır. Arama alanına metin girerken liste görünümünde gezinmek için &Up; ve &Down; ok düğmelerini kullanabilirsiniz. &Enter; düğmesine basmak veya listedeki bir ögeye çift tıklamak, görünümü liste görünümünde seçili belgeye geçirir. Bu, eğer çok sayıda açık belge varsa belgeler arasında geçiş yapmayı kolaylaştırır.</para>
+>Düzenleyici alanında bir arama alanı ve açılan dosyaların listesini gösterin. Arama alanına metin girerken, eşleşen metin için belge adları ve belge &URL;’leri aranır. Arama alanına metin girerken liste görünümünde gezinmek için &Up; ve &Down; ok düğmelerini kullanabilirsiniz. &Enter; düğmesine basmak veya listedeki bir ögeye çift tıklamak, görünümü liste görünümünde seçili belgeye geçirir. Bu, eğer çok sayıda açık belge varsa belgeler arasında geçiş yapmayı kolaylaştırır.</para>
 <para
 >Bu eyleme düzenleyici penceresinin sağ üst köşesindeki <inlinemediaobject
 ><imageobject
@@ -1580,7 +1580,7 @@
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi boyutunu artırır.</para
+>Bu, görüntü yazıtipi puntosunu artırır.</para
 ></listitem>
 </varlistentry>
 
@@ -1601,7 +1601,7 @@
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi boyutunu azaltır.</para
+>Bu, görüntü yazıtipi puntosunu azaltır.</para
 ></listitem>
 </varlistentry>
 
@@ -2005,7 +2005,7 @@
 ><guimenu
 >Oturumlar</guimenu
 > <guimenuitem
->Oturum Aç...</guimenuitem
+>Oturum Aç…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -2050,7 +2050,7 @@
 ><guimenu
 >Oturumlar</guimenu
 > <guimenuitem
->Oturumu Farklı Kaydet...</guimenuitem
+>Oturumu Farklı Kaydet…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -2065,7 +2065,7 @@
 ><guimenu
 >Oturumlar</guimenu
 > <guimenuitem
->Oturumları Yönet...</guimenuitem
+>Oturumları Yönet…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -2118,7 +2118,7 @@
 ><guimenu
 >Ayarlar</guimenu
 > <guimenuitem
->&kate; Uygulamasını Yapılandır...</guimenuitem
+>&kate; Uygulamasını Yapılandır…</guimenuitem
 ></menuchoice
 > bölümünde ayarlanan global dosya türü kipinin üzerine yazar.</para>
 </listitem>
@@ -2139,7 +2139,7 @@
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > bölümünde ayarlanan global vurgulama kipinin üzerine yazar.</para>
 </listitem>
@@ -2162,7 +2162,7 @@
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > bölümünde ayarlanan global girintileme kipinin üzerine yazar.</para>
 </listitem>
@@ -2183,7 +2183,7 @@
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > bölümünde ayarlanan global kodlamanın üzerine yazar. Burada ayarladığınız kodlama, yalnızca şu anki belgeniz için geçerli olacaktır.</para>
 </listitem>
@@ -2204,7 +2204,7 @@
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > bölümünde ayarlanan global satır sonu kipinin üzerine yazar.</para>
 </listitem>
@@ -2310,13 +2310,13 @@
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Otomatik Yazım Denetimi</guimenuitem
+>Kendiliğinden Yazım Denetimi</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
 <para
 ><guimenuitem
->Otomatik Yazım Denetimi</guimenuitem
+>Kendiliğinden Yazım Denetimi</guimenuitem
 > etkinleştirildiğinde, yanlış yazılan sözcüklerin altı o anda çizilir.</para>
 </listitem>
 </varlistentry>
@@ -2329,7 +2329,7 @@
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Yazım Denetimi...</guimenuitem
+>Yazım Denetimi…</guimenuitem
 > </menuchoice
 ></term>
 <listitem
@@ -2357,7 +2357,7 @@
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Yazım Denetimi (İmleçten İtibaren)...</guimenuitem
+>Yazım Denetimi (İmleçten İtibaren)…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -2374,7 +2374,7 @@
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Seçimin Yazımını Denetle...</guimenuitem
+>Seçimin Yazımını Denetle…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>

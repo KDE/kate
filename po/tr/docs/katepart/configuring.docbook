@@ -8,7 +8,7 @@
 ><guimenuitem
 ><replaceable
 >Uygulama</replaceable
-> Uygulamasını Yapılandır...</guimenuitem
+> Uygulamasını Yapılandır…</guimenuitem
 ></menuchoice
 > seçildiğinde <guilabel
 >Yapılandır</guilabel
@@ -117,7 +117,7 @@
 ></term>
 <listitem
 ><para
->Görünür gösterge işaretçisinin boyutunu değiştirmek için kaydırıcıyı kullanın.</para
+>Görünür gösterge işaretçisinin boyutunu değiştirmek için sürgüyü kullanın.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -483,7 +483,7 @@
 ></term>
 <listitem
 ><para
->Sarma çubuğunu yalnızca gerektiğinde açın, kapatın veya gösterin. Ekranda görüntülenen belgenin satır numarası aralığını görüntülemek için mavi dikdörtgenin üzerinde &LMB; ile tıklayın. Belgede kendiliğinden kaydırma yapmak için &LMB;'ni mavi dikdörtgenin dışında basılı tutun. </para
+>Sarma çubuğunu yalnızca gerektiğinde açın, kapatın veya gösterin. Ekranda görüntülenen belgenin satır numarası aralığını görüntülemek için mavi dikdörtgenin üzerinde &LMB; ile tıklayın. Belgede kendiliğinden kaydırma yapmak için &LMB;’ni mavi dikdörtgenin dışında basılı tutun. </para
 ></listitem>
 </varlistentry>
 </variablelist>
@@ -534,7 +534,7 @@
 <para
 >İletişim kutusunun bu bölümü, sahip olduğunuz herhangi bir renk temasındaki tüm renkleri yapılandırmanıza ve yeni temalar oluşturmanıza, var olan temaları silmenize veya yalnızca <guilabel
 >Sistem renk şemasını izle</guilabel
->'menize olanak tanır. Her şemada renkler ve normal ve vurgulanan metin biçemleri için ayarlar bulunur. </para>
+>’menize olanak tanır. Her şemada renkler ve normal ve vurgulanan metin biçemleri için ayarlar bulunur. </para>
 
 <para
 >&kappname; sizin için o anda etkin olan temayı önceden seçecektir, eğer farklı bir tema üzerinde çalışmak istiyorsanız <guilabel
@@ -591,7 +591,7 @@
 > <guimenu
 >Ayarlar</guimenu
 > <guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > menüsündeki Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizilecektir. Lütfen sözcük kaydırma işaretçisinin yalnızca eş aralıklı bir yazıtipi kullanıyorsanız çizileceğini unutmayın.</para>
 </listitem>
@@ -736,7 +736,7 @@
 ></term>
 <listitem>
 <para
->Bu seçenek, kullanıcı &PgUp; veya &PgDn; düğmesine bastığında imlecin davranışını değiştirir. Seçili değilse işlem sonucunda yeni metin görünür hale geldikçe metin imleci &kappname;'deki görünür metin içindeki göreceli konumunu koruyacaktır. Dolayısıyla, işlem gerçekleştiğinde imleç görünür metnin ortasındaysa orada kalacaktır (başlangıç veya sona ulaşma durumu hariç). Bu seçenek seçiliyken ilk düğme basımı, imlecin yeni bir metin sayfası görüntülendikçe ya yukarı ya da aşağı gitmesine neden olur.</para>
+>Bu seçenek, kullanıcı &PgUp; veya &PgDn; düğmesine bastığında imlecin davranışını değiştirir. Seçili değilse işlem sonucunda yeni metin görünür hale geldikçe metin imleci &kappname;’deki görünür metin içindeki göreceli konumunu koruyacaktır. Dolayısıyla, işlem gerçekleştiğinde imleç görünür metnin ortasındaysa orada kalacaktır (başlangıç veya sona ulaşma durumu hariç). Bu seçenek seçiliyken ilk düğme basımı, imlecin yeni bir metin sayfası görüntülendikçe ya yukarı ya da aşağı gitmesine neden olur.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -900,7 +900,7 @@
 ></term>
 <listitem>
 <para
->Bu etkinleştirildiğinde düzenleyici, bir satırın başında girinti yaparken veya &Tab;'ye basarken yukarıda açıklandığı gibi boşluklar ekleyecektir; ancak bir satırın ortasında veya sonunda &Tab; düğmesine basıldığında sekmeler ekler.</para>
+>Bu etkinleştirildiğinde düzenleyici, bir satırın başında girinti yaparken veya &Tab;’ye basarken yukarıda açıklandığı gibi boşluklar ekleyecektir; ancak bir satırın ortasında veya sonunda &Tab; düğmesine basıldığında sekmeler ekler.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -986,7 +986,7 @@
 ></term>
 <listitem>
 <para
->&Tab; düğmesinin geçerli kod blokundaki geçerli satırı &Emacs;'te olduğu gibi hizalamasını istiyorsanız &Tab;'yi <guimenuitem
+>&Tab; düğmesinin geçerli kod blokundaki geçerli satırı &Emacs;’te olduğu gibi hizalamasını istiyorsanız &Tab;’yi <guimenuitem
 >Girintilemeyi Biçimlendir</guimenuitem
 > eyleminin kısayolu yapın. </para>
 <variablelist>
@@ -1295,7 +1295,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem>
 <para
->Ne yazık ki &Qt;'deki eksiklikler nedeniyle &kappname; çok uzun satırlarla çalışırken düşük başarım sergiler. Bu nedenle &kappname;, burada belirtilen karakter sayısından daha uzun olan satırları kendiliğinden kaydırır. Bunu devre dışı bırakmak için bunu <userinput
+>Ne yazık ki &Qt;’deki eksiklikler nedeniyle &kappname; çok uzun satırlarla çalışırken düşük başarım sergiler. Bu nedenle &kappname;, burada belirtilen karakter sayısından daha uzun olan satırları kendiliğinden kaydırır. Bunu devre dışı bırakmak için bunu <userinput
 >0</userinput
 > olarak ayarlayın. </para>
 </listitem>
@@ -1362,7 +1362,7 @@ Remove selected Add new mapping Import from vimrc file-->
 ></term>
 <listitem>
 <para
->Düzenleyicinin dışında bir şeye, örneğin &kate;'deki uçbirim paneline geçtiğinizde, düzenleyici belgeleri kendiliğinden kaydeder.</para>
+>Düzenleyicinin dışında bir şeye, örneğin &kate;’deki uçbirim paneline geçtiğinizde, düzenleyici belgeleri kendiliğinden kaydeder.</para>
 </listitem>
 </varlistentry>
 
@@ -1451,7 +1451,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <para
 >&kappname;, diskteki takas dosyalarını her 15 saniyede bir eşzamanlar; ancak yalnızca son eşzamanlamadan bu yana değiştiyse bu işlemi yapar. Kullanıcı isterse <guilabel
 >Devre dışı</guilabel
->'yı seçerek takas dosyalarının eşzamanlamasını devre dışı bırakabilir; ancak bu daha çok veri kaybına neden olur.</para>
+>’yı seçerek takas dosyalarının eşzamanlamasını devre dışı bırakabilir; ancak bu daha çok veri kaybına neden olur.</para>
 <para
 >Takas dosyası etkinleştirildiğinde, <guilabel
 >Etkin, Öntanımlı Dizinde Depola</guilabel
@@ -1583,7 +1583,7 @@ Remove selected Add new mapping Import from vimrc file-->
 <para
 >Kullanılabilir tüm değişkenlerin ve bunların açıklamalarının bir listesini görmek için <guibutton
 >Düzenle</guibutton
->'ye basın. Belirli bir değişkeni etkinleştirmek için soldaki onay kutusunu seçin ve ardından sağdaki değişkenin değerini ayarlayın. Bazı değişkenler olası değerleri seçebileceğiniz bir açılır kutu sağlarken, diğerleri ise elle geçerli bir değer girmenizi gerektirir.</para>
+>’ye basın. Belirli bir değişkeni etkinleştirmek için soldaki onay kutusunu seçin ve ardından sağdaki değişkenin değerini ayarlayın. Bazı değişkenler olası değerleri seçebileceğiniz bir açılır kutu sağlarken, diğerleri ise elle geçerli bir değer girmenizi gerektirir.</para>
 <para
 >Bu değişkenler hakkındaki tam bilgi için <link linkend="config-variables"
 >Belge Değişkenleriyle Yapılandırmak</link
@@ -1665,7 +1665,7 @@ Remove selected Add new mapping Import from vimrc file-->
 
 <para
 >&kappname; değişkenleri, &Emacs; ve Vi kip satırlarına benzer biçimde &kappname;’in belge değişkenlerini uygulamasıdır. Katepart’ta satırlar aşağıdaki biçime sahiptir: <userinput
->kate: DEĞİŞKEN-ADI DEĞER; [ DEĞİŞKEN-ADI DEĞER; ... ]</userinput
+>kate: DEĞİŞKEN-ADI DEĞER; [ DEĞİŞKEN-ADI DEĞER; … ]</userinput
 >. Satırlar dosya yorum içeren bir biçimdeyse elbette yorumda yer almalıdır. Değişken adları tek sözcüklerden oluşur (boşluk yoktur) ve sonraki noktalı virgülden sonraki her şey değerdir. Noktalı virgül gereklidir.</para>
 
 <para
@@ -1688,10 +1688,10 @@ Remove selected Add new mapping Import from vimrc file-->
 >.</para>
 
 <para
->&kappname;'de hemen hemen tüm yapılandırmaları destekleyecek değişkenler vardır ve ayrıca eklentiler değişkenleri kullanabilir, bu durumda eklentinin belgelerinde belgelenmesi gerekir.</para>
+>&kappname;’de hemen hemen tüm yapılandırmaları destekleyecek değişkenler vardır ve ayrıca eklentiler değişkenleri kullanabilir, bu durumda eklentinin belgelerinde belgelenmesi gerekir.</para>
 
 <para
->&kappname;'de, <ulink url="https://editorconfig.org/"
+>&kappname;’de, <ulink url="https://editorconfig.org/"
 >editorconfig</ulink
 > kurulu olduğu zaman <filename
 >.editorconfig</filename
@@ -1743,15 +1743,15 @@ Remove selected Add new mapping Import from vimrc file-->
 >Burada listelenen değişkenler, &kappname; 5.38 sürümünü belgelemektedir. Gelecekte daha fazla değişken eklenebilir. Değişkenler için aşağıdaki geçerli ifadelerle birlikte 3 olası değer türü vardır: <itemizedlist>
 <listitem
 ><para
->BOOL - on|off|true|false|1|0</para
+>BOOL — on|off|true|false|1|0</para
 ></listitem>
 <listitem
 ><para
->INTEGER - herhangi bir tamsayı</para
+>INTEGER — herhangi bir tamsayı</para
 ></listitem>
 <listitem
 ><para
->STRING - başka herhangi bir şey</para
+>STRING — başka herhangi bir şey</para
 ></listitem>
 </itemizedlist>
 </para>

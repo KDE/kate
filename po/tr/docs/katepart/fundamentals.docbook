@@ -10,7 +10,7 @@
 >Sürükle ve Bırak</title>
 
 <para
->&katepart;, &kde; Sürükle ve Bırak protokolünü kullanır. Dosyalar Masaüstünden, dosya yöneticisi &dolphin;'den veya &dolphin; pencerelerinden birinde açılmış bazı uzak &FTP; sitelerinden &katepart;'a sürüklenip bırakılabilir. </para>
+>&katepart;, &kde; Sürükle ve Bırak protokolünü kullanır. Dosyalar Masaüstünden, dosya yöneticisi &dolphin;’den veya &dolphin; pencerelerinden birinde açılmış bazı uzak &FTP; sitelerinden &katepart;’a sürüklenip bırakılabilir. </para>
 </sect1>
 
 <sect1 id="keybindings">
@@ -795,7 +795,7 @@ action="simul"
 ></entry>
 <entry
 ><para
->Satıra gidin...</para
+>Satıra gidin…</para
 ></entry>
 </row>
 <row>

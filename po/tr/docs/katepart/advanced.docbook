@@ -455,7 +455,7 @@
 >ad</userinput
 > olarak ayarlar. <userinput
 >ad</userinput
-> bilinmiyorsa kip 'none' olarak ayarlanır. Geçerli kipler: 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python', 'ruby' ve 'xml'.</para
+> bilinmiyorsa kip “none” olarak ayarlanır. Geçerli kipler: “none”, “normal”, “cstyle”, “haskell”, “lilypond”, “lisp”, “python”, “ruby” ve “xml”.</para
 ></listitem>
 </varlistentry>
 
@@ -504,7 +504,7 @@
 ></term>
 <listitem
 ><para
->Girintileyiciler ve komut satırı betikleri de içerilmek üzere, &kate;'in kullandığı tüm <link linkend="dev-scripting"
+>Girintileyiciler ve komut satırı betikleri de içerilmek üzere, &kate;’in kullandığı tüm <link linkend="dev-scripting"
 >&javascript; betiklerini</link
 > yeniden yükleyin.</para
 ></listitem>
@@ -655,7 +655,7 @@
 >değişim</userinput
 > ile değiştirir. <userinput
 >dizgi</userinput
->'de boşlukları içermek isterseniz hem <userinput
+>’de boşlukları içermek isterseniz hem <userinput
 >dizgi</userinput
 > hem <userinput
 >değişim</userinput
@@ -784,7 +784,7 @@
 >d</literal
 ></entry
 ><entry
->Başında sıfır olmadan sayı olarak gün (1-31).</entry
+>Başında sıfır olmadan sayı olarak gün (1–31).</entry
 ></row>
 <row
 ><entry
@@ -792,7 +792,7 @@
 >dd</literal
 ></entry
 ><entry
->Başında sıfır olacak şekilde gün (01-31).</entry
+>Başında sıfır olacak şekilde gün (01–31).</entry
 ></row>
 <row
 ><entry
@@ -800,7 +800,7 @@
 >ddd</literal
 ></entry
 ><entry
->Kısa yerelleştirilmiş gün adı (&eg;, 'Pzt'..'Paz').</entry
+>Kısa yerelleştirilmiş gün adı (&eg;, “Pzt”‥“Paz”).</entry
 ></row>
 <row
 ><entry
@@ -808,7 +808,7 @@
 >dddd</literal
 ></entry
 ><entry
->Uzun yerelleştirilmiş gün adı (&eg;, 'Pazartesi'..'Pazar').</entry
+>Uzun yerelleştirilmiş gün adı (&eg;, “Pazartesi”‥“Pazar”).</entry
 ></row>
 <row
 ><entry
@@ -816,7 +816,7 @@
 >M</literal
 ></entry
 ><entry
->Başında sıfır olmadan sayı olarak ay (1-12).</entry
+>Başında sıfır olmadan sayı olarak ay (1–12).</entry
 ></row>
 <row
 ><entry
@@ -824,7 +824,7 @@
 >MM</literal
 ></entry
 ><entry
->Başında sıfır olacak şekilde ay (01-12).</entry
+>Başında sıfır olacak şekilde ay (01–12).</entry
 ></row>
 <row
 ><entry
@@ -832,7 +832,7 @@
 >MMMM</literal
 ></entry
 ><entry
->Uzun yerelleştirilmiş ay adı (&eg;, 'Ocak'..'Şubat').</entry
+>Uzun yerelleştirilmiş ay adı (&eg;, “Ocak”‥“Şubat”).</entry
 ></row>
 <row
 ><entry
@@ -840,7 +840,7 @@
 >MMM</literal
 ></entry
 ><entry
->Kısa yerelleştirilmiş ay adı (&eg;, 'Oca'..'Şub').</entry
+>Kısa yerelleştirilmiş ay adı (&eg;, “Oca”‥“Şub”).</entry
 ></row>
 <row
 ><entry
@@ -848,7 +848,7 @@
 >yy</literal
 ></entry
 ><entry
->İki basamaklı sayı olarak yıl (00-99).</entry
+>İki basamaklı sayı olarak yıl (00–99).</entry
 ></row>
 <row
 ><entry
@@ -856,7 +856,7 @@
 >yyyy</literal
 ></entry
 ><entry
->Dört basamaklı sayı olarak yıl (1752-8000).</entry
+>Dört basamaklı sayı olarak yıl (1752–8000).</entry
 ></row>
 <row
 ><entry
@@ -864,7 +864,7 @@
 >h</literal
 ></entry
 ><entry
->Başında sıfır olmadan saat (0..23 veya ÖÖ/ÖS görüntüleniyorsa 1..12).</entry
+>Başında sıfır olmadan saat (0‥23 veya ÖÖ/ÖS görüntüleniyorsa 1‥12).</entry
 ></row>
 <row
 ><entry
@@ -872,7 +872,7 @@
 >hh</literal
 ></entry
 ><entry
->Başında sıfır olarak saat (00..23 veya ÖÖ/ÖS görüntüleniyorsa 01..02).</entry
+>Başında sıfır olarak saat (00‥23 veya ÖÖ/ÖS görüntüleniyorsa 01‥02).</entry
 ></row>
 <row
 ><entry
@@ -880,7 +880,7 @@
 >m</literal
 ></entry
 ><entry
->Başında sıfır olmadan dakika (0..59).</entry
+>Başında sıfır olmadan dakika (0‥59).</entry
 ></row>
 <row
 ><entry
@@ -888,7 +888,7 @@
 >mm</literal
 ></entry
 ><entry
->Başında sıfır olarak dakika (00..59).</entry
+>Başında sıfır olarak dakika (00‥59).</entry
 ></row>
 <row
 ><entry
@@ -896,7 +896,7 @@
 >s</literal
 ></entry
 ><entry
->Başında sıfır olmadan saniye (0..59).</entry
+>Başında sıfır olmadan saniye (0‥59).</entry
 ></row>
 <row
 ><entry
@@ -904,7 +904,7 @@
 >ss</literal
 ></entry
 ><entry
->Önünde sıfır olarak saniye (00..59).</entry
+>Önünde sıfır olarak saniye (00‥59).</entry
 ></row>
 <row
 ><entry
@@ -912,7 +912,7 @@
 >z</literal
 ></entry
 ><entry
->Başında sıfır olmadan milisaniye (0..999).</entry
+>Başında sıfır olmadan milisaniye (0‥999).</entry
 ></row>
 <row
 ><entry
@@ -920,7 +920,7 @@
 >zzz</literal
 ></entry
 ><entry
->Başında sıfır olarak milisaniye (000..999).</entry
+>Başında sıfır olarak milisaniye (000‥999).</entry
 ></row>
 <row
 ><entry
@@ -961,7 +961,7 @@
 >char: [number]</userinput
 > yazın, ardından <guibutton
 >Tamam</guibutton
->'a basın.</para>
+>’a basın.</para>
 
 <example>
 <title
@@ -1050,7 +1050,7 @@
 > sınıfının tanımlanmadığını söyleyerek durdu.</para>
 
 <para
->&quot;Tüh!&quot;, tabii ki <classname
+>“Tüh!”, tabii ki <classname
 >Sınıfım</classname
 > olması gerek diye düşündünüz. 3902. satıra gittiniz ve metinde sözcüğü bulmak yerine Düzenleme Komutu iletişim kutusunu açarak <userinput
 >s/sınıfım/Sınıfım/i</userinput
@@ -1067,7 +1067,7 @@
 <para
 >Birkaç kez <quote
 >Bayan Gökçen</quote
->'den söz ettiğiniz bir dosyanız olduğunu ve birisinin gelip size <quote
+>’den söz ettiğiniz bir dosyanız olduğunu ve birisinin gelip size <quote
 >Bay Gökmen</quote
 > ile yeni evlendiğini söylediğini hayal edin. Elbette, <quote
 >Bayan Gökçen</quote
@@ -1321,7 +1321,7 @@
 <para
 ><userinput
 >alignon -</userinput
->, tümünü aynı sütunda hizalamak için her bir satırın önündeki '-' öncesinde boşluklar ekler.</para>
+>, tümünü aynı sütunda hizalamak için her bir satırın önündeki “-” öncesinde boşluklar ekler.</para>
 <para
 ><userinput
 >alignon :\\s+(.)</userinput
@@ -1535,7 +1535,7 @@
 ><para
 >Bu komut, yapılandırmaya göre <userinput
 >dizgi</userinput
->'nin ilk oluşuna gider. İzleyen oluşlar, <menuchoice
+>’nin ilk oluşuna gider. İzleyen oluşlar, <menuchoice
 ><guimenu
 >Düzen</guimenu
 ><guimenuitem
@@ -1909,14 +1909,14 @@
 >Kod Katlamayı Kullanmak</title>
 
 <para
->Kod katlama, bir belgenin bölümlerini düzenleyicide gizlemenize olanak tanıyarak büyük belgelere genel bakışı kolaylaştırır. &kappname;'de katlanabilir bölgeler, sözdizim vurgulama tanımlarında tanımlanan kurallar kullanılarak hesaplanır ve bu nedenle yalnızca bazı biçimlerde kullanılabilir - tipik olarak program kaynak kodu, XML işaretlemesi ve benzeri. Kod katlamayı destekleyen çoğu vurgu tanımı, genellikle <userinput
+>Kod katlama, bir belgenin bölümlerini düzenleyicide gizlemenize olanak tanıyarak büyük belgelere genel bakışı kolaylaştırır. &kappname;’de katlanabilir bölgeler, sözdizim vurgulama tanımlarında tanımlanan kurallar kullanılarak hesaplanır ve bu nedenle yalnızca bazı biçimlerde kullanılabilir — tipik olarak program kaynak kodu, XML işaretlemesi ve benzeri. Kod katlamayı destekleyen çoğu vurgu tanımı, genellikle <userinput
 >BEGIN</userinput
 > ve <userinput
 >END</userinput
 > anahtar sözcüklerini kullanarak katlanabilir bölgeleri elle tanımlamanıza da olanak tanır.</para>
 
 <para
->Kod katlama özelliğini kullanmak için, halihazırda görünmüyorsa <menuchoice
+>Kod katlama özelliğini kullanmak için halihazırda görünmüyorsa <menuchoice
 ><guimenu
 >Görünüm</guimenu
 ><guimenuitem

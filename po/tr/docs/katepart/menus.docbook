@@ -56,7 +56,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Aç...</guimenuitem
+>Aç…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -80,7 +80,7 @@
 ></term>
 <listitem>
 <para
->Bu, yakın zamanda kaydedilen belgeleri açmak için kullanılan bir kısayoldur. Bu ögeye tıklamak, menünün yan tarafında en son kaydedilen dosyalardan birkaçını içeren bir liste açar. Belirli bir dosyaya tıklamak onu &kappname;'de açacaktır - eğer dosya hâlâ aynı konumda bulunuyorsa. </para>
+>Bu, yakın zamanda kaydedilen belgeleri açmak için kullanılan bir kısayoldur. Bu ögeye tıklamak, menünün yan tarafında en son kaydedilen dosyalardan birkaçını içeren bir liste açar. Belirli bir dosyaya tıklamak onu &kappname;’de açacaktır — eğer dosya hâlâ aynı konumda bulunuyorsa. </para>
 </listitem>
 </varlistentry>
 
@@ -117,7 +117,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Farklı Kaydet...</guimenuitem
+>Farklı Kaydet…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -175,7 +175,7 @@
 </term
 ><listitem>
 <para
->Etkin dosyayı diskten yeniden yükler. Bu komut, dosyayı &kappname;'de açıkken başka bir program veya işlem değiştirmişse kullanışlıdır. </para>
+>Etkin dosyayı diskten yeniden yükler. Bu komut, dosyayı &kappname;’de açıkken başka bir program veya işlem değiştirmişse kullanışlıdır. </para>
 </listitem>
 </varlistentry>
 
@@ -191,7 +191,7 @@
 > <guimenu
 >Dosya</guimenu
 > <guimenuitem
->Yazdır...</guimenuitem
+>Yazdır…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -527,7 +527,7 @@
 > <guimenu
 >Düzen</guimenu
 > <guimenuitem
->Bul...</guimenuitem
+>Bul…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -666,7 +666,7 @@
 > <guimenu
 >Düzen</guimenu
 > <guimenuitem
->Değiştir...</guimenuitem
+>Değiştir…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -688,7 +688,7 @@
 > veya <guilabel
 >Düzenli ifade</guilabel
 > seçilirse metin kutularının bağlam menüsünün altında bulunan <guibutton
->Ekle...</guibutton
+>Ekle…</guibutton
 > düğmesi etkinleştirilir ve ara ve değiştir dizgilerine önceden tanımlanan listelerden kaçış dizileri veya düzenli ifade ögeleri eklemenize olanak tanır.</para>
 <para
 >Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
@@ -1019,7 +1019,7 @@ depends on the <link linkend="pref-edit-indent"
 ><guimenu
 >Seçim</guimenu
 > <guimenuitem
->Şuna Göre Hizala...</guimenuitem
+>Şuna Göre Hizala…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -1034,13 +1034,13 @@ depends on the <link linkend="pref-edit-indent"
 >Örnekler:</emphasis
 ></para>
 <para
->'<userinput
+>“<userinput
 >-</userinput
->', tümünü aynı sütuna hizalamak için her satırdaki ilk '-' öncesi boşluklar ekleyecektir.</para>
+>”, tümünü aynı sütuna hizalamak için her satırdaki ilk “-” öncesi boşluklar ekleyecektir.</para>
 <para
->'<userinput
+>“<userinput
 >alignon:\\s+(.)</userinput
->', tümünü aynı sütuna hizalamak için bir iki nokta öncesi oluşan ilk boş olmayan karakter öncesi boşluklar ekleyecektir.</para>
+>”, tümünü aynı sütuna hizalamak için bir iki nokta öncesi oluşan ilk boş olmayan karakter öncesi boşluklar ekleyecektir.</para>
 </listitem>
 </varlistentry>
 
@@ -1059,7 +1059,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > iletişim kutusunun Düzenleme sekmesindeki <guilabel
 >Sözcükleri şurada kaydır</guilabel
@@ -1082,7 +1082,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Geçerli imlecin üstüne başka bir imleç ekler. İmleç, geçerli imlecin hemen üstündeki satıra ve aynı sütuna yerleştirilir. </para
+>Geçerli metin imlecinin üstüne başka bir imleç ekler. İmleç, geçerli imlecin hemen üstündeki satıra ve aynı sütuna yerleştirilir. </para
 ></listitem>
 </varlistentry>
 
@@ -1101,7 +1101,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Geçerli imlecin altına başka bir imleç ekler. İmleç, geçerli imlecin hemen altındaki satıra ve aynı sütuna yerleştirilir. </para
+>Geçerli metin imlecinin altına başka bir imleç ekler. İmleç, geçerli imlecin hemen altındaki satıra ve aynı sütuna yerleştirilir. </para
 ></listitem>
 </varlistentry>
 
@@ -1196,7 +1196,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi boyutunu artırır.</para
+>Bu, görüntü yazıtipi puntosunu artırır.</para
 ></listitem>
 </varlistentry>
 
@@ -1217,7 +1217,7 @@ depends on the <link linkend="pref-edit-indent"
 ></term>
 <listitem
 ><para
->Bu, görüntü yazıtipi boyutunu azaltır.</para
+>Bu, görüntü yazıtipi puntosunu azaltır.</para
 ></listitem>
 </varlistentry>
 
@@ -1280,7 +1280,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 > <guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > iletişim kutusunun Düzenleme sekmesinde tanımlandığı üzere sözcük kaydırma sütununda dikey bir çizgi çizer. Lütfen sözcük kaydırma imleyicisinin yalnızca eş aralıklı bir yazıtipi kullanıyorsanız çizileceğini unutmayın.</para>
 </listitem>
@@ -1522,7 +1522,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Git</guimenu
 > <guimenuitem
->Satıra Git...</guimenuitem
+>Satıra Git…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -1778,7 +1778,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > bölümünde ayarlanan global dosya türü kipinin üzerine yazar.</para>
 </listitem>
@@ -1799,7 +1799,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > iletişim kutusunda ayarlanan global vurgulama kipinin üzerine yazar.</para>
 </listitem>
@@ -1820,7 +1820,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 ></menuchoice
 > iletişim kutusunda ayarlanan global girintileme kipinin üzerine yazar.</para>
 </listitem>
@@ -1841,7 +1841,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > iletişim kutusunun <guilabel
 >Aç/Kaydet</guilabel
@@ -1881,7 +1881,7 @@ depends on the <link linkend="pref-edit-indent"
 > <guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->Düzenleyiciyi Yapılandır...</guimenuitem
+>Düzenleyiciyi Yapılandır…</guimenuitem
 > </menuchoice
 > bölümünden ayarlanan global satır sonu kipini yalnızca geçerli belgeniz için geçersiz kılar.</para>
 </listitem>
@@ -2114,7 +2114,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Seçili metni, seçimi kodlanmış metinle değiştirerek, bir &URL;'deki sorgu dizisinin parçası olarak kullanılabilecek şekilde kodlar. </para
+>Seçili metni, seçimi kodlanmış metinle değiştirerek, bir &URL;’deki sorgu dizisinin parçası olarak kullanılabilecek şekilde kodlar. </para
 ></listitem>
 </varlistentry>
 
@@ -2133,7 +2133,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 ></term>
 <listitem
 ><para
->Bir &URL;'nin sorgu dizisinin bir kısmı seçilirse bu, onun kodunu çözer ve seçimi özgün ham metinle değiştirir. </para
+>Bir &URL;’nin sorgu dizisinin bir kısmı seçilirse bu, onun kodunu çözer ve seçimi özgün ham metinle değiştirir. </para
 ></listitem>
 </varlistentry>
 
@@ -2551,7 +2551,7 @@ A bit experimental right now, therefore I suggest to keep the FIXME for now and 
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Yazım Denetimi...</guimenuitem
+>Yazım Denetimi…</guimenuitem
 > </menuchoice
 ></term>
 
@@ -2618,7 +2618,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ><para
 >Bu düğmeye basmak, <guilabel
 >Bilinmeyen sözcük</guilabel
->'ü denetleyicinin sözlüğüne ekler. Bu, denetleyicinin ileride bu sözcüğü her zaman doğru olacağını varsayacağın anlamına gelir.</para
+>’ü denetleyicinin sözlüğüne ekler. Bu, denetleyicinin ileride bu sözcüğü her zaman doğru olacağını varsayacağınız anlamına gelir.</para
 ></listitem>
 </varlistentry>
 
@@ -2657,9 +2657,9 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 ><para
 >Bu düğme, denetleyicinin yalnızca geçerli <guilabel
 >Bilinmeyen sözcük:</guilabel
->'ü değil de <guilabel
+>’ü değil de <guilabel
 >Bilinmeyen sözcük</guilabel
->'ün belgedeki tüm oluşlarının değiştirilmesini sağlar.</para
+>’ün belgedeki tüm oluşlarının değiştirilmesini sağlar.</para
 ></listitem>
 </varlistentry>
 
@@ -2745,7 +2745,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Yazım Denetimi (İmleçten Sonra)...</guimenuitem
+>Yazım Denetimi (İmleçten Sonra)…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -2762,7 +2762,7 @@ Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it 
 > <guisubmenu
 >Yazım Denetimi</guisubmenu
 > <guimenuitem
->Seçimin Yazımını Denetle...</guimenuitem
+>Seçimin Yazımını Denetle…</guimenuitem
 > </menuchoice
 ></term>
 <listitem>

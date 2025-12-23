@@ -1,4 +1,3 @@
-<!-- auto-generate scripting documentation (kwrite-devel@kde.org Re: [kate] doc/kate: document most of the new scripts in 4.10) -->
 <chapter id="dev">
 <chapterinfo>
 <authorgroup>
@@ -22,7 +21,7 @@
 </authorgroup>
 </chapterinfo>
 <title
->&katepart;'ı genişletmek</title>
+>&katepart;’ı genişletmek</title>
 
 <sect1 id="dev-intro">
 <title
@@ -184,7 +183,7 @@
 >Öntanımlı Biçemler</title>
 
 <para
->&kappname;'de bir C++ kaynak dosyası, bir &Java; kaynak dosyası ve bir &HTML; belgesi açarsanız biçimler farklı olsa ve dolayısıyla özel işlem için farklı sözcükler seçilse bile, kullanılan renklerin aynı olduğunu göreceksiniz. Bunun nedeni, &kappname;'in ayrı ayrı sözdizimi tanımları tarafından kullanılan, önceden tanımlanmış bir Öntanımlı Biçemler listesine sahip olmasıdır.</para>
+>&kappname;’de bir C++ kaynak dosyası, bir &Java; kaynak dosyası ve bir &HTML; belgesi açarsanız biçimler farklı olsa ve dolayısıyla özel işlem için farklı sözcükler seçilse bile, kullanılan renklerin aynı olduğunu göreceksiniz. Bunun nedeni, &kappname;’in ayrı ayrı sözdizimi tanımları tarafından kullanılan, önceden tanımlanmış bir Öntanımlı Biçemler listesine sahip olmasıdır.</para>
 
 <para
 >Bu, farklı metin biçimlerindeki benzer kavramların tanınmasını kolaylaştırır. Örneğin, yorumlar hemen hemen her programlama, komut dosyası veya biçimlendirme dilinde bulunur ve tüm dillerde aynı biçem kullanılarak oluşturulduklarında, bunları metin içinde bunların ne olduğunu tanımlamaya çalışmakla vakit kaybetmezsiniz.</para>
@@ -209,7 +208,7 @@
 >Genel Bakış</title>
 
 <para
->&kappname;, &kde-frameworks;'ten Syntax-Highlighting kitaplığını kullanır. &kappname; ile verilen öntanımlı &XML; vurgulama dosyaları, Syntax-Highlighting tarafından öntanımlı olarak derlenirler. </para>
+>&kappname;, &kde-frameworks;’ten Syntax-Highlighting kitaplığını kullanır. &kappname; ile verilen öntanımlı &XML; vurgulama dosyaları, Syntax-Highlighting tarafından öntanımlı olarak derlenirler. </para>
 
 <para
 >Bu bölüm, &XML; Vurgu Tanımı biçimine genel bir bakış sunar. Küçük bir örneğe dayanarak ana bileşenleri, bunların anlamlarını ve kullanımlarını açıklayacağız. Bir sonraki bölümde vurgu algılama kurallarının ayrıntılarına girilecektir.</para>
@@ -258,7 +257,7 @@
 > olur. </para>
 
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:&#92;Users&#92;<replaceable
 >user</replaceable
 ></filename
@@ -320,8 +319,18 @@
 <entry
 >&Windows; üzerinde</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>&macOS; üzerinde</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
 ></entry>
 </row>
 </tbody>
@@ -599,7 +608,7 @@
 >attribute</userinput
 >, hiçbir kural eşleşmediğinde veya bir kural özniteliği belirtilmediğinde bir karakter için kullanılacak biçemi tanımlar. Sonraki durumda, kuralın <emphasis
 >context</emphasis
->'inde belirtilen <emphasis
+>’inde belirtilen <emphasis
 >attribute</emphasis
 > kullanılır.</para>
 
@@ -626,13 +635,13 @@
 >lineEmptyContext</userinput
 >, boş bir satıra rastlandığındaki bağlamı tanımlar. Bağlam anahtarlarının terminolojisi daha önce <emphasis
 >lineEndContext</emphasis
->'te açıklananla aynıdır. Öntanımlı: #stay.</para>
+>’te açıklananla aynıdır. Öntanımlı: #stay.</para>
 <para
 ><userinput
 >fallthroughContext</userinput
 >, hiçbir kural eşleşmediğinde geçiş yapılacak sonraki bağlamı belirtir. Bağlam anahtarlarının terminolojisi daha önce <emphasis
 >lineEndContext</emphasis
->'te açıklananla aynıdır. Öntanımlı: #stay.</para>
+>’te açıklananla aynıdır. Öntanımlı: #stay.</para>
 <para
 ><userinput
 >fallthrough</userinput
@@ -685,7 +694,7 @@
 <para
 ><userinput
 >color</userinput
->, bir renk tanımlar. Geçerli biçimler '#rrggbb' veya '#rgb' dir.</para>
+>, bir renk tanımlar. Geçerli biçimler “#rrggbb” veya “#rgb”dir.</para>
 <para
 ><userinput
 >selColor</userinput
@@ -835,7 +844,7 @@
 >region</userinput
 >, katlanabilir çoklu satır yorumun adı olmalıdır. Kurallarınızda <emphasis
 >beginRegion="Comment"</emphasis
-> ... <emphasis
+> … <emphasis
 >endRegion="Comment"</emphasis
 > olduğunu varsayalım; o zaman <emphasis
 >region="Comment"</emphasis
@@ -849,7 +858,7 @@
 >position="afterwhitespace"</emphasis
 > kullanırsanız yorum, ilk boş olmayan karakterden sonra sağa doğru boşluk bırakılarak eklenir. Bu; örneğin, Python veya YAML gibi girintilemenin önemli olduğu diller için kullanışlıdır. Bu öznitelik isteğe bağlıdır ve tek olası değeri <emphasis
 >afterwhitespace</emphasis
->'dir. Bu, yalnızca <emphasis
+>’dir. Bu, yalnızca <emphasis
 >singleLine</emphasis
 > türü için kullanılabilirdir.</para>
 </listitem>
@@ -981,7 +990,7 @@
 <para
 ><userinput
 >dsAttribute</userinput
->, @override ve __declspec(...) gibi açıklamalar.</para>
+>, @override ve __declspec(…) gibi açıklamalar.</para>
 </listitem>
 </varlistentry>
 
@@ -992,7 +1001,7 @@
 <para
 ><userinput
 >dsChar</userinput
->, 'x' gibi tekli karakterler.</para>
+>, “x” gibi tekli karakterler.</para>
 <para
 ><userinput
 >dsSpecialChar</userinput
@@ -1008,7 +1017,7 @@
 <para
 ><userinput
 >dsSpecialString</userinput
->, SQL, regex’ler, HERE belgeleri, &latex; matematik kipi, ...</para>
+>, SQL, regex’ler, HERE belgeleri, &latex; matematik kipi, …</para>
 <para
 ><userinput
 >dsImport</userinput
@@ -1268,13 +1277,13 @@
 >char</userinput
 > özniteliklerinde geçerli bağlama geçiş yaparlar. Bir <userinput
 >string</userinput
->'de, <replaceable
+>’de, <replaceable
 >%N</replaceable
 > yer tutucusu (N bir sayıdır), çağırdığı düzenli ifadede ilişkili olduğu <replaceable
 >N</replaceable
 > ile değiştirilir. Bir <userinput
 >char</userinput
->'da, yer tutucu bir <replaceable
+>’da, yer tutucu bir <replaceable
 >N</replaceable
 > sayısı olmalıdır ve çağıran düzenli ifadedeki ilişkili olduğu <replaceable
 >N</replaceable
@@ -1434,7 +1443,7 @@
 >Örnek 3:</para>
 <para
 >Bu, şunun gibi metinlerle eşleşir: <userinput
->Class::function&lt;T&gt;( ... )</userinput
+>Class::function&lt;T&gt;(…)</userinput
 >.</para>
 
 <programlisting
@@ -1464,7 +1473,7 @@
 >'%'</userinput
 >, <userinput
 >keywords</userinput
->'ün zayıf bir sınırlandırıcısıysa yalnızca onun <userinput
+>’ün zayıf bir sınırlandırıcısıysa yalnızca onun <userinput
 >additionalDeliminator</userinput
 > özniteliğine konularak bir sözcük sınırlandırıcısı olabilir. Ne zaman bir kural bu özniteliklere izin veriyorsa o bir <emphasis
 >(local deliminators)</emphasis
@@ -1555,7 +1564,7 @@
 >insensitive</userinput
 > özniteliği öntanımlı olarak <emphasis
 >false</emphasis
->'tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
+>’tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
 >true</emphasis
 > ise duyarsız karşılaştırma kullanılır.</para>
 </listitem>
@@ -1582,7 +1591,7 @@
 >insensitive</userinput
 > özniteliği öntanımlı olarak <emphasis
 >false</emphasis
->'tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
+>’tur ve dizi karşılaştırma işlevine geçirilir. Değer <emphasis
 >true</emphasis
 > ise duyarsız karşılaştırma kullanılır.</para>
 <para
@@ -1607,17 +1616,17 @@
 >insensitive</userinput
 > öntanımlı olarak <emphasis
 >false</emphasis
->'tur ve düzenli ifade işletkesine geçirilir.</para>
+>’tur ve düzenli ifade işletkesine geçirilir.</para>
 <para
 ><userinput
 >minimal</userinput
 > öntanımlı olarak <emphasis
 >false</emphasis
->'tur ve düzenli ifade işletkesine geçirilir.</para>
+>’tur ve düzenli ifade işletkesine geçirilir.</para>
 <para
->Kurallar her zaman geçerli dizinin başlangıcına göre eşleştirildiğinden, düzeltme işaretiyle (<literal
+>Kurallar her zaman geçerli dizinin başlangıcına göre eşleştirildiğinden, şapka (<literal
 >^</literal
->) başlayan düzenli ifade, kuralın yalnızca satırın başlangıcına göre eşleştirilmesi gerektiğini belirtir.</para>
+>) ile başlayan düzenli ifade, kuralın yalnızca satırın başlangıcına göre eşleştirilmesi gerektiğini belirtir.</para>
 <para
 >Bunlar hakkında daha fazla bilgi için <link linkend="regular-expressions"
 >Düzenli İfadeler</link
@@ -1652,7 +1661,7 @@
 >keyword</emphasis
 > kurallarında sınırlandırıcı kimliğini kaybeder. Aynı zamanda, <emphasis
 >keyword</emphasis
->'ün <emphasis
+>’ün <emphasis
 >weakDeliminator</emphasis
 > özniteliği de kullanılabilir; böylece bu değişiklik yalnızca bu kural için geçerli olur.</para>
 </listitem>
@@ -1813,9 +1822,9 @@
 >char</userinput
 > isteğe bağlı eşleştirilecek karakterdir, öntanımlısı ise ters eğik çizgidir (<userinput
 >'\'</userinput
->). &kde; sürümünden bu yana eklidir.</para>
+>). &kde; 4.13 sürümünden bu yana eklidir.</para>
 <para
->Bu kural, satırın sonunda bağlamı değiştirmek için kullanışlıdır. Bu, örneğin C/C++'da makroları veya dizileri sürdürmek için gereklidir.</para>
+>Bu kural, satırın sonunda bağlamı değiştirmek için kullanışlıdır. Bu, örneğin C/C++’da makroları veya dizileri sürdürmek için gereklidir.</para>
 </listitem>
 </varlistentry>
 
@@ -2090,7 +2099,7 @@
 >Kafa karışıklığını önlemek adına, aşağıdakiler kapsam dışında bırakılmıştır: <itemizedlist>
 <listitem
 ><para
->Yazıtipi türü ve yazıtipi boyutu.</para
+>Yazıtipi türü ve yazıtipi puntosu.</para
 ></listitem>
 <listitem
 ><para
@@ -2150,7 +2159,7 @@
 >sözdizim vurgulaması</link
 > işletkesi, <userinput
 >renk temalarını sağlayan ve yöneten</userinput
-> çatıdır. Bu, &kde; &frameworks;'ün bir parçasıdır ve <ulink url="https://apps.kde.org/en/kate"
+> çatıdır. Bu, &kde; &frameworks;’ün bir parçasıdır ve <ulink url="https://apps.kde.org/en/kate"
 >&kate;</ulink
 >, <ulink url="https://apps.kde.org/en/kwrite"
 >&kwrite;</ulink
@@ -2205,7 +2214,7 @@
 <para
 >&kate; veya &kdevelop; gibi &kde; metin düzenleyicilerinde kullanılan KSyntaxHighlighting renk temaları, 10 Ekim 2020 tarihinde yayımlanan <ulink url="https://kate-editor.org/post/2020/2020-09-13-kate-color-themes-5.75/"
 >&kde; &frameworks; 5.75</ulink
-> sürümüyle kullanılmaya başlanmıştır. Öncesinde, &kate;'in kendi renk şemaları (KConfig tabanlı şema yapılandırması) kullanılıyordu; artık bunlar kullanılmıyor. Yine de, eski &kate; şemalarını KSyntaxHighlighting renk şemalarına dönüştürmek olanaklıdır. <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
+> sürümüyle kullanılmaya başlanmıştır. Öncesinde, &kate;’in kendi renk şemaları (KConfig tabanlı şema yapılandırması) kullanılıyordu; artık bunlar kullanılmıyor. Yine de, eski &kate; şemalarını KSyntaxHighlighting renk şemalarına dönüştürmek olanaklıdır. <ulink url="https://invent.kde.org/frameworks/syntax-highlighting"
 >KSyntaxHighlighting deposunda</ulink
 >, bu iş için kullanılan <userinput
 >utils/kateschema_to_theme_converter.py</userinput
@@ -2272,7 +2281,7 @@
 > olarak kullanılır. </para>
 
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:&#92;Users&#92;<replaceable
 >user-name</replaceable
 ></filename
@@ -2334,8 +2343,18 @@
 <entry
 >&Windows; üzerinde</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>&macOS; üzerinde</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
 ></entry>
 </row>
 </tbody>
@@ -2345,7 +2364,7 @@
 <para
 >Aynı adlı birden çok tema dosyası varsa en yüksek <userinput
 >revision</userinput
->'a (revizyona) sahip dosya yüklenir. </para>
+>’a (revizyona) sahip dosya yüklenir. </para>
 
 </sect3>
 
@@ -2497,7 +2516,7 @@
         "LineNumbers" : "#a0a0a0",
         "CurrentLineNumber" : "#1e1e1e",
         <replaceable
->Diğer düzenleyici renk anahtarları...</replaceable>
+>Diğer düzenleyici renk anahtarları…</replaceable>
 
     },
     "text-styles": {
@@ -2523,7 +2542,7 @@
             "selected-text-color" : "#00316e"
         },
         <replaceable
->Diğer metin biçemi anahtarları...</replaceable>
+>Diğer metin biçemi anahtarları…</replaceable>
 
     },
     "custom-styles": {
@@ -2573,7 +2592,7 @@
 >revizyon</userinput
 >: Tema dosyasının geçerli revizyonunu belirten bir <emphasis
 >tamsayı</emphasis
->'dır. Bir renk teması dosyasını güncellediğinizde bu sayıyı artırdığınızdan emin olun. Bu zorunludur.</para
+>’dır. Bir renk teması dosyasını güncellediğinizde bu sayıyı artırdığınızdan emin olun. Bu zorunludur.</para
 ></listitem>
 
 <listitem
@@ -2842,7 +2861,7 @@
 ><para
 >Bu renk, görüntülendiğinde görünümün sol tarafına geçerli satırın satır numarasını çizmek için kullanılır. Bunu <quote
 >LineNumbers</quote
->'tan biraz farklı bir şekilde ayarlamak, geçerli satıra odaklanmaya yardımcı olur. </para
+>’tan biraz farklı bir şekilde ayarlamak, geçerli satıra odaklanmaya yardımcı olur. </para
 ></listitem>
 </varlistentry>
 
@@ -3284,7 +3303,7 @@
 >DataType</quote
 > ise <quote
 >dsDataType</quote
->'a eşdeğerdir. Daha fazla bilgi için sözdizim vurgulama belgelendirmesindeki <xref linkend="kate-highlight-default-styles"/> bölümüne bakın. </para>
+>’a eşdeğerdir. Daha fazla bilgi için sözdizim vurgulama belgelendirmesindeki <xref linkend="kate-highlight-default-styles"/> bölümüne bakın. </para>
 </note>
 
 <tip>
@@ -3303,8 +3322,8 @@
 >text-styles</userinput
 > anahtarının değeri bir <emphasis
 >object</emphasis
->'e sahiptir; burada her anahtar, sözdizim vurgulama tanımlarında kullanılanlara eşdeğer olan bir <emphasis
->öntanımlı metin biçeminin </emphasis
+>’e sahiptir; burada her anahtar, sözdizim vurgulama tanımlarında kullanılanlara eşdeğer olan bir <emphasis
+>öntanımlı metin biçeminin</emphasis
 > adına karşılık gelir. Burada, zorunlu olan <userinput
 >kullanılabilir tüm metin biçemi anahtarları</userinput
 > aşağıda listelenmiştir. </para>
@@ -3329,7 +3348,7 @@
         "selected-text-color" : "#452886"
     },
     <replaceable
->Diğer metin biçemi anahtarları...</replaceable>
+>Diğer metin biçemi anahtarları…</replaceable>
 }
 </programlisting>
 
@@ -3363,7 +3382,7 @@
 >text-color</quote
 > ile aynıdır. Metin seçiliyken, arka plan, <link linkend="color-themes-editor-colors"
 >Düzenleyici Renkleri</link
->'nin <link linkend="variable-pref-colors-selected-text"
+>’nin <link linkend="variable-pref-colors-selected-text"
 >TextSelection</link
 > değeriyle belirlenir, bundan dolayı, metnin iyi bir karşıtlığa sahip olduğundan ve bu arka planla okunabilir olduğundan emin olun. Değer, onaltılık renk koduna sahip bir <emphasis
 >dizidir</emphasis
@@ -3376,7 +3395,7 @@
 >Boole</emphasis
 > değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
 >false</userinput
->'tur.</para>
+>’tur.</para>
 
 <para
 ><userinput
@@ -3385,7 +3404,7 @@
 >Boole</emphasis
 > değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
 >false</userinput
->'tur.</para>
+>’tur.</para>
 
 <para
 ><userinput
@@ -3394,7 +3413,7 @@
 >Boole</emphasis
 > değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
 >false</userinput
->'tur.</para>
+>’tur.</para>
 
 <para
 ><userinput
@@ -3403,7 +3422,7 @@
 >Boole</emphasis
 > değeridir. Bu anahtar isteğe bağlıdır, öntanımlı değer <userinput
 >false</userinput
->'tur.</para>
+>’tur.</para>
 
 <para
 ><userinput
@@ -3533,9 +3552,9 @@
 >: Bilgi notları veya işlevlerin veya nesnelerin öznitelikleri için metin biçemi; örneğin, Java’daki <userinput
 >@override</userinput
 > veya C++’daki <userinput
->__declspec(...)</userinput
+>__declspec(…)</userinput
 > ve <userinput
->__attribute__((...))</userinput
+>__attribute__((…))</userinput
 >.</para>
 </listitem>
 </varlistentry>
@@ -3904,7 +3923,7 @@
 > <guimenuitem
 ><replaceable
 >Uygulama</replaceable
-> Uygulamasını Yapılandır...</guimenuitem
+> Uygulamasını Yapılandır…</guimenuitem
 ></menuchoice
 > yolunu izleyin. Bu, <guilabel
 >Yapılandır</guilabel
@@ -3917,11 +3936,11 @@
 ><imagedata format="PNG" fileref="color-themes-gui-default-text-styles.png"/></imageobject>
 <textobject
 ><phrase
->&kate;'in renk teması yönetimini gösteren ayarlar iletişim kutusu.</phrase
+>&kate;’in renk teması yönetimini gösteren ayarlar iletişim kutusu.</phrase
 ></textobject>
 <caption
 ><para
->&kate;'in renk teması yönetimini gösteren ayarlar iletişim kutusu.</para>
+>&kate;’in renk teması yönetimini gösteren ayarlar iletişim kutusu.</para>
 </caption>
 </mediaobject>
 
@@ -3987,7 +4006,7 @@
 >Esinti Koyu</quote
 > gibi temel olarak kullanmak istediğiniz var olan bir temayı seçin ve <guibutton
 >Kopyala</guibutton
->'ya tıklayın. Daha sonra yeni tema için bir ad yazın. </para>
+>’ya tıklayın. Daha sonra yeni tema için bir ad yazın. </para>
 
 <para
 >Yerleşik veya saltokunur bir temayı değiştirmek istiyorsanız önce onu farklı bir adla kopyalamanız gerekir.</para>
@@ -4129,6 +4148,11 @@
 >Flathub’daki Flatpak paketiyle</ulink
 > indirebilirsiniz (yalnızca GNU/Linux).</para>
 
+<para
+><ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>Syntax Highlighting deposundaki</ulink
+> bir Python betiği, bir temadaki tüm renkleri ve tüm arka planlardaki karşıtlığı ayarlamanıza olanak tanır.</para>
+
 </sect3>
 
 <sect3 id="color-themes-tips-and-tricks-consistency">
@@ -4205,7 +4229,9 @@
 >&javascript; ile betik yazımı</title>
 
 <para
->&kappname; düzenleyici bileşeni, betik yazımı ile kolaylıkla genişletilebilir. Bunun içn kullanılan dil ECMAScript’tir (genellikle &javascript; olarak bilinir). &kappname; iki tür betiği destekler: Girintileme ve komut satırı betikleri. </para>
+>&kappname; düzenleyici bileşeni, betik yazımı ile kolaylıkla genişletilebilir. Bunun içn kullanılan dil ECMAScript’tir (genellikle &javascript; olarak bilinir). &kappname; iki tür betiği destekler: Girintileme ve komut satırı betikleri. Komut satırı betiklerine benzer bir işlevsellik ayrıca <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>parçacıklar eklentisinde</ulink
+> sunulmaktadır. Bu eklenti, özellikle küçük özelleştirilmiş betikler için daha iyi bir başlangıç noktası sağlayabilir. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4231,7 +4257,7 @@
 >~/.local/share</filename
 > olarak genişletilir. </para>
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:\\Users\\<replaceable
 >user</replaceable
 ></filename
@@ -4435,7 +4461,7 @@ function indent(line, indentWidth, ch)
 >/katepart5/script/indentation</filename
 > konumunda bulunabilir.</para>
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:\\Users\\<replaceable
 >user</replaceable
 ></filename
@@ -4451,9 +4477,9 @@ function indent(line, indentWidth, ch)
 > komutunu çağırın. </para>
 
 <para
->Yararlı betikler geliştiriyorsanız &kappname; uygulamasına katkıda bulunmayı düşünün. Geliştirmelerinizi <ulink url="mailto:kwrite-devel@kde.org"
->posta listesine gönderin</ulink
->. </para>
+>Eğer yararlı betikler geliştiriyorsanız lütfen onları &kappname; projesine katkıda bulunmayın düşünün. Katkılarınızı <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>GitLab sayfamıza</ulink
+> gönderin. </para>
 
 </sect3>
 </sect2>
@@ -4461,6 +4487,13 @@ function indent(line, indentWidth, ch)
 <sect2 id="dev-scripting-command-line">
 <title
 >Komut Satırı Betikleri</title>
+
+<note>
+<para
+>Komut satırı betiklerine benzer bir işlevsellik ayrıca <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>parçacıklar eklentisinde</ulink
+> sunulmaktadır. Bu eklenti, özellikle küçük özelleştirilmiş betikler için daha iyi bir başlangıç noktası sağlayabilir.</para>
+</note>
 
 <para
 >Herkesin gereksinimlerini karşılamak güç olsa da, &kappname;, <link linkend="advanced-editing-tools-commandline"
@@ -4488,7 +4521,7 @@ function indent(line, indentWidth, ch)
 >~/.local/share</filename
 > olarak genişletilir.</para>
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:\\Users\\<replaceable
 >user</replaceable
 ></filename
@@ -4588,9 +4621,9 @@ var katescript = {
 > işlevlerini uygulaması gerekir. Tüm işlevler aşağıdaki sözdizime sahiptir: <programlisting
 >// zorunlu katepart js kitaplıkları; &eg;, Range require ("range.js"); kullanıyorsanız range.js
 
-function &lt;name&gt;(arg1, arg2, ...)
+function &lt;name&gt;(arg1, arg2, …)
 {
-    // ... uygulama, ayrıca bakınız: Betik Yazımı API’si
+    // … uygulama, ayrıca bakınız: Betik Yazımı API’si
 }
 </programlisting>
 </para>
@@ -4607,8 +4640,8 @@ function help(cmd)
 {
     if (cmd == "sort") {
         return i18n("Seçili metni sıralayın.");
-    } else if (cmd == "...") {
-        // ...
+    } else if (cmd == "…") {
+        // …
     }
 }
 </programlisting
@@ -4637,7 +4670,7 @@ function help(cmd)
 >moveLinesDown</literal
 > işlevleri görünüyor: <programlisting>
 var katescript = {
-    ...
+    …
     "actions": [
         {   "function": "sort",
             "name": "Seçili Metni Sırala",
@@ -4708,9 +4741,9 @@ var katescript = {
 </para>
 
 <para
->Yararlı betikler geliştiriyorsanız &kappname; uygulamasına katkıda bulunmayı düşünün. Geliştirmelerinizi <ulink url="mailto:kwrite-devel@kde.org"
->posta listesine gönderin</ulink
->. </para>
+>Eğer yararlı betikler geliştiriyorsanız lütfen onları &kappname; projesine katkıda bulunmayın düşünün. Katkılarınızı <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>GitLab sayfamıza</ulink
+> gönderin. </para>
 
 </sect4>
 </sect3>
@@ -4751,7 +4784,7 @@ require ("range.js");
 </para>
 
 <para
->&Windows;'ta bu dosyalar genelde <filename
+>&Windows;’ta bu dosyalar genelde <filename
 >C:\\Users\\<replaceable
 >user</replaceable
 ></filename
@@ -5041,7 +5074,7 @@ require ("range.js");
 ><para
 >Yapıcı. <literal
 >new Range()</literal
-> çağırmak, (0, 0) - (0, 0) konumunda bir erim döndürür. </para
+> çağırmak, (0, 0)–(0, 0) konumunda bir erim döndürür. </para
 ></listitem>
 </varlistentry>
 
@@ -5470,7 +5503,7 @@ require ("range.js");
 ><para
 >Verilen <replaceable
 >dosya</replaceable
->'yı <literal
+>’yı <literal
 >katepart5/script/files</literal
 > dizinine göreceli olarak arar ve içeriğini bir dizi olarak döndürür. </para
 ></listitem>
@@ -5492,13 +5525,13 @@ require ("range.js");
 ><para
 >Verilen <replaceable
 >dosya</replaceable
->'yı <literal
+>’yı <literal
 >katepart5/script/libraries</literal
 > dizinine göreceli olarak arar ve onu değerlendirir. <literal
 >require</literal
 >, aynı <replaceable
 >dosya</replaceable
->'nın birden çok içerilmesine karşı korumalıdır. </para>
+>’nın birden çok içerilmesine karşı korumalıdır. </para>
 <para
 >Eklendiği sürüm: &kde; 4.10 </para>
 </listitem>
@@ -5526,9 +5559,9 @@ require ("range.js");
 ><para
 ><replaceable
 >metin</replaceable
->'i, uygulamayı başlatan konsolda <literal
+>’i, uygulamayı başlatan konsolda <literal
 >stdout</literal
->'a yazdırır. </para
+>’a yazdırır. </para
 ></listitem>
 </varlistentry
 ></variablelist>
@@ -5549,11 +5582,11 @@ require ("range.js");
 > ve <literal
 >i18ncp</literal
 > olarak geçer. Bunlar kesin olarak <ulink url="https://techbase.kde.org/Development/Tutorials/Localization/i18n"
-> &kde;'nin çeviri işlevleri</ulink
+> &kde;’nin çeviri işlevleri</ulink
 > gibi davranırlar. </para>
 
 <para
->Çeviri işlevleri, sarılmış dizileri &kde;'nin çeviri sistemi aracılığıyla uygulamada kullanılan dile çevirir. Resmi &kappname; kaynaklarında geliştirilen komut dosyalarındaki dizeler otomatik olarak çıkarılır ve çevrilebilir. Başka bir deyişle, bir &kappname; geliştiricisi olarak ileti çıkarma ve çeviri ile uğraşmanıza gerek yoktur. Bununla birlikte, çevirinin yalnızca &kde; altyapısı içinde çalıştığını, yani &kde; dışında geliştirilen 3. taraf betiklerdeki yeni dizilerin çevrilmediğini de belirtmek gerekir. Bu nedenle, doğru çevirinin olabilmesi için lütfen betiklerinizle &kate;'e katkıda bulunmayı düşünün. </para>
+>Çeviri işlevleri, sarılmış dizileri &kde;’nin çeviri sistemi aracılığıyla uygulamada kullanılan dile çevirir. Resmi &kappname; kaynaklarında geliştirilen komut dosyalarındaki dizeler otomatik olarak çıkarılır ve çevrilebilir. Başka bir deyişle, bir &kappname; geliştiricisi olarak ileti çıkarma ve çeviri ile uğraşmanıza gerek yoktur. Bununla birlikte, çevirinin yalnızca &kde; altyapısı içinde çalıştığını, yani &kde; dışında geliştirilen 3. taraf betiklerdeki yeni dizilerin çevrilmediğini de belirtmek gerekir. Bu nedenle, doğru çevirinin olabilmesi için lütfen betiklerinizle &kate;’e katkıda bulunmayı düşünün. </para>
 
 <variablelist
 ><varlistentry>
@@ -5565,16 +5598,16 @@ require ("range.js");
 ></parameter
 >, <replaceable
 >arg1</replaceable
->, ...);
+>, …);
 </synopsis
 ></term>
 <listitem
 ><para
 ><replaceable
 >metin</replaceable
->'i, uygulama tarafından kullanılan dile çevirir. <replaceable
+>’i, uygulama tarafından kullanılan dile çevirir. <replaceable
 >arg1</replaceable
->, ..., argümanları isteğe bağlıdır ve <literal
+>, …, argümanları isteğe bağlıdır ve <literal
 >%1</literal
 >, <literal
 >%2</literal
@@ -5595,18 +5628,18 @@ require ("range.js");
 ></parameter
 >, <replaceable
 >arg1</replaceable
->, ...);
+>, …);
 </synopsis
 ></term>
 <listitem
 ><para
 ><replaceable
 >metin</replaceable
->'i, uygulama tarafından kullanılan dile çevirir. Ek olarak, <replaceable
+>’i, uygulama tarafından kullanılan dile çevirir. Ek olarak, <replaceable
 >bağlam</replaceable
 > metni çevirmenlere görünür, böylece daha iyi bir çeviri sağlayabilirler. <replaceable
 >arg1</replaceable
->, ..., argümanları isteğe bağlıdır ve <literal
+>, …, argümanları isteğe bağlıdır ve <literal
 >%1</literal
 >, <literal
 >%2</literal
@@ -5631,7 +5664,7 @@ require ("range.js");
 ></parameter
 >, <replaceable
 >arg1</replaceable
->, ...);
+>, …);
 </synopsis
 ></term>
 <listitem
@@ -5642,9 +5675,9 @@ require ("range.js");
 >çoğul</replaceable
 > varyantları, verilen <replaceable
 >sayı</replaceable
->'ya bağlı olarak uygulama tarafından kullanılan dile çevirir. <replaceable
+>’ya bağlı olarak uygulama tarafından kullanılan dile çevirir. <replaceable
 >arg1</replaceable
->, ..., argümanları isteğe bağlıdır ve <literal
+>, …, argümanları isteğe bağlıdır ve <literal
 >%1</literal
 >, <literal
 >%2</literal
@@ -5673,7 +5706,7 @@ require ("range.js");
 ></parameter
 >, <replaceable
 >arg1</replaceable
->, ...);
+>, …);
 </synopsis
 ></term>
 <listitem
@@ -5684,11 +5717,11 @@ require ("range.js");
 >çoğul</replaceable
 > varyantları, verilen <replaceable
 >sayı</replaceable
->'ya bağlı olarak uygulama tarafından kullanılan dile çevirir. Ek olarak, <replaceable
+>’ya bağlı olarak uygulama tarafından kullanılan dile çevirir. Ek olarak, <replaceable
 >bağlam</replaceable
 > metni çevirmenlere görünür, böylece daha iyi bir çeviri sağlayabilirler. <replaceable
 >arg1</replaceable
->, ..., argümanları isteğe bağlıdır ve <literal
+>, …, argümanları isteğe bağlıdır ve <literal
 >%1</literal
 >, <literal
 >%2</literal
@@ -5987,7 +6020,7 @@ void view.setVirtualCursorPosition(<parameter
 ><para
 >Geçerli girintileme ayarlarına göre <replaceable
 >erim</replaceable
->'i düzgünce yeniden girintile. </para>
+>’i düzgünce yeniden girintile. </para>
 </listitem>
 </varlistentry>
 
@@ -6011,7 +6044,7 @@ void view.setVirtualCursorPosition(<parameter
 >dizgi</replaceable
 > verdiği sütundaki <replaceable
 >erim</replaceable
->'deki satırları hizalar. Boş bir <replaceable
+>’deki satırları hizalar. Boş bir <replaceable
 >dizgi</replaceable
 > ile öntanımlı olarak ilk boş olmayan karaktere hizalanır. Dizginin bir yakalaması varsa yakalanan eşleşmeye girintili olacaktır. </para>
 <para
@@ -6063,7 +6096,7 @@ void view.setVirtualCursorPosition(<parameter
 >erim</replaceable
 > ile yürütür. Döndürülen <replaceable
 >nesne</replaceable
->'nin <replaceable
+>’nin <replaceable
 >komut</replaceable
 > yürütmesinin başarılı olup olmadığını söyleyen bir <replaceable
 >object.ok</replaceable
@@ -6099,9 +6132,9 @@ void view.setVirtualCursorPosition(<parameter
 ><para
 ><replaceable
 >erim</replaceable
->'de <replaceable
+>’de <replaceable
 >dizgi</replaceable
->'nin ilk oluşunu ara ve eşleşen erimi döndür. İsteğe bağlı Boole değeri <replaceable
+>’nin ilk oluşunu ara ve eşleşen erimi döndür. İsteğe bağlı Boole değeri <replaceable
 >backwards</replaceable
 > <literal
 >true</literal
@@ -6111,7 +6144,7 @@ void view.setVirtualCursorPosition(<parameter
 >dizgi</replaceable
 >, <replaceable
 >erim</replaceable
->'de bulunamazsa döndürülen erim geçersizdir (bkz. Range.isValid()). </para>
+>’de bulunamazsa döndürülen erim geçersizdir (bkz. Range.isValid()). </para>
 <para
 >Eklendiği sürüm: &kde-frameworks; 5.97</para>
 </listitem>
@@ -6958,7 +6991,7 @@ bool document.wrapLine(<parameter
 ><para
 ><replaceable
 >satır</replaceable
->'ın uzunluğunu döndürür. </para
+>’ın uzunluğunu döndürür. </para
 ></listitem>
 </varlistentry>
 
@@ -7013,7 +7046,7 @@ bool document.wrapLine(<parameter
 ><para
 >Verilen <replaceable
 >satır</replaceable
->'daki ilk boşluk olmayan sütunu döndürür. Satırda yalnızca boşluklar varsa <literal
+>’daki ilk boşluk olmayan sütunu döndürür. Satırda yalnızca boşluklar varsa <literal
 >-1</literal
 > döndürülür. </para
 ></listitem>
@@ -7034,7 +7067,7 @@ bool document.wrapLine(<parameter
 ><para
 >Verilen <replaceable
 >satır</replaceable
->'daki son boşluk olmayan sütunu döndürür. Satırda yalnızca boşluklar varsa <literal
+>’daki son boşluk olmayan sütunu döndürür. Satırda yalnızca boşluklar varsa <literal
 >-1</literal
 > döndürülür. </para
 ></listitem>
@@ -7145,7 +7178,7 @@ int document.nextNonSpaceColumn(<parameter
 ><para
 >Verilen <replaceable
 >öznitelik</replaceable
->'i içeren <replaceable
+>’i içeren <replaceable
 >karakter</replaceable
 > bir sözcüğün parçası olabiliyorsa <literal
 >true</literal
@@ -7174,7 +7207,7 @@ int document.nextNonSpaceColumn(<parameter
 ><para
 >Verilen <replaceable
 >öznitelik</replaceable
->'i içeren <replaceable
+>’i içeren <replaceable
 >karakter</replaceable
 > bir satırı kaydırmak için uygunsa <literal
 >true</literal
@@ -7471,7 +7504,7 @@ bool document.isAttributeName(<parameter
 ><para
 >İstenen belge değişkeni <replaceable
 >anahtar</replaceable
->'ın değerini döndürür. Belge değişkeni yoksa dönüş değeri boş bir dizidir. </para
+>’ın değerini döndürür. Belge değişkeni yoksa dönüş değeri boş bir dizidir. </para
 ></listitem>
 </varlistentry>
 
@@ -7494,7 +7527,7 @@ bool document.isAttributeName(<parameter
 ><para
 >İstenen belge değişkeni <replaceable
 >anahtar</replaceable
->'ın değerini ayarla. </para>
+>’ın değerini ayarla. </para>
 <para
 >Ayrıca bakınız: <link linkend="config-variables"
 >Kate belge değişkenleri</link
@@ -7638,7 +7671,7 @@ Cursor document.anchor(<parameter
 ></term>
 <listitem
 ><para
->Verilen imleçten başlayarak verilen karakteri geriye doğru arar. Örnek olarak, eğer '(' karakter olarak iletilirse bu işlev '(' açılışının konumunu döndürecektir. Bu başvuru sayımı, yani diğer '(...)' yok sayılır. </para
+>Verilen imleçten başlayarak verilen karakteri geriye doğru arar. Örnek olarak, eğer “(” karakter olarak iletilirse bu işlev “(” açılışının konumunu döndürecektir. Bu başvuru sayımı, yani diğer “(…)” yok sayılır. </para
 ></listitem>
 </varlistentry>
 
@@ -7933,7 +7966,7 @@ bool document.isOthers(<parameter
 ><para
 ><replaceable
 >erim</replaceable
->'deki tüm satırları <replaceable
+>’deki tüm satırları <replaceable
 >değişiklik</replaceable
 > sekme kadar veya <replaceable
 >değişiklik</replaceable

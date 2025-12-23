@@ -32,7 +32,7 @@
 >Genel Görünüm</title>
 
 <para
->&kappname; düzenleyicisi &kappname; penceresinin düzenleme alanıdır. Bu düzenleyici &kate; ve &kwrite; arasında paylaşılır ve aynı zamanda yerel bilgisayarınızdan veya ağdan gelen metin dosyalarını görüntülemek için &konqueror;'da da kullanılabilir.</para>
+>&kappname; düzenleyicisi &kappname; penceresinin düzenleme alanıdır. Bu düzenleyici &kate; ve &kwrite; arasında paylaşılır ve aynı zamanda yerel bilgisayarınızdan veya ağdan gelen metin dosyalarını görüntülemek için &konqueror;’da da kullanılabilir.</para>
 
 <para
 >Düzenleyici aşağıdaki bileşenlerden oluşur:</para>
@@ -162,7 +162,7 @@
 >Metinde Dolaşmak</title>
 
 <para
->&kappname;'de metinde dolaşmak çoğu grafik metin düzenleyicisi ile benzerdir. İmleci, &Ctrl; ve &Shift; niteleyicileriyle birlikte ok düğmelerini ve &PgUp;, &PgDn;, &Home; ve &End; düğmelerini kullanarak hareket ettirirsiniz. &Shift; düğmesi her zaman bir seçim üretmek için kullanılırken, &Ctrl; düğmesinin farklı düğmeler üzerinde farklı etkileri vardır: <itemizedlist>
+>&kappname;’de metinde dolaşmak çoğu grafik metin düzenleyicisi ile benzerdir. İmleci, &Ctrl; ve &Shift; niteleyicileriyle birlikte ok düğmelerini ve &PgUp;, &PgDn;, &Home; ve &End; düğmelerini kullanarak hareket ettirirsiniz. &Shift; düğmesi her zaman bir seçim üretmek için kullanılırken, &Ctrl; düğmesinin farklı düğmeler üzerinde farklı etkileri vardır: <itemizedlist>
 <listitem
 ><para
 >&Up; ve &Down; düğmeleri için imleci hareket ettirmekten ziyade sarma anlamına gelir.</para
@@ -204,7 +204,7 @@
 >&kappname; içinde iki temel metin seçim yolu bulunur: Fareyi ve klavyeyi kullanarak.</para>
 
 <para
->Fareyi kullanarak seçim yapmak için, fare imlecini seçimin başlaması gereken yerden istenen bitiş noktasına sürüklerken &LMB;'ni basılı tutun. Siz sürükledikçe metin seçilir.</para>
+>Fareyi kullanarak seçim yapmak için fare imlecini seçimin başlaması gereken yerden istenen bitiş noktasına sürüklerken &LMB;’ni basılı tutun. Siz sürükledikçe metin seçilir.</para>
 
 <para
 >Bir sözcüğe çift tıklamak o sözcüğü seçecektir.</para>
@@ -307,7 +307,7 @@
 <para
 >Bu seçeneğin ayarını değiştirmek için <link linkend="config-dialog"
 >Yapılandırma İletişim Kutusu</link
->'ndaki <link linkend="pref-edit-cursor-selection"
+>’ndaki <link linkend="pref-edit-cursor-selection"
 >İmleç ve Seçim</link
 > sayfasını kullanın.</para>
 
@@ -327,7 +327,7 @@
 <para
 >Kalıcı Seçim, <link linkend="config-dialog"
 >Yapılandırma İletişim Kutusu</link
->'ndaki <link linkend="pref-edit-cursor-selection"
+>’ndaki <link linkend="pref-edit-cursor-selection"
 >İmleç ve Seçim</link
 > sayfasından etkinleştirilebilir.</para>
 
@@ -385,7 +385,7 @@
 
 
 <para
->&kappname;'de artımlı bir arama çubuğu ve güçlü arama ve değiştirme çubuğu bulunur; bu, birkaç ek seçeneğin yanı sıra yeni bir dizi girme olanağı sunar.</para>
+>&kappname;’de artımlı bir arama çubuğu ve güçlü arama ve değiştirme çubuğu bulunur; bu, birkaç ek seçeneğin yanı sıra yeni bir dizi girme olanağı sunar.</para>
 
 <para
 >Çubuklar şu ortak seçenekleri sunar:</para>
@@ -439,7 +439,7 @@
 ></term>
 <listitem>
 <para
->Seçilirse arama, yalnızca dizi eşleşmesinin her iki ucunda da bir sözcük sınırı varsa eşleşir; bu, abece-sayısal bir karakter anlamına gelmez - başka bir görünür karakter veya satır sonu olabilir.</para>
+>Seçilirse arama, yalnızca dizi eşleşmesinin her iki ucunda da bir sözcük sınırı varsa eşleşir; bu, abece-sayısal bir karakter anlamına gelmez — başka bir görünür karakter veya satır sonu olabilir.</para>
 </listitem>
 </varlistentry>
 
@@ -513,7 +513,7 @@
 ><guimenu
 >Düzen</guimenu
 > <guimenuitem
->Bul...</guimenuitem
+>Bul…</guimenuitem
 ></menuchoice
 > menü ögesinden artımlı arama çubuğunu başlatın.</para>
 <para
@@ -608,7 +608,7 @@
 > veya <guilabel
 >Düzenli ifade</guilabel
 > seçilirse metin kutularının bağlam menüsünün altında bulunan <guibutton
->Ekle...</guibutton
+>Ekle…</guibutton
 > düğmesi etkinleştirilir ve ara ve değiştir dizgilerine önceden tanımlanan listelerden kaçış dizileri veya düzenli ifade ögeleri eklemenize olanak tanır.</para>
 <para
 >Belgedeki önceki veya sonraki eşleşmeye atlamak için <inlinemediaobject
@@ -774,7 +774,7 @@
 
 <note
 ><para
->Şu anda belge türleri için sözcük kaydırmayı ayarlamanın, hatta özelliği belge başına etkinleştirmenin veya devre dışı bırakmanın bir yolu yoktur. Bu, &kappname;'in gelecekteki bir sürümünde düzeltilecektir.</para
+>Şu anda belge türleri için sözcük kaydırmayı ayarlamanın, hatta özelliği belge başına etkinleştirmenin veya devre dışı bırakmanın bir yolu yoktur. Bu, &kappname;’in gelecekteki bir sürümünde düzeltilecektir.</para
 ></note>
 
 </sect1>
@@ -784,7 +784,7 @@
 >Kendiliğinden Girintilemeyi Kullanmak</title>
 
 <para
->&kappname;'in düzenleyici bileşeni, çeşitli metin biçimleri için tasarlanan birçok kendiliğinden girintileme aracını destekler. <menuchoice
+>&kappname;’in düzenleyici bileşeni, çeşitli metin biçimleri için tasarlanan birçok kendiliğinden girintileme aracını destekler. <menuchoice
 ><guimenu
 >Araçlar</guimenu
 ><guisubmenu
@@ -896,7 +896,7 @@
 >Satır Değişiklik Göstergeleri</title>
 
 <para
->&kappname;'in satır değişikliği göstergeleri, bir dosyada en son neleri değiştirdiğinizi kolayca görmenizi sağlar. Öntanımlı olarak, kaydedilen değişiklikler belgenin solundaki yeşil bir çubukla gösterilirken, kaydedilmemiş değişiklikler turuncu bir çubukla gösterilir.</para>
+>&kappname;’in satır değişikliği göstergeleri, bir dosyada en son neleri değiştirdiğinizi kolayca görmenizi sağlar. Öntanımlı olarak, kaydedilen değişiklikler belgenin solundaki yeşil bir çubukla gösterilirken, kaydedilmemiş değişiklikler turuncu bir çubukla gösterilir.</para>
 
 <para>
 <mediaobject>
@@ -929,7 +929,7 @@
 >Sarma Çubuğu Mini Haritası</title>
 
 <para
->&kappname;'in Sarma Çubuğu Mini Haritası, sarma çubuğu yerine belgenin önizlemesini görüntüler. Belgenin o anda görünen kısmı vurgulanır. </para>
+>&kappname;’in Sarma Çubuğu Mini Haritası, sarma çubuğu yerine belgenin önizlemesini görüntüler. Belgenin o anda görünen kısmı vurgulanır. </para>
 
 <para>
 <mediaobject>

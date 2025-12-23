@@ -32,7 +32,7 @@
 <para
 >Vi kipinin amacı, Vim’in tam yerini almak ve Vim’in tüm özelliklerini desteklemek değildir. Amacı, metin düzenlemenin <quote
 >Vim yöntemini</quote
-> - ve öğrenilen Vim alışkanlıklarını - içsel düzenleyici olarak &kappname; metin düzenleyicisini kullanan programlar için kullanılabilir hale getirmektir.</para>
+> - ve öğrenilen Vim alışkanlıklarını — içsel düzenleyici olarak &kappname; metin düzenleyicisini kullanan programlar için kullanılabilir hale getirmektir.</para>
 
 <para
 >Vi kipi, programla güzel bir şekilde bütünleşmeyi ve Vim’in davranışından mantıklı olduğu yerde sapmayı amaçlamaktadır. Örneğin, <userinput
@@ -46,7 +46,7 @@
 ><guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->&kappname; Uygulamasını Yapılandır...</guimenuitem
+>&kappname; Uygulamasını Yapılandır…</guimenuitem
 > <guimenu
 >Düzenleme</guimenu
 ><guimenuitem
@@ -60,7 +60,7 @@
 >&Meta;&Ctrl;<keycap
 >V</keycap
 ></keycombo
-> - &Meta;, genelde <keysym
+> — &Meta;, genelde <keysym
 >Windows</keysym
 > düğmesidir).</para>
 
@@ -111,7 +111,7 @@
 >Vim ile uyumsuzluklar</title>
 
 <para
->&kappname;'in Vi kipinin Vim ile uyumsuz olan yalnızca birkaç özelliği vardır (eksik şeyleri saymazsak). Aşağıda nedenleri ile birlikte sıralanmışlardır.</para>
+>&kappname;’in Vi kipinin Vim ile uyumsuz olan yalnızca birkaç özelliği vardır (eksik şeyleri saymazsak). Aşağıda nedenleri ile birlikte sıralanmışlardır.</para>
 <itemizedlist>
 <listitem>
 <para
@@ -141,7 +141,7 @@
 ><guimenu
 >Ayarlar</guimenu
 ><guimenuitem
->&kappname; Uygulamasını Yapılandır...</guimenuitem
+>&kappname; Uygulamasını Yapılandır…</guimenuitem
 > <guimenu
 >Düzenleme</guimenu
 ><guimenuitem
@@ -280,7 +280,7 @@
 <para
 ><emphasis
 >Komut Kipi</emphasis
->, &kappname;'in komut satırını çağırarak, Vi uygulamalarında bulunan birçok komutun yanı sıra &kappname;'e özgü bazı komutları çalıştırmanıza olanak tanır. Bu komutlar hakkında daha fazla bilgi için <xref linkend="advanced-editing-tools-commandline"/> bölümüne bakın. Kullanmak için <keycap
+>, &kappname;’in komut satırını çağırarak, Vi uygulamalarında bulunan birçok komutun yanı sıra &kappname;’e özgü bazı komutları çalıştırmanıza olanak tanır. Bu komutlar hakkında daha fazla bilgi için <xref linkend="advanced-editing-tools-commandline"/> bölümüne bakın. Kullanmak için <keycap
 >:</keycap
 > düğmesine basın, komutu girin ve &Enter; ile sürdürün.</para>
 </listitem>

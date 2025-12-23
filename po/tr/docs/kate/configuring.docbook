@@ -164,7 +164,7 @@
 ></term>
 <listitem
 ><para
->Bu seçenek, eylem çıktısının türüne bağlı olarak &kate;'in ne zaman çıktı bölmesi göstermesi gerektiğini yapılandırmaya izin verir.</para>
+>Bu seçenek, eylem çıktısının türüne bağlı olarak &kate;’in ne zaman çıktı bölmesi göstermesi gerektiğini yapılandırmaya izin verir.</para>
 <para
 ><guimenuitem
 >Asla</guimenuitem
@@ -425,7 +425,7 @@
 ></term>
 <listitem>
 <para
->&kate;'in başlangıçta nasıl davranmasını istediğinizi seçin. Bu ayar, <link linkend="command-line-options"
+>&kate;’in başlangıçta nasıl davranmasını istediğinizi seçin. Bu ayar, <link linkend="command-line-options"
 >command line</link
 > seçenekleri verilerek geçersiz kılınabilir.</para>
 <variablelist>
@@ -472,7 +472,7 @@
 ></term>
 <listitem>
 <para
->&kate;'in kapatma sırasında nasıl davranmasını istediğinizi seçin. &kate;'in neyi <guilabel
+>&kate;’in kapatma sırasında nasıl davranmasını istediğinizi seçin. &kate;’in neyi <guilabel
 >Kendiliğinden kaydet ve geri yükle</guilabel
 > yapmasını tanımlamak olanaklıdır.</para>
 <variablelist>
@@ -493,7 +493,7 @@
 ></term>
 <listitem
 ><para
->Bu öge, kapatma sırasında kaydedilmemiş değişiklikler içeren tüm dosyaların kendiliğinden kaydedilmesi için &kate;'in yapılandırılmasına olanak tanır.</para
+>Bu öge, kapatma sırasında kaydedilmemiş değişiklikler içeren tüm dosyaların kendiliğinden kaydedilmesi için &kate;’in yapılandırılmasına olanak tanır.</para
 ></listitem>
 </varlistentry>
 <varlistentry>

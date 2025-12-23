@@ -21,7 +21,7 @@
 </authorgroup>
 </chapterinfo>
 <title
->&kate;'i Genişletmek</title>
+>&kate;’i Genişletmek</title>
 
 <sect1 id="dev-intro">
 <title
@@ -32,7 +32,7 @@
 >&javascript; ile basit betikler yazabilir</link
 > veya <link linkend="dev-app"
 >C++ ile yazılmış &kate; Uygulama Eklentileri</link
-> ile çok daha fazla özellik ekleyebilirsiniz. Son olarak, &kate;'i genişlettikten sonra, <ulink url="https://kate-editor.org/join-us/"
+> ile çok daha fazla özellik ekleyebilirsiniz. Son olarak, &kate;’i genişlettikten sonra, <ulink url="https://kate-editor.org/join-us/"
 >bize katılın</ulink
 > ve iyileştirmelerinizi dünyayla paylaşın!</para>
 
@@ -56,7 +56,7 @@
 <para
 >&javascript; ile betik yazımı hakkında bilgi için <ulink url="help:/katepart/highlight.html"
 >&katepart; El Kitabı</ulink
->'nın &javascript; ile betik yazımı bölümüne bakın.</para>
+>’nın &javascript; ile betik yazımı bölümüne bakın.</para>
 
 </sect1>
 
@@ -67,12 +67,12 @@
 <para
 ><link linkend="kate-application-plugins"
 >&kate; Uygulama Eklentileri</link
->, düşleyebileceğiniz herhangi bir biçimde &kate; düzenleyicisinin işlevselliğini genişletir, &kate;'in yazıldığı programlama dili olan C++ programlama dilini kullanarak yazılmıştır.</para>
+>, düşleyebileceğiniz herhangi bir biçimde &kate; düzenleyicisinin işlevselliğini genişletir, &kate;’in yazıldığı programlama dili olan C++ programlama dilini kullanarak yazılmıştır.</para>
 
 <para
 >Başlamak için &kate; web sitesindeki <ulink url="https://kate-editor.org/2004/01/06/writing-a-kate-plugin/"
 >&kate; Eklentileri Öğreticisi</ulink
->'ne bakın.</para>
+>’ne bakın.</para>
 
 </sect1>
 

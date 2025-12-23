@@ -59,7 +59,7 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2021-09-02</date>
+>2021‒09‒02</date>
 <releaseinfo
 >KDE Gear 21.12</releaseinfo>
 
@@ -86,14 +86,14 @@
 >Giriş</title>
 
 <para
->&kwrite;, &kde; tarafından sağlanan bir metin düzenleyicisinden daha fazlasıdır. Bir programcının düzenleyicisi olması amaçlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. Farklı dillerdeki kaynak dosyalarını taramak için en iyi şekilde &konqueror; veya &dolphin; ile birlikte kullanılabilir. &kwrite; aynı zamanda basit bir metin düzenleyicisi olarak da çok iyi çalışır. &kwrite;'ın ana özelliklerinden biri; C/C++, &Java;, Perl, Bash, Modula 2, &HTML;, Ada ve Python gibi birçok farklı programlama dili için özelleştirilmiş, renklendirilmiş sözdizimidir. &kwrite;, her pencerede aynı anda bir dosyayı düzenlemenize olanak tanıyan tek bir belge arayüzüne (<acronym
+>&kwrite;, &kde; tarafından sağlanan bir metin düzenleyicisinden daha fazlasıdır. Bir programcının düzenleyicisi olması amaçlanmıştır ve daha güçlü düzenleyicilere en azından kısımsal bir alternatif olarak düşünülebilir. Farklı dillerdeki kaynak dosyalarını taramak için en iyi şekilde &konqueror; veya &dolphin; ile birlikte kullanılabilir. &kwrite; aynı zamanda basit bir metin düzenleyicisi olarak da çok iyi çalışır. &kwrite;’ın ana özelliklerinden biri; C/C++, &Java;, Perl, Bash, Modula 2, &HTML;, Ada ve Python gibi birçok farklı programlama dili için özelleştirilmiş, renklendirilmiş sözdizimidir. &kwrite;, her pencerede aynı anda bir dosyayı düzenlemenize olanak tanıyan tek bir belge arayüzüne (<acronym
 >SDI</acronym
 >) sahiptir. </para>
 
 <para
->&kwrite;, &kate;, &kdevelop; ve gelişmiş metin düzenleme gerektiren diğer &kde; uygulamaları tarafından da kullanılan &katepart; bileşenine yönelik basit bir arayüzdür. Bu nedenle, &kwrite;'ın tüm özelliklerine ilişkin eksiksiz belgeler <ulink url="help:/katepart"
+>&kwrite;, &kate;, &kdevelop; ve gelişmiş metin düzenleme gerektiren diğer &kde; uygulamaları tarafından da kullanılan &katepart; bileşenine yönelik basit bir arayüzdür. Bu nedenle, &kwrite;’ın tüm özelliklerine ilişkin eksiksiz belgeler <ulink url="help:/katepart"
 >&katepart; El Kitabı</ulink
->'nda bulunabilir. </para>
+>’nda bulunabilir. </para>
 </sect1>
 
 <sect1 id="command-line-options">
@@ -119,8 +119,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >/home/ben/belgeler/dosyam.txt</replaceable
 ></option>
@@ -142,8 +142,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >ftp://ftp.kde.org/pub/kde/BENİOKU</replaceable>
 </option
@@ -189,7 +189,7 @@
 ></term>
 <listitem
 ><para
->&kwrite;'ın yazarlarını uçbirim penceresinde listeler.</para
+>&kwrite;’ın yazarlarını uçbirim penceresinde listeler.</para
 ></listitem>
 </varlistentry>
 <varlistentry>
@@ -261,7 +261,7 @@
 ></term>
 <listitem
 ><para
->Belge için &kwrite;'ın belirtilen kodlamayı kullanmasını sağlar. </para
+>Belge için &kwrite;’ın belirtilen kodlamayı kullanmasını sağlar. </para
 ></listitem>
 </varlistentry>
 
@@ -331,7 +331,7 @@
 >Emeği Geçenler ve Lisans</title>
 
 <para
->&kwrite; Telif hakkı 2001-2014 &kate; takımı.</para>
+>&kwrite; Telif hakkı 2001–2014 &kate; takımı.</para>
 
 <para
 >Özgün &kwrite; temellidir, telif hakkı 2000, Jochen Wilhelmy <email

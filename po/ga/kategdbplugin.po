@@ -2,13 +2,14 @@
 # Copyright (C) 2011 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kategdbplugin package.
 # Kevin Scannell <kscanne@gmail.com>, 2011.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2011-12-28 12:28-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:36+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,8 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"Tá seisiún dífhabhtaithe ar siúl. Bain úsáid as athrith nó stop an seisiún "
+"reatha le do thoil."
 
 #: configview.cpp:92
 #, kde-format
@@ -42,7 +45,7 @@ msgstr "Scrios an sprioc"
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Athlódáil spriocanna launch.json"
 
 #: configview.cpp:109
 #, kde-format
@@ -57,7 +60,7 @@ msgstr "Comhadlann Oibre:"
 #: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "Aitheantas Próisis:"
 
 #: configview.cpp:142
 #, kde-format
@@ -90,13 +93,13 @@ msgstr "Athdhírigh I/A an ríomhchláir dhífhabhtaithe ar chluaisín ar leith"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Níl aon sprioc inrite socraithe"
 
 #: configview.cpp:406
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "Aitheantas próisis neamhbhailí"
 
 #: configview.cpp:528 configview.cpp:541
 #, kde-format
@@ -104,139 +107,134 @@ msgid "Target %1"
 msgstr "Sprioc %1"
 
 #: configview.cpp:760
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Comhad inrite:"
+msgstr "Roghnaigh Inrite"
 
 #: configview.cpp:773
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Comhadlann Oibre:"
+msgstr "Roghnaigh Eolaire Oibre"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "Theip ar chúl-deireadh DAP '%1'"
 
 #: dapbackend.cpp:237
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "clár críochnaithe"
 
 #: dapbackend.cpp:242
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Theip ar fhoirceannadh. Ag cur iallach ar dhúnadh..."
 
 #: dapbackend.cpp:253
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "ag iarraidh dícheangal"
 
 #: dapbackend.cpp:267
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "ag iarraidh múchadh"
 
 #: dapbackend.cpp:291
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "Cúltaca DAP: %1"
 
 #: dapbackend.cpp:300
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "stoptha (%1)."
 
 #: dapbackend.cpp:308
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Snáithe gníomhach: %1 (gach snáithe stoptha)."
 
 #: dapbackend.cpp:310
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Snáithe gníomhach: %1."
 
 #: dapbackend.cpp:315
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr "Brisphointe"
+msgstr "Brisphointe(í) bainte amach:"
 
 #: dapbackend.cpp:341
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(ar lean) snáithe %1"
 
 #: dapbackend.cpp:343
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "leanadh leis na snáitheanna uile"
 
 #: dapbackend.cpp:350
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(ag rith)"
 
 #: dapbackend.cpp:412
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "*** nasc leis an bhfreastalaí dúnta ***"
 
 #: dapbackend.cpp:419
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "scoir an clár le cód %1"
 
 #: dapbackend.cpp:437
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** ag fanacht le gníomhartha úsáideora ***"
 
 #: dapbackend.cpp:442
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "earráid ar fhreagra: %1"
 
 #: dapbackend.cpp:457
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "tábhachtach"
 
 #: dapbackend.cpp:460
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "teileamaitreacht"
 
 #: dapbackend.cpp:479
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "próiseas dífhabhtaithe [%1] %2"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "próiseas dífhabhtaithe %1"
 
 #: dapbackend.cpp:484
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Modh tosaithe: %1"
 
 #: dapbackend.cpp:499
-#, fuzzy, kde-format
-#| msgid "Thread %1"
+#, kde-format
 msgid "thread %1"
-msgstr "Snáithe %1"
+msgstr "snáithe %1"
 
 #: dapbackend.cpp:626
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint set"
-msgstr "Brisphointe"
+msgstr "socraithe brisphointe"
 
 #: dapbackend.cpp:634
 #, fuzzy, kde-format
@@ -245,129 +243,126 @@ msgid "breakpoint cleared"
 msgstr "Brisphointe"
 
 #: dapbackend.cpp:693
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "(%1) breakpoint"
-msgstr "Brisphointe"
+msgstr "(%1) brisphointe"
 
 #: dapbackend.cpp:710
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<níor measúnaíodh>"
 
 #: dapbackend.cpp:732
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "cumais freastalaí"
 
 #: dapbackend.cpp:735
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "tacaíocht"
 
 #: dapbackend.cpp:735
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "gan tacaíocht"
 
 #: dapbackend.cpp:738
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "conditional breakpoints"
-msgstr "Ionsáigh brisphointe"
+msgstr "pointí briste coinníollach"
 
 #: dapbackend.cpp:739
-#, fuzzy, kde-format
-#| msgid "Insert breakpoint"
+#, kde-format
 msgid "function breakpoints"
-msgstr "Ionsáigh brisphointe"
+msgstr "pointí briste feidhme"
 
 #: dapbackend.cpp:740
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "buaileann pointí briste coinníollach"
 
 #: dapbackend.cpp:741
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "pointí loga"
 
 #: dapbackend.cpp:741
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "iarratas ar mhodúil"
 
 #: dapbackend.cpp:742
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "iarratas spriocanna goto"
 
 #: dapbackend.cpp:743
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "deireadh a chur leis an iarratas"
 
 #: dapbackend.cpp:744
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "deireadh a chur leis an dífhabhtóir"
 
 #: dapbackend.cpp:972
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "earráid chomhréire: níor aimsíodh an abairt"
 
 #: dapbackend.cpp:990 dapbackend.cpp:1026 dapbackend.cpp:1065
 #: dapbackend.cpp:1099 dapbackend.cpp:1135 dapbackend.cpp:1171
 #: dapbackend.cpp:1207 dapbackend.cpp:1307 dapbackend.cpp:1370
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "earráid chomhréire: %1"
 
 #: dapbackend.cpp:998 dapbackend.cpp:1034 dapbackend.cpp:1314
 #: dapbackend.cpp:1378
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "líne neamhbhailí: %1"
 
 #: dapbackend.cpp:1006 dapbackend.cpp:1011 dapbackend.cpp:1042
 #: dapbackend.cpp:1047 dapbackend.cpp:1339 dapbackend.cpp:1344
 #: dapbackend.cpp:1386 dapbackend.cpp:1391
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "comhad gan sonrú: %1"
 
 #: dapbackend.cpp:1077 dapbackend.cpp:1111 dapbackend.cpp:1147
 #: dapbackend.cpp:1183 dapbackend.cpp:1219
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "aitheantas snáithe neamhbhailí: %1"
 
 #: dapbackend.cpp:1083 dapbackend.cpp:1117 dapbackend.cpp:1153
 #: dapbackend.cpp:1189 dapbackend.cpp:1225
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "aitheantas snáithe gan sonrú: %1"
 
 #: dapbackend.cpp:1236
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Orduithe atá ar fáil:"
 
 #: dapbackend.cpp:1324
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "ní thacaíonn an freastalaí le pointí briste coinníollacha"
 
 #: dapbackend.cpp:1332
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "ní thacaíonn an freastalaí le pointí briste coinníollach buailte"
 
 #: dapbackend.cpp:1353
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "tá pointe briste ag líne %1 cheana féin"
 
 #: dapbackend.cpp:1399
 #, kde-format
@@ -377,128 +372,125 @@ msgstr ""
 #: dapbackend.cpp:1405
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Snáithe reatha: "
 
 #: dapbackend.cpp:1410 dapbackend.cpp:1417 dapbackend.cpp:1438
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "aon cheann"
 
 #: dapbackend.cpp:1413
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Fráma reatha: "
 
 #: dapbackend.cpp:1420
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Stádas an tseisiúin: "
 
 #: dapbackend.cpp:1423
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "ag tosú"
 
 #: dapbackend.cpp:1426
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "ag rith"
 
 #: dapbackend.cpp:1429
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "stad"
 
 #: dapbackend.cpp:1432
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "foirceannta"
 
 #: dapbackend.cpp:1435
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "dícheangailte"
 
 #: dapbackend.cpp:1491
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "níor aimsíodh an t-ordú"
 
 #: dapbackend.cpp:1525
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "aitheantas snáithe ar iarraidh"
 
 #: dapbackend.cpp:1665
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Fráma reatha [%3]: %1:%2 (%4)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Socruithe Cuibheora Dífhabhtaithe Úsáideora"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Settings"
+#, kde-format
 msgid "Settings File:"
-msgstr "Socruithe"
+msgstr "Comhad Socruithe:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Socruithe Réamhshocraithe an Oiriúnaitheora Dífhabhtaithe"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Debugger"
-msgstr "Dílochtú"
+msgstr "Dífhabhtóir"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Gan aon sonraí JSON le bailíochtú."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Tá sonraí JSON bailí."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Tá sonraí JSON neamhbhailí: níl aon réad JSON ann"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Tá sonraí JSON neamhbhailí: %1"
 
 #: localsview.cpp:41
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "cineál"
 
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "míreanna innéacsaithe"
 
 #: localsview.cpp:53
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "míreanna ainmnithe"
 
 #: localsview.cpp:69 localsview.cpp:70
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Ag lódáil..."
 
 #: localsview.cpp:106
 #, kde-format
@@ -508,7 +500,7 @@ msgstr "Siombail"
 #: localsview.cpp:107
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Cineál"
 
 #: localsview.cpp:108
 #, kde-format
@@ -516,22 +508,19 @@ msgid "Value"
 msgstr "Luach"
 
 #: localsview.cpp:198
-#, fuzzy, kde-format
-#| msgid "Symbol"
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Siombail"
+msgstr "Cóipeáil Siombail"
 
 #: localsview.cpp:212
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Value"
-msgstr "Cóipeáil an sprioc"
+msgstr "Cóipeáil Luach"
 
 #: plugin_kategdb.cpp:109
-#, fuzzy, kde-format
-#| msgid "Debug"
+#, kde-format
 msgid "Kate Debug"
-msgstr "Dílochtú"
+msgstr "Kate Dífhabhtú"
 
 #: plugin_kategdb.cpp:113
 #, kde-format
@@ -544,16 +533,15 @@ msgid "Debug"
 msgstr "Dílochtú"
 
 #: plugin_kategdb.cpp:116 plugin_kategdb.cpp:119
-#, fuzzy, kde-format
-#| msgid "Call Stack"
+#, kde-format
 msgid "Locals and Stack"
-msgstr "Cruach Glao"
+msgstr "Áitiúla agus Cruach"
 
 #: plugin_kategdb.cpp:239
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Níorbh fhéidir an comhad a oscailt:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:255
 #, kde-format
@@ -581,10 +569,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Scoránaigh Brisphointe / Briseadh"
 
 #: plugin_kategdb.cpp:290
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Brisphointe"
+msgstr "Glan Gach Brisphointe"
 
 #: plugin_kategdb.cpp:295
 #, kde-format
@@ -612,26 +599,24 @@ msgid "Restart Debugging"
 msgstr "Atosaigh Dífhabhtú"
 
 #: plugin_kategdb.cpp:330
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgid "Clear Output"
-msgstr "Aschur GDB"
+msgstr "Aschur GDBAschur Glan"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Athlódáil Te"
 
 #: plugin_kategdb.cpp:345
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Atosú Te"
 
 #: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Cumasaigh Athlódáil Te ar Shábháil"
 
 #: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
 #, kde-format
@@ -647,7 +632,7 @@ msgstr "Priontáil Luach"
 #: plugin_kategdb.cpp:438
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Earráid: %1"
 
 #: plugin_kategdb.cpp:469 plugin_kategdb.cpp:485
 #, kde-format
@@ -670,12 +655,10 @@ msgid "Thread %1"
 msgstr "Snáithe %1"
 
 #: plugin_kategdb.cpp:873
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "GDB Output"
+#, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr "Aschur GDB"
+msgstr "Aschur Dífhabhtaithe"
 
 #: plugin_kategdb.cpp:874
 #, kde-format
@@ -694,20 +677,19 @@ msgid "Breakpoint"
 msgstr "Brisphointe"
 
 #: plugin_kategdb.cpp:1074
-#, fuzzy, kde-format
-#| msgid "Copy target"
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Cóipeáil an sprioc"
+msgstr "Cóipeáil Rian an Chruach"
 
 #: plugin_kategdb.cpp:1093
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Oscail Suíomh"
 
 #: plugin_kategdb.cpp:1100
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Cóipeáil Suíomh"
 
 #: stackframe_model.cpp:80
 #, kde-format
@@ -719,14 +701,13 @@ msgstr "Uimh"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Feidhm"
 
 #: stackframe_model.cpp:84
-#, fuzzy, kde-format
-#| msgid "Local application"
+#, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr "Feidhmchlár logánta"
+msgstr "Suíomh"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -736,10 +717,9 @@ msgstr "&Dífhabhtaigh"
 
 #. i18n: ectx: ToolBar (gdbplugin)
 #: ui.rc:33
-#, fuzzy, kde-format
-#| msgid "GDB Plugin"
+#, kde-format
 msgid "Debug Plugin"
-msgstr "Breiseán GDB"
+msgstr "Breiseán Dífhabhtaithe"
 
 #~ msgctxt "Column label"
 #~ msgid "Frame"

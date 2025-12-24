@@ -2,13 +2,14 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate-ctags-plugin package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/kate-ctags-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2009-01-20 10:11-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 13:58+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 #: CTagsGlobalConfig.ui:9
 #, kde-format
 msgid "Session-global index targets"
-msgstr ""
+msgstr "Spriocanna innéacs seisiúin-dhomhanda"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
@@ -79,7 +80,7 @@ msgstr "foghnáthamh"
 #: ctagskinds.cpp:33
 msgctxt "Tag Type"
 msgid "fragment definition"
-msgstr ""
+msgstr "sainmhíniú blúire"
 
 #: ctagskinds.cpp:34
 msgctxt "Tag Type"
@@ -190,7 +191,7 @@ msgstr "comhéadan"
 #: ctagskinds.cpp:66
 msgctxt "Tag Type"
 msgid "type component"
-msgstr ""
+msgstr "comhpháirt chineáil"
 
 #: ctagskinds.cpp:68
 msgctxt "Tag Type"
@@ -240,7 +241,7 @@ msgstr "gnáthamh"
 #: ctagskinds.cpp:100
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr ""
+msgstr "mixin"
 
 #: ctagskinds.cpp:103
 msgctxt "Tag Type"
@@ -248,33 +249,32 @@ msgid "set"
 msgstr "tacar"
 
 #: gotosymbolmodel.cpp:67
-#, fuzzy, kde-format
-#| msgid "CTags Database Location"
+#, kde-format
 msgid "CTags executable not found."
-msgstr "Suíomh an Bhunachair Sonraí CTags"
+msgstr "Níor aimsíodh an comhad inrite CTags."
 
 #: gotosymbolmodel.cpp:80
-#, fuzzy, kde-format
-#| msgid "CTags Database Location"
+#, kde-format
 msgid "CTags executable failed to execute."
-msgstr "Suíomh an Bhunachair Sonraí CTags"
+msgstr "Theip ar fhorghníomhú an chomhaid inrite CTags."
 
 #: gotosymbolmodel.cpp:148
-#, fuzzy, kde-format
-#| msgid "CTags database file"
+#, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "Comhad bunachair sonraí CTags"
+msgstr "Ní raibh CTags in ann an comhad seo a pharsáil."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
+"Níor aimsíodh comhad clibeanna. Gin ceann de láimh nó bain úsáid as an "
+"mbreiseán CTags"
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr ""
+msgstr "Níor aimsíodh comhad le haghaidh '%1'."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
@@ -285,10 +285,9 @@ msgstr "Lorg"
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
 #: kate_ctags.ui:58 kate_ctags.ui:136
-#, fuzzy, kde-format
-#| msgid "Update"
+#, kde-format
 msgid "Update Index"
-msgstr "Nuashonraigh"
+msgstr "Nuashonraigh an Innéacs"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:69
@@ -312,7 +311,7 @@ msgstr "Comhad"
 #: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
-msgstr ""
+msgstr "Spriocanna Innéacs"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
 #: kate_ctags.ui:144
@@ -330,7 +329,7 @@ msgstr "Comhad bunachair sonraí CTags"
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr ""
+msgstr "Fill ar an ordú réamhshocraithe"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208
@@ -366,20 +365,19 @@ msgid "CTags Settings"
 msgstr "Socruithe CTags"
 
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
-#, fuzzy, kde-format
-#| msgid "Failed to run \"%1\". exitStatus = %2"
+#, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Níorbh fhéidir \"%1\" a rith. Stádas scortha = %2"
+msgstr "Theip ar an rith. Earráid: %1, cód scoir: %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr ""
+msgstr "Thuairteáil an comhad inrite CTags."
 
 #: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr ""
+msgstr "Scoireadh an t-ordú CTags le cód %1"
 
 #: kate_ctags_view.cpp:60
 #, kde-format
@@ -404,24 +402,23 @@ msgstr "Lorg an Téacs Reatha"
 #: kate_ctags_view.cpp:76
 #, kde-format
 msgid "Configure ..."
-msgstr ""
+msgstr "Cumraigh ..."
 
 #: kate_ctags_view.cpp:91
-#, fuzzy, kde-format
-#| msgid "CTags Plugin"
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "Breiseán CTags"
+msgstr "Breiseán CTagsCumraigh Breiseán CTags"
 
 #: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr ""
+msgstr "Téigh go dtí an Dearbhú: %1"
 
 #: kate_ctags_view.cpp:103 kate_ctags_view.cpp:192
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr ""
+msgstr "Téigh go dtí an Sainmhíniú: %1"
 
 #: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
 #, kde-format
@@ -431,7 +428,7 @@ msgstr "Lorg: %1"
 #: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr ""
+msgstr "(Ath)ghiniúint an bhunachar sonraí CTags atá sainiúil don seisiún."
 
 #: kate_ctags_view.cpp:126
 #, kde-format
@@ -441,12 +438,12 @@ msgstr "Roghnaigh bunachar sonraí nua nó ceann atá ann cheana."
 #: kate_ctags_view.cpp:142
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr ""
+msgstr "Téigh go dtí an Siombail Áitiúil"
 
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr ""
+msgstr "Téigh go dtí an Siombail Dhomhanda"
 
 #: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
 #, kde-format
@@ -456,18 +453,17 @@ msgstr "Níor aimsíodh aon rud"
 #: kate_ctags_view.cpp:547
 #, kde-format
 msgid "No folders or files to index"
-msgstr ""
+msgstr "Gan aon fhillteáin ná comhaid le hinnéacsú"
 
 #: kate_ctags_view.cpp:573
-#, fuzzy, kde-format
-#| msgid "CTags Database Location"
+#, kde-format
 msgid "The CTags executable crashed"
-msgstr "Suíomh an Bhunachair Sonraí CTags"
+msgstr "Thuairteáil an comhad inrite CTags"
 
 #: kate_ctags_view.cpp:575
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
-msgstr ""
+msgstr "Chríochnaigh an clár CTags le cód %2: %1"
 
 #~ msgid "Failed to run \"%1\". exitStatus = %2"
 #~ msgstr "Níorbh fhéidir \"%1\" a rith. Stádas scortha = %2"

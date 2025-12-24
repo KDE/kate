@@ -2,13 +2,14 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katefilebrowserplugin package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katefilebrowserplugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2007-08-12 08:03-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:15+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: katefilebrowser.cpp:100
 #, kde-format
 msgid "Search"
-msgstr ""
+msgstr "Cuardaigh"
 
 #: katefilebrowser.cpp:115
 #, kde-format
@@ -33,28 +34,28 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Oscail Le"
 
 #: katefilebrowser.cpp:324
 #, kde-format
 msgid "&Other..."
-msgstr ""
+msgstr "& Eile..."
 
 #: katefilebrowser.cpp:352
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
+msgstr[0] "Tá tú ag iarraidh comhad amháin a oscailt, an bhfuil tú cinnte?"
+msgstr[1] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
+msgstr[2] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
+msgstr[3] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
+msgstr[4] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
 
 #: katefilebrowser.cpp:354
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
-msgstr ""
+msgstr "Oscail Gach Comhad"
 
 #: katefilebrowser.cpp:417
 #, kde-format
@@ -79,7 +80,7 @@ msgstr "Sioncrónaigh leis an gcáipéis reatha go huathoibríoch"
 #: katefilebrowser.cpp:452
 #, kde-format
 msgid "Highlight current file"
-msgstr ""
+msgstr "Aibhsigh an comhad reatha"
 
 #: katefilebrowserconfig.cpp:63
 #, kde-format
@@ -107,10 +108,9 @@ msgid "Filesystem Browser Settings"
 msgstr "Socruithe do Bhrabhsálaí an Chórais Comhad"
 
 #: katefilebrowserplugin.cpp:66
-#, fuzzy, kde-format
-#| msgid "Filesystem Browser"
+#, kde-format
 msgid "Filesystem"
-msgstr "Brabhsálaí an Chórais Comhaid"
+msgstr "Córas comhad"
 
 #~ msgid "Filter:"
 #~ msgstr "Scagaire:"

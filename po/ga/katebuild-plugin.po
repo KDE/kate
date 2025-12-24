@@ -2,13 +2,14 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katebuild-plugin package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katebuild-plugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2009-01-20 10:11-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:13+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -35,59 +36,55 @@ msgstr "Aschur"
 
 #. i18n: ectx: property (text), widget (QPushButton, buildAgainButton)
 #: build.ui:56
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build Again"
-msgstr "Breiseán Tógála"
+msgstr "Breiseán TógálaTóg Arís"
 
 #. i18n: ectx: property (text), widget (QPushButton, cancelBuildButton)
 #: build.ui:66
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Cealaigh"
 
 #: buildconfig.cpp:47
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build & Run"
-msgstr "Breiseán Tógála"
+msgstr "Breiseán TógálaTóg & Rith"
 
 #: buildconfig.cpp:53
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build & Run Settings"
-msgstr "Theip ar thógáil."
+msgstr "Socruithe Tógála & Rith"
 
 #: buildconfig.cpp:106
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Delete selected entries"
-msgstr "Theip ar thógáil."
+msgstr "Socraithe Tógála & Rith"
 
 #: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Scrios gach iontráil"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: buildconfigwidget.ui:33
-#, fuzzy, kde-format
-#| msgctxt "Tab label"
-#| msgid "Target Settings"
+#, kde-format
 msgid "General Settings"
-msgstr "Socruithe Sprice"
+msgstr "Socruithe Ginearálta"
 
 #. i18n: ectx: property (text), widget (QCheckBox, useDiagnosticsCB)
 #: buildconfigwidget.ui:50
 #, kde-format
 msgid "Add errors and warnings to Diagnostics"
-msgstr ""
+msgstr "Cuir earráidí agus rabhaidh le Diagnóisic"
 
 #. i18n: ectx: property (text), widget (QCheckBox, autoSwitchToOutput)
 #: buildconfigwidget.ui:57
 #, kde-format
 msgid "Automatically switch to output pane on executing the selected target"
 msgstr ""
+"Athraigh go huathoibríoch go dtí an painéal aschuir nuair a bhíonn an sprioc "
+"roghnaithe á fhorghníomhú"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:77
@@ -96,18 +93,22 @@ msgid ""
 "If the output lines start with [ # / ## ] or [ ## % ], display the latest as "
 "a message."
 msgstr ""
+"Má thosaíonn na línte aschuir le [ # / ## ] nó [ ## % ], taispeánfar an "
+"ceann is déanaí mar theachtaireacht."
 
 #. i18n: ectx: property (text), widget (QCheckBox, u_showProgressCB)
 #: buildconfigwidget.ui:80
 #, kde-format
 msgid "Show build progress as a message when the output pane is hidden"
 msgstr ""
+"Taispeáin dul chun cinn na tógála mar theachtaireacht nuair a bhíonn an "
+"painéal aschuir i bhfolach"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: buildconfigwidget.ui:106
 #, kde-format
 msgid "Allowed && Blocked Commands"
-msgstr ""
+msgstr "Orduithe Ceadaithe && Blocáilte"
 
 #: plugin_katebuild.cpp:268 plugin_katebuild.cpp:275 plugin_katebuild.cpp:755
 #: plugin_katebuild.cpp:990 plugin_katebuild.cpp:1003
@@ -116,32 +117,31 @@ msgid "Build"
 msgstr "Tóg"
 
 #: plugin_katebuild.cpp:278
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Select Target..."
-msgstr "Theip ar thógáil."
+msgstr "Roghnaigh Sprioc..."
 
 #: plugin_katebuild.cpp:283
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build Selected Target"
-msgstr "Theip ar thógáil."
+msgstr "Tóg Sprioc Roghnaithe"
 
 #: plugin_katebuild.cpp:288
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build and Run Selected Target"
-msgstr "Theip ar thógáil."
+msgstr "Tóg agus Rith Sprioc Roghnaithe"
 
 #: plugin_katebuild.cpp:293
 #, kde-format
 msgid "Compile Current File"
-msgstr ""
+msgstr "Tiomsaigh an Comhad Reatha"
 
 #: plugin_katebuild.cpp:294
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
+"Déan iarracht an comhad reatha a thiomsú trí chuardach a dhéanamh ar "
+"compile_commands.json"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
@@ -151,19 +151,19 @@ msgstr "Stad"
 #: plugin_katebuild.cpp:304
 #, kde-format
 msgid "Load targets from CMake Build Dir"
-msgstr ""
+msgstr "Luchtaigh spriocanna ó CMake Build Dir"
 
 #: plugin_katebuild.cpp:308
 #, kde-format
 msgctxt "Left is also left in RTL mode"
 msgid "Focus Next Tab to the Left"
-msgstr ""
+msgstr "Dírigh ar an gCluaisín Eile ar Chlé"
 
 #: plugin_katebuild.cpp:328
 #, kde-format
 msgctxt "Right is right also in RTL mode"
 msgid "Focus Next Tab to the Right"
-msgstr ""
+msgstr "Fócas ar an gCluaisín Eile ar Dheis"
 
 #: plugin_katebuild.cpp:361
 #, kde-format
@@ -177,12 +177,13 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
+"<b>Comhad gan aimsiú:</b> %1<br><b>Conairí cuardaigh:</b><br>%2<br>Bain "
+"triail as cosán cuardaigh a chur leis an \"Eolaire Oibre\""
 
 #: plugin_katebuild.cpp:503
-#, fuzzy, kde-format
-#| msgid "Build command:"
+#, kde-format
 msgid "Build Information"
-msgstr "Ordú tógála:"
+msgstr "Faisnéis Tógála"
 
 #: plugin_katebuild.cpp:762
 #, kde-format
@@ -198,7 +199,7 @@ msgstr "Ní comhad logánta é \"%1\". Ní féidir comhaid neamhlogánta a thiom
 #: plugin_katebuild.cpp:837
 #, kde-format
 msgid "Create directory"
-msgstr ""
+msgstr "Cruthaigh eolaire"
 
 #: plugin_katebuild.cpp:840
 #, kde-format
@@ -206,11 +207,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
+"Níl an t-eolaire oibre cumraithe <b>%1</b> don tacar spriocanna <b>%2</b> "
+"ann.<br><br>An bhfuil tú ag iarraidh an t-eolaire a chruthú?"
 
 #: plugin_katebuild.cpp:848
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr ""
+msgstr "Theip ar chruthú an eolaire <b>%1</b>"
 
 #: plugin_katebuild.cpp:868
 #, kde-format
@@ -218,20 +221,19 @@ msgid "Failed to run \"%1\". exitStatus = %2"
 msgstr "Níorbh fhéidir \"%1\" a rith. Stádas scortha = %2"
 
 #: plugin_katebuild.cpp:884
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Building <b>%1: %2</b> cancelled"
-msgstr "Theip ar thógáil."
+msgstr "Foirgneamh <b>%1: %2</b> curtha ar ceal"
 
 #: plugin_katebuild.cpp:989
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr ""
+msgstr "Níor aimsíodh compile_commands.json don chomhad \"%1\". "
 
 #: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr ""
+msgstr "Níor aimsíodh ordú tiomsaithe don chomhad \"%1\" i \"%2\". "
 
 #: plugin_katebuild.cpp:1019
 #, kde-format
@@ -239,6 +241,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ní féidir ionadú \"%f\" a dhéanamh. Níl aon chomhad oscailte nó níl teideal "
+"ar an gcomhad reatha!"
 
 #: plugin_katebuild.cpp:1023
 #, kde-format
@@ -246,6 +250,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ní féidir ionadú \"%d\" a dhéanamh. Níl aon chomhad oscailte nó níl teideal "
+"ar an gcomhad reatha!"
 
 #: plugin_katebuild.cpp:1027
 #, kde-format
@@ -253,30 +259,33 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
+"Ní féidir ionadú \"%n\" a dhéanamh. Níl aon chomhad oscailte nó níl teideal "
+"ar an gcomhad reatha!"
 
 #: plugin_katebuild.cpp:1038
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
+"Ní féidir ionadú tionscadail a dhéanamh (%B). Níl aon tionscadal oscailte!"
 
 #: plugin_katebuild.cpp:1051
 #, kde-format
 msgid "Already building..."
-msgstr ""
+msgstr "Ag tógáil cheana féin..."
 
 #: plugin_katebuild.cpp:1089
-#, fuzzy, kde-format
-#| msgid "There is no file or directory specified for building."
+#, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
 "There is no local file or directory specified for building."
-msgstr "Níor sonraíodh comhad nó comhadlann ar bith le tógáil ann."
+msgstr ""
+"Ní féidir é a fhorghníomhú: %1: %2 Níl aon eolaire oibre socraithe.\n"
+"Níl aon chomhad nó eolaire áitiúil sonraithe le haghaidh tógála."
 
 #: plugin_katebuild.cpp:1210
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Building target <b>%1: %2</b> ..."
-msgstr "Theip ar thógáil."
+msgstr "Sprioc tógála <b>%1: %2</b> ..."
 
 #: plugin_katebuild.cpp:1247
 #, kde-format
@@ -284,16 +293,20 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
+"Ní féidir spriocanna a luchtú, níl iontráil CMAKE_COMMAND cheart sa chomhad "
+"%1 !"
 
 #: plugin_katebuild.cpp:1260
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
+"Níorbh fhéidir comhaid iarratais API CMake File a scríobh don eolaire tógála "
+"%1 !"
 
 #: plugin_katebuild.cpp:1266
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr ""
+msgstr "Níorbh fhéidir CMake (%2) a rith don eolaire tógála %1!"
 
 #: plugin_katebuild.cpp:1275
 #, kde-format
@@ -301,11 +314,13 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
+"Theip ar chomhaid freagartha API CMake File a ghiniúint don eolaire tógála "
+"%1 (ag baint úsáide as %2) !"
 
 #: plugin_katebuild.cpp:1394
 #, kde-format
 msgid "Build plugin wants to execute program"
-msgstr ""
+msgstr "Tá an breiseán tógála ag iarraidh clár a fhorghníomhú"
 
 #: plugin_katebuild.cpp:1397
 #, kde-format
@@ -315,17 +330,24 @@ msgid ""
 "b><br><br>Proceed and allow to run this command ?<br><br>The choice can be "
 "altered via the config page of the plugin."
 msgstr ""
+"Caithfidh breiseán tógála Kate ordú seachtrach a fhorghníomhú chun na "
+"spriocanna ón gcrann tógála a léamh.<br><br>Seo an líne ordaithe iomlán:"
+"<br><br><b>%1</b><br><br>Lean ar aghaidh agus cead a thabhairt don ordú seo "
+"a rith?<br><br>Is féidir an rogha a athrú tríd an leathanach cumraíochta den "
+"bhreiseán."
 
 #: plugin_katebuild.cpp:1429
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
-msgstr ""
+msgstr "<title>Tógáil Críochnaithe:</title>%1"
 
 #: plugin_katebuild.cpp:1492
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
+"Tógáil <b>%1: %2</b> críochnaithe. %3 earráid(í), %4 rabhadh(anna), %5 "
+"nóta(í)"
 
 #: plugin_katebuild.cpp:1504
 #, kde-format
@@ -348,22 +370,19 @@ msgstr[3] "Aimsíodh %1 rabhadh."
 msgstr[4] "Aimsíodh %1 rabhadh."
 
 #: plugin_katebuild.cpp:1511
-#, fuzzy, kde-format
-#| msgid "Found one error."
-#| msgid_plural "Found %1 errors."
+#, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
-msgstr[0] "Aimsíodh earráid amháin."
+msgstr[0] "Aimsíodh nóta amháin."
 msgstr[1] "Aimsíodh %1 earráid."
 msgstr[2] "Aimsíodh %1 earráid."
 msgstr[3] "Aimsíodh %1 n-earráid."
 msgstr[4] "Aimsíodh %1 earráid."
 
 #: plugin_katebuild.cpp:1515
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Theip ar thógáil."
+msgstr "Cuireadh an tógáil ar ceal."
 
 #: plugin_katebuild.cpp:1519
 #, kde-format
@@ -379,19 +398,17 @@ msgstr "D'éirigh leis an tógáil gan fadhb ar bith."
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
+"Tógáil <b>%1: %2 curtha ar ceal</b>. %3 earráid(í), %4 rabhadh(anna), %5 "
+"nóta(í)"
 
 #: plugin_katebuild.cpp:1805
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark an error."
-#| msgid "error"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "earráid"
 
 #: plugin_katebuild.cpp:1808
-#, fuzzy, kde-format
-#| msgctxt "The same word as 'make' uses to mark a warning."
-#| msgid "warning"
+#, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "rabhadh"
@@ -400,7 +417,7 @@ msgstr "rabhadh"
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
-msgstr ""
+msgstr "nóta|eolas"
 
 #: plugin_katebuild.cpp:1814
 #, kde-format
@@ -411,27 +428,28 @@ msgstr "tagairt gan sainmhíniú"
 #: plugin_katebuild.cpp:2119
 #, kde-format
 msgid "Cannot save build targets in: %1"
-msgstr ""
+msgstr "Ní féidir spriocanna tógála a shábháil i: %1"
 
 #: TargetHtmlDelegate.cpp:51
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
-msgstr ""
+msgstr "<B>T:</B> %1"
 
 #: TargetHtmlDelegate.cpp:53
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
-msgstr ""
+msgstr "<B>Dir:</B> %1"
 
 #: TargetHtmlDelegate.cpp:104
-#, fuzzy, kde-format
-#| msgid "Leave empty to use the directory of the current document. "
+#, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
 "Add search directories by adding paths separated by ';'"
-msgstr "Fág folamh é chun comhadlann na cáipéise reatha a úsáid. "
+msgstr ""
+"Fág folamh chun eolaire an doiciméid reatha a úsáid.\n"
+"Cuir eolairí cuardaigh leis trí chosáin scartha le ';' a chur leis."
 
 #: TargetHtmlDelegate.cpp:111
 #, kde-format
@@ -440,14 +458,12 @@ msgid ""
 "\"%B\" for project base directory\n"
 "\"%b\" for name of project base directory"
 msgstr ""
+"Úsáid:\n"
+"\"%B\" don eolaire bonn tionscadail\n"
+"\"%b\" d'ainm an eolaire bonn tionscadail"
 
 #: TargetHtmlDelegate.cpp:115
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -458,86 +474,87 @@ msgid ""
 msgstr ""
 "Úsáid:\n"
 "\"%f\" don chomhad reatha\n"
-"\"%d\" do chomhadlann an chomhaid reatha\"%n\" don chomhad reatha gan iarmhír"
+"\"%d\" don eolaire den chomhad reatha\n"
+"\"%n\" don ainm comhaid reatha gan an iarmhír\n"
+"\"%B\" don bhuneolaire den tionscadal reatha\n"
+"\"%w\" don eolaire oibre den sprioc"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
-#, fuzzy, kde-format
-#| msgid "Targets"
+#, kde-format
 msgid "Target Set"
-msgstr "Spriocanna"
+msgstr "Tacar Sprioc"
 
 #: TargetModel.cpp:549
 #, kde-format
 msgid "Projects"
-msgstr ""
+msgstr "Tionscadail"
 
 #: TargetModel.cpp:549
 #, kde-format
 msgid "Session"
-msgstr ""
+msgstr "Seisiún"
 
 #: TargetModel.cpp:661
 #, kde-format
 msgid "Command/Target-set Name"
-msgstr ""
+msgstr "Ainm an Ordaithe/an Tacair Sprioc"
 
 #: TargetModel.cpp:664
 #, kde-format
 msgid "Build Command / Working Directory"
-msgstr ""
+msgstr "Tóg Ordú / Eolaire Oibre"
 
 #: TargetModel.cpp:667
-#, fuzzy, kde-format
-#| msgid "Clean command:"
+#, kde-format
 msgid "Run Command"
-msgstr "Ordú glanta:"
+msgstr "Rith Ordú"
 
 #: targets.cpp:29
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
+"Scag spriocanna, bain úsáid as na heochracha saigheada chun a roghnú, agus "
+"Iontráil chun é a fhorghníomhú"
 
 #: targets.cpp:33
 #, kde-format
 msgid "Create new set of targets"
-msgstr ""
+msgstr "Cruthaigh sraith spriocanna nua"
 
 #: targets.cpp:37
 #, kde-format
 msgid "Clone command or target set"
-msgstr ""
+msgstr "Ordú clónála nó tacar sprice"
 
 #: targets.cpp:41
 #, kde-format
 msgid "Delete current target or current set of targets"
-msgstr ""
+msgstr "Scrios an sprioc reatha nó an tacar spriocanna reatha"
 
 #: targets.cpp:46
 #, kde-format
 msgid "Add new target"
-msgstr ""
+msgstr "Cuir sprioc nua leis"
 
 #: targets.cpp:50
 #, kde-format
 msgid "Build selected target"
-msgstr ""
+msgstr "Tóg sprioc roghnaithe"
 
 #: targets.cpp:54
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build and run selected target"
-msgstr "Theip ar thógáil."
+msgstr "Tóg agus rith an sprioc roghnaithe"
 
 #: targets.cpp:58
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Move selected target up"
-msgstr "Theip ar thógáil."
+msgstr "Bog an sprioc roghnaithe suas"
 
 #: targets.cpp:62
 #, kde-format
 msgid "Move selected target down"
-msgstr ""
+msgstr "Bog an sprioc roghnaithe síos"
 
 #: targets.cpp:204
 #, kde-format
@@ -547,26 +564,24 @@ msgstr "Cóipeáil"
 #: targets.cpp:208
 #, kde-format
 msgid "Cut"
-msgstr ""
+msgstr "Gearr"
 
 #: targets.cpp:212
 #, kde-format
 msgid "Paste after"
-msgstr ""
+msgstr "Greamaigh ina dhiaidh"
 
 #: targets.cpp:230 targets.cpp:257
-#, fuzzy, kde-format
-#| msgid "Clean command:"
+#, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
-msgstr "Ordú glanta:"
+msgstr "Tóg Ordú"
 
 #: targets.cpp:256
-#, fuzzy, kde-format
-#| msgid "Config"
+#, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
-msgstr "Cumraíocht"
+msgstr "Cumraigh"
 
 #. i18n: ectx: Menu (Build Menubar)
 #: ui.rc:6
@@ -576,20 +591,19 @@ msgstr "&Tóg"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr "Breiseán Tógála"
+msgstr "Breiseán TógálaBarra Uirlisí Breiseáin Tógála"
 
 #: UrlInserter.cpp:32
 #, kde-format
 msgid "Insert path"
-msgstr ""
+msgstr "Cuir cosán isteach"
 
 #: UrlInserter.cpp:51
 #, kde-format
 msgid "Select directory to insert"
-msgstr ""
+msgstr "Roghnaigh eolaire le cur isteach"
 
 #, fuzzy
 #~| msgid "Working directory"

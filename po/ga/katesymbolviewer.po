@@ -2,13 +2,14 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katesymbolviewer package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2007-04-15 19:05-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:50+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -112,25 +113,22 @@ msgid "SymbolViewer"
 msgstr "Amharcán Siombailí"
 
 #: plugin_katesymbolviewer.cpp:75
-#, fuzzy, kde-format
-#| msgid "List/Tree Mode"
+#, kde-format
 msgid "Tree Mode"
-msgstr "Mód Liosta/Crainn"
+msgstr "Mód Crann"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Leathnaigh an Crann"
 
 #: plugin_katesymbolviewer.cpp:79
-#, fuzzy, kde-format
-#| msgid "Show Structures"
+#, kde-format
 msgid "Show Sorted"
-msgstr "Taispeáin Struchtúir"
+msgstr "Taispeáin Sórtáilte"
 
 #: plugin_katesymbolviewer.cpp:88
-#, fuzzy, kde-format
-#| msgid "Show Params"
+#, kde-format
 msgid "Show Parameters"
 msgstr "Taispeáin Paraiméadair"
 
@@ -142,7 +140,7 @@ msgstr "Liosta Siombailí"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Scagaire…"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format
@@ -157,15 +155,14 @@ msgid "Position"
 msgstr "Ionad"
 
 #: plugin_katesymbolviewer.cpp:360
-#, fuzzy, kde-format
-#| msgid "Sorry. Language not supported yet"
+#, kde-format
 msgid "Sorry, not supported yet!"
-msgstr "Ní thacaítear leis an teanga seo fós"
+msgstr "Ár leithscéal, níl tacaíocht ann fós!"
 
 #: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Cineál comhaid: %1"
 
 #: plugin_katesymbolviewer.cpp:475
 #, kde-format
@@ -180,12 +177,12 @@ msgstr "Leathnaigh nóid go huathoibríoch sa mhód crainn"
 #: plugin_katesymbolviewer.cpp:477
 #, kde-format
 msgid "Always display symbols in tree mode"
-msgstr ""
+msgstr "Taispeáin siombailí i mód crainn i gcónaí"
 
 #: plugin_katesymbolviewer.cpp:478
 #, kde-format
 msgid "Always sort symbols"
-msgstr ""
+msgstr "Sórtáil siombailí i gcónaí"
 
 #: plugin_katesymbolviewer.cpp:480
 #, kde-format
@@ -224,10 +221,9 @@ msgid "&Settings"
 msgstr "&Socruithe"
 
 #: xml_parser.cpp:25
-#, fuzzy, kde-format
-#| msgid "Show Pragmas"
+#, kde-format
 msgid "Show Tags"
-msgstr "Taispeáin Pragmanna"
+msgstr "Taispeáin Clibeanna"
 
 #: xslt_parser.cpp:22
 #, kde-format

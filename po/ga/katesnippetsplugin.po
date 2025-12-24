@@ -2,13 +2,14 @@
 # Copyright (C) 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katesnippetsplugin package.
 # Kevin Scannell <kscanne@gmail.com>, 2012.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2012-11-29 14:59-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 15:19+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -30,60 +31,60 @@ msgstr "kscanne@gmail.com"
 #: editrepository.cpp:81 editrepository.cpp:126
 #, kde-format
 msgid "Edit Snippet Repository %1"
-msgstr ""
+msgstr "Cuir Stór Blúire in Eagar %1"
 
 #: editrepository.cpp:83
 #, kde-format
 msgid "Create New Snippet Repository"
-msgstr ""
+msgstr "Cruthaigh Stór Blúire Nua"
 
 #: editrepository.cpp:142
 #, kde-format
 msgid "<i>leave empty for general purpose snippets</i>"
-msgstr ""
+msgstr "<i>fág folamh le haghaidh blúiríní ginearálta</i>"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNameLabel)
 #. i18n: ectx: property (text), widget (QLabel, snippetName)
 #: editrepository.ui:29 editsnippet.ui:37
 #, kde-format
 msgid "Name:"
-msgstr ""
+msgstr "Ainm:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoNamespaceLabel)
 #: editrepository.ui:36
 #, kde-format
 msgid "Namespace:"
-msgstr ""
+msgstr "Ainmspás:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoLicenseLabel)
 #: editrepository.ui:43
 #, kde-format
 msgid "&License:"
-msgstr ""
+msgstr "Cea&dúnas:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoAuthorsLabel)
 #: editrepository.ui:56
 #, kde-format
 msgid "&Authors:"
-msgstr ""
+msgstr "&Údair:"
 
 #. i18n: ectx: property (text), widget (QLabel, repoFileTypesLabel)
 #: editrepository.ui:69
 #, kde-format
 msgid "&File types:"
-msgstr ""
+msgstr "&Cineálacha comhad:"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNameEdit)
 #: editrepository.ui:96
 #, kde-format
 msgid "A short name for the repository"
-msgstr ""
+msgstr "Ainm gearr don stórlann"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, repoNamespaceEdit)
 #: editrepository.ui:103
 #, kde-format
 msgid "Prefix to show in code completion"
-msgstr ""
+msgstr "Réimír le taispeáint i gcomhlánú cód"
 
 #: editsnippet.cpp:75
 #, kde-format
@@ -92,6 +93,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Téacs le cur isteach sa cháipéis (féach ar an <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">lámhleabhar</a> le "
+"haghaidh réimsí speisialta)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -99,16 +103,19 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Cód JavaScript le meastóireacht a dhéanamh air (féach ar an <a href=\"help:/"
+"kate/kate-application-plugin-snippets.html#snippet-input-script"
+"\">lámhleabhar</a> le haghaidh tuilleadh sonraí)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Teimpléad téacs"
 
 #: editsnippet.cpp:89
 #, kde-format
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #: editsnippet.cpp:101
 #, kde-format
@@ -117,95 +124,100 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Feidhmeanna JavaScript a roinntear idir na blúiríní uile sa stór seo (féach "
+"an <a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
+"library\">lámhleabhar</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Cur síos roghnach le taispeáint i leideanna uirlisí. Féadfaidh tú formáidiú "
+"HTML bunúsach a úsáid."
 
 #: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
 msgid "Edit Snippet %1 in %2"
-msgstr ""
+msgstr "Cuir Sleachta %1 in Eagar i %2"
 
 #: editsnippet.cpp:140
 #, kde-format
 msgid "Create New Snippet in Repository %1"
-msgstr ""
+msgstr "Cruthaigh Sliocht Nua i Stór %1"
 
 #: editsnippet.cpp:190
 #, kde-format
 msgid "Snippet names with spaces may not work well in completions"
 msgstr ""
+"B’fhéidir nach n-oibreoidh ainmneacha sleachta le spásanna go maith i "
+"gcomhlánuithe"
 
 #: editsnippet.cpp:232
 #, kde-format
 msgid ""
 "The snippet contains unsaved changes. Do you want to discard all changes?"
 msgstr ""
+"Tá athruithe neamhshábháilte sa sleachta. Ar mhaith leat na hathruithe go "
+"léir a chaitheamh amach?"
 
 #: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr ""
+msgstr "Rabhadh - Athruithe Gan Sábháil"
 
 #: editsnippet.cpp:235
 #, kde-format
 msgid "Continue editing"
-msgstr ""
+msgstr "Lean ar aghaidh ag eagarthóireacht"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, snippetNameEdit)
 #: editsnippet.ui:44
 #, kde-format
 msgid "Name to be shown in the completion list (required)"
-msgstr ""
+msgstr "Ainm le taispeáint sa liosta comhlánaithe (riachtanach)"
 
 #. i18n: ectx: property (text), widget (QLabel, modeComboBoxLabel)
 #: editsnippet.ui:55
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Snippet Mode:"
-msgstr "Blúirí"
+msgstr "Mód Blúire:"
 
 #. i18n: ectx: property (text), widget (QLabel, snippetShortcutLabel)
 #: editsnippet.ui:78
 #, kde-format
 msgid "Keyboard shortcut:"
-msgstr ""
+msgstr "Aicearra méarchláir:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, snippetTab)
 #: editsnippet.ui:100
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "&Snippet"
-msgstr "Blúirí"
+msgstr "&Blúire"
 
 #. i18n: ectx: attribute (title), widget (QWidget, scriptTab)
 #: editsnippet.ui:117
 #, kde-format
 msgid "S&cript Library"
-msgstr ""
+msgstr "Leabharlann S&script"
 
 #. i18n: ectx: attribute (title), widget (QWidget, descriptionTab)
 #: editsnippet.ui:131
 #, kde-format
 msgid "Description"
-msgstr ""
+msgstr "Cur síos"
 
 #. i18n: ectx: property (text), widget (QPushButton, dotest_button)
 #: editsnippet.ui:151
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Test this snippet"
-msgstr "Blúirí Leabaithe"
+msgstr "Tástáil an blúire seo"
 
 #: katesnippetglobal.cpp:101
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgctxt "Autogenerated repository name for a programming language"
 msgid "%1 snippets"
-msgstr "Blúirí"
+msgstr "%1 blúiríní"
 
 #: katesnippets.cpp:44 katesnippets.cpp:52 snippetcompletionmodel.cpp:43
 #: snippetview.cpp:76 snippetview.cpp:202
@@ -214,20 +226,19 @@ msgid "Snippets"
 msgstr "Blúirí"
 
 #: katesnippets.cpp:63
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Create Snippet"
-msgstr "Blúirí Leabaithe"
+msgstr "Cruthaigh Blúire"
 
 #: snippet.cpp:23
 #, kde-format
 msgid "<empty snippet>"
-msgstr ""
+msgstr "<sleachta folamh>"
 
 #: snippet.cpp:92
 #, kde-format
 msgid "insert snippet %1"
-msgstr ""
+msgstr "cuir isteach blúire %1"
 
 #: snippet.cpp:109
 #, kde-format
@@ -235,11 +246,13 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Ní mór Kate a bheith tiomsaithe i gcoinne KTExEditor leagan 6.15.0 nó níos "
+"airde, chun an cineál seo blúire a úsáid."
 
 #: snippetrepository.cpp:43
 #, kde-format
 msgid "<empty repository>"
-msgstr ""
+msgstr "<stór folamh>"
 
 #: snippetrepository.cpp:230
 #, kde-format
@@ -248,27 +261,30 @@ msgid ""
 "directory; as such, a copy of the original file has been created within your "
 "personal data directory."
 msgstr ""
+"Tá comhad stórtha blúiríní nach bhfuil i do eolaire pearsanta curtha in "
+"eagar agat; dá bhrí sin, tá cóip den chomhad bunaidh cruthaithe i d’eolaire "
+"sonraí pearsanta."
 
 #: snippetrepository.cpp:236
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
-msgstr ""
+msgstr "Níorbh fhéidir comhad aschuir '%1' a oscailt le haghaidh scríofa"
 
 #: snippetrepository.cpp:271
 #, kde-format
 msgid "Cannot open snippet repository %1."
-msgstr ""
+msgstr "Ní féidir stór na sleachta %1 a oscailt."
 
 #: snippetrepository.cpp:278
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
-msgstr ""
+msgstr "<qt>Tá an earráid <b>%4</b><br /> braite sa chomhad %1 ag %2/%3</qt>"
 
 #: snippetrepository.cpp:289
 #, kde-format
 msgid "Invalid XML snippet file: %1"
-msgstr ""
+msgstr "Comhad blúire XML neamhbhailí: %1"
 
 #: snippetrepository.cpp:358
 #, kde-format
@@ -276,95 +292,94 @@ msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr ""
+"Tá an stór díchumasaithe, ní thaispeánfar na blúiríní atá ann le linn "
+"chomhlánú an chóid."
 
 #: snippetrepository.cpp:361
 #, kde-format
 msgid "Applies to all filetypes"
-msgstr ""
+msgstr "Baineann sé le gach cineál comhaid"
 
 #: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to the following filetypes: %1"
-msgstr ""
+msgstr "Baineann sé leis na cineálacha comhaid seo a leanas: %1"
 
 #: snippetview.cpp:93
 #, kde-format
 msgid "Add Repository"
-msgstr ""
+msgstr "Cuir Stór leis"
 
 #: snippetview.cpp:96
 #, kde-format
 msgid "Edit Repository"
-msgstr ""
+msgstr "Cuir an Stór in Eagar"
 
 #: snippetview.cpp:99
 #, kde-format
 msgid "Remove Repository"
-msgstr ""
+msgstr "Bain an Stór"
 
 #: snippetview.cpp:109
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Add Snippet"
-msgstr "Blúirí"
+msgstr "Cuir Blúire leis"
 
 #: snippetview.cpp:112
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Edit Snippet"
-msgstr "Blúirí"
+msgstr "Cuir Blúire in Eagar"
 
 #: snippetview.cpp:115
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Remove Snippet"
-msgstr "Blúirí Leabaithe"
+msgstr "Bain Blúire"
 
 #: snippetview.cpp:121
-#, fuzzy, kde-format
-#| msgid "Embedded Snippets"
+#, kde-format
 msgid "Get New Snippets"
-msgstr "Blúirí Leabaithe"
+msgstr "Faigh Blúirí Nua"
 
 #: snippetview.cpp:210
-#, fuzzy, kde-format
-#| msgid "Snippets"
+#, kde-format
 msgid "Snippet: %1"
-msgstr "Blúirí"
+msgstr "Blúire: %1"
 
 #: snippetview.cpp:218
 #, kde-format
 msgid "Repository: %1"
-msgstr ""
+msgstr "Stórlann: %1"
 
 #: snippetview.cpp:283
 #, kde-format
 msgid "Do you really want to delete the snippet \"%1\"?"
-msgstr ""
+msgstr "An bhfuil tú cinnte gur mhaith leat an blúire \"%1\" a scriosadh?"
 
 #: snippetview.cpp:327
 #, kde-format
 msgid ""
 "Do you really want to delete the repository \"%1\" with all its snippets?"
 msgstr ""
+"An bhfuil tú cinnte gur mhaith leat an stórlann \"%1\" a scriosadh leis na "
+"blúiríní go léir?"
 
 #. i18n: ectx: property (toolTip), widget (KLineEdit, filterText)
 #: snippetview.ui:35
 #, kde-format
 msgid "Define filter here"
-msgstr ""
+msgstr "Sainmhínigh an scagaire anseo"
 
 #. i18n: ectx: property (placeholderText), widget (KLineEdit, filterText)
 #: snippetview.ui:38
 #, kde-format
 msgid "Filter..."
-msgstr ""
+msgstr "Scagaire..."
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "&Uirlisí"
 
 #, fuzzy
 #~| msgid "Snippets"

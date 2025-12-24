@@ -2,13 +2,14 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katexmltools package.
 # Kevin Scannell <kscanne@gmail.com>, 2009.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeaddons/katexmltools.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2004-12-03 14:52-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:52+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: plugin_katexmltools.cpp:117
 #, kde-format
 msgid "XML Tools"
-msgstr ""
+msgstr "Uirlisí XML"
 
 #: plugin_katexmltools.cpp:120
 #, kde-format
@@ -69,23 +70,22 @@ msgstr "Earráid Bhreiseáin XML"
 #: plugin_katexmltools.cpp:992
 #, kde-format
 msgid "XML entities"
-msgstr ""
+msgstr "Eintitis XML"
 
 #: plugin_katexmltools.cpp:994
 #, kde-format
 msgid "XML attribute values"
-msgstr ""
+msgstr "Luachanna tréith XML"
 
 #: plugin_katexmltools.cpp:996
 #, kde-format
 msgid "XML attributes"
-msgstr ""
+msgstr "Tréithe XML"
 
 #: plugin_katexmltools.cpp:999
-#, fuzzy, kde-format
-#| msgid "Insert XML Element"
+#, kde-format
 msgid "XML elements"
-msgstr "Ionsáigh Eilimint XML"
+msgstr "Eilimintí XML"
 
 #: plugin_katexmltools.cpp:1038
 #, kde-format

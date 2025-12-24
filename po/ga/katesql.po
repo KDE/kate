@@ -2,13 +2,14 @@
 # Copyright (C) 2011 This_file_is_part_of_KDE
 # This file is distributed under the same license as the katesql package.
 # Kevin Scannell <kscanne@gmail.com>, 2011.
+# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: katesql\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2011-12-28 12:28-0500\n"
-"Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
+"PO-Revision-Date: 2025-11-30 14:47+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -231,7 +232,7 @@ msgstr "Comhad"
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "Luachanna Scartha le Camóga"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -322,59 +323,45 @@ msgid "SQL"
 msgstr "SQL"
 
 #: katesqlconfigpage.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Plugin Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL ConfigPage Settings"
-msgstr "Socruithe an Bhreiseáin SQL"
+msgstr "Socruithe Leathanach Cumraíochta SQL"
 
 #: katesqlview.cpp:43
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:50
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "SQL"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL"
 msgstr "SQL"
 
 #: katesqlview.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "SQL Schema Browser"
+#, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr "Brabhsálaí Scéimrí SQL"
+msgstr "Scéim SQL"
 
 #: katesqlview.cpp:104
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Add connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr "Cuir ceangal leis..."
+msgstr "Cuir Nasc leis..."
 
 #: katesqlview.cpp:109
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Remove connection"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr "Bain ceangal"
+msgstr "Bain an Ceangal"
 
 #: katesqlview.cpp:114
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Edit connection..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr "Cuir ceangal in eagar..."
+msgstr "Cuir an Nasc in Eagar..."
 
 #: katesqlview.cpp:119
 #, kde-format
@@ -389,12 +376,10 @@ msgid "Connection"
 msgstr "Ceangal"
 
 #: katesqlview.cpp:129
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run query"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr "Déan iarratas"
+msgstr "Rith an Fiosrúchán"
 
 #: outputstylewidget.cpp:28
 #, kde-format
@@ -490,7 +475,7 @@ msgstr "Táblaí an Chórais"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Roghnaigh Sonraí"
 
 #: schemawidget.cpp:273
 #, kde-format
@@ -501,22 +486,22 @@ msgstr "Gin"
 #: schemawidget.cpp:275
 #, kde-format
 msgid "SELECT"
-msgstr ""
+msgstr "ROGHNAIGH"
 
 #: schemawidget.cpp:276
 #, kde-format
 msgid "UPDATE"
-msgstr ""
+msgstr "NUASHONRÚ"
 
 #: schemawidget.cpp:277
 #, kde-format
 msgid "INSERT"
-msgstr ""
+msgstr "IONSÁIGH"
 
 #: schemawidget.cpp:278
 #, kde-format
 msgid "DELETE"
-msgstr ""
+msgstr "SCRÍOS"
 
 #: schemawidget.cpp:282
 #, kde-format
@@ -527,7 +512,7 @@ msgstr "Athnuaigh"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Teip ar Ráiteas a Ullmhú"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -535,42 +520,36 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Theip ar ullmhú an fhiosrúcháin agus an earráid seo a leanas ann: %1</"
+"p><p>Ar mhaith leat leanúint ar aghaidh gan an fiosrúchán a ullmhú?</p>"
 
 #: sqlmanager.cpp:345
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "Query completed successfully"
+#, kde-format
 msgctxt "@info"
 msgid "Query completed successfully"
-msgstr "D'éirigh leis an iarratas"
+msgstr "Cuireadh an fiosrúchán i gcrích go rathúil"
 
 #: sqlmanager.cpp:348
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 record selected"
-#| msgid_plural "%1 records selected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 record selected"
 msgid_plural "%1 records selected"
-msgstr[0] "%1 thaifead roghnaithe"
-msgstr[1] "%1 thaifead roghnaithe"
-msgstr[2] "%1 thaifead roghnaithe"
-msgstr[3] "%1 dtaifead roghnaithe"
+msgstr[0] "%1 taifead roghnaithe"
+msgstr[1] "%1 taifead roghnaithe"
+msgstr[2] "%1 taifead roghnaithe"
+msgstr[3] "%1 taifead roghnaithe"
 msgstr[4] "%1 taifead roghnaithe"
 
 #: sqlmanager.cpp:352
-#, fuzzy, kde-format
-#| msgctxt "@info/plain"
-#| msgid "%1 row affected"
-#| msgid_plural "%1 rows affected"
+#, kde-format
 msgctxt "@info"
 msgid "%1 row affected"
 msgid_plural "%1 rows affected"
-msgstr[0] "Curtha i bhfeidhm ar %1 ró"
-msgstr[1] "Curtha i bhfeidhm ar %1 ró"
-msgstr[2] "Curtha i bhfeidhm ar %1 ró"
-msgstr[3] "Curtha i bhfeidhm ar %1 ró"
-msgstr[4] "Curtha i bhfeidhm ar %1 ró"
+msgstr[0] "%1 ró buailte"
+msgstr[1] "%1 rónna buailte"
+msgstr[2] "%1 rónna buailte"
+msgstr[3] "%1 rónna buailte"
+msgstr[4] "%1 rónna buailte"
 
 #. i18n: ectx: Menu (SQL)
 #: ui.rc:6

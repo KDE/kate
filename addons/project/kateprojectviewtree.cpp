@@ -550,7 +550,10 @@ void KateProjectViewTree::flattenPath(const QModelIndex &index)
         auto child = item->child(0);
         if (child && child->type() == KateProjectItem::Directory) {
             item->takeColumn(0);
-            item->appendColumn(child->takeColumn(0));
+            const auto childColumn0 = child->takeColumn(0);
+            if (!childColumn0.isEmpty()) {
+                item->appendColumn(childColumn0);
+            }
 
             // Set the path to child's path
             item->setData(child->data(Qt::UserRole), Qt::UserRole);

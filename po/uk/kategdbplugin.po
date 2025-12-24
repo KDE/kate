@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 07:52+0200\n"
+"PO-Revision-Date: 2025-12-23 11:36+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -30,48 +30,42 @@ msgstr ""
 "поточний сеанс."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Точка зупинки"
+msgstr "Точки зупинки у рядках"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "точки зупинки функції"
+msgstr "Точки зупинки у функціях"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "точки зупинки функції"
+msgstr "Точки зупинки у виключеннях"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "перевірено"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "у черзі"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "точки зупинки функції"
+msgstr "Додати точку зупинки у функції…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Зняти усі точки зупинки"
+msgstr "Зняти усі точки зупинки у функціях"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Вилучити точку зупинки"
 
@@ -86,23 +80,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "на рядку %1 вже є точка зупинки"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "точку зупинки встановлено"
+msgstr "Не встановлено жодних точок зупинки"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "точки зупинки функції"
+msgstr "Додати точку зупинки у функції"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Функція"
+msgstr "Назва функції:"
 
 #: configview.cpp:92
 #, kde-format
@@ -379,10 +369,9 @@ msgid "terminate debuggee"
 msgstr "перервати діагностику"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "точки зупинки функції"
+msgstr "фільтри точок зупинки у виключеннях"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -622,10 +611,9 @@ msgid "Locals and Stack"
 msgstr "Локальні і стек викликів"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Точка зупинки"
+msgstr "Точки зупинки"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -730,10 +718,9 @@ msgid "Insert breakpoint"
 msgstr "Вставити точку зупинки"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Вилучити точку зупинки"
+msgstr "Встановити/зняти точку зупинки"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

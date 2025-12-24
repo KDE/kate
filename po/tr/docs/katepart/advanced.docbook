@@ -772,7 +772,7 @@
 >Tanımlı <userinput
 >biçim</userinput
 > veya yoksa <quote
->yyyy-MM-dd hh:mm:ss</quote
+>yyyy‒MM‒dd hh:mm:ss</quote
 > biçimi ile bir tarih/zaman dizisi ekler. <userinput
 >biçim</userinput
 > yorumlanırken aşağıdaki çeviriler kullanılır: <informaltable

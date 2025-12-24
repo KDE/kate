@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-19 09:12+0100\n"
+"PO-Revision-Date: 2025-12-23 13:35+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -35,48 +35,42 @@ msgstr ""
 "la session courante."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Point d'arrêt"
+msgstr "Points d'arrêt sur ligne"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "Points d'arrêt de fonction"
+msgstr "Points d'arrêt sur fonction"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "Points d'arrêt de fonction"
+msgstr "Points d'arrêt sur exception"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "Vérifiée"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "En attente"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "Points d'arrêt de fonction"
+msgstr "Ajouter un point d'arrêt sur fonction..."
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Effacer tous les points d'arrêt"
+msgstr "Effacer tous les points d'arrêt sur fonction"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Supprimer un point d'arrêt"
 
@@ -91,23 +85,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "La ligne %1 est toujours marquée par un point d'arrêt."
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "Définition d'un point d'arrêt"
+msgstr "Aucun point d'arrêt n'est défini"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "Points d'arrêt de fonction"
+msgstr "Ajouter un point d'arrêt sur fonction"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Fonction"
+msgstr "Nom de la fonction :"
 
 #: configview.cpp:92
 #, kde-format
@@ -384,10 +374,9 @@ msgid "terminate debuggee"
 msgstr "arrêter le débogueur"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "Points d'arrêt de fonction"
+msgstr "Filtres sur les points d'arrêt sur exception"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -630,10 +619,9 @@ msgid "Locals and Stack"
 msgstr "Symboles locaux et pile d'appels"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Point d'arrêt"
+msgstr "Points d'arrêt"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -738,10 +726,9 @@ msgid "Insert breakpoint"
 msgstr "Insérer un point d'arrêt"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Supprimer un point d'arrêt"
+msgstr "Activer / Désactiver un point d'arrêt"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

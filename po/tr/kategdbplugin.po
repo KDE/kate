@@ -13,15 +13,15 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 15:58+0300\n"
-"Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
+"PO-Revision-Date: 2025-12-23 10:24+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: backend.cpp:48 dapbackend.cpp:176
 #, kde-format
@@ -33,50 +33,44 @@ msgstr ""
 "yeniden çalıştırın."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Kesme Noktası"
+msgstr "Satır Kesme Noktaları"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "işlev kesme noktaları"
+msgstr "İşlev Kesme Noktaları"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "işlev kesme noktaları"
+msgstr "İstisna Kesme Noktaları"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "doğrulanmış"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "bekliyor"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "işlev kesme noktaları"
+msgstr "İşlev Kesme Noktası Ekle…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Tüm Kesme Noktalarını Temizle"
+msgstr "Tüm İşlev Kesme Noktalarını Temizle"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
-msgstr "Kesme noktasını kaldır"
+msgstr "Kesme Noktasını Kaldır"
 
 #: breakpointview.cpp:1493
 #, kde-format
@@ -89,23 +83,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "%1. satırda bir kesme noktası halihazırda var"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "kesme noktası ayarlandı"
+msgstr "Ayarlı kesme noktası yok"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "işlev kesme noktaları"
+msgstr "İşlev Kesme Noktası Ekle"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "İşlev"
+msgstr "İşlev adı:"
 
 #: configview.cpp:92
 #, kde-format
@@ -384,10 +374,9 @@ msgid "terminate debuggee"
 msgstr "hata ayıklananı sonlandır"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "işlev kesme noktaları"
+msgstr "istisna kesme noktaları süzgeçleri"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -627,10 +616,9 @@ msgid "Locals and Stack"
 msgstr "Yereller ve Yığın"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Kesme Noktası"
+msgstr "Kesme Noktaları"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -735,10 +723,9 @@ msgid "Insert breakpoint"
 msgstr "Kesme noktası ekle"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Kesme noktasını kaldır"
+msgstr "Kesme noktasını aç/kapat"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

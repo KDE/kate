@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 10:09+0100\n"
+"PO-Revision-Date: 2025-12-23 09:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -32,48 +32,42 @@ msgstr ""
 "actual."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Punt d'interrupció"
+msgstr "Punt d'interrupció de línia"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "punts d'interrupció de funció"
+msgstr "Punts d'interrupció de funció"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "punts d'interrupció de funció"
+msgstr "Punts d'interrupció d'excepció"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "verificat"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "pendent"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "punts d'interrupció de funció"
+msgstr "Afegeix un punt d'interrupció de funció…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Neteja tots els punts d'interrupció"
+msgstr "Neteja tots els punts d'interrupció de funció"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Elimina el punt d'interrupció"
 
@@ -88,23 +82,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "la línia %1 ja té un punt d'interrupció"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "s'ha establert un punt d'interrupció"
+msgstr "No s'ha establert cap punt d'interrupció"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "punts d'interrupció de funció"
+msgstr "Afegeix un punt d'interrupció de funció"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funció"
+msgstr "Nom de la funció:"
 
 #: configview.cpp:92
 #, kde-format
@@ -381,10 +371,9 @@ msgid "terminate debuggee"
 msgstr "depuració de terminació"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "punts d'interrupció de funció"
+msgstr "filtres de punts d'interrupció d'excepció"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -627,10 +616,9 @@ msgid "Locals and Stack"
 msgstr "Locals i pila"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Punt d'interrupció"
+msgstr "Punts d'interrupció"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -736,10 +724,9 @@ msgid "Insert breakpoint"
 msgstr "Insereix un punt d'interrupció"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Elimina el punt d'interrupció"
+msgstr "Commuta el punt d'interrupció"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

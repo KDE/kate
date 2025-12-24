@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 04:32+0100\n"
+"PO-Revision-Date: 2025-12-23 03:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -28,55 +28,49 @@ msgstr ""
 "მიმდინარე სესია."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "გამართვის წერტილი"
+msgstr "ხაზის შეჩერების წერტილები"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "ფუნქციის შეჩერების წერტილები"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "გამონაკლისის შეჩერების წერტილები"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "გადამოწმებულია"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "დარჩენილია"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "ფუნქციის შეჩერების წერტილის დამატება…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "ყველა გამართვის წერტილის გასუფთავება"
+msgstr "ყველა ფუნქციის შეჩერების წერტილის გასუფთავება"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
-msgstr "გამართვის წერტილის წაშლა"
+msgstr "შეჩერების წერტილის წაშლა"
 
 #: breakpointview.cpp:1493
 #, kde-format
 msgid "Breakpoint"
-msgstr "გამართვის წერტილი"
+msgstr "შეჩერების წერტილი"
 
 #: breakpointview.cpp:1556
 #, kde-format
@@ -84,23 +78,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "ხაზს %1 გამართვის წერტილი უკვე გააჩნია"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "გამართვის წერტილი დაყენებულია"
+msgstr "შეჩერების წერტილები დაყენებული არაა"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "ფუნქციის შეჩერების წერტილის დამატება"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "ფუნქცია"
+msgstr "ფუნქციის სახელი:"
 
 #: configview.cpp:92
 #, kde-format
@@ -344,7 +334,7 @@ msgstr "პირობითი გამართვის წერტილ�
 #: dapbackend.cpp:684
 #, kde-format
 msgid "function breakpoints"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "ფუნქციის შეჩერების წერტილები"
 
 #: dapbackend.cpp:685
 #, kde-format
@@ -377,10 +367,9 @@ msgid "terminate debuggee"
 msgstr "გასამართი პროცესის მოკვლა"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "ფუნქციის გამართვის წერტილები"
+msgstr "გამონაკლისის შეჩერების წერტილის ფილტრები"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -620,10 +609,9 @@ msgid "Locals and Stack"
 msgstr "ლოკალურები და სტეკი"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "გამართვის წერტილი"
+msgstr "შეჩერების წერტილები"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -728,10 +716,9 @@ msgid "Insert breakpoint"
 msgstr "გამართვის წერტილის ჩასმა"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "გამართვის წერტილის წაშლა"
+msgstr "შეჩერების წერტილის გადართვა"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

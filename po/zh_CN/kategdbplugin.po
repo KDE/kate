@@ -25,22 +25,19 @@ msgid ""
 msgstr "有一个调试会话正在运行。请重新运行或停止当前会话。"
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "断点"
+msgstr ""
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "函数断点"
+msgstr ""
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "函数断点"
+msgstr ""
 
 #: breakpointview.cpp:417
 #, kde-format
@@ -53,22 +50,19 @@ msgid "pending"
 msgstr ""
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "函数断点"
+msgstr ""
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "清除所有断点"
+msgstr ""
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
-msgstr "删除断点"
+msgstr ""
 
 #: breakpointview.cpp:1493
 #, kde-format
@@ -81,23 +75,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "行 %1 已经有一个断点"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "断点集合"
+msgstr ""
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "函数断点"
+msgstr ""
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "功能"
+msgstr ""
 
 #: configview.cpp:92
 #, kde-format
@@ -374,10 +364,9 @@ msgid "terminate debuggee"
 msgstr "终止调试"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "函数断点"
+msgstr ""
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -517,7 +506,7 @@ msgstr "调试器"
 #: debugconfigpage.cpp:96
 #, kde-format
 msgid "Failed to open file: %1"
-msgstr ""
+msgstr "打开文件失败：%1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -617,10 +606,9 @@ msgid "Locals and Stack"
 msgstr "局部变量和堆栈"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "断点"
+msgstr ""
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -725,10 +713,9 @@ msgid "Insert breakpoint"
 msgstr "插入断点"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "删除断点"
+msgstr ""
 
 #: plugin_kategdb.cpp:556
 #, kde-format
@@ -801,9 +788,3 @@ msgstr "调试(&D)"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "调试插件"
-
-#~ msgid "breakpoint cleared"
-#~ msgstr "断点已清除"
-
-#~ msgid "breakpoint not found (%1:%2)"
-#~ msgstr "找不到断点 (%1:%2)"

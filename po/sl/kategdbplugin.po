@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 07:30+0100\n"
+"PO-Revision-Date: 2025-12-23 07:33+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -30,48 +30,42 @@ msgstr ""
 "ustavite tekočo sejo."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Prekinitvena točka"
+msgstr "Prekinitvene točke vrstice"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "funkcijske prekinitvene točke"
+msgstr "Prekinitvene točke funkcije"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "funkcijske prekinitvene točke"
+msgstr "Prekinitvene točke izjeme"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "preverjeno"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "v reševanju"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "funkcijske prekinitvene točke"
+msgstr "Dodaj prekinitveno točko…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Počisti vse prekinitvene točke"
+msgstr "Počisti vse prekinitvene točke funkcij"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Odstrani prekinitveno točko"
 
@@ -86,23 +80,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "vrstica %1 že ima prekinitveno točko"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "prekinitvena točka postavljena"
+msgstr "Ni prekinitvenih točk"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "funkcijske prekinitvene točke"
+msgstr "Dodaj prekinitveno točko funkcije"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funkcija"
+msgstr "Ime funkcije:"
 
 #: configview.cpp:92
 #, kde-format
@@ -379,10 +369,9 @@ msgid "terminate debuggee"
 msgstr "zaključi testiranca"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "funkcijske prekinitvene točke"
+msgstr "filtri prekinitvenih točk izjem"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -622,10 +611,9 @@ msgid "Locals and Stack"
 msgstr "Krajevno in skladi"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Prekinitvena točka"
+msgstr "Prekinitvene točke"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -730,10 +718,9 @@ msgid "Insert breakpoint"
 msgstr "Vstavi prekinitveno točko"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Odstrani prekinitveno točko"
+msgstr "Preklopi prekinitveno točko"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

@@ -1683,10 +1683,10 @@
 >Yapılandırma</title>
 
 <para
->CTags eklentisi, indeksleme için iki farklı veritabanı dosyası kullanır.</para>
+>CTags eklentisi, indeksleme için iki farklı veri tabanı dosyası kullanır.</para>
 
 <para
->&kate;’in yapılandırmasındaki CTags ayarları sayfasında, kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve ortak CTags veritabanını yeniden oluşturabilirsiniz.</para>
+>&kate;’in yapılandırmasındaki CTags ayarları sayfasında, kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve ortak CTags veri tabanını yeniden oluşturabilirsiniz.</para>
 
 <sect3 id="ctags-config-common">
 <title
@@ -1699,7 +1699,7 @@
 <imageobject
 ><imagedata fileref="ctags-global-setting.png" format="PNG"/></imageobject>
 <caption
->CTags Genel Veritabanını Yapılandır</caption>
+>CTags Genel Veri Tabanını Yapılandır</caption>
 </mediaobject>
 </screenshot>
 
@@ -1738,7 +1738,7 @@
 ></term>
 <listitem>
 <para
->Bu sekmede kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve oturuma özel CTags veritabanını elle yeniden üretebilirsiniz.</para>
+>Bu sekmede kaynak kodunu içeren dizinleri ekleyebilir veya kaldırabilir ve oturuma özel CTags veri tabanını elle yeniden üretebilirsiniz.</para>
 </listitem>
 </varlistentry>
 
@@ -1746,22 +1746,22 @@
 <term
 ><menuchoice>
 <guimenu
->Veritabanı</guimenu>
+>Veri Tabanı</guimenu>
 </menuchoice
 ></term>
 <listitem>
 <screenshot id="screenshot-ctags-session-settings">
 <screeninfo
->Veritabanı Ayarları</screeninfo>
+>Veri Tabanı Ayarları</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata fileref="ctags-session-setting.png" format="PNG"/></imageobject>
 <caption
->Ctags Oturum Veritabanını Yapılandır</caption>
+>Ctags Oturum Veri Tabanını Yapılandır</caption>
 </mediaobject>
 </screenshot>
 <para
->Başka bir CTags veritabanı dosyası seçin, CTags komutunu yapılandırın veya öntanımlı komuta geri dönün.</para>
+>Başka bir CTags veri tabanı dosyası seçin, CTags komutunu yapılandırın veya öntanımlı komuta geri dönün.</para>
 </listitem>
 </varlistentry>
 
@@ -6156,15 +6156,15 @@ document.insertText(range.start, "&lt;strong&gt;" + innertext + "&lt;/strong&gt;
 <itemizedlist>
 <listitem
 ><para
->Bir veritabanı oluşturmak</para
+>Bir veri tabanı oluşturmak</para
 ></listitem>
 <listitem
 ><para
->Var olan veritabanlarına bağlanmak</para
+>Var olan veri tabanlarına bağlanmak</para
 ></listitem>
 <listitem
 ><para
->Veritabanına bilgi eklemek ve silmek</para
+>Veri tabanına bilgi eklemek ve silmek</para
 ></listitem>
 <listitem
 ><para
@@ -6180,19 +6180,19 @@ document.insertText(range.start, "&lt;strong&gt;" + innertext + "&lt;/strong&gt;
 
 <sect2 id="sql-connecting">
 <title
->Bir veritabanına bağlanmak</title>
+>Bir veri tabanına bağlanmak</title>
 
 <para
 ><guimenu
 >SQL</guimenu
 > menüsü veya araç çubuğundan <guibutton
 >Bağlantı Ekle</guibutton
->’yi ve sonrasında kullanmak istediğiniz &Qt; veritabanı sürücüsünü seçin (QSQLITE, QMYSQL3, QMYSQL, QODBC3, QODBC, QPSQL7, and QPSQL içerilir). İstediğiniz sürücüyü göremiyorsanız onu kurmanız gerekir. Sonrasında <guibutton
+>’yi ve sonrasında kullanmak istediğiniz &Qt; veri tabanı sürücüsünü seçin (QSQLITE, QMYSQL3, QMYSQL, QODBC3, QODBC, QPSQL7, and QPSQL içerilir). İstediğiniz sürücüyü göremiyorsanız onu kurmanız gerekir. Sonrasında <guibutton
 >Sonraki</guibutton
 > düğmesine basın. </para>
 
 <para
->Seçtiğiniz veritabanı bir dosya kullanıyorsa veritabanının konumunu belirtmeniz ve <guibutton
+>Seçtiğiniz veri tabanı bir dosya kullanıyorsa veri tabanının konumunu belirtmeniz ve <guibutton
 >Sonraki</guibutton
 > düğmesine basmanız yeterlidir. Bir sunucuya bağlanmayı gerektiriyorsa sunucunun makine adını, kullanıcı adınızı ve parolanızı ve belirli bir sürücünün gerektirebileceği diğer bilgileri girmeniz gerekir. Daha sonra <guibutton
 >Sonraki</guibutton
@@ -6442,8 +6442,8 @@ VALUES ("<replaceable
 
 <para
 >Soldaki <guilabel
->Veritabanı şeması</guilabel
-> tarayıcı aracı görünümünü kullanarak veritabanınıza göz atabilirsiniz. Görüntülenen bilgiler, kullandığınız veritabanı sürücüsüne bağlı olarak değişir.</para>
+>Veri Tabanı Şeması</guilabel
+> tarayıcı aracı görünümünü kullanarak veri tabanınıza göz atabilirsiniz. Görüntülenen bilgiler, kullandığınız veri tabanı sürücüsüne bağlı olarak değişir.</para>
 
 <para
 >Bu listeyi yenilemek için araç çubuğundaki herhangi bir yere sağ tıklayın ve <guimenuitem
@@ -6478,7 +6478,7 @@ VALUES ("<replaceable
 ></term>
 <listitem
 ><para
->Herhangi bir veritabanı sürücüsünü kullanarak yeni bir bağlantı ekler. </para
+>Herhangi bir veri tabanı sürücüsünü kullanarak yeni bir bağlantı ekler. </para
 ></listitem>
 </varlistentry>
 
@@ -6517,7 +6517,7 @@ VALUES ("<replaceable
 >Bağlantılar</term>
 <listitem
 ><para
->Oluşturduğunuz tüm veritabanı bağlantıları <guimenuitem
+>Oluşturduğunuz tüm veri tabanı bağlantıları <guimenuitem
 >Bağlantıyı Düzenle</guimenuitem
 > ve <guimenuitem
 >Sorgu Çalıştır</guimenuitem

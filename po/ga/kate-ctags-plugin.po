@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
-"X-Generator: Poedit 3.7\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -102,7 +101,7 @@ msgstr "patrún"
 #: ctagskinds.cpp:94 ctagskinds.cpp:98
 msgctxt "Tag Type"
 msgid "class"
-msgstr "rang"
+msgstr "aicme"
 
 #: ctagskinds.cpp:41
 msgctxt "Tag Type"
@@ -346,7 +345,7 @@ msgstr "Cuir comhadlann leis an innéacs."
 #: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:115
 #, kde-format
 msgid "Remove a directory."
-msgstr "Bain eolaire."
+msgstr "Bain comhadlann."
 
 #: kate_ctags_plugin.cpp:81
 #, kde-format

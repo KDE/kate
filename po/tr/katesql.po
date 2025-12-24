@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2025-01-17 14:25+0300\n"
+"PO-Revision-Date: 2025-12-23 11:55+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.03.70\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: connectionwizard.cpp:27
 #, kde-format
@@ -32,19 +32,19 @@ msgstr "Bağlantı Sihirbazı"
 #, kde-format
 msgctxt "@title Wizard page title"
 msgid "Database Driver"
-msgstr "Veritabanı Sürücüsü"
+msgstr "Veri Tabanı Sürücüsü"
 
 #: connectionwizard.cpp:43
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the database driver"
-msgstr "Veritabanı sürücüsünü seçin"
+msgstr "Veri Tabanı Sürücüsü Seç"
 
 #: connectionwizard.cpp:50
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Database driver:"
-msgstr "Veritabanı sürücüsü:"
+msgstr "Veri tabanı sürücüsü:"
 
 #: connectionwizard.cpp:79 connectionwizard.cpp:165
 #, kde-format
@@ -56,7 +56,7 @@ msgstr "Bağlantı Parametreleri"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Please enter connection parameters"
-msgstr "Lütfen bağlantı parametrelerini girin"
+msgstr "Bağlantı Parametrelerini Gir"
 
 #: connectionwizard.cpp:92
 #, kde-format
@@ -92,7 +92,7 @@ msgstr "Kapı:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Database name:"
-msgstr "Veritabanı adı:"
+msgstr "Veri tabanı adı:"
 
 #: connectionwizard.cpp:100 connectionwizard.cpp:177
 #, kde-format
@@ -103,7 +103,7 @@ msgstr "Bağlantı seçenekleri:"
 #: connectionwizard.cpp:150
 #, kde-format
 msgid "Unable to connect to database."
-msgstr "Veritabanına bağlanılamadı."
+msgstr "Veri tabanına bağlanılamadı."
 
 #: connectionwizard.cpp:167
 #, kde-format
@@ -112,13 +112,13 @@ msgid ""
 "Please enter the SQLite database file path.\n"
 "If the file does not exist, a new database will be created."
 msgstr ""
-"Lütfen SQLite veritabanı dosyasının yolunu girin.\n"
-"Eğer dosya yoksa yeni bir veritabanı oluşturulacak."
+"Lütfen SQLite veri tabanı dosyasının yolunu girin.\n"
+"Eğer dosya yoksa yeni bir veri tabanı oluşturulacak."
 
 #: connectionwizard.cpp:175
 #, kde-format
 msgid "Database files"
-msgstr "Veritabanı dosyaları"
+msgstr "Veri tabanı dosyaları"
 
 #: connectionwizard.cpp:175 exportwizard.cpp:52
 #, kde-format
@@ -135,7 +135,7 @@ msgstr "Yol:"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "Unable to connect to database.<nl/><message>%1</message>"
-msgstr "Veritabanına bağlanılamadı.<nl/><message>%1</message>"
+msgstr "Veri tabanına bağlanılamadı.<nl/><message>%1</message>"
 
 #: connectionwizard.cpp:224
 #, kde-format
@@ -147,7 +147,7 @@ msgstr "Bağlantı Adı"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Enter a unique connection name"
-msgstr "Benzersiz bir bağlantı adı girin"
+msgstr "Benzersiz Bağlantı Adı Gir"
 
 #: connectionwizard.cpp:231
 #, kde-format
@@ -213,7 +213,7 @@ msgstr "Çıktı Hedefi"
 #, kde-format
 msgctxt "@title Wizard page subtitle"
 msgid "Select the output target."
-msgstr "Çıktı hedefini seçin."
+msgstr "Çıktı Hedefini Seç"
 
 #: exportwizard.cpp:43
 #, kde-format
@@ -455,7 +455,7 @@ msgstr "SQL Veri Çıktısı"
 #, kde-format
 msgctxt "@title:column"
 msgid "Database schema"
-msgstr "Veritabanı şeması"
+msgstr "Veri Tabanı Şeması"
 
 #: schemawidget.cpp:89
 #, kde-format

@@ -2086,7 +2086,7 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:281
 #, kde-format
 msgid "Failed to create a temporary file"
-msgstr ""
+msgstr "创建临时文件失败"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

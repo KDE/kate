@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 11:44+0200\n"
+"PO-Revision-Date: 2025-12-23 12:24+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -26,48 +26,42 @@ msgid ""
 msgstr "מתרחשת פעילות ניפוי שגיאות. נא להריץ מחדש או לעצור את הפעילות הנוכחית."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "נקודת עצירה"
+msgstr "נקודות עצירה לשורות"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "נקודות עצירה לפונקציות"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "נקודות עצירה לפונקציות"
+msgstr "נקודות עצירה לחריגות"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "מאומת"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "בהמתנה"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "נקודות עצירה לפונקציות"
+msgstr "הוספת נקודות עצירה לפונקציה…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "פינוי כל נקודות העצירה"
+msgstr "פינוי כל נקודות העצירה של הפונקציות"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "הסרת נקודת עצירה"
 
@@ -82,23 +76,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "כבר יש נקודת עצירה על השורה %1"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "הוגדרה נקודת עצירה"
+msgstr "לא הוגדרו נקודות עצירה"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "נקודות עצירה לפונקציות"
+msgstr "הוספת נקודות עצירה לפונקציה"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "פונקציה"
+msgstr "שם הפונקציה:"
 
 #: configview.cpp:92
 #, kde-format
@@ -375,10 +365,9 @@ msgid "terminate debuggee"
 msgstr "חיסול המאובחן"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "נקודות עצירה לפונקציות"
+msgstr "נקודות עצירה לחריגות"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -618,10 +607,9 @@ msgid "Locals and Stack"
 msgstr "מקומיים וערמה"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "נקודת עצירה"
+msgstr "נקודות עצירה"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -726,10 +714,9 @@ msgid "Insert breakpoint"
 msgstr "הוספת נקודת עצירה"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "הסרת נקודת עצירה"
+msgstr "החלפת מצב נקודת עצירה"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

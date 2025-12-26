@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-20 11:16+0400\n"
+"PO-Revision-Date: 2025-12-25 09:39+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -27,48 +27,42 @@ msgid ""
 msgstr "جلسة تصحيح أخطاء جارية. يُرجى إعادة التشغيل أو إيقاف الجلسة الحالية."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "نقطة مقاطعة"
+msgstr "نقاط توقف السطر"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "نقاط توقف الوظيفة"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "نقاط توقف الوظيفة"
+msgstr "نقاط توقف الاستثناءات"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "متحقّق منه"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "ينتظر"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "نقاط توقف الوظيفة"
+msgstr "أضف نقطة توقف الوظيفة…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "امحُ جميع نقاط التوقف"
+msgstr "امحُ جميع نقاط توقف الوظائف"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "أزل نقطة المقاطعة"
 
@@ -83,23 +77,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "السطر %1 لديه نقطة توقف مسبقًا"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "مجموعة نقطة التوقف"
+msgstr "لم تعين نقطة توقف"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "نقاط توقف الوظيفة"
+msgstr "أضف نقطة توقف الوظيفة"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "الوظيفة"
+msgstr "اسم الوظيفة:"
 
 #: configview.cpp:92
 #, kde-format
@@ -376,10 +366,9 @@ msgid "terminate debuggee"
 msgstr "إنهاء التنقيح"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "نقاط توقف الوظيفة"
+msgstr "مرشحات نقاط توقف الاستثناءات"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -619,10 +608,9 @@ msgid "Locals and Stack"
 msgstr "المحليّات والرّصّة"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "نقطة مقاطعة"
+msgstr "نقاط التّوقّف"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -727,10 +715,9 @@ msgid "Insert breakpoint"
 msgstr "أدرج نقطة مقاطعة"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "أزل نقطة المقاطعة"
+msgstr "بدّل نقطة التوقف"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

@@ -23,6 +23,7 @@
       <Separator/>
       <Action name="lspclient_diagnostic_switch"/>
       <Action name="lspclient_close_dynamic"/>
+      <Action name="lspclient_suspend_all"/>
       <Separator/>
       <Action name="lspclient_restart_server"/>
       <Action name="lspclient_restart_all"/>

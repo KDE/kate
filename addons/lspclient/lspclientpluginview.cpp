@@ -378,6 +378,7 @@ class LSPClientPluginViewImpl : public QObject, public KXMLGUIClient
     QPointer<QAction> m_diagnostics;
     QPointer<QAction> m_messages;
     QPointer<QAction> m_closeDynamic;
+    QPointer<QAction> m_suspendAll;
     QPointer<QAction> m_restartServer;
     QPointer<QAction> m_restartAll;
     QPointer<QAction> m_switchSourceHeader;
@@ -612,6 +613,11 @@ public:
         m_restartAll = actionCollection()->addAction(QStringLiteral("lspclient_restart_all"), this, &self_type::restartAll);
         m_restartAll->setText(i18n("Restart All LSP Servers"));
 
+        // suspend all - should shut down all servers and prohibit new ones from starting till toggled
+        m_suspendAll = actionCollection()->addAction(QStringLiteral("lspclient_suspend_all"), this, &self_type::suspendAll);
+        m_suspendAll->setText(i18n("Suspend All"));
+        m_suspendAll->setCheckable(true);
+
         auto *goToAction = new QAction(i18n("Go To"));
         actionCollection()->addAction(QStringLiteral("lspclient_goto_menu"), goToAction);
         auto *goTo = new QMenu();
@@ -630,6 +636,7 @@ public:
         lspOther->addAction(m_triggerSymbolInfo);
         lspOther->addSeparator();
         lspOther->addAction(m_closeDynamic);
+        lspOther->addAction(m_suspendAll);
         lspOther->addSeparator();
         lspOther->addAction(m_restartServer);
         lspOther->addAction(m_restartAll);
@@ -1190,6 +1197,18 @@ public:
                 }
             }
         }
+    }
+
+    void suspendAll()
+    {
+        if (m_suspendAll->isChecked()) {
+            m_serverManager->setSuspendEnabled(true);
+        } else {
+            m_serverManager->setSuspendEnabled(false);
+        }
+
+        // If suspend is enabled then this will just stop the servers otherwise properly restart them
+        m_serverManager->restart(nullptr);
     }
 
     // local helper to overcome some differences in LSP types

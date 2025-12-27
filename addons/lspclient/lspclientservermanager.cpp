@@ -253,6 +253,8 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     // variable to avoid warning more than once
     QSet<QString> m_failedToFindServers;
 
+    bool m_suspendEnabled = false;
+
 public:
     LSPClientServerManagerImpl(LSPClientPlugin *plugin)
         : m_plugin(plugin)
@@ -408,6 +410,10 @@ public:
 
     std::shared_ptr<LSPClientServer> findServer(KTextEditor::View *view, bool updatedoc = true) override
     {
+        if (m_suspendEnabled) {
+            return nullptr;
+        }
+
         if (!view) {
             return nullptr;
         }
@@ -475,6 +481,11 @@ public:
             }
         }
         return result;
+    }
+
+    void setSuspendEnabled(bool suspendEnabled) override
+    {
+        m_suspendEnabled = suspendEnabled;
     }
 
 private:

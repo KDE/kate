@@ -59,6 +59,8 @@ public:
     // locks are released when returned snapshot is delete'd
     virtual LSPClientRevisionSnapshot *snapshot(LSPClientServer *server) = 0;
 
+    virtual void setSuspendEnabled(bool enabled) = 0;
+
     // helper method providing descriptive label for a server
     static QString serverDescription(LSPClientServer *server)
     {

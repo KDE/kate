@@ -27,42 +27,42 @@ msgstr "有一个调试会话正在运行。请重新运行或停止当前会话
 #: breakpointview.cpp:354
 #, kde-format
 msgid "Line Breakpoints"
-msgstr ""
+msgstr "行断点"
 
 #: breakpointview.cpp:356
 #, kde-format
 msgid "Function Breakpoints"
-msgstr ""
+msgstr "函数断点"
 
 #: breakpointview.cpp:358
 #, kde-format
 msgid "Exception Breakpoints"
-msgstr ""
+msgstr "异常断点"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "已验证"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "待定"
 
 #: breakpointview.cpp:965
 #, kde-format
 msgid "Add Function Breakpoint…"
-msgstr ""
+msgstr "添加函数断点…"
 
 #: breakpointview.cpp:969
 #, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr ""
+msgstr "清除所有函数断点"
 
 #: breakpointview.cpp:976
 #, kde-format
 msgid "Remove Breakpoint"
-msgstr ""
+msgstr "移除断点"
 
 #: breakpointview.cpp:1493
 #, kde-format
@@ -77,17 +77,17 @@ msgstr "行 %1 已经有一个断点"
 #: breakpointview.cpp:1565
 #, kde-format
 msgid "No breakpoints set"
-msgstr ""
+msgstr "未设置断点"
 
 #: breakpointview.cpp:1624
 #, kde-format
 msgid "Add Function Breakpoint"
-msgstr ""
+msgstr "添加函数断点"
 
 #: breakpointview.cpp:1625
 #, kde-format
 msgid "Function name:"
-msgstr ""
+msgstr "函数名称："
 
 #: configview.cpp:92
 #, kde-format
@@ -366,7 +366,7 @@ msgstr "终止调试"
 #: dapbackend.cpp:692
 #, kde-format
 msgid "exception breakpoint filters"
-msgstr ""
+msgstr "异常断点过滤条件"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -608,7 +608,7 @@ msgstr "局部变量和堆栈"
 #: plugin_kategdb.cpp:122
 #, kde-format
 msgid "Breakpoints"
-msgstr ""
+msgstr "断点"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -715,7 +715,7 @@ msgstr "插入断点"
 #: plugin_kategdb.cpp:440
 #, kde-format
 msgid "Toggle breakpoint"
-msgstr ""
+msgstr "启用/禁用断点"
 
 #: plugin_kategdb.cpp:556
 #, kde-format

@@ -167,7 +167,7 @@
         },
         "latex": {
             "command": ["texlab"],
-            "url": "https://texlab.netlify.com/",
+            "url": "https://github.com/latex-lsp/texlab",
             "highlightingModeRegex": "^LaTeX$"
         },
         "less": {

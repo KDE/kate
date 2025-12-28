@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2023-02-07 18:18+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -2557,17 +2557,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Otváranie veľkého súboru"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:592
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 nemôže otvoriť priečinky"
 
-#: lib/kateviewmanager.cpp:610
+#: lib/kateviewmanager.cpp:608
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Zásuvný modul potrebný na otvorenie priečinkov nebol nájdený"
 
-#: lib/kateviewmanager.cpp:616
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2575,24 +2575,24 @@ msgstr ""
 "Aby bolo možné otvárať priečinky, musí byť povolený zásuvný modul <b>%1</b>. "
 "Povoliť ho?"
 
-#: lib/kateviewmanager.cpp:619
+#: lib/kateviewmanager.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Otvoriť priečinok"
 
-#: lib/kateviewmanager.cpp:620
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Povoliť"
 
-#: lib/kateviewmanager.cpp:627
+#: lib/kateviewmanager.cpp:625
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Nepodarilo sa povoliť zásuvný modul <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:648
+#: lib/kateviewmanager.cpp:646
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""

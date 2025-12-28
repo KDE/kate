@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-21 00:22+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2555,17 +2555,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Eine große Datei wird geöffnet"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:592
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 kann Order nicht öffnen"
 
-#: lib/kateviewmanager.cpp:610
+#: lib/kateviewmanager.cpp:608
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Das zum Öffnen von Ordern erforderliche Modul wurde nicht gefunden"
 
-#: lib/kateviewmanager.cpp:616
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2573,24 +2573,24 @@ msgstr ""
 "Um Ordner zu öffnen, muss das Modul <b>%1</b> aktiviert sein. Jetzt "
 "aktivieren?"
 
-#: lib/kateviewmanager.cpp:619
+#: lib/kateviewmanager.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
-#: lib/kateviewmanager.cpp:620
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Aktivieren"
 
-#: lib/kateviewmanager.cpp:627
+#: lib/kateviewmanager.cpp:625
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Modul <b>%1</b> kann nicht aktiviert werden"
 
-#: lib/kateviewmanager.cpp:648
+#: lib/kateviewmanager.cpp:646
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Die Datei „%1“ existiert nicht"

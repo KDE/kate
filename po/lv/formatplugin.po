@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-11-07 18:08+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Generator: Lokalize 25.08.2\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
-#: Formatters.cpp:363 Formatters.cpp:393
+#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
+#: Formatters.cpp:361 Formatters.cpp:391
 #, kde-format
 msgid "Format"
 msgstr "Formatēšana"
@@ -81,48 +81,48 @@ msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Izslēgt formatēšanu saglabāšanas laikā, ja tas nav norādīts iestatījumos"
 
-#: Formatters.cpp:114
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: negaidīta tukša komanda!"
 
-#: Formatters.cpp:121
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "„%1“ nav instalēts. Lai formatētu šo dokumentu, tas ir jāieinstalē!"
 
-#: Formatters.cpp:190
+#: Formatters.cpp:188
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Lūdzu, instalējiet „node“ un „prettier“"
 
-#: Formatters.cpp:197
+#: Formatters.cpp:195
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "„PrettierFormat“: neizdevās izveidot pagaidu datni"
 
-#: Formatters.cpp:218
+#: Formatters.cpp:216
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "„PrettierFormat“: neizdevās palaist „node“: %1"
 
-#: Formatters.cpp:320
+#: Formatters.cpp:318
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Nezināms „formatterForJson“: %1"
 
-#: Formatters.cpp:340
+#: Formatters.cpp:338
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "nezināms „formatterForPython“: %1"
 
-#: Formatters.cpp:363
+#: Formatters.cpp:361
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Nezināms „formatterForYaml“: %1, atgriežas uz „yamlfmt“"
 
-#: Formatters.cpp:393
+#: Formatters.cpp:391
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Neizdevās palaist formatētāju. Neatbalstīta valoda „%1“"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2013-06-03 02:59+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -595,13 +595,13 @@ msgstr ""
 msgid "Value"
 msgstr "Мәні"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Символ"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

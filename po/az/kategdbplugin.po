@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2023-06-30 16:09+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -593,13 +593,13 @@ msgstr ""
 msgid "Value"
 msgstr "Dəyər"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "Simvol"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

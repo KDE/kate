@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2023-01-20 16:55+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -216,31 +216,31 @@ msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Otvoriť s"
 
-#: katefiletree.cpp:434
+#: katefiletree.cpp:435
 #, fuzzy, kde-format
 #| msgid "Show File Git History"
 msgid "Show Git History"
 msgstr "Zobraziť históriu súborov git"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:447
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Dokumenty"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:449
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Dokumenty"
 
-#: katefiletree.cpp:495
+#: katefiletree.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Režim zobrazenia"
 
-#: katefiletree.cpp:499
+#: katefiletree.cpp:501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

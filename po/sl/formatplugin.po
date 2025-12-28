@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-08-23 07:16+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Generator: Poedit 3.6\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
-#: Formatters.cpp:363 Formatters.cpp:393
+#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
+#: Formatters.cpp:361 Formatters.cpp:391
 #, kde-format
 msgid "Format"
 msgstr "Oblika"
@@ -78,48 +78,48 @@ msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 "Onemogoči oblikovanje ob shranjevanju, ne da bi ga ohranili v nastavitvah"
 
-#: Formatters.cpp:114
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Nepričakovan prazen ukaz!"
 
-#: Formatters.cpp:121
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 ni nameščen, namestite ga, da boste lahko oblikovali ta dokument!"
 
-#: Formatters.cpp:190
+#: Formatters.cpp:188
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Namestite vozlišče in olepševalnik"
 
-#: Formatters.cpp:197
+#: Formatters.cpp:195
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "Olepševalnik: začasne datoteke ni bilo mogoče ustvariti"
 
-#: Formatters.cpp:218
+#: Formatters.cpp:216
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "Olepševalnik: Zagon 'vozlišča' ni uspel: %1"
 
-#: Formatters.cpp:320
+#: Formatters.cpp:318
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Neznan formatterForJson: %1"
 
-#: Formatters.cpp:340
+#: Formatters.cpp:338
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Neznan formatterForPython: %1"
 
-#: Formatters.cpp:363
+#: Formatters.cpp:361
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Neznan oblikovalnik za Yaml: %1, vrnitev na yamlfmt"
 
-#: Formatters.cpp:393
+#: Formatters.cpp:391
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "Oblikovalnika ni bilo mogoče zagnati. Nepodprt jezik %1"

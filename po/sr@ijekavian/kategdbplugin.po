@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2014-12-20 11:52+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -604,13 +604,13 @@ msgid "Value"
 msgstr "вриједност"
 
 # >> @title:column
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "симбол"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, fuzzy, kde-format
 #| msgid "Copy target"
 msgid "Copy Value"

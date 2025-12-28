@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-23 16:12+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -579,12 +579,12 @@ msgstr "Type"
 msgid "Value"
 msgstr "Waarde"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Symbool kopiëren"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "Waarde kopiëren"

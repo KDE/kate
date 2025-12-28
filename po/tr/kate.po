@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-22 18:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2524,17 +2524,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Büyük Dosya Açılıyor"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:592
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1, klasörleri açamaz"
 
-#: lib/kateviewmanager.cpp:610
+#: lib/kateviewmanager.cpp:608
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Klasörleri açmak için gerekli eklenti bulunamadı"
 
-#: lib/kateviewmanager.cpp:616
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2542,24 +2542,24 @@ msgstr ""
 "Klasörleri açmak için <b>%1</b> eklentisinin etkinleştirilmesi gerekiyor. "
 "Etkinleştirilsin mi?"
 
-#: lib/kateviewmanager.cpp:619
+#: lib/kateviewmanager.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Klasör Aç"
 
-#: lib/kateviewmanager.cpp:620
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Etkinleştir"
 
-#: lib/kateviewmanager.cpp:627
+#: lib/kateviewmanager.cpp:625
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> eklentisi etkinleştirilemedi"
 
-#: lib/kateviewmanager.cpp:648
+#: lib/kateviewmanager.cpp:646
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "“%1” dosyası yok"

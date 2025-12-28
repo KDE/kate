@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-07-21 00:48+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -587,12 +587,12 @@ msgstr "형식"
 msgid "Value"
 msgstr "값"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "기호 복사"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "값 복사"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-11-30 14:36+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -590,12 +590,12 @@ msgstr "Cineál"
 msgid "Value"
 msgstr "Luach"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Cóipeáil Siombail"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "Cóipeáil Luach"

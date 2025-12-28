@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-01-22 22:56+0100\n"
 "Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
 "Language-Team: Czech <kde-i18n-cs@kde.org>\n"
@@ -2481,17 +2481,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Otevírám velký soubor"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:592
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 nemůže otevřít složky"
 
-#: lib/kateviewmanager.cpp:610
+#: lib/kateviewmanager.cpp:608
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Zásuvný modul pro otevírání složek nebyl nalezen"
 
-#: lib/kateviewmanager.cpp:616
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2499,24 +2499,24 @@ msgstr ""
 "Aby bylo možné otevírat složky, musí být nainstalován zásuvný modul <b>%1</"
 "b>. Přejete si jej povolit?"
 
-#: lib/kateviewmanager.cpp:619
+#: lib/kateviewmanager.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Otevřít složku"
 
-#: lib/kateviewmanager.cpp:620
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Povolit"
 
-#: lib/kateviewmanager.cpp:627
+#: lib/kateviewmanager.cpp:625
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Selhalo povolení zásuvného modulu <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:648
+#: lib/kateviewmanager.cpp:646
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Soubor '%1' neexistuje"

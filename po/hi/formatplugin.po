@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2024-12-15 15:57+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
-#: Formatters.cpp:363 Formatters.cpp:393
+#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
+#: Formatters.cpp:361 Formatters.cpp:391
 #, kde-format
 msgid "Format"
 msgstr ""
@@ -79,48 +79,48 @@ msgstr ""
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 
-#: Formatters.cpp:114
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr ""
 
-#: Formatters.cpp:121
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 
-#: Formatters.cpp:190
+#: Formatters.cpp:188
 #, kde-format
 msgid "Please install node and prettier"
 msgstr ""
 
-#: Formatters.cpp:197
+#: Formatters.cpp:195
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr ""
 
-#: Formatters.cpp:218
+#: Formatters.cpp:216
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr ""
 
-#: Formatters.cpp:320
+#: Formatters.cpp:318
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr ""
 
-#: Formatters.cpp:340
+#: Formatters.cpp:338
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr ""
 
-#: Formatters.cpp:363
+#: Formatters.cpp:361
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 
-#: Formatters.cpp:393
+#: Formatters.cpp:391
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

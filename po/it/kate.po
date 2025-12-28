@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-01 17:53+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -2532,17 +2532,17 @@ msgstr ""
 msgid "Opening Large File"
 msgstr "Apertura di un file grande"
 
-#: lib/kateviewmanager.cpp:593
+#: lib/kateviewmanager.cpp:592
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1 non può aprire le cartelle"
 
-#: lib/kateviewmanager.cpp:610
+#: lib/kateviewmanager.cpp:608
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "L'estensione richiesta per aprire le cartelle non è stata trovata"
 
-#: lib/kateviewmanager.cpp:616
+#: lib/kateviewmanager.cpp:614
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2550,24 +2550,24 @@ msgstr ""
 "Per poter aprire le cartelle, l'estensione <b>%1</b> deve essere abilitata. "
 "Abilitarla?"
 
-#: lib/kateviewmanager.cpp:619
+#: lib/kateviewmanager.cpp:617
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Apri cartella"
 
-#: lib/kateviewmanager.cpp:620
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Abilita"
 
-#: lib/kateviewmanager.cpp:627
+#: lib/kateviewmanager.cpp:625
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "Impossibile abilitare l'estensione <b>%1</b>"
 
-#: lib/kateviewmanager.cpp:648
+#: lib/kateviewmanager.cpp:646
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "Il file «%1» non esiste"

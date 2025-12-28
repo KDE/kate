@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-23 10:24+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -585,12 +585,12 @@ msgstr "Tür"
 msgid "Value"
 msgstr "Değer"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Sembolü Kopyala"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "Değeri Kopyala"

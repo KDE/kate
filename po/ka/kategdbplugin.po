@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-12-23 03:37+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -578,12 +578,12 @@ msgstr "ტიპი"
 msgid "Value"
 msgstr "მნიშვნელობა"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "სიმბოლოს კოპირება"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "მნიშვნელობის კოპირება"

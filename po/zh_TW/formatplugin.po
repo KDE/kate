@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2025-08-29 20:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Lokalize 25.11.70\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:320 Formatters.cpp:340
-#: Formatters.cpp:363 Formatters.cpp:393
+#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
+#: Formatters.cpp:361 Formatters.cpp:391
 #, kde-format
 msgid "Format"
 msgstr "格式"
@@ -79,48 +79,48 @@ msgstr "儲存時格式化"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr "暫時停用儲存檔案時的格式化，不記住此設定"
 
-#: Formatters.cpp:114
+#: Formatters.cpp:112
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1：未預期的空白命令！"
 
-#: Formatters.cpp:121
+#: Formatters.cpp:119
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr "%1 未安裝，請安裝它才能格式化這個文件！"
 
-#: Formatters.cpp:190
+#: Formatters.cpp:188
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "請安裝 node 和 prettier"
 
-#: Formatters.cpp:197
+#: Formatters.cpp:195
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat：無法建立暫存檔"
 
-#: Formatters.cpp:218
+#: Formatters.cpp:216
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat：啟動「node」失敗：%1"
 
-#: Formatters.cpp:320
+#: Formatters.cpp:318
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "未知的 JSON 格式器：%1"
 
-#: Formatters.cpp:340
+#: Formatters.cpp:338
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "未知的 Python 格式器：%1"
 
-#: Formatters.cpp:363
+#: Formatters.cpp:361
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "未知的 JSON 格式器：%1，將退回改用 yamlfmt"
 
-#: Formatters.cpp:393
+#: Formatters.cpp:391
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr "執行格式器時失敗。不支援的語言 %1"

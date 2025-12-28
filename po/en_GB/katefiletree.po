@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
 "PO-Revision-Date: 2024-05-24 16:57+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -215,31 +215,31 @@ msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Open With"
 
-#: katefiletree.cpp:434
+#: katefiletree.cpp:435
 #, fuzzy, kde-format
 #| msgid "Show File Git History"
 msgid "Show Git History"
 msgstr "Show File Git History"
 
-#: katefiletree.cpp:445
+#: katefiletree.cpp:447
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Documents"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:449
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Documents"
 
-#: katefiletree.cpp:495
+#: katefiletree.cpp:497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "View Mode"
 
-#: katefiletree.cpp:499
+#: katefiletree.cpp:501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-23 00:44+0000\n"
-"PO-Revision-Date: 2025-12-18 12:01+0100\n"
+"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"PO-Revision-Date: 2025-12-27 11:26+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -30,48 +30,42 @@ msgstr ""
 "detenga la sesión actual."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Punto de interrupción"
+msgstr "Punto de interrupción de líneas"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "puntos de interrupción de funciones"
+msgstr "Puntos de interrupción de funciones"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "puntos de interrupción de funciones"
+msgstr "Puntos de interrupción de excepciones"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "verificado"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "pendiente"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "puntos de interrupción de funciones"
+msgstr "Añadir punto de interrupción de función…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Borrar todos los puntos de interrupción"
+msgstr "Borrar todos los puntos de interrupción de funciones"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Eliminar punto de interrupción"
 
@@ -86,23 +80,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "la línea %1 ya tiene un punto de interrupción"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "punto de interrupción definido"
+msgstr "Ningún punto de interrupción definido"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "puntos de interrupción de funciones"
+msgstr "Añadir punto de interrupción de función"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Función"
+msgstr "Nombre de la función:"
 
 #: configview.cpp:92
 #, kde-format
@@ -380,10 +370,9 @@ msgid "terminate debuggee"
 msgstr "terminar el programa depurado"
 
 #: dapbackend.cpp:692
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "puntos de interrupción de funciones"
+msgstr "filtros de puntos de interrupción de excepciones"
 
 #: dapbackend.cpp:839
 #, kde-format
@@ -592,12 +581,12 @@ msgstr "Tipo"
 msgid "Value"
 msgstr "Valor"
 
-#: localsview.cpp:196
+#: localsview.cpp:197
 #, kde-format
 msgid "Copy Symbol"
 msgstr "Copiar símbolo"
 
-#: localsview.cpp:210
+#: localsview.cpp:212
 #, kde-format
 msgid "Copy Value"
 msgstr "Copiar valor"
@@ -623,10 +612,9 @@ msgid "Locals and Stack"
 msgstr "Locales y pila"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Punto de interrupción"
+msgstr "Puntos de interrupción"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -731,10 +719,9 @@ msgid "Insert breakpoint"
 msgstr "Insertar punto de interrupción"
 
 #: plugin_kategdb.cpp:440
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Eliminar punto de interrupción"
+msgstr "Conmutar punto de interrupción"
 
 #: plugin_kategdb.cpp:556
 #, kde-format
@@ -807,9 +794,3 @@ msgstr "&Depurar"
 #, kde-format
 msgid "Debug Plugin"
 msgstr "Complemento de depuración"
-
-#~ msgid "breakpoint cleared"
-#~ msgstr "punto de interrupción borrado"
-
-#~ msgid "breakpoint not found (%1:%2)"
-#~ msgstr "punto de interrupción no encontrado (%1:%2)"

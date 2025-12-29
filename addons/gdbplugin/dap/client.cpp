@@ -894,7 +894,7 @@ void Client::read()
             continue;
         }
 
-        qDebug(DAPCLIENT, "<-- %s", message.toJson().constData());
+        qCDebug(DAPCLIENT, "<-- %s", message.toJson().constData());
 
         // process message
         processProtocolMessage(message.object());

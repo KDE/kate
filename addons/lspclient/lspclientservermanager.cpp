@@ -883,7 +883,7 @@ private:
                 if (!m_failedToFindServers.contains(cmdline[0])) {
                     m_failedToFindServers.insert(cmdline[0]);
                     // we didn't find the server binary at all!
-                    QString message = i18n("Failed to find server binary: %1", cmdline[0]);
+                    QString message = i18n("Failed to find server binary '%1' for language '%2'", cmdline[0], langId);
                     const auto url = serverConfig.value(QStringLiteral("url")).toString();
                     if (!url.isEmpty()) {
                         message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");
@@ -948,7 +948,7 @@ private:
             connect(server.get(), &LSPClientServer::stateChanged, this, &self_type::onStateChanged, Qt::UniqueConnection);
             connect(server.get(), &LSPClientServer::extraData, this, &self_type::onExtraData, Qt::UniqueConnection);
             if (!server->start(m_plugin->m_debugMode)) {
-                QString message = i18n("Failed to start server: %1", cmdline.join(QLatin1Char(' ')));
+                QString message = i18n("Failed to start server '%1' for language '%2'", cmdline.join(QLatin1Char(' ')), langId);
                 const auto url = serverConfig.value(QStringLiteral("url")).toString();
                 if (!url.isEmpty()) {
                     message += QStringLiteral("\n") + i18n("Please check your PATH for the binary");

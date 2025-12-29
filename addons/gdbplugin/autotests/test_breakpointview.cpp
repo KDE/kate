@@ -178,10 +178,7 @@ public Q_SLOTS:
     void changeThread(int) override
     {
     }
-    void changeScope(int) override
-    {
-    }
-    void requestVariable(int) override
+    void requestVariables(int) override
     {
     }
 };

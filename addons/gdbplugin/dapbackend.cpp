@@ -64,7 +64,6 @@ void DapBackend::unsetClient()
     }
     resetState(State::None);
     shutdownUntil();
-    m_currentScope = std::nullopt;
     m_modules.clear();
 }
 
@@ -541,50 +540,25 @@ void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
     Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(printModule(info.module))));
 }
 
-void DapBackend::changeScope(int scopeId)
+void DapBackend::requestVariables(int variablesReference)
 {
     if (!m_client) {
         return;
     }
 
-    if (m_currentScope && (*m_currentScope == scopeId)) {
-        return;
-    }
-
-    m_currentScope = scopeId;
-
-    // discard pending requests
-    m_pendingVariableRequest.clear();
-    m_pendingVariableRequest.push_back(scopeId);
-
-    pushRequest();
-    m_client->requestVariables(scopeId);
-}
-
-void DapBackend::requestVariable(int variablesReference)
-{
-    m_pendingVariableRequest.push_back(variablesReference);
     pushRequest();
     m_client->requestVariables(variablesReference);
 }
 
 void DapBackend::onScopes(const int /*frameId*/, const QList<dap::Scope> &scopes)
 {
-    m_currentScope = std::nullopt; // unset current scope as scopes have changed
     Q_EMIT scopesInfo(scopes);
     popRequest();
 }
 
 void DapBackend::onVariables(const int variablesReference, const QList<dap::Variable> &variables)
 {
-    auto it = std::find(m_pendingVariableRequest.begin(), m_pendingVariableRequest.end(), variablesReference);
-    if (it == m_pendingVariableRequest.end()) {
-        // discard responses to outdated requests
-        return;
-    }
-
     Q_EMIT variablesInfo(variablesReference, variables);
-
     popRequest();
 }
 

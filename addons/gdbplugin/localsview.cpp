@@ -23,7 +23,6 @@ namespace
 {
 enum Role {
     VariableReference = Qt::UserRole + 1,
-    IsResolved,
 };
 enum TreeItemType {
     PendingDataItem = QTreeWidgetItem::UserType + 1
@@ -71,9 +70,20 @@ QTreeWidgetItem *pendingDataChild(QTreeWidgetItem *parent)
     return item;
 }
 
-QTreeWidgetItem *createWrappedItem(const dap::Variable &variable)
+int pendingDataChildIndex(QTreeWidgetItem *item)
 {
-    auto *item = new QTreeWidgetItem(QStringList(variable.name));
+    const int childCount = item->childCount();
+    for (int i = 0; i < childCount; ++i) {
+        if (item->child(i)->type() == PendingDataItem) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void initItem(QTreeWidgetItem *item, const dap::Variable &variable)
+{
+    item->setText(Column_Symbol, variable.name);
     formatName(*item, variable);
     if (!variable.value.isEmpty()) {
         item->setText(Column_Value, variable.value);
@@ -81,14 +91,15 @@ QTreeWidgetItem *createWrappedItem(const dap::Variable &variable)
     item->setData(Column_Value, Qt::UserRole, variable.value);
     if (variable.variablesReference > 0) { // if the is > 0, we can expand this item
         item->setData(Column_Value, VariableReference, variable.variablesReference);
-        item->addChild(pendingDataChild(item));
+        if (int pendingIndex = pendingDataChildIndex(item); pendingIndex != -1) {
+            item->addChild(pendingDataChild(item));
+        }
     }
+
     item->setText(Column_Type, variable.type.value_or(QString()));
 
     item->setToolTip(Column_Symbol, nameTip(variable));
     item->setToolTip(Column_Value, valueTip(variable));
-
-    return item;
 }
 }
 
@@ -124,30 +135,66 @@ void LocalsView::clear()
 
 void LocalsView::insertScopes(const QList<dap::Scope> &scopes)
 {
-    m_treeWidget->clear();
+    // clear variableReference -> QTreeWidgetItem cache
     m_variables.clear();
 
-    QList<QTreeWidgetItem *> topLevelItems;
-    topLevelItems.reserve(scopes.size());
-
-    for (const auto &scope : scopes) {
-        auto item = new QTreeWidgetItem(QStringList(scope.name));
-        item->setData(0, VariableReference, scope.variablesReference);
-        item->addChild(pendingDataChild(item));
-        topLevelItems.push_back(item);
+    if (scopes.isEmpty()) {
+        m_treeWidget->clear();
+        return;
     }
 
-    m_treeWidget->addTopLevelItems(topLevelItems);
-}
+    const int topLevelItemCount = m_treeWidget->topLevelItemCount();
+    QVarLengthArray<QString, 8> expandedScopes;
+    for (int i = 0; i < topLevelItemCount; i++) {
+        auto item = m_treeWidget->topLevelItem(i);
+        if (item && item->isExpanded()) {
+            expandedScopes.push_back({item->text(0)});
+        }
+    }
 
-void LocalsView::showEvent(QShowEvent *)
-{
-    Q_EMIT localsVisible(true);
-}
+    // Remove extra items
+    if (topLevelItemCount > scopes.size()) {
+        const int toRemove = topLevelItemCount - scopes.size();
+        for (int i = 0; i < toRemove; i++) {
+            delete m_treeWidget->takeTopLevelItem(m_treeWidget->topLevelItemCount() - 1);
+        }
+    } else {
+        const int toAdd = scopes.size() - topLevelItemCount;
+        QList<QTreeWidgetItem *> topLevelItems;
+        for (int i = 0; i < toAdd; i++) {
+            auto item = new QTreeWidgetItem(QStringList());
+            item->addChild(pendingDataChild(item));
+            topLevelItems.push_back(item);
+        }
+        m_treeWidget->addTopLevelItems(topLevelItems);
+    }
 
-void LocalsView::hideEvent(QHideEvent *)
-{
-    Q_EMIT localsVisible(false);
+    // We don't want to handle expansion outside this loop, so disconnect
+    disconnect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    QVarLengthArray<int, 8> scopesToRequestVarsFor;
+    // update
+    for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++) {
+        auto item = m_treeWidget->topLevelItem(i);
+        const auto &scope = scopes[i];
+        item->setText(0, scope.name);
+        item->setData(0, VariableReference, scope.variablesReference);
+        // if this scope was expanded previously, then expand it again
+        // and request its variables
+        if (expandedScopes.contains(scope.name)) {
+            scopesToRequestVarsFor.push_back(scope.variablesReference);
+            item->setExpanded(true);
+        } else if (item->isExpanded()) {
+            // else if it was not expanded before, collapse it
+            item->setExpanded(false);
+        }
+    }
+
+    connect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    for (int variablesRef : scopesToRequestVarsFor) {
+        Q_EMIT requestVariable(variablesRef);
+    }
 }
 
 void LocalsView::addVariables(int variableReference, const QList<dap::Variable> &variables)
@@ -161,14 +208,8 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
         }
     }
 
-    const bool isTopLevel = root != nullptr;
-    if (isTopLevel) {
-        // resolved now
-        root->setData(0, Role::IsResolved, true);
-        // We should have only 1 item i.e., pendingDataChild
-        Q_ASSERT(root->childCount() == 1);
-        root->removeChild(root->child(0));
-    } else {
+    // if not a top level item, look up in variables
+    if (root == nullptr) {
         const auto varIt = m_variables.constFind(variableReference);
         if (varIt == m_variables.cend()) {
             return;
@@ -176,16 +217,79 @@ void LocalsView::addVariables(int variableReference, const QList<dap::Variable> 
         root = varIt.value();
     }
 
-    QList<QTreeWidgetItem *> items;
-    items.reserve(variables.size());
-    for (const auto &variable : variables) {
-        QTreeWidgetItem *item = createWrappedItem(variable);
+    // We must have a root by now
+    Q_ASSERT(root);
+
+    // Remove the pending data child of this root now, we have retrieved the data
+    if (int childIndex = pendingDataChildIndex(root); childIndex >= 0) {
+        root->removeChild(root->child(childIndex));
+    }
+
+    const int itemChildCount = root->childCount();
+    QVarLengthArray<QString, 8> expandedVariables;
+
+    for (int i = 0; i < itemChildCount; i++) {
+        auto child = root->child(i);
+        if (child && child->isExpanded()) {
+            expandedVariables.push_back({child->text(0)});
+        }
+    }
+
+    // Remove extra items
+    if (itemChildCount > variables.size()) {
+        const int toRemove = itemChildCount - variables.size();
+        for (int i = 0; i < toRemove; i++) {
+            root->removeChild(root->child(root->childCount() - 1));
+        }
+    } else {
+        const int toAdd = variables.size() - itemChildCount;
+        QList<QTreeWidgetItem *> itemsToAdd;
+        for (int i = 0; i < toAdd; i++) {
+            auto item = new QTreeWidgetItem(QStringList());
+            itemsToAdd.push_back(item);
+        }
+        root->addChildren(itemsToAdd);
+    }
+
+    // We don't want to handle expansion outside this loop, so disconnect
+    disconnect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    QVarLengthArray<int, 8> varsToRequestVarsFor;
+
+    // update
+    Q_ASSERT(root->childCount() == variables.size());
+    for (int i = 0; i < variables.size(); i++) {
+        auto item = root->child(i);
+        const auto &variable = variables[i];
+        initItem(item, variable);
+
         if (variable.variablesReference > 0) {
             m_variables[variable.variablesReference] = item;
         }
-        items.push_back(item);
+
+        // If this var was expanded previously, expand it again
+        // and request its variables
+        if (expandedVariables.contains(variable.name)) {
+            item->setExpanded(true);
+            varsToRequestVarsFor.push_back(variable.variablesReference);
+        }
+        // If old var was expanded, but after update we didn't find it in expandedVariables
+        // collapse it
+        else if (item->isExpanded() && variable.variablesReference > 0) {
+            item->setExpanded(false);
+        }
+        // else if there are no children for this variable, but old var had children
+        // clear those children
+        else if (item->childCount() > 0 && variable.variablesReference == 0) {
+            qDeleteAll(item->takeChildren());
+        }
     }
-    root->addChildren(items);
+
+    connect(m_treeWidget, &QTreeWidget::itemExpanded, this, &LocalsView::onItemExpanded);
+
+    for (int variablesRef : varsToRequestVarsFor) {
+        Q_EMIT requestVariable(variablesRef);
+    }
 }
 
 void LocalsView::onTreeWidgetContextMenu(QPoint pos)
@@ -221,18 +325,13 @@ void LocalsView::onTreeWidgetContextMenu(QPoint pos)
 
 void LocalsView::onItemExpanded(QTreeWidgetItem *item)
 {
-    const bool isTopLevel = m_treeWidget->indexOfTopLevelItem(item) != -1;
-    if (isTopLevel && !item->data(0, Role::IsResolved).toBool()) {
-        int scope = item->data(0, Role::VariableReference).toInt();
-        Q_EMIT scopeChanged(scope);
-    } else {
-        const int childCount = item->childCount();
-        for (int i = 0; i < childCount; ++i) {
-            if (item->child(i)->type() == PendingDataItem) {
-                item->removeChild(item->child(i));
-                Q_EMIT requestVariable(item->data(Column_Value, VariableReference).toInt());
-                break;
-            }
+    int index = pendingDataChildIndex(item);
+    if (index >= 0) {
+        const bool isTopLevel = m_treeWidget->indexOfTopLevelItem(item) != -1;
+        if (isTopLevel) {
+            Q_EMIT requestVariable(item->data(0, VariableReference).toInt());
+        } else {
+            Q_EMIT requestVariable(item->data(Column_Value, VariableReference).toInt());
         }
     }
 }

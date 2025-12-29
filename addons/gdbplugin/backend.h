@@ -59,8 +59,7 @@ public Q_SLOTS:
     void slotQueryLocals(bool display) override;
     void changeStackFrame(int index) override;
     void changeThread(int thread) override;
-    void changeScope(int scopeId) override;
-    void requestVariable(int variablesReference) override;
+    void requestVariables(int variablesReference) override;
 
 private:
     void bind();

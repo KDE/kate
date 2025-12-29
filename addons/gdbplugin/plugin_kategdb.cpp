@@ -213,9 +213,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
         displayMessage(message, level);
     });
 
-    connect(m_localsView, &LocalsView::localsVisible, m_backend, &BackendInterface::slotQueryLocals);
-    connect(m_localsView, &LocalsView::requestVariable, m_backend, &BackendInterface::requestVariable);
-    connect(m_localsView, &LocalsView::scopeChanged, m_backend, &Backend::changeScope);
+    connect(m_localsView, &LocalsView::requestVariable, m_backend, &BackendInterface::requestVariables);
 
     connect(m_backend, &BackendInterface::debuggeeRequiresTerminal, this, &KatePluginGDBView::requestRunInTerminal);
 

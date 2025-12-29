@@ -334,17 +334,10 @@ void Backend::changeThread(int thread)
     }
 }
 
-void Backend::changeScope(int scopeId)
+void Backend::requestVariables(int variablesReference)
 {
     if (m_debugger) {
-        m_debugger->changeScope(scopeId);
-    }
-}
-
-void Backend::requestVariable(int variablesReference)
-{
-    if (m_debugger) {
-        m_debugger->requestVariable(variablesReference);
+        m_debugger->requestVariables(variablesReference);
     }
 }
 

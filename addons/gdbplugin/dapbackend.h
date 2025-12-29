@@ -71,8 +71,7 @@ public Q_SLOTS:
     void slotQueryLocals(bool display) override;
     void changeStackFrame(int index) override;
     void changeThread(int index) override;
-    void changeScope(int scopeId) override;
-    void requestVariable(int variablesReference) override;
+    void requestVariables(int variablesReference) override;
 
 private:
     enum State {
@@ -168,7 +167,6 @@ private:
     QString m_workDir;
     std::optional<int> m_currentThread;
     std::optional<int> m_currentFrame;
-    std::optional<int> m_currentScope;
     bool m_restart = false;
 
     struct {
@@ -189,6 +187,4 @@ private:
     QList<dap::StackFrame> m_frames;
     QList<dap::Module> m_modules;
     QTimer m_requestThreadsTimer;
-
-    std::vector<int> m_pendingVariableRequest;
 };

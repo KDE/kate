@@ -30,13 +30,7 @@ public:
     void addVariables(int variableReference, const QList<dap::Variable> &variables);
 
 Q_SIGNALS:
-    void localsVisible(bool visible);
     void requestVariable(int variableReference);
-    void scopeChanged(int scope);
-
-protected:
-    void showEvent(QShowEvent *event) override;
-    void hideEvent(QHideEvent *event) override;
 
 private:
     void onTreeWidgetContextMenu(QPoint pos);

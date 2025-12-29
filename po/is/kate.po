@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-28 00:46+0000\n"
-"PO-Revision-Date: 2025-12-06 09:36+0000\n"
+"PO-Revision-Date: 2025-12-28 14:36+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -2116,10 +2116,9 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Mistókst að sækja feril skráar: %1"
+msgstr "Tókst ekki að búa til bráðabirgðaskrá"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

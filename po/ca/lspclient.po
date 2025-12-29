@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-28 00:46+0000\n"
-"PO-Revision-Date: 2025-07-15 10:02+0200\n"
+"PO-Revision-Date: 2025-12-28 08:55+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -250,10 +250,9 @@ msgid "Restart All LSP Servers"
 msgstr "Reinicia tots els servidors LSP"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "Expandeix-ho tot"
+msgstr "Suspèn-ho tot"
 
 #: lspclientpluginview.cpp:621
 #, kde-format

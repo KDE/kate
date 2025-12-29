@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-28 00:46+0000\n"
-"PO-Revision-Date: 2025-07-15 15:39+0300\n"
+"PO-Revision-Date: 2025-12-28 14:04+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -248,10 +248,9 @@ msgid "Restart All LSP Servers"
 msgstr "Перезапустити усі сервери LSP"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "Розгорнути усі"
+msgstr "Призупинити усі"
 
 #: lspclientpluginview.cpp:621
 #, kde-format

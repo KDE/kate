@@ -27,6 +27,12 @@
             "url": "https://clangd.llvm.org",
             "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
         },
+        "clojure": {
+            "command": ["clojure-lsp"],
+            "url": "https://github.com/clojure-lsp/clojure-lsp",
+            "highlightingModeRegex": "^Clojure$",
+            "rootIndicationFileNames": ["deps.edn", "project.clj", ".git", ".projections.json"]
+        },
         "cmake": {
             "command": ["neocmakelsp", "stdio"],
             "url": "https://github.com/neocmakelsp/neocmakelsp",

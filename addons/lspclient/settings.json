@@ -27,6 +27,11 @@
             "url": "https://clangd.llvm.org",
             "highlightingModeRegex": "^(C|ANSI C89|Objective-C)$"
         },
+        "cmake": {
+            "command": ["neocmakelsp", "stdio"],
+            "url": "https://github.com/neocmakelsp/neocmakelsp",
+            "highlightingModeRegex": "^CMake$"
+        },
         "css": {
             "command": ["vscode-css-languageserver", "--stdio"],
             "url": "https://github.com/Microsoft/vscode/tree/main/extensions/css-language-features/server",

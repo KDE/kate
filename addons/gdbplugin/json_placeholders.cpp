@@ -93,9 +93,9 @@ static std::optional<bool> valueAsBool(const QJsonValue &value)
     const auto text = valueAsString(value);
     if (text) {
         const auto cleanText = text->trimmed();
-        if (cleanText == QStringLiteral("true")) {
+        if (cleanText == QLatin1String("true")) {
             return true;
-        } else if (cleanText == QStringLiteral("false")) {
+        } else if (cleanText == QLatin1String("false")) {
             return false;
         }
     }
@@ -129,10 +129,10 @@ static std::optional<int> valueAsInt(const QJsonValue &value)
 static QString apply_filter(const QJsonValue &value, const QString &filter)
 {
     QString text = valueAsString(value).value_or(QString());
-    if (filter == QStringLiteral("base")) {
+    if (filter == QLatin1String("base")) {
         return QFileInfo(text).baseName();
     }
-    if (filter == QStringLiteral("dir")) {
+    if (filter == QLatin1String("dir")) {
         return QFileInfo(text).dir().dirName();
     }
     return text;
@@ -160,17 +160,17 @@ static std::optional<QJsonValue> cast_from_string(const QString &text, const Var
     const auto &filter = match.captured(2);
     const auto value = variables[key];
 
-    if (filter == QStringLiteral("int")) {
+    if (filter == QLatin1String("int")) {
         const auto &intValue = valueAsInt(value);
         if (intValue) {
             return intValue.value();
         }
-    } else if (filter == QStringLiteral("bool")) {
+    } else if (filter == QLatin1String("bool")) {
         const auto &boolValue = valueAsBool(value);
         if (boolValue) {
             return boolValue.value();
         }
-    } else if (filter == QStringLiteral("list")) {
+    } else if (filter == QLatin1String("list")) {
         const auto &listValue = valueAsStringList(value);
         if (listValue) {
             return QJsonArray::fromStringList(*listValue);

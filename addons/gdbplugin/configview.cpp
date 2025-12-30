@@ -186,7 +186,7 @@ void ConfigView::readDAPSettings()
         }
     }
 
-    const auto servers = baseObject[QStringLiteral("dap")].toObject();
+    const auto servers = baseObject[QLatin1String("dap")].toObject();
 
     int index = m_clientCombo->count();
 
@@ -208,7 +208,7 @@ void ConfigView::readDAPSettings()
             json::findVariables(conf.settings, variables);
 
             for (const auto &var : variables) {
-                if (var.startsWith(QStringLiteral("#")))
+                if (var.startsWith(QLatin1String("#")))
                     continue;
                 conf.variables.append(var);
             }
@@ -302,7 +302,7 @@ void ConfigView::readConfig(const DebugPluginSessionConfig::ConfigData &config)
 
     for (const auto &targetConf : config.targetConfigs) {
         if (!targetConf.isEmpty()) {
-            m_targetCombo->addItem(targetConf[QStringLiteral("target")].toString(), targetConf);
+            m_targetCombo->addItem(targetConf[QLatin1String("target")].toString(), targetConf);
         }
     }
 
@@ -446,15 +446,15 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
                 newcmdline += c;
             settings[dap::settings::COMMAND] = newcmdline;
             // also add environment for prefix runtime
-            auto M_ENV = QStringLiteral("environment");
+            auto M_ENV = QLatin1String("environment");
             auto env_v = settings[M_ENV];
             auto env = env_v.isObject() ? env_v.toObject() : QJsonObject();
-            env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = QStringLiteral("dap");
-            env[QStringLiteral("KATE_EXEC_SERVER")] = cfg.debugger;
-            env[QStringLiteral("KATE_EXEC_PROFILE")] = cfg.debuggerProfile;
+            env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = QLatin1String("dap");
+            env[QLatin1String("KATE_EXEC_SERVER")] = cfg.debugger;
+            env[QLatin1String("KATE_EXEC_PROFILE")] = cfg.debuggerProfile;
             // optionally enable mount (intro)inspection
             if (cfg.dapSettings->pathMap)
-                env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QStringLiteral("1");
+                env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QLatin1String("1");
             settings[M_ENV] = env;
         }
 
@@ -795,7 +795,7 @@ void ConfigView::saveCurrentToIndex(int index)
     const auto cfg = currentDAPTarget(/*full=*/false, error);
     tmp[F_DEBUGGER] = cfg.debugger;
     tmp[F_PROFILE] = cfg.debuggerProfile;
-    tmp[QStringLiteral("variables")] = QJsonObject::fromVariantHash(cfg.variables);
+    tmp[QLatin1String("variables")] = QJsonObject::fromVariantHash(cfg.variables);
 
     m_targetCombo->setItemData(index, tmp);
 }
@@ -820,7 +820,7 @@ int ConfigView::loadFromIndex(int index)
 
     const bool isFromLaunchJson = tmp.value(F_IS_LAUNCH_JSON).toBool();
 
-    auto map = isFromLaunchJson ? tmp : tmp[QStringLiteral("variables")].toObject();
+    auto map = isFromLaunchJson ? tmp : tmp[QLatin1String("variables")].toObject();
 
     m_executable->setText(map[F_FILE].toString());
     map.remove(F_FILE);

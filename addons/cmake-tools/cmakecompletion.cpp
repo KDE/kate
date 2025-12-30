@@ -71,7 +71,7 @@ static CMakeComplData fetchData()
 bool CMakeCompletion::isCMakeFile(const QUrl &url)
 {
     auto urlString = url.fileName();
-    return urlString == QStringLiteral("CMakeLists.txt") || urlString.endsWith(QStringLiteral(".cmake"));
+    return urlString == QLatin1String("CMakeLists.txt") || urlString.endsWith(QLatin1String(".cmake"));
 }
 
 static void append(std::vector<CMakeCompletion::Completion> &out, std::vector<QByteArray> &&in, CMakeCompletion::Completion::Kind kind)

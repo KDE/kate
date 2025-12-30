@@ -382,7 +382,7 @@ QVariantMap KateProject::readProjectFile() const
      */
     if (project.isObject()) {
         auto dir = QFileInfo(m_fileName).dir();
-        auto object = project.object();
+        QJsonObject object = project.object();
 
         // if there are local settings (.kateproject.local), override values
         {
@@ -392,11 +392,11 @@ QVariantMap KateProject::readProjectFile() const
             }
         }
 
-        auto name = object[QStringLiteral("name")];
+        auto name = object[QLatin1String("name")];
         if (name.isUndefined() || name.isNull()) {
             name = dir.dirName();
         }
-        auto files = object[QStringLiteral("files")];
+        auto files = object[QLatin1String("files")];
         if (files.isUndefined() || files.isNull()) {
             // support all we can, could try to detect,
             // but it will be sorted out upon loading anyway

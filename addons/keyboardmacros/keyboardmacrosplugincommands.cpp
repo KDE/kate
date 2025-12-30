@@ -26,7 +26,7 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
         msg = i18n("Usage: %1 <name>.", action);
         return false;
     }
-    if (action == QStringLiteral("kmplay")) {
+    if (action == QLatin1String("kmplay")) {
         // set focus on the view otherwise the macro is executed in the command line
         view->setFocus();
         if (actionAndName.length() == 1) {
@@ -44,19 +44,19 @@ bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &
         }
     }
     const QString &name = actionAndName[1];
-    if (action == QStringLiteral("kmsave")) {
+    if (action == QLatin1String("kmsave")) {
         if (!m_plugin->save(name)) {
             msg = i18n("Cannot save empty keyboard macro.");
             return false;
         }
         return true;
-    } else if (action == QStringLiteral("kmload")) {
+    } else if (action == QLatin1String("kmload")) {
         if (!m_plugin->load(name)) {
             msg = i18n("No keyboard macro named '%1' found.", name);
             return false;
         }
         return true;
-    } else if (action == QStringLiteral("kmwipe")) {
+    } else if (action == QLatin1String("kmwipe")) {
         if (!m_plugin->wipe(name)) {
             msg = i18n("No keyboard macro named '%1' found.", name);
             return false;
@@ -77,18 +77,18 @@ bool KeyboardMacrosPluginCommands::help(KTextEditor::View *, const QString &cmd,
         }
         macros = QStringLiteral("<p><b>Named macros:</b> ") + keys.join(QStringLiteral(", ")) + QStringLiteral(".</p>");
     }
-    if (cmd == QStringLiteral("kmsave")) {
+    if (cmd == QLatin1String("kmsave")) {
         msg = i18n("<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard macro as <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
-    } else if (cmd == QStringLiteral("kmload")) {
+    } else if (cmd == QLatin1String("kmload")) {
         msg = i18n("<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>",
                    macros);
         return true;
-    } else if (cmd == QStringLiteral("kmplay")) {
+    } else if (cmd == QLatin1String("kmplay")) {
         msg = i18n("<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>",
                    macros);
         return true;
-    } else if (cmd == QStringLiteral("kmwipe")) {
+    } else if (cmd == QLatin1String("kmwipe")) {
         msg = i18n("<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard macro <code>&lt;name&gt;</code>.</p>%1</qt>", macros);
         return true;
     }

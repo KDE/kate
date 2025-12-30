@@ -147,7 +147,7 @@ static void postProcessTargets(QJsonArray &configs, const QDir &projectBaseDir)
         auto obj = configs[i].toObject();
         const QString type = obj.value(QStringLiteral("type")).toString();
         obj = toKateTarget(obj, projectBaseDir);
-        if (type == QStringLiteral("dart")) {
+        if (type == QLatin1String("dart")) {
             obj = processDartFlutterTarget(obj);
         }
         configs[i] = obj;

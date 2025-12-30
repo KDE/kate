@@ -20,11 +20,11 @@ namespace dap
 
 namespace dap::settings
 {
-static const QString COMMAND_ARGS = QStringLiteral("commandArgs");
-static const QString PORT = QStringLiteral("port");
-static const QString HOST = QStringLiteral("host");
-static const QString REDIRECT_STDERR = QStringLiteral("redirectStderr");
-static const QString REDIRECT_STDOUT = QStringLiteral("redirectStdout");
+static constexpr QLatin1String COMMAND_ARGS("commandArgs");
+static constexpr QLatin1String PORT("port");
+static constexpr QLatin1String HOST("host");
+static constexpr QLatin1String REDIRECT_STDERR("redirectStderr");
+static constexpr QLatin1String REDIRECT_STDOUT("redirectStdout");
 
 static std::random_device rd;
 static std::default_random_engine rng(rd());
@@ -43,7 +43,7 @@ static bool checkSection(const QJsonObject &data, const QString &key)
     return true;
 }
 
-static bool checkArray(const QJsonObject &data, const QString &key)
+static bool checkArray(const QJsonObject &data, QLatin1String key)
 {
     return data.contains(key) && data[key].isArray();
 }
@@ -300,7 +300,7 @@ ProtocolSettings::ProtocolSettings(const QJsonObject &configuration)
     , pathFormatURI(false)
     , redirectStderr(configuration[REDIRECT_STDERR].toBool(false))
     , redirectStdout(configuration[REDIRECT_STDOUT].toBool(false))
-    , supportsSourceRequest(configuration[QStringLiteral("supportsSourceRequest")].toBool(true))
+    , supportsSourceRequest(configuration[QLatin1String("supportsSourceRequest")].toBool(true))
     , runInTerminal(configuration[RUN_IN_TERMINAL].toBool(false))
     , launchRequest(configuration[REQUEST].toObject())
     , locale(QLocale::system().name())

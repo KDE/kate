@@ -161,18 +161,18 @@ void SQLManager::reopenConnection(const QString &name)
 int SQLManager::storeCredentials(const Connection &conn)
 {
     QJsonObject map;
-    map[QStringLiteral("driver")] = conn.driver.toUpper();
-    map[QStringLiteral("options")] = conn.options;
+    map[QLatin1String("driver")] = conn.driver.toUpper();
+    map[QLatin1String("options")] = conn.options;
 
     // Sqlite is without password
     if (conn.driver.contains(QLatin1String("QSQLITE"))) {
-        map[QStringLiteral("database")] = conn.database;
+        map[QLatin1String("database")] = conn.database;
     } else {
-        map[QStringLiteral("database")] = conn.database.toUpper();
-        map[QStringLiteral("username")] = conn.username;
-        map[QStringLiteral("password")] = conn.password;
-        map[QStringLiteral("hostname")] = conn.hostname.toUpper();
-        map[QStringLiteral("port")] = QString::number(conn.port);
+        map[QLatin1String("database")] = conn.database.toUpper();
+        map[QLatin1String("username")] = conn.username;
+        map[QLatin1String("password")] = conn.password;
+        map[QLatin1String("hostname")] = conn.hostname.toUpper();
+        map[QLatin1String("port")] = QString::number(conn.port);
     }
 
     // store the full map just as binary key as JSON
@@ -205,7 +205,7 @@ int SQLManager::readCredentials(const QString &name, QString &password)
     if (!job.error()) {
         // check if data makes any sense
         const QJsonObject map = QJsonDocument::fromJson(job.binaryData()).object();
-        if (!map.contains(QStringLiteral("password"))) {
+        if (!map.contains(QLatin1String("password"))) {
             password = map.value(QStringLiteral("password")).toString();
             return SQLManager::K_WALLET_CONNECTION_SUCCESSFUL;
         }

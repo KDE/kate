@@ -873,25 +873,25 @@ QModelIndex TargetModel::parent(const QModelIndex &child) const
 static QJsonObject toJson(const TargetModel::Command &target)
 {
     QJsonObject obj;
-    obj[QStringLiteral("name")] = target.name;
-    obj[QStringLiteral("build_cmd")] = target.buildCmd;
-    obj[QStringLiteral("run_cmd")] = target.runCmd;
+    obj[QLatin1String("name")] = target.name;
+    obj[QLatin1String("build_cmd")] = target.buildCmd;
+    obj[QLatin1String("run_cmd")] = target.runCmd;
     return obj;
 }
 
 static QJsonObject toJson(const TargetModel::TargetSet &set)
 {
     QJsonObject obj;
-    obj[QStringLiteral("name")] = set.name;
-    obj[QStringLiteral("directory")] = set.workDir;
-    obj[QStringLiteral("loaded_via_cmake")] = set.loadedViaCMake;
-    obj[QStringLiteral("cmake_config")] = set.cmakeConfigName;
+    obj[QLatin1String("name")] = set.name;
+    obj[QLatin1String("directory")] = set.workDir;
+    obj[QLatin1String("loaded_via_cmake")] = set.loadedViaCMake;
+    obj[QLatin1String("cmake_config")] = set.cmakeConfigName;
 
     QJsonArray targets;
     for (const auto &target : set.commands) {
         targets << toJson(target);
     }
-    obj[QStringLiteral("targets")] = targets;
+    obj[QLatin1String("targets")] = targets;
     return obj;
 }
 
@@ -902,7 +902,7 @@ static QJsonObject toJson(const TargetModel::RootNode &root)
     for (const auto &set : root.targetSets) {
         sets << toJson(set);
     }
-    obj[QStringLiteral("target_sets")] = sets;
+    obj[QLatin1String("target_sets")] = sets;
     return obj;
 }
 
@@ -914,7 +914,7 @@ bool TargetModel::validTargetsJson(const QString &jsonStr) const
         return false;
     }
     const QJsonObject obj = doc.object();
-    return obj.contains(QStringLiteral("target_sets")) || obj.contains(QStringLiteral("targets")) || obj.contains(QStringLiteral("name"));
+    return obj.contains(QLatin1String("target_sets")) || obj.contains(QLatin1String("targets")) || obj.contains(QLatin1String("name"));
 }
 
 QJsonObject TargetModel::indexToJsonObj(const QModelIndex &modelIndex) const
@@ -954,7 +954,7 @@ QJsonObject TargetModel::projectTargetsToJsonObj(const QString &projectBaseDir) 
         }
     }
     if (!sets.isEmpty()) {
-        obj[QStringLiteral("target_sets")] = sets;
+        obj[QLatin1String("target_sets")] = sets;
     }
     return obj;
 }
@@ -979,8 +979,8 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QStrin
 QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonObject &obj, const QString &projectBaseDir)
 {
     QModelIndex currentIndex = modelIndex;
-    if (obj.contains(QStringLiteral("target_sets"))) {
-        const QJsonArray sets = obj[QStringLiteral("target_sets")].toArray();
+    if (obj.contains(QLatin1String("target_sets"))) {
+        const QJsonArray sets = obj[QLatin1String("target_sets")].toArray();
         for (const auto &set : sets) {
             currentIndex = insertAfter(currentIndex, set.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
@@ -988,12 +988,12 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
                 return {};
             }
         }
-    } else if (obj.contains(QStringLiteral("targets"))) {
-        QString dir = obj[QStringLiteral("directory")].toString();
-        QString name = obj[QStringLiteral("name")].toString();
+    } else if (obj.contains(QLatin1String("targets"))) {
+        QString dir = obj[QLatin1String("directory")].toString();
+        QString name = obj[QLatin1String("name")].toString();
         currentIndex = insertTargetSetAfter(currentIndex, name, dir, false, QString(), projectBaseDir);
         QModelIndex setIndex = currentIndex;
-        const QJsonArray targets = obj[QStringLiteral("targets")].toArray();
+        const QJsonArray targets = obj[QLatin1String("targets")].toArray();
         for (const auto target : targets) {
             currentIndex = insertAfter(currentIndex, target.toObject(), projectBaseDir);
             if (!currentIndex.isValid()) {
@@ -1002,10 +1002,10 @@ QModelIndex TargetModel::insertAfter(const QModelIndex &modelIndex, const QJsonO
             }
         }
         currentIndex = setIndex;
-    } else if (obj.contains(QStringLiteral("name"))) {
-        QString name = obj[QStringLiteral("name")].toString();
-        QString cmd = obj[QStringLiteral("build_cmd")].toString();
-        QString run = obj[QStringLiteral("run_cmd")].toString();
+    } else if (obj.contains(QLatin1String("name"))) {
+        QString name = obj[QLatin1String("name")].toString();
+        QString cmd = obj[QLatin1String("build_cmd")].toString();
+        QString run = obj[QLatin1String("run_cmd")].toString();
         currentIndex = addCommandAfter(currentIndex, name, cmd, run);
     }
 

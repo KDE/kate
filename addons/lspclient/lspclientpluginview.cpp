@@ -2258,8 +2258,8 @@ public:
             }
             // only consider basename (full path may have been custom specified)
             auto lspServer = QFileInfo(server->cmdline().front()).fileName();
-            isClangd = lspServer == QStringLiteral("clangd");
-            isRustAnalyzer = lspServer == QStringLiteral("rust-analyzer");
+            isClangd = lspServer == QLatin1String("clangd");
+            isRustAnalyzer = lspServer == QLatin1String("rust-analyzer");
 
             const bool semHighlightingEnabled = m_plugin->m_semanticHighlighting;
             if (semHighlightingEnabled) {

@@ -153,9 +153,9 @@ dap::settings::ClientSettings &DapBackend::target2dap(const DAPTargetConf &targe
     auto varMap = dap::settings::findReferences(*settings);
     for (auto it = target.variables.constBegin(); it != target.variables.constEnd(); ++it) {
         varMap[it.key()] = it.value().toJsonValue();
-        if (it.key() == QStringLiteral("file")) {
+        if (it.key() == QLatin1String("file")) {
             m_file = it.value().toString();
-        } else if (it.key() == QStringLiteral("workdir")) {
+        } else if (it.key() == QLatin1String("workdir")) {
             m_workDir = it.value().toString();
         }
     }
@@ -517,9 +517,9 @@ static QString printModule(const dap::Module &module)
 
 void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
 {
-    if (info.reason == QStringLiteral("new")) {
+    if (info.reason == QLatin1String("new")) {
         m_modules << info.module;
-    } else if (info.reason == QStringLiteral("changed") || info.reason == QStringLiteral("removed")) {
+    } else if (info.reason == QLatin1String("changed") || info.reason == QLatin1String("removed")) {
         auto it = std::find_if(m_modules.begin(), m_modules.end(), [info](const dap::Module &m) {
             if (info.module.id_int.has_value() && m.id_int.has_value()) {
                 return info.module.id_int.value() == m.id_int.value();
@@ -601,11 +601,11 @@ void DapBackend::onSourceBreakpoints(const QUrl &path, int reference, const std:
 
 void DapBackend::onBreakpointEvent(const dap::BreakpointEvent &info)
 {
-    if (info.reason == QStringLiteral("new")) {
+    if (info.reason == QLatin1String("new")) {
         Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::New);
-    } else if (info.reason == QStringLiteral("changed")) {
+    } else if (info.reason == QLatin1String("changed")) {
         Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::Changed);
-    } else if (info.reason == QStringLiteral("removed")) {
+    } else if (info.reason == QLatin1String("removed")) {
         Q_EMIT breakpointEvent(info.breakpoint, BreakpointEventKind::Removed);
     } else {
         QStringList parts = {i18n("(%1) breakpoint", info.reason)};
@@ -723,12 +723,12 @@ bool DapBackend::canContinue() const
 
 bool DapBackend::canHotReload() const
 {
-    return m_debuggerName == QStringLiteral("flutter") && debuggerRunning();
+    return m_debuggerName == QLatin1String("flutter") && debuggerRunning();
 }
 
 bool DapBackend::canHotRestart() const
 {
-    return m_debuggerName == QStringLiteral("flutter") && debuggerRunning();
+    return m_debuggerName == QLatin1String("flutter") && debuggerRunning();
 }
 
 QList<dap::ExceptionBreakpointsFilter> DapBackend::exceptionBreakpointFilters() const
@@ -1306,9 +1306,9 @@ void DapBackend::issueCommand(QString const &command)
         cmdRunToCursor(cmd);
     } else if (cmd.startsWith(QLatin1Char('m'))) {
         cmdListModules(cmd);
-    } else if (cmd.startsWith(QStringLiteral("bl"))) {
+    } else if (cmd.startsWith(QLatin1String("bl"))) {
         cmdListBreakpoints(cmd);
-    } else if (cmd.startsWith(QStringLiteral("bo"))) {
+    } else if (cmd.startsWith(QLatin1String("bo"))) {
         cmdBreakpointOff(cmd);
     } else if (cmd.startsWith(QLatin1Char('b'))) {
         cmdBreakpointOn(cmd);

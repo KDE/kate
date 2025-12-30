@@ -215,13 +215,13 @@ static QJsonObject to_json(const LSPDiagnostic &diagnostic)
     result[QLatin1String(MEMBER_MESSAGE)] = diagnostic.message;
     // optional
     if (!diagnostic.code.isEmpty()) {
-        result[QStringLiteral("code")] = diagnostic.code;
+        result[QLatin1String("code")] = diagnostic.code;
     }
     if (diagnostic.severity != LSPDiagnosticSeverity::Unknown) {
-        result[QStringLiteral("severity")] = static_cast<int>(diagnostic.severity);
+        result[QLatin1String("severity")] = static_cast<int>(diagnostic.severity);
     }
     if (!diagnostic.source.isEmpty()) {
-        result[QStringLiteral("source")] = diagnostic.source;
+        result[QLatin1String("source")] = diagnostic.source;
     }
     QJsonArray relatedInfo;
     for (const auto &vrelated : diagnostic.relatedInformation) {
@@ -230,7 +230,7 @@ static QJsonObject to_json(const LSPDiagnostic &diagnostic)
             relatedInfo.push_back(related);
         }
     }
-    result[QStringLiteral("relatedInformation")] = relatedInfo;
+    result[QLatin1String("relatedInformation")] = relatedInfo;
     return result;
 }
 
@@ -296,15 +296,15 @@ static QJsonObject textDocumentPositionsParams(const QUrl &document, const QList
 static QJsonObject referenceParams(const QUrl &document, LSPPosition pos, bool decl)
 {
     auto params = textDocumentPositionParams(document, pos);
-    params[QStringLiteral("context")] = QJsonObject{{QStringLiteral("includeDeclaration"), decl}};
+    params[QLatin1String("context")] = QJsonObject{{QStringLiteral("includeDeclaration"), decl}};
     return params;
 }
 
 static QJsonObject formattingOptions(const LSPFormattingOptions &_options)
 {
     auto options = _options.extra;
-    options[QStringLiteral("tabSize")] = _options.tabSize;
-    options[QStringLiteral("insertSpaces")] = _options.insertSpaces;
+    options[QLatin1String("tabSize")] = _options.tabSize;
+    options[QLatin1String("insertSpaces")] = _options.insertSpaces;
     return options;
 }
 
@@ -314,22 +314,22 @@ static QJsonObject documentRangeFormattingParams(const QUrl &document, const LSP
     if (range) {
         params[QLatin1String(MEMBER_RANGE)] = to_json(*range);
     }
-    params[QStringLiteral("options")] = formattingOptions(_options);
+    params[QLatin1String("options")] = formattingOptions(_options);
     return params;
 }
 
 static QJsonObject documentOnTypeFormattingParams(const QUrl &document, const LSPPosition &pos, const QChar &lastChar, const LSPFormattingOptions &_options)
 {
     auto params = textDocumentPositionParams(document, pos);
-    params[QStringLiteral("ch")] = QString(lastChar);
-    params[QStringLiteral("options")] = formattingOptions(_options);
+    params[QLatin1String("ch")] = QString(lastChar);
+    params[QLatin1String("options")] = formattingOptions(_options);
     return params;
 }
 
 static QJsonObject renameParams(const QUrl &document, const LSPPosition &pos, const QString &newName)
 {
     auto params = textDocumentPositionParams(document, pos);
-    params[QStringLiteral("newName")] = newName;
+    params[QLatin1String("newName")] = newName;
     return params;
 }
 
@@ -344,9 +344,9 @@ static QJsonObject codeActionParams(const QUrl &document, const LSPRange &range,
     }
     context[QLatin1String(MEMBER_DIAGNOSTICS)] = diags;
     if (!kinds.empty()) {
-        context[QStringLiteral("only")] = QJsonArray::fromStringList(kinds);
+        context[QLatin1String("only")] = QJsonArray::fromStringList(kinds);
     }
-    params[QStringLiteral("context")] = context;
+    params[QLatin1String("context")] = context;
     return params;
 }
 
@@ -393,8 +393,8 @@ static QJsonArray to_json(const QList<LSPWorkspaceFolder> &l)
 static QJsonObject changeWorkspaceFoldersParams(const QList<LSPWorkspaceFolder> &added, const QList<LSPWorkspaceFolder> &removed)
 {
     QJsonObject event;
-    event[QStringLiteral("added")] = to_json(added);
-    event[QStringLiteral("removed")] = to_json(removed);
+    event[QLatin1String("added")] = to_json(added);
+    event[QLatin1String("removed")] = to_json(removed);
     return QJsonObject{{QStringLiteral("event"), event}};
 }
 
@@ -1271,11 +1271,11 @@ static void from_json(LSPWorkDoneProgressValue &value, const rapidjson::Value &j
         return;
     }
     auto kind = GetStringValue(json, "kind");
-    if (kind == QStringLiteral("begin")) {
+    if (kind == QLatin1String("begin")) {
         value.kind = LSPWorkDoneProgressKind::Begin;
-    } else if (kind == QStringLiteral("report")) {
+    } else if (kind == QLatin1String("report")) {
         value.kind = LSPWorkDoneProgressKind::Report;
-    } else if (kind == QStringLiteral("end")) {
+    } else if (kind == QLatin1String("end")) {
         value.kind = LSPWorkDoneProgressKind::End;
     }
 
@@ -1761,64 +1761,64 @@ private:
     void initialize()
     {
         // clang-format off
-        QJsonObject codeAction{{QStringLiteral("codeActionLiteralSupport"),
+        QJsonObject codeAction{{QLatin1String("codeActionLiteralSupport"),
                                     QJsonObject{{
-                                        QStringLiteral("codeActionKind"), QJsonObject{{
-                                            QStringLiteral("valueSet"), QJsonArray({
-                                                QStringLiteral("quickfix"),
-                                                QStringLiteral("refactor"),
-                                                QStringLiteral("source")
+                                        QLatin1String("codeActionKind"), QJsonObject{{
+                                            QLatin1String("valueSet"), QJsonArray({
+                                                QLatin1String("quickfix"),
+                                                QLatin1String("refactor"),
+                                                QLatin1String("source")
                                             })
                                         }}
                                     }}
                               }};
 
-        QJsonObject semanticTokens{{QStringLiteral("requests"),
+        QJsonObject semanticTokens{{QLatin1String("requests"),
                                         QJsonObject{
-                                            {QStringLiteral("range"), true},
-                                            {QStringLiteral("full"), QJsonObject{{QStringLiteral("delta"), true}}}
+                                            {QLatin1String("range"), true},
+                                            {QLatin1String("full"), QJsonObject{{QLatin1String("delta"), true}}}
                                        }
                                   },
-                                  {QStringLiteral("tokenTypes"), supportedSemanticTokenTypes()},
-                                  {QStringLiteral("tokenModifiers"), QJsonArray()},
-                                  {QStringLiteral("formats"), QJsonArray({QStringLiteral("relative")})},
+                                  {QLatin1String("tokenTypes"), supportedSemanticTokenTypes()},
+                                  {QLatin1String("tokenModifiers"), QJsonArray()},
+                                  {QLatin1String("formats"), QJsonArray({QLatin1String("relative")})},
         };
-        QJsonObject capabilities{{QStringLiteral("textDocument"),
+        QJsonObject capabilities{{QLatin1String("textDocument"),
                                         QJsonObject{
-                                            {QStringLiteral("documentSymbol"), QJsonObject{{QStringLiteral("hierarchicalDocumentSymbolSupport"), true}} },
-                                            {QStringLiteral("publishDiagnostics"), QJsonObject{{QStringLiteral("relatedInformation"), true}}},
-                                            {QStringLiteral("codeAction"), codeAction},
-                                            {QStringLiteral("semanticTokens"), semanticTokens},
-                                            {QStringLiteral("synchronization"), QJsonObject{{QStringLiteral("didSave"), true}}},
-                                            {QStringLiteral("selectionRange"), QJsonObject{{QStringLiteral("dynamicRegistration"), false}}},
-                                            {QStringLiteral("hover"), QJsonObject{
-                                                {QStringLiteral("contentFormat"), QJsonArray{
-                                                    QStringLiteral("markdown"),
-                                                    QStringLiteral("plaintext")
+                                            {QLatin1String("documentSymbol"), QJsonObject{{QLatin1String("hierarchicalDocumentSymbolSupport"), true}} },
+                                            {QLatin1String("publishDiagnostics"), QJsonObject{{QLatin1String("relatedInformation"), true}}},
+                                            {QLatin1String("codeAction"), codeAction},
+                                            {QLatin1String("semanticTokens"), semanticTokens},
+                                            {QLatin1String("synchronization"), QJsonObject{{QLatin1String("didSave"), true}}},
+                                            {QLatin1String("selectionRange"), QJsonObject{{QLatin1String("dynamicRegistration"), false}}},
+                                            {QLatin1String("hover"), QJsonObject{
+                                                {QLatin1String("contentFormat"), QJsonArray{
+                                                    QLatin1String("markdown"),
+                                                    QLatin1String("plaintext")
                                                 }}
                                             }},
-                                            {QStringLiteral("completion"), QJsonObject{
-                                                {QStringLiteral("completionItem"), QJsonObject{
-                                                    {QStringLiteral("snippetSupport"), m_config.caps.snippetSupport},
-                                                    {QStringLiteral("resolveSupport"), QJsonObject{
-                                                        {QStringLiteral("properties"), QJsonArray{
-                                                            QStringLiteral("additionalTextEdits"),
-                                                            QStringLiteral("documentation")
+                                            {QLatin1String("completion"), QJsonObject{
+                                                {QLatin1String("completionItem"), QJsonObject{
+                                                    {QLatin1String("snippetSupport"), m_config.caps.snippetSupport},
+                                                    {QLatin1String("resolveSupport"), QJsonObject{
+                                                        {QLatin1String("properties"), QJsonArray{
+                                                            QLatin1String("additionalTextEdits"),
+                                                            QLatin1String("documentation")
                                                         }}
                                                     }}
                                                 }}
                                             }},
-                                            {QStringLiteral("inlayHint"), QJsonObject{
-                                                {QStringLiteral("dynamicRegistration"), false}
+                                            {QLatin1String("inlayHint"), QJsonObject{
+                                                {QLatin1String("dynamicRegistration"), false}
                                             }}
                                         },
                                   },
-                                  {QStringLiteral("window"),
+                                  {QLatin1String("window"),
                                         QJsonObject{
-                                            {QStringLiteral("workDoneProgress"), true},
-                                            {QStringLiteral("showMessage"), QJsonObject{
-                                                {QStringLiteral("messageActionItem"), QJsonObject{
-                                                    {QStringLiteral("additionalPropertiesSupport"), true}
+                                            {QLatin1String("workDoneProgress"), true},
+                                            {QLatin1String("showMessage"), QJsonObject{
+                                                {QLatin1String("messageActionItem"), QJsonObject{
+                                                    {QLatin1String("additionalPropertiesSupport"), true}
                                                 }}
                                             }}
                                         }
@@ -1826,24 +1826,24 @@ private:
                                 };
         // clang-format on
         // always declare workspace/configuration support (LSP 3.6+)
-        QJsonObject workspaceCapabilities{{QStringLiteral("configuration"), true}};
+        QJsonObject workspaceCapabilities{{QLatin1String("configuration"), true}};
         // only declare workspace folders support if so specified
         const auto &folders = m_config.folders;
         if (folders) {
-            workspaceCapabilities[QStringLiteral("workspaceFolders")] = true;
+            workspaceCapabilities[QLatin1String("workspaceFolders")] = true;
         }
-        capabilities[QStringLiteral("workspace")] = workspaceCapabilities;
+        capabilities[QLatin1String("workspace")] = workspaceCapabilities;
         // NOTE a typical server does not use root all that much,
         // other than for some corner case (in) requests
         auto root = mapPath(m_root, true);
-        QJsonObject params{{QStringLiteral("processId"), QCoreApplication::applicationPid()},
-                           {QStringLiteral("rootPath"), root.isValid() ? root.toLocalFile() : QJsonValue()},
-                           {QStringLiteral("rootUri"), root.isValid() ? QJsonValue(QString::fromUtf8(root.toEncoded())) : QJsonValue()},
-                           {QStringLiteral("capabilities"), capabilities},
-                           {QStringLiteral("initializationOptions"), m_init}};
+        QJsonObject params{{QLatin1String("processId"), QCoreApplication::applicationPid()},
+                           {QLatin1String("rootPath"), root.isValid() ? root.toLocalFile() : QJsonValue()},
+                           {QLatin1String("rootUri"), root.isValid() ? QJsonValue(QString::fromUtf8(root.toEncoded())) : QJsonValue()},
+                           {QLatin1String("capabilities"), capabilities},
+                           {QLatin1String("initializationOptions"), m_init}};
         // only add new style workspaces init if so specified
         if (folders) {
-            params[QStringLiteral("workspaceFolders")] = to_json(*folders);
+            params[QLatin1String("workspaceFolders")] = to_json(*folders);
         }
         write(init_request(QStringLiteral("initialize"), params), utils::mem_fun(&self_type::onInitializeReply, this));
     }
@@ -1974,14 +1974,14 @@ public:
         QJsonObject params;
         auto dataDoc = QJsonDocument::fromJson(c.data);
         if (dataDoc.isObject()) {
-            params[QStringLiteral("data")] = dataDoc.object();
+            params[QLatin1String("data")] = dataDoc.object();
         } else {
-            params[QStringLiteral("data")] = dataDoc.array();
+            params[QLatin1String("data")] = dataDoc.array();
         }
         params[QLatin1String(MEMBER_DETAIL)] = c.detail;
-        params[QStringLiteral("insertText")] = c.insertText;
-        params[QStringLiteral("sortText")] = c.sortText;
-        params[QStringLiteral("textEdit")] = QJsonObject{{QStringLiteral("newText"), c.textEdit.newText}, {QStringLiteral("range"), to_json(c.textEdit.range)}};
+        params[QLatin1String("insertText")] = c.insertText;
+        params[QLatin1String("sortText")] = c.sortText;
+        params[QLatin1String("textEdit")] = QJsonObject{{QLatin1String("newText"), c.textEdit.newText}, {QLatin1String("range"), to_json(c.textEdit.range)}};
         params[QLatin1String(MEMBER_LABEL)] = c.originalLabel;
         params[QLatin1String(MEMBER_KIND)] = (int)c.kind;
         return send(init_request(QStringLiteral("completionItem/resolve"), params), h);
@@ -2106,7 +2106,7 @@ public:
         Q_ASSERT(text.isEmpty() || changes.empty());
         PushCurrentServer g(q);
         auto params = textDocumentParams(document, version);
-        params[QStringLiteral("contentChanges")] = text.size() ? QJsonArray{QJsonObject{{QLatin1String(MEMBER_TEXT), text}}} : to_json(changes);
+        params[QLatin1String("contentChanges")] = text.size() ? QJsonArray{QJsonObject{{QLatin1String(MEMBER_TEXT), text}}} : to_json(changes);
         send(init_request(QStringLiteral("textDocument/didChange"), params));
     }
 
@@ -2115,7 +2115,7 @@ public:
         PushCurrentServer g(q);
         auto params = textDocumentParams(document);
         if (!text.isNull()) {
-            params[QStringLiteral("text")] = text;
+            params[QLatin1String("text")] = text;
         }
         send(init_request(QStringLiteral("textDocument/didSave"), params));
     }

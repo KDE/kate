@@ -30,13 +30,13 @@ QString toString(KateExternalTool::SaveMode saveMode)
 
 KateExternalTool::SaveMode toSaveMode(const QString &mode)
 {
-    if (mode == QStringLiteral("None")) {
+    if (mode == QLatin1String("None")) {
         return KateExternalTool::SaveMode::None;
     }
-    if (mode == QStringLiteral("CurrentDocument")) {
+    if (mode == QLatin1String("CurrentDocument")) {
         return KateExternalTool::SaveMode::CurrentDocument;
     }
-    if (mode == QStringLiteral("AllDocuments")) {
+    if (mode == QLatin1String("AllDocuments")) {
         return KateExternalTool::SaveMode::AllDocuments;
     }
     return KateExternalTool::SaveMode::None;
@@ -68,28 +68,28 @@ QString toString(KateExternalTool::OutputMode outputMode)
 
 KateExternalTool::OutputMode toOutputMode(const QString &mode)
 {
-    if (mode == QStringLiteral("Ignore")) {
+    if (mode == QLatin1String("Ignore")) {
         return KateExternalTool::OutputMode::Ignore;
     }
-    if (mode == QStringLiteral("InsertAtCursor")) {
+    if (mode == QLatin1String("InsertAtCursor")) {
         return KateExternalTool::OutputMode::InsertAtCursor;
     }
-    if (mode == QStringLiteral("ReplaceSelectedText")) {
+    if (mode == QLatin1String("ReplaceSelectedText")) {
         return KateExternalTool::OutputMode::ReplaceSelectedText;
     }
-    if (mode == QStringLiteral("ReplaceCurrentDocument")) {
+    if (mode == QLatin1String("ReplaceCurrentDocument")) {
         return KateExternalTool::OutputMode::ReplaceCurrentDocument;
     }
-    if (mode == QStringLiteral("AppendToCurrentDocument")) {
+    if (mode == QLatin1String("AppendToCurrentDocument")) {
         return KateExternalTool::OutputMode::AppendToCurrentDocument;
     }
-    if (mode == QStringLiteral("InsertInNewDocument")) {
+    if (mode == QLatin1String("InsertInNewDocument")) {
         return KateExternalTool::OutputMode::InsertInNewDocument;
     }
-    if (mode == QStringLiteral("CopyToClipboard")) {
+    if (mode == QLatin1String("CopyToClipboard")) {
         return KateExternalTool::OutputMode::CopyToClipboard;
     }
-    if (mode == QStringLiteral("DisplayInPane")) {
+    if (mode == QLatin1String("DisplayInPane")) {
         return KateExternalTool::OutputMode::DisplayInPane;
     }
     return KateExternalTool::OutputMode::Ignore;
@@ -97,13 +97,13 @@ KateExternalTool::OutputMode toOutputMode(const QString &mode)
 
 KateExternalTool::Trigger toTrigger(const QString &trigger)
 {
-    if (trigger == QStringLiteral("None")) {
+    if (trigger == QLatin1String("None")) {
         return KateExternalTool::Trigger::None;
     }
-    if (trigger == QStringLiteral("BeforeSave")) {
+    if (trigger == QLatin1String("BeforeSave")) {
         return KateExternalTool::Trigger::BeforeSave;
     }
-    if (trigger == QStringLiteral("AfterSave")) {
+    if (trigger == QLatin1String("AfterSave")) {
         return KateExternalTool::Trigger::AfterSave;
     }
     return KateExternalTool::Trigger::None;

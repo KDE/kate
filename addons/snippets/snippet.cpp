@@ -52,7 +52,7 @@ QString Snippet::typeToString(const SnippetType type)
 // static
 Snippet::SnippetType Snippet::stringToType(const QString &string)
 {
-    if (string == QStringLiteral("script")) {
+    if (string == QLatin1String("script")) {
         return Script;
     }
     // this must be the default for backwards compatibility!

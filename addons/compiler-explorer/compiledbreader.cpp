@@ -123,7 +123,7 @@ static void removeIncludeArgument(QStringList &commands)
 {
     QStringList toRemove;
     for (int i = 0; i < commands.size(); ++i) {
-        if (commands.at(i) == QStringLiteral("-include")) {
+        if (commands.at(i) == QLatin1String("-include")) {
             if (i + 1 < commands.size()) {
                 toRemove << commands.at(i);
                 toRemove << commands.at(i + 1);
@@ -150,13 +150,13 @@ QString CompileDBReader::filteredArgsForFile(const QString &compile_commandsPath
     finalArgs.reserve(argsList.size() - 2);
 
     for (auto &&arg : argsList) {
-        if (arg == QStringLiteral("-o")) {
+        if (arg == QLatin1String("-o")) {
             continue;
         }
-        if (arg.endsWith(QStringLiteral(".o"))) {
+        if (arg.endsWith(QLatin1String(".o"))) {
             continue;
         }
-        if (arg == QStringLiteral("-c")) {
+        if (arg == QLatin1String("-c")) {
             continue;
         }
         if (file == arg || file.contains(arg)) {

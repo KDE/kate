@@ -204,7 +204,7 @@ void Client::processReverseRequest(const QJsonObject &msg)
         // error response
         write(makeResponse(msg, false));
         qCWarning(DAPCLIENT, "unexpected '%ls' reverse request", qUtf16Printable(command));
-        if (command == QStringLiteral("startDebugging")) {
+        if (command == QLatin1String("startDebugging")) {
             Q_EMIT outputProduced(dap::Output(i18n("the incompatible server did not honor the specification"), dap::Output::Category::Important));
             setState(State::Failed);
         }
@@ -242,28 +242,28 @@ void Client::processEvent(const QJsonObject &msg)
     const QString event = msg[DAP_EVENT].toString();
     const auto body = msg[DAP_BODY].toObject();
 
-    if (QStringLiteral("initialized") == event) {
+    if (QLatin1String("initialized") == event) {
         if ((m_state != State::Initializing)) {
             qCWarning(DAPCLIENT, "unexpected initialized event");
             return;
         }
         setState(State::Initialized);
-    } else if (QStringLiteral("terminated") == event) {
+    } else if (QLatin1String("terminated") == event) {
         Q_EMIT debuggeeTerminated(true);
-    } else if (QStringLiteral("exited") == event) {
-        const int exitCode = body[QStringLiteral("exitCode")].toInt(-1);
+    } else if (QLatin1String("exited") == event) {
+        const int exitCode = body[QLatin1String("exitCode")].toInt(-1);
         Q_EMIT debuggeeExited(exitCode);
     } else if (DAP_OUTPUT == event) {
         Q_EMIT outputProduced(Output(body, *m_msgContext));
-    } else if (QStringLiteral("process") == event) {
+    } else if (QLatin1String("process") == event) {
         Q_EMIT debuggingProcess(ProcessInfo(body));
-    } else if (QStringLiteral("thread") == event) {
+    } else if (QLatin1String("thread") == event) {
         Q_EMIT threadChanged(ThreadEvent(body));
-    } else if (QStringLiteral("stopped") == event) {
+    } else if (QLatin1String("stopped") == event) {
         Q_EMIT debuggeeStopped(StoppedEvent(body));
-    } else if (QStringLiteral("module") == event) {
+    } else if (QLatin1String("module") == event) {
         Q_EMIT moduleChanged(ModuleEvent(body));
-    } else if (QStringLiteral("continued") == event) {
+    } else if (QLatin1String("continued") == event) {
         Q_EMIT debuggeeContinued(ContinuedEvent(body));
     } else if (DAP_BREAKPOINT == event) {
         Q_EMIT breakpointChanged(BreakpointEvent(body, *m_msgContext));
@@ -458,7 +458,7 @@ void Client::processResponseGotoTargets(const Response &response, const QJsonVal
     const auto source = Source(req[DAP_SOURCE].toObject(), *m_msgContext);
     const int line = req[DAP_LINE].toInt();
     if (response.success) {
-        Q_EMIT gotoTargets(source, line, GotoTarget::parseList(response.body.toObject()[QStringLiteral("targets")].toArray()));
+        Q_EMIT gotoTargets(source, line, GotoTarget::parseList(response.body.toObject()[QLatin1String("targets")].toArray()));
     } else {
         Q_EMIT gotoTargets(source, line, QList<GotoTarget>());
     }
@@ -473,10 +473,10 @@ void Client::processRequestRunInTerminal(const QJsonObject &msg)
                                         if (success) {
                                             QJsonObject message;
                                             if (processId) {
-                                                message[QStringLiteral("processId")] = *processId;
+                                                message[QLatin1String("processId")] = *processId;
                                             }
                                             if (terminalId) {
-                                                message[QStringLiteral("shellProcessId")] = *terminalId;
+                                                message[QLatin1String("shellProcessId")] = *terminalId;
                                             }
                                             response[DAP_BODY] = message;
                                         }
@@ -563,8 +563,8 @@ void Client::requestInitialize()
 {
     const QJsonObject capabilities{// TODO clientID?: string
                                    // TODO clientName?: string
-                                   {QStringLiteral("locale"), m_protocol.locale},
-                                   {DAP_ADAPTER_ID, QStringLiteral("qdap")},
+                                   {QLatin1String("locale"), m_protocol.locale},
+                                   {DAP_ADAPTER_ID, QLatin1String("qdap")},
                                    {DAP_LINES_START_AT1, m_protocol.linesStartAt1},
                                    {DAP_COLUMNS_START_AT2, m_protocol.columnsStartAt1},
                                    {DAP_PATH, (m_protocol.pathFormatURI ? DAP_URI : DAP_PATH)},
@@ -602,7 +602,7 @@ void Client::requestThreads()
 
 void Client::requestStackTrace(int threadId, int startFrame, int levels)
 {
-    const QJsonObject arguments{{DAP_THREAD_ID, threadId}, {QStringLiteral("startFrame"), startFrame}, {QStringLiteral("levels"), levels}};
+    const QJsonObject arguments{{DAP_THREAD_ID, threadId}, {QLatin1String("startFrame"), startFrame}, {QLatin1String("levels"), levels}};
 
     this->write(makeRequest(QStringLiteral("stackTrace"), arguments, &Client::processResponseStackTrace));
 }
@@ -624,10 +624,10 @@ void Client::requestVariables(int variablesReference, Variable::Type filter, int
 
     switch (filter) {
     case Variable::Type::Indexed:
-        arguments[DAP_FILTER] = QStringLiteral("indexed");
+        arguments[DAP_FILTER] = QLatin1String("indexed");
         break;
     case Variable::Type::Named:
-        arguments[DAP_FILTER] = QStringLiteral("named");
+        arguments[DAP_FILTER] = QLatin1String("named");
         break;
     default:;
     }
@@ -694,7 +694,7 @@ void Client::requestTerminate(bool restart)
 {
     QJsonObject arguments;
     if (restart) {
-        arguments[QStringLiteral("restart")] = true;
+        arguments[QLatin1String("restart")] = true;
     }
 
     this->write(makeRequest(QStringLiteral("terminate"), arguments, &Client::processResponseTerminate));
@@ -704,7 +704,7 @@ void Client::requestDisconnect(bool restart)
 {
     QJsonObject arguments;
     if (restart) {
-        arguments[QStringLiteral("restart")] = true;
+        arguments[QLatin1String("restart")] = true;
     }
 
     this->write(makeRequest(QStringLiteral("disconnect"), arguments, &Client::processResponseDisconnect));
@@ -734,7 +734,7 @@ void Client::requestSetBreakpoints(const Source &source, const QList<SourceBreak
     for (const auto &item : breakpoints) {
         bpoints.append(item.toJson());
     }
-    QJsonObject arguments{{DAP_SOURCE, source.toJson(*m_msgContext)}, {DAP_BREAKPOINTS, bpoints}, {QStringLiteral("sourceModified"), sourceModified}};
+    QJsonObject arguments{{DAP_SOURCE, source.toJson(*m_msgContext)}, {DAP_BREAKPOINTS, bpoints}, {QLatin1String("sourceModified"), sourceModified}};
 
     this->write(makeRequest(QStringLiteral("setBreakpoints"), arguments, &Client::processResponseSetBreakpoints));
 }

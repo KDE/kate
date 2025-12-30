@@ -72,7 +72,7 @@ public:
             currentLine = in.readLine();
 
             // Link to open the tree view, insert as is
-            if (currentLine.startsWith(QStringLiteral("<a href"))) {
+            if (currentLine.startsWith(QLatin1String("<a href"))) {
                 out << currentLine;
                 continue;
             }

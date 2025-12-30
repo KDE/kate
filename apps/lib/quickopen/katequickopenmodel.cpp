@@ -103,7 +103,7 @@ void KateQuickOpenModel::refresh(KateMainWindow *mainWindow)
             ret.append(QLatin1Char('/'));
         }
         // avoid strip of a single leading /
-        if (ret == QStringLiteral("/")) {
+        if (ret == QLatin1String("/")) {
             ret.clear();
         }
         return ret;

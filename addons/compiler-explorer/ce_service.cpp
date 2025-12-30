@@ -89,7 +89,7 @@ void CompilerExplorerSvc::slotNetworkReply(QNetworkReply *reply)
         endpoint = CompilerExplorer::stringToEndpoint.value(QStringLiteral("compilers"));
     } else if (path.startsWith(QLatin1String("compiler"))) {
         endpoint = CompilerExplorer::stringToEndpoint.value(QStringLiteral("compiler"));
-    } else if (path.startsWith(QStringLiteral("asm"))) {
+    } else if (path.startsWith(QLatin1String("asm"))) {
         return;
     } else {
         endpoint = CompilerExplorer::stringToEndpoint.value(path);
@@ -120,33 +120,33 @@ QJsonDocument CompilerExplorerSvc::getCompilationOptions(const QString &source,
 {
     // opt obj
     QJsonObject optObj;
-    optObj[QStringLiteral("userArguments")] = userArgs;
+    optObj[QLatin1String("userArguments")] = userArgs;
 
     // compiler options obj
     QJsonObject compilerObj;
-    compilerObj[QStringLiteral("skipAsm")] = false;
-    compilerObj[QStringLiteral("executorRequest")] = false;
+    compilerObj[QLatin1String("skipAsm")] = false;
+    compilerObj[QLatin1String("executorRequest")] = false;
 
     // add compileropts to opt obj
-    optObj[QStringLiteral("compilerOptions")] = compilerObj;
+    optObj[QLatin1String("compilerOptions")] = compilerObj;
 
     // filters
     QJsonObject filterObj;
-    filterObj[QStringLiteral("binary")] = false;
-    filterObj[QStringLiteral("commentOnly")] = stripComments;
-    filterObj[QStringLiteral("demangle")] = demangle;
-    filterObj[QStringLiteral("directives")] = true;
-    filterObj[QStringLiteral("intel")] = isIntel;
-    filterObj[QStringLiteral("labels")] = stripUnusedLabels;
-    filterObj[QStringLiteral("execute")] = false;
-    filterObj[QStringLiteral("libraryCode")] = stripLibFuncs;
+    filterObj[QLatin1String("binary")] = false;
+    filterObj[QLatin1String("commentOnly")] = stripComments;
+    filterObj[QLatin1String("demangle")] = demangle;
+    filterObj[QLatin1String("directives")] = true;
+    filterObj[QLatin1String("intel")] = isIntel;
+    filterObj[QLatin1String("labels")] = stripUnusedLabels;
+    filterObj[QLatin1String("execute")] = false;
+    filterObj[QLatin1String("libraryCode")] = stripLibFuncs;
 
-    optObj[QStringLiteral("filters")] = filterObj;
+    optObj[QLatin1String("filters")] = filterObj;
 
     QJsonObject main;
     //    main["source"] = "int sum(){ return 2 + 2; }";
-    main[QStringLiteral("source")] = source;
-    main[QStringLiteral("options")] = optObj;
+    main[QLatin1String("source")] = source;
+    main[QLatin1String("options")] = optObj;
 
     QJsonDocument doc{main};
     return doc;

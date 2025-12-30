@@ -84,7 +84,7 @@ public:
         Diagnostic d;
         d.range = KTextEditor::Range(lineNum, colNum, lineNum, colNum + 5);
         d.message = result.captured(4);
-        d.severity = result.captured(3) == QStringLiteral("Warning") ? DiagnosticSeverity::Warning : DiagnosticSeverity::Error;
+        d.severity = result.captured(3) == QLatin1String("Warning") ? DiagnosticSeverity::Warning : DiagnosticSeverity::Error;
 
         FileDiagnostics fd;
         fd.uri = QUrl::fromLocalFile(m_file);

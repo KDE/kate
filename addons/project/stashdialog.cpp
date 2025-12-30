@@ -63,7 +63,7 @@ void StashDialog::openDialog(StashMode m)
 static QString getStashIndex(const QModelIndex &index)
 {
     QString s = index.data().toString();
-    if (s.isEmpty() || !s.startsWith(QStringLiteral("stash@{"))) {
+    if (s.isEmpty() || !s.startsWith(QLatin1String("stash@{"))) {
         return {};
     }
     static QRegularExpression re(QStringLiteral("stash@{(.*)}"));

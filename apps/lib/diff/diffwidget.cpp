@@ -833,14 +833,14 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         auto srcMatch = DIFF_FILENAME_RE.match(line);
-        if ((srcMatch.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
+        if ((srcMatch.hasMatch() || line == QLatin1String("--- /dev/null")) && i + 1 < text.size()) {
             srcFile = srcMatch.hasMatch() ? srcMatch.captured(1) : QString();
             if (!srcFile.isEmpty()) {
                 fileExtensions.insert(QFileInfo(srcFile).suffix());
             }
             auto tgtFilenameMatch = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (tgtFilenameMatch.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+            if (tgtFilenameMatch.hasMatch() || text.at(i + 1) == QLatin1String("--- /dev/null")) {
                 tgtFile = tgtFilenameMatch.hasMatch() ? tgtFilenameMatch.captured(1) : QString();
                 if (!tgtFile.isEmpty()) {
                     fileExtensions.insert(QFileInfo(tgtFile).suffix());
@@ -942,7 +942,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineToRawDiffLine.push_back({lineA, j, false});
 
                 lineA++;
-            } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
+            } else if (l.startsWith(QLatin1String("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
                 i = j - 1;
 
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
@@ -957,7 +957,7 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
                 lineA += 1;
                 lineB += 1;
                 break;
-            } else if (l.startsWith(QStringLiteral("diff --git "))) {
+            } else if (l.startsWith(QLatin1String("diff --git "))) {
                 balanceHunkLines(left, right, lineA, lineB, lineNumsA, lineNumsB);
                 // Start of a new file
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, leftHlts, rightHlts);
@@ -1038,14 +1038,14 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
     for (int i = 0; i < text.size(); ++i) {
         const QString &line = text.at(i);
         auto match = DIFF_FILENAME_RE.match(line);
-        if ((match.hasMatch() || line == QStringLiteral("--- /dev/null")) && i + 1 < text.size()) {
+        if ((match.hasMatch() || line == QLatin1String("--- /dev/null")) && i + 1 < text.size()) {
             srcFile = match.hasMatch() ? match.captured(1) : QString();
             if (!srcFile.isEmpty()) {
                 fileExtensions.insert(QFileInfo(srcFile).suffix());
             }
             auto tgtMatch = DIFF_FILENAME_RE.match(text.at(i + 1));
 
-            if (tgtMatch.hasMatch() || text.at(i + 1) == QStringLiteral("--- /dev/null")) {
+            if (tgtMatch.hasMatch() || text.at(i + 1) == QLatin1String("--- /dev/null")) {
                 tgtFile = tgtMatch.hasMatch() ? tgtMatch.captured(1) : QString();
                 if (!tgtFile.isEmpty()) {
                     fileExtensions.insert(QFileInfo(tgtFile).suffix());
@@ -1136,7 +1136,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 lineToRawDiffLine.push_back({lineNo, j, false});
 
                 lineNo++;
-            } else if (l.startsWith(QStringLiteral("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
+            } else if (l.startsWith(QLatin1String("@@ ")) && HUNK_HEADER_RE.match(l).hasMatch()) {
                 i = j - 1;
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add line number for current line
@@ -1147,7 +1147,7 @@ void DiffWidget::parseAndShowDiffUnified(const QByteArray &raw)
                 lines.append(QString());
                 lineNo += 1;
                 break;
-            } else if (l.startsWith(QStringLiteral("diff --git "))) {
+            } else if (l.startsWith(QLatin1String("diff --git "))) {
                 // Start of a new file
                 markInlineDiffs(hunkChangedLinesA, hunkChangedLinesB, hlts, hlts);
                 // add new line

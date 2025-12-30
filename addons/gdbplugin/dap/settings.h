@@ -16,11 +16,11 @@ namespace dap
 namespace settings
 {
 
-static const QString REQUEST = QStringLiteral("request");
-static const QString RUN_IN_TERMINAL = QStringLiteral("runInTerminal");
-static const QString RUN = QStringLiteral("run");
-static const QString CONFIGURATIONS = QStringLiteral("configurations");
-static const QString COMMAND = QStringLiteral("command");
+static constexpr inline QLatin1String REQUEST("request");
+static constexpr inline QLatin1String RUN_IN_TERMINAL("runInTerminal");
+static constexpr inline QLatin1String RUN("run");
+static constexpr inline QLatin1String CONFIGURATIONS("configurations");
+static constexpr inline QLatin1String COMMAND("command");
 
 struct Command {
     QString command;

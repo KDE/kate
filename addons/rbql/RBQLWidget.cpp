@@ -299,7 +299,7 @@ QString RBQLTab::getSeparatorForDocument() const
     QString d = v->document()->highlightingMode().toLower();
     if (d == u"csv") {
         return QStringLiteral(",");
-    } else if (d == QStringLiteral("tsv")) {
+    } else if (d == QLatin1String("tsv")) {
         return QStringLiteral("\t");
     } else if ("csv (pipe)") {
         return QStringLiteral("|");

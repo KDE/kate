@@ -59,7 +59,7 @@ private:
     {
         const auto childs = toolview->findChildren<QToolButton *>();
         for (QToolButton *child : childs) {
-            if (child->icon().name() == QStringLiteral("tab-close")) {
+            if (child->icon().name() == QLatin1String("tab-close")) {
                 return child;
             }
         }

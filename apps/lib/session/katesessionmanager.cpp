@@ -724,7 +724,7 @@ bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group)
         return false;
     }
 
-    if (!group.startsWith(QStringLiteral("MainWindow"))) {
+    if (!group.startsWith(QLatin1String("MainWindow"))) {
         return false;
     }
 

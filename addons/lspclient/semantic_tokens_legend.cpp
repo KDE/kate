@@ -60,18 +60,18 @@ void SemanticTokensLegend::themeChange(KTextEditor::Editor *e)
         static const char DraculaVP[] = "#ffb86c";
         static const char AyuDarkLightVP[] = "#a37acc";
         static const char AyuMirageVP[] = "#d4bfff";
-        if (theme.name() == QStringLiteral("Monokai")) {
+        if (theme.name() == QLatin1String("Monokai")) {
             v = QColor(MonokaiVP);
             vs = v;
             italic = true;
-        } else if (theme.name() == QStringLiteral("Dracula")) {
+        } else if (theme.name() == QLatin1String("Dracula")) {
             v = QColor(DraculaVP);
             vs = v;
             italic = true;
-        } else if (theme.name() == QStringLiteral("ayu Light") || theme.name() == QStringLiteral("ayu Dark")) {
+        } else if (theme.name() == QLatin1String("ayu Light") || theme.name() == QLatin1String("ayu Dark")) {
             v = QColor(AyuDarkLightVP);
             vs = v;
-        } else if (theme.name() == QStringLiteral("ayu Mirage")) {
+        } else if (theme.name() == QLatin1String("ayu Mirage")) {
             v = QColor(AyuMirageVP);
             vs = v;
         } else {
@@ -142,51 +142,51 @@ void SemanticTokensLegend::initialize(const std::vector<QString> &types)
     std::vector<TokenType> tokenTypes(types.size());
     int i = 0;
     for (const auto &type : types) {
-        if (type == QStringLiteral("type")) {
+        if (type == QLatin1String("type")) {
             tokenTypes[i] = TokenType::Type;
-        } else if (type == QStringLiteral("class")) {
+        } else if (type == QLatin1String("class")) {
             tokenTypes[i] = TokenType::Class;
-        } else if (type == QStringLiteral("enum")) {
+        } else if (type == QLatin1String("enum")) {
             tokenTypes[i] = TokenType::Enum;
-        } else if (type == QStringLiteral("type")) {
+        } else if (type == QLatin1String("type")) {
             tokenTypes[i] = TokenType::Type;
-        } else if (type == QStringLiteral("interface")) {
+        } else if (type == QLatin1String("interface")) {
             tokenTypes[i] = TokenType::Interface;
-        } else if (type == QStringLiteral("struct")) {
+        } else if (type == QLatin1String("struct")) {
             tokenTypes[i] = TokenType::Struct;
-        } else if (type == QStringLiteral("typeParameter")) {
+        } else if (type == QLatin1String("typeParameter")) {
             tokenTypes[i] = TokenType::TypeParameter;
-        } else if (type == QStringLiteral("parameter")) {
+        } else if (type == QLatin1String("parameter")) {
             tokenTypes[i] = TokenType::Parameter;
-        } else if (type == QStringLiteral("variable")) {
+        } else if (type == QLatin1String("variable")) {
             tokenTypes[i] = TokenType::Variable;
-        } else if (type == QStringLiteral("property")) {
+        } else if (type == QLatin1String("property")) {
             tokenTypes[i] = TokenType::Property;
-        } else if (type == QStringLiteral("enumMember")) {
+        } else if (type == QLatin1String("enumMember")) {
             tokenTypes[i] = TokenType::EnumMember;
-        } else if (type == QStringLiteral("event")) {
+        } else if (type == QLatin1String("event")) {
             tokenTypes[i] = TokenType::Event;
-        } else if (type == QStringLiteral("function")) {
+        } else if (type == QLatin1String("function")) {
             tokenTypes[i] = TokenType::Function;
-        } else if (type == QStringLiteral("method")) {
+        } else if (type == QLatin1String("method")) {
             tokenTypes[i] = TokenType::Method;
-        } else if (type == QStringLiteral("macro")) {
+        } else if (type == QLatin1String("macro")) {
             tokenTypes[i] = TokenType::Macro;
-        } else if (type == QStringLiteral("keyword")) {
+        } else if (type == QLatin1String("keyword")) {
             tokenTypes[i] = TokenType::Keyword;
-        } else if (type == QStringLiteral("modifier")) {
+        } else if (type == QLatin1String("modifier")) {
             tokenTypes[i] = TokenType::Modifier;
-        } else if (type == QStringLiteral("comment")) {
+        } else if (type == QLatin1String("comment")) {
             tokenTypes[i] = TokenType::Comment; // Can mean inactive code
-        } else if (type == QStringLiteral("string")) {
+        } else if (type == QLatin1String("string")) {
             tokenTypes[i] = TokenType::String;
-        } else if (type == QStringLiteral("number")) {
+        } else if (type == QLatin1String("number")) {
             tokenTypes[i] = TokenType::Number;
-        } else if (type == QStringLiteral("regexp")) {
+        } else if (type == QLatin1String("regexp")) {
             tokenTypes[i] = TokenType::Regexp;
-        } else if (type == QStringLiteral("operator")) {
+        } else if (type == QLatin1String("operator")) {
             tokenTypes[i] = TokenType::Operator;
-        } else if (type == QStringLiteral("namespace")) {
+        } else if (type == QLatin1String("namespace")) {
             tokenTypes[i] = TokenType::Namespace;
         } else {
             tokenTypes[i] = TokenType::Unsupported;

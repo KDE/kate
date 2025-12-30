@@ -263,9 +263,9 @@ void CEWidget::setAvailableCompilers(const QByteArray &data)
     m_compilers.clear();
 
     for (const auto &value : json) {
-        const auto compilerName = value[QStringLiteral("name")].toString();
-        const auto lang = value[QStringLiteral("lang")].toString();
-        const auto id = value[QStringLiteral("id")];
+        const auto compilerName = value[QLatin1String("name")].toString();
+        const auto lang = value[QLatin1String("lang")].toString();
+        const auto id = value[QLatin1String("id")];
 
         Compiler compiler{.name = compilerName, .id = id, .language = lang};
         m_compilers.push_back(compiler);
@@ -455,31 +455,31 @@ void CEWidget::processAndShowAsm(const QByteArray &data)
     for (const auto &line : assembly) {
         AsmRow row;
 
-        auto labels = line[QStringLiteral("labels")].toArray();
+        auto labels = line[QLatin1String("labels")].toArray();
         if (!labels.empty()) {
             for (const auto &label : labels) {
                 LabelInRow l;
-                auto rangeJV = label.toObject().value(QStringLiteral("range"));
+                auto rangeJV = label.toObject().value(QLatin1String("range"));
 
                 const auto range = rangeJV.toObject();
-                int startCol = range.value(QStringLiteral("startCol")).toInt() - 1;
-                int endCol = range.value(QStringLiteral("endCol")).toInt();
+                int startCol = range.value(QLatin1String("startCol")).toInt() - 1;
+                int endCol = range.value(QLatin1String("endCol")).toInt();
                 l.col = startCol;
                 l.len = endCol - startCol;
                 row.labels.push_back(l);
             }
         }
 
-        const auto source = line[QStringLiteral("source")].toObject();
-        QString file = source.value(QStringLiteral("file")).toString();
-        int srcLine = source.value(QStringLiteral("line")).toInt();
-        int srcCol = source.value(QStringLiteral("column")).toInt();
+        const auto source = line[QLatin1String("source")].toObject();
+        QString file = source.value(QLatin1String("file")).toString();
+        int srcLine = source.value(QLatin1String("line")).toInt();
+        int srcCol = source.value(QLatin1String("column")).toInt();
 
         row.source.file = file.isEmpty() ? QString() : file; // can be empty
         row.source.line = srcLine;
         row.source.col = srcCol;
 
-        row.text = line[QStringLiteral("text")].toString();
+        row.text = line[QLatin1String("text")].toString();
 
         rows.push_back(row);
         sourceToAsm[row.source].push_back(currentAsmLine);
@@ -487,7 +487,7 @@ void CEWidget::processAndShowAsm(const QByteArray &data)
         currentAsmLine++;
     }
 
-    const QJsonObject labelDefinitions = mainObj.value(QStringLiteral("labelDefinitions")).toObject();
+    const QJsonObject labelDefinitions = mainObj.value(QLatin1String("labelDefinitions")).toObject();
     // Label => Line Number
     QHash<QString, int> labelDefs;
     auto it = labelDefinitions.constBegin();

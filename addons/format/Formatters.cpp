@@ -229,8 +229,8 @@ void PrettierFormat::onReadyReadOut()
             Q_EMIT message(e.errorString());
         } else {
             const auto obj = doc.object();
-            const auto formatted = obj[QStringLiteral("formatted")].toString().toUtf8();
-            const auto cursor = obj[QStringLiteral("cursorOffset")].toInt(-1);
+            const auto formatted = obj[QLatin1String("formatted")].toString().toUtf8();
+            const auto cursor = obj[QLatin1String("cursorOffset")].toInt(-1);
             Q_EMIT textFormatted(this, m_doc, formatted, cursor);
         }
     }
@@ -256,10 +256,10 @@ void PrettierFormat::run(KTextEditor::Document *doc)
     connect(s_nodeProcess, &QProcess::readyReadStandardError, this, &PrettierFormat::onReadyReadErr);
 
     QJsonObject o;
-    o[QStringLiteral("filePath")] = path;
-    o[QStringLiteral("stdinFilePath")] = filenameFromMode(doc);
-    o[QStringLiteral("source")] = originalText;
-    o[QStringLiteral("cursorOffset")] = doc->cursorToOffset(m_pos);
+    o[QLatin1String("filePath")] = path;
+    o[QLatin1String("stdinFilePath")] = filenameFromMode(doc);
+    o[QLatin1String("source")] = originalText;
+    o[QLatin1String("cursorOffset")] = doc->cursorToOffset(m_pos);
     s_nodeProcess->write(QJsonDocument(o).toJson(QJsonDocument::Compact) + '\0');
 }
 

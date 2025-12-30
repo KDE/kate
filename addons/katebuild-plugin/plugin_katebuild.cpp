@@ -643,7 +643,7 @@ void KateBuildView::writeSessionConfig(KConfigGroup &cg)
     // Save session target-sets
     QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
     QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
-    QJsonArray setsArray = sessionSetsObj[QStringLiteral("target_sets")].toArray();
+    QJsonArray setsArray = sessionSetsObj[QLatin1String("target_sets")].toArray();
 
     cg.writeEntry("NumTargets", setsArray.size());
 
@@ -1303,13 +1303,13 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
 
     QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
     QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
-    QJsonArray setsArray = sessionSetsObj[QStringLiteral("target_sets")].toArray();
+    QJsonArray setsArray = sessionSetsObj[QLatin1String("target_sets")].toArray();
 
     for (const auto &setValue : setsArray) {
         const auto &setObj = setValue.toObject();
-        const bool loadedViaCMake = setObj[QStringLiteral("loaded_via_cmake")].toBool();
-        const QString setCmakeConfig = setObj[QStringLiteral("cmake_config")].toString();
-        const QString buildDir = setObj[QStringLiteral("directory")].toString();
+        const bool loadedViaCMake = setObj[QLatin1String("loaded_via_cmake")].toBool();
+        const QString setCmakeConfig = setObj[QLatin1String("cmake_config")].toString();
+        const QString buildDir = setObj[QLatin1String("directory")].toString();
         if (loadedViaCMake && setCmakeConfig == cmakeConfig && buildDir == cmakeFA.getBuildDir()) {
             // this target set has already been loaded, don't add it once more
             return setIndex;

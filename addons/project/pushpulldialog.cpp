@@ -182,7 +182,7 @@ void PushPullDialog::slotReturnPressed(const QModelIndex &)
 {
     if (!m_lineEdit.text().isEmpty()) {
         auto args = m_lineEdit.text().split(QLatin1Char(' '));
-        if (args.first() == QStringLiteral("git")) {
+        if (args.first() == QLatin1String("git")) {
             saveCommand(m_lineEdit.text());
             args.pop_front();
             Q_EMIT runGitCommand(args);

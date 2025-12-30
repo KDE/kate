@@ -107,7 +107,7 @@ struct DiffRange {
                 // qDebug() << "remove line" << srcline << hl.mid(1) << p.pos->line();
                 lines.push_back(p);
                 srcline++;
-            } else if (hl.startsWith(QStringLiteral("@@ "))) {
+            } else if (hl.startsWith(QLatin1String("@@ "))) {
                 i = j - 1; // advance i to next hunk
                 break;
             }

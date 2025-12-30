@@ -12,93 +12,93 @@
 
 namespace dap
 {
-constexpr int DAP_SEP_SIZE = 2;
-static const QString DAP_TPL_HEADER_FIELD = QStringLiteral("%1: %2" DAP_SEP);
+constexpr inline int DAP_SEP_SIZE = 2;
+static constexpr inline QLatin1String DAP_TPL_HEADER_FIELD("%1: %2" DAP_SEP);
 
-static const QString DAP_SEQ = QStringLiteral("seq");
-static const QString DAP_TYPE = QStringLiteral("type");
-static const QString DAP_COMMAND = QStringLiteral("command");
-static const QString DAP_ARGUMENTS = QStringLiteral("arguments");
-static const QString DAP_BODY = QStringLiteral("body");
+static constexpr inline QLatin1String DAP_SEQ("seq");
+static constexpr inline QLatin1String DAP_TYPE("type");
+static constexpr inline QLatin1String DAP_COMMAND("command");
+static constexpr inline QLatin1String DAP_ARGUMENTS("arguments");
+static constexpr inline QLatin1String DAP_BODY("body");
 
 // capabilities
-static const QString DAP_ADAPTER_ID = QStringLiteral("adapterID");
-static const QString DAP_LINES_START_AT1 = QStringLiteral("linesStartAt1");
-static const QString DAP_COLUMNS_START_AT2 = QStringLiteral("columnsStartAt1");
-static const QString DAP_PATH_FORMAT = QStringLiteral("pathFormat");
-static const QString DAP_SUPPORTS_VARIABLE_TYPE = QStringLiteral("supportsVariableType");
-static const QString DAP_SUPPORTS_VARIABLE_PAGING = QStringLiteral("supportsVariablePaging");
-static const QString DAP_SUPPORTS_RUN_IN_TERMINAL_REQUEST = QStringLiteral("supportsRunInTerminalRequest");
-static const QString DAP_SUPPORTS_MEMORY_REFERENCES = QStringLiteral("supportsMemoryReferences");
-static const QString DAP_SUPPORTS_PROGRESS_REPORTING = QStringLiteral("supportsProgressReporting");
-static const QString DAP_SUPPORTS_INVALIDATED_EVENT = QStringLiteral("supportsInvalidatedEvent");
-static const QString DAP_SUPPORTS_MEMORY_EVENT = QStringLiteral("supportsMemoryEvent");
+static constexpr inline QLatin1String DAP_ADAPTER_ID("adapterID");
+static constexpr inline QLatin1String DAP_LINES_START_AT1("linesStartAt1");
+static constexpr inline QLatin1String DAP_COLUMNS_START_AT2("columnsStartAt1");
+static constexpr inline QLatin1String DAP_PATH_FORMAT("pathFormat");
+static constexpr inline QLatin1String DAP_SUPPORTS_VARIABLE_TYPE("supportsVariableType");
+static constexpr inline QLatin1String DAP_SUPPORTS_VARIABLE_PAGING("supportsVariablePaging");
+static constexpr inline QLatin1String DAP_SUPPORTS_RUN_IN_TERMINAL_REQUEST("supportsRunInTerminalRequest");
+static constexpr inline QLatin1String DAP_SUPPORTS_MEMORY_REFERENCES("supportsMemoryReferences");
+static constexpr inline QLatin1String DAP_SUPPORTS_PROGRESS_REPORTING("supportsProgressReporting");
+static constexpr inline QLatin1String DAP_SUPPORTS_INVALIDATED_EVENT("supportsInvalidatedEvent");
+static constexpr inline QLatin1String DAP_SUPPORTS_MEMORY_EVENT("supportsMemoryEvent");
 
 // pathFormat values
-static const QString DAP_URI = QStringLiteral("uri");
-static const QString DAP_PATH = QStringLiteral("path");
+static constexpr inline QLatin1String DAP_URI("uri");
+static constexpr inline QLatin1String DAP_PATH("path");
 
 // type values
-static const QString DAP_REQUEST = QStringLiteral("request");
-static const QString DAP_EVENT = QStringLiteral("event");
-static const QString DAP_RESPONSE = QStringLiteral("response");
+static constexpr inline QLatin1String DAP_REQUEST("request");
+static constexpr inline QLatin1String DAP_EVENT("event");
+static constexpr inline QLatin1String DAP_RESPONSE("response");
 
 // command values
-static const QString DAP_INITIALIZE = QStringLiteral("initialize");
-static const QString DAP_LAUNCH = QStringLiteral("launch");
-static const QString DAP_ATTACH = QStringLiteral("attach");
-static const QString DAP_MODULES = QStringLiteral("modules");
-static const QString DAP_VARIABLES = QStringLiteral("variables");
-static const QString DAP_SCOPES = QStringLiteral("scopes");
-static const QString DAP_THREADS = QStringLiteral("threads");
-static const QString DAP_RUN_IN_TERMINAL = QStringLiteral("runInTerminal");
+static constexpr inline QLatin1String DAP_INITIALIZE("initialize");
+static constexpr inline QLatin1String DAP_LAUNCH("launch");
+static constexpr inline QLatin1String DAP_ATTACH("attach");
+static constexpr inline QLatin1String DAP_MODULES("modules");
+static constexpr inline QLatin1String DAP_VARIABLES("variables");
+static constexpr inline QLatin1String DAP_SCOPES("scopes");
+static constexpr inline QLatin1String DAP_THREADS("threads");
+static constexpr inline QLatin1String DAP_RUN_IN_TERMINAL("runInTerminal");
 
 // event values
-static const QString DAP_OUTPUT = QStringLiteral("output");
+static constexpr inline QLatin1String DAP_OUTPUT("output");
 
 // fields
-static const QString DAP_NAME = QStringLiteral("name");
-static const QString DAP_SYSTEM_PROCESS_ID = QStringLiteral("systemProcessId");
-static const QString DAP_IS_LOCAL_PROCESS = QStringLiteral("isLocalProcess");
-static const QString DAP_POINTER_SIZE = QStringLiteral("pointerSize");
-static const QString DAP_START_METHOD = QStringLiteral("startMethod");
-static const QString DAP_DATA = QStringLiteral("data");
-static const QString DAP_VARIABLES_REFERENCE = QStringLiteral("variablesReference");
-static const QString DAP_SOURCE = QStringLiteral("source");
-static const QString DAP_GROUP = QStringLiteral("group");
-static const QString DAP_LINE = QStringLiteral("line");
-static const QString DAP_COLUMN = QStringLiteral("column");
-static const QString DAP_PRESENTATION_HINT = QStringLiteral("presentationHint");
-static const QString DAP_SOURCES = QStringLiteral("sources");
-static const QString DAP_CHECKSUMS = QStringLiteral("checksums");
-static const QString DAP_CATEGORY = QStringLiteral("category");
-static const QString DAP_THREAD_ID = QStringLiteral("threadId");
-static const QString DAP_ID = QStringLiteral("id");
-static const QString DAP_MODULE_ID = QStringLiteral("moduleId");
-static const QString DAP_REASON = QStringLiteral("reason");
-static const QString DAP_FRAME_ID = QStringLiteral("frameId");
-static const QString DAP_FILTER = QStringLiteral("filter");
-static const QString DAP_START = QStringLiteral("start");
-static const QString DAP_COUNT = QStringLiteral("count");
-static const QString DAP_SINGLE_THREAD = QStringLiteral("singleThread");
-static const QString DAP_ALL_THREADS_CONTINUED = QStringLiteral("allThreadsContinued");
-static const QString DAP_SOURCE_REFERENCE = QStringLiteral("sourceReference");
-static const QString DAP_BREAKPOINTS = QStringLiteral("breakpoints");
-static const QString DAP_ADAPTER_DATA = QStringLiteral("adapterData");
-static const QString DAP_CONDITION = QStringLiteral("condition");
-static const QString DAP_HIT_CONDITION = QStringLiteral("hitCondition");
-static const QString DAP_LOG_MESSAGE = QStringLiteral("logMessage");
-static const QString DAP_LINES = QStringLiteral("lines");
-static const QString DAP_ORIGIN = QStringLiteral("origin");
-static const QString DAP_CHECKSUM = QStringLiteral("checksum");
-static const QString DAP_ALGORITHM = QStringLiteral("algorithm");
-static const QString DAP_BREAKPOINT = QStringLiteral("breakpoint");
-static const QString DAP_EXPRESSION = QStringLiteral("expression");
-static const QString DAP_CONTEXT = QStringLiteral("context");
-static const QString DAP_RESULT = QStringLiteral("result");
-static const QString DAP_TARGET_ID = QStringLiteral("targetId");
-static const QString DAP_END_LINE = QStringLiteral("endLine");
-static const QString DAP_END_COLUMN = QStringLiteral("endColumn");
-static const QString DAP_SUCCESS = QStringLiteral("success");
-static const QString DAP_REQUEST_SEQ = QStringLiteral("request_seq");
+static constexpr inline QLatin1String DAP_NAME("name");
+static constexpr inline QLatin1String DAP_SYSTEM_PROCESS_ID("systemProcessId");
+static constexpr inline QLatin1String DAP_IS_LOCAL_PROCESS("isLocalProcess");
+static constexpr inline QLatin1String DAP_POINTER_SIZE("pointerSize");
+static constexpr inline QLatin1String DAP_START_METHOD("startMethod");
+static constexpr inline QLatin1String DAP_DATA("data");
+static constexpr inline QLatin1String DAP_VARIABLES_REFERENCE("variablesReference");
+static constexpr inline QLatin1String DAP_SOURCE("source");
+static constexpr inline QLatin1String DAP_GROUP("group");
+static constexpr inline QLatin1String DAP_LINE("line");
+static constexpr inline QLatin1String DAP_COLUMN("column");
+static constexpr inline QLatin1String DAP_PRESENTATION_HINT("presentationHint");
+static constexpr inline QLatin1String DAP_SOURCES("sources");
+static constexpr inline QLatin1String DAP_CHECKSUMS("checksums");
+static constexpr inline QLatin1String DAP_CATEGORY("category");
+static constexpr inline QLatin1String DAP_THREAD_ID("threadId");
+static constexpr inline QLatin1String DAP_ID("id");
+static constexpr inline QLatin1String DAP_MODULE_ID("moduleId");
+static constexpr inline QLatin1String DAP_REASON("reason");
+static constexpr inline QLatin1String DAP_FRAME_ID("frameId");
+static constexpr inline QLatin1String DAP_FILTER("filter");
+static constexpr inline QLatin1String DAP_START("start");
+static constexpr inline QLatin1String DAP_COUNT("count");
+static constexpr inline QLatin1String DAP_SINGLE_THREAD("singleThread");
+static constexpr inline QLatin1String DAP_ALL_THREADS_CONTINUED("allThreadsContinued");
+static constexpr inline QLatin1String DAP_SOURCE_REFERENCE("sourceReference");
+static constexpr inline QLatin1String DAP_BREAKPOINTS("breakpoints");
+static constexpr inline QLatin1String DAP_ADAPTER_DATA("adapterData");
+static constexpr inline QLatin1String DAP_CONDITION("condition");
+static constexpr inline QLatin1String DAP_HIT_CONDITION("hitCondition");
+static constexpr inline QLatin1String DAP_LOG_MESSAGE("logMessage");
+static constexpr inline QLatin1String DAP_LINES("lines");
+static constexpr inline QLatin1String DAP_ORIGIN("origin");
+static constexpr inline QLatin1String DAP_CHECKSUM("checksum");
+static constexpr inline QLatin1String DAP_ALGORITHM("algorithm");
+static constexpr inline QLatin1String DAP_BREAKPOINT("breakpoint");
+static constexpr inline QLatin1String DAP_EXPRESSION("expression");
+static constexpr inline QLatin1String DAP_CONTEXT("context");
+static constexpr inline QLatin1String DAP_RESULT("result");
+static constexpr inline QLatin1String DAP_TARGET_ID("targetId");
+static constexpr inline QLatin1String DAP_END_LINE("endLine");
+static constexpr inline QLatin1String DAP_END_COLUMN("endColumn");
+static constexpr inline QLatin1String DAP_SUCCESS("success");
+static constexpr inline QLatin1String DAP_REQUEST_SEQ("request_seq");
 }

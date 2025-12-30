@@ -154,7 +154,7 @@ QAction *toolviewShowAction(KTextEditor::MainWindow *mainWindow, const QString &
     const QList<KXMLGUIClient *> clients = mainWindow->guiFactory()->clients();
     static const QString prefix = QStringLiteral("kate_mdi_toolview_");
     auto it = std::find_if(clients.begin(), clients.end(), [](const KXMLGUIClient *c) {
-        return c->componentName() == QStringLiteral("toolviewmanager");
+        return c->componentName() == QLatin1String("toolviewmanager");
     });
 
     if (it == clients.end()) {

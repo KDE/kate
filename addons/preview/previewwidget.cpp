@@ -195,7 +195,7 @@ void PreviewWidget::resetTextEditorView(KTextEditor::Document *document)
         mimeTypes << m_previewedTextEditorDocument->mimeType();
 
         // For markdown manually add text/markdown if above fails e.g., if the file is untitled
-        if (mimeTypes.isEmpty() && m_currentMode == QStringLiteral("Markdown") && !mimeTypes.contains(u"text/markdown")) {
+        if (mimeTypes.isEmpty() && m_currentMode == QLatin1String("Markdown") && !mimeTypes.contains(u"text/markdown")) {
             mimeTypes << QStringLiteral("text/markdown");
         }
 

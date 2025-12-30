@@ -120,12 +120,12 @@ namespace dap
 {
 Message::Message(const QJsonObject &body)
     : id(body[DAP_ID].toInt())
-    , format(body[QStringLiteral("format")].toString())
-    , variables(parseOptionalMap<QString>(body[QStringLiteral("variables")], value_as_string))
-    , sendTelemetry(parseOptionalBool(body[QStringLiteral("sendTelemetry")]))
-    , showUser(parseOptionalBool(body[QStringLiteral("showUser")]))
-    , url(parseOptionalString(body[QStringLiteral("url")]))
-    , urlLabel(parseOptionalString(body[QStringLiteral("urlLabel")]))
+    , format(body[QLatin1String("format")].toString())
+    , variables(parseOptionalMap<QString>(body[QLatin1String("variables")], value_as_string))
+    , sendTelemetry(parseOptionalBool(body[QLatin1String("sendTelemetry")]))
+    , showUser(parseOptionalBool(body[QLatin1String("showUser")]))
+    , url(parseOptionalString(body[QLatin1String("url")]))
+    , urlLabel(parseOptionalString(body[QLatin1String("urlLabel")]))
 {
 }
 
@@ -133,15 +133,15 @@ Response::Response(const QJsonObject &msg)
     : request_seq(msg[DAP_REQUEST_SEQ].toInt(-1))
     , success(msg[DAP_SUCCESS].toBool(false))
     , command(msg[DAP_COMMAND].toString())
-    , message(msg[QStringLiteral("message")].toString())
+    , message(msg[QLatin1String("message")].toString())
     , body(msg[DAP_BODY])
-    , errorBody(success ? std::nullopt : parseOptionalObject<Message>(body.toObject()[QStringLiteral("error")]))
+    , errorBody(success ? std::nullopt : parseOptionalObject<Message>(body.toObject()[QLatin1String("error")]))
 {
 }
 
 bool Response::isCancelled() const
 {
-    return message == QStringLiteral("cancelled");
+    return message == QLatin1String("cancelled");
 }
 
 ProcessInfo::ProcessInfo(const QJsonObject &body)
@@ -167,23 +167,23 @@ Output::Output(const QJsonObject &body, MessageContext &ctx)
         const auto value = body[DAP_GROUP].toString();
         if (DAP_START == value) {
             group = Group::Start;
-        } else if (QStringLiteral("startCollapsed") == value) {
+        } else if (QLatin1String("startCollapsed") == value) {
             group = Group::StartCollapsed;
-        } else if (QStringLiteral("end") == value) {
+        } else if (QLatin1String("end") == value) {
             group = Group::End;
         }
     }
     if (body.contains(DAP_CATEGORY)) {
         const auto value = body[DAP_CATEGORY].toString();
-        if (QStringLiteral("console") == value) {
+        if (QLatin1String("console") == value) {
             category = Category::Console;
-        } else if (QStringLiteral("important") == value) {
+        } else if (QLatin1String("important") == value) {
             category = Category::Important;
-        } else if (QStringLiteral("stdout") == value) {
+        } else if (QLatin1String("stdout") == value) {
             category = Category::Stdout;
-        } else if (QStringLiteral("stderr") == value) {
+        } else if (QLatin1String("stderr") == value) {
             category = Category::Stderr;
-        } else if (QStringLiteral("telemetry") == value) {
+        } else if (QLatin1String("telemetry") == value) {
             category = Category::Telemetry;
         }
     }
@@ -340,16 +340,16 @@ QString ExceptionBreakpointsFilter::toString() const
 }
 
 Capabilities::Capabilities(const QJsonObject &body)
-    : supportsConfigurationDoneRequest(body[QStringLiteral("supportsConfigurationDoneRequest")].toBool())
-    , supportsFunctionBreakpoints(body[QStringLiteral("supportsFunctionBreakpoints")].toBool())
-    , supportsConditionalBreakpoints(body[QStringLiteral("supportsConditionalBreakpoints")].toBool())
-    , supportsHitConditionalBreakpoints(body[QStringLiteral("supportsHitConditionalBreakpoints")].toBool())
-    , supportsLogPoints(body[QStringLiteral("supportsLogPoints")].toBool())
-    , supportsModulesRequest(body[QStringLiteral("supportsModulesRequest")].toBool())
-    , supportsTerminateRequest(body[QStringLiteral("supportsTerminateRequest")].toBool())
-    , supportTerminateDebuggee(body[QStringLiteral("supportTerminateDebuggee")].toBool())
-    , supportsGotoTargetsRequest(body[QStringLiteral("supportsGotoTargetsRequest")].toBool())
-    , exceptionBreakpointFilters(parseObjectList<ExceptionBreakpointsFilter>(body[QStringLiteral("exceptionBreakpointFilters")].toArray()))
+    : supportsConfigurationDoneRequest(body[QLatin1String("supportsConfigurationDoneRequest")].toBool())
+    , supportsFunctionBreakpoints(body[QLatin1String("supportsFunctionBreakpoints")].toBool())
+    , supportsConditionalBreakpoints(body[QLatin1String("supportsConditionalBreakpoints")].toBool())
+    , supportsHitConditionalBreakpoints(body[QLatin1String("supportsHitConditionalBreakpoints")].toBool())
+    , supportsLogPoints(body[QLatin1String("supportsLogPoints")].toBool())
+    , supportsModulesRequest(body[QLatin1String("supportsModulesRequest")].toBool())
+    , supportsTerminateRequest(body[QLatin1String("supportsTerminateRequest")].toBool())
+    , supportTerminateDebuggee(body[QLatin1String("supportTerminateDebuggee")].toBool())
+    , supportsGotoTargetsRequest(body[QLatin1String("supportsGotoTargetsRequest")].toBool())
+    , exceptionBreakpointFilters(parseObjectList<ExceptionBreakpointsFilter>(body[QLatin1String("exceptionBreakpointFilters")].toArray()))
 {
 }
 
@@ -361,12 +361,12 @@ ThreadEvent::ThreadEvent(const QJsonObject &body)
 
 StoppedEvent::StoppedEvent(const QJsonObject &body)
     : reason(body[DAP_REASON].toString())
-    , description(parseOptionalString(body[QStringLiteral("description")]))
+    , description(parseOptionalString(body[QLatin1String("description")]))
     , threadId(body[DAP_THREAD_ID].toInt())
-    , preserveFocusHint(parseOptionalBool(body[QStringLiteral("preserveFocusHint")]))
-    , text(parseOptionalString(body[QStringLiteral("text")]))
-    , allThreadsStopped(parseOptionalBool(body[QStringLiteral("allThreadsStopped")]))
-    , hitBreakpointIds(parseOptionalIntList(body[QStringLiteral("hitBreakpointIds")]))
+    , preserveFocusHint(parseOptionalBool(body[QLatin1String("preserveFocusHint")]))
+    , text(parseOptionalString(body[QLatin1String("text")]))
+    , allThreadsStopped(parseOptionalBool(body[QLatin1String("allThreadsStopped")]))
+    , hitBreakpointIds(parseOptionalIntList(body[QLatin1String("hitBreakpointIds")]))
 {
 }
 
@@ -392,9 +392,9 @@ StackFrame::StackFrame(const QJsonObject &body, MessageContext &ctx)
     , source(parseOptionalObject<Source>(body[DAP_SOURCE], ctx))
     , line(body[DAP_LINE].toInt())
     , column(body[DAP_COLUMN].toInt())
-    , endLine(parseOptionalInt(body[QStringLiteral("endLine")]))
-    , canRestart(parseOptionalBool((body[QStringLiteral("canRestart")])))
-    , instructionPointerReference(parseOptionalString(body[QStringLiteral("instructionPointerReference")]))
+    , endLine(parseOptionalInt(body[QLatin1String("endLine")]))
+    , canRestart(parseOptionalBool((body[QLatin1String("canRestart")])))
+    , instructionPointerReference(parseOptionalString(body[QLatin1String("instructionPointerReference")]))
     , moduleId_int(parseOptionalInt(body[DAP_MODULE_ID]))
     , moduleId_str(parseOptionalString(body[DAP_MODULE_ID]))
     , presentationHint(parseOptionalString(body[DAP_PRESENTATION_HINT]))
@@ -402,8 +402,8 @@ StackFrame::StackFrame(const QJsonObject &body, MessageContext &ctx)
 }
 
 StackTraceInfo::StackTraceInfo(const QJsonObject &body, MessageContext &ctx)
-    : stackFrames(parseObjectList<StackFrame>(body[QStringLiteral("stackFrames")].toArray(), ctx))
-    , totalFrames(parseOptionalInt(body[QStringLiteral("totalFrames")]))
+    : stackFrames(parseObjectList<StackFrame>(body[QLatin1String("stackFrames")].toArray(), ctx))
+    , totalFrames(parseOptionalInt(body[QLatin1String("totalFrames")]))
 {
 }
 
@@ -412,19 +412,19 @@ Module::Module(const QJsonObject &body)
     , id_str(parseOptionalString(body[DAP_ID]))
     , name(body[DAP_NAME].toString())
     , path(parseOptionalString(body[DAP_PATH]))
-    , isOptimized(parseOptionalBool(body[QStringLiteral("isOptimized")]))
-    , isUserCode(parseOptionalBool(body[QStringLiteral("isUserCode")]))
-    , version(parseOptionalString(body[QStringLiteral("version")]))
-    , symbolStatus(parseOptionalString(body[QStringLiteral("symbolStatus")]))
-    , symbolFilePath(parseOptionalString(body[QStringLiteral("symbolFilePath")]))
-    , dateTimeStamp(parseOptionalString(body[QStringLiteral("dateTimeStamp")]))
-    , addressRange(parseOptionalString(body[QStringLiteral("addressRange")]))
+    , isOptimized(parseOptionalBool(body[QLatin1String("isOptimized")]))
+    , isUserCode(parseOptionalBool(body[QLatin1String("isUserCode")]))
+    , version(parseOptionalString(body[QLatin1String("version")]))
+    , symbolStatus(parseOptionalString(body[QLatin1String("symbolStatus")]))
+    , symbolFilePath(parseOptionalString(body[QLatin1String("symbolFilePath")]))
+    , dateTimeStamp(parseOptionalString(body[QLatin1String("dateTimeStamp")]))
+    , addressRange(parseOptionalString(body[QLatin1String("addressRange")]))
 {
 }
 
 ModuleEvent::ModuleEvent(const QJsonObject &body)
     : reason(body[DAP_REASON].toString())
-    , module(Module(body[QStringLiteral("module")].toObject()))
+    , module(Module(body[QLatin1String("module")].toObject()))
 {
 }
 
@@ -432,14 +432,14 @@ Scope::Scope(const QJsonObject &body, MessageContext &ctx)
     : name(body[DAP_NAME].toString())
     , presentationHint(parseOptionalString(body[DAP_PRESENTATION_HINT]))
     , variablesReference(body[DAP_VARIABLES_REFERENCE].toInt())
-    , namedVariables(parseOptionalInt(body[QStringLiteral("namedVariables")]))
-    , indexedVariables(parseOptionalInt(body[QStringLiteral("indexedVariables")]))
-    , expensive(parseOptionalBool(body[QStringLiteral("expensive")]))
-    , source(parseOptionalObject<Source>(body[QStringLiteral("source")], ctx))
-    , line(parseOptionalInt(body[QStringLiteral("line")]))
-    , column(parseOptionalInt(body[QStringLiteral("column")]))
-    , endLine(parseOptionalInt(body[QStringLiteral("endLine")]))
-    , endColumn(parseOptionalInt(body[QStringLiteral("endColumn")]))
+    , namedVariables(parseOptionalInt(body[QLatin1String("namedVariables")]))
+    , indexedVariables(parseOptionalInt(body[QLatin1String("indexedVariables")]))
+    , expensive(parseOptionalBool(body[QLatin1String("expensive")]))
+    , source(parseOptionalObject<Source>(body[QLatin1String("source")], ctx))
+    , line(parseOptionalInt(body[QLatin1String("line")]))
+    , column(parseOptionalInt(body[QLatin1String("column")]))
+    , endLine(parseOptionalInt(body[QLatin1String("endLine")]))
+    , endColumn(parseOptionalInt(body[QLatin1String("endColumn")]))
 {
 }
 
@@ -456,13 +456,13 @@ QList<Scope> Scope::parseList(const QJsonArray &scopes, MessageContext &ctx)
 
 Variable::Variable(const QJsonObject &body)
     : name(body[DAP_NAME].toString())
-    , value(body[QStringLiteral("value")].toString())
+    , value(body[QLatin1String("value")].toString())
     , type(parseOptionalString(body[DAP_TYPE].toString()))
-    , evaluateName(parseOptionalString(body[QStringLiteral("evaluateName")].toString()))
+    , evaluateName(parseOptionalString(body[QLatin1String("evaluateName")].toString()))
     , variablesReference(body[DAP_VARIABLES_REFERENCE].toInt())
-    , namedVariables(parseOptionalInt(body[QStringLiteral("namedVariables")]))
-    , indexedVariables(parseOptionalInt(body[QStringLiteral("indexedVariables")]))
-    , memoryReference(parseOptionalString(body[QStringLiteral("memoryReference")]))
+    , namedVariables(parseOptionalInt(body[QLatin1String("namedVariables")]))
+    , indexedVariables(parseOptionalInt(body[QLatin1String("indexedVariables")]))
+    , memoryReference(parseOptionalString(body[QLatin1String("memoryReference")]))
 {
 }
 
@@ -480,7 +480,7 @@ QList<Variable> Variable::parseList(const QJsonArray &variables)
 
 ModulesInfo::ModulesInfo(const QJsonObject &body)
     : modules(parseObjectList<Module>(body[DAP_MODULES].toArray()))
-    , totalModules(parseOptionalInt(body[QStringLiteral("totalModules")]))
+    , totalModules(parseOptionalInt(body[QLatin1String("totalModules")]))
 {
 }
 
@@ -497,8 +497,8 @@ ContinuedEvent::ContinuedEvent(int threadId, bool allThreadsContinued)
 }
 
 SourceContent::SourceContent(const QJsonObject &body)
-    : content(body[QStringLiteral("content")].toString())
-    , mimeType(parseOptionalString(body[QStringLiteral("mimeType")]))
+    : content(body[QLatin1String("content")].toString())
+    , mimeType(parseOptionalString(body[QLatin1String("mimeType")]))
 {
 }
 
@@ -518,7 +518,7 @@ SourceBreakpoint::SourceBreakpoint(const QJsonObject &body)
     , column(parseOptionalInt(body[DAP_COLUMN]))
     , condition(parseOptionalString(body[DAP_CONDITION]))
     , hitCondition(parseOptionalString(body[DAP_HIT_CONDITION]))
-    , logMessage(parseOptionalString(body[QStringLiteral("logMessage")]))
+    , logMessage(parseOptionalString(body[QLatin1String("logMessage")]))
 {
 }
 
@@ -548,15 +548,15 @@ QJsonObject SourceBreakpoint::toJson() const
 
 Breakpoint::Breakpoint(const QJsonObject &body, MessageContext &ctx)
     : id(parseOptionalInt(body[DAP_ID]))
-    , verified(body[QStringLiteral("verified")].toBool())
-    , message(parseOptionalString(body[QStringLiteral("message")]))
+    , verified(body[QLatin1String("verified")].toBool())
+    , message(parseOptionalString(body[QLatin1String("message")]))
     , source(parseOptionalObject<Source>(body[DAP_SOURCE], ctx))
     , line(parseOptionalInt(body[DAP_LINE]))
     , column(parseOptionalInt(body[DAP_COLUMN]))
     , endLine(parseOptionalInt(body[DAP_END_LINE]))
     , endColumn(parseOptionalInt(body[DAP_END_COLUMN]))
-    , instructionReference(parseOptionalString(body[QStringLiteral("instructionReference")]))
-    , offset(parseOptionalInt(body[QStringLiteral("offset")]))
+    , instructionReference(parseOptionalString(body[QLatin1String("instructionReference")]))
+    , offset(parseOptionalInt(body[QLatin1String("offset")]))
 {
 }
 
@@ -606,20 +606,20 @@ EvaluateInfo::EvaluateInfo(const QJsonObject &body)
     : result(body[DAP_RESULT].toString())
     , type(parseOptionalString(body[DAP_TYPE]))
     , variablesReference(body[DAP_VARIABLES_REFERENCE].toInt())
-    , namedVariables(parseOptionalInt(body[QStringLiteral("namedVariables")]))
-    , indexedVariables(parseOptionalInt(body[QStringLiteral("indexedVariables")]))
-    , memoryReference(parseOptionalString(body[QStringLiteral("memoryReference")]))
+    , namedVariables(parseOptionalInt(body[QLatin1String("namedVariables")]))
+    , indexedVariables(parseOptionalInt(body[QLatin1String("indexedVariables")]))
+    , memoryReference(parseOptionalString(body[QLatin1String("memoryReference")]))
 {
 }
 
 GotoTarget::GotoTarget(const QJsonObject &body)
     : id(body[DAP_ID].toInt())
-    , label(body[QStringLiteral("label")].toString())
+    , label(body[QLatin1String("label")].toString())
     , line(body[DAP_LINE].toInt())
     , column(parseOptionalInt(body[DAP_COLUMN]))
     , endLine(parseOptionalInt(body[DAP_END_LINE]))
     , endColumn(parseOptionalInt(body[DAP_END_COLUMN]))
-    , instructionPointerReference(parseOptionalString(body[QStringLiteral("instructionPointerReference")]))
+    , instructionPointerReference(parseOptionalString(body[QLatin1String("instructionPointerReference")]))
 {
 }
 
@@ -629,10 +629,10 @@ QList<GotoTarget> GotoTarget::parseList(const QJsonArray &variables)
 }
 
 RunInTerminalRequestArguments::RunInTerminalRequestArguments(const QJsonObject &body)
-    : title(parseOptionalString(body[QStringLiteral("title")]))
-    , cwd(body[QStringLiteral("cwd")].toString())
-    , args(parseObjectList<QString>(body[QStringLiteral("args")].toArray()))
-    , env(parseOptionalMap<std::optional<QString>>(body[QStringLiteral("env")].toObject(), value_as_optstring))
+    : title(parseOptionalString(body[QLatin1String("title")]))
+    , cwd(body[QLatin1String("cwd")].toString())
+    , args(parseObjectList<QString>(body[QLatin1String("args")].toArray()))
+    , env(parseOptionalMap<std::optional<QString>>(body[QLatin1String("env")].toObject(), value_as_optstring))
 {
 }
 }

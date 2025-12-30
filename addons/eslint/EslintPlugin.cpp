@@ -83,8 +83,8 @@ static bool canLintDoc(KTextEditor::Document *d)
         return false;
     }
     const auto mode = d->highlightingMode().toLower();
-    return (mode == QStringLiteral("javascript") || mode == QStringLiteral("typescript") || mode == QStringLiteral("typescript react (tsx)")
-            || mode == QStringLiteral("javascript react (jsx)"));
+    return (mode == QLatin1String("javascript") || mode == QLatin1String("typescript") || mode == QLatin1String("typescript react (tsx)")
+            || mode == QLatin1String("javascript react (jsx)"));
 }
 
 void ESLintPluginView::onSaved(KTextEditor::Document *)

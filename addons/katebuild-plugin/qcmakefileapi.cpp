@@ -62,7 +62,7 @@ QString QCMakeFileApi::findCMakeGuiExecutable(const QString &cmakeExecutable) co
         QFileInfo fi(cmakeExecutable);
         //    qDebug() << "++++++++++ cmake: " << m_cmakeExecutable << " abs: " << fi.
         QString cmakeGui =
-            fi.absolutePath() + QStringLiteral("/cmake-gui") + (cmakeExecutable.endsWith(QStringLiteral(".exe")) ? QStringLiteral(".exe") : QString());
+            fi.absolutePath() + QStringLiteral("/cmake-gui") + (cmakeExecutable.endsWith(QLatin1String(".exe")) ? QStringLiteral(".exe") : QString());
         QFileInfo guiFi(cmakeGui);
         if (guiFi.isAbsolute() && guiFi.isFile() && guiFi.isExecutable()) {
             return cmakeGui;
@@ -193,16 +193,16 @@ bool QCMakeFileApi::haveKateReplyFiles() const
 
     QJsonObject replyObj = docObj.value(QStringLiteral("reply")).toObject();
 
-    return (replyObj.contains(QStringLiteral("client-kate")) && (replyObj.value(QStringLiteral("client-kate")).isObject()));
+    return (replyObj.contains(QLatin1String("client-kate")) && (replyObj.value(QStringLiteral("client-kate")).isObject()));
 }
 
 QCMakeFileApi::TargetType QCMakeFileApi::typeFromJson(const QString &typeStr) const
 {
-    if (typeStr == QStringLiteral("EXECUTABLE")) {
+    if (typeStr == QLatin1String("EXECUTABLE")) {
         return TargetType::Executable;
-    } else if (typeStr == QStringLiteral("UTILITY")) {
+    } else if (typeStr == QLatin1String("UTILITY")) {
         return TargetType::Utility;
-    } else if (typeStr.contains(QStringLiteral("LIBRARY"))) {
+    } else if (typeStr.contains(QLatin1String("LIBRARY"))) {
         return TargetType::Library;
     }
     return TargetType::Unknown;

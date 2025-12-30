@@ -76,7 +76,7 @@ void ExternalToolTest::testRunListDirectory()
     KateToolRunner runner1(std::move(tool), nullptr);
     runner1.run();
     runner1.waitForFinished();
-    QVERIFY(runner1.outputData().contains(QStringLiteral("bin")));
+    QVERIFY(runner1.outputData().contains(QLatin1String("bin")));
 
     // 2. /usr $ ls
     tool2->arguments.clear();
@@ -84,7 +84,7 @@ void ExternalToolTest::testRunListDirectory()
     KateToolRunner runner2(std::move(tool2), nullptr);
     runner2.run();
     runner2.waitForFinished();
-    QVERIFY(runner2.outputData().contains(QStringLiteral("bin")));
+    QVERIFY(runner2.outputData().contains(QLatin1String("bin")));
 
     // 1. and 2. must give the same result
     QCOMPARE(runner1.outputData(), runner2.outputData());

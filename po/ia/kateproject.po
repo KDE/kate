@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-25 02:37+0000\n"
-"PO-Revision-Date: 2025-03-20 18:25+0100\n"
+"PO-Revision-Date: 2025-12-29 17:33+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -1043,10 +1043,9 @@ msgid "Failed to create dir: %1"
 msgstr "Falleva a crear dir: %1"
 
 #: kateprojectworker.cpp:202
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Falleva a obtener chronologia de flie: %1"
+msgstr "Falleva a obtener chronologia de file: %1"
 
 #: kateprojectworker.cpp:729
 #, kde-format

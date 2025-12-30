@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# giovanni <g.sora@tiscali.it>, 2024.
+# SPDX-FileCopyrightText: 2024, 2025 giovanni <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2024-05-16 10:27+0200\n"
+"PO-Revision-Date: 2025-12-29 17:27+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: AsmView.cpp:303
 #, kde-format
@@ -67,21 +67,19 @@ msgstr "Tu realmente vole clauder %1?"
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr ""
+msgstr "Linguages"
 
 #: ce_widget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Compile"
+#, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Compila"
+msgstr "Compilatores"
 
 #: ce_widget.cpp:198
-#, fuzzy, kde-format
-#| msgid "Compiler Explorer"
+#, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Explrator de compilator (Compiler Explorer)"
+msgstr "Optiones de compilator ..."
 
 #: ce_widget.cpp:215
 #, kde-format
@@ -119,25 +117,22 @@ msgid "Intel Syntax"
 msgstr "Syntaxe de Intel"
 
 #: ce_widget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Change Url..."
+#, kde-format
 msgid "Change URL…"
 msgstr "Cambia URL ..."
 
 #: ce_widget.cpp:343
-#, fuzzy, kde-format
-#| msgid "Enter Url"
+#, kde-format
 msgid "Enter URL"
-msgstr "Inserta URL"
+msgstr "Inserta un URL."
 
 #: ce_widget.cpp:344
-#, fuzzy, kde-format
-#| msgid ""
-#| "Enter Url to CompilerExplorer instance. For e.g., http://localhost:10240"
+#, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"INserta Urla a instantia de CompilerExplorer. P.ex. http://localhost:10240"
+"Inserta Url per le instantia de CompilerExplorer. P.ex.  “http://"
+"localhost:10240”"
 
 #: ce_widget.cpp:404
 #, kde-format

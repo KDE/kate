@@ -189,9 +189,9 @@ Output::Output(const QJsonObject &body, MessageContext &ctx)
     }
 }
 
-Output::Output(const QString &output, const Output::Category &category)
-    : category(category)
-    , output(output)
+Output::Output(const QString &output_, const Output::Category &category_)
+    : category(category_)
+    , output(output_)
 {
 }
 
@@ -248,8 +248,8 @@ Source::Source(const QJsonObject &body, MessageContext &ctx)
     }
 }
 
-Source::Source(const QUrl &path)
-    : path(path)
+Source::Source(const QUrl &url)
+    : path(url)
 {
 }
 
@@ -376,8 +376,8 @@ Thread::Thread(const QJsonObject &body)
 {
 }
 
-Thread::Thread(const int id)
-    : id(id)
+Thread::Thread(const int tid)
+    : id(tid)
 {
 }
 
@@ -443,9 +443,9 @@ Scope::Scope(const QJsonObject &body, MessageContext &ctx)
 {
 }
 
-Scope::Scope(int variablesReference, QString name)
-    : name(std::move(name))
-    , variablesReference(variablesReference)
+Scope::Scope(int varRef, QString name_)
+    : name(std::move(name_))
+    , variablesReference(varRef)
 {
 }
 
@@ -466,9 +466,9 @@ Variable::Variable(const QJsonObject &body)
 {
 }
 
-Variable::Variable(const QString &name, const QString &value, const int reference)
-    : name(name)
-    , value(value)
+Variable::Variable(const QString &name_, const QString &val, const int reference)
+    : name(name_)
+    , value(val)
     , variablesReference(reference)
 {
 }
@@ -490,9 +490,9 @@ ContinuedEvent::ContinuedEvent(const QJsonObject &body)
 {
 }
 
-ContinuedEvent::ContinuedEvent(int threadId, bool allThreadsContinued)
-    : threadId(threadId)
-    , allThreadsContinued(allThreadsContinued)
+ContinuedEvent::ContinuedEvent(int threadId_, bool allThreadsContinued_)
+    : threadId(threadId_)
+    , allThreadsContinued(allThreadsContinued_)
 {
 }
 
@@ -522,8 +522,8 @@ SourceBreakpoint::SourceBreakpoint(const QJsonObject &body)
 {
 }
 
-SourceBreakpoint::SourceBreakpoint(const int line)
-    : line(line)
+SourceBreakpoint::SourceBreakpoint(const int bpLine)
+    : line(bpLine)
 {
 }
 
@@ -560,8 +560,8 @@ Breakpoint::Breakpoint(const QJsonObject &body, MessageContext &ctx)
 {
 }
 
-Breakpoint::Breakpoint(const int line)
-    : line(line)
+Breakpoint::Breakpoint(const int line_)
+    : line(line_)
 {
 }
 

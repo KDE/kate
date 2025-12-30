@@ -110,8 +110,8 @@ public:
         , enumIcon(QIcon::fromTheme(QStringLiteral("enum")))
     {
         auto e = KTextEditor::Editor::instance();
-        QObject::connect(e, &KTextEditor::Editor::configChanged, this, [this](KTextEditor::Editor *e) {
-            colorIcons(e);
+        QObject::connect(e, &KTextEditor::Editor::configChanged, this, [this](KTextEditor::Editor *editor) {
+            colorIcons(editor);
         });
         colorIcons(e);
     }

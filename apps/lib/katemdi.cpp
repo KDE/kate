@@ -145,10 +145,10 @@ void GUIClient::registerToolView(ToolView *tv)
 
     // try to read the action shortcut
 
-    auto shortcutsForActionName = [](const QString &aname) {
+    auto shortcutsForActionName = [](const QString &actName) {
         QList<QKeySequence> shortcuts;
         KSharedConfigPtr cfg = KSharedConfig::openConfig();
-        const QString shortcutString = cfg->group(QStringLiteral("Shortcuts")).readEntry(aname, QString());
+        const QString shortcutString = cfg->group(QStringLiteral("Shortcuts")).readEntry(actName, QString());
         const auto shortcutStrings = shortcutString.split(QStringLiteral("; "));
         for (const QString &shortcut : shortcutStrings) {
             shortcuts << QKeySequence::fromString(shortcut);
@@ -169,8 +169,8 @@ void GUIClient::registerToolView(ToolView *tv)
 
     Q_ASSERT(std::find_if(m_toolToActions.begin(),
                           m_toolToActions.end(),
-                          [tv](const ToolViewActions &a) {
-                              return a.toolview == tv;
+                          [tv](const ToolViewActions &tvActs) {
+                              return tvActs.toolview == tv;
                           })
              == m_toolToActions.end());
 
@@ -1376,8 +1376,8 @@ void Sidebar::setVisible(bool visible)
 void Sidebar::buttonPopupActivate(QAction *a)
 {
     const int id = a->data().toInt();
-    ToolViewData data = dataForId(m_popupButton);
-    ToolView *w = data.toolview;
+    ToolViewData tvData = dataForId(m_popupButton);
+    ToolView *w = tvData.toolview;
 
     if (!w) {
         return;
@@ -1403,20 +1403,20 @@ void Sidebar::buttonPopupActivate(QAction *a)
     }
 
     if (id == ToOwnSectAction) {
-        MultiTabBar *newBar = insertTabBar(indexOf(data.tabbar) + 1);
-        tabBar(w)->removeTab(data.id, w);
-        appendStyledTab(data.id, newBar, w);
+        MultiTabBar *newBar = insertTabBar(indexOf(tvData.tabbar) + 1);
+        tabBar(w)->removeTab(tvData.id, w);
+        appendStyledTab(tvData.id, newBar, w);
         showToolView(w);
     }
     if (id == UpLeftAction) {
         MultiTabBar *newBar = tabBar(indexOf(tabBar(w)) - 1);
-        tabBar(w)->removeTab(data.id, w);
-        appendStyledTab(data.id, newBar, w);
+        tabBar(w)->removeTab(tvData.id, w);
+        appendStyledTab(tvData.id, newBar, w);
     }
     if (id == DownRightAction) {
         MultiTabBar *newBar = tabBar(indexOf(tabBar(w)) + 1);
-        tabBar(w)->removeTab(data.id, w);
-        appendStyledTab(data.id, newBar, w);
+        tabBar(w)->removeTab(tvData.id, w);
+        appendStyledTab(tvData.id, newBar, w);
     }
 }
 

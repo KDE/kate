@@ -125,11 +125,11 @@ void FormatterRunner::run(KTextEditor::Document *doc)
     m_procHandle = new QProcess(this);
     QProcess *p = m_procHandle;
     connect(p, &QProcess::finished, this, [this, p](int exit, QProcess::ExitStatus) {
-        RunOutput o;
-        o.exitCode = exit;
-        o.out = p->readAllStandardOutput();
-        o.err = p->readAllStandardError();
-        onResultReady(o);
+        RunOutput output;
+        output.exitCode = exit;
+        output.out = p->readAllStandardOutput();
+        output.err = p->readAllStandardError();
+        onResultReady(output);
 
         p->deleteLater();
         deleteLater();

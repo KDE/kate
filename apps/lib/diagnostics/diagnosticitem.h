@@ -104,9 +104,9 @@ public:
         }
 
         QVarLengthArray<DiagnosticsProvider *, 3> removedProviders;
-        auto removeProvider = [&removedProviders](DiagnosticsProvider *p) {
-            if (!removedProviders.contains(p)) {
-                removedProviders.append(p);
+        auto removeProvider = [&removedProviders](DiagnosticsProvider *provider) {
+            if (!removedProviders.contains(provider)) {
+                removedProviders.append(provider);
             }
         };
         // We have more than one diagnostic provider for this file

@@ -256,10 +256,10 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
     bool m_suspendEnabled = false;
 
 public:
-    LSPClientServerManagerImpl(LSPClientPlugin *plugin)
-        : m_plugin(plugin)
+    LSPClientServerManagerImpl(LSPClientPlugin *lspClientPlugin)
+        : m_plugin(lspClientPlugin)
     {
-        connect(plugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
+        connect(lspClientPlugin, &LSPClientPlugin::update, this, &self_type::updateServerConfig);
         QTimer::singleShot(100, this, &self_type::updateServerConfig);
 
         // stay tuned on project situation

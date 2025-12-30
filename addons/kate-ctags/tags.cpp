@@ -19,11 +19,11 @@ QString Tags::_tagsfile;
 
 Tags::TagEntry::TagEntry() = default;
 
-Tags::TagEntry::TagEntry(const QString &tag, const QString &type, const QString &file, const QString &pattern)
-    : tag(tag)
-    , type(type)
-    , file(file)
-    , pattern(pattern)
+Tags::TagEntry::TagEntry(const QString &tag_, const QString &type_, const QString &file_, const QString &pattern_)
+    : tag(tag_)
+    , type(type_)
+    , file(file_)
+    , pattern(pattern_)
 {
 }
 

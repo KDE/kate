@@ -150,13 +150,13 @@ private:
 
 GotoSymbolHUDDialog::GotoSymbolHUDDialog(KTextEditor::MainWindow *mainWindow, std::shared_ptr<LSPClientServer> server)
     : HUDDialog(mainWindow->window())
-    , model(new QStandardItemModel(this))
-    , mainWindow(mainWindow)
-    , server(std::move(server))
+    , m_model(new QStandardItemModel(this))
+    , m_mainWindow(mainWindow)
+    , m_server(std::move(server))
 {
     m_lineEdit.setPlaceholderText(i18n("Filter…"));
 
-    m_treeView.setModel(model);
+    m_treeView.setModel(m_model);
     auto delegate = new GotoSymbolHUDStyleDelegate(this);
     m_treeView.setItemDelegate(delegate);
     setPaletteToEditorColors();
@@ -189,7 +189,7 @@ void GotoSymbolHUDDialog::slotReturnPressed(const QModelIndex &index)
         return;
     }
 
-    auto v = mainWindow->openUrl(symbol.fileUrl);
+    auto v = m_mainWindow->openUrl(symbol.fileUrl);
     if (v) {
         v->setCursorPosition(symbol.pos);
     }
@@ -235,18 +235,18 @@ void GotoSymbolHUDDialog::slotTextChanged(const QString &text)
      *
      * Also, at least 2 characters must be there to start getting symbols from the server
      */
-    if (!server || text.isEmpty() || text.length() < 2) {
+    if (!m_server || text.isEmpty() || text.length() < 2) {
         return;
     }
 
     auto hh = [this](const std::vector<LSPSymbolInformation> &symbols) {
-        model->clear();
+        m_model->clear();
         for (const auto &sym : symbols) {
             auto item = new QStandardItem(iconForSymbolKind(sym.kind), sym.name);
             item->setData(QVariant::fromValue(GotoSymbolItem{.fileUrl = sym.url, .pos = sym.range.start(), .kind = sym.kind}), SymbolInfoRole);
-            model->appendRow(item);
+            m_model->appendRow(item);
         }
-        m_treeView.setCurrentIndex(model->index(0, 0));
+        m_treeView.setCurrentIndex(m_model->index(0, 0));
     };
-    server->workspaceSymbol(text, this, hh);
+    m_server->workspaceSymbol(text, this, hh);
 }

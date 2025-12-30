@@ -127,9 +127,9 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
             }
         }
 
-        const auto urls = job->srcUrls();
+        const auto srcUrls = job->srcUrls();
         if (!needsReload) {
-            for (const auto &url : urls) {
+            for (const auto &url : srcUrls) {
                 const QString newFile = destDir + QStringLiteral("/") + url.fileName();
                 const QFileInfo fi(newFile);
                 if (fi.exists() && fi.isFile()) {
@@ -181,19 +181,19 @@ Qt::ItemFlags KateProjectModel::flags(const QModelIndex &index) const
     return flags;
 }
 
-static bool matchesAny(QStringView path, const QList<GitUtils::StatusItem> &items)
+static bool matchesAny(QStringView pathView, const QList<GitUtils::StatusItem> &items)
 {
     auto pathParent = [](QByteArrayView path) {
         int lastSlash = path.lastIndexOf('/');
         return lastSlash == -1 ? QByteArrayView() : path.mid(0, lastSlash);
     };
     for (const auto &m : items) {
-        if (path == QLatin1String(m.file)) {
+        if (pathView == QLatin1String(m.file)) {
             return true;
         } else {
             QByteArrayView parent = pathParent(m.file);
             while (!parent.isEmpty()) {
-                if (path == QLatin1String(parent.data(), parent.size())) {
+                if (pathView == QLatin1String(parent.data(), parent.size())) {
                     return true;
                 }
                 parent = pathParent(parent);

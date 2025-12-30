@@ -29,9 +29,6 @@ static const int s_ItemMargin = 1;
 SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
     : QStyledItemDelegate(parent)
 {
-    const auto e = KTextEditor::Editor::instance();
-    const auto theme = e->theme();
-
     const auto updateColors = [this] {
         m_font = Utils::editorFont();
         const auto theme = KTextEditor::Editor::instance()->theme();
@@ -50,7 +47,8 @@ SearchResultsDelegate::SearchResultsDelegate(QObject *parent)
         m_replaceColor = QColor::fromRgba(theme.editorColor(KSyntaxHighlighting::Theme::ReplaceHighlight));
         m_replaceColor.setAlpha(200);
     };
-    connect(e, &KTextEditor::Editor::configChanged, this, updateColors);
+
+    connect(KTextEditor::Editor::instance(), &KTextEditor::Editor::configChanged, this, updateColors);
     updateColors();
     m_font = Utils::editorFont();
 }

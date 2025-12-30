@@ -1968,9 +1968,9 @@ public:
         if (!server) {
             return;
         }
-        auto d = new GotoSymbolHUDDialog(m_mainWindow, server);
-        d->raise();
-        d->show();
+        auto dialog = new GotoSymbolHUDDialog(m_mainWindow, server);
+        dialog->raise();
+        dialog->show();
     }
 
     static QStandardItem *getItem(const QStandardItemModel &model, const QUrl &url)

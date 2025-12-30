@@ -438,13 +438,13 @@ void KateQuickOpen::slotReturnPressed()
     const QStringList strs = m_inputLine->text().split(QLatin1Char(':'));
     if (view && strs.count() > 1) {
         // convert strings to cursor
-        const auto cursor = [](const QStringList &strs) -> KTextEditor::Cursor {
-            if (strs.size() > 1) {
+        const auto cursor = [](const QStringList &splitted) -> KTextEditor::Cursor {
+            if (splitted.size() > 1) {
                 bool ok = false;
-                int line = strs.at(1).toInt(&ok);
+                int line = splitted.at(1).toInt(&ok);
                 if (ok) {
-                    if (strs.size() > 2) {
-                        int column = strs.at(2).toInt(&ok);
+                    if (splitted.size() > 2) {
+                        int column = splitted.at(2).toInt(&ok);
                         if (ok) {
                             return {line - 1, column - 1};
                         }

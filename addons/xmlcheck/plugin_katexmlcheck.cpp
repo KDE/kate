@@ -169,16 +169,16 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
                 }
                 err_count++;
                 // Diag item here
-                Diagnostic d;
+                Diagnostic diag;
                 int ln = linenumber.toInt() - 1;
                 ln = ln >= 0 ? ln : 0;
                 int cl = col.toInt() - 1;
                 cl = cl >= 0 ? cl : 0;
-                d.range = {ln, cl, ln, cl};
-                d.message = msg;
-                d.source = QStringLiteral("xmllint");
-                d.severity = DiagnosticSeverity::Warning;
-                diags << d;
+                diag.range = {ln, cl, ln, cl};
+                diag.message = msg;
+                diag.source = QStringLiteral("xmllint");
+                diag.severity = DiagnosticSeverity::Warning;
+                diags << diag;
             } else {
                 msg = msg + u'\n' + line;
             }

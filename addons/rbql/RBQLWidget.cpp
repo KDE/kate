@@ -190,11 +190,11 @@ QStandardItemModel *RBQLTab::execQuery(const QString &sep, QStringList lines, bo
 
     QJSValue inputColumnNames = [includeHeader, &header, this]() {
         if (includeHeader) {
-            QJSValue inputColumnNames = m_engine->newArray();
+            QJSValue inputColumnNamesArray = m_engine->newArray();
             for (int i = 0; i < header.size(); ++i) {
-                inputColumnNames.setProperty(i, header.at(i));
+                inputColumnNamesArray.setProperty(i, header.at(i));
             }
-            return inputColumnNames;
+            return inputColumnNamesArray;
         }
         return QJSValue(QJSValue::NullValue);
     }();

@@ -541,8 +541,8 @@ void FileHistoryWidget::getFileHistory(const QString &file)
     connect(&m_git, &QProcess::readyReadStandardOutput, this, [this, isDir] {
         auto proxy = static_cast<CommitProxyModel *>(m_listView.model());
         auto model = static_cast<CommitListModel *>(proxy->sourceModel());
-        QString data = QString::fromUtf8(m_git.readAllStandardOutput());
-        std::vector<Commit> commits = parseCommits(model->appendData(data), !isDir);
+        QString rawLogData = QString::fromUtf8(m_git.readAllStandardOutput());
+        std::vector<Commit> commits = parseCommits(model->appendData(rawLogData), !isDir);
         if (!commits.empty()) {
             model->addCommits(std::move(commits));
         }

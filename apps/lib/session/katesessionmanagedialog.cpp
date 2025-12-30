@@ -370,10 +370,10 @@ void KateSessionManageDialog::updateSessionList()
         }
     }
 
-    connect(m_sessionList->header(), &QHeaderView::sortIndicatorChanged, this, [](int logIdx, Qt::SortOrder order) {
-        KConfigGroup generalConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
-        generalConfig.writeEntry("Session Manager Sort Column", logIdx);
-        generalConfig.writeEntry("Session Manager Sort Order", (int)order);
+    connect(m_sessionList->header(), &QHeaderView::sortIndicatorChanged, this, [](int logIdx, Qt::SortOrder sortOrder) {
+        KConfigGroup genConfig(KSharedConfig::openConfig(), QStringLiteral("General"));
+        genConfig.writeEntry("Session Manager Sort Column", logIdx);
+        genConfig.writeEntry("Session Manager Sort Order", (int)sortOrder);
     });
 
     m_sessionList->header()->setStretchLastSection(false);

@@ -217,13 +217,13 @@ void CEWidget::createTopBar(QVBoxLayout *mainLayout)
     initOptionsComboBox();
 }
 
-void CEWidget::setAvailableLanguages(const QByteArray &data)
+void CEWidget::setAvailableLanguages(const QByteArray &jsonData)
 {
     if (!doc) {
         return;
     }
 
-    const QJsonArray langs = QJsonDocument::fromJson(data).array();
+    const QJsonArray langs = QJsonDocument::fromJson(jsonData).array();
 
     // We use the highlightingMode to set the current active language,
     // but this needs some sort of mapping to CE's lang names
@@ -252,13 +252,13 @@ void CEWidget::setAvailableLanguages(const QByteArray &data)
     });
 }
 
-void CEWidget::setAvailableCompilers(const QByteArray &data)
+void CEWidget::setAvailableCompilers(const QByteArray &jsonData)
 {
     if (!doc) {
         return;
     }
 
-    const QJsonArray json = QJsonDocument::fromJson(data).array();
+    const QJsonArray json = QJsonDocument::fromJson(jsonData).array();
 
     m_compilers.clear();
 
@@ -428,14 +428,14 @@ bool CEWidget::compilationFailed(const QJsonObject &obj)
     return false;
 }
 
-void CEWidget::processAndShowAsm(const QByteArray &data)
+void CEWidget::processAndShowAsm(const QByteArray &jsonData)
 {
     m_model->clear();
 
     std::vector<AsmRow> rows;
     QHash<SourcePos, AsmViewModel::CodeGenLines> sourceToAsm;
 
-    const auto json = QJsonDocument::fromJson(data);
+    const auto json = QJsonDocument::fromJson(jsonData);
 
     const auto mainObj = json.object();
 

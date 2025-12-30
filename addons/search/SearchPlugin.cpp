@@ -2259,8 +2259,8 @@ void KatePluginSearchView::onResize(const QSize &size)
 
 void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
 {
-    QPointer<Results> res = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
-    if (!res) {
+    QPointer<Results> currentResults = qobject_cast<Results *>(m_ui.resultWidget->currentWidget());
+    if (!currentResults) {
         return;
     }
     QTreeView *tree = qobject_cast<QTreeView *>(sender());
@@ -2278,14 +2278,14 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     menu->addAction(copyExpanded);
 
     auto *exportMatches = new QAction(i18n("Export matches"), tree);
-    if (res->useRegExp) {
+    if (currentResults->useRegExp) {
         menu->addAction(exportMatches);
     }
 
     auto *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
-    connect(openAsEditorTab, &QAction::triggered, this, [this, res] {
-        if (res) {
-            detachTabToMainWindow(res);
+    connect(openAsEditorTab, &QAction::triggered, this, [this, currentResults] {
+        if (currentResults) {
+            detachTabToMainWindow(currentResults);
         }
     });
     menu->addAction(openAsEditorTab);
@@ -2418,8 +2418,8 @@ void KatePluginSearchView::searchContextMenu(const QPoint &pos)
     bool enabled = m_searchAsYouType.value(static_cast<MatchModel::SearchPlaces>(searchPlace), true);
     a->setChecked(enabled);
     connect(a, &QAction::triggered, this, [this](bool checked) {
-        int searchPlace = m_ui.searchPlaceCombo->currentIndex();
-        m_searchAsYouType[static_cast<MatchModel::SearchPlaces>(searchPlace)] = checked;
+        int searchPlaceToCheck = m_ui.searchPlaceCombo->currentIndex();
+        m_searchAsYouType[static_cast<MatchModel::SearchPlaces>(searchPlaceToCheck)] = checked;
     });
 
     // Show menu and act

@@ -245,10 +245,10 @@ void SemanticHighlighter::highlight(KTextEditor::View *view, const SemanticToken
         KTextEditor::Range r(currentLine, start, currentLine, start + len);
         using MovingRangePtr = std::unique_ptr<KTextEditor::MovingRange>;
         // Check if we have a moving range for 'r' already available
-        auto it = std::lower_bound(oldRanges.begin(), oldRanges.end(), r, [](const MovingRangePtr &mr, KTextEditor::Range r) {
+        auto it = std::lower_bound(oldRanges.begin(), oldRanges.end(), r, [](const MovingRangePtr &mr, KTextEditor::Range range) {
             // null range is considered less
             // it can be null because we 'move' the range from oldRanges whenever we find a matching
-            return !mr || mr->toRange() < r;
+            return !mr || mr->toRange() < range;
         });
 
         MovingRangePtr range;

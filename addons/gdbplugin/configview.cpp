@@ -363,12 +363,12 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
                 cfg.debuggerProfile = itP.key();
                 if (full) {
                     auto dapSettings = itP.value();
-                    const auto data = m_targetCombo->currentData().toJsonObject();
+                    const auto targetJson = m_targetCombo->currentData().toJsonObject();
                     // merge data from launch.json except for the fields that are already there
-                    if (data.value(F_IS_LAUNCH_JSON).toBool()) {
+                    if (targetJson.value(F_IS_LAUNCH_JSON).toBool()) {
                         auto &settings = dapSettings.settings;
                         auto request = settings[dap::settings::REQUEST].toObject();
-                        for (auto it = data.begin(); it != data.end(); ++it) {
+                        for (auto it = targetJson.begin(); it != targetJson.end(); ++it) {
                             if (!request.contains(it.key())) {
                                 request[it.key()] = it.value();
                             }

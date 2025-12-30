@@ -225,15 +225,15 @@ void LSPClientConfigPage::readUserConfig(const QString &fileName)
 
 void LSPClientConfigPage::updateConfigTextErrorState()
 {
-    const auto data = ui->userConfig->toPlainText().toUtf8();
-    if (data.isEmpty()) {
+    const auto userConfigJsonTxt = ui->userConfig->toPlainText().toUtf8();
+    if (userConfigJsonTxt.isEmpty()) {
         ui->userConfigError->setText(i18n("No JSON data to validate."));
         return;
     }
 
     // check json validity
     QJsonParseError error{};
-    auto json = QJsonDocument::fromJson(data, &error);
+    auto json = QJsonDocument::fromJson(userConfigJsonTxt, &error);
     if (error.error == QJsonParseError::NoError) {
         if (json.isObject()) {
             ui->userConfigError->setText(i18n("JSON data is valid."));

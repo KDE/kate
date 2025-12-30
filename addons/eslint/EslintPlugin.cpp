@@ -225,7 +225,7 @@ void ESLintPluginView::onError()
     }
 }
 
-void ESLintPluginView::onFixesRequested(const QUrl &u, const Diagnostic &d, const QVariant &v)
+void ESLintPluginView::onFixesRequested(const QUrl &u, const Diagnostic &diagnostic, const QVariant &v)
 {
     if (m_diagsWithFix.empty()) {
         return;
@@ -233,7 +233,7 @@ void ESLintPluginView::onFixesRequested(const QUrl &u, const Diagnostic &d, cons
 
     for (const auto &fd : m_diagsWithFix) {
         const auto &diag = fd.diag;
-        if (diag.range == d.range && diag.code == d.code && diag.message == d.message) {
+        if (diag.range == diagnostic.range && diag.code == diagnostic.code && diag.message == diagnostic.message) {
             DiagnosticFix f;
             f.fixTitle = QStringLiteral("replace with %1").arg(fd.fix.text);
             f.fixCallback = [u, fix = fd.fix, this] {
@@ -246,22 +246,22 @@ void ESLintPluginView::onFixesRequested(const QUrl &u, const Diagnostic &d, cons
 
 void ESLintPluginView::fixDiagnostic(const QUrl &url, const DiagnosticWithFix::Fix &fix)
 {
-    KTextEditor::Document *d = nullptr;
+    KTextEditor::Document *doc = nullptr;
     if (m_activeDoc && m_activeDoc->url() == url) {
-        d = m_activeDoc;
+        doc = m_activeDoc;
     } else {
-        d = KTextEditor::Editor::instance()->application()->findUrl(url);
+        doc = KTextEditor::Editor::instance()->application()->findUrl(url);
     }
-    if (!d) {
+    if (!doc) {
         const QString message = i18n("Failed to find doc with url %1", url.toLocalFile());
         Utils::showMessage(message, {}, i18n("ESLint"), MessageType::Info, m_mainWindow);
         return;
     }
 
-    KTextEditor::Cursor s = d->offsetToCursor(fix.rangeStart);
-    KTextEditor::Cursor e = d->offsetToCursor(fix.rangeEnd);
+    KTextEditor::Cursor s = doc->offsetToCursor(fix.rangeStart);
+    KTextEditor::Cursor e = doc->offsetToCursor(fix.rangeEnd);
     if (s.isValid() && e.isValid()) {
-        d->replaceText({s, e}, fix.text);
+        doc->replaceText({s, e}, fix.text);
     }
 }
 

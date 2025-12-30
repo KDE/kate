@@ -227,13 +227,13 @@ void WelcomeView::onPluginViewChanged(const QString &pluginName)
 
 void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 {
-    const QModelIndex index = listViewRecentItems->indexAt(pos);
-    if (!index.isValid()) {
+    const QModelIndex indexAtPosition = listViewRecentItems->indexAt(pos);
+    if (!indexAtPosition.isValid()) {
         return;
     }
 
-    const QUrl url = m_recentItemsModel->url(index);
-    Q_ASSERT(url.isValid());
+    const QUrl clickedUrl = m_recentItemsModel->url(indexAtPosition);
+    Q_ASSERT(clickedUrl.isValid());
 
     QMenu contextMenu(listViewRecentItems);
 
@@ -260,26 +260,26 @@ void WelcomeView::onRecentItemsContextMenuRequested(const QPoint &pos)
 
     auto *action = new QAction(i18n("Copy &Location"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-copy-path")));
-    connect(action, &QAction::triggered, this, [url]() {
-        qApp->clipboard()->setText(url.toString(QUrl::PreferLocalFile));
+    connect(action, &QAction::triggered, this, [clickedUrl]() {
+        qApp->clipboard()->setText(clickedUrl.toString(QUrl::PreferLocalFile));
     });
     contextMenu.addAction(action);
 
     action = new QAction(i18n("&Open Containing Folder"), this);
-    action->setEnabled(url.isLocalFile());
+    action->setEnabled(clickedUrl.isLocalFile());
     action->setIcon(QIcon::fromTheme(QStringLiteral("document-open-folder")));
-    connect(action, &QAction::triggered, this, [url]() {
-        KIO::highlightInFileManager({url});
+    connect(action, &QAction::triggered, this, [clickedUrl]() {
+        KIO::highlightInFileManager({clickedUrl});
     });
     contextMenu.addAction(action);
 
     action = new QAction(i18n("&Remove"), this);
     action->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
-    connect(action, &QAction::triggered, this, [this, url, selectedIndexes]() {
+    connect(action, &QAction::triggered, this, [this, clickedUrl, selectedIndexes]() {
         KRecentFilesAction *recentFilesAction = m_viewManager->mainWindow()->recentFilesAction();
         if (selectedIndexes.empty()) {
-            if (url.isValid()) {
-                recentFilesAction->removeUrl(url);
+            if (clickedUrl.isValid()) {
+                recentFilesAction->removeUrl(clickedUrl);
             }
         } else {
             for (const auto &index : selectedIndexes) {

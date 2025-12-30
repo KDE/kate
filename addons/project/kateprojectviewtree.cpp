@@ -281,8 +281,7 @@ QStandardItem *KateProjectViewTree::unflattenTreeAndReturnClickedItem(const QMod
     ActivePart active = activeFlattenedPathItem(splitted, m_lastMousePosition.x(), rect.left() + 24, fontMetrics());
 
     auto proxyModel = static_cast<QSortFilterProxyModel *>(model());
-    auto index = proxyModel->mapToSource(idx);
-    auto item = m_project->model()->itemFromIndex(index);
+    auto item = m_project->model()->itemFromIndex(proxyModel->mapToSource(idx));
 
     if (active.index < splitted.size() - 1 && active.index >= 0) {
         QString path = item->data(Qt::UserRole).toString();

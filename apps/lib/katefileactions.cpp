@@ -104,8 +104,8 @@ void KateFileActions::renameDocumentFile(QWidget *parent, KTextEditor::Document 
     // is window-modal by default
     KJobWidgets::setWindow(job, parent);
 
-    QWidget::connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *job) {
-        auto *copyJob = static_cast<KIO::CopyJob *>(job);
+    QWidget::connect(job, &KJob::result, parent, [parent, doc, oldFileUrl](KJob *finishedJob) {
+        auto *copyJob = static_cast<KIO::CopyJob *>(finishedJob);
         if (!copyJob->error()) {
             doc->openUrl(copyJob->destUrl());
             doc->documentSavedOrUploaded(doc, true);

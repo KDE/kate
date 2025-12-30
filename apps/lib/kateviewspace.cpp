@@ -1157,8 +1157,9 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     aCloseAllTabs->setEnabled(m_tabBar->documentList().size() > 1);
     connect(aCloseAllTabs, &QAction::triggered, this, [this] {
         QTimer::singleShot(0, this, [this]() {
-            for (auto docOrWidget : m_tabBar->documentList()) {
-                int idx = m_tabBar->documentIdx(docOrWidget);
+            // TODO simplify this, we can just iterate 0..tabBar->count();
+            for (auto docOrWid : m_tabBar->documentList()) {
+                int idx = m_tabBar->documentIdx(docOrWid);
                 closeTabRequest(idx);
             }
         });
@@ -1173,9 +1174,9 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     }
     auto *doc = docOrWidget.doc();
 
-    auto addActionFromCollection = [this](QMenu *menu, const char *action_name) {
+    auto addActionFromCollection = [this](QMenu *m, const char *action_name) {
         QAction *action = m_viewManager->mainWindow()->action(QLatin1StringView(action_name));
-        auto newAction = menu->addAction(action->icon(), action->text());
+        auto newAction = m->addAction(action->icon(), action->text());
         return newAction;
     };
 

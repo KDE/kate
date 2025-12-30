@@ -532,8 +532,8 @@ void DiagnosticsView::setupDiagnosticViewToolbar(QVBoxLayout *mainLayout)
     m_clearButton->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear-all")));
     connect(m_clearButton, &QToolButton::clicked, this, [this] {
         std::vector<KTextEditor::Document *> docs(m_diagnosticsMarks.begin(), m_diagnosticsMarks.end());
-        for (auto d : docs) {
-            clearAllMarks(d);
+        for (auto doc : docs) {
+            clearAllMarks(doc);
         }
         m_model.clear();
         m_diagnosticsCount = 0;
@@ -711,12 +711,12 @@ static void fillItemRoles(QStandardItem *item, const QUrl &url, const KTextEdito
     item->setData(QVariant::fromValue(kind), DiagnosticModelRole::KindRole);
 }
 
-void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &data)
+void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &indexData)
 {
-    if (fixes.empty() || data.isNull()) {
+    if (fixes.empty() || indexData.isNull()) {
         return;
     }
-    const auto diagModelIdx = data.value<DiagModelIndex>();
+    const auto diagModelIdx = indexData.value<DiagModelIndex>();
     if (diagModelIdx.parentRow == -1) {
         qWarning("Unexpected -1 parentRow");
         return;
@@ -828,8 +828,8 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
             .parentRow = item->parent() ? item->parent()->row() : -1,
             .autoApply = quickFix,
         };
-        QVariant data = QVariant::fromValue(idx);
-        Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, data);
+        QVariant rawData = QVariant::fromValue(idx);
+        Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, rawData);
     }
 
     if (itemFromIndex->type() == DiagnosticItem_Fix) {
@@ -851,8 +851,8 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
     }
 
     auto diagWarnShowGuard = qScopeGuard([this] {
-        const bool diagnosticsAreLimited = m_diagnosticLimit > -1;
-        if (!diagnosticsAreLimited) {
+        const bool diagsAreLimited = m_diagnosticLimit > -1;
+        if (!diagsAreLimited) {
             return;
         }
 
@@ -1318,13 +1318,13 @@ void DiagnosticsView::updateDiagnosticsState(DocumentDiagnosticItem *&topItem)
 
 void DiagnosticsView::goToItemLocation(QModelIndex index)
 {
-    auto getPrimaryModelIndex = [](QModelIndex index) {
+    auto getPrimaryModelIndex = [](QModelIndex idx) {
         // in case of a multiline diagnostics item, a split secondary line has no data set
         // so we need to go up to the primary parent item
-        if (!index.data(DiagnosticModelRole::RangeRole).isValid() && index.parent().data(DiagnosticModelRole::RangeRole).isValid()) {
-            return index.parent();
+        if (!idx.data(DiagnosticModelRole::RangeRole).isValid() && idx.parent().data(DiagnosticModelRole::RangeRole).isValid()) {
+            return idx.parent();
         }
-        return index;
+        return idx;
     };
 
     index = getPrimaryModelIndex(index);
@@ -1433,17 +1433,17 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->addAction(i18n("Collapse All"), m_diagnosticsTree, &QTreeView::collapseAll);
     menu->addSeparator();
 
-    QModelIndex index = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
-    if (QStandardItem *item = m_model.itemFromIndex(index)) {
-        auto diagText = index.data().toString();
+    QModelIndex currentSourceIndex = m_proxy->mapToSource(m_diagnosticsTree->currentIndex());
+    if (QStandardItem *currentItem = m_model.itemFromIndex(currentSourceIndex)) {
+        auto diagText = currentSourceIndex.data().toString();
         menu->addAction(QIcon::fromTheme(QLatin1String("edit-copy")), i18n("Copy to Clipboard"), [diagText]() {
             QClipboard *clipboard = QGuiApplication::clipboard();
             clipboard->setText(diagText);
         });
 
-        if (item->type() == DiagnosticItem_Diag) {
+        if (currentItem->type() == DiagnosticItem_Diag) {
             menu->addSeparator();
-            auto parent = index.parent();
+            auto parent = currentSourceIndex.parent();
             auto docDiagItem = static_cast<DocumentDiagnosticItem *>(m_model.itemFromIndex(parent));
             // track validity of raw pointer
             QPersistentModelIndex pindex(parent);
@@ -1488,18 +1488,18 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
             } else {
                 menu->addAction(i18n("Add Local Suppression"), this, std::bind(h, true, file, diagText));
             }
-        } else if (item->type() == DiagnosticItem_File) {
+        } else if (currentItem->type() == DiagnosticItem_File) {
             // track validity of raw pointer
-            QPersistentModelIndex pindex(index);
-            auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
-            auto h = [this, item, pindex](bool enabled) {
+            QPersistentModelIndex pindex(currentSourceIndex);
+            auto h = [this, currentItem, pindex](bool enabled) {
                 if (!pindex.isValid()) {
                     return;
                 }
-                auto docDiagItem = static_cast<DocumentDiagnosticItem *>(item);
+                auto docDiagItem = static_cast<DocumentDiagnosticItem *>(currentItem);
                 docDiagItem->enabled = enabled;
                 updateDiagnosticsState(docDiagItem);
             };
+            auto docDiagItem = static_cast<DocumentDiagnosticItem *>(currentItem);
             if (docDiagItem->enabled) {
                 menu->addAction(i18n("Disable Suppression"), this, std::bind(h, false));
             } else {
@@ -1568,11 +1568,11 @@ void DiagnosticsView::moveDiagnosticsSelection(bool forward)
     }
 
     auto model = m_diagnosticsTree->model();
-    auto index = m_diagnosticsTree->currentIndex();
+    auto currentIndex = m_diagnosticsTree->currentIndex();
 
     // Nothing is selected, select first visible item
-    if (!index.isValid()) {
-        index = model->index(0, 0);
+    if (!currentIndex.isValid()) {
+        currentIndex = model->index(0, 0);
     }
 
     auto isDiagItem = [](const QModelIndex &index) {
@@ -1585,14 +1585,14 @@ void DiagnosticsView::moveDiagnosticsSelection(bool forward)
         return forward ? 0 : index.model()->rowCount(index) - 1;
     };
 
-    if (isDiagItem(index)) {
-        auto next = forward ? m_diagnosticsTree->indexBelow(index) : m_diagnosticsTree->indexAbove(index);
+    if (isDiagItem(currentIndex)) {
+        auto next = forward ? m_diagnosticsTree->indexBelow(currentIndex) : m_diagnosticsTree->indexAbove(currentIndex);
         if (next.isValid() && isDiagItem(next)) {
             goToItemLocation(next);
         } else {
             // Next is not a diagnostic, are we at the end of current file's diagnostics?
             // If so, then jump to the next file
-            auto parent = index.parent();
+            auto parent = currentIndex.parent();
             auto nextFile = parent.siblingAtRow(parent.row() + (forward ? 1 : -1));
             if (nextFile.isValid()) {
                 // Iterate and find valid first child and jump to that
@@ -1602,12 +1602,12 @@ void DiagnosticsView::moveDiagnosticsSelection(bool forward)
         }
     } else {
         // Current is not a diagnostic item
-        if (!index.parent().isValid()) {
+        if (!currentIndex.parent().isValid()) {
             // Current is a file item, select it's first child
-            goToItemLocation(model->index(0, 0, index));
+            goToItemLocation(model->index(0, 0, currentIndex));
         } else {
             // We are likely in third subitem, so we need to go back up
-            goToItemLocation(model->index(getRow(index.parent()), 0, index));
+            goToItemLocation(model->index(getRow(currentIndex.parent()), 0, currentIndex));
         }
     }
 }

@@ -141,20 +141,20 @@ void IOView::readOutput()
     m_stdoutNotifier->setEnabled(false);
     qint64 res;
     char chData[256];
-    QByteArray data;
+    QByteArray stdoutData;
 
     do {
         res = m_stdout.read(chData, 255);
         if (res <= 0) {
             m_stdoutD.flush();
         } else {
-            data.append(chData, res);
+            stdoutData.append(chData, res);
         }
 
     } while (res == 255);
 
-    if (data.size() > 0) {
-        Q_EMIT stdOutText(QString::fromLocal8Bit(data));
+    if (stdoutData.size() > 0) {
+        Q_EMIT stdOutText(QString::fromLocal8Bit(stdoutData));
     }
     m_stdoutNotifier->setEnabled(true);
 }
@@ -164,19 +164,19 @@ void IOView::readErrors()
     m_stderrNotifier->setEnabled(false);
     qint64 res;
     char chData[256];
-    QByteArray data;
+    QByteArray stdErrData;
 
     do {
         res = m_stderr.read(chData, 255);
         if (res <= 0) {
             m_stderrD.flush();
         } else {
-            data.append(chData, res);
+            stdErrData.append(chData, res);
         }
     } while (res == 255);
 
-    if (data.size() > 0) {
-        Q_EMIT stdErrText(QString::fromLocal8Bit(data));
+    if (stdErrData.size() > 0) {
+        Q_EMIT stdErrText(QString::fromLocal8Bit(stdErrData));
     }
     m_stderrNotifier->setEnabled(true);
 }

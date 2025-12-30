@@ -69,9 +69,9 @@ public:
         // copy
         auto job = QScopedPointer(KIO::file_copy(srcUrl, destUrl, 0600, KIO::Overwrite));
 
-        QObject::connect(job.get(), &KJob::result, this, [&](KJob *job) {
+        QObject::connect(job.get(), &KJob::result, this, [&](KJob *finishedJob) {
             loop.quit();
-            QVERIFY(!job->error());
+            QVERIFY(!finishedJob->error());
             dest.seek(0);
             QCOMPARE(dest.readAll(), data);
         });
@@ -81,9 +81,9 @@ public:
         // should reject overwrite
         job.reset(KIO::file_copy(srcUrl, destUrl, 0600, KIO::DefaultFlags));
 
-        QObject::connect(job.get(), &KJob::result, this, [&](KJob *job) {
+        QObject::connect(job.get(), &KJob::result, this, [&](KJob *finishedJob) {
             loop.quit();
-            QVERIFY(job->error());
+            QVERIFY(finishedJob->error());
             dest.seek(0);
             QCOMPARE(dest.readAll(), data);
         });
@@ -124,14 +124,14 @@ private Q_SLOTS:
         QEventLoop loop;
 
         KIO::UDSEntryList list;
-        QObject::connect(job.get(), &KIO::ListJob::entries, this, [&](KIO::Job *job, const KIO::UDSEntryList &entries) {
-            (void)job;
+        QObject::connect(job.get(), &KIO::ListJob::entries, this, [&](KIO::Job *finishedJob, const KIO::UDSEntryList &entries) {
+            (void)finishedJob;
             list.append(entries);
         });
 
-        QObject::connect(job.get(), &KJob::result, this, [&](KJob *job) {
+        QObject::connect(job.get(), &KJob::result, this, [&](KJob *finishedJob) {
             loop.quit();
-            QVERIFY(!job->error());
+            QVERIFY(!finishedJob->error());
         });
 
         loop.exec();

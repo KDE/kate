@@ -333,13 +333,13 @@ void KateGPGPluginView::onTableViewSelection()
         const QVector<GPGKeyDetails> keys = m_gpgWrapper->getKeys();
         if (m_selectedRowIndex <= keys.size()) {
             for (auto key = m_gpgWrapper->getKeys().begin(); key != m_gpgWrapper->getKeys().end(); ++key) {
-                GPGKeyDetails d = *key;
-                if (selectedFingerPrint == d.fingerPrint()) {
-                    const QVector<QString> mailAddresses = d.mailAdresses();
+                GPGKeyDetails keyDetail = *key;
+                if (selectedFingerPrint == keyDetail.fingerPrint()) {
+                    const QVector<QString> mailAddresses = keyDetail.mailAdresses();
                     for (auto &r : mailAddresses) {
                         m_preferredEmailAddressComboBox->addItem(r);
                     }
-                    m_selectedKeyIndexEdit->setText(d.fingerPrint());
+                    m_selectedKeyIndexEdit->setText(keyDetail.fingerPrint());
                     return;
                 }
             }
@@ -375,13 +375,13 @@ void KateGPGPluginView::updateKeyTable()
     const QVector<GPGKeyDetails> &keyDetailsList = m_gpgWrapper->getKeys();
     uint numRows = 0;
     for (uint row = 0; row < m_gpgWrapper->getNumKeys(); ++row) {
-        GPGKeyDetails d = keyDetailsList.at(row);
+        GPGKeyDetails keyDetail = keyDetailsList.at(row);
         m_gpgKeyTable->insertRow(m_gpgKeyTable->rowCount());
-        makeTableCell(d.fingerPrint(), numRows, 0);
-        makeTableCell(d.creationDate(), numRows, 1);
-        makeTableCell(d.expiryDate(), numRows, 2);
-        makeTableCell(d.keyLength(), numRows, 3);
-        QString uidsAndMails(concatenateEmailAddressesToString(d.uids(), d.mailAdresses(), d.subkeyIDs()));
+        makeTableCell(keyDetail.fingerPrint(), numRows, 0);
+        makeTableCell(keyDetail.creationDate(), numRows, 1);
+        makeTableCell(keyDetail.expiryDate(), numRows, 2);
+        makeTableCell(keyDetail.keyLength(), numRows, 3);
+        QString uidsAndMails(concatenateEmailAddressesToString(keyDetail.uids(), keyDetail.mailAdresses(), keyDetail.subkeyIDs()));
         makeTableCell(uidsAndMails, numRows, 4);
         ++numRows;
     }

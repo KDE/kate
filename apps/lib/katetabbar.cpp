@@ -276,11 +276,11 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     paint.drawControl(QStyle::CE_TabBarTab, opt);
     paint.end();
 
-    QByteArray data;
+    QByteArray posData;
     auto view = viewSpace->currentView();
     if (view) {
         KTextEditor::Cursor cp = view->cursorPosition();
-        QDataStream ds(&data, QIODevice::WriteOnly);
+        QDataStream ds(&posData, QIODevice::WriteOnly);
         ds << cp.line();
         ds << cp.column();
         ds << view->document()->url();
@@ -290,7 +290,7 @@ void KateTabBar::mouseMoveEvent(QMouseEvent *event)
     }
 
     auto mime = new TabMimeData(viewSpace, tabData);
-    mime->setData(QStringLiteral("application/kate.tab.mimedata"), data);
+    mime->setData(QStringLiteral("application/kate.tab.mimedata"), posData);
 
     auto *drag = new QDrag(this);
     drag->setMimeData(mime);
@@ -401,8 +401,7 @@ void KateTabBar::setCurrentDocument(DocOrWidget docOrWidget)
     int indexToReplace = 0;
     DocOrWidget docToReplace;
     for (int idx = 0; idx < count(); idx++) {
-        QVariant data = tabData(idx);
-        auto doc = data.value<DocOrWidget>();
+        auto doc = tabData(idx).value<DocOrWidget>();
         const quint64 currentCounter = m_docToLruCounterAndHasTab[doc].lruValue;
         if (currentCounter <= minCounter) {
             minCounter = currentCounter;
@@ -478,8 +477,7 @@ void KateTabBar::removeDocument(DocOrWidget doc)
 int KateTabBar::documentIdx(DocOrWidget doc)
 {
     for (int idx = 0; idx < count(); idx++) {
-        const QVariant data = tabData(idx);
-        if (data.value<DocOrWidget>().qobject() == doc.qobject()) {
+        if (tabData(idx).value<DocOrWidget>().qobject() == doc.qobject()) {
             return idx;
         }
     }
@@ -488,8 +486,8 @@ int KateTabBar::documentIdx(DocOrWidget doc)
 
 DocOrWidget KateTabBar::tabDocument(int idx)
 {
-    QVariant data = ensureValidTabData(idx);
-    auto buttonData = data.value<DocOrWidget>();
+    QVariant tabData = ensureValidTabData(idx);
+    auto buttonData = tabData.value<DocOrWidget>();
 
     DocOrWidget doc;
     // The tab got activated before the correct finalization,
@@ -518,8 +516,7 @@ QList<DocOrWidget> KateTabBar::documentList() const
     QList<DocOrWidget> result;
     result.reserve(count());
     for (int idx = 0; idx < count(); idx++) {
-        QVariant data = tabData(idx);
-        result.append(data.value<DocOrWidget>());
+        result.append(tabData(idx).value<DocOrWidget>());
     }
     return result;
 }

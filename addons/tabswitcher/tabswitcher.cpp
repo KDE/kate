@@ -182,9 +182,9 @@ void TabSwitcherPluginView::registerDocuments(const QList<KTextEditor::Document 
     m_documents.insert(documents.begin(), documents.end());
     QList<DocOrWidget> docs;
     docs.reserve(documents.size());
-    for (auto d : documents) {
-        connect(d, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
-        docs.push_back(DocOrWidget(d));
+    for (auto doc : documents) {
+        connect(doc, &KTextEditor::Document::documentNameChanged, this, &TabSwitcherPluginView::updateDocumentName);
+        docs.push_back(DocOrWidget(doc));
     }
 
     m_model->insertDocuments(0, docs);

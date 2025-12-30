@@ -9,16 +9,16 @@
 
 #include <QDebug>
 #include <QDir>
+#include <QDirIterator>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QInputDialog>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QStandardPaths>
 #include <QTemporaryDir>
-#include <QInputDialog>
-#include <QDirIterator>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -130,7 +130,7 @@ Template::Template(QWidget *parent)
 
     QPushButton *importButton = new QPushButton(QIcon::fromTheme(u"document-import"_s), i18n("Import..."), this);
     ui->u_buttonBox->addButton(importButton, QDialogButtonBox::ActionRole);
-    
+
     connect(importButton, &QPushButton::clicked, this, &Template::importTemplate);
     connect(m_createButton, &QPushButton::clicked, this, &Template::createFromTemplate);
     connect(ui->u_buttonBox, &QDialogButtonBox::rejected, this, &Template::cancel);
@@ -173,16 +173,16 @@ void Template::addEntries(const QFileInfo &info, const QModelIndex &parent)
     QDir dir(info.absoluteFilePath());
     QStringList files = dir.entryList(QDir::Files | QDir::Hidden);
     if (files.contains(u"template.json"_s)) {
-        std::unique_ptr<TreeData> data = std::make_unique<TreeData>();
-        data->path = parent.data(TreeData::PathRole).toString();
-        data->configFile = u"template.json"_s;
-        m_selectionModel.setAbstractData(std::move(data), parent);
+        std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+        treeData->path = parent.data(TreeData::PathRole).toString();
+        treeData->configFile = u"template.json"_s;
+        m_selectionModel.setAbstractData(std::move(treeData), parent);
         return;
     }
     for (const auto &entry : dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot)) {
-        std::unique_ptr<TreeData> data = std::make_unique<TreeData>();
-        data->path = entry.absoluteFilePath();
-        const QModelIndex cIndex = m_selectionModel.addChild(std::move(data), parent);
+        std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+        treeData->path = entry.absoluteFilePath();
+        const QModelIndex cIndex = m_selectionModel.addChild(std::move(treeData), parent);
         addEntries(entry, cIndex);
     }
 }
@@ -397,16 +397,16 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
 
     for (const auto renameVal : replacements) {
         const auto renObj = renameVal.toObject();
-        std::unique_ptr<ConfigData> data = std::make_unique<ConfigData>();
-        data->m_desc = renObj.value(u"description"_s).toString();
-        data->m_placeholder = renObj.value(u"placeholder"_s).toString().toLocal8Bit();
-        data->m_value = renObj.value(u"default"_s).toString().toLocal8Bit();
-        data->m_mustBeLowercase = renObj.value(u"mustBeLowercase"_s).toBool(false);
+        std::unique_ptr<ConfigData> configData = std::make_unique<ConfigData>();
+        configData->m_desc = renObj.value(u"description"_s).toString();
+        configData->m_placeholder = renObj.value(u"placeholder"_s).toString().toLocal8Bit();
+        configData->m_value = renObj.value(u"default"_s).toString().toLocal8Bit();
+        configData->m_mustBeLowercase = renObj.value(u"mustBeLowercase"_s).toBool(false);
         const auto files = renObj.value(u"genratedFiles"_s).toArray();
         for (const auto file : files) {
-            data->m_generatedFiles.append(file.toString());
+            configData->m_generatedFiles.append(file.toString());
         }
-        m_configModel.addChild(std::move(data), QModelIndex());
+        m_configModel.addChild(std::move(configData), QModelIndex());
     }
 
     ui->u_configTreeView->resizeColumnToContents(0);
@@ -477,18 +477,18 @@ void Template::addAppWizardTemplates()
             paths.append(part);
             const QString path = paths.join(u'/');
             if (!indexes.contains(path)) {
-                std::unique_ptr<TreeData> data = std::make_unique<TreeData>();
-                data->path = path;
-                index = m_selectionModel.addChild(std::move(data), index);
+                std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+                treeData->path = path;
+                index = m_selectionModel.addChild(std::move(treeData), index);
                 indexes.insert(path, index);
             } else {
                 index = indexes.value(path);
             }
         }
-        std::unique_ptr<TreeData> data = std::make_unique<TreeData>();
-        data->path = it.key();
-        data->configFile = it->packagePath;
-        m_selectionModel.addChild(std::move(data), index);
+        std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+        treeData->path = it.key();
+        treeData->configFile = it->packagePath;
+        m_selectionModel.addChild(std::move(treeData), index);
     }
 }
 
@@ -500,13 +500,13 @@ void Template::appWizardTemplateSelected(const QString &category)
     ui->u_detailsTB->setText(templ.description);
 
     for (const auto &ren : AppWizardReader().replacements()) {
-        std::unique_ptr<ConfigData> data = std::make_unique<ConfigData>();
-        data->m_desc = ren.descr;
-        data->m_placeholder = ren.placeholder;
-        data->m_value = ren.defaultValue;
-        data->m_mustBeLowercase = false;
+        std::unique_ptr<ConfigData> configData = std::make_unique<ConfigData>();
+        configData->m_desc = ren.descr;
+        configData->m_placeholder = ren.placeholder;
+        configData->m_value = ren.defaultValue;
+        configData->m_mustBeLowercase = false;
         // data->m_generatedFiles;
-        m_configModel.addChild(std::move(data), QModelIndex());
+        m_configModel.addChild(std::move(configData), QModelIndex());
     }
 
     ui->u_configTreeView->resizeColumnToContents(0);
@@ -627,7 +627,10 @@ void Template::exportTemplate()
 
 void Template::importTemplate()
 {
-    const QString srcDir = QFileDialog::getExistingDirectory(this, i18n("Select Template Folder to Import"), QDir::homePath(), QFileDialog::ShowDirsOnly | QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
+    const QString srcDir = QFileDialog::getExistingDirectory(this,
+                                                             i18n("Select Template Folder to Import"),
+                                                             QDir::homePath(),
+                                                             QFileDialog::ShowDirsOnly | QFileDialog::ReadOnly | QFileDialog::DontUseNativeDialog);
     if (srcDir.isEmpty()) {
         return;
     }
@@ -724,7 +727,8 @@ void Template::importTemplate()
     }
 
     bool ok = false;
-    QString category = QInputDialog::getText(this, i18n("Import Template"),
+    QString category = QInputDialog::getText(this,
+                                             i18n("Import Template"),
                                              i18n("Enter the category (tree-path) for this template (e.g., Files/Qt/FooBar):"),
                                              QLineEdit::Normal,
                                              i18n("Imported"),
@@ -739,12 +743,13 @@ void Template::importTemplate()
     const QString destPath = QDir(localTemplates).filePath(category + QLatin1Char('/') + dirName);
 
     if (QFileInfo::exists(destPath)) {
-        const int ret = KMessageBox::warningContinueCancel(this,
-                                                           i18n("A template '%1' already exists in category '%2'.\nDo you want to overwrite it?", dirName, category),
-                                                           i18n("Overwrite Template"),
-                                                           KStandardGuiItem::overwrite(),
-                                                           KStandardGuiItem::cancel(),
-                                                           u"overwrite_imported_template_warning"_s);
+        const int ret =
+            KMessageBox::warningContinueCancel(this,
+                                               i18n("A template '%1' already exists in category '%2'.\nDo you want to overwrite it?", dirName, category),
+                                               i18n("Overwrite Template"),
+                                               KStandardGuiItem::overwrite(),
+                                               KStandardGuiItem::cancel(),
+                                               u"overwrite_imported_template_warning"_s);
 
         if (ret != KMessageBox::Continue) {
             return;
@@ -758,7 +763,7 @@ void Template::importTemplate()
 
     if (success) {
         m_selectionModel.clear();
-        
+
         addTemplateRoot(localTemplates);
         addTemplateRoot(u":/templates"_s);
 

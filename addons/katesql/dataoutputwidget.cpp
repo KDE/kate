@@ -259,9 +259,9 @@ void DataOutputWidget::slotExport()
         QApplication::clipboard()->setText(text);
     } else if (outputInFile) {
         QString url = wizard.field(QStringLiteral("outFileUrl")).toString();
-        QFile data(url);
-        if (data.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream stream(&data);
+        QFile file(url);
+        if (file.open(QFile::WriteOnly | QFile::Truncate)) {
+            QTextStream stream(&file);
 
             exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
 
@@ -303,7 +303,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
     snapshot.reserve(selectedIndexes.count());
 
     for (const QModelIndex &index : selectedIndexes) {
-        const QVariant data = index.data(Qt::UserRole);
+        const QVariant indexData = index.data(Qt::UserRole);
 
         const int col = index.column();
         const int row = index.row();
@@ -311,18 +311,18 @@ void DataOutputWidget::exportData(QTextStream &stream,
         columns.push_back(col);
         rows.push_back(row);
 
-        if (data.typeId() < 7) // is numeric or boolean
+        if (indexData.typeId() < 7) // is numeric or boolean
         {
             if (numbersQuoteChar != QLatin1Char('\0')) {
-                snapshot[qMakePair(row, col)] = numbersQuoteChar + data.toString() + numbersQuoteChar;
+                snapshot[qMakePair(row, col)] = numbersQuoteChar + indexData.toString() + numbersQuoteChar;
             } else {
-                snapshot[qMakePair(row, col)] = data.toString();
+                snapshot[qMakePair(row, col)] = indexData.toString();
             }
         } else {
             if (stringsQuoteChar != QLatin1Char('\0')) {
-                snapshot[qMakePair(row, col)] = stringsQuoteChar + data.toString() + stringsQuoteChar;
+                snapshot[qMakePair(row, col)] = stringsQuoteChar + indexData.toString() + stringsQuoteChar;
             } else {
-                snapshot[qMakePair(row, col)] = data.toString();
+                snapshot[qMakePair(row, col)] = indexData.toString();
             }
         }
     }
@@ -339,12 +339,12 @@ void DataOutputWidget::exportData(QTextStream &stream,
         }
 
         for (auto it = columns.begin(); it != columns.end(); ++it) {
-            const QVariant data = m_model->headerData(*it, Qt::Horizontal);
+            const QVariant headerData = m_model->headerData(*it, Qt::Horizontal);
 
             if (stringsQuoteChar != QLatin1Char('\0')) {
-                stream << stringsQuoteChar + data.toString() + stringsQuoteChar;
+                stream << stringsQuoteChar + headerData.toString() + stringsQuoteChar;
             } else {
-                stream << data.toString();
+                stream << headerData.toString();
             }
 
             if (it + 1 != columns.end()) {

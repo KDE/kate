@@ -30,9 +30,9 @@ private:
     QIcon iconForSymbolKind(LSPSymbolKind kind) const;
     void setPaletteToEditorColors();
 
-    QStandardItemModel *model = nullptr;
-    KTextEditor::MainWindow *mainWindow;
-    std::shared_ptr<LSPClientServer> server;
+    QStandardItemModel *m_model = nullptr;
+    KTextEditor::MainWindow *m_mainWindow;
+    std::shared_ptr<LSPClientServer> m_server;
 
     const QIcon m_icon_pkg = QIcon::fromTheme(QStringLiteral("code-block"));
     const QIcon m_icon_class = QIcon::fromTheme(QStringLiteral("code-class"));

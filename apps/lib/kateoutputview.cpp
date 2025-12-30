@@ -450,8 +450,8 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         auto block = doc->lastBlock();
         bool found = false;
         while (block.isValid()) {
-            auto data = static_cast<BlockData *>(block.userData());
-            if (data && data->token == token) {
+            auto blockData = static_cast<BlockData *>(block.userData());
+            if (blockData && blockData->token == token) {
                 found = true;
                 break;
             }
@@ -477,8 +477,8 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         } else {
             qWarning("%s unable to find valid block!", Q_FUNC_INFO);
             m_textEdit->append(meta);
-            auto data = new BlockData(token);
-            m_textEdit->document()->lastBlock().setUserData(data);
+            auto blockData = new BlockData(token);
+            m_textEdit->document()->lastBlock().setUserData(blockData);
         }
     } else {
         lines.first().prepend(meta);

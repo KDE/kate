@@ -310,15 +310,10 @@ void AsmView::contextMenuEvent(QContextMenuEvent *e)
 
     QModelIndex index = indexAt(e->pos());
     if (index.isValid()) {
-        auto labels = index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
+        const auto labels = index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
         if (!labels.isEmpty()) {
-            menu.addAction(i18n("Jump to label"), this, [this, index] {
+            menu.addAction(i18n("Jump to label"), this, [this, index, labels] {
                 auto model = static_cast<AsmViewModel *>(this->model());
-
-                const auto labels = index.data(AsmViewModel::RowLabels).value<QList<LabelInRow>>();
-                if (labels.isEmpty()) {
-                    return;
-                }
 
                 const QString asmLine = index.data().toString();
 

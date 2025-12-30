@@ -339,14 +339,14 @@ void KateProjectPluginView::viewForProject(KateProject *project)
     m_projectsCombo->addItem(QIcon::fromTheme(QStringLiteral("project-open")), project->name(), project->fileName());
     connect(project, &KateProject::projectMapChanged, this, [this] {
         auto widget = m_stackedProjectViews->currentWidget();
-        auto project = static_cast<KateProjectView *>(widget)->project();
-        if (widget && project == sender()) {
+        auto changedProject = static_cast<KateProjectView *>(widget)->project();
+        if (widget && changedProject == sender()) {
             Q_EMIT projectMapEdited();
 
-            int index = m_projectsCombo->findData(project->fileName());
+            int index = m_projectsCombo->findData(changedProject->fileName());
             Q_ASSERT(index == m_projectsCombo->currentIndex());
             if (index != -1) {
-                m_projectsCombo->setItemText(index, project->name());
+                m_projectsCombo->setItemText(index, changedProject->name());
             }
         }
     });

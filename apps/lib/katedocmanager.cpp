@@ -104,8 +104,8 @@ KTextEditor::Document *KateDocManager::createDoc(const KateDocumentInfo &docInfo
     // connect internal signals...
     connect(doc, &KTextEditor::Document::modifiedChanged, this, &KateDocManager::slotModChanged1);
     connect(doc, &KTextEditor::Document::modifiedOnDisk, this, &KateDocManager::slotModifiedOnDisc);
-    connect(doc, &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document *doc) {
-        slotUrlChanged(doc->url());
+    connect(doc, &KTextEditor::Document::documentUrlChanged, this, [this](KTextEditor::Document *docWithNewUrl) {
+        slotUrlChanged(docWithNewUrl->url());
     });
     connect(doc, &KParts::ReadOnlyPart::urlChanged, this, &KateDocManager::slotUrlChanged);
 

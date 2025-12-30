@@ -99,13 +99,13 @@ public:
             m_movingRange->setRange(range);
         }
 
-        static const KTextEditor::Attribute::Ptr attr([] {
+        static const KTextEditor::Attribute::Ptr blue([] {
             auto attr = new KTextEditor::Attribute;
             // Bluish, works with light/dark bg
             attr->setForeground(QColor(0x409DFF));
             return attr;
         }());
-        m_movingRange->setAttribute(attr);
+        m_movingRange->setAttribute(blue);
     }
 
     void clear()
@@ -274,12 +274,12 @@ void OpenLinkPluginView::onViewScrolled()
 static KTextEditor::MovingRange *highlightRange(KTextEditor::Document *doc, KTextEditor::Range range)
 {
     KTextEditor::MovingRange *r = doc->newMovingRange(range);
-    static const KTextEditor::Attribute::Ptr attr([] {
+    static const KTextEditor::Attribute::Ptr underlineAttr([] {
         auto attr = new KTextEditor::Attribute;
         attr->setUnderlineStyle(QTextCharFormat::SingleUnderline);
         return attr;
     }());
-    r->setAttribute(attr);
+    r->setAttribute(underlineAttr);
     return r;
 }
 

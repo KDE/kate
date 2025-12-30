@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-28 00:46+0000\n"
-"PO-Revision-Date: 2025-10-14 17:29+0200\n"
+"PO-Revision-Date: 2025-12-29 18:05+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -604,7 +604,7 @@ msgstr ""
 #: lib/filehistorywidget.cpp:553
 #, kde-format
 msgid "Failed to get file history: %1"
-msgstr "Falleva a obtener chronologia de flie: %1"
+msgstr "Falleva a obtener chronologia de file: %1"
 
 #: lib/filehistorywidget.cpp:568
 #, kde-format
@@ -2149,10 +2149,9 @@ msgstr ""
 "'%1'"
 
 #: lib/katemwmodonhddialog.cpp:281
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Failed to create a temporary file"
-msgstr "Falleva a obtener chronologia de flie: %1"
+msgstr "Falleva a un file temporanee"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2024-02-15 21:55+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -396,8 +396,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "A kiszolgáló váratlanul leállt … %1 [%2] [honlap: %3] "
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "A kiszolgáló binárisa nem található: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -411,8 +412,9 @@ msgid "See also %1 for installation or details"
 msgstr "Lásd %1 a telepítéshez vagy részletekhez"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Nem sikerült elindítani a kiszolgálót: %1"
 
 #: lspclientservermanager.cpp:959

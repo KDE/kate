@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2024-12-15 15:57+0530\n"
 "Last-Translator: Kali <EMAIL@ADDRESS>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -389,7 +389,7 @@ msgstr ""
 
 #: lspclientservermanager.cpp:886
 #, kde-format
-msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr ""
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -404,7 +404,7 @@ msgstr ""
 
 #: lspclientservermanager.cpp:951
 #, kde-format
-msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr ""
 
 #: lspclientservermanager.cpp:959

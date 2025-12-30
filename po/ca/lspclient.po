@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2025-12-28 08:55+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -398,8 +398,9 @@ msgstr ""
 "El servidor ha finalitzat inesperadament... %1 [%2] [pàgina inicial: %3] "
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Ha fallat en trobar el binari del servidor: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -414,8 +415,9 @@ msgstr ""
 "Vegeu també %1 per a obtenir informació sobre la instal·lació o els detalls"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Ha fallat en iniciar el servidor: %1"
 
 #: lspclientservermanager.cpp:959

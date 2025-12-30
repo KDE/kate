@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2023-01-02 22:53+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -396,8 +396,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Απρόσμενος τερματισμός εξυπηρετητή ... %1 [%2] [αρχική σελίδα: %3] "
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Αποτυχία εύρεσης του εκτελέσιμου του εξυπηρετητή: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -411,8 +412,9 @@ msgid "See also %1 for installation or details"
 msgstr "Δείτε και στο %1 για εγκατάσταση ή λεπτομέρειες"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
 
 #: lspclientservermanager.cpp:959

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2023-01-08 12:06+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -392,7 +392,7 @@ msgstr "Tenaren avslutta uventa … %1 [%2] [heimeside: %3] "
 
 #: lspclientservermanager.cpp:886
 #, kde-format
-msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr ""
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -406,8 +406,9 @@ msgid "See also %1 for installation or details"
 msgstr ""
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Klarte ikkje starta tenar: %1"
 
 #: lspclientservermanager.cpp:959

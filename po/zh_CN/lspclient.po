@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -393,8 +393,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "服务器意外终止... %1 [%2] [主页: %3] "
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "无法找到服务器二进制文件：%1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -408,8 +409,9 @@ msgid "See also %1 for installation or details"
 msgstr "另请参考 %1 以获取安装或详细信息"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "启动服务器失败：%1"
 
 #: lspclientservermanager.cpp:959

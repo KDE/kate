@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2023-02-05 17:53+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -397,8 +397,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server sa neočakávane ukončil ... %1 [%2] [domovská stránka: %3] "
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Spustiteľný súbor servera sa nepodarilo nájsť: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -412,8 +413,9 @@ msgid "See also %1 for installation or details"
 msgstr "Pozrite si tiež %1 pre inštaláciu alebo podrobnosti"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Nepodarilo sa spustiť server: %1"
 
 #: lspclientservermanager.cpp:959

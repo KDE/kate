@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -411,7 +411,7 @@ msgstr "Server mati secara tiba-tiba: %1"
 #: lspclientservermanager.cpp:886
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
-msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Gagal menyalakan server: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -425,8 +425,9 @@ msgid "See also %1 for installation or details"
 msgstr ""
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Gagal menyalakan server: %1"
 
 #: lspclientservermanager.cpp:959

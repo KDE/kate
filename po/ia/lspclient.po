@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-30 00:44+0000\n"
 "PO-Revision-Date: 2024-12-16 18:11+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -395,8 +395,9 @@ msgstr ""
 "Servitor terminava inopinatemente ... %1 [%2][pagina principal o domo: %3]"
 
 #: lspclientservermanager.cpp:886
-#, kde-format
-msgid "Failed to find server binary: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to find server binary: %1"
+msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Il falleva a trovar binari de  servitor: %1"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
@@ -410,8 +411,9 @@ msgid "See also %1 for installation or details"
 msgstr "Vide anque %1 per installation o detalios"
 
 #: lspclientservermanager.cpp:951
-#, kde-format
-msgid "Failed to start server: %1"
+#, fuzzy, kde-format
+#| msgid "Failed to start server: %1"
+msgid "Failed to start server '%1' for language '%2'"
 msgstr "Il falleva a startar servitor: %1"
 
 #: lspclientservermanager.cpp:959

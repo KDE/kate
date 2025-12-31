@@ -8,6 +8,7 @@
 
 #include <QCoreApplication>
 #include <QFileInfo>
+#include <QLoggingCategory>
 #include <QProcess>
 #include <QTimer>
 #include <QUrl>
@@ -16,7 +17,7 @@
 
 #include "../exec_io_utils.h"
 
-#include "kate_exec_debug.h"
+Q_LOGGING_CATEGORY(KIO_KATEEXEC, "kio_kateexec", QtWarningMsg)
 
 // Pseudo plugin class to embed meta data
 class KIOPluginForMetaData : public QObject
@@ -47,7 +48,7 @@ public:
 
     KIO::WorkerResult exec(QProcess &process, QString program, const QStringList &args, KIO::Error error, const QUrl &url)
     {
-        qCDebug(LibKateExec) << program << args;
+        qCDebug(KIO_KATEEXEC) << program << args;
         process.setProcessChannelMode(QProcess::ForwardedErrorChannel);
         process.start(program, args);
 

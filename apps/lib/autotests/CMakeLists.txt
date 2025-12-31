@@ -41,5 +41,5 @@ if (UNIX AND (CMAKE_SYSTEM_NAME STREQUAL Linux))
     kate_executable_tests(
         io_tests
     )
-    target_link_libraries(io_tests PRIVATE executils)
+    target_link_libraries(io_tests PRIVATE kateprivate)
 endif ()

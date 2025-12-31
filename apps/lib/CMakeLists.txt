@@ -117,6 +117,15 @@ ecm_qt_declare_logging_category(
     DEFAULT_SEVERITY Warning
 )
 
+include(ECMQtDeclareLoggingCategory)
+ecm_qt_declare_logging_category(
+    LIB_KATE_EXEC_SOURCES
+    HEADER kate_exec_debug.h
+    IDENTIFIER LibKateExec
+    CATEGORY_NAME "libkate.exec"
+    DEFAULT_SEVERITY Info
+)
+
 ki18n_wrap_ui(kateprivate ui/sessionconfigwidget.ui welcomeview/welcomeview.ui session/katesessionmanagedialog.ui)
 
 target_sources(
@@ -179,39 +188,11 @@ target_sources(
     welcomeview/welcomeview.cpp
     welcomeview/recentitemsmodel.cpp
     welcomeview/savedsessionsmodel.cpp
-    ${LIB_KATE_TIME_SOURCES}
-)
 
-include(ECMQtDeclareLoggingCategory)
-ecm_qt_declare_logging_category(
-    LIB_KATE_EXEC_SOURCES
-    HEADER kate_exec_debug.h
-    IDENTIFIER LibKateExec
-    CATEGORY_NAME "libkate.exec"
-    DEFAULT_SEVERITY Info
-)
-
-# use a helper lib so only this part can be used elsewhere without bringing in all else
-add_library(executils OBJECT
     exec_io_utils.cpp
+    ${LIB_KATE_TIME_SOURCES}
     ${LIB_KATE_EXEC_SOURCES}
 )
-target_include_directories(executils
-    PUBLIC
-    ${CMAKE_CURRENT_BINARY_DIR} # -> kateprivate_export.h
-)
-target_link_libraries(
-  executils
-  PUBLIC
-    KF6::CoreAddons
-)
-# cmake should figure this out, but apparently not always
-if (UNIX)
-    target_compile_options(
-        executils PRIVATE -fPIC)
-endif ()
-
-target_link_libraries(kateprivate PRIVATE executils)
 
 install(
   PROGRAMS exec_inspect.sh

@@ -690,11 +690,13 @@ public:
                                                       i18n("LSP")));
         m_tabWidget = new ClosableTabWidget(m_toolView.get());
         m_toolView->layout()->addWidget(m_tabWidget);
-        m_tabWidget->setFocusPolicy(Qt::NoFocus);
+        m_tabWidget->setFocusPolicy(Qt::StrongFocus);
         m_tabWidget->setTabsClosable(true);
         KAcceleratorManager::setNoAccel(m_tabWidget);
         connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &self_type::tabCloseRequested);
         connect(m_tabWidget, &QTabWidget::currentChanged, this, &self_type::tabChanged);
+
+        m_toolView->installEventFilter(this);
     }
 
     void onViewCreated(KTextEditor::View *view)
@@ -745,6 +747,20 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override
     {
+        // handle Ctrl+W in tool view to close LSP client tabs
+        if (obj == m_toolView.get() && event->type() == QEvent::ShortcutOverride) {
+            auto *keyEvent = static_cast<QKeyEvent *>(event);
+            if (keyEvent->matches(QKeySequence::Close) && m_toolView->hasFocus()) {
+                int index = m_tabWidget->currentIndex();
+                if (index >= 0) {
+                    tabCloseRequested(index);
+                    keyEvent->accept();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         if (!obj->isWidgetType()) {
             return QObject::eventFilter(obj, event);
         }

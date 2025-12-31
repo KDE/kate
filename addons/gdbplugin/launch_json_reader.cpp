@@ -46,8 +46,8 @@ static QJsonArray readVsCodeLaunchJson(const QString &filePath, QString &errorSt
         rapidjson::Document jsonDoc;
         jsonDoc.ParseStream<flags>(cursor);
         if (jsonDoc.HasParseError()) {
-            int l = cursor.GetLine();
-            int c = cursor.GetColumn();
+            const auto l = cursor.GetLine();
+            const auto c = cursor.GetColumn();
             errorString.append(i18nc("at line no:column no", " at %1:%2", l, c));
         }
         return {};

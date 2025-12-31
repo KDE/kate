@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-12-18 07:52+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2650,32 +2650,32 @@ msgstr "Закрити ін&ші вкладки"
 msgid "Close All &Tabs"
 msgstr "Закрити &усі вкладки"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, kde-format
 msgid "D&etach Document"
 msgstr "В&ід'єднати документ"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Відкриває документ у новому вікні і закриває його у поточному вікні"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Порівняти із активним документом"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Порівняти із активним документом за допомогою"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Unpin Document"
 msgstr "Відшпилити документ"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "Pin Document"
 msgstr "Пришпилити документ"

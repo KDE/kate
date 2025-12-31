@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-04-03 12:07+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -29,12 +29,12 @@ msgstr "Прокрутить к источнику"
 msgid "Jump to label"
 msgstr "Перейти к метке"
 
-#: AsmView.cpp:341
+#: AsmView.cpp:336
 #, kde-format
 msgid "Copy"
 msgstr "Копировать"
 
-#: AsmView.cpp:353
+#: AsmView.cpp:348
 #, kde-format
 msgid "Select All"
 msgstr "Выбрать все"

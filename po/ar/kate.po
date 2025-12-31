@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-12-20 11:15+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -2599,32 +2599,32 @@ msgstr "أغلق الألسنة الأ&خرى"
 msgid "Close All &Tabs"
 msgstr "أغلق &كلّ الألسنة"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, kde-format
 msgid "D&etach Document"
 msgstr "ا&فصل المستند"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "تفتح المستند في نافذة جديدة وتغلقها من النافذة الحالية"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "قارن مع المستند النشط"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "قارن مع استعمال المستند النشط"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Unpin Document"
 msgstr "المستندات غير المثبتة"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "Pin Document"
 msgstr "ثبّت المستند"

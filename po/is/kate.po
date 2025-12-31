@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-12-28 14:36+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
@@ -2593,32 +2593,32 @@ msgstr "L&oka öðrum flipum"
 msgid "Close All &Tabs"
 msgstr "Lo&ka öllum flipum"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, kde-format
 msgid "D&etach Document"
 msgstr "L&osa skjal"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Opnar skjalið í nýjum glugga og lokar því í þessum glugga"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Bera saman við skjal sem er opið"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Bera saman við skjal sem er opið með því að nota"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Unpin Document"
 msgstr "Losa skjal"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "Pin Document"
 msgstr "Festa skjal"

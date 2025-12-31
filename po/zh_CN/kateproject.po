@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -526,9 +526,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "错误格式的 JSON 文件“%1”：%2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
-#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
-#: kateprojectviewtree.cpp:400
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "项目"
@@ -1005,22 +1005,22 @@ msgstr "新建文件"
 msgid "New Folder"
 msgstr "新建文件夹"
 
-#: kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "文件已存在"
 
-#: kateprojectviewtree.cpp:363
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "创建文件失败：%1，错误：%2"
 
-#: kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "目录已存在"
 
-#: kateprojectviewtree.cpp:400
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "创建目录失败：%1"

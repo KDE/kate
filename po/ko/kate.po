@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-10-09 00:26+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2573,32 +2573,32 @@ msgstr "다른 탭 닫기(&O)"
 msgid "Close All &Tabs"
 msgstr "모든 탭 닫기(&T)"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, kde-format
 msgid "D&etach Document"
 msgstr "문서 떼내기(&E)"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "현재 문서를 새 창으로 열고 현재 창에 열린 문서 닫기"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "다음을 사용하여 활성 문서와 비교"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Unpin Document"
 msgstr "문서 고정 해제"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "Pin Document"
 msgstr "문서 고정"

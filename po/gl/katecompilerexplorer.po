@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-03-04 08:50+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -27,12 +27,12 @@ msgstr "Desprazarse á orixe"
 msgid "Jump to label"
 msgstr "Saltar á etiqueta"
 
-#: AsmView.cpp:341
+#: AsmView.cpp:336
 #, kde-format
 msgid "Copy"
 msgstr "Copiar"
 
-#: AsmView.cpp:353
+#: AsmView.cpp:348
 #, kde-format
 msgid "Select All"
 msgstr "Seleccionalo todo"

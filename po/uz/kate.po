@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2006-12-17 12:02+0000\n"
 "Last-Translator: Mashrab Kuvatov <kmashrab@uni-bremen.de>\n"
 "Language-Team: Uzbek <floss-uz-l10n@googlegroups.com>\n"
@@ -2640,33 +2640,33 @@ msgstr "Joriy tabni yopish"
 msgid "Close All &Tabs"
 msgstr "Joriy tabni yopish"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, fuzzy, kde-format
 #| msgid "&Document"
 msgid "D&etach Document"
 msgstr "H&ujjat"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, fuzzy, kde-format
 msgid "Compare with Active Document"
 msgstr "Yangi hujjatni yaratish"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, fuzzy, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Yangi hujjatni yaratish"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, fuzzy, kde-format
 msgid "Unpin Document"
 msgstr "Hujjatlarni ochish"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

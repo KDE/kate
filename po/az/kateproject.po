@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-12-12 21:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -532,9 +532,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
-#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
-#: kateprojectviewtree.cpp:400
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Layihə"
@@ -1037,24 +1037,24 @@ msgstr "Fayl açın"
 msgid "New Folder"
 msgstr "Qovluq əlavə edin"
 
-#: kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:351
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The file already exists"
 msgstr "Fayl adı artıq mövcuddur"
 
-#: kateprojectviewtree.cpp:363
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Fayl yaradıla bilmədi: %1, Xəta: %2"
 
-#: kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:392
 #, fuzzy, kde-format
 #| msgid "File name already exists"
 msgid "The directory already exists"
 msgstr "Fayl adı artıq mövcuddur"
 
-#: kateprojectviewtree.cpp:400
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Qovluq yaradıla bilmədi: %1"

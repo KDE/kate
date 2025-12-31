@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-03-22 22:36+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -529,9 +529,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Misformita JSON-dosiero '%1': %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
-#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
-#: kateprojectviewtree.cpp:400
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Projekto"
@@ -1015,22 +1015,22 @@ msgstr "Nova Dosiero"
 msgid "New Folder"
 msgstr "Nova Dosierujo"
 
-#: kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "La dosiero jam ekzistas"
 
-#: kateprojectviewtree.cpp:363
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Malsukcesis krei dosieron: %1, Eraro: %2"
 
-#: kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "La dosierujo jam ekzistas"
 
-#: kateprojectviewtree.cpp:400
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Malsukcesis krei dir: %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-04-06 22:24+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -27,12 +27,12 @@ msgstr "소스로 스크롤"
 msgid "Jump to label"
 msgstr "레이블로 이동"
 
-#: AsmView.cpp:341
+#: AsmView.cpp:336
 #, kde-format
 msgid "Copy"
 msgstr "복사"
 
-#: AsmView.cpp:353
+#: AsmView.cpp:348
 #, kde-format
 msgid "Select All"
 msgstr "모두 선택"

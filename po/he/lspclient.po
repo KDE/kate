@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-12-28 09:45+0200\n"
+"PO-Revision-Date: 2025-12-30 11:56+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Poedit 3.8\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -393,10 +393,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "השרת הושמד במפתיע… %1 [%2] [דף הבית: %3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "איתור הקובץ הבינרי של השרת: %1"
+msgstr "איתור הבינרי של שרת ‚%1’ לשפה ‚%2’ נכשל"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -409,10 +408,9 @@ msgid "See also %1 for installation or details"
 msgstr "אפשר לפנות גם אל %1 להתקנה או לקבלת פרטים"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "הפעלת השרת נכשלה: %1"
+msgstr "הפעלת השרת ‚%1’ לשפה ‚%2’ נכשלה"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

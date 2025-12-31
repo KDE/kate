@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-10-13 22:30+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -2606,33 +2606,33 @@ msgstr "Stäng ö&vriga flikar"
 msgid "Close All &Tabs"
 msgstr "S&täng alla flikar"
 
-#: lib/kateviewspace.cpp:1187
+#: lib/kateviewspace.cpp:1188
 #, kde-format
 msgid "D&etach Document"
 msgstr "Koppla loss dokum&ent"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1193
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Öppnar dokumentet i ett nytt fönster och stänger det i det aktuella fönstret"
 
-#: lib/kateviewspace.cpp:1233
+#: lib/kateviewspace.cpp:1234
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Jämför med aktivt dokument"
 
-#: lib/kateviewspace.cpp:1239
+#: lib/kateviewspace.cpp:1240
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Jämför med aktivt dokument med användning av"
 
-#: lib/kateviewspace.cpp:1247
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Unpin Document"
 msgstr "Ta ner dokument"
 
-#: lib/kateviewspace.cpp:1249
+#: lib/kateviewspace.cpp:1250
 #, kde-format
 msgid "Pin Document"
 msgstr "Fäst dokument"

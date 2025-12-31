@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-22 00:45+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2025-11-07 18:23+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -529,9 +529,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "Slikto formatēta JSON datne „%1“: %2"
 
 #: kateproject.cpp:423 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:352
-#: kateprojectviewtree.cpp:363 kateprojectviewtree.cpp:393
-#: kateprojectviewtree.cpp:400
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Project"
 msgstr "Projekts"
@@ -1014,22 +1014,22 @@ msgstr "Jauna datne"
 msgid "New Folder"
 msgstr "Jauna mape"
 
-#: kateprojectviewtree.cpp:352
+#: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
 msgstr "Datne ar šādu nosaukumu jau pastāv"
 
-#: kateprojectviewtree.cpp:363
+#: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Neizdevās izveidot datni: „%1“. Kļūda: %2"
 
-#: kateprojectviewtree.cpp:393
+#: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
 msgstr "Mape ar šādu nosaukumu jau pastāv"
 
-#: kateprojectviewtree.cpp:400
+#: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Neizdevās izveidot mapi: „%1“"

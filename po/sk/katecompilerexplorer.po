@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2025-12-31 00:47+0000\n"
 "PO-Revision-Date: 2024-11-11 17:46+0100\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -25,12 +25,12 @@ msgstr ""
 msgid "Jump to label"
 msgstr ""
 
-#: AsmView.cpp:341
+#: AsmView.cpp:336
 #, kde-format
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: AsmView.cpp:353
+#: AsmView.cpp:348
 #, kde-format
 msgid "Select All"
 msgstr "Vybrať všetko"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-12-28 12:41+0300\n"
+"PO-Revision-Date: 2025-12-30 13:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -394,10 +394,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Sunucu beklenmedik bir biçimde sonlandı… %1 [%2] [ana sayfa: %3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "Sunucu ikilisi bulunamadı: %1"
+msgstr "“%2” dili için “%1” sunucu ikilisi bulunamadı"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -410,10 +409,9 @@ msgid "See also %1 for installation or details"
 msgstr "Kurulum veya ayrıntılar için ayrıca %1 adresine bakın"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "Sunucu başlatılamadı: %1"
+msgstr "“%2” dili için “%1” sunucusu başlatılamadı"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

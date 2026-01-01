@@ -122,7 +122,7 @@ private:
 
     QPointer<class NewMsgIndicator> m_fadingIndicator;
 
-    QColor m_msgIndicatorColors[3];
+    QColor m_msgIndicatorColors[4];
 
     QTimer m_searchTimer;
 

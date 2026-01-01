@@ -300,6 +300,8 @@ void KateOutputView::readConfig()
     brighten(m_msgIndicatorColors[1]);
     m_msgIndicatorColors[2] = c.background(KColorScheme::PositiveBackground).color();
     brighten(m_msgIndicatorColors[2]);
+    m_msgIndicatorColors[3] = c.background(KColorScheme::NormalBackground).color();
+    brighten(m_msgIndicatorColors[3]);
 
     m_infoColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Information)).name();
     m_warnColor = QColor::fromRgba(theme.textColor(KSyntaxHighlighting::Theme::Warning)).name();
@@ -421,6 +423,7 @@ void KateOutputView::slotMessage(const QVariantMap &message)
         shouldShowOutputToolView = (m_showOutputViewForMessageType >= 4);
         meta += i18nc("@info", "Log");
         indicatorLoopCount = -1; // no FadingIndicator for log messages
+        color = m_msgIndicatorColors[3];
     }
 
     meta += QStringLiteral("] ");

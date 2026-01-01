@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-12-29 00:30+0100\n"
+"PO-Revision-Date: 2025-12-31 18:14+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -397,10 +397,10 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "El servidor ha terminado de forma imprevista… %1 [%2] [página web: %3]"
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "No se ha podido encontrar el binario del servidor: %1"
+msgstr ""
+"No se ha podido encontrar el binario del servidor «%1» para el lenguaje «%2»"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -413,10 +413,9 @@ msgid "See also %1 for installation or details"
 msgstr "Consulte también %1 para instalación o detalles"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "No se ha podido iniciar el servidor: %1"
+msgstr "No se ha podido iniciar el servidor «%1» para el lenguaje «%2»"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

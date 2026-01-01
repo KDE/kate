@@ -245,10 +245,9 @@ msgid "Restart All LSP Servers"
 msgstr "重启所有 LSP 服务器"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "全部展开"
+msgstr ""
 
 #: lspclientpluginview.cpp:621
 #, kde-format
@@ -393,10 +392,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "服务器意外终止... %1 [%2] [主页: %3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "无法找到服务器二进制文件：%1"
+msgstr ""
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -409,10 +407,9 @@ msgid "See also %1 for installation or details"
 msgstr "另请参考 %1 以获取安装或详细信息"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "启动服务器失败：%1"
+msgstr ""
 
 #: lspclientservermanager.cpp:959
 #, kde-format

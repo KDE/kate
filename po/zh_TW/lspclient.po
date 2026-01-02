@@ -6,13 +6,13 @@
 # Automatically generated, 2019.
 # pan93412 <pan93412@gmail.com>, 2019, 2020.
 # Jeff Huang <s8321414@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-08 01:37+0900\n"
+"PO-Revision-Date: 2026-01-02 08:03+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 25.11.70\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -250,10 +250,9 @@ msgid "Restart All LSP Servers"
 msgstr "重新啟動所有 LSP 伺服器"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "全部展開"
+msgstr "暫停全部"
 
 #: lspclientpluginview.cpp:621
 #, kde-format
@@ -398,10 +397,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "伺服器突然終止… %1 [%2] [首頁：%3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "找不到伺服器執行檔：%1"
+msgstr "找不到 '%2' 語言的伺服器執行檔 '%1'"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -414,10 +412,9 @@ msgid "See also %1 for installation or details"
 msgstr "也請檢視 %1 以見安裝方法等詳細資訊"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "無法啟動伺服器：%1"
+msgstr "無法啟動 '%2' 語言的伺服器 '%1'"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

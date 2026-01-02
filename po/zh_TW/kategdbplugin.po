@@ -3,13 +3,13 @@
 #
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Jeff Huang <s8321414@gmail.com>, 2020.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-12-21 06:49+0900\n"
+"PO-Revision-Date: 2026-01-02 08:04+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -27,48 +27,42 @@ msgid ""
 msgstr "有執行中的除錯工作階段。請使用重新執行或是停止目前的工作階段。"
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "中斷點"
+msgstr "行數中斷點"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "函式中斷點"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "函式中斷點"
+msgstr "例外中斷點"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "已驗證"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "待處理"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "函式中斷點"
+msgstr "新增函式中斷點…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "清除所有中斷點"
+msgstr "清除所有函式中斷點"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "移除中斷點"
 
@@ -83,23 +77,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "第 %1 行已經有中斷點"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "中斷點已設定"
+msgstr "未設定中斷點"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "函式中斷點"
+msgstr "新增函式中斷點"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "函式"
+msgstr "函式名稱："
 
 #: configview.cpp:92
 #, kde-format
@@ -382,10 +372,9 @@ msgid "terminate debuggee"
 msgstr "終止被除錯者"
 
 #: dapbackend.cpp:666
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "函式中斷點"
+msgstr "例外中斷點過濾器"
 
 #: dapbackend.cpp:813
 #, kde-format
@@ -625,8 +614,7 @@ msgid "Locals and Stack"
 msgstr "本地變數與堆疊"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
 msgstr "中斷點"
 
@@ -733,10 +721,9 @@ msgid "Insert breakpoint"
 msgstr "插入中斷點"
 
 #: plugin_kategdb.cpp:438
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "移除中斷點"
+msgstr "切換中斷點"
 
 #: plugin_kategdb.cpp:554
 #, kde-format

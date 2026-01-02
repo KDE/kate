@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: backend.cpp:29 dapbackend.cpp:173
 #, kde-format
@@ -237,10 +237,9 @@ msgid "breakpoint set"
 msgstr "socraithe brisphointe"
 
 #: dapbackend.cpp:634
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "breakpoint cleared"
-msgstr "Brisphointe"
+msgstr "brisphointe glanta"
 
 #: dapbackend.cpp:693
 #, kde-format
@@ -367,7 +366,7 @@ msgstr "tá pointe briste ag líne %1 cheana féin"
 #: dapbackend.cpp:1399
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "pointe briste gan aimsiú (%1:%2)"
 
 #: dapbackend.cpp:1405
 #, kde-format

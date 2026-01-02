@@ -25,6 +25,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KStandardAction>
+#include <KStandardShortcut>
 #include <KXMLGUIFactory>
 
 #include <KTextEditor/Document>
@@ -747,18 +748,34 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override
     {
-        // handle Ctrl+W in tool view to close LSP client tabs
+        auto *keyEvent = static_cast<QKeyEvent *>(event);
+
+        // accept ShortcutOverride if it's a Close action so that it gets sent as a KeyPress
         if (obj == m_toolView.get() && event->type() == QEvent::ShortcutOverride) {
-            auto *keyEvent = static_cast<QKeyEvent *>(event);
-            if (keyEvent->matches(QKeySequence::Close) && m_toolView->hasFocus()) {
-                int index = m_tabWidget->currentIndex();
-                if (index >= 0) {
-                    tabCloseRequested(index);
+            for (const auto &seq : KStandardShortcut::close()) {
+                if (keyEvent->matches(seq.Close)) {
                     keyEvent->accept();
                     return true;
                 }
             }
-            return false;
+
+            return QObject::eventFilter(obj, event);
+        }
+
+        // handle Ctrl+W in tool view to close LSP client tabs
+        if (obj == m_toolView.get() && event->type() == QEvent::KeyPress) {
+            for (const auto &seq : KStandardShortcut::close()) {
+                if (keyEvent->matches(seq.Close) && m_toolView->hasFocus()) {
+                    int index = m_tabWidget->currentIndex();
+                    if (index >= 0) {
+                        tabCloseRequested(index);
+                        keyEvent->accept();
+                        return true;
+                    }
+                }
+            }
+
+            return QObject::eventFilter(obj, event);
         }
 
         if (!obj->isWidgetType()) {
@@ -1191,6 +1208,7 @@ public:
         delete widget;
 
         if (m_tabWidget->count() == 0) {
+            m_toolView->removeEventFilter(this);
             m_toolView.release()->deleteLater();
         }
 

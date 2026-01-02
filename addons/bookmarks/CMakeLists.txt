@@ -8,3 +8,7 @@ target_sources(
     bookmarksplugin.cpp
     bookmarksmodel.cpp
 )
+
+if (ENABLE_PCH)
+    target_precompile_headers(bookmarksplugin REUSE_FROM katepch)
+endif()

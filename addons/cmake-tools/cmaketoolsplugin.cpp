@@ -10,8 +10,6 @@
 #include <KTextEditor/MainWindow>
 #include <KXMLGUIFactory>
 
-#include <QDebug>
-
 K_PLUGIN_FACTORY_WITH_JSON(CMakeToolsPluginFactory, "cmaketoolsplugin.json", registerPlugin<CMakeToolsPlugin>();)
 
 CMakeToolsPlugin::CMakeToolsPlugin(QObject *parent)

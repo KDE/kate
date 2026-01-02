@@ -18,11 +18,9 @@
 #include <QTextCharFormat>
 #include <QTextDocument>
 #include <QToolButton>
+#include <qnamespace.h>
 
 #include "UrlInserter.h"
-
-#include <QDebug>
-#include <qnamespace.h>
 
 TargetHtmlDelegate::TargetHtmlDelegate(QObject *parent)
     : QStyledItemDelegate(parent)

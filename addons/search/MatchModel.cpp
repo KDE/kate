@@ -7,9 +7,10 @@
 
 #include "MatchModel.h"
 #include <KLocalizedString>
-#include <QDebug>
+
 #include <QDir>
 #include <QFileInfo>
+#include <QtCore/qlogging.h>
 #include <algorithm> // std::count_if
 
 #include <KTextEditor/Document>

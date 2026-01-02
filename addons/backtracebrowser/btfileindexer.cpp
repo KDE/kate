@@ -7,8 +7,8 @@
 #include "btfileindexer.h"
 #include "btdatabase.h"
 
-#include <QDebug>
 #include <QDir>
+#include <QtCore/qlogging.h>
 
 BtFileIndexer::BtFileIndexer(KateBtDatabase *database)
     : cancelAsap(false)

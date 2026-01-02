@@ -8,7 +8,7 @@ SPDX-License-Identifier: LGPL-2.0-only
 
 #include "cachedsqlquerymodel.h"
 
-#include <QDebug>
+#include <QtCore/qlogging.h>
 
 CachedSqlQueryModel::CachedSqlQueryModel(QObject *parent, int cacheCapacity)
     : QSqlQueryModel(parent)

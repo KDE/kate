@@ -8,7 +8,6 @@
 #include "UrlInserter.h"
 #include <KLocalizedString>
 #include <QCompleter>
-#include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QFileSystemModel>

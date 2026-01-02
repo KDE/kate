@@ -12,8 +12,6 @@
 #include <KSyntaxHighlighting/Theme>
 #include <KTextEditor/Editor>
 
-#include <QDebug>
-
 #include <drawing_utils.h>
 #include <ktexteditor_utils.h>
 

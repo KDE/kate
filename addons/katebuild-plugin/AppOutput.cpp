@@ -6,12 +6,12 @@
 
 #include "hostprocess.h"
 
-#include <QDebug>
 #include <QFontDatabase>
 #include <QScrollBar>
 #include <QTextCursor>
 #include <QTextEdit>
 #include <QVBoxLayout>
+#include <QtCore/qlogging.h>
 
 #include <KColorScheme>
 #include <KPluginFactory>

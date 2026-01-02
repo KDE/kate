@@ -6,7 +6,6 @@
 
 #include "FolderFilesList.h"
 
-#include <QDebug>
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfoList>

@@ -2,9 +2,6 @@
     SPDX-FileCopyrightText: 2025 Dennis Lübke <kde@dennis2society.de>
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
-
-#include <QDebug>
-
 #include <KLocalizedString>
 #include <KPluginFactory>
 #include <KSharedConfig>

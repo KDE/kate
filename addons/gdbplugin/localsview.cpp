@@ -12,7 +12,6 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QComboBox>
-#include <QDebug>
 #include <QLabel>
 #include <QMenu>
 #include <QTreeWidget>

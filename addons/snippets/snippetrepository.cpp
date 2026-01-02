@@ -14,7 +14,6 @@
 
 #include <QAction>
 #include <QApplication>
-#include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QDomElement>

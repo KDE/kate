@@ -3,8 +3,6 @@
 
 #include "abstractdatamodel.h"
 
-#include <QDebug>
-
 using namespace Qt::Literals::StringLiterals;
 
 // Default implementation for the AbstractData

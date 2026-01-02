@@ -5,7 +5,6 @@
 #include "Formatters.h"
 #include "FormattersEnum.h"
 
-#include <QDebug>
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
@@ -14,6 +13,7 @@
 #include <QJsonDocument>
 #include <QLoggingCategory>
 #include <QTemporaryFile>
+#include <QtCore/qlogging.h>
 
 #include <KLocalizedString>
 #include <KTextEditor/Editor>

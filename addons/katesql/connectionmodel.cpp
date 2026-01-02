@@ -6,12 +6,12 @@
 
 #include "connectionmodel.h"
 
-#include <QDebug>
 #include <QFont>
 #include <QFontDatabase>
 #include <QFontMetrics>
 #include <QSize>
 #include <QVariant>
+#include <QtCore/qlogging.h>
 
 ConnectionModel::ConnectionModel(QObject *parent)
     : QAbstractListModel(parent)

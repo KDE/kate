@@ -4,9 +4,9 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "socketbus.h"
-#include <QDebug>
-
 #include "settings.h"
+
+#include <QtCore/qlogging.h>
 
 namespace dap
 {

@@ -6,7 +6,7 @@
  ***************************************************************************/
 #include "TargetFilterProxyModel.h"
 
-#include <QDebug>
+#include <QtCore/qlogging.h>
 
 TargetFilterProxyModel::TargetFilterProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)

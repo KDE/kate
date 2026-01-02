@@ -8,7 +8,6 @@
 
 #include <QCheckBox>
 #include <QComboBox>
-#include <QDebug>
 #include <QFile>
 #include <QGroupBox>
 #include <QLabel>

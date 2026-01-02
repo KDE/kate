@@ -13,7 +13,6 @@
 #include "plugin_katebuild.h"
 #include "ui_buildconfigwidget.h"
 
-#include <QDebug>
 #include <QMenu>
 
 /******************************************************************/

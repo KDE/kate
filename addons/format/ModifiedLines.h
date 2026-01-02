@@ -7,10 +7,10 @@
 #include "hostprocess.h"
 #include <gitprocess.h>
 
-#include <QDebug>
 #include <QFileInfo>
 #include <QProcess>
 #include <QString>
+#include <QtCore/qlogging.h>
 
 #include <charconv>
 #include <optional>

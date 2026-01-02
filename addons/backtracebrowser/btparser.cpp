@@ -6,9 +6,9 @@
 
 #include "btparser.h"
 
-#include <QDebug>
 #include <QRegularExpression>
 #include <QStringList>
+#include <QtCore/qlogging.h>
 
 static QString eolDelimiter(const QString &str)
 {

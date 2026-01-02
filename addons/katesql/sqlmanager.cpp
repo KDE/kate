@@ -12,7 +12,6 @@
 #include <KLocalizedString>
 
 #include <QApplication>
-#include <QDebug>
 #include <QEventLoop>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -20,6 +19,7 @@
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
+#include <QtCore/qlogging.h>
 
 #include <qt6keychain/keychain.h>
 

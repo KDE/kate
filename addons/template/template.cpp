@@ -7,7 +7,6 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-#include <QDebug>
 #include <QDir>
 #include <QDirIterator>
 #include <QFileDialog>
@@ -19,6 +18,7 @@
 #include <QJsonParseError>
 #include <QStandardPaths>
 #include <QTemporaryDir>
+#include <QtCore/qlogging.h>
 
 using namespace Qt::Literals::StringLiterals;
 

@@ -7,7 +7,6 @@
 #include "gitblametooltip.h"
 #include "kategitblameplugin.h"
 
-#include <QDebug>
 #include <QEvent>
 #include <QFontMetrics>
 #include <QMouseEvent>

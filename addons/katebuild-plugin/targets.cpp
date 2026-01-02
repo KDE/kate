@@ -9,7 +9,6 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QClipboard>
-#include <QDebug>
 #include <QDir>
 #include <QEvent>
 #include <QHeaderView>

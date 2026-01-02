@@ -17,11 +17,11 @@
 #include <KXMLGUIFactory>
 
 #include <QAction>
-#include <QDebug>
 #include <QFileInfo>
 #include <QFormLayout>
 #include <QListWidget>
 #include <QMessageBox>
+#include <QtCore/qlogging.h>
 
 #include <KActionCollection>
 #include <KConfigGroup>

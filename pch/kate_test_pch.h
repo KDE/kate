@@ -5,7 +5,6 @@
 #include <QCborMap>
 #include <QCborValue>
 #include <QDateTime>
-#include <QDebug>
 #include <QMetaObject>
 #include <QObject>
 #include <QString>

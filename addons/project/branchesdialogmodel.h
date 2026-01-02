@@ -7,7 +7,6 @@
 
 #include <QAbstractTableModel>
 #include <QList>
-#include <QVariant>
 
 #include "git/gitutils.h"
 

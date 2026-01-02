@@ -10,7 +10,6 @@
 #include <QFontDatabase>
 #include <QFontMetrics>
 #include <QSize>
-#include <QVariant>
 #include <QtCore/qlogging.h>
 
 ConnectionModel::ConnectionModel(QObject *parent)

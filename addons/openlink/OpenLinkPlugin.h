@@ -11,7 +11,6 @@
 #include <KXMLGUIClient>
 
 #include <QPointer>
-#include <QVariant>
 
 #include <unordered_map>
 

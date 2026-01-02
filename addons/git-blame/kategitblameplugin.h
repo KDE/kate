@@ -22,7 +22,6 @@
 #include <QPointer>
 #include <QTimer>
 #include <QUrl>
-#include <QVariant>
 
 enum class KateGitBlameMode {
     None,

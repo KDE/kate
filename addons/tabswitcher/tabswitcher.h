@@ -14,7 +14,6 @@
 
 #include <QList>
 #include <QTimer>
-#include <QVariant>
 
 #include <KXMLGUIClient>
 #include <unordered_set>

@@ -11,7 +11,6 @@
 #include <QObject>
 #include <QPointer>
 #include <QString>
-#include <QVariant>
 
 #include <KTextEditor/Application>
 #include <KTextEditor/MainWindow>

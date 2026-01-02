@@ -6,7 +6,6 @@
 #pragma once
 
 #include <QTabWidget>
-#include <QVariant>
 
 class Ui_tabWidget;
 class ReplicodeSettings;

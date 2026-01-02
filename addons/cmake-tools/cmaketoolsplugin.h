@@ -8,8 +8,6 @@
 #include <KTextEditor/Plugin>
 #include <KXMLGUIClient>
 
-#include <QVariant>
-
 #include "cmakecompletion.h"
 
 /**

@@ -12,7 +12,6 @@
 /// TODO: push this into kdevplatform/language/codecompletion so language plugins can reuse it's functionality
 
 #include <QString>
-#include <QVariant>
 
 class Snippet;
 class SnippetRepository;

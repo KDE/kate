@@ -7,7 +7,6 @@
 #pragma once
 
 #include <QUrl>
-#include <QVariant>
 
 #include <KTextEditor/Message>
 #include <KTextEditor/Plugin>

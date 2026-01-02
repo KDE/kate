@@ -12,7 +12,6 @@
 #include "snippetcompletionmodel.h"
 
 #include <QPointer>
-#include <QVariant>
 
 #include <KTextEditor/View>
 

@@ -18,7 +18,6 @@
 #include <QHash>
 #include <QList>
 #include <QRegularExpression>
-#include <QVariant>
 
 class ColorPickerInlineNoteProvider : public KTextEditor::InlineNoteProvider
 {

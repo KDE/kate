@@ -8,7 +8,6 @@
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QProcess>
-#include <QVariant>
 
 #include <KTextEditor/MainWindow>
 

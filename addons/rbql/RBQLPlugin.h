@@ -12,7 +12,6 @@
 
 #include <QJSEngine>
 #include <QPointer>
-#include <QVariant>
 
 class RBQLPlugin final : public KTextEditor::Plugin
 {

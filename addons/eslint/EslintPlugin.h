@@ -13,7 +13,6 @@
 #include <diagnostics/diagnosticview.h>
 
 #include <QPointer>
-#include <QVariant>
 
 class ESLintPlugin final : public KTextEditor::Plugin
 {

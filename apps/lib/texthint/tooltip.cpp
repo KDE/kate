@@ -231,17 +231,35 @@ public:
         const int contentsMarginsWidth = this->contentsMargins().left() + this->contentsMargins().right();
         const int contentsMarginsHeight = this->contentsMargins().top() + this->contentsMargins().bottom();
         const int docMargin = 2 * document()->documentMargin();
-        int wMargins = contentsMarginsWidth + docMargin + verticalScrollBar()->width();
+        int wMargins = contentsMarginsWidth + docMargin;
         int hMargins = contentsMarginsHeight;
 
         // add internal document padding and possible scrollbars to size
         size.setHeight(size.height() + hMargins);
         size.setWidth(size.width() + wMargins);
 
-        // limit the tool tip size; the resize call will respect these limits
+        int maxWidth = m_view->window() ? m_view->window()->width() : m_view->width();
+        int maxHeight = m_view->height() / 3;
 
-        const auto fullWith = m_view->window() ? m_view->window()->width() : m_view->width();
-        setMaximumSize(fullWith / 2.5, m_view->height() / 3);
+        // this makes it so the scrollbar margins are only added when we need a scrollbar
+        setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+        if ((size.height() - hMargins) > maxHeight) {
+            setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            size.rwidth() += verticalScrollBar()->width();
+            maxWidth += horizontalScrollBar()->width();
+        }
+
+        if ((size.width() - wMargins) > maxWidth) {
+            setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+            size.rheight() += horizontalScrollBar()->height();
+            maxHeight += horizontalScrollBar()->height();
+        }
+
+        // limit the tool tip size; the resize call will respect these limits
+        setMaximumSize(maxWidth, maxHeight);
+
         resize(size);
     }
 

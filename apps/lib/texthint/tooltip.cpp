@@ -8,8 +8,10 @@
 #include <QApplication>
 #include <QEvent>
 #include <QFontMetrics>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPointer>
+#include <QScopedValueRollback>
 #include <QScreen>
 #include <QScrollBar>
 #include <QString>
@@ -24,8 +26,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/View>
 #include <KWindowSystem>
-#include <QMenu>
-#include <QScopedValueRollback>
 
 class TooltipHighlighter final : public KSyntaxHighlighting::SyntaxHighlighter
 {

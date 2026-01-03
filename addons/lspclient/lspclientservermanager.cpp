@@ -1127,13 +1127,15 @@ private:
             if (it->open) {
                 if (it->modified || force) {
                     (it->server)->didChange(it->url, it->version, (it->changes.empty()) ? doc->text() : QString(), it->changes);
+                    it->modified = false;
+                    it->changes.clear();
                 }
             } else {
                 (it->server)->didOpen(it->url, it->version, documentLanguageId(doc), doc->text());
                 it->open = true;
+                it->modified = false;
+                it->changes.clear();
             }
-            it->modified = false;
-            it->changes.clear();
         }
     }
 

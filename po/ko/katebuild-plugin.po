@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-10-09 00:28+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -45,22 +45,22 @@ msgstr "다시 빌드"
 msgid "Cancel"
 msgstr "취소"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, kde-format
 msgid "Build & Run"
 msgstr "빌드하고 실행"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "빌드하고 실행 설정"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, kde-format
 msgid "Delete selected entries"
 msgstr "선택한 항목 삭제"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr "모든 항목 삭제"
@@ -405,19 +405,19 @@ msgstr "정의되지 않은 참조"
 msgid "Cannot save build targets in: %1"
 msgstr "빌드 대상을 다음에 저장할 수 없음: %1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>대상:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>디렉터리:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -426,7 +426,7 @@ msgstr ""
 "비워 두면 현재 문서의 디렉터리를 사용합니다.\n"
 "검색할 디렉터리를 ';' 문자로 구분해서 입력하십시오"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -437,7 +437,7 @@ msgstr ""
 "\"%B\": 프로젝트 기반 디렉터리\n"
 "\"%b\": 프로젝트 기반 디렉터리의 이름"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -454,7 +454,7 @@ msgstr ""
 "현재 프로젝트의 기반 디렉터리: \"%B\"\n"
 "현재 대상의 작업 디렉터리: \"%w\""
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "대상 설정"
@@ -484,73 +484,73 @@ msgstr "빌드 명령/작업 디렉터리"
 msgid "Run Command"
 msgstr "실행 명령"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr "대상 필터입니다. 화살표 키로 선택하고 Enter 키로 실행"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "새 대상 집합 만들기"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr "명령이나 대상 집합 복제"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "현재 대상이나 대상 집합 삭제"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "새 대상 추가"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "선택한 대상 빌드"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "선택한 대상 빌드 후 실행"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "선택한 대상 위로 이동"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "선택한 대상 아래로 이동"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr "복사"
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr "잘라내기"
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr "뒤에 붙여넣기"
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "빌드 명령"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
@@ -568,12 +568,12 @@ msgstr "빌드(&B)"
 msgid "Build Plugin Toolbar"
 msgstr "빌드 플러그인 도구 모음"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "삽입 경로"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "삽입할 디렉터리 선택"

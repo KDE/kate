@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-11-17 11:55+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -38,47 +38,47 @@ msgstr ""
 msgid "Encryption Failed: "
 msgstr ""
 
-#: kategpgplugin.cpp:76
+#: kategpgplugin.cpp:73
 #, kde-format
 msgid "GPG Plugin"
 msgstr ""
 
-#: kategpgplugin.cpp:81
+#: kategpgplugin.cpp:78
 #, kde-format
 msgid "GPG Decrypt current document"
 msgstr ""
 
-#: kategpgplugin.cpp:82
+#: kategpgplugin.cpp:79
 #, kde-format
 msgid "GPG Encrypt current document"
 msgstr ""
 
-#: kategpgplugin.cpp:86
+#: kategpgplugin.cpp:83
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
 msgstr ""
 
-#: kategpgplugin.cpp:89
+#: kategpgplugin.cpp:86
 #, kde-format
 msgid "Key ID"
 msgstr ""
 
-#: kategpgplugin.cpp:90
+#: kategpgplugin.cpp:87
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
 
-#: kategpgplugin.cpp:93
+#: kategpgplugin.cpp:90
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
 msgstr ""
 
-#: kategpgplugin.cpp:94
+#: kategpgplugin.cpp:91
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
 msgstr ""
 
-#: kategpgplugin.cpp:103
+#: kategpgplugin.cpp:100
 #, kde-format
 msgid ""
 "Select an email address to which to encrypt.\n"
@@ -86,56 +86,56 @@ msgid ""
 "key fingerprint are available."
 msgstr ""
 
-#: kategpgplugin.cpp:107
+#: kategpgplugin.cpp:104
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
 msgstr ""
 
-#: kategpgplugin.cpp:110
+#: kategpgplugin.cpp:107
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
 msgstr ""
 
-#: kategpgplugin.cpp:113
+#: kategpgplugin.cpp:110
 #, kde-format
 msgid "Enable symmetric encryption"
 msgstr ""
 
-#: kategpgplugin.cpp:116
+#: kategpgplugin.cpp:113
 #, kde-format
 msgid "Show only keys for which a private key is available"
 msgstr ""
 
-#: kategpgplugin.cpp:119
+#: kategpgplugin.cpp:116
 #, kde-format
 msgid "Hide Expired Keys"
 msgstr ""
 
-#: kategpgplugin.cpp:220
+#: kategpgplugin.cpp:217
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
 "Encrypting more than once is disabled for now..."
 msgstr ""
 
-#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
 #, kde-format
 msgid "Error! No views available..."
 msgstr ""
 
-#: kategpgplugin.cpp:239
+#: kategpgplugin.cpp:236
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr ""
 
-#: kategpgplugin.cpp:243
+#: kategpgplugin.cpp:240
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr ""
 
-#: kategpgplugin.cpp:248
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -143,65 +143,65 @@ msgid ""
 "Or this is not a GPG encrypted text..."
 msgstr ""
 
-#: kategpgplugin.cpp:256
+#: kategpgplugin.cpp:253
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr ""
 
-#: kategpgplugin.cpp:283
+#: kategpgplugin.cpp:280
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr ""
 
-#: kategpgplugin.cpp:287
+#: kategpgplugin.cpp:284
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr ""
 
-#: kategpgplugin.cpp:291
+#: kategpgplugin.cpp:288
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
 
-#: kategpgplugin.cpp:295
+#: kategpgplugin.cpp:292
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
 msgstr ""
 
-#: kategpgplugin.cpp:308
+#: kategpgplugin.cpp:305
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
 
-#: kategpgplugin.cpp:312
+#: kategpgplugin.cpp:309
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr ""
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Fingerprint"
 msgstr ""
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Creation Date"
 msgstr ""
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Expiry Date"
 msgstr ""
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Length"
 msgstr ""
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "User IDs"
 msgstr ""

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-08-26 09:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -50,22 +50,22 @@ msgstr "Torna a construir"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, kde-format
 msgid "Build & Run"
 msgstr "Construeix i executa"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Paràmetres de la construcció i execució"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Suprimeix les entrades seleccionades"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr "Suprimeix totes les entrades"
@@ -430,19 +430,19 @@ msgstr "referència no definida"
 msgid "Cannot save build targets in: %1"
 msgstr "No s'han pogut desar els objectius de construcció en: %1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>O:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -451,7 +451,7 @@ msgstr ""
 "Deixar-ho buit per a usar el directori del document actual.\n"
 "Afegiu directoris de cerca afegint camins separats per «;»"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -463,7 +463,7 @@ msgstr ""
 "«%b» pel nom del directori base del projecte"
 
 # skip-rule: punctuation-double-quotes
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -480,7 +480,7 @@ msgstr ""
 "\"%B\" per al directori base del projecte actual\n"
 "\"%w\" per al directori de treball de l'objectiu"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "Conjunt d'objectius"
@@ -510,75 +510,75 @@ msgstr "Ordre de construcció / Directori de treball"
 msgid "Run Command"
 msgstr "Executa una ordre"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Filtreu els objectius, useu les tecles de fletxa per a seleccionar, Retorn "
 "per a executar"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Crea un conjunt nou d'objectius"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr "Clona l'ordre o el conjunt d'objectius"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Suprimeix l'objectiu o conjunt actual d'objectius"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Afegeix un objectiu nou"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "Construeix l'objectiu seleccionat"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Construeix i executa l'objectiu seleccionat"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "Mou amunt l'objectiu seleccionat"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "Mou avall l'objectiu seleccionat"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr "Copia"
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr "Retalla"
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr "Enganxa després"
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Ordre de construcció"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
@@ -596,12 +596,12 @@ msgstr "&Construeix"
 msgid "Build Plugin Toolbar"
 msgstr "Barra d'eines del connector de construcció"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "Insereix camí"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Seleccioneu el directori a inserir"

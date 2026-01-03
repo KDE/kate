@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategpgplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-11-01 20:51+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -39,49 +39,49 @@ msgstr "Error de cifrado simétrico: "
 msgid "Encryption Failed: "
 msgstr "El cifrado ha fallado: "
 
-#: kategpgplugin.cpp:76
+#: kategpgplugin.cpp:73
 #, kde-format
 msgid "GPG Plugin"
 msgstr "Complemento GPG"
 
-#: kategpgplugin.cpp:81
+#: kategpgplugin.cpp:78
 #, kde-format
 msgid "GPG Decrypt current document"
 msgstr "Descifrar el documento actual con GPG"
 
-#: kategpgplugin.cpp:82
+#: kategpgplugin.cpp:79
 #, kde-format
 msgid "GPG Encrypt current document"
 msgstr "Cifrar el documento actual con GPG"
 
-#: kategpgplugin.cpp:86
+#: kategpgplugin.cpp:83
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
 msgstr "<b>Preferencias del complemento GPG</b>"
 
-#: kategpgplugin.cpp:89
+#: kategpgplugin.cpp:86
 #, kde-format
 msgid "Key ID"
 msgstr "ID de la clave"
 
-#: kategpgplugin.cpp:90
+#: kategpgplugin.cpp:87
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
 "Cadena de búsqueda usada para filtrar claves por direcciones de correo "
 "electrónico disponibles"
 
-#: kategpgplugin.cpp:93
+#: kategpgplugin.cpp:90
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
 msgstr "Huella digital de la clave GPG seleccionada para cifrar"
 
-#: kategpgplugin.cpp:94
+#: kategpgplugin.cpp:91
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
 msgstr "<b>Para: dirección de correo usada para cifrar</b>"
 
-#: kategpgplugin.cpp:103
+#: kategpgplugin.cpp:100
 #, kde-format
 msgid ""
 "Select an email address to which to encrypt.\n"
@@ -92,7 +92,7 @@ msgstr ""
 "Solo están disponibles las direcciones de correo asociadas\n"
 "con la huella digital seleccionada."
 
-#: kategpgplugin.cpp:107
+#: kategpgplugin.cpp:104
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
@@ -101,27 +101,27 @@ msgstr ""
 "Esta es su huella digital de clave GPG seleccionada actualmente para usar al "
 "cifrar."
 
-#: kategpgplugin.cpp:110
+#: kategpgplugin.cpp:107
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
 msgstr "Guardar como codificación ASCII (.asc/.gpg)"
 
-#: kategpgplugin.cpp:113
+#: kategpgplugin.cpp:110
 #, kde-format
 msgid "Enable symmetric encryption"
 msgstr "Activar cifrado simétrico"
 
-#: kategpgplugin.cpp:116
+#: kategpgplugin.cpp:113
 #, kde-format
 msgid "Show only keys for which a private key is available"
 msgstr "Mostrar solo las claves con una clave privada disponible"
 
-#: kategpgplugin.cpp:119
+#: kategpgplugin.cpp:116
 #, kde-format
 msgid "Hide Expired Keys"
 msgstr "Ocultar las claves que han expirado"
 
-#: kategpgplugin.cpp:220
+#: kategpgplugin.cpp:217
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
@@ -130,23 +130,23 @@ msgstr ""
 "Se ha detectado un intento de doble cifrado.\n"
 "En la actualidad no se puede cifrar más de una vez…"
 
-#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
 #, kde-format
 msgid "Error! No views available..."
 msgstr "Error: No hay vistas disponibles…"
 
-#: kategpgplugin.cpp:239
+#: kategpgplugin.cpp:236
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "Error al descifrar texto: El documento está vacío."
 
-#: kategpgplugin.cpp:243
+#: kategpgplugin.cpp:240
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr ""
 "Error al descifrar texto: No se ha seleccionado ninguna huella digital."
 
-#: kategpgplugin.cpp:248
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -157,22 +157,22 @@ msgstr ""
 "coincidente.\n"
 "O este texto no está cifrado con GPG."
 
-#: kategpgplugin.cpp:256
+#: kategpgplugin.cpp:253
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr "Error al descifrar texto.\n"
 
-#: kategpgplugin.cpp:283
+#: kategpgplugin.cpp:280
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr "Error al cifrar texto: Ningún documento disponible."
 
-#: kategpgplugin.cpp:287
+#: kategpgplugin.cpp:284
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "Error al cifrar texto: El documento está vacío."
 
-#: kategpgplugin.cpp:291
+#: kategpgplugin.cpp:288
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
@@ -181,7 +181,7 @@ msgstr ""
 "Error al cifrar texto:\n"
 "Ninguna huella digital seleccionada."
 
-#: kategpgplugin.cpp:295
+#: kategpgplugin.cpp:292
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
@@ -189,39 +189,39 @@ msgstr ""
 "Se ha detectado un intento de cifrado doble: En la actualidad no se puede "
 "cifrar dos veces."
 
-#: kategpgplugin.cpp:308
+#: kategpgplugin.cpp:305
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr ""
 "Error al cifrar texto: No se ha encontrado ninguna huella digital "
 "coincidente.\n"
 
-#: kategpgplugin.cpp:312
+#: kategpgplugin.cpp:309
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr "Error al descifrar texto"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Fingerprint"
 msgstr "Huella digital de la clave"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Creation Date"
 msgstr "Fecha de creación"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Expiry Date"
 msgstr "Fecha de caducidad"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Length"
 msgstr "Longitud de la clave"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "User IDs"
 msgstr "ID de usuario"

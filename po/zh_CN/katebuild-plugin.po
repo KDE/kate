@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -45,22 +45,22 @@ msgstr "再次构建"
 msgid "Cancel"
 msgstr "取消"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, kde-format
 msgid "Build & Run"
 msgstr "构建并运行"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "构建并运行设置"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, kde-format
 msgid "Delete selected entries"
 msgstr "删除所选条目"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr "删除所有条目"
@@ -390,19 +390,19 @@ msgstr "未定义的引用"
 msgid "Cannot save build targets in: %1"
 msgstr "无法保存构建目标：%1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>目标:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>目录:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -411,7 +411,7 @@ msgstr ""
 "留空使用当前文档的目录。\n"
 "可添加搜索目录，以 ';' 分隔。"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -422,7 +422,7 @@ msgstr ""
 "“%B”指定项目的根目录\n"
 "“%b”指定项目的根目录的名称"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -439,7 +439,7 @@ msgstr ""
 "“%B\"为当前项目的根目录\n"
 "“%w\"为目标的工作目录"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "目标集"
@@ -469,73 +469,73 @@ msgstr "构建命令 / 工作目录"
 msgid "Run Command"
 msgstr "运行命令"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr "过滤目标，使用方向键选择，回车键执行"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "创建新的目标集"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr "克隆命令或目标集"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "删除当前目标或当前目标集"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "添加新目标"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "构建选中的目标"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "构建并运行选中的目标"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "上移所选任务"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "下移所选任务"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr "复制"
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr "剪切"
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr "粘贴到后面"
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "构建命令"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
@@ -553,12 +553,12 @@ msgstr "构建(&B)"
 msgid "Build Plugin Toolbar"
 msgstr "构建插件工具栏"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "插入路径"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "选择要插入的目录"

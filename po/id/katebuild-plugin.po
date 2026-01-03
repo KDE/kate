@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2020-03-05 08:04+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -47,25 +47,25 @@ msgstr "Bangun lagi"
 msgid "Cancel"
 msgstr "Batal"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Bangun lagi"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build & Run Settings"
 msgstr "Bangun sasaran terpilih"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Bangun sasaran terpilih"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr ""
@@ -406,13 +406,13 @@ msgstr "referensi tidak ditentukan"
 msgid "Cannot save build targets in: %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, fuzzy, kde-format
 #| msgctxt "D as in working Directory"
 #| msgid "<B>Dir:</B> %1"
@@ -420,7 +420,7 @@ msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dir:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, fuzzy, kde-format
 #| msgid "Leave empty to use the directory of the current document."
 msgid ""
@@ -428,7 +428,7 @@ msgid ""
 "Add search directories by adding paths separated by ';'"
 msgstr "Biarkan kosong untuk menggunakan direktori dari dokumen sekarang."
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -436,7 +436,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use:\n"
@@ -456,7 +456,7 @@ msgstr ""
 "\"%d\" untuk direktori dari file sekarang\n"
 "\"%n\" untuk nama file sekarang tanpa akhiran"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "Set Sasaran"
@@ -486,79 +486,79 @@ msgstr ""
 msgid "Run Command"
 msgstr ""
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Ciptakan set dari sasaran baru"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, fuzzy, kde-format
 #| msgid "Copy command or target set"
 msgid "Clone command or target set"
 msgstr "Salin perintah atau set sasaran"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, fuzzy, kde-format
 #| msgid "Delete current set of targets"
 msgid "Delete current target or current set of targets"
 msgstr "Hapus set dari sasaran sekarang."
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Tambah sasaran baru"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "Bangun sasaran terpilih"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Build and run selected target"
 msgstr "Bangun sasaran terpilih"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target up"
 msgstr "Bangun sasaran terpilih"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Move selected target down"
 msgstr "Bangun sasaran terpilih"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr ""
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Bangun lagi"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, fuzzy, kde-format
 #| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"
@@ -578,12 +578,12 @@ msgstr "&Bangun"
 msgid "Build Plugin Toolbar"
 msgstr "Plugin Pembangun Kate"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "Sisipkan alur"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Pilih direktori untuk dimasukkan"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2022-07-13 08:26+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -240,12 +240,12 @@ msgid ""
 "use this type of snippet."
 msgstr ""
 
-#: snippetrepository.cpp:43
+#: snippetrepository.cpp:42
 #, kde-format
 msgid "<empty repository>"
 msgstr "<kho trống>"
 
-#: snippetrepository.cpp:230
+#: snippetrepository.cpp:229
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -256,28 +256,28 @@ msgstr ""
 "vậy, một bản sao của tệp gốc đã được tạo trong thư mục dữ liệu cá nhân của "
 "bạn."
 
-#: snippetrepository.cpp:236
+#: snippetrepository.cpp:235
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Không mở được tệp đầu ra '%1' để ghi"
 
-#: snippetrepository.cpp:271
+#: snippetrepository.cpp:270
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Không thể mở kho mảnh mã %1."
 
-#: snippetrepository.cpp:278
+#: snippetrepository.cpp:277
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Đã phát hiện lỗi <b>%4</b><br /> trong tệp %1 ở %2/%3</qt>"
 
-#: snippetrepository.cpp:289
+#: snippetrepository.cpp:288
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Tệp mảnh mã XML không hợp lệ: %1"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:357
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -286,12 +286,12 @@ msgstr ""
 "Kho bị tắt, các mảnh mã chứa bên trong sẽ không được hiển thị khi hoàn tất "
 "mã."
 
-#: snippetrepository.cpp:361
+#: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Áp dụng cho tất cả các kiểu tệp"
 
-#: snippetrepository.cpp:363
+#: snippetrepository.cpp:362
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Áp dụng cho các kiểu tệp sau: %1"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2023-12-13 01:36+0000\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,12 +40,12 @@ msgstr ""
 msgid "Failed to run git diff: %1"
 msgstr ""
 
-#: FormatConfig.cpp:119
+#: FormatConfig.cpp:118
 #, kde-format
 msgid "User Settings"
 msgstr ""
 
-#: FormatConfig.cpp:129
+#: FormatConfig.cpp:128
 #, kde-format
 msgid "Default Settings"
 msgstr ""

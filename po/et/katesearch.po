@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2020-05-12 10:22+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -72,13 +72,13 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: MatchModel.cpp:561 MatchModel.cpp:563
+#: MatchModel.cpp:562 MatchModel.cpp:564
 #, fuzzy, kde-format
 #| msgid "<b>Searching: ...%1</b>"
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b>Otsitakse: ...%1</b>"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:572
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%3) found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
@@ -87,7 +87,7 @@ msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%3) kataloogis %2</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%3) kataloogis %2</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:577
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%3) found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
@@ -96,14 +96,14 @@ msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%3) kataloogis %2</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%3) kataloogis %2</i></b>"
 
-#: MatchModel.cpp:583 MatchModel.cpp:738
+#: MatchModel.cpp:584 MatchModel.cpp:739
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Üks märgitud"
 msgstr[1] "%1 märgitud"
 
-#: MatchModel.cpp:587
+#: MatchModel.cpp:588
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%2) found in file</i></b>"
 #| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
@@ -112,28 +112,28 @@ msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%2) failis</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%2) failis</i></b>"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%2) avatud failides</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%2) avatud failides</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%3) kataloogis %2</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%3) kataloogis %2</i></b>"
 
-#: MatchModel.cpp:599
+#: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>Leiti üks vaste (%4) projektis %2 (%3)</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%4) projektis %2 (%3)</i></b>"
 
-#: MatchModel.cpp:608
+#: MatchModel.cpp:609
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -146,12 +146,12 @@ msgstr[1] ""
 "<b><i>Leiti %1 vastet (%3) kõigis avatud projektides (ühine eellane %2)</i></"
 "b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr ""
 
-#: MatchModel.cpp:732
+#: MatchModel.cpp:733
 #, fuzzy, kde-format
 #| msgid "%1 match found in: %2\n"
 #| msgid_plural "%1 matches found in: %2\n"
@@ -160,7 +160,7 @@ msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Leiti %1 vaste: %2\n"
 msgstr[1] "Leiti %1 vastet: %2\n"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:735
 #, fuzzy, kde-format
 #| msgid "%1 match found in: %2\n"
 #| msgid_plural "%1 matches found in: %2\n"
@@ -169,7 +169,7 @@ msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Leiti %1 vaste: %2\n"
 msgstr[1] "Leiti %1 vastet: %2\n"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%2) found in file</i></b>"
 #| msgid_plural "<b><i>%1 matches (%2) found in file</i></b>"
@@ -178,7 +178,7 @@ msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "<b><i>Leiti üks vaste (%2) failis</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%2) failis</i></b>"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:745
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%2) found in open files</i></b>"
 #| msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -187,7 +187,7 @@ msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "<b><i>Leiti üks vaste (%2) avatud failides</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%2) avatud failides</i></b>"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:748
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%3) found in folder %2</i></b>"
 #| msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
@@ -196,7 +196,7 @@ msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "<b><i>Leiti üks vaste (%3) kataloogis %2</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%3) kataloogis %2</i></b>"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:751
 #, fuzzy, kde-format
 #| msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 #| msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
@@ -205,7 +205,7 @@ msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "<b><i>Leiti üks vaste (%4) projektis %2 (%3)</i></b>"
 msgstr[1] "<b><i>Leiti %1 vastet (%4) projektis %2 (%3)</i></b>"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:760
 #, fuzzy, kde-format
 #| msgid ""
 #| "<b><i>One match (%3) found in all open projects (common parent: %2)</i></"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-09-19 18:14+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -77,61 +77,61 @@ msgstr "Luo"
 msgid "Result"
 msgstr "Tulos"
 
-#: MatchModel.cpp:561 MatchModel.cpp:563
+#: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Luodaan tiedostoluetteloa: …%1</i></b>"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:572
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Yksi osuma löytyi, etsitään: …%2</i></b>"
 msgstr[1] "<b><i>%1 osumaa löytyi, etsitään: …%2</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:577
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Yksi osuma löytynyt, etsitään: %2</i></b>"
 msgstr[1] "<b><i>%1 osumaa löytynyt, etsitään: %2</i></b>"
 
-#: MatchModel.cpp:583 MatchModel.cpp:738
+#: MatchModel.cpp:584 MatchModel.cpp:739
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Yksi valittu"
 msgstr[1] "%1 valittu"
 
-#: MatchModel.cpp:587
+#: MatchModel.cpp:588
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Tiedostosta löytyi yksi osuma (%2)</i></b>"
 msgstr[1] "<b><i>Tiedostosta löytyi %1 osumaa (%2)</i></b>"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
 msgstr[0] "<b><i>Avoimista tiedostoista löytyi yksi osuma (%2)</i></b>"
 msgstr[1] "<b><i>Avoimista tiedostoista löytyi %1 osumaa (%2)</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>Kansiosta %2 löytyi yksi osuma (%3)</i></b>"
 msgstr[1] "<b><i>Kansiosta %2 löytyi %1 osumaa (%3)</i></b>"
 
-#: MatchModel.cpp:599
+#: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>Projektista %2 (%3) löytyi yksi osuma (%4)</i></b>"
 msgstr[1] "<b><i>Projektista %2 (%3) löytyi %1 osumaa (%4)</i></b>"
 
-#: MatchModel.cpp:608
+#: MatchModel.cpp:609
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -144,13 +144,13 @@ msgstr[1] ""
 "<b><i>Kaikista avoimista projekteista (yhteinen yläkansio: %2) löytyi %1 "
 "osumaa (%3)</i></b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Luodaan tiedostoluetteloa: …%1"
 
 # *** TARKISTA: Mitähän ”checked” tässä merkitsee – tarkistamista, valintaa vai jotain muuta?
-#: MatchModel.cpp:732
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -158,42 +158,42 @@ msgstr[0] "Yksi osuma löytynyt, etsitään: …%2"
 msgstr[1] "%1 osumaa löytynyt, etsitään: …%2"
 
 # *** TARKISTA: Mitähän ”checked” tässä merkitsee – tarkistamista, valintaa vai jotain muuta?
-#: MatchModel.cpp:734
+#: MatchModel.cpp:735
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Yksi osuma löytynyt, etsitään: %2"
 msgstr[1] "%1 osumaa löytynyt, etsitään: %2"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "Tiedostosta löytyi yksi osuma (%2)"
 msgstr[1] "Tiedostosta löytyi %1 osumaa (%2)"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "Avoimista tiedostoista löytyi yksi osuma (%2)"
 msgstr[1] "Avoimista tiedostoista löytyi %1 osumaa (%2)"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:748
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "Kansiosta %2 löytyi yksi osuma (%3)"
 msgstr[1] "Kansiosta %2 löytyi %1 osumaa (%3)"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:751
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "Projektista %2 (%3) löytyi yksi osuma (%4)"
 msgstr[1] "Projektista %2 (%3) löytyi %1 osumaa (%4)"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:760
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

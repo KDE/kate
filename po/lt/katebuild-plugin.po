@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2015-12-29 21:20+0200\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: lt <kde-i18n-lt@kde.org>\n"
@@ -51,25 +51,25 @@ msgstr "Kurti dar kartą"
 msgid "Cancel"
 msgstr "Atšaukti"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Kurti dar kartą"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build & Run Settings"
 msgstr "Kompiliavimas nepavyko."
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Delete selected entries"
 msgstr "Kompiliavimas nepavyko."
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr ""
@@ -417,19 +417,19 @@ msgstr "neapibrėžta nuoroda"
 msgid "Cannot save build targets in: %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, fuzzy, kde-format
 #| msgid "Leave empty to use the directory of the current document. "
 msgid ""
@@ -437,7 +437,7 @@ msgid ""
 "Add search directories by adding paths separated by ';'"
 msgstr "Palikite tuščią, kad būtų panaudotas dabartinio dokumento aplankas."
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -445,7 +445,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use:\n"
@@ -465,7 +465,7 @@ msgstr ""
 "„%d“ katalogui dabartinio failo\n"
 "„%n“ dabartiniam failui be priešdėlio"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, fuzzy, kde-format
 #| msgid "Targets"
 msgid "Target Set"
@@ -496,76 +496,76 @@ msgstr ""
 msgid "Run Command"
 msgstr ""
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr ""
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr ""
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr ""
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Pridėti naują tikslą"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr ""
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build and run selected target"
 msgstr "Kompiliavimas nepavyko."
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Move selected target up"
 msgstr "Kompiliavimas nepavyko."
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr ""
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr ""
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Kurti dar kartą"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, fuzzy, kde-format
 #| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"
@@ -585,12 +585,12 @@ msgstr "&Kompiliuoti"
 msgid "Build Plugin Toolbar"
 msgstr "Kompiliavimo papildinys"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr ""
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr ""

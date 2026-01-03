@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-08-23 16:59+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -40,12 +40,12 @@ msgstr "فشل تشغيل git diff: غت غير مثبت"
 msgid "Failed to run git diff: %1"
 msgstr "فشل تشغيل git diff: %1"
 
-#: FormatConfig.cpp:119
+#: FormatConfig.cpp:118
 #, kde-format
 msgid "User Settings"
 msgstr "إعدادات المستخدم"
 
-#: FormatConfig.cpp:129
+#: FormatConfig.cpp:128
 #, kde-format
 msgid "Default Settings"
 msgstr "الإعدادات المبدئية"

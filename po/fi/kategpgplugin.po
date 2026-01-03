@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-10-31 20:35+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -37,49 +37,49 @@ msgstr "Virhe symmetrisessä salauksessa: "
 msgid "Encryption Failed: "
 msgstr "Salaus epäonnistui: "
 
-#: kategpgplugin.cpp:76
+#: kategpgplugin.cpp:73
 #, kde-format
 msgid "GPG Plugin"
 msgstr "GPG-liitännäinen"
 
-#: kategpgplugin.cpp:81
+#: kategpgplugin.cpp:78
 #, kde-format
 msgid "GPG Decrypt current document"
 msgstr "Pura nykyisen tiedoston GPG-salaus"
 
-#: kategpgplugin.cpp:82
+#: kategpgplugin.cpp:79
 #, kde-format
 msgid "GPG Encrypt current document"
 msgstr "GPG-salaa nykyinen tiedosto"
 
-#: kategpgplugin.cpp:86
+#: kategpgplugin.cpp:83
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
 msgstr "<b>GPG-liitännäisen asetukset</b>"
 
-#: kategpgplugin.cpp:89
+#: kategpgplugin.cpp:86
 #, kde-format
 msgid "Key ID"
 msgstr "Avaintunniste"
 
-#: kategpgplugin.cpp:90
+#: kategpgplugin.cpp:87
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
 "Hakujono, jota käytetään suodatettaessa avaimia saatavilla olevien "
 "sähköpostiosoitteiden mukaan"
 
-#: kategpgplugin.cpp:93
+#: kategpgplugin.cpp:90
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
 msgstr "Salaukseen käytettävän GPG-avaimen sormenjälki"
 
-#: kategpgplugin.cpp:94
+#: kategpgplugin.cpp:91
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
 msgstr "<b>Vastaanottaja: Salaukseen käytettävä sähköpostiosoite</b>"
 
-#: kategpgplugin.cpp:103
+#: kategpgplugin.cpp:100
 #, kde-format
 msgid ""
 "Select an email address to which to encrypt.\n"
@@ -90,34 +90,34 @@ msgstr ""
 "Käytettävissä ovat vain valitsemasi avaimen sormenjälkeen\n"
 "yhdistetyt sähköpostiosoitteet."
 
-#: kategpgplugin.cpp:107
+#: kategpgplugin.cpp:104
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
 msgstr "Tämä on salaukseen valitun GPG-avaimen sormenjälki."
 
-#: kategpgplugin.cpp:110
+#: kategpgplugin.cpp:107
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
 msgstr "Tallenna ASCII-koodattuna (.asc/.gpg)"
 
-#: kategpgplugin.cpp:113
+#: kategpgplugin.cpp:110
 #, kde-format
 msgid "Enable symmetric encryption"
 msgstr "Käytä symmetristä salausta"
 
-#: kategpgplugin.cpp:116
+#: kategpgplugin.cpp:113
 #, kde-format
 msgid "Show only keys for which a private key is available"
 msgstr "Näytä vain avaimet, joille on saatavilla yksityinen avain"
 
-#: kategpgplugin.cpp:119
+#: kategpgplugin.cpp:116
 #, kde-format
 msgid "Hide Expired Keys"
 msgstr "Piilota vanhentuneet avaimet"
 
-#: kategpgplugin.cpp:220
+#: kategpgplugin.cpp:217
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
@@ -126,22 +126,22 @@ msgstr ""
 "Havaittiin kaksinkertaisen salauksen yritys!\n"
 "Se on poistettu toistaiseksi käytöstä…"
 
-#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
 #, kde-format
 msgid "Error! No views available..."
 msgstr "Virhe! Näkymiä ei ole käytettävissä…"
 
-#: kategpgplugin.cpp:239
+#: kategpgplugin.cpp:236
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "Virhe salattaessa tekstiä! Tiedosto on tyhjä…"
 
-#: kategpgplugin.cpp:243
+#: kategpgplugin.cpp:240
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "Virhe salattaessa tekstiä! Sormenjälkeä ei valittu…"
 
-#: kategpgplugin.cpp:248
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -152,22 +152,22 @@ msgstr ""
 "Sopivaa sormenjälkeä ei löytynyt!\n"
 "Tai tämä ei ole GPG-salattu teksti…"
 
-#: kategpgplugin.cpp:256
+#: kategpgplugin.cpp:253
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr "Virhe salattaessa tekstiä!\n"
 
-#: kategpgplugin.cpp:283
+#: kategpgplugin.cpp:280
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr "Virhe salattaessa tekstiä! Tiedosto ei ole saatavilla…"
 
-#: kategpgplugin.cpp:287
+#: kategpgplugin.cpp:284
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "Virhe salattaessa tekstiä! Tiedosto on tyhjä…"
 
-#: kategpgplugin.cpp:291
+#: kategpgplugin.cpp:288
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
@@ -176,7 +176,7 @@ msgstr ""
 "Virhe salattaessa tekstiä!\n"
 "Sormenjälkeä ei valittu…"
 
-#: kategpgplugin.cpp:295
+#: kategpgplugin.cpp:292
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
@@ -184,37 +184,37 @@ msgstr ""
 "Havaittiin kaksinkertaisen salauksen yritys! Se on poistettu toistaiseksi "
 "käytöstä…"
 
-#: kategpgplugin.cpp:308
+#: kategpgplugin.cpp:305
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr "Virhe salattaessa tekstiä! Sopivaa sormenjälkeä ei löytynyt…\n"
 
-#: kategpgplugin.cpp:312
+#: kategpgplugin.cpp:309
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr "Virhe salattaessa tekstiä!"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Fingerprint"
 msgstr "Avaimen sormenjälki"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Creation Date"
 msgstr "Luontipäivä"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Expiry Date"
 msgstr "Vanhenemispäivä"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Length"
 msgstr "Avaimen pituus"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "User IDs"
 msgstr "Käyttäjätunnukset"

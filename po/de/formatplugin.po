@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-10-12 20:42+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -41,12 +41,12 @@ msgstr "„git diff“ kann nicht ausgeführt werden: „git“ ist nicht instal
 msgid "Failed to run git diff: %1"
 msgstr "„git diff“ kann nicht ausgeführt werden: %1"
 
-#: FormatConfig.cpp:119
+#: FormatConfig.cpp:118
 #, kde-format
 msgid "User Settings"
 msgstr "Benutzereinstellungen"
 
-#: FormatConfig.cpp:129
+#: FormatConfig.cpp:128
 #, kde-format
 msgid "Default Settings"
 msgstr "Voreinstellungen"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-08-23 11:19+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -42,12 +42,12 @@ msgstr "\"git diff\" exekutatzea huts egin du: git ez dago instalatuta"
 msgid "Failed to run git diff: %1"
 msgstr "\"git diff\" exekutatzea huts egin du: %1"
 
-#: FormatConfig.cpp:119
+#: FormatConfig.cpp:118
 #, kde-format
 msgid "User Settings"
 msgstr "Erabiltzaile-ezarpenak"
 
-#: FormatConfig.cpp:129
+#: FormatConfig.cpp:128
 #, kde-format
 msgid "Default Settings"
 msgstr "Ezarpen lehenetsiak"

@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-08-27 07:54+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -56,22 +56,22 @@ msgstr "Compiler à nouveau"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, kde-format
 msgid "Build & Run"
 msgstr "Compiler et exécuter"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, kde-format
 msgid "Build & Run Settings"
 msgstr "Compiler et exécuter les paramètres"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, kde-format
 msgid "Delete selected entries"
 msgstr "Supprimer les entrées sélectionnées"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr "Supprimer toutes les entrées"
@@ -437,19 +437,19 @@ msgstr "référence indéfinie"
 msgid "Cannot save build targets in: %1"
 msgstr "Impossible d'enregistrer les cibles compilées dans : %1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>C:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Dossier :</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -459,7 +459,7 @@ msgstr ""
 "Ajoutez des dossiers de recherche par ajout d'emplacements séparés par des "
 "« ; »"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -470,7 +470,7 @@ msgstr ""
 "« %B » pour le dossier racine du projet \n"
 "« %b » pour le nom du dossier racine du projet"
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, kde-format
 msgid ""
 "Use:\n"
@@ -487,7 +487,7 @@ msgstr ""
 "« %B » pour le répertoire racine du projet courant,\n"
 "« %w » pour le répertoire de travail de la cible"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "Ensemble de cibles"
@@ -517,75 +517,75 @@ msgstr "Commande de compilation / Dossier de travail"
 msgid "Run Command"
 msgstr "Exécuter une commande"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Pour le filtrage des cibles, veuillez utiliser les touches de flèches et "
 "appuyer sur « Entrée » pour lancer l'exécution"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Créer un nouvel ensemble de cibles"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr "Copier la commande ou l'ensemble des cibles"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Supprimer la cible actuelle ou l'ensemble actuel de cibles"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Ajouter une nouvelle cible"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "Construire la cible sélectionnée"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Compiler et exécuter la cible sélectionnée"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "Déplacer la cible sélectionnée vers le haut"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "Déplacer la cible sélectionnée vers le bas"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr "Copier"
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr "Couper"
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr "Coller après"
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, kde-format
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Commande de compilation"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
@@ -603,12 +603,12 @@ msgstr "&Construire"
 msgid "Build Plugin Toolbar"
 msgstr "Barre d'outils de modules externes de compilation"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "Insérer l'emplacement"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Sélectionnez le dossier à insérer"

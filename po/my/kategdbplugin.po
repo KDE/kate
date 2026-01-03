@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-30 00:44+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2021-09-15 04:48+0630\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -546,48 +546,48 @@ msgctxt "at line no:column no"
 msgid " at %1:%2"
 msgstr ""
 
-#: localsview.cpp:40
+#: localsview.cpp:39
 #, kde-format
 msgid "type"
 msgstr ""
 
-#: localsview.cpp:49
+#: localsview.cpp:48
 #, kde-format
 msgid "indexed items"
 msgstr ""
 
-#: localsview.cpp:52
+#: localsview.cpp:51
 #, kde-format
 msgid "named items"
 msgstr ""
 
-#: localsview.cpp:68 localsview.cpp:69
+#: localsview.cpp:67 localsview.cpp:68
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: localsview.cpp:117
+#: localsview.cpp:116
 #, kde-format
 msgid "Symbol"
 msgstr "သင်္ကေတ"
 
-#: localsview.cpp:118
+#: localsview.cpp:117
 #, kde-format
 msgid "Type"
 msgstr ""
 
-#: localsview.cpp:119
+#: localsview.cpp:118
 #, kde-format
 msgid "Value"
 msgstr "တန်ဖိုး"
 
-#: localsview.cpp:301
+#: localsview.cpp:300
 #, fuzzy, kde-format
 #| msgid "Symbol"
 msgid "Copy Symbol"
 msgstr "သင်္ကေတ"
 
-#: localsview.cpp:316
+#: localsview.cpp:315
 #, fuzzy, kde-format
 #| msgid "Value"
 msgid "Copy Value"

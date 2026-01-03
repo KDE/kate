@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-11-30 15:19+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -249,12 +249,12 @@ msgstr ""
 "Ní mór Kate a bheith tiomsaithe i gcoinne KTExEditor leagan 6.15.0 nó níos "
 "airde, chun an cineál seo blúire a úsáid."
 
-#: snippetrepository.cpp:43
+#: snippetrepository.cpp:42
 #, kde-format
 msgid "<empty repository>"
 msgstr "<stór folamh>"
 
-#: snippetrepository.cpp:230
+#: snippetrepository.cpp:229
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -265,28 +265,28 @@ msgstr ""
 "eagar agat; dá bhrí sin, tá cóip den chomhad bunaidh cruthaithe i d’eolaire "
 "sonraí pearsanta."
 
-#: snippetrepository.cpp:236
+#: snippetrepository.cpp:235
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Níorbh fhéidir comhad aschuir '%1' a oscailt le haghaidh scríofa"
 
-#: snippetrepository.cpp:271
+#: snippetrepository.cpp:270
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Ní féidir stór na sleachta %1 a oscailt."
 
-#: snippetrepository.cpp:278
+#: snippetrepository.cpp:277
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>Tá an earráid <b>%4</b><br /> braite sa chomhad %1 ag %2/%3</qt>"
 
-#: snippetrepository.cpp:289
+#: snippetrepository.cpp:288
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Comhad blúire XML neamhbhailí: %1"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:357
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -295,12 +295,12 @@ msgstr ""
 "Tá an stór díchumasaithe, ní thaispeánfar na blúiríní atá ann le linn "
 "chomhlánú an chóid."
 
-#: snippetrepository.cpp:361
+#: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Baineann sé le gach cineál comhaid"
 
-#: snippetrepository.cpp:363
+#: snippetrepository.cpp:362
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Baineann sé leis na cineálacha comhaid seo a leanas: %1"

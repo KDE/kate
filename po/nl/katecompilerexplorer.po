@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-31 00:47+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-03-03 10:57+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -17,22 +17,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 24.12.2\n"
 
-#: AsmView.cpp:305
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr "Naar broncode schuiven"
 
-#: AsmView.cpp:315
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr "Naar label springen"
 
-#: AsmView.cpp:336
+#: AsmView.cpp:334
 #, kde-format
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: AsmView.cpp:348
+#: AsmView.cpp:346
 #, kde-format
 msgid "Select All"
 msgstr "Alles selecteren"

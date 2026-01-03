@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -238,12 +238,12 @@ msgid ""
 "use this type of snippet."
 msgstr ""
 
-#: snippetrepository.cpp:43
+#: snippetrepository.cpp:42
 #, kde-format
 msgid "<empty repository>"
 msgstr "<रिक्तं भण्डारः>"
 
-#: snippetrepository.cpp:230
+#: snippetrepository.cpp:229
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -253,40 +253,40 @@ msgstr ""
 "भवता स्वस्य व्यक्तिगतनिर्देशिकायां न स्थिता स्निपेट् भण्डारसञ्चिका सम्पादिता; तथा च, भवतः "
 "व्यक्तिगतदत्तांशनिर्देशिकायाः अन्तः मूलसञ्चिकायाः प्रतिलिपिः निर्मितः अस्ति ।"
 
-#: snippetrepository.cpp:236
+#: snippetrepository.cpp:235
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "'%1' निर्गमसञ्चिका लेखनार्थं उद्घाटयितुं न शक्यते स्म"
 
-#: snippetrepository.cpp:271
+#: snippetrepository.cpp:270
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "स्निपेट् भण्डारं %1 उद्घाटयितुं न शक्यते ।"
 
-#: snippetrepository.cpp:278
+#: snippetrepository.cpp:277
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt><b>%4</b> इति त्रुटिः<br /> %2/%3 इत्यत्र %1 सञ्चिकायां ज्ञातम् अस्ति</qt>"
 
-#: snippetrepository.cpp:289
+#: snippetrepository.cpp:288
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "अमान्य XML स्निपेट् सञ्चिका: %1"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:357
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr "भण्डारः अक्षमः अस्ति, समाविष्टाः स्निपेट् कोड-समाप्तेः समये न दर्शिताः भविष्यन्ति ।"
 
-#: snippetrepository.cpp:361
+#: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "सर्वेषु सञ्चिकाप्रकारेषु प्रवर्तते"
 
-#: snippetrepository.cpp:363
+#: snippetrepository.cpp:362
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "निम्नलिखितसञ्चिकाप्रकारेषु प्रवर्तते: %1"

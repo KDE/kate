@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-06-15 18:20+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -239,12 +239,12 @@ msgid ""
 "use this type of snippet."
 msgstr "Kate 需要以 KTextEditor 6.15.0 或更新版本編譯才能使用這種片段。"
 
-#: snippetrepository.cpp:43
+#: snippetrepository.cpp:42
 #, kde-format
 msgid "<empty repository>"
 msgstr "<空白主目錄>"
 
-#: snippetrepository.cpp:230
+#: snippetrepository.cpp:229
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -254,40 +254,40 @@ msgstr ""
 "您已編輯了一個並未在您的個人目錄中的程式碼片段，另外已儲存一份複本在您的個人"
 "資料目錄中。"
 
-#: snippetrepository.cpp:236
+#: snippetrepository.cpp:235
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "輸出檔 %1 無法開啟以寫入"
 
-#: snippetrepository.cpp:271
+#: snippetrepository.cpp:270
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "無法開啟片段主目錄 %1"
 
-#: snippetrepository.cpp:278
+#: snippetrepository.cpp:277
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>檔案 %1 的 %2/%3 偵測到了錯誤 <b>%4</b></qt>"
 
-#: snippetrepository.cpp:289
+#: snippetrepository.cpp:288
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "不合法的 XML 片段檔：%1"
 
-#: snippetrepository.cpp:358
+#: snippetrepository.cpp:357
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
 "completion."
 msgstr "主目錄已被關閉，包含的片段將不會在源碼補完中被顯示。"
 
-#: snippetrepository.cpp:361
+#: snippetrepository.cpp:360
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "套用到所有的檔案型態"
 
-#: snippetrepository.cpp:363
+#: snippetrepository.cpp:362
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "套用到以下的檔案型態：%1"

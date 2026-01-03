@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katecompilerexplorer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-31 00:47+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-06-18 21:42+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 24.12.2\n"
 
-#: AsmView.cpp:305
+#: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
 msgstr "Zum Quelltext blättern"
 
-#: AsmView.cpp:315
+#: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
 msgstr "Zur Markierung springen"
 
-#: AsmView.cpp:336
+#: AsmView.cpp:334
 #, kde-format
 msgid "Copy"
 msgstr "Kopieren"
 
-#: AsmView.cpp:348
+#: AsmView.cpp:346
 #, kde-format
 msgid "Select All"
 msgstr "Alles auswählen"

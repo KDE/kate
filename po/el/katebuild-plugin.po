@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2024-09-19 15:20+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -50,24 +50,24 @@ msgstr "Κατασκευή ξανά"
 msgid "Cancel"
 msgstr "Ακύρωση"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, kde-format
 msgid "Build & Run"
 msgstr "Κατασκευή και εκτέλεση"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build and Run Selected Target"
 msgid "Build & Run Settings"
 msgstr "Κατασκευή και εκτέλεση επιλεγμένου προορισμού"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Κατασκευή επιλεγμένου προορισμού"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr "Διαγραφή όλων των καταχωρήσεων"
@@ -411,19 +411,19 @@ msgstr "μη ορισμένη αναφορά"
 msgid "Cannot save build targets in: %1"
 msgstr "Αδυναμία αποθήκευσης στόχων κατασκευής στο: %1"
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>Π:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, kde-format
 msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Καταλ:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -433,7 +433,7 @@ msgstr ""
 "Να προστεθούν κατάλογοι αναζήτησης προσθέτοντας διαδρομές με διαχωριστικό το "
 "';'"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -441,7 +441,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use:\n"
@@ -461,7 +461,7 @@ msgstr ""
 "\"%d\" για τον κατάλογο του τρέχοντος αρχείου\"%n\" για το τρέχον όνομα "
 "αρχείου χωρίς κατάληξη"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "Σύνολο προορισμών"
@@ -492,75 +492,75 @@ msgstr ""
 msgid "Run Command"
 msgstr "Εκτέλεση εντολής"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Φιλτράρισμα προορισμών, με τα βελάκια επιλέγονται, με το Enter εκτελούνται"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Δημιουργία νέου συνόλου προορισμών"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, kde-format
 msgid "Clone command or target set"
 msgstr "Κλωνοποίηση εντολής ή συνόλου προορισμών"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Διαγραφή του τρέχοντος προορισμού ή του τρέχοντος συνόλου προορισμών"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Προσθήκη νέου προορισμού"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "Κατασκευή επιλεγμένου προορισμού"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Κατασκευή και εκτέλεση επιλεγμένου προορισμού"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "Μετακίνηση επιλεγμένου προορισμού επάνω"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "Μετακίνηση επιλεγμένου προορισμού κάτω"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr "Επικόλληση μετά"
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Run Command"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Εκτέλεση εντολής"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, kde-format
 msgctxt "Name/Label for a command to configure a build"
 msgid "Configure"
@@ -579,12 +579,12 @@ msgstr "&Κατασκευή"
 msgid "Build Plugin Toolbar"
 msgstr "Πρόσθετο κατασκευής Kate"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "Εισαγωγή διαδρομής"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Επιλογή καταλόγου για εισαγωγή"

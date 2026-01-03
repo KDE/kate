@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-11-01 03:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -38,49 +38,49 @@ msgstr "შეცდომა სიმეტრიული დაშიფვ�
 msgid "Encryption Failed: "
 msgstr "დაშიფვრის შეცდომა: "
 
-#: kategpgplugin.cpp:76
+#: kategpgplugin.cpp:73
 #, kde-format
 msgid "GPG Plugin"
 msgstr "GPG მოდული"
 
-#: kategpgplugin.cpp:81
+#: kategpgplugin.cpp:78
 #, kde-format
 msgid "GPG Decrypt current document"
 msgstr "GPG მიმდინარე დოკუმენტის გაშიფვრა"
 
-#: kategpgplugin.cpp:82
+#: kategpgplugin.cpp:79
 #, kde-format
 msgid "GPG Encrypt current document"
 msgstr "GPG მიმდინარე დოკუმენტის დაშიფვრა"
 
-#: kategpgplugin.cpp:86
+#: kategpgplugin.cpp:83
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
 msgstr "<b>GPG მოდულის მორგება</b>"
 
-#: kategpgplugin.cpp:89
+#: kategpgplugin.cpp:86
 #, kde-format
 msgid "Key ID"
 msgstr "გასაღების ID"
 
-#: kategpgplugin.cpp:90
+#: kategpgplugin.cpp:87
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
 "ძებნის სტრიქონი, რომელიც გამოიყენება გასაღებების გასაფილტრად ხელმისაწვდომი "
 "ელფოსტის მისამართებით"
 
-#: kategpgplugin.cpp:93
+#: kategpgplugin.cpp:90
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
 msgstr "არჩეული GPG გასაღების ანაბეჭდი დასაშიფრად"
 
-#: kategpgplugin.cpp:94
+#: kategpgplugin.cpp:91
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
 msgstr "<b>ვის: დასაშიფრად გამოყენებული ელფოსტის მისამართი</b>"
 
-#: kategpgplugin.cpp:103
+#: kategpgplugin.cpp:100
 #, kde-format
 msgid ""
 "Select an email address to which to encrypt.\n"
@@ -91,7 +91,7 @@ msgstr ""
 "ხელმისაწვდომია, მხოლოდ, ის ელფოსტის მისამართები, რომლებიც\n"
 "თქვენს ამჟამად არჩეული გასაღების ანაბეჭდთანაა ასოცირებული."
 
-#: kategpgplugin.cpp:107
+#: kategpgplugin.cpp:104
 #, kde-format
 msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
@@ -100,28 +100,28 @@ msgstr ""
 "ეს თქვენი ამჟამად არჩეული GPG გასაღების ანაბეჭდია, რომელიც დასაშიფრად იქნება "
 "გამოყენებული."
 
-#: kategpgplugin.cpp:110
+#: kategpgplugin.cpp:107
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
 msgstr "ASCII-ში კოდირებული სახით შენახვა (.asc/.gpg)"
 
-#: kategpgplugin.cpp:113
+#: kategpgplugin.cpp:110
 #, kde-format
 msgid "Enable symmetric encryption"
 msgstr "სიმეტრიული დაშიფვრის ჩართვა"
 
-#: kategpgplugin.cpp:116
+#: kategpgplugin.cpp:113
 #, kde-format
 msgid "Show only keys for which a private key is available"
 msgstr ""
 "მხოლოდ იმ გასაღებების ჩვენება, რომლებისთვისაც პირადი გასაღებია ხელმისაწვდომი"
 
-#: kategpgplugin.cpp:119
+#: kategpgplugin.cpp:116
 #, kde-format
 msgid "Hide Expired Keys"
 msgstr "ვადაგასული გასაღებების დამალვა"
 
-#: kategpgplugin.cpp:220
+#: kategpgplugin.cpp:217
 #, kde-format
 msgid ""
 "Attempted double encryption detected!\n"
@@ -130,22 +130,22 @@ msgstr ""
 "აღმოჩენილია ორმაგი დაშიფვრის მცდელობა!\n"
 "ერთზე მეტჯერ დაშიფვრა ჯერ-ჯერობით გამორთულია..."
 
-#: kategpgplugin.cpp:234 kategpgplugin.cpp:277
+#: kategpgplugin.cpp:231 kategpgplugin.cpp:274
 #, kde-format
 msgid "Error! No views available..."
 msgstr "შეცდომა! ხედები ხელმისაწვდომი არაა..."
 
-#: kategpgplugin.cpp:239
+#: kategpgplugin.cpp:236
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
 msgstr "შეცდომა ტექსტის გაშიფვრისას! დოკუმენტი ცარიელია..."
 
-#: kategpgplugin.cpp:243
+#: kategpgplugin.cpp:240
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
 msgstr "შეცდომა ტექსტის გაშიფვრისას! ანაბეჭდი არჩეული არაა..."
 
-#: kategpgplugin.cpp:248
+#: kategpgplugin.cpp:245
 #, kde-format
 msgid ""
 "Error Decrypting Text!\n"
@@ -156,22 +156,22 @@ msgstr ""
 "შესაბამისი ანაბეჭდი აღმოჩენილი არაა!\n"
 "ან ეს ტექსტი GPG-ით არაა დაშიფრული...."
 
-#: kategpgplugin.cpp:256
+#: kategpgplugin.cpp:253
 #, kde-format
 msgid "Error Decrypting Text!\n"
 msgstr "შეცდომა ტექსტის გაშიფვრისას!\n"
 
-#: kategpgplugin.cpp:283
+#: kategpgplugin.cpp:280
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
 msgstr "შეცდომა ტექსტის დაშიფვრისას! დოკუმენტი ხელმისაწვდომი არაა..."
 
-#: kategpgplugin.cpp:287
+#: kategpgplugin.cpp:284
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
 msgstr "შეცდომა ტექსტის დაშიფვრისას! დოკუმენტი ცარიელია..."
 
-#: kategpgplugin.cpp:291
+#: kategpgplugin.cpp:288
 #, kde-format
 msgid ""
 "Error Encrypting Text!\n"
@@ -180,7 +180,7 @@ msgstr ""
 "შეცდომა ტექსტის დაშიფვრისას!\n"
 "ანაბეჭდი არჩეული არაა..."
 
-#: kategpgplugin.cpp:295
+#: kategpgplugin.cpp:292
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
@@ -188,37 +188,37 @@ msgstr ""
 "აღმოჩენილია ორმაგი დაშიფვრის მცდელობა! ორჯერ დაშიფვრა ჯერ-ჯერობით "
 "გამორთულია..."
 
-#: kategpgplugin.cpp:308
+#: kategpgplugin.cpp:305
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
 msgstr "შეცდომა ტექსტის დაშიფვრისას! ანაბეჭდი არჩეული არაა...\n"
 
-#: kategpgplugin.cpp:312
+#: kategpgplugin.cpp:309
 #, kde-format
 msgid "Error Encrypting Text!"
 msgstr "შეცდომა ტექსტის დაშიფვრისას!"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Fingerprint"
 msgstr "გასაღებს ანაბეჭდი"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Creation Date"
 msgstr "შექმნის თარიღი"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Expiry Date"
 msgstr "ვადა"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "Key Length"
 msgstr "გასაღების სიგრძე"
 
-#: kategpgplugin.cpp:372
+#: kategpgplugin.cpp:369
 #, kde-format
 msgid "User IDs"
 msgstr "მომხმარებლის ID-ები"

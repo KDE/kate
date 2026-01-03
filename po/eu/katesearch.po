@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-09-11 20:03+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -76,40 +76,40 @@ msgstr "Sortu"
 msgid "Result"
 msgstr "Emaitza"
 
-#: MatchModel.cpp:561 MatchModel.cpp:563
+#: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Fitxategi zerrenda sortzen: ...%1</i></b>"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:572
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
 msgstr[0] "<b><i>Bat-etortze bat aurkitu da: ...%2</i></b>"
 msgstr[1] "<b><i>%1 bat-etortze aurkitu dira: ...%2</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:577
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
 msgstr[0] "<b><i>Bat-etortze bat aurkitu da, bilatzen: %2</i></b>"
 msgstr[1] "<b><i>%1 bat-etortze aurkitu dira, bilatzen: %2</i></b>"
 
-#: MatchModel.cpp:583 MatchModel.cpp:738
+#: MatchModel.cpp:584 MatchModel.cpp:739
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
 msgstr[0] "Bat egiaztatua"
 msgstr[1] "%1 egiaztatu"
 
-#: MatchModel.cpp:587
+#: MatchModel.cpp:588
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
 msgstr[0] "<b><i>Bat-etortze bat (%2) aurkitu da fitxategian</i></b>"
 msgstr[1] "<b><i>%1 bat-etortze (%2) aurkitu dira uneko fitxategian</i></b>"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -118,21 +118,21 @@ msgstr[0] ""
 msgstr[1] ""
 "<b><i>%1 bat-etortze (%2) aurkitu dira irekitako fitxategietan</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
 msgstr[0] "<b><i>Bat-etortze bat (%3) aurkitu da %2 karpetan</i></b>"
 msgstr[1] "<b><i>%1 bat-etortze (%3) aurkitu dira %2 karpetan</i></b>"
 
-#: MatchModel.cpp:599
+#: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
 msgstr[0] "<b><i>Bat-etortze (%4) aurkitu da %2 proiektuan (%3)</i></b>"
 msgstr[1] "<b><i>%1 bat-etortze (%4) aurkitu dira %2 proiektuan (%3)</i></b>"
 
-#: MatchModel.cpp:608
+#: MatchModel.cpp:609
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -145,54 +145,54 @@ msgstr[1] ""
 "<b><i>%1 bat-etortze (%3) aurkitu dira irekitako proiektu guztien artean "
 "(guraso bera: %2)</i></b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Fitxategi zerrenda sortzen: ...%1"
 
-#: MatchModel.cpp:732
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
 msgstr[0] "Bat-etortze bat aurkitu da: ...%2"
 msgstr[1] "%1 bat-etortze aurkitu dira: ...%2"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:735
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
 msgstr[0] "Bat-etortze bat aurkitu da, bilatzen: %2"
 msgstr[1] "%1 bat-etortze aurkitu dira, bilatzen: %2"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
 msgstr[0] "Bat-etortze bat (%2) aurkitu da fitxategian"
 msgstr[1] "%1 bat-etortze (%2) aurkitu dira uneko fitxategian"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
 msgstr[0] "Bat-etortze bat (%2) aurkitu da irekitako fitxategietan"
 msgstr[1] "%1 bat-etortze (%2) aurkitu dira irekitako fitxategietan"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:748
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
 msgstr[0] "Bat-etortze bat (%3) aurkitu da %2 karpetan"
 msgstr[1] "%1 bat-etortze (%3) aurkitu dira %2 karpetan"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:751
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
 msgstr[0] "Bat-etortze bat (%4) aurkitu da %2 proiektuan (%3)"
 msgstr[1] "%1 bat-etortze (%4) aurkitu dira %2 proiektuan (%3)"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:760
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

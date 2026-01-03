@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-18 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2023-02-07 18:21+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -48,25 +48,25 @@ msgstr "Zostaviť znova"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: buildconfig.cpp:48
+#: buildconfig.cpp:47
 #, fuzzy, kde-format
 #| msgid "Build again"
 msgid "Build & Run"
 msgstr "Zostaviť znova"
 
-#: buildconfig.cpp:54
+#: buildconfig.cpp:53
 #, fuzzy, kde-format
 #| msgid "Build and Run Selected Target"
 msgid "Build & Run Settings"
 msgstr "Zostaviť a spustiť vybraný cieľ"
 
-#: buildconfig.cpp:107
+#: buildconfig.cpp:106
 #, fuzzy, kde-format
 #| msgid "Build selected target"
 msgid "Delete selected entries"
 msgstr "Zostaviť vybraný cieľ"
 
-#: buildconfig.cpp:112
+#: buildconfig.cpp:111
 #, kde-format
 msgid "Delete all entries"
 msgstr ""
@@ -415,13 +415,13 @@ msgstr "nedefinovaná referencia"
 msgid "Cannot save build targets in: %1"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:49
+#: TargetHtmlDelegate.cpp:47
 #, kde-format
 msgctxt "T as in Target set"
 msgid "<B>T:</B> %1"
 msgstr "<B>T:</B> %1"
 
-#: TargetHtmlDelegate.cpp:51
+#: TargetHtmlDelegate.cpp:49
 #, fuzzy, kde-format
 #| msgctxt "D as in working Directory"
 #| msgid "<B>Dir:</B> %1"
@@ -429,7 +429,7 @@ msgctxt "Dir as in working Directory"
 msgid "<B>Dir:</B> %1"
 msgstr "<B>Adr:</B> %1"
 
-#: TargetHtmlDelegate.cpp:102
+#: TargetHtmlDelegate.cpp:100
 #, kde-format
 msgid ""
 "Leave empty to use the directory of the current document.\n"
@@ -438,7 +438,7 @@ msgstr ""
 "Nechajte prázdne na použitie adresára aktuálneho dokumentu.\n"
 "Pridajte adresáre vyhľadávania pridaním ciest oddelených znakom ';'"
 
-#: TargetHtmlDelegate.cpp:109
+#: TargetHtmlDelegate.cpp:107
 #, kde-format
 msgid ""
 "Use:\n"
@@ -446,7 +446,7 @@ msgid ""
 "\"%b\" for name of project base directory"
 msgstr ""
 
-#: TargetHtmlDelegate.cpp:113
+#: TargetHtmlDelegate.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use:\n"
@@ -466,7 +466,7 @@ msgstr ""
 "\"%d\" pre adresár aktuálneho súboru\n"
 "\"%n\" pre aktuálny názov súboru bez prípony"
 
-#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:255
+#: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
 msgid "Target Set"
 msgstr "Sada cieľov"
@@ -496,77 +496,77 @@ msgstr ""
 msgid "Run Command"
 msgstr "Spustiť príkaz"
 
-#: targets.cpp:29
+#: targets.cpp:28
 #, kde-format
 msgid "Filter targets, use arrow keys to select, Enter to execute"
 msgstr ""
 "Filtrovanie cieľov, výber pomocou klávesov so šípkami, vykonanie pomocou "
 "klávesu Enter"
 
-#: targets.cpp:33
+#: targets.cpp:32
 #, kde-format
 msgid "Create new set of targets"
 msgstr "Vytvoriť novú sadu cieľov"
 
-#: targets.cpp:37
+#: targets.cpp:36
 #, fuzzy, kde-format
 #| msgid "Copy command or target set"
 msgid "Clone command or target set"
 msgstr "Kopírovať príkaz alebo cieľovú sadu"
 
-#: targets.cpp:41
+#: targets.cpp:40
 #, kde-format
 msgid "Delete current target or current set of targets"
 msgstr "Odstrániť aktuálny cieľ alebo aktuálnu skupinu cieľov"
 
-#: targets.cpp:46
+#: targets.cpp:45
 #, kde-format
 msgid "Add new target"
 msgstr "Pridať nový cieľ"
 
-#: targets.cpp:50
+#: targets.cpp:49
 #, kde-format
 msgid "Build selected target"
 msgstr "Zostaviť vybraný cieľ"
 
-#: targets.cpp:54
+#: targets.cpp:53
 #, kde-format
 msgid "Build and run selected target"
 msgstr "Zostaviť a spustiť vybraný cieľ"
 
-#: targets.cpp:58
+#: targets.cpp:57
 #, kde-format
 msgid "Move selected target up"
 msgstr "Posunúť vybraný cieľ nahor"
 
-#: targets.cpp:62
+#: targets.cpp:61
 #, kde-format
 msgid "Move selected target down"
 msgstr "Posunúť vybraný cieľ nadol"
 
-#: targets.cpp:204
+#: targets.cpp:203
 #, kde-format
 msgid "Copy"
 msgstr ""
 
-#: targets.cpp:208
+#: targets.cpp:207
 #, kde-format
 msgid "Cut"
 msgstr ""
 
-#: targets.cpp:212
+#: targets.cpp:211
 #, kde-format
 msgid "Paste after"
 msgstr ""
 
-#: targets.cpp:230 targets.cpp:257
+#: targets.cpp:229 targets.cpp:256
 #, fuzzy, kde-format
 #| msgid "Run Command"
 msgctxt "Name/Label for a compilation or build command"
 msgid "Build Command"
 msgstr "Spustiť príkaz"
 
-#: targets.cpp:256
+#: targets.cpp:255
 #, fuzzy, kde-format
 #| msgid "Config"
 msgctxt "Name/Label for a command to configure a build"
@@ -586,12 +586,12 @@ msgstr "Vy&budovať"
 msgid "Build Plugin Toolbar"
 msgstr "Kate Zostaviť plugin"
 
-#: UrlInserter.cpp:32
+#: UrlInserter.cpp:31
 #, kde-format
 msgid "Insert path"
 msgstr "Vložiť cestu"
 
-#: UrlInserter.cpp:51
+#: UrlInserter.cpp:50
 #, kde-format
 msgid "Select directory to insert"
 msgstr "Vybrať adresár na vloženie"

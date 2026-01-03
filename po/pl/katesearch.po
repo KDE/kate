@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-01-03 00:46+0000\n"
 "PO-Revision-Date: 2025-02-15 11:13+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -71,12 +71,12 @@ msgstr "Utwórz"
 msgid "Result"
 msgstr "Wynik"
 
-#: MatchModel.cpp:561 MatchModel.cpp:563
+#: MatchModel.cpp:562 MatchModel.cpp:564
 #, kde-format
 msgid "<b><i>Generating file list: ...%1</i></b>"
 msgstr "<b><i>Tworzenie spisu plików: ...%1</i></b>"
 
-#: MatchModel.cpp:571
+#: MatchModel.cpp:572
 #, kde-format
 msgid "<b><i>One match found, searching: ...%2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: ...%2</i></b>"
@@ -85,7 +85,7 @@ msgstr[0] ""
 msgstr[1] "<b><i>Znaleziono %1 pasujące wyrażenia, szukam dalej: ...%2</i></b>"
 msgstr[2] "<b><i>Znaleziono %1 pasujących wyrażeń, szukam dalej: ...%2</i></b>"
 
-#: MatchModel.cpp:576
+#: MatchModel.cpp:577
 #, kde-format
 msgid "<b><i>One match found, searching: %2</i></b>"
 msgid_plural "<b><i>%1 matches found, searching: %2</i></b>"
@@ -94,7 +94,7 @@ msgstr[0] ""
 msgstr[1] "<b><i>Znaleziono %1 pasujące wyrażenia, szukam dalej: %2</i></b>"
 msgstr[2] "<b><i>Znaleziono %1 pasujących wyrażeń, szukam dalej: %2</i></b>"
 
-#: MatchModel.cpp:583 MatchModel.cpp:738
+#: MatchModel.cpp:584 MatchModel.cpp:739
 #, kde-format
 msgid "One checked"
 msgid_plural "%1 checked"
@@ -102,7 +102,7 @@ msgstr[0] "Jedno zaznaczone"
 msgstr[1] "%1 zaznaczone"
 msgstr[2] "%1 zaznaczonych"
 
-#: MatchModel.cpp:587
+#: MatchModel.cpp:588
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
@@ -110,7 +110,7 @@ msgstr[0] "<b><i>Znaleziono jedno pasujące wyrażenie (%2) w pliku</i></b>"
 msgstr[1] "<b><i>Znaleziono %1 pasujące wyrażenia (%2) w pliku</i></b>"
 msgstr[2] "<b><i>Znaleziono %1 pasujących wyrażeń (%2) w pliku</i></b>"
 
-#: MatchModel.cpp:589
+#: MatchModel.cpp:590
 #, kde-format
 msgid "<b><i>One match (%2) found in open files</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in open files</i></b>"
@@ -121,7 +121,7 @@ msgstr[1] ""
 msgstr[2] ""
 "<b><i>Znaleziono %1 pasujących wyrażeń (%2) w otwartych plikach</i></b>"
 
-#: MatchModel.cpp:592
+#: MatchModel.cpp:593
 #, kde-format
 msgid "<b><i>One match (%3) found in folder %2</i></b>"
 msgid_plural "<b><i>%1 matches (%3) found in folder %2</i></b>"
@@ -130,7 +130,7 @@ msgstr[0] ""
 msgstr[1] "<b><i>Znaleziono %1 pasujące wyrażenia (%3) w katalogu %2</i></b>"
 msgstr[2] "<b><i>Znaleziono %1 pasujących wyrażeń (%3) w katalogu %2</i></b>"
 
-#: MatchModel.cpp:599
+#: MatchModel.cpp:600
 #, kde-format
 msgid "<b><i>One match (%4) found in project %2 (%3)</i></b>"
 msgid_plural "<b><i>%1 matches (%4) found in project %2 (%3)</i></b>"
@@ -141,7 +141,7 @@ msgstr[1] ""
 msgstr[2] ""
 "<b><i>Znaleziono %1 pasujących wyrażeń (%4) w projekcie %2 (%3)</i></b>"
 
-#: MatchModel.cpp:608
+#: MatchModel.cpp:609
 #, kde-format
 msgid ""
 "<b><i>One match (%3) found in all open projects (common parent: %2)</i></b>"
@@ -157,12 +157,12 @@ msgstr[2] ""
 "<b><i>Znaleziono %1 pasujących wyrażeń (%3) we wszystkich projektach "
 "(wspólny nadrzędny: %2)</i></b>"
 
-#: MatchModel.cpp:722 MatchModel.cpp:724
+#: MatchModel.cpp:723 MatchModel.cpp:725
 #, kde-format
 msgid "Generating file list: ...%1"
 msgstr "Tworzenie spisu plików: ...%1"
 
-#: MatchModel.cpp:732
+#: MatchModel.cpp:733
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
@@ -170,7 +170,7 @@ msgstr[0] "Znaleziono  jedno pasujące wyrażenie, szukam dalej: %2"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia, szukam dalej: %2"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń, szukam dalej: %2"
 
-#: MatchModel.cpp:734
+#: MatchModel.cpp:735
 #, kde-format
 msgid "One match found, searching: %2"
 msgid_plural "%1 matches found, searching: %2"
@@ -178,7 +178,7 @@ msgstr[0] "Znaleziono  jedno pasujące wyrażenie, szukam dalej: %2"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia, szukam dalej: %2"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń, szukam dalej: %2"
 
-#: MatchModel.cpp:742
+#: MatchModel.cpp:743
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
@@ -186,7 +186,7 @@ msgstr[0] "Znaleziono jedno pasujące wyrażenie (%2) w pliku"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia (%2) w pliku"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń (%2) w pliku"
 
-#: MatchModel.cpp:744
+#: MatchModel.cpp:745
 #, kde-format
 msgid "One match (%2) found in open files"
 msgid_plural "%1 matches (%2) found in open files"
@@ -194,7 +194,7 @@ msgstr[0] "Znaleziono jedno pasujące wyrażenie (%2) w otwartych plikach"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia (%2) w otwartych plikach</i></b>"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń (%2) w otwartych plikach"
 
-#: MatchModel.cpp:747
+#: MatchModel.cpp:748
 #, kde-format
 msgid "One match (%3) found in folder %2"
 msgid_plural "%1 matches (%3) found in folder %2"
@@ -202,7 +202,7 @@ msgstr[0] "Znaleziono jedno pasujące wyrażenie (%3) w katalogu %2"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia (%3) w katalogu %2"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń (%3) w katalogu %2"
 
-#: MatchModel.cpp:750
+#: MatchModel.cpp:751
 #, kde-format
 msgid "One match (%4) found in project %2 (%3)"
 msgid_plural "%1 matches (%4) found in project %2 (%3)"
@@ -210,7 +210,7 @@ msgstr[0] "Znaleziono jedno pasujące wyrażenie (%4) w projekcie %2 (%3)"
 msgstr[1] "Znaleziono %1 pasujące wyrażenia (%4) w projekcie %2 (%3)"
 msgstr[2] "Znaleziono %1 pasujących wyrażeń (%4) w projekcie %2 (%3)"
 
-#: MatchModel.cpp:759
+#: MatchModel.cpp:760
 #, kde-format
 msgid "One match (%3) found in all open projects (common parent: %2)"
 msgid_plural "%1 matches (%3) found in all open projects (common parent: %2)"

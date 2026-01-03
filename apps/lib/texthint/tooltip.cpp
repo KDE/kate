@@ -238,7 +238,7 @@ public:
         size.setHeight(size.height() + hMargins);
         size.setWidth(size.width() + wMargins);
 
-        int maxWidth = m_view->window() ? m_view->window()->width() : m_view->width();
+        int maxWidth = calcMaxWidth();
         int maxHeight = m_view->height() / 3;
 
         // this makes it so the scrollbar margins are only added when we need a scrollbar
@@ -379,14 +379,32 @@ private:
                 setMarkdown(text);
             }
 
+            const auto maxWidth = calcMaxWidth();
+
+            // the default width is too small and will make text wrap too often
+            // so we make its initial width be the max width used in resizeTip()
+            // 100 height is arbitrary, setting it to the default seems to give worse results
+            resize(maxWidth, 100);
+
+            // after enabling line break on a single block
+            // we apparently need to enable for all the next ones
+            // otherwise it won't line break the first one (?????)
+            bool shouldLineBreakNextBlocks = false;
+
             auto block = document()->firstBlock();
             for (int i = 0; i < document()->blockCount(); ++i) {
                 auto bfmt = block.blockFormat();
                 // Fix some things for code blocks in markdown
                 if (bfmt.hasProperty(QTextFormat::BlockCodeLanguage)) {
-                    QTextCursor c(block);
                     // allow word wrap
-                    bfmt.setNonBreakableLines(false);
+                    // only do it if exceeds maximum width to avoid unnecessary wraps
+                    // because Qt sometimes makes stupid decisions and wraps 3 short words into 3 lines
+                    if (shouldLineBreakNextBlocks || block.layout()->boundingRect().width() > maxWidth) {
+                        bfmt.setNonBreakableLines(false);
+                        shouldLineBreakNextBlocks = true;
+                    }
+
+                    QTextCursor c(block);
                     // fix the font, use our own mono font
                     c.select(QTextCursor::BlockUnderCursor);
                     auto cfmt = block.charFormat();
@@ -409,6 +427,11 @@ private:
 
             resizeTip();
         });
+    }
+
+    [[nodiscard]] int calcMaxWidth() const
+    {
+        return (m_view->window() ? m_view->window()->width() : m_view->width()) / 2.5;
     }
 
     bool inContextMenu = false;

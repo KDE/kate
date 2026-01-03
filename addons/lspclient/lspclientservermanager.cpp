@@ -114,6 +114,15 @@ static TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
     return adjust;
 }
 
+static qsizetype docLastLineLen(const KTextEditor::Document *doc)
+{
+    qsizetype ret = 0;
+    if (doc->lines() > 0) {
+        ret = doc->line(doc->lines() - 1).length();
+    }
+    return ret;
+}
+
 #include <utility>
 
 // helper guard to handle revision (un)lock
@@ -229,6 +238,7 @@ class LSPClientServerManagerImpl : public LSPClientServerManager
         KTextEditor::Document *doc;
         QUrl url;
         qint64 version;
+        qsizetype lastLineLen;
         bool open : 1;
         bool modified : 1;
         // used for incremental update (if non-empty)
@@ -1051,6 +1061,7 @@ private:
                                 .doc = doc,
                                 .url = doc->url(),
                                 .version = 0,
+                                .lastLineLen = docLastLineLen(doc),
                                 .open = false,
                                 .modified = false,
                                 .changes = {}});
@@ -1145,6 +1156,7 @@ private:
         auto it = m_docs.find(doc);
         if (it != m_docs.end()) {
             it->modified = true;
+            it->lastLineLen = docLastLineLen(doc);
         }
     }
 
@@ -1169,6 +1181,7 @@ private:
         auto info = getDocumentInfo(doc);
         if (info) {
             info->changes.push_back({.range = LSPRange{position, position}, .text = text});
+            info->lastLineLen = docLastLineLen(doc);
         }
     }
 
@@ -1178,6 +1191,7 @@ private:
         auto info = getDocumentInfo(doc);
         if (info) {
             info->changes.push_back({.range = range, .text = QString()});
+            info->lastLineLen = docLastLineLen(doc);
         }
     }
 
@@ -1194,11 +1208,20 @@ private:
         // lines line-1 and line got replaced by current content of line-1
         Q_ASSERT(line > 0);
         auto info = getDocumentInfo(doc);
-        if (info) {
+        if (!info)
+            return;
+
+        if (line < doc->lines()) {
             LSPRange oldrange{{line - 1, 0}, {line + 1, 0}};
             LSPRange newrange{{line - 1, 0}, {line, 0}};
             auto text = doc->text(newrange);
             info->changes.push_back({.range = oldrange, .text = text});
+        } else {
+            // the last line was unwrapped
+            LSPRange oldrange{{line - 1, 0}, {line, static_cast<int>(info->lastLineLen)}};
+            auto text = doc->line(doc->lines() - 1);
+            info->changes.push_back({.range = oldrange, .text = text});
+            info->lastLineLen = text.length();
         }
     }
 

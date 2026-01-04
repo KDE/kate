@@ -232,7 +232,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
 
     QAction *a = ac->addAction(QStringLiteral("debug"));
     a->setText(i18n("Start Debugging"));
-    a->setIcon(QIcon::fromTheme(QStringLiteral("debug-run")));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
     KActionCollection::setDefaultShortcut(a, QKeySequence((Qt::CTRL | Qt::SHIFT | Qt::Key_F7)));
     connect(a, &QAction::triggered, this, &KatePluginGDBView::slotDebug);
     // This button is handled differently due to it having multiple actions
@@ -528,7 +528,6 @@ void KatePluginGDBView::enableDebugActions(bool enable)
     // Combine start and continue button to same button
     m_continueButton->removeAction(ac->action(!enable ? QStringLiteral("continue") : QStringLiteral("debug")));
     m_continueButton->setDefaultAction(ac->action(enable ? QStringLiteral("continue") : QStringLiteral("debug")));
-    m_continueButton->setIcon(QIcon::fromTheme(QStringLiteral("media-playback-start")));
 
     m_inputArea->setEnabled(enable && !m_backend->debuggerBusy());
     m_stackView->setEnabled(enable);

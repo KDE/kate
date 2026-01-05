@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-07-27 22:35+0200\n"
+"PO-Revision-Date: 2026-01-03 18:06+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.04.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -246,10 +246,9 @@ msgid "Restart All LSP Servers"
 msgstr "Riavvia tutti i server LSP"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "Espandi tutto"
+msgstr "Sospendi tutto"
 
 #: lspclientpluginview.cpp:621
 #, kde-format
@@ -395,10 +394,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Server terminato inaspettatamente ... %1 [%2] [pagina principale: %3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "Impossibile trovare il binario del server: %1"
+msgstr "Impossibile trovare il binario del server «%1» per la lingua «%2»"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -411,10 +409,9 @@ msgid "See also %1 for installation or details"
 msgstr "Per i dettagli sull'installazione, vedi anche %1"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "Impossibile avviare il server: %1"
+msgstr "Impossibile avviare il binario del server «%1» per la lingua «%2»"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

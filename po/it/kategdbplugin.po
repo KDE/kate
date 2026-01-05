@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2010, 2011, 2012, 2013, 2014, 2015.
-# SPDX-FileCopyrightText: 2018, 2020, 2022, 2023, 2024, 2025 Paolo Zamponi <feus73@gmail.com>
+# SPDX-FileCopyrightText: 2018, 2020, 2022, 2023, 2024, 2025, 2026 Paolo Zamponi <feus73@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2025-12-01 17:55+0100\n"
+"PO-Revision-Date: 2026-01-03 18:10+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -34,10 +34,9 @@ msgid "Line Breakpoints"
 msgstr "Punto di interruzione"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "punti di interruzione nella funzione"
+msgstr "Punti di interruzione nella funzione"
 
 #: breakpointview.cpp:358
 #, fuzzy, kde-format
@@ -48,28 +47,25 @@ msgstr "punti di interruzione nella funzione"
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "verificato"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "in sospeso"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "punti di interruzione nella funzione"
+msgstr "Aggiungi punti di interruzione nella funzione..."
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Elimina tutti i punti di interruzione"
+msgstr "Elimina tutti i punti di interruzione nella funzione"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Rimuovi punto di interruzione"
 
@@ -84,23 +80,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "la riga %1 ha già un punto di interruzione"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "impostazione punto di interruzione"
+msgstr "Nessun punto di interruzione impostato"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "punti di interruzione nella funzione"
+msgstr "Aggiungi punti di interruzione nella funzione"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funzione"
+msgstr "Nome della funzione:"
 
 #: configview.cpp:92
 #, kde-format
@@ -520,10 +512,9 @@ msgid "Debugger"
 msgstr "Debugger"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "file non specificato: %1"
+msgstr "Apertura file non riuscita: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -623,10 +614,9 @@ msgid "Locals and Stack"
 msgstr "Locali e pila"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Punto di interruzione"
+msgstr "Punti di interruzione"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -731,10 +721,9 @@ msgid "Insert breakpoint"
 msgstr "Inserisci punto di interruzione"
 
 #: plugin_kategdb.cpp:438
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Rimuovi punto di interruzione"
+msgstr "Attiva/disattiva punto di interruzione"
 
 #: plugin_kategdb.cpp:554
 #, kde-format

@@ -1,17 +1,17 @@
 # Translation for kategdbplugin.po to Euskara/Basque (eu).
-# Copyright (C) 2011-2025 This file is copyright:
+# Copyright (C) 2011-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2020, 2022, 2023, 2024, 2025.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2011, 2018, 2020, 2022, 2023, 2024, 2025, 2026.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2025-12-19 21:37+0100\n"
+"PO-Revision-Date: 2026-01-05 10:35+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -31,48 +31,42 @@ msgstr ""
 "gelditu uneko saioa."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Eten-puntua"
+msgstr "Lerro eten-puntuak"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "funtzioko eten-puntuak"
+msgstr "Funtzio eten-puntuak"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "funtzioko eten-puntuak"
+msgstr "Salbuespen eten-puntuak"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "egiaztatua"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "zain"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "funtzioko eten-puntuak"
+msgstr "Gehitu funtzio eten-puntuak…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Garbitu eten-puntu guztiak"
+msgstr "Garbitu funtzio eten-puntu guztiak"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Kendu eten-puntua"
 
@@ -87,23 +81,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "%1. lerroak badu jada eten-puntu bat"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "Eten-puntua ezarri da"
+msgstr "Ez da eten-punturik ezarri"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "funtzioko eten-puntuak"
+msgstr "Gehitu funtzio eten-puntua"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funtzioa"
+msgstr "Funtzio-izena:"
 
 #: configview.cpp:92
 #, kde-format
@@ -380,10 +370,9 @@ msgid "terminate debuggee"
 msgstr "amaitu araztea"
 
 #: dapbackend.cpp:666
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "funtzioko eten-puntuak"
+msgstr "salbuespen eten-puntu iragazkiak"
 
 #: dapbackend.cpp:813
 #, kde-format
@@ -625,10 +614,9 @@ msgid "Locals and Stack"
 msgstr "Bertako aldagaiak eta dei-pila"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Eten-puntua"
+msgstr "Eten-puntuak"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -733,10 +721,9 @@ msgid "Insert breakpoint"
 msgstr "Txertatu eten-puntua"
 
 #: plugin_kategdb.cpp:438
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Kendu eten-puntua"
+msgstr "Txandakatu eten-puntua"
 
 #: plugin_kategdb.cpp:554
 #, kde-format

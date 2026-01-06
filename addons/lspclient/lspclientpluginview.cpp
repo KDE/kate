@@ -748,33 +748,23 @@ public:
 
     bool eventFilter(QObject *obj, QEvent *event) override
     {
-        auto *keyEvent = static_cast<QKeyEvent *>(event);
-
-        // accept ShortcutOverride if it's a Close action so that it gets sent as a KeyPress
-        if (obj == m_toolView.get() && event->type() == QEvent::ShortcutOverride) {
-            for (const auto &seq : KStandardShortcut::close()) {
-                if (keyEvent->matches(seq.Close)) {
-                    keyEvent->accept();
+        // handle close sequences (such as Ctrl + W) to close LSP toolview tab
+        if (obj == m_toolView.get() && (event->type() == QEvent::ShortcutOverride || event->type() == QEvent::KeyPress)) {
+            auto *keyEvent = static_cast<QKeyEvent *>(event);
+            auto anyMatches = std::any_of(KStandardShortcut::close().begin(), KStandardShortcut::close().end(), [keyEvent](const QKeySequence &seq) {
+                const auto keyEventSeq = QKeySequence(keyEvent->key() | static_cast<int>(keyEvent->modifiers()));
+                return seq.matches(keyEventSeq);
+            });
+            if (anyMatches) {
+                event->accept();
+                if (event->type() == QEvent::ShortcutOverride) {
                     return true;
                 }
-            }
-
-            return QObject::eventFilter(obj, event);
-        }
-
-        // handle Ctrl+W in tool view to close LSP client tabs
-        if (obj == m_toolView.get() && event->type() == QEvent::KeyPress) {
-            for (const auto &seq : KStandardShortcut::close()) {
-                if (keyEvent->matches(seq.Close) && m_toolView->hasFocus()) {
-                    int index = m_tabWidget->currentIndex();
-                    if (index >= 0) {
-                        tabCloseRequested(index);
-                        keyEvent->accept();
-                        return true;
-                    }
+                if (int index = m_tabWidget->currentIndex(); index >= 0) {
+                    tabCloseRequested(index);
                 }
+                return true;
             }
-
             return QObject::eventFilter(obj, event);
         }
 

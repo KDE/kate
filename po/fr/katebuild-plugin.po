@@ -2,7 +2,7 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Joëlle Cornavin <jcorn@free.fr>, 2008, 2009, 2010, 2012, 2013.
-# SPDX-FileCopyrightText: 2013, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2013, 2024, 2025, 2026 Xavier Besnard <xavier.besnard@kde.org>
 # Sebastien Renard <renard@kde.org>, 2013, 2014.
 # Raphaël Jakse <raphael.jakse@gmail.com>, 2014.
 # Maxime Corteel <mcorteel@gmail.com>, 2014, 2015.
@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2025-08-27 07:54+0200\n"
+"PO-Revision-Date: 2026-01-06 16:35+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
-"Language-Team: French <French <kde-francophone@kde.org>>\n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.12.0\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -297,7 +297,7 @@ msgid ""
 "There is no local file or directory specified for building."
 msgstr ""
 "Exécution impossible : %1 : %2. Aucun dossier de travail n'a été défini.\n"
-"Il n’y a aucun fichier ou dossier local spécifié pour la compilation."
+"Il n'y a aucun fichier ou dossier local spécifié pour la compilation."
 
 #: plugin_katebuild.cpp:1212
 #, kde-format
@@ -484,8 +484,8 @@ msgstr ""
 "« %f » pour le fichier courant,\n"
 "« %d » pour le dossier du fichier courant,\n"
 "« %n » pour le nom du fichier actuel sans suffixe,\n"
-"« %B » pour le répertoire racine du projet courant,\n"
-"« %w » pour le répertoire de travail de la cible"
+"« %B » pour le dossier racine du projet courant,\n"
+"« %w » pour le dossier de travail de la cible"
 
 #: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format

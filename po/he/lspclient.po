@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-12-30 11:56+0200\n"
+"PO-Revision-Date: 2026-01-05 19:22+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -187,7 +187,7 @@ msgstr "הכללת ההכרזה בהפניות"
 #: lspclientpluginview.cpp:571 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
-msgstr "הוספת סוגריים עם השלמת הפוקנציה"
+msgstr "הוספת סוגריים עם השלמת הפונקציה"
 
 #: lspclientpluginview.cpp:574
 #, kde-format

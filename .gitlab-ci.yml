@@ -15,3 +15,19 @@ include:
       - /gitlab-templates/craft-macos-x86-64-qt6.yml
       - /gitlab-templates/craft-appimage-qt6.yml
       - /gitlab-templates/documentation.yml
+
+build_clazy:
+  extends:
+    - .ci_linux_base
+    - .suse_tumbleweed_qt6stable
+  rules:
+    # only run on merge requests
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  variables:
+    CLAZY_CHECKS: clazy-range-loop-detach,clazy-strict-iterators
+    CC: clang
+    CXX: clazy
+  script:
+    - git config --global --add safe.directory $CI_PROJECT_DIR
+    - python3 -u ci-utilities/run-ci-build.py --project $CI_PROJECT_NAME --branch $CI_COMMIT_REF_NAME --platform Linux/Qt6/Shared --only-setup-environment --extra-cmake-args="-DENABLE_PCH=OFF"
+  artifacts: null

@@ -66,7 +66,8 @@ static std::optional<QStringList> valueAsStringList(const QJsonValue &value)
 {
     if (value.isArray()) {
         QStringList listValue;
-        for (const auto &item : value.toArray()) {
+        const auto valuesArray = value.toArray();
+        for (const auto &item : valuesArray) {
             const auto text = valueAsString(item);
             if (!text) {
                 return std::nullopt;
@@ -237,7 +238,8 @@ QJsonArray resolve(const QJsonArray &array, const VarMap &variables)
         const auto newValue = resolve(value, variables);
         if (value.isString() && newValue.isArray()) {
             // concatenate
-            for (const auto &item : newValue.toArray()) {
+            const auto valuesArray = newValue.toArray();
+            for (const auto &item : valuesArray) {
                 replaced << item;
             }
         } else {

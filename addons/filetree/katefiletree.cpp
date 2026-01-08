@@ -347,7 +347,7 @@ void KateFileTree::closeClicked(const QModelIndex &index)
             widgets << m_proxyModel->index(i, 0, idx).data(KateFileTreeModel::WidgetRole).value<QWidget *>();
         }
 
-        for (const auto &w : widgets) {
+        for (const auto &w : std::as_const(widgets)) {
             closeWidget(w);
         }
     }

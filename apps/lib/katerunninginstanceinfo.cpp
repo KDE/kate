@@ -53,7 +53,8 @@ std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
     const bool inSandbox = QFileInfo::exists(QStringLiteral("/flatpak-info"));
     const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_"))
                                      : QString::number(QCoreApplication::applicationPid());
-    for (const QString &s : servicesReply.value()) {
+    const auto services = servicesReply.value();
+    for (const QString &s : services) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {
             // ignore instancer we not even can query the lastActivationChange
             KateRunningInstanceInfo instance(s);

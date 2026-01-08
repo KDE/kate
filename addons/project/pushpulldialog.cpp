@@ -49,7 +49,7 @@ void PushPullDialog::openDialog(PushPullDialog::Mode m)
         lastExecCmds.push_front(lastCmd);
     }
 
-    for (const auto &s : builtStrings) {
+    for (const auto &s : std::as_const(builtStrings)) {
         lastExecCmds.removeAll(s);
         lastExecCmds.push_front(s);
     }

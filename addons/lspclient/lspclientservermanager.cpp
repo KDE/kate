@@ -84,7 +84,8 @@ static QStringList indicationDataToStringList(const QJsonValue &indicationData)
 {
     if (indicationData.isArray()) {
         QStringList indications;
-        for (auto indication : indicationData.toArray()) {
+        const auto indicationArray = indicationData.toArray();
+        for (auto indication : indicationArray) {
             if (indication.isString()) {
                 indications << indication.toString();
             }
@@ -100,11 +101,13 @@ static TriggerCharactersOverride parseTriggerOverride(const QJsonValue &json)
 {
     TriggerCharactersOverride adjust;
     if (json.isObject()) {
-        auto ob = json.toObject();
-        for (const auto &c : ob.value(QStringLiteral("exclude")).toString()) {
+        const auto ob = json.toObject();
+        const auto excluedChars = ob.value(QLatin1String("exclude")).toString();
+        for (QChar c : excluedChars) {
             adjust.exclude.push_back(c);
         }
-        for (const auto &c : ob.value(QStringLiteral("include")).toString()) {
+        const auto includeChars = ob.value(QLatin1String("include")).toString();
+        for (QChar c : includeChars) {
             adjust.include.push_back(c);
         }
     }
@@ -828,7 +831,8 @@ private:
             auto vexecPrefix = execConfig.prefix();
             if (vexecPrefix.isArray()) {
                 execPrefix.clear();
-                for (const auto &c : vexecPrefix.toArray()) {
+                const auto vexecPrefixArray = vexecPrefix.toArray();
+                for (const auto &c : vexecPrefixArray) {
                     execPrefix.push_back(c.toString());
                 }
             }
@@ -1236,7 +1240,7 @@ private:
     {
         QList<LSPWorkspaceFolder> folders;
         if (m_projectPlugin) {
-            auto projects = m_projectPlugin->property("projects").value<QObjectList>();
+            const auto projects = m_projectPlugin->property("projects").value<QObjectList>();
             for (auto proj : projects) {
                 auto props = getProjectNameDir(proj);
                 folders.push_back(workspaceFolder(props.second, props.first));
@@ -1321,7 +1325,7 @@ private:
         for (const auto &item : params.items) {
             auto configValue = settings;
             if (item.section && !item.section->isEmpty()) {
-                auto sectionParts = item.section->split(QLatin1Char('.'));
+                const auto sectionParts = item.section->split(QLatin1Char('.'));
                 for (const auto &part : sectionParts) {
                     if (configValue.isObject()) {
                         configValue = configValue.toObject().value(part);

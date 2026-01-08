@@ -289,7 +289,7 @@ bool KeyboardMacrosPlugin::play(const QString &name)
     } else {
         return false;
     }
-    for (const auto &keyCombination : macro) {
+    for (const auto &keyCombination : std::as_const(macro)) {
         // send key press
         QKeyEvent keyPress = keyCombination.keyPress();
         // cache the widget, focusWidget may change on keyPress/keyRelease

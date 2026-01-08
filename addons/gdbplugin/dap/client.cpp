@@ -394,13 +394,15 @@ void Client::processResponseSetBreakpoints(const Response &response, const QJson
         const auto resp = response.body.toObject();
         if (resp.contains(DAP_BREAKPOINTS)) {
             QList<Breakpoint> breakpoints;
-            for (const auto &item : resp[DAP_BREAKPOINTS].toArray()) {
+            const auto breakpointsJsonArray = resp[DAP_BREAKPOINTS].toArray();
+            for (const auto &item : breakpointsJsonArray) {
                 breakpoints.append(Breakpoint(item.toObject(), *m_msgContext));
             }
             Q_EMIT sourceBreakpoints(source.path, source.sourceReference.value_or(0), breakpoints);
         } else {
             QList<Breakpoint> breakpoints;
-            for (const auto &item : resp[DAP_LINES].toArray()) {
+            const auto linesJsonArray = resp[DAP_LINES].toArray();
+            for (const auto &item : linesJsonArray) {
                 breakpoints.append(Breakpoint(item.toInt()));
             }
             Q_EMIT sourceBreakpoints(source.path, source.sourceReference.value_or(0), breakpoints);

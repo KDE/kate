@@ -247,7 +247,7 @@ void KateProjectWorker::loadFilesEntry(QStandardItem *parent,
          */
         QHash<QString, QStandardItem *> dir2Item;
         dir2Item[QString()] = parent;
-        for (const auto &filePath : linkedProjects) {
+        for (const auto &filePath : std::as_const(linkedProjects)) {
             /**
              * cheap file name computation
              * we do this A LOT, QFileInfo is very expensive just for this operation
@@ -420,7 +420,7 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
          * users might have specified duplicates, this can't happen for the other ways
          */
         userGivenFilesList.removeDuplicates();
-        for (const auto &file : userGivenFilesList) {
+        for (const auto &file : std::as_const(userGivenFilesList)) {
             outFiles.push_back(FileEntry{.filePath = file});
         }
         return;

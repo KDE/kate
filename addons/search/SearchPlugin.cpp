@@ -599,11 +599,10 @@ QList<int> KatePluginSearchView::getDocumentSearchMarkedLines(KTextEditor::Docum
     if (!currentDocument) {
         return result;
     }
-    QHash<int, KTextEditor::Mark *> documentMarksHash = currentDocument->marks();
+    const QHash<int, KTextEditor::Mark *> &documentMarksHash = currentDocument->marks();
     auto searchMarkType = KTextEditor::Document::SearchMatch;
-    for (const int markedLineNumber : documentMarksHash.keys()) {
-        auto documentMarkTypeMask = documentMarksHash.value(markedLineNumber)->type;
-        if ((searchMarkType & documentMarkTypeMask) != searchMarkType) {
+    for (const auto &[markedLineNumber, mark] : documentMarksHash.asKeyValueRange()) {
+        if ((searchMarkType & mark->type) != searchMarkType) {
             continue;
         }
         result.push_back(markedLineNumber);

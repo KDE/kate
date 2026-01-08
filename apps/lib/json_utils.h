@@ -36,7 +36,7 @@ inline QJsonObject merge(const QJsonObject &bottom, const QJsonObject &top)
 inline void find(const QJsonValue &value, std::function<bool(const QJsonObject &)> check, QJsonObject &current)
 {
     if (value.isArray()) {
-        auto av = value.toArray();
+        const auto av = value.toArray();
         for (const auto &e : av) {
             find(e, check, current);
         }

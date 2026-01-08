@@ -26,7 +26,8 @@ public:
             std::pair(Macro(), false);
         }
         Macro macro;
-        for (const auto &jsonKeyCombination : json.toArray()) {
+        const auto jsonArray = json.toArray();
+        for (const auto &jsonKeyCombination : jsonArray) {
             if (jsonKeyCombination.type() != QJsonValue::Array) {
                 return std::pair(Macro(), false);
             }

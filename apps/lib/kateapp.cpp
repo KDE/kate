@@ -676,7 +676,8 @@ void KateApp::openDocUrlDocumentDestroyed(QObject *document)
 {
     // do we need to kill the temporary files for this document?
     if (const auto tempFilesIt = m_tempFilesToDelete.find(document); tempFilesIt != m_tempFilesToDelete.end()) {
-        for (const auto &file : tempFilesIt.value()) {
+        const auto &files = tempFilesIt.value();
+        for (const auto &file : files) {
             QFile::remove(file);
         }
         m_tempFilesToDelete.erase(tempFilesIt);

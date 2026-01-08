@@ -198,7 +198,7 @@ public:
 
         if (option.state & QStyle::State_Enabled && (option.state & QStyle::State_MouseOver)) {
             const int w = option.decorationSize.width();
-            const int totalWidth = m_buttons.size() * (w + IconPadding);
+            const int totalWidth = static_cast<int>(m_buttons.size()) * (w + IconPadding);
             int x = option.rect.right() - totalWidth;
             for (const auto &button : m_buttons) {
                 if (button.isEnabled(index)) {
@@ -215,7 +215,7 @@ public:
         switch (event->type()) {
         case QEvent::MouseButtonRelease: {
             const int w = option.decorationSize.width();
-            const int totalWidth = m_buttons.size() * (w + IconPadding);
+            const int totalWidth = static_cast<int>(m_buttons.size()) * (w + IconPadding);
             int x = option.rect.right() - totalWidth;
             auto me = static_cast<QMouseEvent *>(event);
             for (const auto &button : m_buttons) {
@@ -238,7 +238,7 @@ public:
     }
 
 private:
-    QList<IconButton> m_buttons;
+    std::vector<IconButton> m_buttons;
 };
 }
 
@@ -515,7 +515,7 @@ public:
     [[nodiscard]] QList<dap::SourceBreakpoint> sourceBreakpointsForPath(const QUrl &url)
     {
         QList<FileBreakpoint> breakpoints;
-        for (const auto &b : m_lineBreakpoints) {
+        for (const auto &b : std::as_const(m_lineBreakpoints)) {
             if (b.isEnabled() && b.url == url) {
                 breakpoints.push_back(b);
             }
@@ -863,7 +863,7 @@ public:
     {
         QString out;
         int bId = 0;
-        for (const auto &breakpoint : m_lineBreakpoints) {
+        for (const auto &breakpoint : std::as_const(m_lineBreakpoints)) {
             out += printBreakpoint(breakpoint.url, breakpoint.sourceBreakpoint, breakpoint.breakpoint, bId);
             out += QStringLiteral("\n");
             ++bId;
@@ -1175,7 +1175,7 @@ public:
     {
         if (!m_lineBreakpoints.empty()) {
             QJsonArray lineBreakpointsJson;
-            for (const auto &b : m_lineBreakpoints) {
+            for (const auto &b : std::as_const(m_lineBreakpoints)) {
                 lineBreakpointsJson.push_back(b.toJson());
             }
             config.writeEntry<QByteArray>("LineBreakpoints", QJsonDocument(lineBreakpointsJson).toJson(QJsonDocument::Compact));
@@ -1185,7 +1185,7 @@ public:
 
         if (!m_funcBreakpoints.empty()) {
             QJsonArray funcBreakpointsJson;
-            for (const auto &b : m_funcBreakpoints) {
+            for (const auto &b : std::as_const(m_funcBreakpoints)) {
                 funcBreakpointsJson.push_back(b.toJson());
             }
             config.writeEntry<QByteArray>("FuncBreakpoints", QJsonDocument(funcBreakpointsJson).toJson(QJsonDocument::Compact));

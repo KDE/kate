@@ -733,7 +733,8 @@ void KateProjectPlugin::writeSessionConfig(KConfigGroup &config)
     // serialize all open projects as list of JSON documents if allowed, always write the list to not leave over old data forever
     QStringList projectList;
     if (restoreProjectsForSession()) {
-        for (const auto project : projects()) {
+        const auto projectsList = projects();
+        for (const auto project : projectsList) {
             QVariantMap sMap;
 
             // for file backed stuff, we just remember the file

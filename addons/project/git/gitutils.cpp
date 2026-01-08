@@ -186,8 +186,8 @@ QList<GitUtils::Branch> GitUtils::getAllLocalBranchesWithLastCommitSubject(const
     startHostProcess(git, QProcess::ReadOnly);
     QList<Branch> branches;
     if (git.waitForStarted() && git.waitForFinished(-1)) {
-        QByteArray gitout = git.readAllStandardOutput();
-        QByteArrayList rows = gitout.split('\n');
+        const QByteArray gitout = git.readAllStandardOutput();
+        const QByteArrayList rows = gitout.split('\n');
 
         branches.reserve(rows.size());
         QList<QLatin1String> tokens;

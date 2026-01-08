@@ -180,7 +180,7 @@ Template::~Template()
 void Template::addEntries(const QFileInfo &info, const QModelIndex &parent)
 {
     QDir dir(info.absoluteFilePath());
-    QStringList files = dir.entryList(QDir::Files | QDir::Hidden);
+    const QStringList files = dir.entryList(QDir::Files | QDir::Hidden);
     if (files.contains(u"template.json"_s)) {
         std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
         treeData->path = parent.data(TreeData::PathRole).toString();
@@ -188,7 +188,8 @@ void Template::addEntries(const QFileInfo &info, const QModelIndex &parent)
         m_selectionModel.setAbstractData(std::move(treeData), parent);
         return;
     }
-    for (const auto &entry : dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+    const auto entries = dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const auto &entry : entries) {
         std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
         treeData->path = entry.absoluteFilePath();
         const QModelIndex cIndex = m_selectionModel.addChild(std::move(treeData), parent);
@@ -206,8 +207,9 @@ QStringList Template::fileNames(const QString &src)
 {
     QDir dir(src);
     QStringList files = dir.entryList(QDir::Files | QDir::Hidden);
+    const auto entries = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 
-    for (const auto &entry : dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+    for (const auto &entry : entries) {
         files += fileNames(src + '/'_L1 + entry);
     }
 
@@ -262,7 +264,8 @@ bool Template::copyFolder(const QString &src,
     QDir dir(src);
 
     // Copy files
-    for (const auto &entry : dir.entryList(QDir::Files | QDir::Hidden)) {
+    const auto fileEntries = dir.entryList(QDir::Files | QDir::Hidden);
+    for (const auto &entry : fileEntries) {
         if (fileSkipList.contains(entry)) {
             continue;
         }
@@ -281,7 +284,8 @@ bool Template::copyFolder(const QString &src,
     }
 
     // Copy folders
-    for (const auto &entry : dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+    const auto dirEntries = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (const auto &entry : dirEntries) {
         QDir().mkpath(trgt + '/'_L1 + entry);
         if (!copyFolder(src + '/'_L1 + entry, trgt + '/'_L1 + entry, fileReplaceMap, replaceMap, fileSkipList)) {
             return false;
@@ -482,7 +486,7 @@ void Template::addAppWizardTemplates()
         itemPaths.removeLast();
         QStringList paths;
         QModelIndex index = indexes.value(QString());
-        for (const QString &part : itemPaths) {
+        for (const QString &part : std::as_const(itemPaths)) {
             paths.append(part);
             const QString path = paths.join(u'/');
             if (!indexes.contains(path)) {
@@ -508,7 +512,8 @@ void Template::appWizardTemplateSelected(const QString &category)
 
     ui->u_detailsTB->setText(templ.description);
 
-    for (const auto &ren : AppWizardReader().replacements()) {
+    const auto replacements = AppWizardReader().replacements();
+    for (const auto &ren : replacements) {
         std::unique_ptr<ConfigData> configData = std::make_unique<ConfigData>();
         configData->m_desc = ren.descr;
         configData->m_placeholder = ren.placeholder;
@@ -559,8 +564,8 @@ void Template::createFromAppWizardTemplate(const QString &category)
     replaceMap["%{PROJECTDIRNAME}"_ba] = appName.toLower();
 
     // Update the file to open
-    for (const auto &key : replaceMap.keys()) {
-        fileToOpen.replace(QString::fromLocal8Bit(key), QString::fromLocal8Bit(replaceMap.value(key)));
+    for (const auto &[key, value] : replaceMap.asKeyValueRange()) {
+        fileToOpen.replace(QString::fromLocal8Bit(key), QString::fromLocal8Bit(value));
     }
 
     QStringList fileSkipList({templ.kAppTemplateFile, templ.icon});

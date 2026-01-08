@@ -1083,7 +1083,8 @@ void KateMainWindow::updateHamburgerMenu()
         menu->addSeparator();
     }
 
-    for (QAction *menuAction : menuBar()->actions()) {
+    const auto menubarActions = menuBar()->actions();
+    for (QAction *menuAction : menubarActions) {
         menu->addAction(menuAction);
     }
 }

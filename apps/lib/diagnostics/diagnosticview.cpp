@@ -1234,7 +1234,8 @@ void DiagnosticsView::clearAllMarks(KTextEditor::Document *doc)
 
     auto it = m_diagnosticsRanges.find(doc);
     if (it != m_diagnosticsRanges.end()) {
-        for (auto range : it.value()) {
+        const auto docDiagRanges = it.value();
+        for (auto range : docDiagRanges) {
             delete range;
         }
         it = m_diagnosticsRanges.erase(it);

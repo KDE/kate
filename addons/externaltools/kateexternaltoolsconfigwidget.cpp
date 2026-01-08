@@ -394,7 +394,8 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
 
     // first add categorized actions, such that the submenus appear at the top
     int defaultToolsIndex = 0;
-    for (const auto &tool : m_plugin->defaultTools()) {
+    const auto defaultTools = m_plugin->defaultTools();
+    for (const auto &tool : defaultTools) {
         const QString category = tool.category.isEmpty() ? i18n("Uncategorized") : tool.translatedCategory();
         auto categoryMenu = categories[category];
         if (!categoryMenu) {

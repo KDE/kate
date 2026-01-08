@@ -207,7 +207,7 @@ void ConfigView::readDAPSettings()
             QSet<QString> variables;
             json::findVariables(conf.settings, variables);
 
-            for (const auto &var : variables) {
+            for (const auto &var : std::as_const(variables)) {
                 if (var.startsWith(QLatin1String("#")))
                     continue;
                 conf.variables.append(var);
@@ -440,7 +440,7 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
             // prepare map
             cfg.dapSettings->pathMap = execConfig.init_mapping(view);
             // adjust command-line
-            auto cmdline = settings.value(dap::settings::COMMAND).toArray();
+            const auto cmdline = settings.value(dap::settings::COMMAND).toArray();
             auto newcmdline = prefix.toArray();
             for (const auto &c : cmdline)
                 newcmdline += c;
@@ -459,7 +459,7 @@ DAPTargetConf ConfigView::currentDAPTarget(bool full, QString &errorMessage) con
         }
 
         // var expansion in cmdline
-        auto cmdline = settings.value(dap::settings::COMMAND).toArray();
+        const auto cmdline = settings.value(dap::settings::COMMAND).toArray();
         QStringList cmd;
         for (const auto &e : cmdline) {
             cmd.push_back(expand(e.toString()));

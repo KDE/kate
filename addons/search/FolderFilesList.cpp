@@ -112,7 +112,7 @@ void FolderFilesList::generateList(const QString &folder, bool recursive, bool h
         m_types << QStringLiteral("*");
     }
 
-    QStringList tmpExcludes = excludes.split(QLatin1Char(','));
+    const QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludes.clear();
     m_pathExcludes.clear();
     for (const auto &excl : tmpExcludes) {

@@ -1317,7 +1317,7 @@ void KateViewManager::clearSyncOfDeletedView(QObject *view)
 {
     // make sure that no deleted view is being depended upon, by removing pointers or replacing them with nullptr
     m_scrollSynchronisation.viewScrollInfo.remove(static_cast<KTextEditor::View *>(view));
-    QList<KateViewSpace *> viewSpacesWithDeletedView = m_scrollSynchronisation.synchedViewSpaces.keys(static_cast<KTextEditor::View *>(view));
+    const QList<KateViewSpace *> viewSpacesWithDeletedView = m_scrollSynchronisation.synchedViewSpaces.keys(static_cast<KTextEditor::View *>(view));
     for (KateViewSpace *itr : viewSpacesWithDeletedView) {
         m_scrollSynchronisation.synchedViewSpaces.insert(itr, nullptr);
     }

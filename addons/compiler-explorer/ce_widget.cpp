@@ -455,7 +455,7 @@ void CEWidget::processAndShowAsm(const QByteArray &jsonData)
     for (const auto &line : assembly) {
         AsmRow row;
 
-        auto labels = line[QLatin1String("labels")].toArray();
+        const auto labels = line[QLatin1String("labels")].toArray();
         if (!labels.empty()) {
             for (const auto &label : labels) {
                 LabelInRow l;

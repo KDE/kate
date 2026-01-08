@@ -168,7 +168,8 @@ public:
         // but we never claimed this protocol is perfect
         // it should conveniently cover and provide for most common cases
         // also, an error is not fatal nor leads to corruption, etc
-        for (const auto &e : data.split('\n')) {
+        const auto lsEntries = data.split('\n');
+        for (const auto &e : lsEntries) {
             KIO::UDSEntry entry;
             // last line
             if (e.isEmpty())

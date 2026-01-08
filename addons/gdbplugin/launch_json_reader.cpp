@@ -89,7 +89,7 @@ static QJsonObject toKateTarget(const QJsonObject &in, const QDir &baseDir)
 
     auto it = in.find(F_ARGS);
     if (it != in.end()) {
-        auto argsArray = it->toArray();
+        const auto argsArray = it->toArray();
         QString args;
         for (const auto &a : argsArray) {
             QString arg = a.toString();
@@ -172,7 +172,7 @@ QList<QJsonValue> readLaunchJsonConfigs(const QStringList &baseDirs, QStringList
             }
             postProcessTargets(projectConfig, projectBaseDir);
             configs.reserve(configs.size() + projectConfig.size());
-            for (const auto &value : projectConfig) {
+            for (const auto &value : std::as_const(projectConfig)) {
                 configs.insert(configs.end(), value);
             }
         }

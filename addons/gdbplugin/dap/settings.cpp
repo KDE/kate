@@ -68,7 +68,8 @@ std::optional<QJsonObject> expandConfiguration(const QJsonObject &adapterSetting
     // check command
     if (withProcess && checkArray(out, COMMAND_ARGS)) {
         auto command = out[COMMAND].toArray();
-        for (const auto &item : out[COMMAND_ARGS].toArray()) {
+        const auto commandArgs = out[COMMAND_ARGS].toArray();
+        for (const auto &item : commandArgs) {
             command << item;
         }
         out[COMMAND] = command;

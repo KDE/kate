@@ -58,7 +58,8 @@ QMap<QString, AppWizardReader::TemplateData> AppWizardReader::appWizardTemplates
             const KArchiveEntry *templateEntry = templateArchive->directory()->entry(descriptionFileName);
             // but could be different name, if e.g. downloaded, so make a guess
             if (!templateEntry || !templateEntry->isFile()) {
-                for (const auto &entryName : templateArchive->directory()->entries()) {
+                const auto templateEntries = templateArchive->directory()->entries();
+                for (const auto &entryName : templateEntries) {
                     if (entryName.endsWith(u".kdevtemplate"_s)) {
                         data.kAppTemplateFile = entryName;
                         templateEntry = templateArchive->directory()->entry(entryName);

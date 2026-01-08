@@ -62,7 +62,8 @@ void updateMapping(PathMapping &mapping, const QJsonValue &json, KTextEditor::Vi
         }
     };
 
-    for (auto e : json.toArray()) {
+    const auto jsonArray = json.toArray();
+    for (auto e : jsonArray) {
         // allow various common representations
         if (e.isObject()) {
             auto obj = e.toObject();
@@ -179,7 +180,8 @@ PathMappingPtr ExecConfig::init_mapping(KTextEditor::View *view)
             // use substituted part of cmdline as prefix
             auto editor = KTextEditor::Editor::instance();
             QStringList sub_prefix;
-            for (const auto &e : prefix().toArray()) {
+            const auto prefixArray = prefix().toArray();
+            for (const auto &e : prefixArray) {
                 sub_prefix.push_back(editor->expandText(e.toString(), view));
             }
             epm.update(hn, sub_prefix);

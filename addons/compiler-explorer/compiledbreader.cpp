@@ -74,7 +74,7 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
         return {};
     }
 
-    QJsonArray commandsArray = cmdCmds.array();
+    const QJsonArray commandsArray = cmdCmds.array();
 
     for (const auto &cmdJV : commandsArray) {
         auto compileCommand = cmdJV.toObject();

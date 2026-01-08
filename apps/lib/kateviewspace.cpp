@@ -871,7 +871,8 @@ void KateViewSpace::removeWidget(QWidget *w)
     QMetaObject::invokeMethod(w, "shouldClose", Q_RETURN_ARG(bool, shouldClose));
     if (shouldClose) {
         w->removeEventFilter(this);
-        for (auto c : w->findChildren<QWidget *>()) {
+        const auto children = w->findChildren<QWidget *>();
+        for (auto c : children) {
             c->removeEventFilter(this);
         }
 
@@ -949,7 +950,8 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
 {
     // ensure we keep track of focus changes, KTextEditor::View has some extra focusIn signal
     widget->installEventFilter(this);
-    for (auto c : widget->findChildren<QWidget *>()) {
+    const auto children = widget->findChildren<QWidget *>();
+    for (auto c : children) {
         c->installEventFilter(this);
     }
 
@@ -1144,7 +1146,8 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     aCloseOtherTabs->setEnabled(m_tabBar->documentList().size() > 1);
     connect(aCloseOtherTabs, &QAction::triggered, this, [this, docOrWidget] {
         QTimer::singleShot(0, this, [this, docOrWidget]() {
-            for (auto otherDocOrWidget : m_tabBar->documentList()) {
+            const auto tabDocuments = m_tabBar->documentList();
+            for (auto otherDocOrWidget : tabDocuments) {
                 if (otherDocOrWidget != docOrWidget) {
                     int idx = m_tabBar->documentIdx(otherDocOrWidget);
                     closeTabRequest(idx);
@@ -1158,7 +1161,8 @@ void KateViewSpace::buildContextMenu(int tabIndex, QMenu &menu)
     connect(aCloseAllTabs, &QAction::triggered, this, [this] {
         QTimer::singleShot(0, this, [this]() {
             // TODO simplify this, we can just iterate 0..tabBar->count();
-            for (auto docOrWid : m_tabBar->documentList()) {
+            const auto tabDocuments = m_tabBar->documentList();
+            for (auto docOrWid : tabDocuments) {
                 int idx = m_tabBar->documentIdx(docOrWid);
                 closeTabRequest(idx);
             }

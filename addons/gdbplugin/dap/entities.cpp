@@ -87,7 +87,8 @@ static std::optional<QList<int>> parseOptionalIntList(const QJsonValue &value)
         return std::nullopt;
     }
     QList<int> values;
-    for (const auto &item : value.toArray()) {
+    const auto intListJsonArray = value.toArray();
+    for (const auto &item : intListJsonArray) {
         values.append(item.toInt());
     }
     return values;

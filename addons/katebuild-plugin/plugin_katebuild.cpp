@@ -1301,9 +1301,9 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
 {
     const int numCores = QThread::idealThreadCount();
 
-    QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
-    QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
-    QJsonArray setsArray = sessionSetsObj[QLatin1String("target_sets")].toArray();
+    const QModelIndex sessionRootIndex = m_targetsUi->targetsModel.sessionRootIndex();
+    const QJsonObject sessionSetsObj = m_targetsUi->targetsModel.indexToJsonObj(sessionRootIndex);
+    const QJsonArray setsArray = sessionSetsObj[QLatin1String("target_sets")].toArray();
 
     for (const auto &setValue : setsArray) {
         const auto &setObj = setValue.toObject();

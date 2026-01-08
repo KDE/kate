@@ -746,7 +746,8 @@ void KateViewManagementTests::testDetachDoc()
 {
     // two viewspaces, one with widget. Closing the space shouldn't crash us
     app->sessionManager()->sessionNew();
-    for (auto mw : app->mainWindows()) {
+    const auto mainWindows = app->mainWindows();
+    for (auto mw : mainWindows) {
         if (mw != app->activeMainWindow()) {
             delete mw->window();
         }
@@ -772,7 +773,8 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
      */
 
     app->sessionManager()->sessionNew();
-    for (auto mw : app->mainWindows()) {
+    const auto mainWindows = app->mainWindows();
+    for (auto mw : mainWindows) {
         if (mw != app->activeMainWindow()) {
             delete mw->window();
         }
@@ -795,7 +797,8 @@ void KateViewManagementTests::testKwriteInSDIModeWithOpenMultipleUrls()
 
     QCOMPARE(app->mainWindowsCount(), 2);
 
-    for (auto mainWin : app->mainWindows()) {
+    const auto mainWindowsAfter = app->mainWindows();
+    for (auto mainWin : mainWindowsAfter) {
         QCOMPARE(mainWin->views().size(), 1);
     }
 }

@@ -130,7 +130,7 @@ QUrl mapPath(const PathMapping &mapping, const QUrl &p, bool fromLocal)
             auto rootPath = root.path(QUrl::FullyEncoded);
             auto suf = p.path(QUrl::FullyEncoded).mid(rootPath.size());
             if (suf.size() && suf[0] == SEP)
-                suf.erase(suf.begin());
+                suf.erase(suf.cbegin());
             if (!entry || suf.size() < suffix.size()) {
                 entry = &m;
                 suffix = suf;

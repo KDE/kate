@@ -1,14 +1,14 @@
-# SPDX-FileCopyrightText: 2023 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2010 Panagiotis Papadopoulos <pano_90@gmx.net>
 # SPDX-FileCopyrightText: 2010, 2011, 2012, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2011, 2013, 2014, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2023 Alois Spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2025-12-21 00:23+0100\n"
+"PO-Revision-Date: 2026-01-05 22:46+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -28,48 +28,42 @@ msgstr ""
 "neu starten oder beenden."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Haltepunkt"
+msgstr "Zeilenhaltepunkte"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "Funktionshaltepunkte"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "Funktionshaltepunkte"
+msgstr "Ausnahmehaltepunkte"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "überprüft"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "ausstehend"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "Funktionshaltepunkte"
+msgstr "Funktionshaltepunkt hinzufügen …"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Alle Haltepunkte löschen"
+msgstr "Alle Funktionshaltepunkte löschen"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Haltepunkt entfernen"
 
@@ -84,23 +78,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "In der Zeile %1 existiert bereits ein Haltepunkt"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "Haltepunkt gesetzt"
+msgstr "Keine Haltepunkte gesetzt"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "Funktionshaltepunkte"
+msgstr "Funktionshaltepunkt hinzufügen"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funktion"
+msgstr "Funktionsname:"
 
 #: configview.cpp:92
 #, kde-format
@@ -379,10 +369,9 @@ msgid "terminate debuggee"
 msgstr "den untersuchten Prozess beenden"
 
 #: dapbackend.cpp:666
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "Funktionshaltepunkte"
+msgstr "Filter für Ausnahmehaltepunkte"
 
 #: dapbackend.cpp:813
 #, kde-format
@@ -532,7 +521,7 @@ msgstr "Keine JSON-Daten zum Überprüfen."
 #: debugconfigpage.cpp:144
 #, kde-format
 msgid "JSON data is valid."
-msgstr "Die JSON-Daten sind gültig"
+msgstr "Die JSON-Daten sind gültig."
 
 #: debugconfigpage.cpp:146
 #, kde-format
@@ -622,10 +611,9 @@ msgid "Locals and Stack"
 msgstr "Lokale Variablen und Aufrufstapel"
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Haltepunkt"
+msgstr "Haltepunkte"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format
@@ -656,7 +644,7 @@ msgstr "Fortsetzen"
 #: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr "Haltepunkt ein-/ausschalten"
+msgstr "Haltepunkt umschalten / anhalten"
 
 #: plugin_kategdb.cpp:258
 #, kde-format
@@ -730,10 +718,9 @@ msgid "Insert breakpoint"
 msgstr "Haltepunkt einfügen"
 
 #: plugin_kategdb.cpp:438
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Haltepunkt entfernen"
+msgstr "Haltepunkt umschalten"
 
 #: plugin_kategdb.cpp:554
 #, kde-format

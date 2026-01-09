@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-30 00:44+0000\n"
-"PO-Revision-Date: 2025-08-14 10:11+0400\n"
+"PO-Revision-Date: 2026-01-08 11:55+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -246,10 +246,9 @@ msgid "Restart All LSP Servers"
 msgstr "أعد تشغيل جميع خوادم LSP"
 
 #: lspclientpluginview.cpp:618
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "وسّع الكل"
+msgstr "علّق الكل"
 
 #: lspclientpluginview.cpp:621
 #, kde-format
@@ -394,10 +393,9 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "أنهي الخادم بشكل غير متوقع ... %1 [%2] [الصفحة الرئيسة: %3] "
 
 #: lspclientservermanager.cpp:886
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "فشل في العثور على ملف التنفيذي للخادم: %1"
+msgstr "فشل العثور على ملف التنفيذي الخادم ’%1‘ للغة '%2'"
 
 #: lspclientservermanager.cpp:889 lspclientservermanager.cpp:954
 #, kde-format
@@ -410,10 +408,9 @@ msgid "See also %1 for installation or details"
 msgstr "انظر أيضًا %1 للتثبيت أو التفاصيل"
 
 #: lspclientservermanager.cpp:951
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "فشل في بدء تشغيل الخادم: %1"
+msgstr "فشل بدء تشغيل الخادم ’%1‘ للغة '%2'"
 
 #: lspclientservermanager.cpp:959
 #, kde-format

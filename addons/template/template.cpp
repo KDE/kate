@@ -117,19 +117,28 @@ Template::Template(QWidget *parent)
     , m_selectionModel(std::make_unique<TreeData>())
     , m_configModel(std::make_unique<ConfigData>())
 {
-    ui->setupUi(this);
+   ui->setupUi(this);
+
     m_createButton = new QPushButton(i18n("Create"));
     m_createButton->setEnabled(false);
-
-    ui->u_buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
     m_createButton->setDefault(true);
+    ui->u_buttonBox->addButton(m_createButton, QDialogButtonBox::ActionRole);
 
-    m_exportButton = new QPushButton(i18n("Export"));
+    auto importButton = new QPushButton(QIcon::fromTheme(u"document-import"_s), i18n("Import..."), this);
+    m_exportButton = new QPushButton(QIcon::fromTheme(u"document-export"_s), i18n("Export"), this);
     m_exportButton->setEnabled(false);
-    ui->u_buttonBox->addButton(m_exportButton, QDialogButtonBox::ActionRole);
 
-    QPushButton *importButton = new QPushButton(QIcon::fromTheme(u"document-import"_s), i18n("Import..."), this);
-    ui->u_buttonBox->addButton(importButton, QDialogButtonBox::ActionRole);
+    auto bottomLayout = new QHBoxLayout();
+    bottomLayout->setContentsMargins(0, 0, 0, 0);
+
+    bottomLayout->addWidget(importButton);
+    bottomLayout->addWidget(m_exportButton);
+    bottomLayout->addStretch();
+    bottomLayout->addWidget(ui->u_buttonBox);
+
+    if (auto mainLayout = qobject_cast<QBoxLayout *>(layout())) {
+        mainLayout->addLayout(bottomLayout);
+    }
 
     connect(importButton, &QPushButton::clicked, this, &Template::importTemplate);
     connect(m_createButton, &QPushButton::clicked, this, &Template::createFromTemplate);

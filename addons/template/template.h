@@ -10,10 +10,10 @@
 #endif
 
 #include <QMap>
+#include <QModelIndex>
 #include <QPushButton>
 #include <QString>
 #include <QWidget>
-#include <QModelIndex>
 
 QT_BEGIN_NAMESPACE
 namespace Ui

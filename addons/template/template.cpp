@@ -117,7 +117,7 @@ Template::Template(QWidget *parent)
     , m_selectionModel(std::make_unique<TreeData>())
     , m_configModel(std::make_unique<ConfigData>())
 {
-   ui->setupUi(this);
+    ui->setupUi(this);
 
     m_createButton = new QPushButton(i18n("Create"));
     m_createButton->setEnabled(false);

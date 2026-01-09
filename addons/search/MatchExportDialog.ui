@@ -27,9 +27,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLineEdit" name="exportPatternText">
-       <property name="placeholderText">
-        <string>Export Pattern</string>
-       </property>
       </widget>
      </item>
      <item>

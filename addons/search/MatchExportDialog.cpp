@@ -18,6 +18,7 @@ MatchExportDialog::MatchExportDialog(QWidget *parent, QAbstractItemModel *matchM
 {
     setupUi(this);
     setWindowTitle(i18n("Export Search Result Matches"));
+    exportPatternText->setPlaceholderText(i18n("Export pattern: \\0 for full match, \\1,\\2,.. for regular expression captures"));
 
     QAction *exportPatternTextActionForInsertRegexButton =
         exportPatternText->addAction(QIcon::fromTheme(QStringLiteral("code-context")), QLineEdit::TrailingPosition);

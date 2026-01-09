@@ -2278,9 +2278,8 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     menu->addAction(copyExpanded);
 
     auto *exportMatches = new QAction(i18n("Export matches"), tree);
-    if (currentResults->useRegExp) {
-        menu->addAction(exportMatches);
-    }
+    exportMatches->setToolTip(i18n("Transform and export search matches using a replacement pattern. To export the whole matches, use \\0. To export regular expression captures, use \\1,\\2,... The other text in the pattern is returned in the export results."));
+    menu->addAction(exportMatches);
 
     auto *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
     connect(openAsEditorTab, &QAction::triggered, this, [this, currentResults] {

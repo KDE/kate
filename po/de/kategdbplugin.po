@@ -1,14 +1,14 @@
-# SPDX-FileCopyrightText: 2023 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2010 Panagiotis Papadopoulos <pano_90@gmx.net>
 # SPDX-FileCopyrightText: 2010, 2011, 2012, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2011, 2013, 2014, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2023 Alois Spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2025-08-20 23:58+0200\n"
+"PO-Revision-Date: 2026-01-05 22:46+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -461,7 +461,7 @@ msgstr "Keine JSON-Daten zum Überprüfen."
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr "Die JSON-Daten sind gültig"
+msgstr "Die JSON-Daten sind gültig."
 
 #: debugconfigpage.cpp:138
 #, kde-format
@@ -567,7 +567,7 @@ msgstr "Fortsetzen"
 #: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Toggle Breakpoint / Break"
-msgstr "Haltepunkt ein-/ausschalten"
+msgstr "Haltepunkt umschalten / anhalten"
 
 #: plugin_kategdb.cpp:290
 #, kde-format

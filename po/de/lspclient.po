@@ -1,14 +1,14 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2019, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2019, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2025, 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2025-08-14 23:02+0200\n"
+"PO-Revision-Date: 2026-01-05 22:48+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -37,17 +37,17 @@ msgstr "Keine JSON-Daten zum Überprüfen."
 #: lspclientconfigpage.cpp:239
 #, kde-format
 msgid "JSON data is valid."
-msgstr "Die JSON-Daten sind gültig"
+msgstr "JSON-Daten sind gültig."
 
 #: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr "Die JSON-Daten sind ungültig: Kein JSON-Objekt"
+msgstr "JSON-Daten sind ungültig: Kein JSON-Objekt"
 
 #: lspclientconfigpage.cpp:244
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr "Die JSON-Daten sind ungültig: %1"
+msgstr "JSON-Daten sind ungültig: %1"
 
 #: lspclientconfigpage.cpp:292
 #, kde-format
@@ -62,7 +62,7 @@ msgstr "Alle Einträge löschen"
 #: lspclientplugin.cpp:235
 #, kde-format
 msgid "LSP server start requested"
-msgstr "Start des LSP-Servers erfragt"
+msgstr "Start des LSP-Servers angefragt"
 
 #: lspclientplugin.cpp:238
 #, kde-format
@@ -81,7 +81,7 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
-"Der Benutzer hat die Ausführung von „%1“ dauerhaft gesperrt.\n"
+"Benutzer hat die Ausführung von „%1“ dauerhaft gesperrt.\n"
 "Dies kann in den Einstellungen des Moduls rückgängig gemacht werden."
 
 #: lspclientpluginview.cpp:442 lspclientpluginview.cpp:683
@@ -112,7 +112,7 @@ msgstr "Referenzen suchen"
 #: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Find Implementations"
-msgstr "Implementation suchen"
+msgstr "Implementierung suchen"
 
 #: lspclientpluginview.cpp:517
 #, kde-format
@@ -199,7 +199,7 @@ msgstr "Information beim Überfahren anzeigen"
 #: lspclientpluginview.cpp:576 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
-msgstr "Formatieren bei der Eingabe"
+msgstr "Formatieren bei Eingabe"
 
 #: lspclientpluginview.cpp:579
 #, kde-format
@@ -387,12 +387,12 @@ msgstr "Kein Neustart"
 #: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
-msgstr "Der Server wurde unerwartet beendet … %1 [%2] [Webseite: %3] "
+msgstr "Server wurde unerwartet beendet … %1 [%2] [Webseite: %3] "
 
 #: lspclientservermanager.cpp:876
 #, kde-format
 msgid "Failed to find server binary: %1"
-msgstr "Die ausführbare Server-Programmdatei wurde nicht gefunden: %1"
+msgstr "Ausführbare Server-Programmdatei wurde nicht gefunden: %1"
 
 #: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
 #, kde-format
@@ -407,7 +407,7 @@ msgstr "Siehe auch %1 für Informationen zur Installation und Details"
 #: lspclientservermanager.cpp:935
 #, kde-format
 msgid "Failed to start server: %1"
-msgstr "Der Server kann nicht gestartet werden: %1"
+msgstr "Server kann nicht gestartet werden: %1"
 
 #: lspclientservermanager.cpp:943
 #, kde-format
@@ -418,18 +418,18 @@ msgstr "Server %2 gestartet: %1"
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
-"Die Einstellung für den Server kann nicht verarbeitet werden: „%1“: Kein "
-"JSON-Objekt"
+"Servereinstellungen aus „%1“ können nicht verarbeitet werden: Kein JSON-"
+"Objekt"
 
 #: lspclientservermanager.cpp:982
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr "Die Einstellung für den Server kann nicht verarbeitet werden: „%1“: %2"
+msgstr "Servereinstellungen aus „%1“ können nicht verarbeitet werden: %2"
 
 #: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to read server configuration: %1"
-msgstr "Die Einstellung für den Server kann nicht gelesen werden: %1"
+msgstr "Servereinstellungen aus „%1“ können nicht gelesen werden"
 
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format

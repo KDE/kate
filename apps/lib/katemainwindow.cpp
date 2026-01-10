@@ -72,12 +72,6 @@
 #include <KX11Extras>
 #endif
 
-// wayland window activation
-#define HAVE_WAYLAND __has_include(<KWaylandExtras>)
-#if HAVE_WAYLAND
-#include <KWaylandExtras>
-#endif
-
 #include <QActionGroup>
 #include <QApplication>
 #include <QDir>
@@ -709,28 +703,8 @@ void KateMainWindow::setupActions()
             }
         }
     });
-    connect(windows->menu(), &QMenu::triggered, this, [this](QAction *act) {
+    connect(windows->menu(), &QMenu::triggered, this, [](QAction *act) {
         if (auto win = act->data().value<KateMainWindow *>()) {
-#if HAVE_WAYLAND
-            // on wayland we need to get an activation token
-            if (KWindowSystem::isPlatformWayland()) {
-                const int launchedSerial = KWaylandExtras::self()->lastInputSerial(this->windowHandle());
-                QObject::connect(
-                    KWaylandExtras::self(),
-                    &KWaylandExtras::xdgActivationTokenArrived,
-                    win,
-                    [launchedSerial, win](int serial, const QString &token) {
-                        if (serial == launchedSerial) {
-                            win->activate(token);
-                        }
-                    },
-                    Qt::SingleShotConnection);
-                KWaylandExtras::requestXdgActivationToken(this->windowHandle(), launchedSerial, {});
-                return;
-            }
-#endif
-
-            // else: normal activate without a token
             win->activate();
         }
     });

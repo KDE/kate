@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-30 00:44+0000\n"
+"POT-Creation-Date: 2026-01-10 00:46+0000\n"
 "PO-Revision-Date: 2026-01-01 20:24+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -25,7 +25,7 @@ msgid "Filter…"
 msgstr "Филтър..."
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
-#: lspclientpluginview.cpp:478 lspclientpluginview.cpp:627
+#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:628
 #, kde-format
 msgid "LSP Client"
 msgstr "Клиент на LSP"
@@ -86,296 +86,296 @@ msgstr ""
 "Използвайте страницата за конфигурация на приставката, за да отмените това "
 "блокиране."
 
-#: lspclientpluginview.cpp:443 lspclientpluginview.cpp:690
+#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:691
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:507
+#: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Go to Definition"
 msgstr "Отиване до дефиниция"
 
-#: lspclientpluginview.cpp:509
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Отиване до декларация"
 
-#: lspclientpluginview.cpp:511
+#: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "Отиване до Дефиниция на типа"
 
-#: lspclientpluginview.cpp:513
+#: lspclientpluginview.cpp:514
 #, kde-format
 msgid "Find References"
 msgstr "Намиране на препратки"
 
-#: lspclientpluginview.cpp:516
+#: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Find Implementations"
 msgstr "Намиране на реализации"
 
-#: lspclientpluginview.cpp:518
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Highlight"
 msgstr "Акцентиране"
 
-#: lspclientpluginview.cpp:520
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Symbol Info"
 msgstr "Информация за символа"
 
-#: lspclientpluginview.cpp:522
+#: lspclientpluginview.cpp:523
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "Търсене и отиване да символ"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:528
 #, kde-format
 msgid "Format"
 msgstr "Формат"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Rename"
 msgstr "Преименуване"
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:534
 #, kde-format
 msgid "Expand Selection"
 msgstr "Разгъване на селекцията"
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:537
 #, kde-format
 msgid "Shrink Selection"
 msgstr "Свиване на селекцията"
 
-#: lspclientpluginview.cpp:539
+#: lspclientpluginview.cpp:540
 #, kde-format
 msgid "Switch Source Header"
 msgstr "Превключване на заглавката на източника"
 
-#: lspclientpluginview.cpp:542
+#: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Expand Macro"
 msgstr "Разширяване на макроса"
 
-#: lspclientpluginview.cpp:544
+#: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Code Action"
 msgstr "Код Действие"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:560
 #, kde-format
 msgid "Show lsp completions"
 msgstr "Показване на завършвания на lsp"
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:563
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "Показване на избраната документация за завършване"
 
-#: lspclientpluginview.cpp:565
+#: lspclientpluginview.cpp:566
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "Активиране на помощ за подпис с автоматично довършване"
 
-#: lspclientpluginview.cpp:568
+#: lspclientpluginview.cpp:569
 #, kde-format
 msgid "Include declaration in references"
 msgstr "Включване на декларация в препратките"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:571 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:572 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "Добавяне на скоби при завършване на функцията"
 
-#: lspclientpluginview.cpp:574
+#: lspclientpluginview.cpp:575
 #, kde-format
 msgid "Show hover information"
 msgstr "Показване на информация при посочване с мишката"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:577 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:578 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "Форматиране при писане"
 
-#: lspclientpluginview.cpp:580
+#: lspclientpluginview.cpp:581
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "Постепенно синхронизиране на документи"
 
-#: lspclientpluginview.cpp:583
+#: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Highlight goto location"
 msgstr "Акцентиране на местоположение Отиване до"
 
-#: lspclientpluginview.cpp:592
+#: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "Показване на съвети за инкрустация"
 
-#: lspclientpluginview.cpp:596
+#: lspclientpluginview.cpp:597
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Показване на известия от диагностиката"
 
-#: lspclientpluginview.cpp:601
+#: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Messages"
 msgstr "Показване на съобщения"
 
-#: lspclientpluginview.cpp:606
+#: lspclientpluginview.cpp:607
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "Използване на паметта на сървъра"
 
-#: lspclientpluginview.cpp:610
+#: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Затваряне на всички раздели за динамични справки"
 
-#: lspclientpluginview.cpp:612
+#: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "Рестартиране на LSP сървъра"
 
-#: lspclientpluginview.cpp:614
+#: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "Рестартиране на всички LSP сървъри"
 
-#: lspclientpluginview.cpp:618
+#: lspclientpluginview.cpp:619
 #, kde-format
 msgid "Suspend All"
 msgstr "Спиране на всички"
 
-#: lspclientpluginview.cpp:621
+#: lspclientpluginview.cpp:622
 #, kde-format
 msgid "Go To"
 msgstr "Отиване до"
 
-#: lspclientpluginview.cpp:645
+#: lspclientpluginview.cpp:646
 #, kde-format
 msgid "More options"
 msgstr "Повече опции"
 
-#: lspclientpluginview.cpp:848 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:871 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Разгъване на всички"
 
-#: lspclientpluginview.cpp:849 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Свиване на всички"
 
-#: lspclientpluginview.cpp:1056
+#: lspclientpluginview.cpp:1079
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1337
+#: lspclientpluginview.cpp:1361
 #, kde-format
 msgid "Line: %1: "
 msgstr "Ред: %1: "
 
-#: lspclientpluginview.cpp:1489 lspclientpluginview.cpp:1838
-#: lspclientpluginview.cpp:1958
+#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1862
+#: lspclientpluginview.cpp:1982
 #, kde-format
 msgid "No results"
 msgstr "Няма резултати"
 
-#: lspclientpluginview.cpp:1548
+#: lspclientpluginview.cpp:1572
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Определение: %1"
 
-#: lspclientpluginview.cpp:1554
+#: lspclientpluginview.cpp:1578
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Декларация: %1"
 
-#: lspclientpluginview.cpp:1560
+#: lspclientpluginview.cpp:1584
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Определение на тип: %1"
 
-#: lspclientpluginview.cpp:1566
+#: lspclientpluginview.cpp:1590
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Препратки: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1602
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Имплементация: %1"
 
-#: lspclientpluginview.cpp:1591
+#: lspclientpluginview.cpp:1615
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Акцентиране: %1"
 
-#: lspclientpluginview.cpp:1615 lspclientpluginview.cpp:1626
-#: lspclientpluginview.cpp:1639
+#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
+#: lspclientpluginview.cpp:1663
 #, kde-format
 msgid "No Actions"
 msgstr "Няма действия"
 
-#: lspclientpluginview.cpp:1630
+#: lspclientpluginview.cpp:1654
 #, kde-format
 msgid "Loading..."
 msgstr "Зареждане..."
 
-#: lspclientpluginview.cpp:1722
+#: lspclientpluginview.cpp:1746
 #, kde-format
 msgid "No edits"
 msgstr "Няма редактирания"
 
-#: lspclientpluginview.cpp:1797
+#: lspclientpluginview.cpp:1821
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Преименуване"
 
-#: lspclientpluginview.cpp:1798
+#: lspclientpluginview.cpp:1822
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Ново име (внимание: не всички препратки могат да бъдат заменени)"
 
-#: lspclientpluginview.cpp:1844
+#: lspclientpluginview.cpp:1868
 #, kde-format
 msgid "Not enough results"
 msgstr "Няма достатъчно резултати"
 
-#: lspclientpluginview.cpp:1913
+#: lspclientpluginview.cpp:1937
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Не е намерен съответният хедър/източник"
 
-#: lspclientpluginview.cpp:2111 lspclientpluginview.cpp:2154
+#: lspclientpluginview.cpp:2135 lspclientpluginview.cpp:2178
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP сървър"
 
-#: lspclientpluginview.cpp:2177
+#: lspclientpluginview.cpp:2201
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Клиент на LSP"
 
-#: lspclientpluginview.cpp:2427
+#: lspclientpluginview.cpp:2451
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Запитване от сървъра LSP"

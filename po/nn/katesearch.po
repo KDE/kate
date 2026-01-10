@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-10 00:46+0000\n"
 "PO-Revision-Date: 2024-08-04 10:17+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -53,20 +53,21 @@ msgstr "Bruk: preg [regulært mønster å leita etter i gjeldande prosjekt]"
 msgid "Export Search Result Matches"
 msgstr "Eksporter søkjetreff"
 
-#. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
-#: MatchExportDialog.ui:31
+#: MatchExportDialog.cpp:21
 #, kde-format
-msgid "Export Pattern"
-msgstr "Eksporter mønster"
+msgid ""
+"Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
+"captures"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
-#: MatchExportDialog.ui:38
+#: MatchExportDialog.ui:35
 #, kde-format
 msgid "Generate"
 msgstr "Generer"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
-#: MatchExportDialog.ui:50
+#: MatchExportDialog.ui:47
 #, kde-format
 msgid "Result"
 msgstr "Resultat"
@@ -678,32 +679,40 @@ msgstr "Kopier utvida"
 msgid "Export matches"
 msgstr "Eksporter treff"
 
-#: SearchPlugin.cpp:2285
+#: SearchPlugin.cpp:2281
+#, kde-format
+msgid ""
+"Transform and export search matches using a replacement pattern. To export "
+"the whole matches, use \\0. To export regular expression captures, use \\1,"
+"\\2,... The other text in the pattern is returned in the export results."
+msgstr ""
+
+#: SearchPlugin.cpp:2284
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Opna som redigeringsfane"
 
-#: SearchPlugin.cpp:2293
+#: SearchPlugin.cpp:2292
 #, kde-format
 msgid "Clear"
 msgstr "Tøm"
 
-#: SearchPlugin.cpp:2403 SearchPlugin.cpp:2437
+#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
 #, kde-format
 msgid "Add..."
 msgstr "Legg til …"
 
-#: SearchPlugin.cpp:2415
+#: SearchPlugin.cpp:2414
 #, kde-format
 msgid "Search As You Type"
 msgstr "Kontinuerleg søk"
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2485
 #, kde-format
 msgid "In Current Project"
 msgstr "I gjeldande prosjekt"
 
-#: SearchPlugin.cpp:2488
+#: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In All Open Projects"
 msgstr "I alle opne prosjekt"
@@ -719,3 +728,6 @@ msgstr "&Rediger"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Finn i filer (variantar)"
+
+#~ msgid "Export Pattern"
+#~ msgstr "Eksporter mønster"

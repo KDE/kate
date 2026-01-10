@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-31 00:47+0000\n"
-"PO-Revision-Date: 2025-03-20 18:25+0100\n"
+"PO-Revision-Date: 2026-01-09 15:51+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -60,7 +60,7 @@ msgstr "Branca"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "Ultime activitate"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -631,7 +631,7 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
-"Le directorio termporanee de systema es usate si non specificate, le qual "
+"Le directorio temporanee de systema es usate si non specificate, le qual "
 "pote disposrdar per repositorios multe grande"
 
 #: kateprojectconfigpage.cpp:72
@@ -1038,10 +1038,9 @@ msgid "Failed to create dir: %1"
 msgstr "Falleva a crear dir: %1"
 
 #: kateprojectworker.cpp:202
-#, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
+#, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Falleva a obtener chronologia de flie: %1"
+msgstr "Incapace  a obtener directorio de flie: %1"
 
 #: kateprojectworker.cpp:729
 #, kde-format

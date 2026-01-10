@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-30 00:44+0000\n"
+"POT-Creation-Date: 2026-01-10 00:46+0000\n"
 "PO-Revision-Date: 2025-12-30 06:24-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -27,7 +27,7 @@ msgid "Filter…"
 msgstr "Filtrar…"
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
-#: lspclientpluginview.cpp:478 lspclientpluginview.cpp:627
+#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:628
 #, kde-format
 msgid "LSP Client"
 msgstr "Cliente LSP"
@@ -87,296 +87,296 @@ msgstr ""
 "Usuário permanentemente bloqueado começo de: '%1'.\n"
 "Use a página de configuração do plugin para desfazer o bloqueio."
 
-#: lspclientpluginview.cpp:443 lspclientpluginview.cpp:690
+#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:691
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
 
-#: lspclientpluginview.cpp:507
+#: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Go to Definition"
 msgstr "Ir para a definição"
 
-#: lspclientpluginview.cpp:509
+#: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Declaration"
 msgstr "Ir para a declaração"
 
-#: lspclientpluginview.cpp:511
+#: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Go to Type Definition"
 msgstr "Ir para a definição do tipo"
 
-#: lspclientpluginview.cpp:513
+#: lspclientpluginview.cpp:514
 #, kde-format
 msgid "Find References"
 msgstr "Localizar referências"
 
-#: lspclientpluginview.cpp:516
+#: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Find Implementations"
 msgstr "Encontrar implementações"
 
-#: lspclientpluginview.cpp:518
+#: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Highlight"
 msgstr "Realce"
 
-#: lspclientpluginview.cpp:520
+#: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Symbol Info"
 msgstr "Informação do símbolo"
 
-#: lspclientpluginview.cpp:522
+#: lspclientpluginview.cpp:523
 #, kde-format
 msgid "Search and Go to Symbol"
 msgstr "Pesquisar e ir para o símbolo"
 
-#: lspclientpluginview.cpp:527
+#: lspclientpluginview.cpp:528
 #, kde-format
 msgid "Format"
 msgstr "Formato"
 
-#: lspclientpluginview.cpp:530
+#: lspclientpluginview.cpp:531
 #, kde-format
 msgid "Rename"
 msgstr "Renomear"
 
-#: lspclientpluginview.cpp:533
+#: lspclientpluginview.cpp:534
 #, kde-format
 msgid "Expand Selection"
 msgstr "Expandir seleção"
 
-#: lspclientpluginview.cpp:536
+#: lspclientpluginview.cpp:537
 #, kde-format
 msgid "Shrink Selection"
 msgstr "Diminuir seleção"
 
-#: lspclientpluginview.cpp:539
+#: lspclientpluginview.cpp:540
 #, kde-format
 msgid "Switch Source Header"
 msgstr "Mudar cabeçalho fonte"
 
-#: lspclientpluginview.cpp:542
+#: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Expand Macro"
 msgstr "Expandir macro"
 
-#: lspclientpluginview.cpp:544
+#: lspclientpluginview.cpp:545
 #, kde-format
 msgid "Code Action"
 msgstr "Ação do código"
 
-#: lspclientpluginview.cpp:559
+#: lspclientpluginview.cpp:560
 #, kde-format
 msgid "Show lsp completions"
 msgstr "Mostrar completações lsp"
 
-#: lspclientpluginview.cpp:562
+#: lspclientpluginview.cpp:563
 #, kde-format
 msgid "Show selected completion documentation"
 msgstr "Exibir a documentação da completação selecionada"
 
-#: lspclientpluginview.cpp:565
+#: lspclientpluginview.cpp:566
 #, kde-format
 msgid "Enable signature help with auto completion"
 msgstr "Habilitar ajuda de assinatura com preenchimento automático"
 
-#: lspclientpluginview.cpp:568
+#: lspclientpluginview.cpp:569
 #, kde-format
 msgid "Include declaration in references"
 msgstr "Incluir declaração nas referências"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
-#: lspclientpluginview.cpp:571 lspconfigwidget.ui:103
+#: lspclientpluginview.cpp:572 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
 msgstr "Adicionar parênteses após a conclusão da função"
 
-#: lspclientpluginview.cpp:574
+#: lspclientpluginview.cpp:575
 #, kde-format
 msgid "Show hover information"
 msgstr "Exibir informação ao passar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
-#: lspclientpluginview.cpp:577 lspconfigwidget.ui:47
+#: lspclientpluginview.cpp:578 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
 msgstr "Formatação na digitação"
 
-#: lspclientpluginview.cpp:580
+#: lspclientpluginview.cpp:581
 #, kde-format
 msgid "Incremental document synchronization"
 msgstr "Sincronização incremental de documentos"
 
-#: lspclientpluginview.cpp:583
+#: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Highlight goto location"
 msgstr "Realçar localização do ir para"
 
-#: lspclientpluginview.cpp:592
+#: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Show Inlay Hints"
 msgstr "Mostrar dicas embutidas"
 
-#: lspclientpluginview.cpp:596
+#: lspclientpluginview.cpp:597
 #, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Exibir notificações de diagnóstico"
 
-#: lspclientpluginview.cpp:601
+#: lspclientpluginview.cpp:602
 #, kde-format
 msgid "Show Messages"
 msgstr "Exibir mensagens"
 
-#: lspclientpluginview.cpp:606
+#: lspclientpluginview.cpp:607
 #, kde-format
 msgid "Server Memory Usage"
 msgstr "Uso de memória do servidor"
 
-#: lspclientpluginview.cpp:610
+#: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Fechar todas as abas de referência dinâmicas"
 
-#: lspclientpluginview.cpp:612
+#: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Restart LSP Server"
 msgstr "Reiniciar o servidor LSP"
 
-#: lspclientpluginview.cpp:614
+#: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Restart All LSP Servers"
 msgstr "Reiniciar todos os servidores LSP"
 
-#: lspclientpluginview.cpp:618
+#: lspclientpluginview.cpp:619
 #, kde-format
 msgid "Suspend All"
 msgstr "Suspender tudo"
 
-#: lspclientpluginview.cpp:621
+#: lspclientpluginview.cpp:622
 #, kde-format
 msgid "Go To"
 msgstr "Ir para"
 
-#: lspclientpluginview.cpp:645
+#: lspclientpluginview.cpp:646
 #, kde-format
 msgid "More options"
 msgstr "Mais opções"
 
-#: lspclientpluginview.cpp:848 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:871 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Expandir tudo"
 
-#: lspclientpluginview.cpp:849 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Recolher tudo"
 
-#: lspclientpluginview.cpp:1056
+#: lspclientpluginview.cpp:1079
 #, kde-format
 msgid "RangeHighLight"
 msgstr "Realce do intervalo"
 
-#: lspclientpluginview.cpp:1337
+#: lspclientpluginview.cpp:1361
 #, kde-format
 msgid "Line: %1: "
 msgstr "Linha: %1: "
 
-#: lspclientpluginview.cpp:1489 lspclientpluginview.cpp:1838
-#: lspclientpluginview.cpp:1958
+#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1862
+#: lspclientpluginview.cpp:1982
 #, kde-format
 msgid "No results"
 msgstr "Sem resultados"
 
-#: lspclientpluginview.cpp:1548
+#: lspclientpluginview.cpp:1572
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definição: %1"
 
-#: lspclientpluginview.cpp:1554
+#: lspclientpluginview.cpp:1578
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Declaração: %1"
 
-#: lspclientpluginview.cpp:1560
+#: lspclientpluginview.cpp:1584
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Definição de tipo: %1"
 
-#: lspclientpluginview.cpp:1566
+#: lspclientpluginview.cpp:1590
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referências: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1602
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Implementação: %1"
 
-#: lspclientpluginview.cpp:1591
+#: lspclientpluginview.cpp:1615
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Realce: %1"
 
-#: lspclientpluginview.cpp:1615 lspclientpluginview.cpp:1626
-#: lspclientpluginview.cpp:1639
+#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
+#: lspclientpluginview.cpp:1663
 #, kde-format
 msgid "No Actions"
 msgstr "Nenhuma ação"
 
-#: lspclientpluginview.cpp:1630
+#: lspclientpluginview.cpp:1654
 #, kde-format
 msgid "Loading..."
 msgstr "Carregando..."
 
-#: lspclientpluginview.cpp:1722
+#: lspclientpluginview.cpp:1746
 #, kde-format
 msgid "No edits"
 msgstr "Sem edições"
 
-#: lspclientpluginview.cpp:1797
+#: lspclientpluginview.cpp:1821
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Renomear"
 
-#: lspclientpluginview.cpp:1798
+#: lspclientpluginview.cpp:1822
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Novo nome (atenção: nem todas as referências serão substituídas)"
 
-#: lspclientpluginview.cpp:1844
+#: lspclientpluginview.cpp:1868
 #, kde-format
 msgid "Not enough results"
 msgstr "Sem resultados suficientes"
 
-#: lspclientpluginview.cpp:1913
+#: lspclientpluginview.cpp:1937
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Cabeçalho/fonte correspondente não encontrado"
 
-#: lspclientpluginview.cpp:2111 lspclientpluginview.cpp:2154
+#: lspclientpluginview.cpp:2135 lspclientpluginview.cpp:2178
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Servidor LSP"
 
-#: lspclientpluginview.cpp:2177
+#: lspclientpluginview.cpp:2201
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Cliente LSP"
 
-#: lspclientpluginview.cpp:2427
+#: lspclientpluginview.cpp:2451
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Pergunta do servidor LSP"

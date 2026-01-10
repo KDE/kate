@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-10 00:46+0000\n"
 "PO-Revision-Date: 2024-02-13 10:47+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -55,20 +55,21 @@ msgstr "Használat: preg [a jelenlegi projektben keresendő minta]"
 msgid "Export Search Result Matches"
 msgstr "Találatok exportálása"
 
-#. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
-#: MatchExportDialog.ui:31
+#: MatchExportDialog.cpp:21
 #, kde-format
-msgid "Export Pattern"
-msgstr "Minta exportálása"
+msgid ""
+"Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
+"captures"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
-#: MatchExportDialog.ui:38
+#: MatchExportDialog.ui:35
 #, kde-format
 msgid "Generate"
 msgstr "Létrehozás"
 
 #. i18n: ectx: property (placeholderText), widget (QPlainTextEdit, exportResultText)
-#: MatchExportDialog.ui:50
+#: MatchExportDialog.ui:47
 #, kde-format
 msgid "Result"
 msgstr "Eredmény"
@@ -681,32 +682,40 @@ msgstr "Bővített másolás"
 msgid "Export matches"
 msgstr "Találatok exportálása"
 
-#: SearchPlugin.cpp:2285
+#: SearchPlugin.cpp:2281
+#, kde-format
+msgid ""
+"Transform and export search matches using a replacement pattern. To export "
+"the whole matches, use \\0. To export regular expression captures, use \\1,"
+"\\2,... The other text in the pattern is returned in the export results."
+msgstr ""
+
+#: SearchPlugin.cpp:2284
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Megnyitás a szerkesztőben lapként"
 
-#: SearchPlugin.cpp:2293
+#: SearchPlugin.cpp:2292
 #, kde-format
 msgid "Clear"
 msgstr "Törlés"
 
-#: SearchPlugin.cpp:2403 SearchPlugin.cpp:2437
+#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
 #, kde-format
 msgid "Add..."
 msgstr "Hozzáadás…"
 
-#: SearchPlugin.cpp:2415
+#: SearchPlugin.cpp:2414
 #, kde-format
 msgid "Search As You Type"
 msgstr "Keresés gépelés közben"
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2485
 #, kde-format
 msgid "In Current Project"
 msgstr "Jelenlegi projektben"
 
-#: SearchPlugin.cpp:2488
+#: SearchPlugin.cpp:2487
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Minden megnyitott projektben"
@@ -722,6 +731,9 @@ msgstr "Sz&erkesztés"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Keresés fájlváltozatokban"
+
+#~ msgid "Export Pattern"
+#~ msgstr "Minta exportálása"
 
 #~ msgid "Filter..."
 #~ msgstr "Szűrő…"

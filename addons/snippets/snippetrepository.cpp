@@ -313,7 +313,7 @@ void SnippetRepository::parseFile()
         }
         auto *snippet = new Snippet;
         QString script, description;
-        Snippet::SnippetType type;
+        Snippet::SnippetType type = Snippet::TextTemplate;
         const QDomNodeList &children = node.childNodes();
         for (int j = 0; j < children.size(); ++j) {
             const QDomNode &childNode = children.at(j);

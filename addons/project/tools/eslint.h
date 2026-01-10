@@ -25,7 +25,7 @@ public:
 
     QString description() const override
     {
-        return i18n("ESLint is a static analysis tool & style guide enforcer for JavaScript/Typescript code.");
+        return i18n("ESLint is a static analysis tool & style guide enforcer for JavaScript/Typescript code");
     }
 
     QString fileExtensions() const override
@@ -64,7 +64,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install 'eslint'.");
+        return i18n("Please install 'eslint'");
     }
 
     FileDiagnostics parseLine(const QString &line) const override

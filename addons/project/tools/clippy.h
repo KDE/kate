@@ -29,7 +29,7 @@ public:
 
     QString description() const override
     {
-        return i18n("Clippy is a static analysis tool for Rust code.");
+        return i18n("Clippy is a static analysis tool for Rust code");
     }
 
     QString fileExtensions() const override
@@ -92,7 +92,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install 'cargo'.");
+        return i18n("Please install 'cargo'");
     }
 
     struct FileRange {

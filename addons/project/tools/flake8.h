@@ -74,7 +74,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install 'flake8'.");
+        return i18n("Please install 'flake8'");
     }
 
     FileDiagnostics parseLine(const QString &line) const override

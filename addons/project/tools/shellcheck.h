@@ -70,7 +70,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install ShellCheck (see https://www.shellcheck.net).");
+        return i18n("Please install ShellCheck (see https://www.shellcheck.net)");
     }
 
     FileDiagnostics parseLine(const QString &line) const override

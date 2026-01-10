@@ -68,7 +68,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install 'clazy'.");
+        return i18n("Please install 'clazy'");
     }
 
     FileDiagnostics parseLine(const QString &line) const override

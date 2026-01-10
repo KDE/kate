@@ -61,7 +61,7 @@ public:
 
     QString notInstalledMessage() const override
     {
-        return i18n("Please install 'cppcheck'.");
+        return i18n("Please install 'cppcheck'");
     }
 
     FileDiagnostics parseLine(const QString &line) const override

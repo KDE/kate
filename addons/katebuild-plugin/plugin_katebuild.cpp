@@ -1007,6 +1007,8 @@ void KateBuildView::slotCompileCurrentFile()
     }
 
     qCDebug(KTEBUILD, "slotCompileCurrentFile(): starting build: %ls in %ls", qUtf16Printable(it->second.command), qUtf16Printable(it->second.workingDir));
+    clearBuildResults();
+    m_pendingHtmlOutput += u"<pre>"_s + it->second.command + u"</pre>"_s;
     startProcess(it->second.workingDir, it->second.command);
 }
 

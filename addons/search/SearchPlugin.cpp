@@ -2271,19 +2271,21 @@ void KatePluginSearchView::customResMenuRequested(const QPoint &pos)
     }
     auto *menu = new QMenu(tree);
 
-    auto *copyAll = new QAction(i18n("Copy all"), tree);
+    auto *copyAll = new QAction(i18n("Copy all"), menu);
     copyAll->setShortcut(QKeySequence::Copy);
     copyAll->setShortcutVisibleInContextMenu(true);
     menu->addAction(copyAll);
 
-    auto *copyExpanded = new QAction(i18n("Copy expanded"), tree);
+    auto *copyExpanded = new QAction(i18n("Copy expanded"), menu);
     menu->addAction(copyExpanded);
 
-    auto *exportMatches = new QAction(i18n("Export matches"), tree);
+    auto *exportMatches = new QAction(i18n("Export matches"), menu);
     exportMatches->setToolTip(i18n("Transform and export search matches using a replacement pattern. To export the whole matches, use \\0. To export regular expression captures, use \\1,\\2,... The other text in the pattern is returned in the export results."));
-    menu->addAction(exportMatches);
+    if (currentResults->useRegExp) {
+        menu->addAction(exportMatches);
+    }
 
-    auto *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), tree);
+    auto *openAsEditorTab = new QAction(i18n("Open as Editor Tab"), menu);
     connect(openAsEditorTab, &QAction::triggered, this, [this, currentResults] {
         if (currentResults) {
             detachTabToMainWindow(currentResults);

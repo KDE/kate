@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2023-12-27 20:46+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -276,18 +276,18 @@ msgstr "Aggiungi strumento dai valori predefiniti"
 msgid "Add Category"
 msgstr "Aggiungi categoria"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:398
-#: kateexternaltoolsconfigwidget.cpp:445
+#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
+#: kateexternaltoolsconfigwidget.cpp:446
 #, kde-format
 msgid "Uncategorized"
 msgstr "Non categorizzato"
 
-#: kateexternaltoolsconfigwidget.cpp:487
+#: kateexternaltoolsconfigwidget.cpp:488
 #, kde-format
 msgid "New Category"
 msgstr "Nuova categoria"
 
-#: kateexternaltoolsconfigwidget.cpp:490
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category %1"
 msgstr "Nuova categoria %1"

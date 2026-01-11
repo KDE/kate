@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-10 00:46+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2024-04-30 15:45+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -623,67 +623,67 @@ msgstr "Klikněte pro filtrování výsledků"
 msgid "Find"
 msgstr "Najít"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1171
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1344
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Hledání během psaní bylo přerušeno. Trvalo by příliš dlouho."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1677
 #, kde-format
 msgid "Search Match"
 msgstr ""
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
 #, kde-format
 msgid "Next from cursor"
 msgstr "Následující od kurzoru"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1871
 #, kde-format
 msgid "Starting from first match"
 msgstr "Začínám od první shody"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1891
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Pokračování od první shody"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1947
 #, kde-format
 msgid "Starting from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1967
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Pokračování od poslední shody"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2128
 #, kde-format
 msgid "Search: %1"
 msgstr "Hledat: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2271
 #, kde-format
 msgid "Copy all"
 msgstr "Zkopírovat vše"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Copy expanded"
 msgstr "Kopírovat rozvinuté"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Export matches"
 msgstr "Exportovat shody"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -691,32 +691,32 @@ msgid ""
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
 
-#: SearchPlugin.cpp:2284
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Otevřít jako kartu editoru"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2291
 #, kde-format
 msgid "Clear"
 msgstr "Vyprázdnit"
 
-#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
+#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
 #, kde-format
 msgid "Add..."
 msgstr "Přidat..."
 
-#: SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2413
 #, kde-format
 msgid "Search As You Type"
 msgstr "Hledat během psaní"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In Current Project"
 msgstr "V současném projektu"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Ve všech otevřených projektech"

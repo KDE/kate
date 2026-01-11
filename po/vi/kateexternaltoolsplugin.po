@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2023-03-21 18:39+0100\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -275,18 +275,18 @@ msgstr "Thêm công cụ mặc định"
 msgid "Add Category"
 msgstr "Thêm nhóm"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:398
-#: kateexternaltoolsconfigwidget.cpp:445
+#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
+#: kateexternaltoolsconfigwidget.cpp:446
 #, kde-format
 msgid "Uncategorized"
 msgstr "Chưa phân nhóm"
 
-#: kateexternaltoolsconfigwidget.cpp:487
+#: kateexternaltoolsconfigwidget.cpp:488
 #, kde-format
 msgid "New Category"
 msgstr "Nhóm mới"
 
-#: kateexternaltoolsconfigwidget.cpp:490
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category %1"
 msgstr "Nhóm mới %1"

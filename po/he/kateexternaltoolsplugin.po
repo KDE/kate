@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2025-09-17 10:39+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -274,18 +274,18 @@ msgstr "הוספת כלי מברירות המחדל"
 msgid "Add Category"
 msgstr "הוספת קטגוריה"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:398
-#: kateexternaltoolsconfigwidget.cpp:445
+#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
+#: kateexternaltoolsconfigwidget.cpp:446
 #, kde-format
 msgid "Uncategorized"
 msgstr "ללא קטגוריה"
 
-#: kateexternaltoolsconfigwidget.cpp:487
+#: kateexternaltoolsconfigwidget.cpp:488
 #, kde-format
 msgid "New Category"
 msgstr "קטגוריה חדשה"
 
-#: kateexternaltoolsconfigwidget.cpp:490
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category %1"
 msgstr "קטגוריה חדשה %1"

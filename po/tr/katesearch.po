@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Emir SARI <emir_sari@icloud.com>
 # obsoleteman <tulliana@gmail.com>, 2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2017, 2019, 2022.
 # Kaan Ozdincer <kaanozdincer@gmail.com>, 2014.
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-10 00:46+0000\n"
-"PO-Revision-Date: 2025-09-12 10:12+0300\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"PO-Revision-Date: 2026-01-10 21:36+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.0\n"
+"X-Generator: Lokalize 25.12.0\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -63,6 +63,8 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"Dışa aktarma dizgisi: Tam eşleşme için \\0; düzenli ifade yakalamaları için "
+"\\1, \\2…"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -621,100 +623,104 @@ msgstr "Sonuçlar arasında süzmek için tıklayın"
 msgid "Find"
 msgstr "Bul"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1171
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "İçinde aranılacak “%1” dizini var olmadığından arama başlatılmadı."
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1344
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Yazarken arama kesildi. Çok uzun sürecekti."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1677
 #, kde-format
 msgid "Search Match"
 msgstr "Eşleşme Ara"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
 #, kde-format
 msgid "Next from cursor"
 msgstr "İmleçten itibaren sonraki"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1871
 #, kde-format
 msgid "Starting from first match"
 msgstr "İlk eşleşmeden başlanıyor"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1891
 #, kde-format
 msgid "Continuing from first match"
 msgstr "İlk eşleşmeden sürdürülüyor"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1947
 #, kde-format
 msgid "Starting from last match"
 msgstr "Son eşleşmeden başlanıyor"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1967
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Son eşleşmeden sürdürülüyor"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2128
 #, kde-format
 msgid "Search: %1"
 msgstr "Ara: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2271
 #, kde-format
 msgid "Copy all"
 msgstr "Tümünü kopyala"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Copy expanded"
 msgstr "Genişletilmişi kopyala"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Export matches"
 msgstr "Eşleşmeleri dışa aktar"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"Bir değiştirme dizgisi kullanarak arama eşleşmelerini dönüştürün ve dışa "
+"aktarın. Tam eşleşmeleri dışa aktarmak için \\0 kullanın. Düzenli ifade "
+"yakalamalarını dışa aktarmak için \\1, \\2… kullanın. Dizgideki diğer metin "
+"dışa aktarma sonuçlarında içerilir."
 
-#: SearchPlugin.cpp:2284
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Düzenleyici Sekmesi Olarak Aç"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2291
 #, kde-format
 msgid "Clear"
 msgstr "Temizle"
 
-#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
+#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
 #, kde-format
 msgid "Add..."
 msgstr "Ekle…"
 
-#: SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2413
 #, kde-format
 msgid "Search As You Type"
 msgstr "Yazarken Ara"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In Current Project"
 msgstr "Geçerli Projede"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In All Open Projects"
 msgstr "Tüm Açık Projelerde"

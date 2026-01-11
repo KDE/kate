@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-10 00:46+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2025-10-09 00:29+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -591,67 +591,67 @@ msgstr "클릭하여 검색 결과에서 필터"
 msgid "Find"
 msgstr "찾기"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1171
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "검색할 디렉터리 '%1'이(가) 없어서 검색이 시작되지 않았습니다."
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1344
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "증분 검색 처리 시간이 길어져 비활성화되었습니다."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1677
 #, kde-format
 msgid "Search Match"
 msgstr "일치하는 것 찾기"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
 #, kde-format
 msgid "Next from cursor"
 msgstr "커서 위치 이후"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1871
 #, kde-format
 msgid "Starting from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1891
 #, kde-format
 msgid "Continuing from first match"
 msgstr "첫 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1947
 #, kde-format
 msgid "Starting from last match"
 msgstr "마지막 일치부터 다시 시작"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1967
 #, kde-format
 msgid "Continuing from last match"
 msgstr "마지막 일치부터 계속 진행"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2128
 #, kde-format
 msgid "Search: %1"
 msgstr "찾기: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2271
 #, kde-format
 msgid "Copy all"
 msgstr "모두 복사"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Copy expanded"
 msgstr "확장된 것 복사"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Export matches"
 msgstr "일치 내보내기"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -659,32 +659,32 @@ msgid ""
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
 
-#: SearchPlugin.cpp:2284
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "편집기 탭으로 열기"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2291
 #, kde-format
 msgid "Clear"
 msgstr "지우기"
 
-#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
+#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
 #, kde-format
 msgid "Add..."
 msgstr "추가..."
 
-#: SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2413
 #, kde-format
 msgid "Search As You Type"
 msgstr "입력하는 대로 찾기"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In Current Project"
 msgstr "현재 프로젝트에서"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In All Open Projects"
 msgstr "모든 열린 프로젝트에서"

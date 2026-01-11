@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-10 00:46+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2025-12-01 12:16+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -680,70 +680,70 @@ msgstr "Cliceáil chun scagadh a dhéanamh trí na torthaí"
 msgid "Find"
 msgstr "Aimsigh"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1171
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 "Níor cuireadh tús leis an gcuardach mar níl an eolaire '%1' le cuardach ann "
 "ann."
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1344
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 "Cuireadh isteach ar an gcuardach agus tú ag clóscríobh. Bheadh ​​sé ró-fhada."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1677
 #, kde-format
 msgid "Search Match"
 msgstr "Cuardaigh Meaitseáil"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
 #, kde-format
 msgid "Next from cursor"
 msgstr "Ar Aghaidh ón gcúrsóir"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1871
 #, kde-format
 msgid "Starting from first match"
 msgstr "Ag tosú ón gcéad chluiche"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1891
 #, kde-format
 msgid "Continuing from first match"
 msgstr "Ag leanúint ón gcéad chluiche"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1947
 #, kde-format
 msgid "Starting from last match"
 msgstr "Ag tosú ón gcluiche deireanach"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1967
 #, kde-format
 msgid "Continuing from last match"
 msgstr "Ag leanúint ón gcluiche deireanach"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2128
 #, kde-format
 msgid "Search: %1"
 msgstr "Cuardaigh: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2271
 #, kde-format
 msgid "Copy all"
 msgstr "Cóipeáil gach rud"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Copy expanded"
 msgstr "Cóip leathnaithe"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Export matches"
 msgstr "Easpórtáil cluichí"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -751,32 +751,32 @@ msgid ""
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
 
-#: SearchPlugin.cpp:2284
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Oscail mar Chluaisín Eagarthóra"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2291
 #, kde-format
 msgid "Clear"
 msgstr "Glan"
 
-#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
+#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
 #, kde-format
 msgid "Add..."
 msgstr "Cuir Leis..."
 
-#: SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2413
 #, kde-format
 msgid "Search As You Type"
 msgstr "Cuardaigh agus tú ag clóscríobh"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In Current Project"
 msgstr "Sa Tionscadal Reatha"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In All Open Projects"
 msgstr "I ngach tionscadal oscailte"

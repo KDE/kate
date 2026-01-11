@@ -51,7 +51,7 @@ msgstr ""
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "nevyřízené"
 
 #: breakpointview.cpp:965
 #, kde-format
@@ -614,10 +614,9 @@ msgid "Locals and Stack"
 msgstr ""
 
 #: plugin_kategdb.cpp:122
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Bod přerušení"
+msgstr "Body přerušení"
 
 #: plugin_kategdb.cpp:209
 #, kde-kuit-format

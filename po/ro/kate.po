@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-31 00:47+0000\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
 "PO-Revision-Date: 2026-01-03 17:39+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -162,7 +162,7 @@ msgstr "KWrite - Redactor de text"
 msgid "Open File"
 msgstr "Deschide fișier"
 
-#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:457
+#: lib/commitfilesview.cpp:450 lib/katemainwindow.cpp:451
 #, kde-format
 msgid "Copy Location"
 msgstr "Copiază amplasarea"
@@ -378,53 +378,53 @@ msgstr "Avertisment"
 msgid "Information"
 msgstr "Informații"
 
-#: lib/diagnostics/diagnosticview.cpp:1306
+#: lib/diagnostics/diagnosticview.cpp:1307
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [suprimat: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1432
+#: lib/diagnostics/diagnosticview.cpp:1433
 #, kde-format
 msgid "Expand All"
 msgstr "Desfășoară tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1433
+#: lib/diagnostics/diagnosticview.cpp:1434
 #, kde-format
 msgid "Collapse All"
 msgstr "Restrânge tot"
 
-#: lib/diagnostics/diagnosticview.cpp:1439
+#: lib/diagnostics/diagnosticview.cpp:1440
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Copiază în clipboard"
 
-#: lib/diagnostics/diagnosticview.cpp:1481
+#: lib/diagnostics/diagnosticview.cpp:1482
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Elimină suprimarea globală"
 
-#: lib/diagnostics/diagnosticview.cpp:1483
+#: lib/diagnostics/diagnosticview.cpp:1484
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Adaugă suprimare globală"
 
-#: lib/diagnostics/diagnosticview.cpp:1487
+#: lib/diagnostics/diagnosticview.cpp:1488
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Elimină suprimarea locală"
 
-#: lib/diagnostics/diagnosticview.cpp:1489
+#: lib/diagnostics/diagnosticview.cpp:1490
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Adaugă suprimare locală"
 
-#: lib/diagnostics/diagnosticview.cpp:1504
+#: lib/diagnostics/diagnosticview.cpp:1505
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Dezactivează suprimarea"
 
-#: lib/diagnostics/diagnosticview.cpp:1506
+#: lib/diagnostics/diagnosticview.cpp:1507
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Activează suprimarea"
@@ -1406,13 +1406,13 @@ msgstr "Închide documentul"
 msgid "Save As"
 msgstr "Salvează ca"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:848
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr ""
 "A fost deschis un fișier nou în tip ce Kate se termina. Închidere anulată."
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:848
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Terminare anulată"
@@ -1472,96 +1472,96 @@ msgstr "Fișierul „%1” nu a putut fi șters."
 msgid "&Other Application..."
 msgstr "&Altă aplicație…"
 
-#: lib/katemainwindow.cpp:300
+#: lib/katemainwindow.cpp:294
 #, kde-format
 msgid "Use this command to show or hide the view's statusbar"
 msgstr ""
 "Folosiți această comandă pentru a arăta sau ascunde bara de stare a "
 "vizualizării"
 
-#: lib/katemainwindow.cpp:306
+#: lib/katemainwindow.cpp:300
 #, kde-format
 msgid "Show &Tabs"
 msgstr "Ara&tă filele"
 
-#: lib/katemainwindow.cpp:309
+#: lib/katemainwindow.cpp:303
 #, kde-format
 msgid "Use this command to show or hide the tabs for the views"
 msgstr ""
 "Folosiți această comandă pentru a arăta sau ascunde filele pentru vizualizări"
 
-#: lib/katemainwindow.cpp:311
+#: lib/katemainwindow.cpp:305
 #, kde-format
 msgid "Sho&w Path in Titlebar"
 msgstr "Arată &calea în bara de titlu"
 
-#: lib/katemainwindow.cpp:316
+#: lib/katemainwindow.cpp:310
 #, kde-format
 msgid "Show the complete document path in the window caption"
 msgstr "Arată calea completă a documentului în bara de titlu a ferestrei"
 
-#: lib/katemainwindow.cpp:318
+#: lib/katemainwindow.cpp:312
 #, kde-format
 msgid "Show Navigation Bar"
 msgstr "Arată bara de navigare"
 
-#: lib/katemainwindow.cpp:336
+#: lib/katemainwindow.cpp:330
 #, kde-format
 msgid "&Window Color Scheme"
 msgstr "Schema de c&ulori a ferestrei"
 
-#: lib/katemainwindow.cpp:340
+#: lib/katemainwindow.cpp:334
 #, kde-format
 msgid "&Previous Tab"
 msgstr "Fila &precedentă"
 
-#: lib/katemainwindow.cpp:341
+#: lib/katemainwindow.cpp:335
 #, kde-format
 msgid "Focus the previous tab."
 msgstr "Focalizează fila precedentă."
 
-#: lib/katemainwindow.cpp:348
+#: lib/katemainwindow.cpp:342
 #, kde-format
 msgid "&Next Tab"
 msgstr "Fila &următoare"
 
-#: lib/katemainwindow.cpp:349
+#: lib/katemainwindow.cpp:343
 #, kde-format
 msgid "Focus the next tab."
 msgstr "Focalizează fila următoare."
 
-#: lib/katemainwindow.cpp:358
+#: lib/katemainwindow.cpp:352
 #, kde-format
 msgctxt "@action Shortcut entry"
 msgid "Switch to Tab %1"
 msgstr "Schimbă la fila %1"
 
-#: lib/katemainwindow.cpp:378
+#: lib/katemainwindow.cpp:372
 #, kde-format
 msgid "&Quick Open"
 msgstr "&Deschide rapid"
 
-#: lib/katemainwindow.cpp:381
+#: lib/katemainwindow.cpp:375
 #, kde-format
 msgid "Open a form to quick open documents."
 msgstr "Deschide un formular pentru deschiderea rapidă a documentelor."
 
-#: lib/katemainwindow.cpp:418
+#: lib/katemainwindow.cpp:412
 #, kde-format
 msgid "Output"
 msgstr "Rezultat"
 
-#: lib/katemainwindow.cpp:429
+#: lib/katemainwindow.cpp:423
 #, kde-format
 msgid "Create a new document"
 msgstr "Creează un document nou"
 
-#: lib/katemainwindow.cpp:431
+#: lib/katemainwindow.cpp:425
 #, kde-format
 msgid "Open an existing document for editing"
 msgstr "Deschide un document existent pentru editare"
 
-#: lib/katemainwindow.cpp:441
+#: lib/katemainwindow.cpp:435
 #, kde-format
 msgid ""
 "This lists files which you have opened recently, and allows you to easily "
@@ -1570,91 +1570,91 @@ msgstr ""
 "Enumeră fișierele pe care le-ați deschis recent pentru a le putea deschide "
 "din nou."
 
-#: lib/katemainwindow.cpp:445
+#: lib/katemainwindow.cpp:439
 #, kde-format
 msgid "Sa&ve All"
 msgstr "Sal&vează tot"
 
-#: lib/katemainwindow.cpp:448
+#: lib/katemainwindow.cpp:442
 #, kde-format
 msgid "Save all open, modified documents to disk."
 msgstr "Salvează pe disc toate documentele deschise și modificate."
 
-#: lib/katemainwindow.cpp:451
+#: lib/katemainwindow.cpp:445
 #, kde-format
 msgid "Reload A&ll"
 msgstr "&Reîncarcă toate"
 
-#: lib/katemainwindow.cpp:453
+#: lib/katemainwindow.cpp:447
 #, kde-format
 msgid "Reload all open documents."
 msgstr "Reîncarcă toate documentele deschise."
 
-#: lib/katemainwindow.cpp:462 lib/katemainwindow.cpp:472
-#: lib/katemainwindow.cpp:481
+#: lib/katemainwindow.cpp:456 lib/katemainwindow.cpp:466
+#: lib/katemainwindow.cpp:475
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
 msgstr "Copiază calea fișierului actual în clipboard."
 
-#: lib/katemainwindow.cpp:466
+#: lib/katemainwindow.cpp:460
 #, kde-format
 msgid "Copy Filename"
 msgstr "Copiază denumirea fișierului"
 
-#: lib/katemainwindow.cpp:476 lib/welcomeview/welcomeview.cpp:268
+#: lib/katemainwindow.cpp:470 lib/welcomeview/welcomeview.cpp:268
 #, kde-format
 msgid "&Open Containing Folder"
 msgstr "Deschide d&osarul conținător"
 
-#: lib/katemainwindow.cpp:485
+#: lib/katemainwindow.cpp:479
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Redenumește…"
 
-#: lib/katemainwindow.cpp:490
+#: lib/katemainwindow.cpp:484
 #, kde-format
 msgid "Renames the file belonging to the current document."
 msgstr "Redenumește fișierul aparținând documentului actual."
 
-#: lib/katemainwindow.cpp:494
+#: lib/katemainwindow.cpp:488
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Șterge"
 
-#: lib/katemainwindow.cpp:499 lib/katemainwindow.cpp:508
+#: lib/katemainwindow.cpp:493 lib/katemainwindow.cpp:502
 #, kde-format
 msgid "Deletes the file belonging to the current document."
 msgstr "Șterge fișierul aparținând documentului actual."
 
-#: lib/katemainwindow.cpp:503
+#: lib/katemainwindow.cpp:497
 #, kde-format
 msgid "Properties"
 msgstr "Proprietăți"
 
-#: lib/katemainwindow.cpp:511 lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:505 lib/katemainwindow.cpp:507
 #, kde-format
 msgid "Compare"
 msgstr "Compară"
 
-#: lib/katemainwindow.cpp:513
+#: lib/katemainwindow.cpp:507
 #, kde-format
 msgid "Use the Tabbar context menu to compare two documents"
 msgstr ""
 "Folosiți meniul contextual „Bară de file” pentru a compara două documente"
 
-#: lib/katemainwindow.cpp:515
+#: lib/katemainwindow.cpp:509
 #, kde-format
 msgid "Shows a hint how to compare documents."
 msgstr "Arată un sfat despre cum să comparați documente."
 
-#: lib/katemainwindow.cpp:518
+#: lib/katemainwindow.cpp:512
 #, kde-format
 msgid "Close Orp&haned"
 msgstr "Închide cele or&fane"
 
-#: lib/katemainwindow.cpp:520
+#: lib/katemainwindow.cpp:514
 #, kde-format
 msgid ""
 "Close all documents in the file list that could not be reopened, because "
@@ -1663,73 +1663,73 @@ msgstr ""
 "Închide toate documentele din lista de fișiere care nu au putut fi "
 "redeschise, pentru că nu mai sunt accesibile."
 
-#: lib/katemainwindow.cpp:524
+#: lib/katemainwindow.cpp:518
 #, kde-format
 msgid "Close the current document."
 msgstr "Închide documentul actual."
 
-#: lib/katemainwindow.cpp:527
+#: lib/katemainwindow.cpp:521
 #, kde-format
 msgid "Close O&ther"
 msgstr "Închide celelal&te"
 
-#: lib/katemainwindow.cpp:531
+#: lib/katemainwindow.cpp:525
 #, kde-format
 msgid "Close other open documents."
 msgstr "Închide celelalte documente deschise."
 
-#: lib/katemainwindow.cpp:534
+#: lib/katemainwindow.cpp:528
 #, kde-format
 msgid "Clos&e All"
 msgstr "Închid&e tot"
 
-#: lib/katemainwindow.cpp:536
+#: lib/katemainwindow.cpp:530
 #, kde-format
 msgid "Close all open documents."
 msgstr "Închide toate documentele deschise."
 
-#: lib/katemainwindow.cpp:539
+#: lib/katemainwindow.cpp:533
 #, kde-format
 msgid "&Reopen Latest Closed Document(s)"
 msgstr "&Redeschide documentele închise recent"
 
-#: lib/katemainwindow.cpp:541
+#: lib/katemainwindow.cpp:535
 #, kde-format
 msgid "Reopen the document or documents that were most recently closed"
 msgstr ""
 "Redeschide documentul sau documentele ce au fost închise cel mai recent"
 
-#: lib/katemainwindow.cpp:544
+#: lib/katemainwindow.cpp:538
 #, kde-format
 msgid "Close &Window"
 msgstr "Închi&de fereastra"
 
-#: lib/katemainwindow.cpp:548
+#: lib/katemainwindow.cpp:542
 #, kde-format
 msgid "Close this window"
 msgstr "Închide această fereastră"
 
-#: lib/katemainwindow.cpp:553
+#: lib/katemainwindow.cpp:547
 #, kde-format
 msgid "Quit the application"
 msgstr "Părăsește aplicația"
 
-#: lib/katemainwindow.cpp:557
+#: lib/katemainwindow.cpp:551
 #, kde-format
 msgid "New &Window"
 msgstr "Fereastră &nouă"
 
-#: lib/katemainwindow.cpp:560
+#: lib/katemainwindow.cpp:554
 #, kde-format
 msgid "Create a new window."
 msgstr "Creează o fereastră nouă."
 
-#: lib/katemainwindow.cpp:567
+#: lib/katemainwindow.cpp:561
 #, kde-format
 msgid "Open W&ith"
 msgstr "Desch&ide cu"
 
-#: lib/katemainwindow.cpp:569
+#: lib/katemainwindow.cpp:563
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1738,17 +1738,17 @@ msgstr ""
 "Deschide documentul actual folosind altă aplicație înregistrată cu tipul de "
 "fișier al acestuia, sau cu o aplicație la alegerea dumneavoastră."
 
-#: lib/katemainwindow.cpp:577
+#: lib/katemainwindow.cpp:571
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Configurează asocierile de scurtături de tastatură ale aplicației."
 
-#: lib/katemainwindow.cpp:580
+#: lib/katemainwindow.cpp:574
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Configurează ce elemente trebuie să apară în barele de unelte."
 
-#: lib/katemainwindow.cpp:583
+#: lib/katemainwindow.cpp:577
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
@@ -1756,100 +1756,100 @@ msgstr ""
 "Configurează diferite aspecte ale acestei aplicații și ale componentei de "
 "redactare."
 
-#: lib/katemainwindow.cpp:587
+#: lib/katemainwindow.cpp:581
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "Manualul &extensiilor"
 
-#: lib/katemainwindow.cpp:589
+#: lib/katemainwindow.cpp:583
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Arată documentația de ajutor pentru extensiile disponibile."
 
-#: lib/katemainwindow.cpp:606
+#: lib/katemainwindow.cpp:600
 #, kde-format
 msgid "Sess&ions"
 msgstr "Ses&iuni"
 
-#: lib/katemainwindow.cpp:612
+#: lib/katemainwindow.cpp:606
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Sesiune &nouă"
 
-#: lib/katemainwindow.cpp:617
+#: lib/katemainwindow.cpp:611
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "Sesiuni &recente"
 
-#: lib/katemainwindow.cpp:622
+#: lib/katemainwindow.cpp:616
 #, kde-format
 msgid "&All Sessions"
 msgstr "To&ate sesiunile"
 
-#: lib/katemainwindow.cpp:629
+#: lib/katemainwindow.cpp:623
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Gestionare sesiuni…"
 
-#: lib/katemainwindow.cpp:638
+#: lib/katemainwindow.cpp:632
 #, kde-format
 msgid "&Save Session"
 msgstr "&Salvează sesiunea"
 
-#: lib/katemainwindow.cpp:644
+#: lib/katemainwindow.cpp:638
 #, kde-format
 msgid "Save Session &As..."
 msgstr "Salvează sesiunea c&a…"
 
-#: lib/katemainwindow.cpp:652
+#: lib/katemainwindow.cpp:646
 #, kde-format
 msgid "Pin/Unpin Active Document"
 msgstr "Fixează/desprinde documentul activ"
 
-#: lib/katemainwindow.cpp:661
+#: lib/katemainwindow.cpp:655
 #, kde-format
 msgid "Open Next Pinned Document"
 msgstr "Deschide următorul document fixat"
 
-#: lib/katemainwindow.cpp:668 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:57
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "Mergi la locul precedent"
 
-#: lib/katemainwindow.cpp:677 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:69
 #, kde-format
 msgid "Go to Next Location"
 msgstr "Mergi la locul următor"
 
-#: lib/katemainwindow.cpp:685
+#: lib/katemainwindow.cpp:679
 #, kde-format
 msgid "Show File Git History"
 msgstr "Arată istoricul Git al fișierului"
 
-#: lib/katemainwindow.cpp:696
+#: lib/katemainwindow.cpp:690
 #, kde-format
 msgid "&Windows"
 msgstr "&Ferestre"
 
-#: lib/katemainwindow.cpp:755
+#: lib/katemainwindow.cpp:729
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr ""
 "Această operație va închide toate documentele deschise. Sigur doriți să "
 "continuați?"
 
-#: lib/katemainwindow.cpp:756
+#: lib/katemainwindow.cpp:730
 #, kde-format
 msgid "Close all documents?"
 msgstr "Închideți toate documentele?"
 
-#: lib/katemainwindow.cpp:757
+#: lib/katemainwindow.cpp:731
 #, kde-format
 msgid "Close All"
 msgstr "Închide toate"
 
-#: lib/katemainwindow.cpp:771
+#: lib/katemainwindow.cpp:745
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1858,29 +1858,29 @@ msgstr ""
 "Aceasta va închide toate documentele deschise în afară de cel actual. Sigur "
 "doriți să continuați?"
 
-#: lib/katemainwindow.cpp:772
+#: lib/katemainwindow.cpp:746
 #, kde-format
 msgid "Close all documents beside current one?"
 msgstr "Închideți toate documentele în afară de cel actual?"
 
-#: lib/katemainwindow.cpp:773
+#: lib/katemainwindow.cpp:747
 #, kde-format
 msgid "Close Others"
 msgstr "Închide celelalte"
 
-#: lib/katemainwindow.cpp:1003
+#: lib/katemainwindow.cpp:977
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Aceasta va ascunde complet bara meniului. O puteți afișa din nou tastând %1."
 
-#: lib/katemainwindow.cpp:1006
+#: lib/katemainwindow.cpp:980
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Ascunde bara meniului"
 
-#: lib/katemainwindow.cpp:1181
+#: lib/katemainwindow.cpp:1156
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
@@ -1889,19 +1889,19 @@ msgstr ""
 "Ați lăsat dosarul %1 în Kate. Doriți să deschideți toate fișierele conținute "
 "în acesta?"
 
-#: lib/katemainwindow.cpp:1184
+#: lib/katemainwindow.cpp:1159
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Deschide fișiere recursiv"
 
-#: lib/katemainwindow.cpp:1185
+#: lib/katemainwindow.cpp:1160
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Deschide toate fișierele"
 
-#: lib/katemainwindow.cpp:1392
+#: lib/katemainwindow.cpp:1367
 #, kde-format
 msgid " [read only]"
 msgstr " [numai citire]"
@@ -2601,48 +2601,48 @@ msgstr[2] ""
 "documentele deschise, comutați la vizualizarea „Deschidere rapidă” apăsând "
 "aici."
 
-#: lib/kateviewspace.cpp:1136
+#: lib/kateviewspace.cpp:1138
 #, kde-format
 msgid "&Close Tab"
 msgstr "În&chide fila"
 
-#: lib/kateviewspace.cpp:1143
+#: lib/kateviewspace.cpp:1145
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "Închide c&elelalte file"
 
-#: lib/kateviewspace.cpp:1156
+#: lib/kateviewspace.cpp:1159
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Închide &toate filele"
 
-#: lib/kateviewspace.cpp:1188
+#: lib/kateviewspace.cpp:1192
 #, kde-format
 msgid "D&etach Document"
 msgstr "D&etașează documentul"
 
-#: lib/kateviewspace.cpp:1193
+#: lib/kateviewspace.cpp:1197
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Deschide documentul într-o fereastră nouă și-l închide în fereastra actuală"
 
-#: lib/kateviewspace.cpp:1234
+#: lib/kateviewspace.cpp:1238
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Compară cu documentul activ"
 
-#: lib/kateviewspace.cpp:1240
+#: lib/kateviewspace.cpp:1244
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Compară cu documentul activ folosind"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1252
 #, kde-format
 msgid "Unpin Document"
 msgstr "Anulează fixarea documentului"
 
-#: lib/kateviewspace.cpp:1250
+#: lib/kateviewspace.cpp:1254
 #, kde-format
 msgid "Pin Document"
 msgstr "Fixează documentul"

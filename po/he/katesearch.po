@@ -3,13 +3,13 @@
 #
 # Diego Iastrubni <elcuco@kde.org>, 2014.
 # Elkana Bardugo <ttv200@gmail.com>, 2017. #zanata
-# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-10 00:46+0000\n"
-"PO-Revision-Date: 2026-01-06 14:38+0200\n"
+"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"PO-Revision-Date: 2026-01-10 13:12+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -60,7 +60,7 @@ msgstr "ייצוא תוצאות החיפוש"
 msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
-msgstr ""
+msgstr "תבנית ייצוא: ‎\\0 ללכידה מלאה, ‎\\1‏,‎\\2,… ללכידות בביטוי הרגולרי"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -642,100 +642,103 @@ msgstr "יש ללחוץ כדי לסנן מבין התוצאות"
 msgid "Find"
 msgstr "איתור"
 
-#: SearchPlugin.cpp:1172
+#: SearchPlugin.cpp:1171
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "החיפוש לא החל כיוון שהתיקייה לחיפוש ‚%1’ לא קיימת."
 
-#: SearchPlugin.cpp:1345
+#: SearchPlugin.cpp:1344
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "חיפוש בזמן ההקלדה נקטע. הוא היה לוקח זמן רב מדי."
 
-#: SearchPlugin.cpp:1678
+#: SearchPlugin.cpp:1677
 #, kde-format
 msgid "Search Match"
 msgstr "תוצאה לחיפוש"
 
-#: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
+#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
 #, kde-format
 msgid "Next from cursor"
 msgstr "הבא מהסמן"
 
-#: SearchPlugin.cpp:1872
+#: SearchPlugin.cpp:1871
 #, kde-format
 msgid "Starting from first match"
 msgstr "מתחיל מהתוצאה הראשונה"
 
-#: SearchPlugin.cpp:1892
+#: SearchPlugin.cpp:1891
 #, kde-format
 msgid "Continuing from first match"
 msgstr "ממשיך מהתוצאה הראשונה"
 
-#: SearchPlugin.cpp:1948
+#: SearchPlugin.cpp:1947
 #, kde-format
 msgid "Starting from last match"
 msgstr "מתחיל מהתוצאה הקודמת"
 
-#: SearchPlugin.cpp:1968
+#: SearchPlugin.cpp:1967
 #, kde-format
 msgid "Continuing from last match"
 msgstr "ממשיך מהתוצאה האחרונה"
 
-#: SearchPlugin.cpp:2129
+#: SearchPlugin.cpp:2128
 #, kde-format
 msgid "Search: %1"
 msgstr "חיפוש: %1"
 
-#: SearchPlugin.cpp:2272
+#: SearchPlugin.cpp:2271
 #, kde-format
 msgid "Copy all"
 msgstr "העתקה של הכול"
 
-#: SearchPlugin.cpp:2277
+#: SearchPlugin.cpp:2276
 #, kde-format
 msgid "Copy expanded"
 msgstr "העתקה מורחבת"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Export matches"
 msgstr "ייצוא התוצאות"
 
-#: SearchPlugin.cpp:2281
+#: SearchPlugin.cpp:2280
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"התמרת וייצוא תוצאות חיפוש באמצעות תבניות החלפה. כדי לייצא את כל הלכידות, יש "
+"להשתמש ב־‎\\0. כדי לייצא לכידות של ביטוי רגולרי יש להשתמש ב־‎\\1,‏‎\\2,… שאר "
+"הטקסט בתבנית יוחזר בתוצאות הייצוא."
 
-#: SearchPlugin.cpp:2284
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "פתיחה כלשונית עורך"
 
-#: SearchPlugin.cpp:2292
+#: SearchPlugin.cpp:2291
 #, kde-format
 msgid "Clear"
 msgstr "פינוי"
 
-#: SearchPlugin.cpp:2402 SearchPlugin.cpp:2436
+#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
 #, kde-format
 msgid "Add..."
 msgstr "הוספה…"
 
-#: SearchPlugin.cpp:2414
+#: SearchPlugin.cpp:2413
 #, kde-format
 msgid "Search As You Type"
 msgstr "חיפוש תוך כדי הקלדה"
 
-#: SearchPlugin.cpp:2485
+#: SearchPlugin.cpp:2484
 #, kde-format
 msgid "In Current Project"
 msgstr "במיזם הנוכחי"
 
-#: SearchPlugin.cpp:2487
+#: SearchPlugin.cpp:2486
 #, kde-format
 msgid "In All Open Projects"
 msgstr "בכל המיזמים הפתוחים"

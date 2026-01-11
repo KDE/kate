@@ -66,6 +66,8 @@ public:
     /// Return the vector of build Targets in this build tree.
     const std::vector<Target> &getTargets(const QString &config) const;
 
+    bool hasInstallRule() const;
+
 private Q_SLOTS:
     void handleStarted();
     void handleStateChanged(QProcess::ProcessState newState);
@@ -91,4 +93,5 @@ private:
     std::map<QString /*config*/, std::vector<Target>> m_targets;
     const std::vector<Target> m_emptyTargets = {};
     std::vector<QString> m_configs;
+    bool m_hasInstallRule = false;
 };

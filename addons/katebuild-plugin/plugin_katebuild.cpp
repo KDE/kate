@@ -1331,6 +1331,16 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
                                                          QString());
     const QModelIndex allIndex = setIndex;
 
+    if (cmakeFA.hasInstallRule()) {
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
+                                                            QStringLiteral("Install"),
+                                                            QStringLiteral("%1 --install \"%2\" --config \"%3\"")
+                                                                .arg(cmakeFA.getCMakeExecutable())
+                                                                .arg(cmakeFA.getBuildDir())
+                                                                .arg(cmakeConfig),
+                                                            QString());
+    }
+
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
                                                          QStringLiteral("Clean"),
                                                          QStringLiteral("%1 --build \"%2\" --config \"%3\" --parallel %4 --target clean")

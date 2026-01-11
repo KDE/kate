@@ -219,6 +219,7 @@ bool QCMakeFileApi::readReplyFiles()
     m_sourceDir.clear();
     m_sourceFiles.clear();
     m_targets.clear();
+    m_hasInstallRule = false;
 
     QString indexFile = replyDir.absoluteFilePath(indexFiles.at(0));
     qCDebug(KTEBUILD, "CMakeFileAPI reply index file: %ls", qUtf16Printable(indexFile));
@@ -318,6 +319,17 @@ bool QCMakeFileApi::readReplyFiles()
             }
         }
         m_targets[configName] = targetsVec;
+
+        QJsonArray dirs = configObj.value(QStringLiteral("directories")).toArray();
+        for (int dirIdx = 0; dirIdx < dirs.count(); dirIdx++) {
+            QJsonObject dirObj = dirs.at(dirIdx).toObject();
+            bool hasInstallRule = dirObj.value(QStringLiteral("hasInstallRule")).toBool();
+            if (hasInstallRule) {
+                m_hasInstallRule = true;
+                break;
+            }
+        }
+
     }
 
     return true;
@@ -356,4 +368,9 @@ const QString &QCMakeFileApi::getSourceDir() const
 const QString &QCMakeFileApi::getBuildDir() const
 {
     return m_buildDir;
+}
+
+bool QCMakeFileApi::hasInstallRule() const
+{
+    return m_hasInstallRule;
 }

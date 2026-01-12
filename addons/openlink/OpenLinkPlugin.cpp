@@ -311,7 +311,7 @@ void OpenLinkPluginView::highlightLinks(KTextEditor::Range range)
         }
         const QString line = doc->line(i);
         matchLine(line, &matchedRanges);
-        for (auto [startCol, endCol, link, startCursor, _] : matchedRanges) {
+        for (const auto &[startCol, endCol, link, startCursor, _] : matchedRanges) {
             Q_UNUSED(startCursor)
             Q_UNUSED(link)
             KTextEditor::Range linkRange(i, startCol, i, endCol);

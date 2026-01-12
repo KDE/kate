@@ -734,7 +734,7 @@ void Template::importTemplate()
         }
 
         if (!unfoundPlaceholders.isEmpty()) {
-            QString missing = QStringList(unfoundPlaceholders.values()).join(u", ");
+            QString missing = QStringList(unfoundPlaceholders.cbegin(), unfoundPlaceholders.cend()).join(u", ");
             KMessageBox::error(this, i18n("Broken Template: Placeholders defined but not used:\n%1", missing));
             return;
         }

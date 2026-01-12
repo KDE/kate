@@ -64,8 +64,8 @@ msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Error:</b> No s'ha pogut trobar «xmllint». Assegureu-vos que «xmllint» "
-"estiga instal·lat. Forma part de la «libxml2»."
+"<b>Error:</b> Ha fallat mentre es trobava «xmllint». Assegureu-vos que "
+"«xmllint» estiga instal·lat. Forma part de la «libxml2»."
 
 #: plugin_katexmlcheck.cpp:329
 #, kde-format
@@ -73,8 +73,8 @@ msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Error:</b> No s'ha pogut executar «xmllint». Assegureu-vos que «xmllint» "
-"estiga instal·lat. Forma part de la «libxml2»."
+"<b>Error:</b> Ha fallat mentre s'executava «xmllint». Assegureu-vos que "
+"«xmllint» estiga instal·lat. Forma part de la «libxml2»."
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

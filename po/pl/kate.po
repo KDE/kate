@@ -1,6 +1,6 @@
 # translation of kate.po to Polish
 # translation of kate.po to
-# Version: $Revision: 1727119 $
+# Version: $Revision: 1727253 $
 # Kate polish translation file.
 # Main translation work:
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-12 00:47+0000\n"
 "PO-Revision-Date: 2025-09-06 05:51+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
@@ -2206,25 +2206,25 @@ msgstr "Skopiuj cały tekst do schowka"
 msgid "Clear all messages"
 msgstr "Wyczyść wszystkie wiadomości"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:411
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Błąd"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:415
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Ostrzeżenie"
 
-#: lib/kateoutputview.cpp:417
+#: lib/kateoutputview.cpp:419
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Dane"
 
-#: lib/kateoutputview.cpp:422
+#: lib/kateoutputview.cpp:424
 #, kde-format
 msgctxt "@info"
 msgid "Log"

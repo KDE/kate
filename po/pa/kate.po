@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-12 00:47+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -2152,25 +2152,25 @@ msgstr "ਸਭ ਲਿਖਤ ਨੂੰ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ �
 msgid "Clear all messages"
 msgstr "ਸਾਰੇ ਸੁਨੇਹੇ ਮਿਟਾਓ"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:411
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "ਗਲਤੀ"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:415
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "ਸਾਵਾਧਾਨ"
 
-#: lib/kateoutputview.cpp:417
+#: lib/kateoutputview.cpp:419
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "ਜਾਣਕਾਰੀ"
 
-#: lib/kateoutputview.cpp:422
+#: lib/kateoutputview.cpp:424
 #, kde-format
 msgctxt "@info"
 msgid "Log"

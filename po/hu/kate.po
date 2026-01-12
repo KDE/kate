@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-12 00:47+0000\n"
 "PO-Revision-Date: 2024-02-18 21:00+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2203,25 +2203,25 @@ msgstr "Másolás a vágólapra"
 msgid "Clear all messages"
 msgstr "Összes üzenet törlése"
 
-#: lib/kateoutputview.cpp:409
+#: lib/kateoutputview.cpp:411
 #, kde-format
 msgctxt "@info"
 msgid "Error"
 msgstr "Hiba"
 
-#: lib/kateoutputview.cpp:413
+#: lib/kateoutputview.cpp:415
 #, kde-format
 msgctxt "@info"
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: lib/kateoutputview.cpp:417
+#: lib/kateoutputview.cpp:419
 #, kde-format
 msgctxt "@info"
 msgid "Info"
 msgstr "Információ"
 
-#: lib/kateoutputview.cpp:422
+#: lib/kateoutputview.cpp:424
 #, kde-format
 msgctxt "@info"
 msgid "Log"

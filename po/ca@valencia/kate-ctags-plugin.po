@@ -371,7 +371,7 @@ msgstr "Configuració de CTags"
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "No s'ha pogut executar. Error: %1, codi d'eixida: %2"
+msgstr "Ha fallat mentre s'executava. Error: %1, codi d'eixida: %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format

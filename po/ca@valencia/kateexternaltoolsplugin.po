@@ -187,8 +187,8 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
-"No s'ha pogut trobar l'executable «%1». Comproveu que existisca el fitxer "
-"executable i que els noms de les variables, si es fan servir, siguen "
+"Ha fallat mentre es trobava l'executable «%1». Comproveu que existisca el "
+"fitxer executable i que els noms de les variables, si es fan servir, siguen "
 "correctes"
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299

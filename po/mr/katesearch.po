@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-12 00:46+0000\n"
 "PO-Revision-Date: 2013-03-22 15:44+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: Marathi <kde-i18n-doc@kde.org>\n"
@@ -609,69 +609,69 @@ msgstr ""
 msgid "Find"
 msgstr ""
 
-#: SearchPlugin.cpp:1171
+#: SearchPlugin.cpp:1174
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
 
-#: SearchPlugin.cpp:1344
+#: SearchPlugin.cpp:1347
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr ""
 
-#: SearchPlugin.cpp:1677
+#: SearchPlugin.cpp:1680
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search Match"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
+#: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
 #, kde-format
 msgid "Next from cursor"
 msgstr ""
 
-#: SearchPlugin.cpp:1871
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Starting from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1891
+#: SearchPlugin.cpp:1894
 #, kde-format
 msgid "Continuing from first match"
 msgstr ""
 
-#: SearchPlugin.cpp:1947
+#: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Starting from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:1967
+#: SearchPlugin.cpp:1970
 #, kde-format
 msgid "Continuing from last match"
 msgstr ""
 
-#: SearchPlugin.cpp:2128
+#: SearchPlugin.cpp:2131
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search: %1"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:2271
+#: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy all"
 msgstr ""
 
-#: SearchPlugin.cpp:2276
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Copy expanded"
 msgstr ""
 
-#: SearchPlugin.cpp:2279
+#: SearchPlugin.cpp:2282
 #, kde-format
 msgid "Export matches"
 msgstr ""
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -679,33 +679,33 @@ msgid ""
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
 
-#: SearchPlugin.cpp:2283
+#: SearchPlugin.cpp:2288
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr ""
 
-#: SearchPlugin.cpp:2291
+#: SearchPlugin.cpp:2296
 #, kde-format
 msgid "Clear"
 msgstr ""
 
-#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
+#: SearchPlugin.cpp:2406 SearchPlugin.cpp:2440
 #, kde-format
 msgid "Add..."
 msgstr "जोडा..."
 
-#: SearchPlugin.cpp:2413
+#: SearchPlugin.cpp:2418
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Search As You Type"
 msgstr "शोधा"
 
-#: SearchPlugin.cpp:2484
+#: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In Current Project"
 msgstr ""
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2491
 #, kde-format
 msgid "In All Open Projects"
 msgstr ""

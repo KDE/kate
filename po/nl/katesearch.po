@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-12 00:46+0000\n"
 "PO-Revision-Date: 2026-01-10 12:33+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -625,67 +625,67 @@ msgstr "Klik om door resultaten te filteren"
 msgid "Find"
 msgstr "Zoeken"
 
-#: SearchPlugin.cpp:1171
+#: SearchPlugin.cpp:1174
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr "Zoeken was niet gestart omdat map '%1' om in te zoeken niet bestaat."
 
-#: SearchPlugin.cpp:1344
+#: SearchPlugin.cpp:1347
 #, kde-format
 msgid "Searching while you type was interrupted. It would have taken too long."
 msgstr "Zoeken tijdens typen is onderbroken. Het zou te lang duren."
 
-#: SearchPlugin.cpp:1677
+#: SearchPlugin.cpp:1680
 #, kde-format
 msgid "Search Match"
 msgstr "Overeenkomst uit zoeken"
 
-#: SearchPlugin.cpp:1854 SearchPlugin.cpp:1930
+#: SearchPlugin.cpp:1857 SearchPlugin.cpp:1933
 #, kde-format
 msgid "Next from cursor"
 msgstr "Volgende vanaf de cursor"
 
-#: SearchPlugin.cpp:1871
+#: SearchPlugin.cpp:1874
 #, kde-format
 msgid "Starting from first match"
 msgstr "Beginnen na de eerste overeenkomst"
 
-#: SearchPlugin.cpp:1891
+#: SearchPlugin.cpp:1894
 #, kde-format
 msgid "Continuing from first match"
 msgstr "doorgaan na de eerste overeenkomst"
 
-#: SearchPlugin.cpp:1947
+#: SearchPlugin.cpp:1950
 #, kde-format
 msgid "Starting from last match"
 msgstr "Beginnen na de laatste overeenkomst"
 
-#: SearchPlugin.cpp:1967
+#: SearchPlugin.cpp:1970
 #, kde-format
 msgid "Continuing from last match"
 msgstr "doorgaan vanaf de laatste overeenkomst"
 
-#: SearchPlugin.cpp:2128
+#: SearchPlugin.cpp:2131
 #, kde-format
 msgid "Search: %1"
 msgstr "Zoeken: %1"
 
-#: SearchPlugin.cpp:2271
+#: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy all"
 msgstr "Alles kopiëren"
 
-#: SearchPlugin.cpp:2276
+#: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Copy expanded"
 msgstr "Uitgevouwen kopiëren"
 
-#: SearchPlugin.cpp:2279
+#: SearchPlugin.cpp:2282
 #, kde-format
 msgid "Export matches"
 msgstr "Overeenkomsten exporteren"
 
-#: SearchPlugin.cpp:2280
+#: SearchPlugin.cpp:2283
 #, kde-format
 msgid ""
 "Transform and export search matches using a replacement pattern. To export "
@@ -697,32 +697,32 @@ msgstr ""
 "reguliere expressie te exporteren, gebruik \\1,\\2,... De andere tekst in "
 "het patroon wordt teruggegeven in de te exporteren resultaten."
 
-#: SearchPlugin.cpp:2283
+#: SearchPlugin.cpp:2288
 #, kde-format
 msgid "Open as Editor Tab"
 msgstr "Als tabblad van bewerker openen"
 
-#: SearchPlugin.cpp:2291
+#: SearchPlugin.cpp:2296
 #, kde-format
 msgid "Clear"
 msgstr "Wissen"
 
-#: SearchPlugin.cpp:2401 SearchPlugin.cpp:2435
+#: SearchPlugin.cpp:2406 SearchPlugin.cpp:2440
 #, kde-format
 msgid "Add..."
 msgstr "Toevoegen..."
 
-#: SearchPlugin.cpp:2413
+#: SearchPlugin.cpp:2418
 #, kde-format
 msgid "Search As You Type"
 msgstr "Zoeken terwijl u typt"
 
-#: SearchPlugin.cpp:2484
+#: SearchPlugin.cpp:2489
 #, kde-format
 msgid "In Current Project"
 msgstr "In huidige project"
 
-#: SearchPlugin.cpp:2486
+#: SearchPlugin.cpp:2491
 #, kde-format
 msgid "In All Open Projects"
 msgstr "In alle open projecten"

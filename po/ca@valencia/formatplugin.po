@@ -29,17 +29,17 @@ msgstr "Format"
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr "No s'ha pogut escriure un fitxer temporal"
+msgstr "Ha fallat mentre s'escrivia un fitxer temporal"
 
 #: FormatApply.h:33
 #, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr "No s'ha pogut executar «diff» de «git»: «git» no està instal·lat"
+msgstr "Ha fallat mentre s'executava «diff» de «git»: «git» no està instal·lat"
 
 #: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr "No s'ha pogut executar «diff» de «git»: %1"
+msgstr "Ha fallat mentre s'executava «diff» de «git»: %1"
 
 #: FormatConfig.cpp:118
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Configuració de donar format"
 #: FormatPlugin.cpp:83
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr "No s'ha pogut llegir «settings.json». Error: %1"
+msgstr "Ha fallat mentre es llegia «settings.json». Error: %1"
 
 #: FormatPlugin.cpp:119
 #, kde-format
@@ -102,12 +102,12 @@ msgstr "Instal·leu «note» i «prettier»"
 #: Formatters.cpp:195
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr "PrettierFormat: No s'ha pogut crear el fitxer temporal"
+msgstr "PrettierFormat: Ha fallat mentre es creava el fitxer temporal"
 
 #: Formatters.cpp:216
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr "PrettierFormat: No s'ha pogut iniciar el «node»: %1"
+msgstr "PrettierFormat: Ha fallat mentre s'iniciava el «node»: %1"
 
 #: Formatters.cpp:318
 #, kde-format
@@ -127,4 +127,5 @@ msgstr "«formatterForYaml» desconegut: %1, es torna de nou al «yamlfmt»"
 #: Formatters.cpp:391
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr "No s'ha pogut executar el formatador. Llenguatge %1 no implementat"
+msgstr ""
+"Ha fallat mentre s'executava el formatador. Llenguatge %1 no implementat"

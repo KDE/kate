@@ -30,12 +30,12 @@ public:
 
     void setPassword(const QString &name, const QString &password);
 
-    int indexOf(const QString &name);
+    [[nodiscard]] int indexOf(const QString &name) const;
 
     //     virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex());
     //     virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex());
 
 private:
-    QHash<QString, Connection> m_connections;
+    QList<Connection> m_connections;
     QHash<Connection::Status, QIcon> m_icons;
 };

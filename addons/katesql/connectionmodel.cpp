@@ -36,21 +36,20 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
         return {};
     }
 
-    const QString key = m_connections.keys().at(index.row());
-
     switch (role) {
     case Qt::DisplayRole:
-        return QVariant(m_connections.value(key).name);
+        return m_connections.at(index.row()).name;
 
     case Qt::UserRole:
-        return QVariant::fromValue<Connection>(m_connections.value(key));
+        return QVariant::fromValue<Connection>(m_connections.at(index.row()));
 
     case Qt::DecorationRole:
-        return m_icons[m_connections.value(key).status];
+        return m_icons[m_connections.at(index.row()).status];
 
     case Qt::SizeHintRole: {
         const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
-        return QSize(metrics.boundingRect(m_connections.value(key).name).width(), 22);
+
+        return QSize(metrics.boundingRect(m_connections.at(index.row()).name).width(), 22);
     }
 
     default:
@@ -62,8 +61,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
 int ConnectionModel::addConnection(const Connection &conn)
 {
-    /// FIXME
-    if (m_connections.contains(conn.name)) {
+    if (indexOf(conn.name) != -1) {
         qDebug("a connection named %ls already exists!", qUtf16Printable(conn.name));
         return -1;
     }
@@ -72,60 +70,65 @@ int ConnectionModel::addConnection(const Connection &conn)
 
     beginInsertRows(QModelIndex(), pos, pos);
 
-    m_connections[conn.name] = conn;
+    m_connections.push_back(conn);
 
     endInsertRows();
 
-    return m_connections.keys().indexOf(conn.name);
+    return pos;
 }
 
 void ConnectionModel::removeConnection(const QString &name)
 {
-    int pos = m_connections.keys().indexOf(name);
+    int pos = indexOf(name);
 
     beginRemoveRows(QModelIndex(), pos, pos);
 
-    m_connections.remove(name);
+    m_connections.remove(pos);
 
     endRemoveRows();
 }
 
-int ConnectionModel::indexOf(const QString &name)
+int ConnectionModel::indexOf(const QString &name) const
 {
-    return m_connections.keys().indexOf(name);
+    auto it = std::find_if(m_connections.cbegin(), m_connections.cend(), [name](const Connection &c) {
+        return c.name == name;
+    });
+    if (it != m_connections.cend()) {
+        return static_cast<int>(std::distance(m_connections.cbegin(), it));
+    }
+    return -1;
 }
 
 Connection::Status ConnectionModel::status(const QString &name) const
 {
-    if (!m_connections.contains(name)) {
+    const int pos = indexOf(name);
+    if (pos == -1) {
         return Connection::UNKNOWN;
     }
 
-    return m_connections[name].status;
+    return m_connections[pos].status;
 }
 
 void ConnectionModel::setStatus(const QString &name, const Connection::Status status)
 {
-    if (!m_connections.contains(name)) {
+    const int pos = indexOf(name);
+    if (pos == -1) {
         return;
     }
 
-    m_connections[name].status = status;
+    m_connections[pos].status = status;
 
-    const int i = indexOf(name);
-
-    Q_EMIT dataChanged(index(i), index(i));
+    Q_EMIT dataChanged(index(pos), index(pos));
 }
 
 void ConnectionModel::setPassword(const QString &name, const QString &password)
 {
-    if (!m_connections.contains(name)) {
+    const int pos = indexOf(name);
+    if (pos == -1) {
         return;
     }
 
-    m_connections[name].password = password;
+    m_connections[pos].password = password;
 
-    const int i = indexOf(name);
-
-    Q_EMIT dataChanged(index(i), index(i));
+    Q_EMIT dataChanged(index(pos), index(pos));
 }

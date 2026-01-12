@@ -48,8 +48,8 @@ msgstr "El fitxer té una capçalera"
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
-"No s'ha pogut obtindre el separador del document actual. No és un document "
-"CSV/TSV?"
+"Ha fallat mentre s'obtenia el separador del document actual. No és un "
+"document CSV/TSV?"
 
 #: RBQLWidget.cpp:120
 #, kde-format

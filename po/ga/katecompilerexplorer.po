@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kate package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-11-17 14:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: AsmView.cpp:303
+#, kde-format
+msgid "Scroll to source"
+msgstr ""
+
+#: AsmView.cpp:313
+#, kde-format
+msgid "Jump to label"
+msgstr ""
+
+#: AsmView.cpp:339
+#, kde-format
+msgid "Copy"
+msgstr ""
+
+#: AsmView.cpp:351
+#, kde-format
+msgid "Select All"
+msgstr ""
+
+#: ce_plugin.cpp:35
+#, kde-format
+msgid "Compiler Explorer"
+msgstr ""
+
+#: ce_plugin.cpp:38
+#, kde-format
+msgid "&Open Current File in Compiler Explorer"
+msgstr ""
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgid "No file open"
+msgstr ""
+
+#: ce_plugin.cpp:54
+#, kde-format
+msgctxt "error category title"
+msgid "CompilerExplorer"
+msgstr ""
+
+#: ce_widget.cpp:145
+#, kde-format
+msgid "Do you really want to close %1?"
+msgstr ""
+
+#: ce_widget.cpp:196
+#, kde-format
+msgctxt "@info:tooltip Languages like C, C++, Rust"
+msgid "Languages"
+msgstr ""
+
+#: ce_widget.cpp:197
+#, kde-format
+msgctxt "@info:tooltip Compilers like GCC, Clang"
+msgid "Compilers"
+msgstr ""
+
+#: ce_widget.cpp:198
+#, kde-format
+msgctxt "@info:placeholder"
+msgid "Compiler options…"
+msgstr ""
+
+#: ce_widget.cpp:215
+#, kde-format
+msgid "Compile"
+msgstr ""
+
+#: ce_widget.cpp:312
+#, kde-format
+msgid "Options"
+msgstr ""
+
+#: ce_widget.cpp:329
+#, kde-format
+msgid "Demangle Identifiers"
+msgstr ""
+
+#: ce_widget.cpp:330
+#, kde-format
+msgid "Filter Library Functions"
+msgstr ""
+
+#: ce_widget.cpp:331
+#, kde-format
+msgid "Filter Unused Labels"
+msgstr ""
+
+#: ce_widget.cpp:332
+#, kde-format
+msgid "Filter Comments"
+msgstr ""
+
+#: ce_widget.cpp:333
+#, kde-format
+msgid "Intel Syntax"
+msgstr ""
+
+#: ce_widget.cpp:337
+#, kde-format
+msgid "Change URL…"
+msgstr ""
+
+#: ce_widget.cpp:343
+#, kde-format
+msgid "Enter URL"
+msgstr ""
+
+#: ce_widget.cpp:344
+#, kde-format
+msgid ""
+"Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
+msgstr ""
+
+#: ce_widget.cpp:404
+#, kde-format
+msgid "Compiler returned: %1"
+msgstr ""
+
+#: ce_widget.cpp:553
+#, kde-format
+msgid "Reveal linked code"
+msgstr ""
+
+#: ce_widget.cpp:575
+#, kde-format
+msgid "CompilerExplorer"
+msgstr ""
+
+#: ce_widget.cpp:591
+#, kde-format
+msgid "'%1' compiler flags were found. Output may not be useful."
+msgstr ""

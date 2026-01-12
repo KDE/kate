@@ -217,12 +217,12 @@ msgstr ""
 #: plugin_katebuild.cpp:848
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr "No s'ha pogut crear el directori <b>%1</b>"
+msgstr "Ha fallat mentre es creava el directori <b>%1</b>"
 
 #: plugin_katebuild.cpp:868
 #, kde-format
 msgid "Failed to run \"%1\". exitStatus = %2"
-msgstr "No s'ha pogut executar «%1». Estat de l'eixida = %2"
+msgstr "Ha fallat mentre s'executava «%1». Estat de l'eixida = %2"
 
 #: plugin_katebuild.cpp:884
 #, kde-format

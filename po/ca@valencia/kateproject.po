@@ -44,7 +44,7 @@ msgstr "S'ha extret la branca %1"
 #: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr "No s'ha pogut extraure la branca %1, error: %2"
+msgstr "Ha fallat mentre s'extreia la branca %1, error: %2"
 
 #: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Extracció a la branca nova: %1"
 #: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr "No s'ha pogut crear la branca nova. Error «%1»"
+msgstr "Ha fallat mentre es creava la branca nova. Error «%1»"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -233,8 +233,8 @@ msgstr "Filtre…"
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
-"No s'ha pogut trobar el directori «.git» per a «%1», potser hi haurà alguna "
-"cosa que no funcione correctament"
+"Ha fallat mentre es trobava el directori «.git» per a «%1», potser hi haurà "
+"alguna cosa que no funcione correctament"
 
 #: gitwidget.cpp:659
 #, kde-format
@@ -249,7 +249,7 @@ msgstr "«%1» s'ha executat correctament: %2"
 #: gitwidget.cpp:685
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr "No s'ha pogut marcar el fitxer. Error:"
+msgstr "Ha fallat mentre es marcava el fitxer. Error:"
 
 #: gitwidget.cpp:698
 #, kde-format
@@ -264,22 +264,22 @@ msgstr "No s'han pogut descartar els canvis. Error:"
 #: gitwidget.cpp:720
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr "No s'ha pogut eliminar. Error:"
+msgstr "Ha fallat mentre s'eliminava. Error:"
 
 #: gitwidget.cpp:736
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr "No s'ha pogut obrir el fitxer a HEAD: %1"
+msgstr "Ha fallat mentre s'obria el fitxer a HEAD: %1"
 
 #: gitwidget.cpp:770
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr "No s'ha pogut obtindre «diff» del fitxer: %1"
+msgstr "Ha fallat mentre s'obtenia «diff» del fitxer: %1"
 
 #: gitwidget.cpp:839
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr "No s'ha pogut cometre: %1"
+msgstr "Ha fallat mentre es cometia: %1"
 
 #: gitwidget.cpp:843
 #, kde-format
@@ -310,7 +310,7 @@ msgstr "No s'ha pogut comparar %1…%2"
 #: gitwidget.cpp:1019
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "No s'ha pogut obtindre el número d'estat en diferenciar %1…%2"
+msgstr "Ha fallat mentre s'obtenia el número d'estat en diferenciar %1…%2"
 
 #: gitwidget.cpp:1054
 #, kde-format
@@ -785,8 +785,8 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1]Ha finalitzat l'anàlisi d'%2 fitxer."
-msgstr[1] "[%1]Ha finalitzat l'anàlisi de %2 fitxers."
+msgstr[0] "[%1]Ha finalitzat l'anàlisi sintàctica d'%2 fitxer."
+msgstr[1] "[%1]Ha finalitzat l'anàlisi sintàctica de %2 fitxers."
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
@@ -1036,7 +1036,7 @@ msgstr "El fitxer ja existix"
 #: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr "No s'ha pogut crear el fitxer: %1, Error: %2"
+msgstr "Ha fallat mentre es creava el fitxer: %1, Error: %2"
 
 #: kateprojectviewtree.cpp:392
 #, kde-format
@@ -1046,7 +1046,7 @@ msgstr "El directori ja existix"
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr "No s'ha pogut crear el directori: %1"
+msgstr "Ha fallat mentre es creava el directori: %1"
 
 #: kateprojectworker.cpp:202
 #, kde-format
@@ -1098,7 +1098,7 @@ msgstr ""
 #: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "No s'ha pogut fer dels canvis %1 una modificació temporal"
+msgstr "Ha fallat mentre es feien els canvis %1 una modificació temporal"
 
 #: stashdialog.cpp:144
 #, kde-format
@@ -1108,12 +1108,13 @@ msgstr "Els canvis s'han fet modificació temporal correctament."
 #: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "No s'ha pogut obtindre la llista de modificacions temporals. Error: "
+msgstr ""
+"Ha fallat mentre s'obtenia la llista de modificacions temporals. Error: "
 
 #: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "No s'han pogut aplicar les modificacions temporals. Error: "
+msgstr "Ha fallat mentre s'aplicaven les modificacions temporals. Error: "
 
 #: stashdialog.cpp:181
 #, kde-format
@@ -1123,7 +1124,8 @@ msgstr "No s'han pogut llençar les modificacions temporals. Error: "
 #: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "No s'ha pogut aplicar («pop») les modificacions temporals. Error: "
+msgstr ""
+"Ha fallat mentre s'aplicaven («pop») les modificacions temporals. Error: "
 
 #: stashdialog.cpp:187
 #, kde-format
@@ -1143,7 +1145,7 @@ msgstr "Les modificacions temporals s'han aplicat correctament."
 #: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "No s'ha pogut mostrar la modificació temporal. Error: "
+msgstr "Ha fallat mentre es mostrava la modificació temporal. Error: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

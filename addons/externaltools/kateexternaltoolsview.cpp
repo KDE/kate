@@ -283,7 +283,7 @@ QAction *KateExternalToolsPluginView::externalToolsForDocumentAction(KTextEditor
         [doc, this, menu] {
             const auto mime = doc->mimeType();
             const QList<KateExternalTool *> &tools = m_plugin->tools();
-            QPointer<KTextEditor::View> view = doc->views().first();
+            QPointer<KTextEditor::View> view = doc->views().constFirst();
             for (auto tool : tools) {
                 if (!tool->mimetypes.isEmpty() && !tool->matchesMimetype(mime)) {
                     continue;

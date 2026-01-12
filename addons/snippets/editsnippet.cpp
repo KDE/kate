@@ -66,7 +66,7 @@ EditSnippet::EditSnippet(SnippetRepository *repository, Snippet *snippet, QWidge
 
     m_snippetView = createView(m_ui->snippetTab);
     if (!m_repo->fileTypes().isEmpty()) {
-        m_snippetView->document()->setMode(m_repo->fileTypes().first());
+        m_snippetView->document()->setMode(m_repo->fileTypes().constFirst());
     }
 
     connect(m_ui->modeComboBox, &QComboBox::currentIndexChanged, this, [this]() {

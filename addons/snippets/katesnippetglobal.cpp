@@ -91,7 +91,7 @@ void KateSnippetGlobal::createSnippet(KTextEditor::View *view)
     SnippetRepository *match = nullptr;
     for (int i = 0; i < SnippetStore::self()->rowCount(); ++i) {
         SnippetRepository *repo = SnippetRepository::fromItem(SnippetStore::self()->item(i));
-        if (repo && repo->fileTypes().count() == 1 && repo->fileTypes().first() == mode) {
+        if (repo && repo->fileTypes().count() == 1 && repo->fileTypes().constFirst() == mode) {
             match = repo;
             break;
         }

@@ -352,7 +352,7 @@ void KateApp::initPostApplicationCreation(KAboutData &aboutData)
             // get the token, if possible and export it to environment for later use
             const auto tokenAnswer = QDBusConnection::sessionBus().call(m);
             if (tokenAnswer.type() == QDBusMessage::ReplyMessage && !tokenAnswer.arguments().isEmpty()) {
-                const auto token = tokenAnswer.arguments().first().toString();
+                const auto token = tokenAnswer.arguments().constFirst().toString();
                 if (!token.isEmpty()) {
                     qputenv("XDG_ACTIVATION_TOKEN", token.toUtf8());
                 }

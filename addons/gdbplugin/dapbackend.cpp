@@ -649,7 +649,6 @@ void DapBackend::onCapabilitiesReceived(const dap::Capabilities &capabilities)
     setState(State::Initializing);
 
     QStringList text = {QStringLiteral("\n%1:\n").arg(i18n("server capabilities"))};
-    const QString tpl = QStringLiteral("* %1 \n");
     const auto format = [](const QString &field, bool value) {
         return QStringLiteral("* %1: %2\n").arg(field).arg(value ? i18n("supported") : i18n("unsupported"));
     };

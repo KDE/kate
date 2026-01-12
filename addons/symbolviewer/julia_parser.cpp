@@ -40,12 +40,9 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     QString name;
     QString module_name;
     QString params;
-    QString paramsSubstr;
     QString terseFuncAssignment;
     QString whereStmt;
     QString current_class_name;
-    QString mutable_kw;
-    QString lastControl;
 
     QTreeWidgetItem *node = nullptr;
     QTreeWidgetItem *functionNode = nullptr, *mtdNode = nullptr, *clsNode = nullptr;

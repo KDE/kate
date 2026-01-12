@@ -154,7 +154,7 @@ QList<GitUtils::Branch> GitUtils::getAllBranchesAndTags(const QString &repo, Ref
             } else if (ref & Tag && o.startsWith(QLatin1String("refs/tags/"))) {
                 static const int len = QStringLiteral("refs/tags/").length();
                 QString name = splitted[0].mid(len);
-                branches.append({.name = o.mid(len), .remote = {}, .refType = RefType::Tag, .lastCommit = QString()});
+                branches.append({.name = name, .remote = {}, .refType = RefType::Tag, .lastCommit = QString()});
             }
             branches.back().lastActivity = splitted[1];
         }

@@ -137,7 +137,6 @@ void StackView::updateThread(const dap::Thread &thread, Backend::ThreadState sta
     if (isActive) {
         if (m_activeThread != thread.id && m_activeThread != -1) {
             int oldActiveIdx = m_threadCombo->findData(m_activeThread);
-            const QPixmap pix = QIcon::fromTheme(QLatin1String("")).pixmap(10, 10);
             m_threadCombo->setItemIcon(oldActiveIdx, QIcon::fromTheme(QStringLiteral("arrow-right")).pixmap(10, 10));
         }
 

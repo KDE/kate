@@ -12,8 +12,6 @@ QTEST_MAIN(ByteArraySplitterTests)
 
 void ByteArraySplitterTests::test_data()
 {
-    const QByteArray b("hello\0world\0waqar", sizeof("hello\0world\0waqar") - 1);
-
     QTest::addColumn<QByteArray>("data");
     QTest::addColumn<char>("splitOn");
 

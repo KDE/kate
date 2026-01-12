@@ -298,7 +298,6 @@ void ConfigView::readConfig(const DebugPluginSessionConfig::ConfigData &config)
     m_targetCombo->clear();
 
     int lastTarget = config.lastTarget;
-    const QString targetKey(QStringLiteral("target_%1"));
 
     for (const auto &targetConf : config.targetConfigs) {
         if (!targetConf.isEmpty()) {
@@ -856,9 +855,9 @@ void ConfigView::initProjectPlugin()
             readTargetsFromLaunchJson();
         }
     };
-    QString projectPlugin = QLatin1String("kateprojectplugin");
-    QObject *pluginView = m_mainWindow->pluginView(QLatin1String("kateprojectplugin"));
-    slot(QLatin1String("kateprojectplugin"), pluginView);
+    QString projectPlugin = QStringLiteral("kateprojectplugin");
+    QObject *pluginView = m_mainWindow->pluginView(projectPlugin);
+    slot(projectPlugin, pluginView);
     connect(m_mainWindow, &KTextEditor::MainWindow::pluginViewCreated, this, slot);
 }
 

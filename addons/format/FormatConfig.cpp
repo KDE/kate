@@ -67,7 +67,7 @@ public:
                 return;
             }
             QJsonParseError err;
-            QJsonDocument doc = QJsonDocument::fromJson(m_edit.toPlainText().toUtf8(), &err);
+            QJsonDocument::fromJson(m_edit.toPlainText().toUtf8(), &err);
             if (err.error != QJsonParseError::NoError) {
                 m_errorLabel.setText(err.errorString());
                 m_errorLabel.setVisible(true);

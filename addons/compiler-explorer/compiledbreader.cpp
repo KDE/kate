@@ -82,7 +82,7 @@ QString CompileDBReader::argsForFile(const QString &compile_commandsPath, const 
 
         QFileInfo fi(cmpCmdFile);
         if (fi.isRelative()) {
-            QString dir = QDir::cleanPath(compileCommand.value(QStringLiteral("directory")).toString());
+            // QString dir = QDir::cleanPath(compileCommand.value(QStringLiteral("directory")).toString());
             //             QString file = QDir::cleanPath(dir + QStringLiteral("/") + cmpCmdFile);
         } else {
             if (fi.canonicalFilePath() == file) {

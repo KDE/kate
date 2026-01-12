@@ -110,7 +110,7 @@ public:
             return {};
         }
 
-        const QString severity = line.mid(spaceIdx + 1, idxColon - (spaceIdx + 1));
+        // const QString severity = line.mid(spaceIdx + 1, idxColon - (spaceIdx + 1));
 
         idxColon++;
         QString msg = line.mid(idxColon);

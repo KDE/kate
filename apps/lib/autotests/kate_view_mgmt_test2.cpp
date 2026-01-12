@@ -193,8 +193,6 @@ void KateViewManagementTest2::testMultipleViewCursorPositionIsRestored()
         // open two files aka tabs in order
         auto tab1 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc")));
         auto tab2 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kwrite/kateui.rc")));
-        const auto file1 = tab1->document()->url();
-        const auto file2 = tab2->document()->url();
 
         auto view1 = mw->activateView(tab1->document());
         auto view2 = mw->activateView(tab2->document());
@@ -276,12 +274,11 @@ void KateViewManagementTest2::testTabsKeepOrderOnRestore2()
 
     // open 5 files aka tabs in order
     auto tab1 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc")));
-    auto tab2 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kwrite/kateui.rc")));
+    /*auto tab2 =*/mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kwrite/kateui.rc")));
     auto tab3 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/textfilter/ui.rc")));
     auto tab4 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kategitblameplugin/ui.rc")));
     auto tab5 = mw->openUrl(QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/katesearch/ui.rc")));
     const QUrl file1 = tab1->document()->url();
-    const QUrl file2 = tab2->document()->url();
     const QUrl file3 = tab3->document()->url();
     const QUrl file4 = tab4->document()->url();
     const QUrl file5 = tab5->document()->url();

@@ -619,7 +619,6 @@ void BreakpointViewTest::testFunctionBreakpoints()
 {
     auto backend = std::make_unique<BreakpointBackend>();
     backend->isRunning = true;
-    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
     bv->addFunctionBreakpoint(QStringLiteral("func1"));
@@ -676,7 +675,6 @@ void BreakpointViewTest::testFunctionBreakpointUncheckCheck()
 {
     auto backend = std::make_unique<BreakpointBackend>();
     backend->isRunning = true;
-    const auto url = QUrl::fromLocalFile(QStringLiteral(":/kxmlgui5/kate/kateui.rc"));
     auto bv = std::make_unique<BreakpointView>(nullptr, backend.get(), nullptr);
 
     bv->addFunctionBreakpoint(QStringLiteral("func1"));

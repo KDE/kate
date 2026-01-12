@@ -2057,7 +2057,6 @@ void KateBuildView::updateProjectTargets()
             jsonTargetSet.insert(u"loaded_via_cmake"_s, false);
             jsonTargetSet.insert(u"name"_s, projectMap.value(u"name"_s).toString());
 
-            const QString defaultTarget = buildMap.value(u"default_target"_s).toString();
             QJsonArray jsonTargets;
             for (const QVariant &targetVariant : targets) {
                 QJsonObject jsonTarget;

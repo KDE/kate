@@ -43,7 +43,6 @@ static QString filenameFromMode(KTextEditor::Document *doc)
 
     const QString path = doc->url().toLocalFile();
     const QFileInfo fi(path);
-    const auto suffix = fi.suffix();
     const auto base = fi.baseName();
     // If the basename or suffix is missing, try to create a filename
     bool needsStdinFileName = fi.suffix().isEmpty() || fi.baseName().isEmpty();

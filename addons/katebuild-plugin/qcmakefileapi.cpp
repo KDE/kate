@@ -99,7 +99,6 @@ QStringList QCMakeFileApi::getCMakeRequestCommandLine() const
         return {};
     }
 
-    const QStringList commandLine = {m_cmakeExecutable, QStringLiteral("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"), m_buildDir};
     return {m_cmakeExecutable, QStringLiteral("-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"), m_buildDir};
 }
 
@@ -227,7 +226,7 @@ bool QCMakeFileApi::readReplyFiles()
     QJsonObject docObj = readJsonFile(indexFile);
     // qWarning() << "docObj: " << docObj;
 
-    QJsonObject cmakeObj = docObj.value(QStringLiteral("cmake")).toObject();
+    // QJsonObject cmakeObj = docObj.value(QStringLiteral("cmake")).toObject();
     // qWarning() << "cmake: " << cmakeObj;
 
     QJsonObject replyObj = docObj.value(QStringLiteral("reply")).toObject();

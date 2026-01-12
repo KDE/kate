@@ -43,12 +43,14 @@ KPartView::KPartView(const KPluginMetaData &service, QObject *parent)
     auto factoryResult = KPluginFactory::loadFactory(service.fileName());
     if (!factoryResult.plugin) {
         m_errorLabel = new QLabel(factoryResult.errorString);
+        m_errorLabel->setWordWrap(true);
     } else {
         m_part = factoryResult.plugin->create<KParts::ReadOnlyPart>(this);
     }
 
     if (!m_part) {
         m_errorLabel = new QLabel(factoryResult.errorString);
+        m_errorLabel->setWordWrap(true);
     } else if (!m_part->widget()) {
         // should not happen, but just be safe
         delete m_part;

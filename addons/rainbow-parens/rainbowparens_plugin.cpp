@@ -98,10 +98,6 @@ static void getSavedRangesForDoc(std::vector<RainbowParenPluginView::SavedRanges
 
 void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 {
-    if (!view) {
-        return;
-    }
-
     // disconnect and clear previous doc stuff
     if (m_activeView) {
         disconnect(m_activeView, &KTextEditor::View::verticalScrollPositionChanged, this, &RainbowParenPluginView::onScrollChanged);
@@ -140,6 +136,11 @@ void RainbowParenPluginView::viewChanged(KTextEditor::View *view)
 
     m_ranges.clear();
     m_activeView = view;
+
+    // can happen if we activate a widget, we still needed to do the above cleanups to avoid issues
+    if (!view) {
+        return;
+    }
 
     // get any existing ranges for this view
     getSavedRangesForDoc(m_savedRanges, m_ranges, m_activeView->document());

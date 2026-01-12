@@ -207,6 +207,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
 
     // handle config changes
     connect(KateApp::self(), &KateApp::configurationChanged, this, &KateViewSpace::readConfig);
+
     // handle document pin changes
     connect(KateApp::self(), &KateApp::documentPinStatusChanged, this, &KateViewSpace::updateDocumentIcon);
 
@@ -217,7 +218,16 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     connect(m_viewManager->mainWindow()->wrapper(), &KTextEditor::MainWindow::widgetRemoved, this, &KateViewSpace::updateTabBar);
 }
 
-KateViewSpace::~KateViewSpace() = default;
+KateViewSpace::~KateViewSpace()
+{
+    // avoid some no longer wanted signal handling
+    disconnect(this, &KateViewSpace::viewSpaceEmptied, m_viewManager, &KateViewManager::onViewSpaceEmptied);
+
+    // ensure views & widgets die early enough to handle all their signals
+    while (auto current = stack->currentWidget()) {
+        delete current;
+    }
+}
 
 void KateViewSpace::readConfig()
 {

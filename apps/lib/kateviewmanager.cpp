@@ -97,6 +97,10 @@ KateViewManager::~KateViewManager()
         mainWindow()->guiFactory()->removeClient(m_guiMergedView);
         m_guiMergedView = nullptr;
     }
+
+    // ensure views & widgets die early enough to handle all their signals
+    qDeleteAll(m_viewSpaceList);
+    m_viewSpaceList.clear();
 }
 
 void KateViewManager::readConfig()

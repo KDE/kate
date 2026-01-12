@@ -259,6 +259,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
 
 KateProjectPluginView::~KateProjectPluginView()
 {
+    // avoid that we trigger any view change or similar during destruction
+    // might lead to crashes, in any case, it is unwanted
+    disconnect(m_projectsCombo, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &KateProjectPluginView::slotCurrentChanged);
+    disconnect(m_gitToolView.get(), SIGNAL(toolVisibleChanged(bool)), this, SLOT(slotUpdateStatus(bool)));
+
     /**
      * cleanup for all views
      */

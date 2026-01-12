@@ -425,4 +425,11 @@ private:
       checkout branch button in the statusbar
      */
     std::unique_ptr<QToolButton> m_branchBtn = nullptr;
+
+    /**
+     * avoid that we trigger view changed inside
+     *   KTextEditor::MainWindow::viewChanged
+     * handling, that can lead to wrong view being activated, if e.g. not selectable in project tree
+     */
+    bool m_insideMainWindowViewChangedHandling = false;
 };

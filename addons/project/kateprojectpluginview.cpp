@@ -491,6 +491,9 @@ void KateProjectPluginView::slotViewChanged()
         return;
     }
 
+    // if we got triggered by signal: block further view changing on project change
+    m_insideMainWindowViewChangedHandling = sender();
+
     /**
      * connect to url changed, for auto load
      */
@@ -509,6 +512,9 @@ void KateProjectPluginView::slotViewChanged()
      * trigger slot once
      */
     slotDocumentUrlChanged(m_activeTextEditorView->document());
+
+    // unblock view changing
+    m_insideMainWindowViewChangedHandling = false;
 }
 
 void KateProjectPluginView::slotDocumentSaved()
@@ -525,7 +531,11 @@ void KateProjectPluginView::slotCurrentChanged(int index)
     // update focus proxy + open currently selected document
     if (QWidget *current = m_stackedProjectViews->currentWidget()) {
         m_stackedProjectViews->setFocusProxy(current);
-        static_cast<KateProjectView *>(current)->openSelectedDocument();
+
+        // switch view if not blocked
+        if (!m_insideMainWindowViewChangedHandling) {
+            static_cast<KateProjectView *>(current)->openSelectedDocument();
+        }
     }
 
     // update focus proxy

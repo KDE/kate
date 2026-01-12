@@ -18,6 +18,9 @@ QTEST_MAIN(KateSessionTest)
 
 void KateSessionTest::init()
 {
+    // ensure we are in test mode, for the part, too
+    QStandardPaths::setTestModeEnabled(true);
+
     m_tmpfile = new QTemporaryFile;
     QVERIFY(m_tmpfile->open());
 }

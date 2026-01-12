@@ -47,6 +47,9 @@ QList<KTextEditor::Document *> createTestDocumentsWithoutUrls(KateDocManager *do
 
 KateDocManagerTests::KateDocManagerTests(QObject *)
 {
+    // ensure we are in test mode, for the part, too
+    QStandardPaths::setTestModeEnabled(true);
+
     // ensure ui file can be found and the translation domain is set to avoid warnings
     qApp->setApplicationName(QStringLiteral("kate"));
     KLocalizedString::setApplicationDomain(QByteArrayLiteral("kate"));

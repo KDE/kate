@@ -456,11 +456,11 @@ KateBuildView::KateBuildView(KateBuildPlugin *plugin, KTextEditor::MainWindow *m
                                                                                ".warn-text {color:%1; background-color: %4;}"
                                                                                ".note-text {color:%1; background-color: %5;}"
                                                                                "pre{margin:0px;}")
-                                                                    .arg(fg.name(QColor::HexArgb))
-                                                                    .arg(linkBg.name(QColor::HexArgb))
-                                                                    .arg(errBg.name(QColor::HexArgb))
-                                                                    .arg(warnBg.name(QColor::HexArgb))
-                                                                    .arg(noteBg.name(QColor::HexArgb)));
+                                                                    .arg(fg.name(QColor::HexArgb),
+                                                                         linkBg.name(QColor::HexArgb),
+                                                                         errBg.name(QColor::HexArgb),
+                                                                         warnBg.name(QColor::HexArgb),
+                                                                         noteBg.name(QColor::HexArgb)));
         slotUpdateTextBrowser();
     };
     updateEditorColors(KTextEditor::Editor::instance());
@@ -1285,7 +1285,7 @@ void KateBuildView::loadCMakeTargets(const QString &cmakeFile)
 
     QModelIndex rootIndex = m_targetsUi->targetsModel.projectRootIndex();
     for (const QString &config : cmakeFA.getConfigurations()) {
-        QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName()).arg(cmakeFA.getBuildDir()).arg(config);
+        QString projectName = QStringLiteral("%1@%2 - [%3]").arg(cmakeFA.getProjectName(), cmakeFA.getBuildDir(), config);
         createCMakeTargetSet(rootIndex, projectName, cmakeFA, config);
     }
 
@@ -1332,13 +1332,11 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     const QModelIndex allIndex = setIndex;
 
     if (cmakeFA.hasInstallRule()) {
-        setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
-                                                            QStringLiteral("Install"),
-                                                            QStringLiteral("%1 --install \"%2\" --config \"%3\"")
-                                                                .arg(cmakeFA.getCMakeExecutable())
-                                                                .arg(cmakeFA.getBuildDir())
-                                                                .arg(cmakeConfig),
-                                                            QString());
+        setIndex = m_targetsUi->targetsModel.addCommandAfter(
+            setIndex,
+            QStringLiteral("Install"),
+            QStringLiteral("%1 --install \"%2\" --config \"%3\"").arg(cmakeFA.getCMakeExecutable()).arg(cmakeFA.getBuildDir()).arg(cmakeConfig),
+            QString());
     }
 
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
@@ -1353,9 +1351,7 @@ QModelIndex KateBuildView::createCMakeTargetSet(QModelIndex setIndex, const QStr
     setIndex = m_targetsUi->targetsModel.addCommandAfter(setIndex,
                                                          QStringLiteral("Rerun CMake"),
                                                          QStringLiteral("%1 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -B \"%2\" -S \"%3\"")
-                                                             .arg(cmakeFA.getCMakeExecutable())
-                                                             .arg(cmakeFA.getBuildDir())
-                                                             .arg(cmakeFA.getSourceDir()),
+                                                             .arg(cmakeFA.getCMakeExecutable(), cmakeFA.getBuildDir(), cmakeFA.getSourceDir()),
                                                          QString());
 
     QString cmakeGui = cmakeFA.getCMakeGuiExecutable();

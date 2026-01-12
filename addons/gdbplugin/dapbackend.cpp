@@ -462,7 +462,7 @@ void DapBackend::onOutputProduced(const dap::Output &output)
         if (channel.isEmpty()) {
             Q_EMIT(outputError(newLine(output.output)));
         } else {
-            Q_EMIT(outputError(QStringLiteral("\n(%1) %2").arg(channel).arg(output.output)));
+            Q_EMIT(outputError(QStringLiteral("\n(%1) %2").arg(channel, output.output)));
         }
     } else {
         Q_EMIT debuggeeOutput(output);
@@ -493,7 +493,7 @@ void DapBackend::onThreadEvent(const dap::ThreadEvent &info)
     }
     Q_EMIT threadUpdated(dap::Thread(info.threadId), state, m_currentThread.value_or(-1) == info.threadId);
 
-    Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(i18n("thread %1", QString::number(info.threadId)))));
+    Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason, i18n("thread %1", QString::number(info.threadId)))));
     // Request threads again with a debounce, some clients (flutter) send 0 threads the first time. Also, this keeps threads up to date
     m_requestThreadsTimer.start();
 }
@@ -537,7 +537,7 @@ void DapBackend::onModuleEvent(const dap::ModuleEvent &info)
         }
     }
 
-    Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason).arg(printModule(info.module))));
+    Q_EMIT outputText(printEvent(QStringLiteral("(%1) %2").arg(info.reason, printModule(info.module))));
 }
 
 void DapBackend::requestVariables(int variablesReference)
@@ -629,7 +629,7 @@ void DapBackend::onExpressionEvaluated(const QString &expression, const std::opt
         result = i18n("<not evaluated>");
     }
 
-    Q_EMIT outputText(QStringLiteral("\n(%1) = %2").arg(expression).arg(result));
+    Q_EMIT outputText(QStringLiteral("\n(%1) = %2").arg(expression, result));
 
     popRequest();
 }
@@ -650,7 +650,7 @@ void DapBackend::onCapabilitiesReceived(const dap::Capabilities &capabilities)
 
     QStringList text = {QStringLiteral("\n%1:\n").arg(i18n("server capabilities"))};
     const auto format = [](const QString &field, bool value) {
-        return QStringLiteral("* %1: %2\n").arg(field).arg(value ? i18n("supported") : i18n("unsupported"));
+        return QStringLiteral("* %1: %2\n").arg(field, value ? i18n("supported") : i18n("unsupported"));
     };
 
     text << format(i18n("conditional breakpoints"), capabilities.supportsConditionalBreakpoints)

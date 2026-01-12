@@ -213,7 +213,7 @@ void ConfigView::readDAPSettings()
                 conf.variables.append(var);
             }
 
-            m_clientCombo->addItem(QStringLiteral("%1 | %2").arg(itServer.key()).arg(itProfile.key()), conf.variables);
+            m_clientCombo->addItem(QStringLiteral("%1 | %2").arg(itServer.key(), itProfile.key()), conf.variables);
         }
 
         m_dapAdapterSettings[itServer.key()] = profiles;

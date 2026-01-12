@@ -252,7 +252,7 @@ void ConnectionSavePage::initializePage()
             name = QStringLiteral("%1%2").arg(QLatin1String("SQLite")).arg(i);
         }
     } else {
-        name = QStringLiteral("%1 on %2").arg(field(QStringLiteral("database")).toString()).arg(field(QStringLiteral("hostname")).toString()).simplified();
+        name = QStringLiteral("%1 on %2").arg(field(QStringLiteral("database")).toString(), field(QStringLiteral("hostname")).toString()).simplified();
 
         for (int i = 1; QSqlDatabase::contains(name); i++) {
             name = QStringLiteral("%1 on %2 (%3)")

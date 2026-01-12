@@ -1663,7 +1663,7 @@ public:
                 menu->addAction(i18n("No Actions"))->setEnabled(false);
             }
             for (const auto &action : actions) {
-                auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind).arg(action.title) : action.title;
+                auto text = action.kind.size() ? QStringLiteral("[%1] %2").arg(action.kind, action.title) : action.title;
                 menu->addAction(text, this, [this, action, snapshot, server]() {
                     applyWorkspaceEdit(action.edit, snapshot.get());
                     executeServerCommand(server, action.command);

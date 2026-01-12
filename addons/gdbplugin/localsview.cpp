@@ -36,7 +36,7 @@ QString nameTip(const dap::Variable &variable)
 {
     QString text = QStringLiteral("<qt>%1<qt>").arg(variable.name);
     if (variable.type && !variable.type->isEmpty()) {
-        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("type")).arg(variable.type.value());
+        text += QStringLiteral("<em>%1</em>: %2").arg(i18n("type"), variable.type.value());
     }
     return text;
 }

@@ -941,7 +941,7 @@ void DiagnosticsView::onDiagnosticsAdded(const FileDiagnostics &diagnostics)
             auto basename = QFileInfo(related.location.uri.toLocalFile()).fileName();
             // display line number is 1-based (as opposed to internal 0-based)
             auto location = QStringLiteral("%1:%2").arg(basename).arg(related.location.range.start().line() + 1);
-            relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location).arg(related.message));
+            relatedItemMessage->setText(QStringLiteral("[%1] %2").arg(location, related.message));
             relatedItemMessage->setData(diagnosticsIcon(DiagnosticSeverity::Information), Qt::DecorationRole);
             item->appendRow(relatedItemMessage);
         }

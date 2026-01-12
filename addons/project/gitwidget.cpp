@@ -978,7 +978,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     }
 
     // git diff br...br2 --name-only -z
-    auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--name-status")};
+    auto args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from, to), QStringLiteral("--name-status")};
 
     QProcess git;
 
@@ -1007,7 +1007,7 @@ void GitWidget::branchCompareFiles(const QString &from, const QString &to)
     }
 
     // get --num-stat
-    args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from).arg(to), QStringLiteral("--numstat"), QStringLiteral("-z")};
+    args = QStringList{QStringLiteral("diff"), QStringLiteral("%1...%2").arg(from, to), QStringLiteral("--numstat"), QStringLiteral("-z")};
 
     // early out if we can't find git
     if (!setupGitProcess(git, m_activeGitDirPath, args)) {

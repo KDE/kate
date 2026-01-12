@@ -697,8 +697,8 @@ QString MatchModel::matchToHtmlString(const Match &match) const
     post = post.toHtmlEscaped();
 
     // (line:col)[space][space] ...Line text pre [highlighted match] Line text post....
-    QString displayText = QStringLiteral("%1:%2").arg(nbsFormated(match.range.start().line() + 1, 3)).arg(nbsFormated(match.range.start().column() + 1, 3))
-        + pre + matchStr + post;
+    QString displayText =
+        QStringLiteral("%1:%2").arg(nbsFormated(match.range.start().line() + 1, 3), nbsFormated(match.range.start().column() + 1, 3)) + pre + matchStr + post;
 
     return displayText;
 }

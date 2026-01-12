@@ -240,7 +240,7 @@ static QString stringifyModel(QAbstractItemModel *model, const QModelIndex index
         const QString checkedStr = index.data(Qt::CheckStateRole).isValid()
             ? index.data(Qt::CheckStateRole).value<Qt::CheckState>() == Qt::Checked ? QStringLiteral("[x]") : QStringLiteral("[]")
             : QString();
-        ret += QStringLiteral(" %1%2\n").arg(checkedStr).arg(index.data().toString());
+        ret += QStringLiteral(" %1%2\n").arg(checkedStr, index.data().toString());
     }
 
     for (int r = 0; r < model->rowCount(index); r++) {

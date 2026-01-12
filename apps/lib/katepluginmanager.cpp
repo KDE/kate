@@ -95,7 +95,9 @@ void KatePluginManager::setupPluginList()
 
         for (auto dp : defaultPlugins) {
             if (QLatin1String(dp.name) == saveName) {
-                info.defaultLoad = true;
+                // ensure during unit tests, the plugins don't interfere
+                // the lsp stuff for example might want to start lsp servers
+                info.defaultLoad = !QStandardPaths::isTestModeEnabled();
                 info.sortOrder = dp.sortOrder;
                 break;
             }

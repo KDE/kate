@@ -97,22 +97,6 @@ KateViewManager::~KateViewManager()
         mainWindow()->guiFactory()->removeClient(m_guiMergedView);
         m_guiMergedView = nullptr;
     }
-
-    /**
-     * delete all views early
-     * else we do that later via the parent relation but we listen to ::destroyed signals that might
-     * use some members of this class
-     */
-    for (auto &view : m_views) {
-        delete view.first;
-    }
-    m_views.clear();
-
-    /**
-     * same for viewspaces, now that all views are gone
-     */
-    qDeleteAll(m_viewSpaceList);
-    m_viewSpaceList.clear();
 }
 
 void KateViewManager::readConfig()

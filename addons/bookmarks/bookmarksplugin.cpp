@@ -23,13 +23,16 @@
 namespace
 {
 
-const QString VirtualFileUrlScheme = QStringLiteral("kate");
+const QString VirtualFileUrlScheme()
+{
+    return QStringLiteral("kate");
+}
 
 QUrl getBookmarkUrl(KTextEditor::Document *document)
 {
     QUrl url = document->url();
     if (url.isEmpty()) {
-        url.setScheme(VirtualFileUrlScheme);
+        url.setScheme(VirtualFileUrlScheme());
         url.setHost(QString());
         url.setPath(document->documentName());
     }
@@ -229,7 +232,7 @@ void BookmarksPluginView::onBookmarkClicked(const QModelIndex &index)
 
 KTextEditor::View *BookmarksPluginView::openBookmark(const Bookmark &bookmark)
 {
-    if (bookmark.url.scheme() == VirtualFileUrlScheme) {
+    if (bookmark.url.scheme() == VirtualFileUrlScheme()) {
         auto app = KTextEditor::Editor::instance()->application();
         const QList<KTextEditor::Document *> docs = app->documents();
         for (KTextEditor::Document *doc : docs) {

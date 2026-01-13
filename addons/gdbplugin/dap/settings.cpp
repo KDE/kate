@@ -26,9 +26,13 @@ static constexpr QLatin1String HOST("host");
 static constexpr QLatin1String REDIRECT_STDERR("redirectStderr");
 static constexpr QLatin1String REDIRECT_STDOUT("redirectStdout");
 
-static std::random_device rd;
-static std::default_random_engine rng(rd());
-static std::uniform_int_distribution<> randomPort(40000, 65535);
+static int randomPort()
+{
+    static std::random_device rd;
+    static std::default_random_engine rng(rd());
+    static std::uniform_int_distribution<> randomPort(40000, 65535);
+    return randomPort(rng);
+}
 
 static bool checkSection(const QJsonObject &data, const QString &key)
 {
@@ -80,7 +84,7 @@ std::optional<QJsonObject> expandConfiguration(const QJsonObject &adapterSetting
     if (withSocket) {
         int port = out[PORT].toInt(-1);
         if ((port == 0) && resolvePort) {
-            port = randomPort(rng);
+            port = randomPort();
             out[PORT] = port;
         }
         if (port < 0) {
@@ -151,7 +155,7 @@ std::optional<QJsonObject> resolveClientPort(const QJsonObject &configuration)
 
     if (port == 0) {
         QJsonObject out(configuration);
-        out[PORT] = randomPort(rng);
+        out[PORT] = randomPort();
         return out;
     }
     return std::nullopt;

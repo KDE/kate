@@ -32,14 +32,18 @@
 K_PLUGIN_FACTORY_WITH_JSON(KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
 
 KateBtBrowserPlugin *KateBtBrowserPlugin::s_self = nullptr;
-static QStringList fileExtensions = QStringList{QStringLiteral("*.cpp"),
-                                                QStringLiteral("*.cxx"),
-                                                QStringLiteral("*.c"),
-                                                QStringLiteral("*.cc"),
-                                                QStringLiteral("*.h"),
-                                                QStringLiteral("*.hpp"),
-                                                QStringLiteral("*.hxx"),
-                                                QStringLiteral("*.moc")};
+
+QStringList fileExtensions()
+{
+    return QStringList{QStringLiteral("*.cpp"),
+                       QStringLiteral("*.cxx"),
+                       QStringLiteral("*.c"),
+                       QStringLiteral("*.cc"),
+                       QStringLiteral("*.h"),
+                       QStringLiteral("*.hpp"),
+                       QStringLiteral("*.hxx"),
+                       QStringLiteral("*.moc")};
+}
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent)
     : KTextEditor::Plugin(parent)
@@ -92,7 +96,7 @@ void KateBtBrowserPlugin::startIndexer()
     }
     KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("backtracebrowser"));
     indexer.setSearchPaths(cg.readEntry("search-folders", QStringList()));
-    indexer.setFilter(cg.readEntry("file-extensions", fileExtensions));
+    indexer.setFilter(cg.readEntry("file-extensions", fileExtensions()));
     indexer.start();
     Q_EMIT newStatus(i18n("Indexing files..."));
 }
@@ -317,13 +321,13 @@ void KateBtConfigWidget::reset()
     KConfigGroup cg(KSharedConfig::openConfig(), QStringLiteral("backtracebrowser"));
     lstFolders->clear();
     lstFolders->addItems(cg.readEntry("search-folders", QStringList()));
-    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QLatin1Char(' ')));
+    edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions()).join(QLatin1Char(' ')));
 }
 
 void KateBtConfigWidget::defaults()
 {
     lstFolders->clear();
-    edtExtensions->setText(fileExtensions.join(QLatin1Char(' ')));
+    edtExtensions->setText(fileExtensions().join(QLatin1Char(' ')));
 
     m_changed = true;
 }

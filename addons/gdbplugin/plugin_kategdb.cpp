@@ -43,8 +43,14 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KatePluginGDBFactory, "kategdbplugin.json", registerPlugin<KatePluginGDB>();)
 
-static const QString CONFIG_DEBUGPLUGIN{QStringLiteral("debugplugin")};
-static const QString CONFIG_DAP_CONFIG{QStringLiteral("DAPConfiguration")};
+QString debugPluginConfigGroup()
+{
+    return QStringLiteral("debugplugin");
+}
+QString dapConfigKey()
+{
+    return QStringLiteral("DAPConfiguration");
+}
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -74,16 +80,16 @@ KatePluginGDB::~KatePluginGDB() = default;
 
 void KatePluginGDB::readConfig()
 {
-    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_DEBUGPLUGIN);
-    m_configPath = config.readEntry(CONFIG_DAP_CONFIG, QUrl());
+    KConfigGroup config(KSharedConfig::openConfig(), debugPluginConfigGroup());
+    m_configPath = config.readEntry(dapConfigKey(), QUrl());
 
     Q_EMIT update();
 }
 
 void KatePluginGDB::writeConfig() const
 {
-    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_DEBUGPLUGIN);
-    config.writeEntry(CONFIG_DAP_CONFIG, m_configPath);
+    KConfigGroup config(KSharedConfig::openConfig(), debugPluginConfigGroup());
+    config.writeEntry(dapConfigKey(), m_configPath);
 
     Q_EMIT update();
 }

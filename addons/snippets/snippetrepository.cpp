@@ -28,8 +28,10 @@
 
 #include "snippetstore.h"
 
-static const QString defaultScript = QStringLiteral(
-    "\
+static const QString defaultScript()
+{
+    return QStringLiteral(
+        "\
 function fileName() { return document.fileName(); }\n\
 function fileUrl() { return document.url(); }\n\
 function encoding() { return document.encoding(); }\n\
@@ -37,11 +39,12 @@ function selection() { return view.selectedText(); }\n\
 function year() { return new Date().getFullYear(); }\n\
 function upper(x) { return x.toUpperCase(); }\n\
 function lower(x) { return x.toLowerCase(); }\n");
+}
 
 SnippetRepository::SnippetRepository(const QString &file)
     : QStandardItem(i18n("<empty repository>"))
     , m_file(file)
-    , m_script(defaultScript)
+    , m_script(defaultScript())
 {
     setIcon(QIcon::fromTheme(QStringLiteral("folder")));
     const auto &config = SnippetStore::self()->getConfig();

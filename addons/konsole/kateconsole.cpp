@@ -50,7 +50,11 @@
 
 K_PLUGIN_FACTORY_WITH_JSON(KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
-static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim"), QStringLiteral("git")};
+QStringList defaultEscapeExceptions()
+{
+    static const QStringList escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim"), QStringLiteral("git")};
+    return escapeExceptions;
+}
 
 // directory to use for given view
 static QString directoryForView(const KTextEditor::View *view)
@@ -668,7 +672,8 @@ void KateConsole::handleEsc(QEvent *e)
         return;
     }
 
-    QStringList exceptList = KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+    QStringList exceptList =
+        KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", defaultEscapeExceptions());
 
     if (!m_mw || !m_toolView || !e) {
         return;
@@ -821,7 +826,7 @@ void KateKonsoleConfigPage::reset()
     lePrefix->setText(config.readEntry("RunPrefix", ""));
     cbSetEditor->setChecked(config.readEntry("SetEditor", false));
     cbSetEscHideKonsole->setChecked(config.readEntry("KonsoleEscKeyBehaviour", true));
-    leEscExceptions->setText(config.readEntry("KonsoleEscKeyExceptions", s_escapeExceptions).join(QLatin1Char(',')));
+    leEscExceptions->setText(config.readEntry("KonsoleEscKeyExceptions", defaultEscapeExceptions()).join(QLatin1Char(',')));
 }
 
 #include "kateconsole.moc"

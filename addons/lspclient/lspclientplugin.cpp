@@ -22,7 +22,11 @@
 #include <QStandardPaths>
 #include <QTimer>
 
-static const QString CONFIG_LSPCLIENT(QStringLiteral("lspclient"));
+QString lspClientConfigGroup()
+{
+    return QStringLiteral("lspclient");
+}
+
 static constexpr char CONFIG_SYMBOL_DETAILS[] = "SymbolDetails";
 static constexpr char CONFIG_SYMBOL_TREE[] = "SymbolTree";
 static constexpr char CONFIG_SYMBOL_EXPAND[] = "SymbolExpand";
@@ -113,7 +117,7 @@ void LSPClientPlugin::readConfig()
     // the reference `defaults` with `const LSPClientPluginOptions defaults`.
     const auto &defaults = *this;
 
-    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_LSPCLIENT);
+    KConfigGroup config(KSharedConfig::openConfig(), lspClientConfigGroup());
 
     m_symbolDetails = config.readEntry(CONFIG_SYMBOL_DETAILS, defaults.m_symbolDetails);
     m_symbolTree = config.readEntry(CONFIG_SYMBOL_TREE, defaults.m_symbolTree);
@@ -157,7 +161,7 @@ void LSPClientPlugin::readConfig()
 
 void LSPClientPlugin::writeConfig() const
 {
-    KConfigGroup config(KSharedConfig::openConfig(), CONFIG_LSPCLIENT);
+    KConfigGroup config(KSharedConfig::openConfig(), lspClientConfigGroup());
     config.writeEntry(CONFIG_SYMBOL_DETAILS, m_symbolDetails);
     config.writeEntry(CONFIG_SYMBOL_TREE, m_symbolTree);
     config.writeEntry(CONFIG_SYMBOL_EXPAND, m_symbolExpand);

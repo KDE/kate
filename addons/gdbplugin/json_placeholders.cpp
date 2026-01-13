@@ -14,8 +14,19 @@
 
 namespace json
 {
-static const QRegularExpression rx_placeholder(QLatin1String(R"--(\$\{(#?[a-z]+(?:\.[a-z]+)*)(?:\|([a-z]+))?\})--"), QRegularExpression::CaseInsensitiveOption);
-static const QRegularExpression rx_cast(QLatin1String(R"--(^\$\{(#?[a-z]+(?:\.[a-z]+)*)\|(int|bool|list)\}$)--"), QRegularExpression::CaseInsensitiveOption);
+QRegularExpression placeholderRE()
+{
+    static const QRegularExpression rx_placeholder(QLatin1String(R"--(\$\{(#?[a-z]+(?:\.[a-z]+)*)(?:\|([a-z]+))?\})--"),
+                                                   QRegularExpression::CaseInsensitiveOption);
+    return rx_placeholder;
+}
+
+QRegularExpression castRE()
+{
+    static const QRegularExpression rx_cast(QLatin1String(R"--(^\$\{(#?[a-z]+(?:\.[a-z]+)*)\|(int|bool|list)\}$)--"),
+                                            QRegularExpression::CaseInsensitiveOption);
+    return rx_cast;
+}
 
 static std::optional<QString> valueAsString(const QJsonValue &);
 
@@ -147,7 +158,7 @@ static QString apply_filter(const QJsonValue &value, const QString &filter)
  */
 static std::optional<QJsonValue> cast_from_string(const QString &text, const VarMap &variables)
 {
-    const auto match = rx_cast.match(text);
+    const auto match = castRE().match(text);
 
     if (!match.hasMatch()) {
         return std::nullopt;
@@ -193,7 +204,7 @@ QJsonValue resolve(const QString &text, const VarMap &variables)
 
     QStringList parts;
 
-    auto matches = rx_placeholder.globalMatch(text);
+    auto matches = placeholderRE().globalMatch(text);
 
     int size = 0;
     while (matches.hasNext()) {
@@ -306,7 +317,7 @@ void findVariables(const QString &text, QSet<QString> &variables)
     if (text.isNull() || text.isEmpty()) {
         return;
     }
-    auto matches = rx_placeholder.globalMatch(text);
+    auto matches = placeholderRE().globalMatch(text);
     while (matches.hasNext()) {
         const auto match = matches.next();
         variables.insert(match.captured(1));

@@ -196,7 +196,10 @@ public:
     }
 };
 
-static const QString PROJECT_PLUGIN{QStringLiteral("kateprojectplugin")};
+QString projectPluginName()
+{
+    return QStringLiteral("kateprojectplugin");
+}
 
 // helper class to sync document changes to LSP server
 class LSPClientServerManagerImpl : public LSPClientServerManager
@@ -268,13 +271,13 @@ public:
         // stay tuned on project situation
         auto app = KTextEditor::Editor::instance()->application();
         auto h = [this](const QString &name, KTextEditor::Plugin *plugin) {
-            if (name == PROJECT_PLUGIN) {
+            if (name == projectPluginName()) {
                 m_projectPlugin = plugin;
                 monitorProjects(plugin);
             }
         };
         connect(app, &KTextEditor::Application::pluginCreated, this, h);
-        auto projectPlugin = app->plugin(PROJECT_PLUGIN);
+        auto projectPlugin = app->plugin(projectPluginName());
         m_projectPlugin = projectPlugin;
         monitorProjects(projectPlugin);
     }
@@ -383,7 +386,7 @@ public:
 
     QObject *projectPluginView(KTextEditor::MainWindow *mainWindow)
     {
-        return mainWindow->pluginView(PROJECT_PLUGIN);
+        return mainWindow->pluginView(projectPluginName());
     }
 
     QString documentLanguageId(KTextEditor::Document *doc)

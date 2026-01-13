@@ -37,7 +37,7 @@ void CompilerExplorerSvc::changeUrl(const QString &newUrl)
 
 void CompilerExplorerSvc::sendRequest(CompilerExplorer::Endpoints endpoint, const QString &additional)
 {
-    QString endp = CompilerExplorer::endpointsToString.value(endpoint);
+    QString endp = CompilerExplorer::endpointsToString().value(endpoint);
     QString requestUrl = url + endp + additional;
     QNetworkRequest req{QUrl{requestUrl}};
     req.setRawHeader("ACCEPT", "application/json");
@@ -86,13 +86,13 @@ void CompilerExplorerSvc::slotNetworkReply(QNetworkReply *reply)
     const QString path = reply->url().path().split(QLatin1Char('/')).at(2);
     CompilerExplorer::Endpoints endpoint;
     if (path.startsWith(QLatin1String("compilers"))) {
-        endpoint = CompilerExplorer::stringToEndpoint.value(QStringLiteral("compilers"));
+        endpoint = CompilerExplorer::stringToEndpoint().value(QStringLiteral("compilers"));
     } else if (path.startsWith(QLatin1String("compiler"))) {
-        endpoint = CompilerExplorer::stringToEndpoint.value(QStringLiteral("compiler"));
+        endpoint = CompilerExplorer::stringToEndpoint().value(QStringLiteral("compiler"));
     } else if (path.startsWith(QLatin1String("asm"))) {
         return;
     } else {
-        endpoint = CompilerExplorer::stringToEndpoint.value(path);
+        endpoint = CompilerExplorer::stringToEndpoint().value(path);
     }
     const QByteArray data = reply->readAll();
 

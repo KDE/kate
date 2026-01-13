@@ -1,3 +1,5 @@
+// clang-format off
+// NOLINTBEGIN
 #include <QRegularExpression>
 #include <QString>
 struct Completion {
@@ -3356,4 +3358,7 @@ static constexpr Completion completiontable[] = {
     {u"\\yen", u"U+000A5", u"¥", u"Yen Sign", 4},
     {u"\\yogh", u"U+00292", u"ʒ", u"Latin Small Letter Ezh / Latin Small Letter Yogh", 5},
     {u"\\zeta", u"U+003B6", u"ζ", u"Greek Small Letter Zeta", 5}};
-static const QRegularExpression latexexpr(QStringLiteral("\\\\:?[\\w)^!/:(+=-]+:?$"), QRegularExpression::DontCaptureOption);
+static const QRegularExpression latexexpr(QStringLiteral("\\\\:?[\\w)^!/:(+=-]+:?$"), QRegularExpression::DontCaptureOption);  // clazy:exclude=non-pod-global-static
+
+// NOLINTEND
+// clang-format off

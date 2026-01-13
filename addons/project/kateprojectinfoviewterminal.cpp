@@ -134,7 +134,11 @@ void KateProjectInfoViewTerminal::overrideShortcut(QKeyEvent *keyEvent, bool &ov
 }
 
 // share with konsole plugin
-static const QStringList s_escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim")};
+const QStringList &defaultEscapeExceptions()
+{
+    static const QStringList escapeExceptions{QStringLiteral("vi"), QStringLiteral("vim"), QStringLiteral("nvim")};
+    return escapeExceptions;
+}
 
 bool KateProjectInfoViewTerminal::ignoreEsc() const
 {
@@ -150,7 +154,7 @@ bool KateProjectInfoViewTerminal::ignoreEsc() const
     // Otherwise only ignore apps in given list
     else {
         const QStringList exceptList =
-            KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", s_escapeExceptions);
+            KConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Konsole")).readEntry("KonsoleEscKeyExceptions", defaultEscapeExceptions());
         const auto app = qobject_cast<TerminalInterface *>(m_konsolePart)->foregroundProcessName();
         return exceptList.contains(app);
     }

@@ -41,6 +41,11 @@
 
 #include <ktexteditor_utils.h>
 
+QString defaultCtagsCommand()
+{
+    return QStringLiteral("ctags -R --c++-types=+px --extras=+q --excmd=pattern --exclude=Makefile --exclude=.");
+}
+
 /******************************************************************/
 KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
@@ -107,7 +112,7 @@ KateCTagsView::KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
 
     QWidget *ctagsWidget = new QWidget(m_toolView.data());
     m_ctagsUi.setupUi(ctagsWidget);
-    m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+    m_ctagsUi.cmdEdit->setText(defaultCtagsCommand());
 
     m_ctagsUi.addButton->setToolTip(i18n("Add a directory to index."));
     m_ctagsUi.addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
@@ -197,7 +202,7 @@ void KateCTagsView::aboutToShow()
 /******************************************************************/
 void KateCTagsView::readSessionConfig(const KConfigGroup &cg)
 {
-    m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", DEFAULT_CTAGS_CMD));
+    m_ctagsUi.cmdEdit->setText(cg.readEntry("TagsGenCMD", defaultCtagsCommand()));
 
     int numEntries = cg.readEntry("SessionNumTargets", 0);
     QString nr;
@@ -640,7 +645,7 @@ bool KateCTagsView::eventFilter(QObject *obj, QEvent *event)
 /******************************************************************/
 void KateCTagsView::resetCMD()
 {
-    m_ctagsUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+    m_ctagsUi.cmdEdit->setText(defaultCtagsCommand());
 }
 
 /******************************************************************/

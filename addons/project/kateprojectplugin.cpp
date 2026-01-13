@@ -39,18 +39,48 @@
 
 namespace
 {
-const QString ProjectFileName = QStringLiteral(".kateproject");
-const QString GitFolderName = QStringLiteral(".git");
-const QString SubversionFolderName = QStringLiteral(".svn");
-const QString MercurialFolderName = QStringLiteral(".hg");
-const QString FossilCheckoutFileName = QStringLiteral(".fslckout");
+const QString ProjectFileName()
+{
+    return QStringLiteral(".kateproject");
+}
+const QString GitFolderName()
+{
+    return QStringLiteral(".git");
+}
+const QString SubversionFolderName()
+{
+    return QStringLiteral(".svn");
+}
+const QString MercurialFolderName()
+{
+    return QStringLiteral(".hg");
+}
+const QString FossilCheckoutFileName()
+{
+    return QStringLiteral(".fslckout");
+}
 
-const QString GitConfig = QStringLiteral("git");
-const QString SubversionConfig = QStringLiteral("subversion");
-const QString MercurialConfig = QStringLiteral("mercurial");
-const QString FossilConfig = QStringLiteral("fossil");
+const QString GitConfig()
+{
+    return QStringLiteral("git");
+}
+const QString SubversionConfig()
+{
+    return QStringLiteral("subversion");
+}
+const QString MercurialConfig()
+{
+    return QStringLiteral("mercurial");
+}
+const QString FossilConfig()
+{
+    return QStringLiteral("fossil");
+}
 
-const QStringList DefaultConfig = QStringList{GitConfig, SubversionConfig, MercurialConfig};
+const QStringList DefaultConfig()
+{
+    return QStringList{GitConfig(), SubversionConfig(), MercurialConfig()};
+}
 }
 
 KateProjectPlugin::KateProjectPlugin(QObject *parent)
@@ -185,8 +215,8 @@ KateProject *KateProjectPlugin::projectForDir(QDir dir, bool userSpecified)
         }
 
         // project file found => done
-        if (dir.exists(ProjectFileName)) {
-            return createProjectForFileName(dir.filePath(ProjectFileName));
+        if (dir.exists(ProjectFileName())) {
+            return createProjectForFileName(dir.filePath(ProjectFileName()));
         }
 
         // else: cd up, if possible or abort
@@ -326,7 +356,7 @@ void KateProjectPlugin::slotDocumentUrlChanged(KTextEditor::Document *document)
 KateProject *KateProjectPlugin::detectGit(const QDir &dir, const QVariantMap &baseProjectMap)
 {
     // allow .git as dir and file (file for git worktree stuff, https://git-scm.com/docs/git-worktree)
-    if (m_autoGit && dir.exists(GitFolderName)) {
+    if (m_autoGit && dir.exists(GitFolderName())) {
         return createProjectForRepository(QStringLiteral("git"), dir, baseProjectMap);
     }
 
@@ -335,7 +365,7 @@ KateProject *KateProjectPlugin::detectGit(const QDir &dir, const QVariantMap &ba
 
 KateProject *KateProjectPlugin::detectSubversion(const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    if (m_autoSubversion && dir.exists(SubversionFolderName) && QFileInfo(dir, SubversionFolderName).isDir()) {
+    if (m_autoSubversion && dir.exists(SubversionFolderName()) && QFileInfo(dir, SubversionFolderName()).isDir()) {
         return createProjectForRepository(QStringLiteral("svn"), dir, baseProjectMap);
     }
 
@@ -344,7 +374,7 @@ KateProject *KateProjectPlugin::detectSubversion(const QDir &dir, const QVariant
 
 KateProject *KateProjectPlugin::detectMercurial(const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    if (m_autoMercurial && dir.exists(MercurialFolderName) && QFileInfo(dir, MercurialFolderName).isDir()) {
+    if (m_autoMercurial && dir.exists(MercurialFolderName()) && QFileInfo(dir, MercurialFolderName()).isDir()) {
         return createProjectForRepository(QStringLiteral("hg"), dir, baseProjectMap);
     }
 
@@ -353,7 +383,7 @@ KateProject *KateProjectPlugin::detectMercurial(const QDir &dir, const QVariantM
 
 KateProject *KateProjectPlugin::detectFossil(const QDir &dir, const QVariantMap &baseProjectMap)
 {
-    if (m_autoFossil && dir.exists(FossilCheckoutFileName) && QFileInfo(dir, FossilCheckoutFileName).isReadable()) {
+    if (m_autoFossil && dir.exists(FossilCheckoutFileName()) && QFileInfo(dir, FossilCheckoutFileName()).isReadable()) {
         return createProjectForRepository(QStringLiteral("fossil"), dir, baseProjectMap);
     }
 
@@ -552,11 +582,11 @@ void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("project"));
 
-    const QStringList autorepository = config.readEntry("autorepository", DefaultConfig);
-    m_autoGit = autorepository.contains(GitConfig);
-    m_autoSubversion = autorepository.contains(SubversionConfig);
-    m_autoMercurial = autorepository.contains(MercurialConfig);
-    m_autoFossil = autorepository.contains(FossilConfig);
+    const QStringList autorepository = config.readEntry("autorepository", DefaultConfig());
+    m_autoGit = autorepository.contains(GitConfig());
+    m_autoSubversion = autorepository.contains(SubversionConfig());
+    m_autoMercurial = autorepository.contains(MercurialConfig());
+    m_autoFossil = autorepository.contains(FossilConfig());
 
     m_autoCMake = config.readEntry("autoCMake", true);
 
@@ -580,19 +610,19 @@ void KateProjectPlugin::writeConfig()
     QStringList repos;
 
     if (m_autoGit) {
-        repos << GitConfig;
+        repos << GitConfig();
     }
 
     if (m_autoSubversion) {
-        repos << SubversionConfig;
+        repos << SubversionConfig();
     }
 
     if (m_autoMercurial) {
-        repos << MercurialConfig;
+        repos << MercurialConfig();
     }
 
     if (m_autoFossil) {
-        repos << FossilConfig;
+        repos << FossilConfig();
     }
 
     config.writeEntry("autorepository", repos);

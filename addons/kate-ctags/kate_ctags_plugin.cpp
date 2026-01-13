@@ -69,7 +69,7 @@ KateCTagsConfigPage::KateCTagsConfigPage(QWidget *parent)
     : KTextEditor::ConfigPage(parent)
 {
     m_confUi.setupUi(this);
-    m_confUi.cmdEdit->setText(DEFAULT_CTAGS_CMD);
+    m_confUi.cmdEdit->setText(defaultCtagsCommand());
     connect(m_confUi.cmdEdit, &QLineEdit::textEdited, this, &KateCTagsConfigPage::changed);
 
     m_confUi.addButton->setToolTip(i18n("Add a directory to index."));
@@ -131,7 +131,7 @@ void KateCTagsConfigPage::apply()
 void KateCTagsConfigPage::reset()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("CTags"));
-    m_confUi.cmdEdit->setText(config.readEntry("GlobalCommand", DEFAULT_CTAGS_CMD));
+    m_confUi.cmdEdit->setText(config.readEntry("GlobalCommand", defaultCtagsCommand()));
 
     int numEntries = config.readEntry("GlobalNumTargets", 0);
     QString nr;

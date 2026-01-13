@@ -74,6 +74,8 @@ completionchars = set()
 wordchars = set(list(ascii_letters) + list(digits) + ["_"])
 with open(OUTFNAME, "w", encoding="utf-8") as out:
     out.write(f"""\
+// clang-format off
+// NOLINTBEGIN
 #include <QString>
 #include <QRegularExpression>
 struct Completion {{
@@ -119,4 +121,6 @@ static constexpr Completion completiontable[] = {{
     if have_dash:
         charclass += "-"
 
-    out.write(f'static const QRegularExpression latexexpr(QStringLiteral("\\\\\\\\:?[\\\\w{charclass}]+:?$"), QRegularExpression::DontCaptureOption);\n')
+    out.write(f'static const QRegularExpression latexexpr(QStringLiteral("\\\\\\\\:?[\\\\w{charclass}]+:?$"), QRegularExpression::DontCaptureOption); // clazy:exclude=non-pod-global-static\n')
+    out.write('// NOLINTEND')
+    out.write('// clang-format on')

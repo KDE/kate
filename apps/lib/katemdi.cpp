@@ -68,7 +68,10 @@ static KToggleAction *createToolViewToggleAction(const QString &text, ToolView *
 
 // BEGIN GUICLIENT
 
-static const QString actionListName = QStringLiteral("kate_mdi_view_actions");
+QString actionListName()
+{
+    return QStringLiteral("kate_mdi_view_actions");
+}
 
 GUIClient::GUIClient(MainWindow *mw)
     : QObject(mw)
@@ -88,7 +91,7 @@ GUIClient::GUIClient(MainWindow *mw)
         "</gui>");
 
     if (domDocument().documentElement().isNull()) {
-        QString completeDescription = guiDescription.arg(actionListName);
+        QString completeDescription = guiDescription.arg(actionListName());
 
         setXML(completeDescription, false /*merge*/);
     }
@@ -247,14 +250,14 @@ void GUIClient::updateActions()
         return;
     }
 
-    unplugActionList(actionListName);
+    unplugActionList(actionListName());
 
     QList<QAction *> addList;
     addList.append(m_toolMenu);
     addList.append(m_sidebarButtonsMenu);
     addList.append(m_focusToolviewMenu);
 
-    plugActionList(actionListName, addList);
+    plugActionList(actionListName(), addList);
 }
 
 // END GUICLIENT

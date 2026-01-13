@@ -96,7 +96,11 @@ public:
 
 Q_DECLARE_METATYPE(ResultNode)
 
-static const ResultNode openWidgetsNode("Open Widgets", false);
+const ResultNode &openWidgetsNode()
+{
+    static const ResultNode openWidgetsResultNode("Open Widgets", false);
+    return openWidgetsResultNode;
+}
 
 namespace QTest
 {
@@ -327,7 +331,7 @@ void FileTreeModelTest::walkTree(KateFileTreeModel &model, const QModelIndex &ro
         walkTree(model, idx, node);
         rootNode << node;
     }
-    rootNode.children.removeAll(openWidgetsNode);
+    rootNode.children.removeAll(openWidgetsNode());
 }
 
 void FileTreeModelTest::buildTreeFullPath_data()

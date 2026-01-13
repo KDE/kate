@@ -202,7 +202,8 @@ void KateExternalToolServiceEditor::slotOKClicked()
 void KateExternalToolServiceEditor::showMTDlg()
 {
     QString text = i18n("Select the MimeTypes for which to enable this tool.");
-    QStringList list = ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
+    static const auto re = QRegularExpression(QStringLiteral("\\s*;\\s*"));
+    QStringList list = ui.edtMimeType->text().split(re, Qt::SkipEmptyParts);
     KMimeTypeChooserDialog d(i18n("Select Mime Types"), text, list, QStringLiteral("text"), this);
     if (d.exec() == QDialog::Accepted) {
         ui.edtMimeType->setText(d.chooser()->mimeTypes().join(QStringLiteral(";")));
@@ -353,7 +354,8 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
         tool->arguments = editor.ui.edtArgs->text();
         tool->input = editor.ui.edtInput->toPlainText();
         tool->workingDir = editor.ui.edtWorkingDir->text();
-        tool->mimetypes = editor.ui.edtMimeType->text().split(QRegularExpression(QStringLiteral("\\s*;\\s*")), Qt::SkipEmptyParts);
+        static const auto re = QRegularExpression(QStringLiteral("\\s*;\\s*"));
+        tool->mimetypes = editor.ui.edtMimeType->text().split(re, Qt::SkipEmptyParts);
         tool->saveMode = static_cast<KateExternalTool::SaveMode>(editor.ui.cmbSave->currentIndex());
         tool->reload = editor.ui.chkReload->isChecked();
         tool->outputMode = static_cast<KateExternalTool::OutputMode>(editor.ui.cmbOutput->currentIndex());
@@ -365,7 +367,8 @@ bool KateExternalToolsConfigWidget::editTool(KateExternalTool *tool)
 
         // sticky action collection name, never changes again, so that shortcuts stay
         if (tool->actionName.isEmpty()) {
-            tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(QRegularExpression(QStringLiteral("\\W+")));
+            static const auto nonIdentifierChars = QRegularExpression(QStringLiteral("\\W+"));
+            tool->actionName = QStringLiteral("externaltool_") + QString(tool->name).remove(nonIdentifierChars);
         }
 
         makeToolUnique(tool, m_plugin->tools());

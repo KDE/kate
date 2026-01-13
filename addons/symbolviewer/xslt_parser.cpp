@@ -53,6 +53,8 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
+    static const auto re4 = QRegularExpression(QStringLiteral("\".*"));
+
     bool is_comment = false, is_template = false;
     for (int i = 0; i < kv->lines(); i++) {
         QString cl = kv->line(i);
@@ -66,7 +68,8 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             continue;
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^</xsl:template>"))) >= 0) {
+        static const auto re1 = QRegularExpression(QStringLiteral("^</xsl:template>"));
+        if (cl.indexOf(re1) >= 0) {
             is_template = false;
             continue;
         }
@@ -75,9 +78,12 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             continue;
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^<xsl:param "))) == 0 && m_macro->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:param +name=\"")));
-            stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        static const auto re2 = QRegularExpression(QStringLiteral("^<xsl:param "));
+        if (cl.indexOf(re2) == 0 && m_macro->isChecked()) {
+            static const auto re3 = QRegularExpression(QStringLiteral("^<xsl:param +name=\""));
+            QString stripped = cl.remove(re3);
+
+            stripped.remove(re4);
 
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(mcrNode, lastMcrNode);
@@ -90,9 +96,11 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^<xsl:variable "))) == 0 && m_struct->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:variable +name=\"")));
-            stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        static const auto re5 = QRegularExpression(QStringLiteral("^<xsl:variable "));
+        if (cl.indexOf(re5) == 0 && m_struct->isChecked()) {
+            static const auto re6 = QRegularExpression(QStringLiteral("^<xsl:variable +name=\""));
+            QString stripped = cl.remove(re6);
+            stripped.remove(re4);
 
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(sctNode, lastSctNode);
@@ -105,9 +113,11 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^<xsl:template +match="))) == 0 && m_func->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:template +match=\"")));
-            stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        static const auto re7 = QRegularExpression(QStringLiteral("^<xsl:template +match="));
+        if (cl.indexOf(re7) == 0 && m_func->isChecked()) {
+            static const auto re8 = QRegularExpression(QStringLiteral("^<xsl:template +match=\""));
+            QString stripped = cl.remove(re8);
+            stripped.remove(re4);
 
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
@@ -120,9 +130,11 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^<xsl:template +name="))) == 0 && m_func->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^<xsl:template +name=\"")));
-            stripped.remove(QRegularExpression(QLatin1String("\".*")));
+        static const auto re9 = QRegularExpression(QStringLiteral("^<xsl:template +name="));
+        if (cl.indexOf(re9) == 0 && m_func->isChecked()) {
+            static const auto re10 = QRegularExpression(QStringLiteral("^<xsl:template +name=\""));
+            QString stripped = cl.remove(re10);
+            stripped.remove(re4);
 
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);

@@ -48,19 +48,23 @@ void KatePluginSymbolViewerView::parseXMLSymbols(void)
             continue;
         }
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*"))) == 0 && m_struct->isChecked()) {
+        static const auto re1 = QRegularExpression(QStringLiteral("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*"));
+        if (cl.indexOf(re1) == 0 && m_struct->isChecked()) {
             /* Get the tag type */
             QString type;
             QRegularExpressionMatch match;
-            QRegularExpression re(QLatin1String("^<([a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*)"));
+            static const QRegularExpression re(QStringLiteral("^<([a-zA-Z_]+[a-zA-Z0-9_\\.\\-]*)"));
             if (cl.contains(re, &match)) {
                 type = match.captured(1);
             } else {
                 continue;
             }
 
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]* *")));
-            stripped.remove(QRegularExpression(QLatin1String(" */*>.*")));
+            static const auto re2 = QRegularExpression(QStringLiteral("^<[a-zA-Z_]+[a-zA-Z0-9_\\.\\-]* *"));
+            QString stripped = cl.remove(re2);
+
+            static const auto re3 = QRegularExpression(QStringLiteral(" */*>.*"));
+            stripped.remove(re3);
 
             if (m_treeOn->isChecked()) {
                 /* See if group already exists */

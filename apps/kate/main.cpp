@@ -406,7 +406,8 @@ int main(int argc, char **argv)
                 QString text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
 
                 // normalize line endings, to e.g. catch issues with \r\n on Windows
-                text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
+                static const auto lineEndingsRE = QRegularExpression(QStringLiteral("\r\n?"));
+                text.replace(lineEndingsRE, QStringLiteral("\n"));
 
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                                                 QStringLiteral("/MainApplication"),

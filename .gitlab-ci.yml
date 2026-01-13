@@ -24,7 +24,7 @@ build_clazy:
     # only run on merge requests
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   variables:
-    CLAZY_CHECKS: clazy-range-loop-detach,clazy-strict-iterators,clazy-container-anti-pattern,clazy-unused-non-trivial-variable
+    CLAZY_CHECKS: clazy-range-loop-detach,clazy-strict-iterators,clazy-container-anti-pattern,clazy-unused-non-trivial-variable,clazy-use-static-qregularexpression
     CC: clang
     CXX: clazy
   script:

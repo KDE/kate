@@ -57,10 +57,13 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
         if (cl.isEmpty() || cl.at(0) == QLatin1Char('#')) {
             continue;
         }
-        if (cl.indexOf(QRegularExpression(QLatin1String("^=[a-zA-Z]"))) >= 0) {
+        static const auto commentRe = QRegularExpression(QStringLiteral("^=[a-zA-Z]"));
+        if (cl.indexOf(commentRe) >= 0) {
             is_comment = true;
         }
-        if (cl.indexOf(QRegularExpression(QLatin1String("^=cut$"))) >= 0) {
+
+        static const auto notCommentRe = QRegularExpression(QStringLiteral("^=cut$"));
+        if (cl.indexOf(notCommentRe) >= 0) {
             is_comment = false;
             continue;
         }
@@ -71,8 +74,10 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
         cl = cl.trimmed();
         // qDebug()<<"Trimmed line " << i << " : "<< cl;
 
-        if (cl.indexOf(QRegularExpression(QLatin1String("^use +[A-Z]"))) == 0 && m_macro->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^use +")));
+        static const auto re1 = QRegularExpression(QStringLiteral("^use +[A-Z]"));
+        static const auto usePlusAtBeginningRe = QRegularExpression(QLatin1String("^use +"));
+        if (cl.indexOf(re1) == 0 && m_macro->isChecked()) {
+            QString stripped = cl.remove(usePlusAtBeginningRe);
             // stripped=stripped.replace( QRegularExpression(QLatin1String(";$")), "" ); // Doesn't work ??
             stripped = stripped.left(stripped.indexOf(QLatin1Char(';')));
             if (m_treeOn->isChecked()) {
@@ -87,9 +92,11 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
             node->setText(1, QString::number(i, 10));
         }
 #if 1
-        if (cl.indexOf(QRegularExpression(QLatin1String("^use +[a-z]"))) == 0 && m_struct->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^use +")));
-            stripped.remove(QRegularExpression(QLatin1String(";$")));
+        static const auto re2 = QRegularExpression(QStringLiteral("^use +[a-z]"));
+        if (cl.indexOf(re2) == 0 && m_struct->isChecked()) {
+            QString stripped = cl.remove(usePlusAtBeginningRe);
+            static const auto semicolonAtEndRe = QRegularExpression(QStringLiteral(";$"));
+            stripped.remove(semicolonAtEndRe);
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(sctNode, lastSctNode);
                 lastMcrNode = node;
@@ -103,9 +110,11 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
         }
 #endif
 #if 1
-        if (cl.indexOf(QRegularExpression(QLatin1String("^sub +"))) == 0 && m_func->isChecked()) {
-            QString stripped = cl.remove(QRegularExpression(QLatin1String("^sub +")));
-            stripped.remove(QRegularExpression(QLatin1String("[{;] *$")));
+        static const auto re3 = QRegularExpression(QStringLiteral("^sub +"));
+        if (cl.indexOf(re3) == 0 && m_func->isChecked()) {
+            QString stripped = cl.remove(re3);
+            static const auto re = QRegularExpression(QStringLiteral("[{;] *$"));
+            stripped.remove(re);
             if (m_treeOn->isChecked()) {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
                 lastClsNode = node;

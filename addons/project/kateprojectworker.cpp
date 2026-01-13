@@ -28,6 +28,12 @@
 #include <algorithm>
 #include <vector>
 
+static QRegularExpression lineEndingsRE()
+{
+    static const auto re = QRegularExpression(QStringLiteral("[\n\r]"));
+    return re;
+}
+
 KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
     : m_baseDir(baseDir)
     , m_indexDir(indexDir)
@@ -518,7 +524,7 @@ void KateProjectWorker::filesFromMercurial(const QDir &dir, bool recursive, std:
         return;
     }
 
-    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(hg.readAllStandardOutput()).split(lineEndingsRE(), Qt::SkipEmptyParts);
 
     outFiles.reserve(relFiles.size());
     for (const QString &relFile : relFiles) {
@@ -556,7 +562,7 @@ void KateProjectWorker::filesFromSubversion(const QDir &dir, bool recursive, std
     /**
      * get output and split up into lines
      */
-    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+    const QStringList lines = QString::fromLocal8Bit(svn.readAllStandardOutput()).split(lineEndingsRE(), Qt::SkipEmptyParts);
 
     /**
      * remove start of line that is no filename, sort out unknown and ignore
@@ -641,7 +647,7 @@ void KateProjectWorker::filesFromDarcs(const QDir &dir, bool recursive, std::vec
             return;
         }
 
-        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+        relFiles = QString::fromLocal8Bit(darcs.readAllStandardOutput()).split(lineEndingsRE(), Qt::SkipEmptyParts);
     }
 
     outFiles.reserve(relFiles.size());
@@ -674,7 +680,7 @@ void KateProjectWorker::filesFromFossil(const QDir &dir, bool recursive, std::ve
         return;
     }
 
-    const QStringList relFiles = QString::fromLocal8Bit(fossil.readAllStandardOutput()).split(QRegularExpression(QStringLiteral("[\n\r]")), Qt::SkipEmptyParts);
+    const QStringList relFiles = QString::fromLocal8Bit(fossil.readAllStandardOutput()).split(lineEndingsRE(), Qt::SkipEmptyParts);
 
     outFiles.reserve(relFiles.size());
     for (const QString &relFile : relFiles) {

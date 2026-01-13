@@ -24,7 +24,7 @@ static QString eolDelimiter(const QString &str)
 
 static bool lineNoLessThan(const QString &lhs, const QString &rhs)
 {
-    const QRegularExpression rx(QStringLiteral("^#(\\d+)"));
+    static const QRegularExpression rx(QStringLiteral("^#(\\d+)"));
     QRegularExpressionMatch match = rx.match(lhs);
     int ilhs = match.capturedStart(0);
     int lhsLn = match.captured(1).toInt();

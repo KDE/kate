@@ -571,7 +571,8 @@ bool KateApp::startupKate()
             auto decoder = QStringDecoder(codec_name.toUtf8().constData());
             text = decoder.isValid() ? decoder.decode(input.readAll()) : QString::fromLocal8Bit(input.readAll());
             // normalize line endings, to e.g. catch issues with \r\n on Windows
-            text.replace(QRegularExpression(QStringLiteral("\r\n?")), QStringLiteral("\n"));
+            static const auto re = QRegularExpression(QStringLiteral("\r\n?"));
+            text.replace(re, QStringLiteral("\n"));
         }
         openInput(text, codec_name);
     } else if (doc) {

@@ -389,7 +389,8 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     // <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
     uint checkMaxLines = 200;
     QString documentStart = kv->document()->text(KTextEditor::Range(0, 0, checkMaxLines + 1, 0));
-    const QRegularExpression re(QStringLiteral("<!DOCTYPE\\s+\\b(\\w+)\\b\\s+PUBLIC\\s+[\"\']([^\"\']+?)[\"\']"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression re(QStringLiteral("<!DOCTYPE\\s+\\b(\\w+)\\b\\s+PUBLIC\\s+[\"\']([^\"\']+?)[\"\']"),
+                                       QRegularExpression::CaseInsensitiveOption);
     const QRegularExpressionMatch match = re.match(documentStart);
     QString filename;
     QString doctype;

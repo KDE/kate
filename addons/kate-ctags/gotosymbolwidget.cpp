@@ -93,7 +93,7 @@ public:
             }
             const QRegularExpression re(QStringLiteral("(") + QRegularExpression::escape(string) + QStringLiteral(")"),
                                         QRegularExpression::CaseInsensitiveOption);
-            str.replace(re, QStringLiteral("<b>\\1</b>"));
+            str.replace(re, QStringLiteral("<b>\\1</b>")); // clazy:exclude=use-static-qregularexpression
         }
 
         auto file = index.data(GotoGlobalSymbolModel::FileUrl).toString();

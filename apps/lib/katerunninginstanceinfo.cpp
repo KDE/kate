@@ -51,8 +51,9 @@ std::vector<KateRunningInstanceInfo> fillinRunningKateAppInstances()
 
     // try to filter out the current instance
     const bool inSandbox = QFileInfo::exists(QStringLiteral("/flatpak-info"));
-    const QString my_pid = inSandbox ? QDBusConnection::sessionBus().baseService().replace(QRegularExpression(QStringLiteral("[\\.:]")), QStringLiteral("_"))
-                                     : QString::number(QCoreApplication::applicationPid());
+    static const auto re = QRegularExpression(QStringLiteral("[\\.:]"));
+    const QString my_pid =
+        inSandbox ? QDBusConnection::sessionBus().baseService().replace(re, QStringLiteral("_")) : QString::number(QCoreApplication::applicationPid());
     const auto services = servicesReply.value();
     for (const QString &s : services) {
         if (s.startsWith(QLatin1String("org.kde.kate")) && !s.endsWith(my_pid)) {

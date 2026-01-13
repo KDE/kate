@@ -19,7 +19,8 @@ KeyboardMacrosPluginCommands::KeyboardMacrosPluginCommands(KeyboardMacrosPlugin 
 
 bool KeyboardMacrosPluginCommands::exec(KTextEditor::View *view, const QString &cmd, QString &msg, const KTextEditor::Range &)
 {
-    const QStringList &actionAndName = cmd.split(QRegularExpression(QStringLiteral("\\s+")));
+    static const auto spacesRE = QRegularExpression(QStringLiteral("\\s+"));
+    const QStringList &actionAndName = cmd.split(spacesRE);
     const QString &action = actionAndName[0];
     // kmplay can take either zero or one argument, all other commands require exactly one
     if (actionAndName.length() > 2 || (action != QStringLiteral("kmplay") && actionAndName.length() != 2)) {

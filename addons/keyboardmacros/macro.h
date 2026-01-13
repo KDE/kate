@@ -60,6 +60,6 @@ public:
                 str += QStringLiteral(" ") + kc.toString() + QStringLiteral(" ");
             }
         }
-        return str.trimmed().replace(QRegularExpression(QStringLiteral("\\s+")), QStringLiteral(" "));
+        return str.trimmed().simplified();
     };
 };

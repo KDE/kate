@@ -3,32 +3,33 @@
 # This file is distributed under the same license as the kate package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
-"Language: \n"
+"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
+"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
+"3 : 4\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:435
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:452
 #, kde-format
 msgid "Colored Brackets"
 msgstr ""
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:457
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr ""

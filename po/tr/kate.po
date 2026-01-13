@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:47+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-12-30 13:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -57,12 +57,12 @@ msgstr "Kate — Gelişmiş Metin Düzenleyicisi"
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "© 2000–2024 Kate Yazarları"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:219
 #, kde-format
 msgid "Start Kate with a given session."
 msgstr "Kate’i verilen oturum ile başlat."
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:219
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
 #, kde-format
 msgid "session"
 msgstr "oturum"
@@ -167,8 +167,8 @@ msgstr "K Yaz"
 msgid "KWrite - Text Editor"
 msgstr "K Yaz — Metin Düzenleyicisi"
 
-#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
-#: lib/kateviewmanager.cpp:367
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
+#: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "Dosya Aç"
@@ -2278,32 +2278,32 @@ msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "Dosya Adını Kopyala"
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "Dik&ey Olarak Böl"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "Geçerli etkin görünümü dikey olarak ikiye böl."
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:158
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "Ya&tay Olarak Böl"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "Geçerli etkin görünümü yatay olarak ikiye böl."
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:166
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr "Belgeyi Yeni Dikey Bölüntüye Taşı"
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:170
 #, kde-format
 msgid ""
 "Split the currently active view vertically into two views and move the "
@@ -2312,12 +2312,12 @@ msgstr ""
 "Geçerli etkin görünümü dikey olarak ikiye böl ve geçerli etkin belgeyi sağ "
 "görünüme taşı."
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr "Belgeyi Yeni Yatay Bölüntüye Taşı"
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:179
 #, kde-format
 msgid ""
 "Split the currently active view horizontally into two views and move the "
@@ -2326,188 +2326,188 @@ msgstr ""
 "Geçerli etkin görünümü yatay olarak ikiye böl ve geçerli etkin belgeyi aşağı "
 "görünüme taşı."
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "Geçerli Görünümü &Kapat"
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:188
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "Geçerli etkin bölünmüş görünümü kapat"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:192
 #, kde-format
 msgid "Close Inactive Views"
 msgstr "Etkin Olmayan Görünümleri Kapat"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:195
 #, kde-format
 msgid "Close every view but the active one"
 msgstr "Etkin olan dışındaki tüm görünümleri kapat"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:199
 #, kde-format
 msgid "Hide Inactive Views"
 msgstr "Etkin Olmayan Görünümleri Gizle"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:203
 #, kde-format
 msgid "Hide every view but the active one"
 msgstr "Etkin olan dışındaki tüm görünümleri gizle"
 
-#: lib/kateviewmanager.cpp:202
+#: lib/kateviewmanager.cpp:206
 #, kde-format
 msgid "Toggle Orientation"
 msgstr "Yönelimi Değiştir"
 
-#: lib/kateviewmanager.cpp:205
+#: lib/kateviewmanager.cpp:209
 #, kde-format
 msgid "Toggles the orientation of the current split view"
 msgstr "Güncel ayrık görünüm yönelimini değiştirir"
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:212
 #, kde-format
 msgid "Next Split View"
 msgstr "Sonraki Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:213
+#: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "Sonraki bölünmüş görünümü etkin olan yap."
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Previous Split View"
 msgstr "Önceki Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:221
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "Önceki bölünmüş görünümü etkin olan yap."
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:228
 #, kde-format
 msgid "Left Split View"
 msgstr "Sol Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:233
 #, kde-format
 msgid "Make the split view intuitively on the left the active one."
 msgstr "Soldaki bölünmüş görünümü sezgisel olarak etkin yap."
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:236
 #, kde-format
 msgid "Right Split View"
 msgstr "Sağ Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:237
+#: lib/kateviewmanager.cpp:241
 #, kde-format
 msgid "Make the split view intuitively on the right the active one."
 msgstr "Sağdaki bölünmüş görünümü sezgisel olarak etkin yap."
 
-#: lib/kateviewmanager.cpp:240
+#: lib/kateviewmanager.cpp:244
 #, kde-format
 msgid "Upward Split View"
 msgstr "Yukarı Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:249
 #, kde-format
 msgid "Make the split view intuitively upward the active one."
 msgstr "Yukarıdaki bölünmüş görünümü sezgisel olarak etkin yap."
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:252
 #, kde-format
 msgid "Downward Split View"
 msgstr "Aşağı Bölünmüş Görünüm"
 
-#: lib/kateviewmanager.cpp:253
+#: lib/kateviewmanager.cpp:257
 #, kde-format
 msgid "Make the split view intuitively downward the active one."
 msgstr "Aşağıdaki bölünmüş görünümü sezgisel olarak etkin yap."
 
-#: lib/kateviewmanager.cpp:256
+#: lib/kateviewmanager.cpp:260
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "Bölücüyü Sağa Taşı"
 
-#: lib/kateviewmanager.cpp:259
+#: lib/kateviewmanager.cpp:263
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "Geçerli görünümün ayırıcısını sağa doğru taşı"
 
-#: lib/kateviewmanager.cpp:262
+#: lib/kateviewmanager.cpp:266
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "Bölücüyü Sola Taşı"
 
-#: lib/kateviewmanager.cpp:265
+#: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "Geçerli görünümün ayırıcısını sola doğru taşı"
 
-#: lib/kateviewmanager.cpp:268
+#: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "Bölücüyü Yukarı Taşı"
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "Geçerli görünümün ayırıcısını yukarı doğru taşı"
 
-#: lib/kateviewmanager.cpp:274
+#: lib/kateviewmanager.cpp:278
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "Bölücüyü Aşağı Taşı"
 
-#: lib/kateviewmanager.cpp:277
+#: lib/kateviewmanager.cpp:281
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "Geçerli görünümün ayırıcısını aşağı doğru taşı"
 
-#: lib/kateviewmanager.cpp:280
+#: lib/kateviewmanager.cpp:284
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr "Dolaşım Çubuğuna Odaklan"
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr "Dolaşım çubuğuna odaklan"
 
-#: lib/kateviewmanager.cpp:288
+#: lib/kateviewmanager.cpp:292
 #, kde-format
 msgid "Welcome Page"
 msgstr "Karşılama Sayfası"
 
-#: lib/kateviewmanager.cpp:293
+#: lib/kateviewmanager.cpp:297
 #, kde-format
 msgid "Show the welcome page"
 msgstr "Karşılama sayfasını göster"
 
-#: lib/kateviewmanager.cpp:299
+#: lib/kateviewmanager.cpp:303
 #, kde-format
 msgid "Toggle Scroll Synchronization"
 msgstr "Sarma Eşzamanlamasını Aç/Kapat"
 
-#: lib/kateviewmanager.cpp:300
+#: lib/kateviewmanager.cpp:304
 #, kde-format
 msgid "Toggle scroll synchronization for the current view"
 msgstr "Geçerli görünüm için sarma eşzamanlamasını aç/kapat"
 
-#: lib/kateviewmanager.cpp:310
+#: lib/kateviewmanager.cpp:314
 #, kde-format
 msgid "Detach Active Document"
 msgstr "Etkin Belgeyi Ayır"
 
-#: lib/kateviewmanager.cpp:311
+#: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr "Etkin belgeyi yeni bir pencerede açıp geçerli penceredekini kapatır"
 
-#: lib/kateviewmanager.cpp:386
+#: lib/kateviewmanager.cpp:390
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2519,22 +2519,22 @@ msgstr ""
 "Kate’in bir süre yanıt verememek üzere durabileceğine dikkat edin.</strong></"
 "p>"
 
-#: lib/kateviewmanager.cpp:389
+#: lib/kateviewmanager.cpp:393
 #, kde-format
 msgid "Opening Large File"
 msgstr "Büyük Dosya Açılıyor"
 
-#: lib/kateviewmanager.cpp:592
+#: lib/kateviewmanager.cpp:596
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr "%1, klasörleri açamaz"
 
-#: lib/kateviewmanager.cpp:608
+#: lib/kateviewmanager.cpp:612
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr "Klasörleri açmak için gerekli eklenti bulunamadı"
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
@@ -2542,24 +2542,24 @@ msgstr ""
 "Klasörleri açmak için <b>%1</b> eklentisinin etkinleştirilmesi gerekiyor. "
 "Etkinleştirilsin mi?"
 
-#: lib/kateviewmanager.cpp:617
+#: lib/kateviewmanager.cpp:621
 #, kde-format
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "Klasör Aç"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr "Etkinleştir"
 
-#: lib/kateviewmanager.cpp:625
+#: lib/kateviewmanager.cpp:629
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr "<b>%1</b> eklentisi etkinleştirilemedi"
 
-#: lib/kateviewmanager.cpp:646
+#: lib/kateviewmanager.cpp:650
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr "“%1” dosyası yok"
@@ -2583,7 +2583,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:262
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "Tez Aç görünümüne geçmek için buraya tıklayın."
@@ -2593,7 +2593,7 @@ msgstr "Tez Aç görünümüne geçmek için buraya tıklayın."
 msgid "Control view space splitting"
 msgstr "Görünüm boşluk ayırmayı denetle"
 
-#: lib/kateviewspace.cpp:253
+#: lib/kateviewspace.cpp:263
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2608,47 +2608,47 @@ msgstr[1] ""
 "%1 belge daha açık. Tüm açık belgeleri görmek için buraya tıklayarak Tez Aç "
 "görünümüne geçebilirsiniz."
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1148
 #, kde-format
 msgid "&Close Tab"
 msgstr "Sekmeyi &Kapat"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1155
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "&Diğer Sekmeleri Kapat"
 
-#: lib/kateviewspace.cpp:1159
+#: lib/kateviewspace.cpp:1169
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Tüm &Sekmeleri Kapat"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1202
 #, kde-format
 msgid "D&etach Document"
 msgstr "Bel&geyi Ayır"
 
-#: lib/kateviewspace.cpp:1197
+#: lib/kateviewspace.cpp:1207
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "Belgeyi yeni bir pencerede açıp geçerli pencerede kapatır"
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1248
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Etkin Belgeyle Karşılaştır"
 
-#: lib/kateviewspace.cpp:1244
+#: lib/kateviewspace.cpp:1254
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Etkin Belgeyle Şunu Kullanarak Karşılaştır"
 
-#: lib/kateviewspace.cpp:1252
+#: lib/kateviewspace.cpp:1262
 #, kde-format
 msgid "Unpin Document"
 msgstr "Belgenin Sabitlenmesini Kaldır"
 
-#: lib/kateviewspace.cpp:1254
+#: lib/kateviewspace.cpp:1264
 #, kde-format
 msgid "Pin Document"
 msgstr "Belgeyi Sabitle"

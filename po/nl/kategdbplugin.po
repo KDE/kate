@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-12-23 16:12+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -154,29 +154,29 @@ msgid "Redirect the debugged programs IO to a separate tab"
 msgstr ""
 "De IO van het programma dat wordt gedebugd omleiden naar een apart tabblad"
 
-#: configview.cpp:398
+#: configview.cpp:397
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
 msgstr "Geen uitvoerbaar doel gezet"
 
-#: configview.cpp:408
+#: configview.cpp:407
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
 msgstr "Ongeldige proces-id"
 
-#: configview.cpp:530 configview.cpp:543
+#: configview.cpp:529 configview.cpp:542
 #, kde-format
 msgid "Target %1"
 msgstr "Doel %1"
 
-#: configview.cpp:766
+#: configview.cpp:765
 #, kde-format
 msgid "Select Executable"
 msgstr "Uitvoerbaar bestand selecteren"
 
-#: configview.cpp:779
+#: configview.cpp:778
 #, kde-format
 msgid "Select Working Directory"
 msgstr "Werkmap selecteren"
@@ -316,170 +316,170 @@ msgstr "<niet geëvalueerd>"
 msgid "server capabilities"
 msgstr "mogelijkheden van de server"
 
-#: dapbackend.cpp:654
+#: dapbackend.cpp:653
 #, kde-format
 msgid "supported"
 msgstr "ondersteund"
 
-#: dapbackend.cpp:654
+#: dapbackend.cpp:653
 #, kde-format
 msgid "unsupported"
 msgstr "niet-ondersteund"
 
-#: dapbackend.cpp:657
+#: dapbackend.cpp:656
 #, kde-format
 msgid "conditional breakpoints"
 msgstr "breekpunten met voorwaarden"
 
-#: dapbackend.cpp:658
+#: dapbackend.cpp:657
 #, kde-format
 msgid "function breakpoints"
 msgstr "functiebreekpunten"
 
-#: dapbackend.cpp:659
+#: dapbackend.cpp:658
 #, kde-format
 msgid "hit conditional breakpoints"
 msgstr "breekpunten met voorwaarden verbergen"
 
-#: dapbackend.cpp:660
+#: dapbackend.cpp:659
 #, kde-format
 msgid "log points"
 msgstr "punten loggen"
 
-#: dapbackend.cpp:660
+#: dapbackend.cpp:659
 #, kde-format
 msgid "modules request"
 msgstr "verzoeken uit modules"
 
-#: dapbackend.cpp:661
+#: dapbackend.cpp:660
 #, kde-format
 msgid "goto targets request"
 msgstr "ga naar verzoeken van doelen"
 
-#: dapbackend.cpp:662
+#: dapbackend.cpp:661
 #, kde-format
 msgid "terminate request"
 msgstr "verzoek beëindigen"
 
-#: dapbackend.cpp:663
+#: dapbackend.cpp:662
 #, kde-format
 msgid "terminate debuggee"
 msgstr "onderwerp van debug beëindigen"
 
-#: dapbackend.cpp:666
+#: dapbackend.cpp:665
 #, kde-format
 msgid "exception breakpoint filters"
 msgstr "uitzonderingsbreekpuntfilters"
 
-#: dapbackend.cpp:813
+#: dapbackend.cpp:812
 #, kde-format
 msgid "syntax error: expression not found"
 msgstr "syntaxisfout: expressie niet gevonden"
 
-#: dapbackend.cpp:832 dapbackend.cpp:868 dapbackend.cpp:908 dapbackend.cpp:943
-#: dapbackend.cpp:980 dapbackend.cpp:1017 dapbackend.cpp:1054
-#: dapbackend.cpp:1145 dapbackend.cpp:1199
+#: dapbackend.cpp:831 dapbackend.cpp:867 dapbackend.cpp:907 dapbackend.cpp:942
+#: dapbackend.cpp:979 dapbackend.cpp:1016 dapbackend.cpp:1053
+#: dapbackend.cpp:1144 dapbackend.cpp:1198
 #, kde-format
 msgid "syntax error: %1"
 msgstr "syntaxisfout: %1"
 
-#: dapbackend.cpp:840 dapbackend.cpp:876 dapbackend.cpp:1152
-#: dapbackend.cpp:1207
+#: dapbackend.cpp:839 dapbackend.cpp:875 dapbackend.cpp:1151
+#: dapbackend.cpp:1206
 #, kde-format
 msgid "invalid line: %1"
 msgstr "ongeldige regel: %1"
 
-#: dapbackend.cpp:848 dapbackend.cpp:853 dapbackend.cpp:884 dapbackend.cpp:889
-#: dapbackend.cpp:1177 dapbackend.cpp:1182 dapbackend.cpp:1215
-#: dapbackend.cpp:1220
+#: dapbackend.cpp:847 dapbackend.cpp:852 dapbackend.cpp:883 dapbackend.cpp:888
+#: dapbackend.cpp:1176 dapbackend.cpp:1181 dapbackend.cpp:1214
+#: dapbackend.cpp:1219
 #, kde-format
 msgid "file not specified: %1"
 msgstr "bestand niet gespecificeerd: %1"
 
-#: dapbackend.cpp:920 dapbackend.cpp:955 dapbackend.cpp:992 dapbackend.cpp:1029
-#: dapbackend.cpp:1066
+#: dapbackend.cpp:919 dapbackend.cpp:954 dapbackend.cpp:991 dapbackend.cpp:1028
+#: dapbackend.cpp:1065
 #, kde-format
 msgid "invalid thread id: %1"
 msgstr "ongeldig thread-id: %1"
 
-#: dapbackend.cpp:926 dapbackend.cpp:961 dapbackend.cpp:998 dapbackend.cpp:1035
-#: dapbackend.cpp:1072
+#: dapbackend.cpp:925 dapbackend.cpp:960 dapbackend.cpp:997 dapbackend.cpp:1034
+#: dapbackend.cpp:1071
 #, kde-format
 msgid "thread id not specified: %1"
 msgstr "thread-id niet gespecificeerd: %1"
 
-#: dapbackend.cpp:1083
+#: dapbackend.cpp:1082
 #, kde-format
 msgid "Available commands:"
 msgstr "Beschikbare commando's:"
 
-#: dapbackend.cpp:1162
+#: dapbackend.cpp:1161
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
 msgstr "breekpunten met voorwaarden worden niet ondersteund door de server"
 
-#: dapbackend.cpp:1170
+#: dapbackend.cpp:1169
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
 msgstr ""
 "breekpunten met voorwaarden verbergen wordt niet ondersteund door de server"
 
-#: dapbackend.cpp:1232
+#: dapbackend.cpp:1231
 #, kde-format
 msgid "Current thread: "
 msgstr "Huidige thread: "
 
-#: dapbackend.cpp:1237 dapbackend.cpp:1244 dapbackend.cpp:1265
+#: dapbackend.cpp:1236 dapbackend.cpp:1243 dapbackend.cpp:1264
 #, kde-format
 msgid "none"
 msgstr "geen"
 
-#: dapbackend.cpp:1240
+#: dapbackend.cpp:1239
 #, kde-format
 msgid "Current frame: "
 msgstr "Huidig frame: "
 
-#: dapbackend.cpp:1247
+#: dapbackend.cpp:1246
 #, kde-format
 msgid "Session state: "
 msgstr "Status van sessie: "
 
-#: dapbackend.cpp:1250
+#: dapbackend.cpp:1249
 #, kde-format
 msgid "initializing"
 msgstr "initialiseren"
 
-#: dapbackend.cpp:1253
+#: dapbackend.cpp:1252
 #, kde-format
 msgid "running"
 msgstr "draait"
 
-#: dapbackend.cpp:1256
+#: dapbackend.cpp:1255
 #, kde-format
 msgid "stopped"
 msgstr "gestopt"
 
-#: dapbackend.cpp:1259
+#: dapbackend.cpp:1258
 #, kde-format
 msgid "terminated"
 msgstr "beëindigd"
 
-#: dapbackend.cpp:1262
+#: dapbackend.cpp:1261
 #, kde-format
 msgid "disconnected"
 msgstr "verbinding verbroken"
 
-#: dapbackend.cpp:1320
+#: dapbackend.cpp:1319
 #, kde-format
 msgid "command not found"
 msgstr "commando niet gevonden"
 
-#: dapbackend.cpp:1355
+#: dapbackend.cpp:1354
 #, kde-format
 msgid "missing thread id"
 msgstr "ontbrekende thread-id"
 
-#: dapbackend.cpp:1508
+#: dapbackend.cpp:1507
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
 msgstr "Huidig frame [%3]: %1:%2 (%4)"
@@ -766,17 +766,17 @@ msgstr "Locatie"
 msgid "Thread %1"
 msgstr "Thread %1"
 
-#: stackview.cpp:168
+#: stackview.cpp:167
 #, kde-format
 msgid "Copy Stack Trace"
 msgstr "Stack-trace kopiëren"
 
-#: stackview.cpp:187
+#: stackview.cpp:186
 #, kde-format
 msgid "Open Location"
 msgstr "Locatie openen"
 
-#: stackview.cpp:194
+#: stackview.cpp:193
 #, kde-format
 msgid "Copy Location"
 msgstr "Locatie kopiëren"

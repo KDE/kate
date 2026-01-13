@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-10-12 19:47+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -237,7 +237,7 @@ msgstr "compile_commands.json für Datei „%1“ nicht gefunden."
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "Befehl für das Kompilieren der Datei „%1“ in „%2“ nicht gefunden."
 
-#: plugin_katebuild.cpp:1021
+#: plugin_katebuild.cpp:1023
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
@@ -246,7 +246,7 @@ msgstr ""
 "Ersetzung „%f“ kann nicht durchgeführt werden, weil keine Datei offen ist "
 "oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
-#: plugin_katebuild.cpp:1025
+#: plugin_katebuild.cpp:1027
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
@@ -255,7 +255,7 @@ msgstr ""
 "Ersetzung „%d“ kann nicht durchgeführt werden, weil keine Datei offen ist "
 "oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
-#: plugin_katebuild.cpp:1029
+#: plugin_katebuild.cpp:1031
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
@@ -264,19 +264,19 @@ msgstr ""
 "Ersetzung „%n“ kann nicht durchgeführt werden, weil keine Datei offen ist "
 "oder die aktuelle Datei noch nicht unter einem Namen gespeichert ist."
 
-#: plugin_katebuild.cpp:1040
+#: plugin_katebuild.cpp:1042
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
 "Ersetzung im Projekt (%B) kann nicht durchgeführt werden, weil kein Projekt "
 "geöffnet ist."
 
-#: plugin_katebuild.cpp:1053
+#: plugin_katebuild.cpp:1055
 #, kde-format
 msgid "Already building..."
 msgstr "Wird bereits erstellt …"
 
-#: plugin_katebuild.cpp:1091
+#: plugin_katebuild.cpp:1093
 #, kde-format
 msgid ""
 "Cannot execute: %1: %2 No working directory set.\n"
@@ -285,12 +285,12 @@ msgstr ""
 "%1: %2 kann nicht ausgeführt werden. Kein Arbeitsordner wurde bestimmt.\n"
 "Es ist keine lokale Datei oder kein lokaler Ordner zum Erstellen angegeben."
 
-#: plugin_katebuild.cpp:1212
+#: plugin_katebuild.cpp:1214
 #, kde-format
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "Ziel <b>%1: %2</b> wird erstellt …"
 
-#: plugin_katebuild.cpp:1249
+#: plugin_katebuild.cpp:1251
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -299,19 +299,19 @@ msgstr ""
 "Kann keine Ziele laden, weil die Datei %1 keinen korrekten CMAKE_COMMAND-"
 "Eintrag enthält!"
 
-#: plugin_katebuild.cpp:1262
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr ""
 "Dateibasierte API von CMake: Anfragedateien für den Erstellungsordner %1 "
 "können nicht geschrieben werden!"
 
-#: plugin_katebuild.cpp:1268
+#: plugin_katebuild.cpp:1270
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "CMake (%2) kann für Erstellungsordner %1 nicht ausgeführt werden!"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1279
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -320,12 +320,12 @@ msgstr ""
 "Dateibasierte API von CMake: Das Erstellen der Antwortdateien durch CMake "
 "für Erstellungsordner %1 ist fehlgeschlagen (verwendet wurde %2)!"
 
-#: plugin_katebuild.cpp:1396
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "Das Erstellungsmodul möchte ein Programm ausführen"
 
-#: plugin_katebuild.cpp:1399
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -338,87 +338,87 @@ msgstr ""
 "<br><br><b>%1</b><br><br>Fortfahren und den Befehl ausführen?<br><br>Die "
 "Auswahl kann auf der Konfigurationsseite des Moduls geändert werden."
 
-#: plugin_katebuild.cpp:1431
+#: plugin_katebuild.cpp:1439
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>Das Erstellen ist beendet:</title>%1"
 
-#: plugin_katebuild.cpp:1494
+#: plugin_katebuild.cpp:1502
 #, kde-format
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "Erstellen von <b>%1: %2</b> abgeschlossen. %3 Fehler, %4 Warnung(en), %5 "
 "Hinweis(e)"
 
-#: plugin_katebuild.cpp:1506
+#: plugin_katebuild.cpp:1514
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "Einen Fehler gefunden."
 msgstr[1] "%1 Fehler gefunden."
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1518
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "Eine Warnung gefunden."
 msgstr[1] "%1 Warnungen gefunden."
 
-#: plugin_katebuild.cpp:1513
+#: plugin_katebuild.cpp:1521
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "Einen Hinweis gefunden."
 msgstr[1] "%1 Hinweise gefunden."
 
-#: plugin_katebuild.cpp:1517
+#: plugin_katebuild.cpp:1525
 #, kde-format
 msgid "Build canceled."
 msgstr "Erstellen abgebrochen."
 
-#: plugin_katebuild.cpp:1521
+#: plugin_katebuild.cpp:1529
 #, kde-format
 msgid "Build failed."
 msgstr "Erstellen fehlgeschlagen."
 
-#: plugin_katebuild.cpp:1523
+#: plugin_katebuild.cpp:1531
 #, kde-format
 msgid "Build completed without problems."
 msgstr "Erstellen ohne Probleme abgeschlossen."
 
-#: plugin_katebuild.cpp:1527
+#: plugin_katebuild.cpp:1535
 #, kde-format
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 "Erstellen von <b>%1: %2 abgebrochen</b>. %3 Fehler, %4 Warnung(en), %5 "
 "Hinweis(e)"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1815
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "Fehler"
 
-#: plugin_katebuild.cpp:1810
+#: plugin_katebuild.cpp:1818
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "Warnung"
 
-#: plugin_katebuild.cpp:1813
+#: plugin_katebuild.cpp:1821
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "Hinweis"
 
-#: plugin_katebuild.cpp:1816
+#: plugin_katebuild.cpp:1824
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "Undefinierter Verweis"
 
-#: plugin_katebuild.cpp:2121
+#: plugin_katebuild.cpp:2128
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "Die Ziele für das Erstellen können nicht in %1 gespeichert werden"

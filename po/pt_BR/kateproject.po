@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-11-09 07:22-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -533,12 +533,12 @@ msgstr ""
 "Você tem certeza que deseja remover essas modificações não observadas pelo "
 "git?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Arquivo JSON mal formado '%1': %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -546,7 +546,7 @@ msgstr "Arquivo JSON mal formado '%1': %2"
 msgid "Project"
 msgstr "Projeto"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<não seguido>"
@@ -940,22 +940,22 @@ msgstr "Recarregar projeto"
 msgid "Checkout Git Branch"
 msgstr "Checkout git branch"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Procurar: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ir para: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Índice dos projetos"
 
-#: kateprojectpluginview.cpp:837
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Escolha uma pasta"

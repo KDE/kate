@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-12-12 21:56+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
@@ -526,12 +526,12 @@ msgstr "Dəyişiklikləri ləğv etmək istədiyinizə əminsiniz?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Qeyddən çıxarılmış dəyişiklikləri silmək istədiyinizə əminsiniz?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Səhv formatlanmış JSON \"%1\": %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -539,7 +539,7 @@ msgstr "Səhv formatlanmış JSON \"%1\": %2"
 msgid "Project"
 msgstr "Layihə"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<qeydə alınmamış>"
@@ -948,22 +948,22 @@ msgstr "Layihəni yenidən yükləyin"
 msgid "Checkout Git Branch"
 msgstr "Git şöbəsinin iş nüsxəsini almaq"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Araşdırmaq: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "GOTO: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Layihələrin indeksi"
 
-#: kateprojectpluginview.cpp:837
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Qovluq seçin"

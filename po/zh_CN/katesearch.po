@@ -698,6 +698,3 @@ msgstr "编辑(&E)"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "在文件变体中查找"
-
-#~ msgid "Export Pattern"
-#~ msgstr "导出搜索条件"

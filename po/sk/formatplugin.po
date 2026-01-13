@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: formatplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2023-12-09 09:24+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
-#: Formatters.cpp:361 Formatters.cpp:391
+#: FormatPlugin.cpp:237 Formatters.cpp:317 Formatters.cpp:337
+#: Formatters.cpp:360 Formatters.cpp:390
 #, kde-format
 msgid "Format"
 msgstr "Formát"
@@ -77,48 +77,48 @@ msgstr "Formátovať pri uložení"
 msgid "Disable formatting on save without persisting it in settings"
 msgstr ""
 
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr ""
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
 
-#: Formatters.cpp:188
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr ""
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr ""
 
-#: Formatters.cpp:216
+#: Formatters.cpp:215
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr ""
 
-#: Formatters.cpp:318
+#: Formatters.cpp:317
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr ""
 
-#: Formatters.cpp:338
+#: Formatters.cpp:337
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr ""
 
-#: Formatters.cpp:361
+#: Formatters.cpp:360
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr ""
 
-#: Formatters.cpp:391
+#: Formatters.cpp:390
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

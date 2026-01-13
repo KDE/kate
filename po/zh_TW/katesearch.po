@@ -4,20 +4,20 @@
 # Franklin Weng <franklin@mail.everfocus.com.tw>, 2011, 2012, 2013, 2014, 2015, 2017.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2017, 2020.
 # pan93412 <pan93412@gmail.com>, 2018, 2019, 2020.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024, 2025, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:46+0000\n"
-"PO-Revision-Date: 2025-09-22 03:51+0900\n"
+"PO-Revision-Date: 2026-01-13 01:23+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.07.70\n"
+"X-Generator: Lokalize 26.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: KateSearchCommand.cpp:88
@@ -61,6 +61,7 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"匯出樣式：\\0 代表整個符合項目，\\1、\\2、… 代表正則表達式的各個捕捉範圍"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -659,6 +660,8 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"用替換樣式來改變並匯出搜尋的符合項目。用 \\0 匯出整個符合項目。用 \\1、\\2、"
+"… 來匯出正則表達式的捕捉範圍；樣式裡其他的文字會回傳到匯出結果裡。"
 
 #: SearchPlugin.cpp:2288
 #, kde-format

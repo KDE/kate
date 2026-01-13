@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2019-12-18 18:06+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -526,12 +526,12 @@ msgstr ""
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 
-#: kateproject.cpp:356
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Project"
 msgstr "Projekt"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<tuvastamata>"
@@ -964,22 +964,22 @@ msgstr "Aktiivne projekt"
 msgid "Checkout Git Branch"
 msgstr ""
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Otsimine: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Liikumine: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Projekti indeks"
 
-#: kateprojectpluginview.cpp:837
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr ""

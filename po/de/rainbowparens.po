@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rainbowparens\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-11-08 23:54+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -18,18 +18,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 25.08.2\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:435
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "Klammerfarben"
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:452
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Farbige Klammern"
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:457
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Einstellungen für farbige Klammern"

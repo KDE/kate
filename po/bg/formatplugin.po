@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-08-31 23:27+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Lokalize 25.07.70\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:83
-#: FormatPlugin.cpp:237 Formatters.cpp:318 Formatters.cpp:338
-#: Formatters.cpp:361 Formatters.cpp:391
+#: FormatPlugin.cpp:237 Formatters.cpp:317 Formatters.cpp:337
+#: Formatters.cpp:360 Formatters.cpp:390
 #, kde-format
 msgid "Format"
 msgstr "Форматиране"
@@ -81,12 +81,12 @@ msgstr ""
 "Деактивиране на форматирането при запазване, без да го запазвате в "
 "настройките"
 
-#: Formatters.cpp:112
+#: Formatters.cpp:111
 #, kde-format
 msgid "%1: Unexpected empty command!"
 msgstr "%1: Неочаквана празна команда!"
 
-#: Formatters.cpp:119
+#: Formatters.cpp:118
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
@@ -94,37 +94,37 @@ msgstr ""
 "%1 не е инсталиран, моля, инсталирайте го, за да можете да форматирате този "
 "документ!"
 
-#: Formatters.cpp:188
+#: Formatters.cpp:187
 #, kde-format
 msgid "Please install node and prettier"
 msgstr "Моля, инсталирайте node и prettier"
 
-#: Formatters.cpp:195
+#: Formatters.cpp:194
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
 msgstr "PrettierFormat: Неуспешно създаване на временен файл"
 
-#: Formatters.cpp:216
+#: Formatters.cpp:215
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
 msgstr "PrettierFormat: Неуспешно стартиране  на 'node': %1"
 
-#: Formatters.cpp:318
+#: Formatters.cpp:317
 #, kde-format
 msgid "Unknown formatterForJson: %1"
 msgstr "Неизвестен formatterForJson: %1"
 
-#: Formatters.cpp:338
+#: Formatters.cpp:337
 #, kde-format
 msgid "Unknown formatterForPython: %1"
 msgstr "Неизвестен formatterForPython: %1"
 
-#: Formatters.cpp:361
+#: Formatters.cpp:360
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
 msgstr "Неизвестен formatterForYaml: %1, връщане към yamlfmt"
 
-#: Formatters.cpp:391
+#: Formatters.cpp:390
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
 msgstr ""

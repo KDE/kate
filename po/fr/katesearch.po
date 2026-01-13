@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:46+0000\n"
-"PO-Revision-Date: 2026-01-06 16:34+0100\n"
+"PO-Revision-Date: 2026-01-12 11:00+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.1\n"
 "X-Text-Markup: kde4\n"
 
 #: KateSearchCommand.cpp:88
@@ -70,6 +70,8 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"Motif d'exportation : \\0 pour une correspondance complète, \\1, \\2,… pour "
+"les captures d'expressions rationnelles"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -712,6 +714,11 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"Transformez et exportez les correspondances de recherche en utilisant un "
+"motif de remplacement. Pour exporter toutes les correspondances, veuillez "
+"utiliser \\0. Pour exporter les captures d’expressions rationnelles, "
+"veuillez utiliser \\1,\\2,... L’autre texte du motif est retourné dans les "
+"résultats d’exportation."
 
 #: SearchPlugin.cpp:2288
 #, kde-format

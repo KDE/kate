@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -230,38 +230,38 @@ msgstr "\"%1\" सञ्चिकायाः कृते compile_commands.json
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
 msgstr "\"%2\" मध्ये \"%1\" सञ्चिकायाः कृते संकलन आदेशः न प्राप्तः । "
 
-#: plugin_katebuild.cpp:1021
+#: plugin_katebuild.cpp:1023
 #, kde-format
 msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
 
-#: plugin_katebuild.cpp:1025
+#: plugin_katebuild.cpp:1027
 #, kde-format
 msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
 
-#: plugin_katebuild.cpp:1029
+#: plugin_katebuild.cpp:1031
 #, kde-format
 msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
 
-#: plugin_katebuild.cpp:1040
+#: plugin_katebuild.cpp:1042
 #, kde-format
 msgid "Cannot make project substitution (%B). No open project!"
 msgstr ""
 
-#: plugin_katebuild.cpp:1053
+#: plugin_katebuild.cpp:1055
 #, kde-format
 msgid "Already building..."
 msgstr "पूर्वमेव निर्माणं कुर्वन्..."
 
-#: plugin_katebuild.cpp:1091
+#: plugin_katebuild.cpp:1093
 #, fuzzy, kde-format
 #| msgid "There is no local file or directory specified for building."
 msgid ""
@@ -269,13 +269,13 @@ msgid ""
 "There is no local file or directory specified for building."
 msgstr "निर्माणार्थं स्थानीयसञ्चिका निर्देशिका वा निर्दिष्टा नास्ति ।"
 
-#: plugin_katebuild.cpp:1212
+#: plugin_katebuild.cpp:1214
 #, fuzzy, kde-format
 #| msgid "Building target <b>%1</b> ..."
 msgid "Building target <b>%1: %2</b> ..."
 msgstr "लक्ष्यं निर्माणं <b>%1</b> ..."
 
-#: plugin_katebuild.cpp:1249
+#: plugin_katebuild.cpp:1251
 #, kde-format
 msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
@@ -283,17 +283,17 @@ msgid ""
 msgstr ""
 "लक्ष्याणि लोड् कर्तुं न शक्यते, %1 सञ्चिकायां सम्यक् CMAKE_COMMAND प्रविष्टिः नास्ति !"
 
-#: plugin_katebuild.cpp:1262
+#: plugin_katebuild.cpp:1264
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
 msgstr "%1 निर्माणनिर्देशिकायाः कृते CMake File API प्रश्नसञ्चिकाः लिखितुं न शक्तम् !"
 
-#: plugin_katebuild.cpp:1268
+#: plugin_katebuild.cpp:1270
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
 msgstr "%1 निर्माणनिर्देशिकायाः कृते CMake (%2) चालयितुं न शक्यते !"
 
-#: plugin_katebuild.cpp:1277
+#: plugin_katebuild.cpp:1279
 #, kde-format
 msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
@@ -302,12 +302,12 @@ msgstr ""
 "%1 निर्माणनिर्देशिकायाः कृते CMake File API उत्तरसञ्चिकानां जननं विफलम् (%2 इत्यस्य "
 "उपयोगेन) !"
 
-#: plugin_katebuild.cpp:1396
+#: plugin_katebuild.cpp:1404
 #, kde-format
 msgid "Build plugin wants to execute program"
 msgstr "बिल्ड प्लगिन् प्रोग्राम् निष्पादयितुम् इच्छति"
 
-#: plugin_katebuild.cpp:1399
+#: plugin_katebuild.cpp:1407
 #, kde-format
 msgid ""
 "The Kate build plugin needs to execute an external command to read the "
@@ -320,7 +320,7 @@ msgstr ""
 "एतत् आदेशं चालयितुं अनुमन्यताम् ?<br><br> प्लगिन् इत्यस्य config पृष्ठद्वारा विकल्पं "
 "परिवर्तयितुं शक्यते ।"
 
-#: plugin_katebuild.cpp:1431
+#: plugin_katebuild.cpp:1439
 #, fuzzy, kde-kuit-format
 #| msgctxt "@info"
 #| msgid "<title>Make Results:</title><nl/>%1"
@@ -328,80 +328,80 @@ msgctxt "@info"
 msgid "<title>Build Finished:</title>%1"
 msgstr "<title>परिणामान् कुरुत : १.</title><nl/> %1"
 
-#: plugin_katebuild.cpp:1494
+#: plugin_katebuild.cpp:1502
 #, fuzzy, kde-format
 #| msgid "Build <b>%1</b> completed. %2 error(s), %3 warning(s), %4 note(s)"
 msgid "Build <b>%1: %2</b> completed. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1</b> निर्माणं सम्पन्नम् । %2 त्रुटि(s), %3 चेतावनी(s), %4 टिप्पणी(s)"
 
-#: plugin_katebuild.cpp:1506
+#: plugin_katebuild.cpp:1514
 #, kde-format
 msgid "Found one error."
 msgid_plural "Found %1 errors."
 msgstr[0] "एकः दोषः प्राप्तः।"
 msgstr[1] "%1 त्रुटयः प्राप्ताः।"
 
-#: plugin_katebuild.cpp:1510
+#: plugin_katebuild.cpp:1518
 #, kde-format
 msgid "Found one warning."
 msgid_plural "Found %1 warnings."
 msgstr[0] "एकं चेतावनीम् अवाप्तवान्।"
 msgstr[1] "%1 चेतावनी प्राप्ता।"
 
-#: plugin_katebuild.cpp:1513
+#: plugin_katebuild.cpp:1521
 #, kde-format
 msgid "Found one note."
 msgid_plural "Found %1 notes."
 msgstr[0] "एकं टिप्पणं प्राप्तम्।"
 msgstr[1] "%1 टिप्पण्यानि प्राप्तानि।"
 
-#: plugin_katebuild.cpp:1517
+#: plugin_katebuild.cpp:1525
 #, fuzzy, kde-format
 #| msgid "Build failed."
 msgid "Build canceled."
 msgstr "निर्माणं विफलम् अभवत्।"
 
-#: plugin_katebuild.cpp:1521
+#: plugin_katebuild.cpp:1529
 #, kde-format
 msgid "Build failed."
 msgstr "निर्माणं विफलम् अभवत्।"
 
-#: plugin_katebuild.cpp:1523
+#: plugin_katebuild.cpp:1531
 #, kde-format
 msgid "Build completed without problems."
 msgstr "निर्माणं समस्यां विना सम्पन्नम्।"
 
-#: plugin_katebuild.cpp:1527
+#: plugin_katebuild.cpp:1535
 #, fuzzy, kde-format
 #| msgid "Build <b>%1 canceled</b>. %2 error(s), %3 warning(s), %4 note(s)"
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1 निर्माणं रद्दं कृतम्</b> . %2 त्रुटि(s), %3 चेतावनी(s), %4 टिप्पणी(s)"
 
-#: plugin_katebuild.cpp:1807
+#: plugin_katebuild.cpp:1815
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "त्रुटि"
 
-#: plugin_katebuild.cpp:1810
+#: plugin_katebuild.cpp:1818
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "चेतवानी"
 
-#: plugin_katebuild.cpp:1813
+#: plugin_katebuild.cpp:1821
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "नोट|सूचना"
 
-#: plugin_katebuild.cpp:1816
+#: plugin_katebuild.cpp:1824
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "अनिर्धारितः सन्दर्भः"
 
-#: plugin_katebuild.cpp:2121
+#: plugin_katebuild.cpp:2128
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "निर्माणलक्ष्याणि रक्षितुं न शक्यते: %1"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-11-09 09:40+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -529,12 +529,12 @@ msgstr "Segur que voleu descartar els canvis?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -542,7 +542,7 @@ msgstr "Fitxer JSON «%1» amb format incorrecte: %2"
 msgid "Project"
 msgstr "Projecte"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<sense seguiment>"
@@ -938,22 +938,22 @@ msgstr "Torna a carregar el projecte"
 msgid "Checkout Git Branch"
 msgstr "Extrau la branca de Git"
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Busca: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Ves fins a: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Índex dels projectes"
 
-#: kateprojectpluginview.cpp:837
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Trieu un directori"

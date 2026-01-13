@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2025-11-01 16:19+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -18,18 +18,18 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 23.04.3\n"
 
-#: rainbowparens_plugin.cpp:434
+#: rainbowparens_plugin.cpp:435
 #, kde-format
 msgctxt "group title"
 msgid "Bracket Colors"
 msgstr "Кольори дужок"
 
-#: rainbowparens_plugin.cpp:451
+#: rainbowparens_plugin.cpp:452
 #, kde-format
 msgid "Colored Brackets"
 msgstr "Кольорові дужки"
 
-#: rainbowparens_plugin.cpp:456
+#: rainbowparens_plugin.cpp:457
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Параметри розфарбовування дужок"

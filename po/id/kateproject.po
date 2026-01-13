@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE Frameworks 5 Applications\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2024-10-03 20:40+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: https://t.me/Localizations_KDE_Indonesia\n"
@@ -546,12 +546,12 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "Apakah kamu yakin ingin menghapus perubahan yang tak terlacak tersebut?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr ""
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -559,7 +559,7 @@ msgstr ""
 msgid "Project"
 msgstr "Projek"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<tak terlacak>"
@@ -980,22 +980,22 @@ msgstr "Projek Sekarang"
 msgid "Checkout Git Branch"
 msgstr "Checkout Cabang Git "
 
-#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
+#: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
 msgid "Lookup: %1"
 msgstr "Pencarian: %1"
 
-#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
+#: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:808
 #, kde-format
 msgid "Goto: %1"
 msgstr "Menuju: %1"
 
-#: kateprojectpluginview.cpp:303
+#: kateprojectpluginview.cpp:308
 #, kde-format
 msgid "Projects Index"
 msgstr "Indeks Projek"
 
-#: kateprojectpluginview.cpp:837
+#: kateprojectpluginview.cpp:852
 #, kde-format
 msgid "Choose a directory"
 msgstr "Pilih sebuah direktori"

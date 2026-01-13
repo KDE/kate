@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2011-08-09 21:45+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <info@hanthana.org>\n"
@@ -25,7 +25,7 @@ msgid "Show Functions"
 msgstr "ක්‍රියාවන් පෙන්වන්න"
 
 #: bash_parser.cpp:28 cpp_parser.cpp:43 fortran_parser.cpp:40
-#: julia_parser.cpp:60 php_parser.cpp:34 python_parser.cpp:45
+#: julia_parser.cpp:57 php_parser.cpp:34 python_parser.cpp:45
 #: ruby_parser.cpp:33 tcl_parser.cpp:35
 #, kde-format
 msgid "Functions"
@@ -41,12 +41,12 @@ msgstr "මැක්‍රෝ පෙන්වන්න"
 msgid "Show Structures"
 msgstr "සැලසුම් පෙන්වන්න"
 
-#: cpp_parser.cpp:41 julia_parser.cpp:61
+#: cpp_parser.cpp:41 julia_parser.cpp:58
 #, kde-format
 msgid "Macros"
 msgstr "මැක්‍රෝ"
 
-#: cpp_parser.cpp:42 julia_parser.cpp:59
+#: cpp_parser.cpp:42 julia_parser.cpp:56
 #, kde-format
 msgid "Structures"
 msgstr "සැලසුම්"

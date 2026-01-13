@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-12 00:47+0000\n"
+"POT-Creation-Date: 2026-01-13 08:44+0000\n"
 "PO-Revision-Date: 2011-12-21 14:07+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -45,13 +45,13 @@ msgstr "Kate - កម្មវិធី​វាយ​អត្ថបទ​ក�
 msgid "(c) 2000-2024 The Kate Authors"
 msgstr "រក្សាសិទ្ធិ​ឆ្នាំ ២០០០-២០០៤ ដោយ​អ្នកនក​និពន្ធ Kate"
 
-#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:218
+#: kate/main.cpp:169 lib/autotests/kate_view_mgmt_test2.cpp:219
 #, fuzzy, kde-format
 #| msgid "Start Kate with a given session"
 msgid "Start Kate with a given session."
 msgstr "ចាប់ផ្តើម Kate ជាមួយ​នឹង​សម័យ​ដែល​បាន​ផ្តល់"
 
-#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:219
+#: kate/main.cpp:170 lib/autotests/kate_view_mgmt_test2.cpp:220
 #, fuzzy, kde-format
 #| msgid "Sessions"
 msgid "session"
@@ -173,8 +173,8 @@ msgstr "អ្នក​និពន្ធ KWrite"
 msgid "KWrite - Text Editor"
 msgstr "Kate - កម្មវិធី​វាយ​អត្ថបទ​កម្រិត​ខ្ពស់"
 
-#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:365
-#: lib/kateviewmanager.cpp:367
+#: lib/commitfilesview.cpp:444 lib/kateviewmanager.cpp:369
+#: lib/kateviewmanager.cpp:371
 #, kde-format
 msgid "Open File"
 msgstr "បើក​ឯកសារ"
@@ -2331,32 +2331,32 @@ msgctxt "@menu:action"
 msgid "Copy Filename"
 msgstr "ឈ្មោះ​ឯកសារ"
 
-#: lib/kateviewmanager.cpp:146
+#: lib/kateviewmanager.cpp:150
 #, kde-format
 msgid "Split Ve&rtical"
 msgstr "ពុះ​បញ្ឈរ"
 
-#: lib/kateviewmanager.cpp:150
+#: lib/kateviewmanager.cpp:154
 #, kde-format
 msgid "Split the currently active view vertically into two views."
 msgstr "ពុះ​បញ្ឈរ​ទិដ្ឋភាព​ដែល​បច្ចុប្បន្ន​កំពុង​សកម្ម ទៅ​ជា​ទិដ្ឋភាព​ពីរ ។"
 
-#: lib/kateviewmanager.cpp:154
+#: lib/kateviewmanager.cpp:158
 #, kde-format
 msgid "Split &Horizontal"
 msgstr "ពុះ​ផ្ដេក"
 
-#: lib/kateviewmanager.cpp:158
+#: lib/kateviewmanager.cpp:162
 #, kde-format
 msgid "Split the currently active view horizontally into two views."
 msgstr "ពុះ​ផ្ដេក​ទិដ្ឋភាព​ដែល​បច្ចុប្បន្ន​កំពុង​សកម្ម ទៅ​ជា​ទិដ្ឋភាព​ពីរ ។"
 
-#: lib/kateviewmanager.cpp:162
+#: lib/kateviewmanager.cpp:166
 #, kde-format
 msgid "Move Document to New Vertical Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:166
+#: lib/kateviewmanager.cpp:170
 #, fuzzy, kde-format
 #| msgid "Split the currently active view vertically into two views."
 msgid ""
@@ -2364,12 +2364,12 @@ msgid ""
 "currently active document to right view."
 msgstr "ពុះ​បញ្ឈរ​ទិដ្ឋភាព​ដែល​បច្ចុប្បន្ន​កំពុង​សកម្ម ទៅ​ជា​ទិដ្ឋភាព​ពីរ ។"
 
-#: lib/kateviewmanager.cpp:171
+#: lib/kateviewmanager.cpp:175
 #, kde-format
 msgid "Move Document to New Horizontal Split"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:175
+#: lib/kateviewmanager.cpp:179
 #, fuzzy, kde-format
 #| msgid "Split the currently active view horizontally into two views."
 msgid ""
@@ -2377,203 +2377,203 @@ msgid ""
 "currently active document to view below."
 msgstr "ពុះ​ផ្ដេក​ទិដ្ឋភាព​ដែល​បច្ចុប្បន្ន​កំពុង​សកម្ម ទៅ​ជា​ទិដ្ឋភាព​ពីរ ។"
 
-#: lib/kateviewmanager.cpp:180
+#: lib/kateviewmanager.cpp:184
 #, kde-format
 msgid "Cl&ose Current View"
 msgstr "បិទ​ទិដ្ឋភាព​បច្ចុប្បន្ន"
 
-#: lib/kateviewmanager.cpp:184
+#: lib/kateviewmanager.cpp:188
 #, kde-format
 msgid "Close the currently active split view"
 msgstr "បិទ​ទិដ្ឋភាព​ពុះ​ដែល​សកម្ម​បច្ចុប្បន្ន"
 
-#: lib/kateviewmanager.cpp:188
+#: lib/kateviewmanager.cpp:192
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Close Inactive Views"
 msgstr "បិទ​ទិដ្ឋភាព​បច្ចុប្បន្ន"
 
-#: lib/kateviewmanager.cpp:191
+#: lib/kateviewmanager.cpp:195
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Close every view but the active one"
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:195
+#: lib/kateviewmanager.cpp:199
 #, fuzzy, kde-format
 #| msgid "Cl&ose Current View"
 msgid "Hide Inactive Views"
 msgstr "បិទ​ទិដ្ឋភាព​បច្ចុប្បន្ន"
 
-#: lib/kateviewmanager.cpp:199
+#: lib/kateviewmanager.cpp:203
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Hide every view but the active one"
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:202
+#: lib/kateviewmanager.cpp:206
 #, kde-format
 msgid "Toggle Orientation"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:205
+#: lib/kateviewmanager.cpp:209
 #, fuzzy, kde-format
 #| msgid "Move the splitter of the current view up"
 msgid "Toggles the orientation of the current split view"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​​ឡើងលើ"
 
-#: lib/kateviewmanager.cpp:208
+#: lib/kateviewmanager.cpp:212
 #, kde-format
 msgid "Next Split View"
 msgstr "ទិដ្ឋភាព​ពុះ​បន្ទាប់"
 
-#: lib/kateviewmanager.cpp:213
+#: lib/kateviewmanager.cpp:217
 #, kde-format
 msgid "Make the next split view the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:216
+#: lib/kateviewmanager.cpp:220
 #, kde-format
 msgid "Previous Split View"
 msgstr "ទិដ្ឋភាព​​ពុះ​ពី​មុន"
 
-#: lib/kateviewmanager.cpp:221
+#: lib/kateviewmanager.cpp:225
 #, kde-format
 msgid "Make the previous split view the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​មុន ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:224
+#: lib/kateviewmanager.cpp:228
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Left Split View"
 msgstr "ទិដ្ឋភាព​ពុះ​បន្ទាប់"
 
-#: lib/kateviewmanager.cpp:229
+#: lib/kateviewmanager.cpp:233
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the left the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:232
+#: lib/kateviewmanager.cpp:236
 #, fuzzy, kde-format
 #| msgid "Next Split View"
 msgid "Right Split View"
 msgstr "ទិដ្ឋភាព​ពុះ​បន្ទាប់"
 
-#: lib/kateviewmanager.cpp:237
+#: lib/kateviewmanager.cpp:241
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively on the right the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:240
+#: lib/kateviewmanager.cpp:244
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Upward Split View"
 msgstr "ពុះ​ទិដ្ឋភាព"
 
-#: lib/kateviewmanager.cpp:245
+#: lib/kateviewmanager.cpp:249
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively upward the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:248
+#: lib/kateviewmanager.cpp:252
 #, fuzzy, kde-format
 #| msgid "Split View"
 msgid "Downward Split View"
 msgstr "ពុះ​ទិដ្ឋភាព"
 
-#: lib/kateviewmanager.cpp:253
+#: lib/kateviewmanager.cpp:257
 #, fuzzy, kde-format
 #| msgid "Make the next split view the active one."
 msgid "Make the split view intuitively downward the active one."
 msgstr "ធ្វើ​ឲ្យ​ទិដ្ឋភាព​ពុះ​បន្ទាប់ ជា​ទិដ្ឋភាព​សកម្ម ។"
 
-#: lib/kateviewmanager.cpp:256
+#: lib/kateviewmanager.cpp:260
 #, kde-format
 msgid "Move Splitter Right"
 msgstr "ផ្លាស់​ទី​កម្មវិធី​ពុះ​ខាង​ស្ដាំ"
 
-#: lib/kateviewmanager.cpp:259
+#: lib/kateviewmanager.cpp:263
 #, kde-format
 msgid "Move the splitter of the current view to the right"
 msgstr "ផ្លាស់​ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​ទៅ​ខាង​ស្ដាំ​"
 
-#: lib/kateviewmanager.cpp:262
+#: lib/kateviewmanager.cpp:266
 #, kde-format
 msgid "Move Splitter Left"
 msgstr "ផ្លាស់​ទី​​កម្មវិធី​ពុះ​ខាង​ឆ្វេង​"
 
-#: lib/kateviewmanager.cpp:265
+#: lib/kateviewmanager.cpp:269
 #, kde-format
 msgid "Move the splitter of the current view to the left"
 msgstr "ផ្លាស់​ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​ទៅ​ខាងឆ្វេង"
 
-#: lib/kateviewmanager.cpp:268
+#: lib/kateviewmanager.cpp:272
 #, kde-format
 msgid "Move Splitter Up"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​ឡើង​លើ"
 
-#: lib/kateviewmanager.cpp:271
+#: lib/kateviewmanager.cpp:275
 #, kde-format
 msgid "Move the splitter of the current view up"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​​ឡើងលើ"
 
-#: lib/kateviewmanager.cpp:274
+#: lib/kateviewmanager.cpp:278
 #, kde-format
 msgid "Move Splitter Down"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​ចុះក្រោម​"
 
-#: lib/kateviewmanager.cpp:277
+#: lib/kateviewmanager.cpp:281
 #, kde-format
 msgid "Move the splitter of the current view down"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​ចុះក្រោម"
 
-#: lib/kateviewmanager.cpp:280
+#: lib/kateviewmanager.cpp:284
 #, kde-format
 msgid "Focus Navigation Bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:281
+#: lib/kateviewmanager.cpp:285
 #, kde-format
 msgid "Focus the navigation bar"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:288
+#: lib/kateviewmanager.cpp:292
 #, kde-format
 msgid "Welcome Page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:293
+#: lib/kateviewmanager.cpp:297
 #, kde-format
 msgid "Show the welcome page"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:299
+#: lib/kateviewmanager.cpp:303
 #, kde-format
 msgid "Toggle Scroll Synchronization"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:300
+#: lib/kateviewmanager.cpp:304
 #, fuzzy, kde-format
 #| msgid "Move the splitter of the current view up"
 msgid "Toggle scroll synchronization for the current view"
 msgstr "ផ្លាស់ទី​កម្មវិធី​ពុះ​នៃ​ទិដ្ឋភាព​បច្ចុប្បន្ន​​ឡើងលើ"
 
-#: lib/kateviewmanager.cpp:310
+#: lib/kateviewmanager.cpp:314
 #, fuzzy, kde-format
 #| msgid "&Next Document"
 msgid "Detach Active Document"
 msgstr "ឯកសារ​បន្ទាប់​"
 
-#: lib/kateviewmanager.cpp:311
+#: lib/kateviewmanager.cpp:315
 #, kde-format
 msgid ""
 "Opens the active document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:386
+#: lib/kateviewmanager.cpp:390
 #, kde-format
 msgid ""
 "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do "
@@ -2581,47 +2581,47 @@ msgid ""
 "some time when opening large files.</strong></p>"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:389
+#: lib/kateviewmanager.cpp:393
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgid "Opening Large File"
 msgstr "បើក​ឯកសារ"
 
-#: lib/kateviewmanager.cpp:592
+#: lib/kateviewmanager.cpp:596
 #, kde-format
 msgid "%1 cannot open folders"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:608
+#: lib/kateviewmanager.cpp:612
 #, kde-format
 msgid "The plugin required to open folders was not found"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:614
+#: lib/kateviewmanager.cpp:618
 #, kde-format
 msgid ""
 "In order to open folders, the <b>%1</b> plugin must be enabled. Enable it?"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:617
+#: lib/kateviewmanager.cpp:621
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@title:window"
 msgid "Open Folder"
 msgstr "បើក​ឯកសារ"
 
-#: lib/kateviewmanager.cpp:618
+#: lib/kateviewmanager.cpp:622
 #, kde-format
 msgctxt "@action:button"
 msgid "Enable"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:625
+#: lib/kateviewmanager.cpp:629
 #, kde-format
 msgid "Failed to enable <b>%1</b> plugin"
 msgstr ""
 
-#: lib/kateviewmanager.cpp:646
+#: lib/kateviewmanager.cpp:650
 #, kde-format
 msgid "The file '%1' does not exist"
 msgstr ""
@@ -2643,7 +2643,7 @@ msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:252
+#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:262
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
@@ -2653,7 +2653,7 @@ msgstr ""
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:253
+#: lib/kateviewspace.cpp:263
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2663,55 +2663,55 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1138
+#: lib/kateviewspace.cpp:1148
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "&Close Tab"
 msgstr "បិទ"
 
-#: lib/kateviewspace.cpp:1145
+#: lib/kateviewspace.cpp:1155
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close &Other Tabs"
 msgstr "បិទ​ផ្សេងទៀត"
 
-#: lib/kateviewspace.cpp:1159
+#: lib/kateviewspace.cpp:1169
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All &Tabs"
 msgstr "បិទ​ទាំងអស់"
 
-#: lib/kateviewspace.cpp:1192
+#: lib/kateviewspace.cpp:1202
 #, fuzzy, kde-format
 #| msgid "&Next Document"
 msgid "D&etach Document"
 msgstr "ឯកសារ​បន្ទាប់​"
 
-#: lib/kateviewspace.cpp:1197
+#: lib/kateviewspace.cpp:1207
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1238
+#: lib/kateviewspace.cpp:1248
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:1244
+#: lib/kateviewspace.cpp:1254
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "បិទ​ឯកសារ​បច្ចុប្បន្ន ។"
 
-#: lib/kateviewspace.cpp:1252
+#: lib/kateviewspace.cpp:1262
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Unpin Document"
 msgstr "បើក​ឯកសារ"
 
-#: lib/kateviewspace.cpp:1254
+#: lib/kateviewspace.cpp:1264
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

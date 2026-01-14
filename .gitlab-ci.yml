@@ -24,10 +24,15 @@ build_clazy:
     # only run on merge requests
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   variables:
-    CLAZY_CHECKS: clazy-range-loop-detach,clazy-strict-iterators,clazy-container-anti-pattern,clazy-unused-non-trivial-variable,clazy-use-static-qregularexpression,clazy-non-pod-global-static,clazy-qstring-allocations
+    CLAZY_CHECKS: level0,level1,qstring-allocations,no-qstring-arg,no-connect-not-normalized,no-fully-qualified-moc-types,no-const-signal-or-slot,no-qproperty-without-notify,no-incorrect-emit,no-connect-3arg-lambda,no-range-loop-reference,no-wrong-qevent-cast,no-detaching-temporary,no-child-event-qobject-cast
     CC: clang
     CXX: clazy
   script:
     - git config --global --add safe.directory $CI_PROJECT_DIR
-    - python3 -u ci-utilities/run-ci-build.py --project $CI_PROJECT_NAME --branch $CI_COMMIT_REF_NAME --platform Linux/Qt6/Shared --only-setup-environment --extra-cmake-args="-DENABLE_PCH=OFF"
+    - python3 -u ci-utilities/run-ci-build.py --project $CI_PROJECT_NAME --branch $CI_COMMIT_REF_NAME --platform Linux/Qt6/Shared --only-setup-environment
+    - mkdir -p /tmp/kate_build
+    - cd /tmp/kate_build
+    # we don't care about clazy issues in tests
+    - cmake -DENABLE_PCH=OFF -DBUILD_TESTING=OFF -G Ninja -DCMAKE_INSTALL_PREFIX=$CI_PROJECT_DIR/_install -DKF6DocTools_FOUND=false $CI_PROJECT_DIR
+    - ninja -k 0
   artifacts: null

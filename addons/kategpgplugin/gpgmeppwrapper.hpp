@@ -41,7 +41,7 @@ private:
      * @param searchPattern_ The mail search pattern.
      * @return A list of matching GpgMe::Key
      */
-    std::vector<GpgME::Key> listKeys(bool showOnlyPrivateKeys_, const QString &searchPattern_ = QString::fromUtf8(""));
+    std::vector<GpgME::Key> listKeys(bool showOnlyPrivateKeys_, const QString &searchPattern_ = QLatin1String(""));
 
 public:
     GPGMeWrapper();

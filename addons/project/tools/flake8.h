@@ -79,7 +79,7 @@ public:
 
     FileDiagnostics parseLine(const QString &line) const override
     {
-        const QStringList elements = line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+        const QStringList elements = line.split(QStringLiteral("////"), Qt::SkipEmptyParts);
         const auto url = QUrl::fromLocalFile(elements[0]);
         Diagnostic d;
         d.message = elements[3];

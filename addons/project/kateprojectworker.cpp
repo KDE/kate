@@ -374,7 +374,7 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
     /**
      * shall we collect files recursively or not?
      */
-    const bool recursive = !filesEntry.contains(QLatin1String("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
+    const bool recursive = !filesEntry.contains(QStringLiteral("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
 
     /**
      * try the different version control systems first

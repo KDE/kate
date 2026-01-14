@@ -16,14 +16,14 @@ namespace json
 {
 QRegularExpression placeholderRE()
 {
-    static const QRegularExpression rx_placeholder(QLatin1String(R"--(\$\{(#?[a-z]+(?:\.[a-z]+)*)(?:\|([a-z]+))?\})--"),
+    static const QRegularExpression rx_placeholder(QStringLiteral(R"--(\$\{(#?[a-z]+(?:\.[a-z]+)*)(?:\|([a-z]+))?\})--"),
                                                    QRegularExpression::CaseInsensitiveOption);
     return rx_placeholder;
 }
 
 QRegularExpression castRE()
 {
-    static const QRegularExpression rx_cast(QLatin1String(R"--(^\$\{(#?[a-z]+(?:\.[a-z]+)*)\|(int|bool|list)\}$)--"),
+    static const QRegularExpression rx_cast(QStringLiteral(R"--(^\$\{(#?[a-z]+(?:\.[a-z]+)*)\|(int|bool|list)\}$)--"),
                                             QRegularExpression::CaseInsensitiveOption);
     return rx_cast;
 }

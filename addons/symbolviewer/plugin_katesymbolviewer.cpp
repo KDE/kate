@@ -513,7 +513,7 @@ QString KatePluginSymbolViewerConfigPage::fullName() const
 
 QIcon KatePluginSymbolViewerConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("code-class"));
+    return QIcon::fromTheme(QStringLiteral("code-class"));
 }
 
 void KatePluginSymbolViewerConfigPage::apply()

@@ -79,25 +79,25 @@ void KatePluginSymbolViewerView::parseJuliaSymbols(void)
     static const QString contStr(QChar(0x21b5));
     // static const QString contStr(0x21b5);
 
-    static const QRegularExpression comment_regexp(QLatin1String("[#]"), QRegularExpression::UseUnicodePropertiesOption);
-    static const QRegularExpression ml_docsctring_regexp(QLatin1String("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
-    static const QRegularExpression sl_docstring_regexp(QLatin1String("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression comment_regexp(QStringLiteral("[#]"), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression ml_docsctring_regexp(QStringLiteral("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression sl_docstring_regexp(QStringLiteral("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
 
-    static const QRegularExpression class_regexp(QLatin1String("(@[a-zA-Z0-9_\\s]+)?(?:struct|mutable\\s+struct)\\s+([\\w!a-zA-Z0-9_.]+)"),
+    static const QRegularExpression class_regexp(QStringLiteral("(@[a-zA-Z0-9_\\s]+)?(?:struct|mutable\\s+struct)\\s+([\\w!a-zA-Z0-9_.]+)"),
                                                  QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression function_regexp(
-        QLatin1String("(@[a-zA-Z0-9_\\s]+)?function\\s+([\\w:!.]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?$( where [\\w:<>=.\\{\\}]*\\s?$)?"),
+        QStringLiteral("(@[a-zA-Z0-9_\\s]+)?function\\s+([\\w:!.]+)\\s*(\\(.*[,;:\\{\\}\\s]*\\)?\\s*)?$( where [\\w:<>=.\\{\\}]*\\s?$)?"),
         QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression terse_function_regexp(
-        QLatin1String(
+        QStringLiteral(
             "^(@[a-zA-Z0-9_\\s]+ )?([\\w:.]+)?([\\w:\\{\\}!]+)(\\s?)(\\(.*[\\),;\\s]*\\))(\\s?)(where [\\w:<>.,\\s\\{\\}a-zA-Z0-9]*\\s?)?(\\s?)\\s*=\\s*(.*)$"),
         QRegularExpression::UseUnicodePropertiesOption);
 
-    static const QRegularExpression macro_regexp(QLatin1String("^macro ([\\w:\\{\\}!]+)(\\s*)(\\(.*\\))?"), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression macro_regexp(QStringLiteral("^macro ([\\w:\\{\\}!]+)(\\s*)(\\(.*\\))?"), QRegularExpression::UseUnicodePropertiesOption);
 
-    static const QRegularExpression assert_regexp(QLatin1String("@assert"));
+    static const QRegularExpression assert_regexp(QStringLiteral("@assert"));
 
     QRegularExpressionMatch match;
 

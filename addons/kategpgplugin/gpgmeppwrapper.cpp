@@ -33,7 +33,7 @@ QVector<QString> getUIDsForKey(GpgME::Key key)
 /// class functions
 GPGMeWrapper::GPGMeWrapper()
 {
-    loadKeys(false, true, QString::fromUtf8(""));
+    loadKeys(false, true, QLatin1String(""));
 }
 
 GPGMeWrapper::~GPGMeWrapper()

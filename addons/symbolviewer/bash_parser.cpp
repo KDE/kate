@@ -41,7 +41,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
 
     KTextEditor::Document *kDoc = m_mainWindow->activeView()->document();
 
-    static const QRegularExpression function_regexp(QLatin1String("^(function )?([a-zA-Z0-9-_]+) *\\( *\\)"));
+    static const QRegularExpression function_regexp(QStringLiteral("^(function )?([a-zA-Z0-9-_]+) *\\( *\\)"));
     QRegularExpressionMatch match;
 
     for (int i = 0; i < kDoc->lines(); i++) {

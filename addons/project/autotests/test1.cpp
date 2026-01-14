@@ -26,9 +26,9 @@ void Test1::cleanupTestCase()
 
 void Test1::testCommonParent()
 {
-    QCOMPARE(FileUtil::commonParent(QLatin1String("/usr/local/bin"), QLatin1String("/usr/local/bin")), QLatin1String("/usr/local/"));
-    QCOMPARE(FileUtil::commonParent(QLatin1String("/usr/local"), QLatin1String("/usr/local/bin")), QLatin1String("/usr/"));
-    QCOMPARE(FileUtil::commonParent(QLatin1String("~/dev/proj1"), QLatin1String("~/dev/proj222")), QLatin1String("~/dev/"));
+    QCOMPARE(FileUtil::commonParent(QStringLiteral("/usr/local/bin"), QStringLiteral("/usr/local/bin")), QStringLiteral("/usr/local/"));
+    QCOMPARE(FileUtil::commonParent(QStringLiteral("/usr/local"), QStringLiteral("/usr/local/bin")), QStringLiteral("/usr/"));
+    QCOMPARE(FileUtil::commonParent(QStringLiteral("~/dev/proj1"), QStringLiteral("~/dev/proj222")), QStringLiteral("~/dev/"));
 }
 
 void Test1::testShellCheckParsing()

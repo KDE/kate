@@ -48,7 +48,7 @@ ColorPickerInlineNoteProvider::ColorPickerInlineNoteProvider(KTextEditor::Docume
             m_startChangedLines = line;
             m_endChangedLines = -1;
         }
-        
+
         // Update end line regardless of which condition matched above
         m_endChangedLines = line >= m_endChangedLines ? line + 1 : m_endChangedLines;
     };
@@ -124,7 +124,7 @@ void ColorPickerInlineNoteProvider::updateColorMatchingCriteria()
         colorRegex = QStringLiteral("(?<![-])(%1)(?![-\\w])").arg(colorRegex);
     } else {
         // No matching criteria enabled. Set regex to negative lookahead to match nothing.
-        colorRegex = QLatin1String("(?!)");
+        colorRegex = QStringLiteral("(?!)");
     }
 
     m_colorRegex.setPattern(colorRegex);

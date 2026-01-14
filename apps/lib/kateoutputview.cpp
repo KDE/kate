@@ -29,7 +29,7 @@
 
 #include <ktexteditor_utils.h>
 
-#define GENERIC_ICON_NAME QLatin1String("dialog-scripts")
+#define GENERIC_ICON_NAME QStringLiteral("dialog-scripts")
 
 class BlockData : public QTextBlockUserData
 {

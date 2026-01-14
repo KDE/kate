@@ -253,7 +253,7 @@ public:
         QPoint wordEnd = m_view->mapToGlobal(m_view->cursorToCoordinate(wordRange.end()));
 
         // FIXME: need to account for line height multiplier but ktexteditor doesn't expose that apparently :/
-        auto fontConfig = m_view->configValue(QString::fromUtf8("font"));
+        auto fontConfig = m_view->configValue(QStringLiteral("font"));
         int lineHeight = QFontMetrics(fontConfig.value<QFont>()).height();
 
         // try to get right screen, important: QApplication::screenAt(p) might return nullptr

@@ -329,7 +329,7 @@ void SnippetRepository::parseFile()
             } else if (child.tagName() == QLatin1String("fillin")) {
                 const auto e = child.toElement();
                 script = child.text();
-                type = Snippet::stringToType(e.attribute(QLatin1String("type")));
+                type = Snippet::stringToType(e.attribute(QStringLiteral("type")));
             } else if (child.tagName() == QLatin1String("description")) {
                 description = child.text();
             }

@@ -96,10 +96,10 @@ public:
         }
 
         QProcess process;
-        args += {QLatin1String("dd"), QLatin1String("status=none")};
+        args += {QStringLiteral("dd"), QStringLiteral("status=none")};
         QStringList convs;
         if (!(flags & KIO::Overwrite))
-            convs.push_back(QLatin1String("excl"));
+            convs.push_back(QStringLiteral("excl"));
         if (convs.size())
             args.push_back(QStringLiteral("conv=%1").arg(convs.join(QLatin1Char(','))));
         args.push_back(QStringLiteral("of=%1").arg(destfile));

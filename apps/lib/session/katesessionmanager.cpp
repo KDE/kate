@@ -231,7 +231,7 @@ void KateSessionManager::loadSession(const KateSession::Ptr &session) const
     KConfig *cfg = sc;
     bool delete_cfg = false;
     // a new, named session, read settings of the default session.
-    if (!sc->hasGroup(QLatin1String("Open MainWindows"))) {
+    if (!sc->hasGroup(QStringLiteral("Open MainWindows"))) {
         delete_cfg = true;
         cfg = new KConfig(anonymousSessionFile(), KConfig::SimpleConfig);
     }

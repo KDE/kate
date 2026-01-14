@@ -536,15 +536,15 @@ int main(int argc, char **argv)
                  * pack info into the message as extra element in urls list
                  */
                 QVariantMap urlMessagePart;
-                urlMessagePart[QLatin1String("url")] = info.url;
-                urlMessagePart[QLatin1String("line")] = info.cursor.line();
-                urlMessagePart[QLatin1String("column")] = info.cursor.column();
+                urlMessagePart[QStringLiteral("url")] = info.url;
+                urlMessagePart[QStringLiteral("line")] = info.cursor.line();
+                urlMessagePart[QStringLiteral("column")] = info.cursor.column();
                 messageUrls.append(urlMessagePart);
             }
-            message[QLatin1String("urls")] = messageUrls;
+            message[QStringLiteral("urls")] = messageUrls;
 
             // add activation token
-            message[QLatin1String("activationToken")] = activationToken();
+            message[QStringLiteral("activationToken")] = activationToken();
 
             /**
              * try to send message, return success

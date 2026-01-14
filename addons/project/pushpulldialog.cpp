@@ -152,7 +152,7 @@ static QString getRemoteForCurrentBranch(const QString &repo, const QString &bra
 
 QStringList PushPullDialog::buildCmdStrings(Mode m)
 {
-    const QString arg = m == Push ? QLatin1String("push") : QLatin1String("pull");
+    const QString arg = m == Push ? QStringLiteral("push") : QStringLiteral("pull");
     const auto br = currentBranchName(m_repo);
     if (br.isEmpty()) {
         return {QStringLiteral("git %1").arg(arg)};

@@ -46,8 +46,8 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
         m_symbols->setRootIsDecorated(0);
     }
 
-    static const QRegularExpression function_regexp(QLatin1String("^(\\s*)def\\s+([self\\.]*[a-zA-Z0-9_]+)\\s*(\\(*.*\\)*)"));
-    static const QRegularExpression class_regexp(QLatin1String("^\\s*class\\s+([a-zA-Z0-9]+)"));
+    static const QRegularExpression function_regexp(QStringLiteral("^(\\s*)def\\s+([self\\.]*[a-zA-Z0-9_]+)\\s*(\\(*.*\\)*)"));
+    static const QRegularExpression class_regexp(QStringLiteral("^\\s*class\\s+([a-zA-Z0-9]+)"));
     QRegularExpressionMatch match;
 
     for (int i = 0; i < kv->lines(); i++) {

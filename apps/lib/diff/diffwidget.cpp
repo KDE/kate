@@ -596,11 +596,11 @@ void DiffWidget::showWithFullContextChanged(bool fullContextEnabled)
         m_paramsNoFullContext = m_params;
         int idx = m_params.arguments.indexOf(QLatin1String("--"));
         if (idx != -1) {
-            m_params.arguments.insert(idx, QLatin1String("-U5000"));
+            m_params.arguments.insert(idx, QStringLiteral("-U5000"));
         } else if (m_params.arguments.size() == 1) {
-            m_params.arguments << QLatin1String("-U5000");
+            m_params.arguments << QStringLiteral("-U5000");
         } else {
-            m_params.arguments.insert(2, QLatin1String("-U5000"));
+            m_params.arguments.insert(2, QStringLiteral("-U5000"));
         }
     } else {
         m_params = m_paramsNoFullContext;
@@ -850,11 +850,11 @@ void DiffWidget::parseAndShowDiff(const QByteArray &raw)
 
             if (m_params.flags.testFlag(DiffParams::ShowFileName)) {
                 if (srcFile.isEmpty() && !tgtFile.isEmpty()) {
-                    left.append(QLatin1String("---"));
+                    left.append(QStringLiteral("---"));
                     right.append(i18n("New file %1", Utils::fileNameFromPath(tgtFile)));
                 } else if (!srcFile.isEmpty() && tgtFile.isEmpty()) {
                     left.append(i18n("Deleted file %1", Utils::fileNameFromPath(srcFile)));
-                    right.append(QLatin1String("+++"));
+                    right.append(QStringLiteral("+++"));
                 } else {
                     left.append(Utils::fileNameFromPath(srcFile));
                     right.append(Utils::fileNameFromPath(tgtFile));

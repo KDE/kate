@@ -58,7 +58,7 @@ QString KateSQLConfigPage::fullName() const
 
 QIcon KateSQLConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("server-database"));
+    return QIcon::fromTheme(QStringLiteral("server-database"));
 }
 
 void KateSQLConfigPage::apply()

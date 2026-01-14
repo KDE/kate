@@ -153,8 +153,8 @@ KateExternalToolsPluginView::KateExternalToolsPluginView(KTextEditor::MainWindow
 {
     m_plugin->registerPluginView(this);
 
-    KXMLGUIClient::setComponentName(QLatin1String("externaltools"), i18n("External Tools"));
-    setXMLFile(QLatin1String("ui.rc"));
+    KXMLGUIClient::setComponentName(QStringLiteral("externaltools"), i18n("External Tools"));
+    setXMLFile(QStringLiteral("ui.rc"));
 
     if (KAuthorized::authorize(QStringLiteral("shell_access"))) {
         m_externalToolsMenu = new KateExternalToolsMenuAction(i18n("External Tools"), actionCollection(), plugin, mainWindow);

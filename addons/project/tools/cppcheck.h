@@ -66,7 +66,7 @@ public:
 
     FileDiagnostics parseLine(const QString &line) const override
     {
-        const QStringList elements = line.split(QLatin1String("////"), Qt::SkipEmptyParts);
+        const QStringList elements = line.split(QStringLiteral("////"), Qt::SkipEmptyParts);
         if (elements.size() < 4) {
             return {};
         }

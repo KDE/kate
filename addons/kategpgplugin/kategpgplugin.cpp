@@ -66,10 +66,10 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
 {
     m_gpgWrapper = new GPGMeWrapper();
     m_toolview.reset(m_mainWindow->createToolView(plugin, // pointer to plugin
-                                                  QString::fromUtf8("gpgPlugin"), // just an identifier for the toolview
+                                                  QStringLiteral("gpgPlugin"), // just an identifier for the toolview
                                                   KTextEditor::MainWindow::Left, // we want to create a toolview on the
                                                                                  // left side
-                                                  QIcon::fromTheme(QString::fromUtf8("security-medium")),
+                                                  QIcon::fromTheme(QStringLiteral("security-medium")),
                                                   i18n("GPG Plugin"))); // User visible name of the toolview, i18n means it
                                                                         // will be available for translation
     m_toolview->setMinimumHeight(700);
@@ -82,7 +82,7 @@ KateGPGPluginView::KateGPGPluginView(KateGPGPlugin *plugin, KTextEditor::MainWin
     m_verticalLayout = new QVBoxLayout(m_toolview.get());
     m_titleLabel = new QLabel(i18n("<b>GPG Plugin Settings</b>"));
     m_titleLabel->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
-    m_preferredEmailAddress = QString::fromUtf8("");
+    m_preferredEmailAddress = QLatin1String("");
     m_preferredGPGKeyID = i18n("Key ID");
     m_preferredEmailAddressLabel = new QLabel(i18n("A search string used to filter keys by available email addresses"));
     m_preferredEmailAddressLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -347,11 +347,11 @@ void KateGPGPluginView::onTableViewSelection()
 QString concatenateEmailAddressesToString(const QVector<QString> uids_, const QVector<QString> mailAddresses_, const QVector<QString> subkeyIDs_)
 {
     Q_ASSERT(uids_.size() == mailAddresses_.size());
-    QString out = QString::fromUtf8("");
+    QString out = QLatin1String("");
     for (auto i = 0; i < mailAddresses_.size(); ++i) {
-        out += uids_.at(i) + QString::fromUtf8(" <");
-        out += mailAddresses_.at(i) + QString::fromUtf8("> ");
-        out += QString::fromUtf8("(") + subkeyIDs_.at(i) + QString::fromUtf8(")\n");
+        out += uids_.at(i) + QStringLiteral(" <");
+        out += mailAddresses_.at(i) + QStringLiteral("> ");
+        out += QStringLiteral("(") + subkeyIDs_.at(i) + QStringLiteral(")\n");
     }
     return out;
 }

@@ -75,7 +75,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
         // qDebug()<<"Trimmed line " << i << " : "<< cl;
 
         static const auto re1 = QRegularExpression(QStringLiteral("^use +[A-Z]"));
-        static const auto usePlusAtBeginningRe = QRegularExpression(QLatin1String("^use +"));
+        static const auto usePlusAtBeginningRe = QRegularExpression(QStringLiteral("^use +"));
         if (cl.indexOf(re1) == 0 && m_macro->isChecked()) {
             QString stripped = cl.remove(usePlusAtBeginningRe);
             // stripped=stripped.replace( QRegularExpression(QLatin1String(";$")), "" ); // Doesn't work ??

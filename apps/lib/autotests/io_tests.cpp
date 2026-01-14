@@ -31,13 +31,13 @@ public:
 
     void setup()
     {
-        Utils::ExecPrefixManager::instance().update(QLatin1String("identity"), {QLatin1String("env")});
+        Utils::ExecPrefixManager::instance().update(QStringLiteral("identity"), {QStringLiteral("env")});
     }
 
     void makeRemote(QUrl &url)
     {
         url.setScheme(Utils::ExecPrefixManager::scheme());
-        url.setHost(QLatin1String("identity"));
+        url.setHost(QStringLiteral("identity"));
     }
 
     void doCopy(bool toFile)

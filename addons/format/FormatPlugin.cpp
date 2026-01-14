@@ -196,7 +196,7 @@ void FormatPluginView::format()
         return;
     }
 
-    const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QLatin1String("formatting"));
+    const QVariant projectConfig = Utils::projectMapForDocument(m_activeDoc).value(QStringLiteral("formatting"));
     if (projectConfig != m_lastProjectConfig) {
         m_lastProjectConfig = projectConfig;
         if (projectConfig.isValid()) {

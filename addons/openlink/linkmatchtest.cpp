@@ -58,7 +58,7 @@ private Q_SLOTS:
                                   OpenLinkRange{.start = 22, .end = (22 + fileLen), .link = filePath, .type = FileLink},
                                   OpenLinkRange{.start = (22 + fileLen + 12), .end = (22 + (fileLen * 2) + 12), .link = filePath, .type = FileLink},
                               };
-        t = QLatin1String("text \"/");
+        t = QStringLiteral("text \"/");
         QTest::addRow("7") << t << R{};
 
         t = QLatin1String("Text has filepath: %1:12").arg(filePath);

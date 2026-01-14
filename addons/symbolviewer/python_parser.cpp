@@ -62,15 +62,15 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
     // static const QString contStr(0x21b5);
     static const QString contStr(QChar(0x21b5));
 
-    // static const QRegularExpression comment_regexp(QLatin1String("^[#]"), QRegularExpression::UseUnicodePropertiesOption);
-    static const QRegularExpression ml_docsctring_regexp(QLatin1String("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
-    static const QRegularExpression sl_docstring_regexp(QLatin1String("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+    // static const QRegularExpression comment_regexp(QStringLiteral("^[#]"), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression ml_docsctring_regexp(QStringLiteral("\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
+    static const QRegularExpression sl_docstring_regexp(QStringLiteral("\"\"\"(.*)?\"\"\""), QRegularExpression::UseUnicodePropertiesOption);
 
-    static const QRegularExpression class_regexp(QLatin1String("^class ([\\w]+)\\s*(\\([\\w.,\\s]*\\)?)?\\s*(:$)?"),
+    static const QRegularExpression class_regexp(QStringLiteral("^class ([\\w]+)\\s*(\\([\\w.,\\s]*\\)?)?\\s*(:$)?"),
                                                  QRegularExpression::UseUnicodePropertiesOption);
 
     static const QRegularExpression function_regexp(
-        QLatin1String("^([\t ]*)def\\s+([\\w]+)\\s*(\\([\\w,;.:*=\\/\\[\\]\\s\"\']*\\)?)?\\s*(-> [\\w.,\\s\\[\\]]+)?\\s*(:$)?"),
+        QStringLiteral("^([\t ]*)def\\s+([\\w]+)\\s*(\\([\\w,;.:*=\\/\\[\\]\\s\"\']*\\)?)?\\s*(-> [\\w.,\\s\\[\\]]+)?\\s*(:$)?"),
         QRegularExpression::UseUnicodePropertiesOption);
 
     QRegularExpressionMatch match;

@@ -42,7 +42,7 @@ void Test::test()
     const auto attributes = createAttributes();
 
     doc->setHighlightingMode(QStringLiteral("C++"));
-    doc->setText(QString::fromLatin1(R"(int main(int, char*[1234]) { return 0; }
+    doc->setText(QStringLiteral(R"(int main(int, char*[1234]) { return 0; }
     )"));
 
     view->resize(800, 600);

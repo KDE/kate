@@ -92,7 +92,7 @@ FileHistoryTest::FileHistoryTest(QObject *)
     app = std::make_unique<KateApp>(parser, KateApp::ApplicationKate, m_tempdir->path());
     app->sessionManager()->sessionNew();
 
-    QDir thisDir(QString::fromLatin1(QT_TESTCASE_SOURCEDIR));
+    QDir thisDir(QStringLiteral(QT_TESTCASE_SOURCEDIR));
     testFile = thisDir.absoluteFilePath(QStringLiteral("CMakeLists.txt"));
     qDebug("File is %ls", qUtf16Printable(testFile));
 

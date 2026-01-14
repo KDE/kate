@@ -56,36 +56,36 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     }
 
     // Namespaces: https://www.php.net/manual/en/language.namespaces.php
-    static const QRegularExpression namespaceRegExp(QLatin1String("^namespace\\s+([^;\\s]+)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression namespaceRegExp(QStringLiteral("^namespace\\s+([^;\\s]+)"), QRegularExpression::CaseInsensitiveOption);
     // defines: https://www.php.net/manual/en/function.define.php
-    static const QRegularExpression defineRegExp(QLatin1String("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression defineRegExp(QStringLiteral("(^|\\W)define\\s*\\(\\s*['\"]([^'\"]+)['\"]"), QRegularExpression::CaseInsensitiveOption);
     // classes: https://www.php.net/manual/en/language.oop5.php
     static const QRegularExpression classRegExp(
-        QLatin1String("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*|extends\\s+[\\w\\d_]*)?"),
+        QStringLiteral("^((abstract\\s+|final\\s+)?)class\\s+([\\w_][\\w\\d_]*)\\s*(implements\\s+[\\w\\d_]*|extends\\s+[\\w\\d_]*)?"),
         QRegularExpression::CaseInsensitiveOption);
     // interfaces: https://www.php.net/manual/en/language.oop5.interfaces.php
-    static const QRegularExpression interfaceRegExp(QLatin1String("^interface\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression interfaceRegExp(QStringLiteral("^interface\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // traits: https://www.php.net/manual/en/language.oop5.traits.php
-    static const QRegularExpression traitRegExp(QLatin1String("^trait\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression traitRegExp(QStringLiteral("^trait\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // classes constants: https://www.php.net/manual/en/language.oop5.constants.php
-    static const QRegularExpression constantRegExp(QLatin1String("^const\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression constantRegExp(QStringLiteral("^const\\s+([\\w_][\\w\\d_]*)"), QRegularExpression::CaseInsensitiveOption);
     // functions: https://www.php.net/manual/en/language.oop5.constants.php
     static const QRegularExpression functionRegExp(
-        QLatin1String("^(\\s*)((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"),
+        QStringLiteral("^(\\s*)((public|protected|private)?(\\s*static)?\\s+)?function\\s+&?\\s*([\\w_][\\w\\d_]*)\\s*(.*)$"),
         QRegularExpression::CaseInsensitiveOption);
     // variables: https://www.php.net/manual/en/language.oop5.properties.php
-    static const QRegularExpression varRegExp(QLatin1String("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"),
+    static const QRegularExpression varRegExp(QStringLiteral("^((var|public|protected|private)?(\\s*static)?\\s+)?\\$([\\w_][\\w\\d_]*)"),
                                               QRegularExpression::CaseInsensitiveOption);
 
     // function args detection: “function a($b, $c=null)” => “$b, $v”
-    static const QRegularExpression functionArgsRegExp(QLatin1String("(\\$[\\w_]+)"), QRegularExpression::CaseInsensitiveOption);
+    static const QRegularExpression functionArgsRegExp(QStringLiteral("(\\$[\\w_]+)"), QRegularExpression::CaseInsensitiveOption);
     QStringList functionArgsList;
     QString nameWithTypes;
 
     // replace literals by empty strings: “function a($b='nothing', $c="pretty \"cool\" string")” => “function ($b='', $c="")”
-    static const QRegularExpression literalRegExp(QLatin1String("([\"'])(?:\\\\.|[^\\\\])*\\1"), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression literalRegExp(QStringLiteral("([\"'])(?:\\\\.|[^\\\\])*\\1"), QRegularExpression::InvertedGreedinessOption);
     // remove useless comments: “public/* static */ function a($b, $c=null) /* test */” => “public function a($b, $c=null)”
-    static const QRegularExpression blockCommentInline(QLatin1String("/\\*.*\\*/"), QRegularExpression::InvertedGreedinessOption);
+    static const QRegularExpression blockCommentInline(QStringLiteral("/\\*.*\\*/"), QRegularExpression::InvertedGreedinessOption);
 
     QRegularExpressionMatch match, matchClass, matchInterface, matchTrait, matchFunctionArg;
     QRegularExpressionMatchIterator matchFunctionArgs;
@@ -109,7 +109,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         QString lineWithliterals = line;
 
         // reduce literals to empty strings to not match comments separators in literals
-        line.replace(literalRegExp, QLatin1String("\\1\\1"));
+        line.replace(literalRegExp, QStringLiteral("\\1\\1"));
 
         // kdDebug(13000) << debugBuffer.arg(i, 4).arg("-literals", 10).arg(line);
         line.remove(blockCommentInline);

@@ -83,7 +83,7 @@ QString DebugConfigPage::fullName() const
 
 QIcon DebugConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("debug-run"));
+    return QIcon::fromTheme(QStringLiteral("debug-run"));
 }
 
 void DebugConfigPage::apply()

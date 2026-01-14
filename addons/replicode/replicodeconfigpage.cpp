@@ -46,7 +46,7 @@ QString ReplicodeConfigPage::fullName() const
 
 QIcon ReplicodeConfigPage::icon() const
 {
-    return QIcon::fromTheme(QLatin1String("code-block"));
+    return QIcon::fromTheme(QStringLiteral("code-block"));
 }
 
 void ReplicodeConfigPage::apply()

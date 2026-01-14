@@ -687,14 +687,21 @@ static QStandardItem *getItem(const QStandardItem *topItem, KTextEditor::Cursor 
             }
 
             auto range = item->data(DiagnosticModelRole::RangeRole).value<KTextEditor::Range>();
-            if ((onlyLine && pos.line() == range.start().line()) || (range.contains(pos))) {
+            if (pos.line() == range.start().line() || (range.contains(pos))) {
                 // the severity must match if it was specified
                 if (severity != DiagnosticSeverity::Unknown && item->type() == DiagnosticItem_Diag
                     && static_cast<DiagnosticItem *>(item)->m_diagnostic.severity != severity) {
                     continue;
                 }
-                targetItem = item;
-                break;
+                if (range.contains(pos)) {
+                    /* done if exact match */
+                    targetItem = item;
+                    break;
+                } else if (onlyLine && !targetItem) {
+                    /* otherwise track only the first line match, a better one might follow,
+                     * but if that is not the case, then this is good enough */
+                    targetItem = item;
+                }
             }
         }
     }
@@ -1371,7 +1378,7 @@ bool DiagnosticsView::syncDiagnostics(KTextEditor::Document *document, KTextEdit
     updateDiagnosticsSuppression(topItem, document);
     auto proxy = static_cast<DiagnosticsProxyModel *>(m_proxy);
     auto severity = proxy->activeSeverity();
-    QStandardItem *targetItem = getItem(topItem, pos, /*onlyLine=*/pos.column() == 0, severity);
+    QStandardItem *targetItem = getItem(topItem, pos, /*onlyLine=*/true, severity);
     if (targetItem) {
         hint = QAbstractItemView::PositionAtCenter;
     }

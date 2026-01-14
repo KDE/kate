@@ -196,7 +196,7 @@ void FileHistoryTest::testAuthorAndDateFiltering()
 
     auto toolview = getToolview();
     QVERIFY(toolview);
-    auto fileHistoryWidget = toolview->findChild<QWidget *>("FileHistoryWidget");
+    auto fileHistoryWidget = toolview->findChild<QWidget *>(QStringLiteral("FileHistoryWidget"));
     QVERIFY(fileHistoryWidget);
     QSignalSpy spy(fileHistoryWidget, SIGNAL(gitLogDone()));
 

@@ -144,7 +144,7 @@ const GPGOperationResult GPGMeWrapper::decryptString(const QString &inputString_
     // we have to transform the encrypted text to a const char* buffer
     // QString->toUtf8->constData()
     QByteArray bar = inputString_.toUtf8();
-    GpgME::Data encryptedString(bar.constData(), length, true);
+    GpgME::Data encryptedString(bar.constData(), length);
     GpgME::Data decryptedString;
     // attempt to decrypt
     GpgME::DecryptionResult d_res = ctx->decrypt(encryptedString, decryptedString);
@@ -248,10 +248,10 @@ const GPGOperationResult GPGMeWrapper::encryptString(const QString &inputString_
 bool GPGMeWrapper::isEncrypted(const QString &inputString_)
 {
     QByteArray bar = inputString_.toUtf8();
-    GpgME::Data dataIn(bar.constData(), bar.size(),
+    GpgME::Data dataIn(bar.constData(), (size_t)bar.size(),
                        false); // false = do not copy
     QByteArray outBuffer;
-    GpgME::Data dataOut(outBuffer.constData(), outBuffer.size(), true);
+    GpgME::Data dataOut(outBuffer.constData(), outBuffer.size());
     std::unique_ptr<GpgME::Context> ctx(GpgME::Context::createForProtocol(GpgME::OpenPGP));
     if (!ctx)
         return false;

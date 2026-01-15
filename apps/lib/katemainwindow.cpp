@@ -102,7 +102,7 @@
 // END
 
 // we keep one dialog around for event processing
-static QPointer<KateMwModOnHdDialog> s_modOnHdDialog;
+static QPointer<KateMwModOnHdDialog> s_modOnHdDialog; // clazy:exclude=non-pod-global-static
 
 // shall windows close the documents only visible inside them if the are closed?
 static bool winClosesDocuments()

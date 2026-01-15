@@ -225,7 +225,7 @@ QJsonValue resolve(const QString &text, const VarMap &variables)
         parts << text.mid(size);
     }
 
-    return QJsonValue(parts.join(QStringLiteral("")));
+    return QJsonValue(parts.join(QString()));
 }
 
 QJsonObject resolve(const QJsonObject &map, const VarMap &variables)

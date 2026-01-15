@@ -286,8 +286,7 @@ void KeyboardMacrosPluginView::slotSave()
         return;
     }
     bool ok{};
-    QString name =
-        QInputDialog::getText(m_mainWindow->window(), i18n("Keyboard Macros"), i18n("Save current macro as?"), QLineEdit::Normal, QStringLiteral(""), &ok);
+    QString name = QInputDialog::getText(m_mainWindow->window(), i18n("Keyboard Macros"), i18n("Save current macro as?"), QLineEdit::Normal, QString(), &ok);
     if (!ok || name.isEmpty()) {
         return;
     }

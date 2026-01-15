@@ -22,7 +22,7 @@ public:
     SearchOpenFiles(QObject *parent = nullptr);
 
     void startSearch(const QList<KTextEditor::Document *> &list, const QRegularExpression &regexp);
-    bool searching() const;
+    bool isSearching() const;
     void terminateSearch();
 
 public:

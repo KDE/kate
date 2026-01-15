@@ -16,7 +16,7 @@ SearchOpenFiles::SearchOpenFiles(QObject *parent)
     });
 }
 
-bool SearchOpenFiles::searching() const
+bool SearchOpenFiles::isSearching() const
 {
     return !m_cancelSearch;
 }

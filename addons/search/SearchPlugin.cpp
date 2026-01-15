@@ -1246,7 +1246,7 @@ void KatePluginSearchView::startSearch()
 
 void KatePluginSearchView::startSearchWhileTyping()
 {
-    if (searchingDiskFiles() || m_searchOpenFiles.searching()) {
+    if (searchingDiskFiles() || m_searchOpenFiles.isSearching()) {
         return;
     }
 
@@ -1363,7 +1363,7 @@ void KatePluginSearchView::searchDone()
 {
     m_changeTimer.stop(); // avoid "while you type" search directly after
 
-    if (searchingDiskFiles() || m_searchOpenFiles.searching()) {
+    if (searchingDiskFiles() || m_searchOpenFiles.isSearching()) {
         return;
     }
 

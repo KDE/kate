@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2023-09-10 17:27+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -59,12 +59,12 @@ msgstr "தேர்ந்தெடுக்கப்பட்டுள்ள �
 msgid "Delete all entries"
 msgstr "அனைத்துப் பதிவுகளையும் நீக்கு"
 
-#: lspclientplugin.cpp:233
+#: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP சேவையகத் துவக்கம் கோரப்பட்டது"
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -75,7 +75,7 @@ msgstr ""
 "b><br><br>LSP செருகுநிரலின் அமைப்புப்பக்கத்தில் இதை நீங்கள் எப்போது வேண்டுமானாலும் "
 "மாற்றியமைக்கலாம்."
 
-#: lspclientplugin.cpp:249
+#: lspclientplugin.cpp:253
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -381,59 +381,59 @@ msgstr ""
 msgid "Question from LSP server"
 msgstr "LSP சேவையகத்தை மீள்துவக்கு"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "Restarting"
 msgstr "மீள்துவக்கப்படுகிறது"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "NOT Restarting"
 msgstr "மீள்துவக்கவில்லை"
 
-#: lspclientservermanager.cpp:618
+#: lspclientservermanager.cpp:621
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:890
+#: lspclientservermanager.cpp:893
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "சேவையக நிரலைக் கண்டுபிடிக்க முடியவில்லை: %1"
 
-#: lspclientservermanager.cpp:893 lspclientservermanager.cpp:958
+#: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "நிரல் உங்கள் PATH-இல் உள்ளதா என பாருங்கள்"
 
-#: lspclientservermanager.cpp:894 lspclientservermanager.cpp:959
+#: lspclientservermanager.cpp:897 lspclientservermanager.cpp:962
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "நிறுவல் அல்லது விவரங்களுக்கு %1 தனை பாருங்கள்"
 
-#: lspclientservermanager.cpp:955
+#: lspclientservermanager.cpp:958
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "சேவையகத்தைத் துவக்க முடியவில்லை: %1"
 
-#: lspclientservermanager.cpp:963
+#: lspclientservermanager.cpp:966
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2 சேவையகம் துவக்கப்பட்டது: %1"
 
-#: lspclientservermanager.cpp:1001
+#: lspclientservermanager.cpp:1004
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:1004
+#: lspclientservermanager.cpp:1007
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:1008
+#: lspclientservermanager.cpp:1011
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

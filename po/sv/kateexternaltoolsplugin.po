@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2023-07-25 16:06+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -185,8 +185,8 @@ msgstr ""
 "finns och att variabelnamnen, om några används, är riktiga."
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:269
-#: kateexternaltoolsconfigwidget.cpp:274 kateexternaltoolsview.cpp:156
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
 #, kde-format
@@ -253,38 +253,38 @@ msgstr "När 'Utlösare' är aktiverat, måste minst en Mime-typ anges."
 msgid "Select the MimeTypes for which to enable this tool."
 msgstr "Välj Mime-typerna som verktyget ska aktiveras för."
 
-#: kateexternaltoolsconfigwidget.cpp:206
+#: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
 msgstr "Välj Mime-typer"
 
-#: kateexternaltoolsconfigwidget.cpp:240
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "Lägg till verktyg..."
 
-#: kateexternaltoolsconfigwidget.cpp:241
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "Lägg till verktyg från förval"
 
-#: kateexternaltoolsconfigwidget.cpp:243
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "Lägg till kategori"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
-#: kateexternaltoolsconfigwidget.cpp:446
+#: kateexternaltoolsconfigwidget.cpp:289 kateexternaltoolsconfigwidget.cpp:402
+#: kateexternaltoolsconfigwidget.cpp:449
 #, kde-format
 msgid "Uncategorized"
 msgstr "Okategoriserat"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category"
 msgstr "Ny kategori"
 
-#: kateexternaltoolsconfigwidget.cpp:491
+#: kateexternaltoolsconfigwidget.cpp:494
 #, kde-format
 msgid "New Category %1"
 msgstr "Ny kategori %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2023-02-22 10:55+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -187,8 +187,8 @@ msgstr ""
 "soubor existuje a názvy proměnných, pokud jsou použity, jsou správné"
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:269
-#: kateexternaltoolsconfigwidget.cpp:274 kateexternaltoolsview.cpp:156
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
 #, kde-format
@@ -255,38 +255,38 @@ msgstr ""
 msgid "Select the MimeTypes for which to enable this tool."
 msgstr "Vyberte typy MIME pro které bude tento nástroj povolen."
 
-#: kateexternaltoolsconfigwidget.cpp:206
+#: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
 msgstr "Vybrat typy MIME"
 
-#: kateexternaltoolsconfigwidget.cpp:240
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "Přidat nástroj..."
 
-#: kateexternaltoolsconfigwidget.cpp:241
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr ""
 
-#: kateexternaltoolsconfigwidget.cpp:243
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "Přidat kategorii"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
-#: kateexternaltoolsconfigwidget.cpp:446
+#: kateexternaltoolsconfigwidget.cpp:289 kateexternaltoolsconfigwidget.cpp:402
+#: kateexternaltoolsconfigwidget.cpp:449
 #, kde-format
 msgid "Uncategorized"
 msgstr "Nezařazené"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category"
 msgstr "Nová kategorie"
 
-#: kateexternaltoolsconfigwidget.cpp:491
+#: kateexternaltoolsconfigwidget.cpp:494
 #, kde-format
 msgid "New Category %1"
 msgstr "Nová kategorie %1"

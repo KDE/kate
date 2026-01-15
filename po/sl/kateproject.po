@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-11-09 07:14+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -536,7 +536,7 @@ msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
 msgid "Malformed JSON file '%1': %2"
 msgstr "Pokvarjena datoteka JSON '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -847,22 +847,22 @@ msgstr "Napaka"
 msgid "File name already exists"
 msgstr "Ime datoteke že obstaja"
 
-#: kateprojectplugin.cpp:240
+#: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Potrdi zapiranje projekta: %1"
 
-#: kateprojectplugin.cpp:241
+#: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr "Ali želite zapreti projekt %1 in povezane %2 odprte dokumente?"
 
-#: kateprojectplugin.cpp:626
+#: kateprojectplugin.cpp:656
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Polna pot do vašega projekta brez imena datoteke."
 
-#: kateprojectplugin.cpp:643
+#: kateprojectplugin.cpp:673
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1046,12 +1046,12 @@ msgstr "Ta imenik že obstaja"
 msgid "Failed to create dir: %1"
 msgstr "Ustvarjanje imenika ni uspelo: %1"
 
-#: kateprojectworker.cpp:202
+#: kateprojectworker.cpp:208
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr "Ni bilo mogoče najti imenika: %1"
 
-#: kateprojectworker.cpp:729
+#: kateprojectworker.cpp:735
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

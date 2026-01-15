@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-12-01 13:33+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -992,7 +992,7 @@ msgstr ""
 "Ní féidir fillteáin a oscailt ach amháin nuair a bhíonn an breiseán "
 "tionscadal cumasaithe"
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1961,112 +1961,112 @@ msgstr "Oscail Gach Comhad"
 msgid " [read only]"
 msgstr " [léamh amháin]"
 
-#: lib/katemdi.cpp:78
+#: lib/katemdi.cpp:81
 #, kde-format
 msgid "Toolview Manager"
 msgstr "Bainisteoir Amharc Uirlisí"
 
-#: lib/katemdi.cpp:96
+#: lib/katemdi.cpp:99
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Cnaipí Barra Taoibh"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Focus Toolview"
 msgstr "Radharc Uirlisí Fócas"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:105
 #, kde-format
 msgid "Tool &Views"
 msgstr "&Amhairc Uirlisí"
 
-#: lib/katemdi.cpp:104
+#: lib/katemdi.cpp:107
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Taispeáin &Barraí Taoibh"
 
-#: lib/katemdi.cpp:112
+#: lib/katemdi.cpp:115
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Folaigh Gach Radharc Uirlis"
 
-#: lib/katemdi.cpp:160
+#: lib/katemdi.cpp:163
 #, kde-format
 msgid "Show %1"
 msgstr "Taispeáin %1"
 
-#: lib/katemdi.cpp:182
+#: lib/katemdi.cpp:185
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Taispeáin Cnaipe %1"
 
-#: lib/katemdi.cpp:201
+#: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
 msgstr "Fócas %1"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Configure..."
 msgstr "Cumraigh..."
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1126
 #, kde-format
 msgid "Hide Button"
 msgstr "Folaigh an Cnaipe"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Move To"
 msgstr "Bog Go"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Own Section"
 msgstr "Roinn Féin"
 
-#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Down"
 msgstr "Ceann Síos"
 
-#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Right"
 msgstr "Aon Cheart"
 
-#: lib/katemdi.cpp:1142
+#: lib/katemdi.cpp:1145
 #, kde-format
 msgid "One Up"
 msgstr "Ceann Suas"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, kde-format
 msgid "One Left"
 msgstr "Ceann amháin ar chlé"
 
-#: lib/katemdi.cpp:1156
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barra Taoibh Ar Chlé"
 
-#: lib/katemdi.cpp:1160
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barra Taoibh Ar Dheis"
 
-#: lib/katemdi.cpp:1164
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barra Taobh"
 
-#: lib/katemdi.cpp:1168
+#: lib/katemdi.cpp:1171
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barra Taobh Bun"
 
-#: lib/katemdi.cpp:1782
+#: lib/katemdi.cpp:1785
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-06-23 00:29+0200\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -247,12 +247,12 @@ msgstr ""
 "Kate muss unter Verwendung der KTextEditor-Version 6.15.0 oder höher "
 "kompiliert werden, um Textbausteine dieser Art verwenden zu können."
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "<leeres Archiv>"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -263,17 +263,17 @@ msgstr ""
 "Persönlichen Ordner befindet. Daher wurde eine Kopie der originalen Datei in "
 "Ihrem Persönlichen Ordner erstellt."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Die Ausgabedatei „%1“ kann nicht zum Schreiben geöffnet werden"
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Das Textbaustein-Archiv %1 lässt sich nicht öffnen."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
@@ -281,12 +281,12 @@ msgstr ""
 "<qt>Der Fehler <b>%4</b><br /> wurde in der Datei %1 an der Position %2/%3 "
 "entdeckt.</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Ungültige XML-Textbausteindatei: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -295,12 +295,12 @@ msgstr ""
 "Das Archiv wurde deaktiviert. Die enthaltenen Textbausteine werden während "
 "der Quelltextvervollständigung nicht angezeigt."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Für alle Dateitypen übernehmen"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Für alle folgenden Dateitypen übernehmen: %1"

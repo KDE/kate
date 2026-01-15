@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-02-27 21:46+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -42,12 +42,12 @@ msgstr "În&chide elementul"
 msgid "Assign Meta &DTD..."
 msgstr "Atribuie Meta &DTD…"
 
-#: plugin_katexmltools.cpp:439
+#: plugin_katexmltools.cpp:440
 #, kde-format
 msgid "Assign Meta DTD in XML Format"
 msgstr "Atribuie Meta DTD în format XML"
 
-#: plugin_katexmltools.cpp:445
+#: plugin_katexmltools.cpp:446
 #, kde-format
 msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
@@ -56,47 +56,47 @@ msgstr ""
 "Fișierul curent a fost identificat ca un document de tipul „%1”. Meta DTD-ul "
 "acestui tip de document va fi încărcat acum."
 
-#: plugin_katexmltools.cpp:449
+#: plugin_katexmltools.cpp:450
 #, kde-format
 msgid "Loading XML Meta DTD"
 msgstr "Se încarcă Meta DTD-ul pentru XML"
 
-#: plugin_katexmltools.cpp:482
+#: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "Fișierul „%1” nu a putut fi deschis. Serverul a returnat o eroare."
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
+#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "Eroare modul XML"
 
-#: plugin_katexmltools.cpp:992
+#: plugin_katexmltools.cpp:993
 #, kde-format
 msgid "XML entities"
 msgstr "Entități XML"
 
-#: plugin_katexmltools.cpp:994
+#: plugin_katexmltools.cpp:995
 #, kde-format
 msgid "XML attribute values"
 msgstr "Valori atribute XML"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:997
 #, kde-format
 msgid "XML attributes"
 msgstr "Atribute XML"
 
-#: plugin_katexmltools.cpp:999
+#: plugin_katexmltools.cpp:1000
 #, kde-format
 msgid "XML elements"
 msgstr "Elemente XML"
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1039
 #, kde-format
 msgid "Insert XML Element"
 msgstr "Inserează element XML"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1044
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-06-11 12:21+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -250,12 +250,12 @@ msgstr ""
 "Bu tür parçacıkları kullanmak için Kate’in KTextEditor’ün 6.15.0 veya daha "
 "yüksek bir sürümüyle derlenmesi gerekir."
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "<boş depo>"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -265,29 +265,29 @@ msgstr ""
 "Kişisel dizininizde olmayan bir parçacık deposunu düzenlediniz; bu nedenle "
 "özgün dosyanın bir kopyası kişisel veri dizininizde oluşturuldu."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "“%1“ çıktı dosyası yazma için açılamadı"
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "%1 parçacık deposu açılamadı."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>%2/%3 konumundaki %1 dosyası içinde<b>%4</b><br /> hatası belirlendi</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Geçersiz XML parçacığı dosyası: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -296,12 +296,12 @@ msgstr ""
 "Depo devre dışı, içerdiği parçacıklar kod tamamlama sırasında "
 "gösterilmeyecek."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Tüm dosya türlerine uygulanır"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Bu dosya türlerine uygulanır: %1"

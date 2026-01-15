@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katexmltools\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2023-12-22 03:19+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -41,59 +41,59 @@ msgstr "關閉元素(&C)"
 msgid "Assign Meta &DTD..."
 msgstr "指派 Meta DTD(&D)"
 
-#: plugin_katexmltools.cpp:439
+#: plugin_katexmltools.cpp:440
 #, kde-format
 msgid "Assign Meta DTD in XML Format"
 msgstr "以 XML 格式指派 Meta DTD"
 
-#: plugin_katexmltools.cpp:445
+#: plugin_katexmltools.cpp:446
 #, kde-format
 msgid ""
 "The current file has been identified as a document of type \"%1\". The meta "
 "DTD for this document type will now be loaded."
 msgstr "這個檔案已經被辨識為 \"%1\" 文件類型。將載入此類型文件的 meta DTD"
 
-#: plugin_katexmltools.cpp:449
+#: plugin_katexmltools.cpp:450
 #, kde-format
 msgid "Loading XML Meta DTD"
 msgstr "正在載入 XML Meta DTD"
 
-#: plugin_katexmltools.cpp:482
+#: plugin_katexmltools.cpp:483
 #, kde-format
 msgid "The file '%1' could not be opened. The server returned an error."
 msgstr "無法開啟檔案 '%1'，伺服器傳回錯誤。"
 
-#: plugin_katexmltools.cpp:485 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
+#: plugin_katexmltools.cpp:486 pseudo_dtd.cpp:46 pseudo_dtd.cpp:58
 #, kde-format
 msgid "XML Plugin Error"
 msgstr "XML 外掛程式錯誤"
 
-#: plugin_katexmltools.cpp:992
+#: plugin_katexmltools.cpp:993
 #, kde-format
 msgid "XML entities"
 msgstr "XML 實體"
 
-#: plugin_katexmltools.cpp:994
+#: plugin_katexmltools.cpp:995
 #, kde-format
 msgid "XML attribute values"
 msgstr "XML 屬性值"
 
-#: plugin_katexmltools.cpp:996
+#: plugin_katexmltools.cpp:997
 #, kde-format
 msgid "XML attributes"
 msgstr "XML 屬性"
 
-#: plugin_katexmltools.cpp:999
+#: plugin_katexmltools.cpp:1000
 #, kde-format
 msgid "XML elements"
 msgstr "XML 元素"
 
-#: plugin_katexmltools.cpp:1038
+#: plugin_katexmltools.cpp:1039
 #, kde-format
 msgid "Insert XML Element"
 msgstr "插入 XML 元素"
 
-#: plugin_katexmltools.cpp:1043
+#: plugin_katexmltools.cpp:1044
 #, kde-format
 msgid ""
 "Enter XML tag name and attributes (\"<\", \">\" and closing tag will be "

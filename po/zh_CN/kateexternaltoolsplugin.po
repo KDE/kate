@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -183,8 +183,8 @@ msgid ""
 msgstr "找不到可执行文件 %1 。请确保可执行文件存在，并且使用的变量名正确"
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:269
-#: kateexternaltoolsconfigwidget.cpp:274 kateexternaltoolsview.cpp:156
+#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
 #, kde-format
@@ -251,38 +251,38 @@ msgstr "启用触发器后，需要至少指定一个 MIME 类型。"
 msgid "Select the MimeTypes for which to enable this tool."
 msgstr "选择启用此工具的 MIME 类型。"
 
-#: kateexternaltoolsconfigwidget.cpp:206
+#: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
 msgstr "选择 MIME 类型"
 
-#: kateexternaltoolsconfigwidget.cpp:240
+#: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
 msgstr "添加工具..."
 
-#: kateexternaltoolsconfigwidget.cpp:241
+#: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
 msgstr "从默认添加工具"
 
-#: kateexternaltoolsconfigwidget.cpp:243
+#: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
 msgstr "添加分类"
 
-#: kateexternaltoolsconfigwidget.cpp:288 kateexternaltoolsconfigwidget.cpp:399
-#: kateexternaltoolsconfigwidget.cpp:446
+#: kateexternaltoolsconfigwidget.cpp:289 kateexternaltoolsconfigwidget.cpp:402
+#: kateexternaltoolsconfigwidget.cpp:449
 #, kde-format
 msgid "Uncategorized"
 msgstr "未分类"
 
-#: kateexternaltoolsconfigwidget.cpp:488
+#: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category"
 msgstr "新建分类"
 
-#: kateexternaltoolsconfigwidget.cpp:491
+#: kateexternaltoolsconfigwidget.cpp:494
 #, kde-format
 msgid "New Category %1"
 msgstr "新建分类 %1"

@@ -3,20 +3,19 @@
 # This file is distributed under the same license as the kate package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
-"Language: ga\n"
+"Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -59,12 +58,12 @@ msgstr ""
 msgid "Delete all entries"
 msgstr ""
 
-#: lspclientplugin.cpp:233
+#: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
 msgstr ""
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -72,7 +71,7 @@ msgid ""
 "the plugin."
 msgstr ""
 
-#: lspclientplugin.cpp:249
+#: lspclientplugin.cpp:253
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -373,57 +372,57 @@ msgstr ""
 msgid "Question from LSP server"
 msgstr ""
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "NOT Restarting"
 msgstr ""
 
-#: lspclientservermanager.cpp:618
+#: lspclientservermanager.cpp:621
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
 
-#: lspclientservermanager.cpp:890
+#: lspclientservermanager.cpp:893
 #, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr ""
 
-#: lspclientservermanager.cpp:893 lspclientservermanager.cpp:958
+#: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr ""
 
-#: lspclientservermanager.cpp:894 lspclientservermanager.cpp:959
+#: lspclientservermanager.cpp:897 lspclientservermanager.cpp:962
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr ""
 
-#: lspclientservermanager.cpp:955
+#: lspclientservermanager.cpp:958
 #, kde-format
 msgid "Failed to start server '%1' for language '%2'"
 msgstr ""
 
-#: lspclientservermanager.cpp:963
+#: lspclientservermanager.cpp:966
 #, kde-format
 msgid "Started server %2: %1"
 msgstr ""
 
-#: lspclientservermanager.cpp:1001
+#: lspclientservermanager.cpp:1004
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 
-#: lspclientservermanager.cpp:1004
+#: lspclientservermanager.cpp:1007
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr ""
 
-#: lspclientservermanager.cpp:1008
+#: lspclientservermanager.cpp:1011
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr ""

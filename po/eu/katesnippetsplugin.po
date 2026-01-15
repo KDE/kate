@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-10 08:15+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -251,12 +251,12 @@ msgstr ""
 "Kate, KTExtEditor 6.15.0 bertsioarekiko edo berriagoarekiko eraiki behar da, "
 "testu-zati mota hau erabiltzeko."
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "<gordetegi hutsa>"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -267,29 +267,29 @@ msgstr ""
 "fitxategi bat editatu duzu; hori dela eta, jatorrizko fitxategiaren kopia "
 "bat sortu da zure datu pertsonalen direktorioan."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Irteerako '%1' fitxategia ezin izan da idazteko ireki"
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Ezin ireki %1 testu-zati gordetegia."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt><b>%4</b> errorea<br /> hauteman da %1 fitxategian, hemen %2/%3</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "XML testu-zati fitxategi baliogabea: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -298,12 +298,12 @@ msgstr ""
 "Gordetegia desgaitua dago, dituen testu-zatiak ez dira erakutsiko kode-"
 "osatze garaian."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Fitxategi-mota guztiei ezartzen zaie"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Ondoko fitxategi-motei ezartzen zaie: %1"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2022-08-24 21:22+0200\n"
 "Last-Translator: Phu Hung Nguyen <phu.nguyen@kdemail.net>\n"
 "Language-Team: Vietnamese <kde-l10n-vi@kde.org>\n"
@@ -84,23 +84,23 @@ msgstr "Đã tải '%1'"
 msgid "Wiped '%1'"
 msgstr "Đã xoá '%1'"
 
-#: keyboardmacrosplugincommands.cpp:26
+#: keyboardmacrosplugincommands.cpp:27
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "Cách dùng: %1 <tên>."
 
-#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
-#: keyboardmacrosplugincommands.cpp:61
+#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
+#: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "Không tìm thấy vĩ lệnh bàn phím nào có tên '%1'."
 
-#: keyboardmacrosplugincommands.cpp:49
+#: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "Không thể lưu vĩ lệnh bàn phím rỗng."
 
-#: keyboardmacrosplugincommands.cpp:81
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -109,7 +109,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmsave &lt;tên&gt;</code></p><p>Lưu vĩ lệnh bàn phím "
 "hiện tại thành <code>&lt;tên&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -118,7 +118,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmload &lt;tên&gt;</code></p><p>Tải vĩ lệnh bàn phím "
 "đã lưu với tên <code>&lt;tên&gt;</code> làm vĩ lệnh hiện tại.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -127,7 +127,7 @@ msgstr ""
 "<qt><p>Cách dùng: <code>kmplay &lt;tên&gt;</code></p><p>Chạy vĩ lệnh bàn "
 "phím đã lưu với tên <code>&lt;tên&gt;</code> mà không tải nó.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:92
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

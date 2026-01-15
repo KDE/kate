@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-05 19:21+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -27,22 +27,22 @@ msgstr "Regelnummer"
 msgid "File Path"
 msgstr "Bestandspad"
 
-#: bookmarksplugin.cpp:143
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "Bladwijzers"
 
-#: bookmarksplugin.cpp:165
+#: bookmarksplugin.cpp:168
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Ga naar vorige bladwijzer"
 
-#: bookmarksplugin.cpp:171
+#: bookmarksplugin.cpp:174
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Ga naar volgende bladwijzer"
 
-#: bookmarksplugin.cpp:177
+#: bookmarksplugin.cpp:180
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Bladwijzer verwijderen"

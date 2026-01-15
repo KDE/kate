@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-12-04 11:39+0300\n"
 "Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -604,159 +604,159 @@ msgstr "Копировать символ"
 msgid "Copy Value"
 msgstr "Копировать значение"
 
-#: plugin_kategdb.cpp:106
+#: plugin_kategdb.cpp:112
 #, kde-format
 msgid "Kate Debug"
 msgstr "Отладка в Kate"
 
-#: plugin_kategdb.cpp:110
+#: plugin_kategdb.cpp:116
 #, kde-format
 msgid "Debug View"
 msgstr "Отладка"
 
-#: plugin_kategdb.cpp:110 plugin_kategdb.cpp:341
+#: plugin_kategdb.cpp:116 plugin_kategdb.cpp:347
 #, kde-format
 msgid "Debug"
 msgstr "Отладка"
 
 # well-spelled: Лок
-#: plugin_kategdb.cpp:113 plugin_kategdb.cpp:116
+#: plugin_kategdb.cpp:119 plugin_kategdb.cpp:122
 #, kde-format
 msgid "Locals and Stack"
 msgstr "Лок. переменные и стек"
 
-#: plugin_kategdb.cpp:122
+#: plugin_kategdb.cpp:128
 #, fuzzy, kde-format
 #| msgid "Breakpoint"
 msgid "Breakpoints"
 msgstr "Точка останова"
 
-#: plugin_kategdb.cpp:209
+#: plugin_kategdb.cpp:215
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
 msgstr "<title>Не удалось открыть файл:</title><nl/>%1"
 
-#: plugin_kategdb.cpp:223
+#: plugin_kategdb.cpp:229
 #, kde-format
 msgid "Targets"
 msgstr "Цели"
 
-#: plugin_kategdb.cpp:228
+#: plugin_kategdb.cpp:234
 #, kde-format
 msgid "Start Debugging"
 msgstr "Начать отладку"
 
-#: plugin_kategdb.cpp:238
+#: plugin_kategdb.cpp:244
 #, kde-format
 msgid "Kill / Stop Debugging"
 msgstr "Завершить отладку"
 
-#: plugin_kategdb.cpp:245
+#: plugin_kategdb.cpp:251
 #, kde-format
 msgid "Continue"
 msgstr "Продолжить"
 
-#: plugin_kategdb.cpp:251
+#: plugin_kategdb.cpp:257
 #, kde-format
 msgid "Toggle Breakpoint / Break"
 msgstr "Поставить точку останова / Прервать"
 
-#: plugin_kategdb.cpp:258
+#: plugin_kategdb.cpp:264
 #, kde-format
 msgid "Clear All Breakpoints"
 msgstr "Очистить все точки останова"
 
-#: plugin_kategdb.cpp:263
+#: plugin_kategdb.cpp:269
 #, kde-format
 msgid "Step In"
 msgstr "Войти"
 
-#: plugin_kategdb.cpp:270
+#: plugin_kategdb.cpp:276
 #, kde-format
 msgid "Step Over"
 msgstr "Перейти к следующей строке"
 
-#: plugin_kategdb.cpp:277
+#: plugin_kategdb.cpp:283
 #, kde-format
 msgid "Step Out"
 msgstr "Выйти"
 
-#: plugin_kategdb.cpp:284 plugin_kategdb.cpp:348
+#: plugin_kategdb.cpp:290 plugin_kategdb.cpp:354
 #, kde-format
 msgid "Run To Cursor"
 msgstr "Выполнить до курсора"
 
-#: plugin_kategdb.cpp:291
+#: plugin_kategdb.cpp:297
 #, kde-format
 msgid "Restart Debugging"
 msgstr "Начать отладку заново"
 
-#: plugin_kategdb.cpp:298
+#: plugin_kategdb.cpp:304
 #, kde-format
 msgid "Clear Output"
 msgstr "Очистить вывод"
 
-#: plugin_kategdb.cpp:306
+#: plugin_kategdb.cpp:312
 #, kde-format
 msgid "Hot Reload"
 msgstr "Горячая перезагрузка"
 
-#: plugin_kategdb.cpp:313
+#: plugin_kategdb.cpp:319
 #, kde-format
 msgid "Hot Restart"
 msgstr "Горячий перезапуск"
 
-#: plugin_kategdb.cpp:322
+#: plugin_kategdb.cpp:328
 #, kde-format
 msgid "Enable Hot Reload on Save"
 msgstr "Разрешить горячую перезагрузку при сохранении"
 
-#: plugin_kategdb.cpp:331 plugin_kategdb.cpp:350
+#: plugin_kategdb.cpp:337 plugin_kategdb.cpp:356
 #, kde-format
 msgctxt "Move Program Counter (next execution)"
 msgid "Move PC"
 msgstr "Перейти в позицию курсора"
 
-#: plugin_kategdb.cpp:336
+#: plugin_kategdb.cpp:342
 #, kde-format
 msgid "Print Value"
 msgstr "Показать значение"
 
-#: plugin_kategdb.cpp:401
+#: plugin_kategdb.cpp:407
 #, kde-format
 msgid "Error: %1"
 msgstr "Ошибка: %1"
 
-#: plugin_kategdb.cpp:432
+#: plugin_kategdb.cpp:438
 #, kde-format
 msgid "Insert breakpoint"
 msgstr "Вставить точку останова"
 
-#: plugin_kategdb.cpp:438
+#: plugin_kategdb.cpp:444
 #, fuzzy, kde-format
 #| msgid "Remove breakpoint"
 msgid "Toggle breakpoint"
 msgstr "Удалить точку останова"
 
-#: plugin_kategdb.cpp:554
+#: plugin_kategdb.cpp:560
 #, kde-format
 msgid "Execution point"
 msgstr "Точка выполнения"
 
-#: plugin_kategdb.cpp:665
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Вывод отладки"
 
-#: plugin_kategdb.cpp:666
+#: plugin_kategdb.cpp:672
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Параметры"
 
-#: plugin_kategdb.cpp:701
+#: plugin_kategdb.cpp:707
 #, kde-format
 msgid "IO"
 msgstr "Ввод и вывод"

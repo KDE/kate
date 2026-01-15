@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-25 15:42+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -20,60 +20,60 @@ msgstr ""
 "%100==4 ? 3 : 0);\n"
 "X-Generator: Poedit 3.4.2\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:151 kateconsole.cpp:790
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
 
-#: kateconsole.cpp:160
+#: kateconsole.cpp:164
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&Pošlji v terminal"
 
-#: kateconsole.cpp:164
+#: kateconsole.cpp:168
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "Uskladi terminal s trenutnim dokumentom"
 
-#: kateconsole.cpp:168
+#: kateconsole.cpp:172
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Zaženi trenutni dokument"
 
-#: kateconsole.cpp:173 kateconsole.cpp:575
+#: kateconsole.cpp:177 kateconsole.cpp:579
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Prikaži ploščo terminala"
 
-#: kateconsole.cpp:179
+#: kateconsole.cpp:183
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "Plošča terminala v žarišču"
 
-#: kateconsole.cpp:185
+#: kateconsole.cpp:189
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "Razcepi terminal navpično"
 
-#: kateconsole.cpp:190
+#: kateconsole.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "Razcepi terminal vodoravno"
 
-#: kateconsole.cpp:195
+#: kateconsole.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "&Novi zavihek terminala"
 
-#: kateconsole.cpp:359
+#: kateconsole.cpp:363
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
@@ -81,7 +81,7 @@ msgstr ""
 "Aplikacija konsole ni nameščena. Namestite konsole, da boste lahko "
 "uporabljali terminal."
 
-#: kateconsole.cpp:435
+#: kateconsole.cpp:439
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -90,22 +90,22 @@ msgstr ""
 "Ali res želite besedilo poslati v konzolo? Morebitni vsebovani ukazi bodo "
 "izvedeni z vašimi uporabniškimi pravicami."
 
-#: kateconsole.cpp:436
+#: kateconsole.cpp:440
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Ali pošljem v terminal?"
 
-#: kateconsole.cpp:437
+#: kateconsole.cpp:441
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Pošlji v terminal"
 
-#: kateconsole.cpp:505
+#: kateconsole.cpp:509
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "Ni krajevna datoteka: '%1'"
 
-#: kateconsole.cpp:538
+#: kateconsole.cpp:542
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -118,43 +118,43 @@ msgstr ""
 "z vašimi uporabniškimi dovoljenji:\n"
 "»%1«"
 
-#: kateconsole.cpp:545
+#: kateconsole.cpp:549
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Zaženem v terminalu?"
 
-#: kateconsole.cpp:546
+#: kateconsole.cpp:550
 #, kde-format
 msgid "Run"
 msgstr "Zaženi"
 
-#: kateconsole.cpp:577
+#: kateconsole.cpp:581
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "Skrij ploščo terminala"
 
-#: kateconsole.cpp:585
+#: kateconsole.cpp:589
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Odstrani žarišče s plošče terminala"
 
-#: kateconsole.cpp:586 kateconsole.cpp:587
+#: kateconsole.cpp:590 kateconsole.cpp:591
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Plošča terminala v žarišču"
 
-#: kateconsole.cpp:698
+#: kateconsole.cpp:703
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "Način sinhronizacije terminala"
 
-#: kateconsole.cpp:701
+#: kateconsole.cpp:706
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "Ne uskladi zavihek terminala s trenutnim dokumentom"
 
-#: kateconsole.cpp:704
+#: kateconsole.cpp:709
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
@@ -163,7 +163,7 @@ msgstr ""
 "S&amodejno uskladi trenutni zavihek terminala s trenutnim dokumentom, ko je "
 "to mogoče"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:712
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -172,27 +172,27 @@ msgstr ""
 "S&amodejno ustvari zavihek terminala za imenik trenutnega dokumenta in se "
 "preklopi nanj"
 
-#: kateconsole.cpp:714 kateconsole.cpp:735
+#: kateconsole.cpp:719 kateconsole.cpp:740
 #, kde-format
 msgid "Run in terminal"
 msgstr "Zaženi v terminalu"
 
-#: kateconsole.cpp:716
+#: kateconsole.cpp:721
 #, kde-format
 msgid "&Remove extension"
 msgstr "Odst&rani pripono"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:726
 #, kde-format
 msgid "Prefix:"
 msgstr "Predpona:"
 
-#: kateconsole.cpp:729
+#: kateconsole.cpp:734
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Na&slednjič prikaži opozorilo"
 
-#: kateconsole.cpp:731
+#: kateconsole.cpp:736
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -201,12 +201,12 @@ msgstr ""
 "Naslednjič, ko bo izvedena »%1«, prikaži opozorilno okno, ki bo prikazalo "
 "ukaz poslan v terminal."
 
-#: kateconsole.cpp:742
+#: kateconsole.cpp:747
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Nastavi okoljsko spremenljivko &EDITOR na »kate -b«"
 
-#: kateconsole.cpp:745
+#: kateconsole.cpp:750
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -214,12 +214,12 @@ msgid ""
 msgstr ""
 "Pomembno: da lahko program v konzoli nadaljuje, je potrebno zapreti dokument"
 
-#: kateconsole.cpp:748
+#: kateconsole.cpp:753
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Skrij Konzolo s pritiskom 'Esc'"
 
-#: kateconsole.cpp:751
+#: kateconsole.cpp:756
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -229,7 +229,7 @@ msgstr ""
 "Esc, kot je npr. vim. Dodajte te aplikacije vhod spodaj (Seznam ločen z "
 "vejicami)"
 
-#: kateconsole.cpp:795
+#: kateconsole.cpp:800
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Nastavitve terminala"

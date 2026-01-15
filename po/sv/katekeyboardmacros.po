@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-11-24 17:55+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -84,23 +84,23 @@ msgstr "Läste in '%1'"
 msgid "Wiped '%1'"
 msgstr "Suddade '%1'"
 
-#: keyboardmacrosplugincommands.cpp:26
+#: keyboardmacrosplugincommands.cpp:27
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "Användning: %1 <namn>."
 
-#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
-#: keyboardmacrosplugincommands.cpp:61
+#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
+#: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "Inget tangentbordsmakro vid namn '%1' hittades."
 
-#: keyboardmacrosplugincommands.cpp:49
+#: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "Kan inte spara ett tomt tangentbordsmakro."
 
-#: keyboardmacrosplugincommands.cpp:81
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -109,7 +109,7 @@ msgstr ""
 "<qt><p>Användning: <code>kmsave &lt;namn&gt;</code></p><p>Spara aktuellt "
 "tangentbordsmakro som <code>&lt;namn&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -118,7 +118,7 @@ msgstr ""
 "<qt><p>Användning: <code>kmload &lt;namn&gt;</code></p><p>Läs in sparad "
 "tangentbordsmakro <code>&lt;namn&gt;</code> som nuvarande makro.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -127,7 +127,7 @@ msgstr ""
 "<qt><p>Användning: <code>kmplay &lt;namn&gt;</code></p><p>Spela upp "
 "tangentbordsmakro <code>&lt;namn&gt;</code> utan att läsa in det.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:92
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

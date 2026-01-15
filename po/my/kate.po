@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -945,7 +945,7 @@ msgstr "ပါဝင်ကူညီပေးခဲ့သောလူအားလ
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "ပရောဂျက်ပလပ်ဂင်ကိုအသုံးပြုထားမှသာ ဖိုင်တွဲများ ဖွင့်နိုင်မည်"
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1844,112 +1844,112 @@ msgstr "ဖိုင်အားလုံးဖွင့်"
 msgid " [read only]"
 msgstr " [ဖတ်၍သာရ]"
 
-#: lib/katemdi.cpp:78
+#: lib/katemdi.cpp:81
 #, kde-format
 msgid "Toolview Manager"
 msgstr "ကိရိယာမြင်ကွင်းမန်နေဂျာ"
 
-#: lib/katemdi.cpp:96
+#: lib/katemdi.cpp:99
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "ဘေးတန်းခလုတ်များ"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Focus Toolview"
 msgstr "ကိရိယာမြင်ကွင်း အာရုံစိုက်မည်"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:105
 #, kde-format
 msgid "Tool &Views"
 msgstr "ကိရိယာ&မြင်ကွင်းများ"
 
-#: lib/katemdi.cpp:104
+#: lib/katemdi.cpp:107
 #, kde-format
 msgid "Show Side&bars"
 msgstr "ဘေး&တန်းများပြ"
 
-#: lib/katemdi.cpp:112
+#: lib/katemdi.cpp:115
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "ကိရိယာမြင်ကွင်းများအားလုံးဖျောက်"
 
-#: lib/katemdi.cpp:160
+#: lib/katemdi.cpp:163
 #, kde-format
 msgid "Show %1"
 msgstr "%1 ပြမည်"
 
-#: lib/katemdi.cpp:182
+#: lib/katemdi.cpp:185
 #, kde-format
 msgid "Show %1 Button"
 msgstr "%1ခလုတ်ပြမည်"
 
-#: lib/katemdi.cpp:201
+#: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
 msgstr "%1အာရုံစိုက်"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Configure..."
 msgstr "ပြင်ဆင်…"
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1126
 #, kde-format
 msgid "Hide Button"
 msgstr "ခလုတ်ဝှက်"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Move To"
 msgstr "သို့ရွှေ့မည်"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Own Section"
 msgstr "မိမိအပိုင်း"
 
-#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Down"
 msgstr "တစ်ခုချ"
 
-#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Right"
 msgstr "တစ်ခုညာဘက်"
 
-#: lib/katemdi.cpp:1142
+#: lib/katemdi.cpp:1145
 #, kde-format
 msgid "One Up"
 msgstr "တစ်ခုအပေါ်"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, kde-format
 msgid "One Left"
 msgstr "တစ်ခုဘယ်ဘက်"
 
-#: lib/katemdi.cpp:1156
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Left Sidebar"
 msgstr "ဘယ်ဘေးတန်း"
 
-#: lib/katemdi.cpp:1160
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Right Sidebar"
 msgstr "ညာဘေးတန်း"
 
-#: lib/katemdi.cpp:1164
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Top Sidebar"
 msgstr "အပေါ်ဘေးတန်း"
 
-#: lib/katemdi.cpp:1168
+#: lib/katemdi.cpp:1171
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "အောက်ခြေဘေးတန်း"
 
-#: lib/katemdi.cpp:1782
+#: lib/katemdi.cpp:1785
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

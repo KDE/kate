@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -86,23 +86,23 @@ msgstr "Ŝargis '%1'"
 msgid "Wiped '%1'"
 msgstr "Viŝis '%1'"
 
-#: keyboardmacrosplugincommands.cpp:26
+#: keyboardmacrosplugincommands.cpp:27
 #, kde-format
 msgid "Usage: %1 <name>."
 msgstr "Uzado: %1 <nomo>."
 
-#: keyboardmacrosplugincommands.cpp:40 keyboardmacrosplugincommands.cpp:55
-#: keyboardmacrosplugincommands.cpp:61
+#: keyboardmacrosplugincommands.cpp:41 keyboardmacrosplugincommands.cpp:56
+#: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
 msgstr "Neniu klavara makroo nomita '%1' trovita."
 
-#: keyboardmacrosplugincommands.cpp:49
+#: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
 msgstr "Ne povas konservi malplenan klavaran makroon."
 
-#: keyboardmacrosplugincommands.cpp:81
+#: keyboardmacrosplugincommands.cpp:82
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
@@ -111,7 +111,7 @@ msgstr ""
 "<qt><p>Uzo: <code>kmsave &lt;name&gt;</code></p><p>Konservi la aktualan "
 "klavarmakroon kiel <code>&lt;name&gt;</code>.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:84
+#: keyboardmacrosplugincommands.cpp:85
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
@@ -120,7 +120,7 @@ msgstr ""
 "<qt><p>Uzo: <code>kmload &lt;name&gt;</code></p><p>Ŝargi konservitan "
 "klavaran makroon <code>&lt;name&gt;</code> kiel nunan makroon.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:88
+#: keyboardmacrosplugincommands.cpp:89
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
@@ -129,7 +129,7 @@ msgstr ""
 "<qt><p>Uzo: <code>kmplay &lt;name&gt;</code></p><p>Ruli konservitan klavaran "
 "makroon <code>&lt;name&gt;</code> sen ŝargi ĝin.</p>%1</qt>"
 
-#: keyboardmacrosplugincommands.cpp:92
+#: keyboardmacrosplugincommands.cpp:93
 #, kde-format
 msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "

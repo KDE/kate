@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-25 12:33+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -22,67 +22,67 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
 
-#: kateconsole.cpp:119 kateconsole.cpp:151 kateconsole.cpp:790
+#: kateconsole.cpp:123 kateconsole.cpp:155 kateconsole.cpp:795
 #, kde-format
 msgid "Terminal"
 msgstr "Terminal"
 
-#: kateconsole.cpp:160
+#: kateconsole.cpp:164
 #, kde-format
 msgctxt "@action"
 msgid "&Pipe to Terminal"
 msgstr "&Conduïx al terminal"
 
-#: kateconsole.cpp:164
+#: kateconsole.cpp:168
 #, kde-format
 msgctxt "@action"
 msgid "S&ynchronize Terminal with Current Document"
 msgstr "S&incronitza el terminal amb el document actual"
 
-#: kateconsole.cpp:168
+#: kateconsole.cpp:172
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
 msgstr "Executa el document actual"
 
-#: kateconsole.cpp:173 kateconsole.cpp:575
+#: kateconsole.cpp:177 kateconsole.cpp:579
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
 msgstr "Mos&tra el quadro del terminal"
 
-#: kateconsole.cpp:179
+#: kateconsole.cpp:183
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
 msgstr "Dona el &focus al terminal"
 
-#: kateconsole.cpp:185
+#: kateconsole.cpp:189
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
 msgstr "Dividix &verticalment el terminal"
 
-#: kateconsole.cpp:190
+#: kateconsole.cpp:194
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
 msgstr "Dividix &horitzontalment el terminal"
 
-#: kateconsole.cpp:195
+#: kateconsole.cpp:199
 #, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
 msgstr "Pestanya &nova del terminal"
 
-#: kateconsole.cpp:359
+#: kateconsole.cpp:363
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
 "Konsole no està instal·lat. Instal·leu-lo per a poder utilitzar el terminal."
 
-#: kateconsole.cpp:435
+#: kateconsole.cpp:439
 #, kde-format
 msgid ""
 "Do you really want to pipe the text to the console? This will execute any "
@@ -91,22 +91,22 @@ msgstr ""
 "Segur que voleu conduir («pipe») el text cap a la consola? Açò executarà "
 "qualsevol ordre continguda amb els vostres drets d'usuari."
 
-#: kateconsole.cpp:436
+#: kateconsole.cpp:440
 #, kde-format
 msgid "Pipe to Terminal?"
 msgstr "Voleu conduir al terminal?"
 
-#: kateconsole.cpp:437
+#: kateconsole.cpp:441
 #, kde-format
 msgid "Pipe to Terminal"
 msgstr "Conduïx al terminal"
 
-#: kateconsole.cpp:505
+#: kateconsole.cpp:509
 #, kde-format
 msgid "Not a local file: '%1'"
 msgstr "No és un fitxer local: «%1»"
 
-#: kateconsole.cpp:538
+#: kateconsole.cpp:542
 #, kde-format
 msgid ""
 "Do you really want to Run the document ?\n"
@@ -119,43 +119,43 @@ msgstr ""
 "amb els vostres drets, al terminal:\n"
 "«%1»"
 
-#: kateconsole.cpp:545
+#: kateconsole.cpp:549
 #, kde-format
 msgid "Run in Terminal?"
 msgstr "Voleu executar en un terminal?"
 
-#: kateconsole.cpp:546
+#: kateconsole.cpp:550
 #, kde-format
 msgid "Run"
 msgstr "Executa"
 
-#: kateconsole.cpp:577
+#: kateconsole.cpp:581
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
 msgstr "O&culta el quadro del terminal"
 
-#: kateconsole.cpp:585
+#: kateconsole.cpp:589
 #, kde-format
 msgid "Defocus Terminal Panel"
 msgstr "Trau el focus del quadro del terminal"
 
-#: kateconsole.cpp:586 kateconsole.cpp:587
+#: kateconsole.cpp:590 kateconsole.cpp:591
 #, kde-format
 msgid "Focus Terminal Panel"
 msgstr "Dona el focus al quadro del terminal"
 
-#: kateconsole.cpp:698
+#: kateconsole.cpp:703
 #, kde-format
 msgid "Terminal Synchronization Mode"
 msgstr "Mode de sincronització del terminal"
 
-#: kateconsole.cpp:701
+#: kateconsole.cpp:706
 #, kde-format
 msgid "&Don't synchronize terminal tab with current document"
 msgstr "&No sincronitzes la pestanya de terminal amb el document actual"
 
-#: kateconsole.cpp:704
+#: kateconsole.cpp:709
 #, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
@@ -164,7 +164,7 @@ msgstr ""
 "Sincronitza &automàticament la pestanya del terminal actual amb el document "
 "actual quan siga possible"
 
-#: kateconsole.cpp:707
+#: kateconsole.cpp:712
 #, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
@@ -173,27 +173,27 @@ msgstr ""
 "Crea &automàticament una pestanya de terminal per al directori del document "
 "actual i canvia-hi"
 
-#: kateconsole.cpp:714 kateconsole.cpp:735
+#: kateconsole.cpp:719 kateconsole.cpp:740
 #, kde-format
 msgid "Run in terminal"
 msgstr "Executa en un terminal"
 
-#: kateconsole.cpp:716
+#: kateconsole.cpp:721
 #, kde-format
 msgid "&Remove extension"
 msgstr "&Elimina l'extensió"
 
-#: kateconsole.cpp:721
+#: kateconsole.cpp:726
 #, kde-format
 msgid "Prefix:"
 msgstr "Prefix:"
 
-#: kateconsole.cpp:729
+#: kateconsole.cpp:734
 #, kde-format
 msgid "&Show warning next time"
 msgstr "Mo&stra un avís la pròxima vegada"
 
-#: kateconsole.cpp:731
+#: kateconsole.cpp:736
 #, kde-format
 msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
@@ -203,12 +203,12 @@ msgstr ""
 "emergent d'avís, mostrant l'ordre que s'enviarà al terminal, per a revisar-"
 "la."
 
-#: kateconsole.cpp:742
+#: kateconsole.cpp:747
 #, kde-format
 msgid "Set &EDITOR environment variable to 'kate -b'"
 msgstr "Establix la variable d'entorn &EDITOR a «kate -b»"
 
-#: kateconsole.cpp:745
+#: kateconsole.cpp:750
 #, kde-format
 msgid ""
 "Important: The document has to be closed to make the console application "
@@ -217,12 +217,12 @@ msgstr ""
 "Important: el document s'ha de tancar per a fer que continue l'aplicació de "
 "consola"
 
-#: kateconsole.cpp:748
+#: kateconsole.cpp:753
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
 msgstr "Oculta Konsole en prémer «Esc»"
 
-#: kateconsole.cpp:751
+#: kateconsole.cpp:756
 #, kde-format
 msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
@@ -232,7 +232,7 @@ msgstr ""
 "tecla «Esc», p. ex., vim. Afegiu estes aplicacions a continuació en "
 "l'entrada (en una llista separada per comes)"
 
-#: kateconsole.cpp:795
+#: kateconsole.cpp:800
 #, kde-format
 msgid "Terminal Settings"
 msgstr "Configureu el terminal"

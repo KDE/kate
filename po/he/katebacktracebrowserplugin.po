@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-08 19:13+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -139,52 +139,52 @@ msgstr "סוגי קבצים:"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr "רשימת סיומות קבצים. לדוגמה: ‎*.cpp,‏ ‎*.h,‏ ‎*.c וכדומה…"
 
-#: katebacktracebrowser.cpp:97
+#: katebacktracebrowser.cpp:101
 #, kde-format
 msgid "Indexing files..."
 msgstr "קבצים נרשמים במפתח…"
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
+#: katebacktracebrowser.cpp:126 katebacktracebrowser.cpp:287
 #, kde-format
 msgid "Backtrace"
 msgstr "מעקב קריאות"
 
-#: katebacktracebrowser.cpp:156
+#: katebacktracebrowser.cpp:160
 #, kde-format
 msgid "Load Backtrace"
 msgstr "טעינת מעקב קריאות"
 
-#: katebacktracebrowser.cpp:198
+#: katebacktracebrowser.cpp:202
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "טעינת מעקב הקריאות הצליחה"
 
-#: katebacktracebrowser.cpp:200
+#: katebacktracebrowser.cpp:204
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "טעינת מעקב הקריאות נכשלה"
 
-#: katebacktracebrowser.cpp:234
+#: katebacktracebrowser.cpp:238
 #, kde-format
 msgid "File not found: %1"
 msgstr "קובץ לא נמצא: %1"
 
-#: katebacktracebrowser.cpp:245
+#: katebacktracebrowser.cpp:249
 #, kde-format
 msgid "Opened file: %1"
 msgstr "קובץ נפתח: %1"
 
-#: katebacktracebrowser.cpp:248
+#: katebacktracebrowser.cpp:252
 #, kde-format
 msgid "No debugging information available"
 msgstr "אין פרטי ניפוי תקלות זמינים"
 
-#: katebacktracebrowser.cpp:288
+#: katebacktracebrowser.cpp:292
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "הגדרות מעקב קריאות"
 
-#: katebacktracebrowser.cpp:362
+#: katebacktracebrowser.cpp:366
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "הגדרות דפדפן מעקבי קריאות"

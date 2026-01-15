@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-14 20:18+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -28,22 +28,22 @@ msgstr "رقم السطر"
 msgid "File Path"
 msgstr "مسار الملف"
 
-#: bookmarksplugin.cpp:143
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "العلامات"
 
-#: bookmarksplugin.cpp:165
+#: bookmarksplugin.cpp:168
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "انتقل إلى العلامة السّابقة"
 
-#: bookmarksplugin.cpp:171
+#: bookmarksplugin.cpp:174
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "انتقل إلى العلامة التّالية"
 
-#: bookmarksplugin.cpp:177
+#: bookmarksplugin.cpp:180
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "احذف العلامة"

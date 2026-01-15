@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -58,12 +58,12 @@ msgstr "删除所选条目"
 msgid "Delete all entries"
 msgstr "删除所有条目"
 
-#: lspclientplugin.cpp:233
+#: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
 msgstr "已请求 LSP 服务器启动"
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -73,7 +73,7 @@ msgstr ""
 "您想要启动 LSP 服务器吗？<br><br>完整命令行：<br><br><b>%1</b><br><br>相关选"
 "项可在插件的配置页面更改。"
 
-#: lspclientplugin.cpp:249
+#: lspclientplugin.cpp:253
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -376,57 +376,57 @@ msgstr "LSP 客户端"
 msgid "Question from LSP server"
 msgstr "来自 LSP 服务器的问题"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "Restarting"
 msgstr "正在重启"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "NOT Restarting"
 msgstr "没在重启"
 
-#: lspclientservermanager.cpp:618
+#: lspclientservermanager.cpp:621
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "服务器意外终止... %1 [%2] [主页: %3] "
 
-#: lspclientservermanager.cpp:890
+#: lspclientservermanager.cpp:893
 #, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "查找语言“%2”的服务器二进制文件“%1”失败"
 
-#: lspclientservermanager.cpp:893 lspclientservermanager.cpp:958
+#: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "请检查您为可执行文件设置的 PATH 环境变量"
 
-#: lspclientservermanager.cpp:894 lspclientservermanager.cpp:959
+#: lspclientservermanager.cpp:897 lspclientservermanager.cpp:962
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "另请参考 %1 以获取安装或详细信息"
 
-#: lspclientservermanager.cpp:955
+#: lspclientservermanager.cpp:958
 #, kde-format
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "启动语言“%2”的服务器“%1”失败"
 
-#: lspclientservermanager.cpp:963
+#: lspclientservermanager.cpp:966
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "服务器已启动 %2: %1"
 
-#: lspclientservermanager.cpp:1001
+#: lspclientservermanager.cpp:1004
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "无法解析服务器配置“%1”：没有 JSON 对象"
 
-#: lspclientservermanager.cpp:1004
+#: lspclientservermanager.cpp:1007
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "解析服务器配置失败：“%1”：%2"
 
-#: lspclientservermanager.cpp:1008
+#: lspclientservermanager.cpp:1011
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "读取服务器配置失败：%1"

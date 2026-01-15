@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-12-21 06:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -968,7 +968,7 @@ msgstr "所有曾協力但我忘記提及的人"
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr "僅能在專案外掛程式啟用時開啟資料夾"
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1881,112 +1881,112 @@ msgstr "開啟所有檔案"
 msgid " [read only]"
 msgstr " [唯讀]"
 
-#: lib/katemdi.cpp:78
+#: lib/katemdi.cpp:81
 #, kde-format
 msgid "Toolview Manager"
 msgstr "工具檢視管理工具"
 
-#: lib/katemdi.cpp:96
+#: lib/katemdi.cpp:99
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "邊列按鈕"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Focus Toolview"
 msgstr "聚焦工具檢視"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:105
 #, kde-format
 msgid "Tool &Views"
 msgstr "工具檢視(&V)"
 
-#: lib/katemdi.cpp:104
+#: lib/katemdi.cpp:107
 #, kde-format
 msgid "Show Side&bars"
 msgstr "顯示邊列(&B)"
 
-#: lib/katemdi.cpp:112
+#: lib/katemdi.cpp:115
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "顯示所有工具檢視"
 
-#: lib/katemdi.cpp:160
+#: lib/katemdi.cpp:163
 #, kde-format
 msgid "Show %1"
 msgstr "顯示 %1"
 
-#: lib/katemdi.cpp:182
+#: lib/katemdi.cpp:185
 #, kde-format
 msgid "Show %1 Button"
 msgstr "顯示 %1 按鈕"
 
-#: lib/katemdi.cpp:201
+#: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
 msgstr "聚焦 %1"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Configure..."
 msgstr "設定..."
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1126
 #, kde-format
 msgid "Hide Button"
 msgstr "隱藏按鈕"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Move To"
 msgstr "移動到"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Own Section"
 msgstr "自己的區段"
 
-#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Down"
 msgstr "往下一個"
 
-#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Right"
 msgstr "往右一個"
 
-#: lib/katemdi.cpp:1142
+#: lib/katemdi.cpp:1145
 #, kde-format
 msgid "One Up"
 msgstr "往上一個"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, kde-format
 msgid "One Left"
 msgstr "往左一個"
 
-#: lib/katemdi.cpp:1156
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Left Sidebar"
 msgstr "左方邊列"
 
-#: lib/katemdi.cpp:1160
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Right Sidebar"
 msgstr "右方邊列"
 
-#: lib/katemdi.cpp:1164
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Top Sidebar"
 msgstr "頂端邊列"
 
-#: lib/katemdi.cpp:1168
+#: lib/katemdi.cpp:1171
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "底部邊列"
 
-#: lib/katemdi.cpp:1782
+#: lib/katemdi.cpp:1785
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

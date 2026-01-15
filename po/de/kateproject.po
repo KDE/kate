@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-12-10 23:04+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -545,7 +545,7 @@ msgstr ""
 msgid "Malformed JSON file '%1': %2"
 msgstr "Ungültige JSON-Datei „%1“: %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -853,24 +853,24 @@ msgstr "Fehler"
 msgid "File name already exists"
 msgstr "Der Dateiname existiert bereits"
 
-#: kateprojectplugin.cpp:240
+#: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Schließen des Projekts bestätigen: %1"
 
-#: kateprojectplugin.cpp:241
+#: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Möchten Sie das Projekt %1 und die zugehörigen %2 geöffneten Dokumente "
 "schließen?"
 
-#: kateprojectplugin.cpp:626
+#: kateprojectplugin.cpp:656
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Vollständiger Pfad des aktuellen Projekts ohne den Dateinamen."
 
-#: kateprojectplugin.cpp:643
+#: kateprojectplugin.cpp:673
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1054,12 +1054,12 @@ msgstr "Der Ordner existiert bereits"
 msgid "Failed to create dir: %1"
 msgstr "Der Ordner %1 kann nicht erstellt werden"
 
-#: kateprojectworker.cpp:202
+#: kateprojectworker.cpp:208
 #, kde-format
 msgid "Unable to find directory: %1"
 msgstr "Der Ordner %1 kann nicht gefunden werden"
 
-#: kateprojectworker.cpp:729
+#: kateprojectworker.cpp:735
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

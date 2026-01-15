@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-09-19 15:21+0300\n"
 "Last-Translator: Antonis Geralis <capoiosct@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -536,7 +536,7 @@ msgstr "Θέλετε πράγματι να διαγράψετε αυτές τι�
 msgid "Malformed JSON file '%1': %2"
 msgstr "Κακοδιατυπωμένο JSON αρχείο '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:761 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -860,23 +860,23 @@ msgstr "Σφάλμα"
 msgid "File name already exists"
 msgstr "Το όνομα αρχείου υπάρχει ήδη"
 
-#: kateprojectplugin.cpp:240
+#: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
 msgstr "Επιβεβαίωση κλεισίματος έργου: %1"
 
-#: kateprojectplugin.cpp:241
+#: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
 "Θέλετε να κλείσετε το έργο %1 και τα σχετικά %2 με αυτό ανοιχτά έγγραφα;"
 
-#: kateprojectplugin.cpp:626
+#: kateprojectplugin.cpp:656
 #, kde-format
 msgid "Full path to current project excluding the file name."
 msgstr "Πλήρης διαδρομή στο τρέχον έργο χωρίς το όνομα αρχείου."
 
-#: kateprojectplugin.cpp:643
+#: kateprojectplugin.cpp:673
 #, kde-format
 msgid ""
 "Full path to current project excluding the file name, with native path "
@@ -1065,13 +1065,13 @@ msgstr "Το όνομα αρχείου υπάρχει ήδη"
 msgid "Failed to create dir: %1"
 msgstr "Αποτυχία δημιουργίας καταλόγου: %1"
 
-#: kateprojectworker.cpp:202
+#: kateprojectworker.cpp:208
 #, fuzzy, kde-format
 #| msgid "Failed to get file history: %1"
 msgid "Unable to find directory: %1"
 msgstr "Αποτυχία ανάκτησης του ιστορικού του αρχείου: %1"
 
-#: kateprojectworker.cpp:729
+#: kateprojectworker.cpp:735
 #, kde-format
 msgid ""
 "Unable to load %1 based project because either %1 is not installed or it "

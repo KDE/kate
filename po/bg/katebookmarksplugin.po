@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-05 00:45+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-20 23:46+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -27,22 +27,22 @@ msgstr "Номер на ред"
 msgid "File Path"
 msgstr "Файлов път"
 
-#: bookmarksplugin.cpp:143
+#: bookmarksplugin.cpp:146
 #, kde-format
 msgid "Bookmarks"
 msgstr "Отметки"
 
-#: bookmarksplugin.cpp:165
+#: bookmarksplugin.cpp:168
 #, kde-format
 msgid "Go to Previous Bookmark"
 msgstr "Предишна отметка"
 
-#: bookmarksplugin.cpp:171
+#: bookmarksplugin.cpp:174
 #, kde-format
 msgid "Go to Next Bookmark"
 msgstr "Следваща отметка"
 
-#: bookmarksplugin.cpp:177
+#: bookmarksplugin.cpp:180
 #, kde-format
 msgid "Remove Bookmark"
 msgstr "Премахване на отметка"

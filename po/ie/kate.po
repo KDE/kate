@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2022-10-28 19:12+0700\n"
 "Last-Translator: OIS <mistresssilvara@hotmail.com>\n"
 "Language-Team: Interlingue <kde-i18n-doc@kde.org>\n"
@@ -956,7 +956,7 @@ msgstr ""
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, fuzzy, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1875,112 +1875,112 @@ msgstr "Aperter omni files"
 msgid " [read only]"
 msgstr " [solmen letion]"
 
-#: lib/katemdi.cpp:78
+#: lib/katemdi.cpp:81
 #, fuzzy, kde-format
 msgid "Toolview Manager"
 msgstr "Terminal"
 
-#: lib/katemdi.cpp:96
+#: lib/katemdi.cpp:99
 #, fuzzy, kde-format
 msgid "Sidebar Buttons"
 msgstr "Butones"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Focus Toolview"
 msgstr ""
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:105
 #, fuzzy, kde-format
 msgid "Tool &Views"
 msgstr "Vises"
 
-#: lib/katemdi.cpp:104
+#: lib/katemdi.cpp:107
 #, fuzzy, kde-format
 msgid "Show Side&bars"
 msgstr "_Monstrar..."
 
-#: lib/katemdi.cpp:112
+#: lib/katemdi.cpp:115
 #, fuzzy, kde-format
 msgid "Hide All Tool Views"
 msgstr "Celar omni tracks"
 
-#: lib/katemdi.cpp:160
+#: lib/katemdi.cpp:163
 #, kde-format
 msgid "Show %1"
 msgstr "Monstrar %1"
 
-#: lib/katemdi.cpp:182
+#: lib/katemdi.cpp:185
 #, fuzzy, kde-format
 msgid "Show %1 Button"
 msgstr "Monstrar li icone"
 
-#: lib/katemdi.cpp:201
+#: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
 msgstr ""
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Configure..."
 msgstr "Configurar..."
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1126
 #, kde-format
 msgid "Hide Button"
 msgstr "Celar li buton"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Move To"
 msgstr "Mover a"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, fuzzy, kde-format
 msgid "Own Section"
 msgstr "Section: "
 
-#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1147
 #, fuzzy, kde-format
 msgid "One Down"
 msgstr "Mover li selectet element al sequent linea"
 
-#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1152
 #, fuzzy, kde-format
 msgid "One Right"
 msgstr "Dextri"
 
-#: lib/katemdi.cpp:1142
+#: lib/katemdi.cpp:1145
 #, fuzzy, kde-format
 msgid "One Up"
 msgstr "Mover li selectet element al precedent linea"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, fuzzy, kde-format
 msgid "One Left"
 msgstr "Left"
 
-#: lib/katemdi.cpp:1156
+#: lib/katemdi.cpp:1159
 #, fuzzy, kde-format
 msgid "Left Sidebar"
 msgstr "Panel láteral sinistri"
 
-#: lib/katemdi.cpp:1160
+#: lib/katemdi.cpp:1163
 #, fuzzy, kde-format
 msgid "Right Sidebar"
 msgstr "Panel láteral dextri"
 
-#: lib/katemdi.cpp:1164
+#: lib/katemdi.cpp:1167
 #, fuzzy, kde-format
 msgid "Top Sidebar"
 msgstr "In li panel lateral"
 
-#: lib/katemdi.cpp:1168
+#: lib/katemdi.cpp:1171
 #, fuzzy, kde-format
 msgid "Bottom Sidebar"
 msgstr "A bass"
 
-#: lib/katemdi.cpp:1782
+#: lib/katemdi.cpp:1785
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

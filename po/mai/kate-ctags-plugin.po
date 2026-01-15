@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2010-09-24 20:26+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -336,12 +336,12 @@ msgstr ""
 msgid "..."
 msgstr ""
 
-#: kate_ctags_plugin.cpp:75 kate_ctags_view.cpp:112
+#: kate_ctags_plugin.cpp:75 kate_ctags_view.cpp:117
 #, kde-format
 msgid "Add a directory to index."
 msgstr ""
 
-#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:115
+#: kate_ctags_plugin.cpp:78 kate_ctags_view.cpp:120
 #, kde-format
 msgid "Remove a directory."
 msgstr ""
@@ -351,9 +351,9 @@ msgstr ""
 msgid "(Re-)generate the common CTags database."
 msgstr ""
 
-#: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:49 kate_ctags_view.cpp:56
-#: kate_ctags_view.cpp:99 kate_ctags_view.cpp:137 kate_ctags_view.cpp:547
-#: kate_ctags_view.cpp:560 kate_ctags_view.cpp:573 kate_ctags_view.cpp:577
+#: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:54 kate_ctags_view.cpp:61
+#: kate_ctags_view.cpp:104 kate_ctags_view.cpp:142 kate_ctags_view.cpp:552
+#: kate_ctags_view.cpp:565 kate_ctags_view.cpp:578 kate_ctags_view.cpp:582
 #, kde-format
 msgid "CTags"
 msgstr ""
@@ -363,7 +363,7 @@ msgstr ""
 msgid "CTags Settings"
 msgstr ""
 
-#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:558
+#: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:563
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
 msgstr ""
@@ -378,88 +378,88 @@ msgstr ""
 msgid "The CTags command exited with code %1"
 msgstr ""
 
-#: kate_ctags_view.cpp:60
+#: kate_ctags_view.cpp:65
 #, kde-format
 msgid "Jump back one step"
 msgstr ""
 
-#: kate_ctags_view.cpp:64
+#: kate_ctags_view.cpp:69
 #, kde-format
 msgid "Go to Declaration"
 msgstr ""
 
-#: kate_ctags_view.cpp:68
+#: kate_ctags_view.cpp:73
 #, kde-format
 msgid "Go to Definition"
 msgstr ""
 
-#: kate_ctags_view.cpp:72
+#: kate_ctags_view.cpp:77
 #, kde-format
 msgid "Lookup Current Text"
 msgstr ""
 
-#: kate_ctags_view.cpp:76
+#: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
 msgstr ""
 
-#: kate_ctags_view.cpp:91
+#: kate_ctags_view.cpp:96
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
 msgstr ""
 
-#: kate_ctags_view.cpp:102 kate_ctags_view.cpp:191
+#: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
 msgid "Go to Declaration: %1"
 msgstr ""
 
-#: kate_ctags_view.cpp:103 kate_ctags_view.cpp:192
+#: kate_ctags_view.cpp:108 kate_ctags_view.cpp:197
 #, kde-format
 msgid "Go to Definition: %1"
 msgstr ""
 
-#: kate_ctags_view.cpp:104 kate_ctags_view.cpp:193
+#: kate_ctags_view.cpp:109 kate_ctags_view.cpp:198
 #, kde-format
 msgid "Lookup: %1"
 msgstr ""
 
-#: kate_ctags_view.cpp:118 kate_ctags_view.cpp:121
+#: kate_ctags_view.cpp:123 kate_ctags_view.cpp:126
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
 msgstr ""
 
-#: kate_ctags_view.cpp:126
+#: kate_ctags_view.cpp:131
 #, kde-format
 msgid "Select new or existing database file."
 msgstr ""
 
-#: kate_ctags_view.cpp:142
+#: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Local Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:147
+#: kate_ctags_view.cpp:152
 #, kde-format
 msgid "Go To Global Symbol"
 msgstr ""
 
-#: kate_ctags_view.cpp:320 kate_ctags_view.cpp:353
+#: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
 msgid "No hits found"
 msgstr ""
 
-#: kate_ctags_view.cpp:547
+#: kate_ctags_view.cpp:552
 #, kde-format
 msgid "No folders or files to index"
 msgstr ""
 
-#: kate_ctags_view.cpp:573
+#: kate_ctags_view.cpp:578
 #, kde-format
 msgid "The CTags executable crashed"
 msgstr ""
 
-#: kate_ctags_view.cpp:575
+#: kate_ctags_view.cpp:580
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr ""

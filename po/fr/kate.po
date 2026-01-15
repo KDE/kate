@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-13 08:44+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2026-01-10 20:08+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
@@ -1017,7 +1017,7 @@ msgstr ""
 "Les dossiers ne peuvent être ouverts que lorsque le module externe des "
 "projets est activé."
 
-#: lib/kateapp.cpp:655
+#: lib/kateapp.cpp:656
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1989,112 +1989,112 @@ msgstr "Ouvrir tous les fichiers"
 msgid " [read only]"
 msgstr " [lecture seule]"
 
-#: lib/katemdi.cpp:78
+#: lib/katemdi.cpp:81
 #, kde-format
 msgid "Toolview Manager"
 msgstr "Gestionnaire d'affichage pour les outils"
 
-#: lib/katemdi.cpp:96
+#: lib/katemdi.cpp:99
 #, kde-format
 msgid "Sidebar Buttons"
 msgstr "Boutons de la barre latérale"
 
-#: lib/katemdi.cpp:99
+#: lib/katemdi.cpp:102
 #, kde-format
 msgid "Focus Toolview"
 msgstr "Faire un focus sur la vue des outils"
 
-#: lib/katemdi.cpp:102
+#: lib/katemdi.cpp:105
 #, kde-format
 msgid "Tool &Views"
 msgstr "&Vues des outils"
 
-#: lib/katemdi.cpp:104
+#: lib/katemdi.cpp:107
 #, kde-format
 msgid "Show Side&bars"
 msgstr "Afficher les &barres latérales"
 
-#: lib/katemdi.cpp:112
+#: lib/katemdi.cpp:115
 #, kde-format
 msgid "Hide All Tool Views"
 msgstr "Masquer toutes les vues d'outils"
 
-#: lib/katemdi.cpp:160
+#: lib/katemdi.cpp:163
 #, kde-format
 msgid "Show %1"
 msgstr "Afficher %1"
 
-#: lib/katemdi.cpp:182
+#: lib/katemdi.cpp:185
 #, kde-format
 msgid "Show %1 Button"
 msgstr "Afficher un bouton %1"
 
-#: lib/katemdi.cpp:201
+#: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
 msgstr "Faire un focus sur %1"
 
-#: lib/katemdi.cpp:1119
+#: lib/katemdi.cpp:1122
 #, kde-format
 msgid "Configure..."
 msgstr "Configurer..."
 
-#: lib/katemdi.cpp:1123
+#: lib/katemdi.cpp:1126
 #, kde-format
 msgid "Hide Button"
 msgstr "Masquer un bouton"
 
-#: lib/katemdi.cpp:1125
+#: lib/katemdi.cpp:1128
 #, kde-format
 msgid "Move To"
 msgstr "Déplacer vers"
 
-#: lib/katemdi.cpp:1130
+#: lib/katemdi.cpp:1133
 #, kde-format
 msgid "Own Section"
 msgstr "Votre propre section"
 
-#: lib/katemdi.cpp:1136 lib/katemdi.cpp:1144
+#: lib/katemdi.cpp:1139 lib/katemdi.cpp:1147
 #, kde-format
 msgid "One Down"
 msgstr "Un vers le bas"
 
-#: lib/katemdi.cpp:1138 lib/katemdi.cpp:1149
+#: lib/katemdi.cpp:1141 lib/katemdi.cpp:1152
 #, kde-format
 msgid "One Right"
 msgstr "Un vers la droite"
 
-#: lib/katemdi.cpp:1142
+#: lib/katemdi.cpp:1145
 #, kde-format
 msgid "One Up"
 msgstr "Un vers le haut"
 
-#: lib/katemdi.cpp:1147
+#: lib/katemdi.cpp:1150
 #, kde-format
 msgid "One Left"
 msgstr "Un vers la gauche"
 
-#: lib/katemdi.cpp:1156
+#: lib/katemdi.cpp:1159
 #, kde-format
 msgid "Left Sidebar"
 msgstr "Barre latérale gauche"
 
-#: lib/katemdi.cpp:1160
+#: lib/katemdi.cpp:1163
 #, kde-format
 msgid "Right Sidebar"
 msgstr "Barre latérale droite"
 
-#: lib/katemdi.cpp:1164
+#: lib/katemdi.cpp:1167
 #, kde-format
 msgid "Top Sidebar"
 msgstr "Barre latérale en haut"
 
-#: lib/katemdi.cpp:1168
+#: lib/katemdi.cpp:1171
 #, kde-format
 msgid "Bottom Sidebar"
 msgstr "Barre latérale en bas"
 
-#: lib/katemdi.cpp:1782
+#: lib/katemdi.cpp:1785
 #, kde-format
 msgid ""
 "<qt>You are about to hide the sidebars. With hidden sidebars it is not "

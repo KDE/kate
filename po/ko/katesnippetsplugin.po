@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2025-07-21 00:50+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -246,12 +246,12 @@ msgstr ""
 "이 스니펫 형식을 사용하려면 KTextEditor 6.15.0 이상을 사용하여 Kate를 컴파일"
 "해야 합니다."
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "<빈 저장소>"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, kde-format
 msgid ""
 "You have edited a snippet repository file not located in your personal "
@@ -261,28 +261,28 @@ msgstr ""
 "개인 데이터 디렉터리 밖에 있는 스니펫 저장소 파일을 편집했습니다. 원래 스니"
 "펫 파일의 이름이 변경된 복사본이 개인 데이터 디렉터리에 생성되었습니다."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "출력 파일 '%1'을(를) 열 수 없습니다"
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "스니펫 저장소 %1을(를) 열 수 없습니다."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr "<qt>파일 %1의 %2/%3에서<br />오류 <b>%4</b>이(가) 감지됨</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "잘못된 XML 스니펫 파일: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -291,12 +291,12 @@ msgstr ""
 "저장소가 비활성화되었습니다. 이 저장소에 있는 스니펫은 코드 자동 완성에 표시"
 "되지 않습니다."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "모든 파일 형식에 적용됨"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "다음 파일 형식에 적용됨: %1"

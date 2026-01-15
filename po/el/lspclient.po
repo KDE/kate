@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2023-01-02 22:53+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -58,12 +58,12 @@ msgstr "Διαγραφή επιλεγμένων εγγραφών"
 msgid "Delete all entries"
 msgstr "Διαγραφή όλων των εγγραφών"
 
-#: lspclientplugin.cpp:233
+#: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
 msgstr "Ζητήθηκε εκκίνηση του εξυπηρετητή LSP"
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -74,7 +74,7 @@ msgstr ""
 "<br><br><b>%1</b><br><br>Η επιλογή μπορεί να αλλάξει από τη σελίδα "
 "διαμόρφωσης του προσθέτου."
 
-#: lspclientplugin.cpp:249
+#: lspclientplugin.cpp:253
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -380,61 +380,61 @@ msgstr "LSP πελάτης"
 msgid "Question from LSP server"
 msgstr "Επανεκκίνηση εξυπηρετητή LSP"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "Restarting"
 msgstr "Επανεκκινεί"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "NOT Restarting"
 msgstr "ΔΕΝ επανεκκινεί"
 
-#: lspclientservermanager.cpp:618
+#: lspclientservermanager.cpp:621
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Απρόσμενος τερματισμός εξυπηρετητή ... %1 [%2] [αρχική σελίδα: %3] "
 
-#: lspclientservermanager.cpp:890
+#: lspclientservermanager.cpp:893
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "Αποτυχία εύρεσης του εκτελέσιμου του εξυπηρετητή: %1"
 
-#: lspclientservermanager.cpp:893 lspclientservermanager.cpp:958
+#: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "Ελέγξτε τη ΔΙΑΔΡΟΜΗ για το εκτελέσιμο"
 
-#: lspclientservermanager.cpp:894 lspclientservermanager.cpp:959
+#: lspclientservermanager.cpp:897 lspclientservermanager.cpp:962
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "Δείτε και στο %1 για εγκατάσταση ή λεπτομέρειες"
 
-#: lspclientservermanager.cpp:955
+#: lspclientservermanager.cpp:958
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "Αποτυχία εκκίνησης εξυπηρετητή: %1"
 
-#: lspclientservermanager.cpp:963
+#: lspclientservermanager.cpp:966
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "Ξεκίνησε ο εξυπηρετητής %2: %1"
 
-#: lspclientservermanager.cpp:1001
+#: lspclientservermanager.cpp:1004
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
 "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': δεν υπάρχει JSON "
 "αντικείμενο"
 
-#: lspclientservermanager.cpp:1004
+#: lspclientservermanager.cpp:1007
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "Αποτυχία συντακτικής ανάλυσης της διαμόρφωσης '%1': %2"
 
-#: lspclientservermanager.cpp:1008
+#: lspclientservermanager.cpp:1011
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "Αποτυχία ανάγνωσης της διαμόρφωσης του εξυπηρετητή: %1"

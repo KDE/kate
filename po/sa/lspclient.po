@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-11 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2024-12-15 21:04+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -56,12 +56,12 @@ msgstr "चयनितप्रविष्टयः विलोपयन्�
 msgid "Delete all entries"
 msgstr "सर्वाणि प्रविष्टयः विलोपयन्तु"
 
-#: lspclientplugin.cpp:233
+#: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
 msgstr "LSP विरतारक् आरम्भस्य अनुरोधः कृतः"
 
-#: lspclientplugin.cpp:236
+#: lspclientplugin.cpp:240
 #, kde-format
 msgid ""
 "Do you want the LSP server to be started?<br><br>The full command line is:"
@@ -71,7 +71,7 @@ msgstr ""
 "किं भवान् इच्छति यत् LSP वितारक् आरभ्यताम्?<br><br>पूर्णा आदेशपङ्क्तिः अस्ति:<br><br><b>"
 "%1</b><br><br>प्लगिन् इत्यस्य विन्यासपृष्ठद्वारा विकल्पं परिवर्तयितुं शक्यते ।."
 
-#: lspclientplugin.cpp:249
+#: lspclientplugin.cpp:253
 #, kde-format
 msgid ""
 "User permanently blocked start of: '%1'.\n"
@@ -375,59 +375,59 @@ msgstr "LSP ग्राहिका"
 msgid "Question from LSP server"
 msgstr "LSP वितारकतः प्रश्नः"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "Restarting"
 msgstr "पुनः आरभते"
 
-#: lspclientservermanager.cpp:617
+#: lspclientservermanager.cpp:620
 #, kde-format
 msgid "NOT Restarting"
 msgstr "पुनः आरभ्यते न"
 
-#: lspclientservermanager.cpp:618
+#: lspclientservermanager.cpp:621
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "वितारकः अप्रत्याशितरूपेण समाप्तः ... %1 [%2] [मुखपृष्ठम्: %3] "
 
-#: lspclientservermanager.cpp:890
+#: lspclientservermanager.cpp:893
 #, fuzzy, kde-format
 #| msgid "Failed to find server binary: %1"
 msgid "Failed to find server binary '%1' for language '%2'"
 msgstr "वितारकं द्विचक्रीयम् अन्वेष्टुं असफलम्: %1"
 
-#: lspclientservermanager.cpp:893 lspclientservermanager.cpp:958
+#: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
 msgid "Please check your PATH for the binary"
 msgstr "कृपया द्विचक्रीयस्य कृते स्वस्य PATH पश्यन्तु"
 
-#: lspclientservermanager.cpp:894 lspclientservermanager.cpp:959
+#: lspclientservermanager.cpp:897 lspclientservermanager.cpp:962
 #, kde-format
 msgid "See also %1 for installation or details"
 msgstr "संस्थापनार्थं वा विवरणार्थं वा %1 इत्यपि पश्यन्तु"
 
-#: lspclientservermanager.cpp:955
+#: lspclientservermanager.cpp:958
 #, fuzzy, kde-format
 #| msgid "Failed to start server: %1"
 msgid "Failed to start server '%1' for language '%2'"
 msgstr "वितारकं आरभ्यतुं असफलम्: %1"
 
-#: lspclientservermanager.cpp:963
+#: lspclientservermanager.cpp:966
 #, kde-format
 msgid "Started server %2: %1"
 msgstr "%2: %1 वितारकः आरब्धः"
 
-#: lspclientservermanager.cpp:1001
+#: lspclientservermanager.cpp:1004
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr "वितारकविन्यासस्य '%1' विश्लेषणं कर्तुं असफलम्: JSON वस्तु नास्ति"
 
-#: lspclientservermanager.cpp:1004
+#: lspclientservermanager.cpp:1007
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
 msgstr "वितारकविन्यासस्य विश्लेषणं कर्तुं असफलः '%1': %2"
 
-#: lspclientservermanager.cpp:1008
+#: lspclientservermanager.cpp:1011
 #, kde-format
 msgid "Failed to read server configuration: %1"
 msgstr "वितारकविन्यासं पठितुं असफलम्: %1"

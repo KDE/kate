@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebacktracebrowserplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2018-11-23 18:03+0100\n"
 "Last-Translator: Paolo Zamponi <zapaolo@email.it>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -139,52 +139,52 @@ msgstr "Tipi di file:"
 msgid "List of file extensions. Example: *.cpp, *.h, *.c, etc..."
 msgstr "Elenco di estensioni. Esempio: *.cpp, *.h, *.c, ecc..."
 
-#: katebacktracebrowser.cpp:97
+#: katebacktracebrowser.cpp:101
 #, kde-format
 msgid "Indexing files..."
 msgstr "Indicizzazione dei file..."
 
-#: katebacktracebrowser.cpp:122 katebacktracebrowser.cpp:283
+#: katebacktracebrowser.cpp:126 katebacktracebrowser.cpp:287
 #, kde-format
 msgid "Backtrace"
 msgstr "Backtrace"
 
-#: katebacktracebrowser.cpp:156
+#: katebacktracebrowser.cpp:160
 #, kde-format
 msgid "Load Backtrace"
 msgstr "Carica backtrace"
 
-#: katebacktracebrowser.cpp:198
+#: katebacktracebrowser.cpp:202
 #, kde-format
 msgid "Loading backtrace succeeded"
 msgstr "Caricamento del backtrace riuscito"
 
-#: katebacktracebrowser.cpp:200
+#: katebacktracebrowser.cpp:204
 #, kde-format
 msgid "Loading backtrace failed"
 msgstr "Caricamento del backtrace non riuscito"
 
-#: katebacktracebrowser.cpp:234
+#: katebacktracebrowser.cpp:238
 #, kde-format
 msgid "File not found: %1"
 msgstr "File non trovato: %1"
 
-#: katebacktracebrowser.cpp:245
+#: katebacktracebrowser.cpp:249
 #, kde-format
 msgid "Opened file: %1"
 msgstr "File aperto: %1"
 
-#: katebacktracebrowser.cpp:248
+#: katebacktracebrowser.cpp:252
 #, kde-format
 msgid "No debugging information available"
 msgstr "Informazioni di debug non disponibili"
 
-#: katebacktracebrowser.cpp:288
+#: katebacktracebrowser.cpp:292
 #, kde-format
 msgid "Backtrace Settings"
 msgstr "Impostazioni di backtrace"
 
-#: katebacktracebrowser.cpp:362
+#: katebacktracebrowser.cpp:366
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Impostazioni del navigatore di backtrace"

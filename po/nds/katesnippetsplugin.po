@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2014-08-14 17:07+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -239,12 +239,12 @@ msgid ""
 "use this type of snippet."
 msgstr ""
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "<leddig Archiev>"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "You have edited a data file not located in your personal data directory; "
@@ -259,17 +259,17 @@ msgstr ""
 "Dorwegen wöör vun de Orginaaldatei binnen Dien egen Datenorner en ümnöömt "
 "Kloonkopie opstellt."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Utgaavdatei „%1“ lett sik nich för't Schrieven opmaken."
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Snippels-Archiev „%1“ lett sik nich opmaken."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
@@ -277,12 +277,12 @@ msgstr ""
 "<qt>De Fehler <b>%4</b><br /> wöör binnen de Datei „%1“ bi Positschoon %2/%3 "
 "funnen.</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Leeg XML-Snippeldatei: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -291,12 +291,12 @@ msgstr ""
 "Archiev is utmaakt. De Snippels, de dat bargt, warrt bi't Kodekompletteren "
 "nich wiest."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Gellt för all Dateitypen"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Gellt för disse Dateitypen: %1"

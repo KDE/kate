@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-03 00:46+0000\n"
+"POT-Creation-Date: 2026-01-15 00:46+0000\n"
 "PO-Revision-Date: 2017-09-28 17:56+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -246,12 +246,12 @@ msgid ""
 "use this type of snippet."
 msgstr ""
 
-#: snippetrepository.cpp:42
+#: snippetrepository.cpp:45
 #, kde-format
 msgid "<empty repository>"
 msgstr "(prazna riznica)"
 
-#: snippetrepository.cpp:229
+#: snippetrepository.cpp:232
 #, fuzzy, kde-format
 #| msgid ""
 #| "You have edited a data file not located in your personal data directory; "
@@ -265,29 +265,29 @@ msgstr ""
 "Uredili ste fajl izvan svoje korisničke fascikle. Zato je preimenovana "
 "kopija izvornog fajla napravljena u vašoj korisničkoj fascikli."
 
-#: snippetrepository.cpp:235
+#: snippetrepository.cpp:238
 #, kde-format
 msgid "Output file '%1' could not be opened for writing"
 msgstr "Izlazni fajl ‘%1’ ne može da se otvori za pisanje."
 
-#: snippetrepository.cpp:270
+#: snippetrepository.cpp:273
 #, kde-format
 msgid "Cannot open snippet repository %1."
 msgstr "Ne mogu da otvorim riznicu isečaka %1."
 
-#: snippetrepository.cpp:277
+#: snippetrepository.cpp:280
 #, kde-format
 msgid ""
 "<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>"
 msgstr ""
 "<qt>Otkrivena je greška <b>%4</b><br />u fajlu <tt>%1</tt> kod %2:%3</qt>"
 
-#: snippetrepository.cpp:288
+#: snippetrepository.cpp:291
 #, kde-format
 msgid "Invalid XML snippet file: %1"
 msgstr "Loš XML fajl isečaka: %1"
 
-#: snippetrepository.cpp:357
+#: snippetrepository.cpp:360
 #, kde-format
 msgid ""
 "Repository is disabled, the contained snippets will not be shown during code-"
@@ -295,12 +295,12 @@ msgid ""
 msgstr ""
 "Riznica je isključena, sadržani isečci neće biti nuđeni tokom dopune kode."
 
-#: snippetrepository.cpp:360
+#: snippetrepository.cpp:363
 #, kde-format
 msgid "Applies to all filetypes"
 msgstr "Važi za sve tipove fajlova"
 
-#: snippetrepository.cpp:362
+#: snippetrepository.cpp:365
 #, kde-format
 msgid "Applies to the following filetypes: %1"
 msgstr "Važi za sledeće tipove fajlova: %1"

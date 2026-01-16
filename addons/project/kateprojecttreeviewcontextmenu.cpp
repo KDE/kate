@@ -146,7 +146,7 @@ void KateProjectTreeViewContextMenu::exec(const QString &filename, const QModelI
      * Open external terminal here
      */
     if (KateProjectInfoViewTerminal::isLoadable() && KAuthorized::authorize(QStringLiteral("shell_access"))) {
-        menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Internal Terminal Here"), [parent, &filename]() {
+        menu.addAction(QIcon::fromTheme(QStringLiteral("terminal")), i18n("Open Internal Terminal Here"), parent, [parent, &filename]() {
             QFileInfo checkFile(filename);
             if (checkFile.isFile()) {
                 parent->openTerminal(checkFile.absolutePath());

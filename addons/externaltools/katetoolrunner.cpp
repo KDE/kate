@@ -58,20 +58,21 @@ void KateToolRunner::run()
         }
     }
 
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardOutput, [this]() {
+    connect(m_process.get(), &QProcess::readyReadStandardOutput, this, [this]() {
         m_stdout += m_process->readAllStandardOutput();
     });
-    QObject::connect(m_process.get(), &QProcess::readyReadStandardError, [this]() {
+    connect(m_process.get(), &QProcess::readyReadStandardError, this, [this]() {
         m_stderr += m_process->readAllStandardError();
     });
-    QObject::connect(m_process.get(),
-                     static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
-                     [this](int exitCode, QProcess::ExitStatus exitStatus) {
-                         Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
-                     });
+    connect(m_process.get(),
+            static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished),
+            this,
+            [this](int exitCode, QProcess::ExitStatus exitStatus) {
+                Q_EMIT toolFinished(this, exitCode, exitStatus == QProcess::CrashExit);
+            });
 
     // Write stdin to process, if applicable, then close write channel
-    QObject::connect(m_process.get(), &QProcess::started, [this]() {
+    connect(m_process.get(), &QProcess::started, this, [this]() {
         if (!m_tool->input.isEmpty()) {
             m_process->write(m_tool->input.toLocal8Bit());
         }

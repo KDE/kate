@@ -1144,7 +1144,7 @@ void GitWidget::buildMenu(KActionCollection *ac)
     stashMenu->setMenu(this->stashMenu(ac));
 
     m_gitMenu->addSeparator();
-    QAction *historyAction = m_gitMenu->addAction(i18n("Show history"), [this] {
+    QAction *historyAction = m_gitMenu->addAction(i18n("Show history"), this, [this] {
         FileHistory::showFileHistory(m_activeGitDirPath);
     });
     historyAction->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));

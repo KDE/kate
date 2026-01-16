@@ -162,7 +162,7 @@ KateExternalToolServiceEditor::KateExternalToolServiceEditor(KateExternalTool *t
     if (isDefaultTool(tool, m_plugin->defaultTools())) {
         ui.buttonBox->setStandardButtons(ui.buttonBox->standardButtons() | QDialogButtonBox::RestoreDefaults);
         ui.buttonBox->setToolTip(i18n("Revert tool to default settings"));
-        connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, [this, tool]() {
+        connect(ui.buttonBox->button(QDialogButtonBox::RestoreDefaults), &QPushButton::clicked, this, [this, tool]() {
             const auto t = defaultTool(tool->actionName, m_plugin->defaultTools());
             ui.edtName->setText(t.translatedName());
             ui.btnIcon->setIcon(t.icon);
@@ -243,7 +243,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     addMenu->addSeparator();
     auto addCategoryAction = addMenu->addAction(i18n("Add Category"));
     btnAdd->setMenu(addMenu);
-    connect(addDefaultsMenu, &QMenu::aboutToShow, [this, addDefaultsMenu]() {
+    connect(addDefaultsMenu, &QMenu::aboutToShow, this, [this, addDefaultsMenu]() {
         lazyInitDefaultsMenu(addDefaultsMenu);
     });
 
@@ -251,7 +251,7 @@ KateExternalToolsConfigWidget::KateExternalToolsConfigWidget(QWidget *parent, Ka
     connect(addToolAction, &QAction::triggered, this, &KateExternalToolsConfigWidget::slotAddTool);
     connect(btnRemove, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotRemove);
     connect(btnEdit, &QPushButton::clicked, this, &KateExternalToolsConfigWidget::slotEdit);
-    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, [this]() {
+    connect(lbTools->selectionModel(), &QItemSelectionModel::currentChanged, this, [this]() {
         slotSelectionChanged();
     });
     connect(lbTools, &QTreeView::doubleClicked, this, &KateExternalToolsConfigWidget::slotEdit);
@@ -410,7 +410,7 @@ void KateExternalToolsConfigWidget::lazyInitDefaultsMenu(QMenu *defaultsMenu)
         auto a = categoryMenu->addAction(QIcon::fromTheme(tool.icon), tool.translatedName());
         a->setData(defaultToolsIndex);
 
-        connect(a, &QAction::triggered, [this, a]() {
+        connect(a, &QAction::triggered, this, [this, a]() {
             slotAddDefaultTool(a->data().toInt());
         });
         ++defaultToolsIndex;

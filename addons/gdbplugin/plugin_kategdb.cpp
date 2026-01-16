@@ -191,7 +191,7 @@ KatePluginGDBView::KatePluginGDBView(KatePluginGDB *plugin, KTextEditor::MainWin
     m_ioView = std::make_unique<IOView>();
 
     connect(m_backend, &BackendInterface::readyForInput, this, &KatePluginGDBView::enableDebugActions);
-    connect(m_backend, &BackendInterface::debuggerCapabilitiesChanged, [this] {
+    connect(m_backend, &BackendInterface::debuggerCapabilitiesChanged, this, [this] {
         enableDebugActions(true);
     });
 
@@ -851,7 +851,7 @@ void KatePluginGDBView::requestRunInTerminal(const dap::RunInTerminalRequestArgu
             }
         }
         terminalJob->setProcessEnvironment(env);
-        connect(terminalJob, &KJob::result, [notifyCreation](KJob *job) {
+        connect(terminalJob, &KJob::result, m_backend, [notifyCreation](KJob *job) {
             notifyCreation(job->error() == 0, std::nullopt, std::nullopt);
         });
         terminalJob->start();

@@ -24,7 +24,7 @@ build_clazy:
     # only run on merge requests
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   variables:
-    CLAZY_CHECKS: level0,level1,qstring-allocations,no-qstring-arg,no-connect-not-normalized,no-fully-qualified-moc-types,no-const-signal-or-slot,no-qproperty-without-notify,no-incorrect-emit,no-connect-3arg-lambda,no-range-loop-reference,no-wrong-qevent-cast,no-detaching-temporary,no-child-event-qobject-cast
+    CLAZY_CHECKS: level0,level1,qstring-allocations,no-qstring-arg,no-connect-not-normalized,no-fully-qualified-moc-types,no-const-signal-or-slot,no-qproperty-without-notify,no-incorrect-emit,no-range-loop-reference,no-wrong-qevent-cast,no-detaching-temporary,no-child-event-qobject-cast
     CC: clang
     CXX: clazy
   script:

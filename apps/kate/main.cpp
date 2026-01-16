@@ -358,7 +358,8 @@ int main(int argc, char **argv)
             KTextEditor::Cursor firstLineNumberArgument = UrlInfo::parseLineNumberArgumentAndRemoveIt(urls);
 
             // open given files...
-            for (UrlInfo info : std::as_const(urls)) {
+            for (const QString &url : std::as_const(urls)) {
+                UrlInfo info{url};
                 QDBusMessage m = QDBusMessage::createMethodCall(serviceName,
                                                                 QStringLiteral("/MainApplication"),
                                                                 QStringLiteral("org.kde.Kate.Application"),
@@ -525,7 +526,8 @@ int main(int argc, char **argv)
              */
             QVariantMap message;
             QVariantList messageUrls;
-            for (UrlInfo info : std::as_const(urls)) {
+            for (const QString &url : std::as_const(urls)) {
+                UrlInfo info(url);
                 if (!info.cursor.isValid() && firstLineNumberArgument.isValid()) {
                     // same semantics as e.g. in mcedit, just use for the first file
                     info.cursor = firstLineNumberArgument;

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katekeyboardmacros\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-16 00:46+0000\n"
 "PO-Revision-Date: 2023-01-25 17:34+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -33,7 +33,7 @@ msgstr "Nemožno načítať '%1': chybne vytvorené makro; vymazanie."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
+#: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makrá klávesnice"
@@ -260,12 +260,12 @@ msgstr "Vymazané '%1'"
 msgid "Wipe the '%1' macro."
 msgstr "Vymazať makro '%1'."
 
-#: keyboardmacrospluginview.cpp:290
+#: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Uložiť aktuálne makro ako?"
 
-#: keyboardmacrospluginview.cpp:324
+#: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Vymazať makro '%1'?"

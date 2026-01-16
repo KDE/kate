@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-16 00:46+0000\n"
 "PO-Revision-Date: 2025-08-03 14:45+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -35,7 +35,7 @@ msgstr "تعذر تحميل '%1': ماكرو مشوه؛ جاري مسحه."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
+#: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "وحدات ماكرو لوحة المفاتيح"
@@ -255,12 +255,12 @@ msgstr "امسح %1"
 msgid "Wipe the '%1' macro."
 msgstr "امسح الماكرو '%1'."
 
-#: keyboardmacrospluginview.cpp:290
+#: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
 msgstr "هل تحفظ الماكرو الحالي كـ؟"
 
-#: keyboardmacrospluginview.cpp:324
+#: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "هل امحُ الماكرو '%1'؟"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-16 00:46+0000\n"
 "PO-Revision-Date: 2024-12-04 09:47+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -34,7 +34,7 @@ msgstr "Non foi posíbel cargar «%1»: o macro está mal formado; borrarase."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
+#: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Macros de teclado"
@@ -261,12 +261,12 @@ msgstr "Borrar %1"
 msgid "Wipe the '%1' macro."
 msgstr "Borrar a macro «%1»."
 
-#: keyboardmacrospluginview.cpp:290
+#: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Con que nome quere gardar a macro actual?"
 
-#: keyboardmacrospluginview.cpp:324
+#: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Quere borrar a macro «%1»?"

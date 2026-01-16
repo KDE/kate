@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-16 00:46+0000\n"
 "PO-Revision-Date: 2024-11-23 13:04+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -34,7 +34,7 @@ msgstr "Nie można wczytać '%1': zniekształcone makro; czyszczenie go."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
-#: keyboardmacrospluginview.cpp:290 keyboardmacrospluginview.cpp:324 ui.rc:12
+#: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
 msgstr "Makra klawiaturowe"
@@ -261,12 +261,12 @@ msgstr "Wyczyść %1"
 msgid "Wipe the '%1' macro."
 msgstr "Wyczyść makro '%1'."
 
-#: keyboardmacrospluginview.cpp:290
+#: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
 msgstr "Czy zapisać bieżące makro jako?"
 
-#: keyboardmacrospluginview.cpp:324
+#: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
 msgstr "Czy wyczyścić makro '%1'?"

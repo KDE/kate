@@ -27,21 +27,21 @@ msgstr ""
 
 #: breakpointview.cpp:354
 #, fuzzy, kde-format
-#| msgid "Breakpoint"
+#| msgid "Breakpoints"
 msgid "Line Breakpoints"
-msgstr "Bod přerušení"
+msgstr "Body přerušení"
 
 #: breakpointview.cpp:356
 #, fuzzy, kde-format
-#| msgid "Breakpoint"
+#| msgid "Breakpoints"
 msgid "Function Breakpoints"
-msgstr "Bod přerušení"
+msgstr "Body přerušení"
 
 #: breakpointview.cpp:358
 #, fuzzy, kde-format
-#| msgid "Breakpoint"
+#| msgid "Breakpoints"
 msgid "Exception Breakpoints"
-msgstr "Bod přerušení"
+msgstr "Body přerušení"
 
 #: breakpointview.cpp:417
 #, kde-format
@@ -371,10 +371,9 @@ msgid "terminate debuggee"
 msgstr ""
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "breakpoint cleared"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "odstraněn bod přerušení"
+msgstr ""
 
 #: dapbackend.cpp:812
 #, kde-format

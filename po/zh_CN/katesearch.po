@@ -57,7 +57,7 @@ msgstr "导出搜索结果匹配项"
 msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
-msgstr ""
+msgstr "导出模式：\\0 为完全匹配项，\\1、\\2 为表达式捕获项"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -656,6 +656,8 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"使用替换模式变换和导出搜索匹配项。要导出完全匹配项，请使用 \\0。 要导出正则表"
+"达式捕获项，请使用 \\1、\\2 等。替换模式中的其他文本将返回到导出结果中。"
 
 #: SearchPlugin.cpp:2288
 #, kde-format

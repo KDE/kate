@@ -732,6 +732,3 @@ msgstr "&Upravit"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr ""
-
-#~ msgid "Export Pattern"
-#~ msgstr "Exportovat vzorek"

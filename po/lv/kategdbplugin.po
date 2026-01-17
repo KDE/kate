@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2025-11-07 18:23+0200\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -736,24 +736,24 @@ msgstr "Ievietot pārtraukumpunktu"
 msgid "Toggle breakpoint"
 msgstr "Noņemt pārtraukumpunktu"
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr "Izpildes punkts"
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Atkļūdošanas izvade"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Iestatījumi"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "IO"

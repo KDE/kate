@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2026-01-05 10:35+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -725,24 +725,24 @@ msgstr "Txertatu eten-puntua"
 msgid "Toggle breakpoint"
 msgstr "Txandakatu eten-puntua"
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr "Exekuzio puntua"
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Araztailearen irteera"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Ezarpenak"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "SI"

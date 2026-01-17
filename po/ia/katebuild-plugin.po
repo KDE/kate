@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-13 08:44+0000\n"
-"PO-Revision-Date: 2025-09-02 18:04+0200\n"
+"PO-Revision-Date: 2026-01-16 11:11+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -368,10 +368,9 @@ msgstr[0] "Trovava un nota."
 msgstr[1] "Trovava %1 notas."
 
 #: plugin_katebuild.cpp:1525
-#, fuzzy, kde-format
-#| msgid "Build failed."
+#, kde-format
 msgid "Build canceled."
-msgstr "Construction falleva"
+msgstr "Construction cancellate"
 
 #: plugin_katebuild.cpp:1529
 #, kde-format
@@ -451,12 +450,7 @@ msgstr ""
 "\"%b\" per nomine de directorio base de projecto"
 
 #: TargetHtmlDelegate.cpp:111
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use:\n"
-#| "\"%f\" for current file\n"
-#| "\"%d\" for directory of current file\n"
-#| "\"%n\" for current file name without suffix"
+#, kde-format
 msgid ""
 "Use:\n"
 "\"%f\" for current file\n"
@@ -466,9 +460,11 @@ msgid ""
 "\"%w\" for the working directory of the target"
 msgstr ""
 "Usage:\n"
-"\"%f\" pro file currente\n"
-"\"%d\" pro directorio del file currente\n"
-"\"%n\" pro nomine de file currente sin suffixo"
+"\"%f\" per file currente\n"
+"\"%d\" per directorio del file currente\n"
+"\"%n\" per nomie de file currente sin suffixo\n"
+"\"%B\" per directorio de base de projecto currente\n"
+"\"%w\" per le directorio de labor del objectivo"
 
 #: TargetModel.cpp:315 TargetModel.cpp:327 targets.cpp:254
 #, kde-format
@@ -581,10 +577,9 @@ msgstr "&Construe"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:23
-#, fuzzy, kde-format
-#| msgid "Kate Build Plugin"
+#, kde-format
 msgid "Build Plugin Toolbar"
-msgstr " Plug-in  de Kate Build (Plugin de construe de Kate)"
+msgstr "Barra de instrumento de Plugin de Construer"
 
 #: UrlInserter.cpp:31
 #, kde-format

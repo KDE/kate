@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -355,69 +355,69 @@ msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "निदानं फ़िल्टरं स्वच्छं कुर्वन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1170 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1177 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "त्रुटि"
 
-#: lib/diagnostics/diagnosticview.cpp:1174 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr "चेतवानी"
 
-#: lib/diagnostics/diagnosticview.cpp:1178
+#: lib/diagnostics/diagnosticview.cpp:1185
 #, kde-format
 msgid "Information"
 msgstr "सूचना"
 
-#: lib/diagnostics/diagnosticview.cpp:1307
+#: lib/diagnostics/diagnosticview.cpp:1314
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [दमितम्: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1433
+#: lib/diagnostics/diagnosticview.cpp:1440
 #, kde-format
 msgid "Expand All"
 msgstr "सर्वं विस्तारयतु"
 
-#: lib/diagnostics/diagnosticview.cpp:1434
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Collapse All"
 msgstr "ध्वस्तं कुर्वन्तु सर्वे"
 
-#: lib/diagnostics/diagnosticview.cpp:1440
+#: lib/diagnostics/diagnosticview.cpp:1447
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "अंशफलक प्रति प्रतिलिख्यताम्"
 
-#: lib/diagnostics/diagnosticview.cpp:1482
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "वैश्विकदमनं निष्कासयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "वैश्विकदमनं योजयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1488
+#: lib/diagnostics/diagnosticview.cpp:1495
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "स्थानीय दमनं निष्कासयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1497
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Local Suppression इति योजयन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1505
+#: lib/diagnostics/diagnosticview.cpp:1512
 #, kde-format
 msgid "Disable Suppression"
 msgstr "दमनं निष्क्रियं कुर्वन्तु"
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1514
 #, kde-format
 msgid "Enable Suppression"
 msgstr "दमनं सक्षमं कुर्वन्तु"

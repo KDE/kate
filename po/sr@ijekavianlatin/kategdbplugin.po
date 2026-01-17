@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2014-12-20 11:52+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -755,12 +755,12 @@ msgstr "Umetni prelomnu tačku"
 msgid "Toggle breakpoint"
 msgstr "Ukloni prelomnu tačku"
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr "Izvršna tačka"
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -768,13 +768,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Izlaz GDB‑a"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Postavke"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "U/I"

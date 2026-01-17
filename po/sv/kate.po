@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2025-10-13 22:30+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -365,69 +365,69 @@ msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "Rensa diagnostik"
 
-#: lib/diagnostics/diagnosticview.cpp:1170 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1177 lib/kateconfigdialog.cpp:165
 #, kde-format
 msgid "Error"
 msgstr "Fel"
 
-#: lib/diagnostics/diagnosticview.cpp:1174 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:165
 #: lib/kateconfigdialog.cpp:810
 #, kde-format
 msgid "Warning"
 msgstr "Varning"
 
-#: lib/diagnostics/diagnosticview.cpp:1178
+#: lib/diagnostics/diagnosticview.cpp:1185
 #, kde-format
 msgid "Information"
 msgstr "Information"
 
-#: lib/diagnostics/diagnosticview.cpp:1307
+#: lib/diagnostics/diagnosticview.cpp:1314
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [undertryckt: %2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1433
+#: lib/diagnostics/diagnosticview.cpp:1440
 #, kde-format
 msgid "Expand All"
 msgstr "Expandera alla"
 
-#: lib/diagnostics/diagnosticview.cpp:1434
+#: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format
 msgid "Collapse All"
 msgstr "Dra ihop alla"
 
-#: lib/diagnostics/diagnosticview.cpp:1440
+#: lib/diagnostics/diagnosticview.cpp:1447
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "Kopiera till klippbordet"
 
-#: lib/diagnostics/diagnosticview.cpp:1482
+#: lib/diagnostics/diagnosticview.cpp:1489
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "Ta bort global undertryckning"
 
-#: lib/diagnostics/diagnosticview.cpp:1484
+#: lib/diagnostics/diagnosticview.cpp:1491
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "Lägg till global undertryckning"
 
-#: lib/diagnostics/diagnosticview.cpp:1488
+#: lib/diagnostics/diagnosticview.cpp:1495
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "Ta bort lokal undertryckning"
 
-#: lib/diagnostics/diagnosticview.cpp:1490
+#: lib/diagnostics/diagnosticview.cpp:1497
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "Lägg till lokal undertryckning"
 
-#: lib/diagnostics/diagnosticview.cpp:1505
+#: lib/diagnostics/diagnosticview.cpp:1512
 #, kde-format
 msgid "Disable Suppression"
 msgstr "Inaktivera undertryckning"
 
-#: lib/diagnostics/diagnosticview.cpp:1507
+#: lib/diagnostics/diagnosticview.cpp:1514
 #, kde-format
 msgid "Enable Suppression"
 msgstr "Aktivera undertryckning"

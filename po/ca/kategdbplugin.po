@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2025-12-23 09:43+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -728,24 +728,24 @@ msgstr "Insereix un punt d'interrupció"
 msgid "Toggle breakpoint"
 msgstr "Commuta el punt d'interrupció"
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr "Punt d'execució"
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Sortida de depuració"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Configuració"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "E/S"

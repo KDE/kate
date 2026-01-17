@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
 "PO-Revision-Date: 2021-09-15 04:48+0630\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <kde-i18n-doc@kde.org>\n"
@@ -728,12 +728,12 @@ msgstr ""
 msgid "Toggle breakpoint"
 msgstr ""
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr ""
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, fuzzy, kde-format
 #| msgctxt "Tab label"
 #| msgid "GDB Output"
@@ -741,13 +741,13 @@ msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "ဂျီဒီဘီ အထုတ်"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "ဆက်တင်"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "အိုင်အို"

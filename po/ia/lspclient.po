@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2019, 2020, 2021, 2022, 2023, 2024, 2026 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2024-12-16 18:11+0100\n"
+"PO-Revision-Date: 2026-01-16 11:33+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -246,10 +246,9 @@ msgid "Restart All LSP Servers"
 msgstr "Restarta omne Servitores LSP"
 
 #: lspclientpluginview.cpp:619
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "Expande omne"
+msgstr "Suspende toto"
 
 #: lspclientpluginview.cpp:622
 #, kde-format
@@ -395,10 +394,9 @@ msgstr ""
 "Servitor terminava inopinatemente ... %1 [%2][pagina principal o domo: %3]"
 
 #: lspclientservermanager.cpp:893
-#, fuzzy, kde-format
-#| msgid "Failed to find server binary: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "Il falleva a trovar binari de  servitor: %1"
+msgstr "Il falleva a trovar binari de  servitor '%1' per linguage '%2'"
 
 #: lspclientservermanager.cpp:896 lspclientservermanager.cpp:961
 #, kde-format
@@ -411,10 +409,9 @@ msgid "See also %1 for installation or details"
 msgstr "Vide anque %1 per installation o detalios"
 
 #: lspclientservermanager.cpp:958
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "Il falleva a startar servitor: %1"
+msgstr "Il falleva a startar servitor '%1' per linguage '%2'"
 
 #: lspclientservermanager.cpp:966
 #, kde-format
@@ -440,13 +437,13 @@ msgstr "Il falleva a leger le confiurtion del sevitor: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Vade a proxime symbolo evidentiate"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Vade a previe symbolo evidentiate"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
@@ -624,7 +621,7 @@ msgstr "Automaticamente expande arbore"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Evidentia symbolo sub cursor"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241

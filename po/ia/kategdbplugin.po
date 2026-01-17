@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024, 2025, 2026 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2025-04-15 15:13+0200\n"
+"POT-Creation-Date: 2026-01-17 00:47+0000\n"
+"PO-Revision-Date: 2026-01-16 11:19+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -27,48 +27,42 @@ msgstr ""
 "le session currente."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Puncto de interruption"
+msgstr "Punctos de interruption de linea (rango)"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "puncto de interruption de function"
+msgstr "Punctos de interruption de function"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "puncto de interruption de function"
+msgstr "Puncto de interruption de exception"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "verificate"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "pendente"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "puncto de interruption de function"
+msgstr "Adde puncto de interruption de function..."
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Clara omne punctos de interruption"
+msgstr "Clara omne punctos de interruption de function"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Remove puncto de interruption"
 
@@ -83,23 +77,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "rango %1 ja ha un breakpoint (puncto de ruptura)"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "puncto de interruption fixate"
+msgstr "Nulle puncto de interruption fixate"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "puncto de interruption de function"
+msgstr "Adde puncto de interruption de function"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Function"
+msgstr "Nomine de Function:"
 
 #: configview.cpp:92
 #, kde-format
@@ -167,14 +157,13 @@ msgstr "Re-dirige le IE (IO) de programma cribrate a un scheda separate"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Nulle Objectivo executabile fixate"
 
 #: configview.cpp:407
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "topico (thread) invalide: %1"
+msgstr "Invalide id de processo"
 
 #: configview.cpp:529 configview.cpp:542
 #, kde-format
@@ -377,10 +366,9 @@ msgid "terminate debuggee"
 msgstr "termina debuggee (cribrar)"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "puncto de interruption de function"
+msgstr "filtros de puncto de interruption de exception"
 
 #: dapbackend.cpp:812
 #, kde-format
@@ -520,10 +508,9 @@ msgid "Debugger"
 msgstr "Cribrator (Debugger)"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "file nonspecificate: %1"
+msgstr "Falleva a aperir file: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -549,13 +536,13 @@ msgstr "Datos JSON es invalide: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Falleva a analysar .vscode/launch.json at %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " at %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -623,16 +610,15 @@ msgid "Locals and Stack"
 msgstr "Locales e Stack"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Puncto de interruption"
+msgstr "Punctos de interruption"
 
 #: plugin_kategdb.cpp:215
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>On non pote aperir file :</title><nl/>%1"
 
 #: plugin_kategdb.cpp:229
 #, kde-format
@@ -721,10 +707,9 @@ msgid "Print Value"
 msgstr "Imprime valor"
 
 #: plugin_kategdb.cpp:407
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "Error de syntaxe.: %1"
+msgstr "Error: %1"
 
 #: plugin_kategdb.cpp:438
 #, kde-format
@@ -732,29 +717,28 @@ msgid "Insert breakpoint"
 msgstr "Inserta puncto de interruption"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Remove puncto de interruption"
+msgstr "Commuta puncto de interruption"
 
-#: plugin_kategdb.cpp:560
+#: plugin_kategdb.cpp:559
 #, kde-format
 msgid "Execution point"
 msgstr "Puncto de execution"
 
-#: plugin_kategdb.cpp:671
+#: plugin_kategdb.cpp:670
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
 msgstr "Exito de Debug (Cribrar)"
 
-#: plugin_kategdb.cpp:672
+#: plugin_kategdb.cpp:671
 #, kde-format
 msgctxt "Tab label"
 msgid "Settings"
 msgstr "Preferentias"
 
-#: plugin_kategdb.cpp:707
+#: plugin_kategdb.cpp:706
 #, kde-format
 msgid "IO"
 msgstr "IE (IO)"

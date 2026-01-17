@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:46+0000\n"
-"PO-Revision-Date: 2025-02-13 11:54+0100\n"
+"PO-Revision-Date: 2026-01-16 11:29+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -58,6 +58,8 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"Patromo a exportar: \\0 per coincidentia plen, \\1,\\2,.. per capturas de "
+"expression regular"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -590,26 +592,25 @@ msgstr ""
 "al area de trandìsferentia"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Lista de file separate per virgula ubi cercar. Exemplo: \"*.cpp,#.h\"\n"
+"Lista de typos de file separate per virgula ubi cercar. Exemplo: \"*.cpp,*.h"
+"\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Lista de files e directorios separate per virgula pro excluder ex le cerca. "
-"Exemplo: \"build*\""
+"Lista de patronos de metacharacter per coindider nomines de files o "
+"directorios a excluder ab le cerca.\n"
+" Exemplo: \"build*\"\n"
+"Si le patrono contine un  '/',  le parcurso complete es marcate per un "
+"coincidentia."
 
 #: SearchPlugin.cpp:400
 #, kde-format
@@ -689,6 +690,10 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"Transforma e exporta coincidentias de cerca usante un patrono de "
+"reimplaciament. Per exportar le coincidentias complete, usa  \\0.Per "
+"exportar capturas de expression regular usa \\1,\\2,... Le altere texto in "
+"le patrono es retornate in le exitos de exportation."
 
 #: SearchPlugin.cpp:2288
 #, kde-format

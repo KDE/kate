@@ -207,6 +207,31 @@ QCMakeFileApi::TargetType QCMakeFileApi::typeFromJson(const QString &typeStr) co
     return TargetType::Unknown;
 }
 
+bool QCMakeFileApi::isTargetDirectlyInProject(const QJsonObject& targetDoc) const
+{
+    // We look at the backtrace of the definition of the target, i.e. the file (and line)
+    // where the target is created by add_custom_target()/add_executable()/add_library().
+    // The first item in the backtrace graph describes the location where that is, so
+    // we check whether that file is referred to by a relative path, which means
+    // this file is directly in the project.
+    int backtraceIdx = targetDoc.value(QStringLiteral("backtrace")).toInt(-1);
+    QJsonObject backtraceGraph = targetDoc.value(QStringLiteral("backtraceGraph")).toObject();
+    QJsonArray files = backtraceGraph.value(QStringLiteral("files")).toArray();
+    QJsonArray nodes = backtraceGraph.value(QStringLiteral("nodes")).toArray();
+    if ((backtraceIdx >= 0) && (backtraceIdx < nodes.count())) {
+        QJsonObject backtraceNode = nodes.at(backtraceIdx).toObject();
+        int fileIdx = backtraceNode.value(QStringLiteral("file")).toInt(-1);
+        if ((fileIdx >= 0) && (fileIdx < files.count())) {
+            QString file = files.at(fileIdx).toString();
+            if (QFileInfo(file).isAbsolute()) {
+                return false; 
+            }
+        }
+    }
+    
+    return true;
+}
+
 bool QCMakeFileApi::readReplyFiles()
 {
     const QDir replyDir(QStringLiteral("%1/.cmake/api/v1/reply/").arg(m_buildDir));
@@ -301,9 +326,27 @@ bool QCMakeFileApi::readReplyFiles()
             // qWarning() << "config: " << configName << " target: " << targetName << " json: " << targetJsonFile;
 
             QJsonObject targetDoc = readJsonFile(targetJsonFile);
+
+            bool skipTarget = false;  // shall the target be included, or skipped ?
+
+            TargetType type = typeFromJson(targetDoc.value(QStringLiteral("type")).toString());
             bool fromGenerator = targetDoc.value(QStringLiteral("isGeneratorProvided")).toBool();
-            if (!fromGenerator) {
-                TargetType type = typeFromJson(targetDoc.value(QStringLiteral("type")).toString());
+            if (fromGenerator) {
+                skipTarget = true;
+            }
+
+            if (!skipTarget) {
+                if (type == TargetType::Utility) {
+                    // Only include Utility targets which are created directly within the project.
+                    // Otherwise the target list contains e.g. all the "Continous/Experiment" build and 
+                    // test targets, for KDE a clang-format target for each source file and more.
+                    if (!isTargetDirectlyInProject(targetDoc)) {
+                        skipTarget = true;
+                    }
+                }
+            }
+
+            if (!skipTarget) {
                 targetsVec.push_back({targetName, type});
 
                 if (m_withSourceFiles) {

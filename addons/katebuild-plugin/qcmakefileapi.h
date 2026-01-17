@@ -78,6 +78,7 @@ private:
     QString findCMakeExecutable(const QString &cmakeCacheFile) const;
     QString findCMakeGuiExecutable(const QString &cmakeExecutable) const;
     TargetType typeFromJson(const QString &typeStr) const;
+    bool isTargetDirectlyInProject(const QJsonObject& targetDoc) const;
     bool writeQueryFile(const char *objectKind, int version);
 
     QString m_cmakeExecutable;

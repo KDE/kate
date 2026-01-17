@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2025-02-13 11:54+0100\n"
+"PO-Revision-Date: 2026-01-16 12:04+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -589,26 +589,25 @@ msgstr ""
 "al area de trandìsferentia"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Lista de file separate per virgula ubi cercar. Exemplo: \"*.cpp,#.h\"\n"
+"Lista de typos de file separate per virgula ubi cercar. Exemplo: \"*.cpp,*.h"
+"\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Lista de files e directorios separate per virgula pro excluder ex le cerca. "
-"Exemplo: \"build*\""
+"Lista de patronos de metacharacter per coindider nomines de files o "
+"directorios a excluder ab le cerca.\n"
+" Exemplo: \"build*\"\n"
+"Si le patrono contine un  '/',  le parcurso complete es marcate per un "
+"coincidentia."
 
 #: SearchPlugin.cpp:400
 #, kde-format

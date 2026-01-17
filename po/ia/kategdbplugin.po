@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024, 2025 g.sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2016, 2021, 2022, 2023, 2024, 2025, 2026 g.sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2025-04-15 15:13+0200\n"
+"PO-Revision-Date: 2026-01-16 12:03+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -92,14 +92,13 @@ msgstr "Re-dirige le IE (IO) de programma cribrate a un scheda separate"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Nulle Objectivo executabile fixate"
 
 #: configview.cpp:406
-#, fuzzy, kde-format
-#| msgid "invalid thread id: %1"
+#, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr "topico (thread) invalide: %1"
+msgstr "Invalide id de processo"
 
 #: configview.cpp:528 configview.cpp:541
 #, kde-format
@@ -542,7 +541,7 @@ msgstr "Locales e Stack"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>On non pote aperir file :</title><nl/>%1"
 
 #: plugin_kategdb.cpp:255
 #, kde-format
@@ -631,10 +630,9 @@ msgid "Print Value"
 msgstr "Imprime valor"
 
 #: plugin_kategdb.cpp:438
-#, fuzzy, kde-format
-#| msgid "syntax error: %1"
+#, kde-format
 msgid "Error: %1"
-msgstr "Error de syntaxe.: %1"
+msgstr "Error: %1"
 
 #: plugin_kategdb.cpp:469 plugin_kategdb.cpp:485
 #, kde-format

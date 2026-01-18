@@ -37,11 +37,10 @@ LSPClientSymbolHighlighter::LSPClientSymbolHighlighter(KActionCollection *action
 
 void LSPClientSymbolHighlighter::attach(KTextEditor::View *view, std::shared_ptr<LSPClientServer> server)
 {
-    bool actionsEnabled;
-    if (!view || !server) {
+    bool actionsEnabled = false;
+    if (!view || !server || !server->capabilities().documentHighlightProvider) {
         m_currentView = nullptr;
         m_currentServer = nullptr;
-        actionsEnabled = false;
     } else {
         m_currentView = view;
         m_currentServer = std::move(server);

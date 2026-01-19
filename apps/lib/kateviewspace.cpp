@@ -34,23 +34,36 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QToolTip>
-#include <QVBoxLayout>
+#include <QGridLayout>
 #include <QWhatsThis>
+
+enum {
+    GridColumn_HistoryBack,
+    GridColumn_HistoryForward,
+    GridColumn_TabBarOrUrlBar,
+    GridColumn_ScrollSync,
+    GridColumn_QuickOpen,
+    GridColumn_Split,
+    GridColumn_Count
+};
+
+enum {
+    GridRow_ButtonsAndTabs,
+    GridRow_UrlBar,
+    GridRow_Stack
+};
 
 // BEGIN KateViewSpace
 KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     : QWidget(parent)
     , m_viewManager(viewManager)
     , m_isActiveSpace(false)
+    , m_layout(new QGridLayout(this))
 {
-    auto *layout = new QVBoxLayout(this);
-    layout->setSpacing(0);
-    layout->setContentsMargins(0, 0, 0, 0);
-
-    // BEGIN tab bar
-    auto *hLayout = new QHBoxLayout();
-    hLayout->setSpacing(0);
-    hLayout->setContentsMargins(0, 0, 0, 0);
+    m_layout->setSpacing(0);
+    m_layout->setContentsMargins(0, 0, 0, 0);
+    m_layout->setRowStretch(GridRow_Stack, 1);
+    m_layout->setColumnStretch(GridColumn_TabBarOrUrlBar, 1);
 
     // add left <-> right history buttons
     m_historyBack = new QToolButton(this);
@@ -58,7 +71,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     m_historyBack->setIcon(QIcon::fromTheme(QStringLiteral("arrow-left")));
     m_historyBack->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyBack);
-    hLayout->addWidget(m_historyBack);
+    m_layout->addWidget(m_historyBack, GridRow_ButtonsAndTabs, GridColumn_HistoryBack);
     connect(m_historyBack, &QToolButton::clicked, this, [this] {
         goBack();
     });
@@ -69,7 +82,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     m_historyForward->setToolTip(i18n("Go to Next Location"));
     m_historyForward->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_historyForward);
-    hLayout->addWidget(m_historyForward);
+    m_layout->addWidget(m_historyForward, GridRow_ButtonsAndTabs, GridColumn_HistoryForward);
     connect(m_historyForward, &QToolButton::clicked, this, [this] {
         goForward();
     });
@@ -84,8 +97,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
     connect(m_tabBar, &KateTabBar::activateViewSpaceRequested, this, [this] {
         makeActive(true);
     });
-    hLayout->addWidget(m_tabBar);
-    hLayout->addStretch();
+    m_layout->addWidget(m_tabBar, GridRow_ButtonsAndTabs, GridColumn_TabBarOrUrlBar);
 
     // add Scroll Sync Indicator
     m_scrollSync = new QToolButton(this);
@@ -106,13 +118,13 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
         m_viewManager->updateScrollSyncIndicatorVisibility();
     });
     KAcceleratorManager::setNoAccel(m_scrollSync);
-    hLayout->addWidget(m_scrollSync);
+    m_layout->addWidget(m_scrollSync, GridRow_ButtonsAndTabs, GridColumn_ScrollSync);
 
     // add quick open
     m_quickOpen = new QToolButton(this);
     m_quickOpen->setAutoRaise(true);
     KAcceleratorManager::setNoAccel(m_quickOpen);
-    hLayout->addWidget(m_quickOpen);
+    m_layout->addWidget(m_quickOpen, GridRow_ButtonsAndTabs, GridColumn_QuickOpen);
 
     auto mwActionCollection = m_viewManager->mainWindow()->actionCollection();
     // forward tab bar quick open action to global quick open action
@@ -142,9 +154,7 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
 
     m_scrollSync->installEventFilter(this); // on click, active this view space
     m_split->installEventFilter(this); // on click, active this view space
-    hLayout->addWidget(m_split);
-
-    layout->addLayout(hLayout);
+    m_layout->addWidget(m_split, GridRow_ButtonsAndTabs, GridColumn_Split);
 
     // on click, active this view space, register this late, we need m_quickOpen and Co. inside the filter
     m_historyBack->installEventFilter(this);
@@ -181,26 +191,22 @@ KateViewSpace::KateViewSpace(KateViewManager *viewManager, QWidget *parent)
         // default: open a new document or switch there
         m_viewManager->openUrl(url);
     });
-    layout->addWidget(m_urlBar);
+    m_layout->addWidget(m_urlBar, GridRow_UrlBar, 0, 1, GridColumn_Count);
 
     stack = new QStackedWidget(this);
     stack->setFocus();
     stack->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding));
-    layout->addWidget(stack);
+    m_layout->addWidget(stack, GridRow_Stack, 0, 1, GridColumn_Count);
 
     m_group.clear();
 
     // connect signal to hide/show statusbar
     connect(m_viewManager->mainWindow(), &KateMainWindow::tabBarToggled, this, &KateViewSpace::tabBarToggled);
-    connect(m_viewManager, &KateViewManager::showUrlNavBarChanged, this, &KateViewSpace::urlBarToggled);
 
     connect(this, &KateViewSpace::viewSpaceEmptied, m_viewManager, &KateViewManager::onViewSpaceEmptied);
 
     // we accept drops (tabs from other viewspaces / windows)
     setAcceptDrops(true);
-
-    m_layout.tabBarLayout = hLayout;
-    m_layout.mainLayout = layout;
 
     // apply config, will init tabbar
     readConfig();
@@ -315,53 +321,15 @@ void KateViewSpace::tabBarToggled()
         show = tabCount() > 1 || m_viewManager->tabsVisible();
     }
 
-    const bool urlBarVisible = m_viewManager->showUrlNavBar();
-
-    bool showButtons = true;
-
     m_tabBar->setVisible(show);
+    m_layout->removeWidget(m_tabBar);
+    m_layout->removeWidget(m_urlBar);
     if (show) {
-        m_layout.tabBarLayout->removeWidget(m_urlBar);
-        int afterTabLayout = m_layout.mainLayout->indexOf(m_layout.tabBarLayout);
-        m_layout.mainLayout->insertWidget(afterTabLayout + 1, m_urlBar);
-        showButtons = true;
-    } else if (!show && !urlBarVisible) {
-        // both hidden, hide buttons as well
-        showButtons = false;
-    } else if (!show && urlBarVisible) {
-        // UrlBar is still visible. Move it up to take the place of tabbar
-        int insertAt = m_layout.tabBarLayout->indexOf(m_historyForward) + 1;
-        m_layout.tabBarLayout->insertWidget(insertAt, m_urlBar);
-        showButtons = true;
+        m_layout->addWidget(m_tabBar, GridRow_ButtonsAndTabs, GridColumn_TabBarOrUrlBar);
+        m_layout->addWidget(m_urlBar, GridRow_UrlBar, 0, 1, GridColumn_Count);
+    } else {
+        m_layout->addWidget(m_urlBar, GridRow_ButtonsAndTabs, GridColumn_TabBarOrUrlBar);
     }
-
-    m_historyBack->setVisible(showButtons);
-    m_historyForward->setVisible(showButtons);
-    m_split->setVisible(showButtons);
-    m_quickOpen->setVisible(showButtons);
-}
-
-void KateViewSpace::urlBarToggled(bool show)
-{
-    const bool tabBarVisible = m_tabBar->isVisible();
-    bool showButtons = true;
-    if (!show && !tabBarVisible) {
-        // Tab bar was already hidden, now url bar is also hidden
-        // so hide the buttons as well
-        showButtons = false;
-    } else if (show && !tabBarVisible) {
-        // Tabbar is hidden, but we now need to show url bar
-        // Move it up to take the place of tabbar
-        int insertAt = m_layout.tabBarLayout->indexOf(m_historyForward) + 1;
-        m_layout.tabBarLayout->insertWidget(insertAt, m_urlBar);
-        // make sure buttons are visible
-        showButtons = true;
-    }
-
-    m_historyBack->setVisible(showButtons);
-    m_historyForward->setVisible(showButtons);
-    m_split->setVisible(showButtons);
-    m_quickOpen->setVisible(showButtons);
 }
 
 KTextEditor::View *KateViewSpace::createView(KTextEditor::Document *doc)

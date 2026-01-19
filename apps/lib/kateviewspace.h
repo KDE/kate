@@ -250,7 +250,6 @@ public:
 
 private:
     void tabBarToggled();
-    void urlBarToggled(bool);
     void changeView(int buttonId);
 
     /**
@@ -383,10 +382,7 @@ private:
 
     class KateUrlBar *m_urlBar = nullptr;
 
-    struct TopBarLayout {
-        class QHBoxLayout *tabBarLayout = nullptr;
-        class QVBoxLayout *mainLayout = nullptr;
-    } m_layout;
+    class QGridLayout *const m_layout;
 
     // should the tab bar be auto hidden if just one document is open?
     bool m_autoHideTabBar = false;

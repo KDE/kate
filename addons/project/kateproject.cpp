@@ -292,7 +292,6 @@ KateProject::~KateProject()
 
 bool KateProject::reload(bool force)
 {
-    qDebug() << "do reload";
     const QVariantMap map = readProjectFile();
     if (!map.isEmpty()) {
         m_globalProject = map;

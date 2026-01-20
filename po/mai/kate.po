@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-17 00:47+0000\n"
+"POT-Creation-Date: 2026-01-20 00:45+0000\n"
 "PO-Revision-Date: 2010-09-24 20:22+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -234,7 +234,7 @@ msgid "&View"
 msgstr "दृश्य (&V)"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
 #, kde-format
 msgid "Split View"
 msgstr "विभाजित दृश्य"
@@ -639,345 +639,345 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr ""
 
-#: lib/kateapp.cpp:145
+#: lib/kateapp.cpp:147
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:152
+#: lib/kateapp.cpp:154
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
 "for elevated privileges when saving documents if needed."
 msgstr ""
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:381
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "क्रिस्टोफ कलमान"
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:381
 #, kde-format
 msgid "Maintainer"
 msgstr "अनुरक्षक"
 
-#: lib/kateapp.cpp:366
+#: lib/kateapp.cpp:382
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "डोमिनिक हाउमेन"
 
-#: lib/kateapp.cpp:366 lib/kateapp.cpp:369 lib/kateapp.cpp:370
-#: lib/kateapp.cpp:371 lib/kateapp.cpp:372 lib/kateapp.cpp:378
+#: lib/kateapp.cpp:382 lib/kateapp.cpp:385 lib/kateapp.cpp:386
+#: lib/kateapp.cpp:387 lib/kateapp.cpp:388 lib/kateapp.cpp:394
 #, kde-format
 msgid "Core Developer"
 msgstr "कोर डेवलपर"
 
-#: lib/kateapp.cpp:367
+#: lib/kateapp.cpp:383
 #, kde-format
 msgid "Sven Brauch"
 msgstr ""
 
-#: lib/kateapp.cpp:367 lib/kateapp.cpp:368 lib/kateapp.cpp:373
+#: lib/kateapp.cpp:383 lib/kateapp.cpp:384 lib/kateapp.cpp:389
 #, fuzzy, kde-format
 #| msgid "Core Developer"
 msgid "Developer"
 msgstr "कोर डेवलपर"
 
-#: lib/kateapp.cpp:368
+#: lib/kateapp.cpp:384
 #, kde-format
 msgid "Kåre Särs"
 msgstr ""
 
-#: lib/kateapp.cpp:369
+#: lib/kateapp.cpp:385
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr ""
 
-#: lib/kateapp.cpp:370
+#: lib/kateapp.cpp:386
 #, kde-format
 msgid "Anders Lund"
 msgstr "आन्देर्स लुंद"
 
-#: lib/kateapp.cpp:371
+#: lib/kateapp.cpp:387
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "जोसफ वेननिंगर"
 
-#: lib/kateapp.cpp:372
+#: lib/kateapp.cpp:388
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "हामिश रोदा"
 
-#: lib/kateapp.cpp:373
+#: lib/kateapp.cpp:389
 #, fuzzy, kde-format
 #| msgid "Anders Lund"
 msgid "Alexander Neundorf"
 msgstr "आन्देर्स लुंद"
 
-#: lib/kateapp.cpp:374
+#: lib/kateapp.cpp:390
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "वाल्दो बास्तियान"
 
-#: lib/kateapp.cpp:374
+#: lib/kateapp.cpp:390
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "द कूल बफर सिस्टम"
 
-#: lib/kateapp.cpp:375
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "Charles Samuels"
 msgstr "चार्ल्स सेमुएल्स"
 
-#: lib/kateapp.cpp:375
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "The Editing Commands"
 msgstr "संपादन कमांड्स"
 
-#: lib/kateapp.cpp:376
+#: lib/kateapp.cpp:392
 #, kde-format
 msgid "Matt Newell"
 msgstr "मैट न्यूवेल"
 
-#: lib/kateapp.cpp:376
+#: lib/kateapp.cpp:392
 #, kde-format
 msgid "Testing, ..."
 msgstr "जाँचल जाए रहल अछि..."
 
-#: lib/kateapp.cpp:377
+#: lib/kateapp.cpp:393
 #, kde-format
 msgid "Michael Bartl"
 msgstr "माइकल बार्तेल"
 
-#: lib/kateapp.cpp:377
+#: lib/kateapp.cpp:393
 #, kde-format
 msgid "Former Core Developer"
 msgstr "पूर्व कोर डेवलपर"
 
-#: lib/kateapp.cpp:378
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Michael McCallum"
 msgstr "माइकल मॅककालम"
 
-#: lib/kateapp.cpp:379
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "जोहेन विल्हेमी"
 
-#: lib/kateapp.cpp:379
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "KWrite Author"
 msgstr "के-राइट लेखक"
 
-#: lib/kateapp.cpp:380
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "Michael Koch"
 msgstr "माइकल कोच"
 
-#: lib/kateapp.cpp:380
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "के-राइट पोर्ट टू के-पार्ट्स"
 
-#: lib/kateapp.cpp:381
+#: lib/kateapp.cpp:397
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "क्रिश्चियन गेबे"
 
-#: lib/kateapp.cpp:382
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "साइमन हाउसमेन"
 
-#: lib/kateapp.cpp:383
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Glen Parker"
 msgstr "ग्लेन पार्कर"
 
-#: lib/kateapp.cpp:383
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "के-राइट अनडू इतिहास, के-स्पेल इंटीग्रेशन"
 
-#: lib/kateapp.cpp:384
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Scott Manson"
 msgstr "स्काट मैंसन"
 
-#: lib/kateapp.cpp:384
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "के-राइट एक्सएमएल सिंटेक्स हाइलाइटिंग आधार"
 
-#: lib/kateapp.cpp:385
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "John Firebaugh"
 msgstr "जान फायरबाग"
 
-#: lib/kateapp.cpp:385
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Patches and more"
 msgstr "पैचसभ आओर बहुत कुछ"
 
-#: lib/kateapp.cpp:386
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Pablo Martín"
 msgstr ""
 
-#: lib/kateapp.cpp:387
+#: lib/kateapp.cpp:403
 #, fuzzy, kde-format
 #| msgid "Plugins"
 msgid "Python Plugin Developer"
 msgstr "प्लगिन"
 
-#: lib/kateapp.cpp:390
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr ""
 
-#: lib/kateapp.cpp:390
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "QA and Scripting"
 msgstr ""
 
-#: lib/kateapp.cpp:393
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Tyson Tan"
 msgstr ""
 
-#: lib/kateapp.cpp:394
+#: lib/kateapp.cpp:410
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr ""
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid "Matteo Merli"
 msgstr "मेतियो मेरली"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "आरपीएम स्पेक फाइल, पर्ल, डिफ आओर मोर क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:414
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "राकी स्कालेता"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:414
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "वीएचडीएल क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:399
+#: lib/kateapp.cpp:415
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "यूरी लेबेदेव"
 
-#: lib/kateapp.cpp:399
+#: lib/kateapp.cpp:415
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "एसक्यूएल क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:416
 #, kde-format
 msgid "Chris Ross"
 msgstr "क्रिस रास"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:416
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "फेराइट क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:417
 #, kde-format
 msgid "Nick Roux"
 msgstr "निक राक्स"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:417
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "ILERPG क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:418
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "कार्सटन निहाउस"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:418
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "लेटेक्स क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Per Wigren"
 msgstr "पर विग्रेन"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "मेकफाइल्स, पायथन क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Jan Fritz"
 msgstr "जान फ्रित्ज"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "पायथन क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:421
 #, kde-format
 msgid "Daniel Naber"
 msgstr "डेनियल नेबर"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Roland Pabel"
 msgstr "रोलेण्ड पेबेल"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "योजना क' लेल आलोकित करू"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "क्रिस्टी दुमित्रेस्कू"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP कीवर्ड/डाटाटाइप सूची"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "कार्स्टेन फेइफर"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Very nice help"
 msgstr "बहुत नीक मद्दति"
 
-#: lib/kateapp.cpp:409
+#: lib/kateapp.cpp:425
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "सभटा लोकनि जे सहयोग कएलक आओर हम उल्लेख कएनाइ भूल गेलए"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:579
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 
-#: lib/kateapp.cpp:656
+#: lib/kateapp.cpp:672
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1831,12 +1831,12 @@ msgstr "दस्तावेज बन्न करू"
 msgid "Open Next Pinned Document"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
@@ -2541,34 +2541,34 @@ msgstr ""
 msgid "The file '%1' does not exist"
 msgstr ""
 
-#: lib/kateviewspace.cpp:95
+#: lib/kateviewspace.cpp:107
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr ""
 
-#: lib/kateviewspace.cpp:97
+#: lib/kateviewspace.cpp:109
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
 msgstr ""
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:131
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr ""
 
-#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:262
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr ""
 
-#: lib/kateviewspace.cpp:141
+#: lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Control view space splitting"
 msgstr ""
 
-#: lib/kateviewspace.cpp:263
+#: lib/kateviewspace.cpp:269
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2579,54 +2579,54 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1116
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "&Close Tab"
 msgstr "बन्न करू"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1123
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Close &Other Tabs"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1169
+#: lib/kateviewspace.cpp:1137
 #, fuzzy, kde-format
 #| msgid "Close"
 msgid "Close All &Tabs"
 msgstr "बन्न करू"
 
-#: lib/kateviewspace.cpp:1202
+#: lib/kateviewspace.cpp:1170
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "D&etach Document"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1207
+#: lib/kateviewspace.cpp:1175
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1216
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document"
 msgstr "मोजुदा विंडो बन्न करू"
 
-#: lib/kateviewspace.cpp:1254
+#: lib/kateviewspace.cpp:1222
 #, fuzzy, kde-format
 #| msgid "Close the current document."
 msgid "Compare with Active Document Using"
 msgstr "मोजुदा विंडो बन्न करू"
 
-#: lib/kateviewspace.cpp:1262
+#: lib/kateviewspace.cpp:1230
 #, fuzzy, kde-format
 #| msgid "Close Document"
 msgid "Unpin Document"
 msgstr "दस्तावेज बन्न करू"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1232
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-17 00:47+0000\n"
+"POT-Creation-Date: 2026-01-20 00:45+0000\n"
 "PO-Revision-Date: 2025-12-18 04:32+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -228,7 +228,7 @@ msgid "&View"
 msgstr "&ხედი"
 
 #. i18n: ectx: Menu (view-split)
-#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:140
+#: lib/data/kateui.rc:77 lib/kateviewspace.cpp:152
 #, kde-format
 msgid "Split View"
 msgstr "ხედის გაყოფა"
@@ -635,7 +635,7 @@ msgctxt "@title:tab"
 msgid "File History - %1"
 msgstr "ფაილის ისტორია - %1"
 
-#: lib/kateapp.cpp:145
+#: lib/kateapp.cpp:147
 msgid ""
 "Running this editor with sudo can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -646,7 +646,7 @@ msgstr ""
 "ნორმალურად და თუ დოკუმენტების შესანახად აუცილებელი გახდება აღმატებული "
 "წვდომები, ამის შესახებ თვითონ გკითხავთ."
 
-#: lib/kateapp.cpp:152
+#: lib/kateapp.cpp:154
 msgid ""
 "Running this editor with kdesu can cause bugs and expose you to security "
 "vulnerabilities. Instead use this editor normally and you will be prompted "
@@ -657,330 +657,330 @@ msgstr ""
 "რედაქტორი ნორმალურად და თუ დოკუმენტების შესანახად აუცილებელი გახდება "
 "აღმატებული წვდომები, ამის შესახებ თვითონ გკითხავთ."
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:381
 #, kde-format
 msgid "Christoph Cullmann"
 msgstr "Christoph Cullmann"
 
-#: lib/kateapp.cpp:365
+#: lib/kateapp.cpp:381
 #, kde-format
 msgid "Maintainer"
 msgstr "წამყვანი პროგრამისტი"
 
-#: lib/kateapp.cpp:366
+#: lib/kateapp.cpp:382
 #, kde-format
 msgid "Dominik Haumann"
 msgstr "Dominik Haumann"
 
-#: lib/kateapp.cpp:366 lib/kateapp.cpp:369 lib/kateapp.cpp:370
-#: lib/kateapp.cpp:371 lib/kateapp.cpp:372 lib/kateapp.cpp:378
+#: lib/kateapp.cpp:382 lib/kateapp.cpp:385 lib/kateapp.cpp:386
+#: lib/kateapp.cpp:387 lib/kateapp.cpp:388 lib/kateapp.cpp:394
 #, kde-format
 msgid "Core Developer"
 msgstr "ძირითადი პროგრამისტი"
 
-#: lib/kateapp.cpp:367
+#: lib/kateapp.cpp:383
 #, kde-format
 msgid "Sven Brauch"
 msgstr "Sven Brauch"
 
-#: lib/kateapp.cpp:367 lib/kateapp.cpp:368 lib/kateapp.cpp:373
+#: lib/kateapp.cpp:383 lib/kateapp.cpp:384 lib/kateapp.cpp:389
 #, kde-format
 msgid "Developer"
 msgstr "პროგრამისტი"
 
-#: lib/kateapp.cpp:368
+#: lib/kateapp.cpp:384
 #, kde-format
 msgid "Kåre Särs"
 msgstr "Kåre Särs"
 
-#: lib/kateapp.cpp:369
+#: lib/kateapp.cpp:385
 #, kde-format
 msgid "Waqar Ahmed"
 msgstr "Waqar Ahmed"
 
-#: lib/kateapp.cpp:370
+#: lib/kateapp.cpp:386
 #, kde-format
 msgid "Anders Lund"
 msgstr "Anders Lund"
 
-#: lib/kateapp.cpp:371
+#: lib/kateapp.cpp:387
 #, kde-format
 msgid "Joseph Wenninger"
 msgstr "Joseph Wenninger"
 
-#: lib/kateapp.cpp:372
+#: lib/kateapp.cpp:388
 #, kde-format
 msgid "Hamish Rodda"
 msgstr "Hamish Rodda"
 
-#: lib/kateapp.cpp:373
+#: lib/kateapp.cpp:389
 #, kde-format
 msgid "Alexander Neundorf"
 msgstr "Alexander Neundorf"
 
-#: lib/kateapp.cpp:374
+#: lib/kateapp.cpp:390
 #, kde-format
 msgid "Waldo Bastian"
 msgstr "Waldo Bastian"
 
-#: lib/kateapp.cpp:374
+#: lib/kateapp.cpp:390
 #, kde-format
 msgid "The cool buffersystem"
 msgstr "ბუფერის საკაიფო განხორციელება"
 
-#: lib/kateapp.cpp:375
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "Charles Samuels"
 msgstr "Charles Samuels"
 
-#: lib/kateapp.cpp:375
+#: lib/kateapp.cpp:391
 #, kde-format
 msgid "The Editing Commands"
 msgstr "რედაქტორის ბრძანებები"
 
-#: lib/kateapp.cpp:376
+#: lib/kateapp.cpp:392
 #, kde-format
 msgid "Matt Newell"
 msgstr "მეტ ნიუელი"
 
-#: lib/kateapp.cpp:376
+#: lib/kateapp.cpp:392
 #, kde-format
 msgid "Testing, ..."
 msgstr "ტესტირება, ..."
 
-#: lib/kateapp.cpp:377
+#: lib/kateapp.cpp:393
 #, kde-format
 msgid "Michael Bartl"
 msgstr "Michael Bartl"
 
-#: lib/kateapp.cpp:377
+#: lib/kateapp.cpp:393
 #, kde-format
 msgid "Former Core Developer"
 msgstr "ყოფილი ძირითადი პროგრამისტი"
 
-#: lib/kateapp.cpp:378
+#: lib/kateapp.cpp:394
 #, kde-format
 msgid "Michael McCallum"
 msgstr "Michael McCallum"
 
-#: lib/kateapp.cpp:379
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "Jochen Wilhemly"
 msgstr "Jochen Wilhemly"
 
-#: lib/kateapp.cpp:379
+#: lib/kateapp.cpp:395
 #, kde-format
 msgid "KWrite Author"
 msgstr "KWrite-ის ავტორი"
 
-#: lib/kateapp.cpp:380
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "Michael Koch"
 msgstr "Michael Koch"
 
-#: lib/kateapp.cpp:380
+#: lib/kateapp.cpp:396
 #, kde-format
 msgid "KWrite port to KParts"
 msgstr "KWrite -ის პორტირება KParts-ზე"
 
-#: lib/kateapp.cpp:381
+#: lib/kateapp.cpp:397
 #, kde-format
 msgid "Christian Gebauer"
 msgstr "Christian Gebauer"
 
-#: lib/kateapp.cpp:382
+#: lib/kateapp.cpp:398
 #, kde-format
 msgid "Simon Hausmann"
 msgstr "Simon Hausmann"
 
-#: lib/kateapp.cpp:383
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "Glen Parker"
 msgstr "Glen Parker"
 
-#: lib/kateapp.cpp:383
+#: lib/kateapp.cpp:399
 #, kde-format
 msgid "KWrite Undo History, Kspell integration"
 msgstr "KWrite -ის გაუქმების ისტორია, Kspell -ის ინტეგრაცია"
 
-#: lib/kateapp.cpp:384
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "Scott Manson"
 msgstr "Scott Manson"
 
-#: lib/kateapp.cpp:384
+#: lib/kateapp.cpp:400
 #, kde-format
 msgid "KWrite XML Syntax highlighting support"
 msgstr "KWrite XML სინტაქსის გამოკვეთის მხარდაჭერა"
 
-#: lib/kateapp.cpp:385
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "John Firebaugh"
 msgstr "John Firebaugh"
 
-#: lib/kateapp.cpp:385
+#: lib/kateapp.cpp:401
 #, kde-format
 msgid "Patches and more"
 msgstr "პატჩები და სხვა"
 
-#: lib/kateapp.cpp:386
+#: lib/kateapp.cpp:402
 #, kde-format
 msgid "Pablo Martín"
 msgstr "Pablo Martín"
 
-#: lib/kateapp.cpp:387
+#: lib/kateapp.cpp:403
 #, kde-format
 msgid "Python Plugin Developer"
 msgstr "Python -ის დამატების პროგრამისტი"
 
-#: lib/kateapp.cpp:390
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "Gerald Senarclens de Grancy"
 msgstr "Gerald Senarclens de Grancy"
 
-#: lib/kateapp.cpp:390
+#: lib/kateapp.cpp:406
 #, kde-format
 msgid "QA and Scripting"
 msgstr "ხარისხის კონტროლი, სკრიპტები"
 
-#: lib/kateapp.cpp:393
+#: lib/kateapp.cpp:409
 #, kde-format
 msgid "Tyson Tan"
 msgstr "Tyson Tan"
 
-#: lib/kateapp.cpp:394
+#: lib/kateapp.cpp:410
 #, kde-format
 msgid "Designer of Kate's mascot 'Kate the Cyber Woodpecker'"
 msgstr "Kate-ის თილისმის, 'კიბერკოდალა Kate'-ის დიზაინერი"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid "Matteo Merli"
 msgstr "Matteo Merli"
 
-#: lib/kateapp.cpp:397
+#: lib/kateapp.cpp:413
 #, kde-format
 msgid "Highlighting for RPM Spec-Files, Perl, Diff and more"
 msgstr "გამოკვეთა RPM-ის Spec ფაილებისთვის, Perl, Diffდა სხვა"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:414
 #, kde-format
 msgid "Rocky Scaletta"
 msgstr "Rocky Scaletta"
 
-#: lib/kateapp.cpp:398
+#: lib/kateapp.cpp:414
 #, kde-format
 msgid "Highlighting for VHDL"
 msgstr "გამოკვეთა VHDL-სთვის"
 
-#: lib/kateapp.cpp:399
+#: lib/kateapp.cpp:415
 #, kde-format
 msgid "Yury Lebedev"
 msgstr "Yury Lebedev"
 
-#: lib/kateapp.cpp:399
+#: lib/kateapp.cpp:415
 #, kde-format
 msgid "Highlighting for SQL"
 msgstr "გამოკვეთა SQL-სთვის"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:416
 #, kde-format
 msgid "Chris Ross"
 msgstr "Chris Ross"
 
-#: lib/kateapp.cpp:400
+#: lib/kateapp.cpp:416
 #, kde-format
 msgid "Highlighting for Ferite"
 msgstr "გამოკვეთა Ferite-სთვის"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:417
 #, kde-format
 msgid "Nick Roux"
 msgstr "Nick Roux"
 
-#: lib/kateapp.cpp:401
+#: lib/kateapp.cpp:417
 #, kde-format
 msgid "Highlighting for ILERPG"
 msgstr "გამოკვეთა ILERPG-სთვის"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:418
 #, kde-format
 msgid "Carsten Niehaus"
 msgstr "Carsten Niehaus"
 
-#: lib/kateapp.cpp:402
+#: lib/kateapp.cpp:418
 #, kde-format
 msgid "Highlighting for LaTeX"
 msgstr "გამოკვეთა LaTeX-სთვის"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Per Wigren"
 msgstr "Per Wigren"
 
-#: lib/kateapp.cpp:403
+#: lib/kateapp.cpp:419
 #, kde-format
 msgid "Highlighting for Makefiles, Python"
 msgstr "გამოკვეთა Makefile-სთვის და Python-სთვის"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Jan Fritz"
 msgstr "Jan Fritz"
 
-#: lib/kateapp.cpp:404
+#: lib/kateapp.cpp:420
 #, kde-format
 msgid "Highlighting for Python"
 msgstr "გამოკვეთა Python-სთვის"
 
-#: lib/kateapp.cpp:405
+#: lib/kateapp.cpp:421
 #, kde-format
 msgid "Daniel Naber"
 msgstr "Daniel Naber"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Roland Pabel"
 msgstr "Roland Pabel"
 
-#: lib/kateapp.cpp:406
+#: lib/kateapp.cpp:422
 #, kde-format
 msgid "Highlighting for Scheme"
 msgstr "გამოკვეთა Schema-სთვის"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "Cristi Dumitrescu"
 msgstr "Cristi Dumitrescu"
 
-#: lib/kateapp.cpp:407
+#: lib/kateapp.cpp:423
 #, kde-format
 msgid "PHP Keyword/Datatype list"
 msgstr "PHP საკვანძო/მონაცემების ტიპების სია"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Carsten Pfeiffer"
 msgstr "Carsten Pfeiffer"
 
-#: lib/kateapp.cpp:408
+#: lib/kateapp.cpp:424
 #, kde-format
 msgid "Very nice help"
 msgstr "ძალიან კარგი დახმარება"
 
-#: lib/kateapp.cpp:409
+#: lib/kateapp.cpp:425
 #, kde-format
 msgid "All people who have contributed and I have forgotten to mention"
 msgstr "ყველა, ვინც მოხალისე იყო და დამავიწყდა, მომეხსენიენებინა"
 
-#: lib/kateapp.cpp:563
+#: lib/kateapp.cpp:579
 #, kde-format
 msgid "Folders can only be opened when the projects plugin is enabled"
 msgstr ""
 "საქაღალდეების გახსნა მხოლოდ მაშინაა შესაძლებელი, როცა პროექტების დამატება "
 "ჩართულია"
 
-#: lib/kateapp.cpp:656
+#: lib/kateapp.cpp:672
 #, kde-format
 msgid ""
 "The file '%1' could not be opened: it is not a normal file, it is a folder."
@@ -1830,12 +1830,12 @@ msgstr "აქტიური დოკუმენტის ამაგრე�
 msgid "Open Next Pinned Document"
 msgstr "შემდეგი ამაგრებული დოკუმენტის გახსნა"
 
-#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:57
+#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "წინა მდებარეობაზე გადასვლა"
 
-#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:69
+#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr "შემდეგ მდებარეობაზე გადასვლა"
@@ -2548,12 +2548,12 @@ msgstr "<b>%1</b> დამატების ჩართვის შეცდ
 msgid "The file '%1' does not exist"
 msgstr "ფაილი '%1' არ არსებობს"
 
-#: lib/kateviewspace.cpp:95
+#: lib/kateviewspace.cpp:107
 #, kde-format
 msgid "Synchronize Scrolling"
 msgstr "აწევა/დაწევის სინქრონიზაცია"
 
-#: lib/kateviewspace.cpp:97
+#: lib/kateviewspace.cpp:109
 #, kde-format
 msgid ""
 "Synchronize scrolling of this split-view with other synchronized split-views"
@@ -2561,23 +2561,23 @@ msgstr ""
 "ამ გაყოფილი ხედის გადახვევის სინქრონიზაცია სხვა სინქრონიზებულ გაყოფილ "
 "ხედებთან"
 
-#: lib/kateviewspace.cpp:119
+#: lib/kateviewspace.cpp:131
 #, kde-format
 msgctxt "indicator for more documents"
 msgid "+%1"
 msgstr "+%1"
 
-#: lib/kateviewspace.cpp:124 lib/kateviewspace.cpp:262
+#: lib/kateviewspace.cpp:136 lib/kateviewspace.cpp:268
 #, kde-format
 msgid "Click here to switch to the Quick Open view."
 msgstr "დააწკაპუნეთ სწრაფ გადასვლაზე გადასართავად."
 
-#: lib/kateviewspace.cpp:141
+#: lib/kateviewspace.cpp:153
 #, kde-format
 msgid "Control view space splitting"
 msgstr "ხედის დაყოფის მართვა"
 
-#: lib/kateviewspace.cpp:263
+#: lib/kateviewspace.cpp:269
 #, kde-format
 msgid ""
 "Currently, there is one more document open. To see all open documents, "
@@ -2592,47 +2592,47 @@ msgstr[1] ""
 "ამჟამად გაქვთ კიდევ %1 ღია დოკუმენტი. იმისთვის, რომ ნახოთ ყველა ღია "
 "დოკუმენტი, გადაერთეთ სწრაფი გახსნის ხედზე აქ დაწკაპუნებით."
 
-#: lib/kateviewspace.cpp:1148
+#: lib/kateviewspace.cpp:1116
 #, kde-format
 msgid "&Close Tab"
 msgstr "&ჩანართის დახურვა"
 
-#: lib/kateviewspace.cpp:1155
+#: lib/kateviewspace.cpp:1123
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "&სხვა ჩანართების დახურვა"
 
-#: lib/kateviewspace.cpp:1169
+#: lib/kateviewspace.cpp:1137
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "ყველა ჩანართის და&ხურვა"
 
-#: lib/kateviewspace.cpp:1202
+#: lib/kateviewspace.cpp:1170
 #, kde-format
 msgid "D&etach Document"
 msgstr "&დოკუმენტის მოხსნა"
 
-#: lib/kateviewspace.cpp:1207
+#: lib/kateviewspace.cpp:1175
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "გახსნის დოკუმენტს ახალ ფანჯარაში და მიმდინარე ფანჯარას დახურავს"
 
-#: lib/kateviewspace.cpp:1248
+#: lib/kateviewspace.cpp:1216
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "აქტიურ დოკუმენტთან შედარება"
 
-#: lib/kateviewspace.cpp:1254
+#: lib/kateviewspace.cpp:1222
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "აქტიურ დოკუმენტთან შედარება გამოყენებით"
 
-#: lib/kateviewspace.cpp:1262
+#: lib/kateviewspace.cpp:1230
 #, kde-format
 msgid "Unpin Document"
 msgstr "დოკუმენტის ჩამოხსნა"
 
-#: lib/kateviewspace.cpp:1264
+#: lib/kateviewspace.cpp:1232
 #, kde-format
 msgid "Pin Document"
 msgstr "დოკუმენტის ამაგრება"

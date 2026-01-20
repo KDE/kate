@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-20 00:45+0000\n"
 "PO-Revision-Date: 2025-11-12 18:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -528,12 +528,12 @@ msgstr "هل أنت متأكد أنك تريد تجاهل التغييرات؟"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "هل أنت متأكد أنك تريد إزالة هذه التغييرات غير المتعقبة؟"
 
-#: kateproject.cpp:357
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "ملف JSON مشوه '%1': %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -541,7 +541,7 @@ msgstr "ملف JSON مشوه '%1': %2"
 msgid "Project"
 msgstr "مشروع"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<غير المتعقّب>"

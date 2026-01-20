@@ -728,6 +728,3 @@ msgstr "&Rediger"
 #, kde-format
 msgid "Find in Files Variants"
 msgstr "Finn i filer (variantar)"
-
-#~ msgid "Export Pattern"
-#~ msgstr "Eksporter mønster"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-01-20 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -520,12 +520,12 @@ msgstr "您确定要丢弃这些更改吗？"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您确定要移除这些未跟踪的变更吗？"
 
-#: kateproject.cpp:357
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "错误格式的 JSON 文件“%1”：%2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -533,7 +533,7 @@ msgstr "错误格式的 JSON 文件“%1”：%2"
 msgid "Project"
 msgstr "项目"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<未跟踪>"

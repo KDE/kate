@@ -1,6 +1,6 @@
 # Copyright © 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
 # Tommi Nieminen <translator@legisign.org>, 2024.
 #
@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2025-09-19 18:14+0300\n"
+"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"PO-Revision-Date: 2026-01-10 20:49+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -64,7 +64,7 @@ msgstr "Haara"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "Viimeisin toiminta"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
@@ -525,12 +525,12 @@ msgstr "Haluatko varmasti hylätä muutokset?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Haluatko varmasti poistaa nämä ei-jäljitetyt muutokset?"
 
-#: kateproject.cpp:357
+#: kateproject.cpp:356
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 
-#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -538,7 +538,7 @@ msgstr "Virheellinen JSON-tiedosto ”%1”: %2"
 msgid "Project"
 msgstr "Projekti"
 
-#: kateproject.cpp:723
+#: kateproject.cpp:722
 #, kde-format
 msgid "<untracked>"
 msgstr "<ei jäljitetty>"

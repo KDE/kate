@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the kdebase package.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011-2012.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2012, 2013, 2014, 2015, 2016.
-# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2020, 2022, 2023, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 #
 # KDE Finnish translation sprint participants:
 # Author: Lliehu
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kategdbplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-17 00:47+0000\n"
-"PO-Revision-Date: 2025-07-31 09:29+0300\n"
+"PO-Revision-Date: 2026-01-05 15:54+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -33,48 +33,42 @@ msgstr ""
 "istunto."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "Keskeytyskohta"
+msgstr "Rivikeskeytyskohdat"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
-msgstr "funktion keskeytyskohdat"
+msgstr "Funktiokeskeytyskohdat"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "funktion keskeytyskohdat"
+msgstr "Poikkeuskeskeytyskohdat"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "varmistettu"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "odottaa"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "funktion keskeytyskohdat"
+msgstr "Lisää funktiokeskeytyskohta…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "Tyhjennä kaikki keskeytyskohdat"
+msgstr "Tyhjennä kaikki funktiokeskeytyskohdat"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "Poista keskeytyskohta"
 
@@ -89,23 +83,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "rivillä %1 on jo keskeytyskohta"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "keskeytyskohta asetettu"
+msgstr "Ei asetettuja keskeytyskohtia"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "funktion keskeytyskohdat"
+msgstr "Lisää funktiokeskeytyskohta"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "Funktio"
+msgstr "Funktion nimi:"
 
 #: configview.cpp:92
 #, kde-format
@@ -385,10 +375,9 @@ msgid "terminate debuggee"
 msgstr "lopeta jäljitettävä"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "funktion keskeytyskohdat"
+msgstr "poikkeuskeskeytyskohtasuodattimet"
 
 #: dapbackend.cpp:812
 #, kde-format
@@ -526,10 +515,9 @@ msgid "Debugger"
 msgstr "Virheenpaikannin"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "tiedostoa ei määritetty: %1"
+msgstr "Ei voitu avata tiedostoa: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -555,13 +543,13 @@ msgstr "JSON-data on kelvotonta: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "Ei voitu jäsentää tiedostoa .vscode/launch.json kohdassa %1. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " kohdassa %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -629,10 +617,9 @@ msgid "Locals and Stack"
 msgstr "Paikalliset muuttujat ja pino"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
-msgstr "Keskeytyskohta"
+msgstr "Keskeytyskohdat"
 
 #: plugin_kategdb.cpp:215
 #, kde-kuit-format
@@ -737,10 +724,9 @@ msgid "Insert breakpoint"
 msgstr "Lisää keskeytyskohta"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "Poista keskeytyskohta"
+msgstr "Aseta tai poista keskeytyskohta"
 
 #: plugin_kategdb.cpp:559
 #, kde-format

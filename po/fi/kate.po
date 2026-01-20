@@ -7,7 +7,7 @@
 # Ilpo Kantonen <ilpo@iki.fi>, 2005, 2006.
 # Teemu Rytilahti <tpr@d5k.net>, 2003, 2005.
 # Niklas Laxström <niklas.laxstrom+kdetrans@gmail.com>, 2006.
-# SPDX-FileCopyrightText: 2009, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2009, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 # Tommi Nieminen <translator@legisign.org>, 2009, 2010, 2011, 2012, 2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Jorma Karvonen <karvonen.jorma@gmail.com>, 2011, 2012.
 # Jiri Grönroos <jiri.gronroos+kde@iki.fi>, 2012.

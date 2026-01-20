@@ -1,6 +1,6 @@
 # Copyright © 2012 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2012, 2014, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Tommi Nieminen <translator@legisign.org>
 # Lasse Liehu <lasse.liehu@gmail.com>, 2013, 2014, 2015, 2016.
 # Tommi Nieminen <translator@legisign.org>, 2024.
 #

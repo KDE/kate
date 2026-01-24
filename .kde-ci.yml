@@ -18,3 +18,4 @@ Options:
   test-before-installing: True
   require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
   cmake-options: '-DWARNINGS_AS_ERRORS=ON'
+  enable-lsan: True

@@ -82,10 +82,10 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
 
     int lineNr = note.position().line();
     const CommitInfo &info = m_pluginView->blameInfo(lineNr);
+    const QDateTime authorDateTime = QDateTime::fromSecsSinceEpoch(info.authorDate);
 
-    bool isToday = info.authorDate.date() == QDate::currentDate();
-    QString date =
-        isToday ? m_locale.toString(info.authorDate.time(), QLocale::NarrowFormat) : m_locale.toString(info.authorDate.date(), QLocale::NarrowFormat);
+    bool isToday = authorDateTime.date() == QDate::currentDate();
+    QString date = isToday ? m_locale.toString(authorDateTime.time(), QLocale::NarrowFormat) : m_locale.toString(authorDateTime.date(), QLocale::NarrowFormat);
 
     QString text = info.summary.isEmpty()
         ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, date)
@@ -456,7 +456,7 @@ const CommitInfo &KateGitBlamePluginView::blameInfo(int lineNr)
 
     const int totalBlamedLines = m_parser.blameLineCount();
     const int adjustedLineNr = lineNr + m_lineOffset;
-    const QByteArray lineText = activeDocument()->line(lineNr).toUtf8();
+    const QString lineText = activeDocument()->line(lineNr);
 
     if (adjustedLineNr >= 0 && adjustedLineNr < totalBlamedLines) {
         if (m_parser.blameLine(adjustedLineNr) == lineText) {

@@ -15,7 +15,7 @@
 struct CommitInfo {
     QByteArrayView hash;
     QString authorName;
-    QDateTime authorDate;
+    qint64 authorDate;
     QByteArrayView summary;
 };
 
@@ -32,13 +32,13 @@ public:
     bool parseGitBlame(const QByteArray &rawData);
     bool hasBlameInfo() const;
     int blameLineCount() const;
-    const QByteArrayView &blameLine(int lineNr);
+    QByteArrayView blameLine(int lineNr);
     const CommitInfo &blameLineInfo(int lineNr);
 
     void clear();
 
 private:
     QByteArray m_rawCommitData;
-    QHash<QByteArray, CommitInfo> m_blameInfoForHash;
+    QHash<QByteArrayView, CommitInfo> m_blameInfoForHash;
     std::vector<BlamedLine> m_blameLines;
 };

@@ -135,7 +135,7 @@ bool KateGitBlameParser::parseGitBlame(const QByteArray &blame)
         int timeEnd = out.indexOf('\n', start);
 
         qint64 timestamp = out.mid(start, timeEnd - start).toLongLong();
-        commitInfo.authorDate = QDateTime::fromSecsSinceEpoch(timestamp);
+        commitInfo.authorDate = timestamp;
 
         constexpr int summaryLen = (int)sizeof("summary");
         start = out.indexOf("summary ", start);
@@ -167,11 +167,10 @@ int KateGitBlameParser::blameLineCount() const
     return (int)m_blameLines.size();
 }
 
-const QByteArrayView &KateGitBlameParser::blameLine(int lineNr)
+QByteArrayView KateGitBlameParser::blameLine(int lineNr)
 {
-    static QByteArrayView dummy;
     if (m_blameLines.empty() || lineNr < 0 || lineNr >= (int)m_blameLines.size()) {
-        return dummy;
+        return {};
     }
     return m_blameLines[lineNr].lineText;
 }
@@ -180,7 +179,7 @@ const CommitInfo &KateGitBlameParser::blameLineInfo(int lineNr)
 {
     static const CommitInfo dummy{.hash = "hash", //
                                   .authorName = i18n("Not Committed Yet"),
-                                  .authorDate = QDateTime::currentDateTime(),
+                                  .authorDate = QDateTime::currentSecsSinceEpoch(),
                                   .summary = {}};
     if (m_blameLines.empty() || lineNr < 0 || lineNr >= (int)m_blameLines.size()) {
         return dummy;

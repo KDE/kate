@@ -555,7 +555,11 @@ void KateMainWindow::setupActions()
 
     m_showFullScreenAction = KStandardAction::fullScreen(nullptr, nullptr, this, this);
     ac->addAction(m_showFullScreenAction->objectName(), m_showFullScreenAction);
+    // on macos we retain the default shortcut(CTRL+META+F)
+    // otherwise we overwrite the default shortcut ctrl+shift+f because it conflicts with search
+#ifndef Q_OS_MACOS
     KActionCollection::setDefaultShortcut(m_showFullScreenAction, Qt::Key_F11);
+#endif
     connect(m_showFullScreenAction, &QAction::toggled, this, &KateMainWindow::slotFullScreen);
 
     documentOpenWith = new KActionMenu(i18n("Open W&ith"), this);

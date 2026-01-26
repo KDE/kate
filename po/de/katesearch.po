@@ -1,14 +1,14 @@
-# SPDX-FileCopyrightText: 2024 Alois.spitzbart <spitz234@hotmail.com>
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2024 Alois.spitzbart <spitz234@hotmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2025-10-23 22:13+0200\n"
+"PO-Revision-Date: 2026-01-23 00:00+0100\n"
 "Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -60,13 +60,13 @@ msgstr ""
 #: MatchExportDialog.cpp:20
 #, kde-format
 msgid "Export Search Result Matches"
-msgstr "Suchergebnistreffer exportieren"
+msgstr "Suchtreffer exportieren"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, exportPatternText)
 #: MatchExportDialog.ui:31
 #, kde-format
 msgid "Export Pattern"
-msgstr "Muster exportieren"
+msgstr "Exportmuster"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:38
@@ -650,7 +650,7 @@ msgstr ""
 #: SearchPlugin.cpp:1678
 #, kde-format
 msgid "Search Match"
-msgstr "Such-Übereinstimmung"
+msgstr "Suchtreffer"
 
 #: SearchPlugin.cpp:1855 SearchPlugin.cpp:1931
 #, kde-format
@@ -695,7 +695,7 @@ msgstr "Ausgeklappte kopieren"
 #: SearchPlugin.cpp:2280
 #, kde-format
 msgid "Export matches"
-msgstr "Übereinstimmungen exportieren"
+msgstr "Treffer exportieren"
 
 #: SearchPlugin.cpp:2285
 #, kde-format

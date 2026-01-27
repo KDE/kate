@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"POT-Creation-Date: 2026-01-27 00:47+0000\n"
 "PO-Revision-Date: 2020-07-27 23:03+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1435,12 +1435,12 @@ msgstr "Luk dokument"
 msgid "Save As"
 msgstr "Gem som"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:826
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "Ny fil åbnet under forsøg på at lukke Kate, lukning afbrudt."
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:826
 #, kde-format
 msgid "Closing Aborted"
 msgstr "Lukning afbrudt"
@@ -1762,12 +1762,12 @@ msgstr "&Vindue"
 msgid "Create a new window."
 msgstr "Opret et nyt dokument"
 
-#: lib/katemainwindow.cpp:561
+#: lib/katemainwindow.cpp:565
 #, kde-format
 msgid "Open W&ith"
 msgstr "Åbn &med"
 
-#: lib/katemainwindow.cpp:563
+#: lib/katemainwindow.cpp:567
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1776,124 +1776,124 @@ msgstr ""
 "Åbn dette dokument ved brug af et andet program registreret for dets "
 "filtype, eller et program efter dit valg."
 
-#: lib/katemainwindow.cpp:571
+#: lib/katemainwindow.cpp:575
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "Indstil programmets tastaturgenveje."
 
-#: lib/katemainwindow.cpp:574
+#: lib/katemainwindow.cpp:578
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "Indstil hvilke knapper der skal vises i værktøjslinjerne."
 
-#: lib/katemainwindow.cpp:577
+#: lib/katemainwindow.cpp:581
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr ""
 "Indstil forskellige aspekter af dette program og redigeringskomponenten."
 
-#: lib/katemainwindow.cpp:581
+#: lib/katemainwindow.cpp:585
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "&Plugins-håndbog"
 
-#: lib/katemainwindow.cpp:583
+#: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "Viser hjælpefiler for tilgængelige plugins."
 
-#: lib/katemainwindow.cpp:600
+#: lib/katemainwindow.cpp:604
 #, kde-format
 msgid "Sess&ions"
 msgstr "Sess&ioner"
 
-#: lib/katemainwindow.cpp:606
+#: lib/katemainwindow.cpp:610
 #, fuzzy, kde-format
 #| msgid "New Session"
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "Ny session"
 
-#: lib/katemainwindow.cpp:611
+#: lib/katemainwindow.cpp:615
 #, fuzzy, kde-format
 #| msgid "&Open Session"
 msgid "&Recent Sessions"
 msgstr "Å&bn session"
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, fuzzy, kde-format
 #| msgid "Sess&ions"
 msgid "&All Sessions"
 msgstr "Sess&ioner"
 
-#: lib/katemainwindow.cpp:623
+#: lib/katemainwindow.cpp:627
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "&Håndtér sessioner..."
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&Save Session"
 msgstr "&Gem session"
 
-#: lib/katemainwindow.cpp:638
+#: lib/katemainwindow.cpp:642
 #, kde-format
 msgid "Save Session &As..."
 msgstr "G&em session som..."
 
-#: lib/katemainwindow.cpp:646
+#: lib/katemainwindow.cpp:650
 #, fuzzy, kde-format
 #| msgid "Next Document"
 msgid "Pin/Unpin Active Document"
 msgstr "Næste dokument"
 
-#: lib/katemainwindow.cpp:655
+#: lib/katemainwindow.cpp:659
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Open Next Pinned Document"
 msgstr "Åbn dokumenter"
 
-#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:666 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:675 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:679
+#: lib/katemainwindow.cpp:683
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:690
+#: lib/katemainwindow.cpp:694
 #, fuzzy, kde-format
 #| msgid "&Window"
 msgid "&Windows"
 msgstr "&Vindue"
 
-#: lib/katemainwindow.cpp:729
+#: lib/katemainwindow.cpp:733
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "Dette vil lukke alle åbne dokumenter. Vil du virkelig fortsætte?"
 
-#: lib/katemainwindow.cpp:730
+#: lib/katemainwindow.cpp:734
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "Luk alle dokumenter"
 
-#: lib/katemainwindow.cpp:731
+#: lib/katemainwindow.cpp:735
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "Luk &alle"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
@@ -1902,31 +1902,31 @@ msgstr ""
 "Dette vil lukke alle åbne dokumenter undtagen det aktuelle. Vil du virkelig "
 "fortsætte?"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "Luk alle dokumenter undtagen det aktuelle"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "Luk andre"
 
-#: lib/katemainwindow.cpp:977
+#: lib/katemainwindow.cpp:981
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr ""
 "Dette vil skjule menulinjen helt. Du kan få den vist igen ved at trykke %1."
 
-#: lib/katemainwindow.cpp:980
+#: lib/katemainwindow.cpp:984
 #, kde-format
 msgid "Hide menu bar"
 msgstr "Skjul menulinjen"
 
-#: lib/katemainwindow.cpp:1156
+#: lib/katemainwindow.cpp:1160
 #, fuzzy, kde-format
 #| msgid ""
 #| "You dropped the directory %1 into Kate. Do you want to load all files "
@@ -1936,21 +1936,21 @@ msgid ""
 "contained in it?"
 msgstr "Du slap mappen %1 i Kate. Vil du indlæse alle dens filer?"
 
-#: lib/katemainwindow.cpp:1159
+#: lib/katemainwindow.cpp:1163
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "Indlæs filer rekursivt?"
 
-#: lib/katemainwindow.cpp:1160
+#: lib/katemainwindow.cpp:1164
 #, fuzzy, kde-format
 #| msgid "Open File"
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Åbn fil"
 
-#: lib/katemainwindow.cpp:1367
+#: lib/katemainwindow.cpp:1371
 #, kde-format
 msgid " [read only]"
 msgstr " [skrivebeskyttet]"

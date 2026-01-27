@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"POT-Creation-Date: 2026-01-27 00:47+0000\n"
 "PO-Revision-Date: 2024-01-03 14:01-0600\n"
 "Last-Translator: A S Alam <aalam@punlinux.org>\n"
 "Language-Team: Punjabi <kde-i18n-doc@kde.org>\n"
@@ -1394,12 +1394,12 @@ msgstr "ਡੌਕੂਮੈਂਟ ਬੰਦ ਕਰੋ"
 msgid "Save As"
 msgstr "ਇੰਝ ਸੰਭਾਲੋ"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:826
 #, kde-format
 msgid "New file opened while trying to close Kate, closing aborted."
 msgstr "ਕੇਟ ਨੂੰ ਬੰਦ ਕਰਨ ਦੌਰਾਨ ਇੱਕ ਨਵੀਂ ਫਾਇਲ ਖੁੱਲ ਗਈ ਹੈ, ਬੰਦ ਕਰਨ ਨੂੰ ਛੱਡ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
 
-#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:822
+#: lib/katedocmanager.cpp:322 lib/katemainwindow.cpp:826
 #, kde-format
 msgid "Closing Aborted"
 msgstr "ਬੰਦ ਕਰਨਾ ਛੱਡਿਆ ਗਿਆ।"
@@ -1717,12 +1717,12 @@ msgstr "ਨਵੀਂ ਵਿੰਡੋ(&N)"
 msgid "Create a new window."
 msgstr "ਨਵੀਂ ਵਿੰਡੋ ਬਣਾਓ।"
 
-#: lib/katemainwindow.cpp:561
+#: lib/katemainwindow.cpp:565
 #, kde-format
 msgid "Open W&ith"
 msgstr "ਇਸ ਨਾਲ ਖੋਲ੍ਹੋ(&i)"
 
-#: lib/katemainwindow.cpp:563
+#: lib/katemainwindow.cpp:567
 #, kde-format
 msgid ""
 "Open the current document using another application registered for its file "
@@ -1731,170 +1731,170 @@ msgstr ""
 "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਨੂੰ ਹੋਰ ਐਪਲੀਕੇਸ਼ਨ, ਜੋ ਕਿ ਇਸ ਫਾਇਲ ਕਿਸਮ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ, ਨਾਲ ਖੋਲ੍ਹੋ ਜਾਂ ਆਪਣੀ ਟੂਲ "
 "ਵਰਤੋਂ।"
 
-#: lib/katemainwindow.cpp:571
+#: lib/katemainwindow.cpp:575
 #, kde-format
 msgid "Configure the application's keyboard shortcut assignments."
 msgstr "ਐਪਲੀਕੇਸ਼ਨ ਦੇ ਕੀ-ਬੋਰਡ ਸ਼ਾਰਟਕੱਟ ਸੰਬੰਧ ਦੀ ਸੰਰਚਨਾ ਹੈ।"
 
-#: lib/katemainwindow.cpp:574
+#: lib/katemainwindow.cpp:578
 #, kde-format
 msgid "Configure which items should appear in the toolbar(s)."
 msgstr "ਟੂਲ-ਪੱਟੀ ਵਿੱਚ ਕੇਹੜੀਆਂ ਆਈਟਮਾਂ ਸ਼ਾਮਿਲ ਕਰਨੀਆਂ, ਦੀ ਸੰਰਚਨਾ"
 
-#: lib/katemainwindow.cpp:577
+#: lib/katemainwindow.cpp:581
 #, kde-format
 msgid ""
 "Configure various aspects of this application and the editing component."
 msgstr "ਇਸ ਐਪਲੀਕੇਸ਼ਨ ਦੇ ਕਈ ਰੂਪ ਅਤੇ ਐਡੀਟਿੰਗ ਭਾਗ ਦੀ ਸੰਰਚਨਾ"
 
-#: lib/katemainwindow.cpp:581
+#: lib/katemainwindow.cpp:585
 #, kde-format
 msgid "&Plugins Handbook"
 msgstr "ਪਲੱਗਇਨ ਕਿਤਾਬ(&P)"
 
-#: lib/katemainwindow.cpp:583
+#: lib/katemainwindow.cpp:587
 #, kde-format
 msgid "This shows help files for various available plugins."
 msgstr "ਇਹ ਵੱਖ ਵੱਖ ਉਪਲੱਬਧ ਪਲੱਗਇਨ ਲਈ ਸਹਾਇਕ ਫਾਇਲ਼ਾਂ ਵੇਖਾ ਰਿਹਾ ਹੈ।"
 
-#: lib/katemainwindow.cpp:600
+#: lib/katemainwindow.cpp:604
 #, kde-format
 msgid "Sess&ions"
 msgstr "ਸ਼ੈਸ਼ਨ(&i)"
 
-#: lib/katemainwindow.cpp:606
+#: lib/katemainwindow.cpp:610
 #, kde-format
 msgctxt "Menu entry Session->New Session"
 msgid "&New Session"
 msgstr "ਨਵਾਂ ਸ਼ੈਸ਼ਨ(&N)"
 
-#: lib/katemainwindow.cpp:611
+#: lib/katemainwindow.cpp:615
 #, kde-format
 msgid "&Recent Sessions"
 msgstr "ਸੱਜਰੇ ਸ਼ੈਸ਼ਨ(&R)"
 
-#: lib/katemainwindow.cpp:616
+#: lib/katemainwindow.cpp:620
 #, kde-format
 msgid "&All Sessions"
 msgstr "ਸਭ ਸ਼ੈਸ਼ਨ(&A)"
 
-#: lib/katemainwindow.cpp:623
+#: lib/katemainwindow.cpp:627
 #, kde-format
 msgid "&Manage Sessions..."
 msgstr "...ਸ਼ੈਸ਼ਨ ਪਰਬੰਧ(&M)"
 
-#: lib/katemainwindow.cpp:632
+#: lib/katemainwindow.cpp:636
 #, kde-format
 msgid "&Save Session"
 msgstr "ਸ਼ੈਸ਼ਨ ਸੰਭਾਲੋ(&S)"
 
-#: lib/katemainwindow.cpp:638
+#: lib/katemainwindow.cpp:642
 #, kde-format
 msgid "Save Session &As..."
 msgstr "... ਵਜੋਂ ਸ਼ੈਸ਼ਨ ਸੰਭਾਲੋ(&A)"
 
-#: lib/katemainwindow.cpp:646
+#: lib/katemainwindow.cpp:650
 #, fuzzy, kde-format
 #| msgid "D&etach Document"
 msgid "Pin/Unpin Active Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਨੂੰ ਵੱਖ ਕਰੋ(&e)"
 
-#: lib/katemainwindow.cpp:655
+#: lib/katemainwindow.cpp:659
 #, fuzzy, kde-format
 #| msgctxt "The number of open documents"
 #| msgid "Open Documents"
 msgid "Open Next Pinned Document"
 msgstr "ਡੌਕੂਮੈਂਟ ਖੋਲ੍ਹੋ"
 
-#: lib/katemainwindow.cpp:662 lib/kateviewspace.cpp:70
+#: lib/katemainwindow.cpp:666 lib/kateviewspace.cpp:70
 #, kde-format
 msgid "Go to Previous Location"
 msgstr "ਪਿਛਲੇ ਟਿਕਾਣੇ ਉੱਤੇ ਜਾਓ"
 
-#: lib/katemainwindow.cpp:671 lib/kateviewspace.cpp:82
+#: lib/katemainwindow.cpp:675 lib/kateviewspace.cpp:82
 #, kde-format
 msgid "Go to Next Location"
 msgstr ""
 
-#: lib/katemainwindow.cpp:679
+#: lib/katemainwindow.cpp:683
 #, kde-format
 msgid "Show File Git History"
 msgstr ""
 
-#: lib/katemainwindow.cpp:690
+#: lib/katemainwindow.cpp:694
 #, fuzzy, kde-format
 #| msgid "&New Window"
 msgid "&Windows"
 msgstr "ਨਵੀਂ ਵਿੰਡੋ(&N)"
 
-#: lib/katemainwindow.cpp:729
+#: lib/katemainwindow.cpp:733
 #, kde-format
 msgid "This will close all open documents. Are you sure you want to continue?"
 msgstr "ਇਸ ਨਾਲ ਸਭ ਖੁੱਲ੍ਹੇ ਡੌਕੂਮੈਂਟ ਬੰਦ ਕੀਤੇ ਜਾਣਗੇ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: lib/katemainwindow.cpp:730
+#: lib/katemainwindow.cpp:734
 #, fuzzy, kde-format
 #| msgid "Close all documents"
 msgid "Close all documents?"
 msgstr "ਸਭ ਡੌਕੂਮੈਂਟ ਬੰਦ ਕਰੋ"
 
-#: lib/katemainwindow.cpp:731
+#: lib/katemainwindow.cpp:735
 #, fuzzy, kde-format
 #| msgid "Clos&e All"
 msgid "Close All"
 msgstr "ਸਭ ਬੰਦ ਕਰੋ(&e)"
 
-#: lib/katemainwindow.cpp:745
+#: lib/katemainwindow.cpp:749
 #, kde-format
 msgid ""
 "This will close all open documents beside the current one. Are you sure you "
 "want to continue?"
 msgstr "ਇਸ ਨਾਲ ਮੌਜੂਦਾ ਤੋਂ ਬਿਨਾਂ ਸਭ ਖੁੱਲ੍ਹੇ ਡੌਕੂਮੈਂਟ ਬੰਦ ਕੀਤੇ ਜਾਣਗੇ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: lib/katemainwindow.cpp:746
+#: lib/katemainwindow.cpp:750
 #, fuzzy, kde-format
 #| msgid "Close all documents beside current one"
 msgid "Close all documents beside current one?"
 msgstr "ਮੌਜੂਦਾ ਨੂੰ ਛੱਡ ਕੇ ਸਾਰੇ ਡੌਕੂਮੈਂਟਾਂ ਨੂੰ ਬੰਦ ਕਰੋ"
 
-#: lib/katemainwindow.cpp:747
+#: lib/katemainwindow.cpp:751
 #, fuzzy, kde-format
 #| msgid "Close Other"
 msgid "Close Others"
 msgstr "ਹੋਰ ਬੰਦ ਕਰੋ"
 
-#: lib/katemainwindow.cpp:977
+#: lib/katemainwindow.cpp:981
 #, kde-format
 msgid ""
 "This will hide the menu bar completely. You can show it again by typing %1."
 msgstr "ਇਸ ਨਾਲ ਮੇਨੂ ਬਾਰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਹੋ ਜਾਵੇਗੀ। ਤੁਸੀਂ ਇਸ ਨੂੰ %1 ਟਾਈਪ ਕਰਕੇ ਮੁੜ ਵੇਖ ਸਕਦੇ ਹੋ।"
 
-#: lib/katemainwindow.cpp:980
+#: lib/katemainwindow.cpp:984
 #, kde-format
 msgid "Hide menu bar"
 msgstr "ਮੇਨੂ ਪੱਟੀ ਓਹਲੇ"
 
-#: lib/katemainwindow.cpp:1156
+#: lib/katemainwindow.cpp:1160
 #, kde-format
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
 msgstr ""
 
-#: lib/katemainwindow.cpp:1159
+#: lib/katemainwindow.cpp:1163
 #, fuzzy, kde-format
 #| msgid "Load files recursively?"
 msgctxt "@title:window"
 msgid "Open Files Recursively"
 msgstr "ਫਾਇਲਾਂ ਨੂੰ ਲਗਾਤਾਰ ਲੋਡ ਕਰਨਾ ਹੈ?"
 
-#: lib/katemainwindow.cpp:1160
+#: lib/katemainwindow.cpp:1164
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "ਸਭ ਫਾਇਲਾਂ ਨੂੰ ਖੋਲ੍ਹੋ"
 
-#: lib/katemainwindow.cpp:1367
+#: lib/katemainwindow.cpp:1371
 #, kde-format
 msgid " [read only]"
 msgstr " [ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ]"

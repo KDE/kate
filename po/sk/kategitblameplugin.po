@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kategitblameplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-27 00:47+0000\n"
 "PO-Revision-Date: 2023-01-22 15:24+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: gitblameparser.cpp:182
+#: gitblameparser.cpp:181
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Zatiaľ nezačlenené"

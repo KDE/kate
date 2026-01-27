@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-01-27 00:47+0000\n"
 "PO-Revision-Date: 2024-10-10 15:08+0300\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "2);\n"
 "X-Generator: Lokalize 24.08.1\n"
 
-#: gitblameparser.cpp:182
+#: gitblameparser.cpp:181
 #, kde-format
 msgid "Not Committed Yet"
 msgstr "Vēl nav iesūtīts"

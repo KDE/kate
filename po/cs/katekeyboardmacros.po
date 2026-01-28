@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2022, 2024 Vit Pelcak <vit@pelcak.org>
 #
+# SPDX-FileCopyrightText: 2026 Jan Papez (honyczek)
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-16 00:46+0000\n"
-"PO-Revision-Date: 2024-04-30 15:45+0200\n"
-"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
-"Language-Team: Czech <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2026-01-27 18:56+0100\n"
+"Last-Translator: Jan Papez (honyczek) <honyczek@centrum.cz>\n"
+"Language-Team: Czech <kde-i18n-cs@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
@@ -25,29 +26,29 @@ msgstr "Nelze otevřít soubor '%1'."
 #: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "Neplatný soubor JSON '%1': %2"
 
 #: keyboardmacrosplugin.cpp:80
 #, kde-format
 msgid "Could not load '%1': malformed macro; wiping it."
-msgstr ""
+msgstr "Nelze načíst '%1': špatně vytvořené makro; probíhá jeho odstranění."
 
 #. i18n: ectx: ToolBar (keyboardmacros)
 #: keyboardmacrosplugin.cpp:120 keyboardmacrospluginview.cpp:30
 #: keyboardmacrospluginview.cpp:289 keyboardmacrospluginview.cpp:323 ui.rc:12
 #, kde-format
 msgid "Keyboard Macros"
-msgstr ""
+msgstr "Klávesová makra"
 
 #: keyboardmacrosplugin.cpp:129
 #, kde-format
 msgid "<b>Keyboard Macros:</b> %1"
-msgstr ""
+msgstr "<b>Klávesová makra:</b> %1"
 
 #: keyboardmacrosplugin.cpp:170
 #, kde-format
 msgid "Can't save macro during recording. Please end recoding first"
-msgstr ""
+msgstr "Nelze uložit makro během nahrávání. Nejprve ukončete nahrávání"
 
 #: keyboardmacrosplugin.cpp:241
 #, kde-format
@@ -57,7 +58,7 @@ msgstr "Nahrávání..."
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
 msgid "ended"
-msgstr ""
+msgstr "ukončeno"
 
 #: keyboardmacrosplugin.cpp:277
 #, kde-format
@@ -82,7 +83,7 @@ msgstr "Načteno '%1'"
 #: keyboardmacrosplugin.cpp:365
 #, kde-format
 msgid "Wiped '%1'"
-msgstr ""
+msgstr "Smazáno '%1'"
 
 #: keyboardmacrosplugincommands.cpp:27
 #, kde-format
@@ -93,12 +94,12 @@ msgstr "Využití: %1 <name>."
 #: keyboardmacrosplugincommands.cpp:62
 #, kde-format
 msgid "No keyboard macro named '%1' found."
-msgstr ""
+msgstr "Nenašlo se žádné klávesové makro pojmenované '%1'."
 
 #: keyboardmacrosplugincommands.cpp:50
 #, kde-format
 msgid "Cannot save empty keyboard macro."
-msgstr ""
+msgstr "Není možné uložit prázdné klávesové makro."
 
 #: keyboardmacrosplugincommands.cpp:82
 #, kde-format
@@ -106,6 +107,8 @@ msgid ""
 "<qt><p>Usage: <code>kmsave &lt;name&gt;</code></p><p>Save current keyboard "
 "macro as <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>Použití: <code>kmsave &lt;název&gt;</code></p><p>Uložit aktuální "
+"klávesové makro jako <code>&lt;název&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:85
 #, kde-format
@@ -113,6 +116,8 @@ msgid ""
 "<qt><p>Usage: <code>kmload &lt;name&gt;</code></p><p>Load saved keyboard "
 "macro <code>&lt;name&gt;</code> as current macro.</p>%1</qt>"
 msgstr ""
+"<qt><p>Použití: <code>kmload &lt;název&gt;</code></p><p>Nahrajte uložené "
+"klávesové makro <code>&lt;název&gt;</code> jako aktuální makro.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:89
 #, kde-format
@@ -120,6 +125,8 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
+"<qt><p>Použití: <code>kmplay &lt;název&gt;</code></p><p>Přehrát uložené "
+"klávesové makro <code>&lt;název&gt;</code> bez jeho načtení.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:93
 #, kde-format
@@ -127,42 +134,45 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
+"<qt><p>Použití: <code>kmwipe &lt;název&gt;</code></p><p>Smazat uložené "
+"klávesové makro <code>&lt;název&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33
 #, kde-format
 msgid "&Keyboard Macros"
-msgstr ""
+msgstr "&Klávesová makra"
 
 #: keyboardmacrospluginview.cpp:36
 #, kde-format
 msgid "Record and play keyboard macros."
-msgstr ""
+msgstr "Zaznamenávejte a přehrávejte klávesová makra."
 
 #: keyboardmacrospluginview.cpp:41 keyboardmacrospluginview.cpp:163
 #, kde-format
 msgid "&Record Macro..."
-msgstr ""
+msgstr "Nah&rát makro..."
 
 #: keyboardmacrospluginview.cpp:43
 #, kde-format
 msgid "Start/stop recording a macro (i.e., keyboard action sequence)."
-msgstr ""
+msgstr "Spustit/ukončit nahrávání makra (tj. sekvence akcí klávesnice)."
 
 #: keyboardmacrospluginview.cpp:52
 #, kde-format
 msgid "&Cancel Macro Recording"
-msgstr ""
+msgstr "&Zrušit nahrávání makra"
 
 #: keyboardmacrospluginview.cpp:54
 #, kde-format
 msgid ""
 "Cancel ongoing recording (and keep the previous macro as the current one)."
 msgstr ""
+"Zrušit probíhající nahrávání (a ponechat předchozí makro jako aktuální)."
 
 #: keyboardmacrospluginview.cpp:64
 #, kde-format
 msgid "&Play Macro"
-msgstr ""
+msgstr "&Přehrát makro"
 
 #: keyboardmacrospluginview.cpp:66
 #, kde-format
@@ -170,51 +180,53 @@ msgid ""
 "Play current macro (i.e., execute the last recorded keyboard action "
 "sequence)."
 msgstr ""
+"Přehrát aktuální makro (tj. vykonat poslední zaznamenanou sekvenci akcí "
+"klávesnice)."
 
 #: keyboardmacrospluginview.cpp:76
 #, kde-format
 msgid "&Save Current Macro"
-msgstr ""
+msgstr "&Uložit aktuální makro"
 
 #: keyboardmacrospluginview.cpp:78
 #, kde-format
 msgid "Give a name to the current macro and persistently save it."
-msgstr ""
+msgstr "Pojmenovat aktuální makro a trvale ho uložit."
 
 #: keyboardmacrospluginview.cpp:90
 #, kde-format
 msgid "&Load Named Macro..."
-msgstr ""
+msgstr "&Načíst pojmenované makro..."
 
 #: keyboardmacrospluginview.cpp:93
 #, kde-format
 msgid "Load a named macro as the current one."
-msgstr ""
+msgstr "Načíst pojmenované makro jako aktuální."
 
 #: keyboardmacrospluginview.cpp:98
 #, kde-format
 msgid "&Play Named Macro..."
-msgstr ""
+msgstr "&Přehrát pojmenované makro..."
 
 #: keyboardmacrospluginview.cpp:101
 #, kde-format
 msgid "Play a named macro without loading it."
-msgstr ""
+msgstr "Přehrát pojmenované makro bez jeho načtení."
 
 #: keyboardmacrospluginview.cpp:106
 #, kde-format
 msgid "&Wipe Named Macro..."
-msgstr ""
+msgstr "&Smazat pojmenované makro..."
 
 #: keyboardmacrospluginview.cpp:109
 #, kde-format
 msgid "Wipe a named macro."
-msgstr ""
+msgstr "Smazat pojmenované makro."
 
 #: keyboardmacrospluginview.cpp:155
 #, kde-format
 msgid "End Macro &Recording"
-msgstr ""
+msgstr "U&končit nahrávání makra"
 
 #: keyboardmacrospluginview.cpp:180
 #, kde-format
@@ -224,7 +236,7 @@ msgstr "Načíst %1"
 #: keyboardmacrospluginview.cpp:181
 #, kde-format
 msgid "Load the '%1' macro as the current one."
-msgstr ""
+msgstr "Načíst makro '%1' jako aktuální."
 
 #: keyboardmacrospluginview.cpp:193
 #, kde-format
@@ -234,27 +246,27 @@ msgstr "Přehrát %1 "
 #: keyboardmacrospluginview.cpp:194
 #, kde-format
 msgid "Play the '%1' macro without loading it."
-msgstr ""
+msgstr "Přehrát makro '%1' bez jeho načtení."
 
 #: keyboardmacrospluginview.cpp:208
 #, kde-format
 msgid "Wipe %1"
-msgstr ""
+msgstr "Smazat %1"
 
 #: keyboardmacrospluginview.cpp:209
 #, kde-format
 msgid "Wipe the '%1' macro."
-msgstr ""
+msgstr "Smazat makro '%1'."
 
 #: keyboardmacrospluginview.cpp:289
 #, kde-format
 msgid "Save current macro as?"
-msgstr ""
+msgstr "Chcete aktuální makro uložit pod názvem?"
 
 #: keyboardmacrospluginview.cpp:323
 #, kde-format
 msgid "Wipe the '%1' macro?"
-msgstr ""
+msgstr "Chcete makro '%1' smazat?"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:6

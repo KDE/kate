@@ -9,6 +9,7 @@
 
 #include <QDir>
 #include <QDirIterator>
+#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QInputDialog>
@@ -128,11 +129,16 @@ Template::Template(QWidget *parent)
     m_exportButton = new QPushButton(QIcon::fromTheme(u"document-export"_s), i18n("Export"), this);
     m_exportButton->setEnabled(false);
 
+    m_removeButton = new QPushButton(QIcon::fromTheme(u"edit-delete"_s), i18n("Remove"), this);
+    m_removeButton->setEnabled(false);
+    connect(m_removeButton, &QPushButton::clicked, this, &Template::onRemoveClicked);
+
     auto bottomLayout = new QHBoxLayout();
     bottomLayout->setContentsMargins(0, 0, 0, 0);
 
     bottomLayout->addWidget(importButton);
     bottomLayout->addWidget(m_exportButton);
+    bottomLayout->addWidget(m_removeButton);
     bottomLayout->addStretch();
     bottomLayout->addWidget(ui->u_buttonBox);
 
@@ -163,8 +169,7 @@ Template::Template(QWidget *parent)
 
     connect(ui->u_locationToolButton, &QToolButton::clicked, this, &Template::selectFolder);
 
-    QString userTemplates = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/templates");
-    addTemplateRoot(userTemplates);
+    addTemplateRoot(userTemplatePath());
     addTemplateRoot(u":/templates"_s);
 
 #ifdef BUILD_APPWIZARD
@@ -375,6 +380,12 @@ void Template::templateIndexChanged(const QModelIndex &newIndex)
 
     QString path = newIndex.data(TreeData::PathRole).toString();
     QString config = newIndex.data(TreeData::ConfigJsonRole).toString();
+
+    if (!path.isEmpty() && !config.isEmpty() && path.startsWith(userTemplatePath())) {
+        m_removeButton->setEnabled(true);
+    } else {
+        m_removeButton->setEnabled(false);
+    }
 
     if (config.isEmpty()) {
         return;
@@ -752,7 +763,7 @@ void Template::importTemplate()
         return;
     }
 
-    const QString localTemplates = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + u"/templates"_s;
+    const QString localTemplates = userTemplatePath();
     const QString dirName = source.dirName();
     const QString destPath = QDir(localTemplates).filePath(category + QLatin1Char('/') + dirName);
 
@@ -788,6 +799,79 @@ void Template::importTemplate()
     } else {
         KMessageBox::error(this, i18n("Failed to import template."));
     }
+}
+
+void Template::onRemoveClicked()
+{
+    const QModelIndex index = ui->u_templateTree->currentIndex();
+    if (!index.isValid())
+        return;
+
+    QString path = index.data(TreeData::PathRole).toString();
+    if (path.isEmpty())
+        return;
+
+    QFileInfo info(path);
+    if (!path.startsWith(userTemplatePath())) {
+        KMessageBox::error(this, i18n("You do not have permission to delete this template."));
+        return;
+    }
+
+    auto result = KMessageBox::questionTwoActions(this,
+                                                  i18n("Are you sure you want to delete '%1'?", info.fileName()),
+                                                  i18n("Delete Template"),
+                                                  KStandardGuiItem::del(),
+                                                  KStandardGuiItem::cancel());
+
+    if (result != KMessageBox::PrimaryAction) {
+        return;
+    }
+
+    bool success = false;
+    if (info.isDir()) {
+        success = QDir(path).removeRecursively();
+    } else {
+        success = QFile::remove(path);
+    }
+
+    if (success) {
+        QDir dir = info.dir();
+        QString root = userTemplatePath();
+
+        while (dir.absolutePath() != root && dir.absolutePath().startsWith(root)) {
+            if (dir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot).isEmpty()) {
+                QString toRemove = dir.absolutePath();
+                if (!dir.cdUp()) {
+                    break;
+                }
+                QDir().rmdir(toRemove);
+            } else {
+                break;
+            }
+        }
+
+        m_selectionModel.clear();
+
+        addTemplateRoot(root);
+        addTemplateRoot(u":/templates"_s);
+
+#ifdef BUILD_APPWIZARD
+        addAppWizardTemplates();
+#endif
+
+        m_removeButton->setEnabled(false);
+        ui->u_detailsTB->clear();
+        ui->u_configWidget->setEnabled(false);
+
+        KMessageBox::information(this, i18n("Template deleted successfully."));
+    } else {
+        KMessageBox::error(this, i18n("Failed to delete the template."));
+    }
+}
+
+QString Template::userTemplatePath() const
+{
+    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + u"/templates"_s;
 }
 
 #include "moc_template.cpp"

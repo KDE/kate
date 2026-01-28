@@ -104,10 +104,14 @@ private:
 
     void exportTemplate();
     void importTemplate();
+    void onRemoveClicked();
+
+    QString userTemplatePath() const;
 
     Ui::Template *ui;
     QPushButton *m_createButton;
     QPushButton *m_exportButton;
+    QPushButton *m_removeButton;
     AbstractDataModel m_selectionModel;
     AbstractDataModel m_configModel;
     QString m_fileToOpen;

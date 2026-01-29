@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:47+0000\n"
-"PO-Revision-Date: 2026-01-03 17:39+0000\n"
+"PO-Revision-Date: 2026-01-04 04:05+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -1949,7 +1949,7 @@ msgstr "Arată butonul „%1”"
 #: lib/katemdi.cpp:204
 #, kde-format
 msgid "Focus %1"
-msgstr "Focalizează %1"
+msgstr "Focalizează „%1”"
 
 #: lib/katemdi.cpp:1122
 #, kde-format
@@ -2122,12 +2122,12 @@ msgstr ""
 #: lib/katemwmodonhddialog.cpp:281
 #, kde-format
 msgid "Failed to create a temporary file"
-msgstr ""
+msgstr "Crearea fișierului temporar a eșuat"
 
 #: lib/katemwmodonhddialog.cpp:292
 #, kde-format
 msgid "Please install git to view diffs"
-msgstr ""
+msgstr "Instalați „git” pentru a vizualiza diferențele"
 
 #: lib/katemwmodonhddialog.cpp:316
 #, kde-format
@@ -2202,16 +2202,13 @@ msgid "Save Documents"
 msgstr "Salvează documentele"
 
 #: lib/katesavemodifieddialog.cpp:157
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#| "to save your changes or discard them?</p>"
+#, kde-format
 msgid ""
 "The document \"%1\" has been modified. Do you want to save your changes or "
 "discard them?"
 msgstr ""
-"<p>Documentul „%1” a fost modificat, dar nu și salvat.</p><p>Doriți să "
-"salvați sau să eliminați modificările?</p>"
+"Documentul „%1” a fost modificat. Doriți să salvați sau să aruncați "
+"modificările?"
 
 #: lib/katesavemodifieddialog.cpp:161
 #, kde-format
@@ -2235,7 +2232,7 @@ msgstr "Amplasare"
 #: lib/katesavemodifieddialog.cpp:180
 #, kde-format
 msgid "Se&lect All"
-msgstr "Selectează t&ot"
+msgstr "Se&lectează tot"
 
 #: lib/katesavemodifieddialog.cpp:258
 #, kde-format

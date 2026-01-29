@@ -1,11 +1,12 @@
+# SPDX-FileCopyrightText: 2026 César A. P. Cláudio <cesarapclaudio@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2023-03-06 16:04+0000\n"
-"Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
+"PO-Revision-Date: 2026-01-29 00:09+0000\n"
+"Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
+"Language-Team: pt\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,12 +15,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-IgnoreConsistency: Update\n"
 "X-POFile-IgnoreConsistency: Type\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
 #, kde-format
 msgid "Session-global index targets"
-msgstr "Destinos do índice globais na sessão"
+msgstr "Destinos de índice global de sessão"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
@@ -37,7 +39,7 @@ msgstr "Remover"
 #: CTagsGlobalConfig.ui:54
 #, kde-format
 msgid "Update"
-msgstr "Actualizar"
+msgstr "Atualizar"
 
 #. i18n: ectx: property (text), widget (QLabel, cmdLabel)
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
@@ -49,7 +51,7 @@ msgstr "Comando do CTags"
 #: ctagskinds.cpp:24
 msgctxt "Tag Type"
 msgid "define"
-msgstr "definição"
+msgstr "definir"
 
 #: ctagskinds.cpp:25 ctagskinds.cpp:67
 msgctxt "Tag Type"
@@ -178,7 +180,7 @@ msgstr "comum"
 #: ctagskinds.cpp:63
 msgctxt "Tag Type"
 msgid "entry"
-msgstr "ponto de entrada"
+msgstr "entrada"
 
 #: ctagskinds.cpp:65 ctagskinds.cpp:79
 msgctxt "Tag Type"
@@ -238,7 +240,7 @@ msgstr "procedimento"
 #: ctagskinds.cpp:100
 msgctxt "Tag Type"
 msgid "mixin"
-msgstr "misto"
+msgstr "funcionalidade partilhada"
 
 #: ctagskinds.cpp:103
 msgctxt "Tag Type"
@@ -248,7 +250,7 @@ msgstr "conjunto"
 #: gotosymbolmodel.cpp:67
 #, kde-format
 msgid "CTags executable not found."
-msgstr "O executável CTags não foi encontrado."
+msgstr "Executável CTags não encontrado."
 
 #: gotosymbolmodel.cpp:80
 #, kde-format
@@ -258,39 +260,39 @@ msgstr "Não foi possível iniciar o executável CTags."
 #: gotosymbolmodel.cpp:148
 #, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "Não foi possível ao CTags processar este ficheiro."
+msgstr "Não foi possível ao CTags analisar este ficheiro."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format
 msgid ""
 "Tags file not found. Please generate one manually or using the CTags plugin"
 msgstr ""
-"O ficheiro de marcas não foi encontrado. Por favor, gere um manualmente ou "
-"usando o 'plugin' do CTags"
+"Ficheiro de etiquetas não encontrado. Gere um manualmente ou utilize o "
+"'plugin' CTags."
 
 #: gotosymbolwidget.cpp:321
 #, kde-format
 msgid "File for '%1' not found."
-msgstr "Não foi encontrado o ficheiro de '%1'."
+msgstr "Ficheiro de '%1' não encontrado."
 
 #. i18n: ectx: attribute (title), widget (QWidget, widget)
 #: kate_ctags.ui:33
 #, kde-format
 msgid "Lookup"
-msgstr "Procurar"
+msgstr "Consultar"
 
 #. i18n: ectx: property (text), widget (QPushButton, updateButton)
 #. i18n: ectx: property (text), widget (QPushButton, updateButton2)
 #: kate_ctags.ui:58 kate_ctags.ui:136
 #, kde-format
 msgid "Update Index"
-msgstr "Actualizar o Índice"
+msgstr "Atualizar Índice"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:69
 #, kde-format
 msgid "Tag"
-msgstr "Marca"
+msgstr "Etiqueta"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:74
@@ -308,7 +310,7 @@ msgstr "Ficheiro"
 #: kate_ctags.ui:88
 #, kde-format
 msgid "Index Targets"
-msgstr "Destinos do Índice"
+msgstr "Destinos de Indexação"
 
 #. i18n: ectx: attribute (title), widget (QWidget, database)
 #: kate_ctags.ui:144
@@ -326,7 +328,7 @@ msgstr "Ficheiro de base de dados do CTags"
 #: kate_ctags.ui:205
 #, kde-format
 msgid "Revert to the default command"
-msgstr "Reverter ao comando predefinido"
+msgstr "Reverter para o comando predefinido"
 
 #. i18n: ectx: property (text), widget (QToolButton, resetCMD)
 #: kate_ctags.ui:208
@@ -347,7 +349,7 @@ msgstr "Remover uma pasta."
 #: kate_ctags_plugin.cpp:81
 #, kde-format
 msgid "(Re-)generate the common CTags database."
-msgstr "Gerar de novo a base de dados comum do CTags."
+msgstr "(Re)criar a base de dados comum de CTags."
 
 #: kate_ctags_plugin.cpp:99 kate_ctags_view.cpp:54 kate_ctags_view.cpp:61
 #: kate_ctags_view.cpp:104 kate_ctags_view.cpp:142 kate_ctags_view.cpp:552
@@ -364,17 +366,17 @@ msgstr "Configuração do CTags"
 #: kate_ctags_plugin.cpp:228 kate_ctags_view.cpp:563
 #, kde-format
 msgid "Failed to run. Error: %1, exit code: %2"
-msgstr "Não foi possível executar. Erro: %1. código de saída = %2"
+msgstr "Falha ao executar. Erro: %1, código de saída: %2"
 
 #: kate_ctags_plugin.cpp:239
 #, kde-format
 msgid "The CTags executable crashed."
-msgstr "O executável do CTags estoirou."
+msgstr "O executável do CTags encerrou inesperadamente."
 
 #: kate_ctags_plugin.cpp:241
 #, kde-format
 msgid "The CTags command exited with code %1"
-msgstr "O comando do CTags saiu com o código %1"
+msgstr "O comando CTags terminou com o código %1"
 
 #: kate_ctags_view.cpp:65
 #, kde-format
@@ -384,17 +386,17 @@ msgstr "Recuar um passo"
 #: kate_ctags_view.cpp:69
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Ir para a Declaração"
+msgstr "Ir para Declaração"
 
 #: kate_ctags_view.cpp:73
 #, kde-format
 msgid "Go to Definition"
-msgstr "Ir para a Definição"
+msgstr "Ir para Definição"
 
 #: kate_ctags_view.cpp:77
 #, kde-format
 msgid "Lookup Current Text"
-msgstr "Procurar no Texto Actual"
+msgstr "Consultar Texto Atual"
 
 #: kate_ctags_view.cpp:81
 #, kde-format
@@ -410,27 +412,27 @@ msgstr "Configurar o 'Plugin' do CTags"
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr "Ir para a Declaração: %1"
+msgstr "Ir para Declaração: %1"
 
 #: kate_ctags_view.cpp:108 kate_ctags_view.cpp:197
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr "Ir para a Definição: %1"
+msgstr "Ir para Definição: %1"
 
 #: kate_ctags_view.cpp:109 kate_ctags_view.cpp:198
 #, kde-format
 msgid "Lookup: %1"
-msgstr "Procurar: %1"
+msgstr "Consultar: %1"
 
 #: kate_ctags_view.cpp:123 kate_ctags_view.cpp:126
 #, kde-format
 msgid "(Re-)generate the session specific CTags database."
-msgstr "Gerar de novo a base de dados específica da sessão do CTags."
+msgstr "(Re)criar a base de dados do CTags por sessão."
 
 #: kate_ctags_view.cpp:131
 #, kde-format
 msgid "Select new or existing database file."
-msgstr "Seleccionar o ficheiro de base de dados novo ou existente."
+msgstr "Selecionar ficheiro de base de dados novo ou já existente."
 
 #: kate_ctags_view.cpp:147
 #, kde-format
@@ -445,17 +447,17 @@ msgstr "Ir para o Símbolo Global"
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format
 msgid "No hits found"
-msgstr "Não foram encontradas ocorrências"
+msgstr "Nenhum resultado encontrado"
 
 #: kate_ctags_view.cpp:552
 #, kde-format
 msgid "No folders or files to index"
-msgstr "Sem pastas ou ficheiros a indexar"
+msgstr "Não existem pastas ou ficheiros para indexar"
 
 #: kate_ctags_view.cpp:578
 #, kde-format
 msgid "The CTags executable crashed"
-msgstr "O executável do CTags estoirou"
+msgstr "O executável do CTags encerrou inesperadamente"
 
 #: kate_ctags_view.cpp:580
 #, kde-format

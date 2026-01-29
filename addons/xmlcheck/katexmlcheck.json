@@ -28,7 +28,7 @@
         "Description[nl]": "Valideert XML-bestanden met behulp van xmllint",
         "Description[nn]": "Valider XML-filer via xmllint",
         "Description[pl]": "Sprawdza poprawność składni XML za pomocą xmllint",
-        "Description[pt]": "Valida os ficheiros XML com o 'xmllint'",
+        "Description[pt]": "Validar ficheiros XML com o 'xmllint'",
         "Description[pt_BR]": "Valida arquivos XML usando xmllint",
         "Description[ru]": "Проверка правильности файлов XML с помощью xmllint",
         "Description[sa]": "xmllint इत्यस्य उपयोगेन XML सञ्चिकानां प्रमाणीकरणं करोति",

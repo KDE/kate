@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: kate-ctags-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2026-01-29 00:09+0000\n"
+"PO-Revision-Date: 2026-01-30 00:32+0000\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: pt\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: CTagsGlobalConfig.ui:9
 #, kde-format
 msgid "Session-global index targets"
-msgstr "Destinos de índice global de sessão"
+msgstr "Destinos de indexação globais de sessão"
 
 #. i18n: ectx: property (text), widget (QPushButton, addButton)
 #: CTagsGlobalConfig.ui:33 kate_ctags.ui:109
@@ -286,7 +286,7 @@ msgstr "Consultar"
 #: kate_ctags.ui:58 kate_ctags.ui:136
 #, kde-format
 msgid "Update Index"
-msgstr "Atualizar Índice"
+msgstr "Atualizar índice"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, tagTreeWidget)
 #: kate_ctags.ui:69
@@ -316,7 +316,7 @@ msgstr "Destinos de Indexação"
 #: kate_ctags.ui:144
 #, kde-format
 msgid "Database"
-msgstr "Base de Dados"
+msgstr "Base de dados"
 
 #. i18n: ectx: property (text), widget (QLabel, fileLabel)
 #: kate_ctags.ui:162
@@ -386,38 +386,38 @@ msgstr "Recuar um passo"
 #: kate_ctags_view.cpp:69
 #, kde-format
 msgid "Go to Declaration"
-msgstr "Ir para Declaração"
+msgstr "Ir para declaração"
 
 #: kate_ctags_view.cpp:73
 #, kde-format
 msgid "Go to Definition"
-msgstr "Ir para Definição"
+msgstr "Ir para definição"
 
 #: kate_ctags_view.cpp:77
 #, kde-format
 msgid "Lookup Current Text"
-msgstr "Consultar Texto Atual"
+msgstr "Consultar texto atual"
 
 #: kate_ctags_view.cpp:81
 #, kde-format
 msgid "Configure ..."
-msgstr "Configurar ..."
+msgstr "Configurar..."
 
 #: kate_ctags_view.cpp:96
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure CTags Plugin"
-msgstr "Configurar o 'Plugin' do CTags"
+msgstr "Configurar o suplemento do CTags"
 
 #: kate_ctags_view.cpp:107 kate_ctags_view.cpp:196
 #, kde-format
 msgid "Go to Declaration: %1"
-msgstr "Ir para Declaração: %1"
+msgstr "Ir para declaração: %1"
 
 #: kate_ctags_view.cpp:108 kate_ctags_view.cpp:197
 #, kde-format
 msgid "Go to Definition: %1"
-msgstr "Ir para Definição: %1"
+msgstr "Ir para definição: %1"
 
 #: kate_ctags_view.cpp:109 kate_ctags_view.cpp:198
 #, kde-format
@@ -437,12 +437,12 @@ msgstr "Selecionar ficheiro de base de dados novo ou já existente."
 #: kate_ctags_view.cpp:147
 #, kde-format
 msgid "Go To Local Symbol"
-msgstr "Ir para o Símbolo Local"
+msgstr "Ir para o símbolo local"
 
 #: kate_ctags_view.cpp:152
 #, kde-format
 msgid "Go To Global Symbol"
-msgstr "Ir para o Símbolo Global"
+msgstr "Ir para o símbolo global"
 
 #: kate_ctags_view.cpp:325 kate_ctags_view.cpp:358
 #, kde-format

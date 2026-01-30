@@ -1,11 +1,12 @@
+# SPDX-FileCopyrightText: 2026 César A. P. Cláudio <cesarapclaudio@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate-replicode-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2015-10-04 21:38+0100\n"
-"Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
+"PO-Revision-Date: 2026-01-29 22:00+0000\n"
+"Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
+"Language-Team: pt\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,6 +14,7 @@ msgstr ""
 "X-POFile-SpellExtra: Descompilar replicode Replicode\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-IgnoreConsistency: Debug\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -24,31 +26,31 @@ msgstr "Executar"
 #: config.ui:24
 #, kde-format
 msgid "Run time (milliseconds):"
-msgstr "Tempo de execução (milisegundos):"
+msgstr "Tempo de execução (milissegundos):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_35)
 #: config.ui:41
 #, kde-format
 msgid "Probe level:"
-msgstr "Nível da sonda:"
+msgstr "Nível de sonda:"
 
 #. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
 #: config.ui:58
 #, kde-format
 msgid "User operations layout module:"
-msgstr "Módulo de disposição das operações do utilizador:"
+msgstr "Módulo de disposição de operações de utilizador:"
 
 #. i18n: ectx: property (text), widget (QLabel, userClassLabel)
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr "Ficheiro de classes do utilizador:"
+msgstr "Ficheiro de classes de utilizador:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
 #, kde-format
 msgid "Base period:"
-msgstr "Período de base:"
+msgstr "Período base:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: config.ui:101
@@ -84,7 +86,7 @@ msgstr "Limite da quantidade de inércia do modelo:"
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr "Limite da taxa de sucesso do diferencial de extracção do padrão-alvo:"
+msgstr "Limite da taxa de sucesso do diferencial de extração do padrão-alvo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
@@ -120,13 +122,13 @@ msgstr "Período de amostragem da performance:"
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr "Folga:"
+msgstr "Tolerância de vírgula flutuante:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
 #, kde-format
 msgid "Timer tolerance:"
-msgstr "Tolerância da temporização:"
+msgstr "Tolerância de temporizador:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: config.ui:318
@@ -144,13 +146,13 @@ msgstr "Horizonte temporal secundário:"
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr "Resistência da marcação da notificação:"
+msgstr "Resiliência de marcadores de notificação:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr "Resistência ao sucesso da previsão do objectivo:"
+msgstr "Resiliência de sucesso da previsão de objetivos:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
@@ -192,96 +194,96 @@ msgstr "Saídas compostas"
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr "Entradas do modelo"
+msgstr "Entradas de modelo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr "Saídas do modelo"
+msgstr "Saídas de modelo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr "Monitorização da previsão"
+msgstr "Monitorização de previsão"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr "Monitorização do objectivo"
+msgstr "Monitorização de objetivo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475
 #, kde-format
 msgid "Model revision"
-msgstr "Revisão do modelo"
+msgstr "Revisão de modelo"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr "Injecções da composição/modelo"
+msgstr "Injeções de modelos/compostas"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
 #, kde-format
 msgid "Decompile objects:"
-msgstr "Descompilar os objectos:"
+msgstr "Descompilar objetos"
 
 #. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
 #: config.ui:506
 #, kde-format
 msgid "Decompile to file:"
-msgstr "Descompilar para o ficheiro:"
+msgstr "Descompilar para ficheiro:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: config.ui:516
 #, kde-format
 msgid "Ignore named objects:"
-msgstr "Ignorar os objectos com nome:"
+msgstr "Ignorar objetos com nome:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_27)
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr "Registar os objectos no ficheiro:"
+msgstr "Despejar objetos para ficheiro:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
 #, kde-format
 msgid "Test objects:"
-msgstr "Testar os objectos:"
+msgstr "Testar objetos:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr "Descompilar os modelos:"
+msgstr "Descompilar modelos:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
 #, kde-format
 msgid "Ignore named models:"
-msgstr "Ignorar os modelos com nome:"
+msgstr "Ignorar modelos com nome:"
 
 #. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr "Registar os modelos no ficheiro:"
+msgstr "Despejar modelos para ficheiro:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
 #, kde-format
 msgid "Test models:"
-msgstr "Testar os modelos:"
+msgstr "Testar modelos:"
 
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr "Localização da execução do 'replicode':"
+msgstr "Caminho para o executor do 'replicode':"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
@@ -324,18 +326,18 @@ msgstr "Parar (%1)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
-msgstr "Documento Activo Não Encontrado"
+msgstr "Documento ativo não encontrado"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr "Não é possível encontrar um documento activo para executar."
+msgstr "Não foi possível encontrar um documento ativo para executar."
 
 #: replicodeview.cpp:105
 #, kde-format
 msgctxt "@title:window"
 msgid "Empty Document"
-msgstr "Documento Vazio"
+msgstr "Documento vazio"
 
 #: replicodeview.cpp:105
 #, kde-format
@@ -346,18 +348,18 @@ msgstr "Não é possível executar um documento vazio."
 #, kde-format
 msgctxt "@title:window"
 msgid "File Not Found"
-msgstr "Ficheiro Não Encontrado"
+msgstr "Ficheiro não encontrado"
 
 #: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
-msgstr "Não foi possível aceder ao ficheiro de código para leitura."
+msgstr "Não foi possível abrir o ficheiro de origem para leitura."
 
 #: replicodeview.cpp:127
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr "Executável do Replicode Não Encontrado"
+msgstr "Executável do Replicode não encontrado"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -365,15 +367,15 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
-"Não é possível encontrar o executável do 'replicode'.\n"
-"Por favor, vá à configuração e defina a localização do executável do "
+"Não foi possível encontrar o executável do 'replicode'.\n"
+"Por favor, aceda às definições e defina o caminho para o executável do "
 "Replicode."
 
 #: replicodeview.cpp:135
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr "Biblioteca de Operadores do Utilizador Não Encontrada"
+msgstr "Biblioteca de operadores de utilizador não encontrada"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -381,8 +383,8 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
-"Não é possível encontrar a biblioteca de operação do utilizador.\n"
-"Por favor, vá à configuração e defina a localização da biblioteca."
+"Não foi possível encontrar a biblioteca de operação de utilizador.\n"
+"Por favor aceda às definições e defina o caminho para a biblioteca."
 
 #: replicodeview.cpp:201
 #, kde-format

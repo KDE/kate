@@ -1,38 +1,38 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# SPDX-FileCopyrightText: 2026 César A. P. Cláudio <cesarapclaudio@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katecloseexceptplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 11:55+0000\n"
-"PO-Revision-Date: 2015-10-19 12:00+0100\n"
-"Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
+"PO-Revision-Date: 2026-01-29 22:42+0000\n"
+"Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
+"Language-Team: pt\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-SpellExtra: Oops\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "José Nuno Pires"
+msgstr "César A. P. Cláudio, José Nuno Pires"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "zepires@gmail.com"
+msgstr "cesarapclaudio@gmail.com, zepires@gmail.com"
 
 #: close_confirm_dialog.cpp:66
 #, kde-format
 msgctxt "@title:window"
 msgid "Close files confirmation"
-msgstr "Confirmação de fecho dos ficheiros"
+msgstr "Confirmação de fecho de ficheiros"
 
 #: close_confirm_dialog.cpp:72
 #, kde-format
@@ -56,30 +56,30 @@ msgstr "Localização"
 #, kde-format
 msgctxt "option:check"
 msgid "Do not ask again"
-msgstr "Não voltar a perguntar"
+msgstr "Não perguntar novamente"
 
 #: close_except_plugin.cpp:73
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Confirmation"
-msgstr "Mostrar a Confirmação"
+msgstr "Mostrar confirmação"
 
 #: close_except_plugin.cpp:74
 #, kde-format
 msgctxt "@action:inmenu close docs except the following..."
 msgid "Close Except"
-msgstr "Fechar Excluindo"
+msgstr "Fechar exceto"
 
 #: close_except_plugin.cpp:75
 #, kde-format
 msgctxt "@action:inmenu close docs like the following..."
 msgid "Close Like"
-msgstr "Fechar Incluindo"
+msgstr "Fechar semelhantes"
 
 #: close_except_plugin.cpp:78
 #, kde-format
 msgid "Close Except/Like Plugin"
-msgstr "'Plugin' de Fecho com Exclusão/Inclusão"
+msgstr "Suplemento \"Fechar exceto/semelhantes\""
 
 #: close_except_plugin.cpp:247 close_except_plugin.cpp:255
 #, kde-format
@@ -91,7 +91,7 @@ msgstr "Erro"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "No files to close ..."
-msgstr "Sem ficheiros para fechar ..."
+msgstr "Nenhum ficheiro para fechar..."
 
 #: close_except_plugin.cpp:260
 #, kde-format

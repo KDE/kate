@@ -84,8 +84,8 @@ private:
         QStringList m_generatedFiles;
     };
 
-    void addTemplateRoot(const QString &path);
-
+    QModelIndex findChildIndex(const QString &folderName, const QModelIndex &parent);
+    QModelIndex addUserTemplateEntry(const QFileInfo &info);
     void addEntries(const QFileInfo &info, const QModelIndex &parent);
 
     typedef QMap<QByteArray, QByteArray> ReplaceMap;
@@ -105,8 +105,6 @@ private:
     void exportTemplate();
     void importTemplate();
     void onRemoveClicked();
-
-    QString userTemplatePath() const;
 
     Ui::Template *ui;
     QPushButton *m_createButton;

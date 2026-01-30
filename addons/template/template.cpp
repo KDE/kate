@@ -32,6 +32,11 @@ static QString lastPath(const QString &path)
     return path;
 }
 
+static QString userTemplatePath()
+{
+    return QFileInfo(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + QLatin1String("/templates")).absoluteFilePath();
+}
+
 QVariant Template::TreeData::data(int role, int column)
 {
     if (column != 0) {
@@ -40,6 +45,9 @@ QVariant Template::TreeData::data(int role, int column)
 
     switch (role) {
     case Qt::DisplayRole:
+        if (path == userTemplatePath()) {
+            return i18n("User Templates");
+        }
         return lastPath(path);
     case TreeData::PathRole:
         return path;
@@ -169,17 +177,78 @@ Template::Template(QWidget *parent)
 
     connect(ui->u_locationToolButton, &QToolButton::clicked, this, &Template::selectFolder);
 
-    addTemplateRoot(userTemplatePath());
-    addTemplateRoot(u":/templates"_s);
-
+    // Add the templates to the model
+    addEntries(QFileInfo(u":/templates"_s), QModelIndex());
 #ifdef BUILD_APPWIZARD
     addAppWizardTemplates();
 #endif
+    // Add user templates if they exist
+    QString userTemplates = userTemplatePath();
+    const QDir userTemplDir(userTemplates);
+    const auto userEntries = userTemplDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    if (!userEntries.isEmpty()) {
+        std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+        treeData->path = userTemplates;
+        const QModelIndex userTempatesIndex = m_selectionModel.addChild(std::move(treeData), QModelIndex());
+        addEntries(QFileInfo(userTemplates), userTempatesIndex);
+    }
 }
 
 Template::~Template()
 {
     delete ui;
+}
+
+QModelIndex Template::findChildIndex(const QString &folderName, const QModelIndex &parent)
+{
+    int rows = m_selectionModel.rowCount(parent);
+
+    for (int i = 0; i < rows; ++i) {
+        const QModelIndex idx = m_selectionModel.index(i, 0, parent);
+        const QString path = idx.data(TreeData::PathRole).toString();
+        if (path == folderName) {
+            return idx;
+        }
+    }
+    return QModelIndex();
+}
+
+QModelIndex Template::addUserTemplateEntry(const QFileInfo &info)
+{
+    const QString root = userTemplatePath();
+    QString templatePath = info.absoluteFilePath();
+    ;
+    templatePath.remove(root);
+
+    QStringList pathParts = templatePath.split('/'_L1, Qt::SplitBehaviorFlags::SkipEmptyParts);
+    QModelIndex idx = findChildIndex(root, QModelIndex());
+
+    if (!idx.isValid()) {
+        // The path is not found. Create the node
+        std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+        treeData->path = root;
+        idx = m_selectionModel.addChild(std::move(treeData), QModelIndex());
+    }
+
+    QString currentPath = root;
+    while (pathParts.size() > 0) {
+        auto path = pathParts.takeFirst();
+        currentPath += '/'_L1 + path;
+
+        auto childIndex = findChildIndex(currentPath, idx);
+        if (!childIndex.isValid()) {
+            // The path is not found. Create the node
+            std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+            treeData->path = currentPath;
+            if (pathParts.isEmpty()) {
+                // This is the template folder
+                treeData->configFile = u"template.json"_s;
+            }
+            childIndex = m_selectionModel.addChild(std::move(treeData), idx);
+        }
+        idx = childIndex;
+    }
+    return idx;
 }
 
 void Template::addEntries(const QFileInfo &info, const QModelIndex &parent)
@@ -200,12 +269,6 @@ void Template::addEntries(const QFileInfo &info, const QModelIndex &parent)
         const QModelIndex cIndex = m_selectionModel.addChild(std::move(treeData), parent);
         addEntries(entry, cIndex);
     }
-}
-
-void Template::addTemplateRoot(const QString &path)
-{
-    QFileInfo entry(path);
-    addEntries(entry, QModelIndex());
 }
 
 QStringList Template::fileNames(const QString &src)
@@ -787,14 +850,9 @@ void Template::importTemplate()
     bool success = copyFolder(srcDir, destPath, ReplaceMap(), ReplaceMap(), QStringList());
 
     if (success) {
-        m_selectionModel.clear();
-
-        addTemplateRoot(localTemplates);
-        addTemplateRoot(u":/templates"_s);
-
-#ifdef BUILD_APPWIZARD
-        addAppWizardTemplates();
-#endif
+        const QModelIndex idx = addUserTemplateEntry(QFileInfo(destPath));
+        ui->u_templateTree->expand(idx);
+        ui->u_templateTree->setCurrentIndex(idx);
         KMessageBox::information(this, i18n("Template imported successfully!"));
     } else {
         KMessageBox::error(this, i18n("Failed to import template."));
@@ -852,13 +910,22 @@ void Template::onRemoveClicked()
 
         m_selectionModel.clear();
 
-        addTemplateRoot(root);
-        addTemplateRoot(u":/templates"_s);
-
-#ifdef BUILD_APPWIZARD
+        // Add the templates to the model
+        addEntries(QFileInfo(u":/templates"_s), QModelIndex());
+        #ifdef BUILD_APPWIZARD
         addAppWizardTemplates();
-#endif
+        #endif
+        // Add user templates if they exist
+        const QDir userTemplDir(root);
+        const auto userEntries = userTemplDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+        if (!userEntries.isEmpty()) {
+            std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
+            treeData->path = root;
+            const QModelIndex userTempatesIndex = m_selectionModel.addChild(std::move(treeData), QModelIndex());
+            addEntries(QFileInfo(root), userTempatesIndex);
+        }
 
+        // Update the UI
         m_removeButton->setEnabled(false);
         ui->u_detailsTB->clear();
         ui->u_configWidget->setEnabled(false);
@@ -867,11 +934,6 @@ void Template::onRemoveClicked()
     } else {
         KMessageBox::error(this, i18n("Failed to delete the template."));
     }
-}
-
-QString Template::userTemplatePath() const
-{
-    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation) + u"/templates"_s;
 }
 
 #include "moc_template.cpp"

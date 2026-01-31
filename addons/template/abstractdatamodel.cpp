@@ -5,6 +5,14 @@
 
 using namespace Qt::Literals::StringLiterals;
 
+template<typename T>
+void remove(std::vector<T> &vec, std::size_t pos)
+{
+    typename std::vector<T>::iterator it = vec.begin();
+    std::advance(it, pos);
+    vec.erase(it);
+}
+
 // Default implementation for the AbstractData
 Qt::ItemFlags AbstractData::flags(int) const
 {
@@ -158,6 +166,29 @@ bool AbstractDataModel::setAbstractData(std::unique_ptr<AbstractData> data, cons
     TreeNode *node = static_cast<TreeNode *>(mIndex.internalPointer());
     node->m_data.swap(data);
     dataChanged(mIndex, mIndex);
+    return true;
+}
+
+bool AbstractDataModel::removeAt(const QModelIndex &idx)
+{
+    if (!idx.isValid()) {
+        return false;
+    }
+
+    TreeNode *cNode = static_cast<TreeNode *>(idx.internalPointer());
+    if (!cNode) {
+        return false;
+    }
+
+    TreeNode *pNode = cNode->m_parent;
+    QModelIndex pIdx = createIndex(pNode->rowInParent(), 0, pNode);
+    if (pNode == &m_rootNode) {
+        pIdx = QModelIndex();
+    }
+    int rowInParent = cNode->rowInParent();
+    beginRemoveRows(pIdx, rowInParent, rowInParent);
+    remove(pNode->m_children, rowInParent);
+    endRemoveRows();
     return true;
 }
 

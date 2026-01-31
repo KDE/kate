@@ -104,7 +104,7 @@ private:
 
     void exportTemplate();
     void importTemplate();
-    void onRemoveClicked();
+    void removeTemplate();
 
     Ui::Template *ui;
     QPushButton *m_createButton;

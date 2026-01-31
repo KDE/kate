@@ -30,6 +30,7 @@ public:
     // Functions to populate the model
     QModelIndex addChild(std::unique_ptr<AbstractData> data, const QModelIndex &parent);
     bool setAbstractData(std::unique_ptr<AbstractData> data, const QModelIndex &mIndex);
+    bool removeAt(const QModelIndex &mIndex);
     void clear();
 
     // Model functions that views are interested in

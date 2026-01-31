@@ -139,7 +139,7 @@ Template::Template(QWidget *parent)
 
     m_removeButton = new QPushButton(QIcon::fromTheme(u"edit-delete"_s), i18n("Remove"), this);
     m_removeButton->setEnabled(false);
-    connect(m_removeButton, &QPushButton::clicked, this, &Template::onRemoveClicked);
+    connect(m_removeButton, &QPushButton::clicked, this, &Template::removeTemplate);
 
     auto bottomLayout = new QHBoxLayout();
     bottomLayout->setContentsMargins(0, 0, 0, 0);
@@ -853,19 +853,18 @@ void Template::importTemplate()
         const QModelIndex idx = addUserTemplateEntry(QFileInfo(destPath));
         ui->u_templateTree->expand(idx);
         ui->u_templateTree->setCurrentIndex(idx);
-        KMessageBox::information(this, i18n("Template imported successfully!"));
     } else {
         KMessageBox::error(this, i18n("Failed to import template."));
     }
 }
 
-void Template::onRemoveClicked()
+void Template::removeTemplate()
 {
-    const QModelIndex index = ui->u_templateTree->currentIndex();
-    if (!index.isValid())
+    QModelIndex currentIndex = ui->u_templateTree->currentIndex();
+    if (!currentIndex.isValid())
         return;
 
-    QString path = index.data(TreeData::PathRole).toString();
+    QString path = currentIndex.data(TreeData::PathRole).toString();
     if (path.isEmpty())
         return;
 
@@ -885,52 +884,36 @@ void Template::onRemoveClicked()
         return;
     }
 
-    bool success = false;
-    if (info.isDir()) {
-        success = QDir(path).removeRecursively();
-    } else {
-        success = QFile::remove(path);
-    }
+    QDir currDir = QDir(path);
+    bool success = currDir.removeRecursively();
+    QModelIndex parent = currentIndex.parent();
+    m_selectionModel.removeAt(currentIndex);
+    currentIndex = parent;
+    parent = currentIndex.parent();
+    currDir.cdUp();
 
     if (success) {
-        QDir dir = info.dir();
         QString root = userTemplatePath();
 
-        while (dir.absolutePath() != root && dir.absolutePath().startsWith(root)) {
-            if (dir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot).isEmpty()) {
-                QString toRemove = dir.absolutePath();
-                if (!dir.cdUp()) {
-                    break;
-                }
-                QDir().rmdir(toRemove);
-            } else {
+        while (currDir.absolutePath().startsWith(root)) {
+            const auto entries = currDir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot);
+            if (!entries.isEmpty()) {
                 break;
             }
-        }
-
-        m_selectionModel.clear();
-
-        // Add the templates to the model
-        addEntries(QFileInfo(u":/templates"_s), QModelIndex());
-        #ifdef BUILD_APPWIZARD
-        addAppWizardTemplates();
-        #endif
-        // Add user templates if they exist
-        const QDir userTemplDir(root);
-        const auto userEntries = userTemplDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-        if (!userEntries.isEmpty()) {
-            std::unique_ptr<TreeData> treeData = std::make_unique<TreeData>();
-            treeData->path = root;
-            const QModelIndex userTempatesIndex = m_selectionModel.addChild(std::move(treeData), QModelIndex());
-            addEntries(QFileInfo(root), userTempatesIndex);
+            currDir.removeRecursively();
+            m_selectionModel.removeAt(currentIndex);
+            currentIndex = parent;
+            parent = currentIndex.parent();
+            if (!currDir.cdUp()) {
+                qWarning() << "Failed to move one directory up";
+                break;
+            }
         }
 
         // Update the UI
         m_removeButton->setEnabled(false);
         ui->u_detailsTB->clear();
         ui->u_configWidget->setEnabled(false);
-
-        KMessageBox::information(this, i18n("Template deleted successfully."));
     } else {
         KMessageBox::error(this, i18n("Failed to delete the template."));
     }

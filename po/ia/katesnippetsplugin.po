@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-01-16 12:04+0100\n"
+"PO-Revision-Date: 2026-01-30 18:36+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -92,6 +92,9 @@ msgid ""
 "application-plugin-snippets.html#snippet-input-template\">handbook</a> for "
 "special fields)."
 msgstr ""
+"Texto a insertar in le documento (vide le <a href=\"help:/kate/kate-"
+"application-plugin-snippets.html#snippet-input-template\">manual</a> per "
+"campos special)."
 
 #: editsnippet.cpp:81
 #, kde-format
@@ -99,11 +102,13 @@ msgid ""
 "JavaScript code to evaluate (see the <a href=\"help:/kate/kate-application-"
 "plugin-snippets.html#snippet-input-script\">handbook</a> for details)."
 msgstr ""
+"Codice JavaScript a valutar (vide le <a href=\"help:/kate/kate-application-"
+"plugin-snippets.html#snippet-input-script\">manual</a> per detalios)."
 
 #: editsnippet.cpp:88
 #, kde-format
 msgid "Text template"
-msgstr ""
+msgstr "Patrono de Texto"
 
 #: editsnippet.cpp:89
 #, kde-format
@@ -117,12 +122,17 @@ msgid ""
 "<a href=\"help:/kate/kate-application-plugin-snippets.html#snippet-input-"
 "library\">handbook</a>)."
 msgstr ""
+"Function de JavaScript compartite inter omne fragmentos (snippets)in iste "
+"repositorio (vide le <a href=\"help:/kate/kate-application-plugin-snippets."
+"html#snippet-input-library\">manual</a>)."
 
 #: editsnippet.cpp:105
 #, kde-format
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
+"Description optional a monstrar in consilios. Tu pote usar formattation "
+"basic HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:220
 #, kde-format
@@ -234,6 +244,8 @@ msgid ""
 "Kate needs to be compiled against KTExtEditor version 6.15.0 or higher, to "
 "use this type of snippet."
 msgstr ""
+"Kate necessita esser compilate contra version 6.15.0 de KTExtEditor o major, "
+"per usar iste typo de fragmento (snippet)."
 
 #: snippetrepository.cpp:43
 #, kde-format

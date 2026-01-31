@@ -900,8 +900,9 @@ void Template::removeTemplate()
             if (!entries.isEmpty()) {
                 break;
             }
-            currDir.removeRecursively();
-            m_selectionModel.removeAt(currentIndex);
+            if (currDir.removeRecursively()) {
+                m_selectionModel.removeAt(currentIndex);
+            }
             currentIndex = parent;
             parent = currentIndex.parent();
             if (!currDir.cdUp()) {

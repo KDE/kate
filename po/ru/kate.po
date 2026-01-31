@@ -15,14 +15,14 @@
 # Yury G. Kudryashov <urkud.urkud@gmail.com>, 2012.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 # Alexander Lakhin <exclusion@gmail.com>, 2013, 2014.
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Olesya Gerasimenko <translation-team@basealt.ru>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Olesya Gerasimenko <translation-team@basealt.ru>
 # Alexander Yavorsky <kekcuha@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-27 00:47+0000\n"
-"PO-Revision-Date: 2025-12-04 16:43+0300\n"
+"PO-Revision-Date: 2026-01-30 12:31+0300\n"
 "Last-Translator: Olesya Gerasimenko <goa@altlinux.org>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -2158,7 +2158,6 @@ msgstr ""
 
 #: lib/katemwmodonhddialog.cpp:281
 #, fuzzy, kde-format
-#| msgid "Failed to get file history: %1"
 msgid "Failed to create a temporary file"
 msgstr "Не удалось получить историю файла: %1"
 
@@ -2319,8 +2318,8 @@ msgid ""
 "Split the currently active view vertically into two views and move the "
 "currently active document to right view."
 msgstr ""
-"Разделить текущую створку окна на две вертикальных и расположить открытый "
-"документ правой"
+"Разделить текущую створку окна на две вертикальных и расположить активный "
+"документ в правой части"
 
 #: lib/kateviewmanager.cpp:175
 #, kde-format

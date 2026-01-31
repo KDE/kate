@@ -1,16 +1,15 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# SPDX-FileCopyrightText: 2026 César A. P. Cláudio <cesarapclaudio@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-15 00:46+0000\n"
-"PO-Revision-Date: 2023-03-06 16:07+0000\n"
-"Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
-"Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
+"PO-Revision-Date: 2026-01-30 21:22+0000\n"
+"Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
+"Language-Team: pt\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,12 +17,13 @@ msgstr ""
 "X-POFile-SpellExtra: Kate gitk blame UUID Clang JSON Rust Fmt Quick\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-POFile-SpellExtra: qmlscene Go GoImports CPP stderr onomequeindicouaqui\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr "Formatação de Clang do Ficheiro Completo"
+msgstr "Formatar ficheiro completo com Clang"
 
 #. i18n: file: 4
 #, kde-format
@@ -35,19 +35,19 @@ msgstr "Ferramentas"
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr "Formatação de Clang do Texto Seleccionado"
+msgstr "Formatar texto selecionado com Clang"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr "Compilar e Executar o CPP"
+msgstr "Compilar e executar cpp"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "git blame"
-msgstr "git blame"
+msgstr "Anotar (git blame)"
 
 #. i18n: file: 4
 #. i18n: file: 3
@@ -72,7 +72,7 @@ msgstr "gitk"
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr "Formatação do Go Fmt do Ficheiro Completo"
+msgstr "Formatar ficheiro completo com Go"
 
 #. i18n: file: 4
 #, kde-format
@@ -84,37 +84,37 @@ msgstr "Go"
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr "GoImports do Ficheiro Completo"
+msgstr "Organizar importações e formatar ficheiro completo com Go"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr "Pesquisar o Texto Seleccionado no Google"
+msgstr "Pesquisar texto selecionado no Google"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Insert UUID"
-msgstr "Inserir um UUID"
+msgstr "Inserir UUID"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr "Formatação de JSON do Ficheiro Completo"
+msgstr "Formatar ficheiro JSON completo"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr "Formatação Bonita do Ficheiro Actual"
+msgstr "Formatar ficheiro atual com Prettier"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr "Antevisão do Qt Quick 2 (qmlscene)"
+msgstr "Pré-visualização Qt Quick 2 (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
@@ -126,31 +126,31 @@ msgstr "Qt"
 #, kde-format
 msgctxt "External tool name"
 msgid "Run Shell Script"
-msgstr "Executar um Programa da Consola"
+msgstr "Executar 'script' de shell"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr "Formatação do Rust Fmt do Ficheiro Completo"
+msgstr "Formatar ficheiro completo com Rust"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr "Procurar na API do KDE"
+msgstr "Pesquisar API do KDE"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr "Procurar na API do Qt"
+msgstr "Pesquisar API do Qt"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr "Formatação de XML do Ficheiro Completo"
+msgstr "Formatar ficheiro XML completo"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -158,8 +158,8 @@ msgstr "Formatação de XML do Ficheiro Completo"
 msgid ""
 "This list shows all the configured tools, represented by their menu text."
 msgstr ""
-"Esta lista mostra todas as ferramentas configuradas, representadas pelo seu "
-"texto no menu."
+"Esta lista mostra todas as ferramentas configuradas, representadas pelo "
+"respetivo texto do menu."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnAdd)
 #: configwidget.ui:29
@@ -185,9 +185,9 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
-"Não foi possível encontrar o executável '%1'. Certifique-se por favor que o "
-"executável existe e que os nomes das variáveis, se forem usados, estão "
-"correctos"
+"Falha ao localizar o executável '%1'. Certifique-se de que o ficheiro "
+"executável existe e de que os nomes das variáveis, se utilizados, estão "
+"corretos."
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
 #: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
@@ -196,17 +196,17 @@ msgstr ""
 #: kateexternaltoolsview.cpp:277
 #, kde-format
 msgid "External Tools"
-msgstr "Ferramentas Externas"
+msgstr "Ferramentas externas"
 
 #: externaltoolsplugin.cpp:295
 #, kde-format
 msgid "Running %1: %2 %3"
-msgstr "A executar o %1: %2 %3"
+msgstr "A executar %1: %2 %3"
 
 #: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr "A executar o %1: %2 %3 com os dados de entrada '%4'"
+msgstr "A executar %1: %2 %3 com dados de entrada %4"
 
 #: externaltoolsplugin.cpp:399
 #, kde-format
@@ -216,12 +216,12 @@ msgstr "Dados escritos no 'stderr':\n"
 #: externaltoolsplugin.cpp:410
 #, kde-format
 msgid "%1 crashed"
-msgstr "O %1 estoirou"
+msgstr "%1 falhou inesperadamente"
 
 #: externaltoolsplugin.cpp:412
 #, kde-format
 msgid "%1 finished with exit code %2"
-msgstr "O %1 terminou com o código de saída %2"
+msgstr "%1 terminou com o código de saída %2"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
@@ -231,68 +231,69 @@ msgstr "Inicia a ferramenta externa '%1'"
 #: kateexternaltoolsconfigwidget.cpp:131
 #, kde-format
 msgid "Edit External Tool"
-msgstr "Editar a Ferramenta Externa"
+msgstr "Editar ferramenta externa"
 
 #: kateexternaltoolsconfigwidget.cpp:164
 #, kde-format
 msgid "Revert tool to default settings"
-msgstr "Reverter a ferramenta à configuração predefinida"
+msgstr "Reverter ferramenta para as predefinições"
 
 #: kateexternaltoolsconfigwidget.cpp:189 kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "External Tool"
-msgstr "Ferramenta Externa"
+msgstr "Ferramenta externa"
 
 #: kateexternaltoolsconfigwidget.cpp:189
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr "Tem de indicar pelo menos um nome e um executável"
+msgstr "Tem de especificar, pelo menos, um nome e um executável"
 
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
-msgstr "Com a 'Rotina' activa, é preciso definir pelo menos um tipo MIME."
+msgstr ""
+"Com o 'Acionador' ativado, é necessário especificar pelo menos um tipo MIME."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
 msgid "Select the MimeTypes for which to enable this tool."
-msgstr "Seleccione os tipos MIME para os quais deseja activar esta ferramenta."
+msgstr "Selecione os tipos MIME para os quais deseja ativar esta ferramenta."
 
 #: kateexternaltoolsconfigwidget.cpp:207
 #, kde-format
 msgid "Select Mime Types"
-msgstr "Seleccionar os Tipos MIME"
+msgstr "Selecionar tipos MIME"
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool..."
-msgstr "Adicionar uma Ferramenta..."
+msgstr "Adicionar ferramenta..."
 
 #: kateexternaltoolsconfigwidget.cpp:242
 #, kde-format
 msgid "Add Tool from Defaults"
-msgstr "Adicionar a Ferramenta das Predefinições"
+msgstr "Adicionar ferramenta das predefinições"
 
 #: kateexternaltoolsconfigwidget.cpp:244
 #, kde-format
 msgid "Add Category"
-msgstr "Adicionar uma Categoria"
+msgstr "Adicionar categoria"
 
 #: kateexternaltoolsconfigwidget.cpp:289 kateexternaltoolsconfigwidget.cpp:402
 #: kateexternaltoolsconfigwidget.cpp:449
 #, kde-format
 msgid "Uncategorized"
-msgstr "Sem Categoria"
+msgstr "Sem categoria"
 
 #: kateexternaltoolsconfigwidget.cpp:491
 #, kde-format
 msgid "New Category"
-msgstr "Nova Categoria"
+msgstr "Nova categoria"
 
 #: kateexternaltoolsconfigwidget.cpp:494
 #, kde-format
 msgid "New Category %1"
-msgstr "Nova Categoria %1"
+msgstr "Nova categoria %1"
 
 #: kateexternaltoolsview.cpp:100
 #, kde-format
@@ -302,13 +303,13 @@ msgstr "Configurar..."
 #: kateexternaltoolsview.cpp:162
 #, kde-format
 msgid "Launch external helper applications"
-msgstr "Lançar aplicações e utilitários externos"
+msgstr "Iniciar aplicações auxiliares externas"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
 #: tooldialog.ui:14
 #, kde-format
 msgid "Edit Tool"
-msgstr "Editar a Ferramenta"
+msgstr "Editar ferramenta"
 
 #. i18n: ectx: property (text), widget (QLabel, lblName)
 #: tooldialog.ui:20
@@ -320,13 +321,13 @@ msgstr "No&me:"
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr "O nome será apresentado no menu 'Ferramentas->Ferramentas Externas'."
+msgstr "O nome será apresentado no menu 'Ferramentas -> Ferramentas externas'."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35
 #, kde-format
 msgid "Short name of the tool"
-msgstr "Nome curto da ferramenta"
+msgstr "Nome abreviado da ferramenta"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExecutable)
 #: tooldialog.ui:47
@@ -362,7 +363,7 @@ msgstr "&Entrada:"
 #: tooldialog.ui:91
 #, kde-format
 msgid "Optional standard input"
-msgstr "Entrada de dados opcional"
+msgstr "Entrada padrão opcional"
 
 #. i18n: ectx: property (text), widget (QLabel, lblWorkingDir)
 #: tooldialog.ui:98
@@ -374,7 +375,7 @@ msgstr "Pasta de trabalho:"
 #: tooldialog.ui:108
 #, kde-format
 msgid "Uses current document path if empty"
-msgstr "Usa a localização do documento actual, se estiver vazia"
+msgstr "Utiliza o caminho do documento atual se estiver vazio"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMimeType)
 #: tooldialog.ui:115
@@ -390,26 +391,26 @@ msgid ""
 "available. If empty, the tool is always available."
 msgstr ""
 "Uma lista de tipos MIME separados por ponto-e-vírgula para os quais esta "
-"ferramenta deverá estar disponível. Se estiver vazio, a ferramenta está "
+"ferramenta deve estar disponível. Se estiver vazia, a ferramenta estará "
 "sempre disponível."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:130
 #, kde-format
 msgid "Show tool only for given mime types"
-msgstr "Mostrar a ferramenta apenas para os tipos MIME indicados"
+msgstr "Mostrar ferramenta apenas para os tipos MIME indicados"
 
 #. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
 #: tooldialog.ui:137
 #, kde-format
 msgid "Opens a dialog that helps in creating a list of mimetypes."
-msgstr "Abre uma janela que o ajude a criar uma lista de tipos MIME."
+msgstr "Abre uma caixa de diálogo que ajuda a criar uma lista de tipos MIME."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
 #: tooldialog.ui:149
 #, kde-format
 msgid "Save:"
-msgstr "Gravar:"
+msgstr "Guardar:"
 
 #. i18n: ectx: property (whatsThis), widget (QComboBox, cmbSave)
 #: tooldialog.ui:159
@@ -419,9 +420,9 @@ msgid ""
 "command. This is helpful if you want to pass URLs to an application like, "
 "for example, an FTP client."
 msgstr ""
-"Grava opcionalmente o documento actual ou todos os documentos modificados "
-"antes de executar o comando. Isto é útil se quiser passar URL's a uma dada "
-"aplicação como, por exemplo, um cliente de FTP."
+"Guarda opcionalmente o documento atual ou todos os documentos modificados "
+"antes de executar o comando. Isto é útil se pretender transmitir URLs para "
+"uma aplicação como, por exemplo, um cliente de FTP."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
@@ -434,43 +435,43 @@ msgstr "Nenhum"
 #: tooldialog.ui:168
 #, kde-format
 msgid "Current Document"
-msgstr "Documento Actual"
+msgstr "Documento atual"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #: tooldialog.ui:173
 #, kde-format
 msgid "All Documents"
-msgstr "Todos os Documentos"
+msgstr "Todos os documentos"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
-msgstr "Evento"
+msgstr "Acionador"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
-msgstr "Antes da Gravação"
+msgstr "Antes de guardar"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
-msgstr "Depois da Gravação"
+msgstr "Depois de guardar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:207
 #, kde-format
 msgid "Reload current document after execution"
-msgstr "Recarregar o documento actual após a execução"
+msgstr "Recarregar documento atual após execução"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: tooldialog.ui:214
 #, kde-format
 msgid "O&utput:"
-msgstr "&Saída:"
+msgstr "S&aída:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:225
@@ -482,43 +483,43 @@ msgstr "Ignorar"
 #: tooldialog.ui:230
 #, kde-format
 msgid "Insert at Cursor Position"
-msgstr "Inserir na Posição do Cursor"
+msgstr "Inserir na posição do cursor"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:235
 #, kde-format
 msgid "Replace Selected Text"
-msgstr "Substituir o Texto Seleccionado"
+msgstr "Substituir texto seleccionado"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:240
 #, kde-format
 msgid "Replace Current Document"
-msgstr "Substituir o Documento Actual"
+msgstr "Substituir documento actual"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:245
 #, kde-format
 msgid "Append to Current Document"
-msgstr "Adicionar ao Documento Actual"
+msgstr "Anexar ao documento atual"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:250
 #, kde-format
 msgid "Insert in New Document"
-msgstr "Inserir num Novo Documento"
+msgstr "Inserir em novo documento"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:255
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr "Copiar para a Área de Transferência"
+msgstr "Copiar para a área de transferência"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:260
 #, kde-format
 msgid "Display in Pane"
-msgstr "Mostrar na Área"
+msgstr "Exibir no painel"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: tooldialog.ui:268
@@ -534,15 +535,15 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
-"Se indicar aqui um nome, poderá invocar o comando a partir da linha de "
-"comandos da janela com a opção 'o_nome_que_indicou_aqui. Por favor, não use "
+"Se especificar um nome aqui, pode invocar o comando a partir da vista de "
+"linha de comandos com o_nome_que_especificou_aqui. Por favor, não utilize "
 "espaços ou tabulações no nome."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281
 #, kde-format
 msgid "Optional view command line name"
-msgstr "Nome da linha de comandos opcional"
+msgstr "Nome opcional da linha de comandos"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
 #: toolview.ui:27
@@ -554,16 +555,16 @@ msgstr "Resultado"
 #: toolview.ui:36
 #, kde-format
 msgid "Displays output from the external tool"
-msgstr "Mostra o resultado da ferramenta externa"
+msgstr "Mostrar resultado da ferramenta externa"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:5
 #, kde-format
 msgid "&Tools"
-msgstr "Ferramen&tas"
+msgstr "&Ferramentas"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:9
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Barra Principal"
+msgstr "Barra principal"

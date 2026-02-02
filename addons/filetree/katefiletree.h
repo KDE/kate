@@ -85,7 +85,6 @@ private Q_SLOTS:
 
 private:
     void closeClicked(const QModelIndex &index);
-    void setupContextMenuActionGroups();
     using Func = void (KateFileTree::*)();
     QAction *setupOption(QActionGroup *group,
                          const QIcon &icon,
@@ -95,27 +94,6 @@ private:
                          Qt::CheckState checked = Qt::Unchecked);
 
     void addChildrenTolist(const QModelIndex &index, QList<QPersistentModelIndex> *worklist);
-
-    QAction *m_filelistCloseDocument = nullptr;
-    QAction *m_filelistExpandRecursive = nullptr;
-    QAction *m_filelistCollapseRecursive = nullptr;
-    QAction *m_filelistCloseOtherDocument = nullptr;
-    QAction *m_filelistReloadDocument = nullptr;
-    QAction *m_filelistOpenContainingFolder = nullptr;
-    QAction *m_filelistCopyFilename = nullptr;
-    QAction *m_filelistRenameFile = nullptr;
-    QAction *m_filelistPrintDocument = nullptr;
-    QAction *m_filelistPrintDocumentPreview = nullptr;
-    QAction *m_filelistDeleteDocument = nullptr;
-
-    QAction *m_treeModeAction = nullptr;
-    QAction *m_listModeAction = nullptr;
-
-    QAction *m_sortByFile = nullptr;
-    QAction *m_sortByPath = nullptr;
-    QAction *m_sortByOpeningOrder = nullptr;
-    QAction *m_customSorting = nullptr;
-    QAction *m_resetHistory = nullptr;
 
     KateFileTreeProxyModel *m_proxyModel = nullptr;
     KateFileTreeModel *m_sourceModel = nullptr;

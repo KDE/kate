@@ -526,7 +526,7 @@ bool KateFileTree::eventFilter(QObject *o, QEvent *e)
         }
     }
 
-    return QObject::eventFilter(o, e);
+    return QAbstractItemView::eventFilter(o, e);
 }
 
 void KateFileTree::slotFixOpenWithMenu(QMenu *menu)

@@ -102,6 +102,8 @@ KateConfigDialog::KateConfigDialog(KateMainWindow *parent)
     connect(buttonBox()->button(QDialogButtonBox::Help), &QPushButton::clicked, this, &KateConfigDialog::slotHelp);
 }
 
+KateConfigDialog::~KateConfigDialog() = default;
+
 void KateConfigDialog::addBehaviorPage()
 {
     KSharedConfig::Ptr config = KSharedConfig::openConfig();
@@ -432,7 +434,7 @@ void KateConfigDialog::addSessionPage()
     item->setHeader(i18n("Session Management"));
     item->setIcon(QIcon::fromTheme(QStringLiteral("view-history")));
 
-    sessionConfigUi = new Ui::SessionConfigWidget;
+    sessionConfigUi = std::make_unique<Ui::SessionConfigWidget>();
     sessionConfigUi->setupUi(sessionsPage);
 
     // save meta infos

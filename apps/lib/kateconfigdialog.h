@@ -46,6 +46,7 @@ class KateConfigDialog : public KPageDialog
 public:
     // create new dialog
     explicit KateConfigDialog(KateMainWindow *parent);
+    ~KateConfigDialog() override;
 
     /**
      * Reads the value from the given open config. If not present in config yet then
@@ -109,7 +110,7 @@ private:
     QCheckBox *m_hintViewEnabled = nullptr;
     QLineEdit *m_pathEdit = nullptr;
 
-    Ui::SessionConfigWidget *sessionConfigUi = nullptr;
+    std::unique_ptr<Ui::SessionConfigWidget> sessionConfigUi;
 
     QHash<KPageWidgetItem *, PluginPageListItem> m_pluginPages;
     std::vector<KTextEditor::ConfigPage *> m_editorPages;

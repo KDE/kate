@@ -64,7 +64,7 @@ public:
     };
     Q_DECLARE_FLAGS(Flags, Flag)
 
-    ProxyItem(const QString &n, ProxyItemDir *p = nullptr, Flags f = ProxyItem::None);
+    ProxyItem(QString n, ProxyItemDir *p = nullptr, Flags f = ProxyItem::None);
     ~ProxyItem();
 
     int addChild(ProxyItem *p);
@@ -173,8 +173,8 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
 // BEGIN ProxyItem
-ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
-    : m_path(d)
+ProxyItem::ProxyItem(QString d, ProxyItemDir *p, ProxyItem::Flags f)
+    : m_path(std::move(d))
     , m_parent(nullptr)
     , m_row(-1)
     , m_flags(f)

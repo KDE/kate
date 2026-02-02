@@ -365,13 +365,17 @@ DiagnosticsView::DiagnosticsView(QWidget *parent, KTextEditor::MainWindow *mainW
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Next Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-next")));
+#ifndef Q_OS_MACOS // conflicts with word movement shortcut
     KActionCollection::setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Right);
+#endif
 
     a = ac->addAction(QStringLiteral("goto_prev_diagnostic"), this, &DiagnosticsView::previousItem);
     a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
     a->setText(i18n("Previous Item"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("go-previous")));
+#ifndef Q_OS_MACOS // conflicts with word movement shortcut
     KActionCollection::setDefaultShortcut(a, Qt::SHIFT | Qt::ALT | Qt::Key_Left);
+#endif
 
     a = ac->addAction(QStringLiteral("diagnostics_clear_filter"), this, [this]() {
         DiagnosticsView::filterViewTo(nullptr);

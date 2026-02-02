@@ -30,6 +30,7 @@ Results::Results(QWidget *parent)
 
     filterLineEdit->setVisible(false);
     filterLineEdit->setPlaceholderText(i18n("Filter…"));
+    filterLineEdit->setClearButtonEnabled(true);
 
     connect(filterLineEdit, &QLineEdit::textChanged, this, [this, proxy](const QString &text) {
         proxy->setFilterText(text);

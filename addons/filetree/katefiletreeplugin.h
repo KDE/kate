@@ -127,7 +127,6 @@ private:
     void showToolView();
     void hideToolView();
     void showActiveDocument();
-    void activateDocument(KTextEditor::Document *);
     void viewChanged(KTextEditor::View * = nullptr);
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);

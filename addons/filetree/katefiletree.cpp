@@ -255,15 +255,15 @@ void KateFileTree::closeClicked(const QModelIndex &index)
             widgets << m_proxyModel->index(i, 0, idx).data(KateFileTreeModel::WidgetRole).value<QWidget *>();
         }
 
-        for (const auto &w : std::as_const(widgets)) {
-            closeWidget(w);
+        for (QWidget *w : std::as_const(widgets)) {
+            m_mainWindow->removeWidget(w);
         }
     }
 
     if (auto *doc = m_proxyModel->docFromIndex(index)) {
         closeDocs({doc});
     } else if (auto *w = index.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
-        Q_EMIT closeWidget(w);
+        m_mainWindow->removeWidget(w);
     }
 }
 
@@ -275,9 +275,9 @@ void KateFileTree::mouseClicked(const QModelIndex &index)
     }
 
     if (auto *doc = m_proxyModel->docFromIndex(index)) {
-        Q_EMIT activateDocument(doc);
+        m_mainWindow->activateView(doc);
     } else if (auto *w = index.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
-        Q_EMIT activateWidget(w);
+        m_mainWindow->activateWidget(w);
     }
 }
 
@@ -655,7 +655,7 @@ void KateFileTree::slotDocumentFirst()
 {
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(0, 0));
     if (doc) {
-        Q_EMIT activateDocument(doc);
+        m_mainWindow->activateView(doc);
     }
 }
 
@@ -664,7 +664,7 @@ void KateFileTree::slotDocumentLast()
     int count = m_proxyModel->rowCount(m_proxyModel->parent(currentIndex()));
     KTextEditor::Document *doc = m_proxyModel->docFromIndex(m_proxyModel->index(count - 1, 0));
     if (doc) {
-        Q_EMIT activateDocument(doc);
+        m_mainWindow->activateView(doc);
     }
 }
 
@@ -736,9 +736,9 @@ void KateFileTree::slotDocumentPrev()
 
     if (prev.isValid()) {
         if (auto *doc = m_proxyModel->docFromIndex(prev)) {
-            Q_EMIT activateDocument(doc);
+            m_mainWindow->activateView(doc);
         } else if (auto *w = prev.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
-            Q_EMIT activateWidget(w);
+            m_mainWindow->activateWidget(w);
         }
     }
 }
@@ -811,9 +811,9 @@ void KateFileTree::slotDocumentNext()
 
     if (next.isValid()) {
         if (auto *doc = m_proxyModel->docFromIndex(next)) {
-            Q_EMIT activateDocument(doc);
+            m_mainWindow->activateView(doc);
         } else if (auto *w = next.data(KateFileTreeModel::WidgetRole).value<QWidget *>()) {
-            Q_EMIT activateWidget(w);
+            m_mainWindow->activateWidget(w);
         }
     }
 }

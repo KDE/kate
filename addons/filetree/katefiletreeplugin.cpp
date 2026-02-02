@@ -155,7 +155,6 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
     m_fileTree->setMiddleClickToClose(m_plug->settings().middleClickToClose);
     m_fileTree->setProperty("_breeze_borders_sides", QVariant::fromValue(QFlags{Qt::TopEdge}));
 
-    connect(m_fileTree, &KateFileTree::activateDocument, this, &KateFileTreePluginView::activateDocument);
     connect(m_fileTree, &KateFileTree::viewModeChanged, this, &KateFileTreePluginView::viewModeChanged);
     connect(m_fileTree, &KateFileTree::sortRoleChanged, this, &KateFileTreePluginView::sortRoleChanged);
 
@@ -210,13 +209,6 @@ KateFileTreePluginView::KateFileTreePluginView(KTextEditor::MainWindow *mainWind
 
     connect(mainWindow, &KTextEditor::MainWindow::widgetAdded, this, &KateFileTreePluginView::slotWidgetCreated);
     connect(mainWindow, &KTextEditor::MainWindow::widgetRemoved, this, &KateFileTreePluginView::slotWidgetRemoved);
-
-    connect(m_fileTree, &KateFileTree::closeWidget, this, [this](QWidget *w) {
-        m_mainWindow->removeWidget(w);
-    });
-    connect(m_fileTree, &KateFileTree::activateWidget, this, [this](QWidget *w) {
-        m_mainWindow->activateWidget(w);
-    });
 
     //
     // actions
@@ -393,11 +385,6 @@ void KateFileTreePluginView::sortRoleChanged(int role)
     m_proxyModel->setSortRole(role);
     m_proxyModel->invalidate();
     m_fileTree->setDragDropMode(role == CustomSorting ? QAbstractItemView::InternalMove : QAbstractItemView::DragOnly);
-}
-
-void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
-{
-    m_mainWindow->activateView(doc);
 }
 
 void KateFileTreePluginView::showToolView()

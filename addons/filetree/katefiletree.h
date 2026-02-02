@@ -56,16 +56,8 @@ protected:
     bool eventFilter(QObject *o, QEvent *e) override;
 
 Q_SIGNALS:
-    void closeDocument(KTextEditor::Document *);
-    void activateDocument(KTextEditor::Document *);
-
-    void openDocument(const QUrl &);
-
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);
-
-    void closeWidget(QWidget *);
-    void activateWidget(QWidget *);
 
 private Q_SLOTS:
     void mouseClicked(const QModelIndex &index);

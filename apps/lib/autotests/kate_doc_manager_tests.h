@@ -4,6 +4,7 @@
 #include "kateapp.h"
 
 #include <QObject>
+#include <QTemporaryDir>
 
 class KateDocManagerTests : public QObject
 {
@@ -22,4 +23,5 @@ private Q_SLOTS:
 
 private:
     std::unique_ptr<KateApp> app;
+    std::unique_ptr<QTemporaryDir> tempDir;
 };

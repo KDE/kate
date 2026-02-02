@@ -57,18 +57,19 @@ KateDocManagerTests::KateDocManagerTests(QObject *)
 
 void KateDocManagerTests::init()
 {
-    auto tempdir = new QTemporaryDir;
-    QVERIFY(tempdir->isValid());
+    auto tempDir = std::make_unique<QTemporaryDir>();
+    QVERIFY(tempDir->isValid());
 
     // ensure we use some dummy config
-    KConfig::setMainConfigName(tempdir->path() + QStringLiteral("/testconfigfilerc"));
+    KConfig::setMainConfigName(tempDir->path() + QStringLiteral("/testconfigfilerc"));
 
-    app = std::make_unique<KateApp>(getParser(), KateApp::ApplicationKWrite, tempdir->path());
+    app = std::make_unique<KateApp>(getParser(), KateApp::ApplicationKWrite, tempDir->path());
 }
 
 void KateDocManagerTests::cleanup()
 {
-    app.reset(nullptr);
+    app.reset();
+    tempDir.reset();
 }
 
 void KateDocManagerTests::canCreateDocument()

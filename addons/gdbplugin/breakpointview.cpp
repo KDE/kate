@@ -952,7 +952,7 @@ public:
         return ret;
     }
 
-    [[nodiscard]] QList<QAction *> actionsForIndex(const QModelIndex &index)
+    [[nodiscard]] QList<QAction *> actionsForIndex(const QModelIndex &index, QObject *parent)
     {
         QList<QAction *> ret;
         if (!index.isValid()) {
@@ -962,18 +962,18 @@ public:
         const bool isTopLevel = !index.parent().isValid();
         if (isTopLevel) {
             if (index.row() == FunctionBreakpointItem) {
-                auto a = new QAction(i18n("Add Function Breakpoint…"));
+                auto a = new QAction(i18n("Add Function Breakpoint…"), parent);
                 connect(a, &QAction::triggered, this, &BreakpointModel::addFunctionBreakpointRequested);
                 ret << a;
 
-                a = new QAction(i18n("Clear All Function Breakpoints"));
+                a = new QAction(i18n("Clear All Function Breakpoints"), parent);
                 a->setEnabled(rowCount(index) > 0);
                 connect(a, &QAction::triggered, this, &BreakpointModel::clearAllFunctionBreakpoints);
                 ret << a;
             }
         } else {
             if ((index.internalId() == LineBreakpointsItem || index.internalId() == FunctionBreakpointItem)) {
-                auto a = new QAction(i18n("Remove Breakpoint"));
+                auto a = new QAction(i18n("Remove Breakpoint"), parent);
                 connect(a, &QAction::triggered, this, [this, persistentIndex = QPersistentModelIndex(index)] {
                     if (persistentIndex.isValid()) {
                         removeBreakpoint(persistentIndex);
@@ -1610,7 +1610,7 @@ void BreakpointView::onContextMenuRequested(QPoint pos)
 void BreakpointView::buildContextMenu(const QModelIndex &index, QMenu *menu)
 {
     Q_ASSERT(index.isValid());
-    const auto actions = m_breakpointModel->actionsForIndex(index);
+    const auto actions = m_breakpointModel->actionsForIndex(index, menu);
     if (actions.isEmpty()) {
         return;
     }

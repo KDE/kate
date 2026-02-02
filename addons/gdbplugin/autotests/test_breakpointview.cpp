@@ -196,6 +196,11 @@ public:
         editor->setApplication(kteApp);
     }
 
+    ~BreakpointViewTest()
+    {
+        delete kapp;
+    }
+
 private Q_SLOTS:
     void cleanup()
     {

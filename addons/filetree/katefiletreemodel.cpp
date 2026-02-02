@@ -1431,8 +1431,6 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item)
     parent->removeChild(item);
     endRemoveRows();
 
-    handleEmptyParents(parent);
-
     // clear all but Empty flag
     if (item->flag(ProxyItem::Empty)) {
         item->setFlags(ProxyItem::Empty);
@@ -1442,6 +1440,8 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item)
 
     setupIcon(item);
     handleInsert(item);
+
+    handleEmptyParents(parent);
 }
 
 void KateFileTreeModel::updateItemPathAndHost(ProxyItem *item)

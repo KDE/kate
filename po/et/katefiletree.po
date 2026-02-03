@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-02-03 00:50+0000\n"
 "PO-Revision-Date: 2019-10-29 20:19+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -17,29 +17,41 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 19.08.1\n"
 
-#: katefiletree.cpp:123
+#: katefiletree.cpp:302
+#, kde-format
+msgid "Open..."
+msgstr ""
+
+#: katefiletree.cpp:306
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Open With"
+msgid "Open File"
+msgstr "Ava rakendusega"
+
+#: katefiletree.cpp:313
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Laa&di uuesti"
 
-#: katefiletree.cpp:125
+#: katefiletree.cpp:315
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Valitud dokumendid laaditakse uuesti kettalt."
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:317
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Sulge"
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:319
 #, kde-format
 msgid "Close the current document."
 msgstr "Aktiivse dokumendi sulgemine."
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:321
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Expand recursively"
@@ -47,12 +59,12 @@ msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Ava rekursiivselt"
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:323
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Faililoendi failipuu avamine rekursiivselt."
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:325
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Collapse recursively"
@@ -60,189 +72,177 @@ msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Sulge rekursiivselt"
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:327
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Faililoendi failipuu sulgemine rekursiivselt."
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:329
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Sulge teised"
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:331
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Selle kataloogi teiste dokumentide sulgemine."
 
-#: katefiletree.cpp:144
+#: katefiletree.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Ava faili sisaldav kataloog"
 
-#: katefiletree.cpp:146
+#: katefiletree.cpp:336
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Kataloogi avamine, milles asub fail."
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr ""
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:340
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Faili asukoha kopeerimine lõikepuhvrisse."
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Muuda faili nime ..."
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:344
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Valitud failile teise nime andmine."
 
-#: katefiletree.cpp:157
+#: katefiletree.cpp:347
 #, kde-format
 msgid "Print selected document."
 msgstr "Valitud dokumendi trükkimine."
 
-#: katefiletree.cpp:160
+#: katefiletree.cpp:350
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Aktiivse dokumendi trükitava eelvaatluse näitamine."
 
-#: katefiletree.cpp:162
+#: katefiletree.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Kustuta"
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:354
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Valitud faili sulgemine ja kustutamine."
 
-#: katefiletree.cpp:168
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Clear History"
-msgstr "Puhasta ajalugu"
-
-#: katefiletree.cpp:170
-#, kde-format
-msgid "Clear edit/view history."
-msgstr "Redigeerimise/vaatamise ajaloo puhastamine"
-
-#: katefiletree.cpp:244
+#: katefiletree.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Puuvaade"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:363
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Vaatestiiliks puuvaate määramine"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:369
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Nimekirjavaade"
 
-#: katefiletree.cpp:252
+#: katefiletree.cpp:370
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Vaatestiiliks nimekirjavaate määramine"
 
-#: katefiletree.cpp:259
+#: katefiletree.cpp:377
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Dokumendi nimi"
 
-#: katefiletree.cpp:260
+#: katefiletree.cpp:378
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Sortimine dokumendi nime järgi"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Dokumendi asukoht"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Sortimine dokumendi asukoha järgi"
 
-#: katefiletree.cpp:269
+#: katefiletree.cpp:387
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Avamise järjekord"
 
-#: katefiletree.cpp:270
+#: katefiletree.cpp:388
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Sortimine avamise järjekorra järgi"
 
-#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:391 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr ""
 
-#: katefiletree.cpp:404
-#, kde-format
-msgid "Open..."
-msgstr ""
-
 #: katefiletree.cpp:408
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Open With"
-msgid "Open File"
-msgstr "Ava rakendusega"
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear History"
+msgstr "Puhasta ajalugu"
 
-#: katefiletree.cpp:418
+#: katefiletree.cpp:410
+#, kde-format
+msgid "Clear edit/view history."
+msgstr "Redigeerimise/vaatamise ajaloo puhastamine"
+
+#: katefiletree.cpp:415
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Ava rakendusega"
 
-#: katefiletree.cpp:435
+#: katefiletree.cpp:432
 #, kde-format
 msgid "Show Git History"
 msgstr ""
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:444
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Dokumendid"
 
-#: katefiletree.cpp:449
+#: katefiletree.cpp:446
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Dokumendid"
 
-#: katefiletree.cpp:497
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Vaaterežiim"
 
-#: katefiletree.cpp:501
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -386,44 +386,44 @@ msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
 msgstr "<p><b>%1</b></p><p>Dokumenti on muutnud teine rakendus.</p>"
 
-#: katefiletreeplugin.cpp:174
+#: katefiletreeplugin.cpp:173
 #, fuzzy, kde-format
 #| msgid "&Other..."
 msgid "Filter…"
 msgstr "&Muu..."
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:245
 #, kde-format
 msgid "Previous Document"
 msgstr "Eelmine dokument"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:251
 #, kde-format
 msgid "Next Document"
 msgstr "Järgmine dokument"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:257
 #, fuzzy, kde-format
 #| msgid "&Show Active"
 msgid "&Show Active Document"
 msgstr "&Näita aktiivset"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr ""
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "Aktiivse dokumendi salvestamine"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
 msgstr ""
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:270
 #, fuzzy, kde-format
 #| msgid "Save current document under new name"
 msgid "Save the current document under a new name"

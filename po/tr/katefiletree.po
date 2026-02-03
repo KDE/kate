@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-02-03 00:50+0000\n"
 "PO-Revision-Date: 2025-08-23 17:29+0300\n"
 "Last-Translator: Emir SARI <emir_sari@îcloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -19,224 +19,224 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: katefiletree.cpp:123
+#: katefiletree.cpp:302
+#, kde-format
+msgid "Open..."
+msgstr "Aç…"
+
+#: katefiletree.cpp:306
+#, kde-format
+msgid "Open File"
+msgstr "Dosyayı Aç"
+
+#: katefiletree.cpp:313
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Yeniden &Yükle"
 
-#: katefiletree.cpp:125
+#: katefiletree.cpp:315
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Seçili belgeleri diskten yeniden yükleyin."
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:317
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Kapat"
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:319
 #, kde-format
 msgid "Close the current document."
 msgstr "Geçerli belgeyi kapatın."
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:321
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Özyineli Olarak Genişlet"
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:323
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Dosya listesi alt ağacını özyineli genişletin."
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:325
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Özyineli Olarak Daralt"
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:327
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Dosya listesi alt ağacını özyineli daraltın."
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:329
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Diğerlerini Kapat"
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:331
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Bu klasördeki diğer belgeleri kapatın."
 
-#: katefiletree.cpp:144
+#: katefiletree.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "İçeren Klasörü Aç"
 
-#: katefiletree.cpp:146
+#: katefiletree.cpp:336
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Bu dosyanın bulunduğu klasörü açın."
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Konumu Kopyala"
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:340
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Dosya yolunu ve adını panoya kopyalayın."
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Yeniden Adlandır…"
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:344
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Seçili dosyayı yeniden adlandırın."
 
-#: katefiletree.cpp:157
+#: katefiletree.cpp:347
 #, kde-format
 msgid "Print selected document."
 msgstr "Seçili belgeyi yazdırın."
 
-#: katefiletree.cpp:160
+#: katefiletree.cpp:350
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Geçerli belgenin baskı önizlemesini göster"
 
-#: katefiletree.cpp:162
+#: katefiletree.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Sil"
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:354
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Seçili dosyayı kapat ve depodan silin."
 
-#: katefiletree.cpp:168
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Clear History"
-msgstr "Geçmişi Temizle"
-
-#: katefiletree.cpp:170
-#, kde-format
-msgid "Clear edit/view history."
-msgstr "Düzenleme/görünüm geçmişini temizle."
-
-#: katefiletree.cpp:244
+#: katefiletree.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Ağaç Kipi"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:363
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Görünüm biçemini Ağaç Kipi olarak ayarla"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:369
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Liste Kipi"
 
-#: katefiletree.cpp:252
+#: katefiletree.cpp:370
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Görünüm biçemini Liste Kipi olarak ayarla"
 
-#: katefiletree.cpp:259
+#: katefiletree.cpp:377
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Belge Adı"
 
-#: katefiletree.cpp:260
+#: katefiletree.cpp:378
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Belge Adına Göre Sırala"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Belge Yolu"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Belge Adına Yoluna Sırala"
 
-#: katefiletree.cpp:269
+#: katefiletree.cpp:387
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Açma Sırası"
 
-#: katefiletree.cpp:270
+#: katefiletree.cpp:388
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Açma Sırasına Göre Sırala"
 
-#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:391 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Özel sıralama"
 
-#: katefiletree.cpp:404
-#, kde-format
-msgid "Open..."
-msgstr "Aç…"
-
 #: katefiletree.cpp:408
 #, kde-format
-msgid "Open File"
-msgstr "Dosyayı Aç"
+msgctxt "@action:inmenu"
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
 
-#: katefiletree.cpp:418
+#: katefiletree.cpp:410
+#, kde-format
+msgid "Clear edit/view history."
+msgstr "Düzenleme/görünüm geçmişini temizle."
+
+#: katefiletree.cpp:415
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Birlikte Aç"
 
-#: katefiletree.cpp:435
+#: katefiletree.cpp:432
 #, kde-format
 msgid "Show Git History"
 msgstr "Git Geçmişini Göster"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:444
 #, kde-format
 msgid "Unpin Document"
 msgstr "Belgenin Sabitlenmesini Kaldır"
 
-#: katefiletree.cpp:449
+#: katefiletree.cpp:446
 #, kde-format
 msgid "Pin Document"
 msgstr "Belgeyi Sabitle"
 
-#: katefiletree.cpp:497
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Görüntüleme Kipi"
 
-#: katefiletree.cpp:501
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -381,42 +381,42 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>Bu belge başka bir uygulama tarafından değiştirildi.</p>"
 
-#: katefiletreeplugin.cpp:174
+#: katefiletreeplugin.cpp:173
 #, kde-format
 msgid "Filter…"
 msgstr "Süz…"
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:245
 #, kde-format
 msgid "Previous Document"
 msgstr "Önceki Belge"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:251
 #, kde-format
 msgid "Next Document"
 msgstr "Sonraki Belge"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:257
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Etkin Belgeyi &Göster"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr "Kaydet"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "Geçerli belgeyi kaydet"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
 msgstr "Farklı Kaydet"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Geçerli belgeyi yeni bir adla kaydet"

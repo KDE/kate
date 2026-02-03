@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-02-03 00:50+0000\n"
 "PO-Revision-Date: 2025-08-21 09:34+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -21,224 +21,224 @@ msgstr ""
 "X-Accelerator-Marker: &\n"
 "X-Generator: Lokalize 25.08.0\n"
 
-#: katefiletree.cpp:123
+#: katefiletree.cpp:302
+#, kde-format
+msgid "Open..."
+msgstr "Obre..."
+
+#: katefiletree.cpp:306
+#, kde-format
+msgid "Open File"
+msgstr "Obre un fitxer"
+
+#: katefiletree.cpp:313
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
 msgstr "Reca&rrega"
 
-#: katefiletree.cpp:125
+#: katefiletree.cpp:315
 #, kde-format
 msgid "Reload selected document(s) from disk."
 msgstr "Torna a carregar el/s document/s seleccionat/s des del disc."
 
-#: katefiletree.cpp:127
+#: katefiletree.cpp:317
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Tanca"
 
-#: katefiletree.cpp:129
+#: katefiletree.cpp:319
 #, kde-format
 msgid "Close the current document."
 msgstr "Tanca el document actual."
 
-#: katefiletree.cpp:131
+#: katefiletree.cpp:321
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
 msgstr "Expandeix recursivament"
 
-#: katefiletree.cpp:133
+#: katefiletree.cpp:323
 #, kde-format
 msgid "Expand the file list sub tree recursively."
 msgstr "Expandeix recursivament el sub arbre de la llista de fitxers."
 
-#: katefiletree.cpp:135
+#: katefiletree.cpp:325
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
 msgstr "Redueix recursivament"
 
-#: katefiletree.cpp:137
+#: katefiletree.cpp:327
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
 msgstr "Redueix recursivament el sub arbre de la llista de fitxers."
 
-#: katefiletree.cpp:139
+#: katefiletree.cpp:329
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
 msgstr "Tanca els altres"
 
-#: katefiletree.cpp:141
+#: katefiletree.cpp:331
 #, kde-format
 msgid "Close other documents in this folder."
 msgstr "Tanca tots els altres documents en aquesta carpeta."
 
-#: katefiletree.cpp:144
+#: katefiletree.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
 msgstr "Obre la carpeta contenidora"
 
-#: katefiletree.cpp:146
+#: katefiletree.cpp:336
 #, kde-format
 msgid "Open the folder this file is located in."
 msgstr "Obre la carpeta a on està ubicat aquest fitxer."
 
-#: katefiletree.cpp:148
+#: katefiletree.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
 msgstr "Copia la ubicació"
 
-#: katefiletree.cpp:150
+#: katefiletree.cpp:340
 #, kde-format
 msgid "Copy path and filename to the clipboard."
 msgstr "Copia el camí i el nom del fitxer al porta-retalls."
 
-#: katefiletree.cpp:152
+#: katefiletree.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
 msgstr "Reanomena..."
 
-#: katefiletree.cpp:154
+#: katefiletree.cpp:344
 #, kde-format
 msgid "Rename the selected file."
 msgstr "Reanomena el fitxer seleccionat."
 
-#: katefiletree.cpp:157
+#: katefiletree.cpp:347
 #, kde-format
 msgid "Print selected document."
 msgstr "Imprimeix el document seleccionat."
 
-#: katefiletree.cpp:160
+#: katefiletree.cpp:350
 #, kde-format
 msgid "Show print preview of current document"
 msgstr "Mostra una vista prèvia d'impressió del document actual"
 
-#: katefiletree.cpp:162
+#: katefiletree.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
 msgstr "Suprimeix"
 
-#: katefiletree.cpp:164
+#: katefiletree.cpp:354
 #, kde-format
 msgid "Close and delete selected file from storage."
 msgstr "Tanca i suprimeix el fitxer seleccionat des de l'emmagatzematge."
 
-#: katefiletree.cpp:168
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Clear History"
-msgstr "Neteja l'historial"
-
-#: katefiletree.cpp:170
-#, kde-format
-msgid "Clear edit/view history."
-msgstr "Neteja l'historial d'edició/visualització."
-
-#: katefiletree.cpp:244
+#: katefiletree.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
 msgstr "Mode en arbre"
 
-#: katefiletree.cpp:245
+#: katefiletree.cpp:363
 #, kde-format
 msgid "Set view style to Tree Mode"
 msgstr "Estableix l'estil de la vista al mode en arbre"
 
-#: katefiletree.cpp:251
+#: katefiletree.cpp:369
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
 msgstr "Mode de llista"
 
-#: katefiletree.cpp:252
+#: katefiletree.cpp:370
 #, kde-format
 msgid "Set view style to List Mode"
 msgstr "Estableix l'estil de la vista al mode de llista"
 
-#: katefiletree.cpp:259
+#: katefiletree.cpp:377
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
 msgstr "Nom del document"
 
-#: katefiletree.cpp:260
+#: katefiletree.cpp:378
 #, kde-format
 msgid "Sort by Document Name"
 msgstr "Ordena pel nom del document"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
 msgstr "Camí del document"
 
-#: katefiletree.cpp:265
+#: katefiletree.cpp:383
 #, kde-format
 msgid "Sort by Document Path"
 msgstr "Ordena pel camí del document"
 
-#: katefiletree.cpp:269
+#: katefiletree.cpp:387
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
 msgstr "Ordre d'obertura"
 
-#: katefiletree.cpp:270
+#: katefiletree.cpp:388
 #, kde-format
 msgid "Sort by Opening Order"
 msgstr "Ordena per l'ordre d'obertura"
 
-#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
+#: katefiletree.cpp:391 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
 msgstr "Ordenació personalitzada"
 
-#: katefiletree.cpp:404
-#, kde-format
-msgid "Open..."
-msgstr "Obre..."
-
 #: katefiletree.cpp:408
 #, kde-format
-msgid "Open File"
-msgstr "Obre un fitxer"
+msgctxt "@action:inmenu"
+msgid "Clear History"
+msgstr "Neteja l'historial"
 
-#: katefiletree.cpp:418
+#: katefiletree.cpp:410
+#, kde-format
+msgid "Clear edit/view history."
+msgstr "Neteja l'historial d'edició/visualització."
+
+#: katefiletree.cpp:415
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Obre amb"
 
-#: katefiletree.cpp:435
+#: katefiletree.cpp:432
 #, kde-format
 msgid "Show Git History"
 msgstr "Mostra l'historial del Git"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:444
 #, kde-format
 msgid "Unpin Document"
 msgstr "Deixa de fixar el document"
 
-#: katefiletree.cpp:449
+#: katefiletree.cpp:446
 #, kde-format
 msgid "Pin Document"
 msgstr "Fixa el document"
 
-#: katefiletree.cpp:497
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Mode de vista"
 
-#: katefiletree.cpp:501
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -386,42 +386,42 @@ msgstr ""
 "<p><b>%1</b></p><p>El document ha estat modificat per una altra aplicació.</"
 "p>"
 
-#: katefiletreeplugin.cpp:174
+#: katefiletreeplugin.cpp:173
 #, kde-format
 msgid "Filter…"
 msgstr "Filtre…"
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:245
 #, kde-format
 msgid "Previous Document"
 msgstr "Document anterior"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:251
 #, kde-format
 msgid "Next Document"
 msgstr "Document següent"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:257
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Mo&stra el document actiu"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr "Desa"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "Desa el document actual"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
 msgstr "Desa com a"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "Desa el document actual amb un nom nou"

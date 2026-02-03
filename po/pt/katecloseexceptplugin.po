@@ -26,7 +26,7 @@ msgstr "César A. P. Cláudio, José Nuno Pires"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "cesarapclaudio@gmail.com, zepires@gmail.com"
+msgstr "cesarapclaudio@gmail.com"
 
 #: close_confirm_dialog.cpp:66
 #, kde-format

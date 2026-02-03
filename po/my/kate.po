@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-27 00:47+0000\n"
+"POT-Creation-Date: 2026-02-03 00:50+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -309,111 +309,111 @@ msgstr "အလျင်အမြန်ပြင်"
 msgid "Next Item"
 msgstr "နောက်အိုင်တမ်"
 
-#: lib/diagnostics/diagnosticview.cpp:372
+#: lib/diagnostics/diagnosticview.cpp:374
 #, kde-format
 msgid "Previous Item"
 msgstr "ယခင်အိုင်တမ်"
 
-#: lib/diagnostics/diagnosticview.cpp:380
+#: lib/diagnostics/diagnosticview.cpp:384
 #, kde-format
 msgid "Clear Diagnostics Filter"
 msgstr "စစ်ဆေးချက်-စစ်ထုတ်မှုရှင်းမည်"
 
-#: lib/diagnostics/diagnosticview.cpp:390
+#: lib/diagnostics/diagnosticview.cpp:394
 #, kde-format
 msgid "Show Hover Info"
 msgstr "ကာဆာဝဲနေစဉ်အချက်အလက် ပြ"
 
-#: lib/diagnostics/diagnosticview.cpp:449 lib/kateconfigdialog.cpp:392
+#: lib/diagnostics/diagnosticview.cpp:453 lib/kateconfigdialog.cpp:394
 #, kde-format
 msgid "Diagnostics"
 msgstr "စစ်ဆေး"
 
-#: lib/diagnostics/diagnosticview.cpp:495
+#: lib/diagnostics/diagnosticview.cpp:499
 #, kde-format
 msgid "Errors"
 msgstr "အမှား"
 
-#: lib/diagnostics/diagnosticview.cpp:511
+#: lib/diagnostics/diagnosticview.cpp:515
 #, kde-format
 msgid "Warnings"
 msgstr "သတိ"
 
-#: lib/diagnostics/diagnosticview.cpp:525 lib/filehistorywidget.cpp:466
+#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:466
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
 msgstr "စီစစ်…"
 
-#: lib/diagnostics/diagnosticview.cpp:531
+#: lib/diagnostics/diagnosticview.cpp:535
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Clear diagnostics"
 msgstr "စေဆေးချက်ရှင်းမည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1177 lib/kateconfigdialog.cpp:165
+#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Error"
 msgstr "အမှား"
 
-#: lib/diagnostics/diagnosticview.cpp:1181 lib/kateconfigdialog.cpp:165
-#: lib/kateconfigdialog.cpp:810
+#: lib/diagnostics/diagnosticview.cpp:1185 lib/kateconfigdialog.cpp:167
+#: lib/kateconfigdialog.cpp:812
 #, kde-format
 msgid "Warning"
 msgstr "သတိ"
 
-#: lib/diagnostics/diagnosticview.cpp:1185
+#: lib/diagnostics/diagnosticview.cpp:1189
 #, kde-format
 msgid "Information"
 msgstr "အချက်အလက်"
 
-#: lib/diagnostics/diagnosticview.cpp:1314
+#: lib/diagnostics/diagnosticview.cpp:1318
 #, kde-format
 msgctxt "@info"
 msgid "%1 [suppressed: %2]"
 msgstr "%1 [ဖုံးဖိ -%2]"
 
-#: lib/diagnostics/diagnosticview.cpp:1440
+#: lib/diagnostics/diagnosticview.cpp:1444
 #, kde-format
 msgid "Expand All"
 msgstr "အားလုံးဖြန့်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1441
+#: lib/diagnostics/diagnosticview.cpp:1445
 #, kde-format
 msgid "Collapse All"
 msgstr "အားလုံးပိတ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1447
+#: lib/diagnostics/diagnosticview.cpp:1451
 #, kde-format
 msgid "Copy to Clipboard"
 msgstr "ကူးယူ"
 
-#: lib/diagnostics/diagnosticview.cpp:1489
+#: lib/diagnostics/diagnosticview.cpp:1493
 #, kde-format
 msgid "Remove Global Suppression"
 msgstr "နေရာအစုံဖုံးဖိမှု ဖယ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1491
+#: lib/diagnostics/diagnosticview.cpp:1495
 #, kde-format
 msgid "Add Global Suppression"
 msgstr "နေရာအစုံဖုံးဖိမှု ထည့်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1495
+#: lib/diagnostics/diagnosticview.cpp:1499
 #, kde-format
 msgid "Remove Local Suppression"
 msgstr "တစ်နေရာဖုံးဖိမှု ဖယ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1497
+#: lib/diagnostics/diagnosticview.cpp:1501
 #, kde-format
 msgid "Add Local Suppression"
 msgstr "တစ်နေရာဖုံးဖိမှု ထည့်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1512
+#: lib/diagnostics/diagnosticview.cpp:1516
 #, kde-format
 msgid "Disable Suppression"
 msgstr "ဖုံးဖိမှု ပိတ်မည်"
 
-#: lib/diagnostics/diagnosticview.cpp:1514
+#: lib/diagnostics/diagnosticview.cpp:1518
 #, kde-format
 msgid "Enable Suppression"
 msgstr "ဖုံးဖိမှု ဖွင့်မည်"
@@ -423,17 +423,17 @@ msgstr "ဖုံးဖိမှု ဖွင့်မည်"
 msgid "Change Style"
 msgstr "ပုံစံပြောင်းမည်"
 
-#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:372
+#: lib/diff/diffeditor.cpp:197 lib/kateconfigdialog.cpp:374
 #, kde-format
 msgid "Side By Side"
 msgstr "ဘေးချင်းကပ်"
 
-#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:373
+#: lib/diff/diffeditor.cpp:200 lib/kateconfigdialog.cpp:375
 #, kde-format
 msgid "Unified"
 msgstr ""
 
-#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:374
+#: lib/diff/diffeditor.cpp:203 lib/kateconfigdialog.cpp:376
 #, kde-format
 msgid "Raw"
 msgstr "အကြမ်း"
@@ -487,7 +487,7 @@ msgstr ""
 "scm.com/downloadsသို့သွားကြည့်ပါ"
 
 #: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
-#: lib/kateconfigdialog.cpp:366
+#: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
@@ -956,22 +956,22 @@ msgstr ""
 msgid "Configure"
 msgstr "ပြင်ဆင်"
 
-#: lib/kateconfigdialog.cpp:111
+#: lib/kateconfigdialog.cpp:113
 #, kde-format
 msgid "Behavior"
 msgstr "အပြုအမှု"
 
-#: lib/kateconfigdialog.cpp:113
+#: lib/kateconfigdialog.cpp:115
 #, kde-format
 msgid "Behavior Options"
 msgstr "အပြုအမှုရွေးချယ်စရာများ"
 
-#: lib/kateconfigdialog.cpp:120
+#: lib/kateconfigdialog.cpp:122
 #, kde-format
 msgid "PATH"
 msgstr "PATH"
 
-#: lib/kateconfigdialog.cpp:126
+#: lib/kateconfigdialog.cpp:128
 #, kde-format
 msgid ""
 "List of %1 separated directories where Kate will look for programs to run. "
@@ -979,17 +979,17 @@ msgid ""
 "USER/myapps/bin/:/home/USER/.local/bin'"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:142
+#: lib/kateconfigdialog.cpp:144
 #, kde-format
 msgid "&Behavior"
 msgstr "&အပြုအမှု"
 
-#: lib/kateconfigdialog.cpp:147
+#: lib/kateconfigdialog.cpp:149
 #, kde-format
 msgid "Open each document in its own window"
 msgstr "မှတ်တမ်းစာအုပ်တစ်ခုချင်းစီကို ကိုယ်ပိုင်ဝင်းဒိုးတွင်ဖွင့်မည်"
 
-#: lib/kateconfigdialog.cpp:150
+#: lib/kateconfigdialog.cpp:152
 #, kde-format
 msgid ""
 "If enabled, each document will be opened in its own window. If not enabled, "
@@ -998,43 +998,43 @@ msgstr ""
 "ဖွင့်ထားပါက မှတ်တမ်းစာအုပ်တစ်ခုချင်းစီကို သူ၏ကိုယ်ပိုင်ဝင်းဒိုးတွင် ဖွင့်ပေးမည်။ ပိတ်ထားပါက ယင်းတို့ကို "
 "လက်ရှိဝင်းဒိုး၏တပ်ဘ်အသစ်များတွင်ဖွင့်မည်။"
 
-#: lib/kateconfigdialog.cpp:160
+#: lib/kateconfigdialog.cpp:162
 #, kde-format
 msgid "&Switch to output view upon message type:"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:165
+#: lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Never"
 msgstr "ဘယ်တော့မှ"
 
-#: lib/kateconfigdialog.cpp:165
+#: lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Info"
 msgstr "သတင်း"
 
-#: lib/kateconfigdialog.cpp:165
+#: lib/kateconfigdialog.cpp:167
 #, kde-format
 msgid "Log"
 msgstr "မှတ်တမ်း"
 
-#: lib/kateconfigdialog.cpp:171
+#: lib/kateconfigdialog.cpp:173
 #, kde-format
 msgid "&Limit output view history:"
 msgstr "ရလဒ်မြင်ကွင်းမှတ်တမ်း&ကန့်သတ်-"
 
-#: lib/kateconfigdialog.cpp:177 lib/kateconfigdialog.cpp:248
-#: lib/kateconfigdialog.cpp:400
+#: lib/kateconfigdialog.cpp:179 lib/kateconfigdialog.cpp:250
+#: lib/kateconfigdialog.cpp:402
 #, kde-format
 msgid "Unlimited"
 msgstr "မကန့်သတ်"
 
-#: lib/kateconfigdialog.cpp:184
+#: lib/kateconfigdialog.cpp:186
 #, kde-format
 msgid "Use a separate &dialog for handling externally modified files"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:187
+#: lib/kateconfigdialog.cpp:189
 #, kde-format
 msgid ""
 "If enabled, a modal dialog will be used to show all of the modified files. "
@@ -1042,28 +1042,28 @@ msgid ""
 "file only when that file's view receives focus."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:192
+#: lib/kateconfigdialog.cpp:194
 #, kde-format
 msgid "Output timestamps with date"
 msgstr "ရက်စွဲပါ အချိန်မှတ်ချက်များ ထုတ်ပေးပါ"
 
-#: lib/kateconfigdialog.cpp:194
+#: lib/kateconfigdialog.cpp:196
 #, kde-format
 msgid ""
 "When enabled, the output line timestamp headers will be prefixed with date."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:202
+#: lib/kateconfigdialog.cpp:204
 #, kde-format
 msgid "&Sidebars"
 msgstr "&ဘေးတန်းများ"
 
-#: lib/kateconfigdialog.cpp:205
+#: lib/kateconfigdialog.cpp:207
 #, kde-format
 msgid "Sync section size with tab positions"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:208
+#: lib/kateconfigdialog.cpp:210
 #, kde-format
 msgid ""
 "When enabled the section size will be determined by the position of the "
@@ -1071,121 +1071,121 @@ msgid ""
 "This option does not affect the bottom sidebar."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:213
+#: lib/kateconfigdialog.cpp:215
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
 msgstr "ဘယ်၊ညာ ဘေးတန်းခလုတ်များအတွက် စာသားကို ပြမည်"
 
-#: lib/kateconfigdialog.cpp:218
+#: lib/kateconfigdialog.cpp:220
 #, kde-format
 msgid "Icon size for left and right sidebar buttons:"
 msgstr "ဘယ်၊ ညာ ဘေးတန်းခလုတ်များအတွက် အိုင်ကွန်အရွယ်အစား-"
 
-#: lib/kateconfigdialog.cpp:238
+#: lib/kateconfigdialog.cpp:240
 #, kde-format
 msgid "&Tabs"
 msgstr "&တပ်ဘ်များ"
 
-#: lib/kateconfigdialog.cpp:242
+#: lib/kateconfigdialog.cpp:244
 #, kde-format
 msgid "&Limit number of tabs:"
 msgstr "တပ်ဘ်အရေအတွက်&ကန့်သတ်-"
 
-#: lib/kateconfigdialog.cpp:253
+#: lib/kateconfigdialog.cpp:255
 #, kde-format
 msgid ""
 "A high limit can increase the window size, please enable 'Allow tab "
 "scrolling' to prevent it. Unlimited tabs are always scrollable."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:257
+#: lib/kateconfigdialog.cpp:259
 #, kde-format
 msgid "&Auto hide tabs"
 msgstr "တပ်ဘ်များအ&လိုအလျောက်ဖွက်မည်"
 
-#: lib/kateconfigdialog.cpp:259
+#: lib/kateconfigdialog.cpp:261
 #, kde-format
 msgid "When checked tabs will be hidden if only one document is open."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:263
+#: lib/kateconfigdialog.cpp:265
 #, kde-format
 msgid "&Show close button"
 msgstr "အပိတ်ခလုတ်&ပြမည်"
 
-#: lib/kateconfigdialog.cpp:265
+#: lib/kateconfigdialog.cpp:267
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:269
+#: lib/kateconfigdialog.cpp:271
 #, kde-format
 msgid "&Expand tabs"
 msgstr "တပ်ဘ်များ&ဖြန့်ပြ"
 
-#: lib/kateconfigdialog.cpp:271
+#: lib/kateconfigdialog.cpp:273
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:275
+#: lib/kateconfigdialog.cpp:277
 #, kde-format
 msgid "&Double click opens a new document"
 msgstr "&နှစ်ချက်ကလစ်နှိပ်လျှင် မှတ်တမ်းစာအုပ်အသစ်ဖွင့်"
 
-#: lib/kateconfigdialog.cpp:277
+#: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "When checked double click opens a new document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:281
+#: lib/kateconfigdialog.cpp:283
 #, kde-format
 msgid "&Middle click closes a document"
 msgstr "&အလယ်ကလစ်နှိပ်၍မှတ်တမ်းစာအုပ်ပိတ်မည်"
 
-#: lib/kateconfigdialog.cpp:283
+#: lib/kateconfigdialog.cpp:285
 #, kde-format
 msgid "When checked middle click closes a document."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:287
+#: lib/kateconfigdialog.cpp:289
 #, kde-format
 msgid "Allow tab scrolling"
 msgstr "တပ်ဘ်ဖြင့်လှိမ့်ဆွဲခြင်းခွင့်ပြုမည်"
 
-#: lib/kateconfigdialog.cpp:289
+#: lib/kateconfigdialog.cpp:291
 #, kde-format
 msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:293
+#: lib/kateconfigdialog.cpp:295
 #, kde-format
 msgid "Elide tab text"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:295
+#: lib/kateconfigdialog.cpp:297
 #, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:299
+#: lib/kateconfigdialog.cpp:301
 #, kde-format
 msgid "Open new tabs to the right of the current tab"
 msgstr "လက်ရှိတပ်ဘ်၏ညာဘက်တွင်အသစ်ဖွင့်"
 
-#: lib/kateconfigdialog.cpp:301
+#: lib/kateconfigdialog.cpp:303
 #, kde-format
 msgid "If unchecked the new tab will open at the end."
 msgstr "အမှန်မခြစ်ထားလျှင် တပ်ဘ်အသစ်ကို နောက်ဆုံးတွင်ဖွင့်မည်"
 
-#: lib/kateconfigdialog.cpp:312
+#: lib/kateconfigdialog.cpp:314
 #, kde-format
 msgid "Allow cycling through tabs"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:314
+#: lib/kateconfigdialog.cpp:316
 #, kde-format
 msgctxt "If 'Allow cycling through tabs' is disabled."
 msgid ""
@@ -1193,139 +1193,139 @@ msgid ""
 "reaching the end."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:337
+#: lib/kateconfigdialog.cpp:339
 #, kde-format
 msgid "&Mouse"
 msgstr "&မောက်"
 
-#: lib/kateconfigdialog.cpp:342
+#: lib/kateconfigdialog.cpp:344
 #, kde-format
 msgid "&Backward button pressed:"
 msgstr "&နောက်ဘက်ခလုတ်နှိပ်လိုက်သောအခါ"
 
-#: lib/kateconfigdialog.cpp:347
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "Previous tab"
 msgstr "ယခင်တပ်ဘ်"
 
-#: lib/kateconfigdialog.cpp:347
+#: lib/kateconfigdialog.cpp:349
 #, kde-format
 msgid "History back"
 msgstr "မှတ်တမ်း နောက်သို့"
 
-#: lib/kateconfigdialog.cpp:353
+#: lib/kateconfigdialog.cpp:355
 #, kde-format
 msgid "&Forward button pressed:"
 msgstr "&အရှေ့ခလုတ်နှိပ်လိုက်သောအခါ"
 
-#: lib/kateconfigdialog.cpp:358
+#: lib/kateconfigdialog.cpp:360
 #, kde-format
 msgid "Next tab"
 msgstr "နောက်တပ်ဘ်"
 
-#: lib/kateconfigdialog.cpp:358
+#: lib/kateconfigdialog.cpp:360
 #, kde-format
 msgid "History forward"
 msgstr "မှတ်တမ်း ရှေ့သို့"
 
-#: lib/kateconfigdialog.cpp:375
+#: lib/kateconfigdialog.cpp:377
 #, kde-format
 msgid "Diff Style:"
 msgstr "Diffပုံစံ-"
 
-#: lib/kateconfigdialog.cpp:382
+#: lib/kateconfigdialog.cpp:384
 #, kde-format
 msgid "Navigation Bar"
 msgstr "လမ်းညွှန်တန်း"
 
-#: lib/kateconfigdialog.cpp:387
+#: lib/kateconfigdialog.cpp:389
 #, kde-format
 msgid "Show current symbol in navigation bar"
 msgstr "လမ်းညွှန်တန်းတွင် လက်ရှိပုံကို ပြမည်"
 
-#: lib/kateconfigdialog.cpp:397
+#: lib/kateconfigdialog.cpp:399
 #, kde-format
 msgid "Diagnostics limit:"
 msgstr "စစ်ဆေးမှုပမာဏကန့်သတ်ချက်-"
 
-#: lib/kateconfigdialog.cpp:402
+#: lib/kateconfigdialog.cpp:404
 #, kde-format
 msgid "Max number of diagnostics allowed in the Diagnostics toolview."
 msgstr "ရှာဖွေစစ်ဆေးမှုကိရိယာမြင်ကွင်းတွင် ခွင့်ပြုမည်ဖြစ်သော စစ်ဆေးချက်အများဆုံးပမာဏ။"
 
-#: lib/kateconfigdialog.cpp:408 lib/texthint/hintview.cpp:25
+#: lib/kateconfigdialog.cpp:410 lib/texthint/hintview.cpp:25
 #, kde-format
 msgid "Context"
 msgstr "ဆက်စပ်အကြောင်းအရာ"
 
-#: lib/kateconfigdialog.cpp:413
+#: lib/kateconfigdialog.cpp:415
 #, kde-format
 msgid "Enable tool view"
 msgstr "ကိရိယာမြင်ကွင်းအသုံးပြုမည်"
 
-#: lib/kateconfigdialog.cpp:415
+#: lib/kateconfigdialog.cpp:417
 #, kde-format
 msgid ""
 "A tool view to display context associated with the current cursor position "
 "(LSP hints, diagnostics)"
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:430
+#: lib/kateconfigdialog.cpp:432
 #, kde-format
 msgid "Session"
 msgstr "ဆက်ရှင်"
 
-#: lib/kateconfigdialog.cpp:432
+#: lib/kateconfigdialog.cpp:434
 #, kde-format
 msgid "Session Management"
 msgstr "ဆက်ရှင်စီမံမှု"
 
-#: lib/kateconfigdialog.cpp:444
+#: lib/kateconfigdialog.cpp:446
 #, kde-format
 msgctxt "The special case of 'Delete unused meta-information after'"
 msgid "(never)"
 msgstr "(ဘယ်တော့မှ)"
 
-#: lib/kateconfigdialog.cpp:446
+#: lib/kateconfigdialog.cpp:448
 #, kde-format
 msgctxt "The suffix of 'Delete unused meta-information after'"
 msgid "%v day"
 msgid_plural "%v days"
 msgstr[0] "%v ရက်"
 
-#: lib/kateconfigdialog.cpp:476
+#: lib/kateconfigdialog.cpp:478
 #, kde-format
 msgid ""
 "When a window is closed the documents opened only in this window are closed "
 "as well."
 msgstr ""
 
-#: lib/kateconfigdialog.cpp:511
+#: lib/kateconfigdialog.cpp:513
 #, kde-format
 msgid "Plugins"
 msgstr "ပလပ်ဂင်များ"
 
-#: lib/kateconfigdialog.cpp:513
+#: lib/kateconfigdialog.cpp:515
 #, kde-format
 msgid "Plugin Manager"
 msgstr "ပလပ်ဂင်မန်နေဂျာ"
 
-#: lib/kateconfigdialog.cpp:531 lib/kateconfigdialog.cpp:533
+#: lib/kateconfigdialog.cpp:533 lib/kateconfigdialog.cpp:535
 #, kde-format
 msgid "User Feedback"
 msgstr "သုံးစွဲသူအကြံပေးစာ"
 
-#: lib/kateconfigdialog.cpp:725
+#: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "Bad PATH value"
 msgstr "PATH၏ဒေတာမကောင်းပါ"
 
-#: lib/kateconfigdialog.cpp:725
+#: lib/kateconfigdialog.cpp:727
 #, kde-format
 msgid "The path '%1' doesn't exist"
 msgstr "လမ်းကြောင်း '%1' မရှိပါ"
 
-#: lib/kateconfigdialog.cpp:809
+#: lib/kateconfigdialog.cpp:811
 #, kde-format
 msgid ""
 "You have unsaved changes. Do you want to apply the changes or discard them?"

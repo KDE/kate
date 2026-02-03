@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-12-28 00:46+0000\n"
+"POT-Creation-Date: 2026-02-03 00:50+0000\n"
 "PO-Revision-Date: 2024-02-15 22:13+0100\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -18,229 +18,229 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 23.08.4\n"
 
-#: katefiletree.cpp:123
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Reloa&d"
-msgstr "Újr&atöltés"
-
-#: katefiletree.cpp:125
-#, kde-format
-msgid "Reload selected document(s) from disk."
-msgstr "A kijelölt dokumentumok újratöltése a lemezről."
-
-#: katefiletree.cpp:127
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Close"
-msgstr "Bezárás"
-
-#: katefiletree.cpp:129
-#, kde-format
-msgid "Close the current document."
-msgstr "Az aktuális dokumentum bezárása."
-
-#: katefiletree.cpp:131
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Expand Recursively"
-msgstr "Kibontás rekurzívan"
-
-#: katefiletree.cpp:133
-#, kde-format
-msgid "Expand the file list sub tree recursively."
-msgstr "A fájllista részfa kibontása rekurzívan."
-
-#: katefiletree.cpp:135
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Collapse Recursively"
-msgstr "Összecsukás rekurzívan"
-
-#: katefiletree.cpp:137
-#, kde-format
-msgid "Collapse the file list sub tree recursively."
-msgstr "A fájllista részfa összecsukása rekurzívan."
-
-#: katefiletree.cpp:139
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Close Other"
-msgstr "Többi bezárása"
-
-#: katefiletree.cpp:141
-#, kde-format
-msgid "Close other documents in this folder."
-msgstr "A többi dokumentum bezárása a mappában."
-
-#: katefiletree.cpp:144
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Open Containing Folder"
-msgstr "Tartalmazó mappa megnyitása"
-
-#: katefiletree.cpp:146
-#, kde-format
-msgid "Open the folder this file is located in."
-msgstr "A fájlt tartalmazó mappa megnyitása."
-
-#: katefiletree.cpp:148
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Copy Location"
-msgstr "Hely másolása"
-
-#: katefiletree.cpp:150
-#, kde-format
-msgid "Copy path and filename to the clipboard."
-msgstr "A fájl elérési útjának és nevének másolása a vágólapra."
-
-#: katefiletree.cpp:152
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Rename..."
-msgstr "Átnevezés…"
-
-#: katefiletree.cpp:154
-#, kde-format
-msgid "Rename the selected file."
-msgstr "A kijelölt fájl átnevezése."
-
-#: katefiletree.cpp:157
-#, kde-format
-msgid "Print selected document."
-msgstr "A kijelölt dokumentum nyomtatása."
-
-#: katefiletree.cpp:160
-#, kde-format
-msgid "Show print preview of current document"
-msgstr "A jelenlegi dokumentum nyomtatási képének megjelenítése"
-
-#: katefiletree.cpp:162
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Delete"
-msgstr "Törlés"
-
-#: katefiletree.cpp:164
-#, kde-format
-msgid "Close and delete selected file from storage."
-msgstr "A kijelölt fájl bezárása és törlése."
-
-#: katefiletree.cpp:168
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Clear History"
-msgstr "Előzmények törlése"
-
-#: katefiletree.cpp:170
-#, kde-format
-msgid "Clear edit/view history."
-msgstr "Szerkesztési/nézet előzmények törlése."
-
-#: katefiletree.cpp:244
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "Tree Mode"
-msgstr "Famód"
-
-#: katefiletree.cpp:245
-#, kde-format
-msgid "Set view style to Tree Mode"
-msgstr "Nézetstílus beállítása fastruktúra módra"
-
-#: katefiletree.cpp:251
-#, kde-format
-msgctxt "@action:inmenu"
-msgid "List Mode"
-msgstr "Lista mód"
-
-#: katefiletree.cpp:252
-#, kde-format
-msgid "Set view style to List Mode"
-msgstr "Nézetstílus beállítása lista módra"
-
-#: katefiletree.cpp:259
-#, kde-format
-msgctxt "@action:inmenu sorting option"
-msgid "Document Name"
-msgstr "Dokumentumnév"
-
-#: katefiletree.cpp:260
-#, kde-format
-msgid "Sort by Document Name"
-msgstr "Rendezés dokumentumnév szerint"
-
-#: katefiletree.cpp:265
-#, kde-format
-msgctxt "@action:inmenu sorting option"
-msgid "Document Path"
-msgstr "Elérési út"
-
-#: katefiletree.cpp:265
-#, kde-format
-msgid "Sort by Document Path"
-msgstr "Rendezés elérési út szerint"
-
-#: katefiletree.cpp:269
-#, kde-format
-msgctxt "@action:inmenu sorting option"
-msgid "Opening Order"
-msgstr "Megnyitási sorrend"
-
-#: katefiletree.cpp:270
-#, kde-format
-msgid "Sort by Opening Order"
-msgstr "Rendezés megnyitási sorrend szerint"
-
-#: katefiletree.cpp:273 katefiletreeconfigpage.cpp:72
-#, kde-format
-msgid "Custom Sorting"
-msgstr "Egyéni rendezés"
-
-#: katefiletree.cpp:404
+#: katefiletree.cpp:302
 #, kde-format
 msgid "Open..."
 msgstr ""
 
-#: katefiletree.cpp:408
+#: katefiletree.cpp:306
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Open With"
 msgid "Open File"
 msgstr "Megnyitás ezzel"
 
-#: katefiletree.cpp:418
+#: katefiletree.cpp:313
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Reloa&d"
+msgstr "Újr&atöltés"
+
+#: katefiletree.cpp:315
+#, kde-format
+msgid "Reload selected document(s) from disk."
+msgstr "A kijelölt dokumentumok újratöltése a lemezről."
+
+#: katefiletree.cpp:317
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Close"
+msgstr "Bezárás"
+
+#: katefiletree.cpp:319
+#, kde-format
+msgid "Close the current document."
+msgstr "Az aktuális dokumentum bezárása."
+
+#: katefiletree.cpp:321
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Expand Recursively"
+msgstr "Kibontás rekurzívan"
+
+#: katefiletree.cpp:323
+#, kde-format
+msgid "Expand the file list sub tree recursively."
+msgstr "A fájllista részfa kibontása rekurzívan."
+
+#: katefiletree.cpp:325
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Collapse Recursively"
+msgstr "Összecsukás rekurzívan"
+
+#: katefiletree.cpp:327
+#, kde-format
+msgid "Collapse the file list sub tree recursively."
+msgstr "A fájllista részfa összecsukása rekurzívan."
+
+#: katefiletree.cpp:329
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Close Other"
+msgstr "Többi bezárása"
+
+#: katefiletree.cpp:331
+#, kde-format
+msgid "Close other documents in this folder."
+msgstr "A többi dokumentum bezárása a mappában."
+
+#: katefiletree.cpp:334
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Open Containing Folder"
+msgstr "Tartalmazó mappa megnyitása"
+
+#: katefiletree.cpp:336
+#, kde-format
+msgid "Open the folder this file is located in."
+msgstr "A fájlt tartalmazó mappa megnyitása."
+
+#: katefiletree.cpp:338
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Copy Location"
+msgstr "Hely másolása"
+
+#: katefiletree.cpp:340
+#, kde-format
+msgid "Copy path and filename to the clipboard."
+msgstr "A fájl elérési útjának és nevének másolása a vágólapra."
+
+#: katefiletree.cpp:342
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Rename..."
+msgstr "Átnevezés…"
+
+#: katefiletree.cpp:344
+#, kde-format
+msgid "Rename the selected file."
+msgstr "A kijelölt fájl átnevezése."
+
+#: katefiletree.cpp:347
+#, kde-format
+msgid "Print selected document."
+msgstr "A kijelölt dokumentum nyomtatása."
+
+#: katefiletree.cpp:350
+#, kde-format
+msgid "Show print preview of current document"
+msgstr "A jelenlegi dokumentum nyomtatási képének megjelenítése"
+
+#: katefiletree.cpp:352
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Delete"
+msgstr "Törlés"
+
+#: katefiletree.cpp:354
+#, kde-format
+msgid "Close and delete selected file from storage."
+msgstr "A kijelölt fájl bezárása és törlése."
+
+#: katefiletree.cpp:362
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Tree Mode"
+msgstr "Famód"
+
+#: katefiletree.cpp:363
+#, kde-format
+msgid "Set view style to Tree Mode"
+msgstr "Nézetstílus beállítása fastruktúra módra"
+
+#: katefiletree.cpp:369
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "List Mode"
+msgstr "Lista mód"
+
+#: katefiletree.cpp:370
+#, kde-format
+msgid "Set view style to List Mode"
+msgstr "Nézetstílus beállítása lista módra"
+
+#: katefiletree.cpp:377
+#, kde-format
+msgctxt "@action:inmenu sorting option"
+msgid "Document Name"
+msgstr "Dokumentumnév"
+
+#: katefiletree.cpp:378
+#, kde-format
+msgid "Sort by Document Name"
+msgstr "Rendezés dokumentumnév szerint"
+
+#: katefiletree.cpp:383
+#, kde-format
+msgctxt "@action:inmenu sorting option"
+msgid "Document Path"
+msgstr "Elérési út"
+
+#: katefiletree.cpp:383
+#, kde-format
+msgid "Sort by Document Path"
+msgstr "Rendezés elérési út szerint"
+
+#: katefiletree.cpp:387
+#, kde-format
+msgctxt "@action:inmenu sorting option"
+msgid "Opening Order"
+msgstr "Megnyitási sorrend"
+
+#: katefiletree.cpp:388
+#, kde-format
+msgid "Sort by Opening Order"
+msgstr "Rendezés megnyitási sorrend szerint"
+
+#: katefiletree.cpp:391 katefiletreeconfigpage.cpp:72
+#, kde-format
+msgid "Custom Sorting"
+msgstr "Egyéni rendezés"
+
+#: katefiletree.cpp:408
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear History"
+msgstr "Előzmények törlése"
+
+#: katefiletree.cpp:410
+#, kde-format
+msgid "Clear edit/view history."
+msgstr "Szerkesztési/nézet előzmények törlése."
+
+#: katefiletree.cpp:415
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Megnyitás ezzel"
 
-#: katefiletree.cpp:435
+#: katefiletree.cpp:432
 #, fuzzy, kde-format
 #| msgid "Show File Git History"
 msgid "Show Git History"
 msgstr "Fájl Git előzményeinek megjelenítése"
 
-#: katefiletree.cpp:447
+#: katefiletree.cpp:444
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Unpin Document"
 msgstr "Dokumentumok"
 
-#: katefiletree.cpp:449
+#: katefiletree.cpp:446
 #, fuzzy, kde-format
 #| msgid "Documents"
 msgid "Pin Document"
 msgstr "Dokumentumok"
 
-#: katefiletree.cpp:497
+#: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
 msgstr "Nézetmód"
 
-#: katefiletree.cpp:501
+#: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
@@ -387,43 +387,43 @@ msgid ""
 msgstr ""
 "<p><b>%1</b></p><p>A dokumentumot egy másik alkalmazás módosította.</p>"
 
-#: katefiletreeplugin.cpp:174
+#: katefiletreeplugin.cpp:173
 #, fuzzy, kde-format
 #| msgid "&Other..."
 msgid "Filter…"
 msgstr "&Egyéb…"
 
-#: katefiletreeplugin.cpp:253
+#: katefiletreeplugin.cpp:245
 #, kde-format
 msgid "Previous Document"
 msgstr "Előző dokumentum"
 
-#: katefiletreeplugin.cpp:259
+#: katefiletreeplugin.cpp:251
 #, kde-format
 msgid "Next Document"
 msgstr "Következő dokumentum"
 
-#: katefiletreeplugin.cpp:265
+#: katefiletreeplugin.cpp:257
 #, kde-format
 msgid "&Show Active Document"
 msgstr "Aktív dokumentum megjeleníté&se"
 
-#: katefiletreeplugin.cpp:271
+#: katefiletreeplugin.cpp:263
 #, kde-format
 msgid "Save"
 msgstr "Mentés"
 
-#: katefiletreeplugin.cpp:272
+#: katefiletreeplugin.cpp:264
 #, kde-format
 msgid "Save the current document"
 msgstr "A jelenlegi dokumentum mentése"
 
-#: katefiletreeplugin.cpp:277
+#: katefiletreeplugin.cpp:269
 #, kde-format
 msgid "Save As"
 msgstr "Mentés másként"
 
-#: katefiletreeplugin.cpp:278
+#: katefiletreeplugin.cpp:270
 #, kde-format
 msgid "Save the current document under a new name"
 msgstr "A jelenlegi dokumentum mentése új néven"

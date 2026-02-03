@@ -347,18 +347,49 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
 
 static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose)
 {
-    /**
-     * FIXME Don't do so many appends. Instead consider using some interval based solution to wrap a range
-     * of text with the html <tag></tag>
-     */
-    int j = 0;
-    for (int i = 0; i < str.size() && j < pattern.size(); ++i) {
-        if (fuzzy_internal::toLower(str.at(i)) == fuzzy_internal::toLower(pattern.at(j))) {
-            str.replace(i, 1, htmlTag + str.at(i) + htmlTagClose);
-            i += htmlTag.size() + htmlTagClose.size();
-            ++j;
+    // OPTIMIZATION: Address FIXME regarding excessive appends/inserts.
+    //
+    // Previous implementation used in-place modifications (str.replace/insert), which caused
+    // repeated memory shifting and reallocations (O(N^2) behavior in worst cases).
+    //
+    // New strategy: Build the result in a fresh buffer (O(N)).
+    // We reserve memory upfront to minimize reallocations.
+
+    QString result;
+
+    // Heuristic for memory reservation:
+    // Original string length + (Size of tags * Number of matches)
+    // We assume worst-case where every pattern char matches.
+    const int estimatedSize = str.size() + pattern.size() * (htmlTag.size() + htmlTagClose.size());
+    result.reserve(estimatedSize);
+
+    int j = 0; // Index for pattern
+    int i = 0; // Index for str
+
+    // Single pass through the string
+    while (i < str.size() && j < pattern.size()) {
+        const QChar c = str.at(i);
+
+        // Case-insensitive comparison
+        if (fuzzy_internal::toLower(c) == fuzzy_internal::toLower(pattern.at(j))) {
+            // Match found: Wrap the character in highlighting tags
+            result.append(htmlTag);
+            result.append(c);
+            result.append(htmlTagClose);
+            ++j; // Move to next character in the search pattern
+        } else {
+            // No match: Copy the original character
+            result.append(c);
         }
+        ++i;
     }
+
+    // Append the remaining part of the original string (if any)
+    if (i < str.size()) {
+        result.append(QStringView(str).mid(i));
+    }
+
+    str = result;
     return str;
 }
 

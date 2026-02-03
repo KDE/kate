@@ -619,16 +619,13 @@ public:
         m_suspendAll->setText(i18n("Suspend All"));
         m_suspendAll->setCheckable(true);
 
-        auto *goToAction = new QAction(i18n("Go To"));
-        actionCollection()->addAction(QStringLiteral("lspclient_goto_menu"), goToAction);
-        auto *goTo = new QMenu();
-        goToAction->setMenu(goTo);
-        goTo->addActions({m_findDecl, m_findDef, m_findTypeDef, m_switchSourceHeader});
+        auto goToAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_goto_menu"));
+        goToAction->setText(i18n("Go To"));
+        goToAction->menu()->addActions({m_findDecl, m_findDef, m_findTypeDef, m_switchSourceHeader});
 
-        auto *lspOtherAction = new QAction(i18n("LSP Client"));
-        actionCollection()->addAction(QStringLiteral("lspclient_other_menu"), lspOtherAction);
-        auto *lspOther = new QMenu();
-        lspOtherAction->setMenu(lspOther);
+        auto *lspOtherAction = actionCollection()->add<KActionMenu>(QStringLiteral("lspclient_other_menu"));
+        lspOtherAction->setText(i18n("LSP Client"));
+        auto *lspOther = lspOtherAction->menu();
         lspOther->addAction(m_findImpl);
         lspOther->addAction(m_triggerHighlight);
         lspOther->addAction(m_triggerGotoSymbol);

@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-12 00:46+0000\n"
-"PO-Revision-Date: 2025-10-09 00:29+0200\n"
+"PO-Revision-Date: 2026-02-04 00:36+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -57,7 +57,7 @@ msgstr "검색 결과 일치 내보내기"
 msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
-msgstr ""
+msgstr "패턴 내보내기: \\0은 전체 일치, \\1,\\2 등은 정규 표현식 캡처"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -658,6 +658,9 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"대체 패턴을 사용하여 검색 결과 일치를 변형하고 내보냅니다. 전체 일치를 내보내"
+"려면 \\0을 사용하십시오. 정규 표현식 캡처를 내보내려면 \\1, \\2 등을 사용하십"
+"시오. 패턴의 다른 문자열은 내보내기 결과로 반환됩니다."
 
 #: SearchPlugin.cpp:2288
 #, kde-format

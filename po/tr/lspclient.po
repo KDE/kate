@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"POT-Creation-Date: 2026-02-04 00:47+0000\n"
 "PO-Revision-Date: 2025-12-30 13:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -25,7 +25,7 @@ msgid "Filter…"
 msgstr "Süz…"
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
-#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:628
+#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:627
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP İstemcisi"
@@ -84,7 +84,7 @@ msgstr ""
 "Kullanıcı, şu eklentinin başlatılmasını kalıcı olarak engelledi: “%1”\n"
 "Bu engellemeyi geri almak için eklentinin yapılandırma sayfasını kullanın."
 
-#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:691
+#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:688
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
@@ -251,129 +251,129 @@ msgstr "Tüm LSP Sunucularını Yeniden Başlat"
 msgid "Suspend All"
 msgstr "Tümünü Askıya Al"
 
-#: lspclientpluginview.cpp:622
+#: lspclientpluginview.cpp:623
 #, kde-format
 msgid "Go To"
 msgstr "Git"
 
-#: lspclientpluginview.cpp:646
+#: lspclientpluginview.cpp:643
 #, kde-format
 msgid "More options"
 msgstr "Daha fazla seçenekler"
 
-#: lspclientpluginview.cpp:871 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:868 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Tümünü Genişlet"
 
-#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:869 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Tümünü Daralt"
 
-#: lspclientpluginview.cpp:1079
+#: lspclientpluginview.cpp:1076
 #, kde-format
 msgid "RangeHighLight"
 msgstr "Erim Vurgulaması"
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1358
 #, kde-format
 msgid "Line: %1: "
 msgstr "Satır: %1 "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1862
-#: lspclientpluginview.cpp:1982
+#: lspclientpluginview.cpp:1510 lspclientpluginview.cpp:1859
+#: lspclientpluginview.cpp:1979
 #, kde-format
 msgid "No results"
 msgstr "Sonuç yok"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1569
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Tanım: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1575
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Beyan: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1581
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Tür Tanımı: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1587
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Başvurular: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1599
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Gerçekleme: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1612
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Vurgulama: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1636 lspclientpluginview.cpp:1647
+#: lspclientpluginview.cpp:1660
 #, kde-format
 msgid "No Actions"
 msgstr "Eylem Yok"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1651
 #, kde-format
 msgid "Loading..."
 msgstr "Yükleniyor…"
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1743
 #, kde-format
 msgid "No edits"
 msgstr "Düzenleme yok"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1818
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1819
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Yeni ad (Dikkat: Tüm başvurular değiştirilmeyebilir)"
 
-#: lspclientpluginview.cpp:1868
+#: lspclientpluginview.cpp:1865
 #, kde-format
 msgid "Not enough results"
 msgstr "Yeterli sonuç yok"
 
-#: lspclientpluginview.cpp:1937
+#: lspclientpluginview.cpp:1934
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "İlgili Üstbilgi/Kaynak bulunamadı"
 
-#: lspclientpluginview.cpp:2135 lspclientpluginview.cpp:2178
+#: lspclientpluginview.cpp:2132 lspclientpluginview.cpp:2175
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP Sunucusu"
 
-#: lspclientpluginview.cpp:2201
+#: lspclientpluginview.cpp:2198
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP İstemcisi"
 
-#: lspclientpluginview.cpp:2451
+#: lspclientpluginview.cpp:2448
 #, kde-format
 msgid "Question from LSP server"
 msgstr "LSP sunucusundan soru"

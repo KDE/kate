@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lspclient\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"POT-Creation-Date: 2026-02-04 00:47+0000\n"
 "PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -24,7 +24,7 @@ msgid "Filter…"
 msgstr "Filtrilo…"
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
-#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:628
+#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:627
 #, kde-format
 msgid "LSP Client"
 msgstr "LSP-kliento"
@@ -84,7 +84,7 @@ msgstr ""
 "Uzanto porĉiame blokis komencon de: '%1'.\n"
 "Uzu la agordan paĝon de la kromaĵo por malfari ĉi tiun blokadon."
 
-#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:691
+#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:688
 #, kde-format
 msgid "LSP"
 msgstr "LSP"
@@ -252,129 +252,129 @@ msgstr "Rekomenci Ĉiujn LSP-Servilojnn"
 msgid "Suspend All"
 msgstr "Vastigi Ĉion"
 
-#: lspclientpluginview.cpp:622
+#: lspclientpluginview.cpp:623
 #, kde-format
 msgid "Go To"
 msgstr "Iri al"
 
-#: lspclientpluginview.cpp:646
+#: lspclientpluginview.cpp:643
 #, kde-format
 msgid "More options"
 msgstr "Pliaj elektebloj"
 
-#: lspclientpluginview.cpp:871 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:868 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Vastigi Ĉion"
 
-#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:869 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Malvastigi Ĉion"
 
-#: lspclientpluginview.cpp:1079
+#: lspclientpluginview.cpp:1076
 #, kde-format
 msgid "RangeHighLight"
 msgstr "RangeHighLight"
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1358
 #, kde-format
 msgid "Line: %1: "
 msgstr "Linio: %1:"
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1862
-#: lspclientpluginview.cpp:1982
+#: lspclientpluginview.cpp:1510 lspclientpluginview.cpp:1859
+#: lspclientpluginview.cpp:1979
 #, kde-format
 msgid "No results"
 msgstr "Neniuj rezultoj"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1569
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Difino: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1575
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklaro: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1581
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Tipodifino: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1587
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referencoj: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1599
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Efektivigo: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1612
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Emfazo: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1636 lspclientpluginview.cpp:1647
+#: lspclientpluginview.cpp:1660
 #, kde-format
 msgid "No Actions"
 msgstr "Neniuj Agoj"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1651
 #, kde-format
 msgid "Loading..."
 msgstr "Ŝargante..."
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1743
 #, kde-format
 msgid "No edits"
 msgstr "Neniuj redaktoj"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1818
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Alinomi"
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1819
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Nova nomo (atentu: ne ĉiuj referencoj povas esti anstataŭigitaj)"
 
-#: lspclientpluginview.cpp:1868
+#: lspclientpluginview.cpp:1865
 #, kde-format
 msgid "Not enough results"
 msgstr "Nesufiĉaj rezultoj"
 
-#: lspclientpluginview.cpp:1937
+#: lspclientpluginview.cpp:1934
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr "Koresponda kaplinio/Fonto ne trovita"
 
-#: lspclientpluginview.cpp:2135 lspclientpluginview.cpp:2178
+#: lspclientpluginview.cpp:2132 lspclientpluginview.cpp:2175
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "LSP-Servilo"
 
-#: lspclientpluginview.cpp:2201
+#: lspclientpluginview.cpp:2198
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "LSP-Kliento"
 
-#: lspclientpluginview.cpp:2451
+#: lspclientpluginview.cpp:2448
 #, kde-format
 msgid "Question from LSP server"
 msgstr "Aldemando el LSP-servilo"

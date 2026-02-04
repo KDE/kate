@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-20 00:45+0000\n"
+"POT-Creation-Date: 2026-02-04 00:47+0000\n"
 "PO-Revision-Date: 2020-07-15 07:20+0700\n"
 "Last-Translator: Wantoyo <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -23,7 +23,7 @@ msgid "Filter…"
 msgstr "Filter..."
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
-#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:628
+#: lspclientpluginview.cpp:479 lspclientpluginview.cpp:627
 #, kde-format
 msgid "LSP Client"
 msgstr "Klien LSP"
@@ -78,7 +78,7 @@ msgid ""
 "Use the config page of the plugin to undo this block."
 msgstr ""
 
-#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:691
+#: lspclientpluginview.cpp:444 lspclientpluginview.cpp:688
 #, kde-format
 msgid "LSP"
 msgstr ""
@@ -256,55 +256,55 @@ msgstr "Nyalakan Ulang Semua Server LSP"
 msgid "Suspend All"
 msgstr "Bentangkan Semua"
 
-#: lspclientpluginview.cpp:622
+#: lspclientpluginview.cpp:623
 #, kde-format
 msgid "Go To"
 msgstr ""
 
-#: lspclientpluginview.cpp:646
+#: lspclientpluginview.cpp:643
 #, kde-format
 msgid "More options"
 msgstr ""
 
-#: lspclientpluginview.cpp:871 lspclientsymbolview.cpp:397
+#: lspclientpluginview.cpp:868 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
 msgstr "Bentangkan Semua"
 
-#: lspclientpluginview.cpp:872 lspclientsymbolview.cpp:398
+#: lspclientpluginview.cpp:869 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
 msgstr "Ciutkan Semua"
 
-#: lspclientpluginview.cpp:1079
+#: lspclientpluginview.cpp:1076
 #, kde-format
 msgid "RangeHighLight"
 msgstr ""
 
-#: lspclientpluginview.cpp:1361
+#: lspclientpluginview.cpp:1358
 #, kde-format
 msgid "Line: %1: "
 msgstr "Garis: %1: "
 
-#: lspclientpluginview.cpp:1513 lspclientpluginview.cpp:1862
-#: lspclientpluginview.cpp:1982
+#: lspclientpluginview.cpp:1510 lspclientpluginview.cpp:1859
+#: lspclientpluginview.cpp:1979
 #, kde-format
 msgid "No results"
 msgstr "Tidak ada Hasil"
 
-#: lspclientpluginview.cpp:1572
+#: lspclientpluginview.cpp:1569
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1578
+#: lspclientpluginview.cpp:1575
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
 msgstr "Deklarasi: %1"
 
-#: lspclientpluginview.cpp:1584
+#: lspclientpluginview.cpp:1581
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -312,13 +312,13 @@ msgctxt "@title:tab"
 msgid "Type Definition: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1590
+#: lspclientpluginview.cpp:1587
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
 msgstr "Referensi: %1"
 
-#: lspclientpluginview.cpp:1602
+#: lspclientpluginview.cpp:1599
 #, fuzzy, kde-format
 #| msgctxt "@title:tab"
 #| msgid "Definition: %1"
@@ -326,67 +326,67 @@ msgctxt "@title:tab"
 msgid "Implementation: %1"
 msgstr "Definisi: %1"
 
-#: lspclientpluginview.cpp:1615
+#: lspclientpluginview.cpp:1612
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
 msgstr "Soroti: %1"
 
-#: lspclientpluginview.cpp:1639 lspclientpluginview.cpp:1650
-#: lspclientpluginview.cpp:1663
+#: lspclientpluginview.cpp:1636 lspclientpluginview.cpp:1647
+#: lspclientpluginview.cpp:1660
 #, fuzzy, kde-format
 #| msgid "General Options"
 msgid "No Actions"
 msgstr "Opsi Umum"
 
-#: lspclientpluginview.cpp:1654
+#: lspclientpluginview.cpp:1651
 #, kde-format
 msgid "Loading..."
 msgstr ""
 
-#: lspclientpluginview.cpp:1746
+#: lspclientpluginview.cpp:1743
 #, kde-format
 msgid "No edits"
 msgstr "Tidak ada edit"
 
-#: lspclientpluginview.cpp:1821
+#: lspclientpluginview.cpp:1818
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
 msgstr "Ubah-nama"
 
-#: lspclientpluginview.cpp:1822
+#: lspclientpluginview.cpp:1819
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
 msgstr "Nama baru (perhatikan: tidak semua referensi bisa diganti)"
 
-#: lspclientpluginview.cpp:1868
+#: lspclientpluginview.cpp:1865
 #, fuzzy, kde-format
 #| msgid "No results"
 msgid "Not enough results"
 msgstr "Tidak ada Hasil"
 
-#: lspclientpluginview.cpp:1937
+#: lspclientpluginview.cpp:1934
 #, kde-format
 msgid "Corresponding Header/Source not found"
 msgstr ""
 
-#: lspclientpluginview.cpp:2135 lspclientpluginview.cpp:2178
+#: lspclientpluginview.cpp:2132 lspclientpluginview.cpp:2175
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgctxt "@info"
 msgid "LSP Server"
 msgstr "Nyalakan Ulang Server LSP"
 
-#: lspclientpluginview.cpp:2201
+#: lspclientpluginview.cpp:2198
 #, fuzzy, kde-format
 #| msgid "LSP Client"
 msgctxt "@info"
 msgid "LSP Client"
 msgstr "Klien LSP"
 
-#: lspclientpluginview.cpp:2451
+#: lspclientpluginview.cpp:2448
 #, fuzzy, kde-format
 #| msgid "Restart LSP Server"
 msgid "Question from LSP server"

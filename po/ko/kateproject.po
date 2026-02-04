@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-20 00:45+0000\n"
-"PO-Revision-Date: 2025-10-09 00:28+0200\n"
+"PO-Revision-Date: 2026-02-04 00:35+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -60,7 +60,7 @@ msgstr "브랜치"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Activity"
-msgstr ""
+msgstr "마지막 활동"
 
 #: branchdeletedialog.cpp:124
 #, kde-format

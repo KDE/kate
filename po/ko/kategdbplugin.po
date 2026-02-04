@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024, 2025 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2020, 2022, 2023, 2024, 2025, 2026 Shinjo Park <kde@peremen.name>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-17 00:47+0000\n"
-"PO-Revision-Date: 2025-07-21 00:48+0200\n"
+"PO-Revision-Date: 2026-02-04 00:35+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: backend.cpp:48 dapbackend.cpp:175
 #, kde-format
@@ -25,48 +25,42 @@ msgid ""
 msgstr "디버깅 세션이 진행 중입니다. 현재 세션을 다시 시작하거나 정지하십시오."
 
 #: breakpointview.cpp:354
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Line Breakpoints"
-msgstr "중단점"
+msgstr "줄 중단점"
 
 #: breakpointview.cpp:356
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Function Breakpoints"
 msgstr "함수 중단점"
 
 #: breakpointview.cpp:358
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Exception Breakpoints"
-msgstr "함수 중단점"
+msgstr "표현식 중단점"
 
 #: breakpointview.cpp:417
 #, kde-format
 msgid "verified"
-msgstr ""
+msgstr "검증됨"
 
 #: breakpointview.cpp:417 breakpointview.cpp:422
 #, kde-format
 msgid "pending"
-msgstr ""
+msgstr "보류 중"
 
 #: breakpointview.cpp:965
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint…"
-msgstr "함수 중단점"
+msgstr "함수 중단점 추가…"
 
 #: breakpointview.cpp:969
-#, fuzzy, kde-format
-#| msgid "Clear All Breakpoints"
+#, kde-format
 msgid "Clear All Function Breakpoints"
-msgstr "모든 중단점 지우기"
+msgstr "모든 함수 중단점 지우기"
 
 #: breakpointview.cpp:976
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Remove Breakpoint"
 msgstr "중단점 삭제"
 
@@ -81,23 +75,19 @@ msgid "line %1 already has a breakpoint"
 msgstr "%1번째 줄에 중단점이 이미 설정되어 있음"
 
 #: breakpointview.cpp:1565
-#, fuzzy, kde-format
-#| msgid "breakpoint set"
+#, kde-format
 msgid "No breakpoints set"
-msgstr "중단점 설정됨"
+msgstr "설정된 중단점 없음"
 
 #: breakpointview.cpp:1624
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "Add Function Breakpoint"
-msgstr "함수 중단점"
+msgstr "함수 중단점 추가"
 
 #: breakpointview.cpp:1625
-#, fuzzy, kde-format
-#| msgctxt "Column label"
-#| msgid "Function"
+#, kde-format
 msgid "Function name:"
-msgstr "함수"
+msgstr "함수 이름:"
 
 #: configview.cpp:92
 #, kde-format
@@ -374,10 +364,9 @@ msgid "terminate debuggee"
 msgstr "디버그 대상 종료"
 
 #: dapbackend.cpp:665
-#, fuzzy, kde-format
-#| msgid "function breakpoints"
+#, kde-format
 msgid "exception breakpoint filters"
-msgstr "함수 중단점"
+msgstr "표현식 중단점 필터"
 
 #: dapbackend.cpp:812
 #, kde-format
@@ -515,10 +504,9 @@ msgid "Debugger"
 msgstr "디버거"
 
 #: debugconfigpage.cpp:96
-#, fuzzy, kde-format
-#| msgid "file not specified: %1"
+#, kde-format
 msgid "Failed to open file: %1"
-msgstr "파일을 지정하지 않았음: %1"
+msgstr "파일을 열 수 없음: %1"
 
 #: debugconfigpage.cpp:136
 #, kde-format
@@ -544,13 +532,13 @@ msgstr "JSON 데이터가 잘못됨: %1"
 #, kde-format
 msgctxt "%1 refers to filepath"
 msgid "Failed to parse .vscode/launch.json at %1. "
-msgstr ""
+msgstr "%1에 있는 .vscode/launch.json 파일을 해석할 수 없습니다. "
 
 #: launch_json_reader.cpp:51
 #, kde-format
 msgctxt "at line no:column no"
 msgid " at %1:%2"
-msgstr ""
+msgstr " 위치: %1:%2"
 
 #: localsview.cpp:39
 #, kde-format
@@ -618,8 +606,7 @@ msgid "Locals and Stack"
 msgstr "지역 변수와 호출 스택"
 
 #: plugin_kategdb.cpp:128
-#, fuzzy, kde-format
-#| msgid "Breakpoint"
+#, kde-format
 msgid "Breakpoints"
 msgstr "중단점"
 
@@ -726,10 +713,9 @@ msgid "Insert breakpoint"
 msgstr "중단점 삽입"
 
 #: plugin_kategdb.cpp:444
-#, fuzzy, kde-format
-#| msgid "Remove breakpoint"
+#, kde-format
 msgid "Toggle breakpoint"
-msgstr "중단점 삭제"
+msgstr "중단점 전환"
 
 #: plugin_kategdb.cpp:559
 #, kde-format

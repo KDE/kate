@@ -32,16 +32,6 @@ Q_DECL_UNUSED static bool fuzzy_match_simple(const QStringView pattern, const QS
 Q_DECL_UNUSED static bool fuzzy_match(const QStringView pattern, const QStringView str, int &outScore);
 Q_DECL_UNUSED static bool fuzzy_match(const QStringView pattern, const QStringView str, int &outScore, uint8_t *matches);
 
-/**
- * @brief get string for display in treeview / listview. This should be used from style delegate.
- * For example: with @a pattern = "kate", @a str = "kateapp" and @htmlTag = "<b>
- * the output will be <b>k</b><b>a</b><b>t</b><b>e</b>app which will be visible to user as
- * <b>kate</b>app.
- *
- * TODO: improve this so that we don't have to put html tags on every char probably using some kind
- * of interval container
- */
-Q_DECL_UNUSED static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose);
 Q_DECL_UNUSED static QString
 to_scored_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose);
 }
@@ -246,7 +236,7 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
 #endif
 
         // Apply unmatched penalty
-        const int unmatched = (int)(std::distance(strBegin, strEnd))-nextMatch;
+        const int unmatched = (int)(std::distance(strBegin, strEnd)) - nextMatch;
         outScore += unmatchedLetterPenalty * unmatched;
         dbg("unmatchedLetterPenalty, unmatched count: %d, outScore: %d", unmatched, outScore);
 
@@ -343,54 +333,6 @@ static bool fuzzy_internal::fuzzy_match_recursive(QStringView::const_iterator pa
         // no match
         return false;
     }
-}
-
-static QString to_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose)
-{
-    // OPTIMIZATION: Address FIXME regarding excessive appends/inserts.
-    //
-    // Previous implementation used in-place modifications (str.replace/insert), which caused
-    // repeated memory shifting and reallocations (O(N^2) behavior in worst cases).
-    //
-    // New strategy: Build the result in a fresh buffer (O(N)).
-    // We reserve memory upfront to minimize reallocations.
-
-    QString result;
-
-    // Heuristic for memory reservation:
-    // Original string length + (Size of tags * Number of matches)
-    // We assume worst-case where every pattern char matches.
-    const int estimatedSize = str.size() + pattern.size() * (htmlTag.size() + htmlTagClose.size());
-    result.reserve(estimatedSize);
-
-    int j = 0; // Index for pattern
-    int i = 0; // Index for str
-
-    // Single pass through the string
-    while (i < str.size() && j < pattern.size()) {
-        const QChar c = str.at(i);
-
-        // Case-insensitive comparison
-        if (fuzzy_internal::toLower(c) == fuzzy_internal::toLower(pattern.at(j))) {
-            // Match found: Wrap the character in highlighting tags
-            result.append(htmlTag);
-            result.append(c);
-            result.append(htmlTagClose);
-            ++j; // Move to next character in the search pattern
-        } else {
-            // No match: Copy the original character
-            result.append(c);
-        }
-        ++i;
-    }
-
-    // Append the remaining part of the original string (if any)
-    if (i < str.size()) {
-        result.append(QStringView(str).mid(i));
-    }
-
-    str = result;
-    return str;
 }
 
 static QString to_scored_fuzzy_matched_display_string(const QStringView pattern, QString &str, const QString &htmlTag, const QString &htmlTagClose)

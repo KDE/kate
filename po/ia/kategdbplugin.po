@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2026-01-16 12:03+0100\n"
+"PO-Revision-Date: 2026-02-05 17:59+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -350,7 +350,7 @@ msgstr "Commandos disponibile:"
 #: dapbackend.cpp:1324
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr "puncto de interruption conditional nones supportate per le servitor"
+msgstr "puncto de interruption conditional non es supportate per le servitor"
 
 #: dapbackend.cpp:1332
 #, kde-format

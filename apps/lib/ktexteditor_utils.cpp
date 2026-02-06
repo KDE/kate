@@ -420,4 +420,15 @@ void releaseMemoryToOperatingSystem()
     malloc_trim(0);
 #endif
 }
+
+QString fileNameFromPath(const QString &path)
+{
+    int lastSlash = path.lastIndexOf(QLatin1Char('/'));
+    return lastSlash == -1 ? path : path.mid(lastSlash + 1);
+}
+
+QString formatUrl(const QUrl &url)
+{
+    return url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
+}
 }

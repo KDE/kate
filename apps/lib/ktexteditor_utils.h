@@ -66,16 +66,9 @@ KATE_PRIVATE_EXPORT QFont editorFont();
 /**
  * @brief Given path "/home/user/xyz.txt" returns "xyz.txt"
  */
-[[nodiscard]] KATE_PRIVATE_EXPORT inline QString fileNameFromPath(const QString &path)
-{
-    int lastSlash = path.lastIndexOf(QLatin1Char('/'));
-    return lastSlash == -1 ? path : path.mid(lastSlash + 1);
-}
+[[nodiscard]] KATE_PRIVATE_EXPORT QString fileNameFromPath(const QString &path);
 
-[[nodiscard]] KATE_PRIVATE_EXPORT inline QString formatUrl(const QUrl &url)
-{
-    return url.toString(QUrl::PreferLocalFile | QUrl::RemovePassword);
-}
+[[nodiscard]] KATE_PRIVATE_EXPORT QString formatUrl(const QUrl &url);
 
 /**
  * Return a matching icon for the given document.

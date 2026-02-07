@@ -23,6 +23,7 @@ class Template;
 QT_END_NAMESPACE
 
 class QFileInfo;
+class QKeyEvent;
 
 class Template : public QWidget
 {
@@ -36,6 +37,9 @@ public:
 
 Q_SIGNALS:
     void done(const QString &fileToOpen);
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 
 private:
     struct TreeData : AbstractData {

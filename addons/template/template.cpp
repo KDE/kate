@@ -17,6 +17,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QKeyEvent>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QtCore/qlogging.h>
@@ -910,13 +911,21 @@ void Template::removeTemplate()
                 break;
             }
         }
-
-        // Update the UI
+        
         m_removeButton->setEnabled(false);
         ui->u_detailsTB->clear();
         ui->u_configWidget->setEnabled(false);
     } else {
         KMessageBox::error(this, i18n("Failed to delete the template."));
+    }
+}
+
+void Template::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Escape) {
+        cancel();
+    } else {
+        QWidget::keyPressEvent(event);
     }
 }
 

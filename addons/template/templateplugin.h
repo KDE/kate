@@ -33,5 +33,5 @@ private:
     void templateCrated(const QString &fileToOpen);
 
     KTextEditor::MainWindow *m_mainWindow = nullptr;
-    std::unique_ptr<Template> m_template = nullptr;
+    Template *m_template = nullptr;
 };

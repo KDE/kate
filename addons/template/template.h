@@ -4,16 +4,17 @@
 #pragma once
 
 #include "abstractdatamodel.h"
+#include "importcategory.h"
 
 #ifdef BUILD_APPWIZARD
 #include "AppWizardReader.h"
 #endif
 
+#include <QDialog>
 #include <QMap>
 #include <QModelIndex>
 #include <QPushButton>
 #include <QString>
-#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -23,9 +24,8 @@ class Template;
 QT_END_NAMESPACE
 
 class QFileInfo;
-class QKeyEvent;
 
-class Template : public QWidget
+class Template : public QDialog
 {
     Q_OBJECT
 
@@ -36,10 +36,7 @@ public:
     void setOutputFolder(const QString &path);
 
 Q_SIGNALS:
-    void done(const QString &fileToOpen);
-
-protected:
-    void keyPressEvent(QKeyEvent *event) override;
+    void templateCopied(const QString &fileToOpen);
 
 private:
     struct TreeData : AbstractData {
@@ -116,6 +113,7 @@ private:
     QPushButton *m_removeButton;
     AbstractDataModel m_selectionModel;
     AbstractDataModel m_configModel;
+    ImportCategory m_categorySelector;
     QString m_fileToOpen;
 
 #ifdef BUILD_APPWIZARD

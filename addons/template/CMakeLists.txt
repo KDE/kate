@@ -11,7 +11,7 @@ else ()
     target_link_libraries(templateplugin PRIVATE KF6::I18n KF6::TextEditor)
 endif()
 
-ki18n_wrap_ui(templateplugin template.ui)
+ki18n_wrap_ui(templateplugin template.ui importcategory.ui)
 
 set(PROJECT_SOURCES
     template.cpp
@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
     template.ui
     abstractdatamodel.cpp
     abstractdatamodel.h
+    importcategory.cpp
+    importcategory.h
     plugin.qrc
     templates.qrc
 )

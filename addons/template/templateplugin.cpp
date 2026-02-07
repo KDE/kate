@@ -63,11 +63,11 @@ void TemplatePluginView::crateNewFromTemplate()
     }
 
     if (!m_template) {
-        m_template = std::make_unique<Template>();
-        connect(m_template.get(), &Template::done, this, &TemplatePluginView::templateCrated);
+        m_template = new Template(view);
+        connect(m_template, &Template::templateCopied, this, &TemplatePluginView::templateCrated);
     }
     m_template->setOutputFolder(currentFolder);
-    m_template->show();
+    m_template->exec();
 }
 
 void TemplatePluginView::templateCrated(const QString &fileToOpen)

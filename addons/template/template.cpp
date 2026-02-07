@@ -12,7 +12,6 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
-#include <QInputDialog>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -122,11 +121,13 @@ bool Template::ConfigData::setData(const QVariant &value, int role, int column)
 }
 
 Template::Template(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , ui(new Ui::Template)
     , m_selectionModel(std::make_unique<TreeData>())
     , m_configModel(std::make_unique<ConfigData>())
+    , m_categorySelector(this)
 {
+    setModal(true);
     ui->setupUi(this);
 
     m_createButton = new QPushButton(i18n("Create"));
@@ -424,19 +425,21 @@ void Template::createFromTemplate()
         fileToOpen.clear();
     }
 
-    Q_EMIT done(fileToOpen);
+    Q_EMIT templateCopied(fileToOpen);
+    accept();
 }
 
 void Template::cancel()
 {
-    Q_EMIT done(QString());
+    Q_EMIT templateCopied(QString());
+    reject();
 }
 
 void Template::templateIndexChanged(const QModelIndex &newIndex)
 {
     m_configModel.clear();
     m_fileToOpen.clear();
-    ui->u_detailsTB->setText(QString());
+    ui->u_detailsTB->clear();
     ui->u_configWidget->setEnabled(false);
 
     m_exportButton->setEnabled(false);
@@ -664,7 +667,8 @@ void Template::createFromAppWizardTemplate(const QString &category)
     if (!ok) {
         fileToOpen.clear();
     }
-    Q_EMIT done(fileToOpen);
+    Q_EMIT templateCopied(fileToOpen);
+    accept();
 }
 #endif
 
@@ -690,17 +694,7 @@ void Template::exportTemplate()
     const QString finalDest = QDir(destDir).filePath(fileName);
 
     if (QFileInfo::exists(finalDest)) {
-        QFileInfo destInfo(finalDest);
-        QString typeStr;
-
-        if (destInfo.isDir()) {
-            typeStr = i18n("folder");
-        } else {
-            typeStr = i18n("file");
-        }
-
-        KMessageBox::error(this, i18n("The %1 '%2' already exists in the destination.\nExport failed.", typeStr, fileName), i18n("Export Failed"));
-
+        KMessageBox::error(this, i18n("Folder '%1' already exists.\nAborting export.", finalDest), i18n("Export Failed"));
         return;
     }
 
@@ -710,7 +704,7 @@ void Template::exportTemplate()
     if (success) {
         KMessageBox::information(this, i18n("Template exported successfully to:\n%1", finalDest));
     } else {
-        KMessageBox::error(this, i18n("Failed to export template."));
+        KMessageBox::error(this, i18n("Failed to export template to:\n%1", finalDest));
     }
 }
 
@@ -815,31 +809,28 @@ void Template::importTemplate()
         }
     }
 
-    bool ok = false;
-    QString category = QInputDialog::getText(this,
-                                             i18n("Import Template"),
-                                             i18n("Enter the category (tree-path) for this template (e.g., Files/Qt/FooBar):"),
-                                             QLineEdit::Normal,
-                                             i18n("Imported"),
-                                             &ok);
-
-    if (!ok || category.isEmpty()) {
+    const auto categoryOpt = m_categorySelector.getCategoryPath(source.dirName());
+    if (!categoryOpt || categoryOpt->isEmpty()) {
         return;
     }
+    const auto &categoryAndName = categoryOpt.value();
 
     const QString localTemplates = userTemplatePath();
-    const QString dirName = source.dirName();
-    const QString destPath = QDir(localTemplates).filePath(category + QLatin1Char('/') + dirName);
+    const QString destPath = QDir(localTemplates).filePath(categoryAndName);
 
     if (QFileInfo::exists(destPath)) {
+        const QString name = lastPath(categoryAndName);
+        QString category = categoryAndName;
+        static QRegularExpression remNameRegExp;
+        remNameRegExp.setPattern(u"/%1$"_s.arg(name));
+        category.remove(remNameRegExp);
         const int ret =
             KMessageBox::warningContinueCancel(this,
-                                               i18n("A template '%1' already exists in category '%2'.\nDo you want to overwrite it?", dirName, category),
+                                               i18n("A template '%1' already exists in category '%2'.\nDo you want to overwrite it?", name, category),
                                                i18n("Overwrite Template"),
                                                KStandardGuiItem::overwrite(),
                                                KStandardGuiItem::cancel(),
                                                u"overwrite_imported_template_warning"_s);
-
         if (ret != KMessageBox::Continue) {
             return;
         }
@@ -852,8 +843,12 @@ void Template::importTemplate()
 
     if (success) {
         const QModelIndex idx = addUserTemplateEntry(QFileInfo(destPath));
-        ui->u_templateTree->expand(idx);
-        ui->u_templateTree->setCurrentIndex(idx);
+        if (idx != ui->u_templateTree->currentIndex()) {
+            ui->u_templateTree->expand(idx);
+            ui->u_templateTree->setCurrentIndex(idx);
+        } else {
+            templateIndexChanged(idx); // Force update even if index does not change
+        }
     } else {
         KMessageBox::error(this, i18n("Failed to import template."));
     }
@@ -911,21 +906,16 @@ void Template::removeTemplate()
                 break;
             }
         }
-        
-        m_removeButton->setEnabled(false);
-        ui->u_detailsTB->clear();
-        ui->u_configWidget->setEnabled(false);
+
+        const int rows = m_selectionModel.rowCount(currentIndex);
+        const QModelIndex selectIndex = m_selectionModel.index(rows - 1, 0, currentIndex);
+        ui->u_templateTree->expand(selectIndex);
+        ui->u_templateTree->setCurrentIndex(selectIndex);
+        // Force update in case the index does not change
+        // This also updates the remove button state and the template config
+        templateIndexChanged(selectIndex);
     } else {
         KMessageBox::error(this, i18n("Failed to delete the template."));
-    }
-}
-
-void Template::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Escape) {
-        cancel();
-    } else {
-        QWidget::keyPressEvent(event);
     }
 }
 

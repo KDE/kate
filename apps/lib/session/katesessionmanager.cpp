@@ -732,11 +732,19 @@ bool KateSessionManager::isViewLessDocumentViewSpaceGroup(const QString &group)
     static const QRegularExpression re(QStringLiteral("^MainWindow\\d+\\-ViewSpace\\s\\d+\\s(.*)$"));
     QRegularExpressionMatch match = re.match(group);
     if (match.hasMatch()) {
-        QUrl url(match.captured(1));
-        auto *docMan = KateApp::self()->documentManager();
-        auto *doc = docMan->findDocument(url);
-        if (doc && doc->views().empty() && docMan->documentList().contains(doc)) {
-            return true;
+        const auto captured = match.captured(1);
+        const auto *docMan = KateApp::self()->documentManager();
+
+        bool isInteger = false;
+        auto id = captured.toInt(&isInteger);
+        if (isInteger) {
+            auto doc = docMan->findDocumentForSessionConfigId(id);
+            return doc && doc->views().isEmpty();
+        }
+
+        if (QUrl url(captured); url.isValid()) {
+            auto *doc = docMan->findDocument(url);
+            return doc && doc->views().empty();
         }
     }
     return false;

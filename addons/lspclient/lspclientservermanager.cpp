@@ -912,11 +912,11 @@ private:
             if (!execPrefix.isEmpty()) {
                 if (!pathMapping)
                     pathMapping = execConfig.init_mapping(view);
-                env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN] = pluginName;
+                env[Utils::ExecConfig::ENV_KATE_EXEC_PLUGIN()] = pluginName;
                 env[QStringLiteral("KATE_EXEC_SERVER")] = realLangId;
                 // allow/enable mount inspection
                 if (pathMapping)
-                    env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT] = QStringLiteral("1");
+                    env[Utils::ExecConfig::ENV_KATE_EXEC_INSPECT()] = QStringLiteral("1");
             }
 
             // Setup flatpak path mappings

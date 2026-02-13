@@ -19,6 +19,9 @@
 
 #include "kate_exec_debug.h"
 
+static constexpr inline auto M_HOSTNAME = QLatin1String("hostname");
+static constexpr inline auto M_PREFIX = QLatin1String("prefix");
+
 namespace Utils
 {
 
@@ -234,6 +237,26 @@ void setupFlatpakPathMapping(PathMappingPtr &mapping)
         remote = QUrl(QStringLiteral("file:///home"));
         mapping->insert({local, remote});
     }
+}
+
+QString ExecConfig::hostname() const
+{
+    return config.value(M_HOSTNAME).toString();
+}
+
+QJsonValue ExecConfig::prefix() const
+{
+    return config.value(M_PREFIX);
+}
+
+QString ExecConfig::ENV_KATE_EXEC_PLUGIN()
+{
+    return QStringLiteral("KATE_EXEC_PLUGIN");
+}
+
+QString ExecConfig::ENV_KATE_EXEC_INSPECT()
+{
+    return QStringLiteral("KATE_EXEC_INSPECT");
 }
 
 } // Utils

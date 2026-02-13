@@ -46,23 +46,15 @@ class KATE_PRIVATE_EXPORT ExecConfig
     QJsonObject config;
 
 public:
-    static constexpr auto M_HOSTNAME = QLatin1String("hostname");
-    static constexpr auto M_PREFIX = QLatin1String("prefix");
     // environment var
-    static constexpr auto ENV_KATE_EXEC_PLUGIN = QLatin1String("KATE_EXEC_PLUGIN");
-    static constexpr auto ENV_KATE_EXEC_INSPECT = QLatin1String("KATE_EXEC_INSPECT");
+    static QString ENV_KATE_EXEC_PLUGIN();
+    static QString ENV_KATE_EXEC_INSPECT();
 
     static ExecConfig load(const QJsonObject &localConfig, const QJsonObject &projectConfig, QList<QJsonValue> extra);
 
-    QString hostname()
-    {
-        return config.value(M_HOSTNAME).toString();
-    }
+    QString hostname() const;
 
-    QJsonValue prefix()
-    {
-        return config.value(M_PREFIX);
-    }
+    QJsonValue prefix() const;
 
     PathMappingPtr init_mapping(KTextEditor::View *view);
 };

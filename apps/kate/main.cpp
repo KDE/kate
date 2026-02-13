@@ -273,9 +273,9 @@ int main(int argc, char **argv)
         dbusNotThere = false;
 
         /**
-         * try to get the current running kate instances
+         * the current running kate instances, loaded on demand
          */
-        const auto kateServices = fillinRunningKateAppInstances();
+        std::optional<std::vector<KateRunningInstanceInfo>> kateServices;
 
         QString serviceName;
         QString start_session;
@@ -286,10 +286,11 @@ int main(int argc, char **argv)
             force_new = true;
         } else if (parser.isSet(startSessionOption)) {
             start_session = parser.value(startSessionOption);
-            const auto it = std::find_if(kateServices.cbegin(), kateServices.cend(), [&start_session](const auto &instance) {
+            kateServices = fillinRunningKateAppInstances();
+            const auto it = std::find_if(kateServices->cbegin(), kateServices->cend(), [&start_session](const auto &instance) {
                 return instance.sessionName == start_session;
             });
-            if (it != kateServices.end()) {
+            if (it != kateServices->end()) {
                 serviceName = it->serviceName;
                 force_new = false;
                 session_already_opened = true;
@@ -301,13 +302,18 @@ int main(int argc, char **argv)
         // two possibilities: pid given or not...
         if ((!force_new) && serviceName.isEmpty()) {
             if ((parser.isSet(usePidOption)) || (!qEnvironmentVariableIsEmpty("KATE_PID"))) {
+                // get running instances if not already loaded
+                if (!kateServices) {
+                    kateServices = fillinRunningKateAppInstances();
+                }
+
                 QString usePid = (parser.isSet(usePidOption)) ? parser.value(usePidOption) : qEnvironmentVariable("KATE_PID");
 
                 serviceName = QLatin1String("org.kde.kate-") + usePid;
-                const auto it = std::find_if(kateServices.cbegin(), kateServices.cend(), [&serviceName](const auto &instance) {
+                const auto it = std::find_if(kateServices->cbegin(), kateServices->cend(), [&serviceName](const auto &instance) {
                     return instance.serviceName == serviceName;
                 });
-                if (it == kateServices.end()) {
+                if (it == kateServices->end()) {
                     serviceName.clear();
                 }
             }
@@ -317,8 +323,12 @@ int main(int argc, char **argv)
         // the start with lastUsedChosen = 0 will therefore filter that out, see bug 486066
         bool foundRunningService = false;
         if (!force_new && serviceName.isEmpty()) {
+            // get running instances if not already loaded
+            if (!kateServices) {
+                kateServices = fillinRunningKateAppInstances();
+            }
             qint64 lastUsedChosen = 0;
-            for (const auto &currentService : kateServices) {
+            for (const auto &currentService : *kateServices) {
                 if (currentService.lastActivationChange > lastUsedChosen) {
                     serviceName = currentService.serviceName;
                     lastUsedChosen = currentService.lastActivationChange;

@@ -1,367 +1,363 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 11:17+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
 #, kde-format
 msgid "Run"
-msgstr ""
+msgstr "Rith"
 
 #. i18n: ectx: property (text), widget (QLabel, label_34)
 #: config.ui:24
 #, kde-format
 msgid "Run time (milliseconds):"
-msgstr ""
+msgstr "Am rith (mileasoicindí):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_35)
 #: config.ui:41
 #, kde-format
 msgid "Probe level:"
-msgstr ""
+msgstr "Leibhéal tóireadóireachta:"
 
 #. i18n: ectx: property (text), widget (QLabel, userOpsLabel)
 #: config.ui:58
 #, kde-format
 msgid "User operations layout module:"
-msgstr ""
+msgstr "Modúl leagan amach oibríochtaí úsáideora:"
 
 #. i18n: ectx: property (text), widget (QLabel, userClassLabel)
 #: config.ui:71
 #, kde-format
 msgid "User classes file:"
-msgstr ""
+msgstr "Comhad ranganna úsáideora:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: config.ui:84
 #, kde-format
 msgid "Base period:"
-msgstr ""
+msgstr "Tréimhse bhunúsach:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: config.ui:101
 #, kde-format
 msgid "Reduction core count:"
-msgstr ""
+msgstr "Líon croí laghdaithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: config.ui:118
 #, kde-format
 msgid "Time core count:"
-msgstr ""
+msgstr "Líon croíleacáin ama:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, system)
 #: config.ui:136
 #, kde-format
 msgid "System"
-msgstr ""
+msgstr "Córas"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: config.ui:142
 #, kde-format
 msgid "Model inertia success rate threshold:"
-msgstr ""
+msgstr "Tairseach ráta rathúlachta táimhe samhail:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: config.ui:159
 #, kde-format
 msgid "Model inertia count threshold:"
-msgstr ""
+msgstr "Tairseach comhaireamh táimhe samhail:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: config.ui:176
 #, kde-format
 msgid "Targeted pattern extractor delta success rate threshold:"
-msgstr ""
+msgstr "Tairseach ráta rathúlachta delta eastóscóra patrún spriocdhírithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: config.ui:193
 #, kde-format
 msgid "Minimum simulation time horizon:"
-msgstr ""
+msgstr "Íosmhéid ama insamhalta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_10)
 #: config.ui:210
 #, kde-format
 msgid "Maximum simulation time horizon:"
-msgstr ""
+msgstr "Uasmhéid ama insamhalta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: config.ui:227
 #, kde-format
 msgid "Simulation time horizon:"
-msgstr ""
+msgstr "Léaslíne ama insamhalta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_12)
 #: config.ui:247
 #, kde-format
 msgid "Targeted pattern extractor time horizon:"
-msgstr ""
+msgstr "Léaslíne ama eastóscóra patrún spriocdhírithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_13)
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "Tréimhse samplála feidhmíochta:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281
 #, kde-format
 msgid "Float tolerance:"
-msgstr ""
+msgstr "Caoinfhulaingt snámhphointe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_15)
 #: config.ui:298
 #, kde-format
 msgid "Timer tolerance:"
-msgstr ""
+msgstr "Caoinfhulaingt an lasc ama:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_16)
 #: config.ui:318
 #, kde-format
 msgid "Primary time horizon:"
-msgstr ""
+msgstr "Príomhléargas ama:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_17)
 #: config.ui:335
 #, kde-format
 msgid "Secondary time horizon:"
-msgstr ""
+msgstr "Léaslíne ama tánaisteach:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_18)
 #: config.ui:352
 #, kde-format
 msgid "Notification marker resilience:"
-msgstr ""
+msgstr "Athléimneacht marcóirí fógra:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_19)
 #: config.ui:369
 #, kde-format
 msgid "Goal prediction success resilience:"
-msgstr ""
+msgstr "Athléimneacht rathúlachta tuar spriocanna:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, debugtab)
 #: config.ui:387
 #, kde-format
 msgid "Debug"
-msgstr ""
+msgstr "Dífhabhtú"
 
 #. i18n: ectx: property (text), widget (QLabel, label_22)
 #: config.ui:396
 #, kde-format
 msgid "Debug:"
-msgstr ""
+msgstr "Dífhabhtú:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_23)
 #: config.ui:413
 #, kde-format
 msgid "Debug windows:"
-msgstr ""
+msgstr "Fuinneoga dífhabhtaithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_24)
 #: config.ui:426
 #, kde-format
 msgid "Traces:"
-msgstr ""
+msgstr "Rianta:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompInputs)
 #: config.ui:433
 #, kde-format
 msgid "Composite inputs"
-msgstr ""
+msgstr "Ionchuir chomhchodacha"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceCompOutputs)
 #: config.ui:440
 #, kde-format
 msgid "Composite outputs"
-msgstr ""
+msgstr "Aschuir chomhchodacha"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelIn)
 #: config.ui:447
 #, kde-format
 msgid "Model inputs"
-msgstr ""
+msgstr "Ionchuir mhúnla"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelOut)
 #: config.ui:454
 #, kde-format
 msgid "Model outputs"
-msgstr ""
+msgstr "Aschuir samhail"
 
 #. i18n: ectx: property (text), widget (QCheckBox, tracePredMon)
 #: config.ui:461
 #, kde-format
 msgid "Prediction monitoring"
-msgstr ""
+msgstr "Monatóireacht réamhaisnéise"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceGoalMon)
 #: config.ui:468
 #, kde-format
 msgid "Goal monitoring"
-msgstr ""
+msgstr "Monatóireacht sprice"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModelRev)
 #: config.ui:475
 #, kde-format
 msgid "Model revision"
-msgstr ""
+msgstr "Athbhreithniú samhail"
 
 #. i18n: ectx: property (text), widget (QCheckBox, traceModComInj)
 #: config.ui:482
 #, kde-format
 msgid "Model/composite injections"
-msgstr ""
+msgstr "Instealltaí samhail/ilchodacha"
 
 #. i18n: ectx: property (text), widget (QLabel, label_21)
 #: config.ui:489
 #, kde-format
 msgid "Decompile objects:"
-msgstr ""
+msgstr "Réada a dhíthiomsú:"
 
 #. i18n: ectx: property (text), widget (QLabel, decompileFileLabel)
 #: config.ui:506
 #, kde-format
 msgid "Decompile to file:"
-msgstr ""
+msgstr "Díthiomsú go comhad:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_26)
 #: config.ui:516
 #, kde-format
 msgid "Ignore named objects:"
-msgstr ""
+msgstr "Déan neamhaird de réada ainmnithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_27)
 #: config.ui:533
 #, kde-format
 msgid "Dump objects to file:"
-msgstr ""
+msgstr "Dumpáil rudaí chuig comhad:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_28)
 #: config.ui:543
 #, kde-format
 msgid "Test objects:"
-msgstr ""
+msgstr "Réada tástála:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_30)
 #: config.ui:560
 #, kde-format
 msgid "Decompile models:"
-msgstr ""
+msgstr "Samhlacha díthiomsaithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_31)
 #: config.ui:577
 #, kde-format
 msgid "Ignore named models:"
-msgstr ""
+msgstr "Déan neamhaird de mhúnlaí ainmnithe:"
 
 #. i18n: ectx: property (text), widget (QLabel, dumpFileLabel)
 #: config.ui:594
 #, kde-format
 msgid "Dump models to file:"
-msgstr ""
+msgstr "Dumpáil samhlacha chuig comhad:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_33)
 #: config.ui:604
 #, kde-format
 msgid "Test models:"
-msgstr ""
+msgstr "Samhlacha tástála:"
 
 #: replicodeconfigpage.cpp:24
 #, kde-format
 msgid "Path to replicode executor:"
-msgstr ""
+msgstr "Cosán chuig forghníomhaitheoir replicode:"
 
 #: replicodeconfigpage.cpp:39 replicodeview.cpp:51
 #, kde-format
 msgid "Replicode"
-msgstr ""
+msgstr "Replicode"
 
 #: replicodeconfigpage.cpp:44
 #, kde-format
 msgid "Replicode configuration"
-msgstr ""
+msgstr "Cumraíocht replicode"
 
 #: replicodeview.cpp:38
 #, kde-format
 msgid "Run replicode"
-msgstr ""
+msgstr "Rith replicode"
 
 #: replicodeview.cpp:42
 #, kde-format
 msgid "Stop replicode"
-msgstr ""
+msgstr "Stop an chód atá á mhacasamhlú"
 
 #: replicodeview.cpp:61
 #, kde-format
 msgid "Replicode Config"
-msgstr ""
+msgstr "Cumraíocht replicode"
 
 #: replicodeview.cpp:64
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Run (%1)"
-msgstr ""
+msgstr "Rith (%1)"
 
 #: replicodeview.cpp:65
 #, kde-format
 msgctxt "shortcut for action"
 msgid "Stop (%1)"
-msgstr ""
+msgstr "Stop (%1)"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgctxt "@title:window"
 msgid "Active Document Not Found"
-msgstr ""
+msgstr "Níor aimsíodh an Doiciméad Gníomhach"
 
 #: replicodeview.cpp:100
 #, kde-format
 msgid "Could not find an active document to run."
-msgstr ""
+msgstr "Níorbh fhéidir doiciméad gníomhach a aimsiú le rith."
 
 #: replicodeview.cpp:105
 #, kde-format
 msgctxt "@title:window"
 msgid "Empty Document"
-msgstr ""
+msgstr "Doiciméad Folamh"
 
 #: replicodeview.cpp:105
 #, kde-format
 msgid "Cannot execute an empty document."
-msgstr ""
+msgstr "Ní féidir doiciméad folamh a fhorghníomhú."
 
 #: replicodeview.cpp:112
 #, kde-format
 msgctxt "@title:window"
 msgid "File Not Found"
-msgstr ""
+msgstr "Níor aimsíodh an comhad"
 
 #: replicodeview.cpp:112
 #, kde-format
 msgid "Unable to open source file for reading."
-msgstr ""
+msgstr "Ní féidir comhad foinse a oscailt le haghaidh léitheoireachta."
 
 #: replicodeview.cpp:127
 #, kde-format
 msgctxt "@title:window"
 msgid "Replicode Executable Not Found"
-msgstr ""
+msgstr "Níor aimsíodh an comhad inrite Replicode"
 
 #: replicodeview.cpp:128
 #, kde-format
@@ -369,12 +365,15 @@ msgid ""
 "Unable to find replicode executor.\n"
 "Please go to settings and set the path to the Replicode executable."
 msgstr ""
+"Ní féidir an forghníomhaitheoir repliccode a aimsiú.\n"
+"Téigh chuig na socruithe agus socraigh an cosán chuig an bhfoilseachán "
+"inrite Repliccode."
 
 #: replicodeview.cpp:135
 #, kde-format
 msgctxt "@title:window"
 msgid "User Operator Library Not Found"
-msgstr ""
+msgstr "Leabharlann Oibreora Úsáideora Gan Aimsiú"
 
 #: replicodeview.cpp:136
 #, kde-format
@@ -382,13 +381,15 @@ msgid ""
 "Unable to find user operator library.\n"
 "Please go to settings and set the path to the library."
 msgstr ""
+"Ní féidir leabharlann oibreora an úsáideora a aimsiú.\n"
+"Téigh chuig na socruithe agus socraigh an cosán chuig an leabharlann."
 
 #: replicodeview.cpp:201
 #, kde-format
 msgid "Replicode execution failed: %1"
-msgstr ""
+msgstr "Theip ar fhorghníomhú Replicode: %1"
 
 #: replicodeview.cpp:211
 #, kde-format
 msgid "Replicode execution finished."
-msgstr ""
+msgstr "Forghníomhú an chóid mhacasamhlaithe críochnaithe."

@@ -1,155 +1,151 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 12:27+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr ""
+msgstr "Comhad Iomlán Formáid Clang"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Tools"
-msgstr ""
+msgstr "Uirlisí"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Selected Text"
-msgstr ""
+msgstr "Clang Format Selected Text"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Compile and Run cpp"
-msgstr ""
+msgstr "Tiomsaigh agus Rith cpp"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "git blame"
-msgstr ""
+msgstr "git blame"
 
 #. i18n: file: 4
 #. i18n: file: 3
 #, kde-format
 msgctxt "External tool category"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "git-cola"
-msgstr ""
+msgstr "git-cola"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "gitk"
-msgstr ""
+msgstr "gitk"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr ""
+msgstr "Comhad Iomlán Téigh Fmt"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Go"
-msgstr ""
+msgstr "Téigh"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr ""
+msgstr "Comhad Iomlán GoImports"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Google Selected Text"
-msgstr ""
+msgstr "Téacs Roghnaithe Google"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Insert UUID"
-msgstr ""
+msgstr "Cuir UUID isteach"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr ""
+msgstr "Comhad Iomlán Formáid JSON"
 
 #. i18n: file: 7
 #, kde-format
 msgctxt "External tool name"
 msgid "Prettier Format Current File"
-msgstr ""
+msgstr "Formáid an Chomhaid Reatha Prettier"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Qt Quick 2 Preview (qmlscene)"
-msgstr ""
+msgstr "Réamhamharc Qt Quick 2 (qmlscene)"
 
 #. i18n: file: 4
 #, kde-format
 msgctxt "External tool category"
 msgid "Qt"
-msgstr ""
+msgstr "Qt"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "Run Shell Script"
-msgstr ""
+msgstr "Rith Script Shell"
 
 #. i18n: file: 9
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr ""
+msgstr "Comhad Iomlán Rust Fmt"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search KDE API"
-msgstr ""
+msgstr "Cuardaigh API KDE"
 
 #. i18n: file: 10
 #, kde-format
 msgctxt "External tool name"
 msgid "Search Qt API"
-msgstr ""
+msgstr "Cuardaigh API Qt"
 
 #. i18n: file: 8
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr ""
+msgstr "Comhad Iomlán Formáid XML"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -157,24 +153,26 @@ msgstr ""
 msgid ""
 "This list shows all the configured tools, represented by their menu text."
 msgstr ""
+"Taispeánann an liosta seo na huirlisí cumraithe go léir, arna léiriú ag a "
+"dtéacs roghchláir."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnAdd)
 #: configwidget.ui:29
 #, kde-format
 msgid "&Add"
-msgstr ""
+msgstr "&Cuir leis"
 
 #. i18n: ectx: property (text), widget (QPushButton, btnEdit)
 #: configwidget.ui:36
 #, kde-format
 msgid "&Edit..."
-msgstr ""
+msgstr "&Eagar..."
 
 #. i18n: ectx: property (text), widget (QPushButton, btnRemove)
 #: configwidget.ui:43
 #, kde-format
 msgid "&Remove"
-msgstr ""
+msgstr "&Bain"
 
 #: externaltoolsplugin.cpp:287
 #, kde-format
@@ -182,6 +180,9 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
+"Theip ar an gcomhad inrite '%1' a aimsiú. Cinntigh le do thoil go bhfuil an "
+"comhad inrite ann agus go bhfuil ainmneacha na n-athróg, má úsáidtear iad, "
+"tá siad ceart"
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
 #: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:271
@@ -190,191 +191,192 @@ msgstr ""
 #: kateexternaltoolsview.cpp:276
 #, kde-format
 msgid "External Tools"
-msgstr ""
+msgstr "Uirlisí Seachtracha"
 
 #: externaltoolsplugin.cpp:295
 #, kde-format
 msgid "Running %1: %2 %3"
-msgstr ""
+msgstr "Ag rith %1: %2 %3"
 
 #: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
-msgstr ""
+msgstr "Ag rith %1: %2 %3 le hionchur %4"
 
 #: externaltoolsplugin.cpp:399
 #, kde-format
 msgid "Data written to stderr:\n"
-msgstr ""
+msgstr "Sonraí scríofa chuig stderr:\n"
 
 #: externaltoolsplugin.cpp:410
 #, kde-format
 msgid "%1 crashed"
-msgstr ""
+msgstr "Thuairteáil %1"
 
 #: externaltoolsplugin.cpp:412
 #, kde-format
 msgid "%1 finished with exit code %2"
-msgstr ""
+msgstr "Chríochnaigh %1 le cód scoir %2"
 
 #: kateexternaltoolscommand.cpp:38
 #, kde-format
 msgid "Starts the external tool '%1'"
-msgstr ""
+msgstr "Tosaíonn sé an uirlis sheachtrach '%1'"
 
 #: kateexternaltoolsconfigwidget.cpp:131
 #, kde-format
 msgid "Edit External Tool"
-msgstr ""
+msgstr "Cuir Uirlis Sheachtrach in Eagar"
 
 #: kateexternaltoolsconfigwidget.cpp:164
 #, kde-format
 msgid "Revert tool to default settings"
-msgstr ""
+msgstr "Cuir an uirlis ar ais chuig na socruithe réamhshocraithe"
 
 #: kateexternaltoolsconfigwidget.cpp:189 kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "External Tool"
-msgstr ""
+msgstr "Uirlis Sheachtrach"
 
 #: kateexternaltoolsconfigwidget.cpp:189
 #, kde-format
 msgid "You must specify at least a name and an executable"
-msgstr ""
+msgstr "Ní mór duit ainm agus comhad inrite a shonrú ar a laghad"
 
 #: kateexternaltoolsconfigwidget.cpp:195
 #, kde-format
 msgid "With 'Trigger' enabled, at least one mimetype needs to be specified."
 msgstr ""
+"Agus 'Trigger' cumasaithe, ní mór cineál mime amháin ar a laghad a shonrú."
 
 #: kateexternaltoolsconfigwidget.cpp:204
 #, kde-format
 msgid "Select the MimeTypes for which to enable this tool."
-msgstr ""
+msgstr "Roghnaigh na Cineálacha MIME ar a mbeidh an uirlis seo cumasaithe."
 
 #: kateexternaltoolsconfigwidget.cpp:206
 #, kde-format
 msgid "Select Mime Types"
-msgstr ""
+msgstr "Roghnaigh Cineálacha Míme"
 
 #: kateexternaltoolsconfigwidget.cpp:240
 #, kde-format
 msgid "Add Tool..."
-msgstr ""
+msgstr "Cuir Uirlis Leis..."
 
 #: kateexternaltoolsconfigwidget.cpp:241
 #, kde-format
 msgid "Add Tool from Defaults"
-msgstr ""
+msgstr "Cuir Uirlis leis ó na Réamhshocruithe"
 
 #: kateexternaltoolsconfigwidget.cpp:243
 #, kde-format
 msgid "Add Category"
-msgstr ""
+msgstr "Cuir Catagóir leis"
 
 #: kateexternaltoolsconfigwidget.cpp:290 kateexternaltoolsconfigwidget.cpp:400
 #: kateexternaltoolsconfigwidget.cpp:447
 #, kde-format
 msgid "Uncategorized"
-msgstr ""
+msgstr "Gan catagóir"
 
 #: kateexternaltoolsconfigwidget.cpp:489
 #, kde-format
 msgid "New Category"
-msgstr ""
+msgstr "Catagóir Nua"
 
 #: kateexternaltoolsconfigwidget.cpp:492
 #, kde-format
 msgid "New Category %1"
-msgstr ""
+msgstr "Catagóir Nua %1"
 
 #: kateexternaltoolsview.cpp:100
 #, kde-format
 msgid "Configure..."
-msgstr ""
+msgstr "Cumraigh..."
 
 #: kateexternaltoolsview.cpp:162
 #, kde-format
 msgid "Launch external helper applications"
-msgstr ""
+msgstr "Seoladh feidhmchláir chúnta seachtracha"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ToolDialog)
 #: tooldialog.ui:14
 #, kde-format
 msgid "Edit Tool"
-msgstr ""
+msgstr "Uirlis Eagarthóireachta"
 
 #. i18n: ectx: property (text), widget (QLabel, lblName)
 #: tooldialog.ui:20
 #, kde-format
 msgid "Na&me:"
-msgstr ""
+msgstr "Ainm:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtName)
 #: tooldialog.ui:32
 #, kde-format
 msgid "The name will be displayed in the 'Tools->External Tools' menu."
-msgstr ""
+msgstr "Taispeánfar an t-ainm sa roghchlár 'Uirlisí->Uirlisí Seachtracha'."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtName)
 #: tooldialog.ui:35
 #, kde-format
 msgid "Short name of the tool"
-msgstr ""
+msgstr "Ainm gairid an uirlis"
 
 #. i18n: ectx: property (text), widget (QLabel, lblExecutable)
 #: tooldialog.ui:47
 #, kde-format
 msgid "Executable:"
-msgstr ""
+msgstr "Inrite:"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtExecutable)
 #: tooldialog.ui:57
 #, kde-format
 msgid "Application or interpreter"
-msgstr ""
+msgstr "Feidhmchlár nó ateangaire"
 
 #. i18n: ectx: property (text), widget (QLabel, lblArgs)
 #: tooldialog.ui:64
 #, kde-format
 msgid "Ar&guments:"
-msgstr ""
+msgstr "Argóintí:"
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtArgs)
 #: tooldialog.ui:74
 #, kde-format
 msgid "Command line arguments"
-msgstr ""
+msgstr "Argóintí líne ordaithe"
 
 #. i18n: ectx: property (text), widget (QLabel, lblInput)
 #: tooldialog.ui:81
 #, kde-format
 msgid "&Input:"
-msgstr ""
+msgstr "&Ionchur:"
 
 #. i18n: ectx: property (placeholderText), widget (QTextEdit, edtInput)
 #: tooldialog.ui:91
 #, kde-format
 msgid "Optional standard input"
-msgstr ""
+msgstr "Ionchur caighdeánach roghnach"
 
 #. i18n: ectx: property (text), widget (QLabel, lblWorkingDir)
 #: tooldialog.ui:98
 #, kde-format
 msgid "Working directory:"
-msgstr ""
+msgstr "Eolaire oibre:"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, edtWorkingDir)
 #: tooldialog.ui:108
 #, kde-format
 msgid "Uses current document path if empty"
-msgstr ""
+msgstr "Úsáideann sé an cosán doiciméad reatha má tá sé folamh"
 
 #. i18n: ectx: property (text), widget (QLabel, lblMimeType)
 #: tooldialog.ui:115
 #, kde-format
 msgid "Mime &types:"
-msgstr ""
+msgstr "Cineálacha míme:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:127
@@ -383,24 +385,27 @@ msgid ""
 "A semicolon-separated list of mime types for which this tool should be "
 "available. If empty, the tool is always available."
 msgstr ""
+"Liosta de chineálacha mime, scartha le leathstad, ar cheart an uirlis seo a "
+"bheith ar fáil dóibh. Má tá sé folamh, bíonn an uirlis ar fáil i gcónaí."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtMimeType)
 #: tooldialog.ui:130
 #, kde-format
 msgid "Show tool only for given mime types"
-msgstr ""
+msgstr "Taispeáin an uirlis do na cineálacha mime ar leith amháin"
 
 #. i18n: ectx: property (whatsThis), widget (QToolButton, btnMimeType)
 #: tooldialog.ui:137
 #, kde-format
 msgid "Opens a dialog that helps in creating a list of mimetypes."
 msgstr ""
+"Osclaíonn sé seo dialóg a chabhraíonn le liosta cineálacha mime a chruthú."
 
 #. i18n: ectx: property (text), widget (QLabel, lblSave)
 #: tooldialog.ui:149
 #, kde-format
 msgid "Save:"
-msgstr ""
+msgstr "Sábháil:"
 
 #. i18n: ectx: property (whatsThis), widget (QComboBox, cmbSave)
 #: tooldialog.ui:159
@@ -410,109 +415,112 @@ msgid ""
 "command. This is helpful if you want to pass URLs to an application like, "
 "for example, an FTP client."
 msgstr ""
+"Is féidir leat na doiciméid reatha nó na doiciméid mhodhnaithe go léir a "
+"shábháil sula ritheann tú an t-ordú. Tá sé seo úsáideach más mian leat "
+"URLanna a chur chuig feidhmchlár cosúil le cliant FTP, mar shampla."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:163 tooldialog.ui:189
 #, kde-format
 msgid "None"
-msgstr ""
+msgstr "Dada"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #: tooldialog.ui:168
 #, kde-format
 msgid "Current Document"
-msgstr ""
+msgstr "Doiciméad Reatha"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbSave)
 #: tooldialog.ui:173
 #, kde-format
 msgid "All Documents"
-msgstr ""
+msgstr "Gach Doiciméad"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: tooldialog.ui:181
 #, kde-format
 msgid "Trigger"
-msgstr ""
+msgstr "Spriocdhíriú"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:194
 #, kde-format
 msgid "Before Save"
-msgstr ""
+msgstr "Roimh Shábháil"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbTrigger)
 #: tooldialog.ui:199
 #, kde-format
 msgid "After Save"
-msgstr ""
+msgstr "Tar éis Sábháil"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkReload)
 #: tooldialog.ui:207
 #, kde-format
 msgid "Reload current document after execution"
-msgstr ""
+msgstr "Athlódáil an doiciméad reatha tar éis é a fhorghníomhú"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: tooldialog.ui:214
 #, kde-format
 msgid "O&utput:"
-msgstr ""
+msgstr "Aschur:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:225
 #, kde-format
 msgid "Ignore"
-msgstr ""
+msgstr "Déan neamhaird de"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:230
 #, kde-format
 msgid "Insert at Cursor Position"
-msgstr ""
+msgstr "Cuir isteach ag Suíomh an Chúrsóra"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:235
 #, kde-format
 msgid "Replace Selected Text"
-msgstr ""
+msgstr "Ionadaigh an Téacs Roghnaithe"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:240
 #, kde-format
 msgid "Replace Current Document"
-msgstr ""
+msgstr "Ionadaigh an Doiciméad Reatha"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:245
 #, kde-format
 msgid "Append to Current Document"
-msgstr ""
+msgstr "Cuir leis an Doiciméad Reatha"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:250
 #, kde-format
 msgid "Insert in New Document"
-msgstr ""
+msgstr "Cuir isteach i nDoiciméad Nua"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:255
 #, kde-format
 msgid "Copy to Clipboard"
-msgstr ""
+msgstr "Cóipeáil chuig an nGearrthaisce"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, cmbOutput)
 #: tooldialog.ui:260
 #, kde-format
 msgid "Display in Pane"
-msgstr ""
+msgstr "Taispeáin sa Phána"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: tooldialog.ui:268
 #, kde-format
 msgid "Editor command:"
-msgstr ""
+msgstr "Ordú eagarthóra:"
 
 #. i18n: ectx: property (whatsThis), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:278
@@ -522,33 +530,36 @@ msgid ""
 "line with the_name_you_specified_here. Please do not use spaces or tabs in "
 "the name."
 msgstr ""
+"Má shonraíonn tú ainm anseo, is féidir leat an t-ordú a ghairm ón líne "
+"ordaithe view leis an_ainm_a_shonraigh_tú_anseo. Ná húsáid spásanna ná "
+"tabanna san ainm, le do thoil."
 
 #. i18n: ectx: property (placeholderText), widget (QLineEdit, edtCommand)
 #: tooldialog.ui:281
 #, kde-format
 msgid "Optional view command line name"
-msgstr ""
+msgstr "Ainm líne ordaithe radhairc roghnach"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tabOutput)
 #: toolview.ui:27
 #, kde-format
 msgid "Output"
-msgstr ""
+msgstr "Aschur"
 
 #. i18n: ectx: property (placeholderText), widget (QTextEdit, teOutput)
 #: toolview.ui:36
 #, kde-format
 msgid "Displays output from the external tool"
-msgstr ""
+msgstr "Taispeánann sé aschur ón uirlis sheachtrach"
 
 #. i18n: ectx: Menu (tools)
 #: ui.rc:5
 #, kde-format
 msgid "&Tools"
-msgstr ""
+msgstr "&Uirlisí"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: ui.rc:9
 #, kde-format
 msgid "Main Toolbar"
-msgstr ""
+msgstr "Príomhbharra Uirlisí"

@@ -1,68 +1,64 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 13:59+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Scagaire…"
 
 #: lspclientconfigpage.cpp:103 lspclientconfigpage.cpp:108
 #: lspclientpluginview.cpp:477 lspclientpluginview.cpp:621
 #, kde-format
 msgid "LSP Client"
-msgstr ""
+msgstr "Cliant LSP"
 
 #: lspclientconfigpage.cpp:230
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Gan aon sonraí JSON le bailíochtú."
 
 #: lspclientconfigpage.cpp:239
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "Tá sonraí JSON bailí."
 
 #: lspclientconfigpage.cpp:241
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "Tá sonraí JSON neamhbhailí: níl aon réad JSON ann"
 
 #: lspclientconfigpage.cpp:244
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "Tá sonraí JSON neamhbhailí: %1"
 
 #: lspclientconfigpage.cpp:292
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "Scrios na hiontrálacha roghnaithe"
 
 #: lspclientconfigpage.cpp:298
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Scrios gach iontráil"
 
 #: lspclientplugin.cpp:235
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "Iarradh tús a chur le freastalaí LSP"
 
 #: lspclientplugin.cpp:238
 #, kde-format
@@ -71,6 +67,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"Ar mhaith leat an freastalaí LSP a thosú?<br><br>Seo an líne ordaithe iomlán:"
+"<br><br><b>%1</b><br><br>Is féidir an rogha a athrú tríd an leathanach "
+"cumraíochta den bhreiseán."
 
 #: lspclientplugin.cpp:251
 #, kde-format
@@ -78,310 +77,313 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"Úsáideoir blocáilte go buan ag tús: '%1'. Úsáid leathanach cumraíochta an "
+"bhreiseáin chun an blocáil seo a chealú."
 
 #: lspclientpluginview.cpp:442 lspclientpluginview.cpp:683
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:506
 #, kde-format
 msgid "Go to Definition"
-msgstr ""
+msgstr "Téigh go dtí an Sainmhíniú"
 
 #: lspclientpluginview.cpp:508
 #, kde-format
 msgid "Go to Declaration"
-msgstr ""
+msgstr "Téigh go dtí an Dearbhú"
 
 #: lspclientpluginview.cpp:510
 #, kde-format
 msgid "Go to Type Definition"
-msgstr ""
+msgstr "Téigh go dtí Sainmhíniú Cineál"
 
 #: lspclientpluginview.cpp:512
 #, kde-format
 msgid "Find References"
-msgstr ""
+msgstr "Aimsigh Tagairtí"
 
 #: lspclientpluginview.cpp:515
 #, kde-format
 msgid "Find Implementations"
-msgstr ""
+msgstr "Aimsigh Cur i bhFeidhm"
 
 #: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Highlight"
-msgstr ""
+msgstr "Aibhsigh"
 
 #: lspclientpluginview.cpp:519
 #, kde-format
 msgid "Symbol Info"
-msgstr ""
+msgstr "Eolas Siombail"
 
 #: lspclientpluginview.cpp:521
 #, kde-format
 msgid "Search and Go to Symbol"
-msgstr ""
+msgstr "Cuardaigh agus Téigh go Siombail"
 
 #: lspclientpluginview.cpp:526
 #, kde-format
 msgid "Format"
-msgstr ""
+msgstr "Formáid"
 
 #: lspclientpluginview.cpp:529
 #, kde-format
 msgid "Rename"
-msgstr ""
+msgstr "Athainmnigh"
 
 #: lspclientpluginview.cpp:532
 #, kde-format
 msgid "Expand Selection"
-msgstr ""
+msgstr "Leathnaigh an Roghnú"
 
 #: lspclientpluginview.cpp:535
 #, kde-format
 msgid "Shrink Selection"
-msgstr ""
+msgstr "Laghdaigh an Roghnú"
 
 #: lspclientpluginview.cpp:538
 #, kde-format
 msgid "Switch Source Header"
-msgstr ""
+msgstr "Ceanntásc Foinse Athraigh"
 
 #: lspclientpluginview.cpp:541
 #, kde-format
 msgid "Expand Macro"
-msgstr ""
+msgstr "Macra Leathnaigh"
 
 #: lspclientpluginview.cpp:543
 #, kde-format
 msgid "Code Action"
-msgstr ""
+msgstr "Gníomh Cód"
 
 #: lspclientpluginview.cpp:558
 #, kde-format
 msgid "Show lsp completions"
-msgstr ""
+msgstr "Taispeáin críochnaithe lsp"
 
 #: lspclientpluginview.cpp:561
 #, kde-format
 msgid "Show selected completion documentation"
-msgstr ""
+msgstr "Taispeáin an doiciméadacht críochnaithe roghnaithe"
 
 #: lspclientpluginview.cpp:564
 #, kde-format
 msgid "Enable signature help with auto completion"
-msgstr ""
+msgstr "Cumasaigh cabhair le síniú le comhlánú uathoibríoch"
 
 #: lspclientpluginview.cpp:567
 #, kde-format
 msgid "Include declaration in references"
-msgstr ""
+msgstr "Cuir dearbhú san áireamh sna tagairtí"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplParens)
 #: lspclientpluginview.cpp:570 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
-msgstr ""
+msgstr "Cuir lúibíní leis nuair a bheidh an fheidhm críochnaithe"
 
 #: lspclientpluginview.cpp:573
 #, kde-format
 msgid "Show hover information"
-msgstr ""
+msgstr "Taispeáin faisnéis luiche"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkOnTypeFormatting)
 #: lspclientpluginview.cpp:576 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
-msgstr ""
+msgstr "Formáid ar chlóscríobh"
 
 #: lspclientpluginview.cpp:579
 #, kde-format
 msgid "Incremental document synchronization"
-msgstr ""
+msgstr "Sioncrónú doiciméad incriminteach"
 
 #: lspclientpluginview.cpp:582
 #, kde-format
 msgid "Highlight goto location"
-msgstr ""
+msgstr "Aibhsigh suíomh goto"
 
 #: lspclientpluginview.cpp:591
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Taispeáin Leideanna Inleagain"
 
 #: lspclientpluginview.cpp:595
 #, kde-format
 msgid "Show Diagnostics Notifications"
-msgstr ""
+msgstr "Taispeáin Fógraí Diagnóisice"
 
 #: lspclientpluginview.cpp:600
 #, kde-format
 msgid "Show Messages"
-msgstr ""
+msgstr "Taispeáin Teachtaireachtaí"
 
 #: lspclientpluginview.cpp:605
 #, kde-format
 msgid "Server Memory Usage"
-msgstr ""
+msgstr "Úsáid Cuimhne Freastalaí"
 
 #: lspclientpluginview.cpp:609
 #, kde-format
 msgid "Close All Dynamic Reference Tabs"
-msgstr ""
+msgstr "Dún Gach Cluaisín Tagartha Dinimiciúil"
 
 #: lspclientpluginview.cpp:611
 #, kde-format
 msgid "Restart LSP Server"
-msgstr ""
+msgstr "Atosaigh Freastalaí LSP"
 
 #: lspclientpluginview.cpp:613
 #, kde-format
 msgid "Restart All LSP Servers"
-msgstr ""
+msgstr "Atosaigh Gach Freastalaí LSP"
 
 #: lspclientpluginview.cpp:615
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Téigh Chuig"
 
 #: lspclientpluginview.cpp:638
 #, kde-format
 msgid "More options"
-msgstr ""
+msgstr "Tuilleadh roghanna"
 
 #: lspclientpluginview.cpp:841 lspclientsymbolview.cpp:397
 #, kde-format
 msgid "Expand All"
-msgstr ""
+msgstr "Leathnaigh Uile"
 
 #: lspclientpluginview.cpp:842 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
-msgstr ""
+msgstr "Laghdaigh Gach Rud"
 
 #: lspclientpluginview.cpp:1049
 #, kde-format
 msgid "RangeHighLight"
-msgstr ""
+msgstr "Buaicphointe Raoin"
 
 #: lspclientpluginview.cpp:1318
 #, kde-format
 msgid "Line: %1: "
-msgstr ""
+msgstr "Líne: %1: "
 
 #: lspclientpluginview.cpp:1470 lspclientpluginview.cpp:1819
 #: lspclientpluginview.cpp:1938
 #, kde-format
 msgid "No results"
-msgstr ""
+msgstr "Gan aon torthaí"
 
 #: lspclientpluginview.cpp:1529
 #, kde-format
 msgctxt "@title:tab"
 msgid "Definition: %1"
-msgstr ""
+msgstr "Sainmhíniú: %1"
 
 #: lspclientpluginview.cpp:1535
 #, kde-format
 msgctxt "@title:tab"
 msgid "Declaration: %1"
-msgstr ""
+msgstr "Dearbhú: %1"
 
 #: lspclientpluginview.cpp:1541
 #, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
-msgstr ""
+msgstr "Sainmhíniú Cineál: %1"
 
 #: lspclientpluginview.cpp:1547
 #, kde-format
 msgctxt "@title:tab"
 msgid "References: %1"
-msgstr ""
+msgstr "Tagairtí: %1"
 
 #: lspclientpluginview.cpp:1559
 #, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
-msgstr ""
+msgstr "Cur i bhFeidhm: %1"
 
 #: lspclientpluginview.cpp:1572
 #, kde-format
 msgctxt "@title:tab"
 msgid "Highlight: %1"
-msgstr ""
+msgstr "Aibhsigh: %1"
 
 #: lspclientpluginview.cpp:1596 lspclientpluginview.cpp:1607
 #: lspclientpluginview.cpp:1620
 #, kde-format
 msgid "No Actions"
-msgstr ""
+msgstr "Gan Gníomhartha"
 
 #: lspclientpluginview.cpp:1611
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Ag lódáil..."
 
 #: lspclientpluginview.cpp:1703
 #, kde-format
 msgid "No edits"
-msgstr ""
+msgstr "Gan aon eagarthóireacht"
 
 #: lspclientpluginview.cpp:1778
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename"
-msgstr ""
+msgstr "Athainmnigh"
 
 #: lspclientpluginview.cpp:1779
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New name (caution: not all references may be replaced)"
-msgstr ""
+msgstr "Ainm nua (rabhadh: ní féidir gach tagairt a athsholáthar)"
 
 #: lspclientpluginview.cpp:1825
 #, kde-format
 msgid "Not enough results"
-msgstr ""
+msgstr "Gan dóthain torthaí"
 
 #: lspclientpluginview.cpp:1894
 #, kde-format
 msgid "Corresponding Header/Source not found"
-msgstr ""
+msgstr "Ceanntásc/Foinse Chomhfhreagrach gan aimsiú"
 
 #: lspclientpluginview.cpp:2091 lspclientpluginview.cpp:2134
 #, kde-format
 msgctxt "@info"
 msgid "LSP Server"
-msgstr ""
+msgstr "Freastalaí LSP"
 
 #: lspclientpluginview.cpp:2157
 #, kde-format
 msgctxt "@info"
 msgid "LSP Client"
-msgstr ""
+msgstr "Cliant LSP"
 
 #: lspclientpluginview.cpp:2407
 #, kde-format
 msgid "Question from LSP server"
-msgstr ""
+msgstr "Ceist ó fhreastalaí LSP"
 
 #: lspclientservermanager.cpp:604
 #, kde-format
 msgid "Restarting"
-msgstr ""
+msgstr "Atosú"
 
 #: lspclientservermanager.cpp:604
 #, kde-format
 msgid "NOT Restarting"
-msgstr ""
+msgstr "GAN Atosú"
 
 #: lspclientservermanager.cpp:605
 #, kde-format
 msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr ""
+"Foirceannadh an fhreastalaí gan choinne ... %1 [%2] [leathanach baile: %3] "
 
 #: lspclientservermanager.cpp:876
 #, kde-format
@@ -391,12 +393,12 @@ msgstr ""
 #: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
-msgstr ""
+msgstr "Seiceáil do PATH le haghaidh an chomhaid dhénártha le do thoil"
 
 #: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
 #, kde-format
 msgid "See also %1 for installation or details"
-msgstr ""
+msgstr "Féach freisin %1 le haghaidh suiteáil nó sonraí"
 
 #: lspclientservermanager.cpp:935
 #, kde-format
@@ -406,245 +408,247 @@ msgstr ""
 #: lspclientservermanager.cpp:943
 #, kde-format
 msgid "Started server %2: %1"
-msgstr ""
+msgstr "Freastalaí %2 tosaithe: %1"
 
 #: lspclientservermanager.cpp:979
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
 msgstr ""
+"Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: níl aon réad JSON ann"
 
 #: lspclientservermanager.cpp:982
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr ""
+msgstr "Theip ar chumraíocht an fhreastalaí '%1' a pharsáil: %2"
 
 #: lspclientservermanager.cpp:986
 #, kde-format
 msgid "Failed to read server configuration: %1"
-msgstr ""
+msgstr "Theip ar chumraíocht an fhreastalaí a léamh: %1"
 
 #: lspclientsymbolhighlighter.cpp:30
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Téigh go dtí an chéad aibhsiú siombaile eile"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Téigh go dtí an siombail roimhe seo a aibhsiú"
 
 #: lspclientsymbolview.cpp:342
 #, kde-format
 msgid "Symbol Outline"
-msgstr ""
+msgstr "Imlíne Siombail"
 
 #: lspclientsymbolview.cpp:388
 #, kde-format
 msgid "Tree Mode"
-msgstr ""
+msgstr "Mód Crann"
 
 #: lspclientsymbolview.cpp:390
 #, kde-format
 msgid "Automatically Expand Tree"
-msgstr ""
+msgstr "Leathnaigh an Crann go hUathoibríoch"
 
 #: lspclientsymbolview.cpp:392
 #, kde-format
 msgid "Sort Alphabetically"
-msgstr ""
+msgstr "Sórtáil in ord aibítre"
 
 #: lspclientsymbolview.cpp:394
 #, kde-format
 msgid "Show Details"
-msgstr ""
+msgstr "Taispeáin Sonraí"
 
 #: lspclientsymbolview.cpp:556
 #, kde-format
 msgid "Symbols"
-msgstr ""
+msgstr "Siombailí"
 
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "Ní thacaíonn freastalaí LSP le himlíne siombailí."
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
 msgid "No LSP server for this document."
-msgstr ""
+msgstr "Níl aon fhreastalaí LSP ann don doiciméad seo."
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: lspconfigwidget.ui:33
 #, kde-format
 msgid "Client Settings"
-msgstr ""
+msgstr "Socruithe Cliant"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Format on save"
-msgstr ""
+msgstr "Formáidigh ar shábháil"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
 #, kde-format
 msgid "Enable semantic highlighting"
-msgstr ""
+msgstr "Cumasaigh aibhsiú séimeantach"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkInlayHint)
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Cumasaigh leideanna inleagain"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
 #, kde-format
 msgid "Completions:"
-msgstr ""
+msgstr "Críochnuithe:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
 #, kde-format
 msgid "Show completions"
-msgstr ""
+msgstr "Taispeáin críochnaithe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89
 #, kde-format
 msgid "Show inline docs for selected completion"
-msgstr ""
+msgstr "Taispeáin doiciméid inlíne don chomhlánú roghnaithe"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:96
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr ""
+msgstr "Taispeáin síniú feidhme agus glao feidhme á chlóscríobh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
 msgstr ""
+"Cuir allmhairí leis go huathoibríoch más gá nuair a bheidh siad críochnaithe"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Navigation:"
-msgstr ""
+msgstr "Loingseoireacht:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:124
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "Dearbhuithe a chomhaireamh agus tagairtí do shiombail á gcuardach"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:131
 #, kde-format
 msgid "Show information about currently hovered symbol"
-msgstr ""
+msgstr "Taispeáin faisnéis faoin tsiombail atá ag luí faoi láthair"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Highlight target line when hopping to it"
-msgstr ""
+msgstr "Aibhsigh an líne sprice agus tú ag léim chuici"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lspconfigwidget.ui:145
 #, kde-format
 msgid "Server:"
-msgstr ""
+msgstr "Freastalaí:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:152
 #, kde-format
 msgid "Show program diagnostics"
-msgstr ""
+msgstr "Taispeáin diagnóisic chláir"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
 #: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show notifications from the LSP server"
-msgstr ""
+msgstr "Taispeáin fógraí ón bhfreastalaí LSP"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
 #: lspconfigwidget.ui:166
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
-msgstr ""
+msgstr "Sioncrónaigh doiciméid de réir a chéile leis an bhfreastalaí LSP"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: lspconfigwidget.ui:173
 #, kde-format
 msgid "Document outline:"
-msgstr ""
+msgstr "Achoimre ar an doiciméad:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:180
 #, kde-format
 msgid "Sort symbols alphabetically"
-msgstr ""
+msgstr "Sórtáil siombailí in ord aibítre"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
 #: lspconfigwidget.ui:187
 #, kde-format
 msgid "Display additional details for symbols"
-msgstr ""
+msgstr "Taispeáin sonraí breise le haghaidh siombailí"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
 #: lspconfigwidget.ui:194
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr ""
+msgstr "Cuir siombailí i láthair in ordlathas seachas liosta comhréidh"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:209
 #, kde-format
 msgid "Automatically expand tree"
-msgstr ""
+msgstr "Leathnaigh an crann go huathoibríoch"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightSymbol)
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Aibhsigh an tsiombail faoin gcúrsóir"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "Freastalaithe Ceadaithe & Blocáilte"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:251
 #, kde-format
 msgid "User Server Settings"
-msgstr ""
+msgstr "Socruithe Freastalaí Úsáideora"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lspconfigwidget.ui:259
 #, kde-format
 msgid "Settings File:"
-msgstr ""
+msgstr "Comhad Socruithe:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: lspconfigwidget.ui:286
 #, kde-format
 msgid "Default Server Settings"
-msgstr ""
+msgstr "Socruithe Réamhshocraithe Freastalaí"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
 #, kde-format
 msgid "&LSP Client"
-msgstr ""
+msgstr "Cliant &LSP"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:31
 #, kde-format
 msgid "More Options"
-msgstr ""
+msgstr "Tuilleadh Roghanna"

@@ -1,127 +1,125 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 11:00+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: FormatApply.h:22 FormatApply.h:33 FormatApply.h:38 FormatPlugin.cpp:81
 #: FormatPlugin.cpp:235 Formatters.cpp:324 Formatters.cpp:344
 #: Formatters.cpp:367 Formatters.cpp:397
 #, kde-format
 msgid "Format"
-msgstr ""
+msgstr "Formáid"
 
 #: FormatApply.h:22
 #, kde-format
 msgid "Failed to write a temp file"
-msgstr ""
+msgstr "Theip ar chomhad sealadach a scríobh"
 
 #: FormatApply.h:33
 #, kde-format
 msgid "Failed to run git diff: git not installed"
-msgstr ""
+msgstr "Theip ar rith git diff: níl git suiteáilte"
 
 #: FormatApply.h:38
 #, kde-format
 msgid "Failed to run git diff: %1"
-msgstr ""
+msgstr "Theip ar rith git diff: %1"
 
 #: FormatConfig.cpp:119
 #, kde-format
 msgid "User Settings"
-msgstr ""
+msgstr "Socruithe Úsáideora"
 
 #: FormatConfig.cpp:127
 #, kde-format
 msgid "Default Settings"
-msgstr ""
+msgstr "Socruithe Réamhshocraithe"
 
 #: FormatConfig.h:18 FormatPlugin.cpp:111
 #, kde-format
 msgid "Formatting"
-msgstr ""
+msgstr "Formáidiú"
 
 #: FormatConfig.h:23
 #, kde-format
 msgid "Formatting Settings"
-msgstr ""
+msgstr "Socruithe Formáidithe"
 
 #: FormatPlugin.cpp:81
 #, kde-format
 msgid "Failed to read settings.json. Error: %1"
-msgstr ""
+msgstr "Theip ar settings.json a léamh. Earráid: %1"
 
 #: FormatPlugin.cpp:117
 #, kde-format
 msgid "Format Document"
-msgstr ""
+msgstr "Formáid an Doiciméid"
 
 #: FormatPlugin.cpp:127
 #, kde-format
 msgid "Format on Save"
-msgstr ""
+msgstr "Formáidigh ar Shábháil"
 
 #: FormatPlugin.cpp:130
 #, kde-format
 msgid "Disable formatting on save without persisting it in settings"
-msgstr ""
+msgstr "Díchumasaigh formáidiú ar shábháil gan é a choinneáil sna socruithe"
 
 #: Formatters.cpp:118
 #, kde-format
 msgid "%1: Unexpected empty command!"
-msgstr ""
+msgstr "%1: Ordú folamh gan choinne!"
 
 #: Formatters.cpp:125
 #, kde-format
 msgid ""
 "%1 is not installed, please install it to be able to format this document!"
 msgstr ""
+"Níl %1 suiteáilte, suiteáil é le go mbeidh tú in ann an doiciméad seo a "
+"fhormáidiú!"
 
 #: Formatters.cpp:194
 #, kde-format
 msgid "Please install node and prettier"
-msgstr ""
+msgstr "Suiteáil node agus prettier le do thoil"
 
 #: Formatters.cpp:201
 #, kde-format
 msgid "PrettierFormat: Failed to create temporary file"
-msgstr ""
+msgstr "PrettierFormat: Theip ar chruthú comhad sealadach"
 
 #: Formatters.cpp:222
 #, kde-format
 msgid "PrettierFormat: Failed to start 'node': %1"
-msgstr ""
+msgstr "PrettierFormat: Theip ar thosú 'node': %1"
 
 #: Formatters.cpp:324
 #, kde-format
 msgid "Unknown formatterForJson: %1"
-msgstr ""
+msgstr "Formáideoir anaithnidDoJson: %1"
 
 #: Formatters.cpp:344
 #, kde-format
 msgid "Unknown formatterForPython: %1"
-msgstr ""
+msgstr "Formáideoir anaithnidDoPython: %1"
 
 #: Formatters.cpp:367
 #, kde-format
 msgid "Unknown formatterForYaml: %1, falling back to yamlfmt"
-msgstr ""
+msgstr "Unknown formatterForYaml: %1, ag titim ar ais go yamlfmtmt"
 
 #: Formatters.cpp:397
 #, kde-format
 msgid "Failed to run formatter. Unsupported language %1"
-msgstr ""
+msgstr "Theip ar an fhormáideoir a rith. Teanga nach dtacaítear léi %1"

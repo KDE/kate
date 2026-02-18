@@ -1,27 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 12:00+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: colorpickerconfigpage.cpp:34
 #, kde-format
 msgid "Show preview for known color names"
-msgstr ""
+msgstr "Taispeáin réamhamharc d'ainmneacha dathanna aitheanta"
 
 #: colorpickerconfigpage.cpp:36
 #, kde-format
@@ -30,58 +26,62 @@ msgid ""
 "See https://www.w3.org/TR/SVG11/types.html#ColorKeywords for the list of "
 "colors."
 msgstr ""
+"Taispeáin an roghnóir dathanna freisin le haghaidh ainmneacha dathanna "
+"aitheanta (m.sh. gorm spéir).\n"
+"Féach https://www.w3.org/TR/SVG11/types.html#ColorKeywords le haghaidh "
+"liosta na ndathanna."
 
 #: colorpickerconfigpage.cpp:39
 #, kde-format
 msgid "Place preview after text color"
-msgstr ""
+msgstr "Cuir réamhamharc i ndiaidh dath an téacs"
 
 #: colorpickerconfigpage.cpp:53
 #, kde-format
 msgid "Hex color matching"
-msgstr ""
+msgstr "Hex color matching"
 
 #: colorpickerconfigpage.cpp:56
 #, kde-format
 msgid "12 digits (#RRRRGGGGBBBB)"
-msgstr ""
+msgstr "12 dhigit (#RRRRGGGGBBBB)"
 
 #: colorpickerconfigpage.cpp:57
 #, kde-format
 msgid "9 digits (#RRRGGGBBB)"
-msgstr ""
+msgstr "9 ndigit (#RRRGGGBBB)"
 
 #: colorpickerconfigpage.cpp:58
 #, kde-format
 msgid "8 digits (#AARRGGBB)"
-msgstr ""
+msgstr "8 ndigit (#AARRGGBB)"
 
 #: colorpickerconfigpage.cpp:59
 #, kde-format
 msgid "6 digits (#RRGGBB)"
-msgstr ""
+msgstr "6 dhigit (#RRGGBB)"
 
 #: colorpickerconfigpage.cpp:60
 #, kde-format
 msgid "3 digits (#RGB)"
-msgstr ""
+msgstr "3 dhigit (#RGB)"
 
 #: colorpickerconfigpage.cpp:84
 #, kde-format
 msgid "Color Picker"
-msgstr ""
+msgstr "Roghnóir Dathanna"
 
 #: colorpickerconfigpage.cpp:89
 #, kde-format
 msgid "Color Picker Settings"
-msgstr ""
+msgstr "Socruithe Roghnóra Dathanna"
 
 #: katecolorpickerplugin.cpp:255
 #, kde-format
 msgid "Select Color (Hex output)"
-msgstr ""
+msgstr "Roghnaigh Dath (Aschur Heicseagánach)"
 
 #: katecolorpickerplugin.cpp:258
 #, kde-format
 msgid "View Color [Read only]"
-msgstr ""
+msgstr "Dath Amhairc [Léigh amháin]"

@@ -1,315 +1,311 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 12:39+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: katefiletree.cpp:123
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Reloa&d"
-msgstr ""
+msgstr "Athló&dáil"
 
 #: katefiletree.cpp:125
 #, kde-format
 msgid "Reload selected document(s) from disk."
-msgstr ""
+msgstr "Athlódáil an doiciméad/na doiciméid roghnaithe ón diosca."
 
 #: katefiletree.cpp:127
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr ""
+msgstr "Dún"
 
 #: katefiletree.cpp:129
 #, kde-format
 msgid "Close the current document."
-msgstr ""
+msgstr "Dún an doiciméad reatha."
 
 #: katefiletree.cpp:131
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "Leathnaigh go hathchúrsach"
 
 #: katefiletree.cpp:133
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr ""
+msgstr "Leathnaigh fo-chrann an liosta comhad go hathchúrsach."
 
 #: katefiletree.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "Laghdaigh go hathchúrsach"
 
 #: katefiletree.cpp:137
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr ""
+msgstr "Laghdaigh fo-chrann an liosta comhad go hathchúrsach."
 
 #: katefiletree.cpp:139
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close Other"
-msgstr ""
+msgstr "Dún Eile"
 
 #: katefiletree.cpp:141
 #, kde-format
 msgid "Close other documents in this folder."
-msgstr ""
+msgstr "Dún doiciméid eile sa bhfillteán seo."
 
 #: katefiletree.cpp:144
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr ""
+msgstr "Oscail an Fillteán ina bhfuil"
 
 #: katefiletree.cpp:146
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "Oscail an fillteán ina bhfuil an comhad seo suite."
 
 #: katefiletree.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Cóipeáil Suíomh"
 
 #: katefiletree.cpp:150
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr ""
+msgstr "Cóipeáil an cosán agus ainm an chomhaid chuig an ghearrthaisce."
 
 #: katefiletree.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr ""
+msgstr "Athainmnigh..."
 
 #: katefiletree.cpp:154
 #, kde-format
 msgid "Rename the selected file."
-msgstr ""
+msgstr "Athainmnigh an comhad roghnaithe."
 
 #: katefiletree.cpp:157
 #, kde-format
 msgid "Print selected document."
-msgstr ""
+msgstr "Priontáil an doiciméad roghnaithe."
 
 #: katefiletree.cpp:160
 #, kde-format
 msgid "Show print preview of current document"
-msgstr ""
+msgstr "Taispeáin réamhamharc priontála den doiciméad reatha"
 
 #: katefiletree.cpp:162
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr ""
+msgstr "Scrios"
 
 #: katefiletree.cpp:164
 #, kde-format
 msgid "Close and delete selected file from storage."
-msgstr ""
+msgstr "Dún agus scrios an comhad roghnaithe ón stóras."
 
 #: katefiletree.cpp:168
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear History"
-msgstr ""
+msgstr "Glan an Stair"
 
 #: katefiletree.cpp:170
 #, kde-format
 msgid "Clear edit/view history."
-msgstr ""
+msgstr "Glan stair eagarthóireachta/amhairc."
 
 #: katefiletree.cpp:243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Tree Mode"
-msgstr ""
+msgstr "Mód Crann"
 
 #: katefiletree.cpp:244
 #, kde-format
 msgid "Set view style to Tree Mode"
-msgstr ""
+msgstr "Socraigh stíl radhairc go Mód Crann"
 
 #: katefiletree.cpp:250
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "List Mode"
-msgstr ""
+msgstr "Mód Liosta"
 
 #: katefiletree.cpp:251
 #, kde-format
 msgid "Set view style to List Mode"
-msgstr ""
+msgstr "Socraigh stíl radhairc go Mód Liosta"
 
 #: katefiletree.cpp:258
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Name"
-msgstr ""
+msgstr "Ainm an Doiciméid"
 
 #: katefiletree.cpp:259
 #, kde-format
 msgid "Sort by Document Name"
-msgstr ""
+msgstr "Sórtáil de réir Ainm an Doiciméid"
 
 #: katefiletree.cpp:264
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Document Path"
-msgstr ""
+msgstr "Cosán Doiciméid"
 
 #: katefiletree.cpp:264
 #, kde-format
 msgid "Sort by Document Path"
-msgstr ""
+msgstr "Sórtáil de réir Chonair an Doiciméid"
 
 #: katefiletree.cpp:268
 #, kde-format
 msgctxt "@action:inmenu sorting option"
 msgid "Opening Order"
-msgstr ""
+msgstr "Ordú Oscailte"
 
 #: katefiletree.cpp:269
 #, kde-format
 msgid "Sort by Opening Order"
-msgstr ""
+msgstr "Sórtáil de réir Ord Oscailte"
 
 #: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Sórtáil Saincheaptha"
 
 #: katefiletree.cpp:403
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Oscail..."
 
 #: katefiletree.cpp:407
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "Oscail Comhad"
 
 #: katefiletree.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
-msgstr ""
+msgstr "Oscail Le"
 
 #: katefiletree.cpp:433
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Taispeáin Stair Git"
 
 #: katefiletree.cpp:444
 #, kde-format
 msgid "Unpin Document"
-msgstr ""
+msgstr "Díphionáil an Doiciméid"
 
 #: katefiletree.cpp:446
 #, kde-format
 msgid "Pin Document"
-msgstr ""
+msgstr "Doiciméad bioráin"
 
 #: katefiletree.cpp:494
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "View Mode"
-msgstr ""
+msgstr "Mód Amhairc"
 
 #: katefiletree.cpp:498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Sort By"
-msgstr ""
+msgstr "Sórtáil De réir"
 
 #: katefiletreeconfigpage.cpp:43
 #, kde-format
 msgid "Background Shading"
-msgstr ""
+msgstr "Scáthú Cúlra"
 
 #: katefiletreeconfigpage.cpp:50
 #, kde-format
 msgid "&Viewed documents' shade:"
-msgstr ""
+msgstr "Scáth na ndoiciméad a breathnaíodh:"
 
 #: katefiletreeconfigpage.cpp:56
 #, kde-format
 msgid "&Modified documents' shade:"
-msgstr ""
+msgstr "Scáth na ndoiciméad modhnaithe:"
 
 #: katefiletreeconfigpage.cpp:64
 #, kde-format
 msgid "&Sort by:"
-msgstr ""
+msgstr "&Sórtáil de réir:"
 
 #: katefiletreeconfigpage.cpp:69
 #, kde-format
 msgid "Opening Order"
-msgstr ""
+msgstr "Ordú Oscailte"
 
 #: katefiletreeconfigpage.cpp:70
 #, kde-format
 msgid "Document Name"
-msgstr ""
+msgstr "Ainm an Doiciméid"
 
 #: katefiletreeconfigpage.cpp:71
 #, kde-format
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: katefiletreeconfigpage.cpp:77
 #, kde-format
 msgid "&View Mode:"
-msgstr ""
+msgstr "Mód &Radharc:"
 
 #: katefiletreeconfigpage.cpp:82
 #, kde-format
 msgid "Tree View"
-msgstr ""
+msgstr "Radharc Crann"
 
 #: katefiletreeconfigpage.cpp:83
 #, kde-format
 msgid "List View"
-msgstr ""
+msgstr "Amharc Liosta"
 
 #: katefiletreeconfigpage.cpp:88
 #, kde-format
 msgid "&Show Full Path"
-msgstr ""
+msgstr "&Taispeáin an Cosán Iomlán"
 
 #: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "Taispeáin an Barra Uirlisí"
 
 #: katefiletreeconfigpage.cpp:96
 #, kde-format
 msgid "Show Close Button On Hovering"
-msgstr ""
+msgstr "Taispeáin an Cnaipe Dúnta agus tú ag luí"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Cliceáil Lárnach Chun Doiciméid a Dhúnadh"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -318,11 +314,14 @@ msgid ""
 "edited within the current session will have a shaded background. The most "
 "recent documents have the strongest shade."
 msgstr ""
+"Nuair a bhíonn scáthú cúlra cumasaithe, beidh cúlra scáthaithe ag doiciméid "
+"a breathnaíodh nó a cuireadh in eagar laistigh den seisiún reatha. Bíonn an "
+"scáth is láidre ag na doiciméid is déanaí."
 
 #: katefiletreeconfigpage.cpp:108
 #, kde-format
 msgid "Set the color for shading viewed documents."
-msgstr ""
+msgstr "Socraigh an dath le haghaidh scáthú na ndoiciméad a breathnaíodh."
 
 #: katefiletreeconfigpage.cpp:110
 #, kde-format
@@ -330,6 +329,9 @@ msgid ""
 "Set the color for modified documents. This color is blended into the color "
 "for viewed files. The most recently edited documents get most of this color."
 msgstr ""
+"Socraigh an dath do dhoiciméid mhodhnaithe. Cuirtear an dath seo le chéile "
+"leis an dath do chomhaid a breathnaíodh. Faigheann na doiciméid is déanaí a "
+"eagraíodh an chuid is mó den dath seo."
 
 #: katefiletreeconfigpage.cpp:115
 #, kde-format
@@ -337,6 +339,9 @@ msgid ""
 "When enabled, in tree mode, top level folders will show up with their full "
 "path rather than just the last folder name."
 msgstr ""
+"Nuair a bheidh sé cumasaithe, i mód crainn, taispeánfar fillteáin "
+"barrleibhéil lena gcosán iomlán seachas ainm an fhillteáin dheireanaigh "
+"amháin."
 
 #: katefiletreeconfigpage.cpp:118
 #, kde-format
@@ -344,74 +349,76 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"Nuair a bhíonn sé cumasaithe, taispeántar barra uirlisí le gníomhartha "
+"cosúil le “Sábháil” os cionn liosta na ndoiciméad."
 
 #: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
 #, kde-format
 msgid "Documents"
-msgstr ""
+msgstr "Doiciméid"
 
 #: katefiletreeconfigpage.cpp:159
 #, kde-format
 msgid "Configure Documents"
-msgstr ""
+msgstr "Cumraigh Doiciméid"
 
 #: katefiletreemodel.cpp:498
 #, kde-format
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr ""
+msgstr "Oscail Giuirléidí"
 
 #: katefiletreemodel.cpp:649
 #, kde-format
 msgctxt "%1 is the full path"
 msgid ""
 "<p><b>%1</b></p><p>The document has been modified by another application.</p>"
-msgstr ""
+msgstr "<p><b>%1</b></p><p>Tá an doiciméad modhnaithe ag feidhmchlár eile.</p>"
 
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Scagaire…"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format
 msgid "Previous Document"
-msgstr ""
+msgstr "Doiciméad Roimhe Seo"
 
 #: katefiletreeplugin.cpp:259
 #, kde-format
 msgid "Next Document"
-msgstr ""
+msgstr "An Chéad Doiciméad Eile"
 
 #: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "&Show Active Document"
-msgstr ""
+msgstr "&Taispeáin an Doiciméad Gníomhach"
 
 #: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Sábháil"
 
 #: katefiletreeplugin.cpp:272
 #, kde-format
 msgid "Save the current document"
-msgstr ""
+msgstr "Sábháil an doiciméad reatha"
 
 #: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Sábháil Mar"
 
 #: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
-msgstr ""
+msgstr "Sábháil an doiciméad reatha faoi ainm nua"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Téigh"

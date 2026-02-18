@@ -1,90 +1,90 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR This file is copyright:
-# This file is distributed under the same license as the kate package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-02-13 13:16+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
 "Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"3 : 4;\n"
 
 #: ktexteditorpreviewview.cpp:29
 #, kde-format
 msgid "Preview"
-msgstr ""
+msgstr "Réamhamharc"
 
 #: previewwidget.cpp:44
 #, kde-format
 msgid "Lock Current Document"
-msgstr ""
+msgstr "Glasáil an Doiciméad Reatha"
 
 #: previewwidget.cpp:45
 #, kde-format
 msgid "Lock preview to current document"
-msgstr ""
+msgstr "Glasáil réamhamharc don doiciméad reatha"
 
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock Current View"
-msgstr ""
+msgstr "Díghlasáil an Amharc Reatha"
 
 #: previewwidget.cpp:46
 #, kde-format
 msgid "Unlock current view"
-msgstr ""
+msgstr "Díghlasáil an amharc reatha"
 
 #: previewwidget.cpp:53
 #, kde-format
 msgid "Automatically Update Preview"
-msgstr ""
+msgstr "Nuashonraigh Réamhamharc go hUathoibríoch"
 
 #: previewwidget.cpp:54
 #, kde-format
 msgid "Enable automatic updates of the preview to the current document content"
 msgstr ""
+"Cumasaigh nuashonruithe uathoibríocha an réamhamhairc ar ábhar an doiciméid "
+"reatha"
 
 #: previewwidget.cpp:55
 #, kde-format
 msgid "Manually Update Preview"
-msgstr ""
+msgstr "Réamhamharc Nuashonraithe de Láimh"
 
 #: previewwidget.cpp:57
 #, kde-format
 msgid ""
 "Disable automatic updates of the preview to the current document content"
 msgstr ""
+"Díchumasaigh nuashonruithe uathoibríocha an réamhamhairc ar ábhar an "
+"doiciméid reatha"
 
 #: previewwidget.cpp:62
 #, kde-format
 msgid "Update Preview"
-msgstr ""
+msgstr "Réamhamharc Nuashonraithe"
 
 #: previewwidget.cpp:63
 #, kde-format
 msgid "Update the preview to the current document content"
-msgstr ""
+msgstr "Nuashonraigh an réamhamharc go dtí ábhar an doiciméid reatha"
 
 #: previewwidget.cpp:71
 #, kde-format
 msgid "View"
-msgstr ""
+msgstr "Amharc"
 
 #: previewwidget.cpp:96
 #, kde-format
 msgid "No preview available."
-msgstr ""
+msgstr "Níl aon réamhamharc ar fáil."
 
 #: previewwidget.cpp:246
 #, kde-format
 msgid "About %1"
-msgstr ""
+msgstr "Maidir le %1"

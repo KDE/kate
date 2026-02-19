@@ -23,6 +23,7 @@
   <name xml:lang="eu">Kate</name>
   <name xml:lang="fi">Kate</name>
   <name xml:lang="fr">Kate</name>
+  <name xml:lang="ga">Kate</name>
   <name xml:lang="gl">Kate</name>
   <name xml:lang="he">Kate</name>
   <name xml:lang="hu">Kate</name>
@@ -70,6 +71,7 @@
   <summary xml:lang="eu">Testu editore aurreratua</summary>
   <summary xml:lang="fi">Kehittynyt tekstimuokkain</summary>
   <summary xml:lang="fr">Éditeur de texte avancé</summary>
+  <summary xml:lang="ga">Eagarthóir téacs ardleibhéil</summary>
   <summary xml:lang="gl">Editor avanzado de textos</summary>
   <summary xml:lang="he">עורך טקסט מתקדם</summary>
   <summary xml:lang="ia">Editor avantiate de texto</summary>
@@ -105,6 +107,7 @@
     <p xml:lang="eu">Kate, programatzaileentzako KDEk eginiko testu-editore dokumentu-anitzekoa, ikuspegi-anitzekoa da. LSPrako (Language Server Protocol) euskarria, proiektuak, kurtsore eta hautapen anizkoitzak, git bateratzea, karpeten zabaleran bilatzea, zatiketa horizontala eta bertikala, vi modua, 300+ lengoaietan sintaxia nabarmentzea, barnean eraikitako terminala, itzulbira dinamikoa eta gisako ezaugarri askoz gehiago ditu. Linux, BSD, Windows eta MacOS-rako erabilgarri dago.</p>
     <p xml:lang="fi">Kate on KDE:n nopea monen tiedoston useampinäkymäinen tekstimuokkaus ohjelmoijille. Sen ominaisuuksiin kuuluu LSP-tuki (Language Server Protocol), projektit, useammat kohdistimet ja valinnat, Git-tuki, kansionlaajuinen haku, vaaka- ja pystysuuntaiset jakonäkymät, Vi-tila, syntaksikorostus 300+ kielelle, sisään rakennettu pääte, dynaaminen rivitys ja paljon muuta. Se on saatavilla Linuxiin, BSD:hen, Windowsiin ja macOSiin.</p>
     <p xml:lang="fr">Kate est un éditeur de texte rapide, multi-documents et multi-affichages pour les équipes de développement de KDE. Il offre des fonctionnalités telles que la prise en charge du module « LSP » (Language Server Protocol), des projets, de plusieurs curseurs et sélections, de l'intégration de Git, de la recherche sur la totalité des dossier, des divisions horizontales et verticales, du mode vi, de la coloration syntaxique pour plus de 300 langues, d'un terminal intégré, du retour à la ligne dynamique et bien plus encore. Il est disponible pour Linux, BSD, Windows et macOS.</p>
+    <p xml:lang="ga">Is eagarthóir téacs il-dhoiciméad, il-amhairc tapa é Kate do ríomhchláraitheoirí ó KDE. Tá rudaí ann ar nós tacaíocht LSP (Prótacal Freastalaí Teanga), tionscadail, ilchúrsóirí agus roghanna, comhtháthú git, cuardach fillteáin, scoilteanna cothrománacha agus ingearacha, mód vi, aibhsiú comhréire do bhreis is 300 teanga, críochfort ionsuite, timfhilleadh focal dinimiciúil agus i bhfad níos mó. Tá sé ar fáil ar Linux, BSD, Windows agus MacOS.</p>
     <p xml:lang="gl">Kate é un editor de texto de KDE para programar. É rápido e permite varios documentos e vistas. Fornece compatibilidade con LSP (protocolo de servidor de linguaxes), proxectos, varios cursores e seleccións, integración con Git, busca en cartafoles, división horizontal e vertical, modo vi, realce de sintaxe para máis de 300 linguaxes, terminal incluído, axuste de liña e moito máis. Está dispoñíbel para Linux, BSD, Windows e macOS.</p>
     <p xml:lang="he">Kate הוא עורך מהיר מרובה מסמכים ותצוגות למתכנתים מבית KDE. היכולות שלו כוללות דברים כמו תמיכה ב־LSP (פרוטקול שרת שפה), מיזמים, ריבוי סמנים ובחירות, שילוב מול git, חיפוש ברמת תיקייה, פיצולים אנכיים ואופקיים, מצב vi, הדגשת תחביר ללמעלה מ־300 שפות, מסוף מובנה, גלישת שורות דינמית ועוד יכולות רבות. זמין ללינוקס, BSD,‏ Windows ו־MacOS.</p>
     <p xml:lang="ia">Kate es un rapide editor multi-documento e multi-vista de texto per programmatores per KDE. Il ha characteristicas como supporto de LSP(Language Server Protocol), projectos, cursores multiple e selectiones, integration con git, cerca per dossier, divisiones horizontal e vertical, modo de vi, evidentiar de syntaxe per plus de 300 linguages, terminal incorporate,inveloppar de parola e multe altere. Il es disponibile sur Linux, BSD, Window e MacOS. </p>
@@ -141,6 +144,7 @@
     <p xml:lang="eu">Eginbideak:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="ga">Gnéithe:</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="he">יכולות:</p>
     <p xml:lang="hu">Szolgáltatások:</p>
@@ -195,6 +199,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">MDI, leiho-zatitzea, leihoak fitxa gisa antolatzea</li>
       <li xml:lang="fi">Monen tiedoston käyttöliittymä (MDI), ikkunoiden jakaminen ja välilehdet</li>
       <li xml:lang="fr">Interface multi-documents, fenêtres scindées, organisation par onglets</li>
+      <li xml:lang="ga">MDI, scoilteadh fuinneoige, cluaisíní fuinneoige</li>
       <li xml:lang="gl">Interface para varios documentos, división das xanelas, xanelas con separadores</li>
       <li xml:lang="he">ריבוי מסמכים (MDI), פיצול חלון, לשוניות בחלונות</li>
       <li xml:lang="hu">MDI, ablakfelosztás, ablaklapok</li>
@@ -245,6 +250,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Ortografia-egiaztatzea</li>
       <li xml:lang="fi">Oikeinkirjoituksen tarkistus</li>
       <li xml:lang="fr">Vérification orthographique</li>
+      <li xml:lang="ga">Seiceáil litrithe</li>
       <li xml:lang="gl">Corrección ortográfica.</li>
       <li xml:lang="he">בדיקת איות</li>
       <li xml:lang="hu">Helyesírás-ellenőrzés</li>
@@ -297,6 +303,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">CR, CRLF, LF lerro-amaierak onartzen ditu</li>
       <li xml:lang="fi">Tuki useille rivinvaihdoille: CR, CRLF ja LF</li>
       <li xml:lang="fr">Prise en charge des retours à la ligne CR, CRLF, LF</li>
+      <li xml:lang="ga">CR, CRLF, LF newline support</li>
       <li xml:lang="gl">Compatíbel cos fins de liña CR, CRLF e LF.</li>
       <li xml:lang="he">תמיכה בשורות חדשות מהסוגים CR,‏ CRLF,‏ LF</li>
       <li xml:lang="hu">CR, CRLF, LF új sor támogatás</li>
@@ -348,6 +355,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Kodeketa euskarria (utf-8, utf-16, ascii etab.)</li>
       <li xml:lang="fi">Merkistökoodaustuki (UTF-8, UTF-16, ASCII jne.)</li>
       <li xml:lang="fr">Prise en charge de l'encodage (UTF-8, UTF-16, ASCII, etc.)</li>
+      <li xml:lang="ga">Tacaíocht ionchódaithe (utf-8, utf-16, ascii srl.)</li>
       <li xml:lang="gl">Compatíbel con varios sistemas de codificación de texto (UTF-8, UTF-16, ASCII, etc.).</li>
       <li xml:lang="he">תמיכה בקידוד (utf-8,‏ utf-16,‏ ascii ועוד)</li>
       <li xml:lang="hu">Különböző kódolások támogatása (UTF-8, UTF-16, ASCII, stb)</li>
@@ -399,6 +407,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Kodeketa arteko bihurketa</li>
       <li xml:lang="fi">Merkistökoodauksen muuntaminen</li>
       <li xml:lang="fr">Conversion d'encodage</li>
+      <li xml:lang="ga">Comhshó ionchódaithe</li>
       <li xml:lang="gl">Conversión entre sistemas de codificación.</li>
       <li xml:lang="he">המרת קידוד</li>
       <li xml:lang="hu">Kódolások közti konverzió</li>
@@ -495,6 +504,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Sintaxia nabarmentzea 300+ lengoaietarako</li>
       <li xml:lang="fi">Syntaksikorostus 300+ kielelle</li>
       <li xml:lang="fr">Coloration syntaxique pour plus de 300 langues</li>
+      <li xml:lang="ga">Aibhsiú comhréire do bhreis is 300 teanga</li>
       <li xml:lang="gl">Realce de sintaxe para máis de 300 linguaxes.</li>
       <li xml:lang="he">הדגשת תחביר ללמעלה מ־300 שפות</li>
       <li xml:lang="ia">Evidentiar de syntaxe per plus de 300 linguages</li>
@@ -531,6 +541,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Kode- eta testu-tolestea</li>
       <li xml:lang="fi">Koodin ja tekstin laskostus</li>
       <li xml:lang="fr">Repliement de code et de texte</li>
+      <li xml:lang="ga">Fillteán cód agus téacs</li>
       <li xml:lang="gl">Pregado de código e texto.</li>
       <li xml:lang="he">קיפול קוד וטקסט</li>
       <li xml:lang="hu">Kód- és szövegösszecsukás</li>
@@ -578,6 +589,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Kurtsore anizkoitzak eta hautapen anizkoitzak</li>
       <li xml:lang="fi">Useampi kohdistin ja valinta</li>
       <li xml:lang="fr">Plusieurs curseurs et plusieurs sélections</li>
+      <li xml:lang="ga">Ilchúrsóirí agus ilroghanna</li>
       <li xml:lang="gl">Varios cursores e seleccións.</li>
       <li xml:lang="he">מספר מצביעים ומגוון אזורי בחירה</li>
       <li xml:lang="ia">Nultiple cursores e multiple selectiones</li>
@@ -614,6 +626,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Bloke-hautapen modua</li>
       <li xml:lang="fi">Lohkovalintatila</li>
       <li xml:lang="fr">Mode de sélection par bloc</li>
+      <li xml:lang="ga">Mód roghnúcháin bloc</li>
       <li xml:lang="gl">Modo de selección por bloques.</li>
       <li xml:lang="he">מצב בחירת מקטע</li>
       <li xml:lang="hu">Blokkos kijelölési mód</li>
@@ -666,6 +679,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Koskatze automatikoa</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="fr">Indentation automatique</li>
+      <li xml:lang="ga">Uath-eangú</li>
       <li xml:lang="gl">Sangrado automático.</li>
       <li xml:lang="he">הזחה אוטומטית</li>
       <li xml:lang="hu">Automatikus behúzás</li>
@@ -717,6 +731,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Osatze automatikoa onartzen du</li>
       <li xml:lang="fi">Automaattitäydennyksen tuki</li>
       <li xml:lang="fr">Prise en charge du complètement automatique</li>
+      <li xml:lang="ga">Tacaíocht do chomhlánú uathoibríoch</li>
       <li xml:lang="gl">Funcionalidade de completar automaticamente.</li>
       <li xml:lang="he">תמיכה בהשלמה אוטומטית</li>
       <li xml:lang="hu">Automatikus kiegészítés</li>
@@ -768,6 +783,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Shell-arekin bateratzea</li>
       <li xml:lang="fi">Komentotulkki-integraatio</li>
       <li xml:lang="fr">Intégration avec l'interpréteur de commande</li>
+      <li xml:lang="ga">Comhtháthú sliogáin</li>
       <li xml:lang="gl">Integración co intérprete de ordes.</li>
       <li xml:lang="he">שילוב עם המעטפת (Shell)</li>
       <li xml:lang="hu">Parancsértelmező integrációja</li>
@@ -817,6 +833,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Protokolo-euskarri zabala (http, ftp, ssh, webdav etab.)</li>
       <li xml:lang="fi">Laaja yhteyskäytäntötuki (HTTP, FTP, SSH, WebDAV jne.)</li>
       <li xml:lang="fr">Prise en charge de protocoles variés (http, ftp, ssh, WebDAV, etc.)</li>
+      <li xml:lang="ga">Wide protocol support (http, ftp, ssh, webdav srl.)</li>
       <li xml:lang="gl">Compatibilidade con numerosos protocolos (HTTP, FTP, SSH, WebDAV, etc.)</li>
       <li xml:lang="he">תמיכה במגוון רחב של פרוטוקולים (http,‏ ftp,‏ ssh,‏ webdav וכו׳)</li>
       <li xml:lang="hu">Protokollok (HTTP, FTP, SSH, Webdav, stb) széleskörű támogatása</li>
@@ -855,6 +872,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Pluginen bidez hedagarria</li>
       <li xml:lang="fi">Liitännäisin laajennettavissa</li>
       <li xml:lang="fr">Extensible grâce à des modules externes</li>
+      <li xml:lang="ga">Inleathnaithe trí bhreiseáin</li>
       <li xml:lang="gl">Extensíbel mediante complementos.</li>
       <li xml:lang="he">ניתן להרחבה בעזרת תוספים</li>
       <li xml:lang="ia">Extensibile via pluginbs</li>
@@ -886,6 +904,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Terminal bateratua</li>
       <li xml:lang="fi">Eheytetty pääte</li>
       <li xml:lang="fr">Terminal intégré</li>
+      <li xml:lang="ga">Teirminéal comhtháite</li>
       <li xml:lang="gl">Terminal integrado.</li>
       <li xml:lang="he">מסוף מובנה</li>
       <li xml:lang="ia">Terminal integrate</li>
@@ -922,6 +941,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Javascript erabiliz hedagarria</li>
       <li xml:lang="fi">Skriptattavissa JavaScriptillä</li>
       <li xml:lang="fr">Automatisable en utilisant JavaScript</li>
+      <li xml:lang="ga">Inscriptithe ag baint úsáide as JavaScript</li>
       <li xml:lang="gl">A súa funcionalidade pódese ampliar mediante scripts escritos en JavaScript.</li>
       <li xml:lang="he">נשלט באמצעות JavaScript</li>
       <li xml:lang="hu">Szkriptelhetőség JavaScripttel</li>
@@ -967,6 +987,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Vi modua</li>
       <li xml:lang="fi">Vi-tila</li>
       <li xml:lang="fr">Mode Vi</li>
+      <li xml:lang="ga">Mód Vi</li>
       <li xml:lang="gl">Modo vi.</li>
       <li xml:lang="he">מצב Vi</li>
       <li xml:lang="ia">Modo de vi</li>
@@ -999,6 +1020,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">«Intellisense»ren euskarria LSP (Language Server Protocol / Lengoaia Zerbitzari Protokoloa) erabiliz</li>
       <li xml:lang="fi">Intellisense-tuki LSP:n (Language Server Protocol) kautta</li>
       <li xml:lang="fr">Prise en charge de IntelliSense à l'aide d'un module « LSP » (Language Server Protocol)</li>
+      <li xml:lang="ga">Tacaíocht Intellisense ag baint úsáide as LSP (Prótacal Freastalaí Teanga)</li>
       <li xml:lang="gl">Permite completación automática mediante LSP (protocolo de servidor de linguaxes).</li>
       <li xml:lang="he">תמיכה ב־Intellisense באמצעות LSP (פרוטוקול שרת שפה)</li>
       <li xml:lang="ia">Supporto de Intellisense usante LSP (LKanguage Server Protocol)</li>
@@ -1029,6 +1051,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">DAP (Debug Adapter Protocol) euskarria</li>
       <li xml:lang="fi">DAP-tuki (Debug Adapter Protocol)</li>
       <li xml:lang="fr">Prise en charge du protocole « DAP » (Debug Adapter Protocol)</li>
+      <li xml:lang="ga">Tacaíocht DAP (Prótacal Oiriúntóra Dífhabhtaithe)</li>
       <li xml:lang="gl">Compatibilidade con DAP (protocolo de adaptador de depuración).</li>
       <li xml:lang="he">תמיכה ב־DAP (פרוטוקול מתאם ניפוי שגיאות)</li>
       <li xml:lang="ia">Supporto de DAB (Debug Adapter Protocol)</li>
@@ -1060,6 +1083,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Fitxa bertikal/dokumentu zerrenda</li>
       <li xml:lang="fi">Pystysuuntaiset välilehdet ja asiakirjaluettelo</li>
       <li xml:lang="fr">Onglets verticaux / liste de documents</li>
+      <li xml:lang="ga">Cluaisíní ingearacha/liosta doiciméad</li>
       <li xml:lang="gl">Lapelas verticais e lista de documentos.</li>
       <li xml:lang="he">רשימת לשוניות/מסמכים אנכית</li>
       <li xml:lang="ia">Lista veritical de schedas/documento</li>
@@ -1092,6 +1116,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Proiektu arinetarako euskarria. Kate-k karpetak proiektu gisa ireki ditzake</li>
       <li xml:lang="fi">Kevyt projektituki. Kati voi avata kansiot projekteina</li>
       <li xml:lang="fr">Prise en charge légère du projet. Kate peut ouvrir des dossiers en tant que projets.</li>
+      <li xml:lang="ga">Tacaíocht éadrom do thionscadail. Is féidir le Kate fillteáin a oscailt mar thionscadail</li>
       <li xml:lang="gl">Funcionalidade sinxela de proxectos. Kate pode abrir cartafoles como proxectos.</li>
       <li xml:lang="he">תמיכה בסיסית בניהול מיזמים. Kate יכולה לפתוח תיקיות כמיזמים</li>
       <li xml:lang="ia">Supporto de projecto legier. Kate pote aperir dossieres como projectos</li>
@@ -1123,6 +1148,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Kodeari formatua berezko formatu emaileak erabiliz ematea, clang-format, prettier, etab. </li>
       <li xml:lang="fi">Koodinmuotoilu natiivien muotoilinten kuten clang-formatin, prettierin jne. avulla</li>
       <li xml:lang="fr">Formatage de code à l'aide de formateurs natifs tels que « clang-format », « prettier », etc.</li>
+      <li xml:lang="ga">Formáidiú cóid ag baint úsáide as formáideoirí dúchasacha ar nós clang-format, prettier srl</li>
       <li xml:lang="gl">Formatación de código mediante formatadores nativos como clang-format, prettier, etc.</li>
       <li xml:lang="he">עיצוב קוד בעזרת מעצבים טבעיים כגון clang-format,‏ prettier ועוד</li>
       <li xml:lang="ia">Formattation de codice usante formattatores native como formato de clang, prettier etc.</li>
@@ -1153,6 +1179,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Barnean eraikitako fitxategi-sistema arakatzailea</li>
       <li xml:lang="fi">Sisään rakennettu tiedostoselain</li>
       <li xml:lang="fr">Compilé dans le navigateur du système de fichiers</li>
+      <li xml:lang="ga">Brabhsálaí córas comhad tógtha isteach</li>
       <li xml:lang="gl">Navegador de ficheiros integrado.</li>
       <li xml:lang="he">דפדפן מערכת קבצים מובנה</li>
       <li xml:lang="ia">Navigator de systema de file incorporate</li>
@@ -1185,6 +1212,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">«CTags» euskarria</li>
       <li xml:lang="fi">CTags-tuki</li>
       <li xml:lang="fr">Prise en charge de CTags</li>
+      <li xml:lang="ga">Tacaíocht CTags</li>
       <li xml:lang="gl">Compatibilidade con CTag.</li>
       <li xml:lang="he">תמיכה ב־CTags (תגיות הסבר)</li>
       <li xml:lang="ia">Supporto de Ctags</li>
@@ -1217,6 +1245,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Proiektuaren zabaleran eta karpetaren zabaleran bilatzea</li>
       <li xml:lang="fi">Projektin- ja kansionlaajuinen haku</li>
       <li xml:lang="fr">Recherche sur la totalité du projet et du dossier</li>
+      <li xml:lang="ga">Cuardach ar fud an tionscadail agus ar fud na bhfillteán</li>
       <li xml:lang="gl">Busca en proxectos e cartafoles.</li>
       <li xml:lang="he">חיפוש ברמת מיזם ותיקייה</li>
       <li xml:lang="ia">Cerca per tote projecto e tote dossieres</li>
@@ -1249,6 +1278,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="eu">Git bateratzea</li>
       <li xml:lang="fi">Git-eheytys</li>
       <li xml:lang="fr">Intégration avec Git</li>
+      <li xml:lang="ga">Comhtháthú Git</li>
       <li xml:lang="gl">Integración con Git.</li>
       <li xml:lang="he">שילוב עם Git</li>
       <li xml:lang="ia">Integration de git</li>
@@ -1294,6 +1324,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eu">Kate-rekin kodea editatzea</caption>
       <caption xml:lang="fi">Koodin muokkaus Katella</caption>
       <caption xml:lang="fr">Édition de code avec Kate</caption>
+      <caption xml:lang="ga">Ag eagarthóireacht cód le Kate</caption>
       <caption xml:lang="gl">Editando código con Kate</caption>
       <caption xml:lang="he">עריכת קוד עם Kate</caption>
       <caption xml:lang="hu">Kódszerkesztés Kate-tel</caption>
@@ -1339,6 +1370,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eu">Kate, oinarria Git-en duen proiektu batekin</caption>
       <caption xml:lang="fi">Kate jollakin Git-pohjaisella projektilla</caption>
       <caption xml:lang="fr">Kate avec certains projets reposant sur Git</caption>
+      <caption xml:lang="ga">Kate le tionscadal bunaithe ar Git</caption>
       <caption xml:lang="gl">Kate cun proxecto baseado en Git.</caption>
       <caption xml:lang="he">Kate עם מיזם מבוסס Git</caption>
       <caption xml:lang="ia">Kate con alcun projectos basate sur Git</caption>
@@ -1379,6 +1411,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eu">Kate ikuspegi zatituarekin</caption>
       <caption xml:lang="fi">Kate jakonäkymällä</caption>
       <caption xml:lang="fr">Kate avec vues scindées</caption>
+      <caption xml:lang="ga">Kate le radharc scoilte</caption>
       <caption xml:lang="gl">Kate coa vista dividida.</caption>
       <caption xml:lang="he">Kate בתצוגה מפוצלת</caption>
       <caption xml:lang="ia">Kate con vista dividite</caption>
@@ -1419,6 +1452,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eu">Kate modu ilunean</caption>
       <caption xml:lang="fi">Kate tummassa tilassa</caption>
       <caption xml:lang="fr">Kate en mode sombre</caption>
+      <caption xml:lang="ga">Kate i mód dorcha</caption>
       <caption xml:lang="gl">Kate en modo escuro.</caption>
       <caption xml:lang="he">Kate במצב כהה</caption>
       <caption xml:lang="ia">Kate in modo obscur</caption>
@@ -1459,6 +1493,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="eu">Sortu Git adar berri bat «Kate»rekin</caption>
       <caption xml:lang="fi">Luo Katella uusi Git-haara</caption>
       <caption xml:lang="fr">Créer une nouvelle branche « Git » avec Kate</caption>
+      <caption xml:lang="ga">Cruthaigh brainse Git nua le Kate</caption>
       <caption xml:lang="gl">Creación dunha nova rama de Git con Kate.</caption>
       <caption xml:lang="he">יצירת ענף Git חדש עם Kate</caption>
       <caption xml:lang="ia">Crea un nove branca de Git con Kate</caption>

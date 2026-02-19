@@ -27,6 +27,7 @@
   <name xml:lang="eu">KWrite</name>
   <name xml:lang="fi">KWrite</name>
   <name xml:lang="fr">KWrite</name>
+  <name xml:lang="ga">KWrite</name>
   <name xml:lang="gl">KWrite</name>
   <name xml:lang="he">KWrite</name>
   <name xml:lang="hi">केराईट</name>
@@ -82,6 +83,7 @@
   <summary xml:lang="eu">Testu-editorea</summary>
   <summary xml:lang="fi">Tekstimuokkain</summary>
   <summary xml:lang="fr">Éditeur de texte</summary>
+  <summary xml:lang="ga">Eagarthóir Téacs</summary>
   <summary xml:lang="gl">Editor de textos</summary>
   <summary xml:lang="he">עורך טקסט</summary>
   <summary xml:lang="hi">पाठ संपादक</summary>
@@ -139,6 +141,7 @@
     <p xml:lang="eu">Kwrite KDEk eginiko testu-editore bat da, Kate-ren editore osagaian oinarritua.</p>
     <p xml:lang="fi">KWrite on KDE:n tekstimuokkain, joka perustuu Katen muokkainosaan.</p>
     <p xml:lang="fr">KWrite est un éditeur de texte fait par KDE et s'appuyant sur le composant éditeur de Kate.</p>
+    <p xml:lang="ga">Is eagarthóir téacs ó KDE é KWrite, atá bunaithe ar chomhpháirt eagarthóra Kate.</p>
     <p xml:lang="gl">KWrite é un editor de texto creado por KDE baseado no compoñente de editor de Kate.</p>
     <p xml:lang="he">KWrite הוא עורך טקסט מבית KDE, מבוסס על רכיב העריכה של Kate.</p>
     <p xml:lang="hu">A KWrite egy, a Kate szerkesztőkomponensén alapuló szövegszerkesztő a KDE-től.</p>
@@ -191,6 +194,7 @@
     <p xml:lang="eu">Eginbideak:</p>
     <p xml:lang="fi">Ominaisuuksia:</p>
     <p xml:lang="fr">Fonctionnalités :</p>
+    <p xml:lang="ga">Gnéithe:</p>
     <p xml:lang="gl">Funcionalidades:</p>
     <p xml:lang="he">יכולות:</p>
     <p xml:lang="hi">विशेषताएँ:</p>
@@ -246,6 +250,7 @@
       <li xml:lang="eu">Sintaxi nabarmentzea fitxategi motaren arabera</li>
       <li xml:lang="fi">Syntaksin korostus tiedostotyypin perusteella</li>
       <li xml:lang="fr">Coloration syntaxique selon le type de fichier</li>
+      <li xml:lang="ga">Aibhsiú comhréire de réir an chineáil comhaid</li>
       <li xml:lang="gl">Realce de sintaxe segundo o tipo do ficheiro.</li>
       <li xml:lang="he">הדגשת תחביר לפי סוג הקובץ</li>
       <li xml:lang="hi">फ़ाईल प्रकार से सिंटेक्स हाईलाइटिंग</li>
@@ -300,6 +305,7 @@
       <li xml:lang="eu">Hitz-osatzea</li>
       <li xml:lang="fi">Sanantäydennys</li>
       <li xml:lang="fr">Auto-complètement des mots</li>
+      <li xml:lang="ga">Comhlánú focal</li>
       <li xml:lang="gl">Completado de palabras.</li>
       <li xml:lang="he">השלמת מילים</li>
       <li xml:lang="hi">शब्द पूर्णता</li>
@@ -355,6 +361,7 @@
       <li xml:lang="eu">Koskatze automatikoa</li>
       <li xml:lang="fi">Automaattinen sisennys</li>
       <li xml:lang="fr">Indentation automatique</li>
+      <li xml:lang="ga">Uath-eangú</li>
       <li xml:lang="gl">Sangrado automático.</li>
       <li xml:lang="he">הזחה אוטומטית</li>
       <li xml:lang="hi">स्वतः हाशिया</li>
@@ -408,6 +415,7 @@
       <li xml:lang="eu">Pluginak onartzen ditu</li>
       <li xml:lang="fi">Liitännäistuki</li>
       <li xml:lang="fr">Gestion des extensions</li>
+      <li xml:lang="ga">Tacaíocht breiseán</li>
       <li xml:lang="gl">Compatibilidade con complementos.</li>
       <li xml:lang="he">תמיכה בתוספים</li>
       <li xml:lang="hi">प्लगिन समर्थन</li>
@@ -463,6 +471,7 @@
       <li xml:lang="eu">Vi sarrera modua</li>
       <li xml:lang="fi">VI-syöttötila</li>
       <li xml:lang="fr">Mode d'entrée Vi</li>
+      <li xml:lang="ga">Mód ionchuir Vi</li>
       <li xml:lang="gl">Modo de entrada de Vi.</li>
       <li xml:lang="he">מצב קלט Vi</li>
       <li xml:lang="hi">Vi इनपुट पद्दति</li>
@@ -524,6 +533,7 @@
       <caption xml:lang="eu">KWrite-rekin kodea editatzea</caption>
       <caption xml:lang="fi">Koodin muokkaus KWritella</caption>
       <caption xml:lang="fr">Modification de code avec KWrite</caption>
+      <caption xml:lang="ga">Cód a chur in eagar le KWrite</caption>
       <caption xml:lang="gl">Editando código con KWrite</caption>
       <caption xml:lang="he">עריכת קוד עם KWrite</caption>
       <caption xml:lang="hu">Kódszerkesztés KWrite-tal</caption>

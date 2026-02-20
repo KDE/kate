@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-25 02:37+0000\n"
-"PO-Revision-Date: 2016-03-24 14:51+0100\n"
-"Last-Translator: Bjørn <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-18 23:24+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -22,506 +22,508 @@ msgstr ""
 #: branchcheckoutdialog.cpp:29
 #, kde-format
 msgid "Select branch to checkout. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Velg den grenen du vil sjekke ut. Trykk «Escape» for å avbryte."
 
 #: branchcheckoutdialog.cpp:36
 #, kde-format
 msgid "Create New Branch"
-msgstr ""
+msgstr "Opprett ny gren"
 
 #: branchcheckoutdialog.cpp:38
 #, kde-format
 msgid "Create New Branch From..."
-msgstr ""
+msgstr "Opprett ny gren fra …"
 
 #: branchcheckoutdialog.cpp:54
 #, kde-format
 msgid "Branch %1 checked out"
-msgstr ""
+msgstr "Grenen %1 er sjekket ut"
 
 #: branchcheckoutdialog.cpp:57
 #, kde-format
 msgid "Failed to checkout to branch %1, Error: %2"
-msgstr ""
+msgstr "Klarte ikke å sjekke ut grenen %1, Feil: %2"
 
 #: branchcheckoutdialog.cpp:85 branchcheckoutdialog.cpp:97
 #, kde-format
 msgid "Enter new branch name. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Skriv inn nytt grennavn. Trykk «Escape» for å avbryte."
 
 #: branchcheckoutdialog.cpp:102
 #, kde-format
 msgid "Select branch to checkout from. Press 'Esc' to cancel."
-msgstr ""
+msgstr "Velg gren som skal sjekkes ut. Trykk «Escape» for å avbryte."
 
 #: branchcheckoutdialog.cpp:125
 #, kde-format
 msgid "Checked out to new branch: %1"
-msgstr ""
+msgstr "Sjekket ut til ny gren: %1"
 
 #: branchcheckoutdialog.cpp:127
 #, kde-format
 msgid "Failed to create new branch. Error \"%1\""
-msgstr ""
+msgstr "Klarte ikke å opprette ny gren. Feil «%1»"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Branch"
-msgstr ""
+msgstr "Gren"
 
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr ""
+msgstr "Siste innmelding"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:107
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: branchdeletedialog.cpp:142
 #, kde-format
 msgid "Are you sure you want to delete the selected branch?"
 msgid_plural "Are you sure you want to delete the selected branches?"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Er du sikker på at du vil slette den valgte grenen?"
+msgstr[1] "Er du sikker på at du vil slette de valgte grenene?"
 
 #: branchesdialog.cpp:101
 #, kde-format
 msgid "Select Branch..."
-msgstr ""
+msgstr "Velg gren …"
 
 #: branchesdialog.cpp:113 gitwidget.cpp:570 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: comparebranchesview.cpp:145
 #, kde-format
 msgid "Back"
-msgstr ""
+msgstr "Tilbake"
 
 #: currentgitbranchbutton.cpp:122
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr ""
+msgstr "HEAD ved innmelding %1"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr ""
+msgstr "HEAD er ved dette merket %1"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' branch is checked out"
 msgid "Active branch: %1"
-msgstr ""
+msgstr "Aktiv gren: %1"
 
 #: gitcommitdialog.cpp:69 gitcommitdialog.cpp:120
 #, kde-format
 msgid "Commit Changes"
-msgstr ""
+msgstr "Lever inn endringer"
 
 #: gitcommitdialog.cpp:73 gitcommitdialog.cpp:119 gitwidget.cpp:285
 #: gitwidget.cpp:1109
 #, kde-format
 msgid "Commit"
-msgstr ""
+msgstr "Lever inn"
 
 #: gitcommitdialog.cpp:74
 #, kde-format
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: gitcommitdialog.cpp:76
 #, kde-format
 msgid "Write commit message..."
-msgstr ""
+msgstr "Skriv loggmelding …"
 
 #: gitcommitdialog.cpp:83
 #, kde-format
 msgid "Extended commit description..."
-msgstr ""
+msgstr "Utvidet beskrivelse av innmelding …"
 
 #: gitcommitdialog.cpp:107
 #, kde-format
 msgid "Sign off"
-msgstr ""
+msgstr "Signer"
 
 #: gitcommitdialog.cpp:111 gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amend"
-msgstr ""
+msgstr "Endre"
 
 #: gitcommitdialog.cpp:112 gitwidget.cpp:1062
 #, kde-format
 msgid "Amend Last Commit"
-msgstr ""
+msgstr "Endre sist innmelding"
 
 #: gitcommitdialog.cpp:123
 #, kde-format
 msgid "Amending Commit"
-msgstr ""
+msgstr "Endrer innmelding"
 
 #: gitcommitdialog.cpp:206
 #, kde-format
 msgctxt "Number of characters"
 msgid "%1 / 52"
-msgstr ""
+msgstr "%1 / 52"
 
 #: gitcommitdialog.cpp:210
 #, kde-format
 msgctxt "Number of characters"
 msgid "<span style=\"color:%1;\">%2</span> / 52"
-msgstr ""
+msgstr "<span style=\"color:%1;\">%2</span> / 52"
 
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr ""
+msgstr "Forberedt"
 
 #: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
-msgstr ""
+msgstr "Ikke sporet"
 
 #: gitstatusmodel.cpp:101
 #, kde-format
 msgid "Conflict"
-msgstr ""
+msgstr "Konflikt"
 
 #: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
-msgstr ""
+msgstr "Endret"
 
 #: gitwidget.cpp:293
 #, kde-format
 msgid "Git Push"
-msgstr ""
+msgstr "Git Push"
 
 #: gitwidget.cpp:306
 #, kde-format
 msgid "Git Pull"
-msgstr ""
+msgstr "Git Pull"
 
 #: gitwidget.cpp:319
 #, kde-format
 msgid "Cancel Operation"
-msgstr ""
+msgstr "Avbryt handling"
 
 #: gitwidget.cpp:327
 #, kde-format
 msgid " canceled."
-msgstr ""
+msgstr " avbrutt."
 
 #: gitwidget.cpp:335
 #, kde-format
 msgid "Refresh git status"
-msgstr ""
+msgstr "Oppdater git-status"
 
 #: gitwidget.cpp:357 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filter …"
 
 #: gitwidget.cpp:447
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
+"Klarte ikke finne .git-mappe for «%1», det er mulig at ting ikke virker som "
+"det skal"
 
 #: gitwidget.cpp:659
 #, kde-format
 msgid " error: %1"
-msgstr ""
+msgstr " feil: %1"
 
 #: gitwidget.cpp:665
 #, kde-format
 msgid "\"%1\" executed successfully: %2"
-msgstr ""
+msgstr "«%1» ble utført vellykket: %2"
 
 #: gitwidget.cpp:685
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr ""
+msgstr "Klarte ikke å forberede filen. Feil:"
 
 #: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr ""
+msgstr "Klarte ikke å droppe den forberedte filen. Feil:"
 
 #: gitwidget.cpp:709
 #, kde-format
 msgid "Failed to discard changes. Error:"
-msgstr ""
+msgstr "Klarte ikke å forkaste endringer: Feil:"
 
 #: gitwidget.cpp:720
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr ""
+msgstr "Fjerning feilet. Feil:"
 
 #: gitwidget.cpp:736
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr ""
+msgstr "Klarte ikke åpne filen fra HEAD: %1"
 
 #: gitwidget.cpp:770
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr ""
+msgstr "Klarte ikke å hente Diff for filen: %1"
 
 #: gitwidget.cpp:839
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr ""
+msgstr "Klarte ikke å melde inn: %1"
 
 #: gitwidget.cpp:843
 #, kde-format
 msgid "Changes committed successfully."
-msgstr ""
+msgstr "Endringer meldt inn korrekt."
 
 #: gitwidget.cpp:853
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
+msgstr "Ingenting å melde inn. Forbered endringene først."
 
 #: gitwidget.cpp:867
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr ""
+msgstr "Loggmeldingen kan ikke være tom."
 
 #: gitwidget.cpp:998
 #, kde-format
 msgid "No diff for %1...%2"
-msgstr ""
+msgstr "Ingen diff for %1…%2"
 
 #: gitwidget.cpp:1004
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr ""
+msgstr "Klarte ikke sammenligne %1…%2"
 
 #: gitwidget.cpp:1019
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr ""
+msgstr "Klarte ikke å hente numstat ved diffing %1…%2"
 
 #: gitwidget.cpp:1054
 #, kde-format
 msgid "Refresh"
-msgstr ""
+msgstr "Oppdater"
 
 #: gitwidget.cpp:1071
 #, kde-format
 msgid "Checkout Branch"
-msgstr ""
+msgstr "Sjekk ut gren"
 
 #: gitwidget.cpp:1083
 #, kde-format
 msgid "Delete Branch"
-msgstr ""
+msgstr "Slett gren"
 
 #: gitwidget.cpp:1097
 #, kde-format
 msgid "Compare Branch with..."
-msgstr ""
+msgstr "Sammenlign gren med …"
 
 #: gitwidget.cpp:1103
 #, kde-format
 msgid "Show Commit"
-msgstr ""
+msgstr "Vis innmelding"
 
 #: gitwidget.cpp:1121
 #, kde-format
 msgid "Show Last Commit"
-msgstr ""
+msgstr "Vis siste innmelding"
 
 #: gitwidget.cpp:1139
 #, kde-format
 msgid "Open Commit..."
-msgstr ""
+msgstr "Åpne innmelding …"
 
 #: gitwidget.cpp:1142 gitwidget.cpp:1187
 #, kde-format
 msgid "Stash"
-msgstr ""
+msgstr "Mellomlager"
 
 #: gitwidget.cpp:1146
 #, kde-format
 msgid "Show history"
-msgstr ""
+msgstr "Vis historikk"
 
 #: gitwidget.cpp:1158
 #, kde-format
 msgid "Diff - stash"
-msgstr ""
+msgstr "Diff – mellomlager"
 
 #: gitwidget.cpp:1191
 #, kde-format
 msgid "Pop Last Stash"
-msgstr ""
+msgstr "Hent og fjern sist mellomlagring"
 
 #: gitwidget.cpp:1195
 #, kde-format
 msgid "Pop Stash"
-msgstr ""
+msgstr "Hent og fjern mellomlagring"
 
 #: gitwidget.cpp:1199
 #, kde-format
 msgid "Apply Last Stash"
-msgstr ""
+msgstr "Bruk sist mellomlagring"
 
 #: gitwidget.cpp:1201
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr ""
+msgstr "Mellomlagre (Behold forberedt)"
 
 #: gitwidget.cpp:1205
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr ""
+msgstr "Mellomlagre (inkluder usporet)"
 
 #: gitwidget.cpp:1209
 #, kde-format
 msgid "Apply Stash"
-msgstr ""
+msgstr "Bruk mellomlager"
 
 #: gitwidget.cpp:1210
 #, kde-format
 msgid "Drop Stash"
-msgstr ""
+msgstr "Dropp mellomlager"
 
 #: gitwidget.cpp:1211
 #, kde-format
 msgid "Show Stash Content"
-msgstr ""
+msgstr "Vis innholdet i mellomlager"
 
 #: gitwidget.cpp:1249
 #, kde-format
 msgid "Stage All"
-msgstr ""
+msgstr "Forbered alle"
 
 #: gitwidget.cpp:1251
 #, kde-format
 msgid "Remove All"
-msgstr ""
+msgstr "Fjern alle"
 
 #: gitwidget.cpp:1251
 #, kde-format
 msgid "Discard All"
-msgstr ""
+msgstr "Forkast alle"
 
 #: gitwidget.cpp:1254
 #, kde-format
 msgid "Open .gitignore"
-msgstr ""
+msgstr "Åpne .gitignore"
 
 #: gitwidget.cpp:1255 gitwidget.cpp:1304 gitwidget.cpp:1355
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr ""
+msgstr "Vis Diff"
 
 #: gitwidget.cpp:1272
 #, kde-format
 msgid "Are you sure you want to remove these files?"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne disse filene?"
 
 #: gitwidget.cpp:1277
 #, kde-format
 msgid "Are you sure you want to discard all changes?"
-msgstr ""
+msgstr "Er du sikker på at du vil forkaste alle endringer?"
 
 #: gitwidget.cpp:1295
 #, kde-format
 msgid "Open File"
-msgstr ""
+msgstr "Åpne fil"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Unstage File"
-msgstr ""
+msgstr "Dropp forberedt fil"
 
 #: gitwidget.cpp:1296
 #, kde-format
 msgid "Stage File"
-msgstr ""
+msgstr "Forbered fil"
 
 #: gitwidget.cpp:1297
 #, kde-format
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: gitwidget.cpp:1297
 #, kde-format
 msgid "Discard"
-msgstr ""
+msgstr "Forkast"
 
 #: gitwidget.cpp:1305
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr ""
+msgstr "Vis i eksternt Git diff-verktøy"
 
 #: gitwidget.cpp:1306
 #, kde-format
 msgid "Open at HEAD"
-msgstr ""
+msgstr "Åpne fra HEAD"
 
 #: gitwidget.cpp:1310
 #, kde-format
 msgid "Show History"
-msgstr ""
+msgstr "Vis historikk"
 
 #: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr ""
+msgstr "Er du sikker på at du vil forkaste endringene i denne filen?"
 
 #: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne denne filen?"
 
 #: gitwidget.cpp:1354
 #, kde-format
 msgid "Unstage All"
-msgstr ""
+msgstr "Dropp alle forberedte filer"
 
 #: gitwidget.cpp:1421
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr ""
+msgstr "Dropp alle valgte forberedte filer"
 
 #: gitwidget.cpp:1421
 #, kde-format
 msgid "Stage Selected Files"
-msgstr ""
+msgstr "Forbered valgte filer"
 
 #: gitwidget.cpp:1422
 #, kde-format
 msgid "Discard Selected Files"
-msgstr ""
+msgstr "Forkast valgte filer"
 
 #: gitwidget.cpp:1426
 #, kde-format
 msgid "Remove Selected Files"
-msgstr ""
+msgstr "Fjern valgte filer"
 
 #: gitwidget.cpp:1439
 #, kde-format
 msgid "Are you sure you want to discard the changes?"
-msgstr ""
+msgstr "Er du sikker på at du vil forkaste alle endringene?"
 
 #: gitwidget.cpp:1444
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
+msgstr "Er du sikker på at du vil fjerne disse usporede endringene?"
 
 #: kateproject.cpp:299
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr ""
+msgstr "JSON-filen «%1» er feilformatert: %2"
 
 #: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
@@ -545,16 +547,16 @@ msgstr "Prosjektfullføring"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Autoload Repositories && Build Trees"
-msgstr ""
+msgstr "Last depot automatisk og bygg trær"
 
 #: kateprojectconfigpage.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "Project plugin is able to autoload repository working copies and build trees "
 "when there is no .kateproject file defined yet."
 msgstr ""
-"Prosjekt-tillegget kan automatisk laste inn arbeidskopier fra fillageret når "
-"det ikke er definert en .kateproject-fil ennå."
+"Prosjekt-tillegget kan automatisk laste inn arbeidskopier fra depotet og "
+"bygge trær når det ikke er definert en .kateproject-fil ennå."
 
 #: kateprojectconfigpage.cpp:29
 #, kde-format
@@ -574,49 +576,49 @@ msgstr "&Mercurial"
 #: kateprojectconfigpage.cpp:36
 #, kde-format
 msgid "&Fossil"
-msgstr ""
+msgstr "&Fossil"
 
 #: kateprojectconfigpage.cpp:38
 #, kde-format
 msgid "&CMake"
-msgstr ""
+msgstr "&CMake"
 
 #: kateprojectconfigpage.cpp:47
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Session Behavior"
-msgstr ""
+msgstr "Øktoppførsel"
 
 #: kateprojectconfigpage.cpp:48
 #, kde-format
 msgid "Session settings for projects"
-msgstr ""
+msgstr "Øktinnstillinger for prosjekter"
 
 #: kateprojectconfigpage.cpp:49
 #, kde-format
 msgid "Restore Open Projects"
-msgstr ""
+msgstr "Gjenopprett åpne prosjekter"
 
 #: kateprojectconfigpage.cpp:56
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Project Index"
-msgstr ""
+msgstr "Prosjektindeks"
 
 #: kateprojectconfigpage.cpp:57
 #, kde-format
 msgid "Project ctags index settings"
-msgstr ""
+msgstr "innstillinger for ctags-indeksering"
 
 #: kateprojectconfigpage.cpp:58 kateprojectinfoviewindex.cpp:210
 #, kde-format
 msgid "Enable indexing"
-msgstr ""
+msgstr "Slå på indeksering"
 
 #: kateprojectconfigpage.cpp:61
 #, kde-format
 msgid "Directory for index files"
-msgstr ""
+msgstr "Mappe for indekseringsfiler"
 
 #: kateprojectconfigpage.cpp:65
 #, kde-format
@@ -624,59 +626,61 @@ msgid ""
 "The system temporary directory is used if not specified, which may overflow "
 "for very large repositories"
 msgstr ""
+"Systemets midlertidige lagringsmappe blir brukt hvis ingenting blir "
+"definert, noe som kan føre til overflyt for veldig store prosjekter"
 
 #: kateprojectconfigpage.cpp:72
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Cross-Project Functionality"
-msgstr ""
+msgstr "Tverrprosjektfunksjonalitet"
 
 #: kateprojectconfigpage.cpp:73
 #, kde-format
 msgid ""
 "Project plugin is able to perform some operations across multiple projects"
-msgstr ""
+msgstr "Prosjekttillegget kan utføre enkelte handlinger på tvers av prosjekter"
 
 #: kateprojectconfigpage.cpp:74
 #, kde-format
 msgid "Cross-Project Completion"
-msgstr ""
+msgstr "Tverrprosjektfullføring"
 
 #: kateprojectconfigpage.cpp:76
 #, kde-format
 msgid "Cross-Project Goto Symbol"
-msgstr ""
+msgstr "Tverrprosjekt gå-til-symbol"
 
 #: kateprojectconfigpage.cpp:84
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Git"
-msgstr ""
+msgstr "Git"
 
 #: kateprojectconfigpage.cpp:87
 #, kde-format
 msgid "Single click action in the git status view"
-msgstr ""
+msgstr "Enkeltklikkaksjon i git statusvisning"
 
 #: kateprojectconfigpage.cpp:89 kateprojectconfigpage.cpp:101
 #, kde-format
 msgid "No Action"
-msgstr ""
+msgstr "Ingen handling"
 
 #: kateprojectconfigpage.cpp:91 kateprojectconfigpage.cpp:103
 #, kde-format
 msgid "Open file"
-msgstr ""
+msgstr "Åpne fil"
 
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr ""
+msgstr "Forbered / dropp forberedelse"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
 msgid "Double click action in the git status view"
-msgstr ""
+msgstr "Dobbelklikkaksjon i git statusvisning"
 
 #: kateprojectconfigpage.cpp:142 kateprojectpluginview.cpp:72
 #, kde-format
@@ -687,31 +691,31 @@ msgstr "Prosjekter"
 #, kde-format
 msgctxt "Groupbox title"
 msgid "Projects Properties"
-msgstr ""
+msgstr "Prosjektegenskaper"
 
 #: kateprojectinfoview.cpp:83
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: kateprojectinfoview.cpp:92
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Project)"
-msgstr ""
+msgstr "Terminal (prosjekt)"
 
 #: kateprojectinfoview.cpp:101
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Base)"
-msgstr ""
+msgstr "Terminal (base)"
 
 #: kateprojectinfoview.cpp:110
 #, kde-format
 msgctxt "@title:tab"
 msgid "Terminal (Build)"
-msgstr ""
+msgstr "Terminal (bygg)"
 
 #: kateprojectinfoview.cpp:117
 #, kde-format
@@ -737,7 +741,7 @@ msgstr "Start analyse …"
 #, kde-format
 msgctxt "'%1' refers to project name, e.g,. Code Analysis - MyProject"
 msgid "Code Analysis - %1"
-msgstr ""
+msgstr "Kodeanalyse – %1"
 
 #: kateprojectinfoviewcodeanalysis.cpp:99
 #, kde-format
@@ -745,6 +749,9 @@ msgid ""
 "'%1' is not installed on your system, %2.<br/><br/>%3. The tool will be run "
 "on all project files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"«%1» er ikke installert på systemet ditt, %2<br/><br/>%3. Verktøyet vil bli "
+"kjørt på alle prosjektfiler som samsvarer med denne listen over filetternavn:"
+"<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:109
 #, kde-format
@@ -752,13 +759,15 @@ msgid ""
 "Using %1 installed at: %2.<br/><br/>%3. The tool will be run on all project "
 "files which match this list of file extensions:<br/><b>%4</b>"
 msgstr ""
+"Bruker %1 installert ved: %2<br/><br/>%3. Verktøyet vil bli kjørt på alle "
+"prosjektfiler som samsvarer med denne listen over filetternavn:<br/><b>%4</b>"
 
 #: kateprojectinfoviewcodeanalysis.cpp:151
 #: kateprojectinfoviewcodeanalysis.cpp:211
 #: kateprojectinfoviewcodeanalysis.cpp:215
 #, kde-format
 msgid "CodeAnalysis"
-msgstr ""
+msgstr "Kodeanalyse"
 
 #: kateprojectinfoviewcodeanalysis.cpp:206
 #, kde-format
@@ -768,13 +777,13 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "[%1]Analyse på filen %2 er fullført."
+msgstr[1] "[%1]Analyse på filene %2 er fullført."
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr ""
+msgstr "Analyse feilet med sluttkode %1, Feil: %2"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
@@ -784,7 +793,7 @@ msgstr "Navn"
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
 msgid "Kind"
-msgstr "Slag"
+msgstr "Type"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
@@ -809,32 +818,32 @@ msgstr "Kunne ikke opprette indeksen. Installer «ctags»."
 #: kateprojectinfoviewindex.cpp:209
 #, kde-format
 msgid "Indexing is not enabled"
-msgstr ""
+msgstr "Indeksering er slått av"
 
 #: kateprojectitem.cpp:164
 #, kde-format
 msgid "Error"
-msgstr ""
+msgstr "Feil"
 
 #: kateprojectitem.cpp:164
 #, kde-format
 msgid "File name already exists"
-msgstr ""
+msgstr "Filnavnet finnes fra før"
 
 #: kateprojectplugin.cpp:240
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr ""
+msgstr "Bekreft lukking av prosjekt: %1"
 
 #: kateprojectplugin.cpp:241
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
-msgstr ""
+msgstr "Vil du lukke prosjekt %1 og de %2 relaterte åpne dokumentene?"
 
 #: kateprojectplugin.cpp:626
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr ""
+msgstr "Full adresse til gjeldende prosjekt ekskludert filnavnet."
 
 #: kateprojectplugin.cpp:643
 #, kde-format
@@ -842,76 +851,78 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
+"Full adresse til gjeldende prosjekt ekskludert filnavnet, men med "
+"plattformspesifikke mappeskilletegn (baklengs skråstrek i Windows)."
 
 #: kateprojectpluginview.cpp:62
 #, kde-format
 msgid "Project Manager"
-msgstr ""
+msgstr "Prosjektbehandler"
 
 #: kateprojectpluginview.cpp:84
 #, kde-format
 msgid "Open projects list"
-msgstr ""
+msgstr "Åpne prosjektliste"
 
 #: kateprojectpluginview.cpp:89
 #, kde-format
 msgid "Reload project"
-msgstr ""
+msgstr "Last prosjekt på ny"
 
 #: kateprojectpluginview.cpp:92
 #, kde-format
 msgid "Close project"
-msgstr ""
+msgstr "Lukk prosjekt"
 
 #: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Open &Folder..."
-msgstr ""
+msgstr "Åpne &mappe …"
 
 #: kateprojectpluginview.cpp:174
 #, kde-format
 msgid "Project TODOs"
-msgstr ""
+msgstr "Gjøremål for prosjektet"
 
 #: kateprojectpluginview.cpp:179
 #, kde-format
 msgid "Activate Previous Project"
-msgstr ""
+msgstr "Aktiver forrige prosjekt"
 
 #: kateprojectpluginview.cpp:185
 #, kde-format
 msgid "Activate Next Project"
-msgstr ""
+msgstr "Aktiver neste prosjekt"
 
 #: kateprojectpluginview.cpp:191
 #, kde-format
 msgid "Lookup"
-msgstr ""
+msgstr "Oppslag"
 
 #: kateprojectpluginview.cpp:196
 #, kde-format
 msgid "Close Project"
-msgstr ""
+msgstr "Lukk prosjekt"
 
 #: kateprojectpluginview.cpp:201
 #, kde-format
 msgid "Close All Projects"
-msgstr ""
+msgstr "Lukk alle prosjekt"
 
 #: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr ""
+msgstr "Lukk foreldreløse prosjekt"
 
 #: kateprojectpluginview.cpp:211
 #, kde-format
 msgid "Reload Project"
-msgstr ""
+msgstr "Last prosjekt på ny"
 
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr ""
+msgstr "Sjekk ut Git-gren"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:792
 #, kde-format
@@ -921,57 +932,57 @@ msgstr "Slå opp: %1"
 #: kateprojectpluginview.cpp:229 kateprojectpluginview.cpp:793
 #, kde-format
 msgid "Goto: %1"
-msgstr ""
+msgstr "Gå til: %1"
 
 #: kateprojectpluginview.cpp:303
 #, kde-format
 msgid "Projects Index"
-msgstr ""
+msgstr "Prosjektindeks"
 
 #: kateprojectpluginview.cpp:837
 #, kde-format
 msgid "Choose a directory"
-msgstr ""
+msgstr "Velg en mappe"
 
 #: kateprojecttreeviewcontextmenu.cpp:46
 #, kde-format
 msgid "Enter name:"
-msgstr ""
+msgstr "Oppgi navn:"
 
 #: kateprojecttreeviewcontextmenu.cpp:63
 #, kde-format
 msgid "Delete File"
-msgstr ""
+msgstr "Slett fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr ""
+msgstr "Vil du slette filen «%1»?"
 
 #: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopier adresse"
 
 #: kateprojecttreeviewcontextmenu.cpp:98
 #, kde-format
 msgid "New File…"
-msgstr ""
+msgstr "Ny fil …"
 
 #: kateprojecttreeviewcontextmenu.cpp:99
 #, kde-format
 msgid "New Folder…"
-msgstr ""
+msgstr "Ny mappe …"
 
 #: kateprojecttreeviewcontextmenu.cpp:106
 #, kde-format
 msgid "&Rename"
-msgstr ""
+msgstr "End&re navn"
 
 #: kateprojecttreeviewcontextmenu.cpp:113
 #, kde-format
 msgid "Properties"
-msgstr ""
+msgstr "Egenskaper"
 
 #: kateprojecttreeviewcontextmenu.cpp:117
 #, kde-format
@@ -981,57 +992,57 @@ msgstr "Åpne med"
 #: kateprojecttreeviewcontextmenu.cpp:125
 #, kde-format
 msgid "Open Internal Terminal Here"
-msgstr ""
+msgstr "Åpne intern terminal her"
 
 #: kateprojecttreeviewcontextmenu.cpp:137
 #, kde-format
 msgid "Open External Terminal Here"
-msgstr ""
+msgstr "Åpne ekstern terminal her"
 
 #: kateprojecttreeviewcontextmenu.cpp:143
 #, kde-format
 msgid "&Open Containing Folder"
-msgstr ""
+msgstr "Å&pne foreldremappe"
 
 #: kateprojecttreeviewcontextmenu.cpp:152
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Vis Git-logg"
 
 #: kateprojecttreeviewcontextmenu.cpp:216
-#, fuzzy, kde-format
+#, kde-format
 msgid "New File"
-msgstr "Fil"
+msgstr "Ny fil"
 
 #: kateprojecttreeviewcontextmenu.cpp:221
 #, kde-format
 msgid "New Folder"
-msgstr ""
+msgstr "Ny mappe"
 
 #: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
-msgstr ""
+msgstr "Filen finnes fra før"
 
 #: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr ""
+msgstr "Klarte ikke opprette filen %1, Feil: %2"
 
 #: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
-msgstr ""
+msgstr "Mappen finnes fra før"
 
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr ""
+msgstr "Klarte ikke opprette mappen: %1"
 
 #: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr ""
+msgstr "Finner ikke mappen: %1"
 
 #: kateprojectworker.cpp:729
 #, kde-format
@@ -1041,81 +1052,88 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
+"Klarte ikke laste prosjekt basert på %1 enten fordi %1 ikke er installert "
+"eller det ble ikke funnet i søkestien (PATH-variabelen). Installer %1 eller "
+"alternativt skru av valget «Last depot automatisk og bygg trær»  i "
+"prosjektinnstillingene."
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr ""
+msgstr "Kjør kommandoen i et terminalvindu tilhørende det aktive prosjektet."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr ""
+msgstr "Ingen kommando oppgitt"
 
 #: project_commands.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgid "Project Command"
-msgstr "Prosjektfullføring"
+msgstr "Prosjektkommando"
 
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
 msgstr ""
+"Mellomlagermelding (valgfri). «Enter» for å bekrefte, «Escape» for å avbryte."
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
+"Skriv for å filtrere, «Enter» for å hente og fjerne mellomlager, «Escape» "
+"for å avslutte."
 
 #: stashdialog.cpp:142
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr ""
+msgstr "Klarte ikke å mellomlagre endringer %1"
 
 #: stashdialog.cpp:144
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr ""
+msgstr "Vellykket mellomlagring av endringer."
 
 #: stashdialog.cpp:163
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr ""
+msgstr "Klarte ikke å hente liste over mellomlager. Feil: "
 
 #: stashdialog.cpp:179
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr ""
+msgstr "Klarte ikke å bruke mellomlager. Feil: "
 
 #: stashdialog.cpp:181
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr ""
+msgstr "Dropp mellomlager feilet. Feil: "
 
 #: stashdialog.cpp:183
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr ""
+msgstr "Hent og fjern mellomlager feilet. Feil: "
 
 #: stashdialog.cpp:187
 #, kde-format
 msgid "Stash applied successfully."
-msgstr ""
+msgstr "Mellomlageret ble brukt."
 
 #: stashdialog.cpp:189
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr ""
+msgstr "Vellykket dropping av mellomlageret."
 
 #: stashdialog.cpp:191
 #, kde-format
 msgid "Stash popped successfully."
-msgstr ""
+msgstr "Vellykket henting og fjerning av mellomlageret."
 
 #: stashdialog.cpp:220
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr ""
+msgstr "Vis mellomlager feilet. Feil: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

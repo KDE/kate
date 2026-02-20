@@ -380,13 +380,3 @@ msgstr "Scagaire..."
 #, kde-format
 msgid "&Tools"
 msgstr "&Uirlisí"
-
-#, fuzzy
-#~| msgid "Snippets"
-#~ msgid "Snippets tool view"
-#~ msgstr "Blúirí"
-
-#, fuzzy
-#~| msgid "Snippets"
-#~ msgid "Snippets..."
-#~ msgstr "Blúirí"

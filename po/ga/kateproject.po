@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-25 02:37+0000\n"
-"PO-Revision-Date: 2025-12-25 04:07+0000\n"
-"Last-Translator: Charlotte <altronic25@protonmail.com>\n"
+"PO-Revision-Date: 2025-12-01 12:43+0000\n"
+"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish\n"
 "Language: ga\n"
 "MIME-Version: 1.0\n"
@@ -1160,22 +1160,3 @@ msgstr "Theip ar an taisce a thaispeáint. Earráid: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Tionscadail"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#, fuzzy
-#~| msgid "Open With"
-#~ msgid "Type to filter..."
-#~ msgstr "Oscail Le"
-
-#~ msgid "Hello World"
-#~ msgstr "Dia Dhuit, A Dhomhain"
-
-#~ msgid "Example kate plugin"
-#~ msgstr "Breiseán samplach kate"

@@ -1,80 +1,86 @@
-# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
+# Translation of kategpgplugin to Norwegian Bokmål
+#
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-13 13:02+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
-"Language: ga\n"
+"PO-Revision-Date: 2026-02-18 19:26+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.12.2\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
 msgid "Error! No keys found..."
-msgstr "Earráid! Níor aimsíodh aon eochracha..."
+msgstr "Feil! Fant ingen nøkler …"
 
 #: gpgmeppwrapper.cpp:134 gpgmeppwrapper.cpp:136
 #, kde-format
 msgid "Error finding key: "
-msgstr "Earráid ag aimsiú eochair: "
+msgstr "Feil under nøkkelsøk: "
 
 #: gpgmeppwrapper.cpp:221 gpgmeppwrapper.cpp:223
 #, kde-format
 msgid "Error in symmetric encryption: "
-msgstr "Earráid i gcriptiú siméadrach: "
+msgstr "Feil i symmetrisk kryptering: "
 
 #: gpgmeppwrapper.cpp:239 gpgmeppwrapper.cpp:241
 #, kde-format
 msgid "Encryption Failed: "
-msgstr "Theip ar an gcriptiú: "
+msgstr "Kryptering feilet: "
 
 #: kategpgplugin.cpp:76
 #, kde-format
 msgid "GPG Plugin"
-msgstr "Breiseán GPG"
+msgstr "GPG-tillegg"
 
 #: kategpgplugin.cpp:81
 #, kde-format
 msgid "GPG Decrypt current document"
-msgstr "GPG Díchriptigh an doiciméad reatha"
+msgstr "Dekrypter gjeldende dokument med GPG"
 
 #: kategpgplugin.cpp:82
 #, kde-format
 msgid "GPG Encrypt current document"
-msgstr "GPG Criptigh an doiciméad reatha"
+msgstr "Krypter gjeldende dokument med GPG"
 
 #: kategpgplugin.cpp:86
 #, kde-format
 msgid "<b>GPG Plugin Settings</b>"
-msgstr "<b>Socruithe Breiseáin GPG</b>"
+msgstr "<b>Innstillinger for GPG-tillegg</b>"
 
 #: kategpgplugin.cpp:89
 #, kde-format
 msgid "Key ID"
-msgstr "Aitheantas Eochrach"
+msgstr "Nøkkel-ID"
 
 #: kategpgplugin.cpp:90
 #, kde-format
 msgid "A search string used to filter keys by available email addresses"
 msgstr ""
-"Teaghrán cuardaigh a úsáidtear chun eochracha a scagadh de réir seoltaí "
-"ríomhphoist atá ar fáil"
+"En søkestreng brukt til å filtrere nøkler basert på tilgjengelige "
+"epostadresser"
 
 #: kategpgplugin.cpp:93
 #, kde-format
 msgid "Selected GPG Key finerprint for encryption"
-msgstr "Méarlorg Eochair GPG roghnaithe le haghaidh criptithe"
+msgstr "Valgt GPG-nøkkelfingeravtrykk for kryptering"
 
 #: kategpgplugin.cpp:94
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
-msgstr "<b>Chuig: Seoladh ríomhphoist a úsáidtear le haghaidh criptithe</b>"
+msgstr "<b>Til: Epostadresse brukt for kryptering</p>"
 
 #: kategpgplugin.cpp:103
 #, kde-format
@@ -83,9 +89,9 @@ msgid ""
 "Only mail addresses associated with your currently selected\n"
 "key fingerprint are available."
 msgstr ""
-"Roghnaigh seoladh ríomhphoist le criptiú chuige.\n"
-"Níl ach seoltaí ríomhphoist a bhaineann le do mhéarlorg\n"
-"eochrach atá roghnaithe agat ar fáil."
+"Velg en epostadresse som som du skal kryptere til.\n"
+"Det er bare epostadresser tilhørende det aktive\n"
+"nøkkelfingeravtrykket som er tilgjengelige."
 
 #: kategpgplugin.cpp:107
 #, kde-format
@@ -93,29 +99,27 @@ msgid ""
 "This is your currently selected GPG key fingerprint that will be used for "
 "encryption."
 msgstr ""
-"Seo é an méarlorg eochrach GPG atá roghnaithe agat faoi láthair a úsáidfear "
-"le haghaidh criptithe."
+"Dette er den aktive GPG-nøkkelfingeravtrykket som blir brukt for kryptering."
 
 #: kategpgplugin.cpp:110
 #, kde-format
 msgid "Save as ASCII encoded (.asc/.gpg)"
-msgstr "Sábháil mar ionchódaithe ASCII (.asc/.gpg)"
+msgstr "Lagre som ASCII-kode (.asc/.gpg)"
 
 #: kategpgplugin.cpp:113
 #, kde-format
 msgid "Enable symmetric encryption"
-msgstr "Cumasaigh criptiú siméadrach"
+msgstr "Slå på symmetrisk kryptering"
 
 #: kategpgplugin.cpp:116
 #, kde-format
 msgid "Show only keys for which a private key is available"
-msgstr ""
-"Taispeáin eochracha amháin a bhfuil eochair phríobháideach ar fáil dóibh"
+msgstr "Bare vis nøkler som har tilgjengelige private nøkler"
 
 #: kategpgplugin.cpp:119
 #, kde-format
 msgid "Hide Expired Keys"
-msgstr "Folaigh Eochracha atá imithe in Éag"
+msgstr "Vis utgåtte nøkler"
 
 #: kategpgplugin.cpp:220
 #, kde-format
@@ -123,23 +127,23 @@ msgid ""
 "Attempted double encryption detected!\n"
 "Encrypting more than once is disabled for now..."
 msgstr ""
-"Braitheadh ​​iarracht ar chriptiú dúbailte!\n"
-"Tá criptiú níos mó ná uair amháin díchumasaithe faoi láthair..."
+"Det er oppdaget forsøk på dobbel kryptering!\n"
+"Kryptering mer enn en gang er slått av inntil videre…"
 
 #: kategpgplugin.cpp:234 kategpgplugin.cpp:277
 #, kde-format
 msgid "Error! No views available..."
-msgstr "Earráid! Níl aon radharcanna ar fáil..."
+msgstr "Feil! Ingen visninger tilgjengelige …"
 
 #: kategpgplugin.cpp:239
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "Earráid ag díchriptiú Téacs! Tá an doiciméad folamh..."
+msgstr "Feil ved dekryptering av tekst! Dokumentet er tomt…"
 
 #: kategpgplugin.cpp:243
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
-msgstr "Earráid ag Díchriptiú Téacs! Níl aon mhéarloirg roghnaithe..."
+msgstr "Feil ved dekryptering av tekst! Det er ikke valgt fingeravtrykk…"
 
 #: kategpgplugin.cpp:248
 #, kde-format
@@ -148,24 +152,24 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"Earráid ag Díchriptiú Téacs!\n"
-"Níor aimsíodh aon mhéarloirg chomhoiriúnach!\n"
-"Nó ní téacs criptithe GPG é seo..."
+"Feil ved dekryptering av tekst!\n"
+"Finner ingen samsvarende fingeravtrykk!\n"
+"Eller så er ikke denne teksten kryptert med GPG…"
 
 #: kategpgplugin.cpp:256
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "Earráid ag díchriptiú Téacs!\n"
+msgstr "Feil ved dekryptering av tekst!\n"
 
 #: kategpgplugin.cpp:283
 #, kde-format
 msgid "Error Encrypting Text! No document available..."
-msgstr "Earráid ag criptiú Téacs! Níl aon doiciméad ar fáil..."
+msgstr "Feil ved kryptering av tekst! Ingen dokumenter tilgjengelige…"
 
 #: kategpgplugin.cpp:287
 #, kde-format
 msgid "Error Encrypting Text! Document is empty..."
-msgstr "Earráid ag criptiú Téacs! Tá an doiciméad folamh..."
+msgstr "Feil ved kryptering av tekst! Dokumentet er tomt…"
 
 #: kategpgplugin.cpp:291
 #, kde-format
@@ -173,49 +177,48 @@ msgid ""
 "Error Encrypting Text!\n"
 "No fingerprint selected..."
 msgstr ""
-"Earráid ag criptiú Téacs!\n"
-"Níor roghnaíodh aon mhéarloirg..."
+"Feil ved kryptering av tekst!\n"
+"Det er ikke valgt fingeravtrykk…"
 
 #: kategpgplugin.cpp:295
 #, kde-format
 msgid ""
 "Attempted double encryption detected! Encrypting twice is disabled for now..."
 msgstr ""
-"Braitheadh ​​iarracht ar chriptiú dúbailte! Tá criptiú faoi dhó díchumasaithe "
-"faoi láthair..."
+"Det er oppdaget forsøk på dobbel kryptering! Dobbel kryptering er slått av "
+"inntil videre…"
 
 #: kategpgplugin.cpp:308
 #, kde-format
 msgid "Error Encrypting Text! No Matching Fingerprint found...\n"
-msgstr ""
-"Earráid ag criptiú Téacs! Níor aimsíodh aon mhéarlorg comhoiriúnach...\n"
+msgstr "Feil ved kryptering av tekst! Finner ikke samsvarende fingeravtrykk…\n"
 
 #: kategpgplugin.cpp:312
 #, kde-format
 msgid "Error Encrypting Text!"
-msgstr "Earráid ag criptiú Téacs!"
+msgstr "Feil ved kryptering av tekst!"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Fingerprint"
-msgstr "Méarlorg Eochrach"
+msgstr "Nøkkelfingeravtrykk"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Creation Date"
-msgstr "Dáta Cruthaithe"
+msgstr "Opprettelsesdato"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Expiry Date"
-msgstr "Dáta Éaga"
+msgstr "Utløpsdato"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "Key Length"
-msgstr "Fad Eochrach"
+msgstr "Nøkkellengde"
 
 #: kategpgplugin.cpp:372
 #, kde-format
 msgid "User IDs"
-msgstr "Aitheantais Úsáideora"
+msgstr "Bruker-IDer"

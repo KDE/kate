@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4;\n"
+"3 : 4\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: CTagsGlobalConfig.ui:9
@@ -464,39 +464,3 @@ msgstr "Thuairteáil an comhad inrite CTags"
 #, kde-format
 msgid "The CTags program exited with code %2: %1"
 msgstr "Chríochnaigh an clár CTags le cód %2: %1"
-
-#~ msgid "Failed to run \"%1\". exitStatus = %2"
-#~ msgstr "Níorbh fhéidir \"%1\" a rith. Stádas scortha = %2"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#, fuzzy
-#~| msgid "CTags"
-#~ msgid "Kate CTags"
-#~ msgstr "CTags"
-
-#~ msgid "Load a CTags database file."
-#~ msgstr "Luchtaigh bunachar sonraí CTags."
-
-#~ msgctxt "Button text for creating a new CTags database file."
-#~ msgid "Create New"
-#~ msgstr "Cruthaigh Nua"
-
-#~ msgid "Select a location and create a new CTags database."
-#~ msgstr "Roghnaigh suíomh agus cruthaigh bunachar sonraí nua CTags."
-
-#~ msgctxt "Button text for loading a CTags database file"
-#~ msgid "Load"
-#~ msgstr "Luchtaigh"
-
-#~ msgid "Tags"
-#~ msgstr "Clibeanna"
-
-#~ msgid "Settings"
-#~ msgstr "Socruithe"

@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2015-05-18 09:33+0200\n"
-"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-18 23:21+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -26,6 +26,7 @@ msgid ""
 "A debugging session is on course. Please, use re-run or stop the current "
 "session."
 msgstr ""
+"En feilsøkingssesjon pågår. Bruk «kjør på ny» eller stopp gjeldende sesjon"
 
 #: configview.cpp:92
 #, kde-format
@@ -45,7 +46,7 @@ msgstr "Slett mål"
 #: configview.cpp:104
 #, kde-format
 msgid "Reload launch.json targets"
-msgstr ""
+msgstr "Kjør launch.json mål på ny"
 
 #: configview.cpp:109
 #, kde-format
@@ -60,7 +61,7 @@ msgstr "Arbeidsmappe:"
 #: configview.cpp:137
 #, kde-format
 msgid "Process Id:"
-msgstr ""
+msgstr "Prosess-ID:"
 
 #: configview.cpp:142
 #, kde-format
@@ -93,13 +94,13 @@ msgstr "Omdiriger det feilsøkte programmets inn/ut-data til en egen fane"
 #, kde-format
 msgctxt "Error message"
 msgid "No executable target set"
-msgstr ""
+msgstr "Ingen kjørbare mål definert"
 
 #: configview.cpp:406
 #, kde-format
 msgctxt "Error message"
 msgid "Invalid process id"
-msgstr ""
+msgstr "Ugyldig prosess-ID"
 
 #: configview.cpp:528 configview.cpp:541
 #, kde-format
@@ -107,391 +108,389 @@ msgid "Target %1"
 msgstr "Mål %1"
 
 #: configview.cpp:760
-#, fuzzy, kde-format
-#| msgid "Executable:"
+#, kde-format
 msgid "Select Executable"
-msgstr "Programfil:"
+msgstr "Velg programfil:"
 
 #: configview.cpp:773
-#, fuzzy, kde-format
-#| msgid "Working Directory:"
+#, kde-format
 msgid "Select Working Directory"
-msgstr "Arbeidsmappe:"
+msgstr "Velg arbeidsmappe"
 
 #: dapbackend.cpp:187
 #, kde-format
 msgid "DAP backend '%1' failed"
-msgstr ""
+msgstr "DAP-grensesnittet «%1» mislyktes"
 
 #: dapbackend.cpp:237
 #, kde-format
 msgid "program terminated"
-msgstr ""
+msgstr "programmet avsluttet"
 
 #: dapbackend.cpp:242
 #, kde-format
 msgid "Failed to terminate. Forcing shutdown..."
-msgstr ""
+msgstr "Klarte ikke avslutte. Tvinger nedstenging …"
 
 #: dapbackend.cpp:253
 #, kde-format
 msgid "requesting disconnection"
-msgstr ""
+msgstr "forespør frakobling"
 
 #: dapbackend.cpp:267
 #, kde-format
 msgid "requesting shutdown"
-msgstr ""
+msgstr "forespør nedstenging"
 
 #: dapbackend.cpp:291
 #, kde-format
 msgid "DAP backend: %1"
-msgstr ""
+msgstr "DAP-grensesnitt: %1"
 
 #: dapbackend.cpp:300
 #, kde-format
 msgid "stopped (%1)."
-msgstr ""
+msgstr "stoppet (%1)."
 
 #: dapbackend.cpp:308
 #, kde-format
 msgid "Active thread: %1 (all threads stopped)."
-msgstr ""
+msgstr "Aktiv tråd: %1 (alle tråder stoppet)."
 
 #: dapbackend.cpp:310
 #, kde-format
 msgid "Active thread: %1."
-msgstr ""
+msgstr "Aktiv tråd: %1."
 
 #: dapbackend.cpp:315
 #, kde-format
 msgid "Breakpoint(s) reached:"
-msgstr ""
+msgstr "Bruddpunkt(er) nådd:"
 
 #: dapbackend.cpp:341
 #, kde-format
 msgid "(continued) thread %1"
-msgstr ""
+msgstr "(fortsatt) tråd %1"
 
 #: dapbackend.cpp:343
 #, kde-format
 msgid "all threads continued"
-msgstr ""
+msgstr "alle tråder fortsatt"
 
 #: dapbackend.cpp:350
 #, kde-format
 msgid "(running)"
-msgstr ""
+msgstr "(kjører)"
 
 #: dapbackend.cpp:412
 #, kde-format
 msgid "*** connection with server closed ***"
-msgstr ""
+msgstr "** tilkobling til tjeneren er lukket ***"
 
 #: dapbackend.cpp:419
 #, kde-format
 msgid "program exited with code %1"
-msgstr ""
+msgstr "programmet avsluttet med kode %1"
 
 #: dapbackend.cpp:437
 #, kde-format
 msgid "*** waiting for user actions ***"
-msgstr ""
+msgstr "*** venter på brukerhandling ***"
 
 #: dapbackend.cpp:442
 #, kde-format
 msgid "error on response: %1"
-msgstr ""
+msgstr "feil på svar: %1"
 
 #: dapbackend.cpp:457
 #, kde-format
 msgid "important"
-msgstr ""
+msgstr "viktig"
 
 #: dapbackend.cpp:460
 #, kde-format
 msgid "telemetry"
-msgstr ""
+msgstr "telemetri"
 
 #: dapbackend.cpp:479
 #, kde-format
 msgid "debugging process [%1] %2"
-msgstr ""
+msgstr "feilsøkingsprosess [%1] %2"
 
 #: dapbackend.cpp:481
 #, kde-format
 msgid "debugging process %1"
-msgstr ""
+msgstr "feilsøkingsprosess %1"
 
 #: dapbackend.cpp:484
 #, kde-format
 msgid "Start method: %1"
-msgstr ""
+msgstr "Startmetode: %1"
 
 #: dapbackend.cpp:499
 #, kde-format
 msgid "thread %1"
-msgstr ""
+msgstr "tråd %1"
 
 #: dapbackend.cpp:626
 #, kde-format
 msgid "breakpoint set"
-msgstr ""
+msgstr "bruddpunkt angitt"
 
 #: dapbackend.cpp:634
 #, kde-format
 msgid "breakpoint cleared"
-msgstr ""
+msgstr "bruddpunkt fjernet"
 
 #: dapbackend.cpp:693
 #, kde-format
 msgid "(%1) breakpoint"
-msgstr ""
+msgstr "(%1) bruddpunkt"
 
 #: dapbackend.cpp:710
 #, kde-format
 msgid "<not evaluated>"
-msgstr ""
+msgstr "<ikke evaluert>"
 
 #: dapbackend.cpp:732
 #, kde-format
 msgid "server capabilities"
-msgstr ""
+msgstr "tjenermuligheter"
 
 #: dapbackend.cpp:735
 #, kde-format
 msgid "supported"
-msgstr ""
+msgstr "støttet"
 
 #: dapbackend.cpp:735
 #, kde-format
 msgid "unsupported"
-msgstr ""
+msgstr "ikke støttet"
 
 #: dapbackend.cpp:738
 #, kde-format
 msgid "conditional breakpoints"
-msgstr ""
+msgstr "betingede bruddpunkt"
 
 #: dapbackend.cpp:739
 #, kde-format
 msgid "function breakpoints"
-msgstr ""
+msgstr "funksjonsbruddpunkt"
 
 #: dapbackend.cpp:740
 #, kde-format
 msgid "hit conditional breakpoints"
-msgstr ""
+msgstr "treff betingede bruddpunkt"
 
 #: dapbackend.cpp:741
 #, kde-format
 msgid "log points"
-msgstr ""
+msgstr "loggpunkt"
 
 #: dapbackend.cpp:741
 #, kde-format
 msgid "modules request"
-msgstr ""
+msgstr "modulforespørsel"
 
 #: dapbackend.cpp:742
 #, kde-format
 msgid "goto targets request"
-msgstr ""
+msgstr "hopp til målforespørsler"
 
 #: dapbackend.cpp:743
 #, kde-format
 msgid "terminate request"
-msgstr ""
+msgstr "terminer forespørsel"
 
 #: dapbackend.cpp:744
 #, kde-format
 msgid "terminate debuggee"
-msgstr ""
+msgstr "terminer program under feilsøking "
 
 #: dapbackend.cpp:972
 #, kde-format
 msgid "syntax error: expression not found"
-msgstr ""
+msgstr "syntaksfeil: fant ikke uttrykket"
 
 #: dapbackend.cpp:990 dapbackend.cpp:1026 dapbackend.cpp:1065
 #: dapbackend.cpp:1099 dapbackend.cpp:1135 dapbackend.cpp:1171
 #: dapbackend.cpp:1207 dapbackend.cpp:1307 dapbackend.cpp:1370
 #, kde-format
 msgid "syntax error: %1"
-msgstr ""
+msgstr "syntaksfeil: %1"
 
 #: dapbackend.cpp:998 dapbackend.cpp:1034 dapbackend.cpp:1314
 #: dapbackend.cpp:1378
 #, kde-format
 msgid "invalid line: %1"
-msgstr ""
+msgstr "ugyldig linje: %1"
 
 #: dapbackend.cpp:1006 dapbackend.cpp:1011 dapbackend.cpp:1042
 #: dapbackend.cpp:1047 dapbackend.cpp:1339 dapbackend.cpp:1344
 #: dapbackend.cpp:1386 dapbackend.cpp:1391
 #, kde-format
 msgid "file not specified: %1"
-msgstr ""
+msgstr "fil ikke spesifisert: %1"
 
 #: dapbackend.cpp:1077 dapbackend.cpp:1111 dapbackend.cpp:1147
 #: dapbackend.cpp:1183 dapbackend.cpp:1219
 #, kde-format
 msgid "invalid thread id: %1"
-msgstr ""
+msgstr "ugyldig tråd-id: %1"
 
 #: dapbackend.cpp:1083 dapbackend.cpp:1117 dapbackend.cpp:1153
 #: dapbackend.cpp:1189 dapbackend.cpp:1225
 #, kde-format
 msgid "thread id not specified: %1"
-msgstr ""
+msgstr "tråd-id er ikke spesifisert: %1"
 
 #: dapbackend.cpp:1236
 #, kde-format
 msgid "Available commands:"
-msgstr ""
+msgstr "Tilgjengelige kommandoer:"
 
 #: dapbackend.cpp:1324
 #, kde-format
 msgid "conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "vilkårlige bruddpunkt støttes ikke av tjeneren"
 
 #: dapbackend.cpp:1332
 #, kde-format
 msgid "hit conditional breakpoints are not supported by the server"
-msgstr ""
+msgstr "vilkårlige bruddpunkttreff støttes ikke av tjeneren"
 
 #: dapbackend.cpp:1353
 #, kde-format
 msgid "line %1 already has a breakpoint"
-msgstr ""
+msgstr "linje %1 har allerede et bruddpunkt"
 
 #: dapbackend.cpp:1399
 #, kde-format
 msgid "breakpoint not found (%1:%2)"
-msgstr ""
+msgstr "bruddpunkt ble ikke funnet (%1:%2)"
 
 #: dapbackend.cpp:1405
 #, kde-format
 msgid "Current thread: "
-msgstr ""
+msgstr "Gjeldende tråd: "
 
 #: dapbackend.cpp:1410 dapbackend.cpp:1417 dapbackend.cpp:1438
 #, kde-format
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
 #: dapbackend.cpp:1413
 #, kde-format
 msgid "Current frame: "
-msgstr ""
+msgstr "Gjeldende ramme: "
 
 #: dapbackend.cpp:1420
 #, kde-format
 msgid "Session state: "
-msgstr ""
+msgstr "Øktstatus: "
 
 #: dapbackend.cpp:1423
 #, kde-format
 msgid "initializing"
-msgstr ""
+msgstr "klargjør"
 
 #: dapbackend.cpp:1426
 #, kde-format
 msgid "running"
-msgstr ""
+msgstr "kjører"
 
 #: dapbackend.cpp:1429
 #, kde-format
 msgid "stopped"
-msgstr ""
+msgstr "stoppet"
 
 #: dapbackend.cpp:1432
 #, kde-format
 msgid "terminated"
-msgstr ""
+msgstr "avsluttet"
 
 #: dapbackend.cpp:1435
 #, kde-format
 msgid "disconnected"
-msgstr ""
+msgstr "frakoblet"
 
 #: dapbackend.cpp:1491
 #, kde-format
 msgid "command not found"
-msgstr ""
+msgstr "fant ikke kommando"
 
 #: dapbackend.cpp:1525
 #, kde-format
 msgid "missing thread id"
-msgstr ""
+msgstr "mangler tråd-id"
 
 #: dapbackend.cpp:1665
 #, kde-format
 msgid "Current frame [%3]: %1:%2 (%4)"
-msgstr ""
+msgstr "Gjeldende ramme [%3]: %1:%2 (%4)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_1)
 #: debugconfig.ui:33
 #, kde-format
 msgid "User Debug Adapter Settings"
-msgstr ""
+msgstr "Brukerinnstillinger for feilsøkeradapter"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: debugconfig.ui:41
 #, kde-format
 msgid "Settings File:"
-msgstr ""
+msgstr "Innstillingsfil:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: debugconfig.ui:68
 #, kde-format
 msgid "Default Debug Adapter Settings"
-msgstr ""
+msgstr "Standardinnstillinger for feilsøkeradapter"
 
 #: debugconfigpage.cpp:72 debugconfigpage.cpp:77
 #, kde-format
 msgid "Debugger"
-msgstr ""
+msgstr "Feilsøker"
 
 #: debugconfigpage.cpp:128
 #, kde-format
 msgid "No JSON data to validate."
-msgstr ""
+msgstr "Ingen JSON-data å validere."
 
 #: debugconfigpage.cpp:136
 #, kde-format
 msgid "JSON data is valid."
-msgstr ""
+msgstr "JSON-dataene er gyldige."
 
 #: debugconfigpage.cpp:138
 #, kde-format
 msgid "JSON data is invalid: no JSON object"
-msgstr ""
+msgstr "JSON-dataene er ugyldige: mangler JSON-objekt"
 
 #: debugconfigpage.cpp:141
 #, kde-format
 msgid "JSON data is invalid: %1"
-msgstr ""
+msgstr "JSON-dataene er ugyldige: %1"
 
 #: localsview.cpp:41
 #, kde-format
 msgid "type"
-msgstr ""
+msgstr "type"
 
 #: localsview.cpp:50
 #, kde-format
 msgid "indexed items"
-msgstr ""
+msgstr "indekserte elementer"
 
 #: localsview.cpp:53
 #, kde-format
 msgid "named items"
-msgstr ""
+msgstr "navngitte elementer"
 
 #: localsview.cpp:69 localsview.cpp:70
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Laster …"
 
 #: localsview.cpp:106
 #, kde-format
@@ -501,7 +500,7 @@ msgstr "Symbol"
 #: localsview.cpp:107
 #, kde-format
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: localsview.cpp:108
 #, kde-format
@@ -509,19 +508,19 @@ msgid "Value"
 msgstr "Verdi"
 
 #: localsview.cpp:198
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Symbol"
-msgstr "Symbol"
+msgstr "Kopier symbol"
 
 #: localsview.cpp:212
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Value"
-msgstr "Kopier mål"
+msgstr "Kopier verdi"
 
 #: plugin_kategdb.cpp:109
 #, kde-format
 msgid "Kate Debug"
-msgstr ""
+msgstr "Kate feilsøk"
 
 #: plugin_kategdb.cpp:113
 #, kde-format
@@ -542,7 +541,7 @@ msgstr "Lokale og kallstabel"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr ""
+msgstr "<title>Klarte ikke åpne filen:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:255
 #, kde-format
@@ -570,9 +569,9 @@ msgid "Toggle Breakpoint / Break"
 msgstr "Slå av/på bruddpunkt/brudd"
 
 #: plugin_kategdb.cpp:290
-#, fuzzy, kde-format
+#, kde-format
 msgid "Clear All Breakpoints"
-msgstr "Bruddpunkt"
+msgstr "Tøm alle bruddpunkt"
 
 #: plugin_kategdb.cpp:295
 #, kde-format
@@ -602,22 +601,22 @@ msgstr "Start feilsøking på nytt"
 #: plugin_kategdb.cpp:330
 #, kde-format
 msgid "Clear Output"
-msgstr ""
+msgstr "Tøm utdata"
 
 #: plugin_kategdb.cpp:338
 #, kde-format
 msgid "Hot Reload"
-msgstr ""
+msgstr "Varm oppdatering"
 
 #: plugin_kategdb.cpp:345
 #, kde-format
 msgid "Hot Restart"
-msgstr ""
+msgstr "Varm omstart"
 
 #: plugin_kategdb.cpp:354
 #, kde-format
 msgid "Enable Hot Reload on Save"
-msgstr ""
+msgstr "Slå på varm oppdatering ved lagring"
 
 #: plugin_kategdb.cpp:363 plugin_kategdb.cpp:382
 #, kde-format
@@ -633,7 +632,7 @@ msgstr "Skriv ut verdi"
 #: plugin_kategdb.cpp:438
 #, kde-format
 msgid "Error: %1"
-msgstr ""
+msgstr "Feil: %1"
 
 #: plugin_kategdb.cpp:469 plugin_kategdb.cpp:485
 #, kde-format
@@ -659,7 +658,7 @@ msgstr "Tråd %1"
 #, kde-format
 msgctxt "Tab label"
 msgid "Debug Output"
-msgstr ""
+msgstr "Utdata fra feilsøking"
 
 #: plugin_kategdb.cpp:874
 #, kde-format
@@ -678,19 +677,19 @@ msgid "Breakpoint"
 msgstr "Bruddpunkt"
 
 #: plugin_kategdb.cpp:1074
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy Stack Trace"
-msgstr "Kopier mål"
+msgstr "Kopier stabelspor"
 
 #: plugin_kategdb.cpp:1093
 #, kde-format
 msgid "Open Location"
-msgstr ""
+msgstr "Åpne adresse"
 
 #: plugin_kategdb.cpp:1100
 #, kde-format
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopier adresse"
 
 #: stackframe_model.cpp:80
 #, kde-format
@@ -702,13 +701,13 @@ msgstr "Nr"
 #, kde-format
 msgctxt "Column label"
 msgid "Function"
-msgstr ""
+msgstr "Funksjon"
 
 #: stackframe_model.cpp:84
 #, kde-format
 msgctxt "Column label"
 msgid "Location"
-msgstr ""
+msgstr "Adresse"
 
 #. i18n: ectx: Menu (debug)
 #: ui.rc:6
@@ -720,4 +719,4 @@ msgstr "&Feilsøk"
 #: ui.rc:33
 #, kde-format
 msgid "Debug Plugin"
-msgstr ""
+msgstr "Feilsøkingstillegg"

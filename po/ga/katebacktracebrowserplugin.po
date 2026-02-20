@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4;\n"
+"3 : 4\n"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, lstBacktrace)
 #: btbrowserwidget.ui:27
@@ -189,20 +189,3 @@ msgstr "Lorg ar ais Socruithe"
 #, kde-format
 msgid "Backtrace Browser Settings"
 msgstr "Socruithe na Brabhsála Cúl-Lorg"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#~ msgid "Backtrace Browser"
-#~ msgstr "Brabhsálaí Cúl-Lorg"
-
-#~ msgid "Browsing backtraces"
-#~ msgstr "Cúl-loirg á mbrabhsáil"
-
-#~ msgid "Indexed files: %1"
-#~ msgstr "Comhaid innéacsaithe: %1"

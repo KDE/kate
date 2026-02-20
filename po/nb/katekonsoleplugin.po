@@ -6,14 +6,14 @@ msgstr ""
 "Project-Id-Version: katekonsoleplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2014-08-08 19:56+0200\n"
-"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-18 23:23+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -40,43 +40,44 @@ msgstr "S&ynkroniser terminalen med gjeldende dokument"
 #, kde-format
 msgctxt "@action"
 msgid "Run Current Document"
-msgstr ""
+msgstr "Kjør gjeldende dokument"
 
 #: kateconsole.cpp:173 kateconsole.cpp:575
 #, kde-format
 msgctxt "@action"
 msgid "S&how Terminal Panel"
-msgstr ""
+msgstr "Vis &terminalpanel"
 
 #: kateconsole.cpp:179
 #, kde-format
 msgctxt "@action"
 msgid "&Focus Terminal Panel"
-msgstr ""
+msgstr "&Fokuser terminalpanelet"
 
 #: kateconsole.cpp:185
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Vertically"
-msgstr ""
+msgstr "&Splitt terminalvinduet loddrett"
 
 #: kateconsole.cpp:190
 #, kde-format
 msgctxt "@action"
 msgid "&Split Terminal Horizontally"
-msgstr ""
+msgstr "&Splitt terminalvinduet vannrett"
 
 #: kateconsole.cpp:195
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action"
 msgid "&New Terminal Tab"
-msgstr "&Send i rør til terminalen"
+msgstr "&Ny terminalfane"
 
 #: kateconsole.cpp:359
 #, kde-format
 msgid ""
 "Konsole not installed. Please install konsole to be able to use the terminal."
 msgstr ""
+"Konsole er ikke installert. Installer Konsole dersom du vil bruke terminalen."
 
 #: kateconsole.cpp:435
 #, kde-format
@@ -101,7 +102,7 @@ msgstr "Send i rør til terminalen"
 #: kateconsole.cpp:505
 #, kde-format
 msgid "Not a local file: '%1'"
-msgstr ""
+msgstr "Ikke en lokal fil: «%1»"
 
 #: kateconsole.cpp:538
 #, kde-format
@@ -111,11 +112,15 @@ msgid ""
 "with your user rights, in the terminal:\n"
 "'%1'"
 msgstr ""
+"Er du sikker på at du vil kjøre dokumentet?\n"
+"Dette vil kjøre følgende kommando, med\n"
+"dine brukerrettigheter i terminalvinduet:\n"
+"«%1»"
 
 #: kateconsole.cpp:545
 #, kde-format
 msgid "Run in Terminal?"
-msgstr ""
+msgstr "Kjøre i terminal?"
 
 #: kateconsole.cpp:546
 #, kde-format
@@ -126,41 +131,45 @@ msgstr "Kjør"
 #, kde-format
 msgctxt "@action"
 msgid "&Hide Terminal Panel"
-msgstr ""
+msgstr "&Gjem terminalpanelet"
 
 #: kateconsole.cpp:585
 #, kde-format
 msgid "Defocus Terminal Panel"
-msgstr ""
+msgstr "Ta fokus vekk fra terminalpanelet"
 
 #: kateconsole.cpp:586 kateconsole.cpp:587
 #, kde-format
 msgid "Focus Terminal Panel"
-msgstr ""
+msgstr "Fokuser på terminalpanelet"
 
 #: kateconsole.cpp:698
 #, kde-format
 msgid "Terminal Synchronization Mode"
-msgstr ""
+msgstr "Modus for terminalsynkronisering"
 
 #: kateconsole.cpp:701
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Don't synchronize terminal tab with current document"
-msgstr "S&ynkroniser terminalen med gjeldende dokument"
+msgstr "&Ikke synkroniser terminalfanen med gjeldende dokument"
 
 #: kateconsole.cpp:704
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "&Automatically synchronize the current terminal tab with the current "
 "document when possible"
-msgstr "Synkroniser &automatisk terminalen med gjeldende dokument når mulig"
+msgstr ""
+"Synkroniser &automatisk den gjeldende terminalfanen med gjeldende dokument "
+"når mulig"
 
 #: kateconsole.cpp:707
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "&Automatically create a terminal tab for the directory of the current "
 "document and switch to it"
-msgstr "Synkroniser &automatisk terminalen med gjeldende dokument når mulig"
+msgstr ""
+"Opprett en terminalfane &automatisk for mappen til det gjeldende dokumentet "
+"og bytt til den"
 
 #: kateconsole.cpp:714 kateconsole.cpp:735
 #, kde-format
@@ -170,7 +179,7 @@ msgstr "Kjør i terminal"
 #: kateconsole.cpp:716
 #, kde-format
 msgid "&Remove extension"
-msgstr ""
+msgstr "Fje&rn etternavn"
 
 #: kateconsole.cpp:721
 #, kde-format
@@ -180,7 +189,7 @@ msgstr "Prefiks:"
 #: kateconsole.cpp:729
 #, kde-format
 msgid "&Show warning next time"
-msgstr ""
+msgstr "Vi&s advarsel neste gang"
 
 #: kateconsole.cpp:731
 #, kde-format
@@ -188,6 +197,8 @@ msgid ""
 "The next time '%1' is executed, make sure a warning window will pop up, "
 "displaying the command to be sent to terminal, for review."
 msgstr ""
+"Sikre at en advarsel spretter opp, som viser kommandoen som er i ferd med å "
+"sendes til terminalen slik at den kan kontrolleres før «%1» kjøres."
 
 #: kateconsole.cpp:742
 #, kde-format
@@ -200,12 +211,12 @@ msgid ""
 "Important: The document has to be closed to make the console application "
 "continue"
 msgstr ""
-"Viktig: Dokumentet må være lukket for at konsollprogrammeet skal fortsette"
+"Viktig: Dokumentet må være lukket for at konsollprogrammet skal fortsette"
 
 #: kateconsole.cpp:748
 #, kde-format
 msgid "Hide Konsole on pressing 'Esc'"
-msgstr ""
+msgstr "Gjem Konsole ved å trykke på «Escape»"
 
 #: kateconsole.cpp:751
 #, kde-format
@@ -213,6 +224,9 @@ msgid ""
 "This may cause issues with terminal apps that use Esc key, for e.g., vim. "
 "Add these apps in the input below (Comma separated list)"
 msgstr ""
+"Dette kan skape problemer med terminalprogrammer som bruker «Escape»-tasten, "
+"f.eks. Vim. Legg til disse programmene nedenfor (skill programnavnene med "
+"komma)"
 
 #: kateconsole.cpp:795
 #, kde-format

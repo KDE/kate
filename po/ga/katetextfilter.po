@@ -124,9 +124,3 @@ msgstr "Cumaisc STDOUT agus STDERR"
 #, kde-format
 msgid "&Tools"
 msgstr "&Uirlisí"
-
-#~ msgid "Filter Te&xt..."
-#~ msgstr "Scag Téa&cs..."
-
-#~ msgid "You need to have a selection to use textfilter"
-#~ msgstr "Tá roghnúchán de dhíth chun textfilter a úsáid"

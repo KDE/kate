@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2014-11-11 22:20+0100\n"
-"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-18 23:20+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -49,23 +49,23 @@ msgstr "Lukk det gjeldende dokumentet."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Expand Recursively"
-msgstr ""
+msgstr "Utvid rekursivt"
 
 #: katefiletree.cpp:133
 #, kde-format
 msgid "Expand the file list sub tree recursively."
-msgstr ""
+msgstr "Utvid fil-undertreet rekursivt"
 
 #: katefiletree.cpp:135
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Collapse Recursively"
-msgstr ""
+msgstr "Slå sammen markerte rekursivt"
 
 #: katefiletree.cpp:137
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr ""
+msgstr "Fold sammen fil-undertreet rekursivt."
 
 #: katefiletree.cpp:139
 #, kde-format
@@ -82,29 +82,29 @@ msgstr "Lukk andre dokumenter i denne mappa."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr ""
+msgstr "Åpne foreldremappen"
 
 #: katefiletree.cpp:146
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr ""
+msgstr "Åpne mappen denne filen ligger i."
 
 #: katefiletree.cpp:148
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Location"
-msgstr ""
+msgstr "Kopier filadresse"
 
 #: katefiletree.cpp:150
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr ""
+msgstr "Kopier filadressen til utklippstavlen."
 
 #: katefiletree.cpp:152
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename..."
-msgstr ""
+msgstr "Endre navn …"
 
 #: katefiletree.cpp:154
 #, kde-format
@@ -125,7 +125,7 @@ msgstr "Vis forhåndsvisning av gjeldende dokument"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: katefiletree.cpp:164
 #, kde-format
@@ -201,17 +201,17 @@ msgstr "Sorter etter åpningsrekkefølge"
 #: katefiletree.cpp:272 katefiletreeconfigpage.cpp:72
 #, kde-format
 msgid "Custom Sorting"
-msgstr ""
+msgstr "Selvvalgt sortering"
 
 #: katefiletree.cpp:403
 #, kde-format
 msgid "Open..."
-msgstr ""
+msgstr "Åpne …"
 
 #: katefiletree.cpp:407
-#, fuzzy, kde-format
+#, kde-format
 msgid "Open File"
-msgstr "Åpne med"
+msgstr "Åpne fil"
 
 #: katefiletree.cpp:417
 #, kde-format
@@ -222,19 +222,17 @@ msgstr "Åpne med"
 #: katefiletree.cpp:433
 #, kde-format
 msgid "Show Git History"
-msgstr ""
+msgstr "Vis Git-historikk"
 
 #: katefiletree.cpp:444
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Unpin Document"
-msgstr "Dokumenter"
+msgstr "Løsne dokumentet"
 
 #: katefiletree.cpp:446
-#, fuzzy, kde-format
-#| msgid "Documents"
+#, kde-format
 msgid "Pin Document"
-msgstr "Dokumenter"
+msgstr "Fest dokumentet"
 
 #: katefiletree.cpp:494
 #, kde-format
@@ -306,17 +304,17 @@ msgstr "Vis full &sti"
 #: katefiletreeconfigpage.cpp:93
 #, kde-format
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "Vis &verktøylinje"
 
 #: katefiletreeconfigpage.cpp:96
 #, kde-format
 msgid "Show Close Button On Hovering"
-msgstr ""
+msgstr "Vis lukkeknapp når pekeren er over"
 
 #: katefiletreeconfigpage.cpp:99
 #, kde-format
 msgid "Middle Click To Close Documents"
-msgstr ""
+msgstr "Midtklikk for å lukke dokumenter"
 
 #: katefiletreeconfigpage.cpp:105
 #, kde-format
@@ -359,6 +357,8 @@ msgid ""
 "When enabled, a toolbar with actions like “Save” are displayed above the "
 "list of documents."
 msgstr ""
+"Når dette er slått på vil en verktøylinje med handlinger som «Lagre» bli "
+"vist over listen over dokumenter."
 
 #: katefiletreeconfigpage.cpp:154 katefiletreeplugin.cpp:130
 #: katefiletreeplugin.cpp:137
@@ -376,7 +376,7 @@ msgstr "Sett opp dokumenter"
 msgctxt ""
 "Open here is a description, i.e. 'list of widgets that are open' not a verb"
 msgid "Open Widgets"
-msgstr ""
+msgstr "Åpne skjermelementer"
 
 #: katefiletreemodel.cpp:649
 #, kde-format
@@ -388,7 +388,7 @@ msgstr "<p><b>%1</b></p><p>Dokumentet er blitt endret av et annet program.</p>"
 #: katefiletreeplugin.cpp:174
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filtrer …"
 
 #: katefiletreeplugin.cpp:253
 #, kde-format
@@ -403,12 +403,12 @@ msgstr "Neste dokument"
 #: katefiletreeplugin.cpp:265
 #, kde-format
 msgid "&Show Active Document"
-msgstr ""
+msgstr "&Vis aktivt dokument"
 
 #: katefiletreeplugin.cpp:271
 #, kde-format
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: katefiletreeplugin.cpp:272
 #, kde-format
@@ -418,15 +418,15 @@ msgstr "Lagre det gjeldende dokumentet"
 #: katefiletreeplugin.cpp:277
 #, kde-format
 msgid "Save As"
-msgstr ""
+msgstr "Lagre som"
 
 #: katefiletreeplugin.cpp:278
 #, kde-format
 msgid "Save the current document under a new name"
-msgstr ""
+msgstr "Lagre det gjeldende dokumentet med et nytt navn"
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:7
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "&Gå til"

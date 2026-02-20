@@ -6,14 +6,14 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2013-09-16 10:18+0200\n"
-"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-11 22:39+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
@@ -116,22 +116,22 @@ msgstr "Symbolvisning"
 #: plugin_katesymbolviewer.cpp:75
 #, kde-format
 msgid "Tree Mode"
-msgstr ""
+msgstr "Trevisning"
 
 #: plugin_katesymbolviewer.cpp:77
 #, kde-format
 msgid "Expand Tree"
-msgstr ""
+msgstr "Utvid tre"
 
 #: plugin_katesymbolviewer.cpp:79
 #, kde-format
 msgid "Show Sorted"
-msgstr ""
+msgstr "Vis sortert"
 
 #: plugin_katesymbolviewer.cpp:88
 #, kde-format
 msgid "Show Parameters"
-msgstr ""
+msgstr "Vis parametre"
 
 #: plugin_katesymbolviewer.cpp:114
 #, kde-format
@@ -141,7 +141,7 @@ msgstr "Symbolliste"
 #: plugin_katesymbolviewer.cpp:132
 #, kde-format
 msgid "Filter…"
-msgstr ""
+msgstr "Filter …"
 
 #: plugin_katesymbolviewer.cpp:142
 #, kde-format
@@ -158,12 +158,12 @@ msgstr "Posisjon"
 #: plugin_katesymbolviewer.cpp:360
 #, kde-format
 msgid "Sorry, not supported yet!"
-msgstr ""
+msgstr "Beklager, det er ikke støttet ennå!"
 
 #: plugin_katesymbolviewer.cpp:364
 #, kde-format
 msgid "File type: %1"
-msgstr ""
+msgstr "Filtype: %1"
 
 #: plugin_katesymbolviewer.cpp:475
 #, kde-format
@@ -224,7 +224,7 @@ msgstr "&Innstillinger"
 #: xml_parser.cpp:25
 #, kde-format
 msgid "Show Tags"
-msgstr ""
+msgstr "Vis merkelapper"
 
 #: xslt_parser.cpp:22
 #, kde-format

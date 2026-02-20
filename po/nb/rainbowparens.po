@@ -1,0 +1,37 @@
+# Translation of rainbowparens to Norwegian Bokmål
+#
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kate\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2025-11-17 14:43+0000\n"
+"PO-Revision-Date: 2026-02-09 00:02+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.12.2\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
+
+#: rainbowparens_plugin.cpp:439
+#, kde-format
+msgctxt "group title"
+msgid "Bracket Colors"
+msgstr "Parantesfarge"
+
+#: rainbowparens_plugin.cpp:456
+#, kde-format
+msgid "Colored Brackets"
+msgstr "Fargede paranteser"
+
+#: rainbowparens_plugin.cpp:461
+#, kde-format
+msgid "Colored Brackets Settings"
+msgstr "Oppsett for fargede paranteser"

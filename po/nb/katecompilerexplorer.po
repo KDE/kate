@@ -1,153 +1,158 @@
-# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
+# Translation of katecompilerexplorer to Norwegian Bokmål
+#
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-13 12:05+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
-"Language: ga\n"
+"PO-Revision-Date: 2026-02-18 23:16+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.12.2\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
 
 #: AsmView.cpp:303
 #, kde-format
 msgid "Scroll to source"
-msgstr "Scrollaigh go dtí an fhoinse"
+msgstr "Rull til kilden"
 
 #: AsmView.cpp:313
 #, kde-format
 msgid "Jump to label"
-msgstr "Léim go dtí an lipéad"
+msgstr "Gå til merkelapp"
 
 #: AsmView.cpp:339
 #, kde-format
 msgid "Copy"
-msgstr "Cóipeáil"
+msgstr "Kopier"
 
 #: AsmView.cpp:351
 #, kde-format
 msgid "Select All"
-msgstr "Roghnaigh Uile"
+msgstr "Velg alle"
 
 #: ce_plugin.cpp:35
 #, kde-format
 msgid "Compiler Explorer"
-msgstr "Taiscéalaí Tiomsaitheora"
+msgstr "Kompilatorutforsker"
 
 #: ce_plugin.cpp:38
 #, kde-format
 msgid "&Open Current File in Compiler Explorer"
-msgstr "&Oscail an Comhad Reatha in Taiscéalaí an Tiomsaitheora"
+msgstr "&Åpne gjeldende fil i Kompilatorutforsker"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgid "No file open"
-msgstr "Níl aon chomhad oscailte"
+msgstr "Ingen fil å åpne"
 
 #: ce_plugin.cpp:54
 #, kde-format
 msgctxt "error category title"
 msgid "CompilerExplorer"
-msgstr "Taiscéalaí Tiomsaitheora"
+msgstr "Kompilatorutforsker"
 
 #: ce_widget.cpp:145
 #, kde-format
 msgid "Do you really want to close %1?"
-msgstr "An bhfuil tú cinnte gur mhaith leat %1 a dhúnadh?"
+msgstr "Er du sikker på at du vil lukke %1?"
 
 #: ce_widget.cpp:196
 #, kde-format
 msgctxt "@info:tooltip Languages like C, C++, Rust"
 msgid "Languages"
-msgstr "Teangacha"
+msgstr "Språk"
 
 #: ce_widget.cpp:197
 #, kde-format
 msgctxt "@info:tooltip Compilers like GCC, Clang"
 msgid "Compilers"
-msgstr "Tiomsaitheoirí"
+msgstr "Kompilatorer"
 
 #: ce_widget.cpp:198
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "Compiler options…"
-msgstr "Roghanna tiomsaitheora…"
+msgstr "Kompilatorvalg …"
 
 #: ce_widget.cpp:215
 #, kde-format
 msgid "Compile"
-msgstr "Tiomsú"
+msgstr "Kompiler"
 
 #: ce_widget.cpp:312
 #, kde-format
 msgid "Options"
-msgstr "Roghanna"
+msgstr "Valg"
 
 #: ce_widget.cpp:329
 #, kde-format
 msgid "Demangle Identifiers"
-msgstr "Aitheantóirí Dí-Mhangla"
+msgstr "Dekod identifikatorer"
 
 #: ce_widget.cpp:330
 #, kde-format
 msgid "Filter Library Functions"
-msgstr "Feidhmeanna Leabharlainne Scagaire"
+msgstr "Filtrer bibliotekfunksjoner"
 
 #: ce_widget.cpp:331
 #, kde-format
 msgid "Filter Unused Labels"
-msgstr "Scag Lipéid Neamhúsáidte"
+msgstr "Filtrer ubrukte merkelapper"
 
 #: ce_widget.cpp:332
 #, kde-format
 msgid "Filter Comments"
-msgstr "Scagaire Tráchtanna"
+msgstr "Filtrer kommentarer"
 
 #: ce_widget.cpp:333
 #, kde-format
 msgid "Intel Syntax"
-msgstr "Comhréir Intel"
+msgstr "Intel-syntaks"
 
 #: ce_widget.cpp:337
 #, kde-format
 msgid "Change URL…"
-msgstr "Athraigh an URL…"
+msgstr "Endre nettadresse …"
 
 #: ce_widget.cpp:343
 #, kde-format
 msgid "Enter URL"
-msgstr "Cuir isteach URL"
+msgstr "Skriv inn nettadresse"
 
 #: ce_widget.cpp:344
 #, kde-format
 msgid ""
 "Enter URL for the CompilerExplorer instance, e.g. “http://localhost:10240”"
 msgstr ""
-"Cuir isteach URL don chás CompilerExplorer, m.sh. “http://localhost:10240”"
+"Skriv inn nettadresse  for Kompilatorutforskerinstansen f.eks. «http://"
+"localhost :10240»"
 
 #: ce_widget.cpp:404
 #, kde-format
 msgid "Compiler returned: %1"
-msgstr "An tiomsaitheoir a fuair ar ais: %1"
+msgstr "Kompilatoren returnerte: %1"
 
 #: ce_widget.cpp:553
 #, kde-format
 msgid "Reveal linked code"
-msgstr "Nocht an cód nasctha"
+msgstr "Vis lenket kode"
 
 #: ce_widget.cpp:575
 #, kde-format
 msgid "CompilerExplorer"
-msgstr "Taiscéalaí Tiomsaitheora"
+msgstr "Kompilatorutforsker"
 
 #: ce_widget.cpp:591
 #, kde-format
 msgid "'%1' compiler flags were found. Output may not be useful."
-msgstr ""
-"Fuarthas bratacha tiomsaitheora '%1'. B’fhéidir nach mbeidh an t-aschur "
-"úsáideach."
+msgstr "«%1» kompilatorflagg ble funnet. Udataene er muligens unyttige."

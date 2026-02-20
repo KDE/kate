@@ -6,15 +6,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2014-09-09 10:08+0200\n"
-"Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
+"PO-Revision-Date: 2026-02-11 22:44+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 25.12.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -233,7 +233,7 @@ msgstr "Fil"
 #: exportwizard.cpp:54
 #, kde-format
 msgid "Comma Separated Values"
-msgstr ""
+msgstr "Kommaseparerter verdier"
 
 #: exportwizard.cpp:96
 #, kde-format
@@ -332,37 +332,37 @@ msgstr "Innstillinger for SQL ConfigPage"
 #: katesqlview.cpp:43
 #, kde-format
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: katesqlview.cpp:50
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL"
-msgstr ""
+msgstr "SQL"
 
 #: katesqlview.cpp:56
 #, kde-format
 msgctxt "@title:window"
 msgid "SQL Schema"
-msgstr ""
+msgstr "SQL-skjema"
 
 #: katesqlview.cpp:104
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add Connection..."
-msgstr ""
+msgstr "Legg til tilkobling …"
 
 #: katesqlview.cpp:109
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Connection"
-msgstr ""
+msgstr "Fjern tilkobling"
 
 #: katesqlview.cpp:114
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Connection..."
-msgstr ""
+msgstr "Rediger tilkobling …"
 
 #: katesqlview.cpp:119
 #, kde-format
@@ -380,7 +380,7 @@ msgstr "Tilkobling"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Query"
-msgstr ""
+msgstr "Kjør spørring"
 
 #: outputstylewidget.cpp:28
 #, kde-format
@@ -476,7 +476,7 @@ msgstr "Systemtabeller"
 #, kde-format
 msgctxt "@action:inmenu Context menu"
 msgid "Select Data"
-msgstr ""
+msgstr "Velg data"
 
 #: schemawidget.cpp:273
 #, kde-format
@@ -513,7 +513,7 @@ msgstr "Oppdater"
 #: sqlmanager.cpp:314
 #, kde-format
 msgid "Prepare Statement Failure"
-msgstr ""
+msgstr "Spørringsforberedelsen feilet"
 
 #: sqlmanager.cpp:315
 #, kde-format
@@ -521,6 +521,8 @@ msgid ""
 "<p>Preparing the query failed with the following error: %1</p><p>Do you want "
 "to continue without preparing the query?</p>"
 msgstr ""
+"<p>Forberedelse av spørringen feilet med følgenede feilmelding: %1</p><p>Vil "
+"du fortsette uten å klargjøre spørringen?</p>"
 
 #: sqlmanager.cpp:345
 #, kde-format

@@ -1,18 +1,24 @@
-# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
+# Translation of rbqlplugin to Norwegian Bokmål
+#
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-13 14:05+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
-"Language: ga\n"
+"PO-Revision-Date: 2026-02-09 00:01+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.12.2\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
 
 #: RBQLPlugin.cpp:32
 #, kde-format
@@ -22,31 +28,31 @@ msgstr "RBQL"
 #: RBQLWidget.cpp:52
 #, kde-format
 msgid "Enter RBQL query"
-msgstr "Cuir isteach fiosrúchán RBQL"
+msgstr "Skriv inn RBQL-spørring"
 
 #: RBQLWidget.cpp:54
 #, kde-format
 msgid "Add new tab"
-msgstr "Cuir cluaisín nua leis"
+msgstr "Legg til ny fane"
 
 #: RBQLWidget.cpp:56
 #, kde-format
 msgid "Execute query"
-msgstr "Cuir fiosrúchán i gcrích"
+msgstr "Kjør spørring"
 
 #: RBQLWidget.cpp:71
 #, kde-format
 msgid "File has header"
-msgstr "Tá ceanntásc sa chomhad"
+msgstr "Filen har filhode"
 
 #: RBQLWidget.cpp:111
 #, kde-format
 msgid "Failed to get separator for current document. Not a CSV/TSV doc?"
 msgstr ""
-"Theip ar dheighilteoir a fháil don doiciméad reatha. Nach doiciméad CSV/TSV "
-"é?"
+"Klarte ikke å finne delelinje i det gjeldende dokumentet. Kanskje ikke et "
+"CSV/TSV-dokument?"
 
 #: RBQLWidget.cpp:120
 #, kde-format
 msgid "Document is empty"
-msgstr "Tá an doiciméad folamh"
+msgstr "Dokumentet er tomt"

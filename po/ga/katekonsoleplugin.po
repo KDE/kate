@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4;\n"
+"3 : 4\n"
 
 #: kateconsole.cpp:119 kateconsole.cpp:151 kateconsole.cpp:790
 #, kde-format
@@ -240,38 +240,3 @@ msgstr "Socruithe Teirminéil"
 #, kde-format
 msgid "&Tools"
 msgstr "&Uirlisí"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr "Níl go leor karma agat chun blaosc nó aithris teirminéil a rochtain"
-
-#, fuzzy
-#~| msgid "Sorry, can not cd into '%1'"
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "Brón orm, ní féidir dul isteach i gcomhadlann '%1'"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#, fuzzy
-#~| msgid "Terminal"
-#~ msgid "Kate Terminal"
-#~ msgstr "Teirminéal"
-
-#, fuzzy
-#~| msgid "Terminal"
-#~ msgid "Terminal Panel"
-#~ msgstr "Teirminéal"
-
-#~ msgid "Konsole"
-#~ msgstr "Konsole"
-
-#~ msgid "Embedded Konsole"
-#~ msgstr "Konsole Leabaithe"
-
-#~ msgid "Pipe to Console"
-#~ msgstr "Píopáil go dtí an Consól"

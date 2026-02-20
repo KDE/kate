@@ -1,56 +1,62 @@
-# SPDX-FileCopyrightText: 2026 Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>
+# Translation of katexmlcheck to Norwegian Bokmål
+#
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-13 13:13+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@yahoo.com>\n"
-"Language-Team: Irish Gaelic <kde-i18n-doc@kde.org>\n"
-"Language: ga\n"
+"PO-Revision-Date: 2026-02-12 14:17+0100\n"
+"Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
+"Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 25.12.2\n"
+"X-Environment: kde\n"
+"X-Accelerator-Marker: &\n"
+"X-Text-Markup: kde4\n"
 
 #: plugin_katexmlcheck.cpp:93
 #, kde-format
 msgid "XML Check"
-msgstr "Seiceáil XML"
+msgstr "XML-kontroll"
 
 #: plugin_katexmlcheck.cpp:98
 #, kde-format
 msgid "Validate XML"
-msgstr "Bailíochtú XML"
+msgstr "Valider XML"
 
 #: plugin_katexmlcheck.cpp:128
 #, kde-format
 msgid "Validate process crashed"
-msgstr "Thuairteáil an próiseas bailíochtaithe"
+msgstr "Valideringsprosessen krasjet"
 
 #: plugin_katexmlcheck.cpp:128 plugin_katexmlcheck.cpp:146
 #: plugin_katexmlcheck.cpp:206 plugin_katexmlcheck.cpp:231
 #: plugin_katexmlcheck.cpp:251 plugin_katexmlcheck.cpp:334
 #, kde-format
 msgid "XMLCheck"
-msgstr "Seiceáil XML"
+msgstr "XMLCheck"
 
 #: plugin_katexmlcheck.cpp:142
 #, kde-format
 msgid "No DOCTYPE found, will only check well-formedness."
-msgstr "Níor aimsíodh DOCTYPE, ní dhéanfar ach seiceáil ar dhea-fhoirmiú."
+msgstr "Fant ikke DOCTYPE. Vil derfor kun sjekke om dokumentet er velformet."
 
 #: plugin_katexmlcheck.cpp:144
 #, kde-format
 msgctxt "%1 refers to the XML DTD"
 msgid "'%1' not found, will only check well-formedness."
-msgstr "Níor aimsíodh '%1', ní dhéanfar ach dea-fhoirmiú a sheiceáil."
+msgstr "Fant ikke «%1». Vil derfor kun sjekke om dokumentet er velformet."
 
 #: plugin_katexmlcheck.cpp:230
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr "<b>Earráid:</b> Níorbh fhéidir comhad sealadach '%1' a chruthú."
+msgstr "<b>Feil:</b> Klarte ikke opprette den midlertidige filen «%1»."
 
 #: plugin_katexmlcheck.cpp:249
 #, kde-format
@@ -58,8 +64,8 @@ msgid ""
 "<b>Error:</b> Failed to find xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Earráid:</b> Theip ar xmllint a aimsiú. Déan cinnte go bhfuil xmllint "
-"suiteáilte. Is cuid de libxml2 é."
+"<b>Feil:</b> Finner ikke xmlint. Sørg for at xmlint er installert. Det er en "
+"del av libxml2."
 
 #: plugin_katexmlcheck.cpp:332
 #, kde-format
@@ -67,8 +73,8 @@ msgid ""
 "<b>Error:</b> Failed to execute xmllint. Please make sure that xmllint is "
 "installed. It is part of libxml2."
 msgstr ""
-"<b>Earráid:</b> Theip ar xmllint a fhorghníomhú. Déan cinnte go bhfuil "
-"xmllint suiteáilte. Is cuid de libxml2 é."
+"<b>Feil:</b> Klarte ikke å kjøre xmlint. Sørg for at xmlint er installert. "
+"Det er en del av libxml2."
 
 #. i18n: ectx: Menu (xml)
 #: ui.rc:6

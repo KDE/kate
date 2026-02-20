@@ -254,34 +254,3 @@ msgstr "Athróga"
 #, kde-format
 msgid "Templates"
 msgstr "Teimpléid"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#~ msgid "Show Globals"
-#~ msgstr "Taispeáin Siombailí Comhchoiteanna"
-
-#~ msgid "Refresh List"
-#~ msgstr "Athnuaigh an Liosta"
-
-#~ msgid "Enable Sorting"
-#~ msgstr "Cumasaigh Sórtáil"
-
-#~ msgid "View symbols"
-#~ msgstr "Féach ar shiombailí"
-
-#, fuzzy
-#~| msgid "Show Functions"
-#~ msgid "Show Clojure Functions"
-#~ msgstr "Taispeáin Feidhmeanna"
-
-#~ msgid "Hide Symbols"
-#~ msgstr "Folaigh Siombailí"
-
-#~ msgid "Show Symbols"
-#~ msgstr "Taispeáin Siombailí"

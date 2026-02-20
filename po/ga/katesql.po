@@ -568,23 +568,3 @@ msgstr "Barra Nascanna SQL"
 #, kde-format
 msgid "SQL Toolbar"
 msgstr "Barra Uirlisí SQL"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#, fuzzy
-#~| msgid "SQL Plugin"
-#~ msgid "Kate SQL Plugin"
-#~ msgstr "Breiseán SQL"
-
-#~ msgctxt "@title:window"
-#~ msgid "SQL Results"
-#~ msgstr "Torthaí SQL"
-
-#~ msgid "Execute query on SQL databases"
-#~ msgstr "Déan iarratas ar bhunachair sonraí SQL"

@@ -14,9 +14,13 @@
 #include <QMessageBox>
 #include <QMimeDatabase>
 #include <QThread>
+#include <QUrl>
 
 #include <KIconUtils>
 #include <KLocalizedString>
+
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
 
 KateProjectItem::KateProjectItem(Type type, const QString &text, const QString &path)
     : QStandardItem(text)
@@ -161,6 +165,18 @@ void KateProjectItem::setData(const QVariant &value, int role)
             return;
         }
 
+        const auto oldUrl = QUrl::fromLocalFile(m_path).adjusted(QUrl::RemoveScheme);
+        const auto openDocuments = KTextEditor::Editor::instance()->application()->documents();
+        KTextEditor::Document *documentToRename = nullptr;
+        // find open document to rename
+        for (auto *doc : openDocuments) {
+            if (doc->url().adjusted(QUrl::RemoveScheme) == oldUrl && doc->closeUrl()) {
+                doc->waitSaveComplete();
+                documentToRename = doc;
+                break;
+            }
+        }
+
         if (!QFile::rename(oldName, newName)) {
             QMessageBox::critical(QApplication::activeWindow(), i18n("Error"), i18n("File name already exists"));
             return;
@@ -170,6 +186,12 @@ void KateProjectItem::setData(const QVariant &value, int role)
          * Update the file2Item
          */
         project->renameFile(newName, oldName);
+
+        // update URL of the open document
+        if (documentToRename != nullptr) {
+            documentToRename->openUrl(QUrl::fromLocalFile(newName));
+            documentToRename->documentSavedOrUploaded(documentToRename, true);
+        }
 
         // change internal path
         m_path = newName;

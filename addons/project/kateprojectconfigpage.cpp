@@ -43,6 +43,27 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
 
     layout->addWidget(group);
 
+    vbox = new QVBoxLayout;
+    group = new QGroupBox(i18nc("Groupbox title", "Directory Listing"), this);
+    group->setWhatsThis(
+        i18n("When directory listing is enabled, autoloaded repository projects show all files "
+             "instead of only VCS-tracked files."));
+
+    m_cbDirectoryListing = new QCheckBox(i18n("Include files untracked by repository"), this);
+    m_cbDirectoryListing->setWhatsThis(
+        i18n("Show all files in the project directory including files not tracked by the version control system, "
+             "such as those excluded via .gitignore."));
+    vbox->addWidget(m_cbDirectoryListing);
+
+    m_cbShowHiddenFiles = new QCheckBox(i18n("Show hidden files"), this);
+    m_cbShowHiddenFiles->setWhatsThis(i18n("Show hidden files (dotfiles) in the project file tree."));
+    vbox->addWidget(m_cbShowHiddenFiles);
+
+    vbox->addStretch(1);
+    group->setLayout(vbox);
+
+    layout->addWidget(group);
+
     vbox = new QVBoxLayout();
     group = new QGroupBox(i18nc("Groupbox title", "Session Behavior"), this);
     group->setWhatsThis(i18n("Session settings for projects"));
@@ -121,7 +142,9 @@ KateProjectConfigPage::KateProjectConfigPage(QWidget *parent, KateProjectPlugin 
                     m_cbSessionRestoreOpenProjects,
                     m_cbMultiProjectCompletion,
                     m_cbIndexEnabled,
-                    m_cbMultiProjectGoto}) {
+                    m_cbMultiProjectGoto,
+                    m_cbDirectoryListing,
+                    m_cbShowHiddenFiles}) {
 #if QT_VERSION < QT_VERSION_CHECK(6, 7, 0)
         connect(cb, &QCheckBox::stateChanged, this, &KateProjectConfigPage::slotMyChanged);
 #else
@@ -172,6 +195,8 @@ void KateProjectConfigPage::apply()
     m_plugin->setDoubleClickAction((ClickAction)m_cmbDoubleClick->currentIndex());
 
     m_plugin->setRestoreProjectsForSession(m_cbSessionRestoreOpenProjects->isChecked());
+
+    m_plugin->setDirectoryListing(m_cbDirectoryListing->isChecked(), m_cbShowHiddenFiles->isChecked());
 }
 
 void KateProjectConfigPage::reset()
@@ -190,6 +215,9 @@ void KateProjectConfigPage::reset()
     m_cmbDoubleClick->setCurrentIndex((int)m_plugin->doubleClickAcion());
 
     m_cbSessionRestoreOpenProjects->setCheckState(m_plugin->restoreProjectsForSession() ? Qt::Checked : Qt::Unchecked);
+
+    m_cbDirectoryListing->setCheckState(m_plugin->directoryListing() ? Qt::Checked : Qt::Unchecked);
+    m_cbShowHiddenFiles->setCheckState(m_plugin->showHiddenFiles() ? Qt::Checked : Qt::Unchecked);
 
     m_changed = false;
 }

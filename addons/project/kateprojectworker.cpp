@@ -380,28 +380,32 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
      * try the different version control systems first
      */
 
-    if (filesEntry[QStringLiteral("git")].toBool()) {
+    const bool useGit = filesEntry[QStringLiteral("git")].toBool();
+    const bool useSvn = filesEntry[QStringLiteral("svn")].toBool();
+    const bool useHg = filesEntry[QStringLiteral("hg")].toBool();
+    const bool useDarcs = filesEntry[QStringLiteral("darcs")].toBool();
+    const bool useFossil = filesEntry[QStringLiteral("fossil")].toBool();
+
+    if (useGit) {
         filesFromGit(dir, recursive, outFiles);
-        return;
-    }
-
-    if (filesEntry[QStringLiteral("svn")].toBool()) {
+    } else if (useSvn) {
         filesFromSubversion(dir, recursive, outFiles);
-        return;
-    }
-
-    if (filesEntry[QStringLiteral("hg")].toBool()) {
+    } else if (useHg) {
         filesFromMercurial(dir, recursive, outFiles);
-        return;
-    }
-
-    if (filesEntry[QStringLiteral("darcs")].toBool()) {
+    } else if (useDarcs) {
         filesFromDarcs(dir, recursive, outFiles);
-        return;
+    } else if (useFossil) {
+        filesFromFossil(dir, recursive, outFiles);
     }
 
-    if (filesEntry[QStringLiteral("fossil")].toBool()) {
-        filesFromFossil(dir, recursive, outFiles);
+    if (useGit || useSvn || useHg || useDarcs || useFossil) {
+        // filter out hidden files from VCS listings unless explicitly requested
+        if (!filesEntry.value(QStringLiteral("hidden")).toBool()) {
+            auto isHidden = [](const FileEntry &entry) {
+                return entry.filePath.startsWith(u'.') || entry.filePath.contains(QStringLiteral("/."));
+            };
+            outFiles.erase(std::remove_if(outFiles.begin(), outFiles.end(), isHidden), outFiles.end());
+        }
         return;
     }
 

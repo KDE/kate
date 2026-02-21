@@ -153,6 +153,10 @@ public:
     void setRestoreProjectsForSession(bool enabled);
     bool restoreProjectsForSession() const;
 
+    void setDirectoryListing(bool directoryListing, bool showHiddenFiles);
+    bool directoryListing() const;
+    bool showHiddenFiles() const;
+
     /**
      * filesystem watcher to keep track of all project files
      * and auto-reload
@@ -240,6 +244,8 @@ private:
     void readConfig();
     void writeConfig();
 
+    void reloadProjects();
+
     static void registerVariables();
     static void unregisterVariables();
 
@@ -285,6 +291,10 @@ private:
     // some more features default off, too
     bool m_multiProjectCompletion = false;
     bool m_multiProjectGoto = false;
+
+    // directory listing settings
+    bool m_directoryListing = false;
+    bool m_showHiddenFiles = false;
 
     // git features
     ClickAction m_singleClickAction = ClickAction::ShowDiff;

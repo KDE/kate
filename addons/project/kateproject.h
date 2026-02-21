@@ -170,6 +170,16 @@ public:
     }
 
     /**
+     * Set the project map for non-file-backed projects.
+     * Call reload(true) afterwards to apply the changes.
+     * @param projectMap new project map to use
+     */
+    void setProjectMap(const QVariantMap &projectMap)
+    {
+        m_globalProject = projectMap;
+    }
+
+    /**
      * Accessor to project name.
      * @return project name
      */

@@ -449,7 +449,12 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
 KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir, const QVariantMap &baseProjectMap)
 {
     QVariantMap cnf = baseProjectMap, files;
-    files[type] = 1;
+    if (m_directoryListing) {
+        files[QStringLiteral("directory")] = QStringLiteral("./");
+    } else {
+        files[type] = 1;
+    }
+    files[QStringLiteral("hidden")] = m_showHiddenFiles;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
     return createProjectForDirectoryWithProjectMap(dir, cnf);
@@ -578,6 +583,84 @@ bool KateProjectPlugin::restoreProjectsForSession() const
     return m_restoreProjectsForSession;
 }
 
+void KateProjectPlugin::setDirectoryListing(bool directoryListing, bool showHiddenFiles)
+{
+    const bool changed = (m_directoryListing != directoryListing) || (m_showHiddenFiles != showHiddenFiles);
+    m_directoryListing = directoryListing;
+    m_showHiddenFiles = showHiddenFiles;
+    writeConfig();
+
+    if (changed) {
+        reloadProjects();
+    }
+}
+
+void KateProjectPlugin::reloadProjects()
+{
+    for (KateProject *project : std::as_const(m_projects)) {
+        if (project->isFileBacked()) {
+            continue;
+        }
+
+        QVariantMap projectMap = project->projectMap();
+        QVariantList filesList = projectMap[QStringLiteral("files")].toList();
+        if (filesList.isEmpty()) {
+            continue;
+        }
+
+        QVariantMap files = filesList.first().toMap();
+
+        if (m_directoryListing) {
+            // switch to directory scanning
+            files.remove(QStringLiteral("git"));
+            files.remove(QStringLiteral("svn"));
+            files.remove(QStringLiteral("hg"));
+            files.remove(QStringLiteral("fossil"));
+            files[QStringLiteral("directory")] = QStringLiteral("./");
+        } else if (files.contains(QStringLiteral("directory"))) {
+            // switch back to VCS mode: detect VCS type from project base directory
+            const QDir dir(project->baseDir());
+            QString vcsType;
+            if (dir.exists(GitFolderName())) {
+                vcsType = QStringLiteral("git");
+            } else if (dir.exists(SubversionFolderName())) {
+                vcsType = QStringLiteral("svn");
+            } else if (dir.exists(MercurialFolderName())) {
+                vcsType = QStringLiteral("hg");
+            } else if (dir.exists(FossilCheckoutFileName())) {
+                vcsType = QStringLiteral("fossil");
+            }
+
+            if (vcsType.isEmpty()) {
+                // not a VCS project, just update hidden and reload
+                files[QStringLiteral("hidden")] = m_showHiddenFiles;
+                projectMap[QStringLiteral("files")] = QVariantList{files};
+                project->setProjectMap(projectMap);
+                project->reload(true);
+                continue;
+            }
+
+            files.remove(QStringLiteral("directory"));
+            files[vcsType] = 1;
+        }
+
+        files[QStringLiteral("hidden")] = m_showHiddenFiles;
+        projectMap[QStringLiteral("files")] = QVariantList{files};
+        project->setProjectMap(projectMap);
+        project->reload(true);
+    }
+}
+
+bool KateProjectPlugin::directoryListing() const
+{
+    return m_directoryListing;
+}
+
+bool KateProjectPlugin::showHiddenFiles() const
+{
+    return m_showHiddenFiles;
+}
+
 void KateProjectPlugin::readConfig()
 {
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("project"));
@@ -600,6 +683,9 @@ void KateProjectPlugin::readConfig()
     m_doubleClickAction = (ClickAction)config.readEntry("gitStatusDoubleClick", (int)ClickAction::StageUnstage);
 
     m_restoreProjectsForSession = config.readEntry("restoreProjectsForSessions", false);
+
+    m_directoryListing = config.readEntry("directoryListing", false);
+    m_showHiddenFiles = config.readEntry("showHiddenFiles", false);
 
     Q_EMIT configUpdated();
 }
@@ -639,6 +725,9 @@ void KateProjectPlugin::writeConfig()
     config.writeEntry("gitStatusDoubleClick", (int)m_doubleClickAction);
 
     config.writeEntry("restoreProjectsForSessions", m_restoreProjectsForSession);
+
+    config.writeEntry("directoryListing", m_directoryListing);
+    config.writeEntry("showHiddenFiles", m_showHiddenFiles);
 
     Q_EMIT configUpdated();
 }

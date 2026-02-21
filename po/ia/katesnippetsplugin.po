@@ -131,7 +131,7 @@ msgstr ""
 msgid ""
 "Optional description to show in tooltips. You may use basic HTML formatting."
 msgstr ""
-"Description optional a monstrar in consilios. Tu pote usar formattation "
+"Description optional a monstrar in consilios. Tu pote usar fnormatation "
 "basic HTML."
 
 #: editsnippet.cpp:127 editsnippet.cpp:220

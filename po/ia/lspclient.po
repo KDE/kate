@@ -198,7 +198,7 @@ msgstr "Monstra information de passar supra"
 #: lspclientpluginview.cpp:576 lspconfigwidget.ui:47
 #, kde-format
 msgid "Format on typing"
-msgstr "Formatta sur typar"
+msgstr "Fnormata sur typar"
 
 #: lspclientpluginview.cpp:579
 #, kde-format
@@ -490,7 +490,7 @@ msgstr "Preferentias de cliente"
 #: lspconfigwidget.ui:54
 #, kde-format
 msgid "Format on save"
-msgstr "Formatta sur salveguardar"
+msgstr "Fnormata sur salveguardar"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61

@@ -1,14 +1,14 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2015.
-# Tommi Nieminen <translator@legisign.org>, 2016, 2023.
+# SPDX-FileCopyrightText: 2016, 2023, 2026 Tommi Nieminen <translator@legisign.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2023-09-29 10:13+0300\n"
+"PO-Revision-Date: 2026-02-09 12:45+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #. i18n: ectx: attribute (title), widget (QWidget, run)
 #: config.ui:18
@@ -117,7 +118,7 @@ msgstr ""
 #: config.ui:264
 #, kde-format
 msgid "Perf sampling period:"
-msgstr ""
+msgstr "Perf-näytteenottojakso:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_14)
 #: config.ui:281

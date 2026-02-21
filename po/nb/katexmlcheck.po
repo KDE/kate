@@ -1,6 +1,5 @@
 # Translation of katexmlcheck to Norwegian Bokmål
 #
-# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
 #
 msgid ""
 msgstr ""

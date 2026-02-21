@@ -35,7 +35,12 @@ public:
      */
     typedef QHash<QString, KateProjectItem *> MapString2Item;
 
-    explicit KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force);
+    explicit KateProjectWorker(const QString &baseDir,
+                               const QString &indexDir,
+                               const QVariantMap &projectMap,
+                               bool force,
+                               bool directoryListing = false,
+                               bool showHiddenFiles = false);
 
     void run() override;
 
@@ -96,4 +101,6 @@ private:
 
     const QVariantMap m_projectMap;
     const bool m_force;
+    const bool m_directoryListing;
+    const bool m_showHiddenFiles;
 };

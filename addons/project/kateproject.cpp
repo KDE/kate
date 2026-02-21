@@ -481,7 +481,9 @@ bool KateProject::load(const QVariantMap &globalProject, bool force)
 
     // let's run the stuff in our own thread pool
     // do manual queued connect, as only run() is done in extra thread, object stays in this one
-    auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force);
+    const bool directoryListing = !m_fileBacked && m_plugin->directoryListing();
+    const bool showHiddenFiles = !m_fileBacked && m_plugin->showHiddenFiles();
+    auto w = new KateProjectWorker(m_baseDir, indexDir, m_projectMap, force, directoryListing, showHiddenFiles);
     connect(w, &KateProjectWorker::loadDone, this, &KateProject::loadProjectDone, Qt::QueuedConnection);
     connect(w, &KateProjectWorker::loadIndexDone, this, &KateProject::loadIndexDone, Qt::QueuedConnection);
     connect(w, &KateProjectWorker::errorOccurred, this, onErrorOccurred, Qt::QueuedConnection);

@@ -449,12 +449,7 @@ KateProject *KateProjectPlugin::detectCMake(const QDir &dir)
 KateProject *KateProjectPlugin::createProjectForRepository(const QString &type, const QDir &dir, const QVariantMap &baseProjectMap)
 {
     QVariantMap cnf = baseProjectMap, files;
-    if (m_directoryListing) {
-        files[QStringLiteral("directory")] = QStringLiteral("./");
-    } else {
-        files[type] = 1;
-    }
-    files[QStringLiteral("hidden")] = m_showHiddenFiles;
+    files[type] = 1;
     cnf[QStringLiteral("name")] = dir.dirName();
     cnf[QStringLiteral("files")] = (QVariantList() << files);
     return createProjectForDirectoryWithProjectMap(dir, cnf);
@@ -598,56 +593,9 @@ void KateProjectPlugin::setDirectoryListing(bool directoryListing, bool showHidd
 void KateProjectPlugin::reloadProjects()
 {
     for (KateProject *project : std::as_const(m_projects)) {
-        if (project->isFileBacked()) {
-            continue;
+        if (!project->isFileBacked()) {
+            project->reload(true);
         }
-
-        QVariantMap projectMap = project->projectMap();
-        QVariantList filesList = projectMap[QStringLiteral("files")].toList();
-        if (filesList.isEmpty()) {
-            continue;
-        }
-
-        QVariantMap files = filesList.first().toMap();
-
-        if (m_directoryListing) {
-            // switch to directory scanning
-            files.remove(QStringLiteral("git"));
-            files.remove(QStringLiteral("svn"));
-            files.remove(QStringLiteral("hg"));
-            files.remove(QStringLiteral("fossil"));
-            files[QStringLiteral("directory")] = QStringLiteral("./");
-        } else if (files.contains(QStringLiteral("directory"))) {
-            // switch back to VCS mode: detect VCS type from project base directory
-            const QDir dir(project->baseDir());
-            QString vcsType;
-            if (dir.exists(GitFolderName())) {
-                vcsType = QStringLiteral("git");
-            } else if (dir.exists(SubversionFolderName())) {
-                vcsType = QStringLiteral("svn");
-            } else if (dir.exists(MercurialFolderName())) {
-                vcsType = QStringLiteral("hg");
-            } else if (dir.exists(FossilCheckoutFileName())) {
-                vcsType = QStringLiteral("fossil");
-            }
-
-            if (vcsType.isEmpty()) {
-                // not a VCS project, just update hidden and reload
-                files[QStringLiteral("hidden")] = m_showHiddenFiles;
-                projectMap[QStringLiteral("files")] = QVariantList{files};
-                project->setProjectMap(projectMap);
-                project->reload(true);
-                continue;
-            }
-
-            files.remove(QStringLiteral("directory"));
-            files[vcsType] = 1;
-        }
-
-        files[QStringLiteral("hidden")] = m_showHiddenFiles;
-        projectMap[QStringLiteral("files")] = QVariantList{files};
-        project->setProjectMap(projectMap);
-        project->reload(true);
     }
 }
 

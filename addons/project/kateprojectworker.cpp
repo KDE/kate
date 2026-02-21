@@ -34,11 +34,18 @@ static QRegularExpression lineEndingsRE()
     return re;
 }
 
-KateProjectWorker::KateProjectWorker(const QString &baseDir, const QString &indexDir, const QVariantMap &projectMap, bool force)
+KateProjectWorker::KateProjectWorker(const QString &baseDir,
+                                     const QString &indexDir,
+                                     const QVariantMap &projectMap,
+                                     bool force,
+                                     bool directoryListing,
+                                     bool showHiddenFiles)
     : m_baseDir(baseDir)
     , m_indexDir(indexDir)
     , m_projectMap(projectMap)
     , m_force(force)
+    , m_directoryListing(directoryListing)
+    , m_showHiddenFiles(showHiddenFiles)
 {
     Q_ASSERT(!m_baseDir.isEmpty());
 }
@@ -380,27 +387,34 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
      * try the different version control systems first
      */
 
-    const bool useGit = filesEntry[QStringLiteral("git")].toBool();
-    const bool useSvn = filesEntry[QStringLiteral("svn")].toBool();
-    const bool useHg = filesEntry[QStringLiteral("hg")].toBool();
-    const bool useDarcs = filesEntry[QStringLiteral("darcs")].toBool();
-    const bool useFossil = filesEntry[QStringLiteral("fossil")].toBool();
+    const bool useVcs = filesEntry[QStringLiteral("git")].toBool() || filesEntry[QStringLiteral("svn")].toBool() || filesEntry[QStringLiteral("hg")].toBool()
+        || filesEntry[QStringLiteral("darcs")].toBool() || filesEntry[QStringLiteral("fossil")].toBool();
 
-    if (useGit) {
+    if (useVcs && m_directoryListing) {
+        // directory listing overrides VCS: scan the directory instead
+        QVariantMap dirEntry;
+        dirEntry[QStringLiteral("directory")] = QStringLiteral("./");
+        dirEntry[QStringLiteral("hidden")] = m_showHiddenFiles;
+        dirEntry[QStringLiteral("recursive")] = recursive;
+        filesFromDirectory(dir, recursive, dirEntry, outFiles);
+        return;
+    }
+
+    if (filesEntry[QStringLiteral("git")].toBool()) {
         filesFromGit(dir, recursive, outFiles);
-    } else if (useSvn) {
+    } else if (filesEntry[QStringLiteral("svn")].toBool()) {
         filesFromSubversion(dir, recursive, outFiles);
-    } else if (useHg) {
+    } else if (filesEntry[QStringLiteral("hg")].toBool()) {
         filesFromMercurial(dir, recursive, outFiles);
-    } else if (useDarcs) {
+    } else if (filesEntry[QStringLiteral("darcs")].toBool()) {
         filesFromDarcs(dir, recursive, outFiles);
-    } else if (useFossil) {
+    } else if (filesEntry[QStringLiteral("fossil")].toBool()) {
         filesFromFossil(dir, recursive, outFiles);
     }
 
-    if (useGit || useSvn || useHg || useDarcs || useFossil) {
+    if (useVcs) {
         // filter out hidden files from VCS listings unless explicitly requested
-        if (!filesEntry.value(QStringLiteral("hidden")).toBool()) {
+        if (!m_showHiddenFiles) {
             auto isHidden = [](const FileEntry &entry) {
                 return entry.filePath.startsWith(u'.') || entry.filePath.contains(QStringLiteral("/."));
             };

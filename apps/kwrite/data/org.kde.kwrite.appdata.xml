@@ -154,6 +154,7 @@
     <p xml:lang="lv">„KWrite“ ir KDE teksta redaktors, kam pamatā ir „Kate“ programmas redaktors.</p>
     <p xml:lang="ml">KWrite എന്നത് KDE യുടെ  Kate നെ അടിസ്ഥാന ഭാഗമായ ടെക്സ്റ്റ് എഡിറ്റർ ആണ്.</p>
     <p xml:lang="my">ကေရိုက်သည် ကိတ်၏အယ်ဒီတာအစိတ်အပိုင်းပေါ် အခြေခံထားသော စာသားတည်းဖြတ်ကိရိယာဖြစ်သည်။</p>
+    <p xml:lang="nb">KWrite er et skriveprogram fra KDE, basert på Kates redigeringskomponent.</p>
     <p xml:lang="nl">KWrite is een tekstbewerker door KDE, gebaseerd op de tekstbewerkercomponent van Kate.</p>
     <p xml:lang="nn">KWrite er eit skriveprogram frå KDE, basert på skrive­komponenten i Kate.</p>
     <p xml:lang="pa">ਕੇ-ਰਾਈਟ ਕੇਡੀਈ ਵਲੋਂ ਕੇਟ ਅਧਾਰਿਤ ਸੰਪਾਦਕੀ ਭਾਗਾਂ ਉੱਤੇ ਬਣਾਇਆ ਗਿਆ ਲਿਖਤ ਸੰਪਾਦਕ ਹੈ।</p>
@@ -486,7 +487,7 @@
       <li xml:lang="lv">„Vi“ ievades režīms</li>
       <li xml:lang="ml">Vi എഴുത്ത് രീതി</li>
       <li xml:lang="my">ဗွီအိုင် အသွင်း ထုံးနည်း</li>
-      <li xml:lang="nb">Inndatamodus som i Vi</li>
+      <li xml:lang="nb">Tastemodus fra Vi</li>
       <li xml:lang="nl">VI-invoermethode</li>
       <li xml:lang="nn">Vi-tastemodus</li>
       <li xml:lang="pa">Vi ਇਨਪੁਟ ਢੰਗ</li>
@@ -546,6 +547,7 @@
       <caption xml:lang="lv">Koda rediģēšana ar „KWrite“</caption>
       <caption xml:lang="ml">KWrite ഉപയോഗിച്ചു കോഡ് മാറ്റം വരുത്തൽ</caption>
       <caption xml:lang="my">ကေရိုက်ဖြင့် ကုတ်များ တည်းဖြတ်မည်</caption>
+      <caption xml:lang="nb">Redigering av kildekode med KWrite</caption>
       <caption xml:lang="nl">Broncode bewerken met KWrite</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med KWrite</caption>
       <caption xml:lang="pa">ਕੇ-ਲੇਖਕ ਨਾਲ ਕੋਡ ਸੋਧਣਾ</caption>

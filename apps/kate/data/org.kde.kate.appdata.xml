@@ -79,6 +79,7 @@
   <summary xml:lang="ka">გაუმჯობესებული ტექსტური რედაქტორი</summary>
   <summary xml:lang="ko">고급 텍스트 편집기</summary>
   <summary xml:lang="lv">Iespējām bagāts teksta redaktors</summary>
+  <summary xml:lang="nb">Avansert skriveprogram</summary>
   <summary xml:lang="nl">Geavanceerde tekstbewerker</summary>
   <summary xml:lang="pl">Rozbudowany edytor tekstu</summary>
   <summary xml:lang="pt-BR">Editor de texto avançado</summary>
@@ -115,6 +116,7 @@
     <p xml:lang="ka">Kate სწრაფი მრავალდოკუმენტიანი, მრავალხედიანი ტექსტური რედაქტორია პროგრამისტებისთვის, KDE-სგან. მაქვს აქვს LSP-ის (ენის სერვერის პროტოკოლი) მხარდაჭერა, პროექტები, ერთზე მეტი კურსორი და მონიშვნა, git-თან ინტეგრაცია, საქაღლდეში ძებნა, ჰორიზონტალური და ვერტიკალური დაყოფა, vi-ის რეჟიმი, 300+ ენის სინტაქსის გამოკვეთის მხარდაჭერა, ჩაშენებული ტერმინალი, დინამიკური სიტყვის გადატანა და მრავალი სხვა. ხელმისაწვდომია Linux-ზე, BSD-ზე, Windows-ზე და MacOS-ზე.</p>
     <p xml:lang="ko">Kate는 KDE에서 개발한 프로그래머를 위한 빠른 다문서, 다화면 텍스트 편집기입니다. LSP(언어 서버 프로토콜) 지원, 프로젝트, 다중 커서와 선택, git 통합, 폴더별 검색, 수직 및 수평 분할, VI 모드, 300여개 언어의 구문 강조, 내장 터미널, 동적 워드랩 등 다양한 기능을 제공합니다. 리눅스, BSD, Windows, macOS에서 사용할 수 있습니다.</p>
     <p xml:lang="lv">„Kate“ ir KDE izstrādāta ātra vairāku dokumentu un vairāku skatu teksta rediģēšanas programma programmētājiem. Starp programmas iespējām ir LSP (valodas servera protokola) atbalsts, projekti, vairāki kursori un atlases, git integrāciju, meklēšana mapēs, horizontāls un vertikāls skata dalījums, „Vi“ režīms, sintakses izcelšana 300+ valodām, iebūvēts terminālis, dinamiska vārdu aplaušana un daudzas citas funkcijas. Tā ir pieejama „Linux“, BSD, „Windows“ un „MacOS“.</p>
+    <p xml:lang="nb">Kate er et raskt skriveprogram for programmerer fra KDE, med støtte for flere dokumenter og visninger samtidig. Det støtter funksjoner som LSP (Language Server Protocol), prosjekter, flere markører og utvalg, integrasjon i git, mappevise søk, horisontal og vertikal deling av skjerm, vi-modus, utheving av syntaks, innebygget terminal, dynamisk tekstbryting og mye mer. Det er tilgjengelig på Linux, BSD, Windows og MacOS.</p>
     <p xml:lang="nl">Kate is een snelle multi-document, multi-view tekstbewerker voor programmeurs door KDE. Het heeft mogelijkheden zoals ondersteuning voor LSP (Language Server Protocol), projecten, meerdere cursors en selecties, git-integratie, map-breed zoeken, horizontaal en verticaal splitsen, vi-modus, syntaxis accentuering voor 300+ talen, ingebouwde terminal, dynamisch afbreken van woorden en veel meer. Het is beschikbaar op Linux, BSD, Windows en MacOS.</p>
     <p xml:lang="pl">Kate to szybki edytor tekstu od KDE dla programistów umożliwiający otwieranie wielu dokumentów i widoków. Obsługuje rzeczy takie jak LSP (Language Server Protocol, z ang. Protokół Serwerów Językowych), projekty, wiele kursorów i zaznaczeń, Git, szukanie w katalogach, podział widoku w poziome i pionie, tryb vi, podświetlanie składni dla ponad 300 języków, wbudowany terminal, dynamiczne zawijanie słów i więcej. Jest dostępny na Linuksie, BSD, Windowsie oraz MacOSie.</p>
     <p xml:lang="pt-BR">O Kate é um editor de texto rápido, multidocumento e multivisualização para programadores, desenvolvido pelo KDE. Ele oferece recursos como suporte a LSP (Language Server Protocol), projetos, múltiplos cursores e seleções, integração com o Git, busca em pastas, divisões horizontais e verticais, modo VI, realce de sintaxe para mais de 300 linguagens, terminal integrado, quebra de linha dinâmica e muito mais. Está disponível para Linux, BSD, Windows e MacOS.</p>
@@ -512,6 +514,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">სინტაქსის გამოკვეთა 300+ ენისთვის</li>
       <li xml:lang="ko">300개 이상 언어의 구문 강조</li>
       <li xml:lang="lv">Sintakses izcelšanas 300+ valodām</li>
+      <li xml:lang="nb">Syntaksfremheving for over 300 språk</li>
       <li xml:lang="nl">Syntaxis accentuering voor 300+ talen</li>
       <li xml:lang="pl">Podświetlanie składni dla ponad 300 języków</li>
       <li xml:lang="pt-BR">Realce de sintaxe para mais de 300 linguagens</li>
@@ -597,6 +600,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ერთზე მეტი კურსორი და მონიშნული</li>
       <li xml:lang="ko">다중 커서와 다중 선택</li>
       <li xml:lang="lv">Dažādi kursori un vairākas atlases</li>
+      <li xml:lang="nb">Flere merkører og utvalg</li>
       <li xml:lang="nl">Meerdere cursors en meerdere selecties</li>
       <li xml:lang="pl">Wiele kursorów oraz wiele zaznaczeń</li>
       <li xml:lang="pt-BR">Cursores e seleções múltiplas</li>
@@ -844,6 +848,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">მრავალი (http, ftp, ssh, WebDAV და სხვა) პროტოკოლის მხარდაჭერა</li>
       <li xml:lang="ko">다양한 프로토콜 지원(HTTP, FTP, SSH, WebDAV 등)</li>
       <li xml:lang="lv">Plašs protokolu atbalsts (HTTP, FTP, SSH, „WebDAV“ u.c.)</li>
+      <li xml:lang="nb">Bred protokollstøtte (http, ftp, ssh, webdav osv.)</li>
       <li xml:lang="nl">Brede ondersteuning van protocollen (http, ftp, ssh, webdav etc.)</li>
       <li xml:lang="nn">Omfattande protokollstøtte (http, ftp, ssh, webdav, …)</li>
       <li xml:lang="pl">Szeroka obsługa protokołów (http, ftp, ssh, webdav itp.)</li>
@@ -880,6 +885,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">გაფართოებადი დამატებების საშუალებით</li>
       <li xml:lang="ko">플러그인으로 확장 가능</li>
       <li xml:lang="lv">Paplašināms caur spraudņiem</li>
+      <li xml:lang="nb">Utbyggbar med programtillegg</li>
       <li xml:lang="nl">Uitbreidbaar via plug-ins</li>
       <li xml:lang="pl">Rozszerzalny dzięki wtyczkom</li>
       <li xml:lang="pt-BR">Expansível via plugins</li>
@@ -912,6 +918,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ინტეგრირებული ტერმინალი</li>
       <li xml:lang="ko">내장 터미널</li>
       <li xml:lang="lv">Iebūvēts terminālis</li>
+      <li xml:lang="nb">Integrert terminal</li>
       <li xml:lang="nl">Geïntegreerde terminal</li>
       <li xml:lang="pl">Wbudowany terminal</li>
       <li xml:lang="pt-BR">Terminal integrado</li>
@@ -995,6 +1002,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">Vi-ის რეჟიმი</li>
       <li xml:lang="ko">VI 모드</li>
       <li xml:lang="lv">„Vi“ režīms</li>
+      <li xml:lang="nb">Vi-modus</li>
       <li xml:lang="nl">Vi-modus</li>
       <li xml:lang="pl">Tryb vi</li>
       <li xml:lang="pt-BR">Modo Vi</li>
@@ -1028,6 +1036,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">LSP-ის მხარდაჭერა (ენის სერვერის პროტოკოლი)</li>
       <li xml:lang="ko">LSP(언어 서버 프로토콜)를 사용한 인텔리센스 지원</li>
       <li xml:lang="lv">„Intellisense“ atbalsts ar LSP (valodas servera protokols)</li>
+      <li xml:lang="nb">Støtte for Intellisense ved hjelp av LSP (Language Server Protocol)</li>
       <li xml:lang="nl">Intellisense ondersteuning met gebruik van LSP (Language Server Protocol)</li>
       <li xml:lang="pl">Obsługa Intellisense przy użyciu LSP (Language Server Protocol)</li>
       <li xml:lang="pt-BR">Suporte a Intellisense usando LSP (Language Server Protocol)</li>
@@ -1059,6 +1068,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">DAP-ის (გამართვის ადაპტერის პროტოკოლის) მხარდაჭერა</li>
       <li xml:lang="ko">DAP(디버그 어댑터 프로토콜) 지원</li>
       <li xml:lang="lv">DAP (atkļūdošanas adaptācijas protokola) atbalsts</li>
+      <li xml:lang="nb">DAP-støtte (Debug Adapter Protocol)</li>
       <li xml:lang="nl">DAP (Debug Adapter Protocol) ondersteuning</li>
       <li xml:lang="pl">Obsługa DAP (Debug Adapter Protocol)</li>
       <li xml:lang="pt-BR">Suporte ao DAP (Debug Adapter Protocol)</li>
@@ -1091,6 +1101,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ვერტიკალური ჩანართების/დოკუმენტები სია</li>
       <li xml:lang="ko">수직 탭/문서 목록</li>
       <li xml:lang="lv">Vertikālas cilnes/dokumentu saraksts</li>
+      <li xml:lang="nb">Vertikale faner/dokumentliste</li>
       <li xml:lang="nl">Verticale tabbladen/documentenlijst</li>
       <li xml:lang="pl">Pionowe karty/listy dokumentów</li>
       <li xml:lang="pt-BR">Abas verticais/lista de documentos</li>
@@ -1124,6 +1135,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">მსუბუქი პროექტის მხარდაჭერა. Kate-ს შეუძლია, საქაღალდეები პროექტის სახით გახსნას</li>
       <li xml:lang="ko">가벼운 프로젝트 지원. Kate에서는 폴더를 프로젝트로 열 수 있습니다</li>
       <li xml:lang="lv">Vienkāršs projektu atbalsts. „Kate“ spēj atvērt mapes kā projektus</li>
+      <li xml:lang="nb">Enkel prosjektstøtte. Kate kan åpne hele mapper som prosjekter</li>
       <li xml:lang="nl">Lichtgewicht projectondersteuning. Kate kan mappen als projecten openen</li>
       <li xml:lang="pl">Lekka obsługa projektów. Kate może otwierać katalogi jako projekty</li>
       <li xml:lang="pt-BR">Suporte a projetos leves. O Kate pode abrir pastas como projetos</li>
@@ -1156,6 +1168,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">კოდის დაფორმატება საკუთარი დამფორმატებლებით, როგორიცაა clang-format, prettier და ა.შ</li>
       <li xml:lang="ko">clang-format, prettier 등 네이티브 포매터를 사용한 형식 재지정 지원</li>
       <li xml:lang="lv">Koda formatēšana ar iebūvētiem formatētājiem, piemēram, „clang-format“, „prettier“ u.c.</li>
+      <li xml:lang="nb">Kodeformatering ved å bruke innebygde formateringsverktøy som cland-format, prettier m.fl.</li>
       <li xml:lang="nl">Formattering van code met inheemse formatters zoals clang-format, mooier etc.</li>
       <li xml:lang="pl">Formatowanie kodu przy użyciu macierzystych formaterów takich jak clang-format, prettier, itp.</li>
       <li xml:lang="pt-BR">Formatação de código usando formatadores nativos como clang-format, prettier etc.</li>
@@ -1187,6 +1200,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ჩაშენებული ფაილური სისტემის ბრაუზერი</li>
       <li xml:lang="ko">내장 파일 시스템 탐색기</li>
       <li xml:lang="lv">Iebūvēts datņu sistēmas pārlūks</li>
+      <li xml:lang="nb">Innebygd filutforsker</li>
       <li xml:lang="nl">Ingebouwde browser van het bestandssysteem</li>
       <li xml:lang="pl">Wbudowana przeglądarka systemu plików</li>
       <li xml:lang="pt-BR">Navegador de sistema de arquivos embutido</li>
@@ -1220,6 +1234,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">CTags-ის მხარდაჭერა</li>
       <li xml:lang="ko">CTags 지원</li>
       <li xml:lang="lv">„CTags“ atbalsts</li>
+      <li xml:lang="nb">Søtte for CTags</li>
       <li xml:lang="nl">CTags ondersteuning</li>
       <li xml:lang="pl">Obsługa CTags</li>
       <li xml:lang="pt-BR">Suporte a CTags</li>
@@ -1253,6 +1268,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">პროექტში და საქაღალდეში ძებნა</li>
       <li xml:lang="ko">프로젝트 및 폴더에서 검색</li>
       <li xml:lang="lv">Projekta mēroga un mapju mēroga meklēšana</li>
+      <li xml:lang="nb">Søk i hele prosjekter og mapper</li>
       <li xml:lang="nl">Projectbreed en mapbreed zoeken</li>
       <li xml:lang="pl">Szukanie w projekcie i katalogach</li>
       <li xml:lang="pt-BR">Pesquisa em todo o projeto e em toda a pasta</li>
@@ -1286,6 +1302,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <li xml:lang="ka">ინტეგრაცია Git-თან</li>
       <li xml:lang="ko">Git 통합</li>
       <li xml:lang="lv">„Git“ integrācija</li>
+      <li xml:lang="nb">Integrert med Git</li>
       <li xml:lang="nl">Git-integratie</li>
       <li xml:lang="pl">Obsługa Gita</li>
       <li xml:lang="pt-BR">Integração com o git</li>
@@ -1337,6 +1354,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="lv">Koda rediģēšana ar „Kate“</caption>
       <caption xml:lang="ml">കെയ്റ്റ് ഉപയോഗിച്ചുള്ള കോഡ് ചിട്ടപ്പെടുത്തൽ</caption>
       <caption xml:lang="my">ကိတ်ဖြင့် ကုတ်တည်းဖြတ်ခြင်း</caption>
+      <caption xml:lang="nb">Redigere kode med Kate</caption>
       <caption xml:lang="nl">Broncode bewerken met Kate</caption>
       <caption xml:lang="nn">Redigering av kjeldekode med Kate</caption>
       <caption xml:lang="pl">Edytowanie kodu z Kate</caption>
@@ -1381,6 +1399,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ko">Kate로 Git 기반 프로젝트 열기</caption>
       <caption xml:lang="lv">„Kate“ ar „Git“ balstītiem projektiem</caption>
       <caption xml:lang="my">Gitအသုံးပြုပရောဂျက်ဖွင့်ပြထားသောကိတ်</caption>
+      <caption xml:lang="nb">Kate med et Git-basert prosjekt</caption>
       <caption xml:lang="nl">Kate met een op Git gebaseerd project</caption>
       <caption xml:lang="nn">Kate med eit Git-basert prosjekt</caption>
       <caption xml:lang="pl">Kate z projektem Git</caption>
@@ -1422,6 +1441,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ko">Kate 분할 보기</caption>
       <caption xml:lang="lv">„Kate“ ar dalītu skatu</caption>
       <caption xml:lang="my">မြင်ကွင်းအခွဲသုံးပြထားသောကိတ်</caption>
+      <caption xml:lang="nb">Kate med delt skjerm</caption>
       <caption xml:lang="nl">Kate met gesplitst beeld</caption>
       <caption xml:lang="nn">Kate med delt vising</caption>
       <caption xml:lang="pl">Kate z widokiem podzielonym</caption>
@@ -1463,6 +1483,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ko">Kate 어두운 모드</caption>
       <caption xml:lang="lv">„Kate“ tumšajā režīmā</caption>
       <caption xml:lang="my">အမှောင်ပုံစံသုံးထားသောကိတ်</caption>
+      <caption xml:lang="nb">Kate med mørkt tema</caption>
       <caption xml:lang="nl">Kate in modus donker</caption>
       <caption xml:lang="nn">Kate med mørkt tema</caption>
       <caption xml:lang="pl">Kate na ciemno</caption>
@@ -1504,6 +1525,7 @@ kimi görüntüdə bir çox sənədlərlə eyni vaxtda işləmək</li>
       <caption xml:lang="ko">Kate로 새 Git 브랜치 만들기</caption>
       <caption xml:lang="lv">Jauna „Git“ zara izveidošana ar „Kate“</caption>
       <caption xml:lang="my">Gitကုဒ်အခွဲကို ကိတ်ဖြင့်ဖန်တီးမည်</caption>
+      <caption xml:lang="nb">Opprett en ny Git-gren med Kate</caption>
       <caption xml:lang="nl">Nieuwe git-branch met Kate aanmaken</caption>
       <caption xml:lang="nn">Opprett ei ny Git-grein med Kate</caption>
       <caption xml:lang="pl">Utwórz nową gałąź Git z Kate</caption>

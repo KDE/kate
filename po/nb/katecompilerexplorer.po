@@ -1,6 +1,5 @@
 # Translation of katecompilerexplorer to Norwegian Bokmål
 #
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

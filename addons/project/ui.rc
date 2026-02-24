@@ -17,6 +17,8 @@
       <Action name="projects_close_all" />
       <Action name="projects_close_without_open_documents" />
       <Separator/>
+      <Action name="projects_reload_all" />
+      <Separator/>
       <Action name="projects_todos"/>
     </Menu>
   </MenuBar>

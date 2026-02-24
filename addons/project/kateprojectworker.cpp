@@ -384,14 +384,9 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
     const bool recursive = !filesEntry.contains(QStringLiteral("recursive")) || filesEntry[QStringLiteral("recursive")].toBool();
 
     /**
-     * try the different version control systems first
+     * directory listing overrides VCS: scan the directory instead
      */
-
-    const bool useVcs = filesEntry[QStringLiteral("git")].toBool() || filesEntry[QStringLiteral("svn")].toBool() || filesEntry[QStringLiteral("hg")].toBool()
-        || filesEntry[QStringLiteral("darcs")].toBool() || filesEntry[QStringLiteral("fossil")].toBool();
-
-    if (useVcs && m_directoryListing) {
-        // directory listing overrides VCS: scan the directory instead
+    if (m_directoryListing) {
         QVariantMap dirEntry;
         dirEntry[QStringLiteral("directory")] = QStringLiteral("./");
         dirEntry[QStringLiteral("hidden")] = m_showHiddenFiles;
@@ -400,26 +395,32 @@ void KateProjectWorker::findFiles(const QDir &dir, const QVariantMap &filesEntry
         return;
     }
 
+    /**
+     * try the different version control systems first
+     */
+
     if (filesEntry[QStringLiteral("git")].toBool()) {
         filesFromGit(dir, recursive, outFiles);
-    } else if (filesEntry[QStringLiteral("svn")].toBool()) {
-        filesFromSubversion(dir, recursive, outFiles);
-    } else if (filesEntry[QStringLiteral("hg")].toBool()) {
-        filesFromMercurial(dir, recursive, outFiles);
-    } else if (filesEntry[QStringLiteral("darcs")].toBool()) {
-        filesFromDarcs(dir, recursive, outFiles);
-    } else if (filesEntry[QStringLiteral("fossil")].toBool()) {
-        filesFromFossil(dir, recursive, outFiles);
+        return;
     }
 
-    if (useVcs) {
-        // filter out hidden files from VCS listings unless explicitly requested
-        if (!m_showHiddenFiles) {
-            auto isHidden = [](const FileEntry &entry) {
-                return entry.filePath.startsWith(u'.') || entry.filePath.contains(QStringLiteral("/."));
-            };
-            outFiles.erase(std::remove_if(outFiles.begin(), outFiles.end(), isHidden), outFiles.end());
-        }
+    if (filesEntry[QStringLiteral("svn")].toBool()) {
+        filesFromSubversion(dir, recursive, outFiles);
+        return;
+    }
+
+    if (filesEntry[QStringLiteral("hg")].toBool()) {
+        filesFromMercurial(dir, recursive, outFiles);
+        return;
+    }
+
+    if (filesEntry[QStringLiteral("darcs")].toBool()) {
+        filesFromDarcs(dir, recursive, outFiles);
+        return;
+    }
+
+    if (filesEntry[QStringLiteral("fossil")].toBool()) {
+        filesFromFossil(dir, recursive, outFiles);
         return;
     }
 

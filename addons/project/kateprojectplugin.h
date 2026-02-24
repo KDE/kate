@@ -157,6 +157,8 @@ public:
     bool directoryListing() const;
     bool showHiddenFiles() const;
 
+    void reloadProjects();
+
     /**
      * filesystem watcher to keep track of all project files
      * and auto-reload
@@ -243,8 +245,6 @@ private:
 
     void readConfig();
     void writeConfig();
-
-    void reloadProjects();
 
     static void registerVariables();
     static void unregisterVariables();

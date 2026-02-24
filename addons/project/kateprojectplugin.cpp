@@ -593,9 +593,7 @@ void KateProjectPlugin::setDirectoryListing(bool directoryListing, bool showHidd
 void KateProjectPlugin::reloadProjects()
 {
     for (KateProject *project : std::as_const(m_projects)) {
-        if (!project->isFileBacked()) {
-            project->reload(true);
-        }
+        project->reload(true);
     }
 }
 

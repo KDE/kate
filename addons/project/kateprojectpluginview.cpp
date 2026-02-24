@@ -216,6 +216,11 @@ KateProjectPluginView::KateProjectPluginView(KateProjectPlugin *plugin, KTextEdi
     a->setText(i18n("Reload Project"));
     a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
+    m_projectReloadAllAction = a = actionCollection()->addAction(QStringLiteral("projects_reload_all"));
+    connect(a, &QAction::triggered, this, &KateProjectPluginView::slotProjectReloadAll);
+    a->setText(i18n("Reload All Projects"));
+    a->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+
     m_gotoSymbolActionAppMenu = a = actionCollection()->addAction(KStandardAction::Goto, QStringLiteral("projects_goto_symbol"));
     connect(a, &QAction::triggered, this, &KateProjectPluginView::slotGotoSymbol);
 
@@ -710,6 +715,11 @@ void KateProjectPluginView::slotProjectReload()
     if (auto widget = gitWidget()) {
         widget->updateStatus();
     }
+}
+
+void KateProjectPluginView::slotProjectReloadAll()
+{
+    m_plugin->reloadProjects();
 }
 
 void KateProjectPluginView::slotCloseProject()

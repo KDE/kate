@@ -183,6 +183,12 @@ private Q_SLOTS:
     void slotProjectReload();
 
     /**
+     * Reload all projects.
+     * This will trigger a reload with force on all projects.
+     */
+    void slotProjectReloadAll();
+
+    /**
      * Close currently active project.
      */
     void slotCloseProject();
@@ -426,6 +432,7 @@ private:
     QAction *m_projectCloseAllAction;
     QAction *m_projectCloseWithoutDocumentsAction;
     QAction *m_projectReloadAction;
+    QAction *m_projectReloadAllAction;
     KSelectAction *m_projectSelectAction;
 
     /**

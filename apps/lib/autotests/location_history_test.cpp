@@ -255,6 +255,8 @@ void LocationHistoryTest::test_addOnlyIfViewLineCountAwayFromCurrentPos()
     // ensure the view has some non-null size
     auto view = vm->activeView();
     view->resize(600, 600);
+    QTest::qWait(50); // resize() debounces resizes for 16ms, wait 50ms to be extra safe
+
     int vlc = viewLineCount(view);
     view->setCursorPosition({2 * vlc, 0});
     QCOMPARE(vs->locationHistoryBuffer().size(), 2);

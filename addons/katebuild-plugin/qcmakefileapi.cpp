@@ -338,7 +338,7 @@ bool QCMakeFileApi::readReplyFiles()
             if (!skipTarget) {
                 if (type == TargetType::Utility) {
                     // Only include Utility targets which are created directly within the project.
-                    // Otherwise the target list contains e.g. all the "Continous/Experiment" build and 
+                    // Otherwise the target list contains e.g. all the "Continuous/Experiment" build and 
                     // test targets, for KDE a clang-format target for each source file and more.
                     if (!isTargetDirectlyInProject(targetDoc)) {
                         skipTarget = true;

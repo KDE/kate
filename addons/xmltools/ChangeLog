@@ -1,7 +1,7 @@
 ChangeLog for the kate XML Tools plugin
 
 2005-04-15 Anders Lund <anders@alweb.dk>
-  * I'm taking over maintenence of this plugin.
+  * I'm taking over maintenance of this plugin.
 
 2005-04-14 Anders Lund <anders@alweb.dk>
   * Smarter alegoritm for placing the cursor after inserting an element.

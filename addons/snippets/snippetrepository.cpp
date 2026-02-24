@@ -365,7 +365,7 @@ QVariant SnippetRepository::data(int role) const
             return i18n("Applies to the following filetypes: %1", m_filetypes.join(QLatin1String(", ")));
         }
     } else if (role == Qt::ForegroundRole && checkState() != Qt::Checked) {
-        /// TODO: make the selected items also "disalbed" so the toggle action is seen directly
+        /// TODO: make the selected items also "disabled" so the toggle action is seen directly
         QColor c = qApp->palette().color(QPalette::Disabled, QPalette::Text);
         return QVariant(c);
     }

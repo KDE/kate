@@ -113,7 +113,7 @@ void SearchResultsDelegate::paintMatchItem(QPainter *p, const QStyleOptionViewIt
     QStringView preMatchStr = QStringView(match.preMatchStr);
     const int letterWidthPx = std::max(fm.horizontalAdvance(u"M"_s), 4);
 
-    // avaiable width, we dont use text textRect width because that width is larger because the widget can scroll horizontally
+    // available width, we dont use text textRect width because that width is larger because the widget can scroll horizontally
     const int availableWidth = opt.widget->width() - (iconBorderRect.width() + textRect.x());
     const int preMatchTextWidth = letterWidthPx * match.preMatchStr.size();
     const int matchTextWidth = letterWidthPx * match.matchStr.size();

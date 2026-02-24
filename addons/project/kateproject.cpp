@@ -107,7 +107,7 @@ bool KateProjectModel::dropMimeData(const QMimeData *data, Qt::DropAction action
         if (action == Qt::MoveAction) {
             // remove the files we are moving if they are from this project
             // this avoids some files being invisible until reloaded
-            // this is kinda hacky tbh, idk if theres a better solution
+            // this is kinda hacky tbh, idk if there's a better solution
             for (auto &url : originalUrls) {
                 auto path = url.toLocalFile();
                 if (m_project->itemForFile(path)) {

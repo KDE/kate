@@ -80,7 +80,7 @@ public:
      *        no fingerprint is selected in the ey table.
      * @param inputString_    The input string to be encrypted.
      * @param fingerprint_    The selected fingerprint/key.
-     * @param recipientMail_ A recipent mail address matched with the
+     * @param recipientMail_ A recipient mail address matched with the
      *        fingerprint.
      * @param symmetricEncryption_ A bool to enable symmetric encryption
      *        (will ask for a symmetric passphrase that must be remembered).

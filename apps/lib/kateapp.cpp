@@ -166,7 +166,7 @@ void KateApp::initPreApplicationCreation(bool detach)
      * https://github.com/flatpak/flatpak/issues/3438
      */
     if (KSandbox::isFlatpak() && !qEnvironmentVariableIsEmpty("XDG_RUNTIME_DIR") && !qEnvironmentVariableIsEmpty("FLATPAK_ID")) {
-        // construct a private tmp dir, only use it, if we can sucessfully create it or it is already there
+        // construct a private tmp dir, only use it, if we can successfully create it or it is already there
         const QString tmpDir = qEnvironmentVariable("XDG_RUNTIME_DIR") + QStringLiteral("/app/") + qEnvironmentVariable("FLATPAK_ID");
         QDir().mkpath(tmpDir);
         if (QDir().exists(tmpDir)) {

@@ -1413,7 +1413,7 @@ void GitWidget::selectedContextMenu(QContextMenuEvent *e)
 
     const bool selHasUnstagedItems = selectionHasUntrackedItems || selectionHasChangedItems;
 
-    // cant allow both
+    // can't allow both
     if (selHasUnstagedItems && selectionHasStagedItems) {
         return;
     }

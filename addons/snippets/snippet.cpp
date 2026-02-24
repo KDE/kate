@@ -121,7 +121,7 @@ QVariant Snippet::data(int role) const
     if (role == Qt::ToolTipRole) {
         return m_description.isEmpty() ? m_snippet : m_description;
     } else if ((role == Qt::ForegroundRole || role == Qt::BackgroundRole) && parent()->checkState() != Qt::Checked) {
-        /// TODO: make the selected items also "disalbed" so the toggle action is seen directly
+        /// TODO: make the selected items also "disabled" so the toggle action is seen directly
         if (role == Qt::ForegroundRole) {
             return qApp->palette().color(QPalette::Disabled, QPalette::Text);
         } else {

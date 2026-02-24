@@ -106,7 +106,7 @@ bool CMakeCompletion::shouldStartCompletion(KTextEditor::View *view, const QStri
     if (QStringView(insertedText).trimmed().isEmpty()) {
         return false;
     }
-    // Dont invoke for comments, wont handle everything of course
+    // Dont invoke for comments, won't handle everything of course
     if (view->document()->line(position.line()).startsWith(u'#')) {
         return false;
     }

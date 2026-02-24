@@ -254,7 +254,7 @@ void KateConsole::loadConsoleIfNeeded(QString directory, bool force)
     // if we want one terminal per directory, we will try to locate a tab that has the
     // right one or start a new one
     if (auto konsoleTabWidget = qobject_cast<QTabWidget *>(m_part->widget()); konsoleTabWidget && (m_syncMode == SyncCreateTabPerDir)) {
-        // if no dir is set, explictely use the current working dir to be able to reuse even that konsole
+        // if no dir is set, explicitly use the current working dir to be able to reuse even that konsole
         if (directory.isEmpty()) {
             directory = QDir::currentPath();
         }

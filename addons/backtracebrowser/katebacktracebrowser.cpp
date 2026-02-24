@@ -234,7 +234,7 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem *item, int column)
                 if (rx2.match(file).hasMatch()) {
                     // file is of correct form
                 } else {
-                    qDebug("file patter did not match: %ls", qUtf16Printable(file));
+                    qDebug("file pattern did not match: %ls", qUtf16Printable(file));
                     setStatus(i18n("File not found: %1", file));
                     return;
                 }

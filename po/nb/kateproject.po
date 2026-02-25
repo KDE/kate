@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-25 02:37+0000\n"
-"PO-Revision-Date: 2026-02-18 23:24+0100\n"
+"PO-Revision-Date: 2026-02-23 23:03+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -247,12 +247,12 @@ msgstr "«%1» ble utført vellykket: %2"
 #: gitwidget.cpp:685
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr "Klarte ikke å forberede filen. Feil:"
+msgstr "Klarte ikke å forberede fila. Feil:"
 
 #: gitwidget.cpp:698
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr "Klarte ikke å droppe den forberedte filen. Feil:"
+msgstr "Klarte ikke å droppe den forberedte fila. Feil:"
 
 #: gitwidget.cpp:709
 #, kde-format
@@ -267,12 +267,12 @@ msgstr "Fjerning feilet. Feil:"
 #: gitwidget.cpp:736
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr "Klarte ikke åpne filen fra HEAD: %1"
+msgstr "Klarte ikke åpne fila fra HEAD: %1"
 
 #: gitwidget.cpp:770
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr "Klarte ikke å hente Diff for filen: %1"
+msgstr "Klarte ikke å hente Diff for fila: %1"
 
 #: gitwidget.cpp:839
 #, kde-format
@@ -292,7 +292,7 @@ msgstr "Ingenting å melde inn. Forbered endringene først."
 #: gitwidget.cpp:867
 #, kde-format
 msgid "Commit message cannot be empty."
-msgstr "Loggmeldingen kan ikke være tom."
+msgstr "Loggmeldinga kan ikke være tom."
 
 #: gitwidget.cpp:998
 #, kde-format
@@ -478,12 +478,12 @@ msgstr "Vis historikk"
 #: gitwidget.cpp:1326
 #, kde-format
 msgid "Are you sure you want to discard the changes in this file?"
-msgstr "Er du sikker på at du vil forkaste endringene i denne filen?"
+msgstr "Er du sikker på at du vil forkaste endringene i denne fila?"
 
 #: gitwidget.cpp:1337
 #, kde-format
 msgid "Are you sure you want to remove this file?"
-msgstr "Er du sikker på at du vil fjerne denne filen?"
+msgstr "Er du sikker på at du vil fjerne denne fila?"
 
 #: gitwidget.cpp:1354
 #, kde-format
@@ -523,7 +523,7 @@ msgstr "Er du sikker på at du vil fjerne disse usporede endringene?"
 #: kateproject.cpp:299
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "JSON-filen «%1» er feilformatert: %2"
+msgstr "JSON-fila «%1» er feilformatert: %2"
 
 #: kateproject.cpp:366 kateprojectplugin.cpp:760 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
@@ -777,7 +777,7 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1]Analyse på filen %2 er fullført."
+msgstr[0] "[%1]Analyse på fila %2 er fullført."
 msgstr[1] "[%1]Analyse på filene %2 er fullført."
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
@@ -957,7 +957,7 @@ msgstr "Slett fil"
 #: kateprojecttreeviewcontextmenu.cpp:64
 #, kde-format
 msgid "Do you want to delete the file '%1'?"
-msgstr "Vil du slette filen «%1»?"
+msgstr "Vil du slette fila «%1»?"
 
 #: kateprojecttreeviewcontextmenu.cpp:91
 #, kde-format
@@ -1022,27 +1022,27 @@ msgstr "Ny mappe"
 #: kateprojectviewtree.cpp:351
 #, kde-format
 msgid "The file already exists"
-msgstr "Filen finnes fra før"
+msgstr "Fila finnes fra før"
 
 #: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr "Klarte ikke opprette filen %1, Feil: %2"
+msgstr "Klarte ikke opprette fila %1, Feil: %2"
 
 #: kateprojectviewtree.cpp:392
 #, kde-format
 msgid "The directory already exists"
-msgstr "Mappen finnes fra før"
+msgstr "Mappa finnes fra før"
 
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr "Klarte ikke opprette mappen: %1"
+msgstr "Klarte ikke opprette mappa: %1"
 
 #: kateprojectworker.cpp:202
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Finner ikke mappen: %1"
+msgstr "Finner ikke mappa: %1"
 
 #: kateprojectworker.cpp:729
 #, kde-format

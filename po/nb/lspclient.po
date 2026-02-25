@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 23:30+0100\n"
+"PO-Revision-Date: 2026-02-23 17:49+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -395,7 +395,7 @@ msgstr "Klarte ikke finne tjenerens kjørbare fil: %1"
 #: lspclientservermanager.cpp:879 lspclientservermanager.cpp:938
 #, kde-format
 msgid "Please check your PATH for the binary"
-msgstr "Sjekk STIEN til den kjørbare filen"
+msgstr "Sjekk STIEN til den kjørbare fila"
 
 #: lspclientservermanager.cpp:880 lspclientservermanager.cpp:939
 #, kde-format

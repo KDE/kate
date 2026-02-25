@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-19 09:06+0100\n"
+"PO-Revision-Date: 2026-02-23 17:43+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -102,8 +102,8 @@ msgstr[1] "%1 er merket"
 #, kde-format
 msgid "<b><i>One match (%2) found in file</i></b>"
 msgid_plural "<b><i>%1 matches (%2) found in current file</i></b>"
-msgstr[0] "<b><i>Ett treff (%2) funnet i filen</i></b>"
-msgstr[1] "<b><i>%1treff (%2) funnet i filen</i></b>"
+msgstr[0] "<b><i>Ett treff (%2) funnet i fila</i></b>"
+msgstr[1] "<b><i>%1treff (%2) funnet i fila</i></b>"
 
 #: MatchModel.cpp:591
 #, kde-format
@@ -162,8 +162,8 @@ msgstr[1] "%1 treff funnet, søker: %2"
 #, kde-format
 msgid "One match (%2) found in file"
 msgid_plural "%1 matches (%2) found in current file"
-msgstr[0] "Ett treff (%2) funnet i filen"
-msgstr[1] "%1 treff (%2) funnet i filen"
+msgstr[0] "Ett treff (%2) funnet i fila"
+msgstr[1] "%1 treff (%2) funnet i fila"
 
 #: MatchModel.cpp:746
 #, kde-format
@@ -618,7 +618,7 @@ msgstr "Finn"
 #, kde-format
 msgid "Search was not started as directory '%1' to search in doesn't exist."
 msgstr ""
-"Søket ble ikke startet fordi mappen «%1» som det skulle søkes i finnes ikke."
+"Søket ble ikke startet fordi mappa «%1» som det skulle søkes i finnes ikke."
 
 #: SearchPlugin.cpp:1345
 #, kde-format

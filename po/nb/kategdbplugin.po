@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-25 02:36+0000\n"
-"PO-Revision-Date: 2026-02-18 23:21+0100\n"
+"PO-Revision-Date: 2026-02-23 17:39+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -541,7 +541,7 @@ msgstr "Lokale og kallstabel"
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<title>Could not open file:</title><nl/>%1"
-msgstr "<title>Klarte ikke åpne filen:</title><nl/>%1"
+msgstr "<title>Klarte ikke åpne fila:</title><nl/>%1"
 
 #: plugin_kategdb.cpp:255
 #, kde-format

@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 19:31+0100\n"
+"PO-Revision-Date: 2026-02-23 17:30+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -262,7 +262,7 @@ msgstr "Klarte ikke kjøre programfil for CTags."
 #: gotosymbolmodel.cpp:148
 #, kde-format
 msgid "CTags was unable to parse this file."
-msgstr "CTags klarte ikke tolke denne filen."
+msgstr "CTags klarte ikke tolke denne fila."
 
 #: gotosymbolwidget.cpp:252
 #, kde-format

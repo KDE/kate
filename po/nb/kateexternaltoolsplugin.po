@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 23:19+0100\n"
+"PO-Revision-Date: 2026-02-23 17:37+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -22,7 +22,7 @@ msgstr ""
 #, kde-format
 msgctxt "External tool name"
 msgid "Clang Format Full File"
-msgstr "Formater hele filen med Clang"
+msgstr "Formater hele fila med Clang"
 
 #. i18n: file: 4
 #, kde-format
@@ -71,7 +71,7 @@ msgstr "gitk"
 #, kde-format
 msgctxt "External tool name"
 msgid "Go Fmt Full File"
-msgstr "Formater hele filen med Go"
+msgstr "Formater hele fila med Go"
 
 #. i18n: file: 4
 #, kde-format
@@ -83,7 +83,7 @@ msgstr "Go"
 #, kde-format
 msgctxt "External tool name"
 msgid "GoImports Full File"
-msgstr "GoImports på hele filen"
+msgstr "GoImports på hele fila"
 
 #. i18n: file: 8
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "Sett inn UUID"
 #, kde-format
 msgctxt "External tool name"
 msgid "JSON Format Full File"
-msgstr "JSON-formater hele filen"
+msgstr "JSON-formater hele fila"
 
 #. i18n: file: 7
 #, kde-format
@@ -131,7 +131,7 @@ msgstr "Kjør skallskript"
 #, kde-format
 msgctxt "External tool name"
 msgid "Rust Fmt Full File"
-msgstr "Formater hele filen med Rust"
+msgstr "Formater hele fila med Rust"
 
 #. i18n: file: 10
 #, kde-format
@@ -149,7 +149,7 @@ msgstr "Søk i Qt-API-et"
 #, kde-format
 msgctxt "External tool name"
 msgid "XML Format Full File"
-msgstr "XML-formater hele filen"
+msgstr "XML-formater hele fila"
 
 #. i18n: ectx: property (whatsThis), widget (QTreeView, lbTools)
 #: configwidget.ui:17
@@ -184,7 +184,7 @@ msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
-"Fant ikke programfilen «%1». Pass på at programfilen finnes og at eventuelle "
+"Fant ikke programfila «%1». Pass på at programfila finnes og at eventuelle "
 "variabelnavn er rette."
 
 #: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299

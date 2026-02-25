@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-14 03:02+0000\n"
-"PO-Revision-Date: 2026-02-18 20:42+0100\n"
+"PO-Revision-Date: 2026-02-23 23:10+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -611,7 +611,7 @@ msgstr ""
 #, kde-format
 msgid "Failed to get file history: git executable not found in PATH"
 msgstr ""
-"Klarte ikke hente filhistorikken: fant ikke programfilen «git» i søkestien "
+"Klarte ikke hente filhistorikken: fant ikke programfila «git» i søkestien "
 "(PATH-variabelen)"
 
 #: lib/filehistorywidget.cpp:553
@@ -646,7 +646,7 @@ msgstr ""
 "Å kjøre dette skriveprogrammet med sudo kan medføre feil og gjør deg sårbar "
 "for eventuelle sikkerhetshull. Kjør heller skriveprogrammet som en vanlig "
 "bruker. Du blir automatisk spurt om utvidet tilgang dersom det er nødvendig "
-"for å lagre filen."
+"for å lagre fila."
 
 #: lib/kateapp.cpp:153
 msgid ""
@@ -657,7 +657,7 @@ msgstr ""
 "Å kjøre dette skriveprogrammet med kdesu kan medføre feil og gjør deg sårbar "
 "for eventuelle sikkerhetshull. Kjør heller skriveprogrammet som en vanlig "
 "bruker. Du blir automatisk spurt om utvidet tilgang dersom det er nødvendig "
-"for å lagre filen."
+"for å lagre fila."
 
 #: lib/kateapp.cpp:366
 #, kde-format
@@ -1081,7 +1081,7 @@ msgid ""
 msgstr ""
 "Hvis det er krysset av her vil det vises en modaldialog for alle endrede "
 "filer. Om ikke blir du spurt hva du vil gjøre for hver endret fil først når "
-"filen får fokus."
+"fila får fokus."
 
 #: lib/kateconfigdialog.cpp:192
 #, kde-format
@@ -1473,12 +1473,12 @@ msgstr "Nytt filnavn"
 #: lib/katefileactions.cpp:114
 #, kde-format
 msgid "File \"%1\" could not be moved to \"%2\""
-msgstr "Filen «%1» kunne ikke flyttes til «%2»"
+msgstr "Fila «%1» kunne ikke flyttes til «%2»"
 
 #: lib/katefileactions.cpp:135
 #, kde-format
 msgid "Do you really want to delete file \"%1\"?"
-msgstr "Er du sikker på at du vil slette filen «%1»?"
+msgstr "Er du sikker på at du vil slette fila «%1»?"
 
 #: lib/katefileactions.cpp:136
 #, kde-format
@@ -1488,7 +1488,7 @@ msgstr "Slett fil"
 #: lib/katefileactions.cpp:157
 #, kde-format
 msgid "File \"%1\" could not be deleted."
-msgstr "Filen «%1» kunne ikke slettes."
+msgstr "Fila «%1» kunne ikke slettes."
 
 #: lib/katefileactions.cpp:212
 #, kde-format
@@ -1613,7 +1613,7 @@ msgstr "Last inn på nytt alle åpne dokumenter."
 #: lib/katemainwindow.cpp:479
 #, kde-format
 msgid "Copies the file path of the current file to clipboard."
-msgstr "Kopierer filadressen for den gjeldende filen til utklippstavlen."
+msgstr "Kopierer filadressen for den gjeldende fila til utklippstavlen."
 
 #: lib/katemainwindow.cpp:465
 #, kde-format
@@ -1634,7 +1634,7 @@ msgstr "Endre navn …"
 #: lib/katemainwindow.cpp:488
 #, kde-format
 msgid "Renames the file belonging to the current document."
-msgstr "Endrer navn på filen som hører til gjeldende dokument."
+msgstr "Endrer navn på fila som hører til gjeldende dokument."
 
 #: lib/katemainwindow.cpp:492
 #, kde-format
@@ -1645,7 +1645,7 @@ msgstr "Slett"
 #: lib/katemainwindow.cpp:497 lib/katemainwindow.cpp:506
 #, kde-format
 msgid "Deletes the file belonging to the current document."
-msgstr "Sletter filen til gjeldende dokument."
+msgstr "Sletter fila til gjeldende dokument."
 
 #: lib/katemainwindow.cpp:501
 #, kde-format
@@ -1898,7 +1898,7 @@ msgstr "Skjul menylinja"
 msgid ""
 "You dropped the directory %1 into Kate. Do you want to open all files "
 "contained in it?"
-msgstr "Du slapp mappa %1 på Kate. Vil du åpne alle filene i mappen?"
+msgstr "Du slapp mappa %1 på Kate. Vil du åpne alle filene i mappa?"
 
 #: lib/katemainwindow.cpp:1186
 #, kde-format
@@ -2535,7 +2535,7 @@ msgstr "Klarte ikke slå på programtillegget <b>%1</b>"
 #: lib/kateviewmanager.cpp:648
 #, kde-format
 msgid "The file '%1' does not exist"
-msgstr "Filen «%1» finnes ikke"
+msgstr "Fila «%1» finnes ikke"
 
 #: lib/kateviewspace.cpp:94
 #, kde-format
@@ -2927,7 +2927,7 @@ msgid ""
 "If enabled, the application will shutdown when the last file being edited is "
 "closed, otherwise a blank page will open so that you can start a new file."
 msgstr ""
-"Hvis det er krysset av her vil programmet lukkes når den siste filen som "
+"Hvis det er krysset av her vil programmet lukkes når den siste fila som "
 "redigeres lukkes. Ellers blir det vist en tom side der du kan starte en ny "
 "fil."
 
@@ -2935,7 +2935,7 @@ msgstr ""
 #: lib/ui/sessionconfigwidget.ui:101
 #, kde-format
 msgid "Close the application entirely when the last file is closed"
-msgstr "Lukk programmet fullstendig når siste filen er lukket"
+msgstr "Lukk programmet fullstendig når siste fila er lukket"
 
 #. i18n: ectx: property (text), widget (QCheckBox, winClosesDocuments)
 #: lib/ui/sessionconfigwidget.ui:108

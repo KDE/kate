@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-12 14:17+0100\n"
+"PO-Revision-Date: 2026-02-23 17:48+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -54,7 +54,7 @@ msgstr "Fant ikke «%1». Vil derfor kun sjekke om dokumentet er velformet."
 #: plugin_katexmlcheck.cpp:230
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr "<b>Feil:</b> Klarte ikke opprette den midlertidige filen «%1»."
+msgstr "<b>Feil:</b> Klarte ikke opprette den midlertidige fila «%1»."
 
 #: plugin_katexmlcheck.cpp:249
 #, kde-format

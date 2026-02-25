@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: KDE 4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 20:44+0100\n"
+"PO-Revision-Date: 2026-02-23 17:34+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -137,8 +137,7 @@ msgstr "Kompiler gjeldende fil"
 #, kde-format
 msgid "Try to compile the current file by searching a compile_commands.json"
 msgstr ""
-"Prøv å kompilere den gjeldende filen ved å se i ei «compile_commands.json»-"
-"fil"
+"Prøv å kompilere den gjeldende fila ved å se i ei «compile_commands.json»-fil"
 
 #: plugin_katebuild.cpp:299
 #, kde-format
@@ -174,8 +173,8 @@ msgid ""
 "<b>File not found:</b> %1<br><b>Search paths:</b><br>%2<br>Try adding a "
 "search path to the \"Working Directory\""
 msgstr ""
-"<b>Fant ikke filen:</b> %1<br><b>Søkemapper:</b><br>%2<br>Prøv å legge ei "
-"søkemappe til ««arbeidsmappen»"
+"<b>Fant ikke fila:</b> %1<br><b>Søkemapper:</b><br>%2<br>Prøv å legge ei "
+"søkemappe til ««arbeidsmappa»"
 
 #: plugin_katebuild.cpp:503
 #, kde-format
@@ -204,13 +203,13 @@ msgid ""
 "The configured working directory <b>%1</b> for the targetset <b>%2</b> does "
 "not exist.<br><br>Create the directory?"
 msgstr ""
-"Arbeidsmappen <b>%1</b> som er satt opp for målsettet <b>%2</b> finnes ikke."
-"<br> <br> Vil du opprette mappen?"
+"Arbeidsmappa <b>%1</b> som er satt opp for målsettet <b>%2</b> finnes ikke."
+"<br> <br> Vil du opprette mappa?"
 
 #: plugin_katebuild.cpp:848
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr "Klarte ikke å opprette mappen <br>%1</b>"
+msgstr "Klarte ikke å opprette mappa <br>%1</b>"
 
 #: plugin_katebuild.cpp:868
 #, kde-format
@@ -225,12 +224,12 @@ msgstr "Bygging av <b>%1: %2</b> er avbrutt"
 #: plugin_katebuild.cpp:989
 #, kde-format
 msgid "Did not find a compile_commands.json for file \"%1\". "
-msgstr "Fant ingen «compile_commands.json» for filen «%1». "
+msgstr "Fant ingen «compile_commands.json» for fila «%1». "
 
 #: plugin_katebuild.cpp:1002
 #, kde-format
 msgid "Did not find a compile command for file \"%1\" in \"%2\". "
-msgstr "Fant ingen kompileringskommando for filen «%1» i «%2». "
+msgstr "Fant ingen kompileringskommando for fila «%1» i «%2». "
 
 #: plugin_katebuild.cpp:1019
 #, kde-format
@@ -238,8 +237,8 @@ msgid ""
 "Cannot make \"%f\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan ikke erstatte «%f». Ingen åpne filer eller så er den gjeldende filen "
-"uten navn!"
+"Kan ikke erstatte «%f». Ingen åpne filer eller så er den gjeldende fila uten "
+"navn!"
 
 #: plugin_katebuild.cpp:1023
 #, kde-format
@@ -247,8 +246,8 @@ msgid ""
 "Cannot make \"%d\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan ikke erstatte «%d». Ingen åpne filer eller så er den gjeldende filen "
-"uten navn!"
+"Kan ikke erstatte «%d». Ingen åpne filer eller så er den gjeldende fila uten "
+"navn!"
 
 #: plugin_katebuild.cpp:1027
 #, kde-format
@@ -256,8 +255,8 @@ msgid ""
 "Cannot make \"%n\" substitution. No open file or the current file is "
 "untitled!"
 msgstr ""
-"Kan ikke erstatte «%n». Ingen åpne filer eller så er den gjeldende filen "
-"uten navn!"
+"Kan ikke erstatte «%n». Ingen åpne filer eller så er den gjeldende fila uten "
+"navn!"
 
 #: plugin_katebuild.cpp:1038
 #, kde-format
@@ -289,18 +288,18 @@ msgid ""
 "Cannot load targets, the file %1 does not contain a proper CMAKE_COMMAND "
 "entry !"
 msgstr ""
-"Klarte ikke laste målene. Filen %1 inneholder ingen skikkelig "
-"«CMAKE_COMMAND»-oppføring!"
+"Klarte ikke laste målene. Fila %1 inneholder ingen skikkelig «CMAKE_COMMAND»-"
+"oppføring!"
 
 #: plugin_katebuild.cpp:1260
 #, kde-format
 msgid "Could not write CMake File API query files for build directory %1 !"
-msgstr "Klarte ikke lagre CMake-fil-API-spørrefiler for byggemappen %1 !"
+msgstr "Klarte ikke lagre CMake-fil-API-spørrefiler for byggemappa %1 !"
 
 #: plugin_katebuild.cpp:1266
 #, kde-format
 msgid "Could not run CMake (%2) for build directory %1 !"
-msgstr "Klarte ikke kjøre CMake (%2) for byggemappen %1 !"
+msgstr "Klarte ikke kjøre CMake (%2) for byggemappa %1 !"
 
 #: plugin_katebuild.cpp:1275
 #, kde-format
@@ -308,7 +307,7 @@ msgid ""
 "Generating CMake File API reply files for build directory %1 failed (using "
 "%2) !"
 msgstr ""
-"Feil ved generering av CMake-fil-API-svarfiler for byggemappen %1 (bruker "
+"Feil ved generering av CMake-fil-API-svarfiler for byggemappa %1 (bruker "
 "%2) !"
 
 #: plugin_katebuild.cpp:1394
@@ -456,10 +455,10 @@ msgid ""
 msgstr ""
 "Bruk:\n"
 "«%f» for gjeldende fil\n"
-"«%d» for mappen der gjeldende fil ligger\n"
+"«%d» for mappa der gjeldende fil ligger\n"
 "«%n» for gjeldende filnavn uten suffiks\n"
 "«%B» for det gjeldende prosjektets grunnmappe\n"
-"«%w» for arbeidsmappen for målet"
+"«%w» for arbeidsmappa for målet"
 
 #: TargetModel.cpp:316 TargetModel.cpp:328 targets.cpp:255
 #, kde-format

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 23:20+0100\n"
+"PO-Revision-Date: 2026-02-23 17:38+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -82,12 +82,12 @@ msgstr "Lukk andre dokumenter i denne mappa."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open Containing Folder"
-msgstr "Åpne foreldremappen"
+msgstr "Åpne foreldremappa"
 
 #: katefiletree.cpp:146
 #, kde-format
 msgid "Open the folder this file is located in."
-msgstr "Åpne mappen denne filen ligger i."
+msgstr "Åpne mappa denne fila ligger i."
 
 #: katefiletree.cpp:148
 #, kde-format
@@ -98,7 +98,7 @@ msgstr "Kopier filadresse"
 #: katefiletree.cpp:150
 #, kde-format
 msgid "Copy path and filename to the clipboard."
-msgstr "Kopier filadressen til utklippstavlen."
+msgstr "Kopier filadressa til utklippstavlen."
 
 #: katefiletree.cpp:152
 #, kde-format

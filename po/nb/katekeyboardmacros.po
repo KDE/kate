@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-18 23:22+0100\n"
+"PO-Revision-Date: 2026-02-23 17:41+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -21,12 +21,12 @@ msgstr ""
 #: keyboardmacrosplugin.cpp:66 keyboardmacrosplugin.cpp:102
 #, kde-format
 msgid "Could not open file '%1'."
-msgstr "Klarte ikke åpne filen «%1»."
+msgstr "Klarte ikke åpne fila «%1»."
 
 #: keyboardmacrosplugin.cpp:72
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
-msgstr "JSON-filen «%1» er feilformatert: %2"
+msgstr "JSON-fila «%1» er feilformatert: %2"
 
 #: keyboardmacrosplugin.cpp:80
 #, kde-format

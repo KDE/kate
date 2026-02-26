@@ -185,7 +185,7 @@ void SearchResultsDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     // draw item without text
     options.text = QString();
     if (!isMatchItem(index)) {
-        options.backgroundBrush = m_altBackground;
+        painter->fillRect(options.rect, m_altBackground);
     }
     options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 

@@ -65,6 +65,9 @@ KateFileBrowser::KateFileBrowser(KTextEditor::MainWindow *mainWindow, QWidget *p
 
     auto *model = new KFilePlacesModel(this);
     m_urlNavigator = new KUrlNavigator(model, QUrl::fromLocalFile(QDir::homePath()), this);
+#if KIO_VERSION >= QT_VERSION_CHECK(6, 14, 0)
+    m_urlNavigator->setBackgroundEnabled(false);
+#endif
     connect(m_urlNavigator, &KUrlNavigator::urlChanged, this, &KateFileBrowser::updateDirOperator);
     mainLayout->addWidget(m_urlNavigator);
 

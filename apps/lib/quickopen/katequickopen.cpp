@@ -233,13 +233,6 @@ public:
 
         painter->save();
 
-        // paint background
-        if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, option.palette.highlight());
-        } else {
-            painter->fillRect(option.rect, option.palette.base());
-        }
-
         options.text = QString(); // clear old text
         options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 

@@ -74,9 +74,8 @@ public:
         style->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
 
         // leave space for icon
-        const int hMargin = style->pixelMetric(QStyle::PM_FocusFrameHMargin, &option, option.widget);
-        const int iconWidth = option.decorationSize.width() + (hMargin * 2);
-        options.rect.adjust(iconWidth, 0, 0, 0);
+        painter->translate(25, 0);
+
         Utils::paintItemViewText(painter, name, options, formats);
 
         painter->restore();

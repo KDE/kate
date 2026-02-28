@@ -132,16 +132,16 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2 сентября 2021 г.</date>
+>22 апреля 2022 г.</date>
 <releaseinfo
->Приложения KDE 21.12</releaseinfo>
+>Приложения 22.08</releaseinfo>
 
 <abstract>
 <para
 >&kate; — это текстовый редактор для программистов, разработанный &kde;.</para>
 
 <para
->В данном руководстве описан редактор &kate; версии 18.12</para>
+>В данном руководстве описан редактор &kate; версии 22.08</para>
 </abstract>
 
 <keywordset>

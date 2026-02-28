@@ -51,10 +51,6 @@
 ></group
 > <group choice="opt"
 ><option
->--new-session</option
-></group
-> <group choice="opt"
-><option
 >-n, --new</option
 ></group
 > <group choice="opt"
@@ -65,7 +61,7 @@
 ><option
 >-p, --pid</option
 ><replaceable
-> pid</replaceable
+> идентификатор процесса</replaceable
 ></group
 > <group choice="opt"
 ><option
@@ -143,18 +139,6 @@
 <term
 ><option
 >--startanon</option
-></term>
-<listitem
-><para
->Запустить &kate; с новым анонимным сеансом, подразумевает параметр <option
->-n</option
-> (устарел).</para
-></listitem>
-</varlistentry>
-<varlistentry>
-<term
-><option
->--new-session</option
 ></term>
 <listitem
 ><para
@@ -299,9 +283,9 @@
 ></userinput
 >).</member>
 <member
->kf5options(7)</member>
+>kf6options(7)</member>
 <member
->qt5options(7)</member>
+>qt6options(7)</member>
 <member
 >Чтобы получить больше информации, посетите <ulink url="https://kate-editor.org/"
 >веб-сайт &kate;</ulink

@@ -57,7 +57,7 @@
 ></address
 ></affiliation
 ><contrib
->Редактирование перевода</contrib
+>Обновление и редактирование перевода</contrib
 ></othercredit
 > 
 </authorgroup>
@@ -174,6 +174,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-dialog-general-open-each-document"/>
+<guilabel
+>Открыть каждый документ в отдельном окне</guilabel
+></term>
+<listitem
+><para
+>При включении этого параметра каждый документ будет открываться в отдельном окне. Если параметр не включён, то все документы будут открываться в отдельных вкладках внутри текущего окна.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-dialog-general-switch-to-output"/>
 <guilabel
 >Переход к представлению вывода при получении сообщения следующего типа</guilabel
@@ -287,6 +299,18 @@
 
 <varlistentry>
 <term
+><anchor id="config-general-auto-hide-tabs"/>
+<guilabel
+>Автоматически скрывать вкладки</guilabel
+></term>
+<listitem
+><para
+>Скрывать вкладки, если открыт только один документ.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
 ><anchor id="config-general-show-close-button"/>
 <guilabel
 >Показывать кнопку закрытия</guilabel
@@ -332,11 +356,81 @@
 >Если флажок установлен, нажатие средней кнопки мыши закрывает документ.</para
 ></listitem>
 </varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-tab-scrolling"/>
+<guilabel
+>Разрешить прокрутку вкладок</guilabel
+></term>
+<listitem
+><para
+>Разрешить прокрутку вкладок колесом мыши.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-elide-tab-text"/>
+<guilabel
+>Сокращать текст вкладок</guilabel
+></term>
+<listitem
+><para
+>Текст вкладок может быть сокращён, если его длина слишком велика.</para
+></listitem>
+</varlistentry>
 </variablelist>
 
 </listitem>
 </varlistentry
 ><!-- /tabs group -->
+
+<varlistentry>
+<term
+><anchor id="config-general-mouse"/>
+<guilabel
+>Вкладки</guilabel
+></term>
+ <listitem>
+
+<variablelist>
+<varlistentry>
+<term
+><anchor id="config-general-backward-button-pressed"/>
+<guilabel
+>Действие при нажатии кнопки «назад»</guilabel
+></term>
+<listitem
+><para
+>Позволяет указать, какой пункт меню выбирается при нажатии кнопки мыши «назад»: <guimenuitem
+>Предыдущая вкладка</guimenuitem
+> или <guimenuitem
+>Перейти на предыдущую запись в журнале</guimenuitem
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><anchor id="config-general-forward-button-pressed"/>
+<guilabel
+>Действие при нажатии кнопки «вперёд»</guilabel
+></term>
+<listitem
+><para
+>Позволяет указать, какой пункт меню выбирается при нажатии кнопки мыши «вперёд»: <guimenuitem
+>Следующая вкладка</guimenuitem
+> или <guimenuitem
+>Перейти на следующую запись в журнале</guimenuitem
+>.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry
+><!-- /mouse group -->
 </variablelist>
 </sect2>
 
@@ -402,7 +496,7 @@
 <term
 ><anchor id="config-dialog-sessions-shutdown-behavior"/>
 <guilabel
->Поведение при завершении приложения</guilabel
+>Поведение при запуске и завершении работы</guilabel
 ></term>
 <listitem>
 <para

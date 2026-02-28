@@ -900,7 +900,7 @@
 > <guisubmenu
 >Перейти</guisubmenu
 > <guimenuitem
->На открывающую/закрывающую скобку</guimenuitem
+>Перейти к парной скобке</guimenuitem
 > </menuchoice
 ></term>
 <listitem>
@@ -1058,6 +1058,27 @@
 </listitem>
 </varlistentry>
 
+<varlistentry id="reopen-latest-closed-document">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>Вид</guimenu
+> <guimenuitem
+>Открыть последние закрытые документы заново</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>Открывает последние закрытые документы заново.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry id="view-quick-open">
 <term
 ><menuchoice
@@ -1079,7 +1100,7 @@
 <para
 >Это действие также доступно с помощью кнопки <inlinemediaobject
 ><imageobject
-><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > в верхней правой части окна редактора.</para>
 </listitem>
@@ -1126,6 +1147,74 @@
 ><listitem>
 <para
 >Передаёт фокус следующей створке, если окно разделено.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-left">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Открыть створку слева</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Передаёт фокус левой створке (с помощью положения курсора, если требуется).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Открыть створку справа</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Передаёт фокус правой створке (с помощью положения курсора, если требуется).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Открыть створку сверху</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Передаёт фокус верхней створке (с помощью положения курсора, если требуется).</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term
+><menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Открыть створку снизу</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>Передаёт фокус нижней створке (с помощью положения курсора, если требуется).</para>
 </listitem>
 </varlistentry>
 
@@ -1176,6 +1265,48 @@
 <listitem>
 <para
 >Разделяет область (которой может быть главная область редактирования) на две части одинакового размера, при этом новая часть будет располагаться под текущей. Новая часть становится активной, и в ней отображается тот же документ.</para>
+<para
+>Смотрите также раздел <link linkend="kate-mdi"
+>Работа с многодокументным интерфейсом &kate;</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-vertical-split">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Разделить по вертикали и переместить документ</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Разделить текущую створку окна на две вертикальных и расположить активный документ в правой части.</para>
+<para
+>Смотрите также раздел <link linkend="kate-mdi"
+>Работа с многодокументным интерфейсом &kate;</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-horizontal-split">
+<term>
+<menuchoice
+><guimenu
+>Вид</guimenu
+><guisubmenu
+>Разделить окно</guisubmenu
+> <guimenuitem
+>Разделить по горизонтали и переместить документ</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>Разделить текущую створку окна на две горизонтальных и расположить активный документ в нижней части.</para>
 <para
 >Смотрите также раздел <link linkend="kate-mdi"
 >Работа с многодокументным интерфейсом &kate;</link
@@ -2334,184 +2465,236 @@ depends on the <link linkend="pref-edit-indent"
 </listitem>
 </varlistentry>
 -->
+
+<!-- <Pablo
+> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
 <varlistentry id="tools-cleanindent">
 <term
-><menuchoice
-><guimenu
->Сервис</guimenu
-> <guimenuitem
->Привести отступы в порядок</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Clean Indentation</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Убирает все отступы в выделенном фрагменте текста или в строке, на которой находится курсор. Это действие будет осуществлено с учётом выбранного режима расстановки отступов.</para>
+>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
 </listitem>
 </varlistentry>
 
-<varlistentry id="tools-align">
+<varlistentry id="tools-formatindent">
 <term
-><menuchoice
-><guimenu
->Сервис</guimenu
-> <guimenuitem
->Выровнять</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Format Indent</guimenuitem>
+</menuchoice
 ></term>
 <listitem>
 <para
->Заново выравнивает текущую строку или строки в выделенном фрагменте согласно правилам отступа для документа.</para>
+>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Align On...</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para
+>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para
+>If the pattern has a capture it will indent on the captured match.</para>
+<para
+><emphasis
+>Examples:</emphasis
+></para>
+<para
+>With '<userinput
+>-</userinput
+>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para
+>With '<userinput
+>alignon :\\s+(.)</userinput
+>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-comment">
 <term
-><menuchoice
-><shortcut
-><keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >D</keycap
-></keycombo
-></shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Закомментировать</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Comment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Добавляет знак комментария, отделённый от начала текста в строке пробелом.</para>
+>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
 </listitem>
 </varlistentry>
 
 <varlistentry id="tools-uncomment">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >D</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Раскомментировать</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uncomment</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Удаляет знак комментария и пробел, которым этот знак отделялся от начала текста в строке.</para
+>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-uppercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Перевести в ВЕРХНИЙ РЕГИСТР</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uppercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Переводит выделенный текст (или букву под курсором) в верхний регистр.</para
+>Put the selected text or the letter after the cursor in
+uppercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-lowercase">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Shift;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Перевести в нижний регистр</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Lowercase</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Переводит выделенный текст (или букву под курсором) в нижний регистр.</para
+>Put the selected text or the letter after the cursor in
+lowercase.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-capitalize">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;&Alt;<keycap
 >U</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Перевести в регистр Как в предложениях</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Capitalize</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Переводит заглавные буквы выделенного текста в верхний регистр.</para
+>Capitalize the selected text or the current
+word.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-join-lines">
 <term
-><menuchoice
-><shortcut
-> <keycombo action="simul"
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
 >&Ctrl;<keycap
 >J</keycap
-></keycombo
-> </shortcut
-> <guimenu
->Сервис</guimenu
-> <guimenuitem
->Объединить строки</guimenuitem
-> </menuchoice
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Join Lines</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Объединяет выделенные строки (или текущую строку с расположенной ниже) в одну, разделяя их пробелом. Пробелы в начале и конце строк удаляются.</para
+>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para
 ></listitem>
 </varlistentry>
 
 <varlistentry id="tools-word-wrap-document">
 <term
-><menuchoice
-><guimenu
->Сервис</guimenu
-> <guimenuitem
->Выполнить перенос строк</guimenuitem
-> </menuchoice
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Apply Word Wrap</guimenuitem>
+</menuchoice
 ></term>
 <listitem
 ><para
->Включает статический перенос строк в документе. Символ новой строки будет вставлен автоматически, когда текущая строка достигнет длины, указанной на вкладке <guilabel
->Переносить слова на новую строку после</guilabel
-> (<menuchoice
-> <guimenu
->Настройка</guimenu
+>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel
+>Wrap words at</guilabel
+> option
+in the Editing tab in <menuchoice>
+<guimenu
+>Settings</guimenu
 ><guimenuitem
->Настроить редактор...</guimenuitem
+>Configure
+Editor...</guimenuitem
 ></menuchoice
->).</para
+>.</para
 ></listitem>
 </varlistentry>
+-->
 
 </variablelist>
 </sect1>
@@ -2563,7 +2746,7 @@ depends on the <link linkend="pref-edit-indent"
 ><para
 >Вкладки возможно перемещать с помощью левой кнопки мыши, а также взаимодействовать с ними с помощью контекстного меню (для закрытия, копирования пути в буфер обмена или открытия расположения документа с помощью диспетчера файлов). Кнопка <inlinemediaobject
 ><imageobject
-><imagedata fileref="tab-duplicate-22.png" format="PNG"/></imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
 ></inlinemediaobject
 > <link linkend="view-quick-open"
 ><guibutton

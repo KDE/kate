@@ -127,8 +127,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >/home/myhome/docs/myfile.txt</replaceable
 ></option>
@@ -150,8 +150,8 @@
 >%</prompt
 > <userinput
 ><command
->kwrite</command>
-<option
+>kwrite</command
+> <option
 ><replaceable
 >ftp://ftp.kde.org/pub/kde/README</replaceable>
 </option

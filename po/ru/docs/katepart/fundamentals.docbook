@@ -86,7 +86,7 @@
 ></entry>
 <entry
 ><para
->Перейти к предыдущей редактируемой строке.</para
+>Перейти к предыдущему редактируемому месту в документе.</para
 ></entry>
 </row>
 <row>
@@ -100,7 +100,7 @@
 ></entry>
 <entry
 ><para
->Перейти к следующей редактируемой строке.</para
+>Перейти к следующему редактируемому месту в документе.</para
 ></entry>
 </row>
 <row>
@@ -281,19 +281,9 @@
 <entry
 ><para
 ><keycombo action="simul"
->&Ctrl;&Alt;&Up;</keycombo
-></para
-></entry>
-<entry
-><para
->Дублировать выделенные строки выше.</para
-></entry>
-</row>
-<row>
-<entry
-><para
-><keycombo action="simul"
->&Ctrl;&Alt;&Down;</keycombo
+>&Ctrl;<keycap
+>.</keycap
+></keycombo
 ></para
 ></entry>
 <entry
@@ -411,6 +401,30 @@
 > используйте эту комбинацию клавиш, и следующая строка уже будет начинаться с символов <quote
 >// </quote
 >. Поэтому символы комментария не потребуется вводить в начале каждой новой строки комментариев.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Shift;&Enter;</keycombo
+></para
+></entry>
+<entry
+><para
+>Создать новую строку под текущей.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Enter;</keycombo
+></para
+></entry>
+<entry
+><para
+>Создать новую строку над текущей.</para
 ></entry>
 </row>
 <row>
@@ -1242,6 +1256,74 @@ action="simul"
 >Развернуть аббревиатуру.</para
 ></entry>
 </row>
+
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>Добавить курсор над текущим.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>Добавить курсор под текущим.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Shift;&Alt;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Создать курсор в конце каждой строки в выбранном фрагменте.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Alt;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Найти следующее вхождение слова под курсором и выбрать его.</para
+></entry>
+</row>
+<row>
+<entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>Найти все вхождения слова под курсором и выбрать их.</para
+></entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>

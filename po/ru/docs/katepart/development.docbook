@@ -1,4 +1,3 @@
-<!-- auto-generate scripting documentation (kwrite-devel@kde.org Re: [kate] doc/kate: document most of the new scripts in 4.10) -->
 <chapter id="dev">
 <chapterinfo>
 <authorgroup>
@@ -348,8 +347,18 @@
 <entry
 >В &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;syntax</filename
+></entry>
+</row>
+<row>
+<entry
+>В &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/syntax/</filename
 ></entry>
 </row>
 </tbody>
@@ -624,6 +633,15 @@
 
 <para
 ><userinput
+>attribute</userinput
+> определяет стиль, который следует использовать для символа, если не обнаружено соответствие ни одному из правил или если в правиле не указан атрибут. В последнем случае будет использоваться <emphasis
+>attribute</emphasis
+> контекста, указанного в <emphasis
+>context</emphasis
+> правила.</para>
+
+<para
+><userinput
 >lineEndContext</userinput
 > определяет контекст, на который переключается система подсветки при достижении конца строки. Значением этого атрибута может быть либо название другого контекста, либо <userinput
 >#stay</userinput
@@ -639,11 +657,7 @@
 >IncludeRules</userinput
 > (например, <userinput
 >SomeContext##JavaScript</userinput
->). Обратите внимание, что это переключение контекста невозможно использовать совместно с <userinput
->#pop</userinput
->: например, <userinput
->#pop!SomeContext##JavaScript</userinput
-> является некорректным. Переключения контекста также описаны в <xref linkend="kate-highlight-rules-detailled"/>.</para>
+>). Переключения контекста также описаны в <xref linkend="kate-highlight-rules-detailled"/>. По умолчанию: #stay.</para>
 <para
 ><userinput
 >lineEmptyContext</userinput
@@ -733,7 +747,7 @@
 >, текст будет подчёркнут.</para>
 <para
 ><userinput
->strikeout</userinput
+>strikeOut</userinput
 >, если значение <emphasis
 >true</emphasis
 >, текст будет перечёркнут.</para>
@@ -1164,13 +1178,15 @@
 </listitem>
 <listitem>
 <para
->Значения <emphasis
->порядка</emphasis
+>Значение <emphasis
+>order</emphasis
 >, которое сообщает движку, что следует остаться в текущем контексте (<userinput
 >#stay</userinput
 >) или вернуться к предыдущему контексту, использованному в строке (<userinput
 >#pop</userinput
->).</para>
+>). Пустой или отсутствующий контекст соответствует <userinput
+>#stay</userinput
+>.</para>
 <para
 >Чтобы вернуться на несколько уровней контекста назад, ключевое слово #pop возможно повторить несколько раз: <userinput
 >#pop#pop#pop</userinput
@@ -1178,12 +1194,12 @@
 </listitem>
 <listitem>
 <para
->Значения <emphasis
->порядка</emphasis
+>Значение <emphasis
+>order</emphasis
 >, за которым следуют восклицательный знак (<emphasis
 >!</emphasis
 >) и значение <emphasis
->идентификатора</emphasis
+>identifier</emphasis
 >, что заставит движок сначала использовать порядок, а затем переключиться на другой контекст, например <userinput
 >#pop#pop!OtherContext</userinput
 >.</para>
@@ -1198,13 +1214,9 @@
 >идентификатор</emphasis
 >, который является названием определения языка. Такое именование похоже на используемое в правилах <userinput
 >IncludeRules</userinput
-> и позволяет переключаться на контекст, принадлежащий другому определению подсветки синтаксиса (например,  <userinput
+> и позволяет переключаться на контекст, принадлежащий другому определению подсветки синтаксиса (например, <userinput
 >SomeContext##JavaScript</userinput
->). Обратите внимание, что это переключение контекста невозможно использовать совместно с <userinput
->#pop</userinput
-> (например, запись <userinput
->#pop!SomeContext##JavaScript</userinput
-> является некорректной).</para>
+>). </para>
 </listitem>
 </itemizedlist>
 
@@ -1216,12 +1228,8 @@
 >Общие атрибуты</title>
 <para
 >Следующие атрибуты являются общими для всех правил, их возможно указывать везде, где в списке имеется надпись <userinput
->(общие атрибуты)</userinput
->. Атрибуты <emphasis
->attribute</emphasis
-> и <emphasis
->context</emphasis
-> являются обязательными, все остальные атрибуты являются необязательными.  </para>
+>(common attributes)</userinput
+>. Все атрибуты являются необязательными.  </para>
 
 <listitem>
 <para
@@ -1229,13 +1237,17 @@
 >attribute</emphasis
 >: атрибут, указывающий на заданный <emphasis
 >itemData</emphasis
+>. По умолчанию: <emphasis
+>attribute</emphasis
+> из контекста, указанного в атрибуте <emphasis
+>context</emphasis
 >.</para>
 </listitem>
 <listitem>
 <para
 ><emphasis
 >context</emphasis
->: определяет контекст, на который следует переключить систему подсветки в случае выявления соответствия правила.</para>
+>: определяет контекст, на который следует переключить систему подсветки в случае выявления соответствия правила. По умолчанию: #stay.</para>
 </listitem>
 <listitem>
 <para
@@ -1543,6 +1555,10 @@
 > определяет первый символ, с которым будет происходить сравнение, <userinput
 >char1</userinput
 > — второй.</para>
+<para
+>Это правило присутствует, потому что так исторически сложилось. Для удобства восприятия рекомендуется использовать <userinput
+>StringDetect</userinput
+>.</para>
 </listitem>
 </varlistentry>
 
@@ -1926,16 +1942,6 @@
 
 <listitem>
 <para
->Если необходимо определить соответствие только двух символов, используйте <userinput
->Detect2Chars</userinput
-> вместо <userinput
->StringDetect</userinput
->. То же относится и к <userinput
->DetectChar</userinput
->.</para>
-</listitem>
-<listitem>
-<para
 >Регулярные выражения просты в использовании, но зачастую имеются способы, позволяющие намного быстрее получить тот же результат. Предположим, требуется проверить, является ли <userinput
 >'#'</userinput
 > первым символом в строке. Соответствующее регулярное выражение выглядело бы следующим образом: <programlisting
@@ -1977,7 +1983,7 @@
 >, но при этом обработать эту строку в следующем контексте. Приведённое далее правило позволяет найти соответствие, а благодаря атрибуту <userinput
 >lookAhead</userinput
 > средство определения подсветки сохранит найденную строку для обработки в следующем контексте. <programlisting
->&lt;Detect2Chars attribute=&quot;Comment&quot; context=&quot;#pop&quot; char=&quot;*&quot; char1=&quot;/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
+>&lt;StringDetect attribute=&quot;Comment&quot; context=&quot;#pop&quot; String=&quot;*/&quot; lookAhead=&quot;true&quot; /&gt;</programlisting>
 </para>
 </listitem>
 <listitem>
@@ -2005,12 +2011,12 @@
 <listitem>
 <para
 >Корректность каждого файла &XML; возможно проверить с помощью команды <command
->validatehl.sh language.xsd mySyntax.xml</command
->. Файлы <filename
+>validatehl.sh mySyntax.xml</command
+>. Файл <filename
 >validatehl.sh</filename
-> и <filename
+> использует файл <filename
 >language.xsd</filename
-> доступны в <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
+>, они оба доступны в <ulink url="https://commits.kde.org/syntax-highlighting?path=data/schema"
 >репозитории подсветки синтаксиса</ulink
 >. </para>
 </listitem>
@@ -2021,7 +2027,7 @@
 >. Пример:</para>
 <programlisting
 >&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE language SYSTEM "language.dtd"
+&lt;!DOCTYPE language
 [
         &lt;!ENTITY myref    "[A-Za-z_:][\w.:_-]*"&gt;
 ]&gt;
@@ -2030,6 +2036,44 @@
 >После такого определения возможно использовать <emphasis
 >&amp;myref;</emphasis
 > вместо регулярного выражения.</para>
+</listitem>
+<listitem>
+<para
+>В редакторе Kate перезагрузить синтаксис можно с помощью встроенной командной строки (по умолчанию она вызывается нажатием клавиши <userinput
+>F7</userinput
+>) и команды <command
+>reload-highlighting</command
+>.</para>
+</listitem>
+<listitem>
+<para
+>Утилита командной строки <userinput
+>ksyntaxhighlighter6</userinput
+> (в старых версиях — <userinput
+>kate-syntax-highlighter</userinput
+>) позволяет проверить синтаксис и увидеть стиль и участки, связанные с каждой из частей текста.</para>
+
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="ksyntaxhighlighter6-trace-format.png"/></imageobject>
+<textobject
+><phrase
+>Результат <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</phrase
+></textobject>
+<caption
+><para
+>Результат <command
+>ksyntaxhighlighter6 --output-format=ansi --syntax-trace=format test.cpp</command
+>.</para>
+</caption>
+</mediaobject>
+
+<para
+>Для получения сведений о других параметрах воспользуйтесь командой <command
+>ksyntaxhighlighter6 -h</command
+>.</para>
 </listitem>
 </itemizedlist>
 </sect3>
@@ -2325,8 +2369,18 @@
 <entry
 >В &Windows;</entry>
 <entry
-><filename
+><filename class="directory"
 >%USERPROFILE%&#92;AppData&#92;Local&#92;org.kde.syntax-highlighting&#92;themes</filename
+></entry>
+</row>
+<row>
+<entry
+>В &macOS;</entry>
+<entry
+><filename class="directory"
+><envar
+>$HOME</envar
+>/Library/Application Support/org.kde.syntax-highlighting/themes/</filename
 ></entry>
 </row>
 </tbody>
@@ -4154,6 +4208,11 @@
 >пакет Flatpak на Flathub</ulink
 > (только в GNU/Linux).</para>
 
+<para
+>Сценарий Python в <ulink url="https://invent.kde.org/frameworks/syntax-highlighting/-/blob/master/utils/theme_contrast_checker.py?ref_type=heads"
+>репозитории подсветки синтаксиса</ulink
+> позволяет визуализировать все цвета в схеме, а также проверить контрастность с различными настроенными вариантами фона.</para>
+
 </sect3>
 
 <sect3 id="color-themes-tips-and-tricks-consistency">
@@ -4230,7 +4289,9 @@
 >Написание сценариев &javascript;</title>
 
 <para
->Функциональность компонента редактирования &kappname; возможно расширить с помощью написания сценариев. Для этого используется язык ECMAScript (широко известен как &javascript;). &kappname; поддерживает два вида сценариев: сценарии расстановки отступов и сценарии командной строки. </para>
+>Функциональность компонента редактирования &kappname; возможно расширить с помощью написания сценариев. Для этого используется язык ECMAScript (широко известен как &javascript;). &kappname; поддерживает два вида сценариев: сценарии расстановки отступов и сценарии командной строки. Функциональные возможности, похожие на сценарии командной строки, также доступны в <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>подключаемом модуле фрагментов</ulink
+>. </para>
 
 <sect2 id="dev-scripting-indentation">
 <title
@@ -4370,7 +4431,7 @@ function indent(line, indentWidth, ch)
 ><guimenu
 >Сервис</guimenu
 ><guimenuitem
->Выровнять</guimenuitem
+>Форматированный отступ</guimenuitem
 ></menuchoice>
     // переменная ch будет иметь пустое значение, то есть ch == ''.
     //
@@ -4405,7 +4466,7 @@ function indent(line, indentWidth, ch)
 ><guimenu
 >Сервис</guimenu
 ><guimenuitem
->Выравнивание</guimenuitem
+>Форматированный отступ</guimenuitem
 ></menuchoice
 >.</para
 ></listitem
@@ -4478,8 +4539,8 @@ function indent(line, indentWidth, ch)
 >. </para>
 
 <para
->Чтобы сообщить о созданном полезном сценарии разработчикам &kappname;, <ulink url="mailto:kwrite-devel@kde.org"
->отправьте письмо в список рассылки</ulink
+>Чтобы поделиться созданным полезным сценарием с разработчиками &kappname;, отправьте запрос на слияние изменений в соответствующий <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>проект на GitLab</ulink
 >. </para>
 
 </sect3>
@@ -4488,6 +4549,13 @@ function indent(line, indentWidth, ch)
 <sect2 id="dev-scripting-command-line">
 <title
 >Сценарии командной строки</title>
+
+<note>
+<para
+>Функциональные возможности, похожие на сценарии командной строки, также доступны в <ulink url="help:/kate/kate-application-plugin-snippets.html"
+>подключаемом модуле фрагментов</ulink
+>. С этим модулем начать разработку будет проще (особенно в том случае, когда нужны небольшие пользовательские сценарии).</para>
+</note>
 
 <para
 >Поскольку у всех пользователей разные потребности, в &kappname; предусмотрена поддержка небольших вспомогательных инструментов для ускорения работы с фрагментами текста с помощью <link linkend="advanced-editing-tools-commandline"
@@ -4734,8 +4802,8 @@ var katescript = {
 </para>
 
 <para
->Чтобы сообщить о созданном полезном сценарии разработчикам &kappname;, <ulink url="mailto:kwrite-devel@kde.org"
->отправьте письмо в список рассылки</ulink
+>Чтобы поделиться созданным полезным сценарием с разработчиками &kappname;, отправьте запрос на слияние изменений в соответствующий <ulink url="https://invent.kde.org/frameworks/ktexteditor"
+>проект на GitLab</ulink
 >. </para>
 
 </sect4>
@@ -5969,6 +6037,94 @@ void view.setVirtualCursorPosition(<parameter
 ></listitem>
 </varlistentry>
 
+
+<varlistentry>
+<term
+><synopsis
+>void view.setBlockSelection(bool on);
+</synopsis
+></term>
+<listitem
+><para
+>Включает или отключает режим выделения блока. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>bool view.blockSelection();
+</synopsis
+></term>
+<listitem
+><para
+>Возвращает <literal
+>true</literal
+>, если режим выделения блока включён, в ином случае — <literal
+>false</literal
+>. </para
+></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term
+><synopsis
+>void view.align(<parameter
+>Range <replaceable
+>range</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Надлежащим образом повторно расставляет отступы строк в пределах указанного диапазона <replaceable
+>range</replaceable
+> согласно текущим параметрам расстановки отступов. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void view.alignOn(<parameter
+>Range <replaceable
+>range</replaceable
+></parameter
+>, <parameter
+>String <replaceable
+>pattern</replaceable
+> = &quot;&quot;</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Выравнивает строки в диапазоне <replaceable
+>range</replaceable
+> по позиции, указанной с помощью регулярного выражения <replaceable
+>pattern</replaceable
+>. При пустом значении <replaceable
+>pattern</replaceable
+> выравнивание по умолчанию выполняется по первому непустому символу. Если в шаблоне есть блок захвата, для захваченного совпадения будет добавлен отступ. </para>
+<para
+><emphasis
+>Примеры:</emphasis
+></para>
+<para
+><literal
+>view.alignOn(document.documentRange(), '-');</literal
+> вставит пробелы перед первым <literal
+>-</literal
+> в каждой строке, чтобы выровнять все дефисы по одной позиции.</para>
+<para
+><literal
+>view.alignOn(document.documentRange(), ':\\s+(.)');</literal
+> вставит пробелы перед первым непустым символом, стоящим после двоеточия, чтобы выровнять все такие символы по одной позиции.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term
 ><synopsis
@@ -5994,22 +6150,64 @@ void view.setVirtualCursorPosition(<parameter
 >Выполняет <link linkend="advanced-editing-tools-commandline"
 >команду командной строки</link
 > <replaceable
->команда</replaceable
-> с дополнительными параметрами <replaceable
->параметры</replaceable
+>command</replaceable
+> с необязательными аргументами <replaceable
+>args</replaceable
 > и необязательным диапазоном <replaceable
->диапазон</replaceable
+>range</replaceable
 >. Возвращённый объект <replaceable
 >object</replaceable
 > имеет логическое свойство <replaceable
 >object.ok</replaceable
 >, которое указывает на то, было ли успешным выполнение команды <replaceable
->команда</replaceable
+>command</replaceable
 >. В случае ошибки строка <replaceable
 >object.status</replaceable
 > будет содержать сообщение об ошибке. </para>
 <para
 >Начиная с &kde-frameworks; 5.50</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>Range view.searchText(<parameter
+>Range <replaceable
+>range</replaceable
+></parameter
+>,
+                      <parameter
+>String <replaceable
+>pattern</replaceable
+></parameter
+>,
+                      <parameter
+>bool <replaceable
+>backwards</replaceable
+> = false</parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Выполняет поиск первого вхождения <replaceable
+>pattern</replaceable
+> в <replaceable
+>range</replaceable
+> и возвращает найденный диапазон. Поиск выполняется в обратном направлении, если необязательный логический параметр <replaceable
+>backwards</replaceable
+> установлен в значение <literal
+>true</literal
+>. </para>
+<para
+>Возвращённый диапазон будет некорректным (смотрите Range.isValid()), если шаблон <replaceable
+>pattern</replaceable
+> не найден в диапазоне <replaceable
+>range</replaceable
+>. </para>
+<para
+>Начиная с &kde-frameworks; 5.97</para>
 </listitem>
 </varlistentry>
 
@@ -7808,6 +8006,36 @@ bool document.isOthers(<parameter
 >, в ином случае — <literal
 >false</literal
 >. </para
+></listitem>
+</varlistentry>
+
+<varlistentry>
+<term
+><synopsis
+>void document.indent(<parameter
+>Range <replaceable
+>range</replaceable
+></parameter
+>, <parameter
+>int <replaceable
+>change</replaceable
+></parameter
+>);
+</synopsis
+></term>
+<listitem
+><para
+>Устанавливает отступы для всех строк в диапазоне <replaceable
+>range</replaceable
+> на <replaceable
+>change</replaceable
+> табуляций или <replaceable
+>change</replaceable
+> раз на <literal
+>tabSize</literal
+> пробелов (в зависимости от выбранных пользователем параметров). Значение параметра <replaceable
+>change</replaceable
+> может быть отрицательным. </para
 ></listitem>
 </varlistentry>
 

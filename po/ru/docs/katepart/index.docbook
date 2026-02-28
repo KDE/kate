@@ -127,9 +127,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->22 января 2012 г.</date>
+>2 мая 2022 г.</date>
 <releaseinfo
->&frameworks; 5.90</releaseinfo>
+>&frameworks; 5.94</releaseinfo>
 
 <abstract>
 <para
@@ -283,10 +283,10 @@
 >Автор оригинальной документации &kwrite; — &Thad.McGinnis; &Thad.McGinnis.mail;, при этом большое количество изменений внесено &Cristian.Tibirna; &Cristian.Tibirna.mail;. Преобразование в формат .docbook и вычитку выполнено &Lauri.Watts; &Lauri.Watts.mail;, а обновление — &Anne-Marie.Mahfouf; &Anne-Marie.Mahfouf.mail; и &Anders.Lund; &Anders.Lund.mail; </para>
 
 <para
->Сопровождающий текущей документации &katepart; — &TC.Hollingsworth; &TC.Hollingsworth.mail;. Направляйте комментарии и предложения по развитию &katepart; в список рассылки: <email
->kwrite-devel@kde.org</email
->. Сообщение об ошибке возможно отправить с помощью <ulink url="https://bugs.kde.org/"
+>Сопровождающий текущей документации &katepart; — &TC.Hollingsworth; &TC.Hollingsworth.mail;. Чтобы отправить запрос на внесение изменений, сообщите об ошибке с помощью <ulink url="https://bugs.kde.org/"
 >системы отслеживания ошибок &kde;</ulink
+> или предоставьте исправления через <ulink url="https://invent.kde.org/utilities/kate"
+>проект на GitLab</ulink
 >.</para>
 
 <para

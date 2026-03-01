@@ -34,11 +34,13 @@
 #include <QMenu>
 #include <QMimeData>
 #include <QRubberBand>
+#include <QScreen>
 #include <QSizePolicy>
 #include <QStackedWidget>
 #include <QStyle>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QWindow>
 
 namespace KateMDI
 {
@@ -1920,7 +1922,10 @@ void MainWindow::startRestore(KConfigBase *config, const QString &group)
 
     // apply size once, to get sizes ready ;)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
+    winId(); // Ensure windowHandle() is created before restoring size/position in the constructor
     KWindowConfig::restoreWindowSize(windowHandle(), cg);
+    KWindowConfig::restoreWindowPosition(windowHandle(), cg);
+    resize(windowHandle()->size()); // workaround for QTBUG-40584
 
     // KWrite uses no sidebars, avoid all work beside windows sizes restoring above
     if (KateApp::isKWrite()) {

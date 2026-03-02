@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: katesearch\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-02-07 17:11+0100\n"
+"PO-Revision-Date: 2026-03-01 11:03+0100\n"
 "Last-Translator: Paolo Zamponi <feus73@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -714,7 +714,7 @@ msgstr "Pulisci"
 #: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
 #, kde-format
 msgid "Clear history"
-msgstr ""
+msgstr "Cancella la cronologia"
 
 #: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
 #, kde-format

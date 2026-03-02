@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-13 08:44+0000\n"
-"PO-Revision-Date: 2026-02-11 22:39+0100\n"
+"PO-Revision-Date: 2026-03-01 12:28+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -173,7 +173,7 @@ msgstr "Vis funksjoners parametre"
 #: plugin_katesymbolviewer.cpp:476
 #, kde-format
 msgid "Automatically expand nodes in tree mode"
-msgstr "Fold ut noder automatisk i trevisning"
+msgstr "Utvid noder automatisk i trevisning"
 
 #: plugin_katesymbolviewer.cpp:477
 #, kde-format

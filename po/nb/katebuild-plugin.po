@@ -209,7 +209,7 @@ msgstr ""
 #: plugin_katebuild.cpp:848
 #, kde-format
 msgid "Failed to create the directory <b>%1</b>"
-msgstr "Klarte ikke å opprette mappa <br>%1</b>"
+msgstr "Klarte ikke å opprette mappa <b>%1</b>"
 
 #: plugin_katebuild.cpp:868
 #, kde-format

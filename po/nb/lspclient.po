@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-23 17:49+0100\n"
+"PO-Revision-Date: 2026-03-01 12:28+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -146,7 +146,7 @@ msgstr "Utvid utvalg"
 #: lspclientpluginview.cpp:535
 #, kde-format
 msgid "Shrink Selection"
-msgstr "Fold sammen utvalg"
+msgstr "Legg sammen utvalg"
 
 #: lspclientpluginview.cpp:538
 #, kde-format
@@ -263,7 +263,7 @@ msgstr "Utvid alle"
 #: lspclientpluginview.cpp:842 lspclientsymbolview.cpp:398
 #, kde-format
 msgid "Collapse All"
-msgstr "Fold sammen alle"
+msgstr "Legg sammen alle"
 
 #: lspclientpluginview.cpp:1049
 #, kde-format

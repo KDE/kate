@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-14 03:02+0000\n"
-"PO-Revision-Date: 2026-02-23 23:10+0100\n"
+"PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -390,7 +390,7 @@ msgstr "Utvid alle"
 #: lib/diagnostics/diagnosticview.cpp:1435
 #, kde-format
 msgid "Collapse All"
-msgstr "Fold sammen alle"
+msgstr "Legg sammen alle"
 
 #: lib/diagnostics/diagnosticview.cpp:1441
 #, kde-format

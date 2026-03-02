@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-23 17:38+0100\n"
+"PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -65,7 +65,7 @@ msgstr "Slå sammen markerte rekursivt"
 #: katefiletree.cpp:137
 #, kde-format
 msgid "Collapse the file list sub tree recursively."
-msgstr "Fold sammen fil-undertreet rekursivt."
+msgstr "Legg sammen fil-undertreet rekursivt."
 
 #: katefiletree.cpp:139
 #, kde-format

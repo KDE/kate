@@ -78,7 +78,7 @@ msgstr "Valgt GPG-nøkkelfingeravtrykk for kryptering"
 #: kategpgplugin.cpp:94
 #, kde-format
 msgid "<b>To: Email address used for encryption</b>"
-msgstr "<b>Til: Epostadresse brukt for kryptering</p>"
+msgstr "<b>Til: Epostadresse brukt for kryptering</b>"
 
 #: kategpgplugin.cpp:103
 #, kde-format

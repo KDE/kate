@@ -1,11 +1,12 @@
 # Translation of katekeyboardmacros to Norwegian Bokmål
 #
+# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2026-02-23 17:41+0100\n"
+"PO-Revision-Date: 2026-03-01 19:36+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
 "Language: nb\n"
@@ -125,7 +126,7 @@ msgid ""
 "<qt><p>Usage: <code>kmplay &lt;name&gt;</code></p><p>Play saved keyboard "
 "macro <code>&lt;name&gt;</code> without loading it.</p>%1</qt>"
 msgstr ""
-"<qt><p>Bruk: <code>kmplay <lt;navn&gt;</code></p><p>Spill av lagret "
+"<qt><p>Bruk: <code>kmplay &lt;navn&gt;</code></p><p>Spill av lagret "
 "tastetrykkmakro <code>&lt;navn&gt;</code> uten å laste den først.</p>%1</qt>"
 
 #: keyboardmacrosplugincommands.cpp:92
@@ -134,7 +135,7 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>Bruk: <code>kmwipe <lt;navn&gt;</code></p><p>Slett lagret "
+"<qt><p>Bruk: <code>kmwipe &lt;navn&gt;</code></p><p>Slett lagret "
 "tastetrykkmakro <code>&lt;navn&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33

@@ -273,7 +273,9 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
 
     // clear previous toolview data
     auto pluginView = viewForMainWindow(mw);
-    pluginView->clearToolView();
+    if (pluginView) {
+        pluginView->clearToolView();
+    }
 
     // expand macros
     auto editor = KTextEditor::Editor::instance();
@@ -287,8 +289,7 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
             i18n("Failed to find executable '%1'. Please make sure the executable file exists and that variable names, if used, are correct", tool.executable),
             QIcon::fromTheme(QStringLiteral("system-run")),
             i18n("External Tools"),
-            MessageType::Error,
-            pluginView->mainWindow());
+            MessageType::Error);
         return nullptr;
     }
 
@@ -296,7 +297,7 @@ KateToolRunner *KateExternalToolsPlugin::runnerForTool(const KateExternalTool &t
                                                       : i18n("Running %1: %2 %3 with input %4", copy->name, copy->executable, copy->arguments, tool.input);
 
     // use generic output view for status
-    Utils::showMessage(messageText, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), MessageType::Info, pluginView->mainWindow());
+    Utils::showMessage(messageText, QIcon::fromTheme(QStringLiteral("system-run")), i18n("External Tools"), MessageType::Info);
 
     // Allocate runner on heap such that it lives as long as the child
     // process is running and does not block the main thread.

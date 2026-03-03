@@ -5,13 +5,13 @@
 #include <KActionCollection>
 #include <KFontRequester>
 #include <KLocalizedString>
+#include <KSharedConfig>
 #include <QCommandLineParser>
 #include <QDialog>
 #include <QDir>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTest>
-#include <ksharedconfig.h>
 
 class BasicUiTests : public QObject
 {
@@ -84,9 +84,6 @@ void BasicUiTests::test_windowGeometrySaveRestore()
     mainWindow->move(10, 10);
     mainWindow->show();
 
-    // Visual delay so you can see it
-    QTest::qWait(5000);
-
     // Grab the actual QWindow size that Wayland/X11 settled on
     QSize savedWindowSize = mainWindow->windowHandle() ? mainWindow->windowHandle()->size() : mainWindow->size();
     qDebug() << ">>> Size BEFORE destruction (QWidget):" << mainWindow->size() << " QWindow:" << savedWindowSize;
@@ -129,9 +126,6 @@ void BasicUiTests::test_windowGeometrySaveRestore()
     // Now test the restoration by opening a new window
     auto restoredWindow = KateApp::newMainWindow();
     restoredWindow->show();
-
-    // Wait again so the user can see it has been restored to the same geometry
-    QTest::qWait(5000);
 
     QSize restoredWindowSize = restoredWindow->windowHandle() ? restoredWindow->windowHandle()->size() : restoredWindow->size();
     qDebug() << ">>> Size AFTER restoration (QWidget):" << restoredWindow->size() << " QWindow:" << restoredWindowSize;

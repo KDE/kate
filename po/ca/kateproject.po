@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-16 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:51+0000\n"
 "PO-Revision-Date: 2025-11-09 09:40+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -832,12 +832,12 @@ msgstr "No s'ha pogut crear l'índex. Si us plau, instal·leu «ctags»."
 msgid "Indexing is not enabled"
 msgstr "La indexació no està activa"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
 msgstr "El nom de fitxer ja existeix"

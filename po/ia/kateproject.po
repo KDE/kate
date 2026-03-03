@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-16 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:51+0000\n"
 "PO-Revision-Date: 2026-01-09 15:51+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
@@ -828,12 +828,12 @@ msgstr "Le indice non poteva esser create. Pro favor, tu installa 'ctags'"
 msgid "Indexing is not enabled"
 msgstr "Indicisar non es habilitate"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
 msgstr "Error"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
 msgstr "Nomine de file ja existe"

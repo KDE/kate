@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-16 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:51+0000\n"
 "PO-Revision-Date: 2025-11-09 08:24+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -827,12 +827,12 @@ msgstr "אין אפשרות ליצור את המפתח. נא להתקין את �
 msgid "Indexing is not enabled"
 msgstr "רישום במפתח לא פעיל"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
 msgstr "שגיאה"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
 msgstr "שם הקובץ כבר קיים"

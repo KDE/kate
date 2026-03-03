@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-16 00:50+0000\n"
+"POT-Creation-Date: 2026-03-03 00:51+0000\n"
 "PO-Revision-Date: 2025-11-12 18:49+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -831,12 +831,12 @@ msgstr "لا يمكن إنشاء الفهرس. فضلًا ثبّت 'ctags'."
 msgid "Indexing is not enabled"
 msgstr "الفهرسة غير مفعلة"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "Error"
 msgstr "خطأ"
 
-#: kateprojectitem.cpp:165
+#: kateprojectitem.cpp:181
 #, kde-format
 msgid "File name already exists"
 msgstr "اسم الملف موجود مسبقًا"

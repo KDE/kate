@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="kateshownonprintable" library="kateshownonprintableplugin" version="1" translationDomain="kateshownonprintableplugin">
+  <MenuBar>
+    <Menu name="edit">
+      <Action name="toggle_show_non_printable"/>
+    </Menu>
+  </MenuBar>
+</gui>
+<!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

@@ -1,0 +1,8 @@
+{
+    "KPlugin": {
+        "Description": "Allows you show non-printable characters",
+        "Description[zh_CN]": "允许你显示不可打印字符",
+        "Name": "Show Non-Printable Characters",
+        "Name[zh_CN]": "显示不可打印字符"
+    }
+}

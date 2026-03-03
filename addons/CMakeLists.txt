@@ -5,6 +5,7 @@ endfunction()
 ecm_optional_add_subdirectory(backtracebrowser)
 ecm_optional_add_subdirectory(close-except-like) # Close all documents except this one (or similar).
 ecm_optional_add_subdirectory(colorpicker) # Inline color preview/picker
+ecm_optional_add_subdirectory(show-nonprintable)
 ecm_optional_add_subdirectory(compiler-explorer)
 ecm_optional_add_subdirectory(externaltools)
 ecm_optional_add_subdirectory(filebrowser)

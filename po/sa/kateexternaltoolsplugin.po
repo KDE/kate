@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-03-04 00:49+0000\n"
 "PO-Revision-Date: 2024-12-20 21:51+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -177,7 +177,7 @@ msgstr "&सम्पादन..."
 msgid "&Remove"
 msgstr "&अपाकरोति"
 
-#: externaltoolsplugin.cpp:287
+#: externaltoolsplugin.cpp:289
 #, kde-format
 msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
@@ -186,8 +186,8 @@ msgstr ""
 "कार्यान्वयनीयम् '%1' अन्वेष्टुं असफलम् । कृपया सुनिश्चितं कुर्वन्तु यत् कार्यान्वयनीयसञ्चिका अस्ति "
 "तथा च चरनामानि, यदि प्रयुक्तानि, तर्हि सम्यक् सन्ति"
 
-#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: externaltoolsplugin.cpp:291 externaltoolsplugin.cpp:300
+#: externaltoolsplugin.cpp:417 kateexternaltoolsconfigwidget.cpp:270
 #: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
@@ -195,27 +195,27 @@ msgstr ""
 msgid "External Tools"
 msgstr "बाह्यसाधनम्"
 
-#: externaltoolsplugin.cpp:295
+#: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3"
 msgstr "%1 चालयति: %2 %3"
 
-#: externaltoolsplugin.cpp:296
+#: externaltoolsplugin.cpp:297
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
 msgstr "%1 चालयति: %2 %3 निवेशेन %4"
 
-#: externaltoolsplugin.cpp:399
+#: externaltoolsplugin.cpp:400
 #, kde-format
 msgid "Data written to stderr:\n"
 msgstr "stderr कृते लिखितः आँकडा:\n"
 
-#: externaltoolsplugin.cpp:410
+#: externaltoolsplugin.cpp:411
 #, kde-format
 msgid "%1 crashed"
 msgstr "%1 दुर्घटनाम् अभवत्"
 
-#: externaltoolsplugin.cpp:412
+#: externaltoolsplugin.cpp:413
 #, kde-format
 msgid "%1 finished with exit code %2"
 msgstr "%1 निर्गमनसङ्केतेन %2 समाप्तम्"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-03-04 00:49+0000\n"
 "PO-Revision-Date: 2024-10-10 14:20+0300\n"
 "Last-Translator: Toms Trasūns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -177,7 +177,7 @@ msgstr "&Rediģēt..."
 msgid "&Remove"
 msgstr "&Noņemt"
 
-#: externaltoolsplugin.cpp:287
+#: externaltoolsplugin.cpp:289
 #, kde-format
 msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
@@ -186,8 +186,8 @@ msgstr ""
 "Neizdevās atrast izpilddatni „%1“. Pārliecinieties, ka tā pastāv un mainīgo "
 "nosaukumi ir pareizi, ja tādus izmantojat"
 
-#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: externaltoolsplugin.cpp:291 externaltoolsplugin.cpp:300
+#: externaltoolsplugin.cpp:417 kateexternaltoolsconfigwidget.cpp:270
 #: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
@@ -195,27 +195,27 @@ msgstr ""
 msgid "External Tools"
 msgstr "Ārējie rīki"
 
-#: externaltoolsplugin.cpp:295
+#: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3"
 msgstr "Darbojas „%1“: %2 %3"
 
-#: externaltoolsplugin.cpp:296
+#: externaltoolsplugin.cpp:297
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
 msgstr "Darbojas „%1“: %2 %3 ar ievadi %4"
 
-#: externaltoolsplugin.cpp:399
+#: externaltoolsplugin.cpp:400
 #, kde-format
 msgid "Data written to stderr:\n"
 msgstr "Dati rakstīti uz „stderr“:\n"
 
-#: externaltoolsplugin.cpp:410
+#: externaltoolsplugin.cpp:411
 #, kde-format
 msgid "%1 crashed"
 msgstr "„%1“ avarēja"
 
-#: externaltoolsplugin.cpp:412
+#: externaltoolsplugin.cpp:413
 #, kde-format
 msgid "%1 finished with exit code %2"
 msgstr "„%1“ pabeidza ar izejas kodu %2"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-03-04 00:49+0000\n"
 "PO-Revision-Date: 2024-03-10 11:44+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
@@ -175,15 +175,15 @@ msgstr "&திருத்து..."
 msgid "&Remove"
 msgstr "&நீக்கு"
 
-#: externaltoolsplugin.cpp:287
+#: externaltoolsplugin.cpp:289
 #, kde-format
 msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
 "and that variable names, if used, are correct"
 msgstr ""
 
-#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: externaltoolsplugin.cpp:291 externaltoolsplugin.cpp:300
+#: externaltoolsplugin.cpp:417 kateexternaltoolsconfigwidget.cpp:270
 #: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
@@ -191,27 +191,27 @@ msgstr ""
 msgid "External Tools"
 msgstr "வெளியமை கருவிகள்"
 
-#: externaltoolsplugin.cpp:295
+#: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3"
 msgstr "%1 இயக்கப்படுகிறது: %2 %3"
 
-#: externaltoolsplugin.cpp:296
+#: externaltoolsplugin.cpp:297
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
 msgstr "%1 இயக்கப்படுகிறது: %4 என்ற உள்ளீட்டுடன் %2 %3"
 
-#: externaltoolsplugin.cpp:399
+#: externaltoolsplugin.cpp:400
 #, kde-format
 msgid "Data written to stderr:\n"
 msgstr ""
 
-#: externaltoolsplugin.cpp:410
+#: externaltoolsplugin.cpp:411
 #, kde-format
 msgid "%1 crashed"
 msgstr "%1 முறிவடைந்தது"
 
-#: externaltoolsplugin.cpp:412
+#: externaltoolsplugin.cpp:413
 #, kde-format
 msgid "%1 finished with exit code %2"
 msgstr "%2 எனும் வெளியேற்ற நிலையுடன் %1 முடிந்த‍து"

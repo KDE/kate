@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateexternaltoolsplugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-01-15 00:46+0000\n"
+"POT-Creation-Date: 2026-03-04 00:49+0000\n"
 "PO-Revision-Date: 2023-02-21 07:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -180,7 +180,7 @@ msgstr "&Змінити…"
 msgid "&Remove"
 msgstr "Ви&лучити"
 
-#: externaltoolsplugin.cpp:287
+#: externaltoolsplugin.cpp:289
 #, kde-format
 msgid ""
 "Failed to find executable '%1'. Please make sure the executable file exists "
@@ -190,8 +190,8 @@ msgstr ""
 "виконуваний файл існує, і що назви змінних, якщо їх використано, вказано "
 "правильно"
 
-#: externaltoolsplugin.cpp:289 externaltoolsplugin.cpp:299
-#: externaltoolsplugin.cpp:416 kateexternaltoolsconfigwidget.cpp:270
+#: externaltoolsplugin.cpp:291 externaltoolsplugin.cpp:300
+#: externaltoolsplugin.cpp:417 kateexternaltoolsconfigwidget.cpp:270
 #: kateexternaltoolsconfigwidget.cpp:275 kateexternaltoolsview.cpp:156
 #: kateexternaltoolsview.cpp:160 kateexternaltoolsview.cpp:208
 #: kateexternaltoolsview.cpp:277
@@ -199,27 +199,27 @@ msgstr ""
 msgid "External Tools"
 msgstr "Зовнішні інструменти"
 
-#: externaltoolsplugin.cpp:295
+#: externaltoolsplugin.cpp:296
 #, kde-format
 msgid "Running %1: %2 %3"
 msgstr "Запуск %1: %2 %3"
 
-#: externaltoolsplugin.cpp:296
+#: externaltoolsplugin.cpp:297
 #, kde-format
 msgid "Running %1: %2 %3 with input %4"
 msgstr "Запуск %1: %2 %3 із вхідними даними %4"
 
-#: externaltoolsplugin.cpp:399
+#: externaltoolsplugin.cpp:400
 #, kde-format
 msgid "Data written to stderr:\n"
 msgstr "Дані, які записано до stderr:\n"
 
-#: externaltoolsplugin.cpp:410
+#: externaltoolsplugin.cpp:411
 #, kde-format
 msgid "%1 crashed"
 msgstr "Аварійне завершення роботи %1"
 
-#: externaltoolsplugin.cpp:412
+#: externaltoolsplugin.cpp:413
 #, kde-format
 msgid "%1 finished with exit code %2"
 msgstr "%1 завершено з кодом виходу %2"

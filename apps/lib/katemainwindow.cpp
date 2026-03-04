@@ -91,6 +91,7 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QUrl>
+#include <QVariant>
 #include <QWindow>
 
 #include <ktexteditor/sessionconfiginterface.h>
@@ -151,6 +152,13 @@ KateMainWindow::KateMainWindow(KConfig *sconfig, const QString &sgroup, bool use
      * we don't want any flicker here
      */
     KateUpdateDisabler disableUpdates(this);
+
+    // restore the fallback window size and position
+    KConfigGroup fallbackConfig(KSharedConfig::openConfig(), QStringLiteral("MainWindow"));
+    winId(); // Ensure windowHandle() is created before restoring size/position in the constructor
+    KWindowConfig::restoreWindowSize(windowHandle(), fallbackConfig);
+    KWindowConfig::restoreWindowPosition(windowHandle(), fallbackConfig);
+    resize(windowHandle()->size()); // workaround for QTBUG-40584
 
     // start session restore if needed
     startRestore(sconfig, sgroup);
@@ -237,6 +245,7 @@ KateMainWindow::~KateMainWindow()
     // first, save our fallback window size ;)
     KConfigGroup cfg(KSharedConfig::openConfig(), QStringLiteral("MainWindow"));
     KWindowConfig::saveWindowSize(windowHandle(), cfg);
+    KWindowConfig::saveWindowPosition(windowHandle(), cfg);
 
     // save other options ;=)
     saveOptions();

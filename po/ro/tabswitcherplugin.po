@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# Sergiu Bivol <sergiu@cip.md>, 2014.
+# SPDX-FileCopyrightText: 2014, 2026 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 14:43+0000\n"
-"PO-Revision-Date: 2014-10-03 10:42+0300\n"
+"PO-Revision-Date: 2026-03-04 12:40+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: tabswitcher.cpp:57
 #, kde-format
@@ -31,6 +32,7 @@ msgstr "Ultimele vizualizări utilizate"
 #, kde-format
 msgid "Opens a list to walk through the list of last used views."
 msgstr ""
+"Deschide o listă pentru a parcurge lista ultimelor vizualizări utilizate."
 
 #: tabswitcher.cpp:106 tabswitcher.cpp:114
 #, kde-format
@@ -46,23 +48,24 @@ msgstr "Ultimele vizualizări utilizate (invers)"
 #, kde-format
 msgid "Opens a list to walk through the list of last used views in reverse."
 msgstr ""
+"Deschide o listă pentru a parcurge invers lista ultimelor vizualizări "
+"utilizate."
 
 #: tabswitcher.cpp:118
 #, kde-format
 msgid "Close View"
-msgstr ""
+msgstr "Închide vizualizarea"
 
 #: tabswitcher.cpp:121 tabswitcher.cpp:122
-#, fuzzy, kde-format
-#| msgid "Walk through the list of last used views"
+#, kde-format
 msgid "Closes the selected view in the list of last used views."
-msgstr "Parcurge lista ultimelor vizualizări utilizate"
+msgstr "Închide vizualizarea aleasă din lista ultimelor vizualizări utilizate."
 
 #. i18n: ectx: Menu (go)
 #: ui.rc:6
 #, kde-format
 msgid "&Go"
-msgstr ""
+msgstr "Mer&gi"
 
 #~ msgid "&View"
 #~ msgstr "&Vizualizare"

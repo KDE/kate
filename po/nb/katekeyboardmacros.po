@@ -1,6 +1,5 @@
 # Translation of katekeyboardmacros to Norwegian Bokmål
 #
-# SPDX-FileCopyrightText: 2026 Kjetil Sorlund <translate@sorlund.no>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

@@ -1,0 +1,2773 @@
+<chapter id="the-menu-entries">
+<title
+>مدخلات القائمة</title>
+
+<sect1 id="file-menu">
+<title
+>قائمة ملف</title>
+
+<variablelist>
+
+<varlistentry id="file-new">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>N</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>جديد</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>هذا الأمر <action
+>يبدأ مستندًا جديدًا</action
+> في نافذة التحرير. في قائمة <guibutton
+>المستندات</guibutton
+> على اليسار، يُسمّى الملف الجديد <emphasis
+>بلا عنوان</emphasis
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>افتح...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يعرض مربع حوار كيدي القياسي لـ <guilabel
+>افتح ملفًا</guilabel
+>. استخدم عرض الملفات لاختيار الملف الذي تود فتحه، ثم انقر على <guibutton
+>افتح</guibutton
+> لفتحه.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-recent">
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guisubmenu
+>افتح الأخير</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>هذا اختصار لفتح المستندات المحفوظة حديثًا. يؤدي النقر فوق هذا العنصر إلى فتح قائمة بجانب القائمة تحتوي على العديد من الملفات المحفوظة مؤخرًا. سيؤدي النقر فوق ملف معين إلى فتحه في كيت - إذا كان الملف لا يزال موجودًا في نفس الموقع. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-open-with">
+<term>
+<menuchoice
+><guimenu
+>ملف</guimenu
+> <guisubmenu
+>افتح بواسطة</guisubmenu
+> </menuchoice>
+</term>
+<listitem>
+<para
+>تعرض هذه القائمة الفرعية قائمة بالتطبيقات المعروفة بتعاملها مع نوع MIME لمستندك الحالي. سيؤدي تنشيط أحد المدخلات إلى فتح المستند الحالي باستخدام ذلك التطبيق.</para>
+<para
+>بالإضافة إلى ذلك، يطلق مدخل <guimenuitem
+>آخر...</guimenuitem
+> مربع حوار "افتح بواسطة" الذي يتيح لك <action
+>اختيار تطبيق آخر لفتح الملف النشط</action
+>. سيظل ملفك مفتوحًا في كيت. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يُحفظ المستند الحالي. إذا سُبق حفظ المستند، فسيؤدي ذلك إلى الكتابة فوق الملف المحفوظ سابقًا دون طلب موافقة المستخدم. إذا كان هذا هو أول حفظ لمستند جديد، فسيُستدعى مربع حوار "احفظ باسم" (الموضح أدناه). </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ باسم...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يتيح ذلك حفظ المستند باسم ملف جديد. يتم ذلك عن طريق مربع حوار الملف الموضح أعلاه في قسم <link linkend="file-open"
+>افتح</link
+> في ملف الدليل هذا. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-as-encoding">
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ باسم مع الترميز</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>احفظ مستندًا باسم ملف جديد وبترميز مختلف.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-copy-as">
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ نسخة باسم</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>احفظ نسخة من المستند باسم ملف جديد واستمر في تحرير المستند الأصلي.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-save-all">
+<term>
+<menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>L</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>احفظ الكل</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>هذا الأمر <action
+>يحفظ جميع الملفات المفتوحة المعدلة</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F5</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>أعد التحميل</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>يعيد تحميل الملف النشط من القرص. يفيد هذا الأمر إذا قام برنامج أو عملية أخرى بتغيير الملف أثناء فتحه في كيت. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-reload-all">
+<term>
+<menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>أعد تحميل الكل</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>يُعيد تحميل جميع الملفات المفتوحة.</action
+>. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-print">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>P</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>اطبع...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يفتح مربع حوار طباعة بسيطًا يسمح للمستخدم بتحديد ماذا وأين وكيف يطبع. </para>
+</listitem>
+</varlistentry>
+
+<!--FIXME Print Preview -->
+
+<varlistentry id="file-export-as-html">
+<term
+><menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>صدّر كـ HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>احفظ المستند المفتوح حاليًا كملف HTML، والذي سيُنَسَّق باستخدام إعدادات تمييز الصيغة ومخطط الألوان الحاليين.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>أغلق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>أغلق الملف النشط بهذا الأمر. إذا أجريت تغييرات غير محفوظة، فسيُطلب منك حفظ الملف قبل أن يغلقه كيت. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-other">
+<term>
+<menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>أغلق الأخرى</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>أغلق المستندات المفتوحة الأخرى. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-all">
+<term>
+<menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>أغلق الكل</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>هذا الأمر <action
+>يغلق جميع الملفات المفتوحة</action
+> في كيت. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-close-orphaned">
+<term>
+<menuchoice
+><guimenu
+>ملف</guimenu
+> <guimenuitem
+>أغلق المهملة</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+><action
+>أغلق</action
+> جميع المستندات في قائمة الملفات، والتي تعذر إعادة فتحها أثناء بدء التشغيل، لأنه لم يعد بالإمكان الوصول إليها. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="file-quit">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>Q</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>ملف</guimenu
+> <guimenuitem
+>أنهِ</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>هذا الأمر <action
+>يغلق كيت</action
+> وأي ملفات كنت تحررها. إذا أجريت تغييرات غير محفوظة على أي من الملفات التي كنت تحررها، فسيُطلب منك حفظها. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="edit-menu">
+<title
+>قائمة حرر</title>
+
+<variablelist>
+
+<varlistentry id="edit-undo">
+<term
+><menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>تراجع</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>تراجع عن آخر أمر تحرير (كتابة، نسخ، قص، إلخ.)</para>
+<note
+><para
+>قد يؤدي هذا إلى التراجع عن عدة أوامر تحرير من نفس النوع، مثل كتابة الحروف.</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-redo">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>Z</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>أعد</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيؤدي هذا إلى عكس آخر تغيير (إن وجد) أُجري باستخدام التراجع.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-cut">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>قص</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يحذف هذا الأمر التحديد الحالي ويضعه في الحافظة. تعمل الحافظة بشكل غير مرئي وتوفر طريقة لنقل البيانات بين التطبيقات.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>C</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>انسخ</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>ينسخ هذا النص المحدد حاليًا إلى الحافظة بحيث يمكن لصقه في مكان آخر. تعمل الحافظة بشكل غير مرئي وتوفر طريقة لنقل البيانات بين التطبيقات.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>الصق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيؤدي هذا إلى إدراج العنصر الأول في الحافظة عند موضع المؤشر. تعمل الحافظة بشكل غير مرئي وتوفر طريقة لنقل البيانات بين التطبيقات.</para>
+<note
+><para
+>إذا فُعّل خيار "الكتابة فوق التحديد"، فسيقوم النص الملصق بالكتابة فوق التحديد، إن وجد.</para
+></note>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-paste-selection">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;&Ins;</keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>الصق التحديد</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيؤدي هذا إلى لصق محتويات <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
+>تحديد الفأرة</ulink
+> التي اختيرت سابقًا. حدد بعض النص بمؤشر الفأرة للصقه في الملف المفتوح حاليًا باستخدام عنصر القائمة هذا.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-swap-with-clipboard-contents">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guimenuitem
+>بادل مع محتويات الحافظة</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيؤدي هذا إلى مبادلة النص المحدد بمحتويات <ulink url="https://en.wikipedia.org/wiki/Clipboard_(computing)#X_Window_System"
+>الحافظة</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-clipboard-history">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guisubmenu
+>تاريخ الحافظة</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>تعرض هذه القائمة الفرعية بداية أجزاء من النص التي نُسخت مؤخرًا إلى الحافظة. اختر عنصرًا من هذه القائمة للصقه في الملف المفتوح حاليًا.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-copy-as-html">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guimenuitem
+>انسخ كـ HTML</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>انسخ التحديد كـ HTML، منسقًا باستخدام إعدادات تمييز الصيغة ومخطط الألوان الحاليين.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-all">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>اختر الكل</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيؤدي هذا إلى تحديد المستند بأكمله. قد يكون هذا مفيدًا جدًا لنسخ الملف بأكمله إلى تطبيق آخر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-deselect">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>A</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>إلغاء التحديد</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يلغي تحديد النص المحدد في المحرر إن وجد.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-toggle-block-selection">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>وضع اختيار الكتل</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يبدل وضع التحديد. عندما يكون وضع التحديد <guilabel
+>كتلة</guilabel
+>، يحتوي شريط الحالة على السلسلة <guilabel
+>[كتلة]</guilabel
+> ويمكنك إجراء تحديدات رأسية، مثلًا اختر العمود 5 إلى 10 في السطور 9 إلى 15.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-input-modes">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guimenuitem
+>أوضاع الإدخال</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>بدل بين وضع التحرير العادي ووضع التحرير المشروط الشبيه بـ vi. يدعم وضع إدخال vi الأوامر والحركات الأكثر استخدامًا من وضعي vim العادي والمرئي، ويحتوي على شريط حالة اختياري لوضع vi. يعرض شريط الحالة هذا الأوامر أثناء إدخالها، ومخرجات الأوامر والوضع الحالي. يمكن ضبط سلوك هذا الوضع في قسم <ulink url="help:/katepart/config-dialog-editor.html#pref-edit-vi-input-mode"
+>وضع إدخال Vi</ulink
+> في صفحة <guilabel
+>التحرير</guilabel
+> في مربع حوار إعدادات كيت.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-overwrite-mode">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>Ins</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>وضع الكتابة فوق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يُبدّل بين وضعي الإدراج والكتابة فوق النص. عندما يكون الوضع هو <guilabel
+>INS</guilabel
+>، ستُدرج المحارف مكان وجود المؤشر. أما عندما يكون الوضع <guilabel
+>OVR</guilabel
+>، فإن كتابة المحارف ستستبدل المحارف الحالية إذا كان المؤشر موضوعاً قبل أي محرف. يظهر شريط الحالة الحالة الحالية لوضع الكتابة فوق النص، إما <guilabel
+>INS</guilabel
+> أو <guilabel
+>OVR</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="finding-text"
+> -->
+<varlistentry id="edit-find">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>ابحث...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يفتح هذا شريط البحث التزايدي في أسفل نافذة المحرر. يوجد على الجانب الأيسر من الشريط زر به أيقونة لإغلاق الشريط، يليه مربع نص صغير لإدخال نمط البحث.</para>
+<para
+>عندما تبدأ في إدخال أحرف نمط البحث الخاص بك، يبدأ البحث فورًا. إذا كان هناك تطابق في النص، فسيُبرز ذلك ويتغير لون خلفية حقل الإدخال إلى الأخضر الفاتح. إذا لم يطابق نمط البحث أي سلسلة نصية في النص، فيُشار إلى ذلك بلون خلفية أحمر فاتح لحقل الإدخال.</para>
+<para
+>استخدم زر <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> أو <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> للقفز إلى التطابق التالي أو السابق في المستند.</para>
+<para
+>تُبرز التطابقات في المستند حتى عند إغلاق شريط البحث. لمسح هذا التمييز، اضغط على مفتاح Esc.</para>
+<para
+>يمكنك اختيار ما إذا كان ينبغي أن يكون البحث حساسًا لحالة الأحرف. سيؤدي اختيار <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> إلى قصر عمليات البحث على المدخلات التي تطابق حالة الأحرف (كبيرة أو صغيرة) لكل حرف من الأحرف في نمط البحث. </para>
+<para
+>انقر فوق زر <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> الموجود على الجانب الأيمن من شريط البحث التزايدي للتبديل إلى شريط البحث والاستبدال المتقدم. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>بدائل البحث</guisubmenu
+> <guimenuitem
+>ابحث عن التالي</guimenuitem
+> </menuchoice
+></term>
+ <listitem>
+<para
+>يكرر هذا عملية البحث الأخيرة، إن وجدت، دون استدعاء شريط البحث التزايدي، والبحث للأمام عبر المستند بدءًا من موضع المؤشر. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F3</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>بدائل البحث</guisubmenu
+> <guimenuitem
+>ابحث عن السابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يكرر هذا عملية البحث الأخيرة، إن وجدت، دون استدعاء شريط البحث التزايدي، والبحث للخلف بدلًا من الأمام عبر المستند. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>بدائل البحث</guisubmenu
+> <guimenuitem
+>ابحث عن المحدد</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يبحث عن الورود التالي للنص المحدد.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-find-selected-backwards">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>H</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>بدائل البحث</guisubmenu
+> <guimenuitem
+>ابحث عن المحدد للخلف</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يبحث عن الورود السابق للنص المحدد.</para>
+</listitem>
+</varlistentry>
+<!--FIXME keep in sync with katepart/part.docbook <sect2 id="replacing-text"
+> -->
+<varlistentry id="edit-replace">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guimenuitem
+>استبدل...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يفتح هذا الأمر شريط البحث والاستبدال المتقدم. يوجد على الجانب العلوي الأيسر من الشريط زر به أيقونة لإغلاق الشريط، يليه مربع نص صغير لإدخال نمط البحث.</para>
+<para
+>يمكنك التحكم في وضع البحث عن طريق اختيار <guilabel
+>نص مجرد</guilabel
+>، أو <guilabel
+>كلمات كاملة</guilabel
+>، أو <guilabel
+>تسلسلات الهروب</guilabel
+> أو <guilabel
+>تعبير نمطي</guilabel
+> من المربع المنسدل. </para>
+<para
+>إذا اختيرت <guilabel
+>تسلسلات الهروب</guilabel
+> أو <guilabel
+>تعبير نمطي</guilabel
+>، فسيُفَعَّل عنصر القائمة <guibutton
+>أضف...</guibutton
+> الموجود في أسفل القائمة السياقية لمربعات النص وسيتيح لك إضافة تسلسلات هروب أو عناصر تعبير نمطي إلى نمط البحث أو الاستبدال من قوائم محددة مسبقًا.</para>
+<para
+>استخدم زر <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-up-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> أو <inlinemediaobject
+><imageobject
+><imagedata fileref="arrow-down-double-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> للقفز إلى التطابق التالي أو السابق في المستند.</para>
+<para
+>أدخل النص المراد الاستبدال به في مربع النص المسمى <guilabel
+>استبدل</guilabel
+> وانقر فوق زر <guibutton
+>استبدل</guibutton
+> لاستبدال النص المبرز فقط أو زر <guibutton
+>استبدل الكل</guibutton
+> لاستبدال نص البحث في المستند بأكمله. </para>
+<para
+>يمكنك تعديل سلوك البحث والاستبدال عن طريق اختيار خيارات مختلفة في أسفل الشريط. سيؤدي اختيار <inlinemediaobject
+><imageobject
+><imagedata fileref="format-text-superscript-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> إلى قصر عمليات البحث على المدخلات التي تطابق حالة الأحرف (كبيرة أو صغيرة) لكل حرف من الأحرف في نمط البحث. سيقوم <inlinemediaobject
+><imageobject
+><imagedata fileref="edit-select-all-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> بالبحث والاستبدال داخل التحديد الحالي فقط. يقوم زر <guilabel
+>ابحث عن الكل</guilabel
+> بإبراز جميع التطابقات في المستند ويعرض عدد التطابقات الموجودة في نافذة منبثقة صغيرة. </para>
+<para
+>انقر فوق زر <inlinemediaobject
+><imageobject
+><imagedata fileref="configure-shortcuts-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> الموجود على الجانب الأيمن من شريط البحث والاستبدال المتقدم للتبديل إلى شريط البحث التزايدي. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>اذهب إلى</guisubmenu
+> <guimenuitem
+>اذهب إلى القوس المطابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>حرّك المؤشر إلى قوس الفتح أو الإغلاق المرتبط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-select-to-matching-bracket">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>اذهب إلى</guisubmenu
+> <guimenuitem
+>اختر إلى القوس المطابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يختار النص الموجود بين قوسي الفتح والإغلاق المرتبطين.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-previous-modified-line">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guisubmenu
+>اذهب إلى</guisubmenu
+> <guimenuitem
+>اذهب إلى السطر المعدل السابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>تُسمى السطور التي غُيرت منذ فتح الملف بالسطور المعدلة. يقفز هذا الإجراء إلى السطر المعدل السابق. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-go-to-next-modified-line">
+<term
+><menuchoice
+><guimenu
+>حرر</guimenu
+> <guisubmenu
+>اذهب إلى</guisubmenu
+> <guimenuitem
+>اذهب إلى السطر المعدل التالي</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>تُسمى السطور التي غُيرت منذ فتح الملف بالسطور المعدلة. يقفز هذا الإجراء إلى السطر المعدل التالي. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="edit-edit-go-to-line">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>G</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>حرر</guimenu
+> <guisubmenu
+>اذهب إلى</guisubmenu
+> <guimenuitem
+>اذهب إلى السطر...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يفتح هذا شريط "اذهب إلى السطر" في أسفل النافذة والذي يُستخدم لجعل المؤشر يقفز إلى سطر معين (محدد برقم) في المستند. يمكن إدخال رقم السطر مباشرة في مربع النص أو بيانيًا بالنقر فوق عناصر تحكم السهم لأعلى أو لأسفل بجانب مربع النص. سيزيد السهم الصغير لأعلى رقم السطر وسينقصه السهم لأسفل. أغلق الشريط بنقرة على الزر الذي يحتوي على أيقونة على الجانب الأيسر من الشريط. </para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="view-menu">
+<title
+>قائمة عرض</title>
+
+<variablelist>
+
+<varlistentry id="view-new-window">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guimenuitem
+>نافذة جديدة</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+><action
+>يفتح نسخة أخرى من كيت</action
+>. ستكون النسخة الجديدة متطابقة مع نسختك السابقة. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-next-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Right;</keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>اللسان التالي</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>ينشط اللسان التالي في شريط الألسنة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-previous-tab">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&Left;</keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>اللسان السابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>ينشط اللسان السابق في شريط الألسنة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="reopen-latest-closed-document">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>أعد فتح آخر مستند مغلق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يعيد فتح آخر مستند أو مستندات مغلقة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-quick-open">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>فتح سريع</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يظهر حقل بحث وقائمة بالملفات المفتوحة في منطقة المحرر. أثناء إدخال النص في حقل البحث، يُبحث في أسماء المستندات وعناوين URL للمستندات عن النص المطابق. أثناء إدخال النص في حقل البحث، يمكنك استخدام مفاتيح الأسهم لأعلى ولأسفل للتنقل في عرض القائمة. يؤدي الضغط على مفتاح Enter أو النقر المزدوج فوق عنصر في القائمة إلى تبديل العرض إلى المستند المحدد في عرض القائمة. وهذا يجعل التنقل بين المستندات أسهل، إذا كان هناك الكثير منها مفتوحًا.</para>
+<para
+>هذا الإجراء متاح أيضًا باستخدام أيقونة <inlinemediaobject
+><imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> في أعلى يمين نافذة المحرر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Shift;<keycap
+>F8</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>عرض القسم السابق</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>ركز على عرض المستند السابق، إذا كنت قد قسمت منطقة المحرر إلى عروض أكثر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-next">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F8</keycap
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>عرض القسم التالي</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>ركز على عرض المستند التالي، إذا كنت قد قسمت منطقة المحرر إلى عروض أكثر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-left">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>قسم العرض الأيسر</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>ركز على عرض القسم بشكل بديهي على اليسار، باستخدام موضع المؤشر لفك اللبس إذا لزم الأمر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-right">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>قسم العرض الأيمن</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>ركز على عرض القسم بشكل بديهي على اليمين، باستخدام موضع المؤشر لفك اللبس إذا لزم الأمر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-upward">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>قسم العرض العلوي</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>ركز على عرض القسم بشكل بديهي للأعلى، باستخدام موضع المؤشر لفك اللبس إذا لزم الأمر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-downward">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>قسم العرض السفلي</guimenuitem
+> </menuchoice>
+</term
+><listitem>
+<para
+>ركز على عرض القسم بشكل بديهي للأسفل، باستخدام موضع المؤشر لفك اللبس إذا لزم الأمر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-vertical">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>L</keycap
+></keycombo
+></shortcut
+> <guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>اقسم رأسيًا</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>سيؤدي هذا إلى تقسيم الإطار (الذي قد يكون منطقة التحرير الرئيسية) إلى إطارين متساويين في الحجم، الجديد على يسار الحالي. يحصل الإطار الجديد على التركيز، وسيعرض نفس المستند مثل القديم.</para>
+<para
+>انظر أيضاً <link linkend="kate-mdi"
+>العمل مع واجهة المستندات المتعددة في كيت</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-horizontal">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>T</keycap
+></keycombo
+></shortcut
+> <guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>اقسم أفقيًا</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>يقسم الإطار الحالي (الذي قد يكون منطقة التحرير الرئيسية) إلى إطارين متساويي الحجم، الجديد أسفل الحالي. يحصل الإطار الجديد على التركيز، ويعرض نفس المستند الموجود في الإطار القديم.</para>
+<para
+>انظر أيضاً <link linkend="kate-mdi"
+>العمل مع واجهة المستندات المتعددة في كيت</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-vertical-split">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> <guimenuitem
+>انقل المستند إلى تقسيم رأسي جديد</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>سيقسم هذا العرض النشط حالياً رأسياً إلى عرضين وينقل المستند النشط حالياً إلى العرض الأيمن.</para>
+<para
+>انظر أيضاً <link linkend="kate-mdi"
+>العمل مع واجهة المستندات المتعددة في كيت</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="move-document-to-new-horizontal-split">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> <guimenuitem
+>انقل المستند إلى تقسيم أفقي جديد</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>سيقسم هذا العرض النشط حالياً أفقياً إلى عرضين وينقل المستند النشط حالياً إلى العرض أدناه.</para>
+<para
+>انظر أيضاً <link linkend="kate-mdi"
+>العمل مع واجهة المستندات المتعددة في كيت</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-split-toggle-orientation">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> <guimenuitem
+>بدّل الاتجاه</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>بدّل بين التقسيم الأفقي والرأسي.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-current">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>R</keycap
+></keycombo
+></shortcut
+> <guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>أغلق العرض الحالي</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>يغلق الإطار النشط، والذي يمكن تمييزه بأنه الإطار الذي يعرض مؤشراً وامضاً. يُعطّل هذا الخيار إذا كان هناك إطار واحد فقط (منطقة التحرير الرئيسية).</para
+> <para
+>لا تُغلق أي مستندات عند إغلاق الإطار &ndash; ستظل متاحة في قائمة <link linkend="view-menu"
+><guimenu
+>عرض</guimenu
+></link
+> وكذلك في قائمة الملفات.</para
+> <para
+>انظر أيضاً <link linkend="kate-mdi"
+>العمل مع واجهة المستندات المتعددة في كيت</link
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-close-inactive">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> <guimenuitem
+>أغلق العروض غير النشطة</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>يغلق جميع الإطارات باستثناء الإطار النشط (الذي يحتوي على مؤشر وامض). يُعطّل هذا الخيار إذا كان هناك إطار واحد فقط (منطقة التحرير الرئيسية).</para>
+<para
+>لا تُغلق أي مستندات عند إغلاق الإطار &ndash; ستظل متاحة في قائمة <link linkend="view-menu"
+><guimenu
+>عرض</guimenu
+></link
+> وكذلك في قائمة الملفات.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-hide-inactive">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> <guimenuitem
+>أخفِ العروض غير النشطة</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>يخفي هذا جميع العروض المنقسمة باستثناء العرض النشط حالياً.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-left">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>حرّك القاسم يسارًا</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>عند تفعيل تقسيم العرض، سيؤدي هذا إلى تحريك الحدود بين مستندين مقسومين رأسياً نحو اليسار.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-right">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>حرّك القاسم يمينًا</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>عند تفعيل تقسيم العرض، سيؤدي هذا إلى تحريك الحدود بين مستندين مقسومين رأسياً نحو اليمين.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-up">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>حرّك القاسم لأعلى</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>عند تفعيل تقسيم العرض، سيؤدي هذا إلى تحريك الحدود بين مستندين مقسومين أفقياً نحو الأعلى.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-move-splitter-down">
+<term>
+<menuchoice
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>قسم العرض</guisubmenu
+> <guimenuitem
+>حرّك القاسم لأسفل</guimenuitem
+> </menuchoice>
+</term>
+<listitem>
+<para
+>عند تفعيل تقسيم العرض، سيؤدي هذا إلى تحريك الحدود بين مستندين مقسومين أفقياً نحو الأسفل.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+<note
+><para
+>تتوفر بعض الإجراءات الشائعة في قائمة <guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+> باستخدام زر <guiicon
+><inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/> </imageobject
+></inlinemediaobject
+></guiicon
+> في الزاوية العلوية اليمنى لنافذة المحرر </para
+></note>
+
+<variablelist>
+
+<varlistentry>
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>عروض الأدوات</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<variablelist>
+<varlistentry id="view-toolviews-show-sidebars">
+<term>
+<menuchoice
+><shortcut
+><keycombo action="simul"
+>&Ctrl;&Alt;&Shift;<keycap
+>F</keycap
+> </keycombo
+></shortcut
+><guimenu
+>عرض</guimenu
+><guisubmenu
+>عروض الأدوات</guisubmenu
+> <guimenuitem
+>أظهر الأشرطة الجانبية</guimenuitem
+></menuchoice
+></term>
+<listitem
+><para
+>يبدل عرض صفوف أزرار الشريط الجانبي. لا يؤثر هذا الأمر على عرض عناصر محتوى الشريط الجانبي؛ فأي شريط جانبي مرئي سيظل مرئياً، وإذا خُصصت اختصارات للأوامر أدناه، فستستمر بالطبع في العمل.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-toolviews-show-plugins">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>عروض الأدوات</guisubmenu
+> <guimenuitem
+>أظهر <replaceable
+>الملحق</replaceable
+></guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>قائمة بجميع الملحقات الممكنة. استخدم مربع الاختيار أمام كل عنصر لتبديل عرض أداة العرض.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-command-line">
+<term
+><menuchoice
+><shortcut
+> <keycap
+>F7</keycap
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>انتقل إلى سطر الأوامر</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>سيبدل هذا الأمر عرض <ulink url="help:/katepart/advanced-editing-tools-commandline.html"
+>سطر الأوامر المضمن</ulink
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-enlarge-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>كبر الخط</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يزيد هذا حجم خط العرض.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-shrink-font">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guimenuitem
+>صغر الخط</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>ينقص هذا حجم خط العرض.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-schema">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>مخطط</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>تسرد هذه القائمة مخططات الألوان المتاحة. يمكنك تغيير المخطط لـ العرض الحالي هنا، ولتغيير المخطط المبدئي تحتاج إلى استخدام صفحة <ulink url="help:/katepart/config-dialog-editor.html#prefcolors"
+>الخطوط والألوان</ulink
+> في حوار الضبط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F10</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guisubmenu
+>لف الكلمات</guisubmenu
+> <guimenuitem
+>لف كلمات حركي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يبدل لف الكلمات الحركي في العرض الحالي. يجعل لف الكلمات الحركي جميع النصوص في العرض مرئية دون الحاجة إلى التمرير الأفقي عن طريق تصيير سطر حقيقي واحد على عدة أسطر مرئية حسب الحاجة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-dynamic-word-wrap-indicators">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>لف الكلمات</guisubmenu
+> <guisubmenu
+>مؤشرات لف الكلمات الحركي</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>اختر متى وكيف يجب عرض مؤشرات لف الكلمات الحركي. يتوفر هذا فقط إذا حُدّد خيار <guilabel
+>لف كلمات حركي</guilabel
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-statik-word-wrap-markers">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>لف الكلمات</guisubmenu
+> <guimenuitem
+>أظهر علامة لف الكلمات الساكن</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يبدل عرض خط رأسي يشير إلى موضع عرض اللف كما هو مضبوط في <ulink url="help:/katepart/config-dialog-editor.html#pref-wrap-words-at"
+>حوار الضبط</ulink
+>. تتطلب هذه الميزة استخدام خط ثابت العرض حقيقي. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-icon-border">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F6</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guisubmenu
+>الحدود</guisubmenu
+> <guimenuitem
+>أظهر حدود الأيقونات</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>هذا عنصر تبديل. تفعيله سيجعل حدود الأيقونات مرئية في الجانب الأيسر من المحرر النشط، والعكس صحيح. تشير حدود الأيقونات إلى مواقع الأسطر المعلّمة في المحرر.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-line-numbers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F11</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>عرض</guimenu
+> <guisubmenu
+>الحدود</guisubmenu
+> <guimenuitem
+>أظهر أرقام الأسطر</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>هذا عنصر تبديل. تفعيله سيجعل جزءاً يعرض أرقام أسطر المستند مرئياً في الحد الأيسر لـ المحرر النشط، والعكس صحيح.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-scrollbar-marks">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>الحدود</guisubmenu
+> <guimenuitem
+>أظهر علامات شريط التمرير</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يبدل العرض المرئي للعلامات المرجعية (والعلامات الأخرى) على شريط التمرير الرأسي. عند التفعيل، تُمثل العلامة بخط رفيع بلون العلامة في شريط التمرير، ويؤدي النقر بالزر الأوسط للفأرة على الخط إلى تمرير العرض إلى موضع قريب من العلامة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-border-show-scrollbar-minimap">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guisubmenu
+>الحدود</guisubmenu
+> <guimenuitem
+>أظهر الخريطة المصغرة لشريط التمرير</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>سيستبدل هذا شريط التمرير بتصور مرئي للمستند الحالي. لمزيد من المعلومات حول الخريطة المصغرة لشريط التمرير، انظر <ulink url="help:/katepart/kate-part-scrollbar-minimap.html"
+>قسم الخريطة المصغرة لشريط التمرير في دليل مكون كيت</ulink
+>.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-code-folding">
+<term
+><menuchoice
+><guimenu
+>عرض</guimenu
+> <guimenuitem
+>طي الكود</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>تتعلق هذه الخيارات بـ <ulink url="help:/katepart/advanced-editing-tools-code-folding.html"
+>طي الكود</ulink
+>:</para>
+<variablelist>
+
+<varlistentry id="view-show-folding-markers">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+><keycap
+>F9</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>أظهر علامات الطي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يبدل عرض جزء علامات الطي في الجانب الأيسر من العرض.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>اطوِ العقدة الحالية</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>يقلص المنطقة التي تحتوي على المؤشر.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-current-node">
+<term
+><menuchoice>
+<guimenuitem
+>افرد العقدة الحالية</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>يمدد المنطقة التي تحتوي على المؤشر.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-fold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>-</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>اطوِ العقد في المستوى العلوي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يقلص جميع مناطق المستوى العلوي في المستند. انقر على المثلث الذي يشير لليمين لتمديد جميع مناطق المستوى العلوي.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="view-unfold-toplevel-nodes">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>+</keycap
+></keycombo
+> </shortcut
+> <guimenuitem
+>افرد العقد في المستوى العلوي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يمدد جميع مناطق المستوى العلوي في المستند.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</listitem>
+</varlistentry>
+
+<varlistentry id="view-show-non-printable-spaces">
+<term
+><menuchoice>
+<guimenuitem
+>أظهر المسافات غير المطبوعة</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>يظهر/يخفي المربع المحيط بالمسافات غير المطبوعة.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="bookmarks-menu">
+<title
+>قائمة العلامات المرجعية</title>
+
+<para
+>تحت المدخلات الموصوفة هنا، سيكون هناك مدخل واحد لكل علامة مرجعية في المستند النشط. سيكون النص هو الكلمات القليلة الأولى من السطر المعلّم. اختر عنصراً لنقل المؤشر إلى بداية ذلك السطر. سيقوم المحرر بالتمرير حسب الضرورة لجعل هذا السطر مرئياً.</para>
+
+<variablelist>
+
+<varlistentry id="bookmarks-set-bookmark">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>العلامات المرجعية</guimenu
+> <guimenuitem
+>عيّن علامة مرجعية</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يضبط أو يزيل علامة مرجعية في السطر الحالي للمستند النشط. (إذا كانت موجودة، فستُزال، وإلا فستُضبط.)</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-clear-bookmarks">
+<term
+><menuchoice
+><guimenu
+>العلامات المرجعية</guimenu
+> <guimenuitem
+>امسح جميع العلامات المرجعية</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>سيقوم هذا الأمر بإزالة جميع العلامات من المستند بالإضافة إلى قائمة العلامات الملحقة في أسفل عنصر القائمة هذا. </para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-previous">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&PgUp;</keycombo
+> </shortcut
+> <guimenu
+>العلامات المرجعية</guimenu
+> <guimenuitem
+>السابق</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>سيؤدي هذا إلى نقل المؤشر إلى بداية أول سطر في الأعلى يحتوي على علامة مرجعية. سيشمل نص عنصر القائمة رقم السطر وأول جزء من النص في السطر. يتوفر هذا العنصر فقط عند وجود علامة مرجعية في سطر يسبق المؤشر.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="bookmarks-bookmarks-next">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Alt;&PgDn;</keycombo
+> </shortcut
+> <guimenu
+>العلامات المرجعية</guimenu
+> <guimenuitem
+>التالي</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>سيؤدي هذا إلى نقل المؤشر إلى بداية السطر التالي الذي يحتوي على علامة مرجعية. سيشمل نص عنصر القائمة رقم السطر وأول جزء من النص في السطر. يتوفر هذا العنصر فقط عند وجود علامة مرجعية في سطر يقع بعد المؤشر.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="sessions-menu">
+<title
+>قائمة الجلسات</title>
+
+<para
+>تحتوي هذه القائمة على مدخلات لاستخدام جلسات كيت وإدارتها. لمزيد من المعلومات، اقرأ <link linkend="fundamentals-using-sessions"
+>استخدام الجلسات</link
+>.</para>
+
+<variablelist>
+
+<varlistentry id="sessions-new">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guimenuitem
+>جديدة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>ينشئ جلسة جديدة فارغة. ستُغلق جميع الملفات المفتوحة حالياً.</para
+></listitem>
+
+</varlistentry>
+
+<varlistentry id="sessions-open">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guimenuitem
+>افتح جلسة...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>افتح جلسة موجودة. سيُعرض حوار اختيار الجلسة ليتيح لك اختيار واحدة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-quick-open">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guisubmenu
+>فتح سريع للجلسة</guisubmenu
+> </menuchoice
+></term>
+<listitem
+><para
+>تتيح لك هذه القائمة الفرعية فتح جلسة موجودة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guimenuitem
+>احفظ الجلسة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>احفظ الجلسة الحالية. إذا كانت الجلسة مجهولة، فستُطالب باسم للجلسة.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-save-as">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guimenuitem
+>احفظ الجلسة باسم...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>احفظ الجلسة الحالية باسم جديد. ستُطالب باسم لاستخدامه.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="sessions-manage">
+<term
+><menuchoice
+><guimenu
+>الجلسات</guimenu
+> <guimenuitem
+>إدارة الجلسات...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>يعرض حوار مدير الجلسات الذي يتيح لك إعادة تسمية الجلسات وحذفها.</para
+></listitem>
+</varlistentry>
+
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="tools-menu">
+
+<title
+>قائمة أدوات</title>
+
+<variablelist>
+
+<varlistentry id="tools-read-only">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guimenuitem
+>وضع القراءة فقط</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>اضبط المستند الحالي على وضع القراءة فقط. يمنع هذا أي إضافة نص وأي تغييرات في تنسيق المستند.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-filetype">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الوضع</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>اختر مخطط نوع الملف الذي تفضله للمستند النشط. هذا يستبدل وضع <ulink url="help:/katepart/pref-open-save-modes-filetypes.html"
+>نوع الملف</ulink
+> العام المحدد في <menuchoice
+> <guimenu
+>إعدادات</guimenu
+> <guimenuitem
+>اضبط كيت...</guimenuitem
+></menuchoice
+> في تبويب أنواع الملفات لمستندك الحالي فقط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-highlighting">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>التظليل</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>اختر مخطط التظليل الذي تفضله للمستند النشط. هذا يستبدل وضع التظليل العام المحدد في <menuchoice
+> <guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط المحرر...</guimenuitem
+> </menuchoice
+> لمستندك الحالي فقط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-indentation">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإزاحة</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>اختر <ulink url="help:/katepart/kate-part-autoindent.html"
+>نمط الإزاحة</ulink
+> الذي تريده لمستندك النشط. هذا يستبدل وضع الإزاحة العام المحدد في <menuchoice
+> <guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط المحرر...</guimenuitem
+> </menuchoice
+> لمستندك الحالي فقط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-encoding">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الترميز</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>يمكنك استبدال الترميز المبدئي المحدد في <menuchoice
+> <guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط المحرر...</guimenuitem
+> </menuchoice
+> في صفحة <guilabel
+>افتح/احفظ</guilabel
+> لضبط ترميز مختلف لمستندك الحالي. سيكون الترميز الذي تضبطه هنا صالحاً لمستندك الحالي فقط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-end-of-line">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>نهاية السطر</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>اختر وضع نهاية السطر المفضل لمستندك النشط. هذا يستبدل وضع نهاية السطر العام المحدد في <menuchoice
+> <guimenu
+>إعدادات</guimenu
+><guimenuitem
+>اضبط المحرر...</guimenuitem
+> </menuchoice
+> لمستندك الحالي فقط.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-add-byte-mark-order">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>أضف علامة ترتيب البايتات (BOM)</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>بتحديد هذا الإجراء يمكنك صراحة إضافة علامة ترتيب بايتات للمستندات المرمزة بيونيكود. علامة ترتيب البايتات (BOM) هي محرف يونيكود يُستخدم للإشارة إلى ترتيب البايتات في ملف نصي أو دفق، لمزيد من المعلومات انظر <ulink url="https://en.wikipedia.org/wiki/Byte_order_mark"
+>علامة ترتيب البايتات</ulink
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-scripts">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>السكربتات</guisubmenu
+> </menuchoice
+></term>
+<listitem>
+<para
+>تحتوي هذه القائمة الفرعية على قائمة بجميع الإجراءات المشتقة من سكربتات. يمكن تعديل القائمة بسهولة عن طريق <ulink url="help:/katepart/dev-scripting.html#dev-scripting-command-line"
+>كتابة سكربتاتك الخاصة</ulink
+>. بهذه الطريقة، يمكن توسيع كيت بأدوات يحددها المستخدم. </para>
+<para
+><ulink url="help:/katepart/dev-scripting.html"
+>توجد قائمة كاملة بالسكربتات في توثيق مكون كيت.</ulink
+></para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-invoke-code-completition">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Space;</keycombo
+> </shortcut
+> <guimenu
+>أدوات</guimenu
+> <guimenuitem
+>استدعِ إكمال الكود</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يستدعي إكمال الأوامر يدوياً، عادةً باستخدام اختصار مرتبط بهذا الإجراء.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-completition">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guimenuitem
+>إكمال الكلمات</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يقوم <guimenuitem
+>أعد استخدام الكلمة بالأسفل</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>9</keycap
+></keycombo
+>) و<guimenuitem
+>أعد استخدام الكلمة بالأعلى</guimenuitem
+> (<keycombo action="simul"
+>&Ctrl; <keycap
+>8</keycap
+></keycombo
+>) بإكمال النص المكتوب حالياً من خلال البحث عن كلمات مماثلة للخلف أو للأمام من موقع المؤشر الحالي. يظهر <guimenuitem
+>إكمال الصدفة</guimenuitem
+> صندوق إكمال يحتوي على المدخلات المطابقة.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-automatic-spell-checking">
+<term
+><menuchoice
+><shortcut
+> <keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>O</keycap
+></keycombo
+> </shortcut
+> <guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإملاء</guisubmenu
+> <guimenuitem
+>تدقيق إملائي آلي</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>عند تفعيل <guimenuitem
+>التدقيق الإملائي الآلي</guimenuitem
+>، يوضع خط تحت النصوص المكتوبة بشكل خاطئ في المستند فورياً.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="spelling-spelling">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإملاء</guisubmenu
+> <guimenuitem
+>الإملاء...</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+><action
+>يبدأ هذا برنامج التدقيق الإملائي - وهو برنامج مصمم لمساعدة المستخدم في اكتشاف وتصحيح أي أخطاء إملائية.</action
+></para>
+
+<para
+>لمزيد من المعلومات حول كيفية استخدام برنامج التدقيق الإملائي في كيدي، انظر <ulink url="help:/fundamentals/spellcheck.html"
+>قسم <emphasis
+>تدقيق الإملاء</emphasis
+> في توثيق <emphasis
+>أساسيات كيدي</emphasis
+></ulink
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-spelling-from-cursor">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإملاء</guisubmenu
+> <guimenuitem
+>الإملاء (من المؤشر)...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يبدأ هذا برنامج التدقيق الإملائي ولكنه يبدأ من مكان وجود المؤشر بدلاً من بداية المستند.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-spellcheck-selection">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإملاء</guisubmenu
+> <guimenuitem
+>دقق إملاء التحديد...</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يدقق إملاء التحديد الحالي.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-change-dictionary">
+<term
+><menuchoice
+><guimenu
+>أدوات</guimenu
+> <guisubmenu
+>الإملاء</guisubmenu
+> <guimenuitem
+>غيّر القاموس</guimenuitem
+> </menuchoice
+></term>
+<listitem>
+<para
+>يعرض مربعاً منسدلاً يحتوي على جميع القواميس المتاحة للتدقيق الإملائي في أسفل نافذة المحرر. يسمح هذا بالتبديل السهل لقاموس التدقيق الإملائي، على سبيل المثال، للتدقيق الإملائي الآلي للنصوص بلغات مختلفة.</para>
+</listitem>
+</varlistentry>
+
+<!-- Indent/Unindent no longer in the menu ???, but shortcuts work-->
+<!--
+<varlistentry id="tools-indent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Indent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This increases the paragraph's indentation by one step. The size of the
+step depends on the <link linkend="pref-edit-indent"
+> indentation
+settings</link
+>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-unindent">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>I</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Unindent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This reduces the paragraph's indentation by one step. The size of the step
+depends on the <link linkend="pref-edit-indent"
+> indentation settings</link
+>.</para>
+</listitem>
+</varlistentry>
+-->
+
+<!-- <Pablo
+> These are in the selection menu now, and are documented in doc/katepart/menus.docbook -->
+<!--
+<varlistentry id="tools-cleanindent">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Clean Indentation</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This cleans the indentation for the current selection or for the
+line the cursor is currently in. Cleaning the indentation ensures that
+all your selected text follows the indentation mode you choose.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-formatindent">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Format Indent</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>Causes a realign of the current line or selected lines using the
+indentation mode and indentation settings in the document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-alignon">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Align On...</guimenuitem>
+</menuchoice
+></term>
+<listitem>
+<para
+>This command aligns lines in the selected block or whole document on the column given by a regular expression that you will be prompted for.</para>
+<para
+>If you give an empty pattern it will align on the first non-blank character by default.</para>
+<para
+>If the pattern has a capture it will indent on the captured match.</para>
+<para
+><emphasis
+>Examples:</emphasis
+></para>
+<para
+>With '<userinput
+>-</userinput
+>' it will insert spaces before the first '-' of each lines to align them all on the same column.</para>
+<para
+>With '<userinput
+>alignon :\\s+(.)</userinput
+>' it will insert spaces before the first non-blank character that occurs after a colon to align them all on the same column.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-comment">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Comment</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>This adds one space to the beginning of the line
+where the text cursor is located or to the beginning of any
+selected lines.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry id="tools-uncomment">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>D</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uncomment</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>This removes one space (if any exist) from the beginning of the
+line where the text cursor is located or from the beginning of any
+selected lines.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-uppercase">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Uppercase</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Put the selected text or the letter after the cursor in
+uppercase.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-lowercase">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Shift;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Lowercase</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Put the selected text or the letter after the cursor in
+lowercase.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-capitalize">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;&Alt;<keycap
+>U</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Capitalize</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Capitalize the selected text or the current
+word.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-join-lines">
+<term
+><menuchoice>
+<shortcut>
+<keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo>
+</shortcut>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Join Lines</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Joins the selected lines, or the current line and the line below
+with one white space character as a separator. Leading/trailing white space on
+joined lines is removed in the affected ends.</para
+></listitem>
+</varlistentry>
+
+<varlistentry id="tools-word-wrap-document">
+<term
+><menuchoice>
+<guimenu
+>Tools</guimenu>
+<guimenuitem
+>Apply Word Wrap</guimenuitem>
+</menuchoice
+></term>
+<listitem
+><para
+>Apply static word wrapping on all the document. That means that
+a new line of text will automatically start when the current
+line exceeds the length specified by the <guilabel
+>Wrap words at</guilabel
+> option
+in the Editing tab in <menuchoice>
+<guimenu
+>Settings</guimenu
+><guimenuitem
+>Configure
+Editor...</guimenuitem
+></menuchoice
+>.</para
+></listitem>
+</varlistentry>
+-->
+
+</variablelist>
+</sect1>
+
+<sect1 id="settings-help-menu">
+<title
+>قائمة الإعدادات والمساعدة</title>
+
+<para
+>يحتوي كيت على عناصر قائمتي <guimenu
+>إعدادات</guimenu
+> و<guimenu
+>مساعدة</guimenu
+> الشائعة في كيدي، لمزيد من المعلومات اقرأ الأقسام حول <ulink url="help:/fundamentals/menus.html#menus-settings"
+>قائمة الإعدادات</ulink
+> و <ulink url="help:/fundamentals/menus.html#menus-help"
+>قائمة المساعدة</ulink
+> في أساسيات كيدي مع هذه المدخلات الإضافية: </para>
+
+<variablelist>
+
+<varlistentry id="settings-colorscheme">
+<term
+><menuchoice
+><guimenu
+>إعدادات</guimenu
+> <guimenuitem
+>سمة الألوان</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>استخدم مخطط ألوان مختلف عن مخططات الألوان العامة للنظام الموصوفة في وحدة إعدادات النظام <ulink url="help:/kcontrol/colors/index.html"
+>الألوان</ulink
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-tabs">
+<term
+><menuchoice
+><guimenu
+>إعدادات</guimenu
+> <guimenuitem
+>أظهر الألسنة</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>الألسنة قابلة للنقل باستخدام زر الفأرة الأيسر ولها إجراءات في القائمة السياقية لإغلاق المستندات، أو نسخ المسار إلى الحافظة أو فتح مجلد المستند في مدير الملفات. إن استخدام زر <inlinemediaobject
+><imageobject
+><imagedata fileref="quickopen-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> <link linkend="view-quick-open"
+><guibutton
+>فتح سريع</guibutton
+> </link
+> يجعل التبديل بين المستندات سهلاً. انقر على زر <inlinemediaobject
+><imageobject
+><imagedata fileref="view-split-left-right-22.png" format="PNG"/></imageobject
+></inlinemediaobject
+> بزر الفأرة الأيسر لفتح قائمة تحتوي على إجراءات من قائمة <guimenu
+>عرض</guimenu
+><guisubmenu
+>تقسيم العرض</guisubmenu
+>. </para
+></listitem>
+</varlistentry>
+
+<varlistentry id="settings-show-path">
+<term
+><menuchoice
+><guimenu
+>إعدادات</guimenu
+> <guimenuitem
+>أظهر المسار في شريط العنوان</guimenuitem
+> </menuchoice
+></term>
+<listitem
+><para
+>إذا فُعّل، سيُعرض المسار الكامل للمستند النشط، وإلا سيُعرض اسم الملف فقط. يكون هذا مفيداً إذا كنت تحرر عدة ملفات لها نفس الاسم لتمييزها.</para
+></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+</chapter>

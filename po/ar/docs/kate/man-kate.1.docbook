@@ -1,0 +1,354 @@
+<?xml version="1.0" ?>
+<!DOCTYPE refentry PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+<!ENTITY % English "INCLUDE">
+]>
+
+<refentry lang="&language;">
+<refentryinfo>
+<title
+>دليل مستخدم كيت</title>
+<author
+>&Lauri.Watts; &Lauri.Watts.mail;</author>
+<date
+>2021-07-12</date>
+<releaseinfo
+>ترس كيدي 21.08</releaseinfo>
+<productname
+>ترس كيدي</productname>
+</refentryinfo>
+
+<refmeta>
+<refentrytitle
+><command
+>kate</command
+></refentrytitle>
+<manvolnum
+>1</manvolnum>
+</refmeta>
+
+<refnamediv>
+<refname
+><command
+>kate</command
+></refname>
+<refpurpose
+>محرر نصوص متقدم من كيدي</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis
+><command
+>kate</command
+> <group choice="opt"
+><option
+>-s, --start</option
+> <replaceable
+> الاسم</replaceable
+> </group
+> <group choice="opt"
+><option
+>--startanon</option
+></group
+> <group choice="opt"
+><option
+>-n, --new</option
+></group
+> <group choice="opt"
+><option
+>-b, --block</option
+></group
+> <group choice="opt"
+><option
+>-p, --pid</option
+><replaceable
+> المعرف</replaceable
+></group
+> <group choice="opt"
+><option
+>-e, --encoding</option
+> <replaceable
+> الاسم</replaceable
+></group
+> <group choice="opt"
+><option
+>-l, --line</option
+> <replaceable
+> السطر</replaceable
+></group
+> <group choice="opt"
+><option
+>-c, --column</option
+> <replaceable
+> العمود</replaceable
+></group
+> <group choice="opt"
+><option
+>-i, --stdin</option
+></group
+> <group choice="opt"
+><option
+>--tempfile</option
+></group
+> <group choice="opt"
+><option
+><replaceable
+>ملف</replaceable
+></option
+></group
+> </cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title
+>الوصف</title>
+<para
+>كيت هو محرر نصوص كيدي المتقدم. </para>
+<para
+>يوفر كيت أيضًا جزء المحرر لمختلف التطبيقات، تحت اسم ك-اكتب.</para>
+<para
+>تتضمن بعض ميزات كيت العديدة تمييز بنية قابل للضبط للغات تتراوح من C و C++ إلى HTML إلى سكريبتات باش، والقدرة على إنشاء المشاريع وصيانتها، وواجهة مستندات متعددة (MDI)، ومحاكي طرفية مستقل. </para>
+
+<para
+>لكن كيت أكثر من مجرد محرر للمبرمجين. إن قدرته على فتح عدة ملفات في وقت واحد تجعله مثاليًا لتحرير ملفات تهيئة يونكس العديدة. كُتب هذا المستند في كيت. </para>
+
+
+</refsect1>
+
+<refsect1>
+<title
+>الخيارات</title>
+
+<variablelist>
+<varlistentry>
+<term
+><option
+>-s</option
+>، <option
+>--start</option
+> <replaceable
+>الاسم</replaceable
+></term>
+<listitem
+><para
+>بدء كيت بجلسة معينة.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--startanon</option
+></term>
+<listitem
+><para
+>بدء كيت بجلسة مجهولة جديدة، ويتضمن ذلك <option
+>-n</option
+>.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-n</option
+>، <option
+>--new</option
+></term>
+<listitem
+><para
+>فرض بدء سيرورة كيت جديدة (يُتجاهل إذا استُخدم <option
+>start</option
+> وكانت سيرورة كيت أخرى قد فتحت الجلسة المعطاة بالفعل)، ويُفرض إذا لم تُعطَ أي وسائط أو عناوين URL على الإطلاق.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-b</option
+>، <option
+>--block</option
+></term>
+<listitem
+><para
+>في حال استخدام سيرورة كيت تعمل بالفعل، فإنه يُحظر حتى تخرج، إذا أُعطيت عناوين URL لفتحها.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-p, --pid</option
+> <replaceable
+> المعرف</replaceable
+></term>
+<listitem
+><para
+>محاولة إعادة استخدام سيرورة كيت بهذا <replaceable
+>المعرف</replaceable
+> فقط (يُتجاهل إذا استُخدم <option
+>start</option
+> وكانت سيرورة كيت أخرى قد فتحت الجلسة المعطاة بالفعل).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-e, --encoding</option
+> <replaceable
+> الاسم</replaceable
+></term>
+<listitem
+><para
+>ضبط الترميز للملف المراد فتحه.</para
+><para
+>يمكن استخدام هذا لفرض فتح ملف بتنسيق utf-8، على سبيل المثال. (يوفر الأمر <command
+>iconv -l</command
+> قائمة بالترميزات، والتي قد تكون مفيدة لك.)</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-l, --line</option
+> <replaceable
+> السطر</replaceable
+></term>
+<listitem
+><para
+>الانتقال إلى هذا السطر.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-c, --column</option
+> <replaceable
+> العمود</replaceable
+></term>
+<listitem
+><para
+>الانتقال إلى هذا العمود.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>-i, --stdin</option
+></term>
+<listitem
+><para
+>قراءة محتويات <filename
+>stdin</filename
+> (المدخل القياسي).</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+>--tempfile</option
+></term>
+<listitem
+><para
+>تُحذف الملفات/عناوين URL التي فتحها التطبيق بعد الاستخدام.</para
+></listitem>
+</varlistentry>
+<varlistentry>
+<term
+><option
+><replaceable
+>ملف</replaceable
+></option
+></term>
+<listitem
+><para
+>الملف المراد فتحه.</para
+></listitem>
+</varlistentry>
+</variablelist>
+
+</refsect1>
+
+<refsect1>
+<title
+>طالع أيضًا</title>
+
+<simplelist
+><member
+>تتوفر وثائق مستخدم أكثر تفصيلاً من <ulink url="help:/kate"
+>help:/kate</ulink
+> (إما بإدخال عنوان URL هذا في كنكرر، أو بتشغيل <userinput
+><command
+>khelpcenter</command
+> <parameter
+>help:/kate</parameter
+></userinput
+>).</member>
+<member
+>kf6options(7)</member>
+<member
+>qt6options(7)</member>
+<member
+>هناك أيضًا مزيد من المعلومات المتاحة على <ulink url="https://kate-editor.org/"
+>موقع كيت الإلكتروني</ulink
+>.</member>
+</simplelist>
+</refsect1>
+
+<refsect1>
+<title
+>أمثلة</title>
+
+<para
+>لفتح ملف باسم <filename
+>source.cpp</filename
+> عند العمود 15، والسطر 25، في نافذة كيت موجودة، يمكن استخدام:</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+>-c 15</option
+> <option
+>-l 25</option
+> <filename
+>source.cpp</filename
+></userinput
+>
+</screen>
+
+<para
+>إذا كان لديك اتصال إنترنت نشط، فيمكن الاستفادة من شفافية شبكة كيدي لفتح ملف من موقع FTP. إذا لم تكن تملك صلاحية الكتابة على الخادم البعيد، فسيُفتح الملف للقراءة فقط وسيُطلب منك اسم ملف محلي للحفظ فيه إذا أجريت تغييرات. أما إذا كانت لديك صلاحية الكتابة، فستُحفظ التغييرات بشفافية عبر الشبكة.</para>
+<screen
+><userinput
+><command
+>kate</command
+> <option
+><replaceable
+>&kde-ftp;README</replaceable
+></option
+></userinput
+></screen>
+
+<!-- FIXME: Some more useful examples would be cool, how about this snagged -->
+<!-- from a mail of anders (slightly edited /line/l to remove the double -->
+<!-- dashes:
+> /some/file/path/file.name:lineno
+
+> it would rock if Kate could understand that and not only open up file.name,
+
+> but jump to lineno after the file is opened.
+
+How bad is it to have to convert that into
+-l lineno /some/file/path/file.name
+
+sed s,([^:]*):(\d+),-l \2 \1,
+
+will do that, for example.-->
+
+</refsect1>
+
+<refsect1>
+<title
+>المؤلفون</title>
+<para
+>المسؤول عن كيت هو &Christoph.Cullmann; &Christoph.Cullmann.mail;. تتوفر قائمة شاملة بالمؤلفين والمساهمين في دليل المستخدم الكامل المذكور أعلاه.</para>
+</refsect1>
+
+</refentry>

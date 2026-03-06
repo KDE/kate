@@ -1,0 +1,2237 @@
+<!--pulled in by kwrite too-->
+<chapter id="vi-input-mode-chapter">
+<chapterinfo>
+<authorgroup
+><author
+>&Erlend.Hamberg; &Erlend.Hamberg.mail; </author>
+<othercredit role="translator"
+><firstname
+>زايد</firstname
+><surname
+>السعيدي</surname
+><affiliation
+><address
+><email
+>zayed.alsaidi@gmail.com</email
+></address
+></affiliation
+><contrib
+>التّرجمة العربيّة</contrib
+></othercredit
+> 
+</authorgroup>
+</chapterinfo>
+
+<title
+>وضع إدخال في (VI)</title>
+
+<sect1 id="vi-mode-sect1">
+<title
+>وضع إدخال VI</title>
+
+<para
+>ليس الهدف من وضع VI أن يكون بديلا كاملا لـ Vim ودعم جميع ميزاته. يهدف هذا الوضع إلى جعل «طريقة فيم» في تحرير النصوص -وعادات فيم المكتسبة- متاحة للبرامج التي تستخدم محرر نصوص كيت كمحرر داخلي لها.</para>
+
+<para
+>يهدف وضع VI إلى التكامل بشكل جيد مع البرنامج والانحراف عن سلوك فيم عندما يكون ذلك منطقيا. على سبيل المثال، سيؤدي الأمر <userinput
+><command
+>:w</command
+></userinput
+> إلى فتح مربع حوار الحفظ في وضع VI الخاص بكيت.</para>
+
+<para
+>لتفعيل وضع إدخال VI لجميع العروض الجديدة، انتقل إلى <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>اضبط كيت...</guimenuitem
+> <guimenu
+>التحرير</guimenu
+><guimenuitem
+>وضع إدخال VI</guimenuitem
+></menuchoice
+>. يمكنك في هذه اللسان تعيين خيارات وضع إدخال VI وتعريف وتحرير تخطيط المفاتيح في هذا الوضع. يمكن أيضا تبديل وضع إدخال VI باستخدام إعداد <guimenuitem
+>وضع إدخال VI</guimenuitem
+> في قائمة <guimenu
+>تحرير</guimenu
+>. (مفتاح الاختصار المبدئي هو <keycombo action="simul"
+>&Meta;&Ctrl;<keycap
+>V</keycap
+></keycombo
+> - حيث يكون &Meta; عادة مفتاح <keysym
+>Windows</keysym
+>).</para>
+
+<note>
+<para
+>تتحسس العديد من أوامر لوحة مفاتيح وضع Vi حالة الأحرف، على عكس معظم اختصارات لوحة مفاتيح كيدي. وهذا يعني أن <userinput
+>y</userinput
+> و <userinput
+>Y</userinput
+> أمران مختلفان. لإدخال الأمر <userinput
+>y</userinput
+> (نسخ)، تأكد من تعطيل <keysym
+>Caps Lock</keysym
+> واضغط على <keycap
+>Y</keycap
+>. لإدخال الأمر <userinput
+>Y</userinput
+> (نسخ إلى نهاية السطر)، اضغط <keycombo action="simul"
+>&Shift;<keycap
+>Y</keycap
+></keycombo
+>.</para>
+
+<para
+>لا ينطبق هذا على الأوامر التي تستخدم مفتاح &Ctrl;، والتي يمكن إدخالها بغض النظر عن وضع <keycap
+>Caps Lock</keycap
+> وبدون الضغط على &Shift;. ومع ذلك، تتطلب بعض الأوامر استخدام تركيبة مفتاح &Ctrl; متبوعة بمفتاح آخر يتحسس حالة الأحرف. على سبيل المثال، لإدخال <quote
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>، <userinput
+>h</userinput
+></quote
+> (التبديل إلى عرض الانقسام الأيمن) تأكد من تعطيل <keycap
+>Caps Lock</keycap
+>، واضغط <keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+>، ثم أفلته، ثم اضغط <keycap
+>H</keycap
+>.</para>
+</note>
+
+<sect2 id="vi-incompatibilities">
+<title
+>عدم التوافق مع فيم</title>
+
+<para
+>توجد ميزات قليلة فقط في وضع VI في كيت غير متوافقة مع فيم (لا يشمل ذلك الميزات المفقودة). أُدرجت أدناه مع أسباب كل منها.</para>
+<itemizedlist>
+<listitem>
+<para
+>كيت: <userinput
+>U</userinput
+> و <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> للتكرار.</para>
+<para
+>فيم: <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> هو التكرار العادي، و <keycap
+>U</keycap
+> يُستخدم للتراجع عن جميع التغييرات الأخيرة في سطر واحد.</para>
+<para
+>السبب في جعل <keycap
+>U</keycap
+> يعمل كأمر تكرار في وضع VI في كيت هو أن الاختصار <keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> محجوز مبدئيا لوظيفة الاستبدال (البحث والاستبدال) في كيت. مبدئيا، لن يتجاوز وضع VI اختصارات كيت (يمكن ضبط ذلك في <menuchoice
+><guimenu
+>الإعدادات</guimenu
+><guimenuitem
+>اضبط كيت...</guimenuitem
+> <guimenu
+>التحرير</guimenu
+><guimenuitem
+>وضع إدخال VI</guimenuitem
+></menuchoice
+>)، لذلك يجب أن يكون إجراء التكرار متاحا كضغطة مفتاح «عادية» أيضا. علاوة على ذلك، فإن سلوك الأمر <userinput
+>U</userinput
+> في فيم لا يتوافق جيدا مع نظام التراجع الداخلي في كيت، لذا سيكون من الصعب دعمه على أي حال.</para>
+</listitem>
+<listitem>
+<para
+>كيت: <userinput
+><command
+>print</command
+></userinput
+> يظهر مربع حوار <guilabel
+>اطبع</guilabel
+>.</para>
+<para
+>فيم: <userinput
+><command
+>print</command
+></userinput
+> يطبع أسطر النطاق المعطى مثل سلفه ed.</para>
+<para
+>أوامر مثل <userinput
+><command
+>:print</command
+></userinput
+> متاحة ليس فقط في وضع VI ولكن للمستخدمين الذين يستخدمون كيت «العادي» أيضا - لذلك يفتح الأمر <userinput
+><command
+>:print</command
+></userinput
+> مربع حوار الطباعة - اتباعا لمبدأ «أقل مفاجأة» بدلا من محاكاة سلوك فيم.</para>
+</listitem>
+<listitem>
+<para
+>كيت: <userinput
+>Y</userinput
+> ينسخ إلى نهاية السطر.</para>
+<para
+>فيم: <userinput
+>Y</userinput
+> ينسخ السطر بالكامل، تماما مثل <userinput
+>y</userinput
+><userinput
+>y</userinput
+>.</para>
+<para
+>سلوك VI للأمر <userinput
+>Y</userinput
+> هو في الواقع علة. بالنسبة لأوامر التغيير والحذف، فإن <userinput
+>c</userinput
+><userinput
+>c</userinput
+> / <userinput
+>d</userinput
+><userinput
+>d</userinput
+> ستنفذ الإجراء على السطر الحالي، وسيعمل <userinput
+>C</userinput
+> / <userinput
+>D</userinput
+> من عمود المؤشر إلى نهاية السطر. ومع ذلك، فإن كلا من <userinput
+>y</userinput
+><userinput
+>y</userinput
+> و <userinput
+>Y</userinput
+> ينسخان السطر الحالي. في وضع VI في كيت، سيقوم <userinput
+>Y</userinput
+> بالنسخ إلى نهاية السطر. وُصف هذا بأنه «أكثر منطقية» في <ulink url="http://vimdoc.sourceforge.net/htmldoc/change.html#Y"
+>توثيق</ulink
+> فيم. </para>
+</listitem>
+<listitem>
+<para
+>كيت: <userinput
+>O</userinput
+> و <userinput
+>o</userinput
+> يفتحان [<replaceable
+>العدد</replaceable
+>] أسطر جديدة ويضعانك في وضع الإدراج.</para>
+<para
+>فيم: <userinput
+>O</userinput
+> و <userinput
+>o</userinput
+> يفتحان سطرا جديدا ويدرجان النص [<replaceable
+>العدد</replaceable
+>] مرات عند مغادرة وضع الإدراج.</para>
+<para
+>نُفذ هذا غالبا نتيجة لملاحظة ارتباك الكثير من الناس بهذا السلوك في قناة فيم على آي-آر-سي (#vim على Libera Chat).</para>
+</listitem>
+</itemizedlist>
+
+</sect2>
+
+<sect2 id="vi-switching-modes">
+<title
+>تبديل الأوضاع</title>
+
+<itemizedlist>
+<listitem>
+<para
+>يسمح لك <emphasis
+>الوضع العادي</emphasis
+> بإدخال أوامر للتنقل أو تحرير مستند، وهو الوضع المبدئي. يمكنك العودة إليه من أي وضع آخر بالضغط على &Esc;. </para
+></listitem>
+<listitem>
+<para
+>يسمح لك <emphasis
+>الوضع المرئي</emphasis
+> بتظليل النص في مستند. معظم أوامر الوضع العادي صالحة أيضا في هذا الوضع. يمكنك الدخول إليه بالضغط على <userinput
+>v</userinput
+> لتحديد الأحرف أو <userinput
+>V</userinput
+> لتحديد الأسطر. </para
+></listitem>
+<listitem>
+<para
+>يسمح لك <emphasis
+>وضع الإدراج</emphasis
+> بتحرير المستند مباشرة. يمكنك الدخول إليه بالضغط على <userinput
+>i</userinput
+> أو أحد الأوامر الأخرى المدرجة أدناه. </para
+></listitem>
+<listitem>
+<para
+>يستدعي <emphasis
+>وضع الأمر</emphasis
+> سطر أوامر كيت، مما يسمح لك بتشغيل العديد من الأوامر المتاحة في تطبيقات Vi بالإضافة إلى بعض الأوامر الخاصة بكيت. لمزيد من المعلومات حول هذه الأوامر، راجع <xref linkend="advanced-editing-tools-commandline"/>. لاستخدامه، اضغط على <keycap
+>:</keycap
+>، وأدخل الأمر، ثم اضغط على &Enter;.</para>
+</listitem>
+</itemizedlist>
+<!-- add a picture like https://de.wikipedia.org/wiki/Vi#Arbeitsmodi here? -->
+</sect2>
+
+<sect2 id="vi-integration">
+<title
+>التكامل مع ميزات كيت</title>
+<itemizedlist>
+
+<listitem>
+<para
+>يُدخل إلى الوضع المرئي آليا عند تحديد نص بالفأرة. يُدخل إليه أيضا عند استخدام وظائف كيت التي تحدد النص، مثل «حدد الكل» (إما من القائمة أو عبر <keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+>.)</para>
+</listitem>
+
+<listitem>
+<para
+>دُمجت علامات Vi و <link linkend="kate-part-bookmarks"
+>علامات كيت المرجعية</link
+>. عند إنشاء علامة في وضع Vi، تُنشأ علامة مرجعية مقابلة في كيت وتظهر في قائمة <guimenu
+>علامات مرجعية</guimenu
+>. وبالعكس، عند إنشاء علامة مرجعية في كيت، تُنشأ علامة Vi مقابلة عند العمود 0.</para>
+</listitem>
+
+</itemizedlist>
+</sect2>
+
+<sect2 id="vi-normal-visual-mode-commands">
+<title
+>أوامر الوضع العادي/المرئي المدعومة</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>a</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ ألحق بعد المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>A</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ ألحق بعد السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ أدرج قبل المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Ins;</para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ أدرج قبل المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>I</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ أدرج قبل أول محرف غير فارغ في السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gi</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الإدراج؛ أدرج قبل المكان الذي غادرت فيه آخر وضع إدراج</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>v</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل الوضع المرئي؛ حدد المحارف</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>V</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل الوضع المرئي؛ حدد الأسطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>v</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>ادخل الوضع المرئي؛ حدد الكتل</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gb</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل الوضع المرئي؛ أعد تحديد التحديد الأخير</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>o</userinput
+></para
+></entry>
+<entry
+><para
+>افتح سطرا جديدا أسفل السطر الحالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>O</userinput
+></para
+></entry>
+<entry
+><para
+>افتح سطرا جديدا أعلى السطر الحالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>J</userinput
+></para
+></entry>
+<entry
+><para
+>ضم الأسطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>c</userinput
+></para
+></entry>
+<entry
+><para
+>غير: متبوعا بحركة للحذف والدخول في وضع الإدراج</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>C</userinput
+></para
+></entry>
+<entry
+><para
+>غير إلى نهاية السطر: احذف إلى نهاية السطر وادخل وضع الإدراج</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>cc</userinput
+></para
+></entry>
+<entry
+><para
+>غير السطر: احذف السطر وادخل وضع الإدراج</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>s</userinput
+></para
+></entry>
+<entry
+><para
+>استبدل المحرف</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>S</userinput
+></para
+></entry>
+<entry
+><para
+>استبدل السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>dd</userinput
+></para
+></entry>
+<entry
+><para
+>احذف السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>d</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بحركة للحذف</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>D</userinput
+></para
+></entry>
+<entry
+><para
+>احذف إلى نهاية السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>x</userinput
+></para
+></entry>
+<entry
+><para
+>احذف المحرف الموجود على يمين المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Del;</para
+></entry>
+<entry
+><para
+>احذف المحرف الموجود على يمين المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>X</userinput
+></para
+></entry>
+<entry
+><para
+>احذف المحرف الموجود على يسار المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gu</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بحركة لجعل الأحرف صغيرة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>guu</userinput
+></para
+></entry>
+<entry
+><para
+>اجعل السطر الحالي بأحرف صغيرة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gU</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بحركة لجعل الأحرف كبيرة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gUU</userinput
+></para
+></entry>
+<entry
+><para
+>اجعل السطر الحالي بأحرف كبيرة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>y</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بحركة للنسخ</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>yy</userinput
+></para
+></entry>
+<entry
+><para
+>انسخ السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>Y</userinput
+></para
+></entry>
+<entry
+><para
+>انسخ السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>p</userinput
+></para
+></entry>
+<entry
+><para
+>الصق بعد المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>P</userinput
+></para
+></entry>
+<entry
+><para
+>الصق قبل المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]p</userinput
+></para
+></entry>
+<entry
+><para
+>الصق بعد المؤشر مع إزاحة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[p</userinput
+></para
+></entry>
+<entry
+><para
+>الصق قبل المؤشر مع إزاحة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>r</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بمحرف لاستبدال المحرف الموجود خلف المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>R</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الاستبدال</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>:</userinput
+></para
+></entry>
+<entry
+><para
+>ادخل وضع الأمر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>/</userinput
+></para
+></entry>
+<entry
+><para
+>ابحث</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>u</userinput
+></para
+></entry>
+<entry
+><para
+>تراجع</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>كرّر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>U</userinput
+></para
+></entry>
+<entry
+><para
+>كرّر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>m</userinput
+></para
+></entry>
+<entry
+><para
+>عين علامة (يمكن استخدامها في الحركات لاحقا)</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>n</userinput
+></para
+></entry>
+<entry
+><para
+>ابحث على التالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>N</userinput
+></para
+></entry>
+<entry
+><para
+>ابحث عن السابق</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>أزح السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>ألغِ إزاحة السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&gt;</userinput
+></para
+></entry>
+<entry
+><para
+>أزح الأسطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>ألغِ إزاحة الأسطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>صفحة لأسفل</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>B</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>صفحة لأعلى</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ga</userinput
+></para
+></entry>
+<entry
+><para
+>اطبع قيمة المحرف بترميز &ASCII;</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>.</userinput
+></para
+></entry>
+<entry
+><para
+>كرر التغيير الأخير</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>==</userinput
+></para
+></entry>
+<entry
+><para
+>محاذاة سطر الأوامر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>=</userinput
+></para
+></entry>
+<entry
+><para
+>محاذاة أسطر الأوامر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>~</userinput
+></para
+></entry>
+<entry
+><para
+>غير حالة المحرف الحالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>اقسم العرض أفقيا</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>V</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>اقسم العرض رأسيا</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>، <userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>انتقل دوريا إلى نافذة الانقسام التالية</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>، <userinput
+>h</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>انتقل إلى نافذة الانقسام اليسرى</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>، <userinput
+>l</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>انتقل إلى نافذة الانقسام اليمنى</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>، <userinput
+>k</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Up;</keycombo
+></para
+></entry>
+<entry
+><para
+>انتقل إلى نافذة الانقسام العلوية</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>، <userinput
+>j</userinput
+></para>
+<para
+><keycombo action="seq"
+><keycombo action="simul"
+>&Ctrl; <keycap
+>W</keycap
+></keycombo
+>&Down;</keycombo
+></para
+></entry>
+<entry
+><para
+>انتقل إلى نافذة الانقسام السفلية</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-motions">
+<title
+>الحركات المدعومة</title>
+
+<para
+>يمكن استخدامها للتنقل في المستند في الوضع العادي أو المرئي، أو بالاشتراك مع أحد الأوامر المذكورة أعلاه. قد يسبقها عدد، يشير إلى عدد الحركات المناسبة المراد تنفيذها.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>h</userinput
+></para
+></entry>
+<entry
+><para
+>يسار</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Left;</para
+></entry>
+<entry
+><para
+>يسار</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Backspace;</para
+></entry>
+<entry
+><para
+>يسار</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>j</userinput
+></para
+></entry>
+<entry
+><para
+>أسفل</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Down;</para
+></entry>
+<entry
+><para
+>أسفل</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>k</userinput
+></para
+></entry>
+<entry
+><para
+>أعلى</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Up;</para
+></entry>
+<entry
+><para
+>أعلى</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>l</userinput
+></para
+></entry>
+<entry
+><para
+>يمين</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Right;</para
+></entry>
+<entry
+><para
+>يمين</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Space;</para
+></entry>
+<entry
+><para
+>يمين</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>$</userinput
+></para
+></entry>
+<entry
+><para
+>نهاية السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&End;</para
+></entry>
+<entry
+><para
+>نهاية السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>0</userinput
+></para
+></entry>
+<entry
+><para
+>أول محرف في السطر (العمود 0)</para
+></entry>
+</row>
+<row
+><entry
+><para
+>&Home;</para
+></entry>
+<entry
+><para
+>أول محرف في السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>^</userinput
+></para
+></entry>
+<entry
+><para
+>أول محرف غير فارغ في السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>f</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بمحرف للانتقال إلى يمين المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>F</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بمحرف للانتقال إلى يسار المؤشر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>t</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بمحرف للانتقال إلى يمين المؤشر، مع وضع المؤشر على المحرف الذي قبله</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>T</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بمحرف للانتقال إلى يسار المؤشر، مع وضع المؤشر على المحرف الذي قبله</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gg</userinput
+></para
+></entry>
+<entry
+><para
+>السطر الأول</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>G</userinput
+></para
+></entry>
+<entry
+><para
+>السطر الأخير</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>w</userinput
+></para
+></entry>
+<entry
+><para
+>الكلمة التالية</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>W</userinput
+></para
+></entry>
+<entry
+><para
+>الكلمة التالية المفصولة بمسافة بيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>b</userinput
+></para
+></entry>
+<entry
+><para
+>الكلمة السابقة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>B</userinput
+></para
+></entry>
+<entry
+><para
+>الكلمة السابقة المفصولة بمسافة بيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>e</userinput
+></para
+></entry>
+<entry
+><para
+>نهاية الكلمة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>E</userinput
+></para
+></entry>
+<entry
+><para
+>نهاية الكلمة المفصولة بمسافة بيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>ge</userinput
+></para
+></entry>
+<entry
+><para
+>نهاية الكلمة السابقة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>gE</userinput
+></para
+></entry>
+<entry
+><para
+>نهاية الكلمة السابقة المفصولة بمسافة بيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>|</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا برقم عمود للانتقال إلى ذلك العمود</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>%</userinput
+></para
+></entry>
+<entry
+><para
+>متبوعا بعنصر للانتقال إلى ذلك العنصر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>`</userinput
+></para
+></entry>
+<entry
+><para
+>علامة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>‘</userinput
+></para
+></entry>
+<entry
+><para
+>أول محرف غير مسافة بيضاء في السطر الذي توجد فيه العلامة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[[</userinput
+></para
+></entry>
+<entry
+><para
+>قوس الفتح السابق</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>]]</userinput
+></para
+></entry>
+<entry
+><para
+>قوس الفتح التالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>[]</userinput
+></para
+></entry>
+<entry
+><para
+>قوس الإغلاق السابق</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>][</userinput
+></para
+></entry>
+<entry
+><para
+>قوس الإغلاق التالي</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>اقفز إلى الموقع التالي</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>اقفز إلى الموقع السابق</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>H</userinput
+></para
+></entry>
+<entry
+>انتقل إلى السطر الأول من الشاشة</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>M</userinput
+></para
+></entry>
+<entry
+>انتقل إلى السطر الأوسط من الشاشة</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>L</userinput
+></para
+></entry>
+<entry
+>انتقل إلى السطر الأخير من الشاشة</entry
+></row>
+<row
+><entry
+><para
+><userinput
+>%<replaceable
+>النسبة المئوية</replaceable
+></userinput
+></para
+></entry>
+<entry
+><para
+>انتقل إلى نسبة مئوية محددة من المستند</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gk</userinput
+></para
+></entry>
+<entry
+><para
+>اصعد سطرا واحدا مرئيا (عند استخدام لف الكلمات الديناميكي)</para
+></entry
+></row>
+<row
+><entry
+><para
+><userinput
+>gj</userinput
+></para
+></entry>
+<entry
+><para
+>انزل سطرا واحدا مرئيا (عند استخدام لف الكلمات الديناميكي)</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Left;</keycombo
+></para
+></entry>
+<entry
+><para
+>تحرك كلمة واحدة لليسار</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Right;</keycombo
+></para
+></entry>
+<entry
+><para
+>تحرك كلمة واحدة لليمين</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-supported-text-objects">
+<title
+>كائنات النص المدعومة</title>
+
+<para
+>يمكن استخدامها لتحديد أجزاء معينة من المستند.</para>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><userinput
+>iw</userinput
+></para
+></entry>
+<entry
+><para
+>الكلمة الداخلية: الكلمة بما في ذلك المسافة البيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>aw</userinput
+></para
+></entry>
+<entry
+><para
+>كلمة: الكلمة باستثناء المسافة البيضاء</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i"</userinput
+></para
+></entry>
+<entry
+><para
+>من علامة الاقتباس المزدوجة السابقة (<userinput
+>"</userinput
+>) إلى علامة الاقتباس المزدوجة التالية، بما في ذلك علامات الاقتباس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a”</userinput
+></para
+></entry>
+<entry
+><para
+>من علامة الاقتباس المزدوجة السابقة (<userinput
+>"</userinput
+>) إلى علامة الاقتباس المزدوجة التالية، باستثناء علامات الاقتباس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i'</userinput
+></para
+></entry>
+<entry
+><para
+>من علامة الاقتباس المفردة السابقة (<userinput
+>'</userinput
+>) إلى علامة الاقتباس المفردة التالية، بما في ذلك علامات الاقتباس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a'</userinput
+></para
+></entry>
+<entry
+><para
+>من علامة الاقتباس المفردة السابقة (<userinput
+>'</userinput
+>) إلى علامة الاقتباس المفردة التالية، باستثناء علامات الاقتباس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i(</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس الفتح السابق [<userinput
+>(</userinput
+>] إلى قوس الإغلاق التالي [<userinput
+>)</userinput
+>]، بما في ذلك الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a(</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس الفتح السابق [<userinput
+>(</userinput
+>] إلى قوس الإغلاق التالي [<userinput
+>)</userinput
+>]، باستثناء الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i[</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس المربع الفاتح السابق (<userinput
+>[</userinput
+>) إلى قوس المربع المغلق التالي (<userinput
+>]</userinput
+>)، بما في ذلك الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a[</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس المربع الفاتح السابق (<userinput
+>[</userinput
+>) إلى قوس المربع المغلق التالي (<userinput
+>]</userinput
+>)، باستثناء الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i{</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس المجموعة الفاتح السابق (<userinput
+>{</userinput
+>) إلى قوس المجموعة المغلق التالي (<userinput
+>}</userinput
+>)، بما في ذلك الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a{</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس المجموعة الفاتح السابق (<userinput
+>{</userinput
+>) إلى قوس المجموعة المغلق التالي (<userinput
+>}</userinput
+>)، باستثناء الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس الزاوية الفاتح السابق (<userinput
+>&lt;</userinput
+>) إلى قوس الزاوية المغلق التالي (<userinput
+>&gt;</userinput
+>)، بما في ذلك الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a&lt;</userinput
+></para
+></entry>
+<entry
+><para
+>من قوس الزاوية الفاتح السابق (<userinput
+>&lt;</userinput
+>) إلى قوس المربع المغلق التالي (<userinput
+>&gt;</userinput
+>)، باستثناء الأقواس</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>i`</userinput
+></para
+></entry>
+<entry
+><para
+>من العلامة المائلة للخلف السابقة (<userinput
+>`</userinput
+>) إلى العلامة التالية، بما في ذلك العلامات</para
+></entry>
+</row>
+<row
+><entry
+><para
+><userinput
+>a`</userinput
+></para
+></entry>
+<entry
+><para
+>من العلامة المائلة للخلف السابقة (<userinput
+>`</userinput
+>) إلى العلامة التالية، باستثناء العلامات</para
+></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-insert-mode-commands">
+<title
+>أوامر وضع الإدراج المدعومة</title>
+
+<informaltable>
+<tgroup cols="2">
+<!--thead>
+<row>
+<entry
+><para
+>Key</para
+></entry>
+<entry
+><para
+>Command</para
+></entry>
+</row>
+</thead-->
+<tbody>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>D</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>ألغِ الإزاحة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>أزح</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>E</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>أدرج من الأسفل</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>Y</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>احذف الكلمة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>W</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>احذف الكلمة</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>U</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>احذف السطر</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>J</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>سطر جديد</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>H</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>احذف المحرف للخلف</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;&Home;</keycombo
+></para
+></entry>
+<entry
+><para
+>انتقل إلى أول محرف في المستند</para
+></entry>
+</row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> <userinput
+>n</userinput
+></para
+></entry>
+<entry
+>أدرج محتويات المسجل <literal
+>n</literal
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>O</keycap
+></keycombo
+>، <replaceable
+>الأمر</replaceable
+></para
+></entry>
+<entry
+><para
+>ادخل الوضع العادي لأمر واحد فقط</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>A</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>زد الرقم المحدد حاليا</para
+></entry
+></row>
+<row
+><entry
+><para
+><keycombo action="simul"
+>&Ctrl;<keycap
+>X</keycap
+></keycombo
+></para
+></entry>
+<entry
+><para
+>أنقص الرقم المحدد حاليا</para
+></entry
+></row>
+</tbody>
+</tgroup>
+</informaltable>
+</sect2>
+
+<sect2 id="vi-text-object">
+<title
+>كائن نص الفاصلة</title>
+
+<para
+>هذا الكائن مفقود في فيم. يسهل كائن نص الفاصلة تعديل قوائم المعاملات في اللغات الشبيهة بـ C وغيرها من القوائم المفصولة بفواصل. هو أساسا المنطقة الواقعة بين فاصلتين أو بين فاصلة وقوس. في السطر الموضح في الشكل التوضيحي، تم تظليل النطاقات الثلاثة التي يمكن أن يمتد إليها كائن النص هذا.</para>
+
+<screenshot id="screenshot-resources">
+<screeninfo
+>مثال على كائن نص الفاصلة</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata fileref="comma-to.png" format="PNG"/></imageobject>
+<textobject
+><phrase
+>مثال على كائن نص الفاصلة</phrase
+></textobject>
+<caption
+><para
+>نطاقات كائن نص الفاصلة. إذا كان المؤشر فوق <replaceable
+>arg2</replaceable
+> على سبيل المثال، فإن الضغط على <userinput
+>ci</userinput
+>، («تغيير الفاصلة الداخلية») سيحذف <replaceable
+>double arg2</replaceable
+> ويضع المؤشر بين الفاصلتين في وضع الإدراج. طريقة مريحة للغاية لتغيير معاملات الدالة.</para
+></caption>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="vi-missing-features">
+<title
+>الميزات المفقودة</title>
+
+<para
+>كما ذُكر سابقا، فإن هدف وضع VI في كيت ليس دعم 100% من ميزات فيم.</para>
+</sect2>
+
+</sect1>
+
+</chapter>

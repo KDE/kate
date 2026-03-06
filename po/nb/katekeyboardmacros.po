@@ -134,7 +134,7 @@ msgid ""
 "<qt><p>Usage: <code>kmwipe &lt;name&gt;</code></p><p>Wipe saved keyboard "
 "macro <code>&lt;name&gt;</code>.</p>%1</qt>"
 msgstr ""
-"<qt><p>Bruk: <code>kmwipe lt;navn&gt;</code></p><p>Slett lagret "
+"<qt><p>Bruk: <code>kmwipe &lt;navn&gt;</code></p><p>Slett lagret "
 "tastetrykkmakro <code>&lt;navn&gt;</code>.</p>%1</qt>"
 
 #: keyboardmacrospluginview.cpp:33

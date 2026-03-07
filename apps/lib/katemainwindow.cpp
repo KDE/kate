@@ -737,7 +737,8 @@ void KateMainWindow::setupDiagnosticsView(KConfig *sconfig)
 
 void KateMainWindow::slotDocumentCloseAll()
 {
-    if (!KateApp::self()->documentManager()->documentList().empty()
+    const QList<KTextEditor::Document *> documents = KateApp::self()->documentManager()->documentList();
+    if (!documents.empty()
         && KMessageBox::warningContinueCancel(this,
                                               i18n("This will close all open documents. Are you sure you want to continue?"),
                                               i18n("Close all documents?"),
@@ -745,9 +746,7 @@ void KateMainWindow::slotDocumentCloseAll()
                                               KStandardGuiItem::cancel(),
                                               QStringLiteral("closeAll"))
             != KMessageBox::Cancel) {
-        if (queryClose_internal()) {
-            KateApp::self()->documentManager()->closeAllDocuments(false);
-        }
+        KateApp::self()->closeDocuments(documents);
     }
 }
 
@@ -769,14 +768,7 @@ void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 
 void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document *> &docList)
 {
-    QList<KTextEditor::Document *> documents;
-    for (KTextEditor::Document *doc : docList) {
-        if (queryClose_internal(doc)) {
-            documents.push_back(doc);
-        }
-    }
-
-    KateApp::self()->documentManager()->closeDocuments(documents);
+    KateApp::self()->closeDocuments(docList);
 }
 
 void KateMainWindow::slotDocumentCloseOther()

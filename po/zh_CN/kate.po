@@ -1105,7 +1105,7 @@ msgstr ""
 #: lib/kateconfigdialog.cpp:215
 #, kde-format
 msgid "Show text for left and right sidebar buttons"
-msgstr "显示左右侧边栏按钮的文字"
+msgstr "显示左右侧边栏按钮的文本"
 
 #: lib/kateconfigdialog.cpp:220
 #, kde-format

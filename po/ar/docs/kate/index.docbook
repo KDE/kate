@@ -13,7 +13,7 @@
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
   <!ENTITY development-chapter SYSTEM "development.docbook">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"
+  <!ENTITY % Arabic "INCLUDE"
 ><!-- change language only here -->
 ]>
 

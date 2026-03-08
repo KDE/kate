@@ -11,7 +11,7 @@
   <!ENTITY vi-appendix SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"
+  <!ENTITY % Arabic "INCLUDE"
 > <!-- change language only here -->
 ]>
 

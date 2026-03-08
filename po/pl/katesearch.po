@@ -1,6 +1,6 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2013.
 #
 msgid ""
@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2025-02-15 11:13+0100\n"
+"PO-Revision-Date: 2026-03-07 08:42+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
-"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
+"Language-Team: pl\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 25.08.2\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -59,6 +60,8 @@ msgid ""
 "Export pattern: \\0 for full match, \\1,\\2,.. for regular expression "
 "captures"
 msgstr ""
+"Wzorzec eksportowania: \\0 dla całego dopasowanego ciągu, \\1,\\2,.. dla "
+"części z dopasowanego ciągu"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushButton)
 #: MatchExportDialog.ui:35
@@ -167,9 +170,9 @@ msgstr "Tworzenie spisu plików: ...%1"
 #, kde-format
 msgid "One match found, searching: ...%2"
 msgid_plural "%1 matches found, searching: ...%2"
-msgstr[0] "Znaleziono  jedno pasujące wyrażenie, szukam dalej: %2"
-msgstr[1] "Znaleziono %1 pasujące wyrażenia, szukam dalej: %2"
-msgstr[2] "Znaleziono %1 pasujących wyrażeń, szukam dalej: %2"
+msgstr[0] "Znaleziono jedno pasujące wyrażenie, szukam dalej: …%2"
+msgstr[1] "Znaleziono %1 pasujące wyrażenia, szukam dalej: …%2"
+msgstr[2] "Znaleziono %1 pasujących wyrażeń, szukam dalej: …%2"
 
 #: MatchModel.cpp:735
 #, kde-format
@@ -622,27 +625,25 @@ msgstr ""
 "bieżącym dokumencie do schowka"
 
 #: SearchPlugin.cpp:393
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"
+#, kde-format
 msgid "Comma separated list of file types to search in. Example: \"*.cpp,*.h\""
 msgstr ""
-"Wykaz oddzielonych przecinkami rodzajów plików do przeszukiwania. Przykład: "
-"\"*.cpp,*.h\"\n"
+"Rozszerzenia plików oddzielone przecinkami, wewnątrz których szukać. "
+"Przykład: \"*.cpp,*.h\""
 
 #: SearchPlugin.cpp:395
-#, fuzzy, kde-format
-#| msgid ""
-#| "Comma separated list of files and directories to exclude from the search. "
-#| "Example: \"build*\""
+#, kde-format
 msgid ""
 "Comma separated list of wildcard patterns to match files or directory names "
 "to exclude from the search.\n"
 "Example: \"build*\"\n"
 "If the pattern contains a '/', the whole path is checked for a match."
 msgstr ""
-"Wykaz plików i katalogów oddzielonych przecinkami do wykluczenia z "
-"wyszukiwania. Przykład: \"build*\""
+"Wzorce, ze znakami wieloznacznymi, nazw katalogów i plików, oddzielone "
+"przecinkami, do wykluczenia z wyszukiwania.\n"
+"Przykład: \"build*\"\n"
+"Jeśli wzorzec zawiera '/', to podejmowana jest próba dopasowania całej "
+"ścieżki."
 
 #: SearchPlugin.cpp:400
 #, kde-format
@@ -724,6 +725,10 @@ msgid ""
 "the whole matches, use \\0. To export regular expression captures, use \\1,"
 "\\2,... The other text in the pattern is returned in the export results."
 msgstr ""
+"Przekształć i wyeksportuj znalezione ciągi przy użyciu wzorców zastępowania. "
+"Aby wyeksportować całe znalezione ciągi, użyj \\0. Aby wyeksportować tylko "
+"części znalezionych ciągów, użyj \\1,\\2,… Pozostały tekst we wzorcu jest "
+"zwracany w wynikach eksportu."
 
 #: SearchPlugin.cpp:2288
 #, kde-format
@@ -738,7 +743,7 @@ msgstr "Wyczyść"
 #: SearchPlugin.cpp:2405 SearchPlugin.cpp:2447
 #, kde-format
 msgid "Clear history"
-msgstr ""
+msgstr "Wyczyść historię"
 
 #: SearchPlugin.cpp:2413 SearchPlugin.cpp:2454
 #, kde-format

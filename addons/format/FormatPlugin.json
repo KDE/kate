@@ -19,6 +19,7 @@
         "Description[lv]": "Saglabājot datni, to formatēt ar ārēju rīku",
         "Description[nb]": "Formater ved hjelp av et eksternt verktøy når fila er lagret",
         "Description[nl]": "Een extern hulpmiddel gebruiken bij opslaan van het bestand",
+        "Description[pl]": "Sformatuj przy użyciu zewnętrznego narzędzia tuż przed zapisaniem pliku",
         "Description[pt]": "Formatar com uma ferramenta externa ao guardar o ficheiro",
         "Description[pt_BR]": "Formatar usando uma ferramenta externa quando o arquivo for salvo",
         "Description[ru]": "Форматирование с помощью внешней программы при сохранении файла",

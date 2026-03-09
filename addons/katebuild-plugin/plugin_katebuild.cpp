@@ -1786,9 +1786,17 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(const QString &line)
     }
 
     QString filename = match.captured(QStringLiteral("filename"));
-    const QString line_n = match.captured(QStringLiteral("line"));
-    const QString col_n = match.captured(QStringLiteral("column"));
+    QString line_n = match.captured(QStringLiteral("line"));
+    QString col_n = match.captured(QStringLiteral("column"));
     const QString msg = match.captured(QStringLiteral("message"));
+
+    // If we have empty line/column set sane defaults
+    if (line_n.isEmpty()) {
+        line_n = u"1"_s;
+    }
+    if (col_n.isEmpty()) {
+        col_n = u"1"_s;
+    }
 
 #ifdef Q_OS_WIN
     // convert '\' to '/' so the concatenation works

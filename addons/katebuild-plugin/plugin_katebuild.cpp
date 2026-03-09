@@ -1786,14 +1786,11 @@ KateBuildView::OutputLine KateBuildView::processOutputLine(const QString &line)
     }
 
     QString filename = match.captured(QStringLiteral("filename"));
-    QString line_n = match.captured(QStringLiteral("line"));
+    const QString line_n = match.captured(QStringLiteral("line"));
     QString col_n = match.captured(QStringLiteral("column"));
     const QString msg = match.captured(QStringLiteral("message"));
 
-    // If we have empty line/column set sane defaults
-    if (line_n.isEmpty()) {
-        line_n = u"1"_s;
-    }
+    // If we an have empty column set a sane default (not 0 which is then decremented to -1)
     if (col_n.isEmpty()) {
         col_n = u"1"_s;
     }

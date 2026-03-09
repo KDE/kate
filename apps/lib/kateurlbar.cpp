@@ -534,15 +534,20 @@ class BreadCrumbDelegate : public QStyledItemDelegate
 public:
     using QStyledItemDelegate::QStyledItemDelegate;
 
+    static constexpr int separatorSize = 8; // Chevron decoration
+    static constexpr int decorationSize = 16; // Icon inside a breadcrumb
+
     void initStyleOption(QStyleOptionViewItem *o, const QModelIndex &idx) const override
     {
         QStyledItemDelegate::initStyleOption(o, idx);
         o->decorationAlignment = Qt::AlignCenter;
         // We always want this icon size and nothing bigger
         if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
-            o->decorationSize = QSize(8, 8);
+            o->decorationSize = QSize(separatorSize, separatorSize);
+            o->viewItemPosition = QStyleOptionViewItem::ViewItemPosition::Middle;
         } else {
-            o->decorationSize = QSize(16, 16);
+            o->decorationSize = QSize(decorationSize, decorationSize);
+            o->viewItemPosition = QStyleOptionViewItem::ViewItemPosition::OnlyOne;
         }
 
         if (o->state & QStyle::State_MouseOver) {
@@ -550,6 +555,7 @@ public:
             if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
                 o->state.setFlag(QStyle::State_MouseOver, false);
                 o->state.setFlag(QStyle::State_Active, false);
+                o->state.setFlag(QStyle::State_HasFocus, false);
             } else {
                 o->palette.setBrush(QPalette::Text, o->palette.windowText());
             }
@@ -558,21 +564,9 @@ public:
 
     QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &idx) const override
     {
-        const auto str = idx.data(Qt::DisplayRole).toString();
-        const int margin = opt.widget->style()->pixelMetric(QStyle::PM_FocusFrameHMargin);
-        if (!str.isEmpty()) {
-            const int hMargin = margin + 1;
-            QSize size = QStyledItemDelegate::sizeHint(opt, idx);
-            const int w = opt.fontMetrics.horizontalAdvance(str) + (2 * hMargin);
-            size.rwidth() = w;
-
-            if (!idx.data(Qt::DecorationRole).isNull()) {
-                size.rwidth() += 16 + (2 * margin);
-            }
-
-            return size;
-        } else if (!idx.data(Qt::DecorationRole).isNull()) {
-            QSize s(8, 8);
+        if (idx.data(BreadCrumbRole::IsSeparator).toBool()) {
+            const int margin = opt.widget->style()->pixelMetric(QStyle::PM_FocusFrameHMargin);
+            QSize s(separatorSize, separatorSize);
             s = s.grownBy({margin, 0, margin, 0});
             return s;
         }

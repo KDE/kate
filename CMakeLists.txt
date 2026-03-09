@@ -78,7 +78,7 @@ endif()
 # deprecation options
 ecm_set_disabled_deprecation_versions(
     QT 6.9
-    KF 6.16.0
+    KF 6.10.0
 )
 
 # be more strict with some Qt constructs

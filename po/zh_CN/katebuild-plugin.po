@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-27 00:48+0000\n"
+"POT-Creation-Date: 2026-03-10 00:47+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -361,31 +361,31 @@ msgstr "构建完成，没有出现问题。"
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "构建 <b>%1：%2 已取消</b>。返回 %3 条错误，%4 条警告，%5 条提醒"
 
-#: plugin_katebuild.cpp:1815
+#: plugin_katebuild.cpp:1820
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "错误"
 
-#: plugin_katebuild.cpp:1818
+#: plugin_katebuild.cpp:1823
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "警告"
 
-#: plugin_katebuild.cpp:1821
+#: plugin_katebuild.cpp:1826
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "提醒|信息"
 
-#: plugin_katebuild.cpp:1824
+#: plugin_katebuild.cpp:1829
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "未定义的引用"
 
-#: plugin_katebuild.cpp:2128
+#: plugin_katebuild.cpp:2133
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "无法保存构建目标：%1"

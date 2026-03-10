@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-27 00:48+0000\n"
+"POT-Creation-Date: 2026-03-10 00:47+0000\n"
 "PO-Revision-Date: 2024-12-24 20:39+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -377,31 +377,31 @@ msgstr "निर्माणं समस्यां विना सम्प
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr "<b>%1 निर्माणं रद्दं कृतम्</b> . %2 त्रुटि(s), %3 चेतावनी(s), %4 टिप्पणी(s)"
 
-#: plugin_katebuild.cpp:1815
+#: plugin_katebuild.cpp:1820
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "त्रुटि"
 
-#: plugin_katebuild.cpp:1818
+#: plugin_katebuild.cpp:1823
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "चेतवानी"
 
-#: plugin_katebuild.cpp:1821
+#: plugin_katebuild.cpp:1826
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "नोट|सूचना"
 
-#: plugin_katebuild.cpp:1824
+#: plugin_katebuild.cpp:1829
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "अनिर्धारितः सन्दर्भः"
 
-#: plugin_katebuild.cpp:2128
+#: plugin_katebuild.cpp:2133
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "निर्माणलक्ष्याणि रक्षितुं न शक्यते: %1"

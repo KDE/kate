@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katebuild-plugin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-27 00:48+0000\n"
+"POT-Creation-Date: 2026-03-10 00:47+0000\n"
 "PO-Revision-Date: 2011-12-21 14:12+0700\n"
 "Last-Translator: Chan Sambathratanak <ratanak@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -373,7 +373,7 @@ msgstr "ស្ថាបនា​បញ្ចប់​ដោយ​គ្មាន
 msgid "Build <b>%1: %2 canceled</b>. %3 error(s), %4 warning(s), %5 note(s)"
 msgstr ""
 
-#: plugin_katebuild.cpp:1815
+#: plugin_katebuild.cpp:1820
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark an error."
 #| msgid "error"
@@ -381,7 +381,7 @@ msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "កំហុស"
 
-#: plugin_katebuild.cpp:1818
+#: plugin_katebuild.cpp:1823
 #, fuzzy, kde-format
 #| msgctxt "The same word as 'make' uses to mark a warning."
 #| msgid "warning"
@@ -389,19 +389,19 @@ msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "ការព្រមាន​"
 
-#: plugin_katebuild.cpp:1821
+#: plugin_katebuild.cpp:1826
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr ""
 
-#: plugin_katebuild.cpp:1824
+#: plugin_katebuild.cpp:1829
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "សេចក្ដី​យោង​​ដែល​មិនបានកំណត់"
 
-#: plugin_katebuild.cpp:2128
+#: plugin_katebuild.cpp:2133
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr ""

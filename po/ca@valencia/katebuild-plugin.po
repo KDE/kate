@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-27 00:48+0000\n"
+"POT-Creation-Date: 2026-03-10 00:47+0000\n"
 "PO-Revision-Date: 2025-08-26 09:43+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -400,31 +400,31 @@ msgstr ""
 "S'ha cancel·lat la construcció de <b>%1: %2</b>. %3 errors, %4 avisos, %5 "
 "notes"
 
-#: plugin_katebuild.cpp:1815
+#: plugin_katebuild.cpp:1820
 #, kde-format
 msgctxt "The same word as 'gcc' uses for an error."
 msgid "error"
 msgstr "error"
 
-#: plugin_katebuild.cpp:1818
+#: plugin_katebuild.cpp:1823
 #, kde-format
 msgctxt "The same word as 'gcc' uses for a warning."
 msgid "warning"
 msgstr "avís"
 
-#: plugin_katebuild.cpp:1821
+#: plugin_katebuild.cpp:1826
 #, kde-format
 msgctxt "The same words as 'gcc' uses for note or info."
 msgid "note|info"
 msgstr "nota/informació"
 
-#: plugin_katebuild.cpp:1824
+#: plugin_katebuild.cpp:1829
 #, kde-format
 msgctxt "The same word as 'ld' uses to mark an ..."
 msgid "undefined reference"
 msgstr "referència no definida"
 
-#: plugin_katebuild.cpp:2128
+#: plugin_katebuild.cpp:2133
 #, kde-format
 msgid "Cannot save build targets in: %1"
 msgstr "No s'han pogut guardar els objectius de construcció en: %1"

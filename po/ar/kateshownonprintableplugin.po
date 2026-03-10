@@ -1,29 +1,29 @@
 # Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
+# SPDX-FileCopyrightText: 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
-# SPDX-FileCopyrightText: 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-08 00:49+0000\n"
-"PO-Revision-Date: 2026-03-08 21:33+0200\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: צוות התרגום של KDE ישראל\n"
-"Language: he\n"
+"PO-Revision-Date: 2026-03-09 21:14+0400\n"
+"Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
+"Language-Team: ar\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
-"n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.2\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: kateshownonprintableplugin.cpp:353
 #, kde-format
 msgid "Show Non-Printable Characters"
-msgstr "להציג תווים לא להצגה"
+msgstr "أظهر المحارف غير الطباعية"
 
 #: kateshownonprintableplugin.cpp:356
 #, kde-format
 msgid "Toggle Show Non-Printable Characters"
-msgstr "החלפת מצב הצגת תווים לא להצגה"
+msgstr "أظهر/أخفِ المحارف غير الطباعية"

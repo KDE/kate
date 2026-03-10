@@ -1,6 +1,32 @@
 {
     "KPlugin": {
         "Description": "Allows you show non-printable characters",
-        "Name": "Show Non-Printable Characters"
+        "Description[ca@valencia]": "Permet mostrar els caràcters no imprimibles",
+        "Description[ca]": "Permet mostrar els caràcters no imprimibles",
+        "Description[es]": "Permite mostrar caracteres no imprimibles",
+        "Description[eu]": "Karaktere ez inprimagarria erakusteko aukera ematen dizu",
+        "Description[he]": "תמיד להציג תווים שאינם להצגה",
+        "Description[ia]": "Te permitte monstrar characteres non imprimibile",
+        "Description[ka]": "საშუალებას გაძლევთ, აჩვენოთ არაბეჭდვადი სიმბოლოები",
+        "Description[nl]": "Sta u toe niet-afdrukbare-tekens te tonen",
+        "Description[pt_BR]": "Permite exibir caracteres não imprimíveis",
+        "Description[ru]": "Позволяет просматривать непечатаемые символы",
+        "Description[sl]": "Omogoča prikaz nenatisljivih znakov",
+        "Description[tr]": "Yazdırılmayacak karakterleri göstermenize olanak tanır",
+        "Description[uk]": "Надає вам змогу переглядати недруковані символи",
+        "Name": "Show Non-Printable Characters",
+        "Name[ca@valencia]": "Mostra els caràcters no imprimibles",
+        "Name[ca]": "Mostra els caràcters no imprimibles",
+        "Name[es]": "Mostrar caracteres no imprimibles",
+        "Name[eu]": "Erakutsi karaktere ez inprimagarriak",
+        "Name[he]": "להציג תווים לא להצגה",
+        "Name[ia]": "Monstra characteres non imprimibile",
+        "Name[ka]": "არაბეჭდვადი სიმბოლოების ჩვენება",
+        "Name[nl]": "Niet-afdrukbare-tekens tonen",
+        "Name[pt_BR]": "Exibir caracteres não imprimíveis",
+        "Name[ru]": "Просмотр непечатаемых символы",
+        "Name[sl]": "Prikaži nenatisljive znake",
+        "Name[tr]": "Yazdırılmayacak Karakterleri Göster",
+        "Name[uk]": "Показувати недруковані символи"
     }
 }

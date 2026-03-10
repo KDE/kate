@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-05 00:47+0000\n"
+"POT-Creation-Date: 2026-03-10 02:47+0000\n"
 "PO-Revision-Date: 2024-12-15 19:32+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -2273,14 +2273,14 @@ msgid ""
 "want to proceed."
 msgstr ""
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:913
 #, fuzzy, kde-format
 #| msgid "Location"
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "स्थान"
 
-#: lib/kateurlbar.cpp:925
+#: lib/kateurlbar.cpp:919
 #, fuzzy, kde-format
 #| msgid "Filename"
 msgctxt "@menu:action"

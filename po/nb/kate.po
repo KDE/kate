@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-05 00:47+0000\n"
+"POT-Creation-Date: 2026-03-10 02:47+0000\n"
 "PO-Revision-Date: 2026-03-01 12:27+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -2240,13 +2240,13 @@ msgid ""
 "want to proceed."
 msgstr "Det du ville lagre kunne ikke skrives. Velg hvordan du vil fortsette."
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:913
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Kopier filadresse"
 
-#: lib/kateurlbar.cpp:925
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

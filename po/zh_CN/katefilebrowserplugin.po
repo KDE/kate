@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katefilebrowserplugin.pot\n"
-"X-Crowdin-File-ID: 44817\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katefilebrowserplugin.pot\n"
+"X-Crowdin-File-ID: 51856\n"
 
 #: katefilebrowser.cpp:100
 #, kde-format

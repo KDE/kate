@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: katesymbolviewer\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-05 00:47+0000\n"
+"POT-Creation-Date: 2026-03-10 02:47+0000\n"
 "PO-Revision-Date: 2026-01-30 00:28+0000\n"
 "Last-Translator: César A. P. Cláudio <cesarapclaudio@gmail.com>\n"
 "Language-Team: pt\n"
@@ -2289,13 +2289,13 @@ msgstr ""
 "Os dados que solicitou para serem guardados não puderam ser gravados. Por "
 "favor, escolha como pretende prosseguir."
 
-#: lib/kateurlbar.cpp:919
+#: lib/kateurlbar.cpp:913
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Location"
 msgstr "Copiar localização"
 
-#: lib/kateurlbar.cpp:925
+#: lib/kateurlbar.cpp:919
 #, kde-format
 msgctxt "@menu:action"
 msgid "Copy Filename"

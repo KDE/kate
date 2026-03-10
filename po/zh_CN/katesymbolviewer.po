@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf6-trunk/messages/kate/katesymbolviewer.pot\n"
-"X-Crowdin-File-ID: 44813\n"
+"X-Crowdin-File: /kf6-stable/messages/kate/katesymbolviewer.pot\n"
+"X-Crowdin-File-ID: 50430\n"
 
 #: bash_parser.cpp:25 cpp_parser.cpp:31 fortran_parser.cpp:37
 #: julia_parser.cpp:34 plugin_katesymbolviewer.cpp:86 python_parser.cpp:25

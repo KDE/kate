@@ -225,15 +225,16 @@ KateProjectModel::StatusType KateProjectModel::getStatusTypeForPath(const QStrin
 QVariant KateProjectModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::ToolTipRole) {
+        QString tooltip = QStandardItemModel::data(index, role).toString();
         auto type = getStatusTypeForPath(index.data(Qt::UserRole).toString());
         if (type == None) {
-            return {};
+            return tooltip;
         } else if (type == Modified) {
-            return tr("Modified");
+            return tooltip.append(u' ').append(i18n("(Modified)"));
         } else if (type == Added) {
-            return tr("Staged");
+            return tooltip.append(u' ').append(i18n("(Staged)"));
         }
-        return {};
+        return tooltip;
     } else if (role == StatusRole) {
         return getStatusTypeForPath(index.data(Qt::UserRole).toString());
     }

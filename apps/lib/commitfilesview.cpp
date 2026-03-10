@@ -6,6 +6,7 @@
 
 #include "commitfilesview.h"
 
+#include "git_utils.h"
 #include "hostprocess.h"
 #include <bytearraysplitter.h>
 #include <diffparams.h>
@@ -353,7 +354,7 @@ static void parseNumStat(const QByteArray &raw, std::vector<GitFileItem> *items)
 class CommitDiffTreeView : public QWidget
 {
 public:
-    explicit CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent);
+    explicit CommitDiffTreeView(const QString &labelText, const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent);
 
     /**
      * open treeview for commit with @p hash
@@ -379,7 +380,11 @@ private:
     QLabel m_label;
 };
 
-CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &hash, KTextEditor::MainWindow *mainWindow, QWidget *parent)
+CommitDiffTreeView::CommitDiffTreeView(const QString &labelText,
+                                       const QString &repoBase,
+                                       const QString &hash,
+                                       KTextEditor::MainWindow *mainWindow,
+                                       QWidget *parent)
     : QWidget(parent)
     , m_mainWindow(mainWindow)
     , m_gitDir(repoBase)
@@ -399,7 +404,7 @@ CommitDiffTreeView::CommitDiffTreeView(const QString &repoBase, const QString &h
     });
 
     // Label
-    m_label.setText(hash.left(7));
+    m_label.setText(labelText);
     m_label.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
     m_icon.setPixmap(QIcon::fromTheme(QStringLiteral("vcs-commit")).pixmap(style()->pixelMetric(QStyle::PM_SmallIconSize)));
 
@@ -537,14 +542,24 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     const QString file = idx.data(FileItem::Path).toString();
     const QString oldFile = idx.data(FileItem::OldPath).toString();
     QProcess git;
+
+    QStringList args;
+    args << QStringLiteral("show");
+
+    // Stash commits are merge commits, avoid combined diff
+    if (GitUtils::isStashRef(m_commitHash)) {
+        args << QStringLiteral("--first-parent");
+    }
+
+    args << m_commitHash << QStringLiteral("--");
     if (oldFile.isEmpty()) {
-        if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), file})) {
-            return;
-        }
+        args << file;
     } else {
-        if (!setupGitProcess(git, m_gitDir, {QStringLiteral("show"), m_commitHash, QStringLiteral("--"), oldFile, file})) {
-            return;
-        }
+        args << oldFile << file;
+    }
+
+    if (!setupGitProcess(git, m_gitDir, args)) {
+        return;
     }
 
     startHostProcess(git, QProcess::ReadOnly);
@@ -593,13 +608,28 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
 
     QWidget *toolView = Utils::toolviewForName(mainWindow, QStringLiteral("git_commit_view_%1").arg(hash));
     if (!toolView) {
+        QString labelText = i18nc("@title:tab", "Commit %1", hash.mid(0, 7));
         const auto icon = QIcon::fromTheme(QStringLiteral("vcs-commit"));
-        toolView = mainWindow->createToolView(nullptr,
-                                              QStringLiteral("git_commit_view_%1").arg(hash),
-                                              KTextEditor::MainWindow::Left,
-                                              icon,
-                                              i18nc("@title:tab", "Commit %1", hash.mid(0, 7)));
-        new CommitDiffTreeView(repoBase.value(), hash, mainWindow, toolView);
+        toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_commit_view_%1").arg(hash), KTextEditor::MainWindow::Left, icon, labelText);
+        new CommitDiffTreeView(labelText, repoBase.value(), hash, mainWindow, toolView);
+    }
+    mainWindow->showToolView(toolView);
+}
+
+void CommitView::openStash(const QString &index, const QString &repoBase, KTextEditor::MainWindow *mainWindow)
+{
+    if (!mainWindow) {
+        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
+    }
+
+    QWidget *toolView = Utils::toolviewForName(mainWindow, QStringLiteral("git_stash_view_%1").arg(index));
+    if (!toolView) {
+        QString stashRef = GitUtils::stashRefFromIndex(index);
+        QString labelText = i18nc("@title:tab", "Stash %1", index);
+        const auto icon = QIcon::fromTheme(QStringLiteral("vcs-commit"));
+        toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_stash_view_%1").arg(index), KTextEditor::MainWindow::Left, icon, labelText);
+
+        new CommitDiffTreeView(labelText, repoBase, stashRef, mainWindow, toolView);
     }
     mainWindow->showToolView(toolView);
 }

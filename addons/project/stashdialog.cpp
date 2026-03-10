@@ -4,6 +4,7 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "stashdialog.h"
+#include "git_utils.h"
 #include "gitwidget.h"
 #include "hostprocess.h"
 
@@ -40,6 +41,7 @@ void StashDialog::openDialog(StashMode m)
     case StashMode::StashDrop:
     case StashMode::StashApply:
     case StashMode::ShowStashContent:
+    case StashMode::ShowStashEntry:
         m_lineEdit.setPlaceholderText(i18n("Type to filter, Enter to pop stash, Esc to leave."));
         m_currentMode = m;
         getStashList();
@@ -63,7 +65,7 @@ void StashDialog::openDialog(StashMode m)
 static QString getStashIndex(const QModelIndex &index)
 {
     QString s = index.data().toString();
-    if (s.isEmpty() || !s.startsWith(QLatin1String("stash@{"))) {
+    if (s.isEmpty() || !GitUtils::isStashRef(s)) {
         return {};
     }
     static QRegularExpression re(QStringLiteral("stash@{(.*)}"));
@@ -106,6 +108,9 @@ void StashDialog::slotReturnPressed(const QModelIndex &index)
         break;
     case StashMode::ShowStashContent:
         showStash(stashIndex);
+        break;
+    case StashMode::ShowStashEntry:
+        Q_EMIT showStashEntry(stashIndex);
         break;
     default:
         break;

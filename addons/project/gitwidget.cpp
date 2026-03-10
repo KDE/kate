@@ -1160,6 +1160,9 @@ void GitWidget::createStashDialog(StashMode m, const QString &gitPath)
         d.workingDir = m_activeGitDirPath;
         Utils::showDiff(r, d, mainWindow());
     });
+    connect(stashDialog, &StashDialog::showStashEntry, this, [this](const QString &index) {
+        CommitView::openStash(index, dotGitPath(), mainWindow());
+    });
     connect(stashDialog, &StashDialog::done, this, [this, stashDialog] {
         updateStatus();
         stashDialog->deleteLater();
@@ -1209,7 +1212,14 @@ QMenu *GitWidget::stashMenu(KActionCollection *ac)
 
     menu->addAction(stashMenuAction(ac, QStringLiteral("vcs_stash_apply"), i18n("Apply Stash"), StashMode::StashApply));
     menu->addAction(stashMenuAction(ac, QStringLiteral("vcs_stash_drop"), i18n("Drop Stash"), StashMode::StashDrop));
-    menu->addAction(stashMenuAction(ac, QStringLiteral("vcs_stash_show"), i18n("Show Stash Content"), StashMode::ShowStashContent));
+
+    menu->addSeparator();
+
+    a = stashMenuAction(ac, QStringLiteral("vcs_stash_show_entry"), i18n("Show Stash"), StashMode::ShowStashEntry);
+    a->setIcon(QIcon::fromTheme(QStringLiteral("vcs-commit")));
+    menu->addAction(a);
+
+    menu->addAction(stashMenuAction(ac, QStringLiteral("vcs_stash_show"), i18n("Show Stash Diff"), StashMode::ShowStashContent));
 
     return menu;
 }

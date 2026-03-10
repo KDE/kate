@@ -38,6 +38,7 @@ enum class StashMode : uint8_t {
     StashApply,
     StashApplyLast,
     ShowStashContent,
+    ShowStashEntry
 };
 
 class StashDialog : public HUDDialog
@@ -51,6 +52,7 @@ public:
     Q_SIGNAL void message(const QString &msg, bool warn);
     Q_SIGNAL void done();
     Q_SIGNAL void showStashDiff(const QByteArray &diff);
+    Q_SIGNAL void showStashEntry(const QString &index);
 
 protected Q_SLOTS:
     void slotReturnPressed(const QModelIndex &index) override;

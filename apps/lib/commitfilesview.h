@@ -25,4 +25,5 @@ public:
      * @filePath can be path of any file in the repo
      */
     static void KATE_PRIVATE_EXPORT openCommit(const QString &hash, const QString &path, KTextEditor::MainWindow *mainWindow);
+    static void KATE_PRIVATE_EXPORT openStash(const QString &index, const QString &repoBase, KTextEditor::MainWindow *mainWindow);
 };

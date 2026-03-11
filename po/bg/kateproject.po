@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-03 00:51+0000\n"
+"POT-Creation-Date: 2026-03-11 00:50+0000\n"
 "PO-Revision-Date: 2024-11-10 20:12+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
@@ -524,12 +524,23 @@ msgstr "Сигурни ли сте, че желаете да отхвърлит�
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Наистина ли искате да премахнете тези непроследени промени?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:233
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "(Modified)"
+msgstr "Променян на"
+
+#: kateproject.cpp:235
+#, kde-format
+msgid "(Staged)"
+msgstr ""
+
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Неправилен JSON файл „%1“: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -537,7 +548,7 @@ msgstr "Неправилен JSON файл „%1“: %2"
 msgid "Project"
 msgstr "Проект"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<непроследен>"

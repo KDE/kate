@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-03 00:51+0000\n"
+"POT-Creation-Date: 2026-03-11 00:50+0000\n"
 "PO-Revision-Date: 2025-11-09 07:22-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -533,12 +533,24 @@ msgstr ""
 "Você tem certeza que deseja remover essas modificações não observadas pelo "
 "git?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:233
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "(Modified)"
+msgstr "Modificado"
+
+#: kateproject.cpp:235
+#, fuzzy, kde-format
+#| msgid "Staged"
+msgid "(Staged)"
+msgstr "Staged"
+
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Arquivo JSON mal formado '%1': %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -546,7 +558,7 @@ msgstr "Arquivo JSON mal formado '%1': %2"
 msgid "Project"
 msgstr "Projeto"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<não seguido>"

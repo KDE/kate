@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-03 00:51+0000\n"
+"POT-Creation-Date: 2026-03-11 00:50+0000\n"
 "PO-Revision-Date: 2025-12-01 12:43+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish\n"
@@ -539,12 +539,24 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr ""
 "An bhfuil tú cinnte gur mian leat na hathruithe neamhrianaithe seo a bhaint?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:233
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "(Modified)"
+msgstr "Modhnaithe"
+
+#: kateproject.cpp:235
+#, fuzzy, kde-format
+#| msgid "Staged"
+msgid "(Staged)"
+msgstr "Ar stáitse"
+
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "Comhad JSON mífhoirmithe '%1': %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -552,7 +564,7 @@ msgstr "Comhad JSON mífhoirmithe '%1': %2"
 msgid "Project"
 msgstr "Tionscadal"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<gan rianú>"

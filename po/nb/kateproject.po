@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-03 00:51+0000\n"
+"POT-Creation-Date: 2026-03-11 00:50+0000\n"
 "PO-Revision-Date: 2026-02-23 23:03+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -525,12 +525,24 @@ msgstr "Er du sikker på at du vil forkaste alle endringene?"
 msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Er du sikker på at du vil fjerne disse usporede endringene?"
 
-#: kateproject.cpp:356
+#: kateproject.cpp:233
+#, fuzzy, kde-format
+#| msgid "Modified"
+msgid "(Modified)"
+msgstr "Endret"
+
+#: kateproject.cpp:235
+#, fuzzy, kde-format
+#| msgid "Staged"
+msgid "(Staged)"
+msgstr "Forberedt"
+
+#: kateproject.cpp:357
 #, kde-format
 msgid "Malformed JSON file '%1': %2"
 msgstr "JSON-fila «%1» er feilformatert: %2"
 
-#: kateproject.cpp:423 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
+#: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
 #: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
 #: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
 #: kateprojectviewtree.cpp:399
@@ -538,7 +550,7 @@ msgstr "JSON-fila «%1» er feilformatert: %2"
 msgid "Project"
 msgstr "Prosjekt"
 
-#: kateproject.cpp:722
+#: kateproject.cpp:723
 #, kde-format
 msgid "<untracked>"
 msgstr "<ikke sporet>"

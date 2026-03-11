@@ -20,9 +20,9 @@ msgstr ""
 #: kateshownonprintableplugin.cpp:353
 #, kde-format
 msgid "Show Non-Printable Characters"
-msgstr ""
+msgstr "显示不可打印字符"
 
 #: kateshownonprintableplugin.cpp:356
 #, kde-format
 msgid "Toggle Show Non-Printable Characters"
-msgstr ""
+msgstr "显示/隐藏不可打印的字符"

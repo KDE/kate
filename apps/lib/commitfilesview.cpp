@@ -6,7 +6,6 @@
 
 #include "commitfilesview.h"
 
-#include "git_utils.h"
 #include "hostprocess.h"
 #include <bytearraysplitter.h>
 #include <diffparams.h>
@@ -547,7 +546,7 @@ void CommitDiffTreeView::showDiff(const QModelIndex &idx)
     args << QStringLiteral("show");
 
     // Stash commits are merge commits, avoid combined diff
-    if (GitUtils::isStashRef(m_commitHash)) {
+    if (m_commitHash.startsWith(QLatin1String("stash@{"))) {
         args << QStringLiteral("--first-parent");
     }
 
@@ -620,7 +619,7 @@ void CommitView::openStash(const QString &index, const QString &repoBase, KTextE
 {
     QWidget *toolView = Utils::toolviewForName(mainWindow, QStringLiteral("git_stash_view_%1").arg(index));
     if (!toolView) {
-        QString stashRef = GitUtils::stashRefFromIndex(index);
+        QString stashRef = QStringLiteral("stash@{%1}").arg(index);
         QString labelText = i18nc("@title:tab", "Stash %1", index);
         const auto icon = QIcon::fromTheme(QStringLiteral("vcs-commit"));
         toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_stash_view_%1").arg(index), KTextEditor::MainWindow::Left, icon, labelText);

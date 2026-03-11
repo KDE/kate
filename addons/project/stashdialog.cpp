@@ -4,7 +4,6 @@
     SPDX-License-Identifier: LGPL-2.0-or-later
 */
 #include "stashdialog.h"
-#include "git_utils.h"
 #include "gitwidget.h"
 #include "hostprocess.h"
 
@@ -65,7 +64,7 @@ void StashDialog::openDialog(StashMode m)
 static QString getStashIndex(const QModelIndex &index)
 {
     QString s = index.data().toString();
-    if (s.isEmpty() || !GitUtils::isStashRef(s)) {
+    if (s.isEmpty() || !s.startsWith(QLatin1String("stash@{"))) {
         return {};
     }
     static QRegularExpression re(QStringLiteral("stash@{(.*)}"));

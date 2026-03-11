@@ -226,9 +226,3 @@ msgstr "Longitud de la clau"
 #, kde-format
 msgid "User IDs"
 msgstr "ID d'usuaris"
-
-#~ msgid "Warning"
-#~ msgstr "Avís"
-
-#~ msgid "Error"
-#~ msgstr "Error"

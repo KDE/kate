@@ -34,7 +34,3 @@ msgstr "Parèntesis acolorits"
 #, kde-format
 msgid "Colored Brackets Settings"
 msgstr "Configuració dels parèntesis acolorits"
-
-#~ msgid "Choose colors that will be used for bracket coloring:"
-#~ msgstr ""
-#~ "Trieu els colors que s'utilitzaran per a l'acoloriment dels parèntesis:"

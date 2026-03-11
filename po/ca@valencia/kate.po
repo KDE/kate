@@ -3158,13 +3158,3 @@ msgstr "Gestiona les sessions…"
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Mostra una pàgina de benvinguda en les finestres noves"
-
-#~ msgid ""
-#~ "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#~ "to save your changes or discard them?</p>"
-#~ msgstr ""
-#~ "<p>El document «%1» ha sigut modificat, però no guardat.</p><p>Voleu "
-#~ "guardar els canvis o descartar-los?</p>"
-
-#~ msgid "Save As"
-#~ msgstr "Anomena i guarda"

@@ -243,11 +243,3 @@ msgstr "Arranjament del terminal"
 #, kde-format
 msgid "&Tools"
 msgstr "&Eines"
-
-#~ msgid "You do not have enough karma to access a shell or terminal emulation"
-#~ msgstr ""
-#~ "No teniu karma suficient per a accedir a un intèrpret d'ordres o una "
-#~ "emulació de terminal"
-
-#~ msgid "Sorry, cannot cd into '%1'"
-#~ msgstr "No es pot fer «cd» a dins de «%1»"

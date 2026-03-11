@@ -1144,9 +1144,3 @@ msgstr "Ha fallat en mostrar la modificació temporal. Error: "
 #, kde-format
 msgid "&Projects"
 msgstr "&Projectes"
-
-#~ msgid "Delete File"
-#~ msgstr "Suprimeix el fitxer"
-
-#~ msgid "Do you want to delete the file '%1'?"
-#~ msgstr "Voleu suprimir el fitxer «%1»?"

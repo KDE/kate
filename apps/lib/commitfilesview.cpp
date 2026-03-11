@@ -618,17 +618,12 @@ void CommitView::openCommit(const QString &hash, const QString &path, KTextEdito
 
 void CommitView::openStash(const QString &index, const QString &repoBase, KTextEditor::MainWindow *mainWindow)
 {
-    if (!mainWindow) {
-        mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
-    }
-
     QWidget *toolView = Utils::toolviewForName(mainWindow, QStringLiteral("git_stash_view_%1").arg(index));
     if (!toolView) {
         QString stashRef = GitUtils::stashRefFromIndex(index);
         QString labelText = i18nc("@title:tab", "Stash %1", index);
         const auto icon = QIcon::fromTheme(QStringLiteral("vcs-commit"));
         toolView = mainWindow->createToolView(nullptr, QStringLiteral("git_stash_view_%1").arg(index), KTextEditor::MainWindow::Left, icon, labelText);
-
         new CommitDiffTreeView(labelText, repoBase, stashRef, mainWindow, toolView);
     }
     mainWindow->showToolView(toolView);

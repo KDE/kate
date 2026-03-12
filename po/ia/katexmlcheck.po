@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# giovanni <g.sora@tiscali.it>, 2016, 2022, 2023.
+# SPDX-FileCopyrightText: 2016, 2022, 2023, 2026 giovanni <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-12-18 00:46+0000\n"
-"PO-Revision-Date: 2023-01-16 22:22+0100\n"
+"PO-Revision-Date: 2026-03-11 18:59+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: plugin_katexmlcheck.cpp:90
 #, kde-format
@@ -53,7 +53,7 @@ msgstr "'%1' non trovate, verificara solmente si ben formate."
 #: plugin_katexmlcheck.cpp:227
 #, kde-format
 msgid "<b>Error:</b> Could not create temporary file '%1'."
-msgstr "<b>Error:</b>Il non pote crear file temporari '%1'."
+msgstr "<b>Error:</b>Il non pote crear file temporanee '%1'."
 
 #: plugin_katexmlcheck.cpp:246
 #, kde-format

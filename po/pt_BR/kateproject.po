@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2012, 2013, 2014, 2015, 2016, 2018, 2019.
-# SPDX-FileCopyrightText: 2012, 2025 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2025, 2026 Marcus Gama <marcus.gama@gmail.com>
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
 # Camila de Azevedo Moura <camilaraw@gmail.com>, 2016.
 # SPDX-FileCopyrightText: 2024 Igor Moreira Padua <igorpadua@discente.ufg.br>
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-11 00:50+0000\n"
-"PO-Revision-Date: 2025-11-09 07:22-0300\n"
+"PO-Revision-Date: 2026-03-11 08:47-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -534,16 +534,14 @@ msgstr ""
 "git?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Modificado"
+msgstr "(Modificado)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Staged"
+msgstr "(Staged)"
 
 #: kateproject.cpp:357
 #, kde-format

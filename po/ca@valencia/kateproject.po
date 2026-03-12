@@ -1,16 +1,16 @@
 # Translation of kateproject.po to Catalan (Valencian)
-# Copyright (C) 2012-2025 This_file_is_part_of_KDE
+# Copyright (C) 2012-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # SPDX-FileCopyrightText: 2014, 2018, 2021 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013, 2015, 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-11 00:50+0000\n"
-"PO-Revision-Date: 2025-11-09 09:40+0100\n"
+"PO-Revision-Date: 2026-03-11 11:13+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -530,16 +530,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Segur que voleu eliminar estos canvis sense seguir?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Modificat"
+msgstr "(Modificat)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Marcat"
+msgstr "(Marcat)"
 
 #: kateproject.cpp:357
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-11 00:50+0000\n"
-"PO-Revision-Date: 2025-11-09 05:55+0100\n"
+"PO-Revision-Date: 2026-03-11 05:54+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -184,7 +184,7 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr "აღნიშნულია"
+msgstr "შუალედური შენახვით"
 
 #: gitstatusmodel.cpp:99
 #, kde-format
@@ -525,16 +525,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "მართლა გნებავთ წაშალოთ ეს მიუთვალყურებელი ცვლილებები?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "შეიცვალა"
+msgstr "(შეიცვალა)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "აღნიშნულია"
+msgstr "(შუალედური შენახვით)"
 
 #: kateproject.cpp:357
 #, kde-format

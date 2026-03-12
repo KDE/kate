@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-11 00:50+0000\n"
-"PO-Revision-Date: 2025-11-09 07:14+0100\n"
+"PO-Revision-Date: 2026-03-11 06:44+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -532,16 +532,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "Ali ste prepričani, da želite odstraniti te nesledene spremembe?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Spremenjeno"
+msgstr "(Spremenjeno)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Postavljeno"
+msgstr "(Postavljeno)"
 
 #: kateproject.cpp:357
 #, kde-format

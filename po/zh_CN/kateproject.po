@@ -521,16 +521,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您确定要移除这些未跟踪的变更吗？"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "已修改"
+msgstr ""
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "已暂存"
+msgstr ""
 
 #: kateproject.cpp:357
 #, kde-format

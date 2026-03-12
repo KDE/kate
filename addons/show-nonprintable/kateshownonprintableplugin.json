@@ -9,12 +9,14 @@
         "Description[he]": "תמיד להציג תווים שאינם להצגה",
         "Description[ia]": "Te permitte monstrar characteres non imprimibile",
         "Description[ka]": "საშუალებას გაძლევთ, აჩვენოთ არაბეჭდვადი სიმბოლოები",
+        "Description[nb]": "Tillater deg å vise tegn som ikke kan skrives ut",
         "Description[nl]": "Sta u toe niet-afdrukbare-tekens te tonen",
         "Description[pt_BR]": "Permite exibir caracteres não imprimíveis",
         "Description[ru]": "Позволяет просматривать непечатаемые символы",
         "Description[sl]": "Omogoča prikaz nenatisljivih znakov",
         "Description[tr]": "Yazdırılmayacak karakterleri göstermenize olanak tanır",
         "Description[uk]": "Надає вам змогу переглядати недруковані символи",
+        "Description[zh_CN]": "允许显示不可打印的字符",
         "Name": "Show Non-Printable Characters",
         "Name[ar]": "أظهر المحارف غير الطباعية",
         "Name[ca@valencia]": "Mostra els caràcters no imprimibles",
@@ -24,11 +26,13 @@
         "Name[he]": "להציג תווים לא להצגה",
         "Name[ia]": "Monstra characteres non imprimibile",
         "Name[ka]": "არაბეჭდვადი სიმბოლოების ჩვენება",
+        "Name[nb]": "Vis tegn som ikke kan skrives ut",
         "Name[nl]": "Niet-afdrukbare-tekens tonen",
         "Name[pt_BR]": "Exibir caracteres não imprimíveis",
         "Name[ru]": "Просмотр непечатаемых символы",
         "Name[sl]": "Prikaži nenatisljive znake",
         "Name[tr]": "Yazdırılmayacak Karakterleri Göster",
-        "Name[uk]": "Показувати недруковані символи"
+        "Name[uk]": "Показувати недруковані символи",
+        "Name[zh_CN]": "显示不可打印字符"
     }
 }

@@ -82,14 +82,21 @@ void GitBlameInlineNoteProvider::paintInlineNote(const KTextEditor::InlineNote &
 
     int lineNr = note.position().line();
     const CommitInfo &info = m_pluginView->blameInfo(lineNr);
-    const QDateTime authorDateTime = QDateTime::fromSecsSinceEpoch(info.authorDate);
 
-    bool isToday = authorDateTime.date() == QDate::currentDate();
-    QString date = isToday ? m_locale.toString(authorDateTime.time(), QLocale::NarrowFormat) : m_locale.toString(authorDateTime.date(), QLocale::NarrowFormat);
+    QString text;
+    if (isUncomittedLine(info.hash)) {
+        text = i18n("Not Committed Yet");
+    } else {
+        const QDateTime authorDateTime = QDateTime::fromSecsSinceEpoch(info.authorDate);
 
-    QString text = info.summary.isEmpty()
-        ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, date)
-        : i18nc("git-blame information \"author: date: commit title \"", " %1: %2: %3 ", info.authorName, date, QString::fromUtf8(info.summary));
+        bool isToday = authorDateTime.date() == QDate::currentDate();
+        QString date =
+            isToday ? m_locale.toString(authorDateTime.time(), QLocale::NarrowFormat) : m_locale.toString(authorDateTime.date(), QLocale::NarrowFormat);
+
+        text = info.summary.isEmpty()
+            ? i18nc("git-blame information \"author: date \"", " %1: %2 ", info.authorName, date)
+            : i18nc("git-blame information \"author: date: commit title \"", " %1: %2: %3 ", info.authorName, date, QString::fromUtf8(info.summary));
+    }
     QRect rectangle{0, 0, fm.horizontalAdvance(text), note.lineHeight()};
     bool isRTL = false;
     isRTL = dir == Qt::RightToLeft;

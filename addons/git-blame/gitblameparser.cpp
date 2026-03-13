@@ -178,7 +178,7 @@ QByteArrayView KateGitBlameParser::blameLine(int lineNr)
 const CommitInfo &KateGitBlameParser::blameLineInfo(int lineNr)
 {
     static const CommitInfo dummy{.hash = "hash", //
-                                  .authorName = i18n("Not Committed Yet"),
+                                  .authorName = QString(),
                                   .authorDate = QDateTime::currentSecsSinceEpoch(),
                                   .summary = {}};
     if (m_blameLines.empty() || lineNr < 0 || lineNr >= (int)m_blameLines.size()) {

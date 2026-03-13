@@ -523,12 +523,12 @@ msgstr "您确定要移除这些未跟踪的变更吗？"
 #: kateproject.cpp:233
 #, kde-format
 msgid "(Modified)"
-msgstr ""
+msgstr "(已修改)"
 
 #: kateproject.cpp:235
 #, kde-format
 msgid "(Staged)"
-msgstr ""
+msgstr "(已暂存)"
 
 #: kateproject.cpp:357
 #, kde-format

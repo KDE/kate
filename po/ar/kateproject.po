@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Abdalrahim G. Fakhouri <abdilra7eem@yahoo.com>, 2014.
 # Safa Alfulaij <safa1996alfulaij@gmail.com>, 2016.
-# SPDX-FileCopyrightText: 2021, 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2021, 2022, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-11 00:50+0000\n"
-"PO-Revision-Date: 2025-11-12 18:49+0400\n"
+"PO-Revision-Date: 2026-03-12 10:08+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -529,16 +529,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "هل أنت متأكد أنك تريد إزالة هذه التغييرات غير المتعقبة؟"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "عُدل"
+msgstr "(معدّل)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "مدرجة"
+msgstr "(مجهّز)"
 
 #: kateproject.cpp:357
 #, kde-format

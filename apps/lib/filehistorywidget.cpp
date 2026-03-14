@@ -397,7 +397,7 @@ public:
     void onFilterReturnPressed(CommitProxyModel *proxy);
 
     void getFileHistory(const QString &file);
-    explicit FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
+    explicit FileHistoryWidget(const QString &labelText, const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent = nullptr);
     ~FileHistoryWidget() override;
 
     QLabel m_icon;
@@ -418,7 +418,7 @@ Q_SIGNALS:
     void gitLogDone();
 };
 
-FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent)
+FileHistoryWidget::FileHistoryWidget(const QString &labelText, const QString &gitDir, const QString &file, KTextEditor::MainWindow *mw, QWidget *parent)
     : QWidget(parent)
     , m_file(file)
     , m_gitDir(gitDir)
@@ -491,8 +491,7 @@ FileHistoryWidget::FileHistoryWidget(const QString &gitDir, const QString &file,
     });
 
     // Label
-    QFileInfo fi(file);
-    m_label.setText(fi.fileName());
+    m_label.setText(labelText);
     m_label.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
     m_icon.setPixmap(QIcon::fromTheme(QStringLiteral("view-history")).pixmap(style()->pixelMetric(QStyle::PM_SmallIconSize)));
 
@@ -698,13 +697,21 @@ void FileHistory::showFileHistory(const QString &file, KTextEditor::MainWindow *
         mainWindow = KTextEditor::Editor::instance()->application()->activeMainWindow();
     }
 
+    QString name = fi.fileName();
+    // If fileName is empty we're on git root
+    if (name.isEmpty()) {
+        QDir dir(fi.absoluteFilePath());
+        name = dir.dirName();
+    }
+
     const QString identifier = QStringLiteral("git_file_history_%1").arg(file);
-    const QString title = i18nc("@title:tab", "File History - %1", fi.fileName());
     auto toolView = Utils::toolviewForName(mainWindow, identifier);
     auto activeToolview = Utils::activeToolviewForSide(mainWindow, KTextEditor::MainWindow::Left);
     if (!toolView) {
-        toolView = mainWindow->createToolView(nullptr, identifier, KTextEditor::MainWindow::Left, gitIcon(), title);
-        new FileHistoryWidget(repoBase.value(), file, mainWindow, toolView);
+        QString labelText = i18nc("@title:tab", "History - %1", name);
+        const auto icon = QIcon::fromTheme(QStringLiteral("view-history"));
+        toolView = mainWindow->createToolView(nullptr, identifier, KTextEditor::MainWindow::Left, icon, labelText);
+        new FileHistoryWidget(labelText, repoBase.value(), file, mainWindow, toolView);
     }
     if (auto w = toolView->findChild<FileHistoryWidget *>()) {
         w->m_lastActiveToolview = activeToolview;

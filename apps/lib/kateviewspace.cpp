@@ -939,6 +939,15 @@ void KateViewSpace::addWidgetAsTab(QWidget *widget)
     disconnect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
     m_tabBar->setCurrentDocument(widget);
     connect(m_tabBar, &KateTabBar::currentChanged, this, &KateViewSpace::changeView);
+
+    // update tab text when widget title changes
+    connect(widget, &QWidget::windowTitleChanged, this, [this, widget](const QString &title) {
+        int index = m_tabBar->documentIdx(widget);
+        if (index != -1) {
+            m_tabBar->setTabText(index, title);
+        }
+    });
+
     stack->setCurrentWidget(widget);
     m_registeredDocuments.push_back(widget);
     updateTabBar();

@@ -38,6 +38,22 @@
 #include <KTextEditor/View>
 #include <ktexteditor/cursor.h>
 
+namespace
+{
+QString getDiffWidgetWindowTitle(DiffParams p)
+{
+    if (!p.tabTitle.isEmpty()) {
+        return p.tabTitle;
+    }
+
+    if (p.destFile.isEmpty()) {
+        return i18n("Diff - %1", Utils::fileNameFromPath(p.srcFile));
+    }
+
+    return i18n("Diff - %1..%2", Utils::fileNameFromPath(p.srcFile), Utils::fileNameFromPath(p.destFile));
+}
+}
+
 Q_DECL_COLD_FUNCTION static void gitNotFoundMessage()
 {
     Utils::showMessage(i18n("<b>git</b> not found. Git is needed to diff the documents. If git is already installed, make sure it is your PATH variable. See "
@@ -73,18 +89,12 @@ void DiffWidgetManager::openDiff(const QByteArray &diff, DiffParams p, class KTe
             auto view = mw->openUrl(QUrl(path));
             view->setCursorPosition(KTextEditor::Cursor(line - 1, columnNumber));
         });
-        if (!p.tabTitle.isEmpty()) {
-            existing->setWindowTitle(p.tabTitle);
-        } else {
-            if (p.destFile.isEmpty())
-                existing->setWindowTitle(i18n("Diff %1", Utils::fileNameFromPath(p.srcFile)));
-            else
-                existing->setWindowTitle(i18n("Diff %1..%2", Utils::fileNameFromPath(p.srcFile), Utils::fileNameFromPath(p.destFile)));
-        }
+        existing->setWindowTitle(getDiffWidgetWindowTitle(p));
         existing->setWindowIcon(QIcon::fromTheme(QStringLiteral("text-x-patch")));
         existing->openDiff(diff);
         mw->addWidget(existing);
     } else {
+        existing->setWindowTitle(getDiffWidgetWindowTitle(p));
         existing->clearData();
         existing->m_params = p;
         existing->openDiff(diff);

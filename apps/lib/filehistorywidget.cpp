@@ -16,6 +16,7 @@
 #include <QApplication>
 #include <QClipboard>
 #include <QDate>
+#include <QDir>
 #include <QFileInfo>
 #include <QLabel>
 #include <QLineEdit>

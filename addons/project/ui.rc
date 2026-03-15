@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE gui SYSTEM "kpartgui.dtd">
-<gui name="kateprojectplugin" library="kateprojectplugin" version="14" translationDomain="kateproject">
+<gui name="kateprojectplugin" library="kateprojectplugin" version="15" translationDomain="kateproject">
   <MenuBar>
   <Menu name="file">
     <Action name="projects_open_project" group="open_merge"/>
@@ -23,5 +23,13 @@
   <Menu name="ktexteditor_popup" noMerge="1">
     <Action name="popup_project"/>
   </Menu>
+  <ToolBar name="projectplugin">
+    <text>Project Plugin</text>
+    <Action name="projects_open_project"/>
+    <Action name="projects_select_project"/>
+    <Action name="project_reload"/>
+    <Action name="projects_close" />
+  </ToolBar>
+
 </gui>
 <!-- kate: space-indent on; indent-width 4; replace-tabs on; -->

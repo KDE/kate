@@ -1,16 +1,16 @@
 # Translation for kateproject.po to Euskara/Basque (eu).
-# Copyright (C) 2018-2025 This file is copyright:
+# Copyright (C) 2018-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
+# SPDX-FileCopyrightText: 2023, 2024, 2025, 2026 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023, 2024, 2025.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2018, 2019, 2020, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-03 00:51+0000\n"
-"PO-Revision-Date: 2025-12-08 09:19+0100\n"
+"PO-Revision-Date: 2026-03-15 00:08+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.3\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: branchcheckoutdialog.cpp:29
 #, kde-format
@@ -68,7 +68,7 @@ msgstr "Azken jarduera"
 #: branchdeletedialog.cpp:124
 #, kde-format
 msgid "Last Commit"
-msgstr "Azken baliozkotzea"
+msgstr "Azken finkapena"
 
 #: branchdeletedialog.cpp:137 kateprojecttreeviewcontextmenu.cpp:133
 #, kde-format
@@ -85,7 +85,7 @@ msgstr[1] "Ziur zaude hautatutako adarrak ezabatu nahi dituzula?"
 #: branchesdialog.cpp:97
 #, kde-format
 msgid "Select Branch..."
-msgstr "Hautatu adarra..."
+msgstr "Hautatu adarra…"
 
 #: branchesdialog.cpp:109 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
@@ -111,13 +111,13 @@ msgstr "Atzera"
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' commit is checked out"
 msgid "HEAD at commit %1"
-msgstr "HEAD %1 baliozkotzean"
+msgstr "HEAD %1 finkapenean kokatuta dago"
 
 #: currentgitbranchbutton.cpp:124
 #, kde-format
 msgctxt "Tooltip text, describing that '%1' tag is checked out"
 msgid "HEAD is at this tag %1"
-msgstr "HEAD etiketa horretan dago %1"
+msgstr "HEAD %1 etiketan dago"
 
 #: currentgitbranchbutton.cpp:126
 #, kde-format
@@ -128,33 +128,33 @@ msgstr "Adar aktiboa: %1"
 #: gitcommitdialog.cpp:70 gitcommitdialog.cpp:121
 #, kde-format
 msgid "Commit Changes"
-msgstr "Baliozkotu aldaketak"
+msgstr "Finkatu aldaketak"
 
 #: gitcommitdialog.cpp:74 gitcommitdialog.cpp:120 gitwidget.cpp:286
 #: gitwidget.cpp:1110
 #, kde-format
 msgid "Commit"
-msgstr "Baliozkotu"
+msgstr "Finkatu"
 
 #: gitcommitdialog.cpp:75
 #, kde-format
 msgid "Cancel"
-msgstr "Utzi"
+msgstr "Ezeztatu"
 
 #: gitcommitdialog.cpp:77
 #, kde-format
 msgid "Write commit message..."
-msgstr "Idatzi baliozkotze-mezua..."
+msgstr "Idatzi finkapen-mezua…"
 
 #: gitcommitdialog.cpp:84
 #, kde-format
 msgid "Extended commit description..."
-msgstr "Baliozkotze azalpen hedatua..."
+msgstr "Finkapenaren deskribapen hedatua…"
 
 #: gitcommitdialog.cpp:108
 #, kde-format
 msgid "Sign off"
-msgstr "Saioa itxi"
+msgstr "Sinatu"
 
 #: gitcommitdialog.cpp:112 gitcommitdialog.cpp:125
 #, kde-format
@@ -164,12 +164,12 @@ msgstr "Zuzendu"
 #: gitcommitdialog.cpp:113 gitwidget.cpp:1063
 #, kde-format
 msgid "Amend Last Commit"
-msgstr "Zuzendu azken baliozkotzea"
+msgstr "Zuzendu azken finkapena"
 
 #: gitcommitdialog.cpp:124
 #, kde-format
 msgid "Amending Commit"
-msgstr "Baliozkotzea zuzentzen"
+msgstr "Finkapena zuzentzen"
 
 #: gitcommitdialog.cpp:207
 #, kde-format
@@ -186,12 +186,12 @@ msgstr "<span style=\"color:%1;\">%2</span> / 52"
 #: gitstatusmodel.cpp:97
 #, kde-format
 msgid "Staged"
-msgstr "Antolaketan ipinita"
+msgstr "Prestatuta"
 
 #: gitstatusmodel.cpp:99
 #, kde-format
 msgid "Untracked"
-msgstr "Aztarna jarraitzeke"
+msgstr "Jarraitu gabe"
 
 #: gitstatusmodel.cpp:101
 #, kde-format
@@ -201,27 +201,27 @@ msgstr "Gatazka"
 #: gitstatusmodel.cpp:103
 #, kde-format
 msgid "Modified"
-msgstr "Aldatua"
+msgstr "Aldatuta"
 
 #: gitwidget.cpp:294
 #, kde-format
 msgid "Git Push"
-msgstr "Git bultzatu"
+msgstr "Git Push"
 
 #: gitwidget.cpp:307
 #, kde-format
 msgid "Git Pull"
-msgstr "Git erakarri"
+msgstr "Git Pull"
 
 #: gitwidget.cpp:320
 #, kde-format
 msgid "Cancel Operation"
-msgstr "Eragiketa bertan behera utzi"
+msgstr "Ezeztatu eragiketa"
 
 #: gitwidget.cpp:328
 #, kde-format
 msgid " canceled."
-msgstr " utzita."
+msgstr " Ezeztatuta."
 
 #: gitwidget.cpp:336
 #, kde-format
@@ -231,14 +231,14 @@ msgstr "Freskatu Git-en egoera"
 #: gitwidget.cpp:358 kateprojectview.cpp:61
 #, kde-format
 msgid "Filter…"
-msgstr "...iragazi"
+msgstr "Iragazi…"
 
 #: gitwidget.cpp:448
 #, kde-format
 msgid "Failed to find .git directory for '%1', things may not work correctly"
 msgstr ""
-"'%1' direktorioaren «.git» aurkitzea huts egin du, baliteke gauzak ondo ez "
-"ibiltzea"
+"'%1'(r)en .git direktorioa aurkitzeak huts egin du; baliteke funtzio batzuk "
+"behar bezala ez ibiltzea"
 
 #: gitwidget.cpp:660
 #, kde-format
@@ -253,12 +253,12 @@ msgstr "\"%1\" ondo exekutatu da: %2"
 #: gitwidget.cpp:686
 #, kde-format
 msgid "Failed to stage file. Error:"
-msgstr "Fitxategia antolaketan ipintzea huts egin du. Errorea:"
+msgstr "Fitxategia prestatzeak huts egin du. Errorea:"
 
 #: gitwidget.cpp:699
 #, kde-format
 msgid "Failed to unstage file. Error:"
-msgstr "Fitxategia antolaketatik ateratzea huts egin du: Errorea:"
+msgstr "Fitxategia prestaketatik kentzeak huts egin du. Errorea:"
 
 #: gitwidget.cpp:710
 #, kde-format
@@ -268,22 +268,22 @@ msgstr "Aldaketak baztertzea huts egin du. Errorea:"
 #: gitwidget.cpp:721
 #, kde-format
 msgid "Failed to remove. Error:"
-msgstr "Kentzea huts egin du. Errorea:"
+msgstr "Kentzeak huts egin du. Errorea:"
 
 #: gitwidget.cpp:737
 #, kde-format
 msgid "Failed to open file at HEAD: %1"
-msgstr "HEADen dagoen fitxategia irekitzea huts egin du: %1"
+msgstr "HEADeko fitxategia irekitzeak huts egin du: %1"
 
 #: gitwidget.cpp:771
 #, kde-format
 msgid "Failed to get Diff of file: %1"
-msgstr "Fitxategiaren «diff» lortzea huts egin du: %1"
+msgstr "Fitxategiaren ezberdintasunak lortzea huts egin du: %1"
 
 #: gitwidget.cpp:840
 #, kde-format
 msgid "Failed to commit: %1"
-msgstr "Baliozkotzea huts egin du: %1"
+msgstr "Finkatzeak huts egin du: %1"
 
 #: gitwidget.cpp:844
 #, kde-format
@@ -293,8 +293,7 @@ msgstr "Aldaketak ondo baliozkotu dira."
 #: gitwidget.cpp:854
 #, kde-format
 msgid "Nothing to commit. Please stage your changes first."
-msgstr ""
-"Baliozkotzeko ezer ez. Mesedez, aurrena ipini zure aldaketak antolaketan."
+msgstr "Ez dago finkatzeko ezer. Mesedez, aurrena zure aldaketak prestatu."
 
 #: gitwidget.cpp:868
 #, kde-format
@@ -309,12 +308,12 @@ msgstr "Ez dago «diff» %1(e)rako ... %2"
 #: gitwidget.cpp:1005
 #, kde-format
 msgid "Failed to compare %1...%2"
-msgstr "Alderatzea huts egin du %1...%2"
+msgstr "Alderatzeak huts egin du %1…%2"
 
 #: gitwidget.cpp:1020
 #, kde-format
 msgid "Failed to get numstat when diffing %1...%2"
-msgstr "«numstat» lortzea huts egin du, %1...%2(r)en diff egitean"
+msgstr "%1...%2 arteko diff-ean numstat eskuratzeak huts egin du"
 
 #: gitwidget.cpp:1055
 #, kde-format
@@ -334,27 +333,27 @@ msgstr "Ezabatu adarra"
 #: gitwidget.cpp:1098
 #, kde-format
 msgid "Compare Branch with..."
-msgstr "Alderatu aldarra honekin..."
+msgstr "Alderatu aldarra honekin…"
 
 #: gitwidget.cpp:1104
 #, kde-format
 msgid "Show Commit"
-msgstr "Erakutsi baliozkotzea"
+msgstr "Erakutsi finkapena"
 
 #: gitwidget.cpp:1122
 #, kde-format
 msgid "Show Last Commit"
-msgstr "Erakutsi azken baliozkotzea"
+msgstr "Erakutsi azken finkapena"
 
 #: gitwidget.cpp:1140
 #, kde-format
 msgid "Open Commit..."
-msgstr "Ireki baliozkotzea..."
+msgstr "Ireki finkapena…"
 
 #: gitwidget.cpp:1143 gitwidget.cpp:1188
 #, kde-format
 msgid "Stash"
-msgstr "Gordelekua"
+msgstr "Aldi baterako gorde"
 
 #: gitwidget.cpp:1147
 #, kde-format
@@ -364,57 +363,57 @@ msgstr "Erakutsi historia"
 #: gitwidget.cpp:1159
 #, kde-format
 msgid "Diff - stash"
-msgstr "Diff - gordelekua"
+msgstr "Diff - gordetako aldaketak"
 
 #: gitwidget.cpp:1192
 #, kde-format
 msgid "Pop Last Stash"
-msgstr "«Pop» azken gordelekua"
+msgstr "Berreskuratu aldi baterako gordetako azkena"
 
 #: gitwidget.cpp:1196
 #, kde-format
 msgid "Pop Stash"
-msgstr "«Pop» gordelekua"
+msgstr "Berreskuratu aldi baterako gordetakoa"
 
 #: gitwidget.cpp:1200
 #, kde-format
 msgid "Apply Last Stash"
-msgstr "Aplikatu azken gordelekua"
+msgstr "Aplikatu aldi baterako gordetako azkena"
 
 #: gitwidget.cpp:1202
 #, kde-format
 msgid "Stash (Keep Staged)"
-msgstr "Gordelekua (Mantendu gordeta)"
+msgstr "Aldi baterako gorde (Mantendu prestatuta)"
 
 #: gitwidget.cpp:1206
 #, kde-format
 msgid "Stash (Include Untracked)"
-msgstr "Gordelekua (Barneratu jarraipenik gabeak)"
+msgstr "Aldi baterako gorde (Barneratu jarraitu gabekoak)"
 
 #: gitwidget.cpp:1210
 #, kde-format
 msgid "Apply Stash"
-msgstr "Aplikatu gordelekua"
+msgstr "Aplikatu aldi baterako gordetakoa"
 
 #: gitwidget.cpp:1211
 #, kde-format
 msgid "Drop Stash"
-msgstr "Jaregin gordelekua"
+msgstr "Kendu aldi baterako gordetakoa"
 
 #: gitwidget.cpp:1212
 #, kde-format
 msgid "Show Stash Content"
-msgstr "Erakutsi gordelekuaren edukia"
+msgstr "Erakutsi aldi baterako gordetakoaren edukia"
 
 #: gitwidget.cpp:1250
 #, kde-format
 msgid "Stage All"
-msgstr "Ipini dena antolaketan"
+msgstr "Prestatu dena"
 
 #: gitwidget.cpp:1252
 #, kde-format
 msgid "Remove All"
-msgstr "Kendu denak"
+msgstr "Kendu dena"
 
 #: gitwidget.cpp:1252
 #, kde-format
@@ -430,7 +429,7 @@ msgstr "Ireki .gitignore"
 #: kateprojectconfigpage.cpp:90 kateprojectconfigpage.cpp:102
 #, kde-format
 msgid "Show Diff"
-msgstr "Erakutsi «Diff»"
+msgstr "Erakutsi ezberdintasunak"
 
 #: gitwidget.cpp:1273
 #, kde-format
@@ -450,17 +449,17 @@ msgstr "Ireki fitxategia"
 #: gitwidget.cpp:1297
 #, kde-format
 msgid "Unstage File"
-msgstr "Atera fitxategia antolaketatik"
+msgstr "Kendu fitxategia prestaketatik"
 
 #: gitwidget.cpp:1297
 #, kde-format
 msgid "Stage File"
-msgstr "Ipini fitxategia antolaketan"
+msgstr "Prestatu fitxategia"
 
 #: gitwidget.cpp:1298
 #, kde-format
 msgid "Remove"
-msgstr "Kendu"
+msgstr "Ezabatu"
 
 #: gitwidget.cpp:1298
 #, kde-format
@@ -470,12 +469,12 @@ msgstr "Baztertu"
 #: gitwidget.cpp:1306
 #, kde-format
 msgid "Show in External Git Diff Tool"
-msgstr "Erakutsi kanpoko «Git diff» tresna batean"
+msgstr "Erakutsi kanpoko Git diff tresnan"
 
 #: gitwidget.cpp:1307
 #, kde-format
 msgid "Open at HEAD"
-msgstr "Ireki «HEAD»en"
+msgstr "Ireki HEADeko bertsioa"
 
 #: gitwidget.cpp:1311
 #, kde-format
@@ -495,17 +494,17 @@ msgstr "Ziur zaude fitxategi hau ezabatu nahi duzula?"
 #: gitwidget.cpp:1355
 #, kde-format
 msgid "Unstage All"
-msgstr "Atera dena antolaketatik"
+msgstr "Kendu dena prestaketatik"
 
 #: gitwidget.cpp:1422
 #, kde-format
 msgid "Unstage Selected Files"
-msgstr "Atera antolaketatik hautatutako fitxategiak"
+msgstr "Kendu hautatutako fitxategiak prestaketatik"
 
 #: gitwidget.cpp:1422
 #, kde-format
 msgid "Stage Selected Files"
-msgstr "Ipini antolaketan hautatutako fitxategiak"
+msgstr "Prestatu hautatutako fitxategiak"
 
 #: gitwidget.cpp:1423
 #, kde-format
@@ -515,7 +514,7 @@ msgstr "Baztertu hautatutako fitxategiak"
 #: gitwidget.cpp:1427
 #, kde-format
 msgid "Remove Selected Files"
-msgstr "Kendu hautatutako fitxategiak"
+msgstr "Ezabatu hautatutako fitxategiak"
 
 #: gitwidget.cpp:1440
 #, kde-format
@@ -525,8 +524,7 @@ msgstr "Ziur zaude aldaketak baztertu nahi dituzula?"
 #: gitwidget.cpp:1445
 #, kde-format
 msgid "Are you sure you want to remove these untracked changes?"
-msgstr ""
-"Ziur zaude aztarna jarraitzeke duten aldaketa hauek kendu nahi dituzula?"
+msgstr "Ziur zaude jarraitu gabeko aldaketa hauek kendu nahi dituzula?"
 
 #: kateproject.cpp:356
 #, kde-format
@@ -549,7 +547,7 @@ msgstr "<aztarna jarraitzeke>"
 #: kateprojectcompletion.cpp:52
 #, kde-format
 msgid "Project Completion"
-msgstr "Proiektuaren osatze maila"
+msgstr "Proiektuaren osatze-maila"
 
 #: kateprojectconfigpage.cpp:24
 #, kde-format
@@ -685,7 +683,7 @@ msgstr "Ireki fitxategia"
 #: kateprojectconfigpage.cpp:92 kateprojectconfigpage.cpp:104
 #, kde-format
 msgid "Stage / Unstage"
-msgstr "Ipini / Atera antolaketa(tan/tik)"
+msgstr "Prestatu / Prestaketatik kendu"
 
 #: kateprojectconfigpage.cpp:99
 #, kde-format
@@ -788,13 +786,13 @@ msgctxt ""
 "finished"
 msgid "[%1]Analysis on %2 file finished."
 msgid_plural "[%1]Analysis on %2 files finished."
-msgstr[0] "[%1]Fitxategi %2en gaineko analisia amaitu da."
-msgstr[1] "[%1]%2 fitxategi gaineko analisia amaitu da."
+msgstr[0] "[%1]Fitxategi %2en gaineko analisia bukatu da."
+msgstr[1] "[%1]%2 fitxategiren gaineko analisia bukatu da."
 
 #: kateprojectinfoviewcodeanalysis.cpp:214
 #, kde-format
 msgid "Analysis failed with exit code %1, Error: %2"
-msgstr "Analisiak huts egin du irteerako %1 kodearekin, errorea: %2"
+msgstr "Analisiak irteerako %1 kodearekin huts egin du. Errorea: %2"
 
 #: kateprojectinfoviewindex.cpp:36
 #, kde-format
@@ -824,7 +822,7 @@ msgstr "Bilatu"
 #: kateprojectinfoviewindex.cpp:197
 #, kde-format
 msgid "The index could not be created. Please install 'ctags'."
-msgstr "Indizea ezin izan da sortu. Instalatu «ctags»."
+msgstr "Ezin izan da indizea sortu. Mesedez, instalatu «ctags»."
 
 #: kateprojectinfoviewindex.cpp:207
 #, kde-format
@@ -844,19 +842,19 @@ msgstr "Fitxategi-izena aurretik dago"
 #: kateprojectplugin.cpp:270
 #, kde-format
 msgid "Confirm project closing: %1"
-msgstr "Berretsi proiektua ixtea: %1"
+msgstr "Baieztatu proiektua ixtea: %1"
 
 #: kateprojectplugin.cpp:271
 #, kde-format
 msgid "Do you want to close the project %1 and the related %2 open documents?"
 msgstr ""
-"%1 proiektua eta harekin erlazioa duten irekitako %2 dokumentuak itxi nahi "
+"%1 proiektua eta harekin lotutako irekita dauden %2 dokumentuak itxi nahi "
 "dituzu?"
 
 #: kateprojectplugin.cpp:656
 #, kde-format
 msgid "Full path to current project excluding the file name."
-msgstr "Uneko proiekturako bide-izen osoa fitxategi-izena salbu."
+msgstr "Uneko proiektuaren bide-izen osoa fitxategi-izena kenduta."
 
 #: kateprojectplugin.cpp:673
 #, kde-format
@@ -864,8 +862,8 @@ msgid ""
 "Full path to current project excluding the file name, with native path "
 "separator (backslash on Windows)."
 msgstr ""
-"Uneko proiekturako bide-izen osoa fitxategi-izena salbu, bide-izenen berezko "
-"banatzekoarekin (alderantzizko barra zeiharra Windows-en)."
+"Uneko proiektuaren bide-izen osoa, fitxategi-izena kenduta, sistemaren "
+"berezko bide-izen bereizlearekin (alderantzizko barra zeiharra Windowsen)."
 
 #: kateprojectpluginview.cpp:62
 #, kde-format
@@ -890,7 +888,7 @@ msgstr "Itxi proiektua"
 #: kateprojectpluginview.cpp:168
 #, kde-format
 msgid "Open &Folder..."
-msgstr "Ireki &karpeta..."
+msgstr "Ireki &karpeta…"
 
 #: kateprojectpluginview.cpp:174
 #, kde-format
@@ -925,7 +923,7 @@ msgstr "Itxi proiektu denak"
 #: kateprojectpluginview.cpp:206
 #, kde-format
 msgid "Close Orphaned Projects"
-msgstr "Itxi umezurtz gelditutako proiektuak"
+msgstr "Itxi proiektu umezurtzak"
 
 #: kateprojectpluginview.cpp:211
 #, kde-format
@@ -935,7 +933,7 @@ msgstr "Birzamatu proiektua"
 #: kateprojectpluginview.cpp:222
 #, kde-format
 msgid "Checkout Git Branch"
-msgstr "Eskuratu Git adarra"
+msgstr "Aldatu Git adarrera"
 
 #: kateprojectpluginview.cpp:228 kateprojectpluginview.cpp:807
 #, kde-format
@@ -1030,7 +1028,7 @@ msgstr "Fitxategia lehendik ere badago"
 #: kateprojectviewtree.cpp:362
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
-msgstr "Fitxategia sortzea huts egin du: %1, Errorea: %2"
+msgstr "Fitxategia sortzeak huts egin du: %1, Errorea: %2"
 
 #: kateprojectviewtree.cpp:392
 #, kde-format
@@ -1040,12 +1038,12 @@ msgstr "Direktorioa lehendik ere badago"
 #: kateprojectviewtree.cpp:399
 #, kde-format
 msgid "Failed to create dir: %1"
-msgstr "Karpeta sortzea huts egin du: %1"
+msgstr "Direktorioa sortzeak huts egin du: %1"
 
 #: kateprojectworker.cpp:208
 #, kde-format
 msgid "Unable to find directory: %1"
-msgstr "Direktorioa aurkitu ezinik: %1"
+msgstr "Ezin izan da direktorioa aurkitu: %1"
 
 #: kateprojectworker.cpp:735
 #, kde-format
@@ -1055,20 +1053,20 @@ msgid ""
 "alternatively disable the option 'Autoload Repositories && Build Trees' in "
 "project settings."
 msgstr ""
-"Ez da %1 oinarri duen proiektua zamatzeko gai, %1 ez dagoelako instalatuta "
-"edo ez duelako PATH ingurune aldagaian aurkitu. Mesedez, instalatu %1 edo, "
-"bestela, ezgaitu proiektu ezarpenetako 'Gordetegiak automatikoki zamatu eta "
-"zuhaitzak eraiki' aukera."
+"Ezin izan da %1 oinarri duen proiektua zamatu, %1 instalatuta ez dagoelako "
+"edo PATH ingurune-aldagaian aurkitu ez delako. Mesedez, instalatu %1 edo "
+"proiektuaren ezarpenetan 'Gordetegiak automatikoki zamatu eta zuhaitzak "
+"eraiki' aukera desgaitu."
 
 #: project_commands.cpp:35
 #, kde-format
 msgid "Execute a command in the active project's terminal."
-msgstr "Komando bat exekutatu proiektu aktiboaren terminalean."
+msgstr "Exekutatu komando bat proiektu aktiboaren terminalean."
 
 #: project_commands.cpp:47
 #, kde-format
 msgid "No cmd provided"
-msgstr "Ez da komandorik eman"
+msgstr "Ez da komandorik zehaztu"
 
 #: project_commands.cpp:60
 #, kde-format
@@ -1078,63 +1076,66 @@ msgstr "Proiektuaren komandoa"
 #: stashdialog.cpp:36
 #, kde-format
 msgid "Stash message (optional). Enter to confirm, Esc to leave."
-msgstr "Gordeleku mezua (hautazkoa). «Sartu» berresteko, «Ihes» irteteko."
+msgstr ""
+"Aldi baterako gordetzearen mezua (aukerakoa). Sartu berresteko, Ihes "
+"irteteko."
 
 #: stashdialog.cpp:43
 #, kde-format
 msgid "Type to filter, Enter to pop stash, Esc to leave."
 msgstr ""
-"Tekleatu iragazteko, «Sartu» gordelekuari «pop» egiteko, «Ihes» irteteko."
+"Tekleatu iragazteko, Sartu aldi baterako gordetakoa berreskuratzeko, Ihes "
+"irteteko."
 
 #: stashdialog.cpp:143
 #, kde-format
 msgid "Failed to stash changes %1"
-msgstr "%1 aldaketak gordelekuan ipintzea huts egin du"
+msgstr "%1 aldaketak aldi baterako gordetzeak huts egin du"
 
 #: stashdialog.cpp:145
 #, kde-format
 msgid "Changes stashed successfully."
-msgstr "Aldaketak gordelekuan ondo ipini dira."
+msgstr "Aldaketak aldi baterako ondo gorde dira."
 
 #: stashdialog.cpp:164
 #, kde-format
 msgid "Failed to get stash list. Error: "
-msgstr "Gordeleku-zerrenda lortzea huts egin du. Error:"
+msgstr "Aldi baterako gordetakoen zerrenda eskuratzeak huts egin du. Errorea: "
 
 #: stashdialog.cpp:180
 #, kde-format
 msgid "Failed to apply stash. Error: "
-msgstr "Gordelekua aplikatzea huts egin du. Error:"
+msgstr "Aldi baterako gordetakoa aplikatzeak huts egin du. Errorea: "
 
 #: stashdialog.cpp:182
 #, kde-format
 msgid "Failed to drop stash. Error: "
-msgstr "Gordelekua jaregitea huts egin du. Errorea:"
+msgstr "Aldi baterako gordetakoa kentzeak huts egin du. Errorea: "
 
 #: stashdialog.cpp:184
 #, kde-format
 msgid "Failed to pop stash. Error: "
-msgstr "Gordelekuari «pop» egitea huts egin du. Errorea:"
+msgstr "Aldi baterako gordetakoa berreskuratzeak huts egin du. Errorea: "
 
 #: stashdialog.cpp:188
 #, kde-format
 msgid "Stash applied successfully."
-msgstr "Gordelekua ondo aplikatu da."
+msgstr "Aldi baterako gordetakoa ondo aplikatu da."
 
 #: stashdialog.cpp:190
 #, kde-format
 msgid "Stash dropped successfully."
-msgstr "Gordelekua ondo jaregin da."
+msgstr "Aldi baterako gordetakoa ondo kendu da."
 
 #: stashdialog.cpp:192
 #, kde-format
 msgid "Stash popped successfully."
-msgstr "Gordelekuaren «pop» ondo egin da."
+msgstr "Aldi baterako gordetakoa ondo berreskuratu da."
 
 #: stashdialog.cpp:221
 #, kde-format
 msgid "Show stash failed. Error: "
-msgstr "«Erakutsi gordelekua»k huts egin du. Errorea:"
+msgstr "Aldi baterako gordetakoa erakusteak huts egin du: Errorea: "
 
 #. i18n: ectx: Menu (projects)
 #: ui.rc:9

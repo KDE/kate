@@ -239,7 +239,7 @@ public:
         size.setWidth(size.width() + wMargins);
 
         int maxWidth = calcMaxWidth();
-        int maxHeight = m_view->height() / 3;
+        int maxHeight = m_view->height() / 2;
 
         // this makes it so the scrollbar margins are only added when we need a scrollbar
         setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -431,7 +431,7 @@ private:
 
     [[nodiscard]] int calcMaxWidth() const
     {
-        return (m_view->window() ? m_view->window()->width() : m_view->width()) / 2.5;
+        return (m_view->window() ? m_view->window()->width() : m_view->width()) / 2;
     }
 
     bool inContextMenu = false;

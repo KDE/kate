@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kateproject\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-11 00:50+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2023-01-31 18:13+0100\n"
 "Last-Translator: Ferdinand Galko <galko.ferdinand@gmail.com>\n"
 "Language-Team: Slovak <opensuse-translation@opensuse.org>\n"
@@ -83,12 +83,12 @@ msgstr[0] "Naozaj chcete vymazať vybranú vetvu?"
 msgstr[1] "Naozaj chcete vymazať vybrané vetvy?"
 msgstr[2] "Naozaj chcete vymazať vybrané vetvy?"
 
-#: branchesdialog.cpp:97
+#: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
 msgstr "Vybrať vetvu..."
 
-#: branchesdialog.cpp:109 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, kde-format
 msgid "Git"
 msgstr "Git"

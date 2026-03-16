@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-08 00:49+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2025-12-18 11:08+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -368,7 +368,7 @@ msgstr "Fouten"
 msgid "Warnings"
 msgstr "Waarschuwingen"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:466
+#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -508,7 +508,19 @@ msgstr[1] "Regels uit stage halen"
 msgid "Unstage Hunk"
 msgstr "Hunk uit stage halen"
 
-#: lib/diff/diffwidget.cpp:43
+#: lib/diff/diffwidget.cpp:50
+#, fuzzy, kde-format
+#| msgid "Diff %1"
+msgid "Diff - %1"
+msgstr "Diff %1"
+
+#: lib/diff/diffwidget.cpp:53
+#, fuzzy, kde-format
+#| msgid "Diff %1..%2"
+msgid "Diff - %1..%2"
+msgstr "Diff %1..%2"
+
+#: lib/diff/diffwidget.cpp:59
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -519,86 +531,76 @@ msgstr ""
 "git al is geïnstalleerd, ga na dat het in uw variabele PATH is. Zie https://"
 "git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1256
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:80
-#, kde-format
-msgid "Diff %1"
-msgstr "Diff %1"
-
-#: lib/diff/diffwidget.cpp:82
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Diff %1..%2"
-
-#: lib/diff/diffwidget.cpp:111
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "Commit-informatie tonen/verbergen"
 
-#: lib/diff/diffwidget.cpp:146
+#: lib/diff/diffwidget.cpp:156
 #, kde-format
 msgid "Jump to Next File"
 msgstr "Naar volgend bestand springen"
 
-#: lib/diff/diffwidget.cpp:150
+#: lib/diff/diffwidget.cpp:160
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "Naar vorig bestand springen"
 
-#: lib/diff/diffwidget.cpp:154
+#: lib/diff/diffwidget.cpp:164
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "Naar volgende hunk springen"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:168
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "Naar vorige hunk springen"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:172
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Diff herladen"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:176
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "Diff tonen met volledige context, niet alleen de gewijzigde regels"
 
-#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
+#: lib/diff/diffwidget.cpp:864 lib/diff/diffwidget.cpp:1068
 #, kde-format
 msgid "New file %1"
 msgstr "Nieuw bestand %1"
 
-#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
+#: lib/diff/diffwidget.cpp:866 lib/diff/diffwidget.cpp:1070
 #, kde-format
 msgid "Deleted file %1"
 msgstr "Bestand %1 verwijderen"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1239 lib/diff/diffwidget.cpp:1240
 #, kde-format
 msgid "No differences found"
 msgstr "Geen verschillen gevonden"
 
-#: lib/filehistorywidget.cpp:252
+#: lib/filehistorywidget.cpp:253
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "Ongeldige datum: %1"
 
-#: lib/filehistorywidget.cpp:474
+#: lib/filehistorywidget.cpp:475
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -652,10 +654,12 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "Volledig vastlegging (commit) tonen"
 
-#: lib/filehistorywidget.cpp:702
-#, kde-format
+#: lib/filehistorywidget.cpp:712
+#, fuzzy, kde-format
+#| msgctxt "@title:tab"
+#| msgid "File History - %1"
 msgctxt "@title:tab"
-msgid "File History - %1"
+msgid "History - %1"
 msgstr "Geschiedenis van bestand - %1"
 
 #: lib/kateapp.cpp:147
@@ -2624,48 +2628,48 @@ msgstr[1] ""
 "Op dit moment zijn er %1 documenten meer open. Om alle open documenten te "
 "zien, schakel over naar de weergave Snelopenen door hier te klikken."
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "&Close Tab"
 msgstr "Tabblad &sluiten"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1132
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "&Andere tabbladen sluiten"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1146
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "Alle &tabbladen sluiten"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1179
 #, kde-format
 msgid "D&etach Document"
 msgstr "Docum&ent afkoppelen"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1184
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr ""
 "Opent het document in een nieuw venster en sluit het in het huidige venster"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1225
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "Met het actieve document vergelijken"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "Vergelijken met het actieve document met gebruik van"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Unpin Document"
 msgstr "Document losmaken"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Pin Document"
 msgstr "Document vastpinnen"

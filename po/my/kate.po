@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-08 00:49+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2025-09-16 15:43+0630\n"
 "Last-Translator: ဇေယျာလွင် <lw1nzayar@yandex.com>\n"
 "Language-Team: Burmese <kde-i18n-doc@kde.org>\n"
@@ -343,7 +343,7 @@ msgstr "အမှား"
 msgid "Warnings"
 msgstr "သတိ"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:466
+#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -480,7 +480,19 @@ msgstr[0] "စာကြောင်းကိုခြေလှမ်းပြန
 msgid "Unstage Hunk"
 msgstr "စာအပိုင်းကိုခြေလှမ်းပြန်ဆုတ်မည်"
 
-#: lib/diff/diffwidget.cpp:43
+#: lib/diff/diffwidget.cpp:50
+#, fuzzy, kde-format
+#| msgid "Diff %1"
+msgid "Diff - %1"
+msgstr "Diff %1"
+
+#: lib/diff/diffwidget.cpp:53
+#, fuzzy, kde-format
+#| msgid "Diff %1..%2"
+msgid "Diff - %1..%2"
+msgstr "Diff %1..%2"
+
+#: lib/diff/diffwidget.cpp:59
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -490,86 +502,76 @@ msgstr ""
 "<b>git</b>မတွေ့ပါ။ မှတ်တမ်းစာအုပ်များ၏ကွာခြားချက်ရှာဖွေရန်အတွက် gitကိုလိုအပ်ပါသည်။ https://git-"
 "scm.com/downloadsသို့သွားကြည့်ပါ"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1256
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "Diff"
 
-#: lib/diff/diffwidget.cpp:80
-#, kde-format
-msgid "Diff %1"
-msgstr "Diff %1"
-
-#: lib/diff/diffwidget.cpp:82
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "Diff %1..%2"
-
-#: lib/diff/diffwidget.cpp:111
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "Diff %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "အပ်နှံချက်အချက်အလက် ပြ၊ဖွက်"
 
-#: lib/diff/diffwidget.cpp:146
+#: lib/diff/diffwidget.cpp:156
 #, kde-format
 msgid "Jump to Next File"
 msgstr "နောက်ဖိုင်သို့ခုန်"
 
-#: lib/diff/diffwidget.cpp:150
+#: lib/diff/diffwidget.cpp:160
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "ယခင်ဖိုင်သို့ခုန်"
 
-#: lib/diff/diffwidget.cpp:154
+#: lib/diff/diffwidget.cpp:164
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "နောက်စာအပိုင်းသို့ခုန်"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:168
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "ယခင်စာအပိုင်းသို့ခုန်"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:172
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "Diff ပြန်တွန်းတင်မည်"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:176
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "ပြောင်းသွားသောစာကြောင်းများသာမက ဆက်စပ်အကြောင်းအရာပြည့်စုံစွာဖြင့် diff ပြမည်"
 
-#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
+#: lib/diff/diffwidget.cpp:864 lib/diff/diffwidget.cpp:1068
 #, kde-format
 msgid "New file %1"
 msgstr "ဖိုင်အသစ်%1"
 
-#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
+#: lib/diff/diffwidget.cpp:866 lib/diff/diffwidget.cpp:1070
 #, kde-format
 msgid "Deleted file %1"
 msgstr "ဖျက်ခဲ့သောဖိုင် %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1239 lib/diff/diffwidget.cpp:1240
 #, kde-format
 msgid "No differences found"
 msgstr "ကွာခြားချက်မတွေ့ပါ"
 
-#: lib/filehistorywidget.cpp:252
+#: lib/filehistorywidget.cpp:253
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "ရက်စွဲမမှန်ပါ - %1"
 
-#: lib/filehistorywidget.cpp:474
+#: lib/filehistorywidget.cpp:475
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -608,10 +610,12 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "အပ်နှံချက်အပြည့်အစုံပြမည်"
 
-#: lib/filehistorywidget.cpp:702
-#, kde-format
+#: lib/filehistorywidget.cpp:712
+#, fuzzy, kde-format
+#| msgctxt "@title:tab"
+#| msgid "File History - %1"
 msgctxt "@title:tab"
-msgid "File History - %1"
+msgid "History - %1"
 msgstr "ဖိုင်မှတ်တမ်း-%1"
 
 #: lib/kateapp.cpp:147
@@ -2481,50 +2485,50 @@ msgid_plural ""
 "switch to the Quick Open view by clicking here."
 msgstr[0] ""
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1125
 #, fuzzy, kde-format
 #| msgid "Close Tab"
 msgid "&Close Tab"
 msgstr "တပ်ဘ်ပိတ်"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1132
 #, fuzzy, kde-format
 #| msgid "Close Others"
 msgid "Close &Other Tabs"
 msgstr "အခြားဟာများပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1146
 #, fuzzy, kde-format
 #| msgid "Close All"
 msgid "Close All &Tabs"
 msgstr "အားလုံးပိတ်"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1179
 #, kde-format
 msgid "D&etach Document"
 msgstr "မှတ်တမ်းစာအုပ်&ခွာမည်"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1184
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "ဝင်းဒိုးအသစ်တွင် မှတ်တမ်းစာအုပ်ကိုဖွင့်၍ လက်ရှိဝင်းဒိုးတွင်ပိတ်မည်"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1225
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "နောက်ပါကိုအသုံးပြု၍သက်ဝင်မှတ်တမ်းစာအုပ်ဖြင့်နိုင်းယှဉ်မည်"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Unpin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုမတွဲတော့ပါ"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Pin Document"
 msgstr "မှတ်တမ်းစာအုပ်ကိုတွဲထားမည်"

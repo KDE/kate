@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-11 00:50+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2014-09-18 23:28+0200\n"
 "Last-Translator: Sönke Dibbern <s_dibbern@web.de>\n"
 "Language-Team: Low Saxon <kde-i18n-nds@kde.org>\n"
@@ -79,12 +79,12 @@ msgid_plural "Are you sure you want to delete the selected branches?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: branchesdialog.cpp:97
+#: branchesdialog.cpp:96
 #, kde-format
 msgid "Select Branch..."
 msgstr ""
 
-#: branchesdialog.cpp:109 gitwidget.cpp:571 kateprojectpluginview.cpp:73
+#: branchesdialog.cpp:108 gitwidget.cpp:571 kateprojectpluginview.cpp:73
 #, fuzzy, kde-format
 #| msgid "&Git"
 msgid "Git"

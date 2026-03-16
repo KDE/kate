@@ -1,6 +1,5 @@
 # Translation of kateshownonprintableplugin to Norwegian Bokmål
 #
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"

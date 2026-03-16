@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-08 00:49+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -351,7 +351,7 @@ msgstr "错误"
 msgid "Warnings"
 msgstr "警告"
 
-#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:466
+#: lib/diagnostics/diagnosticview.cpp:529 lib/filehistorywidget.cpp:467
 #: lib/kateconfigplugindialogpage.cpp:109
 #, kde-format
 msgid "Filter…"
@@ -488,7 +488,19 @@ msgstr[0] "取消暂存的行"
 msgid "Unstage Hunk"
 msgstr "取消暂存的块"
 
-#: lib/diff/diffwidget.cpp:43
+#: lib/diff/diffwidget.cpp:50
+#, fuzzy, kde-format
+#| msgid "Diff %1"
+msgid "Diff - %1"
+msgstr "差异 %1"
+
+#: lib/diff/diffwidget.cpp:53
+#, fuzzy, kde-format
+#| msgid "Diff %1..%2"
+msgid "Diff - %1..%2"
+msgstr "比较 %1 和 %2"
+
+#: lib/diff/diffwidget.cpp:59
 #, kde-format
 msgid ""
 "<b>git</b> not found. Git is needed to diff the documents. If git is already "
@@ -498,86 +510,76 @@ msgstr ""
 "<b>git</b> 无法找到。检测文档差异需要使用 Git。如果 git 已经安装到本机，请确"
 "保它已添加到您的 PATH 变量。详情请见 https://git-scm.com/downloads"
 
-#: lib/diff/diffwidget.cpp:46 lib/diff/diffwidget.cpp:1246
+#: lib/diff/diffwidget.cpp:62 lib/diff/diffwidget.cpp:1256
 #: lib/kateconfigdialog.cpp:368
 #, kde-format
 msgid "Diff"
 msgstr "比较"
 
-#: lib/diff/diffwidget.cpp:80
-#, kde-format
-msgid "Diff %1"
-msgstr "差异 %1"
-
-#: lib/diff/diffwidget.cpp:82
-#, kde-format
-msgid "Diff %1..%2"
-msgstr "比较 %1 和 %2"
-
-#: lib/diff/diffwidget.cpp:111
+#: lib/diff/diffwidget.cpp:121
 #, kde-format
 msgid "Diff %1 .. %2"
 msgstr "比较 %1 .. %2"
 
-#: lib/diff/diffwidget.cpp:141
+#: lib/diff/diffwidget.cpp:151
 #, kde-format
 msgid "Show/Hide Commit Info"
 msgstr "显示/隐藏提交信息"
 
-#: lib/diff/diffwidget.cpp:146
+#: lib/diff/diffwidget.cpp:156
 #, kde-format
 msgid "Jump to Next File"
 msgstr "跳转到下一个文件"
 
-#: lib/diff/diffwidget.cpp:150
+#: lib/diff/diffwidget.cpp:160
 #, kde-format
 msgid "Jump to Previous File"
 msgstr "跳转到上一个文件"
 
-#: lib/diff/diffwidget.cpp:154
+#: lib/diff/diffwidget.cpp:164
 #, kde-format
 msgid "Jump to Next Hunk"
 msgstr "跳转到下一个块"
 
-#: lib/diff/diffwidget.cpp:158
+#: lib/diff/diffwidget.cpp:168
 #, kde-format
 msgid "Jump to Previous Hunk"
 msgstr "跳转到上一个块"
 
-#: lib/diff/diffwidget.cpp:162
+#: lib/diff/diffwidget.cpp:172
 #, kde-format
 msgctxt "Tooltip for a button, clicking the button reloads the diff"
 msgid "Reload Diff"
 msgstr "重新加载差异"
 
-#: lib/diff/diffwidget.cpp:166
+#: lib/diff/diffwidget.cpp:176
 #, kde-format
 msgctxt "Tooltip for a button"
 msgid "Show diff with full context, not just the changed lines"
 msgstr "显示带有完整上下文的差异，而不只是显示更改过的行"
 
-#: lib/diff/diffwidget.cpp:854 lib/diff/diffwidget.cpp:1058
+#: lib/diff/diffwidget.cpp:864 lib/diff/diffwidget.cpp:1068
 #, kde-format
 msgid "New file %1"
 msgstr "新文件 %1"
 
-#: lib/diff/diffwidget.cpp:856 lib/diff/diffwidget.cpp:1060
+#: lib/diff/diffwidget.cpp:866 lib/diff/diffwidget.cpp:1070
 #, kde-format
 msgid "Deleted file %1"
 msgstr "已删除文件 %1"
 
-#: lib/diff/diffwidget.cpp:1229 lib/diff/diffwidget.cpp:1230
+#: lib/diff/diffwidget.cpp:1239 lib/diff/diffwidget.cpp:1240
 #, kde-format
 msgid "No differences found"
 msgstr "未发现差异"
 
-#: lib/filehistorywidget.cpp:252
+#: lib/filehistorywidget.cpp:253
 #, kde-format
 msgctxt "error message"
 msgid "Invalid date: %1"
 msgstr "无效的日期：%1"
 
-#: lib/filehistorywidget.cpp:474
+#: lib/filehistorywidget.cpp:475
 #, kde-format
 msgctxt "Help text"
 msgid ""
@@ -625,10 +627,12 @@ msgctxt "@menu:action"
 msgid "Show Full Commit"
 msgstr "显示完整提交"
 
-#: lib/filehistorywidget.cpp:702
-#, kde-format
+#: lib/filehistorywidget.cpp:712
+#, fuzzy, kde-format
+#| msgctxt "@title:tab"
+#| msgid "File History - %1"
 msgctxt "@title:tab"
-msgid "File History - %1"
+msgid "History - %1"
 msgstr "文件历史 - %1"
 
 #: lib/kateapp.cpp:147
@@ -2520,47 +2524,47 @@ msgid_plural ""
 msgstr[0] ""
 "当前还有 %1 个文档已打开。要查看所有打开文档，请点击此处切换到快速打开视图。"
 
-#: lib/kateviewspace.cpp:1116
+#: lib/kateviewspace.cpp:1125
 #, kde-format
 msgid "&Close Tab"
 msgstr "关闭标签页(&C)"
 
-#: lib/kateviewspace.cpp:1123
+#: lib/kateviewspace.cpp:1132
 #, kde-format
 msgid "Close &Other Tabs"
 msgstr "关闭其他标签页(&O)"
 
-#: lib/kateviewspace.cpp:1137
+#: lib/kateviewspace.cpp:1146
 #, kde-format
 msgid "Close All &Tabs"
 msgstr "关闭所有标签页(&T)"
 
-#: lib/kateviewspace.cpp:1170
+#: lib/kateviewspace.cpp:1179
 #, kde-format
 msgid "D&etach Document"
 msgstr "分离文档到新窗口(&E)"
 
-#: lib/kateviewspace.cpp:1175
+#: lib/kateviewspace.cpp:1184
 #, kde-format
 msgid "Opens the document in a new window and closes it in the current window"
 msgstr "移动文档到新窗口"
 
-#: lib/kateviewspace.cpp:1216
+#: lib/kateviewspace.cpp:1225
 #, kde-format
 msgid "Compare with Active Document"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1222
+#: lib/kateviewspace.cpp:1231
 #, kde-format
 msgid "Compare with Active Document Using"
 msgstr "与当前文档进行比较"
 
-#: lib/kateviewspace.cpp:1230
+#: lib/kateviewspace.cpp:1239
 #, kde-format
 msgid "Unpin Document"
 msgstr "取消固定文档"
 
-#: lib/kateviewspace.cpp:1232
+#: lib/kateviewspace.cpp:1241
 #, kde-format
 msgid "Pin Document"
 msgstr "固定文档"

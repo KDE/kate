@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdesdk/katefilebrowserplugin.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:55+0000\n"
+"POT-Creation-Date: 2026-03-16 00:48+0000\n"
 "PO-Revision-Date: 2025-11-30 14:15+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -18,30 +18,30 @@ msgstr ""
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
 
-#: katefilebrowser.cpp:100
+#: katefilebrowser.cpp:103
 #, kde-format
 msgid "Search"
 msgstr "Cuardaigh"
 
-#: katefilebrowser.cpp:115
+#: katefilebrowser.cpp:118
 #, kde-format
 msgid "Enter a name filter to limit which files are displayed."
 msgstr ""
 "Cuir scagaire ainm isteach chun teorainn a chur ar na comhaid atá ar "
 "taispeáint."
 
-#: katefilebrowser.cpp:294
+#: katefilebrowser.cpp:297
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Open With"
 msgstr "Oscail Le"
 
-#: katefilebrowser.cpp:323
+#: katefilebrowser.cpp:326
 #, kde-format
 msgid "&Other..."
 msgstr "& Eile..."
 
-#: katefilebrowser.cpp:351
+#: katefilebrowser.cpp:354
 #, kde-format
 msgid "You are trying to open 1 file, are you sure?"
 msgid_plural "You are trying to open %1 files, are you sure?"
@@ -51,33 +51,33 @@ msgstr[2] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
 msgstr[3] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
 msgstr[4] "Tá tú ag iarraidh %1 comhad a oscailt, an bhfuil tú cinnte?"
 
-#: katefilebrowser.cpp:353
+#: katefilebrowser.cpp:356
 #, kde-format
 msgctxt "@action:button"
 msgid "Open All Files"
 msgstr "Oscail Gach Comhad"
 
-#: katefilebrowser.cpp:416
+#: katefilebrowser.cpp:419
 #, kde-format
 msgid "Bookmarks"
 msgstr "Leabharmharcanna"
 
-#: katefilebrowser.cpp:424
+#: katefilebrowser.cpp:427
 #, kde-format
 msgid "Current Document Folder"
 msgstr "Fillteán Reatha Cáipéise"
 
-#: katefilebrowser.cpp:432
+#: katefilebrowser.cpp:435
 #, kde-format
 msgid "Options"
 msgstr "Roghanna"
 
-#: katefilebrowser.cpp:444
+#: katefilebrowser.cpp:447
 #, kde-format
 msgid "Automatically synchronize with current document"
 msgstr "Sioncrónaigh leis an gcáipéis reatha go huathoibríoch"
 
-#: katefilebrowser.cpp:451
+#: katefilebrowser.cpp:454
 #, kde-format
 msgid "Highlight current file"
 msgstr "Aibhsigh an comhad reatha"

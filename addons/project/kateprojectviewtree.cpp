@@ -106,7 +106,7 @@ public:
             fmt.setForeground(options.palette.brush(QPalette::Disabled, QPalette::Text));
             int slashIndex = text.indexOf(u"/");
             while (slashIndex != -1) {
-                formats.append(QTextLayout::FormatRange{slashIndex, 1, fmt});
+                formats.append(QTextLayout::FormatRange{.start = slashIndex, .length = 1, .format = fmt});
                 slashIndex = text.indexOf(u"/", slashIndex + 1);
             }
 

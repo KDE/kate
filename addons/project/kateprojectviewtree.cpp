@@ -79,12 +79,15 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &opt, const QModelIndex &index) const override
     {
-        const QString text = index.data().toString();
+        QString text = index.data().toString();
 
         // Highlight differently if we have a flattened path
         if (text.contains(u'/')) {
             QStyleOptionViewItem options = opt;
             initStyleOption(&options, index);
+
+            const auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
+            text = options.fontMetrics.elidedText(text, Qt::TextElideMode::ElideRight, textRect.width());
 
             QList<QTextLayout::FormatRange> formats;
 
@@ -116,7 +119,6 @@ public:
             options.widget->style()->drawControl(QStyle::CE_ItemViewItem, &options, painter, options.widget);
             options.rect.adjust(4, 0, 0, 0);
 
-            auto textRect = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options, options.widget);
             auto width = textRect.x() - options.rect.x();
             painter->translate(width, 0);
             Utils::paintItemViewText(painter, text, options, formats);

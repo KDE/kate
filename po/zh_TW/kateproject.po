@@ -4,13 +4,13 @@
 # Franklin Weng <franklin at goodhorse dot idv dot tw>, 2012, 2013, 2014, 2015.
 # Jeff Huang <s8321414@gmail.com>, 2016, 2020.
 # pan93412 <pan93412@gmail.com>, 2018, 2019.
-# SPDX-FileCopyrightText: 2023, 2024, 2025 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023-2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-16 00:48+0000\n"
-"PO-Revision-Date: 2025-11-20 22:13+0900\n"
+"PO-Revision-Date: 2026-03-16 17:13+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -524,16 +524,14 @@ msgid "Are you sure you want to remove these untracked changes?"
 msgstr "您確定要移除這些未追蹤的變更嗎？"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "已修改"
+msgstr "(已修改)"
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "已暫存"
+msgstr "(已暫存)"
 
 #: kateproject.cpp:357
 #, kde-format

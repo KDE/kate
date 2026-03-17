@@ -540,16 +540,14 @@ msgstr ""
 "An bhfuil tú cinnte gur mian leat na hathruithe neamhrianaithe seo a bhaint?"
 
 #: kateproject.cpp:233
-#, fuzzy, kde-format
-#| msgid "Modified"
+#, kde-format
 msgid "(Modified)"
-msgstr "Modhnaithe"
+msgstr ""
 
 #: kateproject.cpp:235
-#, fuzzy, kde-format
-#| msgid "Staged"
+#, kde-format
 msgid "(Staged)"
-msgstr "Ar stáitse"
+msgstr ""
 
 #: kateproject.cpp:357
 #, kde-format

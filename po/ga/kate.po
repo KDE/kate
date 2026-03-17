@@ -501,16 +501,14 @@ msgid "Unstage Hunk"
 msgstr "Hunk Gan Stádas"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "Difríocht %1"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "Difríocht %1..%2"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -648,12 +646,10 @@ msgid "Show Full Commit"
 msgstr "Taispeáin an Tiomantas Iomlán"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "Stair Chomhaid - %1"
+msgstr ""
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -3203,13 +3199,3 @@ msgstr "Bainistigh Seisiúin..."
 #, kde-format
 msgid "Show welcome page for new window"
 msgstr "Taispeáin leathanach fáilte don fhuinneog nua"
-
-#~ msgid ""
-#~ "<p>The document '%1' has been modified, but not saved.</p><p>Do you want "
-#~ "to save your changes or discard them?</p>"
-#~ msgstr ""
-#~ "<p>Tá an doiciméad '%1' modhnaithe, ach níor sábháladh é.</p><p>Ar mhaith "
-#~ "leat do chuid athruithe a shábháil nó iad a chaitheamh amach?</p>"
-
-#~ msgid "Save As"
-#~ msgstr "Sábháil Mar"

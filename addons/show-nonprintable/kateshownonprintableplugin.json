@@ -19,6 +19,7 @@
         "Description[tr]": "Yazdırılmayacak karakterleri göstermenize olanak tanır",
         "Description[uk]": "Надає вам змогу переглядати недруковані символи",
         "Description[zh_CN]": "允许显示不可打印的字符",
+        "Description[zh_TW]": "讓您可以顯示非列印字元",
         "Name": "Show Non-Printable Characters",
         "Name[ar]": "أظهر المحارف غير الطباعية",
         "Name[ca@valencia]": "Mostra els caràcters no imprimibles",
@@ -37,6 +38,7 @@
         "Name[sl]": "Prikaži nenatisljive znake",
         "Name[tr]": "Yazdırılmayacak Karakterleri Göster",
         "Name[uk]": "Показувати недруковані символи",
-        "Name[zh_CN]": "显示不可打印字符"
+        "Name[zh_CN]": "显示不可打印字符",
+        "Name[zh_TW]": "顯示非列印字元"
     }
 }

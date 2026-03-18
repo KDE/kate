@@ -489,16 +489,14 @@ msgid "Unstage Hunk"
 msgstr "取消暂存的块"
 
 #: lib/diff/diffwidget.cpp:50
-#, fuzzy, kde-format
-#| msgid "Diff %1"
+#, kde-format
 msgid "Diff - %1"
-msgstr "差异 %1"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:53
-#, fuzzy, kde-format
-#| msgid "Diff %1..%2"
+#, kde-format
 msgid "Diff - %1..%2"
-msgstr "比较 %1 和 %2"
+msgstr ""
 
 #: lib/diff/diffwidget.cpp:59
 #, kde-format
@@ -628,12 +626,10 @@ msgid "Show Full Commit"
 msgstr "显示完整提交"
 
 #: lib/filehistorywidget.cpp:712
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "File History - %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "History - %1"
-msgstr "文件历史 - %1"
+msgstr ""
 
 #: lib/kateapp.cpp:147
 msgid ""

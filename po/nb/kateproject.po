@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-16 00:48+0000\n"
+"POT-Creation-Date: 2026-03-18 00:48+0000\n"
 "PO-Revision-Date: 2026-02-23 23:03+0100\n"
 "Last-Translator: Kjetil Sorlund <translate@sorlund.no>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -543,9 +543,9 @@ msgid "Malformed JSON file '%1': %2"
 msgstr "JSON-fila «%1» er feilformatert: %2"
 
 #: kateproject.cpp:424 kateprojectplugin.cpp:791 kateprojectpluginview.cpp:78
-#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:351
-#: kateprojectviewtree.cpp:362 kateprojectviewtree.cpp:392
-#: kateprojectviewtree.cpp:399
+#: kateprojectpluginview.cpp:225 kateprojectviewtree.cpp:353
+#: kateprojectviewtree.cpp:364 kateprojectviewtree.cpp:394
+#: kateprojectviewtree.cpp:401
 #, kde-format
 msgid "Project"
 msgstr "Prosjekt"
@@ -1026,22 +1026,22 @@ msgstr "Ny fil"
 msgid "New Folder"
 msgstr "Ny mappe"
 
-#: kateprojectviewtree.cpp:351
+#: kateprojectviewtree.cpp:353
 #, kde-format
 msgid "The file already exists"
 msgstr "Fila finnes fra før"
 
-#: kateprojectviewtree.cpp:362
+#: kateprojectviewtree.cpp:364
 #, kde-format
 msgid "Failed to create file: %1, Error: %2"
 msgstr "Klarte ikke opprette fila %1, Feil: %2"
 
-#: kateprojectviewtree.cpp:392
+#: kateprojectviewtree.cpp:394
 #, kde-format
 msgid "The directory already exists"
 msgstr "Mappa finnes fra før"
 
-#: kateprojectviewtree.cpp:399
+#: kateprojectviewtree.cpp:401
 #, kde-format
 msgid "Failed to create dir: %1"
 msgstr "Klarte ikke opprette mappa: %1"

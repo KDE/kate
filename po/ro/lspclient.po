@@ -1,28 +1,27 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
-# Sergiu Bivol <sergiu@cip.md>, 2020.
+# SPDX-FileCopyrightText: 2020, 2026 Sergiu Bivol <sergiu@cip.md>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-16 00:50+0000\n"
-"PO-Revision-Date: 2020-10-05 22:23+0100\n"
+"PO-Revision-Date: 2026-03-04 12:36+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
-"Language-Team: Romanian\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
-#, fuzzy, kde-format
-#| msgid "Filter..."
+#, kde-format
 msgid "Filter…"
-msgstr "Filtru..."
+msgstr "Filtru…"
 
 #: lspclientconfigpage.cpp:105 lspclientconfigpage.cpp:110
 #: lspclientpluginview.cpp:479 lspclientpluginview.cpp:627
@@ -53,17 +52,17 @@ msgstr "Datele JSON nu sunt valide: %1"
 #: lspclientconfigpage.cpp:292
 #, kde-format
 msgid "Delete selected entries"
-msgstr ""
+msgstr "Șterge înregistrările alese"
 
 #: lspclientconfigpage.cpp:298
 #, kde-format
 msgid "Delete all entries"
-msgstr ""
+msgstr "Șterge toate înregistrările"
 
 #: lspclientplugin.cpp:237
 #, kde-format
 msgid "LSP server start requested"
-msgstr ""
+msgstr "S-a cerut pornirea serverului LSP"
 
 #: lspclientplugin.cpp:240
 #, kde-format
@@ -72,6 +71,9 @@ msgid ""
 "<br><br><b>%1</b><br><br>The choice can be altered via the config page of "
 "the plugin."
 msgstr ""
+"Doriți ca serverul LSP să fie pornit?<br><br>Linia de comandă completă e:"
+"<br><br><b>%1</b><br><br>Alegerea poate fi modificată pe pagina de "
+"configurare a extensiei."
 
 #: lspclientplugin.cpp:253
 #, kde-format
@@ -79,11 +81,13 @@ msgid ""
 "User permanently blocked start of: '%1'.\n"
 "Use the config page of the plugin to undo this block."
 msgstr ""
+"Utilizatorul a blocat permanent pornirea: „%1”.\n"
+"Folosiți pagina de configurare a extensiei pentru a scoate blocajul."
 
 #: lspclientpluginview.cpp:444 lspclientpluginview.cpp:688
 #, kde-format
 msgid "LSP"
-msgstr ""
+msgstr "LSP"
 
 #: lspclientpluginview.cpp:508
 #, kde-format
@@ -96,10 +100,9 @@ msgid "Go to Declaration"
 msgstr "Mergi la declarație"
 
 #: lspclientpluginview.cpp:512
-#, fuzzy, kde-format
-#| msgid "Go to Definition"
+#, kde-format
 msgid "Go to Type Definition"
-msgstr "Mergi la definiție"
+msgstr "Mergi la definiția tipului"
 
 #: lspclientpluginview.cpp:514
 #, kde-format
@@ -109,7 +112,7 @@ msgstr "Găsește referințe"
 #: lspclientpluginview.cpp:517
 #, kde-format
 msgid "Find Implementations"
-msgstr ""
+msgstr "Găsește implementări"
 
 #: lspclientpluginview.cpp:519
 #, kde-format
@@ -117,15 +120,14 @@ msgid "Highlight"
 msgstr "Evidențiere"
 
 #: lspclientpluginview.cpp:521
-#, fuzzy, kde-format
-#| msgid "Symbols"
+#, kde-format
 msgid "Symbol Info"
-msgstr "Simboluri"
+msgstr "Informații despre simbol"
 
 #: lspclientpluginview.cpp:523
 #, kde-format
 msgid "Search and Go to Symbol"
-msgstr ""
+msgstr "Caută și mergi la simbol"
 
 #: lspclientpluginview.cpp:528
 #, kde-format
@@ -138,38 +140,34 @@ msgid "Rename"
 msgstr "Redenumește"
 
 #: lspclientpluginview.cpp:534
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Selection"
-msgstr "Desfășoară tot"
+msgstr "Extinde selecția"
 
 #: lspclientpluginview.cpp:537
 #, kde-format
 msgid "Shrink Selection"
-msgstr ""
+msgstr "Îngustează selecția"
 
 #: lspclientpluginview.cpp:540
 #, kde-format
 msgid "Switch Source Header"
-msgstr ""
+msgstr "Schimbă antetul-sursă"
 
 #: lspclientpluginview.cpp:543
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Expand Macro"
-msgstr "Desfășoară tot"
+msgstr "Extinde macrocomanda"
 
 #: lspclientpluginview.cpp:545
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "Code Action"
-msgstr "Opțiuni generale"
+msgstr "Acțiune pentru cod"
 
 #: lspclientpluginview.cpp:560
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "Show lsp completions"
-msgstr "Opțiuni generale"
+msgstr "Arată completări LSP"
 
 #: lspclientpluginview.cpp:563
 #, kde-format
@@ -179,7 +177,7 @@ msgstr "Arată documentația completării alese"
 #: lspclientpluginview.cpp:566
 #, kde-format
 msgid "Enable signature help with auto completion"
-msgstr ""
+msgstr "Activează ajutorul pentru semnături cu completare automată"
 
 #: lspclientpluginview.cpp:569
 #, kde-format
@@ -190,7 +188,7 @@ msgstr "Include declarația în referințe"
 #: lspclientpluginview.cpp:572 lspconfigwidget.ui:103
 #, kde-format
 msgid "Add parentheses upon function completion"
-msgstr ""
+msgstr "Adaugă paranteze la completarea funcției"
 
 #: lspclientpluginview.cpp:575
 #, kde-format
@@ -211,33 +209,30 @@ msgstr "Sincronizare incrementală a documentelor"
 #: lspclientpluginview.cpp:584
 #, kde-format
 msgid "Highlight goto location"
-msgstr ""
+msgstr "Evidențiază amplasarea „goto”"
 
 #: lspclientpluginview.cpp:593
 #, kde-format
 msgid "Show Inlay Hints"
-msgstr ""
+msgstr "Arată indicii intercalate"
 
 #: lspclientpluginview.cpp:597
-#, fuzzy, kde-format
-#| msgid "Show diagnostics notifications"
+#, kde-format
 msgid "Show Diagnostics Notifications"
 msgstr "Arată notificări pentru diagnostic"
 
 #: lspclientpluginview.cpp:602
-#, fuzzy, kde-format
-#| msgid "Show messages"
+#, kde-format
 msgid "Show Messages"
 msgstr "Arată mesajele"
 
 #: lspclientpluginview.cpp:607
 #, kde-format
 msgid "Server Memory Usage"
-msgstr ""
+msgstr "Folosirea memoriei de către server"
 
 #: lspclientpluginview.cpp:611
-#, fuzzy, kde-format
-#| msgid "Close all dynamic reference tabs"
+#, kde-format
 msgid "Close All Dynamic Reference Tabs"
 msgstr "Închide toate filele cu referințe dinamice"
 
@@ -252,20 +247,19 @@ msgid "Restart All LSP Servers"
 msgstr "Repornește toate serverele LSP"
 
 #: lspclientpluginview.cpp:619
-#, fuzzy, kde-format
-#| msgid "Expand All"
+#, kde-format
 msgid "Suspend All"
-msgstr "Desfășoară tot"
+msgstr "Suspendă tot"
 
 #: lspclientpluginview.cpp:623
 #, kde-format
 msgid "Go To"
-msgstr ""
+msgstr "Mergi"
 
 #: lspclientpluginview.cpp:643
 #, kde-format
 msgid "More options"
-msgstr ""
+msgstr "Opțiuni suplimentare"
 
 #: lspclientpluginview.cpp:868 lspclientsymbolview.cpp:397
 #, kde-format
@@ -285,7 +279,7 @@ msgstr "RangeHighLight"
 #: lspclientpluginview.cpp:1357
 #, kde-format
 msgid "Line: %1: "
-msgstr "Linie: %1: "
+msgstr "Rând: %1: "
 
 #: lspclientpluginview.cpp:1509 lspclientpluginview.cpp:1858
 #: lspclientpluginview.cpp:1978
@@ -306,12 +300,10 @@ msgid "Declaration: %1"
 msgstr "Declarație: %1"
 
 #: lspclientpluginview.cpp:1580
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Definition: %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Type Definition: %1"
-msgstr "Definiție: %1"
+msgstr "Definiție de tip: %1"
 
 #: lspclientpluginview.cpp:1586
 #, kde-format
@@ -320,12 +312,10 @@ msgid "References: %1"
 msgstr "Referințe: %1"
 
 #: lspclientpluginview.cpp:1598
-#, fuzzy, kde-format
-#| msgctxt "@title:tab"
-#| msgid "Definition: %1"
+#, kde-format
 msgctxt "@title:tab"
 msgid "Implementation: %1"
-msgstr "Definiție: %1"
+msgstr "Implementare: %1"
 
 #: lspclientpluginview.cpp:1611
 #, kde-format
@@ -335,15 +325,14 @@ msgstr "Evidențiere: %1"
 
 #: lspclientpluginview.cpp:1635 lspclientpluginview.cpp:1646
 #: lspclientpluginview.cpp:1659
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "No Actions"
-msgstr "Opțiuni generale"
+msgstr "Nicio acțiune"
 
 #: lspclientpluginview.cpp:1650
 #, kde-format
 msgid "Loading..."
-msgstr ""
+msgstr "Se încarcă…"
 
 #: lspclientpluginview.cpp:1742
 #, kde-format
@@ -363,15 +352,14 @@ msgid "New name (caution: not all references may be replaced)"
 msgstr "Denumire nouă (atenție: pot să nu fie înlocuite toate referințele)"
 
 #: lspclientpluginview.cpp:1864
-#, fuzzy, kde-format
-#| msgid "No results"
+#, kde-format
 msgid "Not enough results"
-msgstr "Niciun rezultat"
+msgstr "Rezultate insuficiente"
 
 #: lspclientpluginview.cpp:1933
 #, kde-format
 msgid "Corresponding Header/Source not found"
-msgstr ""
+msgstr "Antetul/sursa corespondente nu au fost găsite"
 
 #: lspclientpluginview.cpp:2131 lspclientpluginview.cpp:2174
 #, kde-format
@@ -386,10 +374,9 @@ msgid "LSP Client"
 msgstr "Client LSP"
 
 #: lspclientpluginview.cpp:2447
-#, fuzzy, kde-format
-#| msgid "Restart LSP Server"
+#, kde-format
 msgid "Question from LSP server"
-msgstr "Repornește serverul LSP"
+msgstr "Întrebare de la serverul LSP"
 
 #: lspclientservermanager.cpp:630
 #, kde-format
@@ -407,26 +394,24 @@ msgid "Server terminated unexpectedly ... %1 [%2] [homepage: %3] "
 msgstr "Serverul s-a terminat pe neașteptate ... %1 [%2] [pagină: %3] "
 
 #: lspclientservermanager.cpp:903
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to find server binary '%1' for language '%2'"
-msgstr "Pornirea serverului a eșuat: %1"
+msgstr "Binarul serverului „%1” pentru limbajul „%2” nu a fost găsit"
 
 #: lspclientservermanager.cpp:906 lspclientservermanager.cpp:971
 #, kde-format
 msgid "Please check your PATH for the binary"
-msgstr ""
+msgstr "Verificați căile din PATH pentru prezența binarului"
 
 #: lspclientservermanager.cpp:907 lspclientservermanager.cpp:972
 #, kde-format
 msgid "See also %1 for installation or details"
-msgstr ""
+msgstr "Consultați și %1 pentru instalare sau detalii"
 
 #: lspclientservermanager.cpp:968
-#, fuzzy, kde-format
-#| msgid "Failed to start server: %1"
+#, kde-format
 msgid "Failed to start server '%1' for language '%2'"
-msgstr "Pornirea serverului a eșuat: %1"
+msgstr "Pornirea serverului „%1” pentru limbajul „%2” a eșuat"
 
 #: lspclientservermanager.cpp:976
 #, kde-format
@@ -453,19 +438,18 @@ msgstr "Citirea configurației serverului a eșuat: %1"
 #, kde-format
 msgctxt "@action"
 msgid "Go to next symbol highlight"
-msgstr ""
+msgstr "Mergi la următorul simbol evidențiat"
 
 #: lspclientsymbolhighlighter.cpp:32
 #, kde-format
 msgctxt "@action"
 msgid "Go to previous symbol highlight"
-msgstr ""
+msgstr "Mergi la precedentul simbol evidențiat"
 
 #: lspclientsymbolview.cpp:342
-#, fuzzy, kde-format
-#| msgid "Symbol Outline Options"
+#, kde-format
 msgid "Symbol Outline"
-msgstr "Opțiunile schemei simbolurilor"
+msgstr "Schema simbolurilor"
 
 #: lspclientsymbolview.cpp:388
 #, kde-format
@@ -495,7 +479,7 @@ msgstr "Simboluri"
 #: lspclientsymbolview.cpp:616
 #, kde-format
 msgid "LSP server does not support symbol outline."
-msgstr ""
+msgstr "Serverul LSP nu susține schema simbolurilor."
 
 #: lspclientsymbolview.cpp:694
 #, kde-format
@@ -510,10 +494,9 @@ msgstr "Configurări client"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkFmtOnSave)
 #: lspconfigwidget.ui:54
-#, fuzzy, kde-format
-#| msgid "Format on typing"
+#, kde-format
 msgid "Format on save"
-msgstr "Formatează la tastare"
+msgstr "Formatează la salvare"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSemanticHighlighting)
 #: lspconfigwidget.ui:61
@@ -525,97 +508,91 @@ msgstr "Activează evidențierea semantică"
 #: lspconfigwidget.ui:68
 #, kde-format
 msgid "Enable inlay hints"
-msgstr ""
+msgstr "Activează indiciile intercalate"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: lspconfigwidget.ui:75
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "Completions:"
-msgstr "Opțiuni generale"
+msgstr "Completări:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkShowCompl)
 #: lspconfigwidget.ui:82
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "Show completions"
-msgstr "Opțiuni generale"
+msgstr "Arată completări"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkComplDoc)
 #: lspconfigwidget.ui:89
-#, fuzzy, kde-format
-#| msgid "Show selected completion documentation"
+#, kde-format
 msgid "Show inline docs for selected completion"
-msgstr "Arată documentația completării alese"
+msgstr "Arată documentația în linie pentru completarea aleasă"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSignatureHelp)
 #: lspconfigwidget.ui:96
 #, kde-format
 msgid "Show function signature when typing a function call"
-msgstr ""
+msgstr "Arată semnătura funcției la tastarea unui apel de funcție"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoImport)
 #: lspconfigwidget.ui:110
 #, kde-format
 msgid "Add imports automatically if needed upon completion"
-msgstr ""
+msgstr "Adaugă automat importuri dacă sunt necesare la completare"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: lspconfigwidget.ui:117
 #, kde-format
 msgid "Navigation:"
-msgstr ""
+msgstr "Navigare:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkRefDeclaration)
 #: lspconfigwidget.ui:124
 #, kde-format
 msgid "Count declarations when searching for references to a symbol"
-msgstr ""
+msgstr "Ia în calcul declarațiile la căutarea referințelor spre un simbol"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkAutoHover)
 #: lspconfigwidget.ui:131
 #, kde-format
 msgid "Show information about currently hovered symbol"
-msgstr ""
+msgstr "Arată informații despre simbolul de sub indicator"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkHighlightGoto)
 #: lspconfigwidget.ui:138
 #, kde-format
 msgid "Highlight target line when hopping to it"
-msgstr ""
+msgstr "Evidențiază rândul-țintă la saltul spre acesta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: lspconfigwidget.ui:145
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "LSP Server"
+#, kde-format
 msgid "Server:"
-msgstr "Server LSP"
+msgstr "Server:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkDiagnostics)
 #: lspconfigwidget.ui:152
-#, fuzzy, kde-format
-#| msgid "Show diagnostics marks"
+#, kde-format
 msgid "Show program diagnostics"
-msgstr "Arată semne pentru diagnostic"
+msgstr "Arată diagnosticele programului"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkMessages)
 #: lspconfigwidget.ui:159
 #, kde-format
 msgid "Show notifications from the LSP server"
-msgstr ""
+msgstr "Arată notificări de la serverul LSP"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkIncrementalSync)
 #: lspconfigwidget.ui:166
 #, kde-format
 msgid "Incrementally synchronize documents with the LSP server"
-msgstr ""
+msgstr "Sincronizează documentele incremental cu serverul LSP"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: lspconfigwidget.ui:173
 #, kde-format
 msgid "Document outline:"
-msgstr ""
+msgstr "Schema documentului:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolSort)
 #: lspconfigwidget.ui:180
@@ -625,21 +602,19 @@ msgstr "Sortează simbolurile alfabetic"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolDetails)
 #: lspconfigwidget.ui:187
-#, fuzzy, kde-format
-#| msgid "Display symbol details"
+#, kde-format
 msgid "Display additional details for symbols"
-msgstr "Arată detaliile simbolurilor"
+msgstr "Afișează detalii suplimentare pentru simboluri"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolTree)
 #: lspconfigwidget.ui:194
 #, kde-format
 msgid "Present symbols in a hierarchy instead of a flat list"
-msgstr ""
+msgstr "Prezintă simbolurile într-o ierarhie în loc de listă plată"
 
 #. i18n: ectx: property (text), widget (QCheckBox, chkSymbolExpand)
 #: lspconfigwidget.ui:209
-#, fuzzy, kde-format
-#| msgid "Automatically Expand Tree"
+#, kde-format
 msgid "Automatically expand tree"
 msgstr "Desfășoară arborele automat"
 
@@ -647,19 +622,19 @@ msgstr "Desfășoară arborele automat"
 #: lspconfigwidget.ui:218
 #, kde-format
 msgid "Highlight symbol under cursor"
-msgstr ""
+msgstr "Evidențiază simbolul de sub cursor"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_4)
 #: lspconfigwidget.ui:241
 #, kde-format
 msgid "Allowed && Blocked Servers"
-msgstr ""
+msgstr "Servere permise și blocate"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: lspconfigwidget.ui:251
 #, kde-format
 msgid "User Server Settings"
-msgstr "Folosește configurările serverului"
+msgstr "Configurări de utilizator ale serverului"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: lspconfigwidget.ui:259
@@ -675,17 +650,15 @@ msgstr "Configurări implicite ale serverului"
 
 #. i18n: ectx: Menu (LSPClient Menubar)
 #: ui.rc:6
-#, fuzzy, kde-format
-#| msgid "LSP Client"
+#, kde-format
 msgid "&LSP Client"
-msgstr "Client LSP"
+msgstr "Client &LSP"
 
 #. i18n: ectx: Menu (lspclient_more_options)
 #: ui.rc:32
-#, fuzzy, kde-format
-#| msgid "General Options"
+#, kde-format
 msgid "More Options"
-msgstr "Opțiuni generale"
+msgstr "Opțiuni suplimentare"
 
 #, fuzzy
 #~| msgid "Show diagnostics highlights"

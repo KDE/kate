@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: applications-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-22 00:49+0000\n"
-"PO-Revision-Date: 2026-02-23 08:03+0300\n"
+"PO-Revision-Date: 2026-03-18 21:16+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: KateSearchCommand.cpp:88
 #, kde-format
@@ -616,7 +616,7 @@ msgstr ""
 #: SearchPlugin.cpp:400
 #, kde-format
 msgid "Click to filter through results"
-msgstr "Sonuçlar arasında süzmek için tıklayın"
+msgstr "Sonuçlar arasında süzmek için tıkla"
 
 #: SearchPlugin.cpp:490
 #, kde-format
@@ -671,12 +671,12 @@ msgstr "Ara: %1"
 #: SearchPlugin.cpp:2274
 #, kde-format
 msgid "Copy all"
-msgstr "Tümünü kopyala"
+msgstr "Tümünü Kopyala"
 
 #: SearchPlugin.cpp:2279
 #, kde-format
 msgid "Copy expanded"
-msgstr "Genişletilmişi kopyala"
+msgstr "Genişletilmiş Olarak Kopyala"
 
 #: SearchPlugin.cpp:2282
 #, kde-format

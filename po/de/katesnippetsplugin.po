@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# SPDX-FileCopyrightText: 2013, 2014, 2015, 2016, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2013-2016, 2021 Burkhard Lück <lueck@hube-lueck.de>
 # SPDX-FileCopyrightText: 2014 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katesnippetsplugin\n"
@@ -162,7 +162,7 @@ msgstr ""
 #: editsnippet.cpp:233
 #, kde-format
 msgid "Warning - Unsaved Changes"
-msgstr "Warnung - ungespeicherte Änderungen"
+msgstr "Warnung – ungespeicherte Änderungen"
 
 #: editsnippet.cpp:235
 #, kde-format

@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
-# SPDX-FileCopyrightText: 2014, 2016, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
-# SPDX-FileCopyrightText: 2014, 2016, 2018, 2019, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2014, 2016, 2018-2019, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2014, 2016, 2022-2023 Frederik Schwarzer <schwarzer@kde.org>
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
+# SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: katefiletree\n"
@@ -317,7 +317,7 @@ msgid ""
 "edited within the current session will have a shaded background. The most "
 "recent documents have the strongest shade."
 msgstr ""
-"Ist das Einfärben des Hintergrunds eingeschaltet, erhalten Dokumente, die "
+"Ist das Einfärben des Hintergrunds aktiviert, erhalten Dokumente, die "
 "während der aktuellen Arbeitssitzung angeschaut oder bearbeitet wurden, "
 "einen gefärbten Hintergrund. Dabei erhalten die jüngsten Dokumente die "
 "stärkste Einfärbung."

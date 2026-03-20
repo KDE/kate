@@ -17,6 +17,7 @@
 #include <QString>
 #include <QStyle>
 #include <QTextBrowser>
+#include <QTextTable>
 #include <QTimer>
 
 #include <KSyntaxHighlighting/Definition>
@@ -116,6 +117,7 @@ public:
 
         // doc links
         setOpenExternalLinks(true);
+        setOpenLinks(false);
 
         auto updateColors = [this](KTextEditor::Editor *e) {
             auto theme = e->theme();
@@ -125,6 +127,9 @@ public:
             const QColor bg = theme.editorColor(KSyntaxHighlighting::Theme::BackgroundColor);
             const QColor normal = theme.textColor(KSyntaxHighlighting::Theme::Normal);
             const QColor separator = bg.lightness() < 127 ? normal.darker() : normal.lighter(180);
+            m_actionBarBgColor = theme.editorColor(KSyntaxHighlighting::Theme::CurrentLine);
+            m_actionBarFgColor = theme.textColor(KSyntaxHighlighting::Theme::Variable);
+
             // Frame color
             pal.setColor(QPalette::Dark, separator);
             pal.setColor(QPalette::Light, separator);
@@ -316,9 +321,9 @@ public:
         this->move(p);
     }
 
-    void upsert(size_t instanceId, const QString &text, TextHintMarkupKind kind)
+    void upsert(size_t instanceId, const QString &text, TextHintMarkupKind kind, const QList<HintAction> &actions)
     {
-        m_hintState.upsert(instanceId, text, kind);
+        m_hintState.upsert(instanceId, text, kind, actions);
         triggerChange();
     }
 
@@ -376,12 +381,23 @@ private:
     void triggerChange()
     {
         m_hintState.render([this](const HintState::Hint &hintData) {
-            const auto &[text, kind] = hintData;
+            const auto &[text, kind, actions] = hintData;
             if (kind == TextHintMarkupKind::PlainText) {
                 setPlainText(text);
             } else {
                 setMarkdown(text);
             }
+
+            disconnect(this, &QTextBrowser::anchorClicked, nullptr, nullptr);
+            connect(this, &QTextBrowser::anchorClicked, this, [this, actions](const QUrl &url) {
+                if (url.scheme() == QStringLiteral("action")) {
+                    int idx = url.path().toInt();
+                    if (idx >= 0 && idx < actions.size()) {
+                        hideTooltip();
+                        actions[idx].m_callback();
+                    }
+                }
+            });
 
             const auto maxWidth = calcMaxWidth();
 
@@ -397,6 +413,7 @@ private:
 
             auto block = document()->firstBlock();
             for (int i = 0; i < document()->blockCount(); ++i) {
+                QTextCursor c(block);
                 auto bfmt = block.blockFormat();
                 // Fix some things for code blocks in markdown
                 if (bfmt.hasProperty(QTextFormat::BlockCodeLanguage)) {
@@ -408,7 +425,6 @@ private:
                         shouldLineBreakNextBlocks = true;
                     }
 
-                    QTextCursor c(block);
                     // fix the font, use our own mono font
                     c.select(QTextCursor::BlockUnderCursor);
                     auto cfmt = block.charFormat();
@@ -417,7 +433,6 @@ private:
                     c.setCharFormat(cfmt);
                 } else if (bfmt.headingLevel() != 0) {
                     // Make all headings H3
-                    QTextCursor c(block);
                     bfmt.setHeadingLevel(3);
                     c.select(QTextCursor::BlockUnderCursor);
                     QTextCharFormat cfmt = block.charFormat();
@@ -425,6 +440,27 @@ private:
                     cfmt.setFontWeight(QFont::Bold);
                     c.mergeBlockFormat(bfmt);
                     c.setCharFormat(cfmt);
+                } else if (auto table = c.currentTable()) {
+                    auto fmt = table->format();
+                    auto bg = fmt.background().color();
+                    // Apply foreground and background color to actions bar
+                    if (bg == QColor("#100001")) {
+                        QTextTableFormat newFmt = fmt;
+                        newFmt.setBackground(QColor(m_actionBarBgColor));
+                        table->setFormat(newFmt);
+                        // Update text color in all cells
+                        for (int row = 0; row < table->rows(); ++row) {
+                            for (int col = 0; col < table->columns(); ++col) {
+                                QTextTableCell cell = table->cellAt(row, col);
+                                QTextCursor cellCursor = cell.firstCursorPosition();
+                                QTextCursor endCursor = cell.lastCursorPosition();
+                                cellCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
+                                QTextCharFormat charFmt;
+                                charFmt.setForeground(QBrush(m_actionBarFgColor));
+                                cellCursor.mergeCharFormat(charFmt);
+                            }
+                        }
+                    }
                 }
                 block = block.next();
             }
@@ -451,6 +487,8 @@ private:
     HintState m_hintState;
     double prevDistance = 0.0;
     const KTextEditor::Range m_hoveredWordRange;
+    QColor m_actionBarBgColor;
+    QColor m_actionBarFgColor;
 };
 
 QObject *KateTooltip::show(size_t instanceId,
@@ -459,7 +497,8 @@ QObject *KateTooltip::show(size_t instanceId,
                            QPoint pos,
                            KTextEditor::View *v,
                            bool manual,
-                           KTextEditor::Range hoveredRange)
+                           KTextEditor::Range hoveredRange,
+                           const QList<HintAction> &actions)
 {
     if (!v || !v->document()) {
         return nullptr;
@@ -472,7 +511,7 @@ QObject *KateTooltip::show(size_t instanceId,
             return tooltip;
         }
 
-        tooltip->upsert(instanceId, text, kind);
+        tooltip->upsert(instanceId, text, kind, actions);
         return tooltip;
     }
     delete tooltip;
@@ -483,7 +522,7 @@ QObject *KateTooltip::show(size_t instanceId,
 
     tooltip = new TooltipPrivate(v, manual, hoveredRange);
     tooltip->setView(v);
-    tooltip->upsert(instanceId, text, kind);
+    tooltip->upsert(instanceId, text, kind, actions);
     tooltip->place(pos);
     tooltip->show();
     return tooltip;

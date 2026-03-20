@@ -26,6 +26,7 @@
 #include <QFileInfo>
 #include <QGuiApplication>
 #include <QLineEdit>
+#include <QList>
 #include <QMenu>
 #include <QPainter>
 #include <QSortFilterProxyModel>
@@ -208,10 +209,19 @@ static constexpr KTextEditor::Document::MarkTypes markTypeDiagOther = KTextEdito
 static constexpr KTextEditor::Document::MarkTypes markTypeDiagAll =
     KTextEditor::Document::MarkTypes(markTypeDiagError | markTypeDiagWarning | markTypeDiagOther);
 
+enum class DiagActionType {
+    None,
+    ApplyFix,
+    ShowHint
+};
+
 struct DiagModelIndex {
     int row;
     int parentRow;
-    bool autoApply;
+    DiagActionType action;
+    KTextEditor::Cursor hintPosition;
+    QString hintText;
+    bool hintManual;
 };
 Q_DECLARE_METATYPE(DiagModelIndex)
 
@@ -742,8 +752,7 @@ void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const 
     if (!item) {
         return;
     }
-    bool autoApply = diagModelIdx.autoApply;
-    if (autoApply) {
+    if (diagModelIdx.action == DiagActionType::ApplyFix) {
         if (fixes.size() == 1) {
             fixes.constFirst().fixCallback();
         } else {
@@ -751,6 +760,7 @@ void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const 
         }
         return;
     }
+    QIcon fixIcon = QIcon::fromTheme(QStringLiteral("quickopen"));
     for (const auto &fix : fixes) {
         if (!fix.fixCallback) {
             continue;
@@ -758,20 +768,27 @@ void DiagnosticsView::onFixesAvailable(const QList<DiagnosticFix> &fixes, const 
         auto f = new DiagnosticFixItem;
         f->fix = fix;
         f->setText(fix.fixTitle);
+        f->setData(fixIcon, Qt::DecorationRole);
         item->appendRow(f);
+    }
+    if (diagModelIdx.action == DiagActionType::ShowHint) {
+        provideHint(diagModelIdx.hintText, diagModelIdx.hintPosition, diagModelIdx.hintManual, fixes);
     }
 }
 
-void DiagnosticsView::showFixesInMenu(const QList<DiagnosticFix> &fixes)
+void DiagnosticsView::showFixesInMenu(const QList<DiagnosticFix> &fixes, std::optional<QPoint> menuPos)
 {
     auto av = m_mainWindow->activeView();
     if (av) {
-        auto pos = av->cursorPositionCoordinates();
         QMenu menu(this);
         for (const auto &fix : fixes) {
-            menu.addAction(fix.fixTitle, av, fix.fixCallback);
+            QString text = fix.fixTitle.left(1).toUpper() + fix.fixTitle.mid(1);
+            menu.addAction(text, av, fix.fixCallback);
         }
-        menu.exec(av->mapToGlobal(pos));
+
+        QPoint finalPos = menuPos.value_or(av->mapToGlobal(av->cursorPositionCoordinates()));
+
+        menu.exec(finalPos);
     }
 }
 
@@ -834,11 +851,12 @@ void DiagnosticsView::onDoubleClicked(const QModelIndex &index, bool quickFix)
             return;
         }
         auto item = static_cast<DiagnosticItem *>(itemFromIndex);
-        DiagModelIndex idx{
-            .row = item->row(),
-            .parentRow = item->parent() ? item->parent()->row() : -1,
-            .autoApply = quickFix,
-        };
+        DiagModelIndex idx{.row = item->row(),
+                           .parentRow = item->parent() ? item->parent()->row() : -1,
+                           .action = quickFix ? DiagActionType::ApplyFix : DiagActionType::None,
+                           .hintPosition = {},
+                           .hintText = {},
+                           .hintManual = false};
         QVariant rawData = QVariant::fromValue(idx);
         Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, rawData);
     }
@@ -1522,11 +1540,12 @@ void DiagnosticsView::onContextMenuRequested(const QPoint &pos)
     menu->popup(m_diagnosticsTree->viewport()->mapToGlobal(pos));
 }
 
-void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) const
+void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual)
 {
     QString result;
     auto document = view->document();
 
+    QList<DiagnosticFix> fixes;
     QStandardItem *topItem = getItem(m_model, document->url());
     QStandardItem *targetItem = getItem(topItem, position, false);
     if (targetItem) {
@@ -1535,8 +1554,11 @@ void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cur
         int count = targetItem->rowCount();
         for (int i = 0; i < count; ++i) {
             auto item = targetItem->child(i);
-            result += QStringLiteral("\n");
-            result += item->text();
+            // Don't show fix details in text hint
+            if (item->type() != DiagnosticItem_Fix) {
+                result += QStringLiteral("\n");
+                result += item->text();
+            }
         }
         // but let's not get carried away too far
         constexpr int maxsize = 1000;
@@ -1544,14 +1566,54 @@ void DiagnosticsView::onTextHint(KTextEditor::View *view, const KTextEditor::Cur
             result.resize(maxsize);
             result.append(QStringLiteral("..."));
         }
+
+        if (targetItem->type() == DiagnosticItem_Diag) {
+            auto item = static_cast<DiagnosticItem *>(targetItem);
+            auto provider = item->data(DiagnosticModelRole::ProviderRole).value<DiagnosticsProvider *>();
+            if (provider) {
+                if (!item->hasFixes()) {
+                    DiagModelIndex idx{.row = item->row(),
+                                       .parentRow = item->parent() ? item->parent()->row() : -1,
+                                       .action = DiagActionType::ShowHint,
+                                       .hintPosition = position,
+                                       .hintText = result,
+                                       .hintManual = manual};
+                    QVariant rawData = QVariant::fromValue(idx);
+                    Q_EMIT provider->requestFixes(item->data(DiagnosticModelRole::FileUrlRole).toUrl(), item->m_diagnostic, rawData);
+                } else {
+                    for (int i = 0; i < targetItem->rowCount(); ++i) {
+                        auto item = targetItem->child(i);
+                        if (item && item->type() == DiagnosticItem_Fix) {
+                            fixes << static_cast<DiagnosticFixItem *>(item)->fix;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    provideHint(result, position, manual, fixes);
+}
+
+void DiagnosticsView::provideHint(const QString &text, const KTextEditor::Cursor &position, bool manual, const QList<DiagnosticFix> &fixes)
+{
+    QList<HintAction> actions;
+    if (!fixes.empty()) {
+        HintAction fixAction;
+        fixAction.m_text = i18n("Show fixes");
+        fixAction.m_callback = [this, fixes]() {
+            showFixesInMenu(fixes, QCursor::pos());
+        };
+
+        actions.push_back(fixAction);
     }
 
     if (manual) {
-        if (!result.isEmpty()) {
-            m_textHintProvider->showTextHint(result, TextHintMarkupKind::PlainText, position);
+        if (!text.isEmpty()) {
+            m_textHintProvider->showTextHint(text, TextHintMarkupKind::PlainText, position, actions);
         }
     } else {
-        m_textHintProvider->textHintAvailable(result, TextHintMarkupKind::PlainText, position);
+        m_textHintProvider->textHintAvailable(text, TextHintMarkupKind::PlainText, position, actions);
     }
 }
 

@@ -18,6 +18,12 @@ class View;
 class KateTooltip
 {
 public:
-    static QObject *
-    show(size_t instanceId, const QString &text, TextHintMarkupKind kind, QPoint pos, KTextEditor::View *v, bool manual, KTextEditor::Range hoveredRange);
+    static QObject *show(size_t instanceId,
+                         const QString &text,
+                         TextHintMarkupKind kind,
+                         QPoint pos,
+                         KTextEditor::View *v,
+                         bool manual,
+                         KTextEditor::Range hoveredRange,
+                         const QList<HintAction> &actions = {});
 };

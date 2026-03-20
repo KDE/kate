@@ -110,10 +110,10 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
         });
 
         const auto slot = [provider, this](bool forced) {
-            return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos) {
+            return [this, provider, forced](const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, const QList<HintAction> &actions) {
                 const auto instanceId = reinterpret_cast<std::uintptr_t>(provider);
                 if (forced) { // Forced requests go implicitly to the tooltip
-                    showTextHint(instanceId, hint, kind, pos, true);
+                    showTextHint(instanceId, hint, kind, pos, true, actions);
                     return;
                 }
                 const auto lastRange = getLastRange(m_lastRequestor);
@@ -124,7 +124,7 @@ void KateTextHintManager::registerProvider(KateTextHintProvider *provider)
                         m_hintView->update(instanceId, hint, kind, m_provider->view());
                         return;
                     }
-                    showTextHint(instanceId, hint, kind, pos, forced);
+                    showTextHint(instanceId, hint, kind, pos, forced, actions);
                 }
             };
         };
@@ -151,7 +151,12 @@ void KateTextHintManager::ontextHintRequested(KTextEditor::View *v, KTextEditor:
     }
 }
 
-void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force)
+void KateTextHintManager::showTextHint(size_t instanceId,
+                                       const QString &hint,
+                                       TextHintMarkupKind kind,
+                                       KTextEditor::Cursor pos,
+                                       bool force,
+                                       const QList<HintAction> &actions)
 {
     if (!pos.isValid()) {
         return;
@@ -163,7 +168,7 @@ void KateTextHintManager::showTextHint(size_t instanceId, const QString &hint, T
     }
 
     QPoint p = view->cursorToCoordinate(pos);
-    auto tooltip = KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force, getLastRange(Requestor::HintProvider));
+    auto tooltip = KateTooltip::show(instanceId, hint, kind, view->mapToGlobal(p), view, force, getLastRange(Requestor::HintProvider), actions);
     if (tooltip) {
         // unset the range if the tooltip is gone
         connect(tooltip, &QObject::destroyed, this, [this] {

@@ -8,6 +8,8 @@
 
 #include <KTextEditor/Cursor>
 #include <KTextEditor/Range>
+#include <QAction>
+#include <QList>
 #include <QObject>
 #include <QPointer>
 
@@ -28,6 +30,11 @@ enum class TextHintMarkupKind {
     MarkDown = 2,
 };
 
+struct HintAction {
+    QString m_text;
+    std::function<void()> m_callback;
+};
+
 class KATE_PRIVATE_EXPORT KateTextHintProvider : public QObject
 {
     Q_OBJECT
@@ -39,10 +46,10 @@ Q_SIGNALS:
     void textHintRequested(KTextEditor::View *v, KTextEditor::Cursor c);
 
     // Should be emitted by provider once it has text hint available
-    void textHintAvailable(const QString &textHint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
+    void textHintAvailable(const QString &textHint, TextHintMarkupKind kind, KTextEditor::Cursor pos, const QList<HintAction> &actions = {});
 
     // Should be emitted by provider if it wants to show text hint itself without a request
-    void showTextHint(const QString &textHint, TextHintMarkupKind kind, KTextEditor::Cursor pos);
+    void showTextHint(const QString &textHint, TextHintMarkupKind kind, KTextEditor::Cursor pos, const QList<HintAction> &actions = {});
 };
 
 class KateTextHintManager : public QObject
@@ -62,7 +69,7 @@ public:
     void registerProvider(KateTextHintProvider *provider);
 
 private:
-    void showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force);
+    void showTextHint(size_t instanceId, const QString &hint, TextHintMarkupKind kind, KTextEditor::Cursor pos, bool force, const QList<HintAction> &actions);
     KTextEditor::Range getLastRange(Requestor requestor);
     void setLastRange(KTextEditor::Range range, Requestor requestor);
 

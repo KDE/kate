@@ -17,7 +17,7 @@ class KateTextHintView : public QObject
 public:
     explicit KateTextHintView(KTextEditor::MainWindow *mainWindow, KateTextHintManager *parent);
     void setView(KTextEditor::View *view);
-    void update(size_t instanceId, const QString &text, TextHintMarkupKind kind, KTextEditor::View *view);
+    void update(size_t instanceId, const QString &text, TextHintMarkupKind kind, KTextEditor::View *view, const QList<HintAction> &actions = {});
 
 private:
     void render();

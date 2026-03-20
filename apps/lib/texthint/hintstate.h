@@ -9,6 +9,7 @@
 
 #include "KateTextHintManager.h"
 
+#include <QList>
 #include <QString>
 
 #include <functional>
@@ -20,10 +21,11 @@ public:
     struct Hint {
         QString m_text;
         TextHintMarkupKind m_kind;
+        QList<HintAction> m_actions;
     };
 
     HintState();
-    void upsert(ID instanceId, const QString &text, TextHintMarkupKind kind);
+    void upsert(ID instanceId, const QString &text, TextHintMarkupKind kind, const QList<HintAction> &actions);
     void remove(ID instanceId);
     void clear();
     void render(const std::function<void(const Hint &)> &callback);

@@ -170,7 +170,7 @@ public:
     void readSessionConfig(const KConfigGroup &config);
     void writeSessionConfig(KConfigGroup &config);
 
-    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual) const;
+    void onTextHint(KTextEditor::View *view, const KTextEditor::Cursor &position, bool manual);
 
     void showToolview(DiagnosticsProvider *filterTo = nullptr);
     void filterViewTo(DiagnosticsProvider *provider);
@@ -188,8 +188,9 @@ private Q_SLOTS:
     void tabForToolViewAdded(QWidget *toolView, QWidget *tab);
 
 private:
+    void provideHint(const QString &text, const KTextEditor::Cursor &position, bool manual, const QList<DiagnosticFix> &fixes);
     void onFixesAvailable(const QList<DiagnosticFix> &fixes, const QVariant &data);
-    void showFixesInMenu(const QList<DiagnosticFix> &fixes);
+    void showFixesInMenu(const QList<DiagnosticFix> &fixes, std::optional<QPoint> menuPos = std::nullopt);
     void quickFix();
     void moveDiagnosticsSelection(bool forward);
     void nextItem();

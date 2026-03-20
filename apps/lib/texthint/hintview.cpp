@@ -60,12 +60,12 @@ void KateTextHintView::setView(KTextEditor::View *view)
     }
 }
 
-void KateTextHintView::update(size_t instanceId, const QString &text, TextHintMarkupKind kind, KTextEditor::View *view)
+void KateTextHintView::update(size_t instanceId, const QString &text, TextHintMarkupKind kind, KTextEditor::View *view, const QList<HintAction> &actions)
 {
     if (text.isEmpty() || text.trimmed().isEmpty() || m_view != view) {
         m_state.remove(instanceId);
     } else {
-        m_state.upsert(instanceId, text, kind);
+        m_state.upsert(instanceId, text, kind, actions);
     }
 
     render();
@@ -74,7 +74,7 @@ void KateTextHintView::update(size_t instanceId, const QString &text, TextHintMa
 void KateTextHintView::render()
 {
     m_state.render([this](const HintState::Hint &contents) {
-        const auto &[text, kind] = contents;
+        const auto &[text, kind, actions] = contents;
         if (kind == TextHintMarkupKind::PlainText) {
             m_edit->setPlainText(text);
         } else {

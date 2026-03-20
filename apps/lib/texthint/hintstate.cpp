@@ -8,18 +8,19 @@
 #include "hintstate.h"
 
 #include <algorithm>
+#include <qlist.h>
 
 HintState::HintState() = default;
 
-void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMarkupKind kind)
+void HintState::upsert(HintState::ID instanceId, const QString &text, TextHintMarkupKind kind, const QList<HintAction> &actions)
 {
     for (auto &[id, hint] : m_hints) {
         if (id == instanceId) {
-            hint = Hint{.m_text = text, .m_kind = kind};
+            hint = Hint{.m_text = text, .m_kind = kind, .m_actions = actions};
             return;
         }
     }
-    m_hints.push_back(HintWithId{instanceId, Hint{.m_text = text, .m_kind = kind}});
+    m_hints.push_back(HintWithId{instanceId, Hint{.m_text = text, .m_kind = kind, .m_actions = actions}});
 }
 
 void HintState::clear()
@@ -38,9 +39,10 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
 {
     const bool nonPlainText = std::any_of(m_hints.begin(), m_hints.end(), [](const auto &entry) {
         const auto &kind = entry.hint.m_kind;
-        return kind == TextHintMarkupKind::MarkDown || kind == TextHintMarkupKind::None;
+        return kind == TextHintMarkupKind::MarkDown || kind == TextHintMarkupKind::None || entry.hint.m_actions.size() > 0;
     });
 
+    QList<HintAction> totalActions;
     const auto renderMode = nonPlainText ? TextHintMarkupKind::MarkDown : TextHintMarkupKind::PlainText;
     QString contents;
 
@@ -58,7 +60,7 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
                 contents += QStringLiteral("\n----\n");
             }
             first = false;
-            const auto &[text, kind] = hint;
+            const auto &[text, kind, actions] = hint;
             if (kind == TextHintMarkupKind::PlainText) {
                 // Render plaintext as-is
                 contents += QStringLiteral("<div>");
@@ -67,11 +69,24 @@ void HintState::render(const std::function<void(const Hint &)> &callback)
             } else {
                 contents += text;
             }
+
+            if (actions.size() > 0) {
+                contents += QStringLiteral(
+                    "\n<table style='margin-top:5px;' width='100%' bgcolor='#100001'>"
+                    "<tr><td align='right'>");
+                for (int i = 0; i < actions.size(); ++i) {
+                    contents += QStringLiteral("&nbsp;<a href='action:%1'>%2</a>").arg(totalActions.size() + i).arg(actions[i].m_text);
+                }
+                contents += QStringLiteral(
+                    "</td></tr>"
+                    "</table>\n\n");
+                totalActions += actions;
+            }
         }
     }
 
     if (m_rendered != contents) {
-        callback(Hint{.m_text = contents, .m_kind = renderMode});
+        callback(Hint{.m_text = contents, .m_kind = renderMode, .m_actions = totalActions});
         m_rendered = std::move(contents);
     }
 }

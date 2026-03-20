@@ -1,11 +1,11 @@
 # Translation for kate.po to Euskara/Basque (eu).
-# Copyright (C) 2002-2025 This file is copyright:
+# Copyright (C) 2002-2026 This file is copyright:
 # This file is distributed under the same license as the kate package.
 # SPDX-FileCopyrightText: 2024, 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Marcos  <marcos@euskalgnu.org>, 2002, 2003, 2004, 2005, 2006.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2004, 2005, 2011, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Juan Irigoien <juanirigoien@irakasle.net>, 2004.
 # Juan Irigoien <juanirigoien@yahoo.es>, 2004.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.

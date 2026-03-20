@@ -1,29 +1,30 @@
-# SPDX-FileCopyrightText: 2022, 2024, 2025 Alois Spitzbart <spitz234@hotmail.com>
-# SPDX-FileCopyrightText: 2002, 2003, 2004 Thomas Diehl <thd@kde.org>
 # SPDX-FileCopyrightText: 2002 Stefan Winter <swinter@kde.org>
-# SPDX-FileCopyrightText: 2004, 2005, 2006 Stephan Johach <hunsum@gmx.de>
-# SPDX-FileCopyrightText: 2005, 2006 Thomas Reitelbach <tr@erdfunkstelle.de>
-# SPDX-FileCopyrightText: 2006, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2020, 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
-# SPDX-FileCopyrightText: 2009, 2010, 2013 Rolf Eike Beer <kde@opensource.sf-tec.de>
-# SPDX-FileCopyrightText: 2010, 2011 Panagiotis Papadopoulos <pano_90@gmx.net>
+# SPDX-FileCopyrightText: 2002-2004 Thomas Diehl <thd@kde.org>
+# SPDX-FileCopyrightText: 2004-2006 Stephan Johach <hunsum@gmx.de>
+# SPDX-FileCopyrightText: 2005-2006 Thomas Reitelbach <tr@erdfunkstelle.de>
+# SPDX-FileCopyrightText: 2006, 2008-2011, 2013-2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2007-2013, 2016, 2020, 2022-2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2009-2010, 2013 Rolf Eike Beer <kde@opensource.sf-tec.de>
 # SPDX-FileCopyrightText: 2010 Johannes Obermayr <johannesobermayr@gmx.de>
+# SPDX-FileCopyrightText: 2010-2011 Panagiotis Papadopoulos <pano_90@gmx.net>
 # SPDX-FileCopyrightText: 2022 Frank Steinmetzger <dev-kde@felsenfleischer.de>
+# SPDX-FileCopyrightText: 2022, 2024-2025 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2025 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
+# SPDX-FileCopyrightText: 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-10 02:47+0000\n"
-"PO-Revision-Date: 2025-12-21 00:22+0100\n"
-"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
+"PO-Revision-Date: 2026-03-16 17:27+0100\n"
+"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -76,10 +77,10 @@ msgid ""
 "kate instance already has the given session opened), forced if no parameters "
 "and no URLs are given at all."
 msgstr ""
-"Kate in einer neuen Instanz starten. Dies wird ignoriert, wenn „start“ "
-"benutzt wird und eine andere Instanz von Kate die angegebene Sitzung bereits "
-"geöffnet hat. Wenn keine Parameter oder URLs angegeben sind, wird dieses "
-"Verhalten erzwungen."
+"Den Start einer neuen Kate-Instanz erzwingen. Dies wird ignoriert, wenn "
+"„start“ verwendet wird und die angegebene Sitzung bereits in einer anderen "
+"Kate-Instanz geöffnet ist. Wenn keine Parameter oder URLs angegeben sind, "
+"wird dieses Verhalten erzwungen."
 
 #: kate/main.cpp:186
 #, kde-format
@@ -87,7 +88,7 @@ msgid ""
 "If using an already running kate instance, block until it exits, if URLs "
 "given to open."
 msgstr ""
-"Wenn eine bereits laufende Instanz von Kate benutzt wird, wird diese "
+"Wenn eine bereits laufende Instanz von Kate verwendet wird, wird diese "
 "blockiert, solange die angegebene URL geöffnet ist."
 
 #: kate/main.cpp:192
@@ -97,8 +98,8 @@ msgid ""
 "and another kate instance already has the given session opened)."
 msgstr ""
 "Versucht nur die Instanz von Kate mit dieser „pid“ wiederzuverwenden. Dies "
-"wird ignoriert, wenn „start“ benutzt wird und eine andere Instanz von Kate "
-"die angegebene Sitzung bereits geöffnet hat."
+"wird ignoriert, wenn „start“ verwendet wird und die angegebene Sitzung "
+"bereits in einer anderen Kate-Instanz geöffnet ist."
 
 #: kate/main.cpp:193
 #, kde-format
@@ -648,7 +649,7 @@ msgstr "Vollständigen Commit anzeigen"
 #, kde-format
 msgctxt "@title:tab"
 msgid "File History - %1"
-msgstr "Datei-Historie - %1"
+msgstr "Datei-Historie – %1"
 
 #: lib/kateapp.cpp:147
 msgid ""
@@ -1187,8 +1188,8 @@ msgstr "„&Schließen“-Knopf anzeigen"
 #, kde-format
 msgid "When checked each tab will display a close button."
 msgstr ""
-"Wenn dies aktiviert ist, dann wird auf jedem Karteireiter ein Knopf zum "
-"Schließen des Unterfensters angezeigt."
+"Wenn dies aktiviert ist, wird auf jedem Karteireiter ein Knopf zum Schließen "
+"des Unterfensters angezeigt."
 
 #: lib/kateconfigdialog.cpp:271
 #, kde-format
@@ -1199,8 +1200,7 @@ msgstr "Karteireiter &erweitern"
 #, kde-format
 msgid "When checked tabs take as much size as possible."
 msgstr ""
-"Wenn dies aktiviert ist, dann verwenden Karteireiter soviel Platz wie "
-"möglich."
+"Wenn dies aktiviert ist, verwenden Karteireiter so viel Platz wie möglich."
 
 #: lib/kateconfigdialog.cpp:277
 #, kde-format
@@ -1210,8 +1210,7 @@ msgstr "&Doppelklick öffnet ein neues Dokument"
 #: lib/kateconfigdialog.cpp:279
 #, kde-format
 msgid "When checked double click opens a new document."
-msgstr ""
-"Wenn dies aktiviert ist, dann öffnet ein Doppelklick ein neues Dokument."
+msgstr "Wenn dies aktiviert ist, öffnet ein Doppelklick ein neues Dokument."
 
 #: lib/kateconfigdialog.cpp:283
 #, kde-format
@@ -1221,7 +1220,7 @@ msgstr "&Mittelklick schließt ein Dokument"
 #: lib/kateconfigdialog.cpp:285
 #, kde-format
 msgid "When checked middle click closes a document."
-msgstr "Wenn dies aktiviert ist, dann schließt ein Mittelklick ein Dokument."
+msgstr "Wenn dies aktiviert ist, schließt ein Mittelklick ein Dokument."
 
 #: lib/kateconfigdialog.cpp:289
 #, kde-format
@@ -1234,8 +1233,8 @@ msgid ""
 "When checked this will allow scrolling in tab bar when number of tabs is "
 "large."
 msgstr ""
-"Wenn dies aktiviert ist, dann kann durch die Karteireiter geblättert werden, "
-"wenn ihre Anzahl sehr groß ist."
+"Wenn dies aktiviert ist, kann durch die Karteireiter geblättert werden, wenn "
+"ihre Anzahl sehr groß ist."
 
 #: lib/kateconfigdialog.cpp:295
 #, kde-format
@@ -1246,8 +1245,8 @@ msgstr "Reitertext abkürzen"
 #, kde-format
 msgid "When checked tab text might be elided if it is too long."
 msgstr ""
-"Wenn dies aktiviert ist, dann wird der Text im Reiter abgekürzt, wenn er zu "
-"lang ist."
+"Wenn dies aktiviert ist, wird der Text im Reiter abgekürzt, wenn er zu lang "
+"ist."
 
 #: lib/kateconfigdialog.cpp:301
 #, kde-format
@@ -2706,7 +2705,7 @@ msgstr "Skripte"
 msgid ""
 "'showtoolview $toolview_name'. Show a toolview panel. Available panels: %1"
 msgstr ""
-"„showtoolview $toolview_name“ - Werkzeugansicht-Leiste anzeigen. Verfügbare "
+"„showtoolview $toolview_name“ – Werkzeugansicht-Leiste anzeigen. Verfügbare "
 "Leisten: %1"
 
 #: lib/mainwindow_commands.cpp:79
@@ -2714,7 +2713,7 @@ msgstr ""
 msgid ""
 "'showtoolview $toolview_name'. Hide a toolview panel. Available panels: %1"
 msgstr ""
-"„showtoolview $toolview_name“ - Werkzeugansicht-Leiste ausblenden. "
+"„showtoolview $toolview_name“ – Werkzeugansicht-Leiste ausblenden. "
 "Verfügbare Leisten: %1"
 
 #: lib/quickopen/katequickopenlineedit.cpp:47

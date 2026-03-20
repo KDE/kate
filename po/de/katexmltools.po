@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2002, 2003, 2004 Thomas Fischer <thomas.fischer@t-fischer.net>
+# SPDX-FileCopyrightText: 2002-2004 Thomas Fischer <thomas.fischer@t-fischer.net>
 # SPDX-FileCopyrightText: 2005 Stephan Johach <hunsum@gmx.de>
 # SPDX-FileCopyrightText: 2005 Thomas Reitelbach <tr@erdfunkstelle.de>
 # SPDX-FileCopyrightText: 2007, 2014 Frederik Schwarzer <schwarzer@kde.org>

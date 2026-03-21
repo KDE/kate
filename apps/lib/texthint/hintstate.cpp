@@ -7,8 +7,8 @@
 */
 #include "hintstate.h"
 
+#include <QList>
 #include <algorithm>
-#include <qlist.h>
 
 HintState::HintState() = default;
 

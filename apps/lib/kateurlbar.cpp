@@ -1287,6 +1287,7 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
 {
     // always disconnect and perhaps set nullptr doc
     if (m_currentDoc) {
+        disconnect(m_currentDoc, &KTextEditor::Document::documentNameChanged, this, &KateUrlBar::updateForDocument);
         disconnect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);
     }
     m_currentDoc = doc;
@@ -1294,7 +1295,8 @@ void KateUrlBar::updateForDocument(KTextEditor::Document *doc)
         return;
     }
 
-    // we want to watch for url changed
+    // we want to watch for name & url changed
+    connect(m_currentDoc, &KTextEditor::Document::documentNameChanged, this, &KateUrlBar::updateForDocument);
     connect(m_currentDoc, &KTextEditor::Document::documentUrlChanged, this, &KateUrlBar::updateForDocument);
 
     if (m_currentDoc->url().isEmpty() || !m_currentDoc->url().isLocalFile()) {

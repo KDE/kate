@@ -1,13 +1,13 @@
 # Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-01-03 00:46+0000\n"
-"PO-Revision-Date: 2025-10-31 09:37+0200\n"
+"PO-Revision-Date: 2026-03-20 08:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.08.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: gpgmeppwrapper.cpp:83
 #, kde-format
@@ -46,7 +46,7 @@ msgstr "תוסף GPG"
 #: kategpgplugin.cpp:78
 #, kde-format
 msgid "GPG Decrypt current document"
-msgstr "פענוח GPG של המסמך הנוכחי"
+msgstr "פיענוח GPG של המסמך הנוכחי"
 
 #: kategpgplugin.cpp:79
 #, kde-format
@@ -133,12 +133,12 @@ msgstr "אזהרה! אין תצוגות זמינות…"
 #: kategpgplugin.cpp:236
 #, kde-format
 msgid "Error Decrypting Text! Document is empty..."
-msgstr "שגיאה בפענוח הטקסט! המסמך ריק…"
+msgstr "שגיאה בפיענוח הטקסט! המסמך ריק…"
 
 #: kategpgplugin.cpp:240
 #, kde-format
 msgid "Error Decrypting Text! No fingerprint selected..."
-msgstr "שגיאה בפענוח הטקסט! לא נבחרה טביעת אצבע…"
+msgstr "שגיאה בפיענוח הטקסט! לא נבחרה טביעת אצבע…"
 
 #: kategpgplugin.cpp:245
 #, kde-format
@@ -147,14 +147,14 @@ msgid ""
 "No matching fingerprint found!\n"
 "Or this is not a GPG encrypted text..."
 msgstr ""
-"שגיאה בפענוח הטקסט!\n"
+"שגיאה בפיענוח הטקסט!\n"
 "לא נמצאה טביעת אצבע מתאימה!\n"
 "או שזה לא טקסט בהצפנת GPG…"
 
 #: kategpgplugin.cpp:253
 #, kde-format
 msgid "Error Decrypting Text!\n"
-msgstr "שגיאה בפענוח הטקסט!\n"
+msgstr "שגיאה בפיענוח הטקסט!\n"
 
 #: kategpgplugin.cpp:280
 #, kde-format

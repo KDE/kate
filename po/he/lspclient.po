@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kate package.
 #
-# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025, 2026 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kate\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-16 00:50+0000\n"
-"PO-Revision-Date: 2026-01-05 19:22+0200\n"
+"PO-Revision-Date: 2026-03-20 08:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: gotosymboldialog.cpp:157 lspclientsymbolview.cpp:361
 #, kde-format
@@ -420,12 +420,12 @@ msgstr "השרת %2 הופעל: %1"
 #: lspclientservermanager.cpp:1014
 #, kde-format
 msgid "Failed to parse server configuration '%1': no JSON object"
-msgstr "פענוח הגדרות השרת נכשל ‚%1’: ‏ לא עצם JSON"
+msgstr "פיענוח הגדרות השרת נכשל ‚%1’: ‏ לא עצם JSON"
 
 #: lspclientservermanager.cpp:1017
 #, kde-format
 msgid "Failed to parse server configuration '%1': %2"
-msgstr "פענוח הגדרות השרת נכשל ‚%1’: ‏%2"
+msgstr "פיענוח הגדרות השרת נכשל ‚%1’: ‏%2"
 
 #: lspclientservermanager.cpp:1021
 #, kde-format

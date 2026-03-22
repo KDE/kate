@@ -603,7 +603,7 @@ However, in most syntax definitions you do not need to set this attribute.</para
 defines a character encoding for spell checking. Available attributes:</term>
 
 <listitem>
-<para><userinput>char</userinput> is a encoded character.</para>
+<para><userinput>char</userinput> is a encoded character. If not specified, the spell checking will ignore this encoding.</para>
 <para><userinput>string</userinput> is a sequence of characters that will be encoded as
 the character <emphasis>char</emphasis> in the spell checking.
 For example, in the language LaTeX, the string <userinput>\&quot;{A}</userinput> represents
